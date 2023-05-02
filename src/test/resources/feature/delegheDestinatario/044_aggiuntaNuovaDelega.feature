@@ -6,6 +6,7 @@ Feature: Il destinatario aggiunge una nuova delega
     Then pagina Piattaforma  Notifiche Destinatario viene visualizzata correttamente
 
   @TestSuite
+  @ProvaRun
   @AggiuntaNuovaDelegaDestinatario
   Scenario:
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe
@@ -18,5 +19,4 @@ Feature: Il destinatario aggiunge una nuova delega
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella sezione Deleghe si visualizza la delega in stato di attesa di conferma
     And Logout da portale destinatario
-
 
