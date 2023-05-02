@@ -35,4 +35,25 @@ public class DeleghePage extends BasePage {
     public void clickAggiungiDelegaButton()  {this.addDelegaButton.click();}
 
 
+    public void waitNuovaDelegaSection() {
+        try {
+            By letuedeleghePageTitle = By.xpath("//h3[contains(text(),'Le tue deleghe')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(letuedeleghePageTitle));
+            this.logger.info("Le tue deleghe page caricata");
+        } catch (TimeoutException e) {
+            logger.error("Le tue deleghe page non caricata con errore :" + e.getMessage());
+            Assert.fail(("Le tue deleghe page non caricata con errore :" + e.getMessage()));
+        }
+    }
+
+    public void controlloCreazioneDelega() {
+        try{
+            By delegaCreata = By.xpath("//span[contains(text(),'In attesa di conferma')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaCreata));
+            this.logger.info("Si visualizza la delega creata");
+        } catch (TimeoutException e) {
+            logger.error("Non si visualizza la delega creata");
+            Assert.fail("Non si visualizza la delega creata");
+        }
+    }
 }

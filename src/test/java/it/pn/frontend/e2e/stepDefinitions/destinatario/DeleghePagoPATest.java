@@ -5,13 +5,20 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.DeleghePage;
 import it.pn.frontend.e2e.pages.destinatario.NotificheDEPage;
+import it.pn.frontend.e2e.section.destinatario.LeTueDelegheSection;
+import it.pn.frontend.e2e.utility.DataPopulation;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DeleghePagoPATest {
 
     private final WebDriver driver = Hooks.driver;
+    Map<String, Object> deleghe = new HashMap<>();
     private final Logger logger = LoggerFactory.getLogger("AggiuntaNuovaDelegaPagoPA");
 
     @When("Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe")
@@ -38,25 +45,62 @@ public class DeleghePagoPATest {
     @And("Si visualizza la sezione Le Tue Deleghe")
     public void siVisualizzaLaSezioneLeTueDeleghe() {
         logger.info("Si visualizza la sezione Le Tue Deleghe");
+        DeleghePage deleghePage = new DeleghePage(this.driver);
+        deleghePage.waitNuovaDelegaSection();
     }
 
     @And("Nella sezione Le Tue Deleghe inserire i dati {string}")
-    public void nellaSezioneLeTueDelegheInserireIDati(String arg0) {
+    public void nellaSezioneLeTueDelegheInserireIDati(String dpFile) {
+        logger.info("Nella sezione Le Tue Deleghe inserire i dati");
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        leTueDelegheSection.selectpersonaFisicaRadioButton();
+
+        DataPopulation dataPopulation = new DataPopulation();
+        deleghe = dataPopulation.readDataPopulation(dpFile+".yaml");
+
+        leTueDelegheSection.insertNomeCognome(deleghe.get("nome").toString(),deleghe.get("cognome").toString());
+        leTueDelegheSection.inserireCF(deleghe.get("codiceFiscale").toString());
+
+        leTueDelegheSection.selectSoloEntiSelezionati();
+        leTueDelegheSection.selezionaUnEnte(deleghe.get("ente").toString());
+
     }
 
     @And("Nella sezione Le Tue Deleghe verificare che la data sia corretta")
     public void nellaSezioneLeTueDelegheVerificareCheLaDataSiaCorretta() {
+        logger.info("Si controlla che la data visualizzata sia corretta");
+
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        if (leTueDelegheSection.verificareCheLaDataSiaCorretta()){
+            logger.info("La data inserita è corretta");
+        } else {
+            logger.error("La data inserita non è corretta");
+            Assert.fail("La data inserita non è corretta");
+        }
     }
 
     @And("Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file {string}")
-    public void nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile(String arg0) {
+    public void nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile(String dpFile) {
+        logger.info("Si salva il codice deleghe nel file "+ dpFile);
+        DataPopulation dataPopulation = new DataPopulation();
+        deleghe = dataPopulation.readDataPopulation(dpFile+".yaml");
+
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        String codiceVerifica = leTueDelegheSection.salvataggioCodiceVerifica();
+        deleghe.put("codiceDelega",codiceVerifica);
+        dataPopulation.writeDataPopulation(dpFile+".yaml", deleghe);
     }
 
     @And("Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe")
     public void nellaSezioneLeTueDelegheClickSulBottoneInviaRichiestaESulBottoneTornaAlleDeleghe() {
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        leTueDelegheSection.clickSulBottoneInviaRichiesta();
     }
 
     @And("Nella sezione Deleghe si visualizza la delega in stato di attesa di conferma")
     public void nellaSezioneDelegheSiVisualizzaLaDelegaInStatoDiAttesaDiConferma() {
+        DeleghePage deleghePage = new DeleghePage(this.driver);
+        deleghePage.waitDeleghePage();
+        deleghePage.controlloCreazioneDelega();
     }
 }
