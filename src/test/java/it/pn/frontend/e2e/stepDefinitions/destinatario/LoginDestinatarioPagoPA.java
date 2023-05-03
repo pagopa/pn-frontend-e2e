@@ -90,7 +90,7 @@ public class LoginDestinatarioPagoPA {
         confermaDatiSpidDEPage.selezionaConfermaButton();
     }
 
-    @Then("pagina Piattaforma  Notifiche Destinatario viene visualizzata correttamente")
+    @Then("Home page destinatario viene visualizzata correttamente")
     public void home_page_destinatario_viene_visualizzata_correttamente() {
         HeaderDESection headerDESection = new HeaderDESection(this.driver);
         headerDESection.waitLoadHeaderDESection();
