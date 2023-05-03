@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features = "src/test/resources/feature",
-        glue = {"it/pagopa/listeners","it/pagopa/stepDefinitions"},
+        glue = {"it/pn/frontend/e2e/listeners","it/pn/frontend/e2e/stepDefinitions"},
         //tags = "@runner",
         plugin = { "pretty", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"}
 /*        plugin = { "pretty",

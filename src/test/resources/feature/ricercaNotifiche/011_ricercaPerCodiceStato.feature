@@ -6,6 +6,7 @@ Feature: Mittente effetua una ricerca notifiche per Stato
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
+    @ProvaRun
     @ricercaNotificaPerStato
   Scenario Outline: Mittente logato effettua una ricerca per stato notifica
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche DEV
@@ -17,6 +18,6 @@ Feature: Mittente effetua una ricerca notifiche per Stato
     And Logout da portale mittente
 
     Examples:
-      |  stato       |
-      | Invio in corso|
+      |   stato       |
+      |Invio in corso|
     # ci sono altri stati come annullata, invio in corso, consegnata ecc.

@@ -6,6 +6,7 @@ Feature: Mittente effetua una ricerca notifiche per Data
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
+    @ProvaRun
     @ricercaNotificaPerData
   Scenario Outline: Mittente loggato effettua una ricerca per periodo temporale
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche DEV
@@ -18,4 +19,4 @@ Feature: Mittente effetua una ricerca notifiche per Data
 
     Examples:
       | DA          | A             |
-      | 01/04/2023  | 12/04/2023   |
+      | 01/04/2023  | 03/05/2023    |

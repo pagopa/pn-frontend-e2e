@@ -7,6 +7,7 @@ Feature: Mittente effetua una ricerca notifiche per CF
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
+  @ProvaRun
   @ricercaNotificaPerCF
   Scenario: Mittente loggato effettua una ricerca per CF
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche DEV

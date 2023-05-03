@@ -1,6 +1,6 @@
 package it.pn.frontend.e2e.pages.mittente;
 
-import it.pagopa.common.BasePage;
+import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;

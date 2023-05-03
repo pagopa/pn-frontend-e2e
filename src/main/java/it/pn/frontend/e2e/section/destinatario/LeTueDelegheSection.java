@@ -40,7 +40,7 @@ public class LeTueDelegheSection extends BasePage {
     @FindBy(xpath = "//input[contains(@value,'entiSelezionati')]")
     WebElement SoloEntiSelezionatiRadioButton;
     //@FindBy(id ="enti-select")
-    @FindBy(id ="ente-select")
+    @FindBy(id ="enti-select")
     WebElement enteElementInput;
 
     @FindBy(xpath = "//button[contains(text(),'Torna alle deleghe')]")

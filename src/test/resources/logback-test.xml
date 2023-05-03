@@ -1,0 +1,42 @@
+<configuration>
+
+    <contextListener class="it.pn.frontend.e2e.listeners.LoggerStartupListener.java"/>
+
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <!--withJansi>true</withJansi-->
+        <encoder>
+            <pattern>%highlight(%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level ${HOSTNAME:- } ${PID:- } --- [%10.10t{7}] %50.50(%logger{50} \(%line\))) : %m%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <property name="HOME_LOG" value="logs"/>
+    <timestamp key="data" datePattern="ddMMyyyy'T'HHmmss"/>
+    <!--timestamp key="dir_log_date" datePattern="yyy-MM-dd"/-->
+    <timestamp key="dir_log_date" datePattern="dd-MM-yyyy"/>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${HOME_LOG}/${dir_log_date}/${LOG_FILE}_${data}.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/archived/${LOG_FILE}_%d{dd-MM-yyyy}.%i.log.gz</fileNamePattern>
+            <!-- each archived file, size max 10MB -->
+            <maxFileSize>10MB</maxFileSize>
+            <!-- total size of all archive files, if total size > 20GB, it will delete old archived file -->
+            <totalSizeCap>20GB</totalSizeCap>
+            <!-- 60 days to keep -->
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>
+                %highlight(%d{dd-MM-yyyy HH:mm:ss.SSS} %-5level ${HOSTNAME:- } ${PID:- } --- [%10.10t{7}] %50.50(%logger{50} \(%line\))) : %m%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="Console"/>
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

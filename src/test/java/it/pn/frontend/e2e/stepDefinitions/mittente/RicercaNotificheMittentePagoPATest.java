@@ -193,9 +193,9 @@ public class RicercaNotificheMittentePagoPATest {
 
         PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
 
-        int numeroStatoNotificha = piattaformaNotifichePAPage.getListStato(statoNotifica);
+        int numeroStatoNotifica = piattaformaNotifichePAPage.getListStato(statoNotifica.substring(1));
 
-        if (numeroStatoNotificha >= 1) {
+        if (numeroStatoNotifica >= 1) {
             logger.info("Gli stati della notifica sono uguali a quelli selezionati");
         }else {
             logger.error("Gli stati della notifica NON sono uguali a quelli selezionati");
