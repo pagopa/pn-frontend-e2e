@@ -6,8 +6,7 @@ Feature: Mittente effetua una ricerca notifiche per Stato
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
-    @ProvaRun
-    @ricercaNotificaPerStato
+  @test11
   Scenario Outline: Mittente logato effettua una ricerca per stato notifica
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche DEV
     And Si visualizza correttamente la pagina Piattaforma Notifiche

@@ -6,9 +6,8 @@ Feature: Mittente visualizza correttamente la pagina notifiche
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
-  @visualizzazioneNotifiche
-
-    Scenario:
+  @test7
+  Scenario:
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche DEV
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche visualizzano correttamente i filtri di ricerca

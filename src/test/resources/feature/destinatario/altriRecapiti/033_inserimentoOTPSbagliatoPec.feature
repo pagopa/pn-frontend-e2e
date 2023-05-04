@@ -6,6 +6,7 @@ Feature: il destinatario inserisce una OTP sbagliato PEC
     Then pagina Piattaforma  Notifiche Destinatario viene visualizzata correttamente
 
   @TestSuite
+  @test33
   @inserimentoPEC
   Scenario: il destinatario loggato inserisce un OTP sbagliato PEC
     When Nella pagina Piattaforma Notifiche Destinatario si clicca sul bottone I Tuoi Recapiti

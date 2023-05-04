@@ -1,4 +1,4 @@
-Feature:Paginazione piattaforma notifiche
+Feature:il mittente cambia visualizzazione della pagina3
 
   Background: Login mittente
     Given Login Page mittente "mittente" viene visualizzata
@@ -6,9 +6,8 @@ Feature:Paginazione piattaforma notifiche
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
-  @paginazionePiattaformaNotifiche
+  @test13
   Scenario Outline:
-
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche DEV
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche si visualizzano le notifiche a partire dalla più recente

@@ -9,7 +9,7 @@ Feature: Mittente visualizza correttamente la sezione genera Api Key
     And Si visualizza correttamente la pagina Api Key
 
   @TestSuite
-  @visualizzazioneSezioneGeneraApiKeyPage
+  @test21
   Scenario:
     When Nella pagina Api Key Si clicca sul bottone genera Api Key
     Then Si visualizza correttamente la sezione genera Api key

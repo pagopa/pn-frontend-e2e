@@ -6,7 +6,7 @@ Feature: Mittente visualizza correttamente la pagina Api Key
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
-  @visualizzazioneApiKeyPage
+  @test20
   Scenario: Mittente visualizza correttamente la pagina Api Key
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche SVIL
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu

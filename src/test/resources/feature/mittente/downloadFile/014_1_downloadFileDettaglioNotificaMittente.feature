@@ -11,7 +11,7 @@ Feature: Mittente scarica tutti i file all'interno di una notifica
     And Cliccare sul bottone Filtra
 
   @TestSuite
-  @downloadAttestazioni
+  @test14_1
   Scenario: Mittente scarica attestazioni
     When Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita
     And Si visualizza correttamente la sezione Dettaglio Notifica
