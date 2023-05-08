@@ -13,12 +13,12 @@ import org.slf4j.LoggerFactory;
         features = "src/test/resources/feature",
         glue = {"it/pn/frontend/e2e/listeners","it/pn/frontend/e2e/stepDefinitions"},
         //tags = "@runner",
-        plugin = { "pretty", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"}
-/*        plugin = { "pretty",
+        //plugin = { "pretty", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"}
+       plugin = { "pretty",
                 "json:target/cucumber-reports/report.json",
                 "html:target/cucumber-reports/report.html",
                 "junit:target/cucumber-reports/Cucumber.xml"
-        }*/,
+        },
         monochrome = true
 )
 public class RunCucumberTest {
