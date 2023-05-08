@@ -35,6 +35,7 @@ public class PreAccediAreaRiservataPAPage extends BasePage {
     }
 
     public void selezionaProcediAlLoginButton(){
-        this.procediAlLoginButton.click();
+ //       this.procediAlLoginButton.click();
+        this.js().executeScript("arguments[0].click()",this.procediAlLoginButton);
     }
 }
