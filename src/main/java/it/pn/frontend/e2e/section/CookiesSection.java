@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -33,6 +34,8 @@ public class CookiesSection extends BasePage {
     }
 
     public void selezionaAccettaTuttiButton(){
-        this.accettaTuttiButton.click();
+        //this.accettaTuttiButton.click();
+        Actions actions = new Actions(driver);
+        actions.moveToElement(this.accettaTuttiButton).click().perform();
     }
 }
