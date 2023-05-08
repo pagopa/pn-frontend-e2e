@@ -5,6 +5,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.mittente.AreaRiservataPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePAPage;
+import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -28,6 +29,10 @@ public class NotificaMittentePagoPATest {
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche() {
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
+
+        CookiesSection cookiesSection = new CookiesSection(this.driver);
+        cookiesSection.waitLoadCookiesPage();
+        cookiesSection.selezionaAccettaTuttiButton();
 
         PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
         piattaformaNotifichePAPage.waitLoadPiattaformaNotifichePAPage();
