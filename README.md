@@ -1,7 +1,11 @@
 # pn-frontend-e2e
 Questo repository contiene i test e2e per le webapps di Piattaforma Notifiche
 
-mvn clean test -Dcucumber.filter.tags=@TestSuite -Dbrowser=chrome -Dheadless=false -DlogFileName=inserimentoNotifica
+Per eseguire i test su macchina unix like il comando è il seguente:
+./mvnw clean test -Dcucumber.filter.tags=@TestSuite -Dbrowser=chrome -Dheadless=false -DlogFileName=inserimentoNotifica
+
+Per eseguire i test su macchina Windows il comando è il seguente:
+mvnw.cmd clean test -Dcucumber.filter.tags=@TestSuite -Dbrowser=chrome -Dheadless=false -DlogFileName=inserimentoNotifica
 
 plugin IntellJ: Cucumber, Gherking
 
