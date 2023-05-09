@@ -6,6 +6,7 @@ Feature: Mittente effetua una ricerca notifiche per codice IUN
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
+  @firstCommitRun
   @test9
   Scenario: Mittente loggato effettua una ricerca per codice IUN
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche DEV
