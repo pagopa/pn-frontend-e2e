@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.DeleghePage;
@@ -102,5 +103,60 @@ public class DeleghePagoPATest {
         DeleghePage deleghePage = new DeleghePage(this.driver);
         deleghePage.waitDeleghePage();
         deleghePage.controlloCreazioneDelega();
+    }
+
+    @And("Nella sezione Deleghe si verifica sia presente una delega")
+    public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelega() {
+        logger.info("Si controlla che sia presente una delega");
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        leTueDelegheSection.siVisualizzaUnaDelega();
+    }
+
+    @And("Nella sezione Deleghe si clicca sul menu della delega")
+    public void nellaSezioneDelegheSiCliccaSulMenuDellaDelega() {
+        logger.info("Si clicca sul menu della delega");
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        leTueDelegheSection.clickMenuDelega();
+    }
+
+    @And("Nella sezione Deleghe si sceglie l'opzione mostra codice")
+    public void nellaSezioneDelegheSiSceglieLOpzioneMostraCodice() {
+        logger.info("Si clicca su mostra codice");
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        leTueDelegheSection.siSceglieLOpzioneMostraCodice();
+    }
+
+    @Then("Si clicca sul bottone chiudi")
+    public void siCliccaSulBottoneChiudi() {
+        logger.info("Si clicca sul bottone chiudi");
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        leTueDelegheSection.siCliccaSulBottoneChiudi();
+    }
+
+    @And("Nella sezione Deleghe si sceglie l'opzione revoca")
+    public void nellaSezioneDelegheSiSceglieLOpzioneRevoca() {
+        logger.info("Si clicca sulla opzione revoca delega");
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        leTueDelegheSection.clickOpzioneRevoca();
+    }
+
+    @Then("Si conferma l'azione scegliendo revoca la delega")
+    public void siConfermaLAzioneScegliendoRevocaLaDelega() {
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        leTueDelegheSection.clickRevocaLaDelega();
+    }
+
+    @And("Nella sezione Le Tue Deleghe click sul bottone Invia richiesta")
+    public void nellaSezioneLeTueDelegheClickSulBottoneInviaRichiesta() {
+        logger.info("Si clicca sul bottone  invia richiesta");
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        leTueDelegheSection.clickInviaRichiesta();
+    }
+
+    @And("Nella sezione Le Tue Deleghe si visualizza il messaggio di errore delega a se stessi")
+    public void nellaSezioneLeTueDelegheSiVisualizzaIlMessaggioDiErroreDelegaASeStessi() {
+        logger.info("Si visualizza il messaggio di errore");
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        leTueDelegheSection.MessaggioDiErroreDelegaASeStessi();
     }
 }

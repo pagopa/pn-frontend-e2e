@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 public class LeTueDelegheSection extends BasePage {
 
-    private Logger logger = LoggerFactory.getLogger("LeTueDelegheSection");
+    private static final Logger logger = LoggerFactory.getLogger("LeTueDelegheSection");
 
     @FindBy(xpath = "//input[contains(@name,'selectPersonaFisicaOrPersonaGiuridica')]")
     WebElement personaFisicaRadioButton;
@@ -57,36 +57,6 @@ public class LeTueDelegheSection extends BasePage {
 
     @FindBy(xpath = "//button[contains(text(),'Revoca la delega')]")
     WebElement revocaDialogAction;
-
-    @FindBy(xpath = "//button[contains(@data-testid,'code cancel button')]")
-    WebElement closeMostraCodiceButton;
-
-    @FindBy(xpath = "//button[contains(@data-testid, 'createButton')]")
-    WebElement inviaRichiestaButton;
-
-    @FindBy(xpath = "//h4[contains(text(),'Deleghe')]")
-    WebElement deleghePageTitle;
-
-    @FindBy(xpath = "//p[contains(text(),'Qui puoi gestire')]")
-    WebElement deleghePageSubtitle;
-
-    @FindBy(xpath = "//button[contains(@data-testid,'add-delegation')]")
-    WebElement aggiungiDelegaButton;
-
-    @FindBy(xpath = "//span[contains(text(),'Nome')]")
-    WebElement nomeDelegaField;
-
-    @FindBy(xpath = "//th[contains(text(),'Inizio delega')]")
-    WebElement inizioDelegaField;
-
-    @FindBy(xpath = "//span[contains(text(),'Fine delega')]")
-    WebElement fineDelegaField;
-
-    @FindBy(xpath = "//th[contains(text(),'Permessi')]")
-    WebElement permessiDelegaField;
-
-    @FindBy(xpath = "//th[contains(text(),'Stato')]")
-    WebElement statoDelegaField;
 
     public LeTueDelegheSection(WebDriver driver) {
         super(driver);
@@ -140,12 +110,6 @@ public class LeTueDelegheSection extends BasePage {
 
     }
 
-
-    public void clickOpzioneRevoca() {this.revocaDelegaOption.click();}
-
-
-    public void clickRevocaLaDelega() {this.revocaDialogAction.click();}
-
     public void siVisualizzaUnaDelega() {
         try{
             By menuDelega = By.xpath("//tr[contains(@class,'MuiTableRow-root css-g76qb5')]");
@@ -175,7 +139,36 @@ public class LeTueDelegheSection extends BasePage {
         }
     }
 
-    public void clickInviaRichiesta() {this.inviaLaRichiestaButton.click();}
+    public void siSceglieLOpzioneMostraCodice() {this.mostraCodiceOption.click();}
+
+    public void siCliccaSulBottoneChiudi() {
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        try{
+            By closeCodiceButtonBy = By.xpath("//button[contains(text(),'Chiudi')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(closeCodiceButtonBy));
+            logger.info("Il bottone chiudi viene visualizzato correttamente");
+            this.element(closeCodiceButtonBy).click();
+        }catch (TimeoutException e){
+            logger.error("Il bottone chiudi viene visualizzato NON correttamente con errore:"+e.getMessage());
+            Assert.fail("Il bottone chiudi viene visualizzato NON correttamente con errore:"+e.getMessage());
+        }
+    }
+
+    public void clickOpzioneRevoca() {
+        this.revocaDelegaOption.click();
+    }
+
+    public void clickRevocaLaDelega() {
+        this.revocaDialogAction.click();
+    }
+
+    public void clickInviaRichiesta() {
+        this.inviaLaRichiestaButton.click();
+    }
 
     public void MessaggioDiErroreDelegaASeStessi() {
         try {
@@ -186,24 +179,6 @@ public class LeTueDelegheSection extends BasePage {
             logger.error("Messaggio di errore non trovato"+e.getMessage());
             Assert.fail("Messaggio di errore non trovato"+e.getMessage());
         }
-    }
-
-    public void siSceglieLOpzioneMostraCodice() {this.mostraCodiceOption.click();}
-
-    public void siCliccaSulBottoneChiudi() {this.closeMostraCodiceButton.click();}
-
-    public void siVisualizzaIlTitolo() {this.deleghePageTitle.isDisplayed();}
-
-    public void siVisualizzaIlSottotitolo() {this.deleghePageSubtitle.isDisplayed();}
-
-    public void siVisualizzaIlBottoneAggiungiUnaDelega() {this.aggiungiDelegaButton.isDisplayed();}
-
-    public void siVisualizzanoTuttiICampiDellElencoDeiDelegati() {
-        this.nomeDelegaField.isDisplayed();
-        this.inizioDelegaField.isDisplayed();
-        this.fineDelegaField.isDisplayed();
-        this.permessiDelegaField.isDisplayed();
-        this.permessiDelegaField.isDisplayed();
     }
 }
 

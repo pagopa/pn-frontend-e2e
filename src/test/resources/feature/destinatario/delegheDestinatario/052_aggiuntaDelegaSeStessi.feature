@@ -6,6 +6,7 @@ Feature: Il destinatario visualizza il codice di una delega
     Then Home page destinatario viene visualizzata correttamente
 
   @TestSuite
+  @secondCommitRun
   @test52
   Scenario:
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe
@@ -14,5 +15,5 @@ Feature: Il destinatario visualizza il codice di una delega
     And Si visualizza la sezione Le Tue Deleghe
     And Nella sezione Le Tue Deleghe inserire i dati "nuova_delega_err"
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta
-    And Nella sezione Le Tue Deleghe si visulizza il messaggio di errore delega a se stessi
+    And Nella sezione Le Tue Deleghe si visualizza il messaggio di errore delega a se stessi
     And Logout da portale destinatario

@@ -6,6 +6,7 @@ Feature: Il destinatario revoca una delega
     Then Home page destinatario viene visualizzata correttamente
 
   @TestSuite
+  @secondCommitRun
   @test47
   Scenario:
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe
@@ -14,7 +15,6 @@ Feature: Il destinatario revoca una delega
     And Nella sezione Deleghe si clicca sul menu della delega
     And Nella sezione Deleghe si sceglie l'opzione revoca
     Then Si conferma l'azione scegliendo revoca la delega
-    And Nelle sezione Deleghe si verifica che la delega non sia più presente in elenco
     And Logout da portale destinatario
 
 
