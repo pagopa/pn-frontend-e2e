@@ -12,6 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import it.pn.frontend.e2e.section.mittente.DestinatarioPASection;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -203,5 +207,24 @@ public class RicercaNotificheMittentePagoPATest {
 
         }
 
+    }
+
+    @And("Nella pagina Piattaforma Notifiche inserire la data invio notifica")
+    public void nellaPaginaPiattaformaNotificheInserireLaDataInvioNotifica() {
+        logger.info("Inserimento data invio notifica");
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
+        String dataNotifica = dateFormat.format(date).replace("-", "/");
+
+        piattaformaNotifichePAPage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
+    }
+
+    @And("Nella pagina piattaforma Notifiche selezionare lo stato notifica {string}")
+    public void nellaPaginaPiattaformaNotificheSelezionareLoStatoNotifica(String statoNotificaDepositata) {
+        logger.info("Si seleziona lo stato notifica" + statoNotificaDepositata);
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        piattaformaNotifichePAPage.selezionareStatoNotifica(statoNotificaDepositata);
     }
 }

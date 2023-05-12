@@ -23,6 +23,9 @@ public class AreaRiservataPAPage extends BasePage {
     @FindBy(xpath = "//button[contains(@id,'forward_prod-pn-dev')]")
     WebElement piattaformaNotificaDevGestisciButton;
 
+    @FindBy(xpath = "//button[contains(@id,'forward_prod-pn-svil')]")
+    WebElement svilLButton;
+
     public AreaRiservataPAPage(WebDriver driver) {
         super(driver);
     }
@@ -59,4 +62,12 @@ public class AreaRiservataPAPage extends BasePage {
         }
     }
 
+    public void selezionaPiattaformaNotificaSvil() {
+        if(this.svilLButton.isDisplayed()){
+            this.svilLButton.click();
+        }else{
+            this.js().executeScript("arguments[0].scrollIntoView(true);",this.piattaformaNotificaDevGestisciButton);
+            this.svilLButton.click();
+        }
+    }
 }

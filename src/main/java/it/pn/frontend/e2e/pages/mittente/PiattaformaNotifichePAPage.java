@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class PiattaformaNotifichePAPage extends BasePage {
@@ -35,6 +36,11 @@ public class PiattaformaNotifichePAPage extends BasePage {
     @FindBy(xpath = "//div[contains(@id,'status')]")
     WebElement statoNotificaField;
 
+    @FindBy(xpath = "//button[contains(text(),'Invia una nuova notifica')]")
+    WebElement inviaNuovaNotificaButton;
+
+    @FindBy(xpath = "//div[contains(@data-testid,'sideMenuItem-API Key')]")
+    WebElement apiKeyButton;
 
     public PiattaformaNotifichePAPage(WebDriver driver) {
         super(driver);
@@ -52,6 +58,11 @@ public class PiattaformaNotifichePAPage extends BasePage {
     }
 
     public void insertCodiceFiscale(String codiceFiscale){
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         this.cfTextField.sendKeys(codiceFiscale);
     }
 
@@ -149,5 +160,100 @@ public class PiattaformaNotifichePAPage extends BasePage {
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
         logger.info("Stati notifiche trovati correttamente");
         return this.elements(statoNotificaBy).size();
+    }
+
+    public void selezionaNotifica() {
+        try {
+            By notificaBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr')]");
+            attesaCaricamentoPagina();
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificaBy));
+            this.element(notificaBy).click();
+        } catch (TimeoutException e) {
+            logger.error("Notifica non trovata con errore: " + e.getMessage());
+            Assert.fail("Notifica non trovata con errore: " + e.getMessage());
+        }
+    }
+
+    public void selectInviaUnaNuovaNotificaButton() {
+        this.inviaNuovaNotificaButton.click();
+    }
+
+    public void aggionamentoPagina() {
+        this.driver.navigate().refresh();    }
+
+    public void waitLoadRefreshPage() {
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public String ricercaNotifica(String oggettoDellaNotifica, String statoNotifica) {
+
+        String codiceIUN = null;
+
+        int posizioneNotifica = verificaEsistenzaNotifica(oggettoDellaNotifica, statoNotifica);
+        logger.info("la posizione della notifica è uguale: " + posizioneNotifica);
+        if (posizioneNotifica != -1) {
+
+            By listaCodiceIUNBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr')]");
+            List<WebElement> codiciIUNList = this.elements(listaCodiceIUNBy);
+            codiceIUN = codiciIUNList.get(posizioneNotifica).getText();
+        }
+        return codiceIUN;
+    }
+    public int verificaEsistenzaNotifica(String oggettoDellaNotifica, String statoNotifica) {
+
+        List<WebElement> listaOggetti = ricercaListaOggetti();
+        List<WebElement> listaStati = ricercaListaStati();
+
+        if (listaOggetti != null && listaStati != null) {
+
+            for (int i = 0; i < listaOggetti.size(); i++) {
+                logger.info("ciclo for di verifica esistenza");
+                logger.info(listaOggetti.get(i).getText() + " " + oggettoDellaNotifica);
+                logger.info(listaStati.get(i).getText() + " " + statoNotifica);
+                if (listaOggetti.get(i).getText().equals(oggettoDellaNotifica) &&
+                        listaStati.get(i).getText().equals(statoNotifica)) {
+                    return i;
+                }
+            }
+        }
+
+        return -1;
+    }
+    public List<WebElement> ricercaListaOggetti() {
+        try {
+            By listaOggettiBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-hgkziz')]");
+            return this.elements(listaOggettiBy);
+        } catch (TimeoutException e) {
+            logger.info("lista oggetti ancora non presenti");
+            return null;
+        }
+    }
+
+    public List<WebElement> ricercaListaStati() {
+        try {
+            By listaOggettiBy = By.xpath("//span[contains(@class,'MuiChip-label MuiChip-labelMedium css-11cvqrr')]");
+            return this.elements(listaOggettiBy);
+        } catch (TimeoutException e) {
+            logger.info("lista stati ancora non presenti");
+            return null;
+        }
+    }
+
+    public void selezionareLaVoceApiKey() {
+        this.apiKeyButton.click();
+    }
+
+    public void waitLoadApikeyPage() {
+        try {
+            By apiKeyTitle = By.xpath("//h4[contains(text(),'API Key')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(apiKeyTitle));
+            logger.info("Api Key Page caricata");
+        } catch (TimeoutException e) {
+            logger.error("Api Key Page NON caricata con errore : " + e.getMessage());
+            Assert.fail("Api Key Page NON caricata con errore : " + e.getMessage());
+        }
     }
 }
