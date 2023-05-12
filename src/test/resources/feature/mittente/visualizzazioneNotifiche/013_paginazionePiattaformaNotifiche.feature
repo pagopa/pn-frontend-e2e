@@ -8,7 +8,7 @@ Feature:il mittente cambia visualizzazione della pagina3
   @TestSuite
   @test13
   Scenario Outline:
-    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche DEV
+    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche SVIL
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche si visualizzano le notifiche a partire dalla più recente
     And Nella pagina Piattaforma Notifiche si scrolla fino alla fine della pagina
