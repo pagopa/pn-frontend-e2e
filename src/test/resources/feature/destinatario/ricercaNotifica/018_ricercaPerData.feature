@@ -7,6 +7,7 @@ Feature: Ricerca notifica per periodo temporale Destinatario
 
   @TestSuite
   @secondCommitRun
+    @testDestinatario
   @test18
   Scenario Outline: il destinatario fa una ricerca per date
     When Si visualizza correttamente la pagina Piattaforma Notifiche Destinatario
@@ -18,4 +19,4 @@ Feature: Ricerca notifica per periodo temporale Destinatario
 
     Examples:
       |     DA      |     A       |
-      |  20/04/2023 | 21/04/2023  |
+      |  10/05/2023 | 16/05/2023  |

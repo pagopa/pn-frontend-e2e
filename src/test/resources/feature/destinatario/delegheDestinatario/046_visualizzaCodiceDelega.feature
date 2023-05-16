@@ -7,6 +7,7 @@ Feature: Il destinatario revoca una delega
 
   @TestSuite
   @secondCommitRun
+  @testDestinatario
   @test46
   Scenario:
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe
