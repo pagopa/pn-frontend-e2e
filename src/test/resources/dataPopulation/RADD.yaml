@@ -1,0 +1,8 @@
+numeroProtocollo: "TA-FFSMRC-20230509-3"
+oggettoDellaNotifica: "IMU"
+descrizione: "PAGAMENTO RATA IMU"
+gruppo: "Prova1"
+codiceTassonometrico: "123456A"
+nomeDocumentoNotifica: "RATA SCADUTA IMU"
+codiceIUN: "DJWE-GDKV-YDXN-202305-Y-1"
+url: "http://localhost:3000"
