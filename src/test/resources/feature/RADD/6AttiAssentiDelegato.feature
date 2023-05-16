@@ -7,6 +7,7 @@ Feature: Failure second step Destinatario
     Then la pagina Richiesta Atti sezione Dati della notifica è visualizzata correttamente
 
   @TestSuite
+  @RADD
   @Test6
 
   Scenario: Failure second step Destinatario

@@ -8,6 +8,7 @@ Feature: Failure terzo step Destinatario e Delegato
     Then la pagina Richiesta Atti sezione Dati della notifica è visualizzata correttamente
 
   @TestSuite
+  @RADD
   @Test8
 
   Scenario: Failure terzo step Destinatario e Delegato

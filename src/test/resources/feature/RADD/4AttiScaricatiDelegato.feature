@@ -7,6 +7,7 @@ Feature: Atti scaricati con successo Delegato
     Then la pagina Richiesta Atti sezione Dati della notifica è visualizzata correttamente
 
   @TestSuite
+  @RADD
     @Test4
 
   Scenario: Atti scaricati con successo Delegato

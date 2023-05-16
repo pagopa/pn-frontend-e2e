@@ -7,6 +7,7 @@ Feature: Atti scaricati con successo Destinatario
     Then la pagina Richiesta Atti sezione Dati della notifica è visualizzata correttamente
 
   @TestSuite
+  @RADD
   @Test3
 
   Scenario: Atti scaricati con successo Destinatario
@@ -20,7 +21,7 @@ Feature: Atti scaricati con successo Destinatario
     And nella pagina atti-opponibili-terzi sezione Allegati e attestazioni esegue il download dei documenti
     And nella pagina atti-opponibili-terzi sezione Allegati e attestazioni nei box dei documenti scaricati è visibile la spunta verde
     And nella pagina atti-opponibili-terzi sezione Allegati e attestazioni cliccare sul bottone ho finito
-    And Si visualizza correttamente la pagina di conferma
+    And Si visualizza correttamente la pagina di conferma RADD
     Then nella pagina di conferma cliccare sul link dello storico
     And la landing page si visualizza
     And nella landing page cliccare sul tasto torna alla home

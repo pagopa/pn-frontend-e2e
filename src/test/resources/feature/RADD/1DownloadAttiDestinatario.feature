@@ -7,6 +7,7 @@ Feature: Download Atti Destinatario
     Then la pagina Richiesta Atti sezione Dati della notifica è visualizzata correttamente
 
   @TestSuite
+    @RADD
   @Test1
 
   Scenario: Download Atti Destinatario
@@ -20,6 +21,6 @@ Feature: Download Atti Destinatario
     And nella pagina atti-opponibili-terzi sezione Allegati e attestazioni esegue il download dei documenti
     And nella pagina atti-opponibili-terzi sezione Allegati e attestazioni nei box dei documenti scaricati è visibile la spunta verde
     And nella pagina atti-opponibili-terzi sezione Allegati e attestazioni cliccare sul bottone ho finito
-    Then Si visualizza correttamente la pagina di conferma
+    Then Si visualizza correttamente la pagina di conferma RADD
     And nella pagina di conferma cliccare sul bottone chiudi
 

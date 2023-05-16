@@ -7,6 +7,7 @@ Feature: Failure primo step Destinatario
     Then la pagina Richiesta Atti sezione Dati della notifica è visualizzata correttamente
 
   @TestSuite
+  @RADD
   @Test5
 
   Scenario: Failure primo step Destinatario
