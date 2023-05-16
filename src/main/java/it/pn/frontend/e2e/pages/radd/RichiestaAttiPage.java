@@ -75,7 +75,7 @@ public class RichiestaAttiPage extends BasePage {
     @FindBy(xpath = "//div[contains(text(),'KO')]")
     WebElement uploadErrorMessage;
 
-    @FindBy(xpath = "//div[contains(text(),'Risorsa non trovata')]")
+    @FindBy(xpath = "//div[contains(text(),'Si è verificato un problema. Riprova tra qualche minuto')]")
     WebElement downloadMessageError;
     
     public void insertCodiceIun(String codiceIun) {

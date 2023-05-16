@@ -12,9 +12,9 @@ Feature: Failure terzo step Destinatario
   @Test7
 
   Scenario: Failure terzo step Destinatario
-    When nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il codice IUN "DJWE"
+    When nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il codice IUN "RADD"
     And nella pagina atti-opponibili-terzi sezione Dati della notifica è selezionato di default il Soggetto giuridico come Persona fisica
-    And nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del destinatario "ZZAMRC01P30L736Y"
+    And nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del destinatario terzo errore "RADD"
     And nella pagina atti-opponibili-terzi sezione Dati della notifica cliccare sul bottone Continua
     And la pagina atti-opponibili-terzi sezione Caricamento documenti è visualizzata correttamente
     And nella pagina atti-opponibili-terzi sezione Caricamento documenti caricare il documento di riconoscimento del destinario nel box uno Carica il documento di riconoscimento del destinatario

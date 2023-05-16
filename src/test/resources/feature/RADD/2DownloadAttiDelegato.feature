@@ -11,10 +11,10 @@ Feature: Download Atti Delegato
   @Test2
 
   Scenario: Download Atti Delegato
-    When nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il codice IUN "DJWE"
+    When nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il codice IUN "RADD"
     And nella pagina atti-opponibili-terzi sezione Dati della notifica è selezionato di default il Soggetto giuridico come Persona fisica
-    And nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del destinatario "GNIGNI80A01H501R"
-    And nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del del delegato "MNLPLS80D26F205I"
+    And nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del destinatario "RADD"
+    And nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del del delegato "RADD"
     And nella pagina atti-opponibili-terzi sezione Dati della notifica cliccare sul bottone Continua
     And la pagina atti-opponibili-terzi sezione Caricamento documenti è visualizzata correttamente
     And nella pagina atti-opponibili-terzi sezione Caricamento documenti caricare il documento di riconoscimento del destinario nel box uno Carica il documento di riconoscimento del destinatario

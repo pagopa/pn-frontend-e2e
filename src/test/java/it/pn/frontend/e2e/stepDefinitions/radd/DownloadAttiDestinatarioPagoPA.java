@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 public class DownloadAttiDestinatarioPagoPA {
@@ -21,6 +22,7 @@ public class DownloadAttiDestinatarioPagoPA {
     private final WebDriver driver = Hooks.driver;
     private final Logger logger = LoggerFactory.getLogger("DownloadAttiDestinatarioPagoPA");
 
+    private Map<String, Object> datiRADD = new HashMap<>();
 
     @Given("la Homepage RADD è visualizzata correttamente")
     public void la_homepage_radd_è_visualizzata_correttamente() {
@@ -42,9 +44,13 @@ public class DownloadAttiDestinatarioPagoPA {
     }
 
     @When("nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il codice IUN {string}")
-    public void nellaPaginaRichiestaAttiSezioneDatiDellaNotificaInserireIlCodiceIUN(String codiceIun) {
+    public void nellaPaginaRichiestaAttiSezioneDatiDellaNotificaInserireIlCodiceIUN(String dpFile) {
+
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiRADD = dataPopulation.readDataPopulation(dpFile+".yaml");
+
         RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
-        richiestaAttiPage.insertCodiceIun(codiceIun);
+        richiestaAttiPage.insertCodiceIun(this.datiRADD.get("codiceIun").toString());
     }
 
     @And("nella pagina atti-opponibili-terzi sezione Dati della notifica è selezionato di default il Soggetto giuridico come Persona fisica")
@@ -59,9 +65,13 @@ public class DownloadAttiDestinatarioPagoPA {
     }
 
     @And("nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del destinatario {string}")
-    public void nellaPaginaAttiOpponibiliTerziSezioneDatiDellaNotificaInserireIlCodiceFiscaleDelDestinatario(String codiceFiscale) {
+    public void nellaPaginaAttiOpponibiliTerziSezioneDatiDellaNotificaInserireIlCodiceFiscaleDelDestinatario(String dpFile) {
+
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiRADD = dataPopulation.readDataPopulation(dpFile+".yaml");
+
         RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
-        richiestaAttiPage.insertCodiceFiscale(codiceFiscale);
+        richiestaAttiPage.insertCodiceFiscale(datiRADD.get("codiceFiscaleDestinario").toString());
     }
 
     @And("nella pagina atti-opponibili-terzi sezione Dati della notifica cliccare sul bottone Continua")
@@ -155,9 +165,13 @@ public class DownloadAttiDestinatarioPagoPA {
     }
 
     @And("nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del del delegato {string}")
-    public void InserireIlCodiceFiscaleDelDelDelegato(String codiceFiscaleDelegato) {
+    public void InserireIlCodiceFiscaleDelDelDelegato(String dpFile) {
+
+        DataPopulation dataPopulation = new DataPopulation();
+        datiRADD = dataPopulation.readDataPopulation(dpFile+".yaml");
+
         RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
-        richiestaAttiPage.insertCodiceFiscaleDelegato(codiceFiscaleDelegato);
+        richiestaAttiPage.insertCodiceFiscaleDelegato(datiRADD.get("codiceFiscaleDelegato").toString());
     }
 
     @And("nella pagina Richiesta Atti sezione Caricamento documenti caricare il documento di riconoscimento del delegato nel box due Carica il documento di riconoscimento del delegato")
@@ -237,6 +251,35 @@ public class DownloadAttiDestinatarioPagoPA {
             logger.error("Il messaggio di errore NON si visualizza correttamente");
             Assert.fail("Il messaggio di errore NON si visualizza correttamente");
         }
+    }
+
+    @And("nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del destinatario errore primo step {string}")
+    public void nellaPaginaAttiOpponibiliTerziSezioneDatiDellaNotificaInserireIlCodiceFiscaleDelDestinatarioErrorePrimoStep(String dpFile) {
+
+        DataPopulation dataPopulation = new DataPopulation();
+        datiRADD = dataPopulation.readDataPopulation(dpFile+".yaml");
+
+        RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
+        richiestaAttiPage.insertCodiceFiscale(datiRADD.get("codiceFiscalePrimoErrore").toString());
+    }
+
+    @And("nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del destinatario secondo step {string}")
+    public void nellaPaginaAttiOpponibiliTerziSezioneDatiDellaNotificaInserireIlCodiceFiscaleDelDestinatarioSecondoStep(String dpFile) {
+
+        DataPopulation dataPopulation = new DataPopulation();
+        datiRADD = dataPopulation.readDataPopulation(dpFile+".yaml");
+
+        RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
+        richiestaAttiPage.insertCodiceFiscale(datiRADD.get("codiceFiscaleSecondoErrore").toString());
+    }
+
+    @And("nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del destinatario terzo errore {string}")
+    public void nellaPaginaAttiOpponibiliTerziSezioneDatiDellaNotificaInserireIlCodiceFiscaleDelDestinatarioTerzoErrore(String dpFile) {
+        DataPopulation dataPopulation = new DataPopulation();
+        datiRADD = dataPopulation.readDataPopulation(dpFile+".yaml");
+
+        RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
+        richiestaAttiPage.insertCodiceFiscale(datiRADD.get("codiceFiscaleTerzoErrore").toString());
     }
 }
 

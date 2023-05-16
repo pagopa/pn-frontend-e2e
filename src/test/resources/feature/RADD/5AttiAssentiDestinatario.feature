@@ -11,9 +11,9 @@ Feature: Failure primo step Destinatario
   @Test5
 
   Scenario: Failure primo step Destinatario
-    When nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il codice IUN "DJWE"
+    When nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il codice IUN "RADD"
     And nella pagina atti-opponibili-terzi sezione Dati della notifica è selezionato di default il Soggetto giuridico come Persona fisica
-    And nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del destinatario "RSSSRG80A01F839I"
+    And nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del destinatario errore primo step "RADD"
     And nella pagina atti-opponibili-terzi sezione Dati della notifica cliccare sul bottone Continua
     Then nella pagina Richiesta Atti sezione Dati della notifica visualizzare la frase di errore primo step
 
