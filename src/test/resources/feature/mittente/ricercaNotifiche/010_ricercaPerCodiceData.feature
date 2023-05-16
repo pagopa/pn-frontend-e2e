@@ -9,7 +9,7 @@ Feature: Mittente effetua una ricerca notifiche per Data
     @firstCommitRun
   @test10
   Scenario Outline: Mittente loggato effettua una ricerca per periodo temporale
-    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche SVIL
+    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche DEV
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche accetta i Cookies
     And Nella pagina Piattaforma Notifiche inserire una data da <DA> a <A>

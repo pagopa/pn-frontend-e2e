@@ -9,7 +9,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
   @secondCommitRun
   @test85
   Scenario: Mittente genera una notifica senza pagamento
-    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche SVIL
+    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche DEV
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche accetta i Cookies
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica

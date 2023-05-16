@@ -10,7 +10,7 @@ Feature: Mittente effetua una ricerca notifiche per CF
   @firstCommitRun
   @test8
   Scenario: Mittente loggato effettua una ricerca per CF
-    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche SVIL
+    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche DEV
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche accetta i Cookies
     And Nella pagina Piattaforma Notifiche inserire il codice fiscale del destinatario "destinatario"

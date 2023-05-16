@@ -8,7 +8,7 @@ Feature: Mittente visualizza correttamente la pagina Api Key
   @TestSuite
   @test20
   Scenario: Mittente visualizza correttamente la pagina Api Key
-    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche SVIL
+    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche DEV
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche accetta i Cookies
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu

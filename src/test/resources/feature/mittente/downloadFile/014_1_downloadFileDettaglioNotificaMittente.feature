@@ -5,7 +5,7 @@ Feature: Mittente scarica tutti i file all'interno di una notifica
     Given Login Page mittente "mittente" viene visualizzata
     When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
-    And Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche SVIL
+    And Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche DEV
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche accetta i Cookies
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica "datiNotifica"

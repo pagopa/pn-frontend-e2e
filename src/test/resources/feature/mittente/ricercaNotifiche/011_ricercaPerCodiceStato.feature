@@ -9,7 +9,7 @@ Feature: Mittente effetua una ricerca notifiche per Stato
     @firstCommitRun
   @test11
   Scenario Outline: Mittente logato effettua una ricerca per stato notifica
-    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche SVIL
+    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche DEV
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche accetta i Cookies
     And Nella pagina piattaforma Notifiche selezionare uno stato notifica <stato>
