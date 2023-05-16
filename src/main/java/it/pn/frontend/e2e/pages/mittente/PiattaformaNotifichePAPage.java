@@ -48,7 +48,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
 
     public void waitLoadPiattaformaNotifichePAPage(){
         try{
-            By notificheTitle = By.cssSelector("h4.MuiTypography-root.MuiTypography-h4");
+            By notificheTitle = By.xpath("//h4[contains(text(),'Notifiche')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheTitle));
             logger.info("Piattaforma Notifiche Page caricata");
         }catch (TimeoutException e){

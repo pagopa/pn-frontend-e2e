@@ -7,6 +7,7 @@ Feature: Il destinatario aggiunge una nuova delega
 
   @TestSuite
   @firstCommitRun
+    @testDestinatario
   @test44
   Scenario:
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe

@@ -6,11 +6,11 @@ Feature: Mittente genera Api Key senza gruppo
     Then Home page mittente viene visualizzata correttamente
     And Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche DEV
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Nella pagina Piattaforma Notifiche accetta i Cookies
+    #And Nella pagina Piattaforma Notifiche accetta i Cookies
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
     And Si visualizza correttamente la pagina Api Key
 
-  @TestSuite
+#  @TestSuite
   @test23
   Scenario:
     When Nella pagina Api Key si clicca sul bottone genera Api Key

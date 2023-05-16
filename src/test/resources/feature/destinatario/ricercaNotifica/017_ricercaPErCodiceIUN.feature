@@ -8,6 +8,7 @@ Feature: Ricerca Destinatario per Codice IUN
 
   @TestSuite
   @secondCommitRun
+  @testDestinatario
   @test17
   Scenario:
     When Si visualizza correttamente la pagina Piattaforma Notifiche Destinatario

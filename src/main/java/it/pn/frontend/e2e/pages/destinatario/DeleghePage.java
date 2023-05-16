@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class DeleghePage extends BasePage {
 
-    private Logger logger = LoggerFactory.getLogger("DeleghePage");
+    private final Logger logger = LoggerFactory.getLogger("DeleghePage");
 
     @FindBy(xpath = "//button[contains(text(),'Aggiungi una delega')]")
     WebElement addDelegaButton;
@@ -37,7 +37,7 @@ public class DeleghePage extends BasePage {
 
     public void waitNuovaDelegaSection() {
         try {
-            By letuedeleghePageTitle = By.xpath("//h3[contains(text(),'Le tue deleghe')]");
+            By letuedeleghePageTitle = By.xpath("//h3[@id ='title-of-page']");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(letuedeleghePageTitle));
             this.logger.info("Le tue deleghe page caricata");
         } catch (TimeoutException e) {
