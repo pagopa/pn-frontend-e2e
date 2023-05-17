@@ -1,0 +1,8 @@
+url: "https://selfcare.dev.notifichedigitali.it"
+user: "grossini"
+pwd: "test"
+provider: "spid:test"
+comune: "Palermo"
+ambiente: "dev"
+codiceFiscale: "77777777777"
+codiceAvviso: "302047770009990299"
