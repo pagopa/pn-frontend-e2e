@@ -10,6 +10,7 @@ Feature: Mittente seleziona l'opzione ruota api Key
     And Si visualizza correttamente la pagina Api Key
 
   @TestSuite
+  @robiOffre
   @test27
 
   Scenario: Mittente seleziona l'opzione ruota Api Key
@@ -18,5 +19,6 @@ Feature: Mittente seleziona l'opzione ruota api Key
     And Nella pagina Api Key si visualizza il pop up ruota Api Key
     And Nella pop up cliccare sul tasto conferma
     Then Nella pagina Api Key si visualizza la notifica selezionata nello stato ruota
+    #Aggiungere la roba di opzione bloccata
     And Logout da portale mittente
 

@@ -29,9 +29,6 @@ public class DettaglioNotificaSection extends BasePage {
     @FindBy(xpath = "//button[contains(text(),'Attestazione opponibile a terzi: ')]")
     List<WebElement> attestazioniFile;
 
-    @FindBy(xpath = "//button[contains(text(),'Vedi più dettagli')]")
-    WebElement piuDettagliButton;
-
     public DettaglioNotificaSection(WebDriver driver) {
         super(driver);
     }
@@ -126,19 +123,4 @@ public class DettaglioNotificaSection extends BasePage {
             Assert.fail("File non scaricato");
         }
     }
-
-    public void clickVediPiuDettaglio() {this.piuDettagliButton.click();}
-
-    public void siVisualizzaPercosoNotifica() {
-        try {
-            By percorsoNotificaby = By.xpath("//span[contains(text(),'Depositata')]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(percorsoNotificaby));
-            logger.info("Si visualizza il percorso della notifica");
-        }catch (TimeoutException e){
-            logger.error("Il percorso della notifica NON si visualizza correttamente con errore:"+e.getMessage());
-            Assert.fail("Il percorso della notifica NON si visualizza correttamente con errore:"+e.getMessage());
-        }
-    }
-
-    public void clickIndietroButton() {this.indietroButton.click();}
 }
