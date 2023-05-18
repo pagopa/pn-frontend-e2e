@@ -6,7 +6,7 @@ Feature: il mittente fa una ricerca combinata tra cf e periodo temporale
   @TestSuite
   @test12_1
   Scenario: il mittente fa una ricera sia per cf che per periodo temporale
-    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
+    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche DEV
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche inserire il codice fiscale da destinatario "destinatario"
     And Nella pagina Piattaforma Notifiche inserire un arco temporale

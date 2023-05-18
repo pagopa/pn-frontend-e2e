@@ -91,4 +91,90 @@ public class ApiKeysTest {
         ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
         apiKeyPAPage.siVisualizzaNuovaApiAttiva(nomeApiKey);
     }
+
+
+    @And("Nella sezione genera Api Key inserire un nome per l Api Key e un gruppo {string}")
+    public void nellaSezioneGeneraApiKeyInserireUnNomePerLApiKeyEUnGruppo(String gruppo) {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.inserireGruppoApi(gruppo);
+    }
+
+    @When("Nella pagina Api Key si clicca sul bottone menu di una Api Key attiva presente in elenco")
+    public void nellaPaginaApiKeySiCliccaSulBottoneMenuDiUnaApiKeyAttivaPresenteInElenco() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.clickMenuButton();
+    }
+
+
+    @And("Nella pagina Api Key si clicca sulla voce blocca del menu Api Key")
+    public void nellaPaginaApiKeySiCliccaSullaVoceBloccaDelMenuApiKey() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.clickSuBlocca();
+    }
+
+    @And("Nella pagina Api Key si visualizza il pop up blocca Api Key")
+    public void nellaPaginaApiKeySiVisualizzaIlPopUpBloccaApiKey() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.siVisualizzaPopUp();
+    }
+
+    @Then("Nella pagina Api Key si visualizza la notifica selezionata nello stato bloccata")
+    public void nellaPaginaApiKeySiVisualizzaLaNotificaSelezionataNelloStatoBloccata() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.notificaSelezionataStatoBloccata();
+    }
+
+    @When("Nella pagina Api Key si clicca sul bottone menu di una Api Key bloccata presente in elenco")
+    public void nellaPaginaApiKeySiCliccaSulBottoneMenuDiUnaApiKeyBloccataPresenteInElenco() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.clickMenuApiBloccata();
+    }
+
+    @And("Nella pagina Api Key si clicca sulla voce attiva del menu Api Key")
+    public void nellaPaginaApiKeySiCliccaSullaVoceAttivaDelMenuApiKey() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.clickAttivaSulMenu();
+    }
+
+    @And("Nella pagina Api Key si visualizza il pop up attiva Api Key")
+    public void nellaPaginaApiKeySiVisualizzaIlPopUpAttivaApiKey() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.siVisualizzaPoPUpAttiva();
+    }
+
+    @And("Nella pop up cliccare sul tasto conferma")
+    public void nellaPopUpCliccareSulConferma() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.clickSuConfermaNelPopUp();
+    }
+
+    @Then("Nella pagina Api Key si visualizza la notifica selezionata nello stato attiva")
+    public void nellaPaginaApiKeySiVisualizzaLaNotificaSelezionataNelloStatoAttiva() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.siVisualizzaNotificaSelezionataBloccata();
+    }
+
+    @And("Nella pagina Api Key si clicca sulla voce ruota del menu Api Key")
+    public void nellaPaginaApiKeySiCliccaSullaVoceRuotaDelMenuApiKey() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.clickRuotaSulMenu();
+    }
+
+    @And("Nella pagina Api Key si visualizza il pop up ruota Api Key")
+    public void nellaPaginaApiKeySiVisualizzaIlPopUpRuotaApiKey() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.siVisualizzaPoPUpRuota();
+    }
+
+    @Then("Nella pagina Api Key si visualizza la notifica selezionata nello stato ruota")
+    public void nellaPaginaApiKeySiVisualizzaLaNotificaSelezionataNelloStatoRuota() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.siVisualizzaNotificaSelezionataRuotata();
+    }
+
+    @And("Nella pop up cliccare sul tasto annulla")
+    public void nellaPopUpCliccareSulTastoAnnulla() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.clickSuAnnulla();
+    }
 }

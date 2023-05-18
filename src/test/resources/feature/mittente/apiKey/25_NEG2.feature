@@ -10,8 +10,6 @@ Feature: Mittente seleziona CTA annulla in blocca api Key
     And Si visualizza correttamente la pagina Api Key
 
   @TestSuite
-    @staiNegativo
-  @robiOffre
   @test25
 
   Scenario: Mittente seleziona CTA annulla in blocca api Key

@@ -56,6 +56,31 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePAPage.waitLoadPiattaformaNotifichePAPage();
     }
 
+    @When("Cliccare sulla notifica restituita")
+    public void cliccareSullaNotifica(){
+        logger.info("Si clicca sulla notifica");
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        piattaformaNotifichePAPage.selezionaNotifica();
+    }
+
+    @And("Si visualizza correttamente la section Dettaglio Notifica")
+    public void caricamentoSectionDettaglioNotifica() {
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        dettaglioNotificaSection.waitLoadDettaglioNotificaSection();
+    }
+
+    @And("Nella pagina dettaglio notifica cliccare sull'opzione vedi più dettagli")
+    public void nellaPaginaDettaglioNotificaCliccareSullOpzioneVediPiùInDettaglio() {
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        dettaglioNotificaSection.clickVediPiuDettaglio();
+    }
+
+    @And("Si visualizza correttamente l elenco completo degli stati che la notifica ha percorso")
+    public void siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso() {
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        dettaglioNotificaSection.siVisualizzaPercosoNotifica();
+    }
+
     @And("Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica")
     public void nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica() {
         logger.info("selezione bottone invia una nuova notifica");
@@ -296,5 +321,11 @@ public class NotificaMittentePagoPATest {
         CookiesSection cookiesSection = new CookiesSection(this.driver);
         cookiesSection.waitLoadCookiesPage();
         cookiesSection.selezionaAccettaTuttiButton();
+    }
+
+    @Then("Si clicca sul bottone indietro")
+    public void siCliccaSulBottoneIndietro() {
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        dettaglioNotificaSection.clickIndietroButton();
     }
 }

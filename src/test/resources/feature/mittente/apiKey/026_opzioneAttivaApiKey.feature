@@ -10,10 +10,9 @@ Feature: Mittente seleziona l'opzione attiva api Key
     And Si visualizza correttamente la pagina Api Key
 
   @TestSuite
-  @robiOffre
   @test26
 
-  Scenario: Mittente seleziona l'opzione ruota Api Key
+  Scenario: Mittente seleziona l'opzione attiva Api Key
     When Nella pagina Api Key si clicca sul bottone menu di una Api Key bloccata presente in elenco
     And Nella pagina Api Key si clicca sulla voce attiva del menu Api Key
     And Nella pagina Api Key si visualizza il pop up attiva Api Key

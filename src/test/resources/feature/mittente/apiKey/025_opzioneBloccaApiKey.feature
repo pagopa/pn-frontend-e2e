@@ -11,7 +11,7 @@ Feature: Mittente seleziona l'opzione blocca api Key
 
   @TestSuite
   @test25
-  @robiOffre
+
 
   Scenario: Mittente seleziona l'opzione blocca Api Key
     When Nella pagina Api Key si clicca sul bottone menu di una Api Key attiva presente in elenco
