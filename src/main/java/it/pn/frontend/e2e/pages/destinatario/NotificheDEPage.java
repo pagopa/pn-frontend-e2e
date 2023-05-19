@@ -31,10 +31,8 @@ public class NotificheDEPage extends BasePage {
 
     public void waitLoadNotificheDEPage() {
         try{
-            By titleLabel = By.cssSelector("h4.MuiTypography-root.MuiTypography-h4");
-            By tableNotifiche = By.cssSelector("table[aria-label='Tabella di item']");
+            By titleLabel = By.id("title-of-page");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
             logger.info("Notifiche DE Page non caricata");
         }catch (TimeoutException e){
             logger.error("Notifiche DE Page non caricata con errore : "+e.getMessage());
@@ -54,8 +52,8 @@ public class NotificheDEPage extends BasePage {
 
     public void waitESelectDelegheButton() {
         try{
-            //By buttonDelegeBy = By.xpath("//div[contains(@data-testid,'sideMenuItem-Deleghe')]");
-            By buttonDelegeBy = By.xpath("//div[contains(@class,'MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters')][2]");
+            By buttonDelegeBy = By.xpath("//div[contains(@data-testid,'sideMenuItem-Deleghe')]");
+            //By buttonDelegeBy = By.xpath("//div[contains(@class,'MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters')][2]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(buttonDelegeBy));
             WebElement buttonDelegheWebElement = this.driver.findElement(buttonDelegeBy);
             buttonDelegheWebElement.click();

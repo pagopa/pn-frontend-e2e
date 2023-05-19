@@ -24,7 +24,7 @@ public class ConfermaDatiSpidDEPage extends BasePage {
     @FindBy(xpath = "//li[contains(text(),'fiscalNumber')]/strong")
     WebElement fiscalNumberLabel;
 
-    @FindBy(css = "input[value='Conferma']")
+    @FindBy(xpath = "//input[contains(@value,'Conferma')]")
     WebElement confermaButton;
 
 

@@ -18,7 +18,7 @@ public class SelezionaEntePAPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("SelezionaEntePAPage");
 
-    @FindBy(xpath = "//div[@role='button']//h6")
+    @FindBy(xpath = "//div[contains(@data-testid,'PartyItemContainer: Comune di Palermo')]")
     List<WebElement> comuneButton;
 
     @FindBy(xpath = "//button[text()='Accedi']")

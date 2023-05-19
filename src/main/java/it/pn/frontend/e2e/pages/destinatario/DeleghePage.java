@@ -15,7 +15,7 @@ public class DeleghePage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DeleghePage");
 
-    @FindBy(xpath = "//button[contains(text(),'Aggiungi una delega')]")
+    @FindBy(xpath = "//button[contains(@data-testid,'add-delegation')]")
     WebElement addDelegaButton;
     public DeleghePage(WebDriver driver) {
         super(driver);
@@ -23,7 +23,7 @@ public class DeleghePage extends BasePage {
 
     public void waitDeleghePage() {
         try {
-            By deleghePageTitle = By.xpath("//h4[contains(text(),'Deleghe')]");
+            By deleghePageTitle = By.xpath("//h4[contains(@id,'title-of-page')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(deleghePageTitle));
             this.logger.info("Deleghe page caricata");
         } catch (TimeoutException e) {

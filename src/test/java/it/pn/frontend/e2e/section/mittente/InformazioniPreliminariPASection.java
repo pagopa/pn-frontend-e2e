@@ -39,6 +39,8 @@ public class InformazioniPreliminariPASection extends BasePage {
 
     public void waitLoadInformazioniPreliminariPASection() {
         try {
+            By inviaNuovaNotificaPageTitleBy = By.xpath("//h4[@id='title-of-page']");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(inviaNuovaNotificaPageTitleBy));
             By inofrmazioniTitle = By.xpath("//h3[contains(text(),'Informazioni preliminari')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(inofrmazioniTitle));
             logger.info("Informazioni preliminari PA Section caricata");

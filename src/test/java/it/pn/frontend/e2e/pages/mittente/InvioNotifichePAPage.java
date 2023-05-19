@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class InvioNotifichePAPage extends BasePage {
-    @FindBy(xpath = "//button[contains(text(),'Continua')]")
+    @FindBy(xpath = "//button[contains(@data-testid,'step-submit')]")
     WebElement continuaButton;
 
     public InvioNotifichePAPage(WebDriver driver) {
