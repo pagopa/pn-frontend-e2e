@@ -30,6 +30,7 @@ public class LoginDestinatarioPagoPA {
         this.driver.get(this.datiDestinatario.get("url").toString());
     }
 
+
     @When("Login con destinatario {string}")
     public void login_con_destinatario(String datiDestinatario) {
         logger.info("user destinatario : "+this.datiDestinatario.get("user").toString());

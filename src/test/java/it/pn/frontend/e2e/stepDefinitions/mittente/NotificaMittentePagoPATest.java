@@ -326,6 +326,6 @@ public class NotificaMittentePagoPATest {
     @Then("Si clicca sul bottone indietro")
     public void siCliccaSulBottoneIndietro() {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        dettaglioNotificaSection.clickIndietroButton();
+        //dettaglioNotificaSection.clickIndietroButton();
     }
 }

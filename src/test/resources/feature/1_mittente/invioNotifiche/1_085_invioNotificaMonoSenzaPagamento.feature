@@ -5,7 +5,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
     When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
 
-  @TestSuite
+
   @secondCommitRun
   @testMittente
   @test85

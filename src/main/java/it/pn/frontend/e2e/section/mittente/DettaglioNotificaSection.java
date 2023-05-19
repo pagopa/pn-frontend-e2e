@@ -140,5 +140,5 @@ public class DettaglioNotificaSection extends BasePage {
         }
     }
 
-    public void clickIndietroButton() {this.indietroButton.click();}
+    //public void clickIndietroButton() {this.indietroButton.click();}
 }

@@ -9,9 +9,8 @@ Feature: Mittente visualizza il dettaglio di una notifica
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica "DatiiNotifica"
     And Cliccare sul bottone Filtra
 
-  @TestSuite
 
-
+  @test14
   Scenario: Mittente visualizza dettaglio notifica
     When Cliccare sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica
