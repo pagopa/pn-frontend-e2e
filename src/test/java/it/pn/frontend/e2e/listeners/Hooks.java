@@ -136,6 +136,8 @@ public class Hooks {
             this.headless = System.getProperty("headless");
         }
 
+
+
         switch (browser) {
             case "firefox" -> firefox();
             case "chrome" -> chrome();

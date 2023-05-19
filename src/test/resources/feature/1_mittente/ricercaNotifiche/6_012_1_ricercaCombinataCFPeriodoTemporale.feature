@@ -3,7 +3,7 @@ Feature: il mittente fa una ricerca combinata tra cf e periodo temporale
     Given Login Page mittente "mittente" viene visualizzata
     When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
-  @TestSuite
+
   @test12_1
   Scenario: il mittente fa una ricera sia per cf che per periodo temporale
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
