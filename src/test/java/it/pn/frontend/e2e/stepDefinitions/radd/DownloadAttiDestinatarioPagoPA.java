@@ -177,7 +177,7 @@ public class DownloadAttiDestinatarioPagoPA {
     @And("nella pagina Richiesta Atti sezione Caricamento documenti caricare il documento di riconoscimento del delegato nel box due Carica il documento di riconoscimento del delegato")
     public void CaricareIlDocumentoDelDelegatoNelBox() {
         RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
-        File documentoFile1 = new File("src/test/resources/dataPopulation/fileUpload/semiOfficial2.jpg");
+        File documentoFile1 = new File("src/test/resources/dataPopulation/fileUpload/semiOfficial3.jpg");
         String pathDocumentiFile1 = documentoFile1.getAbsolutePath();
         richiestaAttiPage.uploadFilefromPC1(pathDocumentiFile1);
     }
