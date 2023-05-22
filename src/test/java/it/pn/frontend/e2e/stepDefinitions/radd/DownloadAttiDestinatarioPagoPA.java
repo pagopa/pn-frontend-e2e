@@ -25,7 +25,7 @@ public class DownloadAttiDestinatarioPagoPA {
     private Map<String, Object> datiRADD = new HashMap<>();
 
     @Given("la Homepage RADD è visualizzata correttamente")
-    public void la_homepage_radd_è_visualizzata_correttamente() {
+    public void la_homepage_radd_e_visualizzata_correttamente() {
         HomePage homePage = new HomePage(this.driver);
         homePage.siVisualizzaCorrettamenteHomePage();
     }
@@ -38,7 +38,7 @@ public class DownloadAttiDestinatarioPagoPA {
     }
 
     @Then("la pagina Richiesta Atti sezione Dati della notifica è visualizzata correttamente")
-    public void laPaginaRichiestaAttiSezioneDatiDellaNotificaÈVisualizzataCorrettamente() {
+    public void laPaginaRichiestaAttiSezioneDatiDellaNotificaEVisualizzataCorrettamente() {
         HomePage homePage = new HomePage(this.driver);
         homePage.richiestaAttipageSiVisualizzaCorretamente();
     }
@@ -81,7 +81,7 @@ public class DownloadAttiDestinatarioPagoPA {
     }
 
     @And("la pagina atti-opponibili-terzi sezione Caricamento documenti è visualizzata correttamente")
-    public void laPaginaAttiOpponibiliTerziSezioneCaricamentoDocumentiÈVisualizzataCorrettamente() {
+    public void laPaginaAttiOpponibiliTerziSezioneCaricamentoDocumentiEVisualizzataCorrettamente() {
         RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
         richiestaAttiPage.waitLoadCaricamentoDocumenti();
     }
@@ -97,13 +97,13 @@ public class DownloadAttiDestinatarioPagoPA {
 //            throw new RuntimeException(e);
 //        }
 
-        File documentoFile = new File("src/test/resources/dataPopulation/fileUpload/fake_passports.jpg");
+        File documentoFile = new File("src/test/resources/dataPopulation/fileUpload/semiOfficial1.jpg");
         String pathDocumentiFile = documentoFile.getAbsolutePath();
         richiestaAttiPage.uploadFilefromPC(pathDocumentiFile);
     }
 
     @And("nella pagina atti-opponibili-terzi sezione Allegati e attestazioni nei box dei documenti scaricati è visibile la spunta verde")
-    public void NeiBoxDeiDocumentiScaricatiÈVisibileLaSpuntaVerde() {
+    public void NeiBoxDeiDocumentiScaricatiEVisibileLaSpuntaVerde() {
         RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
         richiestaAttiPage.spuntaVerdeDownload();
     }
@@ -115,7 +115,7 @@ public class DownloadAttiDestinatarioPagoPA {
     }
 
     @And("la pagina atti-opponibili-terzi sezione Allegati e attestazioni è visualizzata correttamente")
-    public void laPaginaAttiOpponibiliTerziSezioneAllegatiEAttestazioniÈVisualizzataCorrettamente() {
+    public void laPaginaAttiOpponibiliTerziSezioneAllegatiEAttestazioniEVisualizzataCorrettamente() {
         RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
         richiestaAttiPage.waitLoadAllegatiAttestazioni();
     }
@@ -133,7 +133,7 @@ public class DownloadAttiDestinatarioPagoPA {
 
 
     @Given("operatore è loggato")
-    public void operatoreÈLoggato() {
+    public void operatoreELoggato() {
         DataPopulation dataPopulation = new DataPopulation();
         Map<String,Object> datiNotifica = dataPopulation.readDataPopulation("RADD.yaml");
 
@@ -177,7 +177,7 @@ public class DownloadAttiDestinatarioPagoPA {
     @And("nella pagina Richiesta Atti sezione Caricamento documenti caricare il documento di riconoscimento del delegato nel box due Carica il documento di riconoscimento del delegato")
     public void CaricareIlDocumentoDelDelegatoNelBox() {
         RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
-        File documentoFile1 = new File("src/test/resources/dataPopulation/fileUpload/passaporto-italiano_th.jpg");
+        File documentoFile1 = new File("src/test/resources/dataPopulation/fileUpload/semiOfficial2.jpg");
         String pathDocumentiFile1 = documentoFile1.getAbsolutePath();
         richiestaAttiPage.uploadFilefromPC1(pathDocumentiFile1);
     }
@@ -191,19 +191,19 @@ public class DownloadAttiDestinatarioPagoPA {
     }
 
     @And("la pagina Richiesta Atti sezione Allegati e attestazioni è visualizzata correttamente")
-    public void laPaginaRichiestaAttiSezioneAllegatiEAttestazioniÈVisualizzataCorrettamente() {
+    public void laPaginaRichiestaAttiSezioneAllegatiEAttestazioniEVisualizzataCorrettamente() {
         RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
         richiestaAttiPage.attestazioniSectionIsDisplayed();
     }
 
     @And("nella pagina Richiesta Atti sezione Allegati e attestazioni è visualizzata la frase Assicurati di scaricare tutti i documenti")
-    public void nellaPaginaRichiestaAttiSezioneAllegatiEAttestazioniÈVisualizzataLaFraseAssicuratiDiScaricareTuttiIDocumenti() {
+    public void nellaPaginaRichiestaAttiSezioneAllegatiEAttestazioniEVisualizzataLaFraseAssicuratiDiScaricareTuttiIDocumenti() {
         RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
         richiestaAttiPage.assicuratiIsDisplayed();
     }
 
     @Then("nella pagina di conferma cliccare sul link dello storico")
-    public void nellaPaginadiConfermaLaFraseStoricoDelleRicercheÈLinkata() {
+    public void nellaPaginadiConfermaLaFraseStoricoDelleRicercheELinkata() {
         RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
         richiestaAttiPage.clickLinkStorico();
     }
