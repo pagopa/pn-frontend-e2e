@@ -15,7 +15,7 @@ public class ScegliSpidDEPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("ScegliSpidDEPage");
 
-    @FindBy(css = "button > span > img[alt='test']")
+    @FindBy(xpath = "//button[contains(@id,'spid-select-xx_testenv2')]")
     WebElement testButton;
 
     public ScegliSpidDEPage(WebDriver driver) {
