@@ -1,4 +1,6 @@
-url: "https://cittadini.dev.notifichedigitali.it/"
+urlDev: "https://cittadini.dev.notifichedigitali.it/"
+urlTest: "https://cittadini.test.notifichedigitali.it/"
+urlUat: "https://cittadini.uat.notifichedigitali.it/"
 user: "cristoforocolombo"
 pwd: "password123"
 provider: "spid:test"

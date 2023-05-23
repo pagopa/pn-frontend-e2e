@@ -1,6 +1,5 @@
 package it.pn.frontend.e2e.stepDefinitions.mittente;
 
-import com.beust.jcommander.Parameterized;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -31,20 +30,16 @@ public class NotificaMittentePagoPATest {
     private Map<String, Object> datiNotifica = new HashMap<>();
     private Map<String, Object> destinatario = new HashMap<>();
 
-    @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche DEV")
-    public void nellaHomePageMittenteCliccareSuGestisciDiPiattaformaDEV() {
-        logger.info("Cliccare sul bottone Gestisci di Piattaforma Notifiche DEV");
-
+    @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
+    public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
+        logger.info("Cliccare sul bottone Gestisci di Piattaforma Notifiche");
         AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
-        areaRiservataPAPage.selezionaPiattaformaNotificaDev();
-    }
-
-    @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche SVIL")
-    public void nellaHomePageMittenteCliccareSuGestisciDiPiattaformaSVIL() {
-        logger.info("Cliccare sul bottone Gestisci di Piattaforma Notifiche SVIL");
-
-        AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
-        areaRiservataPAPage.selezionaPiattaformaNotificaSvil();
+        String variabileAmbiente = System.getProperty("environment");
+        switch (variabileAmbiente){
+            case "dev" -> areaRiservataPAPage.selezionaPiattaformaNotificaDev();
+            case "test" -> areaRiservataPAPage.selezionaPiattaformaNotificaTest();
+            case "uat" -> areaRiservataPAPage.selezionaPiattaformaNotificaUat();
+        }
     }
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche")
@@ -231,7 +226,7 @@ public class NotificaMittentePagoPATest {
     }
 
     @Then("Si visualizza correttamente la frase La notifica è stata correttamente creata")
-    public void siVisualizzaCorrettamenteLaFraseLaNotificaÈStataCorrettamenteCreata() {
+    public void siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata() {
         logger.info("Verifica visualizzazione frase: La notifica è stata correttamente creata");
 
         HeaderPASection headerPASection = new HeaderPASection(this.driver);

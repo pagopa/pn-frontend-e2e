@@ -26,8 +26,14 @@ public class LoginDestinatarioPagoPA {
     @Given("Login Page destinatario {string} viene visualizzata")
     public void login_page_destinatario_viene_visualizzata(String datiDestinatario) {
         DataPopulation dataPopulation = new DataPopulation();
-        this.datiDestinatario = dataPopulation.readDataPopulation(datiDestinatario+".yaml");
-        this.driver.get(this.datiDestinatario.get("url").toString());
+        this.datiDestinatario = dataPopulation.readDataPopulation(datiDestinatario + ".yaml");
+        String variabileAmbiente = System.getProperty("environment");
+        switch (variabileAmbiente) {
+            case "dev" -> this.driver.get(this.datiDestinatario.get("urlDev").toString());
+            case "test" -> this.driver.get(this.datiDestinatario.get("urlTest").toString());
+            case "uat" -> this.driver.get(this.datiDestinatario.get("urlUat").toString());
+            default -> Assert.fail("Non stato possibile trovare l'ambiente inserito, Insaerisci in -Denvironment test o dev o uat");
+        }
     }
 
     @When("Login con destinatario {string}")

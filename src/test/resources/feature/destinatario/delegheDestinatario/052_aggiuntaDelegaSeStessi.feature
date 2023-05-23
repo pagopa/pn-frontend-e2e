@@ -6,9 +6,8 @@ Feature: Il destinatario visualizza il codice di una delega
     Then Home page destinatario viene visualizzata correttamente
 
   @TestSuite
-  @secondCommitRun
-  @testDestinatario
   @test52
+
   Scenario:
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche Destinatario si vede la sezione Deleghe

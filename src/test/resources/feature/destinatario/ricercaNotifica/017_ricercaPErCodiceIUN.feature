@@ -7,9 +7,8 @@ Feature: Ricerca Destinatario per Codice IUN
     Then  Home page destinatario viene visualizzata correttamente
 
   @TestSuite
-  @secondCommitRun
-  @testDestinatario
   @test17
+
   Scenario:
     When Si visualizza correttamente la pagina Piattaforma Notifiche Destinatario
     And Nella pagina Piattaforma Notifiche  Destinatario inserire il codice IUN da dati notifica "datiNotifica"

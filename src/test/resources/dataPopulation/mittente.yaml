@@ -1,4 +1,6 @@
-url: "https://selfcare.dev.notifichedigitali.it"
+urlDev: "https://selfcare.dev.notifichedigitali.it"
+urlTest: "https://selfcare.test.notifichedigitali.it"
+urlUat: "https://selfcare.uat.notifichedigitali.it"
 user: "grossini"
 pwd: "test"
 provider: "spid:test"

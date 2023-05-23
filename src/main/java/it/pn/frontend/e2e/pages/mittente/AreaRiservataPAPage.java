@@ -23,8 +23,12 @@ public class AreaRiservataPAPage extends BasePage {
     @FindBy(xpath = "//button[contains(@id,'forward_prod-pn-dev')]")
     WebElement piattaformaNotificaDevGestisciButton;
 
-    @FindBy(xpath = "//button[contains(@id,'forward_prod-pn-svil')]")
-    WebElement svilLButton;
+    @FindBy(xpath = "//button[contains(@id,'forward_prod-pn-test')]")
+    WebElement piattaformaNotificaTestGestisciButton;
+
+    @FindBy(xpath = "//button[@id='forward_prod-pn']")
+    WebElement piattaformaNotificaUatGestisciButton;
+
 
     public AreaRiservataPAPage(WebDriver driver) {
         super(driver);
@@ -61,13 +65,21 @@ public class AreaRiservataPAPage extends BasePage {
             this.piattaformaNotificaDevGestisciButton.click();
         }
     }
-
-    public void selezionaPiattaformaNotificaSvil() {
-        if(this.svilLButton.isDisplayed()){
-            this.svilLButton.click();
+    public void selezionaPiattaformaNotificaTest() {
+        if(this.piattaformaNotificaTestGestisciButton.isDisplayed()){
+            this.piattaformaNotificaTestGestisciButton.click();
         }else{
             this.js().executeScript("arguments[0].scrollIntoView(true);",this.piattaformaNotificaDevGestisciButton);
-            this.svilLButton.click();
+            this.piattaformaNotificaTestGestisciButton.click();
+        }
+    }
+
+    public void selezionaPiattaformaNotificaUat() {
+        if(this.piattaformaNotificaUatGestisciButton.isDisplayed()){
+            this.piattaformaNotificaUatGestisciButton.click();
+        }else{
+            this.js().executeScript("arguments[0].scrollIntoView(true);",this.piattaformaNotificaDevGestisciButton);
+            this.piattaformaNotificaUatGestisciButton.click();
         }
     }
 }

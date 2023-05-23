@@ -6,9 +6,8 @@ Feature: Ricerca notifica per periodo temporale Destinatario
     Then Home page destinatario viene visualizzata correttamente
 
   @TestSuite
-  @secondCommitRun
-    @testDestinatario
   @test18
+
   Scenario Outline: il destinatario fa una ricerca per date
     When Si visualizza correttamente la pagina Piattaforma Notifiche Destinatario
     And Nella pagina Piattaforma Notifiche Destinatario inserire una data da <DA> a <A>

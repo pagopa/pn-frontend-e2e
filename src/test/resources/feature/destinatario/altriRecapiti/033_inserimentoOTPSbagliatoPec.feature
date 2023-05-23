@@ -6,9 +6,8 @@ Feature: il destinatario inserisce una OTP sbagliato PEC
     Then Home page destinatario viene visualizzata correttamente
 
   @TestSuite
-  @secondCommitRun
-  @testDestinatario
   @test33
+
   Scenario: il destinatario loggato inserisce un OTP sbagliato PEC
     When Nella pagina Piattaforma Notifiche Destinatario si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti

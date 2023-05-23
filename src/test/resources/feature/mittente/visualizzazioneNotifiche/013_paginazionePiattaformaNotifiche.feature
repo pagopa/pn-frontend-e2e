@@ -5,10 +5,10 @@ Feature:il mittente cambia visualizzazione della pagina3
     When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
 
-  @TestSuite
   @test13
+
   Scenario Outline:
-    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche DEV
+    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche si visualizzano le notifiche a partire dalla più recente
     And Nella pagina Piattaforma Notifiche si scrolla fino alla fine della pagina
