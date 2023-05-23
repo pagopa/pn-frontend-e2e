@@ -9,10 +9,7 @@ Feature: Mittente seleziona CTA annulla in blocca api Key
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
     And Si visualizza correttamente la pagina Api Key
 
-  @TestSuite
-    @staiNegativo
-  @robiOffre
-  @test25
+    @test25_neg2
 
   Scenario: Mittente seleziona CTA annulla in blocca api Key
     When Nella pagina Api Key si clicca sul bottone menu di una Api Key attiva presente in elenco

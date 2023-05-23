@@ -11,9 +11,8 @@ Feature: Mittente visualizza correttamente la sezione genera Api Key
     And Si visualizza correttamente la pagina Api Key
 
   @TestSuite
-  @secondCommitRun
-  @testMittente
   @test21
+
   Scenario:
     When Nella pagina Api Key si clicca sul bottone genera Api Key
     Then Si visualizza correttamente la sezione genera Api key

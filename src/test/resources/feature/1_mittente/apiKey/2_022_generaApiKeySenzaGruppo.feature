@@ -11,9 +11,8 @@ Feature: Mittente genera Api Key senza gruppo
     And Si visualizza correttamente la pagina Api Key
 
   @TestSuite
-  @secondCommitRun
-  @testMittente
   @test22
+
   Scenario:
     When Nella pagina Api Key si clicca sul bottone genera Api Key
     And Si visualizza correttamente la sezione genera Api key

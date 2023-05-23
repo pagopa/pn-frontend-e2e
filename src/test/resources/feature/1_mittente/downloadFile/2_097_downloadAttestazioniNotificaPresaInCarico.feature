@@ -13,6 +13,6 @@ Feature: il mittente download attestazione notifica presa in carico
   Scenario: il mittente scarica il file Attestazione opponibile a terzi: notifica presa in carico
     When Cliccare sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica
-    And Si selezionano il file, "Attestazione opponibile a terzi: notifica presa in carico", da scaricare
+    And Nella section dettagli notifica si seleziona il file, "Attestazione opponibile a terzi: notifica presa in carico", da scaricare
     Then Si controlla il testo all interno del file "Attestazione opponibile a terzi: notifica presa in carico"
     And Logout da portale mittente

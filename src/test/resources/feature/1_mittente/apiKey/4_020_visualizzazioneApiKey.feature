@@ -5,8 +5,8 @@ Feature: Mittente visualizza correttamente la pagina Api Key
     When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
 
-#  @TestSuite
   @test20
+
   Scenario: Mittente visualizza correttamente la pagina Api Key
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche DEV
     And Si visualizza correttamente la pagina Piattaforma Notifiche

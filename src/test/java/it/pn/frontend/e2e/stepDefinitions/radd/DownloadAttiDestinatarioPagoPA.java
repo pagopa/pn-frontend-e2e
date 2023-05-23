@@ -97,7 +97,7 @@ public class DownloadAttiDestinatarioPagoPA {
 //            throw new RuntimeException(e);
 //        }
 
-        File documentoFile = new File("src/test/resources/dataPopulation/fileUpload/fake_passports.jpg");
+        File documentoFile = new File("src/test/resources/dataPopulation/fileUpload/semiOfficial3.jpg");
         String pathDocumentiFile = documentoFile.getAbsolutePath();
         richiestaAttiPage.uploadFilefromPC(pathDocumentiFile);
     }
@@ -177,7 +177,7 @@ public class DownloadAttiDestinatarioPagoPA {
     @And("nella pagina Richiesta Atti sezione Caricamento documenti caricare il documento di riconoscimento del delegato nel box due Carica il documento di riconoscimento del delegato")
     public void CaricareIlDocumentoDelDelegatoNelBox() {
         RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
-        File documentoFile1 = new File("src/test/resources/dataPopulation/fileUpload/passaporto-italiano_th.jpg");
+        File documentoFile1 = new File("src/test/resources/dataPopulation/fileUpload/semiOfficial1.jpg");
         String pathDocumentiFile1 = documentoFile1.getAbsolutePath();
         richiestaAttiPage.uploadFilefromPC1(pathDocumentiFile1);
     }

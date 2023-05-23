@@ -10,8 +10,8 @@ Feature: Mittente genera Api Key senza gruppo
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
     And Si visualizza correttamente la pagina Api Key
 
-#  @TestSuite
   @test23
+
   Scenario:
     When Nella pagina Api Key si clicca sul bottone genera Api Key
     And Si visualizza correttamente la sezione genera Api key

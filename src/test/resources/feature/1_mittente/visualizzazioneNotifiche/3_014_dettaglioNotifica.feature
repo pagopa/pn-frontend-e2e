@@ -11,6 +11,7 @@ Feature: Mittente visualizza il dettaglio di una notifica
 
 
   @test14
+
   Scenario: Mittente visualizza dettaglio notifica
     When Cliccare sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica
