@@ -4,6 +4,8 @@ Feature: il mittente fa una ricerca combinata tra stato e data
     When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
 
+  @TestSuite
+
   @test12_2
 
   Scenario Outline: il mittente fa una ricerca sia per data che per stato
@@ -16,4 +18,4 @@ Feature: il mittente fa una ricerca combinata tra stato e data
     And Logout da portale mittente
     Examples:
       |     stato      |
-      | Invio in Corso |
+      | Perfezionata per decorrenza termini |

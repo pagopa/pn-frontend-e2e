@@ -9,6 +9,8 @@ Feature: Mittente seleziona l'opzione ruota api Key
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
     And Si visualizza correttamente la pagina Api Key
 
+  @TestSuite
+
   @test27
 
   Scenario: Mittente seleziona l'opzione ruota Api Key

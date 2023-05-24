@@ -25,6 +25,9 @@ public class NotificheDEPage extends BasePage {
     @FindBy(id = "endDate")
     WebElement dataFineField;
 
+    @FindBy(xpath = "//div[contains(@data-testid,'sideMenuItem-Notifiche')]")
+    WebElement notificheDeButton;
+
     public NotificheDEPage(WebDriver driver) {
         super(driver);
     }
@@ -122,6 +125,51 @@ public class NotificheDEPage extends BasePage {
             return true;
         }catch (TimeoutException e){
             return false;
+        }
+    }
+
+    public void clickNotificheButton() {this.notificheDeButton.click();}
+
+    public void siVisualizzaPaginaNotificheDestinatario() {
+        try {
+            By notifichePageTitleBy = By.xpath("//h4[contains(@id,'title-of-page')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notifichePageTitleBy));
+            logger.info("La pagina notifiche destinatario si visualizza correttamente");
+        }catch (TimeoutException e){
+            logger.error("La pagina notifiche destinatario NON si visualizza correttamente con errore:"+e.getMessage());
+            Assert.fail("La pagina notifiche destinatario NON si visualizza correttamente con errore:"+e.getMessage());
+        }
+    }
+
+    public void siVisualizzanoFiltriRicerca() {
+        try {
+            By filtroCodiceIunBy = By.id("iunMatch");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(filtroCodiceIunBy));
+            By filtroDataDaBy = By.id("startDate");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(filtroDataDaBy));
+            By filtroDataABy = By.id("endDate");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(filtroDataABy));
+            logger.info("Si visualizzano correttamente i filtri ricerca");
+        }catch (TimeoutException e){
+            logger.error("Non si visualizzano correttamente i filtri ricerca con errore:"+e.getMessage());
+            Assert.fail("Non si visualizzano correttamente i filtri ricerca con errore:"+e.getMessage());
+        }
+    }
+
+    public void siVisualizzaElencoNotifiche() {
+        try {
+            By elementoDellaListaBy = By.xpath("//tr[contains(@data-testid,'table(notifications).row')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(elementoDellaListaBy));
+            By nomeColonnaDataBy = By.xpath("//th[contains(text(),'Data')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaDataBy));
+            By nomeColonnaOggettoBy = By.xpath("//th[contains(text(),'Oggetto')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaOggettoBy));
+            By nomeColonnaMittenteBy = By.xpath("//th[contains(text(),'Mittente')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaMittenteBy));
+            logger.info("Si visualizza correttamente l'elenco delle notifiche");
+        }catch (Exception e){
+            logger.error("NON si visualizza correttamente l'elenco delle notifiche con errore:"+e.getMessage());
+            Assert.fail("NON si visualizza correttamente l'elenco delle notifiche con errore:"+e.getMessage());
         }
     }
 }
