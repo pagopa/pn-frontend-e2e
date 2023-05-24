@@ -5,9 +5,8 @@ Feature: Il destinatario aggiunge una nuova delega
     When Login con destinatario "destinatario"
     Then Home page destinatario viene visualizzata correttamente
 
-  #@TestSuite
-
   @test45
+
   Scenario:
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche Destinatario si vede la sezione Deleghe

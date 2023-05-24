@@ -6,9 +6,9 @@ Feature: Download Atti Destinatario
     When nella Homepage RADD sezione Documenti allegati della notifica e attestazioni opponibili a terzi clicca sul bottone con freccia
     Then la pagina Richiesta Atti sezione Dati della notifica è visualizzata correttamente
 
-  @TestSuite
-    @RADD
-  @Test1
+
+  @RADD
+  @test1
 
   Scenario: Download Atti Destinatario
     When nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il codice IUN "RADD"

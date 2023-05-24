@@ -43,7 +43,7 @@ public class LeTueDelegheSection extends BasePage {
     @FindBy(id ="enti-select")
     WebElement enteElementInput;
 
-    @FindBy(xpath = "//button[contains(text(),'Torna alle deleghe')]")
+    @FindBy(xpath = "//button[@id='courtesy-page-button']")
     WebElement tornaDelegheButton;
 
     /*@FindBy(xpath = "//button[contains(@data-testid,'delegationMenuIcon')]")

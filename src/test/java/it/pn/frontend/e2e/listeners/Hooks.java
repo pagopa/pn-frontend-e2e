@@ -115,7 +115,6 @@ public class Hooks {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         //driver.get(this.url);
         logger.info("edge driver started");
-
     }
 
     @Before
@@ -134,6 +133,10 @@ public class Hooks {
 
         if(System.getProperty("headless") != null){
             this.headless = System.getProperty("headless");
+        }
+
+        if (System.getProperty("environment") == null){
+            Assert.fail(" valorizzare la variabile environment");
         }
 
         switch (browser) {

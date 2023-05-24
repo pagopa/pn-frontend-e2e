@@ -9,6 +9,7 @@ import it.pn.frontend.e2e.pages.mittente.*;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,9 +27,15 @@ public class LoginMittentePagoPA {
     @Given("Login Page mittente {string} viene visualizzata")
     public void login_page_mittente_viene_visualizzata(String datiMittenteFile) {
         DataPopulation dataPopulation = new DataPopulation();
-        this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile+".yaml");
-        this.driver.get(this.datiMittente.get("url").toString());
+        this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
+        String variabileAmbiente = System.getProperty("environment");
+        switch (variabileAmbiente) {
+            case "dev" -> this.driver.get(this.datiMittente.get("url").toString());
+            case "test", "uat" -> this.driver.get(this.datiMittente.get("url").toString().replace("dev",variabileAmbiente));
+            default -> Assert.fail("Non stato possibile trovare l'ambiente inserito, Insaerisci in -Denvironment test o dev o uat");
+        }
     }
+
     @When("Login con mittente {string}")
     public void login_con_mittente(String datiMittenteFile) {
         DataPopulation dataPopulation = new DataPopulation();

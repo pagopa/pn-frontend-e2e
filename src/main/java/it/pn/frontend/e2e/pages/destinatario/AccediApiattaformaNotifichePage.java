@@ -15,7 +15,7 @@ public class AccediApiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("AccediApiattaformaNotifichePage");
 
-    @FindBy(css = "button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-sizeMedium.MuiButton-containedSizeMedium.MuiButton-disableElevation")
+    @FindBy(xpath = "//button[contains(@id,'login-button')]")
     WebElement accediButton;
 
     public AccediApiattaformaNotifichePage(WebDriver driver) {
@@ -24,7 +24,7 @@ public class AccediApiattaformaNotifichePage extends BasePage {
 
     public void waitLoadAccediApiattaformaNotifichePage(){
         try{
-            By titleLabel = By.cssSelector("h4.MuiTypography-root.MuiTypography-h4.MuiTypography-alignCenter");
+            By titleLabel = By.xpath("//h4[contains(@id,'login-page-title')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
             logger.info("Accedi A Piattaforma Notifiche Page caricata");
         }catch (TimeoutException e){
