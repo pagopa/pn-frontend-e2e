@@ -29,9 +29,8 @@ public class LoginDestinatarioPagoPA {
         this.datiDestinatario = dataPopulation.readDataPopulation(datiDestinatario + ".yaml");
         String variabileAmbiente = System.getProperty("environment");
         switch (variabileAmbiente) {
-            case "dev" -> this.driver.get(this.datiDestinatario.get("urlDev").toString());
-            case "test" -> this.driver.get(this.datiDestinatario.get("urlTest").toString());
-            case "uat" -> this.driver.get(this.datiDestinatario.get("urlUat").toString());
+            case "dev" -> this.driver.get(this.datiDestinatario.get("url").toString());
+            case "test", "uat" -> this.driver.get(this.datiDestinatario.get("url").toString().replace("dev",variabileAmbiente));
             default -> Assert.fail("Non stato possibile trovare l'ambiente inserito, Insaerisci in -Denvironment test o dev o uat");
         }
     }

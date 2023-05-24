@@ -30,9 +30,8 @@ public class LoginMittentePagoPA {
         this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
         String variabileAmbiente = System.getProperty("environment");
         switch (variabileAmbiente) {
-            case "dev" -> this.driver.get(this.datiMittente.get("urlDev").toString());
-            case "test" -> this.driver.get(this.datiMittente.get("urlTest").toString());
-            case "uat" -> this.driver.get(this.datiMittente.get("urlUat").toString());
+            case "dev" -> this.driver.get(this.datiMittente.get("url").toString());
+            case "test", "uat" -> this.driver.get(this.datiMittente.get("url").toString().replace("dev",variabileAmbiente));
             default -> Assert.fail("Non stato possibile trovare l'ambiente inserito, Insaerisci in -Denvironment test o dev o uat");
         }
     }
