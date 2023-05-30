@@ -46,18 +46,18 @@ public class PiattaformaNotifichePAPage extends BasePage {
         super(driver);
     }
 
-    public void waitLoadPiattaformaNotifichePAPage(){
-        try{
+    public void waitLoadPiattaformaNotifichePAPage() {
+        try {
             By notificheTitle = By.xpath("//h4[contains(text(),'Notifiche')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheTitle));
             logger.info("Piattaforma Notifiche Page caricata");
-        }catch (TimeoutException e){
-            logger.error("Piattaforma Notifiche Page non caricata con errore : "+e.getMessage());
-            Assert.fail("Piattaforma Notifiche Page non caricata con errore : "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
+            Assert.fail("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
         }
     }
 
-    public void insertCodiceFiscale(String codiceFiscale){
+    public void insertCodiceFiscale(String codiceFiscale) {
         try {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
@@ -71,7 +71,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
     }
 
     public int getListaCf(String cfInserito) {
-        By cfListBy = By.xpath("//p[contains(text(),'"+cfInserito+"')]");
+        By cfListBy = By.xpath("//p[contains(text(),'" + cfInserito + "')]");
         attesaCaricamentoPagina();
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(cfListBy));
         logger.info("Codici fiscali trovati correttamente");
@@ -79,7 +79,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
         return this.elements(cfListBy).size();
     }
 
-    private void attesaCaricamentoPagina() {
+    public void attesaCaricamentoPagina() {
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
@@ -98,7 +98,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
             WebElement numeroPagina = this.element(numeroButtonBy);
             numeroPagina.click();
             return true;
-        }catch (TimeoutException e){
+        } catch (TimeoutException e) {
             return false;
         }
     }
@@ -114,17 +114,17 @@ public class PiattaformaNotifichePAPage extends BasePage {
 
     private WebElement getCodiceIUN(String codiceIUNInserito) {
         try {
-            By codiceIUNBy = By.xpath("//button[contains(text(),'"+codiceIUNInserito+"')]");
+            By codiceIUNBy = By.xpath("//button[contains(text(),'" + codiceIUNInserito + "')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiceIUNBy));
             return this.element(codiceIUNBy);
-        }catch (TimeoutException e){
+        } catch (TimeoutException e) {
             return null;
         }
     }
 
     public boolean controlloDateInserite(String dataInerita) {
         String[] date = dataInerita.split("/");
-        return date[0].length() == 2 && date[1].length() ==2 && date[2].length() == 4;
+        return date[0].length() == 2 && date[1].length() == 2 && date[2].length() == 4;
     }
 
     public void inserimentoArcoTemporale(String da, String a) {
@@ -138,24 +138,24 @@ public class PiattaformaNotifichePAPage extends BasePage {
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
         logger.info("Date trovate correttamente");
 
-        return this.elements(dataListBy).size() ;
+        return this.elements(dataListBy).size();
     }
 
     public void selezionareStatoNotifica(String statoInserito) {
         this.statoNotificaField.click();
-        try{
-            By statoNotificaBy = By.xpath("//ul[@role='listbox']/li[@role='option' and div/span[contains(text(),'"+statoInserito+"')]]");
+        try {
+            By statoNotificaBy = By.xpath("//ul[@role='listbox']/li[@role='option' and div/span[contains(text(),'" + statoInserito + "')]]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
             this.element(statoNotificaBy).click();
             logger.info("Stato notifica selezionato correttamente");
-        }catch (TimeoutException e){
-            logger.error("Stato notifica NON trovata con errore: "+e.getMessage());
-            Assert.fail("Stato notifica NON trovata con errore: "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Stato notifica NON trovata con errore: " + e.getMessage());
+            Assert.fail("Stato notifica NON trovata con errore: " + e.getMessage());
         }
     }
 
-    public int getListStato(String statoNotifica){
-        By statoNotificaBy = By.xpath("//div[contains(@data-testid,'statusChip-"+statoNotifica+"')]");
+    public int getListStato(String statoNotifica) {
+        By statoNotificaBy = By.xpath("//div[contains(@data-testid,'statusChip-" + statoNotifica + "')]");
         attesaCaricamentoPagina();
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
         logger.info("Stati notifiche trovati correttamente");
@@ -179,7 +179,8 @@ public class PiattaformaNotifichePAPage extends BasePage {
     }
 
     public void aggionamentoPagina() {
-        this.driver.navigate().refresh();    }
+        this.driver.navigate().refresh();
+    }
 
     public void waitLoadRefreshPage() {
         try {
@@ -188,6 +189,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
             throw new RuntimeException(e);
         }
     }
+
     public String ricercaNotifica(String oggettoDellaNotifica, String statoNotifica) {
 
         String codiceIUN = null;
@@ -202,6 +204,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
         }
         return codiceIUN;
     }
+
     public int verificaEsistenzaNotifica(String oggettoDellaNotifica, String statoNotifica) {
 
         List<WebElement> listaOggetti = ricercaListaOggetti();
@@ -222,6 +225,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
 
         return -1;
     }
+
     public List<WebElement> ricercaListaOggetti() {
         try {
             By listaOggettiBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-hgkziz')]");
@@ -254,6 +258,35 @@ public class PiattaformaNotifichePAPage extends BasePage {
         } catch (TimeoutException e) {
             logger.error("Api Key Page NON caricata con errore : " + e.getMessage());
             Assert.fail("Api Key Page NON caricata con errore : " + e.getMessage());
+        }
+    }
+
+    public String conversioneFormatoDate(String date) {
+        String[] dateInserita = date.split("-");
+        return dateInserita[2] + "/" + dateInserita[1] + "/" + dateInserita[0];
+    }
+
+    public int controlloNumeroRisultatiDate() {
+        By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-c3sxw2')]");
+        attesaCaricamentoPagina();
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
+        logger.info("Date trovate correttamente");
+
+        return this.elements(dataListBy).size();
+    }
+
+    public void inserimentoData(String dataInserita) {
+        this.dataInizioField.sendKeys(dataInserita);
+    }
+
+    public boolean verificaEsistenzaRisultati() {
+        try {
+            By messaggioNessunRisultatoby = By.xpath("//p[contains(text(),'nessun risultato')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messaggioNessunRisultatoby));
+            logger.info("Messaggio visualizzato correttamente");
+            return true;
+        } catch (TimeoutException e) {
+            return false;
         }
     }
 }

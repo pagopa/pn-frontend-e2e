@@ -9,6 +9,8 @@ Feature: Mittente seleziona CTA annulla in ruota api Key
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
     And Si visualizza correttamente la pagina Api Key
 
+  @TestSuite
+
   @test27_neg4
 
   Scenario: Mittente seleziona CTA annulla in ruota api Key

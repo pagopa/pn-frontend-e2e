@@ -14,6 +14,7 @@ import it.pn.frontend.e2e.section.mittente.DestinatarioPASection;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -35,7 +36,7 @@ public class RicercaNotificheMittentePagoPATest {
         this.destinatario = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
         DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
-        String cf = destinatarioPASection.ricercaInformazione(destinatario.get("codiceFiscale").toString().split(","),0);
+        String cf = destinatarioPASection.ricercaInformazione(destinatario.get("codiceFiscale").toString().split(","), 0);
 
         PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
 
@@ -77,7 +78,7 @@ public class RicercaNotificheMittentePagoPATest {
     }
 
     @And("Nella pagina Piattaforma Notifiche i risultati sono contenuti in una o più pagine")
-    public void nellaPaginaPiattaformaNotificheIRisultatiSonoContenutiInUnaOPiùPagine() {
+    public void nellaPaginaPiattaformaNotificheIRisultatiSonoContenutiInUnaOPiuPagine() {
         logger.info("Se i risultati sono contenuti in più pagine è possibile effettuare il cambio pagina");
 
         PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
@@ -201,7 +202,7 @@ public class RicercaNotificheMittentePagoPATest {
 
         if (numeroStatoNotifica >= 1) {
             logger.info("Gli stati della notifica sono uguali a quelli selezionati");
-        }else {
+        } else {
             logger.error("Gli stati della notifica NON sono uguali a quelli selezionati");
             Assert.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
 
@@ -227,4 +228,194 @@ public class RicercaNotificheMittentePagoPATest {
         PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
         piattaformaNotifichePAPage.selezionareStatoNotifica(statoNotificaDepositata);
     }
+
+
+    @And("Nella pagina Piattaforma Notifiche inserire un arco temporale")
+    public void nellaPaginaPiattaformaNotificheInserireUnArcoTemporale() {
+        LocalDate dateA = LocalDate.now();
+        LocalDate dateDa = dateA.minusDays(5);
+
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        String dataa = piattaformaNotifichePAPage.conversioneFormatoDate(dateA.toString());
+        String datada = piattaformaNotifichePAPage.conversioneFormatoDate(dateDa.toString());
+        piattaformaNotifichePAPage.inserimentoArcoTemporale(datada, dataa);
+    }
+
+    @And("Il sistema restituisce notifiche con codice fiscale e arco temporale uguale a quelli inserito")
+    public void ilSistemaRestituisceNotificheConCodiceFiscaleEArcoTemporaleUgualeAQuelliInserito() {
+        logger.info("Si verifica i risultati restituiti");
+
+        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        headerPASection.waitLoadHeaderSection();
+
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        piattaformaNotifichePAPage.waitLoadPiattaformaNotifichePAPage();
+
+        DataPopulation dataPopulation = new DataPopulation();
+        this.destinatario = dataPopulation.readDataPopulation("destinatario.yaml");
+
+        String cfInserito = this.destinatario.get("codiceFiscale").toString();
+        int listaCF = piattaformaNotifichePAPage.getListaCf(cfInserito);
+
+        if (listaCF >= 1) {
+            logger.info("Il codice fiscale della notifica è uguale a quello selezionato");
+
+        } else {
+            logger.error("Il codice fiscale della notifica NON sono uguali a quello selezionato");
+            Assert.fail("Il codice fiscale notifica NON sono uguali a quello selezionato");
+        }
+
+        int results = piattaformaNotifichePAPage.controlloNumeroRisultatiDate();
+        if (results >= 1) {
+            logger.info("Sono presenti risultati per il filtro data");
+        } else {
+            logger.error("Le date delle notifiche NON sono uguali a quelle selezionate");
+            Assert.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
+        }
+    }
+
+    @And("Nella pagina Piattaforma Notifiche inserire una data")
+    public void nellaPaginaPiattaformaNotificheInserireUnaData() {
+        LocalDate data = LocalDate.now();
+
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        String dataInserita = piattaformaNotifichePAPage.conversioneFormatoDate(data.toString());
+        piattaformaNotifichePAPage.inserimentoData(dataInserita);
+    }
+
+
+    @And("^Il sistema restituisce notifiche con data e stato uguale a quelli inserito (.*)$")
+    public void ilSistemaRestituisceNotificheConDataEStatoUgualeAQuelliInseritoStato(String statoNotifica) {
+        logger.info("Si verifica i risultati restituiti");
+
+        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        headerPASection.waitLoadHeaderSection();
+
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        piattaformaNotifichePAPage.waitLoadPiattaformaNotifichePAPage();
+
+        int numeroStatoNotificha = piattaformaNotifichePAPage.getListStato(statoNotifica);
+
+        if (numeroStatoNotificha >= 1) {
+            logger.info("Gli stati della notifica sono uguali a quelli selezionati");
+        } else {
+
+            logger.error("Gli stati della notifica NON sono uguali a quelli selezionati");
+            Assert.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
+        }
+
+        int results = piattaformaNotifichePAPage.controlloNumeroRisultatiDate();
+        if (results >= 1) {
+            logger.info("Sono presenti risultati per il filtro data");
+        } else {
+            logger.error("Le date delle notifiche NON sono uguali a quelle selezionate");
+            Assert.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
+        }
+    }
+
+    @And("^Il sistema restituisce notifiche con arco temporale e stato uguale a quelli inserito (.*)$")
+    public void ilSistemaRestituisceNotificheConArcoTemporaleEStatoUgualeAQuelliInseritoStato(String statoNotifica) {
+        logger.info("Si verifica i risultati restituiti");
+
+        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        headerPASection.waitLoadHeaderSection();
+
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        piattaformaNotifichePAPage.waitLoadPiattaformaNotifichePAPage();
+        int results = piattaformaNotifichePAPage.controlloNumeroRisultatiDate();
+        if(results >= 1){
+            logger.info("Sono presenti risultati per il filtro data");
+        }else {
+            logger.error("Le date delle notifiche NON sono uguali a quelle selezionate");
+            Assert.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
+        }
+        int numeroStatoNotificha = piattaformaNotifichePAPage.getListStato(statoNotifica);
+
+        if (numeroStatoNotificha >= 1) {
+            logger.info("Gli stati della notifica sono uguali a quelli selezionati");
+        }else {
+
+            logger.error("Gli stati della notifica NON sono uguali a quelli selezionati");
+            Assert.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
+        }
+    }
+
+    @And("Il sistema non restituisce notifiche")
+    public void ilSistemaNonRestituisceNotifiche() {
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        if (piattaformaNotifichePAPage.verificaEsistenzaRisultati()){
+            logger.info("Il filtro non ha nessun risultato");
+        }else{
+            logger.error("Il filtro ha portate qualche risultato");
+            Assert.fail("Il filtro ha portate qualche risultato");
+        }
+    }
+
+    @And("Il sistema restituisce notifiche con codice fiscale e data uguale a quelli inserito")
+    public void ilSistemaRestituisceNotificheConCodiceFiscaleEDataUgualeAQuelliInserito() {
+        logger.info("Si verifica i risultati restituiti");
+
+        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        headerPASection.waitLoadHeaderSection();
+
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        piattaformaNotifichePAPage.waitLoadPiattaformaNotifichePAPage();
+
+        DataPopulation dataPopulation = new DataPopulation();
+        this.destinatario = dataPopulation.readDataPopulation("destinatario.yaml");
+
+        String cfInserito = this.destinatario.get("codiceFiscale").toString();
+        int listaCF = piattaformaNotifichePAPage.getListaCf(cfInserito);
+
+        if (listaCF >= 1) {
+            logger.info("Il codice fiscale della notifica è uguale a quello selezionato");
+
+        } else {
+            logger.error("Il codice fiscale della notifica NON sono uguali a quello selezionato");
+            Assert.fail("Il codice fiscale notifica NON sono uguali a quello selezionato");
+        }
+
+        int results = piattaformaNotifichePAPage.controlloNumeroRisultatiDate();
+        if(results >= 1){
+            logger.info("Sono presenti risultati per il filtro data");
+        }else {
+            logger.error("Le date delle notifiche NON sono uguali a quelle selezionate");
+            Assert.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
+        }
+    }
+
+    @And("^Il sistema restituisce notifiche con codice fiscale e stato uguale a quelli inserito (.*)$")
+    public void ilSistemaRestituisceNotificheConCodiceFiscaleEStatoUgualeAQuelliInseritoStato(String statoNotifica) {
+        logger.info("Si verifica i risultati restituiti");
+
+        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        headerPASection.waitLoadHeaderSection();
+
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        piattaformaNotifichePAPage.waitLoadPiattaformaNotifichePAPage();
+
+        DataPopulation dataPopulation = new DataPopulation();
+        this.destinatario = dataPopulation.readDataPopulation("destinatario.yaml");
+
+        String cfInserito = this.destinatario.get("codiceFiscale").toString();
+        int listaCF = piattaformaNotifichePAPage.getListaCf(cfInserito);
+
+        if (listaCF >= 1) {
+            logger.info("Il codice fiscale della notifica è uguale a quello selezionato");
+
+        } else {
+            logger.error("Il codice fiscale della notifica NON sono uguali a quello selezionato");
+            Assert.fail("Il codice fiscale notifica NON sono uguali a quello selezionato");
+        }
+        int numeroStatoNotificha = piattaformaNotifichePAPage.getListStato(statoNotifica);
+
+        if (numeroStatoNotificha >= 1) {
+            logger.info("Gli stati della notifica sono uguali a quelli selezionati");
+        } else {
+
+            logger.error("Gli stati della notifica NON sono uguali a quelli selezionati");
+            Assert.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
+        }
+    }
+
 }

@@ -292,4 +292,28 @@ public class NotificaMittentePagoPATest {
         cookiesSection.waitLoadCookiesPage();
         cookiesSection.selezionaAccettaTuttiButton();
     }
+
+    @And("Nella pagina dettaglio notifica cliccare sull'opzione vedi più dettagli")
+    public void nellaPaginaDettaglioNotificaCliccareSullOpzioneVediPiuDettagli() {
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        dettaglioNotificaSection.clickVediPiuDettaglio();
+    }
+
+    @And("Si visualizza correttamente l elenco completo degli stati che la notifica ha percorso")
+    public void siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso() {
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        int nStatiNotifica = dettaglioNotificaSection.siVisualizzaPercosoNotifica();
+        if (nStatiNotifica >= 1){
+            logger.info("L'elenco degli stati presente");
+        }else {
+            logger.error("L'elenco degli stati NON presente");
+            Assert.fail("L'elenco degli stati NON presente");
+        }
+    }
+
+    @Then("Si clicca sul bottone indietro")
+    public void siCliccaSulBottoneIndietro() {
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        dettaglioNotificaSection.clickIndietroButton();
+    }
 }

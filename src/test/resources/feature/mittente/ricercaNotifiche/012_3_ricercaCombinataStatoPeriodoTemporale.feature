@@ -4,6 +4,8 @@ Feature: il mittente fa una ricerca combinata tra stato e arco temporale
     When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
 
+  @TestSuite
+
     @test12_3
 
   Scenario Outline: il mittente fa una ricerca sia per arco temporale che per stato
@@ -16,4 +18,4 @@ Feature: il mittente fa una ricerca combinata tra stato e arco temporale
     And Logout da portale mittente
     Examples:
       |     stato      |
-      | Invio in Corso |
+      | Invio in corso |
