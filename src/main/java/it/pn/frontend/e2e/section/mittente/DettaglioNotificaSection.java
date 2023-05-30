@@ -117,15 +117,15 @@ public class DettaglioNotificaSection extends BasePage {
             By statoNotificaBy = By.xpath("//span[contains(text(),'"+stato+"')]");
 
         }catch (TimeoutException e){
-            logger.error("Stato notifica non coretto");
-            Assert.fail("Stato notifica non coretto");
+            logger.error("Stato notifica non corretto");
+            Assert.fail("Stato notifica non corretto");
         }
     }
 
     public void selezioneVediDettaglioButton() {
         vediDettagliButton.click();
         if (tuttiStatiNotificaList.size() >= 1){
-            logger.info("Tutti i stati sono stati visualizzati correttamente");
+            logger.info("Tutti gli stati sono stati visualizzati correttamente");
         } else {
             logger.error("Tutti i stati non sono stati visualizzati correttamente");
             Assert.fail("Tutti i stati non sono stati visualizzati correttamente");

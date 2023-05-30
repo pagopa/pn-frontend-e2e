@@ -1,4 +1,4 @@
-Feature: Il destinatario revoca una delega
+Feature: Il destinatario visualizza  una delega
 
   Background: Login destinatario
     Given Login Page destinatario "destinatario" viene visualizzata
