@@ -100,6 +100,11 @@ public class LoginDestinatarioPagoPA {
         HeaderDESection headerDESection = new HeaderDESection(this.driver);
         headerDESection.waitLoadHeaderDESection();
 
+        CookiesSection cookiesSection = new CookiesSection(this.driver);
+        if (cookiesSection.waitLoadCookiesPage()){
+            cookiesSection.selezionaAccettaTuttiButton();
+        }
+
         NotificheDEPage notificheDEPage = new NotificheDEPage(this.driver);
         notificheDEPage.waitLoadNotificheDEPage();
         if(notificheDEPage.verificaPresenzaCodiceIumTextField()){

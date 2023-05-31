@@ -61,6 +61,7 @@ public class ApiKeysTest {
     public void nellaSezioneGeneraApiKeyInserireIlNomePerLApiKey(String nomeApiKey) {
         logger.info("Si inserisce il nome della api key");
         ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.waitLoadPage();
         apiKeyPAPage.inserireUnNomePerApiKey(nomeApiKey);
     }
 

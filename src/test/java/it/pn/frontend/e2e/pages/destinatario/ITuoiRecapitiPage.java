@@ -22,11 +22,15 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(xpath = "//input[contains(@placeholder,'Il tuo indirizzo PEC')]")
     WebElement inserimentoPecField;
 
-    @FindBy(xpath = "//button[contains(text(),'Conferma')]")
-    List<WebElement> confermaButton;
+    @FindBy(xpath = "//button[contains(@data-testid,'add contact')]")
+    WebElement confermaButton;
 
     @FindBy(xpath = "//button[contains(text(),'Annulla')]")
     WebElement annullaButton;
+
+    @FindBy(xpath = "//button[contains(@data-testid,'codeConfirmButton')]")
+    WebElement confermaButtonPopUp;
+
     public ITuoiRecapitiPage(WebDriver driver) {
         super(driver);
     }
@@ -56,8 +60,8 @@ public class ITuoiRecapitiPage extends BasePage {
             inserimentoPecField.sendKeys(emailPEC);
         }
     }
-    public void confermaButtonClick(int i) {
-        this.confermaButton.get(i).click();
+    public void confermaButtonClick() {
+        this.confermaButton.click();
     }
 
     public void waitLoadPopUp() {
@@ -100,5 +104,9 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void annullaButtonClick() {
         this.annullaButton.click();
+    }
+
+    public void confermaButtonClickPopUp() {
+        this.confermaButtonPopUp.click();
     }
 }

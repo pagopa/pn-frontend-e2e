@@ -58,7 +58,7 @@ public class NotificheDEPage extends BasePage {
     public void waitESelectDelegheButton() {
         try{
             //By buttonDelegeBy = By.xpath("//div[contains(@data-testid,'sideMenuItem-Deleghe')]");
-            By buttonDelegeBy = By.xpath("//div[contains(@class,'MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters')][2]");
+            By buttonDelegeBy = By.xpath("/div[contains(@data-testid,'menu-item(deleghe)')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(buttonDelegeBy));
             WebElement buttonDelegheWebElement = this.driver.findElement(buttonDelegeBy);
             buttonDelegheWebElement.click();
@@ -89,9 +89,9 @@ public class NotificheDEPage extends BasePage {
         return false;
     }
 
-    public boolean controlloDateInserite(String data) {
-        String[] date = data.split("/");
-        return date[0].length() == 2 && date[1].length()==2 && date[2].length() == 4;
+    public String controlloDateInserite(String data) {
+        String[] date = data.split("-");
+        return date[2]+"/" + date[1]+ "/"+date[0];
     }
 
     public void inserimentoArcoTemporale(String dataDA, String dataA) {

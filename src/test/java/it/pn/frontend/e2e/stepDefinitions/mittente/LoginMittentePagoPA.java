@@ -81,6 +81,8 @@ public class LoginMittentePagoPA {
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
 
+
+
         AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
         areaRiservataPAPage.waitLoadAreaRiservataPAPage();
         if(areaRiservataPAPage.verificaCodiceFiscale(this.datiMittente.get("codiceFiscale").toString())){

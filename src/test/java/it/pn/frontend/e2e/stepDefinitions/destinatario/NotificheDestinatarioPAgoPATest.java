@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.NotificheDEPage;
+import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.HeaderDESection;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -29,6 +30,11 @@ public class NotificheDestinatarioPAgoPATest {
     public void paginaPiattaformaNotificheDestinatarioVieneVisualizzataCorrettamente() {
             HeaderDESection headerDESection = new HeaderDESection(this.driver);
             headerDESection.waitLoadHeaderDESection();
+
+            CookiesSection cookiesSection = new CookiesSection(this.driver);
+            if (cookiesSection.waitLoadCookiesPage()){
+                cookiesSection.selezionaAccettaTuttiButton();
+            }
 
             NotificheDEPage notificheDEPage = new NotificheDEPage(this.driver);
             notificheDEPage.waitLoadNotificheDEPage();
