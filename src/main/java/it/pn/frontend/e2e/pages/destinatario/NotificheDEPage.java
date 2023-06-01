@@ -58,7 +58,7 @@ public class NotificheDEPage extends BasePage {
     public void waitESelectDelegheButton() {
         try{
             //By buttonDelegeBy = By.xpath("//div[contains(@data-testid,'sideMenuItem-Deleghe')]");
-            By buttonDelegeBy = By.xpath("/div[contains(@data-testid,'menu-item(deleghe)')]");
+            By buttonDelegeBy = By.xpath("//div[contains(@data-testid,'menu-item(deleghe)')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(buttonDelegeBy));
             WebElement buttonDelegheWebElement = this.driver.findElement(buttonDelegeBy);
             buttonDelegheWebElement.click();

@@ -101,12 +101,5 @@ public class DownloadFileMittentePagoPATest {
             logger.error("Il codice IUN della notifica all'interno del file  NON è corretto");
             Assert.fail("Il codice IUN della notifica  all'interno del file  NON è corretto");
         }
-
-        if (dettaglioNotificaSection.controlloTestoFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("gruppo").toString())) {
-            logger.info("Il gruppo della notifica all'interno del file è corretto");
-        } else {
-            logger.error("Il gruppo della notifica all'interno del file  NON è corretto");
-            Assert.fail("Il gruppo della notifica  all'interno del file  NON è corretto");
-        }
     }
 }

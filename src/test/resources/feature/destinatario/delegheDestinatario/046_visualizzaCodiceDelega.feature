@@ -7,7 +7,7 @@ Feature: Il destinatario visualizza  una delega
 
   @TestSuite
   @test46
-
+  @delega
   Scenario:
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche Destinatario si vede la sezione Deleghe

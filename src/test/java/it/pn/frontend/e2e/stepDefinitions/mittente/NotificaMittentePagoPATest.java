@@ -262,11 +262,13 @@ public class NotificaMittentePagoPATest {
         String dataNotifica = dateFormat.format(date).replace("-", "/");
 
         String coidiceIUNOld = this.datiNotifica.get("codiceIUN").toString();
-
+        CookiesSection cookiesSection = new CookiesSection(this.driver);
         for(int i=0; i<12; i++){
             if(i>=1){
-
                 piattaformaNotifichePAPage.aggionamentoPagina();
+                if (cookiesSection.waitLoadCookiesPage()){
+                    cookiesSection.selezionaAccettaTuttiButton();
+                }
                 piattaformaNotifichePAPage.insertCodiceFiscale(this.destinatario.get("codiceFiscale").toString());
                 piattaformaNotifichePAPage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
                 piattaformaNotifichePAPage.selezionareStatoNotifica("Depositata");

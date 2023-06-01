@@ -144,7 +144,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
     public void selezionareStatoNotifica(String statoInserito) {
         this.statoNotificaField.click();
         try {
-            By statoNotificaBy = By.xpath("//ul[@role='listbox']/li[@role='option' and div/span[contains(text(),'" + statoInserito + "')]]");
+            By statoNotificaBy = By.xpath("//li[contains(@data-value,'"+statoInserito+"')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
             this.element(statoNotificaBy).click();
             logger.info("Stato notifica selezionato correttamente");

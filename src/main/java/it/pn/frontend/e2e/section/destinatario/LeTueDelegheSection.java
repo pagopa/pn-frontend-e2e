@@ -39,9 +39,9 @@ public class LeTueDelegheSection extends BasePage {
     
     @FindBy(xpath = "//input[contains(@value,'entiSelezionati')]")
     WebElement SoloEntiSelezionatiRadioButton;
-    //@FindBy(id ="enti-select")
+
     @FindBy(id ="enti-select")
-    WebElement enteElementInput;
+    List<WebElement> enteElementInput;
 
     @FindBy(xpath = "//button[@id='courtesy-page-button']")
     WebElement tornaDelegheButton;
@@ -106,7 +106,7 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void selezionaUnEnte(String ente) {
-        this.enteElementInput.sendKeys(ente);
+        this.enteElementInput.get(1).sendKeys(ente);
 
     }
 

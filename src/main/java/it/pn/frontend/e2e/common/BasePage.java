@@ -43,4 +43,7 @@ public class BasePage {
             throw new RuntimeException(e);
         }
     }
+    protected void vaiFondoPagina(){
+        this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
+    }
 }

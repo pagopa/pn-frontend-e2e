@@ -61,8 +61,8 @@ public class DeleghePagoPATest {
 
         leTueDelegheSection.insertNomeCognome(deleghe.get("nome").toString(),deleghe.get("cognome").toString());
         leTueDelegheSection.inserireCF(deleghe.get("codiceFiscale").toString());
-
         leTueDelegheSection.selectSoloEntiSelezionati();
+        leTueDelegheSection.waitLoadPage();
         leTueDelegheSection.selezionaUnEnte(deleghe.get("ente").toString());
 
     }
