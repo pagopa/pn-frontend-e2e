@@ -222,11 +222,11 @@ public class RicercaNotificheMittentePagoPATest {
         piattaformaNotifichePAPage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
     }
 
-    @And("Nella pagina piattaforma Notifiche selezionare lo stato notifica {string}")
-    public void nellaPaginaPiattaformaNotificheSelezionareLoStatoNotifica(String statoNotificaDepositata) {
-        logger.info("Si seleziona lo stato notifica" + statoNotificaDepositata);
+    @And("Nella pagina piattaforma Notifiche selezionare lo stato notifica Depositata")
+    public void nellaPaginaPiattaformaNotificheSelezionareLoStatoNotifica() {
+        logger.info("Si seleziona lo stato notifica Depositata");
         PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.selezionareStatoNotifica(statoNotificaDepositata);
+        piattaformaNotifichePAPage.selezionareStatoNotifica("ACCEPTED");
     }
 
 

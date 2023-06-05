@@ -28,7 +28,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche inserire il codice fiscale del destinatario "destinatario"
     And Nella pagina Piattaforma Notifiche inserire la data invio notifica
-    And Nella pagina piattaforma Notifiche selezionare lo stato notifica "Depositata"
+    And Nella pagina piattaforma Notifiche selezionare lo stato notifica Depositata
     And Cliccare sul bottone Filtra
     And Verifica dello stato della notifica come depositata "Depositata"
     And Logout da portale mittente

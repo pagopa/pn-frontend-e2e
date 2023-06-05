@@ -75,6 +75,7 @@ public class DettaglioNotificaSection extends BasePage {
                 if (numTab.size() == 2){
                     this.driver.switchTo().window(numTab.get(1));
                     try {
+                        waitLoadPage();
                         URL urlPDF = new URL(this.driver.getCurrentUrl());
                         File partialPath = new File(path);
                         File pdf = new File(System.getProperty("user.dir")+partialPath+"/"+nomePdf+".pdf");
@@ -151,6 +152,7 @@ public class DettaglioNotificaSection extends BasePage {
                 if (numTab.size() == 2){
                     this.driver.switchTo().window(numTab.get(1));
                     try {
+                        waitLoadPage();
                         URL urlPDF = new URL(this.driver.getCurrentUrl());
                         File pdf = new File(System.getProperty("user.dir")+path+"/"+nomeFile+".pdf");
                         FileUtils.copyURLToFile(urlPDF,pdf,1000,1000);
@@ -229,6 +231,7 @@ public class DettaglioNotificaSection extends BasePage {
                 if (numTab.size() == 2){
                     this.driver.switchTo().window(numTab.get(1));
                     try {
+                        waitLoadPage();
                         URL urlPDF = new URL(this.driver.getCurrentUrl());
                         File partialPath = new File(path);
                         File pdf = new File(System.getProperty("user.dir")+partialPath+"/"+nomePdf+".pdf");

@@ -46,4 +46,8 @@ public class BasePage {
     protected void vaiFondoPagina(){
         this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
     }
+
+    protected void swipeToElement(WebElement element){
+        js().executeScript("arguments[0].scrollIntoView(true);",element);
+    }
 }

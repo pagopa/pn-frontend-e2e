@@ -271,7 +271,7 @@ public class NotificaMittentePagoPATest {
                 }
                 piattaformaNotifichePAPage.insertCodiceFiscale(this.destinatario.get("codiceFiscale").toString());
                 piattaformaNotifichePAPage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
-                piattaformaNotifichePAPage.selezionareStatoNotifica("Depositata");
+                piattaformaNotifichePAPage.selezionareStatoNotifica("ACCEPTED");
                 piattaformaNotifichePAPage.selectFiltraButton();
             }
             piattaformaNotifichePAPage.waitLoadRefreshPage();

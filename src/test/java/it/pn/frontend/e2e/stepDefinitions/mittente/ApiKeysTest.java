@@ -46,6 +46,7 @@ public class ApiKeysTest {
         logger.info("Si clicca sul bottone genera ApiKey");
 
         ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.waitLoadPage();
         apiKeyPAPage.clickSulBottoneGeneraApiKey();
     }
 

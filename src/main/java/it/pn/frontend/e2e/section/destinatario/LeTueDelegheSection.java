@@ -41,7 +41,7 @@ public class LeTueDelegheSection extends BasePage {
     WebElement SoloEntiSelezionatiRadioButton;
 
     @FindBy(id ="enti-select")
-    List<WebElement> enteElementInput;
+    WebElement enteElementInput;
 
     @FindBy(xpath = "//button[@id='courtesy-page-button']")
     WebElement tornaDelegheButton;
@@ -106,7 +106,12 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void selezionaUnEnte(String ente) {
-        this.enteElementInput.get(1).sendKeys(ente);
+        if(this.enteElementInput.isDisplayed()){
+            this.enteElementInput.sendKeys(ente);
+        }else {
+            swipeToElement(this.enteElementInput);
+            this.enteElementInput.sendKeys(ente);
+        }
 
     }
 
