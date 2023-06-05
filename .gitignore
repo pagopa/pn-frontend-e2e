@@ -3,3 +3,4 @@ allure-results
 logs
 screenShots
 target
+src/test/resources/dataPopulation/downloadFileNotifica
