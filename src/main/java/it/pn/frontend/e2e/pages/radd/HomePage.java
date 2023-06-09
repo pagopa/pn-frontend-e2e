@@ -22,6 +22,9 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//button[contains(@aria-label,'Vai a Documenti allegati della notifica e attestazioni opponibili a terzi')]")
     WebElement documentiAllegatuButton;
 
+    @FindBy(xpath = "//button[contains(@aria-label,'Vai a Avvisi di avvenuta ricezione')]")
+    WebElement avvenutoRicezioneButton;
+
     public void siVisualizzaCorrettamenteHomePage() {
         try {
             By homePageTitleBy = By.xpath("//h3[contains(text(),'Che documenti vuoi ottenere?')]");
@@ -46,6 +49,10 @@ public class HomePage extends BasePage {
             Assert.fail("Richiesta atti NON si visualizza correttamente con errore:"+e.getMessage());
         }
 
+    }
+
+    public void clickSuAvvenutaRecezione() {
+        this.avvenutoRicezioneButton.click();
     }
 
 }

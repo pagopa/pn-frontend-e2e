@@ -1,4 +1,4 @@
-Feature: Failure second step Destinatario
+Feature: Download Atti Delegato upload failure
 
   Background: Accesso sezione Dati della notifica
     Given operatore è loggato
@@ -7,16 +7,14 @@ Feature: Failure second step Destinatario
     Then la pagina Richiesta Atti sezione Dati della notifica è visualizzata correttamente
 
   @RADD
-  @test6
+  @test04
 
-  Scenario: Failure second step Destinatario
+  Scenario: Download Atti Delegato upload failure
     When nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il codice IUN "RADD"
     And nella pagina atti-opponibili-terzi sezione Dati della notifica è selezionato di default il Soggetto giuridico come Persona fisica
-    And nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del destinatario secondo step "RADD"
+    And nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del destinatario "RADD"
+    And nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del delegato "RADD"
     And nella pagina atti-opponibili-terzi sezione Dati della notifica cliccare sul bottone Continua
     And la pagina atti-opponibili-terzi sezione Caricamento documenti è visualizzata correttamente
-    And nella pagina atti-opponibili-terzi sezione Caricamento documenti caricare il documento di riconoscimento del destinario nel box uno Carica il documento di riconoscimento del destinatario
-    And nella pagina atti-opponibili-terzi sezione Caricamento documenti cliccare sul bottone Continua
-    Then nella pagina Richiesta Atti sezione Dati della notifica visualizzare la frase di errore secondo step
-
-
+    And nella pagina atti-opponibili-terzi sezione Caricamento documenti caricare un documento con estenzione non valida
+    Then Si visualizza un messaggio di errore

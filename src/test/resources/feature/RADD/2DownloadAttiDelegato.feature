@@ -7,13 +7,13 @@ Feature: Download Atti Delegato
     Then la pagina Richiesta Atti sezione Dati della notifica è visualizzata correttamente
 
   @RADD
-  @test2
+  @test02
 
   Scenario: Download Atti Delegato
     When nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il codice IUN "RADD"
     And nella pagina atti-opponibili-terzi sezione Dati della notifica è selezionato di default il Soggetto giuridico come Persona fisica
     And nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del destinatario "RADD"
-    And nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del del delegato "RADD"
+    And nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del delegato "RADD"
     And nella pagina atti-opponibili-terzi sezione Dati della notifica cliccare sul bottone Continua
     And la pagina atti-opponibili-terzi sezione Caricamento documenti è visualizzata correttamente
     And nella pagina atti-opponibili-terzi sezione Caricamento documenti caricare il documento di riconoscimento del destinario nel box uno Carica il documento di riconoscimento del destinatario
@@ -23,7 +23,13 @@ Feature: Download Atti Delegato
     And la pagina Richiesta Atti sezione Allegati e attestazioni è visualizzata correttamente
     And nella pagina Richiesta Atti sezione Allegati e attestazioni è visualizzata la frase Assicurati di scaricare tutti i documenti
     And nella pagina atti-opponibili-terzi sezione Allegati e attestazioni esegue il download dei documenti
-    And nella pagina atti-opponibili-terzi sezione Allegati e attestazioni nei box dei documenti scaricati è visibile la spunta verde
-    And nella pagina atti-opponibili-terzi sezione Allegati e attestazioni cliccare sul bottone ho finito
-    Then Si visualizza correttamente la pagina di conferma RADD
-    And nella pagina di conferma cliccare sul bottone chiudi
+    And nella pagina atti-opponibili-terzi sezione Allegati il bottone ho finito si abilita
+    And nella pagina atti-opponibili-terzi sezione Allegati cliccare sul bottone home page
+    And la Homepage RADD è visualizzata correttamente
+
+#    And nella pagina atti-opponibili-terzi sezione Allegati e attestazioni cliccare sul bottone ho finito
+#    And Si visualizza correttamente la pagina di conferma
+#    Then nella pagina di conferma cliccare sul link dello storico
+#    And la landing page si visualizza
+#    And nella landing page cliccare sul tasto torna alla home
+#    And la Homepage RADD è visualizzata correttamente

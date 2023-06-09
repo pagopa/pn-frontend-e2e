@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.radd;
 
 import it.pn.frontend.e2e.common.BasePage;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -11,6 +12,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -21,6 +25,7 @@ public class RichiestaAttiPage extends BasePage {
 
     @FindBy(xpath = "//input[contains(@value,'PF')]")
     WebElement radioButtonPF;
+    private int numeroFile = 0;
 
     public RichiestaAttiPage(WebDriver driver) {
         super(driver);
@@ -56,7 +61,7 @@ public class RichiestaAttiPage extends BasePage {
 
     @FindBy(css = "input#delegateTaxId")
     WebElement codiceFiscaleDelegatoInput;
-    
+
     @FindBy(xpath = "//h6[contains(text(),'Allegati e attestazioni')]")
     WebElement attestazioniPageTtile;
 
@@ -75,9 +80,15 @@ public class RichiestaAttiPage extends BasePage {
     @FindBy(xpath = "//div[contains(text(),'KO')]")
     WebElement uploadErrorMessage;
 
-    @FindBy(xpath = "//div[contains(text(),'Si è verificato un problema. Riprova tra qualche minuto')]")
+    @FindBy(xpath = "//div[contains(text(),'Risorsa non trovata')]")
     WebElement downloadMessageError;
-    
+
+    @FindBy(xpath = "//div[contains(text(),'Estensione file non supportata')]")
+    WebElement estenzioneErrorMessage;
+
+    @FindBy(xpath = "//button[contains(text(),'Indietro')]")
+    WebElement indietroButton;
+
     public void insertCodiceIun(String codiceIun) {
         this.iunInput.sendKeys(codiceIun);
     }
@@ -91,7 +102,8 @@ public class RichiestaAttiPage extends BasePage {
     }
 
     public void clickContinuaButton() {
-        this.continuaButton.click();
+        this.js().executeScript("arguments[0].click()",this.continuaButton);
+        //this.continuaButton.click();
     }
 
     public void waitLoadCaricamentoDocumenti() {
@@ -119,8 +131,6 @@ public class RichiestaAttiPage extends BasePage {
         }
     }
 
-    public void spuntaVerdeDownload() {
-    }
 
     public void clickContinua2Button() {
         this.continua2Button.click();
@@ -138,20 +148,25 @@ public class RichiestaAttiPage extends BasePage {
     }
 
 
-
-    public void clickDownload(String primoDocumento) {
-        try{
-            By scaricaButtonby = By.xpath("//a[contains(@href,'http://web.pagopa.dev.it/notifiche/act/act"+primoDocumento+".pdf')]");
+    public void clickDownload() {
+        try {
+            By scaricaButtonby = By.xpath("//a[span[contains(text(),'Scarica')]]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(scaricaButtonby));
-            this.element(scaricaButtonby).click();
+            List<WebElement> downloadLinks = this.elements(scaricaButtonby);
+            for (int i = 0; i < downloadLinks.size(); i++) {
+                String url = downloadLinks.get(i).getAttribute("href");
+                downloadLinks.get(i).click();
+                this.closeTab(url);
+            }
             logger.info("ha cliccato quello che doveva");
-        }catch (TimeoutException e){
+        } catch (TimeoutException e) {
             logger.error("Non ha cliccato");
             Assert.fail("Non ha cliccato");
         }
-        this.closeTab();
+
     }
-    private void closeTab() {
+
+    private void closeTab(String url) {
         List<String> numTab = null;
         boolean tabOpen = false;
         for (int i = 0; i < 30; i++) {
@@ -169,18 +184,31 @@ public class RichiestaAttiPage extends BasePage {
             }
         }
 
-        if(tabOpen){
-            int index =1;
-            while(index < numTab.size()){
+        if (tabOpen) {
+            int index = 1;
+            while (index < numTab.size()) {
                 this.driver.switchTo().window(numTab.get(index));
+                this.downloadFile(url);
                 this.driver.close();
                 this.driver.switchTo().window(numTab.get(0));
                 index++;
             }
-        }else{
+        } else {
             Assert.fail("tab per download non si è aperto");
         }
     }
+
+    private void downloadFile(String url) {
+        try {
+            URL urlPDF = new URL(url);
+            File pdf = new File(System.getProperty("user.dir") + "/src/test/resources/dataPopulation/downloadFileNotifica/RADD/fileN" + this.numeroFile);
+            numeroFile++;
+            FileUtils.copyURLToFile(urlPDF, pdf, 1000, 1000);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void clickHoFinito() {
 /*        if (this.hoFinitoButton.isDisplayed()){
             this.hoFinitoButton.click();
@@ -193,9 +221,9 @@ public class RichiestaAttiPage extends BasePage {
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(hoFinitoButton));
             logger.info("Ho trovoto il bottone Ho Finito");
             this.element(hoFinitoButton).click();
-        }catch (TimeoutException e){
-            logger.error("NON ho trovoto il bottone Ho Finito con errore:"+e.getMessage());
-            Assert.fail("NON ho trovoto il bottone Ho Finito con errore:"+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("NON ho trovoto il bottone Ho Finito con errore:" + e.getMessage());
+            Assert.fail("NON ho trovoto il bottone Ho Finito con errore:" + e.getMessage());
         }
     }
 
@@ -210,7 +238,9 @@ public class RichiestaAttiPage extends BasePage {
         }
     }
 
-    public void clickChiudiButton() {this.chiudiButton.click();}
+    public void clickChiudiButton() {
+        this.chiudiButton.click();
+    }
 
     public void insertCodiceFiscaleDelegato(String codiceFiscale) {
         this.codiceFiscaleDelegatoInput.sendKeys(codiceFiscale);
@@ -235,8 +265,9 @@ public class RichiestaAttiPage extends BasePage {
     }
 
 
-    public void attestazioniSectionIsDisplayed() {
-        this.attestazioniPageTtile.isDisplayed();
+    public boolean attestazioniSectionIsDisplayed() {
+        waitLoadPage();
+        return this.attestazioniPageTtile.isDisplayed();
     }
 
     public void assicuratiIsDisplayed() {
@@ -252,9 +283,9 @@ public class RichiestaAttiPage extends BasePage {
             By landPageTitleBy = By.xpath("//h4[contains(text(),'Qualcosa è andato storto')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(landPageTitleBy));
             logger.info("La landing page si visualizza correttamente");
-        } catch (TimeoutException e){
-            logger.error("La landing page NON si visualizza correttamente con errore:"+e.getMessage());
-            Assert.fail("La landing page NON si visualizza correttamente con erroe:"+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("La landing page NON si visualizza correttamente con errore:" + e.getMessage());
+            Assert.fail("La landing page NON si visualizza correttamente con erroe:" + e.getMessage());
         }
 
     }
@@ -267,10 +298,45 @@ public class RichiestaAttiPage extends BasePage {
         return this.errorMessage.isDisplayed();
     }
 
-    public boolean upLoadErrorMessage() { return this.uploadErrorMessage.isDisplayed();}
+    public boolean upLoadErrorMessage() {
+        return this.uploadErrorMessage.isDisplayed();
+    }
 
 
-    public boolean downloadErrorMessage() { return this.downloadMessageError.isDisplayed();}
+    public boolean downloadErrorMessage() {
+        return this.downloadMessageError.isDisplayed();
+    }
+
+    public void controlloDownload() {
+        File partialPath = new File("src/test/resources/dataPopulation/downloadFileNotifica/RADD");
+        File directory = new File(partialPath.getAbsolutePath());
+
+        File[] fList = directory.listFiles(File::isFile);
+
+        if (fList != null && fList.length > 0) {
+            for (File file : fList) {
+                boolean result = file.delete();
+                if (result) {
+                    logger.info("File scaricato e eliminato");
+                }
+            }
+        } else {
+            logger.error("File non scaricato");
+            Assert.fail("File non scaricato");
+        }
+    }
+
+    public boolean upLoadErrorMessageEstenzione() {
+        return this.estenzioneErrorMessage.isDisplayed();
+    }
+
+    public boolean hoFinitoButtonEAbilitato() {
+        return this.hoFinitoButton.getAttribute("disabled")==null;
+    }
+
+    public void clickHomePageButton() {
+        this.indietroButton.click();
+    }
 }
 
 

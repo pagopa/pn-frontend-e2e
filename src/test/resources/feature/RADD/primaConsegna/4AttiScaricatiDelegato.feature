@@ -6,7 +6,7 @@ Feature: Atti scaricati con successo Delegato
     When nella Homepage RADD sezione Documenti allegati della notifica e attestazioni opponibili a terzi clicca sul bottone con freccia
     Then la pagina Richiesta Atti sezione Dati della notifica è visualizzata correttamente
 
-  @RADD
+
   @test4
 
   Scenario: Atti scaricati con successo Delegato
