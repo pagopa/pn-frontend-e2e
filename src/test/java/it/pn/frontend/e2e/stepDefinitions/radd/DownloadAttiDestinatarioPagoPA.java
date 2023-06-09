@@ -69,7 +69,7 @@ public class DownloadAttiDestinatarioPagoPA {
 
         this.datiRADD = dataPopulation.readDataPopulation(dpFile+".yaml");
         RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
-        richiestaAttiPage.insertCodiceIun(this.datiRADD.get("codiceFiscaleDestinario").toString());
+        richiestaAttiPage.insertCodiceFiscale(this.datiRADD.get("codiceFiscaleDestinario").toString());
     }
 
     @And("nella pagina atti-opponibili-terzi sezione Dati della notifica cliccare sul bottone Continua")
@@ -159,7 +159,7 @@ public class DownloadAttiDestinatarioPagoPA {
 
         this.datiRADD = dataPopulation.readDataPopulation(dpFile+".yaml");
         RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
-        richiestaAttiPage.insertCodiceIun(this.datiRADD.get("codiceFiscaleDelegato").toString());
+        richiestaAttiPage.insertCodiceFiscaleDelegato(this.datiRADD.get("codiceFiscaleDelegato").toString());
     }
 
     @And("nella pagina Richiesta Atti sezione Caricamento documenti caricare il documento di riconoscimento del delegato nel box due Carica il documento di riconoscimento del delegato")
