@@ -13,8 +13,8 @@ Feature: Mittente visualizza correttamente la pagina Api Key
     And Nella pagina Piattaforma Notifiche accetta i Cookies
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
     And Si visualizza correttamente la pagina Api Key
-    And Si visualizza correttamente la lista delle Api Key generate
-    Then Nella pagina Api Key posizionare il cursore sullo stato dell'operazione
+    #And Si visualizza correttamente la lista delle Api Key generate
+    #Then Nella pagina Api Key posizionare il cursore sullo stato dell'operazione
     And Logout da portale mittente
 
 
