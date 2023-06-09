@@ -103,20 +103,22 @@ public class LoginMittentePagoPA {
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();
 
-        //SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(this.driver);
-        //selezionaEntePAPage.waitLoadSelezionaEntePAPage();
+        SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(this.driver);
+        selezionaEntePAPage.waitLoadSelezionaEntePAPage();
 
-        //headerPASection.waitLoadHeaderSection();
-        //headerPASection.selezionaEsciButton();
+        headerPASection.waitLoadHeaderSection();
+        headerPASection.selezionaEsciButton();
 
-//        AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);
-//        acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
+        AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);
+        acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
 
         try {
-            TimeUnit.SECONDS.sleep(2);
+            TimeUnit.SECONDS.sleep(15);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
+
     }
 
 

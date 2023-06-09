@@ -28,7 +28,7 @@ public class CookiesSection extends BasePage {
             logger.info("Cookies Page caricata");
             return true;
         }catch (TimeoutException e){
-            logger.error("Cookies Page non caricata con errore : "+e.getMessage());
+            logger.warn("Cookies Page non caricata con errore : "+e.getMessage());
             return false;
         }
 

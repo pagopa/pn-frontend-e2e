@@ -49,6 +49,8 @@ public class LoginPAPage extends BasePage {
     }
 
     public void selezionaInviaDati(){
+
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.inviaButton));
         this.inviaButton.click();
     }
 }

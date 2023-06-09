@@ -9,7 +9,8 @@ Feature: il mittente download attestazione notifica presa in carico
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica "datiNotifica"
     And Cliccare sul bottone Filtra
 
-  @TestSuite
+
+
   @test97
 
   Scenario: il mittente scarica il file Attestazione opponibile a terzi: notifica presa in carico

@@ -41,9 +41,14 @@ public class LoginDestinatarioPagoPA {
         DataPopulation dataPopulation = new DataPopulation();
         this.datiDestinatario = dataPopulation.readDataPopulation(datiDestinatario+".yaml");
 
+        logger.info("cookies start");
+
         CookiesSection cookiesPage = new CookiesSection(this.driver);
         cookiesPage.waitLoadCookiesPage();
         cookiesPage.selezionaAccettaTuttiButton();
+
+        logger.info("cookies end");
+
 
         AccediApiattaformaNotifichePage accediApiattaformaNotifichePage = new AccediApiattaformaNotifichePage(this.driver);
         accediApiattaformaNotifichePage.waitLoadAccediApiattaformaNotifichePage();
@@ -97,10 +102,17 @@ public class LoginDestinatarioPagoPA {
 
     @Then("Home page destinatario viene visualizzata correttamente")
     public void home_page_destinatario_viene_visualizzata_correttamente() {
+
+        CookiesSection cookiesSection = new CookiesSection(this.driver);
+
+        if (cookiesSection.waitLoadCookiesPage()){
+            cookiesSection.selezionaAccettaTuttiButton();
+        }
+
         HeaderDESection headerDESection = new HeaderDESection(this.driver);
         headerDESection.waitLoadHeaderDESection();
 
-        CookiesSection cookiesSection = new CookiesSection(this.driver);
+
         if (cookiesSection.waitLoadCookiesPage()){
             cookiesSection.selezionaAccettaTuttiButton();
         }
@@ -131,6 +143,18 @@ public class LoginDestinatarioPagoPA {
         ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.driver);
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
 
+        CookiesSection cookiesSection = new CookiesSection(this.driver);
+        if (cookiesSection.waitLoadCookiesPage()){
+            logger.info("banner dei cookies visualizzato");
+            cookiesSection.selezionaAccettaTuttiButton();
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            logger.info("banner dei cookies sparito");
+        }
+
         if(comeVuoiAccederePage.verificaPresenzaSpidButton()){
             logger.info("Spid Button nella pagina Come vuoi accedere portale destinatario visualizzato");
         }else {
@@ -138,8 +162,10 @@ public class LoginDestinatarioPagoPA {
             Assert.fail("Spid Button nella pagina Come vuoi accedere portale destinatario non visualizzato");
         }
 
+
+
         try {
-            TimeUnit.SECONDS.sleep(2);
+            TimeUnit.SECONDS.sleep(15);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
