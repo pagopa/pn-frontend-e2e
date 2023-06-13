@@ -417,5 +417,4 @@ public class RicercaNotificheMittentePagoPATest {
             Assert.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
         }
     }
-
 }

@@ -1,4 +1,4 @@
-Feature: Il destinatario visualizza il codice di una delega
+Feature: Il destinatario aggiunge una delega a se stessi
 
   Background: Login destinatario
     Given Login Page destinatario "destinatario" viene visualizzata
@@ -8,7 +8,7 @@ Feature: Il destinatario visualizza il codice di una delega
   @TestSuite
   @test52
 
-  Scenario:
+  Scenario: Il destinatario aggiunge una delega a se stessi
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche Destinatario si vede la sezione Deleghe
     And Nella sezione Deleghe click sul bottone aggiungi nuova delega

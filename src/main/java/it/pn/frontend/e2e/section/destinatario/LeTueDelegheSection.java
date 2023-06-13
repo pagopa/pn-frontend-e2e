@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -57,6 +58,7 @@ public class LeTueDelegheSection extends BasePage {
 
     @FindBy(xpath = "//button[contains(text(),'Revoca la delega')]")
     WebElement revocaDialogAction;
+
 
     public LeTueDelegheSection(WebDriver driver) {
         super(driver);
@@ -185,6 +187,7 @@ public class LeTueDelegheSection extends BasePage {
             Assert.fail("Messaggio di errore non trovato"+e.getMessage());
         }
     }
+
 }
 
 

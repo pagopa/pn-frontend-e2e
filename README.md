@@ -2,7 +2,7 @@
 Questo repository contiene i test e2e per le webapps di Piattaforma Notifiche
 
 Per eseguire i test portali mittente e destinatario su macchina unix like il comando è il seguente:
-./mvnw clean test -Dcucumber.filter.tags=@TestSuite -Dbrowser=chrome -Dheadless=false -DlogFileName=inserimentoNotifica -Denvironment=dev
+./mvnw clean test -Dcucumber.filter.tags=@TestSuite -Dbrowser=chrome -Dheadless=false -DlogFileName=inserimentoNotifica -Denvironment=test
 
 Per eseguire i test RADD su macchina unix like il comando è il seguente:
 ./mvnw clean test -Dcucumber.filter.tags=@RADD -Dbrowser=chrome -Dheadless=false -DlogFileName=inserimentoNotifica -Denvironment=test

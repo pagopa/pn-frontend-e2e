@@ -8,7 +8,7 @@ Feature: Il destinatario visualizza la sezione notifiche
   @TestSuite
  @test15
 
-  Scenario:
+  Scenario: Il destinatario visualizza la sezione notifiche
     When Nella pagina Piattaforma Notifiche Destinatario si clicca sul bottone Notifiche
     And Si visualizza correttamente la Pagina Notifiche Destinatario
     And Nella Pagina Notifiche Destinatario si visualizzano correttamente i filtri di ricerca

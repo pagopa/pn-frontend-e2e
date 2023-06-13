@@ -5,6 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.*;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.HeaderDESection;
@@ -14,14 +15,17 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class LoginDestinatarioPagoPA {
 
-    private static final Logger logger = LoggerFactory.getLogger("LoginTest");
+    private static final Logger logger = LoggerFactory.getLogger("LoginDestinatarioPagoPA");
     private Map<String, Object> datiDestinatario;
     private final WebDriver driver = Hooks.driver;
+    
+    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     @Given("Login Page destinatario {string} viene visualizzata")
     public void login_page_destinatario_viene_visualizzata(String datiDestinatario) {
@@ -108,7 +112,25 @@ public class LoginDestinatarioPagoPA {
         if (cookiesSection.waitLoadCookiesPage()){
             cookiesSection.selezionaAccettaTuttiButton();
         }
+        boolean httpRequestToken = false;
+       for (int index = 0; index < 30; index++){
 
+           if (this.readHttpRequest()){
+               httpRequestToken = true;
+               break;
+           }
+           try {
+               TimeUnit.SECONDS.sleep(1);
+           } catch (InterruptedException e) {
+               throw new RuntimeException(e);
+           }
+       }
+       if (httpRequestToken){
+           logger.info("Http token destinatario found");
+       }else {
+           logger.error("Http token destinatario not found");
+           Assert.fail("Http token destinatario not found");
+       }
         HeaderDESection headerDESection = new HeaderDESection(this.driver);
         headerDESection.waitLoadHeaderDESection();
 
@@ -170,5 +192,22 @@ public class LoginDestinatarioPagoPA {
             throw new RuntimeException(e);
         }
     }
+    private boolean readHttpRequest() {
+        boolean urlFound = false;
+        for (NetWorkInfo netWorkInfo : netWorkInfos) {
+            //logger.info(netWorkInfo.getRequestId());
+            logger.info(netWorkInfo.getRequestUrl());
+            //logger.info(netWorkInfo.getRequestMethod());
+            logger.info(netWorkInfo.getResponseStatus());
+            //logger.info(netWorkInfo.getResponseBody());
+            String urlToFind = "https://webapi.test.notifichedigitali.it/token-exchange";
+            urlFound = false;
+            if (netWorkInfo.getRequestUrl().contains(urlToFind)) {
+                urlFound = true;
+                break;
+            }
 
+        }
+        return urlFound;
+    }
 }

@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.mittente.AreaRiservataPAPage;
 import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePAPage;
@@ -19,16 +20,19 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import static org.apache.commons.lang3.StringUtils.substring;
 
 public class NotificaMittentePagoPATest {
 
-    private static final Logger logger = LoggerFactory.getLogger("NotificaMittenteTest");
+    private static final Logger logger = LoggerFactory.getLogger("NotificaMittentePagoPATest");
 
     private final WebDriver driver = Hooks.driver;
     private Map<String, Object> datiNotifica = new HashMap<>();
     private Map<String, Object> destinatario = new HashMap<>();
+
+    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
@@ -44,6 +48,25 @@ public class NotificaMittentePagoPATest {
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche")
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche() {
+        boolean httpRequestToken = false;
+        for (int index = 0; index < 30; index++){
+
+            if (this.readHttpRequest()){
+                httpRequestToken = true;
+                break;
+            }
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        if (httpRequestToken){
+            logger.info("Http token mittente found");
+        }else {
+            logger.error("Http token mittente not found");
+            Assert.fail("Http token mittente not found");
+        }
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
         CookiesSection cookiesSection = new CookiesSection(this.driver);
@@ -320,5 +343,23 @@ public class NotificaMittentePagoPATest {
     public void siCliccaSulBottoneIndietro() {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         dettaglioNotificaSection.clickIndietroButton();
+    }
+    private boolean readHttpRequest() {
+        boolean urlFound = false;
+        for (NetWorkInfo netWorkInfo : netWorkInfos) {
+            //logger.info(netWorkInfo.getRequestId());
+            logger.info(netWorkInfo.getRequestUrl());
+            //logger.info(netWorkInfo.getRequestMethod());
+            logger.info(netWorkInfo.getResponseStatus());
+            //logger.info(netWorkInfo.getResponseBody());
+            String urlToFind = "https://webapi.test.notifichedigitali.it/token-exchange";
+            urlFound = false;
+            if (netWorkInfo.getRequestUrl().contains(urlToFind)) {
+                urlFound = true;
+                break;
+            }
+
+        }
+        return urlFound;
     }
 }

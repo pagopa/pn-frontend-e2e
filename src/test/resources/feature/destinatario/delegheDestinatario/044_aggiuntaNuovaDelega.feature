@@ -7,7 +7,7 @@ Feature: Il destinatario aggiunge una nuova delega
 
   @TestSuite
   @test44
-  Scenario:
+  Scenario: Il destinatario aggiunge una nuova delega
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche Destinatario si vede la sezione Deleghe
     And Nella sezione Deleghe click sul bottone aggiungi nuova delega

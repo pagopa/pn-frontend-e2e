@@ -39,7 +39,8 @@ public class HeaderDESection extends BasePage {
 
     public void selezionaprofiloUtenteMenu(){
         this.js().executeScript("arguments[0].scrollIntoView(true);",this.profiloUtenteMenu);
-        this.profiloUtenteMenu.click();
+        //this.profiloUtenteMenu.click();
+        this.js().executeScript("arguments[0].click()",this.profiloUtenteMenu);
     }
 
     public void selezionaVoceEsci(){

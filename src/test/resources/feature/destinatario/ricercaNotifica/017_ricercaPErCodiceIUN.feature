@@ -9,7 +9,7 @@ Feature: Ricerca Destinatario per Codice IUN
   @TestSuite
   @test17
 
-  Scenario:
+  Scenario: Ricerca Destinatario per Codice IUN
     When Si visualizza correttamente la pagina Piattaforma Notifiche Destinatario
     And Nella pagina Piattaforma Notifiche  Destinatario inserire il codice IUN da dati notifica "datiNotifica"
     And Cliccare sul bottone Filtra Destinatario

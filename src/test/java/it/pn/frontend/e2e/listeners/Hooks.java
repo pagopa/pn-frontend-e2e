@@ -1,8 +1,6 @@
 package it.pn.frontend.e2e.listeners;
 
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
+import io.cucumber.java.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
@@ -11,6 +9,11 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.devtools.DevTools;
+import org.openqa.selenium.devtools.HasDevTools;
+import org.openqa.selenium.devtools.v110.network.model.RequestWillBeSent;
+import org.openqa.selenium.devtools.v110.network.Network;
+import org.openqa.selenium.devtools.v110.network.model.ResourceType;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -24,13 +27,20 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Hooks {
     private static final Logger logger =  LoggerFactory.getLogger("Hooks");
 
     public static WebDriver driver;
+
+    public  DevTools devTools;
+
+    public Map<String, RequestWillBeSent> requests = new HashMap<>();
+
+    public static List<NetWorkInfo> netWorkInfos = new ArrayList<>();
+
     private String url;
 
     private String headless;
@@ -70,11 +80,6 @@ public class Hooks {
         chromeOptions.addArguments("--incognito");
         chromeOptions.addArguments("--disable-dev-shm-usage");
         chromeOptions.addArguments("--remote-allow-origins=*");
-/*        Map<String, Object> prefs = new HashMap<>();
-        String percorsoProggetto = System.getProperty("user.dir");
-        prefs.put("download.default_directory", percorsoProggetto+"/src/test/resources/download");
-        prefs.put("plugins.always_open_pdf_externally", true);
-        chromeOptions.setExperimentalOption("prefs", prefs);*/
         if(this.headless!=null && this.headless.equalsIgnoreCase("true")){
             chromeOptions.addArguments("no-sandbox");
             chromeOptions.addArguments("headless");
@@ -86,10 +91,56 @@ public class Hooks {
         if(this.headless!=null && this.headless.equalsIgnoreCase("false")){
             driver.manage().window().maximize();
         }
+
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+        devTools = ((HasDevTools)driver).getDevTools();
+        devTools.createSession();
+        devTools.send(Network.enable(
+                Optional.empty(),
+                Optional.empty(),
+                Optional.empty()
+        ));
+
+        this.captureHttpRequests();
+        this.captureHttpResponse();
+
         //driver.get(this.url);
         logger.info("chromedriver started");
 
+    }
+
+    private void captureHttpRequests(){
+        devTools.addListener(
+                Network.requestWillBeSent(),
+                request ->{
+                    requests.put(request.getRequestId().toString(),request);
+                    //logger.info("Request URL : "+request.getRequest().getUrl());
+                }
+        );
+    }
+
+    private void captureHttpResponse(){
+        devTools.addListener(
+                Network.responseReceived(),
+                response -> {
+                    String requestId = response.getRequestId().toString();
+                    if(requests.containsKey(requestId)){
+                        RequestWillBeSent request = requests.get(requestId);
+                        if(response.getType().equals(ResourceType.XHR)){
+                            NetWorkInfo netWorkInfo = new NetWorkInfo();
+                            netWorkInfo.setRequestId(requestId);
+                            netWorkInfo.setRequestUrl(request.getRequest().getUrl());
+                            netWorkInfo.setRequestMethod(request.getRequest().getMethod());
+                            netWorkInfo.setResponseStatus(response.getResponse().getStatus().toString());
+                            String bodyResponse = devTools.send(Network.getResponseBody(response.getRequestId())).getBody();
+                            netWorkInfo.setResponseBody(bodyResponse);
+                            this.netWorkInfos.add(netWorkInfo);
+                        }
+                    }
+                    requests.remove(requestId);
+                }
+        );
     }
 
 
@@ -154,9 +205,16 @@ public class Hooks {
     @After
     public void endScenario(Scenario scenario) {
 
+        for(NetWorkInfo netWorkInfo : netWorkInfos){
+            logger.info(netWorkInfo.getRequestId());
+            logger.info(netWorkInfo.getRequestUrl());
+            logger.info(netWorkInfo.getRequestMethod());
+            logger.info(netWorkInfo.getResponseStatus());
+            logger.info(netWorkInfo.getResponseBody());
+        }
+
         if(scenario.isFailed()){
             logger.error("scenario go to error : "+scenario.getName());
-
             try {
 
                 File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -175,12 +233,24 @@ public class Hooks {
 
             } catch (IOException e) {
                 logger.error(e.getCause().toString());
-                Assert.fail(e.getCause().toString());
             }
+
+            /*
+            time out che serve per pulire la sessione
+
+
+             */
+
         }
 
         logger.info("quit driver");
         driver.quit();
-
+        requests.clear();
+        netWorkInfos.clear();
+        try {
+            TimeUnit.SECONDS.sleep(15);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
