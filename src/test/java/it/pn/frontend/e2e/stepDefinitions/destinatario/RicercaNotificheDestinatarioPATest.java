@@ -12,13 +12,15 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 public class RicercaNotificheDestinatarioPATest {
         private static final Logger logger = LoggerFactory.getLogger("RicercaNotificheDestinatarioTest");
 
-        private WebDriver driver = Hooks.driver;
+        private final WebDriver  driver = Hooks.driver;
     private Map<String, Object> datiNotifica = new HashMap<>();
 
     @When("Si visualizza correttamente la pagina Piattaforma Notifiche Destinatario")
@@ -69,18 +71,14 @@ public class RicercaNotificheDestinatarioPATest {
         }
     }
 
-    @And("^Nella pagina Piattaforma Notifiche Destinatario inserire una data da (.*) a (.*)$")
-    public void nellaPaginaPiattaformaNotificheDestinatarioInserireUnaDataDaDAAA(String dataDA, String dataA) {
+    @And("Nella pagina Piattaforma Notifiche Destinatario inserire un arco temporale")
+    public void nellaPaginaPiattaformaNotificheDestinatarioInserireUnaDataDaDAAA() {
         logger.info("Si inserisce l'arco temporale su cui effettuare ");
         NotificheDEPage notificheDEPage = new NotificheDEPage(this.driver);
-        if (!notificheDEPage.controlloDateInserite(dataDA)){
-            logger.error("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
-            Assert.fail("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
-        }
-        if (!notificheDEPage.controlloDateInserite(dataA)){
-            logger.error("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
-            Assert.fail("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
-        }
+        LocalDate dataFine = LocalDate.now();
+        LocalDate dataInizio = dataFine.minusDays(5);
+        String dataDA = notificheDEPage.controlloDateInserite(dataInizio.toString());
+        String dataA = notificheDEPage.controlloDateInserite(dataFine.toString());
         notificheDEPage.inserimentoArcoTemporale(dataDA,dataA);
     }
 

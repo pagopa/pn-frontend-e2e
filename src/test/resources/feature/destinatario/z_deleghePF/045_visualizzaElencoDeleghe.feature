@@ -1,4 +1,4 @@
-Feature: Il destinatario aggiunge una nuova delega
+Feature: Il destinatario visualizza la sezione aggiungi una nuova delega
 
   Background: Login destinatario
     Given Login Page destinatario "destinatario" viene visualizzata
@@ -7,7 +7,7 @@ Feature: Il destinatario aggiunge una nuova delega
 
   @test45
 
-  Scenario:
+  Scenario: Il destinatario visualizza la sezione aggiungi una nuova delega
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche Destinatario si vede la sezione Deleghe
     And Nella sezione Deleghe si visualizza il titolo

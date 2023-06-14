@@ -8,7 +8,7 @@ Feature: Il destinatario revoca una delega
   @TestSuite
   @test47
 
-  Scenario:
+  Scenario: Il destinatario revoca una delega
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche Destinatario si vede la sezione Deleghe
     And Nella sezione Deleghe si verifica sia presente una delega

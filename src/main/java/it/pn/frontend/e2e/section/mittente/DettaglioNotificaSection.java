@@ -41,9 +41,6 @@ public class DettaglioNotificaSection extends BasePage {
     @FindBy (xpath = "//div[contains(@class,'MuiBox-root css-35ezg3')]")
     List<WebElement> infoNotifiche;
 
-    @FindBy (xpath = "//span[contains(@class,'css-t63gu0')]")
-    public WebElement gruppoNotificaField;
-
     @FindBy(xpath = "//button[contains(@data-testid,'documentButton')]" )
     List<WebElement> linkAllegati;
     @FindBy(xpath = "//button[contains(@data-testid,'breadcrumb-indietro-button')]")
@@ -66,13 +63,19 @@ public class DettaglioNotificaSection extends BasePage {
     public void downloadFileAttestazioni(String path){
 
         for ( WebElement link: attestazioniFile) {
-            link.click();
+            if (link.isDisplayed()){
+                link.click();
+            }else {
+                this.js().executeScript("arguments[0].scrollIntoView(true);", link);
+                link.click();
+            }
             String nomePdf = link.getText();
             for (int i = 0; i < 30; i++) {
                 List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
                 if (numTab.size() == 2){
                     this.driver.switchTo().window(numTab.get(1));
                     try {
+                        waitLoadPage();
                         URL urlPDF = new URL(this.driver.getCurrentUrl());
                         File partialPath = new File(path);
                         File pdf = new File(System.getProperty("user.dir")+partialPath+"/"+nomePdf+".pdf");
@@ -134,15 +137,22 @@ public class DettaglioNotificaSection extends BasePage {
 
     public void downloadFileAttestazione(String nomeFile, String path) {
         try {
+            vaiFondoPagina();
             By fileLinkBy = By.xpath("//button[contains(text(),'"+nomeFile+"')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(fileLinkBy));
             WebElement fileLink = this.element(fileLinkBy);
-            fileLink.click();
+            if (fileLink.isDisplayed()){
+                fileLink.click();
+            }else {
+                this.js().executeScript("arguments[0].scrollIntoView(true);", fileLink);
+                fileLink.click();
+            }
             for (int i = 0; i < 30; i++) {
                 List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
                 if (numTab.size() == 2){
                     this.driver.switchTo().window(numTab.get(1));
                     try {
+                        waitLoadPage();
                         URL urlPDF = new URL(this.driver.getCurrentUrl());
                         File pdf = new File(System.getProperty("user.dir")+path+"/"+nomeFile+".pdf");
                         FileUtils.copyURLToFile(urlPDF,pdf,1000,1000);
@@ -188,14 +198,9 @@ public class DettaglioNotificaSection extends BasePage {
             infoNotifica.put("codiceAvviso", codiceAvviso);
             infoNotifica.put("codiceIUN","nd");
         }
-        String gruppo = getGruppoNotifica();
-        infoNotifica.put("gruppo",gruppo);
         return infoNotifica;
     }
 
-    private String getGruppoNotifica() {
-        return gruppoNotificaField.getText();
-    }
 
     private boolean controlloCodice() {
         try {
@@ -213,13 +218,20 @@ public class DettaglioNotificaSection extends BasePage {
 
     public void downloadFileNotifica(String path) {
         for ( WebElement link: this.linkAllegati) {
-            link.click();
+            if (link.isDisplayed()){
+                link.click();
+            }else {
+                this.js().executeScript("arguments[0].scrollIntoView(true);", link);
+                link.click();
+            }
+
             String nomePdf = link.getText();
             for (int i = 0; i < 30; i++) {
                 List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
                 if (numTab.size() == 2){
                     this.driver.switchTo().window(numTab.get(1));
                     try {
+                        waitLoadPage();
                         URL urlPDF = new URL(this.driver.getCurrentUrl());
                         File partialPath = new File(path);
                         File pdf = new File(System.getProperty("user.dir")+partialPath+"/"+nomePdf+".pdf");

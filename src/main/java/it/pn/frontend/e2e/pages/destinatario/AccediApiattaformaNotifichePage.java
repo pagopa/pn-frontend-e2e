@@ -15,7 +15,9 @@ public class AccediApiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("AccediApiattaformaNotifichePage");
 
-    @FindBy(xpath = "//button[contains(@id,'login-button')]")
+
+    @FindBy(id = "login-button")
+    //@FindBy(xpath = "//button[contains(@id,'login-button')]")
     WebElement accediButton;
 
     public AccediApiattaformaNotifichePage(WebDriver driver) {
@@ -24,8 +26,12 @@ public class AccediApiattaformaNotifichePage extends BasePage {
 
     public void waitLoadAccediApiattaformaNotifichePage(){
         try{
-            By titleLabel = By.xpath("//h4[contains(@id,'login-page-title')]");
+            //By titleLabel = By.xpath("//h4[contains(@id,'login-page-title')]");
+            By titleLabel = By.id("login-page-title");
+            By loginBy = By.id("login-button");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(loginBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(loginBy));
             logger.info("Accedi A Piattaforma Notifiche Page caricata");
         }catch (TimeoutException e){
             logger.info("Accedi A Piattaforma Notifiche Page non caricata con errore : "+e.getMessage());
@@ -34,6 +40,7 @@ public class AccediApiattaformaNotifichePage extends BasePage {
     }
 
     public void selezionaAccediButton(){
-        this.accediButton.click();
+        this.js().executeScript("arguments[0].click()",this.accediButton);
+        //this.accediButton.click();
     }
 }

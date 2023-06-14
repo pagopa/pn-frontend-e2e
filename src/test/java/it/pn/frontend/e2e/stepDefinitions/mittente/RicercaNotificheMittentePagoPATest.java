@@ -170,14 +170,14 @@ public class RicercaNotificheMittentePagoPATest {
 
         String statoInserito = statoNotifica;
         switch (statoInserito.toUpperCase()) {
-            case "TUTI GLI STATI" -> statoInserito = "Tutti gli stati";
-            case "DEPOSITATA" -> statoInserito = "Depositata";
-            case "INVIO IN CORSO" -> statoInserito = "Invio in corso";
-            case "CONSEGNATA" -> statoInserito = "Consegnata";
-            case "PERFEZIONATA PER DECORRENZA TERMINI" -> statoInserito = "Perfezionata per decorrenza termini";
-            case "PERFEZIONATA PER VISIONE" -> statoInserito = "Perfezionata per visione";
-            case "ANNULLATA" -> statoInserito = "Annullata";
-            case "DESTINATARIO IRREPERIBILE" -> statoInserito = "Destinatario irreperibile";
+            case "TUTI GLI STATI" -> statoInserito = "All";
+            case "DEPOSITATA" -> statoInserito = "ACCEPTED";
+            case "INVIO IN CORSO" -> statoInserito = "DELIVERING";
+            case "CONSEGNATA" -> statoInserito = "DELIVERED";
+            case "PERFEZIONATA PER DECORRENZA TERMINI" -> statoInserito = "EFFECTIVE_DATE";
+            case "AVVENUTO ACCESSO" -> statoInserito = "VIEWED";
+            case "ANNULLATA" -> statoInserito = "CANCELLED";
+            case "DESTINATARIO IRREPERIBILE" -> statoInserito = "UNREACHABLE";
             default -> {
                 logger.error("Stato notifica inserito non valido");
                 Assert.fail("Stato notifica inserito non valido");
@@ -222,11 +222,11 @@ public class RicercaNotificheMittentePagoPATest {
         piattaformaNotifichePAPage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
     }
 
-    @And("Nella pagina piattaforma Notifiche selezionare lo stato notifica {string}")
-    public void nellaPaginaPiattaformaNotificheSelezionareLoStatoNotifica(String statoNotificaDepositata) {
-        logger.info("Si seleziona lo stato notifica" + statoNotificaDepositata);
+    @And("Nella pagina piattaforma Notifiche selezionare lo stato notifica Depositata")
+    public void nellaPaginaPiattaformaNotificheSelezionareLoStatoNotifica() {
+        logger.info("Si seleziona lo stato notifica Depositata");
         PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.selezionareStatoNotifica(statoNotificaDepositata);
+        piattaformaNotifichePAPage.selezionareStatoNotifica("ACCEPTED");
     }
 
 
@@ -417,5 +417,4 @@ public class RicercaNotificheMittentePagoPATest {
             Assert.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
         }
     }
-
 }

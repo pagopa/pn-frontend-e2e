@@ -7,7 +7,7 @@ Feature: Mittente visualizza correttamente la pagina notifiche
 
   @test7
 
-  Scenario:
+  Scenario: Mittente visualizza correttamente la pagina notifiche
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche visualizzano correttamente i filtri di ricerca

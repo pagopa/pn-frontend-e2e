@@ -1,13 +1,12 @@
-Feature: Il destinatario aggiunge una nuova delega
+Feature: destinatario aggiunge una delega allo stesso delegato
 
-  Background: Login destinatario
+  Background: login destinatario
     Given Login Page destinatario "destinatario" viene visualizzata
     When Login con destinatario "destinatario"
-    Then Home page destinatario viene visualizzata correttamente
+    Then pagina Piattaforma  Notifiche Destinatario viene visualizzata correttamente
 
-  @TestSuite
-  @test44
-  Scenario: Il destinatario aggiunge una nuova delega
+  @test53
+  Scenario: il destinatario aggiunge una delega allo stesso delegato
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche Destinatario si vede la sezione Deleghe
     And Nella sezione Deleghe click sul bottone aggiungi nuova delega
@@ -15,7 +14,6 @@ Feature: Il destinatario aggiunge una nuova delega
     And Nella sezione Le Tue Deleghe inserire i dati "nuova_delega"
     And Nella sezione Le Tue Deleghe verificare che la data sia corretta
     And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "nuova_delega"
-    And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
-    And Nella sezione Deleghe si visualizza la delega in stato di attesa di conferma
+    And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta
+    And Nella sezione Le Tue Deleghe si visualizza il messaggio di errore delega gia aggiunta
     And Logout da portale destinatario
-

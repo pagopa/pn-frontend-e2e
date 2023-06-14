@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario;
 
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.ITuoiRecapitiPage;
@@ -14,7 +13,7 @@ import java.util.Map;
 
 public class InserimentoOTPSbagliato {
     private static final Logger logger = LoggerFactory.getLogger("InserimentoOTPSbagliato");
-    private WebDriver driver = Hooks.driver;
+    private final WebDriver driver = Hooks.driver;
 
     @When("Nella pagina Piattaforma Notifiche Destinatario si clicca sul bottone I Tuoi Recapiti")
     public void ITuoiRecapitiButtonClick(){
@@ -49,7 +48,7 @@ public class InserimentoOTPSbagliato {
         logger.info("Si cerca di cliccare sul bottone conferma");
 
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        iTuoiRecapitiPage.confermaButtonClick(0);
+        iTuoiRecapitiPage.confermaButtonClick();
     }
 
     @And("Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP")
@@ -90,6 +89,6 @@ public class InserimentoOTPSbagliato {
         logger.info("Si cerca di cliccare sul bottone conferma");
 
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        iTuoiRecapitiPage.confermaButtonClick(2);
+        iTuoiRecapitiPage.confermaButtonClickPopUp();
     }
 }

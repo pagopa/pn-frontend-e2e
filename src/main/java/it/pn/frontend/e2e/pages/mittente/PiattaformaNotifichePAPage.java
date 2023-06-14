@@ -144,9 +144,15 @@ public class PiattaformaNotifichePAPage extends BasePage {
     public void selezionareStatoNotifica(String statoInserito) {
         this.statoNotificaField.click();
         try {
-            By statoNotificaBy = By.xpath("//ul[@role='listbox']/li[@role='option' and div/span[contains(text(),'" + statoInserito + "')]]");
+            By statoNotificaBy = By.xpath("//li[contains(@data-value,'"+statoInserito+"')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
-            this.element(statoNotificaBy).click();
+
+            if (this.element(statoNotificaBy).isDisplayed()) {
+                this.element(statoNotificaBy).click();
+            }else {
+                this.js().executeScript("arguments[0].scrollIntoView(true);",this.element(statoNotificaBy));
+                this.element(statoNotificaBy).click();
+            }
             logger.info("Stato notifica selezionato correttamente");
         } catch (TimeoutException e) {
             logger.error("Stato notifica NON trovata con errore: " + e.getMessage());
@@ -281,7 +287,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
 
     public boolean verificaEsistenzaRisultati() {
         try {
-            By messaggioNessunRisultatoby = By.xpath("//p[contains(text(),'nessun risultato')]");
+            By messaggioNessunRisultatoby = By.xpath("//button[contains(@data-testid,'callToActionFirst')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messaggioNessunRisultatoby));
             logger.info("Messaggio visualizzato correttamente");
             return true;

@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class BasePage {
 
@@ -35,4 +36,18 @@ public class BasePage {
         return (JavascriptExecutor) driver;
     }
 
+    public void waitLoadPage(){
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    protected void vaiFondoPagina(){
+        this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
+    }
+
+    protected void swipeToElement(WebElement element){
+        js().executeScript("arguments[0].scrollIntoView(true);",element);
+    }
 }

@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.section;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -22,15 +21,17 @@ public class CookiesSection extends BasePage {
         super(driver);
     }
 
-    public void waitLoadCookiesPage(){
+    public boolean waitLoadCookiesPage(){
         try{
             By scopriDipiuLink = By.id("onetrust-pc-btn-handler");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(scopriDipiuLink));
             logger.info("Cookies Page caricata");
+            return true;
         }catch (TimeoutException e){
-            logger.error("Cookies Page non caricata con errore : "+e.getMessage());
-            Assert.fail("Cookies Page non caricata con errore : "+e.getMessage());
+            logger.warn("Cookies Page non caricata con errore : "+e.getMessage());
+            return false;
         }
+
     }
 
     public void selezionaAccettaTuttiButton(){

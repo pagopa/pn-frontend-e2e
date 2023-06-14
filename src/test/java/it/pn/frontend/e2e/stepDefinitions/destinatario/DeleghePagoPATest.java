@@ -20,7 +20,7 @@ public class DeleghePagoPATest {
 
     private final WebDriver driver = Hooks.driver;
     Map<String, Object> deleghe = new HashMap<>();
-    private final Logger logger = LoggerFactory.getLogger("AggiuntaNuovaDelegaPagoPA");
+    private final Logger logger = LoggerFactory.getLogger("DeleghePagoPATest");
 
     @When("Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe")
     public void wait_deleghe_Button() {
@@ -61,8 +61,8 @@ public class DeleghePagoPATest {
 
         leTueDelegheSection.insertNomeCognome(deleghe.get("nome").toString(),deleghe.get("cognome").toString());
         leTueDelegheSection.inserireCF(deleghe.get("codiceFiscale").toString());
-
         leTueDelegheSection.selectSoloEntiSelezionati();
+        leTueDelegheSection.waitLoadPage();
         leTueDelegheSection.selezionaUnEnte(deleghe.get("ente").toString());
 
     }
