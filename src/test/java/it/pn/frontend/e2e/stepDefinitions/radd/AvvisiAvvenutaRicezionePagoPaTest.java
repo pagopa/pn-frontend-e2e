@@ -32,7 +32,7 @@ public class AvvisiAvvenutaRicezionePagoPaTest {
     }
 
     @Then("la pagina Avvisi di avvenuta ricezione sezione Dati del destinatario è visualizzata correttamente")
-    public void laPaginaAvvisiDiAvvenutaRicezioneSezioneDatiDelDestinatarioAVisualizzataCorrettamente() {
+    public void laPaginaAvvisiDiAvvenutaRicezioneSezioneDatiDelDestinatarioEVisualizzataCorrettamente() {
         AvvisiAvvenutaRicezionePage avvisiAvvenutaRicezionePage = new AvvisiAvvenutaRicezionePage(this.driver);
         avvisiAvvenutaRicezionePage.waitLoadAvvenutaRicezione();
     }

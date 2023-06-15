@@ -6,6 +6,7 @@ Feature: Failure primo step Destinatario
     When nella Homepage RADD sezione Documenti allegati della notifica e attestazioni opponibili a terzi clicca sul bottone con freccia
     Then la pagina Richiesta Atti sezione Dati della notifica è visualizzata correttamente
 
+
   @test5
 
   Scenario: Failure primo step Destinatario

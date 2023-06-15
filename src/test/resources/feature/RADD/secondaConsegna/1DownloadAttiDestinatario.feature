@@ -27,3 +27,5 @@ Feature: Atti scaricati con successo Destinatario
 #    And la landing page si visualizza
 #    And nella landing page cliccare sul tasto torna alla home
 #    And la Homepage RADD è visualizzata correttamente
+
+

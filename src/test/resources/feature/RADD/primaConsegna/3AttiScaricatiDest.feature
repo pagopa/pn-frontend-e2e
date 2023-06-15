@@ -17,7 +17,6 @@ Feature: Atti scaricati con successo Destinatario
     And nella pagina atti-opponibili-terzi sezione Caricamento documenti caricare il documento di riconoscimento del destinario nel box uno Carica il documento di riconoscimento del destinatario
     And nella pagina atti-opponibili-terzi sezione Caricamento documenti cliccare sul bottone Continua
     And nella pagina atti-opponibili-terzi sezione Allegati e attestazioni esegue il download dei documenti
-    And nella pagina atti-opponibili-terzi sezione Allegati e attestazioni nei box dei documenti scaricati è visibile la spunta verde
     And nella pagina atti-opponibili-terzi sezione Allegati e attestazioni cliccare sul bottone ho finito
     And Si visualizza correttamente la pagina di conferma RADD
     Then nella pagina di conferma cliccare sul link dello storico

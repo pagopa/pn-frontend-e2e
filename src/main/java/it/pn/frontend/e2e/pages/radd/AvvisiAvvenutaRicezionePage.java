@@ -142,8 +142,8 @@ public class AvvisiAvvenutaRicezionePage extends BasePage {
     }
 
     public boolean hoFinitoButtonAbilitato() {
-            return this.hoFinitoButton.getAttribute("disabled")==null;
-        }
+        return this.hoFinitoButton.getAttribute("disabled")==null;
+    }
 
     public void clickArrowBack() {
         this.indietroButton.click();

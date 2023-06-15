@@ -16,3 +16,5 @@ Feature: Atti scaricati con successo Destinatario upload failure
     And la pagina atti-opponibili-terzi sezione Caricamento documenti è visualizzata correttamente
     And nella pagina atti-opponibili-terzi sezione Caricamento documenti caricare un documento con estenzione non valida
     Then Si visualizza un messaggio di errore
+
+    # xpath messaggio di errore: //div[contains(text(),'Estensione file non supportata')]
