@@ -5,7 +5,9 @@ Feature: Il destinatario visualizza le notifiche in elenco
     When Login con destinatario "destinatario"
     Then pagina Piattaforma  Notifiche Destinatario viene visualizzata correttamente
 
+    @TestSuite
     @test16
+    @quintaConsegna
 
     Scenario: Il destinatario visualizza le notifiche in elenco
       When Si visualizza correttamente la pagina Piattaforma Notifiche Destinatario

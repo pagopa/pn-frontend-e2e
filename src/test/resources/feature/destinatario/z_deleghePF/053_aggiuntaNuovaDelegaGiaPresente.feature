@@ -5,7 +5,10 @@ Feature: destinatario aggiunge una delega allo stesso delegato
     When Login con destinatario "destinatario"
     Then pagina Piattaforma  Notifiche Destinatario viene visualizzata correttamente
 
+  @TestSuite
   @test53
+  @quintaConsegna
+
   Scenario: il destinatario aggiunge una delega allo stesso delegato
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche Destinatario si vede la sezione Deleghe

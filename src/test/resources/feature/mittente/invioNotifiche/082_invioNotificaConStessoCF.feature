@@ -5,7 +5,10 @@ Feature: invio notifica con lo stesso codice fiscale
     When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
 
+  @TestSuite
   @test82
+  @quintaConsegna
+
     Scenario: il mittente invia la notifica con lo stesso codice fiscale
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
@@ -15,8 +18,8 @@ Feature: invio notifica con lo stesso codice fiscale
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     And Nella section Destinatario inserire nome cognome e codice fiscale da destinatario "destinatario"
-    And Cliccare su aggiungi indirizzo fisico, compilare i dati del destinatario "destinatario"
-    And Cliccare su Aggiungi destinatario
+    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati del destinatario "destinatario"
+    And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario si inserisce lo stesso destinatario di prima "destinatario"
     Then Si visualizza correttamente l errore di stesso codice fiscale
     And Logout da portale mittente

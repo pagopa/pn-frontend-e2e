@@ -7,10 +7,13 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.mittente.ApiKeyPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePAPage;
 import it.pn.frontend.e2e.section.mittente.GeneraApiKeySection;
+import it.pn.frontend.e2e.utility.DataPopulation;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class ApiKeysTest {
@@ -172,4 +175,97 @@ public class ApiKeysTest {
         ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
         apiKeyPAPage.siVisualizzaNotificaSelezionataRuotata();
     }
+
+    @And("Si visualizza correttamente la lista delle Api Key generate")
+    public void siVisualizzaCorrettamenteLaListaDelleApiKeyGenerate() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+
+        if (apiKeyPAPage.siVisualizzaApiKeyConTesto()){
+            logger.info("Si visualizza correttamente l'Api Key delle Api Key");
+        }else {
+            logger.error("NON si visualizza correttamente l'Api Key delle Api Key");
+            Assert.fail("NON si visualizza correttamente l'Api Key delle Api Key");
+        }
+
+        if (apiKeyPAPage.siVisualizzaNomeEDataConTesto()){
+            logger.info("Si visualizza correttamente le date delle Api Key");
+        }else {
+            logger.error("NON si visualizza correttamente le date delle Api Key");
+            Assert.fail("NON si visualizza correttamente le date delle Api Key");
+        }
+
+        if (apiKeyPAPage.siVisualizzaGruppoConTesto()){
+            logger.info("Si visualizza correttamente il gruppo delle Api Key");
+        }else {
+            logger.error("NON si visualizza correttamente il gruppo delle Api Key");
+            Assert.fail("NON si visualizza correttamente il gruppo delle Api Key");
+        }
+
+        if (apiKeyPAPage.siVisualizzaStatoConTesto()){
+            logger.info("Si visualizza correttamente lo stato delle api key");
+        }else {
+            logger.error("NON si visualizza correttamente lo stato delle api key");
+            Assert.fail("NON si visualizza correttamente lo stato delle api key");
+        }
+
+        if (apiKeyPAPage.siVisualizzaMenuApiKey()){
+            logger.info("Si visualizza correttamente il bottone del menu Api Key");
+        }else {
+            logger.error("NON si visualizza correttamente il bottone del menu Api Key");
+            Assert.fail("NON si visualizza correttamente il bottone del menu Api Key");
+        }
+    }
+
+    @Then("Nella pagina Api Key posizionare il cursore sullo stato dell'operazione")
+    public void nellaPaginaApiKeyPosizionareIlCursoreSulloStatoDellOperazione() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.mouseHover();
+        apiKeyPAPage.waitLoadMessaggioData();
+    }
+
+    @And("Nella sezione genera Api Key inserire un gruppo")
+    public void nellaSezioneGeneraApiKeyInserireUnGruppo() {
+        DataPopulation dataPopulation = new DataPopulation();
+        Map<String,Object> datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        String variabileAmbiente = System.getProperty("environment");
+        String gruppo="";
+        switch (variabileAmbiente) {
+            case "dev" ->  gruppo = datiNotifica.get("gruppoDev").toString();
+            case "test", "uat" -> gruppo = datiNotifica.get("gruppoTest").toString();
+        }
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.inserireGruppoApi(gruppo);
+    }
+
+    @And("Nella sezione genera Api Key cancellare il testo inserito")
+    public void nellaSezioneGeneraApiKeyCancellareIlTestoInserito() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.cancellareTestoInserito();
+    }
+
+    @Then("Nella sezione genera si visualizza un messaggio di errore")
+    public void nellaSezioneGeneraSiVisualizzaUnMessaggioDiErrore() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.siVisualizzaMessaggioErroreApiName();
+    }
+
+    @And("Nella pagina Api Key si clicca sulla voce visualizza del menu Api Key")
+    public void nellaPaginaApiKeySiCliccaSullaVoceVisualizzaDelMenuApiKey() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.clickSuVisualizza();
+    }
+
+    @And("Nella pagina Api Key si visualizza il pop up visualizza Api Key")
+    public void nellaPaginaApiKeySiVisualizzaIlPopUpVisualizzaApiKey() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.siVisualizzaPopUpVisualizza();
+    }
+
+    @Then("Nel pop up visualizza cliccare sul tasto chiudi")
+    public void nelPopUpVisualizzaCliccareSulTastoChiudi() {
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.chiudiPopUpVisualizza();
+    }
+
+
 }

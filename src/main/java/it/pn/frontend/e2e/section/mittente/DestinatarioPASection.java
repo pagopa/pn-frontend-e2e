@@ -11,6 +11,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+import java.util.Map;
+
 public class DestinatarioPASection extends BasePage {
 
     private static  final Logger logger = LoggerFactory.getLogger("DestinatarioPASection");
@@ -51,6 +54,9 @@ public class DestinatarioPASection extends BasePage {
     @FindBy(xpath = "//input[contains(@id,'foreignState')]")
     WebElement statoTextField;
 
+    @FindBy(xpath = "//button[contains(@data-testid,'add-recipient')]")
+    WebElement aggiungiDestinatarioButton;
+
     public DestinatarioPASection(WebDriver driver) {
         super(driver);
     }
@@ -64,6 +70,8 @@ public class DestinatarioPASection extends BasePage {
         }
         return datoDestianario;
     }
+
+
 
     public void waitLoadDestinatarioPASection() {
         try{
@@ -132,4 +140,57 @@ public class DestinatarioPASection extends BasePage {
         this.scrollToElementClickAndInsertText(this.statoTextField, stato);
     }
 
+    public void selezionareAggiungiDestinatarioButton() {
+        this.aggiungiDestinatarioButton.click();
+    }
+
+    public void inserimentoMultiDestinatario(Map<String,Object> destinatari, int i) {
+        selezionarePersonaFisica();
+        String nomeDestinatario = ricercaInformazione(destinatari.get("name").toString().split(","), i);
+        inserireInfoMultiDestinatario("//input[contains(@id,'firstName')]",nomeDestinatario);
+        String cognomeDestinatario = ricercaInformazione(destinatari.get("familyName").toString().split(","), i);
+        inserireInfoMultiDestinatario("//input[contains(@id,'lastName')]",cognomeDestinatario);
+        String cfDestinatario = ricercaInformazione(destinatari.get("codiceFiscale").toString().split(","), i);
+        cfDestinatario = cfDestinatario.replace(" ","");
+        inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]",cfDestinatario);
+        selezionaAggiungiUnIndirizzoFisicoMulti();
+    }
+
+    private void selezionaAggiungiUnIndirizzoFisicoMulti() {
+        By aggiungiIndrizzoBy = By.xpath("//div[contains(@data-testid, 'PhysicalAddressCheckbox')]");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(aggiungiIndrizzoBy));
+        List<WebElement> aggiungiIndirizzoButton = this.elements(aggiungiIndrizzoBy);
+        this.scrollToElementClickAndInsertText(aggiungiIndirizzoButton.get(aggiungiIndirizzoButton.size() - 1), null);
+    }
+
+    private void inserireInfoMultiDestinatario(String xpath, String nomeDestinatario) {
+        try {
+            By nomeDestinatarioBy = By.xpath(xpath);
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDestinatarioBy));
+            List<WebElement> listaNomeDestinatariField = this.elements(nomeDestinatarioBy);
+            this.scrollToElementClickAndInsertText(listaNomeDestinatariField.get(listaNomeDestinatariField.size() - 1), nomeDestinatario);
+        } catch (TimeoutException e) {
+            logger.error("Xpath non trovato con erorre: " + e.getMessage());
+            Assert.fail("Xpath non trovato con erorre: " + e.getMessage());
+        }
+    }
+
+    public boolean inserireIlSestoDestinatario() {
+        this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
+        By aggiungereDestinatarioButtonBy = By.xpath("//button[contains(@data-testid,'add-recipient')]");
+        //this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(aggiungereDestinatarioButtonBy));
+        return this.elements(aggiungereDestinatarioButtonBy).size() == 0;
+    }
+
+    public void waitMessaggioErrore() {
+        try {
+            By errorMessage = By.xpath("//p[@id='recipients[1].taxId-helper-text']");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(errorMessage));
+            logger.info("Il messaggio di errore viene visualizzato");
+        }catch (TimeoutException e){
+            logger.error("Il messaggio di errore non viene visualizzato con errore: "+e.getMessage());
+            Assert.fail("Il messaggio di errore non viene visualizzato con errore: "+e.getMessage());
+        }
+
+    }
 }

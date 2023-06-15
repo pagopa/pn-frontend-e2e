@@ -48,8 +48,9 @@ public class LoginDestinatarioPagoPA {
         logger.info("cookies start");
 
         CookiesSection cookiesPage = new CookiesSection(this.driver);
-        cookiesPage.waitLoadCookiesPage();
-        cookiesPage.selezionaAccettaTuttiButton();
+        if (cookiesPage.waitLoadCookiesPage()){
+            cookiesPage.selezionaAccettaTuttiButton();
+        }
 
         logger.info("cookies end");
 
@@ -58,8 +59,9 @@ public class LoginDestinatarioPagoPA {
         accediApiattaformaNotifichePage.waitLoadAccediApiattaformaNotifichePage();
         accediApiattaformaNotifichePage.selezionaAccediButton();
 
-        cookiesPage.waitLoadCookiesPage();
-        cookiesPage.selezionaAccettaTuttiButton();
+        if (cookiesPage.waitLoadCookiesPage()){
+            cookiesPage.selezionaAccettaTuttiButton();
+        }
 
         ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.driver);
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();

@@ -9,7 +9,9 @@ Feature: Mittente seleziona l'opzione visualizza api Key
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
     And Si visualizza correttamente la pagina Api Key
 
+  @TestSuite
   @test24
+  @quintaConsegna
 
   Scenario: Mittente seleziona l'opzione visualizza api Key
     When Nella pagina Api Key si clicca sul bottone menu di una Api Key attiva presente in elenco

@@ -10,9 +10,11 @@ Feature: Mittente genera Api Key senza inserire il nome dell api key
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
     And Si visualizza correttamente la pagina Api Key
 
+  @TestSuite
   @test22_neg1
+  @quintaConsegna
 
-  Scenario:
+  Scenario:Mittente genera Api Key senza inserire il nome dell api key
     When Nella pagina Api Key si clicca sul bottone genera Api Key
     And Si visualizza correttamente la sezione genera Api key
     And Nella sezione genera Api Key inserire il nome "Simona" per l Api Key

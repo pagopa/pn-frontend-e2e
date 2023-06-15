@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -41,6 +42,21 @@ public class PiattaformaNotifichePAPage extends BasePage {
 
     @FindBy(xpath = "//div[contains(@data-testid,'sideMenuItem-API Key')]")
     WebElement apiKeyButton;
+
+    @FindBy(xpath = "//button[contains(@class,'MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-34ped8')]")
+    WebElement numeroNotificheButton;
+
+    @FindBy(xpath = "//button[contains(@aria-label,'Vai alla pagina successiva')]")
+    WebElement frecciaPaginaSuccessiva;
+
+    @FindBy(xpath = "//button[contains(@aria-label,'pagina 3')]")
+    WebElement pageNumberButton;
+
+    @FindBy(xpath = "//button[contains(@class,'MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-34ped8')]")
+    WebElement pageNumberList;
+
+    @FindBy(xpath = "//li[contains(@tabindex,'-1')]")
+    WebElement numberElement;
 
     public PiattaformaNotifichePAPage(WebDriver driver) {
         super(driver);
@@ -294,5 +310,171 @@ public class PiattaformaNotifichePAPage extends BasePage {
         } catch (TimeoutException e) {
             return false;
         }
+    }
+
+    public void siVisualizzaCorrettamenteIlCFField() {
+        try {
+            By codiceFiscaleField = By.xpath("//input[contains(@id,'recipientId')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiceFiscaleField));
+            logger.info("Il campo di codice fiscale si visualizza correttamente");
+        } catch (TimeoutException e) {
+            logger.error("Il campo di codice fiscale NON si visualizza correttamente con errore : " + e.getMessage());
+            Assert.fail("Il campo di codice fiscale NON si visualizza correttamente : " + e.getMessage());
+        }
+    }
+
+    public void siVisualizzaCorrettamenteIlCodiceIUNField() {
+        try {
+            By codiceIUNField = By.xpath("//input[contains(@id 'iunMatch')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiceIUNField));
+            logger.info("Il campo di codice iun si visualizza correttamente");
+        } catch (TimeoutException e) {
+            logger.error("Il campo di codice iun NON si visualizza correttamente con errore : " + e.getMessage());
+            Assert.fail("Il campo di codice iun NON si visualizza correttamente : " + e.getMessage());
+        }
+    }
+
+    public void siVisualizzaCorrettamenteLoStatoField() {
+        try {
+            By statoField = By.xpath("//div[contains(@id,'menu-status')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoField));
+            logger.info("Il campo dello stato si visualizza correttamente");
+        } catch (TimeoutException e) {
+            logger.error("Il campo dello stato NON si visualizza correttamente con errore : " + e.getMessage());
+            Assert.fail("Il campo dello stato NON si visualizza correttamente : " + e.getMessage());
+        }
+    }
+
+    public void siVisualizzaCorrettamenteLaDataInzioField() {
+        try {
+            By dataDaField = By.xpath("//input[contains(@id 'startDate')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(dataDaField));
+            logger.info("Il campo della data di inizio si visualizza correttamente");
+        } catch (TimeoutException e) {
+            logger.error("Il campo della data di inizio NON si visualizza correttamente con errore : " + e.getMessage());
+            Assert.fail("Il campo della data di inizio NON si visualizza correttamente : " + e.getMessage());
+        }
+    }
+
+    public void siVisualizzaCorrettamenteLaDataFineField() {
+        try {
+            By dataAField = By.xpath("//input[contains(@id 'endDate')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(dataAField));
+            logger.info("Il campo della data di fine si visualizza correttamente");
+        } catch (TimeoutException e) {
+            logger.error("Il campo della data di fine NON si visualizza correttamente con errore : " + e.getMessage());
+            Assert.fail("Il campo della data di fine NON si visualizza correttamente : " + e.getMessage());
+        }
+    }
+
+    public boolean verificaEsistenzaCFNotifiche() {
+        By cfFiealdBy = By.xpath("//td[button/p[contains(@class,'MuiTypography-root MuiTypography-body2')]]");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(cfFiealdBy));
+        return this.elements(cfFiealdBy).size() >= 1;
+    }
+
+    public boolean verificaEsistenzaCodiceIUNNotifiche() {
+        By codiciIUNBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr')]");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiciIUNBy));
+        return this.elements(codiciIUNBy).size() >= 1;
+    }
+
+    public boolean verificaEsistenzaGruppoNotifiche() {
+        By gruppiBy = By.xpath("//td[button/div/span[contains(@class,'css-t63gu0')]]");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(gruppiBy));
+        return this.elements(gruppiBy).size() >= 1;
+    }
+
+    public boolean verificaEsistenzaStatoNotifiche() {
+        By statiBy = By.xpath("//td[button/div/div[contains(@data-testid,'statusChip-')]]");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statiBy));
+        return this.elements(statiBy).size() >= 1;
+    }
+
+
+    public int getNRighe() {
+        By nRigheBy = By.xpath("//tr[contains(@data-testid,'table(notifications).row')]");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nRigheBy));
+        return this.elements(nRigheBy).size();
+    }
+
+    public String numeroNotifiche() {
+        By nRigheBy = By.xpath("//button[contains(@data-testid,'rows-per-page')]");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nRigheBy));
+        return this.element(nRigheBy).getText();
+    }
+
+    public void controlloOrdineNotifiche() {
+        List<WebElement> listaDate = getListaDate();
+        LocalDate dataSuccessiva;
+        LocalDate dataPrecedente;
+        for (int i = 0; i < listaDate.size() - 1; i++) {
+            String dataDopo = listaDate.get(i).getText();
+            String dataPrima = listaDate.get(i + 1).getText();
+            if ("Oggi".equals(dataDopo)) {
+                dataSuccessiva = LocalDate.now();
+            } else {
+                String[] dateA = dataDopo.split("/");
+                dataDopo = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
+                dataSuccessiva = LocalDate.parse(dataDopo);
+            }
+            if ("Oggi".equals(dataPrima)) {
+                dataPrecedente = LocalDate.now();
+            } else {
+                String[] dateA = dataPrima.split("/");
+                dataPrima = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
+                dataPrecedente = LocalDate.parse(dataPrima);
+            }
+            if (dataSuccessiva.isBefore(dataPrecedente)) {
+                logger.error("Le date non sono ordinate dal più recente");
+                Assert.fail("Le date non sono ordinate dal più recente");
+                return;
+            }
+        }
+        logger.info("Le date sono visualizzate correttamente");
+    }
+
+    private List<WebElement> getListaDate() {
+        try {
+            By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-c3sxw2')]");
+            attesaCaricamentoPagina();
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
+            logger.info("Date trovate correttamente");
+
+            return this.elements(dataListBy);
+
+        } catch (TimeoutException e) {
+            logger.error("Date NON trovate con errore: " + e.getMessage());
+            Assert.fail("Date NON trovate con errore: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public void siScrollaFinoAllaFineDellaPagina() {
+        if (!numeroNotificheButton.isDisplayed()) {
+            this.js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
+        }
+    }
+
+    public void siCambiaPaginaUtilizzandoUnaFrecetta() {
+        if (!frecciaPaginaSuccessiva.isDisplayed()) {
+            this.js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
+        }
+        frecciaPaginaSuccessiva.click();
+    }
+
+    public void siCambiaPaginaUtilizzandoUnNumero() {
+        if (!pageNumberButton.isDisplayed()) {
+            this.js().executeScript("arguments[0].scrollIntoView(true);", pageNumberButton);
+        }
+        pageNumberButton.click();
+    }
+
+    public void siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro() {
+        if (!pageNumberList.isDisplayed()) {
+            this.js().executeScript("arguments[0].scrollIntoView(true);", pageNumberList);
+        }
+        pageNumberList.click();
+        numberElement.click();
     }
 }

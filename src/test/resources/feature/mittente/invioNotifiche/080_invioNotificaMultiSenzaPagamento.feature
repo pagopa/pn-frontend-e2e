@@ -5,7 +5,9 @@ Feature: Mittente genera una notifica con più destinatari che non prevede pagam
     When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
 
+  @TestSuite
   @test80
+  @quintaConsegna
 
   Scenario Outline: Mittente genera una notifica con più destinatari che non prevede pagamento
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
@@ -16,8 +18,8 @@ Feature: Mittente genera una notifica con più destinatari che non prevede pagam
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     And Nella section Destinatario inserire nome cognome e codice fiscale da destinatario "destinatario"
-    And Cliccare su aggiungi indirizzo fisico, compilare i dati del destinatario "destinatario"
-    And Cliccare su Aggiungi destinatario
+    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati del destinatario "destinatario"
+    And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario inserire i dati del destinatari aggiuntivi  per <numero destinatari>
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
@@ -26,10 +28,9 @@ Feature: Mittente genera una notifica con più destinatari che non prevede pagam
     Then Si visualizza correttamente la frase La notifica è stata correttamente creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-    # verifica stato notifica come Depositata
-    And Nella pagina Piattaforma Notifiche inserire il codice fiscale da destinatario "destinatario"
+    And Nella pagina Piattaforma Notifiche inserire il codice fiscale del destinatario "destinatario"
     And Nella pagina Piattaforma Notifiche inserire la data invio notifica
-    And Nella pagina piattaforma Notifiche selezionare lo stato notifica "Depositata"
+    And Nella pagina piattaforma Notifiche selezionare lo stato notifica Depositata
     And Cliccare sul bottone Filtra
     And Verifica dello stato della notifica come depositata "Depositata"
     And Logout da portale mittente

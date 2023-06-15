@@ -1,18 +1,18 @@
 Feature: Il delegato visualizza il dettaglio di una notifica
 
   Background: Login delegato
-    Given Login Page delegato "delegato" viene visualizzata
-    When Login con delegato "delegato"
-    Then Home page delegato viene visualizzata correttamente
+    Given Login Page destinatario "delegato" viene visualizzata
+    When Login con destinatario "delegato"
+    Then Home page destinatario viene visualizzata correttamente
 
-
+  @TestSuite
   @test51
+  @quintaConsegna
 
-  Scenario:
-    When Nella home page delegato si clicca sul bottone Notifiche
-    And Si visualizza correttamente la home page delegato
-    And Nella pagina Piattaforma Notifiche inserire il codice IUN delegato da dati notifica "datiNotifica"
+  Scenario:Il delegato visualizza il dettaglio di una notifica
+    When Si visualizza correttamente la pagina Piattaforma Notifiche Destinatario
+    And Nella pagina Piattaforma Notifiche  Destinatario inserire il codice IUN da dati notifica "datiNotifica"
     And Cliccare sul bottone Filtra
     And Cliccare sulla notifica restituita
-    And Si visualizza correttamente il dettaglio della notifica
-    And  Logout da portale delegato
+    And Si visualizza correttamente la section Dettaglio Notifica destinatario
+    And  Logout da portale destinatario

@@ -6,14 +6,13 @@ Feature: Atti scaricati con successo Delegato
     When nella Homepage RADD sezione Documenti allegati della notifica e attestazioni opponibili a terzi clicca sul bottone con freccia
     Then la pagina Richiesta Atti sezione Dati della notifica è visualizzata correttamente
 
-  @RADD
   @test4
 
   Scenario: Atti scaricati con successo Delegato
       When nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il codice IUN "RADD"
       And nella pagina atti-opponibili-terzi sezione Dati della notifica è selezionato di default il Soggetto giuridico come Persona fisica
       And nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del destinatario "RADD"
-      And nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del del delegato "RADD"
+      And nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il Codice fiscale del delegato "RADD"
       And nella pagina atti-opponibili-terzi sezione Dati della notifica cliccare sul bottone Continua
       And la pagina atti-opponibili-terzi sezione Caricamento documenti è visualizzata correttamente
       And nella pagina atti-opponibili-terzi sezione Caricamento documenti caricare il documento di riconoscimento del destinario nel box uno Carica il documento di riconoscimento del destinatario

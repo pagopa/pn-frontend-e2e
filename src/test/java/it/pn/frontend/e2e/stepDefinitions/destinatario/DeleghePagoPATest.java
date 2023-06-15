@@ -159,4 +159,55 @@ public class DeleghePagoPATest {
         LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
         leTueDelegheSection.MessaggioDiErroreDelegaASeStessi();
     }
+
+    @And("Nella sezione Le Tue Deleghe si visualizza il messaggio di errore delega gia aggiunta")
+    public void nellaSezioneLeTueDelegheSiVisualizzaIlMessaggioDiErroreDelegaGiaAggiunta() {
+        logger.info("Si visualizza il messaggio di errore delega gia aggiunta");
+
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        leTueDelegheSection.messaggioDiErroreDelegaPresente();
+    }
+
+    @And("Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico")
+    public void siVerificaSiaPresenteUnaDelegaNellaSezioneDelegheATuoCarico() {
+        logger.info("Si controlla che ci sia almeno una delega");
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        leTueDelegheSection.vaiInFondoAllaPagina();
+        leTueDelegheSection.siVisualizzaUnaDelega();
+    }
+
+    @And("si sceglie opzione accetta")
+    public void siSceglieOpzioneAccetta() {
+        logger.info("Si sceglie l'opzione accetta");
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        leTueDelegheSection.clickOpzioneAccetta();
+    }
+
+    @And("Si inserisce il codice delega nel pop-up {string}")
+    public void siInserisceIlCodiceDelegaNelPopUp(String dpFile) {
+        logger.info("Si inserisce il codice per accettare la delega");
+
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        leTueDelegheSection.waitPopUpLoad();
+
+        DataPopulation dataPopulation = new DataPopulation();
+        Map<String,Object> destinatari = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        leTueDelegheSection.inserireCodiceDelega(destinatari.get("codiceDelega").toString());
+    }
+
+    @And("Si clicca sul bottone Accetta")
+    public void siCliccaSulBottoneAccetta() {
+        logger.info("Nel pop-up si clicca sul bottone accetta");
+
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        leTueDelegheSection.clickAccettaButton();
+    }
+
+    @And("Si controlla che la delega a lo stato Attiva")
+    public void siControllaCheLaDelegaALoStatoAttiva() {
+        logger.info("Si controlla che la delega abbia lo stato Attiva");
+
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        leTueDelegheSection.controlloStatoAttiva();
+    }
 }

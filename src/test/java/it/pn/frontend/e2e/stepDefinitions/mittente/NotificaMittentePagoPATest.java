@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
+import it.pn.frontend.e2e.pages.mittente.ApiKeyPAPage;
 import it.pn.frontend.e2e.pages.mittente.AreaRiservataPAPage;
 import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePAPage;
@@ -13,6 +14,7 @@ import it.pn.frontend.e2e.section.mittente.*;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+import static org.apache.commons.lang3.StringUtils.isNumeric;
 import static org.apache.commons.lang3.StringUtils.substring;
 
 public class NotificaMittentePagoPATest {
@@ -104,11 +107,20 @@ public class NotificaMittentePagoPATest {
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation(datiNotificaFile + ".yaml");
 
+        String variabileAmbiente = System.getProperty("environment");
+        String gruppo="";
+        switch (variabileAmbiente) {
+            case "dev" ->  gruppo = datiNotifica.get("gruppoDev").toString();
+            case "test", "uat" -> gruppo = datiNotifica.get("gruppoTest").toString();
+        }
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.inserireGruppoApi(gruppo);
+
         InformazioniPreliminariPASection informazioniPreliminariPASection = new InformazioniPreliminariPASection(this.driver);
         informazioniPreliminariPASection.insertNumeroDiProtocollo(this.datiNotifica.get("numeroProtocollo").toString());
         informazioniPreliminariPASection.insertOggettoNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString());
         informazioniPreliminariPASection.insertDescrizione(this.datiNotifica.get("descrizione").toString());
-        informazioniPreliminariPASection.insertGruppo(this.datiNotifica.get("gruppo").toString());
+        informazioniPreliminariPASection.insertGruppo(gruppo);
         informazioniPreliminariPASection.insertCodiceTassonometrico(this.datiNotifica.get("codiceTassonometrico").toString());
         informazioniPreliminariPASection.selectRaccomandataAR();
     }
@@ -361,5 +373,172 @@ public class NotificaMittentePagoPATest {
 
         }
         return urlFound;
+    }
+
+    @And("Nella pagina Piattaforma Notifiche visualizzano correttamente i filtri di ricerca")
+    public void nellaPaginaPiattaformaNotificheVisualizzanoCorrettamenteIFiltriDiRicerca() {
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        piattaformaNotifichePAPage.siVisualizzaCorrettamenteIlCFField();
+        piattaformaNotifichePAPage.siVisualizzaCorrettamenteIlCodiceIUNField();
+        piattaformaNotifichePAPage.siVisualizzaCorrettamenteLoStatoField();
+        piattaformaNotifichePAPage.siVisualizzaCorrettamenteLaDataInzioField();
+        piattaformaNotifichePAPage.siVisualizzaCorrettamenteLaDataFineField();
+    }
+
+    @Then("Nella pagina Piattaforma Notifiche si visualizza correttamente l'elenco delle notifiche")
+    public void nellaPaginaPiattaformaNotificheSiVisualizzaCorrettamenteLElencoDelleNotifiche() {
+        logger.info("Si visualizza l'elenco delle notifiche");
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        int nDateNotifiche = piattaformaNotifichePAPage.controlloNumeroRisultatiDate();
+        if (nDateNotifiche >= 1) {
+            logger.info("Le date delle notifiche vengono visualizzate correttamente");
+        } else {
+            logger.error("Le date delle notifiche non vengono visualizzate correttamente");
+        }
+        if (piattaformaNotifichePAPage.verificaEsistenzaCFNotifiche()) {
+            logger.info("I codici fiscali delle notifiche vengono visualizzati correttamente");
+        } else {
+            logger.error("I codici fiscali delle notifiche non vengono visualizzati correttamente");
+            Assert.fail("I codici fiscali delle notifiche non vengono visualizzati correttamente");
+        }
+        List<WebElement> listeOggetti = piattaformaNotifichePAPage.ricercaListaOggetti();
+        if (listeOggetti != null && listeOggetti.size() >=1 ){
+            logger.info("La lista degli oggetti viene visualizzata correttamente");
+        }else {
+            logger.error("La lista degli oggetti non viene visualizzata correttamente");
+            Assert.fail("La lista degli oggetti non viene visualizzata correttamente");
+        }
+
+        if(piattaformaNotifichePAPage.verificaEsistenzaCodiceIUNNotifiche()){
+            logger.info("La lista dei codici iun viene visualizzata correttamente");
+        }else {
+            logger.error("La lista dei codici iun non viene visualizzata correttamente");
+            Assert.fail("La lista dei codici iun non viene visualizzata correttamente");
+        }
+
+        if (piattaformaNotifichePAPage.verificaEsistenzaGruppoNotifiche()){
+            logger.info("La lista dei gruppi vengono visualizzate correttamente");
+        }else {
+            logger.error("La lista dei gruppi non vengono visualizzate correttamente");
+            Assert.fail("La lista dei gruppi non vengono visualizzate correttamente");
+        }
+
+        if(piattaformaNotifichePAPage.verificaEsistenzaStatoNotifiche()){
+            logger.info("La lista degli stati viene visualizzata correttamente");
+        }else {
+            logger.error("La lista degli stati non viene visualizzata correttamente");
+            Assert.fail("La lista degli stati non viene visualizzata correttamente");
+        }
+    }
+
+    @And("Nella pagina Piattaforma Notifiche si visualizzano le notifiche a partire dalla più recente")
+    public void nellaPaginaPiattaformaNotificheSiVisualizzanoLeNotificheAPartireDallaPiuRecente() {
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(driver);
+        piattaformaNotifichePAPage.controlloOrdineNotifiche();
+    }
+
+    @And("Nella pagina Piattaforma Notifiche si scrolla fino alla fine della pagina")
+    public void nellaPaginaPiattaformaNotificheSiScrollaFinoAllaFineDellaPagina() {
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(driver);
+        piattaformaNotifichePAPage.siScrollaFinoAllaFineDellaPagina();
+    }
+
+    @And("Nella pagina Piattaforma Notifiche si controlla che vengano visualizzate dieci notifiche")
+    public void nellaPaginaPiattaformaNotificheSiControllaCheVenganoVisualizzateNotifiche() {
+        logger.info("si controlla che vengono visualizzate dieci notifiche");
+
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        String nNotificheInviate = piattaformaNotifichePAPage.numeroNotifiche();
+        if (nNotificheInviate.equals("10")){
+            logger.info("Il numero di notifiche e corretto");
+        }else {
+            logger.error("Il numero di notifiche non e coretto");
+            Assert.fail("Il numero di notifiche non e coretto");
+        }
+    }
+
+    @And("Nella pagina Piattaforma Notifiche si cambia pagina utilizzando una freccetta")
+    public void nellaPaginaPiattaformaNotificheSiCambiaPaginaUtilizzandoUnaFreccetta() {
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(driver);
+        piattaformaNotifichePAPage.siCambiaPaginaUtilizzandoUnaFrecetta();
+    }
+
+    @And("Nella pagina Piattaforma Notifiche si cambia pagina utilizzando un numero")
+    public void nellaPaginaPiattaformaNotificheSiCambiaPaginaUtilizzandoUnNumero() {
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(driver);
+        piattaformaNotifichePAPage.siCambiaPaginaUtilizzandoUnNumero();
+    }
+
+    @Then("Nella pagina Piattaforma Notifiche si cambia il numero elementi visualizzati attraverso il filtro")
+    public void nellaPaginaPiattaformaNotificheSiCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltroNumeroNotifiche() {
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(driver);
+        piattaformaNotifichePAPage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
+    }
+
+    @And("Nella pagina Piattaforma Notifiche si controlla che vengano visualizzate tutte notifiche")
+    public void nellaPaginaPiattaformaNotificheSiControllaCheVenganoVisualizzateTutteNotifiche() {
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        int numeroRighe = piattaformaNotifichePAPage.getNRighe();
+        if (numeroRighe > 10){
+            logger.info("Numero righe differente da quello di default");
+        }else {
+            logger.error("Numero righe uguale da quello di default");
+            Assert.fail("Numero righe uguale da quello di default");
+        }
+    }
+
+    @And("Nella section Destinatario cliccare su Aggiungi destinatario")
+    public void nellaSectionDestinatarioCliccareSuAggiungiDestinatario() {
+        logger.info("Si sta cercando di selezionare il buttone aiggiungere Destinatario");
+        DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
+        destinatarioPASection.selezionareAggiungiDestinatarioButton();
+    }
+
+    @And("^Nella section Destinatario inserire i dati del destinatari aggiuntivi  per (.*)$")
+    public void nellaSectionDestinatarioInserireIDatiDelDestinatariAggiuntiviPerNumeroDestinatari(String nDestinatari) {
+        logger.info("Si cerca di aggiungere" + nDestinatari + " destinatari");
+        DataPopulation dataPopulation = new DataPopulation();
+        this.destinatario = dataPopulation.readDataPopulation("destinatari.yaml");
+        int nDestinatariInt = 1;
+        if (isNumeric(nDestinatari)) {
+            nDestinatariInt = Integer.parseInt(nDestinatari) - 1;
+            if (nDestinatariInt > 4 || nDestinatariInt == 0) {
+                logger.error("Devi inserire un nummero da 1 a 5");
+                Assert.fail("Devi inserire un nummero da 1 a 5");
+            }
+        } else {
+            logger.error("Formato non accettato. Devi inserire un numero da 1 a 5");
+            Assert.fail("Formato non accettato. Devi inserire un numero da 1 a 5");
+        }
+        DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
+        destinatarioPASection.inserimentoMultiDestinatario(this.destinatario, nDestinatariInt);
+    }
+
+    @And("Nella section Destinatario si cerca di aggiungere il sesto destinatario")
+    public void nellaSectionDestinatarioSiCercaDiAggiungereIlSestoDestinatario() {
+        logger.info("Si cerca di inserire il sesto destinatario");
+
+        DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
+        if (destinatarioPASection.inserireIlSestoDestinatario()) {
+            logger.info("Non si riesce ad aggiungere il sesto destinatario");
+        } else {
+            logger.error("Si riesce ad aggiungere il sesto destinatario");
+            Assert.fail("Si riesce ad aggiungere il sesto destinatario");
+        }
+    }
+
+    @And("Nella section Destinatario si inserisce lo stesso destinatario di prima {string}")
+    public void nellaSectionDestinatarioSiInserisceLoStessoDestinatarioDiPrima(String dpFile) {
+        logger.info("Si inserisce lo stesso destinatario di prima");
+
+        DataPopulation dataPopulation = new DataPopulation();
+        this.destinatario = dataPopulation.readDataPopulation(dpFile + ".yaml");
+    }
+
+    @Then("Si visualizza correttamente l errore di stesso codice fiscale")
+    public void siVisualizzaCorrettamenteLErroreDiStessoCodiceFiscale() {
+        logger.info("Si visualizza il messaggio di errore stesso codice fiscale");
+        DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
+        destinatarioPASection.waitMessaggioErrore();
     }
 }
