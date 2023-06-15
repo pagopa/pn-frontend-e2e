@@ -5,7 +5,6 @@ Feature: Mittente genera Api Key senza inserire il nome dell api key
     When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
     And Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
-    And Nella pagina Piattaforma Notifiche accetta i Cookies
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
     And Si visualizza correttamente la pagina Api Key

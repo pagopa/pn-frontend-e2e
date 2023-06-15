@@ -240,7 +240,10 @@ public class NotificheDEPage extends BasePage {
         }
     }
 
-    public void siSceglieUnaPaginaDiversaConNumero() {this.numeroPaginaTreButton.click();}
+    public void siSceglieUnaPaginaDiversaConNumero() {
+        this.js().executeScript("arguments[0].click()",this.numeroPaginaTreButton);
+        //this.numeroPaginaTreButton.click();
+    }
 
     public void modificaNumeroNotifichePagina() {
         waitLoadPage();

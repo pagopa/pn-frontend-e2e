@@ -325,7 +325,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
 
     public void siVisualizzaCorrettamenteIlCodiceIUNField() {
         try {
-            By codiceIUNField = By.xpath("//input[contains(@id 'iunMatch')]");
+            By codiceIUNField = By.xpath("//input[contains(@id, 'iunMatch')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiceIUNField));
             logger.info("Il campo di codice iun si visualizza correttamente");
         } catch (TimeoutException e) {
@@ -467,14 +467,14 @@ public class PiattaformaNotifichePAPage extends BasePage {
         if (!pageNumberButton.isDisplayed()) {
             this.js().executeScript("arguments[0].scrollIntoView(true);", pageNumberButton);
         }
-        pageNumberButton.click();
+        this.js().executeScript("arguments[0].click()",this.pageNumberButton);;
     }
 
     public void siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro() {
         if (!pageNumberList.isDisplayed()) {
             this.js().executeScript("arguments[0].scrollIntoView(true);", pageNumberList);
         }
-        pageNumberList.click();
-        numberElement.click();
+        this.js().executeScript("arguments[0].click()",this.pageNumberList);
+        this.js().executeScript("arguments.click()", this.numberElement);
     }
 }

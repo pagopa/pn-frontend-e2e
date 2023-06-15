@@ -113,9 +113,6 @@ public class NotificaMittentePagoPATest {
             case "dev" ->  gruppo = datiNotifica.get("gruppoDev").toString();
             case "test", "uat" -> gruppo = datiNotifica.get("gruppoTest").toString();
         }
-        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
-        apiKeyPAPage.inserireGruppoApi(gruppo);
-
         InformazioniPreliminariPASection informazioniPreliminariPASection = new InformazioniPreliminariPASection(this.driver);
         informazioniPreliminariPASection.insertNumeroDiProtocollo(this.datiNotifica.get("numeroProtocollo").toString());
         informazioniPreliminariPASection.insertOggettoNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString());

@@ -37,12 +37,10 @@ public class DettaglioNotificaDESection extends BasePage {
             By indietroButtonBy = By.xpath("//button[contains(text(),'Indietro')]");
             By informazioniBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-cfu1vj')]");
             By allegatiSection = By.xpath("//span[contains(text(),'Documenti allegati')]");
-            By altriDocumentiSection = By.xpath("//span[contains(text(),'Altri documenti')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(indietroButtonBy));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(altriDocumentiSection));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotifcaBy));
             logger.info("Dettaglio Notifica Section caricata");
         }catch (TimeoutException e){

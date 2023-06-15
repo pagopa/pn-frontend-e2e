@@ -281,11 +281,13 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void inserireGruppoApi(String gruppo) {
         this.gruppoInput.sendKeys(gruppo);
+        this.apiKeyNameInput.click();
     }
 
     public void cancellareTestoInserito() {
         try{
             By testoInseritoBy = By.xpath("//input[contains(@id,'name')]");
+            this.js().executeScript("arguments[0].click()", this.element(testoInseritoBy));
             this.element(testoInseritoBy).clear();
             logger.info("Il testo è stato cancellato correttamente");
         }catch (TimeoutException e){

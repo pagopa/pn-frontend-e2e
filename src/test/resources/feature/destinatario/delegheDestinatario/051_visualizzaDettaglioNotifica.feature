@@ -11,6 +11,7 @@ Feature: Il delegato visualizza il dettaglio di una notifica
 
   Scenario:Il delegato visualizza il dettaglio di una notifica
     When Si visualizza correttamente la pagina Piattaforma Notifiche Destinatario
+    And Si seleziona il nome del delegante nell elenco
     And Nella pagina Piattaforma Notifiche  Destinatario inserire il codice IUN da dati notifica "datiNotifica"
     And Cliccare sul bottone Filtra
     And Cliccare sulla notifica restituita
