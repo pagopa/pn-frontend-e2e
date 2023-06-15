@@ -530,6 +530,10 @@ public class NotificaMittentePagoPATest {
 
         DataPopulation dataPopulation = new DataPopulation();
         this.destinatario = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        
+        DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
+        destinatarioPASection.inserimentoMultiDestinatario(destinatario,1);
+
     }
 
     @Then("Si visualizza correttamente l errore di stesso codice fiscale")

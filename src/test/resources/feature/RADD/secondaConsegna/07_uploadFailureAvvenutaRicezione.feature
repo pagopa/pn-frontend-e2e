@@ -7,7 +7,7 @@ Feature: Download Avvisi Destinatario upload failure
     Then la pagina Avvisi di avvenuta ricezione sezione Dati del destinatario è visualizzata correttamente
 
   @RADD
-  @test7
+  @test07
 
   Scenario: Download Avvisi Destinatario upload failure
     When nella pagina Avvisi di avvenuta ricezione sezione Dati del destinatario il Soggetto giuridico e selezionato di default come Persona fisica

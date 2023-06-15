@@ -68,6 +68,7 @@ public class DestinatarioPASection extends BasePage {
         }else if (posizioneDestinatario == 4){
             datoDestianario = datoDestianario.replace("]","");
         }
+        datoDestianario = datoDestianario.replace(" ","");
         return datoDestianario;
     }
 
@@ -105,7 +106,9 @@ public class DestinatarioPASection extends BasePage {
             this.js().executeScript("arguments[0].scrollIntoView(true);",element);
         }
         element.click();
-        element.sendKeys(text);
+        if (text != null) {
+            element.sendKeys(text);
+        }
     }
 
     public void selezionaAggiungiUnIndirizzoFisico() {
@@ -144,7 +147,16 @@ public class DestinatarioPASection extends BasePage {
         this.aggiungiDestinatarioButton.click();
     }
 
-    public void inserimentoMultiDestinatario(Map<String,Object> destinatari, int i) {
+    public void inserimentoMultiDestinatario(Map<String,Object> destinatari, int nDestinatari) {
+        for (int i = 0; i < nDestinatari; i++) {
+            inserimentoInformazioniPreliminari(destinatari,i);
+            inserimentoInformazioniAggiuntive(destinatari,i);
+            if (i != nDestinatari-1){
+                selezionareAggiungiDestinatarioButton();
+            }
+        }
+    }
+    public void inserimentoInformazioniPreliminari(Map<String,Object> destinatari, int i){
         selezionarePersonaFisica();
         String nomeDestinatario = ricercaInformazione(destinatari.get("name").toString().split(","), i);
         inserireInfoMultiDestinatario("//input[contains(@id,'firstName')]",nomeDestinatario);
@@ -155,7 +167,21 @@ public class DestinatarioPASection extends BasePage {
         inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]",cfDestinatario);
         selezionaAggiungiUnIndirizzoFisicoMulti();
     }
-
+    public void inserimentoInformazioniAggiuntive(Map<String,Object> destinatari, int i){
+        String indirizzoDestinatario = ricercaInformazione(destinatari.get("indirizzo").toString().split(","), i);
+        inserireInfoMultiDestinatario("//label[contains(@id,'address-label')]/following-sibling::div/input",indirizzoDestinatario);
+        String nCivicoDestinatario = ricercaInformazione(destinatari.get("numeroCivico").toString().split(","), i);
+        inserireInfoMultiDestinatario("//input[contains(@id,'houseNumber')]",nCivicoDestinatario);
+        String localitaDestinatario = ricercaInformazione(destinatari.get("localita").toString().split(","), i);
+        inserireInfoMultiDestinatario("//label[contains(@id,'municipalityDetails-label')]/following-sibling::div/input",localitaDestinatario);
+        String comuneDestinatario = ricercaInformazione(destinatari.get("comune").toString().split(","), i);
+        inserireInfoMultiDestinatario("//label[contains(@id,'municipality-label')]/following-sibling::div/input",comuneDestinatario);
+        String provinciaDestinatario = ricercaInformazione(destinatari.get("provincia").toString().split(","), i);
+        inserireInfoMultiDestinatario("//input[contains(@id,'province')]",provinciaDestinatario);
+        String codicePostale = ricercaInformazione(destinatari.get("codicepostale").toString().split(","), i);
+        inserireInfoMultiDestinatario("//input[contains(@id,'zip')]",codicePostale);
+        inserireInfoMultiDestinatario("//input[contains(@id,'foreignState')]",destinatari.get("stato").toString());
+    }
     private void selezionaAggiungiUnIndirizzoFisicoMulti() {
         By aggiungiIndrizzoBy = By.xpath("//div[contains(@data-testid, 'PhysicalAddressCheckbox')]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(aggiungiIndrizzoBy));

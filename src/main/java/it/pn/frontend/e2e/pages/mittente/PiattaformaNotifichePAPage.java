@@ -475,6 +475,6 @@ public class PiattaformaNotifichePAPage extends BasePage {
             this.js().executeScript("arguments[0].scrollIntoView(true);", pageNumberList);
         }
         this.js().executeScript("arguments[0].click()",this.pageNumberList);
-        this.js().executeScript("arguments.click()", this.numberElement);
+        this.js().executeScript("arguments[0].click()", this.numberElement);
     }
 }
