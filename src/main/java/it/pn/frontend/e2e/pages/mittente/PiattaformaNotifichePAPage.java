@@ -336,7 +336,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
 
     public void siVisualizzaCorrettamenteLoStatoField() {
         try {
-            By statoField = By.xpath("//div[contains(@id,'menu-status')]");
+            By statoField = By.xpath("//div[@id='status']");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoField));
             logger.info("Il campo dello stato si visualizza correttamente");
         } catch (TimeoutException e) {
@@ -347,7 +347,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
 
     public void siVisualizzaCorrettamenteLaDataInzioField() {
         try {
-            By dataDaField = By.xpath("//input[contains(@id 'startDate')]");
+            By dataDaField = By.xpath("//input[contains(@id, 'startDate')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(dataDaField));
             logger.info("Il campo della data di inizio si visualizza correttamente");
         } catch (TimeoutException e) {
@@ -358,7 +358,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
 
     public void siVisualizzaCorrettamenteLaDataFineField() {
         try {
-            By dataAField = By.xpath("//input[contains(@id 'endDate')]");
+            By dataAField = By.xpath("//input[contains(@id, 'endDate')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(dataAField));
             logger.info("Il campo della data di fine si visualizza correttamente");
         } catch (TimeoutException e) {

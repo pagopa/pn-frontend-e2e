@@ -7,7 +7,7 @@ Feature: il delegato accetta la delega
 
   @TestSuite
   @test48
-  @quintaConsegna
+
 
   Scenario: il delegato accetta la delega
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe

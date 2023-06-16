@@ -7,7 +7,7 @@ Feature: invio notifica con lo stesso codice fiscale
 
   @TestSuite
   @test82
-  @quintaConsegna
+
 
     Scenario: il mittente invia la notifica con lo stesso codice fiscale
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

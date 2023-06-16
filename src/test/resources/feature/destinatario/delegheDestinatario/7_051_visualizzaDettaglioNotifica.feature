@@ -7,7 +7,7 @@ Feature: Il delegato visualizza il dettaglio di una notifica
 
   @TestSuite
   @test51
-  @quintaConsegna
+
 
   Scenario:Il delegato visualizza il dettaglio di una notifica
     When Si visualizza correttamente la pagina Piattaforma Notifiche Destinatario

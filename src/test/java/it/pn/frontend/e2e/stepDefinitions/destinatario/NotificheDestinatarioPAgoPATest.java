@@ -188,7 +188,7 @@ public class NotificheDestinatarioPAgoPATest {
     @Then("Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica destinatario, e si controlla che il download sia avvenuto")
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaDestinatarioESiControllaCheIlDownloadSiaAvvenuto() {
         DettaglioNotificaDESection dettaglioNotificaDESection = new DettaglioNotificaDESection(this.driver);
-        dettaglioNotificaDESection.downloandFileAttestazioni("/src/test/resources/download/destinatario");
+        dettaglioNotificaDESection.downloandFileAttestazioni("/src/test/resources/dataPopulation/downloadFileNotifica/destinatario");
         dettaglioNotificaDESection.controlloDownload();
     }
 

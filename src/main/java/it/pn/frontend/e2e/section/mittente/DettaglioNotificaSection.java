@@ -29,6 +29,7 @@ public class DettaglioNotificaSection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
 
+    private static List<NetWorkInfo>
     @FindBy(xpath = "//button[contains(text(),'Attestazione opponibile a terzi: ')]")
     List<WebElement> attestazioniFile;
 
@@ -216,7 +217,7 @@ public class DettaglioNotificaSection extends BasePage {
         return infoNotifiche.get(i).getText();
     }
 
-    public void downloadFileNotifica(String path) {
+    public void downloadFileNotifica(String path, String url) {
         for ( WebElement link: this.linkAllegati) {
             if (link.isDisplayed()){
                 link.click();
@@ -224,7 +225,6 @@ public class DettaglioNotificaSection extends BasePage {
                 this.js().executeScript("arguments[0].scrollIntoView(true);", link);
                 link.click();
             }
-
             String nomePdf = link.getText();
             for (int i = 0; i < 30; i++) {
                 List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
@@ -232,7 +232,7 @@ public class DettaglioNotificaSection extends BasePage {
                     this.driver.switchTo().window(numTab.get(1));
                     try {
                         waitLoadPage();
-                        URL urlPDF = new URL(this.driver.getCurrentUrl());
+                        URL urlPDF = new URL(url);
                         File partialPath = new File(path);
                         File pdf = new File(System.getProperty("user.dir")+partialPath+"/"+nomePdf+".pdf");
                         FileUtils.copyURLToFile(urlPDF,pdf,1000,1000);
@@ -252,6 +252,8 @@ public class DettaglioNotificaSection extends BasePage {
             }
         }
     }
+
+
 
     public boolean controlloTestoFile(String path, String testoDaControllare) {
 

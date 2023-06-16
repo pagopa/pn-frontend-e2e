@@ -475,6 +475,7 @@ public class NotificaMittentePagoPATest {
     @And("Nella pagina Piattaforma Notifiche si controlla che vengano visualizzate tutte notifiche")
     public void nellaPaginaPiattaformaNotificheSiControllaCheVenganoVisualizzateTutteNotifiche() {
         PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        piattaformaNotifichePAPage.waitLoadPage();
         int numeroRighe = piattaformaNotifichePAPage.getNRighe();
         if (numeroRighe > 10){
             logger.info("Numero righe differente da quello di default");

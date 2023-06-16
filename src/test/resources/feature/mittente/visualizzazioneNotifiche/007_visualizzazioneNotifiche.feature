@@ -7,7 +7,7 @@ Feature: Mittente visualizza correttamente la pagina notifiche
 
   @TestSuite
   @test7
-  @quintaConsegna
+
 
   Scenario: Mittente visualizza correttamente la pagina notifiche
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

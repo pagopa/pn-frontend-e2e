@@ -11,7 +11,7 @@ Feature: Mittente seleziona l'opzione visualizza api Key
 
   @TestSuite
   @test24
-  @quintaConsegna
+
 
   Scenario: Mittente seleziona l'opzione visualizza api Key
     When Nella pagina Api Key si clicca sul bottone menu di una Api Key attiva presente in elenco

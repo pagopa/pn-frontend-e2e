@@ -81,7 +81,7 @@ public class DettaglioNotificaDESection extends BasePage {
     }
 
     public void controlloDownload() {
-        File partialPath = new File("src/test/resources/download/destinatario");
+        File partialPath = new File("/src/test/resources/dataPopulation/downloadFileNotifica/destinatario");
         File directory = new File(partialPath.getAbsolutePath());
 
         File[] fList = directory.listFiles(File::isFile);
