@@ -76,6 +76,7 @@ public class DettaglioNotificaSection extends BasePage {
                     this.driver.switchTo().window(numTab.get(1));
                     try {
                         waitLoadPage();
+                        logger.info(driver.getCurrentUrl());
                         URL urlPDF = new URL(this.driver.getCurrentUrl());
                         File partialPath = new File(path);
                         File pdf = new File(System.getProperty("user.dir")+partialPath+"/"+nomePdf+".pdf");
@@ -216,39 +217,15 @@ public class DettaglioNotificaSection extends BasePage {
         return infoNotifiche.get(i).getText();
     }
 
-    public void downloadFileNotifica(String path) {
-        for ( WebElement link: this.linkAllegati) {
-            if (link.isDisplayed()){
-                link.click();
-            }else {
-                this.js().executeScript("arguments[0].scrollIntoView(true);", link);
-                link.click();
-            }
-            String nomePdf = link.getText();
-            for (int i = 0; i < 30; i++) {
-                List<String> numTab = new ArrayList<>();
-                if (numTab.size() == 2){
-                    this.driver.switchTo().window(numTab.get(1));
-                    try {
-                        waitLoadPage();
-                        URL urlPDF = new URL(this.driver.getCurrentUrl());
-                        File partialPath = new File(path);
-                        File pdf = new File(System.getProperty("user.dir")+partialPath+"/"+nomePdf+".pdf");
-                        FileUtils.copyURLToFile(urlPDF,pdf,1000,1000);
-                        this.driver.close();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    this.driver.switchTo().window(numTab.get(0));
-                    break;
-                }else {
-                    try {
-                        TimeUnit.SECONDS.sleep(1);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
+    public void downloadFileNotifica(String path, String url,int nDownload) {
+        try {
+            URL urlPDF = new URL(url);
+            File partialPath = new File(path);
+            File pdf = new File(System.getProperty("user.dir")+partialPath+"/pdfNotificaN"+nDownload+".pdf");
+            FileUtils.copyURLToFile(urlPDF,pdf,1000,1000);
+            this.driver.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

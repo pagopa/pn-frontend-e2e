@@ -13,8 +13,10 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static it.pn.frontend.e2e.listeners.Hooks.netWorkInfos;
 
@@ -41,9 +43,9 @@ public class DownloadFileMittentePagoPATest {
     public void downloadECheckFile() {
         logger.info("Si scaricano tutti i file all'interno della notifica");
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        String url = getUrlPDFDocuementiAllegati();
-        dettaglioNotificaSection.downloadFileNotifica("/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
         dettaglioNotificaSection.downloadFileAttestazioni("/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
+        String urlPDFDocuementiAllegati = getUrlPDFDocuementiAllegati();
+        dettaglioNotificaSection.downloadFileNotifica("/src/test/resources/dataPopulation/downloadFileNotifica/mittente",urlPDFDocuementiAllegati,1);
         dettaglioNotificaSection.controlloDownload();
     }
 
@@ -54,10 +56,24 @@ public class DownloadFileMittentePagoPATest {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         dettaglioNotificaSection.clickLinkDocumentiAllegati();
         String url = "";
-        for (int i = 0; i < netWorkInfos.size(); i++) {
-            if (netWorkInfos.get(i).getRequestUrl().contains("https://webapi.test.notifichedigitali.it/delivery/notifications/sent/")){
-                 url = netWorkInfos.get(i).getResponseBody();
-                 System.out.println(url);
+        for (int i = 0; i < 30; i++) {
+            List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
+            if (numTab.size() == 2){
+                this.driver.switchTo().window(numTab.get(1));
+                for (NetWorkInfo netWorkInfo : netWorkInfos) {
+                    if (netWorkInfo.getRequestUrl().contains("https://webapi.test.notifichedigitali.it/delivery/notifications/sent/" + codiceIUN + "/attachments/documents/0")) {
+                        String[] body = netWorkInfo.getResponseBody().split("url");
+                        url = body[1].substring(3, body[1].length() - 2);
+                        break;
+                    }
+                }
+                break;
+            }else {
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
         return url;

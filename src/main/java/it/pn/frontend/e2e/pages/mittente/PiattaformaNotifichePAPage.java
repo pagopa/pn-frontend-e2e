@@ -185,6 +185,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
     }
 
     public void selezionaNotifica() {
+        waitLoadPage();
         try {
             By notificaBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr')]");
             attesaCaricamentoPagina();
@@ -467,7 +468,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
         if (!pageNumberButton.isDisplayed()) {
             this.js().executeScript("arguments[0].scrollIntoView(true);", pageNumberButton);
         }
-        this.js().executeScript("arguments[0].click()",this.pageNumberButton);;
+        this.js().executeScript("arguments[0].click()",this.pageNumberButton);
     }
 
     public void siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro() {
