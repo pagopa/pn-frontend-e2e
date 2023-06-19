@@ -76,7 +76,7 @@ public class DettaglioNotificaSection extends BasePage {
                     this.driver.switchTo().window(numTab.get(1));
                     try {
                         waitLoadPage();
-                        logger.info(driver.getCurrentUrl());
+                        logger.info("Url File:"+driver.getCurrentUrl());
                         URL urlPDF = new URL(this.driver.getCurrentUrl());
                         File partialPath = new File(path);
                         File pdf = new File(System.getProperty("user.dir")+partialPath+"/"+nomePdf+".pdf");
@@ -223,7 +223,9 @@ public class DettaglioNotificaSection extends BasePage {
             File partialPath = new File(path);
             File pdf = new File(System.getProperty("user.dir")+partialPath+"/pdfNotificaN"+nDownload+".pdf");
             FileUtils.copyURLToFile(urlPDF,pdf,1000,1000);
+            List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
             this.driver.close();
+            this.driver.switchTo().window(numTab.get(0));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

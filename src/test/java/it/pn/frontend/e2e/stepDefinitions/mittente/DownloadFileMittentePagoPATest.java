@@ -4,7 +4,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePAPage;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
@@ -43,9 +42,9 @@ public class DownloadFileMittentePagoPATest {
     public void downloadECheckFile() {
         logger.info("Si scaricano tutti i file all'interno della notifica");
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        dettaglioNotificaSection.downloadFileAttestazioni("/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
         String urlPDFDocuementiAllegati = getUrlPDFDocuementiAllegati();
         dettaglioNotificaSection.downloadFileNotifica("/src/test/resources/dataPopulation/downloadFileNotifica/mittente",urlPDFDocuementiAllegati,1);
+       // dettaglioNotificaSection.downloadFileAttestazioni("/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
         dettaglioNotificaSection.controlloDownload();
     }
 
@@ -60,9 +59,15 @@ public class DownloadFileMittentePagoPATest {
             List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
             if (numTab.size() == 2){
                 this.driver.switchTo().window(numTab.get(1));
-                for (NetWorkInfo netWorkInfo : netWorkInfos) {
-                    if (netWorkInfo.getRequestUrl().contains("https://webapi.test.notifichedigitali.it/delivery/notifications/sent/" + codiceIUN + "/attachments/documents/0")) {
-                        String[] body = netWorkInfo.getResponseBody().split("url");
+                try {
+                    TimeUnit.SECONDS.sleep(20);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int y = 0; y < netWorkInfos.size(); y++) {
+                    if (netWorkInfos.get(y).getRequestUrl().contains("https://webapi.test.notifichedigitali.it/delivery/notifications/sent/" + codiceIUN + "/attachments/documents/0")) {
+                        logger.info("Sono entrato nell'if");
+                        String[] body = netWorkInfos.get(y).getResponseBody().split("url");
                         url = body[1].substring(3, body[1].length() - 2);
                         break;
                     }
@@ -76,6 +81,7 @@ public class DownloadFileMittentePagoPATest {
                 }
             }
         }
+        logger.info("url proxy:"+url);
         return url;
     }
 
