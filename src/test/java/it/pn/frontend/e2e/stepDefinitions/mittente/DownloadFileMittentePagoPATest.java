@@ -4,18 +4,24 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePAPage;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaSection;
+import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Map;
+
+import static it.pn.frontend.e2e.listeners.Hooks.netWorkInfos;
 
 public class DownloadFileMittentePagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("DownloadFileMittentePagoPATest");
     private final WebDriver driver = Hooks.driver;
+
 
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
     public void clickNotificaRestituita() {
@@ -35,9 +41,26 @@ public class DownloadFileMittentePagoPATest {
     public void downloadECheckFile() {
         logger.info("Si scaricano tutti i file all'interno della notifica");
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        String url = getUrlPDFDocuementiAllegati();
         dettaglioNotificaSection.downloadFileNotifica("/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
         dettaglioNotificaSection.downloadFileAttestazioni("/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
         dettaglioNotificaSection.controlloDownload();
+    }
+
+    private String getUrlPDFDocuementiAllegati() {
+        DataPopulation dataPopulation = new DataPopulation();
+        Map<String,Object> datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        String codiceIUN = datiNotifica.get("codiceIUN").toString();
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        dettaglioNotificaSection.clickLinkDocumentiAllegati();
+        String url = "";
+        for (int i = 0; i < netWorkInfos.size(); i++) {
+            if (netWorkInfos.get(i).getRequestUrl().contains("https://webapi.test.notifichedigitali.it/delivery/notifications/sent/")){
+                 url = netWorkInfos.get(i).getResponseBody();
+                 System.out.println(url);
+            }
+        }
+        return url;
     }
 
     @When("Cliccare sulla notifica restituita")
