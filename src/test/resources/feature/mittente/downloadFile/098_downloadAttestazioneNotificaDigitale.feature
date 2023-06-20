@@ -6,7 +6,7 @@ Feature: il mittente effettua il download attestazione opponibile a terzi notifi
     Then Home page mittente viene visualizzata correttamente
     And Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Nella pagina Piattaforma Notifiche inserire il codice IUN da dati notifica "datiNotifica"
+    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica "datiNotifica"
     And Cliccare sul bottone Filtra
 
   @test98

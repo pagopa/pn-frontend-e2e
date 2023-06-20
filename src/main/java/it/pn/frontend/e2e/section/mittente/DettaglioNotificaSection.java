@@ -136,51 +136,21 @@ public class DettaglioNotificaSection extends BasePage {
         }
     }
 
-    public void downloadFileAttestazione(String nomeFile, String path) {
+    public void downloadFileAttestazione(String url, String path, String nomeFile) {
         try {
-            vaiFondoPagina();
-            By fileLinkBy = By.xpath("//button[contains(text(),'"+nomeFile+"')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(fileLinkBy));
-            WebElement fileLink = this.element(fileLinkBy);
-            if (fileLink.isDisplayed()){
-                fileLink.click();
-            }else {
-                this.js().executeScript("arguments[0].scrollIntoView(true);", fileLink);
-                fileLink.click();
-            }
-            for (int i = 0; i < 30; i++) {
-                List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
-                if (numTab.size() == 2){
-                    this.driver.switchTo().window(numTab.get(1));
-                    try {
-                        waitLoadPage();
-                        URL urlPDF = new URL(this.driver.getCurrentUrl());
-                        File pdf = new File(System.getProperty("user.dir")+path+"/"+nomeFile+".pdf");
-                        FileUtils.copyURLToFile(urlPDF,pdf,1000,1000);
-                        this.driver.close();
-                    } catch (MalformedURLException e) {
-                        logger.error("È avvenuto un problema nel url: "+ e.getMessage());
-                        Assert.fail("È avvenuto un problema nel url: "+ e.getMessage());
-                    }catch (IOException e){
-                        logger.error("È avvenuto un problema nel download: "+ e.getMessage());
-                        Assert.fail("È avvenuto un problema nel download: "+ e.getMessage());
-                    }
-                    this.driver.switchTo().window(numTab.get(0));
-                    break;
-                }else {
-                    try {
-                        TimeUnit.SECONDS.sleep(1);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        }catch (TimeoutException e){
-            throw new TimeoutException(e);
+            waitLoadPage();
+            URL urlPDF = new URL(url);
+            File pdf = new File(System.getProperty("user.dir") + path + "/" + nomeFile + ".pdf");
+            FileUtils.copyURLToFile(urlPDF, pdf, 7500, 7500);
+            this.driver.close();
+            List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
+            this.driver.switchTo().window(numTab.get(0));
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
-
-    public Map<String, String> recuperoInfoNotifiche() {
+        public Map<String, String> recuperoInfoNotifiche() {
         Map<String,String> infoNotifica = new HashMap<>();
         String mittente = getInfoNotifica(0);
         infoNotifica.put("mittente",mittente);
@@ -312,4 +282,21 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void clickLinkAvvenutaRicezione() {this.linkAllegati.get(1).click();}
+
+    public void clickLinkAttestazioneOpponibile(String nomeFile) {
+        try {
+            By fileLinkBy = By.xpath("//button[contains(text(),'"+nomeFile+"')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(fileLinkBy));
+            WebElement fileLink = this.element(fileLinkBy);
+            if (fileLink.isDisplayed()){
+                fileLink.click();
+            }else {
+                this.js().executeScript("arguments[0].scrollIntoView(true);", fileLink);
+                fileLink.click();
+            }
+        }catch (TimeoutException e){
+            logger.error("Non riuscito ad trovare il link con errore: "+e.getMessage());
+            Assert.fail("Non riuscito ad trovare il link con errore: "+e.getMessage());
+        }
+    }
 }

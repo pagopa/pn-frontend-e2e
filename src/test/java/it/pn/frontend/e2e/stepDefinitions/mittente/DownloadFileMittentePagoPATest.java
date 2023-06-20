@@ -149,7 +149,45 @@ public class DownloadFileMittentePagoPATest {
         logger.info("Si cerca di scaricare il file " + nomeFile);
 
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        dettaglioNotificaSection.downloadFileAttestazione(nomeFile, "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
+        String urlPDFFileAllegati = getUrlPDFileAllegati(nomeFile);
+        dettaglioNotificaSection.downloadFileAttestazione(urlPDFFileAllegati, "/src/test/resources/dataPopulation/downloadFileNotifica/mittente",nomeFile);
+    }
+
+    private String getUrlPDFileAllegati(String nomePDF) {
+        DataPopulation dataPopulation = new DataPopulation();
+        Map<String,Object> datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        String codiceIUN = datiNotifica.get("codiceIUN").toString();
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        dettaglioNotificaSection.clickLinkAttestazioneOpponibile(nomePDF);
+        String url = "";
+        for (int i = 0; i < 30; i++) {
+            List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
+            if (numTab.size() == 2){
+                this.driver.switchTo().window(numTab.get(1));
+                try {
+                    TimeUnit.SECONDS.sleep(20);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int y = 0; y < netWorkInfos.size(); y++) {
+                    if (netWorkInfos.get(y).getRequestUrl().contains("https://webapi.test.notifichedigitali.it/delivery-push/"+codiceIUN+"/legal-facts/")) {
+                        logger.info("Sono entrato nell'if");
+                        String[] body = netWorkInfos.get(y).getResponseBody().split("url");
+                        url = body[1].substring(3, body[1].length() - 2);
+                        break;
+                    }
+                }
+                break;
+            }else {
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        logger.info("url proxy:"+url);
+        return url;
     }
 
     @Then("Si controlla il testo all interno del file {string}")
