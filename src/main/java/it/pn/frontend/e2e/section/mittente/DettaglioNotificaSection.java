@@ -222,7 +222,7 @@ public class DettaglioNotificaSection extends BasePage {
             URL urlPDF = new URL(url);
             File partialPath = new File(path);
             File pdf = new File(System.getProperty("user.dir")+partialPath+"/pdfNotificaN"+nDownload+".pdf");
-            FileUtils.copyURLToFile(urlPDF,pdf,1000,1000);
+            FileUtils.copyURLToFile(urlPDF,pdf,7500,7500);
             List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
             this.driver.close();
             this.driver.switchTo().window(numTab.get(0));
@@ -310,4 +310,6 @@ public class DettaglioNotificaSection extends BasePage {
     public void clickLinkDocumentiAllegati() {
      this.linkAllegati.get(0).click();
     }
+
+    public void clickLinkAvvenutaRicezione() {this.linkAllegati.get(1).click();}
 }

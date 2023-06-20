@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePAPage;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
@@ -17,11 +18,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static it.pn.frontend.e2e.listeners.Hooks.netWorkInfos;
+
 
 public class DownloadFileMittentePagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("DownloadFileMittentePagoPATest");
     private final WebDriver driver = Hooks.driver;
+    private List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
 
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
@@ -44,9 +46,53 @@ public class DownloadFileMittentePagoPATest {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         String urlPDFDocuementiAllegati = getUrlPDFDocuementiAllegati();
         dettaglioNotificaSection.downloadFileNotifica("/src/test/resources/dataPopulation/downloadFileNotifica/mittente",urlPDFDocuementiAllegati,1);
-       // dettaglioNotificaSection.downloadFileAttestazioni("/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
+        String urlPDFAvvenutaRicezione = getUrlPDFAvvenutaRicezione();
+        dettaglioNotificaSection.downloadFileNotifica("/src/test/resources/dataPopulation/downloadFileNotifica/mittente",urlPDFAvvenutaRicezione,2);
+        // dettaglioNotificaSection.downloadFileAttestazioni("/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
         dettaglioNotificaSection.controlloDownload();
     }
+
+    private String getUrlPDFAvvenutaRicezione() {
+        DataPopulation dataPopulation = new DataPopulation();
+        Map<String,Object> datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        String codiceIUN = datiNotifica.get("codiceIUN").toString();
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        dettaglioNotificaSection.clickLinkAvvenutaRicezione();
+        String url = "";
+        for (int i = 0; i < 30; i++) {
+            List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
+            if (numTab.size() == 2){
+                this.driver.switchTo().window(numTab.get(1));
+                try {
+                    TimeUnit.SECONDS.sleep(20);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                Hooks hooks = new Hooks();
+                hooks.captureHttpResponse();
+                List<NetWorkInfo> netWorkInfos1 = Hooks.netWorkInfos;
+
+                for (int y = 0; y < netWorkInfos1.size(); y++) {
+                    if (netWorkInfos1.get(y).getRequestUrl().contains("https://webapi.test.notifichedigitali.it/delivery-push/"+ codiceIUN +"/document/AAR?documentId=safestorage:%2F%2FPN_AAR-e69ff3be92314ad4a3ea86024ef1a08a.pdf")) {
+                        logger.info("Sono entrato nell'if");
+                        String[] body = netWorkInfos1.get(y).getResponseBody().split("url");
+                        url = body[1].substring(3, body[1].length() - 2);
+                        break;
+                    }
+                }
+                break;
+            }else {
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        logger.info("url proxy:"+url);
+        return url;
+    }
+
 
     private String getUrlPDFDocuementiAllegati() {
         DataPopulation dataPopulation = new DataPopulation();

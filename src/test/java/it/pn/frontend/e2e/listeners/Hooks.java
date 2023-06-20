@@ -120,7 +120,7 @@ public class Hooks {
         );
     }
 
-    private void captureHttpResponse(){
+    public void captureHttpResponse(){
         devTools.addListener(
                 Network.responseReceived(),
                 response -> {
