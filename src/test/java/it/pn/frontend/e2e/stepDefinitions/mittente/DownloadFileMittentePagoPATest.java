@@ -163,7 +163,6 @@ public class DownloadFileMittentePagoPATest {
         for (int i = 0; i < 30; i++) {
             List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
             if (numTab.size() == 2){
-                this.driver.switchTo().window(numTab.get(1));
                 try {
                     TimeUnit.SECONDS.sleep(20);
                 } catch (InterruptedException e) {
@@ -177,6 +176,7 @@ public class DownloadFileMittentePagoPATest {
                         break;
                     }
                 }
+                this.driver.switchTo().window(numTab.get(1));
                 break;
             }else {
                 try {

@@ -32,6 +32,8 @@ public class LeTueDelegheSection extends BasePage {
     @FindBy(xpath = "//input[contains(@id,'expirationDate')]")
     WebElement dataTermineDelegaInput;
 
+
+
     @FindBy(xpath = "//div[contains(@data-testid, 'codeDigit')]")
     List<WebElement> codiceVerificaList;
 
@@ -67,6 +69,28 @@ public class LeTueDelegheSection extends BasePage {
 
     @FindBy(xpath = "//button[contains(@data-testid,'codeConfirmButton')]")
     WebElement accettaPopUpButton;
+
+
+    @FindBy(xpath = "//h4[contains(text(),'Deleghe')]")
+    WebElement deleghePageTitle;
+
+    @FindBy(xpath = "//p[contains(text(),'Qui puoi gestire')]")
+    WebElement deleghePageSubtitle;
+
+    @FindBy(xpath = "//button[contains(@data-testid,'add-delegation')]")
+    WebElement aggiungiDelegaButton;
+
+    @FindBy(xpath = "//span[contains(text(),'Nome')]")
+    WebElement nomeDelegaField;
+
+    @FindBy(xpath = "//th[contains(text(),'Inizio delega')]")
+    WebElement inizioDelegaField;
+
+    @FindBy(xpath = "//span[contains(text(),'Fine delega')]")
+    WebElement fineDelegaField;
+
+    @FindBy(xpath = "//th[contains(text(),'Permessi')]")
+    WebElement permessiDelegaField;
 
     public LeTueDelegheSection(WebDriver driver) {
         super(driver);
@@ -247,6 +271,26 @@ public class LeTueDelegheSection extends BasePage {
             Assert.fail("La delega NON ha lo stato Attiva con errore: "+e.getMessage());
         }
     }
+
+    public boolean siVisualizzaIlTitolo() {return this.deleghePageTitle.isDisplayed();}
+
+    public boolean siVisualizzaIlSottotitolo() {return this.deleghePageSubtitle.isDisplayed();}
+
+    public boolean siVisualizzaIlBottoneAggiungiUnaDelega() {return this.aggiungiDelegaButton.isDisplayed();}
+
+    public boolean siVisualizzaIlNomeDelegato() {return this.nomeDelegaField.isDisplayed();}
+
+
+    public boolean siVisualizzaDataInizioDelega() {
+        return this.inizioDelegaField.isDisplayed();
+    }
+
+    public boolean siVisualizzaDataFinoDelega() {
+        return this.fineDelegaField.isDisplayed();
+    }
+
+    public boolean siVisualizzaPermessiDelega() {return  this.permessiDelegaField.isDisplayed();}
+
 }
 
 

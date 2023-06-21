@@ -1,7 +1,7 @@
 Feature: Login pagoPA
 
   @loginMittente
-  @pippo
+
   Scenario: Login pagoPA mittente
     Given Login Page mittente "mittente" viene visualizzata
     When Login con mittente "mittente"
@@ -9,7 +9,7 @@ Feature: Login pagoPA
     And Logout da portale mittente
 
 
-  @loginDestinatario @pippo
+  @loginDestinatario
   Scenario: Login pagoPA destinatario
     Given Login Page destinatario "destinatario" viene visualizzata
     When Login con destinatario "destinatario"

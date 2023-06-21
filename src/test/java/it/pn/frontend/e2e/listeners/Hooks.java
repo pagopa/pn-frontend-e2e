@@ -169,7 +169,9 @@ public class Hooks {
     }
 
     @Before
-    public void startScenario(){
+    public void startScenario(Scenario scenario){
+
+        logger.info("-------------------------------------------START SCENARIO: "+scenario.getName()+"------------------------------------------------");
 
         logger.info("os type : "+this.os);
         logger.info("user language : "+System.getProperty("user.language"));
@@ -252,5 +254,6 @@ public class Hooks {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        logger.info("-------------------------------------------END SCENARIO: "+scenario.getName()+"------------------------------------------------");
     }
 }

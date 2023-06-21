@@ -6,8 +6,6 @@ Feature: Download Atti Destinatario
     When nella Homepage RADD sezione Documenti allegati della notifica e attestazioni opponibili a terzi clicca sul bottone con freccia
     Then la pagina Richiesta Atti sezione Dati della notifica è visualizzata correttamente
 
-  @test1
-
   Scenario: Download Atti Destinatario
     When nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il codice IUN "RADD"
     And nella pagina atti-opponibili-terzi sezione Dati della notifica è selezionato di default il Soggetto giuridico come Persona fisica

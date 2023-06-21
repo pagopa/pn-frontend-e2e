@@ -37,7 +37,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
     @FindBy(xpath = "//div[contains(@id,'status')]")
     WebElement statoNotificaField;
 
-    @FindBy(xpath = "//button[contains(text(),'Invia una nuova notifica')]")
+    @FindBy(xpath = "//button[contains(@data-testid,'newNotificationBtn')]")
     WebElement inviaNuovaNotificaButton;
 
     @FindBy(xpath = "//div[contains(@data-testid,'sideMenuItem-API Key')]")

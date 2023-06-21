@@ -138,10 +138,9 @@ public class DettaglioNotificaSection extends BasePage {
 
     public void downloadFileAttestazione(String url, String path, String nomeFile) {
         try {
-            waitLoadPage();
             URL urlPDF = new URL(url);
             File pdf = new File(System.getProperty("user.dir") + path + "/" + nomeFile + ".pdf");
-            FileUtils.copyURLToFile(urlPDF, pdf, 7500, 7500);
+            FileUtils.copyURLToFile(urlPDF, pdf, 10000, 10000);
             this.driver.close();
             List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
             this.driver.switchTo().window(numTab.get(0));

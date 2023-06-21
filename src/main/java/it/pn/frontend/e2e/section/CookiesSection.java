@@ -24,7 +24,7 @@ public class CookiesSection extends BasePage {
     public boolean waitLoadCookiesPage(){
         try{
             By scopriDipiuLink = By.id("onetrust-pc-btn-handler");
-            this.getWebDriverWait(15).until(ExpectedConditions.visibilityOfElementLocated(scopriDipiuLink));
+            this.getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(scopriDipiuLink));
             logger.info("Cookies Page caricata");
             return true;
         }catch (TimeoutException e){

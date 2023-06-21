@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.section.destinatario;
 
+import com.sun.source.tree.TryTree;
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -47,5 +48,15 @@ public class HeaderDESection extends BasePage {
         By esciVoce = By.xpath("//span[contains(text(),'Esci')]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(esciVoce));
         this.element(esciVoce).click();
+    }
+
+    public void waitUrlToken() {
+        try {
+            this.getWebDriverWait(30).until(ExpectedConditions.urlContains("token"));
+            logger.info("Url token ------------------------>"+driver.getCurrentUrl());
+        }catch (TimeoutException e){
+            logger.error("Url token non trovato con errore:"+e.getMessage());
+            Assert.fail("Url token non trovato con errore:"+e.getMessage());
+        }
     }
 }

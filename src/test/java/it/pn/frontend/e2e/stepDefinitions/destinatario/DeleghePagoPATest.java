@@ -210,4 +210,73 @@ public class DeleghePagoPATest {
         LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
         leTueDelegheSection.controlloStatoAttiva();
     }
+
+    @And("Nella sezione Deleghe si visualizza il titolo")
+    public void siVisualizzaIlTitolo() {
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        if(leTueDelegheSection.siVisualizzaIlTitolo()){
+            logger.info("Il titolo della sezione Deleghe si visualizza correttamente");
+        }else {
+            logger.error("Il titolo della sezione Deleghe NON si visualizza correttamente");
+            Assert.fail("Il titolo della sezione Deleghe NON si visualizza correttamente");
+        }
+    }
+
+    @And("Nella sezione Deleghe si visualizza il sottotitolo")
+    public void siVisualizzaIlSottotitolo() {
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        if( leTueDelegheSection.siVisualizzaIlSottotitolo()){
+            logger.info("Il sottotitolo della sezione Deleghe si visualizza correttamente");
+        }else {
+            logger.error("Il sottotitolo della sezione Deleghe NON si visualizza correttamente");
+            Assert.fail("Il sottotitolo della sezione Deleghe NON si visualizza correttamente");
+        }
+    }
+
+    @And("Nella sezione Deleghe si visualizza il bottone aggiungi una delega")
+    public void siVisualizzaIlBottoneAggiungiUnaDelega() {
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+        if(leTueDelegheSection.siVisualizzaIlBottoneAggiungiUnaDelega()){
+            logger.info("Il bottone aggiungi delega si visualizza correttamente");
+        }else {
+            logger.error("Il bottone aggiungi delega NON si visualizza correttamente");
+            Assert.fail("Il bottone aggiungi delega NON si visualizza correttamente");
+        }
+    }
+
+    @And("Nella sezione Deleghe si visualizzano tutti i campi dell'elenco dei delegati")
+    public void siVisualizzanoTuttiICampiDellElencoDeiDelegati() {
+        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+
+        if(leTueDelegheSection.siVisualizzaIlNomeDelegato()){
+            logger.info("Si visualizza correttamente il nome del delegato");
+        }else {
+            logger.error("NON si visualizza correttamente il nome del delegato");
+            Assert.fail("NON si visualizza correttamente il nome del delegato");
+        }
+
+        if (leTueDelegheSection.siVisualizzaDataInizioDelega()){
+            logger.info("Si visualizza correttamente la data di inizio della delega");
+        }else {
+            logger.error("NON si visualizza correttamente la data di inizio della delega");
+            Assert.fail("NON Si visualizza correttamente la data di inizio della delega");
+        }
+
+        if(leTueDelegheSection.siVisualizzaDataFinoDelega()){
+            logger.info("Si visualizza correttamente la data di fine delle deleghe");
+        }else {
+            logger.error("NON si visualizza correttamente la data di fine delle deleghe");
+            Assert.fail("NON si visualizza correttamente la data di fine delle deleghe");
+        }
+
+        if (leTueDelegheSection.siVisualizzaPermessiDelega()){
+            logger.info("Si visualizza correttamente il permesso della delega");
+        }else {
+            logger.error("NON si visualizza correttamente il permesso della delega");
+            Assert.fail("NON si visualizza correttamente il permesso della delega");
+        }
+    }
+
+
+
 }

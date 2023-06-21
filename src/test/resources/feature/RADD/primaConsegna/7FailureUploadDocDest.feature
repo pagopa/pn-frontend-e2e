@@ -8,8 +8,6 @@ Feature: Failure terzo step Destinatario
     Then la pagina Richiesta Atti sezione Dati della notifica è visualizzata correttamente
 
 
-  @test07
-
   Scenario: Failure terzo step Destinatario
     When nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il codice IUN "RADD"
     And nella pagina atti-opponibili-terzi sezione Dati della notifica è selezionato di default il Soggetto giuridico come Persona fisica

@@ -104,6 +104,8 @@ public class LoginDestinatarioPagoPA {
         }
 
         confermaDatiSpidDEPage.selezionaConfermaButton();
+        HeaderDESection headerDESection = new HeaderDESection(this.driver);
+        headerDESection.waitUrlToken();
     }
 
     @Then("Home page destinatario viene visualizzata correttamente")

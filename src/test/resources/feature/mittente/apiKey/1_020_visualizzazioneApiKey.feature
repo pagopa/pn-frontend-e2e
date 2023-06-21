@@ -8,7 +8,6 @@ Feature: Mittente visualizza correttamente la pagina Api Key
     @TestSuite
     @test20
 
-
   Scenario: Mittente visualizza correttamente la pagina Api Key
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
