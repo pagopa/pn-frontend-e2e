@@ -76,7 +76,7 @@ public class DestinatarioPASection extends BasePage {
 
     public void waitLoadDestinatarioPASection() {
         try{
-            By titleDestinatarioFieald = By.xpath("//h3[contains(text(),'Destinatario')]");
+            By titleDestinatarioFieald = By.xpath("//h3[contains(text(),'Destinatari')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleDestinatarioFieald));
             logger.info("Destinatario PA Section caricata ");
         }catch (TimeoutException e){

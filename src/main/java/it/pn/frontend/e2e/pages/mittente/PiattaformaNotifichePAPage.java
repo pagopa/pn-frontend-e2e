@@ -177,11 +177,13 @@ public class PiattaformaNotifichePAPage extends BasePage {
     }
 
     public int getListStato(String statoNotifica) {
-        By statoNotificaBy = By.xpath("//div[contains(@data-testid,'statusChip-" + statoNotifica + "')]");
-        attesaCaricamentoPagina();
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
-        logger.info("Stati notifiche trovati correttamente");
-        return this.elements(statoNotificaBy).size();
+        try {
+            By statoNotificaBy = By.xpath("//span[contains(text(),'" + statoNotifica + "')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
+            return this.elements(statoNotificaBy).size();
+        }catch (TimeoutException e){
+            return 0;
+        }
     }
 
     public void selezionaNotifica() {

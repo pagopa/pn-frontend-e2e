@@ -5,7 +5,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
-import it.pn.frontend.e2e.pages.mittente.ApiKeyPAPage;
 import it.pn.frontend.e2e.pages.mittente.AreaRiservataPAPage;
 import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePAPage;
@@ -542,5 +541,98 @@ public class NotificaMittentePagoPATest {
         logger.info("Si visualizza il messaggio di errore stesso codice fiscale");
         DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
         destinatarioPASection.waitMessaggioErrore();
+    }
+
+    @And("Si verifica che la notifica sia nello stato {string}")
+    public void siVerificaCheLaNotificaSiaNelloStato(String statoNotifca) {
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage((this.driver));
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        boolean notificaTrovata = false;
+        for (int i = 0; i<10; i++){
+            int numeroNotifiche = piattaformaNotifichePAPage.getListStato(statoNotifca);
+            if(numeroNotifiche ==0){
+                try {
+                    TimeUnit.SECONDS.sleep(10);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                piattaformaNotifichePAPage.aggionamentoPagina();
+                piattaformaNotifichePAPage.inserimentoCodiceIUN(datiNotifica.get("codiceIUN").toString());
+                piattaformaNotifichePAPage.selectFiltraButton();
+            } else {
+                notificaTrovata = true;
+                break;
+            }
+        }
+        if(!notificaTrovata){
+            logger.error("La notifica non è stata trovata dopo 1m40s");
+            Assert.fail("La notifica non è stata trovata dopo 1m40s");
+        }
+    }
+
+    @And("Si verifica sia presente l'indirizzo mail del destinatario {string} nei dettagli della notifica")
+    public void siVerificaSiaPresenteLIndirizzoMailDelDestinatarioNeiDettagliDellaNotifica(String mailPEC) {
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        dettaglioNotificaSection.clickVediPiuDettaglio();
+        int numeroPecTrovate = dettaglioNotificaSection.controlloNumeroPec(mailPEC);
+        if(numeroPecTrovate != 0){
+            logger.info(" La pec è in invio in corso");
+        }else {
+            logger.error("La pec NON è in invio in corso");
+            Assert.fail("La pec NON è in invio in corso");
+        }
+    }
+
+    @And("Verifica dello stato della notifica inviata tramite pec come {string}")
+    public void verificaDelloStatoDellaNotificaInviataTramitePecCome(String statoNotifica) {
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        this.destinatario = dataPopulation.readDataPopulation("destinatarioPec.yaml");
+
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
+        String dataNotifica = dateFormat.format(date).replace("-", "/");
+
+        String coidiceIUNOld = this.datiNotifica.get("codiceIUN").toString();
+        CookiesSection cookiesSection = new CookiesSection(this.driver);
+        for(int i=0; i<12; i++){
+            if(i>=1){
+                piattaformaNotifichePAPage.aggionamentoPagina();
+                if (cookiesSection.waitLoadCookiesPage()){
+                    cookiesSection.selezionaAccettaTuttiButton();
+                }
+                piattaformaNotifichePAPage.insertCodiceFiscale(this.destinatario.get("codiceFiscale").toString());
+                piattaformaNotifichePAPage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
+                piattaformaNotifichePAPage.selezionareStatoNotifica("ACCEPTED");
+                piattaformaNotifichePAPage.selectFiltraButton();
+            }
+            piattaformaNotifichePAPage.waitLoadRefreshPage();
+            String codiceIUN = piattaformaNotifichePAPage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
+            if(codiceIUN != null){
+                if(!codiceIUN.equals(coidiceIUNOld)){
+                    this.datiNotifica.put("codiceIUN",codiceIUN);
+                    dataPopulation.writeDataPopulation("datiNotifica.yaml", this.datiNotifica);
+                    logger.info("Stato notifica uguale a Depositata e codice IUN aggiornato correttamente");
+                    return;
+                }
+            }
+        }
+
+        logger.error("Il server ha impiegato troppo tempo nel generare la notifica");
+        Assert.fail("Il server ha impiegato troppo tempo nel generare la notifica");
+
+    }
+
+    @And("Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica pec {string}")
+    public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotificaPec(String dpDatiiNotifica) {
+        logger.info("Si inserisce il codice IUN");
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiNotifica = dataPopulation.readDataPopulation(dpDatiiNotifica + ".yaml");
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        piattaformaNotifichePAPage.aggionamentoPagina();
+        piattaformaNotifichePAPage.waitLoadRefreshPage();
+        piattaformaNotifichePAPage.inserimentoCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
     }
 }

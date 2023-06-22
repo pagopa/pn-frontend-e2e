@@ -16,7 +16,6 @@ import org.openqa.selenium.support.FindBy;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -113,16 +112,6 @@ public class DettaglioNotificaSection extends BasePage {
         }else {
             logger.error("File non scaricato");
             Assert.fail("File non scaricato");
-        }
-    }
-
-    public void controlloStato(String stato) {
-        try {
-            By statoNotificaBy = By.xpath("//span[contains(text(),'"+stato+"')]");
-
-        }catch (TimeoutException e){
-            logger.error("Stato notifica non corretto");
-            Assert.fail("Stato notifica non corretto");
         }
     }
 
@@ -297,5 +286,11 @@ public class DettaglioNotificaSection extends BasePage {
             logger.error("Non riuscito ad trovare il link con errore: "+e.getMessage());
             Assert.fail("Non riuscito ad trovare il link con errore: "+e.getMessage());
         }
+    }
+
+    public int controlloNumeroPec(String mailPEC) {
+        By mailPecBy = By.xpath("//p[contains(text(),'"+mailPEC+"')]");
+        getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(mailPecBy));
+        return this.elements(mailPecBy).size();
     }
 }
