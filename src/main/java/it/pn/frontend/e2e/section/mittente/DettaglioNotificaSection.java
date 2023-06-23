@@ -59,43 +59,6 @@ public class DettaglioNotificaSection extends BasePage {
         }
 
     }
-    public void downloadFileAttestazioni(String path){
-
-        for ( WebElement link: attestazioniFile) {
-            if (link.isDisplayed()){
-                link.click();
-            }else {
-                this.js().executeScript("arguments[0].scrollIntoView(true);", link);
-                link.click();
-            }
-            String nomePdf = link.getText();
-            for (int i = 0; i < 30; i++) {
-                List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
-                if (numTab.size() == 2){
-                    this.driver.switchTo().window(numTab.get(1));
-                    try {
-                        waitLoadPage();
-                        logger.info("Url File:"+driver.getCurrentUrl());
-                        URL urlPDF = new URL(this.driver.getCurrentUrl());
-                        File partialPath = new File(path);
-                        File pdf = new File(System.getProperty("user.dir")+partialPath+"/"+nomePdf+".pdf");
-                        FileUtils.copyURLToFile(urlPDF,pdf,1000,1000);
-                        this.driver.close();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    this.driver.switchTo().window(numTab.get(0));
-                    break;
-                }else {
-                    try {
-                        TimeUnit.SECONDS.sleep(1);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        }
-    }
     public void controlloDownload(){
         File partialPath = new File("src/test/resources/dataPopulation/downloadFileNotifica/mittente");
         File directory = new File(partialPath.getAbsolutePath());
@@ -125,20 +88,7 @@ public class DettaglioNotificaSection extends BasePage {
         }
     }
 
-    public void downloadFileAttestazione(String url, String path, String nomeFile) {
-        try {
-            URL urlPDF = new URL(url);
-            File pdf = new File(System.getProperty("user.dir") + path + "/" + nomeFile + ".pdf");
-            FileUtils.copyURLToFile(urlPDF, pdf, 10000, 10000);
-            this.driver.close();
-            List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
-            this.driver.switchTo().window(numTab.get(0));
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-        public Map<String, String> recuperoInfoNotifiche() {
+    public Map<String, String> recuperoInfoNotifiche() {
         Map<String,String> infoNotifica = new HashMap<>();
         String mittente = getInfoNotifica(0);
         infoNotifica.put("mittente",mittente);
@@ -180,10 +130,7 @@ public class DettaglioNotificaSection extends BasePage {
             URL urlPDF = new URL(url);
             File partialPath = new File(path);
             File pdf = new File(System.getProperty("user.dir")+partialPath+"/pdfNotificaN"+nDownload+".pdf");
-            FileUtils.copyURLToFile(urlPDF,pdf,7500,7500);
-            List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
-            this.driver.close();
-            this.driver.switchTo().window(numTab.get(0));
+            FileUtils.copyURLToFile(urlPDF,pdf,1000,1000);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

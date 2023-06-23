@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -24,6 +25,8 @@ public class DownloadFileMittentePagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("DownloadFileMittentePagoPATest");
     private final WebDriver driver = Hooks.driver;
     private List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
+
+    private  Map<String,Object> datiNotifica = new HashMap<>();
 
 
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
@@ -45,88 +48,32 @@ public class DownloadFileMittentePagoPATest {
         logger.info("Si scaricano tutti i file all'interno della notifica");
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         DataPopulation dataPopulation = new DataPopulation();
-        Map<>
+        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         dettaglioNotificaSection.clickAllLinkDownload();
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         List<String> urls = new ArrayList<>();
-        urls.add(getUrl("https://webapi.test.notifichedigitali.it/delivery/notifications/sent/" + codiceIUN + "/attachments/documents/0"))
+        urls.add(getUrl("https://webapi.test.notifichedigitali.it/delivery/notifications/sent/" + this.datiNotifica.get("codiceIUN").toString() + "/attachments/documents/0"));
+        urls.add(getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+ this.datiNotifica.get("codiceIUN").toString()  +"/document/AAR?documentId=safestorage:"));
+        urls.add(getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+this.datiNotifica.get("codiceIUN").toString()+"/legal-facts/"));
+        for (int i = 0; i < urls.size(); i++) {
+            dettaglioNotificaSection.downloadFileNotifica("/src/test/resources/dataPopulation/downloadFileNotifica/mittente",urls.get(i),i+1);
+        }
+        dettaglioNotificaSection.controlloDownload();
     }
 
-    private String getUrlPDFAvvenutaRicezione() {
-        DataPopulation dataPopulation = new DataPopulation();
-        Map<String,Object> datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        String codiceIUN = datiNotifica.get("codiceIUN").toString();
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        dettaglioNotificaSection.clickLinkAvvenutaRicezione();
+    private String getUrl(String urlChiamata) {
         String url = "";
-        for (int i = 0; i < 30; i++) {
-            List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
-            if (numTab.size() == 2){
-                this.driver.switchTo().window(numTab.get(1));
-                try {
-                    TimeUnit.SECONDS.sleep(20);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                Hooks hooks = new Hooks();
-                hooks.captureHttpResponse();
-                List<NetWorkInfo> netWorkInfos1 = Hooks.netWorkInfos;
-
-                for (int y = 0; y < netWorkInfos1.size(); y++) {
-                    if (netWorkInfos1.get(y).getRequestUrl().contains("https://webapi.test.notifichedigitali.it/delivery-push/"+ codiceIUN +"/document/AAR?documentId=safestorage:%2F%2FPN_AAR-e69ff3be92314ad4a3ea86024ef1a08a.pdf")) {
-                        logger.info("Sono entrato nell'if");
-                        String[] body = netWorkInfos1.get(y).getResponseBody().split("url");
-                        url = body[1].substring(3, body[1].length() - 2);
-                        break;
-                    }
-                }
+        for (int i = 0; i < netWorkInfos.size(); i++) {
+            if (netWorkInfos.get(i).getRequestUrl().contains(urlChiamata)){
+                String[] body = netWorkInfos.get(i).getResponseBody().split("url");
+                url = body[1].substring(3,body[1].length()-2);
                 break;
-            }else {
-                try {
-                    TimeUnit.SECONDS.sleep(1);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
             }
         }
-        logger.info("url proxy:"+url);
-        return url;
-    }
-
-
-    private String getUrlPDFDocuementiAllegati() {
-        DataPopulation dataPopulation = new DataPopulation();
-        Map<String,Object> datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        String codiceIUN = datiNotifica.get("codiceIUN").toString();
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        dettaglioNotificaSection.clickLinkDocumentiAllegati();
-        String url = "";
-        for (int i = 0; i < 30; i++) {
-            List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
-            if (numTab.size() == 2){
-                this.driver.switchTo().window(numTab.get(1));
-                try {
-                    TimeUnit.SECONDS.sleep(20);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                for (int y = 0; y < netWorkInfos.size(); y++) {
-                    if (netWorkInfos.get(y).getRequestUrl().contains("https://webapi.test.notifichedigitali.it/delivery/notifications/sent/" + codiceIUN + "/attachments/documents/0")) {
-                        logger.info("Sono entrato nell'if");
-                        String[] body = netWorkInfos.get(y).getResponseBody().split("url");
-                        url = body[1].substring(3, body[1].length() - 2);
-                        break;
-                    }
-                }
-                break;
-            }else {
-                try {
-                    TimeUnit.SECONDS.sleep(1);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-        logger.info("url proxy:"+url);
         return url;
     }
 
@@ -147,46 +94,19 @@ public class DownloadFileMittentePagoPATest {
     public void siSelezionanoIlFileDaScaricare(String nomeFile) {
         logger.info("Si cerca di scaricare il file " + nomeFile);
 
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        String urlPDFFileAllegati = getUrlPDFileAllegati(nomeFile);
-        dettaglioNotificaSection.downloadFileAttestazione(urlPDFFileAllegati, "/src/test/resources/dataPopulation/downloadFileNotifica/mittente",nomeFile);
-    }
-
-    private String getUrlPDFileAllegati(String nomePDF) {
         DataPopulation dataPopulation = new DataPopulation();
-        Map<String,Object> datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        String codiceIUN = datiNotifica.get("codiceIUN").toString();
+        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        dettaglioNotificaSection.clickLinkAttestazioneOpponibile(nomePDF);
-        String url = "";
-        for (int i = 0; i < 30; i++) {
-            List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
-            if (numTab.size() == 2){
-                try {
-                    TimeUnit.SECONDS.sleep(20);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                for (int y = 0; y < netWorkInfos.size(); y++) {
-                    if (netWorkInfos.get(y).getRequestUrl().contains("https://webapi.test.notifichedigitali.it/delivery-push/"+codiceIUN+"/legal-facts/")) {
-                        logger.info("Sono entrato nell'if");
-                        String[] body = netWorkInfos.get(y).getResponseBody().split("url");
-                        url = body[1].substring(3, body[1].length() - 2);
-                        break;
-                    }
-                }
-                this.driver.switchTo().window(numTab.get(1));
-                break;
-            }else {
-                try {
-                    TimeUnit.SECONDS.sleep(1);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+        dettaglioNotificaSection.clickLinkAttestazioneOpponibile(nomeFile);
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
-        logger.info("url proxy:"+url);
-        return url;
+        String url = getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+this.datiNotifica.get("codiceIUN").toString()+"/legal-facts/");
+
+        dettaglioNotificaSection.downloadFileNotifica("/src/test/resources/dataPopulation/downloadFileNotifica/mittente", url, 1);
     }
 
     @Then("Si controlla il testo all interno del file {string}")
