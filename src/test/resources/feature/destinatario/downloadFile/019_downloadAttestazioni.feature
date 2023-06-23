@@ -7,6 +7,7 @@ Feature: Destinatario scarica attestazioni all'interno di una notifica
     And Nella pagina Piattaforma Notifiche  Destinatario inserire il codice IUN da dati notifica "datiNotifica"
     And Cliccare sul bottone Filtra Destinatario
 
+  @TestSuite
   @test19
 
 

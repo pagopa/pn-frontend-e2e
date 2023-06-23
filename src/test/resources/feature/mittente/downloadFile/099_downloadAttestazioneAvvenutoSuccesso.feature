@@ -9,6 +9,7 @@ Feature: il mittente effettua il download attestazione opponibile a terzi avvenu
     And Nella pagina piattaforma Notifiche selezionare lo stato notifica "Avvenuta ricezione"
     And Cliccare sul bottone Filtra
 
+  @TestSuite
   @test99
 
   Scenario: il mittente effettua il download attestazione opponibile a terzi avvenuto successo

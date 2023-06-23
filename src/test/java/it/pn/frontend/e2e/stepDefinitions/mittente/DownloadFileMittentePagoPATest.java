@@ -10,6 +10,7 @@ import it.pn.frontend.e2e.section.mittente.DettaglioNotificaSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,6 +28,8 @@ public class DownloadFileMittentePagoPATest {
     private List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     private  Map<String,Object> datiNotifica = new HashMap<>();
+
+    private String tabPrimeryTab;
 
 
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
@@ -49,20 +52,37 @@ public class DownloadFileMittentePagoPATest {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        dettaglioNotificaSection.clickAllLinkDownload();
+        dettaglioNotificaSection.clickLinkDocumentiAllegati();
         try {
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        List<String> urls = new ArrayList<>();
-        urls.add(getUrl("https://webapi.test.notifichedigitali.it/delivery/notifications/sent/" + this.datiNotifica.get("codiceIUN").toString() + "/attachments/documents/0"));
-        urls.add(getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+ this.datiNotifica.get("codiceIUN").toString()  +"/document/AAR?documentId=safestorage:"));
-        urls.add(getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+this.datiNotifica.get("codiceIUN").toString()+"/legal-facts/"));
-        for (int i = 0; i < urls.size(); i++) {
-            dettaglioNotificaSection.downloadFileNotifica("/src/test/resources/dataPopulation/downloadFileNotifica/mittente",urls.get(i),i+1);
+        String urlDocumentiAllegati = getUrl("https://webapi.test.notifichedigitali.it/delivery/notifications/sent/" + this.datiNotifica.get("codiceIUN").toString() + "/attachments/documents/0");
+        dettaglioNotificaSection.downloadFileNotifica("src/test/resources/dataPopulation/downloadFileNotifica/mittente",urlDocumentiAllegati,1);
+        dettaglioNotificaSection.clickLinkAvvenutaRicezione();
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
-        dettaglioNotificaSection.controlloDownload();
+        String urlAvvenutaRicezione = getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+ this.datiNotifica.get("codiceIUN").toString() +"/document/AAR?documentId=safestorage:");
+        dettaglioNotificaSection.downloadFileNotifica("src/test/resources/dataPopulation/downloadFileNotifica/mittente",urlAvvenutaRicezione,2);
+
+        int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponubili();
+
+        for (int i = 0; i <numeroLinkAttestazioniOpponibile ; i++) {
+            dettaglioNotificaSection.clickLinkAttestazionipponibile(i);
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            String urlFileAttestazioneOppponubile = getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+this.datiNotifica.get("codiceIUN").toString()+"/legal-facts/");
+            dettaglioNotificaSection.downloadFileNotifica("src/test/resources/dataPopulation/downloadFileNotifica/mittente",urlFileAttestazioneOppponubile,3);
+        }
+
+
     }
 
     private String getUrl(String urlChiamata) {
@@ -104,7 +124,9 @@ public class DownloadFileMittentePagoPATest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        String url = getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+this.datiNotifica.get("codiceIUN").toString()+"/legal-facts/");
+        String url = getUrl("https://webapi.test.notifichedigitali.it/delivery-push/");
+
+
 
         dettaglioNotificaSection.downloadFileNotifica("/src/test/resources/dataPopulation/downloadFileNotifica/mittente", url, 1);
     }

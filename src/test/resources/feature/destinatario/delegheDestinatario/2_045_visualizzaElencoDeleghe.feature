@@ -5,6 +5,7 @@ Feature: Il destinatario visualizza la sezione aggiungi una nuova delega
     When Login con destinatario "destinatario"
     Then Home page destinatario viene visualizzata correttamente
 
+   @TestSuite
   @test45
 
   Scenario: Il destinatario visualizza la sezione aggiungi una nuova delega

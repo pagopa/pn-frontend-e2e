@@ -9,6 +9,7 @@ Feature: il mittente effettua il download attestazione opponibile a terzi mancat
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica "WGYN-HUXM-EADA-202306-X-1" con allegato
     And Cliccare sul bottone Filtra
 
+  @TestSuite
   @test100
 
   Scenario:il mittente effettua il download attestazione opponibile a terzi mancato recapito digitale

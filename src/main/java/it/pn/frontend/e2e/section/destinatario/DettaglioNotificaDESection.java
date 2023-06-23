@@ -49,53 +49,22 @@ public class DettaglioNotificaDESection extends BasePage {
         }
     }
 
-    public void downloandFileAttestazioni(String path){
-        int count = 1;
-        for ( WebElement link: attestazioniFile) {
-            link.click();
 
-            for (int i = 0; i < 30; i++) {
-                List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
-                if (numTab.size() == 2){
-                    this.driver.switchTo().window(numTab.get(1));
-                    try {
-                        URL urlPDF = new URL(this.driver.getCurrentUrl());
-                        File partialPath = new File(path);
-                        File pdf = new File(System.getProperty("user.dir")+partialPath+"/attestazione n° "+count+".pdf");
-                        FileUtils.copyURLToFile(urlPDF,pdf,1000,1000);
-                        this.driver.close();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    this.driver.switchTo().window(numTab.get(0));
-                    break;
-                }else {
-                    try {
-                        TimeUnit.SECONDS.sleep(1);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
+    public void clickLinkAttestazionipponibile(int numeroLinkAttestazioniOpponibile) {
+        attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
+    }
+
+    public void downloadFileNotifica(String path, String url, int nDownload){
+        try {
+            URL urlPDF = new URL(url);
+            File pdf = new File(path+"/pdfNotificaN"+nDownload+".pdf");
+            FileUtils.copyURLToFile(urlPDF,pdf,30000,30000);
+        } catch (IOException e) {
+            logger.error("Errore nel downolad del file : "+e.getMessage());
         }
     }
 
-    public void controlloDownload() {
-        File partialPath = new File("/src/test/resources/dataPopulation/downloadFileNotifica/destinatario");
-        File directory = new File(partialPath.getAbsolutePath());
-
-        File[] fList = directory.listFiles(File::isFile);
-
-        if (fList != null && fList.length > 0){
-            for (File file : fList) {
-                boolean result = file.delete();
-                if (result) {
-                    logger.info("File scaricato e eliminato");
-                }
-            }
-        }else {
-            logger.error("File non scaricato");
-            Assert.fail("File non scaricato");
-        }
+    public int getLinkAttestazioniOpponubili() {
+        return attestazioniFile.size();
     }
 }

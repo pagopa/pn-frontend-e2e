@@ -11,7 +11,7 @@ Feature: Mittente scarica tutti i file all'interno di una notifica
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica "datiNotifica"
     And Cliccare sul bottone Filtra
 
-
+  @TestSuite
   @test14_1
 
   Scenario: Mittente scarica attestazioni

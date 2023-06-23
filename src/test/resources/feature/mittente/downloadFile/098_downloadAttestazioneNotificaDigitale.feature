@@ -9,6 +9,7 @@ Feature: il mittente effettua il download attestazione opponibile a terzi notifi
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica "QPZN-GMTM-QKAT-202306-W-1" con allegato
     And Cliccare sul bottone Filtra
 
+  @TestSuite
   @test98
 
   Scenario: il mittente effettua il download attestazione opponibile a terzi notifica digitale

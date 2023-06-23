@@ -4,11 +4,13 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.NotificheDEPage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.DettaglioNotificaDESection;
 import it.pn.frontend.e2e.section.destinatario.HeaderDESection;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaSection;
+import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class NotificheDestinatarioPAgoPATest {
@@ -23,6 +26,8 @@ public class NotificheDestinatarioPAgoPATest {
     private static final Logger logger = LoggerFactory.getLogger("NotificheDestinatarioTest");
 
     private final WebDriver driver = Hooks.driver;
+
+    private List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     @When("Nella pagina Piattaforma Notifiche Destinatario si clicca sul bottone Notifiche")
     public void nella_piattaforma_destinatario_cliccare_sul_bottone_notifiche() {
@@ -188,8 +193,32 @@ public class NotificheDestinatarioPAgoPATest {
     @Then("Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica destinatario, e si controlla che il download sia avvenuto")
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaDestinatarioESiControllaCheIlDownloadSiaAvvenuto() {
         DettaglioNotificaDESection dettaglioNotificaDESection = new DettaglioNotificaDESection(this.driver);
-        dettaglioNotificaDESection.downloandFileAttestazioni("/src/test/resources/dataPopulation/downloadFileNotifica/destinatario");
-        dettaglioNotificaDESection.controlloDownload();
+        int numeroLinkAttestazioniOpponibile = dettaglioNotificaDESection.getLinkAttestazioniOpponubili();
+        DataPopulation dataPopulation = new DataPopulation();
+        Map<String,Object> datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        for (int i = 0; i <numeroLinkAttestazioniOpponibile ; i++) {
+            dettaglioNotificaDESection.clickLinkAttestazionipponibile(numeroLinkAttestazioniOpponibile);
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            String urlFileAttestazioneOppponubile = getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+datiNotifica.get("codiceIUN").toString()+"/legal-facts/");
+            dettaglioNotificaDESection.downloadFileNotifica("src/test/resources/dataPopulation/downloadFileNotifica/mittente",urlFileAttestazioneOppponubile,3);
+        }
+    }
+
+    private String getUrl(String urlChiamata) {
+        String url = "";
+        for (int i = 0; i < netWorkInfos.size(); i++) {
+            if (netWorkInfos.get(i).getRequestUrl().contains(urlChiamata)){
+                String[] body = netWorkInfos.get(i).getResponseBody().split("url");
+                url = body[1].substring(3,body[1].length()-2);
+                break;
+            }
+        }
+        return url;
+
     }
 
     @And("Si clicca sul opzione Vedi Dettaglio")

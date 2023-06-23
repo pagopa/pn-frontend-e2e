@@ -128,11 +128,10 @@ public class DettaglioNotificaSection extends BasePage {
     public void downloadFileNotifica(String path, String url,int nDownload) {
         try {
             URL urlPDF = new URL(url);
-            File partialPath = new File(path);
-            File pdf = new File(System.getProperty("user.dir")+partialPath+"/pdfNotificaN"+nDownload+".pdf");
-            FileUtils.copyURLToFile(urlPDF,pdf,1000,1000);
+            File pdf = new File(path+"/pdfNotificaN"+nDownload+".pdf");
+            FileUtils.copyURLToFile(urlPDF,pdf,30000,30000);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.error("Errore nel downolad del file : "+e.getMessage());
         }
     }
 
@@ -245,5 +244,13 @@ public class DettaglioNotificaSection extends BasePage {
         clickLinkDocumentiAllegati();
         clickLinkAvvenutaRicezione();
         clickLinkAttestazioneOpponibile("Attestazione opponibile a terzi: notifica presa in carico");
+    }
+
+    public int getLinkAttestazioniOpponubili() {
+        return attestazioniFile.size();
+    }
+
+    public void clickLinkAttestazionipponibile(int numeroLinkAttestazioniOpponibile) {
+        attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
     }
 }
