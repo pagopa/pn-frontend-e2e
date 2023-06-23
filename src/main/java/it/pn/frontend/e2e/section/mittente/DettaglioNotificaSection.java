@@ -293,4 +293,10 @@ public class DettaglioNotificaSection extends BasePage {
         getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(mailPecBy));
         return this.elements(mailPecBy).size();
     }
+
+    public void clickAllLinkDownload() {
+        clickLinkDocumentiAllegati();
+        clickLinkAvvenutaRicezione();
+        clickLinkAttestazioneOpponibile("Attestazione opponibile a terzi: notifica presa in carico");
+    }
 }

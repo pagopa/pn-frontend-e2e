@@ -44,12 +44,11 @@ public class DownloadFileMittentePagoPATest {
     public void downloadECheckFile() {
         logger.info("Si scaricano tutti i file all'interno della notifica");
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        String urlPDFDocuementiAllegati = getUrlPDFDocuementiAllegati();
-        dettaglioNotificaSection.downloadFileNotifica("/src/test/resources/dataPopulation/downloadFileNotifica/mittente",urlPDFDocuementiAllegati,1);
-        String urlPDFAvvenutaRicezione = getUrlPDFAvvenutaRicezione();
-        dettaglioNotificaSection.downloadFileNotifica("/src/test/resources/dataPopulation/downloadFileNotifica/mittente",urlPDFAvvenutaRicezione,2);
-        // dettaglioNotificaSection.downloadFileAttestazioni("/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
-        dettaglioNotificaSection.controlloDownload();
+        DataPopulation dataPopulation = new DataPopulation();
+        Map<>
+        dettaglioNotificaSection.clickAllLinkDownload();
+        List<String> urls = new ArrayList<>();
+        urls.add(getUrl("https://webapi.test.notifichedigitali.it/delivery/notifications/sent/" + codiceIUN + "/attachments/documents/0"))
     }
 
     private String getUrlPDFAvvenutaRicezione() {
