@@ -196,8 +196,8 @@ public class DestinatarioPASection extends BasePage {
             List<WebElement> listaNomeDestinatariField = this.elements(nomeDestinatarioBy);
             this.scrollToElementClickAndInsertText(listaNomeDestinatariField.get(listaNomeDestinatariField.size() - 1), nomeDestinatario);
         } catch (TimeoutException e) {
-            logger.error("Xpath non trovato con erorre: " + e.getMessage());
-            Assert.fail("Xpath non trovato con erorre: " + e.getMessage());
+            logger.error("Xpath non trovato con errore: " + e.getMessage());
+            Assert.fail("Xpath non trovato con errore: " + e.getMessage());
         }
     }
 

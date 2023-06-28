@@ -7,6 +7,7 @@ Feature: Download Avvisi Destinatario
     Then la pagina Avvisi di avvenuta ricezione sezione Dati del destinatario è visualizzata correttamente
 
 
+  @RADD
   @test05
 
   Scenario: Download Avvisi Destinatario

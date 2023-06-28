@@ -7,6 +7,7 @@ Feature: Download Avvisi Delegato
     Then la pagina Avvisi di avvenuta ricezione sezione Dati del destinatario è visualizzata correttamente
 
 
+  @RADD
   @test06
 
   Scenario: Download Avvisi Delegato
@@ -20,7 +21,7 @@ Feature: Download Avvisi Delegato
     And nella pagina Avvisi di avvenuta ricezione sezione Caricamento documenti caricare il Modulo di delega nel box tre Modulo di delega
     And nella pagina Avvisi di avvenuta ricezione sezione Caricamento documenti cliccare sul bottone Continua
     And la pagina Avvisi di avvenuta ricezione sezione Avvisi di avvenuta ricezione è visualizzata correttamente
-    And nella pagina Avvisi di avvenuta ricezione sezione Avvisi di avvenuta ricezione esegue il download dei documentiAnd nella pagina Avvisi di avvenuta ricezione sezione Avvisi di avvenuta ricezione esegue il download dei documenti
+    And nella pagina Avvisi di avvenuta ricezione sezione Avvisi di avvenuta ricezione esegue il download dei documenti
     And nella pagina Avvisi di avvenuta ricezione sezione Avvisi il bottone ho finito si abilita
     And nella pagina Avvisi di avvenuta ricezione sezione Avvisi cliccare sul bottone home page
     And la Homepage RADD è visualizzata correttamente

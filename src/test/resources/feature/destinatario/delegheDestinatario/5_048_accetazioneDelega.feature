@@ -7,8 +7,7 @@ Feature: il delegato accetta la delega
 
   @TestSuite
   @test48
-
-
+  @delega
   Scenario: il delegato accetta la delega
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe
     And Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico
