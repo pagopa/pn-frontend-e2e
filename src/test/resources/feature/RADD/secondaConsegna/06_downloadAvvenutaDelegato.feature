@@ -6,9 +6,8 @@ Feature: Download Avvisi Delegato
     When nella Homepage RADD sezione Avvisi di avvenuta ricezione clicca sul bottone Vai a Avvisi di avvenuta ricezione
     Then la pagina Avvisi di avvenuta ricezione sezione Dati del destinatario è visualizzata correttamente
 
-
   @RADD
-  @test06
+  @TestSuite
 
   Scenario: Download Avvisi Delegato
     When nella pagina Avvisi di avvenuta ricezione sezione Dati del destinatario il Soggetto giuridico e selezionato di default come Persona fisica
@@ -21,6 +20,7 @@ Feature: Download Avvisi Delegato
     And nella pagina Avvisi di avvenuta ricezione sezione Caricamento documenti caricare il Modulo di delega nel box tre Modulo di delega
     And nella pagina Avvisi di avvenuta ricezione sezione Caricamento documenti cliccare sul bottone Continua
     And la pagina Avvisi di avvenuta ricezione sezione Avvisi di avvenuta ricezione è visualizzata correttamente
+    And nella pagina Avvisi di avvenuta ricezione sezione Avvisi di avvenuta ricezione esegue il download dei documenti
     And nella pagina Avvisi di avvenuta ricezione sezione Avvisi di avvenuta ricezione esegue il download dei documenti
     And nella pagina Avvisi di avvenuta ricezione sezione Avvisi il bottone ho finito si abilita
     And nella pagina Avvisi di avvenuta ricezione sezione Avvisi cliccare sul bottone home page

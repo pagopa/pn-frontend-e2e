@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -15,19 +16,22 @@ public class HomePage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("HomePage");
 
-    public HomePage(WebDriver driver) {
-        super(driver);
-    }
-
     @FindBy(xpath = "//button[contains(@aria-label,'Vai a Documenti allegati della notifica e attestazioni opponibili a terzi')]")
     WebElement documentiAllegatuButton;
 
     @FindBy(xpath = "//button[contains(@aria-label,'Vai a Avvisi di avvenuta ricezione')]")
     WebElement avvenutoRicezioneButton;
 
+    @FindBy(xpath = "//button[contains(@aria-label,'Vai alla pagina Consultare le richieste precedenti')]")
+    WebElement storicoRichiesteButton;
+
+    public HomePage(WebDriver driver) {
+        super(driver);
+    }
+
     public void siVisualizzaCorrettamenteHomePage() {
         try {
-            By homePageTitleBy = By.xpath("//h3[contains(text(),'Che documenti vuoi ottenere?')]");
+            By homePageTitleBy = By.xpath("//h3[contains(text(),'Cosa vuoi fare?')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(homePageTitleBy));
             this.element(homePageTitleBy).isDisplayed();
             logger.info("La Homepage si visualizza correttamente");
@@ -55,5 +59,8 @@ public class HomePage extends BasePage {
         this.avvenutoRicezioneButton.click();
     }
 
+    public void clickSuStoricoRichieste() {
+        this.storicoRichiesteButton.click();
+    }
 }
 

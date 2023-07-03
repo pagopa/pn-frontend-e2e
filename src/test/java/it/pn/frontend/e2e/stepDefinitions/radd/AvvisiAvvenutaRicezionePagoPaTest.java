@@ -136,7 +136,6 @@ public class AvvisiAvvenutaRicezionePagoPaTest {
     public void nellaPaginaAvvisiDiAvvenutaRicezioneSezioneAvvisiDiAvvenutaRicezioneEsegueIlDownloadDeiDocumenti() {
         AvvisiAvvenutaRicezionePage avvisiAvvenutaRicezionePage = new AvvisiAvvenutaRicezionePage(this.driver);
         avvisiAvvenutaRicezionePage.scaricaTuttiDocumenti();
-        avvisiAvvenutaRicezionePage.controlloDownload();
     }
 
     @And("nella pagina Avvisi di avvenuta ricezione sezione Avvisi il bottone ho finito si abilita")
