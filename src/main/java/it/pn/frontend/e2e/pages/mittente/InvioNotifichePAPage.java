@@ -14,6 +14,6 @@ public class InvioNotifichePAPage extends BasePage {
     }
 
     public void selezionareContinuaButton() {
-        this.continuaButton.click();
+       this.js().executeScript("arguments[0].click()",continuaButton);
     }
 }

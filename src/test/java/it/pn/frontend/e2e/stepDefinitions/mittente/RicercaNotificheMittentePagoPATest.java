@@ -417,4 +417,31 @@ public class RicercaNotificheMittentePagoPATest {
             Assert.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
         }
     }
+
+    @And("Nella pagina piattaforma Notifiche selezionare lo stato notifica {string}")
+    public void nellaPaginaPiattaformaNotificheSelezionareLoStatoNotifica(String statoInserito) {
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+
+        switch (statoInserito.toUpperCase()) {
+            case "TUTI GLI STATI" -> statoInserito = "All";
+            case "DEPOSITATA" -> statoInserito = "ACCEPTED";
+            case "INVIO IN CORSO" -> statoInserito = "DELIVERING";
+            case "CONSEGNATA" -> statoInserito = "DELIVERED";
+            case "PERFEZIONATA PER DECORRENZA TERMINI" -> statoInserito = "EFFECTIVE_DATE";
+            case "AVVENUTO ACCESSO" -> statoInserito = "VIEWED";
+            case "ANNULLATA" -> statoInserito = "CANCELLED";
+            case "DESTINATARIO IRREPERIBILE" -> statoInserito = "UNREACHABLE";
+            default -> {
+                logger.error("Stato notifica inserito non valido");
+                Assert.fail("Stato notifica inserito non valido");
+            }
+        }
+        piattaformaNotifichePAPage.selezionareStatoNotifica(statoInserito);
+    }
+
+    @And("Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica {string} con allegato")
+    public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotificaConAllegato(String codiceIUN) {
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        piattaformaNotifichePAPage.inserimentoCodiceIUN(codiceIUN);
+    }
 }

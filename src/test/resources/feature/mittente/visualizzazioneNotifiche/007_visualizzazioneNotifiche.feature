@@ -5,7 +5,9 @@ Feature: Mittente visualizza correttamente la pagina notifiche
     When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
 
+  @TestSuite
   @test7
+
 
   Scenario: Mittente visualizza correttamente la pagina notifiche
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

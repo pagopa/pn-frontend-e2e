@@ -16,7 +16,6 @@ import org.openqa.selenium.support.FindBy;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -60,42 +59,6 @@ public class DettaglioNotificaSection extends BasePage {
         }
 
     }
-    public void downloadFileAttestazioni(String path){
-
-        for ( WebElement link: attestazioniFile) {
-            if (link.isDisplayed()){
-                link.click();
-            }else {
-                this.js().executeScript("arguments[0].scrollIntoView(true);", link);
-                link.click();
-            }
-            String nomePdf = link.getText();
-            for (int i = 0; i < 30; i++) {
-                List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
-                if (numTab.size() == 2){
-                    this.driver.switchTo().window(numTab.get(1));
-                    try {
-                        waitLoadPage();
-                        URL urlPDF = new URL(this.driver.getCurrentUrl());
-                        File partialPath = new File(path);
-                        File pdf = new File(System.getProperty("user.dir")+partialPath+"/"+nomePdf+".pdf");
-                        FileUtils.copyURLToFile(urlPDF,pdf,1000,1000);
-                        this.driver.close();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    this.driver.switchTo().window(numTab.get(0));
-                    break;
-                }else {
-                    try {
-                        TimeUnit.SECONDS.sleep(1);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        }
-    }
     public void controlloDownload(){
         File partialPath = new File("src/test/resources/dataPopulation/downloadFileNotifica/mittente");
         File directory = new File(partialPath.getAbsolutePath());
@@ -115,16 +78,6 @@ public class DettaglioNotificaSection extends BasePage {
         }
     }
 
-    public void controlloStato(String stato) {
-        try {
-            By statoNotificaBy = By.xpath("//span[contains(text(),'"+stato+"')]");
-
-        }catch (TimeoutException e){
-            logger.error("Stato notifica non corretto");
-            Assert.fail("Stato notifica non corretto");
-        }
-    }
-
     public void selezioneVediDettaglioButton() {
         vediDettagliButton.click();
         if (tuttiStatiNotificaList.size() >= 1){
@@ -132,50 +85,6 @@ public class DettaglioNotificaSection extends BasePage {
         } else {
             logger.error("Tutti i stati non sono stati visualizzati correttamente");
             Assert.fail("Tutti i stati non sono stati visualizzati correttamente");
-        }
-    }
-
-    public void downloadFileAttestazione(String nomeFile, String path) {
-        try {
-            vaiFondoPagina();
-            By fileLinkBy = By.xpath("//button[contains(text(),'"+nomeFile+"')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(fileLinkBy));
-            WebElement fileLink = this.element(fileLinkBy);
-            if (fileLink.isDisplayed()){
-                fileLink.click();
-            }else {
-                this.js().executeScript("arguments[0].scrollIntoView(true);", fileLink);
-                fileLink.click();
-            }
-            for (int i = 0; i < 30; i++) {
-                List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
-                if (numTab.size() == 2){
-                    this.driver.switchTo().window(numTab.get(1));
-                    try {
-                        waitLoadPage();
-                        URL urlPDF = new URL(this.driver.getCurrentUrl());
-                        File pdf = new File(System.getProperty("user.dir")+path+"/"+nomeFile+".pdf");
-                        FileUtils.copyURLToFile(urlPDF,pdf,1000,1000);
-                        this.driver.close();
-                    } catch (MalformedURLException e) {
-                        logger.error("È avvenuto un problema nel url: "+ e.getMessage());
-                        Assert.fail("È avvenuto un problema nel url: "+ e.getMessage());
-                    }catch (IOException e){
-                        logger.error("È avvenuto un problema nel download: "+ e.getMessage());
-                        Assert.fail("È avvenuto un problema nel download: "+ e.getMessage());
-                    }
-                    this.driver.switchTo().window(numTab.get(0));
-                    break;
-                }else {
-                    try {
-                        TimeUnit.SECONDS.sleep(1);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        }catch (TimeoutException e){
-            throw new TimeoutException(e);
         }
     }
 
@@ -216,42 +125,18 @@ public class DettaglioNotificaSection extends BasePage {
         return infoNotifiche.get(i).getText();
     }
 
-    public void downloadFileNotifica(String path) {
-        for ( WebElement link: this.linkAllegati) {
-            if (link.isDisplayed()){
-                link.click();
-            }else {
-                this.js().executeScript("arguments[0].scrollIntoView(true);", link);
-                link.click();
-            }
-
-            String nomePdf = link.getText();
-            for (int i = 0; i < 30; i++) {
-                List<String> numTab = new ArrayList<>(this.driver.getWindowHandles());
-                if (numTab.size() == 2){
-                    this.driver.switchTo().window(numTab.get(1));
-                    try {
-                        waitLoadPage();
-                        URL urlPDF = new URL(this.driver.getCurrentUrl());
-                        File partialPath = new File(path);
-                        File pdf = new File(System.getProperty("user.dir")+partialPath+"/"+nomePdf+".pdf");
-                        FileUtils.copyURLToFile(urlPDF,pdf,1000,1000);
-                        this.driver.close();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    this.driver.switchTo().window(numTab.get(0));
-                    break;
-                }else {
-                    try {
-                        TimeUnit.SECONDS.sleep(1);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
+    public void downloadFileNotifica(String path, String url,int nDownload) {
+        try {
+            URL urlPDF = new URL(url);
+            File pdf = new File(path+"/pdfNotificaN"+nDownload+".pdf");
+            FileUtils.copyURLToFile(urlPDF,pdf,30000,30000);
+        } catch (IOException e) {
+            logger.error("Errore nel downolad del file : "+e.getMessage());
         }
     }
+
+
+
 
     public boolean controlloTestoFile(String path, String testoDaControllare) {
 
@@ -324,5 +209,48 @@ public class DettaglioNotificaSection extends BasePage {
             Assert.fail("File non trovato con errore: "+e.getMessage());
         }
         return false;
+    }
+
+    public void clickLinkDocumentiAllegati() {
+     this.linkAllegati.get(0).click();
+    }
+
+    public void clickLinkAvvenutaRicezione() {this.linkAllegati.get(1).click();}
+
+    public void clickLinkAttestazioneOpponibile(String nomeFile) {
+        try {
+            By fileLinkBy = By.xpath("//button[contains(text(),'"+nomeFile+"')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(fileLinkBy));
+            WebElement fileLink = this.element(fileLinkBy);
+            if (fileLink.isDisplayed()){
+                fileLink.click();
+            }else {
+                this.js().executeScript("arguments[0].scrollIntoView(true);", fileLink);
+                fileLink.click();
+            }
+        }catch (TimeoutException e){
+            logger.error("Non riuscito ad trovare il link con errore: "+e.getMessage());
+            Assert.fail("Non riuscito ad trovare il link con errore: "+e.getMessage());
+        }
+    }
+
+    public int controlloNumeroPec(String mailPEC) {
+        By mailPecBy = By.xpath("//p[contains(text(),'"+mailPEC+"')]");
+        getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(mailPecBy));
+        return this.elements(mailPecBy).size();
+    }
+
+    public void clickAllLinkDownload() {
+        clickLinkDocumentiAllegati();
+        clickLinkAvvenutaRicezione();
+        clickLinkAttestazioneOpponibile("Attestazione opponibile a terzi: notifica presa in carico");
+    }
+
+    public int getLinkAttestazioniOpponubili() {
+        return attestazioniFile.size();
+    }
+
+    public void clickLinkAttestazionipponibile(int numeroLinkAttestazioniOpponibile) {
+        attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
     }
 }

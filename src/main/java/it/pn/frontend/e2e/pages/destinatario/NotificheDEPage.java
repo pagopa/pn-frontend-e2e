@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class NotificheDEPage extends BasePage {
@@ -27,6 +29,18 @@ public class NotificheDEPage extends BasePage {
 
     @FindBy(xpath = "//div[contains(@data-testid,'sideMenuItem-Notifiche')]")
     WebElement notificheDeButton;
+
+    @FindBy(xpath = "//div[contains(@data-testid,'sideMenuItem-Cristoforo Colombo')]")
+    WebElement nomeDeleganteButton;
+
+    @FindBy(xpath = "//button[contains(@aria-label,'Vai alla pagina successiva')]")
+    WebElement paginaSuccessivaButton;
+
+    @FindBy(xpath = "//button[contains(@aria-label,'pagina 3')]")
+    WebElement numeroPaginaTreButton;
+
+    @FindBy(xpath = "//button[contains(@data-testid,'rows-per-page')]")
+    WebElement numeroPagineButton;
 
     public NotificheDEPage(WebDriver driver) {
         super(driver);
@@ -170,6 +184,106 @@ public class NotificheDEPage extends BasePage {
         }catch (Exception e){
             logger.error("NON si visualizza correttamente l'elenco delle notifiche con errore:"+e.getMessage());
             Assert.fail("NON si visualizza correttamente l'elenco delle notifiche con errore:"+e.getMessage());
+        }
+    }
+
+    public void clickNomeDelegante() {
+        this.nomeDeleganteButton.click();
+    }
+
+    public int siVisualizzaNotifichePresenti() {
+        By rigaDelegaBy = By.xpath("//tr[contains(@data-testid,'table(notifications).row')]");
+        int numeroRigheNotifiche = elements(rigaDelegaBy).size();
+        return numeroRigheNotifiche;
+    }
+
+    public List<WebElement> getDateNotifiche() {
+        By dataCellBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-c3sxw2')]");
+        getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(dataCellBy));
+        return elements(dataCellBy);
+    }
+
+    public boolean controllaNotifiche(List<WebElement> dateNotifiche) {
+        for (int i = 0; i<dateNotifiche.size()-1;i++){
+            String dataString1 = dateNotifiche.get(i).getText();
+            String datastring2 = dateNotifiche.get(i+1).getText();
+            LocalDate data1;
+            LocalDate data2;
+            if(dataString1.equals("Oggi")){
+                data1 = LocalDate.now();
+            }else {
+                String[] date = dataString1.split("/");
+                data1 = LocalDate.parse(date[2]+"-"+date[1]+"-"+date[0]);
+            }
+            if(datastring2.equals("Oggi")){
+                data2 = LocalDate.now();
+            }else {
+                String[] date = datastring2.split("/");
+                data2 = LocalDate.parse(date[2]+"-"+date[1]+"-"+date[0]);
+            }
+            if(data1.isBefore(data2)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void clickSullaFreccia() {this.paginaSuccessivaButton.click();}
+
+    public void waitLoadPaginaDifferente() {
+        try{
+            By paginaSuccessivaBy = By.xpath("//button[contains(@aria-label,'elemento selezionato')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(paginaSuccessivaBy));
+            logger.info("Si visualizza una pagina differente dalla precedente");
+        }catch (TimeoutException e){
+            logger.error("NON si visualizza una");
+        }
+    }
+
+    public void siSceglieUnaPaginaDiversaConNumero() {
+        this.js().executeScript("arguments[0].click()",this.numeroPaginaTreButton);
+        //this.numeroPaginaTreButton.click();
+    }
+
+    public void modificaNumeroNotifichePagina() {
+        waitLoadPage();
+        this.numeroPagineButton.click();
+        logger.info("Si clicca sul menu per cambiare numero di pagine visualizzate");
+    }
+
+    public void numeroDiversoPagine() {
+        try {
+            By numeroDiversoPagineBy = By.xpath("//li[contains(@data-testid,'pageSize-20')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(numeroDiversoPagineBy));
+            this.element(numeroDiversoPagineBy).click();
+            logger.info("Cambia il numero di pagine visualizzate");
+        }catch (TimeoutException e){
+            logger.error("NON cambia il numero di pagine visualizzate con errore:"+e.getMessage());
+            Assert.fail("NON cambia il numero di pagine visualizzate con errore:"+e.getMessage());
+        }
+
+    }
+
+    public int conteggioNotifiche() {
+        By rigaDelegaBy = By.xpath("//tr[contains(@data-testid,'table(notifications).row')]");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(rigaDelegaBy));
+        int numeroRigheNotifiche2 = elements(rigaDelegaBy).size();
+        return numeroRigheNotifiche2;
+    }
+
+    public void selezionaNotifica() {
+        try{
+            By notificaBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr')]");
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificaBy));
+            this.element(notificaBy).click();
+        }catch (TimeoutException e){
+            logger.error("Notifica non trovata con errore: "+e.getMessage());
+            Assert.fail("Notifica non trovata con errore: "+e.getMessage());
         }
     }
 }

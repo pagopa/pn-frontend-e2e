@@ -5,13 +5,14 @@ Feature: il delegato accetta la delega
     When Login con destinatario "delegato"
     Then pagina Piattaforma  Notifiche Destinatario viene visualizzata correttamente
 
+  @TestSuite
   @test48
-
+  @delega
   Scenario: il delegato accetta la delega
-    When Click su deleghe nella pagina home
+    When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe
     And Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico
     And si sceglie opzione accetta
-    And Si inserisce il codice delega nel pop-up "destinatario"
+    And Si inserisce il codice delega nel pop-up "nuova_delega"
     And Si clicca sul bottone Accetta
     And Si controlla che la delega a lo stato Attiva
     And Logout da portale destinatario

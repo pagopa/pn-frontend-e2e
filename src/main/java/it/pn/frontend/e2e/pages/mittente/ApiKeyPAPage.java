@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -42,6 +43,15 @@ public class ApiKeyPAPage  extends BasePage {
 
     @FindBy(xpath = "//li[contains(@data-testid,'buttonRotate')]")
     WebElement ruotaButtonNelMenu;
+
+    @FindBy(xpath = "//input[@id='groups']")
+    WebElement gruppoInput;
+
+    @FindBy(xpath = "//li[contains(@data-testid,'buttonView')]")
+    WebElement visualizzaApiButton;
+
+    @FindBy(xpath = "//button[@data-testid='close-modal-button']")
+    WebElement closeButtonPopUpVisualizza;
 
     public ApiKeyPAPage(WebDriver driver) {
         super(driver);
@@ -199,5 +209,120 @@ public class ApiKeyPAPage  extends BasePage {
         }
 
 
+    }
+
+    public boolean siVisualizzaApiKeyConTesto() {
+        By apiKeyBy = By.xpath("//td[div/div[contains(@class,'MuiBox-root css-4l7hgf')]]");
+        List<WebElement> apiKeyList = this.elements(apiKeyBy);
+        for (int i = 0; i < apiKeyList.size(); i++) {
+            if (apiKeyList.get(i).getText() == null){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean siVisualizzaNomeEDataConTesto() {
+        By dataCellBy = By.xpath("//td[div/p[contains(@class,'MuiTypography-root MuiTypography-body1')]]");
+        List<WebElement> dataCellList = this.elements(dataCellBy);
+        for (int i=0; i < dataCellList.size(); i++){
+            if (dataCellList.get(i).getText() == null){
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean siVisualizzaGruppoConTesto() {
+        By gruppoCellBy = By.xpath("//td[div/div/div/div/div/span[contains(@class,'css-t63gu0')]]");
+        List<WebElement> gruppoCellList = this.elements(gruppoCellBy);
+        for (int i = 0; i < gruppoCellList.size(); i++){
+            if (gruppoCellList.get(i).getText() == null){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean siVisualizzaStatoConTesto() {
+        By statoCellBy = By.xpath("//td[div/div/div/div[@role='button' ]]");
+        List<WebElement> statoCells = this.elements(statoCellBy);
+        for (int i = 0; i < statoCells.size(); i++) {
+            if (statoCells.get(i).getText() == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean siVisualizzaMenuApiKey() {
+        By menuButtonBy = By.xpath("//td[div/div/div/div[@role='button']]/following-sibling::td//button[@type='button' and @data-testid='contextMenuButton' and @aria-label='Opzioni su API Key']");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuButtonBy));
+        List<WebElement> menuButtons = this.elements(menuButtonBy);
+        return menuButtons.size() != 0;
+    }
+
+    public void mouseHover() {
+        By statoCellBy = By.xpath("//td[div/div/div/div[@role='button' ]]");
+        WebElement statoCell = this.element(statoCellBy);
+        Actions action = new Actions(this.driver);
+        action.moveToElement(statoCell).perform();
+    }
+
+    public void waitLoadMessaggioData() {
+        try {
+            By messaggioBy = By.xpath("//div[contains(@id,'mui-16')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messaggioBy));
+            logger.info("Il messaggio con la data di creazione si vede correttamente");
+        }catch (TimeoutException e){
+            logger.error("Il messaggio con la data di creazione NON si vede correttamente con errore: "+e.getMessage());
+            Assert.fail("Il messaggio con la data di creazione NON si vede correttamente con errore: "+e.getMessage());
+        }
+    }
+
+    public void inserireGruppoApi(String gruppo) {
+        this.gruppoInput.sendKeys(gruppo);
+        this.apiKeyNameInput.click();
+    }
+
+    public void cancellareTestoInserito() {
+        try{
+            By testoInseritoBy = By.xpath("//input[contains(@id,'name')]");
+            this.js().executeScript("arguments[0].click()", this.element(testoInseritoBy));
+            this.element(testoInseritoBy).clear();
+            logger.info("Il testo è stato cancellato correttamente");
+        }catch (TimeoutException e){
+            logger.error("Il testo NON è stato cancellato correttamente");
+            Assert.fail("Il testo è NON stato cancellato correttamente");
+        }
+    }
+
+    public void siVisualizzaMessaggioErroreApiName() {
+        try {
+            By nameErrorMessageANBy = By.xpath("//p[contains(@id,'name-helper-text')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nameErrorMessageANBy));
+            logger.info("Si visualizza correttamente il messaggio di errore");
+        }catch (TimeoutException e){
+            logger.error("NON si visualizza correttamente il messaggio di errore");
+            Assert.fail("NON si visualizza correttamente il messaggio di errore");
+        }
+    }
+
+    public void clickSuVisualizza() {
+        this.visualizzaApiButton.click();
+    }
+
+    public void siVisualizzaPopUpVisualizza() {
+        try {
+            By subTitleVisualizzaBy = By.xpath("//p[contains(@data-testid,'subtitle-top')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(subTitleVisualizzaBy));
+            logger.info("Si visualizza correttamente il pop up visualizza");
+        }catch (TimeoutException e){
+            logger.error("NON si visualizza correttamente il pop up visualizza");
+            Assert.fail("NON si visualizza correttamente il pop up visualizza");
+        }
+    }
+
+    public void chiudiPopUpVisualizza() {
+        this.closeButtonPopUpVisualizza.click();
     }
 }

@@ -5,7 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.listeners.NetWorkInfo;
+
 import it.pn.frontend.e2e.pages.mittente.*;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
@@ -15,7 +15,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
+
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -45,16 +45,18 @@ public class LoginMittentePagoPA {
         this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile+".yaml");
 
         CookiesSection cookiesPage = new CookiesSection(this.driver);
-        cookiesPage.waitLoadCookiesPage();
-        cookiesPage.selezionaAccettaTuttiButton();
+        if (cookiesPage.waitLoadCookiesPage()){
+            cookiesPage.selezionaAccettaTuttiButton();
+        }
 
         PreAccediAreaRiservataPAPage preAccediAreaRiservataPAPage = new PreAccediAreaRiservataPAPage(this.driver);
         preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
         //CookiesSection cookiesPage = new CookiesSection(this.driver);
-        cookiesPage.waitLoadCookiesPage();
-        cookiesPage.selezionaAccettaTuttiButton();
+        if (cookiesPage.waitLoadCookiesPage()){
+            cookiesPage.selezionaAccettaTuttiButton();
+        }
 
         AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();

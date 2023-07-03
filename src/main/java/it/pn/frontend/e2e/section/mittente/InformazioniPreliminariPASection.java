@@ -62,7 +62,12 @@ public class InformazioniPreliminariPASection extends BasePage {
     }
 
     public void insertGruppo(String gruppo) {
-        this.gruppoListBox.click();
+        if (this.gruppoListBox.isDisplayed()){
+            this.gruppoListBox.click();
+        }else {
+            this.scrollToElementClickAndInsertText(this.gruppoListBox,null);
+        }
+
         try{
             By gruppoBy = By.xpath("//li[contains(text(),'"+gruppo+"')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(gruppoBy));

@@ -33,7 +33,7 @@ public class AllegatiPASection extends BasePage {
 
     public void waitLoadAllegatiPASection() {
         try{
-            By allegatiTitleFieald = By.xpath("//h3[contains(text(),'Allegati per tutti i destinatari')]");
+            By allegatiTitleFieald = By.xpath("//h3[contains(text(),'Allegati')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(allegatiTitleFieald));
             logger.info("Allegati PA Section caricata");
         }catch (TimeoutException e){
