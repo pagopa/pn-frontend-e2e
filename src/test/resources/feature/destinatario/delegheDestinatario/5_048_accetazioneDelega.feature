@@ -2,12 +2,13 @@ Feature: il delegato accetta la delega
 
   Background: Login destinatario
     Given Login Page destinatario "destinatario" viene visualizzata
-    When Login con destinatario "delegato"
+    When Login "delegato" portale destinatario tramite request method
     Then pagina Piattaforma  Notifiche Destinatario viene visualizzata correttamente
 
   @TestSuite
   @test48
-  @delega
+  @restLogin
+
   Scenario: il delegato accetta la delega
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe
     And Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico

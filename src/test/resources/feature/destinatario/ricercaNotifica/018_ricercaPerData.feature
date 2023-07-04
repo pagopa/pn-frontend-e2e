@@ -2,11 +2,12 @@ Feature: Ricerca notifica per periodo temporale Destinatario
 
   Background: Login destinatario
     Given Login Page destinatario "destinatario" viene visualizzata
-    When Login con destinatario "destinatario"
+    When Login portale destinatario tramite request method
     Then Home page destinatario viene visualizzata correttamente
 
   @TestSuite
   @test18
+  @restLogin
 
   Scenario: il destinatario fa una ricerca per date
     When Si visualizza correttamente la pagina Piattaforma Notifiche Destinatario

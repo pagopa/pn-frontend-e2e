@@ -2,11 +2,12 @@ Feature: destinatario aggiunge una delega allo stesso delegato
 
   Background: login destinatario
     Given Login Page destinatario "destinatario" viene visualizzata
-    When Login con destinatario "destinatario"
+    When Login portale destinatario tramite request method
     Then pagina Piattaforma  Notifiche Destinatario viene visualizzata correttamente
 
   @TestSuite
   @test53
+  @restLogin
 
 
   Scenario: il destinatario aggiunge una delega allo stesso delegato

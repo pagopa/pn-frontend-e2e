@@ -2,11 +2,12 @@ Feature: il destinatario inserisce una OTP sbagliato PEC
 
   Background: Login destinatario
     Given Login Page destinatario "destinatario" viene visualizzata
-    When Il portale destinatario e caricato correttamente tramite request method
+    When Login portale destinatario tramite request method
     Then Home page destinatario viene visualizzata correttamente
 
   @TestSuite
   @test33
+    @restLogin
 
   Scenario: il destinatario loggato inserisce un OTP sbagliato PEC
     When Nella pagina Piattaforma Notifiche Destinatario si clicca sul bottone I Tuoi Recapiti

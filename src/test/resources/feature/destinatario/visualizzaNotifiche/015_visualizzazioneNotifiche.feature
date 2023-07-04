@@ -2,11 +2,12 @@ Feature: Il destinatario visualizza la sezione notifiche
 
   Background: Login destinatario
     Given Login Page destinatario "destinatario" viene visualizzata
-    When Login con destinatario "destinatario"
+    When Login portale destinatario tramite request method
     Then Home page destinatario viene visualizzata correttamente
 
   @TestSuite
  @test15
+  @restLogin
 
   Scenario: Il destinatario visualizza la sezione notifiche
     When Nella pagina Piattaforma Notifiche Destinatario si clicca sul bottone Notifiche
