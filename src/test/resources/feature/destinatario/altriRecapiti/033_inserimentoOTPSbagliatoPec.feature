@@ -2,7 +2,7 @@ Feature: il destinatario inserisce una OTP sbagliato PEC
 
   Background: Login destinatario
     Given Login Page destinatario "destinatario" viene visualizzata
-    When Login con destinatario "destinatario"
+    When Il portale destinatario e caricato correttamente tramite request method
     Then Home page destinatario viene visualizzata correttamente
 
   @TestSuite
