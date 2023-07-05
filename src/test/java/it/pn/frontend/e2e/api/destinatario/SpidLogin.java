@@ -1,4 +1,4 @@
-package it.pn.frontend.e2e.api;
+package it.pn.frontend.e2e.api.destinatario;
 import java.io.IOException;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
@@ -20,14 +20,24 @@ public class SpidLogin {
     private String spidLoginEndPoint;
     private String responseBody;
 
+    private final  String authLevel;
+
+    private final String entityID;
+
+    public SpidLogin (String entityID, String authLevel){
+        this.entityID = entityID;
+        this.authLevel = authLevel;
+
+    }
+
     public void runSpidLogin() {
 
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
             ClassicHttpRequest httpGet = ClassicRequestBuilder
                     .get(this.getSpidLoginEndPoint())
                     .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
-                    .addParameter("entityID", "xx_testenv2")
-                    .addParameter("authLevel", "SpidL2")
+                    .addParameter("entityID", this.entityID)
+                    .addParameter("authLevel", this.authLevel)
                     .build();
             this.responseBody = httpclient.execute(httpGet, response -> {
                 logger.info(response.getCode() + " " + response.getReasonPhrase());
