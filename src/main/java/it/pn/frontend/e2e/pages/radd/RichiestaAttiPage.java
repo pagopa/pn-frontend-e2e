@@ -44,8 +44,14 @@ public class RichiestaAttiPage extends BasePage {
     @FindBy(xpath = "//p[contains(@data-testid,'loadFrom')]")
     WebElement uploadDocumentLink;
 
-    @FindBy(css = "div[data-testid='fileInput'] > input[accept='image/jpeg,image/png']")
+    @FindBy(css = "div[data-testid='file-input-recipient-id'] > input[accept='image/jpeg,image/png']")
     WebElement selezionaloDalTuoComputerInput;
+
+    @FindBy(css = "div[data-testid='file-input-delegate-act'] > input[accept='image/jpeg,image/png']")
+    WebElement selezionaloDalTuoComputerInputModuloDelega;
+
+    @FindBy(css = "div[data-testid='file-input-delegate-id'] > input[accept='image/jpeg,image/png']")
+    WebElement selezionaloDalTuoComputerInputDelegato;
 
     @FindBy(xpath = "//button[contains(text(),'Continua')]")
     WebElement continua2Button;
@@ -247,20 +253,20 @@ public class RichiestaAttiPage extends BasePage {
     }
 
     public void uploadFilefromPC1(String pathDocumentiFile1) {
-        if (!this.selezionaloDalTuoComputerInput.isDisplayed()) {
-            this.js().executeScript("arguments[0].scrollIntoView(true)", this.selezionaloDalTuoComputerInput);
-            this.selezionaloDalTuoComputerInput.sendKeys(pathDocumentiFile1);
+        if (!this.selezionaloDalTuoComputerInputDelegato.isDisplayed()) {
+            this.js().executeScript("arguments[0].scrollIntoView(true)", this.selezionaloDalTuoComputerInputDelegato);
+            this.selezionaloDalTuoComputerInputDelegato.sendKeys(pathDocumentiFile1);
         } else {
-            this.selezionaloDalTuoComputerInput.sendKeys(pathDocumentiFile1);
+            this.selezionaloDalTuoComputerInputDelegato.sendKeys(pathDocumentiFile1);
         }
     }
 
     public void uploadFilefromPC2(String pathDocumentiFile2) {
-        if (!this.selezionaloDalTuoComputerInput.isDisplayed()) {
-            this.js().executeScript("arguments[0].scrollIntoView(true)", this.selezionaloDalTuoComputerInput);
-            this.selezionaloDalTuoComputerInput.sendKeys(pathDocumentiFile2);
+        if (!this.selezionaloDalTuoComputerInputModuloDelega.isDisplayed()) {
+            this.js().executeScript("arguments[0].scrollIntoView(true)", this.selezionaloDalTuoComputerInputModuloDelega);
+            this.selezionaloDalTuoComputerInputModuloDelega.sendKeys(pathDocumentiFile2);
         } else {
-            this.selezionaloDalTuoComputerInput.sendKeys(pathDocumentiFile2);
+            this.selezionaloDalTuoComputerInputModuloDelega.sendKeys(pathDocumentiFile2);
         }
     }
 

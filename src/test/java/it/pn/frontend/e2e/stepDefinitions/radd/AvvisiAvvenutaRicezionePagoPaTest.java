@@ -112,7 +112,7 @@ public class AvvisiAvvenutaRicezionePagoPaTest {
         String pathDocumentiFile = documentoFile.getAbsolutePath();
 
         AvvisiAvvenutaRicezionePage avvisiAvvenutaRicezionePage = new AvvisiAvvenutaRicezionePage(this.driver);
-        avvisiAvvenutaRicezionePage.uploadDocumento(pathDocumentiFile);
+        avvisiAvvenutaRicezionePage.uploadDocumentoDelegato(pathDocumentiFile);
     }
 
     @And("nella pagina Avvisi di avvenuta ricezione sezione Caricamento documenti caricare il Modulo di delega nel box tre Modulo di delega")
@@ -123,7 +123,7 @@ public class AvvisiAvvenutaRicezionePagoPaTest {
         String pathDocumentiFile = documentoFile.getAbsolutePath();
 
         AvvisiAvvenutaRicezionePage avvisiAvvenutaRicezionePage = new AvvisiAvvenutaRicezionePage(this.driver);
-        avvisiAvvenutaRicezionePage.uploadDocumento(pathDocumentiFile);
+        avvisiAvvenutaRicezionePage.uploadDocumentoModulo(pathDocumentiFile);
     }
 
     @And("la pagina Avvisi di avvenuta ricezione sezione Avvisi di avvenuta ricezione è visualizzata correttamente")
