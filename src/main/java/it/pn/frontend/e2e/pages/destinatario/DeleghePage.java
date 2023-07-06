@@ -2,10 +2,7 @@ package it.pn.frontend.e2e.pages.destinatario;
 
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -17,6 +14,9 @@ public class DeleghePage extends BasePage {
 
     @FindBy(xpath = "//button[contains(text(),'Aggiungi una delega')]")
     WebElement addDelegaButton;
+
+    @FindBy(xpath = "//li[contains(@data-testid,'menuItem-revokeDelegate')]")
+    WebElement revocaButton;
     public DeleghePage(WebDriver driver) {
         super(driver);
     }
@@ -55,5 +55,20 @@ public class DeleghePage extends BasePage {
             logger.error("Non si visualizza la delega creata");
             Assert.fail("Non si visualizza la delega creata");
         }
+    }
+
+    public boolean waitPresenzaDelega() {
+        try {
+            By menuButton = By.xpath("//div[@data-testid='delegates-wrapper']//td[@role='cell' and div/p[contains(text(),'Marco Polo')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuButton));
+            this.element(menuButton).click();
+            return true;
+        }catch (TimeoutException | NoSuchElementException e){
+            return false;
+        }
+    }
+
+    public void clickRevocaButton() {
+        this.revocaButton.click();
     }
 }

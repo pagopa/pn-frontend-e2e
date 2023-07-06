@@ -52,7 +52,7 @@ public class LeTueDelegheSection extends BasePage {
     /*@FindBy(xpath = "//button[contains(@data-testid,'delegationMenuIcon')]")
     WebElement delegaMenuButton;*/
 
-    @FindBy(xpath = "//li[contains(@tabindex,'-1')]")
+    @FindBy(xpath = "//li[contains(@data-testid,'menuItem-revokeDelegate')]")
     WebElement revocaDelegaOption;
 
     @FindBy(xpath = "//li[contains(@tabindex,'0')]")

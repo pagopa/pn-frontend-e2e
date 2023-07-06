@@ -278,5 +278,16 @@ public class DeleghePagoPATest {
     }
 
 
+    @And("Si controlla che non sia presente una delga con stesso nome")
+    public void siControllaCheNonSiaPresenteUnaDelgaConStessoNome() {
+        logger.info("Si controlla che non ci sia una delega con lo stesso nome");
 
+        DeleghePage deleghePage = new DeleghePage(this.driver);
+        if ( deleghePage.waitPresenzaDelega()){
+            logger.info("Delega con lo stesso nome trovata");
+            deleghePage.clickRevocaButton();
+        }else {
+            logger.info("Delega con lo stesso nome NON trovata");
+        }
+    }
 }
