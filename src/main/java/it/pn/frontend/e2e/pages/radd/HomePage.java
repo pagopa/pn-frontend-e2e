@@ -16,10 +16,10 @@ public class HomePage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("HomePage");
 
-    @FindBy(xpath = "//button[contains(@aria-label,'Vai a Documenti allegati della notifica e attestazioni opponibili a terzi')]")
+    @FindBy(xpath = "//button[contains(@aria-label,'Vai alla pagina Ottenere documenti allegati della notifica e attestazioni opponibili a terzi')]")
     WebElement documentiAllegatuButton;
 
-    @FindBy(xpath = "//button[contains(@aria-label,'Vai a Avvisi di avvenuta ricezione')]")
+    @FindBy(xpath = "//button[contains(@aria-label,'Vai alla pagina Ottenere avvisi di avvenuta ricezione')]")
     WebElement avvenutoRicezioneButton;
 
     @FindBy(xpath = "//button[contains(@aria-label,'Vai alla pagina Consultare le richieste precedenti')]")
