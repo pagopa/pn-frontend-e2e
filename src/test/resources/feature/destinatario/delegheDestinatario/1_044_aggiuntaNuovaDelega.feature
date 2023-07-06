@@ -7,7 +7,6 @@ Feature: Il destinatario aggiunge una nuova delega
 
   @TestSuite
   @test44
-  @restLogin
 
   Scenario: Il destinatario aggiunge una nuova delega
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe
