@@ -99,7 +99,7 @@ public class SpidTestenvWesteuropeAzurecontainerIoLogin {
     }
 
     public String getRequestKeyOutput(){
-        return this.doc().select("input[name=\"request_key\"]").attr("value");
+        return this.doc().select("input[name='request_key']").attr("value");
     }
 
 

@@ -102,11 +102,11 @@ public class SpidLoginMittente {
     }
 
     public String getRequestKey() {
-        return this.doc().select("input[name=\"request_key\"]").attr("value");
+        return this.doc().select("input[name='request_key']").attr("value");
     }
 
     public String getRelayState() {
-        return this.doc().select("input[name=\"relay_state\"]").attr("value");
+        return this.doc().select("input[name='relay_state']").attr("value");
     }
 
 }

@@ -79,11 +79,11 @@ public class SpidTestenvWesteuropeAzurecontainerIoContinueResponse {
     }
 
     public String getRelayStateOutput(){
-        return this.doc().select("input[name=\"RelayState\"]").attr("value");
+        return this.doc().select("input[name='RelayState']").attr("value");
     }
 
     public String getSamlResponseOutput(){
-        return this.doc().select("input[name=\"SAMLResponse\"]").attr("value");
+        return this.doc().select("input[name='SAMLResponse']").attr("value");
     }
 
 
