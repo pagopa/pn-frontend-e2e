@@ -57,18 +57,21 @@ public class DeleghePage extends BasePage {
         }
     }
 
-    public boolean waitPresenzaDelega() {
+    public boolean CercaEsistenzaDelega(String nome,String cognome) {
         try {
-            By menuButton = By.xpath("//div[@data-testid='delegates-wrapper']//td[@role='cell' and div/p[contains(text(),'Marco Polo')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuButton));
-            this.element(menuButton).click();
+            By nomeDelegato = By.xpath("//div[@data-testid='delegates-wrapper']//div/p[contains(text(),'"+nome+" "+cognome+"')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
             return true;
         }catch (TimeoutException | NoSuchElementException e){
             return false;
         }
     }
 
-    public void clickRevocaButton() {
+    public void clickRevocaButton(String nome, String cognome) {
+
+        By menuButton = By.xpath("//div[@data-testid='delegates-wrapper']//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuButton));
+        this.js().executeScript("arguments[0].click()",this.element(menuButton));
         this.revocaButton.click();
     }
 }
