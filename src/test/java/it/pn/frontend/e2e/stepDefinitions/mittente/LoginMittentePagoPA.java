@@ -116,12 +116,6 @@ public class LoginMittentePagoPA {
             Assert.fail("procedura di login from spid provata : "+numProvaLogin);
         }
 
-
-        SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(this.driver);
-        selezionaEntePAPage.waitLoadSelezionaEntePAPage();
-        selezionaEntePAPage.selezionareComune(this.datiMittente.get("comune").toString());
-        selezionaEntePAPage.selezionaAccedi();
-
         this.driver.get(this.urlMittente.get("urlPortale"));
     }
 
