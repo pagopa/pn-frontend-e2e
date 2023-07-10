@@ -130,10 +130,9 @@ public class LoginMittentePagoPA {
     }
 
     private void readurlPortaleMittente(String user, String password){
-        String variabileAmbiente = System.getProperty("environment");
 
         SpidLoginMittente spidLoginMittente = new SpidLoginMittente("xx_testenv2","SpidL2");
-        spidLoginMittente.setSpidLoginMittenteEndPoint("https://api."+variabileAmbiente+".selfcare.pagopa.it/spid/v1/login");
+        spidLoginMittente.setSpidLoginMittenteEndPoint("https://api.uat.selfcare.pagopa.it/spid/v1/login");
         spidLoginMittente.runSpidLoginMittente();
         if(spidLoginMittente.getResponseBody() == null){
             Assert.fail(" api spid login risponde con body vuoto");
@@ -247,14 +246,14 @@ public class LoginMittentePagoPA {
                 cookieStore
         );
 
-        spidAcsMittente.setSpidAcsEndPoint("https://api."+variabileAmbiente+".selfcare.pagopa.it/spid/v1/acs");
+        spidAcsMittente.setSpidAcsEndPoint("https://api.uat.selfcare.pagopa.it/spid/v1/acs");
         spidAcsMittente.runSpidAcs();
         this.urlMittente = spidAcsMittente.getSpidAcsMittenteResponse();
 
         if(this.urlMittente.get("urlPortale") != null){
-            logger.info("urlDestinatario : "+this.urlMittente.get("urlPortale"));
+            logger.info("urlMittente : "+this.urlMittente.get("urlPortale"));
         }else{
-            Assert.fail("urlDestinatario è null ");
+            Assert.fail("urlMittente è null ");
         }
     }
 
