@@ -117,6 +117,16 @@ public class LoginMittentePagoPA {
         }
 
         this.driver.get(this.urlMittente.get("urlPortale"));
+
+        CookiesSection cookiesPage = new CookiesSection(this.driver);
+        if (cookiesPage.waitLoadCookiesPage()){
+            cookiesPage.selezionaAccettaTuttiButton();
+        }
+
+        SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(this.driver);
+        selezionaEntePAPage.waitLoadSelezionaEntePAPage();
+        selezionaEntePAPage.selezionareComune(this.datiMittente.get("comune").toString());
+        selezionaEntePAPage.selezionaAccedi();
     }
 
     private void readurlPortaleMittente(String user, String password){
