@@ -2,7 +2,7 @@ Feature: Mittente seleziona l'opzione ruota api Key
 
   Background: login mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente "mittente"
+    When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
     And Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
@@ -10,7 +10,7 @@ Feature: Mittente seleziona l'opzione ruota api Key
     And Si visualizza correttamente la pagina Api Key
 
   @TestSuite
-
+  @LoginMittenteRest
   @test27
 
   Scenario: Mittente seleziona l'opzione ruota Api Key

@@ -2,7 +2,7 @@ Feature: il mittente download attestazione notifica presa in carico
 
   Background: Login mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente "mittente"
+    When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
     And Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
@@ -12,6 +12,7 @@ Feature: il mittente download attestazione notifica presa in carico
 
   @TestSuite
   @test97
+  @LoginMittenteRest
 
   Scenario: il mittente scarica il file Attestazione opponibile a terzi: notifica presa in carico
     When Cliccare sulla notifica restituita
