@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.radd.HomePage;
+import it.pn.frontend.e2e.pages.radd.RichiestaAttiPage;
 import it.pn.frontend.e2e.pages.radd.StoricoRichiestePage;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
@@ -21,10 +22,10 @@ public class StoricoRichiestePagoPaTest {
 
     private final Logger logger = LoggerFactory.getLogger("StoricoRichiestePagoPaTest");
 
-    private Map<String,Object> datiRADD = new HashMap<>();
+    private Map<String, Object> datiRADD = new HashMap<>();
 
     @When("nella Homepage RADD sezione Storico delle ricerche clicca sul bottone con freccia")
-    public void clickStoricoRichiesteButton(){
+    public void clickStoricoRichiesteButton() {
         logger.info("Si clicca sulla card Storico delle Richieste");
         HomePage homePage = new HomePage(this.driver);
         homePage.clickSuStoricoRichieste();
@@ -41,7 +42,7 @@ public class StoricoRichiestePagoPaTest {
     @When("Nella pagina Storico delle ricerche il radio button Documenti allegati e attestazioni opponibili a terzi è selezionato")
     public void nellaPaginaStoricoDelleRicercheIlRadioButtonDocumentiAllegatiEAttestazioniOpponibiliATerziESelezionato() {
         StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
-        if(storicoRichiestePage.selectDocumentiAllegatiAttestazioRadioButton()){
+        if (storicoRichiestePage.selectDocumentiAllegatiAttestazioRadioButton()) {
             logger.info("Il radio button Documenti allegati e attestazioni opponibili a terzi è selezioanto");
         } else {
             logger.error("Il radio button Documenti allegati e attestazioni opponibili a terzi NON è stato selezioanto");
@@ -58,11 +59,10 @@ public class StoricoRichiestePagoPaTest {
     }
 
     @And("Nella pagina Storico delle ricerche inserire nel campo di testo l' Id operazione {string} da ricercare")
-    public void nellaPaginaStoricoDelleRicercheInserireNelCampoDiTestoLIdOperazioneDaRicercare(String datiRADDFile)
-    {
+    public void nellaPaginaStoricoDelleRicercheInserireNelCampoDiTestoLIdOperazioneDaRicercare(String datiRADDFile) {
         logger.info("Si inserisce l'id Operazione");
         DataPopulation dataPopulation = new DataPopulation();
-        this.datiRADD = dataPopulation.readDataPopulation(datiRADDFile+".yaml");
+        this.datiRADD = dataPopulation.readDataPopulation(datiRADDFile + ".yaml");
         StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
         storicoRichiestePage.insertIdOperazione(this.datiRADD.get("idOperazioneDAA").toString());
     }
@@ -85,9 +85,9 @@ public class StoricoRichiestePagoPaTest {
 
         StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
         int nRighe = storicoRichiestePage.getNRighe(this.datiRADD.get("idOperazioneDAA").toString());
-        if (nRighe != 0){
+        if (nRighe != 0) {
             logger.info("La richiesta viene visualizzata correttamente");
-        }else {
+        } else {
             logger.error("La richiesta  NON viene visualizzata correttamente");
             Assert.fail("La richiesta NON viene visualizzata correttamente");
         }
@@ -123,9 +123,9 @@ public class StoricoRichiestePagoPaTest {
     @And("Nella pagina Storico delle ricerche il radio button Codice IUN è selezionato")
     public void nellaPaginaStoricoDelleRicercheIlRadioButtonCodiceIUNESelezionato() {
         StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
-        if (storicoRichiestePage.selectIUNRadioButton()){
+        if (storicoRichiestePage.selectIUNRadioButton()) {
             logger.info("Il radio button codice IUN è selezionato");
-        } else{
+        } else {
             logger.error("Il radio button codice IUN NON è stato selezionato");
             Assert.fail("Il radio button codice IUN NON è stato selezionato");
         }
@@ -135,7 +135,7 @@ public class StoricoRichiestePagoPaTest {
     public void nellaPaginaStoricoDelleRicercheInserireNelCampoDiTestoIlCodiceIUNDaRicercareDa(String dpFile) {
         logger.info("Il codice IUN da ricercare è stato inserito correttamente");
         DataPopulation dataPopulation = new DataPopulation();
-        this.datiRADD = dataPopulation.readDataPopulation(dpFile+".yaml");
+        this.datiRADD = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
         StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
         storicoRichiestePage.insertCodiceIUN(this.datiRADD.get("codiceIUNDAA").toString());
@@ -148,9 +148,9 @@ public class StoricoRichiestePagoPaTest {
         this.datiRADD = dataPopulation.readDataPopulation("RADD.yaml");
         StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
         int nRigheRichiesta = storicoRichiestePage.getNRighe(datiRADD.get("codiceIUNDAA").toString());
-        if (nRigheRichiesta != 0){
+        if (nRigheRichiesta != 0) {
             logger.info("Il numero di richieste è diverso da zero");
-        }else {
+        } else {
             logger.error("Non ci sono richieste per il codice IUN inserito");
             Assert.fail("Non ci sono richieste per il codice IUN inserito");
         }
@@ -174,7 +174,7 @@ public class StoricoRichiestePagoPaTest {
     public void nellaPaginaStoricoDelleRicercheInserireNelCampoDiInputIlCodiceFiscaleDelDestinatario(String dpFile) {
         logger.info("Si controlla che si visualizzino le richieste con il codice IUN");
         DataPopulation dataPopulation = new DataPopulation();
-        this.datiRADD = dataPopulation.readDataPopulation(dpFile+".yaml");
+        this.datiRADD = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
         StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
         storicoRichiestePage.insertCodiceFiscale(this.datiRADD.get("codiceFiscaleDAA").toString());
@@ -204,7 +204,7 @@ public class StoricoRichiestePagoPaTest {
         StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
         int numeroRighe = storicoRichiestePage.getNRighe(this.datiRADD.get("codiceFiscaleDAA").toString());
 
-        if(numeroRighe >= 1){
+        if (numeroRighe >= 1) {
             logger.info("I risultati sono coerenti con il codice fiscale inserito");
         } else {
             logger.error("I risultati NON sono coerenti con il codice fiscale inserito");
@@ -232,11 +232,10 @@ public class StoricoRichiestePagoPaTest {
     }
 
     @And("Nella pagina Storico delle ricerche inserire nel campo di testo Id operazione errato {string} da ricercare")
-    public void nellaPaginaStoricoDelleRicercheInserireNelCampoDiTestoIdOperazioneErratoDaRicercare(String datiRADDFile)
-    {
+    public void nellaPaginaStoricoDelleRicercheInserireNelCampoDiTestoIdOperazioneErratoDaRicercare(String datiRADDFile) {
         logger.info("Si inserisce l'id Operazione errato");
         DataPopulation dataPopulation = new DataPopulation();
-        this.datiRADD = dataPopulation.readDataPopulation(datiRADDFile+".yaml");
+        this.datiRADD = dataPopulation.readDataPopulation(datiRADDFile + ".yaml");
         StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
         storicoRichiestePage.insertIdOperazione(this.datiRADD.get("idOperazioneErroreDAA").toString());
     }
@@ -245,7 +244,7 @@ public class StoricoRichiestePagoPaTest {
     public void nellaPaginaStoricoDelleRicercheInserireNelCampoDiInputIlCodiceFiscaleErratoDelDestinatario(String datiRADDFile) {
         logger.info("Si inserisce il codice fiscale errato");
         DataPopulation dataPopulation = new DataPopulation();
-        this.datiRADD = dataPopulation.readDataPopulation(datiRADDFile+".yaml");
+        this.datiRADD = dataPopulation.readDataPopulation(datiRADDFile + ".yaml");
         StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
         storicoRichiestePage.insertCodiceFiscale(this.datiRADD.get("codiceFiscaleErroreDAA").toString());
     }
@@ -262,7 +261,7 @@ public class StoricoRichiestePagoPaTest {
     public void nellaPaginaStoricoDelleRicercheInserireNelCampoDiTestoIlCodiceIUNErratoDaRicercareDa(String datiRADDFile) {
         logger.info("Si inserisce il codice IUN errato");
         DataPopulation dataPopulation = new DataPopulation();
-        this.datiRADD = dataPopulation.readDataPopulation(datiRADDFile+".yaml");
+        this.datiRADD = dataPopulation.readDataPopulation(datiRADDFile + ".yaml");
         StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
         storicoRichiestePage.insertCodiceIUN(this.datiRADD.get("codiceIUNErroreDAA").toString());
     }
@@ -285,7 +284,7 @@ public class StoricoRichiestePagoPaTest {
     public void nellaPaginaStoricoDelleRicercheInserireNelCampoDiInputIlCodiceFiscaleErratoPerAARDelDestinatario(String datiRADDFile) {
         logger.info("Si inserisce il codice fiscale errato");
         DataPopulation dataPopulation = new DataPopulation();
-        this.datiRADD = dataPopulation.readDataPopulation(datiRADDFile+".yaml");
+        this.datiRADD = dataPopulation.readDataPopulation(datiRADDFile + ".yaml");
         StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
         storicoRichiestePage.insertCodiceFiscale(this.datiRADD.get("codiceFiscaleErroreAAR").toString());
     }
@@ -295,7 +294,7 @@ public class StoricoRichiestePagoPaTest {
     public void nellaPaginaStoricoDelleRicercheInserireNelCampoDiTestoLIdOperazioneErratoDaRicercare(String datiRADDFile) {
         logger.info("Si inserisce il campo id operazione errato");
         DataPopulation dataPopulation = new DataPopulation();
-        this.datiRADD = dataPopulation.readDataPopulation(datiRADDFile+".yaml");
+        this.datiRADD = dataPopulation.readDataPopulation(datiRADDFile + ".yaml");
         StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
         storicoRichiestePage.insertOperationID(this.datiRADD.get("idOperazioneErroreAAR").toString());
     }
@@ -304,19 +303,133 @@ public class StoricoRichiestePagoPaTest {
     public void nellaPaginaStoricoDelleRicercheInserireNelCampoDiTestoIlCodiceIUNErratoDaRicercare(String datiRADDFile) {
         logger.info("Si inserisce il codice IUN errato");
         DataPopulation dataPopulation = new DataPopulation();
-        this.datiRADD = dataPopulation.readDataPopulation(datiRADDFile+".yaml");
+        this.datiRADD = dataPopulation.readDataPopulation(datiRADDFile + ".yaml");
         StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
         storicoRichiestePage.insertCodiceIUN(this.datiRADD.get("codiceIUNErroreAAR").toString());
     }
 
     @And("Nella pagina Risultato ricerca Documenti allegati e attestazioni opponibile a terzi cliccare sulla richiesta restituita idOP")
     public void nellaPaginaRisultatoRicercaDocumentiAllegatiEAttestazioniOpponibileATerziCliccareSullaRichiestaRestituitaIdOP() {
-            logger.info("Si clicca sulla richiesta restituita");
-            DataPopulation dataPopulation = new DataPopulation();
+        logger.info("Si clicca sulla richiesta restituita");
+        DataPopulation dataPopulation = new DataPopulation();
 
-            this.datiRADD = dataPopulation.readDataPopulation("RADD.yaml");
+        this.datiRADD = dataPopulation.readDataPopulation("RADD.yaml");
 
-            StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
-            storicoRichiestePage.clickRichiestaRestituita(this.datiRADD.get("idOperazioneDAA").toString());
+        StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
+        storicoRichiestePage.clickRichiestaRestituita(this.datiRADD.get("idOperazioneDAA").toString());
+    }
+
+    @When("Nella pagina Storico delle ricerche il radio button avvisi avvenuta ricezione è selezionato")
+    public void nellaPaginaStoricoDelleRicercheIlRadioButtonAvvisiAvvenutaRicezioneESelezionato() {
+        StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
+        storicoRichiestePage.selectAvvisiAvvenutaRicezioneButton();
+        logger.info("Il radio button avvisi avvenuta ricezione è selezionato");
+    }
+
+    @And("Nella pagina Storico delle ricerche inserire nel campo di input il codice fiscale del destinatario AAR {string}")
+    public void nellaPaginaStoricoDelleRicercheInserireNelCampoDiInputIlCodiceFiscaleDelDestinatarioAAR(String dpFile) {
+        logger.info("Si controlla che si visualizzino le richieste con il codice fiscale");
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiRADD = dataPopulation.readDataPopulation(dpFile + ".yaml");
+
+        StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
+        storicoRichiestePage.insertCodiceFiscale(this.datiRADD.get("codiceFiscaleRPAAR").toString());
+    }
+
+    @And("Nella pagina Risultato ricerca avvisi avvenuta ricezione vengono restituite le richieste con il codice fiscale del destinatario ricercato")
+    public void nellaPaginaRisultatoRicercaAvvisiAvvenutaRicezioneVengonoRestituiteLeRichiesteConIlCodiceFiscaleDelDestinatarioRicercato() {
+        logger.info("Si controlla che vengano restituiti dei risultati");
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiRADD = dataPopulation.readDataPopulation("RADD.yaml");
+
+        StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
+        int numeroRighe = storicoRichiestePage.getNRighe(this.datiRADD.get("partitaIVAPGDA").toString());
+
+        if (numeroRighe >= 1) {
+            logger.info("I risultati sono coerenti con il codice fiscale inserito");
+        } else {
+            logger.error("I risultati NON sono coerenti con il codice fiscale inserito");
+            Assert.fail("I risultati NON sono coerenti con il codice fiscale inserito");
+        }
+    }
+
+    @And("Nella pagina Risultato ricerca avvisi avvenuta ricezione cliccare su una richiesta")
+    public void nellaPaginaRisultatoRicercaAvvisiAvvenutaRicezioneCliccareSuUnaRichiesta() {
+        logger.info("Si clicca sulla richiesta restituita");
+        DataPopulation dataPopulation = new DataPopulation();
+
+        this.datiRADD = dataPopulation.readDataPopulation("RADD.yaml");
+
+
+        StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
+        storicoRichiestePage.clickRichiestaRestituita(this.datiRADD.get("codiceFiscaleRPAAR").toString());
+
+    }
+
+    @And("Nella pagina Storico delle ricerche inserire nel campo di input il codice IUN del destinatario AAR {string}")
+    public void nellaPaginaStoricoDelleRicercheInserireNelCampoDiInputIlCodiceIUNDelDestinatarioAAR(String dpFile) {
+        logger.info("Si controlla che si visualizzino le richieste con il codice IUN");
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiRADD = dataPopulation.readDataPopulation(dpFile + ".yaml");
+
+        StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
+        storicoRichiestePage.insertCodiceIUN(this.datiRADD.get("codiceIUNErroreRPAAR").toString());
+    }
+
+    @And("Nella pagina Risultato ricerca avvisi avvenuta ricezione vengono restituite le richieste con il codice IUN del destinatario ricercato")
+    public void nellaPaginaRisultatoRicercaAvvisiAvvenutaRicezioneVengonoRestituiteLeRichiesteConIlCodiceIUNDelDestinatarioRicercato() {
+        logger.info("Si controlla che vengano restituiti dei risultati");
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiRADD = dataPopulation.readDataPopulation("RADD.yaml");
+
+        StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
+        int numeroRighe = storicoRichiestePage.getNRighe(this.datiRADD.get("codiceIUNErroreRPAAR").toString());
+
+        if (numeroRighe >= 1) {
+            logger.info("I risultati sono coerenti con il codice IUN inserito");
+        } else {
+            logger.error("I risultati NON sono coerenti con il codice IUN inserito");
+            Assert.fail("I risultati NON sono coerenti con il codice IUN inserito");
+        }
+    }
+
+    @And("Nella pagina Storico delle ricerche inserire nel campo di input l'ID operazione del destinatario AAR {string}")
+    public void nellaPaginaStoricoDelleRicercheInserireNelCampoDiInputLIDOperazioneDelDestinatarioAAR(String datiRADDFile) {
+        logger.info("Si inserisce il campo id operazione");
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiRADD = dataPopulation.readDataPopulation(datiRADDFile + ".yaml");
+        StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
+        storicoRichiestePage.insertOperationID(this.datiRADD.get("idOperazioneRPAAR").toString());
+    }
+
+    @And("Nella pagina Risultato ricerca avvisi avvenuta ricezione vengono restituite le richieste con l'ID operazione del destinatario ricercato")
+    public void nellaPaginaRisultatoRicercaAvvisiAvvenutaRicezioneVengonoRestituiteLeRichiesteConLIDOperazioneDelDestinatarioRicercato() {
+        logger.info("Si controlla che vengano restituiti dei risultati");
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiRADD = dataPopulation.readDataPopulation("RADD.yaml");
+
+        StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
+        int numeroRighe = storicoRichiestePage.getNRighe(this.datiRADD.get("idOperazioneRPAAR").toString());
+
+        if (numeroRighe >= 1) {
+            logger.info("I risultati sono coerenti con il ID operazione inserito");
+        } else {
+            logger.error("I risultati NON sono coerenti con il ID operazione inserito");
+            Assert.fail("I risultati NON sono coerenti con il ID operazione inserito");
+        }
+    }
+
+    @And("Nella pagina Storico delle ricerche inserire nel campo di input della notifica inserire la partita iva {string}")
+    public void nellaPaginaStoricoDelleRicercheInserireNelCampoDiInputDellaNotificaInserireLaPartitaIva(String dpFile) {
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiRADD = dataPopulation.readDataPopulation(dpFile+".yaml");
+        RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
+        richiestaAttiPage.insertPartitaIva(this.datiRADD.get("partitaIVAPGDA").toString());
+    }
+
+    @And("Nella pagina Storico delle ricerche selezionare il radio button Persona Giuridica")
+    public void nellaPaginaStoricoDelleRicercheSelezionareIlRadioButtonPersonaGiuridica() {
+        StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
+        storicoRichiestePage.clickPersonaGiuridicaRadioButton();
     }
 }

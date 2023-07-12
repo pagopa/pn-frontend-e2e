@@ -57,6 +57,9 @@ public class StoricoRichiestePage extends BasePage {
     @FindBy(xpath = "//input[contains(@value,'AOR')]")
     WebElement AARRadioButton;
 
+    @FindBy(xpath = "//input[contains(@value,'PG')]")
+    WebElement personaGiuridicaRadioButton;
+
     public StoricoRichiestePage(WebDriver driver) {
         super(driver);
     }
@@ -172,4 +175,8 @@ public class StoricoRichiestePage extends BasePage {
 
     public void insertOperationID(String idOperazioneErroreAAR) {this.operationIdDAATextField.sendKeys(idOperazioneErroreAAR);}
 
+    public void selectAvvisiAvvenutaRicezioneButton() { this.AARRadioButton.click();
+    }
+
+    public void clickPersonaGiuridicaRadioButton() {this.personaGiuridicaRadioButton.click();}
 }

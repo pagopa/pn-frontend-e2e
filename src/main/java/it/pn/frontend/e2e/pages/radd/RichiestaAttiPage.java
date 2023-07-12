@@ -95,6 +95,12 @@ public class RichiestaAttiPage extends BasePage {
     @FindBy(xpath = "//button[contains(text(),'Indietro')]")
     WebElement indietroButton;
 
+    @FindBy(xpath = "//input[contains(@value,'PG')]")
+    WebElement personaGiuridicaRadioButton;
+
+    @FindBy(xpath = "//input[contains(@id,'taxId')]")
+    WebElement partitaIvaTextField;
+
     public void insertCodiceIun(String codiceIun) {
         this.iunInput.sendKeys(codiceIun);
     }
@@ -342,6 +348,12 @@ public class RichiestaAttiPage extends BasePage {
 
     public void clickHomePageButton() {
         this.indietroButton.click();
+    }
+
+    public void clickPersonaGiuridicaButton() {this.personaGiuridicaRadioButton.click();}
+
+    public void insertPartitaIva(String partitaIVAPGDA) {
+        this.partitaIvaTextField.sendKeys(partitaIVAPGDA);
     }
 }
 
