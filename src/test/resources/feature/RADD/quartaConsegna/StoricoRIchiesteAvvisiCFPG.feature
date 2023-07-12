@@ -16,7 +16,7 @@ Feature: Storico richieste per avvisi avvenuta ricezione a terzi con CF per PG
     And Nella pagina Storico delle ricerche inserire nel campo di input della notifica inserire la partita iva "RADD"
     And Nella pagina Storico delle ricerche inserire nei campi di input una data
     And Nella pagina Storico delle ricerche cliccare sul bottone Cerca
-    And Nella pagina Risultato ricerca avvisi avvenuta ricezione vengono restituite le richieste con il codice fiscale del destinatario ricercato
+    And Nella pagina Risultato ricerca avvisi avvenuta ricezione vengono restituite le richieste con partita iva del destinatario ricercato
     And Nella pagina Risultato ricerca avvisi avvenuta ricezione cliccare su una richiesta
     And La modale Dettaglio della richiesta ID richiesta viene visualizzata correttamente
     Then Nella modale cliccare sul bottone Chiudi

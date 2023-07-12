@@ -343,7 +343,7 @@ public class StoricoRichiestePagoPaTest {
         this.datiRADD = dataPopulation.readDataPopulation("RADD.yaml");
 
         StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
-        int numeroRighe = storicoRichiestePage.getNRighe(this.datiRADD.get("partitaIVAPGDA").toString());
+        int numeroRighe = storicoRichiestePage.getNRighe(this.datiRADD.get("codiceFiscaleRPAAR").toString());
 
         if (numeroRighe >= 1) {
             logger.info("I risultati sono coerenti con il codice fiscale inserito");
@@ -431,5 +431,22 @@ public class StoricoRichiestePagoPaTest {
     public void nellaPaginaStoricoDelleRicercheSelezionareIlRadioButtonPersonaGiuridica() {
         StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
         storicoRichiestePage.clickPersonaGiuridicaRadioButton();
+    }
+
+    @And("Nella pagina Risultato ricerca avvisi avvenuta ricezione vengono restituite le richieste con partita iva del destinatario ricercato")
+    public void nellaPaginaRisultatoRicercaAvvisiAvvenutaRicezioneVengonoRestituiteLeRichiesteConPartitaIvaDelDestinatarioRicercato() {
+        logger.info("Si controlla che vengano restituiti dei risultati");
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiRADD = dataPopulation.readDataPopulation("RADD.yaml");
+
+        StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
+        int numeroRighe = storicoRichiestePage.getNRighe(this.datiRADD.get("partitaIVAPGDA").toString());
+
+        if (numeroRighe >= 1) {
+            logger.info("I risultati sono coerenti con il codice fiscale inserito");
+        } else {
+            logger.error("I risultati NON sono coerenti con il codice fiscale inserito");
+            Assert.fail("I risultati NON sono coerenti con il codice fiscale inserito");
+        }
     }
 }
