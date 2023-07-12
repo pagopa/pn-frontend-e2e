@@ -31,8 +31,14 @@ public class AvvisiAvvenutaRicezionePage extends BasePage {
     @FindBy(xpath = "//input[@id='delegateTaxId']")
     WebElement codiceFiscaleDelegatoInput;
 
-    @FindBy(css = "div[data-testid='fileInput'] > input[accept='image/jpeg,image/png']")
+    @FindBy(css = "div[data-testid='file-input-recipient-id'] > input[accept='image/jpeg,image/png']")
     WebElement uploadBox;
+
+    @FindBy(css = "div[data-testid='file-input-delegate-id'] > input[accept='image/jpeg,image/png']")
+    WebElement uploadBoxDelegato;
+
+    @FindBy(css = "div[data-testid='file-input-delegate-act'] > input[accept='image/jpeg,image/png']")
+    WebElement uploadBoxModulo;
 
     @FindBy(xpath = "//button[contains(text(),'Continua')]")
     WebElement continuaButton;
@@ -83,6 +89,17 @@ public class AvvisiAvvenutaRicezionePage extends BasePage {
         }
     }
 
+    public void uploadDocumentoDelegato(String path) {
+
+        if (this.uploadBoxDelegato.isDisplayed()){
+            this.uploadBoxDelegato.sendKeys(path);
+        }else {
+            this.js().executeScript("arguments[0].scrollIntoView(true)",this.uploadBoxDelegato);
+            this.uploadBoxDelegato.sendKeys(path);
+        }
+
+    }
+
     public void uploadDocumento(String path) {
 
         if (this.uploadBox.isDisplayed()){
@@ -90,6 +107,17 @@ public class AvvisiAvvenutaRicezionePage extends BasePage {
         }else {
             this.js().executeScript("arguments[0].scrollIntoView(true)",this.uploadBox);
             this.uploadBox.sendKeys(path);
+        }
+
+    }
+
+    public void uploadDocumentoModulo(String path) {
+
+        if (this.uploadBoxModulo.isDisplayed()){
+            this.uploadBoxModulo.sendKeys(path);
+        }else {
+            this.js().executeScript("arguments[0].scrollIntoView(true)",this.uploadBoxModulo);
+            this.uploadBoxModulo.sendKeys(path);
         }
 
     }
@@ -141,7 +169,6 @@ public class AvvisiAvvenutaRicezionePage extends BasePage {
         }
 
     }
-
     private void downloadFile(String url) {
         try {
             URL urlPDF = new URL(url);
@@ -152,7 +179,6 @@ public class AvvisiAvvenutaRicezionePage extends BasePage {
             throw new RuntimeException(e);
         }
     }
-
     public void scaricaTuttiDocumenti() {
         try {
             By scaricaButtonby = By.xpath("//a[span[contains(text(),'Scarica')]]");
@@ -176,24 +202,5 @@ public class AvvisiAvvenutaRicezionePage extends BasePage {
 
     public void clickArrowBack() {
         this.indietroButton.click();
-    }
-
-    public void controlloDownload() {
-        File partialPath = new File("src/test/resources/dataPopulation/downloadFileNotifica/RADD");
-        File directory = new File(partialPath.getAbsolutePath());
-
-        File[] fList = directory.listFiles(File::isFile);
-
-        if (fList != null && fList.length > 0) {
-            for (File file : fList) {
-                boolean result = file.delete();
-                if (result) {
-                    logger.info("File scaricato e eliminato");
-                }
-            }
-        } else {
-            logger.error("File non scaricato");
-            Assert.fail("File non scaricato");
-        }
     }
 }

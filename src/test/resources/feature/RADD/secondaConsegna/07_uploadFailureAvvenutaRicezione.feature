@@ -6,9 +6,8 @@ Feature: Download Avvisi Destinatario upload failure
     When nella Homepage RADD sezione Avvisi di avvenuta ricezione clicca sul bottone Vai a Avvisi di avvenuta ricezione
     Then la pagina Avvisi di avvenuta ricezione sezione Dati del destinatario è visualizzata correttamente
 
-  @TestSuite
   @RADD
-  @test07
+  @TestSuite
 
   Scenario: Download Avvisi Destinatario upload failure
     When nella pagina Avvisi di avvenuta ricezione sezione Dati del destinatario il Soggetto giuridico e selezionato di default come Persona fisica
