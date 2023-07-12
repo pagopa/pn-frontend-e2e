@@ -10,7 +10,7 @@ Feature: Storico richieste per avvisi avvenuta ricezione a terzi con Codice IUN
   @RADD
   @TestSuite
 
-  Scenario: Ricerca storico richieste per CF
+  Scenario: Storico richieste per avvisi avvenuta ricezione a terzi con Codice IUN
     When Nella pagina Storico delle ricerche il radio button avvisi avvenuta ricezione è selezionato
     And Nella pagina Storico delle ricerche il radio button Codice IUN è selezionato
     And Nella pagina Storico delle ricerche inserire nel campo di input il codice IUN del destinatario AAR "RADD"

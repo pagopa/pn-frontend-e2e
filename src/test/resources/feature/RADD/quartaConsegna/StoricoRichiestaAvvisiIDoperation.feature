@@ -10,7 +10,7 @@ Feature: Storico richieste per avvisi avvenuta ricezione a terzi con ID operazio
   @RADD
   @TestSuite
 
-  Scenario: Ricerca storico richieste per CF
+  Scenario: Storico richieste per avvisi avvenuta ricezione a terzi con ID operazione
     When Nella pagina Storico delle ricerche il radio button avvisi avvenuta ricezione è selezionato
     And Nella pagina Storico delle ricerche selezionare il radio button Id Operazione
     And Nella pagina Storico delle ricerche inserire nel campo di input l'ID operazione del destinatario AAR "RADD"

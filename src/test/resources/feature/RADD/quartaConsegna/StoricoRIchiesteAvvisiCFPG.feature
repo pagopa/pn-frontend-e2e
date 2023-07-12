@@ -9,7 +9,7 @@ Feature: Storico richieste per avvisi avvenuta ricezione a terzi con CF per PG
 
     #Dati mancanti
 
-  Scenario: Ricerca storico richieste per CF
+  Scenario: Storico richieste per avvisi avvenuta ricezione a terzi con CF per PG
     When Nella pagina Storico delle ricerche il radio button avvisi avvenuta ricezione è selezionato
     And Nella pagina Storico delle ricerche selezionare il radio button Codice fiscale destinatario
     And Nella pagina Storico delle ricerche selezionare il radio button Persona Giuridica

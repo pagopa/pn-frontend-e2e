@@ -1,4 +1,4 @@
-Feature: Storico richieste per avvisi avvenuta ricezione a terzi con CF
+Feature: Storico richieste per avvisi avvenuta ricezione a terzi con CF per PF
 
   Background: Accesso alla pagina Storico delle richieste
 
@@ -10,7 +10,7 @@ Feature: Storico richieste per avvisi avvenuta ricezione a terzi con CF
   @RADD
   @TestSuite
 
-  Scenario: Ricerca storico richieste per CF
+  Scenario: Storico richieste per avvisi avvenuta ricezione a terzi con CF per PF
     When Nella pagina Storico delle ricerche il radio button avvisi avvenuta ricezione è selezionato
     And Nella pagina Storico delle ricerche selezionare il radio button Codice fiscale destinatario
     And Nella pagina Storico delle ricerche inserire nel campo di input il codice fiscale del destinatario AAR "RADD"
