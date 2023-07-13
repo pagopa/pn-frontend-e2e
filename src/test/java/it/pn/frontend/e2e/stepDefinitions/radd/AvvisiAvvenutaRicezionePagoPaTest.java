@@ -157,4 +157,21 @@ public class AvvisiAvvenutaRicezionePagoPaTest {
         String pathDocumentiFile = documentoFile.getAbsolutePath();
         richiestaAttiPage.uploadFilefromPC(pathDocumentiFile);
     }
+
+    @When("nella pagina Avvisi di avvenuta ricezione sezione Dati del destinatario selezionare persona giudridica")
+    public void nellaPaginaAvvisiDiAvvenutaRicezioneSezioneDatiDelDestinatarioSelezionarePersonaGiudridica() {
+        RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
+        richiestaAttiPage.clickPersonaGiuridicaButton();
+    }
+
+    @And("nella pagina Avvisi di avvenuta ricezione sezione Dati del destinatario inserire la partita IVA del destinatario {string}")
+    public void nellaPaginaAvvisiDiAvvenutaRicezioneSezioneDatiDelDestinatarioInserireLaPartitaIVADelDestinatario(String dpFile) {
+        logger.info("Si cerca di inserire partita IVA del destinatario");
+
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiAAR = dataPopulation.readDataPopulation(dpFile+".yaml");
+
+        AvvisiAvvenutaRicezionePage avvisiAvvenutaRicezionePage = new AvvisiAvvenutaRicezionePage(this.driver);
+        avvisiAvvenutaRicezionePage.inserimentoCFDDestinatario(this.datiAAR.get("partitaIVAPGAA").toString());
+    }
 }

@@ -278,6 +278,28 @@ public class DownloadAttiDestinatarioPagoPA {
         richiestaAttiPage.uploadFilefromPC(pathDocumentiFile);
     }
 
+    @When("nella pagina atti-opponibili-terzi sezione Dati del destinatario selezionare persona giudridica")
+    public void nellaPaginaAttiOpponibiliTerziSezioneDatiDelDestinatarioSelezionarePersonaGiudridica() {
+        RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
+        richiestaAttiPage.clickPersonaGiuridicaButton();
+    }
+
+    @When("nella pagina atti-opponibili-terzi sezione Dati della notifica inserire codice IUN persona giuridica {string}")
+    public void nellaPaginaAttiOpponibiliTerziSezioneDatiDellaNotificaInserireCodiceIUNPersonaGiuridica(String dpFile) {
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiRADD = dataPopulation.readDataPopulation(dpFile+".yaml");
+        RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
+        richiestaAttiPage.insertCodiceFiscale(this.datiRADD.get("partitaIVAPGDA").toString());
+    }
+
+    @When("nella pagina atti-opponibili-terzi sezione Dati della notifica inserire la partita iva {string}")
+    public void nellaPaginaAttiOpponibiliTerziSezioneDatiDellaNotificaInserireLaPartitaIva(String dpFile) {
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiRADD = dataPopulation.readDataPopulation(dpFile+".yaml");
+        RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
+        richiestaAttiPage.insertCodiceIun(this.datiRADD.get("codiceIUNPGDA").toString());
+    }
+
 }
 
 
