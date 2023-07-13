@@ -2,12 +2,12 @@ Feature: Mittente genera una notifica con più destinatari che non prevede pagam
 
   Background: login pagoPA mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente "mittente"
+    When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
   @test80
-
+    @LoginMittenteRest
 
   Scenario Outline: Mittente genera una notifica con più destinatari che non prevede pagamento
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

@@ -2,7 +2,7 @@ Feature: Mittente seleziona l'opzione visualizza api Key
 
   Background: login mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente "mittente"
+    When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
     And Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
@@ -11,7 +11,7 @@ Feature: Mittente seleziona l'opzione visualizza api Key
 
   @TestSuite
   @test24
-
+  @LoginMittenteRest
 
   Scenario: Mittente seleziona l'opzione visualizza api Key
     When Nella pagina Api Key si clicca sul bottone menu di una Api Key attiva presente in elenco

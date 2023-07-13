@@ -2,11 +2,12 @@ Feature: Mittente genera una notifica tramite destinatario con pec
 
   Background: login pagoPA mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente "mittente"
+    When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
   @test86
+  @LoginMittenteRest
 
   Scenario: Mittente genera una notifica tramite destinatario con pec
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

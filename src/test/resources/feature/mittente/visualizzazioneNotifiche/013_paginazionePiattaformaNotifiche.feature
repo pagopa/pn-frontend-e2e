@@ -2,11 +2,12 @@ Feature:il mittente cambia visualizzazione della pagina
 
   Background: Login mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente "mittente"
+    When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
   @test13
+  @LoginMittenteRest
 
 
   Scenario: il mittente cambia visualizzazione della pagina

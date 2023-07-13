@@ -2,11 +2,12 @@ Feature: Il destinatario visualizza le notifiche in elenco
 
   Background: Login destinatario
     Given Login Page destinatario "destinatario" viene visualizzata
-    When Login con destinatario "destinatario"
+    When Login portale destinatario tramite request method
     Then pagina Piattaforma  Notifiche Destinatario viene visualizzata correttamente
 
     @TestSuite
     @test16
+    @restLogin
 
 
     Scenario: Il destinatario visualizza le notifiche in elenco
