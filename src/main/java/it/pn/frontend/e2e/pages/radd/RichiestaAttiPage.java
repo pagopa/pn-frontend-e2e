@@ -98,7 +98,7 @@ public class RichiestaAttiPage extends BasePage {
     @FindBy(xpath = "//input[contains(@value,'PG')]")
     WebElement personaGiuridicaRadioButton;
 
-    @FindBy(xpath = "//input[contains(@id,'taxId')]")
+    @FindBy(id="taxId")
     WebElement partitaIvaTextField;
 
     public void insertCodiceIun(String codiceIun) {
