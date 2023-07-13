@@ -2,10 +2,8 @@ package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -286,9 +284,14 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void cancellareTestoInserito() {
         try{
-            By testoInseritoBy = By.xpath("//input[contains(@id,'name')]");
+            By testoInseritoBy = By.id("name");
             this.js().executeScript("arguments[0].click()", this.element(testoInseritoBy));
-            this.element(testoInseritoBy).clear();
+
+            String name = this.element(testoInseritoBy).getAttribute("value");
+            for(int index = 0; index<name.length(); index++){
+                this.element(testoInseritoBy).sendKeys(Keys.BACK_SPACE);
+            }
+
             logger.info("Il testo è stato cancellato correttamente");
         }catch (TimeoutException e){
             logger.error("Il testo NON è stato cancellato correttamente");
@@ -299,7 +302,7 @@ public class ApiKeyPAPage  extends BasePage {
     public void siVisualizzaMessaggioErroreApiName() {
         try {
             By nameErrorMessageANBy = By.xpath("//p[contains(@id,'name-helper-text')]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nameErrorMessageANBy));
+            getWebDriverWait(60).until(ExpectedConditions.visibilityOfElementLocated(nameErrorMessageANBy));
             logger.info("Si visualizza correttamente il messaggio di errore");
         }catch (TimeoutException e){
             logger.error("NON si visualizza correttamente il messaggio di errore");
