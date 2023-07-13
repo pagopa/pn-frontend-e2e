@@ -170,13 +170,8 @@ public class StoricoRichiestePage extends BasePage {
             Assert.fail("NON si visualizza correttamente il messaggio di errore con errore: "+e.getMessage());
         }
     }
-
     public void clickAARRAdioButton() {this.AARRadioButton.click();}
-
     public void insertOperationID(String idOperazioneErroreAAR) {this.operationIdDAATextField.sendKeys(idOperazioneErroreAAR);}
-
-    public void selectAvvisiAvvenutaRicezioneButton() { this.AARRadioButton.click();
-    }
-
+    public void selectAvvisiAvvenutaRicezioneButton() { this.AARRadioButton.click();}
     public void clickPersonaGiuridicaRadioButton() {this.personaGiuridicaRadioButton.click();}
 }
