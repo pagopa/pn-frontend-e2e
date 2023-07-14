@@ -37,6 +37,11 @@ public class SpidDemoLogin {
     private final String maxAgeInput;
     private final String retryInput;
 
+    /*
+        end parametri di input
+         */
+
+
     public SpidDemoLogin(String username,
                          String password, String spidLevelInput,
                          String organizationDisplayNameInput,
