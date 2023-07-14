@@ -449,4 +449,29 @@ public class StoricoRichiestePagoPaTest {
             Assert.fail("I risultati NON sono coerenti con il codice fiscale inserito");
         }
     }
+
+    @And("Nella pagina Storico delle ricerche inserire nel campo di input della notifica inserire cf per pg {string}")
+    public void nellaPaginaStoricoDelleRicercheInserireNelCampoDiInputDellaNotificaInserireCfPerPg(String dpFile) {
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiRADD = dataPopulation.readDataPopulation(dpFile+".yaml");
+        RichiestaAttiPage richiestaAttiPage = new RichiestaAttiPage(this.driver);
+        richiestaAttiPage.insertPartitaIva(this.datiRADD.get("partitaIVAPGAA").toString());
+    }
+
+    @And("Nella pagina Risultato ricerca avvisi avvenuta ricezione vengono restituite le richieste cf per pg del destinatario ricercato")
+    public void nellaPaginaRisultatoRicercaAvvisiAvvenutaRicezioneVengonoRestituiteLeRichiesteCfPerPgDelDestinatarioRicercato() {
+        logger.info("Si controlla che vengano restituiti dei risultati");
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiRADD = dataPopulation.readDataPopulation("RADD.yaml");
+
+        StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
+        int numeroRighe = storicoRichiestePage.getNRighe(this.datiRADD.get("partitaIVAPGAA").toString());
+
+        if (numeroRighe >= 1) {
+            logger.info("I risultati sono coerenti con il codice fiscale inserito");
+        } else {
+            logger.error("I risultati NON sono coerenti con il codice fiscale inserito");
+            Assert.fail("I risultati NON sono coerenti con il codice fiscale inserito");
+        }
+    }
 }

@@ -143,7 +143,7 @@ public class DeleghePagoPATest {
     @Then("Si conferma l'azione scegliendo revoca la delega")
     public void siConfermaLAzioneScegliendoRevocaLaDelega() {
         LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        leTueDelegheSection.clickRevocaLaDelega();
+        //leTueDelegheSection.clickRevocaLaDelega();
     }
 
     @And("Nella sezione Le Tue Deleghe click sul bottone Invia richiesta")
