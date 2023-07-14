@@ -50,7 +50,6 @@ public class SpidAcs {
                 hm.put("responseCode", String.valueOf(classicHttpResponse.getCode()));
                 hm.put("urlPortale",classicHttpResponse.getHeader("Location").getValue());
 
-                //Assert.assertEquals(classicHttpResponse.getCode(),301, this.getSpidAcsEndPoint()+" risponde con : "+classicHttpResponse.getCode());
                 logger.info(classicHttpResponse.getHeader("Location").getValue());
                 logger.info(hm.get("urlPortale"));
                 return hm;
