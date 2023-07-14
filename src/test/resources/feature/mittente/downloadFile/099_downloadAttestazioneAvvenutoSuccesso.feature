@@ -6,7 +6,7 @@ Feature: il mittente effettua il download attestazione opponibile a terzi avvenu
     Then Home page mittente viene visualizzata correttamente
     And Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Nella pagina piattaforma Notifiche selezionare lo stato notifica "Avvenuta ricezione"
+    And Nella pagina piattaforma Notifiche selezionare lo stato notifica "Avvenuto accesso"
     And Cliccare sul bottone Filtra
 
   @TestSuite
@@ -16,6 +16,6 @@ Feature: il mittente effettua il download attestazione opponibile a terzi avvenu
   Scenario: il mittente effettua il download attestazione opponibile a terzi avvenuto successo
     When Cliccare sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica
-    And Nella sezione Dettaglio Notifiche si seleziona il file, "Attestazione opponibile a terzi: avvenuto successo", da scaricare
-    Then Si controlla il testo all interno del file "Attestazione opponibile a terzi: avvenuto successo"
+    And Nella sezione Dettaglio Notifiche si seleziona il file, "Attestazione opponibile a terzi: avvenuto accesso", da scaricare
+    Then Si controlla il testo all interno del file "Attestazione opponibile a terzi: avvenuto accesso"
     And Logout da portale mittente
