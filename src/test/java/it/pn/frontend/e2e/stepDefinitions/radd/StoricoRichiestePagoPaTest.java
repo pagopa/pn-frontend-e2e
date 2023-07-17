@@ -465,7 +465,7 @@ public class StoricoRichiestePagoPaTest {
         this.datiRADD = dataPopulation.readDataPopulation("RADD.yaml");
 
         StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
-        int numeroRighe = storicoRichiestePage.getNRighe(this.datiRADD.get("partitaIVAPGAA").toString());
+        int numeroRighe = storicoRichiestePage.getNRighe2(this.datiRADD.get("partitaIVAPGAA").toString());
 
         if (numeroRighe >= 1) {
             logger.info("I risultati sono coerenti con il codice fiscale inserito");
@@ -474,4 +474,17 @@ public class StoricoRichiestePagoPaTest {
             Assert.fail("I risultati NON sono coerenti con il codice fiscale inserito");
         }
     }
-}
+
+    @And("Nella pagina Risultato ricerca avvisi avvenuta ricezione cliccare su una richiesta per persona giuridica")
+    public void nellaPaginaRisultatoRicercaAvvisiAvvenutaRicezioneCliccareSuUnaRichiestaPerPersonaGiuridica() {
+            logger.info("Si clicca sulla richiesta restituita");
+            DataPopulation dataPopulation = new DataPopulation();
+
+            this.datiRADD = dataPopulation.readDataPopulation("RADD.yaml");
+
+
+            StoricoRichiestePage storicoRichiestePage = new StoricoRichiestePage(this.driver);
+            storicoRichiestePage.clickRichiestaRestituita1(this.datiRADD.get("partitaIVAPGAA").toString());
+        }
+    }
+
