@@ -7,6 +7,7 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.DeleghePage;
 import it.pn.frontend.e2e.pages.destinatario.NotificheDEPage;
 import it.pn.frontend.e2e.section.destinatario.LeTueDelegheSection;
+import it.pn.frontend.e2e.section.destinatario.PopUpRevocaDelegaSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -21,6 +22,10 @@ public class DeleghePagoPATest {
     private final WebDriver driver = Hooks.driver;
     Map<String, Object> deleghe = new HashMap<>();
     private final Logger logger = LoggerFactory.getLogger("DeleghePagoPATest");
+
+    private LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+
+    private PopUpRevocaDelegaSection popUpRevocaDelegaSection = new PopUpRevocaDelegaSection(this.driver);
 
     @When("Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe")
     public void wait_deleghe_Button() {
@@ -53,17 +58,17 @@ public class DeleghePagoPATest {
     @And("Nella sezione Le Tue Deleghe inserire i dati {string}")
     public void nellaSezioneLeTueDelegheInserireIDati(String dpFile) {
         logger.info("Nella sezione Le Tue Deleghe inserire i dati");
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        leTueDelegheSection.selectpersonaFisicaRadioButton();
+
+        this.leTueDelegheSection.selectpersonaFisicaRadioButton();
 
         DataPopulation dataPopulation = new DataPopulation();
         deleghe = dataPopulation.readDataPopulation(dpFile+".yaml");
 
-        leTueDelegheSection.insertNomeCognome(deleghe.get("nome").toString(),deleghe.get("cognome").toString());
-        leTueDelegheSection.inserireCF(deleghe.get("codiceFiscale").toString());
-        leTueDelegheSection.selectSoloEntiSelezionati();
-        leTueDelegheSection.waitLoadPage();
-        leTueDelegheSection.selezionaUnEnte(deleghe.get("ente").toString());
+        this.leTueDelegheSection.insertNomeCognome(deleghe.get("nome").toString(),deleghe.get("cognome").toString());
+        this.leTueDelegheSection.inserireCF(deleghe.get("codiceFiscale").toString());
+        this.leTueDelegheSection.selectSoloEntiSelezionati();
+        this.leTueDelegheSection.waitLoadPage();
+        this.leTueDelegheSection.selezionaUnEnte(deleghe.get("ente").toString());
 
     }
 
@@ -71,8 +76,8 @@ public class DeleghePagoPATest {
     public void nellaSezioneLeTueDelegheVerificareCheLaDataSiaCorretta() {
         logger.info("Si controlla che la data visualizzata sia corretta");
 
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        if (leTueDelegheSection.verificareCheLaDataSiaCorretta()){
+
+        if (this.leTueDelegheSection.verificareCheLaDataSiaCorretta()){
             logger.info("La data inserita è corretta");
         } else {
             logger.error("La data inserita non è corretta");
@@ -86,16 +91,16 @@ public class DeleghePagoPATest {
         DataPopulation dataPopulation = new DataPopulation();
         deleghe = dataPopulation.readDataPopulation(dpFile+".yaml");
 
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        String codiceVerifica = leTueDelegheSection.salvataggioCodiceVerifica();
+
+        String codiceVerifica = this.leTueDelegheSection.salvataggioCodiceVerifica();
         deleghe.put("codiceDelega",codiceVerifica);
         dataPopulation.writeDataPopulation(dpFile+".yaml", deleghe);
     }
 
     @And("Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe")
     public void nellaSezioneLeTueDelegheClickSulBottoneInviaRichiestaESulBottoneTornaAlleDeleghe() {
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        leTueDelegheSection.clickSulBottoneInviaRichiesta();
+
+        this.leTueDelegheSection.clickSulBottoneInviaRichiesta();
     }
 
     @And("Nella sezione Deleghe si visualizza la delega in stato di attesa di conferma")
@@ -108,113 +113,103 @@ public class DeleghePagoPATest {
     @And("Nella sezione Deleghe si verifica sia presente una delega")
     public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelega() {
         logger.info("Si controlla che sia presente una delega");
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        leTueDelegheSection.siVisualizzaUnaDelega();
+
+        this.leTueDelegheSection.siVisualizzaUnaDelega();
     }
 
     @And("Nella sezione Deleghe si clicca sul menu della delega")
     public void nellaSezioneDelegheSiCliccaSulMenuDellaDelega() {
         logger.info("Si clicca sul menu della delega");
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        leTueDelegheSection.clickMenuDelega();
+
+        this.leTueDelegheSection.clickMenuDelega();
     }
 
     @And("Nella sezione Deleghe si sceglie l'opzione mostra codice")
     public void nellaSezioneDelegheSiSceglieLOpzioneMostraCodice() {
         logger.info("Si clicca su mostra codice");
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        leTueDelegheSection.siSceglieLOpzioneMostraCodice();
+
+        this.leTueDelegheSection.siSceglieLOpzioneMostraCodice();
     }
 
     @Then("Si clicca sul bottone chiudi")
     public void siCliccaSulBottoneChiudi() {
         logger.info("Si clicca sul bottone chiudi");
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        leTueDelegheSection.siCliccaSulBottoneChiudi();
+
+        this.leTueDelegheSection.siCliccaSulBottoneChiudi();
     }
 
     @And("Nella sezione Deleghe si sceglie l'opzione revoca")
     public void nellaSezioneDelegheSiSceglieLOpzioneRevoca() {
         logger.info("Si clicca sulla opzione revoca delega");
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        leTueDelegheSection.clickOpzioneRevoca();
+
+        this.leTueDelegheSection.clickOpzioneRevoca();
     }
 
     @Then("Si conferma l'azione scegliendo revoca la delega")
     public void siConfermaLAzioneScegliendoRevocaLaDelega() {
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        leTueDelegheSection.clickRevocaLaDelega();
+        popUpRevocaDelegaSection.clickRevocaLaDelega();
     }
 
     @And("Nella sezione Le Tue Deleghe click sul bottone Invia richiesta")
     public void nellaSezioneLeTueDelegheClickSulBottoneInviaRichiesta() {
         logger.info("Si clicca sul bottone  invia richiesta");
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        leTueDelegheSection.clickInviaRichiesta();
+        this.leTueDelegheSection.clickInviaRichiesta();
     }
 
     @And("Nella sezione Le Tue Deleghe si visualizza il messaggio di errore delega a se stessi")
     public void nellaSezioneLeTueDelegheSiVisualizzaIlMessaggioDiErroreDelegaASeStessi() {
         logger.info("Si visualizza il messaggio di errore");
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        leTueDelegheSection.MessaggioDiErroreDelegaASeStessi();
+        this.leTueDelegheSection.MessaggioDiErroreDelegaASeStessi();
     }
 
     @And("Nella sezione Le Tue Deleghe si visualizza il messaggio di errore delega gia aggiunta")
     public void nellaSezioneLeTueDelegheSiVisualizzaIlMessaggioDiErroreDelegaGiaAggiunta() {
         logger.info("Si visualizza il messaggio di errore delega gia aggiunta");
-
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        leTueDelegheSection.messaggioDiErroreDelegaPresente();
+        this.leTueDelegheSection.messaggioDiErroreDelegaPresente();
     }
 
     @And("Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico")
     public void siVerificaSiaPresenteUnaDelegaNellaSezioneDelegheATuoCarico() {
         logger.info("Si controlla che ci sia almeno una delega");
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        leTueDelegheSection.vaiInFondoAllaPagina();
-        leTueDelegheSection.siVisualizzaUnaDelega();
+        this.leTueDelegheSection.vaiInFondoAllaPagina();
+        this.leTueDelegheSection.siVisualizzaUnaDelega();
     }
 
     @And("si sceglie opzione accetta")
     public void siSceglieOpzioneAccetta() {
         logger.info("Si sceglie l'opzione accetta");
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        leTueDelegheSection.clickOpzioneAccetta();
+        this.leTueDelegheSection.clickOpzioneAccetta();
     }
 
     @And("Si inserisce il codice delega nel pop-up {string}")
     public void siInserisceIlCodiceDelegaNelPopUp(String dpFile) {
         logger.info("Si inserisce il codice per accettare la delega");
 
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        leTueDelegheSection.waitPopUpLoad();
+        this.leTueDelegheSection.waitPopUpLoad();
 
         DataPopulation dataPopulation = new DataPopulation();
         Map<String,Object> destinatari = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        leTueDelegheSection.inserireCodiceDelega(destinatari.get("codiceDelega").toString());
+        this.leTueDelegheSection.inserireCodiceDelega(destinatari.get("codiceDelega").toString());
     }
 
     @And("Si clicca sul bottone Accetta")
     public void siCliccaSulBottoneAccetta() {
         logger.info("Nel pop-up si clicca sul bottone accetta");
 
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        leTueDelegheSection.clickAccettaButton();
+        this.leTueDelegheSection.clickAccettaButton();
     }
 
     @And("Si controlla che la delega a lo stato Attiva")
     public void siControllaCheLaDelegaALoStatoAttiva() {
         logger.info("Si controlla che la delega abbia lo stato Attiva");
 
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        leTueDelegheSection.controlloStatoAttiva();
+        this.leTueDelegheSection.controlloStatoAttiva();
     }
 
     @And("Nella sezione Deleghe si visualizza il titolo")
     public void siVisualizzaIlTitolo() {
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        if(leTueDelegheSection.siVisualizzaIlTitolo()){
+
+        if(this.leTueDelegheSection.siVisualizzaIlTitolo()){
             logger.info("Il titolo della sezione Deleghe si visualizza correttamente");
         }else {
             logger.error("Il titolo della sezione Deleghe NON si visualizza correttamente");
@@ -224,8 +219,7 @@ public class DeleghePagoPATest {
 
     @And("Nella sezione Deleghe si visualizza il sottotitolo")
     public void siVisualizzaIlSottotitolo() {
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        if( leTueDelegheSection.siVisualizzaIlSottotitolo()){
+        if( this.leTueDelegheSection.siVisualizzaIlSottotitolo()){
             logger.info("Il sottotitolo della sezione Deleghe si visualizza correttamente");
         }else {
             logger.error("Il sottotitolo della sezione Deleghe NON si visualizza correttamente");
@@ -235,8 +229,8 @@ public class DeleghePagoPATest {
 
     @And("Nella sezione Deleghe si visualizza il bottone aggiungi una delega")
     public void siVisualizzaIlBottoneAggiungiUnaDelega() {
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-        if(leTueDelegheSection.siVisualizzaIlBottoneAggiungiUnaDelega()){
+
+        if(this.leTueDelegheSection.siVisualizzaIlBottoneAggiungiUnaDelega()){
             logger.info("Il bottone aggiungi delega si visualizza correttamente");
         }else {
             logger.error("Il bottone aggiungi delega NON si visualizza correttamente");
@@ -246,30 +240,30 @@ public class DeleghePagoPATest {
 
     @And("Nella sezione Deleghe si visualizzano tutti i campi dell'elenco dei delegati")
     public void siVisualizzanoTuttiICampiDellElencoDeiDelegati() {
-        LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
 
-        if(leTueDelegheSection.siVisualizzaIlNomeDelegato()){
+
+        if(this.leTueDelegheSection.siVisualizzaIlNomeDelegato()){
             logger.info("Si visualizza correttamente il nome del delegato");
         }else {
             logger.error("NON si visualizza correttamente il nome del delegato");
             Assert.fail("NON si visualizza correttamente il nome del delegato");
         }
 
-        if (leTueDelegheSection.siVisualizzaDataInizioDelega()){
+        if (this.leTueDelegheSection.siVisualizzaDataInizioDelega()){
             logger.info("Si visualizza correttamente la data di inizio della delega");
         }else {
             logger.error("NON si visualizza correttamente la data di inizio della delega");
             Assert.fail("NON Si visualizza correttamente la data di inizio della delega");
         }
 
-        if(leTueDelegheSection.siVisualizzaDataFinoDelega()){
+        if(this.leTueDelegheSection.siVisualizzaDataFinoDelega()){
             logger.info("Si visualizza correttamente la data di fine delle deleghe");
         }else {
             logger.error("NON si visualizza correttamente la data di fine delle deleghe");
             Assert.fail("NON si visualizza correttamente la data di fine delle deleghe");
         }
 
-        if (leTueDelegheSection.siVisualizzaPermessiDelega()){
+        if (this.leTueDelegheSection.siVisualizzaPermessiDelega()){
             logger.info("Si visualizza correttamente il permesso della delega");
         }else {
             logger.error("NON si visualizza correttamente il permesso della delega");
@@ -278,5 +272,27 @@ public class DeleghePagoPATest {
     }
 
 
+    @And("Si controlla che non sia presente una delga con stesso nome {string}")
+    public void siControllaCheNonSiaPresenteUnaDelgaConStessoNome(String dpFile) {
+        logger.info("Si controlla che non ci sia una delega con lo stesso nome");
 
+        DeleghePage deleghePage = new DeleghePage(this.driver);
+        DataPopulation dataPopulation = new DataPopulation();
+
+        Map<String,Object> datiDelega = dataPopulation.readDataPopulation(dpFile+".yaml");;
+
+        String nome =  datiDelega.get("nome").toString();
+        String cognome =  datiDelega.get("cognome").toString();
+
+
+        if ( deleghePage.CercaEsistenzaDelega(nome,cognome)){
+            logger.info("Delega con lo stesso nome trovata");
+            deleghePage.clickRevocaButton(nome,cognome);
+            this.popUpRevocaDelegaSection.waitLoadPopUpRevocaDelegaSection();
+            this.popUpRevocaDelegaSection.clickRevocaLaDelega();
+
+        }else {
+            logger.info("Delega con lo stesso nome NON trovata");
+        }
+    }
 }

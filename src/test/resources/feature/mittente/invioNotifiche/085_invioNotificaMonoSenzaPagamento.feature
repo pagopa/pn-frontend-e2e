@@ -2,11 +2,12 @@ Feature: Mittente genera una notifica che non prevede pagamento
 
   Background: login pagoPA mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente "mittente"
+    When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
   @test85
+  @LoginMittenteRest
 
   Scenario: Mittente genera una notifica senza pagamento
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

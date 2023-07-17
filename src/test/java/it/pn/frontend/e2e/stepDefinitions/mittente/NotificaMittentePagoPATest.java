@@ -360,7 +360,8 @@ public class NotificaMittentePagoPATest {
             //logger.info(netWorkInfo.getRequestMethod());
             logger.info(netWorkInfo.getResponseStatus());
             //logger.info(netWorkInfo.getResponseBody());
-            String urlToFind = "https://webapi.test.notifichedigitali.it/token-exchange";
+            String variabileAmbiente = System.getProperty("environment");
+            String urlToFind = "https://webapi."+variabileAmbiente+".notifichedigitali.it/token-exchange";
             urlFound = false;
             if (netWorkInfo.getRequestUrl().contains(urlToFind)) {
                 urlFound = true;

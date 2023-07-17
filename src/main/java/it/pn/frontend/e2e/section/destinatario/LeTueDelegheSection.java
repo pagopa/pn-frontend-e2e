@@ -43,7 +43,7 @@ public class LeTueDelegheSection extends BasePage {
     @FindBy(xpath = "//input[contains(@value,'entiSelezionati')]")
     WebElement SoloEntiSelezionatiRadioButton;
 
-    @FindBy(id ="enti-select")
+    @FindBy(id ="enti")
     WebElement enteElementInput;
 
     @FindBy(xpath = "//button[@id='courtesy-page-button']")
@@ -52,14 +52,11 @@ public class LeTueDelegheSection extends BasePage {
     /*@FindBy(xpath = "//button[contains(@data-testid,'delegationMenuIcon')]")
     WebElement delegaMenuButton;*/
 
-    @FindBy(xpath = "//li[contains(@tabindex,'-1')]")
+    @FindBy(xpath = "//li[contains(@data-testid,'menuItem-revokeDelegate')]")
     WebElement revocaDelegaOption;
 
     @FindBy(xpath = "//li[contains(@tabindex,'0')]")
     WebElement mostraCodiceOption;
-
-    @FindBy(xpath = "//button[contains(text(),'Revoca la delega')]")
-    WebElement revocaDialogAction;
 
     @FindBy(xpath = "//button[contains(@data-testid,'acceptButton')]")
     WebElement accettaButton;
@@ -141,7 +138,12 @@ public class LeTueDelegheSection extends BasePage {
 
     public void selezionaUnEnte(String ente) {
         if(this.enteElementInput.isDisplayed()){
+
             this.enteElementInput.sendKeys(ente);
+            By menuEntiOptionBY = By.id("enti");
+            WebElement menuEntiOption = this.driver.findElement(menuEntiOptionBY);
+            this.js().executeScript("arguments[0].click()",menuEntiOption);
+
         }else {
             swipeToElement(this.enteElementInput);
             this.enteElementInput.sendKeys(ente);
@@ -199,10 +201,6 @@ public class LeTueDelegheSection extends BasePage {
 
     public void clickOpzioneRevoca() {
         this.revocaDelegaOption.click();
-    }
-
-    public void clickRevocaLaDelega() {
-        this.revocaDialogAction.click();
     }
 
     public void clickInviaRichiesta() {

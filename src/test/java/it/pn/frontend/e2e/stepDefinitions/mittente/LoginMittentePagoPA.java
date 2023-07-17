@@ -4,6 +4,8 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.api.mittente.SpidAcsMittente;
+import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
 import it.pn.frontend.e2e.listeners.Hooks;
 
 import it.pn.frontend.e2e.pages.mittente.*;
@@ -18,11 +20,18 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import org.apache.hc.client5.http.cookie.BasicCookieStore;
+import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
+import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoLogin;
+import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoContinueResponse;
+
 
 public class LoginMittentePagoPA {
 
     private static final Logger logger = LoggerFactory.getLogger("LoginMittentePagoPA");
     private Map<String, Object> datiMittente;
+
+    private Map<String, String> urlMittente;
     private final WebDriver driver = Hooks.driver;
 
 
@@ -81,6 +90,175 @@ public class LoginMittentePagoPA {
         selezionaEntePAPage.selezionareComune(this.datiMittente.get("comune").toString());
         selezionaEntePAPage.selezionaAccedi();
     }
+
+    @When("Login mittente tramite request method")
+    public void portaleMittenteIsDisplayed() throws InterruptedException {
+        String userMittente = this.datiMittente.get("user").toString();
+        String pwdMittente = this.datiMittente.get("pwd").toString();
+        this.readurlPortaleMittente(userMittente,pwdMittente);
+        boolean urlWithTokenFound = false;
+        int numProvaLogin = 0;
+        while(numProvaLogin<10){
+            this.readurlPortaleMittente(userMittente,pwdMittente);
+            if(this.urlMittente.get("responseCode").equalsIgnoreCase("301")){
+                urlWithTokenFound = true;
+                break;
+            }else {
+                this.urlMittente.clear();
+            }
+            TimeUnit.SECONDS.sleep(15);
+            numProvaLogin++;
+        }
+
+        if(urlWithTokenFound){
+            logger.info("procedura di login from spid provata : "+numProvaLogin);
+        }else{
+            Assert.fail("procedura di login from spid provata : "+numProvaLogin);
+        }
+
+        this.driver.get(this.urlMittente.get("urlPortale"));
+
+        CookiesSection cookiesPage = new CookiesSection(this.driver);
+        if (cookiesPage.waitLoadCookiesPage()){
+            cookiesPage.selezionaAccettaTuttiButton();
+        }
+
+        SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(this.driver);
+        selezionaEntePAPage.waitLoadSelezionaEntePAPage();
+        selezionaEntePAPage.selezionareComune(this.datiMittente.get("comune").toString());
+        selezionaEntePAPage.selezionaAccedi();
+    }
+
+    private void readurlPortaleMittente(String user, String password){
+
+        SpidLoginMittente spidLoginMittente = new SpidLoginMittente("xx_testenv2","SpidL2");
+        spidLoginMittente.setSpidLoginMittenteEndPoint("https://api.uat.selfcare.pagopa.it/spid/v1/login");
+        spidLoginMittente.runSpidLoginMittente();
+        if(spidLoginMittente.getResponseBody() == null){
+            Assert.fail(" api spid login risponde con body vuoto");
+        }
+
+        String cookiesNameFromSpidLoginMittente = spidLoginMittente.getCookieName();
+        if(cookiesNameFromSpidLoginMittente != null){
+            logger.info("cookiesNameFromSpidLoginMittente : "+cookiesNameFromSpidLoginMittente);
+        }else{
+            Assert.fail("cookiesNameFromSpidLoginMittente is null");
+        }
+
+        String cookiesValueFromSpidLoginMittente = spidLoginMittente.getCookieValue();
+        if(cookiesValueFromSpidLoginMittente != null){
+            logger.info("cookiesValueFromSpidLoginMittente : "+cookiesValueFromSpidLoginMittente);
+        }else{
+            Assert.fail("cookiesValueFromSpidLoginMittente is null");
+        }
+
+        String cookiesDomainFromSpidLoginMittente = spidLoginMittente.getCookieDomain();
+        if(cookiesDomainFromSpidLoginMittente != null){
+            logger.info("cookiesDomainFromSpidLoginMittente : "+cookiesDomainFromSpidLoginMittente);
+        }else{
+            Assert.fail("cookiesDomainFromSpidLoginMittente is null");
+        }
+
+        String cookiesPathFromSpidLoginMittente = spidLoginMittente.getCookiePath();
+        if(cookiesPathFromSpidLoginMittente != null){
+            logger.info("cookiesPathFromSpidLoginMittente : "+cookiesPathFromSpidLoginMittente);
+        }else{
+            Assert.fail("cookiesPathFromSpidLoginMittente is null");
+        }
+
+        boolean cookiesHttOnlyFromSpidLoginMittente = spidLoginMittente.getCookieHttpOnly();
+        if(cookiesHttOnlyFromSpidLoginMittente){
+            logger.info("cookiesHttOnlyFromSpidLoginMittente : "+cookiesHttOnlyFromSpidLoginMittente);
+        }else{
+            Assert.fail("cookiesHttOnlyFromSpidLoginMittente : "+cookiesHttOnlyFromSpidLoginMittente);
+        }
+
+        String requestKeyFromSpidLoginMittente = spidLoginMittente.getRequestKey();
+        if(requestKeyFromSpidLoginMittente != null){
+            logger.info("requestKeyFromSpidLoginMittente : "+requestKeyFromSpidLoginMittente);
+        }else{
+            Assert.fail("requestKeyFromSpidLoginMittente is null");
+        }
+
+        String relayStateFromSpidLoginMittente = spidLoginMittente.getRelayState();
+        if(relayStateFromSpidLoginMittente != null){
+            logger.info("relayStateFromSpidLoginMittente : "+relayStateFromSpidLoginMittente);
+        }else{
+            Assert.fail("relayStateFromSpidLoginMittente is null");
+        }
+
+        BasicCookieStore cookieStore = new BasicCookieStore();
+        BasicClientCookie cookie = new BasicClientCookie(cookiesNameFromSpidLoginMittente, cookiesValueFromSpidLoginMittente);
+        cookie.setDomain(cookiesDomainFromSpidLoginMittente);
+        cookie.setPath(cookiesPathFromSpidLoginMittente);
+        cookie.setHttpOnly(cookiesHttOnlyFromSpidLoginMittente);
+        cookieStore.addCookie(cookie);
+
+        SpidTestenvWesteuropeAzurecontainerIoLogin spidTestenvWesteuropeAzurecontainerIoLogin =
+                new SpidTestenvWesteuropeAzurecontainerIoLogin(
+                        requestKeyFromSpidLoginMittente,
+                        relayStateFromSpidLoginMittente,
+                        user,password,
+                        cookieStore
+                );
+        spidTestenvWesteuropeAzurecontainerIoLogin.setSpidTestenvWesteuropeAzurecontainerIoLoginEndPoint("https://selc-u-spid-testenv.westeurope.azurecontainer.io/login");
+        spidTestenvWesteuropeAzurecontainerIoLogin.runSpidTestenvWesteuropeAzurecontainerIoLogin();
+
+        if(spidTestenvWesteuropeAzurecontainerIoLogin.getResponseBody() == null){
+            Assert.fail(" api selc-u-spid-testenv.westeurope.azurecontainer.io/login ha risposto con body vuoto");
+        }
+
+        String requestKeyFromSpidTestenvWesteuropeAzurecontainerIoLogin = spidTestenvWesteuropeAzurecontainerIoLogin.getRequestKeyOutput();
+        if(requestKeyFromSpidTestenvWesteuropeAzurecontainerIoLogin !=null){
+            logger.info("requestKeyFromSpidTestenvWesteuropeAzurecontainerIoLogin : "+requestKeyFromSpidTestenvWesteuropeAzurecontainerIoLogin);
+        }else{
+            Assert.fail("requestKeyFromSpidTestenvWesteuropeAzurecontainerIoLogin is null");
+        }
+
+        SpidTestenvWesteuropeAzurecontainerIoContinueResponse spidTestenvWesteuropeAzurecontainerIoContinueResponse =
+                new SpidTestenvWesteuropeAzurecontainerIoContinueResponse(
+                        requestKeyFromSpidTestenvWesteuropeAzurecontainerIoLogin, cookieStore
+                );
+
+        spidTestenvWesteuropeAzurecontainerIoContinueResponse.setSpidTestenvWesteuropeAzurecontainerIoContinueResponseEndPoint("https://selc-u-spid-testenv.westeurope.azurecontainer.io/continue-response");
+        spidTestenvWesteuropeAzurecontainerIoContinueResponse.runSpidTestenvWesteuropeAzurecontainerIoContinueResponse();
+        if(spidTestenvWesteuropeAzurecontainerIoContinueResponse.getResponseBody() == null){
+            Assert.fail(" api selc-u-spid-testenv.westeurope.azurecontainer.io/continue-response");
+        }
+
+        String samlResponseFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse = spidTestenvWesteuropeAzurecontainerIoContinueResponse.getSamlResponseOutput();
+        if(samlResponseFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse != null){
+            logger.info("samlResponseFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse : "+samlResponseFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse);
+        }else{
+            Assert.fail("samlResponseFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse is null");
+        }
+
+        String relayStateFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse = spidTestenvWesteuropeAzurecontainerIoContinueResponse.getRelayStateOutput();
+        if(relayStateFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse != null){
+            logger.info("relayStateFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse : "+relayStateFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse);
+        }else{
+            Assert.fail("relayStateFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse is null");
+        }
+
+        SpidAcsMittente spidAcsMittente = new SpidAcsMittente(
+                samlResponseFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse,
+                relayStateFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse,
+                cookieStore
+        );
+
+        spidAcsMittente.setSpidAcsEndPoint("https://api.uat.selfcare.pagopa.it/spid/v1/acs");
+        spidAcsMittente.runSpidAcs();
+        this.urlMittente = spidAcsMittente.getSpidAcsMittenteResponse();
+
+        if(this.urlMittente.get("urlPortale") != null){
+            logger.info("urlMittente : "+this.urlMittente.get("urlPortale"));
+        }else{
+            Assert.fail("urlMittente è null ");
+        }
+    }
+
+
+
     @Then("Home page mittente viene visualizzata correttamente")
     public void home_page_mittente_viene_visualizzata_correttamente() {
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
