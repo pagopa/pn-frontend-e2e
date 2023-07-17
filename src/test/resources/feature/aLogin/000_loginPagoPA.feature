@@ -1,6 +1,7 @@
 Feature: Login pagoPA
 
   @loginMittente
+  @TestSuite
 
   Scenario: Login pagoPA mittente
     Given Login Page mittente "mittente" viene visualizzata
@@ -10,6 +11,7 @@ Feature: Login pagoPA
 
 
   @loginDestinatario
+  @TestSuite
   Scenario: Login pagoPA destinatario
     Given Login Page destinatario "destinatario" viene visualizzata
     When Login con destinatario "destinatario"

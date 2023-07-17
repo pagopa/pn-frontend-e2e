@@ -2,12 +2,12 @@ Feature: il mittente invia una notifica con 6 destinatario
 
   Background: Login mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente "mittente"
+    When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
   @test81
-
+    @LoginMittenteRest
 
   Scenario Outline: il mittente invia una notifica con 6 destinatario
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

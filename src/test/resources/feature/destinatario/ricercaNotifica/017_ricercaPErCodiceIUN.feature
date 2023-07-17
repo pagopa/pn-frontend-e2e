@@ -3,11 +3,12 @@ Feature: Ricerca Destinatario per Codice IUN
 
   Background: Login destinatario
     Given Login Page destinatario "destinatario" viene visualizzata
-    When Login con destinatario "destinatario"
+    When Login portale destinatario tramite request method
     Then  Home page destinatario viene visualizzata correttamente
 
   @TestSuite
   @test17
+  @restLogin
 
   Scenario: Ricerca Destinatario per Codice IUN
     When Si visualizza correttamente la pagina Piattaforma Notifiche Destinatario

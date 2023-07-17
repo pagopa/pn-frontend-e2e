@@ -2,7 +2,7 @@ Feature: Mittente visualizza correttamente la sezione genera Api Key
 
   Background: login mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente "mittente"
+    When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
     And Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
@@ -12,6 +12,7 @@ Feature: Mittente visualizza correttamente la sezione genera Api Key
 
   @TestSuite
   @test21
+  @LoginMittenteRest
 
   Scenario: Mittente visualizza correttamente la sezione genera Api Key
     When Nella pagina Api Key si clicca sul bottone genera Api Key

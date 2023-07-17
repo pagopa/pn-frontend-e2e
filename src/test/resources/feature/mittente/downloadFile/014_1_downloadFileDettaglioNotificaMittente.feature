@@ -3,7 +3,7 @@ Feature: Mittente scarica tutti i file all'interno di una notifica
 
   Background: Login mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente "mittente"
+    When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
     And Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
@@ -13,6 +13,7 @@ Feature: Mittente scarica tutti i file all'interno di una notifica
 
   @TestSuite
   @test14_1
+  @LoginMittenteRest
 
   Scenario: Mittente scarica attestazioni
     When Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita

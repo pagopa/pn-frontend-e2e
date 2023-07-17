@@ -2,12 +2,12 @@ Feature: invio notifica con lo stesso codice fiscale
 
   Background: Login mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente "mittente"
+    When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
   @test82
-
+  @LoginMittenteRest
 
     Scenario: il mittente invia la notifica con lo stesso codice fiscale
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

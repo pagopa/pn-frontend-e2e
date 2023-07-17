@@ -2,11 +2,12 @@ Feature: Il destinatario aggiunge una delega a se stessi
 
   Background: Login destinatario
     Given Login Page destinatario "destinatario" viene visualizzata
-    When Login con destinatario "destinatario"
+    When Login portale destinatario tramite request method
     Then Home page destinatario viene visualizzata correttamente
 
   @TestSuite
   @test52
+  @restLogin
 
   Scenario: Il destinatario aggiunge una delega a se stessi
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe

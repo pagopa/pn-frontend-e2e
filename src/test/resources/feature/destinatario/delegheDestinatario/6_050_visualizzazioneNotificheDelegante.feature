@@ -2,11 +2,12 @@ Feature: Il delegato visualizza la notifiche del delegante
 
   Background: Login delegato
     Given Login Page destinatario "delegato" viene visualizzata
-    When Login con destinatario "delegato"
+    When Login portale destinatario tramite request method
     Then Home page destinatario viene visualizzata correttamente
 
     @TestSuite
     @test50
+    @restLogin
 
 
   Scenario: Il delegato visualizza la notifiche del delegante

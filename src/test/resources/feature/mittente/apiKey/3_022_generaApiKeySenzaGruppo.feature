@@ -2,7 +2,7 @@ Feature: Mittente genera Api Key senza gruppo
 
   Background: login mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente "mittente"
+    When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
     And Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
@@ -12,6 +12,7 @@ Feature: Mittente genera Api Key senza gruppo
 
   @TestSuite
   @test22
+  @LoginMittenteRest
 
   Scenario: Mittente genera Api Key senza gruppo
     When Nella pagina Api Key si clicca sul bottone genera Api Key

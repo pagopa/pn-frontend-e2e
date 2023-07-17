@@ -140,8 +140,7 @@ public class LeTueDelegheSection extends BasePage {
         if(this.enteElementInput.isDisplayed()){
 
             this.enteElementInput.sendKeys(ente);
-            By menuEntiOptionBY = By.xpath("//input[@id='enti']");
-            //By menuEntiOptionBY = By.xpath("//input[@aria-activedescendant='enti-option-0']");
+            By menuEntiOptionBY = By.id("enti");
             WebElement menuEntiOption = this.driver.findElement(menuEntiOptionBY);
             this.js().executeScript("arguments[0].click()",menuEntiOption);
 

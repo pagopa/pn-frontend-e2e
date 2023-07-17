@@ -2,7 +2,7 @@ Feature: Mittente genera Api Key senza inserire il nome dell api key
 
   Background: login mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente "mittente"
+    When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
     And Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
@@ -11,6 +11,7 @@ Feature: Mittente genera Api Key senza inserire il nome dell api key
 
   @TestSuite
   @test22_neg1
+  @LoginMittenteRest
 
 
   Scenario:Mittente genera Api Key senza inserire il nome dell api key

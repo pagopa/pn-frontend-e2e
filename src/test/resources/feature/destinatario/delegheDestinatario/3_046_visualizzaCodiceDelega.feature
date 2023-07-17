@@ -2,11 +2,12 @@ Feature: Il destinatario visualizza il codice  di una delega
 
   Background: Login destinatario
     Given Login Page destinatario "destinatario" viene visualizzata
-    When Login con destinatario "destinatario"
+    When Login portale destinatario tramite request method
     Then Home page destinatario viene visualizzata correttamente
 
   @TestSuite
   @test46
+  @restLogin
 
   Scenario: Il destinatario visualizza il codice  di una delega
     When Nella pagina Piattaforma Notifiche Destinatario click sul bottone Deleghe
