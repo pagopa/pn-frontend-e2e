@@ -7,7 +7,6 @@ Feature: Atti scaricati con successo Destinatario upload failure
     Then la pagina Richiesta Atti sezione Dati della notifica è visualizzata correttamente
 
   @RADD
-  @TestSuite
 
   Scenario: Atti scaricati con successo Destinatario upload failure
     When nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il codice IUN "RADD"

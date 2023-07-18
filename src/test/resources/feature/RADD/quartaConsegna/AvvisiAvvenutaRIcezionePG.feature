@@ -7,7 +7,6 @@ Feature: Download Avvisi Destinatario
     Then la pagina Avvisi di avvenuta ricezione sezione Dati del destinatario è visualizzata correttamente
 
   @RADD
-  @TestSuite
 
   Scenario: Download Avvisi Destinatario
     When nella pagina Avvisi di avvenuta ricezione sezione Dati del destinatario selezionare persona giudridica
