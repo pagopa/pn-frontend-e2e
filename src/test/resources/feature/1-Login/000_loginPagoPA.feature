@@ -9,7 +9,6 @@ Feature: Login pagoPA
     Then Home page mittente viene visualizzata correttamente
     And Logout da portale mittente
 
-
   @loginpersonaFisica
   @TestSuite
   Scenario: Login pagoPA persona fisica
@@ -17,3 +16,11 @@ Feature: Login pagoPA
     When Login con persona fisica "personaFisica"
     Then Home page persona fisica viene visualizzata correttamente
     And Logout da portale persona fisica
+
+  @loginpersonaGiuridica
+  @TestSuite
+  Scenario: Login pagoPA persona giuridica
+    Given Login Page persona giuridica "personaGiuridica" viene visualizzata
+    When Login con persona giuridica "personaGiuridica"
+    Then Home page persona giuridica viene visualizzata correttamente
+    And Logout da portale persona giuridica
