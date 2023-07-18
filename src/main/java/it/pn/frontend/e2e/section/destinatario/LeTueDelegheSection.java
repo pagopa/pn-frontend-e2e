@@ -137,18 +137,20 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void selezionaUnEnte(String ente) {
-        if(this.enteElementInput.isDisplayed()){
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.enteElementInput));
+        this.enteElementInput.sendKeys(ente);
 
-            this.enteElementInput.sendKeys(ente);
-            By menuEntiOptionBY = By.id("enti");
-            WebElement menuEntiOption = this.driver.findElement(menuEntiOptionBY);
-            this.js().executeScript("arguments[0].click()",menuEntiOption);
+        // select menu;
+        By menuEntiOptionBy = By.xpath("//div[@role='presentation']");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuEntiOptionBy));
+        WebElement menuEntiOption = this.driver.findElement(menuEntiOptionBy);
+        this.js().executeScript("arguments[0].click()",menuEntiOption);
 
-        }else {
-            swipeToElement(this.enteElementInput);
-            this.enteElementInput.sendKeys(ente);
-        }
-
+        //click on option 0
+        By comuneOptionBy = By.id("enti-option-0");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(comuneOptionBy));
+        WebElement comuneOption = this.driver.findElement(comuneOptionBy);
+        this.js().executeScript("arguments[0].click()", comuneOption);
     }
 
     public void siVisualizzaUnaDelega() {
