@@ -11,7 +11,6 @@ Feature: Storico richieste per atti opponibili a terzi con CF e con KO
     Then la pagina Storico delle richieste è visualizzata correttamente
 
   @RADD
-  @TestSuite
 
   Scenario: Ricerca storico richieste per CF con KO
     When Nella pagina Storico delle ricerche il radio button Documenti allegati e attestazioni opponibili a terzi è selezionato

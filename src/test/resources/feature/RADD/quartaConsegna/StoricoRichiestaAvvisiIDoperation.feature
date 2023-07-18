@@ -8,7 +8,6 @@ Feature: Storico richieste per avvisi avvenuta ricezione a terzi con ID operazio
     Then la pagina Storico delle richieste è visualizzata correttamente
 
   @RADD
-  @TestSuite
 
   Scenario: Storico richieste per avvisi avvenuta ricezione a terzi con ID operazione
     When Nella pagina Storico delle ricerche il radio button avvisi avvenuta ricezione è selezionato

@@ -7,7 +7,6 @@ Feature: Download Atti Delegato
     Then la pagina Richiesta Atti sezione Dati della notifica è visualizzata correttamente
 
   @RADD
-  @TestSuite
 
   Scenario: Download Atti Delegato
     When nella pagina atti-opponibili-terzi sezione Dati della notifica inserire il codice IUN "RADD"

@@ -11,7 +11,7 @@ Background: Accesso alla pagina Storico delle richieste
    Then la pagina Storico delle richieste è visualizzata correttamente
 
    @RADD
-   @TestSuite
+
    
 Scenario: Ricerca storico richieste per IUN con KO
    When Nella pagina Storico delle ricerche selezionare il radio button Avvisi di avvenuta ricezione
