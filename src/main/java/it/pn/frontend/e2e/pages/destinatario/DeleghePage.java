@@ -32,7 +32,10 @@ public class DeleghePage extends BasePage {
         }
     }
 
-    public void clickAggiungiDelegaButton()  {this.addDelegaButton.click();}
+    public void clickAggiungiDelegaButton()  {
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.addDelegaButton));
+        this.addDelegaButton.click();
+    }
 
 
     public void waitNuovaDelegaSection() {
@@ -72,6 +75,7 @@ public class DeleghePage extends BasePage {
         By menuButton = By.xpath("//div[@data-testid='delegates-wrapper']//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuButton));
         this.js().executeScript("arguments[0].click()",this.element(menuButton));
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.revocaButton));
         this.revocaButton.click();
     }
 }
