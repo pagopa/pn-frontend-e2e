@@ -3,7 +3,7 @@ Feature: il delegato accetta la delega
   Background: Login persona fisica
     Given Login Page persona fisica "personaFisica" viene visualizzata
     When Login "delegato" portale persona fisica tramite request method
-    Then pagina Piattaforma  Notifiche persona fisica viene visualizzata correttamente
+    Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
   @test48

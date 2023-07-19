@@ -3,7 +3,7 @@ Feature: persona fisica aggiunge una delega allo stesso delegato
   Background: login persona fisica
     Given Login Page persona fisica "personaFisica" viene visualizzata
     When Login portale persona fisica tramite request method
-    Then pagina Piattaforma Notifiche persona fisica viene visualizzata correttamente
+    Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
   @test53
