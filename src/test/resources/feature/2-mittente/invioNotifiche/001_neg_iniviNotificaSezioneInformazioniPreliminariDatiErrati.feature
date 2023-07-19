@@ -5,7 +5,6 @@ Feature: Il mittente inserisce i dati non coretti nella sezione informazioni pre
     When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
 
-  @TestSuite
   @fase2Test1neg
 
   Scenario:Il mittente inserisce i dati non corretti nella sezione informazioni preliminari

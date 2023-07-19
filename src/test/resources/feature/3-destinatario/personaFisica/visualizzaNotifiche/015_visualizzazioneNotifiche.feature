@@ -1,4 +1,4 @@
-Feature: Il persona fisica visualizza la sezione notifiche
+Feature: La persona fisica visualizza la sezione notifiche
 
   Background: Login persona fisica
     Given Login Page persona fisica "personaFisica" viene visualizzata

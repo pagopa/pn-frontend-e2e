@@ -4,7 +4,6 @@ Feature: il mittente inserisce i dati  sbagliati fino alla sezione Destinatario
     When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
 
-  @TestSuite
     @fase2Test2
 
   Scenario: il mittente inserisce i dati sbagliati fino alla sezione Destinatario

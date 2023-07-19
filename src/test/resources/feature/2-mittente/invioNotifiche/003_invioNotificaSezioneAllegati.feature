@@ -4,7 +4,6 @@ Feature: il mittente inserisce tutti i dati di una notifica
     When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
 
-  @TestSuite
     @fase2Test3
 
   Scenario Outline: il mittente inserisce tutti i dati di una notifica

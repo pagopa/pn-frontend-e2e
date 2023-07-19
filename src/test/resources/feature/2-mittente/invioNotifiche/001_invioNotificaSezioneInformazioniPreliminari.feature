@@ -5,7 +5,6 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
     When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
 
-  @TestSuite
   @fase2Test1
 
   Scenario:Il mittente inserisce i dati nella sezione informazioni preliminari
