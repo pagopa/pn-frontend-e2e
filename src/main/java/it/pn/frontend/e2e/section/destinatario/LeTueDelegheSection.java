@@ -105,7 +105,9 @@ public class LeTueDelegheSection extends BasePage {
 
 
     public void clickSulBottoneInviaRichiesta() {
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.inviaLaRichiestaButton));
         this.inviaLaRichiestaButton.click();
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.tornaDelegheButton));
         this.tornaDelegheButton.click();
     }
 
