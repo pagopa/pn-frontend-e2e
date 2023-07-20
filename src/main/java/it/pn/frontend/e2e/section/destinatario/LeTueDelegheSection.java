@@ -211,15 +211,13 @@ public class LeTueDelegheSection extends BasePage {
         this.inviaLaRichiestaButton.click();
     }
 
-    public void MessaggioDiErroreDelegaASeStessi() {
-        try {
-            By ErrorMessage = By.xpath("//div[contains(text(),'Non è possibile delegare se stessi')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(ErrorMessage));
+    public String MessaggioDiErrore() {
+            By errorMessageBy = By.xpath("//div[contains(@class,'MuiAlert-message')]/div");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(errorMessageBy));
+            WebElement errorMessage = driver.findElement(errorMessageBy);
             logger.info("Messaggio di errore trovato");
-        }catch (TimeoutException e) {
-            logger.error("Messaggio di errore non trovato"+e.getMessage());
-            Assert.fail("Messaggio di errore non trovato"+e.getMessage());
-        }
+
+            return errorMessage.getText();
     }
 
     public void messaggioDiErroreDelegaPresente() {
