@@ -1,6 +1,6 @@
 Feature: il persona giuridica inserisce una OTP sbagliato PEC
 
-  @fase2test61neg
+  @fase2test61neg11
   Scenario: : Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
     When Login portale persona giuridica tramite request method
