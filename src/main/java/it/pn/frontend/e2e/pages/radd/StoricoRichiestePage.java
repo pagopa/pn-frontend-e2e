@@ -174,4 +174,25 @@ public class StoricoRichiestePage extends BasePage {
     public void insertOperationID(String idOperazioneErroreAAR) {this.operationIdDAATextField.sendKeys(idOperazioneErroreAAR);}
     public void selectAvvisiAvvenutaRicezioneButton() { this.AARRadioButton.click();}
     public void clickPersonaGiuridicaRadioButton() {this.personaGiuridicaRadioButton.click();}
+
+    public int getNRighe2(String partitaIVAPGAA) {
+        try {
+            By rigaBy = By.xpath("//tr[td[contains(text(),'MNZVMH95B09L084U')]]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(rigaBy));
+            return this.elements(rigaBy).size();
+        }catch (TimeoutException e){
+            return 0;
+        }
+    }
+
+    public void clickRichiestaRestituita1(String partitaIVAPGAA) {
+        try {
+            By richiestaBy = By.xpath("//tr[td[contains(text(),'MNZVMH95B09L084U')]]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(richiestaBy));
+            this.elements(richiestaBy).get(0).click();
+        }catch (TimeoutException e){
+            logger.error("Non sono riuscito a cliccare sulla richiesta con errore: "+e.getMessage());
+            Assert.fail("Non sono riuscito a cliccare sulla richiesta con errore: "+e.getMessage());
+        }
+    }
 }
