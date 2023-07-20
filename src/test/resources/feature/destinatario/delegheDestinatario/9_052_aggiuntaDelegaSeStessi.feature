@@ -16,5 +16,5 @@ Feature: Il destinatario aggiunge una delega a se stessi
     And Si visualizza la sezione Le Tue Deleghe
     And Nella sezione Le Tue Deleghe inserire i dati "nuova_delega_err"
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta
-    And Nella sezione Le Tue Deleghe si visualizza il messaggio di errore delega a se stessi
+    And Nella sezione Le Tue Deleghe si visualizza il messaggio di errore
     And Logout da portale destinatario
