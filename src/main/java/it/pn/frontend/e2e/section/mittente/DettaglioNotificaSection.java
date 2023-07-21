@@ -135,6 +135,15 @@ public class DettaglioNotificaSection extends BasePage {
         }
     }
 
+    public void downloadFile(String path, String url,String fileName) {
+        try {
+            URL urlPDF = new URL(url);
+            File pdf = new File(path+fileName+".pdf");
+            FileUtils.copyURLToFile(urlPDF,pdf,30000,30000);
+        } catch (IOException e) {
+            logger.error("Errore nel downolad del file : "+e.getMessage());
+        }
+    }
 
 
 

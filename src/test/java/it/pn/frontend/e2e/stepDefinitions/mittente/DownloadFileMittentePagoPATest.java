@@ -128,7 +128,7 @@ public class DownloadFileMittentePagoPATest {
 
 
 
-        dettaglioNotificaSection.downloadFileNotifica("/src/test/resources/dataPopulation/downloadFileNotifica/mittente", url, 1);
+        dettaglioNotificaSection.downloadFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente", url, nomeFile);
     }
 
     @Then("Si controlla il testo all interno del file {string}")
