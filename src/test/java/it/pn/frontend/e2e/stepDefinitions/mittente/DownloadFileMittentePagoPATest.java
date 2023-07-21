@@ -10,11 +10,9 @@ import it.pn.frontend.e2e.section.mittente.DettaglioNotificaSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,11 +23,9 @@ import java.util.concurrent.TimeUnit;
 public class DownloadFileMittentePagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("DownloadFileMittentePagoPATest");
     private final WebDriver driver = Hooks.driver;
-    private List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
+    private  final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     private  Map<String,Object> datiNotifica = new HashMap<>();
-
-    private String tabPrimeryTab;
 
 
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
