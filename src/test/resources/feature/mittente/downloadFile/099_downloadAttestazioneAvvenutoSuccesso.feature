@@ -17,5 +17,5 @@ Feature: il mittente effettua il download attestazione opponibile a terzi avvenu
     When Cliccare sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica
     And Nella sezione Dettaglio Notifiche si seleziona il file, "Attestazione opponibile a terzi: avvenuto accesso", da scaricare
-    Then Si controlla il testo all interno del file "Attestazione opponibile a terzi: avvenuto accesso"
+    Then Si controlla il testo all interno del file "Attestazione_opponibile_a_terzi_avvenuto_accesso"
     And Logout da portale mittente
