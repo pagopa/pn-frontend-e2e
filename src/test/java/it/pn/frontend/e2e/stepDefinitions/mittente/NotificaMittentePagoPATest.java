@@ -32,7 +32,7 @@ public class NotificaMittentePagoPATest {
 
     private final WebDriver driver = Hooks.driver;
     private Map<String, Object> datiNotifica = new HashMap<>();
-    private Map<String, Object> destinatario = new HashMap<>();
+    private Map<String, Object> personaFisica = new HashMap<>();
 
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
@@ -185,16 +185,16 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella section Destinatario inserire nome cognome e codice fiscale da destinatario {string}")
     public void nellaSectionDestinatarioInserireNomeCognomeECodiceFiscaleDaDestinatario(String destinatarioFile) {
-        logger.info("Inserimento del nome cognome e codice fiscale dal file destinatario.yaml");
+        logger.info("Inserimento del nome cognome e codice fiscale dal file personaFisica.yaml");
 
         DataPopulation dataPopulation = new DataPopulation();
-        this.destinatario = dataPopulation.readDataPopulation(destinatarioFile + ".yaml");
+        this.personaFisica = dataPopulation.readDataPopulation(destinatarioFile + ".yaml");
 
         DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
         destinatarioPASection.selezionarePersonaFisica();
-        destinatarioPASection.inserireNomeDestinatario(this.destinatario.get("name").toString());
-        destinatarioPASection.inserireCognomeDestinatario(this.destinatario.get("familyName").toString());
-        destinatarioPASection.inserireCodiceFiscaleDestinatario(this.destinatario.get("codiceFiscale").toString());
+        destinatarioPASection.inserireNomeDestinatario(this.personaFisica.get("name").toString());
+        destinatarioPASection.inserireCognomeDestinatario(this.personaFisica.get("familyName").toString());
+        destinatarioPASection.inserireCodiceFiscaleDestinatario(this.personaFisica.get("codiceFiscale").toString());
     }
 
     @And("Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati del destinatario {string}")
@@ -205,17 +205,17 @@ public class NotificaMittentePagoPATest {
         headerPASection.waitLoadHeaderSection();
 
         DataPopulation dataPopulation = new DataPopulation();
-        this.destinatario = dataPopulation.readDataPopulation(destinatarioFile + ".yaml");
+        this.personaFisica = dataPopulation.readDataPopulation(destinatarioFile + ".yaml");
 
         DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
         destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
-        destinatarioPASection.inserireIndirizzo(this.destinatario.get("indirizzo").toString());
-        destinatarioPASection.inserireNumeroCivico(this.destinatario.get("numeroCivico").toString());
-        destinatarioPASection.inserireLocalita(this.destinatario.get("localita").toString());
-        destinatarioPASection.inserireComune(this.destinatario.get("comune").toString());
-        destinatarioPASection.inserireProvincia(this.destinatario.get("provincia").toString());
-        destinatarioPASection.inserireCodicePostale(this.destinatario.get("codicepostale").toString());
-        destinatarioPASection.inserireStato(this.destinatario.get("stato").toString());
+        destinatarioPASection.inserireIndirizzo(this.personaFisica.get("indirizzo").toString());
+        destinatarioPASection.inserireNumeroCivico(this.personaFisica.get("numeroCivico").toString());
+        destinatarioPASection.inserireLocalita(this.personaFisica.get("localita").toString());
+        destinatarioPASection.inserireComune(this.personaFisica.get("comune").toString());
+        destinatarioPASection.inserireProvincia(this.personaFisica.get("provincia").toString());
+        destinatarioPASection.inserireCodicePostale(this.personaFisica.get("codicepostale").toString());
+        destinatarioPASection.inserireStato(this.personaFisica.get("stato").toString());
     }
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati")
@@ -286,7 +286,7 @@ public class NotificaMittentePagoPATest {
         PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        this.destinatario = dataPopulation.readDataPopulation("destinatario.yaml");
+        this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
@@ -300,7 +300,7 @@ public class NotificaMittentePagoPATest {
                 if (cookiesSection.waitLoadCookiesPage()){
                     cookiesSection.selezionaAccettaTuttiButton();
                 }
-                piattaformaNotifichePAPage.insertCodiceFiscale(this.destinatario.get("codiceFiscale").toString());
+                piattaformaNotifichePAPage.insertCodiceFiscale(this.personaFisica.get("codiceFiscale").toString());
                 piattaformaNotifichePAPage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
                 piattaformaNotifichePAPage.selezionareStatoNotifica("ACCEPTED");
                 piattaformaNotifichePAPage.selectFiltraButton();
@@ -496,7 +496,7 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionDestinatarioInserireIDatiDelDestinatariAggiuntiviPerNumeroDestinatari(String nDestinatari) {
         logger.info("Si cerca di aggiungere" + nDestinatari + " destinatari");
         DataPopulation dataPopulation = new DataPopulation();
-        this.destinatario = dataPopulation.readDataPopulation("destinatari.yaml");
+        this.personaFisica = dataPopulation.readDataPopulation("destinatari.yaml");
         int nDestinatariInt = 1;
         if (isNumeric(nDestinatari)) {
             nDestinatariInt = Integer.parseInt(nDestinatari) - 1;
@@ -509,7 +509,7 @@ public class NotificaMittentePagoPATest {
             Assert.fail("Formato non accettato. Devi inserire un numero da 1 a 5");
         }
         DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
-        destinatarioPASection.inserimentoMultiDestinatario(this.destinatario, nDestinatariInt);
+        destinatarioPASection.inserimentoMultiDestinatario(this.personaFisica, nDestinatariInt);
     }
 
     @And("Nella section Destinatario si cerca di aggiungere il sesto destinatario")
@@ -530,10 +530,10 @@ public class NotificaMittentePagoPATest {
         logger.info("Si inserisce lo stesso destinatario di prima");
 
         DataPopulation dataPopulation = new DataPopulation();
-        this.destinatario = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         
         DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
-        destinatarioPASection.inserimentoMultiDestinatario(destinatario,1);
+        destinatarioPASection.inserimentoMultiDestinatario(personaFisica,1);
 
     }
 
@@ -590,7 +590,7 @@ public class NotificaMittentePagoPATest {
         PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        this.destinatario = dataPopulation.readDataPopulation("destinatarioPec.yaml");
+        this.personaFisica = dataPopulation.readDataPopulation("personaFisicaPec.yaml");
 
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
@@ -604,7 +604,7 @@ public class NotificaMittentePagoPATest {
                 if (cookiesSection.waitLoadCookiesPage()){
                     cookiesSection.selezionaAccettaTuttiButton();
                 }
-                piattaformaNotifichePAPage.insertCodiceFiscale(this.destinatario.get("codiceFiscale").toString());
+                piattaformaNotifichePAPage.insertCodiceFiscale(this.personaFisica.get("codiceFiscale").toString());
                 piattaformaNotifichePAPage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
                 piattaformaNotifichePAPage.selezionareStatoNotifica("ACCEPTED");
                 piattaformaNotifichePAPage.selectFiltraButton();
