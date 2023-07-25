@@ -56,7 +56,7 @@ public class DownloadFileMittentePagoPATest {
         int count = 1;
         dettaglioNotificaSection.clickLinkDocumentiAllegati();
         try {
-            TimeUnit.SECONDS.sleep(2);
+            TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -70,7 +70,7 @@ public class DownloadFileMittentePagoPATest {
         for (int i = 1; i <numeroLinkAvvenutaRicezione ; i++) {
             dettaglioNotificaSection.clickLinkAvvenutaRicezione(i);
             try {
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -80,14 +80,12 @@ public class DownloadFileMittentePagoPATest {
             downloadFile.download(urlAvvenutaRicezione,file);
         }
 
-
-
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponubili();
 
         for (int i = 0; i <numeroLinkAttestazioniOpponibile ; i++) {
             dettaglioNotificaSection.clickLinkAttestazionipponibile(i);
             try {
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -96,7 +94,8 @@ public class DownloadFileMittentePagoPATest {
             count = count+1;
             downloadFile.download(urlFileAttestazioneOppponubile,file);
         }
-
+        count = count -1;
+        downloadFile.controlloDownload(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente",count);
 
     }
 
