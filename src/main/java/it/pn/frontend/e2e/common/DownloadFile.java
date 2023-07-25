@@ -26,7 +26,6 @@ public class DownloadFile extends BasePage{
             double filesize = (double)http.getContentLengthLong();
 
             BufferedInputStream input = new BufferedInputStream(http.getInputStream());
-            //fileLoc.createNewFile();
             FileOutputStream ouputfile = new FileOutputStream(fileLoc);
             BufferedOutputStream bufferOut = new BufferedOutputStream(ouputfile, 1024);
             while((readbyte = input.read(buffer, 0, 1024)) >= 0) {
