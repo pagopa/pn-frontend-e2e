@@ -1,5 +1,7 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario;
 
+import com.google.common.base.CharMatcher;
+import com.google.common.base.Splitter;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -212,19 +214,31 @@ public class NotificheDestinatarioPAgoPATest {
             File file = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN"+i+".pdf");
             downloadFile.download(urlFileAttestazioneOppponubile,file);
         }
+        downloadFile.controlloDownload(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario",numeroLinkAttestazioniOpponibile);
     }
 
     private String getUrl(String urlChiamata) {
         String url = "";
         for (int i = 0; i < netWorkInfos.size(); i++) {
-            if (netWorkInfos.get(i).getRequestUrl().contains(urlChiamata)){
-                String[] body = netWorkInfos.get(i).getResponseBody().split("url");
-                url = body[1].substring(3,body[1].length()-2);
-                break;
+            if (netWorkInfos.get(i).getRequestUrl().contains(urlChiamata) && netWorkInfos.get(i).getRequestMethod().equals("GET")){
+                String values = netWorkInfos.get(i).getResponseBody();
+                List<String> results = Splitter.on(CharMatcher.anyOf(",;:")).splitToList(values);
+
+                for (int index=0;index<results.size(); index++){
+                    if(results.get(index).startsWith("//")) {
+                        url = results.get(index);
+                        break;
+                    }
+                }
+                if(url.endsWith("}")) {
+                    url = "https:" + url.substring(0, url.length() - 2);
+                }else {
+                    url = "https:" + url.substring(0, url.length() - 1);
+                }
+                logger.info("url",url);
             }
         }
         return url;
-
     }
 
     @And("Si clicca sul opzione Vedi Dettaglio")
