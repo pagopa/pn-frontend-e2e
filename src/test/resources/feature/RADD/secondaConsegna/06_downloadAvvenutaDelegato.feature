@@ -7,7 +7,6 @@ Feature: Download Avvisi Delegato
     Then la pagina Avvisi di avvenuta ricezione sezione Dati del destinatario è visualizzata correttamente
 
   @RADD
-  @TestSuite
 
   Scenario: Download Avvisi Delegato
     When nella pagina Avvisi di avvenuta ricezione sezione Dati del destinatario il Soggetto giuridico e selezionato di default come Persona fisica

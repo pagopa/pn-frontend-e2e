@@ -10,7 +10,7 @@ Feature: Nuova ricerca per storico richieste per atti opponibili a terzi
     Then la pagina Storico delle richieste è visualizzata correttamente
 
     @RADD
-    @TestSuite
+
 
   Scenario: bottone Nuova ricerca per ricerca storico richieste
     When Nella pagina Storico delle ricerche il radio button Documenti allegati e attestazioni opponibili a terzi è selezionato
