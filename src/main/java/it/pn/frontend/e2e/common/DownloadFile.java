@@ -1,9 +1,8 @@
 package it.pn.frontend.e2e.common;
-
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -49,6 +48,27 @@ public class DownloadFile extends BasePage{
             e.printStackTrace();
         }
 
+    }
+
+    public void controlloDownload(String path, int numberOfFile){
+        File directory = new File(path);
+
+        File[] fList = directory.listFiles(File::isFile);
+
+        if (fList != null && fList.length <= numberOfFile){
+            for (File file : fList) {
+                if(file.getName().endsWith(".pdf")){
+                    String filename = file.getName();
+                    boolean result = file.delete();
+                    if (result) {
+                        logger.info("File: "+filename+ " è stato scaricato e eliminato ");
+                    }
+                }
+            }
+        }else {
+            logger.error("File non scaricato o non completo numberOfFile="+numberOfFile);
+            Assert.fail("File non scaricato");
+        }
     }
 
 }
