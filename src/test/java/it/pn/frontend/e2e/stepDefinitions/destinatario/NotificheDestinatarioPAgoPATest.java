@@ -31,7 +31,7 @@ public class NotificheDestinatarioPAgoPATest {
 
     private final WebDriver driver = Hooks.driver;
 
-    private List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
+    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     @When("Nella pagina Piattaforma Notifiche Destinatario si clicca sul bottone Notifiche")
     public void nella_piattaforma_destinatario_cliccare_sul_bottone_notifiche() {
