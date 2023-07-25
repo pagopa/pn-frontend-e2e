@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.DownloadFile;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.NotificheDEPage;
@@ -17,6 +18,7 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -193,18 +195,22 @@ public class NotificheDestinatarioPAgoPATest {
     @Then("Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica destinatario, e si controlla che il download sia avvenuto")
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaDestinatarioESiControllaCheIlDownloadSiaAvvenuto() {
         DettaglioNotificaDESection dettaglioNotificaDESection = new DettaglioNotificaDESection(this.driver);
+        DownloadFile downloadFile = new DownloadFile(this.driver);
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaDESection.getLinkAttestazioniOpponubili();
         DataPopulation dataPopulation = new DataPopulation();
         Map<String,Object> datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        String workingDirectory = System.getProperty("user.dir");
+
         for (int i = 0; i <numeroLinkAttestazioniOpponibile ; i++) {
-            dettaglioNotificaDESection.clickLinkAttestazionipponibile(numeroLinkAttestazioniOpponibile);
+            dettaglioNotificaDESection.clickLinkAttestazionipponibile(i);
             try {
                 TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             String urlFileAttestazioneOppponubile = getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+datiNotifica.get("codiceIUN").toString()+"/legal-facts/");
-            dettaglioNotificaDESection.downloadFileNotifica("src/test/resources/dataPopulation/downloadFileNotifica/mittente",urlFileAttestazioneOppponubile,3);
+            File file = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN"+i+".pdf");
+            downloadFile.download(urlFileAttestazioneOppponubile,file);
         }
     }
 
