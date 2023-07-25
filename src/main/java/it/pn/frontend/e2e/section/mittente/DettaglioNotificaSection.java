@@ -54,24 +54,7 @@ public class DettaglioNotificaSection extends BasePage {
         }
 
     }
-    public void controlloDownload(){
-        File partialPath = new File("src/test/resources/dataPopulation/downloadFileNotifica/mittente");
-        File directory = new File(partialPath.getAbsolutePath());
 
-        File[] fList = directory.listFiles(File::isFile);
-
-        if (fList != null && fList.length > 0){
-            for (File file : fList) {
-                boolean result = file.delete();
-                if (result) {
-                    logger.info("File scaricato e eliminato");
-                }
-            }
-        }else {
-            logger.error("File non scaricato");
-            Assert.fail("File non scaricato");
-        }
-    }
 
     public void selezioneVediDettaglioButton() {
         vediDettagliButton.click();
