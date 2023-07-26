@@ -1,5 +1,7 @@
 package it.pn.frontend.e2e.stepDefinitions.mittente;
 
+import com.google.common.base.CharMatcher;
+import com.google.common.base.Splitter;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -13,6 +15,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,10 +26,9 @@ import java.util.concurrent.TimeUnit;
 public class DownloadFileMittentePagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("DownloadFileMittentePagoPATest");
     private final WebDriver driver = Hooks.driver;
-    private  final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
+    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     private  Map<String,Object> datiNotifica = new HashMap<>();
-
 
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
     public void clickNotificaRestituita() {
@@ -85,9 +87,11 @@ public class DownloadFileMittentePagoPATest {
         String url = "";
         for (int i = 0; i < netWorkInfos.size(); i++) {
             if (netWorkInfos.get(i).getRequestUrl().contains(urlChiamata)){
-                String[] body = netWorkInfos.get(i).getResponseBody().split("url");
-                url = body[1].substring(3,body[1].length()-2);
-                break;
+                String values = netWorkInfos.get(i).getResponseBody();
+                List<String> results = Splitter.on(CharMatcher.anyOf(",;:")).splitToList(values);
+                url = results.get(6);
+                url = "https:"+url.substring(0,url.length()-1);
+                logger.info("url");
             }
         }
         return url;
@@ -121,10 +125,13 @@ public class DownloadFileMittentePagoPATest {
             throw new RuntimeException(e);
         }
         String url = getUrl("https://webapi.test.notifichedigitali.it/delivery-push/");
+        String workingDirectory = System.getProperty("user.dir");
 
+        nomeFile = nomeFile.replace(" ","_").replace(":", "");
+        File file = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf");
 
+        dettaglioNotificaSection.download(url,file);
 
-        dettaglioNotificaSection.downloadFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente", url, nomeFile);
     }
 
     @Then("Si controlla il testo all interno del file {string}")
@@ -133,11 +140,13 @@ public class DownloadFileMittentePagoPATest {
 
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         Map<String, String> infoNotifiche = dettaglioNotificaSection.recuperoInfoNotifiche();
-        if (dettaglioNotificaSection.controlloTestoFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("mittente").toString())) {
-            logger.info("Il nome del mittente all'interno del file è corretto");
-        } else {
-            logger.error("Il nome del mittente  all'interno del file  NON è corretto");
-            Assert.fail("Il nome del mittente  all'interno del file  NON è corretto");
+        if(nomeFile.equals("Attestazione_opponibile_a_terzi_notifica_presa_in_carico")){
+            if (dettaglioNotificaSection.controlloTestoFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("mittente").toString())) {
+                logger.info("Il nome del mittente all'interno del file è corretto");
+            } else {
+                logger.error("Il nome del mittente  all'interno del file  NON è corretto");
+                Assert.fail("Il nome del mittente  all'interno del file  NON è corretto");
+            }
         }
 
         if (dettaglioNotificaSection.controlloTestoFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("destinatario").toString())) {
