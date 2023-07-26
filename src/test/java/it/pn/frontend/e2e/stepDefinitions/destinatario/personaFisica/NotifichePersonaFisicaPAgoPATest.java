@@ -27,7 +27,7 @@ public class NotifichePersonaFisicaPAgoPATest {
 
     private final WebDriver driver = Hooks.driver;
 
-    private List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
+    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche")
     public void nella_piattaforma_destinatario_cliccare_sul_bottone_notifiche() {
@@ -177,7 +177,7 @@ public class NotifichePersonaFisicaPAgoPATest {
         }
     }
 
-    @When("Il persona fisica clicca sulla notifica restituita")
+    @When("Il destinatario clicca sulla notifica restituita")
     public void ilDestinatarioCliccaSullaNotificaRestituita() {
         logger.info("Si clicca sulla notifica");
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
@@ -194,10 +194,16 @@ public class NotifichePersonaFisicaPAgoPATest {
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaDestinatarioESiControllaCheIlDownloadSiaAvvenuto() {
         DettaglioNotificaFRSection dettaglioNotificaFRSection = new DettaglioNotificaFRSection(this.driver);
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaFRSection.getLinkAttestazioniOpponubili();
+        DettaglioNotificaDESection dettaglioNotificaDESection = new DettaglioNotificaDESection(this.driver);
+        DownloadFile downloadFile = new DownloadFile(this.driver);
+        int numeroLinkAttestazioniOpponibile = dettaglioNotificaDESection.getLinkAttestazioniOpponubili();
         DataPopulation dataPopulation = new DataPopulation();
         Map<String,Object> datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        String workingDirectory = System.getProperty("user.dir");
+
         for (int i = 0; i <numeroLinkAttestazioniOpponibile ; i++) {
             dettaglioNotificaFRSection.clickLinkAttestazionipponibile(numeroLinkAttestazioniOpponibile);
+            dettaglioNotificaDESection.clickLinkAttestazionipponibile(i);
             try {
                 TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
@@ -205,16 +211,31 @@ public class NotifichePersonaFisicaPAgoPATest {
             }
             String urlFileAttestazioneOppponubile = getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+datiNotifica.get("codiceIUN").toString()+"/legal-facts/");
             dettaglioNotificaFRSection.downloadFileNotifica("src/test/resources/dataPopulation/downloadFileNotifica/mittente",urlFileAttestazioneOppponubile,3);
+            File file = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN"+i+".pdf");
+            downloadFile.download(urlFileAttestazioneOppponubile,file);
         }
+        downloadFile.controlloDownload(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario",numeroLinkAttestazioniOpponibile);
     }
 
     private String getUrl(String urlChiamata) {
         String url = "";
         for (int i = 0; i < netWorkInfos.size(); i++) {
-            if (netWorkInfos.get(i).getRequestUrl().contains(urlChiamata)){
-                String[] body = netWorkInfos.get(i).getResponseBody().split("url");
-                url = body[1].substring(3,body[1].length()-2);
-                break;
+            if (netWorkInfos.get(i).getRequestUrl().contains(urlChiamata) && netWorkInfos.get(i).getRequestMethod().equals("GET")){
+                String values = netWorkInfos.get(i).getResponseBody();
+                List<String> results = Splitter.on(CharMatcher.anyOf(",;:")).splitToList(values);
+
+                for (int index=0;index<results.size(); index++){
+                    if(results.get(index).startsWith("//")) {
+                        url = results.get(index);
+                        break;
+                    }
+                }
+                if(url.endsWith("}")) {
+                    url = "https:" + url.substring(0, url.length() - 2);
+                }else {
+                    url = "https:" + url.substring(0, url.length() - 1);
+                }
+                logger.info("url",url);
             }
         }
         return url;

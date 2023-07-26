@@ -10,19 +10,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
+import java.io.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class DettaglioNotificaSection extends BasePage {
 
@@ -59,24 +54,7 @@ public class DettaglioNotificaSection extends BasePage {
         }
 
     }
-    public void controlloDownload(){
-        File partialPath = new File("src/test/resources/dataPopulation/downloadFileNotifica/mittente");
-        File directory = new File(partialPath.getAbsolutePath());
 
-        File[] fList = directory.listFiles(File::isFile);
-
-        if (fList != null && fList.length > 0){
-            for (File file : fList) {
-                boolean result = file.delete();
-                if (result) {
-                    logger.info("File scaricato e eliminato");
-                }
-            }
-        }else {
-            logger.error("File non scaricato");
-            Assert.fail("File non scaricato");
-        }
-    }
 
     public void selezioneVediDettaglioButton() {
         vediDettagliButton.click();
@@ -93,8 +71,13 @@ public class DettaglioNotificaSection extends BasePage {
         String mittente = getInfoNotifica(0);
         infoNotifica.put("mittente",mittente);
         String destinatario = getInfoNotifica(1);
-        infoNotifica.put("destinatario",destinatario);
         String codiceFiscale = getInfoNotifica(2);
+        if(destinatario.contains("-")){
+            String[] splitedDestinatario = destinatario.split(" - ");
+            destinatario = splitedDestinatario[1];
+            codiceFiscale = splitedDestinatario[0];
+        }
+        infoNotifica.put("destinatario",destinatario);
         infoNotifica.put("codiceFiscale",codiceFiscale);
         String data = getInfoNotifica(3);
         infoNotifica.put("data",data);
@@ -124,19 +107,6 @@ public class DettaglioNotificaSection extends BasePage {
     private String getInfoNotifica(int i) {
         return infoNotifiche.get(i).getText();
     }
-
-    public void downloadFileNotifica(String path, String url,int nDownload) {
-        try {
-            URL urlPDF = new URL(url);
-            File pdf = new File(path+"/pdfNotificaN"+nDownload+".pdf");
-            FileUtils.copyURLToFile(urlPDF,pdf,30000,30000);
-        } catch (IOException e) {
-            logger.error("Errore nel downolad del file : "+e.getMessage());
-        }
-    }
-
-
-
 
     public boolean controlloTestoFile(String path, String testoDaControllare) {
 
@@ -215,7 +185,7 @@ public class DettaglioNotificaSection extends BasePage {
      this.linkAllegati.get(0).click();
     }
 
-    public void clickLinkAvvenutaRicezione() {this.linkAllegati.get(1).click();}
+    public void clickLinkAvvenutaRicezione(int i) {this.linkAllegati.get(i).click();}
 
     public void clickLinkAttestazioneOpponibile(String nomeFile) {
         try {
@@ -240,16 +210,14 @@ public class DettaglioNotificaSection extends BasePage {
         return this.elements(mailPecBy).size();
     }
 
-    public void clickAllLinkDownload() {
-        clickLinkDocumentiAllegati();
-        clickLinkAvvenutaRicezione();
-        clickLinkAttestazioneOpponibile("Attestazione opponibile a terzi: notifica presa in carico");
-    }
-
     public int getLinkAttestazioniOpponubili() {
         return attestazioniFile.size();
     }
 
+
+    public int getLinkAvvenutaRicezione() {
+        return linkAllegati.size();
+    }
     public void clickLinkAttestazionipponibile(int numeroLinkAttestazioniOpponibile) {
         attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
     }
