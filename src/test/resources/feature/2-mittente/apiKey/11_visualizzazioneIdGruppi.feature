@@ -10,6 +10,7 @@ Feature: Mittente seleziona l'opzione visualizza ID gruppo
     And Si visualizza correttamente la pagina Api Key
 
   @fase2Test22
+    @provaRun2
 
   Scenario: Mittente seleziona l'opzione visualizza ID gruppo
     When Nella pagina Api Key si clicca sul bottone menu di una Api Key attiva presente in elenco

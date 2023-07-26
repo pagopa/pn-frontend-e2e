@@ -1,8 +1,11 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica;
 
+import com.google.common.base.CharMatcher;
+import com.google.common.base.Splitter;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.DownloadFile;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
@@ -17,6 +20,7 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -194,16 +198,13 @@ public class NotifichePersonaFisicaPAgoPATest {
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaDestinatarioESiControllaCheIlDownloadSiaAvvenuto() {
         DettaglioNotificaFRSection dettaglioNotificaFRSection = new DettaglioNotificaFRSection(this.driver);
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaFRSection.getLinkAttestazioniOpponubili();
-        DettaglioNotificaDESection dettaglioNotificaDESection = new DettaglioNotificaDESection(this.driver);
         DownloadFile downloadFile = new DownloadFile(this.driver);
-        int numeroLinkAttestazioniOpponibile = dettaglioNotificaDESection.getLinkAttestazioniOpponubili();
         DataPopulation dataPopulation = new DataPopulation();
         Map<String,Object> datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         String workingDirectory = System.getProperty("user.dir");
 
         for (int i = 0; i <numeroLinkAttestazioniOpponibile ; i++) {
-            dettaglioNotificaFRSection.clickLinkAttestazionipponibile(numeroLinkAttestazioniOpponibile);
-            dettaglioNotificaDESection.clickLinkAttestazionipponibile(i);
+            dettaglioNotificaFRSection.clickLinkAttestazionipponibile(i);
             try {
                 TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
