@@ -1,4 +1,4 @@
-package it.pn.frontend.e2e.common;
+package it.pn.frontend.e2e.utility;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -7,12 +7,9 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class DownloadFile extends BasePage{
+public class DownloadFile{
 
     private static final Logger logger = LoggerFactory.getLogger("DownloadFile");
-    public DownloadFile(WebDriver driver) {
-        super(driver);
-    }
 
     public void download(String urlLink, File fileLoc) {
         try {
@@ -54,7 +51,7 @@ public class DownloadFile extends BasePage{
 
         File[] fList = directory.listFiles(File::isFile);
 
-        if (fList != null && fList.length <= numberOfFile){
+        if (fList != null && fList.length != 0){
             for (File file : fList) {
                 if(file.getName().endsWith(".pdf")){
                     String filename = file.getName();

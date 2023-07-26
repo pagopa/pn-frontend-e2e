@@ -5,7 +5,7 @@ import com.google.common.base.Splitter;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import it.pn.frontend.e2e.common.DownloadFile;
+import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePAPage;
@@ -31,7 +31,7 @@ public class DownloadFileMittentePagoPATest {
 
     private  Map<String,Object> datiNotifica = new HashMap<>();
 
-     DownloadFile downloadFile = new DownloadFile(this.driver);
+     private DownloadFile downloadFile;
 
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
     public void clickNotificaRestituita() {
@@ -66,6 +66,7 @@ public class DownloadFileMittentePagoPATest {
 
         final String urlDocumentiAllegati = getUrl(urlDocumenti);
         File file = new File(filepath+count+".pdf");
+        downloadFile = new DownloadFile();
         downloadFile.download(urlDocumentiAllegati,file);
         count = count+1;
 
@@ -163,6 +164,7 @@ public class DownloadFileMittentePagoPATest {
         nomeFile = nomeFile.replace(" ","_").replace(":", "");
         File file = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf");
 
+        downloadFile = new DownloadFile();
         downloadFile.download(url,file);
 
     }

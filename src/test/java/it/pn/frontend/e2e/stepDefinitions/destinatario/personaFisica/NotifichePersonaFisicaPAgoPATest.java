@@ -5,7 +5,7 @@ import com.google.common.base.Splitter;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import it.pn.frontend.e2e.common.DownloadFile;
+import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
@@ -198,7 +198,7 @@ public class NotifichePersonaFisicaPAgoPATest {
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaDestinatarioESiControllaCheIlDownloadSiaAvvenuto() {
         DettaglioNotificaFRSection dettaglioNotificaFRSection = new DettaglioNotificaFRSection(this.driver);
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaFRSection.getLinkAttestazioniOpponubili();
-        DownloadFile downloadFile = new DownloadFile(this.driver);
+        DownloadFile downloadFile = new DownloadFile();
         DataPopulation dataPopulation = new DataPopulation();
         Map<String,Object> datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         String workingDirectory = System.getProperty("user.dir");
