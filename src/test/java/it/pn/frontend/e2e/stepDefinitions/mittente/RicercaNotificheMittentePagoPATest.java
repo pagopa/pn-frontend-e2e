@@ -25,7 +25,7 @@ public class RicercaNotificheMittentePagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittenteTest");
 
     private final WebDriver driver = Hooks.driver;
-    private Map<String, Object> destinatario = new HashMap<>();
+    private Map<String, Object> personaFisica = new HashMap<>();
     private Map<String, Object> datiNotifica = new HashMap<>();
 
     @And("Nella pagina Piattaforma Notifiche inserire il codice fiscale del destinatario {string}")
@@ -33,10 +33,10 @@ public class RicercaNotificheMittentePagoPATest {
         logger.info("Avvio ricerca tramite codice fiscale");
 
         DataPopulation dataPopulation = new DataPopulation();
-        this.destinatario = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
         DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
-        String cf = destinatarioPASection.ricercaInformazione(destinatario.get("codiceFiscale").toString().split(","), 0);
+        String cf = destinatarioPASection.ricercaInformazione(personaFisica.get("codiceFiscale").toString().split(","), 0);
 
         PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
 
@@ -63,9 +63,9 @@ public class RicercaNotificheMittentePagoPATest {
         piattaformaNotifichePAPage.waitLoadPiattaformaNotifichePAPage();
 
         DataPopulation dataPopulation = new DataPopulation();
-        this.destinatario = dataPopulation.readDataPopulation(dpDestinatario + ".yaml");
+        this.personaFisica = dataPopulation.readDataPopulation(dpDestinatario + ".yaml");
 
-        String cfInserito = this.destinatario.get("codiceFiscale").toString();
+        String cfInserito = this.personaFisica.get("codiceFiscale").toString();
         int listaCF = piattaformaNotifichePAPage.getListaCf(cfInserito);
 
         if (listaCF >= 1) {
@@ -252,9 +252,9 @@ public class RicercaNotificheMittentePagoPATest {
         piattaformaNotifichePAPage.waitLoadPiattaformaNotifichePAPage();
 
         DataPopulation dataPopulation = new DataPopulation();
-        this.destinatario = dataPopulation.readDataPopulation("destinatario.yaml");
+        this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
-        String cfInserito = this.destinatario.get("codiceFiscale").toString();
+        String cfInserito = this.personaFisica.get("codiceFiscale").toString();
         int listaCF = piattaformaNotifichePAPage.getListaCf(cfInserito);
 
         if (listaCF >= 1) {
@@ -362,9 +362,9 @@ public class RicercaNotificheMittentePagoPATest {
         piattaformaNotifichePAPage.waitLoadPiattaformaNotifichePAPage();
 
         DataPopulation dataPopulation = new DataPopulation();
-        this.destinatario = dataPopulation.readDataPopulation("destinatario.yaml");
+        this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
-        String cfInserito = this.destinatario.get("codiceFiscale").toString();
+        String cfInserito = this.personaFisica.get("codiceFiscale").toString();
         int listaCF = piattaformaNotifichePAPage.getListaCf(cfInserito);
 
         if (listaCF >= 1) {
@@ -395,9 +395,9 @@ public class RicercaNotificheMittentePagoPATest {
         piattaformaNotifichePAPage.waitLoadPiattaformaNotifichePAPage();
 
         DataPopulation dataPopulation = new DataPopulation();
-        this.destinatario = dataPopulation.readDataPopulation("destinatario.yaml");
+        this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
-        String cfInserito = this.destinatario.get("codiceFiscale").toString();
+        String cfInserito = this.personaFisica.get("codiceFiscale").toString();
         int listaCF = piattaformaNotifichePAPage.getListaCf(cfInserito);
 
         if (listaCF >= 1) {
