@@ -101,7 +101,8 @@ public class DownloadFileMittentePagoPATest {
             downloadFile.download(urlFileAttestazioneOppponubile,file);
         }
         count = count -1;
-        downloadFile.controlloDownload(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente",count);
+        final String pathOfdownloadedFile = workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente";
+        downloadFile.controlloDownload(pathOfdownloadedFile,count);
 
     }
 
@@ -123,7 +124,7 @@ public class DownloadFileMittentePagoPATest {
                 }else {
                     url = "https:" + url.substring(0, url.length() - 1);
                 }
-                logger.info("url",url);
+                logger.info("url: "+url);
             }
         }
         return url;
