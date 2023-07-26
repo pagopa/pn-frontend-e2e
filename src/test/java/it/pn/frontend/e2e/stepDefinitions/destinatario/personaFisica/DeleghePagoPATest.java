@@ -156,10 +156,12 @@ public class DeleghePagoPATest {
         this.leTueDelegheSection.clickInviaRichiesta();
     }
 
-    @And("Nella sezione Le Tue Deleghe si visualizza il messaggio di errore delega a se stessi")
-    public void nellaSezioneLeTueDelegheSiVisualizzaIlMessaggioDiErroreDelegaASeStessi() {
+    @And("Nella sezione Le Tue Deleghe si visualizza il messaggio di errore")
+    public void nellaSezioneLeTueDelegheSiVisualizzaIlMessaggioDiErrore() {
         logger.info("Si visualizza il messaggio di errore");
-        this.leTueDelegheSection.MessaggioDiErroreDelegaASeStessi();
+        String actualErrorMessage = this.leTueDelegheSection.MessaggioDiErrore().toLowerCase();
+        String expectedErrorMessage = "codice fiscale non valido";
+        Assert.assertEquals("Messeggio di Errore non è uguale a Codice fiscale non valido",expectedErrorMessage,actualErrorMessage);
     }
 
     @And("Nella sezione Le Tue Deleghe si visualizza il messaggio di errore delega gia aggiunta")

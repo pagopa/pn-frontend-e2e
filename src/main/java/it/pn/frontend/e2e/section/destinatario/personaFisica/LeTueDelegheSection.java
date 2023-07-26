@@ -105,7 +105,9 @@ public class LeTueDelegheSection extends BasePage {
 
 
     public void clickSulBottoneInviaRichiesta() {
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.inviaLaRichiestaButton));
         this.inviaLaRichiestaButton.click();
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.tornaDelegheButton));
         this.tornaDelegheButton.click();
     }
 
@@ -137,18 +139,20 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void selezionaUnEnte(String ente) {
-        if(this.enteElementInput.isDisplayed()){
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.enteElementInput));
+        this.enteElementInput.sendKeys(ente);
 
-            this.enteElementInput.sendKeys(ente);
-            By menuEntiOptionBY = By.id("enti");
-            WebElement menuEntiOption = this.driver.findElement(menuEntiOptionBY);
-            this.js().executeScript("arguments[0].click()",menuEntiOption);
+        // select menu;
+        By menuEntiOptionBy = By.xpath("//div[@role='presentation']");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuEntiOptionBy));
+        WebElement menuEntiOption = this.driver.findElement(menuEntiOptionBy);
+        this.js().executeScript("arguments[0].click()",menuEntiOption);
 
-        }else {
-            swipeToElement(this.enteElementInput);
-            this.enteElementInput.sendKeys(ente);
-        }
-
+        //click on option 0
+        By comuneOptionBy = By.id("enti-option-0");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(comuneOptionBy));
+        WebElement comuneOption = this.driver.findElement(comuneOptionBy);
+        this.js().executeScript("arguments[0].click()", comuneOption);
     }
 
     public void siVisualizzaUnaDelega() {
@@ -207,15 +211,13 @@ public class LeTueDelegheSection extends BasePage {
         this.inviaLaRichiestaButton.click();
     }
 
-    public void MessaggioDiErroreDelegaASeStessi() {
-        try {
-            By ErrorMessage = By.xpath("//div[contains(text(),'Non è possibile delegare se stessi')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(ErrorMessage));
+    public String MessaggioDiErrore() {
+            By errorMessageBy = By.xpath("//div[contains(@class,'MuiAlert-message')]/div");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(errorMessageBy));
+            WebElement errorMessage = driver.findElement(errorMessageBy);
             logger.info("Messaggio di errore trovato");
-        }catch (TimeoutException e) {
-            logger.error("Messaggio di errore non trovato"+e.getMessage());
-            Assert.fail("Messaggio di errore non trovato"+e.getMessage());
-        }
+
+            return errorMessage.getText();
     }
 
     public void messaggioDiErroreDelegaPresente() {
