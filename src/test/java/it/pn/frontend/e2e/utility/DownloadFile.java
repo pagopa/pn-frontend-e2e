@@ -1,6 +1,5 @@
 package it.pn.frontend.e2e.utility;
 import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.*;
