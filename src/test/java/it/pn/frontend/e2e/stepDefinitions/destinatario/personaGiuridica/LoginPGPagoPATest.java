@@ -8,6 +8,8 @@ import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
 import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoContinueResponse;
 import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoLogin;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
+import it.pn.frontend.e2e.pages.mittente.AutorizziInvioDatiPAPage;
 import it.pn.frontend.e2e.pages.mittente.SelezionaEntePAPage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
@@ -18,19 +20,22 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class LoginPGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("LoginPGPagoPATest");
     private final WebDriver driver = Hooks.driver;
-    private Map<String, Object> datiPersonaGiuridica;
+    private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
 
     private Map<String, String> urlPersonaGiuridica;
 
+    DataPopulation dataPopulation = new DataPopulation();
+
+
     @Given("Login Page persona giuridica {string} viene visualizzata")
     public void login_page_persona_giuridica_viene_visualizzata(String datiPersonaGiuridicaFile) {
-        DataPopulation dataPopulation = new DataPopulation();
         this.datiPersonaGiuridica = dataPopulation.readDataPopulation(datiPersonaGiuridicaFile + ".yaml");
         String variabileAmbiente = System.getProperty("environment");
         switch (variabileAmbiente) {
@@ -42,6 +47,7 @@ public class LoginPGPagoPATest {
 
     @When("Login portale persona giuridica tramite request method")
     public void loginPortalePersonaGiuridicaTramiteRequestMethod() {
+        this.datiPersonaGiuridica = dataPopulation.readDataPopulation("personaGiuridica.yaml");
         String userMittente = this.datiPersonaGiuridica.get("user").toString();
         String pwdMittente = this.datiPersonaGiuridica.get("pwd").toString();
         this.readurlPortaleMittente(userMittente,pwdMittente);
@@ -211,5 +217,43 @@ public class LoginPGPagoPATest {
     @Then("Home page persona giuridica viene visualizzata correttamente")
     public void homePagePersonaGiuridicaVieneVisualizzataCorrettamente() {
         
+    }
+
+    @When("Login con persona giuridica {string}")
+    public void loginConPersonaGiuridica(String nomeFile) {
+        logger.info("La persona guiridica cerca di fare il login");
+        this.datiPersonaGiuridica = this.dataPopulation.readDataPopulation(nomeFile+".yaml");
+
+        CookiesSection cookiesSection = new CookiesSection(this.driver);
+        if (cookiesSection.waitLoadCookiesPage()){
+            cookiesSection.selezionaAccettaTuttiButton();
+        }
+
+        PreAccediAreaRiservataPGPage preAccediAreaRiservataPGPage = new PreAccediAreaRiservataPGPage(this.driver);
+        preAccediAreaRiservataPGPage.waitLoadPreAccediPage();
+        preAccediAreaRiservataPGPage.clickAccediButton();
+
+        if (cookiesSection.waitLoadCookiesPage()){
+            cookiesSection.selezionaAccettaTuttiButton();
+        }
+
+        AcccediAreaRiservataPGPage acccediAreaRiservataPGPage = new AcccediAreaRiservataPGPage(this.driver);
+        acccediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
+        acccediAreaRiservataPGPage.clickSpidButton();
+
+        ScegliSpidPGPage scegliSpidPGPage = new ScegliSpidPGPage(this.driver);
+        scegliSpidPGPage.waitLoadScegliSpidPGPage();
+        scegliSpidPGPage.clickTestButton();
+
+        LoginPGPagoPAPage loginPGPagoPAPage = new LoginPGPagoPAPage(this.driver);
+        loginPGPagoPAPage.waitLoadLoginPGPage();
+        loginPGPagoPAPage.insertUsername(this.datiPersonaGiuridica.get("user").toString());
+        loginPGPagoPAPage.insertPassword(this.datiPersonaGiuridica.get("pwd").toString());
+        loginPGPagoPAPage.clickInviaButton();
+
+
+        AutorizziInvioDatiPGPage autorizziInvioDatiPGPage = new AutorizziInvioDatiPGPage(this.driver);
+        autorizziInvioDatiPGPage.waitLoadPage();
+
     }
 }
