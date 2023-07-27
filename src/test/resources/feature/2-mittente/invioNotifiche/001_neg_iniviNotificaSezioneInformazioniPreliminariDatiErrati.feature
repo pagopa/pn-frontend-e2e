@@ -6,8 +6,7 @@ Feature: Il mittente inserisce i dati non coretti nella sezione informazioni pre
     Then Home page mittente viene visualizzata correttamente
 
   @fase2Test1neg
-  @provaRun
-
+  @TestSuite
   Scenario:Il mittente inserisce i dati non corretti nella sezione informazioni preliminari
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche

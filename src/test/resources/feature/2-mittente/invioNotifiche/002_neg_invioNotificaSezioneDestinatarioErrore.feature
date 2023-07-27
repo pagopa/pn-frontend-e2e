@@ -5,8 +5,7 @@ Feature: il mittente inserisce i dati  sbagliati fino alla sezione Destinatario
     Then Home page mittente viene visualizzata correttamente
 
     @fase2Test2
-    @provaRun
-
+    @TestSuite
 
   Scenario: il mittente inserisce i dati sbagliati fino alla sezione Destinatario
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

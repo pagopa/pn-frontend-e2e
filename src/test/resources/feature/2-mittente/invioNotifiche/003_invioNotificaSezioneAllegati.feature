@@ -5,8 +5,7 @@ Feature: il mittente inserisce tutti i dati di una notifica
     Then Home page mittente viene visualizzata correttamente
 
     @fase2Test3
-      @provaRun
-
+      @TestSuite
   Scenario Outline: il mittente inserisce tutti i dati di una notifica
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
