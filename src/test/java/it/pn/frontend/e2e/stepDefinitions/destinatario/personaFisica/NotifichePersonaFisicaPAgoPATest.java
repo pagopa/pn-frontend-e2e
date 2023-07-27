@@ -1,8 +1,11 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica;
 
+import com.google.common.base.CharMatcher;
+import com.google.common.base.Splitter;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
@@ -17,6 +20,7 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -27,7 +31,7 @@ public class NotifichePersonaFisicaPAgoPATest {
 
     private final WebDriver driver = Hooks.driver;
 
-    private List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
+    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche")
     public void nella_piattaforma_destinatario_cliccare_sul_bottone_notifiche() {
@@ -194,8 +198,11 @@ public class NotifichePersonaFisicaPAgoPATest {
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaDestinatarioESiControllaCheIlDownloadSiaAvvenuto() {
         DettaglioNotificaFRSection dettaglioNotificaFRSection = new DettaglioNotificaFRSection(this.driver);
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaFRSection.getLinkAttestazioniOpponubili();
+        DownloadFile downloadFile = new DownloadFile();
         DataPopulation dataPopulation = new DataPopulation();
         Map<String,Object> datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        String workingDirectory = System.getProperty("user.dir");
+
         for (int i = 0; i <numeroLinkAttestazioniOpponibile ; i++) {
             dettaglioNotificaFRSection.clickLinkAttestazionipponibile(numeroLinkAttestazioniOpponibile);
             try {
@@ -204,17 +211,31 @@ public class NotifichePersonaFisicaPAgoPATest {
                 throw new RuntimeException(e);
             }
             String urlFileAttestazioneOppponubile = getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+datiNotifica.get("codiceIUN").toString()+"/legal-facts/");
-            dettaglioNotificaFRSection.downloadFileNotifica("src/test/resources/dataPopulation/downloadFileNotifica/mittente",urlFileAttestazioneOppponubile,3);
+            File file = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN"+i+".pdf");
+            downloadFile.download(urlFileAttestazioneOppponubile,file);
         }
+        downloadFile.controlloDownload(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario",numeroLinkAttestazioniOpponibile);
     }
 
     private String getUrl(String urlChiamata) {
         String url = "";
         for (int i = 0; i < netWorkInfos.size(); i++) {
-            if (netWorkInfos.get(i).getRequestUrl().contains(urlChiamata)){
-                String[] body = netWorkInfos.get(i).getResponseBody().split("url");
-                url = body[1].substring(3,body[1].length()-2);
-                break;
+            if (netWorkInfos.get(i).getRequestUrl().contains(urlChiamata) && netWorkInfos.get(i).getRequestMethod().equals("GET")){
+                String values = netWorkInfos.get(i).getResponseBody();
+                List<String> results = Splitter.on(CharMatcher.anyOf(",;:")).splitToList(values);
+
+                for (int index=0;index<results.size(); index++){
+                    if(results.get(index).startsWith("//")) {
+                        url = results.get(index);
+                        break;
+                    }
+                }
+                if(url.endsWith("}")) {
+                    url = "https:" + url.substring(0, url.length() - 2);
+                }else {
+                    url = "https:" + url.substring(0, url.length() - 1);
+                }
+                logger.info("url",url);
             }
         }
         return url;

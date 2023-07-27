@@ -5,6 +5,7 @@ import com.google.common.base.Splitter;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePAPage;
@@ -30,6 +31,8 @@ public class DownloadFileMittentePagoPATest {
 
     private  Map<String,Object> datiNotifica = new HashMap<>();
 
+     private DownloadFile downloadFile;
+
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
     public void clickNotificaRestituita() {
         logger.info("Si clicca sulla notifica restituita");
@@ -50,48 +53,79 @@ public class DownloadFileMittentePagoPATest {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        int count = 1;
         dettaglioNotificaSection.clickLinkDocumentiAllegati();
         try {
-            TimeUnit.SECONDS.sleep(2);
+            TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        String urlDocumentiAllegati = getUrl("https://webapi.test.notifichedigitali.it/delivery/notifications/sent/" + this.datiNotifica.get("codiceIUN").toString() + "/attachments/documents/0");
-        dettaglioNotificaSection.downloadFileNotifica("src/test/resources/dataPopulation/downloadFileNotifica/mittente",urlDocumentiAllegati,1);
-        dettaglioNotificaSection.clickLinkAvvenutaRicezione();
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        String workingDirectory = System.getProperty("user.dir");
+        final String filepath = workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN";
+        final String urlDocumenti ="https://webapi.test.notifichedigitali.it/delivery/notifications/sent/" + this.datiNotifica.get("codiceIUN").toString() + "/attachments/documents/0";
+
+        final String urlDocumentiAllegati = getUrl(urlDocumenti);
+        File file = new File(filepath+count+".pdf");
+        downloadFile = new DownloadFile();
+        downloadFile.download(urlDocumentiAllegati,file);
+        count = count+1;
+
+        int numeroLinkAvvenutaRicezione = dettaglioNotificaSection.getLinkAvvenutaRicezione();
+        for (int i = 1; i <numeroLinkAvvenutaRicezione ; i++) {
+            dettaglioNotificaSection.clickLinkAvvenutaRicezione(i);
+            try {
+                TimeUnit.SECONDS.sleep(5);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            final String url = "https://webapi.test.notifichedigitali.it/delivery-push/"+ this.datiNotifica.get("codiceIUN").toString() +"/document/AAR?documentId=safestorage:";
+            final String urlAvvenutaRicezione = getUrl(url);
+            file = new File(filepath+count+".pdf");
+            count = count+1;
+
+            downloadFile.download(urlAvvenutaRicezione,file);
         }
-        String urlAvvenutaRicezione = getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+ this.datiNotifica.get("codiceIUN").toString() +"/document/AAR?documentId=safestorage:");
-        dettaglioNotificaSection.downloadFileNotifica("src/test/resources/dataPopulation/downloadFileNotifica/mittente",urlAvvenutaRicezione,2);
 
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponubili();
 
         for (int i = 0; i <numeroLinkAttestazioniOpponibile ; i++) {
             dettaglioNotificaSection.clickLinkAttestazionipponibile(i);
             try {
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            String urlFileAttestazioneOppponubile = getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+this.datiNotifica.get("codiceIUN").toString()+"/legal-facts/");
-            dettaglioNotificaSection.downloadFileNotifica("src/test/resources/dataPopulation/downloadFileNotifica/mittente",urlFileAttestazioneOppponubile,3);
+            final String urlAttestazione = "https://webapi.test.notifichedigitali.it/delivery-push/";
+            final String urlFileAttestazioneOppponubile = getUrl(urlAttestazione);
+            file = new File(filepath+count+".pdf");
+            count = count+1;
+            downloadFile.download(urlFileAttestazioneOppponubile,file);
         }
-
+        count = count -1;
+        final String pathOfdownloadedFile = workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente";
+        downloadFile.controlloDownload(pathOfdownloadedFile,count);
 
     }
 
     private String getUrl(String urlChiamata) {
         String url = "";
         for (int i = 0; i < netWorkInfos.size(); i++) {
-            if (netWorkInfos.get(i).getRequestUrl().contains(urlChiamata)){
+            if (netWorkInfos.get(i).getRequestUrl().contains(urlChiamata) && netWorkInfos.get(i).getRequestMethod().equals("GET")){
                 String values = netWorkInfos.get(i).getResponseBody();
                 List<String> results = Splitter.on(CharMatcher.anyOf(",;:")).splitToList(values);
-                url = results.get(6);
-                url = "https:"+url.substring(0,url.length()-1);
-                logger.info("url");
+
+                for (int index=0;index<results.size(); index++){
+                    if(results.get(index).startsWith("//")) {
+                        url = results.get(index);
+                        break;
+                    }
+                }
+                if(url.endsWith("}")) {
+                    url = "https:" + url.substring(0, url.length() - 2);
+                }else {
+                    url = "https:" + url.substring(0, url.length() - 1);
+                }
+                logger.info("url: "+url);
             }
         }
         return url;
@@ -124,13 +158,14 @@ public class DownloadFileMittentePagoPATest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        String url = getUrl("https://webapi.test.notifichedigitali.it/delivery-push/");
-        String workingDirectory = System.getProperty("user.dir");
+        final String url = getUrl("https://webapi.test.notifichedigitali.it/delivery-push/");
+        final String workingDirectory = System.getProperty("user.dir");
 
         nomeFile = nomeFile.replace(" ","_").replace(":", "");
         File file = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf");
 
-        dettaglioNotificaSection.download(url,file);
+        downloadFile = new DownloadFile();
+        downloadFile.download(url,file);
 
     }
 

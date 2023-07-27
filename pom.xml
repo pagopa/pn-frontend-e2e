@@ -32,12 +32,14 @@
       <artifactId>selenium-java</artifactId>
       <version>4.9.0</version>
     </dependency>
+
     <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-devtools-v85 -->
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-devtools-v110</artifactId>
       <version>4.9.0</version>
     </dependency>
+
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-java</artifactId>
