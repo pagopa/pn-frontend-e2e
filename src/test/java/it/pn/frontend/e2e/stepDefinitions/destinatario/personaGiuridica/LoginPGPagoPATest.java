@@ -9,7 +9,6 @@ import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoCont
 import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoLogin;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
-import it.pn.frontend.e2e.pages.mittente.AutorizziInvioDatiPAPage;
 import it.pn.frontend.e2e.pages.mittente.SelezionaEntePAPage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
