@@ -37,6 +37,7 @@ public class NotificaMittentePagoPATest {
     private Map<String, Object> datiNotificaErrore = new HashMap<>();
     private Map<String, Object> personaGiuridica = new HashMap<>();
     private Map<String, Object> personaGiuridicaErrore = new HashMap<>();
+    private Map<String, Object> personeGiuridiche= new HashMap<>();
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
@@ -698,6 +699,7 @@ public class NotificaMittentePagoPATest {
         DataPopulation dataPopulation = new DataPopulation();
         this.personaGiuridica = dataPopulation.readDataPopulation(personaGiuridica + ".yaml");
         PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        piattaformaNotifichePAPage.checkBoxAggiungiDomicilio();
         piattaformaNotifichePAPage.insertDomicilioDigitale(this.personaGiuridica.get("emailPec").toString());
     }
 
@@ -712,15 +714,15 @@ public class NotificaMittentePagoPATest {
         DataPopulation dataPopulation = new DataPopulation();
         this.personaGiuridicaErrore = dataPopulation.readDataPopulation(personaGiuridicaErrore + ".yaml");
         PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        piattaformaNotifichePAPage.checkBoxAggiungiDomicilio();
         piattaformaNotifichePAPage.insertDomicilioDigitaleErrato(this.personaGiuridicaErrore.get("emailPec").toString());
     }
 
     @And("Nella section Allegati caricare l'atto e inserire il nome atto {string} con estenzione non valida")
     public void nellaSectionAllegatiCaricareLAttoEInserireIlNomeAttoConEstenzioneNonValida(String arg0) {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        File documentoFile = new File("src/test/resources/dataPopulation/fileUpload/semiOfficial1.jpg");
-        String pathDocumentiFile = documentoFile.getAbsolutePath();
-        piattaformaNotifichePAPage.uploadFilefromPC(pathDocumentiFile);
+        AllegatiPASection allegatiPASection = new AllegatiPASection(this.driver);
+        String pathDocumentiFile = System.getProperty("user.dir")+"/src/test/resources/dataPopulation/fileUpload/semiOfficial1.jpg";
+        allegatiPASection.caricareNotificaPdfDalComputer(pathDocumentiFile);
     }
 
     @Then("Si visualizza correttamente il messaggio di errore estensione file non supportata. Riprovare con un altro file.")
@@ -745,5 +747,37 @@ public class NotificaMittentePagoPATest {
     public void nellaPopUpCliccareSulTastoChiudi() {
         PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
         piattaformaNotifichePAPage.chiudiPopUp();
+    }
+
+    @And("Nella section Destinatario selezionare il radio button persona giuridica")
+    public void nellaSectionDestinatarioSelezionareIlRadioButtonPersonaGiuridica() {
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        piattaformaNotifichePAPage.clickRadioButtonPersonaGiuridica();
+    }
+
+    @And("^Nella section Destinatario inserire i dati del destinatari persone giuridiche aggiuntivi per (.*)$")
+    public void nellaSectionDestinatarioInserireIDatiDelDestinatariPersoneGiuridicheAggiuntiviPerNumeroDestinatari(String nDestinatari) {
+        logger.info("Si cerca di aggiungere" + nDestinatari + " personeGiuridiche");
+        DataPopulation dataPopulation = new DataPopulation();
+        this.personeGiuridiche = dataPopulation.readDataPopulation("personeGiuridiche.yaml");
+        int nDestinatariInt = 1;
+        if (isNumeric(nDestinatari)) {
+            nDestinatariInt = Integer.parseInt(nDestinatari) - 1;
+            if (nDestinatariInt > 4 || nDestinatariInt == 0) {
+                logger.error("Devi inserire un nummero da 1 a 5");
+                Assert.fail("Devi inserire un nummero da 1 a 5");
+            }
+        } else {
+            logger.error("Formato non accettato. Devi inserire un numero da 1 a 5");
+            Assert.fail("Formato non accettato. Devi inserire un numero da 1 a 5");
+        }
+        DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
+        destinatarioPASection.inserimentoMultiDestinatarioPG(this.personeGiuridiche, nDestinatariInt);
+    }
+
+    @And("Nella section cliccare sul tasto torna a informazioni preliminari")
+    public void nellaSectionCliccareSulTastoTornaAInformazioniPreliminari() {
+        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        piattaformaNotifichePAPage.clickSuTornaInformazioniPreliminari();
     }
 }

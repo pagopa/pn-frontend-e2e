@@ -6,7 +6,7 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
     Then Home page mittente viene visualizzata correttamente
 
   @fase2Test1
-  @provaRun3
+  @provaRun
 
   Scenario:Il mittente inserisce i dati nella sezione informazioni preliminari
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

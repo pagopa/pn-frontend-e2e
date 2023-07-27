@@ -14,20 +14,19 @@ import org.slf4j.LoggerFactory;
 public class InformazioniPreliminariPASection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("InformazioniPreliminariPASection");
-
-    @FindBy(xpath = "//input[@id='paProtocolNumber' and @name='paProtocolNumber']")
+    @FindBy(id = "paProtocolNumber")
     WebElement numeroProtocolloTextField;
 
-    @FindBy(xpath = "//input[@id='subject' and @name='subject']")
+    @FindBy(id = "subject")
     WebElement oggettoNotificaTextField;
 
-    @FindBy(xpath = "//input[@id='abstract' and @name='abstract']")
+    @FindBy(id = "abstract")
     WebElement descrizioneTextField;
 
-    @FindBy(xpath = "//div[contains(@id,'group')]")
+    @FindBy(id = "group")
     WebElement gruppoListBox;
 
-    @FindBy(xpath = "//input[@id='taxonomyCode' and @name='taxonomyCode']")
+    @FindBy(id = "taxonomyCode")
     WebElement codiceTassonometricoTextField;
 
     @FindBy(xpath = "//input[@value='AR_REGISTERED_LETTER']")

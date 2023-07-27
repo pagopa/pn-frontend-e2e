@@ -15,11 +15,12 @@ Feature: il mittente inserisce tutti i dati di una notifica
     And Nella section Informazioni preliminari inserire i dati della notifica "datiNotifica" senza pagamento
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
-    And Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica "personaGiuridca"
+    And Nella section Destinatario selezionare il radio button persona giuridica
+    And Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica "personaGiuridica"
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona giuridica "personaGiuridica"
-    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica"
+    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati del destinatario "personaGiuridica"
     And Nella section Destinatario cliccare su Aggiungi destinatario
-    And Nella section Destinatario inserire i dati del destinatari aggiuntivi  per <numero destinatari>
+    And Nella section Destinatario inserire i dati del destinatari persone giuridiche aggiuntivi per <numero destinatari>
     And Cliccare su continua
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
@@ -35,4 +36,4 @@ Feature: il mittente inserisce tutti i dati di una notifica
     And Logout da portale mittente
     Examples:
       | numero destinatari |
-      |         1          |
+      |         2          |
