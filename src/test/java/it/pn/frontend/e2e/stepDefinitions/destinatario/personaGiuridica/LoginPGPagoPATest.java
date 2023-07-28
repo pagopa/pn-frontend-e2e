@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -10,7 +11,9 @@ import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoLogi
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.pages.mittente.SelezionaEntePAPage;
+import it.pn.frontend.e2e.pages.radd.HomePage;
 import it.pn.frontend.e2e.section.CookiesSection;
+import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
@@ -30,7 +33,11 @@ public class LoginPGPagoPATest {
 
     private Map<String, String> urlPersonaGiuridica;
 
-    DataPopulation dataPopulation = new DataPopulation();
+    private DataPopulation dataPopulation = new DataPopulation();
+
+    private  HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
+
+    private  AcccediAreaRiservataPGPage acccediAreaRiservataPGPage = new AcccediAreaRiservataPGPage(this.driver);
 
 
     @Given("Login Page persona giuridica {string} viene visualizzata")
@@ -215,6 +222,10 @@ public class LoginPGPagoPATest {
     }
     @Then("Home page persona giuridica viene visualizzata correttamente")
     public void homePagePersonaGiuridicaVieneVisualizzataCorrettamente() {
+        headerPGSection.waitLoadHeaderPGPage();
+
+        HomePagePG homePagePG = new HomePagePG(this.driver);
+        homePagePG.waitLoadHomePagePGPage();
         
     }
 
@@ -236,7 +247,6 @@ public class LoginPGPagoPATest {
             cookiesSection.selezionaAccettaTuttiButton();
         }
 
-        AcccediAreaRiservataPGPage acccediAreaRiservataPGPage = new AcccediAreaRiservataPGPage(this.driver);
         acccediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
         acccediAreaRiservataPGPage.clickSpidButton();
 
@@ -251,8 +261,27 @@ public class LoginPGPagoPATest {
         loginPGPagoPAPage.clickInviaButton();
 
 
-        AutorizziInvioDatiPGPage autorizziInvioDatiPGPage = new AutorizziInvioDatiPGPage(this.driver);
-        autorizziInvioDatiPGPage.waitLoadPage();
+        AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage = new AutorizzaInvioDatiPGPage(this.driver);
+        autorizzaInvioDatiPGPage.waitLoadAutorizzaInvioDatiPGPage();
+        autorizzaInvioDatiPGPage.clickInviaButton();
 
+        SelezionaImpresaPage selezionaImpresaPage = new SelezionaImpresaPage(this.driver);
+        selezionaImpresaPage.waitLoadSelezionaImpresaPage();
+        selezionaImpresaPage.clickAccediButton();
+    }
+
+    @And("Logout da portale persona giuridica")
+    public void logoutDaPortalePersonaGiuridica() {
+        headerPGSection.waitLoadHeaderPGPage();
+        headerPGSection.clickEsciButton();
+
+        acccediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
+
+
+        try {
+            TimeUnit.SECONDS.sleep(15);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

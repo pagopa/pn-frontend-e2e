@@ -22,7 +22,7 @@ public class AcccediAreaRiservataPGPage extends BasePage {
 
     public void waitLoadAccediAreaRiservataPGPage() {
         try {
-            By titleBy = By.id("login-mode-page-title");
+            By titleBy = By.xpath("//h3[contains(text(),'Come vuoi accedere?')]");
             By spidButtonBy = By.id("spidButton");
 
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleBy));

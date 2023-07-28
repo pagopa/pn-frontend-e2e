@@ -11,48 +11,30 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LoginPGPagoPAPage extends BasePage {
-
-    private static final Logger logger = LoggerFactory.getLogger("LoginPGPagoPAPage");
-
-    @FindBy(id = "username")
-    WebElement usernameField;
-
-    @FindBy(id = "password")
-    WebElement passwordField;
+public class AutorizzaInvioDatiPGPage extends BasePage {
+    private static final Logger logger = LoggerFactory.getLogger("AutorizzaInvioDatiPGPage");
+    public AutorizzaInvioDatiPGPage(WebDriver driver) {
+        super(driver);
+    }
 
     @FindBy(xpath = "//button[@name = 'confirm']")
     WebElement inviaButton;
 
-    public LoginPGPagoPAPage(WebDriver driver) {
-        super(driver);
-    }
-
-    public void waitLoadLoginPGPage() {
+    public void waitLoadAutorizzaInvioDatiPGPage() {
         try {
-            By titlePageBy = By.xpath("//h1[contains(text(),'Login')]");
+            By titlePageBy = By.xpath("//h1[contains(text(),'Autorizzi')]");
             By inviaButtonBy = By.xpath("//button[@name = 'confirm']");
 
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(inviaButtonBy));
 
-            logger.info("LoginPGPage caricata correttamente");
+            logger.info("AutorizzaInviaDatiPGPage caricata correttamente");
 
         }catch (TimeoutException e){
-            logger.error("LoginPGPage non caricata correttamente con errore :" +e.getMessage());
-            Assert.fail("LoginPGPage non caricata correttamente con errore :" +e.getMessage());
+            logger.error("AutorizzaInviaDatiPGPage non caricata correttamente con errore: "+e.getMessage());
+            Assert.fail("AutorizzaInviaDatiPGPage non caricata correttamente con errore: "+e.getMessage());
         }
     }
-
-    public void insertUsername(String user) {
-        this.usernameField.sendKeys(user);
-    }
-
-
-    public void insertPassword(String pwd) {
-        this.passwordField.sendKeys(pwd);
-    }
-
 
     public void clickInviaButton() {
         this.inviaButton.click();
