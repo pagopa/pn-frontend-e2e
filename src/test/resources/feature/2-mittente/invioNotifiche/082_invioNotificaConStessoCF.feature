@@ -17,9 +17,9 @@ Feature: invio notifica con lo stesso codice fiscale
     And Nella section Informazioni preliminari inserire i dati della notifica "datiNotifica" senza pagamento
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
-    And Nella section Destinatario inserire nome cognome e codice fiscale da destinatario "destinatario"
-    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati del destinatario "destinatario"
+    And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
+    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica"
     And Nella section Destinatario cliccare su Aggiungi destinatario
-    And Nella section Destinatario si inserisce lo stesso destinatario di prima "destinatario"
+    And Nella section Destinatario si inserisce lo stesso destinatario di prima "personaFisica"
     Then Si visualizza correttamente l errore di stesso codice fiscale
     And Logout da portale mittente
