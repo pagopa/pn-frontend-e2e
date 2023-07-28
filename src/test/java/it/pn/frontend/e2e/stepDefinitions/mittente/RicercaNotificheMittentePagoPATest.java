@@ -28,7 +28,7 @@ public class RicercaNotificheMittentePagoPATest {
     private Map<String, Object> personaFisica = new HashMap<>();
     private Map<String, Object> datiNotifica = new HashMap<>();
 
-    @And("Nella pagina Piattaforma Notifiche inserire il codice fiscale del destinatario {string}")
+    @And("Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica {string}")
     public void inserireCodiceFiscale(String dpFile) {
         logger.info("Avvio ricerca tramite codice fiscale");
 
