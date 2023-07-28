@@ -497,10 +497,10 @@ public class NotificaMittentePagoPATest {
         logger.info("Si cerca di aggiungere" + npersoneFisiche + " persone Fisiche");
         DataPopulation dataPopulation = new DataPopulation();
         this.personeFisiche = dataPopulation.readDataPopulation("personeFisiche.yaml");
-        int nDestinatariInt = 1;
+        int nPersoneFisicheInt = 1;
         if (isNumeric(npersoneFisiche)) {
-            nDestinatariInt = Integer.parseInt(npersoneFisiche) - 1;
-            if (nDestinatariInt > 4 || nDestinatariInt == 0) {
+            nPersoneFisicheInt = Integer.parseInt(npersoneFisiche) - 1;
+            if (nPersoneFisicheInt > 4 || nPersoneFisicheInt == 0) {
                 logger.error("Devi inserire un nummero da 1 a 5");
                 Assert.fail("Devi inserire un nummero da 1 a 5");
             }
@@ -509,7 +509,7 @@ public class NotificaMittentePagoPATest {
             Assert.fail("Formato non accettato. Devi inserire un numero da 1 a 5");
         }
         DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
-        destinatarioPASection.inserimentoMultiDestinatario(this.personeFisiche, nDestinatariInt);
+        destinatarioPASection.inserimentoMultiDestinatario(this.personeFisiche, nPersoneFisicheInt);
     }
 
     @And("Nella section Destinatario si cerca di aggiungere il sesto destinatario")
