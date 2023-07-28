@@ -11,7 +11,6 @@ import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoLogi
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.pages.mittente.SelezionaEntePAPage;
-import it.pn.frontend.e2e.pages.radd.HomePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
@@ -33,11 +32,11 @@ public class LoginPGPagoPATest {
 
     private Map<String, String> urlPersonaGiuridica;
 
-    private DataPopulation dataPopulation = new DataPopulation();
+    private final DataPopulation  dataPopulation = new DataPopulation();
 
-    private  HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
+    private final  HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
 
-    private  AcccediAreaRiservataPGPage acccediAreaRiservataPGPage = new AcccediAreaRiservataPGPage(this.driver);
+    private final  AcccediAreaRiservataPGPage acccediAreaRiservataPGPage = new AcccediAreaRiservataPGPage(this.driver);
 
 
     @Given("Login Page persona giuridica {string} viene visualizzata")
