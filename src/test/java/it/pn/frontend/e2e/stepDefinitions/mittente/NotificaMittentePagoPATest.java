@@ -38,6 +38,7 @@ public class NotificaMittentePagoPATest {
     private Map<String, Object> personaGiuridica = new HashMap<>();
     private Map<String, Object> personaGiuridicaErrore = new HashMap<>();
     private Map<String, Object> personeGiuridiche= new HashMap<>();
+    private Map<String, Object> personeFisiche = new HashMap<>();
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
@@ -66,9 +67,9 @@ public class NotificaMittentePagoPATest {
                 throw new RuntimeException(e);
             }
         }
-        if (httpRequestToken) {
+        if (httpRequestToken){
             logger.info("Http token mittente found");
-        } else {
+        }else {
             logger.error("Http token mittente not found");
             Assert.fail("Http token mittente not found");
         }
@@ -85,12 +86,8 @@ public class NotificaMittentePagoPATest {
     @And("Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica")
     public void nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica() {
         logger.info("selezione bottone invia una nuova notifica");
+
         PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         piattaformaNotifichePAPage.selectInviaUnaNuovaNotificaButton();
     }
 
@@ -190,39 +187,39 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.waitLoadDestinatarioPASection();
     }
 
-    @And("Nella section Destinatario inserire nome cognome e codice fiscale da destinatario {string}")
+    @And("Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica {string}")
     public void nellaSectionDestinatarioInserireNomeCognomeECodiceFiscaleDaDestinatario(String destinatarioFile) {
         logger.info("Inserimento del nome cognome e codice fiscale dal file personaFisica.yaml");
 
         DataPopulation dataPopulation = new DataPopulation();
-        this.personaFisica = dataPopulation.readDataPopulation(destinatarioFile + ".yaml");
+        this.personeFisiche = dataPopulation.readDataPopulation(destinatarioFile + ".yaml");
 
         DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
         destinatarioPASection.selezionarePersonaFisica();
-        destinatarioPASection.inserireNomeDestinatario(this.personaFisica.get("name").toString());
-        destinatarioPASection.inserireCognomeDestinatario(this.personaFisica.get("familyName").toString());
-        destinatarioPASection.inserireCodiceFiscaleDestinatario(this.personaFisica.get("codiceFiscale").toString());
+        destinatarioPASection.inserireNomeDestinatario(this.personeFisiche.get("name").toString());
+        destinatarioPASection.inserireCognomeDestinatario(this.personeFisiche.get("familyName").toString());
+        destinatarioPASection.inserireCodiceFiscaleDestinatario(this.personeFisiche.get("codiceFiscale").toString());
     }
 
-    @And("Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati del destinatario {string}")
-    public void nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDelDestinatario(String destinatarioFile) {
+    @And("Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica {string}")
+    public void nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDelDestinatario(String personaFisicaFile) {
         logger.info("Inserimento dei dati mancanti nella section destinatario");
 
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
 
         DataPopulation dataPopulation = new DataPopulation();
-        this.personaFisica = dataPopulation.readDataPopulation(destinatarioFile + ".yaml");
+        this.personeFisiche = dataPopulation.readDataPopulation(personaFisicaFile + ".yaml");
 
         DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
         destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
-        destinatarioPASection.inserireIndirizzo(this.personaFisica.get("indirizzo").toString());
-        destinatarioPASection.inserireNumeroCivico(this.personaFisica.get("numeroCivico").toString());
-        destinatarioPASection.inserireLocalita(this.personaFisica.get("localita").toString());
-        destinatarioPASection.inserireComune(this.personaFisica.get("comune").toString());
-        destinatarioPASection.inserireProvincia(this.personaFisica.get("provincia").toString());
-        destinatarioPASection.inserireCodicePostale(this.personaFisica.get("codicepostale").toString());
-        destinatarioPASection.inserireStato(this.personaFisica.get("stato").toString());
+        destinatarioPASection.inserireIndirizzo(this.personeFisiche.get("indirizzo").toString());
+        destinatarioPASection.inserireNumeroCivico(this.personeFisiche.get("numeroCivico").toString());
+        destinatarioPASection.inserireLocalita(this.personeFisiche.get("localita").toString());
+        destinatarioPASection.inserireComune(this.personeFisiche.get("comune").toString());
+        destinatarioPASection.inserireProvincia(this.personeFisiche.get("provincia").toString());
+        destinatarioPASection.inserireCodicePostale(this.personeFisiche.get("codicepostale").toString());
+        destinatarioPASection.inserireStato(this.personeFisiche.get("stato").toString());
     }
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati")
@@ -307,7 +304,7 @@ public class NotificaMittentePagoPATest {
                 if (cookiesSection.waitLoadCookiesPage()) {
                     cookiesSection.selezionaAccettaTuttiButton();
                 }
-                piattaformaNotifichePAPage.insertCodiceFiscale(this.personaFisica.get("codiceFiscale").toString());
+                piattaformaNotifichePAPage.insertCodiceFiscale(this.personeFisiche.get("codiceFiscale").toString());
                 piattaformaNotifichePAPage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
                 piattaformaNotifichePAPage.selezionareStatoNotifica("ACCEPTED");
                 piattaformaNotifichePAPage.selectFiltraButton();
@@ -360,7 +357,6 @@ public class NotificaMittentePagoPATest {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         dettaglioNotificaSection.clickIndietroButton();
     }
-
     private boolean readHttpRequest() {
         boolean urlFound = false;
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
@@ -408,7 +404,7 @@ public class NotificaMittentePagoPATest {
             Assert.fail("I codici fiscali delle notifiche non vengono visualizzati correttamente");
         }
         List<WebElement> listeOggetti = piattaformaNotifichePAPage.ricercaListaOggetti();
-        if (listeOggetti != null && listeOggetti.size() >= 1) {
+        if (listeOggetti != null && listeOggetti.size() >=1 ){
             logger.info("La lista degli oggetti viene visualizzata correttamente");
         } else {
             logger.error("La lista degli oggetti non viene visualizzata correttamente");
@@ -501,15 +497,15 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.selezionareAggiungiDestinatarioButton();
     }
 
-    @And("^Nella section Destinatario inserire i dati del destinatari aggiuntivi  per (.*)$")
-    public void nellaSectionDestinatarioInserireIDatiDelDestinatariAggiuntiviPerNumeroDestinatari(String nDestinatari) {
-        logger.info("Si cerca di aggiungere" + nDestinatari + " destinatari");
+    @And("^Nella section Destinatario inserire i dati delle persone fisiche aggiuntive per (.*)$")
+    public void nellaSectionDestinatarioInserireIDatiDelDestinatariAggiuntiviPerNumeroDestinatari(String npersoneFisiche) {
+        logger.info("Si cerca di aggiungere" + npersoneFisiche + " persone Fisiche");
         DataPopulation dataPopulation = new DataPopulation();
-        this.personaFisica = dataPopulation.readDataPopulation("destinatari.yaml");
-        int nDestinatariInt = 1;
-        if (isNumeric(nDestinatari)) {
-            nDestinatariInt = Integer.parseInt(nDestinatari) - 1;
-            if (nDestinatariInt > 4 || nDestinatariInt == 0) {
+        this.personeFisiche = dataPopulation.readDataPopulation("personeFisiche.yaml");
+        int nPersoneFisicheInt = 1;
+        if (isNumeric(npersoneFisiche)) {
+            nPersoneFisicheInt = Integer.parseInt(npersoneFisiche) - 1;
+            if (nPersoneFisicheInt > 4 || nPersoneFisicheInt == 0) {
                 logger.error("Devi inserire un nummero da 1 a 5");
                 Assert.fail("Devi inserire un nummero da 1 a 5");
             }
@@ -518,7 +514,7 @@ public class NotificaMittentePagoPATest {
             Assert.fail("Formato non accettato. Devi inserire un numero da 1 a 5");
         }
         DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
-        destinatarioPASection.inserimentoMultiDestinatario(this.personaFisica, nDestinatariInt);
+        destinatarioPASection.inserimentoMultiDestinatario(this.personeFisiche, nPersoneFisicheInt);
     }
 
     @And("Nella section Destinatario si cerca di aggiungere il sesto destinatario")
@@ -599,7 +595,7 @@ public class NotificaMittentePagoPATest {
         PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        this.personaFisica = dataPopulation.readDataPopulation("personaFisicaPec.yaml");
+        this.personeFisiche = dataPopulation.readDataPopulation("personaFisicaPec.yaml");
 
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
@@ -613,7 +609,7 @@ public class NotificaMittentePagoPATest {
                 if (cookiesSection.waitLoadCookiesPage()) {
                     cookiesSection.selezionaAccettaTuttiButton();
                 }
-                piattaformaNotifichePAPage.insertCodiceFiscale(this.personaFisica.get("codiceFiscale").toString());
+                piattaformaNotifichePAPage.insertCodiceFiscale(this.personeFisiche.get("codiceFiscale").toString());
                 piattaformaNotifichePAPage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
                 piattaformaNotifichePAPage.selezionareStatoNotifica("ACCEPTED");
                 piattaformaNotifichePAPage.selectFiltraButton();

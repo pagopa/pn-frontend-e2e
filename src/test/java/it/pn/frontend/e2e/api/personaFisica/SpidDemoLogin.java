@@ -1,4 +1,4 @@
-package it.pn.frontend.e2e.api.destinatario;
+package it.pn.frontend.e2e.api.personaFisica;
 
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
