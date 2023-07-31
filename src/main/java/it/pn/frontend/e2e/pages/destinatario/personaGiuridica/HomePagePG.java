@@ -5,9 +5,13 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class HomePagePG extends BasePage {
 
@@ -16,6 +20,9 @@ public class HomePagePG extends BasePage {
     public HomePagePG(WebDriver driver) {
         super(driver);
     }
+
+    @FindBy(xpath = "//button[@class = 'MuiButtonBase-root MuiFab-root MuiFab-circular MuiFab-sizeSmall MuiFab-primary css-ngdrb8']")
+    List<WebElement> notificheDigitaliCardList;
 
 
     public void waitLoadHomePagePGPage() {
@@ -34,5 +41,9 @@ public class HomePagePG extends BasePage {
             logger.error("HomePagePG non caricata correttamente con errore: "+e.getMessage());
             Assert.fail("HomePagePG non caricata correttamente con errore: "+e.getMessage());
         }
+    }
+
+    public void clickSendNotificheDigitali(int i) {
+        notificheDigitaliCardList.get(i).click();
     }
 }

@@ -10,7 +10,6 @@ import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoCont
 import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoLogin;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
-import it.pn.frontend.e2e.pages.mittente.SelezionaEntePAPage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
@@ -87,10 +86,9 @@ public class LoginPGPagoPATest {
             cookiesPage.selezionaAccettaTuttiButton();
         }
 
-        SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(this.driver);
-        selezionaEntePAPage.waitLoadSelezionaEntePAPage();
-        selezionaEntePAPage.selezionareComune(this.datiPersonaGiuridica.get("comune").toString());
-        selezionaEntePAPage.selezionaAccedi();
+        SelezionaImpresaPage impresaPage = new SelezionaImpresaPage(this.driver);
+        impresaPage.clickSuImpresa();
+        impresaPage.clickAccediButton();
     }
     private void readurlPortaleMittente(String user, String password){
 
@@ -225,7 +223,6 @@ public class LoginPGPagoPATest {
 
         HomePagePG homePagePG = new HomePagePG(this.driver);
         homePagePG.waitLoadHomePagePGPage();
-        
     }
 
     @When("Login con persona giuridica {string}")
@@ -266,6 +263,7 @@ public class LoginPGPagoPATest {
 
         SelezionaImpresaPage selezionaImpresaPage = new SelezionaImpresaPage(this.driver);
         selezionaImpresaPage.waitLoadSelezionaImpresaPage();
+        selezionaImpresaPage.clickSuImpresa();
         selezionaImpresaPage.clickAccediButton();
     }
 
