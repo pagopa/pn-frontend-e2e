@@ -204,7 +204,7 @@ public class NotifichePersonaFisicaPAgoPATest {
         String workingDirectory = System.getProperty("user.dir");
 
         for (int i = 0; i <numeroLinkAttestazioniOpponibile ; i++) {
-            dettaglioNotificaFRSection.clickLinkAttestazionipponibile(numeroLinkAttestazioniOpponibile);
+            dettaglioNotificaFRSection.clickLinkAttestazionipponibile(i);
             try {
                 TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
