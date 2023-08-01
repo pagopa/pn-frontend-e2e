@@ -12,10 +12,10 @@ public class DeleghePage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DeleghePage");
 
-    @FindBy(xpath = "//button[contains(text(),'Aggiungi una delega')]")
+    @FindBy(xpath = "//button[@data-testid ='add-delegation']")
     WebElement addDelegaButton;
 
-    @FindBy(xpath = "//li[contains(@data-testid,'menuItem-revokeDelegate')]")
+    @FindBy(xpath = "//li[@data-testid = 'menuItem-revokeDelegate']")
     WebElement revocaButton;
     public DeleghePage(WebDriver driver) {
         super(driver);
@@ -23,7 +23,7 @@ public class DeleghePage extends BasePage {
 
     public void waitDeleghePage() {
         try {
-            By deleghePageTitle = By.xpath("//h4[contains(text(),'Deleghe')]");
+            By deleghePageTitle = By.id("title-of-page");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(deleghePageTitle));
             this.logger.info("Deleghe page caricata");
         } catch (TimeoutException e) {
@@ -35,18 +35,6 @@ public class DeleghePage extends BasePage {
     public void clickAggiungiDelegaButton()  {
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.addDelegaButton));
         this.addDelegaButton.click();
-    }
-
-
-    public void waitNuovaDelegaSection() {
-        try {
-            By letuedeleghePageTitle = By.xpath("//h3[@id ='title-of-page']");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(letuedeleghePageTitle));
-            this.logger.info("Le tue deleghe page caricata");
-        } catch (TimeoutException e) {
-            logger.error("Le tue deleghe page non caricata con errore :" + e.getMessage());
-            Assert.fail(("Le tue deleghe page non caricata con errore :" + e.getMessage()));
-        }
     }
 
     public void controlloCreazioneDelega() {
