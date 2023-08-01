@@ -51,7 +51,7 @@ public class DeleghePagoPATest {
     @And("Si visualizza la sezione Le Tue Deleghe")
     public void siVisualizzaLaSezioneLeTueDeleghe() {
         logger.info("Si visualizza la sezione Le Tue Deleghe");
-        DeleghePage deleghePage = new DeleghePage(this.driver);
+        LeTueDelegheSection deleghePage = new LeTueDelegheSection(this.driver);
         deleghePage.waitNuovaDelegaSection();
     }
 
