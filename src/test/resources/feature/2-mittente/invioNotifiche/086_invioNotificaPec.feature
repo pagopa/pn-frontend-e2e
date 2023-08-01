@@ -18,8 +18,8 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     And Nella section Informazioni preliminari inserire i dati della notifica "datiNotifica" senza pagamento
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
-    And Nella section Destinatario inserire nome cognome e codice fiscale da destinatario "personaFisicaPec"
-    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati del destinatario "personaFisicaPec"
+    And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisicaPec"
+    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisicaPec"
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
@@ -27,7 +27,7 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     Then Si visualizza correttamente la frase La notifica è stata correttamente creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica "destinatarioPec"
+    And Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica "personaFisicaPec"
     And Nella pagina Piattaforma Notifiche inserire la data invio notifica
     And Nella pagina piattaforma Notifiche selezionare lo stato notifica Depositata
     And Cliccare sul bottone Filtra

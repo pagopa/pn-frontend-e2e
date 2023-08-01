@@ -18,7 +18,7 @@ Feature: Login pagoPA
     And Logout da portale persona fisica
 
   @loginpersonaGiuridica
-  @TestSuite
+
   Scenario: Login pagoPA persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
     When Login con persona giuridica "personaGiuridica"
