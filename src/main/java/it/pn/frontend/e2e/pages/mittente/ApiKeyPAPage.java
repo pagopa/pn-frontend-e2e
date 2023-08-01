@@ -119,7 +119,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void siVisualizzaPopUp() {
         try {
-            By popupTitleBy = By.xpath("//h5[contains(text(),'Blocca API Key')]");
+            By popupTitleBy = By.xpath("//h2[contains(text(),'Blocca API Key')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popupTitleBy));
             logger.info("Il popup si visualizza correttamente");
         } catch (TimeoutException e) {
@@ -147,7 +147,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void siVisualizzaPoPUpAttiva() {
         try {
-            By popUpAttiva = By.xpath("//h5[contains(text(),'Attiva API Key')]");
+            By popUpAttiva = By.xpath("//h2[contains(text(),'Attiva API Key')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popUpAttiva));
             logger.info("Si visualizza correttamente il popup attiva");
         } catch (TimeoutException e) {
@@ -171,7 +171,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void siVisualizzaPoPUpRuota() {
         try {
-            By popUpRuota = By.xpath("//h5[contains(text(),'Ruota API Key')]");
+            By popUpRuota = By.xpath("//h2[contains(text(),'Ruota API Key')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popUpRuota));
             logger.info("Si visualizza correttamente il popup ruota");
         } catch (TimeoutException e) {
