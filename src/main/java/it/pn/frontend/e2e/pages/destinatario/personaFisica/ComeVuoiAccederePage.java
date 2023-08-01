@@ -24,7 +24,7 @@ public class ComeVuoiAccederePage extends BasePage {
 
     public void waitLoadComeVuoiAccederePage(){
         try{
-            By titoloLabel = By.xpath("//h2[contains(@id,'login-mode-page-title')]");
+            By titoloLabel = By.id("login-mode-page-title");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titoloLabel));
             logger.info("Come Vuoi Accedere Page caricata");
         }catch (TimeoutException e){
