@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
@@ -28,5 +29,12 @@ public class NotifichePGPagoPATest {
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica() {
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
         piattaformaNotifichePGPAPage.waitLoadPitattaformaNotificaPage();
+    }
+
+    @When("Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe")
+    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaClickSulBottoneDeleghe() {
+        logger.info("Si clicca sul bottone Deleghe");
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        piattaformaNotifichePGPAPage.clickSuDelegeButton();
     }
 }

@@ -5,12 +5,17 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class PiattaformaNotifichePGPAPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("LoginPGPagoPATest");
+
+    @FindBy(xpath = "//div[@data-testid='sideMenuItem-Deleghe']")
+    WebElement delegheSideMenu;
 
     public PiattaformaNotifichePGPAPage(WebDriver driver) {
         super(driver);
@@ -25,5 +30,9 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             logger.error("La piagine Piattamorma Notifiche non si carica correttamente con errore: "+e.getMessage());
             Assert.fail("La piagine Piattamorma Notifiche non si carica correttamente con errore: "+e.getMessage());
         }
+    }
+
+    public void clickSuDelegeButton() {
+        this.delegheSideMenu.click();
     }
 }
