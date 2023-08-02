@@ -57,6 +57,10 @@ public class AggiungiDelegaPGSection extends BasePage {
         try {
             By titlePageBy = By.id("title-of-page");
             By pfInputBy = By.xpath("//input[contains(@name,'selectPersonaFisicaOrPersonaGiuridica')]");
+
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(pfInputBy));
+
             logger.info("Si visualizza correttamente la sezione Aggiungi una delega");
         }catch (TimeoutException e){
 
