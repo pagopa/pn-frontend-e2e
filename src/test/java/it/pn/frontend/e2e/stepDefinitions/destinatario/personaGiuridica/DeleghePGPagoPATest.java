@@ -140,4 +140,18 @@ public class DeleghePGPagoPATest {
             logger.info("Delega con lo stesso nome NON trovata");
         }
     }
+    @And("Nella sezione Le Tue Deleghe inserire una data con formato errato e andecedente alla data")
+    public void nellaSezioneLeTueDelegheInserireUnaDataConFormatoErratoEAndecedenteAllaData() {
+        logger.info("Si inserisce una data errata e andecedente");
+
+        aggiungiDelegaPGSection.clearImputData();
+        aggiungiDelegaPGSection.insertDataErrata();
+    }
+
+    @And("Nella sezione Le Tue Deleghe si visualizza il messaggio di errore data errata")
+    public void nellaSezioneLeTueDelegheSiVisualizzaIlMessaggioDiErroreDataErrata() {
+        logger.info("Si controlla che si veda il messaggio di errore");
+
+        aggiungiDelegaPGSection.waitMessaggioErroreData();
+    }
 }

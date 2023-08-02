@@ -2,10 +2,7 @@ package it.pn.frontend.e2e.section.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -48,6 +45,9 @@ public class AggiungiDelegaPGSection extends BasePage {
 
     @FindBy(id ="enti")
     WebElement enteElementInput;
+
+    @FindBy(id = "expirationDate-helper-text")
+    WebElement messaggioErroreData;
 
     public AggiungiDelegaPGSection(WebDriver driver) {
         super(driver);
@@ -130,4 +130,20 @@ public class AggiungiDelegaPGSection extends BasePage {
     }
 
 
+    public void insertDataErrata() {
+        LocalDate dataDaInserire =  LocalDate.now().minusDays(1);
+        dataTermineDelegaInput.sendKeys(dataDaInserire.toString());
+    }
+
+    public void waitMessaggioErroreData() {
+        this.getWebDriverWait(30).withMessage("Il messaggio errore delega non è visibile").until(ExpectedConditions.visibilityOf(this.messaggioErroreData));
+    }
+
+    public void clearImputData() {
+        this.dataTermineDelegaInput.click();
+        String name = this.dataTermineDelegaInput.getAttribute("value");
+        for(int index = 0; index<name.length(); index++){
+           this.dataTermineDelegaInput.sendKeys(Keys.BACK_SPACE);
+        }
+    }
 }
