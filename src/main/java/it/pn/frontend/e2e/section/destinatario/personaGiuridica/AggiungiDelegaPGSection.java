@@ -18,7 +18,7 @@ public class AggiungiDelegaPGSection extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("AggiungiDelegaPGSection");
 
-    @FindBy(xpath = "//input[contains(@name,'selectPersonaFisicaOrPersonaGiuridica')]")
+    @FindBy(xpath = "//input[@name='selectPersonaFisicaOrPersonaGiuridica' and @value = 'PF']")
     WebElement personaFisicaRadioButton;
 
     @FindBy(id = "nome")
@@ -56,10 +56,10 @@ public class AggiungiDelegaPGSection extends BasePage {
     public void waitLoadAggiungiDelegaPage() {
         try {
             By titlePageBy = By.id("title-of-page");
-            By pfInputBy = By.xpath("//input[contains(@name,'selectPersonaFisicaOrPersonaGiuridica')]");
+            By nomeInputBy = By.id("nome");
 
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(pfInputBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeInputBy));
 
             logger.info("Si visualizza correttamente la sezione Aggiungi una delega");
         }catch (TimeoutException e){

@@ -2,10 +2,7 @@ package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -17,6 +14,12 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     @FindBy(xpath = "//button[@data-testid='tab1']")
     WebElement delegatiImpresaButton;
+
+    @FindBy(xpath = "//li[contains(text(),'Revoca')]")
+    WebElement revocaMenuButton;
+
+    @FindBy(xpath = "//button[@data-testid='dialogAction' and text()='Revoca la delega']")
+    WebElement revocaButton;
 
     public DeleghePGPagoPAPage(WebDriver driver) {
         super(driver);
@@ -57,5 +60,36 @@ public class DeleghePGPagoPAPage extends BasePage {
             logger.error("Non si visualizza la delega creata");
             Assert.fail("Non si visualizza la delega creata");
         }
+    }
+    public boolean CercaEsistenzaDelega(String nome,String cognome) {
+        try {
+            By nomeDelegato = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
+            return true;
+        }catch (TimeoutException | NoSuchElementException e){
+            return false;
+        }
+    }
+    public void clickRevocaMenuButton(String nome, String cognome) {
+
+        By menuButton = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
+        this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuButton));
+        this.js().executeScript("arguments[0].click()",this.element(menuButton));
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.revocaMenuButton));
+        this.revocaMenuButton.click();
+    }
+
+    public void waitPopUpRevoca() {
+        try {
+            By titlePopUpBy = By.xpath("//h5[contains(text(),'Vuoi revocare la delega ')]");
+            
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePopUpBy));
+        }catch (TimeoutException e){
+            
+        }
+    }
+
+    public void clickRevocaButton() {
+        this.revocaButton.click();
     }
 }

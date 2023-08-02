@@ -121,4 +121,23 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.controlloCreazioneDelega();
 
     }
+
+    @And("Si controlla che non sia presente una delga con stesso nome {string} persona giuridica")
+    public void siControllaCheNonSiaPresenteUnaDelgaConStessoNomePersonaGiuridica(String nomeFile) {
+        logger.info("Si controlla che non ci sia una delega con lo stesso nome");
+
+        this.datiDelega = dataPopulation.readDataPopulation(nomeFile+".yaml");;
+
+        String nome =  datiDelega.get("nome").toString();
+        String cognome =  datiDelega.get("cognome").toString();
+
+        if (deleghePGPagoPAPage.CercaEsistenzaDelega(nome,cognome)){
+            logger.info("Delega con lo stesso nome trovata");
+            deleghePGPagoPAPage.clickRevocaMenuButton(nome,cognome);
+            deleghePGPagoPAPage.waitPopUpRevoca();
+            deleghePGPagoPAPage.clickRevocaButton();
+        }else {
+            logger.info("Delega con lo stesso nome NON trovata");
+        }
+    }
 }
