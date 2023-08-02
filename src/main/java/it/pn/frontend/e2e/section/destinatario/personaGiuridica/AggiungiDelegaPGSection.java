@@ -18,8 +18,14 @@ public class AggiungiDelegaPGSection extends BasePage {
     @FindBy(xpath = "//input[@name='selectPersonaFisicaOrPersonaGiuridica' and @value = 'PF']")
     WebElement personaFisicaRadioButton;
 
+    @FindBy(xpath = "//input[@name='selectPersonaFisicaOrPersonaGiuridica' and @value = 'PF']")
+    WebElement personaGiuridicaButton;
+
     @FindBy(id = "nome")
     WebElement nomeTextField;
+
+    @FindBy(id = "ragioneSociale")
+    WebElement ragioneSocialeTextField;
 
     @FindBy(id = "cognome")
     WebElement cognomeTextField;
@@ -145,5 +151,13 @@ public class AggiungiDelegaPGSection extends BasePage {
         for(int index = 0; index<name.length(); index++){
            this.dataTermineDelegaInput.sendKeys(Keys.BACK_SPACE);
         }
+    }
+
+    public void selectpersonaGiuridicaRadioButton() {
+        this.personaGiuridicaButton.click();
+    }
+
+    public void insertRagioneSociale(String ragioneSociale) {
+        ragioneSocialeTextField.sendKeys(ragioneSociale);
     }
 }

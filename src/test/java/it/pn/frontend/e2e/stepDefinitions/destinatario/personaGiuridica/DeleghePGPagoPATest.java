@@ -74,8 +74,8 @@ public class DeleghePGPagoPATest {
 
         this.datiDelega = dataPopulation.readDataPopulation(nomeFile+".yaml");
 
-        aggiungiDelegaPGSection.selectpersonaFisicaRadioButton();
-        aggiungiDelegaPGSection.insertNomeCognome(this.datiDelega.get("nome").toString(), this.datiDelega.get("cognome").toString());
+        aggiungiDelegaPGSection.selectpersonaGiuridicaRadioButton();
+        aggiungiDelegaPGSection.insertRagioneSociale(this.datiDelega.get("ragioneSociale").toString());
         aggiungiDelegaPGSection.inserireCF(this.datiDelega.get("codiceFiscale").toString());
         aggiungiDelegaPGSection.selectSoloEntiSelezionati();
         aggiungiDelegaPGSection.selezionaUnEnte(datiDelega.get("ente").toString());
@@ -128,12 +128,11 @@ public class DeleghePGPagoPATest {
 
         this.datiDelega = dataPopulation.readDataPopulation(nomeFile+".yaml");
 
-        String nome =  datiDelega.get("nome").toString();
-        String cognome =  datiDelega.get("cognome").toString();
+        String ragioneSociale =  datiDelega.get("ragioneSociale").toString();
 
-        if (deleghePGPagoPAPage.CercaEsistenzaDelega(nome,cognome)){
+        if (deleghePGPagoPAPage.CercaEsistenzaDelegaPG(ragioneSociale)){
             logger.info("Delega con lo stesso nome trovata");
-            deleghePGPagoPAPage.clickRevocaMenuButton(nome,cognome);
+            deleghePGPagoPAPage.clickRevocaMenuButtonPG(ragioneSociale);
             deleghePGPagoPAPage.waitPopUpRevoca();
             deleghePGPagoPAPage.clickRevocaButton();
         }else {

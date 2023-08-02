@@ -78,7 +78,23 @@ public class DeleghePGPagoPAPage extends BasePage {
         this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.revocaMenuButton));
         this.revocaMenuButton.click();
     }
+    public boolean CercaEsistenzaDelegaPG(String ragioneSociale) {
+        try {
+            By nomeDelegato = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
+            return true;
+        }catch (TimeoutException | NoSuchElementException e){
+            return false;
+        }
+    }
+    public void clickRevocaMenuButtonPG(String ragioneSociale) {
 
+        By menuButton = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
+        this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuButton));
+        this.js().executeScript("arguments[0].click()",this.element(menuButton));
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.revocaMenuButton));
+        this.revocaMenuButton.click();
+    }
     public void waitPopUpRevoca() {
         try {
             By titlePopUpBy = By.xpath("//h5[contains(text(),'Vuoi revocare la delega ')]");
