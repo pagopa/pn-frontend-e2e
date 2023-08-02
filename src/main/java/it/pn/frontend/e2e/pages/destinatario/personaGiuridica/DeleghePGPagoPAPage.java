@@ -84,8 +84,11 @@ public class DeleghePGPagoPAPage extends BasePage {
             By titlePopUpBy = By.xpath("//h5[contains(text(),'Vuoi revocare la delega ')]");
             
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePopUpBy));
+
+            logger.info("Il pop-up revoca si visualizza correttamente");
         }catch (TimeoutException e){
-            
+            logger.error("Il pop-up revoca NON si visualizza correttamente con errore: "+e.getMessage());
+            Assert.fail("Il pop-up revoca NON si visualizza correttamente con errore: "+e.getMessage());
         }
     }
 

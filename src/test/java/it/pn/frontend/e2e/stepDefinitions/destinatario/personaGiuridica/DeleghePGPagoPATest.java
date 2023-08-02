@@ -126,7 +126,7 @@ public class DeleghePGPagoPATest {
     public void siControllaCheNonSiaPresenteUnaDelgaConStessoNomePersonaGiuridica(String nomeFile) {
         logger.info("Si controlla che non ci sia una delega con lo stesso nome");
 
-        this.datiDelega = dataPopulation.readDataPopulation(nomeFile+".yaml");;
+        this.datiDelega = dataPopulation.readDataPopulation(nomeFile+".yaml");
 
         String nome =  datiDelega.get("nome").toString();
         String cognome =  datiDelega.get("cognome").toString();

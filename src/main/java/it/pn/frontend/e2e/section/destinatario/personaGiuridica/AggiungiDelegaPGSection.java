@@ -98,8 +98,8 @@ public class AggiungiDelegaPGSection extends BasePage {
 
     public String salvataggioCodiceVerifica() {
         String codiceVerifica = "";
-        for (int i = 0; i < this.codiceVerificaList.size(); i++) {
-            codiceVerifica = codiceVerifica + this.codiceVerificaList.get(i).getText();
+        for (WebElement webElement : this.codiceVerificaList) {
+            codiceVerifica = codiceVerifica + webElement.getText();
         }
         return codiceVerifica;
     }
