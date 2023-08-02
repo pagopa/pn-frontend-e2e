@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
@@ -12,6 +13,8 @@ import org.slf4j.LoggerFactory;
 public class NotifichePGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("NotifichePGPagoPATest");
     private final WebDriver driver = Hooks.driver;
+    private final PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+
     @And("Nella Home page persona giuridica si clicca su Send Notifiche Digitali")
     public void clickSendNotificheDigitali(){
         this.logger.info("Si clicca su Send Notifiche Digitali");
@@ -26,7 +29,12 @@ public class NotifichePGPagoPATest {
 
     @And("Si visualizza correttamente la Pagina Notifiche persona giuridica")
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica() {
-        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
         piattaformaNotifichePGPAPage.waitLoadPitattaformaNotificaPage();
+    }
+
+    @When("Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti")
+    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaSiCliccaSulBottoneITuoiRecapiti() {
+        logger.info("Si clicca sulla voce recapiti nel menu");
+        piattaformaNotifichePGPAPage.clickRecapitiButton();
     }
 }
