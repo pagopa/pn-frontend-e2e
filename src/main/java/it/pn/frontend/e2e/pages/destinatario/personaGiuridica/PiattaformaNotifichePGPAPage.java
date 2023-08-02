@@ -12,10 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class PiattaformaNotifichePGPAPage extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("LoginPGPagoPATest");
+    private final Logger logger = LoggerFactory.getLogger("PiattaformaNotifichePGPAPage");
 
     @FindBy(xpath = "//div[@data-testid='sideMenuItem-Deleghe']")
     WebElement delegheSideMenu;
+
+    @FindBy(xpath = "//div[@data-testid='sideMenuItem-Recapiti']")
+    WebElement recapitiButton;
 
     public PiattaformaNotifichePGPAPage(WebDriver driver) {
         super(driver);
@@ -34,5 +37,9 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void clickSuDelegeButton() {
         this.delegheSideMenu.click();
+    }
+
+    public void clickRecapitiButton() {
+        this.recapitiButton.click();
     }
 }

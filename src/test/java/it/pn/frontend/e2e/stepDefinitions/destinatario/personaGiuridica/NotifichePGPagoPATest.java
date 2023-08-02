@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 public class NotifichePGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("NotifichePGPagoPATest");
     private final WebDriver driver = Hooks.driver;
+
+    PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
     @And("Nella Home page persona giuridica si clicca su Send Notifiche Digitali")
     public void clickSendNotificheDigitali(){
         this.logger.info("Si clicca su Send Notifiche Digitali");
@@ -27,14 +29,22 @@ public class NotifichePGPagoPATest {
 
     @And("Si visualizza correttamente la Pagina Notifiche persona giuridica")
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica() {
-        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+
         piattaformaNotifichePGPAPage.waitLoadPitattaformaNotificaPage();
     }
 
     @When("Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaClickSulBottoneDeleghe() {
         logger.info("Si clicca sul bottone Deleghe");
-        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+
         piattaformaNotifichePGPAPage.clickSuDelegeButton();
     }
+
+    @When("Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti")
+    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaSiCliccaSulBottoneITuoiRecapiti() {
+        logger.info("Si clicca sulla voce recapiti nel menu");
+        piattaformaNotifichePGPAPage.clickRecapitiButton();
+    }
+
+
 }
