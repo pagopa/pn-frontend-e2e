@@ -118,8 +118,10 @@ public class DeleghePGPagoPATest {
     public void nellaSezioneDelegatiDallImpresaSiVisualizzaLaDelegaInStatoDiAttesaDiConferma() {
         logger.info("Si controla che la delega sia in stato attesa di conferma");
 
+        this.datiDelega = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml");
+
        delegatiImpresaSection.waitLoadDelegatiImpresaPage();
-       delegatiImpresaSection.controlloCreazioneDelega();
+       delegatiImpresaSection.controlloCreazioneDelega(this.datiDelega.get("ragioneSociale").toString());
     }
 
     @And("Si controlla che non sia presente una delga con stesso nome {string} persona giuridica")
@@ -197,5 +199,30 @@ public class DeleghePGPagoPATest {
             this.logger.error("La delega restituita NON è corretta");
             Assert.fail("La delega restituita NON è corretta");
         }
+    }
+
+    @And("Nella pagina Deleghe sezione Deleghe dell impresa  si verifica sia presente una delega")
+    public void nellaPaginaDelegheSezioneDelegheDellImpresaSiVerificaSiaPresenteUnaDelega() {
+        logger.info("Si controlla che ci sia almeno una delega");
+
+        this.delegatiImpresaSection.siVisualizzaUnaDelega();
+
+    }
+
+    @And("Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega")
+    public void nellaPaginaDelegheSezioneDelegheDellImpresaSiCliccaSulMenuDellaDelega() {
+        logger.info("Si clicca sul menu delle delega");
+
+        this.datiDelega = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml");
+
+        this.delegatiImpresaSection.clickMenuDelega(datiDelega.get("ragioneSociale").toString());
+
+    }
+
+    @And("Nella pagina Deleghe sezione Deleghe dell impresa si sceglie l'opzione mostra codice")
+    public void nellaPaginaDelegheSezioneDelegheDellImpresaSiSceglieLOpzioneMostraCodice() {
+        logger.info("Si sceglie l'opzione mostra codice");
+
+        delegatiImpresaSection.clickMostraCodice();
     }
 }
