@@ -247,6 +247,7 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickOpzioneAccetta() {
+        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.accettaButton));
         this.accettaButton.click();
     }
 

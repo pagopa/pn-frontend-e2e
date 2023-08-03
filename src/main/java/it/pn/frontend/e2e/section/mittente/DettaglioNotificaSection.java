@@ -128,7 +128,10 @@ public class DettaglioNotificaSection extends BasePage {
         return false;
     }
 
-    public void clickVediPiuDettaglio() { this.vediDettagliButton.click();}
+    public void clickVediPiuDettaglio() {
+        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.vediDettagliButton));
+        this.vediDettagliButton.click();
+    }
 
     public int siVisualizzaPercosoNotifica() {
         By percorsoNotificaBy = By.xpath("//div[contains(@data-testid,'itemStatus')]");
