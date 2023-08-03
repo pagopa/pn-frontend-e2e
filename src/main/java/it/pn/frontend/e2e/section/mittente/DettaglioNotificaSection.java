@@ -72,7 +72,7 @@ public class DettaglioNotificaSection extends BasePage {
         infoNotifica.put("mittente",mittente);
         String destinatario = getInfoNotifica(1);
         String codiceFiscale = getInfoNotifica(2);
-        if(destinatario.contains("-")){
+        if(destinatario.contains(" - ")){
             String[] splitedDestinatario = destinatario.split(" - ");
             destinatario = splitedDestinatario[1];
             codiceFiscale = splitedDestinatario[0];
