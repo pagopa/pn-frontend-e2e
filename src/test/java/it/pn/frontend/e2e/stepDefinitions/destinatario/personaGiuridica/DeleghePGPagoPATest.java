@@ -117,9 +117,8 @@ public class DeleghePGPagoPATest {
     public void nellaSezioneDelegatiDallImpresaSiVisualizzaLaDelegaInStatoDiAttesaDiConferma() {
         logger.info("Si controla che la delega sia in stato attesa di conferma");
 
-        deleghePGPagoPAPage.waitLoadDeleghePage();
-        deleghePGPagoPAPage.controlloCreazioneDelega();
-
+       delegatiImpresaSection.waitLoadDelegatiImpresaPage();
+       delegatiImpresaSection.controlloCreazioneDelega();
     }
 
     @And("Si controlla che non sia presente una delga con stesso nome {string} persona giuridica")
@@ -152,5 +151,20 @@ public class DeleghePGPagoPATest {
         logger.info("Si controlla che si veda il messaggio di errore");
 
         aggiungiDelegaPGSection.waitMessaggioErroreData();
+    }
+
+    @And("Nella pagina Deleghe si clicca su Deleghe a carico dell impresa")
+    public void nellaPaginaDelegheSiCliccaSuDelegheACaricoDellImpresa() {
+        logger.info("Si clicca sul tab Deleghe a carico dell'impresa");
+
+        deleghePGPagoPAPage.clickSuDelegheCaricoDellImpresa();
+    }
+
+    @And("Si vede correttamente l'elenco delle deleghe")
+    public void siVedeCorrettamenteLElencoDelleDeleghe() {
+        logger.info("Si controlla che si visualizzi l'elenco delle deleghe");
+
+        deleghePGPagoPAPage.verificaPresenzaElencoDeleghe();
+
     }
 }

@@ -15,6 +15,8 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(xpath = "//button[@data-testid='tab1']")
     WebElement delegatiImpresaButton;
 
+    @FindBy(xpath = "//button[@data-testid='tab2']")
+    WebElement delegheCaricoImpresaButton;
     @FindBy(xpath = "//li[contains(text(),'Revoca')]")
     WebElement revocaMenuButton;
 
@@ -29,11 +31,11 @@ public class DeleghePGPagoPAPage extends BasePage {
         try{
             By titlePage = By.id("title-of-page");
             By delegheCarico = By.xpath("//button[@data-testid='tab2']");
-            By nDelghe = By.xpath("//button[@data-testid='rows-per-page']");
+            By cfFieldBy = By.id("taxId");
 
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegheCarico));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nDelghe));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(cfFieldBy));
 
             this.logger.info("Deleghe page si visualizza correttamente");
 
@@ -51,16 +53,6 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     }
 
-    public void controlloCreazioneDelega() {
-        try{
-            By delegaCreata = By.xpath("//span[contains(text(),'In attesa di conferma')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaCreata));
-            this.logger.info("Si visualizza la delega creata");
-        } catch (TimeoutException e) {
-            logger.error("Non si visualizza la delega creata");
-            Assert.fail("Non si visualizza la delega creata");
-        }
-    }
     public boolean CercaEsistenzaDelega(String nome,String cognome) {
         try {
             By nomeDelegato = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]");
@@ -110,5 +102,46 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public void clickRevocaButton() {
         this.revocaButton.click();
+    }
+
+    public void waitLoadDelegheImpresaPage() {
+        try{
+            By titlePageBy = By.id("title-of-page");
+            By delegatiImpresaBy = By.xpath("//button[@data-testid='tab1']");
+            By nDelghe = By.xpath("//button[@data-testid='rows-per-page']");
+
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegatiImpresaBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nDelghe));
+
+            this.logger.info("Deleghe page si visualizza correttamente");
+
+        }catch (TimeoutException e){
+
+            this.logger.error("Deleghe page non si visualizza correttamente con errore: "+e.getMessage());
+            Assert.fail("Deleghe page non si visualizza correttamente con errore: "+e.getMessage());
+
+        }
+    }
+
+    public void clickSuDelegheCaricoDellImpresa() {
+            this.delegheCaricoImpresaButton.click();
+    }
+
+    public void verificaPresenzaElencoDeleghe() {
+        try{
+            By tableDelegheBy = By.xpath("//table[@data-testid='table(notifications)']");
+
+
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(tableDelegheBy));
+
+            this.logger.info("L'elenco delle deleghe si visualizza correttamente");
+
+        }catch (TimeoutException e){
+
+            this.logger.error("L'elenco delle deleghe non si visualizza correttamente con errore: "+e.getMessage());
+            Assert.fail("L'elenco delle deleghe non si visualizza correttamente con errore: "+e.getMessage());
+
+        }
     }
 }

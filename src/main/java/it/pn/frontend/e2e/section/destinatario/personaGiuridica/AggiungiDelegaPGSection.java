@@ -18,7 +18,7 @@ public class AggiungiDelegaPGSection extends BasePage {
     @FindBy(xpath = "//input[@name='selectPersonaFisicaOrPersonaGiuridica' and @value = 'PF']")
     WebElement personaFisicaRadioButton;
 
-    @FindBy(xpath = "//input[@name='selectPersonaFisicaOrPersonaGiuridica' and @value = 'PF']")
+    @FindBy(xpath = "//input[@name='selectPersonaFisicaOrPersonaGiuridica' and @value = 'PG']")
     WebElement personaGiuridicaButton;
 
     @FindBy(id = "nome")

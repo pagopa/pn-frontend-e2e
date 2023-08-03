@@ -45,4 +45,14 @@ public class DelegatiImpresaSection extends BasePage {
         this.addDelegheButton.click();
 
     }
+    public void controlloCreazioneDelega() {
+        try{
+            By delegaCreata = By.xpath("//span[contains(text(),'In attesa di conferma')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaCreata));
+            this.logger.info("Si visualizza la delega creata");
+        } catch (TimeoutException e) {
+            logger.error("Non si visualizza la delega creata");
+            Assert.fail("Non si visualizza la delega creata");
+        }
+    }
 }
