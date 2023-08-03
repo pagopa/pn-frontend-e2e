@@ -28,8 +28,9 @@ public class DeleghePGPagoPATest {
     private final DataPopulation dataPopulation = new DataPopulation();
 
     private Map<String,Object> datiDelega = new HashMap<>();
+    Map<String,Object> datiPersonaFisica = new HashMap<>();
 
-    @And("Nella pagina Deleghe persona giuridica si vede la sezione Deleghe")
+    @And("Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa")
     public void siVisulaizzaLaPaginaDeleghe(){
         logger.info("Si controlla che si visualizza la pagina Deleghe");
 
@@ -69,10 +70,10 @@ public class DeleghePGPagoPATest {
     }
 
     @And("Nella sezione Aggiungi Delega persona giuridica inserire i dati {string}")
-    public void nellaSezioneLeTueDeleghePersonaGiuridicaInserireIDati(String nomeFile) {
+    public void nellaSezioneLeTueDeleghePersonaGiuridicaInserireIDati(String dpFile) {
         logger.info("Si aggiungo tutti i dati del delegato");
 
-        this.datiDelega = dataPopulation.readDataPopulation(nomeFile+".yaml");
+        this.datiDelega = dataPopulation.readDataPopulation(dpFile+".yaml");
 
         aggiungiDelegaPGSection.selectpersonaGiuridicaRadioButton();
         aggiungiDelegaPGSection.insertRagioneSociale(this.datiDelega.get("ragioneSociale").toString());
@@ -94,15 +95,15 @@ public class DeleghePGPagoPATest {
     }
 
     @And("Nella sezione Aggiungi Delega persona giuridica salvare il codice verifica all'interno del file {string}")
-    public void nellaSezioneLeTueDeleghePersonaGiuridicaSalvareIlCodiceVerificaAllInternoDelFile(String nomeFile) {
-        logger.info("Si salva il codice della delega nel file "+nomeFile);
+    public void nellaSezioneLeTueDeleghePersonaGiuridicaSalvareIlCodiceVerificaAllInternoDelFile(String dpFile) {
+        logger.info("Si salva il codice della delega nel file "+dpFile);
 
-        this.datiDelega = dataPopulation.readDataPopulation(nomeFile+".yaml");
+        this.datiDelega = dataPopulation.readDataPopulation(dpFile+".yaml");
 
         String codiceDelega = aggiungiDelegaPGSection.salvataggioCodiceVerifica();
         this.datiDelega.put("codiceDelega",codiceDelega);
 
-        dataPopulation.writeDataPopulation(nomeFile+".yaml",this.datiDelega);
+        dataPopulation.writeDataPopulation(dpFile+".yaml",this.datiDelega);
     }
 
     @And("Nella sezione Aggiungi Delega  persona giuridica click sul bottone Invia richiesta e sul bottone torna alle deleghe")
@@ -166,5 +167,35 @@ public class DeleghePGPagoPATest {
 
         deleghePGPagoPAPage.verificaPresenzaElencoDeleghe();
 
+    }
+
+    @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si inserisce il codice fiscale del delegante {string}")
+    public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiInserisceIlCodiceFiscaleDelDelegante(String dpFile) {
+        logger.info("Si inserisce il codice fiscale del delegante");
+
+        this.datiPersonaFisica = this.dataPopulation.readDataPopulation(dpFile+".yaml");
+
+        deleghePGPagoPAPage.insertCFDelegante(this.datiPersonaFisica.get("codiceFiscale").toString());
+
+    }
+
+    @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si clicca su bottone Filtra")
+    public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiCliccaSuBottoneFiltra() {
+        logger.info("Si clicca filtra button");
+
+        this.deleghePGPagoPAPage.clickFiltraButton();
+
+    }
+
+    @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si controlla che venga restituita la delega con il codice fiscale inserito {string}")
+    public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiControllaCheVengaRestituitaLaDelegaConIlCodiceFiscaleInserito(String dpFile) {
+        this.datiPersonaFisica = this.dataPopulation.readDataPopulation(dpFile+".yaml");
+
+        if (deleghePGPagoPAPage.controlloDelegaRestituita(this.datiPersonaFisica.get("name").toString(),this.datiPersonaFisica.get("familyName").toString())){
+            this.logger.info("La delega restituita è corretta");
+        }else {
+            this.logger.error("La delega restituita NON è corretta");
+            Assert.fail("La delega restituita NON è corretta");
+        }
     }
 }

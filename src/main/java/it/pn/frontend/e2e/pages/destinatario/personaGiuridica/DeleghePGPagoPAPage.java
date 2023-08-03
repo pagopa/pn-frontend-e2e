@@ -22,6 +22,12 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     @FindBy(xpath = "//button[@data-testid='dialogAction' and text()='Revoca la delega']")
     WebElement revocaButton;
+    
+    @FindBy(id = "taxId")
+    WebElement cfTextField;
+
+    @FindBy(xpath = "//button[@data-testid='confirmButton']")
+    WebElement filtraButton;
 
     public DeleghePGPagoPAPage(WebDriver driver) {
         super(driver);
@@ -143,5 +149,31 @@ public class DeleghePGPagoPAPage extends BasePage {
             Assert.fail("L'elenco delle deleghe non si visualizza correttamente con errore: "+e.getMessage());
 
         }
+    }
+
+    public void insertCFDelegante(String codiceFiscale) {
+        this.cfTextField.sendKeys(codiceFiscale);
+    }
+
+    public void clickFiltraButton() {
+        this.filtraButton.click();
+    }
+
+    public boolean controlloDelegaRestituita(String nome, String cognome) {
+          By delegaBy = By.xpath("//p[contains(text(),'"+nome+" "+cognome+"')]");
+          this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaBy));
+          return this.elements(delegaBy).size() == 1;
+
+/*        try{
+            By delegheBy = By.xpath("//p[contains(text(),'"+nome+" "+cognome+"')]");
+
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegheBy));
+
+            return true;
+
+        }catch (TimeoutException e){
+            return false;
+        }*/
+
     }
 }

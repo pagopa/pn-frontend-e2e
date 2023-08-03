@@ -11,7 +11,7 @@ Feature: Il persona giuridica aggiunge una nuova delga inserendo una data errata
   @fase2Test113_neg
   Scenario: Il persona giuridica aggiunge una nuova delga inserendo una data errata
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
-    And Nella pagina Deleghe persona giuridica si vede la sezione Deleghe
+    And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Nella pagina Deleghe si clicca su Delegati dall impresa
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe dell impresa
     And Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega
