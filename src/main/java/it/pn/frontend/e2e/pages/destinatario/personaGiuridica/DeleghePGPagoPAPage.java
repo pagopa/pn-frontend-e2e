@@ -59,7 +59,7 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     }
 
-    public boolean CercaEsistenzaDelega(String nome,String cognome) {
+/*    public boolean CercaEsistenzaDelega(String nome,String cognome) {
         try {
             By nomeDelegato = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
@@ -67,15 +67,15 @@ public class DeleghePGPagoPAPage extends BasePage {
         }catch (TimeoutException | NoSuchElementException e){
             return false;
         }
-    }
-    public void clickRevocaMenuButton(String nome, String cognome) {
+    }*/
+/*    public void clickRevocaMenuButton(String nome, String cognome) {
 
         By menuButton = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
         this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuButton));
         this.js().executeScript("arguments[0].click()",this.element(menuButton));
         this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.revocaMenuButton));
         this.revocaMenuButton.click();
-    }
+    }*/
     public boolean CercaEsistenzaDelegaPG(String ragioneSociale) {
         try {
             By nomeDelegato = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]");
@@ -110,25 +110,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         this.revocaButton.click();
     }
 
-    public void waitLoadDelegheImpresaPage() {
-        try{
-            By titlePageBy = By.id("title-of-page");
-            By delegatiImpresaBy = By.xpath("//button[@data-testid='tab1']");
-            By nDelghe = By.xpath("//button[@data-testid='rows-per-page']");
-
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegatiImpresaBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nDelghe));
-
-            this.logger.info("Deleghe page si visualizza correttamente");
-
-        }catch (TimeoutException e){
-
-            this.logger.error("Deleghe page non si visualizza correttamente con errore: "+e.getMessage());
-            Assert.fail("Deleghe page non si visualizza correttamente con errore: "+e.getMessage());
-
-        }
-    }
 
     public void clickSuDelegheCaricoDellImpresa() {
             this.delegheCaricoImpresaButton.click();
