@@ -7,7 +7,7 @@ Feature: Login pagoPA
     Given Login Page mittente "mittente" viene visualizzata
     When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
-    And Logout da portale mittente
+    And Logout da portale mittente senza entrare su notifiche
 
   @loginpersonaFisica
   @TestSuite
