@@ -14,6 +14,6 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
   Scenario: persona fisica scarica attestazione
     When Il persona fisica clicca sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica persona fisica
-    Then Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto
+    Then Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto "datiNotifica"
     And Si clicca sul opzione Vedi Dettaglio
     And Logout da portale persona fisica

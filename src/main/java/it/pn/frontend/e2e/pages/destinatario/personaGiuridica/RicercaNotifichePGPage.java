@@ -36,8 +36,9 @@ public class RicercaNotifichePGPage extends BasePage {
     public void cliccaNotificaRestituita() {
         try {
             By notificaBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificaBy));
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificaBy));
-            this.element(notificaBy).click();
+            this.js().executeScript("arguments[0].click()",this.element(notificaBy));
         } catch (TimeoutException e) {
             logger.error("Notifica non trovata con errore: " + e.getMessage());
             Assert.fail("Notifica non trovata con errore: " + e.getMessage());
