@@ -94,7 +94,6 @@ public class LeTueDelegheSection extends BasePage {
     }
     public void waitNuovaDelegaSection() {
         try {
-            //By letuedeleghePageTitle = By.xpath("//h3[@id ='title-of-page']");
             By letuedeleghePageTitle = By.id("title-of-page");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(letuedeleghePageTitle));
             this.logger.info("Le tue deleghe page caricata");

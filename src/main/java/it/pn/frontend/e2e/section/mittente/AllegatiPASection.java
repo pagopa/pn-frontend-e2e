@@ -64,7 +64,7 @@ public class AllegatiPASection extends BasePage {
     }
 
     public void selectInviaButton() {
-        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.inviaButton));
+        getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(this.inviaButton));
         this.inviaButton.click();
     }
 }
