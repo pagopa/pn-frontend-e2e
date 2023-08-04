@@ -35,4 +35,26 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     public void clickRecapitiButton() {
         this.recapitiButton.click();
     }
+
+    public void clickNotificheDelegate() {
+        try{
+            By notificheDelegateButton = By.xpath("//div[@data-testid='sideMenuItem-Notifiche delegate']");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheDelegateButton));
+            logger.info("Si clicca correttamente sulla voce notifiche delegate");
+        }catch (TimeoutException e){
+            logger.error("Non si clicca correttamente sulla voce notifiche delegate con errore:"+e.getMessage());
+            Assert.fail("Non si clicca correttamente sulla voce notifiche delegate con errore"+e.getMessage());
+        }
+    }
+
+    public void waitLoadSezioneNotificheDelegate() {
+        try{
+            By notificheDelegatePageTitle = By.id("title-of-page");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheDelegatePageTitle));
+            logger.info("Si visualizza correttamente la sezione notifiche delegate");
+        }catch (TimeoutException e){
+            logger.error("Non si visualizza correttamente la sezione notifiche delegate con errore:"+e.getMessage());
+            Assert.fail("Non si visualizza correttamente la sezione notifiche delegate con errore"+e.getMessage());
+        }
+    }
 }

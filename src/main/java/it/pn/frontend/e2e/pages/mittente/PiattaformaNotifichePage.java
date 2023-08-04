@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class PiattaformaNotifichePAPage extends BasePage {
+public class PiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("notificaMittentePagoPA");
 
@@ -111,7 +111,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
     @FindBy(xpath = "//button[@data-testid='previous-step']")
     WebElement informazioniPreliminariButton;
 
-    public PiattaformaNotifichePAPage(WebDriver driver) {
+    public PiattaformaNotifichePage(WebDriver driver) {
         super(driver);
     }
 

@@ -7,7 +7,7 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.mittente.AreaRiservataPAPage;
 import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
-import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePAPage;
+import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.*;
 import it.pn.frontend.e2e.utility.DataPopulation;
@@ -79,16 +79,16 @@ public class NotificaMittentePagoPATest {
         if (cookiesSection.waitLoadCookiesPage()) {
             cookiesSection.selezionaAccettaTuttiButton();
         }
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.waitLoadPiattaformaNotifichePAPage();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
     }
 
     @And("Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica")
     public void nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica() {
         logger.info("selezione bottone invia una nuova notifica");
 
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.selectInviaUnaNuovaNotificaButton();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.selectInviaUnaNuovaNotificaButton();
     }
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari")
@@ -287,7 +287,7 @@ public class NotificaMittentePagoPATest {
     public void verificaDelloStatoDellaNotificaComeDepositata(String statoNotifica) {
         logger.info("Verifica dello stato della notifica come 'Depositata'");
 
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
@@ -300,17 +300,17 @@ public class NotificaMittentePagoPATest {
         CookiesSection cookiesSection = new CookiesSection(this.driver);
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
-                piattaformaNotifichePAPage.aggionamentoPagina();
+                piattaformaNotifichePage.aggionamentoPagina();
                 if (cookiesSection.waitLoadCookiesPage()) {
                     cookiesSection.selezionaAccettaTuttiButton();
                 }
-                piattaformaNotifichePAPage.insertCodiceFiscale(this.personeFisiche.get("codiceFiscale").toString());
-                piattaformaNotifichePAPage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
-                piattaformaNotifichePAPage.selezionareStatoNotifica("ACCEPTED");
-                piattaformaNotifichePAPage.selectFiltraButton();
+                piattaformaNotifichePage.insertCodiceFiscale(this.personeFisiche.get("codiceFiscale").toString());
+                piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
+                piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
+                piattaformaNotifichePage.selectFiltraButton();
             }
-            piattaformaNotifichePAPage.waitLoadRefreshPage();
-            String codiceIUN = piattaformaNotifichePAPage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
+            piattaformaNotifichePage.waitLoadRefreshPage();
+            String codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
             if (codiceIUN != null) {
                 if (!codiceIUN.equals(coidiceIUNOld)) {
                     this.datiNotifica.put("codiceIUN", codiceIUN);
@@ -379,31 +379,31 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche visualizzano correttamente i filtri di ricerca")
     public void nellaPaginaPiattaformaNotificheVisualizzanoCorrettamenteIFiltriDiRicerca() {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.siVisualizzaCorrettamenteIlCFField();
-        piattaformaNotifichePAPage.siVisualizzaCorrettamenteIlCodiceIUNField();
-        piattaformaNotifichePAPage.siVisualizzaCorrettamenteLoStatoField();
-        piattaformaNotifichePAPage.siVisualizzaCorrettamenteLaDataInzioField();
-        piattaformaNotifichePAPage.siVisualizzaCorrettamenteLaDataFineField();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.siVisualizzaCorrettamenteIlCFField();
+        piattaformaNotifichePage.siVisualizzaCorrettamenteIlCodiceIUNField();
+        piattaformaNotifichePage.siVisualizzaCorrettamenteLoStatoField();
+        piattaformaNotifichePage.siVisualizzaCorrettamenteLaDataInzioField();
+        piattaformaNotifichePage.siVisualizzaCorrettamenteLaDataFineField();
     }
 
     @Then("Nella pagina Piattaforma Notifiche si visualizza correttamente l'elenco delle notifiche")
     public void nellaPaginaPiattaformaNotificheSiVisualizzaCorrettamenteLElencoDelleNotifiche() {
         logger.info("Si visualizza l'elenco delle notifiche");
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        int nDateNotifiche = piattaformaNotifichePAPage.controlloNumeroRisultatiDate();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        int nDateNotifiche = piattaformaNotifichePage.controlloNumeroRisultatiDate();
         if (nDateNotifiche >= 1) {
             logger.info("Le date delle notifiche vengono visualizzate correttamente");
         } else {
             logger.error("Le date delle notifiche non vengono visualizzate correttamente");
         }
-        if (piattaformaNotifichePAPage.verificaEsistenzaCFNotifiche()) {
+        if (piattaformaNotifichePage.verificaEsistenzaCFNotifiche()) {
             logger.info("I codici fiscali delle notifiche vengono visualizzati correttamente");
         } else {
             logger.error("I codici fiscali delle notifiche non vengono visualizzati correttamente");
             Assert.fail("I codici fiscali delle notifiche non vengono visualizzati correttamente");
         }
-        List<WebElement> listeOggetti = piattaformaNotifichePAPage.ricercaListaOggetti();
+        List<WebElement> listeOggetti = piattaformaNotifichePage.ricercaListaOggetti();
         if (listeOggetti != null && listeOggetti.size() >=1 ){
             logger.info("La lista degli oggetti viene visualizzata correttamente");
         } else {
@@ -411,21 +411,21 @@ public class NotificaMittentePagoPATest {
             Assert.fail("La lista degli oggetti non viene visualizzata correttamente");
         }
 
-        if (piattaformaNotifichePAPage.verificaEsistenzaCodiceIUNNotifiche()) {
+        if (piattaformaNotifichePage.verificaEsistenzaCodiceIUNNotifiche()) {
             logger.info("La lista dei codici iun viene visualizzata correttamente");
         } else {
             logger.error("La lista dei codici iun non viene visualizzata correttamente");
             Assert.fail("La lista dei codici iun non viene visualizzata correttamente");
         }
 
-        if (piattaformaNotifichePAPage.verificaEsistenzaGruppoNotifiche()) {
+        if (piattaformaNotifichePage.verificaEsistenzaGruppoNotifiche()) {
             logger.info("La lista dei gruppi vengono visualizzate correttamente");
         } else {
             logger.error("La lista dei gruppi non vengono visualizzate correttamente");
             Assert.fail("La lista dei gruppi non vengono visualizzate correttamente");
         }
 
-        if (piattaformaNotifichePAPage.verificaEsistenzaStatoNotifiche()) {
+        if (piattaformaNotifichePage.verificaEsistenzaStatoNotifiche()) {
             logger.info("La lista degli stati viene visualizzata correttamente");
         } else {
             logger.error("La lista degli stati non viene visualizzata correttamente");
@@ -435,22 +435,22 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche si visualizzano le notifiche a partire dalla più recente")
     public void nellaPaginaPiattaformaNotificheSiVisualizzanoLeNotificheAPartireDallaPiuRecente() {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(driver);
-        piattaformaNotifichePAPage.controlloOrdineNotifiche();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.controlloOrdineNotifiche();
     }
 
     @And("Nella pagina Piattaforma Notifiche si scrolla fino alla fine della pagina")
     public void nellaPaginaPiattaformaNotificheSiScrollaFinoAllaFineDellaPagina() {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(driver);
-        piattaformaNotifichePAPage.siScrollaFinoAllaFineDellaPagina();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.siScrollaFinoAllaFineDellaPagina();
     }
 
     @And("Nella pagina Piattaforma Notifiche si controlla che vengano visualizzate dieci notifiche")
     public void nellaPaginaPiattaformaNotificheSiControllaCheVenganoVisualizzateNotifiche() {
         logger.info("si controlla che vengono visualizzate dieci notifiche");
 
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        String nNotificheInviate = piattaformaNotifichePAPage.numeroNotifiche();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        String nNotificheInviate = piattaformaNotifichePage.numeroNotifiche();
         if (nNotificheInviate.equals("10")) {
             logger.info("Il numero di notifiche e corretto");
         } else {
@@ -461,27 +461,27 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche si cambia pagina utilizzando una freccetta")
     public void nellaPaginaPiattaformaNotificheSiCambiaPaginaUtilizzandoUnaFreccetta() {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(driver);
-        piattaformaNotifichePAPage.siCambiaPaginaUtilizzandoUnaFrecetta();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnaFrecetta();
     }
 
     @And("Nella pagina Piattaforma Notifiche si cambia pagina utilizzando un numero")
     public void nellaPaginaPiattaformaNotificheSiCambiaPaginaUtilizzandoUnNumero() {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(driver);
-        piattaformaNotifichePAPage.siCambiaPaginaUtilizzandoUnNumero();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnNumero();
     }
 
     @Then("Nella pagina Piattaforma Notifiche si cambia il numero elementi visualizzati attraverso il filtro")
     public void nellaPaginaPiattaformaNotificheSiCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltroNumeroNotifiche() {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(driver);
-        piattaformaNotifichePAPage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
     }
 
     @And("Nella pagina Piattaforma Notifiche si controlla che vengano visualizzate tutte notifiche")
     public void nellaPaginaPiattaformaNotificheSiControllaCheVenganoVisualizzateTutteNotifiche() {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.waitLoadPage();
-        int numeroRighe = piattaformaNotifichePAPage.getNRighe();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.waitLoadPage();
+        int numeroRighe = piattaformaNotifichePage.getNRighe();
         if (numeroRighe > 10) {
             logger.info("Numero righe differente da quello di default");
         } else {
@@ -551,21 +551,21 @@ public class NotificaMittentePagoPATest {
 
     @And("Si verifica che la notifica sia nello stato {string}")
     public void siVerificaCheLaNotificaSiaNelloStato(String statoNotifca) {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage((this.driver));
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage((this.driver));
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         boolean notificaTrovata = false;
         for (int i = 0; i < 10; i++) {
-            int numeroNotifiche = piattaformaNotifichePAPage.getListStato(statoNotifca);
+            int numeroNotifiche = piattaformaNotifichePage.getListStato(statoNotifca);
             if (numeroNotifiche == 0) {
                 try {
                     TimeUnit.SECONDS.sleep(10);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                piattaformaNotifichePAPage.aggionamentoPagina();
-                piattaformaNotifichePAPage.inserimentoCodiceIUN(datiNotifica.get("codiceIUN").toString());
-                piattaformaNotifichePAPage.selectFiltraButton();
+                piattaformaNotifichePage.aggionamentoPagina();
+                piattaformaNotifichePage.inserimentoCodiceIUN(datiNotifica.get("codiceIUN").toString());
+                piattaformaNotifichePage.selectFiltraButton();
             } else {
                 notificaTrovata = true;
                 break;
@@ -592,7 +592,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Verifica dello stato della notifica inviata tramite pec come {string}")
     public void verificaDelloStatoDellaNotificaInviataTramitePecCome(String statoNotifica) {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         this.personeFisiche = dataPopulation.readDataPopulation("personaFisicaPec.yaml");
@@ -605,17 +605,17 @@ public class NotificaMittentePagoPATest {
         CookiesSection cookiesSection = new CookiesSection(this.driver);
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
-                piattaformaNotifichePAPage.aggionamentoPagina();
+                piattaformaNotifichePage.aggionamentoPagina();
                 if (cookiesSection.waitLoadCookiesPage()) {
                     cookiesSection.selezionaAccettaTuttiButton();
                 }
-                piattaformaNotifichePAPage.insertCodiceFiscale(this.personeFisiche.get("codiceFiscale").toString());
-                piattaformaNotifichePAPage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
-                piattaformaNotifichePAPage.selezionareStatoNotifica("ACCEPTED");
-                piattaformaNotifichePAPage.selectFiltraButton();
+                piattaformaNotifichePage.insertCodiceFiscale(this.personeFisiche.get("codiceFiscale").toString());
+                piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
+                piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
+                piattaformaNotifichePage.selectFiltraButton();
             }
-            piattaformaNotifichePAPage.waitLoadRefreshPage();
-            String codiceIUN = piattaformaNotifichePAPage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
+            piattaformaNotifichePage.waitLoadRefreshPage();
+            String codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
             if (codiceIUN != null) {
                 if (!codiceIUN.equals(coidiceIUNOld)) {
                     this.datiNotifica.put("codiceIUN", codiceIUN);
@@ -636,16 +636,16 @@ public class NotificaMittentePagoPATest {
         logger.info("Si inserisce il codice IUN");
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation(dpDatiiNotifica + ".yaml");
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.aggionamentoPagina();
-        piattaformaNotifichePAPage.waitLoadRefreshPage();
-        piattaformaNotifichePAPage.inserimentoCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.aggionamentoPagina();
+        piattaformaNotifichePage.waitLoadRefreshPage();
+        piattaformaNotifichePage.inserimentoCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
     }
 
     @And("Nella section si prova ad cliccare sul tasto continua senza aver inserito nessun dato")
     public void nellaSectionInformazioniPreliminariSiProvaAdCliccareSulTastoContinuaSenzaAverInseritoNessunDato() {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.clickContinuaDisabled();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.clickContinuaDisabled();
     }
 
     @And("Nella section Informazioni preliminari inserire i dati della notifica sbagliati {string} senza pagamento")
@@ -653,69 +653,69 @@ public class NotificaMittentePagoPATest {
         logger.info("Si inserisce l'oggetto della notifica errato");
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotificaErrore = dataPopulation.readDataPopulation(datiNotificaErrore + ".yaml");
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.inserimentoOggettoNotificaErrato(this.datiNotificaErrore.get("oggettoDellaNotifica").toString());
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.inserimentoOggettoNotificaErrato(this.datiNotificaErrore.get("oggettoDellaNotifica").toString());
     }
 
     @And("Nella section Informazioni preliminari si visualizza un messaggio di errore")
     public void nellaSectionInformazioniPreliminariSiVisualizzaUnMessaggioDiErrore() {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.errorMessage();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.errorMessage();
     }
 
     @And("Nella section cliccare sul tasto indietro")
     public void nellaSectionInformazioniPreliminariCliccareSulTastoIndietro() {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.clickIndietroButton();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.clickIndietroButton();
     }
 
     @And("Nella section si visualizza il popup vuoi uscire")
     public void nellaSectionInformazioniPreliminariSiVisualizzaIlPopupVuoiUscire() {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.vuoiUscirePopUp();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.vuoiUscirePopUp();
     }
 
     @And("Nella section cliccare sul tasto esci")
     public void nellaSectionInformazioniPreliminariCliccareSulTastoEsci() {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.clickSuEsci();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.clickSuEsci();
     }
 
     @And("Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica {string}")
     public void nellaSectionDestinatarioInserireRagioneSocialeEPartitaIVADallaPersonaGiuridica(String personaGiuridica) {
         DataPopulation dataPopulation = new DataPopulation();
         this.personaGiuridica = dataPopulation.readDataPopulation(personaGiuridica + ".yaml");
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.insertRagioneSociale(this.personaGiuridica.get("ragioneSociale").toString());
-        piattaformaNotifichePAPage.insertpartitaIva(this.personaGiuridica.get("codiceFiscale").toString());
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.insertRagioneSociale(this.personaGiuridica.get("ragioneSociale").toString());
+        piattaformaNotifichePage.insertpartitaIva(this.personaGiuridica.get("codiceFiscale").toString());
     }
 
     @And("Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona giuridica {string}")
     public void nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaGiuridica(String personaGiuridica) {
         DataPopulation dataPopulation = new DataPopulation();
         this.personaGiuridica = dataPopulation.readDataPopulation(personaGiuridica + ".yaml");
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.checkBoxAggiungiDomicilio();
-        piattaformaNotifichePAPage.insertDomicilioDigitale(this.personaGiuridica.get("emailPec").toString());
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.checkBoxAggiungiDomicilio();
+        piattaformaNotifichePage.insertDomicilioDigitale(this.personaGiuridica.get("emailPec").toString());
     }
 
     @And("Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica {string}")
     public void nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDellaPersonaGiuridica(String personaGiuridica) {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.clickAggiungiIndirizzoFisico();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.clickAggiungiIndirizzoFisico();
     }
 
     @And("Nella section Destinatario inserire i dati errati dalla persona giuridica {string}")
     public void nellaSectionDestinatarioInserireIDatiErratiDallaPersonaGiuridica(String personaGiuridicaErrore) {
         DataPopulation dataPopulation = new DataPopulation();
         this.personaGiuridicaErrore = dataPopulation.readDataPopulation(personaGiuridicaErrore + ".yaml");
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.checkBoxAggiungiDomicilio();
-        piattaformaNotifichePAPage.insertDomicilioDigitaleErrato(this.personaGiuridicaErrore.get("emailPec").toString());
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.checkBoxAggiungiDomicilio();
+        piattaformaNotifichePage.insertDomicilioDigitaleErrato(this.personaGiuridicaErrore.get("emailPec").toString());
     }
 
     @And("Nella section Allegati caricare l'atto e inserire il nome atto {string} con estenzione non valida")
-    public void nellaSectionAllegatiCaricareLAttoEInserireIlNomeAttoConEstenzioneNonValida(String arg0) {
+    public void nellaSectionAllegatiCaricareLAttoEInserireIlNomeAttoConEstenzioneNonValida() {
         AllegatiPASection allegatiPASection = new AllegatiPASection(this.driver);
         String pathDocumentiFile = System.getProperty("user.dir")+"/src/test/resources/dataPopulation/fileUpload/semiOfficial1.jpg";
         allegatiPASection.caricareNotificaPdfDalComputer(pathDocumentiFile);
@@ -723,32 +723,32 @@ public class NotificaMittentePagoPATest {
 
     @Then("Si visualizza correttamente il messaggio di errore estensione file non supportata. Riprovare con un altro file.")
     public void siVisualizzaCorrettamenteIlMessaggioDiErroreEstensioneFileNonSupportataRiprovareConUnAltroFile() {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.estensioneSbagliataErrore();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.estensioneSbagliataErrore();
     }
 
     @And("Nella pagina Api Key si clicca sulla voce visualizza id gruppo del menu Api Key")
     public void nellaPaginaApiKeySiCliccaSullaVoceVisualizzaIdGruppoDelMenuApiKey() {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.clickVisualizzaIdApiKey();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.clickVisualizzaIdApiKey();
     }
 
     @And("Nella pagina Api Key si visualizza il pop up Gruppi associati alla API")
     public void nellaPaginaApiKeySiVisualizzaIlPopUpGruppiAssociatiAllaAPI() {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.popUpGruppiAssociati();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.popUpGruppiAssociati();
     }
 
     @Then("Nella pop up cliccare sul tasto chiudi")
     public void nellaPopUpCliccareSulTastoChiudi() {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.chiudiPopUp();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.chiudiPopUp();
     }
 
     @And("Nella section Destinatario selezionare il radio button persona giuridica")
     public void nellaSectionDestinatarioSelezionareIlRadioButtonPersonaGiuridica() {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.clickRadioButtonPersonaGiuridica();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.clickRadioButtonPersonaGiuridica();
     }
 
     @And("^Nella section Destinatario inserire i dati del destinatari persone giuridiche aggiuntivi per (.*)$")
@@ -773,7 +773,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella section cliccare sul tasto torna a informazioni preliminari")
     public void nellaSectionCliccareSulTastoTornaAInformazioniPreliminari() {
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.clickSuTornaInformazioniPreliminari();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.clickSuTornaInformazioniPreliminari();
     }
 }
