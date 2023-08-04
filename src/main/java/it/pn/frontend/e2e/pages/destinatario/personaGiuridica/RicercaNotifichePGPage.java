@@ -33,9 +33,9 @@ public class RicercaNotifichePGPage extends BasePage {
         }
     }
 
-    public void cliccaNotificaRestituita() {
+    public void cliccaNotificaRestituita(String codiceIun) {
         try {
-            By notificaBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr')]");
+            By notificaBy = By.xpath("//button[contains(text(),'"+codiceIun+"')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificaBy));
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificaBy));
             this.js().executeScript("arguments[0].click()",this.element(notificaBy));

@@ -15,6 +15,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.util.Map;
 
@@ -40,9 +41,11 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         NotifichePFPage.inserisciCodiceIUN(this.datiNotificaPG.get("codiceIUN").toString());
     }
 
-    @When("Il persona giuridica clicca sulla notifica restituita")
-    public void ilPersonaGiuridicaCliccaSullaNotificaRestituita() {
-        ricercaNotifichePGPage.cliccaNotificaRestituita();
+    @When("Il persona giuridica clicca sulla notifica restituita {string}")
+    public void ilPersonaGiuridicaCliccaSullaNotificaRestituita(String dpFile) {
+        DataPopulation dataPopulation = new DataPopulation();
+        String codiceIUNPG = dataPopulation.readDataPopulation(dpFile+".yaml").get("codiceIUN").toString();
+        ricercaNotifichePGPage.cliccaNotificaRestituita(codiceIUNPG);
     }
 
     @And("Si visualizza correttamente la section Dettaglio Notifica persona giuridica")
