@@ -5,7 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.mittente.ApiKeyPAPage;
-import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePAPage;
+import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.GeneraApiKeySection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
@@ -26,13 +26,13 @@ public class ApiKeysTest {
     public void nellaPaginaPiattaformaNotificheSelezionareLaVoceApiKeyNelMenu() {
         logger.info("Si cerca di cliccare sulla voce ApiKeys");
 
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         try {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        piattaformaNotifichePAPage.selezionareLaVoceApiKey();
+        piattaformaNotifichePage.selezionareLaVoceApiKey();
 
     }
 
@@ -40,8 +40,8 @@ public class ApiKeysTest {
     public void siVisualizzaCorrettamenteLaPaginaApiKey() {
         logger.info("Si visualizza correttamente la pagina Api Key");
 
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.waitLoadApikeyPage();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.waitLoadApikeyPage();
     }
 
     @When("Nella pagina Api Key si clicca sul bottone genera Api Key")
