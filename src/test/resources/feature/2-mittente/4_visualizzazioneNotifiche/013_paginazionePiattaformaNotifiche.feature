@@ -7,7 +7,7 @@ Feature:il mittente cambia visualizzazione della pagina
 
   @TestSuite
   @test13
-  @LoginMittenteRest
+
 
 
   Scenario: il mittente cambia visualizzazione della pagina

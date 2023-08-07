@@ -11,7 +11,7 @@ Feature: il mittente effettua il download attestazione opponibile a terzi notifi
 
   @TestSuite
   @test98
-  @LoginMittenteRest
+
 
   Scenario: il mittente effettua il download attestazione opponibile a terzi notifica digitale
     When Cliccare sulla notifica restituita

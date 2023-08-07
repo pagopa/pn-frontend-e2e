@@ -7,12 +7,11 @@ Feature: Mittente genera una notifica tramite destinatario con pec
 
   @TestSuite
   @test86
-  @LoginMittenteRest
+  @run
 
   Scenario: Mittente genera una notifica tramite destinatario con pec
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-    #And Nella pagina Piattaforma Notifiche accetta i Cookies
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     And Nella section Informazioni preliminari inserire i dati della notifica "datiNotifica" senza pagamento

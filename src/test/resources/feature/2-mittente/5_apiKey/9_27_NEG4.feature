@@ -10,7 +10,7 @@ Feature: Mittente seleziona CTA annulla in ruota api Key
     And Si visualizza correttamente la pagina Api Key
 
   @TestSuite
-  @LoginMittenteRest
+
   @test27_neg4
 
   Scenario: Mittente seleziona CTA annulla in ruota api Key

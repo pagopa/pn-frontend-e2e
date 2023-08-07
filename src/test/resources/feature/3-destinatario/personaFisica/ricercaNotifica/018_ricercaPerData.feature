@@ -7,7 +7,7 @@ Feature: Ricerca notifica per periodo temporale persona fisica
 
   @TestSuite
   @test18
-  @restLogin
+  @
 
   Scenario: La persona fisica fa una ricerca per date
     When Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica

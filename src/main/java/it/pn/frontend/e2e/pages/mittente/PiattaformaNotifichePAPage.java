@@ -204,7 +204,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
     }
 
     public void selectInviaUnaNuovaNotificaButton() {
-        this.inviaNuovaNotificaButton.click();
+        this.js().executeScript("arguments[0].click()",this.inviaNuovaNotificaButton);
     }
 
     public void aggionamentoPagina() {

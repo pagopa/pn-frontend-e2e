@@ -12,7 +12,7 @@ Feature: il mittente download attestazione notifica presa in carico
 
   @TestSuite
   @test97
-  @LoginMittenteRest
+  @run
 
   Scenario: il mittente scarica il file Attestazione opponibile a terzi: notifica presa in carico
     When Cliccare sulla notifica restituita

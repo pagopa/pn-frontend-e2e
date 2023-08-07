@@ -11,7 +11,7 @@ Feature: Mittente visualizza il dettaglio di una notifica
 
   @TestSuite
   @test14
-  @LoginMittenteRest
+
 
   Scenario: Mittente visualizza dettaglio notifica
     When Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita

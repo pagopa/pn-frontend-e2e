@@ -7,7 +7,6 @@ Feature: Il delegato visualizza la notifiche del delegante
 
     @TestSuite
     @test50
-    @restLogin
 
 
   Scenario: Il delegato visualizza la notifiche del delegante

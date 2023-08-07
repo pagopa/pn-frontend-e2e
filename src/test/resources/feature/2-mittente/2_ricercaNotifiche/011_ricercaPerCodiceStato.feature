@@ -7,7 +7,7 @@ Feature: Mittente effetua una ricerca notifiche per Stato
 
   @TestSuite
   @test11
-    @LoginMittenteRest
+
 
   Scenario Outline: Mittente logato effettua una ricerca per stato notifica
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

@@ -10,7 +10,7 @@ Feature: Mittente seleziona CTA annulla in attiva api Key
     And Si visualizza correttamente la pagina Api Key
 
   @TestSuite
-  @LoginMittenteRest
+
   @test26_neg3
 
   Scenario: Mittente seleziona CTA annulla in attiva api Key

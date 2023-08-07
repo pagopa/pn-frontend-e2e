@@ -7,7 +7,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
 
   @TestSuite
   @test85
-  @LoginMittenteRest
+
 
   Scenario: Mittente genera una notifica senza pagamento
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

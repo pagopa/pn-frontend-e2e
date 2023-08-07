@@ -7,7 +7,6 @@ Feature: il delegato accetta la delega
 
   @TestSuite
   @test48
-  @restLogin
 
   Scenario: il delegato accetta la delega
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe

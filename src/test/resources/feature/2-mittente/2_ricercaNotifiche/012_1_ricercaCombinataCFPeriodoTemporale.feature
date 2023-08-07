@@ -5,7 +5,7 @@ Feature: il mittente fa una ricerca combinata tra cf e periodo temporale
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
-  @LoginMittenteRest
+
   @test12_1
 
   Scenario: il mittente fa una ricera sia per cf che per periodo temporale

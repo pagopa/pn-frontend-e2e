@@ -12,7 +12,7 @@ Feature: Mittente visualizza correttamente la sezione genera Api Key
 
   @TestSuite
   @test21
-  @LoginMittenteRest
+
 
   Scenario: Mittente visualizza correttamente la sezione genera Api Key
     When Nella pagina Api Key si clicca sul bottone genera Api Key

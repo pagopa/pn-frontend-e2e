@@ -10,7 +10,7 @@ Feature: Mittente seleziona l'opzione ruota api Key
     And Si visualizza correttamente la pagina Api Key
 
   @TestSuite
-  @LoginMittenteRest
+
   @test27
 
   Scenario: Mittente seleziona l'opzione ruota Api Key

@@ -11,7 +11,7 @@ Feature: Mittente genera Api Key senza inserire il nome dell api key
 
   @TestSuite
   @test22_neg1
-  @LoginMittenteRest
+
 
 
   Scenario:Mittente genera Api Key senza inserire il nome dell api key

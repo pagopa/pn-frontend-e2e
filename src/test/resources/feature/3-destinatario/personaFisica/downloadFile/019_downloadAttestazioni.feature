@@ -9,7 +9,7 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
 
   @TestSuite
   @test19
-  @restLogin
+  @
 
   Scenario: persona fisica scarica attestazione
     When Il persona fisica clicca sulla notifica restituita

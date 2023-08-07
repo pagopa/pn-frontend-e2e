@@ -7,7 +7,7 @@ Feature: Mittente visualizza correttamente la pagina notifiche
 
   @TestSuite
   @test7
-  @LoginMittenteRest
+
 
 
   Scenario: Mittente visualizza correttamente la pagina notifiche

@@ -7,7 +7,7 @@ Feature: Mittente effetua una ricerca notifiche per codice IUN
 
   @TestSuite
   @test9
-  @LoginMittenteRest
+
 
   Scenario: Mittente loggato effettua una ricerca per codice IUN
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

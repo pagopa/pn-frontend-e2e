@@ -10,7 +10,7 @@ Feature: Mittente seleziona l'opzione blocca api Key
     And Si visualizza correttamente la pagina Api Key
 
   @TestSuite
-  @LoginMittenteRest
+
   @test25
 
   Scenario: Mittente seleziona l'opzione blocca Api Key

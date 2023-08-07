@@ -7,7 +7,6 @@ Feature: Il persona fisica revoca una delega
 
   @TestSuite
   @test47
-  @restLogin
 
   Scenario: Il persona fisica revoca una delega
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe

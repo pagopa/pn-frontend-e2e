@@ -5,7 +5,7 @@ Feature: il mittente fa una ricerca combinata tra cf e data
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
-  @LoginMittenteRest
+
   @test12_5
 
   Scenario: il mittente fa una ricera sia per cf che per data

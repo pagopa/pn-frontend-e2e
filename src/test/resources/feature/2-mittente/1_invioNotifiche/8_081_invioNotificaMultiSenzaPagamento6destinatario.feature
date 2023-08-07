@@ -7,7 +7,7 @@ Feature: il mittente invia una notifica con 6 destinatario
 
   @TestSuite
   @test81
-    @LoginMittenteRest
+
 
   Scenario Outline: il mittente invia una notifica con 6 destinatario
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

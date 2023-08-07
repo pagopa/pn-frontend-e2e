@@ -7,7 +7,7 @@ Feature: Il persona fisica visualizza il codice  di una delega
 
   @TestSuite
   @test46
-  @restLogin
+
 
   Scenario: Il persona fisica visualizza il codice  di una delega
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe

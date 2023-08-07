@@ -7,7 +7,6 @@ Feature: Il persona fisica aggiunge una delega a se stessi
 
   @TestSuite
   @test52
-  @restLogin
 
   Scenario: Il persona fisica aggiunge una delega a se stessi
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe

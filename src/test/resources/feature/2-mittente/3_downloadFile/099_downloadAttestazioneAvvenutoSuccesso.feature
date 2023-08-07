@@ -11,7 +11,7 @@ Feature: il mittente effettua il download attestazione opponibile a terzi avvenu
 
   @TestSuite
   @test99
-  @LoginMittenteRest
+  @run
 
   Scenario: il mittente effettua il download attestazione opponibile a terzi avvenuto successo
     When Cliccare sulla notifica restituita

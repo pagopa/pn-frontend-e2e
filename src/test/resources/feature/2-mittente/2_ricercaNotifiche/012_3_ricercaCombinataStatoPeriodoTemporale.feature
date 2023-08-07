@@ -5,7 +5,7 @@ Feature: il mittente fa una ricerca combinata tra stato e arco temporale
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
-    @LoginMittenteRest
+
     @test12_3
 
   Scenario Outline: il mittente fa una ricerca sia per arco temporale che per stato

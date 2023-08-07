@@ -5,7 +5,7 @@ Feature: il mittente fa una ricerca combinata tra stato e data
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
-    @LoginMittenteRest
+
   @test12_2
 
   Scenario Outline: il mittente fa una ricerca sia per data che per stato

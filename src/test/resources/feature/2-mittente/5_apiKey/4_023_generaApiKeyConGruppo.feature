@@ -12,7 +12,7 @@ Feature: Mittente genera Api Key senza gruppo
 
   @TestSuite
   @test23
-  @LoginMittenteRest
+
 
   Scenario:
     When Nella pagina Api Key si clicca sul bottone genera Api Key
