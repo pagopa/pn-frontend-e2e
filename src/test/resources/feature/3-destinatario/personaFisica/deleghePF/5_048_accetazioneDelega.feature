@@ -15,5 +15,5 @@ Feature: il delegato accetta la delega
     And si sceglie opzione accetta
     And Si inserisce il codice delega nel pop-up "nuova_delega"
     And Si clicca sul bottone Accetta
-    And Si controlla che la delega a lo stato Attiva
+    And Si controlla che la delega a lo stato Attiva "personaFisica"
     And Logout da portale persona fisica

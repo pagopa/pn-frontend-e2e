@@ -65,7 +65,10 @@ public class PiattaformaNotifichePAPage extends BasePage {
     public void waitLoadPiattaformaNotifichePAPage() {
         try {
             By notificheTitle = By.xpath("//h4[contains(text(),'Notifiche')]");
+            By inviaButtonBy = By.xpath("//button[contains(@data-testid,'newNotificationBtn')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheTitle));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(inviaButtonBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(inviaButtonBy));
             logger.info("Piattaforma Notifiche Page caricata");
         } catch (TimeoutException e) {
             logger.error("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());

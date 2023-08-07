@@ -27,6 +27,10 @@ public class DeleghePagoPATest {
 
     private PopUpRevocaDelegaSection popUpRevocaDelegaSection = new PopUpRevocaDelegaSection(this.driver);
 
+    private DataPopulation dataPopulation = new DataPopulation();
+
+    private DeleghePage deleghePage = new DeleghePage(this.driver);
+
     @When("Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe")
     public void wait_deleghe_Button() {
         logger.info("Si clicca sul bottone deleghe");
@@ -37,14 +41,14 @@ public class DeleghePagoPATest {
     @And("Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe")
     public void visualizzaDelegheSection() {
         logger.info("Si visualizza la sezione deleghe");
-        DeleghePage deleghePage = new DeleghePage(this.driver);
+
         deleghePage.waitDeleghePage();
     }
 
     @And("Nella sezione Deleghe click sul bottone aggiungi nuova delega")
     public void nellaSezioneDelegheClickSulBottoneAggiungiNuovaDelega() {
         logger.info("Click sul bottone aggiungi nuova delega");
-        DeleghePage deleghePage = new DeleghePage(this.driver);
+
         deleghePage.clickAggiungiDelegaButton();
     }
 
@@ -61,7 +65,7 @@ public class DeleghePagoPATest {
 
         this.leTueDelegheSection.selectpersonaFisicaRadioButton();
 
-        DataPopulation dataPopulation = new DataPopulation();
+
         deleghe = dataPopulation.readDataPopulation(dpFile+".yaml");
 
         this.leTueDelegheSection.insertNomeCognome(deleghe.get("nome").toString(),deleghe.get("cognome").toString());
@@ -88,7 +92,7 @@ public class DeleghePagoPATest {
     @And("Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file {string}")
     public void nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile(String dpFile) {
         logger.info("Si salva il codice deleghe nel file "+ dpFile);
-        DataPopulation dataPopulation = new DataPopulation();
+
         deleghe = dataPopulation.readDataPopulation(dpFile+".yaml");
 
 
@@ -105,7 +109,7 @@ public class DeleghePagoPATest {
 
     @And("Nella sezione Deleghe si visualizza la delega in stato di attesa di conferma")
     public void nellaSezioneDelegheSiVisualizzaLaDelegaInStatoDiAttesaDiConferma() {
-        DeleghePage deleghePage = new DeleghePage(this.driver);
+
         deleghePage.waitDeleghePage();
         deleghePage.controlloCreazioneDelega();
     }
@@ -114,35 +118,36 @@ public class DeleghePagoPATest {
     public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelega() {
         logger.info("Si controlla che sia presente una delega");
 
-        this.leTueDelegheSection.siVisualizzaUnaDelega();
+        this.deleghePage.siVisualizzaUnaDelega();
     }
 
-    @And("Nella sezione Deleghe si clicca sul menu della delega")
-    public void nellaSezioneDelegheSiCliccaSulMenuDellaDelega() {
+    @And("Nella sezione Deleghe si clicca sul menu della delega {string}")
+    public void nellaSezioneDelegheSiCliccaSulMenuDellaDelega(String dpFile) {
         logger.info("Si clicca sul menu della delega");
+        this.deleghe = this.dataPopulation.readDataPopulation(dpFile+".yaml");
 
-        this.leTueDelegheSection.clickMenuDelega();
+        this.deleghePage.clickMenuDelega(this.deleghe.get("nome").toString(),this.deleghe.get("cognome").toString());
     }
 
     @And("Nella sezione Deleghe si sceglie l'opzione mostra codice")
     public void nellaSezioneDelegheSiSceglieLOpzioneMostraCodice() {
         logger.info("Si clicca su mostra codice");
 
-        this.leTueDelegheSection.siSceglieLOpzioneMostraCodice();
+        this.deleghePage.siSceglieLOpzioneMostraCodice();
     }
 
     @Then("Si clicca sul bottone chiudi")
     public void siCliccaSulBottoneChiudi() {
         logger.info("Si clicca sul bottone chiudi");
 
-        this.leTueDelegheSection.siCliccaSulBottoneChiudi();
+        this.deleghePage.siCliccaSulBottoneChiudi();
     }
 
     @And("Nella sezione Deleghe si sceglie l'opzione revoca")
     public void nellaSezioneDelegheSiSceglieLOpzioneRevoca() {
         logger.info("Si clicca sulla opzione revoca delega");
 
-        this.leTueDelegheSection.clickOpzioneRevoca();
+        this.deleghePage.clickOpzioneRevoca();
     }
 
     @Then("Si conferma l'azione scegliendo revoca la delega")
@@ -173,8 +178,8 @@ public class DeleghePagoPATest {
     @And("Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico")
     public void siVerificaSiaPresenteUnaDelegaNellaSezioneDelegheATuoCarico() {
         logger.info("Si controlla che ci sia almeno una delega");
-        this.leTueDelegheSection.vaiInFondoAllaPagina();
-        this.leTueDelegheSection.siVisualizzaUnaDelega();
+        this.deleghePage.vaiInFondoAllaPagina();
+        this.deleghePage.siVisualizzaUnaDelega();
     }
 
     @And("si sceglie opzione accetta")
@@ -189,7 +194,6 @@ public class DeleghePagoPATest {
 
         this.leTueDelegheSection.waitPopUpLoad();
 
-        DataPopulation dataPopulation = new DataPopulation();
         Map<String,Object> destinatari = dataPopulation.readDataPopulation(dpFile + ".yaml");
         this.leTueDelegheSection.inserireCodiceDelega(destinatari.get("codiceDelega").toString());
     }
@@ -201,11 +205,11 @@ public class DeleghePagoPATest {
         this.leTueDelegheSection.clickAccettaButton();
     }
 
-    @And("Si controlla che la delega a lo stato Attiva")
-    public void siControllaCheLaDelegaALoStatoAttiva() {
+    @And("Si controlla che la delega a lo stato Attiva {string}")
+    public void siControllaCheLaDelegaALoStatoAttiva(String dpFile) {
         logger.info("Si controlla che la delega abbia lo stato Attiva");
-
-        this.leTueDelegheSection.controlloStatoAttiva();
+        this.deleghe = this.dataPopulation.readDataPopulation(dpFile+".yaml");
+        this.leTueDelegheSection.controlloStatoAttiva(deleghe.get("name").toString(),deleghe.get("familyName").toString());
     }
 
     @And("Nella sezione Deleghe si visualizza il titolo")
@@ -278,8 +282,8 @@ public class DeleghePagoPATest {
     public void siControllaCheNonSiaPresenteUnaDelgaConStessoNome(String dpFile) {
         logger.info("Si controlla che non ci sia una delega con lo stesso nome");
 
-        DeleghePage deleghePage = new DeleghePage(this.driver);
-        DataPopulation dataPopulation = new DataPopulation();
+
+
 
         Map<String,Object> datiDelega = dataPopulation.readDataPopulation(dpFile+".yaml");;
 
