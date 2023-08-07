@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class DeleghePagoPATest {
 
@@ -247,7 +248,11 @@ public class DeleghePagoPATest {
     @And("Nella sezione Deleghe si visualizzano tutti i campi dell'elenco dei delegati")
     public void siVisualizzanoTuttiICampiDellElencoDeiDelegati() {
 
-
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         if(this.leTueDelegheSection.siVisualizzaIlNomeDelegato()){
             logger.info("Si visualizza correttamente il nome del delegato");
         }else {

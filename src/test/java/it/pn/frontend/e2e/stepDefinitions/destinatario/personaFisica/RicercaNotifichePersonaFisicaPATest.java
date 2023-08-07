@@ -38,8 +38,9 @@ public class RicercaNotifichePersonaFisicaPATest {
         logger.info("Si inserisce il codice IUN");
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation(dpDataNotifica+".yaml");
-        NotifichePFPage NotifichePFPage = new NotifichePFPage(this.driver);
-        NotifichePFPage.inserisciCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.waitLoadPage();
+        notifichePFPage.inserisciCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
     }
 
     @And("Cliccare sul bottone Filtra persona fisica")
