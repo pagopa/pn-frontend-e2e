@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePAPage;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;

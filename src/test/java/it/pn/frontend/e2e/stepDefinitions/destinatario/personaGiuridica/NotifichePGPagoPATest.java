@@ -40,6 +40,17 @@ public class NotifichePGPagoPATest {
         piattaformaNotifichePGPAPage.clickSuDelegeButton();
     }
 
+    @And("Nella Pagina Notifiche persona giuridica si clicca su notifiche delegate")
+    public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSuNotificheDelegate() {
+        logger.info("Si clicca correttamente su notifiche delegate");
+        piattaformaNotifichePGPAPage.clickNotificheDelegate();
+    }
+
+    @And("Si visualizza correttamente la Pagina Notifiche persona giuridica sezione notifiche delegate")
+    public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridicaSezioneNotificheDelegate() {
+        piattaformaNotifichePGPAPage.waitLoadSezioneNotificheDelegate();
+    }
+
     @When("Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaSiCliccaSulBottoneITuoiRecapiti() {
         logger.info("Si clicca sulla voce recapiti nel menu");

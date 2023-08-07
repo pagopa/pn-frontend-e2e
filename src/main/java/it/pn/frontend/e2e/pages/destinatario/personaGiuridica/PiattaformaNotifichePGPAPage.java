@@ -29,9 +29,9 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             By titlePageBy = By.id("title-of-page");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             logger.info("La piagine Piattamorma Notifiche si carica correttamente");
-        }catch (TimeoutException e){
-            logger.error("La piagine Piattamorma Notifiche non si carica correttamente con errore: "+e.getMessage());
-            Assert.fail("La piagine Piattamorma Notifiche non si carica correttamente con errore: "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("La piagine Piattamorma Notifiche non si carica correttamente con errore: " + e.getMessage());
+            Assert.fail("La piagine Piattamorma Notifiche non si carica correttamente con errore: " + e.getMessage());
         }
     }
 
@@ -39,7 +39,30 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         this.delegheSideMenu.click();
     }
 
-    public void clickRecapitiButton() {
-        this.recapitiButton.click();
+    public void clickNotificheDelegate() {
+        try {
+            By notificheDelegateButton = By.xpath("//div[@data-testid='sideMenuItem-Notifiche delegate']");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheDelegateButton));
+            logger.info("Si clicca correttamente sulla voce notifiche delegate");
+        } catch (TimeoutException e) {
+            logger.error("Non si clicca correttamente sulla voce notifiche delegate con errore:" + e.getMessage());
+            Assert.fail("Non si clicca correttamente sulla voce notifiche delegate con errore" + e.getMessage());
+        }
     }
-}
+
+    public void waitLoadSezioneNotificheDelegate() {
+        try{
+            By notificheDelegatePageTitle = By.id("title-of-page");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheDelegatePageTitle));
+            logger.info("Si visualizza correttamente la sezione notifiche delegate");
+        }catch (TimeoutException e){
+            logger.error("Non si visualizza correttamente la sezione notifiche delegate con errore:"+e.getMessage());
+            Assert.fail("Non si visualizza correttamente la sezione notifiche delegate con errore"+e.getMessage());
+        }
+    }
+        public void clickRecapitiButton () {
+            this.recapitiButton.click();
+        }
+    }
+
+

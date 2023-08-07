@@ -8,7 +8,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
-import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePAPage;
+import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
@@ -36,8 +36,8 @@ public class DownloadFileMittentePagoPATest {
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
     public void clickNotificaRestituita() {
         logger.info("Si clicca sulla notifica restituita");
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.selezionaNotifica();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.selezionaNotifica();
     }
 
     @And("Si visualizza correttamente la sezione Dettaglio Notifica")
@@ -134,8 +134,8 @@ public class DownloadFileMittentePagoPATest {
     @When("Cliccare sulla notifica restituita")
     public void cliccareSullaNotificaRestituita() {
         logger.info("Si clicca sulla notifica");
-        PiattaformaNotifichePAPage piattaformaNotifichePAPage = new PiattaformaNotifichePAPage(this.driver);
-        piattaformaNotifichePAPage.selezionaNotifica();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.selezionaNotifica();
     }
 
     @And("Si visualizza correttamente la section Dettaglio Notifica")

@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+
 public class RecapitiPGPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("RecapitiPGPage");
