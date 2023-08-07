@@ -24,13 +24,13 @@ public class DeleghePagoPATest {
     Map<String, Object> deleghe = new HashMap<>();
     private final Logger logger = LoggerFactory.getLogger("DeleghePagoPATest");
 
-    private LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
+    private final LeTueDelegheSection  leTueDelegheSection = new LeTueDelegheSection(this.driver);
 
-    private PopUpRevocaDelegaSection popUpRevocaDelegaSection = new PopUpRevocaDelegaSection(this.driver);
+    private final PopUpRevocaDelegaSection popUpRevocaDelegaSection = new PopUpRevocaDelegaSection(this.driver);
 
-    private DataPopulation dataPopulation = new DataPopulation();
+    private final DataPopulation dataPopulation = new DataPopulation();
 
-    private DeleghePage deleghePage = new DeleghePage(this.driver);
+    private final DeleghePage deleghePage = new DeleghePage(this.driver);
 
     @When("Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe")
     public void wait_deleghe_Button() {
@@ -290,7 +290,7 @@ public class DeleghePagoPATest {
 
 
 
-        Map<String,Object> datiDelega = dataPopulation.readDataPopulation(dpFile+".yaml");;
+        Map<String,Object> datiDelega = dataPopulation.readDataPopulation(dpFile+".yaml");
 
         String nome =  datiDelega.get("nome").toString();
         String cognome =  datiDelega.get("cognome").toString();
