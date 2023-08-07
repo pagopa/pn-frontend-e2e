@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 public class NotifichePGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("NotifichePGPagoPATest");
     private final WebDriver driver = Hooks.driver;
-    private final PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
 
+    PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
     @And("Nella Home page persona giuridica si clicca su Send Notifiche Digitali")
     public void clickSendNotificheDigitali(){
         this.logger.info("Si clicca su Send Notifiche Digitali");
@@ -29,13 +29,15 @@ public class NotifichePGPagoPATest {
 
     @And("Si visualizza correttamente la Pagina Notifiche persona giuridica")
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica() {
+
         piattaformaNotifichePGPAPage.waitLoadPitattaformaNotificaPage();
     }
 
-    @When("Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti")
-    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaSiCliccaSulBottoneITuoiRecapiti() {
-        logger.info("Si clicca sulla voce recapiti nel menu");
-        piattaformaNotifichePGPAPage.clickRecapitiButton();
+    @When("Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe")
+    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaClickSulBottoneDeleghe() {
+        logger.info("Si clicca sul bottone Deleghe");
+
+        piattaformaNotifichePGPAPage.clickSuDelegeButton();
     }
 
     @And("Nella Pagina Notifiche persona giuridica si clicca su notifiche delegate")
@@ -48,4 +50,12 @@ public class NotifichePGPagoPATest {
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridicaSezioneNotificheDelegate() {
         piattaformaNotifichePGPAPage.waitLoadSezioneNotificheDelegate();
     }
+
+    @When("Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti")
+    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaSiCliccaSulBottoneITuoiRecapiti() {
+        logger.info("Si clicca sulla voce recapiti nel menu");
+        piattaformaNotifichePGPAPage.clickRecapitiButton();
+    }
+
+
 }

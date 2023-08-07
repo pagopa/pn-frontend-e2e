@@ -5,18 +5,25 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 
 public class RecapitiPGPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("RecapitiPGPage");
 
+    @FindBy(id = "pec")
+    WebElement pecInputField;
+
+    @FindBy(id = "pec-helper-text")
+    WebElement messaggioErrore;
     public RecapitiPGPage(WebDriver driver) {
         super(driver);
     }
-
     public void waitLoadRecapitiPage() {
         try {
             By racapitiPageTitle = By.id("title-of-page");
@@ -30,4 +37,11 @@ public class RecapitiPGPage extends BasePage {
         }
     }
 
+    public void insertPec(String emailPec) {
+        pecInputField.sendKeys(emailPec);
+    }
+
+    public void waitMessaggioDiErrorePec() {
+        this.getWebDriverWait(30).withMessage("Il messaggio di errore non trovato").until(ExpectedConditions.visibilityOf(this.messaggioErrore));
+    }
 }
