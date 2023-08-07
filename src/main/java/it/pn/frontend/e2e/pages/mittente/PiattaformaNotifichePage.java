@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class PiattaformaNotifichePAPage extends BasePage {
+public class PiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("notificaMittentePagoPA");
 
@@ -37,8 +37,8 @@ public class PiattaformaNotifichePAPage extends BasePage {
     @FindBy(xpath = "//div[contains(@id,'status')]")
     WebElement statoNotificaField;
 
-    @FindBy(xpath = "//button[contains(@data-testid,'newNotificationBtn')]")
-    WebElement inviaNuovaNotificaButton;
+    //@FindBy(xpath = "//button[contains(@data-testid,'newNotificationBtn')]")
+    //WebElement inviaNuovaNotificaButton;
 
     @FindBy(xpath = "//div[contains(@data-testid,'sideMenuItem-API Key')]")
     WebElement apiKeyButton;
@@ -58,17 +58,70 @@ public class PiattaformaNotifichePAPage extends BasePage {
     @FindBy(xpath = "//li[contains(@tabindex,'-1')]")
     WebElement numberElement;
 
-    public PiattaformaNotifichePAPage(WebDriver driver) {
+    @FindBy(xpath = "//button[contains(@data-testid,'step-submit')]")
+    WebElement continuaButtonDisabled;
+
+    @FindBy(xpath = "//input[@id='subject']")
+    WebElement oggettoDellaNotificaTextField;
+
+    @FindBy(xpath = "//p[@id='subject-helper-text']")
+    WebElement errorMessage;
+
+    @FindBy(xpath = "//button[@data-testid='breadcrumb-indietro-button']")
+    WebElement indietroButton;
+
+    @FindBy(xpath = "//h2[@id='mui-12']")
+    WebElement vuoiUscirePopUp;
+
+    @FindBy(xpath = "//div/div/h2[@id='mui-12']/following-sibling::div/button[contains(text(),'Esci')]")
+    WebElement esciButton;
+
+    @FindBy(xpath = "//input[@id='recipients[0].firstName']")
+    WebElement ragioneSocialeTextField;
+
+    @FindBy(xpath = "//input[@id='recipients[0].taxId']")
+    WebElement partitaIvaTextField;
+
+    @FindBy(xpath = "//input[@id='recipients[0].digitalDomicile']")
+    WebElement domicilioDigitaleTextField;
+
+    @FindBy(xpath = "//input[@name='recipients[0].showPhysicalAddress']")
+    WebElement indirizzoFisicoCheckBox;
+
+    @FindBy(xpath = "//div[contains(text(),'Estensione file non supportata. Riprovare con un altro file.')]")
+    WebElement estenzioneSbagliataMessage;
+
+    @FindBy(xpath = "//li[@data-testid='buttonViewGroupsId']")
+    WebElement visualizzaIdGruppo;
+
+    /*@FindBy(xpath = "//h2[@id='mui-13']")
+    WebElement popUpVisualizzaIDgruppo;*/
+
+    @FindBy(xpath = "//button[@data-testid='close-modal-button']")
+    WebElement chiudiPopUp;
+
+    @FindBy(xpath = "//button[contains(@data-testid,'newNotificationBtn')]")
+    WebElement inviaNuovaNotificaButton;
+    @FindBy(xpath = "//input[@value='PG']")
+    WebElement personaGiuridicaRadioButton;
+
+    @FindBy(xpath = "//div[@data-testid='DigitalDomicileCheckbox']")
+    WebElement checkBoxAggiungiDomicilioDigitale;
+
+    @FindBy(xpath = "//button[@data-testid='previous-step']")
+    WebElement informazioniPreliminariButton;
+
+    public PiattaformaNotifichePage(WebDriver driver) {
         super(driver);
     }
 
     public void waitLoadPiattaformaNotifichePAPage() {
         try {
             By notificheTitle = By.xpath("//h4[contains(text(),'Notifiche')]");
-            By inviaButtonBy = By.xpath("//button[contains(@data-testid,'newNotificationBtn')]");
+            By inviaNuovaNotificaButton = By.xpath("//button[contains(@data-testid,'newNotificationBtn')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(inviaNuovaNotificaButton));
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(inviaNuovaNotificaButton));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheTitle));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(inviaButtonBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(inviaButtonBy));
             logger.info("Piattaforma Notifiche Page caricata");
         } catch (TimeoutException e) {
             logger.error("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
@@ -123,7 +176,6 @@ public class PiattaformaNotifichePAPage extends BasePage {
     }
 
     public void inserimentoCodiceIUN(String codiceIUN) {
-        getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.codiceIUNTextField));
         this.codiceIUNTextField.sendKeys(codiceIUN);
     }
 
@@ -204,7 +256,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
     }
 
     public void selectInviaUnaNuovaNotificaButton() {
-        this.js().executeScript("arguments[0].click()",this.inviaNuovaNotificaButton);
+            this.js().executeScript("arguments[0].click()",inviaNuovaNotificaButton);
     }
 
     public void aggionamentoPagina() {
@@ -276,7 +328,6 @@ public class PiattaformaNotifichePAPage extends BasePage {
     }
 
     public void selezionareLaVoceApiKey() {
-        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.apiKeyButton));
         this.apiKeyButton.click();
     }
 
@@ -484,5 +535,71 @@ public class PiattaformaNotifichePAPage extends BasePage {
         }
         this.js().executeScript("arguments[0].click()",this.pageNumberList);
         this.js().executeScript("arguments[0].click()", this.numberElement);
+    }
+
+    public void clickContinuaDisabled() {this.continuaButtonDisabled.isDisplayed();}
+
+    public void inserimentoOggettoNotificaErrato(String oggettoDellaNotifica) {
+        this.oggettoDellaNotificaTextField.sendKeys(oggettoDellaNotifica);
+    }
+    public void errorMessage() {this.errorMessage.isDisplayed();}
+
+    public void clickIndietroButton() {this.indietroButton.click();}
+
+    public void vuoiUscirePopUp() {this.vuoiUscirePopUp.isDisplayed();}
+
+    public void clickSuEsci() {this.esciButton.click();}
+
+    public void insertRagioneSociale(String ragioneSociale) {
+        this.ragioneSocialeTextField.sendKeys(ragioneSociale);
+    }
+
+    public void insertpartitaIva(String codiceFiscale) {
+        this.partitaIvaTextField.sendKeys(codiceFiscale);
+    }
+
+    public void insertDomicilioDigitale(String emailPec) {
+        this.domicilioDigitaleTextField.sendKeys(emailPec);
+    }
+
+    public void clickAggiungiIndirizzoFisico() {
+        this.indirizzoFisicoCheckBox.click();
+    }
+
+    public void insertDomicilioDigitaleErrato(String emailPec) {
+        this.domicilioDigitaleTextField.sendKeys(emailPec);
+    }
+
+
+    public void estensioneSbagliataErrore() {this.estenzioneSbagliataMessage.isDisplayed();}
+
+
+    public void clickVisualizzaIdApiKey() {this.visualizzaIdGruppo.click();
+    }
+
+    public void popUpGruppiAssociati() {
+        try{
+         By popUpGruppiAssociatiBy = By.xpath("//h2[contains(text(),'Gruppi associati alla API')]");
+         getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popUpGruppiAssociatiBy));
+         logger.info("Si visualizza correttamente il popup gruppi associati");
+        }catch (TimeoutException e){
+            logger.error("Non si visualizza correttamente il popup gruppi associati con errore:"+e.getMessage());
+            Assert.fail("Non si visualizza correttamente il popup gruppi associati con errore:"+e.getMessage());
+        }
+    }
+
+    public void chiudiPopUp() {this.chiudiPopUp.click();
+    }
+
+    public void clickRadioButtonPersonaGiuridica() {
+        this.personaGiuridicaRadioButton.click();
+    }
+
+    public void checkBoxAggiungiDomicilio() {
+        this.checkBoxAggiungiDomicilioDigitale.click();
+    }
+
+    public void clickSuTornaInformazioniPreliminari() {
+        this.informazioniPreliminariButton.click();
     }
 }

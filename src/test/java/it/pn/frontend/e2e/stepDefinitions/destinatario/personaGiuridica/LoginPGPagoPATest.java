@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -8,8 +9,9 @@ import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
 import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoContinueResponse;
 import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoLogin;
 import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.pages.mittente.SelezionaEntePAPage;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.section.CookiesSection;
+import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
@@ -18,19 +20,26 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class LoginPGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("LoginPGPagoPATest");
     private final WebDriver driver = Hooks.driver;
-    private Map<String, Object> datiPersonaGiuridica;
+    private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
 
     private Map<String, String> urlPersonaGiuridica;
 
+    private final DataPopulation  dataPopulation = new DataPopulation();
+
+    private final  HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
+
+    private final  AcccediAreaRiservataPGPage acccediAreaRiservataPGPage = new AcccediAreaRiservataPGPage(this.driver);
+
+
     @Given("Login Page persona giuridica {string} viene visualizzata")
     public void login_page_persona_giuridica_viene_visualizzata(String datiPersonaGiuridicaFile) {
-        DataPopulation dataPopulation = new DataPopulation();
         this.datiPersonaGiuridica = dataPopulation.readDataPopulation(datiPersonaGiuridicaFile + ".yaml");
         String variabileAmbiente = System.getProperty("environment");
         switch (variabileAmbiente) {
@@ -42,6 +51,7 @@ public class LoginPGPagoPATest {
 
     @When("Login portale persona giuridica tramite request method")
     public void loginPortalePersonaGiuridicaTramiteRequestMethod() {
+        this.datiPersonaGiuridica = dataPopulation.readDataPopulation("personaGiuridica.yaml");
         String userMittente = this.datiPersonaGiuridica.get("user").toString();
         String pwdMittente = this.datiPersonaGiuridica.get("pwd").toString();
         this.readurlPortaleMittente(userMittente,pwdMittente);
@@ -76,10 +86,9 @@ public class LoginPGPagoPATest {
             cookiesPage.selezionaAccettaTuttiButton();
         }
 
-        SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(this.driver);
-        selezionaEntePAPage.waitLoadSelezionaEntePAPage();
-        selezionaEntePAPage.selezionareComune(this.datiPersonaGiuridica.get("comune").toString());
-        selezionaEntePAPage.selezionaAccedi();
+        SelezionaImpresaPage impresaPage = new SelezionaImpresaPage(this.driver);
+        impresaPage.clickSuImpresa();
+        impresaPage.clickAccediButton();
     }
     private void readurlPortaleMittente(String user, String password){
 
@@ -210,6 +219,66 @@ public class LoginPGPagoPATest {
     }
     @Then("Home page persona giuridica viene visualizzata correttamente")
     public void homePagePersonaGiuridicaVieneVisualizzataCorrettamente() {
-        
+        headerPGSection.waitLoadHeaderPGPage();
+
+        HomePagePG homePagePG = new HomePagePG(this.driver);
+        homePagePG.waitLoadHomePagePGPage();
+    }
+
+    @When("Login con persona giuridica {string}")
+    public void loginConPersonaGiuridica(String nomeFile) {
+        logger.info("La persona guiridica cerca di fare il login");
+        this.datiPersonaGiuridica = this.dataPopulation.readDataPopulation(nomeFile+".yaml");
+
+        CookiesSection cookiesSection = new CookiesSection(this.driver);
+        if (cookiesSection.waitLoadCookiesPage()){
+            cookiesSection.selezionaAccettaTuttiButton();
+        }
+
+        PreAccediAreaRiservataPGPage preAccediAreaRiservataPGPage = new PreAccediAreaRiservataPGPage(this.driver);
+        preAccediAreaRiservataPGPage.waitLoadPreAccediPage();
+        preAccediAreaRiservataPGPage.clickAccediButton();
+
+        if (cookiesSection.waitLoadCookiesPage()){
+            cookiesSection.selezionaAccettaTuttiButton();
+        }
+
+        acccediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
+        acccediAreaRiservataPGPage.clickSpidButton();
+
+        ScegliSpidPGPage scegliSpidPGPage = new ScegliSpidPGPage(this.driver);
+        scegliSpidPGPage.waitLoadScegliSpidPGPage();
+        scegliSpidPGPage.clickTestButton();
+
+        LoginPGPagoPAPage loginPGPagoPAPage = new LoginPGPagoPAPage(this.driver);
+        loginPGPagoPAPage.waitLoadLoginPGPage();
+        loginPGPagoPAPage.insertUsername(this.datiPersonaGiuridica.get("user").toString());
+        loginPGPagoPAPage.insertPassword(this.datiPersonaGiuridica.get("pwd").toString());
+        loginPGPagoPAPage.clickInviaButton();
+
+
+        AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage = new AutorizzaInvioDatiPGPage(this.driver);
+        autorizzaInvioDatiPGPage.waitLoadAutorizzaInvioDatiPGPage();
+        autorizzaInvioDatiPGPage.clickInviaButton();
+
+        SelezionaImpresaPage selezionaImpresaPage = new SelezionaImpresaPage(this.driver);
+        selezionaImpresaPage.waitLoadSelezionaImpresaPage();
+        selezionaImpresaPage.clickSuImpresa();
+        selezionaImpresaPage.clickAccediButton();
+    }
+
+    @And("Logout da portale persona giuridica")
+    public void logoutDaPortalePersonaGiuridica() {
+        headerPGSection.waitLoadHeaderPGPage();
+        headerPGSection.clickEsciButton();
+
+        acccediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
+
+
+        try {
+            TimeUnit.SECONDS.sleep(15);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
