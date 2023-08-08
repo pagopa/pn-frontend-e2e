@@ -4,9 +4,9 @@ Feature: Il persona giuridica ricerca per codice IUN
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
     When Login con persona giuridica "personaGiuridica"
     Then Home page persona giuridica viene visualizzata correttamente
-  @try
 
-
+  @TestSuite
+  @fase2Test59
   Scenario: Il persona giuridica ricerca per codice IUN
     When Nella Home page persona giuridica si clicca su Send Notifiche Digitali
     And Si visualizza correttamente la Pagina Notifiche persona giuridica
