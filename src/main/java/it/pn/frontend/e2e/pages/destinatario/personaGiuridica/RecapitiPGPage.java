@@ -16,8 +16,7 @@ public class RecapitiPGPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("RecapitiPGPage");
 
-    @FindBy(id = "pec")
-    WebElement pecInputField;
+
 
     @FindBy(id = "pec-helper-text")
     WebElement messaggioErrore;
@@ -37,9 +36,6 @@ public class RecapitiPGPage extends BasePage {
         }
     }
 
-    public void insertPec(String emailPec) {
-        pecInputField.sendKeys(emailPec);
-    }
 
     public void waitMessaggioDiErrorePec() {
         this.getWebDriverWait(30).withMessage("Il messaggio di errore non trovato").until(ExpectedConditions.visibilityOf(this.messaggioErrore));

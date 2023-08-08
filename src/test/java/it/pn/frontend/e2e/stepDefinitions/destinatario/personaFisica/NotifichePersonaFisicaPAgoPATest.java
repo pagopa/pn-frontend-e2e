@@ -5,14 +5,14 @@ import com.google.common.base.Splitter;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.section.CookiesSection;
-import it.pn.frontend.e2e.section.destinatario.personaFisica.DettaglioNotificaFRSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeadeFRSection;
-import it.pn.frontend.e2e.section.mittente.DettaglioNotificaSection;
+import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -190,21 +190,21 @@ public class NotifichePersonaFisicaPAgoPATest {
 
     @And("Si visualizza correttamente la section Dettaglio Notifica persona fisica")
     public void siVisualizzaCorrettamenteLaSectionDettaglioNotificaDestinatario() {
-        DettaglioNotificaFRSection dettaglioNotificaFRSection = new DettaglioNotificaFRSection(this.driver);
-        dettaglioNotificaFRSection.waitLoadDettaglioNotificaDESection();
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        dettaglioNotificaSection.waitLoadDettaglioNotificaDESection();
     }
 
     @Then("Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto {string}")
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaDestinatarioESiControllaCheIlDownloadSiaAvvenuto(String dpFile) {
-        DettaglioNotificaFRSection dettaglioNotificaFRSection = new DettaglioNotificaFRSection(this.driver);
-        int numeroLinkAttestazioniOpponibile = dettaglioNotificaFRSection.getLinkAttestazioniOpponubili();
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponubili();
         DownloadFile downloadFile = new DownloadFile();
         DataPopulation dataPopulation = new DataPopulation();
         Map<String,Object> datiNotifica = dataPopulation.readDataPopulation(dpFile+".yaml");
         String workingDirectory = System.getProperty("user.dir");
 
         for (int i = 0; i <numeroLinkAttestazioniOpponibile ; i++) {
-            dettaglioNotificaFRSection.clickLinkAttestazionipponibile(i);
+            dettaglioNotificaSection.clickLinkAttestazionipponibile(i);
             try {
                 TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {

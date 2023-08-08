@@ -57,6 +57,24 @@ public class DestinatarioPASection extends BasePage {
     @FindBy(xpath = "//button[contains(@data-testid,'add-recipient')]")
     WebElement aggiungiDestinatarioButton;
 
+    @FindBy(xpath = "//div[@data-testid='DigitalDomicileCheckbox']")
+    WebElement checkBoxAggiungiDomicilioDigitale;
+
+    @FindBy(xpath = "//input[@id='recipients[0].digitalDomicile']")
+    WebElement domicilioDigitaleTextField;
+
+    @FindBy(xpath = "//input[@id='recipients[0].firstName']")
+    WebElement ragioneSocialeTextField;
+
+    @FindBy(xpath = "//input[@id='recipients[0].taxId']")
+    WebElement partitaIvaTextField;
+
+    @FindBy(xpath = "//button[@data-testid='previous-step']")
+    WebElement informazioniPreliminariButton;
+
+    @FindBy(xpath = "//input[@value='PG']")
+    WebElement personaGiuridicaRadioButton;
+
     public DestinatarioPASection(WebDriver driver) {
         super(driver);
     }
@@ -244,4 +262,30 @@ public class DestinatarioPASection extends BasePage {
     By radioButtonPgBy = By.xpath("//input[@name='recipients["+posizione+"].recipientType' and @value ='PG']");
     this.element(radioButtonPgBy).click();
     }
+    public void checkBoxAggiungiDomicilio() {
+        this.checkBoxAggiungiDomicilioDigitale.click();
+    }
+    public void insertDomicilioDigitale(String emailPec) {
+        this.domicilioDigitaleTextField.sendKeys(emailPec);
+    }
+    public void insertDomicilioDigitaleErrato(String emailPec) {
+        this.domicilioDigitaleTextField.sendKeys(emailPec);
+    }
+
+    public void insertRagioneSociale(String ragioneSociale) {
+        this.ragioneSocialeTextField.sendKeys(ragioneSociale);
+    }
+
+    public void insertpartitaIva(String codiceFiscale) {
+        this.partitaIvaTextField.sendKeys(codiceFiscale);
+    }
+
+    public void clickSuTornaInformazioniPreliminari() {
+        this.informazioniPreliminariButton.click();
+    }
+
+    public void clickRadioButtonPersonaGiuridica() {
+        this.personaGiuridicaRadioButton.click();
+    }
+
 }

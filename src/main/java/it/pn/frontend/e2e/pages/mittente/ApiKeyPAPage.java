@@ -20,6 +20,9 @@ public class ApiKeyPAPage  extends BasePage {
     @FindBy(xpath = "//input[contains(@id,'name')]")
     WebElement apiKeyNameInput;
 
+    @FindBy(xpath = "//li[@data-testid='buttonViewGroupsId']")
+    WebElement visualizzaIdGruppo;
+
     @FindBy(xpath = "//button[contains(text(),'Continua')]")
     WebElement apiContinuaButton;
 
@@ -49,6 +52,9 @@ public class ApiKeyPAPage  extends BasePage {
 
     @FindBy(xpath = "//button[@data-testid='close-modal-button']")
     WebElement closeButtonPopUpVisualizza;
+
+    @FindBy(xpath = "//button[@data-testid='close-modal-button']")
+    WebElement chiudiPopUp;
 
     public ApiKeyPAPage(WebDriver driver) {
         super(driver);
@@ -329,4 +335,22 @@ public class ApiKeyPAPage  extends BasePage {
     public void chiudiPopUpVisualizza() {
         this.closeButtonPopUpVisualizza.click();
     }
+
+    public void clickVisualizzaIdApiKey() {this.visualizzaIdGruppo.click();
+    }
+
+    public void popUpGruppiAssociati() {
+        try{
+            By popUpGruppiAssociatiBy = By.xpath("//h2[contains(text(),'Gruppi associati alla API')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popUpGruppiAssociatiBy));
+            logger.info("Si visualizza correttamente il popup gruppi associati");
+        }catch (TimeoutException e){
+            logger.error("Non si visualizza correttamente il popup gruppi associati con errore:"+e.getMessage());
+            Assert.fail("Non si visualizza correttamente il popup gruppi associati con errore:"+e.getMessage());
+        }
+    }
+
+    public void chiudiPopUp() {this.chiudiPopUp.click();
+    }
+
 }

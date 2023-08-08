@@ -83,25 +83,11 @@ public class NotifichePFPage extends BasePage {
         }
     }
 
-    public void inserisciCodiceIUN(String codiceIUN) {
-        this.codiceIunTextField.sendKeys(codiceIUN);
-    }
-
     public void selectFiltraButton() {
         this.filtraButton.click();
     }
 
-    public boolean verificaCodiceIUN(String codiceIUNInserito) {
-        try {
-            By codiceIUNBy = By.xpath("//button[contains(text(),'"+codiceIUNInserito+"')]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiceIUNBy));
-            return true;
-        }catch (TimeoutException e){
-            logger.error("Il codice IUN"+codiceIUNInserito+" non è stato trovato con errore:"+e.getMessage());
-            Assert.fail("Il codice IUN"+codiceIUNInserito+" non è stato trovato con errore:"+e.getMessage());
-        }
-        return false;
-    }
+
 
     public String controlloDateInserite(String data) {
         String[] date = data.split("-");

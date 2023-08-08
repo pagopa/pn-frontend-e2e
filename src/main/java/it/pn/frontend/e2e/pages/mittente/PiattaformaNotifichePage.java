@@ -76,40 +76,17 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "//div/div/h2[@id='mui-12']/following-sibling::div/button[contains(text(),'Esci')]")
     WebElement esciButton;
 
-    @FindBy(xpath = "//input[@id='recipients[0].firstName']")
-    WebElement ragioneSocialeTextField;
-
-    @FindBy(xpath = "//input[@id='recipients[0].taxId']")
-    WebElement partitaIvaTextField;
-
-    @FindBy(xpath = "//input[@id='recipients[0].digitalDomicile']")
-    WebElement domicilioDigitaleTextField;
-
     @FindBy(xpath = "//input[@name='recipients[0].showPhysicalAddress']")
     WebElement indirizzoFisicoCheckBox;
 
     @FindBy(xpath = "//div[contains(text(),'Estensione file non supportata. Riprovare con un altro file.')]")
     WebElement estenzioneSbagliataMessage;
 
-    @FindBy(xpath = "//li[@data-testid='buttonViewGroupsId']")
-    WebElement visualizzaIdGruppo;
-
-    /*@FindBy(xpath = "//h2[@id='mui-13']")
-    WebElement popUpVisualizzaIDgruppo;*/
-
-    @FindBy(xpath = "//button[@data-testid='close-modal-button']")
-    WebElement chiudiPopUp;
-
     @FindBy(xpath = "//button[contains(@data-testid,'newNotificationBtn')]")
     WebElement inviaNuovaNotificaButton;
-    @FindBy(xpath = "//input[@value='PG']")
-    WebElement personaGiuridicaRadioButton;
 
-    @FindBy(xpath = "//div[@data-testid='DigitalDomicileCheckbox']")
-    WebElement checkBoxAggiungiDomicilioDigitale;
 
-    @FindBy(xpath = "//button[@data-testid='previous-step']")
-    WebElement informazioniPreliminariButton;
+
 
     public PiattaformaNotifichePage(WebDriver driver) {
         super(driver);
@@ -550,56 +527,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void clickSuEsci() {this.esciButton.click();}
 
-    public void insertRagioneSociale(String ragioneSociale) {
-        this.ragioneSocialeTextField.sendKeys(ragioneSociale);
-    }
-
-    public void insertpartitaIva(String codiceFiscale) {
-        this.partitaIvaTextField.sendKeys(codiceFiscale);
-    }
-
-    public void insertDomicilioDigitale(String emailPec) {
-        this.domicilioDigitaleTextField.sendKeys(emailPec);
-    }
-
-    public void clickAggiungiIndirizzoFisico() {
-        this.indirizzoFisicoCheckBox.click();
-    }
-
-    public void insertDomicilioDigitaleErrato(String emailPec) {
-        this.domicilioDigitaleTextField.sendKeys(emailPec);
-    }
-
-
     public void estensioneSbagliataErrore() {this.estenzioneSbagliataMessage.isDisplayed();}
 
-
-    public void clickVisualizzaIdApiKey() {this.visualizzaIdGruppo.click();
-    }
-
-    public void popUpGruppiAssociati() {
-        try{
-         By popUpGruppiAssociatiBy = By.xpath("//h2[contains(text(),'Gruppi associati alla API')]");
-         getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popUpGruppiAssociatiBy));
-         logger.info("Si visualizza correttamente il popup gruppi associati");
-        }catch (TimeoutException e){
-            logger.error("Non si visualizza correttamente il popup gruppi associati con errore:"+e.getMessage());
-            Assert.fail("Non si visualizza correttamente il popup gruppi associati con errore:"+e.getMessage());
-        }
-    }
-
-    public void chiudiPopUp() {this.chiudiPopUp.click();
-    }
-
-    public void clickRadioButtonPersonaGiuridica() {
-        this.personaGiuridicaRadioButton.click();
-    }
-
-    public void checkBoxAggiungiDomicilio() {
-        this.checkBoxAggiungiDomicilioDigitale.click();
-    }
-
-    public void clickSuTornaInformazioniPreliminari() {
-        this.informazioniPreliminariButton.click();
-    }
 }

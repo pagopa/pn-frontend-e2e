@@ -19,18 +19,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DettaglioNotificaSection extends BasePage {
+public class DettaglioNotificaMittenteSection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
 
-    @FindBy(xpath = "//button[contains(text(),'Attestazione opponibile a terzi: ')]")
-    List<WebElement> attestazioniFile;
-
     @FindBy(xpath = "//button[contains(text(),'Vedi più dettagli')]")
     WebElement vediDettagliButton;
-
-    @FindBy (xpath = "//li[contains(@class,'MuiTimelineItem-root MuiTimelineItem-positionRight MuiTimelineItem-missingOppositeContent css-1y9sx96')]")
-    List<WebElement> tuttiStatiNotificaList;
 
     @FindBy (xpath = "//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11dv4ll')]")
     List<WebElement> infoNotifiche;
@@ -39,7 +33,7 @@ public class DettaglioNotificaSection extends BasePage {
     List<WebElement> linkAllegati;
     @FindBy(xpath = "//button[contains(@data-testid,'breadcrumb-indietro-button')]")
     WebElement indietroButton;
-    public DettaglioNotificaSection(WebDriver driver) {
+    public DettaglioNotificaMittenteSection(WebDriver driver) {
         super(driver);
     }
 
@@ -53,17 +47,6 @@ public class DettaglioNotificaSection extends BasePage {
             Assert.fail("Dettaglio Notifica Section non caricata con errore: "+ e.getMessage());
         }
 
-    }
-
-
-    public void selezioneVediDettaglioButton() {
-        vediDettagliButton.click();
-        if (tuttiStatiNotificaList.size() >= 1){
-            logger.info("Tutti gli stati sono stati visualizzati correttamente");
-        } else {
-            logger.error("Tutti i stati non sono stati visualizzati correttamente");
-            Assert.fail("Tutti i stati non sono stati visualizzati correttamente");
-        }
     }
 
     public Map<String, String> recuperoInfoNotifiche() {
@@ -229,15 +212,8 @@ public class DettaglioNotificaSection extends BasePage {
         return this.elements(mailPecBy).size();
     }
 
-    public int getLinkAttestazioniOpponubili() {
-        return attestazioniFile.size();
-    }
-
-
     public int getLinkAvvenutaRicezione() {
         return linkAllegati.size();
     }
-    public void clickLinkAttestazionipponibile(int numeroLinkAttestazioniOpponibile) {
-        attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
-    }
+
 }

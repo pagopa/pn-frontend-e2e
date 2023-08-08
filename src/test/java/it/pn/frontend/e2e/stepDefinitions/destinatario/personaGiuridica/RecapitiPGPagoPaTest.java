@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RecapitiPGPage;
 import it.pn.frontend.e2e.utility.DataPopulation;
@@ -16,6 +17,8 @@ public class RecapitiPGPagoPaTest {
     DataPopulation dataPopulation = new DataPopulation();
 
     private final RecapitiPGPage recapitiPGPage = new RecapitiPGPage(this.driver);
+
+    private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
     @And("Si visualizza correttamente la pagina Recapiti persona giuridica")
     public void siVisualizzaRecapitiPagePersonaGiuridca(){
         logger.info("Si visualizza correttamente la pagina Recapiti persona giuridica");
@@ -26,14 +29,14 @@ public class RecapitiPGPagoPaTest {
     public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelPersonaGiuridica(String personaGiuridica) {
         logger.info("Si cerca di inserire la email pec");
         Map<String, Object> datiPG = dataPopulation.readDataPopulation(personaGiuridica+".yaml");
-        recapitiPGPage.insertPec(datiPG.get("emailPec").toString());
+        recapitiDestinatarioPage.insertEmailPEC(datiPG.get("emailPec").toString());
     }
 
 
     @And("Nella pagina I Tuoi Recapiti persona giuridica si inserisce una PEC sbagliata {string}")
     public void nellaPaginaITuoiRecapitiPersonaGiuridicaSiInserisceUnaPECSbagliata(String emailPec) {
         logger.info("Si cerca di inserire la email pec sbagliata");
-        recapitiPGPage.insertPec(emailPec);
+        recapitiDestinatarioPage.insertEmailPEC(emailPec);
     }
 
     @Then("Nella pagina I Tuoi Recapiti persona giuridica si visualizza correttamente il messaggio di errore pec sbagliata")

@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RicercaNotifichePGPage;
@@ -35,8 +36,8 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         logger.info("Si inserisce il codice IUN");
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotificaPG = dataPopulation.readDataPopulation(datiNotificaPG+".yaml");
-        NotifichePFPage NotifichePFPage = new NotifichePFPage(this.driver);
-        NotifichePFPage.inserisciCodiceIUN(this.datiNotificaPG.get("codiceIUN").toString());
+        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
+        notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotificaPG.get("codiceIUN").toString());
     }
 
     @When("Il persona giuridica clicca sulla notifica restituita {string}")
@@ -68,7 +69,9 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotificaPG = dataPopulation.readDataPopulation(datiNotificaPG + ".yaml");
         String codiceIUNInserito = this.datiNotificaPG.get("codiceIUN").toString();
-        boolean result = notifichePFPage.verificaCodiceIUN(codiceIUNInserito);
+
+        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
+        boolean result = notificheDestinatarioPage.verificaCodiceIUN(codiceIUNInserito);
         if (result) {
             logger.info("Il risultato coerente con il codice IUN inserito");
         } else {

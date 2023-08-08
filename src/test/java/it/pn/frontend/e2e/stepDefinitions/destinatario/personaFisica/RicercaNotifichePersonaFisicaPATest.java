@@ -3,6 +3,8 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.mk_latn.No;
+import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeadeFRSection;
@@ -40,7 +42,9 @@ public class RicercaNotifichePersonaFisicaPATest {
         this.datiNotifica = dataPopulation.readDataPopulation(dpDataNotifica+".yaml");
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.waitLoadPage();
-        notifichePFPage.inserisciCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
+
+        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
+        notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
     }
 
     @And("Cliccare sul bottone Filtra persona fisica")
@@ -63,7 +67,9 @@ public class RicercaNotifichePersonaFisicaPATest {
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation(dpDatiNotifica+".yaml");
         String codiceIUNInserito = datiNotifica.get("codiceIUN").toString();
-        boolean result = notifichePFPage.verificaCodiceIUN(codiceIUNInserito);
+
+        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
+        boolean result = notificheDestinatarioPage.verificaCodiceIUN(codiceIUNInserito);
         if (result){
             logger.info("Il risultato coerente con il codice IUN inserito");
         }else {
