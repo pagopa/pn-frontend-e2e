@@ -2,7 +2,7 @@ Feature: Il delegato visualizza il dettaglio di una notifica
 
   Background: Login delegato
     Given Login Page persona fisica "personaFisica" viene visualizzata
-    When Login con persona fisica "personaFisica"
+    When  Login "delegatoPF" portale persona fisica tramite request method
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
