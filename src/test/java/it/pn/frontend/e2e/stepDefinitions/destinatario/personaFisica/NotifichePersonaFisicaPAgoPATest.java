@@ -12,7 +12,6 @@ import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeadeFRSection;
-import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -219,23 +218,23 @@ public class NotifichePersonaFisicaPAgoPATest {
 
     private String getUrl(String urlChiamata) {
         String url = "";
-        for (int i = 0; i < netWorkInfos.size(); i++) {
-            if (netWorkInfos.get(i).getRequestUrl().contains(urlChiamata) && netWorkInfos.get(i).getRequestMethod().equals("GET")){
-                String values = netWorkInfos.get(i).getResponseBody();
+        for (NetWorkInfo netWorkInfo : netWorkInfos) {
+            if (netWorkInfo.getRequestUrl().contains(urlChiamata) && netWorkInfo.getRequestMethod().equals("GET")) {
+                String values = netWorkInfo.getResponseBody();
                 List<String> results = Splitter.on(CharMatcher.anyOf(",;:")).splitToList(values);
 
-                for (int index=0;index<results.size(); index++){
-                    if(results.get(index).startsWith("//")) {
-                        url = results.get(index);
+                for (String result : results) {
+                    if (result.startsWith("//")) {
+                        url = result;
                         break;
                     }
                 }
-                if(url.endsWith("}")) {
+                if (url.endsWith("}")) {
                     url = "https:" + url.substring(0, url.length() - 2);
-                }else {
+                } else {
                     url = "https:" + url.substring(0, url.length() - 1);
                 }
-                logger.info("url",url);
+                logger.info("url: "+ url);
             }
         }
         return url;

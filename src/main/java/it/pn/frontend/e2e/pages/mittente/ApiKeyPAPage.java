@@ -219,8 +219,8 @@ public class ApiKeyPAPage  extends BasePage {
     public boolean siVisualizzaApiKeyConTesto() {
         By apiKeyBy = By.xpath("//td[div/div[contains(@class,'MuiBox-root css-4l7hgf')]]");
         List<WebElement> apiKeyList = this.elements(apiKeyBy);
-        for (int i = 0; i < apiKeyList.size(); i++) {
-            if (apiKeyList.get(i).getText() == null){
+        for (WebElement webElement : apiKeyList) {
+            if (webElement.getText() == null) {
                 return false;
             }
         }
@@ -230,8 +230,8 @@ public class ApiKeyPAPage  extends BasePage {
     public boolean siVisualizzaNomeEDataConTesto() {
         By dataCellBy = By.xpath("//td[div/p[contains(@class,'MuiTypography-root MuiTypography-body1')]]");
         List<WebElement> dataCellList = this.elements(dataCellBy);
-        for (int i=0; i < dataCellList.size(); i++){
-            if (dataCellList.get(i).getText() == null){
+        for (WebElement webElement : dataCellList) {
+            if (webElement.getText() == null) {
                 return false;
             }
         }
@@ -240,8 +240,8 @@ public class ApiKeyPAPage  extends BasePage {
     public boolean siVisualizzaGruppoConTesto() {
         By gruppoCellBy = By.xpath("//td[div/div/div/div/div/span[contains(@class,'css-t63gu0')]]");
         List<WebElement> gruppoCellList = this.elements(gruppoCellBy);
-        for (int i = 0; i < gruppoCellList.size(); i++){
-            if (gruppoCellList.get(i).getText() == null){
+        for (WebElement webElement : gruppoCellList) {
+            if (webElement.getText() == null) {
                 return false;
             }
         }
@@ -251,8 +251,8 @@ public class ApiKeyPAPage  extends BasePage {
     public boolean siVisualizzaStatoConTesto() {
         By statoCellBy = By.xpath("//td[div/div/div/div[@role='button' ]]");
         List<WebElement> statoCells = this.elements(statoCellBy);
-        for (int i = 0; i < statoCells.size(); i++) {
-            if (statoCells.get(i).getText() == null) {
+        for (WebElement statoCell : statoCells) {
+            if (statoCell.getText() == null) {
                 return false;
             }
         }

@@ -33,10 +33,7 @@ public class NotificaMittentePagoPATest {
     private Map<String, Object> datiNotifica = new HashMap<>();
     private Map<String, Object> personaFisica = new HashMap<>();
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
-    private Map<String, Object> datiNotificaErrore = new HashMap<>();
     private Map<String, Object> personaGiuridica = new HashMap<>();
-    private Map<String, Object> personaGiuridicaErrore = new HashMap<>();
-    private Map<String, Object> personeGiuridiche= new HashMap<>();
     private Map<String, Object> personeFisiche = new HashMap<>();
 
     private final  PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
@@ -654,9 +651,9 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSbagliatiSenzaPagamento(String datiNotificaErrore) {
         logger.info("Si inserisce l'oggetto della notifica errato");
 
-        this.datiNotificaErrore = dataPopulation.readDataPopulation(datiNotificaErrore + ".yaml");
+        Map<String, Object> datiNotificaErrore1 = dataPopulation.readDataPopulation(datiNotificaErrore + ".yaml");
 
-        piattaformaNotifichePage.inserimentoOggettoNotificaErrato(this.datiNotificaErrore.get("oggettoDellaNotifica").toString());
+        piattaformaNotifichePage.inserimentoOggettoNotificaErrato(datiNotificaErrore1.get("oggettoDellaNotifica").toString());
     }
 
     @And("Nella section Informazioni preliminari si visualizza un messaggio di errore")
@@ -723,10 +720,10 @@ public class NotificaMittentePagoPATest {
     @And("Nella section Destinatario inserire i dati errati dalla persona giuridica {string}")
     public void nellaSectionDestinatarioInserireIDatiErratiDallaPersonaGiuridica(String personaGiuridicaErrore) {
 
-        this.personaGiuridicaErrore = dataPopulation.readDataPopulation(personaGiuridicaErrore + ".yaml");
+        Map<String, Object> personaGiuridicaErrore1 = dataPopulation.readDataPopulation(personaGiuridicaErrore + ".yaml");
 
         destinatarioPASection.checkBoxAggiungiDomicilio();
-        destinatarioPASection.insertDomicilioDigitaleErrato(this.personaGiuridicaErrore.get("emailPec").toString());
+        destinatarioPASection.insertDomicilioDigitaleErrato(personaGiuridicaErrore1.get("emailPec").toString());
     }
 
     @And("Nella section Allegati caricare l'atto e inserire il nome atto {string} con estenzione non valida")
@@ -754,7 +751,7 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionDestinatarioInserireIDatiDelDestinatariPersoneGiuridicheAggiuntiviPerNumeroDestinatari(String nDestinatari) {
         logger.info("Si cerca di aggiungere" + nDestinatari + " personeGiuridiche");
 
-        this.personeGiuridiche = dataPopulation.readDataPopulation("personeGiuridiche.yaml");
+        Map<String, Object> personeGiuridiche = dataPopulation.readDataPopulation("personeGiuridiche.yaml");
         int nDestinatariInt = 1;
         if (isNumeric(nDestinatari)) {
             nDestinatariInt = Integer.parseInt(nDestinatari) - 1;
@@ -767,7 +764,7 @@ public class NotificaMittentePagoPATest {
             Assert.fail("Formato non accettato. Devi inserire un numero da 1 a 5");
         }
 
-        destinatarioPASection.inserimentoMultiDestinatarioPG(this.personeGiuridiche, nDestinatariInt);
+        destinatarioPASection.inserimentoMultiDestinatarioPG(personeGiuridiche, nDestinatariInt);
     }
 
     @And("Nella section cliccare sul tasto torna a informazioni preliminari")

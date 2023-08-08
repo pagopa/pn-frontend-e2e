@@ -76,9 +76,6 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "//div/div/h2[@id='mui-12']/following-sibling::div/button[contains(text(),'Esci')]")
     WebElement esciButton;
 
-    @FindBy(xpath = "//input[@name='recipients[0].showPhysicalAddress']")
-    WebElement indirizzoFisicoCheckBox;
-
     @FindBy(xpath = "//div[contains(text(),'Estensione file non supportata. Riprovare con un altro file.')]")
     WebElement estenzioneSbagliataMessage;
 
