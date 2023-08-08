@@ -7,13 +7,12 @@ Feature: Il persona fisica revoca una delega
 
   @TestSuite
   @test47
-  @restLogin
 
   Scenario: Il persona fisica revoca una delega
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
     And Nella sezione Deleghe si verifica sia presente una delega
-    And Nella sezione Deleghe si clicca sul menu della delega
+    And Nella sezione Deleghe si clicca sul menu della delega "nuova_delega"
     And Nella sezione Deleghe si sceglie l'opzione revoca
     Then Si conferma l'azione scegliendo revoca la delega
     And Logout da portale persona fisica

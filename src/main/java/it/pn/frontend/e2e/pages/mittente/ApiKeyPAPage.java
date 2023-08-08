@@ -3,7 +3,6 @@ package it.pn.frontend.e2e.pages.mittente;
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -119,7 +118,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void siVisualizzaPopUp() {
         try {
-            By popupTitleBy = By.xpath("//h5[contains(text(),'Blocca API Key')]");
+            By popupTitleBy = By.xpath("//h2[contains(text(),'Blocca API Key')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popupTitleBy));
             logger.info("Il popup si visualizza correttamente");
         } catch (TimeoutException e) {
@@ -143,11 +142,13 @@ public class ApiKeyPAPage  extends BasePage {
         }
     }
 
-    public void clickAttivaSulMenu() {this.attivaButtonNelMenu.click();}
+    public void clickAttivaSulMenu() {
+        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.attivaButtonNelMenu));
+        this.attivaButtonNelMenu.click();}
 
     public void siVisualizzaPoPUpAttiva() {
         try {
-            By popUpAttiva = By.xpath("//h5[contains(text(),'Attiva API Key')]");
+            By popUpAttiva = By.xpath("//h2[contains(text(),'Attiva API Key')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popUpAttiva));
             logger.info("Si visualizza correttamente il popup attiva");
         } catch (TimeoutException e) {
@@ -171,7 +172,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void siVisualizzaPoPUpRuota() {
         try {
-            By popUpRuota = By.xpath("//h5[contains(text(),'Ruota API Key')]");
+            By popUpRuota = By.xpath("//h2[contains(text(),'Ruota API Key')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popUpRuota));
             logger.info("Si visualizza correttamente il popup ruota");
         } catch (TimeoutException e) {

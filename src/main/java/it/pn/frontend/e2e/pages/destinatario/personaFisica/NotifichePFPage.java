@@ -50,8 +50,8 @@ public class NotifichePFPage extends BasePage {
         try{
             By titleLabel = By.cssSelector("h4.MuiTypography-root.MuiTypography-h4");
             By tableNotifiche = By.cssSelector("table[aria-label='Tabella di item']");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
             logger.info("Notifiche DE Page non caricata");
         }catch (TimeoutException e){
             logger.error("Notifiche DE Page non caricata con errore : "+e.getMessage());

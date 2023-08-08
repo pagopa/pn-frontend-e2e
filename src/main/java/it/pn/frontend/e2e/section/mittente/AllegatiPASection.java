@@ -24,7 +24,7 @@ public class AllegatiPASection extends BasePage {
     @FindBy(xpath = "//label[contains(@id,'name-label')]/following-sibling::div/input")
     WebElement nomeAttoTextField;
 
-    @FindBy(xpath = "//button[contains(text(),'Invia')]")
+    @FindBy(xpath = "//button[@data-testid='step-submit']")
     WebElement inviaButton;
 
     public AllegatiPASection(WebDriver driver) {
@@ -64,6 +64,7 @@ public class AllegatiPASection extends BasePage {
     }
 
     public void selectInviaButton() {
+        getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(this.inviaButton));
         this.inviaButton.click();
     }
 }

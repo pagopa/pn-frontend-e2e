@@ -7,7 +7,7 @@ Feature: La persona fisica visualizza la sezione notifiche
 
   @TestSuite
  @test15
-  @restLogin
+  @
 
   Scenario: Il persona fisica visualizza la sezione notifiche
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche

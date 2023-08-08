@@ -7,8 +7,6 @@ Feature: persona fisica aggiunge una delega allo stesso delegato
 
   @TestSuite
   @test53
-  @restLogin
-
 
   Scenario: il persona fisica aggiunge una delega allo stesso delegato
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe

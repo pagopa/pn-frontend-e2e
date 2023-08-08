@@ -73,6 +73,9 @@ public class LoginMittentePagoPA {
 
         ScegliSpidPAPage scegliSpidPAPage = new ScegliSpidPAPage(this.driver);
         scegliSpidPAPage.waitLoadScegliSpidPAPage();
+        if (cookiesPage.waitLoadCookiesPage()){
+            cookiesPage.selezionaAccettaTuttiButton();
+        }
         scegliSpidPAPage.selezionareTestButton();
 
         LoginPAPage loginPAPage = new LoginPAPage(this.driver);
@@ -304,6 +307,23 @@ public class LoginMittentePagoPA {
             throw new RuntimeException(e);
         }
 
+
+    }
+
+    @And("Logout da portale mittente senza entrare su notifiche")
+    public void Logout_da_portale_mittente_senza_entrare_su_notifiche() {
+        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        headerPASection.waitLoadHeaderSection();
+        headerPASection.selezionaEsciButton();
+
+        AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);
+        acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
+
+        try {
+            TimeUnit.SECONDS.sleep(15);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

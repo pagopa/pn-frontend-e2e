@@ -7,7 +7,7 @@ Feature: Il persona fisica visualizza le notifiche in elenco
 
     @TestSuite
     @test16
-    @restLogin
+    @
 
 
     Scenario: Il persona fisica visualizza le notifiche in elenco

@@ -51,4 +51,7 @@ public class BasePage {
     protected void swipeToElement(WebElement element){
         js().executeScript("arguments[0].scrollIntoView(true);",element);
     }
+    public void vaiInFondoAllaPagina() {
+        this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
+    }
 }

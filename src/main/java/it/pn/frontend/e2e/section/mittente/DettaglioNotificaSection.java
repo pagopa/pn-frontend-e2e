@@ -32,7 +32,7 @@ public class DettaglioNotificaSection extends BasePage {
     @FindBy (xpath = "//li[contains(@class,'MuiTimelineItem-root MuiTimelineItem-positionRight MuiTimelineItem-missingOppositeContent css-1y9sx96')]")
     List<WebElement> tuttiStatiNotificaList;
 
-    @FindBy (xpath = "//div[contains(@class,'MuiBox-root css-35ezg3')]")
+    @FindBy (xpath = "//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11dv4ll')]")
     List<WebElement> infoNotifiche;
 
     @FindBy(xpath = "//button[contains(@data-testid,'documentButton')]" )
@@ -72,24 +72,40 @@ public class DettaglioNotificaSection extends BasePage {
         infoNotifica.put("mittente",mittente);
         String destinatario = getInfoNotifica(1);
         String codiceFiscale = getInfoNotifica(2);
-        if(destinatario.contains("-")){
-            String[] splitedDestinatario = destinatario.split(" - ");
-            destinatario = splitedDestinatario[1];
-            codiceFiscale = splitedDestinatario[0];
-        }
-        infoNotifica.put("destinatario",destinatario);
-        infoNotifica.put("codiceFiscale",codiceFiscale);
-        String data = getInfoNotifica(3);
-        infoNotifica.put("data",data);
-        if (controlloCodice()){
-            String codiceIUN = getInfoNotifica(4);
-            infoNotifica.put("codiceIUN", codiceIUN);
-            infoNotifica.put("codiceAvviso","nd");
+        if(destinatario.contains(" - ")){
+            String[] splittedDestinatario = destinatario.split(" - ");
+            String[] splittedDestinatarioName = splittedDestinatario[1].split("\n");
+            destinatario = splittedDestinatarioName[0];
+            codiceFiscale = splittedDestinatario[0];
+            infoNotifica.put("destinatario",destinatario);
+            infoNotifica.put("codiceFiscale",codiceFiscale);
+            String data = getInfoNotifica(2);
+            infoNotifica.put("data",data);
+            if (controlloCodice()){
+                String codiceIUN = getInfoNotifica(3);
+                infoNotifica.put("codiceIUN", codiceIUN);
+                infoNotifica.put("codiceAvviso","nd");
+            }else {
+                String codiceAvviso = getInfoNotifica(3);
+                infoNotifica.put("codiceAvviso", codiceAvviso);
+                infoNotifica.put("codiceIUN","nd");
+            }
         }else {
-            String codiceAvviso = getInfoNotifica(4);
-            infoNotifica.put("codiceAvviso", codiceAvviso);
-            infoNotifica.put("codiceIUN","nd");
+            infoNotifica.put("destinatario",destinatario);
+            infoNotifica.put("codiceFiscale",codiceFiscale);
+            String data = getInfoNotifica(3);
+            infoNotifica.put("data",data);
+            if (controlloCodice()){
+                String codiceIUN = getInfoNotifica(4);
+                infoNotifica.put("codiceIUN", codiceIUN);
+                infoNotifica.put("codiceAvviso","nd");
+            }else {
+                String codiceAvviso = getInfoNotifica(4);
+                infoNotifica.put("codiceAvviso", codiceAvviso);
+                infoNotifica.put("codiceIUN","nd");
+            }
         }
+
         return infoNotifica;
     }
 
@@ -128,7 +144,10 @@ public class DettaglioNotificaSection extends BasePage {
         return false;
     }
 
-    public void clickVediPiuDettaglio() { this.vediDettagliButton.click();}
+    public void clickVediPiuDettaglio() {
+        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.vediDettagliButton));
+        this.vediDettagliButton.click();
+    }
 
     public int siVisualizzaPercosoNotifica() {
         By percorsoNotificaBy = By.xpath("//div[contains(@data-testid,'itemStatus')]");

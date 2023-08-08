@@ -7,7 +7,6 @@ Feature: Il persona fisica aggiunge una nuova delega
 
   @TestSuite
   @test44
-  @restLogin
 
   Scenario: Il persona fisica aggiunge una nuova delega
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe

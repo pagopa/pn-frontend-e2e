@@ -34,7 +34,7 @@ public class ConfermaDatiSpidPFPage extends BasePage {
 
     public void waitLoadConfermaDatiSpidDEPage(){
         try{
-            By spidLogo = By.cssSelector("div.spid-logo > img");
+            By spidLogo = By.id("idp-logo");
             By alertBox = By.cssSelector("h3.alert-heading");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(spidLogo));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(alertBox));

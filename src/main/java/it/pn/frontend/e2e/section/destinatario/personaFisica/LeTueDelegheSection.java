@@ -52,11 +52,8 @@ public class LeTueDelegheSection extends BasePage {
     /*@FindBy(xpath = "//button[contains(@data-testid,'delegationMenuIcon')]")
     WebElement delegaMenuButton;*/
 
-    @FindBy(xpath = "//li[contains(@data-testid,'menuItem-revokeDelegate')]")
-    WebElement revocaDelegaOption;
 
-    @FindBy(xpath = "//li[contains(@tabindex,'0')]")
-    WebElement mostraCodiceOption;
+
 
     @FindBy(xpath = "//button[contains(@data-testid,'acceptButton')]")
     WebElement accettaButton;
@@ -92,6 +89,16 @@ public class LeTueDelegheSection extends BasePage {
     public LeTueDelegheSection(WebDriver driver) {
         super(driver);
     }
+    public void waitNuovaDelegaSection() {
+        try {
+            By letuedeleghePageTitle = By.id("title-of-page");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(letuedeleghePageTitle));
+            this.logger.info("Le tue deleghe page caricata");
+        } catch (TimeoutException e) {
+            logger.error("Le tue deleghe page non caricata con errore :" + e.getMessage());
+            Assert.fail(("Le tue deleghe page non caricata con errore :" + e.getMessage()));
+        }
+    }
 
     public void selectpersonaFisicaRadioButton() {
         this.personaFisicaRadioButton.click();
@@ -105,7 +112,9 @@ public class LeTueDelegheSection extends BasePage {
 
 
     public void clickSulBottoneInviaRichiesta() {
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.inviaLaRichiestaButton));
         this.inviaLaRichiestaButton.click();
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.tornaDelegheButton));
         this.tornaDelegheButton.click();
     }
 
@@ -137,85 +146,33 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void selezionaUnEnte(String ente) {
-        if(this.enteElementInput.isDisplayed()){
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.enteElementInput));
+        this.enteElementInput.sendKeys(ente);
 
-            this.enteElementInput.sendKeys(ente);
-            By menuEntiOptionBY = By.id("enti");
-            WebElement menuEntiOption = this.driver.findElement(menuEntiOptionBY);
-            this.js().executeScript("arguments[0].click()",menuEntiOption);
+        // select menu;
+        By menuEntiOptionBy = By.xpath("//div[@role='presentation']");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuEntiOptionBy));
+        WebElement menuEntiOption = this.driver.findElement(menuEntiOptionBy);
+        this.js().executeScript("arguments[0].click()",menuEntiOption);
 
-        }else {
-            swipeToElement(this.enteElementInput);
-            this.enteElementInput.sendKeys(ente);
-        }
-
-    }
-
-    public void siVisualizzaUnaDelega() {
-        try{
-            By menuDelega = By.xpath("//tr[contains(@class,'MuiTableRow-root css-g76qb5')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
-            logger.info("Trovato correttamente almeno una delega");
-        }catch (TimeoutException e){
-            logger.error("Deleghe NON trovate con errore: "+e.getMessage());
-            Assert.fail("Deleghe NON trovate con errore: "+e.getMessage());
-        }
-    }
-
-    public void clickMenuDelega() {
-        try{
-            By menuDelega = By.xpath("//button[contains(@data-testid,'delegationMenuIcon')]");
-            try {                                   // Questo sleep l'abbiamo messo perché
-                TimeUnit.SECONDS.sleep(5);   // il sito ci mette un pò a caricarsi
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
-            WebElement menuDelegaWebElement = this.driver.findElement(menuDelega);
-            menuDelegaWebElement.click();
-            logger.info("cliccato correttamente su menu delega button");
-        }catch (TimeoutException e){
-            logger.error("Menu delega button NON trovata con errore: "+e.getMessage());
-            Assert.fail("Menu delega button NON trovata con errore: "+e.getMessage());
-        }
-    }
-
-    public void siSceglieLOpzioneMostraCodice() {this.mostraCodiceOption.click();}
-
-    public void siCliccaSulBottoneChiudi() {
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        try{
-            By closeCodiceButtonBy = By.xpath("//button[contains(text(),'Chiudi')]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(closeCodiceButtonBy));
-            logger.info("Il bottone chiudi viene visualizzato correttamente");
-            this.element(closeCodiceButtonBy).click();
-        }catch (TimeoutException e){
-            logger.error("Il bottone chiudi viene visualizzato NON correttamente con errore:"+e.getMessage());
-            Assert.fail("Il bottone chiudi viene visualizzato NON correttamente con errore:"+e.getMessage());
-        }
-    }
-
-    public void clickOpzioneRevoca() {
-        this.revocaDelegaOption.click();
+        //click on option 0
+        By comuneOptionBy = By.id("enti-option-0");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(comuneOptionBy));
+        WebElement comuneOption = this.driver.findElement(comuneOptionBy);
+        this.js().executeScript("arguments[0].click()", comuneOption);
     }
 
     public void clickInviaRichiesta() {
         this.inviaLaRichiestaButton.click();
     }
 
-    public void MessaggioDiErroreDelegaASeStessi() {
-        try {
-            By ErrorMessage = By.xpath("//div[contains(text(),'Non è possibile delegare se stessi')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(ErrorMessage));
+    public String MessaggioDiErrore() {
+            By errorMessageBy = By.xpath("//div[contains(@class,'MuiAlert-message')]/div");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(errorMessageBy));
+            WebElement errorMessage = driver.findElement(errorMessageBy);
             logger.info("Messaggio di errore trovato");
-        }catch (TimeoutException e) {
-            logger.error("Messaggio di errore non trovato"+e.getMessage());
-            Assert.fail("Messaggio di errore non trovato"+e.getMessage());
-        }
+
+            return errorMessage.getText();
     }
 
     public void messaggioDiErroreDelegaPresente() {
@@ -229,11 +186,8 @@ public class LeTueDelegheSection extends BasePage {
         }
     }
 
-    public void vaiInFondoAllaPagina() {
-        this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
-    }
-
     public void clickOpzioneAccetta() {
+        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.accettaButton));
         this.accettaButton.click();
     }
 
@@ -259,9 +213,9 @@ public class LeTueDelegheSection extends BasePage {
         this.accettaPopUpButton.click();
     }
 
-    public void controlloStatoAttiva() {
+    public void controlloStatoAttiva(String nome, String cognome) {
         try {
-            By statoAttivaBy = By.xpath("//div[contains(@data-testid,'statusChip-Attiva')]");
+            By statoAttivaBy = By.xpath("//tr[@data-testid='table(notifications).row']//td[@role='cell' and div/p[contains(text(),'"+nome + " "+ cognome +"')]]/following-sibling::td[@role='cell']//div/div/span[contains(text(),'Attiva')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoAttivaBy));
             logger.info("La delega ha lo stato Attiva");
         }catch (TimeoutException e){

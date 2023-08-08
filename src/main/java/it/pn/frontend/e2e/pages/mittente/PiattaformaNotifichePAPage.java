@@ -65,7 +65,10 @@ public class PiattaformaNotifichePAPage extends BasePage {
     public void waitLoadPiattaformaNotifichePAPage() {
         try {
             By notificheTitle = By.xpath("//h4[contains(text(),'Notifiche')]");
+            By inviaButtonBy = By.xpath("//button[contains(@data-testid,'newNotificationBtn')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheTitle));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(inviaButtonBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(inviaButtonBy));
             logger.info("Piattaforma Notifiche Page caricata");
         } catch (TimeoutException e) {
             logger.error("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
@@ -120,6 +123,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
     }
 
     public void inserimentoCodiceIUN(String codiceIUN) {
+        getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.codiceIUNTextField));
         this.codiceIUNTextField.sendKeys(codiceIUN);
     }
 
@@ -200,7 +204,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
     }
 
     public void selectInviaUnaNuovaNotificaButton() {
-        this.inviaNuovaNotificaButton.click();
+        this.js().executeScript("arguments[0].click()",this.inviaNuovaNotificaButton);
     }
 
     public void aggionamentoPagina() {
@@ -272,6 +276,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
     }
 
     public void selezionareLaVoceApiKey() {
+        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.apiKeyButton));
         this.apiKeyButton.click();
     }
 

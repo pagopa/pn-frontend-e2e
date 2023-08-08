@@ -8,7 +8,7 @@ Feature: Ricerca persona fisica per Codice IUN
 
   @TestSuite
   @test17
-  @restLogin
+  @
 
   Scenario: Ricerca persona fisica per Codice IUN
     When Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica

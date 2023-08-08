@@ -34,6 +34,7 @@ public class HeaderPASection extends BasePage {
     }
 
     public void selezionaEsciButton(){
+        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.esciButton));
         this.js().executeScript("arguments[0].scrollIntoView(true);",this.esciButton);
         this.esciButton.click();
     }
