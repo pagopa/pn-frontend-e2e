@@ -52,15 +52,6 @@ public class DettaglioNotificaFRSection extends BasePage {
         attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
     }
 
-    public void downloadFileNotifica(String path, String url, int nDownload){
-        try {
-            URL urlPDF = new URL(url);
-            File pdf = new File(path+"/pdfNotificaN"+nDownload+".pdf");
-            FileUtils.copyURLToFile(urlPDF,pdf,30000,30000);
-        } catch (IOException e) {
-            logger.error("Errore nel downolad del file : "+e.getMessage());
-        }
-    }
 
     public int getLinkAttestazioniOpponubili() {
         return attestazioniFile.size();
