@@ -516,14 +516,14 @@ public class PiattaformaNotifichePage extends BasePage {
     public void inserimentoOggettoNotificaErrato(String oggettoDellaNotifica) {
         this.oggettoDellaNotificaTextField.sendKeys(oggettoDellaNotifica);
     }
-    public void errorMessage() {this.errorMessage.isDisplayed();}
+    public boolean errorMessage() {return this.errorMessage.isDisplayed();}
 
     public void clickIndietroButton() {this.indietroButton.click();}
 
-    public void vuoiUscirePopUp() {this.vuoiUscirePopUp.isDisplayed();}
+    public boolean vuoiUscirePopUp() {return this.vuoiUscirePopUp.isDisplayed();}
 
     public void clickSuEsci() {this.esciButton.click();}
 
-    public void estensioneSbagliataErrore() {this.estenzioneSbagliataMessage.isDisplayed();}
+    public boolean estensioneSbagliataErrore() {return this.estenzioneSbagliataMessage.isDisplayed();}
 
 }

@@ -87,7 +87,7 @@ public class LoginPGPagoPATest {
         }
 
         SelezionaImpresaPage impresaPage = new SelezionaImpresaPage(this.driver);
-        impresaPage.clickSuImpresa();
+        //impresaPage.clickSuImpresa();
         impresaPage.clickAccediButton();
     }
     private void readurlPortaleMittente(String user, String password){
@@ -220,7 +220,6 @@ public class LoginPGPagoPATest {
     @Then("Home page persona giuridica viene visualizzata correttamente")
     public void homePagePersonaGiuridicaVieneVisualizzataCorrettamente() {
         headerPGSection.waitLoadHeaderPGPage();
-
         HomePagePG homePagePG = new HomePagePG(this.driver);
         homePagePG.waitLoadHomePagePGPage();
     }

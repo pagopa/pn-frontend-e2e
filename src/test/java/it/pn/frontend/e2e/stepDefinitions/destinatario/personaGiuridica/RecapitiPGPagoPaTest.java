@@ -25,7 +25,7 @@ public class RecapitiPGPagoPaTest {
         recapitiPGPage.waitLoadRecapitiPage();
     }
 
-    @And("Nella pagina I Tuoi Recapiti si inserisce la PEC del persona giuridica {string}")
+    @And("Nella pagina Recapiti si inserisce la PEC del persona giuridica {string}")
     public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelPersonaGiuridica(String personaGiuridica) {
         logger.info("Si cerca di inserire la email pec");
         Map<String, Object> datiPG = dataPopulation.readDataPopulation(personaGiuridica+".yaml");
@@ -33,13 +33,13 @@ public class RecapitiPGPagoPaTest {
     }
 
 
-    @And("Nella pagina I Tuoi Recapiti persona giuridica si inserisce una PEC sbagliata {string}")
+    @And("Nella pagina Recapiti persona giuridica si inserisce una PEC sbagliata {string}")
     public void nellaPaginaITuoiRecapitiPersonaGiuridicaSiInserisceUnaPECSbagliata(String emailPec) {
         logger.info("Si cerca di inserire la email pec sbagliata");
         recapitiDestinatarioPage.insertEmailPEC(emailPec);
     }
 
-    @Then("Nella pagina I Tuoi Recapiti persona giuridica si visualizza correttamente il messaggio di errore pec sbagliata")
+    @Then("Nella pagina Recapiti persona giuridica si visualizza correttamente il messaggio di errore pec sbagliata")
     public void nellaPaginaITuoiRecapitiPersonaGiuridicaSiVisualizzaCorrettamenteIlMessaggioDiErrorePecSbagliata() {
         logger.info("Si controlla che si deve il messaggio di errore");
 

@@ -5,16 +5,24 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
+import it.pn.frontend.e2e.section.CookiesSection;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 public class NotifichePGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("NotifichePGPagoPATest");
     private final WebDriver driver = Hooks.driver;
 
-    PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+    private final PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
     @And("Nella Home page persona giuridica si clicca su Send Notifiche Digitali")
     public void clickSendNotificheDigitali(){
         this.logger.info("Si clicca su Send Notifiche Digitali");
@@ -56,6 +64,4 @@ public class NotifichePGPagoPATest {
         logger.info("Si clicca sulla voce recapiti nel menu");
         piattaformaNotifichePGPAPage.clickRecapitiButton();
     }
-
-
 }

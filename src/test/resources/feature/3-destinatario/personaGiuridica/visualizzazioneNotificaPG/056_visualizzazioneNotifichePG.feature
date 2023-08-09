@@ -2,11 +2,12 @@ Feature: Il persona fisica visualizza la sezione notifiche
 
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
-    When Login portale persona giuridica tramite request method
+    When Login con persona giuridica "personaGiuridica"
     Then Home page persona giuridica viene visualizzata correttamente
 
   @TestSuite
   @fase2Test56
+  @pg
   Scenario: Il persona giuridica visualizza la sezione notifiche
     When Nella Home page persona giuridica si clicca su Send Notifiche Digitali
     And Si visualizza correttamente la Pagina Notifiche persona giuridica

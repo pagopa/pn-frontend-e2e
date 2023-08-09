@@ -6,6 +6,8 @@ Feature: il mittente inserisce tutti i dati di una notifica
 
     @fase2Test3neg
     @TestSuite
+    @pg
+
   Scenario: il mittente inserisce tutti i dati di una notifica
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
@@ -20,6 +22,6 @@ Feature: il mittente inserisce tutti i dati di una notifica
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica"
     And Cliccare su continua
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
-    And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica" con estenzione non valida
+    And Nella section Allegati caricare l'atto e inserire il nome atto con estenzione non valida
     Then Si visualizza correttamente il messaggio di errore estensione file non supportata. Riprovare con un altro file.
     And Logout da portale mittente
