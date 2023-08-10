@@ -16,7 +16,6 @@ public class InformazioniPreliminariPASection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("InformazioniPreliminariPASection");
     @FindBy(id = "paProtocolNumber")
     WebElement numeroProtocolloTextField;
-
     @FindBy(id = "subject")
     WebElement oggettoNotificaTextField;
 
@@ -38,8 +37,10 @@ public class InformazioniPreliminariPASection extends BasePage {
 
     public void waitLoadInformazioniPreliminariPASection() {
         try {
+            By protocolloNumberBY = By.id("paProtocolNumber");
             By inofrmazioniTitle = By.xpath("//h3[contains(text(),'Informazioni preliminari')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(inofrmazioniTitle));
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(protocolloNumberBY));
             logger.info("Informazioni preliminari PA Section caricata");
 
         } catch (TimeoutException e) {

@@ -675,12 +675,7 @@ public class NotificaMittentePagoPATest {
     @And("Nella section si visualizza il popup vuoi uscire")
     public void nellaSectionInformazioniPreliminariSiVisualizzaIlPopupVuoiUscire() {
         logger.info("Si verifica sia presente il pop up vuoi uscire");
-        if(piattaformaNotifichePage.vuoiUscirePopUp()){
-            logger.info("Si visualizza correttamente il pop up vuoi uscire");
-        }else {
-            logger.error("Non si visualizza correttamente il pop up vuoi uscire");
-            Assert.fail("Non si visualizza correttamente il pop up vuoi uscire");
-        }
+        piattaformaNotifichePage.vuoiUscirePopUp();
     }
 
     @And("Nella section cliccare sul tasto esci")

@@ -70,9 +70,6 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "//button[@data-testid='breadcrumb-indietro-button']")
     WebElement indietroButton;
 
-    @FindBy(xpath = "//h2[@id='mui-12']")
-    WebElement vuoiUscirePopUp;
-
     @FindBy(xpath = "//div/div/h2[@id='mui-12']/following-sibling::div/button[contains(text(),'Esci')]")
     WebElement esciButton;
 
@@ -520,9 +517,18 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void clickIndietroButton() {this.indietroButton.click();}
 
-    public boolean vuoiUscirePopUp() {return this.vuoiUscirePopUp.isDisplayed();}
+    public void vuoiUscirePopUp() {
+    try{
+        By vuoiUscirePUBy = By.id("mui-12");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(vuoiUscirePUBy));
+        logger.info("Si visualizza il pop up vuoi uscire");
+    }catch (TimeoutException e){
+        logger.error("Non si visualizza il pop up vuoi uscire con errore:"+e.getMessage());
+        Assert.fail("Non si visualizza il pop up vuoi uscire con errore:"+e.getMessage());
+    }
+    }
 
-    public void clickSuEsci() {this.esciButton.click();}
+        public void clickSuEsci() {this.esciButton.click();}
 
     public boolean estensioneSbagliataErrore() {return this.estenzioneSbagliataMessage.isDisplayed();}
 

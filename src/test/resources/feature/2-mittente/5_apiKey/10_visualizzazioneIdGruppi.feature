@@ -12,6 +12,7 @@ Feature: Mittente seleziona l'opzione visualizza ID gruppo
   @fase2Test22
     @TestSuite
   @pg
+    @try
   Scenario: Mittente seleziona l'opzione visualizza ID gruppo
     When Nella pagina Api Key si clicca sul bottone menu di una Api Key attiva presente in elenco
     And Nella pagina Api Key si clicca sulla voce visualizza id gruppo del menu Api Key
