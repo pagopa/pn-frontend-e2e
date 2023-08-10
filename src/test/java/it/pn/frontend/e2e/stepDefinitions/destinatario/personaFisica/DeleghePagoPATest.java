@@ -166,7 +166,7 @@ public class DeleghePagoPATest {
     public void nellaSezioneLeTueDelegheSiVisualizzaIlMessaggioDiErrore() {
         logger.info("Si visualizza il messaggio di errore");
         String actualErrorMessage = this.leTueDelegheSection.MessaggioDiErrore().toLowerCase();
-        String expectedErrorMessage = "codice fiscale non valido";
+        String expectedErrorMessage = "errore inserimento delega";
         Assert.assertEquals("Messeggio di Errore non è uguale a Codice fiscale non valido",expectedErrorMessage,actualErrorMessage);
     }
 
