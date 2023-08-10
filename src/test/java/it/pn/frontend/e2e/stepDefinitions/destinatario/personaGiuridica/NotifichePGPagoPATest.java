@@ -37,7 +37,11 @@ public class NotifichePGPagoPATest {
 
     @And("Si visualizza correttamente la Pagina Notifiche persona giuridica")
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica() {
-
+        CookiesSection cookiesSection = new CookiesSection(this.driver);
+        if(cookiesSection.waitLoadCookiesPage()){
+            logger.info("Si accettano i cookies");
+            cookiesSection.selezionaAccettaTuttiButton();
+        }
         piattaformaNotifichePGPAPage.waitLoadPitattaformaNotificaPage();
     }
 

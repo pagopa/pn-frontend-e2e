@@ -38,8 +38,9 @@ public class InformazioniPreliminariPASection extends BasePage {
     public void waitLoadInformazioniPreliminariPASection() {
         try {
             By protocolloNumberBY = By.id("paProtocolNumber");
-            By inofrmazioniTitle = By.xpath("//h3[contains(text(),'Informazioni preliminari')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(inofrmazioniTitle));
+            By informazioniTitle = By.xpath("//h3[contains(text(),'Informazioni preliminari')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(informazioniTitle));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(protocolloNumberBY));
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(protocolloNumberBY));
             logger.info("Informazioni preliminari PA Section caricata");
 

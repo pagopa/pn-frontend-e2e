@@ -244,7 +244,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public String ricercaNotifica(String oggettoDellaNotifica, String statoNotifica) {
 
-        String codiceIUN = null;
+        String codiceIUN = "";
 
         int posizioneNotifica = verificaEsistenzaNotifica(oggettoDellaNotifica, statoNotifica);
         logger.info("la posizione della notifica è uguale: " + posizioneNotifica);

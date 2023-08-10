@@ -87,13 +87,13 @@ public class LoginPGPagoPATest {
         }
 
         SelezionaImpresaPage impresaPage = new SelezionaImpresaPage(this.driver);
-        //impresaPage.clickSuImpresa();
+        impresaPage.clickSuImpresa();
         impresaPage.clickAccediButton();
     }
     private void readurlPortaleMittente(String user, String password){
 
         SpidLoginMittente spidLoginMittente = new SpidLoginMittente("xx_testenv2","SpidL2");
-        spidLoginMittente.setSpidLoginMittenteEndPoint("https://api.uat.selfcare.pagopa.it/spid/v1/login");
+        spidLoginMittente.setSpidLoginMittenteEndPoint("https://api-pnpg.uat.selfcare.pagopa.it/spid/v1/login");
         spidLoginMittente.runSpidLoginMittente();
         if(spidLoginMittente.getResponseBody() == null){
             Assert.fail(" api spid login risponde con body vuoto");
@@ -162,7 +162,7 @@ public class LoginPGPagoPATest {
                         user,password,
                         cookieStore
                 );
-        spidTestenvWesteuropeAzurecontainerIoLogin.setSpidTestenvWesteuropeAzurecontainerIoLoginEndPoint("https://selc-u-spid-testenv.westeurope.azurecontainer.io/login");
+        spidTestenvWesteuropeAzurecontainerIoLogin.setSpidTestenvWesteuropeAzurecontainerIoLoginEndPoint("https://selc-u-pnpg-spid-testenv.westeurope.azurecontainer.io/login");
         spidTestenvWesteuropeAzurecontainerIoLogin.runSpidTestenvWesteuropeAzurecontainerIoLogin();
 
         if(spidTestenvWesteuropeAzurecontainerIoLogin.getResponseBody() == null){
@@ -181,7 +181,7 @@ public class LoginPGPagoPATest {
                         requestKeyFromSpidTestenvWesteuropeAzurecontainerIoLogin, cookieStore
                 );
 
-        spidTestenvWesteuropeAzurecontainerIoContinueResponse.setSpidTestenvWesteuropeAzurecontainerIoContinueResponseEndPoint("https://selc-u-spid-testenv.westeurope.azurecontainer.io/continue-response");
+        spidTestenvWesteuropeAzurecontainerIoContinueResponse.setSpidTestenvWesteuropeAzurecontainerIoContinueResponseEndPoint("https://selc-u-pnpg-spid-testenv.westeurope.azurecontainer.io/continue-response");
         spidTestenvWesteuropeAzurecontainerIoContinueResponse.runSpidTestenvWesteuropeAzurecontainerIoContinueResponse();
         if(spidTestenvWesteuropeAzurecontainerIoContinueResponse.getResponseBody() == null){
             Assert.fail(" api selc-u-spid-testenv.westeurope.azurecontainer.io/continue-response");
@@ -207,7 +207,7 @@ public class LoginPGPagoPATest {
                 cookieStore
         );
 
-        spidAcsMittente.setSpidAcsEndPoint("https://api.uat.selfcare.pagopa.it/spid/v1/acs");
+        spidAcsMittente.setSpidAcsEndPoint("https://api-pnpg.uat.selfcare.pagopa.it/spid/v1/acs");
         spidAcsMittente.runSpidAcs();
         this.urlPersonaGiuridica = spidAcsMittente.getSpidAcsMittenteResponse();
 

@@ -796,6 +796,7 @@ public class NotificaMittentePagoPATest {
 
         String coidiceIUNOld = this.datiNotifica.get("codiceIUN").toString();
         CookiesSection cookiesSection = new CookiesSection(this.driver);
+        String codiceIUN = "";
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
                 piattaformaNotifichePage.aggionamentoPagina();
@@ -808,15 +809,19 @@ public class NotificaMittentePagoPATest {
                 piattaformaNotifichePage.selectFiltraButton();
             }
             piattaformaNotifichePage.waitLoadRefreshPage();
-            String codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
-            if (codiceIUN != null) {
+            codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
+            if (!codiceIUN.equals("")) {
                 if (!codiceIUN.equals(coidiceIUNOld)) {
                     this.datiNotifica.put("codiceIUN", codiceIUN);
-                    dataPopulation.writeDataPopulation("datiNotifica.yaml", this.datiNotifica);
+                    dataPopulation.writeDataPopulation("datiNotificaPG.yaml", this.datiNotifica);
                     logger.info("Stato notifica uguale a Depositata e codice IUN aggiornato correttamente");
-                    return;
+                    break;
                 }
             }
+        }
+        if (codiceIUN.equals("")){
+            logger.error("Notifica non trovata il sistema ha impiegato troppo tempo a rispondere");
+            Assert.fail("Notifica non trovata il sistema ha impiegato troppo tempo a rispondere");
         }
     }
 }
