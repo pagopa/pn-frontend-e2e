@@ -168,10 +168,10 @@ public class PiattaformaNotifichePAPage extends BasePage {
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(statoNotificaBy));
 
             if (this.element(statoNotificaBy).isDisplayed()) {
-                this.element(statoNotificaBy).click();
+                this.js().executeScript("arguments[0].click()",this.element(statoNotificaBy));
             }else {
                 this.js().executeScript("arguments[0].scrollIntoView(true);",this.element(statoNotificaBy));
-                this.element(statoNotificaBy).click();
+                this.js().executeScript("arguments[0].click()",this.element(statoNotificaBy));
             }
             logger.info("Stato notifica selezionato correttamente");
         } catch (TimeoutException e) {
