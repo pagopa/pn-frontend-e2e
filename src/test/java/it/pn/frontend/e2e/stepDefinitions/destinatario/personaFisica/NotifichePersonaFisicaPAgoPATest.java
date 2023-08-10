@@ -201,7 +201,10 @@ public class NotifichePersonaFisicaPAgoPATest {
         DataPopulation dataPopulation = new DataPopulation();
         Map<String,Object> datiNotifica = dataPopulation.readDataPopulation(dpFile+".yaml");
         String workingDirectory = System.getProperty("user.dir");
-
+        File pathCartella = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario");
+        if (!downloadFile.controlloEsistenzaCartella(pathCartella)){
+            pathCartella.mkdirs();
+        }
         for (int i = 0; i <numeroLinkAttestazioniOpponibile ; i++) {
             dettaglioNotificaSection.clickLinkAttestazionipponibile(i);
             try {

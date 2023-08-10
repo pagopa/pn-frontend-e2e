@@ -66,4 +66,9 @@ public class DownloadFile{
         }
     }
 
+    public boolean controlloEsistenzaCartella(File cartella) {
+
+        return cartella.exists();
+
+    }
 }

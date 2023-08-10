@@ -42,8 +42,8 @@ public class ApiKeysTest {
     public void siVisualizzaCorrettamenteLaPaginaApiKey() {
         logger.info("Si visualizza correttamente la pagina Api Key");
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-        piattaformaNotifichePage.waitLoadApikeyPage();
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.waitLoadApikeyPage();
     }
 
     @When("Nella pagina Api Key si clicca sul bottone genera Api Key")
@@ -95,7 +95,8 @@ public class ApiKeysTest {
     @Then("Si visualizza correttamente l api key {string} nell elenco in stato attivo")
     public void siVisualizzaCorrettamenteLApiKeyNellElencoInStatoAttivo(String nomeApiKey) {
         logger.info("Si controlla che sia stato creata l'api key");
-
+        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+        apiKeyPAPage.waitLoadApikeyPage();
         apiKeyPAPage.siVisualizzaNuovaApiAttiva(nomeApiKey);
     }
 
