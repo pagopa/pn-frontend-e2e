@@ -165,7 +165,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
         this.statoNotificaField.click();
         try {
             By statoNotificaBy = By.xpath("//li[contains(@data-value,'"+statoInserito+"')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(statoNotificaBy));
 
             if (this.element(statoNotificaBy).isDisplayed()) {
                 this.element(statoNotificaBy).click();
@@ -280,16 +280,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
         this.apiKeyButton.click();
     }
 
-    public void waitLoadApikeyPage() {
-        try {
-            By apiKeyTitle = By.xpath("//h4[contains(text(),'API Key')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(apiKeyTitle));
-            logger.info("Api Key Page caricata");
-        } catch (TimeoutException e) {
-            logger.error("Api Key Page NON caricata con errore : " + e.getMessage());
-            Assert.fail("Api Key Page NON caricata con errore : " + e.getMessage());
-        }
-    }
+
 
     public String conversioneFormatoDate(String date) {
         String[] dateInserita = date.split("-");

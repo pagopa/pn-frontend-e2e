@@ -52,6 +52,12 @@ public class DownloadFileMittentePagoPATest {
         logger.info("Si scaricano tutti i file all'interno della notifica");
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         DataPopulation dataPopulation = new DataPopulation();
+        String workingDirectory = System.getProperty("user.dir");
+        File pathCartella = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
+        downloadFile = new DownloadFile();
+        if (!downloadFile.controlloEsistenzaCartella(pathCartella)){
+            pathCartella.mkdirs();
+        }
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         int count = 1;
         dettaglioNotificaSection.clickLinkDocumentiAllegati();
@@ -60,13 +66,13 @@ public class DownloadFileMittentePagoPATest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        String workingDirectory = System.getProperty("user.dir");
+
         final String filepath = workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN";
         final String urlDocumenti ="https://webapi.test.notifichedigitali.it/delivery/notifications/sent/" + this.datiNotifica.get("codiceIUN").toString() + "/attachments/documents/0";
 
         final String urlDocumentiAllegati = getUrl(urlDocumenti);
         File file = new File(filepath+count+".pdf");
-        downloadFile = new DownloadFile();
+
         downloadFile.download(urlDocumentiAllegati,file);
         count = count+1;
 

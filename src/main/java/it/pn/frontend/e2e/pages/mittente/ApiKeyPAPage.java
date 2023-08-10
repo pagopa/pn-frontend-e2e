@@ -54,6 +54,19 @@ public class ApiKeyPAPage  extends BasePage {
         super(driver);
     }
 
+    public void waitLoadApikeyPage() {
+        try {
+            By apiKeyTitle = By.xpath("//h4[contains(text(),'API Key')]");
+            By generaApiKeyButtonBy = By.xpath("//button[contains(@data-testid,'generateApiKey')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(apiKeyTitle));
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(generaApiKeyButtonBy));
+            logger.info("Api Key Page caricata");
+        } catch (TimeoutException e) {
+            logger.error("Api Key Page NON caricata con errore : " + e.getMessage());
+            Assert.fail("Api Key Page NON caricata con errore : " + e.getMessage());
+        }
+    }
+
     public void clickSulBottoneGeneraApiKey() {
         this.generateApiKeyButton.click();
     }

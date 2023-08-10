@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.section.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -12,9 +11,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
 public class DettaglioNotificaFRSection extends BasePage {
@@ -52,15 +48,6 @@ public class DettaglioNotificaFRSection extends BasePage {
         attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
     }
 
-    public void downloadFileNotifica(String path, String url, int nDownload){
-        try {
-            URL urlPDF = new URL(url);
-            File pdf = new File(path+"/pdfNotificaN"+nDownload+".pdf");
-            FileUtils.copyURLToFile(urlPDF,pdf,30000,30000);
-        } catch (IOException e) {
-            logger.error("Errore nel downolad del file : "+e.getMessage());
-        }
-    }
 
     public int getLinkAttestazioniOpponubili() {
         return attestazioniFile.size();
