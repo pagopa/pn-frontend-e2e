@@ -1,17 +1,14 @@
 package it.pn.frontend.e2e.stepDefinitions.mittente;
 
-import com.google.common.base.CharMatcher;
-import com.google.common.base.Splitter;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
-import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.DownloadFile;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -19,7 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -28,7 +24,6 @@ import java.util.concurrent.TimeUnit;
 public class DownloadFileMittentePagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("DownloadFileMittentePagoPATest");
     private final WebDriver driver = Hooks.driver;
-    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     private  Map<String,Object> datiNotifica = new HashMap<>();
 
@@ -72,7 +67,7 @@ public class DownloadFileMittentePagoPATest {
         final String filepath = workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN";
         final String urlDocumenti ="https://webapi.test.notifichedigitali.it/delivery/notifications/sent/" + this.datiNotifica.get("codiceIUN").toString() + "/attachments/documents/0";
 
-        final String urlDocumentiAllegati = getUrl(urlDocumenti);
+        final String urlDocumentiAllegati = downloadFile.getUrl(urlDocumenti);
         File file = new File(filepath+count+".pdf");
 
         downloadFile.download(urlDocumentiAllegati,file);
@@ -87,7 +82,7 @@ public class DownloadFileMittentePagoPATest {
                 throw new RuntimeException(e);
             }
             final String url = "https://webapi.test.notifichedigitali.it/delivery-push/"+ this.datiNotifica.get("codiceIUN").toString() +"/document/AAR?documentId=safestorage:";
-            final String urlAvvenutaRicezione = getUrl(url);
+            final String urlAvvenutaRicezione = downloadFile.getUrl(url);
             file = new File(filepath+count+".pdf");
             count = count+1;
 
@@ -104,7 +99,7 @@ public class DownloadFileMittentePagoPATest {
                 throw new RuntimeException(e);
             }
             final String urlAttestazione = "https://webapi.test.notifichedigitali.it/delivery-push/";
-            final String urlFileAttestazioneOppponubile = getUrl(urlAttestazione);
+            final String urlFileAttestazioneOppponubile = downloadFile.getUrl(urlAttestazione);
             file = new File(filepath+count+".pdf");
             count = count+1;
             downloadFile.download(urlFileAttestazioneOppponubile,file);
@@ -113,30 +108,6 @@ public class DownloadFileMittentePagoPATest {
         final String pathOfdownloadedFile = workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente";
         downloadFile.controlloDownload(pathOfdownloadedFile,count);
 
-    }
-
-    private String getUrl(String urlChiamata) {
-        String url = "";
-        for (NetWorkInfo netWorkInfo : netWorkInfos) {
-            if (netWorkInfo.getRequestUrl().contains(urlChiamata) && netWorkInfo.getRequestMethod().equals("GET")) {
-                String values = netWorkInfo.getResponseBody();
-                List<String> results = Splitter.on(CharMatcher.anyOf(",;:")).splitToList(values);
-
-                for (String result : results) {
-                    if (result.startsWith("//")) {
-                        url = result;
-                        break;
-                    }
-                }
-                if (url.endsWith("}")) {
-                    url = "https:" + url.substring(0, url.length() - 2);
-                } else {
-                    url = "https:" + url.substring(0, url.length() - 1);
-                }
-                logger.info("url: " + url);
-            }
-        }
-        return url;
     }
 
     @When("Cliccare sulla notifica restituita")
@@ -170,7 +141,7 @@ public class DownloadFileMittentePagoPATest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        final String url = getUrl("https://webapi.test.notifichedigitali.it/delivery-push/");
+        final String url = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/");
         final String workingDirectory = System.getProperty("user.dir");
 
         nomeFile = nomeFile.replace(" ","_").replace(":", "");
@@ -188,7 +159,7 @@ public class DownloadFileMittentePagoPATest {
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         Map<String, String> infoNotifiche = dettaglioNotificaMittenteSection.recuperoInfoNotifiche();
         if(nomeFile.equals("Attestazione_opponibile_a_terzi_notifica_presa_in_carico")){
-            if (dettaglioNotificaMittenteSection.controlloTestoFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("mittente").toString())) {
+            if (dettaglioNotificaMittenteSection.controlloTestoFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("mittente"))) {
                 logger.info("Il nome del mittente all'interno del file è corretto");
             } else {
                 logger.error("Il nome del mittente  all'interno del file  NON è corretto");
@@ -196,28 +167,28 @@ public class DownloadFileMittentePagoPATest {
             }
         }
 
-        if (dettaglioNotificaMittenteSection.controlloTestoFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("destinatario").toString())) {
+        if (dettaglioNotificaMittenteSection.controlloTestoFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("destinatario"))) {
             logger.info("Il nome del destinatario all'interno del file è corretto");
         } else {
             logger.error("Il nome del destinatario  all'interno del file  NON è corretto");
             Assert.fail("Il nome del destinatario  all'interno del file  NON è corretto");
         }
 
-        if (dettaglioNotificaMittenteSection.controlloTestoFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("codiceFiscale").toString())) {
+        if (dettaglioNotificaMittenteSection.controlloTestoFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("codiceFiscale"))) {
             logger.info("Il codiceFiscale del destinatario all'interno del file è corretto");
         } else {
             logger.error("Il codiceFiscale del destinatario  all'interno del file  NON è corretto");
             Assert.fail("Il codiceFiscale del destianatario  all'interno del file  NON è corretto");
         }
 
-        if (dettaglioNotificaMittenteSection.controlloTestoFileData("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("data").toString())) {
+        if (dettaglioNotificaMittenteSection.controlloTestoFileData("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("data"))) {
             logger.info("La data della notifica all'interno del file è corretta");
         } else {
             logger.error("La data della notifica all'interno del file  NON è corretta");
             Assert.fail("La data della notifica  all'interno del file  NON è corretta");
         }
 
-        if (dettaglioNotificaMittenteSection.controlloTestoFileCodiceIUN("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("codiceIUN").toString())) {
+        if (dettaglioNotificaMittenteSection.controlloTestoFileCodiceIUN("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("codiceIUN"))) {
             logger.info("Il codice IUN della notifica all'interno del file è corretto");
         } else {
             logger.error("Il codice IUN della notifica all'interno del file  NON è corretto");

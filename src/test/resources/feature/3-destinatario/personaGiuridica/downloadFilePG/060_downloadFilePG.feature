@@ -17,6 +17,6 @@ Feature: persona giuridica scarica attestazioni all'interno di una notifica
   Scenario: persona giuridica scarica attestazione
     When Il persona giuridica clicca sulla notifica restituita "datiNotificaPG"
     And Si visualizza correttamente la section Dettaglio Notifica persona giuridica
-    Then Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto "datiNotificaPG"
+    Then Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona giuridica, e si controlla che il download sia avvenuto "datiNotificaPG"
     And Si clicca sul opzione Vedi Dettaglio
     And Logout da portale persona giuridica
