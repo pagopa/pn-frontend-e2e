@@ -1,17 +1,14 @@
 package it.pn.frontend.e2e.stepDefinitions.mittente;
 
-import com.google.common.base.CharMatcher;
-import com.google.common.base.Splitter;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
-import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.DownloadFile;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -19,7 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -159,7 +155,7 @@ public class DownloadFileMittentePagoPATest {
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         Map<String, String> infoNotifiche = dettaglioNotificaMittenteSection.recuperoInfoNotifiche();
         if(nomeFile.equals("Attestazione_opponibile_a_terzi_notifica_presa_in_carico")){
-            if (dettaglioNotificaMittenteSection.controlloTestoFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("mittente").toString())) {
+            if (dettaglioNotificaMittenteSection.controlloTestoFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("mittente"))) {
                 logger.info("Il nome del mittente all'interno del file è corretto");
             } else {
                 logger.error("Il nome del mittente  all'interno del file  NON è corretto");
@@ -167,28 +163,28 @@ public class DownloadFileMittentePagoPATest {
             }
         }
 
-        if (dettaglioNotificaMittenteSection.controlloTestoFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("destinatario").toString())) {
+        if (dettaglioNotificaMittenteSection.controlloTestoFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("destinatario"))) {
             logger.info("Il nome del destinatario all'interno del file è corretto");
         } else {
             logger.error("Il nome del destinatario  all'interno del file  NON è corretto");
             Assert.fail("Il nome del destinatario  all'interno del file  NON è corretto");
         }
 
-        if (dettaglioNotificaMittenteSection.controlloTestoFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("codiceFiscale").toString())) {
+        if (dettaglioNotificaMittenteSection.controlloTestoFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("codiceFiscale"))) {
             logger.info("Il codiceFiscale del destinatario all'interno del file è corretto");
         } else {
             logger.error("Il codiceFiscale del destinatario  all'interno del file  NON è corretto");
             Assert.fail("Il codiceFiscale del destianatario  all'interno del file  NON è corretto");
         }
 
-        if (dettaglioNotificaMittenteSection.controlloTestoFileData("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("data").toString())) {
+        if (dettaglioNotificaMittenteSection.controlloTestoFileData("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("data"))) {
             logger.info("La data della notifica all'interno del file è corretta");
         } else {
             logger.error("La data della notifica all'interno del file  NON è corretta");
             Assert.fail("La data della notifica  all'interno del file  NON è corretta");
         }
 
-        if (dettaglioNotificaMittenteSection.controlloTestoFileCodiceIUN("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("codiceIUN").toString())) {
+        if (dettaglioNotificaMittenteSection.controlloTestoFileCodiceIUN("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("codiceIUN"))) {
             logger.info("Il codice IUN della notifica all'interno del file è corretto");
         } else {
             logger.error("Il codice IUN della notifica all'interno del file  NON è corretto");
