@@ -523,4 +523,4 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean estensioneSbagliataErrore() {return this.estenzioneSbagliataMessage.isDisplayed();}
 
-}
+    }

@@ -23,10 +23,10 @@ public class ApiKeyPAPage  extends BasePage {
     @FindBy(xpath = "//li[@data-testid='buttonViewGroupsId']")
     WebElement visualizzaIdGruppo;
 
-    @FindBy(xpath = "//button[contains(text(),'Continua')]")
+    @FindBy(id = "continue-button")
     WebElement apiContinuaButton;
 
-    @FindBy(xpath = "//button[contains(text(),'Torna a API Key')]")
+    @FindBy(id = "api-key-succesfully-generated")
     WebElement tornaApiButton;
 
     @FindBy(xpath = "//li[contains(@data-testid,'buttonBlock')]")
@@ -62,7 +62,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void waitLoadApikeyPage() {
         try {
-            By apiKeyTitle = By.xpath("//h4[contains(text(),'API Key')]");
+            By apiKeyTitle = By.id("title-of-page");
             By generaApiKeyButtonBy = By.xpath("//button[contains(@data-testid,'generateApiKey')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(apiKeyTitle));
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(generaApiKeyButtonBy));
@@ -87,7 +87,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void siVisualizzaCorrettamenteConfermaPage() {
         try{
-            By confirmationApiPageTitle = By.xpath("//h4[contains(text(),'API Key generata con successo!')]");
+            By confirmationApiPageTitle = By.id("go-to-api-keys");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(confirmationApiPageTitle));
             logger.info("Api Key ConfirmationPage caricata");
         }catch (TimeoutException e){
@@ -102,7 +102,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void siVisualizzaNuovaApiAttiva(String nomeApiKey) {
         try{
-            By statoAttivoField = By.xpath("//span[contains(text(),'Attiva')]");
+            By statoAttivoField = By.xpath("//div[@data-testid='statusChip-Attiva']");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoAttivoField));
             By apiNameAttivoField = By.xpath("//p[contains(text(),'"+nomeApiKey+"')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(apiNameAttivoField));
@@ -152,7 +152,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void notificaSelezionataStatoBloccata() {
         try {
-            By statoNotificaBloccata = By.xpath("//span[contains(text(),'Bloccata')]");
+            By statoNotificaBloccata = By.xpath("//div[@data-testid='statusChip-Bloccata’]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBloccata));
             logger.info("La notifica è in stato bloccata");
         } catch (TimeoutException e) {
@@ -202,7 +202,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void siVisualizzaNotificaSelezionataRuotata() {
         try {
-            By popUpRuotataBy = By.xpath("//span[contains(text(),'Ruotata')]");
+            By popUpRuotataBy = By.xpath("//div[@data-testid='statusChip-Ruotata’]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popUpRuotataBy));
             logger.info("Si visualizza correttamente il popup ruota");
         } catch (TimeoutException e) {

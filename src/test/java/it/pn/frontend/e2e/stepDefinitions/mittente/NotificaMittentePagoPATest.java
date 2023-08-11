@@ -824,4 +824,5 @@ public class NotificaMittentePagoPATest {
             Assert.fail("Notifica non trovata il sistema ha impiegato troppo tempo a rispondere");
         }
     }
+
 }

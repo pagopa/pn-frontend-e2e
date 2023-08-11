@@ -24,7 +24,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(xpath = "//button[contains(@data-testid,'codeConfirmButton')]")
     WebElement confermaButtonPopUp;
 
-    @FindBy(xpath = "//button[contains(text(),'Annulla')]")
+    @FindBy(xpath = "//button[@data-testid='codeCancelButton']")
     WebElement annullaButton;
 
     public RecapitiDestinatarioPage(WebDriver driver) {

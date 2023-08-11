@@ -113,7 +113,7 @@ public class DeleghePage extends BasePage {
             throw new RuntimeException(e);
         }
         try{
-            By closeCodiceButtonBy = By.xpath("//button[contains(text(),'Chiudi')]");
+            By closeCodiceButtonBy = By.xpath("//button[@data-testid='codeCancelButton']");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(closeCodiceButtonBy));
             logger.info("Il bottone chiudi viene visualizzato correttamente");
             this.element(closeCodiceButtonBy).click();

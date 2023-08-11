@@ -18,7 +18,7 @@ public class NotifichePFPage extends BasePage {
     @FindBy(id = "iunMatch")
     WebElement codiceIunTextField;
 
-    @FindBy(xpath = "//button[contains(text(),'Filtra')]")
+    @FindBy(id = "filter-notifications-button")
     WebElement filtraButton;
 
     @FindBy(id = "startDate")
@@ -48,8 +48,8 @@ public class NotifichePFPage extends BasePage {
 
     public void waitLoadNotificheDEPage() {
         try{
-            By titleLabel = By.cssSelector("h4.MuiTypography-root.MuiTypography-h4");
-            By tableNotifiche = By.cssSelector("table[aria-label='Tabella di item']");
+            By titleLabel = By.id("title-of-page");
+            By tableNotifiche = By.cssSelector("//table[@data-testid='table(notifications)']");
             this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
             this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
             logger.info("Notifiche DE Page non caricata");

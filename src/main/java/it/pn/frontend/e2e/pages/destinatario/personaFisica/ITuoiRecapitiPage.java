@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 public class ITuoiRecapitiPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("ITuoiRecapitiPage");
 
-    @FindBy(xpath = "//span[contains(text(),'I tuoi recapiti')]")
+    @FindBy(id = "title-of-page")
     WebElement iTuoiRecapitiButton;
 
 
@@ -29,7 +29,7 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void waitLoadITuoiRecapitiPage() {
         try {
-            By titlePageBy = By.xpath("//h4[contains(text(),'I tuoi recapiti')]");
+            By titlePageBy = By.id("title-of-page");
             By subTitlePageBy = By.xpath("//div[contains(@class,'MuiTypography-root MuiTypography-body1 css-f4v438')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(subTitlePageBy));
