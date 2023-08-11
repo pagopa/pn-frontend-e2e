@@ -277,7 +277,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
 
     public void selezionareLaVoceApiKey() {
         getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.apiKeyButton));
-        this.apiKeyButton.click();
+        this.js().executeScript("arguments[0].click()",this.apiKeyButton);
     }
 
 

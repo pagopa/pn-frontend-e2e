@@ -68,7 +68,7 @@ public class ApiKeyPAPage  extends BasePage {
     }
 
     public void clickSulBottoneGeneraApiKey() {
-        this.generateApiKeyButton.click();
+        this.js().executeScript("arguments[0].click()",generateApiKeyButton);
     }
 
     public void inserireUnNomePerApiKey(String nomeApiKey) {
