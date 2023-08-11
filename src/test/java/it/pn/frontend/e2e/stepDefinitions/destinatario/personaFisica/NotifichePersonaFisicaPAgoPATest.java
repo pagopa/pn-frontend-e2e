@@ -201,7 +201,7 @@ public class NotifichePersonaFisicaPAgoPATest {
         DataPopulation dataPopulation = new DataPopulation();
         Map<String,Object> datiNotifica = dataPopulation.readDataPopulation(dpFile+".yaml");
         String workingDirectory = System.getProperty("user.dir");
-        File pathCartella = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario");
+        File pathCartella = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/personaFisica");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)){
             pathCartella.mkdirs();
         }
@@ -212,37 +212,14 @@ public class NotifichePersonaFisicaPAgoPATest {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            String urlFileAttestazioneOppponubile = getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+datiNotifica.get("codiceIUN").toString()+"/legal-facts/");
+            String urlFileAttestazioneOppponubile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+datiNotifica.get("codiceIUN").toString()+"/legal-facts/");
             File file = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN"+i+".pdf");
             downloadFile.download(urlFileAttestazioneOppponubile,file);
         }
         downloadFile.controlloDownload(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario",numeroLinkAttestazioniOpponibile);
     }
 
-    private String getUrl(String urlChiamata) {
-        String url = "";
-        for (NetWorkInfo netWorkInfo : netWorkInfos) {
-            if (netWorkInfo.getRequestUrl().contains(urlChiamata) && netWorkInfo.getRequestMethod().equals("GET")) {
-                String values = netWorkInfo.getResponseBody();
-                List<String> results = Splitter.on(CharMatcher.anyOf(",;:")).splitToList(values);
 
-                for (String result : results) {
-                    if (result.startsWith("//")) {
-                        url = result;
-                        break;
-                    }
-                }
-                if (url.endsWith("}")) {
-                    url = "https:" + url.substring(0, url.length() - 2);
-                } else {
-                    url = "https:" + url.substring(0, url.length() - 1);
-                }
-                logger.info("url: "+ url);
-            }
-        }
-        return url;
-
-    }
 
     @And("Si clicca sul opzione Vedi Dettaglio")
     public void siCliccaSulOpzioneVediDettaglio() {

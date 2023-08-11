@@ -28,7 +28,6 @@ import java.util.concurrent.TimeUnit;
 public class DownloadFileMittentePagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("DownloadFileMittentePagoPATest");
     private final WebDriver driver = Hooks.driver;
-    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     private  Map<String,Object> datiNotifica = new HashMap<>();
 
@@ -72,7 +71,7 @@ public class DownloadFileMittentePagoPATest {
         final String filepath = workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN";
         final String urlDocumenti ="https://webapi.test.notifichedigitali.it/delivery/notifications/sent/" + this.datiNotifica.get("codiceIUN").toString() + "/attachments/documents/0";
 
-        final String urlDocumentiAllegati = getUrl(urlDocumenti);
+        final String urlDocumentiAllegati = downloadFile.getUrl(urlDocumenti);
         File file = new File(filepath+count+".pdf");
 
         downloadFile.download(urlDocumentiAllegati,file);
@@ -87,7 +86,7 @@ public class DownloadFileMittentePagoPATest {
                 throw new RuntimeException(e);
             }
             final String url = "https://webapi.test.notifichedigitali.it/delivery-push/"+ this.datiNotifica.get("codiceIUN").toString() +"/document/AAR?documentId=safestorage:";
-            final String urlAvvenutaRicezione = getUrl(url);
+            final String urlAvvenutaRicezione = downloadFile.getUrl(url);
             file = new File(filepath+count+".pdf");
             count = count+1;
 
@@ -104,7 +103,7 @@ public class DownloadFileMittentePagoPATest {
                 throw new RuntimeException(e);
             }
             final String urlAttestazione = "https://webapi.test.notifichedigitali.it/delivery-push/";
-            final String urlFileAttestazioneOppponubile = getUrl(urlAttestazione);
+            final String urlFileAttestazioneOppponubile = downloadFile.getUrl(urlAttestazione);
             file = new File(filepath+count+".pdf");
             count = count+1;
             downloadFile.download(urlFileAttestazioneOppponubile,file);
@@ -113,30 +112,6 @@ public class DownloadFileMittentePagoPATest {
         final String pathOfdownloadedFile = workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente";
         downloadFile.controlloDownload(pathOfdownloadedFile,count);
 
-    }
-
-    private String getUrl(String urlChiamata) {
-        String url = "";
-        for (NetWorkInfo netWorkInfo : netWorkInfos) {
-            if (netWorkInfo.getRequestUrl().contains(urlChiamata) && netWorkInfo.getRequestMethod().equals("GET")) {
-                String values = netWorkInfo.getResponseBody();
-                List<String> results = Splitter.on(CharMatcher.anyOf(",;:")).splitToList(values);
-
-                for (String result : results) {
-                    if (result.startsWith("//")) {
-                        url = result;
-                        break;
-                    }
-                }
-                if (url.endsWith("}")) {
-                    url = "https:" + url.substring(0, url.length() - 2);
-                } else {
-                    url = "https:" + url.substring(0, url.length() - 1);
-                }
-                logger.info("url: " + url);
-            }
-        }
-        return url;
     }
 
     @When("Cliccare sulla notifica restituita")
@@ -166,7 +141,7 @@ public class DownloadFileMittentePagoPATest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        final String url = getUrl("https://webapi.test.notifichedigitali.it/delivery-push/");
+        final String url = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/");
         final String workingDirectory = System.getProperty("user.dir");
 
         nomeFile = nomeFile.replace(" ","_").replace(":", "");

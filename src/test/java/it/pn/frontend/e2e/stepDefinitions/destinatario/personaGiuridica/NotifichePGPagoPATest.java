@@ -1,22 +1,28 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.section.CookiesSection;
+import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.DownloadFile;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class NotifichePGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("NotifichePGPagoPATest");
@@ -67,5 +73,31 @@ public class NotifichePGPagoPATest {
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaSiCliccaSulBottoneITuoiRecapiti() {
         logger.info("Si clicca sulla voce recapiti nel menu");
         piattaformaNotifichePGPAPage.clickRecapitiButton();
+    }
+
+    @Then("Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona giuridica, e si controlla che il download sia avvenuto {string}")
+    public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaPersonaGiuridicaESiControllaCheIlDownloadSiaAvvenuto(String dpFile) {
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponubili();
+        DownloadFile downloadFile = new DownloadFile();
+        DataPopulation dataPopulation = new DataPopulation();
+        Map<String,Object> datiNotifica = dataPopulation.readDataPopulation(dpFile+".yaml");
+        String workingDirectory = System.getProperty("user.dir");
+        File pathCartella = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/personaGiuridica");
+        if (!downloadFile.controlloEsistenzaCartella(pathCartella)){
+            pathCartella.mkdirs();
+        }
+        for (int i = 0; i <numeroLinkAttestazioniOpponibile ; i++) {
+            dettaglioNotificaSection.clickLinkAttestazionipponibile(i);
+            try {
+                TimeUnit.SECONDS.sleep(5);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            String urlFileAttestazioneOppponubile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+datiNotifica.get("codiceIUN").toString()+"/legal-facts/");
+            File file = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN"+i+".pdf");
+            downloadFile.download(urlFileAttestazioneOppponubile,file);
+        }
+        downloadFile.controlloDownload(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario",numeroLinkAttestazioniOpponibile);
     }
 }
