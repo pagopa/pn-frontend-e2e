@@ -257,8 +257,56 @@ public class NotificaMittentePagoPATest {
 
         AllegatiPASection allegatiPASection = new AllegatiPASection(this.driver);
         allegatiPASection.selectInviaButton();
+        if (allegatiPASection.verificaMessaggioErrore()){
+            aggiornamentoNumeroProtocolloAllegati();
+            logger.error("Si vede il messaggio di dati non corretti");
+            Assert.fail("Si vede il messaggio di dati non corretti");
+        }
     }
+    private void aggiornamentoNumeroProtocolloAllegati() {
+        logger.info("Aggiornamento del numero protocollo");
 
+        DataPopulation dataPopulation = new DataPopulation();
+        String numeroProtocolOld = dataPopulation.readDataPopulation("datiNotifica.yaml").get("numeroProtocollo").toString();
+        String dataProtocolOld = substring(numeroProtocolOld, 10, 18);
+        String counter = substring(numeroProtocolOld, 19);
+
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        String dataProtocol = dateFormat.format(date);
+
+        String numeroProtocol;
+        if (dataProtocol.equalsIgnoreCase(dataProtocolOld)) {
+
+            /*
+            da 0 a 9 numeri 0 a 9
+            da 17 a 42 lettere maiuscole da A a Z
+            */
+
+            String temp = null;
+            if (counter.equals("9")) {
+                temp = String.valueOf((char) (counter.charAt(0) + 8));
+            } else if (counter.equals("Z")) {
+                logger.error(numeroProtocolOld + " oltre questo numero protocollo per la giornata di : " + dataProtocolOld + " non si può andare");
+                Assert.fail(numeroProtocolOld + " oltre questo numero protocollo per la giornata di : " + dataProtocolOld + " non si può andare");
+            } else {
+                temp = String.valueOf((char) (counter.charAt(0) + 1));
+            }
+
+            counter = temp;
+            logger.info(counter);
+            numeroProtocol = "TA-FFSMRC-" + dataProtocol + "-" + counter;
+        } else {
+            numeroProtocol = "TA-FFSMRC-" + dataProtocol + "-0";
+        }
+
+        logger.info("numero Protocollo generato : " + numeroProtocol);
+
+        Map<String, Object> allDatataPopulation = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        allDatataPopulation.put("numeroProtocollo", numeroProtocol);
+        dataPopulation.writeDataPopulation("datiNotifica.yaml", allDatataPopulation);
+
+    }
     @Then("Si visualizza correttamente la frase La notifica è stata correttamente creata")
     public void siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata() {
         logger.info("Verifica visualizzazione frase: La notifica è stata correttamente creata");
