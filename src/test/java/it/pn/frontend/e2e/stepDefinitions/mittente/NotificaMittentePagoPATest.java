@@ -266,9 +266,9 @@ public class NotificaMittentePagoPATest {
     private void aggiornamentoNumeroProtocolloAllegati() {
         logger.info("Aggiornamento del numero protocollo");
         String nomeFile = "datiNotifica.yaml";
-        String numeroProtocolo = "numeroProtocollo";
+        String numeroProtocolloKey = "numeroProtocollo";
         DataPopulation dataPopulation = new DataPopulation();
-        String numeroProtocolOld = dataPopulation.readDataPopulation(nomeFile).get(numeroProtocolo).toString();
+        String numeroProtocolOld = dataPopulation.readDataPopulation(nomeFile).get(numeroProtocolloKey).toString();
         String dataProtocolOld = substring(numeroProtocolOld, 10, 18);
         String counter = substring(numeroProtocolOld, 19);
 
