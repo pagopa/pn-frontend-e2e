@@ -2,10 +2,7 @@ package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -34,14 +31,16 @@ public class RicercaNotifichePGPage extends BasePage {
     }
 
     public void cliccaNotificaRestituita(String codiceIun) {
+        By notificaBy = By.xpath("//button[contains(text(),'"+codiceIun+"')]");
         try {
-            By notificaBy = By.xpath("//button[contains(text(),'"+codiceIun+"')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificaBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificaBy));
+            this.getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(notificaBy));
             this.js().executeScript("arguments[0].click()",this.element(notificaBy));
         } catch (TimeoutException e) {
             logger.error("Notifica non trovata con errore: " + e.getMessage());
             Assert.fail("Notifica non trovata con errore: " + e.getMessage());
+        }catch(StaleElementReferenceException e){
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificaBy));
+            this.js().executeScript("arguments[0].click()",this.element(notificaBy));
         }
     }
 
