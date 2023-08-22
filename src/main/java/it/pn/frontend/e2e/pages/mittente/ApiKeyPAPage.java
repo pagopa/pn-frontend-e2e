@@ -114,16 +114,10 @@ public class ApiKeyPAPage  extends BasePage {
     }
 
     public void clickMenuButton() {
-        /*By attivaButtonBy = By.xpath("//div[@role='button' and @data-testid='statusChip-Bloccata']");
-        List<WebElement> attivaButtonList = this.elements(attivaButtonBy);
-
-        if (attivaButtonList.size() == 0) {
-            logger.error("nessun attiva button");
-            Assert.fail("nessun attiva button");
-        }*/
 
         By menuAttivaButtonBy = By.xpath("//td[div/div/div/div[@role='button' and @data-testid='statusChip-Attiva']]/following-sibling::td//button[@type='button' and @data-testid='contextMenuButton' and @aria-label='Opzioni su API Key']");
         List<WebElement> menuAttivaButton = this.elements(menuAttivaButtonBy);
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuAttivaButtonBy));
 
         if (menuAttivaButton.size() == 0) {
             logger.error("nessun menu attiva button");
@@ -346,10 +340,13 @@ public class ApiKeyPAPage  extends BasePage {
     }
 
     public void chiudiPopUpVisualizza() {
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.closeButtonPopUpVisualizza));
         this.closeButtonPopUpVisualizza.click();
     }
 
-    public void clickVisualizzaIdApiKey() {this.visualizzaIdGruppo.click();
+    public void clickVisualizzaIdApiKey() {
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.visualizzaIdGruppo));
+        this.visualizzaIdGruppo.click();
     }
 
     public void popUpGruppiAssociati() {
@@ -363,7 +360,9 @@ public class ApiKeyPAPage  extends BasePage {
         }
     }
 
-    public void chiudiPopUp() {this.chiudiPopUp.click();
+    public void chiudiPopUp() {
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.chiudiPopUp));
+        this.chiudiPopUp.click();
     }
 
 }
