@@ -136,6 +136,15 @@ public class DownloadFileMittentePagoPATest {
         }else {
             dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibile(nomeFile);
         }
+        String nomeFileAvvenutoAccesso = "Attestazione opponibile a terzi: avvenuto accesso";
+
+        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
+
+        if(nomeFile.equals(nomeFileAvvenutoAccesso)){
+            dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibileAvvenutoAccesso();
+        }else {
+            dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibile(nomeFile);
+        }
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {

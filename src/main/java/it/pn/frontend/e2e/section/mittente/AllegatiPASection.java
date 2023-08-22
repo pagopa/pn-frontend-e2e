@@ -67,4 +67,14 @@ public class AllegatiPASection extends BasePage {
         getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(this.inviaButton));
         this.inviaButton.click();
     }
+
+    public boolean verificaMessaggioErrore() {
+        try {
+            By messageErrorBy = By.id("alert-1");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messageErrorBy));
+            return true;
+        }catch (TimeoutException e) {
+            return  false;
+        }
+    }
 }

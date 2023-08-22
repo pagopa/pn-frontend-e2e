@@ -37,8 +37,6 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "//div[contains(@id,'status')]")
     WebElement statoNotificaField;
 
-    //@FindBy(xpath = "//button[contains(@data-testid,'newNotificationBtn')]")
-    //WebElement inviaNuovaNotificaButton;
 
     @FindBy(xpath = "//div[contains(@data-testid,'sideMenuItem-API Key')]")
     WebElement apiKeyButton;
@@ -147,6 +145,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void inserimentoCodiceIUN(String codiceIUN) {
+        getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.codiceIUNTextField));
         this.codiceIUNTextField.sendKeys(codiceIUN);
     }
 
@@ -227,7 +226,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selectInviaUnaNuovaNotificaButton() {
-            this.js().executeScript("arguments[0].click()",inviaNuovaNotificaButton);
+        this.js().executeScript("arguments[0].click()",this.inviaNuovaNotificaButton);
     }
 
     public void aggionamentoPagina() {
@@ -299,7 +298,8 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selezionareLaVoceApiKey() {
-        this.apiKeyButton.click();
+        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.apiKeyButton));
+        this.js().executeScript("arguments[0].click()",this.apiKeyButton);
     }
 
 

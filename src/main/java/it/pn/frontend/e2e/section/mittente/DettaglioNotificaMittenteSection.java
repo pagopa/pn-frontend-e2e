@@ -232,4 +232,21 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             Assert.fail("Non riuscito ad trovare il link con errore: "+e.getMessage());
         }
     }
+
+    public void clickLinkAttestazioneOpponibileAvvenutoAccesso() {
+        try {
+            By fileLinkBy = By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: avvenuto accesso')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(fileLinkBy));
+            List<WebElement> fileLink = this.elements(fileLinkBy);
+            if (fileLink.get(fileLink.size()-1).isDisplayed()){
+                fileLink.get(fileLink.size()-1).click();
+            }else {
+                this.js().executeScript("arguments[0].scrollIntoView(true);", fileLink);
+                fileLink.get(fileLink.size()-1).click();
+            }
+        }catch (TimeoutException e){
+            logger.error("Non riuscito ad trovare il link con errore: "+e.getMessage());
+            Assert.fail("Non riuscito ad trovare il link con errore: "+e.getMessage());
+        }
+    }
 }
