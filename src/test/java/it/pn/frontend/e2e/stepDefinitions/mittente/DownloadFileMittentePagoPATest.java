@@ -130,12 +130,6 @@ public class DownloadFileMittentePagoPATest {
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
 
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-        if(nomeFile.equals("Attestazione opponibile a terzi: avvenuto accesso")){
-            dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibileAvvenutoAccesso();
-        }else {
-            dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibile(nomeFile);
-        }
         String nomeFileAvvenutoAccesso = "Attestazione opponibile a terzi: avvenuto accesso";
 
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
