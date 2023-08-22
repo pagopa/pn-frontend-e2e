@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +25,7 @@ public class CookiesSection extends BasePage {
     public boolean waitLoadCookiesPage(){
         try{
             By scopriDipiuLink = By.id("onetrust-pc-btn-handler");
-            this.getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(scopriDipiuLink));
+            this.getWebDriverWait(15).until(ExpectedConditions.visibilityOfElementLocated(scopriDipiuLink));
             logger.info("Cookies Page caricata");
             return true;
         }catch (TimeoutException e){
@@ -35,7 +36,7 @@ public class CookiesSection extends BasePage {
     }
 
     public void selezionaAccettaTuttiButton(){
-        //this.accettaTuttiButton.click();
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.accettaTuttiButton));
         Actions actions = new Actions(driver);
         actions.moveToElement(this.accettaTuttiButton).click().perform();
     }
