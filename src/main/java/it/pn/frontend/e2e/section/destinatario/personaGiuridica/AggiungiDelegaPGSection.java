@@ -119,7 +119,7 @@ public class AggiungiDelegaPGSection extends BasePage {
     }
 
     public void selezionaUnEnte(String ente) {
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.enteElementInput));
+        this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(this.enteElementInput));
         this.enteElementInput.sendKeys(ente);
 
         // select menu;

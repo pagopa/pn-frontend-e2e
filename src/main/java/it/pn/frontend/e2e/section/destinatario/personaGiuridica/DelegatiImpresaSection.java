@@ -44,7 +44,7 @@ public class DelegatiImpresaSection extends BasePage {
     }
 
     public void clickAggiungiDelegaButton() {
-
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(addDelegheButton));
         this.addDelegheButton.click();
 
     }
