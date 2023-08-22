@@ -75,14 +75,6 @@ public class AggiungiDelegaPGSection extends BasePage {
         }
     }
 
-    public void selectpersonaFisicaRadioButton() {
-        this.personaFisicaRadioButton.click();
-    }
-
-    public void insertNomeCognome(String nome, String cognome) {
-        this.nomeTextField.sendKeys(nome);
-        this.cognomeTextField.sendKeys(cognome);
-    }
 
     public void clickSulBottoneInviaRichiesta() {
         this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.inviaLaRichiestaButton));
