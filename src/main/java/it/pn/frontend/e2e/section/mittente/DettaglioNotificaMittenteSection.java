@@ -206,12 +206,6 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         }
     }
 
-    public int controlloNumeroPec(String mailPEC) {
-        By mailPecBy = By.xpath("//p[contains(text(),'"+mailPEC+"')]");
-        getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(mailPecBy));
-        return this.elements(mailPecBy).size();
-    }
-
     public int getLinkAvvenutaRicezione() {
         return linkAllegati.size();
     }
@@ -237,9 +231,9 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         try{
             By invioPec = By.xpath("//div/span[contains(text(),'Invio via PEC')]/following-sibling::div//p[contains(text(),'È in corso l')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(invioPec));
-            this.logger.info("La pec è in stato invio in corso");
+            logger.info("La pec è in stato invio in corso");
         }catch (TimeoutException e){
-            this.logger.error("La pec NON è in stato invio in corso con errore: "+e.getMessage());
+            logger.error("La pec NON è in stato invio in corso con errore: "+e.getMessage());
             Assert.fail("La pec NON è in stato invio in corso con errore: "+e.getMessage());
         }
     }
