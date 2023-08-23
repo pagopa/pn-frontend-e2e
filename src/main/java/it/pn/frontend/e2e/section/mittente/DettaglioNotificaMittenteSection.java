@@ -232,4 +232,15 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             Assert.fail("Non riuscito ad trovare il link con errore: "+e.getMessage());
         }
     }
+
+    public void verificaInviPECInCorso() {
+        try{
+            By invioPec = By.xpath("//div/span[contains(text(),'Invio via PEC')]/following-sibling::div//p[contains(text(),'È in corso l')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(invioPec));
+            this.logger.info("La pec è in stato invio in corso");
+        }catch (TimeoutException e){
+            this.logger.error("La pec NON è in stato invio in corso con errore: "+e.getMessage());
+            Assert.fail("La pec NON è in stato invio in corso con errore: "+e.getMessage());
+        }
+    }
 }

@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -652,17 +651,11 @@ public class NotificaMittentePagoPATest {
         }
     }
 
-    @And("Si verifica sia presente l'indirizzo mail del destinatario {string} nei dettagli della notifica")
-    public void siVerificaSiaPresenteLIndirizzoMailDelDestinatarioNeiDettagliDellaNotifica(String mailPEC) {
+    @And("Si verifica che l'invio della pec sia in corso")
+    public void siVerificaCheLInvioDellaPecSiaInCorso() {
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
-        int numeroPecTrovate = dettaglioNotificaMittenteSection.controlloNumeroPec(mailPEC);
-        if (numeroPecTrovate != 0) {
-            logger.info(" La pec è in invio in corso");
-        } else {
-            logger.error("La pec NON è in invio in corso");
-            Assert.fail("La pec NON è in invio in corso");
-        }
+        dettaglioNotificaMittenteSection.verificaInviPECInCorso();
     }
 
     @And("Verifica dello stato della notifica inviata tramite pec come {string}")
