@@ -53,7 +53,7 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "//button[contains(@class,'MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-34ped8')]")
     WebElement pageNumberList;
 
-    @FindBy(xpath = "//li[contains(@tabindex,'-1')]")
+    @FindBy(xpath = "//li[@data-testid='pageSize-50']")
     WebElement numberElement;
 
     @FindBy(xpath = "//button[contains(@data-testid,'step-submit')]")

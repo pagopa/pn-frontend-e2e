@@ -20,6 +20,9 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -84,11 +87,41 @@ public class NotificaMittentePagoPATest {
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
     }
+    public String getNumeroProtocollo() {
+        logger.info("Si recupera l'ultimo numero protocollo utilizzato");
+       this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = startDate.plusDays(1);
+        String urlNotifiche = "https://webapi.test.notifichedigitali.it/delivery/notifications/";
+        for (NetWorkInfo netWorkInfo : netWorkInfos) {
+            if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=50")){
+                String responseBody= netWorkInfo.getResponseBody();
+                String[] allNotifiche = responseBody.split("],\"moreResult\":");
+                String[] notifiche = allNotifiche[0].split("},");
+                for (String notifica:notifiche) {
+                    if (notifica.contains("Pagamento rata IMU")){
+                        String[] campiNotifiche = notifica.split("\",");
+                        for (String campoNotifica: campiNotifiche) {
+                            if (campoNotifica.startsWith("\"paProtocolNumber\"")){
+                                String[] rigaNumeroProtocollo = campoNotifica.split(":\"");
+                                return rigaNumeroProtocollo[1];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
 
     @And("Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica")
     public void nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica() {
         logger.info("selezione bottone invia una nuova notifica");
-
         piattaformaNotifichePage.selectInviaUnaNuovaNotificaButton();
     }
 
@@ -874,4 +907,11 @@ public class NotificaMittentePagoPATest {
         }
     }
 
+    @And("Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo")
+    public void nellaPaginaPiattaformaNotificheSiRecuperaLUltimoNumeroProtocollo() {
+        String numeroProtocollo = getNumeroProtocollo();
+        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        this.datiNotifica.put("numeroProtocollo",numeroProtocollo);
+        dataPopulation.writeDataPopulation("datiNotifica.yaml",this.datiNotifica);
+    }
 }
