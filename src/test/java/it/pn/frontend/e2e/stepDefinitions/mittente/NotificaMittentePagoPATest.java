@@ -21,8 +21,6 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -95,8 +93,6 @@ public class NotificaMittentePagoPATest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        LocalDate startDate = LocalDate.now();
-        LocalDate endDate = startDate.plusDays(1);
         String urlNotifiche = "https://webapi.test.notifichedigitali.it/delivery/notifications/";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
             if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=50")){
