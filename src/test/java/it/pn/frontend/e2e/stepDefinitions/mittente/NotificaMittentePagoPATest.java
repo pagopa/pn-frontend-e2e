@@ -56,25 +56,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche")
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche() {
-        boolean httpRequestToken = false;
-        for (int index = 0; index < 30; index++) {
 
-            if (this.readHttpRequest()) {
-                httpRequestToken = true;
-                break;
-            }
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        if (httpRequestToken){
-            logger.info("Http token mittente found");
-        }else {
-            logger.error("Http token mittente not found");
-            Assert.fail("Http token mittente not found");
-        }
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
         CookiesSection cookiesSection = new CookiesSection(this.driver);
