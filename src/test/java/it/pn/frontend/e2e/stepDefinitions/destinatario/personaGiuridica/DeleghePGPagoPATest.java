@@ -79,6 +79,7 @@ public class DeleghePGPagoPATest {
         aggiungiDelegaPGSection.insertRagioneSociale(this.datiDelega.get("ragioneSociale").toString());
         aggiungiDelegaPGSection.inserireCF(this.datiDelega.get("codiceFiscale").toString());
         aggiungiDelegaPGSection.selectSoloEntiSelezionati();
+        aggiungiDelegaPGSection.waitLoadAggiungiDelegaPage();
         aggiungiDelegaPGSection.selezionaUnEnte(datiDelega.get("ente").toString());
     }
 
