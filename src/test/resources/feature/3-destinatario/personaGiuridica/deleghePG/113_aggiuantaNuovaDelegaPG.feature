@@ -16,7 +16,7 @@ Feature: Il persona giuridica aggiunge una nuova delega
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Nella pagina Deleghe si clicca su Delegati dall impresa
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe dell impresa
-    And Si controlla che non sia presente una delga con stesso nome "nuovaDelegaPG" persona giuridica
+    And Si controlla che non sia presente una delega con stesso nome "nuovaDelegaPG" persona giuridica
     And Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega
     And Si visualizza la sezione Aggiungi Delega persona giuridica
     And Nella sezione Aggiungi Delega persona giuridica inserire i dati "nuovaDelegaPG"

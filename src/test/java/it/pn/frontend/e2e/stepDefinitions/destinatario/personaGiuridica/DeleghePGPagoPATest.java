@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.AggiungiDelegaPGSection;
@@ -125,8 +126,8 @@ public class DeleghePGPagoPATest {
        delegatiImpresaSection.controlloCreazioneDelega(this.datiDelega.get("ragioneSociale").toString());
     }
 
-    @And("Si controlla che non sia presente una delga con stesso nome {string} persona giuridica")
-    public void siControllaCheNonSiaPresenteUnaDelgaConStessoNomePersonaGiuridica(String nomeFile) {
+    @And("Si controlla che non sia presente una delega con stesso nome {string} persona giuridica")
+    public void siControllaCheNonSiaPresenteUnaDelegaConStessoNomePersonaGiuridica(String nomeFile) {
         logger.info("Si controlla che non ci sia una delega con lo stesso nome");
 
         this.datiDelega = dataPopulation.readDataPopulation(nomeFile+".yaml");
@@ -136,8 +137,8 @@ public class DeleghePGPagoPATest {
         if (deleghePGPagoPAPage.CercaEsistenzaDelegaPG(ragioneSociale)){
             logger.info("Delega con lo stesso nome trovata");
             deleghePGPagoPAPage.clickRevocaMenuButtonPG(ragioneSociale);
-            deleghePGPagoPAPage.waitPopUpRevoca();
-            deleghePGPagoPAPage.clickRevocaButton();
+            delegatiImpresaSection.waitPopUpRevoca();
+            delegatiImpresaSection.clickRevocaButton();
         }else {
             logger.info("Delega con lo stesso nome NON trovata");
         }
@@ -225,5 +226,35 @@ public class DeleghePGPagoPATest {
         logger.info("Si sceglie l'opzione mostra codice");
 
         delegatiImpresaSection.clickMostraCodice();
+    }
+
+    @And("Nella sezione Deleghe persona giuridica si sceglie l'opzione revoca")
+    public void nellaSezioneDeleghePersonaGiuridicaSiSceglieLOpzioneRevoca() {
+       logger.info("Si clicca sull'opzione revoca del menu");
+
+        delegatiImpresaSection.clickRevocaMenuButtonPG();
+    }
+
+    @Then("Si clicca sul bottone revoca")
+    public void siCliccaSulBottoneRevoca() {
+        logger.info("Si clicca sul bottone rifiuta all'interno del pop-up");
+
+        delegatiImpresaSection.waitPopUpRevoca();
+        delegatiImpresaSection.clickRevocaButton();
+    }
+
+    @And("Nella sezione Deleghe sezione Deleghe dell'impresa si controlla che non sia più presente la delega {string}")
+    public void nellaSezioneDelegheSezioneDelegheDellImpresaSiControllaCheNonSiaPiuPresenteLaDelega(String dpFile) {
+        logger.info("Si controlla che la delega non sia più in elenco");
+
+        this.datiDelega = this.dataPopulation.readDataPopulation(dpFile+".yaml");
+        delegatiImpresaSection.waitLoadDelegatiImpresaPage();
+        if(!deleghePGPagoPAPage.CercaEsistenzaDelegaPG(this.datiDelega.get("ragioneSociale").toString())){
+            logger.info("La delega è stata revocata correttamente");
+        }else {
+            logger.error("La delega NON è stata revocata correttamente");
+            Assert.fail("La delega NON è stata revocata correttamente");
+        }
+
     }
 }
