@@ -19,9 +19,6 @@ public class DeleghePGPagoPAPage extends BasePage {
     WebElement delegheCaricoImpresaButton;
     @FindBy(xpath = "//li[contains(text(),'Revoca')]")
     WebElement revocaMenuButton;
-
-    @FindBy(xpath = "//button[@data-testid='dialogAction' and text()='Revoca la delega']")
-    WebElement revocaButton;
     
     @FindBy(id = "taxId")
     WebElement cfTextField;
