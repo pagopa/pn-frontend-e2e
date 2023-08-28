@@ -35,5 +35,5 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     And Cliccare sul bottone Filtra
     And Si verifica che la notifica sia nello stato "Invio in corso"
     And Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita
-    And Si verifica sia presente l'indirizzo mail del destinatario "Success.it" nei dettagli della notifica
+    And Si verifica che l'invio della pec sia in corso
     And Logout da portale mittente

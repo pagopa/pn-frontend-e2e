@@ -1,10 +1,16 @@
 package it.pn.frontend.e2e.utility;
+import com.google.common.base.CharMatcher;
+import com.google.common.base.Splitter;
+import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
+
+import static it.pn.frontend.e2e.listeners.Hooks.netWorkInfos;
 
 public class DownloadFile{
 
@@ -69,6 +75,30 @@ public class DownloadFile{
     public boolean controlloEsistenzaCartella(File cartella) {
 
         return cartella.exists();
+
+    }
+    public String getUrl(String urlChiamata) {
+        String url = "";
+        for (NetWorkInfo netWorkInfo : netWorkInfos) {
+            if (netWorkInfo.getRequestUrl().contains(urlChiamata) && netWorkInfo.getRequestMethod().equals("GET")) {
+                String values = netWorkInfo.getResponseBody();
+                List<String> results = Splitter.on(CharMatcher.anyOf(",;:")).splitToList(values);
+
+                for (String result : results) {
+                    if (result.startsWith("//")) {
+                        url = result;
+                        break;
+                    }
+                }
+                if (url.endsWith("}")) {
+                    url = "https:" + url.substring(0, url.length() - 2);
+                } else {
+                    url = "https:" + url.substring(0, url.length() - 1);
+                }
+                logger.info("url: "+ url);
+            }
+        }
+        return url;
 
     }
 }

@@ -15,6 +15,8 @@ mvnw.cmd clean test -Dcucumber.filter.tags=@RADD -Dbrowser=chrome -Dheadless=fal
 
 plugin IntellJ: Cucumber, Gherking
 
-Per lanciare i test singolarmente eseguire il comando a riga 4 modificando il -Dcucumber.filter.tags con: @test<iddeltestbook>
+Per lanciare i test singolarmente, della prima fase, eseguire il comando modificando il -Dcucumber.filter.tags = @TestSuite con: -Dcucumber.filter.tags = @test<iddeltestbook>.
+
+Mentre per quelli della seconda fase eseguire il comando modificando il  -Dcucumber.filter.tags = @TestSuite con: -Dcucumber.filter.tags = @fase2Test<iddeltestbook>.
 
 E' possibile cambiare l'ambiente di esecuzione test sostituendo il valore test nella variabile -Denvironment con gli ambienti dev o uat
