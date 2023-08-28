@@ -28,6 +28,7 @@ public class NotifichePGPagoPATest {
     public void clickSendNotificheDigitali(){
         this.logger.info("Si clicca su Send Notifiche Digitali");
         HomePagePG homePagePG = new HomePagePG(this.driver);
+        homePagePG.waitLoadHomePagePGPage();
         String variabileAmbiente = System.getProperty("environment");
         switch (variabileAmbiente) {
             case "dev" -> homePagePG.clickSendNotificheDigitali(5);
