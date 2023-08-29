@@ -1,10 +1,12 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,5 +92,24 @@ public class InserimentoOTPSbagliato {
 
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.confermaButtonClickPopUp();
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce la PEC errata {string}")
+    public void nellaPaginaITuoiRecapitiSiInserisceLaPECErrata(String emailPec) {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.insertEmailPEC(emailPec);
+    }
+
+    @Then("Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio di pec errata")
+    public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioDiPecErrata() {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        String errorMessageRead = iTuoiRecapitiPage.getPecErrorMessage();
+        Assert.assertEquals("messagio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo PEC non valido", "Indirizzo PEC non valido", errorMessageRead);
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si controlla che il tasto conferma sia bloccato")
+    public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoConfermaSiaBloccato() {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        Assert.assertTrue("il buttone Conferma non è disabilitato",iTuoiRecapitiPage.verificaButtoneConfermaDisabilitato());
     }
 }

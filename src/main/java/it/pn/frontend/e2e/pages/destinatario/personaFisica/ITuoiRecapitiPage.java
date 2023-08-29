@@ -2,10 +2,7 @@ package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -30,7 +27,6 @@ public class ITuoiRecapitiPage extends BasePage {
 
     @FindBy(xpath = "//button[contains(@data-testid,'codeConfirmButton')]")
     WebElement confermaButtonPopUp;
-
     public ITuoiRecapitiPage(WebDriver driver) {
         super(driver);
     }
@@ -108,5 +104,21 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void confermaButtonClickPopUp() {
         this.confermaButtonPopUp.click();
+    }
+
+    public String getPecErrorMessage(){
+        By errorBy = By.id("pec-helper-text");
+        WebElement errorMessage = driver.findElement(errorBy);
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(errorMessage));
+        return errorMessage.getText();
+    }
+
+    public boolean verificaButtoneConfermaDisabilitato(){
+        try{
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.confermaButton));
+            return Boolean.parseBoolean(this.confermaButton.getAttribute("disabled"));
+        }catch (NoSuchElementException | TimeoutException e){
+            return false;
+        }
     }
 }
