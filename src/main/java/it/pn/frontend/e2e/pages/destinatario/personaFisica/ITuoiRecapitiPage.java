@@ -27,6 +27,13 @@ public class ITuoiRecapitiPage extends BasePage {
 
     @FindBy(xpath = "//button[contains(@data-testid,'codeConfirmButton')]")
     WebElement confermaButtonPopUp;
+
+    @FindBy(id = "email")
+    WebElement emailInputField;
+
+    @FindBy(xpath = "//button[@data-testid='add email']")
+    WebElement avvisamiViaEmailButton;
+
     public ITuoiRecapitiPage(WebDriver driver) {
         super(driver);
     }
@@ -121,4 +128,55 @@ public class ITuoiRecapitiPage extends BasePage {
             return false;
         }
     }
+
+    public void clickEliminaEmail(){
+        By eliminaButtonBy = By.xpath("//button[contains(text(),'Elimina')]");
+        this.driver.findElement(eliminaButtonBy).click();
+    }
+
+    public void clicModificaEmail(){
+        By modificaButtonBy = By.xpath("//button[contains(text(),'Modifica')]");
+        this.driver.findElement(modificaButtonBy).click();
+    }
+    public void clickSalvaemail(){
+        By salvaButtonBy = By.xpath("//button[contains(text(),'Salva')]");
+        this.driver.findElement(salvaButtonBy).click();
+    }
+
+    public void clickConfirmaEliminaEmailPopUp(){
+        By popuptitle = By.id("dialog-title");
+        getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popuptitle));
+
+        By confirmaEliminaEmailBy = By.xpath("//button[contains(text(),'Conferma') and @tabindex='0']");
+    }
+
+    public boolean inputEmailIsDisplayed(){
+            return this.emailInputField.isDisplayed();
+    }
+
+    public void insertEmail(String email){
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.emailInputField));
+        this.emailInputField.sendKeys(email);
+    }
+
+    public void clickAvvisamiViaEmail(){
+        this.avvisamiViaEmailButton.click();
+    }
+
+    public boolean avvisamiViaEmailIsDisabled(){
+        try{
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.avvisamiViaEmailButton));
+            return Boolean.parseBoolean(this.avvisamiViaEmailButton.getAttribute("disabled"));
+        }catch (NoSuchElementException | TimeoutException e){
+            return false;
+        }
+    }
+
+    public String getEmailErrorMessage(){
+        By errorBy = By.id("email-helper-text");
+        WebElement errorMessage = driver.findElement(errorBy);
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(errorMessage));
+        return errorMessage.getText();
+    }
+
 }

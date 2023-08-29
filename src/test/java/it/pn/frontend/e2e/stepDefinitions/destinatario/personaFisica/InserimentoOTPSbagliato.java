@@ -112,4 +112,29 @@ public class InserimentoOTPSbagliato {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         Assert.assertTrue("il buttone Conferma non è disabilitato",iTuoiRecapitiPage.verificaButtoneConfermaDisabilitato());
     }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce l'email errata {string}")
+    public void nellaPaginaITuoiRecapitiSiInserisceLEmailErrata(String emailErrata) {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        if(iTuoiRecapitiPage.inputEmailIsDisplayed()){
+            iTuoiRecapitiPage.insertEmail(emailErrata);
+        }else{
+            iTuoiRecapitiPage.clickEliminaEmail();
+            iTuoiRecapitiPage.clickConfirmaEliminaEmailPopUp();
+            iTuoiRecapitiPage.insertEmail(emailErrata);
+        }
+    }
+
+    @Then("Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio email errata")
+    public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioEmailErrata() {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        String errorMessageRead = iTuoiRecapitiPage.getEmailErrorMessage();
+        Assert.assertEquals("messagio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo e-mail non valido", "Indirizzo e-mail non valido", errorMessageRead);
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si controlla che il tasto avvisami via email sia bloccato")
+    public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoAvvisamiViaEmailSiaBloccato() {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        Assert.assertTrue("il buttone avvisami via email non è disabilitato",iTuoiRecapitiPage.avvisamiViaEmailIsDisabled());
+    }
 }
