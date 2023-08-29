@@ -137,4 +137,27 @@ public class InserimentoOTPSbagliato {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         Assert.assertTrue("il buttone avvisami via email non è disabilitato",iTuoiRecapitiPage.avvisamiViaEmailIsDisabled());
     }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce l'email del PF {string} e clicca sul bottone avvisami via email")
+    public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPFECliccaSulBottoneAvvisamiViaEmail(String dpFile) {
+        logger.info("Si inserisce la email");
+
+        DataPopulation dataPopulation = new DataPopulation();
+        Map<String,Object> personaFisica = dataPopulation.readDataPopulation(dpFile +".yaml");
+        String email = personaFisica.get("email").toString();
+
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.insertEmail(email);
+        iTuoiRecapitiPage.clickAvvisamiViaEmail();
+    }
+
+    @And("Si visualizza correttamente il pop-up e si clicca su conferma")
+    public void siVisualizzaCorrettamenteIlPopUpESiCliccaSuConferma() {
+        logger.info("click popup conferma email");
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        Assert.assertFalse("il popup Conferma email non si visualizza",iTuoiRecapitiPage.verificaPopupConfirmaEmail());
+
+        iTuoiRecapitiPage.clickHoCapitoCheckBoxPopup();
+        iTuoiRecapitiPage.confirmaEmailPopup();
+    }
 }

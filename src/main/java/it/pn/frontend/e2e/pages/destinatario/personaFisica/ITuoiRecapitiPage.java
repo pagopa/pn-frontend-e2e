@@ -148,6 +148,7 @@ public class ITuoiRecapitiPage extends BasePage {
         getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popuptitle));
 
         By confirmaEliminaEmailBy = By.xpath("//button[contains(text(),'Conferma') and @tabindex='0']");
+        this.driver.findElement(confirmaEliminaEmailBy).click();
     }
 
     public boolean inputEmailIsDisplayed(){
@@ -177,6 +178,23 @@ public class ITuoiRecapitiPage extends BasePage {
         WebElement errorMessage = driver.findElement(errorBy);
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(errorMessage));
         return errorMessage.getText();
+    }
+
+    public boolean verificaPopupConfirmaEmail(){
+        By hoCapitoCheckboxBy = By.xpath("//span[contains(text(),'Ho capito')]/preceding-sibling::span/input");
+        return this.driver.findElement(hoCapitoCheckboxBy).isSelected();
+    }
+
+    public void clickHoCapitoCheckBoxPopup(){
+        By hoCapitoCheckboxBy = By.xpath("//span[contains(text(),'Ho capito')]/preceding-sibling::span/input");
+        WebElement hoCapitoCheckBox = this.driver.findElement(hoCapitoCheckboxBy);
+        hoCapitoCheckBox.click();
+    }
+
+    public void confirmaEmailPopup(){
+        By popupConfirmaButtonBy = By.xpath("//button[@data-testid='disclaimer-confirm-button']");
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(popupConfirmaButtonBy));
+        this.driver.findElement(popupConfirmaButtonBy).click();
     }
 
 }
