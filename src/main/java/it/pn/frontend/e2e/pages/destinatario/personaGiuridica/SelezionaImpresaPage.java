@@ -21,6 +21,8 @@ public class SelezionaImpresaPage extends BasePage {
     @FindBy(xpath = "//h6[contains(text(),'Vita Nova Sas')]")
     WebElement impresaButton;
 
+    @FindBy(xpath = "//h6[contains(text(),'Le Epistolae srl')]")
+    WebElement impresaDelegatoButton;
     public SelezionaImpresaPage(WebDriver driver) {
         super(driver);
     }
@@ -47,5 +49,9 @@ public class SelezionaImpresaPage extends BasePage {
 
     public void clickSuImpresa() {
         this.impresaButton.click();
+    }
+
+    public void clickSuImpresaDelegato() {
+        this.impresaDelegatoButton.click();
     }
 }
