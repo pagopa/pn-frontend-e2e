@@ -89,25 +89,4 @@ public class InserimentoOTPSbagliato {
 
         recapitiDestinatarioPage.confermaButtonClickPopUp();
     }
-
-    @And("Nella pagina I Tuoi Recapiti si inserisce l'email errata {string}")
-    public void nellaPaginaITuoiRecapitiSiInserisceLEmailErrata(String email) {
-        logger.info("Si inserisce l'email errata");
-
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        iTuoiRecapitiPage.insertEmailSbagliata();
-    }
-
-    @Then("Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio email errata")
-    public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioEmailErrata() {
-
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        if (iTuoiRecapitiPage.siVisualizzaErrorMessage()) {
-            logger.info("Si visualizza correttamente un messaggio mail errata");
-        }else{
-            logger.error("Non si visualizza correttamente un messaggio mail errata");
-            Assert.fail("Non si visualizza correttamente un messaggio mail errata");
-        }
-    }
-
 }
