@@ -89,4 +89,105 @@ public class InserimentoOTPSbagliato {
 
         recapitiDestinatarioPage.confermaButtonClickPopUp();
     }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce la PEC errata {string}")
+    public void nellaPaginaITuoiRecapitiSiInserisceLaPECErrata(String emailPec) {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.insertEmailPEC(emailPec);
+    }
+
+    @Then("Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio di pec errata")
+    public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioDiPecErrata() {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        String errorMessageRead = iTuoiRecapitiPage.getPecErrorMessage();
+        Assert.assertEquals("messagio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo PEC non valido", "Indirizzo PEC non valido", errorMessageRead);
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si controlla che il tasto conferma sia bloccato")
+    public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoConfermaSiaBloccato() {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        Assert.assertTrue("il buttone Conferma non è disabilitato",iTuoiRecapitiPage.verificaButtoneConfermaDisabilitato());
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce l'email errata {string}")
+    public void nellaPaginaITuoiRecapitiSiInserisceLEmailErrata(String emailErrata) {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        if(iTuoiRecapitiPage.inputEmailIsDisplayed()){
+            iTuoiRecapitiPage.insertEmail(emailErrata);
+        }else{
+            iTuoiRecapitiPage.clickEliminaEmail();
+            iTuoiRecapitiPage.clickConfirmaEliminaEmailPopUp();
+            iTuoiRecapitiPage.insertEmail(emailErrata);
+        }
+    }
+
+    @Then("Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio email errata")
+    public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioEmailErrata() {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        String errorMessageRead = iTuoiRecapitiPage.getEmailErrorMessage();
+        Assert.assertEquals("messagio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo e-mail non valido", "Indirizzo e-mail non valido", errorMessageRead);
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si controlla che il tasto avvisami via email sia bloccato")
+    public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoAvvisamiViaEmailSiaBloccato() {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        Assert.assertTrue("il buttone avvisami via email non è disabilitato",iTuoiRecapitiPage.avvisamiViaEmailIsDisabled());
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce l'email del PF {string} e clicca sul bottone avvisami via email")
+    public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPFECliccaSulBottoneAvvisamiViaEmail(String dpFile) {
+        logger.info("Si inserisce la email");
+
+        DataPopulation dataPopulation = new DataPopulation();
+        Map<String,Object> personaFisica = dataPopulation.readDataPopulation(dpFile +".yaml");
+        String email = personaFisica.get("email").toString();
+
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.insertEmail(email);
+        iTuoiRecapitiPage.clickAvvisamiViaEmail();
+    }
+
+    @And("Si visualizza correttamente il pop-up e si clicca su conferma")
+    public void siVisualizzaCorrettamenteIlPopUpESiCliccaSuConferma() {
+        logger.info("click popup conferma email");
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        Assert.assertFalse("il popup Conferma email non si visualizza",iTuoiRecapitiPage.verificaPopupConfirmaEmail());
+
+        iTuoiRecapitiPage.clickHoCapitoCheckBoxPopup();
+        iTuoiRecapitiPage.confirmaEmailPopup();
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono del PF {string} e clicca sul bottone avvisami via SMS")
+    public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoDelPF(String dpFile) {
+
+        logger.info("Si inserisce il numero di telefono PF");
+
+        DataPopulation dataPopulation = new DataPopulation();
+        Map<String,Object> personaFisica = dataPopulation.readDataPopulation(dpFile +".yaml");
+        String phoneNumber = personaFisica.get("telefono").toString();
+
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.insertTelephoneNumber(phoneNumber);
+        iTuoiRecapitiPage.clickAvvisamiViaSMS();
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono errato {string}")
+    public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoErrato(String numeroErrato) {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.insertTelephoneNumber(numeroErrato);
+         }
+
+    @Then("Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio di numero di telefono errato")
+    public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioDiNumeroDiTelefonoErrato() {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        String errorMessageRead = iTuoiRecapitiPage.getPhoneErrorMessage();
+        Assert.assertEquals("messagio di errore letto : '" + errorMessageRead + "' non è uguale a : Numero di cellulare non valido", "Numero di cellulare non valido", errorMessageRead);
+
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si controlla che il tasto avvisami via sms sia bloccato")
+    public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoAvvisamiViaSmsSiaBloccato() {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        Assert.assertTrue("il buttone avvisami via SMS non è disabilitato",iTuoiRecapitiPage.avvisamiViaSMSIsDisabled());
+    }
 }
