@@ -209,8 +209,24 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public void clickAvvisamiViaSMS(){
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.avvisamiViaEmailButton));
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.avvisamiViaSMSButton));
         this.avvisamiViaSMSButton.click();
+    }
+
+    public String getPhoneErrorMessage(){
+        By errorBy = By.id("phone-helper-text");
+        WebElement errorMessage = driver.findElement(errorBy);
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(errorMessage));
+        return errorMessage.getText();
+    }
+
+    public boolean avvisamiViaSMSIsDisabled(){
+        try{
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.avvisamiViaSMSButton));
+            return Boolean.parseBoolean(this.avvisamiViaSMSButton.getAttribute("disabled"));
+        }catch (NoSuchElementException | TimeoutException e){
+            return false;
+        }
     }
 
 }
