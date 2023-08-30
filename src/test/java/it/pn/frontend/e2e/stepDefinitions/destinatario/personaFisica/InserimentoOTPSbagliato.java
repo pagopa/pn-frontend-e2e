@@ -160,4 +160,18 @@ public class InserimentoOTPSbagliato {
         iTuoiRecapitiPage.clickHoCapitoCheckBoxPopup();
         iTuoiRecapitiPage.confirmaEmailPopup();
     }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono del PF {string} e clicca sul bottone avvisami via SMS")
+    public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoDelPF(String dpFile) {
+
+        logger.info("Si inserisce il numero di telefono PF");
+
+        DataPopulation dataPopulation = new DataPopulation();
+        Map<String,Object> personaFisica = dataPopulation.readDataPopulation(dpFile +".yaml");
+        String phoneNumber = personaFisica.get("telefono").toString();
+
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.insertTelephoneNumber(phoneNumber);
+        iTuoiRecapitiPage.clickAvvisamiViaSMS();
+    }
 }

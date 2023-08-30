@@ -34,6 +34,12 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(xpath = "//button[@data-testid='add email']")
     WebElement avvisamiViaEmailButton;
 
+    @FindBy(id = "phone")
+    WebElement phoneNumInputField;
+
+    @FindBy(xpath = "//button[@data-testid='add phone']")
+    WebElement avvisamiViaSMSButton;
+
     public ITuoiRecapitiPage(WebDriver driver) {
         super(driver);
     }
@@ -195,6 +201,16 @@ public class ITuoiRecapitiPage extends BasePage {
         By popupConfirmaButtonBy = By.xpath("//button[@data-testid='disclaimer-confirm-button']");
         this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(popupConfirmaButtonBy));
         this.driver.findElement(popupConfirmaButtonBy).click();
+    }
+
+    public void insertTelephoneNumber(String phoneNumber){
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.phoneNumInputField));
+        this.phoneNumInputField.sendKeys(phoneNumber);
+    }
+
+    public void clickAvvisamiViaSMS(){
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.avvisamiViaEmailButton));
+        this.avvisamiViaSMSButton.click();
     }
 
 }
