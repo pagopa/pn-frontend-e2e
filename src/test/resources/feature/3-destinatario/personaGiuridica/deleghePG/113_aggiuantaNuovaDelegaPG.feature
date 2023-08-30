@@ -19,4 +19,4 @@ Feature: Il persona giuridica aggiunge una nuova delega
     And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "nuova_delega"
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella sezione Deleghe si visualizza la delega in stato di attesa di conferma
-    And Logout da portale persona giuridica
+    And logout da portale persona giuridica

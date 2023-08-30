@@ -30,6 +30,12 @@ public class ITuoiRecapitiPage extends BasePage {
 
     @FindBy(xpath = "//button[contains(@data-testid,'codeConfirmButton')]")
     WebElement confermaButtonPopUp;
+    
+    @FindBy(id = "email")
+    WebElement pecTextField;
+
+    @FindBy(id = "email-helper-text")
+    WebElement emailErrorMessage;
 
     public ITuoiRecapitiPage(WebDriver driver) {
         super(driver);
@@ -109,4 +115,13 @@ public class ITuoiRecapitiPage extends BasePage {
     public void confermaButtonClickPopUp() {
         this.confermaButtonPopUp.click();
     }
+
+    public void insertEmailSbagliata() {
+        this.pecTextField.sendKeys();
+    }
+
+    public boolean siVisualizzaErrorMessage() {
+        return this.emailErrorMessage.isDisplayed();
+    }
+
 }

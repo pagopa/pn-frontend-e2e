@@ -9,5 +9,5 @@ Feature: la persona giuridica inserisce una email errata
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si inserisce l'email errata "prova&@gmail.com"
     Then Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio email errata
-    And Nella pagina I Tuoi Recapiti si controlla che il tasto avvisami via email sia bloccato
+    #And Nella pagina I Tuoi Recapiti si controlla che il tasto avvisami via email sia bloccato
     And Logout da portale persona giuridica

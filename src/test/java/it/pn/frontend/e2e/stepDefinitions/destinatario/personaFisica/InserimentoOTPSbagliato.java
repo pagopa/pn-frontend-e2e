@@ -1,10 +1,12 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,4 +93,25 @@ public class InserimentoOTPSbagliato {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.confermaButtonClickPopUp();
     }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce l'email errata {string}")
+    public void nellaPaginaITuoiRecapitiSiInserisceLEmailErrata(String email) {
+        logger.info("Si inserisce l'email errata");
+
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.insertEmailSbagliata();
+    }
+
+    @Then("Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio email errata")
+    public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioEmailErrata() {
+
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        if (iTuoiRecapitiPage.siVisualizzaErrorMessage()) {
+            logger.info("Si visualizza correttamente un messaggio mail errata");
+        }else{
+            logger.error("Non si visualizza correttamente un messaggio mail errata");
+            Assert.fail("Non si visualizza correttamente un messaggio mail errata");
+        }
+    }
+
 }

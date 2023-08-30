@@ -306,4 +306,29 @@ public class DeleghePagoPATest {
             logger.info("Delega con lo stesso nome NON trovata");
         }
     }
+
+    @And("Nella pagina Deleghe si clicca sul menu della delega")
+    public void nellaPaginaDelegheSiCliccaSulMenuDellaDelega() {
+        logger.info("Si clicca sul menu delle delega");
+        deleghePage.clickMenuPerRifiuto();
+    }
+
+    @And("Nella pagina Deleghe si sceglie opzione rifiuta")
+    public void nellaPaginaDelegheSiSceglieOpzioneRifiuta() {
+        logger.info("Si sceglie l'opzione rifiuta");
+        deleghePage.clickRifiuta();
+    }
+
+
+    @And("Si clicca sul bottone rifiuta all'interno del pop-up")
+    public void siCliccaSulBottoneRifiutaAllInternoDelPopUp() {
+        logger.info("Si clicca sul bottone rifiuta nel pop-up");
+        deleghePage.clickRiufitaPopUp();
+    }
+
+    @And("Si clicca sul bottone annulla all'interno del pop-up")
+    public void siCliccaSulBottoneAnnullaAllInternoDelPopUp() {
+        logger.info("Si clicca sul bottone annulla nel pop-up");
+        deleghePage.clickAnnullaPopUp();
+    }
 }
