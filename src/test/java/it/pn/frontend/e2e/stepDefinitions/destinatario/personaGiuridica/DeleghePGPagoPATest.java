@@ -333,4 +333,33 @@ public class DeleghePGPagoPATest {
 
        deleghePGPagoPAPage.clicKBottoneAnnulla();
     }
+
+    @And("Nella sezione Deleghe si clicca sul bottone modifica")
+    public void nellaSezioneDelegheSiCliccaSulBottoneModifica() {
+        logger.info("Si clicca sull'opzione modifica");
+
+        deleghePGPagoPAPage.clickOpzioneModifica();
+    }
+
+    @And("Si clicca sul bottone assegna a un gruppo")
+    public void siCliccaSulBottoneAssegnaAUnGruppo() {
+        logger.info("Si clicca sul bottone assegna un gruppo");
+
+        deleghePGPagoPAPage.waitLoadPopUpModifica();
+        deleghePGPagoPAPage.clickAssegnaGruppoRadioButton();
+    }
+
+    @And("Si selezione il gruppo della delega")
+    public void siSelezioneIlGruppoDellaDelega() {
+        logger.info("Si seleziona un il gruppo di delega");
+        deleghePGPagoPAPage.waitLoadPopUpModifica();
+        deleghePGPagoPAPage.clickGruppoField();
+    }
+
+    @And("Si clicca su conferma")
+    public void siCliccaSuConferma() {
+        logger.info("Si clicca su conferma del pop-up");
+
+        deleghePGPagoPAPage.clickBottoneConferma();
+    }
 }

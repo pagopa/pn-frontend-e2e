@@ -55,6 +55,9 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(xpath = "//button[contains(@class,'MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-disableElevation MuiButton-root')]")
     WebElement annullaButton;
 
+    @FindBy(xpath = "//li[contains(text(),'Modifica')]")
+    WebElement opzioneModifica;
+
     public DeleghePGPagoPAPage(WebDriver driver) {
         super(driver);
     }
@@ -234,5 +237,22 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public void clicKBottoneAnnulla() {
         this.annullaButton.click();
+    }
+
+    public void clickOpzioneModifica() {
+        this.opzioneModifica.click();
+    }
+
+    public void waitLoadPopUpModifica() {
+        try {
+            By titlePOPUPBy = By.id("dialog-title");
+            By nonAssegnaButtonBy = By.xpath("//span[@data-testid='no-group']");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePOPUPBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(nonAssegnaButtonBy));
+            logger.info("Si visualizza correttamente il pop-up");
+        }catch (TimeoutException e){
+            logger.error("Si visualizza NON correttamente il pop-up con errore: "+e.getMessage());
+            Assert.fail("Si visualizza NON correttamente il pop-up con errore: "+e.getMessage());
+        }
     }
 }
