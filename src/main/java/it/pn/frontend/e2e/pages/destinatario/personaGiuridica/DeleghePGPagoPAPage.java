@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 public class DeleghePGPagoPAPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DeleghePGPagoPAPage");
@@ -19,12 +21,39 @@ public class DeleghePGPagoPAPage extends BasePage {
     WebElement delegheCaricoImpresaButton;
     @FindBy(xpath = "//li[contains(text(),'Revoca')]")
     WebElement revocaMenuButton;
-    
+
     @FindBy(id = "taxId")
     WebElement cfTextField;
 
     @FindBy(xpath = "//button[@data-testid='confirmButton']")
     WebElement filtraButton;
+
+    @FindBy(xpath = "//button[contains(@data-testid,'codeConfirmButton')]")
+    WebElement accettaDelegaButton;
+
+    @FindBy(xpath = "//span[@data-testid='associate-group']")
+    WebElement assegnaGruppoRadioButton;
+
+    @FindBy(xpath = "//button[@aria-label='Open']")
+    List<WebElement> gruppoField;
+
+    @FindBy(id = "groups-option-0")
+    WebElement gruppoOption;
+
+    @FindBy(xpath = "//button[@data-testid='groupConfirmButton']")
+    WebElement confermaButton;
+
+    @FindBy(xpath = "//span[@data-testid='no-group']")
+    WebElement nonGruppoRadioButton;
+
+    @FindBy(xpath = "//li[contains(text(),'Rifiuta')]")
+    WebElement opzioneRevoca;
+
+    @FindBy(xpath = "//button[contains(@class,'MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation')]")
+    WebElement rifiutaButton;
+
+    @FindBy(xpath = "//button[contains(@class,'MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-disableElevation MuiButton-root')]")
+    WebElement annullaButton;
 
     public DeleghePGPagoPAPage(WebDriver driver) {
         super(driver);
@@ -135,5 +164,75 @@ public class DeleghePGPagoPAPage extends BasePage {
             return false;
         }*/
 
+    }
+
+    public void clickBottoneAccetta() {
+        this.accettaDelegaButton.click();
+    }
+
+    public void waitLoadPopUpGruppo() {
+        try {
+            By titlePageBy = By.id("dialog-title");
+            By assegnaGruppoButtonBy = By.xpath("//span[@data-testid='associate-group']");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(assegnaGruppoButtonBy));
+            this.logger.info("Si vede correttamente il pop-up di assegnazione gruppo");
+        }catch (TimeoutException e){
+            this.logger.error("Non si vede correttamente il pop-up di assegnazione gruppo con errore: "+e.getMessage());
+            Assert.fail("Non si vede correttamente il pop-up di assegnazione gruppo con errore: "+e.getMessage());
+        }
+    }
+
+    public void clickAssegnaGruppoRadioButton() {
+        this.assegnaGruppoRadioButton.click();
+    }
+
+    public void clickGruppoField() {
+        this.gruppoField.get(1).click();
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.gruppoOption));
+        this.gruppoOption.click();
+    }
+
+    public void clickBottoneConferma() {
+        this.confermaButton.click();
+    }
+
+
+    public void controlloStatoAttiva(String ragioneSociale) {
+        try {
+            By statoAttivaBy = By.xpath("//tr[@data-testid='table(notifications).row']//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//div/div/span[contains(text(),'Attiva')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoAttivaBy));
+            logger.info("La delega ha lo stato Attiva");
+        }catch (TimeoutException e){
+            logger.error("La delega NON ha lo stato Attiva con errore: "+e.getMessage());
+            Assert.fail("La delega NON ha lo stato Attiva con errore: "+e.getMessage());
+        }
+    }
+
+    public void clickNonAssegnaGruppo() {
+        this.nonGruppoRadioButton.click();
+    }
+
+    public void clickOpzioneRifiuta() {
+        this.opzioneRevoca.click();
+    }
+
+    public void clickBottoneRifiuta() {
+        this.rifiutaButton.click();
+    }
+
+    public void waitLoadPopUpRevoca() {
+        try {
+            By revocaPopUpBy = By.xpath("//div[@aria-labelledby='responsive-dialog-title']");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(revocaPopUpBy));
+            this.logger.info("Si visualizza il pop-up rifiuta delega");
+        }catch (TimeoutException e){
+            this.logger.error("Non si visualizza il pop-up rifiuta delega con errore: "+e.getMessage());
+            Assert.fail("Non si visualizza il pop-up rifiuta delega con errore: "+e.getMessage());
+        }
+    }
+
+    public void clicKBottoneAnnulla() {
+        this.annullaButton.click();
     }
 }

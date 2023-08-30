@@ -211,11 +211,12 @@ public class DeleghePGPagoPATest {
 
     }
 
-    @And("Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega")
-    public void nellaPaginaDelegheSezioneDelegheDellImpresaSiCliccaSulMenuDellaDelega() {
+    @And("Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega {string}")
+    @And("Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega {string}")
+    public void nellaPaginaDelegheSezioneDelegheDellImpresaSiCliccaSulMenuDellaDelega(String dpFile) {
         logger.info("Si clicca sul menu delle delega");
 
-        this.datiDelega = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml");
+        this.datiDelega = dataPopulation.readDataPopulation(dpFile+".yaml");
 
         this.delegatiImpresaSection.clickMenuDelega(datiDelega.get("ragioneSociale").toString());
 
@@ -256,5 +257,80 @@ public class DeleghePGPagoPATest {
             Assert.fail("La delega NON è stata revocata correttamente");
         }
 
+    }
+
+    @And("Nella sezione Deleghe si clicca sul bottone Accetta")
+    public void nellaSezioneDelegheSiCliccaSulBottoneAccetta() {
+        logger.info("Si clicca sul bottone accetta delega");
+        deleghePGPagoPAPage.clickBottoneAccetta();
+    }
+
+    @And("Si assegna un gruppo alla delega")
+    public void siAssegnaUnGruppoAllaDelega() {
+        logger.info("Si assegna un gruppo alla delega");
+        deleghePGPagoPAPage.waitLoadPopUpGruppo();
+        deleghePGPagoPAPage.clickAssegnaGruppoRadioButton();
+        deleghePGPagoPAPage.waitLoadPopUpGruppo();
+        deleghePGPagoPAPage.clickGruppoField();
+    }
+
+    @And("Si clicca sul bottone conferma")
+    public void siCliccaSulBottoneConferma() {
+        logger.info("Si seleziona il bottone conferma");
+
+        deleghePGPagoPAPage.clickBottoneConferma();
+    }
+
+    @And("Si controlla che la delega PG a lo stato Attiva {string}")
+    public void siControllaCheLaDelegaPGALoStatoAttiva(String dpFile) {
+        this.logger.info("Si controlla che lo stato della delega sia attivo");
+
+        this.datiDelega = dataPopulation.readDataPopulation(dpFile+".yaml");
+
+        this.deleghePGPagoPAPage.controlloStatoAttiva(this.datiDelega.get("ragioneSociale").toString());
+    }
+
+    @And("Non si assegna un gruppo alla delega")
+    public void nonSiAssegnaUnGruppoAllaDelega() {
+        logger.info("Si clicca sul bottone non assegna gruppo");
+
+        deleghePGPagoPAPage.clickNonAssegnaGruppo();
+    }
+
+    @And("Nella sezione Deleghe si clicca sul bottone rifiuta")
+    public void nellaSezioneDelegheSiCliccaSulBottoneRifiuta() {
+        logger.info("Si clicca su l'opzione rifiuta");
+
+        deleghePGPagoPAPage.clickOpzioneRifiuta();
+    }
+    @And("Si clicca sul bottone rifiuta delega")
+    public void siCliccaSulBottoneRifiutaDelega() {
+        logger.info("Si clicca su bottone rifiuta del pop-up");
+
+        deleghePGPagoPAPage.waitLoadPopUpRevoca();
+        deleghePGPagoPAPage.clickBottoneRifiuta();
+    }
+
+    @And("Si controlla che la delega non si più presente in elenco")
+    public void siControllaCheLaDelegaNonSiPiuPresenteInElenco() {
+        logger.info("Si controlla che la delega sia stata rifiutata");
+
+        this.datiDelega = this.dataPopulation.readDataPopulation("personaGiuridica.yaml");
+
+        deleghePGPagoPAPage.aggionamentoPagina();
+
+        if(!deleghePGPagoPAPage.CercaEsistenzaDelegaPG(this.datiDelega.get("ragioneSociale").toString())){
+            logger.info("La delega è stata rifiutata correttamente");
+        }else {
+            logger.error("La delega NON è stata rifiutata correttamente");
+            Assert.fail("La delega NON è stata rifiutata correttamente");
+        }
+    }
+
+    @And("Si clicca sul bottone  annulla")
+    public void siCliccaSulBottoneAnnulla() {
+        logger.info("Si clicca sul bottone annulla del pop-up");
+
+       deleghePGPagoPAPage.clicKBottoneAnnulla();
     }
 }
