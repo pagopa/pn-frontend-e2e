@@ -31,7 +31,7 @@ public class LoginSpidPFPage extends BasePage {
 
     public void waitLoadLoginSpidDEPage(){
         try{
-            By spidLogo = By.cssSelector("div.spid-logo > img");
+            By spidLogo = By.id("idp-logo");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(spidLogo));
             logger.info("Login Spid DE Page caricata");
         }catch (TimeoutException e){

@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class PiattaformaNotifichePAPage extends BasePage {
+public class PiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("notificaMittentePagoPA");
 
@@ -37,8 +37,6 @@ public class PiattaformaNotifichePAPage extends BasePage {
     @FindBy(xpath = "//div[contains(@id,'status')]")
     WebElement statoNotificaField;
 
-    @FindBy(xpath = "//button[contains(@data-testid,'newNotificationBtn')]")
-    WebElement inviaNuovaNotificaButton;
 
     @FindBy(xpath = "//div[contains(@data-testid,'sideMenuItem-API Key')]")
     WebElement apiKeyButton;
@@ -55,20 +53,44 @@ public class PiattaformaNotifichePAPage extends BasePage {
     @FindBy(xpath = "//button[contains(@class,'MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-34ped8')]")
     WebElement pageNumberList;
 
-    @FindBy(xpath = "//li[contains(@tabindex,'-1')]")
+    @FindBy(xpath = "//li[@data-testid='pageSize-50']")
     WebElement numberElement;
 
-    public PiattaformaNotifichePAPage(WebDriver driver) {
+    @FindBy(xpath = "//button[contains(@data-testid,'step-submit')]")
+    WebElement continuaButtonDisabled;
+
+    @FindBy(xpath = "//input[@id='subject']")
+    WebElement oggettoDellaNotificaTextField;
+
+    @FindBy(xpath = "//p[@id='subject-helper-text']")
+    WebElement errorMessage;
+
+    @FindBy(xpath = "//button[@data-testid='breadcrumb-indietro-button']")
+    WebElement indietroButton;
+
+    @FindBy(xpath = "//div/div/h2[@id='mui-12']/following-sibling::div/button[contains(text(),'Esci')]")
+    WebElement esciButton;
+
+    @FindBy(xpath = "//div[contains(text(),'Estensione file non supportata. Riprovare con un altro file.')]")
+    WebElement estenzioneSbagliataMessage;
+
+    @FindBy(xpath = "//button[contains(@data-testid,'newNotificationBtn')]")
+    WebElement inviaNuovaNotificaButton;
+
+
+
+
+    public PiattaformaNotifichePage(WebDriver driver) {
         super(driver);
     }
 
     public void waitLoadPiattaformaNotifichePAPage() {
         try {
             By notificheTitle = By.xpath("//h4[contains(text(),'Notifiche')]");
-            By inviaButtonBy = By.xpath("//button[contains(@data-testid,'newNotificationBtn')]");
+            By inviaNuovaNotificaButton = By.xpath("//button[contains(@data-testid,'newNotificationBtn')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(inviaNuovaNotificaButton));
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(inviaNuovaNotificaButton));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheTitle));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(inviaButtonBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(inviaButtonBy));
             logger.info("Piattaforma Notifiche Page caricata");
         } catch (TimeoutException e) {
             logger.error("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
@@ -221,7 +243,7 @@ public class PiattaformaNotifichePAPage extends BasePage {
 
     public String ricercaNotifica(String oggettoDellaNotifica, String statoNotifica) {
 
-        String codiceIUN = null;
+        String codiceIUN = "";
 
         int posizioneNotifica = verificaEsistenzaNotifica(oggettoDellaNotifica, statoNotifica);
         logger.info("la posizione della notifica è uguale: " + posizioneNotifica);
@@ -476,4 +498,29 @@ public class PiattaformaNotifichePAPage extends BasePage {
         this.js().executeScript("arguments[0].click()",this.pageNumberList);
         this.js().executeScript("arguments[0].click()", this.numberElement);
     }
-}
+
+    public void clickContinuaDisabled() {this.continuaButtonDisabled.isDisplayed();}
+
+    public void inserimentoOggettoNotificaErrato(String oggettoDellaNotifica) {
+        this.oggettoDellaNotificaTextField.sendKeys(oggettoDellaNotifica);
+    }
+    public boolean errorMessage() {return this.errorMessage.isDisplayed();}
+
+    public void clickIndietroButton() {this.indietroButton.click();}
+
+    public void vuoiUscirePopUp() {
+    try{
+        By vuoiUscirePUBy = By.id("mui-12");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(vuoiUscirePUBy));
+        logger.info("Si visualizza il pop up vuoi uscire");
+    }catch (TimeoutException e){
+        logger.error("Non si visualizza il pop up vuoi uscire con errore:"+e.getMessage());
+        Assert.fail("Non si visualizza il pop up vuoi uscire con errore:"+e.getMessage());
+    }
+    }
+
+        public void clickSuEsci() {this.esciButton.click();}
+
+    public boolean estensioneSbagliataErrore() {return this.estenzioneSbagliataMessage.isDisplayed();}
+
+    }

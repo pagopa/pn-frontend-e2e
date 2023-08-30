@@ -1,19 +1,16 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica;
 
-import com.google.common.base.CharMatcher;
-import com.google.common.base.Splitter;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import it.pn.frontend.e2e.utility.DownloadFile;
+import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.section.CookiesSection;
-import it.pn.frontend.e2e.section.destinatario.personaFisica.DettaglioNotificaFRSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeadeFRSection;
-import it.pn.frontend.e2e.section.mittente.DettaglioNotificaSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.DownloadFile;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -30,8 +27,6 @@ public class NotifichePersonaFisicaPAgoPATest {
     private static final Logger logger = LoggerFactory.getLogger("NotifichePersonaFisicaTest");
 
     private final WebDriver driver = Hooks.driver;
-
-    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche")
     public void nella_piattaforma_destinatario_cliccare_sul_bottone_notifiche() {
@@ -190,60 +185,37 @@ public class NotifichePersonaFisicaPAgoPATest {
 
     @And("Si visualizza correttamente la section Dettaglio Notifica persona fisica")
     public void siVisualizzaCorrettamenteLaSectionDettaglioNotificaDestinatario() {
-        DettaglioNotificaFRSection dettaglioNotificaFRSection = new DettaglioNotificaFRSection(this.driver);
-        dettaglioNotificaFRSection.waitLoadDettaglioNotificaDESection();
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        dettaglioNotificaSection.waitLoadDettaglioNotificaDESection();
     }
 
-    @Then("Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto")
-    public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaDestinatarioESiControllaCheIlDownloadSiaAvvenuto() {
-        DettaglioNotificaFRSection dettaglioNotificaFRSection = new DettaglioNotificaFRSection(this.driver);
-        int numeroLinkAttestazioniOpponibile = dettaglioNotificaFRSection.getLinkAttestazioniOpponubili();
+    @Then("Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto {string}")
+    public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaDestinatarioESiControllaCheIlDownloadSiaAvvenuto(String dpFile) {
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponubili();
         DownloadFile downloadFile = new DownloadFile();
         DataPopulation dataPopulation = new DataPopulation();
-        Map<String,Object> datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        Map<String,Object> datiNotifica = dataPopulation.readDataPopulation(dpFile+".yaml");
         String workingDirectory = System.getProperty("user.dir");
-        File pathCartella = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario");
+        File pathCartella = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/personaFisica");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)){
             pathCartella.mkdirs();
         }
         for (int i = 0; i <numeroLinkAttestazioniOpponibile ; i++) {
-            dettaglioNotificaFRSection.clickLinkAttestazionipponibile(i);
+            dettaglioNotificaSection.clickLinkAttestazionipponibile(i);
             try {
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            String urlFileAttestazioneOppponubile = getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+datiNotifica.get("codiceIUN").toString()+"/legal-facts/");
+            String urlFileAttestazioneOppponubile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+datiNotifica.get("codiceIUN").toString()+"/legal-facts/");
             File file = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN"+i+".pdf");
             downloadFile.download(urlFileAttestazioneOppponubile,file);
         }
         downloadFile.controlloDownload(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario",numeroLinkAttestazioniOpponibile);
     }
 
-    private String getUrl(String urlChiamata) {
-        String url = "";
-        for (int i = 0; i < netWorkInfos.size(); i++) {
-            if (netWorkInfos.get(i).getRequestUrl().contains(urlChiamata) && netWorkInfos.get(i).getRequestMethod().equals("GET")){
-                String values = netWorkInfos.get(i).getResponseBody();
-                List<String> results = Splitter.on(CharMatcher.anyOf(",;:")).splitToList(values);
 
-                for (int index=0;index<results.size(); index++){
-                    if(results.get(index).startsWith("//")) {
-                        url = results.get(index);
-                        break;
-                    }
-                }
-                if(url.endsWith("}")) {
-                    url = "https:" + url.substring(0, url.length() - 2);
-                }else {
-                    url = "https:" + url.substring(0, url.length() - 1);
-                }
-                logger.info("url",url);
-            }
-        }
-        return url;
-
-    }
 
     @And("Si clicca sul opzione Vedi Dettaglio")
     public void siCliccaSulOpzioneVediDettaglio() {

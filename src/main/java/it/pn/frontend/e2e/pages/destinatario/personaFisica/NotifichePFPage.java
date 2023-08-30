@@ -18,7 +18,7 @@ public class NotifichePFPage extends BasePage {
     @FindBy(id = "iunMatch")
     WebElement codiceIunTextField;
 
-    @FindBy(xpath = "//button[contains(text(),'Filtra')]")
+    @FindBy(id = "filter-notifications-button")
     WebElement filtraButton;
 
     @FindBy(id = "startDate")
@@ -48,8 +48,8 @@ public class NotifichePFPage extends BasePage {
 
     public void waitLoadNotificheDEPage() {
         try{
-            By titleLabel = By.cssSelector("h4.MuiTypography-root.MuiTypography-h4");
-            By tableNotifiche = By.cssSelector("table[aria-label='Tabella di item']");
+            By titleLabel = By.id("title-of-page");
+            By tableNotifiche = By.xpath("//table[@data-testid='table(notifications)']");
             this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
             this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
             logger.info("Notifiche DE Page non caricata");
@@ -83,25 +83,11 @@ public class NotifichePFPage extends BasePage {
         }
     }
 
-    public void inserisciCodiceIUN(String codiceIUN) {
-        this.codiceIunTextField.sendKeys(codiceIUN);
-    }
-
     public void selectFiltraButton() {
         this.filtraButton.click();
     }
 
-    public boolean verificaCodiceIUN(String codiceIUNInserito) {
-        try {
-            By codiceIUNBy = By.xpath("//button[contains(text(),'"+codiceIUNInserito+"')]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiceIUNBy));
-            return true;
-        }catch (TimeoutException e){
-            logger.error("Il codice IUN"+codiceIUNInserito+" non è stato trovato con errore:"+e.getMessage());
-            Assert.fail("Il codice IUN"+codiceIUNInserito+" non è stato trovato con errore:"+e.getMessage());
-        }
-        return false;
-    }
+
 
     public String controlloDateInserite(String data) {
         String[] date = data.split("-");
