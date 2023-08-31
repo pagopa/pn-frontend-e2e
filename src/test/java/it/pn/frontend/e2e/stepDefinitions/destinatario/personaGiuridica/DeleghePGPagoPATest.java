@@ -362,4 +362,18 @@ public class DeleghePGPagoPATest {
 
         deleghePGPagoPAPage.clickBottoneConferma();
     }
+
+    @And("Si controlla che la delega a cambiato gruppo {string}")
+    public void siControllaCheLaDelegaACambiatoStato(String dpFile) {
+        logger.info("Si controlla che la delega abbi il gruppo");
+
+        this.datiDelega = dataPopulation.readDataPopulation(dpFile+".yaml");
+
+        if(deleghePGPagoPAPage.verificaPresenzaGruppo(this.datiDelega.get("ragioneSociale").toString())){
+            logger.info("La delega ha un gruppo");
+        }else {
+            logger.error("La delega NON ha un gruppo");
+            Assert.fail("La delega NON ha un gruppo");
+        }
+    }
 }

@@ -66,11 +66,9 @@ public class DeleghePGPagoPAPage extends BasePage {
         try{
             By titlePage = By.id("title-of-page");
             By delegheCarico = By.xpath("//button[@data-testid='tab2']");
-            By cfFieldBy = By.id("taxId");
 
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegheCarico));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(cfFieldBy));
 
             this.logger.info("Deleghe page si visualizza correttamente");
 
@@ -253,6 +251,16 @@ public class DeleghePGPagoPAPage extends BasePage {
         }catch (TimeoutException e){
             logger.error("Si visualizza NON correttamente il pop-up con errore: "+e.getMessage());
             Assert.fail("Si visualizza NON correttamente il pop-up con errore: "+e.getMessage());
+        }
+    }
+
+    public boolean verificaPresenzaGruppo(String ragioneSociale) {
+        try {
+            By gruppoBy = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//span[contains(text(),'Test gruppi')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(gruppoBy));
+            return true;
+        }catch (TimeoutException e) {
+            return false;
         }
     }
 }
