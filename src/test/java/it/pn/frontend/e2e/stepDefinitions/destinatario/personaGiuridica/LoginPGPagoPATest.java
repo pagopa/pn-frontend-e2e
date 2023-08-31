@@ -87,7 +87,7 @@ public class LoginPGPagoPATest {
         }
 
         SelezionaImpresaPage impresaPage = new SelezionaImpresaPage(this.driver);
-        impresaPage.clickSuImpresa();
+        impresaPage.clickSuImpresa(this.datiPersonaGiuridica.get("ragioneSociale").toString());
         impresaPage.clickAccediButton();
     }
     private void readurlPortaleMittente(String user, String password){
@@ -262,7 +262,7 @@ public class LoginPGPagoPATest {
 
         SelezionaImpresaPage selezionaImpresaPage = new SelezionaImpresaPage(this.driver);
         selezionaImpresaPage.waitLoadSelezionaImpresaPage();
-        selezionaImpresaPage.clickSuImpresa();
+        selezionaImpresaPage.clickSuImpresa(this.datiPersonaGiuridica.get("ragioneSociale").toString());
         selezionaImpresaPage.clickAccediButton();
     }
 
@@ -319,7 +319,7 @@ public class LoginPGPagoPATest {
         }
 
         SelezionaImpresaPage impresaPage = new SelezionaImpresaPage(this.driver);
-        impresaPage.clickSuImpresaDelegato();
+        impresaPage.clickSuImpresa(this.datiPersonaGiuridica.get("ragioneSociale").toString());
         impresaPage.clickAccediButton();
     }
 }

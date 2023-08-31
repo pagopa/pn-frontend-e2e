@@ -18,11 +18,6 @@ public class SelezionaImpresaPage extends BasePage {
     @FindBy(xpath = "//button[contains(text(),'Accedi')]")
     WebElement accediButton;
 
-    @FindBy(xpath = "//h6[contains(text(),'Vita Nova Sas')]")
-    WebElement impresaButton;
-
-    @FindBy(xpath = "//h6[contains(text(),'Le Epistolae srl')]")
-    WebElement impresaDelegatoButton;
     public SelezionaImpresaPage(WebDriver driver) {
         super(driver);
     }
@@ -47,11 +42,8 @@ public class SelezionaImpresaPage extends BasePage {
         this.accediButton.click();
     }
 
-    public void clickSuImpresa() {
-        this.impresaButton.click();
-    }
-
-    public void clickSuImpresaDelegato() {
-        this.impresaDelegatoButton.click();
+    public void clickSuImpresa(String ragioneSociale) {
+        By impresaBy = By.xpath("//h6[contains(text(),'"+ragioneSociale+"')]");
+        this.element(impresaBy).click();
     }
 }
