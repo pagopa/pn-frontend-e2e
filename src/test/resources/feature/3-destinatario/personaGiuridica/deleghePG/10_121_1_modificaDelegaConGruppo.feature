@@ -6,6 +6,8 @@ Feature: Il delegato persona giuridica modifica una delega non assegnandoli un g
     And Nella Home page persona giuridica si clicca su Send Notifiche Digitali
     And Si visualizza correttamente la Pagina Notifiche persona giuridica
 
+  @TestSuite
+  @fase2Test121_1
   Scenario: Il delegato persona giuridica modifica una delega non assegnandoli un gruppo
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
@@ -14,5 +16,5 @@ Feature: Il delegato persona giuridica modifica una delega non assegnandoli un g
     And Nella sezione Deleghe si clicca sul bottone modifica
     And Si clicca sul bottone non assegna a un gruppo
     And Si clicca su conferma
-    And Si controlla che la delega a lo stato Attiva "personaGiuridica"
+    And Si controlla che la delega non abbia più il gruppo
     And Logout da portale persona giuridica

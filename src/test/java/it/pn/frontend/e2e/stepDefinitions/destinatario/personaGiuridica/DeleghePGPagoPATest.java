@@ -363,11 +363,11 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.clickBottoneConferma();
     }
 
-    @And("Si controlla che la delega a cambiato gruppo {string}")
-    public void siControllaCheLaDelegaACambiatoStato(String dpFile) {
+    @And("Si controlla che la delega a cambiato gruppo")
+    public void siControllaCheLaDelegaACambiatoStato() {
         logger.info("Si controlla che la delega abbi il gruppo");
 
-        this.datiDelega = dataPopulation.readDataPopulation(dpFile+".yaml");
+        this.datiDelega = dataPopulation.readDataPopulation("personaGiuridica_1.yaml");
 
         if(deleghePGPagoPAPage.verificaPresenzaGruppo(this.datiDelega.get("ragioneSociale").toString())){
             logger.info("La delega ha un gruppo");
@@ -375,5 +375,30 @@ public class DeleghePGPagoPATest {
             logger.error("La delega NON ha un gruppo");
             Assert.fail("La delega NON ha un gruppo");
         }
+    }
+
+    @And("Si clicca sul bottone non assegna a un gruppo")
+    public void siCliccaSulBottoneNonAssegnaAUnGruppo() {
+        logger.info("Si clicca sul bottone non assegna a un gruppo");
+
+        deleghePGPagoPAPage.waitLoadPopUpModifica();
+        deleghePGPagoPAPage.clickNonAssegnaGruppo();
+    }
+
+    @And("Si controlla che la delega non abbia più il gruppo")
+    public void siControllaCheLaDelegaNonAbbiaPiuIlGruppo() {
+        logger.info("Si verifica che non abbia più il gruppo");
+
+        this.datiDelega = dataPopulation.readDataPopulation("personaGiuridica.yaml");
+
+        deleghePGPagoPAPage.waitLoadDeleghePage();
+
+        if (!deleghePGPagoPAPage.verificaPresenzaGruppo(this.datiDelega.get("ragioneSociale").toString())){
+             logger.info("La delega non ha più gruppo");
+        }else {
+            logger.error("La delega ha ancora il gruppo");
+            Assert.fail("La delega ha ancora il gruppo");
+        }
+
     }
 }
