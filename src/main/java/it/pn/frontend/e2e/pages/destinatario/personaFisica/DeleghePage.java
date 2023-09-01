@@ -167,4 +167,24 @@ public class DeleghePage extends BasePage {
             Assert.fail("Non si clicca correttamente sul bottone rifiuta pop-up errore"+e.getMessage());
         }
     }
+
+    public boolean verificaEsistenzaDelega() {
+        try {
+            By nomeDelegato = By.xpath("//div[@data-testid='delegators-wrapper']//div/p[contains(text(),'Cristoforo')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
+            return true;
+        }catch (TimeoutException | NoSuchElementException e){
+            return false;
+        }
+    }
+
+    public void waitLoadDelegheSection() {
+        try{
+            By delegheSectionTitleBy = By.id("title-of-page");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegheSectionTitleBy));
+        }catch (TimeoutException e){
+            logger.error("La sezione deleghe non si visualizza correttamente con errore:"+e.getMessage());
+            Assert.fail("La sezione deleghe non si visualizza correttamente con errore"+e.getMessage());
+        }
+    }
 }

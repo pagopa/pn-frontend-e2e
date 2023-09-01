@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.AggiungiDelegaPGSection;
@@ -225,5 +226,25 @@ public class DeleghePGPagoPATest {
         logger.info("Si sceglie l'opzione mostra codice");
 
         delegatiImpresaSection.clickMostraCodice();
+    }
+
+    @Then("Si clicca sul bottone annulla")
+    public void siCliccaSulBottoneAnnulla() {
+        logger.info("Si clicca sul bottone annulla");
+        delegatiImpresaSection.clickAnnulla();
+    }
+
+    @And("Nella sezione Deleghe persona giuridica si sceglie l'opzione revoca")
+    public void nellaSezioneDeleghePersonaGiuridicaSiSceglieLOpzioneRevoca() {
+        logger.info("Si clicca sull'opzione revoca del menu");
+
+        delegatiImpresaSection.clickRevocaMenuButtonPG();
+    }
+
+    @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si inserisce il gruppo del delegante")
+    public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiInserisceIlGruppoDelDelegante() {
+        logger.info("Si inserisce il gruppo del delegante");
+
+        deleghePGPagoPAPage.inserireGruppoDelegante();
     }
 }

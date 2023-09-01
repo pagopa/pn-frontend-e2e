@@ -21,6 +21,12 @@ public class DelegatiImpresaSection extends BasePage {
     @FindBy(xpath = "//li[contains(@tabindex,'0')]")
     WebElement mostraCodiceOption;
 
+    @FindBy(xpath = "//button[contains(text(),'Annulla')]")
+    WebElement annullaButton;
+
+    @FindBy(xpath = "//li[contains(text(),'Revoca')]")
+    WebElement revocaMenuButton;
+
     public DelegatiImpresaSection(WebDriver driver) {
         super(driver);
     }
@@ -85,5 +91,12 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void clickMostraCodice() {
         this.mostraCodiceOption.click();
+    }
+
+    public void clickAnnulla() {this.annullaButton.click();}
+
+    public void clickRevocaMenuButtonPG() {
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.revocaMenuButton));
+        this.revocaMenuButton.click();
     }
 }

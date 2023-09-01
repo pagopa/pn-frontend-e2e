@@ -29,6 +29,12 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(xpath = "//button[@data-testid='confirmButton']")
     WebElement filtraButton;
 
+    @FindBy(id = "groups")
+    WebElement searchGroupTextField;
+
+    @FindBy(id = "groups-option-0")
+    WebElement groupOption;
+
     public DeleghePGPagoPAPage(WebDriver driver) {
         super(driver);
     }
@@ -156,5 +162,11 @@ public class DeleghePGPagoPAPage extends BasePage {
             return false;
         }*/
 
+    }
+
+    public void inserireGruppoDelegante() {
+        this.searchGroupTextField.click();
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.groupOption));
+        this.groupOption.click();
     }
 }

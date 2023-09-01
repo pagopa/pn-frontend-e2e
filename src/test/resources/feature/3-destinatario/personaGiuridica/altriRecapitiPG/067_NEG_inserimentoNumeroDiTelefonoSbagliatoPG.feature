@@ -3,6 +3,10 @@ Feature: la persona giuridica inserisce un numero di telefono errato
     Given Login Page persona giuridica "personaFisica" viene visualizzata
     When Login portale persona giuridica tramite request method
     Then Home page persona giuridica viene visualizzata correttamente
+    And Nella Home page persona giuridica si clicca su Send Notifiche Digitali
+    And Si visualizza correttamente la Pagina Notifiche persona giuridica
+
+
 
   Scenario: La persona giuridica inserisce un numero di telefono errato
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti

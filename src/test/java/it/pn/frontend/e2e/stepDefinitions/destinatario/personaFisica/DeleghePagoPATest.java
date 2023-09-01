@@ -331,4 +331,21 @@ public class DeleghePagoPATest {
         logger.info("Si clicca sul bottone annulla nel pop-up");
         deleghePage.clickAnnullaPopUp();
     }
+
+    @And("Si controlla che la delega non sia più presente nella lista")
+    public void siControllaCheLaDelegaNonSiaPiuPresenteNellaLista() {
+        logger.info("Si controlla che la delega non sia più presente nella lista");
+        if (deleghePage.verificaEsistenzaDelega()){
+            logger.info("Si controlla che la delega non sia più presente nella lista");
+        } else {
+            logger.error("La delega è ancora presente in lista");
+            Assert.fail("La delega è ancora presente in lista");
+        }
+    }
+
+    @And("Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe")
+    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaSiVedeLaSezioneDeleghe() {
+        logger.info("Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe");
+        deleghePage.waitLoadDelegheSection();
+    }
 }
