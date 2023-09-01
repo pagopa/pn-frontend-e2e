@@ -52,11 +52,14 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(xpath = "//button[contains(@class,'MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation')]")
     WebElement rifiutaButton;
 
-    @FindBy(xpath = "//button[contains(@class,'MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-disableElevation MuiButton-root')]")
-    WebElement annullaButton;
-
     @FindBy(xpath = "//li[contains(text(),'Modifica')]")
     WebElement opzioneModifica;
+
+    @FindBy(id = "groups")
+    WebElement searchGroupTextField;
+
+    @FindBy(id = "groups-option-0")
+    WebElement groupOption;
 
     public DeleghePGPagoPAPage(WebDriver driver) {
         super(driver);
@@ -233,10 +236,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         }
     }
 
-    public void clicKBottoneAnnulla() {
-        this.annullaButton.click();
-    }
-
     public void clickOpzioneModifica() {
         this.opzioneModifica.click();
     }
@@ -262,5 +261,12 @@ public class DeleghePGPagoPAPage extends BasePage {
         }catch (TimeoutException e) {
             return false;
         }
+
+    }
+
+    public void inserireGruppoDelegante() {
+        this.searchGroupTextField.click();
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.groupOption));
+        this.groupOption.click();
     }
 }

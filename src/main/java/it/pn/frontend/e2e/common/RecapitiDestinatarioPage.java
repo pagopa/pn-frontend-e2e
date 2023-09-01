@@ -27,6 +27,18 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(xpath = "//button[@data-testid='codeCancelButton']")
     WebElement annullaButton;
 
+    @FindBy(xpath = "//button[@data-testid='add email']")
+    WebElement avvisamiMailButton;
+
+    @FindBy(xpath = "//button[@data-testid='add phone']")
+    WebElement avvisamiSMSButton;
+
+    @FindBy(id = "email")
+    WebElement inserimentoMailField;
+
+    @FindBy(id = "phone")
+    WebElement inserimentoPhoneField;
+
     public RecapitiDestinatarioPage(WebDriver driver) {
         super(driver);
     }
@@ -89,4 +101,25 @@ public class RecapitiDestinatarioPage extends BasePage {
         this.annullaButton.click();
     }
 
+    public void clickAvvisami() {this.avvisamiMailButton.click();}
+
+    public void clickAvvisamiSMS() {this.avvisamiSMSButton.click();}
+
+    public void insertEmail(String email) {
+        if (inserimentoMailField.isDisplayed()){
+            inserimentoMailField.sendKeys(email);
+        }else {
+            this.js().executeScript("arguments[0].scrollIntoView(true);",inserimentoMailField);
+            inserimentoMailField.sendKeys(email);
+        }
+    }
+
+    public void insertPhone(String cellulare) {
+        if (inserimentoPhoneField.isDisplayed()){
+            inserimentoPhoneField.sendKeys(cellulare);
+        }else {
+            this.js().executeScript("arguments[0].scrollIntoView(true);",inserimentoPhoneField);
+            inserimentoPhoneField.sendKeys(cellulare);
+        }
+    }
 }

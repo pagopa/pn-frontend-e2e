@@ -11,6 +11,7 @@ Feature: Il persona giuridica aggiunge una nuova delega
   @fase2Test113
   @pg
 
+
   Scenario: Il persona giuridica aggiunge una nuova delega
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa

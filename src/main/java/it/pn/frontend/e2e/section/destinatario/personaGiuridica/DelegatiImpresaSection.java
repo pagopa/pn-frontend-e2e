@@ -26,6 +26,9 @@ public class DelegatiImpresaSection extends BasePage {
     @FindBy(xpath = "//button[@data-testid='dialogAction' and text()='Revoca la delega']")
     WebElement revocaButton;
 
+    @FindBy(xpath = "//button[contains(text(),'Annulla')]")
+    WebElement annullaButton;
+
     public DelegatiImpresaSection(WebDriver driver) {
         super(driver);
     }
@@ -110,5 +113,9 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void clickRevocaButton() {
         this.revocaButton.click();
+    }
+
+    public void clickAnnulla() {
+        this.annullaButton.click();
     }
 }

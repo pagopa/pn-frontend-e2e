@@ -26,6 +26,9 @@ public class DeleghePage extends BasePage {
     @FindBy(xpath = "//li[contains(@data-testid,'menuItem-revokeDelegate')]")
     WebElement revocaDelegaOption;
 
+    @FindBy(xpath = "//button[@data-testid='delegationMenuIcon']")
+    WebElement menuDelagaButton;
+
     public DeleghePage(WebDriver driver) {
         super(driver);
     }
@@ -125,5 +128,63 @@ public class DeleghePage extends BasePage {
 
     public void clickOpzioneRevoca() {
         this.revocaDelegaOption.click();
+    }
+
+    public void clickMenuPerRifiuto() {this.menuDelagaButton.click();}
+
+    public void clickRifiuta() {
+        try{
+            By rifiutaButtonBy = By.xpath("//li[contains(text(),'Rifiuta')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(rifiutaButtonBy));
+            this.element(rifiutaButtonBy).click();
+            logger.info("Si visualizza il bottone rifiuta");
+        }catch(TimeoutException e){
+            logger.error("Non si clicca correttamente sul bottone rifiuta con errore"+e.getMessage());
+            Assert.fail("Non si clicca correttamente sul bottone rifiuta con errore"+e.getMessage());
+        }
+    }
+
+    public void clickRiufitaPopUp() {
+        try{
+            By rifiutaButtonPopUpBy = By.xpath("//button[contains(text(),'Rifiuta la delega')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(rifiutaButtonPopUpBy));
+            this.element(rifiutaButtonPopUpBy).click();
+            logger.info("Si visualizza il bottone rifiuta nel pop-up");
+        }catch(TimeoutException e){
+            logger.error("Non si clicca correttamente sul bottone rifiuta pop-up con errore"+e.getMessage());
+            Assert.fail("Non si clicca correttamente sul bottone rifiuta pop-up errore"+e.getMessage());
+        }
+    }
+
+    public void clickAnnullaPopUp() {
+        try{
+            By annullaButtonPopUpBy = By.xpath("//button[contains(text(),'Annulla')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(annullaButtonPopUpBy));
+            this.element(annullaButtonPopUpBy).click();
+            logger.info("Si visualizza il bottone rifiuta nel pop-up");
+        }catch(TimeoutException e){
+            logger.error("Non si clicca correttamente sul bottone rifiuta pop-up con errore"+e.getMessage());
+            Assert.fail("Non si clicca correttamente sul bottone rifiuta pop-up errore"+e.getMessage());
+        }
+    }
+
+    public boolean verificaEsistenzaDelega() {
+        try {
+            By nomeDelegato = By.xpath("//div[@data-testid='delegators-wrapper']//div/p[contains(text(),'Cristoforo')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
+            return true;
+        }catch (TimeoutException | NoSuchElementException e){
+            return false;
+        }
+    }
+
+    public void waitLoadDelegheSection() {
+        try{
+            By delegheSectionTitleBy = By.id("title-of-page");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegheSectionTitleBy));
+        }catch (TimeoutException e){
+            logger.error("La sezione deleghe non si visualizza correttamente con errore:"+e.getMessage());
+            Assert.fail("La sezione deleghe non si visualizza correttamente con errore"+e.getMessage());
+        }
     }
 }

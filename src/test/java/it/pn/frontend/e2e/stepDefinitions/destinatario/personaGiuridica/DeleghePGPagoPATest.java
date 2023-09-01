@@ -326,14 +326,6 @@ public class DeleghePGPagoPATest {
             Assert.fail("La delega NON è stata rifiutata correttamente");
         }
     }
-
-    @And("Si clicca sul bottone  annulla")
-    public void siCliccaSulBottoneAnnulla() {
-        logger.info("Si clicca sul bottone annulla del pop-up");
-
-       deleghePGPagoPAPage.clicKBottoneAnnulla();
-    }
-
     @And("Nella sezione Deleghe si clicca sul bottone modifica")
     public void nellaSezioneDelegheSiCliccaSulBottoneModifica() {
         logger.info("Si clicca sull'opzione modifica");
@@ -400,5 +392,18 @@ public class DeleghePGPagoPATest {
             Assert.fail("La delega ha ancora il gruppo");
         }
 
+    }
+
+    @Then("Si clicca sul bottone annulla")
+    public void siCliccaSulBottoneAnnulla() {
+        logger.info("Si clicca sul bottone annulla");
+        delegatiImpresaSection.clickAnnulla();
+    }
+
+    @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si inserisce il gruppo del delegante")
+    public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiInserisceIlGruppoDelDelegante() {
+        logger.info("Si inserisce il gruppo del delegante");
+
+        deleghePGPagoPAPage.inserireGruppoDelegante();
     }
 }

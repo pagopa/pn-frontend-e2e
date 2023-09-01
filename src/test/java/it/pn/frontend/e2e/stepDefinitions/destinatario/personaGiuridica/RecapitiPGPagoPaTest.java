@@ -45,4 +45,20 @@ public class RecapitiPGPagoPaTest {
 
         recapitiPGPage.waitMessaggioDiErrorePec();
     }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce l'email del PG {string} e clicca sul bottone avvisami via email")
+    public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPGECliccaSulBottoneAvvisamiViaEmail(String personaGiuridica) {
+        logger.info("Si inserisce l'email del PG e clicca sul bottone avvisami via email");
+        Map<String, Object> datiPG = dataPopulation.readDataPopulation(personaGiuridica+".yaml");
+        recapitiDestinatarioPage.insertEmail(datiPG.get("emailPec").toString());
+        recapitiDestinatarioPage.clickAvvisami();
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono del PG {string} e clicca sul bottone avvisami via SMS")
+    public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoDelPGECliccaSulBottoneAvvisamiViaSMS(String personaGiuridica) {
+        logger.info("Si inserisce l'email del PG e clicca sul bottone avvisami via numero telefonico");
+        Map<String, Object> datiPG = dataPopulation.readDataPopulation(personaGiuridica+".yaml");
+        recapitiDestinatarioPage.insertPhone(datiPG.get("cellulare").toString());
+        recapitiDestinatarioPage.clickAvvisamiSMS();
+    }
 }
