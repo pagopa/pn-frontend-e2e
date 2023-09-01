@@ -26,7 +26,7 @@ public class ApiKeyPAPage  extends BasePage {
     @FindBy(id = "continue-button")
     WebElement apiContinuaButton;
 
-    @FindBy(id = "api-key-succesfully-generated")
+    @FindBy(id = "go-to-api-keys")
     WebElement tornaApiButton;
 
     @FindBy(xpath = "//li[contains(@data-testid,'buttonBlock')]")
