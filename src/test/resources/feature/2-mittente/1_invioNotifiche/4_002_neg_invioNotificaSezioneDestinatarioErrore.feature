@@ -6,7 +6,7 @@ Feature: il mittente inserisce i dati  sbagliati fino alla sezione Destinatario
 
     @fase2Test2
     @TestSuite
-    @pg
+
   Scenario: il mittente inserisce i dati sbagliati fino alla sezione Destinatario
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche

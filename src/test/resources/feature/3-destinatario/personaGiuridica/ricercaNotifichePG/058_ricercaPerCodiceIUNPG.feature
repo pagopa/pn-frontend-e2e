@@ -7,7 +7,7 @@ Feature: Il persona giuridica ricerca per codice IUN
 
   @TestSuite
   @fase2Test58
-  @pg
+
   Scenario: Il persona giuridica ricerca per codice IUN
     When Nella Home page persona giuridica si clicca su Send Notifiche Digitali
     When Si visualizza correttamente la Pagina Notifiche persona giuridica

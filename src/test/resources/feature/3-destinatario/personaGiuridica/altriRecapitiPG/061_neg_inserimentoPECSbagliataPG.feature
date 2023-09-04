@@ -9,7 +9,7 @@ Feature: il persona giuridica inserisce una OTP sbagliato PEC
 
   @TestSuite
   @fase2Test61_neg
-  @pg
+
   Scenario: il persona giuridica loggato inserisce un OTP sbagliato PEC
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica

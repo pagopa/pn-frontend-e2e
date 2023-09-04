@@ -12,7 +12,7 @@ Feature: persona giuridica scarica attestazioni all'interno di una notifica
 
   @TestSuite
   @fase2Test60
-  @pg
+
 
   Scenario: persona giuridica scarica attestazione
     When Il persona giuridica clicca sulla notifica restituita "datiNotificaPG"
