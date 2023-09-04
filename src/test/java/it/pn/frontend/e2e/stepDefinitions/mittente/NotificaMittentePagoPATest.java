@@ -414,25 +414,6 @@ public class NotificaMittentePagoPATest {
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         dettaglioNotificaMittenteSection.clickIndietroButton();
     }
-    private boolean readHttpRequest() {
-        boolean urlFound = false;
-        for (NetWorkInfo netWorkInfo : netWorkInfos) {
-            //logger.info(netWorkInfo.getRequestId());
-            logger.info(netWorkInfo.getRequestUrl());
-            //logger.info(netWorkInfo.getRequestMethod());
-            logger.info(netWorkInfo.getResponseStatus());
-            //logger.info(netWorkInfo.getResponseBody());
-            String variabileAmbiente = System.getProperty("environment");
-            String urlToFind = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/token-exchange";
-            urlFound = false;
-            if (netWorkInfo.getRequestUrl().contains(urlToFind)) {
-                urlFound = true;
-                break;
-            }
-
-        }
-        return urlFound;
-    }
 
     @And("Nella pagina Piattaforma Notifiche visualizzano correttamente i filtri di ricerca")
     public void nellaPaginaPiattaformaNotificheVisualizzanoCorrettamenteIFiltriDiRicerca() {
