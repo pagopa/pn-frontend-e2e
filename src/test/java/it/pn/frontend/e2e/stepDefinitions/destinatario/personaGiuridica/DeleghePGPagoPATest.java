@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class DeleghePGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("DeleghePGPagoPATest");
@@ -50,7 +51,8 @@ public class DeleghePGPagoPATest {
     @And("Si visualizza correttamente la pagina Deleghe sezione Deleghe dell impresa")
     public void siVisualizzaCorrettamenteLaPaginaDelegheSezioneDelegheDellImpresa() {
         logger.info("Si controlla che la sezione Deleghe dell'impresa");
-
+        delegatiImpresaSection.aggionamentoPagina();
+        deleghePGPagoPAPage.clickDelegatiImpresa();
         delegatiImpresaSection.waitLoadDelegatiImpresaPage();
 
     }
@@ -195,7 +197,7 @@ public class DeleghePGPagoPATest {
     public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiControllaCheVengaRestituitaLaDelegaConIlCodiceFiscaleInserito(String dpFile) {
         this.datiPersonaFisica = this.dataPopulation.readDataPopulation(dpFile+".yaml");
 
-        if (deleghePGPagoPAPage.controlloDelegaRestituita(this.datiPersonaFisica.get("name").toString(),this.datiPersonaFisica.get("familyName").toString())){
+        if (deleghePGPagoPAPage.controlloDelegaRestituita(this.datiPersonaFisica.get("ragioneSociale").toString())){
             this.logger.info("La delega restituita è corretta");
         }else {
             this.logger.error("La delega restituita NON è corretta");

@@ -152,8 +152,8 @@ public class DeleghePGPagoPAPage extends BasePage {
         this.filtraButton.click();
     }
 
-    public boolean controlloDelegaRestituita(String nome, String cognome) {
-          By delegaBy = By.xpath("//p[contains(text(),'"+nome+" "+cognome+"')]");
+    public boolean controlloDelegaRestituita(String ragioneSociale) {
+          By delegaBy = By.xpath("//p[contains(text(),'"+ragioneSociale+"')]");
           this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaBy));
           return this.elements(delegaBy).size() == 1;
 

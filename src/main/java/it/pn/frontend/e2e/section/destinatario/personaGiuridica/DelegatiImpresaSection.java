@@ -83,7 +83,13 @@ public class DelegatiImpresaSection extends BasePage {
             By menuDelega = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
             WebElement menuDelegaWebElement = this.driver.findElement(menuDelega);
-           this.js().executeScript("arguments[0].click()",menuDelegaWebElement);
+            if (menuDelegaWebElement.isDisplayed()){
+                this.js().executeScript("arguments[0].click()",menuDelegaWebElement);
+            }else {
+                this.js().executeScript("arguments[0].scrollIntoView(true);",menuDelegaWebElement);
+                this.js().executeScript("arguments[0].click()",menuDelegaWebElement);
+            }
+
             logger.info("cliccato correttamente su menu delega button");
         }catch (TimeoutException e){
             logger.error("Menu delega button NON trovata con errore: "+e.getMessage());

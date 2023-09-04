@@ -13,7 +13,7 @@ import java.util.List;
 public class ITuoiRecapitiPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("ITuoiRecapitiPage");
 
-    @FindBy(id = "title-of-page")
+    @FindBy(xpath = "//div[@data-testid='sideMenuItem-I tuoi recapiti']")
     WebElement iTuoiRecapitiButton;
 
     @FindBy(id = "email")
@@ -45,7 +45,7 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public void ITuoiRecapitiButtonClick() {
-        this.iTuoiRecapitiButton.click();
+        this.js().executeScript("arguments[0].click()",this.iTuoiRecapitiButton);
     }
 
     public void waitLoadITuoiRecapitiPage() {
