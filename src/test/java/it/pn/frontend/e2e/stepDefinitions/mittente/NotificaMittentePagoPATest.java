@@ -424,7 +424,6 @@ public class NotificaMittentePagoPATest {
             //logger.info(netWorkInfo.getResponseBody());
             String variabileAmbiente = System.getProperty("environment");
             String urlToFind = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/token-exchange";
-            urlFound = false;
             if (netWorkInfo.getRequestUrl().contains(urlToFind)) {
                 urlFound = true;
                 break;
