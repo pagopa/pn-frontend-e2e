@@ -20,7 +20,7 @@ public class DeleghePage extends BasePage {
     @FindBy(xpath = "//li[@data-testid = 'menuItem-revokeDelegate']")
     WebElement revocaButton;
 
-    @FindBy(xpath = "//li[contains(@tabindex,'0')]")
+    @FindBy(xpath = "//li[data-testid='menuItem-showCode']")
     WebElement mostraCodiceOption;
 
     @FindBy(xpath = "//li[contains(@data-testid,'menuItem-revokeDelegate')]")
