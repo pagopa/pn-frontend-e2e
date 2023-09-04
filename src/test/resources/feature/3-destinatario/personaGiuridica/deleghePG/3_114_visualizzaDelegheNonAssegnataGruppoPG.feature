@@ -8,13 +8,12 @@ Feature: Il persona giuridica visuallizza le deleghe
     And Si visualizza correttamente la Pagina Notifiche persona giuridica
 
   @TestSuite
-  @fase2Test114_1
-  @pg
-  Scenario: Il persona giuridica fa una ricerca delle deleghe
+  @fase2Test114
+  Scenario: Il persona giuridica visuallizza le deleghe
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
+    And Nella pagina Deleghe si clicca su Delegati dall impresa
+    And Si visualizza correttamente la pagina Deleghe sezione Deleghe dell impresa
+    And Nella pagina Deleghe si clicca su Deleghe a carico dell impresa
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
-    And Nella pagina Deleghe sezione Deleghe a Carico dell impresa si inserisce il codice fiscale del delegante "personaFisica"
-    And Nella pagina Deleghe sezione Deleghe a Carico dell impresa si clicca su bottone Filtra
-    And Nella pagina Deleghe sezione Deleghe a Carico dell impresa si controlla che venga restituita la delega con il codice fiscale inserito "personaFisica"
-    And Logout da portale persona giuridica
+    And Si vede correttamente l'elenco delle deleghe

@@ -1,4 +1,4 @@
-Feature: Il persona giuridica visualizza il codice di una delega
+Feature: Il persona giuridica aggiunge una nuova delga inserendo una data errata
 
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
@@ -8,15 +8,14 @@ Feature: Il persona giuridica visualizza il codice di una delega
     And Si visualizza correttamente la Pagina Notifiche persona giuridica
 
   @TestSuite
-  @fase2Test116
-  @pg
-  Scenario: Il persona giuridica visualizza il codice di una delega
+  @fase2Test113_neg
+  Scenario: Il persona giuridica aggiunge una nuova delga inserendo una data errata
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Nella pagina Deleghe si clicca su Delegati dall impresa
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe dell impresa
-    And Nella pagina Deleghe sezione Deleghe dell impresa  si verifica sia presente una delega
-    And Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega "nuovaDelegaPG"
-    And Nella pagina Deleghe sezione Deleghe dell impresa si sceglie l'opzione mostra codice
-    Then Si clicca sul bottone chiudi
+    And Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega
+    And Si visualizza la sezione Aggiungi Delega persona giuridica
+    And Nella sezione Le Tue Deleghe inserire una data con formato errato e andecedente alla data
+    And Nella sezione Le Tue Deleghe si visualizza il messaggio di errore data errata
     And Logout da portale persona giuridica
