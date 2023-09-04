@@ -637,7 +637,7 @@ public class NotificaMittentePagoPATest {
     public void siVerificaCheLInvioDellaPecSiaInCorso() {
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
-        dettaglioNotificaMittenteSection.verificaInviPECInCorso();
+        dettaglioNotificaMittenteSection.verificaInvioPECInCorso();
     }
 
     @And("Verifica dello stato della notifica inviata tramite pec come {string}")
