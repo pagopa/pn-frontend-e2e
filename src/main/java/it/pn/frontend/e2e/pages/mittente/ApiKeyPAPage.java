@@ -20,10 +20,13 @@ public class ApiKeyPAPage  extends BasePage {
     @FindBy(xpath = "//input[contains(@id,'name')]")
     WebElement apiKeyNameInput;
 
-    @FindBy(xpath = "//button[contains(text(),'Continua')]")
+    @FindBy(xpath = "//li[@data-testid='buttonViewGroupsId']")
+    WebElement visualizzaIdGruppo;
+
+    @FindBy(id = "continue-button")
     WebElement apiContinuaButton;
 
-    @FindBy(xpath = "//button[contains(text(),'Torna a API Key')]")
+    @FindBy(id = "api-key-succesfully-generated")
     WebElement tornaApiButton;
 
     @FindBy(xpath = "//li[contains(@data-testid,'buttonBlock')]")
@@ -50,13 +53,16 @@ public class ApiKeyPAPage  extends BasePage {
     @FindBy(xpath = "//button[@data-testid='close-modal-button']")
     WebElement closeButtonPopUpVisualizza;
 
+    @FindBy(xpath = "//button[@data-testid='close-modal-button']")
+    WebElement chiudiPopUp;
+
     public ApiKeyPAPage(WebDriver driver) {
         super(driver);
     }
 
     public void waitLoadApikeyPage() {
         try {
-            By apiKeyTitle = By.xpath("//h4[contains(text(),'API Key')]");
+            By apiKeyTitle = By.id("title-of-page");
             By generaApiKeyButtonBy = By.xpath("//button[contains(@data-testid,'generateApiKey')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(apiKeyTitle));
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(generaApiKeyButtonBy));
@@ -81,7 +87,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void siVisualizzaCorrettamenteConfermaPage() {
         try{
-            By confirmationApiPageTitle = By.xpath("//h4[contains(text(),'API Key generata con successo!')]");
+            By confirmationApiPageTitle = By.id("go-to-api-keys");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(confirmationApiPageTitle));
             logger.info("Api Key ConfirmationPage caricata");
         }catch (TimeoutException e){
@@ -96,7 +102,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void siVisualizzaNuovaApiAttiva(String nomeApiKey) {
         try{
-            By statoAttivoField = By.xpath("//span[contains(text(),'Attiva')]");
+            By statoAttivoField = By.xpath("//div[@data-testid='statusChip-Attiva']");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoAttivoField));
             By apiNameAttivoField = By.xpath("//p[contains(text(),'"+nomeApiKey+"')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(apiNameAttivoField));
@@ -108,16 +114,10 @@ public class ApiKeyPAPage  extends BasePage {
     }
 
     public void clickMenuButton() {
-        /*By attivaButtonBy = By.xpath("//div[@role='button' and @data-testid='statusChip-Bloccata']");
-        List<WebElement> attivaButtonList = this.elements(attivaButtonBy);
-
-        if (attivaButtonList.size() == 0) {
-            logger.error("nessun attiva button");
-            Assert.fail("nessun attiva button");
-        }*/
 
         By menuAttivaButtonBy = By.xpath("//td[div/div/div/div[@role='button' and @data-testid='statusChip-Attiva']]/following-sibling::td//button[@type='button' and @data-testid='contextMenuButton' and @aria-label='Opzioni su API Key']");
         List<WebElement> menuAttivaButton = this.elements(menuAttivaButtonBy);
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuAttivaButtonBy));
 
         if (menuAttivaButton.size() == 0) {
             logger.error("nessun menu attiva button");
@@ -146,7 +146,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void notificaSelezionataStatoBloccata() {
         try {
-            By statoNotificaBloccata = By.xpath("//span[contains(text(),'Bloccata')]");
+            By statoNotificaBloccata = By.xpath("//div[@data-testid='statusChip-Bloccata’]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBloccata));
             logger.info("La notifica è in stato bloccata");
         } catch (TimeoutException e) {
@@ -196,7 +196,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void siVisualizzaNotificaSelezionataRuotata() {
         try {
-            By popUpRuotataBy = By.xpath("//span[contains(text(),'Ruotata')]");
+            By popUpRuotataBy = By.xpath("//div[@data-testid='statusChip-Ruotata’]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popUpRuotataBy));
             logger.info("Si visualizza correttamente il popup ruota");
         } catch (TimeoutException e) {
@@ -224,46 +224,66 @@ public class ApiKeyPAPage  extends BasePage {
     }
 
     public boolean siVisualizzaApiKeyConTesto() {
-        By apiKeyBy = By.xpath("//td[div/div[contains(@class,'MuiBox-root css-4l7hgf')]]");
-        List<WebElement> apiKeyList = this.elements(apiKeyBy);
-        for (int i = 0; i < apiKeyList.size(); i++) {
-            if (apiKeyList.get(i).getText() == null){
-                return false;
+        try {
+            By apiKeyBy = By.xpath("//td[div/div[contains(@class,'MuiBox-root css-4l7hgf')]]");
+            List<WebElement> apiKeyList = this.elements(apiKeyBy);
+            for (WebElement webElement : apiKeyList) {
+                this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(webElement));
+                if (webElement.getText() == null) {
+                    return false;
+                }
             }
+            return true;
+        }catch (TimeoutException | NoSuchElementException e){
+            return false;
         }
-        return true;
     }
 
     public boolean siVisualizzaNomeEDataConTesto() {
-        By dataCellBy = By.xpath("//td[div/p[contains(@class,'MuiTypography-root MuiTypography-body1')]]");
-        List<WebElement> dataCellList = this.elements(dataCellBy);
-        for (int i=0; i < dataCellList.size(); i++){
-            if (dataCellList.get(i).getText() == null){
-                return false;
+        try {
+            By dataCellBy = By.xpath("//td[div/p[contains(@class,'MuiTypography-root MuiTypography-body1')]]");
+            List<WebElement> dataCellList = this.elements(dataCellBy);
+            for (WebElement webElement : dataCellList) {
+                this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(webElement));
+                if (webElement.getText() == null) {
+                    return false;
+                }
             }
+            return true;
+        }catch (TimeoutException | NoSuchElementException e){
+            return false;
         }
-        return true;
     }
     public boolean siVisualizzaGruppoConTesto() {
-        By gruppoCellBy = By.xpath("//td[div/div/div/div/div/span[contains(@class,'css-t63gu0')]]");
-        List<WebElement> gruppoCellList = this.elements(gruppoCellBy);
-        for (int i = 0; i < gruppoCellList.size(); i++){
-            if (gruppoCellList.get(i).getText() == null){
-                return false;
+        try {
+            By gruppoCellBy = By.xpath("//td[div/div/div/div/div/span[contains(@class,'css-t63gu0')]]");
+            List<WebElement> gruppoCellList = this.elements(gruppoCellBy);
+            for (WebElement webElement : gruppoCellList) {
+                this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(webElement));
+                if (webElement.getText() == null) {
+                    return false;
+                }
             }
+            return true;
+        }catch (TimeoutException | NoSuchElementException e){
+            return false;
         }
-        return true;
     }
 
     public boolean siVisualizzaStatoConTesto() {
-        By statoCellBy = By.xpath("//td[div/div/div/div[@role='button' ]]");
-        List<WebElement> statoCells = this.elements(statoCellBy);
-        for (int i = 0; i < statoCells.size(); i++) {
-            if (statoCells.get(i).getText() == null) {
-                return false;
+        try {
+            By statoCellBy = By.xpath("//td[div/div/div/div[@role='button']]");
+            List<WebElement> statoCells = this.elements(statoCellBy);
+            for (WebElement statoCell : statoCells) {
+                this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(statoCell));
+                if (statoCell.getText() == null) {
+                    return false;
+                }
             }
+            return true;
+        }catch (TimeoutException | NoSuchElementException e){
+            return false;
         }
-        return true;
     }
 
     public boolean siVisualizzaMenuApiKey() {
@@ -274,7 +294,7 @@ public class ApiKeyPAPage  extends BasePage {
     }
 
     public void mouseHover() {
-        By statoCellBy = By.xpath("//td[div/div/div/div[@role='button' ]]");
+        By statoCellBy = By.id("notification-status-tooltip");
         WebElement statoCell = this.element(statoCellBy);
         Actions action = new Actions(this.driver);
         action.moveToElement(statoCell).perform();
@@ -282,7 +302,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void waitLoadMessaggioData() {
         try {
-            By messaggioBy = By.xpath("//div[contains(@id,'mui-16')]");
+            By messaggioBy = By.id("mui-16");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messaggioBy));
             logger.info("Il messaggio con la data di creazione si vede correttamente");
         }catch (TimeoutException e){
@@ -340,6 +360,29 @@ public class ApiKeyPAPage  extends BasePage {
     }
 
     public void chiudiPopUpVisualizza() {
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.closeButtonPopUpVisualizza));
         this.closeButtonPopUpVisualizza.click();
     }
+
+    public void clickVisualizzaIdApiKey() {
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.visualizzaIdGruppo));
+        this.visualizzaIdGruppo.click();
+    }
+
+    public void popUpGruppiAssociati() {
+        try{
+            By popUpGruppiAssociatiBy = By.xpath("//h2[contains(text(),'Gruppi associati alla API')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popUpGruppiAssociatiBy));
+            logger.info("Si visualizza correttamente il popup gruppi associati");
+        }catch (TimeoutException e){
+            logger.error("Non si visualizza correttamente il popup gruppi associati con errore:"+e.getMessage());
+            Assert.fail("Non si visualizza correttamente il popup gruppi associati con errore:"+e.getMessage());
+        }
+    }
+
+    public void chiudiPopUp() {
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.chiudiPopUp));
+        this.chiudiPopUp.click();
+    }
+
 }

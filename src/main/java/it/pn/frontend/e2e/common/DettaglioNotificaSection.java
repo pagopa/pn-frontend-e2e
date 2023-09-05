@@ -1,6 +1,5 @@
-package it.pn.frontend.e2e.section.destinatario.personaFisica;
+package it.pn.frontend.e2e.common;
 
-import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -13,14 +12,18 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class DettaglioNotificaFRSection extends BasePage {
-
-    private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaPFSection");
+public class DettaglioNotificaSection extends BasePage{
+    private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
 
     @FindBy(xpath = "//button[contains(text(),'Attestazione opponibile a terzi: ')]")
     List<WebElement> attestazioniFile;
 
-    public DettaglioNotificaFRSection(WebDriver driver) {
+    @FindBy(xpath = "//button[contains(text(),'Vedi più dettagli')]")
+    WebElement vediDettagliButton;
+
+    @FindBy (xpath = "//li[contains(@class,'MuiTimelineItem-root MuiTimelineItem-positionRight MuiTimelineItem-missingOppositeContent css-1y9sx96')]")
+    List<WebElement> tuttiStatiNotificaList;
+    public DettaglioNotificaSection(WebDriver driver) {
         super(driver);
     }
 
@@ -48,8 +51,18 @@ public class DettaglioNotificaFRSection extends BasePage {
         attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
     }
 
-
     public int getLinkAttestazioniOpponubili() {
         return attestazioniFile.size();
     }
+
+    public void selezioneVediDettaglioButton() {
+        vediDettagliButton.click();
+        if (tuttiStatiNotificaList.size() >= 1){
+            logger.info("Tutti gli stati sono stati visualizzati correttamente");
+        } else {
+            logger.error("Tutti i stati non sono stati visualizzati correttamente");
+            Assert.fail("Tutti i stati non sono stati visualizzati correttamente");
+        }
+    }
+
 }

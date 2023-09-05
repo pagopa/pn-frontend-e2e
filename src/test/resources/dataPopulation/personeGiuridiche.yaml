@@ -1,0 +1,46 @@
+name:
+  - "LucioAnneoSeneca"
+  - "Ada"
+  - "Marco"
+  - "Cleopatra Tea"
+codiceFiscale:
+  - "20517490320"
+  - "LVLDAA85T50G702B"
+  - "PLOMRC01P30L736Y"
+  - "FLPCPT69A65Z336P"
+fiscalNumber:
+  - "TINIT-DRCGNN12A46A326K"
+  - "TINIT-LVLDAA85T50G702B"
+  - "TINIT-PLOMRC01P30L736Y"
+  - "TINIT-FLPCPT69A65Z336P"
+indirizzo:
+  - "VIA VERDI"
+  - "VIA TORINO"
+  - "VIA MEDA"
+  - "VIA EUROPA"
+numeroCivico:
+  - "10"
+  - "15"
+  - "9"
+  - "6"
+localita:
+  - "MILANO"
+  - "CINISELLO BALSAMO"
+  - "SEREGNO"
+  - "TORINO"
+comune:
+  - "MILANO"
+  - "CINISELLO BALSAMO"
+  - "SEREGNO"
+  - "TORINO"
+provincia:
+  - "MI"
+  - "MI"
+  - "MB"
+  - "TO"
+codicepostale:
+  - "20122"
+  - "20092"
+  - "20831"
+  - "10024"
+stato: "ITALIA"

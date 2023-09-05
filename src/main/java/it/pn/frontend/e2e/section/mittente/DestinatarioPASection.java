@@ -30,7 +30,7 @@ public class DestinatarioPASection extends BasePage {
     @FindBy(xpath = "//input[contains(@id,'taxId')]")
     WebElement codiceFiscaleDestinatarioTextField;
 
-    @FindBy(xpath = "//input[contains(@name,'showPhysicalAddress')]")
+    @FindBy(xpath = "//div[@data-testid='PhysicalAddressCheckbox']")
     WebElement aggiungiUnIndirizzoFisicoCheckBox;
 
     @FindBy(xpath = "//label[contains(@id,'address-label')]/following-sibling::div/input")
@@ -56,6 +56,24 @@ public class DestinatarioPASection extends BasePage {
 
     @FindBy(xpath = "//button[contains(@data-testid,'add-recipient')]")
     WebElement aggiungiDestinatarioButton;
+
+    @FindBy(xpath = "//div[@data-testid='DigitalDomicileCheckbox']")
+    WebElement checkBoxAggiungiDomicilioDigitale;
+
+    @FindBy(xpath = "//input[@id='recipients[0].digitalDomicile']")
+    WebElement domicilioDigitaleTextField;
+
+    @FindBy(xpath = "//input[@id='recipients[0].firstName']")
+    WebElement ragioneSocialeTextField;
+
+    @FindBy(xpath = "//input[@id='recipients[0].taxId']")
+    WebElement partitaIvaTextField;
+
+    @FindBy(xpath = "//button[@data-testid='previous-step']")
+    WebElement informazioniPreliminariButton;
+
+    @FindBy(xpath = "//input[@value='PG']")
+    WebElement personaGiuridicaRadioButton;
 
     public DestinatarioPASection(WebDriver driver) {
         super(driver);
@@ -219,4 +237,55 @@ public class DestinatarioPASection extends BasePage {
         }
 
     }
+
+    public void inserimentoMultiDestinatarioPG(Map<String, Object> personeGiuridiche, int nDestinatari) {
+        for (int i = 0; i < nDestinatari; i++) {
+            inserimentoInformazioniPreliminariPG(personeGiuridiche,i);
+            inserimentoInformazioniAggiuntive(personeGiuridiche,i);
+            if (i != nDestinatari-1){
+                selezionareAggiungiDestinatarioButton();
+            }
+        }
+    }
+
+    private void inserimentoInformazioniPreliminariPG(Map<String, Object> personeGiuridiche, int i) {
+        clickRadioButtonPersonaGiuridica(i+1);
+        String nomeDestinatario = ricercaInformazione(personeGiuridiche.get("name").toString().split(","), i);
+        inserireInfoMultiDestinatario("//input[contains(@id,'firstName')]",nomeDestinatario);
+        String cfDestinatario = ricercaInformazione(personeGiuridiche.get("codiceFiscale").toString().split(","), i);
+        cfDestinatario = cfDestinatario.replace(" ","");
+        inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]",cfDestinatario);
+        selezionaAggiungiUnIndirizzoFisicoMulti();
+    }
+
+    private void clickRadioButtonPersonaGiuridica(int posizione) {
+    By radioButtonPgBy = By.xpath("//input[@name='recipients["+posizione+"].recipientType' and @value ='PG']");
+    this.element(radioButtonPgBy).click();
+    }
+    public void checkBoxAggiungiDomicilio() {
+        this.checkBoxAggiungiDomicilioDigitale.click();
+    }
+    public void insertDomicilioDigitale(String emailPec) {
+        this.domicilioDigitaleTextField.sendKeys(emailPec);
+    }
+    public void insertDomicilioDigitaleErrato(String emailPec) {
+        this.domicilioDigitaleTextField.sendKeys(emailPec);
+    }
+
+    public void insertRagioneSociale(String ragioneSociale) {
+        this.ragioneSocialeTextField.sendKeys(ragioneSociale);
+    }
+
+    public void insertpartitaIva(String codiceFiscale) {
+        this.partitaIvaTextField.sendKeys(codiceFiscale);
+    }
+
+    public void clickSuTornaInformazioniPreliminari() {
+        this.informazioniPreliminariButton.click();
+    }
+
+    public void clickRadioButtonPersonaGiuridica() {
+        this.personaGiuridicaRadioButton.click();
+    }
+
 }
