@@ -1,7 +1,7 @@
 Feature: Il delegato persona giuridica modifica una delega non assegnandoli un gruppo
   Background: Login delegato persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
-    When Login "delegatoPG" portale persona giuridica tramite request method
+    When Login "delegatoPG" portale persona fisica tramite request method
     Then Home page persona giuridica viene visualizzata correttamente
     And Nella Home page persona giuridica si clicca su Send Notifiche Digitali
     And Si visualizza correttamente la Pagina Notifiche persona giuridica
@@ -14,5 +14,5 @@ Feature: Il delegato persona giuridica modifica una delega non assegnandoli un g
     And Nella sezione Deleghe si clicca sul bottone modifica
     And Si clicca sul bottone non assegna a un gruppo
     And Si clicca su conferma
-    And Si controlla che la delega a lo stato Attiva "personaGiuridica"
+    And Si controlla che la delega non abbia più il gruppo
     And Logout da portale persona giuridica
