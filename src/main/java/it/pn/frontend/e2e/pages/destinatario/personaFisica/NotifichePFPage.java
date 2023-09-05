@@ -27,19 +27,19 @@ public class NotifichePFPage extends BasePage {
     @FindBy(id = "endDate")
     WebElement dataFineField;
 
-    @FindBy(xpath = "//div[contains(@data-testid,'sideMenuItem-Notifiche')]")
+    @FindBy(xpath = "//div[@data-testid='sideMenuItem-Notifiche']")
     WebElement notificheDeButton;
 
-    @FindBy(xpath = "//div[contains(@data-testid,'sideMenuItem-Cristoforo Colombo')]")
+    @FindBy(xpath = "//div[@data-testid='sideMenuItem-Cristoforo Colombo']")
     WebElement nomeDeleganteButton;
 
-    @FindBy(xpath = "//button[contains(@aria-label,'Vai alla pagina successiva')]")
+    @FindBy(id = "next")
     WebElement paginaSuccessivaButton;
 
-    @FindBy(xpath = "//button[contains(@aria-label,'pagina 3')]")
+    @FindBy(id = "page3")
     WebElement numeroPaginaTreButton;
 
-    @FindBy(xpath = "//button[contains(@data-testid,'rows-per-page')]")
+    @FindBy(xpath = "//button[@data-testid='rows-per-page']")
     WebElement numeroPagineButton;
 
     public NotifichePFPage(WebDriver driver) {
@@ -100,16 +100,8 @@ public class NotifichePFPage extends BasePage {
 
     public boolean getListData() {
         By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-c3sxw2')]");
-        attesaCaricamentoPagina();
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
+        this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
         return this.elements(dataListBy).size() != 0;
-    }
-    private void attesaCaricamentoPagina() {
-        try {                                   // Questo sleep l'abbiamo messo perché
-            TimeUnit.SECONDS.sleep(5);   // il sito ci mette un pò a caricarsi
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public boolean verificaEsistenzaEPassaggioPagina() {
