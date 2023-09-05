@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
@@ -12,13 +13,17 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class InserimentoOTPSbagliato {
     private static final Logger logger = LoggerFactory.getLogger("InserimentoOTPSbagliato");
     private final WebDriver driver = Hooks.driver;
 
     private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
+
+    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti")
     public void ITuoiRecapitiButtonClick(){
@@ -57,8 +62,28 @@ public class InserimentoOTPSbagliato {
     @And("Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP() {
         logger.info("Si visualizza correttamente il pop-up di inserimento OTP");
-
+        String url = "https://webapi.test.notifichedigitali.it/address-book/v1/digital-address";
         recapitiDestinatarioPage.waitLoadPopUp();
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        if (verificaChiamataEmail(url)){
+            logger.info("La chiamata per inviare l'otp è stata effettuata");
+        }else {
+            logger.error("La chiamata per inviare l'otp NON è stata effettuata");
+            Assert.fail("La chiamata per inviare l'otp NON è stata effettuata");
+        }
+    }
+
+    private boolean verificaChiamataEmail(String url) {
+        for (NetWorkInfo info: netWorkInfos) {
+            if (info.getRequestUrl().contains(url) && info.getResponseStatus().equals("200")){
+                return true;
+            }
+        }
+        return false;
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato {string}")
