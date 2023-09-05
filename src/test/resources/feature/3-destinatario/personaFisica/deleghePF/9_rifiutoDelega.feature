@@ -5,8 +5,8 @@ Feature: Il delgato persona fisica rifiuta la delega che gli è stata inviata
     When Login "delegatoPF" portale persona fisica tramite request method
     Then Home page persona fisica viene visualizzata correttamente
 
-
-
+  @TestSuite
+  @fase2Test47
   Scenario: Il delegato persona fisica rifiuta la delega che gli è stata inviata
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico
