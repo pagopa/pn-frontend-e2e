@@ -368,7 +368,7 @@ public class NotificaMittentePagoPATest {
             }
             piattaformaNotifichePage.waitLoadRefreshPage();
             String codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
-            if (codiceIUN != null) {
+            if (!codiceIUN.equals("")) {
                 if (!codiceIUN.equals(coidiceIUNOld)) {
                     this.datiNotifica.put("codiceIUN", codiceIUN);
                     dataPopulation.writeDataPopulation("datiNotifica.yaml", this.datiNotifica);
