@@ -19,7 +19,15 @@ public class BasePage {
         this.driver = driver;
         PageFactory.initElements(this.driver,this);
     }
-
+    protected void scrollToElementClickAndInsertText(WebElement element, String text){
+        if(!element.isDisplayed()){
+            this.js().executeScript("arguments[0].scrollIntoView(true);",element);
+        }
+        element.click();
+        if(text != null){
+            element.sendKeys(text);
+        }
+    }
     protected WebDriverWait getWebDriverWait(long timeout){
         return new WebDriverWait(this.driver, Duration.ofSeconds(timeout), Duration.ofMillis(500));
     }
@@ -43,13 +51,6 @@ public class BasePage {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-    }
-    protected void vaiFondoPagina(){
-        this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
-    }
-
-    protected void swipeToElement(WebElement element){
-        js().executeScript("arguments[0].scrollIntoView(true);",element);
     }
     public void vaiInFondoAllaPagina() {
         this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");

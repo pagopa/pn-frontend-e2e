@@ -146,7 +146,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void notificaSelezionataStatoBloccata() {
         try {
-            By statoNotificaBloccata = By.xpath("//div[@data-testid=\"statusChip-Bloccata\"]");
+            By statoNotificaBloccata = By.xpath("//div[@data-testid='statusChip-Bloccata']");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBloccata));
             logger.info("La notifica è in stato bloccata");
         } catch (TimeoutException e) {
@@ -196,7 +196,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void siVisualizzaNotificaSelezionataRuotata() {
         try {
-            By popUpRuotataBy = By.xpath("//div[@data-testid=\"statusChip-Ruotata\"]");
+            By popUpRuotataBy = By.xpath("//div[@data-testid='statusChip-Ruotata']");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popUpRuotataBy));
             logger.info("Si visualizza correttamente il popup ruota");
         } catch (TimeoutException e) {
@@ -224,46 +224,66 @@ public class ApiKeyPAPage  extends BasePage {
     }
 
     public boolean siVisualizzaApiKeyConTesto() {
-        By apiKeyBy = By.xpath("//td[div/div[contains(@class,'MuiBox-root css-4l7hgf')]]");
-        List<WebElement> apiKeyList = this.elements(apiKeyBy);
-        for (WebElement webElement : apiKeyList) {
-            if (webElement.getText() == null) {
-                return false;
+        try {
+            By apiKeyBy = By.xpath("//td[div/div[contains(@class,'MuiBox-root css-4l7hgf')]]");
+            List<WebElement> apiKeyList = this.elements(apiKeyBy);
+            for (WebElement webElement : apiKeyList) {
+                this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(webElement));
+                if (webElement.getText() == null) {
+                    return false;
+                }
             }
+            return true;
+        }catch (TimeoutException | NoSuchElementException e){
+            return false;
         }
-        return true;
     }
 
     public boolean siVisualizzaNomeEDataConTesto() {
-        By dataCellBy = By.xpath("//td[div/p[contains(@class,'MuiTypography-root MuiTypography-body1')]]");
-        List<WebElement> dataCellList = this.elements(dataCellBy);
-        for (WebElement webElement : dataCellList) {
-            if (webElement.getText() == null) {
-                return false;
+        try {
+            By dataCellBy = By.xpath("//td[div/p[contains(@class,'MuiTypography-root MuiTypography-body1')]]");
+            List<WebElement> dataCellList = this.elements(dataCellBy);
+            for (WebElement webElement : dataCellList) {
+                this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(webElement));
+                if (webElement.getText() == null) {
+                    return false;
+                }
             }
+            return true;
+        }catch (TimeoutException | NoSuchElementException e){
+            return false;
         }
-        return true;
     }
     public boolean siVisualizzaGruppoConTesto() {
-        By gruppoCellBy = By.xpath("//td[div/div/div/div/div/span[contains(@class,'css-t63gu0')]]");
-        List<WebElement> gruppoCellList = this.elements(gruppoCellBy);
-        for (WebElement webElement : gruppoCellList) {
-            if (webElement.getText() == null) {
-                return false;
+        try {
+            By gruppoCellBy = By.xpath("//td[div/div/div/div/div/span[contains(@class,'css-t63gu0')]]");
+            List<WebElement> gruppoCellList = this.elements(gruppoCellBy);
+            for (WebElement webElement : gruppoCellList) {
+                this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(webElement));
+                if (webElement.getText() == null) {
+                    return false;
+                }
             }
+            return true;
+        }catch (TimeoutException | NoSuchElementException e){
+            return false;
         }
-        return true;
     }
 
     public boolean siVisualizzaStatoConTesto() {
-        By statoCellBy = By.xpath("//td[div/div/div/div[@role='button' ]]");
-        List<WebElement> statoCells = this.elements(statoCellBy);
-        for (WebElement statoCell : statoCells) {
-            if (statoCell.getText() == null) {
-                return false;
+        try {
+            By statoCellBy = By.xpath("//td[div/div/div/div[@role='button']]");
+            List<WebElement> statoCells = this.elements(statoCellBy);
+            for (WebElement statoCell : statoCells) {
+                this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(statoCell));
+                if (statoCell.getText() == null) {
+                    return false;
+                }
             }
+            return true;
+        }catch (TimeoutException | NoSuchElementException e){
+            return false;
         }
-        return true;
     }
 
     public boolean siVisualizzaMenuApiKey() {
@@ -274,7 +294,7 @@ public class ApiKeyPAPage  extends BasePage {
     }
 
     public void mouseHover() {
-        By statoCellBy = By.xpath("//td[div/div/div/div[@role='button' ]]");
+        By statoCellBy = By.id("notification-status-tooltip");
         WebElement statoCell = this.element(statoCellBy);
         Actions action = new Actions(this.driver);
         action.moveToElement(statoCell).perform();
@@ -282,7 +302,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void waitLoadMessaggioData() {
         try {
-            By messaggioBy = By.xpath("//div[contains(@id,'mui-16')]");
+            By messaggioBy = By.id("mui-16");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messaggioBy));
             logger.info("Il messaggio con la data di creazione si vede correttamente");
         }catch (TimeoutException e){

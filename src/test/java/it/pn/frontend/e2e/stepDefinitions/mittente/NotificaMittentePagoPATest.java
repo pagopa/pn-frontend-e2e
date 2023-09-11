@@ -368,7 +368,7 @@ public class NotificaMittentePagoPATest {
             }
             piattaformaNotifichePage.waitLoadRefreshPage();
             String codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
-            if (codiceIUN != null) {
+            if (!codiceIUN.equals("")) {
                 if (!codiceIUN.equals(coidiceIUNOld)) {
                     this.datiNotifica.put("codiceIUN", codiceIUN);
                     dataPopulation.writeDataPopulation("datiNotifica.yaml", this.datiNotifica);
@@ -413,24 +413,6 @@ public class NotificaMittentePagoPATest {
     public void siCliccaSulBottoneIndietro() {
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         dettaglioNotificaMittenteSection.clickIndietroButton();
-    }
-    private boolean readHttpRequest() {
-        boolean urlFound = false;
-        for (NetWorkInfo netWorkInfo : netWorkInfos) {
-            //logger.info(netWorkInfo.getRequestId());
-            logger.info(netWorkInfo.getRequestUrl());
-            //logger.info(netWorkInfo.getRequestMethod());
-            logger.info(netWorkInfo.getResponseStatus());
-            //logger.info(netWorkInfo.getResponseBody());
-            String variabileAmbiente = System.getProperty("environment");
-            String urlToFind = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/token-exchange";
-            if (netWorkInfo.getRequestUrl().contains(urlToFind)) {
-                urlFound = true;
-                break;
-            }
-
-        }
-        return urlFound;
     }
 
     @And("Nella pagina Piattaforma Notifiche visualizzano correttamente i filtri di ricerca")
@@ -604,14 +586,14 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.waitMessaggioErrore();
     }
 
-    @And("Si verifica che la notifica sia nello stato {string}")
-    public void siVerificaCheLaNotificaSiaNelloStato(String statoNotifca) {
+    @And("Si verifica che la notifica sia nello stato avanzato")
+    public void siVerificaCheLaNotificaSiaNelloStato() {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage((this.driver));
 
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         boolean notificaTrovata = false;
         for (int i = 0; i < 10; i++) {
-            int numeroNotifiche = piattaformaNotifichePage.getListStato(statoNotifca);
+            int numeroNotifiche = piattaformaNotifichePage.getListStato("Depositata");
             if (numeroNotifiche == 0) {
                 try {
                     TimeUnit.SECONDS.sleep(10);
@@ -636,7 +618,7 @@ public class NotificaMittentePagoPATest {
     public void siVerificaCheLInvioDellaPecSiaInCorso() {
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
-        dettaglioNotificaMittenteSection.verificaInviPECInCorso();
+        dettaglioNotificaMittenteSection.verificaInvioPECInCorso();
     }
 
     @And("Verifica dello stato della notifica inviata tramite pec come {string}")
