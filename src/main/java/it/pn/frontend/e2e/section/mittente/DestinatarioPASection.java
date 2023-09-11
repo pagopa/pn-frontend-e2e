@@ -118,16 +118,6 @@ public class DestinatarioPASection extends BasePage {
     public void inserireCodiceFiscaleDestinatario(String codiceFiscale) {
         this.scrollToElementClickAndInsertText(this.codiceFiscaleDestinatarioTextField,codiceFiscale);
     }
-    
-    private void scrollToElementClickAndInsertText(WebElement element, String text){
-        if(!element.isDisplayed()){
-            this.js().executeScript("arguments[0].scrollIntoView(true);",element);
-        }
-        element.click();
-        if (text != null) {
-            element.sendKeys(text);
-        }
-    }
 
     public void selezionaAggiungiUnIndirizzoFisico() {
         this.aggiungiUnIndirizzoFisicoCheckBox.click();

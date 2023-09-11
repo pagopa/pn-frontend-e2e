@@ -26,7 +26,7 @@ public class ApiKeyPAPage  extends BasePage {
     @FindBy(id = "continue-button")
     WebElement apiContinuaButton;
 
-    @FindBy(id = "api-key-succesfully-generated")
+    @FindBy(id = "go-to-api-keys")
     WebElement tornaApiButton;
 
     @FindBy(xpath = "//li[contains(@data-testid,'buttonBlock')]")
@@ -146,7 +146,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void notificaSelezionataStatoBloccata() {
         try {
-            By statoNotificaBloccata = By.xpath("//div[@data-testid='statusChip-Bloccata’]");
+            By statoNotificaBloccata = By.xpath("//div[@data-testid='statusChip-Bloccata']");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBloccata));
             logger.info("La notifica è in stato bloccata");
         } catch (TimeoutException e) {
@@ -196,7 +196,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void siVisualizzaNotificaSelezionataRuotata() {
         try {
-            By popUpRuotataBy = By.xpath("//div[@data-testid='statusChip-Ruotata’]");
+            By popUpRuotataBy = By.xpath("//div[@data-testid='statusChip-Ruotata']");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popUpRuotataBy));
             logger.info("Si visualizza correttamente il popup ruota");
         } catch (TimeoutException e) {

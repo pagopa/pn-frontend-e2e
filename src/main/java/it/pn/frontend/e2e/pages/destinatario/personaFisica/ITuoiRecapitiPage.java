@@ -13,7 +13,7 @@ import java.util.List;
 public class ITuoiRecapitiPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("ITuoiRecapitiPage");
 
-    @FindBy(xpath = "//div[@data-testid='sideMenuItem-I tuoi recapiti']")
+    @FindBy(xpath="//div[@data-testid='sideMenuItem-I tuoi recapiti']")
     WebElement iTuoiRecapitiButton;
 
     @FindBy(id = "email")
