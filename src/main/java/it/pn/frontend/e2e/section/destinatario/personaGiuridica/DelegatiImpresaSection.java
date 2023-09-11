@@ -20,6 +20,14 @@ public class DelegatiImpresaSection extends BasePage {
 
     @FindBy(xpath = "//li[contains(@tabindex,'0')]")
     WebElement mostraCodiceOption;
+    @FindBy(xpath = "//li[contains(text(),'Revoca')]")
+    WebElement revocaMenuButton;
+
+    @FindBy(xpath = "//button[@data-testid='dialogAction' and text()='Revoca la delega']")
+    WebElement revocaButton;
+
+    @FindBy(xpath = "//button[contains(text(),'Annulla')]")
+    WebElement annullaButton;
 
     public DelegatiImpresaSection(WebDriver driver) {
         super(driver);
@@ -75,7 +83,13 @@ public class DelegatiImpresaSection extends BasePage {
             By menuDelega = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
             WebElement menuDelegaWebElement = this.driver.findElement(menuDelega);
-            menuDelegaWebElement.click();
+            if (menuDelegaWebElement.isDisplayed()){
+                this.js().executeScript("arguments[0].click()",menuDelegaWebElement);
+            }else {
+                this.js().executeScript("arguments[0].scrollIntoView(true);",menuDelegaWebElement);
+                this.js().executeScript("arguments[0].click()",menuDelegaWebElement);
+            }
+
             logger.info("cliccato correttamente su menu delega button");
         }catch (TimeoutException e){
             logger.error("Menu delega button NON trovata con errore: "+e.getMessage());
@@ -85,5 +99,29 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void clickMostraCodice() {
         this.mostraCodiceOption.click();
+    }
+    public void clickRevocaMenuButtonPG(){
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.revocaMenuButton));
+        this.revocaMenuButton.click();
+    }
+    public void waitPopUpRevoca() {
+        try {
+            By titlePopUpBy = By.xpath("//h5[contains(text(),'Vuoi revocare la delega ')]");
+
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePopUpBy));
+
+            logger.info("Il pop-up revoca si visualizza correttamente");
+        }catch (TimeoutException e){
+            logger.error("Il pop-up revoca NON si visualizza correttamente con errore: "+e.getMessage());
+            Assert.fail("Il pop-up revoca NON si visualizza correttamente con errore: "+e.getMessage());
+        }
+    }
+
+    public void clickRevocaButton() {
+        this.revocaButton.click();
+    }
+
+    public void clickAnnulla() {
+        this.annullaButton.click();
     }
 }

@@ -87,7 +87,7 @@ public class LoginPGPagoPATest {
         }
 
         SelezionaImpresaPage impresaPage = new SelezionaImpresaPage(this.driver);
-        impresaPage.clickSuImpresa();
+        impresaPage.clickSuImpresa(this.datiPersonaGiuridica.get("ragioneSociale").toString());
         impresaPage.clickAccediButton();
     }
     private void readurlPortaleMittente(String user, String password){
@@ -262,7 +262,7 @@ public class LoginPGPagoPATest {
 
         SelezionaImpresaPage selezionaImpresaPage = new SelezionaImpresaPage(this.driver);
         selezionaImpresaPage.waitLoadSelezionaImpresaPage();
-        selezionaImpresaPage.clickSuImpresa();
+        selezionaImpresaPage.clickSuImpresa(this.datiPersonaGiuridica.get("ragioneSociale").toString());
         selezionaImpresaPage.clickAccediButton();
     }
 
@@ -279,5 +279,47 @@ public class LoginPGPagoPATest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @When("Login {string} portale persona giuridica tramite request method")
+    public void loginPortalePersonaGiuridicaTramiteRequestMethod(String dpFile) {
+        this.datiPersonaGiuridica = dataPopulation.readDataPopulation(dpFile+".yaml");
+        String userMittente = this.datiPersonaGiuridica.get("user").toString();
+        String pwdMittente = this.datiPersonaGiuridica.get("pwd").toString();
+        this.readurlPortaleMittente(userMittente,pwdMittente);
+        boolean urlWithTokenFound = false;
+        int numProvaLogin = 0;
+        while(numProvaLogin<10){
+            this.readurlPortaleMittente(userMittente,pwdMittente);
+            if(this.urlPersonaGiuridica.get("responseCode").equalsIgnoreCase("301")){
+                urlWithTokenFound = true;
+                break;
+            }else {
+                this.urlPersonaGiuridica.clear();
+            }
+            try {
+                TimeUnit.SECONDS.sleep(15);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            numProvaLogin++;
+        }
+
+        if(urlWithTokenFound){
+            logger.info("procedura di login from spid provata : "+numProvaLogin);
+        }else{
+            Assert.fail("procedura di login from spid provata : "+numProvaLogin);
+        }
+
+        this.driver.get(this.urlPersonaGiuridica.get("urlPortale"));
+
+        CookiesSection cookiesPage = new CookiesSection(this.driver);
+        if (cookiesPage.waitLoadCookiesPage()){
+            cookiesPage.selezionaAccettaTuttiButton();
+        }
+
+        SelezionaImpresaPage impresaPage = new SelezionaImpresaPage(this.driver);
+        impresaPage.clickSuImpresa(this.datiPersonaGiuridica.get("ragioneSociale").toString());
+        impresaPage.clickAccediButton();
     }
 }

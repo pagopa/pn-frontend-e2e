@@ -283,8 +283,8 @@ public class DeleghePagoPATest {
     }
 
 
-    @And("Si controlla che non sia presente una delga con stesso nome {string}")
-    public void siControllaCheNonSiaPresenteUnaDelgaConStessoNome(String dpFile) {
+    @And("Si controlla che non sia presente una delega con stesso nome {string}")
+    public void siControllaCheNonSiaPresenteUnaDelegaConStessoNome(String dpFile) {
         logger.info("Si controlla che non ci sia una delega con lo stesso nome");
 
 
@@ -305,5 +305,47 @@ public class DeleghePagoPATest {
         }else {
             logger.info("Delega con lo stesso nome NON trovata");
         }
+    }
+
+    @And("Nella pagina Deleghe si clicca sul menu della delega")
+    public void nellaPaginaDelegheSiCliccaSulMenuDellaDelega() {
+        logger.info("Si clicca sul menu delle delega");
+        deleghePage.clickMenuPerRifiuto();
+    }
+
+    @And("Nella pagina Deleghe si sceglie opzione rifiuta")
+    public void nellaPaginaDelegheSiSceglieOpzioneRifiuta() {
+        logger.info("Si sceglie l'opzione rifiuta");
+        deleghePage.clickRifiuta();
+    }
+
+
+    @And("Si clicca sul bottone rifiuta all'interno del pop-up")
+    public void siCliccaSulBottoneRifiutaAllInternoDelPopUp() {
+        logger.info("Si clicca sul bottone rifiuta nel pop-up");
+        deleghePage.clickRiufitaPopUp();
+    }
+
+    @And("Si clicca sul bottone annulla all'interno del pop-up")
+    public void siCliccaSulBottoneAnnullaAllInternoDelPopUp() {
+        logger.info("Si clicca sul bottone annulla nel pop-up");
+        deleghePage.clickAnnullaPopUp();
+    }
+
+    @And("Si controlla che la delega non sia più presente nella lista")
+    public void siControllaCheLaDelegaNonSiaPiuPresenteNellaLista() {
+        logger.info("Si controlla che la delega non sia più presente nella lista");
+        if (deleghePage.verificaEsistenzaDelega()){
+            logger.info("Si controlla che la delega non sia più presente nella lista");
+        } else {
+            logger.error("La delega è ancora presente in lista");
+            Assert.fail("La delega è ancora presente in lista");
+        }
+    }
+
+    @And("Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe")
+    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaSiVedeLaSezioneDeleghe() {
+        logger.info("Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe");
+        deleghePage.waitLoadDelegheSection();
     }
 }

@@ -229,9 +229,6 @@ public class PiattaformaNotifichePage extends BasePage {
         this.js().executeScript("arguments[0].click()",this.inviaNuovaNotificaButton);
     }
 
-    public void aggionamentoPagina() {
-        this.driver.navigate().refresh();
-    }
 
     public void waitLoadRefreshPage() {
         try {

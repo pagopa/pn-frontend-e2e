@@ -1,4 +1,4 @@
-Feature: Il persona giuridica visuallizza le deleghe
+Feature: Il persona giuridica visualizza il codice di una delega
 
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
@@ -8,14 +8,15 @@ Feature: Il persona giuridica visuallizza le deleghe
     And Si visualizza correttamente la Pagina Notifiche persona giuridica
 
   @TestSuite
-  @fase2Test114
-  @pg
+  @fase2Test116
 
-  Scenario: Il persona giuridica visuallizza le deleghe
+  Scenario: Il persona giuridica visualizza il codice di una delega
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Nella pagina Deleghe si clicca su Delegati dall impresa
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe dell impresa
-    And Nella pagina Deleghe si clicca su Deleghe a carico dell impresa
-    And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
-    And Si vede correttamente l'elenco delle deleghe
+    And Nella pagina Deleghe sezione Deleghe dell impresa  si verifica sia presente una delega
+    And Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega "nuovaDelegaPG"
+    And Nella pagina Deleghe sezione Deleghe dell impresa si sceglie l'opzione mostra codice
+    Then Si clicca sul bottone chiudi
+    And Logout da portale persona giuridica
