@@ -19,7 +19,15 @@ public class BasePage {
         this.driver = driver;
         PageFactory.initElements(this.driver,this);
     }
-
+    protected void scrollToElementClickAndInsertText(WebElement element, String text){
+        if(!element.isDisplayed()){
+            this.js().executeScript("arguments[0].scrollIntoView(true);",element);
+        }
+        element.click();
+        if(text != null){
+            element.sendKeys(text);
+        }
+    }
     protected WebDriverWait getWebDriverWait(long timeout){
         return new WebDriverWait(this.driver, Duration.ofSeconds(timeout), Duration.ofMillis(500));
     }
