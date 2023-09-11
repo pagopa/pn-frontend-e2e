@@ -24,6 +24,9 @@ public class SelezionaEntePAPage extends BasePage {
     @FindBy(xpath = "//button[text()='Accedi']")
     WebElement accediButton;
 
+    @FindBy(id = "search")
+    WebElement comuneSearchField;
+
     public SelezionaEntePAPage(WebDriver driver) {
         super(driver);
     }
@@ -31,7 +34,9 @@ public class SelezionaEntePAPage extends BasePage {
     public void waitLoadSelezionaEntePAPage(){
         try{
             By titlePage = By.xpath("//h3[text()='Seleziona il tuo ente']");
+            By searchField = By.id("search");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(searchField));
             logger.info("Seleziona Utente PA Page caricata");
         }catch (TimeoutException e){
             logger.error("Seleziona Utente PA Page non caricata con errore : "+e.getMessage());
@@ -51,5 +56,9 @@ public class SelezionaEntePAPage extends BasePage {
     public void selezionaAccedi(){
         Actions actions = new Actions(driver);
         actions.moveToElement(this.accediButton).click().perform();
+    }
+
+    public void cercaComune(String comune) {
+        this.comuneSearchField.sendKeys(comune);
     }
 }

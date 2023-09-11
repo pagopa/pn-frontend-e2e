@@ -90,6 +90,7 @@ public class LoginMittentePagoPA {
 
         SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(this.driver);
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
+        selezionaEntePAPage.cercaComune(this.datiMittente.get("comune").toString());
         selezionaEntePAPage.selezionareComune(this.datiMittente.get("comune").toString());
         selezionaEntePAPage.selezionaAccedi();
     }
@@ -128,6 +129,7 @@ public class LoginMittentePagoPA {
 
         SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(this.driver);
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
+        selezionaEntePAPage.cercaComune(this.datiMittente.get("comune").toString());
         selezionaEntePAPage.selezionareComune(this.datiMittente.get("comune").toString());
         selezionaEntePAPage.selezionaAccedi();
     }

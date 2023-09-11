@@ -1,7 +1,7 @@
 numeroProtocollo: "TA-FFSMRC-20230830-0"
 oggettoDellaNotifica: "Pagamento rata IMU"
 descrizione: "PAGAMENTO RATA IMU"
-gruppoTest: "prova3"
+gruppoTest: "test-TA-FE"
 gruppoDev: "000"
 codiceTassonometrico: "123456A"
 nomeDocumentoNotifica: "RATA SCADUTA IMU"
