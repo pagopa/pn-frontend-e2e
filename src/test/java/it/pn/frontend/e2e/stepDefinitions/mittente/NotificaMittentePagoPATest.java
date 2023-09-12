@@ -368,7 +368,7 @@ public class NotificaMittentePagoPATest {
             }
             piattaformaNotifichePage.waitLoadRefreshPage();
             String codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
-            if (codiceIUN != null) {
+            if (!codiceIUN.equals("")) {
                 if (!codiceIUN.equals(coidiceIUNOld)) {
                     this.datiNotifica.put("codiceIUN", codiceIUN);
                     dataPopulation.writeDataPopulation("datiNotifica.yaml", this.datiNotifica);
@@ -586,14 +586,14 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.waitMessaggioErrore();
     }
 
-    @And("Si verifica che la notifica sia nello stato {string}")
-    public void siVerificaCheLaNotificaSiaNelloStato(String statoNotifca) {
+    @And("Si verifica che la notifica sia nello stato avanzato")
+    public void siVerificaCheLaNotificaSiaNelloStato() {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage((this.driver));
 
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         boolean notificaTrovata = false;
         for (int i = 0; i < 10; i++) {
-            int numeroNotifiche = piattaformaNotifichePage.getListStato(statoNotifca);
+            int numeroNotifiche = piattaformaNotifichePage.getListStato("Depositata");
             if (numeroNotifiche == 0) {
                 try {
                     TimeUnit.SECONDS.sleep(10);
