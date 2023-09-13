@@ -54,11 +54,7 @@ public class AccettazioneRichiestaNotifica {
         }catch (IOException e){
             Assert.fail(e.getMessage());
         }
-        if (this.responseBody != null){
-            return true;
-        }else {
-            return false;
-        }
+        return this.responseBody != null;
     }
 
     public String getRichiestaNotificaEndPoint() {
@@ -81,16 +77,14 @@ public class AccettazioneRichiestaNotifica {
         String body = getresponseBody();
         List<String> results = Splitter.on(CharMatcher.anyOf(",:")).splitToList(body);
         String result = results.get(results.size()-3);
-        String statusNotifica = result.substring(1,result.length()-1);
-        return statusNotifica;
+        return result.substring(1,result.length()-1);
     }
 
     public String getCodiceIUN() {
         String body = getresponseBody();
         List<String> results = Splitter.on(CharMatcher.anyOf(",:")).splitToList(body);
         String result = results.get(results.size()-1);
-        String codiceIUN = result.substring(1,result.length()-2);
-        return codiceIUN;
+        return result.substring(1,result.length()-2);
     }
     public String getResponseReasonPhrase() {
         return responseReasonPhrase;

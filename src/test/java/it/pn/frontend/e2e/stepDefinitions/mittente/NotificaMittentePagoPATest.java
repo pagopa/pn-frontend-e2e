@@ -912,8 +912,7 @@ public class NotificaMittentePagoPATest {
                 String values = netWorkInfo.getResponseBody();
                 List<String> results = Splitter.on(CharMatcher.anyOf(",:")).splitToList(values);
                 String result = results.get(1);
-                String notificationRequestId = result.substring(1,result.length()-1);
-                return notificationRequestId;
+                return result.substring(1,result.length()-1);
             }
         }
         return null;
