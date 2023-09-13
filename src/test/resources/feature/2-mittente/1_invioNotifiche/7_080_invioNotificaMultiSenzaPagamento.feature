@@ -28,10 +28,7 @@ Feature: Mittente genera una notifica con più destinatari che non prevede pagam
     Then Si visualizza correttamente la frase La notifica è stata correttamente creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica "personaFisica"
-    And Nella pagina Piattaforma Notifiche inserire la data invio notifica
-    And Nella pagina piattaforma Notifiche selezionare lo stato notifica Depositata
-    And Cliccare sul bottone Filtra
+    And Si verifica che la notifica viene creata correttamente "datiNotifica"
     And Verifica dello stato della notifica come depositata "Depositata"
     And Logout da portale mittente
     Examples:

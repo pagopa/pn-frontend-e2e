@@ -1,8 +1,11 @@
 package it.pn.frontend.e2e.stepDefinitions.mittente;
 
+import com.google.common.base.CharMatcher;
+import com.google.common.base.Splitter;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.api.mittente.AccettazioneRichiestaNotifica;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.mittente.AreaRiservataPAPage;
@@ -861,11 +864,58 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo")
     public void nellaPaginaPiattaformaNotificheSiRecuperaLUltimoNumeroProtocollo() {
-        String numeroProtocollo = getNumeroProtocollo();
+      String numeroProtocollo = getNumeroProtocollo();
         if(numeroProtocollo != null){
             this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
             this.datiNotifica.put("numeroProtocollo",numeroProtocollo);
             dataPopulation.writeDataPopulation("datiNotifica.yaml",this.datiNotifica);
         }
+    }
+    @And("Si verifica che la notifica viene creata correttamente {string}")
+    public void siVerificaCheLaNotificaVieneCreataCorrettamente(String dpFile) {
+        final String urlNotificationRequest = "https://webapi.test.notifichedigitali.it/delivery/requests";
+        final String urlRichiestaNotifica = "https://api.test.notifichedigitali.it/delivery/requests/";
+        String statusNotifica = "WAITING";
+        String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
+        AccettazioneRichiestaNotifica accettazioneRichiestaNotifica = new AccettazioneRichiestaNotifica();
+        accettazioneRichiestaNotifica.setNotificationRequestId(notificationRequestId);
+        accettazioneRichiestaNotifica.setRichiestaNotificaEndPoint(urlRichiestaNotifica);
+        do{
+            try {
+                TimeUnit.SECONDS.sleep(5);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            boolean result = accettazioneRichiestaNotifica.runGetRichiestaNotifica();
+            if (result){
+                statusNotifica = accettazioneRichiestaNotifica.getStatusNotifica();
+            }
+        }while (statusNotifica.equals("WAITING"));
+
+        if (statusNotifica.equals("ACCEPTED")){
+            String codiceIUN = accettazioneRichiestaNotifica.getCodiceIUN();
+            this.datiNotifica = dataPopulation.readDataPopulation(dpFile+".yaml");
+            if (codiceIUN != null && !codiceIUN.equals("")){
+                this.datiNotifica.put("codiceIUN",codiceIUN);
+                this.dataPopulation.writeDataPopulation(dpFile+".yaml",this.datiNotifica);
+                logger.info("La notifica è stata creata correttamente");
+            }
+        }else {
+            logger.error("La notifica "+ notificationRequestId +" è stata rifiuta: "+accettazioneRichiestaNotifica.getResponseReasonPhrase());
+            Assert.fail("La notifica "+ notificationRequestId +" è stata rifiuta: "+accettazioneRichiestaNotifica.getResponseReasonPhrase());
+        }
+    }
+
+    private String getNotificationRequestId(String url) {
+        for (NetWorkInfo netWorkInfo : netWorkInfos ) {
+            if (netWorkInfo.getRequestUrl().equals(url) && netWorkInfo.getRequestMethod().equals("POST") && netWorkInfo.getResponseStatus().equals("202")){
+                String values = netWorkInfo.getResponseBody();
+                List<String> results = Splitter.on(CharMatcher.anyOf(",:")).splitToList(values);
+                String result = results.get(1);
+                String notificationRequestId = result.substring(1,result.length()-1);
+                return notificationRequestId;
+            }
+        }
+        return null;
     }
 }
