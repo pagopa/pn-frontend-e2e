@@ -144,6 +144,7 @@ public class DownloadFileMittentePagoPATest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
         downloadFile = new DownloadFile();
         final String url = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/");
         final String workingDirectory = System.getProperty("user.dir");
