@@ -19,7 +19,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("notificaMittentePagoPA");
 
-    @FindBy(xpath = "//input[contains(@id,'recipientId') and contains(@name,'recipientId')]")
+    @FindBy(id = "recipientId")
     WebElement cfTextField;
 
     @FindBy(xpath = "//button[contains(text(),'Filtra')]")
@@ -34,24 +34,24 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(id = "endDate")
     WebElement dataFineField;
 
-    @FindBy(xpath = "//div[contains(@id,'status')]")
+    @FindBy(xpath = "status")
     WebElement statoNotificaField;
 
 
     @FindBy(xpath = "//div[contains(@data-testid,'sideMenuItem-API Key')]")
     WebElement apiKeyButton;
 
-    @FindBy(xpath = "//button[contains(@class,'MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-34ped8')]")
+    @FindBy(xpath = "//button[@data-testid ='rows-per-page']")
     WebElement numeroNotificheButton;
 
-    @FindBy(xpath = "//button[contains(@aria-label,'Vai alla pagina successiva')]")
+    @FindBy(id = "next")
     WebElement frecciaPaginaSuccessiva;
 
-    @FindBy(xpath = "//button[contains(@aria-label,'pagina 3')]")
+    @FindBy(id = "page3")
     WebElement pageNumberButton;
 
-    @FindBy(xpath = "//button[contains(@class,'MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-34ped8')]")
-    WebElement pageNumberList;
+//    @FindBy(xpath = "//button[contains(@class,'MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-34ped8')]")
+//    WebElement pageNumberList;
 
     @FindBy(xpath = "//li[@data-testid='pageSize-50']")
     WebElement numberElement;
@@ -59,16 +59,16 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "//button[contains(@data-testid,'step-submit')]")
     WebElement continuaButtonDisabled;
 
-    @FindBy(xpath = "//input[@id='subject']")
+    @FindBy(id = "subject")
     WebElement oggettoDellaNotificaTextField;
 
-    @FindBy(xpath = "//p[@id='subject-helper-text']")
+    @FindBy(id = "subject-helper-text")
     WebElement errorMessage;
 
     @FindBy(xpath = "//button[@data-testid='breadcrumb-indietro-button']")
     WebElement indietroButton;
 
-    @FindBy(xpath = "//div/div/h2[@id='mui-2']/following-sibling::div/button[contains(text(),'Esci')]")
+    @FindBy(xpath = "//div/div/h2[@id='mui-12']/following-sibling::div/button[contains(text(),'Esci')]")
     WebElement esciButton;
 
     @FindBy(xpath = "//div[contains(text(),'Estensione file non supportata. Riprovare con un altro file.')]")
@@ -492,10 +492,10 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro() {
-        if (!pageNumberList.isDisplayed()) {
-            this.js().executeScript("arguments[0].scrollIntoView(true);", pageNumberList);
+        if (!numeroNotificheButton.isDisplayed()) {
+            this.js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
         }
-        this.js().executeScript("arguments[0].click()",this.pageNumberList);
+        this.js().executeScript("arguments[0].click()",this.numeroNotificheButton);
         this.js().executeScript("arguments[0].click()", this.numberElement);
     }
 
@@ -510,7 +510,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void vuoiUscirePopUp() {
     try{
-        By vuoiUscirePUBy = By.id("mui-2");
+        By vuoiUscirePUBy = By.id("mui-12");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(vuoiUscirePUBy));
         logger.info("Si visualizza il pop up vuoi uscire");
     }catch (TimeoutException e){

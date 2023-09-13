@@ -23,7 +23,7 @@ public class BasePage {
         if(!element.isDisplayed()){
             this.js().executeScript("arguments[0].scrollIntoView(true);",element);
         }
-        element.click();
+        this.js().executeScript("arguments[0].click();",element);
         if(text != null){
             element.sendKeys(text);
         }
