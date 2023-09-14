@@ -21,37 +21,37 @@ public class DestinatarioPASection extends BasePage {
     @FindBy(css = "input[value='PF']")
     WebElement personaFisicaCheckBox;
 
-    @FindBy(xpath = "//input[contains(@id,'firstName')]" )
+    @FindBy(id = "firstName")
     WebElement nomeDestinatarioTextField;
 
-    @FindBy(xpath = "//input[contains(@id,'lastName')]")
+    @FindBy(id = "lastName")
     WebElement cognomeDestinatarioTextField;
 
-    @FindBy(xpath = "//input[contains(@id,'taxId')]")
+    @FindBy(id = "taxId")
     WebElement codiceFiscaleDestinatarioTextField;
 
     @FindBy(xpath = "//div[@data-testid='PhysicalAddressCheckbox']")
     WebElement aggiungiUnIndirizzoFisicoCheckBox;
 
-    @FindBy(xpath = "//label[contains(@id,'address-label')]/following-sibling::div/input")
+    @FindBy(id = "recipients[0].address")
     WebElement indirizzoTextField;
 
-    @FindBy(xpath = "//input[contains(@id,'houseNumber')]")
+    @FindBy(id = "houseNumber")
     WebElement numeroCivicoTextField;
 
-    @FindBy(xpath = "//label[contains(@id,'municipalityDetails-label')]/following-sibling::div/input")
+    @FindBy(id = "recipients[0].municipalityDetails")
     WebElement localitaTextField;
 
-    @FindBy(xpath = "//label[contains(@id,'municipality-label')]/following-sibling::div/input")
+    @FindBy(id = "recipients[0].municipality")
     WebElement comuneTextField;
 
-    @FindBy(xpath = "//input[contains(@id,'province')]")
+    @FindBy(id = "province")
     WebElement provinciaTextField;
 
-    @FindBy(xpath = "//input[contains(@id,'zip')]")
+    @FindBy(id = "zip")
     WebElement codicePostaleTextField;
 
-    @FindBy(xpath = "//input[contains(@id,'foreignState')]")
+    @FindBy(id = "foreignState")
     WebElement statoTextField;
 
     @FindBy(xpath = "//button[contains(@data-testid,'add-recipient')]")
@@ -60,13 +60,13 @@ public class DestinatarioPASection extends BasePage {
     @FindBy(xpath = "//div[@data-testid='DigitalDomicileCheckbox']")
     WebElement checkBoxAggiungiDomicilioDigitale;
 
-    @FindBy(xpath = "//input[@id='recipients[0].digitalDomicile']")
+    @FindBy(id = "recipients[0].digitalDomicile")
     WebElement domicilioDigitaleTextField;
 
-    @FindBy(xpath = "//input[@id='recipients[0].firstName']")
+    @FindBy(id = "recipients[0].firstName")
     WebElement ragioneSocialeTextField;
 
-    @FindBy(xpath = "//input[@id='recipients[0].taxId']")
+    @FindBy(id = "recipients[0].taxId")
     WebElement partitaIvaTextField;
 
     @FindBy(xpath = "//button[@data-testid='previous-step']")

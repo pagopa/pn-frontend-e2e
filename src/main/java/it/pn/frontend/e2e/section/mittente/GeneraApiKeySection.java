@@ -20,7 +20,7 @@ public class GeneraApiKeySection extends BasePage {
 
     public void waitLoadGeneraApiKey() {
         try{
-            By generaApiPageTitle = By.xpath("//h4[contains(text(),'Genera una API Key')]");
+            By generaApiPageTitle = By.id("title-of-page");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(generaApiPageTitle));
             logger.info("Api Key caricata");
         }catch (TimeoutException e){
