@@ -20,33 +20,31 @@ public class LeTueDelegheSection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("LeTueDelegheSection");
 
-    @FindBy(xpath = "//input[contains(@name,'selectPersonaFisicaOrPersonaGiuridica')]")
+    @FindBy(xpath = "//input[@value='PF']")
     WebElement personaFisicaRadioButton;
 
-    @FindBy(xpath = "//input[contains(@id,'nome')]")
+    @FindBy(id = "nome")
     List<WebElement> nomeCognomeList;
 
-    @FindBy(xpath = "//button[contains(@data-testid,'createButton')]")
+    @FindBy(xpath = "//button[@data-testid='createButton']")
     WebElement inviaLaRichiestaButton;
 
-    @FindBy(xpath = "//input[contains(@id,'expirationDate')]")
+    @FindBy(id = "expirationDate")
     WebElement dataTermineDelegaInput;
 
-
-
-    @FindBy(xpath = "//div[contains(@data-testid, 'codeDigit')]")
+    @FindBy(xpath = "//div[@data-testid= 'codeDigit']")
     List<WebElement> codiceVerificaList;
 
-    @FindBy(xpath = "//input[contains(@id,'codiceFiscale')]")
+    @FindBy(id = "codiceFiscale")
     WebElement codiceFiscaleInput;
     
-    @FindBy(xpath = "//input[contains(@value,'entiSelezionati')]")
+    @FindBy(xpath = "//input[@value='entiSelezionati']")
     WebElement SoloEntiSelezionatiRadioButton;
 
     @FindBy(id ="enti")
     WebElement enteElementInput;
 
-    @FindBy(xpath = "//button[@id='courtesy-page-button']")
+    @FindBy(id = "courtesy-page-button")
     WebElement tornaDelegheButton;
 
     /*@FindBy(xpath = "//button[contains(@data-testid,'delegationMenuIcon')]")
@@ -55,23 +53,23 @@ public class LeTueDelegheSection extends BasePage {
 
 
 
-    @FindBy(xpath = "//button[contains(@data-testid,'acceptButton')]")
+    @FindBy(xpath = "//button[@data-testid='acceptButton']")
     WebElement accettaButton;
 
-    @FindBy(xpath = "//input[contains(@id,'code-input')]")
+    @FindBy(id = "code-input")
     List<WebElement> codiceDelegaInputList;
 
-    @FindBy(xpath = "//button[contains(@data-testid,'codeConfirmButton')]")
+    @FindBy(xpath = "//button[@data-testid,'codeConfirmButton']")
     WebElement accettaPopUpButton;
 
 
-    @FindBy(xpath = "//h4[contains(text(),'Deleghe')]")
+    @FindBy(id = "title-of-page")
     WebElement deleghePageTitle;
 
     @FindBy(xpath = "//p[contains(text(),'Qui puoi gestire')]")
     WebElement deleghePageSubtitle;
 
-    @FindBy(xpath = "//button[contains(@data-testid,'add-delegation')]")
+    @FindBy(xpath = "//button[@data-testid='add-delegation']")
     WebElement aggiungiDelegaButton;
 
     @FindBy(xpath = "//span[contains(text(),'Nome')]")
