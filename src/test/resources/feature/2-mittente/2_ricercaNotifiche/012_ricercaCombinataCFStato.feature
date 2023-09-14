@@ -18,4 +18,4 @@ Feature: il mittente fa una ricerca combinata tra cf e stato
     And Logout da portale mittente
   Examples:
     |     stato      |
-    |  Consegnata    |
+    |  Perfezionata per decorrenza termini    |
