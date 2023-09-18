@@ -411,7 +411,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public int getNRighe() {
-        By nRigheBy = By.xpath("//tr[contains(@data-testid,'table(notifications).row')]");
+        By nRigheBy = By.xpath("//tr[@data-testid='notificationsTable.row']");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nRigheBy));
         return this.elements(nRigheBy).size();
     }

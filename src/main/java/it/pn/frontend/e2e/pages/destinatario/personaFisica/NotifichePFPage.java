@@ -52,7 +52,7 @@ public class NotifichePFPage extends BasePage {
             By tableNotifiche = By.xpath("//table[@data-testid='notificationsTable']");
             this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
             this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
-            logger.info("Notifiche DE Page non caricata");
+            logger.info("Notifiche DE Page caricata");
         }catch (TimeoutException e){
             logger.error("Notifiche DE Page non caricata con errore : "+e.getMessage());
             Assert.fail("Notifiche DE Page non caricata con errore : "+e.getMessage());
@@ -158,7 +158,7 @@ public class NotifichePFPage extends BasePage {
 
     public void siVisualizzaElencoNotifiche() {
         try {
-            By elementoDellaListaBy = By.xpath("//tr[contains(@data-testid,'table(notifications).row')]");
+            By elementoDellaListaBy = By.xpath("//tr[contains(@data-testid,'notificationsTable.row')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(elementoDellaListaBy));
             By nomeColonnaDataBy = By.xpath("//th[contains(text(),'Data')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaDataBy));
