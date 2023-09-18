@@ -149,7 +149,7 @@ public class NotifichePFPage extends BasePage {
 
     public void siVisualizzaElencoNotifiche() {
         try {
-            By elementoDellaListaBy = By.xpath("//tr[contains(@data-testid,'table(notifications).row')]");
+            By elementoDellaListaBy = By.xpath("//tr[contains(@data-testid,'notificationsTable.row')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(elementoDellaListaBy));
             By nomeColonnaDataBy = By.xpath("//th[contains(text(),'Data')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaDataBy));
