@@ -21,5 +21,5 @@ Feature: Mittente effetua una ricerca notifiche per Stato
 
     Examples:
       |   stato       |
-      |AVVENUTO ACCESSO|
+      |Avvenuto accesso|
     # ci sono altri stati come annullata, invio in corso, consegnata ecc.

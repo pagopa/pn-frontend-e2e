@@ -57,7 +57,7 @@ public class DestinatarioPASection extends BasePage {
     @FindBy(xpath = "//button[contains(@data-testid,'add-recipient')]")
     WebElement aggiungiDestinatarioButton;
 
-    @FindBy(xpath = "//div[@data-testid='DigitalDomicileCheckbox']")
+    @FindBy(xpath = "//label[@data-testid='showDigitalDomicile0']")
     WebElement checkBoxAggiungiDomicilioDigitale;
 
     @FindBy(xpath = "//input[@id='recipients[0].digitalDomicile']")
