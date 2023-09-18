@@ -34,7 +34,7 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(id = "endDate")
     WebElement dataFineField;
 
-    @FindBy(xpath = "status")
+    @FindBy(id = "status")
     WebElement statoNotificaField;
 
 

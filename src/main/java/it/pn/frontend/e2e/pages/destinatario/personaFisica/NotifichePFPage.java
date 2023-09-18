@@ -49,10 +49,10 @@ public class NotifichePFPage extends BasePage {
     public void waitLoadNotificheDEPage() {
         try{
             By titleLabel = By.id("title-of-page");
-            By tableNotifiche = By.xpath("//table[@data-testid='table(notifications)']");
+            By tableNotifiche = By.xpath("//table[@data-testid='notificationsTable']");
             this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
             this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
-            logger.info("Notifiche DE Page non caricata");
+            logger.info("Notifiche DE Page caricata");
         }catch (TimeoutException e){
             logger.error("Notifiche DE Page non caricata con errore : "+e.getMessage());
             Assert.fail("Notifiche DE Page non caricata con errore : "+e.getMessage());
