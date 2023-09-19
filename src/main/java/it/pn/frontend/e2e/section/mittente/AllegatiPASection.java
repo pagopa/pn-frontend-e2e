@@ -52,7 +52,8 @@ public class AllegatiPASection extends BasePage {
     }
 
     public boolean verificaCaricamentoNotificaPdf() {
-        return !this.hashCodeTextField.isDisplayed();
+        getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.hashCodeTextField));
+        return this.hashCodeTextField.isDisplayed();
     }
 
     public void inserimentoNomeAllegato(String nomeAtto) {

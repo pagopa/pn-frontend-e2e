@@ -242,7 +242,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public int conteggioNotifiche() {
-        By rigaDelegaBy = By.xpath("//tr[contains(@data-testid,'table(notifications).row')]");
+        By rigaDelegaBy = By.xpath("//tr[@data-testid='notificationsTable.row']");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(rigaDelegaBy));
         int numeroRigheNotifiche2 = elements(rigaDelegaBy).size();
         return numeroRigheNotifiche2;

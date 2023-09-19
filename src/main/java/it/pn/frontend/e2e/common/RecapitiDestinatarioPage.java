@@ -18,7 +18,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "pec")
     WebElement inserimentoPecField;
 
-    @FindBy(xpath = "//button[contains(@data-testid,'add contact')]")
+    @FindBy(xpath = "//button[@data-testid='addContact']")
     WebElement confermaButton;
 
     @FindBy(xpath = "//button[contains(@data-testid,'codeConfirmButton')]")

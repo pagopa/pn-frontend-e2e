@@ -24,7 +24,10 @@ public class LeTueDelegheSection extends BasePage {
     WebElement personaFisicaRadioButton;
 
     @FindBy(id = "nome")
-    List<WebElement> nomeCognomeList;
+    WebElement inputNome;
+
+    @FindBy(id = "cognome")
+    WebElement inputCognome;
 
     @FindBy(xpath = "//button[@data-testid='createButton']")
     WebElement inviaLaRichiestaButton;
@@ -59,7 +62,7 @@ public class LeTueDelegheSection extends BasePage {
     @FindBy(id = "code-input")
     List<WebElement> codiceDelegaInputList;
 
-    @FindBy(xpath = "//button[@data-testid,'codeConfirmButton']")
+    @FindBy(xpath = "//button[@data-testid='codeConfirmButton']")
     WebElement accettaPopUpButton;
 
 
@@ -103,8 +106,8 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void insertNomeCognome(String nome, String cognome) {
-        this.nomeCognomeList.get(0).sendKeys(nome);
-        this.nomeCognomeList.get(1).sendKeys(cognome);
+        this.inputNome.sendKeys(nome);
+        this.inputCognome.sendKeys(cognome);
     }
     
 
