@@ -68,7 +68,7 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "//button[@data-testid='breadcrumb-indietro-button']")
     WebElement indietroButton;
 
-    @FindBy(xpath = "//div/div/h2[@id='mui-12']/following-sibling::div/button[contains(text(),'Esci')]")
+    @FindBy(xpath = "//div/div/h2[@id='mui-2']/following-sibling::div/button[contains(text(),'Esci')]")
     WebElement esciButton;
 
     @FindBy(xpath = "//div[contains(text(),'Estensione file non supportata. Riprovare con un altro file.')]")
@@ -411,7 +411,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public int getNRighe() {
-        By nRigheBy = By.xpath("//tr[contains(@data-testid,'table(notifications).row')]");
+        By nRigheBy = By.xpath("//tr[@data-testid='notificationsTable.row']");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nRigheBy));
         return this.elements(nRigheBy).size();
     }
@@ -499,7 +499,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public void clickContinuaDisabled() {this.continuaButtonDisabled.isDisplayed();}
 
     public void inserimentoOggettoNotificaErrato(String oggettoDellaNotifica) {
-        this.oggettoDellaNotificaTextField.sendKeys(oggettoDellaNotifica);
+      this.scrollToElementClickAndInsertText(this.oggettoDellaNotificaTextField,oggettoDellaNotifica);
     }
     public boolean errorMessage() {return this.errorMessage.isDisplayed();}
 
@@ -507,7 +507,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void vuoiUscirePopUp() {
     try{
-        By vuoiUscirePUBy = By.id("mui-12");
+        By vuoiUscirePUBy = By.id("mui-2");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(vuoiUscirePUBy));
         logger.info("Si visualizza il pop up vuoi uscire");
     }catch (TimeoutException e){

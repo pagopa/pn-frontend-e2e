@@ -33,7 +33,7 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     And Verifica dello stato della notifica inviata tramite pec come "Depositata"
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica pec "datiNotifica"
     And Cliccare sul bottone Filtra
-    And Si verifica che la notifica sia nello stato "Invio in corso"
+    And Si verifica che la notifica sia nello stato avanzato
     And Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita
     And Si verifica che l'invio della pec sia in corso
     And Logout da portale mittente

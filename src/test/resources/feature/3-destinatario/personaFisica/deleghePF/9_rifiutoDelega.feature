@@ -13,5 +13,5 @@ Feature: Il delgato persona fisica rifiuta la delega che gli è stata inviata
     And Nella pagina Deleghe si clicca sul menu della delega
     And Nella pagina Deleghe si sceglie opzione rifiuta
     And Si clicca sul bottone rifiuta all'interno del pop-up
-    And Si controlla che la delega non sia più presente nella lista
+    And Si controlla che la delega non sia più presente nella lista "personaFisica"
     And Logout da portale persona fisica

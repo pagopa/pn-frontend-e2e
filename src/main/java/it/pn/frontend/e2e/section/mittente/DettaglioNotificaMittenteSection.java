@@ -227,7 +227,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         }
     }
 
-    public void verificaInviPECInCorso() {
+    public void verificaInvioPECInCorso() {
         try{
             By invioPec = By.xpath("//div/span[contains(text(),'Invio via PEC')]/following-sibling::div//p[contains(text(),'È in corso l')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(invioPec));
