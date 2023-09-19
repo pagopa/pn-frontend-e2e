@@ -31,7 +31,7 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(xpath = "//input[contains(@placeholder,'Il tuo indirizzo PEC')]")
     WebElement inserimentoPecField;
 
-    @FindBy(xpath = "//button[contains(@data-testid,'add contact')]")
+    @FindBy(xpath = "//button[@data-testid = 'addContact']")
     WebElement confermaButton;
 
     @FindBy(xpath = "//button[contains(text(),'Annulla')]")
