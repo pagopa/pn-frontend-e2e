@@ -169,7 +169,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public int siVisualizzaNotifichePresenti() {
-        By rigaDelegaBy = By.xpath("//tr[contains(@data-testid,'table(notifications).row')]");
+        By rigaDelegaBy = By.xpath("//tr[@data-testid='notificationsTable.row']");
         int numeroRigheNotifiche = elements(rigaDelegaBy).size();
         return numeroRigheNotifiche;
     }
