@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.section.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import org.apache.commons.math3.analysis.function.Exp;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -50,17 +51,8 @@ public class LeTueDelegheSection extends BasePage {
     @FindBy(id = "courtesy-page-button")
     WebElement tornaDelegheButton;
 
-    /*@FindBy(xpath = "//button[contains(@data-testid,'delegationMenuIcon')]")
-    WebElement delegaMenuButton;*/
-
-
-
-
     @FindBy(xpath = "//button[@data-testid='acceptButton']")
     WebElement accettaButton;
-
-    @FindBy(id = "code-input")
-    List<WebElement> codiceDelegaInputList;
 
     @FindBy(xpath = "//button[@data-testid='codeConfirmButton']")
     WebElement accettaPopUpButton;
@@ -205,8 +197,12 @@ public class LeTueDelegheSection extends BasePage {
 
     public void inserireCodiceDelega(String codiceDelega) {
         String[] codiciDelega = codiceDelega.split("");
-        for (int i = 0; i < this.codiceDelegaInputList.size(); i++){
-            this.codiceDelegaInputList.get(i).sendKeys(codiciDelega[i]);
+        for (int i = 0; i < 5; i++){
+            String xpathBy = "code-input-"+i;
+            By codiceDelegaInputBy = By.id(xpathBy);
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(codiceDelegaInputBy));
+            WebElement codiceDelegaInput = driver.findElement(codiceDelegaInputBy);
+            codiceDelegaInput.sendKeys(codiciDelega[i]);
         }
     }
 
@@ -216,7 +212,7 @@ public class LeTueDelegheSection extends BasePage {
 
     public void controlloStatoAttiva(String nome, String cognome) {
         try {
-            By statoAttivaBy = By.xpath("//tr[@data-testid='table(notifications).row']//td[@role='cell' and div/p[contains(text(),'"+nome + " "+ cognome +"')]]/following-sibling::td[@role='cell']//div/div/span[contains(text(),'Attiva')]");
+            By statoAttivaBy = By.xpath("//tr[@data-testid='delegatorsTable.row']//td[@role='cell' and div/p[contains(text(),'"+nome + " "+ cognome +"')]]/following-sibling::td[@role='cell']//div/div/span[contains(text(),'Attiva')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoAttivaBy));
             logger.info("La delega ha lo stato Attiva");
         }catch (TimeoutException e){
