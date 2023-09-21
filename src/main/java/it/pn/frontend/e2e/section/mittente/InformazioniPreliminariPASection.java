@@ -44,7 +44,6 @@ public class InformazioniPreliminariPASection extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.numeroProtocolloTextField));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.oggettoNotificaTextField));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.descrizioneTextField));
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.raccomandataARButton));
             logger.info("Informazioni preliminari PA Section caricata");
 
         } catch (TimeoutException e) {
