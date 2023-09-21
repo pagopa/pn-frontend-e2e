@@ -42,7 +42,7 @@ public class SelezionaEntePAPage extends BasePage {
     public void selezionareComune(String comune){
         for (WebElement element : this.comuneButton){
             if(element.getText().contains(comune)){
-                element.click();
+                this.js().executeScript("argument[0].click()",element);
                 break;
             }
         }
