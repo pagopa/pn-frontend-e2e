@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 public class ITuoiRecapitiPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("ITuoiRecapitiPage");
 
-    @FindBy(id = "title-of-page")
+    @FindBy(xpath="//div[@data-testid='sideMenuItem-I tuoi recapiti']")
     WebElement iTuoiRecapitiButton;
 
 
