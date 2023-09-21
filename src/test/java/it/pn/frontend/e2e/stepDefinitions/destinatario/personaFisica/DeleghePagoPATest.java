@@ -332,10 +332,11 @@ public class DeleghePagoPATest {
         deleghePage.clickAnnullaPopUp();
     }
 
-    @And("Si controlla che la delega non sia più presente nella lista")
-    public void siControllaCheLaDelegaNonSiaPiuPresenteNellaLista() {
+    @And("Si controlla che la delega non sia più presente nella lista {string}")
+    public void siControllaCheLaDelegaNonSiaPiuPresenteNellaLista(String dpFile) {
         logger.info("Si controlla che la delega non sia più presente nella lista");
-        if (deleghePage.verificaEsistenzaDelega()){
+        this.deleghe = dataPopulation.readDataPopulation(dpFile+".yaml");
+        if (deleghePage.verificaEsistenzaDelega(this.deleghe.get("name").toString(),this.deleghe.get("familyName").toString())){
             logger.info("Si controlla che la delega non sia più presente nella lista");
         } else {
             logger.error("La delega è ancora presente in lista");

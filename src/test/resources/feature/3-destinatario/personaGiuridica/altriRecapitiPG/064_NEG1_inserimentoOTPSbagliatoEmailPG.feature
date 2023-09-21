@@ -8,6 +8,7 @@ Feature: la persona giuridica inserisce un OTP email sbagliato
 
   @TestSuite
   @fase2Test64_NEG1
+  @new
 
  Scenario: la persona giuridica inserisce un OTP email sbagliato
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti

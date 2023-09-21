@@ -210,7 +210,7 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void clickAvvisamiViaSMS(){
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.avvisamiViaSMSButton));
-        this.avvisamiViaSMSButton.click();
+        this.js().executeScript("arguments[0].click()",this.avvisamiViaSMSButton);
     }
 
     public String getPhoneErrorMessage(){

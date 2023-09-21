@@ -8,6 +8,7 @@ Feature: la persona giuridica inserisce una email errata
 
   @TestSuite
   @fase2Test64_NEG
+  @new
 
 
   Scenario: la persona giuridica inserisce una email errata

@@ -157,9 +157,9 @@ public class DeleghePage extends BasePage {
         }
     }
 
-    public boolean verificaEsistenzaDelega() {
+    public boolean verificaEsistenzaDelega(String nome, String cognome) {
         try {
-            By nomeDelegato = By.xpath("//div[@data-testid='delegators-wrapper']//div/p[contains(text(),'Cristoforo')]");
+            By nomeDelegato = By.xpath("//div[@data-testid='delegators-wrapper']//div/p[contains(text(),'"+nome+" "+cognome+"')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
             return true;
         }catch (TimeoutException | NoSuchElementException e){
