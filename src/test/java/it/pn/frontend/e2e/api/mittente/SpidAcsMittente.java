@@ -57,6 +57,7 @@ public class SpidAcsMittente {
                 spidAcsMittenteResponse.put("responseCode", String.valueOf(classicHttpResponse.getCode()));
                 spidAcsMittenteResponse.put("urlPortale",classicHttpResponse.getHeader("Location").getValue());
 
+
                 logger.info(classicHttpResponse.getHeader("Location").getValue());
                 logger.info(spidAcsMittenteResponse.get("urlPortale"));
                 return null;

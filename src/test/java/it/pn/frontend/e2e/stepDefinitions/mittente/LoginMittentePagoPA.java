@@ -117,6 +117,8 @@ public class LoginMittentePagoPA {
             logger.info("procedura di login from spid provata : "+numProvaLogin);
         }else{
             Assert.fail("procedura di login from spid provata : "+numProvaLogin);
+            Assert.fail("Codice risposta ricevuto per questo end point: '"+this.urlMittente+"' è : "+this.urlMittente.get("responseCode"));
+
         }
 
         this.driver.get(this.urlMittente.get("urlPortale"));

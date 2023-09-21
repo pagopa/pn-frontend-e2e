@@ -6,6 +6,7 @@ Feature: Il delegato persona fisica annulLa l'operazione di rifiuto delega
     Then Home page persona fisica viene visualizzata correttamente
   @TestSuite
   @fase2Test47_NEG
+  @new
   Scenario: Il delegato persona fisica annulLa l'operazione di rifiuto delega
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico

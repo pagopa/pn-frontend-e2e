@@ -8,7 +8,7 @@ Feature: la persona giuridica inserisce l'OTP numero di telefono  errato
 
   @TestSuite
   @fase2Test67_NEG1
-
+  @new
 
 
   Scenario: la persona giuridica inserisce l'OTP numero di telefono errato

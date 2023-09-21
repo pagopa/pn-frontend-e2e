@@ -34,7 +34,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(xpath = "//span[@data-testid='associate-group']")
     WebElement assegnaGruppoRadioButton;
 
-    @FindBy(xpath = "//button[@aria-label='Open']")
+    @FindBy(id = "groups")
     List<WebElement> gruppoField;
 
     @FindBy(id = "groups-option-0")
@@ -192,7 +192,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickGruppoField() {
-        this.gruppoField.get(1).click();
+        this.gruppoField.get(1).sendKeys("Test gruppi");
         this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.gruppoOption));
         this.gruppoOption.click();
     }

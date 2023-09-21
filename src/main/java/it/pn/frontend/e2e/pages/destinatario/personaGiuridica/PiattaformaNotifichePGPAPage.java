@@ -36,6 +36,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
 
     public void clickSuDelegeButton() {
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.delegheSideMenu));
         this.delegheSideMenu.click();
     }
 

@@ -7,6 +7,7 @@ Feature: Il delgato persona fisica rifiuta la delega che gli è stata inviata
 
   @TestSuite
   @fase2Test47
+  @new
   Scenario: Il delegato persona fisica rifiuta la delega che gli è stata inviata
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico

@@ -8,6 +8,7 @@ Feature: la persona giuridica inserisce un numero di telefono errato
 
   @TestSuite
   @fase2Test67_NEG
+  @new
 
 
   Scenario: La persona giuridica inserisce un numero di telefono errato

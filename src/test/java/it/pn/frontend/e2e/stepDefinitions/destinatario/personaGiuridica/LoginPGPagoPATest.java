@@ -77,6 +77,7 @@ public class LoginPGPagoPATest {
             logger.info("procedura di login from spid provata : "+numProvaLogin);
         }else{
             Assert.fail("procedura di login from spid provata : "+numProvaLogin);
+            Assert.fail("Codice risposta ricevuto per questo end point: '"+this.urlPersonaGiuridica+"' è : "+this.urlPersonaGiuridica.get("responseCode"));
         }
 
         this.driver.get(this.urlPersonaGiuridica.get("urlPortale"));
@@ -308,7 +309,8 @@ public class LoginPGPagoPATest {
         if(urlWithTokenFound){
             logger.info("procedura di login from spid provata : "+numProvaLogin);
         }else{
-            Assert.fail("procedura di login from spid provata : "+numProvaLogin);
+            Assert.fail("procedura di login from spid provata : "+numProvaLogin);Assert.fail("Codice risposta ricevuto per questo end point: '"+this.urlPersonaGiuridica+"' è : "+this.urlPersonaGiuridica.get("responseCode"));
+
         }
 
         this.driver.get(this.urlPersonaGiuridica.get("urlPortale"));
