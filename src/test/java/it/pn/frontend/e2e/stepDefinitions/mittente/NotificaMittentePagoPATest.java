@@ -918,7 +918,7 @@ public class NotificaMittentePagoPATest {
         return null;
     }
 
-    @And("Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona persona fisica {string}")
+    @And("Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica {string}")
     public void nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaPersonaFisica(String dpFile) {
         this.personeFisiche = dataPopulation.readDataPopulation(dpFile + ".yaml");
         destinatarioPASection.checkBoxAggiungiDomicilio();
