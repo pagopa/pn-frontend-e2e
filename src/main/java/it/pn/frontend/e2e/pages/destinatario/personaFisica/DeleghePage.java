@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.TimeUnit;
 
 public class DeleghePage extends BasePage {
 
@@ -20,7 +19,7 @@ public class DeleghePage extends BasePage {
     @FindBy(xpath = "//li[@data-testid = 'menuItem-revokeDelegate']")
     WebElement revocaButton;
 
-    @FindBy(xpath = "//li[contains(@tabindex,'0')]")
+    @FindBy(xpath = "//li[@data-testid='menuItem-showCode']")
     WebElement mostraCodiceOption;
 
     @FindBy(xpath = "//li[contains(@data-testid,'menuItem-revokeDelegate')]")
@@ -92,12 +91,7 @@ public class DeleghePage extends BasePage {
     public void clickMenuDelega(String nome, String cognome) {
         try{
             By menuDelega = By.xpath("//div[@data-testid='delegates-wrapper']//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
-            try {                                   // Questo sleep l'abbiamo messo perché
-                TimeUnit.SECONDS.sleep(5);   // il sito ci mette un pò a caricarsi
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
             WebElement menuDelegaWebElement = this.driver.findElement(menuDelega);
             menuDelegaWebElement.click();
             logger.info("cliccato correttamente su menu delega button");
@@ -110,14 +104,9 @@ public class DeleghePage extends BasePage {
     public void siSceglieLOpzioneMostraCodice() {this.mostraCodiceOption.click();}
 
     public void siCliccaSulBottoneChiudi() {
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         try{
             By closeCodiceButtonBy = By.xpath("//button[@data-testid='codeCancelButton']");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(closeCodiceButtonBy));
+            getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(closeCodiceButtonBy));
             logger.info("Il bottone chiudi viene visualizzato correttamente");
             this.element(closeCodiceButtonBy).click();
         }catch (TimeoutException e){

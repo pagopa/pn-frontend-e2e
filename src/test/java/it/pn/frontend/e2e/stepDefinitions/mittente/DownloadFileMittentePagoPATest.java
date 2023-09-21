@@ -152,7 +152,6 @@ public class DownloadFileMittentePagoPATest {
         nomeFile = nomeFile.replace(" ","_").replace(":", "");
         File file = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf");
 
-
         downloadFile.download(url,file);
 
     }

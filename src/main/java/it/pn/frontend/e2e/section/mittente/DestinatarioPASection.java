@@ -66,7 +66,7 @@ public class DestinatarioPASection extends BasePage {
     @FindBy(xpath = "//input[@id='recipients[0].firstName']")
     WebElement ragioneSocialeTextField;
 
-    @FindBy(xpath = "//input[@id='recipients[0].taxId']")
+    @FindBy(id = "recipients[0].taxId")
     WebElement partitaIvaTextField;
 
     @FindBy(xpath = "//button[@data-testid='previous-step']")

@@ -364,7 +364,7 @@ public class NotificaMittentePagoPATest {
                 if (cookiesSection.waitLoadCookiesPage()) {
                     cookiesSection.selezionaAccettaTuttiButton();
                 }
-                piattaformaNotifichePage.insertCodiceFiscale(this.personeFisiche.get("codiceFiscale").toString());
+                piattaformaNotifichePage.insertCodiceFiscale(this.personaFisica.get("codiceFiscale").toString());
                 piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
                 piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
                 piattaformaNotifichePage.selectFiltraButton();

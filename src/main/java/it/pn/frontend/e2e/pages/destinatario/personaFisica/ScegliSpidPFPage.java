@@ -15,7 +15,7 @@ public class ScegliSpidPFPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("ScegliSpidPFPage");
 
-    @FindBy(xpath = "//button[contains(@id,'spid-select-xx_testenv2')]")
+    @FindBy(id = "spid-select-xx_testenv2")
     WebElement testButton;
 
     public ScegliSpidPFPage(WebDriver driver) {

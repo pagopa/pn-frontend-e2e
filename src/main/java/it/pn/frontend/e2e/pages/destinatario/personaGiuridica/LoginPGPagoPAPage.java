@@ -31,10 +31,9 @@ public class LoginPGPagoPAPage extends BasePage {
     public void waitLoadLoginPGPage() {
         try {
             By titlePageBy = By.xpath("//h1[contains(text(),'Login')]");
-            By inviaButtonBy = By.xpath("//button[@name = 'confirm']");
 
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(inviaButtonBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.inviaButton));
 
             logger.info("LoginPGPage caricata correttamente");
 

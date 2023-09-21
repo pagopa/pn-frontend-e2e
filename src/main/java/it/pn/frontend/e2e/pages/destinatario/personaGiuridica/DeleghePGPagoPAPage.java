@@ -68,10 +68,10 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void waitLoadDeleghePage() {
         try{
             By titlePage = By.id("title-of-page");
-            By delegheCarico = By.xpath("//button[@data-testid='tab2']");
 
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegheCarico));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.cfTextField));
 
             this.logger.info("Deleghe page si visualizza correttamente");
 

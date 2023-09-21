@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 public class PopUpRevocaDelegaSection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("PopUpRevocaDelegaSection");
 
-    @FindBy(xpath="//div/h5[contains(text(),'Vuoi davvero revocare la delega?')]")
+    @FindBy(id = "confirmation-dialog-delegations")
     WebElement title;
 
     @FindBy(xpath = "//button[contains(text(),'Revoca la delega')]")
@@ -31,8 +31,5 @@ public class PopUpRevocaDelegaSection extends BasePage {
     public void clickRevocaLaDelega() {
         this.revocaDialogAction.click();
     }
-
-
-
 
 }
