@@ -8,7 +8,7 @@ Feature:Il delegato persona giuridica accetta la delega non assegnandoli un grup
 
   @TestSuite
   @fase2Test119
-  @new+
+  @new
 
   Scenario: Il delegato persona giuridica accetta la delega non assegnandoli un gruppo
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe

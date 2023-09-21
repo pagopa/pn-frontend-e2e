@@ -13,7 +13,7 @@ Feature: La persona giuridica revoca una delega
 
   @TestSuite
   @fase2Test117
-  @new+
+  @new
   Scenario: La persona giuridica revoca una delega
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa

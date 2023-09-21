@@ -9,7 +9,7 @@ Feature: La persona giuridica annulla l'operazione di revoca una delega
 
   @TestSuite
   @fase2Test117_NEG
-  @new+
+  @new
   Scenario: La persona giuridica annulla l'operazione di revoca una delega
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe

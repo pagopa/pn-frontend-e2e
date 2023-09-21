@@ -9,7 +9,7 @@ Feature: Il persona giuridica fa una ricerca per gruppo delle deleghe
 
   @TestSuite
   @fase2Test115
-  @new+
+  @new
 
 
   Scenario: Il persona giuridica fa una ricerca per gruppo delle deleghe

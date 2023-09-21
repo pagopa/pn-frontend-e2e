@@ -7,7 +7,7 @@ Feature:Il delegato persona giuridica rifiuta la delega
     And Si visualizza correttamente la Pagina Notifiche persona giuridica
 
   @TestSuite
-  @new+
+  @new
 
   Scenario: Il delegato persona giuridica rifiuta la delega
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe

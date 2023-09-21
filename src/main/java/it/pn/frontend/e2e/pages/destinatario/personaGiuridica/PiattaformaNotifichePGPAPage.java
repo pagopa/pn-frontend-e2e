@@ -37,7 +37,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void clickSuDelegeButton() {
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.delegheSideMenu));
-        this.delegheSideMenu.click();
+        this.js().executeScript("arguments[0].click()",this.delegheSideMenu);
     }
 
     public void clickNotificheDelegate() {
@@ -62,7 +62,8 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
         public void clickRecapitiButton () {
-            this.recapitiButton.click();
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(recapitiButton));
+            this.js().executeScript("arguments[0].click()",this.recapitiButton);
         }
     }
 
