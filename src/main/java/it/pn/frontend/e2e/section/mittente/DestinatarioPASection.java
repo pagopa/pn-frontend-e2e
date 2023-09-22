@@ -21,43 +21,43 @@ public class DestinatarioPASection extends BasePage {
     @FindBy(css = "input[value='PF']")
     WebElement personaFisicaCheckBox;
 
-    @FindBy(xpath = "//input[contains(@id,'firstName')]" )
+    @FindBy(id = "recipients[0].firstName")
     WebElement nomeDestinatarioTextField;
 
-    @FindBy(xpath = "//input[contains(@id,'lastName')]")
+    @FindBy(id = "recipients[0].lastName")
     WebElement cognomeDestinatarioTextField;
 
-    @FindBy(xpath = "//input[contains(@id,'taxId')]")
+    @FindBy(id = "recipients[0].taxId")
     WebElement codiceFiscaleDestinatarioTextField;
 
-    @FindBy(xpath = "//div[@data-testid='PhysicalAddressCheckbox']")
+    @FindBy(xpath = "//div[@data-testid='recipients[0].physicalAddressCheckbox']")
     WebElement aggiungiUnIndirizzoFisicoCheckBox;
 
-    @FindBy(xpath = "//label[contains(@id,'address-label')]/following-sibling::div/input")
+    @FindBy(id = "recipients[0].address")
     WebElement indirizzoTextField;
 
-    @FindBy(xpath = "//input[contains(@id,'houseNumber')]")
+    @FindBy(id = "recipients[0].houseNumber")
     WebElement numeroCivicoTextField;
 
-    @FindBy(xpath = "//label[contains(@id,'municipalityDetails-label')]/following-sibling::div/input")
+    @FindBy(id = "recipients[0].municipalityDetails")
     WebElement localitaTextField;
 
-    @FindBy(xpath = "//label[contains(@id,'municipality-label')]/following-sibling::div/input")
+    @FindBy(id = "recipients[0].municipality")
     WebElement comuneTextField;
 
-    @FindBy(xpath = "//input[contains(@id,'province')]")
+    @FindBy(id = "recipients[0].province")
     WebElement provinciaTextField;
 
-    @FindBy(xpath = "//input[contains(@id,'zip')]")
+    @FindBy(id = "recipients[0].zip")
     WebElement codicePostaleTextField;
 
-    @FindBy(xpath = "//input[contains(@id,'foreignState')]")
+    @FindBy(id = "recipients[0].foreignState")
     WebElement statoTextField;
 
     @FindBy(xpath = "//button[contains(@data-testid,'add-recipient')]")
     WebElement aggiungiDestinatarioButton;
 
-    @FindBy(xpath = "//div[@data-testid='DigitalDomicileCheckbox']")
+    @FindBy(xpath = "//label[@data-testid='showDigitalDomicile0']")
     WebElement checkBoxAggiungiDomicilioDigitale;
 
     @FindBy(xpath = "//input[@id='recipients[0].digitalDomicile']")
@@ -66,7 +66,7 @@ public class DestinatarioPASection extends BasePage {
     @FindBy(xpath = "//input[@id='recipients[0].firstName']")
     WebElement ragioneSocialeTextField;
 
-    @FindBy(xpath = "//input[@id='recipients[0].taxId']")
+    @FindBy(id = "recipients[0].taxId")
     WebElement partitaIvaTextField;
 
     @FindBy(xpath = "//button[@data-testid='previous-step']")
@@ -173,7 +173,7 @@ public class DestinatarioPASection extends BasePage {
         String cfDestinatario = ricercaInformazione(destinatari.get("codiceFiscale").toString().split(","), i);
         cfDestinatario = cfDestinatario.replace(" ","");
         inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]",cfDestinatario);
-        selezionaAggiungiUnIndirizzoFisicoMulti();
+        selezionaAggiungiUnIndirizzoFisicoMulti(i+1);
     }
     public void inserimentoInformazioniAggiuntive(Map<String,Object> destinatari, int i){
         String indirizzoDestinatario = ricercaInformazione(destinatari.get("indirizzo").toString().split(","), i);
@@ -190,8 +190,8 @@ public class DestinatarioPASection extends BasePage {
         inserireInfoMultiDestinatario("//input[contains(@id,'zip')]",codicePostale);
         inserireInfoMultiDestinatario("//input[contains(@id,'foreignState')]",destinatari.get("stato").toString());
     }
-    private void selezionaAggiungiUnIndirizzoFisicoMulti() {
-        By aggiungiIndrizzoBy = By.xpath("//div[contains(@data-testid, 'PhysicalAddressCheckbox')]");
+    private void selezionaAggiungiUnIndirizzoFisicoMulti(int i) {
+        By aggiungiIndrizzoBy = By.xpath("//label[@data-testid='showPhysicalAddress"+i+"']");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(aggiungiIndrizzoBy));
         List<WebElement> aggiungiIndirizzoButton = this.elements(aggiungiIndrizzoBy);
         this.scrollToElementClickAndInsertText(aggiungiIndirizzoButton.get(aggiungiIndirizzoButton.size() - 1), null);
@@ -245,7 +245,7 @@ public class DestinatarioPASection extends BasePage {
         String cfDestinatario = ricercaInformazione(personeGiuridiche.get("codiceFiscale").toString().split(","), i);
         cfDestinatario = cfDestinatario.replace(" ","");
         inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]",cfDestinatario);
-        selezionaAggiungiUnIndirizzoFisicoMulti();
+        selezionaAggiungiUnIndirizzoFisicoMulti(i+1);
     }
 
     private void clickRadioButtonPersonaGiuridica(int posizione) {

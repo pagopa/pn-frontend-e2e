@@ -249,6 +249,8 @@ public class LoginPersonaFisicaPagoPA {
             logger.info("procedura di login from spid provata : "+numProvaLogin);
         }else{
             Assert.fail("procedura di login from spid provata : "+numProvaLogin);
+            Assert.fail("Codice risposta ricevuto per questo end point: '"+this.urlPersonaFisica+"' è : "+this.urlPersonaFisica.get("responseCode"));
+
         }
 
 
@@ -464,6 +466,8 @@ public class LoginPersonaFisicaPagoPA {
             logger.info("procedura di login from spid provata : "+numProvaLogin);
         }else{
             Assert.fail("procedura di login from spid provata : "+numProvaLogin);
+            Assert.fail("Codice risposta ricevuto per questo end point: '"+this.urlPersonaFisica+"' è : "+this.urlPersonaFisica.get("responseCode"));
+
         }
 
 

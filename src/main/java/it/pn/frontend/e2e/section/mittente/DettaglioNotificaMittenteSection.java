@@ -23,7 +23,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
 
-    @FindBy(xpath = "//button[contains(text(),'Vedi più dettagli')]")
+    @FindBy(id = "more-less-timeline-step")
     WebElement vediDettagliButton;
 
     @FindBy (xpath = "//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11dv4ll')]")

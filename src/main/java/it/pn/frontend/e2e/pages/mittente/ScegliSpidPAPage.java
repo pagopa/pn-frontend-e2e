@@ -15,7 +15,7 @@ public class ScegliSpidPAPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("ScegliSpidPAPage");
 
-    @FindBy(css = "button[aria-label='test']")
+    @FindBy(id = "xx_testenv2")
     WebElement testButton;
 
     public ScegliSpidPAPage(WebDriver driver) {

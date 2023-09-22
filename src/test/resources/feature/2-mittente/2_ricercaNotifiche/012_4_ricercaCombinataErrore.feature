@@ -18,4 +18,4 @@ Feature: il mittente fa una ricerca combinata tra stato e arco temporale  con ne
     And Logout da portale mittente
     Examples:
       |     stato      |
-      |   Annullata    |
+      |   Depositata   |

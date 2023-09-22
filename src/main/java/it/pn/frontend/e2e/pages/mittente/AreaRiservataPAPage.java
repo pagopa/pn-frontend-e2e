@@ -20,13 +20,13 @@ public class AreaRiservataPAPage extends BasePage {
     @FindBy(xpath = "//p[contains(@class,'MuiTypography-root MuiTypography-body1 ShowDots')]")
     List<WebElement> infoLabel;
 
-    @FindBy(xpath = "//button[contains(@id,'forward_prod-pn-dev')]")
+    @FindBy(id = "forward_prod-pn-dev")
     WebElement piattaformaNotificaDevGestisciButton;
 
-    @FindBy(xpath = "//button[contains(@id,'forward_prod-pn-test')]")
+    @FindBy(id = "forward_prod-pn-test")
     WebElement piattaformaNotificaTestGestisciButton;
 
-    @FindBy(xpath = "//button[@id='forward_prod-pn']")
+    @FindBy(id = "forward_prod-pn")
     WebElement piattaformaNotificaUatGestisciButton;
 
 

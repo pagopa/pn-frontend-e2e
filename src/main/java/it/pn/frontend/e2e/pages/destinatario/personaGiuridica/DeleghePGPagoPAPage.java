@@ -36,12 +36,10 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void waitLoadDeleghePage() {
         try{
             By titlePage = By.id("title-of-page");
-            By delegheCarico = By.xpath("//button[@data-testid='tab2']");
-            By cfFieldBy = By.id("taxId");
 
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegheCarico));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(cfFieldBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.cfTextField));
 
             this.logger.info("Deleghe page si visualizza correttamente");
 
@@ -59,23 +57,6 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     }
 
-/*    public boolean CercaEsistenzaDelega(String nome,String cognome) {
-        try {
-            By nomeDelegato = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
-            return true;
-        }catch (TimeoutException | NoSuchElementException e){
-            return false;
-        }
-    }*/
-/*    public void clickRevocaMenuButton(String nome, String cognome) {
-
-        By menuButton = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
-        this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuButton));
-        this.js().executeScript("arguments[0].click()",this.element(menuButton));
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.revocaMenuButton));
-        this.revocaMenuButton.click();
-    }*/
     public boolean CercaEsistenzaDelegaPG(String ragioneSociale) {
         try {
             By nomeDelegato = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]");
@@ -144,17 +125,6 @@ public class DeleghePGPagoPAPage extends BasePage {
           By delegaBy = By.xpath("//p[contains(text(),'"+nome+" "+cognome+"')]");
           this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaBy));
           return this.elements(delegaBy).size() == 1;
-
-/*        try{
-            By delegheBy = By.xpath("//p[contains(text(),'"+nome+" "+cognome+"')]");
-
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegheBy));
-
-            return true;
-
-        }catch (TimeoutException e){
-            return false;
-        }*/
 
     }
 }

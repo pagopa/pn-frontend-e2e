@@ -27,19 +27,19 @@ public class NotifichePFPage extends BasePage {
     @FindBy(id = "endDate")
     WebElement dataFineField;
 
-    @FindBy(xpath = "//div[contains(@data-testid,'sideMenuItem-Notifiche')]")
+    @FindBy(xpath = "//div[@data-testid='sideMenuItem-Notifiche']")
     WebElement notificheDeButton;
 
-    @FindBy(xpath = "//div[contains(@data-testid,'sideMenuItem-Cristoforo Colombo')]")
+    @FindBy(xpath = "//div[@data-testid='sideMenuItem-Cristoforo Colombo']")
     WebElement nomeDeleganteButton;
 
-    @FindBy(xpath = "//button[contains(@aria-label,'Vai alla pagina successiva')]")
+    @FindBy(id = "next")
     WebElement paginaSuccessivaButton;
 
-    @FindBy(xpath = "//button[contains(@aria-label,'pagina 3')]")
+    @FindBy(id = "page3")
     WebElement numeroPaginaTreButton;
 
-    @FindBy(xpath = "//button[contains(@data-testid,'rows-per-page')]")
+    @FindBy(xpath = "//button[@data-testid='rows-per-page']")
     WebElement numeroPagineButton;
 
     public NotifichePFPage(WebDriver driver) {
@@ -49,10 +49,10 @@ public class NotifichePFPage extends BasePage {
     public void waitLoadNotificheDEPage() {
         try{
             By titleLabel = By.id("title-of-page");
-            By tableNotifiche = By.xpath("//table[@data-testid='table(notifications)']");
+            By tableNotifiche = By.xpath("//table[@data-testid='notificationsTable']");
             this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
             this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
-            logger.info("Notifiche DE Page non caricata");
+            logger.info("Notifiche DE Page caricata");
         }catch (TimeoutException e){
             logger.error("Notifiche DE Page non caricata con errore : "+e.getMessage());
             Assert.fail("Notifiche DE Page non caricata con errore : "+e.getMessage());
@@ -71,7 +71,6 @@ public class NotifichePFPage extends BasePage {
 
     public void waitESelectDelegheButton() {
         try{
-            //By buttonDelegeBy = By.xpath("//div[contains(@data-testid,'sideMenuItem-Deleghe')]");
             By buttonDelegeBy = By.xpath("//div[contains(@data-testid,'menu-item(deleghe)')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(buttonDelegeBy));
             WebElement buttonDelegheWebElement = this.driver.findElement(buttonDelegeBy);
@@ -101,16 +100,8 @@ public class NotifichePFPage extends BasePage {
 
     public boolean getListData() {
         By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-c3sxw2')]");
-        attesaCaricamentoPagina();
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
+        this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
         return this.elements(dataListBy).size() != 0;
-    }
-    private void attesaCaricamentoPagina() {
-        try {                                   // Questo sleep l'abbiamo messo perché
-            TimeUnit.SECONDS.sleep(5);   // il sito ci mette un pò a caricarsi
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public boolean verificaEsistenzaEPassaggioPagina() {
@@ -158,7 +149,7 @@ public class NotifichePFPage extends BasePage {
 
     public void siVisualizzaElencoNotifiche() {
         try {
-            By elementoDellaListaBy = By.xpath("//tr[contains(@data-testid,'table(notifications).row')]");
+            By elementoDellaListaBy = By.xpath("//tr[contains(@data-testid,'notificationsTable.row')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(elementoDellaListaBy));
             By nomeColonnaDataBy = By.xpath("//th[contains(text(),'Data')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaDataBy));
@@ -178,7 +169,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public int siVisualizzaNotifichePresenti() {
-        By rigaDelegaBy = By.xpath("//tr[contains(@data-testid,'table(notifications).row')]");
+        By rigaDelegaBy = By.xpath("//tr[@data-testid='notificationsTable.row']");
         int numeroRigheNotifiche = elements(rigaDelegaBy).size();
         return numeroRigheNotifiche;
     }
@@ -251,7 +242,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public int conteggioNotifiche() {
-        By rigaDelegaBy = By.xpath("//tr[contains(@data-testid,'table(notifications).row')]");
+        By rigaDelegaBy = By.xpath("//tr[@data-testid='notificationsTable.row']");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(rigaDelegaBy));
         int numeroRigheNotifiche2 = elements(rigaDelegaBy).size();
         return numeroRigheNotifiche2;
