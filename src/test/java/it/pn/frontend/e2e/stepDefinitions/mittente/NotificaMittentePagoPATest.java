@@ -920,8 +920,8 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica {string}")
     public void nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaPersonaFisica(String dpFile) {
-        this.personeFisiche = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         destinatarioPASection.checkBoxAggiungiDomicilio();
-        destinatarioPASection.insertDomicilioDigitale(this.personaFisica.get("emailPec").toString());
+        destinatarioPASection.insertDomicilioDigitale(this.personaFisica.get("emailPecErrore").toString());
     }
 }

@@ -307,10 +307,13 @@ public class DeleghePagoPATest {
         }
     }
 
-    @And("Nella pagina Deleghe si clicca sul menu della delega")
-    public void nellaPaginaDelegheSiCliccaSulMenuDellaDelega() {
+    @And("Nella pagina Deleghe si clicca sul menu della delega a tuo carico {string}")
+    public void nellaPaginaDelegheSiCliccaSulMenuDellaDelega(String dpFile) {
         logger.info("Si clicca sul menu delle delega");
-        deleghePage.clickMenuPerRifiuto();
+        this.deleghe = dataPopulation.readDataPopulation(dpFile+".yaml");
+        String nome = this.deleghe.get("name").toString();
+        String cognome = this.deleghe.get("familyName").toString();
+        deleghePage.clickMenuPerRifiuto(nome, cognome);
     }
 
     @And("Nella pagina Deleghe si sceglie opzione rifiuta")
