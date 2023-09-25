@@ -15,21 +15,11 @@ public class AggiungiDelegaPGSection extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("AggiungiDelegaPGSection");
 
-    @FindBy(xpath = "//input[@name='selectPersonaFisicaOrPersonaGiuridica' and @value = 'PF']")
-    WebElement personaFisicaRadioButton;
-
     @FindBy(xpath = "//input[@name='selectPersonaFisicaOrPersonaGiuridica' and @value = 'PG']")
     WebElement personaGiuridicaButton;
 
-    @FindBy(id = "nome")
-    WebElement nomeTextField;
-
     @FindBy(id = "ragioneSociale")
     WebElement ragioneSocialeTextField;
-
-    @FindBy(id = "cognome")
-    WebElement cognomeTextField;
-
 
     @FindBy(xpath = "//button[contains(@data-testid,'createButton')]")
     WebElement inviaLaRichiestaButton;
@@ -61,7 +51,7 @@ public class AggiungiDelegaPGSection extends BasePage {
 
     public void waitLoadAggiungiDelegaPage() {
         try {
-            By titlePageBy = By.id("title-of-page");
+            By titlePageBy = By.id("Aggiungi una delega-page");
             By codiceFiscaleInputBy = By.id("codiceFiscale");
 
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));

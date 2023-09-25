@@ -67,7 +67,7 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public void waitLoadDeleghePage() {
         try{
-            By titlePage = By.id("title-of-page");
+            By titlePage = By.id("Deleghe-page");
 
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));

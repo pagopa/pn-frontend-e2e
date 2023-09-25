@@ -53,7 +53,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void waitLoadSezioneNotificheDelegate() {
         try{
-            By notificheDelegatePageTitle = By.id("title-of-page");
+            By notificheDelegatePageTitle = By.id("Notifiche delegate a Vita Nova Sas-page");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheDelegatePageTitle));
             logger.info("Si visualizza correttamente la sezione notifiche delegate");
         }catch (TimeoutException e){

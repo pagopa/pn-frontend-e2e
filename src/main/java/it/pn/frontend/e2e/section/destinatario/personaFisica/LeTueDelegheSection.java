@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.section.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.apache.commons.math3.analysis.function.Exp;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -15,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class LeTueDelegheSection extends BasePage {
 
@@ -58,7 +56,7 @@ public class LeTueDelegheSection extends BasePage {
     WebElement accettaPopUpButton;
 
 
-    @FindBy(id = "title-of-page")
+    @FindBy(id = "Aggiungi una delega-page")
     WebElement deleghePageTitle;
 
     @FindBy(xpath = "//p[contains(text(),'Qui puoi gestire')]")
@@ -84,9 +82,9 @@ public class LeTueDelegheSection extends BasePage {
     }
     public void waitNuovaDelegaSection() {
         try {
-            By letuedeleghePageTitle = By.id("title-of-page");
+            By letuedeleghePageTitle = By.id("Aggiungi una delega-page");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(letuedeleghePageTitle));
-            this.logger.info("Le tue deleghe page caricata");
+            logger.info("Le tue deleghe page caricata");
         } catch (TimeoutException e) {
             logger.error("Le tue deleghe page non caricata con errore :" + e.getMessage());
             Assert.fail(("Le tue deleghe page non caricata con errore :" + e.getMessage()));

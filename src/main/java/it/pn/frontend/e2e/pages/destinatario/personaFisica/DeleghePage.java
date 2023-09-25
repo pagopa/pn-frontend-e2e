@@ -31,7 +31,7 @@ public class DeleghePage extends BasePage {
 
     public void waitDeleghePage() {
         try {
-            By deleghePageTitle = By.id("title-of-page");
+            By deleghePageTitle = By.id("Deleghe-page");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(deleghePageTitle));
             this.logger.info("Deleghe page caricata");
         } catch (TimeoutException e) {
