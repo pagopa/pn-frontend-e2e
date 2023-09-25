@@ -30,7 +30,7 @@ public class NotifichePFPage extends BasePage {
     @FindBy(xpath = "//div[@data-testid='sideMenuItem-Notifiche']")
     WebElement notificheDeButton;
 
-    @FindBy(xpath = "//div[@data-testid='sideMenuItem-Cristoforo Colombo']")
+    @FindBy(xpath = "//div[@data-testid='sideMenuItem-Gaio Giulio Cesare']")
     WebElement nomeDeleganteButton;
 
     @FindBy(id = "next")

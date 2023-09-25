@@ -27,7 +27,6 @@ public class DeleghePagoPATest {
     private final LeTueDelegheSection  leTueDelegheSection = new LeTueDelegheSection(this.driver);
 
     private final PopUpRevocaDelegaSection popUpRevocaDelegaSection = new PopUpRevocaDelegaSection(this.driver);
-
     private final DataPopulation dataPopulation = new DataPopulation();
 
     private final DeleghePage deleghePage = new DeleghePage(this.driver);
@@ -347,9 +346,4 @@ public class DeleghePagoPATest {
         }
     }
 
-    @And("Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe")
-    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaSiVedeLaSezioneDeleghe() {
-        logger.info("Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe");
-        deleghePage.waitLoadDelegheSection();
-    }
 }

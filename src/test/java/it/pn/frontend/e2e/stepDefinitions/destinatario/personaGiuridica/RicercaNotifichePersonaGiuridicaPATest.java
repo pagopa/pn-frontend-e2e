@@ -64,8 +64,8 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
 
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-        notifichePFPage.waitLoadNotificheDEPage();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotificaPG = dataPopulation.readDataPopulation(datiNotificaPG + ".yaml");
         String codiceIUNInserito = this.datiNotificaPG.get("codiceIUN").toString();

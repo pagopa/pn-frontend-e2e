@@ -33,6 +33,7 @@ public class DeleghePage extends BasePage {
         try {
             By deleghePageTitle = By.id("Deleghe-page");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(deleghePageTitle));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.addDelegaButton));
             this.logger.info("Deleghe page caricata");
         } catch (TimeoutException e) {
             logger.error("Deleghe Page non caricata con errore : " + e.getMessage());
@@ -41,7 +42,7 @@ public class DeleghePage extends BasePage {
     }
 
     public void clickAggiungiDelegaButton()  {
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.addDelegaButton));
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.addDelegaButton));
         this.addDelegaButton.click();
     }
 
@@ -88,7 +89,7 @@ public class DeleghePage extends BasePage {
     public void clickMenuDelega(String nome, String cognome) {
         try{
             By menuDelega = By.xpath("//div[@data-testid='delegates-wrapper']//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
+            this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuDelega));
             WebElement menuDelegaWebElement = this.driver.findElement(menuDelega);
             this.js().executeScript("arguments[0].click()",menuDelegaWebElement);
             logger.info("cliccato correttamente su menu delega button");
@@ -171,16 +172,6 @@ public class DeleghePage extends BasePage {
             return true;
         }catch (TimeoutException | NoSuchElementException e){
             return false;
-        }
-    }
-
-    public void waitLoadDelegheSection() {
-        try{
-            By delegheSectionTitleBy = By.id("title-of-page");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegheSectionTitleBy));
-        }catch (TimeoutException e){
-            logger.error("La sezione deleghe non si visualizza correttamente con errore:"+e.getMessage());
-            Assert.fail("La sezione deleghe non si visualizza correttamente con errore"+e.getMessage());
         }
     }
 }

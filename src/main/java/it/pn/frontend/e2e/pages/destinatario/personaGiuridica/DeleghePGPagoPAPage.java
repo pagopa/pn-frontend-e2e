@@ -71,8 +71,6 @@ public class DeleghePGPagoPAPage extends BasePage {
 
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.cfTextField));
-
             this.logger.info("Deleghe page si visualizza correttamente");
 
         }catch (TimeoutException e){

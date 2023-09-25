@@ -56,7 +56,7 @@ public class LeTueDelegheSection extends BasePage {
     WebElement accettaPopUpButton;
 
 
-    @FindBy(id = "Aggiungi una delega-page")
+    @FindBy(id = "Deleghe-page")
     WebElement deleghePageTitle;
 
     @FindBy(xpath = "//p[contains(text(),'Qui puoi gestire')]")
