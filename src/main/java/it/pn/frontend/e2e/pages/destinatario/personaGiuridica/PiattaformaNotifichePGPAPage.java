@@ -24,9 +24,9 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         super(driver);
     }
 
-    public void waitLoadPitattaformaNotificaPage() {
+    public void waitLoadPitattaformaNotificaPage(String ragioneSociale) {
         try {
-            By titlePageBy = By.id("title-of-page");
+            By titlePageBy = By.id("Notifiche di "+ragioneSociale+"-page");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             logger.info("La piagine Piattamorma Notifiche si carica correttamente");
         } catch (TimeoutException e) {

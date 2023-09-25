@@ -5,7 +5,7 @@ Feature: La persona giuridica annulla l'operazione di revoca una delega
     When Login "personaGiuridica_1" portale persona giuridica tramite request method
     Then Home page persona giuridica viene visualizzata correttamente
     And Nella Home page persona giuridica si clicca su Send Notifiche Digitali
-    And Si visualizza correttamente la Pagina Notifiche persona giuridica
+    And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica_1"
 
   @TestSuite
   @fase2Test117_NEG
