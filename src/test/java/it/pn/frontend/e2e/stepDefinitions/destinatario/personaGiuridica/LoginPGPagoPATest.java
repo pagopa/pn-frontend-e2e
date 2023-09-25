@@ -62,8 +62,6 @@ public class LoginPGPagoPATest {
             if(this.urlPersonaGiuridica.get("responseCode").equalsIgnoreCase("301")){
                 urlWithTokenFound = true;
                 break;
-            }else {
-                this.urlPersonaGiuridica.clear();
             }
             try {
                 TimeUnit.SECONDS.sleep(15);
@@ -296,8 +294,6 @@ public class LoginPGPagoPATest {
             if(this.urlPersonaGiuridica.get("responseCode").equalsIgnoreCase("301")){
                 urlWithTokenFound = true;
                 break;
-            }else {
-                this.urlPersonaGiuridica.clear();
             }
             try {
                 TimeUnit.SECONDS.sleep(15);

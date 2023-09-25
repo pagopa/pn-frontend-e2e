@@ -234,8 +234,6 @@ public class LoginPersonaFisicaPagoPA {
             if(this.urlPersonaFisica.get("responseCode").equalsIgnoreCase("301")){
                 urlWithTokenFound = true;
                 break;
-            }else {
-                this.urlPersonaFisica.clear();
             }
             try {
                 TimeUnit.SECONDS.sleep(15);
@@ -451,8 +449,6 @@ public class LoginPersonaFisicaPagoPA {
             if(this.urlPersonaFisica.get("responseCode").equalsIgnoreCase("301")){
                 urlWithTokenFound = true;
                 break;
-            }else {
-                this.urlPersonaFisica.clear();
             }
             try {
                 TimeUnit.SECONDS.sleep(15);
