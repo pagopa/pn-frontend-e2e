@@ -192,8 +192,8 @@ public class DeleghePGPagoPATest {
     @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si controlla che venga restituita la delega con il codice fiscale inserito {string}")
     public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiControllaCheVengaRestituitaLaDelegaConIlCodiceFiscaleInserito(String dpFile) {
         this.datiPersonaFisica = this.dataPopulation.readDataPopulation(dpFile+".yaml");
-
-        if (deleghePGPagoPAPage.controlloDelegaRestituita(this.datiPersonaFisica.get("ragioneSociale").toString())){
+        String delegante = this.datiPersonaFisica.get("name")+" "+this.datiPersonaFisica.get("familyName");
+        if (deleghePGPagoPAPage.controlloDelegaRestituita(delegante)){
             this.logger.info("La delega restituita è corretta");
         }else {
             this.logger.error("La delega restituita NON è corretta");

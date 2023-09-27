@@ -96,6 +96,11 @@ public class DeleghePage extends BasePage {
         }catch (TimeoutException e){
             logger.error("Menu delega button NON trovata con errore: "+e.getMessage());
             Assert.fail("Menu delega button NON trovata con errore: "+e.getMessage());
+        } catch (StaleElementReferenceException e){
+            By menuDelega = By.xpath("//div[@data-testid='delegates-wrapper']//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
+            this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuDelega));
+            WebElement menuDelegaWebElement = this.driver.findElement(menuDelega);
+            this.js().executeScript("arguments[0].click()",menuDelegaWebElement);
         }
     }
 

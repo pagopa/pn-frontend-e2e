@@ -294,7 +294,7 @@ public class ApiKeyPAPage  extends BasePage {
     }
 
     public void mouseHover() {
-        By statoCellBy = By.id("notification-status-tooltip");
+        By statoCellBy = By.id("status-chip-Attiva");
         WebElement statoCell = this.element(statoCellBy);
         Actions action = new Actions(this.driver);
         action.moveToElement(statoCell).perform();

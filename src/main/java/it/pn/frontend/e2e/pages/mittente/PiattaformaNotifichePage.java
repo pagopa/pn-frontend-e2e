@@ -41,7 +41,7 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "//div[contains(@data-testid,'sideMenuItem-API Key')]")
     WebElement apiKeyButton;
 
-    @FindBy(xpath = "//button[@data-testid ='rows-per-page']")
+    @FindBy(id = "rows-per-page")
     WebElement numeroNotificheButton;
 
     @FindBy(id = "next")
@@ -420,7 +420,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public String numeroNotifiche() {
-        By nRigheBy = By.xpath("//button[contains(@data-testid,'rows-per-page')]");
+        By nRigheBy = By.id("rows-per-page");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nRigheBy));
         return this.element(nRigheBy).getText();
     }

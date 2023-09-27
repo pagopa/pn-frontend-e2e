@@ -39,7 +39,7 @@ public class NotifichePFPage extends BasePage {
     @FindBy(id = "page3")
     WebElement numeroPaginaTreButton;
 
-    @FindBy(xpath = "//button[@data-testid='rows-per-page']")
+    @FindBy(id = "rows-per-page")
     WebElement numeroPagineButton;
 
     public NotifichePFPage(WebDriver driver) {
@@ -262,5 +262,19 @@ public class NotifichePFPage extends BasePage {
             logger.error("Notifica non trovata con errore: "+e.getMessage());
             Assert.fail("Notifica non trovata con errore: "+e.getMessage());
         }
+    }
+
+    public void waitLoadNotificheDEPageDelegante(String nome, String cognome) {
+        try{
+            By titleLabel = By.id("Le notifiche di "+nome+" "+cognome+"-page");
+            By tableNotifiche = By.xpath("//table[@data-testid='notificationsTable']");
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
+            logger.info("Notifiche DE Page caricata");
+        }catch (TimeoutException e){
+            logger.error("Notifiche DE Page non caricata con errore : "+e.getMessage());
+            Assert.fail("Notifiche DE Page non caricata con errore : "+e.getMessage());
+        }
+
     }
 }

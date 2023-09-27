@@ -5,7 +5,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeadeFRSection;
@@ -221,6 +220,17 @@ public class NotifichePersonaFisicaPAgoPATest {
     public void siCliccaSulOpzioneVediDettaglio() {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(driver);
         dettaglioNotificaSection.selezioneVediDettaglioButton();
+    }
+
+    @And("Si visualizza correttamente la Pagina Notifiche persona fisica delegante {string}")
+    public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaFisicaDelegante(String dpFile) {
+        DataPopulation dataPopulation = new DataPopulation();
+        Map <String, Object> personaFisicaDelgante = dataPopulation.readDataPopulation(dpFile+".yaml");
+        String nome = personaFisicaDelgante.get("name").toString();
+        String cognome = personaFisicaDelgante.get("familyName").toString();
+
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.waitLoadNotificheDEPageDelegante(nome, cognome);
     }
 }
 
