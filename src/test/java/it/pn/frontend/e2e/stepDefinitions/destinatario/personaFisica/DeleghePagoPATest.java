@@ -283,18 +283,14 @@ public class DeleghePagoPATest {
     }
 
 
-    @And("Si controlla che non sia presente una delga con stesso nome {string}")
-    public void siControllaCheNonSiaPresenteUnaDelgaConStessoNome(String dpFile) {
+    @And("Si controlla che non sia presente una delega con stesso nome {string}")
+    public void siControllaCheNonSiaPresenteUnaDelegaConStessoNome(String dpFile) {
         logger.info("Si controlla che non ci sia una delega con lo stesso nome");
-
-
-
 
         Map<String,Object> datiDelega = dataPopulation.readDataPopulation(dpFile+".yaml");
 
         String nome =  datiDelega.get("nome").toString();
         String cognome =  datiDelega.get("cognome").toString();
-
 
         if ( deleghePage.CercaEsistenzaDelega(nome,cognome)){
             logger.info("Delega con lo stesso nome trovata");

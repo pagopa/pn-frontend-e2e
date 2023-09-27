@@ -61,7 +61,7 @@ public class AggiungiDelegaPGSection extends BasePage {
 
     public void waitLoadAggiungiDelegaPage() {
         try {
-            By titlePageBy = By.id("title-of-page");
+            By titlePageBy = By.id("Aggiungi una delega-page");
             By codiceFiscaleInputBy = By.id("codiceFiscale");
 
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));

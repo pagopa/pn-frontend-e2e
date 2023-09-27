@@ -7,7 +7,7 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
 
   @fase2Test1
   @TestSuite
-    @pg
+
     @try
   Scenario:Il mittente inserisce i dati nella sezione informazioni preliminari
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

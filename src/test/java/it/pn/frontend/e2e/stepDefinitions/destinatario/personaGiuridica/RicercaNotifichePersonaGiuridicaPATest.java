@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RicercaNotifichePGPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
@@ -64,9 +65,12 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
 
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-        notifichePFPage.waitLoadNotificheDEPage();
         DataPopulation dataPopulation = new DataPopulation();
+
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        String ragioneSociale = dataPopulation.readDataPopulation(datiNotificaPG + ".yaml").get("ragioneSociale").toString();
+        piattaformaNotifichePGPAPage.waitLoadPitattaformaNotificaPage(ragioneSociale);
+
         this.datiNotificaPG = dataPopulation.readDataPopulation(datiNotificaPG + ".yaml");
         String codiceIUNInserito = this.datiNotificaPG.get("codiceIUN").toString();
 

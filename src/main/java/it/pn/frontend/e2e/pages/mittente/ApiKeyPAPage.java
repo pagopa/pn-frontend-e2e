@@ -62,7 +62,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void waitLoadApikeyPage() {
         try {
-            By apiKeyTitle = By.id("title-of-page");
+            By apiKeyTitle = By.id("API Key-page");
             By generaApiKeyButtonBy = By.xpath("//button[contains(@data-testid,'generateApiKey')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(apiKeyTitle));
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(generaApiKeyButtonBy));

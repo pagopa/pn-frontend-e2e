@@ -17,5 +17,5 @@ Feature: il mittente fa una ricerca combinata tra cf e stato
     And Il sistema restituisce notifiche con codice fiscale e stato uguale a quelli inserito <stato>
     And Logout da portale mittente
   Examples:
-    |     stato      |
-    |  Consegnata    |
+    |     stato                               |
+    |  Perfezionata per decorrenza termini    |

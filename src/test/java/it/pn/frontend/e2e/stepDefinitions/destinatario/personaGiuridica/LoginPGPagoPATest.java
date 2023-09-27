@@ -62,8 +62,6 @@ public class LoginPGPagoPATest {
             if(this.urlPersonaGiuridica.get("responseCode").equalsIgnoreCase("301")){
                 urlWithTokenFound = true;
                 break;
-            }else {
-                this.urlPersonaGiuridica.clear();
             }
             try {
                 TimeUnit.SECONDS.sleep(15);
@@ -76,8 +74,8 @@ public class LoginPGPagoPATest {
         if(urlWithTokenFound){
             logger.info("procedura di login from spid provata : "+numProvaLogin);
         }else{
-            Assert.fail("procedura di login from spid provata : "+numProvaLogin);
-            Assert.fail("Codice risposta ricevuto per questo end point: '"+this.urlPersonaGiuridica+"' è : "+this.urlPersonaGiuridica.get("responseCode"));
+            logger.error("procedura di login from spid provata : "+numProvaLogin);
+            Assert.fail("Codice risposta ricevuto per questo end point: '"+this.urlPersonaGiuridica.get("urlPortale")+"' è : "+this.urlPersonaGiuridica.get("responseCode"));
 
         }
 

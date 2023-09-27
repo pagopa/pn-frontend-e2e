@@ -46,7 +46,7 @@ public class RicercaNotifichePGPage extends BasePage {
 
     public void waitLoadDettaglioNotificaPGSection() {
         try {
-           By pageTitleDettaglioNotifica = By.id("title-of-page");
+           By pageTitleDettaglioNotifica = By.id("Pagamento rata IMU-page");
            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(pageTitleDettaglioNotifica));
            logger.info("La pagina dettaglio notifica si è caricata correttamente");
         }catch (TimeoutException e){

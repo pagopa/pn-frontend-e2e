@@ -18,4 +18,4 @@ Feature: il mittente fa una ricerca combinata tra stato e arco temporale
     And Logout da portale mittente
     Examples:
       |     stato      |
-      | Invio in corso |
+      | Perfezionata per decorrenza termini |

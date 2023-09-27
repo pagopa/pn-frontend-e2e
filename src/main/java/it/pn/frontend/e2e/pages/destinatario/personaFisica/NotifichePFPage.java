@@ -30,7 +30,7 @@ public class NotifichePFPage extends BasePage {
     @FindBy(xpath = "//div[@data-testid='sideMenuItem-Notifiche']")
     WebElement notificheDeButton;
 
-    @FindBy(xpath = "//div[@data-testid='sideMenuItem-Cristoforo Colombo']")
+    @FindBy(xpath = "//div[@data-testid='sideMenuItem-Gaio Giulio Cesare']")
     WebElement nomeDeleganteButton;
 
     @FindBy(id = "next")
@@ -48,7 +48,7 @@ public class NotifichePFPage extends BasePage {
 
     public void waitLoadNotificheDEPage() {
         try{
-            By titleLabel = By.id("title-of-page");
+            By titleLabel = By.id("Le tue notifiche-page");
             By tableNotifiche = By.xpath("//table[@data-testid='notificationsTable']");
             this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
             this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
@@ -123,7 +123,7 @@ public class NotifichePFPage extends BasePage {
 
     public void siVisualizzaPaginaNotifichePersonaFisica() {
         try {
-            By notifichePageTitleBy = By.xpath("//h4[contains(@id,'title-of-page')]");
+            By notifichePageTitleBy = By.xpath("//h4[contains(@id,'Le tue notifiche-page')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notifichePageTitleBy));
             logger.info("La pagina notifiche persona fisica si visualizza correttamente");
         }catch (TimeoutException e){
