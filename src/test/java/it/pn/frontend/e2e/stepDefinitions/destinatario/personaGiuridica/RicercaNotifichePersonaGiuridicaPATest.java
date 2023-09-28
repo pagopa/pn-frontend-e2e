@@ -68,7 +68,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         DataPopulation dataPopulation = new DataPopulation();
 
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
-        String ragioneSociale = dataPopulation.readDataPopulation(datiNotificaPG + ".yaml").get("ragioneSociale").toString();
+        String ragioneSociale = dataPopulation.readDataPopulation( "personaGiuridica.yaml").get("ragioneSociale").toString();
         piattaformaNotifichePGPAPage.waitLoadPitattaformaNotificaPage(ragioneSociale);
 
         this.datiNotificaPG = dataPopulation.readDataPopulation(datiNotificaPG + ".yaml");
