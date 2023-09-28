@@ -523,4 +523,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean estensioneSbagliataErrore() {return this.estenzioneSbagliataMessage.isDisplayed();}
 
+    public void waitloadingSpinner(){
+        By loadingSpinnerBy = By.xpath("//span[@role = 'loadingSpinner']");
+        getWebDriverWait(60).until(ExpectedConditions.invisibilityOfElementLocated(loadingSpinnerBy));
+    }
+
     }
