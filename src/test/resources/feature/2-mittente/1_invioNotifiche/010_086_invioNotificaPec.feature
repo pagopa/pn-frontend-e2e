@@ -26,7 +26,7 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     Then Si visualizza correttamente la frase La notifica è stata correttamente creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Si verifica che la notifica viene creata correttamente "datiNotificaPG"
+    And Si verifica che la notifica viene creata correttamente "datiNotifica"
     And Si verifica che la notifica sia nello stato avanzato
     And Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita
     And Si verifica che l'invio della pec sia in corso
