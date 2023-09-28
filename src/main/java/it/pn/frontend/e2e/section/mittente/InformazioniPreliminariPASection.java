@@ -54,6 +54,7 @@ public class InformazioniPreliminariPASection extends BasePage {
     }
 
     public void insertNumeroDiProtocollo(String numeroProtocollo) {
+
         scrollToElementClickAndInsertText(this.numeroProtocolloTextField, numeroProtocollo);
     }
 
