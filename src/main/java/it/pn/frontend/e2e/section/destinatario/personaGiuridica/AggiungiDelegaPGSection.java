@@ -53,14 +53,11 @@ public class AggiungiDelegaPGSection extends BasePage {
     public void waitLoadAggiungiDelegaPage() {
         try {
             By titlePageBy = By.id("Aggiungi una delega-page");
-            By codiceFiscaleInputBy = By.id("codiceFiscale");
-
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiceFiscaleInputBy));
-
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.codiceFiscaleInput));
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.ragioneSocialeTextField));
             logger.info("Si visualizza correttamente la sezione Aggiungi una delega");
         }catch (TimeoutException e){
-
             logger.error("Non si visualizza correttamente la sezione Aggiungi una delega con errore: "+e.getMessage());
             Assert.fail("Non si visualizza correttamente la sezione Aggiungi una delega con errore: "+e.getMessage());
         }

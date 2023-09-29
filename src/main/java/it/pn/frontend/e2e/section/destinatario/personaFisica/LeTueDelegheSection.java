@@ -83,7 +83,10 @@ public class LeTueDelegheSection extends BasePage {
     public void waitNuovaDelegaSection() {
         try {
             By letuedeleghePageTitle = By.id("Aggiungi una delega-page");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(letuedeleghePageTitle));
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(letuedeleghePageTitle));
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.inputNome));
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.codiceFiscaleInput));
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.inputCognome));
             logger.info("Le tue deleghe page caricata");
         } catch (TimeoutException e) {
             logger.error("Le tue deleghe page non caricata con errore :" + e.getMessage());
