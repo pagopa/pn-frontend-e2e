@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.section.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.apache.commons.math3.analysis.function.Exp;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -15,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class LeTueDelegheSection extends BasePage {
 
@@ -150,7 +148,7 @@ public class LeTueDelegheSection extends BasePage {
 
         //click on option 0
         By comuneOptionBy = By.id("enti-option-0");
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(comuneOptionBy));
+        this.getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(comuneOptionBy));
         WebElement comuneOption = this.driver.findElement(comuneOptionBy);
         this.js().executeScript("arguments[0].click()", comuneOption);
     }

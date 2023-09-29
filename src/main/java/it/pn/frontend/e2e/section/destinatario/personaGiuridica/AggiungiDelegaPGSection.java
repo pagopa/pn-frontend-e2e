@@ -15,21 +15,12 @@ public class AggiungiDelegaPGSection extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("AggiungiDelegaPGSection");
 
-    @FindBy(xpath = "//input[@name='selectPersonaFisicaOrPersonaGiuridica' and @value = 'PF']")
-    WebElement personaFisicaRadioButton;
 
     @FindBy(xpath = "//input[@name='selectPersonaFisicaOrPersonaGiuridica' and @value = 'PG']")
     WebElement personaGiuridicaButton;
-
-    @FindBy(id = "nome")
-    WebElement nomeTextField;
-
+    
     @FindBy(id = "ragioneSociale")
     WebElement ragioneSocialeTextField;
-
-    @FindBy(id = "cognome")
-    WebElement cognomeTextField;
-
 
     @FindBy(xpath = "//button[contains(@data-testid,'createButton')]")
     WebElement inviaLaRichiestaButton;
@@ -122,7 +113,7 @@ public class AggiungiDelegaPGSection extends BasePage {
 
         //click on option 0
         By comuneOptionBy = By.id("enti-option-0");
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(comuneOptionBy));
+        this.getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(comuneOptionBy));
         WebElement comuneOption = this.driver.findElement(comuneOptionBy);
         this.js().executeScript("arguments[0].click()", comuneOption);
     }
