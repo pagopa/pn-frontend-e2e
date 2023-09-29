@@ -212,6 +212,16 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
+    public boolean IsAnAdvancedStatus(){
+        By statoNotificaBy = By.xpath("//div[contains(@id,'status-chip-')]");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
+        String status = this.element(statoNotificaBy).getText();
+        if(status.equalsIgnoreCase("Depositata")){
+            return false;
+        }
+        return true;
+    }
+
     public void selezionaNotifica() {
         waitLoadPage();
         try {

@@ -89,7 +89,6 @@ public class DestinatarioPASection extends BasePage {
         if (posizioneDestinatario > 0) {
             datoDestianario = datoDestianario.substring(1);
         }
-        datoDestianario = datoDestianario.replace(" ","");
         return datoDestianario;
     }
 

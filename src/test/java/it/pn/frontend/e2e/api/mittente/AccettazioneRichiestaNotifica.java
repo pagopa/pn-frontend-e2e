@@ -29,6 +29,8 @@ public class AccettazioneRichiestaNotifica {
 
     private String responseReasonPhrase;
 
+    private  int responseCode;
+
     public boolean runGetRichiestaNotifica(){
         try{
 
@@ -47,6 +49,7 @@ public class AccettazioneRichiestaNotifica {
                     this.responseBody = EntityUtils.toString(entity);
                     return true;
                 }else {
+                    this.responseCode = response.getCode();
                     return false;
                 }
 
@@ -92,6 +95,10 @@ public class AccettazioneRichiestaNotifica {
 
     public void setResponseReasonPhrase(String responseReasonPhrase) {
         this.responseReasonPhrase = responseReasonPhrase;
+    }
+
+    public int getResponseCode() {
+        return responseCode;
     }
 
 }

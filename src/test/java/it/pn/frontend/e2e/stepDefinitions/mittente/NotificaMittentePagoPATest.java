@@ -596,15 +596,16 @@ public class NotificaMittentePagoPATest {
 
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         boolean notificaTrovata = false;
+        piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         for (int i = 0; i < 10; i++) {
-            int numeroNotifiche = piattaformaNotifichePage.getListStato("Depositata");
-            if (numeroNotifiche == 0) {
-                try {
-                    TimeUnit.SECONDS.sleep(10);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+            try {
+                TimeUnit.SECONDS.sleep(15);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            if (!piattaformaNotifichePage.IsAnAdvancedStatus()) {
                 piattaformaNotifichePage.aggionamentoPagina();
+                piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
                 piattaformaNotifichePage.inserimentoCodiceIUN(datiNotifica.get("codiceIUN").toString());
                 piattaformaNotifichePage.selectFiltraButton();
             } else {
@@ -891,6 +892,11 @@ public class NotificaMittentePagoPATest {
             boolean result = accettazioneRichiestaNotifica.runGetRichiestaNotifica();
             if (result){
                 statusNotifica = accettazioneRichiestaNotifica.getStatusNotifica();
+            }else{
+                if(accettazioneRichiestaNotifica.getResponseCode()==400){
+                    logger.error("la risposta dell'accettazione della notifica è :400 Bad Request");
+                    Assert.fail("la risposta dell'accettazione della notifica è :400 Bad Request");
+                }
             }
         }while (statusNotifica.equals("WAITING"));
 

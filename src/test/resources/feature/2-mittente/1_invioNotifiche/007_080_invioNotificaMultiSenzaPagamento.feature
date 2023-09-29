@@ -12,6 +12,7 @@ Feature: Mittente genera una notifica con più destinatari che non prevede pagam
   Scenario Outline: Mittente genera una notifica con più destinatari che non prevede pagamento
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
+    And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     And Nella section Informazioni preliminari inserire i dati della notifica "datiNotifica" senza pagamento

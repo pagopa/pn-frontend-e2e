@@ -12,6 +12,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
   Scenario: Mittente genera una notifica senza pagamento
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
+    And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     And Nella section Informazioni preliminari inserire i dati della notifica "datiNotifica" senza pagamento
