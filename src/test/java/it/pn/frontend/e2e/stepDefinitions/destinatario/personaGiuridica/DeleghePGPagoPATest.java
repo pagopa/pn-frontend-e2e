@@ -49,7 +49,6 @@ public class DeleghePGPagoPATest {
     @And("Si visualizza correttamente la pagina Deleghe sezione Deleghe dell impresa")
     public void siVisualizzaCorrettamenteLaPaginaDelegheSezioneDelegheDellImpresa() {
         logger.info("Si controlla che la sezione Deleghe dell'impresa");
-
         delegatiImpresaSection.waitLoadDelegatiImpresaPage();
 
     }
@@ -125,8 +124,8 @@ public class DeleghePGPagoPATest {
        delegatiImpresaSection.controlloCreazioneDelega(this.datiDelega.get("ragioneSociale").toString());
     }
 
-    @And("Si controlla che non sia presente una delga con stesso nome {string} persona giuridica")
-    public void siControllaCheNonSiaPresenteUnaDelgaConStessoNomePersonaGiuridica(String nomeFile) {
+    @And("Si controlla che non sia presente una delega con stesso nome {string} persona giuridica")
+    public void siControllaCheNonSiaPresenteUnaDelegaConStessoNomePersonaGiuridica(String nomeFile) {
         logger.info("Si controlla che non ci sia una delega con lo stesso nome");
 
         this.datiDelega = dataPopulation.readDataPopulation(nomeFile+".yaml");
@@ -193,8 +192,8 @@ public class DeleghePGPagoPATest {
     @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si controlla che venga restituita la delega con il codice fiscale inserito {string}")
     public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiControllaCheVengaRestituitaLaDelegaConIlCodiceFiscaleInserito(String dpFile) {
         this.datiPersonaFisica = this.dataPopulation.readDataPopulation(dpFile+".yaml");
-
-        if (deleghePGPagoPAPage.controlloDelegaRestituita(this.datiPersonaFisica.get("name").toString(),this.datiPersonaFisica.get("familyName").toString())){
+        String delegante = this.datiPersonaFisica.get("name")+" "+this.datiPersonaFisica.get("familyName");
+        if (deleghePGPagoPAPage.controlloDelegaRestituita(delegante)){
             this.logger.info("La delega restituita è corretta");
         }else {
             this.logger.error("La delega restituita NON è corretta");
@@ -210,12 +209,11 @@ public class DeleghePGPagoPATest {
 
     }
 
-    @And("Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega")
-    public void nellaPaginaDelegheSezioneDelegheDellImpresaSiCliccaSulMenuDellaDelega() {
+    @And("Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega {string}")
+    public void nellaPaginaDelegheSezioneDelegheDellImpresaSiCliccaSulMenuDellaDelega(String dpFile) {
         logger.info("Si clicca sul menu delle delega");
 
-        this.datiDelega = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml");
-
+        this.datiDelega = dataPopulation.readDataPopulation(dpFile+".yaml");
         this.delegatiImpresaSection.clickMenuDelega(datiDelega.get("ragioneSociale").toString());
 
     }

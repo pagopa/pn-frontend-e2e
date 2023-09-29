@@ -250,7 +250,7 @@ public class Hooks {
         requests.clear();
         netWorkInfos.clear();
         try {
-            TimeUnit.SECONDS.sleep(15);
+            TimeUnit.SECONDS.sleep(30);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

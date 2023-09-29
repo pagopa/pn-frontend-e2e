@@ -20,10 +20,10 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(xpath = "//li[contains(text(),'Revoca')]")
     WebElement revocaMenuButton;
 
-    @FindBy(xpath = "//button[@data-testid='dialogAction' and text()='Revoca la delega']")
-    WebElement revocaButton;
+    @FindBy(id = "dialog-action-button")
+    WebElement revocaButtonPopUP;
     
-    @FindBy(id = "taxId")
+    @FindBy(id = "codiceFiscale")
     WebElement cfTextField;
 
     @FindBy(xpath = "//button[@data-testid='confirmButton']")
@@ -35,11 +35,10 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public void waitLoadDeleghePage() {
         try{
-            By titlePage = By.id("title-of-page");
+            By titlePage = By.id("Deleghe-page");
 
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.cfTextField));
 
             this.logger.info("Deleghe page si visualizza correttamente");
 
@@ -71,7 +70,7 @@ public class DeleghePGPagoPAPage extends BasePage {
         By menuButton = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
         this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuButton));
         this.js().executeScript("arguments[0].click()",this.element(menuButton));
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.revocaMenuButton));
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.revocaMenuButton));
         this.revocaMenuButton.click();
     }
     public void waitPopUpRevoca() {
@@ -79,7 +78,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             By titlePopUpBy = By.xpath("//h5[contains(text(),'Vuoi revocare la delega ')]");
             
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePopUpBy));
-
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(revocaButtonPopUP));
             logger.info("Il pop-up revoca si visualizza correttamente");
         }catch (TimeoutException e){
             logger.error("Il pop-up revoca NON si visualizza correttamente con errore: "+e.getMessage());
@@ -88,7 +87,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickRevocaButton() {
-        this.revocaButton.click();
+        this.revocaButtonPopUP.click();
     }
 
 
@@ -121,8 +120,8 @@ public class DeleghePGPagoPAPage extends BasePage {
         this.filtraButton.click();
     }
 
-    public boolean controlloDelegaRestituita(String nome, String cognome) {
-          By delegaBy = By.xpath("//p[contains(text(),'"+nome+" "+cognome+"')]");
+    public boolean controlloDelegaRestituita(String ragioneSociale) {
+        By delegaBy = By.xpath("//p[contains(text(),'"+ragioneSociale+"')]");
           this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaBy));
           return this.elements(delegaBy).size() == 1;
 

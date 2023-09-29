@@ -83,10 +83,12 @@ public class DestinatarioPASection extends BasePage {
         String datoDestianario = dati[posizioneDestinatario];
         if (posizioneDestinatario == 0){
             datoDestianario = datoDestianario.replace("[","");
-        }else if (posizioneDestinatario == 4){
+        }else if (posizioneDestinatario == 3){
             datoDestianario = datoDestianario.replace("]","");
         }
-        datoDestianario = datoDestianario.replace(" ","");
+        if (posizioneDestinatario > 0) {
+            datoDestianario = datoDestianario.substring(1);
+        }
         return datoDestianario;
     }
 

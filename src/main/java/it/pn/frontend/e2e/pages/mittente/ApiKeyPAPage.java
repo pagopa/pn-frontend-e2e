@@ -62,7 +62,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void waitLoadApikeyPage() {
         try {
-            By apiKeyTitle = By.id("title-of-page");
+            By apiKeyTitle = By.id("API Key-page");
             By generaApiKeyButtonBy = By.xpath("//button[contains(@data-testid,'generateApiKey')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(apiKeyTitle));
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(generaApiKeyButtonBy));
@@ -294,7 +294,7 @@ public class ApiKeyPAPage  extends BasePage {
     }
 
     public void mouseHover() {
-        By statoCellBy = By.id("notification-status-tooltip");
+        By statoCellBy = By.id("status-chip-Attiva");
         WebElement statoCell = this.element(statoCellBy);
         Actions action = new Actions(this.driver);
         action.moveToElement(statoCell).perform();
@@ -302,7 +302,7 @@ public class ApiKeyPAPage  extends BasePage {
 
     public void waitLoadMessaggioData() {
         try {
-            By messaggioBy = By.id("mui-16");
+            By messaggioBy = By.xpath("//div[@data-popper-placement = 'bottom']");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messaggioBy));
             logger.info("Il messaggio con la data di creazione si vede correttamente");
         }catch (TimeoutException e){

@@ -210,9 +210,9 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         return linkAllegati.size();
     }
 
-    public void clickLinkAttestazioneOpponibileAvvenutoAccesso() {
+    public void clickLinkAttestazioneOpponibileAvvenutoAccesso(String nomeFile) {
         try {
-            By fileLinkBy = By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: avvenuto accesso')]");
+            By fileLinkBy = By.xpath("//button[contains(text(),'"+nomeFile+"')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(fileLinkBy));
             List<WebElement> fileLink = this.elements(fileLinkBy);
             if (fileLink.get(fileLink.size()-1).isDisplayed()){

@@ -17,19 +17,17 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(xpath="//div[@data-testid='sideMenuItem-I tuoi recapiti']")
     WebElement iTuoiRecapitiButton;
 
-
-
     public ITuoiRecapitiPage(WebDriver driver) {
         super(driver);
     }
 
     public void ITuoiRecapitiButtonClick() {
-        this.iTuoiRecapitiButton.click();
+        this.js().executeScript("arguments[0].click()",this.iTuoiRecapitiButton);
     }
 
     public void waitLoadITuoiRecapitiPage() {
         try {
-            By titlePageBy = By.id("title-of-page");
+            By titlePageBy = By.id("I tuoi recapiti-page");
             By subTitlePageBy = By.xpath("//div[contains(@class,'MuiTypography-root MuiTypography-body1 css-f4v438')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(subTitlePageBy));

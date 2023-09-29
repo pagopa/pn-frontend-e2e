@@ -41,7 +41,7 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "//div[contains(@data-testid,'sideMenuItem-API Key')]")
     WebElement apiKeyButton;
 
-    @FindBy(xpath = "//button[@data-testid ='rows-per-page']")
+    @FindBy(id = "rows-per-page")
     WebElement numeroNotificheButton;
 
     @FindBy(id = "next")
@@ -210,6 +210,16 @@ public class PiattaformaNotifichePage extends BasePage {
         }catch (TimeoutException e){
             return 0;
         }
+    }
+
+    public boolean IsAnAdvancedStatus(){
+        By statoNotificaBy = By.xpath("//div[contains(@id,'status-chip-')]");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
+        String status = this.element(statoNotificaBy).getText();
+        if(status.equalsIgnoreCase("Depositata")){
+            return false;
+        }
+        return true;
     }
 
     public void selezionaNotifica() {
@@ -420,7 +430,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public String numeroNotifiche() {
-        By nRigheBy = By.xpath("//button[contains(@data-testid,'rows-per-page')]");
+        By nRigheBy = By.id("rows-per-page");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nRigheBy));
         return this.element(nRigheBy).getText();
     }
@@ -522,5 +532,10 @@ public class PiattaformaNotifichePage extends BasePage {
         public void clickSuEsci() {this.esciButton.click();}
 
     public boolean estensioneSbagliataErrore() {return this.estenzioneSbagliataMessage.isDisplayed();}
+
+    public void waitloadingSpinner(){
+        By loadingSpinnerBy = By.xpath("//span[@role = 'loadingSpinner']");
+        getWebDriverWait(60).until(ExpectedConditions.invisibilityOfElementLocated(loadingSpinnerBy));
+    }
 
     }

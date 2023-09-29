@@ -16,8 +16,6 @@ public class RecapitiPGPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("RecapitiPGPage");
 
-
-
     @FindBy(id = "pec-helper-text")
     WebElement messaggioErrore;
     public RecapitiPGPage(WebDriver driver) {
@@ -25,7 +23,7 @@ public class RecapitiPGPage extends BasePage {
     }
     public void waitLoadRecapitiPage() {
         try {
-            By racapitiPageTitle = By.id("title-of-page");
+            By racapitiPageTitle = By.id("Recapiti-page");
             By confermaPecButton = By.xpath("//button[@data-testid='addContact']");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(racapitiPageTitle));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(confermaPecButton));
