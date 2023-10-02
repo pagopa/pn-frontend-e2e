@@ -124,11 +124,11 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public String salvataggioCodiceVerifica() {
-        String codiceVerifica = "";
-        for (int i = 0; i < this.codiceVerificaList.size(); i++) {
-            codiceVerifica = codiceVerifica + this.codiceVerificaList.get(i).getText();
+        StringBuilder codiceVerifica = new StringBuilder();
+        for (WebElement webElement : this.codiceVerificaList) {
+            codiceVerifica.append(webElement.getText());
         }
-        return codiceVerifica;
+        return codiceVerifica.toString();
     }
 
     public void inserireCF(String cf) {

@@ -170,8 +170,7 @@ public class NotifichePFPage extends BasePage {
 
     public int siVisualizzaNotifichePresenti() {
         By rigaDelegaBy = By.xpath("//tr[@data-testid='notificationsTable.row']");
-        int numeroRigheNotifiche = elements(rigaDelegaBy).size();
-        return numeroRigheNotifiche;
+        return elements(rigaDelegaBy).size();
     }
 
     public List<WebElement> getDateNotifiche() {
@@ -244,8 +243,7 @@ public class NotifichePFPage extends BasePage {
     public int conteggioNotifiche() {
         By rigaDelegaBy = By.xpath("//tr[@data-testid='notificationsTable.row']");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(rigaDelegaBy));
-        int numeroRigheNotifiche2 = elements(rigaDelegaBy).size();
-        return numeroRigheNotifiche2;
+        return elements(rigaDelegaBy).size();
     }
 
     public void selezionaNotifica() {
