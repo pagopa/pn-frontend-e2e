@@ -14,64 +14,55 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class LeTueDelegheSection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("LeTueDelegheSection");
 
-    @FindBy(xpath = "//input[contains(@name,'selectPersonaFisicaOrPersonaGiuridica')]")
+    @FindBy(xpath = "//input[@value='PF']")
     WebElement personaFisicaRadioButton;
 
-    @FindBy(xpath = "//input[contains(@id,'nome')]")
-    List<WebElement> nomeCognomeList;
+    @FindBy(id = "nome")
+    WebElement inputNome;
 
-    @FindBy(xpath = "//button[contains(@data-testid,'createButton')]")
+    @FindBy(id = "cognome")
+    WebElement inputCognome;
+
+    @FindBy(xpath = "//button[@data-testid='createButton']")
     WebElement inviaLaRichiestaButton;
 
-    @FindBy(xpath = "//input[contains(@id,'expirationDate')]")
+    @FindBy(id = "expirationDate")
     WebElement dataTermineDelegaInput;
 
-
-
-    @FindBy(xpath = "//div[contains(@data-testid, 'codeDigit')]")
+    @FindBy(xpath = "//div[@data-testid= 'codeDigit']")
     List<WebElement> codiceVerificaList;
 
-    @FindBy(xpath = "//input[contains(@id,'codiceFiscale')]")
+    @FindBy(id = "codiceFiscale")
     WebElement codiceFiscaleInput;
     
-    @FindBy(xpath = "//input[contains(@value,'entiSelezionati')]")
+    @FindBy(xpath = "//input[@value='entiSelezionati']")
     WebElement SoloEntiSelezionatiRadioButton;
 
     @FindBy(id ="enti")
     WebElement enteElementInput;
 
-    @FindBy(xpath = "//button[@id='courtesy-page-button']")
+    @FindBy(id = "courtesy-page-button")
     WebElement tornaDelegheButton;
 
-    /*@FindBy(xpath = "//button[contains(@data-testid,'delegationMenuIcon')]")
-    WebElement delegaMenuButton;*/
-
-
-
-
-    @FindBy(xpath = "//button[contains(@data-testid,'acceptButton')]")
+    @FindBy(xpath = "//button[@data-testid='acceptButton']")
     WebElement accettaButton;
 
-    @FindBy(xpath = "//input[contains(@id,'code-input')]")
-    List<WebElement> codiceDelegaInputList;
-
-    @FindBy(xpath = "//button[contains(@data-testid,'codeConfirmButton')]")
+    @FindBy(xpath = "//button[@data-testid='codeConfirmButton']")
     WebElement accettaPopUpButton;
 
 
-    @FindBy(xpath = "//h4[contains(text(),'Deleghe')]")
+    @FindBy(id = "Deleghe-page")
     WebElement deleghePageTitle;
 
     @FindBy(xpath = "//p[contains(text(),'Qui puoi gestire')]")
     WebElement deleghePageSubtitle;
 
-    @FindBy(xpath = "//button[contains(@data-testid,'add-delegation')]")
+    @FindBy(xpath = "//button[@data-testid='add-delegation']")
     WebElement aggiungiDelegaButton;
 
     @FindBy(xpath = "//span[contains(text(),'Nome')]")
@@ -91,9 +82,12 @@ public class LeTueDelegheSection extends BasePage {
     }
     public void waitNuovaDelegaSection() {
         try {
-            By letuedeleghePageTitle = By.id("title-of-page");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(letuedeleghePageTitle));
-            this.logger.info("Le tue deleghe page caricata");
+            By letuedeleghePageTitle = By.id("Aggiungi una delega-page");
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(letuedeleghePageTitle));
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.inputNome));
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.codiceFiscaleInput));
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.inputCognome));
+            logger.info("Le tue deleghe page caricata");
         } catch (TimeoutException e) {
             logger.error("Le tue deleghe page non caricata con errore :" + e.getMessage());
             Assert.fail(("Le tue deleghe page non caricata con errore :" + e.getMessage()));
@@ -105,8 +99,8 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void insertNomeCognome(String nome, String cognome) {
-        this.nomeCognomeList.get(0).sendKeys(nome);
-        this.nomeCognomeList.get(1).sendKeys(cognome);
+        this.inputNome.sendKeys(nome);
+        this.inputCognome.sendKeys(cognome);
     }
     
 
@@ -157,7 +151,7 @@ public class LeTueDelegheSection extends BasePage {
 
         //click on option 0
         By comuneOptionBy = By.id("enti-option-0");
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(comuneOptionBy));
+        this.getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(comuneOptionBy));
         WebElement comuneOption = this.driver.findElement(comuneOptionBy);
         this.js().executeScript("arguments[0].click()", comuneOption);
     }
@@ -204,8 +198,12 @@ public class LeTueDelegheSection extends BasePage {
 
     public void inserireCodiceDelega(String codiceDelega) {
         String[] codiciDelega = codiceDelega.split("");
-        for (int i = 0; i < this.codiceDelegaInputList.size(); i++){
-            this.codiceDelegaInputList.get(i).sendKeys(codiciDelega[i]);
+        for (int i = 0; i < 5; i++){
+            String xpathBy = "code-input-"+i;
+            By codiceDelegaInputBy = By.id(xpathBy);
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(codiceDelegaInputBy));
+            WebElement codiceDelegaInput = driver.findElement(codiceDelegaInputBy);
+            codiceDelegaInput.sendKeys(codiciDelega[i]);
         }
     }
 
@@ -215,7 +213,7 @@ public class LeTueDelegheSection extends BasePage {
 
     public void controlloStatoAttiva(String nome, String cognome) {
         try {
-            By statoAttivaBy = By.xpath("//tr[@data-testid='table(notifications).row']//td[@role='cell' and div/p[contains(text(),'"+nome + " "+ cognome +"')]]/following-sibling::td[@role='cell']//div/div/span[contains(text(),'Attiva')]");
+            By statoAttivaBy = By.xpath("//tr[@data-testid='delegatorsTable.row']//td[@role='cell' and div/p[contains(text(),'"+nome + " "+ cognome +"')]]/following-sibling::td[@role='cell']//div/div/span[contains(text(),'Attiva')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoAttivaBy));
             logger.info("La delega ha lo stato Attiva");
         }catch (TimeoutException e){

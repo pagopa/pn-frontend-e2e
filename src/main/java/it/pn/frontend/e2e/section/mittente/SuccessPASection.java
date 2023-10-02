@@ -15,7 +15,7 @@ public class SuccessPASection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("SuccessPASection");
 
-    @FindBy(xpath = "//button[contains(text(),'Vai alle Notifiche')]")
+    @FindBy(id = "go-to-notifications")
     WebElement successButton;
 
     public SuccessPASection(WebDriver driver) {

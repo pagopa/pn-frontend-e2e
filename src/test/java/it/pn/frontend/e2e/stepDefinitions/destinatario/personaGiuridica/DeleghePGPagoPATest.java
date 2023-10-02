@@ -49,8 +49,6 @@ public class DeleghePGPagoPATest {
     @And("Si visualizza correttamente la pagina Deleghe sezione Deleghe dell impresa")
     public void siVisualizzaCorrettamenteLaPaginaDelegheSezioneDelegheDellImpresa() {
         logger.info("Si controlla che la sezione Deleghe dell'impresa");
-        delegatiImpresaSection.aggionamentoPagina();
-        deleghePGPagoPAPage.clickDelegatiImpresa();
         delegatiImpresaSection.waitLoadDelegatiImpresaPage();
 
     }
@@ -194,8 +192,8 @@ public class DeleghePGPagoPATest {
     @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si controlla che venga restituita la delega con il codice fiscale inserito {string}")
     public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiControllaCheVengaRestituitaLaDelegaConIlCodiceFiscaleInserito(String dpFile) {
         this.datiPersonaFisica = this.dataPopulation.readDataPopulation(dpFile+".yaml");
-
-        if (deleghePGPagoPAPage.controlloDelegaRestituita(this.datiPersonaFisica.get("ragioneSociale").toString())){
+        String delegante = this.datiPersonaFisica.get("name")+" "+this.datiPersonaFisica.get("familyName");
+        if (deleghePGPagoPAPage.controlloDelegaRestituita(delegante)){
             this.logger.info("La delega restituita è corretta");
         }else {
             this.logger.error("La delega restituita NON è corretta");
@@ -211,13 +209,11 @@ public class DeleghePGPagoPATest {
 
     }
 
-    @And("Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega {string}")
     @And("Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega {string}")
     public void nellaPaginaDelegheSezioneDelegheDellImpresaSiCliccaSulMenuDellaDelega(String dpFile) {
         logger.info("Si clicca sul menu delle delega");
 
         this.datiDelega = dataPopulation.readDataPopulation(dpFile+".yaml");
-
         this.delegatiImpresaSection.clickMenuDelega(datiDelega.get("ragioneSociale").toString());
 
     }

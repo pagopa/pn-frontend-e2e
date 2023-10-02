@@ -234,8 +234,6 @@ public class LoginPersonaFisicaPagoPA {
             if(this.urlPersonaFisica.get("responseCode").equalsIgnoreCase("301")){
                 urlWithTokenFound = true;
                 break;
-            }else {
-                this.urlPersonaFisica.clear();
             }
             try {
                 TimeUnit.SECONDS.sleep(15);
@@ -248,8 +246,8 @@ public class LoginPersonaFisicaPagoPA {
         if(urlWithTokenFound){
             logger.info("procedura di login from spid provata : "+numProvaLogin);
         }else{
-            Assert.fail("procedura di login from spid provata : "+numProvaLogin);
-            Assert.fail("Codice risposta ricevuto per questo end point: '"+this.urlPersonaFisica+"' è : "+this.urlPersonaFisica.get("responseCode"));
+            logger.error("procedura di login from spid provata : "+numProvaLogin);
+            Assert.fail("Codice risposta ricevuto per questo end point: '"+this.urlPersonaFisica.get("urlPortale")+"' è : "+this.urlPersonaFisica.get("responseCode"));
 
         }
 
@@ -465,9 +463,8 @@ public class LoginPersonaFisicaPagoPA {
         if(urlWithTokenFound){
             logger.info("procedura di login from spid provata : "+numProvaLogin);
         }else{
-            Assert.fail("procedura di login from spid provata : "+numProvaLogin);
-
-            Assert.fail("Codice risposta ricevuto per questo end point: '"+this.urlPersonaFisica+"' è : "+this.urlPersonaFisica.get("responseCode"));
+            logger.error("procedura di login from spid provata : "+numProvaLogin);
+            Assert.fail("Codice risposta ricevuto per questo end point: '"+this.urlPersonaFisica.get("urlPortale")+"' è : "+this.urlPersonaFisica.get("responseCode"));
 
         }
 

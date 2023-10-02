@@ -90,6 +90,7 @@ public class LoginMittentePagoPA {
 
         SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(this.driver);
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
+        selezionaEntePAPage.cercaComune(this.datiMittente.get("comune").toString());
         selezionaEntePAPage.selezionareComune(this.datiMittente.get("comune").toString());
         selezionaEntePAPage.selezionaAccedi();
     }
@@ -109,16 +110,15 @@ public class LoginMittentePagoPA {
             }else {
                 this.urlMittente.clear();
             }
-            TimeUnit.SECONDS.sleep(15);
+            TimeUnit.SECONDS.sleep(18);
             numProvaLogin++;
         }
 
         if(urlWithTokenFound){
             logger.info("procedura di login from spid provata : "+numProvaLogin);
         }else{
-            Assert.fail("procedura di login from spid provata : "+numProvaLogin);
-            Assert.fail("Codice risposta ricevuto per questo end point: '"+this.urlMittente+"' è : "+this.urlMittente.get("responseCode"));
-
+            logger.info("procedura di login from spid provata : "+numProvaLogin);
+            Assert.fail("Codice risposta ricevuto per questo end point: '"+this.urlMittente.get("urlPortale")+"' è : "+this.urlMittente.get("responseCode"));
         }
 
         this.driver.get(this.urlMittente.get("urlPortale"));
@@ -130,6 +130,7 @@ public class LoginMittentePagoPA {
 
         SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(this.driver);
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
+        selezionaEntePAPage.cercaComune(this.datiMittente.get("comune").toString());
         selezionaEntePAPage.selezionareComune(this.datiMittente.get("comune").toString());
         selezionaEntePAPage.selezionaAccedi();
     }

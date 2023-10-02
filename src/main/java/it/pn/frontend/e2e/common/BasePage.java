@@ -1,9 +1,6 @@
 package it.pn.frontend.e2e.common;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -20,12 +17,19 @@ public class BasePage {
         PageFactory.initElements(this.driver,this);
     }
     protected void scrollToElementClickAndInsertText(WebElement element, String text){
-        if(!element.isDisplayed()){
-            this.js().executeScript("arguments[0].scrollIntoView(true);",element);
-        }
-        element.click();
-        if(text != null){
-            element.sendKeys(text);
+        try {
+            if (!element.isDisplayed()) {
+                this.js().executeScript("arguments[0].scrollIntoView(true);", element);
+            }
+            this.js().executeScript("arguments[0].click()", element);
+            if (text != null) {
+                element.sendKeys(text);
+            }
+        }catch (ElementNotInteractableException e){
+            this.js().executeScript("arguments[0].click()", element);
+            if (text != null) {
+                element.sendKeys(text);
+            }
         }
     }
     protected WebDriverWait getWebDriverWait(long timeout){

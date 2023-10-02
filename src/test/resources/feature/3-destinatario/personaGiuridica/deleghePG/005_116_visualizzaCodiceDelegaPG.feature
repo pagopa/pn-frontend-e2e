@@ -5,7 +5,7 @@ Feature: Il persona giuridica visualizza il codice di una delega
     When Login portale persona giuridica tramite request method
     Then Home page persona giuridica viene visualizzata correttamente
     And Nella Home page persona giuridica si clicca su Send Notifiche Digitali
-    And Si visualizza correttamente la Pagina Notifiche persona giuridica
+    And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
 
   @TestSuite
   @fase2Test116

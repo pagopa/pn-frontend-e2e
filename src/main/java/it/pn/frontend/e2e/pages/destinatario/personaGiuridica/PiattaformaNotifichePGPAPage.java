@@ -24,9 +24,10 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         super(driver);
     }
 
-    public void waitLoadPitattaformaNotificaPage() {
+
+    public void waitLoadPitattaformaNotificaPage(String ragioneSociale) {
         try {
-            By titlePageBy = By.id("title-of-page");
+            By titlePageBy = By.id("Notifiche di "+ragioneSociale+"-page");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             logger.info("La piagine Piattamorma Notifiche si carica correttamente");
         } catch (TimeoutException e) {
@@ -44,6 +45,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         try {
             By notificheDelegateButton = By.xpath("//div[@data-testid='sideMenuItem-Notifiche delegate']");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheDelegateButton));
+            this.js().executeScript("arguments[0].click()",this.element(notificheDelegateButton));
             logger.info("Si clicca correttamente sulla voce notifiche delegate");
         } catch (TimeoutException e) {
             logger.error("Non si clicca correttamente sulla voce notifiche delegate con errore:" + e.getMessage());
@@ -53,7 +55,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void waitLoadSezioneNotificheDelegate() {
         try{
-            By notificheDelegatePageTitle = By.id("title-of-page");
+            By notificheDelegatePageTitle = By.id("Notifiche delegate a Vita Nova Sas-page");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheDelegatePageTitle));
             logger.info("Si visualizza correttamente la sezione notifiche delegate");
         }catch (TimeoutException e){

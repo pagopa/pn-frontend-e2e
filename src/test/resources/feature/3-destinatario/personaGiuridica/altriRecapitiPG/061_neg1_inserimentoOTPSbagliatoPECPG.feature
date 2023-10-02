@@ -5,9 +5,9 @@ Feature: il persona giuridica inserisce una OTP sbagliato PEC
     When Login portale persona giuridica tramite request method
     Then Home page persona giuridica viene visualizzata correttamente
     And Nella Home page persona giuridica si clicca su Send Notifiche Digitali
-    And Si visualizza correttamente la Pagina Notifiche persona giuridica
+    And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
     
-  @TestSuiete
+  @TestSuite
   @fase2Test61_neg1
 
   Scenario: il persona giuridica loggato inserisce un OTP sbagliato PEC

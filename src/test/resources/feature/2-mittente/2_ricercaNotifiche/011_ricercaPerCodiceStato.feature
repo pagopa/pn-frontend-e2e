@@ -20,6 +20,6 @@ Feature: Mittente effetua una ricerca notifiche per Stato
     And Logout da portale mittente
 
     Examples:
-      |   stato       |
-      |Invio in corso|
+      |   stato        |
+      |Avvenuto accesso|
     # ci sono altri stati come annullata, invio in corso, consegnata ecc.

@@ -22,7 +22,10 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(xpath = "//li[contains(text(),'Revoca')]")
     WebElement revocaMenuButton;
 
-    @FindBy(id = "taxId")
+    @FindBy(id = "dialog-action-button")
+    WebElement revocaButtonPopUP;
+
+    @FindBy(id = "codiceFiscale")
     WebElement cfTextField;
 
     @FindBy(xpath = "//button[@data-testid='confirmButton']")
@@ -67,11 +70,10 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public void waitLoadDeleghePage() {
         try{
-            By titlePage = By.id("title-of-page");
-            By delegheCarico = By.xpath("//button[@data-testid='tab2']");
+            By titlePage = By.id("Deleghe-page");
 
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegheCarico));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
 
             this.logger.info("Deleghe page si visualizza correttamente");
 
@@ -89,23 +91,6 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     }
 
-/*    public boolean CercaEsistenzaDelega(String nome,String cognome) {
-        try {
-            By nomeDelegato = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
-            return true;
-        }catch (TimeoutException | NoSuchElementException e){
-            return false;
-        }
-    }*/
-/*    public void clickRevocaMenuButton(String nome, String cognome) {
-
-        By menuButton = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
-        this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuButton));
-        this.js().executeScript("arguments[0].click()",this.element(menuButton));
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.revocaMenuButton));
-        this.revocaMenuButton.click();
-    }*/
     public boolean CercaEsistenzaDelegaPG(String ragioneSociale) {
         try {
             By nomeDelegato = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]");
@@ -120,9 +105,27 @@ public class DeleghePGPagoPAPage extends BasePage {
         By menuButton = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
         this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuButton));
         this.js().executeScript("arguments[0].click()",this.element(menuButton));
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.revocaMenuButton));
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.revocaMenuButton));
         this.revocaMenuButton.click();
     }
+    public void waitPopUpRevoca() {
+        try {
+            By titlePopUpBy = By.xpath("//h5[contains(text(),'Vuoi revocare la delega ')]");
+            
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePopUpBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(revocaButtonPopUP));
+            logger.info("Il pop-up revoca si visualizza correttamente");
+        }catch (TimeoutException e){
+            logger.error("Il pop-up revoca NON si visualizza correttamente con errore: "+e.getMessage());
+            Assert.fail("Il pop-up revoca NON si visualizza correttamente con errore: "+e.getMessage());
+        }
+    }
+
+    public void clickRevocaButton() {
+        this.revocaButtonPopUP.click();
+    }
+
+
     public void clickSuDelegheCaricoDellImpresa() {
             this.delegheCaricoImpresaButton.click();
     }
@@ -153,7 +156,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public boolean controlloDelegaRestituita(String ragioneSociale) {
-          By delegaBy = By.xpath("//p[contains(text(),'"+ragioneSociale+"')]");
+        By delegaBy = By.xpath("//p[contains(text(),'"+ragioneSociale+"')]");
           this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaBy));
           return this.elements(delegaBy).size() == 1;
 

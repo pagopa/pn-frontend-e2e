@@ -18,10 +18,10 @@ public class AllegatiPASection extends BasePage {
     @FindBy(css = "div[data-testid='fileInput'] > input[accept='application/pdf']")
     WebElement selezionaloDalTuoComputerInput;
 
-    @FindBy(xpath = "//*[contains(text(),'Codice hash')]")
+    @FindBy(id = "file-upload-hash-code")
     WebElement hashCodeTextField;
 
-    @FindBy(xpath = "//label[contains(@id,'name-label')]/following-sibling::div/input")
+    @FindBy(id = "documents.0.name")
     WebElement nomeAttoTextField;
 
     @FindBy(xpath = "//button[@data-testid='step-submit']")
@@ -52,6 +52,7 @@ public class AllegatiPASection extends BasePage {
     }
 
     public boolean verificaCaricamentoNotificaPdf() {
+        getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.hashCodeTextField));
         return this.hashCodeTextField.isDisplayed();
     }
 
@@ -65,7 +66,7 @@ public class AllegatiPASection extends BasePage {
 
     public void selectInviaButton() {
         getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(this.inviaButton));
-        this.inviaButton.click();
+        this.js().executeScript("arguments[0].click()",this.inviaButton);
     }
 
     public boolean verificaMessaggioErrore() {

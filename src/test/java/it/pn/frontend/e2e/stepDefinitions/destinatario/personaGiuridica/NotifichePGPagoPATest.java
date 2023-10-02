@@ -15,6 +15,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -37,14 +38,16 @@ public class NotifichePGPagoPATest {
         }
     }
 
-    @And("Si visualizza correttamente la Pagina Notifiche persona giuridica")
-    public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica() {
+    @And("Si visualizza correttamente la Pagina Notifiche persona giuridica {string}")
+    public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica(String dpFile) {
+        DataPopulation dataPopulation = new DataPopulation();
+        Map <String, Object> personaGiuridica = dataPopulation.readDataPopulation(dpFile+".yaml");
         CookiesSection cookiesSection = new CookiesSection(this.driver);
         if(cookiesSection.waitLoadCookiesPage()){
             logger.info("Si accettano i cookies");
             cookiesSection.selezionaAccettaTuttiButton();
         }
-        piattaformaNotifichePGPAPage.waitLoadPitattaformaNotificaPage();
+        piattaformaNotifichePGPAPage.waitLoadPitattaformaNotificaPage(personaGiuridica.get("ragioneSociale").toString());
     }
 
     @When("Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe")

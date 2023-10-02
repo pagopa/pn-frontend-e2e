@@ -38,9 +38,13 @@ public class InformazioniPreliminariPASection extends BasePage {
     public void waitLoadInformazioniPreliminariPASection() {
         try {
             By protocolloNumberBY = By.id("paProtocolNumber");
-            By informazioniTitle = By.xpath("//h3[contains(text(),'Informazioni preliminari')]");
-            this.getWebDriverWait(60).until(ExpectedConditions.visibilityOfElementLocated(informazioniTitle));
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(protocolloNumberBY));
+            By informazioniTitle = By.id("title-heading-section");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(informazioniTitle));
+            this.getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(protocolloNumberBY));
+            getWebDriverWait(60).until(ExpectedConditions.visibilityOf(this.numeroProtocolloTextField));
+            getWebDriverWait(60).until(ExpectedConditions.visibilityOf(this.oggettoNotificaTextField));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.descrizioneTextField));
+            getWebDriverWait(60).until(ExpectedConditions.visibilityOf(this.codiceTassonometricoTextField));
             logger.info("Informazioni preliminari PA Section caricata");
 
         } catch (TimeoutException e) {
@@ -50,7 +54,10 @@ public class InformazioniPreliminariPASection extends BasePage {
     }
 
     public void insertNumeroDiProtocollo(String numeroProtocollo) {
-        scrollToElementClickAndInsertText(this.numeroProtocolloTextField, numeroProtocollo);
+        By numeroProtocolloTextBy = By.id("paProtocolNumber");
+        WebElement numeroProtocolloTextInput = driver.findElement(numeroProtocolloTextBy);
+        getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(numeroProtocolloTextInput));
+        scrollToElementClickAndInsertText(numeroProtocolloTextInput, numeroProtocollo);
     }
 
     public void insertOggettoNotifica(String oggettoDellaNotifica) {

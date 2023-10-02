@@ -8,11 +8,10 @@ Feature: Il delegato visualizza il dettaglio di una notifica
   @TestSuite
   @test51
 
-
   Scenario:Il delegato visualizza il dettaglio di una notifica
     When Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica
     And Si seleziona il nome del delegante nell elenco
-    And Si visualizza correttamente la Pagina Notifiche persona fisica
+    And Si visualizza correttamente la Pagina Notifiche persona fisica delegante "personaFisica"
     And Nella pagina Piattaforma Notifiche  persona fisica inserire il codice IUN da dati notifica "datiNotifica"
     And Cliccare sul bottone Filtra
     And Cliccare sulla notifica restituita

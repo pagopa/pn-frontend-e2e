@@ -50,7 +50,7 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void waitLoadITuoiRecapitiPage() {
         try {
-            By titlePageBy = By.id("title-of-page");
+            By titlePageBy = By.id("I tuoi recapiti-page");
             By subTitlePageBy = By.xpath("//div[contains(@class,'MuiTypography-root MuiTypography-body1 css-f4v438')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(subTitlePageBy));

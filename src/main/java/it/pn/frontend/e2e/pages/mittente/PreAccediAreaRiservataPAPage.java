@@ -16,7 +16,7 @@ public class PreAccediAreaRiservataPAPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("PreAccediAreaRiservataPAPage");
 
-    @FindBy(xpath = "//button[contains(@id,'login-button')]")
+    @FindBy(id = "login-button")
     WebElement procediAlLoginButton;
 
     public PreAccediAreaRiservataPAPage(WebDriver driver) {
@@ -25,7 +25,7 @@ public class PreAccediAreaRiservataPAPage extends BasePage {
 
     public void waitLoadPreAccediAreaRiservataPAPage(){
         try{
-            By titleLabel = By.xpath("//h4[contains(@id,'login-page-title')]");
+            By titleLabel = By.id("login-page-title");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
             logger.info("Pre Accedi Area Riservata PA Page caricata");
         }catch (TimeoutException e){
@@ -35,7 +35,6 @@ public class PreAccediAreaRiservataPAPage extends BasePage {
     }
 
     public void selezionaProcediAlLoginButton(){
- //       this.procediAlLoginButton.click();
         this.js().executeScript("arguments[0].click()",this.procediAlLoginButton);
     }
 }
