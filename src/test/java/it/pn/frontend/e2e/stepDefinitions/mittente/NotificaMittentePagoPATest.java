@@ -935,4 +935,19 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.checkBoxAggiungiDomicilio();
         destinatarioPASection.insertDomicilioDigitale(this.personaFisica.get("emailPecErrore").toString());
     }
+
+    @And("Nella pagina Piattaforma Notifiche si recupera un codice IUN valido")
+    public void nellaPaginaPiattaformaNotificheSiRecuperaUnCodiceIUNValido() {
+        logger.info("Si recupera un codice IUN valido");
+
+        List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresenti();
+        this.personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        String codiceIun = this.personaFisica.get("codiceIUN").toString();
+        if (codiciIun.contains(codiceIun)){
+            piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
+        }else {
+            piattaformaNotifichePage.inserimentoCodiceIUN(codiciIun.get(0));
+        }
+    }
+
 }
