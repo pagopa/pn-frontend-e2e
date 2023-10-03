@@ -143,17 +143,6 @@ public class DeleghePGPagoPAPage extends BasePage {
           this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaBy));
           return this.elements(delegaBy).size() == 1;
 
-/*        try{
-            By delegheBy = By.xpath("//p[contains(text(),'"+nome+" "+cognome+"')]");
-
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegheBy));
-
-            return true;
-
-        }catch (TimeoutException e){
-            return false;
-        }*/
-
     }
 
     public void clickBottoneAccetta() {

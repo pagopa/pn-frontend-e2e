@@ -100,5 +100,4 @@ public class AccettazioneRichiestaNotifica {
     public int getResponseCode() {
         return responseCode;
     }
-
 }

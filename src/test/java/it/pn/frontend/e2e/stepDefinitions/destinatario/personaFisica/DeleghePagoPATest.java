@@ -27,7 +27,6 @@ public class DeleghePagoPATest {
     private final LeTueDelegheSection  leTueDelegheSection = new LeTueDelegheSection(this.driver);
 
     private final PopUpRevocaDelegaSection popUpRevocaDelegaSection = new PopUpRevocaDelegaSection(this.driver);
-
     private final DataPopulation dataPopulation = new DataPopulation();
 
     private final DeleghePage deleghePage = new DeleghePage(this.driver);
@@ -303,10 +302,13 @@ public class DeleghePagoPATest {
         }
     }
 
-    @And("Nella pagina Deleghe si clicca sul menu della delega")
-    public void nellaPaginaDelegheSiCliccaSulMenuDellaDelega() {
+    @And("Nella pagina Deleghe si clicca sul menu della delega a tuo carico {string}")
+    public void nellaPaginaDelegheSiCliccaSulMenuDellaDelega(String dpFile) {
         logger.info("Si clicca sul menu delle delega");
-        deleghePage.clickMenuPerRifiuto();
+        this.deleghe = dataPopulation.readDataPopulation(dpFile+".yaml");
+        String nome = this.deleghe.get("name").toString();
+        String cognome = this.deleghe.get("familyName").toString();
+        deleghePage.clickMenuPerRifiuto(nome, cognome);
     }
 
     @And("Nella pagina Deleghe si sceglie opzione rifiuta")
@@ -340,9 +342,4 @@ public class DeleghePagoPATest {
         }
     }
 
-    @And("Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe")
-    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaSiVedeLaSezioneDeleghe() {
-        logger.info("Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe");
-        deleghePage.waitLoadDelegheSection();
-    }
 }

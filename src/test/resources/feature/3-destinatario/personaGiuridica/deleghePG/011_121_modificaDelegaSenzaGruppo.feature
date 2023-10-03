@@ -4,7 +4,7 @@ Feature: Il delegato persona giuridica modifica una delega assegnandoli un grupp
     When Login "delegatoPG" portale persona giuridica tramite request method
     Then Home page persona giuridica viene visualizzata correttamente
     And Nella Home page persona giuridica si clicca su Send Notifiche Digitali
-    And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
+    And Si visualizza correttamente la Pagina Notifiche persona giuridica "delegatoPG"
 
   @TestSuite
   @fase2Test121

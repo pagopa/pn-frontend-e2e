@@ -107,8 +107,6 @@ public class LoginMittentePagoPA {
             if(this.urlMittente.get("responseCode").equalsIgnoreCase("301")){
                 urlWithTokenFound = true;
                 break;
-            }else {
-                this.urlMittente.clear();
             }
             TimeUnit.SECONDS.sleep(18);
             numProvaLogin++;

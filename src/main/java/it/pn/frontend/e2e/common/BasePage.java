@@ -59,8 +59,7 @@ public class BasePage {
     public void vaiInFondoAllaPagina() {
         this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
     }
-
-    public void aggionamentoPagina() {
+    public void aggionamentoPagina(){
         this.driver.navigate().refresh();
     }
 }

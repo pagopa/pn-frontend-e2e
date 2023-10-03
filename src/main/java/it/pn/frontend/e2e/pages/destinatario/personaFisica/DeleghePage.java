@@ -25,9 +25,6 @@ public class DeleghePage extends BasePage {
     @FindBy(xpath = "//li[contains(@data-testid,'menuItem-revokeDelegate')]")
     WebElement revocaDelegaOption;
 
-    @FindBy(xpath = "//button[@data-testid='delegationMenuIcon']")
-    WebElement menuDelagaButton;
-
     public DeleghePage(WebDriver driver) {
         super(driver);
     }
@@ -125,7 +122,17 @@ public class DeleghePage extends BasePage {
         this.revocaDelegaOption.click();
     }
 
-    public void clickMenuPerRifiuto() {this.menuDelagaButton.click();}
+    public void clickMenuPerRifiuto(String nome, String cognome) {
+        try{
+            By menuDelegheBy = By.xpath("//div[@data-testid='delegators-wrapper']//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuDelegheBy));
+            this.element(menuDelegheBy).click();
+            logger.info("Si clicca correttamente sul menu della delega");
+        }catch (TimeoutException e){
+            logger.error("Non si clicca correttamente sul menu della delega con errore:"+e.getMessage());
+            Assert.fail("Non si clicca correttamente sul menu della delega con errore:"+e.getMessage());
+        }
+    }
 
     public void clickRifiuta() {
         try{
@@ -170,16 +177,6 @@ public class DeleghePage extends BasePage {
             return true;
         }catch (TimeoutException | NoSuchElementException e){
             return false;
-        }
-    }
-
-    public void waitLoadDelegheSection() {
-        try{
-            By delegheSectionTitleBy = By.id("title-of-page");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegheSectionTitleBy));
-        }catch (TimeoutException e){
-            logger.error("La sezione deleghe non si visualizza correttamente con errore:"+e.getMessage());
-            Assert.fail("La sezione deleghe non si visualizza correttamente con errore"+e.getMessage());
         }
     }
 }

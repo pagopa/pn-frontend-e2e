@@ -13,7 +13,7 @@ import java.util.List;
 public class ITuoiRecapitiPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("ITuoiRecapitiPage");
 
-    @FindBy(xpath = "//div[@data-testid='sideMenuItem-I tuoi recapiti']")
+    @FindBy(xpath="//div[@data-testid='sideMenuItem-I tuoi recapiti']")
     WebElement iTuoiRecapitiButton;
 
     @FindBy(id = "email")
@@ -31,7 +31,7 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(xpath = "//input[contains(@placeholder,'Il tuo indirizzo PEC')]")
     WebElement inserimentoPecField;
 
-    @FindBy(xpath = "//button[contains(@data-testid,'addContact')]")
+    @FindBy(xpath = "//button[@data-testid = 'addContact']")
     WebElement confermaButton;
 
     @FindBy(xpath = "//button[contains(text(),'Annulla')]")
