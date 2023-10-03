@@ -22,9 +22,6 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(xpath = "//li[contains(text(),'Revoca')]")
     WebElement revocaMenuButton;
 
-    @FindBy(id = "dialog-action-button")
-    WebElement revocaButtonPopUP;
-
     @FindBy(id = "codiceFiscale")
     WebElement cfTextField;
 
