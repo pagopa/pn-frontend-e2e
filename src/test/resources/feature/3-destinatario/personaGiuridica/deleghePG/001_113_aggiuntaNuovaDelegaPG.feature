@@ -9,7 +9,6 @@ Feature: Il persona giuridica aggiunge una nuova delega
 
   @TestSuite
   @fase2Test113
-  @new
 
   Scenario: Il persona giuridica aggiunge una nuova delega
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe

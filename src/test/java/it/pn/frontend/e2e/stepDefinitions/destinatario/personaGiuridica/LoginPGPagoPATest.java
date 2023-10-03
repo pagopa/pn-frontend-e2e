@@ -307,7 +307,7 @@ public class LoginPGPagoPATest {
             logger.info("procedura di login from spid provata : "+numProvaLogin);
         }else{
             logger.error("procedura di login from spid provata : "+numProvaLogin);
-            Assert.fail("Codice risposta ricevuto per questo end point: '"+this.urlPersonaGiuridica+"' è : "+this.urlPersonaGiuridica.get("responseCode"));
+            Assert.fail("Codice risposta ricevuto per questo end point: '"+this.urlPersonaGiuridica.get("urlPortale")+"' è : "+this.urlPersonaGiuridica.get("responseCode"));
 
         }
 

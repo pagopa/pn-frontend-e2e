@@ -22,7 +22,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(xpath = "//li[contains(text(),'Revoca')]")
     WebElement revocaMenuButton;
 
-    @FindBy(id = "codiceFiscale")
+    @FindBy(id = "taxId")
     WebElement cfTextField;
 
     @FindBy(xpath = "//button[@data-testid='confirmButton']")
