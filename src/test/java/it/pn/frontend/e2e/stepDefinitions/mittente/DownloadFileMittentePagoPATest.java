@@ -7,6 +7,7 @@ import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
+import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import org.junit.Assert;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -28,6 +30,7 @@ public class DownloadFileMittentePagoPATest {
     private  Map<String,Object> datiNotifica = new HashMap<>();
 
      private DownloadFile downloadFile;
+
 
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
     public void clickNotificaRestituita() {
@@ -189,6 +192,43 @@ public class DownloadFileMittentePagoPATest {
         } else {
             logger.error("Il codice IUN della notifica all'interno del file  NON è corretto");
             Assert.fail("Il codice IUN della notifica  all'interno del file  NON è corretto");
+        }
+    }
+
+    @And("Nella pagina Piattaforma Notifiche si recupera un codice IUN di una persona giuridica")
+    public void nellaPaginaPiattaformaNotificheSiRecuperaUnCodiceIUN() {
+        logger.info("Nella pagina Piattaforma Notifiche si recupera un codice IUN");
+
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
+        piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
+        piattaformaNotifichePage.waitloadingSpinner();
+        List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPersonaGiuridica();
+        DataPopulation dataPopulation = new DataPopulation();
+
+        this.datiNotifica = dataPopulation.readDataPopulation("datiNotificaPG.yaml");
+        String codiceIun = this.datiNotifica.get("codiceIUN").toString();
+        if (codiciIun.contains(codiceIun)){
+            piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
+        }else {
+            piattaformaNotifichePage.inserimentoCodiceIUN(codiciIun.get(0));
+        }
+
+    }
+
+    @And("Nella pagina Piattaforma Notifiche si verifica l'esistenza della notifica con il codice IUN")
+    public void nellaPaginaPiattaformaNotificheSiVerificaLEsistenzaDellaNotificaConIlCodiceIUN() {
+        logger.info("Si verifica l'esistenza della notifica con il codice IUN");
+
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        BackgroundTest backgroundTest = new BackgroundTest();
+        DataPopulation dataPopulation = new DataPopulation();
+
+        List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresenti();
+        Map<String, Object> personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        String codiceIun = personaFisica.get("codiceIUN").toString();
+        if (!codiciIun.contains(codiceIun)){
+            backgroundTest.invioNotificaErrorePec();
         }
     }
 }

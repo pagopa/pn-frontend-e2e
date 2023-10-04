@@ -950,4 +950,34 @@ public class NotificaMittentePagoPATest {
         }
     }
 
+    @And("Si verifica che la notifica sia nello stato consegnata")
+    public void siVerificaCheLaNotificaSiaNelloStatoConsegnata() {
+        logger.info("Si verifica che la notifica sia nello stato consegnata");
+
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage((this.driver));
+
+        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        boolean notificaTrovata = false;
+        piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
+        for (int i = 0; i < 10; i++) {
+            try {
+                TimeUnit.SECONDS.sleep(15);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            if (piattaformaNotifichePage.getListStato("Consegnata")==0) {
+                piattaformaNotifichePage.aggionamentoPagina();
+                piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
+                piattaformaNotifichePage.inserimentoCodiceIUN(datiNotifica.get("codiceIUN").toString());
+                piattaformaNotifichePage.selectFiltraButton();
+            } else {
+                notificaTrovata = true;
+                break;
+            }
+        }
+        if (!notificaTrovata) {
+            logger.error("La notifica non è stata trovata dopo 1m40s");
+            Assert.fail("La notifica non è stata trovata dopo 1m40s");
+        }
+    }
 }
