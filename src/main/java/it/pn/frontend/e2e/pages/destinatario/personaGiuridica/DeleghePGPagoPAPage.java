@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
 
 public class DeleghePGPagoPAPage extends BasePage {
 
@@ -34,8 +33,8 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(xpath = "//span[@data-testid='associate-group']")
     WebElement assegnaGruppoRadioButton;
 
-    @FindBy(id = "groups")
-    List<WebElement> gruppoField;
+    @FindBy(xpath = "//div[@role='dialog']//input[@id='groups']")
+    WebElement gruppoField;
 
     @FindBy(id = "groups-option-0")
     WebElement gruppoOption;
@@ -164,7 +163,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickGruppoField() {
-        this.gruppoField.get(1).sendKeys("Test gruppi");
+        this.gruppoField.sendKeys("Test gruppi");
         this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.gruppoOption));
         this.gruppoOption.click();
     }

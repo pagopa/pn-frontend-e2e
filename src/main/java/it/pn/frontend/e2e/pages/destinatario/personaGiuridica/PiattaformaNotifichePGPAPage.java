@@ -27,8 +27,14 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void waitLoadPitattaformaNotificaPage(String ragioneSociale) {
         try {
-            By titlePageBy = By.id("Notifiche di "+ragioneSociale+"-page");;
+            By titlePageBy = By.id("Notifiche di "+ragioneSociale+"-page");
+            By codiceIunTextFieldBy = By.id("iunMatch");
+            By dataInizioFieldBy = By.id("startDate");
+            By dataFineFieldBy = By.id("endDate");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
+            this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(codiceIunTextFieldBy));
+            this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(dataInizioFieldBy));
+            this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(dataFineFieldBy));
             logger.info("La piagine Piattamorma Notifiche si carica correttamente");
         } catch (TimeoutException e) {
             logger.error("La piagine Piattamorma Notifiche non si carica correttamente con errore: " + e.getMessage());
