@@ -965,7 +965,7 @@ public class NotificaMittentePagoPATest {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            if (piattaformaNotifichePage.getListStato("Consegnata")==0) {
+            if (piattaformaNotifichePage.getListStato("Depositata")!= 0 && piattaformaNotifichePage.getListStato("Invio in corso") != 0)  {
                 piattaformaNotifichePage.aggionamentoPagina();
                 piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
                 piattaformaNotifichePage.inserimentoCodiceIUN(datiNotifica.get("codiceIUN").toString());
