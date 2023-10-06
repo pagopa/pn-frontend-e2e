@@ -11,9 +11,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v116.network.model.RequestWillBeSent;
-import org.openqa.selenium.devtools.v116.network.Network;
-import org.openqa.selenium.devtools.v116.network.model.ResourceType;
+import org.openqa.selenium.devtools.v117.network.model.RequestWillBeSent;
+import org.openqa.selenium.devtools.v117.network.Network;
+import org.openqa.selenium.devtools.v117.network.model.ResourceType;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -60,7 +60,8 @@ public class Hooks {
         if(this.headless!=null && this.headless.equalsIgnoreCase("true")){
             firefoxOptions.addArguments("--width=1200");
             firefoxOptions.addArguments("--height=800");
-            firefoxOptions.setHeadless(true);
+            firefoxOptions.addArguments("--headless");
+            //firefoxOptions.setHeadless(true);
         }
         driver = new FirefoxDriver(firefoxOptions);
         if(this.headless!=null && this.headless.equalsIgnoreCase("false")){
@@ -156,7 +157,8 @@ public class Hooks {
         edgeOptions.setCapability("ms:inPrivate", true);
         if(this.headless!=null && this.headless.equalsIgnoreCase("true")){
             edgeOptions.addArguments("window-size=1920,1080");
-            edgeOptions.setHeadless(true);
+            edgeOptions.addArguments("--headless");
+            //edgeOptions.setHeadless(true);
         }
         driver = new EdgeDriver(edgeOptions);
         if(this.headless!=null && this.headless.equalsIgnoreCase("false")){
