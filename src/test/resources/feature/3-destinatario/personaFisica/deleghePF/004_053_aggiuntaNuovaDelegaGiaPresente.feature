@@ -11,6 +11,7 @@ Feature: persona fisica aggiunge una delega allo stesso delegato
   Scenario: il persona fisica aggiunge una delega allo stesso delegato
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
+    And Nella sezione Deleghe si verifica sia presente una delega "nuova_delega"
     And Nella sezione Deleghe click sul bottone aggiungi nuova delega
     And Si visualizza la sezione Le Tue Deleghe
     And Nella sezione Le Tue Deleghe inserire i dati "nuova_delega"

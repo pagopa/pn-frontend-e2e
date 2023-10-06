@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.pages.destinatario.personaFisica.DeleghePage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.PopUpRevocaDelegaSection;
+import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -118,8 +119,10 @@ public class DeleghePagoPATest {
     @And("Nella sezione Deleghe si verifica sia presente una delega")
     public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelega() {
         logger.info("Si controlla che sia presente una delega");
-
-        this.deleghePage.siVisualizzaUnaDelega();
+        BackgroundTest backgroundTest = new BackgroundTest();
+        if (!this.deleghePage.siVisualizzaUnaDelega()){
+            backgroundTest.aggiuntaNuovaDelegaPF();
+        }
     }
 
     @And("Nella sezione Deleghe si clicca sul menu della delega {string}")
@@ -176,11 +179,18 @@ public class DeleghePagoPATest {
         this.leTueDelegheSection.messaggioDiErroreDelegaPresente();
     }
 
-    @And("Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico")
-    public void siVerificaSiaPresenteUnaDelegaNellaSezioneDelegheATuoCarico() {
+    @And("Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico {string}")
+    public void siVerificaSiaPresenteUnaDelegaNellaSezioneDelegheATuoCarico(String dpFile) {
         logger.info("Si controlla che ci sia almeno una delega");
+        this.deleghe = dataPopulation.readDataPopulation(dpFile+".yaml");
+        BackgroundTest backgroundTest = new BackgroundTest();
         this.deleghePage.vaiInFondoAllaPagina();
-        this.deleghePage.siVisualizzaUnaDelega();
+        if (!this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString())){
+            backgroundTest.loginPF("personaFisica");
+            backgroundTest.aggiuntaNuovaDelegaPF();
+            backgroundTest.logoutPF();
+            backgroundTest.loginPF("delegatoPF");
+        }
     }
 
     @And("si sceglie opzione accetta")
@@ -300,6 +310,15 @@ public class DeleghePagoPATest {
 
         }else {
             logger.info("Delega con lo stesso nome NON trovata");
+        }
+    }
+    @And("Nella sezione Deleghe si verifica sia presente una delega {string}")
+    public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelega(String dpFile) {
+        logger.info("Si controlla la presenza di una delega");
+        this.deleghe = this.dataPopulation.readDataPopulation(dpFile+".yaml");
+        BackgroundTest backgroundTest = new BackgroundTest();
+        if(!this.deleghePage.siVisualizzaUnaDelegaConNome(deleghe.get("nome").toString(), deleghe.get("cognome").toString())){
+            backgroundTest.aggiuntaNuovaDelegaPF();
         }
     }
 }
