@@ -240,7 +240,15 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public boolean siVisualizzaPermessiDelega() {return  this.permessiDelegaField.isDisplayed();}
-
+    public boolean controlloPresenzaBottoneAccetta() {
+        try {
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.accettaButton));
+            logger.info("Si visualizza il bottone accetta");
+            return true;
+        }catch (TimeoutException e){
+            return false;
+        }
+    }
 }
 
 

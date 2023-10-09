@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -532,4 +533,29 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(60).until(ExpectedConditions.invisibilityOfElementLocated(loadingSpinnerBy));
     }
 
+    public List<String> getCodiceIunPresenti() {
+        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr']//button");
+        List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
+        List<String> listaCodici = new ArrayList<>();
+        for (WebElement rigaTabella: righeTabella) {
+            String codiceIun = rigaTabella.getText();
+            listaCodici.add(codiceIun);
+        }
+        return listaCodici;
     }
+
+    public String getCodiceIunInserito() {
+        return codiceIUNTextField.getText();
+    }
+
+    public List<String> getCodiceIunPersonaGiuridica() {
+        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1p8q4rm' and button/p[contains(text(),'12666810299')]]/following-sibling::td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr']//button");
+        List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
+        List<String> listaCodici = new ArrayList<>();
+        for (WebElement rigaTabella: righeTabella) {
+            String codiceIun = rigaTabella.getText();
+            listaCodici.add(codiceIun);
+        }
+        return listaCodici;
+    }
+}

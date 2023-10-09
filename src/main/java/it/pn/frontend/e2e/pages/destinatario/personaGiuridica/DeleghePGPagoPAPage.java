@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class DeleghePGPagoPAPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DeleghePGPagoPAPage");

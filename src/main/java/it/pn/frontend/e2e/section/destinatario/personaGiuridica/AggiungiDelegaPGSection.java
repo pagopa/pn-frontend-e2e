@@ -58,7 +58,6 @@ public class AggiungiDelegaPGSection extends BasePage {
             this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.personaGiuridicaButton));
             logger.info("Si visualizza correttamente la sezione Aggiungi una delega");
         }catch (TimeoutException e){
-
             logger.error("Non si visualizza correttamente la sezione Aggiungi una delega con errore: "+e.getMessage());
             Assert.fail("Non si visualizza correttamente la sezione Aggiungi una delega con errore: "+e.getMessage());
         }

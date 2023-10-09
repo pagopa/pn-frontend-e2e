@@ -41,11 +41,7 @@ public class Hooks {
 
     public static List<NetWorkInfo> netWorkInfos = new ArrayList<>();
 
-    private String url;
-
     private String headless;
-
-    private String driverUpAuto;
 
     private final String os = System.getProperty("os.name");
 
@@ -61,7 +57,6 @@ public class Hooks {
             firefoxOptions.addArguments("--width=1200");
             firefoxOptions.addArguments("--height=800");
             firefoxOptions.addArguments("--headless");
-            //firefoxOptions.setHeadless(true);
         }
         driver = new FirefoxDriver(firefoxOptions);
         if(this.headless!=null && this.headless.equalsIgnoreCase("false")){
@@ -158,7 +153,6 @@ public class Hooks {
         if(this.headless!=null && this.headless.equalsIgnoreCase("true")){
             edgeOptions.addArguments("window-size=1920,1080");
             edgeOptions.addArguments("--headless");
-            //edgeOptions.setHeadless(true);
         }
         driver = new EdgeDriver(edgeOptions);
         if(this.headless!=null && this.headless.equalsIgnoreCase("false")){

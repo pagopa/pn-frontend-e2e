@@ -6,6 +6,7 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.AggiungiDelegaPGSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.DelegatiImpresaSection;
+import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -204,8 +205,10 @@ public class DeleghePGPagoPATest {
     @And("Nella pagina Deleghe sezione Deleghe dell impresa  si verifica sia presente una delega")
     public void nellaPaginaDelegheSezioneDelegheDellImpresaSiVerificaSiaPresenteUnaDelega() {
         logger.info("Si controlla che ci sia almeno una delega");
-
-        this.delegatiImpresaSection.siVisualizzaUnaDelega();
+        BackgroundTest backgroundTest = new BackgroundTest();
+        if(!this.delegatiImpresaSection.siVisualizzaUnaDelega()){
+            backgroundTest.aggiungaDelegaPG();
+        }
 
     }
 

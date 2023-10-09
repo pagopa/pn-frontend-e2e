@@ -935,4 +935,49 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.checkBoxAggiungiDomicilio();
         destinatarioPASection.insertDomicilioDigitale(this.personaFisica.get("emailPecErrore").toString());
     }
+
+    @And("Nella pagina Piattaforma Notifiche si recupera un codice IUN valido")
+    public void nellaPaginaPiattaformaNotificheSiRecuperaUnCodiceIUNValido() {
+        logger.info("Si recupera un codice IUN valido");
+
+        List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresenti();
+        this.personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        String codiceIun = this.personaFisica.get("codiceIUN").toString();
+        if (codiciIun.contains(codiceIun)){
+            piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
+        }else {
+            piattaformaNotifichePage.inserimentoCodiceIUN(codiciIun.get(0));
+        }
+    }
+
+    @And("Si verifica che la notifica sia nello stato consegnata")
+    public void siVerificaCheLaNotificaSiaNelloStatoConsegnata() {
+        logger.info("Si verifica che la notifica sia nello stato consegnata");
+
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage((this.driver));
+
+        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        boolean notificaTrovata = false;
+        piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
+        for (int i = 0; i < 10; i++) {
+            try {
+                TimeUnit.SECONDS.sleep(15);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            if (piattaformaNotifichePage.getListStato("Depositata")!= 0 && piattaformaNotifichePage.getListStato("Invio in corso") != 0)  {
+                piattaformaNotifichePage.aggionamentoPagina();
+                piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
+                piattaformaNotifichePage.inserimentoCodiceIUN(datiNotifica.get("codiceIUN").toString());
+                piattaformaNotifichePage.selectFiltraButton();
+            } else {
+                notificaTrovata = true;
+                break;
+            }
+        }
+        if (!notificaTrovata) {
+            logger.error("La notifica non è stata trovata dopo 1m40s");
+            Assert.fail("La notifica non è stata trovata dopo 1m40s");
+        }
+    }
 }

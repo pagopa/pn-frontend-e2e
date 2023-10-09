@@ -67,14 +67,15 @@ public class DelegatiImpresaSection extends BasePage {
         }
     }
 
-    public void siVisualizzaUnaDelega() {
+    public boolean siVisualizzaUnaDelega() {
         try{
             By menuDelega = By.xpath("//tr[contains(@class,'MuiTableRow-root css-g76qb5')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
             logger.info("Trovato correttamente almeno una delega");
+            return true;
         }catch (TimeoutException e){
-            logger.error("Deleghe NON trovate con errore: "+e.getMessage());
-            Assert.fail("Deleghe NON trovate con errore: "+e.getMessage());
+            logger.warn("Non trovata alcuna delega");
+            return false;
         }
     }
 

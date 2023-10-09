@@ -5,12 +5,13 @@ Feature: Il persona fisica visualizza la sezione aggiungi una nuova delega
     When Login portale persona fisica tramite request method
     Then Home page persona fisica viene visualizzata correttamente
 
-   @TestSuite
+  @TestSuite
   @test45
 
   Scenario: Il persona fisica visualizza la sezione aggiungi una nuova delega
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
+    And Nella sezione Deleghe si verifica sia presente una delega
     And Nella sezione Deleghe si visualizza il titolo
     And Nella sezione Deleghe si visualizza il sottotitolo
     And Nella sezione Deleghe si visualizza il bottone aggiungi una delega
