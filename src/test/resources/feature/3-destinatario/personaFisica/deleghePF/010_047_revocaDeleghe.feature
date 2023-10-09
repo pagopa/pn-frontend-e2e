@@ -4,6 +4,7 @@ Feature: Il persona fisica revoca una delega
     Given Login Page persona fisica "personaFisica" viene visualizzata
     When Login portale persona fisica tramite request method
     Then Home page persona fisica viene visualizzata correttamente
+
   @TestSuite
   @test47
 

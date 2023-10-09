@@ -321,4 +321,24 @@ public class DeleghePagoPATest {
             backgroundTest.aggiuntaNuovaDelegaPF();
         }
     }
+
+    @And("Nella sezione Deleghe si verifica sia presente una delega accettata")
+    public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelegaAccettata() {
+        logger.info("Si controlla che ci sia una delega accettata");
+        this.deleghe = this.dataPopulation.readDataPopulation("personaFisica.yaml");
+        BackgroundTest backgroundTest = new BackgroundTest();
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        if (!this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(this.deleghe.get("name").toString(),this.deleghe.get("familyName").toString())){
+            backgroundTest.loginPF("personaFisica");
+            backgroundTest.aggiuntaNuovaDelegaPF();
+            backgroundTest.logoutPF();
+            backgroundTest.loginPF("delegatoPF");
+            backgroundTest.accettazioneDelegaPF();
+        } else if (this.leTueDelegheSection.controlloPresenzaBottoneAccetta()) {
+            backgroundTest.accettazioneDelegaPF();
+
+        }
+        notifichePFPage.clickNotificheButton();
+        notifichePFPage.clickTueNotificheButton();
+    }
 }

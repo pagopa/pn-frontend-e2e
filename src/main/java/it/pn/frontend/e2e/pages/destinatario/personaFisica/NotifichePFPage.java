@@ -119,7 +119,19 @@ public class NotifichePFPage extends BasePage {
         }
     }
 
-    public void clickNotificheButton() {this.notificheDeButton.click();}
+    public void clickNotificheButton() {this.js().executeScript("arguments[0].click()",this.notificheDeButton);}
+
+    public void clickTueNotificheButton(){
+        try {
+            By leTueNotificheButtonBy = By.xpath("//div[@data-testid='menu-item(le tue notifiche)']");
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(leTueNotificheButtonBy));
+            this.js().executeScript("arguments[0].click()",this.element(leTueNotificheButtonBy));
+            logger.info("Si clicca sul bottone le tue notifiche");
+        }catch (TimeoutException e){
+            logger.error("Non si visualizza il bottone le tue notifiche con errore: "+e.getMessage());
+            Assert.fail("Non si visualizza il bottone le tue notifiche con errore: "+e.getMessage());
+        }
+    }
 
     public void siVisualizzaPaginaNotifichePersonaFisica() {
         try {

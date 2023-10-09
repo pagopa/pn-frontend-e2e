@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.stepDefinitions.common;
 
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.DeleghePGPagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 
 public class BackgroundTest {
@@ -10,9 +11,13 @@ public class BackgroundTest {
 
     private final String nomeFileNuovaDelega = "nuova_delega";
 
+    private final String nomeFileNuovaDelegaPG = "nuovaDelegaPG";
+
     private DeleghePagoPATest deleghePagoPATest = new DeleghePagoPATest();
 
     private LoginPersonaFisicaPagoPA personaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
+
+    private DeleghePGPagoPATest deleghePGPagoPATest = new DeleghePGPagoPATest();
 
     public void invioNotificaErrorePec(){
 
@@ -54,5 +59,22 @@ public class BackgroundTest {
 
     public void logoutPF(){
         personaFisicaPagoPA.logout_da_portale_destinatario();
+    }
+
+    public void accettazioneDelegaPF(){
+        deleghePagoPATest.wait_deleghe_Button();
+        deleghePagoPATest.siSceglieOpzioneAccetta();
+        deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp(nomeFileNuovaDelega);
+        deleghePagoPATest.siCliccaSulBottoneAccetta();
+        deleghePagoPATest.siControllaCheLaDelegaALoStatoAttiva(nomeFilePersonaFisica);
+    }
+
+    public void aggiungaDelegaPG() {
+        deleghePGPagoPATest.nellaSezioneDelegatiDellImpresaClickSulBottoneAggiungiNuovaDelega();
+        deleghePGPagoPATest.siVisualizzaLaSezioneLeTueDeleghePersonaGiuridica();
+        deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaInserireIDati(nomeFileNuovaDelegaPG);
+        deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaSalvareIlCodiceVerificaAllInternoDelFile(nomeFileNuovaDelegaPG);
+        deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaclickSulBottoneInviaRichiestaESulBottoneTornaAlleDeleghe();
+        deleghePGPagoPATest.nellaSezioneDelegatiDallImpresaSiVisualizzaLaDelegaInStatoDiAttesaDiConferma();
     }
 }

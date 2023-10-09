@@ -5,7 +5,7 @@ Feature: Il persona fisica visualizza la sezione aggiungi una nuova delega
     When Login portale persona fisica tramite request method
     Then Home page persona fisica viene visualizzata correttamente
 
-   @TestSuite
+  @TestSuite
   @test45
 
   Scenario: Il persona fisica visualizza la sezione aggiungi una nuova delega

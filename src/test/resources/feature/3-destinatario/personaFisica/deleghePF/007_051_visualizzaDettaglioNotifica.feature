@@ -4,6 +4,8 @@ Feature: Il delegato visualizza il dettaglio di una notifica
     Given Login Page persona fisica "personaFisica" viene visualizzata
     When Login "delegatoPF" portale persona fisica tramite request method
     Then Home page persona fisica viene visualizzata correttamente
+    And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
+    And Nella sezione Deleghe si verifica sia presente una delega accettata
 
   @TestSuite
   @test51

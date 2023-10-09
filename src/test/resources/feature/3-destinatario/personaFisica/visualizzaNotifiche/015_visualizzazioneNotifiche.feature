@@ -6,8 +6,7 @@ Feature: La persona fisica visualizza la sezione notifiche
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
- @test15
-  @
+  @test15
 
   Scenario: Il persona fisica visualizza la sezione notifiche
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche
