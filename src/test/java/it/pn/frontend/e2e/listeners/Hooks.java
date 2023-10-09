@@ -131,7 +131,7 @@ public class Hooks {
                             netWorkInfo.setResponseStatus(response.getResponse().getStatus().toString());
                             String bodyResponse = devTools.send(Network.getResponseBody(response.getRequestId())).getBody();
                             netWorkInfo.setResponseBody(bodyResponse);
-                            this.netWorkInfos.add(netWorkInfo);
+                            netWorkInfos.add(netWorkInfo);
                         }
                     }
                     requests.remove(requestId);
