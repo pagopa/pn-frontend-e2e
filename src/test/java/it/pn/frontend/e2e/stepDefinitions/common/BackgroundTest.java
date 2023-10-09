@@ -13,11 +13,11 @@ public class BackgroundTest {
 
     private final String nomeFileNuovaDelegaPG = "nuovaDelegaPG";
 
-    private DeleghePagoPATest deleghePagoPATest = new DeleghePagoPATest();
+    private final DeleghePagoPATest deleghePagoPATest = new DeleghePagoPATest();
 
-    private LoginPersonaFisicaPagoPA personaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
+    private final LoginPersonaFisicaPagoPA personaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
 
-    private DeleghePGPagoPATest deleghePGPagoPATest = new DeleghePGPagoPATest();
+    private final DeleghePGPagoPATest deleghePGPagoPATest = new DeleghePGPagoPATest();
 
     public void invioNotificaErrorePec(){
 

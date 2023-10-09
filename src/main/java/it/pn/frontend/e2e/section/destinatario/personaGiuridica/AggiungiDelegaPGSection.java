@@ -82,11 +82,11 @@ public class AggiungiDelegaPGSection extends BasePage {
     }
 
     public String salvataggioCodiceVerifica() {
-        String codiceVerifica = "";
+        StringBuilder codiceVerifica = new StringBuilder();
         for (WebElement webElement : this.codiceVerificaList) {
-            codiceVerifica = codiceVerifica + webElement.getText();
+            codiceVerifica.append(webElement.getText());
         }
-        return codiceVerifica;
+        return codiceVerifica.toString();
     }
 
     public void inserireCF(String cf) {
