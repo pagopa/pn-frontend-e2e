@@ -101,7 +101,7 @@ public class NotifichePFPage extends BasePage {
     public boolean getListData() {
         By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-c3sxw2')]");
         this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
-        return this.elements(dataListBy).size() != 0;
+        return !this.elements(dataListBy).isEmpty();
     }
 
     public boolean verificaEsistenzaEPassaggioPagina() {
@@ -119,7 +119,19 @@ public class NotifichePFPage extends BasePage {
         }
     }
 
-    public void clickNotificheButton() {this.notificheDeButton.click();}
+    public void clickNotificheButton() {this.js().executeScript("arguments[0].click()",this.notificheDeButton);}
+
+    public void clickTueNotificheButton(){
+        try {
+            By leTueNotificheButtonBy = By.xpath("//div[@data-testid='menu-item(le tue notifiche)']");
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(leTueNotificheButtonBy));
+            this.js().executeScript("arguments[0].click()",this.element(leTueNotificheButtonBy));
+            logger.info("Si clicca sul bottone le tue notifiche");
+        }catch (TimeoutException e){
+            logger.error("Non si visualizza il bottone le tue notifiche con errore: "+e.getMessage());
+            Assert.fail("Non si visualizza il bottone le tue notifiche con errore: "+e.getMessage());
+        }
+    }
 
     public void siVisualizzaPaginaNotifichePersonaFisica() {
         try {
@@ -170,8 +182,7 @@ public class NotifichePFPage extends BasePage {
 
     public int siVisualizzaNotifichePresenti() {
         By rigaDelegaBy = By.xpath("//tr[@data-testid='notificationsTable.row']");
-        int numeroRigheNotifiche = elements(rigaDelegaBy).size();
-        return numeroRigheNotifiche;
+        return elements(rigaDelegaBy).size();
     }
 
     public List<WebElement> getDateNotifiche() {
@@ -244,8 +255,7 @@ public class NotifichePFPage extends BasePage {
     public int conteggioNotifiche() {
         By rigaDelegaBy = By.xpath("//tr[@data-testid='notificationsTable.row']");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(rigaDelegaBy));
-        int numeroRigheNotifiche2 = elements(rigaDelegaBy).size();
-        return numeroRigheNotifiche2;
+        return elements(rigaDelegaBy).size();
     }
 
     public void selezionaNotifica() {

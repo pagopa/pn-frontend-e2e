@@ -75,14 +75,15 @@ public class DeleghePage extends BasePage {
         this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.revocaButton));
         this.revocaButton.click();
     }
-    public void siVisualizzaUnaDelega() {
+    public boolean siVisualizzaUnaDelega() {
         try{
             By menuDelega = By.xpath("//tr[contains(@class,'MuiTableRow-root css-g76qb5')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
             logger.info("Trovato correttamente almeno una delega");
+            return true;
         }catch (TimeoutException e){
-            logger.error("Deleghe NON trovate con errore: "+e.getMessage());
-            Assert.fail("Deleghe NON trovate con errore: "+e.getMessage());
+            logger.warn("Deleghe NON trovate con errore: "+e.getMessage());
+            return false;
         }
     }
 
@@ -121,4 +122,29 @@ public class DeleghePage extends BasePage {
     public void clickOpzioneRevoca() {
         this.revocaDelegaOption.click();
     }
+
+    public boolean siVisualizzaUnaDelegaConNome(String nome, String cognome) {
+        try {
+            By delegaBy = By.xpath("//tr[@id = 'delegatesTable.row']//p[contains(text(),'"+ nome+" "+ cognome+"')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaBy));
+            logger.info("Si trova una delega");
+            return true;
+        }catch (TimeoutException e){
+            logger.warn("Non si trova una delega con il nome "+nome + " " + cognome);
+            return false;
+        }
+    }
+    public boolean siVisualizzaUnaDelegaConNomeDelegato(String nome, String cognome) {
+        try {
+            By delegaBy = By.xpath("//tr[@id = 'delegatorsTable.row']//p[contains(text(),'"+ nome+" "+ cognome+"')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaBy));
+            logger.info("Si trova una delega");
+            return true;
+        }catch (TimeoutException e){
+            logger.warn("Non si trova una delega con il nome "+nome + " " + cognome);
+            return false;
+        }
+    }
+
+
 }

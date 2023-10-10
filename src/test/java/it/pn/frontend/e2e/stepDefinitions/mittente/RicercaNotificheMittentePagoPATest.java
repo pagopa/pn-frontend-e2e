@@ -104,8 +104,8 @@ public class RicercaNotificheMittentePagoPATest {
         piattaformaNotifichePage.inserimentoCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
     }
 
-    @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice IUN della notifica {string}")
-    public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConIlCodiceIUNDellaNotifica(String dpDatiNotifica) {
+    @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice IUN della notifica")
+    public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConIlCodiceIUNDellaNotifica() {
         logger.info("Si verifica i risultati restituiti");
 
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
@@ -113,9 +113,7 @@ public class RicercaNotificheMittentePagoPATest {
 
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
-        DataPopulation dataPopulation = new DataPopulation();
-        this.datiNotifica = dataPopulation.readDataPopulation(dpDatiNotifica + ".yaml");
-        String codiceIUNInserito = datiNotifica.get("codiceIUN").toString();
+        String codiceIUNInserito = piattaformaNotifichePage.getCodiceIunInserito();
         boolean result = piattaformaNotifichePage.verificaCodiceIUN(codiceIUNInserito);
         if (result) {
             logger.info("Il risultato coerente con il codice IUN inserito");

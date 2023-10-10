@@ -23,7 +23,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(id = "dialog-action-button")
     WebElement revocaButtonPopUP;
     
-    @FindBy(id = "codiceFiscale")
+    @FindBy(id = "taxId")
     WebElement cfTextField;
 
     @FindBy(xpath = "//button[@data-testid='confirmButton']")

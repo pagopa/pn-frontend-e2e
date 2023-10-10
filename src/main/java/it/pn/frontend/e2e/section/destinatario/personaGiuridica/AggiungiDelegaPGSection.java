@@ -55,7 +55,6 @@ public class AggiungiDelegaPGSection extends BasePage {
             By titlePageBy = By.id("Aggiungi una delega-page");
             this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.codiceFiscaleInput));
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.ragioneSocialeTextField));
             logger.info("Si visualizza correttamente la sezione Aggiungi una delega");
         }catch (TimeoutException e){
             logger.error("Non si visualizza correttamente la sezione Aggiungi una delega con errore: "+e.getMessage());
@@ -83,11 +82,11 @@ public class AggiungiDelegaPGSection extends BasePage {
     }
 
     public String salvataggioCodiceVerifica() {
-        String codiceVerifica = "";
+        StringBuilder codiceVerifica = new StringBuilder();
         for (WebElement webElement : this.codiceVerificaList) {
-            codiceVerifica = codiceVerifica + webElement.getText();
+            codiceVerifica.append(webElement.getText());
         }
-        return codiceVerifica;
+        return codiceVerifica.toString();
     }
 
     public void inserireCF(String cf) {
