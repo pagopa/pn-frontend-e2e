@@ -164,7 +164,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void clickGruppoField() {
         this.gruppoField.sendKeys("Test gruppi");
         this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.gruppoOption));
-        this.gruppoOption.click();
+        this.js().executeScript("arguments[0].click()",this.gruppoOption);
     }
 
     public void clickBottoneConferma() {
