@@ -767,6 +767,11 @@ public class NotificaMittentePagoPATest {
 
         destinatarioPASection.checkBoxAggiungiDomicilio();
         destinatarioPASection.insertDomicilioDigitaleErrato(personaGiuridicaErrore1.get("emailPec").toString());
+        Assert.assertEquals("l'errore  attuale 'Indirizzo PEC non valido' è diverso di :"+destinatarioPASection.getDomicilioDigitaleError(),"Indirizzo PEC non valido",destinatarioPASection.getDomicilioDigitaleError());
+
+        destinatarioPASection.insertCodiceFiscaleErrato(personaGiuridicaErrore1.get("codiceFiscale").toString());
+        Assert.assertEquals("l'errore  attuale 'Il valore inserito non è corretto' è diverso di :"+destinatarioPASection.getcodiceFiscaleError(),"Il valore inserito non è corretto",destinatarioPASection.getcodiceFiscaleError());
+
     }
 
     @And("Nella section Allegati caricare l'atto e inserire il nome atto con estenzione non valida")

@@ -23,16 +23,17 @@ public class AcccediAreaRiservataPAPage extends BasePage {
 
     public void waitLoadLoginPageMittente(){
         try{
-            By titoloLabel = By.cssSelector(".MuiTypography-root.MuiTypography-h3.css-ktw4ma");
+            By titoloLabel = By.xpath("//h3[@class = 'MuiTypography-root MuiTypography-h3 css-ktw4ma']");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titoloLabel));
-            logger.info("Acccedi Area Riservata Page caricata");
+            logger.info("TA_QA: Acccedi Area Riservata Page caricata");
         }catch (TimeoutException e){
-            logger.error("Acccedi Area Riservata Page non caricata con errore : "+e.getMessage());
-            Assert.fail("Acccedi Area Riservata Page non caricata con errore : "+e.getMessage());
+            logger.error("TA_QA: Il titolo nella pagina  Acccedi Area Riservata non è presente con errore : "+e.getMessage());
+            Assert.fail("TA_QA: Il titolo nella pagina  Acccedi Area Riservata non è presente con errore : "+e.getMessage());
         }
     }
 
     public void selezionareSipButton(){
+        logger.info("TA_QA: Si seleziona il buttone Spid");
         this.spidButton.click();
     }
 }

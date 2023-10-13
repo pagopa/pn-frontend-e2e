@@ -1,10 +1,7 @@
 package it.pn.frontend.e2e.section;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -25,16 +22,17 @@ public class CookiesSection extends BasePage {
         try{
             By scopriDipiuLink = By.id("onetrust-pc-btn-handler");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(scopriDipiuLink));
-            logger.info("Cookies Page caricata");
+            logger.info("TA_QA: Cookies Page caricata");
             return true;
-        }catch (TimeoutException e){
-            logger.warn("Cookies Page non caricata con errore : "+e.getMessage());
+        }catch (TimeoutException | NoSuchElementException e){
+            logger.warn("TA_QA: Cookies Page non caricata, il link scopri di più non è caricato con errore : "+e.getMessage());
             return false;
         }
 
     }
 
     public void selezionaAccettaTuttiButton(){
+        logger.info("TA_QA : si seleziona accetta tutti i cookies");
         this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.accettaTuttiButton));
         Actions actions = new Actions(driver);
         actions.moveToElement(this.accettaTuttiButton).click().perform();

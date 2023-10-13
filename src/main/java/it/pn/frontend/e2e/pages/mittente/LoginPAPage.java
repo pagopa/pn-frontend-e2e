@@ -33,23 +33,25 @@ public class LoginPAPage extends BasePage {
         try{
             By titlePage = By.cssSelector("h1.u-text-r-xl.u-margin-bottom-l");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            logger.info("Login PA Page caricata");
+            logger.info("Ta_QA: Login PA Page caricata");
         }catch (TimeoutException e){
-            logger.error("Login PA Page non caricata con errore : "+e.getMessage());
-            Assert.fail("Login PA Page non caricata con errore : "+e.getMessage());
+            logger.error("TA_QA: il titolo della pagina Login PA non caricato con errore : "+e.getMessage());
+            Assert.fail("TA_QA: il titolo della pagina Login PA non caricato con errore  : "+e.getMessage());
         }
     }
 
     public void inserisciUtenete(String user){
+        logger.info("TA_QA: si inserisci il nome utente (user)");
         this.userTextEdit.sendKeys(user);
     }
 
     public void inserisciPassword(String pwd){
+        logger.info("TA_QA: si inserisci la password dell'utente");
         this.pwdTextEdit.sendKeys(pwd);
     }
 
     public void selezionaInviaDati(){
-
+        logger.info("TA_QA: si selezione il buttone invia");
         this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.inviaButton));
         this.inviaButton.click();
     }
