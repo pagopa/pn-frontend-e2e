@@ -121,8 +121,9 @@ public class AggiungiDelegaPGSection extends BasePage {
         dataTermineDelegaInput.sendKeys(dataDaInserire.toString());
     }
 
-    public void waitMessaggioErroreData() {
+    public String waitMessaggioErroreData() {
         this.getWebDriverWait(30).withMessage("Il messaggio errore delega non è visibile").until(ExpectedConditions.visibilityOf(this.messaggioErroreData));
+        return this.messaggioErroreData.getText();
     }
 
     public void clearImputData() {
