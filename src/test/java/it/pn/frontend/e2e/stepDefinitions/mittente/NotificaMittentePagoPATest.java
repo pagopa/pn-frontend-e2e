@@ -786,10 +786,10 @@ public class NotificaMittentePagoPATest {
     public void siVisualizzaCorrettamenteIlMessaggioDiErroreEstensioneFileNonSupportataRiprovareConUnAltroFile() {
        logger.info("Si controlla che si vede il messaggio di errore");
         if(piattaformaNotifichePage.estensioneSbagliataErrore()){
-            logger.info("Si visualizza correttamente il messaggio di errore");
+            logger.info("Si visualizza correttamente il messaggio di errore: Estensione file non supportata. Riprovare con un altro file.");
         }else {
-            logger.error("Non si visualizza correttamente il messaggio di errore");
-            Assert.fail("Non si visualizza correttamente il messaggio di errore");
+            logger.error("Non si visualizza correttamente il messaggio di errore: Estensione file non supportata. Riprovare con un altro file.");
+            Assert.fail("Non si visualizza correttamente il messaggio di errore: Estensione file non supportata. Riprovare con un altro file.");
         }
     }
 

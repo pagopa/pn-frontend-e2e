@@ -50,13 +50,10 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(id = "page3")
     WebElement pageNumberButton;
 
-//    @FindBy(xpath = "//button[contains(@class,'MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-34ped8')]")
-//    WebElement pageNumberList;
-
-    @FindBy(xpath = "//li[@data-testid='pageSize-50']")
+    @FindBy(id = "pageSize-50")
     WebElement numberElement;
 
-    @FindBy(xpath = "//button[contains(@data-testid,'step-submit')]")
+    @FindBy(id = "step-submit")
     WebElement continuaButtonDisabled;
 
     @FindBy(id = "subject")
@@ -65,16 +62,16 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(id = "subject-helper-text")
     WebElement errorMessage;
 
-    @FindBy(xpath = "//button[@data-testid='breadcrumb-indietro-button']")
+    @FindBy(id = "breadcrumb-indietro-button")
     WebElement indietroButton;
 
     @FindBy(id = "button-exit")
     WebElement esciButton;
 
-    @FindBy(xpath = "//div[contains(text(),'Estensione file non supportata. Riprovare con un altro file.')]")
+    @FindBy(id = "file-upload-error")
     WebElement estenzioneSbagliataMessage;
 
-    @FindBy(xpath = "//button[contains(@data-testid,'newNotificationBtn')]")
+    @FindBy(id = "new-notification-btn")
     WebElement inviaNuovaNotificaButton;
 
 
@@ -86,9 +83,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void waitLoadPiattaformaNotifichePAPage() {
         try {
-            By notificheTitle = By.xpath("//h4[contains(text(),'Notifiche')]");
-            By inviaNuovaNotificaButton = By.xpath("//button[contains(@data-testid,'newNotificationBtn')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(inviaNuovaNotificaButton));
+            By notificheTitle = By.id("Notifiche-page");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.inviaNuovaNotificaButton));
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(inviaNuovaNotificaButton));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheTitle));
             logger.info("Piattaforma Notifiche Page caricata");
@@ -132,7 +128,7 @@ public class PiattaformaNotifichePage extends BasePage {
         this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
 
         try {
-            By numeroButtonBy = By.xpath("//button[contains(@aria-label,'pagina 2')]");
+            By numeroButtonBy = By.id("page2");
             this.getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(numeroButtonBy));
             logger.info("Bottone 2 trovato");
 
@@ -225,7 +221,7 @@ public class PiattaformaNotifichePage extends BasePage {
             By notificaBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr')]");
             attesaCaricamentoPagina();
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificaBy));
-            this.element(notificaBy).click();
+            this.elements(notificaBy).get(0).click();
         } catch (TimeoutException e) {
             logger.error("Notifica non trovata con errore: " + e.getMessage());
             Assert.fail("Notifica non trovata con errore: " + e.getMessage());
@@ -328,7 +324,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean verificaEsistenzaRisultati() {
         try {
-            By messaggioNessunRisultatoby = By.xpath("//button[contains(@data-testid,'callToActionFirst')]");
+            By messaggioNessunRisultatoby = By.id("call-to-action-first");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messaggioNessunRisultatoby));
             logger.info("Messaggio visualizzato correttamente");
             return true;
@@ -339,7 +335,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void siVisualizzaCorrettamenteIlCFField() {
         try {
-            By codiceFiscaleField = By.xpath("//input[contains(@id,'recipientId')]");
+            By codiceFiscaleField = By.id("recipientId");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiceFiscaleField));
             logger.info("Il campo di codice fiscale si visualizza correttamente");
         } catch (TimeoutException e) {
@@ -350,7 +346,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void siVisualizzaCorrettamenteIlCodiceIUNField() {
         try {
-            By codiceIUNField = By.xpath("//input[contains(@id, 'iunMatch')]");
+            By codiceIUNField = By.id("iunMatch");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiceIUNField));
             logger.info("Il campo di codice iun si visualizza correttamente");
         } catch (TimeoutException e) {
@@ -361,7 +357,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void siVisualizzaCorrettamenteLoStatoField() {
         try {
-            By statoField = By.xpath("//div[@id='status']");
+            By statoField = By.id("status");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoField));
             logger.info("Il campo dello stato si visualizza correttamente");
         } catch (TimeoutException e) {
@@ -372,7 +368,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void siVisualizzaCorrettamenteLaDataInzioField() {
         try {
-            By dataDaField = By.xpath("//input[contains(@id, 'startDate')]");
+            By dataDaField = By.id("startDate");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(dataDaField));
             logger.info("Il campo della data di inizio si visualizza correttamente");
         } catch (TimeoutException e) {
@@ -383,7 +379,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void siVisualizzaCorrettamenteLaDataFineField() {
         try {
-            By dataAField = By.xpath("//input[contains(@id, 'endDate')]");
+            By dataAField = By.id("endDate");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(dataAField));
             logger.info("Il campo della data di fine si visualizza correttamente");
         } catch (TimeoutException e) {
@@ -418,7 +414,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public int getNRighe() {
-        By nRigheBy = By.xpath("//tr[@data-testid='notificationsTable.row']");
+        By nRigheBy = By.xpath("//tr[@id='notificationsTable.row']");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nRigheBy));
         return this.elements(nRigheBy).size();
     }
