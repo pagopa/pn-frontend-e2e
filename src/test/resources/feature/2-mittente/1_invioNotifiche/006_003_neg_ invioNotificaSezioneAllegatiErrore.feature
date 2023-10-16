@@ -1,4 +1,4 @@
-Feature: il mittente inserisce tutti i dati di una notifica
+Feature: il mittente inserisce tutti i dati di una notifica senza allegati
   Background: login pagoPA mittente
     Given Login Page mittente "mittente" viene visualizzata
     When Login mittente tramite request method
@@ -8,7 +8,7 @@ Feature: il mittente inserisce tutti i dati di una notifica
     @TestSuite
 
 
-  Scenario: il mittente inserisce tutti i dati di una notifica
+  Scenario: il mittente inserisce tutti i dati di una notifica senza allegati
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
