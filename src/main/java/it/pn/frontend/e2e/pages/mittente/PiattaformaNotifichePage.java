@@ -22,8 +22,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     @FindBy(id = "recipientId")
     WebElement cfTextField;
-
-    @FindBy(xpath = "//button[contains(text(),'Filtra')]")
+    @FindBy(id = "filter-button]")
     WebElement filtraButton;
 
     @FindBy(id = "iunMatch")
@@ -39,7 +38,7 @@ public class PiattaformaNotifichePage extends BasePage {
     WebElement statoNotificaField;
 
 
-    @FindBy(xpath = "//div[contains(@data-testid,'sideMenuItem-API Key')]")
+    @FindBy(id = "side-item-API Key")
     WebElement apiKeyButton;
 
     @FindBy(id = "rows-per-page")
