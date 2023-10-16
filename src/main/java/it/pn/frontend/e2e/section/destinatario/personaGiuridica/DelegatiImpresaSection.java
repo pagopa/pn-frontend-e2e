@@ -20,13 +20,13 @@ public class DelegatiImpresaSection extends BasePage {
 
     @FindBy(xpath = "//li[contains(@tabindex,'0')]")
     WebElement mostraCodiceOption;
-    @FindBy(xpath = "//li[contains(text(),'Revoca')]")
+    @FindBy(id = "revoke-delegation-button")
     WebElement revocaMenuButton;
 
-    @FindBy(xpath = "//button[@data-testid='dialogAction' and text()='Revoca la delega']")
+    @FindBy(id = "dialog-action-button")
     WebElement revocaButton;
 
-    @FindBy(xpath = "//button[contains(text(),'Annulla')]")
+    @FindBy(id = "dialog-close-button")
     WebElement annullaButton;
 
     public DelegatiImpresaSection(WebDriver driver) {

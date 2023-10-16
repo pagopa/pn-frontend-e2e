@@ -28,16 +28,16 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(xpath = "//button[@data-testid='add phone']")
     WebElement avvisamiViaSMSButton;
 
-    @FindBy(xpath = "//input[contains(@placeholder,'Il tuo indirizzo PEC')]")
+    @FindBy(id = "pec")
     WebElement inserimentoPecField;
 
-    @FindBy(xpath = "//button[@data-testid = 'addContact']")
+    @FindBy(id = "add-contact")
     WebElement confermaButton;
 
-    @FindBy(xpath = "//button[contains(text(),'Annulla')]")
+    @FindBy(id = "code-cancel-button")
     WebElement annullaButton;
 
-    @FindBy(xpath = "//button[contains(@data-testid,'codeConfirmButton')]")
+    @FindBy(id = "code-confirm-button")
     WebElement confermaButtonPopUp;
 
     public ITuoiRecapitiPage(WebDriver driver) {
@@ -97,17 +97,6 @@ public class ITuoiRecapitiPage extends BasePage {
         }catch (TimeoutException e){
             logger.error("Il codice otp NON viene inserito correttamente con errore:"+e.getMessage());
             Assert.fail("Il codice otp NON viene inserito correttamente con errore:"+e.getMessage());
-        }
-    }
-
-    public void waitMessaggioErrore() {
-        try {
-            By messaggioErroreBy = By.xpath("//div[contains(@data-testid, 'errorAlert')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messaggioErroreBy));
-            logger.info("Il messaggio di errore viene visualizzato correttamente");
-        }catch (TimeoutException e){
-            logger.error("Il messaggio di errore non viene visualizzato con errore: "+e.getMessage());
-            Assert.fail("Il messaggio di errore non viene visualizzato con errore: "+e.getMessage());
         }
     }
 

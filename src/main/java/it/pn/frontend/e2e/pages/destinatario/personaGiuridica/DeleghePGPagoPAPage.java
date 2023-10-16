@@ -26,7 +26,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(xpath = "//button[@data-testid='confirmButton']")
     WebElement filtraButton;
 
-    @FindBy(xpath = "//button[contains(@data-testid,'codeConfirmButton')]")
+    @FindBy(id = "accept-button")
     WebElement accettaDelegaButton;
 
     @FindBy(xpath = "//span[@data-testid='associate-group']")
@@ -38,19 +38,19 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(id = "groups-option-0")
     WebElement gruppoOption;
 
-    @FindBy(xpath = "//button[@data-testid='groupConfirmButton']")
+    @FindBy(id = "group-confirm-button")
     WebElement confermaButton;
 
     @FindBy(xpath = "//span[@data-testid='no-group']")
     WebElement nonGruppoRadioButton;
 
-    @FindBy(xpath = "//li[contains(text(),'Rifiuta')]")
-    WebElement opzioneRevoca;
+    @FindBy(id = "reject-delegation-button")
+    WebElement opzioneRifiuta;
 
-    @FindBy(xpath = "//button[contains(@class,'MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation')]")
+    @FindBy(id = "dialog-action-button")
     WebElement rifiutaButton;
 
-    @FindBy(xpath = "//li[contains(text(),'Modifica')]")
+    @FindBy(id = "update-delegation-button")
     WebElement opzioneModifica;
 
     @FindBy(id = "groups")
@@ -188,7 +188,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickOpzioneRifiuta() {
-        this.opzioneRevoca.click();
+        this.opzioneRifiuta.click();
     }
 
     public void clickBottoneRifiuta() {
