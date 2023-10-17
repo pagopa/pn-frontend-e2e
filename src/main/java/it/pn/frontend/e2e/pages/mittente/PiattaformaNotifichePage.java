@@ -22,7 +22,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     @FindBy(id = "recipientId")
     WebElement cfTextField;
-    @FindBy(id = "filter-button]")
+    @FindBy(id = "filter-button")
     WebElement filtraButton;
 
     @FindBy(id = "iunMatch")
