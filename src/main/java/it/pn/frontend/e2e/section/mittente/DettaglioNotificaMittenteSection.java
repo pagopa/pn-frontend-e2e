@@ -4,13 +4,10 @@ import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.io.*;
@@ -33,13 +30,16 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     List<WebElement> linkAllegati;
     @FindBy(xpath = "//button[contains(@data-testid,'breadcrumb-indietro-button')]")
     WebElement indietroButton;
+
+    private int numeriStatiNotifica;
+
     public DettaglioNotificaMittenteSection(WebDriver driver) {
         super(driver);
     }
 
     public void waitLoadDettaglioNotificaSection(){
         try {
-            By titleDettaglioNotificaField = By.xpath("//p[contains(text(),'Dettaglio notifica')]");
+            By titleDettaglioNotificaField = By.id("title-of-page");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
             logger.info("Dettaglio Notifica Section caricata");
         }catch (TimeoutException e){
@@ -128,14 +128,24 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void clickVediPiuDettaglio() {
+        By percorsoNotificaBy = By.xpath("//div[contains(@data-testid,'itemStatus')]");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(percorsoNotificaBy));
+        this.numeriStatiNotifica = this.elements(percorsoNotificaBy).size();
         getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.vediDettagliButton));
         this.vediDettagliButton.click();
     }
 
-    public int siVisualizzaPercosoNotifica() {
-        By percorsoNotificaBy = By.xpath("//div[contains(@data-testid,'itemStatus')]");
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(percorsoNotificaBy));
-        return this.elements(percorsoNotificaBy).size();
+    public void siVisualizzaPercosoNotifica() {
+        try {
+            By newPercorsoNotificaBy = By.xpath("//div[contains(@data-testid,'itemStatus')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(newPercorsoNotificaBy));
+            if (this.elements(newPercorsoNotificaBy).size() > this.numeriStatiNotifica) {
+                logger.info("TA_QA: L'elenco completo degli stati presente");
+            }
+        } catch (NoSuchElementException e){
+            logger.error("TA_QA: L'elenco completo degli stati NON presente con errore: "+e.getMessage());
+            Assert.fail("TA_QA: L'elenco completo degli stati NON presentecon errore: "+e.getMessage());
+        }
     }
 
     public void clickIndietroButton() {this.indietroButton.click();}
