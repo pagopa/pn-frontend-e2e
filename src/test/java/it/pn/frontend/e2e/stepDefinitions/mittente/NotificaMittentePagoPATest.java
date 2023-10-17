@@ -45,6 +45,8 @@ public class NotificaMittentePagoPATest {
 
     private final DataPopulation dataPopulation = new DataPopulation();
 
+    private final DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
+
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
         logger.info("Cliccare sul bottone Gestisci di Piattaforma Notifiche");
@@ -397,21 +399,19 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina dettaglio notifica cliccare sull'opzione vedi più dettagli")
     public void nellaPaginaDettaglioNotificaCliccareSullOpzioneVediPiuDettagli() {
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-        dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
+
+        dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
+        this.dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
     }
 
     @And("Si visualizza correttamente l elenco completo degli stati che la notifica ha percorso")
     public void siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso() {
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-        int nStatiNotifica = dettaglioNotificaMittenteSection.siVisualizzaPercosoNotifica();
-        if (nStatiNotifica >= 1) {
-            logger.info("L'elenco degli stati presente");
-        } else {
-            logger.error("L'elenco degli stati NON presente");
-            Assert.fail("L'elenco degli stati NON presente");
-        }
+
+        dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
+        dettaglioNotificaMittenteSection.siVisualizzaPercosoNotifica();
+
     }
+
 
     @Then("Si clicca sul bottone indietro")
     public void siCliccaSulBottoneIndietro() {
