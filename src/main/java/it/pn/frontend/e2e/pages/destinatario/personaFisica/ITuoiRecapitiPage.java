@@ -163,6 +163,7 @@ public class ITuoiRecapitiPage extends BasePage {
         try{
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.avvisamiViaEmailButton));
             return Boolean.parseBoolean(this.avvisamiViaEmailButton.getAttribute("disabled"));
+
         }catch (NoSuchElementException | TimeoutException e){
             return false;
         }
