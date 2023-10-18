@@ -275,9 +275,9 @@ public class LoginMittentePagoPA {
         AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
         areaRiservataPAPage.waitLoadAreaRiservataPAPage();
         if(areaRiservataPAPage.verificaCodiceFiscale(this.datiMittente.get("codiceFiscale").toString())){
-            logger.info("codice fiscale presente");
+            logger.info("TA_QA: codice fiscale presente");
         }else {
-            logger.info("codice fiscale non presente o errato");
+            logger.info("TA_QA: codice fiscale non presente o errato");
         }
 
         try {

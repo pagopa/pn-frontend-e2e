@@ -26,10 +26,10 @@ public class HeaderPASection extends BasePage {
         try{
             By titleLabel = By.cssSelector("a[title='Sito di PagoPA S.p.A.']");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
-            logger.info("Header PA Section caricata");
+            logger.info("TA_QA: Header PA Section caricata");
         }catch (TimeoutException e){
-            logger.error("Header PA Section non caricata con errore : "+e.getMessage());
-            Assert.fail("Header PA Section non caricata con errore : "+e.getMessage());
+            logger.error("TA_QA: Il titolo nel Header: 'Sito di PagoPA S.p.A.' non è caricato con errore : "+e.getMessage());
+            Assert.fail("TA_QA: Il titolo nel Header: 'Sito di PagoPA S.p.A.' non è caricato con errore : "+e.getMessage());
         }
     }
 

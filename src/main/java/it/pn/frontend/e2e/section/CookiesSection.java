@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.section;
 
 import it.pn.frontend.e2e.common.BasePage;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -33,8 +34,14 @@ public class CookiesSection extends BasePage {
 
     public void selezionaAccettaTuttiButton(){
         logger.info("TA_QA : si seleziona accetta tutti i cookies");
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.accettaTuttiButton));
-        Actions actions = new Actions(driver);
-        actions.moveToElement(this.accettaTuttiButton).click().perform();
+        try {
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.accettaTuttiButton));
+            Actions actions = new Actions(driver);
+            actions.moveToElement(this.accettaTuttiButton).click().perform();
+        }catch(TimeoutException | ElementClickInterceptedException e){
+            logger.error("TA_QA: non è presente o non è cliccabile il buttone accetta tutti cookies" + e.getMessage());
+            Assert.fail("TA_QA: non è presente o non è cliccabile il buttone accetta tutti cookies" + e.getMessage());
+
+        }
     }
 }

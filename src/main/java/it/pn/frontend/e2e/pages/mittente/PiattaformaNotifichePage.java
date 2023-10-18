@@ -2,10 +2,7 @@ package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -87,10 +84,10 @@ public class PiattaformaNotifichePage extends BasePage {
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.inviaNuovaNotificaButton));
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(inviaNuovaNotificaButton));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheTitle));
-            logger.info("Piattaforma Notifiche Page caricata");
-        } catch (TimeoutException e) {
-            logger.error("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
-            Assert.fail("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
+            logger.info("TA_QA: la pagina Piattaforma Notifiche è caricata");
+        } catch (TimeoutException | ElementClickInterceptedException | NoSuchElementException e) {
+            logger.error("TA_QA: Piattaforma Notifiche Page non caricata, controllo fallito del esistenza titolo e/o il buttone invia nuovo notifica , con errore : " + e.getMessage());
+            Assert.fail("TA_QA: Piattaforma Notifiche Page non caricata, controllo fallito del esistenza titolo e/o il buttone invia nuovo notifica , con errore : " + e.getMessage());
         }
     }
 

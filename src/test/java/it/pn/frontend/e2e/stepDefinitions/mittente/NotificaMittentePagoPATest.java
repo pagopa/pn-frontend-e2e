@@ -49,9 +49,9 @@ public class NotificaMittentePagoPATest {
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
-        logger.info("Cliccare sul bottone Gestisci di Piattaforma Notifiche");
         AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
         String variabileAmbiente = System.getProperty("environment");
+        logger.info("TA_QA: Cliccare sul bottone di Piattaforma Notifiche dell'Ambiente "+variabileAmbiente);
         switch (variabileAmbiente) {
             case "dev" -> areaRiservataPAPage.selezionaPiattaformaNotificaDev();
             case "test" -> areaRiservataPAPage.selezionaPiattaformaNotificaTest();
@@ -103,14 +103,14 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica")
     public void nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica() {
-        logger.info("selezione bottone invia una nuova notifica");
+        logger.info("TA_QA: selezione bottone invia una nuova notifica");
         piattaformaNotifichePage.selectInviaUnaNuovaNotificaButton();
         piattaformaNotifichePage.waitloadingSpinner();
     }
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari")
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionInformazioniPreliminari() {
-        logger.info("verifica visualizzazione section Informazioni preliminari");
+        logger.info("TA_QA: verifica visualizzazione section Informazioni preliminari");
 
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
