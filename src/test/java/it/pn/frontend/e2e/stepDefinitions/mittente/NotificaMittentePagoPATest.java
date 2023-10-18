@@ -866,7 +866,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo")
     public void nellaPaginaPiattaformaNotificheSiRecuperaLUltimoNumeroProtocollo() {
-        String numeroProtocollo = getNumeroProtocollo();
+      String numeroProtocollo = getNumeroProtocollo();
         if(numeroProtocollo != null){
             this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
             this.datiNotifica.put("numeroProtocollo",numeroProtocollo);

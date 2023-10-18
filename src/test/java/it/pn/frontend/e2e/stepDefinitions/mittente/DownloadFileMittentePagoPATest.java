@@ -133,7 +133,7 @@ public class DownloadFileMittentePagoPATest {
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-            dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibileAvvenutoAccesso(nomeFile);
+            dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibile(nomeFile);
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {

@@ -28,7 +28,6 @@ public class DeleghePagoPATest {
     private final LeTueDelegheSection  leTueDelegheSection = new LeTueDelegheSection(this.driver);
 
     private final PopUpRevocaDelegaSection popUpRevocaDelegaSection = new PopUpRevocaDelegaSection(this.driver);
-
     private final DataPopulation dataPopulation = new DataPopulation();
 
     private final DeleghePage deleghePage = new DeleghePage(this.driver);
@@ -312,6 +311,47 @@ public class DeleghePagoPATest {
             logger.info("Delega con lo stesso nome NON trovata");
         }
     }
+
+    @And("Nella pagina Deleghe si clicca sul menu della delega a tuo carico {string}")
+    public void nellaPaginaDelegheSiCliccaSulMenuDellaDelega(String dpFile) {
+        logger.info("Si clicca sul menu delle delega");
+        this.deleghe = dataPopulation.readDataPopulation(dpFile+".yaml");
+        String nome = this.deleghe.get("name").toString();
+        String cognome = this.deleghe.get("familyName").toString();
+        deleghePage.clickMenuPerRifiuto(nome, cognome);
+    }
+
+    @And("Nella pagina Deleghe si sceglie opzione rifiuta")
+    public void nellaPaginaDelegheSiSceglieOpzioneRifiuta() {
+        logger.info("Si sceglie l'opzione rifiuta");
+        deleghePage.clickRifiuta();
+    }
+
+
+    @And("Si clicca sul bottone rifiuta all'interno del pop-up")
+    public void siCliccaSulBottoneRifiutaAllInternoDelPopUp() {
+        logger.info("Si clicca sul bottone rifiuta nel pop-up");
+        deleghePage.clickRiufitaPopUp();
+    }
+
+    @And("Si clicca sul bottone annulla all'interno del pop-up")
+    public void siCliccaSulBottoneAnnullaAllInternoDelPopUp() {
+        logger.info("Si clicca sul bottone annulla nel pop-up");
+        deleghePage.clickAnnullaPopUp();
+    }
+
+    @And("Si controlla che la delega non sia più presente nella lista {string}")
+    public void siControllaCheLaDelegaNonSiaPiuPresenteNellaLista(String dpFile) {
+        logger.info("Si controlla che la delega non sia più presente nella lista");
+        this.deleghe = dataPopulation.readDataPopulation(dpFile+".yaml");
+        if (deleghePage.verificaEsistenzaDelega(this.deleghe.get("name").toString(),this.deleghe.get("familyName").toString())){
+            logger.info("Si controlla che la delega non sia più presente nella lista");
+        } else {
+            logger.error("La delega è ancora presente in lista");
+            Assert.fail("La delega è ancora presente in lista");
+        }
+    }
+
     @And("Nella sezione Deleghe si verifica sia presente una delega {string}")
     public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelega(String dpFile) {
         logger.info("Si controlla la presenza di una delega");

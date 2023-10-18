@@ -189,28 +189,11 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void clickLinkAvvenutaRicezione(int i) {this.linkAllegati.get(i).click();}
 
-    public void clickLinkAttestazioneOpponibile(String nomeFile) {
-        try {
-            By fileLinkBy = By.xpath("//button[contains(text(),'"+nomeFile+"')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(fileLinkBy));
-            WebElement fileLink = this.element(fileLinkBy);
-            if (fileLink.isDisplayed()){
-                fileLink.click();
-            }else {
-                this.js().executeScript("arguments[0].scrollIntoView(true);", fileLink);
-                fileLink.click();
-            }
-        }catch (TimeoutException e){
-            logger.error("Non riuscito ad trovare il link con errore: "+e.getMessage());
-            Assert.fail("Non riuscito ad trovare il link con errore: "+e.getMessage());
-        }
-    }
-
     public int getLinkAvvenutaRicezione() {
         return linkAllegati.size();
     }
 
-    public void clickLinkAttestazioneOpponibileAvvenutoAccesso(String nomeFile) {
+    public void clickLinkAttestazioneOpponibile(String nomeFile) {
         try {
             By fileLinkBy = By.xpath("//button[contains(text(),'"+nomeFile+"')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(fileLinkBy));

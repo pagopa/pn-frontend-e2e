@@ -4,6 +4,9 @@ Feature: la persona fisica inserisce un OTP email sbagliato
     When Login portale persona fisica tramite request method
     Then Home page persona fisica viene visualizzata correttamente
 
+  @TestSuite
+  @fase2Test34_neg1
+  @new
   Scenario: la persona fisica inserisce un OTP email sbagliato
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti

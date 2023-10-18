@@ -55,7 +55,6 @@ public class SelezionaEntePAPage extends BasePage {
         }
     }
 
-
     public void selezionaAccedi(){
         Actions actions = new Actions(driver);
         actions.moveToElement(this.accediButton).click().perform();

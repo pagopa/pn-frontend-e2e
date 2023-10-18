@@ -217,10 +217,7 @@ public class PiattaformaNotifichePage extends BasePage {
         By statoNotificaBy = By.xpath("//div[contains(@id,'status-chip-')]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
         String status = this.element(statoNotificaBy).getText();
-        if(status.equalsIgnoreCase("Depositata")){
-            return false;
-        }
-        return true;
+        return !status.equalsIgnoreCase("Depositata");
     }
 
     public void selezionaNotifica() {
@@ -240,9 +237,6 @@ public class PiattaformaNotifichePage extends BasePage {
         this.js().executeScript("arguments[0].click()",this.inviaNuovaNotificaButton);
     }
 
-    public void aggionamentoPagina() {
-        this.driver.navigate().refresh();
-    }
 
     public void waitLoadRefreshPage() {
         try {

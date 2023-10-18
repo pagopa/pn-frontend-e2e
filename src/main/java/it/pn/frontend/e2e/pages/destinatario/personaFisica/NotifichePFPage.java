@@ -135,7 +135,7 @@ public class NotifichePFPage extends BasePage {
 
     public void siVisualizzaPaginaNotifichePersonaFisica() {
         try {
-            By notifichePageTitleBy = By.xpath("//h4[contains(@id,'Le tue notifiche-page')]");
+            By notifichePageTitleBy = By.id("Le tue notifiche-page");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notifichePageTitleBy));
             logger.info("La pagina notifiche persona fisica si visualizza correttamente");
         }catch (TimeoutException e){

@@ -16,7 +16,7 @@ public class AggiungiDelegaPGSection extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("AggiungiDelegaPGSection");
 
 
-    @FindBy(xpath = "//input[@name='selectPersonaFisicaOrPersonaGiuridica' and @value = 'PG']")
+    @FindBy(id = "select-pg")
     WebElement personaGiuridicaButton;
 
     @FindBy(id = "ragioneSociale")
@@ -55,6 +55,7 @@ public class AggiungiDelegaPGSection extends BasePage {
             By titlePageBy = By.id("Aggiungi una delega-page");
             this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.codiceFiscaleInput));
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.personaGiuridicaButton));
             logger.info("Si visualizza correttamente la sezione Aggiungi una delega");
         }catch (TimeoutException e){
             logger.error("Non si visualizza correttamente la sezione Aggiungi una delega con errore: "+e.getMessage());

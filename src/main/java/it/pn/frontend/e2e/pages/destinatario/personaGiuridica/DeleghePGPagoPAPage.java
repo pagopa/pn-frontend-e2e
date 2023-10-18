@@ -20,14 +20,44 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(xpath = "//li[contains(text(),'Revoca')]")
     WebElement revocaMenuButton;
 
-    @FindBy(id = "dialog-action-button")
-    WebElement revocaButtonPopUP;
-    
     @FindBy(id = "taxId")
     WebElement cfTextField;
 
     @FindBy(xpath = "//button[@data-testid='confirmButton']")
     WebElement filtraButton;
+
+    @FindBy(id = "accept-button")
+    WebElement accettaDelegaButton;
+
+    @FindBy(xpath = "//span[@data-testid='associate-group']")
+    WebElement assegnaGruppoRadioButton;
+
+    @FindBy(xpath = "//div[@role='dialog']//input[@id='groups']")
+    WebElement gruppoField;
+
+    @FindBy(id = "groups-option-0")
+    WebElement gruppoOption;
+
+    @FindBy(id = "group-confirm-button")
+    WebElement confermaButton;
+
+    @FindBy(xpath = "//span[@data-testid='no-group']")
+    WebElement nonGruppoRadioButton;
+
+    @FindBy(id = "reject-delegation-button")
+    WebElement opzioneRifiuta;
+
+    @FindBy(id = "dialog-action-button")
+    WebElement rifiutaButton;
+
+    @FindBy(id = "update-delegation-button")
+    WebElement opzioneModifica;
+
+    @FindBy(id = "groups")
+    WebElement searchGroupTextField;
+
+    @FindBy(id = "groups-option-0")
+    WebElement groupOption;
 
     public DeleghePGPagoPAPage(WebDriver driver) {
         super(driver);
@@ -73,23 +103,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.revocaMenuButton));
         this.revocaMenuButton.click();
     }
-    public void waitPopUpRevoca() {
-        try {
-            By titlePopUpBy = By.xpath("//h5[contains(text(),'Vuoi revocare la delega ')]");
-            
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePopUpBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(revocaButtonPopUP));
-            logger.info("Il pop-up revoca si visualizza correttamente");
-        }catch (TimeoutException e){
-            logger.error("Il pop-up revoca NON si visualizza correttamente con errore: "+e.getMessage());
-            Assert.fail("Il pop-up revoca NON si visualizza correttamente con errore: "+e.getMessage());
-        }
-    }
-
-    public void clickRevocaButton() {
-        this.revocaButtonPopUP.click();
-    }
-
 
     public void clickSuDelegheCaricoDellImpresa() {
             this.delegheCaricoImpresaButton.click();
@@ -125,5 +138,105 @@ public class DeleghePGPagoPAPage extends BasePage {
           this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaBy));
           return this.elements(delegaBy).size() == 1;
 
+    }
+
+    public void clickBottoneAccetta() {
+        this.accettaDelegaButton.click();
+    }
+
+    public void waitLoadPopUpGruppo() {
+        try {
+            By titlePageBy = By.id("dialog-title");
+            By assegnaGruppoButtonBy = By.xpath("//span[@data-testid='associate-group']");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(assegnaGruppoButtonBy));
+            this.logger.info("Si vede correttamente il pop-up di assegnazione gruppo");
+        }catch (TimeoutException e){
+            this.logger.error("Non si vede correttamente il pop-up di assegnazione gruppo con errore: "+e.getMessage());
+            Assert.fail("Non si vede correttamente il pop-up di assegnazione gruppo con errore: "+e.getMessage());
+        }
+    }
+
+    public void clickAssegnaGruppoRadioButton() {
+        this.assegnaGruppoRadioButton.click();
+    }
+
+    public void clickGruppoField() {
+        this.gruppoField.sendKeys("Test gruppi");
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.gruppoOption));
+        this.js().executeScript("arguments[0].click()",this.gruppoOption);
+    }
+
+    public void clickBottoneConferma() {
+        this.confermaButton.click();
+    }
+
+
+    public void controlloStatoAttiva(String ragioneSociale) {
+        try {
+            By statoAttivaBy = By.xpath("//tr[@data-testid='table(notifications).row']//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//div/div/span[contains(text(),'Attiva')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoAttivaBy));
+            logger.info("La delega ha lo stato Attiva");
+        }catch (TimeoutException e){
+            logger.error("La delega NON ha lo stato Attiva con errore: "+e.getMessage());
+            Assert.fail("La delega NON ha lo stato Attiva con errore: "+e.getMessage());
+        }
+    }
+
+    public void clickNonAssegnaGruppo() {
+        this.nonGruppoRadioButton.click();
+    }
+
+    public void clickOpzioneRifiuta() {
+        this.opzioneRifiuta.click();
+    }
+
+    public void clickBottoneRifiuta() {
+        this.rifiutaButton.click();
+    }
+
+    public void waitLoadPopUpRevoca() {
+        try {
+            By revocaPopUpBy = By.xpath("//div[@aria-labelledby='responsive-dialog-title']");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(revocaPopUpBy));
+            this.logger.info("Si visualizza il pop-up rifiuta delega");
+        }catch (TimeoutException e){
+            this.logger.error("Non si visualizza il pop-up rifiuta delega con errore: "+e.getMessage());
+            Assert.fail("Non si visualizza il pop-up rifiuta delega con errore: "+e.getMessage());
+        }
+    }
+
+    public void clickOpzioneModifica() {
+        this.opzioneModifica.click();
+    }
+
+    public void waitLoadPopUpModifica() {
+        try {
+            By titlePOPUPBy = By.id("dialog-title");
+            By nonAssegnaButtonBy = By.xpath("//span[@data-testid='no-group']");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePOPUPBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(nonAssegnaButtonBy));
+            logger.info("Si visualizza correttamente il pop-up");
+        }catch (TimeoutException e){
+            logger.error("Si visualizza NON correttamente il pop-up con errore: "+e.getMessage());
+            Assert.fail("Si visualizza NON correttamente il pop-up con errore: "+e.getMessage());
+        }
+    }
+
+    public boolean verificaPresenzaGruppo(String ragioneSociale) {
+        try {
+            By gruppoBy = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//span[contains(text(),'Test gruppi')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(gruppoBy));
+            return true;
+        }catch (TimeoutException e) {
+            return false;
+        }
+
+    }
+
+    public void inserireGruppoDelegante() {
+        this.searchGroupTextField.click();
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.groupOption));
+        this.groupOption.click();
     }
 }
