@@ -93,24 +93,42 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void insertCodiceFiscale(String codiceFiscale) {
         try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.cfTextField));
+            this.cfTextField.sendKeys(codiceFiscale);
+            logger.info("TA_QA: Codice Fiscale inserito correttamente");
+        } catch (TimeoutException e) {
+            logger.error("TA_QA: Codice Fiscale Non inserito con errore: "+e.getMessage());
+            Assert.fail("TA_QA: Codice Fiscale Non inserito con errore: "+e.getMessage());
         }
-        this.cfTextField.sendKeys(codiceFiscale);
+
     }
 
     public void selectFiltraButton() {
-        this.filtraButton.click();
+        try {
+            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.filtraButton));
+            this.filtraButton.click();
+            logger.info("TA_QA: Bottone filtra cliccato correttamente");
+        }catch (TimeoutException e){
+            logger.error("TA_QA: Bottone filtra non cliccabile con errore "+e.getMessage());
+            Assert.fail("TA_QA: Bottone filtra non cliccabile con errore "+e.getMessage());
+        }
+
+
     }
 
     public int getListaCf(String cfInserito) {
-        By cfListBy = By.xpath("//p[contains(text(),'" + cfInserito + "')]");
-        attesaCaricamentoPagina();
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(cfListBy));
-        logger.info("Codici fiscali trovati correttamente");
+        try{
+            By cfListBy = By.xpath("//p[contains(text(),'" + cfInserito + "')]");
+            attesaCaricamentoPagina();
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(cfListBy));
+            logger.info("TA_QA: Codici fiscali trovati correttamente");
+            return this.elements(cfListBy).size();
+        }catch (TimeoutException | NoSuchElementException e){
+            logger.error("TA_QA: Codici fiscali non trovati "+e.getMessage());
+            Assert.fail("TA_QA: Codici fiscali non trovati "+e.getMessage());
+            return 0;
+        }
 
-        return this.elements(cfListBy).size();
     }
 
     public void attesaCaricamentoPagina() {
@@ -127,7 +145,7 @@ public class PiattaformaNotifichePage extends BasePage {
         try {
             By numeroButtonBy = By.id("page2");
             this.getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(numeroButtonBy));
-            logger.info("Bottone 2 trovato");
+            logger.info("TA_QA: Bottone 2 trovato");
 
             WebElement numeroPagina = this.element(numeroButtonBy);
             numeroPagina.click();
@@ -138,8 +156,16 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void inserimentoCodiceIUN(String codiceIUN) {
-        getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.codiceIUNTextField));
-        this.codiceIUNTextField.sendKeys(codiceIUN);
+        try{
+            getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.codiceIUNTextField));
+            this.codiceIUNTextField.sendKeys(codiceIUN);
+            logger.info("TA_QA: Codice IUN inserito");
+        }catch (TimeoutException e){
+            logger.error("TA_QA: Codice IUN non inserito con errore "+e.getMessage());
+            Assert.fail("TA_QA: Codice IUN non inserito con errore "+e.getMessage());
+        }
+
+
     }
 
     public boolean verificaCodiceIUN(String codiceIUNInserito) {
@@ -550,4 +576,6 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         return listaCodici;
     }
+
+
 }
