@@ -270,8 +270,6 @@ public class LoginMittentePagoPA {
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
 
-
-
         AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
         areaRiservataPAPage.waitLoadAreaRiservataPAPage();
         if(areaRiservataPAPage.verificaCodiceFiscale(this.datiMittente.get("codiceFiscale").toString())){
@@ -291,6 +289,7 @@ public class LoginMittentePagoPA {
 
     @And("Logout da portale mittente")
     public void Logout_da_portale_mittente() {
+        logger.info("TA_QA: Si esce dal portale mittente");
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();
