@@ -96,13 +96,14 @@ public class DestinatarioPASection extends BasePage {
 
     public void waitLoadDestinatarioPASection() {
         try{
-            By titleDestinatarioFieald = By.xpath("//h3[contains(text(),'Destinatari')]");
+            By titleDestinatarioFieald = By.id("title-heading-section");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleDestinatarioFieald));
-            logger.info("Destinatario PA Section caricata ");
+            logger.info("TA_QA: Destinatario PA Section caricata ");
         }catch (TimeoutException e){
-            logger.error("Destinatario PA Section non caricata con errore : "+e.getMessage());
-            Assert.fail("Destinatario PA Section non caricata con errore : "+e.getMessage());
+            logger.error("TA:QA: Destinatario PA Section non caricata con errore : "+e.getMessage());
+            Assert.fail("TA_QA: Destinatario PA Section non caricata con errore : "+e.getMessage());
         }
+
     }
 
     public void selezionarePersonaFisica() {
