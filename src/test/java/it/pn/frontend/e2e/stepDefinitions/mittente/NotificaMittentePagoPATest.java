@@ -61,7 +61,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche")
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche() {
-
+        logger.info("TA_QA: Si visualizza correttamente la pagina Piattaforma Notifiche");
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
         CookiesSection cookiesSection = new CookiesSection(this.driver);
@@ -121,7 +121,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella section Informazioni preliminari inserire i dati della notifica {string} senza pagamento")
     public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento(String datiNotificaFile) {
-        logger.info("Inserimento dei dati della notifica senza pagamento dal file datiNotifica.yaml");
+        logger.info("TA_QA: Inserimento dei dati della notifica senza pagamento dal file "+datiNotificaFile+".yaml");
 
         aggiornamentoNumeroProtocollo();
 
@@ -134,16 +134,16 @@ public class NotificaMittentePagoPATest {
             case "test", "uat" -> gruppo = datiNotifica.get("gruppoTest").toString();
         }
         InformazioniPreliminariPASection informazioniPreliminariPASection = new InformazioniPreliminariPASection(this.driver);
+        informazioniPreliminariPASection.insertNumeroDiProtocollo(this.datiNotifica.get("numeroProtocollo").toString());
         informazioniPreliminariPASection.insertOggettoNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString());
         informazioniPreliminariPASection.insertDescrizione(this.datiNotifica.get("descrizione").toString());
-        informazioniPreliminariPASection.insertNumeroDiProtocollo(this.datiNotifica.get("numeroProtocollo").toString());
         informazioniPreliminariPASection.insertGruppo(gruppo);
         informazioniPreliminariPASection.insertCodiceTassonometrico(this.datiNotifica.get("codiceTassonometrico").toString());
         informazioniPreliminariPASection.selectRaccomandataAR();
     }
 
     private void aggiornamentoNumeroProtocollo() {
-        logger.info("Aggiornamento del numero protocollo");
+        logger.info("TA_QA: Aggiornamento del numero protocollo");
 
 
         String numeroProtocolOld = dataPopulation.readDataPopulation("datiNotifica.yaml").get("numeroProtocollo").toString();
@@ -179,7 +179,7 @@ public class NotificaMittentePagoPATest {
             numeroProtocol = "TA-FFSMRC-" + dataProtocol + "-0";
         }
 
-        logger.info("numero Protocollo generato : " + numeroProtocol);
+        logger.info("TA_QA: numero Protocollo generato : " + numeroProtocol);
 
         Map<String, Object> allDatataPopulation = dataPopulation.readDataPopulation("datiNotifica.yaml");
         allDatataPopulation.put("numeroProtocollo", numeroProtocol);
@@ -189,13 +189,14 @@ public class NotificaMittentePagoPATest {
 
     @And("Cliccare su continua")
     public void cliccareSuContinua() {
+        logger.info("TA_QA: cliccare sul bottone continua");
         InvioNotifichePAPage invioNotifichePAPage = new InvioNotifichePAPage(this.driver);
         invioNotifichePAPage.selezionareContinuaButton();
     }
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario")
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionDestinatario() {
-        logger.info("Verifica visualizzazione della section Destinatario");
+        logger.info("TA_QA: Verifica visualizzazione della section Destinatario");
 
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
@@ -943,7 +944,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche si recupera un codice IUN valido")
     public void nellaPaginaPiattaformaNotificheSiRecuperaUnCodiceIUNValido() {
-        logger.info("Si recupera un codice IUN valido");
+        logger.info("TA_QA: Si recupera un codice IUN valido");
 
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresenti();
         this.personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
