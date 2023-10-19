@@ -2,10 +2,7 @@ package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -38,10 +35,10 @@ public class SelezionaEntePAPage extends BasePage {
             By searchField = By.id("search");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(searchField));
-            logger.info("Seleziona Utente PA Page caricata");
-        }catch (TimeoutException e){
-            logger.error("Seleziona Utente PA Page non caricata con errore : "+e.getMessage());
-            Assert.fail("Seleziona Utente PA Page non caricata con errore : "+e.getMessage());
+            logger.info("TA_QA: Seleziona Utente PA Page caricata");
+        }catch (TimeoutException | NoSuchElementException | StaleElementReferenceException e){
+            logger.error("TA_QA: Seleziona Utente PA Page non caricata con errore : "+e.getMessage());
+            Assert.fail("TA_QA: Seleziona Utente PA Page non caricata con errore : "+e.getMessage());
         }
     }
 
