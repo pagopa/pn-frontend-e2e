@@ -173,7 +173,8 @@ public class Hooks {
         Collection<String> tags= scenario.getSourceTagNames();
             for(String tag : tags){
                 if(!(tag.equalsIgnoreCase("@TestSuite"))){
-                    MDC.put("team",tag);
+                    MDC.put("tag",tag);
+                    MDC.put("team","TA-QA");
                 }
             }
 
