@@ -2,14 +2,12 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
 
   Background: login pagoPA mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente "mittente"
-    #When Login mittente tramite request method
+    When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
 
   @fase2Test1
   @TestSuite
 
-    @try
   Scenario:Il mittente inserisce i dati nella sezione informazioni preliminari
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
