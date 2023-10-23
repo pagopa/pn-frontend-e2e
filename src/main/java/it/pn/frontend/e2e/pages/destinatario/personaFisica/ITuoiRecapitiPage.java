@@ -45,7 +45,13 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public void ITuoiRecapitiButtonClick() {
-        this.js().executeScript("arguments[0].click()",this.iTuoiRecapitiButton);
+        try {
+            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.iTuoiRecapitiButton));
+            this.js().executeScript("arguments[0].click()", this.iTuoiRecapitiButton);
+        }catch(TimeoutException e){
+            logger.error(" il buttone i tuoi Recapiti non trovato o non è cliccabile: "+ e.getMessage());
+            Assert.fail("il buttone i tuoi Recapiti non trovato o non è cliccabile: "+ e.getMessage());
+        }
     }
 
     public void waitLoadITuoiRecapitiPage() {
@@ -192,15 +198,29 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public void clickHoCapitoCheckBoxPopup(){
-        By hoCapitoCheckboxBy = By.xpath("//span[contains(text(),'Ho capito')]/preceding-sibling::span/input");
-        WebElement hoCapitoCheckBox = this.driver.findElement(hoCapitoCheckboxBy);
-        hoCapitoCheckBox.click();
+        try {
+            logger.info("click ho capito button");
+            By hoCapitoCheckboxBy = By.xpath("//span[contains(text(),'Ho capito')]/preceding-sibling::span/input");
+            WebElement hoCapitoCheckBox = this.driver.findElement(hoCapitoCheckboxBy);
+            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(hoCapitoCheckBox));
+            hoCapitoCheckBox.click();
+        }catch(TimeoutException e){
+            logger.error("il tasto ho capito d'entro il pop up non è clicabile: "+e.getMessage());
+            Assert.fail("il tasto ho capito d'entro il pop up non è clicabile: "+e.getMessage());
+        }
     }
 
     public void confirmaEmailPopup(){
-        By popupConfirmaButtonBy = By.xpath("//button[@data-testid='disclaimer-confirm-button']");
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(popupConfirmaButtonBy));
-        this.driver.findElement(popupConfirmaButtonBy).click();
+        try {
+            By popupConfirmaButtonBy = By.xpath("//button[@data-testid='disclaimer-confirm-button']");
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(popupConfirmaButtonBy));
+            logger.info("click button confirma");
+            this.driver.findElement(popupConfirmaButtonBy).click();
+        }catch(TimeoutException e){
+            logger.error("Il buttone Conferma non è cliccabile con errore :"+ e.getMessage());
+            Assert.fail("Il buttone Conferma non è cliccabile con errore :"+ e.getMessage());
+
+        }
     }
 
     public void insertTelephoneNumber(String phoneNumber){
@@ -209,8 +229,13 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public void clickAvvisamiViaSMS(){
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.avvisamiViaSMSButton));
-        this.js().executeScript("arguments[0].click()",this.avvisamiViaSMSButton);
+        try {
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.avvisamiViaSMSButton));
+            this.js().executeScript("arguments[0].click()", this.avvisamiViaSMSButton);
+        }catch(TimeoutException e){
+            logger.error("il buttone avvisami via sms non è visibile: "+ e.getMessage());
+            Assert.fail("il buttone avvisami via sms non è visibile: "+ e.getMessage());
+        }
     }
 
     public String getPhoneErrorMessage(){

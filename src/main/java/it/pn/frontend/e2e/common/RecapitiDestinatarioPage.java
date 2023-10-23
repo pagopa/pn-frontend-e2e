@@ -84,7 +84,13 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void confermaButtonClickPopUp() {
-        this.confermaButtonPopUp.click();
+        try {
+            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.confermaButtonPopUp));
+            this.confermaButtonPopUp.click();
+        }catch(TimeoutException e){
+            logger.error("Il buttone conferma all'interno del popup non è cliccabile con errore:"+e.getMessage());
+            Assert.fail("Il buttone conferma all'interno del popup non è cliccabile con errore:"+e.getMessage());
+        }
     }
     public void waitMessaggioErrore() {
         try {
@@ -98,7 +104,14 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void annullaButtonClick() {
-        this.annullaButton.click();
+        try{
+            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.annullaButton));
+            this.annullaButton.click();
+        }catch(TimeoutException e){
+            logger.error("Il buttone annula non è cliccabile con errore: "+e.getMessage());
+            Assert.fail("Il buttone annula non è cliccabile con errore: "+e.getMessage());
+        }
+
     }
 
     public void clickAvvisami() {this.avvisamiMailButton.click();}
