@@ -25,24 +25,24 @@ public class CookiesSection extends BasePage {
         try{
             By scopriDipiuLink = By.id("onetrust-banner-sdk");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(scopriDipiuLink));
-            logger.info("TA_QA: Cookies Page caricata");
+            logger.info("Cookies Page caricata");
             return true;
-        }catch (TimeoutException | NoSuchElementException e){
-            logger.warn("TA_QA: Cookies Page non caricata, il link scopri di più non è caricato con errore : "+e.getMessage());
+        }catch (TimeoutException e){
+            logger.warn("Il link scopri di più non è caricato con errore : "+e.getMessage());
             return false;
         }
 
     }
 
     public void selezionaAccettaTuttiButton(){
-        logger.info("TA_QA : si seleziona accetta tutti i cookies");
+        logger.info("Si seleziona accetta tutti i cookies");
         try {
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.accettaTuttiButton));
             Actions actions = new Actions(driver);
             actions.moveToElement(this.accettaTuttiButton).click().perform();
         }catch(TimeoutException | ElementClickInterceptedException e){
-            logger.error("TA_QA: non è presente o non è cliccabile il buttone accetta tutti cookies" + e.getMessage());
-            Assert.fail("TA_QA: non è presente o non è cliccabile il buttone accetta tutti cookies" + e.getMessage());
+            logger.error("Non è presente o non è cliccabile il buttone accetta tutti cookies" + e.getMessage());
+            Assert.fail("Non è presente o non è cliccabile il buttone accetta tutti cookies" + e.getMessage());
 
         }
     }

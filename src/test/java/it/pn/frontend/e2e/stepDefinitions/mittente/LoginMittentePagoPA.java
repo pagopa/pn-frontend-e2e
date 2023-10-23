@@ -38,7 +38,7 @@ public class LoginMittentePagoPA {
 
     @Given("Login Page mittente {string} viene visualizzata")
     public void login_page_mittente_viene_visualizzata(String datiMittenteFile) {
-        logger.info("TA_QA: si recupera l'ambiente e si visualizza la pagina di login");
+        logger.info("Si recupera l'ambiente e si visualizza la pagina di login");
         DataPopulation dataPopulation = new DataPopulation();
         this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
         String variabileAmbiente = System.getProperty("environment");
@@ -51,7 +51,7 @@ public class LoginMittentePagoPA {
 
     @When("Login con mittente {string}")
     public void login_con_mittente(String datiMittenteFile) {
-        logger.info("TA_QA: si effetua la Login dal portale mittente");
+        logger.info("Si effetua la Login dal portale mittente");
         DataPopulation dataPopulation = new DataPopulation();
         this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile+".yaml");
 
