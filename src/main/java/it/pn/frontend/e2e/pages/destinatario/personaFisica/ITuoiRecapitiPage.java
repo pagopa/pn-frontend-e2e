@@ -198,16 +198,10 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public void clickHoCapitoCheckBoxPopup(){
-        try {
             logger.info("click ho capito button");
             By hoCapitoCheckboxBy = By.xpath("//span[contains(text(),'Ho capito')]/preceding-sibling::span/input");
             WebElement hoCapitoCheckBox = this.driver.findElement(hoCapitoCheckboxBy);
-            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(hoCapitoCheckBox));
             hoCapitoCheckBox.click();
-        }catch(TimeoutException e){
-            logger.error("il tasto ho capito d'entro il pop up non è clicabile: "+e.getMessage());
-            Assert.fail("il tasto ho capito d'entro il pop up non è clicabile: "+e.getMessage());
-        }
     }
 
     public void confirmaEmailPopup(){
