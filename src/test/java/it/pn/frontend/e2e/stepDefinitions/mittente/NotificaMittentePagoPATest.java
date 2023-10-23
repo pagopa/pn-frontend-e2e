@@ -71,6 +71,7 @@ public class NotificaMittentePagoPATest {
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
     }
+
     public String getNumeroProtocollo() {
         logger.info("Si recupera l'ultimo numero protocollo utilizzato");
        this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();

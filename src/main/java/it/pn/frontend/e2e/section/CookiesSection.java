@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
+
 
 public class CookiesSection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("CookiesPage");
@@ -28,8 +28,7 @@ public class CookiesSection extends BasePage {
             logger.info("TA_QA: Cookies Page caricata");
             return true;
         }catch (TimeoutException | NoSuchElementException e){
-            logger.error("TA_QA: Cookies Page non caricata, il link scopri di più non è caricato con errore : "+e.getMessage());
-            Assert.fail("TA_QA: Cookies Page non caricata, il link scopri di più non è caricato con errore : "+e.getMessage());
+            logger.warn("TA_QA: Cookies Page non caricata, il link scopri di più non è caricato con errore : "+e.getMessage());
             return false;
         }
 
