@@ -24,15 +24,15 @@ public class PreAccediAreaRiservataPAPage extends BasePage {
         try{
             By titleLabel = By.id("login-page-title");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
-            logger.info("TA_QA : Il titolo della Pre Accedi Area Riservata PA Page è caricato");
-        }catch (TimeoutException | NoSuchElementException e){
-            logger.error("TA_QA : Il titolo della Pre Accedi Area Riservata PA Page non caricato con errore : "+e.getMessage());
-            Assert.fail("TA_QA :Il titolo della Pre Accedi Area Riservata PA Page non caricato con errore  : "+e.getMessage());
+            logger.info("Il titolo della Pre Accedi Area Riservata PA Page è caricato");
+        }catch (TimeoutException e){
+            logger.error("Il titolo della Pre Accedi Area Riservata PA Page non caricato con errore : "+e.getMessage());
+            Assert.fail("Il titolo della Pre Accedi Area Riservata PA Page non caricato con errore  : "+e.getMessage());
         }
     }
 
     public void selezionaProcediAlLoginButton(){
-        logger.info("TA_QA : si clicca sul buttone procedi all login");
+        logger.info("Si clicca sul buttone procedi al login");
         this.js().executeScript("arguments[0].click()",this.procediAlLoginButton);
     }
 }

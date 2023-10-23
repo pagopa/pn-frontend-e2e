@@ -267,15 +267,16 @@ public class LoginMittentePagoPA {
 
     @Then("Home page mittente viene visualizzata correttamente")
     public void home_page_mittente_viene_visualizzata_correttamente() {
+        logger.info("Home page mittente viene visualizzata correttamente");
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
 
         AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
         areaRiservataPAPage.waitLoadAreaRiservataPAPage();
         if(areaRiservataPAPage.verificaCodiceFiscale(this.datiMittente.get("codiceFiscale").toString())){
-            logger.info("TA_QA: codice fiscale presente");
+            logger.info("Codice fiscale presente");
         }else {
-            logger.info("TA_QA: codice fiscale non presente o errato");
+            logger.info("Codice fiscale non presente o errato");
         }
 
         try {
@@ -289,7 +290,7 @@ public class LoginMittentePagoPA {
 
     @And("Logout da portale mittente")
     public void Logout_da_portale_mittente() {
-        logger.info("TA_QA: Si esce dal portale mittente");
+        logger.info("Si esce dal portale mittente");
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();

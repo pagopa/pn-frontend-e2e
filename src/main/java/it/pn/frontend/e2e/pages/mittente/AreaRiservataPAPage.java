@@ -35,7 +35,7 @@ public class AreaRiservataPAPage extends BasePage {
         try{
             By panoramicaLabel = By.cssSelector(".MuiTypography-root.MuiTypography-h4");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(panoramicaLabel));
-            logger.info("TA_QA: Titolo Panoramica dell'area Riservata PA Page caricato");
+            logger.info("Titolo Panoramica dell'area Riservata PA Page caricato");
         }catch (TimeoutException e){
             logger.error("Titolo 'Panoramica' dell'area Riservata PA Page non caricato con errore : "+e.getMessage());
             Assert.fail("Titolo 'Panoramica' dell'area Riservata PA Page non caricato con errore : "+e.getMessage());
@@ -45,7 +45,7 @@ public class AreaRiservataPAPage extends BasePage {
     public boolean verificaCodiceFiscale(String codiceFiscale){
         boolean codiceFiscaleFound = false;
         for(WebElement element : infoLabel){
-            logger.info("TA_QA: info ente presente nella pagina Aria Riservata: "+element.getText());
+            logger.info("Info ente presente nella pagina Aria Riservata: "+element.getText());
             if(element.getText().equals(codiceFiscale)){
                 codiceFiscaleFound = true;
                 break;

@@ -42,11 +42,11 @@ public class InformazioniPreliminariPASection extends BasePage {
             getWebDriverWait(60).until(ExpectedConditions.visibilityOf(this.oggettoNotificaTextField));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.descrizioneTextField));
             getWebDriverWait(60).until(ExpectedConditions.visibilityOf(this.codiceTassonometricoTextField));
-            logger.info("TA_QA: Informazioni preliminari PA Section caricata");
+            logger.info("Informazioni preliminari PA Section caricata");
 
-        } catch (TimeoutException | NoSuchElementException e) {
-            logger.error("TA_QA: Informazioni preliminari PA Section non caricata. L'elemento NumProtocollo, Ogetto, descrizione o codicetassonometrico non caricato con errore : " + e.getMessage());
-            Assert.fail("TA_QA: Informazioni preliminari PA Section non caricata con errore : " + e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Informazioni preliminari PA Section non caricata. L'elemento NumProtocollo, Ogetto, descrizione o codicetassonometrico non caricato con errore : " + e.getMessage());
+            Assert.fail("Informazioni preliminari PA Section non caricata con errore : " + e.getMessage());
         }
     }
 

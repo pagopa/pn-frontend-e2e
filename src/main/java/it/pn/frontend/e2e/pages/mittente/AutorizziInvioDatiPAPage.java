@@ -31,7 +31,7 @@ public class AutorizziInvioDatiPAPage extends BasePage {
     }
 
     public void selezionareInvia(){
-        logger.info("TA_QA: click button Invia");
+        logger.info("Click button Invia");
         this.invaButton.click();
     }
 }

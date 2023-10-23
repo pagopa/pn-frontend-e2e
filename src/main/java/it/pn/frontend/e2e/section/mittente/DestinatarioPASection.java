@@ -98,10 +98,10 @@ public class DestinatarioPASection extends BasePage {
         try{
             By titleDestinatarioFieald = By.id("title-heading-section");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleDestinatarioFieald));
-            logger.info("TA_QA: Destinatario PA Section caricata ");
+            logger.info("Destinatario PA Section caricata ");
         }catch (TimeoutException e){
-            logger.error("TA:QA: Destinatario PA Section non caricata con errore : "+e.getMessage());
-            Assert.fail("TA_QA: Destinatario PA Section non caricata con errore : "+e.getMessage());
+            logger.error("Destinatario PA Section non caricata con errore : "+e.getMessage());
+            Assert.fail("Destinatario PA Section non caricata con errore : "+e.getMessage());
         }
 
     }

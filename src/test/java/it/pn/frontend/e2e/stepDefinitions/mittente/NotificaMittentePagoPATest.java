@@ -51,7 +51,7 @@ public class NotificaMittentePagoPATest {
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
         AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
         String variabileAmbiente = System.getProperty("environment");
-        logger.info("TA_QA: Cliccare sul bottone di Piattaforma Notifiche dell'Ambiente "+variabileAmbiente);
+        logger.info("Cliccare sul bottone di Piattaforma Notifiche dell'Ambiente "+variabileAmbiente);
         switch (variabileAmbiente) {
             case "dev" -> areaRiservataPAPage.selezionaPiattaformaNotificaDev();
             case "test" -> areaRiservataPAPage.selezionaPiattaformaNotificaTest();
@@ -61,7 +61,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche")
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche() {
-        logger.info("TA_QA: Si visualizza correttamente la pagina Piattaforma Notifiche");
+        logger.info("Si visualizza correttamente la pagina Piattaforma Notifiche");
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
         CookiesSection cookiesSection = new CookiesSection(this.driver);
@@ -103,14 +103,14 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica")
     public void nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica() {
-        logger.info("selezione bottone invia una nuova notifica");
+        logger.info("Selezione bottone invia una nuova notifica");
         piattaformaNotifichePage.selectInviaUnaNuovaNotificaButton();
         piattaformaNotifichePage.waitloadingSpinner();
     }
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari")
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionInformazioniPreliminari() {
-        logger.info("verifica visualizzazione section Informazioni preliminari");
+        logger.info("Verifica visualizzazione section Informazioni preliminari");
 
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
@@ -121,7 +121,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella section Informazioni preliminari inserire i dati della notifica {string} senza pagamento")
     public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento(String datiNotificaFile) {
-        logger.info("Inserimento dei dati della notifica senza pagamento dal file datiNotifica.yaml");
+        logger.info("Inserimento dei dati della notifica senza pagamento dal file "+datiNotificaFile+".yaml");
 
         aggiornamentoNumeroProtocollo();
 
@@ -189,6 +189,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Cliccare su continua")
     public void cliccareSuContinua() {
+        logger.info("Cliccare sul bottone continua");
         InvioNotifichePAPage invioNotifichePAPage = new InvioNotifichePAPage(this.driver);
         invioNotifichePAPage.selezionareContinuaButton();
     }

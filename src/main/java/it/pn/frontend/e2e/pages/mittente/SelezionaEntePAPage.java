@@ -35,10 +35,10 @@ public class SelezionaEntePAPage extends BasePage {
             By searchField = By.id("search");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(searchField));
-            logger.info("TA_QA: Seleziona Utente PA Page caricata");
+            logger.info("Seleziona Utente PA Page caricata");
         }catch (TimeoutException | NoSuchElementException | StaleElementReferenceException e){
-            logger.error("TA_QA: Seleziona Utente PA Page non caricata con errore : "+e.getMessage());
-            Assert.fail("TA_QA: Seleziona Utente PA Page non caricata con errore : "+e.getMessage());
+            logger.error("Seleziona Utente PA Page non caricata con errore : "+e.getMessage());
+            Assert.fail("Seleziona Utente PA Page non caricata con errore : "+e.getMessage());
         }
     }
 

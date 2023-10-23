@@ -35,9 +35,9 @@ public class HeaderPASection extends BasePage {
             getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(this.esciButton));
             this.js().executeScript("arguments[0].scrollIntoView(true);", this.esciButton);
             this.esciButton.click();
-        } catch (TimeoutException | ElementClickInterceptedException e) {
-            logger.error("TA_QA: Il bottone esci non è presente o non è cliccabile con errore: " + e.getMessage());
-            Assert.fail("TA_QA: Il bottone esci non è presente o non è cliccabile con errore: " + e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Il bottone esci non cliccabile con errore: " + e.getMessage());
+            Assert.fail("Il bottone esci non è cliccabile con errore: " + e.getMessage());
         }
 
     }

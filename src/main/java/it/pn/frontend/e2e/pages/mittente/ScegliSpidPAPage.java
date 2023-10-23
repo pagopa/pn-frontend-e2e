@@ -26,15 +26,15 @@ public class ScegliSpidPAPage extends BasePage {
         try{
             By titlePage = By.cssSelector("div.MuiTypography-root.MuiTypography-h4");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            logger.info("TA_QA: Scegli Spid PA Page caricata");
+            logger.info("Scegli Spid PA Page caricata");
         }catch (TimeoutException e){
-            logger.error("TA_QA: titlo della pagina Scegli Spid PA Page non caricato con errore : "+e.getMessage());
-            Assert.fail("TA_QA: titlo della pagina Scegli Spid PA Page non caricato con errore : "+e.getMessage());
+            logger.error("Titlo della pagina Scegli Spid PA Page non caricato con errore : "+e.getMessage());
+            Assert.fail("Titlo della pagina Scegli Spid PA Page non caricato con errore : "+e.getMessage());
         }
     }
 
     public void selezionareTestButton(){
-        logger.info("TA_QA: Si clicca sul buttone Test dello spid");
+        logger.info("Si clicca sul buttone Test dello spid");
         this.testButton.click();
     }
 
