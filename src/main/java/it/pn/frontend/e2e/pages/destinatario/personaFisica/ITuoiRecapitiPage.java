@@ -28,16 +28,16 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(xpath = "//button[@data-testid='add phone']")
     WebElement avvisamiViaSMSButton;
 
-    @FindBy(xpath = "//input[contains(@placeholder,'Il tuo indirizzo PEC')]")
+    @FindBy(id = "pec")
     WebElement inserimentoPecField;
 
-    @FindBy(xpath = "//button[@data-testid = 'addContact']")
+    @FindBy(id = "add-contact")
     WebElement confermaButton;
 
-    @FindBy(xpath = "//button[contains(text(),'Annulla')]")
+    @FindBy(id = "code-cancel-button")
     WebElement annullaButton;
 
-    @FindBy(xpath = "//button[contains(@data-testid,'codeConfirmButton')]")
+    @FindBy(id = "code-confirm-button")
     WebElement confermaButtonPopUp;
 
     public ITuoiRecapitiPage(WebDriver driver) {
@@ -106,17 +106,6 @@ public class ITuoiRecapitiPage extends BasePage {
         }
     }
 
-    public void waitMessaggioErrore() {
-        try {
-            By messaggioErroreBy = By.xpath("//div[contains(@data-testid, 'errorAlert')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messaggioErroreBy));
-            logger.info("Il messaggio di errore viene visualizzato correttamente");
-        }catch (TimeoutException e){
-            logger.error("Il messaggio di errore non viene visualizzato con errore: "+e.getMessage());
-            Assert.fail("Il messaggio di errore non viene visualizzato con errore: "+e.getMessage());
-        }
-    }
-
     public void annullaButtonClick() {
         this.annullaButton.click();
     }
@@ -180,6 +169,7 @@ public class ITuoiRecapitiPage extends BasePage {
         try{
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.avvisamiViaEmailButton));
             return Boolean.parseBoolean(this.avvisamiViaEmailButton.getAttribute("disabled"));
+
         }catch (NoSuchElementException | TimeoutException e){
             return false;
         }
@@ -198,23 +188,15 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public void clickHoCapitoCheckBoxPopup(){
-            logger.info("click ho capito button");
-            By hoCapitoCheckboxBy = By.xpath("//span[contains(text(),'Ho capito')]/preceding-sibling::span/input");
-            WebElement hoCapitoCheckBox = this.driver.findElement(hoCapitoCheckboxBy);
-            hoCapitoCheckBox.click();
+        By hoCapitoCheckboxBy = By.xpath("//span[contains(text(),'Ho capito')]/preceding-sibling::span/input");
+        WebElement hoCapitoCheckBox = this.driver.findElement(hoCapitoCheckboxBy);
+        hoCapitoCheckBox.click();
     }
 
     public void confirmaEmailPopup(){
-        try {
-            By popupConfirmaButtonBy = By.xpath("//button[@data-testid='disclaimer-confirm-button']");
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(popupConfirmaButtonBy));
-            logger.info("click button confirma");
-            this.driver.findElement(popupConfirmaButtonBy).click();
-        }catch(TimeoutException e){
-            logger.error("Il buttone Conferma non è cliccabile con errore :"+ e.getMessage());
-            Assert.fail("Il buttone Conferma non è cliccabile con errore :"+ e.getMessage());
-
-        }
+        By popupConfirmaButtonBy = By.xpath("//button[@data-testid='disclaimer-confirm-button']");
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(popupConfirmaButtonBy));
+        this.driver.findElement(popupConfirmaButtonBy).click();
     }
 
     public void insertTelephoneNumber(String phoneNumber){
@@ -223,13 +205,8 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public void clickAvvisamiViaSMS(){
-        try {
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.avvisamiViaSMSButton));
-            this.js().executeScript("arguments[0].click()", this.avvisamiViaSMSButton);
-        }catch(TimeoutException e){
-            logger.error("il buttone avvisami via sms non è visibile: "+ e.getMessage());
-            Assert.fail("il buttone avvisami via sms non è visibile: "+ e.getMessage());
-        }
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.avvisamiViaSMSButton));
+        this.js().executeScript("arguments[0].click()",this.avvisamiViaSMSButton);
     }
 
     public String getPhoneErrorMessage(){

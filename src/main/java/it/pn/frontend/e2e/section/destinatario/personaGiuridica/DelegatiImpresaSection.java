@@ -20,13 +20,13 @@ public class DelegatiImpresaSection extends BasePage {
 
     @FindBy(xpath = "//li[contains(@tabindex,'0')]")
     WebElement mostraCodiceOption;
-    @FindBy(xpath = "//li[contains(text(),'Revoca')]")
+    @FindBy(id = "revoke-delegation-button")
     WebElement revocaMenuButton;
 
-    @FindBy(xpath = "//button[@data-testid='dialogAction' and text()='Revoca la delega']")
+    @FindBy(id = "dialog-action-button")
     WebElement revocaButton;
 
-    @FindBy(xpath = "//button[contains(text(),'Annulla')]")
+    @FindBy(id = "dialog-close-button")
     WebElement annullaButton;
 
     public DelegatiImpresaSection(WebDriver driver) {
@@ -82,7 +82,7 @@ public class DelegatiImpresaSection extends BasePage {
     public void clickMenuDelega(String ragioneSociale) {
         try{
             By menuDelega = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(menuDelega));
+            this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuDelega));
             WebElement menuDelegaWebElement = this.driver.findElement(menuDelega);
             if (menuDelegaWebElement.isDisplayed()){
                 this.js().executeScript("arguments[0].click()",menuDelegaWebElement);

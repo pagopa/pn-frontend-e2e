@@ -142,8 +142,8 @@ public class DeleghePage extends BasePage {
             this.element(rifiutaButtonBy).click();
             logger.info("Si visualizza il bottone rifiuta");
         }catch(TimeoutException e){
-            logger.error("Non si clicca correttamente sul bottone rifiuta con errore"+e.getMessage());
-            Assert.fail("Non si clicca correttamente sul bottone rifiuta con errore"+e.getMessage());
+            logger.error("Non si clicca correttamente sul bottone rifiuta con errore: "+e.getMessage());
+            Assert.fail("Non si clicca correttamente sul bottone rifiuta con errore: "+e.getMessage());
         }
     }
 
@@ -154,8 +154,8 @@ public class DeleghePage extends BasePage {
             this.element(rifiutaButtonPopUpBy).click();
             logger.info("Si visualizza il bottone rifiuta nel pop-up");
         }catch(TimeoutException e){
-            logger.error("Non si clicca correttamente sul bottone rifiuta pop-up con errore"+e.getMessage());
-            Assert.fail("Non si clicca correttamente sul bottone rifiuta pop-up errore"+e.getMessage());
+            logger.error("Non si clicca correttamente sul bottone rifiuta pop-up con errore: "+e.getMessage());
+            Assert.fail("Non si clicca correttamente sul bottone rifiuta pop-up errore: "+e.getMessage());
         }
     }
 
@@ -166,8 +166,8 @@ public class DeleghePage extends BasePage {
             this.element(annullaButtonPopUpBy).click();
             logger.info("Si visualizza il bottone rifiuta nel pop-up");
         }catch(TimeoutException e){
-            logger.error("Non si clicca correttamente sul bottone rifiuta pop-up con errore"+e.getMessage());
-            Assert.fail("Non si clicca correttamente sul bottone rifiuta pop-up errore"+e.getMessage());
+            logger.error("Non si clicca correttamente sul bottone rifiuta pop-up con errore: "+e.getMessage());
+            Assert.fail("Non si clicca correttamente sul bottone rifiuta pop-up errore: "+e.getMessage());
         }
     }
 
@@ -175,8 +175,10 @@ public class DeleghePage extends BasePage {
         try {
             By nomeDelegato = By.xpath("//div[@data-testid='delegators-wrapper']//div/p[contains(text(),'"+nome+" "+cognome+"')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
+            logger.info("TA_QA: La delega è stata trovata correttamente");
             return true;
         }catch (TimeoutException | NoSuchElementException e){
+            logger.info("TA_QA: La delega sta per essere creata");
             return false;
         }
     }

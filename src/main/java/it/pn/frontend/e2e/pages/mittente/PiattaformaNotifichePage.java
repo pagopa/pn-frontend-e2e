@@ -84,10 +84,10 @@ public class PiattaformaNotifichePage extends BasePage {
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.inviaNuovaNotificaButton));
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(inviaNuovaNotificaButton));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheTitle));
-            logger.info("TA_QA: la pagina Piattaforma Notifiche è caricata");
-        } catch (TimeoutException | ElementClickInterceptedException | NoSuchElementException e) {
-            logger.error("TA_QA: Piattaforma Notifiche Page non caricata, controllo fallito del esistenza titolo e/o il buttone invia nuovo notifica , con errore : " + e.getMessage());
-            Assert.fail("TA_QA: Piattaforma Notifiche Page non caricata, controllo fallito del esistenza titolo e/o il buttone invia nuovo notifica , con errore : " + e.getMessage());
+            logger.info("Piattaforma Notifiche Page caricata");
+        } catch (TimeoutException e) {
+            logger.error("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
+            Assert.fail("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
         }
     }
 
@@ -145,7 +145,7 @@ public class PiattaformaNotifichePage extends BasePage {
         try {
             By numeroButtonBy = By.id("page2");
             this.getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(numeroButtonBy));
-            logger.info("TA_QA: Bottone 2 trovato");
+            logger.info("Bottone 2 trovato");
 
             WebElement numeroPagina = this.element(numeroButtonBy);
             numeroPagina.click();
@@ -576,6 +576,4 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         return listaCodici;
     }
-
-
 }

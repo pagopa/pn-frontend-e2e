@@ -30,7 +30,7 @@ public class RicercaNotificheMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica {string}")
     public void inserireCodiceFiscale(String dpFile) {
-        logger.info("TA_QA: Avvio ricerca tramite codice fiscale");
+        logger.info("Avvio ricerca tramite codice fiscale");
 
         DataPopulation dataPopulation = new DataPopulation();
         this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
@@ -46,7 +46,7 @@ public class RicercaNotificheMittentePagoPATest {
 
     @And("Cliccare sul bottone Filtra")
     public void cliccareSulBottoneFiltra() {
-        logger.info("TA_QA: Si clicca sul tasto filtra");
+        logger.info("Si clicca sul tasto filtra");
 
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.selectFiltraButton();
@@ -54,7 +54,7 @@ public class RicercaNotificheMittentePagoPATest {
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice fiscale del destinatario {string}")
     public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConIlCodiceFiscaleDelDestinatario(String dpDestinatario) {
-        logger.info("TA_QA: Si verifica i risultati restituiti");
+        logger.info("Si verifica i risultati restituiti");
 
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
@@ -69,29 +69,29 @@ public class RicercaNotificheMittentePagoPATest {
         int listaCF = piattaformaNotifichePage.getListaCf(cfInserito);
 
         if (listaCF >= 1) {
-            logger.info("TA_QA: Il codice fiscale delle notifica è uguale a quello selezionato");
+            logger.info("Il codice fiscale della notifica è uguale a quello selezionato");
 
         } else {
-            logger.error("TA_QA: Codici fiscali non presenti o non uguali a quello selezionato "+cfInserito);
-            Assert.fail("TA_QA: Codici fiscali non presenti o non uguali a quello selezionato "+cfInserito);
+            logger.error("Codici fiscali non presenti o non uguali a quello selezionato "+cfInserito);
+            Assert.fail("Codici fiscali non presenti o non uguali a quello selezionato "+cfInserito);
         }
     }
 
     @And("Nella pagina Piattaforma Notifiche i risultati sono contenuti in una o più pagine")
     public void nellaPaginaPiattaformaNotificheIRisultatiSonoContenutiInUnaOPiuPagine() {
-        logger.info("TA_QA: Se i risultati sono contenuti in più pagine è possibile effettuare il cambio pagina");
+        logger.info("Se i risultati sono contenuti in più pagine è possibile effettuare il cambio pagina");
 
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
 
         if (piattaformaNotifichePage.verificaEsistenzaEPassaggioPagina()) {
-            logger.info("TA_QA: Bottone pagina 2 trovato e cliccato");
+            logger.info("Bottone pagina 2 trovato e cliccato");
 
             HeaderPASection headerPASection = new HeaderPASection(this.driver);
             headerPASection.waitLoadHeaderSection();
             piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
         } else {
-            logger.info("TA_QA: Bottone pagina 2 NON trovato");
+            logger.info("Bottone pagina 2 NON trovato");
         }
     }
 
@@ -106,7 +106,7 @@ public class RicercaNotificheMittentePagoPATest {
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice IUN della notifica")
     public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConIlCodiceIUNDellaNotifica() {
-        logger.info("TA_QA: Si verifica i risultati restituiti");
+        logger.info("Si verifica i risultati restituiti");
 
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
@@ -116,11 +116,11 @@ public class RicercaNotificheMittentePagoPATest {
         String codiceIUNInserito = piattaformaNotifichePage.getCodiceIunInserito();
         boolean result = piattaformaNotifichePage.verificaCodiceIUN(codiceIUNInserito);
         if (result) {
-            logger.info("TA_QA: Notifica con codice IUN: "+codiceIUNInserito+" trovata correttamente");
+            logger.info("Notifica con codice IUN: "+codiceIUNInserito+" trovata correttamente");
         } else {
 
-            logger.error("TA_QA: Notifica con codice IUN: "+codiceIUNInserito+" NON trovata");
-            Assert.fail("TA_QA: Notifica con codice IUN: "+codiceIUNInserito+" NON trovata");
+            logger.error("Notifica con codice IUN: "+codiceIUNInserito+" NON trovata");
+            Assert.fail("Notifica con codice IUN: "+codiceIUNInserito+" NON trovata");
 
         }
     }
