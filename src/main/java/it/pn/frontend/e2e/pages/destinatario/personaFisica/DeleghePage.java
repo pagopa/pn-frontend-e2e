@@ -213,5 +213,13 @@ public class DeleghePage extends BasePage {
         }
     }
 
+    public String vericaStatoDelega(){
+        By statoDelegaBy = By.xpath("//div[@id='chip-status-success']/span");
+        this.getWebDriverWait(30).withMessage("Non si trova nessuno stato delega").until(ExpectedConditions.visibilityOfElementLocated(statoDelegaBy));
+        WebElement statoDelega = this.element(statoDelegaBy);
+        return statoDelega.getText();
+
+    }
+
 
 }

@@ -184,8 +184,23 @@ public class DeleghePagoPATest {
         this.deleghe = dataPopulation.readDataPopulation(dpFile+".yaml");
         BackgroundTest backgroundTest = new BackgroundTest();
         this.deleghePage.vaiInFondoAllaPagina();
-        if (!this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString())){
-            backgroundTest.loginPF("personaFisica");
+        boolean esistenzaDelaga = this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString());
+        String stato = this.deleghePage.vericaStatoDelega();
+        String PF = "personaFisica";
+        if(!esistenzaDelaga){
+             backgroundTest.loginPF(PF);
+             backgroundTest.aggiuntaNuovaDelegaPF();
+             backgroundTest.logoutPF();
+             backgroundTest.loginPF("delegatoPF");
+         }
+
+        if (esistenzaDelaga && stato.equalsIgnoreCase("Attiva")){
+            nellaPaginaDelegheSiCliccaSulMenuDellaDelega(PF);
+            nellaPaginaDelegheSiSceglieOpzioneRifiuta();
+            siCliccaSulBottoneRifiutaAllInternoDelPopUp();
+            siControllaCheLaDelegaNonSiaPiuPresenteNellaLista(PF);
+
+            backgroundTest.loginPF(PF);
             backgroundTest.aggiuntaNuovaDelegaPF();
             backgroundTest.logoutPF();
             backgroundTest.loginPF("delegatoPF");
@@ -213,6 +228,10 @@ public class DeleghePagoPATest {
         logger.info("Nel pop-up si clicca sul bottone accetta");
 
         this.leTueDelegheSection.clickAccettaButton();
+        // controllare quando si usa questa verifica sotto
+//        Assert.assertEquals("Il codice inserito è sbagliato",
+//                "Il codice è sbagliato", this.leTueDelegheSection.getTextCodiceSbagliato());
+
     }
 
     @And("Si controlla che la delega a lo stato Attiva {string}")

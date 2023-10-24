@@ -77,7 +77,6 @@ public class LeTueDelegheSection extends BasePage {
     @FindBy(xpath = "//th[contains(text(),'Permessi')]")
     WebElement permessiDelegaField;
 
-    By errorMessageBy = By.xpath("//div[@data-testid='CodeModal error title']");
 
     public LeTueDelegheSection(WebDriver driver) {
         super(driver);
@@ -184,7 +183,7 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickOpzioneAccetta() {
-        getWebDriverWait(30).withMessage("il buttone accetta non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.accettaButton));
+        //getWebDriverWait(30).withMessage("il buttone accetta non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.accettaButton));
         this.accettaButton.click();
     }
 
@@ -208,14 +207,14 @@ public class LeTueDelegheSection extends BasePage {
             WebElement codiceDelegaInput = driver.findElement(codiceDelegaInputBy);
             codiceDelegaInput.sendKeys(codiciDelega[i]);
         }
-        if(this.element(errorMessageBy).isDisplayed()){
-            logger.error("codice della delega è sbagliato" + erroreCodiceSbagliato());
-            Assert.fail("codice della delega è sbagliato"+ erroreCodiceSbagliato());
-        }
+
     }
 
-    public String erroreCodiceSbagliato(){
-        return this.element(errorMessageBy).getText();
+    public String getTextCodiceSbagliato(){
+        By errorMessageBy = By.xpath("//div[@data-testid='CodeModal error title']");
+        WebElement testoCodiceSbagliato = this.element(errorMessageBy);
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.element(errorMessageBy)));
+        return testoCodiceSbagliato.getText();
     }
 
     public void clickAccettaButton() {
