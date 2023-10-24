@@ -34,16 +34,21 @@ public class DeleghePage extends BasePage {
             By deleghePageTitle = By.id("Deleghe-page");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(deleghePageTitle));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.addDelegaButton));
-            this.logger.info("Deleghe page caricata");
+            this.logger.info("Il titolo o il bottone aggiungi delega è visibile nella pagina aggiuDeleghe");
         } catch (TimeoutException e) {
-            logger.error("Deleghe Page non caricata con errore : " + e.getMessage());
-            Assert.fail("Deleghe Page non caricata con errore : " + e.getMessage());
+            logger.error("Il titolo o il bottone aggiungi delega non è visibile nella pagina aggiuDeleghe con errore : " + e.getMessage());
+            Assert.fail("Il titolo o il bottone aggiungi delega non è visibile nella pagina aggiuDeleghe con errore : " + e.getMessage());
         }
     }
 
     public void clickAggiungiDelegaButton()  {
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.addDelegaButton));
-        this.addDelegaButton.click();
+        try {
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.addDelegaButton));
+            this.addDelegaButton.click();
+        }catch(TimeoutException e){
+            logger.error("Il bottone aggiungi delega non è cliccabile con errore : " + e.getMessage());
+            Assert.fail("Il bottone aggiungi delega non è cliccabile con errore : " + e.getMessage());
+        }
     }
 
     public void controlloCreazioneDelega() {
@@ -70,10 +75,12 @@ public class DeleghePage extends BasePage {
     public void clickRevocaButton(String nome, String cognome) {
 
         By menuButton = By.xpath("//div[@data-testid='delegates-wrapper']//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
-        this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuButton));
+        this.getWebDriverWait(40).withMessage("menu delega non cliccabile ").until(ExpectedConditions.elementToBeClickable(menuButton));
         this.js().executeScript("arguments[0].click()",this.element(menuButton));
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.revocaButton));
+        this.getWebDriverWait(30).withMessage("buttone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(this.revocaButton));
         this.revocaButton.click();
+
+
     }
     public boolean siVisualizzaUnaDelega() {
         try{

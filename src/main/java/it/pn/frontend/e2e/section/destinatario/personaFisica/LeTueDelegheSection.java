@@ -77,16 +77,18 @@ public class LeTueDelegheSection extends BasePage {
     @FindBy(xpath = "//th[contains(text(),'Permessi')]")
     WebElement permessiDelegaField;
 
+    By errorMessageBy = By.xpath("//div[@data-testid='CodeModal error title']");
+
     public LeTueDelegheSection(WebDriver driver) {
         super(driver);
     }
     public void waitNuovaDelegaSection() {
         try {
             By letuedeleghePageTitle = By.id("Aggiungi una delega-page");
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(letuedeleghePageTitle));
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.inputNome));
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.codiceFiscaleInput));
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.inputCognome));
+            this.getWebDriverWait(40).withMessage("Il titolo della pagina non è  visibile").until(ExpectedConditions.visibilityOfElementLocated(letuedeleghePageTitle));
+            this.getWebDriverWait(40).withMessage("L'input nome non è visibile").until(ExpectedConditions.visibilityOf(this.inputNome));
+            this.getWebDriverWait(40).withMessage("L'input codice fiscale non è visibile").until(ExpectedConditions.visibilityOf(this.codiceFiscaleInput));
+            this.getWebDriverWait(40).withMessage("L'input cognome non è visibile").until(ExpectedConditions.visibilityOf(this.inputCognome));
             logger.info("Le tue deleghe page caricata");
         } catch (TimeoutException e) {
             logger.error("Le tue deleghe page non caricata con errore :" + e.getMessage());
@@ -136,22 +138,23 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void selectSoloEntiSelezionati() {
+        //getWebDriverWait(30).withMessage("radio button solo enti selezionati non è visibile").until(ExpectedConditions.visibilityOf(this.SoloEntiSelezionatiRadioButton));
         this.SoloEntiSelezionatiRadioButton.click();
     }
 
     public void selezionaUnEnte(String ente) {
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.enteElementInput));
+        this.getWebDriverWait(30).withMessage("input ente non è visibile").until(ExpectedConditions.visibilityOf(this.enteElementInput));
         this.enteElementInput.sendKeys(ente);
 
         // select menu;
         By menuEntiOptionBy = By.xpath("//div[@role='presentation']");
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuEntiOptionBy));
+        this.getWebDriverWait(30).withMessage("il menu della selezione ente non è visibile").until(ExpectedConditions.visibilityOfElementLocated(menuEntiOptionBy));
         WebElement menuEntiOption = this.driver.findElement(menuEntiOptionBy);
         this.js().executeScript("arguments[0].click()",menuEntiOption);
 
         //click on option 0
         By comuneOptionBy = By.id("enti-option-0");
-        this.getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(comuneOptionBy));
+        this.getWebDriverWait(60).withMessage("L'ente "+ente+" non è cliccabile o non è presente").until(ExpectedConditions.elementToBeClickable(comuneOptionBy));
         WebElement comuneOption = this.driver.findElement(comuneOptionBy);
         this.js().executeScript("arguments[0].click()", comuneOption);
     }
@@ -181,7 +184,7 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickOpzioneAccetta() {
-        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.accettaButton));
+        getWebDriverWait(30).withMessage("il buttone accetta non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.accettaButton));
         this.accettaButton.click();
     }
 
@@ -205,6 +208,14 @@ public class LeTueDelegheSection extends BasePage {
             WebElement codiceDelegaInput = driver.findElement(codiceDelegaInputBy);
             codiceDelegaInput.sendKeys(codiciDelega[i]);
         }
+        if(this.element(errorMessageBy).isDisplayed()){
+            logger.error("codice della delega è sbagliato" + erroreCodiceSbagliato());
+            Assert.fail("codice della delega è sbagliato"+ erroreCodiceSbagliato());
+        }
+    }
+
+    public String erroreCodiceSbagliato(){
+        return this.element(errorMessageBy).getText();
     }
 
     public void clickAccettaButton() {
