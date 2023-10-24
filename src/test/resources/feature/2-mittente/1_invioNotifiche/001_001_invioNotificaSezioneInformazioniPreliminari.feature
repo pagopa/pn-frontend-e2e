@@ -2,8 +2,7 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
 
   Background: login pagoPA mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente "mittente"
-    #When Login mittente tramite request method
+    When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
 
   @fase2Test1
