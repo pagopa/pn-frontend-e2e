@@ -33,7 +33,7 @@ public class SelezionaEntePAPage extends BasePage {
         try{
             By titlePage = By.xpath("//h3[text()='Seleziona il tuo ente']");
             By searchField = By.id("search");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
+            this.getWebDriverWait(30).withMessage("Titolo 'Seleziona il tuo ente' della pagina non è visualizza").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(searchField));
             logger.info("Seleziona Utente PA Page caricata");
         }catch (TimeoutException | NoSuchElementException | StaleElementReferenceException e){
