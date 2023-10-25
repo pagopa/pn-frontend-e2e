@@ -259,6 +259,19 @@ public class LeTueDelegheSection extends BasePage {
             return false;
         }
     }
+
+    public boolean verificaEsistenzaErroreCodiceSbagliato() {
+        try{
+            By esistenzaBy = By.xpath("//div[@data-testid='CodeModal error title']");
+            this.getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(esistenzaBy));
+            logger.info("Errore codice sbagliato trovato");
+            return true;
+        }catch (TimeoutException e){
+            logger.info("errore non trovato");
+            return false;
+        }
+
+    }
 }
 
 

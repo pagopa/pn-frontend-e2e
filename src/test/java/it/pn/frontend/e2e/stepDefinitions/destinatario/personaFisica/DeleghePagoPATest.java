@@ -228,10 +228,10 @@ public class DeleghePagoPATest {
         logger.info("Nel pop-up si clicca sul bottone accetta");
 
         this.leTueDelegheSection.clickAccettaButton();
-        // controllare quando si usa questa verifica sotto
-//        Assert.assertEquals("Il codice inserito è sbagliato",
-//                "Il codice è sbagliato", this.leTueDelegheSection.getTextCodiceSbagliato());
-
+        if (this.leTueDelegheSection.verificaEsistenzaErroreCodiceSbagliato()){
+            Assert.assertEquals("Il codice inserito è sbagliato",
+                    "Il codice è sbagliato", this.leTueDelegheSection.getTextCodiceSbagliato());
+        }
     }
 
     @And("Si controlla che la delega a lo stato Attiva {string}")
