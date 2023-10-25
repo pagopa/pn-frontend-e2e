@@ -185,7 +185,10 @@ public class DeleghePagoPATest {
         BackgroundTest backgroundTest = new BackgroundTest();
         this.deleghePage.vaiInFondoAllaPagina();
         boolean esistenzaDelaga = this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString());
-        String stato = this.deleghePage.vericaStatoDelega();
+        String stato = "";
+        if (esistenzaDelaga && !this.leTueDelegheSection.controlloPresenzaBottoneAccetta()){
+           stato = this.deleghePage.vericaStatoDelega();
+        }
         String PF = "personaFisica";
         if(!esistenzaDelaga){
              backgroundTest.loginPF(PF);
@@ -364,7 +367,7 @@ public class DeleghePagoPATest {
         logger.info("Si controlla che la delega non sia più presente nella lista");
         this.deleghe = dataPopulation.readDataPopulation(dpFile+".yaml");
         if (deleghePage.verificaEsistenzaDelega(this.deleghe.get("name").toString(),this.deleghe.get("familyName").toString())){
-            logger.info("Si controlla che la delega non sia più presente nella lista");
+            logger.info("La delega non è più presente nella lista");
         } else {
             logger.error("La delega è ancora presente in lista");
             Assert.fail("La delega è ancora presente in lista");
@@ -399,5 +402,21 @@ public class DeleghePagoPATest {
         }
         notifichePFPage.clickNotificheButton();
         notifichePFPage.clickTueNotificheButton();
+    }
+
+    @And("Si verifica sia presente una delega da rifiutare nella sezione Deleghe a Tuo Carico {string}")
+    public void siVerificaSiaPresenteUnaDelegaDaRifiutareNellaSezioneDelegheATuoCarico(String dpFile) {
+        logger.info("Si controlla che ci sia almeno una delega");
+        this.deleghe = dataPopulation.readDataPopulation(dpFile+".yaml");
+        BackgroundTest backgroundTest = new BackgroundTest();
+        this.deleghePage.vaiInFondoAllaPagina();
+        boolean esistenzaDelaga = this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString());
+
+        if(!esistenzaDelaga){
+            backgroundTest.loginPF( "personaFisica");
+            backgroundTest.aggiuntaNuovaDelegaPF();
+            backgroundTest.logoutPF();
+            backgroundTest.loginPF("delegatoPF");
+        }
     }
 }

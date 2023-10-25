@@ -134,11 +134,11 @@ public class DeleghePage extends BasePage {
         try{
             By menuDelegheBy = By.xpath("//div[@data-testid='delegators-wrapper']//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuDelegheBy));
+            logger.info("Si clicca correttamente il menu della delega");
             this.element(menuDelegheBy).click();
-            logger.info("Si clicca correttamente sul menu della delega");
         }catch (TimeoutException e){
-            logger.error("Non si clicca correttamente sul menu della delega con errore:"+e.getMessage());
-            Assert.fail("Non si clicca correttamente sul menu della delega con errore:"+e.getMessage());
+            logger.error("Non si visualizza correttamente il menu della delega con errore:"+e.getMessage());
+            Assert.fail("Non si visualizza correttamente il menu della delega con errore:"+e.getMessage());
         }
     }
 
@@ -149,8 +149,8 @@ public class DeleghePage extends BasePage {
             this.element(rifiutaButtonBy).click();
             logger.info("Si visualizza il bottone rifiuta");
         }catch(TimeoutException e){
-            logger.error("Non si clicca correttamente sul bottone rifiuta con errore: "+e.getMessage());
-            Assert.fail("Non si clicca correttamente sul bottone rifiuta con errore: "+e.getMessage());
+            logger.error("Non si visualizza correttamente il bottone rifiuta con errore: "+e.getMessage());
+            Assert.fail("Non si visualizza correttamente il bottone rifiuta con errore: "+e.getMessage());
         }
     }
 
@@ -161,8 +161,8 @@ public class DeleghePage extends BasePage {
             this.element(rifiutaButtonPopUpBy).click();
             logger.info("Si visualizza il bottone rifiuta nel pop-up");
         }catch(TimeoutException e){
-            logger.error("Non si clicca correttamente sul bottone rifiuta pop-up con errore: "+e.getMessage());
-            Assert.fail("Non si clicca correttamente sul bottone rifiuta pop-up errore: "+e.getMessage());
+            logger.error("Non si visualizza correttamente il bottone rifiuta pop-up con errore: "+e.getMessage());
+            Assert.fail("Non si visualizza correttamente il bottone rifiuta pop-up errore: "+e.getMessage());
         }
     }
 
