@@ -182,10 +182,10 @@ public class DeleghePage extends BasePage {
         try {
             By nomeDelegato = By.xpath("//div[@data-testid='delegators-wrapper']//div/p[contains(text(),'"+nome+" "+cognome+"')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
-            logger.info("TA_QA: La delega è stata trovata correttamente");
+            logger.info("La delega è stata trovata correttamente");
             return true;
         }catch (TimeoutException | NoSuchElementException e){
-            logger.info("TA_QA: La delega sta per essere creata");
+            logger.info("La delega sta per essere creata");
             return false;
         }
     }
