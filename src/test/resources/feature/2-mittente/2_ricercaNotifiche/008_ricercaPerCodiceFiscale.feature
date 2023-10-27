@@ -1,5 +1,4 @@
 Feature: Mittente effetua una ricerca notifiche per CF
-  #Mittente loggato effettua una ricerca
 
   Background: login mittente
     Given Login Page mittente "mittente" viene visualizzata
