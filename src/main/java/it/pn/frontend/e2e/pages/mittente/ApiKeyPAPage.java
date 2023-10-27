@@ -113,18 +113,46 @@ public class ApiKeyPAPage  extends BasePage {
         }
     }
 
+    public String getNomi(int i){
+        By nomiApiKeyBy = By.xpath("//tbody/tr/td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-bri9q1')]/div/p");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomiApiKeyBy));
+        List<WebElement> nomiApiKeyList = this.elements(nomiApiKeyBy);
+
+        return nomiApiKeyList.get(i).getText();
+
+    }
+
+    public int getPosizioneMenuButton(){
+        By statiApiKeyBy = By.xpath("//div[contains(@id,'status-chip-')]");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statiApiKeyBy));
+        List<WebElement> statiApiKeyList = this.elements(statiApiKeyBy);
+
+        for(int i=0; i<statiApiKeyList.size(); i++){
+            if(statiApiKeyList.get(i).getAttribute("id").equalsIgnoreCase("status-chip-Attiva")){
+                if(!getNomi(i).equalsIgnoreCase("fe-TA-apikey-test")){
+                    return i;
+                }
+            }
+        }
+
+        return -1;
+
+    }
+
     public void clickMenuButton() {
 
-        By menuAttivaButtonBy = By.xpath("//td[div/div/div/div[@role='button' and @data-testid='statusChip-Attiva']]/following-sibling::td//button[@type='button' and @data-testid='contextMenuButton' and @aria-label='Opzioni su API Key']");
+        By menuAttivaButtonBy = By.xpath("//button[@data-testid='contextMenuButton' and @aria-label='Opzioni su API Key']");
         List<WebElement> menuAttivaButton = this.elements(menuAttivaButtonBy);
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuAttivaButtonBy));
 
-        if (menuAttivaButton.size() == 0) {
-            logger.error("nessun menu attiva button");
-            Assert.fail("nessun menu attiva button");
+        int posizioneMenuButton = getPosizioneMenuButton();
+        if(posizioneMenuButton >= 0){
+            menuAttivaButton.get(posizioneMenuButton).click();
+        } else {
+            logger.error("Nessuna Api Key diversa da 'fe-TA-apikey-test' da bloccare");
+            Assert.fail("Nessuna Api Key diversa da 'fe-TA-apikey-test' da bloccare");
         }
 
-        menuAttivaButton.get(0).click();
     }
 
     public void clickSuBlocca() {this.blockButton.click();}
