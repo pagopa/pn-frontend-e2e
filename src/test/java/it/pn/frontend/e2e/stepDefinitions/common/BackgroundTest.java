@@ -42,6 +42,7 @@ public class BackgroundTest {
     }
 
     public void aggiuntaNuovaDelegaPF(){
+         deleghePagoPATest.visualizzaDelegheSection();
          deleghePagoPATest.nellaSezioneDelegheClickSulBottoneAggiungiNuovaDelega();
          deleghePagoPATest.siVisualizzaLaSezioneLeTueDeleghe();
          deleghePagoPATest.nellaSezioneLeTueDelegheInserireIDati(nomeFileNuovaDelega);
