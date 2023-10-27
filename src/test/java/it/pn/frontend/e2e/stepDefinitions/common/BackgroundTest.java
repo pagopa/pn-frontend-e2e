@@ -1,8 +1,12 @@
 package it.pn.frontend.e2e.stepDefinitions.common;
 
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DisserviziAppPage;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.LoginPGPagoPAPage;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.DeleghePGPagoPATest;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.DisserviziAppPGTest;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 
 public class BackgroundTest {
@@ -15,9 +19,15 @@ public class BackgroundTest {
 
     private final DeleghePagoPATest deleghePagoPATest = new DeleghePagoPATest();
 
+    private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
+
     private final LoginPersonaFisicaPagoPA personaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
 
     private final DeleghePGPagoPATest deleghePGPagoPATest = new DeleghePGPagoPATest();
+
+    private final DisserviziAppPGTest disserviziAppPGTest = new DisserviziAppPGTest();
+
+    private final HelpdeskTest helpdeskTest = new HelpdeskTest();
 
     public void invioNotificaErrorePec(){
 
@@ -55,6 +65,24 @@ public class BackgroundTest {
         personaFisicaPagoPA.home_page_destinatario_viene_visualizzata_correttamente();
         deleghePagoPATest.wait_deleghe_Button();
         deleghePagoPATest.visualizzaDelegheSection();
+    }
+
+    public void loginPG(String nomeFileLogin){
+        loginPGPagoPATest.login_page_persona_giuridica_viene_visualizzata(nomeFileLogin);
+    }
+
+    public void getStatoDellaPiattaformaPage(){
+        disserviziAppPGTest.nellaDashboardPersonaGiuridicaCliccaSuDisserviziApp();
+        disserviziAppPGTest.siVisualizzaCorrettamenteLaPaginaDelloStatoDellaPiattaforma();
+        disserviziAppPGTest.siVisualizzanoCorrettamenteIDatiSulloStatoDellaPiattaforma();
+        disserviziAppPGTest.siVisualizzaStoricoDisservizi();
+    }
+
+    public void getHelpdeskMonitoraggioPiattaforma(String nomeFileLogin){
+        helpdeskTest.loginHelpdeskConUtenteTest(nomeFileLogin);
+        helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
+        helpdeskTest.clickSuCardMonitoraggioPiattaforma();
+        helpdeskTest.siVisualizzaCorrettamenteHomeMonitoraggio();
     }
 
     public void logoutPF(){

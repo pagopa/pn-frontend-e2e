@@ -30,12 +30,14 @@ public class ScegliSpidPAPage extends BasePage {
         }catch (TimeoutException e){
             logger.error("Scegli Spid PA Page non caricata con errore : "+e.getMessage());
             Assert.fail("Scegli Spid PA Page non caricata con errore : "+e.getMessage());
+        }catch(Exception e){
+            logger.error("Scelta spid provider errore generico : "+e.getMessage());
+            Assert.fail("Scelta spid provider errore generico : "+e.getMessage());
         }
     }
 
     public void selezionareTestButton(){
+        logger.info("Click del bottone TEST");
         this.testButton.click();
     }
-
-
 }

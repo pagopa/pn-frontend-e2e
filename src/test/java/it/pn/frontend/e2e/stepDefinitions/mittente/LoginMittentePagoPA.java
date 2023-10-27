@@ -63,9 +63,9 @@ public class LoginMittentePagoPA {
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
         //CookiesSection cookiesPage = new CookiesSection(this.driver);
-        if (cookiesPage.waitLoadCookiesPage()){
-            cookiesPage.selezionaAccettaTuttiButton();
-        }
+         if (cookiesPage.waitLoadCookiesPage()){
+             cookiesPage.selezionaAccettaTuttiButton();
+         }
 
         AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();

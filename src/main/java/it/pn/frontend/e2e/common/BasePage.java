@@ -44,6 +44,8 @@ public class BasePage {
         return this.driver.findElements(by);
     }
 
+
+
     protected JavascriptExecutor js(){
         return (JavascriptExecutor) driver;
     }

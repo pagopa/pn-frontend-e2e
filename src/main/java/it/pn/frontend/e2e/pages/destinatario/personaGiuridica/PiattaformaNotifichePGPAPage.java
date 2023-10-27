@@ -11,6 +11,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.TimeUnit;
+
 public class PiattaformaNotifichePGPAPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("PiattaformaNotifichePGPAPage");
 
@@ -20,10 +22,19 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     @FindBy(xpath = "//div[@data-testid='sideMenuItem-Recapiti']")
     WebElement recapitiButton;
 
+    @FindBy(id = "side-item-Stato della piattaforma")
+    WebElement buttonEnterIntoDisservizi;
+
     public PiattaformaNotifichePGPAPage(WebDriver driver) {
         super(driver);
     }
 
+    public void clickOnButtonEnterIntoDisservizi() {
+        logger.info("click sul bottone 'stato della piattaforma'");
+        this.getWebDriverWait(60).until(ExpectedConditions.visibilityOf(this.buttonEnterIntoDisservizi));
+        buttonEnterIntoDisservizi.click();
+
+    }
 
     public void waitLoadPitattaformaNotificaPage(String ragioneSociale) {
         try {
