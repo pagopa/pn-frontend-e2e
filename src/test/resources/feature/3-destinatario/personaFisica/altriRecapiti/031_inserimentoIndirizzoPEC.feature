@@ -14,7 +14,7 @@ Feature: la persona fisica inserisce una email pec
     And Nella pagina I Tuoi Recapiti si inserisce la PEC del persona fisica "personaFisica"
     And Nella pagina I Tuoi Recapiti si clicca sul bottone conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupare il codice OTP tramite chiamata request "personaFisica"
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaFisica"
     Then Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente
     And Logout da portale persona fisica
