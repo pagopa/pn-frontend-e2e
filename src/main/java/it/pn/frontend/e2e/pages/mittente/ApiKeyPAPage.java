@@ -233,22 +233,69 @@ public class ApiKeyPAPage  extends BasePage {
         }
     }
 
+    public int verificaBottoni(){
+        By menuBloccaButtonBy = By.xpath("//td/div/div/div/div[@role='button' and @data-testid='statusChip-Bloccata']");
+        this.getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(menuBloccaButtonBy));
+        List<WebElement> listaBottoniBloccati = this.elements(menuBloccaButtonBy);
+
+        boolean ruotata;
+        for (int i=0; i<listaBottoniBloccati.size(); i++) {
+            this.js().executeScript("arguments[0].scrollIntoView(true);", listaBottoniBloccati.get(i));
+            ruotata = verificaBottoneCheNonSiaRuotata(listaBottoniBloccati.get(i));
+            if(!ruotata){
+                return i;
+            }
+        }
+
+        return -1;
+
+    }
+
+    public boolean verificaBottoneCheNonSiaRuotata(WebElement currentButton){
+
+        Actions action = new Actions(this.driver);
+        action.moveToElement(currentButton).perform();
+
+
+        By statiBottoneBy = By.xpath("//div[@class='MuiBox-root css-13brihr']/div[@class='MuiBox-root css-0']");
+        this.getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(statiBottoneBy));
+        List<WebElement> listaStatiBottone = this.elements(statiBottoneBy);
+
+        String stato = "Ruotata";
+        for(WebElement lista: listaStatiBottone){
+            if(lista.getText().contains(stato)){
+                action.moveToElement(currentButton, 100,0 ).perform();
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
     public void clickMenuButtonBlocca() {
+
+        int posizione = verificaBottoni();
+
+        if(posizione >= 0){
+            clickSulBottoneBloccatoMaiRuotato(posizione);
+        }else{
+            logger.info("Nessuna Api Key bloccata da attivare, procedo a bloccare una attivata");
+            clickMenuButton();
+            clickSuBlocca();
+            siVisualizzaPopUp();
+            clickSuConfermaNelPopUp();
+            int newPosizione = verificaBottoni();
+            clickSulBottoneBloccatoMaiRuotato(newPosizione);
+        }
+    }
+
+    public void clickSulBottoneBloccatoMaiRuotato(int posizione){
         By menuAttivaButtonBy = By.xpath("//td[div/div/div/div[@role='button' and @data-testid='statusChip-Bloccata']]/following-sibling::td//button[@type='button' and @data-testid='contextMenuButton' and @aria-label='Opzioni su API Key']");
+        this.getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(menuAttivaButtonBy));
         List<WebElement> menuAttivaButton = this.elements(menuAttivaButtonBy);
 
-        if (menuAttivaButton.size() == 0) {
-            logger.error("nessun menu attiva button");
-            Assert.fail("nessun menu attiva button");
-        }
-        if (menuAttivaButton.get(0).isDisplayed()){
-            menuAttivaButton.get(0).click();
-        }else {
-            this.js().executeScript("arguments[0].scrollIntoView(true);",menuAttivaButton.get(0));
-            menuAttivaButton.get(0).click();
-        }
-
-
+        menuAttivaButton.get(posizione).click();
     }
 
     public boolean siVisualizzaApiKeyConTesto() {
