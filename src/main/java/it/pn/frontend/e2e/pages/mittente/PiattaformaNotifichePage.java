@@ -546,10 +546,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean estensioneSbagliataErrore() {return this.estenzioneSbagliataMessage.isDisplayed();}
 
-    public void waitloadingSpinner(){
-        By loadingSpinnerBy = By.xpath("//span[@role = 'loadingSpinner']");
-        getWebDriverWait(60).until(ExpectedConditions.invisibilityOfElementLocated(loadingSpinnerBy));
-    }
+
 
     public List<String> getCodiceIunPresenti() {
         By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr']//button");

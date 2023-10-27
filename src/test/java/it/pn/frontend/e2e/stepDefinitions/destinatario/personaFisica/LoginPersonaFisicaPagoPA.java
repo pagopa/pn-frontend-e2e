@@ -159,11 +159,11 @@ public class LoginPersonaFisicaPagoPA {
             Assert.fail("text field codice ium non presente");
         }
 
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            TimeUnit.SECONDS.sleep(5);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     @And("Logout da portale persona fisica")
