@@ -1,10 +1,12 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DisserviziAppPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.section.CookiesSection;
@@ -37,6 +39,8 @@ public class NotifichePGPagoPATest {
         }
     }
 
+
+
     @And("Si visualizza correttamente la Pagina Notifiche persona giuridica {string}")
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica(String dpFile) {
         DataPopulation dataPopulation = new DataPopulation();
@@ -52,7 +56,6 @@ public class NotifichePGPagoPATest {
     @When("Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaClickSulBottoneDeleghe() {
         logger.info("Si clicca sul bottone Deleghe");
-
         piattaformaNotifichePGPAPage.clickSuDelegeButton();
     }
 
@@ -98,4 +101,8 @@ public class NotifichePGPagoPATest {
         }
         downloadFile.controlloDownload(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario",numeroLinkAttestazioniOpponibile);
     }
+
+
+
+
 }
