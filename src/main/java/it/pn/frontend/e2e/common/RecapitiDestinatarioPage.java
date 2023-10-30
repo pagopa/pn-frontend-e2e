@@ -15,9 +15,6 @@ import java.util.List;
 public class RecapitiDestinatarioPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("RecapitiDestinatarioPage");
 
-    @FindBy(id = "pec")
-    WebElement inserimentoPecField;
-
     @FindBy(xpath = "//button[@data-testid='addContact']")
     WebElement confermaButton;
 
@@ -39,17 +36,35 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "phone")
     WebElement inserimentoPhoneField;
 
+    @FindBy(xpath = "//button[contains(text(),'Elimina')]")
+    WebElement eliminaButton;
+
     public RecapitiDestinatarioPage(WebDriver driver) {
         super(driver);
     }
 
+    public void eliminaPecEsistente(){
+        this.eliminaButton.click();
+        waitLoadPopUp();
+        By confermaRimuoviPECBy = By.xpath("//button[contains(text(),'Annulla')]/following-sibling::button");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(confermaRimuoviPECBy));
+        this.element(confermaRimuoviPECBy).click();
+    }
+
     public void insertEmailPEC(String emailPEC) {
-        if (inserimentoPecField.isDisplayed()){
-            inserimentoPecField.sendKeys(emailPEC);
-        }else {
-            this.js().executeScript("arguments[0].scrollIntoView(true);",inserimentoPecField);
-            inserimentoPecField.sendKeys(emailPEC);
+
+        try{
+            By inserimentoPecFieldBy = By.id("pec");
+            this.getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoPecFieldBy));
+            this.element(inserimentoPecFieldBy).sendKeys(emailPEC);
+
+        }catch (TimeoutException e){
+            eliminaPecEsistente();
+            By inserimentoPecFieldBy = By.id("pec");
+            this.getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoPecFieldBy));
+            this.element(inserimentoPecFieldBy).sendKeys(emailPEC);
         }
+
     }
 
     public void confermaButtonClick() {

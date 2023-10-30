@@ -16,9 +16,6 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(xpath="//div[@data-testid='sideMenuItem-I tuoi recapiti']")
     WebElement iTuoiRecapitiButton;
 
-    @FindBy(id = "email")
-    WebElement emailInputField;
-
     @FindBy(xpath = "//button[@data-testid='add email']")
     WebElement avvisamiViaEmailButton;
 
@@ -152,13 +149,24 @@ public class ITuoiRecapitiPage extends BasePage {
         this.driver.findElement(confirmaEliminaEmailBy).click();
     }
 
-    public boolean inputEmailIsDisplayed(){
-            return this.emailInputField.isDisplayed();
+    public void eliminaEmailEsistente(){
+
     }
 
-    public void insertEmail(String email){
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.emailInputField));
-        this.emailInputField.sendKeys(email);
+    public void insertEmail(String emailPEC) {
+
+        try{
+            By inserimentoEmailFieldBy = By.id("email");
+            this.getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoEmailFieldBy));
+            this.element(inserimentoEmailFieldBy).sendKeys(emailPEC);
+
+        }catch (TimeoutException e){
+            eliminaEmailEsistente();
+            By inserimentoEmailFieldBy = By.id("email");
+            this.getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoEmailFieldBy));
+            this.element(inserimentoEmailFieldBy).sendKeys(emailPEC);
+        }
+
     }
 
     public void clickAvvisamiViaEmail(){
