@@ -34,8 +34,8 @@ public class DeleghePage extends BasePage {
     public void waitDeleghePage() {
         try {
             By deleghePageTitle = By.id("Deleghe-page");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(deleghePageTitle));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.addDelegaButton));
+            this.getWebDriverWait(30).withMessage("Il titolo  della pagina deleghe non è visibile").until(ExpectedConditions.visibilityOfElementLocated(deleghePageTitle));
+            this.getWebDriverWait(30).withMessage("aggiungi delega button non è visibile").until(ExpectedConditions.visibilityOf(this.addDelegaButton));
             this.logger.info("Il titolo o il bottone aggiungi delega è visibile nella pagina aggiuDeleghe");
         } catch (TimeoutException e) {
             logger.error("Il titolo o il bottone aggiungi delega non è visibile nella pagina aggiuDeleghe con errore : " + e.getMessage());
@@ -67,7 +67,7 @@ public class DeleghePage extends BasePage {
     public boolean CercaEsistenzaDelega(String nome,String cognome) {
         try {
             By nomeDelegato = By.xpath("//div[@data-testid='delegates-wrapper']//div/p[contains(text(),'"+nome+" "+cognome+"')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
+            this.getWebDriverWait(30).withMessage("Il nome Delegato non è visibile").until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
             return true;
         }catch (TimeoutException | NoSuchElementException e){
             return false;

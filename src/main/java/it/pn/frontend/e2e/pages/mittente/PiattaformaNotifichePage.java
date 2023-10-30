@@ -22,6 +22,9 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(id = "filter-button")
     WebElement filtraButton;
 
+    @FindBy(id = "filter-notifications-button")
+    WebElement filtraDeleganteButton;
+
     @FindBy(id = "iunMatch")
     WebElement codiceIUNTextField;
 
@@ -111,8 +114,17 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.error("TA_QA: Bottone filtra non cliccabile con errore "+e.getMessage());
             Assert.fail("TA_QA: Bottone filtra non cliccabile con errore "+e.getMessage());
         }
+    }
 
-
+    public void selectFiltraDelegatoButton() {
+        try {
+            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.filtraDeleganteButton));
+            this.filtraDeleganteButton.click();
+            logger.info("Bottone filtra, nella pagina notifiche del delegato, cliccato correttamente");
+        }catch (TimeoutException e){
+            logger.error("Bottone filtra, nella pagina notifiche del delegato, non cliccabile con errore "+e.getMessage());
+            Assert.fail("Bottone filtra, nella pagina notifiche del delegato, non cliccabile con errore "+e.getMessage());
+        }
     }
 
     public int getListaCf(String cfInserito) {
@@ -158,10 +170,10 @@ public class PiattaformaNotifichePage extends BasePage {
         try{
             getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.codiceIUNTextField));
             this.codiceIUNTextField.sendKeys(codiceIUN);
-            logger.info("TA_QA: Codice IUN inserito");
+            logger.info("Codice IUN inserito");
         }catch (TimeoutException e){
-            logger.error("TA_QA: Codice IUN non inserito con errore "+e.getMessage());
-            Assert.fail("TA_QA: Codice IUN non inserito con errore "+e.getMessage());
+            logger.error("Codice IUN non inserito con errore "+e.getMessage());
+            Assert.fail("Codice IUN non inserito con errore "+e.getMessage());
         }
 
 
