@@ -56,7 +56,7 @@ public class DeleghePage extends BasePage {
     public void controlloCreazioneDelega() {
         try{
             By delegaCreata = By.xpath("//span[contains(text(),'In attesa di conferma')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaCreata));
+            this.getWebDriverWait(30).withMessage("Il test In attesa di conferma non è visibile").until(ExpectedConditions.visibilityOfElementLocated(delegaCreata));
             this.logger.info("Si visualizza la delega creata");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza la delega creata");
