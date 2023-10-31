@@ -70,7 +70,32 @@ public class NotificaMittentePagoPATest {
         }
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
+
+        String variabileAmbiente = System.getProperty("environment");
+        String urlChiamata = "https://webapi."+variabileAmbiente+".notifichedigitali.it/delivery/notifications/sent?";
+
+        int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
+        if (codiceRispostaChiamataApi!=200 && codiceRispostaChiamataApi!=0){
+            logger.error("TA_QA: La chiamata, "+urlChiamata+" è andata in errore");
+            Assert.fail("TA_QA: La chiamata, "+urlChiamata+" è andata in errore");
+        }else if (codiceRispostaChiamataApi==0){
+            logger.error("TA_QA: La chiamata, "+urlChiamata+" non trovata");
+            Assert.fail("TA_QA: La chiamata, "+urlChiamata+" non trovata");
+        }
     }
+
+    private int getCodiceRispostaChiamataApi(String urlChiamata) {
+        logger.info("Recupero codice risposta della chiamata"+urlChiamata);
+        int codiceRispostaChiamataApi = 0;
+        for (NetWorkInfo chiamate: netWorkInfos) {
+            if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")){
+                codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
+                break;
+            }
+        }
+        return codiceRispostaChiamataApi;
+    }
+
     public String getNumeroProtocollo() {
         logger.info("Si recupera l'ultimo numero protocollo utilizzato");
        this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
