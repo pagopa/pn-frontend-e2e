@@ -73,7 +73,6 @@ public class DisserviziAppPage extends BasePage {
             return this.getWebDriverWait(60).withMessage("disservizio non creato").until(ExpectedConditions.textToBePresentInElement(dateDisservizioCreato,"-"));
         }catch (TimeoutException e){
             logger.error("creazione disservizio con errore:"+e.getMessage());
-            // Assert.fail("creazione disservizio con errore:"+e.getMessage());
             return false;
         }
     }

@@ -2,9 +2,11 @@ package it.pn.frontend.e2e.stepDefinitions.common;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.HelpdeskPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,18 +22,36 @@ public class HelpdeskTest {
 
     private final Logger logger = LoggerFactory.getLogger("HelpdeskAppTest");
 
-    HelpdeskPage helpdeskPage = new HelpdeskPage(this.driver);
+    private HelpdeskPage helpdeskPage = new HelpdeskPage(this.driver);
     private Map<String, Object> datiTestHelpdesk = new HashMap<>();
 
 
     @Given("Login helpdesk con utente test {string}")
     public void loginHelpdeskConUtenteTest(String nameFile) {
         this.datiTestHelpdesk = this.dataPopulation.readDataPopulation(nameFile+".yaml");
-        helpdeskPage.changePage();
+        String variabileAmbiente = System.getProperty("environment");
+        switch (variabileAmbiente) {
+            case "dev" -> helpdeskPage.changePage(this.datiTestHelpdesk.get("url").toString());
+            case "test", "uat" ->
+                    helpdeskPage.changePage(this.datiTestHelpdesk.get("url").toString().replace("dev", variabileAmbiente));
+            default -> Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+        }
         helpdeskPage.checkForm();
-
-        helpdeskPage.insertUsername(this.datiTestHelpdesk.get("user").toString());
-        helpdeskPage.insertPassword(this.datiTestHelpdesk.get("pwd").toString());
+        switch (variabileAmbiente) {
+            case "dev" -> {
+                helpdeskPage.insertUsername(this.datiTestHelpdesk.get("userDev").toString());
+                helpdeskPage.insertPassword(this.datiTestHelpdesk.get("pwdDev").toString());
+            }
+            case "test" ->{
+                helpdeskPage.insertUsername(this.datiTestHelpdesk.get("userTest").toString());
+                helpdeskPage.insertPassword(this.datiTestHelpdesk.get("pwdTest").toString());
+            }
+            case "uat" ->{
+                helpdeskPage.insertUsername(this.datiTestHelpdesk.get("userUat").toString());
+                helpdeskPage.insertPassword(this.datiTestHelpdesk.get("pwdUat").toString());
+            }
+            default -> Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+        }
         helpdeskPage.clickInviaButton();
     }
 
@@ -83,5 +103,15 @@ public class HelpdeskTest {
             logger.error("pausa con errore: "+e.getMessage());
             throw new RuntimeException(e);
         }
+    }
+
+    @When("Nella Home di helpdesk utente clicca su sezione ricerca ed estrazione dati")
+    public void nellaHomeDiHelpdeskUtenteCliccaSuSezioneRicercaEdEstrazioneDati() {
+        helpdeskPage.clickSezioneRicerca();
+    }
+
+    @And("visualizzazione corrett pagina ricerca ed estrazione dati")
+    public void visualizzazioneCorrettPaginaRicercaEdEstrazioneDati() {
+        helpdeskPage.checkRicercaPage();
     }
 }
