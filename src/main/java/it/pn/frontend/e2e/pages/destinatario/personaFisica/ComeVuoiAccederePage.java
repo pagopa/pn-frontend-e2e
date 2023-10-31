@@ -38,6 +38,7 @@ public class ComeVuoiAccederePage extends BasePage {
     }
 
     public boolean verificaPresenzaSpidButton(){
+        this.getWebDriverWait(30).withMessage("spid button non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.spidButton));
         return  this.spidButton.isDisplayed();
     }
 }

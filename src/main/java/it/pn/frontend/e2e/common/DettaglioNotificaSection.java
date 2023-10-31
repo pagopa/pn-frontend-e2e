@@ -18,7 +18,7 @@ public class DettaglioNotificaSection extends BasePage{
     @FindBy(xpath = "//button[contains(text(),'Attestazione opponibile a terzi: ')]")
     List<WebElement> attestazioniFile;
 
-    @FindBy(xpath = "//button[contains(text(),'Vedi più dettagli')]")
+    @FindBy(id = "more-less-timeline-step")
     WebElement vediDettagliButton;
 
     @FindBy (xpath = "//li[contains(@class,'MuiTimelineItem-root MuiTimelineItem-positionRight MuiTimelineItem-missingOppositeContent css-1y9sx96')]")
@@ -29,16 +29,16 @@ public class DettaglioNotificaSection extends BasePage{
 
     public void waitLoadDettaglioNotificaDESection() {
         try {
-            By titleDettaglioNotificaField = By.xpath("//p[contains(text(),'Dettaglio notifica')]");
-            By statoNotifcaBy = By.xpath("//h5[contains(text(),'Stato della notifica')]");
-            By indietroButtonBy = By.xpath("//button[contains(text(),'Indietro')]");
-            By informazioniBy = By.xpath("//table[@aria-label='Dettaglio notifica']");
-            By allegatiSection = By.xpath("//span[contains(text(),'Documenti allegati')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(indietroButtonBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotifcaBy));
+            By titleDettaglioNotificaField = By.id("title-of-page");
+            By statoNotifcaBy = By.id("notification-state");
+            By indietroButtonBy = By.id("breadcrumb-indietro-button");
+            By informazioniBy = By.id("notification-detail-table");
+            By allegatiSection = By.id("notification-detail-document-attached");
+            this.getWebDriverWait(30).withMessage("il titolo Dettaglio notofica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
+            this.getWebDriverWait(30).withMessage("il buttone indietro non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButtonBy));
+            this.getWebDriverWait(30).withMessage("Dettaglio notofica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
+            this.getWebDriverWait(30).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
+            this.getWebDriverWait(30).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotifcaBy));
             logger.info("Dettaglio Notifica Section caricata");
         }catch (TimeoutException e){
             logger.error("Dettaglio Notifica Section non caricata con errore: "+ e.getMessage());
@@ -56,6 +56,7 @@ public class DettaglioNotificaSection extends BasePage{
     }
 
     public void selezioneVediDettaglioButton() {
+        getWebDriverWait(30).withMessage("buttone vedi dettaglio non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.vediDettagliButton));
         vediDettagliButton.click();
         if (tuttiStatiNotificaList.size() >= 1){
             logger.info("Tutti gli stati sono stati visualizzati correttamente");

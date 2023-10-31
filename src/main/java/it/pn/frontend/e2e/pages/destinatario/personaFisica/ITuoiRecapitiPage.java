@@ -13,7 +13,7 @@ import java.util.List;
 public class ITuoiRecapitiPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("ITuoiRecapitiPage");
 
-    @FindBy(xpath="//div[@data-testid='sideMenuItem-I tuoi recapiti']")
+    @FindBy(id="side-item-I tuoi recapiti")
     WebElement iTuoiRecapitiButton;
 
     @FindBy(xpath = "//button[@data-testid='add email']")
@@ -54,7 +54,7 @@ public class ITuoiRecapitiPage extends BasePage {
     public void waitLoadITuoiRecapitiPage() {
         try {
             By titlePageBy = By.id("I tuoi recapiti-page");
-            By subTitlePageBy = By.xpath("//div[contains(@class,'MuiTypography-root MuiTypography-body1 css-f4v438')]");
+            By subTitlePageBy = By.id("subtitle-page");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(subTitlePageBy));
             logger.info("La pagina I Tuoi Recapiti si vede correttamente");
@@ -175,7 +175,7 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public boolean avvisamiViaEmailIsDisabled(){
         try{
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.avvisamiViaEmailButton));
+            getWebDriverWait(30).withMessage("avvisami via email non è visibile").until(ExpectedConditions.visibilityOf(this.avvisamiViaEmailButton));
             return Boolean.parseBoolean(this.avvisamiViaEmailButton.getAttribute("disabled"));
 
         }catch (NoSuchElementException | TimeoutException e){

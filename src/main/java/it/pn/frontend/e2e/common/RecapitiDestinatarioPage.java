@@ -15,13 +15,13 @@ import java.util.List;
 public class RecapitiDestinatarioPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("RecapitiDestinatarioPage");
 
-    @FindBy(xpath = "//button[@data-testid='addContact']")
+    @FindBy(id = "add-contact")
     WebElement confermaButton;
 
-    @FindBy(xpath = "//button[contains(@data-testid,'codeConfirmButton')]")
+    @FindBy(id = "code-confirm-button")
     WebElement confermaButtonPopUp;
 
-    @FindBy(xpath = "//button[@data-testid='codeCancelButton']")
+    @FindBy(id = "code-cancel-button")
     WebElement annullaButton;
 
     @FindBy(xpath = "//button[@data-testid='add email']")
@@ -64,17 +64,17 @@ public class RecapitiDestinatarioPage extends BasePage {
             this.getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoPecFieldBy));
             this.element(inserimentoPecFieldBy).sendKeys(emailPEC);
         }
-
     }
 
     public void confermaButtonClick() {
+        getWebDriverWait(30).withMessage("conferma button non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
         this.confermaButton.click();
     }
 
     public void waitLoadPopUp() {
         try {
-            By titleBy = By.xpath("//h2[contains(@id,'dialog-title')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleBy));
+            By titleBy = By.id("dialog-title");
+            this.getWebDriverWait(30).withMessage("il titolo del popup non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleBy));
             logger.info("Il po-up di conferma viene visualizzato correttamente");
         }catch (TimeoutException e){
             logger.error("Il pop-up di conferma NON viene visualizzato correttamente con errori: "+e.getMessage());
@@ -109,7 +109,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
     public void waitMessaggioErrore() {
         try {
-            By messaggioErroreBy = By.xpath("//div[contains(@data-testid, 'errorAlert')]");
+            By messaggioErroreBy = By.id("error-alert");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messaggioErroreBy));
             logger.info("Il messaggio di errore viene visualizzato correttamente");
         }catch (TimeoutException e){
@@ -129,11 +129,16 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     }
 
-    public void clickAvvisami() {this.avvisamiMailButton.click();}
+    public void clickAvvisami() {
+        getWebDriverWait(30).withMessage("Il buttone avvisami della mail non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.avvisamiMailButton));
+        this.avvisamiMailButton.click();}
 
-    public void clickAvvisamiSMS() {this.avvisamiSMSButton.click();}
+    public void clickAvvisamiSMS() {
+        getWebDriverWait(30).withMessage("Il buttone avvisami del sms non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.avvisamiSMSButton));
+        this.avvisamiSMSButton.click();}
 
     public void insertEmail(String email) {
+        getWebDriverWait(30).withMessage("l'input mail non è visibile").until(ExpectedConditions.visibilityOf(this.inserimentoMailField));
         if (inserimentoMailField.isDisplayed()){
             inserimentoMailField.sendKeys(email);
         }else {
@@ -143,6 +148,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void insertPhone(String cellulare) {
+        getWebDriverWait(30).withMessage("l'input numero telefono non è visibile").until(ExpectedConditions.visibilityOf(this.inserimentoPhoneField));
         if (inserimentoPhoneField.isDisplayed()){
             inserimentoPhoneField.sendKeys(cellulare);
         }else {

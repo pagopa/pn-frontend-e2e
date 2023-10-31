@@ -35,9 +35,9 @@ public class ConfermaDatiSpidPFPage extends BasePage {
     public void waitLoadConfermaDatiSpidDEPage(){
         try{
             By spidLogo = By.id("idp-logo");
-            By alertBox = By.cssSelector("h3.alert-heading");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(spidLogo));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(alertBox));
+            By alertBox = By.xpath("//h3[@class='alert-heading']");
+            this.getWebDriverWait(30).withMessage("spid logo non visibile").until(ExpectedConditions.visibilityOfElementLocated(spidLogo));
+            this.getWebDriverWait(30).withMessage("alert box non è visibile").until(ExpectedConditions.visibilityOfElementLocated(alertBox));
             logger.info("Conferma Dati Spid DE Page caricata");
         }catch (TimeoutException e){
             logger.error("Conferma Dati Spid DE Page non caricata con errore : "+e.getMessage());
@@ -59,6 +59,7 @@ public class ConfermaDatiSpidPFPage extends BasePage {
     }
 
     public void selezionaConfermaButton(){
+        this.getWebDriverWait(30).withMessage("conferma dati spid button non è cliccabile").until(ExpectedConditions.elementToBeClickable(confermaButton));
         this.confermaButton.click();
     }
 }

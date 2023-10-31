@@ -51,7 +51,13 @@ public class RicercaNotificheMittentePagoPATest {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.selectFiltraButton();
     }
+    @And("Cliccare sul bottone Filtra del delegato")
+    public void cliccareSulBottoneFiltraDelDelegato() {
+        logger.info("Si clicca sul tasto filtra del delegante sotto notifiche");
 
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.selectFiltraDelegatoButton();
+    }
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice fiscale del destinatario {string}")
     public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConIlCodiceFiscaleDelDestinatario(String dpDestinatario) {
         logger.info("Si verifica i risultati restituiti");
