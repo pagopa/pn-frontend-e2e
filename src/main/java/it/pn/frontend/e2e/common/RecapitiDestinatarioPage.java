@@ -39,6 +39,9 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "phone")
     WebElement inserimentoPhoneField;
 
+    @FindBy(xpath = "//div/h2[contains(text(),'Grazie!')]/following-sibling::div//button")
+    WebElement confermaButtonPoPUpPec;
+
     public RecapitiDestinatarioPage(WebDriver driver) {
         super(driver);
     }
@@ -134,5 +137,30 @@ public class RecapitiDestinatarioPage extends BasePage {
             this.js().executeScript("arguments[0].scrollIntoView(true);",inserimentoPhoneField);
             inserimentoPhoneField.sendKeys(cellulare);
         }
+    }
+
+    public void verificaPecAssociata() {
+        try{
+            By pecAssociata = By.xpath("//p[contains(text(), 'PEC associata')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(pecAssociata));
+        }catch (TimeoutException e){
+            logger.error("Pec non associata con errore:"+e.getMessage());
+            Assert.fail("Pec non associata con errore:"+e.getMessage());
+        }
+    }
+
+    public boolean siVisualizzaPopUpConferma() {
+        try{
+            By popUpConfermaBy = By.xpath("//h2[contains(text(),'Grazie!')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popUpConfermaBy));
+            return true;
+        }catch (TimeoutException e){
+            return false;
+        }
+    }
+
+    public void clickConfermaButton() {
+        this.getWebDriverWait(30).withMessage("Il bottone conferma del pop up non cliccabile").until(ExpectedConditions.elementToBeClickable(confermaButtonPoPUpPec));
+        this.confermaButtonPoPUpPec.click();
     }
 }

@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.api.personaFisica.RecuperoOTPRecapiti;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
@@ -17,11 +18,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class InserimentoOTPSbagliato {
+public class RecapitiPersonaFisicaTest {
     private static final Logger logger = LoggerFactory.getLogger("InserimentoOTPSbagliato");
     private final WebDriver driver = Hooks.driver;
 
     private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
+
+    private final  DataPopulation dataPopulation = new DataPopulation();
 
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
@@ -214,5 +217,51 @@ public class InserimentoOTPSbagliato {
     public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoAvvisamiViaSmsSiaBloccato() {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         Assert.assertTrue("il buttone avvisami via SMS non è disabilitato",iTuoiRecapitiPage.avvisamiViaSMSIsDisabled());
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request {string}")
+    public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequest(String dpFile) {
+
+        Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile+".yaml");
+        RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
+
+        String startUrl = "http://localhost:8887/";
+        String url = startUrl+recuperoOTPRecapiti.getUrlEndPoint()+personaFisica.get("emailPec");
+        boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+        if (results){
+            String OTP = recuperoOTPRecapiti.getResponseBody();
+            personaFisica.put("OTPpec",OTP);
+            dataPopulation.writeDataPopulation(dpFile+".yaml",personaFisica);
+        }else {
+            logger.error("La chiamata ha risposto con questo codice: "+recuperoOTPRecapiti.getResponseCode());
+            Assert.fail("La chiamata ha risposto con questo codice: "+recuperoOTPRecapiti.getResponseCode());
+        }
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce il codice OTP {string}")
+    public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP(String dpFile) {
+        logger.info("Si inserisce il codice OTP di verifica");
+
+        String otp = dataPopulation.readDataPopulation(dpFile+".yaml").get("OTPpec").toString();
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.sendOTP(otp);
+        recapitiDestinatarioPage.confermaButtonClickPopUp();
+    }
+
+    @Then("Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente")
+    public void nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente() {
+        logger.info("Si controlla che la pec sia stata inserita correttamente");
+
+        recapitiDestinatarioPage.aggionamentoPagina();
+        recapitiDestinatarioPage.verificaPecAssociata();
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si clicca su conferma nel pop-up")
+    public void nellaPaginaITuoiRecapitiSiCliccaSuConfermaNelPopUp() {
+        logger.info("Si clicca su conferma nel pop-up");
+
+        if(recapitiDestinatarioPage.siVisualizzaPopUpConferma()){
+            recapitiDestinatarioPage.clickConfermaButton();
+        }
     }
 }
