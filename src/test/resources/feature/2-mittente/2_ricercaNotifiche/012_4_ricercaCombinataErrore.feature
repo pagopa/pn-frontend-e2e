@@ -1,7 +1,7 @@
 Feature: il mittente fa una ricerca combinata tra stato e arco temporale  con nessun risultato
   Background: login mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login mittente tramite request method
+   When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
