@@ -28,13 +28,13 @@ public class LeTueDelegheSection extends BasePage {
     @FindBy(id = "cognome")
     WebElement inputCognome;
 
-    @FindBy(xpath = "//button[@data-testid='createButton']")
+    @FindBy(id = "create-button")
     WebElement inviaLaRichiestaButton;
 
     @FindBy(id = "expirationDate")
     WebElement dataTermineDelegaInput;
 
-    @FindBy(xpath = "//div[@data-testid= 'codeDigit']")
+    @FindBy(xpath = "//div[contains(@id, 'digit-')]")
     List<WebElement> codiceVerificaList;
 
     @FindBy(id = "codiceFiscale")
@@ -49,20 +49,20 @@ public class LeTueDelegheSection extends BasePage {
     @FindBy(id = "courtesy-page-button")
     WebElement tornaDelegheButton;
 
-    @FindBy(xpath = "//button[@data-testid='acceptButton']")
+    @FindBy(id = "accept-button")
     WebElement accettaButton;
 
-    @FindBy(xpath = "//button[@data-testid='codeConfirmButton']")
+    @FindBy(id = "code-confirm-button")
     WebElement accettaPopUpButton;
 
 
     @FindBy(id = "Deleghe-page")
     WebElement deleghePageTitle;
 
-    @FindBy(xpath = "//p[contains(text(),'Qui puoi gestire')]")
+    @FindBy(id = "subtitle-page")
     WebElement deleghePageSubtitle;
 
-    @FindBy(xpath = "//button[@data-testid='add-delegation']")
+    @FindBy(id = "add-delegation-button")
     WebElement aggiungiDelegaButton;
 
     @FindBy(xpath = "//span[contains(text(),'Nome')]")
@@ -158,6 +158,7 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickInviaRichiesta() {
+        getWebDriverWait(30).withMessage("il buttone invia richiesta non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.inviaLaRichiestaButton));
         this.inviaLaRichiestaButton.click();
     }
 
@@ -242,20 +243,30 @@ public class LeTueDelegheSection extends BasePage {
         }
     }
 
-    public boolean siVisualizzaIlTitolo() {return this.deleghePageTitle.isDisplayed();}
+    public boolean siVisualizzaIlTitolo() {
+        this.getWebDriverWait(30).withMessage("Il titolo della pagina Delege non è visibile ").until(ExpectedConditions.visibilityOf(this.deleghePageTitle));
+        return this.deleghePageTitle.isDisplayed();}
 
-    public boolean siVisualizzaIlSottotitolo() {return this.deleghePageSubtitle.isDisplayed();}
+    public boolean siVisualizzaIlSottotitolo() {
+        this.getWebDriverWait(30).withMessage("Il sotto titolo della pagina Delege non è visibile ").until(ExpectedConditions.visibilityOf(this.deleghePageSubtitle));
+        return this.deleghePageSubtitle.isDisplayed();}
 
-    public boolean siVisualizzaIlBottoneAggiungiUnaDelega() {return this.aggiungiDelegaButton.isDisplayed();}
+    public boolean siVisualizzaIlBottoneAggiungiUnaDelega() {
+        this.getWebDriverWait(30).withMessage("Il buttone aggiungi Delega non è visibile ").until(ExpectedConditions.visibilityOf(this.aggiungiDelegaButton));
+        return this.aggiungiDelegaButton.isDisplayed();}
 
-    public boolean siVisualizzaIlNomeDelegato() {return this.nomeDelegaField.isDisplayed();}
+    public boolean siVisualizzaIlNomeDelegato() {
+        this.getWebDriverWait(30).withMessage("Il nome Delega non è visibile ").until(ExpectedConditions.visibilityOf(this.nomeDelegaField));
+        return this.nomeDelegaField.isDisplayed();}
 
 
     public boolean siVisualizzaDataInizioDelega() {
+        this.getWebDriverWait(30).withMessage("Inizio data  Delega non è visibile ").until(ExpectedConditions.visibilityOf(this.inizioDelegaField));
         return this.inizioDelegaField.isDisplayed();
     }
 
     public boolean siVisualizzaDataFinoDelega() {
+        this.getWebDriverWait(30).withMessage("Fine data  Delega non è visibile ").until(ExpectedConditions.visibilityOf(this.fineDelegaField));
         return this.fineDelegaField.isDisplayed();
     }
 
