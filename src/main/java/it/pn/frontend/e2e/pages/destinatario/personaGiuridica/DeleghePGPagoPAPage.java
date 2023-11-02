@@ -171,6 +171,19 @@ public class DeleghePGPagoPAPage extends BasePage {
         this.confermaButton.click();
     }
 
+    public boolean verificaEsistenzaErroreCodiceSbagliato() {
+        try{
+            By esistenzaBy = By.id("alert-api-status}");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(esistenzaBy));
+            logger.info("Errore codice sbagliato trovato");
+            return true;
+        }catch (TimeoutException e){
+            logger.info("errore non trovato");
+            return false;
+        }
+
+    }
+
 
     public void controlloStatoAttiva(String ragioneSociale) {
         try {
