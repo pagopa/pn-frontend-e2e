@@ -36,8 +36,8 @@ public class HelpdeskPage extends BasePage{
     }
 
 
-    public void changePage(String enviromentURL){
-        this.driver.get(enviromentURL);
+    public void changePage(String HelpdeskURL){
+        this.driver.get(HelpdeskURL);
     }
 
     public void checkForm() {

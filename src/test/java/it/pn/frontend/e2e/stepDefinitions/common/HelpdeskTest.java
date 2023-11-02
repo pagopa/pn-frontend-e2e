@@ -34,7 +34,7 @@ public class HelpdeskTest {
             case "dev" -> helpdeskPage.changePage(this.datiTestHelpdesk.get("url").toString());
             case "test", "uat" ->
                     helpdeskPage.changePage(this.datiTestHelpdesk.get("url").toString().replace("dev", variabileAmbiente));
-            default -> Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+            default -> Assert.fail("Non è stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
         helpdeskPage.checkForm();
         switch (variabileAmbiente) {
