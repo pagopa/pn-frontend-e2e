@@ -50,8 +50,8 @@ public class NotifichePFPage extends BasePage {
         try{
             By titleLabel = By.id("Le tue notifiche-page");
             By tableNotifiche = By.id("notifications-table");
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
+            this.getWebDriverWait(40).withMessage("Il titolo della pagina Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
+            this.getWebDriverWait(40).withMessage("La tabella delle Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
             logger.info("Notifiche DE Page caricata");
         }catch (TimeoutException e){
             logger.error("Notifiche DE Page non caricata con errore : "+e.getMessage());
@@ -83,6 +83,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void selectFiltraButton() {
+        this.getWebDriverWait(40).withMessage("Il buttone filtra sulla pagina notifiche non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.filtraButton));
         this.filtraButton.click();
     }
 
@@ -94,13 +95,15 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void inserimentoArcoTemporale(String dataDA, String dataA) {
+        this.getWebDriverWait(40).withMessage("Data Inizio input non è visibile").until(ExpectedConditions.visibilityOf(this.dataInizioField));
+        this.getWebDriverWait(40).withMessage("Data Fine  input non è visibile").until(ExpectedConditions.visibilityOf(this.dataFineField));
         this.dataInizioField.sendKeys(dataDA);
         this.dataFineField.sendKeys(dataA);
     }
 
     public boolean getListData() {
         By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-c3sxw2')]");
-        this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
+        this.getWebDriverWait(40).withMessage("La colonna Data nella pagina notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
         return !this.elements(dataListBy).isEmpty();
     }
 
@@ -120,7 +123,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void clickNotificheButton() {
-        this.getWebDriverWait(30).withMessage("ntifiche menu betton non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.notificheDeButton));
+        this.getWebDriverWait(30).withMessage("Notifiche menu betton non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.notificheDeButton));
         this.js().executeScript("arguments[0].click()",this.notificheDeButton);}
 
     public void clickTueNotificheButton(){
@@ -183,6 +186,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void clickNomeDelegante() {
+        getWebDriverWait(30).withMessage("il nome delegante non è visibile").until(ExpectedConditions.visibilityOf(nomeDeleganteButton));
         this.nomeDeleganteButton.click();
     }
 
@@ -228,7 +232,7 @@ public class NotifichePFPage extends BasePage {
     public void waitLoadPaginaDifferente() {
         try{
             By paginaSuccessivaBy = By.id("page1");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(paginaSuccessivaBy));
+            getWebDriverWait(30).withMessage("la prima pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(paginaSuccessivaBy));
             logger.info("Si visualizza una pagina differente dalla precedente");
         }catch (TimeoutException e){
             logger.error("NON si visualizza una");
@@ -236,12 +240,13 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void siSceglieUnaPaginaDiversaConNumero() {
+        getWebDriverWait(30).withMessage("la terza pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(this.numeroPaginaTreButton));
         this.js().executeScript("arguments[0].click()",this.numeroPaginaTreButton);
-        //this.numeroPaginaTreButton.click();
     }
 
     public void modificaNumeroNotifichePagina() {
         waitLoadPage();
+        getWebDriverWait(30).withMessage("Il menu per cambiare numero di pagine non è visibile").until(ExpectedConditions.visibilityOf(this.numeroPagineButton));
         this.numeroPagineButton.click();
         logger.info("Si clicca sul menu per cambiare numero di pagine visualizzate");
     }
@@ -251,17 +256,17 @@ public class NotifichePFPage extends BasePage {
             By numeroDiversoPagineBy = By.id("pageSize-20");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(numeroDiversoPagineBy));
             this.element(numeroDiversoPagineBy).click();
-            logger.info("Cambia il numero di pagine visualizzate");
+            logger.info("Cambiato il numero di pagine visualizzate a 20");
         }catch (TimeoutException e){
-            logger.error("NON cambia il numero di pagine visualizzate con errore:"+e.getMessage());
-            Assert.fail("NON cambia il numero di pagine visualizzate con errore:"+e.getMessage());
+            logger.error("NON cambia il numero di pagine visualizzate a 20 con errore:"+e.getMessage());
+            Assert.fail("NON cambia il numero di pagine visualizzate a 20 con errore:"+e.getMessage());
         }
 
     }
 
     public int conteggioNotifiche() {
         By rigaDelegaBy = By.xpath("//tr[@data-testid='notificationsTable.row']");
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(rigaDelegaBy));
+        this.getWebDriverWait(30).withMessage("le notifiche non sono visibile").until(ExpectedConditions.visibilityOfElementLocated(rigaDelegaBy));
         return elements(rigaDelegaBy).size();
     }
 
