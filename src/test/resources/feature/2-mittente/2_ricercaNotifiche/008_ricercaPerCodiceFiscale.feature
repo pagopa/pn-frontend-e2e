@@ -1,9 +1,8 @@
 Feature: Mittente effetua una ricerca notifiche per CF
-  #Mittente loggato effettua una ricerca
 
   Background: login mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login mittente tramite request method
+   When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
