@@ -907,8 +907,8 @@ public class NotificaMittentePagoPATest {
 
     @And("Si verifica che la notifica viene creata correttamente {string}")
     public void siVerificaCheLaNotificaVieneCreataCorrettamente(String dpFile) {
-        final String urlNotificationRequest = "https://webapi.test.notifichedigitali.it/delivery/requests";
-        final String urlRichiestaNotifica = "https://api.test.notifichedigitali.it/delivery/requests/";
+        final String urlNotificationRequest = "https://webapi.test.notifichedigitali.it/delivery/v2.1/requests";
+        final String urlRichiestaNotifica = "https://api.test.notifichedigitali.it/delivery/v2.1/requests/";
         String statusNotifica = "WAITING";
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
         AccettazioneRichiestaNotifica accettazioneRichiestaNotifica = new AccettazioneRichiestaNotifica();
@@ -924,9 +924,9 @@ public class NotificaMittentePagoPATest {
             if (result){
                 statusNotifica = accettazioneRichiestaNotifica.getStatusNotifica();
             }else{
-                if(accettazioneRichiestaNotifica.getResponseCode()==400){
-                    logger.error("la risposta dell'accettazione della notifica è :400 Bad Request");
-                    Assert.fail("la risposta dell'accettazione della notifica è :400 Bad Request");
+                if(accettazioneRichiestaNotifica.getResponseCode()!=200){
+                    logger.error("la risposta dell'accettazione della notifica "+ notificationRequestId+ " è: "+accettazioneRichiestaNotifica.getResponseCode());
+                    Assert.fail("la risposta dell'accettazione della notifica "+ notificationRequestId+ " è: "+accettazioneRichiestaNotifica.getResponseCode());
                 }
             }
         }while (statusNotifica.equals("WAITING"));
