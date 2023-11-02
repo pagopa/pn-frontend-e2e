@@ -26,7 +26,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(xpath = "//button[@data-testid='confirmButton']")
     WebElement filtraButton;
 
-    @FindBy(id = "accept-button")
+    @FindBy(id = "code-confirm-button")
     WebElement accettaDelegaButton;
 
     @FindBy(xpath = "//span[@data-testid='associate-group']")

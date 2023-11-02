@@ -907,6 +907,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Si verifica che la notifica viene creata correttamente {string}")
     public void siVerificaCheLaNotificaVieneCreataCorrettamente(String dpFile) {
+        logger.info("si verifica se la notifica è stata accettata o rifiutata");
         final String urlNotificationRequest = "https://webapi.test.notifichedigitali.it/delivery/v2.1/requests";
         final String urlRichiestaNotifica = "https://api.test.notifichedigitali.it/delivery/v2.1/requests/";
         String statusNotifica = "WAITING";
@@ -923,6 +924,7 @@ public class NotificaMittentePagoPATest {
             boolean result = accettazioneRichiestaNotifica.runGetRichiestaNotifica();
             if (result){
                 statusNotifica = accettazioneRichiestaNotifica.getStatusNotifica();
+                logger.info("lo stato della notifica è :"+statusNotifica);
             }else{
                 if(accettazioneRichiestaNotifica.getResponseCode()!=200){
                     logger.error("la risposta dell'accettazione della notifica "+ notificationRequestId+ " è: "+accettazioneRichiestaNotifica.getResponseCode());
@@ -932,6 +934,7 @@ public class NotificaMittentePagoPATest {
         }while (statusNotifica.equals("WAITING"));
 
         if (statusNotifica.equals("ACCEPTED")){
+            logger.info("La notifica è stata Accettata");
             String codiceIUN = accettazioneRichiestaNotifica.getCodiceIUN();
             this.datiNotifica = dataPopulation.readDataPopulation(dpFile+".yaml");
             if (codiceIUN != null && !codiceIUN.equals("")){
@@ -954,6 +957,7 @@ public class NotificaMittentePagoPATest {
                 return result.substring(1,result.length()-1);
             }
         }
+        logger.error("NotificationRequestId non trovato, il codice della risposta al url "+ urlNotificationRequest +" è diverso di 202 ");
         return null;
     }
 
