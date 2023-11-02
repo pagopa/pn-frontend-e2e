@@ -13,11 +13,8 @@ import java.util.List;
 public class ITuoiRecapitiPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("ITuoiRecapitiPage");
 
-    @FindBy(xpath="//div[@data-testid='sideMenuItem-I tuoi recapiti']")
+    @FindBy(id="side-item-I tuoi recapiti")
     WebElement iTuoiRecapitiButton;
-
-    @FindBy(id = "email")
-    WebElement emailInputField;
 
     @FindBy(xpath = "//button[@data-testid='add email']")
     WebElement avvisamiViaEmailButton;
@@ -40,6 +37,9 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(id = "")
     WebElement confermaButtonPopUp;
 
+    @FindBy(xpath = "//button[contains(text(),'Elimina')]")
+    WebElement eliminaButton;
+
     public ITuoiRecapitiPage(WebDriver driver) {
         super(driver);
     }
@@ -57,7 +57,7 @@ public class ITuoiRecapitiPage extends BasePage {
     public void waitLoadITuoiRecapitiPage() {
         try {
             By titlePageBy = By.id("I tuoi recapiti-page");
-            By subTitlePageBy = By.xpath("//div[contains(@class,'MuiTypography-root MuiTypography-body1 css-f4v438')]");
+            By subTitlePageBy = By.id("subtitle-page");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(subTitlePageBy));
             logger.info("La pagina I Tuoi Recapiti si vede correttamente");
@@ -67,12 +67,26 @@ public class ITuoiRecapitiPage extends BasePage {
         }
     }
 
+    public void eliminaPecEsistente(){
+        this.eliminaButton.click();
+        waitLoadPopUp();
+        By confermaRimuoviPECBy = By.xpath("//button[contains(text(),'Annulla')]/following-sibling::button");
+        this.getWebDriverWait(30).withMessage("Il bottone conferma del popup rimuovi pec non presente").until(ExpectedConditions.visibilityOfElementLocated(confermaRimuoviPECBy));
+        this.element(confermaRimuoviPECBy).click();
+    }
+
     public void insertEmailPEC(String emailPEC) {
-        if (inserimentoPecField.isDisplayed()){
-            inserimentoPecField.sendKeys(emailPEC);
-        }else {
-            this.js().executeScript("arguments[0].scrollIntoView(true);",inserimentoPecField);
-            inserimentoPecField.sendKeys(emailPEC);
+
+        try{
+            By inserimentoPecFieldBy = By.id("pec");
+            this.getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoPecFieldBy));
+            this.element(inserimentoPecFieldBy).sendKeys(emailPEC);
+
+        }catch (TimeoutException e){
+            eliminaPecEsistente();
+            By inserimentoPecFieldBy = By.id("pec");
+            this.getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoPecFieldBy));
+            this.element(inserimentoPecFieldBy).sendKeys(emailPEC);
         }
     }
     public void confermaButtonClick() {
@@ -152,13 +166,29 @@ public class ITuoiRecapitiPage extends BasePage {
         this.driver.findElement(confirmaEliminaEmailBy).click();
     }
 
-    public boolean inputEmailIsDisplayed(){
-            return this.emailInputField.isDisplayed();
+    public void eliminaEmailEsistente(){
+        this.eliminaButton.click();
+        waitLoadPopUp();
+        By confermaRimuoviPECBy = By.xpath("//button[contains(text(),'Annulla')]/following-sibling::button");
+        this.getWebDriverWait(30).withMessage("il Bottone conferma del popup rimuovi e-mail non presente").until(ExpectedConditions.visibilityOfElementLocated(confermaRimuoviPECBy));
+        this.element(confermaRimuoviPECBy).click();
+
     }
 
-    public void insertEmail(String email){
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.emailInputField));
-        this.emailInputField.sendKeys(email);
+    public void insertEmail(String emailPEC) {
+
+        try{
+            By inserimentoEmailFieldBy = By.id("email");
+            this.getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoEmailFieldBy));
+            this.element(inserimentoEmailFieldBy).sendKeys(emailPEC);
+
+        }catch (TimeoutException e){
+            eliminaEmailEsistente();
+            By inserimentoEmailFieldBy = By.id("email");
+            this.getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoEmailFieldBy));
+            this.element(inserimentoEmailFieldBy).sendKeys(emailPEC);
+        }
+
     }
 
     public void clickAvvisamiViaEmail(){
@@ -167,7 +197,7 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public boolean avvisamiViaEmailIsDisabled(){
         try{
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.avvisamiViaEmailButton));
+            getWebDriverWait(30).withMessage("avvisami via email non è visibile").until(ExpectedConditions.visibilityOf(this.avvisamiViaEmailButton));
             return Boolean.parseBoolean(this.avvisamiViaEmailButton.getAttribute("disabled"));
 
         }catch (NoSuchElementException | TimeoutException e){

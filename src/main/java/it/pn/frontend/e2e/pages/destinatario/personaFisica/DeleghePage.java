@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.TimeUnit;
+
 
 public class DeleghePage extends BasePage {
 
@@ -32,8 +34,8 @@ public class DeleghePage extends BasePage {
     public void waitDeleghePage() {
         try {
             By deleghePageTitle = By.id("Deleghe-page");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(deleghePageTitle));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.addDelegaButton));
+            this.getWebDriverWait(30).withMessage("Il titolo  della pagina deleghe non è visibile").until(ExpectedConditions.visibilityOfElementLocated(deleghePageTitle));
+            this.getWebDriverWait(30).withMessage("aggiungi delega button non è visibile").until(ExpectedConditions.visibilityOf(this.addDelegaButton));
             this.logger.info("Il titolo o il bottone aggiungi delega è visibile nella pagina aggiuDeleghe");
         } catch (TimeoutException e) {
             logger.error("Il titolo o il bottone aggiungi delega non è visibile nella pagina aggiuDeleghe con errore : " + e.getMessage());
@@ -54,7 +56,7 @@ public class DeleghePage extends BasePage {
     public void controlloCreazioneDelega() {
         try{
             By delegaCreata = By.xpath("//span[contains(text(),'In attesa di conferma')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaCreata));
+            this.getWebDriverWait(30).withMessage("Il test In attesa di conferma non è visibile").until(ExpectedConditions.visibilityOfElementLocated(delegaCreata));
             this.logger.info("Si visualizza la delega creata");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza la delega creata");
@@ -65,7 +67,7 @@ public class DeleghePage extends BasePage {
     public boolean CercaEsistenzaDelega(String nome,String cognome) {
         try {
             By nomeDelegato = By.xpath("//div[@data-testid='delegates-wrapper']//div/p[contains(text(),'"+nome+" "+cognome+"')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
+            this.getWebDriverWait(30).withMessage("Il nome Delegato non è visibile").until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
             return true;
         }catch (TimeoutException | NoSuchElementException e){
             return false;
@@ -95,20 +97,22 @@ public class DeleghePage extends BasePage {
     }
 
     public void clickMenuDelega(String nome, String cognome) {
+
         try{
+            TimeUnit.SECONDS.sleep(10);
             By menuDelega = By.xpath("//div[@data-testid='delegates-wrapper']//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
             this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuDelega));
-            WebElement menuDelegaWebElement = this.driver.findElement(menuDelega);
-            this.js().executeScript("arguments[0].click()",menuDelegaWebElement);
+            this.js().executeScript("arguments[0].click()",this.element(menuDelega));
             logger.info("cliccato correttamente su menu delega button");
-        }catch (TimeoutException e){
-            logger.error("Menu delega button NON trovata con errore: "+e.getMessage());
-            Assert.fail("Menu delega button NON trovata con errore: "+e.getMessage());
-        } catch (StaleElementReferenceException e){
-            By menuDelega = By.xpath("//div[@data-testid='delegates-wrapper']//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
-            this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuDelega));
-            WebElement menuDelegaWebElement = this.driver.findElement(menuDelega);
-            this.js().executeScript("arguments[0].click()",menuDelegaWebElement);
+        }catch (StaleElementReferenceException e){
+        By menuDelega = By.xpath("//div[@data-testid='delegates-wrapper']//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
+        this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuDelega));
+        this.js().executeScript("arguments[0].click()",this.element(menuDelega));
+        } catch (TimeoutException e) {
+            logger.error("Menu delega button NON trovata con errore: " + e.getMessage());
+            Assert.fail("Menu delega button NON trovata con errore: " + e.getMessage());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 

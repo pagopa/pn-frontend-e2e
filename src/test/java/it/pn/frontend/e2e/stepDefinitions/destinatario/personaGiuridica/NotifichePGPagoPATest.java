@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.section.CookiesSection;
@@ -16,12 +17,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class NotifichePGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("NotifichePGPagoPATest");
     private final WebDriver driver = Hooks.driver;
+
+    List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     private final PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
     @And("Nella Home page persona giuridica si clicca su Send Notifiche Digitali")
@@ -47,7 +51,32 @@ public class NotifichePGPagoPATest {
             cookiesSection.selezionaAccettaTuttiButton();
         }
         piattaformaNotifichePGPAPage.waitLoadPitattaformaNotificaPage(personaGiuridica.get("ragioneSociale").toString());
+
+        String variabileAmbiente = System.getProperty("environment");
+        String urlChiamata = "https://webapi."+variabileAmbiente+".notifichedigitali.it/delivery/notifications/received?";
+
+        int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
+        if (codiceRispostaChiamataApi!=200 && codiceRispostaChiamataApi!=0){
+            logger.error("TA_QA: La chiamata, "+urlChiamata+" è andata in errore");
+            Assert.fail("TA_QA: La chiamata, "+urlChiamata+" è andata in errore");
+        }else if (codiceRispostaChiamataApi==0){
+            logger.error("TA_QA: La chiamata, "+urlChiamata+" non trovata");
+            Assert.fail("TA_QA: La chiamata, "+urlChiamata+" non trovata");
+        }
     }
+
+    private int getCodiceRispostaChiamataApi(String urlChiamata) {
+        logger.info("Recupero codice risposta della chiamata"+urlChiamata);
+        int codiceRispostaChiamataApi = 0;
+        for (NetWorkInfo chiamate: netWorkInfos) {
+            if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")){
+                codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
+                break;
+            }
+        }
+        return codiceRispostaChiamataApi;
+    }
+
 
     @When("Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaClickSulBottoneDeleghe() {

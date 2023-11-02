@@ -244,6 +244,13 @@ public class DeleghePagoPATest {
         this.leTueDelegheSection.controlloStatoAttiva(deleghe.get("name").toString(),deleghe.get("familyName").toString());
     }
 
+    @And("Si controlla che la delega è ancora presente {string}")
+    public void siControllaCheLaDelegaèAncoraPresente(String dpFile) {
+        logger.info("Si controlla che la delega abbia lo stato Attiva");
+        this.deleghe = this.dataPopulation.readDataPopulation(dpFile+".yaml");
+        this.leTueDelegheSection.controlloEsistenzaDelega(deleghe.get("name").toString(),deleghe.get("familyName").toString());
+    }
+
     @And("Nella sezione Deleghe si visualizza il titolo")
     public void siVisualizzaIlTitolo() {
 
