@@ -137,13 +137,7 @@ public class InserimentoOTPSbagliato {
     @And("Nella pagina I Tuoi Recapiti si inserisce l'email errata {string}")
     public void nellaPaginaITuoiRecapitiSiInserisceLEmailErrata(String emailErrata) {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        if(iTuoiRecapitiPage.inputEmailIsDisplayed()){
-            iTuoiRecapitiPage.insertEmail(emailErrata);
-        }else{
-            iTuoiRecapitiPage.clickEliminaEmail();
-            iTuoiRecapitiPage.clickConfirmaEliminaEmailPopUp();
-            iTuoiRecapitiPage.insertEmail(emailErrata);
-        }
+        iTuoiRecapitiPage.insertEmail(emailErrata);
     }
 
     @Then("Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio email errata")
