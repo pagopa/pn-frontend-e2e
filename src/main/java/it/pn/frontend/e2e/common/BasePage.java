@@ -67,5 +67,9 @@ public class BasePage {
         By loadingSpinnerBy = By.xpath("//span[@role = 'loadingSpinner']");
         getWebDriverWait(60).withMessage("la rotollina di caricamento pagina è ancora presente dopo 60sec").until(ExpectedConditions.invisibilityOfElementLocated(loadingSpinnerBy));
     }
+
+    public void goBack(){
+        this.driver.navigate().back();
+    }
 }
 

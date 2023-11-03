@@ -982,6 +982,8 @@ public class NotificaMittentePagoPATest {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
         }else {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiciIun.get(0));
+            this.personaFisica.put("codiceIUN",codiciIun.get(0));
+            dataPopulation.writeDataPopulation("datiNotifica.yaml",this.personaFisica);
         }
     }
 
