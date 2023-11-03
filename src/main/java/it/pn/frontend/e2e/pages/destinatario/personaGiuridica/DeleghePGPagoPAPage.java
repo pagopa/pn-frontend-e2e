@@ -12,12 +12,12 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DeleghePGPagoPAPage");
 
-    @FindBy(xpath = "//button[@data-testid='tab1']")
+    @FindBy(id = "tab-1")
     WebElement delegatiImpresaButton;
 
-    @FindBy(xpath = "//button[@data-testid='tab2']")
+    @FindBy(id = "tab-2")
     WebElement delegheCaricoImpresaButton;
-    @FindBy(xpath = "//li[contains(text(),'Revoca')]")
+    @FindBy(id = "revoke-delegation-button")
     WebElement revocaMenuButton;
 
     @FindBy(id = "taxId")
@@ -67,7 +67,7 @@ public class DeleghePGPagoPAPage extends BasePage {
         try{
             By titlePage = By.id("Deleghe-page");
 
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
+            this.getWebDriverWait(30).withMessage("il titolo della pagina deleghe PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
 
             this.logger.info("Deleghe page si visualizza correttamente");

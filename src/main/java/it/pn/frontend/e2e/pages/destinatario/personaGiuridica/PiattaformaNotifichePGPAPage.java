@@ -17,10 +17,10 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("PiattaformaNotifichePGPAPage");
 
 
-    @FindBy(xpath = "//div[@data-testid='sideMenuItem-Deleghe']")
+    @FindBy(id = "side-item-Deleghe")
     WebElement delegheSideMenu;
 
-    @FindBy(xpath = "//div[@data-testid='sideMenuItem-Recapiti']")
+    @FindBy(id = "side-item-Recapiti")
     WebElement recapitiButton;
 
     public PiattaformaNotifichePGPAPage(WebDriver driver) {
@@ -34,10 +34,10 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             By codiceIunTextFieldBy = By.id("iunMatch");
             By dataInizioFieldBy = By.id("startDate");
             By dataFineFieldBy = By.id("endDate");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(codiceIunTextFieldBy));
-            this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(dataInizioFieldBy));
-            this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(dataFineFieldBy));
+            this.getWebDriverWait(30).withMessage("Il titolo della pagina Notifiche PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
+            this.getWebDriverWait(40).withMessage("Il campo cidice iun della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(codiceIunTextFieldBy));
+            this.getWebDriverWait(40).withMessage("Il campo data inizio della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(dataInizioFieldBy));
+            this.getWebDriverWait(40).withMessage("Il campo data fine della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(dataFineFieldBy));
             logger.info("La piagine Piattamorma Notifiche si carica correttamente");
         } catch (TimeoutException e) {
             logger.error("La piagine Piattamorma Notifiche non si carica correttamente con errore: " + e.getMessage());
@@ -52,9 +52,8 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void clickNotificheDelegate() {
         try {
-            By notificheDelegateButton = By.xpath("//div[@data-testid='sideMenuItem-Notifiche delegate']");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheDelegateButton));
-            this.js().executeScript("arguments[0].click()",this.element(notificheDelegateButton));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.delegheSideMenu));
+            this.js().executeScript("arguments[0].click()",this.delegheSideMenu);
             logger.info("Si clicca correttamente sulla voce notifiche delegate");
         } catch (TimeoutException e) {
             logger.error("Non si clicca correttamente sulla voce notifiche delegate con errore:" + e.getMessage());
@@ -73,7 +72,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
         public void clickRecapitiButton () {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(recapitiButton));
+            getWebDriverWait(30).withMessage("il buttone recapiti non è visibile").until(ExpectedConditions.visibilityOf(recapitiButton));
             this.js().executeScript("arguments[0].click()",this.recapitiButton);
         }
     }

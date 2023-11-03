@@ -25,10 +25,8 @@ public class SelezionaImpresaPage extends BasePage {
     public void waitLoadSelezionaImpresaPage() {
         try{
             By titlePageBy = By.xpath("//h3[contains(text(),'Seleziona la tua impresa')]");
-            By accediButtonBy = By.xpath("//button[contains(text(),'Accedi')]");
-
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(accediButtonBy));
+            this.getWebDriverWait(30).withMessage("Il titolo della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
+            this.getWebDriverWait(30).withMessage("Il buttone accedi della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOf(this.accediButton));
 
             logger.info("SelezionaImpresaPage caricata correttamente");
 
@@ -39,11 +37,13 @@ public class SelezionaImpresaPage extends BasePage {
     }
 
     public void clickAccediButton() {
+        this.getWebDriverWait(30).withMessage("Il buttone accedi della pagina Seleziona la tua impresa non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.accediButton));
         this.accediButton.click();
     }
 
     public void clickSuImpresa(String ragioneSociale) {
         By impresaBy = By.xpath("//h6[contains(text(),'"+ragioneSociale+"')]");
+        this.getWebDriverWait(30).withMessage("l'ente: "+ragioneSociale+" della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(impresaBy));
         this.element(impresaBy).click();
     }
 }
