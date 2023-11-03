@@ -26,8 +26,6 @@ public class HelpdeskPage extends BasePage{
     @FindBy(id = "Password")
     WebElement passwordInput;
 
-
-
     @FindBy(xpath = "//button[@aria-label='more']")
     WebElement buttonMenu;
 
@@ -37,14 +35,14 @@ public class HelpdeskPage extends BasePage{
         super(driver);
     }
 
-    private final String helpdeskURL = "https://helpdesk.test.notifichedigitali.it/login";
 
-    public void changePage(){
-        this.driver.get(helpdeskURL);
+    public void changePage(String HelpdeskURL){
+        this.driver.get(HelpdeskURL);
     }
 
     public void checkForm() {
         try{
+            logger.info("Check form in corso");
             this.getWebDriverWait(40).withMessage("email non presente").until(ExpectedConditions.visibilityOf(this.emailInput));
             this.getWebDriverWait(40).withMessage("password non presente").until(ExpectedConditions.visibilityOf(this.passwordInput));
             this.getWebDriverWait(40).withMessage("submit non presente").until(ExpectedConditions.visibilityOf(this.loginButton));
@@ -159,6 +157,39 @@ public class HelpdeskPage extends BasePage{
             logger.error("disservizio non creato: "+e.getMessage());
             Assert.fail("disservizio non creato: "+e.getMessage());
         }
+    }
+
+    public void clickSezioneRicerca(){
+        try {
+            By ricercaButton = By.xpath("//h5[contains(text(),'Ricerca ed estrazione dati')]");
+            logger.info("clicco sulla card ricerca ed estrazione dati");
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(ricercaButton));
+            this.elements(ricercaButton).get(0).click();
+        }catch (TimeoutException e ){
+            logger.error("Card ricerca non cliccabile: "+e.getMessage());
+            Assert.fail("Card ricerca non cliccabile: "+e.getMessage());
+        }
+    }
+
+    public void checkRicercaPage(){
+        logger.info("check pagina ricerca ed estrazione dati");
+        try {
+            By selectTypeOfEstrazioneDati= By.id("Tipo Estrazione");
+            By numeroTicketInput= By.id("Numero Ticket");
+            By codiceFiscaleInput= By.id("Codice Fiscale");
+            By buttonCerca= By.xpath("//button[contains(text(),'Ricerca')]");
+            By buttonResetFiltri= By.xpath("//button[contains(text(),'Resetta filtri')]");
+            this.getWebDriverWait(30).withMessage("Tipo estrazione non trovato").until(ExpectedConditions.visibilityOfElementLocated(selectTypeOfEstrazioneDati));
+            this.getWebDriverWait(30).withMessage("numero ticket input non trovato").until(ExpectedConditions.visibilityOfElementLocated(numeroTicketInput));
+            this.getWebDriverWait(30).withMessage("codice fiscale input non trovato").until(ExpectedConditions.visibilityOfElementLocated(codiceFiscaleInput));
+            this.getWebDriverWait(30).withMessage("button ricerca non trovato").until(ExpectedConditions.visibilityOfElementLocated(buttonCerca));
+            this.getWebDriverWait(30).withMessage("button reset filtri non trovato").until(ExpectedConditions.visibilityOfElementLocated(buttonResetFiltri));
+        }catch (TimeoutException e){
+            logger.error("home ricerca non caricata correttamente: "+e.getMessage());
+            Assert.fail("home ricerca non caricata correttamente: "+e.getMessage());
+        }
+
+
     }
 
 }

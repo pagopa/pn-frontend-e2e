@@ -1,2 +1,7 @@
-user: admin@test.pagopa.it
-pwd: Admin-testcognito1
+url: "https://helpdesk.dev.notifichedigitali.it/login"
+userDev: test@test.com
+pwdDev: Test_Cognito_1.!
+userUat: admin@uat.pagopa.it
+pwdUat: Admin-uatcognito1
+userTest: admin@test.pagopa.it
+pwdTest: Admin-testcognito1
