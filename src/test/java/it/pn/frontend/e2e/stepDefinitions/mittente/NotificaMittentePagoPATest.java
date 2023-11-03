@@ -559,7 +559,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella section Destinatario cliccare su Aggiungi destinatario")
     public void nellaSectionDestinatarioCliccareSuAggiungiDestinatario() {
-        logger.info("Si sta cercando di selezionare il buttone aiggiungere Destinatario");
+        logger.info("Si sta cercando di selezionare il bottone aiggiungere Destinatario");
 
         destinatarioPASection.selezionareAggiungiDestinatarioButton();
     }

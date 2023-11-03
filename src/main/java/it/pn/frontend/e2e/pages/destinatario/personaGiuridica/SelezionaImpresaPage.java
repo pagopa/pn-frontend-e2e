@@ -26,7 +26,7 @@ public class SelezionaImpresaPage extends BasePage {
         try{
             By titlePageBy = By.xpath("//h3[contains(text(),'Seleziona la tua impresa')]");
             this.getWebDriverWait(30).withMessage("Il titolo della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            this.getWebDriverWait(30).withMessage("Il buttone accedi della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOf(this.accediButton));
+            this.getWebDriverWait(30).withMessage("Il bottone accedi della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOf(this.accediButton));
 
             logger.info("SelezionaImpresaPage caricata correttamente");
 
@@ -37,7 +37,7 @@ public class SelezionaImpresaPage extends BasePage {
     }
 
     public void clickAccediButton() {
-        this.getWebDriverWait(30).withMessage("Il buttone accedi della pagina Seleziona la tua impresa non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.accediButton));
+        this.getWebDriverWait(30).withMessage("Il bottone accedi della pagina Seleziona la tua impresa non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.accediButton));
         this.accediButton.click();
     }
 

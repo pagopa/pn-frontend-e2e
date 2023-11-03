@@ -83,7 +83,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void selectFiltraButton() {
-        this.getWebDriverWait(40).withMessage("Il buttone filtra sulla pagina notifiche non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.filtraButton));
+        this.getWebDriverWait(40).withMessage("Il bottone filtra sulla pagina notifiche non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.filtraButton));
         this.filtraButton.click();
     }
 
@@ -111,7 +111,7 @@ public class NotifichePFPage extends BasePage {
         this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
         try {
             By numeroButtonBy = By.id("page2");
-            this.getWebDriverWait(20).withMessage("buttone pagina 2 non è visibile").until(ExpectedConditions.visibilityOfElementLocated(numeroButtonBy));
+            this.getWebDriverWait(20).withMessage("bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOfElementLocated(numeroButtonBy));
             logger.info("Bottone pagina 2 trovato");
 
             WebElement numeroPagina = this.element(numeroButtonBy);
@@ -123,7 +123,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void clickNotificheButton() {
-        this.getWebDriverWait(30).withMessage("Notifiche menu betton non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.notificheDeButton));
+        this.getWebDriverWait(30).withMessage("Notifiche menu button non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.notificheDeButton));
         this.js().executeScript("arguments[0].click()",this.notificheDeButton);}
 
     public void clickTueNotificheButton(){

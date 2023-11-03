@@ -103,8 +103,8 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.confermaButtonPopUp));
             this.confermaButtonPopUp.click();
         }catch(TimeoutException e){
-            logger.error("Il buttone conferma all'interno del popup non è cliccabile con errore:"+e.getMessage());
-            Assert.fail("Il buttone conferma all'interno del popup non è cliccabile con errore:"+e.getMessage());
+            logger.error("Il bottone conferma all'interno del popup non è cliccabile con errore:"+e.getMessage());
+            Assert.fail("Il bottone conferma all'interno del popup non è cliccabile con errore:"+e.getMessage());
         }
     }
     public void waitMessaggioErrore() {
@@ -123,18 +123,18 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.annullaButton));
             this.annullaButton.click();
         }catch(TimeoutException e){
-            logger.error("Il buttone annula non è cliccabile con errore: "+e.getMessage());
-            Assert.fail("Il buttone annula non è cliccabile con errore: "+e.getMessage());
+            logger.error("Il bottone annula non è cliccabile con errore: "+e.getMessage());
+            Assert.fail("Il bottone annula non è cliccabile con errore: "+e.getMessage());
         }
 
     }
 
     public void clickAvvisami() {
-        getWebDriverWait(30).withMessage("Il buttone avvisami della mail non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.avvisamiMailButton));
+        getWebDriverWait(30).withMessage("Il bottone avvisami della mail non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.avvisamiMailButton));
         this.avvisamiMailButton.click();}
 
     public void clickAvvisamiSMS() {
-        getWebDriverWait(30).withMessage("Il buttone avvisami del sms non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.avvisamiSMSButton));
+        getWebDriverWait(30).withMessage("Il bottone avvisami del sms non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.avvisamiSMSButton));
         this.avvisamiSMSButton.click();}
 
     public void insertEmail(String email) {

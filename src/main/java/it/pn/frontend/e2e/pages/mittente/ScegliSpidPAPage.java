@@ -37,7 +37,7 @@ public class ScegliSpidPAPage extends BasePage {
     }
 
     public void selezionareTestButton(){
-        logger.info("Si clicca sul buttone Test dello spid");
+        logger.info("Si clicca sul bottone Test dello spid");
         this.testButton.click();
     }
 }

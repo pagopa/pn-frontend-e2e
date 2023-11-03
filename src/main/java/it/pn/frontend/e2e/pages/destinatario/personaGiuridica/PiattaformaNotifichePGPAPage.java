@@ -79,7 +79,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
         public void clickRecapitiButton () {
-            getWebDriverWait(30).withMessage("il buttone recapiti non è visibile").until(ExpectedConditions.visibilityOf(recapitiButton));
+            getWebDriverWait(30).withMessage("il bottone recapiti non è visibile").until(ExpectedConditions.visibilityOf(recapitiButton));
             this.js().executeScript("arguments[0].click()",this.recapitiButton);
         }
     }

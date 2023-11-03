@@ -25,7 +25,7 @@ public class AutorizzaInvioDatiPGPage extends BasePage {
             By titlePageBy = By.xpath("//h1[contains(text(),'Autorizzi')]");
 
             this.getWebDriverWait(30).withMessage("Il titolo della pagina autorizzi invio dati PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            this.getWebDriverWait(30).withMessage("Il Buttone invia nella pagina autorizzi invio dati PG non è visibile").until(ExpectedConditions.elementToBeClickable(this.inviaButton));
+            this.getWebDriverWait(30).withMessage("Il bottone invia nella pagina autorizzi invio dati PG non è visibile").until(ExpectedConditions.elementToBeClickable(this.inviaButton));
 
             logger.info("AutorizzaInviaDatiPGPage caricata correttamente");
 

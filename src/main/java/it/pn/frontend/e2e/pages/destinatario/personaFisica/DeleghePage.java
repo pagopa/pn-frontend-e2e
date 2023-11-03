@@ -76,7 +76,7 @@ public class DeleghePage extends BasePage {
         By menuButton = By.xpath("//div[@data-testid='delegates-wrapper']//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
         this.getWebDriverWait(40).withMessage("menu delega non cliccabile ").until(ExpectedConditions.elementToBeClickable(menuButton));
         this.js().executeScript("arguments[0].click()",this.element(menuButton));
-        this.getWebDriverWait(30).withMessage("buttone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(this.revocaButton));
+        this.getWebDriverWait(30).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(this.revocaButton));
         this.revocaButton.click();
 
 

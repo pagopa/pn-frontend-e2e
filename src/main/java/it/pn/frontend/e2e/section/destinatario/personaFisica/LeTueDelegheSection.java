@@ -158,7 +158,7 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickInviaRichiesta() {
-        getWebDriverWait(30).withMessage("il buttone invia richiesta non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.inviaLaRichiestaButton));
+        getWebDriverWait(30).withMessage("il bottone invia richiesta non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.inviaLaRichiestaButton));
         this.inviaLaRichiestaButton.click();
     }
 
@@ -183,7 +183,6 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickOpzioneAccetta() {
-        //getWebDriverWait(30).withMessage("il buttone accetta non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.accettaButton));
         this.accettaButton.click();
     }
 
@@ -252,7 +251,7 @@ public class LeTueDelegheSection extends BasePage {
         return this.deleghePageSubtitle.isDisplayed();}
 
     public boolean siVisualizzaIlBottoneAggiungiUnaDelega() {
-        this.getWebDriverWait(30).withMessage("Il buttone aggiungi Delega non è visibile ").until(ExpectedConditions.visibilityOf(this.aggiungiDelegaButton));
+        this.getWebDriverWait(30).withMessage("Il bottone aggiungi Delega non è visibile ").until(ExpectedConditions.visibilityOf(this.aggiungiDelegaButton));
         return this.aggiungiDelegaButton.isDisplayed();}
 
     public boolean siVisualizzaIlNomeDelegato() {

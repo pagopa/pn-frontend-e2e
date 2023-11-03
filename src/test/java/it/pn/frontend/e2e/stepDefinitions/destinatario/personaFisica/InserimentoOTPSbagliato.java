@@ -131,7 +131,7 @@ public class InserimentoOTPSbagliato {
     @And("Nella pagina I Tuoi Recapiti si controlla che il tasto conferma sia bloccato")
     public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoConfermaSiaBloccato() {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        Assert.assertTrue("il buttone Conferma non è disabilitato",iTuoiRecapitiPage.verificaButtoneConfermaDisabilitato());
+        Assert.assertTrue("il bottone Conferma non è disabilitato",iTuoiRecapitiPage.verificabottoneConfermaDisabilitato());
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce l'email errata {string}")
@@ -150,7 +150,7 @@ public class InserimentoOTPSbagliato {
     @And("Nella pagina I Tuoi Recapiti si controlla che il tasto avvisami via email sia bloccato")
     public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoAvvisamiViaEmailSiaBloccato() {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        Assert.assertTrue("il buttone avvisami via email non è disabilitato",iTuoiRecapitiPage.avvisamiViaEmailIsDisabled());
+        Assert.assertTrue("il bottone avvisami via email non è disabilitato",iTuoiRecapitiPage.avvisamiViaEmailIsDisabled());
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce l'email del PF {string} e clicca sul bottone avvisami via email")
@@ -207,6 +207,6 @@ public class InserimentoOTPSbagliato {
     @And("Nella pagina I Tuoi Recapiti si controlla che il tasto avvisami via sms sia bloccato")
     public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoAvvisamiViaSmsSiaBloccato() {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        Assert.assertTrue("il buttone avvisami via SMS non è disabilitato",iTuoiRecapitiPage.avvisamiViaSMSIsDisabled());
+        Assert.assertTrue("il bottone avvisami via SMS non è disabilitato",iTuoiRecapitiPage.avvisamiViaSMSIsDisabled());
     }
 }

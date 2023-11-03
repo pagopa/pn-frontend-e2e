@@ -32,7 +32,7 @@ public class PreAccediAreaRiservataPAPage extends BasePage {
     }
 
     public void selezionaProcediAlLoginButton(){
-        logger.info("Si clicca sul buttone procedi al login");
+        logger.info("Si clicca sul bottone procedi al login");
         this.js().executeScript("arguments[0].click()",this.procediAlLoginButton);
     }
 }

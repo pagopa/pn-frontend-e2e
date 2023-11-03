@@ -56,7 +56,7 @@ public class RicercaNotifichePGPage extends BasePage {
     }
 
     public void clickFiltraButton() {
-        getWebDriverWait(30).withMessage("Il buttone filtra nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.filtraButton));
+        getWebDriverWait(30).withMessage("Il bottone filtra nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.filtraButton));
         this.filtraButton.click();
     }
 }

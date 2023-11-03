@@ -51,7 +51,7 @@ public class LoginSpidPFPage extends BasePage {
     }
 
     public void selezionaEntraConSpidButton(){
-        getWebDriverWait(30).withMessage("Il buttone entra con spid non è cliccabile").until(ExpectedConditions.elementToBeClickable(entraConSpidButton));
+        getWebDriverWait(30).withMessage("Il bottone entra con spid non è cliccabile").until(ExpectedConditions.elementToBeClickable(entraConSpidButton));
         this.entraConSpidButton.click();
     }
 }

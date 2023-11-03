@@ -35,7 +35,7 @@ public class LoginPGPagoPAPage extends BasePage {
             this.getWebDriverWait(30).withMessage("il titolo della pagina Login PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             this.getWebDriverWait(30).withMessage("Il campo username della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.usernameField));
             this.getWebDriverWait(30).withMessage("Il campo password della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.passwordField));
-            this.getWebDriverWait(30).withMessage("Il buttone invia della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.inviaButton));
+            this.getWebDriverWait(30).withMessage("Il bottone invia della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.inviaButton));
 
             logger.info("LoginPGPage caricata correttamente");
 

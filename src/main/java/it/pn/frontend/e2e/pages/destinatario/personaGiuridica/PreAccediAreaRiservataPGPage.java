@@ -26,7 +26,7 @@ public class PreAccediAreaRiservataPGPage extends BasePage {
             By titlePage = By.id("login-page-title");
 
             this.getWebDriverWait(30).withMessage("Il titolo della pagina PreAccediAreaRiservataPGPage non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            this.getWebDriverWait(30).withMessage("Il buttone accedi della pagina PreAccediAreaRiservataPGPage non è visibile").until(ExpectedConditions.visibilityOf(accediButton));
+            this.getWebDriverWait(30).withMessage("Il bottone accedi della pagina PreAccediAreaRiservataPGPage non è visibile").until(ExpectedConditions.visibilityOf(accediButton));
 
             logger.info("PreAccediAreaRiservataPGPage caricata corretamente");
 
@@ -37,7 +37,7 @@ public class PreAccediAreaRiservataPGPage extends BasePage {
     }
 
     public void clickAccediButton() {
-        this.getWebDriverWait(30).withMessage("Il buttone accedi della pagina PreAccediAreaRiservataPGPage non è cliccabile").until(ExpectedConditions.elementToBeClickable(accediButton));
+        this.getWebDriverWait(30).withMessage("Il bottone accedi della pagina PreAccediAreaRiservataPGPage non è cliccabile").until(ExpectedConditions.elementToBeClickable(accediButton));
         this.accediButton.click();
     }
 }
