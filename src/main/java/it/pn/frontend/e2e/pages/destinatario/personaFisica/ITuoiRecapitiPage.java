@@ -134,8 +134,7 @@ public class ITuoiRecapitiPage extends BasePage {
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(errorMessage));
         return errorMessage.getText();
     }
-
-    public boolean verificaButtoneConfermaDisabilitato(){
+    public boolean verificaBottoneConfermaDisabilitato(){
         try{
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.confermaButton));
             return Boolean.parseBoolean(this.confermaButton.getAttribute("disabled"));

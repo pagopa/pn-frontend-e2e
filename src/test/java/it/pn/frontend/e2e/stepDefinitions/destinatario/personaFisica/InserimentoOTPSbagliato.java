@@ -131,7 +131,7 @@ public class InserimentoOTPSbagliato {
     @And("Nella pagina I Tuoi Recapiti si controlla che il tasto conferma sia bloccato")
     public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoConfermaSiaBloccato() {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        Assert.assertTrue("il bottone Conferma non è disabilitato",iTuoiRecapitiPage.verificabottoneConfermaDisabilitato());
+        Assert.assertTrue("il bottone Conferma non è disabilitato",iTuoiRecapitiPage.verificaBottoneConfermaDisabilitato());
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce l'email errata {string}")
