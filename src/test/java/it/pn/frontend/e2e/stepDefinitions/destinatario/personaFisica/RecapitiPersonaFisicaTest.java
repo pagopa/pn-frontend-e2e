@@ -162,7 +162,7 @@ public class RecapitiPersonaFisicaTest {
 
         DataPopulation dataPopulation = new DataPopulation();
         Map<String,Object> personaFisica = dataPopulation.readDataPopulation(dpFile +".yaml");
-        String email = personaFisica.get("email").toString();
+        String email = personaFisica.get("mail").toString();
 
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.insertEmail(email);
@@ -246,16 +246,77 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente() {
         logger.info("Si controlla che la pec sia stata inserita correttamente");
 
-        recapitiDestinatarioPage.aggionamentoPagina();
-        recapitiDestinatarioPage.verificaPecAssociata();
-    }
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
 
-    @And("Nella pagina I Tuoi Recapiti si clicca su conferma nel pop-up")
-    public void nellaPaginaITuoiRecapitiSiCliccaSuConfermaNelPopUp() {
         logger.info("Si clicca su conferma nel pop-up");
 
         if(recapitiDestinatarioPage.siVisualizzaPopUpConferma()){
             recapitiDestinatarioPage.clickConfermaButton();
+            recapitiDestinatarioPage.visualizzaValidazione();
+        }else {
+            recapitiDestinatarioPage.verificaPecAssociata();
+        }
+
+    }
+
+
+    @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method {string}")
+    public void nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaEmailTramiteRequestMethod(String dpFile) {
+        Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile+".yaml");
+        RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
+
+        String startUrl = "http://localhost:8887/";
+        String url = startUrl+recuperoOTPRecapiti.getUrlEndPoint()+personaFisica.get("mail");
+        boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+        if (results){
+            String OTP = recuperoOTPRecapiti.getResponseBody();
+            personaFisica.put("OTPmail",OTP);
+            dataPopulation.writeDataPopulation(dpFile+".yaml",personaFisica);
+        }else {
+            logger.error("La chiamata ha risposto con questo codice: "+recuperoOTPRecapiti.getResponseCode());
+            Assert.fail("La chiamata ha risposto con questo codice: "+recuperoOTPRecapiti.getResponseCode());
         }
     }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email {string}")
+    public void nellaPaginaITuoiRecapitiSiInserisceLOTPRicevutoViaEmail(String dpFile) {
+        logger.info("Si inserisce il codice OTP di verifica");
+
+        String otp = dataPopulation.readDataPopulation(dpFile+".yaml").get("OTPmail").toString();
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.sendOTP(otp);
+        recapitiDestinatarioPage.confermaButtonClickPopUp();
+    }
+
+    @Then("Nella pagina I Tuoi Recapiti si controlla che la Email sia presente")
+    public void nellaPaginaITuoiRecapitiSiControllaCheLaEmailSiaPresente() {
+        logger.info("Si controlla che la Email sia stata inserita correttamente");
+
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
+
+            recapitiDestinatarioPage.verificaMailAssociata();
+        }
+
+    @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email")
+    public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaEmail() {
+        logger.info("Si controlla che che ci sia già una Email");
+
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
+
+        recapitiDestinatarioPage.verificaMailAssociata();
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si clicca sul bottone modifica")
+    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneModifica() {
+        logger.info("Si clicca sul bottone modifica");
+
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
+
+        recapitiDestinatarioPage.clickSuModifica();
+    }
 }
+

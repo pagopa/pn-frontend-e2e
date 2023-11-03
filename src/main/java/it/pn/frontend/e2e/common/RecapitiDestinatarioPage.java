@@ -1,10 +1,7 @@
 package it.pn.frontend.e2e.common;
 
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -58,10 +55,10 @@ public class RecapitiDestinatarioPage extends BasePage {
 
         try{
             By inserimentoPecFieldBy = By.id("pec");
-            this.getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoPecFieldBy));
+            this.getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(inserimentoPecFieldBy));
             this.element(inserimentoPecFieldBy).sendKeys(emailPEC);
 
-        }catch (TimeoutException e){
+        }catch (TimeoutException | StaleElementReferenceException e){
             eliminaPecEsistente();
             By inserimentoPecFieldBy = By.id("pec");
             this.getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoPecFieldBy));
@@ -183,5 +180,28 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void clickConfermaButton() {
         this.getWebDriverWait(30).withMessage("Il bottone conferma del pop up non cliccabile").until(ExpectedConditions.elementToBeClickable(confermaButtonPoPUpPec));
         this.confermaButtonPoPUpPec.click();
+    }
+
+    public void visualizzaValidazione() {
+        try{
+            By pecAssociata = By.xpath("//p[contains(text(), 'Validazione PEC in corso')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(pecAssociata));
+        }catch (TimeoutException e){
+            logger.error("Pec non associata con errore:"+e.getMessage());
+            Assert.fail("Pec non associata con errore:"+e.getMessage());
+        }
+    }
+
+    public void verificaMailAssociata() {
+        try{
+            By pecAssociata = By.xpath("//p[contains(text(),'Indirizzo e-mail')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(pecAssociata));
+        }catch (TimeoutException e){
+            logger.error("Pec non associata con errore:"+e.getMessage());
+            Assert.fail("Pec non associata con errore:"+e.getMessage());
+        }
+    }
+
+    public void clickSuModifica() {
     }
 }
