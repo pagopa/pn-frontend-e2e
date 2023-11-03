@@ -255,7 +255,13 @@ public class PiattaformaNotifichePage extends BasePage {
             By notificaBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr')]");
             attesaCaricamentoPagina();
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificaBy));
-            this.elements(notificaBy).get(0).click();
+            List<WebElement> notifiche = this.elements(notificaBy);
+            if (notifiche.get(0).isDisplayed()){
+                this.js().executeScript("arguments[0].click()",notifiche.get(0));
+            }else {
+                this.js().executeScript("arguments[0].scrollIntoView(true);",notifiche.get(0));
+                this.js().executeScript("arguments[0].click()",notifiche.get(0));
+            }
         } catch (TimeoutException e) {
             logger.error("Notifica non trovata con errore: " + e.getMessage());
             Assert.fail("Notifica non trovata con errore: " + e.getMessage());

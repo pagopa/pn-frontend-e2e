@@ -48,7 +48,12 @@ public class DettaglioNotificaSection extends BasePage{
 
 
     public void clickLinkAttestazionipponibile(int numeroLinkAttestazioniOpponibile) {
-        attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
+       if(attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()){
+           attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
+       }else{
+           this.js().executeScript("arguments[0].scrollIntoView(true);",attestazioniFile.get(numeroLinkAttestazioniOpponibile));
+           attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
+       }
     }
 
     public int getLinkAttestazioniOpponubili() {
@@ -66,4 +71,7 @@ public class DettaglioNotificaSection extends BasePage{
         }
     }
 
+    public String getTextLinkAttestazioniOpponibili(int i) {
+        return attestazioniFile.get(i).getText();
+    }
 }
