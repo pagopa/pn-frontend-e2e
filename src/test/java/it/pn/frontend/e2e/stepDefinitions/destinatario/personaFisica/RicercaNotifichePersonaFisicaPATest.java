@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.api.personaFisica.RecuperoOTPRecapiti;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
@@ -23,6 +24,8 @@ public class RicercaNotifichePersonaFisicaPATest {
 
         private final WebDriver  driver = Hooks.driver;
     private Map<String, Object> datiNotifica = new HashMap<>();
+
+    private final DataPopulation dataPopulation = new DataPopulation();
 
     @When("Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica")
         public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheDestinatario() {
@@ -121,4 +124,6 @@ public class RicercaNotifichePersonaFisicaPATest {
             logger.info("Bottone pagina 2 non trovato non effettuato il passaggio di pagina");
         }
     }
+
+
 }

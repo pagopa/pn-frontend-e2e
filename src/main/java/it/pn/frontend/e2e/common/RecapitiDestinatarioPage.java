@@ -202,6 +202,64 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-    public void clickSuModifica() {
+    public boolean siVisulizzaPecInserita() {
+        try {
+            By pecInseritaBy = By.xpath("//p[contains(text(),'PEC associata')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(pecInseritaBy));
+            return true;
+        }catch (TimeoutException e){
+            return false;
+        }
     }
+
+    public void clickSuModifica() {
+
+    }
+
+    public void clickSuModificaPEC() {
+
+        By modificaButtonBy = By.xpath("//p[contains(text(),'PEC associata')]/following-sibling::div/div/button[contains(text(),'Modifica')]");
+        this.getWebDriverWait(30).withMessage("Non si ricesce ad cliccare sul bottone modifica PEC").until(ExpectedConditions.elementToBeClickable(modificaButtonBy));
+        this.element(modificaButtonBy).click();
+    }
+
+    public void cancellaTesto() {
+        try {
+            By pecInputBy = By.id("pec");
+            WebElement pecInput = this.element(pecInputBy);
+            this.js().executeScript("arguments[0].click()",pecInput);
+            String emailPec = pecInput.getAttribute("value");
+            for(int i = 0; i < emailPec.length(); i++){
+                pecInput.sendKeys(Keys.BACK_SPACE);
+            }
+        }catch (TimeoutException e){
+            logger.error("Non si riesce ad cancellare il testo della  email PEC :"+e.getMessage());
+            Assert.fail("Non si riesce ad cancellare il testo della  email PEC :"+e.getMessage());
+        }
+    }
+
+    public void clickSuSalva() {
+        By salvaButtonBy = By.xpath("//button[contains(text(),'Salva')]");
+        this.getWebDriverWait(30).withMessage("Non si riesce a cliccare sul bottone salva").until(ExpectedConditions.elementToBeClickable(salvaButtonBy));
+        this.element(salvaButtonBy).click();
+    }
+
+    public boolean siControllaPECModificata(String pecInserita) {
+        By pecBy = By.xpath("//div[@data-testid = 'legalContacts']//div//p");
+        this.getWebDriverWait(30).withMessage("Non trovata nessuna email PEC inserita").until(ExpectedConditions.visibilityOfElementLocated(pecBy));
+        WebElement pec = this.element(pecBy);
+        return pec.getText().equals(pecInserita);
+    }
+
+    public boolean otpErrorMessage() {
+        try {
+            By errorOTPBy = By.xpath("//div[@data-testid = 'CodeModal error title']");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(errorOTPBy));
+            return true;
+        }catch (TimeoutException e){
+            return false;
+        }
+    }
+
+
 }

@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 
 public class RecapitiPersonaFisicaTest {
     private static final Logger logger = LoggerFactory.getLogger("InserimentoOTPSbagliato");
@@ -240,6 +241,9 @@ public class RecapitiPersonaFisicaTest {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.sendOTP(otp);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
+        if(recapitiDestinatarioPage.otpErrorMessage()){
+            logger.error("L'OTP inserito è sbagliato");
+        }
     }
 
     @Then("Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente")
@@ -317,6 +321,74 @@ public class RecapitiPersonaFisicaTest {
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
 
         recapitiDestinatarioPage.clickSuModifica();
+    }
+    @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già una pec")
+    public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaPec() {
+        logger.info("Si controlla la presenza di una pec");
+        BackgroundTest backgroundTest = new BackgroundTest();
+        if (recapitiDestinatarioPage.siVisulizzaPecInserita()){
+            logger.info("Vi è una PEC inserita");
+        }else {
+            backgroundTest.aggiungiPECPF();
+        }
+    }
+    @And("Nella pagina I Tuoi Recapiti si inserisce una nuova PEC della persona fisica {string}")
+    public void nellaPaginaITuoiRecapitiSiInserisceUnaNuovaPECDellaPersonaFisica(String PEC) {
+        logger.info("Si inserisce una nuova PEC");
+        recapitiDestinatarioPage.cancellaTesto();
+        recapitiDestinatarioPage.insertEmailPEC(PEC);
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si clicca sul bottone salva")
+    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneSalva() {
+        logger.info("Si clicca sul bottone salva");
+        recapitiDestinatarioPage.clickSuSalva();
+    }
+
+    @Then("Nella pagina I Tuoi Recapiti si verifica che la pec sia stata modificata {string}")
+    public void nellaPaginaITuoiRecapitiSiVerificaCheLaPecSiaStataModificata(String pec) {
+        logger.info("Si controlla che la PEC sia stata modificata");
+        if(recapitiDestinatarioPage.siVisualizzaPopUpConferma()){
+            recapitiDestinatarioPage.clickConfermaButton();
+            recapitiDestinatarioPage.visualizzaValidazione();
+        }
+
+        recapitiDestinatarioPage.aggionamentoPagina();
+
+        if(recapitiDestinatarioPage.siControllaPECModificata(pec)){
+            logger.info("La PEC è stata modificata");
+        }else {
+            logger.error("La pec non è stata modificata");
+            Assert.fail("La pec non è stata modificata");
+        }
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si clicca sul bottone modifica PEC")
+    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneModificaPEC() {
+        logger.info("Si clicca sul bottone modifica PEC");
+
+        recapitiDestinatarioPage.clickSuModificaPEC();
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request {string}")
+    public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaPECTramiteChiamataRequest(String pec) {
+        logger.info("Si recupera il codice OTP della nuova pec");
+
+        Map<String, Object> personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
+        RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
+
+        String startUrl = "http://localhost:8887/";
+        String url = startUrl+recuperoOTPRecapiti.getUrlEndPoint()+pec;
+        boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+        if (results){
+            String OTP = recuperoOTPRecapiti.getResponseBody();
+            personaFisica.put("OTPpec",OTP);
+            dataPopulation.writeDataPopulation("personaFisica.yaml",personaFisica);
+        }else {
+            logger.error("La chiamata ha risposto con questo codice: "+recuperoOTPRecapiti.getResponseCode());
+            Assert.fail("La chiamata ha risposto con questo codice: "+recuperoOTPRecapiti.getResponseCode());
+        }
+
     }
 }
 

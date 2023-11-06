@@ -6,7 +6,7 @@ Feature: Mittente effetua una ricerca notifiche per CF sbagliato
     When Login mittente tramite request method
     Then Home page mittente viene visualizzata correttamente
 
-  @TestSuite
+
   @inserimentoCodiceFiscaleSbagliato
 
 
