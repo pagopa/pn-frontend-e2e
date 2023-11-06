@@ -184,20 +184,20 @@ public class DeleghePagoPATest {
         this.deleghe = dataPopulation.readDataPopulation(dpFile+".yaml");
         BackgroundTest backgroundTest = new BackgroundTest();
         this.deleghePage.vaiInFondoAllaPagina();
-        boolean esistenzaDelaga = this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString());
+        boolean esistenzaDelega = this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString());
         String stato = "";
-        if (esistenzaDelaga && !this.leTueDelegheSection.controlloPresenzaBottoneAccetta()){
+        if (esistenzaDelega && !this.leTueDelegheSection.controlloPresenzaBottoneAccetta()){
            stato = this.deleghePage.vericaStatoDelega();
         }
         String PF = "personaFisica";
-        if(!esistenzaDelaga){
+        if(!esistenzaDelega){
              backgroundTest.loginPF(PF);
              backgroundTest.aggiuntaNuovaDelegaPF();
              backgroundTest.logoutPF();
              backgroundTest.loginPF("delegatoPF");
          }
 
-        if (esistenzaDelaga && stato.equalsIgnoreCase("Attiva")){
+        if (esistenzaDelega && stato.equalsIgnoreCase("Attiva")){
             nellaPaginaDelegheSiCliccaSulMenuDellaDelega(PF);
             nellaPaginaDelegheSiSceglieOpzioneRifiuta();
             siCliccaSulBottoneRifiutaAllInternoDelPopUp();
