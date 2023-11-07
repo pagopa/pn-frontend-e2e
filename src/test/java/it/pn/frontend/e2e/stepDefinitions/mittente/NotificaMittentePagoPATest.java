@@ -1017,4 +1017,42 @@ public class NotificaMittentePagoPATest {
             Assert.fail("La notifica non è stata trovata dopo 1m40s");
         }
     }
+
+    @And("Nella pagina Piattaforma Notifiche inserire il codice fiscale sbagliato {string}")
+    public void inserimentoCodiceFiscaleSbagliato(String codiceFiscaleSbagliato){
+        logger.info("inserimento codice fiscale sbagliato nella ricerca di una notifica");
+        piattaformaNotifichePage.insertCodiceFiscale(codiceFiscaleSbagliato);
+        piattaformaNotifichePage.selectFiltraButton();
+
+    }
+
+    @Then("Nella pagina Piattaforma Notifiche si controlla che si visualizza il messaggio di errore codice fiscale")
+    public void nellaPiattaformaNotificheSiControllaEsistenzaMessaggioErroreCF(){
+        logger.info("si controlla che si visualizza il messaggio di errore ‘Inserisci il codice per intero’ ");
+        Assert.assertTrue("Nessun errore visualizzato insirendo CF sbagliato", piattaformaNotifichePage.controlloEsistenzaMessagioErroreCF());
+
+    }
+
+    @And("Nella pagina Piattaforma Notifiche si controlla che il bottone Filtra sia attivo")
+    public void nellaPaginaPiattaformaNotificheSiControllacheFiltraSiaDisattivo() {
+        logger.info("Si controlla che il bottone Filtra sia attivo");
+        Assert.assertFalse("il bottone Filtra è disabilitato", piattaformaNotifichePage.verificaBottoneFiltraDisabilitato());
+    }
+
+    @And("Nella pagina Piattaforma Notifiche inserire il codice IUN sbagliato {string}")
+    public void nellaPaginaPiattaformaNotificheInserireIUNsbagliato(String codiceIUNSbagliato){
+        logger.info("Inserimento codice IUN sbagliato");
+        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUNSbagliato);
+        piattaformaNotifichePage.selectFiltraButton();
+    }
+
+    @Then("Nella pagina Piattaforma Notifiche si visualizza il messaggio di errore codice IUN")
+    public void nellaPaginaPiattaformaNotificheSiVisualizzaIlMessaggioDiErroreIUN(){
+        logger.info("si controlla esistenza messaggio di errore codice IUN");
+        Assert.assertTrue("Nessun errore visualizzato insirendo IUN sbagliato",piattaformaNotifichePage.controlloEsistenzaMessagioErroreIUN());
+        logger.info("Messaggio di errore 'Inserisci un codice IUN valido' trovato");
+    }
+
+
+
 }
