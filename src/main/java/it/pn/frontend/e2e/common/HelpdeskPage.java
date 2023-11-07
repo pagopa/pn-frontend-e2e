@@ -201,7 +201,7 @@ public class HelpdeskPage extends BasePage{
             buttonLogout.click();
             logger.info("apertura dialog di conferma logout");
             By buttonConfermaLogout = By.xpath("//button[contains(text(),'Esci')]");
-            logger.info("controllo esistenza pulsante conferam logout");
+            logger.info("controllo esistenza pulsante conferma logout");
             this.getWebDriverWait(30).withMessage("bottone conferma logout non trovato").until(ExpectedConditions.visibilityOfElementLocated(buttonConfermaLogout));
             logger.info("click conferma logout");
             this.elements(buttonConfermaLogout).get(0).click();
