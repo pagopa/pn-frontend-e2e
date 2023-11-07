@@ -192,4 +192,6 @@ public class HelpdeskPage extends BasePage{
 
     }
 
+    public void insertCfOnRicercaPage(String codiceFiscale) {
+    }
 }

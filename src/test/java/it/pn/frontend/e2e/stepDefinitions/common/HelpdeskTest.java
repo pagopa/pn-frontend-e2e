@@ -25,6 +25,9 @@ public class HelpdeskTest {
     private HelpdeskPage helpdeskPage = new HelpdeskPage(this.driver);
     private Map<String, Object> datiTestHelpdesk = new HashMap<>();
 
+    private Map<String, Object> datiPersonaFisica = new HashMap<>();
+
+
 
     @Given("Login helpdesk con utente test {string}")
     public void loginHelpdeskConUtenteTest(String nameFile) {
@@ -113,5 +116,11 @@ public class HelpdeskTest {
     @And("visualizzazione corrett pagina ricerca ed estrazione dati")
     public void visualizzazioneCorrettPaginaRicercaEdEstrazioneDati() {
         helpdeskPage.checkRicercaPage();
+    }
+
+    @And("viene inserito codice fiscale {string}")
+    public void vieneInseritoCodiceFiscalePersonaFisica(String nameFile) {
+        this.datiPersonaFisica = this.dataPopulation.readDataPopulation(nameFile+".yaml");
+        helpdeskPage.insertCfOnRicercaPage(this.datiPersonaFisica.get("codiceFiscale").toString());
     }
 }
