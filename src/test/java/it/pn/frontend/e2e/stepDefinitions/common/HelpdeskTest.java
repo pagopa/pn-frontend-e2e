@@ -140,4 +140,9 @@ public class HelpdeskTest {
     public void controlloGenerazioneCodiceUnivoco() {
         helpdeskPage.checkUid();
     }
+
+    @And("selezione ricerca codice fiscale")
+    public void selezioneRicercaCodiceFiscale() {
+        helpdeskPage.changeOption();
+    }
 }
