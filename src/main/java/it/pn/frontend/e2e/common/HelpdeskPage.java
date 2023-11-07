@@ -32,6 +32,18 @@ public class HelpdeskPage extends BasePage{
     @FindBy(id = "logout")
     WebElement buttonLogout;
 
+    @FindBy(id = "Numero Ticket")
+    WebElement numeroTicketInput;
+
+    @FindBy(id = "Codice Fiscale")
+    WebElement codiceFiscaleInput;
+
+    @FindBy(id = "ricerca")
+    WebElement buttonRicerca;
+
+    @FindBy(xpath = "//p[contains(text(),'Codice Univoco')]")
+    WebElement Uid;
+
     private final Logger logger = LoggerFactory.getLogger("Helpdesk Page");
 
     public HelpdeskPage(WebDriver driver) {
@@ -178,14 +190,11 @@ public class HelpdeskPage extends BasePage{
         logger.info("check pagina ricerca ed estrazione dati");
         try {
             By selectTypeOfEstrazioneDati= By.id("Tipo Estrazione");
-            By numeroTicketInput= By.id("Numero Ticket");
-            By codiceFiscaleInput= By.id("Codice Fiscale");
-            By buttonCerca= By.xpath("//button[contains(text(),'Ricerca')]");
             By buttonResetFiltri= By.xpath("//button[contains(text(),'Resetta filtri')]");
             this.getWebDriverWait(30).withMessage("Tipo estrazione non trovato").until(ExpectedConditions.visibilityOfElementLocated(selectTypeOfEstrazioneDati));
-            this.getWebDriverWait(30).withMessage("numero ticket input non trovato").until(ExpectedConditions.visibilityOfElementLocated(numeroTicketInput));
-            this.getWebDriverWait(30).withMessage("codice fiscale input non trovato").until(ExpectedConditions.visibilityOfElementLocated(codiceFiscaleInput));
-            this.getWebDriverWait(30).withMessage("button ricerca non trovato").until(ExpectedConditions.visibilityOfElementLocated(buttonCerca));
+            this.getWebDriverWait(30).withMessage("numero ticket input non trovato").until(ExpectedConditions.visibilityOf(numeroTicketInput));
+            this.getWebDriverWait(30).withMessage("codice fiscale input non trovato").until(ExpectedConditions.visibilityOf(codiceFiscaleInput));
+            this.getWebDriverWait(30).withMessage("button ricerca non trovato").until(ExpectedConditions.visibilityOf(buttonRicerca));
             this.getWebDriverWait(30).withMessage("button reset filtri non trovato").until(ExpectedConditions.visibilityOfElementLocated(buttonResetFiltri));
         }catch (TimeoutException e){
             logger.error("home ricerca non caricata correttamente: "+e.getMessage());
@@ -212,5 +221,30 @@ public class HelpdeskPage extends BasePage{
     }
 
     public void insertCfOnRicercaPage(String codiceFiscale) {
+        logger.info("inserisco numero ticket");
+            numeroTicketInput.sendKeys("testTAFE01");
+        logger.info("inserisco codice fiscale");
+
+        codiceFiscaleInput.sendKeys(codiceFiscale);
+        logger.info("clicco sul bottone di ricerca");
+
+        buttonRicerca.click();
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            logger.error("pausa con errore: "+e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void checkUid(){
+        try{
+            logger.info("controllo esistenza codice univoco");
+            this.getWebDriverWait(30).withMessage("Codice univoco non trovato").until(ExpectedConditions.visibilityOf(Uid));
+
+        }catch (TimeoutException e){
+            logger.error("codice univoco non trovato: "+e.getMessage());
+            Assert.fail("codice univoco non trovato: "+e.getMessage());
+        }
     }
 }

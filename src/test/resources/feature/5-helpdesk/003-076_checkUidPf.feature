@@ -10,6 +10,7 @@ Feature: utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
 
   Scenario: visualizzazione corretta pagina sezione ricerca ed estrazione dati in helpdesk
     When Nella Home di helpdesk utente clicca su sezione ricerca ed estrazione dati
-    And visualizzazione corrett pagina ricerca ed estrazione dati
+    And visualizzazione corretta pagina ricerca ed estrazione dati
     And viene inserito codice fiscale "personaFisica"
+    Then controllo generazione codice univoco
 
