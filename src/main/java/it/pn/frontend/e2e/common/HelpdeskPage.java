@@ -220,13 +220,20 @@ public class HelpdeskPage extends BasePage{
         }
     }
 
-    public void insertCfOnRicercaPage(String codiceFiscale) {
+    public void insertCfAndRicercaOnPage(String codiceFiscale) {
         logger.info("inserisco numero ticket");
         numeroTicketInput.sendKeys("testTAFE01");
         logger.info("inserisco codice fiscale");
         codiceFiscaleInput.sendKeys(codiceFiscale);
         logger.info("clicco sul bottone di ricerca");
-        buttonRicerca.click();
+        try{
+            this.getWebDriverWait(30).withMessage("bottone per la ricerca non trovato").until(ExpectedConditions.elementToBeClickable(buttonRicerca));
+            buttonRicerca.click();
+        }catch (TimeoutException e){
+            logger.error("bottone non cliccabile:" +e.getMessage());
+            Assert.fail("bottone non cliccabile:" +e.getMessage());
+
+        }
         try {
             TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {

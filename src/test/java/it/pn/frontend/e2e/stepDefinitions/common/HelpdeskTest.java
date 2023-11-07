@@ -122,11 +122,11 @@ public class HelpdeskTest {
     @And("viene inserito codice fiscale {string}")
     public void vieneInseritoCodiceFiscale(String nameFile) {
         this.datiPersonaFisica = this.dataPopulation.readDataPopulation(nameFile+".yaml");
-        helpdeskPage.insertCfOnRicercaPage(datiPersonaFisica.get("codiceFiscale").toString());
+        helpdeskPage.insertCfAndRicercaOnPage(datiPersonaFisica.get("codiceFiscale").toString());
     }
 
 
-    @When("Nella Home di helpdesk utente clicca su logout")
+    @And("Nella Home di helpdesk utente clicca su logout")
     public void nellaHomeDiHelpdeskUtenteCliccaSuLogout() {
         helpdeskPage.logout();
     }
