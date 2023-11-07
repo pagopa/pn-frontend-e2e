@@ -21,12 +21,14 @@ public class NotificheDestinatarioPage extends BasePage{
     }
 
     public void inserisciCodiceIUN(String codiceIUN) {
+        getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(this.codiceIunTextField));
         this.codiceIunTextField.sendKeys(codiceIUN);
     }
     public boolean verificaCodiceIUN(String codiceIUNInserito) {
         try {
             By codiceIUNBy = By.xpath("//button[contains(text(),'"+codiceIUNInserito+"')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiceIUNBy));
+            logger.info("il codice IUN "+codiceIUNInserito+" è stato trovato");
             return true;
         }catch (TimeoutException e){
             logger.error("Il codice IUN"+codiceIUNInserito+" non è stato trovato con errore:"+e.getMessage());

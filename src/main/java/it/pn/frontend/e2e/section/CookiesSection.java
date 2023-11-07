@@ -1,15 +1,15 @@
 package it.pn.frontend.e2e.section;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.junit.Assert;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class CookiesSection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("CookiesPage");
@@ -23,20 +23,27 @@ public class CookiesSection extends BasePage {
 
     public boolean waitLoadCookiesPage(){
         try{
-            By scopriDipiuLink = By.id("onetrust-pc-btn-handler");
+            By scopriDipiuLink = By.id("onetrust-banner-sdk");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(scopriDipiuLink));
             logger.info("Cookies Page caricata");
             return true;
         }catch (TimeoutException e){
-            logger.warn("Cookies Page non caricata con errore : "+e.getMessage());
+            logger.warn("Il banner del cookie non è caricato con errore : "+e.getMessage());
             return false;
         }
 
     }
 
     public void selezionaAccettaTuttiButton(){
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.accettaTuttiButton));
-        Actions actions = new Actions(driver);
-        actions.moveToElement(this.accettaTuttiButton).click().perform();
+        try {
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.accettaTuttiButton));
+            logger.info("Si seleziona accetta tutti i cookies");
+            Actions actions = new Actions(driver);
+            actions.moveToElement(this.accettaTuttiButton).click().perform();
+        }catch(TimeoutException e){
+            logger.error("Non è cliccabile il bottone accetta tutti i cookies" + e.getMessage());
+            Assert.fail("Non è cliccabile il bottone accetta tutti i cookies" + e.getMessage());
+
+        }
     }
 }

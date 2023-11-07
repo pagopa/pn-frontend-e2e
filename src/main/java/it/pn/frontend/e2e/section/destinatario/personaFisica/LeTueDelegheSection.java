@@ -28,13 +28,13 @@ public class LeTueDelegheSection extends BasePage {
     @FindBy(id = "cognome")
     WebElement inputCognome;
 
-    @FindBy(xpath = "//button[@data-testid='createButton']")
+    @FindBy(id = "create-button")
     WebElement inviaLaRichiestaButton;
 
     @FindBy(id = "expirationDate")
     WebElement dataTermineDelegaInput;
 
-    @FindBy(xpath = "//div[@data-testid= 'codeDigit']")
+    @FindBy(xpath = "//div[contains(@id, 'digit-')]")
     List<WebElement> codiceVerificaList;
 
     @FindBy(id = "codiceFiscale")
@@ -49,20 +49,20 @@ public class LeTueDelegheSection extends BasePage {
     @FindBy(id = "courtesy-page-button")
     WebElement tornaDelegheButton;
 
-    @FindBy(xpath = "//button[@data-testid='acceptButton']")
+    @FindBy(id = "accept-button")
     WebElement accettaButton;
 
-    @FindBy(xpath = "//button[@data-testid='codeConfirmButton']")
+    @FindBy(id = "code-confirm-button")
     WebElement accettaPopUpButton;
 
 
     @FindBy(id = "Deleghe-page")
     WebElement deleghePageTitle;
 
-    @FindBy(xpath = "//p[contains(text(),'Qui puoi gestire')]")
+    @FindBy(id = "subtitle-page")
     WebElement deleghePageSubtitle;
 
-    @FindBy(xpath = "//button[@data-testid='add-delegation']")
+    @FindBy(id = "add-delegation-button")
     WebElement aggiungiDelegaButton;
 
     @FindBy(xpath = "//span[contains(text(),'Nome')]")
@@ -77,16 +77,17 @@ public class LeTueDelegheSection extends BasePage {
     @FindBy(xpath = "//th[contains(text(),'Permessi')]")
     WebElement permessiDelegaField;
 
+
     public LeTueDelegheSection(WebDriver driver) {
         super(driver);
     }
     public void waitNuovaDelegaSection() {
         try {
             By letuedeleghePageTitle = By.id("Aggiungi una delega-page");
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(letuedeleghePageTitle));
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.inputNome));
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.codiceFiscaleInput));
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.inputCognome));
+            this.getWebDriverWait(40).withMessage("Il titolo della pagina non è  visibile").until(ExpectedConditions.visibilityOfElementLocated(letuedeleghePageTitle));
+            this.getWebDriverWait(40).withMessage("L'input nome non è visibile").until(ExpectedConditions.visibilityOf(this.inputNome));
+            this.getWebDriverWait(40).withMessage("L'input codice fiscale non è visibile").until(ExpectedConditions.visibilityOf(this.codiceFiscaleInput));
+            this.getWebDriverWait(40).withMessage("L'input cognome non è visibile").until(ExpectedConditions.visibilityOf(this.inputCognome));
             logger.info("Le tue deleghe page caricata");
         } catch (TimeoutException e) {
             logger.error("Le tue deleghe page non caricata con errore :" + e.getMessage());
@@ -106,9 +107,9 @@ public class LeTueDelegheSection extends BasePage {
 
 
     public void clickSulBottoneInviaRichiesta() {
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.inviaLaRichiestaButton));
+        this.getWebDriverWait(30).withMessage("Invia richiesta button non è cliccabile o non trovato").until(ExpectedConditions.elementToBeClickable(this.inviaLaRichiestaButton));
         this.inviaLaRichiestaButton.click();
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.tornaDelegheButton));
+        this.getWebDriverWait(30).withMessage("Torna deleghe button non è cliccabile o non è trovato").until(ExpectedConditions.elementToBeClickable(this.tornaDelegheButton));
         this.tornaDelegheButton.click();
     }
 
@@ -140,29 +141,30 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void selezionaUnEnte(String ente) {
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.enteElementInput));
+        this.getWebDriverWait(30).withMessage("input ente non è visibile").until(ExpectedConditions.visibilityOf(this.enteElementInput));
         this.enteElementInput.sendKeys(ente);
 
         // select menu;
         By menuEntiOptionBy = By.xpath("//div[@role='presentation']");
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuEntiOptionBy));
+        this.getWebDriverWait(30).withMessage("il menu della selezione ente non è visibile").until(ExpectedConditions.visibilityOfElementLocated(menuEntiOptionBy));
         WebElement menuEntiOption = this.driver.findElement(menuEntiOptionBy);
         this.js().executeScript("arguments[0].click()",menuEntiOption);
 
         //click on option 0
         By comuneOptionBy = By.id("enti-option-0");
-        this.getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(comuneOptionBy));
+        this.getWebDriverWait(60).withMessage("L'ente "+ente+" non è cliccabile o non è presente").until(ExpectedConditions.elementToBeClickable(comuneOptionBy));
         WebElement comuneOption = this.driver.findElement(comuneOptionBy);
         this.js().executeScript("arguments[0].click()", comuneOption);
     }
 
     public void clickInviaRichiesta() {
+        getWebDriverWait(30).withMessage("il bottone invia richiesta non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.inviaLaRichiestaButton));
         this.inviaLaRichiestaButton.click();
     }
 
     public String MessaggioDiErrore() {
             By errorMessageBy = By.xpath("//div[contains(@class,'MuiAlert-message')]/div");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(errorMessageBy));
+            this.getWebDriverWait(30).withMessage("l'alert message non è visibile").until(ExpectedConditions.visibilityOfElementLocated(errorMessageBy));
             WebElement errorMessage = driver.findElement(errorMessageBy);
             logger.info("Messaggio di errore trovato");
 
@@ -181,7 +183,6 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickOpzioneAccetta() {
-        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.accettaButton));
         this.accettaButton.click();
     }
 
@@ -205,6 +206,14 @@ public class LeTueDelegheSection extends BasePage {
             WebElement codiceDelegaInput = driver.findElement(codiceDelegaInputBy);
             codiceDelegaInput.sendKeys(codiciDelega[i]);
         }
+
+    }
+
+    public String getTextCodiceSbagliato(){
+        By errorMessageBy = By.xpath("//div[@data-testid='CodeModal error title']");
+        WebElement testoCodiceSbagliato = this.element(errorMessageBy);
+        this.getWebDriverWait(30).withMessage("il messaggio di errore per il codice sbagliato non è visibile").until(ExpectedConditions.visibilityOf(this.element(errorMessageBy)));
+        return testoCodiceSbagliato.getText();
     }
 
     public void clickAccettaButton() {
@@ -222,32 +231,66 @@ public class LeTueDelegheSection extends BasePage {
         }
     }
 
-    public boolean siVisualizzaIlTitolo() {return this.deleghePageTitle.isDisplayed();}
+    public void controlloEsistenzaDelega(String nome, String cognome) {
+        try {
+            By statoAttivaBy = By.xpath("//tr[@data-testid='delegatorsTable.row']//td[@role='cell' and div/p[contains(text(),'"+nome + " "+ cognome +"')]]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoAttivaBy));
+            logger.info("La delega con nome "+nome+"  "+cognome+"è ancora presente");
+        }catch (TimeoutException e){
+            logger.error("La delega non è presente con errore: "+e.getMessage());
+            Assert.fail("La delega non è presente con errore: "+e.getMessage());
+        }
+    }
 
-    public boolean siVisualizzaIlSottotitolo() {return this.deleghePageSubtitle.isDisplayed();}
+    public boolean siVisualizzaIlTitolo() {
+        this.getWebDriverWait(30).withMessage("Il titolo della pagina Delege non è visibile ").until(ExpectedConditions.visibilityOf(this.deleghePageTitle));
+        return this.deleghePageTitle.isDisplayed();}
 
-    public boolean siVisualizzaIlBottoneAggiungiUnaDelega() {return this.aggiungiDelegaButton.isDisplayed();}
+    public boolean siVisualizzaIlSottotitolo() {
+        this.getWebDriverWait(30).withMessage("Il sotto titolo della pagina Delege non è visibile ").until(ExpectedConditions.visibilityOf(this.deleghePageSubtitle));
+        return this.deleghePageSubtitle.isDisplayed();}
 
-    public boolean siVisualizzaIlNomeDelegato() {return this.nomeDelegaField.isDisplayed();}
+    public boolean siVisualizzaIlBottoneAggiungiUnaDelega() {
+        this.getWebDriverWait(30).withMessage("Il bottone aggiungi Delega non è visibile ").until(ExpectedConditions.visibilityOf(this.aggiungiDelegaButton));
+        return this.aggiungiDelegaButton.isDisplayed();}
+
+    public boolean siVisualizzaIlNomeDelegato() {
+        this.getWebDriverWait(30).withMessage("Il nome Delega non è visibile ").until(ExpectedConditions.visibilityOf(this.nomeDelegaField));
+        return this.nomeDelegaField.isDisplayed();}
 
 
     public boolean siVisualizzaDataInizioDelega() {
+        this.getWebDriverWait(30).withMessage("Inizio data  Delega non è visibile ").until(ExpectedConditions.visibilityOf(this.inizioDelegaField));
         return this.inizioDelegaField.isDisplayed();
     }
 
     public boolean siVisualizzaDataFinoDelega() {
+        this.getWebDriverWait(30).withMessage("Fine data  Delega non è visibile ").until(ExpectedConditions.visibilityOf(this.fineDelegaField));
         return this.fineDelegaField.isDisplayed();
     }
 
     public boolean siVisualizzaPermessiDelega() {return  this.permessiDelegaField.isDisplayed();}
     public boolean controlloPresenzaBottoneAccetta() {
         try {
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.accettaButton));
+            this.getWebDriverWait(30).withMessage("accetta button non visibile").until(ExpectedConditions.visibilityOf(this.accettaButton));
             logger.info("Si visualizza il bottone accetta");
             return true;
         }catch (TimeoutException e){
             return false;
         }
+    }
+
+    public boolean verificaEsistenzaErroreCodiceSbagliato() {
+        try{
+            By esistenzaBy = By.xpath("//div[@data-testid='CodeModal error title']");
+            this.getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(esistenzaBy));
+            logger.info("Errore codice sbagliato trovato");
+            return true;
+        }catch (TimeoutException e){
+            logger.info("errore non trovato");
+            return false;
+        }
+
     }
 }
 

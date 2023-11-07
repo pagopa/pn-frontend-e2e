@@ -24,10 +24,9 @@ public class ScegliSpidPGPage extends BasePage {
 
         try {
             By titlePageBy = By.xpath("//div[contains(text(),'Scegli il tuo SPID')]");
-            By testButtonBy = By.id("xx_testenv2");
 
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(testButtonBy));
+            this.getWebDriverWait(30).withMessage("Il titolo della pagina Scegli il tuo SPID non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
+            this.getWebDriverWait(30).withMessage("Il bottone test della pagina Scegli il tuo SPID non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.testButton));
 
             logger.info("ScegliSpidPGPage caricata correttamente");
 

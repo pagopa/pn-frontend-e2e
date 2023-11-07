@@ -1,12 +1,12 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DisserviziAppPage;
+import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.section.CookiesSection;
@@ -18,12 +18,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class NotifichePGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("NotifichePGPagoPATest");
     private final WebDriver driver = Hooks.driver;
+
+    List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     private final PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
     @And("Nella Home page persona giuridica si clicca su Send Notifiche Digitali")
@@ -51,7 +54,32 @@ public class NotifichePGPagoPATest {
             cookiesSection.selezionaAccettaTuttiButton();
         }
         piattaformaNotifichePGPAPage.waitLoadPitattaformaNotificaPage(personaGiuridica.get("ragioneSociale").toString());
+
+        String variabileAmbiente = System.getProperty("environment");
+        String urlChiamata = "https://webapi."+variabileAmbiente+".notifichedigitali.it/delivery/notifications/received?";
+
+        int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
+        if (codiceRispostaChiamataApi!=200 && codiceRispostaChiamataApi!=0){
+            logger.error("TA_QA: La chiamata, "+urlChiamata+" è andata in errore");
+            Assert.fail("TA_QA: La chiamata, "+urlChiamata+" è andata in errore");
+        }else if (codiceRispostaChiamataApi==0){
+            logger.error("TA_QA: La chiamata, "+urlChiamata+" non trovata");
+            Assert.fail("TA_QA: La chiamata, "+urlChiamata+" non trovata");
+        }
     }
+
+    private int getCodiceRispostaChiamataApi(String urlChiamata) {
+        logger.info("Recupero codice risposta della chiamata"+urlChiamata);
+        int codiceRispostaChiamataApi = 0;
+        for (NetWorkInfo chiamate: netWorkInfos) {
+            if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")){
+                codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
+                break;
+            }
+        }
+        return codiceRispostaChiamataApi;
+    }
+
 
     @When("Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaClickSulBottoneDeleghe() {
@@ -80,11 +108,12 @@ public class NotifichePGPagoPATest {
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaPersonaGiuridicaESiControllaCheIlDownloadSiaAvvenuto(String dpFile) {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponubili();
-        DownloadFile downloadFile = new DownloadFile();
+        DownloadFile downloadFile = new DownloadFile(this.driver);
         DataPopulation dataPopulation = new DataPopulation();
         Map<String,Object> datiNotifica = dataPopulation.readDataPopulation(dpFile+".yaml");
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/personaGiuridica");
+        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)){
             pathCartella.mkdirs();
         }
@@ -96,8 +125,16 @@ public class NotifichePGPagoPATest {
                 throw new RuntimeException(e);
             }
             String urlFileAttestazioneOppponubile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+datiNotifica.get("codiceIUN").toString()+"/legal-facts/");
+            if (headless && urlFileAttestazioneOppponubile.isEmpty()){
+                String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
+                logger.error("Non è stato recuperato url per il download per il link: "+testoLink);
+                Assert.fail("Non è stato recuperato url per il download per il link: "+testoLink);
+            }
             File file = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN"+i+".pdf");
-            downloadFile.download(urlFileAttestazioneOppponubile,file);
+            downloadFile.download(urlFileAttestazioneOppponubile,file,headless);
+            if (!headless){
+                dettaglioNotificaSection.goBack();
+            }
         }
         downloadFile.controlloDownload(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario",numeroLinkAttestazioniOpponibile);
     }

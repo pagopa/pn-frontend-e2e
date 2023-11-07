@@ -5,7 +5,6 @@ Feature: Mittente effetua una ricerca notifiche per codice IUN sbagliato
    When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
 
-  @TestSuite
   @ricercaCodiceIUNSbagliato
 
   Scenario: Mittente loggato effettua una ricerca per codice IUN sbagliato

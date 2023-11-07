@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.common;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -64,4 +65,13 @@ public class BasePage {
     public void aggionamentoPagina(){
         this.driver.navigate().refresh();
     }
+    public void waitloadingSpinner(){
+        By loadingSpinnerBy = By.xpath("//span[@role = 'loadingSpinner']");
+        getWebDriverWait(60).withMessage("la pagina è ancora in caricamento").until(ExpectedConditions.invisibilityOfElementLocated(loadingSpinnerBy));
+    }
+
+    public void goBack(){
+        this.driver.navigate().back();
+    }
 }
+

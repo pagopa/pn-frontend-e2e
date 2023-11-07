@@ -45,11 +45,13 @@ public class NotificaMittentePagoPATest {
 
     private final DataPopulation dataPopulation = new DataPopulation();
 
+    private final DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
+
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
-        logger.info("Cliccare sul bottone Gestisci di Piattaforma Notifiche");
         AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
         String variabileAmbiente = System.getProperty("environment");
+        logger.info("Cliccare sul bottone di Piattaforma Notifiche dell'Ambiente "+variabileAmbiente);
         switch (variabileAmbiente) {
             case "dev" -> areaRiservataPAPage.selezionaPiattaformaNotificaDev();
             case "test" -> areaRiservataPAPage.selezionaPiattaformaNotificaTest();
@@ -59,7 +61,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche")
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche() {
-
+        logger.info("Si visualizza correttamente la pagina Piattaforma Notifiche");
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
         CookiesSection cookiesSection = new CookiesSection(this.driver);
@@ -68,7 +70,32 @@ public class NotificaMittentePagoPATest {
         }
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
+
+        String variabileAmbiente = System.getProperty("environment");
+        String urlChiamata = "https://webapi."+variabileAmbiente+".notifichedigitali.it/delivery/notifications/sent?";
+
+        int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
+        if (codiceRispostaChiamataApi!=200 && codiceRispostaChiamataApi!=0){
+            logger.error("TA_QA: La chiamata, "+urlChiamata+" è andata in errore");
+            Assert.fail("TA_QA: La chiamata, "+urlChiamata+" è andata in errore");
+        }else if (codiceRispostaChiamataApi==0){
+            logger.error("TA_QA: La chiamata, "+urlChiamata+" non trovata");
+            Assert.fail("TA_QA: La chiamata, "+urlChiamata+" non trovata");
+        }
     }
+
+    private int getCodiceRispostaChiamataApi(String urlChiamata) {
+        logger.info("Recupero codice risposta della chiamata"+urlChiamata);
+        int codiceRispostaChiamataApi = 0;
+        for (NetWorkInfo chiamate: netWorkInfos) {
+            if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")){
+                codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
+                break;
+            }
+        }
+        return codiceRispostaChiamataApi;
+    }
+
     public String getNumeroProtocollo() {
         logger.info("Si recupera l'ultimo numero protocollo utilizzato");
        this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
@@ -101,14 +128,14 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica")
     public void nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica() {
-        logger.info("selezione bottone invia una nuova notifica");
+        logger.info("Selezione bottone invia una nuova notifica");
         piattaformaNotifichePage.selectInviaUnaNuovaNotificaButton();
         piattaformaNotifichePage.waitloadingSpinner();
     }
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari")
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionInformazioniPreliminari() {
-        logger.info("verifica visualizzazione section Informazioni preliminari");
+        logger.info("Verifica visualizzazione section Informazioni preliminari");
 
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
@@ -119,7 +146,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella section Informazioni preliminari inserire i dati della notifica {string} senza pagamento")
     public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento(String datiNotificaFile) {
-        logger.info("Inserimento dei dati della notifica senza pagamento dal file datiNotifica.yaml");
+        logger.info("Inserimento dei dati della notifica senza pagamento dal file "+datiNotificaFile+".yaml");
 
         aggiornamentoNumeroProtocollo();
 
@@ -187,6 +214,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Cliccare su continua")
     public void cliccareSuContinua() {
+        logger.info("Cliccare sul bottone continua");
         InvioNotifichePAPage invioNotifichePAPage = new InvioNotifichePAPage(this.driver);
         invioNotifichePAPage.selezionareContinuaButton();
     }
@@ -397,21 +425,19 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina dettaglio notifica cliccare sull'opzione vedi più dettagli")
     public void nellaPaginaDettaglioNotificaCliccareSullOpzioneVediPiuDettagli() {
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-        dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
+
+        dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
+        this.dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
     }
 
     @And("Si visualizza correttamente l elenco completo degli stati che la notifica ha percorso")
     public void siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso() {
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-        int nStatiNotifica = dettaglioNotificaMittenteSection.siVisualizzaPercosoNotifica();
-        if (nStatiNotifica >= 1) {
-            logger.info("L'elenco degli stati presente");
-        } else {
-            logger.error("L'elenco degli stati NON presente");
-            Assert.fail("L'elenco degli stati NON presente");
-        }
+
+        dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
+        dettaglioNotificaMittenteSection.siVisualizzaPercosoNotifica();
+
     }
+
 
     @Then("Si clicca sul bottone indietro")
     public void siCliccaSulBottoneIndietro() {
@@ -533,7 +559,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella section Destinatario cliccare su Aggiungi destinatario")
     public void nellaSectionDestinatarioCliccareSuAggiungiDestinatario() {
-        logger.info("Si sta cercando di selezionare il buttone aiggiungere Destinatario");
+        logger.info("Si sta cercando di selezionare il bottone aiggiungere Destinatario");
 
         destinatarioPASection.selezionareAggiungiDestinatarioButton();
     }
@@ -767,6 +793,11 @@ public class NotificaMittentePagoPATest {
 
         destinatarioPASection.checkBoxAggiungiDomicilio();
         destinatarioPASection.insertDomicilioDigitaleErrato(personaGiuridicaErrore1.get("emailPec").toString());
+        Assert.assertEquals("l'errore  attuale 'Indirizzo PEC non valido' è diverso di :"+destinatarioPASection.getDomicilioDigitaleError(),"Indirizzo PEC non valido",destinatarioPASection.getDomicilioDigitaleError());
+
+        destinatarioPASection.insertCodiceFiscaleErrato(personaGiuridicaErrore1.get("codiceFiscale").toString());
+        Assert.assertEquals("l'errore  attuale 'Il valore inserito non è corretto' è diverso di :"+destinatarioPASection.getcodiceFiscaleError(),"Il valore inserito non è corretto",destinatarioPASection.getcodiceFiscaleError());
+
     }
 
     @And("Nella section Allegati caricare l'atto e inserire il nome atto con estenzione non valida")
@@ -781,10 +812,10 @@ public class NotificaMittentePagoPATest {
     public void siVisualizzaCorrettamenteIlMessaggioDiErroreEstensioneFileNonSupportataRiprovareConUnAltroFile() {
        logger.info("Si controlla che si vede il messaggio di errore");
         if(piattaformaNotifichePage.estensioneSbagliataErrore()){
-            logger.info("Si visualizza correttamente il messaggio di errore");
+            logger.info("Si visualizza correttamente il messaggio di errore: Estensione file non supportata. Riprovare con un altro file.");
         }else {
-            logger.error("Non si visualizza correttamente il messaggio di errore");
-            Assert.fail("Non si visualizza correttamente il messaggio di errore");
+            logger.error("Non si visualizza correttamente il messaggio di errore: Estensione file non supportata. Riprovare con un altro file.");
+            Assert.fail("Non si visualizza correttamente il messaggio di errore: Estensione file non supportata. Riprovare con un altro file.");
         }
     }
 
@@ -876,8 +907,9 @@ public class NotificaMittentePagoPATest {
 
     @And("Si verifica che la notifica viene creata correttamente {string}")
     public void siVerificaCheLaNotificaVieneCreataCorrettamente(String dpFile) {
-        final String urlNotificationRequest = "https://webapi.test.notifichedigitali.it/delivery/requests";
-        final String urlRichiestaNotifica = "https://api.test.notifichedigitali.it/delivery/requests/";
+        logger.info("si verifica se la notifica è stata accettata o rifiutata");
+        final String urlNotificationRequest = "https://webapi.test.notifichedigitali.it/delivery/v2.1/requests";
+        final String urlRichiestaNotifica = "https://api.test.notifichedigitali.it/delivery/v2.1/requests/";
         String statusNotifica = "WAITING";
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
         AccettazioneRichiestaNotifica accettazioneRichiestaNotifica = new AccettazioneRichiestaNotifica();
@@ -892,15 +924,17 @@ public class NotificaMittentePagoPATest {
             boolean result = accettazioneRichiestaNotifica.runGetRichiestaNotifica();
             if (result){
                 statusNotifica = accettazioneRichiestaNotifica.getStatusNotifica();
+                logger.info("lo stato della notifica è :"+statusNotifica);
             }else{
-                if(accettazioneRichiestaNotifica.getResponseCode()==400){
-                    logger.error("la risposta dell'accettazione della notifica è :400 Bad Request");
-                    Assert.fail("la risposta dell'accettazione della notifica è :400 Bad Request");
+                if(accettazioneRichiestaNotifica.getResponseCode()!=200){
+                    logger.error("la risposta dell'accettazione della notifica "+ notificationRequestId+ " è: "+accettazioneRichiestaNotifica.getResponseCode());
+                    Assert.fail("la risposta dell'accettazione della notifica "+ notificationRequestId+ " è: "+accettazioneRichiestaNotifica.getResponseCode());
                 }
             }
         }while (statusNotifica.equals("WAITING"));
 
         if (statusNotifica.equals("ACCEPTED")){
+            logger.info("La notifica è stata Accettata");
             String codiceIUN = accettazioneRichiestaNotifica.getCodiceIUN();
             this.datiNotifica = dataPopulation.readDataPopulation(dpFile+".yaml");
             if (codiceIUN != null && !codiceIUN.equals("")){
@@ -923,6 +957,7 @@ public class NotificaMittentePagoPATest {
                 return result.substring(1,result.length()-1);
             }
         }
+        logger.error("NotificationRequestId non trovato, il codice della risposta al url "+ urlNotificationRequest +" è diverso di 202 ");
         return null;
     }
 
@@ -947,6 +982,8 @@ public class NotificaMittentePagoPATest {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
         }else {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiciIun.get(0));
+            this.personaFisica.put("codiceIUN",codiciIun.get(0));
+            dataPopulation.writeDataPopulation("datiNotifica.yaml",this.personaFisica);
         }
     }
 

@@ -28,8 +28,8 @@ public class ScegliSpidPAPage extends BasePage {
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
             logger.info("Scegli Spid PA Page caricata");
         }catch (TimeoutException e){
-            logger.error("Scegli Spid PA Page non caricata con errore : "+e.getMessage());
-            Assert.fail("Scegli Spid PA Page non caricata con errore : "+e.getMessage());
+            logger.error("Titlo della pagina Scegli Spid PA Page non caricato con errore : "+e.getMessage());
+            Assert.fail("Titlo della pagina Scegli Spid PA Page non caricato con errore : "+e.getMessage());
         }catch(Exception e){
             logger.error("Scelta spid provider errore generico : "+e.getMessage());
             Assert.fail("Scelta spid provider errore generico : "+e.getMessage());
@@ -37,7 +37,7 @@ public class ScegliSpidPAPage extends BasePage {
     }
 
     public void selezionareTestButton(){
-        logger.info("Click del bottone TEST");
+        logger.info("Si clicca sul bottone Test dello spid");
         this.testButton.click();
     }
 }

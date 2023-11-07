@@ -15,16 +15,13 @@ import java.util.List;
 public class RecapitiDestinatarioPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("RecapitiDestinatarioPage");
 
-    @FindBy(id = "pec")
-    WebElement inserimentoPecField;
-
-    @FindBy(xpath = "//button[@data-testid='addContact']")
+    @FindBy(id = "add-contact")
     WebElement confermaButton;
 
-    @FindBy(xpath = "//button[contains(@data-testid,'codeConfirmButton')]")
+    @FindBy(id = "code-confirm-button")
     WebElement confermaButtonPopUp;
 
-    @FindBy(xpath = "//button[@data-testid='codeCancelButton']")
+    @FindBy(id = "code-cancel-button")
     WebElement annullaButton;
 
     @FindBy(xpath = "//button[@data-testid='add email']")
@@ -39,27 +36,45 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "phone")
     WebElement inserimentoPhoneField;
 
+    @FindBy(xpath = "//button[contains(text(),'Elimina')]")
+    WebElement eliminaButton;
+
     public RecapitiDestinatarioPage(WebDriver driver) {
         super(driver);
     }
 
+    public void eliminaPecEsistente(){
+        this.eliminaButton.click();
+        waitLoadPopUp();
+        By confermaRimuoviPECBy = By.xpath("//button[contains(text(),'Annulla')]/following-sibling::button");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(confermaRimuoviPECBy));
+        this.element(confermaRimuoviPECBy).click();
+    }
+
     public void insertEmailPEC(String emailPEC) {
-        if (inserimentoPecField.isDisplayed()){
-            inserimentoPecField.sendKeys(emailPEC);
-        }else {
-            this.js().executeScript("arguments[0].scrollIntoView(true);",inserimentoPecField);
-            inserimentoPecField.sendKeys(emailPEC);
+
+        try{
+            By inserimentoPecFieldBy = By.id("pec");
+            this.getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoPecFieldBy));
+            this.element(inserimentoPecFieldBy).sendKeys(emailPEC);
+
+        }catch (TimeoutException e){
+            eliminaPecEsistente();
+            By inserimentoPecFieldBy = By.id("pec");
+            this.getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoPecFieldBy));
+            this.element(inserimentoPecFieldBy).sendKeys(emailPEC);
         }
     }
 
     public void confermaButtonClick() {
+        getWebDriverWait(30).withMessage("conferma button non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
         this.confermaButton.click();
     }
 
     public void waitLoadPopUp() {
         try {
-            By titleBy = By.xpath("//h2[contains(@id,'dialog-title')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleBy));
+            By titleBy = By.id("dialog-title");
+            this.getWebDriverWait(30).withMessage("il titolo del popup non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleBy));
             logger.info("Il po-up di conferma viene visualizzato correttamente");
         }catch (TimeoutException e){
             logger.error("Il pop-up di conferma NON viene visualizzato correttamente con errori: "+e.getMessage());
@@ -84,11 +99,17 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void confermaButtonClickPopUp() {
-        this.confermaButtonPopUp.click();
+        try {
+            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.confermaButtonPopUp));
+            this.confermaButtonPopUp.click();
+        }catch(TimeoutException e){
+            logger.error("Il bottone conferma all'interno del popup non è cliccabile con errore:"+e.getMessage());
+            Assert.fail("Il bottone conferma all'interno del popup non è cliccabile con errore:"+e.getMessage());
+        }
     }
     public void waitMessaggioErrore() {
         try {
-            By messaggioErroreBy = By.xpath("//div[contains(@data-testid, 'errorAlert')]");
+            By messaggioErroreBy = By.id("error-alert");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messaggioErroreBy));
             logger.info("Il messaggio di errore viene visualizzato correttamente");
         }catch (TimeoutException e){
@@ -98,14 +119,26 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void annullaButtonClick() {
-        this.annullaButton.click();
+        try{
+            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.annullaButton));
+            this.annullaButton.click();
+        }catch(TimeoutException e){
+            logger.error("Il bottone annulla non è cliccabile con errore: "+e.getMessage());
+            Assert.fail("Il bottone annulla non è cliccabile con errore: "+e.getMessage());
+        }
+
     }
 
-    public void clickAvvisami() {this.avvisamiMailButton.click();}
+    public void clickAvvisami() {
+        getWebDriverWait(30).withMessage("Il bottone avvisami della mail non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.avvisamiMailButton));
+        this.avvisamiMailButton.click();}
 
-    public void clickAvvisamiSMS() {this.avvisamiSMSButton.click();}
+    public void clickAvvisamiSMS() {
+        getWebDriverWait(30).withMessage("Il bottone avvisami del sms non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.avvisamiSMSButton));
+        this.avvisamiSMSButton.click();}
 
     public void insertEmail(String email) {
+        getWebDriverWait(30).withMessage("l'input mail non è visibile").until(ExpectedConditions.visibilityOf(this.inserimentoMailField));
         if (inserimentoMailField.isDisplayed()){
             inserimentoMailField.sendKeys(email);
         }else {
@@ -115,6 +148,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void insertPhone(String cellulare) {
+        getWebDriverWait(30).withMessage("l'input numero telefono non è visibile").until(ExpectedConditions.visibilityOf(this.inserimentoPhoneField));
         if (inserimentoPhoneField.isDisplayed()){
             inserimentoPhoneField.sendKeys(cellulare);
         }else {

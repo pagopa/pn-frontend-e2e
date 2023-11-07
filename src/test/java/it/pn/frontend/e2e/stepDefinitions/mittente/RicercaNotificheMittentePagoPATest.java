@@ -51,7 +51,13 @@ public class RicercaNotificheMittentePagoPATest {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.selectFiltraButton();
     }
+    @And("Cliccare sul bottone Filtra del delegato")
+    public void cliccareSulBottoneFiltraDelDelegato() {
+        logger.info("Si clicca sul tasto filtra del delegante sotto notifiche");
 
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.selectFiltraDelegatoButton();
+    }
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice fiscale del destinatario {string}")
     public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConIlCodiceFiscaleDelDestinatario(String dpDestinatario) {
         logger.info("Si verifica i risultati restituiti");
@@ -72,8 +78,8 @@ public class RicercaNotificheMittentePagoPATest {
             logger.info("Il codice fiscale della notifica è uguale a quello selezionato");
 
         } else {
-            logger.error("Il codice fiscale della notifica NON sono uguali a quello selezionato");
-            Assert.fail("Il codice fiscale notifica NON sono uguali a quello selezionato");
+            logger.error("Codici fiscali non presenti o non uguali a quello selezionato "+cfInserito);
+            Assert.fail("Codici fiscali non presenti o non uguali a quello selezionato "+cfInserito);
         }
     }
 
@@ -116,11 +122,11 @@ public class RicercaNotificheMittentePagoPATest {
         String codiceIUNInserito = piattaformaNotifichePage.getCodiceIunInserito();
         boolean result = piattaformaNotifichePage.verificaCodiceIUN(codiceIUNInserito);
         if (result) {
-            logger.info("Il risultato coerente con il codice IUN inserito");
+            logger.info("Notifica con codice IUN: "+codiceIUNInserito+" trovata correttamente");
         } else {
 
-            logger.error("Gli stati della notifica NON sono uguali a quelli selezionati");
-            Assert.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
+            logger.error("Notifica con codice IUN: "+codiceIUNInserito+" NON trovata");
+            Assert.fail("Notifica con codice IUN: "+codiceIUNInserito+" NON trovata");
 
         }
     }

@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class InvioNotifichePAPage extends BasePage {
-    @FindBy(xpath = "//button[@data-testid='step-submit']")
+    @FindBy(id = "step-submit")
     WebElement continuaButton;
 
     public InvioNotifichePAPage(WebDriver driver) {
@@ -14,6 +14,6 @@ public class InvioNotifichePAPage extends BasePage {
     }
 
     public void selezionareContinuaButton() {
-       this.js().executeScript("arguments[0].click()",continuaButton);
+        scrollToElementClickAndInsertText(this.continuaButton, null);
     }
 }

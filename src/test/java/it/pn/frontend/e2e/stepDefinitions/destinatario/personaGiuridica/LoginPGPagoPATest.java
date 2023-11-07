@@ -9,6 +9,7 @@ import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
 import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoContinueResponse;
 import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoLogin;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
@@ -21,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -36,6 +38,8 @@ public class LoginPGPagoPATest {
     private final  HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
 
     private final  AcccediAreaRiservataPGPage acccediAreaRiservataPGPage = new AcccediAreaRiservataPGPage(this.driver);
+
+    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
 
     @Given("Login Page persona giuridica {string} viene visualizzata")
@@ -222,6 +226,7 @@ public class LoginPGPagoPATest {
         headerPGSection.waitLoadHeaderPGPage();
         HomePagePG homePagePG = new HomePagePG(this.driver);
         homePagePG.waitLoadHomePagePGPage();
+
     }
 
     @When("Login con persona giuridica {string}")

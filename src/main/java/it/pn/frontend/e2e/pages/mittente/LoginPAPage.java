@@ -35,21 +35,23 @@ public class LoginPAPage extends BasePage {
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
             logger.info("Login PA Page caricata");
         }catch (TimeoutException e){
-            logger.error("Login PA Page non caricata con errore : "+e.getMessage());
-            Assert.fail("Login PA Page non caricata con errore : "+e.getMessage());
+            logger.error("Il titolo della pagina Login PA non caricato con errore : "+e.getMessage());
+            Assert.fail("Il titolo della pagina Login PA non caricato con errore  : "+e.getMessage());
         }
     }
 
     public void inserisciUtenete(String user){
+        logger.info("Si inserisci il nome utente");
         this.userTextEdit.sendKeys(user);
     }
 
     public void inserisciPassword(String pwd){
+        logger.info("Si inserisce la password dell'utente");
         this.pwdTextEdit.sendKeys(pwd);
     }
 
     public void selezionaInviaDati(){
-
+        logger.info("Si selezione il bottone invia");
         this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.inviaButton));
         this.inviaButton.click();
     }
