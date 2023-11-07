@@ -110,8 +110,18 @@ public class HelpdeskTest {
         helpdeskPage.clickSezioneRicerca();
     }
 
-    @And("visualizzazione corrett pagina ricerca ed estrazione dati")
-    public void visualizzazioneCorrettPaginaRicercaEdEstrazioneDati() {
+    @And("visualizzazione corretta pagina ricerca ed estrazione dati")
+    public void visualizzazioneCorrettaPaginaRicercaEdEstrazioneDati() {
         helpdeskPage.checkRicercaPage();
+    }
+
+    @When("Nella Home di helpdesk utente clicca su logout")
+    public void nellaHomeDiHelpdeskUtenteCliccaSuLogout() {
+        helpdeskPage.logout();
+    }
+
+    @And("visualizzazione corretta pagina di login")
+    public void visualizzazioneCorrettaPaginaDiLogin() {
+        helpdeskPage.checkForm();
     }
 }
