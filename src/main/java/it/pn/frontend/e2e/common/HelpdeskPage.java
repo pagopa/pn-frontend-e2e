@@ -29,6 +29,9 @@ public class HelpdeskPage extends BasePage{
     @FindBy(xpath = "//button[@aria-label='more']")
     WebElement buttonMenu;
 
+    @FindBy(id = "logout")
+    WebElement buttonLogout;
+
     private final Logger logger = LoggerFactory.getLogger("Helpdesk Page");
 
     public HelpdeskPage(WebDriver driver) {
@@ -188,8 +191,24 @@ public class HelpdeskPage extends BasePage{
             logger.error("home ricerca non caricata correttamente: "+e.getMessage());
             Assert.fail("home ricerca non caricata correttamente: "+e.getMessage());
         }
+    }
 
-
+    public void logout(){
+        try{
+            logger.info("controllo esistenza bottone logout");
+            this.getWebDriverWait(30).withMessage("bottone logout non trovato").until(ExpectedConditions.visibilityOf(buttonLogout));
+            logger.info("click sul bottone logout");
+            buttonLogout.click();
+            logger.info("apertura dialog di conferma logout");
+            By buttonConfermaLogout = By.xpath("//button[contains(text(),'Esci')]");
+            logger.info("controllo esistenza pulsante conferma logout");
+            this.getWebDriverWait(30).withMessage("bottone conferma logout non trovato").until(ExpectedConditions.visibilityOfElementLocated(buttonConfermaLogout));
+            logger.info("click conferma logout");
+            this.elements(buttonConfermaLogout).get(0).click();
+        }catch (TimeoutException e){
+            logger.error("logout non riuscito correttamente: "+e.getMessage());
+            Assert.fail("logout non riuscito correttamente: "+e.getMessage());
+        }
     }
 
     public void insertCfOnRicercaPage(String codiceFiscale) {
