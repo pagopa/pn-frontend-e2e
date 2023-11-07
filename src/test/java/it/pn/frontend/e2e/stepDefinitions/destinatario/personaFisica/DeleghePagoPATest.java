@@ -184,8 +184,26 @@ public class DeleghePagoPATest {
         this.deleghe = dataPopulation.readDataPopulation(dpFile+".yaml");
         BackgroundTest backgroundTest = new BackgroundTest();
         this.deleghePage.vaiInFondoAllaPagina();
-        if (!this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString())){
-            backgroundTest.loginPF("personaFisica");
+        boolean esistenzaDelega = this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString());
+        String stato = "";
+        if (esistenzaDelega && !this.leTueDelegheSection.controlloPresenzaBottoneAccetta()){
+           stato = this.deleghePage.vericaStatoDelega();
+        }
+        String PF = "personaFisica";
+        if(!esistenzaDelega){
+             backgroundTest.loginPF(PF);
+             backgroundTest.aggiuntaNuovaDelegaPF();
+             backgroundTest.logoutPF();
+             backgroundTest.loginPF("delegatoPF");
+         }
+
+        if (esistenzaDelega && stato.equalsIgnoreCase("Attiva")){
+            nellaPaginaDelegheSiCliccaSulMenuDellaDelega(PF);
+            nellaPaginaDelegheSiSceglieOpzioneRifiuta();
+            siCliccaSulBottoneRifiutaAllInternoDelPopUp();
+            siControllaCheLaDelegaNonSiaPiuPresenteNellaLista(PF);
+
+            backgroundTest.loginPF(PF);
             backgroundTest.aggiuntaNuovaDelegaPF();
             backgroundTest.logoutPF();
             backgroundTest.loginPF("delegatoPF");
@@ -213,6 +231,10 @@ public class DeleghePagoPATest {
         logger.info("Nel pop-up si clicca sul bottone accetta");
 
         this.leTueDelegheSection.clickAccettaButton();
+        if (this.leTueDelegheSection.verificaEsistenzaErroreCodiceSbagliato()){
+            Assert.assertEquals("Il codice inserito è sbagliato",
+                    "Il codice è sbagliato", this.leTueDelegheSection.getTextCodiceSbagliato());
+        }
     }
 
     @And("Si controlla che la delega a lo stato Attiva {string}")
@@ -220,6 +242,13 @@ public class DeleghePagoPATest {
         logger.info("Si controlla che la delega abbia lo stato Attiva");
         this.deleghe = this.dataPopulation.readDataPopulation(dpFile+".yaml");
         this.leTueDelegheSection.controlloStatoAttiva(deleghe.get("name").toString(),deleghe.get("familyName").toString());
+    }
+
+    @And("Si controlla che la delega è ancora presente {string}")
+    public void siControllaCheLaDelegaèAncoraPresente(String dpFile) {
+        logger.info("Si controlla che la delega abbia lo stato Attiva");
+        this.deleghe = this.dataPopulation.readDataPopulation(dpFile+".yaml");
+        this.leTueDelegheSection.controlloEsistenzaDelega(deleghe.get("name").toString(),deleghe.get("familyName").toString());
     }
 
     @And("Nella sezione Deleghe si visualizza il titolo")
@@ -344,8 +373,9 @@ public class DeleghePagoPATest {
     public void siControllaCheLaDelegaNonSiaPiuPresenteNellaLista(String dpFile) {
         logger.info("Si controlla che la delega non sia più presente nella lista");
         this.deleghe = dataPopulation.readDataPopulation(dpFile+".yaml");
-        if (deleghePage.verificaEsistenzaDelega(this.deleghe.get("name").toString(),this.deleghe.get("familyName").toString())){
-            logger.info("Si controlla che la delega non sia più presente nella lista");
+        deleghePage.waitloadingSpinner();
+        if (!deleghePage.verificaEsistenzaDelega(this.deleghe.get("name").toString(),this.deleghe.get("familyName").toString())){
+            logger.info("La delega non è più presente nella lista");
         } else {
             logger.error("La delega è ancora presente in lista");
             Assert.fail("La delega è ancora presente in lista");
@@ -380,5 +410,21 @@ public class DeleghePagoPATest {
         }
         notifichePFPage.clickNotificheButton();
         notifichePFPage.clickTueNotificheButton();
+    }
+
+    @And("Si verifica sia presente una delega da rifiutare nella sezione Deleghe a Tuo Carico {string}")
+    public void siVerificaSiaPresenteUnaDelegaDaRifiutareNellaSezioneDelegheATuoCarico(String dpFile) {
+        logger.info("Si controlla che ci sia almeno una delega");
+        this.deleghe = dataPopulation.readDataPopulation(dpFile+".yaml");
+        BackgroundTest backgroundTest = new BackgroundTest();
+        this.deleghePage.vaiInFondoAllaPagina();
+        boolean esistenzaDelaga = this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString());
+
+        if(!esistenzaDelaga){
+            backgroundTest.loginPF( "personaFisica");
+            backgroundTest.aggiuntaNuovaDelegaPF();
+            backgroundTest.logoutPF();
+            backgroundTest.loginPF("delegatoPF");
+        }
     }
 }

@@ -24,12 +24,12 @@ public class SuccessPASection extends BasePage {
 
     public void waitLoadSuccessPASection() {
         try{
-            By successCheckBy = By.cssSelector("svg[class='MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-15b4v0q']");
+            By successCheckBy = By.id("title-sync-feedback");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(successCheckBy));
-            logger.info("Success PA section caricata");
+            logger.info("TA_QA: La notifica è stata creata con successo, PA section caricata correttamente");
         }catch (TimeoutException e){
-            logger.error("Success PA section non caricata con errore: "+e.getMessage());
-            Assert.fail("Success PA section non caricata con errore: "+e.getMessage());
+            logger.error("TA_QA: Il titolo della Success PA section non caricata con errore: "+e.getMessage());
+            Assert.fail("TA_QA: Il titolo della Success PA section non caricata con errore: "+e.getMessage());
         }
     }
 

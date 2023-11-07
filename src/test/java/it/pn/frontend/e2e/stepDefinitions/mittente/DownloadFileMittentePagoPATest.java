@@ -54,7 +54,8 @@ public class DownloadFileMittentePagoPATest {
         DataPopulation dataPopulation = new DataPopulation();
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
-        downloadFile = new DownloadFile();
+        downloadFile = new DownloadFile(this.driver);
+        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)){
             pathCartella.mkdirs();
         }
@@ -72,8 +73,16 @@ public class DownloadFileMittentePagoPATest {
 
         final String urlDocumentiAllegati = downloadFile.getUrl(urlDocumenti);
         File file = new File(filepath+count+".pdf");
-
-        downloadFile.download(urlDocumentiAllegati,file);
+        if (headless && urlDocumentiAllegati.isEmpty()){
+            String testoLink = dettaglioNotificaMittenteSection.getTextDocumentiAllegati();
+            logger.error("Non è stato recuperato url per il download per il link: "+testoLink);
+            Assert.fail("Non è stato recuperato url per il download per il link: "+testoLink);
+        }
+        downloadFile.download(urlDocumentiAllegati,file, headless);
+        if (!headless){
+            dettaglioNotificaSection.goBack();
+        }
+        dettaglioNotificaSection.waitLoadDettaglioNotificaDESection();
         count = count+1;
 
         int numeroLinkAvvenutaRicezione = dettaglioNotificaMittenteSection.getLinkAvvenutaRicezione();
@@ -86,10 +95,19 @@ public class DownloadFileMittentePagoPATest {
             }
             final String url = "https://webapi.test.notifichedigitali.it/delivery-push/"+ this.datiNotifica.get("codiceIUN").toString() +"/document/AAR?documentId=safestorage:";
             final String urlAvvenutaRicezione = downloadFile.getUrl(url);
+            if (headless && urlAvvenutaRicezione.isEmpty()){
+                String testoLink = dettaglioNotificaMittenteSection.getTextLinkAvvenutaRicezione(i);
+                logger.error("Non è stato recuperato url per il download per il link: "+testoLink);
+                Assert.fail("Non è stato recuperato url per il download per il link: "+testoLink);
+            }
             file = new File(filepath+count+".pdf");
             count = count+1;
 
-            downloadFile.download(urlAvvenutaRicezione,file);
+            downloadFile.download(urlAvvenutaRicezione,file,headless);
+            if (!headless){
+                dettaglioNotificaSection.goBack();
+            }
+            dettaglioNotificaSection.waitLoadDettaglioNotificaDESection();
         }
 
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponubili();
@@ -103,9 +121,18 @@ public class DownloadFileMittentePagoPATest {
             }
             final String urlAttestazione = "https://webapi.test.notifichedigitali.it/delivery-push/";
             final String urlFileAttestazioneOppponubile = downloadFile.getUrl(urlAttestazione);
+            if (headless && urlFileAttestazioneOppponubile.isEmpty()){
+                String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
+                logger.error("Non è stato recuperato url per il download per il link: "+testoLink);
+                Assert.fail("Non è stato recuperato url per il download per il link: "+testoLink);
+            }
             file = new File(filepath+count+".pdf");
             count = count+1;
-            downloadFile.download(urlFileAttestazioneOppponubile,file);
+            downloadFile.download(urlFileAttestazioneOppponubile,file,headless);
+            if (!headless){
+                dettaglioNotificaSection.goBack();
+            }
+            dettaglioNotificaSection.waitLoadDettaglioNotificaDESection();
         }
         count = count -1;
         final String pathOfdownloadedFile = workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente";
@@ -131,6 +158,7 @@ public class DownloadFileMittentePagoPATest {
         logger.info("Si cerca di scaricare il file " + nomeFile);
 
         DataPopulation dataPopulation = new DataPopulation();
+        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
             dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibile(nomeFile);
@@ -139,15 +167,22 @@ public class DownloadFileMittentePagoPATest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        downloadFile = new DownloadFile(this.driver);
 
-        downloadFile = new DownloadFile();
         final String url = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/");
+        if (headless && url.isEmpty()){
+            logger.error("Non è stato recuperato url per il download per il link: "+nomeFile);
+            Assert.fail("Non è stato recuperato url per il download per il link: "+nomeFile);
+        }
         final String workingDirectory = System.getProperty("user.dir");
 
         nomeFile = nomeFile.replace(" ","_").replace(":", "");
         File file = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf");
 
-        downloadFile.download(url,file);
+        downloadFile.download(url,file,headless);
+        if (!headless){
+            dettaglioNotificaMittenteSection.goBack();
+        }
 
     }
 

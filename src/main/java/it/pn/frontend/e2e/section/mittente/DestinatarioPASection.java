@@ -96,13 +96,14 @@ public class DestinatarioPASection extends BasePage {
 
     public void waitLoadDestinatarioPASection() {
         try{
-            By titleDestinatarioFieald = By.xpath("//h3[contains(text(),'Destinatari')]");
+            By titleDestinatarioFieald = By.id("title-heading-section");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleDestinatarioFieald));
             logger.info("Destinatario PA Section caricata ");
         }catch (TimeoutException e){
             logger.error("Destinatario PA Section non caricata con errore : "+e.getMessage());
             Assert.fail("Destinatario PA Section non caricata con errore : "+e.getMessage());
         }
+
     }
 
     public void selezionarePersonaFisica() {
@@ -264,6 +265,7 @@ public class DestinatarioPASection extends BasePage {
         this.domicilioDigitaleTextField.sendKeys(emailPec);
     }
 
+
     public void insertRagioneSociale(String ragioneSociale) {
         this.ragioneSocialeTextField.sendKeys(ragioneSociale);
     }
@@ -278,6 +280,27 @@ public class DestinatarioPASection extends BasePage {
 
     public void clickRadioButtonPersonaGiuridica() {
         this.personaGiuridicaRadioButton.click();
+    }
+
+    public void insertCodiceFiscaleErrato(String codiceFiscale){
+        logger.info("TA_QA: si inserisci codice fiscale errato");
+        By valoreErratoBy = By.id("recipients[0].taxId");
+        getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(valoreErratoBy));
+        this.driver.findElement(valoreErratoBy).sendKeys(codiceFiscale);
+    }
+
+    public String getcodiceFiscaleError(){
+        logger.info("TA_QA: si legge il messagio di errore del Codice fiscale");
+        By valoreCFErratoBy = By.id("recipients[0].taxId-helper-text");
+        getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(valoreCFErratoBy));
+        return driver.findElement(valoreCFErratoBy).getText();
+    }
+
+    public String getDomicilioDigitaleError(){
+        logger.info("TA_QA: si legge il messagio di errore del digital domicile");
+        By valoreErratoBy = By.id("recipients[0].digitalDomicile-helper-text");
+        getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(valoreErratoBy));
+        return this.driver.findElement(valoreErratoBy).getText();
     }
 
 }

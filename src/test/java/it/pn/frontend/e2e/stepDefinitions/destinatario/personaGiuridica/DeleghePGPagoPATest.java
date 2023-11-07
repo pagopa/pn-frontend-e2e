@@ -153,8 +153,8 @@ public class DeleghePGPagoPATest {
     @And("Nella sezione Le Tue Deleghe si visualizza il messaggio di errore data errata")
     public void nellaSezioneLeTueDelegheSiVisualizzaIlMessaggioDiErroreDataErrata() {
         logger.info("Si controlla che si veda il messaggio di errore");
+        Assert.assertEquals("il messagio di errore attuale: Data errata è diverso dell'attuale "+aggiungiDelegaPGSection.waitMessaggioErroreData(),"Data errata",aggiungiDelegaPGSection.waitMessaggioErroreData());
 
-        aggiungiDelegaPGSection.waitMessaggioErroreData();
     }
 
     @And("Nella pagina Deleghe si clicca su Deleghe a carico dell impresa")
@@ -279,6 +279,10 @@ public class DeleghePGPagoPATest {
         logger.info("Si seleziona il bottone conferma");
 
         deleghePGPagoPAPage.clickBottoneConferma();
+        if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()){
+            logger.error("il codice inserito è sbagliato");
+            Assert.fail("il codice inserito è sbagliato");
+        }
     }
 
     @And("Si controlla che la delega PG a lo stato Attiva {string}")
@@ -353,6 +357,10 @@ public class DeleghePGPagoPATest {
         logger.info("Si clicca su conferma del pop-up");
 
         deleghePGPagoPAPage.clickBottoneConferma();
+        if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()){
+            logger.error("il codice inserito è sbagliato");
+            Assert.fail("il codice inserito è sbagliato");
+        }
     }
 
     @And("Si controlla che la delega a cambiato gruppo")

@@ -4,7 +4,7 @@ Feature: il mittente inserisce i dati  sbagliati fino alla sezione Destinatario
    When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
 
-    @fase2Test2
+    @fase2Test2_neg
     @TestSuite
 
   Scenario: il mittente inserisce i dati sbagliati fino alla sezione Destinatario

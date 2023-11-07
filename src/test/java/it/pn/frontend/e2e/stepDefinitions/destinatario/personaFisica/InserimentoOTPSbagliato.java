@@ -131,19 +131,13 @@ public class InserimentoOTPSbagliato {
     @And("Nella pagina I Tuoi Recapiti si controlla che il tasto conferma sia bloccato")
     public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoConfermaSiaBloccato() {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        Assert.assertTrue("il buttone Conferma non è disabilitato",iTuoiRecapitiPage.verificaButtoneConfermaDisabilitato());
+        Assert.assertTrue("il bottone Conferma non è disabilitato",iTuoiRecapitiPage.verificaBottoneConfermaDisabilitato());
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce l'email errata {string}")
     public void nellaPaginaITuoiRecapitiSiInserisceLEmailErrata(String emailErrata) {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        if(iTuoiRecapitiPage.inputEmailIsDisplayed()){
-            iTuoiRecapitiPage.insertEmail(emailErrata);
-        }else{
-            iTuoiRecapitiPage.clickEliminaEmail();
-            iTuoiRecapitiPage.clickConfirmaEliminaEmailPopUp();
-            iTuoiRecapitiPage.insertEmail(emailErrata);
-        }
+        iTuoiRecapitiPage.insertEmail(emailErrata);
     }
 
     @Then("Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio email errata")
@@ -156,7 +150,7 @@ public class InserimentoOTPSbagliato {
     @And("Nella pagina I Tuoi Recapiti si controlla che il tasto avvisami via email sia bloccato")
     public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoAvvisamiViaEmailSiaBloccato() {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        Assert.assertTrue("il buttone avvisami via email non è disabilitato",iTuoiRecapitiPage.avvisamiViaEmailIsDisabled());
+        Assert.assertTrue("il bottone avvisami via email non è disabilitato",iTuoiRecapitiPage.avvisamiViaEmailIsDisabled());
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce l'email del PF {string} e clicca sul bottone avvisami via email")
@@ -213,6 +207,6 @@ public class InserimentoOTPSbagliato {
     @And("Nella pagina I Tuoi Recapiti si controlla che il tasto avvisami via sms sia bloccato")
     public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoAvvisamiViaSmsSiaBloccato() {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        Assert.assertTrue("il buttone avvisami via SMS non è disabilitato",iTuoiRecapitiPage.avvisamiViaSMSIsDisabled());
+        Assert.assertTrue("il bottone avvisami via SMS non è disabilitato",iTuoiRecapitiPage.avvisamiViaSMSIsDisabled());
     }
 }

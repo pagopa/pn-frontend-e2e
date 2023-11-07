@@ -5,7 +5,7 @@
     <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
         <!--withJansi>true</withJansi-->
         <encoder>
-            <pattern>%highlight(%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level ${HOSTNAME:- } ${PID:- } --- [%10.10t{7}] %50.50(%logger{50} \(%line\))) : %m%n
+            <pattern>%highlight(%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{tag}] [%X{team}] %-5level ${HOSTNAME:- } ${PID:- } --- [%10.10t{7}] %50.50(%logger{50} \(%line\))) : %m%n
             </pattern>
         </encoder>
     </appender>
@@ -30,7 +30,7 @@
 
         <encoder>
             <pattern>
-                %highlight(%d{dd-MM-yyyy HH:mm:ss.SSS} %-5level ${HOSTNAME:- } ${PID:- } --- [%10.10t{7}] %50.50(%logger{50} \(%line\))) : %m%n
+                %highlight(%d{dd-MM-yyyy HH:mm:ss.SSS} [%X{tag}] [%X{team}] %-5level ${HOSTNAME:- } ${PID:- } --- [%10.10t{7}] %50.50(%logger{50} \(%line\))) : %m%n
             </pattern>
         </encoder>
     </appender>

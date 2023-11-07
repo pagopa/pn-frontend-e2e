@@ -38,6 +38,7 @@ public class LoginMittentePagoPA {
 
     @Given("Login Page mittente {string} viene visualizzata")
     public void login_page_mittente_viene_visualizzata(String datiMittenteFile) {
+        logger.info("Si recupera l'ambiente e si visualizza la pagina di login");
         DataPopulation dataPopulation = new DataPopulation();
         this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
         String variabileAmbiente = System.getProperty("environment");
@@ -50,6 +51,7 @@ public class LoginMittentePagoPA {
 
     @When("Login con mittente {string}")
     public void login_con_mittente(String datiMittenteFile) {
+        logger.info("Si effetua la Login dal portale mittente");
         DataPopulation dataPopulation = new DataPopulation();
         this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile+".yaml");
 
@@ -265,17 +267,16 @@ public class LoginMittentePagoPA {
 
     @Then("Home page mittente viene visualizzata correttamente")
     public void home_page_mittente_viene_visualizzata_correttamente() {
+        logger.info("Home page mittente viene visualizzata correttamente");
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
-
-
 
         AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
         areaRiservataPAPage.waitLoadAreaRiservataPAPage();
         if(areaRiservataPAPage.verificaCodiceFiscale(this.datiMittente.get("codiceFiscale").toString())){
-            logger.info("codice fiscale presente");
+            logger.info("Codice fiscale presente");
         }else {
-            logger.info("codice fiscale non presente o errato");
+            logger.info("Codice fiscale non presente o errato");
         }
 
         try {
@@ -289,6 +290,7 @@ public class LoginMittentePagoPA {
 
     @And("Logout da portale mittente")
     public void Logout_da_portale_mittente() {
+        logger.info("Si esce dal portale mittente");
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();

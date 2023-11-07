@@ -28,8 +28,8 @@ public class HeadeFRSection extends BasePage {
         try{
             By titleLabel = By.cssSelector("a[title='Sito di PagoPA S.p.A.']");
             By menuProfilo = By.cssSelector("button[aria-label='party-menu-button']");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuProfilo));
+            this.getWebDriverWait(30).withMessage("il titolo del header non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
+            this.getWebDriverWait(30).withMessage("menu dell'utente non è visibile").until(ExpectedConditions.visibilityOfElementLocated(menuProfilo));
             logger.info("Header DE Section caricata");
         }catch (TimeoutException e){
             logger.error("Header DE Section non caricata con errore : "+e.getMessage());
@@ -45,7 +45,7 @@ public class HeadeFRSection extends BasePage {
 
     public void selezionaVoceEsci(){
         By esciVoce = By.xpath("//span[contains(text(),'Esci')]");
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(esciVoce));
+        this.getWebDriverWait(30).withMessage("la voce esci non è visibile").until(ExpectedConditions.visibilityOfElementLocated(esciVoce));
         this.element(esciVoce).click();
     }
 

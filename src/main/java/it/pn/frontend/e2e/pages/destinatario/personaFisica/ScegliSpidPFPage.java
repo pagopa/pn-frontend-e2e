@@ -24,7 +24,7 @@ public class ScegliSpidPFPage extends BasePage {
 
     public void waitLoadScegliSpidDEPage(){
         try{
-            By titlePage = By.cssSelector("div.MuiTypography-root.MuiTypography-h3");
+            By titlePage = By.id("spid-select");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
             logger.info("Scegli Spid DE Page caricata");
         }catch (TimeoutException e){
@@ -34,6 +34,7 @@ public class ScegliSpidPFPage extends BasePage {
     }
 
     public void selezionareTestButton(){
+        getWebDriverWait(30).withMessage("il bottone Test dello spid non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.testButton));
         this.testButton.click();
     }
 

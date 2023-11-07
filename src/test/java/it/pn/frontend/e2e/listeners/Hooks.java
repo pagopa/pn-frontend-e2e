@@ -21,6 +21,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 
 import java.io.File;
 import java.io.IOException;
@@ -168,6 +169,14 @@ public class Hooks {
     public void startScenario(Scenario scenario){
 
         logger.info("-------------------------------------------START SCENARIO: "+scenario.getName()+"------------------------------------------------");
+
+        Collection<String> tags= scenario.getSourceTagNames();
+            for(String tag : tags){
+                if(!(tag.equalsIgnoreCase("@TestSuite"))){
+                    MDC.put("tag",tag);
+                    MDC.put("team","TA-QA");
+                }
+            }
 
         logger.info("os type : "+this.os);
         logger.info("user language : "+System.getProperty("user.language"));

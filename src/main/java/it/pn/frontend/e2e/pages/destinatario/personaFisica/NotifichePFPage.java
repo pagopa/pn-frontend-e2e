@@ -27,10 +27,10 @@ public class NotifichePFPage extends BasePage {
     @FindBy(id = "endDate")
     WebElement dataFineField;
 
-    @FindBy(xpath = "//div[@data-testid='sideMenuItem-Notifiche']")
+    @FindBy(id = "side-item-Notifiche")
     WebElement notificheDeButton;
 
-    @FindBy(xpath = "//div[@data-testid='sideMenuItem-Gaio Giulio Cesare']")
+    @FindBy(id = "side-item-Gaio Giulio Cesare")
     WebElement nomeDeleganteButton;
 
     @FindBy(id = "next")
@@ -49,9 +49,9 @@ public class NotifichePFPage extends BasePage {
     public void waitLoadNotificheDEPage() {
         try{
             By titleLabel = By.id("Le tue notifiche-page");
-            By tableNotifiche = By.xpath("//table[@data-testid='notificationsTable']");
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
+            By tableNotifiche = By.id("notifications-table");
+            this.getWebDriverWait(40).withMessage("Il titolo della pagina Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
+            this.getWebDriverWait(40).withMessage("La tabella delle Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
             logger.info("Notifiche DE Page caricata");
         }catch (TimeoutException e){
             logger.error("Notifiche DE Page non caricata con errore : "+e.getMessage());
@@ -83,6 +83,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void selectFiltraButton() {
+        this.getWebDriverWait(40).withMessage("Il bottone filtra sulla pagina notifiche non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.filtraButton));
         this.filtraButton.click();
     }
 
@@ -94,22 +95,24 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void inserimentoArcoTemporale(String dataDA, String dataA) {
+        this.getWebDriverWait(40).withMessage("Data Inizio input non è visibile").until(ExpectedConditions.visibilityOf(this.dataInizioField));
+        this.getWebDriverWait(40).withMessage("Data Fine  input non è visibile").until(ExpectedConditions.visibilityOf(this.dataFineField));
         this.dataInizioField.sendKeys(dataDA);
         this.dataFineField.sendKeys(dataA);
     }
 
     public boolean getListData() {
         By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-c3sxw2')]");
-        this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
+        this.getWebDriverWait(40).withMessage("La colonna Data nella pagina notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
         return !this.elements(dataListBy).isEmpty();
     }
 
     public boolean verificaEsistenzaEPassaggioPagina() {
         this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
         try {
-            By numeroButtonBy = By.xpath("//button[contains(@aria-label,'pagina 2')]");
-            this.getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(numeroButtonBy));
-            logger.info("Bottone 2 trovato");
+            By numeroButtonBy = By.id("page2");
+            this.getWebDriverWait(20).withMessage("bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOfElementLocated(numeroButtonBy));
+            logger.info("Bottone pagina 2 trovato");
 
             WebElement numeroPagina = this.element(numeroButtonBy);
             numeroPagina.click();
@@ -119,17 +122,19 @@ public class NotifichePFPage extends BasePage {
         }
     }
 
-    public void clickNotificheButton() {this.js().executeScript("arguments[0].click()",this.notificheDeButton);}
+    public void clickNotificheButton() {
+        this.getWebDriverWait(30).withMessage("Notifiche menu button non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.notificheDeButton));
+        this.js().executeScript("arguments[0].click()",this.notificheDeButton);}
 
     public void clickTueNotificheButton(){
         try {
-            By leTueNotificheButtonBy = By.xpath("//div[@data-testid='menu-item(le tue notifiche)']");
+            By leTueNotificheButtonBy = By.id("side-item-Le tue notifiche");
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(leTueNotificheButtonBy));
             this.js().executeScript("arguments[0].click()",this.element(leTueNotificheButtonBy));
             logger.info("Si clicca sul bottone le tue notifiche");
         }catch (TimeoutException e){
-            logger.error("Non si visualizza il bottone le tue notifiche con errore: "+e.getMessage());
-            Assert.fail("Non si visualizza il bottone le tue notifiche con errore: "+e.getMessage());
+            logger.error("Il bottone le tue notifiche non è cliccabile con errore: "+e.getMessage());
+            Assert.fail("Il bottone le tue notifiche non è cliccabile con errore: "+e.getMessage());
         }
     }
 
@@ -137,21 +142,21 @@ public class NotifichePFPage extends BasePage {
         try {
             By notifichePageTitleBy = By.id("Le tue notifiche-page");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notifichePageTitleBy));
-            logger.info("La pagina notifiche persona fisica si visualizza correttamente");
+            logger.info("Il titolo della pagina notifiche persona fisica si visualizza correttamente");
         }catch (TimeoutException e){
-            logger.error("La pagina notifiche persona fisica NON si visualizza correttamente con errore:"+e.getMessage());
-            Assert.fail("La pagina notifiche persona fisica NON si visualizza correttamente con errore:"+e.getMessage());
+            logger.error("Il titolo della pagina notifiche persona fisica NON si visualizza correttamente con errore:"+e.getMessage());
+            Assert.fail("Il titolo della pagina notifiche persona fisica NON si visualizza correttamente con errore:"+e.getMessage());
         }
     }
 
     public void siVisualizzanoFiltriRicerca() {
         try {
             By filtroCodiceIunBy = By.id("iunMatch");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(filtroCodiceIunBy));
+            getWebDriverWait(30).withMessage("il filtro Codice IUN non è visibile").until(ExpectedConditions.visibilityOfElementLocated(filtroCodiceIunBy));
             By filtroDataDaBy = By.id("startDate");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(filtroDataDaBy));
+            getWebDriverWait(30).withMessage("il filtro Data Da non è visibile").until(ExpectedConditions.visibilityOfElementLocated(filtroDataDaBy));
             By filtroDataABy = By.id("endDate");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(filtroDataABy));
+            getWebDriverWait(30).withMessage("il filtro Data A non è visibile").until(ExpectedConditions.visibilityOfElementLocated(filtroDataABy));
             logger.info("Si visualizzano correttamente i filtri ricerca");
         }catch (TimeoutException e){
             logger.error("Non si visualizzano correttamente i filtri ricerca con errore:"+e.getMessage());
@@ -161,15 +166,19 @@ public class NotifichePFPage extends BasePage {
 
     public void siVisualizzaElencoNotifiche() {
         try {
-            By elementoDellaListaBy = By.xpath("//tr[contains(@data-testid,'notificationsTable.row')]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(elementoDellaListaBy));
+            By elementoDellaListaBy = By.xpath("//tr[contains(@id,'notificationsTable.row')]");
+            getWebDriverWait(30).withMessage("le righe della tabella notifiche non sono visibile").until(ExpectedConditions.visibilityOfElementLocated(elementoDellaListaBy));
+
             By nomeColonnaDataBy = By.xpath("//th[contains(text(),'Data')]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaDataBy));
+            getWebDriverWait(30).withMessage("il nome della colonna Data non è visibile").until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaDataBy));
+
             By nomeColonnaOggettoBy = By.xpath("//th[contains(text(),'Oggetto')]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaOggettoBy));
+            getWebDriverWait(30).withMessage("il nome della colonna Oggetto non è visibile").until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaOggettoBy));
+
             By nomeColonnaMittenteBy = By.xpath("//th[contains(text(),'Mittente')]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaMittenteBy));
+            getWebDriverWait(30).withMessage("il nome della colonna Mittente non è visibile").until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaMittenteBy));
             logger.info("Si visualizza correttamente l'elenco delle notifiche");
+
         }catch (Exception e){
             logger.error("NON si visualizza correttamente l'elenco delle notifiche con errore:"+e.getMessage());
             Assert.fail("NON si visualizza correttamente l'elenco delle notifiche con errore:"+e.getMessage());
@@ -177,17 +186,19 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void clickNomeDelegante() {
+        getWebDriverWait(30).withMessage("il nome delegante non è visibile").until(ExpectedConditions.visibilityOf(nomeDeleganteButton));
         this.nomeDeleganteButton.click();
     }
 
     public int siVisualizzaNotifichePresenti() {
-        By rigaDelegaBy = By.xpath("//tr[@data-testid='notificationsTable.row']");
+        By rigaDelegaBy = By.xpath("//tr[@id='notificationsTable.row']");
+        getWebDriverWait(30).withMessage("Nessuna notifica presente nella tabella notifiche").until(ExpectedConditions.visibilityOfElementLocated(rigaDelegaBy));
         return elements(rigaDelegaBy).size();
     }
 
     public List<WebElement> getDateNotifiche() {
         By dataCellBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-c3sxw2')]");
-        getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(dataCellBy));
+        getWebDriverWait(30).withMessage("la data della notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(dataCellBy));
         return elements(dataCellBy);
     }
 
@@ -220,8 +231,8 @@ public class NotifichePFPage extends BasePage {
 
     public void waitLoadPaginaDifferente() {
         try{
-            By paginaSuccessivaBy = By.xpath("//button[contains(@aria-label,'elemento selezionato')]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(paginaSuccessivaBy));
+            By paginaSuccessivaBy = By.id("page1");
+            getWebDriverWait(30).withMessage("la prima pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(paginaSuccessivaBy));
             logger.info("Si visualizza una pagina differente dalla precedente");
         }catch (TimeoutException e){
             logger.error("NON si visualizza una");
@@ -229,32 +240,33 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void siSceglieUnaPaginaDiversaConNumero() {
+        getWebDriverWait(30).withMessage("la terza pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(this.numeroPaginaTreButton));
         this.js().executeScript("arguments[0].click()",this.numeroPaginaTreButton);
-        //this.numeroPaginaTreButton.click();
     }
 
     public void modificaNumeroNotifichePagina() {
         waitLoadPage();
+        getWebDriverWait(30).withMessage("Il menu per cambiare numero di pagine non è visibile").until(ExpectedConditions.visibilityOf(this.numeroPagineButton));
         this.numeroPagineButton.click();
         logger.info("Si clicca sul menu per cambiare numero di pagine visualizzate");
     }
 
     public void numeroDiversoPagine() {
         try {
-            By numeroDiversoPagineBy = By.xpath("//li[contains(@data-testid,'pageSize-20')]");
+            By numeroDiversoPagineBy = By.id("pageSize-20");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(numeroDiversoPagineBy));
             this.element(numeroDiversoPagineBy).click();
-            logger.info("Cambia il numero di pagine visualizzate");
+            logger.info("Cambiato il numero di pagine visualizzate a 20");
         }catch (TimeoutException e){
-            logger.error("NON cambia il numero di pagine visualizzate con errore:"+e.getMessage());
-            Assert.fail("NON cambia il numero di pagine visualizzate con errore:"+e.getMessage());
+            logger.error("NON cambia il numero di pagine visualizzate a 20 con errore:"+e.getMessage());
+            Assert.fail("NON cambia il numero di pagine visualizzate a 20 con errore:"+e.getMessage());
         }
 
     }
 
     public int conteggioNotifiche() {
         By rigaDelegaBy = By.xpath("//tr[@data-testid='notificationsTable.row']");
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(rigaDelegaBy));
+        this.getWebDriverWait(30).withMessage("le notifiche non sono visibile").until(ExpectedConditions.visibilityOfElementLocated(rigaDelegaBy));
         return elements(rigaDelegaBy).size();
     }
 
@@ -277,10 +289,14 @@ public class NotifichePFPage extends BasePage {
     public void waitLoadNotificheDEPageDelegante(String nome, String cognome) {
         try{
             By titleLabel = By.id("Le notifiche di "+nome+" "+cognome+"-page");
-            By tableNotifiche = By.xpath("//table[@data-testid='notificationsTable']");
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
+            By tableNotifiche = By.id("notifications-table");
+            this.getWebDriverWait(40).withMessage("Il titolo della pagina notifiche delegante non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
+
+            this.getWebDriverWait(40).withMessage("La tabella notifiche nella pagina notifiche delegante non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
             logger.info("Notifiche DE Page caricata");
+
         }catch (TimeoutException e){
             logger.error("Notifiche DE Page non caricata con errore : "+e.getMessage());
             Assert.fail("Notifiche DE Page non caricata con errore : "+e.getMessage());

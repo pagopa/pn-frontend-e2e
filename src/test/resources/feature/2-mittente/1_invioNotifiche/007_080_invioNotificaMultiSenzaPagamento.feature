@@ -8,7 +8,6 @@ Feature: Mittente genera una notifica con più destinatari che non prevede pagam
   @TestSuite
   @test80
 
-
   Scenario Outline: Mittente genera una notifica con più destinatari che non prevede pagamento
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
