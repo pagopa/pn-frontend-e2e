@@ -123,8 +123,8 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.annullaButton));
             this.annullaButton.click();
         }catch(TimeoutException e){
-            logger.error("Il bottone annula non è cliccabile con errore: "+e.getMessage());
-            Assert.fail("Il bottone annula non è cliccabile con errore: "+e.getMessage());
+            logger.error("Il bottone annulla non è cliccabile con errore: "+e.getMessage());
+            Assert.fail("Il bottone annulla non è cliccabile con errore: "+e.getMessage());
         }
 
     }
