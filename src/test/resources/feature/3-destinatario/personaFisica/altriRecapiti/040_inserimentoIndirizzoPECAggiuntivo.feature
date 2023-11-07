@@ -17,7 +17,7 @@ Feature: la persona fisica inserisce un indirizzo pec aggiuntivo
     And Nella sezione altri recapiti si inserisce la PEC aggiuntiva de persona fisica "personaFisica"
     And Nella sezione altri recapiti si clicca sul bottone associa
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupare il codice OTP tramite chiamata request "personaFisica"
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaFisica"
     Then Nella sezione altri recapiti si controlla che la pec aggiuntiva sia stata inserita correttamente
     And Logout da portale persona fisica
