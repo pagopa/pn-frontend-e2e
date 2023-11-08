@@ -1,4 +1,4 @@
-Feature: Il persona fisica visualizza il codice  di una delega
+Feature:La persona fisica visualizza il codice  di una delega
 
   Background: Login persona fisica
     Given Login Page persona fisica "personaFisica" viene visualizzata
@@ -9,7 +9,7 @@ Feature: Il persona fisica visualizza il codice  di una delega
   @test46
 
 
-  Scenario: Il persona fisica visualizza il codice  di una delega
+  Scenario:La persona fisica visualizza il codice  di una delega
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
     And Nella sezione Deleghe si verifica sia presente una delega "nuova_delega"
