@@ -145,4 +145,9 @@ public class HelpdeskTest {
     public void selezioneRicercaCodiceFiscale() {
         helpdeskPage.changeOption();
     }
+
+    @Then("controllo corrispondenza codice fiscale")
+    public void controlloCorrispondenzaCodiceFiscale() {
+        helpdeskPage.checkCodiceFiscale();
+    }
 }
