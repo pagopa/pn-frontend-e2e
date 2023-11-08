@@ -22,6 +22,7 @@ public class PopUpRevocaDelegaSection extends BasePage {
     }
 
     public void clickRevocaLaDelega() {
+        this.getWebDriverWait(30).withMessage("Il bottone non viene cliccato con errore").until(ExpectedConditions.elementToBeClickable(this.revocaDialogAction));
         this.revocaDialogAction.click();
     }
 

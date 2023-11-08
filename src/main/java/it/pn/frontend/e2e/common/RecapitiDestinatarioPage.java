@@ -33,22 +33,32 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "phone")
     WebElement inserimentoPhoneField;
 
-    @FindBy(xpath = "//button[contains(text(),'Elimina')]")
-    WebElement eliminaButton;
+    @FindBy(xpath = "//p[contains(text(),'PEC associata')]/following-sibling::div/div/button[contains(text(),'Elimina')]")
+    WebElement eliminaPECButton;
 
     @FindBy(xpath = "//div/h2[contains(text(),'Grazie!')]/following-sibling::div//button")
     WebElement confermaButtonPoPUpPec;
+
+    @FindBy(id = "sender")
+    WebElement enteField;
+
+    @FindBy(id = "addressType")
+    WebElement tipoIndirizzoField;
+
+    @FindBy(id = "s_pec")
+    WebElement indirizzoPecField;
+
+    @FindBy(xpath = "//button[@data-testid = 'addSpecialButton']")
+    WebElement associaButton;
 
     public RecapitiDestinatarioPage(WebDriver driver) {
         super(driver);
     }
 
     public void eliminaPecEsistente(){
-        this.eliminaButton.click();
-        waitLoadPopUp();
-        By confermaRimuoviPECBy = By.xpath("//button[contains(text(),'Annulla')]/following-sibling::button");
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(confermaRimuoviPECBy));
-        this.element(confermaRimuoviPECBy).click();
+        clickSuEliminaPec();
+        waitLoadPopUpElimina();
+        clickSuComefermaElimina();
     }
 
     public void insertEmailPEC(String emailPEC) {
@@ -262,4 +272,76 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
 
+    public void clickSuEliminaPec() {
+        this.getWebDriverWait(30).withMessage("Non si è riuscito ad cliccare sul bottone elimina PEC").until(ExpectedConditions.elementToBeClickable(eliminaPECButton));
+        this.eliminaPECButton.click();
+    }
+
+    public void waitLoadPopUpElimina() {
+        By titlePopUp = By.id("dialog-title");
+        By subTitlePopUp = By.id("dialog-description");
+        this.getWebDriverWait(30).withMessage("Non è stato caricato il titolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
+        this.getWebDriverWait(30).withMessage("Non è stato caricato il sottotitolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
+    }
+
+    public void clickSuComefermaElimina() {
+        By confermaRimuoviPECBy = By.xpath("//button[contains(text(),'Annulla')]/following-sibling::button");
+        this.getWebDriverWait(30).withMessage("Non è stato possibile cliccare sul bottone conferma").until(ExpectedConditions.elementToBeClickable(confermaRimuoviPECBy));
+        this.element(confermaRimuoviPECBy).click();
+    }
+
+    public boolean siControllaNonPresenzaPEC() {
+        try {
+            By pecField = By.id("pec");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(pecField));
+            return true;
+        }catch (TimeoutException e){
+            return false;
+        }
+    }
+
+    public void waitLoadAltriRecapiti() {
+        By titleBy = By.xpath("//h5[contains(text(),'Altri recapiti')]");
+        By enteBy = By.id("sender");
+        By tipoIndirizzoBy = By.id("addressType");
+        By indirizzoPECFieldBy = By.id("s_pec");
+
+        this.getWebDriverWait(30).withMessage("Non è stato caricato il titolo 'Altri recapiti'").until(ExpectedConditions.visibilityOfElementLocated(titleBy));
+        this.getWebDriverWait(30).withMessage("Non è stato caricato l'ente field").until(ExpectedConditions.elementToBeClickable(enteBy));
+        this.getWebDriverWait(30).withMessage("Non è stato caricato il tipo di indirizzo field").until(ExpectedConditions.elementToBeClickable(tipoIndirizzoBy));
+        this.getWebDriverWait(30).withMessage("Non è stato caricato l'indirizzo field").until(ExpectedConditions.elementToBeClickable(indirizzoPECFieldBy));
+    }
+
+    public void insertEnte(String comune) {
+        this.enteField.sendKeys(comune);
+    }
+
+    public void clickSuIndirizzoPEC() {
+        this.tipoIndirizzoField.click();
+
+        By opzionePEC = By.xpath("//li[@data-value ='PEC']");
+        this.getWebDriverWait(30).withMessage("Non è visibile l'opzione 'Indirizzo PEC'").until(ExpectedConditions.elementToBeClickable(opzionePEC));
+    }
+
+    public void insertPECAggiuntiva(String emailPec) {
+        try {
+            if (this.indirizzoPecField.isDisplayed()){
+                this.indirizzoPecField.sendKeys(emailPec);
+            }else {
+                this.js().executeScript("arguments[0].scrollIntoView(true);",this.indirizzoPecField);
+                this.indirizzoPecField.sendKeys(emailPec);
+            }
+        }catch (ElementNotInteractableException e){
+            this.indirizzoPecField.sendKeys(emailPec);
+        }
+    }
+
+    public void clickSuAssocia() {
+        this.associaButton.click();
+    }
+
+    public void siControllaPECAggiunta() {
+        By pecAssociataBy = By.xpath("//form[@data-testid='specialContactForm']//div/p");
+        this.getWebDriverWait(30).withMessage("La pec non è stata aggiunta correttamente").until(ExpectedConditions.visibilityOfElementLocated(pecAssociataBy));
+    }
 }

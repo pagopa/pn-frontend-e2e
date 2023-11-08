@@ -427,4 +427,20 @@ public class DeleghePagoPATest {
             backgroundTest.loginPF("delegatoPF");
         }
     }
+
+    @Then("Si controlla che non ci sia più una delega")
+    public void siControllaCheNonCiSiaPiuUnaDelega() {
+        logger.info("Si controlla che non si più presente una delega");
+
+        this.deleghe = dataPopulation.readDataPopulation("delegatoPF.yaml");
+        String nome = this.deleghe.get("name").toString();
+        String cognome = this.deleghe.get("familyName").toString();
+
+        if(deleghePage.siVisualizzaUnaDelegaConNome(nome,cognome)){
+            logger.info("La delega è stata revocata correttamente");
+        }else {
+            logger.error("La delega è ancora presente in lista");
+            Assert.fail("La delega è ancora presente in lista");
+        }
+    }
 }

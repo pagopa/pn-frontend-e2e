@@ -14,6 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -388,6 +389,80 @@ public class RecapitiPersonaFisicaTest {
             logger.error("La chiamata ha risposto con questo codice: "+recuperoOTPRecapiti.getResponseCode());
             Assert.fail("La chiamata ha risposto con questo codice: "+recuperoOTPRecapiti.getResponseCode());
         }
+
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si clicca sul bottone elimina")
+    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneElimina() {
+        logger.info("Si clicca sul bottone elimina");
+        recapitiDestinatarioPage.clickSuEliminaPec();
+    }
+
+    @And("Nel pop up elimina indirizzo pec si clicca sul bottone conferma")
+    public void nelPopUpEliminaIndirizzoPecSiCliccaSulBottoneConferma() {
+        logger.info("Si clicca sul bottone conferma");
+        recapitiDestinatarioPage.waitLoadPopUpElimina();
+        recapitiDestinatarioPage.clickSuComefermaElimina();
+    }
+
+    @Then("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo pec non sia presente")
+    public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoPecNonSiaPresente() {
+        logger.info("Si controlla che la PEC sia stata eliminata");
+
+        if (recapitiDestinatarioPage.siControllaNonPresenzaPEC()){
+            logger.info("La PEC è stata eliminata correttamente");
+        }else {
+            logger.error("La PEC non è stata eliminata");
+            Assert.fail("La PEC non è stata eliminata");
+        }
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti")
+    public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteLaSezioneAltriRecapiti() {
+        logger.info("Si visualizza correttamente la sezione altri recapiti");
+
+        recapitiDestinatarioPage.waitLoadAltriRecapiti();
+    }
+
+    @And("Nella sezione altri recapiti si seleziona l'ente {string}")
+    public void nellaSezioneAltriRecapitiSiSelezionaLEnte(String dpFile) {
+        logger.info("Si sceglie l'ente");
+
+        Map<String,Object> mittente = dataPopulation.readDataPopulation(dpFile+".yaml");
+
+        recapitiDestinatarioPage.insertEnte(mittente.get("comune").toString());
+
+    }
+
+    @And("Nella sezione altri recapiti si seleziona il tipo di indirizzo")
+    public void nellaSezioneAltriRecapitiSiSelezionaIlTipoDiIndirizzo() {
+        logger.info("Si selezione il tipo di indirizzo come PEC");
+
+        recapitiDestinatarioPage.clickSuIndirizzoPEC();
+
+    }
+
+    @And("Nella sezione altri recapiti si inserisce la PEC aggiuntiva de persona fisica {string}")
+    public void nellaSezioneAltriRecapitiSiInserisceLaPECAggiuntivaDePersonaFisica(String dpFile) {
+
+        Map<String,Object> personaFisica = dataPopulation.readDataPopulation(dpFile+".yaml");
+        recapitiDestinatarioPage.insertPECAggiuntiva(personaFisica.get("emailPec").toString());
+
+    }
+
+    @And("Nella sezione altri recapiti si clicca sul bottone associa")
+    public void nellaSezioneAltriRecapitiSiCliccaSulBottoneAssocia() {
+        logger.info("Si clicca sul bottone associa");
+
+        recapitiDestinatarioPage.clickSuAssocia();
+
+    }
+
+    @Then("Nella sezione altri recapiti si controlla che la pec aggiuntiva sia stata inserita correttamente")
+    public void nellaSezioneAltriRecapitiSiControllaCheLaPecAggiuntivaSiaStataInseritaCorrettamente() {
+        logger.info("Si controlla che sia stata aggiunta la PEC");
+
+        recapitiDestinatarioPage.siControllaPECAggiunta();
 
     }
 }
