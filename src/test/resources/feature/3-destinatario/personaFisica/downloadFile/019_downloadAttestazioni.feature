@@ -4,12 +4,11 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
     Given Login Page persona fisica "personaFisica" viene visualizzata
     When Login portale persona fisica tramite request method
     Then pagina Piattaforma  Notifiche persona fisica viene visualizzata correttamente
-    And Nella pagina Piattaforma Notifiche  persona fisica inserire il codice IUN da dati notifica "datiNotifica"
+    And Nella pagina Piattaforma Notifiche si recupera un codice IUN valido
     And Cliccare sul bottone Filtra persona fisica
 
   @TestSuite
   @test19
-  @
 
   Scenario: persona fisica scarica attestazione
     WhenLa persona fisica clicca sulla notifica restituita

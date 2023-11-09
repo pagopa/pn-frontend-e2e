@@ -31,9 +31,9 @@ public class HomePagePG extends BasePage {
             By subtitlePageBy = By.xpath("//h4[contains(text(),'Notifiche digitali')]");
             By cardNotificheDevBy = By.xpath("//h6[@aria-label='SEND - Notifiche Digitali DEV']");
 
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(subtitlePageBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(cardNotificheDevBy));
+            this.getWebDriverWait(30).withMessage("il titolo Panoramica nella pagina home page riepilogo dati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
+            this.getWebDriverWait(30).withMessage("il sotto titolo nella pagina home page riepilogo dati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(subtitlePageBy));
+            this.getWebDriverWait(30).withMessage("la card SEND - Notifiche Digitali DEV non è visibile ").until(ExpectedConditions.visibilityOfElementLocated(cardNotificheDevBy));
 
             logger.info("HomePagePG caricata correttamente");
 

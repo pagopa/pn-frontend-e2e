@@ -2,7 +2,7 @@ Feature: Il mittente inserisce i dati non coretti nella sezione informazioni pre
 
   Background: login pagoPA mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente "mittente"
+   When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
 
   @fase2Test1neg

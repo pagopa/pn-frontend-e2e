@@ -15,17 +15,14 @@ public class DeleghePage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DeleghePage");
 
-    @FindBy(xpath = "//button[@data-testid ='add-delegation']")
+    @FindBy(id = "add-delegation-button")
     WebElement addDelegaButton;
 
-    @FindBy(xpath = "//li[@data-testid = 'menuItem-revokeDelegate']")
+    @FindBy(id = "revoke-delegation-button")
     WebElement revocaButton;
 
-    @FindBy(xpath = "//li[@data-testid='menuItem-showCode']")
+    @FindBy(id = "show-code-button")
     WebElement mostraCodiceOption;
-
-    @FindBy(xpath = "//li[contains(@data-testid,'menuItem-revokeDelegate')]")
-    WebElement revocaDelegaOption;
 
     public DeleghePage(WebDriver driver) {
         super(driver);
@@ -79,7 +76,7 @@ public class DeleghePage extends BasePage {
         By menuButton = By.xpath("//div[@data-testid='delegates-wrapper']//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
         this.getWebDriverWait(40).withMessage("menu delega non cliccabile ").until(ExpectedConditions.elementToBeClickable(menuButton));
         this.js().executeScript("arguments[0].click()",this.element(menuButton));
-        this.getWebDriverWait(30).withMessage("buttone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(this.revocaButton));
+        this.getWebDriverWait(30).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(this.revocaButton));
         this.revocaButton.click();
 
 
@@ -131,7 +128,7 @@ public class DeleghePage extends BasePage {
     }
 
     public void clickOpzioneRevoca() {
-        this.revocaDelegaOption.click();
+        this.revocaButton.click();
     }
 
     public void clickMenuPerRifiuto(String nome, String cognome) {
@@ -175,10 +172,10 @@ public class DeleghePage extends BasePage {
             By annullaButtonPopUpBy = By.xpath("//button[contains(text(),'Annulla')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(annullaButtonPopUpBy));
             this.element(annullaButtonPopUpBy).click();
-            logger.info("Si visualizza il bottone rifiuta nel pop-up");
+            logger.info("Si visualizza il bottone Annulla nel pop-up");
         }catch(TimeoutException e){
-            logger.error("Non si clicca correttamente sul bottone rifiuta pop-up con errore: "+e.getMessage());
-            Assert.fail("Non si clicca correttamente sul bottone rifiuta pop-up errore: "+e.getMessage());
+            logger.error("Non si clicca correttamente sul bottone Annulla pop-up con errore: "+e.getMessage());
+            Assert.fail("Non si clicca correttamente sul bottone Annulla pop-up errore: "+e.getMessage());
         }
     }
 

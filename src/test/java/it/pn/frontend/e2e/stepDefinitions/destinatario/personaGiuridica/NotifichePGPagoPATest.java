@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DisserviziAppPage;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
@@ -40,6 +41,8 @@ public class NotifichePGPagoPATest {
             default -> Assert.fail("Non stato possibile trovare l'ambiente inserito, Insaerisci in -Denvironment test o dev o uat");
         }
     }
+
+
 
     @And("Si visualizza correttamente la Pagina Notifiche persona giuridica {string}")
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica(String dpFile) {
@@ -81,7 +84,6 @@ public class NotifichePGPagoPATest {
     @When("Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaClickSulBottoneDeleghe() {
         logger.info("Si clicca sul bottone Deleghe");
-
         piattaformaNotifichePGPAPage.clickSuDelegeButton();
     }
 
@@ -106,11 +108,12 @@ public class NotifichePGPagoPATest {
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaPersonaGiuridicaESiControllaCheIlDownloadSiaAvvenuto(String dpFile) {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponubili();
-        DownloadFile downloadFile = new DownloadFile();
+        DownloadFile downloadFile = new DownloadFile(this.driver);
         DataPopulation dataPopulation = new DataPopulation();
         Map<String,Object> datiNotifica = dataPopulation.readDataPopulation(dpFile+".yaml");
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/personaGiuridica");
+        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)){
             pathCartella.mkdirs();
         }
@@ -122,9 +125,21 @@ public class NotifichePGPagoPATest {
                 throw new RuntimeException(e);
             }
             String urlFileAttestazioneOppponubile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+datiNotifica.get("codiceIUN").toString()+"/legal-facts/");
+            if (headless && urlFileAttestazioneOppponubile.isEmpty()){
+                String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
+                logger.error("Non è stato recuperato url per il download per il link: "+testoLink);
+                Assert.fail("Non è stato recuperato url per il download per il link: "+testoLink);
+            }
             File file = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN"+i+".pdf");
-            downloadFile.download(urlFileAttestazioneOppponubile,file);
+            downloadFile.download(urlFileAttestazioneOppponubile,file,headless);
+            if (!headless){
+                dettaglioNotificaSection.goBack();
+            }
         }
         downloadFile.controlloDownload(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario",numeroLinkAttestazioniOpponibile);
     }
+
+
+
+
 }

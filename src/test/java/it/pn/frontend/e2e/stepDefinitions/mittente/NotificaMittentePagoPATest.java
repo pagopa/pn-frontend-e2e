@@ -559,7 +559,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella section Destinatario cliccare su Aggiungi destinatario")
     public void nellaSectionDestinatarioCliccareSuAggiungiDestinatario() {
-        logger.info("Si sta cercando di selezionare il buttone aiggiungere Destinatario");
+        logger.info("Si sta cercando di selezionare il bottone aiggiungere Destinatario");
 
         destinatarioPASection.selezionareAggiungiDestinatarioButton();
     }
@@ -907,8 +907,9 @@ public class NotificaMittentePagoPATest {
 
     @And("Si verifica che la notifica viene creata correttamente {string}")
     public void siVerificaCheLaNotificaVieneCreataCorrettamente(String dpFile) {
-        final String urlNotificationRequest = "https://webapi.test.notifichedigitali.it/delivery/requests";
-        final String urlRichiestaNotifica = "https://api.test.notifichedigitali.it/delivery/requests/";
+        logger.info("si verifica se la notifica è stata accettata o rifiutata");
+        final String urlNotificationRequest = "https://webapi.test.notifichedigitali.it/delivery/v2.1/requests";
+        final String urlRichiestaNotifica = "https://api.test.notifichedigitali.it/delivery/v2.1/requests/";
         String statusNotifica = "WAITING";
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
         AccettazioneRichiestaNotifica accettazioneRichiestaNotifica = new AccettazioneRichiestaNotifica();
@@ -923,15 +924,17 @@ public class NotificaMittentePagoPATest {
             boolean result = accettazioneRichiestaNotifica.runGetRichiestaNotifica();
             if (result){
                 statusNotifica = accettazioneRichiestaNotifica.getStatusNotifica();
+                logger.info("lo stato della notifica è :"+statusNotifica);
             }else{
-                if(accettazioneRichiestaNotifica.getResponseCode()==400){
-                    logger.error("la risposta dell'accettazione della notifica è :400 Bad Request");
-                    Assert.fail("la risposta dell'accettazione della notifica è :400 Bad Request");
+                if(accettazioneRichiestaNotifica.getResponseCode()!=200){
+                    logger.error("la risposta dell'accettazione della notifica "+ notificationRequestId+ " è: "+accettazioneRichiestaNotifica.getResponseCode());
+                    Assert.fail("la risposta dell'accettazione della notifica "+ notificationRequestId+ " è: "+accettazioneRichiestaNotifica.getResponseCode());
                 }
             }
         }while (statusNotifica.equals("WAITING"));
 
         if (statusNotifica.equals("ACCEPTED")){
+            logger.info("La notifica è stata Accettata");
             String codiceIUN = accettazioneRichiestaNotifica.getCodiceIUN();
             this.datiNotifica = dataPopulation.readDataPopulation(dpFile+".yaml");
             if (codiceIUN != null && !codiceIUN.equals("")){
@@ -954,6 +957,7 @@ public class NotificaMittentePagoPATest {
                 return result.substring(1,result.length()-1);
             }
         }
+        logger.error("NotificationRequestId non trovato, il codice della risposta al url "+ urlNotificationRequest +" è diverso di 202 ");
         return null;
     }
 
@@ -978,6 +982,8 @@ public class NotificaMittentePagoPATest {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
         }else {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiciIun.get(0));
+            this.personaFisica.put("codiceIUN",codiciIun.get(0));
+            dataPopulation.writeDataPopulation("datiNotifica.yaml",this.personaFisica);
         }
     }
 
@@ -1011,4 +1017,42 @@ public class NotificaMittentePagoPATest {
             Assert.fail("La notifica non è stata trovata dopo 1m40s");
         }
     }
+
+    @And("Nella pagina Piattaforma Notifiche inserire il codice fiscale sbagliato {string}")
+    public void inserimentoCodiceFiscaleSbagliato(String codiceFiscaleSbagliato){
+        logger.info("inserimento codice fiscale sbagliato nella ricerca di una notifica");
+        piattaformaNotifichePage.insertCodiceFiscale(codiceFiscaleSbagliato);
+        piattaformaNotifichePage.selectFiltraButton();
+
+    }
+
+    @Then("Nella pagina Piattaforma Notifiche si controlla che si visualizza il messaggio di errore codice fiscale")
+    public void nellaPiattaformaNotificheSiControllaEsistenzaMessaggioErroreCF(){
+        logger.info("si controlla che si visualizza il messaggio di errore ‘Inserisci il codice per intero’ ");
+        Assert.assertTrue("Nessun errore visualizzato insirendo CF sbagliato", piattaformaNotifichePage.controlloEsistenzaMessagioErroreCF());
+
+    }
+
+    @And("Nella pagina Piattaforma Notifiche si controlla che il bottone Filtra sia attivo")
+    public void nellaPaginaPiattaformaNotificheSiControllacheFiltraSiaDisattivo() {
+        logger.info("Si controlla che il bottone Filtra sia attivo");
+        Assert.assertFalse("il bottone Filtra è disabilitato", piattaformaNotifichePage.verificaBottoneFiltraDisabilitato());
+    }
+
+    @And("Nella pagina Piattaforma Notifiche inserire il codice IUN sbagliato {string}")
+    public void nellaPaginaPiattaformaNotificheInserireIUNsbagliato(String codiceIUNSbagliato){
+        logger.info("Inserimento codice IUN sbagliato");
+        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUNSbagliato);
+        piattaformaNotifichePage.selectFiltraButton();
+    }
+
+    @Then("Nella pagina Piattaforma Notifiche si visualizza il messaggio di errore codice IUN")
+    public void nellaPaginaPiattaformaNotificheSiVisualizzaIlMessaggioDiErroreIUN(){
+        logger.info("si controlla esistenza messaggio di errore codice IUN");
+        Assert.assertTrue("Nessun errore visualizzato insirendo IUN sbagliato",piattaformaNotifichePage.controlloEsistenzaMessagioErroreIUN());
+        logger.info("Messaggio di errore 'Inserisci un codice IUN valido' trovato");
+    }
+
+
+
 }

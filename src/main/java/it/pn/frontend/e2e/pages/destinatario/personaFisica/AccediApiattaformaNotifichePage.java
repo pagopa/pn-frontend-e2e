@@ -28,8 +28,8 @@ public class AccediApiattaformaNotifichePage extends BasePage {
             By titleLabel = By.id("login-page-title");
             By loginBy = By.id("login-button");
             this.getWebDriverWait(30).withMessage("Il titolo della pagina accedi piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
-            this.getWebDriverWait(30).withMessage("Il buttone login della pagina accedi piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(loginBy));
-            this.getWebDriverWait(30).withMessage("Il buttone login della pagina accedi piattaforma notifiche non è ciccabile").until(ExpectedConditions.elementToBeClickable(this.accediButton));
+            this.getWebDriverWait(30).withMessage("Il bottone login della pagina accedi piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(loginBy));
+            this.getWebDriverWait(30).withMessage("Il bottone login della pagina accedi piattaforma notifiche non è ciccabile").until(ExpectedConditions.elementToBeClickable(this.accediButton));
             logger.info("Accedi A Piattaforma Notifiche Page caricata");
         }catch (TimeoutException e){
             logger.info("Accedi A Piattaforma Notifiche Page non caricata con errore : "+e.getMessage());

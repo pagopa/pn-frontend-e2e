@@ -279,6 +279,10 @@ public class DeleghePGPagoPATest {
         logger.info("Si seleziona il bottone conferma");
 
         deleghePGPagoPAPage.clickBottoneConferma();
+        if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()){
+            logger.error("il codice inserito è sbagliato");
+            Assert.fail("il codice inserito è sbagliato");
+        }
     }
 
     @And("Si controlla che la delega PG a lo stato Attiva {string}")
@@ -353,6 +357,10 @@ public class DeleghePGPagoPATest {
         logger.info("Si clicca su conferma del pop-up");
 
         deleghePGPagoPAPage.clickBottoneConferma();
+        if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()){
+            logger.error("il codice inserito è sbagliato");
+            Assert.fail("il codice inserito è sbagliato");
+        }
     }
 
     @And("Si controlla che la delega a cambiato gruppo")

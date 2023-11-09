@@ -2,7 +2,7 @@ Feature: il mittente effettua il download attestazione opponibile a terzi mancat
 
   Background: Login mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login mittente tramite request method
+   When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
     And Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche

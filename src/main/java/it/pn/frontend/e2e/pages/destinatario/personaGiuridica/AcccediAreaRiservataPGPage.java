@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AcccediAreaRiservataPGPage extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("AcccediAreaRiservataPGPage");
+    private final Logger logger = LoggerFactory.getLogger("AccediAreaRiservataPGPage");
 
     @FindBy(id = "spidButton")
     WebElement spidButton;
@@ -23,10 +23,9 @@ public class AcccediAreaRiservataPGPage extends BasePage {
     public void waitLoadAccediAreaRiservataPGPage() {
         try {
             By titleBy = By.xpath("//h3[contains(text(),'Come vuoi accedere?')]");
-            By spidButtonBy = By.id("spidButton");
 
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(spidButtonBy));
+            this.getWebDriverWait(30).withMessage("il titolo della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleBy));
+            this.getWebDriverWait(30).withMessage("Lo spid Button della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.elementToBeClickable(this.spidButton));
 
             logger.info("AccediAreaRiservaPage caricata correttamente");
 

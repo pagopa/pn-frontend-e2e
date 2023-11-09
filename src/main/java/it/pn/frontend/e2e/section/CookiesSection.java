@@ -41,8 +41,8 @@ public class CookiesSection extends BasePage {
             Actions actions = new Actions(driver);
             actions.moveToElement(this.accettaTuttiButton).click().perform();
         }catch(TimeoutException e){
-            logger.error("Non è cliccabile il buttone accetta tutti i cookies" + e.getMessage());
-            Assert.fail("Non è cliccabile il buttone accetta tutti i cookies" + e.getMessage());
+            logger.error("Non è cliccabile il bottone accetta tutti i cookies" + e.getMessage());
+            Assert.fail("Non è cliccabile il bottone accetta tutti i cookies" + e.getMessage());
 
         }
     }

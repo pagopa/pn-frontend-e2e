@@ -34,9 +34,9 @@ public class DettaglioNotificaSection extends BasePage{
             By indietroButtonBy = By.id("breadcrumb-indietro-button");
             By informazioniBy = By.id("notification-detail-table");
             By allegatiSection = By.id("notification-detail-document-attached");
-            this.getWebDriverWait(30).withMessage("il titolo Dettaglio notofica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
-            this.getWebDriverWait(30).withMessage("il buttone indietro non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButtonBy));
-            this.getWebDriverWait(30).withMessage("Dettaglio notofica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
+            this.getWebDriverWait(30).withMessage("il titolo Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
+            this.getWebDriverWait(30).withMessage("il bottone indietro non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButtonBy));
+            this.getWebDriverWait(30).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
             this.getWebDriverWait(30).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
             this.getWebDriverWait(30).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotifcaBy));
             logger.info("Dettaglio Notifica Section caricata");
@@ -48,7 +48,12 @@ public class DettaglioNotificaSection extends BasePage{
 
 
     public void clickLinkAttestazionipponibile(int numeroLinkAttestazioniOpponibile) {
-        attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
+       if(attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()){
+           attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
+       }else{
+           this.js().executeScript("arguments[0].scrollIntoView(true);",attestazioniFile.get(numeroLinkAttestazioniOpponibile));
+           attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
+       }
     }
 
     public int getLinkAttestazioniOpponubili() {
@@ -56,7 +61,7 @@ public class DettaglioNotificaSection extends BasePage{
     }
 
     public void selezioneVediDettaglioButton() {
-        getWebDriverWait(30).withMessage("buttone vedi dettaglio non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.vediDettagliButton));
+        getWebDriverWait(30).withMessage("bottone vedi dettaglio non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.vediDettagliButton));
         vediDettagliButton.click();
         if (tuttiStatiNotificaList.size() >= 1){
             logger.info("Tutti gli stati sono stati visualizzati correttamente");
@@ -66,4 +71,7 @@ public class DettaglioNotificaSection extends BasePage{
         }
     }
 
+    public String getTextLinkAttestazioniOpponibili(int i) {
+        return attestazioniFile.get(i).getText();
+    }
 }
