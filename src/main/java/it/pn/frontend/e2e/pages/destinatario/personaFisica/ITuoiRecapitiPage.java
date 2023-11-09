@@ -147,7 +147,7 @@ public class ITuoiRecapitiPage extends BasePage {
         By salvaButtonBy = By.xpath("//button[contains(text(),'Salva')]");
         this.driver.findElement(salvaButtonBy).click();
     }
-    
+
     public void eliminaEmailEsistente(){
         this.eliminaButton.click();
         waitLoadPopUp();
