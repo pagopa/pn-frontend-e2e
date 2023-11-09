@@ -1,7 +1,5 @@
 package it.pn.frontend.e2e.stepDefinitions.common;
 
-import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DisserviziAppPage;
-import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.LoginPGPagoPAPage;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.RecapitiPersonaFisicaTest;

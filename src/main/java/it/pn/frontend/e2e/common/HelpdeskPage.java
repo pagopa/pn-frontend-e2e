@@ -10,9 +10,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Array;
-import java.sql.Time;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class HelpdeskPage extends BasePage{
