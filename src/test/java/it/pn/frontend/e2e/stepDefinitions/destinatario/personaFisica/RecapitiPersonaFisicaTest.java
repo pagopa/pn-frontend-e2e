@@ -370,7 +370,7 @@ public class RecapitiPersonaFisicaTest {
         }
     }
 
-    @And("Nella pagina I Tuoi Recapiti si clicca sul bottone elimina")
+    @And("Nella pagina I Tuoi Recapiti si clicca sul bottone elimina email e si conferma nel pop up")
     public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneElimina() {
         logger.info("Si clicca sul bottone elimina email");
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
