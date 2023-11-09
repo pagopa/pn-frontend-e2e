@@ -1,4 +1,4 @@
-Feature: Il persona giuridica visuallizza le deleghe
+Feature:La persona giuridica visuallizza le deleghe
 
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
@@ -9,7 +9,7 @@ Feature: Il persona giuridica visuallizza le deleghe
 
   @TestSuite
   @fase2Test114
-  Scenario: Il persona giuridica visuallizza le deleghe
+  Scenario:La persona giuridica visuallizza le deleghe
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Nella pagina Deleghe si clicca su Delegati dall impresa

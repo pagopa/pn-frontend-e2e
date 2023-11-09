@@ -12,7 +12,7 @@ Feature: Mittente effetua una ricerca notifiche per CF sbagliato
   Scenario: Mittente loggato effettua una ricerca per CF sbagliato
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Nella pagina Piattaforma Notifiche inserire il codice fiscale sbagliato ""
+    And Nella pagina Piattaforma Notifiche inserire il codice fiscale sbagliato "QWERTY123"
     Then Nella pagina Piattaforma Notifiche si controlla che si visualizza il messaggio di errore codice fiscale
-    And Nella pagina Piattaforma Notifiche si controlla che il bottone Filtra non sia attivo
+    And Nella pagina Piattaforma Notifiche si controlla che il bottone Filtra sia attivo
     And Logout da portale mittente

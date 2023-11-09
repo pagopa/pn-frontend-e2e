@@ -5,7 +5,6 @@ Feature: la persona fisica inserisce una email pec
     When Login portale persona fisica tramite request method
     Then Home page persona fisica viene visualizzata correttamente
 
-
   @inserimentoPECPF
 
   Scenario: la persona fisica inserisce una email pec

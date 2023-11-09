@@ -34,7 +34,7 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(id = "code-cancel-button")
     WebElement annullaButton;
 
-    @FindBy(id = "code-confirm-button")
+    @FindBy(id = "")
     WebElement confermaButtonPopUp;
 
     @FindBy(xpath = "//button[contains(text(),'Elimina')]")
