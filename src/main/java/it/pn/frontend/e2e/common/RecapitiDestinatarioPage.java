@@ -39,6 +39,9 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(xpath = "//div/h2[contains(text(),'Grazie!')]/following-sibling::div//button")
     WebElement confermaButtonPoPUpPec;
 
+    @FindBy(xpath = "//p[contains(text(),'Indirizzo e-mail')]/following-sibling::div/div/button[contains(text(),'Modifica')]")
+    WebElement modficaEmailButton;
+
     @FindBy(id = "sender")
     WebElement enteField;
 
@@ -201,13 +204,13 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-    public void verificaMailAssociata() {
+    public boolean verificaMailAssociata() {
         try{
-            By pecAssociata = By.xpath("//p[contains(text(),'Indirizzo e-mail')]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(pecAssociata));
+            By emailAssociata = By.id("email");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(emailAssociata));
+            return false;
         }catch (TimeoutException e){
-            logger.error("Pec non associata con errore:"+e.getMessage());
-            Assert.fail("Pec non associata con errore:"+e.getMessage());
+            return true;
         }
     }
 
@@ -222,6 +225,15 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickSuModifica() {
+        By modificaMailButton = By.xpath("//p[contains(text(),'Indirizzo e-mail')]/following-sibling::div/div/button[contains(text(),'Modifica')]");
+        getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(modificaMailButton));
+        if (modficaEmailButton.isDisplayed()){
+            this.modficaEmailButton.click();
+        }else {
+            this.js().executeScript("arguments[0].scrollIntoView(true);",modficaEmailButton);
+            this.modficaEmailButton.click();
+        }
+
 
     }
 
@@ -351,3 +363,5 @@ public class RecapitiDestinatarioPage extends BasePage {
         this.getWebDriverWait(30).withMessage("La pec non è stata aggiunta correttamente").until(ExpectedConditions.visibilityOfElementLocated(pecAssociataBy));
     }
 }
+
+

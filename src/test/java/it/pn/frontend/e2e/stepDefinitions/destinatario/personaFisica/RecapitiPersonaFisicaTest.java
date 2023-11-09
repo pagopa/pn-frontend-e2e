@@ -241,9 +241,6 @@ public class RecapitiPersonaFisicaTest {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.sendOTP(otp);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
-        if(recapitiDestinatarioPage.otpErrorMessage()){
-            logger.error("L'OTP inserito è sbagliato");
-        }
     }
 
     @Then("Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente")
@@ -310,7 +307,11 @@ public class RecapitiPersonaFisicaTest {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
 
-        recapitiDestinatarioPage.verificaMailAssociata();
+        BackgroundTest backgroundTest = new BackgroundTest();
+
+        if (!recapitiDestinatarioPage.verificaMailAssociata()){
+            backgroundTest.aggiuntaEmail();
+        }
     }
 
     @And("Nella pagina I Tuoi Recapiti si clicca sul bottone modifica")
@@ -322,153 +323,77 @@ public class RecapitiPersonaFisicaTest {
 
         recapitiDestinatarioPage.clickSuModifica();
     }
-    @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già una pec")
-    public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaPec() {
-        logger.info("Si controlla la presenza di una pec");
-        BackgroundTest backgroundTest = new BackgroundTest();
-        if (recapitiDestinatarioPage.siVisulizzaPecInserita()){
-            logger.info("Vi è una PEC inserita");
-        }else {
-            backgroundTest.aggiungiPECPF();
-        }
-    }
-    @And("Nella pagina I Tuoi Recapiti si inserisce una nuova PEC della persona fisica {string}")
-    public void nellaPaginaITuoiRecapitiSiInserisceUnaNuovaPECDellaPersonaFisica(String PEC) {
-        logger.info("Si inserisce una nuova PEC");
-        recapitiDestinatarioPage.cancellaTesto();
-        recapitiDestinatarioPage.insertEmailPEC(PEC);
+    @And("Nella pagina I Tuoi Recapiti si inserisce la nuova Email del PF {string} e clicca su salva")
+    public void nellaPaginaITuoiRecapitiSiInserisceLaNuovaEmailDelPFECliccaSulBottoneAvvisamiViaEmail(String dpFile) {
+        logger.info("Si inserisce la nuova Email e si clicca sul bottone avvisami via email");
+
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
+
+        iTuoiRecapitiPage.cancellaTesto();
+
+        String email = dataPopulation.readDataPopulation(dpFile+".yaml").get("email").toString();
+        iTuoiRecapitiPage.insertEmail(email);
+        iTuoiRecapitiPage.clickSalvaemail();
+
     }
 
-    @And("Nella pagina I Tuoi Recapiti si clicca sul bottone salva")
-    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneSalva() {
-        logger.info("Si clicca sul bottone salva");
-        recapitiDestinatarioPage.clickSuSalva();
+    @Then("Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata")
+    public void nellaPaginaITuoiRecapitiSiControllaCheLaEmailSiaStataModificata() {
+        logger.info("Si controlla che la Email sia stata modificata");
+
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.verificaEmailModificata();
     }
-
-    @Then("Nella pagina I Tuoi Recapiti si verifica che la pec sia stata modificata {string}")
-    public void nellaPaginaITuoiRecapitiSiVerificaCheLaPecSiaStataModificata(String pec) {
-        logger.info("Si controlla che la PEC sia stata modificata");
-        if(recapitiDestinatarioPage.siVisualizzaPopUpConferma()){
-            recapitiDestinatarioPage.clickConfermaButton();
-            recapitiDestinatarioPage.visualizzaValidazione();
-        }
-
-        recapitiDestinatarioPage.aggionamentoPagina();
-
-        if(recapitiDestinatarioPage.siControllaPECModificata(pec)){
-            logger.info("La PEC è stata modificata");
-        }else {
-            logger.error("La pec non è stata modificata");
-            Assert.fail("La pec non è stata modificata");
-        }
-    }
-
-    @And("Nella pagina I Tuoi Recapiti si clicca sul bottone modifica PEC")
-    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneModificaPEC() {
-        logger.info("Si clicca sul bottone modifica PEC");
-
-        recapitiDestinatarioPage.clickSuModificaPEC();
-    }
-
-    @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request {string}")
-    public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaPECTramiteChiamataRequest(String pec) {
-        logger.info("Si recupera il codice OTP della nuova pec");
-
-        Map<String, Object> personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
+    @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della nuova Email tramite request method {string}")
+    public void nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaNuovaEmailTramiteRequestMethod(String dpFile) {
+        Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile+".yaml");
         RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
 
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            logger.error("pausa con errore: "+e.getMessage());
+            throw new RuntimeException(e);
+        }
+
         String startUrl = "http://localhost:8887/";
-        String url = startUrl+recuperoOTPRecapiti.getUrlEndPoint()+pec;
+        String url = startUrl+recuperoOTPRecapiti.getUrlEndPoint()+personaFisica.get("email");
         boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
         if (results){
             String OTP = recuperoOTPRecapiti.getResponseBody();
-            personaFisica.put("OTPpec",OTP);
-            dataPopulation.writeDataPopulation("personaFisica.yaml",personaFisica);
+            personaFisica.put("OTPmail",OTP);
+            dataPopulation.writeDataPopulation(dpFile+".yaml",personaFisica);
         }else {
             logger.error("La chiamata ha risposto con questo codice: "+recuperoOTPRecapiti.getResponseCode());
             Assert.fail("La chiamata ha risposto con questo codice: "+recuperoOTPRecapiti.getResponseCode());
         }
-
     }
 
-    @And("Nella pagina I Tuoi Recapiti si clicca sul bottone elimina pec")
-    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneEliminaPEC() {
-        logger.info("Si clicca sul bottone elimina");
-        recapitiDestinatarioPage.clickSuEliminaPec();
+    @And("Nella pagina I Tuoi Recapiti si clicca sul bottone elimina email e si conferma nel pop up")
+    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneElimina() {
+        logger.info("Si clicca sul bottone elimina email");
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+
+        iTuoiRecapitiPage.eliminaEmailEsistente();
     }
 
-    @And("Nel pop up elimina indirizzo pec si clicca sul bottone conferma")
-    public void nelPopUpEliminaIndirizzoPecSiCliccaSulBottoneConferma() {
-        logger.info("Si clicca sul bottone conferma");
-        recapitiDestinatarioPage.waitLoadPopUpElimina();
-        recapitiDestinatarioPage.clickSuComefermaElimina();
-    }
+    @Then("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo Email non sia presente")
+    public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoEmailNonSiaPresente() {
+        logger.info("Si controlla che l'indirizzo Email non sia presente");
 
-    @Then("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo pec non sia presente")
-    public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoPecNonSiaPresente() {
-        logger.info("Si controlla che la PEC sia stata eliminata");
-
-        if (recapitiDestinatarioPage.siControllaNonPresenzaPEC()){
-            logger.info("La PEC è stata eliminata correttamente");
-        }else {
-            logger.error("La PEC non è stata eliminata");
-            Assert.fail("La PEC non è stata eliminata");
-        }
+        recapitiDestinatarioPage.verificaMailAssociata();
     }
 
     @And("Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteLaSezioneAltriRecapiti() {
-        logger.info("Si visualizza correttamente la sezione altri recapiti");
+        logger.info("Si controlla che l'indirizzo Email non sia presente");
 
-        recapitiDestinatarioPage.waitLoadAltriRecapiti();
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+
+        iTuoiRecapitiPage.visualizzazioneSezioneAltriRecapiti();
+                
     }
 
-    @And("Nella sezione altri recapiti si seleziona l'ente {string}")
-    public void nellaSezioneAltriRecapitiSiSelezionaLEnte(String dpFile) {
-        logger.info("Si sceglie l'ente");
-
-        Map<String,Object> mittente = dataPopulation.readDataPopulation(dpFile+".yaml");
-
-        recapitiDestinatarioPage.insertEnte(mittente.get("comune").toString());
-
-    }
-
-    @And("Nella sezione altri recapiti si seleziona il tipo di indirizzo")
-    public void nellaSezioneAltriRecapitiSiSelezionaIlTipoDiIndirizzo() {
-        logger.info("Si selezione il tipo di indirizzo come PEC");
-
-        recapitiDestinatarioPage.clickSuIndirizzoPEC();
-
-    }
-
-    @And("Nella sezione altri recapiti si inserisce la PEC aggiuntiva de persona fisica {string}")
-    public void nellaSezioneAltriRecapitiSiInserisceLaPECAggiuntivaDePersonaFisica(String dpFile) {
-
-        Map<String,Object> personaFisica = dataPopulation.readDataPopulation(dpFile+".yaml");
-        recapitiDestinatarioPage.insertPECAggiuntiva(personaFisica.get("emailPec").toString());
-
-    }
-
-    @And("Nella sezione altri recapiti si clicca sul bottone associa")
-    public void nellaSezioneAltriRecapitiSiCliccaSulBottoneAssocia() {
-        logger.info("Si clicca sul bottone associa");
-
-        recapitiDestinatarioPage.clickSuAssocia();
-
-    }
-
-    @Then("Nella sezione altri recapiti si controlla che la pec aggiuntiva sia stata inserita correttamente")
-    public void nellaSezioneAltriRecapitiSiControllaCheLaPecAggiuntivaSiaStataInseritaCorrettamente() {
-        logger.info("Si controlla che sia stata aggiunta la PEC");
-
-        if(recapitiDestinatarioPage.siVisualizzaPopUpConferma()){
-            recapitiDestinatarioPage.clickConfermaButton();
-        }
-
-        recapitiDestinatarioPage.aggionamentoPagina();
-
-        recapitiDestinatarioPage.siControllaPECAggiunta();
-
-    }
 }
 

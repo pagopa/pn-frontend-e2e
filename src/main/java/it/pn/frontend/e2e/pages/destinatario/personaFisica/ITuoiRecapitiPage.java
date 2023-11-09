@@ -89,9 +89,6 @@ public class ITuoiRecapitiPage extends BasePage {
             this.element(inserimentoPecFieldBy).sendKeys(emailPEC);
         }
     }
-    public void confermaButtonClick() {
-        this.confermaButton.click();
-    }
 
     public void waitLoadPopUp() {
         try {
@@ -124,9 +121,6 @@ public class ITuoiRecapitiPage extends BasePage {
         this.annullaButton.click();
     }
 
-    public void confermaButtonClickPopUp() {
-        this.confermaButtonPopUp.click();
-    }
 
     public String getPecErrorMessage(){
         By errorBy = By.id("pec-helper-text");
@@ -143,10 +137,6 @@ public class ITuoiRecapitiPage extends BasePage {
         }
     }
 
-    public void clickEliminaEmail(){
-        By eliminaButtonBy = By.xpath("//button[contains(text(),'Elimina')]");
-        this.driver.findElement(eliminaButtonBy).click();
-    }
 
     public void clicModificaEmail(){
         By modificaButtonBy = By.xpath("//button[contains(text(),'Modifica')]");
@@ -157,20 +147,14 @@ public class ITuoiRecapitiPage extends BasePage {
         this.driver.findElement(salvaButtonBy).click();
     }
 
-    public void clickConfirmaEliminaEmailPopUp(){
-        By popuptitle = By.id("dialog-title");
-        getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popuptitle));
-
-        By confirmaEliminaEmailBy = By.xpath("//button[contains(text(),'Conferma') and @tabindex='0']");
-        this.driver.findElement(confirmaEliminaEmailBy).click();
-    }
-
     public void eliminaEmailEsistente(){
-        this.eliminaButton.click();
+        By eliminaMailButton = By.xpath("//p[contains(text(),'Indirizzo e-mail')]/following-sibling::div/div/button[contains(text(),'Elimina')]");
+        this.getWebDriverWait(30).withMessage("il Bottone elimina e-mail non presente").until(ExpectedConditions.visibilityOfElementLocated(eliminaMailButton));
+        this.element(eliminaMailButton).click();
         waitLoadPopUp();
-        By confermaRimuoviPECBy = By.xpath("//button[contains(text(),'Annulla')]/following-sibling::button");
-        this.getWebDriverWait(30).withMessage("il Bottone conferma del popup rimuovi e-mail non presente").until(ExpectedConditions.visibilityOfElementLocated(confermaRimuoviPECBy));
-        this.element(confermaRimuoviPECBy).click();
+        By confermaRimuoviMailBy = By.xpath("//button[contains(text(),'Annulla')]/following-sibling::button");
+        this.getWebDriverWait(30).withMessage("il Bottone conferma del popup rimuovi e-mail non presente").until(ExpectedConditions.visibilityOfElementLocated(confermaRimuoviMailBy));
+        this.element(confermaRimuoviMailBy).click();
 
     }
 
@@ -254,4 +238,38 @@ public class ITuoiRecapitiPage extends BasePage {
         }
     }
 
+
+    public void cancellaTesto() {
+        try {
+            By pecInputBy = By.id("email");
+            WebElement pecInput = this.element(pecInputBy);
+            this.js().executeScript("arguments[0].click()",pecInput);
+            String emailPec = pecInput.getAttribute("value");
+            for(int i = 0; i < emailPec.length(); i++){
+                pecInput.sendKeys(Keys.BACK_SPACE);
+            }
+        }catch (TimeoutException e){
+            logger.error("Non si riesce ad cancellare il testo della  email :"+e.getMessage());
+            Assert.fail("Non si riesce ad cancellare il testo della  email :"+e.getMessage());
+        }
+    }
+
+    public void verificaEmailModificata() {
+      By newEmailBy = By.xpath("//p[contains(text(),'provaemail@test.it')]");
+      getWebDriverWait(30).withMessage("La nuova mail non si visualizza correttamente").until(ExpectedConditions.visibilityOfElementLocated(newEmailBy));
+    }
+
+    public boolean verificaButtoneConfermaDisabilitato() {
+        try {
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.confermaButton));
+            return Boolean.parseBoolean(this.confermaButton.getAttribute("disabled"));
+        } catch (NoSuchElementException | TimeoutException e) {
+            return false;
+        }
+    }
+
+    public void visualizzazioneSezioneAltriRecapiti() {
+        By altriRecapitiSectionBy = By.xpath("//h5[contains(text(),'Altri recapiti')]");
+        getWebDriverWait(30).withMessage("Si visualizza correttamente la sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
+    }
 }
