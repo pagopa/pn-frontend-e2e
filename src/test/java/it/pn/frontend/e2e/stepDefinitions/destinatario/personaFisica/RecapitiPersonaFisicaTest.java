@@ -391,8 +391,8 @@ public class RecapitiPersonaFisicaTest {
 
     }
 
-    @And("Nella pagina I Tuoi Recapiti si clicca sul bottone elimina")
-    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneElimina() {
+    @And("Nella pagina I Tuoi Recapiti si clicca sul bottone elimina pec")
+    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneEliminaPEC() {
         logger.info("Si clicca sul bottone elimina");
         recapitiDestinatarioPage.clickSuEliminaPec();
     }
