@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
+import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -306,7 +307,11 @@ public class RecapitiPersonaFisicaTest {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
 
-        recapitiDestinatarioPage.verificaMailAssociata();
+        BackgroundTest backgroundTest = new BackgroundTest();
+
+        if (!recapitiDestinatarioPage.verificaMailAssociata()){
+            backgroundTest.aggiuntaEmail();
+        }
     }
 
     @And("Nella pagina I Tuoi Recapiti si clicca sul bottone modifica")
@@ -318,5 +323,77 @@ public class RecapitiPersonaFisicaTest {
 
         recapitiDestinatarioPage.clickSuModifica();
     }
+    @And("Nella pagina I Tuoi Recapiti si inserisce la nuova Email del PF {string} e clicca su salva")
+    public void nellaPaginaITuoiRecapitiSiInserisceLaNuovaEmailDelPFECliccaSulBottoneAvvisamiViaEmail(String dpFile) {
+        logger.info("Si inserisce la nuova Email e si clicca sul bottone avvisami via email");
+
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
+
+        iTuoiRecapitiPage.cancellaTesto();
+
+        String email = dataPopulation.readDataPopulation(dpFile+".yaml").get("email").toString();
+        iTuoiRecapitiPage.insertEmail(email);
+        iTuoiRecapitiPage.clickSalvaemail();
+
+    }
+
+    @Then("Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata")
+    public void nellaPaginaITuoiRecapitiSiControllaCheLaEmailSiaStataModificata() {
+        logger.info("Si controlla che la Email sia stata modificata");
+
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.verificaEmailModificata();
+    }
+    @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della nuova Email tramite request method {string}")
+    public void nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaNuovaEmailTramiteRequestMethod(String dpFile) {
+        Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile+".yaml");
+        RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
+
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            logger.error("pausa con errore: "+e.getMessage());
+            throw new RuntimeException(e);
+        }
+
+        String startUrl = "http://localhost:8887/";
+        String url = startUrl+recuperoOTPRecapiti.getUrlEndPoint()+personaFisica.get("email");
+        boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+        if (results){
+            String OTP = recuperoOTPRecapiti.getResponseBody();
+            personaFisica.put("OTPmail",OTP);
+            dataPopulation.writeDataPopulation(dpFile+".yaml",personaFisica);
+        }else {
+            logger.error("La chiamata ha risposto con questo codice: "+recuperoOTPRecapiti.getResponseCode());
+            Assert.fail("La chiamata ha risposto con questo codice: "+recuperoOTPRecapiti.getResponseCode());
+        }
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si clicca sul bottone elimina")
+    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneElimina() {
+        logger.info("Si clicca sul bottone elimina email");
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+
+        iTuoiRecapitiPage.eliminaEmailEsistente();
+    }
+
+    @Then("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo Email non sia presente")
+    public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoEmailNonSiaPresente() {
+        logger.info("Si controlla che l'indirizzo Email non sia presente");
+
+        recapitiDestinatarioPage.verificaMailAssociata();
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti")
+    public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteLaSezioneAltriRecapiti() {
+        logger.info("Si controlla che l'indirizzo Email non sia presente");
+
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+
+        iTuoiRecapitiPage.visualizzazioneSezioneAltriRecapiti();
+                
+    }
+
 }
 

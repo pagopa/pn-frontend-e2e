@@ -148,11 +148,13 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public void eliminaEmailEsistente(){
-        this.eliminaButton.click();
+        By eliminaMailButton = By.xpath("//p[contains(text(),'Indirizzo e-mail')]/following-sibling::div/div/button[contains(text(),'Elimina')]");
+        this.getWebDriverWait(30).withMessage("il Bottone elimina e-mail non presente").until(ExpectedConditions.visibilityOfElementLocated(eliminaMailButton));
+        this.element(eliminaMailButton).click();
         waitLoadPopUp();
-        By confermaRimuoviPECBy = By.xpath("//button[contains(text(),'Annulla')]/following-sibling::button");
-        this.getWebDriverWait(30).withMessage("il Bottone conferma del popup rimuovi e-mail non presente").until(ExpectedConditions.visibilityOfElementLocated(confermaRimuoviPECBy));
-        this.element(confermaRimuoviPECBy).click();
+        By confermaRimuoviMailBy = By.xpath("//button[contains(text(),'Annulla')]/following-sibling::button");
+        this.getWebDriverWait(30).withMessage("il Bottone conferma del popup rimuovi e-mail non presente").until(ExpectedConditions.visibilityOfElementLocated(confermaRimuoviMailBy));
+        this.element(confermaRimuoviMailBy).click();
 
     }
 
@@ -264,5 +266,10 @@ public class ITuoiRecapitiPage extends BasePage {
         } catch (NoSuchElementException | TimeoutException e) {
             return false;
         }
+    }
+
+    public void visualizzazioneSezioneAltriRecapiti() {
+        By altriRecapitiSectionBy = By.xpath("//h5[contains(text(),'Altri recapiti')]");
+        getWebDriverWait(30).withMessage("Si visualizza correttamente la sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
     }
 }
