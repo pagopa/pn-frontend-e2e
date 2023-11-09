@@ -89,9 +89,6 @@ public class ITuoiRecapitiPage extends BasePage {
             this.element(inserimentoPecFieldBy).sendKeys(emailPEC);
         }
     }
-    public void confermaButtonClick() {
-        this.confermaButton.click();
-    }
 
     public void waitLoadPopUp() {
         try {
@@ -124,9 +121,6 @@ public class ITuoiRecapitiPage extends BasePage {
         this.annullaButton.click();
     }
 
-    public void confermaButtonClickPopUp() {
-        this.confermaButtonPopUp.click();
-    }
 
     public String getPecErrorMessage(){
         By errorBy = By.id("pec-helper-text");
@@ -144,10 +138,6 @@ public class ITuoiRecapitiPage extends BasePage {
         }
     }
 
-    public void clickEliminaEmail(){
-        By eliminaButtonBy = By.xpath("//button[contains(text(),'Elimina')]");
-        this.driver.findElement(eliminaButtonBy).click();
-    }
 
     public void clicModificaEmail(){
         By modificaButtonBy = By.xpath("//button[contains(text(),'Modifica')]");
@@ -157,15 +147,7 @@ public class ITuoiRecapitiPage extends BasePage {
         By salvaButtonBy = By.xpath("//button[contains(text(),'Salva')]");
         this.driver.findElement(salvaButtonBy).click();
     }
-
-    public void clickConfirmaEliminaEmailPopUp(){
-        By popuptitle = By.id("dialog-title");
-        getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popuptitle));
-
-        By confirmaEliminaEmailBy = By.xpath("//button[contains(text(),'Conferma') and @tabindex='0']");
-        this.driver.findElement(confirmaEliminaEmailBy).click();
-    }
-
+    
     public void eliminaEmailEsistente(){
         this.eliminaButton.click();
         waitLoadPopUp();
@@ -255,4 +237,24 @@ public class ITuoiRecapitiPage extends BasePage {
         }
     }
 
+
+    public void cancellaTesto() {
+        try {
+            By pecInputBy = By.id("email");
+            WebElement pecInput = this.element(pecInputBy);
+            this.js().executeScript("arguments[0].click()",pecInput);
+            String emailPec = pecInput.getAttribute("value");
+            for(int i = 0; i < emailPec.length(); i++){
+                pecInput.sendKeys(Keys.BACK_SPACE);
+            }
+        }catch (TimeoutException e){
+            logger.error("Non si riesce ad cancellare il testo della  email :"+e.getMessage());
+            Assert.fail("Non si riesce ad cancellare il testo della  email :"+e.getMessage());
+        }
+    }
+
+    public void verificaEmailModificata() {
+      By newEmailBy = By.xpath("//p[contains(text(),'provaemail@test.it')]");
+      getWebDriverWait(30).withMessage("La nuova mail non si visualizza correttamente").until(ExpectedConditions.visibilityOfElementLocated(newEmailBy));
+    }
 }
