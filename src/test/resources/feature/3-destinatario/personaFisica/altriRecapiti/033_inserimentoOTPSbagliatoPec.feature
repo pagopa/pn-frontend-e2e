@@ -1,4 +1,4 @@
-Feature: il persona fisica inserisce una OTP sbagliato PEC
+Feature:La persona fisica inserisce una OTP sbagliato PEC
 
   Background: Login persona fisica
     Given Login Page persona fisica "personaFisica" viene visualizzata
@@ -8,7 +8,7 @@ Feature: il persona fisica inserisce una OTP sbagliato PEC
   @TestSuite
   @test33
 
-  Scenario: il persona fisica loggato inserisce un OTP sbagliato PEC
+  Scenario:La persona fisica loggato inserisce un OTP sbagliato PEC
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si inserisce la PEC del persona fisica "personaFisica"

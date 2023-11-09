@@ -51,7 +51,7 @@ public class LoginPAPage extends BasePage {
     }
 
     public void selezionaInviaDati(){
-        logger.info("Si selezione il buttone invia");
+        logger.info("Si selezione il bottone invia");
         this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.inviaButton));
         this.inviaButton.click();
     }

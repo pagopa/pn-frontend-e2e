@@ -378,7 +378,7 @@ public class ApiKeyPAPage  extends BasePage {
     public void waitLoadMessaggioData() {
         try {
             By messaggioBy = By.xpath("//div[@data-popper-placement = 'bottom']");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messaggioBy));
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(messaggioBy));
             logger.info("Il messaggio con la data di creazione si vede correttamente");
         }catch (TimeoutException e){
             logger.error("Il messaggio con la data di creazione NON si vede correttamente con errore: "+e.getMessage());

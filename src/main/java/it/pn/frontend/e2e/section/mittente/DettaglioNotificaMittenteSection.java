@@ -194,10 +194,23 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void clickLinkDocumentiAllegati() {
-     this.linkAllegati.get(0).click();
+        if (this.linkAllegati.get(0).isDisplayed()){
+            this.linkAllegati.get(0).click();
+        }else {
+            this.js().executeScript("arguments[0].scrollIntoView(true);", this.linkAllegati.get(0));
+            this.linkAllegati.get(0).click();
+        }
+
     }
 
-    public void clickLinkAvvenutaRicezione(int i) {this.linkAllegati.get(i).click();}
+    public void clickLinkAvvenutaRicezione(int i) {
+        if (this.linkAllegati.get(i).isDisplayed()){
+            this.linkAllegati.get(i).click();
+        }else {
+            this.js().executeScript("arguments[0].scrollIntoView(true);",this.linkAllegati.get(i));
+            this.linkAllegati.get(i).click();
+        }
+}
 
     public int getLinkAvvenutaRicezione() {
         return linkAllegati.size();
@@ -229,5 +242,13 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             logger.error("La pec NON è in stato invio in corso con errore: "+e.getMessage());
             Assert.fail("La pec NON è in stato invio in corso con errore: "+e.getMessage());
         }
+    }
+
+    public String getTextLinkAvvenutaRicezione(int i) {
+        return linkAllegati.get(i).getText();
+    }
+
+    public String getTextDocumentiAllegati() {
+        return linkAllegati.get(0).getText();
     }
 }

@@ -49,8 +49,8 @@ public class ITuoiRecapitiPage extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.iTuoiRecapitiButton));
             this.js().executeScript("arguments[0].click()", this.iTuoiRecapitiButton);
         }catch(TimeoutException e){
-            logger.error(" il buttone i tuoi Recapiti non trovato o non è cliccabile: "+ e.getMessage());
-            Assert.fail("il buttone i tuoi Recapiti non trovato o non è cliccabile: "+ e.getMessage());
+            logger.error(" il bottone i tuoi Recapiti non trovato o non è cliccabile: "+ e.getMessage());
+            Assert.fail("il bottone i tuoi Recapiti non trovato o non è cliccabile: "+ e.getMessage());
         }
     }
 
@@ -128,8 +128,7 @@ public class ITuoiRecapitiPage extends BasePage {
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(errorMessage));
         return errorMessage.getText();
     }
-
-    public boolean verificaButtoneConfermaDisabilitato(){
+    public boolean verificaBottoneConfermaDisabilitato(){
         try{
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.confermaButton));
             return Boolean.parseBoolean(this.confermaButton.getAttribute("disabled"));
@@ -256,5 +255,14 @@ public class ITuoiRecapitiPage extends BasePage {
     public void verificaEmailModificata() {
       By newEmailBy = By.xpath("//p[contains(text(),'provaemail@test.it')]");
       getWebDriverWait(30).withMessage("La nuova mail non si visualizza correttamente").until(ExpectedConditions.visibilityOfElementLocated(newEmailBy));
+    }
+
+    public boolean verificaButtoneConfermaDisabilitato() {
+        try {
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.confermaButton));
+            return Boolean.parseBoolean(this.confermaButton.getAttribute("disabled"));
+        } catch (NoSuchElementException | TimeoutException e) {
+            return false;
+        }
     }
 }

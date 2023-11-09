@@ -30,7 +30,7 @@ public class AcccediAreaRiservataPAPage extends BasePage {
     }
 
     public void selezionareSipButton(){
-        logger.info("Si seleziona il buttone Spid");
+        logger.info("Si seleziona il bottone Spid");
         this.spidButton.click();
     }
 }

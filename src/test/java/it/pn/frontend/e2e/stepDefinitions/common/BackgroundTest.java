@@ -4,6 +4,8 @@ import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePago
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.RecapitiPersonaFisicaTest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.DeleghePGPagoPATest;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.DisserviziAppPGTest;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 
 public class BackgroundTest {
@@ -16,11 +18,17 @@ public class BackgroundTest {
 
     private final DeleghePagoPATest deleghePagoPATest = new DeleghePagoPATest();
 
+    private final RecapitiPersonaFisicaTest recapitiPersonaFisicaTest = new RecapitiPersonaFisicaTest();
+
+    private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
+
     private final LoginPersonaFisicaPagoPA personaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
 
     private final DeleghePGPagoPATest deleghePGPagoPATest = new DeleghePGPagoPATest();
 
-    private final RecapitiPersonaFisicaTest recapitiPersonaFisicaTest = new RecapitiPersonaFisicaTest();
+    private final DisserviziAppPGTest disserviziAppPGTest = new DisserviziAppPGTest();
+
+    private final HelpdeskTest helpdeskTest = new HelpdeskTest();
 
     public void invioNotificaErrorePec(){
 
@@ -61,6 +69,24 @@ public class BackgroundTest {
         deleghePagoPATest.visualizzaDelegheSection();
     }
 
+    public void loginPG(String nomeFileLogin){
+        loginPGPagoPATest.login_page_persona_giuridica_viene_visualizzata(nomeFileLogin);
+    }
+
+    public void getStatoDellaPiattaformaPage(){
+        disserviziAppPGTest.nellaDashboardPersonaGiuridicaCliccaSuDisserviziApp();
+        disserviziAppPGTest.siVisualizzaCorrettamenteLaPaginaDelloStatoDellaPiattaforma();
+        disserviziAppPGTest.siVisualizzanoCorrettamenteIDatiSulloStatoDellaPiattaforma();
+        disserviziAppPGTest.siVisualizzaStoricoDisservizi();
+    }
+
+    public void getHelpdeskMonitoraggioPiattaforma(String nomeFileLogin){
+        helpdeskTest.loginHelpdeskConUtenteTest(nomeFileLogin);
+        helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
+        helpdeskTest.clickSuCardMonitoraggioPiattaforma();
+        helpdeskTest.siVisualizzaCorrettamenteHomeMonitoraggio();
+    }
+
     public void logoutPF(){
         personaFisicaPagoPA.logout_da_portale_destinatario();
     }
@@ -89,5 +115,17 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLOTPRicevutoViaEmail(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiCliccaSulBottoneConferma();
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiControllaCheLaEmailSiaPresente();
+    }
+    public void aggiungiPECPF(){
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario(nomeFilePersonaFisica);
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiCliccaSulBottoneConferma();
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequest(nomeFilePersonaFisica);
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP(nomeFilePersonaFisica);
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente();
+        logoutPF();
+        loginPF(nomeFilePersonaFisica);
+        recapitiPersonaFisicaTest.ITuoiRecapitiButtonClick();
+        recapitiPersonaFisicaTest.siVisualizzaCorrettamenteLaPaginaITuoiRecapiti();
     }
 }

@@ -45,6 +45,8 @@ public class BasePage {
         return this.driver.findElements(by);
     }
 
+
+
     protected JavascriptExecutor js(){
         return (JavascriptExecutor) driver;
     }
@@ -65,7 +67,11 @@ public class BasePage {
     }
     public void waitloadingSpinner(){
         By loadingSpinnerBy = By.xpath("//span[@role = 'loadingSpinner']");
-        getWebDriverWait(60).withMessage("la rotollina di caricamento pagina è ancora presente dopo 60sec").until(ExpectedConditions.invisibilityOfElementLocated(loadingSpinnerBy));
+        getWebDriverWait(60).withMessage("la pagina è ancora in caricamento").until(ExpectedConditions.invisibilityOfElementLocated(loadingSpinnerBy));
+    }
+
+    public void goBack(){
+        this.driver.navigate().back();
     }
 }
 

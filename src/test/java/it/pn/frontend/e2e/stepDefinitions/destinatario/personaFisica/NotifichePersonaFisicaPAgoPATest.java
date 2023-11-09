@@ -192,10 +192,11 @@ public class NotifichePersonaFisicaPAgoPATest {
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaDestinatarioESiControllaCheIlDownloadSiaAvvenuto(String dpFile) {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponubili();
-        DownloadFile downloadFile = new DownloadFile();
+        DownloadFile downloadFile = new DownloadFile(this.driver);
         DataPopulation dataPopulation = new DataPopulation();
         Map<String,Object> datiNotifica = dataPopulation.readDataPopulation(dpFile+".yaml");
         String workingDirectory = System.getProperty("user.dir");
+        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
         File pathCartella = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/personaFisica");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)){
             pathCartella.mkdirs();
@@ -208,8 +209,16 @@ public class NotifichePersonaFisicaPAgoPATest {
                 throw new RuntimeException(e);
             }
             String urlFileAttestazioneOppponubile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+datiNotifica.get("codiceIUN").toString()+"/legal-facts/");
+            if (headless && urlFileAttestazioneOppponubile.isEmpty()){
+                String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
+                logger.error("Non è stato recuperato url per il download per il link: "+testoLink);
+                Assert.fail("Non è stato recuperato url per il download per il link: "+testoLink);
+            }
             File file = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN"+i+".pdf");
-            downloadFile.download(urlFileAttestazioneOppponubile,file);
+            downloadFile.download(urlFileAttestazioneOppponubile,file,headless);
+            if (!headless){
+                dettaglioNotificaSection.goBack();
+            }
         }
         downloadFile.controlloDownload(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario",numeroLinkAttestazioniOpponibile);
     }

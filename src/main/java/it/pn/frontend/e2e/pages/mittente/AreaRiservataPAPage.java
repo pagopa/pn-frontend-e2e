@@ -64,8 +64,8 @@ public class AreaRiservataPAPage extends BasePage {
                 this.piattaformaNotificaDevGestisciButton.click();
             }
         }catch(TimeoutException | NoSuchElementException | ElementClickInterceptedException e){
-            logger.error("TA_QA: il buttone piattaforma notifica dev non è presente o non è cliccabile, "+e.getMessage());
-            Assert.fail("TA_QA: il buttone piattaforma notifica dev non è presente o non è cliccabile. "+e.getMessage());
+            logger.error("il bottone piattaforma notifica dev non è presente o non è cliccabile, "+e.getMessage());
+            Assert.fail("il bottone piattaforma notifica dev non è presente o non è cliccabile. "+e.getMessage());
         }
     }
     public void selezionaPiattaformaNotificaTest() {
@@ -79,8 +79,8 @@ public class AreaRiservataPAPage extends BasePage {
             this.piattaformaNotificaTestGestisciButton.click();
         }
         }catch(TimeoutException | NoSuchElementException | ElementClickInterceptedException e){
-            logger.error("TA_QA: il buttone piattaforma notifica test non è presente o non è cliccabile, "+e.getMessage());
-            Assert.fail("TA_QA: il buttone piattaforma notifica test non è presente o non è cliccabile. "+e.getMessage());
+            logger.error("TA_QA: il bottone piattaforma notifica test non è presente o non è cliccabile, "+e.getMessage());
+            Assert.fail("TA_QA: il bottone piattaforma notifica test non è presente o non è cliccabile. "+e.getMessage());
         }
     }
 
@@ -95,8 +95,8 @@ public class AreaRiservataPAPage extends BasePage {
             this.piattaformaNotificaUatGestisciButton.click();
         }
         }catch(TimeoutException | NoSuchElementException | ElementClickInterceptedException e){
-            logger.error("TA_QA: il buttone piattaforma notifica uat non è presente o non è cliccabile, "+e.getMessage());
-            Assert.fail("TA_QA: il buttone piattaforma notifica uat non è presente o non è cliccabile. "+e.getMessage());
+            logger.error("TA_QA: il bottone piattaforma notifica uat non è presente o non è cliccabile, "+e.getMessage());
+            Assert.fail("TA_QA: il bottone piattaforma notifica uat non è presente o non è cliccabile. "+e.getMessage());
         }
     }
 

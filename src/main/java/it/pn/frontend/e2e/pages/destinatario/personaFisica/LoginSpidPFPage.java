@@ -21,7 +21,7 @@ public class LoginSpidPFPage extends BasePage {
     @FindBy(id = "password")
     WebElement pwdTextFiled;
 
-    @FindBy(css = "button.button-spid")
+    @FindBy(xpath = "//button[contains(@class,'button-spid')]")
     WebElement entraConSpidButton;
 
 
@@ -41,14 +41,17 @@ public class LoginSpidPFPage extends BasePage {
     }
 
     public void inserisciUtente(String user){
+        getWebDriverWait(30).withMessage("L'input userName non è visibile").until(ExpectedConditions.visibilityOf(userNameTextField));
         this.userNameTextField.sendKeys(user);
     }
 
     public void inserisciPassword(String pwd){
+        getWebDriverWait(30).withMessage("L'input password non è visibile").until(ExpectedConditions.visibilityOf(pwdTextFiled));
         this.pwdTextFiled.sendKeys(pwd);
     }
 
     public void selezionaEntraConSpidButton(){
+        getWebDriverWait(30).withMessage("Il bottone entra con spid non è cliccabile").until(ExpectedConditions.elementToBeClickable(entraConSpidButton));
         this.entraConSpidButton.click();
     }
 }
