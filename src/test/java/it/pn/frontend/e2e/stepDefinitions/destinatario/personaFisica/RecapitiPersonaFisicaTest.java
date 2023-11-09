@@ -461,6 +461,12 @@ public class RecapitiPersonaFisicaTest {
     public void nellaSezioneAltriRecapitiSiControllaCheLaPecAggiuntivaSiaStataInseritaCorrettamente() {
         logger.info("Si controlla che sia stata aggiunta la PEC");
 
+        if(recapitiDestinatarioPage.siVisualizzaPopUpConferma()){
+            recapitiDestinatarioPage.clickConfermaButton();
+        }
+
+        recapitiDestinatarioPage.aggionamentoPagina();
+
         recapitiDestinatarioPage.siControllaPECAggiunta();
 
     }
