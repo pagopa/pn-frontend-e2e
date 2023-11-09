@@ -289,7 +289,7 @@ public class HelpdeskPage extends BasePage{
             By checkUidIsDisplayed = By.id("Codice Univoco (uid)");
             this.getWebDriverWait(30).withMessage("input uid non trovato").until(ExpectedConditions.visibilityOfElementLocated(checkUidIsDisplayed));
         }catch (TimeoutException e){
-            logger.error("ozione ottieni cf non trovata: "+e.getMessage());
+            logger.error("opzione ottieni cf non trovata: "+e.getMessage());
             Assert.fail("opzione ottieni cf non trovata: "+e.getMessage());
         }
     }
