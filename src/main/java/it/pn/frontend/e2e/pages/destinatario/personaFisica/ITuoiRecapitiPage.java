@@ -40,6 +40,9 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(xpath = "//button[contains(text(),'Elimina')]")
     WebElement eliminaButton;
 
+    @FindBy(id = "addressType")
+    WebElement tipoIndirizzoField;
+
     public ITuoiRecapitiPage(WebDriver driver) {
         super(driver);
     }
@@ -271,5 +274,13 @@ public class ITuoiRecapitiPage extends BasePage {
     public void visualizzazioneSezioneAltriRecapiti() {
         By altriRecapitiSectionBy = By.xpath("//h5[contains(text(),'Altri recapiti')]");
         getWebDriverWait(30).withMessage("Si visualizza correttamente la sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
+    }
+
+    public void selezionaTipoEmail() {
+        this.tipoIndirizzoField.click();
+
+        By opzionePEC = By.xpath("//li[@data-value ='EMAIL']");
+        this.getWebDriverWait(30).withMessage("Non è visibile l'opzione 'Indirizzo email'").until(ExpectedConditions.elementToBeClickable(opzionePEC));
+        this.element(opzionePEC).click();
     }
 }

@@ -534,5 +534,34 @@ public class RecapitiPersonaFisicaTest {
         recapitiDestinatarioPage.siControllaPECAggiunta();
 
     }
+
+    @And("Nella sezione altri recapiti si inserisce la Email aggiuntiva della persona fisica {string}")
+    public void nellaSezioneAltriRecapitiSiInserisceLaEmailAggiuntivaDellaPersonaFisica(String dpFile) {
+        Map<String,Object> personaFisica = dataPopulation.readDataPopulation(dpFile+".yaml");
+        recapitiDestinatarioPage.insertEmailAggiuntiva(personaFisica.get("mail").toString());
+    }
+
+    @And("Nella sezione altri recapiti si seleziona il tipo di indirizzo scegliendo email")
+    public void nellaSezioneAltriRecapitiSiSelezionaIlTipoDiIndirizzoScegliendoEmail() {
+        logger.info("Si seleziona il tipo di indirizzo scegliendo email");
+
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+
+        iTuoiRecapitiPage.selezionaTipoEmail();
+
+    }
+
+    @Then("Nella sezione altri recapiti si controlla che la Email aggiuntiva sia stata inserita correttamente")
+    public void nellaSezioneAltriRecapitiSiControllaCheLaEmailAggiuntivaSiaStataInseritaCorrettamente() {
+        logger.info("Si controlla che sia stata aggiunta la email");
+
+       /* if(recapitiDestinatarioPage.siVisualizzaPopUpConferma()){
+            recapitiDestinatarioPage.clickConfermaButton();
+        }
+
+        recapitiDestinatarioPage.aggionamentoPagina();*/
+
+        recapitiDestinatarioPage.siControllaEmailAggiunta();
+    }
 }
 

@@ -54,6 +54,9 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(xpath = "//button[@data-testid = 'addSpecialButton']")
     WebElement associaButton;
 
+    @FindBy(id = "s_mail")
+    WebElement emailField;
+
     public RecapitiDestinatarioPage(WebDriver driver) {
         super(driver);
     }
@@ -359,6 +362,24 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void siControllaPECAggiunta() {
+        By pecAssociataBy = By.xpath("//form[@data-testid='specialContactForm']//div/p");
+        this.getWebDriverWait(30).withMessage("La pec non è stata aggiunta correttamente").until(ExpectedConditions.visibilityOfElementLocated(pecAssociataBy));
+    }
+
+    public void insertEmailAggiuntiva(String mail) {
+        try {
+            if (this.emailField.isDisplayed()){
+                this.emailField.sendKeys(mail);
+            }else {
+                this.js().executeScript("arguments[0].scrollIntoView(true);",this.emailField);
+                this.emailField.sendKeys(mail);
+            }
+        }catch (ElementNotInteractableException e){
+            this.emailField.sendKeys(mail);
+        }
+    }
+
+    public void siControllaEmailAggiunta() {
         By pecAssociataBy = By.xpath("//form[@data-testid='specialContactForm']//div/p");
         this.getWebDriverWait(30).withMessage("La pec non è stata aggiunta correttamente").until(ExpectedConditions.visibilityOfElementLocated(pecAssociataBy));
     }
