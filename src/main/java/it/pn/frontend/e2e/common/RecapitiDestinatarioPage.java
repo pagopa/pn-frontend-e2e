@@ -326,6 +326,11 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void insertEnte(String comune) {
         this.enteField.sendKeys(comune);
+        By opzioneDiv = By.id("sender-listbox");
+        this.getWebDriverWait(30).withMessage("La lista delle opzioni non è visibile").until(ExpectedConditions.visibilityOfElementLocated(opzioneDiv));
+        By comnuneMantovaBy = By.id("sender-option-0");
+        this.getWebDriverWait(30).withMessage("Il comune non è visible").until(ExpectedConditions.elementToBeClickable(comnuneMantovaBy));
+        this.element(comnuneMantovaBy).click();
     }
 
     public void clickSuIndirizzoPEC() {
@@ -333,10 +338,11 @@ public class RecapitiDestinatarioPage extends BasePage {
 
         By opzionePEC = By.xpath("//li[@data-value ='PEC']");
         this.getWebDriverWait(30).withMessage("Non è visibile l'opzione 'Indirizzo PEC'").until(ExpectedConditions.elementToBeClickable(opzionePEC));
+        this.element(opzionePEC).click();
     }
 
     public void insertPECAggiuntiva(String emailPec) {
-        try {
+       try {
             if (this.indirizzoPecField.isDisplayed()){
                 this.indirizzoPecField.sendKeys(emailPec);
             }else {
@@ -345,11 +351,12 @@ public class RecapitiDestinatarioPage extends BasePage {
             }
         }catch (ElementNotInteractableException e){
             this.indirizzoPecField.sendKeys(emailPec);
-        }
+       }
     }
 
     public void clickSuAssocia() {
-        this.associaButton.click();
+        this.getWebDriverWait(30).withMessage("Il bottone Associa non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.associaButton));
+        this.js().executeScript("arguments[0].click()",associaButton);
     }
 
     public void siControllaPECAggiunta() {
