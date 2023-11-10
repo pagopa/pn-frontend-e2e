@@ -5,7 +5,8 @@ Feature: la persona fisica inserisce un OTP email sbagliato
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
-  @fase2Test34_neg1
+  @TA_inserimentoOTPMailErrato
+  @personaFisicaDestinatario
   @recapiti
 
   Scenario: la persona fisica inserisce un OTP email sbagliato

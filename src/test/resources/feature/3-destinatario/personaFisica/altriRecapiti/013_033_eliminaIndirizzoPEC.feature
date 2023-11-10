@@ -5,7 +5,9 @@ Feature: la persona fisica elimina l'indirizzo pec
     When Login portale persona fisica tramite request method
     Then Home page persona fisica viene visualizzata correttamente
 
-  @eliminaPECPF
+  @TestSuite
+  @personaFisicaDestinatario
+  @TA_eliminaPECPF
   @recapiti
 
   Scenario: la persona fisica elimina l'indirizzo pec

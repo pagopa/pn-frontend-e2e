@@ -5,7 +5,8 @@ Feature: la persona fisica inserisce una Email
     When Login portale persona fisica tramite request method
     Then Home page persona fisica viene visualizzata correttamente
 
-  @inserimentoEmailPF
+  @TestSuite
+  @TA_inserimentoEmailPF
   @recapiti
 
   Scenario: la persona fisica inserisce una Email

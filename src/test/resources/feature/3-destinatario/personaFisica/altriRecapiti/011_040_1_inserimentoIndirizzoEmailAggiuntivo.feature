@@ -5,14 +5,16 @@ Feature: la persona fisica inserisce un indirizzo Email aggiuntivo
     When Login portale persona fisica tramite request method
     Then Home page persona fisica viene visualizzata correttamente
 
-
-  @EmailAggiuntivoPF
+  @TestSuite
+  @personaFisicaDestinatario
+  @TA_emailAggiuntivoPF
   @recapiti
 
   Scenario: la persona fisica inserisce un indirizzo Email aggiuntivo
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti
+    And Nella sezione altri recapiti si controlla l'esistenza di una email "personaFisica"
     And Nella sezione altri recapiti si seleziona l'ente "mittente"
     And Nella sezione altri recapiti si seleziona il tipo di indirizzo scegliendo email
     And Nella sezione altri recapiti si inserisce la Email aggiuntiva della persona fisica "personaFisica"

@@ -5,7 +5,9 @@ Feature: la persona fisica modifica l'indirizzo Email
     When Login portale persona fisica tramite request method
     Then Home page persona fisica viene visualizzata correttamente
 
-  @modificaEmailPF
+  @TestSuite
+  @TA_modificaEmailPF
+  @personaFisicaDestinatario
   @recapiti
 
   Scenario: la persona fisica modifica l'indirizzo Email

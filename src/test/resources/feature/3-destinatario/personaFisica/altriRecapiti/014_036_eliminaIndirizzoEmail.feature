@@ -5,6 +5,7 @@ Feature: la persona fisica elimina l'indirizzo Email
     When Login portale persona fisica tramite request method
     Then Home page persona fisica viene visualizzata correttamente
 
+  @TestSuite
   @eliminaEmailPF
   @recapiti
 
