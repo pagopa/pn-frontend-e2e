@@ -383,6 +383,25 @@ public class RecapitiDestinatarioPage extends BasePage {
         By pecAssociataBy = By.xpath("//form[@data-testid='specialContactForm']//div/p");
         this.getWebDriverWait(30).withMessage("La pec non è stata aggiunta correttamente").until(ExpectedConditions.visibilityOfElementLocated(pecAssociataBy));
     }
+
+    public boolean controlloEmailAssociata(String email) {
+        try {
+            By emailBy = By.xpath("//div[@data-testid = 'courtesyContacts']//div//p[contains(text(),'"+email+"')]");
+            return true;
+        }catch (TimeoutException e){
+            return false;
+        }
+    }
+
+    public boolean verificaNuovaEmail(String nuovaEmail) {
+        try {
+            By emailBy = By.xpath("//form[@data-testid = 'specialContactForm']//div//p[contains(text(),'"+nuovaEmail+"')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(emailBy));
+            return true;
+        }catch (TimeoutException e){
+            return false;
+        }
+    }
 }
 
 

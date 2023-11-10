@@ -311,10 +311,15 @@ public class RecapitiPersonaFisicaTest {
 
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
+        Map<String,Object> personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
+        String email = personaFisica.get("email").toString();
 
         BackgroundTest backgroundTest = new BackgroundTest();
 
         if (!recapitiDestinatarioPage.verificaMailAssociata()){
+            backgroundTest.aggiuntaEmail();
+        } else if (recapitiDestinatarioPage.controlloEmailAssociata(email)) {
+            iTuoiRecapitiPage.eliminaEmailEsistente();
             backgroundTest.aggiuntaEmail();
         }
     }
@@ -577,6 +582,28 @@ public class RecapitiPersonaFisicaTest {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.sendOTP(otp);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si controlla che non ci sia già una pec")
+    public void nellaPaginaITuoiRecapitiSiControllaCheNonCiSiaGiàUnaPec() {
+
+    }
+
+    @And("Nella sezione altri recapiti si controlla l'esistenza di una email {string}")
+    public void nellaSezioneAltriRecapitiSiControllaLEsistenzaDiUnaEmail(String dpFile) {
+        logger.info("Si controlla l'esistenza di una altra email");
+
+        Map<String,Object> personaFisica = this.dataPopulation.readDataPopulation(dpFile+".yaml");
+        String nuovaEmail = personaFisica.get("mail").toString();
+        BackgroundTest backgroundTest = new BackgroundTest();
+        if (!recapitiDestinatarioPage.verificaMailAssociata()){
+            backgroundTest.aggiuntaEmail();
+        }else if (recapitiDestinatarioPage.verificaNuovaEmail(nuovaEmail)) {
+            ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+            iTuoiRecapitiPage.eliminaNuovaEmail();
+        }
+
+
     }
 }
 

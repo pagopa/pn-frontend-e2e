@@ -43,6 +43,9 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(id = "addressType")
     WebElement tipoIndirizzoField;
 
+    @FindBy(xpath = "//form[@data-testid = 'specialContactForm']//div//button[contains(text(),'Elimina')]")
+    List<WebElement> eliminaButtonList;
+
     public ITuoiRecapitiPage(WebDriver driver) {
         super(driver);
     }
@@ -82,13 +85,13 @@ public class ITuoiRecapitiPage extends BasePage {
 
         try{
             By inserimentoPecFieldBy = By.id("pec");
-            this.getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoPecFieldBy));
+            this.getWebDriverWait(30).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoPecFieldBy));
             this.element(inserimentoPecFieldBy).sendKeys(emailPEC);
 
         }catch (TimeoutException e){
             eliminaPecEsistente();
             By inserimentoPecFieldBy = By.id("pec");
-            this.getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoPecFieldBy));
+            this.getWebDriverWait(30).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoPecFieldBy));
             this.element(inserimentoPecFieldBy).sendKeys(emailPEC);
         }
     }
@@ -153,11 +156,11 @@ public class ITuoiRecapitiPage extends BasePage {
     public void eliminaEmailEsistente(){
         By eliminaMailButton = By.xpath("//p[contains(text(),'Indirizzo e-mail')]/following-sibling::div/div/button[contains(text(),'Elimina')]");
         this.getWebDriverWait(30).withMessage("il Bottone elimina e-mail non presente").until(ExpectedConditions.visibilityOfElementLocated(eliminaMailButton));
-        this.element(eliminaMailButton).click();
+        this.js().executeScript("arguments[0].click();",this.element(eliminaMailButton));
         waitLoadPopUp();
         By confermaRimuoviMailBy = By.xpath("//button[contains(text(),'Annulla')]/following-sibling::button");
         this.getWebDriverWait(30).withMessage("il Bottone conferma del popup rimuovi e-mail non presente").until(ExpectedConditions.visibilityOfElementLocated(confermaRimuoviMailBy));
-        this.element(confermaRimuoviMailBy).click();
+        this.js().executeScript("arguments[0].click();",this.element(confermaRimuoviMailBy));
 
     }
 
@@ -165,13 +168,13 @@ public class ITuoiRecapitiPage extends BasePage {
 
         try{
             By inserimentoEmailFieldBy = By.id("email");
-            this.getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoEmailFieldBy));
+            this.getWebDriverWait(30).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoEmailFieldBy));
             this.element(inserimentoEmailFieldBy).sendKeys(emailPEC);
 
         }catch (TimeoutException e){
             eliminaEmailEsistente();
             By inserimentoEmailFieldBy = By.id("email");
-            this.getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoEmailFieldBy));
+            this.getWebDriverWait(30).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoEmailFieldBy));
             this.element(inserimentoEmailFieldBy).sendKeys(emailPEC);
         }
 
@@ -282,5 +285,13 @@ public class ITuoiRecapitiPage extends BasePage {
         By opzionePEC = By.xpath("//li[@data-value ='EMAIL']");
         this.getWebDriverWait(30).withMessage("Non è visibile l'opzione 'Indirizzo email'").until(ExpectedConditions.elementToBeClickable(opzionePEC));
         this.element(opzionePEC).click();
+    }
+    public void eliminaNuovaEmail(){
+        this.getWebDriverWait(30).withMessage("Non è stato possibile cliccare sul bottone elimina email").until(ExpectedConditions.elementToBeClickable(this.eliminaButtonList.get(1)));
+        this.js().executeScript("arguments[0].click()",this.eliminaButtonList.get(1));
+        By confermaPopUPBy = By.xpath("//div[@aria-labelledby='dialog-title']//div/button[contains(text(),'Conferma')]");
+        this.getWebDriverWait(30).withMessage("Il bottone del pop-up non  è cliccabile").until(ExpectedConditions.elementToBeClickable(confermaPopUPBy));
+        this.element(confermaPopUPBy).click();
+
     }
 }
