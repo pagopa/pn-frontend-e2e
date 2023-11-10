@@ -5,7 +5,7 @@ Feature: La persona fisica inserisce una PEC sbagliata
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
-  @fase2Test31_neg
+  @TA_inserimentoPECErrata
   @recapiti
 
   Scenario: La persona fisica inserisce una PEC sbagliata

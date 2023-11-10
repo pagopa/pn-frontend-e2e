@@ -401,10 +401,12 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già una pec")
     public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaPec() {
         logger.info("Si controlla la presenza di una pec");
+        String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("emailPec").toString();
         BackgroundTest backgroundTest = new BackgroundTest();
-        if (recapitiDestinatarioPage.siVisulizzaPecInserita()){
-            logger.info("Vi è una PEC inserita");
-        }else {
+        if (!recapitiDestinatarioPage.siVisulizzaPecInserita()){
+            backgroundTest.aggiungiPECPF();
+        }else if(!recapitiDestinatarioPage.siControllaPECModificata(pec)){
+            recapitiDestinatarioPage.eliminaPecEsistente();
             backgroundTest.aggiungiPECPF();
         }
     }
@@ -428,7 +430,6 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.clickConfermaButton();
             recapitiDestinatarioPage.visualizzaValidazione();
         }
-
         recapitiDestinatarioPage.aggionamentoPagina();
 
         if(recapitiDestinatarioPage.siControllaPECModificata(pec)){
