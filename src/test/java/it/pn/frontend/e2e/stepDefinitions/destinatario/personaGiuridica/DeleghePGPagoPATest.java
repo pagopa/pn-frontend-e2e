@@ -154,7 +154,7 @@ public class DeleghePGPagoPATest {
     public void nellaSezioneLeTueDelegheSiVisualizzaIlMessaggioDiErroreDataErrata() {
         logger.info("Si controlla che si veda il messaggio di errore");
         Assert.assertEquals("il messagio di errore attuale: Data errata è diverso dell'attuale "+aggiungiDelegaPGSection.waitMessaggioErroreData(),"Data errata",aggiungiDelegaPGSection.waitMessaggioErroreData());
-
+        logger.info("il messagio di errore 'Data errata' è presente");
     }
 
     @And("Nella pagina Deleghe si clicca su Deleghe a carico dell impresa")

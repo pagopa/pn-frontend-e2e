@@ -42,17 +42,24 @@ public class LoginPAPage extends BasePage {
 
     public void inserisciUtenete(String user){
         logger.info("Si inserisci il nome utente");
+        this.getWebDriverWait(30).withMessage("Il campo user non è presente").until(ExpectedConditions.visibilityOf(this.userTextEdit));
         this.userTextEdit.sendKeys(user);
     }
 
     public void inserisciPassword(String pwd){
         logger.info("Si inserisce la password dell'utente");
+        this.getWebDriverWait(30).withMessage("Il campo password non è presente").until(ExpectedConditions.visibilityOf(this.pwdTextEdit));
         this.pwdTextEdit.sendKeys(pwd);
     }
 
     public void selezionaInviaDati(){
         logger.info("Si selezione il bottone invia");
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.inviaButton));
-        this.inviaButton.click();
+        try {
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.inviaButton));
+            this.inviaButton.click();
+        }catch (TimeoutException e){
+        logger.error("Il bottone invia nella pagina Login PA non è stato cliccato con errore : "+e.getMessage());
+        Assert.fail("Il bottone invia nella pagina Login PA non è stato cliccato con errore : "+e.getMessage());
+        }
     }
 }

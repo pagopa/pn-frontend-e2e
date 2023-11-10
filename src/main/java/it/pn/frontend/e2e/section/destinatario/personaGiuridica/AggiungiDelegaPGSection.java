@@ -53,9 +53,9 @@ public class AggiungiDelegaPGSection extends BasePage {
     public void waitLoadAggiungiDelegaPage() {
         try {
             By titlePageBy = By.id("Aggiungi una delega-page");
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.codiceFiscaleInput));
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.personaGiuridicaButton));
+            this.getWebDriverWait(40).withMessage("Il titolo della pagina aggiungi delegha non è caricato").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
+            this.getWebDriverWait(40).withMessage("il campo cofive fiscale non è visibile").until(ExpectedConditions.visibilityOf(this.codiceFiscaleInput));
+            this.getWebDriverWait(40).withMessage("Il bottone persona giuridica non è visibile").until(ExpectedConditions.visibilityOf(this.personaGiuridicaButton));
             logger.info("Si visualizza correttamente la sezione Aggiungi una delega");
         }catch (TimeoutException e){
             logger.error("Non si visualizza correttamente la sezione Aggiungi una delega con errore: "+e.getMessage());

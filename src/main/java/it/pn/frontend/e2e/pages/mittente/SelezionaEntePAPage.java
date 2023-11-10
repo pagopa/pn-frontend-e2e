@@ -34,7 +34,7 @@ public class SelezionaEntePAPage extends BasePage {
             By titlePage = By.xpath("//h3[text()='Seleziona il tuo ente']");
             By searchField = By.id("search");
             this.getWebDriverWait(30).withMessage("Titolo 'Seleziona il tuo ente' della pagina non è visualizza").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(searchField));
+            this.getWebDriverWait(30).withMessage("Il campo cerca non è cliccabile nella pagina Seleziona Ente: ").until(ExpectedConditions.elementToBeClickable(searchField));
             logger.info("Seleziona Utente PA Page caricata");
         }catch (TimeoutException | NoSuchElementException | StaleElementReferenceException e){
             logger.error("Seleziona Utente PA Page non caricata con errore : "+e.getMessage());
@@ -46,6 +46,8 @@ public class SelezionaEntePAPage extends BasePage {
     public void selezionareComune(String comune){
         for (WebElement element : this.comuneButton){
             if(element.getText().contains(comune)){
+                getWebDriverWait(30).withMessage("L'Ente "+comune+" non è cliccabile nella pagina seleziona Ente ")
+                        .until(ExpectedConditions.elementToBeClickable(element));
                 this.js().executeScript("arguments[0].click()",element);
                 break;
             }
@@ -54,6 +56,8 @@ public class SelezionaEntePAPage extends BasePage {
 
     public void selezionaAccedi(){
         Actions actions = new Actions(driver);
+        getWebDriverWait(60).withMessage("il buttone Eccedi non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(this.accediButton));
         actions.moveToElement(this.accediButton).click().perform();
     }
 

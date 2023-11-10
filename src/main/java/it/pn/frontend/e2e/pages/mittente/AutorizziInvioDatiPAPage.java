@@ -13,7 +13,7 @@ public class AutorizziInvioDatiPAPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("AutorizziInvioDatiPAPage");
 
     @FindBy(css = "button[name='confirm']")
-    WebElement invaButton;
+    WebElement inviaButton;
 
     public AutorizziInvioDatiPAPage(WebDriver driver) {
         super(driver);
@@ -32,6 +32,12 @@ public class AutorizziInvioDatiPAPage extends BasePage {
 
     public void selezionareInvia(){
         logger.info("Click button Invia");
-        this.invaButton.click();
+        try {
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.inviaButton));
+            this.inviaButton.click();
+        }catch (TimeoutException e){
+        logger.error("Il bottone invia nella pagina Autorizza Invio Dati  non è stato cliccato con errore : "+e.getMessage());
+        Assert.fail("Il bottone invia nella pagina Autorizza Invio Dati non è stato cliccato con errore : "+e.getMessage());
+    }
     }
 }

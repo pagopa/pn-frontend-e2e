@@ -53,8 +53,14 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
 
     public void clickSuDelegeButton() {
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.delegheSideMenu));
-        this.js().executeScript("arguments[0].click()",this.delegheSideMenu);
+        try {
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.delegheSideMenu));
+            this.js().executeScript("arguments[0].click()", this.delegheSideMenu);
+            logger.info("click sul bottone Deleghe effetuato");
+        }catch (TimeoutException e){
+            logger.error("il bottone deleghe non è stato trovato " + e.getMessage());
+            Assert.fail("il bottone deleghe non è stato trovato" + e.getMessage());
+        }
     }
 
     public void clickNotificheDelegate() {
