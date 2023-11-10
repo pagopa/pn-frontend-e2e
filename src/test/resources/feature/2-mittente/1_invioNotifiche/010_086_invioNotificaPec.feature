@@ -6,7 +6,9 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
-  @test86
+  @TA_invioNotificaConPec
+  @mittente
+  @invioNotifiche
 
   Scenario: Mittente genera una notifica tramite destinatario con pec
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

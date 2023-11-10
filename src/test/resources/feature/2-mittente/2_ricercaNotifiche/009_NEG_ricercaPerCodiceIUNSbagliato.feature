@@ -5,7 +5,10 @@ Feature: Mittente effetua una ricerca notifiche per codice IUN sbagliato
    When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
 
-  @ricercaCodiceIUNSbagliato
+  @TA_MittenteRicercaCodiceIUNSbagliato
+  @mittente
+  @ricercaNatoficheMittente
+  @TestSuite
 
   Scenario: Mittente loggato effettua una ricerca per codice IUN sbagliato
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

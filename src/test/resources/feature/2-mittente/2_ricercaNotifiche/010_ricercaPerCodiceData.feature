@@ -6,7 +6,9 @@ Feature: Mittente effetua una ricerca notifiche per Data
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
-  @test10
+  @TA_MittenteRicercaPerData
+  @mittente
+  @ricercaNatoficheMittente
 
   Scenario: Mittente loggato effettua una ricerca per periodo temporale
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

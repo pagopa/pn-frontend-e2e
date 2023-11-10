@@ -6,7 +6,9 @@ Feature: il mittente fa una ricerca combinata tra cf e periodo temporale
 
   @TestSuite
 
-  @test12_1
+  @TA_MittenteRicercaPerCFePertiodo
+  @mittente
+  @ricercaNatoficheMittente
 
   Scenario: il mittente fa una ricera sia per cf che per periodo temporale
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

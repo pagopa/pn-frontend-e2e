@@ -10,7 +10,9 @@ Feature: il mittente effettua il download attestazione opponibile a terzi notifi
     And Cliccare sul bottone Filtra
 
   @TestSuite
-  @test98
+  @TA_MittenteDownloadAttestazioneNotificaDigitale
+  @mittente
+  @DownloadFileMittente
 
   Scenario: il mittente effettua il download attestazione opponibile a terzi notifica digitale
     When Cliccare sulla notifica restituita
