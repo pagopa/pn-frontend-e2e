@@ -5,8 +5,10 @@ Feature: la persona fisica inserisce una email pec
     When Login portale persona fisica tramite request method
     Then Home page persona fisica viene visualizzata correttamente
 
+  @TestSuite
   @inserimentoPECPF
-    @recapiti
+  @personaFisicaDestinatario
+  @recapiti
 
 
   Scenario: la persona fisica inserisce una email pec

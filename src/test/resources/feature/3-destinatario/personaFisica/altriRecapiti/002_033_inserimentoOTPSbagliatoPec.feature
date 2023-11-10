@@ -6,7 +6,8 @@ Feature:La persona fisica inserisce una OTP sbagliato PEC
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
-  @test33
+  @TA_inserimentoOTPPECErrato
+  @personaFisicaDestinatario
   @recapiti
 
   Scenario:La persona fisica loggato inserisce un OTP sbagliato PEC
