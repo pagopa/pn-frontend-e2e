@@ -5,7 +5,7 @@ Feature: la persona fisica inserisce un numero di telefono errato
     Then Home page persona fisica viene visualizzata correttamente
   @TestSuite
   @fase2Test37_neg
-  @new
+  @recapiti
   Scenario: La persona fisica inserisce un numero di telefono errato
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti

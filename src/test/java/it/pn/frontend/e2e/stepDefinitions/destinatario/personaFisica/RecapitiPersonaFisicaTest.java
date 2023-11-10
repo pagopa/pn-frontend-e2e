@@ -266,6 +266,11 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaEmailTramiteRequestMethod(String dpFile) {
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile+".yaml");
         RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         String startUrl = "http://localhost:8887/";
         String url = startUrl+recuperoOTPRecapiti.getUrlEndPoint()+personaFisica.get("mail");
@@ -562,6 +567,16 @@ public class RecapitiPersonaFisicaTest {
         recapitiDestinatarioPage.aggionamentoPagina();*/
 
         recapitiDestinatarioPage.siControllaEmailAggiunta();
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce il codice OTP della email {string}")
+    public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTPDellaEmail(String dpFile) {
+        logger.info("Si inserisce il codice OTP di verifica");
+
+        String otp = dataPopulation.readDataPopulation(dpFile+".yaml").get("OTPmail").toString();
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.sendOTP(otp);
+        recapitiDestinatarioPage.confermaButtonClickPopUp();
     }
 }
 

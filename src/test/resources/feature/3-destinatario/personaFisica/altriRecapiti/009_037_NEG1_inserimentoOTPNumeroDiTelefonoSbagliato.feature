@@ -6,7 +6,8 @@ Feature: la persona fisica inserisce l'OTP numero di telefono  errato
 
   @TestSuite
   @fase2Test37_neg1
-  @new
+  @recapiti
+
   Scenario: la persona fisica inserisce l'OTP numero di telefono errato
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti

@@ -6,6 +6,7 @@ Feature: la persona fisica modifica l'indirizzo Email
     Then Home page persona fisica viene visualizzata correttamente
 
   @modificaEmailPF
+  @recapiti
 
   Scenario: la persona fisica modifica l'indirizzo Email
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti

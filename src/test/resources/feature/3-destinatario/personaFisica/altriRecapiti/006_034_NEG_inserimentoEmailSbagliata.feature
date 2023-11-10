@@ -6,7 +6,7 @@ Feature: La persona fisica inserisce una email sbagliata
 
   @TestSuite
   @fase2Test34_neg
-  @new
+  @recapiti
   Scenario: La persona fisica inserisce una email sbagliata
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
