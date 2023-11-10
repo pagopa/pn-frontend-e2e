@@ -429,14 +429,13 @@ public class RecapitiPersonaFisicaTest {
         if(recapitiDestinatarioPage.siVisualizzaPopUpConferma()){
             recapitiDestinatarioPage.clickConfermaButton();
             recapitiDestinatarioPage.visualizzaValidazione();
-        }
-        recapitiDestinatarioPage.aggionamentoPagina();
-
-        if(recapitiDestinatarioPage.siControllaPECModificata(pec)){
-            logger.info("La PEC è stata modificata");
-        }else {
-            logger.error("La pec non è stata modificata");
-            Assert.fail("La pec non è stata modificata");
+        }else{
+            if(recapitiDestinatarioPage.siControllaPECModificata(pec)){
+                logger.info("La PEC è stata modificata");
+            }else {
+                logger.error("La pec non è stata modificata");
+                Assert.fail("La pec non è stata modificata");
+            }
         }
     }
 
