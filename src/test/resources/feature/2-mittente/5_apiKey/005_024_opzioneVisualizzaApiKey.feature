@@ -10,7 +10,9 @@ Feature: Mittente seleziona l'opzione visualizza api Key
     And Si visualizza correttamente la pagina Api Key
 
   @TestSuite
-  @test24
+  @TA_MittenteOpzioneVisualizzaApiKey
+  @mittente
+  @ApikeyMittente
 
 
   Scenario: Mittente seleziona l'opzione visualizza api Key

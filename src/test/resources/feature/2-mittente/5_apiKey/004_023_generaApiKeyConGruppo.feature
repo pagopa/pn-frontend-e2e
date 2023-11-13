@@ -11,7 +11,9 @@ Feature: Mittente genera Api Key senza gruppo
     And Si visualizza correttamente la pagina Api Key
 
   @TestSuite
-  @test23
+  @@TA_MittenteGeneraApiKeyConGruppo
+  @mittente
+  @ApikeyMittente
 
 
   Scenario:
