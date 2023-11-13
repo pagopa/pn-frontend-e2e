@@ -8,8 +8,9 @@ Feature: Il persona giuridica fa una ricerca per gruppo delle deleghe
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "delegatoPG"
 
   @TestSuite
-  @fase2Test115
-  @new
+  @TA_PGricercaDeleghePerGruppo
+  @DeleghePG
+  @PG
 
 
   Scenario: Il persona giuridica fa una ricerca per gruppo delle deleghe

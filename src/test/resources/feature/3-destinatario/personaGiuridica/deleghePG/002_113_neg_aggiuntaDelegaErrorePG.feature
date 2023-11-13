@@ -8,7 +8,9 @@ Feature: Il persona giuridica aggiunge una nuova delga inserendo una data errata
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
 
   @TestSuite
-  @fase2Test113_neg
+  @TA_PGNuovaDelegaDataErrata
+  @DeleghePG
+  @PG
   Scenario: Il persona giuridica aggiunge una nuova delga inserendo una data errata
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
