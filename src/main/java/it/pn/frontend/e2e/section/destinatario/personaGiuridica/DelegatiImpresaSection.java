@@ -15,10 +15,7 @@ public class DelegatiImpresaSection extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DelegatiImpresaSection");
 
-    @FindBy(xpath = "//button[@data-testid='addDeleghe']")
-    WebElement addDelegheButton;
-
-    @FindBy(xpath = "//li[contains(@tabindex,'0')]")
+    @FindBy(id= "show-code-button")
     WebElement mostraCodiceOption;
     @FindBy(id = "revoke-delegation-button")
     WebElement revocaMenuButton;
@@ -35,8 +32,8 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void waitLoadDelegatiImpresaPage() {
         try {
-            By titlePageBy = By.xpath("//h6[contains(text(),'Delegati dall')]");
-            By addDelegheButton = By.xpath("//button[@data-testid='addDeleghe']");
+            By titlePageBy = By.id("tab-1");
+            By addDelegheButton = By.id("add-deleghe");
 
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(addDelegheButton));
@@ -52,8 +49,16 @@ public class DelegatiImpresaSection extends BasePage {
     }
 
     public void clickAggiungiDelegaButton() {
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(addDelegheButton));
-        this.addDelegheButton.click();
+        try{
+            By addDelegheButton= By.id("add-deleghe");
+            this.getWebDriverWait(30).withMessage("bottone aggiunta deleghe non caricato").until(ExpectedConditions.elementToBeClickable(addDelegheButton));
+            logger.info("click sul bottone aggiunta delega");
+            this.element(addDelegheButton).click();
+        }catch (TimeoutException e){
+           logger.error("bottone non trovato: "+e.getMessage());
+           Assert.fail("bottone non trovato: "+e.getMessage());
+        }
+
 
     }
     public void controlloCreazioneDelega(String ragioneSociale) {
