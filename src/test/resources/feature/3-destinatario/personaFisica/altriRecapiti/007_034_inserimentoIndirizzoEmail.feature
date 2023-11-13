@@ -7,11 +7,13 @@ Feature: la persona fisica inserisce una Email
 
   @TestSuite
   @TA_inserimentoEmailPF
-  @recapiti
+  @recapitiPF
+  @personaFisicaDestinatario
 
   Scenario: la persona fisica inserisce una Email
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
+    And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una email
     And Nella pagina I Tuoi Recapiti si inserisce l'email del PF "personaFisica" e clicca sul bottone avvisami via email
     And Si visualizza correttamente il pop-up e si clicca su conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP

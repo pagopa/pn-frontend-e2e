@@ -5,13 +5,16 @@ Feature: la persona fisica inserisce un indirizzo pec aggiuntivo
     When Login portale persona fisica tramite request method
     Then Home page persona fisica viene visualizzata correttamente
   @TestSuite
-  @PECAggiuntivoPF
-  @recapiti
+  @TA_PECAggiuntivoPF
+  @recapitiPF
+  @personaFisicaDestinatario
 
   Scenario: la persona fisica inserisce un indirizzo pec aggiuntivo
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
+    And Nella pagina I Tuoi Recapiti si controlla che ci sia già una pec
     And Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti
+    And Nella sezione altri recapiti si controlla l'esistenza di una PEC "personaFisica"
     And Nella sezione altri recapiti si seleziona l'ente "mittente"
     And Nella sezione altri recapiti si seleziona il tipo di indirizzo
     And Nella sezione altri recapiti si inserisce la PEC aggiuntiva de persona fisica "personaFisica"

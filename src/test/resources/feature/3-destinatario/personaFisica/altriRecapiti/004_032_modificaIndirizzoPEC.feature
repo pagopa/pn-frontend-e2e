@@ -8,7 +8,7 @@ Feature: la persona fisica modifica l'indirizzo pec già presente
   @TestSuite
   @personaFisicaDestinatario
   @TA_modificaPECPF
-  @recapiti
+  @recapitiPF
 
   Scenario: la persona fisica modifica l'indirizzo pec già presente
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti

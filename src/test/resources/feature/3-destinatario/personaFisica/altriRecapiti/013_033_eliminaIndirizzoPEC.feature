@@ -8,7 +8,7 @@ Feature: la persona fisica elimina l'indirizzo pec
   @TestSuite
   @personaFisicaDestinatario
   @TA_eliminaPECPF
-  @recapiti
+  @recapitiPF
 
   Scenario: la persona fisica elimina l'indirizzo pec
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
