@@ -6,7 +6,9 @@ Feature: il delegato accetta la delega
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
-  @test48
+  @TA_PFaccettaDelega
+  @DeleghePF
+  @PF
 
   Scenario: il delegato accetta la delega
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe

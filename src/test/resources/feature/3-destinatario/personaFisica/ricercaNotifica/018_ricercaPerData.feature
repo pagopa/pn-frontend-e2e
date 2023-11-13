@@ -6,8 +6,9 @@ Feature: Ricerca notifica per periodo temporale persona fisica
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
-  @test18
-  @
+  @TA_PFricercaPerData
+  @PF
+  @PFRicercaNotifica
 
   Scenario: La persona fisica fa una ricerca per date
     When Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica

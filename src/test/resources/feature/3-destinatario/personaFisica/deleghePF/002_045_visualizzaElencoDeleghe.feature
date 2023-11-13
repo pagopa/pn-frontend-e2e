@@ -6,7 +6,9 @@ Feature: Il persona fisica visualizza la sezione aggiungi una nuova delega
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
-  @test45
+  @TA_PFvisualizzaElencoCampiAggiugiDelega
+  @DeleghePF
+  @PF
 
   Scenario: Il persona fisica visualizza la sezione aggiungi una nuova delega
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe

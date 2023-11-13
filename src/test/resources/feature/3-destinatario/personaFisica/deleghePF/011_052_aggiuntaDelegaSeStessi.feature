@@ -6,7 +6,9 @@ Feature: Il persona fisica aggiunge una delega a se stessi
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
-  @test52
+  @TA_PFaggiuntaDelegaSeStesso
+  @DeleghePF
+  @PF
 
   Scenario: Il persona fisica aggiunge una delega a se stessi
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
