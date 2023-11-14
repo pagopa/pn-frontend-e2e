@@ -579,12 +579,11 @@ public class RecapitiPersonaFisicaTest {
 
         if (recapitiDestinatarioPage.siVisualizzaPopUpConferma()) {
             recapitiDestinatarioPage.clickConfermaButton();
+            recapitiDestinatarioPage.visualizzaValidazione();
+        } else {
+            String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("emailPec").toString();
+            recapitiDestinatarioPage.verificaNuovaEmailEPEC(pec);
         }
-
-        recapitiDestinatarioPage.aggionamentoPagina();
-
-        recapitiDestinatarioPage.siControllaPECAggiunta();
-
     }
 
     @And("Nella sezione altri recapiti si inserisce la Email aggiuntiva della persona fisica {string}")
@@ -668,6 +667,19 @@ public class RecapitiPersonaFisicaTest {
         String pec = dataPopulation.readDataPopulation(dpFile+".yaml").get("emailPec").toString();
         if (recapitiDestinatarioPage.verificaNuovaEmailEPEC(pec)){
             recapitiDestinatarioPage.eliminaNuovaPec();
+        }
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già la nuova pec")
+    public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaLaNuovaPec() {
+        logger.info("Si controlla che ci sia una email pec");
+        String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("emailPec").toString();
+        BackgroundTest backgroundTest = new BackgroundTest();
+        if (!recapitiDestinatarioPage.siVisulizzaPecInserita()) {
+            backgroundTest.aggiungiPECPF();
+        } else if (recapitiDestinatarioPage.siControllaPECModificata(pec)) {
+            recapitiDestinatarioPage.eliminaPecEsistente();
+            backgroundTest.aggiungiNuovaPECPF();
         }
     }
 }
