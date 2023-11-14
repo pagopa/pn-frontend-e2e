@@ -68,7 +68,7 @@ public class RecuperoOTPRecapiti {
                 }
             });
         }catch (IOException e){
-            Assert.fail(e.getMessage());
+            return false;
         }
         return this.responseBody!=null;
     }

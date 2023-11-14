@@ -283,8 +283,22 @@ public class RecapitiPersonaFisicaTest {
             personaFisica.put("OTPmail", OTP);
             dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
         } else {
-            logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
-            Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+                String variabileAmbiente = System.getProperty("environment");
+             if (variabileAmbiente.equalsIgnoreCase("test")){
+                 startUrl = "http://internal-ecsa-20230504103152508600000011-1839177861.eu-south-1.elb.amazonaws.com/";
+             } else if (variabileAmbiente.equalsIgnoreCase("dev")){
+                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com/";
+             }
+             url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("mail");
+             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+            if (results) {
+                String OTP = recuperoOTPRecapiti.getResponseBody();
+                personaFisica.put("OTPmail", OTP);
+                dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+            }else {
+                logger.error("La chiamata non ha risposto correttamente con codice:"+ recuperoOTPRecapiti.getResponseCode());
+                Assert.fail("La chiamata non ha risposto correttamentecon codice:"+ recuperoOTPRecapiti.getResponseCode());
+            }
         }
     }
 
