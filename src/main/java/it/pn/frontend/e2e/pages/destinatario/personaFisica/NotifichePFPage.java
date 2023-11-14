@@ -59,11 +59,12 @@ public class NotifichePFPage extends BasePage {
         }
     }
 
-    public boolean verificaPresenzaCodiceIumTextField() {
+    public boolean verificaPresenzaCodiceIunTextField() {
         try{
+            getWebDriverWait(30).withMessage("Il campo codice iun non è visibile").until(ExpectedConditions.visibilityOf(this.codiceIunTextField));
             return codiceIunTextField.isDisplayed();
         }catch (NoSuchElementException e){
-            logger.error("text field codice ium non visualizzato");
+            logger.error("text field codice iun non visualizzato");
             return false;
         }
     }

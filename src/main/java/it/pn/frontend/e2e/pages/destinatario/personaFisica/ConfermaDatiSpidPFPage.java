@@ -47,14 +47,17 @@ public class ConfermaDatiSpidPFPage extends BasePage {
     }
 
     public String leggiNomeUtente(){
+        getWebDriverWait(30).withMessage("nome utente non è visibile").until(ExpectedConditions.visibilityOf(this.nomeUtenteLabel));
         return this.nomeUtenteLabel.getText();
     }
 
     public String leggiCogomeUtente(){
+        getWebDriverWait(30).withMessage("cognome utente non è visibile").until(ExpectedConditions.visibilityOf(this.cognomeUtenteLabel));
         return this.cognomeUtenteLabel.getText();
     }
 
     public String leggiNumeroFiscale(){
+        getWebDriverWait(30).withMessage("codice fiscale utente non è visibile").until(ExpectedConditions.visibilityOf(this.cognomeUtenteLabel));
         return this.fiscalNumberLabel.getText();
     }
 
