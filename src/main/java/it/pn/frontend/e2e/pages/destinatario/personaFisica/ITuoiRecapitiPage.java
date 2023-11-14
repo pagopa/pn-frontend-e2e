@@ -75,7 +75,7 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void waitLoadPopUp() {
         try {
-            By titleBy = By.xpath("//h2[contains(@id,'dialog-title')]");
+            By titleBy = By.id("dialog-title");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleBy));
             logger.info("Il po-up di conferma viene visualizzato correttamente");
         } catch (TimeoutException e) {

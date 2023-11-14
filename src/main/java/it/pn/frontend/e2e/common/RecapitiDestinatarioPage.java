@@ -96,7 +96,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void waitLoadPopUp() {
         try {
-            By titleBy = By.xpath("//h2[contains(@id,'dialog-title')]");
+            By titleBy = By.id("dialog-title");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleBy));
             logger.info("Il po-up di conferma viene visualizzato correttamente");
         } catch (TimeoutException e) {
@@ -133,7 +133,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void waitMessaggioErrore() {
         try {
-            By messaggioErroreBy = By.xpath("//div[contains(@data-testid, 'errorAlert')]");
+            By messaggioErroreBy = By.id("error-alert");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messaggioErroreBy));
             logger.info("Il messaggio di errore viene visualizzato correttamente");
         } catch (TimeoutException e) {
