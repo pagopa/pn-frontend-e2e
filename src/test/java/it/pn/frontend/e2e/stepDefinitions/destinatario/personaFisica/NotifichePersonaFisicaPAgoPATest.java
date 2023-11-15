@@ -175,7 +175,7 @@ public class NotifichePersonaFisicaPAgoPATest {
         }
     }
 
-    @When("Il persona fisica clicca sulla notifica restituita")
+    @When("La persona fisica clicca sulla notifica restituita")
     public void ilDestinatarioCliccaSullaNotificaRestituita() {
         logger.info("Si clicca sulla notifica");
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);

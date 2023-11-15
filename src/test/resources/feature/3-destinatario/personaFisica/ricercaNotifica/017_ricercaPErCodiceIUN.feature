@@ -1,5 +1,5 @@
 Feature: Ricerca persona fisica per Codice IUN
-  #Il persona fisica fa un ricerca per persona fisica
+  #La persona fisica fa un ricerca per persona fisica
 
   Background: Login persona fisica
     Given Login Page persona fisica "personaFisica" viene visualizzata

@@ -41,7 +41,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotificaPG.get("codiceIUN").toString());
     }
 
-    @When("Il persona giuridica clicca sulla notifica restituita {string}")
+    @When("La persona giuridica clicca sulla notifica restituita {string}")
     public void ilPersonaGiuridicaCliccaSullaNotificaRestituita(String dpFile) {
         DataPopulation dataPopulation = new DataPopulation();
         String codiceIUNPG = dataPopulation.readDataPopulation(dpFile+".yaml").get("codiceIUN").toString();

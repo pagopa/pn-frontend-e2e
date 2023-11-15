@@ -1,4 +1,4 @@
-Feature: Il persona giuridica ricerca per codice IUN
+Feature: La persona giuridica ricerca per codice IUN
 
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
@@ -10,7 +10,7 @@ Feature: Il persona giuridica ricerca per codice IUN
   @RicercaNotifichePG
   @PG
 
-  Scenario: Il persona giuridica ricerca per codice IUN
+  Scenario: La persona giuridica ricerca per codice IUN
     When Nella Home page persona giuridica si clicca su Send Notifiche Digitali
     When Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
     And Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa

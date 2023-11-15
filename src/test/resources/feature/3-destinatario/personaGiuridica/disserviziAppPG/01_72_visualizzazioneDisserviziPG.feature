@@ -1,4 +1,4 @@
-Feature: il persona giuridica visualizza i disservizi della applicazione
+Feature: La persona giuridica visualizza i disservizi della applicazione
 
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
@@ -10,7 +10,7 @@ Feature: il persona giuridica visualizza i disservizi della applicazione
   @TA_PG_VisualizzaDisservizio
 
 
-  Scenario: il persona giuridica loggato visualizza lo stato dei disservizi
+  Scenario: La persona giuridica loggato visualizza lo stato dei disservizi
     When Nella Home page persona giuridica si clicca su Send Notifiche Digitali
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
     And Nella dashboard persona giuridica clicca su disservizi app

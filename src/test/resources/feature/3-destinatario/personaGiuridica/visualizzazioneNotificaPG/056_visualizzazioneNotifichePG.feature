@@ -1,4 +1,4 @@
-Feature: Il persona fisica visualizza la sezione notifiche
+Feature: La persona fisica visualizza la sezione notifiche
 
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
@@ -10,7 +10,7 @@ Feature: Il persona fisica visualizza la sezione notifiche
   @VisualizzazioneNotifichePG
   @PG
 
-  Scenario: Il persona giuridica visualizza la sezione notifiche
+  Scenario: La persona giuridica visualizza la sezione notifiche
     When Nella Home page persona giuridica si clicca su Send Notifiche Digitali
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
     And Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa
