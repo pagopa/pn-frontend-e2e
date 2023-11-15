@@ -2,7 +2,7 @@ Feature: Il delegato visualizza la notifiche del delegante
 
   Background: Login delegato
     Given Login Page persona fisica "personaFisica" viene visualizzata
-    When Login "delegatoPF" portale persona fisica tramite request method
+    When Login portale persona fisica tramite token exchange "delegatoPF"
     Then Home page persona fisica viene visualizzata correttamente
     And Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe

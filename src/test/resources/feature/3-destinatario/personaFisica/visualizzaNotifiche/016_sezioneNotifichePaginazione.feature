@@ -2,7 +2,7 @@ Feature:La persona fisica visualizza le notifiche in elenco
 
   Background: Login persona fisica
     Given Login Page persona fisica "personaFisica" viene visualizzata
-    When Login portale persona fisica tramite request method
+    When Login portale persona fisica tramite token exchange "personaFisica"
     Then pagina Piattaforma  Notifiche persona fisica viene visualizzata correttamente
 
     @TestSuite

@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class PopUpRevocaDelegaSection extends BasePage {
-    @FindBy(id = "confirmation-dialog-delegations")
+    @FindBy(id = "responsive-dialog-title")
     WebElement title;
 
     @FindBy(xpath = "//button[contains(text(),'Revoca la delega')]")

@@ -2,7 +2,7 @@ Feature: Il delgato persona fisica rifiuta la delega che gli è stata inviata
 
   Background: Login delegato
     Given Login Page persona fisica "personaFisica" viene visualizzata
-    When Login "delegatoPF" portale persona fisica tramite request method
+    When Login portale persona fisica tramite token exchange "delegatoPF"
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite

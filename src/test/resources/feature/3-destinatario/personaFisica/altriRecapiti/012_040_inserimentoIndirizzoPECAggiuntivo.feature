@@ -2,7 +2,7 @@ Feature: la persona fisica inserisce un indirizzo pec aggiuntivo
 
   Background: Login persona fisica
     Given Login Page persona fisica "personaFisica" viene visualizzata
-    When Login portale persona fisica tramite request method
+    When Login portale persona fisica tramite token exchange "personaFisica"
     Then Home page persona fisica viene visualizzata correttamente
   @TestSuite
   @TA_PECAggiuntivoPF
