@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,7 +42,21 @@ public class HelpdeskPage extends BasePage{
     @FindBy(xpath = "//p[contains(text(),'Codice Univoco')]")
     WebElement Uid;
 
+    @FindBy(xpath = "//p[contains(text(),'Codice Fiscale')]")
+    WebElement CfPersonaFisica;
+
+
+    @FindBy(id ="Tipo Estrazione" )
+    WebElement selectTypeOfEstrazioneDati;
+
+    @FindBy(id="Codice Univoco (uid)")
+    WebElement inputUid;
+
+
     private final Logger logger = LoggerFactory.getLogger("Helpdesk Page");
+
+    private String codiceFiscale;
+    private String codiceIdentificativoPF;
 
     public HelpdeskPage(WebDriver driver) {
         super(driver);
@@ -186,9 +201,8 @@ public class HelpdeskPage extends BasePage{
     public void checkRicercaPage(){
         logger.info("check pagina ricerca ed estrazione dati");
         try {
-            By selectTypeOfEstrazioneDati= By.id("Tipo Estrazione");
             By buttonResetFiltri= By.id("resetFilter");
-            this.getWebDriverWait(30).withMessage("Tipo estrazione non trovato").until(ExpectedConditions.visibilityOfElementLocated(selectTypeOfEstrazioneDati));
+            this.getWebDriverWait(30).withMessage("Tipo estrazione non trovato").until(ExpectedConditions.visibilityOf(selectTypeOfEstrazioneDati));
             this.getWebDriverWait(30).withMessage("numero ticket input non trovato").until(ExpectedConditions.visibilityOf(numeroTicketInput));
             this.getWebDriverWait(30).withMessage("codice fiscale input non trovato").until(ExpectedConditions.visibilityOf(codiceFiscaleInput));
             this.getWebDriverWait(30).withMessage("button ricerca non trovato").until(ExpectedConditions.visibilityOf(buttonRicerca));
@@ -221,6 +235,7 @@ public class HelpdeskPage extends BasePage{
         logger.info("inserisco numero ticket");
         numeroTicketInput.sendKeys("testTAFE01");
         logger.info("inserisco codice fiscale");
+        setCodiceFiscale(codiceFiscale);
         codiceFiscaleInput.sendKeys(codiceFiscale);
         logger.info("clicco sul bottone di ricerca");
         try{
@@ -243,9 +258,55 @@ public class HelpdeskPage extends BasePage{
         try{
             logger.info("controllo esistenza codice univoco");
             this.getWebDriverWait(30).withMessage("Codice univoco non trovato").until(ExpectedConditions.visibilityOf(Uid));
+            setCodiceIdentificativoPF(Uid.getText().replace("Codice Univoco: ",""));
         }catch (TimeoutException e){
             logger.error("codice univoco non trovato: "+e.getMessage());
             Assert.fail("codice univoco non trovato: "+e.getMessage());
+        }
+    }
+
+    public void setCodiceIdentificativoPF(String codiceIdentificativoPF) {
+        this.codiceIdentificativoPF = codiceIdentificativoPF;
+    }
+
+    public void setCodiceFiscale(String codiceFiscale) {
+        this.codiceFiscale = codiceFiscale;
+    }
+
+    public void changeOption() {
+        logger.info("click su tipo estrazione dati");
+        By inputTipoEstrazione = By.xpath("//div[@data-testid='select-Tipo Estrazione']");
+        this.element(inputTipoEstrazione).click();
+        try{
+            logger.info("selezione ottieni codice fiscale");
+            By selectTypeOfOttieniCF = By.xpath("//li[contains(text(),'Ottieni CF')]");
+            logger.info("controllo esistenza selezione");
+            this.getWebDriverWait(30).withMessage("opzione ottieni cf non trovata").until(ExpectedConditions.visibilityOfElementLocated(selectTypeOfOttieniCF));
+            this.element(selectTypeOfOttieniCF).click();
+            By checkUidIsDisplayed = By.id("Codice Univoco (uid)");
+            this.getWebDriverWait(30).withMessage("input uid non trovato").until(ExpectedConditions.visibilityOfElementLocated(checkUidIsDisplayed));
+        }catch (TimeoutException e){
+            logger.error("opzione ottieni cf non trovata: "+e.getMessage());
+            Assert.fail("opzione ottieni cf non trovata: "+e.getMessage());
+        }
+    }
+
+
+    public void checkCodiceFiscale() {
+       inputUid.sendKeys(this.codiceIdentificativoPF);
+       buttonRicerca.click();
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            logger.error("pausa con errore: "+e.getMessage());
+            throw new RuntimeException(e);
+        }
+        String cfResult= CfPersonaFisica.getText().replace("Codice Fiscale: ", "");
+        if (cfResult.equals(this.codiceFiscale)){
+            logger.info("codice fiscale corrispondente");
+        }else{
+            logger.error("codice fiscale diverso");
+            Assert.fail("dopo ricerca di corrispondenza il codice fiscale risulta differente");
         }
     }
 }
