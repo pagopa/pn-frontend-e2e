@@ -6,7 +6,10 @@ Feature: Mittente visualizza correttamente la pagina notifiche
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
-  @test7
+  @TA_MittentevisualizzazioneNotifiche
+  @mittente
+  @visualizzazioneNotificheMittente
+
 
 
 

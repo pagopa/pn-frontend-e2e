@@ -6,7 +6,9 @@ Feature:il mittente cambia visualizzazione della pagina
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
-  @test13
+  @TA_MittentePaginazioneNotifiche
+  @mittente
+  @visualizzazioneNotificheMittente
 
   Scenario: il mittente cambia visualizzazione della pagina
       When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

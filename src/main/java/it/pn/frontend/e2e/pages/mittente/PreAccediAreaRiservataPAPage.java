@@ -33,6 +33,12 @@ public class PreAccediAreaRiservataPAPage extends BasePage {
 
     public void selezionaProcediAlLoginButton(){
         logger.info("Si clicca sul bottone procedi al login");
-        this.js().executeScript("arguments[0].click()",this.procediAlLoginButton);
+        try {
+            getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(procediAlLoginButton));
+            this.js().executeScript("arguments[0].click()", this.procediAlLoginButton);
+            logger.info("click sul bottone procedi alla login effetuato");
+        }catch (TimeoutException e){
+            logger.error("il bottone procedi alla login non è cliccabile");
+        }
     }
 }

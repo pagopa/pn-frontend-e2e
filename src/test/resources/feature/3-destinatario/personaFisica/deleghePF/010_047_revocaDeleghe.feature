@@ -6,7 +6,9 @@ Feature:La persona fisica revoca una delega
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
-  @test47
+  @TA_PFrevocaDelega
+  @DeleghePF
+  @PF
 
   Scenario:La persona fisica revoca una delega
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe

@@ -6,8 +6,9 @@ Feature:La persona fisica visualizza le notifiche in elenco
     Then pagina Piattaforma  Notifiche persona fisica viene visualizzata correttamente
 
     @TestSuite
-    @test16
-    @
+    @TA_PFPaginazioneNotifiche
+    @PFvisualizzaNotifiche
+    @PF
 
 
     Scenario:La persona fisica visualizza le notifiche in elenco

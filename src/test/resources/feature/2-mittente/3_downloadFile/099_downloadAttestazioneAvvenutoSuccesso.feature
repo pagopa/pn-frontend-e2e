@@ -11,8 +11,9 @@ Feature: il mittente effettua il download attestazione opponibile a terzi avvenu
     And Cliccare sul bottone Filtra
 
   @TestSuite
-  @test99
-  @run
+  @TA_MittenteDownloadAttestazioneAvvenutaSuccesso
+  @mittente
+  @DownloadFileMittente
 
   Scenario: il mittente effettua il download attestazione opponibile a terzi avvenuto successo
     When Cliccare sulla notifica restituita

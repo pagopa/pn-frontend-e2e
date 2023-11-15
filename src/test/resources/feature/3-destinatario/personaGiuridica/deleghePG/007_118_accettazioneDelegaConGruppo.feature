@@ -7,8 +7,9 @@ Feature:Il delegato persona giuridica accetta la delega assegnandoli un gruppo
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "delegatoPG"
 
   @TestSuite
-  @fase2Test118
-  @new
+  @TA_PGaccettaDelegaConGruppo
+  @DeleghePG
+  @PG
 
   Scenario: Il delegato persona giuridica accetta la delega assegnandoli un gruppo
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe

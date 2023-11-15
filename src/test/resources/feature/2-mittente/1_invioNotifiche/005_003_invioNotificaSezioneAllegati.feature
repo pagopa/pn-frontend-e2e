@@ -4,8 +4,10 @@ Feature: il mittente inserisce tutti i dati di una notifica
    When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
 
-    @fase2Test3
+    @TA_invioNotificaConAllegati
     @TestSuite
+    @mittente
+    @invioNotifiche
 
   Scenario Outline: il mittente inserisce tutti i dati di una notifica
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

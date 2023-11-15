@@ -7,7 +7,9 @@ Feature: Ricerca persona fisica per Codice IUN
     Then  Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
-  @test17
+  @TA_PFricercaPerIUN
+  @PF
+  @PFRicercaNotifica
 
   Scenario: Ricerca persona fisica per Codice IUN
     When Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica

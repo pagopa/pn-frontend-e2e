@@ -11,7 +11,9 @@ Feature: persona giuridica scarica attestazioni all'interno di una notifica
     And Cliccare sul bottone Filtra persona fisica
 
   @TestSuite
-  @fase2Test60
+  @TA_PG_DownloadFile
+  @DownloadFilePG
+  @PG
 
 
   Scenario: persona giuridica scarica attestazione
