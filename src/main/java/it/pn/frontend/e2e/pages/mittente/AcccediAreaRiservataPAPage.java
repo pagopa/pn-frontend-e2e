@@ -31,6 +31,13 @@ public class AcccediAreaRiservataPAPage extends BasePage {
 
     public void selezionareSipButton(){
         logger.info("Si seleziona il bottone Spid");
-        this.spidButton.click();
+        try {
+            getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(this.spidButton));
+            this.spidButton.click();
+            logger.info("click sul bottone SPID effetuato");
+        }catch (TimeoutException e){
+            logger.error("Il bottone SPID non è cliccabile con errore : "+e.getMessage());
+            Assert.fail("Il bottone SPID non è cliccabile con errore : "+e.getMessage());
+        }
     }
 }

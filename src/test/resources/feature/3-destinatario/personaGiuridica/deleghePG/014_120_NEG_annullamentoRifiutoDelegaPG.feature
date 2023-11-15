@@ -7,8 +7,9 @@ Feature:Il delegato persona giuridica annulLa l'operazione di rifiuto delega
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "delegatoPG"
 
   @TestSuite
-  @fase2Test120NEG
-  @new
+  @TA_PGannullaRifiutoDelega
+  @DeleghePG
+  @PG
 
   Scenario: Il delegato persona giuridica annulLa l'operazione di rifiuto delega
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe

@@ -12,7 +12,9 @@ Feature: il mittente effettua il download attestazione opponibile a terzi mancat
     And Si verifica che la notifica sia nello stato consegnata
 
   @TestSuite
-  @test100
+  @TA_MittenteDownloadAttestazioneMancatoRicapDigitale
+  @mittente
+  @DownloadFileMittente
 
   Scenario:il mittente effettua il download attestazione opponibile a terzi mancato recapito digitale
     When Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita

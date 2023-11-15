@@ -6,7 +6,9 @@ Feature: persona fisica aggiunge una delega allo stesso delegato
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
-  @test53
+  @TA_PFaggiuntaDelegaGiaPresente
+  @DeleghePF
+  @PF
 
   Scenario:La persona fisica aggiunge una delega allo stesso delegato
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe

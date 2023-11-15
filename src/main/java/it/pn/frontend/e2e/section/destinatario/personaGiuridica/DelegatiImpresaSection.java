@@ -38,8 +38,8 @@ public class DelegatiImpresaSection extends BasePage {
             By titlePageBy = By.xpath("//h6[contains(text(),'Delegati dall')]");
             By addDelegheButton = By.xpath("//button[@data-testid='addDeleghe']");
 
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(addDelegheButton));
+            this.getWebDriverWait(30).withMessage("il titolo della sezione deledati dall'impresa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
+            this.getWebDriverWait(30).withMessage("il bottone aggiungi delega non è visibile").until(ExpectedConditions.visibilityOfElementLocated(addDelegheButton));
 
             logger.info("Delegati dall'impresa caricata correttamente");
 
@@ -52,9 +52,13 @@ public class DelegatiImpresaSection extends BasePage {
     }
 
     public void clickAggiungiDelegaButton() {
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(addDelegheButton));
-        this.addDelegheButton.click();
-
+        try {
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(addDelegheButton));
+            this.addDelegheButton.click();
+        }catch (TimeoutException e) {
+            logger.error("Il bottone aggiungi delega non è cliccabile"+e.getMessage());
+            Assert.fail("Il bottone aggiungi delega non è cliccabile"+e.getMessage());
+        }
     }
     public void controlloCreazioneDelega(String ragioneSociale) {
         try{

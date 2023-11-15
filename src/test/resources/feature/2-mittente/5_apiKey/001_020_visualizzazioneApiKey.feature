@@ -6,7 +6,9 @@ Feature: Mittente visualizza correttamente la pagina Api Key
     Then Home page mittente viene visualizzata correttamente
 
     @TestSuite
-    @test20
+    @TA_MittenteVisualizzazioneApiKey
+    @mittente
+    @ApikeyMittente
 
 
   Scenario: Mittente visualizza correttamente la pagina Api Key

@@ -8,7 +8,9 @@ Feature:La persona giuridica visualizza il codice di una delega
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
 
   @TestSuite
-  @fase2Test116
+  @TA_PGvisualizzaCodiceDelega
+  @DeleghePG
+  @PG
 
   Scenario:La persona giuridica visualizza il codice di una delega
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe

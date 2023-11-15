@@ -5,8 +5,9 @@ Feature: il mittente fa una ricerca combinata tra cf e data
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
-
-  @test12_5
+  @mittente
+  @ricercaNatoficheMittente
+  @TA_MittenteRicercaPerCFeData
 
   Scenario: il mittente fa una ricera sia per cf che per data
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

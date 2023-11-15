@@ -9,6 +9,8 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
 
   @TestSuite
   @test19
+  @TA_PFDownloadAttestazioni
+  @PF
 
   Scenario: persona fisica scarica attestazione
     WhenLa persona fisica clicca sulla notifica restituita

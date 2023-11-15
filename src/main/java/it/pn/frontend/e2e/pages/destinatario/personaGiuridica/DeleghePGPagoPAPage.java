@@ -68,7 +68,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             By titlePage = By.id("Deleghe-page");
 
             this.getWebDriverWait(30).withMessage("il titolo della pagina deleghe PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
+            this.getWebDriverWait(30).withMessage("Il bottone deleghe a carico dell'impresa non è visibile").until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
 
             this.logger.info("Deleghe page si visualizza correttamente");
 
@@ -81,8 +81,13 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickDelegatiImpresa() {
-
-        this.delegatiImpresaButton.click();
+        try {
+            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(delegatiImpresaButton));
+            this.delegatiImpresaButton.click();
+        }catch(TimeoutException e){
+            logger.error("il bottone delegati imprese non è cliccabile"+ e.getMessage());
+            Assert.fail("il bottone delegati imprese non è cliccabile"+ e.getMessage());
+        }
 
     }
 
