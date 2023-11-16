@@ -1,4 +1,4 @@
-Feature: La persona giuridica inserisce una OTP sbagliato PEC
+Feature: La persona giuridica modifica l'indirizzo PEC
 
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
@@ -7,19 +7,20 @@ Feature: La persona giuridica inserisce una OTP sbagliato PEC
     And Nella Home page persona giuridica si clicca su Send Notifiche Digitali
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
 
-  @TestSuite
+  @TA_modificaPECPG
   @PG
   @recapitiPG
-  @TA_inserimentoOTPErratoPG
 
-  Scenario: La persona giuridica loggato inserisce un OTP sbagliato PEC
+  Scenario: La persona giuridica modifica l'indirizzo PEC
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
-    And Nella pagina Recapiti si inserisce la PEC del persona giuridica "personaGiuridica"
-    And Nella pagina I Tuoi Recapiti si clicca sul bottone conferma
+    And Nella pagina I Tuoi Recapiti si controlla che ci sia già una pec
+    And Nella pagina I Tuoi Recapiti si clicca sul bottone modifica PEC
+    And Nella pagina I Tuoi Recapiti si inserisce una nuova PEC della persona fisica "prova@pec.it"
+    And Nella pagina I Tuoi Recapiti si clicca sul bottone salva
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato "15494"
-    And Nella pagina I Tuoi Recapiti clicca sul bottone conferma
-    And Si visualizza correttamente il messaggio di errore
-    Then Cliccare sul bottone Annulla
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request "prova@pec.it"
+    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
+    Then Nella pagina I Tuoi Recapiti si verifica che la pec sia stata modificata "prova@pec.it"
     And Logout da portale persona giuridica
+

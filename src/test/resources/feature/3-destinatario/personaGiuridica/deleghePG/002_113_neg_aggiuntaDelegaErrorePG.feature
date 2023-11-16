@@ -1,4 +1,4 @@
-Feature: Il persona giuridica aggiunge una nuova delga inserendo una data errata
+Feature: La persona giuridica aggiunge una nuova delga inserendo una data errata
 
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
@@ -11,7 +11,7 @@ Feature: Il persona giuridica aggiunge una nuova delga inserendo una data errata
   @TA_PGNuovaDelegaDataErrata
   @DeleghePG
   @PG
-  Scenario: Il persona giuridica aggiunge una nuova delga inserendo una data errata
+  Scenario: La persona giuridica aggiunge una nuova delga inserendo una data errata
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Nella pagina Deleghe si clicca su Delegati dall impresa

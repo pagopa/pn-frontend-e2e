@@ -1,4 +1,4 @@
-Feature: il persona giuridica inserisce una OTP sbagliato PEC
+Feature: La persona giuridica inserisce una PEC
 
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
@@ -8,9 +8,12 @@ Feature: il persona giuridica inserisce una OTP sbagliato PEC
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
 
   @TestSuite
-  @fase2Test61_neg
+  @PG
+  @recapitiPG
+  @TA_inserimentoPECErrataPG
 
-  Scenario: il persona giuridica loggato inserisce un OTP sbagliato PEC
+
+  Scenario: La persona giuridica loggato inserisce una PEC
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
     And Nella pagina Recapiti persona giuridica si inserisce una PEC sbagliata "provatest2.spqe"

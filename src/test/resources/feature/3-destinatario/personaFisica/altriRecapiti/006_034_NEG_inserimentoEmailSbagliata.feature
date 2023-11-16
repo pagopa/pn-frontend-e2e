@@ -8,6 +8,7 @@ Feature: La persona fisica inserisce una email sbagliata
   @TA_inserimentoEmailErrataPF
   @personaFisicaDestinatario
   @recapitiPF
+
   Scenario: La persona fisica inserisce una email sbagliata
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti

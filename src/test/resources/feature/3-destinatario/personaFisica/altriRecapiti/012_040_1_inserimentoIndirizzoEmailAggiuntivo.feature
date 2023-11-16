@@ -7,7 +7,7 @@ Feature: la persona fisica inserisce un indirizzo Email aggiuntivo
 
   @TestSuite
   @personaFisicaDestinatario
-  @TA_emailAggiuntivoPF
+  @TA_emailAggiuntivaPF
   @recapitiPF
 
   Scenario: la persona fisica inserisce un indirizzo Email aggiuntivo
