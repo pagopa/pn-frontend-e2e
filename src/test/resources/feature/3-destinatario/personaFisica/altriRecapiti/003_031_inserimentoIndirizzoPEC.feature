@@ -6,7 +6,7 @@ Feature: la persona fisica inserisce una email pec
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
-  @inserimentoPECPF
+  @TA_inserimentoPECPF
   @PF
   @recapitiPF
 
