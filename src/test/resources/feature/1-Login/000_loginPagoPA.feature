@@ -1,7 +1,8 @@
 Feature: Login pagoPA
 
-  @loginMittente
+  @TA_loginMittente
   @TestSuite
+  @loginFE
 
   Scenario: Login pagoPA mittente
     Given Login Page mittente "mittente" viene visualizzata
@@ -9,16 +10,18 @@ Feature: Login pagoPA
     Then Home page mittente viene visualizzata correttamente
     And Logout da portale mittente senza entrare su notifiche
 
-  @loginpersonaFisica
+  @TA_loginpersonaFisica
   @TestSuite
+  @loginFE
   Scenario: Login pagoPA persona fisica
     Given Login Page persona fisica "personaFisica" viene visualizzata
     When Login con persona fisica "personaFisica"
     Then Home page persona fisica viene visualizzata correttamente
     And Logout da portale persona fisica
 
-  @loginpersonaGiuridica
+  @TA_loginpersonaGiuridica
   @TestSuite
+  @loginFE
   Scenario: Login pagoPA persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
     When Login con persona giuridica "personaGiuridica"

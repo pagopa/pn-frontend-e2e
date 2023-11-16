@@ -42,7 +42,7 @@ public class DeleghePage extends BasePage {
 
     public void clickAggiungiDelegaButton()  {
         try {
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.addDelegaButton));
+            this.getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(this.addDelegaButton));
             this.addDelegaButton.click();
         }catch(TimeoutException e){
             logger.error("Il bottone aggiungi delega non è cliccabile con errore : " + e.getMessage());
@@ -74,9 +74,9 @@ public class DeleghePage extends BasePage {
     public void clickRevocaButton(String nome, String cognome) {
 
         By menuButton = By.xpath("//div[@data-testid='delegates-wrapper']//td[@role='cell' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
-        this.getWebDriverWait(40).withMessage("menu delega non cliccabile ").until(ExpectedConditions.elementToBeClickable(menuButton));
+        this.getWebDriverWait(60).withMessage("menu delega non cliccabile ").until(ExpectedConditions.elementToBeClickable(menuButton));
         this.js().executeScript("arguments[0].click()",this.element(menuButton));
-        this.getWebDriverWait(30).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(this.revocaButton));
+        this.getWebDriverWait(60).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(this.revocaButton));
         this.revocaButton.click();
 
 
