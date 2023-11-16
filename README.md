@@ -12,6 +12,8 @@ plugin IntellJ: Cucumber, Gherking
 Per lanciare singolarmente delle funzioni basta modificare il valore del -Dcucumber.filter.tags con il nome della funzionalità che si vuole lanciare. Es. per lanciare l'invio della notifica:
 ./mvnw clean test -Dcucumber.filter.tags=@invioNotifiche -Dbrowser=chrome -Dheadless=false -DlogFileName=inserimentoNotifica -Denvironment=test
 
-Per lanciare singolarmente i test di un portale basta modificare il valore del -Dcucumber.filter.tags con: @mittente, @PF,
+Per lanciare singolarmente i test di un portale basta modificare il valore del -Dcucumber.filter.tags con: @mittente, @PF, @PG
+
+Per lanciare singolarmente basta andare a vedere il tag o nel feature file o nel testbook
 
 E' possibile cambiare l'ambiente di esecuzione test sostituendo il valore test nella variabile -Denvironment con gli ambienti dev.
