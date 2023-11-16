@@ -7,7 +7,7 @@ Feature: la persona giuridica inserisce l'OTP numero di telefono  errato
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
 
   @TestSuite
-  @personaGiuridicaDestinatario
+  @PG
   @TA_inserimentoOTPErratoCellularePG
   @recapitiPG
 

@@ -7,7 +7,7 @@ Feature: la persona giuridica inserisce un OTP email sbagliato
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
 
   @TestSuite
-  @personaGiuridicaDestinatario
+  @PG
   @TA_inserimentoOTPErratoPG
   @recapitiPG
 

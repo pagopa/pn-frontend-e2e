@@ -8,7 +8,7 @@ Feature: La persona giuridica elimina l'indirizzo PEC
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
 
   @TA_eliminaPECPG
-  @personaGiuridicaDestinatario
+  @PG
   @recapitiPG
 
   Scenario: La persona giuridica elimina l'indirizzo PEC

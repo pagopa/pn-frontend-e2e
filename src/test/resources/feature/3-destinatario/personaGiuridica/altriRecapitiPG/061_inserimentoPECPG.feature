@@ -8,7 +8,7 @@ Feature: La persona giuridica inserisce una PEC
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
 
   @TA_inserimentoPECPG
-  @personaGiuridicaDestinatario
+  @PG
   @recapitiPG
 
   Scenario: La persona giuridica inserisce una PEC
