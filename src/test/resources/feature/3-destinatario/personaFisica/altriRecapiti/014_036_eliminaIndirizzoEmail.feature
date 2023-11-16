@@ -9,6 +9,7 @@ Feature: la persona fisica elimina l'indirizzo Email
   @TA_eliminaEmailPF
   @recapitiPF
   @personaFisicaDestinatario
+
   Scenario: la persona fisica elimina l'indirizzo Email
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti

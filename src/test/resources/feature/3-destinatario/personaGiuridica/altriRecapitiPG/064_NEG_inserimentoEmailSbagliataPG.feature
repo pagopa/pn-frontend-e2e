@@ -7,7 +7,9 @@ Feature: la persona giuridica inserisce una email errata
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
 
   @TestSuite
-  @fase2Test64_NEG
+  @personaGiuridicaDestinatario
+  @TA_inserimentoEmailErrataPG
+  @recapitiPG
 
 
   Scenario: la persona giuridica inserisce una email errata

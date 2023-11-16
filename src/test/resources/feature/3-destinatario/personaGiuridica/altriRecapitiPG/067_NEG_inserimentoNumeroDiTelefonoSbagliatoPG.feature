@@ -7,9 +7,9 @@ Feature: la persona giuridica inserisce un numero di telefono errato
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
 
   @TestSuite
-  @fase2Test67_NEG
-  @new
-
+  @personaGiuridicaDestinatario
+  @TA_inserimentoCellulareErratoPG
+  @recapitiPG
 
   Scenario: La persona giuridica inserisce un numero di telefono errato
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti

@@ -1,4 +1,4 @@
-Feature: La persona giuridica inserisce una PEC
+Feature: La persona giuridica elimina l'indirizzo PEC
 
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
@@ -7,15 +7,15 @@ Feature: La persona giuridica inserisce una PEC
     And Nella Home page persona giuridica si clicca su Send Notifiche Digitali
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
 
-  @TestSuite
+  @TA_eliminaPECPG
   @personaGiuridicaDestinatario
   @recapitiPG
-  @TA_inserimentoPECErrataPG
 
-
-  Scenario: La persona giuridica loggato inserisce una PEC
+  Scenario: La persona giuridica elimina l'indirizzo PEC
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
-    And Nella pagina Recapiti persona giuridica si inserisce una PEC sbagliata "provatest2.spqe"
-    Then Nella pagina Recapiti persona giuridica si visualizza correttamente il messaggio di errore pec sbagliata
-    And Logout da portale persona giuridica
+    And Nella pagina I Tuoi Recapiti si controlla che ci sia già una pec
+    And Nella pagina I Tuoi Recapiti si clicca sul bottone elimina pec
+    And Nel pop up elimina indirizzo pec si clicca sul bottone conferma
+    Then Nella pagina I Tuoi Recapiti si controlla che l'indirizzo pec non sia presente
+    And Logout da portale persona fisica

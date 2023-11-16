@@ -4,8 +4,9 @@ Feature: la persona fisica inserisce un indirizzo pec aggiuntivo
     Given Login Page persona fisica "personaFisica" viene visualizzata
     When Login portale persona fisica tramite request method
     Then Home page persona fisica viene visualizzata correttamente
+
   @TestSuite
-  @TA_PECAggiuntivoPF
+  @TA_PECAggiuntivaPF
   @recapitiPF
   @personaFisicaDestinatario
 
