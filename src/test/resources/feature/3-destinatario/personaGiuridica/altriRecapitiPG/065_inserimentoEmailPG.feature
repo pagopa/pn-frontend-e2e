@@ -8,7 +8,7 @@ Feature: La persona giuridica inserisce l'email
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
 
   @TA_inserimentoEmailPG
-  @personaGiuridicaDestinatario
+  @PG
   @recapitiPG
 
   Scenario: La persona giuridica inserisce l'email

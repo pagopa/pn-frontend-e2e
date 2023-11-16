@@ -8,7 +8,7 @@ Feature: La persona giuridica elimina l'indirizzo email
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
 
   @TA_eliminaEmailPG
-  @personaGiuridicaDestinatario
+  @PG
   @recapitiPG
 
   Scenario: La persona giuridica elimina l'indirizzo email

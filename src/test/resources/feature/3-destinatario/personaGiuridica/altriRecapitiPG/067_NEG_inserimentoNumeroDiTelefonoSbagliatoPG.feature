@@ -7,7 +7,7 @@ Feature: la persona giuridica inserisce un numero di telefono errato
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
 
   @TestSuite
-  @personaGiuridicaDestinatario
+  @PG
   @TA_inserimentoCellulareErratoPG
   @recapitiPG
 

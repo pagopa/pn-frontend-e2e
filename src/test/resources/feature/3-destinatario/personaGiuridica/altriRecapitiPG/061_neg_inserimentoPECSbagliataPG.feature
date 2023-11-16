@@ -8,7 +8,7 @@ Feature: La persona giuridica inserisce una PEC
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
 
   @TestSuite
-  @personaGiuridicaDestinatario
+  @PG
   @recapitiPG
   @TA_inserimentoPECErrataPG
 

@@ -7,7 +7,7 @@ Feature: La persona giuridica visualizza tutti gli elementi della sezione altri 
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
 
   @TA_visualizzazioneSezioneAltriRecapitiPG
-  @personaGiuridicaDestinatario
+  @PG
   @recapitiPG
 
   Scenario: La persona giuridica visualizza tutti gli elementi della sezione altri recapiti
