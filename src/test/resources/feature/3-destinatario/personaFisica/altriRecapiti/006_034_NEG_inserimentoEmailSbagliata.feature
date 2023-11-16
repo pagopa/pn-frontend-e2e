@@ -6,7 +6,7 @@ Feature: La persona fisica inserisce una email sbagliata
 
   @TestSuite
   @TA_inserimentoEmailErrataPF
-  @personaFisicaDestinatario
+  @PF
   @recapitiPF
 
   Scenario: La persona fisica inserisce una email sbagliata

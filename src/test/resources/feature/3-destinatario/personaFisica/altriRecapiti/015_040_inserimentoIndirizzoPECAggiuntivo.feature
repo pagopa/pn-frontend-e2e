@@ -8,7 +8,7 @@ Feature: la persona fisica inserisce un indirizzo pec aggiuntivo
   @TestSuite
   @TA_PECAggiuntivaPF
   @recapitiPF
-  @personaFisicaDestinatario
+  @PF
 
   Scenario: la persona fisica inserisce un indirizzo pec aggiuntivo
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti

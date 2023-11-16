@@ -6,7 +6,7 @@ Feature: la persona fisica elimina l'indirizzo pec
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
-  @personaFisicaDestinatario
+  @PF
   @TA_eliminaPECPF
   @recapitiPF
 

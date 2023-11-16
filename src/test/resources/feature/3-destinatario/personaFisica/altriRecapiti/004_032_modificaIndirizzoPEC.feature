@@ -6,7 +6,7 @@ Feature: la persona fisica modifica l'indirizzo pec già presente
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
-  @personaFisicaDestinatario
+  @PF
   @TA_modificaPECPF
   @recapitiPF
 

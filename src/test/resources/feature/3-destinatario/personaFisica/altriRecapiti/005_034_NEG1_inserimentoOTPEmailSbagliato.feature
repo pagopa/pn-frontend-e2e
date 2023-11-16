@@ -6,7 +6,7 @@ Feature: la persona fisica inserisce un OTP email sbagliato
 
   @TestSuite
   @TA_inserimentoOTPMailErratoPF
-  @personaFisicaDestinatario
+  @PF
   @recapitiPF
 
   Scenario: la persona fisica inserisce un OTP email sbagliato

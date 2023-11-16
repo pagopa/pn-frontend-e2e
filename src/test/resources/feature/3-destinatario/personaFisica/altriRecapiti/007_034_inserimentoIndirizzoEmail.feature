@@ -8,7 +8,7 @@ Feature: la persona fisica inserisce una Email
   @TestSuite
   @TA_inserimentoEmailPF
   @recapitiPF
-  @personaFisicaDestinatario
+  @PF
 
   Scenario: la persona fisica inserisce una Email
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti

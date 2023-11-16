@@ -7,7 +7,7 @@ Feature: La persona fisica inserisce una PEC sbagliata
   @TestSuite
   @TA_inserimentoPECErrataPF
   @recapitiPF
-  @personaFisicaDestinatario
+  @PF
 
   Scenario: La persona fisica inserisce una PEC sbagliata
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti

@@ -6,7 +6,7 @@ Feature: la persona fisica inserisce un numero di telefono errato
 
   @TestSuite
   @TA_inserimentoTelefonoErratoPF
-  @personaFisicaDestinatario
+  @PF
   @recapitiPF
   Scenario: La persona fisica inserisce un numero di telefono errato
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti

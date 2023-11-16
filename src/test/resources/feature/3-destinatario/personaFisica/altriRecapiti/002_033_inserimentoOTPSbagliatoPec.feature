@@ -7,7 +7,7 @@ Feature:La persona fisica inserisce una OTP sbagliato PEC
 
   @TestSuite
   @TA_inserimentoOTPPECErratoPF
-  @personaFisicaDestinatario
+  @PF
   @recapitiPF
 
   Scenario:La persona fisica loggato inserisce un OTP sbagliato PEC

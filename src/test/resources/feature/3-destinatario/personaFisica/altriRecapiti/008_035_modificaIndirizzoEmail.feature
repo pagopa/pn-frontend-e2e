@@ -7,7 +7,7 @@ Feature: la persona fisica modifica l'indirizzo Email
 
   @TestSuite
   @TA_modificaEmailPF
-  @personaFisicaDestinatario
+  @PF
   @recapitiPF
 
   Scenario: la persona fisica modifica l'indirizzo Email

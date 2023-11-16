@@ -6,7 +6,7 @@ Feature: la persona fisica inserisce l'OTP numero di telefono  errato
 
   @TestSuite
   @TA_inserimentoOTPTelefonoErrato
-  @personaFisicaDestinatario
+  @PF
   @recapitiPF
 
   Scenario: la persona fisica inserisce l'OTP numero di telefono errato

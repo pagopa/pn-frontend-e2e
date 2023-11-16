@@ -6,8 +6,8 @@ Feature: la persona fisica inserisce un indirizzo Email aggiuntivo
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
-  @personaFisicaDestinatario
-  @TA_emailAggiuntivaPF
+  @PF
+  @TA_emailAggiuntivoPF
   @recapitiPF
 
   Scenario: la persona fisica inserisce un indirizzo Email aggiuntivo
