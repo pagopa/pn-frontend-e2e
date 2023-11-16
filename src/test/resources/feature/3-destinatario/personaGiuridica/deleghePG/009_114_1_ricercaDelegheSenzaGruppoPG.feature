@@ -1,4 +1,4 @@
-Feature: Il persona giuridica visuallizza le deleghe
+Feature:La persona giuridica visuallizza le deleghe
 
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata

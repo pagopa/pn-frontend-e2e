@@ -10,7 +10,7 @@ Feature: persona fisica aggiunge una delega allo stesso delegato
   @DeleghePF
   @PF
 
-  Scenario: il persona fisica aggiunge una delega allo stesso delegato
+  Scenario:La persona fisica aggiunge una delega allo stesso delegato
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
     And Nella sezione Deleghe si verifica sia presente una delega "nuova_delega"

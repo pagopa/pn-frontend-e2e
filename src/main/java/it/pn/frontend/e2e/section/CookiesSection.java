@@ -2,14 +2,15 @@ package it.pn.frontend.e2e.section;
 
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 public class CookiesSection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("CookiesPage");

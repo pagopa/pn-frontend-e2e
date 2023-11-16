@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.stepDefinitions.common;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.HelpdeskPage;
 import it.pn.frontend.e2e.listeners.Hooks;
@@ -24,6 +25,9 @@ public class HelpdeskTest {
 
     private HelpdeskPage helpdeskPage = new HelpdeskPage(this.driver);
     private Map<String, Object> datiTestHelpdesk = new HashMap<>();
+
+    private Map<String, Object> datiPersonaFisica = new HashMap<>();
+
 
 
     @Given("Login helpdesk con utente test {string}")
@@ -110,8 +114,30 @@ public class HelpdeskTest {
         helpdeskPage.clickSezioneRicerca();
     }
 
-    @And("visualizzazione corrett pagina ricerca ed estrazione dati")
-    public void visualizzazioneCorrettPaginaRicercaEdEstrazioneDati() {
+    @And("visualizzazione corretta pagina ricerca ed estrazione dati")
+    public void visualizzazioneCorrettaPaginaRicercaEdEstrazioneDati() {
         helpdeskPage.checkRicercaPage();
+    }
+
+    @And("viene inserito codice fiscale {string}")
+    public void vieneInseritoCodiceFiscale(String nameFile) {
+        this.datiPersonaFisica = this.dataPopulation.readDataPopulation(nameFile+".yaml");
+        helpdeskPage.insertCfAndRicercaOnPage(datiPersonaFisica.get("codiceFiscale").toString());
+    }
+
+
+    @And("Nella Home di helpdesk utente clicca su logout")
+    public void nellaHomeDiHelpdeskUtenteCliccaSuLogout() {
+        helpdeskPage.logout();
+    }
+
+    @Then("visualizzazione corretta pagina di login")
+    public void visualizzazioneCorrettaPaginaDiLogin() {
+        helpdeskPage.checkForm();
+    }
+
+    @Then("controllo generazione codice univoco")
+    public void controlloGenerazioneCodiceUnivoco() {
+        helpdeskPage.checkUid();
     }
 }

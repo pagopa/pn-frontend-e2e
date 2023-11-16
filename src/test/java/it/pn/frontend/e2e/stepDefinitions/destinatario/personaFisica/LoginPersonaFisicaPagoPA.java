@@ -493,5 +493,4 @@ public class LoginPersonaFisicaPagoPA {
 
         this.driver.get(this.urlPersonaFisica.get("urlPortale"));
     }
-
 }

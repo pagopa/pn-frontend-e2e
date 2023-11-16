@@ -1,4 +1,4 @@
-Feature: Il persona giuridica aggiunge una nuova delga inserendo una data errata
+Feature:La persona giuridica aggiunge una nuova delga inserendo una data errata
 
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata

@@ -1,4 +1,4 @@
-Feature: Il persona fisica revoca una delega
+Feature:La persona fisica revoca una delega
 
   Background: Login persona fisica
     Given Login Page persona fisica "personaFisica" viene visualizzata
@@ -10,13 +10,14 @@ Feature: Il persona fisica revoca una delega
   @DeleghePF
   @PF
 
-  Scenario: Il persona fisica revoca una delega
+  Scenario:La persona fisica revoca una delega
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
     And Nella sezione Deleghe si verifica sia presente una delega "nuova_delega"
     And Nella sezione Deleghe si clicca sul menu della delega "nuova_delega"
     And Nella sezione Deleghe si sceglie l'opzione revoca
-    Then Si conferma l'azione scegliendo revoca la delega
+    And Si conferma l'azione scegliendo revoca la delega
+    Then Si controlla che non ci sia più una delega
     And Logout da portale persona fisica
 
 
