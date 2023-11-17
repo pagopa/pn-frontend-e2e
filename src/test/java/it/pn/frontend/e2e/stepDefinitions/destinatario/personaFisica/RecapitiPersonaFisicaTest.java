@@ -45,7 +45,7 @@ public class RecapitiPersonaFisicaTest {
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
     }
 
-    @And("Nella pagina I Tuoi Recapiti si inserisce la PEC del persona fisica {string}")
+    @And("Nella pagina I Tuoi Recapiti si inserisce la PEC {string}")
     public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario(String dpFile) {
         logger.info("Si inserisce la email PEC");
 
@@ -120,9 +120,10 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce la PEC errata {string}")
-    public void nellaPaginaITuoiRecapitiSiInserisceLaPECErrata(String emailPec) {
+    public void nellaPaginaITuoiRecapitiSiInserisceLaPECErrata(String dpFile) {
         logger.info("Si inserisce la PEC errata");
-        recapitiDestinatarioPage.insertEmailPEC(emailPec);
+        String pecErrata = dataPopulation.readDataPopulation(dpFile+".yaml").get("pecErrore").toString();
+        recapitiDestinatarioPage.insertEmailPEC(pecErrata);
     }
 
     @Then("Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio di pec errata")
@@ -246,9 +247,6 @@ public class RecapitiPersonaFisicaTest {
     @Then("Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente() {
         logger.info("Si controlla che la pec sia stata inserita correttamente");
-
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
 
         logger.info("Si clicca su conferma nel pop-up");
 
@@ -452,11 +450,12 @@ public class RecapitiPersonaFisicaTest {
         }
     }
 
-    @And("Nella pagina I Tuoi Recapiti si inserisce una nuova PEC della persona fisica {string}")
-    public void nellaPaginaITuoiRecapitiSiInserisceUnaNuovaPECDellaPersonaFisica(String PEC) {
+    @And("Nella pagina I Tuoi Recapiti si inserisce una nuova PEC {string}")
+    public void nellaPaginaITuoiRecapitiSiInserisceUnaNuovaPECDellaPersonaFisica(String dpFile) {
         logger.info("Si inserisce una nuova PEC");
         recapitiDestinatarioPage.cancellaTesto();
-        recapitiDestinatarioPage.insertEmailPEC(PEC);
+        String pec = dataPopulation.readDataPopulation(dpFile+".yaml").get("pec").toString();
+        recapitiDestinatarioPage.insertEmailPEC(pec);
     }
 
     @And("Nella pagina I Tuoi Recapiti si clicca sul bottone salva")
@@ -466,12 +465,14 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @Then("Nella pagina I Tuoi Recapiti si verifica che la pec sia stata modificata {string}")
-    public void nellaPaginaITuoiRecapitiSiVerificaCheLaPecSiaStataModificata(String pec) {
+    public void nellaPaginaITuoiRecapitiSiVerificaCheLaPecSiaStataModificata(String dpFile) {
         logger.info("Si controlla che la PEC sia stata modificata");
+
         if (recapitiDestinatarioPage.siVisualizzaPopUpConferma()) {
             recapitiDestinatarioPage.clickConfermaButton();
             recapitiDestinatarioPage.visualizzaValidazione();
         } else {
+            String pec = dataPopulation.readDataPopulation(dpFile+".yaml").get("pec").toString();
             if (recapitiDestinatarioPage.siControllaPECModificata(pec)) {
                 logger.info("La PEC è stata modificata");
             } else {
@@ -489,10 +490,11 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request {string}")
-    public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaPECTramiteChiamataRequest(String pec) {
+    public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaPECTramiteChiamataRequest(String dpFile) {
         logger.info("Si recupera il codice OTP della nuova pec");
 
-        Map<String, Object> personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
+        Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile+".yaml");
+        String pec = personaFisica.get("pec").toString();
         RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
 
         String startUrl = "http://localhost:8887/";
