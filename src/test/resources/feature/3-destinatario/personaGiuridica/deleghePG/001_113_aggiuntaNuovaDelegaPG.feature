@@ -1,4 +1,4 @@
-Feature: Il persona giuridica aggiunge una nuova delega
+Feature:La persona giuridica aggiunge una nuova delega
 
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
@@ -10,7 +10,7 @@ Feature: Il persona giuridica aggiunge una nuova delega
   @TestSuite
   @fase2Test113
 
-  Scenario: Il persona giuridica aggiunge una nuova delega
+  Scenario:La persona giuridica aggiunge una nuova delega
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Nella pagina Deleghe si clicca su Delegati dall impresa

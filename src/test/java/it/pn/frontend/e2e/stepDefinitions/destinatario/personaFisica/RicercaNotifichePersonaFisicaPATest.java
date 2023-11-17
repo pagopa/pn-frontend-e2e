@@ -13,7 +13,6 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -121,4 +120,6 @@ public class RicercaNotifichePersonaFisicaPATest {
             logger.info("Bottone pagina 2 non trovato non effettuato il passaggio di pagina");
         }
     }
+
+
 }

@@ -1,4 +1,4 @@
-Feature: Il persona fisica aggiunge una delega a se stessi
+Feature:La persona fisica aggiunge una delega a se stessi
 
   Background: Login persona fisica
     Given Login Page persona fisica "personaFisica" viene visualizzata
@@ -8,7 +8,7 @@ Feature: Il persona fisica aggiunge una delega a se stessi
   @TestSuite
   @test52
 
-  Scenario: Il persona fisica aggiunge una delega a se stessi
+  Scenario:La persona fisica aggiunge una delega a se stessi
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
     And Nella sezione Deleghe click sul bottone aggiungi nuova delega

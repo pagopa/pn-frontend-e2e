@@ -591,4 +591,26 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         return listaCodici;
     }
+
+    public boolean controlloEsistenzaMessagioErroreCF(){
+        By errorMessageBy = By.id("recipientId-helper-text");
+        getWebDriverWait(30).withMessage("Messagio di errore 'Inserisci il codice per intero' non trovato").until(ExpectedConditions.visibilityOfElementLocated(errorMessageBy));
+        return this.element(errorMessageBy).isDisplayed();
+    }
+
+
+    public boolean verificaBottoneFiltraDisabilitato(){
+        try{
+            getWebDriverWait(30).withMessage("buttone Filtra non è visibile").until(ExpectedConditions.visibilityOf(this.filtraButton));
+            return Boolean.parseBoolean(this.filtraButton.getAttribute("disabled"));
+        }catch (TimeoutException e){
+            return false;
+        }
+    }
+
+    public boolean controlloEsistenzaMessagioErroreIUN(){
+        By errorMessageBy = By.id("iunMatch-helper-text");
+        getWebDriverWait(30).withMessage("Messagio di errore 'Inserisci un codice IUN valido' non trovato").until(ExpectedConditions.visibilityOfElementLocated(errorMessageBy));
+        return this.element(errorMessageBy).isDisplayed();
+    }
 }
