@@ -83,12 +83,6 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickDelegatiImpresa() {
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            logger.error("pausa con errore: "+e.getMessage());
-            throw new RuntimeException(e);
-        }
         this.delegatiImpresaButton.click();
     }
 
