@@ -97,10 +97,10 @@ public class PiattaformaNotifichePage extends BasePage {
         try {
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.cfTextField));
             this.cfTextField.sendKeys(codiceFiscale);
-            logger.info("TA_QA: Codice Fiscale inserito correttamente");
+            logger.info("Codice Fiscale inserito correttamente");
         } catch (TimeoutException e) {
-            logger.error("TA_QA: Codice Fiscale Non inserito con errore: "+e.getMessage());
-            Assert.fail("TA_QA: Codice Fiscale Non inserito con errore: "+e.getMessage());
+            logger.error("Codice Fiscale Non inserito con errore: "+e.getMessage());
+            Assert.fail("Codice Fiscale Non inserito con errore: "+e.getMessage());
         }
 
     }
@@ -109,10 +109,10 @@ public class PiattaformaNotifichePage extends BasePage {
         try {
             getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.filtraButton));
             this.filtraButton.click();
-            logger.info("TA_QA: Bottone filtra cliccato correttamente");
+            logger.info("Bottone filtra cliccato correttamente");
         }catch (TimeoutException e){
-            logger.error("TA_QA: Bottone filtra non cliccabile con errore "+e.getMessage());
-            Assert.fail("TA_QA: Bottone filtra non cliccabile con errore "+e.getMessage());
+            logger.error("Bottone filtra non cliccabile con errore "+e.getMessage());
+            Assert.fail("Bottone filtra non cliccabile con errore "+e.getMessage());
         }
     }
 
@@ -132,11 +132,11 @@ public class PiattaformaNotifichePage extends BasePage {
             By cfListBy = By.xpath("//p[contains(text(),'" + cfInserito + "')]");
             attesaCaricamentoPagina();
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(cfListBy));
-            logger.info("TA_QA: Codici fiscali trovati correttamente");
+            logger.info("Codici fiscali trovati correttamente");
             return this.elements(cfListBy).size();
         }catch (TimeoutException | NoSuchElementException e){
-            logger.error("TA_QA: Codici fiscali non trovati "+e.getMessage());
-            Assert.fail("TA_QA: Codici fiscali non trovati "+e.getMessage());
+            logger.error("Codici fiscali non trovati "+e.getMessage());
+            Assert.fail("Codici fiscali non trovati "+e.getMessage());
             return 0;
         }
 
@@ -155,8 +155,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
         try {
             By numeroButtonBy = By.id("page2");
-            this.getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(numeroButtonBy));
-            logger.info("Bottone 2 trovato");
+            this.getWebDriverWait(20).withMessage("Il bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOfElementLocated(numeroButtonBy));
+            logger.info("Bottone pagina 2 trovato");
 
             WebElement numeroPagina = this.element(numeroButtonBy);
             numeroPagina.click();
@@ -187,7 +187,8 @@ public class PiattaformaNotifichePage extends BasePage {
     private WebElement getCodiceIUN(String codiceIUNInserito) {
         try {
             By codiceIUNBy = By.xpath("//button[contains(text(),'" + codiceIUNInserito + "')]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiceIUNBy));
+            getWebDriverWait(30).withMessage("Il codice IUN: " + codiceIUNInserito + " non è presente")
+                    .until(ExpectedConditions.visibilityOfElementLocated(codiceIUNBy));
             return this.element(codiceIUNBy);
         } catch (TimeoutException e) {
             return null;
@@ -207,7 +208,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public int getListDate() {
         By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-c3sxw2')]");
         attesaCaricamentoPagina();
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
+        this.getWebDriverWait(30).withMessage("Nessuna data trovata").until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
         logger.info("Date trovate correttamente");
 
         return this.elements(dataListBy).size();
@@ -339,7 +340,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selezionareLaVoceApiKey() {
-        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.apiKeyButton));
+        getWebDriverWait(30).withMessage("la voce api key non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.apiKeyButton));
         this.js().executeScript("arguments[0].click()",this.apiKeyButton);
     }
 
@@ -360,6 +361,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void inserimentoData(String dataInserita) {
+        getWebDriverWait(30).withMessage("il campo data non è visibile nella pagina").until(ExpectedConditions.visibilityOf(this.dataInizioField));
         this.dataInizioField.sendKeys(dataInserita);
     }
 
@@ -513,12 +515,16 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void siScrollaFinoAllaFineDellaPagina() {
+        this.getWebDriverWait(30).withMessage("il bottone che indica il numero delle notifiche non è visibile")
+                .until(ExpectedConditions.visibilityOf(this.numeroNotificheButton));
         if (!numeroNotificheButton.isDisplayed()) {
             this.js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
         }
     }
 
     public void siCambiaPaginaUtilizzandoUnaFrecetta() {
+        this.getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile")
+                .until(ExpectedConditions.visibilityOf(this.frecciaPaginaSuccessiva));
         if (!frecciaPaginaSuccessiva.isDisplayed()) {
             this.js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
         }
@@ -547,7 +553,10 @@ public class PiattaformaNotifichePage extends BasePage {
     }
     public boolean errorMessage() {return this.errorMessage.isDisplayed();}
 
-    public void clickIndietroButton() {this.indietroButton.click();}
+    public void clickIndietroButton() {
+        this.getWebDriverWait(30).withMessage("Il bottone indietro non è  cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(this.indietroButton));
+        this.indietroButton.click();}
 
     public void vuoiUscirePopUp() {
     try{
@@ -560,7 +569,10 @@ public class PiattaformaNotifichePage extends BasePage {
     }
     }
 
-        public void clickSuEsci() {this.esciButton.click();}
+        public void clickSuEsci() {
+            this.getWebDriverWait(30).withMessage("Il bottone esci non è  cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(this.esciButton));
+        this.esciButton.click();}
 
     public boolean estensioneSbagliataErrore() {return this.estenzioneSbagliataMessage.isDisplayed();}
 

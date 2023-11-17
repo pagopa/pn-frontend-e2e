@@ -94,8 +94,8 @@ public class ApiKeyPAPage  extends BasePage {
             this.getWebDriverWait(30).withMessage("Il titolo della pagina conferma Apikey non è visibile").until(ExpectedConditions.visibilityOfElementLocated(confirmationApiPageTitle));
             logger.info("Api Key ConfirmationPage caricata");
         }catch (TimeoutException e){
-            logger.error("Api Key ConfirmationPage NON caricata con errore : "+e.getMessage());
-            Assert.fail("Api Key ConfirmationPage NON caricata con errore : "+e.getMessage());
+            logger.error("Il titolo della Api Key ConfirmationPage NON caricata con errore : "+e.getMessage());
+            Assert.fail("Il titolo della Api Key ConfirmationPage NON caricata con errore : "+e.getMessage());
         }
     }
 
