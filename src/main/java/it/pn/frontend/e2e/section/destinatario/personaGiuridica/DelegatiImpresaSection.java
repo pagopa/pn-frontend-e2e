@@ -28,17 +28,23 @@ public class DelegatiImpresaSection extends BasePage {
     @FindBy(id = "dialog-close-button")
     WebElement annullaButton;
 
+    @FindBy(id = "tab-1")
+    WebElement titlePageBy;
+    @FindBy(id = "add-deleghe")
+    WebElement addDelegheButton;
+
+
+
     public DelegatiImpresaSection(WebDriver driver) {
         super(driver);
     }
 
     public void waitLoadDelegatiImpresaPage() {
         try {
-            By titlePageBy = By.id("tab-1");
-            By addDelegheButton = By.id("add-deleghe");
 
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(addDelegheButton));
+
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.titlePageBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.addDelegheButton));
 
             logger.info("Delegati dall'impresa caricata correttamente");
 
@@ -52,10 +58,9 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void clickAggiungiDelegaButton() {
         try{
-            By addDelegheButton= By.id("add-deleghe");
-            this.getWebDriverWait(30).withMessage("bottone aggiunta deleghe non caricato").until(ExpectedConditions.elementToBeClickable(addDelegheButton));
+            this.getWebDriverWait(30).withMessage("bottone aggiunta deleghe non caricato").until(ExpectedConditions.elementToBeClickable(this.addDelegheButton));
             logger.info("click sul bottone aggiunta delega");
-            this.element(addDelegheButton).click();
+            this.addDelegheButton.click();
         }catch (TimeoutException e){
            logger.error("bottone non trovato: "+e.getMessage());
            Assert.fail("bottone non trovato: "+e.getMessage());
