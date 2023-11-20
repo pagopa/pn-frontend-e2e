@@ -35,7 +35,7 @@ public class ComeVuoiAccederePage extends BasePage {
     }
 
     public void selezionareSpidButton(){
-        getWebDriverWait(60).withMessage("").until(ExpectedConditions.elementToBeClickable(this.spidButton));
+        getWebDriverWait(60).withMessage("Il bottone SPID non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.spidButton));
         this.spidButton.click();
     }
 
