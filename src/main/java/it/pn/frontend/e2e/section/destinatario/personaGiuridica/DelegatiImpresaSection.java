@@ -119,7 +119,8 @@ public class DelegatiImpresaSection extends BasePage {
             logger.info("click sul bottone revoca");
             this.revocaMenuButton.click();
         }catch(TimeoutException e){
-            logger.info("click sul bottone revoca non riuscito");
+            logger.error("click sul bottone revoca non riuscito");
+            Assert.fail("click sul bottone revoca non riuscito");
         }
 
     }
@@ -127,7 +128,7 @@ public class DelegatiImpresaSection extends BasePage {
         try {
             By titlePopUpBy = By.xpath("//h5[contains(text(),'Vuoi revocare la delega ')]");
 
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePopUpBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(titlePopUpBy));
 
             logger.info("Il pop-up revoca si visualizza correttamente");
         }catch (TimeoutException e){
