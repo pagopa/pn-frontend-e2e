@@ -1,4 +1,4 @@
-Feature: Il persona fisica aggiunge una nuova delega
+Feature:La persona fisica aggiunge una nuova delega
 
   Background: Login persona fisica
     Given Login Page persona fisica "personaFisica" viene visualizzata
@@ -8,7 +8,7 @@ Feature: Il persona fisica aggiunge una nuova delega
   @TestSuite
   @test44
 
-  Scenario: Il persona fisica aggiunge una nuova delega
+  Scenario:La persona fisica aggiunge una nuova delega
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
     And Si controlla che non sia presente una delega con stesso nome "nuova_delega"
