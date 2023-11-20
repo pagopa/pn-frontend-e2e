@@ -101,7 +101,10 @@ public class RecapitiPersonaFisicaTest {
     public void siVisualizzaCorrettamenteIlMessaggioDiErrore() {
         logger.info("Si controlla che il messaggio di errore sia visibile");
 
-        recapitiDestinatarioPage.waitMessaggioErrore();
+        if(!recapitiDestinatarioPage.waitMessaggioErrore()){
+            logger.error("Il messaggio di errore non viene visualizzato");
+            Assert.fail("Il messaggio di errore non viene visualizzato");
+        }
     }
 
     @And("Cliccare sul bottone Annulla")
@@ -241,18 +244,21 @@ public class RecapitiPersonaFisicaTest {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.sendOTP(otp);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
+        if(recapitiDestinatarioPage.waitMessaggioErrore()){
+            logger.error("Il codice OTP inserito è sbagliato");
+            Assert.fail("Il codice OTP inserito è sbagliato");
+        }
+
     }
 
     @Then("Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente() {
         logger.info("Si controlla che la pec sia stata inserita correttamente");
 
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
 
-        logger.info("Si clicca su conferma nel pop-up");
 
         if (recapitiDestinatarioPage.siVisualizzaPopUpConferma()) {
+            logger.info("Si clicca su conferma nel pop-up");
             recapitiDestinatarioPage.clickConfermaButton();
             recapitiDestinatarioPage.visualizzaValidazione();
         } else {
