@@ -11,7 +11,9 @@ Feature: Mittente seleziona CTA annulla in blocca api Key
 
   @TestSuite
 
-  @test25_neg2
+  @TA_MittenteAannullaBloccaApiKey
+  @mittente
+  @ApikeyMittente
 
 
   Scenario: Mittente seleziona CTA annulla in blocca api Key

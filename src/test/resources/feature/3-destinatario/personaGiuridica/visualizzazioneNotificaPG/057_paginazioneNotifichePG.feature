@@ -6,7 +6,9 @@ Feature: La persona fisica visualizza la sezione notifiche
     Then Home page persona giuridica viene visualizzata correttamente
 
   @TestSuite
-  @fase2Test57
+  @TA_PGPaginazioneNotifiche
+  @VisualizzazioneNotifichePG
+  @PG
 
   Scenario: La persona giuridica visualizza la sezione notifiche
     When Nella Home page persona giuridica si clicca su Send Notifiche Digitali

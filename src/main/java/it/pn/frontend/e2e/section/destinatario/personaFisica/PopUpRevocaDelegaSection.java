@@ -7,10 +7,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class PopUpRevocaDelegaSection extends BasePage {
-    @FindBy(id = "confirmation-dialog-delegations")
+    @FindBy(id = "responsive-dialog-title")
     WebElement title;
 
-    @FindBy(xpath = "//button[contains(text(),'Revoca la delega')]")
+    @FindBy(id = "dialog-action-button")
     WebElement revocaDialogAction;
 
     public PopUpRevocaDelegaSection(WebDriver driver) {
@@ -19,6 +19,7 @@ public class PopUpRevocaDelegaSection extends BasePage {
 
     public void waitLoadPopUpRevocaDelegaSection(){
             this.getWebDriverWait(30).withMessage("la sezione revoca delega non è caricata").until(ExpectedConditions.visibilityOf(this.title));
+            this.getWebDriverWait(60).withMessage("Il bottone Revoca la delega sul pop up non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.revocaDialogAction));
     }
 
     public void clickRevocaLaDelega() {

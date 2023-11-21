@@ -5,8 +5,10 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
    When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
 
-  @fase2Test1
+  @TA_inserimentoDatiInfoPreliminari
   @TestSuite
+  @mittente
+  @invioNotifiche
 
   Scenario:Il mittente inserisce i dati nella sezione informazioni preliminari
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

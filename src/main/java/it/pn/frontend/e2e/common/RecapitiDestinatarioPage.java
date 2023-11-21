@@ -90,7 +90,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void confermaButtonClick() {
-        this.getWebDriverWait(30).withMessage("conferma button non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
+        this.getWebDriverWait(30).withMessage("Il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
         this.confermaButton.click();
     }
 

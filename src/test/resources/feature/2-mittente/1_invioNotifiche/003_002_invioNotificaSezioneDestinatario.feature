@@ -4,8 +4,10 @@ Feature: il mittente inserisce i dati fino alla sezione Destinatario
    When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
 
-    @fase2Test2
+    @TA_inserimentoDatiFinoDestinatario
     @TestSuite
+    @mittente
+    @invioNotifiche
 
   Scenario Outline: il mittente inserisce i dati fino alla sezione Destinatario
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

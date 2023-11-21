@@ -8,7 +8,9 @@ Feature:La persona giuridica aggiunge una nuova delega
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica_1"
 
   @TestSuite
-  @new
+  @TA_PGaggiungiAltraNuovaDelega
+  @DeleghePG
+  @PG
 
   Scenario:La persona giuridica aggiunge una nuova delega
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe

@@ -7,7 +7,9 @@ Feature: Il delegato persona giuridica modifica una delega assegnandoli un grupp
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "delegatoPG"
 
   @TestSuite
-  @fase2Test121
+  @TA_PGmodificaDelegaSenzaGruppo
+  @DeleghePG
+  @PG
 
   Scenario: Il delegato persona giuridica modifica una delega assegnandoli un gruppo
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe

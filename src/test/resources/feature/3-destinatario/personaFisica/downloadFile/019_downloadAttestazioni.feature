@@ -9,9 +9,11 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
 
   @TestSuite
   @test19
+  @TA_PFDownloadAttestazioni
+  @PF
 
   Scenario: persona fisica scarica attestazione
-    WhenLa persona fisica clicca sulla notifica restituita
+    When La persona fisica clicca sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica persona fisica
     Then Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto "datiNotifica"
     And Si clicca sul opzione Vedi Dettaglio

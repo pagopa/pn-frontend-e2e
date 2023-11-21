@@ -11,7 +11,9 @@ Feature: Mittente seleziona l'opzione attiva api Key
 
   @TestSuite
 
-  @test26
+  @TA_MittenteAttivaApiKey
+  @mittente
+  @ApikeyMittente
 
   Scenario: Mittente seleziona l'opzione attiva Api Key
     When Nella pagina Api Key si clicca sul bottone menu di una Api Key bloccata presente in elenco

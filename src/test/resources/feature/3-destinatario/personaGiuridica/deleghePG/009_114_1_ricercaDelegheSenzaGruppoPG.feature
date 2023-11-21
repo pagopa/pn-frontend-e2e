@@ -8,7 +8,9 @@ Feature:La persona giuridica visuallizza le deleghe
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "delegatoPG"
 
   @TestSuite
-  @fase2Test114_1
+  @TA_PGricercaDelegheSenzaGruppo
+  @DeleghePG
+  @PG
   Scenario: Il persona giuridica fa una ricerca delle deleghe
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa

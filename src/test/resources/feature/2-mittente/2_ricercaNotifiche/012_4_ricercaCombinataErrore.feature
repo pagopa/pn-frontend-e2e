@@ -5,8 +5,9 @@ Feature: il mittente fa una ricerca combinata tra stato e arco temporale  con ne
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
-
-    @test12_4
+    @mittente
+    @ricercaNatoficheMittente
+    @TA_MittenteRicercaSenaRisultatoPerStatoPeriodo
 
   Scenario Outline: il mittente fa una ricerca sia per arco temporale che per stato con nessun risultato
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

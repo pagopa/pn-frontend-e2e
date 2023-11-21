@@ -58,8 +58,8 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         if(destinatario.contains(" - ")){
             String[] splittedDestinatario = destinatario.split(" - ");
             String[] splittedDestinatarioName = splittedDestinatario[1].split("\n");
-            destinatario = splittedDestinatarioName[0];
-            codiceFiscale = splittedDestinatario[0];
+            destinatario =  splittedDestinatario[0];
+            codiceFiscale = splittedDestinatarioName[0];
             infoNotifica.put("destinatario",destinatario);
             infoNotifica.put("codiceFiscale",codiceFiscale);
             String data = getInfoNotifica(2);
@@ -221,11 +221,11 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             By fileLinkBy = By.xpath("//button[contains(text(),'"+nomeFile+"')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(fileLinkBy));
             List<WebElement> fileLink = this.elements(fileLinkBy);
-            if (fileLink.get(fileLink.size()-1).isDisplayed()){
-                fileLink.get(fileLink.size()-1).click();
+            if (fileLink.get(0).isDisplayed()){
+                fileLink.get(0).click();
             }else {
                 this.js().executeScript("arguments[0].scrollIntoView(true);", fileLink);
-                fileLink.get(fileLink.size()-1).click();
+                fileLink.get(0).click();
             }
         }catch (TimeoutException e){
             logger.error("Non riuscito ad trovare il link con errore: "+e.getMessage());

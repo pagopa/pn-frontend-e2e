@@ -6,7 +6,9 @@ Feature: invio notifica con lo stesso codice fiscale
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
-  @test82
+  @TA_invioNotificaConStessoCF
+  @mittente
+  @invioNotifiche
 
   Scenario: il mittente invia la notifica con lo stesso codice fiscale
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

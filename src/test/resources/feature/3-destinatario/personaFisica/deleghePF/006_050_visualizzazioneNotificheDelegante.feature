@@ -9,7 +9,9 @@ Feature: Il delegato visualizza la notifiche del delegante
     And Nella sezione Deleghe si verifica sia presente una delega accettata
 
   @TestSuite
-  @test50
+  @TA_PFvisualizzaNotificheDelegante
+  @DeleghePF
+  @PF
 
   Scenario: Il delegato visualizza la notifiche del delegante
     When Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica

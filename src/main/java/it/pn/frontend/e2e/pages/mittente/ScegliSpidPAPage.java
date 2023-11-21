@@ -26,7 +26,7 @@ public class ScegliSpidPAPage extends BasePage {
         try{
             By titlePage = By.cssSelector("div.MuiTypography-root.MuiTypography-h4");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            logger.info("Scegli Spid PA Page caricata");
+            logger.info("il titolo Scegli Spid PA Page caricata");
         }catch (TimeoutException e){
             logger.error("Titlo della pagina Scegli Spid PA Page non caricato con errore : "+e.getMessage());
             Assert.fail("Titlo della pagina Scegli Spid PA Page non caricato con errore : "+e.getMessage());
@@ -38,6 +38,13 @@ public class ScegliSpidPAPage extends BasePage {
 
     public void selezionareTestButton(){
         logger.info("Si clicca sul bottone Test dello spid");
-        this.testButton.click();
+        try{
+            getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(this.testButton));
+            this.testButton.click();
+            logger.info("click sul bottone TEST effetuato");
+        }catch (TimeoutException e){
+            logger.error("il bottone TEST non è cliccabile con errore : "+e.getMessage());
+            Assert.fail("il bottone TEST non è cliccabile con errore : "+e.getMessage());
+        }
     }
 }

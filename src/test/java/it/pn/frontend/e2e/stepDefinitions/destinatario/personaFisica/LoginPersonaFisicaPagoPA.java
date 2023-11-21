@@ -152,7 +152,7 @@ public class LoginPersonaFisicaPagoPA {
 
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.waitLoadNotificheDEPage();
-        if(notifichePFPage.verificaPresenzaCodiceIumTextField()){
+        if(notifichePFPage.verificaPresenzaCodiceIunTextField()){
             logger.info("text field codice ium presente");
         }else {
             logger.info("text field codice ium non presente");
@@ -160,7 +160,7 @@ public class LoginPersonaFisicaPagoPA {
         }
 
         try {
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(10);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

@@ -4,8 +4,10 @@ Feature: il mittente inserisce tutti i dati di una notifica senza allegati
    When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
 
-    @fase2Test3neg
+    @TA_invioNotificaSenzaAllegati
     @TestSuite
+    @mittente
+    @invioNotifiche
 
   Scenario: il mittente inserisce tutti i dati di una notifica senza allegati
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

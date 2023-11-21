@@ -37,6 +37,7 @@ public class ScegliSpidPGPage extends BasePage {
     }
 
     public void clickTestButton() {
+        getWebDriverWait(60).withMessage("Il bottone TEST non è cliccabile nella login").until(ExpectedConditions.elementToBeClickable(this.testButton));
         this.testButton.click();
     }
 }
