@@ -160,7 +160,7 @@ public class LoginPersonaFisicaPagoPA {
         }
 
         try {
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(10);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
