@@ -16,35 +16,15 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(id = "side-item-I tuoi recapiti")
     WebElement iTuoiRecapitiButton;
 
-    @FindBy(xpath = "//button[@data-testid='add email']")
-    WebElement avvisamiViaEmailButton;
-
     @FindBy(id = "phone")
     WebElement phoneNumInputField;
 
     @FindBy(xpath = "//button[@data-testid='add phone']")
     WebElement avvisamiViaSMSButton;
 
-    @FindBy(id = "pec")
-    WebElement inserimentoPecField;
-
-    @FindBy(id = "add-contact")
-    WebElement confermaButton;
-
-    @FindBy(id = "code-cancel-button")
-    WebElement annullaButton;
-
-    @FindBy(id = "")
-    WebElement confermaButtonPopUp;
-
-    @FindBy(xpath = "//button[contains(text(),'Elimina')]")
-    WebElement eliminaButton;
-
     @FindBy(id = "addressType")
     WebElement tipoIndirizzoField;
 
-    @FindBy(xpath = "//form[@data-testid = 'specialContactForm']//div//button[contains(text(),'Elimina')]")
-    List<WebElement> eliminaButtonList;
 
     public ITuoiRecapitiPage(WebDriver driver) {
         super(driver);
@@ -73,16 +53,7 @@ public class ITuoiRecapitiPage extends BasePage {
         }
     }
 
-    public void waitLoadPopUp() {
-        try {
-            By titleBy = By.id("dialog-title");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleBy));
-            logger.info("Il po-up di conferma viene visualizzato correttamente");
-        } catch (TimeoutException e) {
-            logger.error("Il pop-up di conferma NON viene visualizzato correttamente con errori: " + e.getMessage());
-            Assert.fail("Il pop-up di conferma NON viene visualizzato correttamente con errori:" + e.getMessage());
-        }
-    }
+
 
     public void sendOTP(String otp) {
         String[] otps = otp.split("");
@@ -100,32 +71,7 @@ public class ITuoiRecapitiPage extends BasePage {
         }
     }
 
-    public void annullaButtonClick() {
-        this.annullaButton.click();
-    }
 
-
-    public String getPecErrorMessage() {
-        By errorBy = By.id("pec-helper-text");
-        WebElement errorMessage = driver.findElement(errorBy);
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(errorMessage));
-        return errorMessage.getText();
-    }
-
-    public boolean verificaBottoneConfermaDisabilitato() {
-        try {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.confermaButton));
-            return Boolean.parseBoolean(this.confermaButton.getAttribute("disabled"));
-        } catch (NoSuchElementException | TimeoutException e) {
-            return false;
-        }
-    }
-
-
-    public void clicModificaEmail() {
-        By modificaButtonBy = By.xpath("//button[contains(text(),'Modifica')]");
-        this.driver.findElement(modificaButtonBy).click();
-    }
 
     public void clickSalvaemail() {
         By salvaButtonBy = By.xpath("//button[contains(text(),'Salva')]");
@@ -144,43 +90,7 @@ public class ITuoiRecapitiPage extends BasePage {
         this.element(inserimentoEmailFieldBy).sendKeys(emailPEC);
     }
 
-    public void clickAvvisamiViaEmail() {
-        this.avvisamiViaEmailButton.click();
-    }
 
-    public boolean avvisamiViaEmailIsDisabled() {
-        try {
-            getWebDriverWait(30).withMessage("avvisami via email non è visibile").until(ExpectedConditions.visibilityOf(this.avvisamiViaEmailButton));
-            return Boolean.parseBoolean(this.avvisamiViaEmailButton.getAttribute("disabled"));
-
-        } catch (NoSuchElementException | TimeoutException e) {
-            return false;
-        }
-    }
-
-    public String getEmailErrorMessage() {
-        By errorBy = By.id("email-helper-text");
-        WebElement errorMessage = driver.findElement(errorBy);
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(errorMessage));
-        return errorMessage.getText();
-    }
-
-    public boolean verificaPopupConfirmaEmail() {
-        By hoCapitoCheckboxBy = By.xpath("//span[contains(text(),'Ho capito')]/preceding-sibling::span/input");
-        return this.driver.findElement(hoCapitoCheckboxBy).isSelected();
-    }
-
-    public void clickHoCapitoCheckBoxPopup() {
-        By hoCapitoCheckboxBy = By.xpath("//span[contains(text(),'Ho capito')]/preceding-sibling::span/input");
-        WebElement hoCapitoCheckBox = this.driver.findElement(hoCapitoCheckboxBy);
-        hoCapitoCheckBox.click();
-    }
-
-    public void confirmaEmailPopup() {
-        By popupConfirmaButtonBy = By.xpath("//button[@data-testid='disclaimer-confirm-button']");
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(popupConfirmaButtonBy));
-        this.driver.findElement(popupConfirmaButtonBy).click();
-    }
 
     public void insertTelephoneNumber(String phoneNumber) {
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.phoneNumInputField));
@@ -229,14 +139,6 @@ public class ITuoiRecapitiPage extends BasePage {
         getWebDriverWait(30).withMessage("La nuova mail non si visualizza correttamente").until(ExpectedConditions.visibilityOfElementLocated(newEmailBy));
     }
 
-    public boolean verificaButtoneConfermaDisabilitato() {
-        try {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.confermaButton));
-            return Boolean.parseBoolean(this.confermaButton.getAttribute("disabled"));
-        } catch (NoSuchElementException | TimeoutException e) {
-            return false;
-        }
-    }
 
     public void visualizzazioneSezioneAltriRecapiti() {
         By altriRecapitiSectionBy = By.xpath("//h5[contains(text(),'Altri recapiti')]");
