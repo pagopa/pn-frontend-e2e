@@ -295,7 +295,7 @@ public class RecapitiPersonaFisicaTest {
              } else if (variabileAmbiente.equalsIgnoreCase("dev")){
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com/";
              }
-             url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("mail");
+             url = startUrl + personaFisica.get("mail");
              results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
