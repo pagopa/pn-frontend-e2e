@@ -104,7 +104,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         headerPGSection.waitLoadHeaderPGPage();
 
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
-        piattaformaNotifichePGPAPage.waitLoadPitattaformaNotificaPage("Vita Nova Sas");
+        piattaformaNotifichePGPAPage.waitLoadPitattaformaNotificaPage("Convivio Spa");
 
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         boolean result = notifichePFPage.getListData();
