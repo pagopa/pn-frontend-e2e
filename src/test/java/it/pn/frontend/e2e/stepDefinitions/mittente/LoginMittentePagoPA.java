@@ -74,10 +74,10 @@ public class LoginMittentePagoPA {
         acccediAreaRiservataPAPage.selezionareSipButton();
 
         ScegliSpidPAPage scegliSpidPAPage = new ScegliSpidPAPage(this.driver);
-        scegliSpidPAPage.waitLoadScegliSpidPAPage();
+/*        scegliSpidPAPage.waitLoadScegliSpidPAPage();
         if (cookiesPage.waitLoadCookiesPage()){
             cookiesPage.selezionaAccettaTuttiButton();
-        }
+        }*/
         scegliSpidPAPage.selezionareTestButton();
 
         LoginPAPage loginPAPage = new LoginPAPage(this.driver);
