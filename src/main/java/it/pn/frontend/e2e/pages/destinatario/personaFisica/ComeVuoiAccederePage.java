@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.apache.commons.math3.analysis.function.Exp;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -35,7 +34,7 @@ public class ComeVuoiAccederePage extends BasePage {
     }
 
     public void selezionareSpidButton(){
-        getWebDriverWait(60).withMessage("").until(ExpectedConditions.elementToBeClickable(this.spidButton));
+        getWebDriverWait(60).withMessage("Il bottone SPID non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.spidButton));
         this.spidButton.click();
     }
 

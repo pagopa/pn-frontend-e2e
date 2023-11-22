@@ -23,10 +23,10 @@ public class AutorizziInvioDatiPAPage extends BasePage {
         try{
             By titlePage = By.cssSelector("h1.u-text-r-xl.u-margin-bottom-l");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            logger.info("TA_QA: Autorizzi Invio Dati PA Page caricata");
+            logger.info("Autorizzi Invio Dati PA Page caricata");
         }catch (TimeoutException | NoSuchElementException e){
-            logger.error("TA_QA: il titolo di Autorizzi Invio Dati PA Page non caricato con errore : "+e.getMessage());
-            Assert.fail("TA_QA: il titolo di Autorizzi Invio Dati PA Page non caricato con errore : "+e.getMessage());
+            logger.error("il titolo di Autorizzi Invio Dati PA Page non caricato con errore : "+e.getMessage());
+            Assert.fail("il titolo di Autorizzi Invio Dati PA Page non caricato con errore : "+e.getMessage());
         }
     }
 

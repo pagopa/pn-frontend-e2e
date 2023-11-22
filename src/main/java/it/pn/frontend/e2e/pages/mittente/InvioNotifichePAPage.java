@@ -4,6 +4,7 @@ import it.pn.frontend.e2e.common.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class InvioNotifichePAPage extends BasePage {
     @FindBy(id = "step-submit")
@@ -14,6 +15,7 @@ public class InvioNotifichePAPage extends BasePage {
     }
 
     public void selezionareContinuaButton() {
+        getWebDriverWait(30).withMessage("Il bottone continua nella pagina invio notifica PA non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.continuaButton));
         scrollToElementClickAndInsertText(this.continuaButton, null);
     }
 }

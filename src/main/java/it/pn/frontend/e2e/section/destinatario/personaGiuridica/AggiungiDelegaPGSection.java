@@ -99,7 +99,9 @@ public class AggiungiDelegaPGSection extends BasePage {
     }
 
     public void selezionaUnEnte(String ente) {
-        this.getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(this.enteElementInput));
+        this.getWebDriverWait(60).withMessage("il campo ente non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(this.enteElementInput));
+        this.enteElementInput.click();
         this.enteElementInput.sendKeys(ente);
 
         // select menu;
@@ -127,6 +129,8 @@ public class AggiungiDelegaPGSection extends BasePage {
     }
 
     public void clearImputData() {
+        getWebDriverWait(30).withMessage("Il campo data termine delega non è cliccabile ")
+                .until(ExpectedConditions.elementToBeClickable(this.dataTermineDelegaInput));
         this.dataTermineDelegaInput.click();
         String name = this.dataTermineDelegaInput.getAttribute("value");
         for(int index = 0; index<name.length(); index++){

@@ -62,6 +62,8 @@ public class SelezionaEntePAPage extends BasePage {
     }
 
     public void cercaComune(String comune) {
+        this.getWebDriverWait(30).withMessage("Il campo Comune non è visibile nella pagina seleziona un Ente")
+                .until(ExpectedConditions.visibilityOf(this.comuneSearchField));
         this.comuneSearchField.sendKeys(comune);
     }
 }
