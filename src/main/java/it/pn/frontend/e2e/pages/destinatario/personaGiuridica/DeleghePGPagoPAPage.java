@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.TimeUnit;
+
 public class DeleghePGPagoPAPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DeleghePGPagoPAPage");
@@ -68,7 +70,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             By titlePage = By.id("Deleghe-page");
 
             this.getWebDriverWait(30).withMessage("il titolo della pagina deleghe PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            this.getWebDriverWait(30).withMessage("Il bottone deleghe a carico dell'impresa non è visibile").until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
 
             this.logger.info("Deleghe page si visualizza correttamente");
 
@@ -87,9 +89,7 @@ public class DeleghePGPagoPAPage extends BasePage {
         }catch(TimeoutException e){
             logger.error("il bottone delegati imprese non è cliccabile"+ e.getMessage());
             Assert.fail("il bottone delegati imprese non è cliccabile"+ e.getMessage());
-        }
-
-    }
+        }    }
 
     public boolean CercaEsistenzaDelegaPG(String ragioneSociale) {
         try {
@@ -115,10 +115,10 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public void verificaPresenzaElencoDeleghe() {
         try{
-            By tableDelegheBy = By.xpath("//table[@data-testid='table(notifications)']");
+            By tableDelegheBy = By.id("notifications-table");
 
 
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(tableDelegheBy));
+            this.getWebDriverWait(50).until(ExpectedConditions.visibilityOfElementLocated(tableDelegheBy));
 
             this.logger.info("L'elenco delle deleghe si visualizza correttamente");
 
@@ -140,7 +140,14 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public boolean controlloDelegaRestituita(String ragioneSociale) {
         By delegaBy = By.xpath("//p[contains(text(),'"+ragioneSociale+"')]");
-          this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaBy));
+        try{
+            this.getWebDriverWait(60).withMessage("ragione sociale non caricata").until(ExpectedConditions.visibilityOfElementLocated(delegaBy));
+            logger.info("controllo ragione sociale");
+        }catch (TimeoutException e ){
+            logger.error("ragione sociale non caricata"+e.getMessage());
+            Assert.fail("ragione sociale non caricata"+e.getMessage());
+        }
+        logger.info("ragione sociale caricata correttamente");
           return this.elements(delegaBy).size() == 1;
 
     }

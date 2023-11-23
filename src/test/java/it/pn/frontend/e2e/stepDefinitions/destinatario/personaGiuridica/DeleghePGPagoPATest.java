@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+
 public class DeleghePGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("DeleghePGPagoPATest");
 
@@ -32,7 +33,7 @@ public class DeleghePGPagoPATest {
     Map<String,Object> datiPersonaFisica = new HashMap<>();
 
     @And("Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa")
-    public void siVisulaizzaLaPaginaDeleghe(){
+    public void siVisualizzaLaPaginaDeleghe(){
         logger.info("Si controlla che si visualizza la pagina Deleghe");
 
         deleghePGPagoPAPage.waitLoadDeleghePage();
