@@ -64,7 +64,7 @@ public class LoginMittentePagoPA {
         preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
-        //CookiesSection cookiesPage = new CookiesSection(this.driver);
+
          if (cookiesPage.waitLoadCookiesPage()){
              cookiesPage.selezionaAccettaTuttiButton();
          }
@@ -74,10 +74,7 @@ public class LoginMittentePagoPA {
         acccediAreaRiservataPAPage.selezionareSipButton();
 
         ScegliSpidPAPage scegliSpidPAPage = new ScegliSpidPAPage(this.driver);
-/*        scegliSpidPAPage.waitLoadScegliSpidPAPage();
-        if (cookiesPage.waitLoadCookiesPage()){
-            cookiesPage.selezionaAccettaTuttiButton();
-        }*/
+
         scegliSpidPAPage.selezionareTestButton();
 
         LoginPAPage loginPAPage = new LoginPAPage(this.driver);
