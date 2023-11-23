@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
+import org.openqa.selenium.devtools.v117.network.model.Headers;
 import org.openqa.selenium.devtools.v117.network.model.RequestWillBeSent;
 import org.openqa.selenium.devtools.v117.network.Network;
 import org.openqa.selenium.devtools.v117.network.model.ResourceType;
@@ -124,8 +125,10 @@ public class Hooks {
                     String requestId = response.getRequestId().toString();
                     if(requests.containsKey(requestId)){
                         RequestWillBeSent request = requests.get(requestId);
+                        Headers headers = request.getRequest().getHeaders();
                         if(response.getType().equals(ResourceType.XHR)){
                             NetWorkInfo netWorkInfo = new NetWorkInfo();
+                            netWorkInfo.setAuthorizationBearer(headers.get("Authorization").toString());
                             netWorkInfo.setRequestId(requestId);
                             netWorkInfo.setRequestUrl(request.getRequest().getUrl());
                             netWorkInfo.setRequestMethod(request.getRequest().getMethod());
