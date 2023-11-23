@@ -24,9 +24,7 @@ public class RecapitiPGPage extends BasePage {
     public void waitLoadRecapitiPage() {
         try {
             By racapitiPageTitle = By.id("Recapiti-page");
-            By confermaPecButton = By.xpath("//button[@data-testid='addContact']");
             getWebDriverWait(30).withMessage("il titolo Ricapiti della pagina recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(racapitiPageTitle));
-            getWebDriverWait(30).withMessage("il bottone conferma pec della pagina recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(confermaPecButton));
             logger.info("Si visualizza correttamente recapiti page");
         }catch (TimeoutException e){
             logger.error("Non si visualizza correttamente recapiti page con errore:"+e.getMessage());

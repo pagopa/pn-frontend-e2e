@@ -11,7 +11,7 @@ Feature:La persona giuridica visuallizza le deleghe
   @TA_PGricercaDelegheSenzaGruppo
   @DeleghePG
   @PG
-  Scenario: Il persona giuridica fa una ricerca delle deleghe
+  Scenario: La persona giuridica fa una ricerca delle deleghe
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Nella pagina Deleghe sezione Deleghe a Carico dell impresa si inserisce il codice fiscale del delegante "personaGiuridica"

@@ -131,14 +131,14 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-    public void waitMessaggioErrore() {
+    public boolean waitMessaggioErrore() {
         try {
             By messaggioErroreBy = By.id("error-alert");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messaggioErroreBy));
             logger.info("Il messaggio di errore viene visualizzato correttamente");
+            return true;
         } catch (TimeoutException e) {
-            logger.error("Il messaggio di errore non viene visualizzato con errore: " + e.getMessage());
-            Assert.fail("Il messaggio di errore non viene visualizzato con errore: " + e.getMessage());
+            return false;
         }
     }
 
@@ -286,16 +286,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         return pec.getText().equals(pecInserita);
     }
 
-    public boolean otpErrorMessage() {
-        try {
-            By errorOTPBy = By.xpath("//div[@data-testid = 'CodeModal error title']");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(errorOTPBy));
-            return true;
-        } catch (TimeoutException e) {
-            return false;
-        }
-    }
-
 
     public void clickSuEliminaPec() {
         this.getWebDriverWait(30).withMessage("Non si è riuscito ad cliccare sul bottone elimina PEC").until(ExpectedConditions.elementToBeClickable(eliminaPECButton));
@@ -324,18 +314,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         } catch (TimeoutException e) {
             return false;
         }
-    }
-
-    public void waitLoadAltriRecapiti() {
-        By titleBy = By.xpath("//h5[contains(text(),'Altri recapiti')]");
-        By enteBy = By.id("sender");
-        By tipoIndirizzoBy = By.id("addressType");
-        By indirizzoPECFieldBy = By.id("s_pec");
-
-        this.getWebDriverWait(30).withMessage("Non è stato caricato il titolo 'Altri recapiti'").until(ExpectedConditions.visibilityOfElementLocated(titleBy));
-        this.getWebDriverWait(30).withMessage("Non è stato caricato l'ente field").until(ExpectedConditions.elementToBeClickable(enteBy));
-        this.getWebDriverWait(30).withMessage("Non è stato caricato il tipo di indirizzo field").until(ExpectedConditions.elementToBeClickable(tipoIndirizzoBy));
-        this.getWebDriverWait(30).withMessage("Non è stato caricato l'indirizzo field").until(ExpectedConditions.elementToBeClickable(indirizzoPECFieldBy));
     }
 
     public void insertEnte(String comune) {
@@ -373,11 +351,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         this.js().executeScript("arguments[0].click()", associaButton);
     }
 
-    public void siControllaPECAggiunta() {
-        By pecAssociataBy = By.xpath("//form[@data-testid='specialContactForm']//div/p");
-        this.getWebDriverWait(30).withMessage("La pec non è stata aggiunta correttamente").until(ExpectedConditions.visibilityOfElementLocated(pecAssociataBy));
-    }
-
     public void insertEmailAggiuntiva(String mail) {
         try {
             if (this.emailField.isDisplayed()) {
@@ -399,6 +372,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public boolean controlloEmailAssociata(String email) {
         try {
             By emailBy = By.xpath("//div[@data-testid = 'courtesyContacts']//div//p[contains(text(),'" + email + "')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(emailBy));
             return true;
         } catch (TimeoutException e) {
             return false;

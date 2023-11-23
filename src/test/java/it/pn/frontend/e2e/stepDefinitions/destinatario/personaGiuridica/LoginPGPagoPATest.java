@@ -251,7 +251,6 @@ public class LoginPGPagoPATest {
         acccediAreaRiservataPGPage.clickSpidButton();
 
         ScegliSpidPGPage scegliSpidPGPage = new ScegliSpidPGPage(this.driver);
-        scegliSpidPGPage.waitLoadScegliSpidPGPage();
         scegliSpidPGPage.clickTestButton();
 
         LoginPGPagoPAPage loginPGPagoPAPage = new LoginPGPagoPAPage(this.driver);

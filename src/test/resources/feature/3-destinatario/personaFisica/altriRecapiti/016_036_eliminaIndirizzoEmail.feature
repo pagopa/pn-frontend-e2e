@@ -2,13 +2,14 @@ Feature: la persona fisica elimina l'indirizzo Email
 
   Background:  Login persona fisica
     Given Login Page persona fisica "personaFisica" viene visualizzata
-    When Login portale persona fisica tramite request method
+    When Login portale persona fisica tramite token exchange "personaFisica"
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
   @TA_eliminaEmailPF
   @recapitiPF
-  @personaFisicaDestinatario
+  @PF
+
   Scenario: la persona fisica elimina l'indirizzo Email
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
