@@ -16,10 +16,6 @@ Feature: La persona giuridica revoca una delega
   @DeleghePG
   @PG
   Scenario: La persona giuridica revoca una delega
-    When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
-    And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
-    And Nella pagina Deleghe si clicca su Delegati dall impresa
-    And Si visualizza correttamente la pagina Deleghe sezione Deleghe dell impresa
     When Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega "nuovaDelegaPG"
     And Nella sezione Deleghe persona giuridica si sceglie l'opzione revoca
     Then Si clicca sul bottone revoca
