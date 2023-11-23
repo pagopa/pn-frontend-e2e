@@ -6,7 +6,9 @@ Feature: Mittente effetua una ricerca notifiche per Stato
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
-  @test11
+  @TA_MittenteRicercaPerStato
+    @mittente
+    @ricercaNatoficheMittente
 
 
   Scenario Outline: Mittente logato effettua una ricerca per stato notifica

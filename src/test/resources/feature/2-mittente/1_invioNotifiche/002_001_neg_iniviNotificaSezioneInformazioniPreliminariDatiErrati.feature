@@ -5,8 +5,10 @@ Feature: Il mittente inserisce i dati non coretti nella sezione informazioni pre
    When Login con mittente "mittente"
     Then Home page mittente viene visualizzata correttamente
 
-  @fase2Test1neg
+  @TA_inserimentoDatiErratiInfoPreliminari
   @TestSuite
+  @mittente
+  @invioNotifiche
 
   Scenario:Il mittente inserisce i dati non corretti nella sezione informazioni preliminari
     When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche

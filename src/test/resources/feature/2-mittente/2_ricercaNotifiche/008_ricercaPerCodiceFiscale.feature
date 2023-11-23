@@ -6,7 +6,9 @@ Feature: Mittente effetua una ricerca notifiche per CF
     Then Home page mittente viene visualizzata correttamente
 
   @TestSuite
-  @test8
+  @TA_MittenteRicercaNotificaPerCF
+  @mittente
+  @ricercaNatoficheMittente
 
 
   Scenario: Mittente loggato effettua una ricerca per CF

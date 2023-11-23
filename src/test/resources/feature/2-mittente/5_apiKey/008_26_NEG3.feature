@@ -10,8 +10,9 @@ Feature: Mittente seleziona CTA annulla in attiva api Key
     And Si visualizza correttamente la pagina Api Key
 
   @TestSuite
-
-  @test26_neg3
+  @TA_MittenteAnullaAttivazioneApiKey
+  @mittente
+  @ApikeyMittente
 
   Scenario: Mittente seleziona CTA annulla in attiva api Key
     When Nella pagina Api Key si clicca sul bottone menu di una Api Key bloccata presente in elenco

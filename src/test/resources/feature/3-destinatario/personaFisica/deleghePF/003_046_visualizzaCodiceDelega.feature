@@ -6,7 +6,9 @@ Feature:La persona fisica visualizza il codice  di una delega
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
-  @test46
+  @TA_PFvisualizzaCodiceDelega
+  @DeleghePF
+  @PF
 
 
   Scenario:La persona fisica visualizza il codice  di una delega

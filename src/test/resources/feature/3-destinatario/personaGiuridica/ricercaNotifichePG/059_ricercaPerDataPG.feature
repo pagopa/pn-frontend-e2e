@@ -6,7 +6,9 @@ Feature: La persona giuridica ricerca per periodo temporale
     Then Home page persona giuridica viene visualizzata correttamente
 
   @TestSuite
-  @fase2Test59
+  @TA_PGricercaNotificaPerData
+  @RicercaNotifichePG
+  @PG
 
   Scenario: La persona giuridica ricerca per periodo temporale
     When Nella Home page persona giuridica si clicca su Send Notifiche Digitali

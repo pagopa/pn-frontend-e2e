@@ -43,8 +43,8 @@ public class DelegatiImpresaSection extends BasePage {
         try {
 
 
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.titlePageBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.addDelegheButton));
+            this.getWebDriverWait(30).withMessage("il titolo della sezione deledati dall'impresa non è visibile").until(ExpectedConditions.visibilityOf(titlePageBy));
+            this.getWebDriverWait(30).withMessage("il bottone aggiungi delega non è visibile").until(ExpectedConditions.visibilityOf(addDelegheButton));
 
             logger.info("Delegati dall'impresa caricata correttamente");
 

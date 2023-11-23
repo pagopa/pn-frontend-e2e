@@ -6,7 +6,9 @@ Feature:La persona fisica aggiunge una nuova delega
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
-  @test44
+  @TA_PFaggiuntaNuovaDelega
+  @DeleghePF
+  @PF
 
   Scenario:La persona fisica aggiunge una nuova delega
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe

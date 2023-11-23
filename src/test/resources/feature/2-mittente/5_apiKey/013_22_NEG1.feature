@@ -10,7 +10,9 @@ Feature: Mittente genera Api Key senza inserire il nome dell api key
     And Si visualizza correttamente la pagina Api Key
 
   @TestSuite
-  @test22_neg1
+  @TA_MittenteGeneraApiKeySenzaNome
+  @mittente
+  @ApikeyMittente1
 
 
 

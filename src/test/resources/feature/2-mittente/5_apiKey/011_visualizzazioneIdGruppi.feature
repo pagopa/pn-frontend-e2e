@@ -9,8 +9,10 @@ Feature: Mittente seleziona l'opzione visualizza ID gruppo
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
     And Si visualizza correttamente la pagina Api Key
 
-  @fase2Test22
     @TestSuite
+    @TA_MittenteVisualizzaIDGroup
+    @mittente
+    @ApikeyMittente
 
     @try
   Scenario: Mittente seleziona l'opzione visualizza ID gruppo

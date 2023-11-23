@@ -10,7 +10,9 @@ Feature: Mittente visualizza il dettaglio di una notifica
     And Cliccare sul bottone Filtra
 
   @TestSuite
-  @test14
+  @TA_MittenteDettaglioNotifiche
+  @mittente
+  @visualizzazioneNotificheMittente
 
 
   Scenario: Mittente visualizza dettaglio notifica

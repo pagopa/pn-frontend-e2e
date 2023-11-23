@@ -142,11 +142,12 @@ public class LeTueDelegheSection extends BasePage {
 
     public void selezionaUnEnte(String ente) {
         this.getWebDriverWait(30).withMessage("input ente non è visibile").until(ExpectedConditions.visibilityOf(this.enteElementInput));
+        this.enteElementInput.click();
         this.enteElementInput.sendKeys(ente);
 
         // select menu;
         By menuEntiOptionBy = By.xpath("//div[@role='presentation']");
-        this.getWebDriverWait(30).withMessage("il menu della selezione ente non è visibile").until(ExpectedConditions.visibilityOfElementLocated(menuEntiOptionBy));
+        this.getWebDriverWait(60).withMessage("il menu della selezione ente non è visibile").until(ExpectedConditions.visibilityOfElementLocated(menuEntiOptionBy));
         WebElement menuEntiOption = this.driver.findElement(menuEntiOptionBy);
         this.js().executeScript("arguments[0].click()",menuEntiOption);
 

@@ -78,9 +78,9 @@ public class AreaRiservataPAPage extends BasePage {
             this.js().executeScript("arguments[0].scrollIntoView(true);",this.piattaformaNotificaDevGestisciButton);
             this.piattaformaNotificaTestGestisciButton.click();
         }
-        }catch(TimeoutException | NoSuchElementException | ElementClickInterceptedException e){
-            logger.error("TA_QA: il bottone piattaforma notifica test non è presente o non è cliccabile, "+e.getMessage());
-            Assert.fail("TA_QA: il bottone piattaforma notifica test non è presente o non è cliccabile. "+e.getMessage());
+        }catch(TimeoutException e){
+            logger.error("il bottone piattaforma notifica test non è presente o non è cliccabile, "+e.getMessage());
+            Assert.fail("il bottone piattaforma notifica test non è presente o non è cliccabile. "+e.getMessage());
         }
     }
 
@@ -95,8 +95,8 @@ public class AreaRiservataPAPage extends BasePage {
             this.piattaformaNotificaUatGestisciButton.click();
         }
         }catch(TimeoutException | NoSuchElementException | ElementClickInterceptedException e){
-            logger.error("TA_QA: il bottone piattaforma notifica uat non è presente o non è cliccabile, "+e.getMessage());
-            Assert.fail("TA_QA: il bottone piattaforma notifica uat non è presente o non è cliccabile. "+e.getMessage());
+            logger.error("il bottone piattaforma notifica uat non è presente o non è cliccabile, "+e.getMessage());
+            Assert.fail("il bottone piattaforma notifica uat non è presente o non è cliccabile. "+e.getMessage());
         }
     }
 

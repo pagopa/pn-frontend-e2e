@@ -7,6 +7,8 @@ Feature: il persona giuridica visualizza i disservizi della applicazione
 
   @TestSuite
   @test72
+  @TA_PG_VisualizzaDisservizio
+
 
   Scenario: il persona giuridica loggato visualizza lo stato dei disservizi
     When Nella Home page persona giuridica si clicca su Send Notifiche Digitali
