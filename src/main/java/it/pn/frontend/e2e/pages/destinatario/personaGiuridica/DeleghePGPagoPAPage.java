@@ -8,14 +8,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.TimeUnit;
 
 public class DeleghePGPagoPAPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DeleghePGPagoPAPage");
 
-    @FindBy(id = "tab-1")
-    WebElement delegatiImpresaButton;
 
     @FindBy(id = "tab-2")
     WebElement delegheCaricoImpresaButton;
@@ -82,14 +79,7 @@ public class DeleghePGPagoPAPage extends BasePage {
         }
     }
 
-    public void clickDelegatiImpresa() {
-        try {
-            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(delegatiImpresaButton));
-            this.delegatiImpresaButton.click();
-        }catch(TimeoutException e){
-            logger.error("il bottone delegati imprese non è cliccabile"+ e.getMessage());
-            Assert.fail("il bottone delegati imprese non è cliccabile"+ e.getMessage());
-        }    }
+
 
     public boolean CercaEsistenzaDelegaPG(String ragioneSociale) {
         try {
