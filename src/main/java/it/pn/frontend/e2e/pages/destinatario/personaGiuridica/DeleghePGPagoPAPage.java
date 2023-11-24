@@ -13,6 +13,8 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DeleghePGPagoPAPage");
 
+    @FindBy(id = "tab-1")
+    WebElement delegatiImpresaButton;
 
     @FindBy(id = "tab-2")
     WebElement delegheCaricoImpresaButton;
@@ -79,7 +81,14 @@ public class DeleghePGPagoPAPage extends BasePage {
         }
     }
 
-
+    public void clickDelegatiImpresa() {
+        try {
+            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(delegatiImpresaButton));
+            this.delegatiImpresaButton.click();
+        }catch(TimeoutException e){
+            logger.error("il bottone delegati imprese non è cliccabile"+ e.getMessage());
+            Assert.fail("il bottone delegati imprese non è cliccabile"+ e.getMessage());
+        }    }
 
     public boolean CercaEsistenzaDelegaPG(String ragioneSociale) {
         try {

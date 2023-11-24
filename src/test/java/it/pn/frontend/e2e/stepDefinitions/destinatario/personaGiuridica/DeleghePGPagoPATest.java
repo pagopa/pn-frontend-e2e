@@ -40,7 +40,13 @@ public class DeleghePGPagoPATest {
 
     }
 
+    @And("Nella pagina Deleghe si clicca su Delegati dall impresa")
+    public void nellaPaginaDelegheSiCliccaSuDelegatiDallImpresa() {
+        logger.info("Si clicca sul delegati dell'impresa");
 
+        deleghePGPagoPAPage.clickDelegatiImpresa();
+
+    }
 
     @And("Si visualizza correttamente la pagina Deleghe sezione Deleghe dell impresa")
     public void siVisualizzaCorrettamenteLaPaginaDelegheSezioneDelegheDellImpresa() {
