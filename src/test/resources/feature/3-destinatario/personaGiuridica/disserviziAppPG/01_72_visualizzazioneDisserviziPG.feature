@@ -1,4 +1,4 @@
-Feature: La persona giuridica visualizza i disservizi della applicazione
+Feature: il persona giuridica visualizza i disservizi della applicazione
 
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
@@ -7,6 +7,8 @@ Feature: La persona giuridica visualizza i disservizi della applicazione
 
   @TestSuite
   @test72
+  @TA_PG_VisualizzaDisservizio
+
 
   Scenario: il persona giuridica loggato visualizza lo stato dei disservizi
     And Nella dashboard persona giuridica clicca su disservizi app
