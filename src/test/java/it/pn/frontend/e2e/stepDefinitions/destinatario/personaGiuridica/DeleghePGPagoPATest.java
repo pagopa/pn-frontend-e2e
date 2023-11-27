@@ -251,6 +251,7 @@ public class DeleghePGPagoPATest {
 
         this.datiDelega = this.dataPopulation.readDataPopulation(dpFile+".yaml");
         delegatiImpresaSection.waitLoadDelegatiImpresaPage();
+        delegatiImpresaSection.waitloadingSpinner();
         if(!deleghePGPagoPAPage.CercaEsistenzaDelegaPG(this.datiDelega.get("ragioneSociale").toString())){
             logger.info("La delega è stata revocata correttamente");
         }else {
