@@ -35,7 +35,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     }
 
-    public void waitLoadPitattaformaNotificaPage(String ragioneSociale) {
+    public void waitLoadPiattaformaNotificaPage(String ragioneSociale) {
         try {
             By titlePageBy = By.id("Notifiche di "+ragioneSociale+"-page");
             By codiceIunTextFieldBy = By.id("iunMatch");
