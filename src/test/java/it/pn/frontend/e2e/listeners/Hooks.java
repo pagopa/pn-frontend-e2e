@@ -128,7 +128,7 @@ public class Hooks {
                         Headers headers = request.getRequest().getHeaders();
                         if(response.getType().equals(ResourceType.XHR)){
                             NetWorkInfo netWorkInfo = new NetWorkInfo();
-                            netWorkInfo.setAuthorizationBearer(headers.get("Authorization").toString());
+                            netWorkInfo.setAuthorizationBearer(Objects.requireNonNull(headers.get("Authorization")).toString());
                             netWorkInfo.setRequestId(requestId);
                             netWorkInfo.setRequestUrl(request.getRequest().getUrl());
                             netWorkInfo.setRequestMethod(request.getRequest().getMethod());
