@@ -11,9 +11,8 @@ Feature: Il delegato persona giuridica modifica una delega non assegnandoli un g
 
   Scenario: Il delegato persona giuridica modifica una delega non assegnandoli un gruppo
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
-    And Nella pagina Deleghe si clicca su Delegati dall impresa
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
-    And Nella sezione Deleghe si verifica sia presente una delega
+    And Nella sezione Deleghe si verifica sia presente una delega accettata per PG "personaGiuridica"
     And Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega "personaGiuridica"
     And Nella sezione Deleghe si clicca sul bottone modifica
     And Si clicca sul bottone non assegna a un gruppo
