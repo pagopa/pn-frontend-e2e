@@ -2,9 +2,8 @@ Feature: Mittente visualizza il dettaglio di una notifica
 
   Background: Login mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente "mittente"
-    Then Home page mittente viene visualizzata correttamente
-    And Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
+    When Login con mittente tramite token exchange
+    Then
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche si recupera un codice IUN valido
     And Cliccare sul bottone Filtra
@@ -13,7 +12,6 @@ Feature: Mittente visualizza il dettaglio di una notifica
   @TA_MittenteDettaglioNotifiche
   @mittente
   @visualizzazioneNotificheMittente
-
 
   Scenario: Mittente visualizza dettaglio notifica
     When Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita

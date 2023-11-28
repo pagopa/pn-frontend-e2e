@@ -2,18 +2,16 @@ Feature: il mittente invia una notifica con 6 destinatario
 
   Background: Login mittente
     Given Login Page mittente "mittente" viene visualizzata
-   When Login con mittente "mittente"
-    Then Home page mittente viene visualizzata correttamente
+    When Login con mittente tramite token exchange
+    Then Si visualizza correttamente la pagina Piattaforma Notifiche
 
   @TestSuite
-  @TA_invioNotifica6DestinatariSenzaPagamento
+    @TA_invioNotifica6DestinatariSenzaPagamento
     @mittente
     @invioNotifiche
 
   Scenario Outline: il mittente invia una notifica con 6 destinatario
-    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
-    And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
+    When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     And Nella section Informazioni preliminari inserire i dati della notifica "datiNotifica" senza pagamento
     And Cliccare su continua
@@ -26,4 +24,4 @@ Feature: il mittente invia una notifica con 6 destinatario
     And Logout da portale mittente
     Examples:
       | numero destinatari |
-      |        5           |
+      | 5                  |

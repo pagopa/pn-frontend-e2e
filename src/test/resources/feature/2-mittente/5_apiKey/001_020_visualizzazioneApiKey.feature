@@ -2,8 +2,8 @@ Feature: Mittente visualizza correttamente la pagina Api Key
 
   Background: login mittente
     Given Login Page mittente "mittente" viene visualizzata
-   When Login con mittente "mittente"
-    Then Home page mittente viene visualizzata correttamente
+   When Login con mittente tramite token exchange
+Then
 
     @TestSuite
     @TA_MittenteVisualizzazioneApiKey
@@ -12,7 +12,7 @@ Feature: Mittente visualizza correttamente la pagina Api Key
 
 
   Scenario: Mittente visualizza correttamente la pagina Api Key
-    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
+
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
     And Si visualizza correttamente la pagina Api Key

@@ -6,8 +6,8 @@ Feature: Login pagoPA
 
   Scenario: Login pagoPA mittente
     Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente "mittente"
-    Then Home page mittente viene visualizzata correttamente
+    When Login con mittente tramite token exchange
+Then
     And Logout da portale mittente senza entrare su notifiche
 
   @TA_loginpersonaFisica

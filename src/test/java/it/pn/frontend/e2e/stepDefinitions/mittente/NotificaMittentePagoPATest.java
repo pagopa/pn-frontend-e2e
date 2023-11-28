@@ -47,7 +47,7 @@ public class NotificaMittentePagoPATest {
 
     private final DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
 
-    @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
+    @When("")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
         AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
         String variabileAmbiente = System.getProperty("environment");
@@ -908,11 +908,19 @@ public class NotificaMittentePagoPATest {
     @And("Si verifica che la notifica viene creata correttamente {string}")
     public void siVerificaCheLaNotificaVieneCreataCorrettamente(String dpFile) {
         logger.info("si verifica se la notifica è stata accettata o rifiutata");
-        final String urlNotificationRequest = "https://webapi.test.notifichedigitali.it/delivery/v2.1/requests";
-        final String urlRichiestaNotifica = "https://api.test.notifichedigitali.it/delivery/v2.1/requests/";
+        String variabileAmbiente = System.getProperty("environment");
+        final String urlNotificationRequest = "https://webapi."+variabileAmbiente+".notifichedigitali.it/delivery/v2.1/requests";
+        final String urlRichiestaNotifica = "https://api."+variabileAmbiente+".notifichedigitali.it/delivery/v2.1/requests/";
+        AccettazioneRichiestaNotifica accettazioneRichiestaNotifica = new AccettazioneRichiestaNotifica();
+        String codiceApi;
+        if (variabileAmbiente.equals("test")) {
+            codiceApi = dataPopulation.readDataPopulation("mittente.yaml").get("codiceApiKeyTEST").toString();
+        } else {
+            codiceApi = dataPopulation.readDataPopulation("mittente.yaml").get("codiceApiKeyDEV").toString();
+        }
+        accettazioneRichiestaNotifica.setxApikey(codiceApi);
         String statusNotifica = "WAITING";
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
-        AccettazioneRichiestaNotifica accettazioneRichiestaNotifica = new AccettazioneRichiestaNotifica();
         accettazioneRichiestaNotifica.setNotificationRequestId(notificationRequestId);
         accettazioneRichiestaNotifica.setRichiestaNotificaEndPoint(urlRichiestaNotifica);
         do{

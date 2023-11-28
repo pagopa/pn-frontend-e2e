@@ -3,17 +3,16 @@ Feature: Mittente effetua una ricerca notifiche per CF sbagliato
 
   Background: login mittente
     Given Login Page mittente "mittente" viene visualizzata
-   When Login con mittente "mittente"
-    Then Home page mittente viene visualizzata correttamente
+    When Login con mittente tramite token exchange
+    Then
 
   @TA_MittenteRicercaPerCFErrato
-    @TestSuite
-    @mittente
-    @ricercaNatoficheMittente
+  @TestSuite
+  @mittente
+  @ricercaNatoficheMittente
 
 
   Scenario: Mittente loggato effettua una ricerca per CF sbagliato
-    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche inserire il codice fiscale sbagliato "QWERTY123"
     Then Nella pagina Piattaforma Notifiche si controlla che si visualizza il messaggio di errore codice fiscale
