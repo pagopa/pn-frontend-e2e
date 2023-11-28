@@ -3,7 +3,7 @@ Feature:il mittente cambia visualizzazione della pagina
   Background: Login mittente
     Given Login Page mittente "mittente" viene visualizzata
     When Login con mittente tramite token exchange
-    Then
+    Then Si visualizza correttamente la pagina Piattaforma Notifiche
 
   @TestSuite
   @TA_MittentePaginazioneNotifiche
@@ -11,8 +11,7 @@ Feature:il mittente cambia visualizzazione della pagina
   @visualizzazioneNotificheMittente
 
   Scenario: il mittente cambia visualizzazione della pagina
-    And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Nella pagina Piattaforma Notifiche si visualizzano le notifiche a partire dalla più recente
+    When Nella pagina Piattaforma Notifiche si visualizzano le notifiche a partire dalla più recente
     And Nella pagina Piattaforma Notifiche si scrolla fino alla fine della pagina
     And Nella pagina Piattaforma Notifiche si controlla che vengano visualizzate dieci notifiche
     And Nella pagina Piattaforma Notifiche si cambia pagina utilizzando una freccetta

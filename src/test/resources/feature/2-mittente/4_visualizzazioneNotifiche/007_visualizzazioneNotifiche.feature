@@ -3,7 +3,7 @@ Feature: Mittente visualizza correttamente la pagina notifiche
   Background: login mittente
     Given Login Page mittente "mittente" viene visualizzata
     When Login con mittente tramite token exchange
-    Then
+    Then Si visualizza correttamente la pagina Piattaforma Notifiche
 
   @TestSuite
   @TA_MittentevisualizzazioneNotifiche
@@ -11,8 +11,7 @@ Feature: Mittente visualizza correttamente la pagina notifiche
   @visualizzazioneNotificheMittente
 
   Scenario: Mittente visualizza correttamente la pagina notifiche
-    And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Nella pagina Piattaforma Notifiche visualizzano correttamente i filtri di ricerca
+    When Nella pagina Piattaforma Notifiche visualizzano correttamente i filtri di ricerca
     Then Nella pagina Piattaforma Notifiche si visualizza correttamente l'elenco delle notifiche
     And Logout da portale mittente
 
