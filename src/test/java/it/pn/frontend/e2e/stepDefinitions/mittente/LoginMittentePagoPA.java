@@ -291,12 +291,10 @@ public class LoginMittentePagoPA {
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();
-
-        SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(this.driver);
-        selezionaEntePAPage.waitLoadSelezionaEntePAPage();
-
-        headerPASection.waitLoadHeaderSection();
-        headerPASection.selezionaEsciButton();
+        CookiesSection cookiesSection = new CookiesSection(this.driver);
+        if (cookiesSection.waitLoadCookiesPage()){
+            cookiesSection.selezionaAccettaTuttiButton();
+        }
 
         AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
@@ -309,24 +307,6 @@ public class LoginMittentePagoPA {
 
 
     }
-
-    @And("Logout da portale mittente senza entrare su notifiche")
-    public void Logout_da_portale_mittente_senza_entrare_su_notifiche() {
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
-        headerPASection.waitLoadHeaderSection();
-        headerPASection.selezionaEsciButton();
-
-        AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);
-        acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
-
-        try {
-            TimeUnit.SECONDS.sleep(15);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
 
     @When("Login con mittente tramite token exchange")
     public void loginConMittenteTramiteTokenExchange() {

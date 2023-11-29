@@ -73,7 +73,11 @@ public class NotificaMittentePagoPATest {
 
         String variabileAmbiente = System.getProperty("environment");
         String urlChiamata = "https://webapi."+variabileAmbiente+".notifichedigitali.it/delivery/notifications/sent?";
-
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi!=200 && codiceRispostaChiamataApi!=0){
             logger.error("TA_QA: La chiamata, "+urlChiamata+" è andata in errore");
