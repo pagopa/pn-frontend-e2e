@@ -291,12 +291,11 @@ public class LoginMittentePagoPA {
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();
-
-        SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(this.driver);
         CookiesSection cookiesSection = new CookiesSection(this.driver);
         if (cookiesSection.waitLoadCookiesPage()){
             cookiesSection.selezionaAccettaTuttiButton();
         }
+
         AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
 
@@ -306,8 +305,9 @@ public class LoginMittentePagoPA {
             throw new RuntimeException(e);
         }
 
-
     }
+
+
 
     @When("Login con mittente tramite token exchange")
     public void loginConMittenteTramiteTokenExchange() {
