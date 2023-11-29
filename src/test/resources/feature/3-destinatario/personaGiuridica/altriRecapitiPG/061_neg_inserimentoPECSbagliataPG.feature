@@ -14,6 +14,6 @@ Feature: La persona giuridica inserisce una PEC
   Scenario: La persona giuridica loggato inserisce una PEC
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
-    And Nella pagina Recapiti persona giuridica si inserisce una PEC sbagliata "provatest2.spqe"
-    Then Nella pagina Recapiti persona giuridica si visualizza correttamente il messaggio di errore pec sbagliata
+    And Nella pagina I Tuoi Recapiti si inserisce la PEC errata "personaGiuridica"
+    Then Si visualizza correttamente il messaggio di pec errata
     And Logout da portale persona giuridica

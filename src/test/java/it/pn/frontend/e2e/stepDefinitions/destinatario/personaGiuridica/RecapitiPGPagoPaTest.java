@@ -42,8 +42,7 @@ public class RecapitiPGPagoPaTest {
     @Then("Nella pagina Recapiti persona giuridica si visualizza correttamente il messaggio di errore pec sbagliata")
     public void nellaPaginaITuoiRecapitiPersonaGiuridicaSiVisualizzaCorrettamenteIlMessaggioDiErrorePecSbagliata() {
         logger.info("Si controlla che si deve il messaggio di errore");
-
-        recapitiPGPage.waitMessaggioDiErrorePec();
+        recapitiDestinatarioPage.getPecErrorMessage();
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce l'email del PG {string} e clicca sul bottone avvisami via email")
@@ -61,4 +60,5 @@ public class RecapitiPGPagoPaTest {
         recapitiDestinatarioPage.insertPhone(datiPG.get("cellulare").toString());
         recapitiDestinatarioPage.clickAvvisamiSMS();
     }
+
 }
