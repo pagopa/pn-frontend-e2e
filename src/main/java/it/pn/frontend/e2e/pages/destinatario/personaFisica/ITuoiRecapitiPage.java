@@ -25,13 +25,6 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(id = "addressType")
     WebElement tipoIndirizzoField;
 
-
-    @FindBy(id = "addressType")
-    WebElement tipoIndirizzoField;
-
-    @FindBy(xpath = "//form[@data-testid = 'specialContactForm']//div//button[contains(text(),'Elimina')]")
-    List<WebElement> eliminaButtonList;
-
     public ITuoiRecapitiPage(WebDriver driver) {
         super(driver);
     }

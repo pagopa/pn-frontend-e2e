@@ -17,7 +17,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     @FindBy(xpath = "//button[@data-testid='add email']")
     WebElement avvisamiViaEmailButton;
-    @FindBy(id = "code-confirm-button")
+    @FindBy(xpath = "//button[contains(text(),'Conferma']")
     WebElement confermaButtonPopUp;
 
     @FindBy(id = "code-cancel-button")
