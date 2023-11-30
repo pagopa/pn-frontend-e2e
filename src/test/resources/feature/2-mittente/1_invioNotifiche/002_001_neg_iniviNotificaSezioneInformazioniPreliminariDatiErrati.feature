@@ -24,4 +24,5 @@ Feature: Il mittente inserisce i dati non coretti nella sezione informazioni pre
     Then Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
+    And Nella section si prova ad cliccare sul tasto continua senza aver inserito nessun dato
     And Logout da portale mittente
