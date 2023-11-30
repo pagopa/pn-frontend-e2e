@@ -594,7 +594,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public List<String> getCodiceIunPersonaGiuridica() {
-        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1p8q4rm' and button/p[contains(text(),'12666810299')]]/following-sibling::td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr']//button");
+        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1p8q4rm' and button/p[contains(text(),'27957814470')]]/following-sibling::td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr']//button");
         List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella: righeTabella) {
