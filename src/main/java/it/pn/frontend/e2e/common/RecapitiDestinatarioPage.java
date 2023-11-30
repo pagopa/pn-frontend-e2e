@@ -378,6 +378,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public boolean controlloEmailAssociata(String email) {
         try {
             By emailBy = By.xpath("//div[@data-testid = 'courtesyContacts']//div//p[contains(text(),'" + email + "')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(emailBy));
             return true;
         } catch (TimeoutException e) {
             return false;
