@@ -2,8 +2,8 @@ Feature: La persona giuridica visuallizza le deleghe
 
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
-    When Login portale persona giuridica tramite token exchange "personaGiuridica"
-    Then Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
+    When Login portale persona giuridica tramite token exchange "delagatoPG"
+    Then Si visualizza correttamente la Pagina Notifiche persona giuridica "delagatoPG"
 
   @TestSuite
   @TA_PGVisualizzaDelegheSenzaGruppo
