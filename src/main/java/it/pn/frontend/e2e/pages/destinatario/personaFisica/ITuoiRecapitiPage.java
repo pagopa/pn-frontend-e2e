@@ -26,6 +26,12 @@ public class ITuoiRecapitiPage extends BasePage {
     WebElement tipoIndirizzoField;
 
 
+    @FindBy(id = "addressType")
+    WebElement tipoIndirizzoField;
+
+    @FindBy(xpath = "//form[@data-testid = 'specialContactForm']//div//button[contains(text(),'Elimina')]")
+    List<WebElement> eliminaButtonList;
+
     public ITuoiRecapitiPage(WebDriver driver) {
         super(driver);
     }
@@ -138,7 +144,6 @@ public class ITuoiRecapitiPage extends BasePage {
         By newEmailBy = By.xpath("//p[contains(text(),'provaemail@test.it')]");
         getWebDriverWait(30).withMessage("La nuova mail non si visualizza correttamente").until(ExpectedConditions.visibilityOfElementLocated(newEmailBy));
     }
-
 
     public void visualizzazioneSezioneAltriRecapiti() {
         By altriRecapitiSectionBy = By.xpath("//h5[contains(text(),'Altri recapiti')]");

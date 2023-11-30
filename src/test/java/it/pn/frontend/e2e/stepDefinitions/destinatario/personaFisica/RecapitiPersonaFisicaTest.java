@@ -101,7 +101,10 @@ public class RecapitiPersonaFisicaTest {
     public void siVisualizzaCorrettamenteIlMessaggioDiErrore() {
         logger.info("Si controlla che il messaggio di errore sia visibile");
 
-        recapitiDestinatarioPage.waitMessaggioErrore();
+        if(!recapitiDestinatarioPage.waitMessaggioErrore()){
+            logger.error("Il messaggio di errore non viene visualizzato");
+            Assert.fail("Il messaggio di errore non viene visualizzato");
+        }
     }
 
     @And("Cliccare sul bottone Annulla")
@@ -162,7 +165,7 @@ public class RecapitiPersonaFisicaTest {
         DataPopulation dataPopulation = new DataPopulation();
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String email = personaFisica.get("mail").toString();
-        
+
         recapitiDestinatarioPage.insertEmail(email);
         recapitiDestinatarioPage.clickAvvisamiViaEmail();
     }
@@ -225,8 +228,23 @@ public class RecapitiPersonaFisicaTest {
             personaFisica.put("OTPpec", OTP);
             dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
         } else {
-            logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
-            Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+            String variabileAmbiente = System.getProperty("environment");
+            if (variabileAmbiente.equalsIgnoreCase("test")){
+                startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
+            } else if (variabileAmbiente.equalsIgnoreCase("dev")){
+                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com/";
+            }
+            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("emailPec");
+            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+            if (results) {
+                String OTP = recuperoOTPRecapiti.getResponseBody();
+                personaFisica.put("OTPpec", OTP);
+                dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+            }
+            else {
+                logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+                Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+            }
         }
     }
 
@@ -238,15 +256,21 @@ public class RecapitiPersonaFisicaTest {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.sendOTP(otp);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
+        if(recapitiDestinatarioPage.waitMessaggioErrore()){
+            logger.error("Il codice OTP inserito è sbagliato");
+            Assert.fail("Il codice OTP inserito è sbagliato");
+        }
+
     }
 
     @Then("Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente() {
         logger.info("Si controlla che la pec sia stata inserita correttamente");
 
-        logger.info("Si clicca su conferma nel pop-up");
+
 
         if (recapitiDestinatarioPage.siVisualizzaPopUpConferma()) {
+            logger.info("Si clicca su conferma nel pop-up");
             recapitiDestinatarioPage.clickConfermaButton();
             recapitiDestinatarioPage.visualizzaValidazione();
         } else {
@@ -279,7 +303,7 @@ public class RecapitiPersonaFisicaTest {
         } else {
                 String variabileAmbiente = System.getProperty("environment");
              if (variabileAmbiente.equalsIgnoreCase("test")){
-                 startUrl = "http://internal-ecsa-20230504103152508600000011-1839177861.eu-south-1.elb.amazonaws.com/";
+                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
              } else if (variabileAmbiente.equalsIgnoreCase("dev")){
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com/";
              }

@@ -251,7 +251,6 @@ public class LoginPGPagoPATest {
         acccediAreaRiservataPGPage.clickSpidButton();
 
         ScegliSpidPGPage scegliSpidPGPage = new ScegliSpidPGPage(this.driver);
-        scegliSpidPGPage.waitLoadScegliSpidPGPage();
         scegliSpidPGPage.clickTestButton();
 
         LoginPGPagoPAPage loginPGPagoPAPage = new LoginPGPagoPAPage(this.driver);
@@ -326,5 +325,30 @@ public class LoginPGPagoPATest {
         SelezionaImpresaPage impresaPage = new SelezionaImpresaPage(this.driver);
         impresaPage.clickSuImpresa(this.datiPersonaGiuridica.get("ragioneSociale").toString());
         impresaPage.clickAccediButton();
+    }
+
+    @When("Login portale persona giuridica tramite token exchange {string}")
+    public void loginPortalePersonaGiuridicaTramiteTokenExchange(String dpFile) {
+        logger.info("Si effettua il login PG tramite token");
+        String variabileAmbiente = System.getProperty("environment");
+        String urlIniziale = "https://imprese."+variabileAmbiente+".notifichedigitali.it/#selfCareToken=";
+        String token;
+        String user = this.dataPopulation.readDataPopulation(dpFile+".yaml").get("user").toString();
+        if (user.equalsIgnoreCase("DanteAlighieri")){
+            if (variabileAmbiente.equalsIgnoreCase("test")){
+                token = this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPGDelegante").toString();
+            }else {
+                token = this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPGDelegante").toString();
+            }
+        }else {
+            if (variabileAmbiente.equalsIgnoreCase("test")){
+                token = this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPGDelegato").toString();
+            }else {
+                token = this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPGDelegato").toString();
+            }
+        }
+        String url = urlIniziale+token;
+        this.driver.get(url);
+
     }
 }

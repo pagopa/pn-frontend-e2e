@@ -1,12 +1,12 @@
 Feature: la persona fisica inserisce l'OTP numero di telefono  errato
   Background: Login persona fisica
     Given Login Page persona fisica "personaFisica" viene visualizzata
-    When Login portale persona fisica tramite request method
+    When Login portale persona fisica tramite token exchange "personaFisica"
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
   @TA_inserimentoOTPTelefonoErrato
-  @personaFisicaDestinatario
+  @PF
   @recapitiPF
 
   Scenario: la persona fisica inserisce l'OTP numero di telefono errato

@@ -35,7 +35,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     }
 
-    public void waitLoadPitattaformaNotificaPage(String ragioneSociale) {
+    public void waitLoadPiattaformaNotificaPage(String ragioneSociale) {
         try {
             By titlePageBy = By.id("Notifiche di "+ragioneSociale+"-page");
             By codiceIunTextFieldBy = By.id("iunMatch");
@@ -76,7 +76,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void waitLoadSezioneNotificheDelegate() {
         try{
-            By notificheDelegatePageTitle = By.id("Notifiche delegate a Vita Nova Sas-page");
+            By notificheDelegatePageTitle = By.id("Notifiche delegate a Convivio Spa-page");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheDelegatePageTitle));
             logger.info("Si visualizza correttamente la sezione notifiche delegate");
         }catch (TimeoutException e){

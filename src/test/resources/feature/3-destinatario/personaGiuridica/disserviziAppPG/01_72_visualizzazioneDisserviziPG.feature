@@ -2,17 +2,14 @@ Feature: La persona giuridica visualizza i disservizi della applicazione
 
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
-    When Login portale persona giuridica tramite request method
-    Then Home page persona giuridica viene visualizzata correttamente
+    When Login portale persona giuridica tramite token exchange "personaGiuridica"
+    Then Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
 
   @TestSuite
   @test72
   @TA_PG_VisualizzaDisservizio
 
-
-  Scenario: La persona giuridica loggato visualizza lo stato dei disservizi
-    When Nella Home page persona giuridica si clicca su Send Notifiche Digitali
-    And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
+  Scenario: il persona giuridica loggato visualizza lo stato dei disservizi
     And Nella dashboard persona giuridica clicca su disservizi app
     And Si visualizza correttamente la Pagina dello Stato della piattaforma
     And Si visualizzano correttamente i dati sullo stato della piattaforma

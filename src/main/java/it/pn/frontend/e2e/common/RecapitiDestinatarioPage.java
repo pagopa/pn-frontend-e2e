@@ -133,14 +133,14 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-    public void waitMessaggioErrore() {
+    public boolean waitMessaggioErrore() {
         try {
             By messaggioErroreBy = By.id("error-alert");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messaggioErroreBy));
             logger.info("Il messaggio di errore viene visualizzato correttamente");
+            return true;
         } catch (TimeoutException e) {
-            logger.error("Il messaggio di errore non viene visualizzato con errore: " + e.getMessage());
-            Assert.fail("Il messaggio di errore non viene visualizzato con errore: " + e.getMessage());
+            return false;
         }
     }
 

@@ -1,10 +1,8 @@
 Feature: la persona giuridica inserisce un OTP email sbagliato
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
-    When Login portale persona giuridica tramite request method
-    Then Home page persona giuridica viene visualizzata correttamente
-    And Nella Home page persona giuridica si clicca su Send Notifiche Digitali
-    And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
+    When Login portale persona giuridica tramite token exchange "personaGiuridica"
+    Then Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
 
   @TestSuite
   @PG

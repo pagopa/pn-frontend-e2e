@@ -69,7 +69,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
 
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
         String ragioneSociale = dataPopulation.readDataPopulation( "personaGiuridica.yaml").get("ragioneSociale").toString();
-        piattaformaNotifichePGPAPage.waitLoadPitattaformaNotificaPage(ragioneSociale);
+        piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(ragioneSociale);
 
         this.datiNotificaPG = dataPopulation.readDataPopulation(datiNotificaPG + ".yaml");
         String codiceIUNInserito = this.datiNotificaPG.get("codiceIUN").toString();
@@ -104,7 +104,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         headerPGSection.waitLoadHeaderPGPage();
 
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
-        piattaformaNotifichePGPAPage.waitLoadPitattaformaNotificaPage("Vita Nova Sas");
+        piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage("Convivio Spa");
 
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         boolean result = notifichePFPage.getListData();

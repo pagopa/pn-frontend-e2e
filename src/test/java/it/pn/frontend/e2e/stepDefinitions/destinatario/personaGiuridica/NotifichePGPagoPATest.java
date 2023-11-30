@@ -52,7 +52,7 @@ public class NotifichePGPagoPATest {
             logger.info("Si accettano i cookies");
             cookiesSection.selezionaAccettaTuttiButton();
         }
-        piattaformaNotifichePGPAPage.waitLoadPitattaformaNotificaPage(personaGiuridica.get("ragioneSociale").toString());
+        piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(personaGiuridica.get("ragioneSociale").toString());
 
         String variabileAmbiente = System.getProperty("environment");
         String urlChiamata = "https://webapi."+variabileAmbiente+".notifichedigitali.it/delivery/notifications/received?";

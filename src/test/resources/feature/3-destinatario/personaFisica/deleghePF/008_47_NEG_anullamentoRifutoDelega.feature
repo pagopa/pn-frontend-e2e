@@ -2,7 +2,7 @@ Feature: Il delegato persona fisica annulLa l'operazione di rifiuto delega
 
   Background: Login delegato
     Given Login Page persona fisica "personaFisica" viene visualizzata
-    When Login "delegatoPF" portale persona fisica tramite request method
+    When Login portale persona fisica tramite token exchange "delegatoPF"
     Then Home page persona fisica viene visualizzata correttamente
   @TestSuite
   @TA_PFannulaRifiutoDelega
