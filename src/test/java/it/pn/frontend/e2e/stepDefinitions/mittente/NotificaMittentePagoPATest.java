@@ -564,6 +564,13 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.selezionareAggiungiDestinatarioButton();
     }
 
+    @And("Nella section Destinatario cliccare su Rimuovi destinatario")
+    public void nellaSectionDestinatarioCliccareSuRimuoviDestinatario() {
+        logger.info("Si sta cercando di selezionare il bottone rimuovi Destinatario");
+
+        destinatarioPASection.selezionareRimuoviDestinatarioButton();
+    }
+
     @And("^Nella section Destinatario inserire i dati delle persone fisiche aggiuntive per (.*)$")
     public void nellaSectionDestinatarioInserireIDatiDelDestinatariAggiuntiviPerNumeroDestinatari(String npersoneFisiche) {
         logger.info("Si cerca di aggiungere" + npersoneFisiche + " persone Fisiche");
