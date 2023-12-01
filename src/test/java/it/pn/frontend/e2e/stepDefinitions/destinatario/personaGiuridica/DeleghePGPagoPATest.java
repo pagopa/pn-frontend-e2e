@@ -515,7 +515,7 @@ public class DeleghePGPagoPATest {
     public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiControllaLaPresenzaDiUnaDelegaPerPG(String dpFile) {
         logger.info("Si controlla che ci sia una delega");
         String ragioneSociale = dataPopulation.readDataPopulation(dpFile+".yaml").get("ragioneSociale").toString();
-        if (deleghePGPagoPAPage.CercaEsistenzaDelegaPG(ragioneSociale)){
+        if (!deleghePGPagoPAPage.CercaEsistenzaDelegaPG(ragioneSociale)){
             BackgroundTest backgroundTest = new BackgroundTest();
             backgroundTest.aggiuntaNuovaDelegaPG();
         }
