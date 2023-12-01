@@ -31,9 +31,6 @@ public class AccettazioneRichiestaNotifica {
 
     private  int responseCode;
 
-    public AccettazioneRichiestaNotifica() {
-    }
-
     public boolean runGetRichiestaNotifica(){
         try{
 
