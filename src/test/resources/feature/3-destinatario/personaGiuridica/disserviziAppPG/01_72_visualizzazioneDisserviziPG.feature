@@ -1,4 +1,4 @@
-Feature: il persona giuridica visualizza i disservizi della applicazione
+Feature: La persona giuridica visualizza i disservizi della applicazione
 
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata

@@ -8,6 +8,16 @@ public class NetWorkInfo {
     private String responseStatus;
     private String responseBody;
 
+    private String authorizationBearer;
+
+    public String getAuthorizationBearer() {
+        return authorizationBearer;
+    }
+
+    public void setAuthorizationBearer(String authorizationBearer) {
+        this.authorizationBearer = authorizationBearer;
+    }
+
     public String getRequestId() {
         return requestId;
     }
@@ -47,4 +57,6 @@ public class NetWorkInfo {
     public void setResponseBody(String responseBody) {
         this.responseBody = responseBody;
     }
+
+
 }
