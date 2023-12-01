@@ -471,6 +471,10 @@ public class RecapitiDestinatarioPage extends BasePage {
             return false;
         }
     }
+    public void visualizzazioneSezioneAltriRecapiti() {
+        By altriRecapitiSectionBy = By.xpath("//h5[contains(text(),'Altri recapiti')]");
+        getWebDriverWait(30).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
+    }
 
 }
 

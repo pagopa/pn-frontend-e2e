@@ -61,4 +61,9 @@ public class RecapitiPGPagoPaTest {
         recapitiDestinatarioPage.clickAvvisamiSMS();
     }
 
+    @Then("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti della persona giuridica")
+    public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapitiDellaPersonaGiuridica() {
+        logger.info("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti della persona giuridica");
+        recapitiDestinatarioPage.visualizzazioneSezioneAltriRecapiti();
+    }
 }

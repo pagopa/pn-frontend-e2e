@@ -452,8 +452,7 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteLaSezioneAltriRecapiti() {
         logger.info("Si controlla che l'indirizzo Email non sia presente");
 
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        iTuoiRecapitiPage.visualizzazioneSezioneAltriRecapiti();
+       recapitiDestinatarioPage.visualizzazioneSezioneAltriRecapiti();
 
     }
 
@@ -703,6 +702,14 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.eliminaPecEsistente();
             backgroundTest.aggiungiNuovaPECPF();
         }
+    }
+
+    @Then("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti")
+    public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapiti() {
+        logger.info("Si controlla che si visualizzano correttamente tutti gli elementi della sezione recapiti gia associati");
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+
+        iTuoiRecapitiPage.waitLoadRecapitiGiaAssociatoSection();
     }
 }
 

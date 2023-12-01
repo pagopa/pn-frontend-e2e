@@ -138,10 +138,7 @@ public class ITuoiRecapitiPage extends BasePage {
         getWebDriverWait(30).withMessage("La nuova mail non si visualizza correttamente").until(ExpectedConditions.visibilityOfElementLocated(newEmailBy));
     }
 
-    public void visualizzazioneSezioneAltriRecapiti() {
-        By altriRecapitiSectionBy = By.xpath("//h5[contains(text(),'Altri recapiti')]");
-        getWebDriverWait(30).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
-    }
+
 
     public void selezionaTipoEmail() {
         this.tipoIndirizzoField.click();
@@ -151,4 +148,14 @@ public class ITuoiRecapitiPage extends BasePage {
         this.element(opzionePEC).click();
     }
 
+    public void waitLoadRecapitiGiaAssociatoSection() {
+        By titlePage = By.xpath("//p[contains(text(),'Già associati')]");
+        By tableBy = By.xpath("//table[@aria-label = 'Già associati']");
+        By eliminaBy = By.xpath("//form[@data-testid = 'specialContactForm']//div//button[contains(text(),'Elimina')]");
+        By modificaBy = By.xpath("//form[@data-testid = 'specialContactForm']//div//button[contains(text(),'Modifica')]");
+        this.getWebDriverWait(30).withMessage("Non si visualizza il titolo 'Gia Associati'").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
+        this.getWebDriverWait(30).withMessage("Non si visualizza il titolo 'Gia Associati'").until(ExpectedConditions.visibilityOfElementLocated(tableBy));
+        this.getWebDriverWait(30).withMessage("Non si visualizza il titolo 'Gia Associati'").until(ExpectedConditions.visibilityOfElementLocated(eliminaBy));
+        this.getWebDriverWait(30).withMessage("Non si visualizza il titolo 'Gia Associati'").until(ExpectedConditions.visibilityOfElementLocated(modificaBy));
+    }
 }
