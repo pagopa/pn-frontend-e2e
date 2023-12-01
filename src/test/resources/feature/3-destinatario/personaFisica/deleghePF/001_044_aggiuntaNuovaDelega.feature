@@ -6,7 +6,7 @@ Feature:La persona fisica aggiunge una nuova delega
     Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
-  @TA_PFaggiuntaNuovaDelega
+  @TA_PF_aggiuntaNuovaDelega
   @DeleghePF
   @PF
 

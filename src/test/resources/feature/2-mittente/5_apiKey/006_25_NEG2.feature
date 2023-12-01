@@ -2,19 +2,15 @@ Feature: Mittente seleziona CTA annulla in blocca api Key
 
   Background: login mittente
     Given Login Page mittente "mittente" viene visualizzata
-   When Login con mittente "mittente"
-    Then Home page mittente viene visualizzata correttamente
-    And Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
-    And Si visualizza correttamente la pagina Piattaforma Notifiche
+    When Login con mittente tramite token exchange
+    Then Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
     And Si visualizza correttamente la pagina Api Key
 
   @TestSuite
-
   @TA_MittenteAannullaBloccaApiKey
   @mittente
   @ApikeyMittente
-
 
   Scenario: Mittente seleziona CTA annulla in blocca api Key
     When Nella pagina Api Key si clicca sul bottone menu di una Api Key attiva presente in elenco
