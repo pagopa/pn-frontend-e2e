@@ -305,8 +305,9 @@ public class LoginMittentePagoPA {
             throw new RuntimeException(e);
         }
 
-
     }
+
+
 
     @When("Login con mittente tramite token exchange")
     public void loginConMittenteTramiteTokenExchange() {
