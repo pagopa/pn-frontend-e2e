@@ -420,8 +420,23 @@ public class RecapitiPersonaFisicaTest {
             personaFisica.put("OTPmail", OTP);
             dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
         } else {
-            logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
-            Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+            String variabileAmbiente = System.getProperty("environment");
+            if (variabileAmbiente.equalsIgnoreCase("test")){
+                startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
+            } else if (variabileAmbiente.equalsIgnoreCase("dev")){
+                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com/";
+            }
+            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("email");
+            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+            if (results) {
+                String OTP = recuperoOTPRecapiti.getResponseBody();
+                personaFisica.put("OTPmail", OTP);
+                dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+            }
+            else {
+                logger.error("La chiamata con url: "+url+" ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+                Assert.fail("La chiamata  con url: "+url+" ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+            }
         }
     }
 
@@ -525,8 +540,23 @@ public class RecapitiPersonaFisicaTest {
             personaFisica.put("OTPpec", OTP);
             dataPopulation.writeDataPopulation("personaFisica.yaml", personaFisica);
         } else {
-            logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
-            Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+            String variabileAmbiente = System.getProperty("environment");
+            if (variabileAmbiente.equalsIgnoreCase("test")){
+                startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
+            } else if (variabileAmbiente.equalsIgnoreCase("dev")){
+                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com/";
+            }
+            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("pec");
+            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+            if (results) {
+                String OTP = recuperoOTPRecapiti.getResponseBody();
+                personaFisica.put("OTPpec", OTP);
+                dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+            }
+            else {
+                logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+                Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+            }
         }
 
     }
