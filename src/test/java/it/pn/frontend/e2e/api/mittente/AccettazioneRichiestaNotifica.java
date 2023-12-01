@@ -21,7 +21,7 @@ public class AccettazioneRichiestaNotifica {
 
     private String notificationRequestId;
 
-    private final String xApikey = "5ae98457-3428-428f-a419-967ce9f08ac6";
+    private String xApikey;
 
     private String richiestaNotificaEndPoint;
 
@@ -38,7 +38,7 @@ public class AccettazioneRichiestaNotifica {
             ClassicHttpRequest httpGet = ClassicRequestBuilder
                     .get(this.getRichiestaNotificaEndPoint())
                     .addHeader(HttpHeaders.CONTENT_TYPE,"application/json")
-                    .addHeader("x-api-key",this.xApikey)
+                    .addHeader("x-api-key",getxApikey())
                     .addParameter("notificationRequestId",this.notificationRequestId)
                     .build();
             httpclient.execute(httpGet, response -> {
@@ -99,5 +99,13 @@ public class AccettazioneRichiestaNotifica {
 
     public int getResponseCode() {
         return responseCode;
+    }
+
+    public String getxApikey() {
+        return xApikey;
+    }
+
+    public void setxApikey(String xApikey) {
+        this.xApikey = xApikey;
     }
 }
