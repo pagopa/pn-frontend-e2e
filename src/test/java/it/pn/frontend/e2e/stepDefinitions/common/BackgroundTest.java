@@ -6,6 +6,7 @@ import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.RecapitiPer
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.DeleghePGPagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.DisserviziAppPGTest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.NotifichePGPagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 
 public class BackgroundTest {
@@ -30,68 +31,71 @@ public class BackgroundTest {
 
     private final HelpdeskTest helpdeskTest = new HelpdeskTest();
 
-    public void invioNotificaErrorePec(){
+    private final NotifichePGPagoPATest notifichePGPagoPATest = new NotifichePGPagoPATest();
 
-         NotificaMittentePagoPATest notificaMittentePagoPATest = new NotificaMittentePagoPATest();
-         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheSiRecuperaLUltimoNumeroProtocollo();
-         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica();
-         notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionInformazioniPreliminari();
-         notificaMittentePagoPATest.nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento(nomeFileDatiNotifica);
-         notificaMittentePagoPATest.cliccareSuContinua();
-         notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionDestinatario();
-         notificaMittentePagoPATest.nellaSectionDestinatarioInserireNomeCognomeECodiceFiscaleDaDestinatario(nomeFilePersonaFisica);
-         notificaMittentePagoPATest.nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDelDestinatario(nomeFilePersonaFisica);
-         notificaMittentePagoPATest.nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaFisica(nomeFilePersonaFisica);
-         notificaMittentePagoPATest.cliccareSuContinua();
-         notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionAllegati();
-         notificaMittentePagoPATest.nellaSectionAllegatiCaricareLAttoEInserireIlNomeAtto(nomeFileDatiNotifica);
-         notificaMittentePagoPATest.nellaSectionAllegatiCliccareSulBottoneInvia();
-         notificaMittentePagoPATest.siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata();
-         notificaMittentePagoPATest.cliccareSulBottoneVaiAlleNotifiche();
-         notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche();
-         notificaMittentePagoPATest.siVerificaCheLaNotificaVieneCreataCorrettamente(nomeFileDatiNotifica);
+    public void invioNotificaErrorePec() {
+
+        NotificaMittentePagoPATest notificaMittentePagoPATest = new NotificaMittentePagoPATest();
+        notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheSiRecuperaLUltimoNumeroProtocollo();
+        notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica();
+        notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionInformazioniPreliminari();
+        notificaMittentePagoPATest.nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento(nomeFileDatiNotifica);
+        notificaMittentePagoPATest.cliccareSuContinua();
+        notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionDestinatario();
+        notificaMittentePagoPATest.nellaSectionDestinatarioInserireNomeCognomeECodiceFiscaleDaDestinatario(nomeFilePersonaFisica);
+        notificaMittentePagoPATest.nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDelDestinatario(nomeFilePersonaFisica);
+        notificaMittentePagoPATest.nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaFisica(nomeFilePersonaFisica);
+        notificaMittentePagoPATest.cliccareSuContinua();
+        notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionAllegati();
+        notificaMittentePagoPATest.nellaSectionAllegatiCaricareLAttoEInserireIlNomeAtto(nomeFileDatiNotifica);
+        notificaMittentePagoPATest.nellaSectionAllegatiCliccareSulBottoneInvia();
+        notificaMittentePagoPATest.siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata();
+        notificaMittentePagoPATest.cliccareSulBottoneVaiAlleNotifiche();
+        notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche();
+        notificaMittentePagoPATest.siVerificaCheLaNotificaVieneCreataCorrettamente(nomeFileDatiNotifica);
     }
 
-    public void aggiuntaNuovaDelegaPF(){
-         deleghePagoPATest.visualizzaDelegheSection();
-         deleghePagoPATest.nellaSezioneDelegheClickSulBottoneAggiungiNuovaDelega();
-         deleghePagoPATest.siVisualizzaLaSezioneLeTueDeleghe();
-         deleghePagoPATest.nellaSezioneLeTueDelegheInserireIDati(nomeFileNuovaDelega);
-         deleghePagoPATest.nellaSezioneLeTueDelegheVerificareCheLaDataSiaCorretta();
-         deleghePagoPATest.nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile(nomeFileNuovaDelega);
-         deleghePagoPATest.nellaSezioneLeTueDelegheClickSulBottoneInviaRichiestaESulBottoneTornaAlleDeleghe();
-         deleghePagoPATest.nellaSezioneDelegheSiVisualizzaLaDelegaInStatoDiAttesaDiConferma();
+    public void aggiuntaNuovaDelegaPF() {
+        deleghePagoPATest.visualizzaDelegheSection();
+        deleghePagoPATest.nellaSezioneDelegheClickSulBottoneAggiungiNuovaDelega();
+        deleghePagoPATest.siVisualizzaLaSezioneLeTueDeleghe();
+        deleghePagoPATest.nellaSezioneLeTueDelegheInserireIDati(nomeFileNuovaDelega);
+        deleghePagoPATest.nellaSezioneLeTueDelegheVerificareCheLaDataSiaCorretta();
+        deleghePagoPATest.nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile(nomeFileNuovaDelega);
+        deleghePagoPATest.nellaSezioneLeTueDelegheClickSulBottoneInviaRichiestaESulBottoneTornaAlleDeleghe();
+        deleghePagoPATest.nellaSezioneDelegheSiVisualizzaLaDelegaInStatoDiAttesaDiConferma();
     }
-    public void loginPF(String nomeFileLogin){
+
+    public void loginPF(String nomeFileLogin) {
         personaFisicaPagoPA.loginPortaleDelegatoTramiteRequestMethod(nomeFileLogin);
         personaFisicaPagoPA.home_page_destinatario_viene_visualizzata_correttamente();
         deleghePagoPATest.wait_deleghe_Button();
         deleghePagoPATest.visualizzaDelegheSection();
     }
 
-    public void loginPG(String nomeFileLogin){
+    public void loginPG(String nomeFileLogin) {
         loginPGPagoPATest.login_page_persona_giuridica_viene_visualizzata(nomeFileLogin);
     }
 
-    public void getStatoDellaPiattaformaPage(){
+    public void getStatoDellaPiattaformaPage() {
         disserviziAppPGTest.nellaDashboardPersonaGiuridicaCliccaSuDisserviziApp();
         disserviziAppPGTest.siVisualizzaCorrettamenteLaPaginaDelloStatoDellaPiattaforma();
         disserviziAppPGTest.siVisualizzanoCorrettamenteIDatiSulloStatoDellaPiattaforma();
         disserviziAppPGTest.siVisualizzaStoricoDisservizi();
     }
 
-    public void getHelpdeskMonitoraggioPiattaforma(String nomeFileLogin){
+    public void getHelpdeskMonitoraggioPiattaforma(String nomeFileLogin) {
         helpdeskTest.loginHelpdeskConUtenteTest(nomeFileLogin);
         helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
         helpdeskTest.clickSuCardMonitoraggioPiattaforma();
         helpdeskTest.siVisualizzaCorrettamenteHomeMonitoraggio();
     }
 
-    public void logoutPF(){
+    public void logoutPF() {
         personaFisicaPagoPA.logout_da_portale_destinatario();
     }
 
-    public void accettazioneDelegaPF(){
+    public void accettazioneDelegaPF() {
         deleghePagoPATest.wait_deleghe_Button();
         deleghePagoPATest.siSceglieOpzioneAccetta();
         deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp(nomeFileNuovaDelega);
@@ -115,7 +119,8 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLOTPRicevutoViaEmail(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiControllaCheLaEmailSiaPresente();
     }
-    public void aggiungiPECPF(){
+
+    public void aggiungiPECPF() {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiCliccaSulBottoneConferma();
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
@@ -139,5 +144,34 @@ public class BackgroundTest {
         loginPF(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.ITuoiRecapitiButtonClick();
         recapitiPersonaFisicaTest.siVisualizzaCorrettamenteLaPaginaITuoiRecapiti();
+    }
+
+    public void loginPGTokenExchange() {
+        loginPGPagoPATest.loginPortalePersonaGiuridicaTramiteTokenExchange("personaGiuridica");
+        NotifichePGPagoPATest notifichePGPagoPATest = new NotifichePGPagoPATest();
+        notifichePGPagoPATest.siRecuperaBearerToken("personaGiuridica");
+        loginPGPagoPATest.logoutDaPortalePersonaGiuridica();
+        loginPGPagoPATest.loginPortalePersonaGiuridicaTramiteTokenExchange("delegatoPG");
+        notifichePGPagoPATest.siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica("delegatoPG");
+        notifichePGPagoPATest.nellaPaginaPiattaformaNotifichePersonaGiuridicaClickSulBottoneDeleghe();
+        deleghePGPagoPATest.siVisualizzaLaPaginaDeleghe();
+    }
+
+    public void accettazioneDelegaSenzaGruppo() {
+        deleghePagoPATest.siSceglieOpzioneAccetta();
+        deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp("nuovaDelegaPG");
+        deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneAccetta();
+        deleghePGPagoPATest.nonSiAssegnaUnGruppoAllaDelega();
+        deleghePGPagoPATest.siCliccaSulBottoneConferma();
+        deleghePGPagoPATest.siControllaCheLaDelegaPGALoStatoAttiva("personaGiuridica");
+    }
+
+    public void aggiuntaNuovaDelegaPG() {
+        deleghePGPagoPATest.nellaSezioneDelegatiDellImpresaClickSulBottoneAggiungiNuovaDelega();
+        deleghePGPagoPATest.siVisualizzaLaSezioneLeTueDeleghePersonaGiuridica();
+        deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaInserireIDati("nuovaDelegaPG");
+        deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaVerificareCheLaDataSiaCorretta();
+        deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaclickSulBottoneInviaRichiestaESulBottoneTornaAlleDeleghe();
+        deleghePGPagoPATest.nellaSezioneDelegatiDallImpresaSiVisualizzaLaDelegaInStatoDiAttesaDiConferma();
     }
 }
