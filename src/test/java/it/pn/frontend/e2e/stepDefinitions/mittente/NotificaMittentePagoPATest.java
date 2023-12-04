@@ -70,6 +70,11 @@ public class NotificaMittentePagoPATest {
         }
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         String variabileAmbiente = System.getProperty("environment");
         String urlChiamata = "https://webapi."+variabileAmbiente+".notifichedigitali.it/delivery/notifications/sent?";

@@ -45,8 +45,9 @@ public class CreazioneDelega {
                     .addHeader(HttpHeaders.CONTENT_TYPE,"application/json")
                     .build();
             httpClient.execute(httpPost, response -> {
-                logger.info("La request ha risposto con:"+response.getCode()+" "+response.getReasonPhrase());
+                logger.info("La request ha risposto con:"+response.getCode()+"-"+response.getReasonPhrase());
                 if (response.getCode()==201){
+                    logger.info("Salvataggio dati del body");
                     final HttpEntity entity = response.getEntity();
                     setResponseBody(EntityUtils.toString(entity));
                     return true;

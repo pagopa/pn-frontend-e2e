@@ -476,17 +476,17 @@ public class DeleghePGPagoPATest {
             JSONObject object = new JSONObject(text);
             Map<String, Object> delegato = new HashMap<>();
             Map<String, Object> delegante = new HashMap<>();
-            delegante.put("companyName",ragioneSocialeDelegante);
+            LocalDate date = LocalDate.now();
             delegante.put("displayName",ragioneSocialeDelegante);
+            delegante.put("companyName",ragioneSocialeDelegante);
             delegante.put("fiscalCode",codiceFiscaleDelegante);
             delegante.put("person",false);
-            delegato.put("companyName",ragioneSociale);
             delegato.put("displayName",ragioneSociale);
+            delegato.put("companyName",ragioneSociale);
             delegato.put("fiscalCode",codiceFiscale);
             delegato.put("person",false);
-            LocalDate date = LocalDate.now();
-            object.put("delegate",delegato);
             object.put("delegator",delegante);
+            object.put("delegate",delegato);
             object.put("datefrom", date);
             object.put("dateto",date.plusDays(1));
             body = object.toString();
@@ -515,7 +515,7 @@ public class DeleghePGPagoPATest {
     public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiControllaLaPresenzaDiUnaDelegaPerPG(String dpFile) {
         logger.info("Si controlla che ci sia una delega");
         String ragioneSociale = dataPopulation.readDataPopulation(dpFile+".yaml").get("ragioneSociale").toString();
-        if (!deleghePGPagoPAPage.CercaEsistenzaDelegaPG(ragioneSociale)){
+        if (deleghePGPagoPAPage.CercaEsistenzaDelegaPG(ragioneSociale)){
             BackgroundTest backgroundTest = new BackgroundTest();
             backgroundTest.aggiuntaNuovaDelegaPG();
         }
