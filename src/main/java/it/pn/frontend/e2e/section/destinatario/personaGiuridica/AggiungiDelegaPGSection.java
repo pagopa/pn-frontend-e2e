@@ -65,9 +65,9 @@ public class AggiungiDelegaPGSection extends BasePage {
 
 
     public void clickSulBottoneInviaRichiesta() {
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.inviaLaRichiestaButton));
+        this.getWebDriverWait(30).withMessage("Il bottone invia richiesta non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.inviaLaRichiestaButton));
         this.inviaLaRichiestaButton.click();
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.tornaDelegheButton));
+        this.getWebDriverWait(30).withMessage("Il bottone torna alle deleghe non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.tornaDelegheButton));
         this.tornaDelegheButton.click();
     }
 
@@ -91,6 +91,7 @@ public class AggiungiDelegaPGSection extends BasePage {
     }
 
     public void inserireCF(String cf) {
+        getWebDriverWait(30).withMessage("L'input field del codice fiscale non è cliccabile").until(ExpectedConditions.elementToBeClickable(codiceFiscaleInput));
         this.codiceFiscaleInput.sendKeys(cf);
     }
 
@@ -119,6 +120,7 @@ public class AggiungiDelegaPGSection extends BasePage {
 
 
     public void insertDataErrata() {
+        getWebDriverWait(30).withMessage("L'input data termine non è cliccabile").until(ExpectedConditions.elementToBeClickable(dataTermineDelegaInput));
         LocalDate dataDaInserire =  LocalDate.now().minusDays(1);
         dataTermineDelegaInput.sendKeys(dataDaInserire.toString());
     }
@@ -143,6 +145,7 @@ public class AggiungiDelegaPGSection extends BasePage {
     }
 
     public void insertRagioneSociale(String ragioneSociale) {
+        getWebDriverWait(30).withMessage("L'input field della ragione sociale non è cliccabile").until(ExpectedConditions.elementToBeClickable(ragioneSocialeTextField));
         ragioneSocialeTextField.sendKeys(ragioneSociale);
     }
 }

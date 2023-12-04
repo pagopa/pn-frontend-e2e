@@ -26,10 +26,9 @@ public class HeaderPGSection extends BasePage {
 
         try {
             By titlePageBy = By.xpath("//a[@title = 'Sito di PagoPA S.p.A.']");
-            By esciButtonBy = By.xpath("//button[@title = 'Esci']");
 
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(esciButtonBy));
+            this.getWebDriverWait(30).withMessage("Il titolo 'sito di PagoPA S.p.A' non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
+            this.getWebDriverWait(30).withMessage("Il bottone esci non è cliccabile").until(ExpectedConditions.elementToBeClickable(esciButton));
 
             logger.info("HeaderSectionPG caricata correttamente");
 

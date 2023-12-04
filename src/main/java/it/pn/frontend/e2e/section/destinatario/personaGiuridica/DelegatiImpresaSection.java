@@ -11,8 +11,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.TimeUnit;
-
 public class DelegatiImpresaSection extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DelegatiImpresaSection");
@@ -110,6 +108,7 @@ public class DelegatiImpresaSection extends BasePage {
     }
 
     public void clickMostraCodice() {
+        getWebDriverWait(30).withMessage("Il bottone mostra codice non è cliccabile").until(ExpectedConditions.elementToBeClickable(mostraCodiceOption));
         this.mostraCodiceOption.click();
     }
     public void clickRevocaMenuButtonPG(){
@@ -138,16 +137,12 @@ public class DelegatiImpresaSection extends BasePage {
     }
 
     public void clickRevocaButton() {
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
-            logger.error("pausa con errore: "+e.getMessage());
-            throw new RuntimeException(e);
-        }
+        getWebDriverWait(30).withMessage("Il bottone revoca non è cliccabile").until(ExpectedConditions.elementToBeClickable(revocaButton));
         this.revocaButton.click();
     }
 
     public void clickAnnulla() {
+        getWebDriverWait(30).withMessage("Il bottone annulla non è cliccabile").until(ExpectedConditions.elementToBeClickable(annullaButton));
         this.annullaButton.click();
     }
 }
