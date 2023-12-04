@@ -162,7 +162,7 @@ public class NotifichePGPagoPATest {
             logger.info("Si accettano i cookies");
             cookiesSection.selezionaAccettaTuttiButton();
         }
-        piattaformaNotifichePGPAPage.waitLoadPitattaformaNotificaPage(personaGiuridica.get("ragioneSociale").toString());
+        piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(personaGiuridica.get("ragioneSociale").toString());
         try {
             TimeUnit.SECONDS.sleep(15);
         } catch (InterruptedException e) {
