@@ -17,7 +17,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     @FindBy(xpath = "//button[@data-testid='add email']")
     WebElement avvisamiViaEmailButton;
-    @FindBy(xpath = "//button[contains(text(),'Conferma']")
+    @FindBy(xpath = "//button[contains(text(),'Conferma')]")
     WebElement confermaButtonPopUp;
 
     @FindBy(id = "code-cancel-button")
@@ -125,7 +125,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void confermaButtonClickPopUp() {
         try {
-            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.confermaButtonPopUp));
+            getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(this.confermaButtonPopUp));
             this.confermaButtonPopUp.click();
         } catch (TimeoutException e) {
             logger.error("Il bottone conferma all'interno del popup non è cliccabile con errore:" + e.getMessage());
