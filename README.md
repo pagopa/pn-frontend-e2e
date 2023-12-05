@@ -22,5 +22,9 @@ E' possibile cambiare l'ambiente di esecuzione test sostituendo il valore test n
 Per la Login con token exchange è possibile modificare o aggiungere il token nel file tokenLogin.yaml sotto la cartella Resources/dataPopulation
 
 
+Per lanciare i test dei recapiti in locale bisogna prima stabilire una connessione ssm al exchanel da cmd (per la configurazione guardare il manuale) 
+Esempio; il comando per l'ambiente di test:
+aws --profile pn-test-core ssm start-session --target "i-0c7b5a5e1e47dcdff" --document-name AWS-StartPortForwardingSessionToRemoteHost --parameters "{\"portNumber\":[\"8080\"],\"localPortNumber\":[\"8887\"],\"host\":[\"internal-EcsA-20230504103152508600000011-1839177861.eu-south-1.elb.amazonaws.com\"]}"
+
 
 plugin IntellJ: Cucumber, Gherking
