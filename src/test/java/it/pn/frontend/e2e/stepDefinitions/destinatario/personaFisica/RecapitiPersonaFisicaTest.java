@@ -232,7 +232,7 @@ public class RecapitiPersonaFisicaTest {
             if (variabileAmbiente.equalsIgnoreCase("test")){
                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
             } else if (variabileAmbiente.equalsIgnoreCase("dev")){
-                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com/";
+                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
             }
             url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("emailPec");
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
@@ -305,7 +305,7 @@ public class RecapitiPersonaFisicaTest {
              if (variabileAmbiente.equalsIgnoreCase("test")){
                  startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
              } else if (variabileAmbiente.equalsIgnoreCase("dev")){
-                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com/";
+                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
              }
              url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("mail");
              results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
@@ -424,7 +424,7 @@ public class RecapitiPersonaFisicaTest {
             if (variabileAmbiente.equalsIgnoreCase("test")){
                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
             } else if (variabileAmbiente.equalsIgnoreCase("dev")){
-                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com/";
+                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
             }
             url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("email");
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
@@ -544,7 +544,7 @@ public class RecapitiPersonaFisicaTest {
             if (variabileAmbiente.equalsIgnoreCase("test")){
                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
             } else if (variabileAmbiente.equalsIgnoreCase("dev")){
-                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com/";
+                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
             }
             url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("pec");
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
