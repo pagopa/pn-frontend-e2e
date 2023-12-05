@@ -1,0 +1,20 @@
+{
+  "delegator":{
+    "companyName": "ragione sociale",
+    "displayName":"ragione sociale",
+    "fiscalCode":"codice fiscale",
+    "person":false
+  },
+  "delegate":{
+    "companyName": "ragione sociale",
+    "displayName":"ragione sociale",
+    "fiscalCode":"codice fiscale",
+    "person":false
+  },
+  "status":"pending",
+  "visibilityIds":[
+  ],
+  "verificationCode":"24411",
+  "datefrom":"data di oggi",
+  "dateto":"data di domani"
+}
