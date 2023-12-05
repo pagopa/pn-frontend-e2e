@@ -930,6 +930,10 @@ public class NotificaMittentePagoPATest {
         accettazioneRichiestaNotifica.setxApikey(codiceApi);
         String statusNotifica = "WAITING";
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
+        if(notificationRequestId==null){
+            logger.error("NotificationRequestId non trovato, il codice della risposta al url "+ urlNotificationRequest +" è diverso di 202 ");
+            Assert.fail("NotificationRequestId non trovato, il codice della risposta al url "+ urlNotificationRequest +" è diverso di 202 ");
+        }
         accettazioneRichiestaNotifica.setNotificationRequestId(notificationRequestId);
         accettazioneRichiestaNotifica.setRichiestaNotificaEndPoint(urlRichiestaNotifica);
         do{
@@ -974,7 +978,6 @@ public class NotificaMittentePagoPATest {
                 return result.substring(1,result.length()-1);
             }
         }
-        logger.error("NotificationRequestId non trovato, il codice della risposta al url "+ urlNotificationRequest +" è diverso di 202 ");
         return null;
     }
 
