@@ -15,7 +15,7 @@ Es. per lanciare l'invio della notifica:
 
 Per lanciare singolarmente i test di un portale basta modificare il valore del -Dcucumber.filter.tags con: @mittente, @PF, @PG
 
-Per lanciare singolarmente basta andare a vedere il tag nel feature file. es:@TA_inserimentoDatiErratiDestinatario 
+Per lanciare un test specifico basta andare a vedere il tag nel feature file. es: -Dcucumber.filter.tags=@TA_inserimentoDatiErratiDestinatario 
 
 E' possibile cambiare l'ambiente di esecuzione test sostituendo il valore test nella variabile -Denvironment con dev.
 
