@@ -929,6 +929,11 @@ public class NotificaMittentePagoPATest {
         }
         accettazioneRichiestaNotifica.setxApikey(codiceApi);
         String statusNotifica = "WAITING";
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
         if(notificationRequestId==null){
             logger.error("NotificationRequestId non trovato, il codice della risposta al url "+ urlNotificationRequest +" è diverso di 202 ");
