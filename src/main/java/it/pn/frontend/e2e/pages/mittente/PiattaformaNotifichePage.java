@@ -434,25 +434,25 @@ public class PiattaformaNotifichePage extends BasePage {
     public boolean verificaEsistenzaCFNotifiche() {
         By cfFiealdBy = By.xpath("//td[button/p[contains(@class,'MuiTypography-root MuiTypography-body2')]]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(cfFiealdBy));
-        return this.elements(cfFiealdBy).size() >= 1;
+        return !this.elements(cfFiealdBy).isEmpty();
     }
 
     public boolean verificaEsistenzaCodiceIUNNotifiche() {
         By codiciIUNBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr')]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiciIUNBy));
-        return this.elements(codiciIUNBy).size() >= 1;
+        return !this.elements(codiciIUNBy).isEmpty();
     }
 
     public boolean verificaEsistenzaGruppoNotifiche() {
         By gruppiBy = By.xpath("//td[button/div/span[contains(@class,'css-t63gu0')]]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(gruppiBy));
-        return this.elements(gruppiBy).size() >= 1;
+        return !this.elements(gruppiBy).isEmpty();
     }
 
     public boolean verificaEsistenzaStatoNotifiche() {
         By statiBy = By.xpath("//td[button/div/div[contains(@data-testid,'statusChip-')]]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statiBy));
-        return this.elements(statiBy).size() >= 1;
+        return !this.elements(statiBy).isEmpty();
     }
 
 
@@ -472,27 +472,29 @@ public class PiattaformaNotifichePage extends BasePage {
         List<WebElement> listaDate = getListaDate();
         LocalDate dataSuccessiva;
         LocalDate dataPrecedente;
-        for (int i = 0; i < listaDate.size() - 1; i++) {
-            String dataDopo = listaDate.get(i).getText();
-            String dataPrima = listaDate.get(i + 1).getText();
-            if ("Oggi".equals(dataDopo)) {
-                dataSuccessiva = LocalDate.now();
-            } else {
-                String[] dateA = dataDopo.split("/");
-                dataDopo = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
-                dataSuccessiva = LocalDate.parse(dataDopo);
-            }
-            if ("Oggi".equals(dataPrima)) {
-                dataPrecedente = LocalDate.now();
-            } else {
-                String[] dateA = dataPrima.split("/");
-                dataPrima = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
-                dataPrecedente = LocalDate.parse(dataPrima);
-            }
-            if (dataSuccessiva.isBefore(dataPrecedente)) {
-                logger.error("Le date non sono ordinate dal più recente");
-                Assert.fail("Le date non sono ordinate dal più recente");
-                return;
+        if (listaDate != null){
+            for (int i = 0; i < listaDate.size() - 1; i++) {
+                String dataDopo = listaDate.get(i).getText();
+                String dataPrima = listaDate.get(i + 1).getText();
+                if ("Oggi".equals(dataDopo)) {
+                    dataSuccessiva = LocalDate.now();
+                } else {
+                    String[] dateA = dataDopo.split("/");
+                    dataDopo = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
+                    dataSuccessiva = LocalDate.parse(dataDopo);
+                }
+                if ("Oggi".equals(dataPrima)) {
+                    dataPrecedente = LocalDate.now();
+                } else {
+                    String[] dateA = dataPrima.split("/");
+                    dataPrima = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
+                    dataPrecedente = LocalDate.parse(dataPrima);
+                }
+                if (dataSuccessiva.isBefore(dataPrecedente)) {
+                    logger.error("Le date non sono ordinate dal più recente");
+                    Assert.fail("Le date non sono ordinate dal più recente");
+                    return;
+                }
             }
         }
         logger.info("Le date sono visualizzate correttamente");
