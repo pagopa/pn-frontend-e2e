@@ -4,7 +4,6 @@ Feature: Il mittente inserisce i dati non coretti nella sezione informazioni pre
     Given Login Page mittente "mittente" viene visualizzata
     When Login con mittente tramite token exchange
     Then Si visualizza correttamente la pagina Piattaforma Notifiche
-
   @TA_inserimentoDatiErratiInfoPreliminari
   @TestSuite
   @mittente
