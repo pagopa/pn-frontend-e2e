@@ -224,6 +224,14 @@ public class DeleghePGPagoPATest {
     }
 
     @And("Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega {string}")
+    public void nellaPaginaDelegheSezioneDelegheAcaricoDellImpresaSiCliccaSulMenuDellaDelega(String dpFile) {
+        logger.info("Si clicca sul menu delle delega");
+
+        this.datiDelega = dataPopulation.readDataPopulation(dpFile+".yaml");
+        this.delegatiImpresaSection.clickMenuDelega(datiDelega.get("ragioneSociale").toString());
+
+    }
+
     @And("Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega {string}")
     public void nellaPaginaDelegheSezioneDelegheDellImpresaSiCliccaSulMenuDellaDelega(String dpFile) {
         logger.info("Si clicca sul menu delle delega");
