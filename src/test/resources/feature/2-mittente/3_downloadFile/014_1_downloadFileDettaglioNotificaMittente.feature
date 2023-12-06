@@ -3,10 +3,8 @@ Feature: Mittente scarica tutti i file all'interno di una notifica
 
   Background: Login mittente
     Given Login Page mittente "mittente" viene visualizzata
-   When Login con mittente "mittente"
-    Then Home page mittente viene visualizzata correttamente
-    And Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
-    And Si visualizza correttamente la pagina Piattaforma Notifiche
+    When Login con mittente tramite token exchange
+    Then Si visualizza correttamente la pagina Piattaforma Notifiche
 
   @TestSuite
   @TA_MittenteDownloadFileDettaglioNotifica

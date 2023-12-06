@@ -12,7 +12,7 @@ Feature:Il delegato persona giuridica accetta la delega non assegnandoli un grup
   Scenario: Il delegato persona giuridica accetta la delega non assegnandoli un gruppo
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
-    And Nella sezione Deleghe si verifica sia presente una delega
+    And Nella sezione Deleghe si verifica sia presente una delega per PG "personaGiuridica"
     And si sceglie opzione accetta
     And Si inserisce il codice delega nel pop-up "nuovaDelegaPG"
     And Nella sezione Deleghe si clicca sul bottone Accetta

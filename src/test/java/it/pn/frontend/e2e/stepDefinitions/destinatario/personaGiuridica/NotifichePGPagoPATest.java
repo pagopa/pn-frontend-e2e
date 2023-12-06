@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -26,7 +27,8 @@ public class NotifichePGPagoPATest {
     private final WebDriver driver = Hooks.driver;
 
     List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
-
+    DataPopulation dataPopulation = new DataPopulation();
+    Map <String, Object> personaGiuridica = new HashMap<>();
     private final PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
     @And("Nella Home page persona giuridica si clicca su Send Notifiche Digitali")
     public void clickSendNotificheDigitali(){
@@ -45,8 +47,7 @@ public class NotifichePGPagoPATest {
 
     @And("Si visualizza correttamente la Pagina Notifiche persona giuridica {string}")
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica(String dpFile) {
-        DataPopulation dataPopulation = new DataPopulation();
-        Map <String, Object> personaGiuridica = dataPopulation.readDataPopulation(dpFile+".yaml");
+        personaGiuridica = dataPopulation.readDataPopulation(dpFile+".yaml");
         CookiesSection cookiesSection = new CookiesSection(this.driver);
         if(cookiesSection.waitLoadCookiesPage()){
             logger.info("Si accettano i cookies");
@@ -139,6 +140,36 @@ public class NotifichePGPagoPATest {
     }
 
 
+    private String getBearerToken() {
+        List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
+        String bearerToken = "";
+        for (NetWorkInfo netWorkInfo: netWorkInfos) {
+            String variabileAmbiente = System.getProperty("environment");
+            String urlChiamata = "https://webapi."+variabileAmbiente+".notifichedigitali.it/delivery/notifications/received?";
+            if (netWorkInfo.getRequestUrl().contains(urlChiamata)){
+                bearerToken = netWorkInfo.getAuthorizationBearer();
+            }
+        }
+        return bearerToken;
+    }
 
-
+    public void siRecuperaBearerToken(String  dpFile) {
+        logger.info("Si recupera il bearer token");
+        DataPopulation dataPopulation = new DataPopulation();
+        personaGiuridica = dataPopulation.readDataPopulation(dpFile+".yaml");
+        CookiesSection cookiesSection = new CookiesSection(this.driver);
+        if(cookiesSection.waitLoadCookiesPage()){
+            logger.info("Si accettano i cookies");
+            cookiesSection.selezionaAccettaTuttiButton();
+        }
+        piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(personaGiuridica.get("ragioneSociale").toString());
+        try {
+            TimeUnit.SECONDS.sleep(15);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        String bearerToken = getBearerToken();
+        personaGiuridica.put("bearerToken",bearerToken);
+        dataPopulation.writeDataPopulation(dpFile+".yaml",personaGiuridica);
+    }
 }

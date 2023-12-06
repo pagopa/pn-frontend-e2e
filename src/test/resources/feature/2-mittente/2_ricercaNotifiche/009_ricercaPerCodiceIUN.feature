@@ -2,8 +2,8 @@ Feature: Mittente effetua una ricerca notifiche per codice IUN
 
   Background: login mittente
     Given Login Page mittente "mittente" viene visualizzata
-   When Login con mittente "mittente"
-    Then Home page mittente viene visualizzata correttamente
+    When Login con mittente tramite token exchange
+    Then Si visualizza correttamente la pagina Piattaforma Notifiche
 
   @TestSuite
   @TA_MittenteRicercaPerCodiceIUN
@@ -11,8 +11,7 @@ Feature: Mittente effetua una ricerca notifiche per codice IUN
   @ricercaNatoficheMittente
 
   Scenario: Mittente loggato effettua una ricerca per codice IUN
-    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
-    And Si visualizza correttamente la pagina Piattaforma Notifiche
+    When Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche si recupera un codice IUN valido
     And Cliccare sul bottone Filtra
     Then Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice IUN della notifica

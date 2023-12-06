@@ -2,8 +2,8 @@ Feature: Mittente effetua una ricerca notifiche per Data
 
   Background: login mittente
     Given Login Page mittente "mittente" viene visualizzata
-   When Login con mittente "mittente"
-    Then Home page mittente viene visualizzata correttamente
+    When Login con mittente tramite token exchange
+    Then Si visualizza correttamente la pagina Piattaforma Notifiche
 
   @TestSuite
   @TA_MittenteRicercaPerData
@@ -11,10 +11,7 @@ Feature: Mittente effetua una ricerca notifiche per Data
   @ricercaNatoficheMittente
 
   Scenario: Mittente loggato effettua una ricerca per periodo temporale
-    When Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche
-    And Si visualizza correttamente la pagina Piattaforma Notifiche
-   # And Nella pagina Piattaforma Notifiche accetta i Cookies
-    And Nella pagina Piattaforma Notifiche inserire un arco temporale
+    When Nella pagina Piattaforma Notifiche inserire un arco temporale
     And Cliccare sul bottone Filtra
     Then Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con la data della notifica compresa tra <da> e <a>
     And Nella pagina Piattaforma Notifiche i risultati sono contenuti in una o più pagine
