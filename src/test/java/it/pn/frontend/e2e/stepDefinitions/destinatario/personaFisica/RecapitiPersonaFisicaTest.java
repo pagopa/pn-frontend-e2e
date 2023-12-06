@@ -435,7 +435,7 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.confermaButtonEliminaClick();
         } else {
             recapitiDestinatarioPage.clickSuChiudiPopUp();
-            iTuoiRecapitiPage.eliminaEmailEsistente();
+            recapitiDestinatarioPage.eliminaNuovaPec();
             recapitiDestinatarioPage.waitLoadPopUpElimina();
             recapitiDestinatarioPage.confermaButtonEliminaClick();
         }
