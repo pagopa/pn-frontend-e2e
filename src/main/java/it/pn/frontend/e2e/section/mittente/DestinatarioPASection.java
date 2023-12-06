@@ -311,4 +311,9 @@ public class DestinatarioPASection extends BasePage {
         return this.driver.findElement(valoreErratoBy).getText();
     }
 
+    public boolean verificaNumeroDestinatari() {
+        logger.info("TA_QA: si verifica il numero dei destinatari");
+        return this.rimuoviDestinatarioButtons.isEmpty();
+
+    }
 }

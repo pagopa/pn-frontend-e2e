@@ -18,7 +18,6 @@ Feature: Il mittente inserisce 2 destinatari e viene eliminato il primo
     And Nella section Destinatario selezionare il radio button persona giuridica
     And Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica "personaGiuridica"
     And Nella section Destinatario cliccare su Aggiungi destinatario
-    And Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica "personaGiuridica_1"
-    And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario cliccare su Rimuovi destinatario
+    Then Nella section Destinatario viene visualizzato un solo destinatario
     And Logout da portale mittente

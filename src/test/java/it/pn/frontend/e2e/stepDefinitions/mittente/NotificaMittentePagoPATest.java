@@ -510,6 +510,17 @@ public class NotificaMittentePagoPATest {
         }
     }
 
+    @Then("Nella section Destinatario viene visualizzato un solo destinatario")
+    public void nellaSectionDestinatarioVieneVisualizzatoUnSoloDestinatario() {
+        logger.info("Verifica visualizzazione di un solo destinatario");
+        if (destinatarioPASection.verificaNumeroDestinatari()) {
+            logger.info("Viene visualizzato un solo destinatario");
+        } else {
+            logger.error("Viene visualizzato più di un destinatario");
+            Assert.fail("Viene visualizzato più di un destinatario");
+        }
+    }
+
     @And("Nella pagina Piattaforma Notifiche si visualizzano le notifiche a partire dalla più recente")
     public void nellaPaginaPiattaformaNotificheSiVisualizzanoLeNotificheAPartireDallaPiuRecente() {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
