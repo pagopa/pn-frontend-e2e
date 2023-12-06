@@ -9,7 +9,6 @@ Feature: Il mittente inserisce i dati non coretti nella sezione informazioni pre
   @TestSuite
   @mittente
   @invioNotifiche
-
   Scenario:Il mittente inserisce i dati non corretti nella sezione informazioni preliminari
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
