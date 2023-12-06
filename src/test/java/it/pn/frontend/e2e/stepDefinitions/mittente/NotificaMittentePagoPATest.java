@@ -1070,6 +1070,13 @@ public class NotificaMittentePagoPATest {
         logger.info("Messaggio di errore 'Inserisci un codice IUN valido' trovato");
     }
 
-
-
+    @Then("Nella section si visualizza correttamente i campi vuoti")
+    public void nellaSectionSiVisualizzaCorrettamenteICampiVuoti() {
+        logger.info("Si verifica che i campi sono vuoti");
+        if (piattaformaNotifichePage.verificaCampiPreliminariNotificaVuoti()) {
+            logger.info("I campi sono vuoti");
+        } else {
+            Assert.fail("I campi non sono vuoti");
+        }
+    }
 }
