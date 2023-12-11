@@ -471,19 +471,20 @@ public class PiattaformaNotifichePage extends BasePage {
     public void controlloOrdineNotifiche() {
         List<WebElement> listaDate = getListaDate();
         LocalDate dataSuccessiva;
+        final String dataOggi = "Oggi";
         LocalDate dataPrecedente;
         if (listaDate != null){
             for (int i = 0; i < listaDate.size() - 1; i++) {
                 String dataDopo = listaDate.get(i).getText();
                 String dataPrima = listaDate.get(i + 1).getText();
-                if ("Oggi".equals(dataDopo)) {
+                if (dataOggi.equals(dataDopo)) {
                     dataSuccessiva = LocalDate.now();
                 } else {
                     String[] dateA = dataDopo.split("/");
                     dataDopo = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
                     dataSuccessiva = LocalDate.parse(dataDopo);
                 }
-                if ("Oggi".equals(dataPrima)) {
+                if (dataOggi.equals(dataPrima)) {
                     dataPrecedente = LocalDate.now();
                 } else {
                     String[] dateA = dataPrima.split("/");
