@@ -675,6 +675,7 @@ public class RecapitiPersonaFisicaTest {
                 recapitiDestinatarioPage.confermaButtonEliminaClick();
             } else {
                 recapitiDestinatarioPage.clickSuChiudiPopUp();
+                recapitiDestinatarioPage.eliminaNuovaEmail();
                 iTuoiRecapitiPage.eliminaEmailEsistente();
                 recapitiDestinatarioPage.waitLoadPopUpElimina();
                 recapitiDestinatarioPage.confermaButtonEliminaClick();
@@ -710,6 +711,21 @@ public class RecapitiPersonaFisicaTest {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
 
         iTuoiRecapitiPage.waitLoadRecapitiGiaAssociatoSection();
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email diversa")
+    public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaEmailDiversa() {
+        logger.info("Si controlla che che ci sia già una Email diversa");
+
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
+
+        BackgroundTest backgroundTest = new BackgroundTest();
+
+        if (!recapitiDestinatarioPage.verificaMailAssociata()) {
+            backgroundTest.aggiuntaEmailPF();
+            backgroundTest.aggiuntaNuovaEmail();
+        }
     }
 }
 

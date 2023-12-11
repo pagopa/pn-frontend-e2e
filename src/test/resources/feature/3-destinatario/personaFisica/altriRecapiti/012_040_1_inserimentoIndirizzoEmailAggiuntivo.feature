@@ -13,7 +13,7 @@ Feature: la persona fisica inserisce un indirizzo Email aggiuntivo
   Scenario: la persona fisica inserisce un indirizzo Email aggiuntivo
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
-    And Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email
+    And Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email diversa
     And Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti
     And Nella sezione altri recapiti si controlla l'esistenza di una email "personaFisica"
     And Nella sezione altri recapiti si seleziona l'ente "mittente"
