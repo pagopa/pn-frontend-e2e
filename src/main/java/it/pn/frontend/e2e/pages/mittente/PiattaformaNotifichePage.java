@@ -74,8 +74,8 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(id = "new-notification-btn")
     WebElement inviaNuovaNotificaButton;
 
-
-
+    @FindBy(xpath = "//form[contains(@data-testid,'preliminaryInformationsForm')]")
+    WebElement preliminaryInformationsForm;
 
     public PiattaformaNotifichePage(WebDriver driver) {
         super(driver);
@@ -626,5 +626,18 @@ public class PiattaformaNotifichePage extends BasePage {
         By errorMessageBy = By.id("iunMatch-helper-text");
         getWebDriverWait(30).withMessage("Messagio di errore 'Inserisci un codice IUN valido' non trovato").until(ExpectedConditions.visibilityOfElementLocated(errorMessageBy));
         return this.element(errorMessageBy).isDisplayed();
+    }
+
+    public boolean verificaCampiPreliminariNotificaVuoti() {
+        List<WebElement> inputElements = preliminaryInformationsForm.findElements(By.tagName("input"));
+        for (WebElement inputElement : inputElements) {
+            if (inputElement.getAttribute("type").equals("text") && !inputElement.getAttribute("value").isEmpty()) {
+                return false;
+            }
+            if (inputElement.getAttribute("type").equals("radio") && inputElement.isSelected()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

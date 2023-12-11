@@ -510,6 +510,17 @@ public class NotificaMittentePagoPATest {
         }
     }
 
+    @Then("Nella section Destinatario viene visualizzato un solo destinatario")
+    public void nellaSectionDestinatarioVieneVisualizzatoUnSoloDestinatario() {
+        logger.info("Verifica visualizzazione di un solo destinatario");
+        if (destinatarioPASection.verificaNumeroDestinatari()) {
+            logger.info("Viene visualizzato un solo destinatario");
+        } else {
+            logger.error("Viene visualizzato più di un destinatario");
+            Assert.fail("Viene visualizzato più di un destinatario");
+        }
+    }
+
     @And("Nella pagina Piattaforma Notifiche si visualizzano le notifiche a partire dalla più recente")
     public void nellaPaginaPiattaformaNotificheSiVisualizzanoLeNotificheAPartireDallaPiuRecente() {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
@@ -571,6 +582,13 @@ public class NotificaMittentePagoPATest {
         logger.info("Si sta cercando di selezionare il bottone aiggiungere Destinatario");
 
         destinatarioPASection.selezionareAggiungiDestinatarioButton();
+    }
+
+    @And("Nella section Destinatario cliccare su Rimuovi destinatario")
+    public void nellaSectionDestinatarioCliccareSuRimuoviDestinatario() {
+        logger.info("Si sta cercando di selezionare il bottone rimuovi Destinatario");
+
+        destinatarioPASection.selezionareRimuoviDestinatarioButton();
     }
 
     @And("^Nella section Destinatario inserire i dati delle persone fisiche aggiuntive per (.*)$")
@@ -1078,6 +1096,13 @@ public class NotificaMittentePagoPATest {
         logger.info("Messaggio di errore 'Inserisci un codice IUN valido' trovato");
     }
 
-
-
+    @Then("Nella section si visualizza correttamente i campi vuoti")
+    public void nellaSectionSiVisualizzaCorrettamenteICampiVuoti() {
+        logger.info("Si verifica che i campi sono vuoti");
+        if (piattaformaNotifichePage.verificaCampiPreliminariNotificaVuoti()) {
+            logger.info("I campi sono vuoti");
+        } else {
+            Assert.fail("I campi non sono vuoti");
+        }
+    }
 }
