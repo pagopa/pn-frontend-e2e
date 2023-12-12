@@ -4,8 +4,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.api.personaGiuridica.CreazioneDelega;
 import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.listeners.NetWorkInfo;
-import it.pn.frontend.e2e.pages.destinatario.personaFisica.DeleghePage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.AggiungiDelegaPGSection;
@@ -23,7 +21,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class DeleghePGPagoPATest {
@@ -465,11 +462,12 @@ public class DeleghePGPagoPATest {
 
 
     private String creazioneBodyChiamata(String dpFile) {
-        String body = "";
+        String body;
         String ragioneSociale = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml").get("ragioneSociale").toString();
         String ragioneSocialeDelegante = dataPopulation.readDataPopulation(dpFile+".yaml").get("ragioneSociale").toString();
         String codiceFiscale = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml").get("codiceFiscale").toString();
-        String codiceFiscaleDelegante = dataPopulation.readDataPopulation(dpFile+".yaml").get("codiceFiscale").toString();
+        String codiceFiscaleDelegante;
+        codiceFiscaleDelegante = dataPopulation.readDataPopulation(dpFile+".yaml").get("codiceFiscale").toString();
         try {
             String pathIniziale = System.getProperty("user.dir");
             String text = Files.readString(Paths.get(pathIniziale+"\\src\\test\\resources\\dataPopulation\\bodyChiamataDeleghe.json"));
@@ -515,7 +513,7 @@ public class DeleghePGPagoPATest {
     public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiControllaLaPresenzaDiUnaDelegaPerPG(String dpFile) {
         logger.info("Si controlla che ci sia una delega");
         String ragioneSociale = dataPopulation.readDataPopulation(dpFile+".yaml").get("ragioneSociale").toString();
-        if (deleghePGPagoPAPage.CercaEsistenzaDelegaPG(ragioneSociale)){
+        if (!deleghePGPagoPAPage.CercaEsistenzaDelegaPG(ragioneSociale)){
             BackgroundTest backgroundTest = new BackgroundTest();
             backgroundTest.aggiuntaNuovaDelegaPG();
         }
