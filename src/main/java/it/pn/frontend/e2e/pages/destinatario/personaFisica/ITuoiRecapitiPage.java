@@ -79,7 +79,7 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void eliminaEmailEsistente() {
         By eliminaMailButton = By.xpath("//p[contains(text(),'Indirizzo e-mail')]/following-sibling::div/div/button[contains(text(),'Elimina')]");
-        this.getWebDriverWait(30).withMessage("il Bottone elimina e-mail non presente").until(ExpectedConditions.visibilityOfElementLocated(eliminaMailButton));
+        this.getWebDriverWait(40).withMessage("il Bottone elimina e-mail non presente").until(ExpectedConditions.elementToBeClickable(eliminaMailButton));
         this.js().executeScript("arguments[0].click();", this.element(eliminaMailButton));
     }
 
