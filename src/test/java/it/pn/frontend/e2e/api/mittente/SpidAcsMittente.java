@@ -27,7 +27,6 @@ public class SpidAcsMittente {
     private String spidAcsEndPoint;
     private final String relayState;
     private final String samlResponse;
-
     private String bearerToken;
     private final BasicCookieStore cookieStore;
     private final Map<String, String> spidAcsMittenteResponse = new HashMap<>();

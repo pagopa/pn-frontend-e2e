@@ -31,6 +31,7 @@ public class BackgroundTest {
 
     private final HelpdeskTest helpdeskTest = new HelpdeskTest();
 
+    private final NotifichePGPagoPATest notifichePGPagoPATest = new NotifichePGPagoPATest();
 
     public void invioNotificaErrorePec() {
 
