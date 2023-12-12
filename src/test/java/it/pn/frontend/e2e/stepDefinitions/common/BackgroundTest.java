@@ -73,6 +73,13 @@ public class BackgroundTest {
         deleghePagoPATest.visualizzaDelegheSection();
     }
 
+    public void loginPFRecapiti(String nomeFileLogin) {
+        personaFisicaPagoPA.loginPortaleDelegatoTramiteRequestMethod(nomeFileLogin);
+        personaFisicaPagoPA.home_page_destinatario_viene_visualizzata_correttamente();
+        recapitiPersonaFisicaTest.ITuoiRecapitiButtonClick();
+        recapitiPersonaFisicaTest.siVisualizzaCorrettamenteLaPaginaITuoiRecapiti();
+    }
+
     public void loginPG(String nomeFileLogin) {
         loginPGPagoPATest.login_page_persona_giuridica_viene_visualizzata(nomeFileLogin);
     }
@@ -128,7 +135,7 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente();
         logoutPF();
-        loginPF(nomeFilePersonaFisica);
+        loginPFRecapiti(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.ITuoiRecapitiButtonClick();
         recapitiPersonaFisicaTest.siVisualizzaCorrettamenteLaPaginaITuoiRecapiti();
     }
