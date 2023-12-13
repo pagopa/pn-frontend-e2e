@@ -221,9 +221,16 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public boolean verificaMailAssociata() {
-            By emailAssociata = By.id("email");
-            getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(emailAssociata));
-            return !element(emailAssociata).isDisplayed();
+           /* By inputEmail = By.id("email");
+            getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(inputEmail));
+            return !element(inputEmail).isDisplayed();*/
+        try {
+            By emailAssociataBy = By.xpath("//p[contains(text(),'Indirizzo e-mail')]/following-sibling::div//p[@class='MuiTypography-root MuiTypography-body1 css-1j1s9qe']");
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(emailAssociataBy));
+            return true;
+        }catch (TimeoutException e){
+            return false;
+        }
     }
 
     public boolean siVisulizzaPecInserita() {

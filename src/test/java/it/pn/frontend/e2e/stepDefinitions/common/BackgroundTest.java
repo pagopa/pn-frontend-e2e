@@ -148,7 +148,7 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVerificaCheLaPecSiaStataModificata(nomeFilePersonaFisica);
         logoutPF();
-        loginPF(nomeFilePersonaFisica);
+        loginPFRecapiti(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.ITuoiRecapitiButtonClick();
         recapitiPersonaFisicaTest.siVisualizzaCorrettamenteLaPaginaITuoiRecapiti();
     }

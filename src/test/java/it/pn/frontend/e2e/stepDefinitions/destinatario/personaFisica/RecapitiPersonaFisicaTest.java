@@ -333,11 +333,11 @@ public class RecapitiPersonaFisicaTest {
     @Then("Nella pagina I Tuoi Recapiti si controlla che la Email sia presente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLaEmailSiaPresente() {
         logger.info("Si controlla che la Email sia stata inserita correttamente");
+        if (!recapitiDestinatarioPage.verificaMailAssociata()){
+            logger.error("Email non è stata inserita correttamente");
+            Assert.fail("Email non è stata inserita correttamente");
+        }
 
-        /* ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        iTuoiRecapitiPage.waitLoadITuoiRecapitiPage(); */
-
-        recapitiDestinatarioPage.verificaMailAssociata();
     }
 
     @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email")
@@ -444,8 +444,10 @@ public class RecapitiPersonaFisicaTest {
     @Then("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo Email non sia presente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoEmailNonSiaPresente() {
         logger.info("Si controlla che l'indirizzo Email non sia presente");
-
-        recapitiDestinatarioPage.verificaMailAssociata();
+        if (recapitiDestinatarioPage.verificaMailAssociata()){
+            logger.error("Email non è stata eliminata correttamente");
+            Assert.fail("Email non è stata eliminata correttamente");
+        }
     }
 
     @And("Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti")
@@ -603,7 +605,10 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.visualizzaValidazione();
         } else {
             String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("emailPec").toString();
-            recapitiDestinatarioPage.verificaNuovaEmailEPEC(pec);
+            if (!recapitiDestinatarioPage.verificaNuovaEmailEPEC(pec)){
+                logger.error("La email PEC non è stata associata correttamente");
+                Assert.fail("La email PEC non è stata associata correttamente");
+            }
         }
     }
 
