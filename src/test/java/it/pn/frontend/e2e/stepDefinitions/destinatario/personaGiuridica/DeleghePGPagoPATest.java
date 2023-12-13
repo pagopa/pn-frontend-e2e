@@ -470,11 +470,12 @@ public class DeleghePGPagoPATest {
 
 
     private String creazioneBodyChiamata(String dpFile) {
-        String body = "";
+        String body;
         String ragioneSociale = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml").get("ragioneSociale").toString();
         String ragioneSocialeDelegante = dataPopulation.readDataPopulation(dpFile+".yaml").get("ragioneSociale").toString();
         String codiceFiscale = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml").get("codiceFiscale").toString();
-        String codiceFiscaleDelegante = dataPopulation.readDataPopulation(dpFile+".yaml").get("codiceFiscale").toString();
+        String codiceFiscaleDelegante;
+        codiceFiscaleDelegante = dataPopulation.readDataPopulation(dpFile+".yaml").get("codiceFiscale").toString();
         try {
             String pathIniziale = System.getProperty("user.dir");
             String text = Files.readString(Paths.get(pathIniziale+"\\src\\test\\resources\\dataPopulation\\bodyChiamataDeleghe.json"));
@@ -520,7 +521,7 @@ public class DeleghePGPagoPATest {
     public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiControllaLaPresenzaDiUnaDelegaPerPG(String dpFile) {
         logger.info("Si controlla che ci sia una delega");
         String ragioneSociale = dataPopulation.readDataPopulation(dpFile+".yaml").get("ragioneSociale").toString();
-        if (deleghePGPagoPAPage.CercaEsistenzaDelegaPG(ragioneSociale)){
+        if (!deleghePGPagoPAPage.CercaEsistenzaDelegaPG(ragioneSociale)){
             BackgroundTest backgroundTest = new BackgroundTest();
             backgroundTest.aggiuntaNuovaDelegaPG();
         }
