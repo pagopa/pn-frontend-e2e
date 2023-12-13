@@ -321,7 +321,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public List<WebElement> ricercaListaOggetti() {
         try {
-            By listaOggettiBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-hgkziz')]");
+            By listaOggettiBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1sdct2p')]");
             return this.elements(listaOggettiBy);
         } catch (TimeoutException e) {
             logger.info("lista oggetti ancora non presenti");
@@ -457,7 +457,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public int getNRighe() {
-        By nRigheBy = By.xpath("//tr[@id='notificationsTable.row']");
+        By nRigheBy = By.xpath("//tr[@id='notificationsTable.body.row']");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nRigheBy));
         return this.elements(nRigheBy).size();
     }
@@ -592,12 +592,23 @@ public class PiattaformaNotifichePage extends BasePage {
         return listaCodici;
     }
 
+    public List<String> getCodiceIunPresentiPF() {
+        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-2ebubn']//button");
+        List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
+        List<String> listaCodici = new ArrayList<>();
+        for (WebElement rigaTabella: righeTabella) {
+            String codiceIun = rigaTabella.getText();
+            listaCodici.add(codiceIun);
+        }
+        return listaCodici;
+    }
+
     public String getCodiceIunInserito() {
         return codiceIUNTextField.getText();
     }
 
     public List<String> getCodiceIunPersonaGiuridica() {
-        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1p8q4rm' and button/p[contains(text(),'27957814470')]]/following-sibling::td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh']//button");
+        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh' and button/p[contains(text(),'27957814470')]]/following-sibling::td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-2ebubn']//button");
         List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella: righeTabella) {

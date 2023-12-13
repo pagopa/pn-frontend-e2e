@@ -13,7 +13,7 @@ Feature: Ricerca persona fisica per Codice IUN
 
   Scenario: Ricerca persona fisica per Codice IUN
     When Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica
-    And Nella pagina Piattaforma Notifiche si recupera un codice IUN valido
+    And Nella pagina Piattaforma Notifiche PF si recupera un codice IUN valido
     And Cliccare sul bottone Filtra persona fisica
     Then Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN della notifica "datiNotifica"
     And  Logout da portale persona fisica
