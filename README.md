@@ -17,10 +17,14 @@ Per poter eseguire i test bisogna seguire in ordine i seguenti passaggi:
 
 _N.B: il parametro `-DskipTests` serve per non eseguire i test durante la fase di installazione delle dipendenze_
 
-2. Una volta installate le dipendenze bisogna installare i plugin di intellij per poter visualizzare i file .feature
+2. Una volta installate le dipendenze bisogna installare i plugin di **IntelliJ** per poter visualizzare i file .feature
    correttamente:
     - Cucumber for Java
     - Gherkin
+
+Da tenere a mente che se si vuole eseguire i test da riga di comando non è necessario installare i plugin.
+I plugin servono solo ad aggiungere alcune utility come: evidenziare le keywords di Cucumber e poter testare
+direttamente con IntelliJ.
 
 ### Esecuzione dei test
 
@@ -37,7 +41,7 @@ Se si vuole eseguire un test specifico bisogna lanciare il comando:
 Per lanciare singolarmente i test di un portale basta modificare il valore del `-Dcucumber.filter.tags` con: @mittente,
 @PF, @PG
 
-Inoltre è possibile cambiare il browser di esecuzione e l'ambiente di esecuzione test sostituendo i valori di default
+Inoltre è possibile cambiare il browser di esecuzione e l'ambiente dei test sostituendo i valori di default
 che trovi
 all'interno del file `test-config.properties` con i seguenti parametri:
 
@@ -48,8 +52,10 @@ environment=test
 
 ### Opzionale
 
-Se si vuole far partire dall'ide di intellij i test basta creare una nuova run configuration cambiando il template di
-default con `Cucumber Java`.
+Se si vuole far partire dall'ide di intellij i test usando il **plugin di Cucumber**, quindi i triangolini verdi
+contrassegnati accanto ai test, basta creare una nuova run
+configuration cambiando il template di
+default di `Cucumber Java`.
 
 1. Andare in `Run -> Edit Configurations`
 2. Cliccare in basso a sinistra su `Edit configuration templates`
@@ -58,8 +64,8 @@ default con `Cucumber Java`.
    piacimento.
 5. Applicare e premere OK
 
-_N.B: Se si ha delle run configuration passate bisogna cancellarle e crearne una nuova seguendo i passaggi sopra,
-altrimenti
-non verranno eseguiti i test._
+_N.B: Se si hanno delle run configuration passate bisogna cancellarle e modificare il template di default seguendo i
+passaggi sopra,
+altrimenti non verranno eseguiti i test con i parametri aggiornati._
 
 
