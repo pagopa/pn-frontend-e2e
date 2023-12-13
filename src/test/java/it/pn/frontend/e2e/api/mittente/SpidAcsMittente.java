@@ -27,6 +27,7 @@ public class SpidAcsMittente {
     private String spidAcsEndPoint;
     private final String relayState;
     private final String samlResponse;
+    private String bearerToken;
     private final BasicCookieStore cookieStore;
     private final Map<String, String> spidAcsMittenteResponse = new HashMap<>();
 
@@ -65,6 +66,14 @@ public class SpidAcsMittente {
         }catch (IOException e){
             Assert.fail(e.getMessage());
         }
+    }
+
+    public String getBearerToken() {
+        return bearerToken;
+    }
+
+    public void setBearerToken(String bearerToken) {
+        this.bearerToken = bearerToken;
     }
 
     public void setSpidAcsEndPoint(String spidAcsEndPoint) {

@@ -74,8 +74,8 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(id = "new-notification-btn")
     WebElement inviaNuovaNotificaButton;
 
-
-
+    @FindBy(xpath = "//form[contains(@data-testid,'preliminaryInformationsForm')]")
+    WebElement preliminaryInformationsForm;
 
     public PiattaformaNotifichePage(WebDriver driver) {
         super(driver);
@@ -434,25 +434,25 @@ public class PiattaformaNotifichePage extends BasePage {
     public boolean verificaEsistenzaCFNotifiche() {
         By cfFiealdBy = By.xpath("//td[button/p[contains(@class,'MuiTypography-root MuiTypography-body2')]]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(cfFiealdBy));
-        return this.elements(cfFiealdBy).size() >= 1;
+        return !this.elements(cfFiealdBy).isEmpty();
     }
 
     public boolean verificaEsistenzaCodiceIUNNotifiche() {
         By codiciIUNBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr')]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiciIUNBy));
-        return this.elements(codiciIUNBy).size() >= 1;
+        return !this.elements(codiciIUNBy).isEmpty();
     }
 
     public boolean verificaEsistenzaGruppoNotifiche() {
         By gruppiBy = By.xpath("//td[button/div/span[contains(@class,'css-t63gu0')]]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(gruppiBy));
-        return this.elements(gruppiBy).size() >= 1;
+        return !this.elements(gruppiBy).isEmpty();
     }
 
     public boolean verificaEsistenzaStatoNotifiche() {
         By statiBy = By.xpath("//td[button/div/div[contains(@data-testid,'statusChip-')]]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statiBy));
-        return this.elements(statiBy).size() >= 1;
+        return !this.elements(statiBy).isEmpty();
     }
 
 
@@ -471,28 +471,31 @@ public class PiattaformaNotifichePage extends BasePage {
     public void controlloOrdineNotifiche() {
         List<WebElement> listaDate = getListaDate();
         LocalDate dataSuccessiva;
+        final String dataOggi = "Oggi";
         LocalDate dataPrecedente;
-        for (int i = 0; i < listaDate.size() - 1; i++) {
-            String dataDopo = listaDate.get(i).getText();
-            String dataPrima = listaDate.get(i + 1).getText();
-            if ("Oggi".equals(dataDopo)) {
-                dataSuccessiva = LocalDate.now();
-            } else {
-                String[] dateA = dataDopo.split("/");
-                dataDopo = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
-                dataSuccessiva = LocalDate.parse(dataDopo);
-            }
-            if ("Oggi".equals(dataPrima)) {
-                dataPrecedente = LocalDate.now();
-            } else {
-                String[] dateA = dataPrima.split("/");
-                dataPrima = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
-                dataPrecedente = LocalDate.parse(dataPrima);
-            }
-            if (dataSuccessiva.isBefore(dataPrecedente)) {
-                logger.error("Le date non sono ordinate dal più recente");
-                Assert.fail("Le date non sono ordinate dal più recente");
-                return;
+        if (listaDate != null){
+            for (int i = 0; i < listaDate.size() - 1; i++) {
+                String dataDopo = listaDate.get(i).getText();
+                String dataPrima = listaDate.get(i + 1).getText();
+                if (dataOggi.equals(dataDopo)) {
+                    dataSuccessiva = LocalDate.now();
+                } else {
+                    String[] dateA = dataDopo.split("/");
+                    dataDopo = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
+                    dataSuccessiva = LocalDate.parse(dataDopo);
+                }
+                if (dataOggi.equals(dataPrima)) {
+                    dataPrecedente = LocalDate.now();
+                } else {
+                    String[] dateA = dataPrima.split("/");
+                    dataPrima = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
+                    dataPrecedente = LocalDate.parse(dataPrima);
+                }
+                if (dataSuccessiva.isBefore(dataPrecedente)) {
+                    logger.error("Le date non sono ordinate dal più recente");
+                    Assert.fail("Le date non sono ordinate dal più recente");
+                    return;
+                }
             }
         }
         logger.info("Le date sono visualizzate correttamente");
@@ -594,7 +597,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public List<String> getCodiceIunPersonaGiuridica() {
-        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1p8q4rm' and button/p[contains(text(),'12666810299')]]/following-sibling::td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr']//button");
+        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1p8q4rm' and button/p[contains(text(),'27957814470')]]/following-sibling::td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr']//button");
         List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella: righeTabella) {
@@ -624,5 +627,18 @@ public class PiattaformaNotifichePage extends BasePage {
         By errorMessageBy = By.id("iunMatch-helper-text");
         getWebDriverWait(30).withMessage("Messagio di errore 'Inserisci un codice IUN valido' non trovato").until(ExpectedConditions.visibilityOfElementLocated(errorMessageBy));
         return this.element(errorMessageBy).isDisplayed();
+    }
+
+    public boolean verificaCampiPreliminariNotificaVuoti() {
+        List<WebElement> inputElements = preliminaryInformationsForm.findElements(By.tagName("input"));
+        for (WebElement inputElement : inputElements) {
+            if (inputElement.getAttribute("type").equals("text") && !inputElement.getAttribute("value").isEmpty()) {
+                return false;
+            }
+            if (inputElement.getAttribute("type").equals("radio") && inputElement.isSelected()) {
+                return false;
+            }
+        }
+        return true;
     }
 }
