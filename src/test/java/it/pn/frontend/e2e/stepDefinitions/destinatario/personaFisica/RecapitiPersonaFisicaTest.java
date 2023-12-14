@@ -356,13 +356,13 @@ public class RecapitiPersonaFisicaTest {
         } else if (recapitiDestinatarioPage.controlloEmailAssociata(email)) {
             iTuoiRecapitiPage.eliminaEmailEsistente();
             if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
-                recapitiDestinatarioPage.confermaButtonClickPopUp();
+                recapitiDestinatarioPage.ClickconfermaButtonEliminaPopUp();
             } else {
                 recapitiDestinatarioPage.clickSuChiudiPopUp();
                 recapitiDestinatarioPage.eliminaNuovaEmail();
                 iTuoiRecapitiPage.eliminaEmailEsistente();
                 recapitiDestinatarioPage.waitLoadPopUpElimina();
-                recapitiDestinatarioPage.confermaButtonClick();
+                recapitiDestinatarioPage.ClickconfermaButtonEliminaPopUp();
             }
             backgroundTest.aggiuntaEmailPF();
         }
@@ -438,7 +438,7 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.clickSuChiudiPopUp();
             recapitiDestinatarioPage.eliminaNuovaPec();
             recapitiDestinatarioPage.waitLoadPopUpElimina();
-            recapitiDestinatarioPage.confermaButtonEliminaClick();
+            recapitiDestinatarioPage.ClickconfermaButtonEliminaPopUp();
         }
     }
 
@@ -684,7 +684,7 @@ public class RecapitiPersonaFisicaTest {
                 recapitiDestinatarioPage.eliminaNuovaEmail();
                 iTuoiRecapitiPage.eliminaEmailEsistente();
                 recapitiDestinatarioPage.waitLoadPopUpElimina();
-                recapitiDestinatarioPage.confermaButtonEliminaClick();
+                recapitiDestinatarioPage.ClickconfermaButtonEliminaPopUp();
             }
         }
     }

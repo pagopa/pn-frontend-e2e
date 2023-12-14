@@ -61,6 +61,8 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(xpath = "//form[@data-testid = 'specialContactForm']//div//button[contains(text(),'Elimina')]")
     List<WebElement> eliminaButtonList;
 
+    @FindBy(xpath = "//h2[@id='dialog-title']/following-sibling::div/button[contains(text(),'Conferma')]")
+    WebElement confermaEliminaButton;
 
     public RecapitiDestinatarioPage(WebDriver driver) {
         super(driver);
@@ -94,6 +96,11 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void confermaButtonClick() {
         this.getWebDriverWait(60).withMessage("Il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
         this.confermaButton.click();
+    }
+
+    public void ClickconfermaButtonEliminaPopUp() {
+        this.getWebDriverWait(60).withMessage("Il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaEliminaButton));
+        this.confermaEliminaButton.click();
     }
 
     public void waitLoadPopUp() {
