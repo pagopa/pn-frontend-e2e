@@ -445,7 +445,7 @@ public class RecapitiPersonaFisicaTest {
     @Then("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo Email non sia presente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoEmailNonSiaPresente() {
         logger.info("Si controlla che l'indirizzo Email non sia presente");
-        if (recapitiDestinatarioPage.verificaMailAssociata()){
+        if (!recapitiDestinatarioPage.verificaMailAssociata()){
             logger.error("Email non è stata eliminata correttamente");
             Assert.fail("Email non è stata eliminata correttamente");
         }
