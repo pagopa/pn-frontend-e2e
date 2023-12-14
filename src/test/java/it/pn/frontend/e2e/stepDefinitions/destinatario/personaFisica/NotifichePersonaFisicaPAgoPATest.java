@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
+import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeadeFRSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
@@ -17,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -26,6 +28,10 @@ public class NotifichePersonaFisicaPAgoPATest {
     private static final Logger logger = LoggerFactory.getLogger("NotifichePersonaFisicaTest");
 
     private final WebDriver driver = Hooks.driver;
+    private Map<String, Object> personaFisica = new HashMap<>();
+    private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+    private final DataPopulation dataPopulation = new DataPopulation();
+
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche")
     public void nella_piattaforma_destinatario_cliccare_sul_bottone_notifiche() {
@@ -240,6 +246,22 @@ public class NotifichePersonaFisicaPAgoPATest {
 
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.waitLoadNotificheDEPageDelegante(nome, cognome);
+    }
+
+    @And("Nella pagina Piattaforma Notifiche PF si recupera un codice IUN valido")
+    public void nellaPaginaPiattaformaNotificheSiRecuperaUnCodiceIUNValido() {
+        logger.info("Si recupera un codice IUN valido");
+
+        List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresentiPF();
+        this.personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        String codiceIun = this.personaFisica.get("codiceIUN").toString();
+        if (codiciIun.contains(codiceIun)){
+            piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
+        }else {
+            piattaformaNotifichePage.inserimentoCodiceIUN(codiciIun.get(0));
+            this.personaFisica.put("codiceIUN",codiciIun.get(0));
+            dataPopulation.writeDataPopulation("datiNotifica.yaml",this.personaFisica);
+        }
     }
 }
 

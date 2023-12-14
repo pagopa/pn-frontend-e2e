@@ -273,7 +273,7 @@ public class NotifichePFPage extends BasePage {
 
     public void selezionaNotifica() {
         try{
-            By notificaBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr')]");
+            By notificaBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh')]");
             try {
                 TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
