@@ -359,6 +359,7 @@ public class RecapitiPersonaFisicaTest {
                 recapitiDestinatarioPage.confermaButtonClickPopUp();
             } else {
                 recapitiDestinatarioPage.clickSuChiudiPopUp();
+                recapitiDestinatarioPage.eliminaNuovaEmail();
                 iTuoiRecapitiPage.eliminaEmailEsistente();
                 recapitiDestinatarioPage.waitLoadPopUpElimina();
                 recapitiDestinatarioPage.confermaButtonClick();
@@ -602,13 +603,13 @@ public class RecapitiPersonaFisicaTest {
 
         if (recapitiDestinatarioPage.siVisualizzaPopUpConferma()) {
             recapitiDestinatarioPage.clickConfermaButton();
-            recapitiDestinatarioPage.visualizzaValidazione();
-        } else {
-            String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("emailPec").toString();
-            if (!recapitiDestinatarioPage.verificaNuovaEmailEPEC(pec)){
-                logger.error("La email PEC non è stata associata correttamente");
-                Assert.fail("La email PEC non è stata associata correttamente");
-            }
+            recapitiDestinatarioPage.aggionamentoPagina();
+            recapitiDestinatarioPage.waitLoadPage();
+        }
+        String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("emailPec").toString();
+        if (!recapitiDestinatarioPage.verificaNuovaEmailEPEC(pec)) {
+            logger.error("La email PEC non è stata associata correttamente");
+            Assert.fail("La email PEC non è stata associata correttamente");
         }
     }
 

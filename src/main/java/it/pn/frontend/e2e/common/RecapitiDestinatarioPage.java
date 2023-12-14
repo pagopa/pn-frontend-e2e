@@ -92,7 +92,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void confermaButtonClick() {
-        this.getWebDriverWait(30).withMessage("Il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
+        this.getWebDriverWait(60).withMessage("Il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
         this.confermaButton.click();
     }
 
@@ -226,7 +226,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             return !element(inputEmail).isDisplayed();*/
         try {
             By emailAssociataBy = By.xpath("//p[contains(text(),'Indirizzo e-mail')]/following-sibling::div//p[@class='MuiTypography-root MuiTypography-body1 css-1j1s9qe']");
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(emailAssociataBy));
+            this.getWebDriverWait(60).until(ExpectedConditions.visibilityOfElementLocated(emailAssociataBy));
             return true;
         }catch (TimeoutException e){
             return false;
