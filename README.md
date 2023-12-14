@@ -2,6 +2,8 @@
 
 Questo repository contiene i test e2e per le webapps di Piattaforma Notifiche
 
+#
+
 ## Setup del progetto
 
 ### Requisiti
@@ -17,16 +19,20 @@ Per poter eseguire i test bisogna seguire in ordine i seguenti passaggi:
 
 _N.B: il parametro `-DskipTests` serve per non eseguire i test durante la fase di installazione delle dipendenze_
 
-2. Una volta installate le dipendenze bisogna installare i plugin di **IntelliJ** per poter visualizzare i file .feature
+2. Una volta installate le dipendenze è consigliato installare i plugin di **IntelliJ** per poter visualizzare i file
+   .feature
    correttamente:
     - Cucumber for Java
     - Gherkin
 
-Da tenere a mente che se si vuole eseguire i test da riga di comando non è necessario installare i plugin.
-I plugin servono solo ad aggiungere alcune utility come: evidenziare le keywords di Cucumber e poter testare
-direttamente con IntelliJ.
+> [!NOTE]
+> Se si vuole eseguire i test da riga di comando non è obbligatorio installare i plugin.
+> I plugin servono solo ad aggiungere alcune utility come: evidenziare le keywords di Cucumber e poter testare
+> direttamente con IntelliJ.
 
-### Esecuzione dei test
+## Esecuzione dei test
+
+### Tramite riga di comando
 
 Per eseguire tutti i test bisogna lanciare il comando:
 
@@ -50,7 +56,7 @@ browser=chrome
 environment=test
 ```
 
-### Opzionale
+### Tramite IntelliJ con plugin Cucumber
 
 Se si vuole far partire dall'ide di intellij i test usando il **plugin di Cucumber**, quindi i triangolini verdi
 contrassegnati accanto ai test, basta creare una nuova run
@@ -64,8 +70,8 @@ default di `Cucumber Java`.
    piacimento.
 5. Applicare e premere OK
 
-_N.B: Se si hanno delle run configuration passate bisogna cancellarle e modificare il template di default seguendo i
-passaggi sopra,
-altrimenti non verranno eseguiti i test con i parametri aggiornati._
-
+> [!WARNING]
+> Se si hanno delle run configuration passate bisogna cancellarle e modificare il template di default seguendo i
+> passaggi sopra,
+> altrimenti non verranno eseguiti i test con i parametri aggiornati.
 
