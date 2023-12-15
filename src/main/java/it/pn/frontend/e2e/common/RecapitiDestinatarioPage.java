@@ -105,7 +105,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         try {
             By titleBy = By.id("dialog-title");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleBy));
-            logger.info("Il po-up di conferma viene visualizzato correttamente");
+            logger.info("Il pop-up di conferma viene visualizzato correttamente");
         } catch (TimeoutException e) {
             logger.error("Il pop-up di conferma NON viene visualizzato correttamente con errori: " + e.getMessage());
             Assert.fail("Il pop-up di conferma NON viene visualizzato correttamente con errori:" + e.getMessage());
@@ -226,9 +226,6 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public boolean verificaMailAssociata() {
-           /* By inputEmail = By.id("email");
-            getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(inputEmail));
-            return !element(inputEmail).isDisplayed();*/
         try {
             By emailAssociataBy = By.xpath("//p[contains(text(),'Indirizzo e-mail')]/following-sibling::div//p[@class='MuiTypography-root MuiTypography-body1 css-1j1s9qe']");
             this.getWebDriverWait(60).until(ExpectedConditions.visibilityOfElementLocated(emailAssociataBy));
