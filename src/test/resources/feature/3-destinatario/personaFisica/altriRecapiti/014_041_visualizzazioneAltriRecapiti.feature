@@ -4,6 +4,7 @@ Feature: la persona fisica visualizza correttamente la sezione altri recapiti
     When Login portale persona fisica tramite token exchange "personaFisica"
     Then Home page persona fisica viene visualizzata correttamente
 
+  @TestSuite
   @TA_visualizzazioneSezioneAltriRecapitiPF
   @PF
   @recapitiPF

@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RecapitiPGPage;
+import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -42,8 +43,7 @@ public class RecapitiPGPagoPaTest {
     @Then("Nella pagina Recapiti persona giuridica si visualizza correttamente il messaggio di errore pec sbagliata")
     public void nellaPaginaITuoiRecapitiPersonaGiuridicaSiVisualizzaCorrettamenteIlMessaggioDiErrorePecSbagliata() {
         logger.info("Si controlla che si deve il messaggio di errore");
-
-        recapitiPGPage.waitMessaggioDiErrorePec();
+        recapitiDestinatarioPage.getPecErrorMessage();
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce l'email del PG {string} e clicca sul bottone avvisami via email")
@@ -60,5 +60,24 @@ public class RecapitiPGPagoPaTest {
         Map<String, Object> datiPG = dataPopulation.readDataPopulation(personaGiuridica+".yaml");
         recapitiDestinatarioPage.insertPhone(datiPG.get("cellulare").toString());
         recapitiDestinatarioPage.clickAvvisamiSMS();
+    }
+
+    @Then("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti della persona giuridica")
+    public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapitiDellaPersonaGiuridica() {
+        logger.info("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti della persona giuridica");
+        recapitiDestinatarioPage.visualizzazioneSezioneAltriRecapiti();
+    }
+
+    @And("Nella pagina I Tuoi Recapiti PG si controlla che ci sia già una pec")
+    public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaPec() {
+        logger.info("Si controlla la presenza di una pec");
+        String pec = dataPopulation.readDataPopulation("personaGiuridica.yaml").get("emailPec").toString();
+        BackgroundTest backgroundTest = new BackgroundTest();
+        if (!recapitiDestinatarioPage.siVisulizzaPecInserita()) {
+            backgroundTest.aggiungiPECPG();
+        } else if (!recapitiDestinatarioPage.siControllaPECModificata(pec)) {
+            recapitiDestinatarioPage.eliminaPecEsistente();
+            backgroundTest.aggiungiPECPG();
+        }
     }
 }

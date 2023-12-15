@@ -88,7 +88,9 @@ public class DeleghePGPagoPAPage extends BasePage {
         }catch(TimeoutException e){
             logger.error("il bottone delegati imprese non è cliccabile"+ e.getMessage());
             Assert.fail("il bottone delegati imprese non è cliccabile"+ e.getMessage());
-        }    }
+        }
+
+    }
 
     public boolean CercaEsistenzaDelegaPG(String ragioneSociale) {
         try {
