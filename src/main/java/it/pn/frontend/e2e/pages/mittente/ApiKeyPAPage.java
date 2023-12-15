@@ -112,7 +112,7 @@ public class ApiKeyPAPage  extends BasePage {
     }
 
     public String getNomi(int i){
-        By nomiApiKeyBy = By.xpath("//tbody/tr/td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-bri9q1')]/div/p");
+        By nomiApiKeyBy = By.xpath("//tbody/tr/td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1kqk1ww')]/div/p");
         this.getWebDriverWait(30).withMessage("la lista dei nomi ApiKey non è visibile ").until(ExpectedConditions.visibilityOfElementLocated(nomiApiKeyBy));
         List<WebElement> nomiApiKeyList = this.elements(nomiApiKeyBy);
 
