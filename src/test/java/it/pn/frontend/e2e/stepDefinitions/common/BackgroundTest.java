@@ -3,15 +3,14 @@ package it.pn.frontend.e2e.stepDefinitions.common;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.RecapitiPersonaFisicaTest;
-import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.DeleghePGPagoPATest;
-import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.DisserviziAppPGTest;
-import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
-import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.NotifichePGPagoPATest;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 
 public class BackgroundTest {
     private final String nomeFileDatiNotifica = "datiNotifica";
     private final String nomeFilePersonaFisica = "personaFisica";
+
+    private final String nomeFilePG = "personaGiuridica";
 
     private final String nomeFileNuovaDelega = "nuova_delega";
 
@@ -20,6 +19,8 @@ public class BackgroundTest {
     private final DeleghePagoPATest deleghePagoPATest = new DeleghePagoPATest();
 
     private final RecapitiPersonaFisicaTest recapitiPersonaFisicaTest = new RecapitiPersonaFisicaTest();
+
+    private final RecapitiPGPagoPaTest recapitiPGTest = new RecapitiPGPagoPaTest();
 
     private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
 
@@ -76,8 +77,6 @@ public class BackgroundTest {
     public void loginPFRecapiti(String nomeFileLogin) {
         personaFisicaPagoPA.loginPortaleDelegatoTramiteRequestMethod(nomeFileLogin);
         personaFisicaPagoPA.home_page_destinatario_viene_visualizzata_correttamente();
-        recapitiPersonaFisicaTest.ITuoiRecapitiButtonClick();
-        recapitiPersonaFisicaTest.siVisualizzaCorrettamenteLaPaginaITuoiRecapiti();
     }
 
     public void loginPG(String nomeFileLogin) {
@@ -190,4 +189,29 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLOTPRicevutoViaEmail("personaFisica");
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiControllaCheLaEmailSiaStataModificata();
     }
+
+    public void logoutPG() {
+        loginPGPagoPATest.logoutDaPortalePersonaGiuridica();
+    }
+
+    public void loginPGRecapiti(String nomeFilePG) {
+        loginPGPagoPATest.loginPortalePersonaGiuridicaTramiteTokenExchange("personaGiuridica");
+        NotifichePGPagoPATest notifichePGPagoPATest = new NotifichePGPagoPATest();
+        notifichePGPagoPATest.siRecuperaBearerToken("personaGiuridica");
+    }
+
+    public void aggiungiPECPG() {
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario(nomeFilePG);
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiCliccaSulBottoneConferma();
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequest(nomeFilePG);
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP(nomeFilePG);
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente();
+        logoutPG();
+        loginPGRecapiti(nomeFilePG);
+        notifichePGPagoPATest.nellaPaginaPiattaformaNotifichePersonaGiuridicaSiCliccaSulBottoneITuoiRecapiti();
+        recapitiPGTest.siVisualizzaRecapitiPagePersonaGiuridca();
+    }
+
+
 }

@@ -12,7 +12,7 @@ Feature: La persona giuridica modifica l'indirizzo PEC
   Scenario: La persona giuridica modifica l'indirizzo PEC
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
-    And Nella pagina I Tuoi Recapiti si controlla che ci sia già una pec
+    And Nella pagina I Tuoi Recapiti PG si controlla che ci sia già una pec
     And Nella pagina I Tuoi Recapiti si clicca sul bottone modifica PEC
     And Nella pagina I Tuoi Recapiti si inserisce una nuova PEC "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si clicca sul bottone salva

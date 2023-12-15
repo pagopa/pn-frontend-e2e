@@ -41,7 +41,7 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void waitLoadITuoiRecapitiPage() {
         try {
-            By titlePageBy = By.id("I tuoi recapiti-page");
+           By titlePageBy = By.xpath("//h4[contains(@id,'ecapiti-page')]");
             By subTitlePageBy = By.id("subtitle-page");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(subTitlePageBy));

@@ -15,4 +15,4 @@ Feature: La persona giuridica elimina l'indirizzo email
     And Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email
     And Nella pagina I Tuoi Recapiti si clicca sul bottone elimina email e si conferma nel pop up
     Then Nella pagina I Tuoi Recapiti si controlla che l'indirizzo Email non sia presente
-    And Logout da portale persona fisica
+    And Logout da portale persona giuridica

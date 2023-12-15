@@ -525,7 +525,7 @@ public class RecapitiPersonaFisicaTest {
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
             personaFisica.put("OTPpec", OTP);
-            dataPopulation.writeDataPopulation("personaFisica.yaml", personaFisica);
+            dataPopulation.writeDataPopulation(dpFile+".yaml", personaFisica);
         } else {
             logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
             Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
