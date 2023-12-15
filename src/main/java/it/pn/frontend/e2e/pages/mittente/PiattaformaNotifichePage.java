@@ -206,7 +206,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public int getListDate() {
-        By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-c3sxw2')]");
+        By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]");
         attesaCaricamentoPagina();
         this.getWebDriverWait(30).withMessage("Nessuna data trovata").until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
         logger.info("Date trovate correttamente");
@@ -253,7 +253,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public void selezionaNotifica() {
         waitLoadPage();
         try {
-            By notificaBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr')]");
+            By notificaBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh')]");
             attesaCaricamentoPagina();
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificaBy));
             List<WebElement> notifiche = this.elements(notificaBy);
@@ -291,7 +291,7 @@ public class PiattaformaNotifichePage extends BasePage {
         logger.info("la posizione della notifica è uguale: " + posizioneNotifica);
         if (posizioneNotifica != -1) {
 
-            By listaCodiceIUNBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr')]");
+            By listaCodiceIUNBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh')]");
             List<WebElement> codiciIUNList = this.elements(listaCodiceIUNBy);
             codiceIUN = codiciIUNList.get(posizioneNotifica).getText();
         }
@@ -321,7 +321,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public List<WebElement> ricercaListaOggetti() {
         try {
-            By listaOggettiBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-hgkziz')]");
+            By listaOggettiBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1sdct2p')]");
             return this.elements(listaOggettiBy);
         } catch (TimeoutException e) {
             logger.info("lista oggetti ancora non presenti");
@@ -352,7 +352,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public int controlloNumeroRisultatiDate() {
-        By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-c3sxw2')]");
+        By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]");
         attesaCaricamentoPagina();
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
         logger.info("Date trovate correttamente");
@@ -438,7 +438,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public boolean verificaEsistenzaCodiceIUNNotifiche() {
-        By codiciIUNBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr')]");
+        By codiciIUNBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh')]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiciIUNBy));
         return !this.elements(codiciIUNBy).isEmpty();
     }
@@ -457,7 +457,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public int getNRighe() {
-        By nRigheBy = By.xpath("//tr[@id='notificationsTable.row']");
+        By nRigheBy = By.xpath("//tr[@id='notificationsTable.body.row']");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nRigheBy));
         return this.elements(nRigheBy).size();
     }
@@ -471,28 +471,31 @@ public class PiattaformaNotifichePage extends BasePage {
     public void controlloOrdineNotifiche() {
         List<WebElement> listaDate = getListaDate();
         LocalDate dataSuccessiva;
+        final String dataOggi = "Oggi";
         LocalDate dataPrecedente;
-        for (int i = 0; i < listaDate.size() - 1; i++) {
-            String dataDopo = listaDate.get(i).getText();
-            String dataPrima = listaDate.get(i + 1).getText();
-            if ("Oggi".equals(dataDopo)) {
-                dataSuccessiva = LocalDate.now();
-            } else {
-                String[] dateA = dataDopo.split("/");
-                dataDopo = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
-                dataSuccessiva = LocalDate.parse(dataDopo);
-            }
-            if ("Oggi".equals(dataPrima)) {
-                dataPrecedente = LocalDate.now();
-            } else {
-                String[] dateA = dataPrima.split("/");
-                dataPrima = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
-                dataPrecedente = LocalDate.parse(dataPrima);
-            }
-            if (dataSuccessiva.isBefore(dataPrecedente)) {
-                logger.error("Le date non sono ordinate dal più recente");
-                Assert.fail("Le date non sono ordinate dal più recente");
-                return;
+        if (listaDate != null){
+            for (int i = 0; i < listaDate.size() - 1; i++) {
+                String dataDopo = listaDate.get(i).getText();
+                String dataPrima = listaDate.get(i + 1).getText();
+                if (dataOggi.equals(dataDopo)) {
+                    dataSuccessiva = LocalDate.now();
+                } else {
+                    String[] dateA = dataDopo.split("/");
+                    dataDopo = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
+                    dataSuccessiva = LocalDate.parse(dataDopo);
+                }
+                if (dataOggi.equals(dataPrima)) {
+                    dataPrecedente = LocalDate.now();
+                } else {
+                    String[] dateA = dataPrima.split("/");
+                    dataPrima = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
+                    dataPrecedente = LocalDate.parse(dataPrima);
+                }
+                if (dataSuccessiva.isBefore(dataPrecedente)) {
+                    logger.error("Le date non sono ordinate dal più recente");
+                    Assert.fail("Le date non sono ordinate dal più recente");
+                    return;
+                }
             }
         }
         logger.info("Le date sono visualizzate correttamente");
@@ -500,7 +503,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     private List<WebElement> getListaDate() {
         try {
-            By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-c3sxw2')]");
+            By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]");
             attesaCaricamentoPagina();
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
             logger.info("Date trovate correttamente");
@@ -579,7 +582,18 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public List<String> getCodiceIunPresenti() {
-        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr']//button");
+        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh']//button");
+        List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
+        List<String> listaCodici = new ArrayList<>();
+        for (WebElement rigaTabella: righeTabella) {
+            String codiceIun = rigaTabella.getText();
+            listaCodici.add(codiceIun);
+        }
+        return listaCodici;
+    }
+
+    public List<String> getCodiceIunPresentiPF() {
+        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-2ebubn']//button");
         List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella: righeTabella) {
@@ -594,7 +608,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public List<String> getCodiceIunPersonaGiuridica() {
-        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1p8q4rm' and button/p[contains(text(),'27957814470')]]/following-sibling::td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-155o2nr']//button");
+        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh' and button/p[contains(text(),'27957814470')]]/following-sibling::td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-2ebubn']//button");
         List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella: righeTabella) {

@@ -284,6 +284,6 @@ public class ApiKeysTest {
     public void nellaPopUpCliccareSulTastoChiudi() {
         logger.info("Si clicca sul tasto chiudi");
 
-        apiKeyPAPage.chiudiPopUp();
+        apiKeyPAPage.chiudiPopUpVisualizza();
     }
 }

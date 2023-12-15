@@ -7,7 +7,6 @@ Feature: La persona giuridica annulla l'operazione di revoca una delega
     And Nella Home page persona giuridica si clicca su Send Notifiche Digitali
     And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica_1"
 
-
   @TestSuite
   @TA_PGAnnulaRevocaDelega
   @DeleghePG
