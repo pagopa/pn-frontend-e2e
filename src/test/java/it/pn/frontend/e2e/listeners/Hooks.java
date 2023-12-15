@@ -71,7 +71,6 @@ public class Hooks {
     }
 
     protected void chrome(){
-
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--lang=it");
@@ -128,14 +127,16 @@ public class Hooks {
                         Headers headers = request.getRequest().getHeaders();
                         if(response.getType().equals(ResourceType.XHR)){
                             NetWorkInfo netWorkInfo = new NetWorkInfo();
-                            netWorkInfo.setAuthorizationBearer(Objects.requireNonNull(headers.get("Authorization")).toString());
-                            netWorkInfo.setRequestId(requestId);
-                            netWorkInfo.setRequestUrl(request.getRequest().getUrl());
-                            netWorkInfo.setRequestMethod(request.getRequest().getMethod());
-                            netWorkInfo.setResponseStatus(response.getResponse().getStatus().toString());
-                            String bodyResponse = devTools.send(Network.getResponseBody(response.getRequestId())).getBody();
-                            netWorkInfo.setResponseBody(bodyResponse);
-                            netWorkInfos.add(netWorkInfo);
+                            if(headers.get("Authorization") != null) {
+                                netWorkInfo.setAuthorizationBearer(Objects.requireNonNull(headers.get("Authorization")).toString());
+                                netWorkInfo.setRequestId(requestId);
+                                netWorkInfo.setRequestUrl(request.getRequest().getUrl());
+                                netWorkInfo.setRequestMethod(request.getRequest().getMethod());
+                                netWorkInfo.setResponseStatus(response.getResponse().getStatus().toString());
+                                String bodyResponse = devTools.send(Network.getResponseBody(response.getRequestId())).getBody();
+                                netWorkInfo.setResponseBody(bodyResponse);
+                                netWorkInfos.add(netWorkInfo);
+                            }
                         }
                     }
                     requests.remove(requestId);
