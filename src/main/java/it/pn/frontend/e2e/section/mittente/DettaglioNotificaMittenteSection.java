@@ -103,7 +103,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         }
     }
 
-    private String getInfoNotifica(int i) {
+    public String getInfoNotifica(int i) {
         return infoNotifiche.get(i).getText();
     }
 
