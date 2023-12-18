@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
 import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoLogin;
@@ -34,6 +33,7 @@ public class LoginMittentePagoPA {
 
     private Map<String, String> urlMittente;
     private final WebDriver driver = Hooks.driver;
+
 
 
     @Given("Login Page mittente {string} viene visualizzata")
@@ -263,6 +263,7 @@ public class LoginMittentePagoPA {
     }
 
 
+
     @Then("Home page mittente viene visualizzata correttamente")
     public void home_page_mittente_viene_visualizzata_correttamente() {
         logger.info("Home page mittente viene visualizzata correttamente");
@@ -283,6 +284,7 @@ public class LoginMittentePagoPA {
             throw new RuntimeException(e);
         }
     }
+
 
 
     @And("Logout da portale mittente")

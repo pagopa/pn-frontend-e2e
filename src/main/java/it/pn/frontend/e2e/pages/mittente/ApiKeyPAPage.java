@@ -112,7 +112,7 @@ public class ApiKeyPAPage  extends BasePage {
     }
 
     public String getNomi(int i){
-        By nomiApiKeyBy = By.xpath("//tbody/tr/td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-bri9q1')]/div/p");
+        By nomiApiKeyBy = By.xpath("//tbody/tr/td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1kqk1ww')]/div/p");
         this.getWebDriverWait(30).withMessage("la lista dei nomi ApiKey non è visibile ").until(ExpectedConditions.visibilityOfElementLocated(nomiApiKeyBy));
         List<WebElement> nomiApiKeyList = this.elements(nomiApiKeyBy);
 
@@ -400,7 +400,7 @@ public class ApiKeyPAPage  extends BasePage {
         getWebDriverWait(30).withMessage("Il campo gruppo Apikey non è visibile").until(ExpectedConditions.visibilityOf(this.gruppoInput));
         this.gruppoInput.sendKeys(gruppo);
         By groupOption = By.id("groups-option-0");
-        getWebDriverWait(60).withMessage("Il campo Nome Apikey non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.apiKeyNameInput));
+        getWebDriverWait(60).withMessage("Il campo Nome del Gruppo Apikey non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.element(groupOption)));
         element(groupOption).click();
     }
 
