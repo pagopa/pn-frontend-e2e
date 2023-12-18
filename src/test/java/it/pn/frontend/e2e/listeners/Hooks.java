@@ -130,18 +130,6 @@ public class Hooks {
                         Headers headers = request.getRequest().getHeaders();
                         if (response.getType().equals(ResourceType.XHR)) {
                             NetWorkInfo netWorkInfo = new NetWorkInfo();
-<<<<<<<<< Temporary merge branch 1
-                            if(headers.get("Authorization") != null) {
-                                netWorkInfo.setAuthorizationBearer(Objects.requireNonNull(headers.get("Authorization")).toString());
-                                netWorkInfo.setRequestId(requestId);
-                                netWorkInfo.setRequestUrl(request.getRequest().getUrl());
-                                netWorkInfo.setRequestMethod(request.getRequest().getMethod());
-                                netWorkInfo.setResponseStatus(response.getResponse().getStatus().toString());
-                                String bodyResponse = devTools.send(Network.getResponseBody(response.getRequestId())).getBody();
-                                netWorkInfo.setResponseBody(bodyResponse);
-                                netWorkInfos.add(netWorkInfo);
-                            }
-=========
                             if (headers.get("Authorization") != null) {
                                 netWorkInfo.setAuthorizationBearer((headers.get("Authorization")).toString());
                             }
@@ -156,7 +144,6 @@ public class Hooks {
                                 // Ignored because the response body is not always available.
                             }
                             netWorkInfos.add(netWorkInfo);
->>>>>>>>> Temporary merge branch 2
                         }
                     }
                     requests.remove(requestId);
