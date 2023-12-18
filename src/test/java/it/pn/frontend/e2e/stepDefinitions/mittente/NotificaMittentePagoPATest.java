@@ -47,7 +47,7 @@ public class NotificaMittentePagoPATest {
 
     private final DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
 
-    @When("")
+    @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
         AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
         String variabileAmbiente = System.getProperty("environment");
@@ -954,8 +954,8 @@ public class NotificaMittentePagoPATest {
         }
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
         if(notificationRequestId==null){
-            logger.error("NotificationRequestId non trovato, il codice della risposta al url "+ urlNotificationRequest +" è assente dal network ");
-            Assert.fail("NotificationRequestId non trovato, il codice della risposta al url "+ urlNotificationRequest +" è assente dal network ");
+            logger.error("NotificationRequestId non trovato, il codice della risposta al url "+ urlNotificationRequest +" è diverso di 202 ");
+            Assert.fail("NotificationRequestId non trovato, il codice della risposta al url "+ urlNotificationRequest +" è diverso di 202 ");
         }
         accettazioneRichiestaNotifica.setNotificationRequestId(notificationRequestId);
         accettazioneRichiestaNotifica.setRichiestaNotificaEndPoint(urlRichiestaNotifica);
