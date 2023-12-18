@@ -24,13 +24,13 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(id = "taxId")
     WebElement cfTextField;
 
-    @FindBy(xpath = "//button[@data-testid='confirmButton']")
+    @FindBy(id = "confirm-button")
     WebElement filtraButton;
 
     @FindBy(id = "code-confirm-button")
     WebElement accettaDelegaButton;
 
-    @FindBy(xpath = "//span[@data-testid='associate-group']")
+    @FindBy(id = "associate-form-group")
     WebElement assegnaGruppoRadioButton;
 
     @FindBy(xpath = "//div[@role='dialog']//input[@id='groups']")
@@ -42,7 +42,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(id = "group-confirm-button")
     WebElement confermaButton;
 
-    @FindBy(xpath = "//span[@data-testid='no-group']")
+    @FindBy(id = "associate-form-no-group")
     WebElement nonGruppoRadioButton;
 
     @FindBy(id = "reject-delegation-button")
@@ -69,7 +69,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             By titlePage = By.id("Deleghe-page");
 
             this.getWebDriverWait(30).withMessage("il titolo della pagina deleghe PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
+            this.getWebDriverWait(30).withMessage("Il bottone deleghe a carico dell'impresa non è visibile").until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
 
             this.logger.info("Deleghe page si visualizza correttamente");
 
@@ -88,7 +88,9 @@ public class DeleghePGPagoPAPage extends BasePage {
         }catch(TimeoutException e){
             logger.error("il bottone delegati imprese non è cliccabile"+ e.getMessage());
             Assert.fail("il bottone delegati imprese non è cliccabile"+ e.getMessage());
-        }    }
+        }
+
+    }
 
     public boolean CercaEsistenzaDelegaPG(String ragioneSociale) {
         try {
@@ -237,13 +239,13 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void waitLoadPopUpModifica() {
         try {
             By titlePOPUPBy = By.id("dialog-title");
-            By nonAssegnaButtonBy = By.xpath("//span[@data-testid='no-group']");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePOPUPBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(nonAssegnaButtonBy));
+            By nonAssegnaButtonBy = By.id("associate-form-no-group");
+            this.getWebDriverWait(30).withMessage("Il titolo del pop up non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePOPUPBy));
+            this.getWebDriverWait(30).withMessage("Il bottone non assegna sul pop up non è cliccabile").until(ExpectedConditions.elementToBeClickable(nonAssegnaButtonBy));
             logger.info("Si visualizza correttamente il pop-up");
         }catch (TimeoutException e){
-            logger.error("Si visualizza NON correttamente il pop-up con errore: "+e.getMessage());
-            Assert.fail("Si visualizza NON correttamente il pop-up con errore: "+e.getMessage());
+            logger.error("NON Si  visualizza  correttamente il pop-up con errore: "+e.getMessage());
+            Assert.fail("NON Si visualizza correttamente il pop-up con errore: "+e.getMessage());
         }
     }
 
@@ -259,8 +261,9 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void inserireGruppoDelegante() {
+        this.getWebDriverWait(30).withMessage("Il campo cerca gruppo non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.searchGroupTextField));
         this.searchGroupTextField.click();
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.groupOption));
+        this.getWebDriverWait(30).withMessage("l'opzione gruppo non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.groupOption));
         this.groupOption.click();
     }
 }

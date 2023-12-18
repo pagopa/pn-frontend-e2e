@@ -57,6 +57,10 @@ public class DestinatarioPASection extends BasePage {
     @FindBy(xpath = "//button[contains(@data-testid,'add-recipient')]")
     WebElement aggiungiDestinatarioButton;
 
+    @FindBy(xpath = "//button[contains(@data-testid,'DeleteRecipientIcon')]")
+    List<WebElement> rimuoviDestinatarioButtons;
+
+
     @FindBy(xpath = "//label[@data-testid='showDigitalDomicile0']")
     WebElement checkBoxAggiungiDomicilioDigitale;
 
@@ -161,6 +165,10 @@ public class DestinatarioPASection extends BasePage {
 
     public void selezionareAggiungiDestinatarioButton() {
         this.aggiungiDestinatarioButton.click();
+    }
+
+    public void selezionareRimuoviDestinatarioButton() {
+        this.rimuoviDestinatarioButtons.get(1).click();
     }
 
     public void inserimentoMultiDestinatario(Map<String,Object> destinatari, int nDestinatari) {
@@ -308,4 +316,9 @@ public class DestinatarioPASection extends BasePage {
         return this.driver.findElement(valoreErratoBy).getText();
     }
 
+    public boolean verificaNumeroDestinatari() {
+        logger.info("TA_QA: si verifica il numero dei destinatari");
+        return this.rimuoviDestinatarioButtons.isEmpty();
+
+    }
 }

@@ -12,7 +12,7 @@ Feature:Il delegato persona giuridica rifiuta la delega
   Scenario: Il delegato persona giuridica rifiuta la delega
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
-    And Nella sezione Deleghe si verifica sia presente una delega per PG "personaGiuridica"
+    And Nella sezione Deleghe si verifica sia presente una delega accettata per PG "personaGiuridica"
     And Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega "personaGiuridica"
     And Nella sezione Deleghe si clicca sul bottone rifiuta
     And Si clicca sul bottone rifiuta delega
