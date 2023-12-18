@@ -57,6 +57,4 @@ public class NetWorkInfo {
     public void setResponseBody(String responseBody) {
         this.responseBody = responseBody;
     }
-
-
 }

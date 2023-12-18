@@ -1,18 +1,19 @@
-Feature: La persona giuridica elimina l'indirizzo email
-
+Feature: la persona giuridica inserisce una email errata
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
     When Login portale persona giuridica tramite token exchange "personaGiuridica"
     Then Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
+
   @TestSuite
-  @TA_eliminaEmailPG
   @PG
+  @TA_inserimentoEmailErrataPG
   @recapitiPG
 
-  Scenario: La persona giuridica elimina l'indirizzo email
+
+  Scenario: la persona giuridica inserisce una email errata
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
-    And Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email
-    And Nella pagina I Tuoi Recapiti si clicca sul bottone elimina email e si conferma nel pop up
-    Then Nella pagina I Tuoi Recapiti si controlla che l'indirizzo Email non sia presente
+    And Nella pagina I Tuoi Recapiti si inserisce l'email errata "prova..@gmail.com"
+    Then Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio email errata
+    And Nella pagina I Tuoi Recapiti si controlla che il tasto avvisami via email sia bloccato
     And Logout da portale persona giuridica
