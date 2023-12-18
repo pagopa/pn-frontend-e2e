@@ -94,9 +94,10 @@ public class NotifichePGPagoPATest {
         piattaformaNotifichePGPAPage.clickNotificheDelegate();
     }
 
-    @And("Si visualizza correttamente la Pagina Notifiche persona giuridica sezione notifiche delegate")
-    public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridicaSezioneNotificheDelegate() {
-        piattaformaNotifichePGPAPage.waitLoadSezioneNotificheDelegate();
+    @And("Si visualizza correttamente la Pagina Notifiche persona giuridica sezione notifiche delegate {string}")
+    public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridicaSezioneNotificheDelegate(String dpFile) {
+        String ragioneSpciale= dataPopulation.readDataPopulation(dpFile+".yaml").get("ragioneSociale").toString();
+        piattaformaNotifichePGPAPage.waitLoadSezioneNotificheDelegate(ragioneSpciale);
     }
 
     @When("Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti")
