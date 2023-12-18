@@ -94,7 +94,7 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public boolean CercaEsistenzaDelegaPG(String ragioneSociale) {
         try {
-            By nomeDelegato = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]");
+            By nomeDelegato = By.xpath("//td[@scope='col' and div/p[contains(text(),'"+ragioneSociale+"')]]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
             return true;
         }catch (TimeoutException | NoSuchElementException e){
@@ -103,7 +103,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
     public void clickRevocaMenuButtonPG(String ragioneSociale) {
 
-        By menuButton = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
+        By menuButton = By.xpath("//td[@scope='col' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@scope='col']//button[@data-testid='delegationMenuIcon']");
         this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuButton));
         this.js().executeScript("arguments[0].click()",this.element(menuButton));
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.revocaMenuButton));
@@ -200,7 +200,7 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public void controlloStatoAttiva(String ragioneSociale) {
         try {
-            By statoAttivaBy = By.xpath("//tr[@data-testid='table(notifications).row']//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//div/div/span[contains(text(),'Attiva')]");
+            By statoAttivaBy = By.xpath("//tr[@data-testid='delegationsBodyRowDesktop']//td[@scope='col' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@scope='col']//div/div/span[contains(text(),'Attiva')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoAttivaBy));
             logger.info("La delega ha lo stato Attiva");
         }catch (TimeoutException e){
@@ -251,7 +251,7 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public boolean verificaPresenzaGruppo(String ragioneSociale) {
         try {
-            By gruppoBy = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//span[contains(text(),'Test gruppi')]");
+            By gruppoBy = By.xpath("//td[@scope='col' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@scope='col']//span[contains(text(),'Test gruppi')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(gruppoBy));
             return true;
         }catch (TimeoutException e) {
