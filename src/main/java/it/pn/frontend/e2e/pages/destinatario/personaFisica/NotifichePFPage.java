@@ -167,7 +167,7 @@ public class NotifichePFPage extends BasePage {
 
     public void siVisualizzaElencoNotifiche() {
         try {
-            By elementoDellaListaBy = By.xpath("//tr[contains(@id,'notificationsTable.row')]");
+            By elementoDellaListaBy = By.xpath("//tr[contains(@id,'notificationsTable.body.row')]");
             getWebDriverWait(30).withMessage("le righe della tabella notifiche non sono visibile").until(ExpectedConditions.visibilityOfElementLocated(elementoDellaListaBy));
 
             By nomeColonnaDataBy = By.xpath("//th[contains(text(),'Data')]");
