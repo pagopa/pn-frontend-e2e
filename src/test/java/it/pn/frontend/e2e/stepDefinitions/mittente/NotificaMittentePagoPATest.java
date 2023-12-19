@@ -238,6 +238,7 @@ public class NotificaMittentePagoPATest {
         try {
             TimeUnit.SECONDS.sleep(quantiSecondi);
         } catch (Exception exc) {
+            logger.error(exc.toString());
             throw new RuntimeException(exc);
         }
     }
