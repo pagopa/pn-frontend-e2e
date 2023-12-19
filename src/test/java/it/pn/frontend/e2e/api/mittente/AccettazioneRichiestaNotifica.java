@@ -1,5 +1,7 @@
 package it.pn.frontend.e2e.api.mittente;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
@@ -78,9 +80,27 @@ public class AccettazioneRichiestaNotifica {
 
     public String getStatusNotifica() {
         String body = getresponseBody();
-        List<String> results = Splitter.on(CharMatcher.anyOf(",:")).splitToList(body);
-        String result = results.get(results.size()-3);
-        return result.substring(1,result.length()-1);
+
+        /*
+         * I changed the implementation from raw string analysis to proper JSON parsing
+         * because if the statusNotifica is REFUSED, then the following property in the JSON
+         * (namely errors) is a list having an arbitrary length and embedding of delimitation symbols,
+         * so a raw string analysis that cover all cases would have required a complex implementation.
+         * Besides this detail, IMHO referring to the specific property in which the desired value lies
+         * makes a clearer implementation.
+         * --------------------------------------
+         * Carlos Lombardi, 2023-12-13
+         */
+        ObjectMapper jsonMapper = new ObjectMapper();
+        try {
+            JsonNode parsedResponse = jsonMapper.readTree(body);
+            String statusNotifica = parsedResponse.get("notificationRequestStatus").textValue();
+            return statusNotifica;
+        } catch (Exception e) {
+            logger.error("error when parsing response body");
+            logger.error(e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     public String getCodiceIUN() {
