@@ -17,6 +17,8 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     @FindBy(id = "side-item-Deleghe")
     WebElement delegheSideMenu;
+    @FindBy(id = "side-item-Notifiche")
+    WebElement notificheButton;
 
     @FindBy(id = "side-item-Recapiti")
     WebElement recapitiButton;
@@ -65,8 +67,11 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void clickNotificheDelegate() {
         try {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.delegheSideMenu));
-            this.js().executeScript("arguments[0].click()",this.delegheSideMenu);
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.notificheButton));
+            this.js().executeScript("arguments[0].click()",this.notificheButton);
+            By notificheDelegateButton =  By.id("side-item-Notifiche delegate");
+            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificheDelegateButton));
+            this.js().executeScript("arguments[0].click()",this.element(notificheDelegateButton));
             logger.info("Si clicca correttamente sulla voce notifiche delegate");
         } catch (TimeoutException e) {
             logger.error("Non si clicca correttamente sulla voce notifiche delegate con errore:" + e.getMessage());
@@ -74,9 +79,9 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
 
-    public void waitLoadSezioneNotificheDelegate() {
+    public void waitLoadSezioneNotificheDelegate(String ragioneSociale) {
         try{
-            By notificheDelegatePageTitle = By.id("Notifiche delegate a Convivio Spa-page");
+            By notificheDelegatePageTitle = By.id("Notifiche delegate a "+ragioneSociale+"-page");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheDelegatePageTitle));
             logger.info("Si visualizza correttamente la sezione notifiche delegate");
         }catch (TimeoutException e){

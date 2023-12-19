@@ -68,7 +68,7 @@ public class DelegatiImpresaSection extends BasePage {
     }
     public void controlloCreazioneDelega(String ragioneSociale) {
         try{
-            By delegaCreata = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//div/div/span[contains(text(),'In attesa di conferma')]");
+            By delegaCreata = By.xpath("//td[@scope='col' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@scope='col']//div/div/span[contains(text(),'In attesa di conferma')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaCreata));
             this.logger.info("Si visualizza la delega creata");
         } catch (TimeoutException e) {
@@ -91,7 +91,7 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void clickMenuDelega(String ragioneSociale) {
         try{
-            By menuDelega = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
+            By menuDelega = By.xpath("//td[@scope='col' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@scope='col']//button[@data-testid='delegationMenuIcon']");
             this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuDelega));
             WebElement menuDelegaWebElement = this.driver.findElement(menuDelega);
             if (menuDelegaWebElement.isDisplayed()){
