@@ -103,7 +103,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public boolean getListData() {
-        By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-c3sxw2')]");
+        By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]");
         this.getWebDriverWait(40).withMessage("La colonna Data nella pagina notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
         return !this.elements(dataListBy).isEmpty();
     }
@@ -167,7 +167,7 @@ public class NotifichePFPage extends BasePage {
 
     public void siVisualizzaElencoNotifiche() {
         try {
-            By elementoDellaListaBy = By.xpath("//tr[contains(@id,'notificationsTable.row')]");
+            By elementoDellaListaBy = By.xpath("//tr[contains(@id,'notificationsTable.body.row')]");
             getWebDriverWait(30).withMessage("le righe della tabella notifiche non sono visibile").until(ExpectedConditions.visibilityOfElementLocated(elementoDellaListaBy));
 
             By nomeColonnaDataBy = By.xpath("//th[contains(text(),'Data')]");
@@ -192,13 +192,13 @@ public class NotifichePFPage extends BasePage {
     }
 
     public int siVisualizzaNotifichePresenti() {
-        By rigaDelegaBy = By.xpath("//tr[@id='notificationsTable.row']");
+        By rigaDelegaBy = By.id("notificationsTable.body.row");
         getWebDriverWait(30).withMessage("Nessuna notifica presente nella tabella notifiche").until(ExpectedConditions.visibilityOfElementLocated(rigaDelegaBy));
         return elements(rigaDelegaBy).size();
     }
 
     public List<WebElement> getDateNotifiche() {
-        By dataCellBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-c3sxw2')]");
+        By dataCellBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]");
         getWebDriverWait(30).withMessage("la data della notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(dataCellBy));
         return elements(dataCellBy);
     }
@@ -266,7 +266,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public int conteggioNotifiche() {
-        By rigaDelegaBy = By.xpath("//tr[@data-testid='notificationsTable.row']");
+        By rigaDelegaBy = By.xpath("//tr[@data-testid='notificationsTable.body.row']");
         this.getWebDriverWait(30).withMessage("le notifiche non sono visibile").until(ExpectedConditions.visibilityOfElementLocated(rigaDelegaBy));
         return elements(rigaDelegaBy).size();
     }

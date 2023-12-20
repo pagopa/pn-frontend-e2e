@@ -13,6 +13,7 @@ Feature: La persona giuridica inserisce una OTP sbagliato PEC
   Scenario: La persona giuridica loggato inserisce un OTP sbagliato PEC
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
+    And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una pec
     And Nella pagina I Tuoi Recapiti si inserisce la PEC "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si clicca sul bottone conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP

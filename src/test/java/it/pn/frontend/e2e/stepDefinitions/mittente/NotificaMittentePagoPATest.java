@@ -48,7 +48,7 @@ public class NotificaMittentePagoPATest {
 
     private final DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
 
-    @When("")
+    @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
         AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
         String variabileAmbiente = System.getProperty("environment");
@@ -178,6 +178,10 @@ public class NotificaMittentePagoPATest {
 
 
         String numeroProtocolOld = dataPopulation.readDataPopulation("datiNotifica.yaml").get("numeroProtocollo").toString();
+        String identificativoProtocollo = substring(numeroProtocolOld, 0, 10);
+        if (identificativoProtocollo.length() < 10) {
+            identificativoProtocollo = "TA-FFSMRC-";
+        }
         String dataProtocolOld = substring(numeroProtocolOld, 10, 18);
         String counter = substring(numeroProtocolOld, 19);
 
@@ -205,9 +209,9 @@ public class NotificaMittentePagoPATest {
 
             counter = temp;
             logger.info(counter);
-            numeroProtocol = "TA-FFSMRC-" + dataProtocol + "-" + counter;
+            numeroProtocol = identificativoProtocollo + dataProtocol + "-" + counter;
         } else {
-            numeroProtocol = "TA-FFSMRC-" + dataProtocol + "-0";
+            numeroProtocol = identificativoProtocollo + dataProtocol + "-0";
         }
 
         logger.info("numero Protocollo generato : " + numeroProtocol);
@@ -223,6 +227,17 @@ public class NotificaMittentePagoPATest {
         logger.info("Cliccare sul bottone continua");
         InvioNotifichePAPage invioNotifichePAPage = new InvioNotifichePAPage(this.driver);
         invioNotifichePAPage.selezionareContinuaButton();
+    }
+
+    @And("Aspetta {int} secondi")
+    public void aspettaSecondi(int quantiSecondi) {
+        logger.info("Aspetta " + quantiSecondi + " secondi");
+        try {
+            TimeUnit.SECONDS.sleep(quantiSecondi);
+        } catch (Exception exc) {
+            logger.error(exc.toString());
+            throw new RuntimeException(exc);
+        }
     }
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario")
@@ -268,6 +283,13 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.inserireProvincia(this.personeFisiche.get("provincia").toString());
         destinatarioPASection.inserireCodicePostale(this.personeFisiche.get("codicepostale").toString());
         destinatarioPASection.inserireStato(this.personeFisiche.get("stato").toString());
+    }
+
+    @And("Nella section Destinatario settare come CAP {string}")
+    public void nellaSectionDestinatarioSettareComeCAP(String cap) {
+        // this assumes that previously the test scenario enforces the destinatarioPASection to appear,
+        // e.g. through siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionDestinatario
+        destinatarioPASection.cambiareCodicePostale(cap);
     }
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati")
@@ -927,8 +949,27 @@ public class NotificaMittentePagoPATest {
         }
     }
 
-    @And("Si verifica che la notifica viene creata correttamente {string}")
-    public void siVerificaCheLaNotificaVieneCreataCorrettamente(String dpFile) {
+    /**
+     * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
+     */
+    class EsitoNotifica {
+        String statusNotifica;
+        AccettazioneRichiestaNotifica accettazioneRichiestaNotifica;
+        String notificationRequestId;
+
+        public EsitoNotifica(String statusNotifica, AccettazioneRichiestaNotifica accettazioneRichiestaNotifica, String notificationRequestId) {
+            this.statusNotifica = statusNotifica;
+            this.accettazioneRichiestaNotifica = accettazioneRichiestaNotifica;
+            this.notificationRequestId = notificationRequestId;
+        }
+    }
+
+    /**
+     * Factorize out the assessment of the esito notifica from siVerificaCheLaNotificaVieneCreataCorrettamente,
+     * this was motivated by the need to add siVerificaCheLaNotificaVieneRifiutata
+     * that needs to perform the same assessment.
+     */
+    protected EsitoNotifica siVerificaEsitoNotifica(String dpFile) {
         logger.info("si verifica se la notifica è stata accettata o rifiutata");
         String variabileAmbiente = System.getProperty("environment");
         final String urlNotificationRequest = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.1/requests";
@@ -948,9 +989,9 @@ public class NotificaMittentePagoPATest {
             throw new RuntimeException(e);
         }
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
-        if (notificationRequestId == null) {
-            logger.error("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è assente dal network ");
-            Assert.fail("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è assente dal network ");
+        if(notificationRequestId==null){
+            logger.error("NotificationRequestId non trovato, il codice della risposta al url "+ urlNotificationRequest +" è diverso di 202 ");
+            Assert.fail("NotificationRequestId non trovato, il codice della risposta al url "+ urlNotificationRequest +" è diverso di 202 ");
         }
         accettazioneRichiestaNotifica.setNotificationRequestId(notificationRequestId);
         accettazioneRichiestaNotifica.setRichiestaNotificaEndPoint(urlRichiestaNotifica);
@@ -970,31 +1011,62 @@ public class NotificaMittentePagoPATest {
                     Assert.fail("la risposta dell'accettazione della notifica " + notificationRequestId + " è: " + accettazioneRichiestaNotifica.getResponseCode());
                 }
             }
-        } while (statusNotifica.equals("WAITING"));
+        }while (statusNotifica.equals("WAITING"));
+        return new EsitoNotifica(statusNotifica, accettazioneRichiestaNotifica, notificationRequestId);
+    }
 
-        if (statusNotifica.equals("ACCEPTED")) {
+    @And("Si verifica che la notifica viene creata correttamente {string}")
+    public void siVerificaCheLaNotificaVieneCreataCorrettamente(String dpFile) {
+        EsitoNotifica esitoNotifica = this.siVerificaEsitoNotifica(dpFile);
+        if (esitoNotifica.statusNotifica.equals("ACCEPTED")){
             logger.info("La notifica è stata Accettata");
-            String codiceIUN = accettazioneRichiestaNotifica.getCodiceIUN();
-            this.datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-            if (codiceIUN != null && !codiceIUN.equals("")) {
-                this.datiNotifica.put("codiceIUN", codiceIUN);
-                this.dataPopulation.writeDataPopulation(dpFile + ".yaml", this.datiNotifica);
+            String codiceIUN = esitoNotifica.accettazioneRichiestaNotifica.getCodiceIUN();
+            this.datiNotifica = dataPopulation.readDataPopulation(dpFile+".yaml");
+            if (codiceIUN != null && !codiceIUN.equals("")){
+                this.datiNotifica.put("codiceIUN",codiceIUN);
+                this.dataPopulation.writeDataPopulation(dpFile+".yaml",this.datiNotifica);
                 logger.info("La notifica è stata creata correttamente");
             }
-        } else {
-            logger.error("La notifica " + notificationRequestId + " è stata rifiuta: " + accettazioneRichiestaNotifica.getResponseReasonPhrase());
-            Assert.fail("La notifica " + notificationRequestId + " è stata rifiuta: " + accettazioneRichiestaNotifica.getResponseReasonPhrase());
+        }else {
+            logger.error("La notifica "+ esitoNotifica.notificationRequestId +" è stata rifiuta: "+esitoNotifica.accettazioneRichiestaNotifica.getResponseReasonPhrase());
+            Assert.fail("La notifica "+ esitoNotifica.notificationRequestId +" è stata rifiuta: "+esitoNotifica.accettazioneRichiestaNotifica.getResponseReasonPhrase());
+        }
+    }
+
+    @And("Si verifica che la notifica e' stata rifiutata {string}")
+    public void siVerificaCheLaNotificaVieneRifiutata(String dpFile) {
+        EsitoNotifica esitoNotifica = this.siVerificaEsitoNotifica(dpFile);
+        if (esitoNotifica.statusNotifica.equals("REFUSED")){
+            logger.info("La notifica è stata Rifiutata");
+        }else {
+            logger.error("La notifica "+ esitoNotifica.notificationRequestId +" è stata accettata: " + esitoNotifica.statusNotifica );
+            logger.error(esitoNotifica.accettazioneRichiestaNotifica.getresponseBody());
+            Assert.fail("La notifica "+ esitoNotifica.notificationRequestId +" è stata accettata: ");
         }
     }
 
     private String getNotificationRequestId(String urlNotificationRequest) {
-        for (NetWorkInfo netWorkInfo : netWorkInfos) {
-            if (netWorkInfo.getRequestUrl().equals(urlNotificationRequest) && netWorkInfo.getRequestMethod().equals("POST") && netWorkInfo.getResponseStatus().equals("202")) {
+        /*
+         * In case of error, I prefer to display a message that corresponds to the actual situation,
+         * so now two different error cases are distinguished
+         * (1) a POST request with the provided URL was found, but the status is not 202
+         * (2) no POST requests with the provided URL were found
+         */
+        boolean foundRequestWithUndesiredStatus = false;
+        for (NetWorkInfo netWorkInfo : netWorkInfos ) {
+            if (netWorkInfo.getRequestUrl().equals(urlNotificationRequest) && netWorkInfo.getRequestMethod().equals("POST") && netWorkInfo.getResponseStatus().equals("202")){
                 String values = netWorkInfo.getResponseBody();
                 List<String> results = Splitter.on(CharMatcher.anyOf(",:")).splitToList(values);
                 String result = results.get(1);
-                return result.substring(1, result.length() - 1);
+                return result.substring(1,result.length()-1);
+            } else if (netWorkInfo.getRequestUrl().equals(urlNotificationRequest) && netWorkInfo.getRequestMethod().equals("POST") && !netWorkInfo.getResponseStatus().equals("202")) {
+                foundRequestWithUndesiredStatus = true;
             }
+        }
+        if (foundRequestWithUndesiredStatus) {
+            logger.error("NotificationRequestId non trovato, il codice della risposta al POST sull'url "+ urlNotificationRequest +" è diverso di 202 ");
+        } else {
+            logger.error("NotificationRequestId non trovato, non ci sono trovate chiamate POST per la url "+ urlNotificationRequest);
         }
         return null;
     }

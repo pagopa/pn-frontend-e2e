@@ -52,6 +52,7 @@ public class DownloadFileMittentePagoPATest {
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         DataPopulation dataPopulation = new DataPopulation();
+
         String workingDirectory = System.getProperty("user.dir");
         String variabileAmbiente = System.getProperty("environment");
         File pathCartella = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
@@ -62,16 +63,27 @@ public class DownloadFileMittentePagoPATest {
         }
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         int count = 1;
+
+        dettaglioNotificaMittenteSection.waitloadingSpinner();
+        String codiceIUN;
+        String destinatario = dettaglioNotificaMittenteSection.getInfoNotifica(1);
+        if (destinatario.contains("-")){
+            codiceIUN = dettaglioNotificaMittenteSection.getInfoNotifica(3);
+        } else {
+            codiceIUN = dettaglioNotificaMittenteSection.getInfoNotifica(4);
+        }
         dettaglioNotificaMittenteSection.clickLinkDocumentiAllegati();
         try {
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(10);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
+
+
         final String filepath = workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN";
 
-        final String urlDocumenti ="https://webapi."+variabileAmbiente+".notifichedigitali.it/delivery/notifications/sent/" + this.datiNotifica.get("codiceIUN").toString() + "/attachments/documents/0";
+        final String urlDocumenti ="https://webapi."+variabileAmbiente+".notifichedigitali.it/delivery/notifications/sent/" + codiceIUN + "/attachments/documents/0";
 
         final String urlDocumentiAllegati = downloadFile.getUrl(urlDocumenti);
         File file = new File(filepath+count+".pdf");
@@ -95,7 +107,7 @@ public class DownloadFileMittentePagoPATest {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            final String url = "https://webapi."+variabileAmbiente+".notifichedigitali.it/delivery-push/"+ this.datiNotifica.get("codiceIUN").toString() +"/document/AAR?documentId=safestorage:";
+            final String url = "https://webapi."+variabileAmbiente+".notifichedigitali.it/delivery-push/"+ codiceIUN +"/document/AAR?documentId=safestorage:";
             final String urlAvvenutaRicezione = downloadFile.getUrl(url);
             if (headless && urlAvvenutaRicezione.isEmpty()){
                 String testoLink = dettaglioNotificaMittenteSection.getTextLinkAvvenutaRicezione(i);

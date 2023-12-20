@@ -451,6 +451,7 @@ public class DeleghePGPagoPATest {
         creazioneDelega.setUrl(url);
         String body = creazioneBodyChiamata(dpFile);
         if (!body.isEmpty()){
+            logger.info("Il body della chiamata è: "+body);
             creazioneDelega.setBody(body);
         }else {
             logger.error("Non è stato possibile leggere il file json del body");
@@ -478,7 +479,7 @@ public class DeleghePGPagoPATest {
         codiceFiscaleDelegante = dataPopulation.readDataPopulation(dpFile+".yaml").get("codiceFiscale").toString();
         try {
             String pathIniziale = System.getProperty("user.dir");
-            String text = Files.readString(Paths.get(pathIniziale+"\\src\\test\\resources\\dataPopulation\\bodyChiamataDeleghe.json"));
+            String text = Files.readString(Paths.get(pathIniziale+"/src/test/resources/dataPopulation/bodyChiamataDeleghe.json"));
             JSONObject object = new JSONObject(text);
             Map<String, Object> delegato = new HashMap<>();
             Map<String, Object> delegante = new HashMap<>();

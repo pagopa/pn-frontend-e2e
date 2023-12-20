@@ -402,6 +402,8 @@ public class ApiKeyPAPage  extends BasePage {
         By groupOption = By.id("groups-option-0");
         getWebDriverWait(60).withMessage("Il campo Nome del Gruppo Apikey non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.element(groupOption)));
         element(groupOption).click();
+        this.gruppoInput.click();
+
     }
 
     public void cancellareTestoInserito() {
