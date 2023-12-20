@@ -742,6 +742,16 @@ public class RecapitiPersonaFisicaTest {
         }
     }
 
+    @And("si verifica esistenza due pec")
+    public void SicontrollaEsistenzaDuePec(){
+        if(!recapitiDestinatarioPage.siVisulizzaPecInserita()){
+            BackgroundTest backgroundTest = new BackgroundTest();
+            backgroundTest.aggiungiNuovaPECPF();
+            backgroundTest.aggiungiPecSezioneGiaAssociati();
+
+        }
+    }
+
     @Then("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti")
     public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapiti() {
         logger.info("Si controlla che si visualizzano correttamente tutti gli elementi della sezione recapiti gia associati");
