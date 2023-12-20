@@ -6,24 +6,22 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.api.mittente.SpidAcsMittente;
 import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
+import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoContinueResponse;
+import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoLogin;
 import it.pn.frontend.e2e.listeners.Hooks;
-
 import it.pn.frontend.e2e.pages.mittente.*;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import org.apache.hc.client5.http.cookie.BasicCookieStore;
+import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import org.apache.hc.client5.http.cookie.BasicCookieStore;
-import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
-import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoLogin;
-import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoContinueResponse;
 
 
 public class LoginMittentePagoPA {
@@ -33,7 +31,6 @@ public class LoginMittentePagoPA {
 
     private Map<String, String> urlMittente;
     private final WebDriver driver = Hooks.driver;
-
 
 
     @Given("Login Page mittente {string} viene visualizzata")
@@ -57,19 +54,10 @@ public class LoginMittentePagoPA {
         DataPopulation dataPopulation = new DataPopulation();
         this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
 
-        CookiesSection cookiesPage = new CookiesSection(this.driver);
-        if (cookiesPage.waitLoadCookiesPage()) {
-            cookiesPage.selezionaAccettaTuttiButton();
-        }
-
         PreAccediAreaRiservataPAPage preAccediAreaRiservataPAPage = new PreAccediAreaRiservataPAPage(this.driver);
         preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
-
-        if (cookiesPage.waitLoadCookiesPage()) {
-            cookiesPage.selezionaAccettaTuttiButton();
-        }
 
         AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
@@ -121,11 +109,6 @@ public class LoginMittentePagoPA {
         }
 
         this.driver.get(this.urlMittente.get("urlPortale"));
-
-        CookiesSection cookiesPage = new CookiesSection(this.driver);
-        if (cookiesPage.waitLoadCookiesPage()) {
-            cookiesPage.selezionaAccettaTuttiButton();
-        }
 
         SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(this.driver);
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
@@ -263,7 +246,6 @@ public class LoginMittentePagoPA {
     }
 
 
-
     @Then("Home page mittente viene visualizzata correttamente")
     public void home_page_mittente_viene_visualizzata_correttamente() {
         logger.info("Home page mittente viene visualizzata correttamente");
@@ -286,7 +268,6 @@ public class LoginMittentePagoPA {
     }
 
 
-
     @And("Logout da portale mittente")
     public void Logout_da_portale_mittente() {
         logger.info("Si esce dal portale mittente");
@@ -294,7 +275,7 @@ public class LoginMittentePagoPA {
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();
         CookiesSection cookiesSection = new CookiesSection(this.driver);
-        if (cookiesSection.waitLoadCookiesPage()){
+        if (cookiesSection.waitLoadCookiesPage()) {
             cookiesSection.selezionaAccettaTuttiButton();
         }
 

@@ -26,7 +26,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-import static org.apache.commons.lang3.StringUtils.*;
+import static org.apache.commons.lang3.StringUtils.isNumeric;
+import static org.apache.commons.lang3.StringUtils.substring;
 
 public class NotificaMittentePagoPATest {
 
@@ -39,9 +40,9 @@ public class NotificaMittentePagoPATest {
     private Map<String, Object> personaGiuridica = new HashMap<>();
     private Map<String, Object> personeFisiche = new HashMap<>();
 
-    private final  PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+    private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
 
-    private final  DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
+    private final DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
 
     private final DataPopulation dataPopulation = new DataPopulation();
 
@@ -51,7 +52,7 @@ public class NotificaMittentePagoPATest {
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
         AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
         String variabileAmbiente = System.getProperty("environment");
-        logger.info("Cliccare sul bottone di Piattaforma Notifiche dell'Ambiente "+variabileAmbiente);
+        logger.info("Cliccare sul bottone di Piattaforma Notifiche dell'Ambiente " + variabileAmbiente);
         switch (variabileAmbiente) {
             case "dev" -> areaRiservataPAPage.selezionaPiattaformaNotificaDev();
             case "test" -> areaRiservataPAPage.selezionaPiattaformaNotificaTest();
@@ -64,10 +65,6 @@ public class NotificaMittentePagoPATest {
         logger.info("Si visualizza correttamente la pagina Piattaforma Notifiche");
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
-        CookiesSection cookiesSection = new CookiesSection(this.driver);
-        if (cookiesSection.waitLoadCookiesPage()) {
-            cookiesSection.selezionaAccettaTuttiButton();
-        }
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         try {
@@ -77,27 +74,27 @@ public class NotificaMittentePagoPATest {
         }
 
         String variabileAmbiente = System.getProperty("environment");
-        String urlChiamata = "https://webapi."+variabileAmbiente+".notifichedigitali.it/delivery/notifications/sent?";
+        String urlChiamata = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/notifications/sent?";
         try {
             TimeUnit.SECONDS.sleep(10);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
-        if (codiceRispostaChiamataApi!=200 && codiceRispostaChiamataApi!=0){
-            logger.error("TA_QA: La chiamata, "+urlChiamata+" è andata in errore");
-            Assert.fail("TA_QA: La chiamata, "+urlChiamata+" è andata in errore");
-        }else if (codiceRispostaChiamataApi==0){
-            logger.error("TA_QA: La chiamata, "+urlChiamata+" non trovata");
-            Assert.fail("TA_QA: La chiamata, "+urlChiamata+" non trovata");
+        if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
+            logger.error("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
+            Assert.fail("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
+        } else if (codiceRispostaChiamataApi == 0) {
+            logger.error("TA_QA: La chiamata, " + urlChiamata + " non trovata");
+            Assert.fail("TA_QA: La chiamata, " + urlChiamata + " non trovata");
         }
     }
 
     private int getCodiceRispostaChiamataApi(String urlChiamata) {
-        logger.info("Recupero codice risposta della chiamata"+urlChiamata);
+        logger.info("Recupero codice risposta della chiamata" + urlChiamata);
         int codiceRispostaChiamataApi = 0;
-        for (NetWorkInfo chiamate: netWorkInfos) {
-            if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")){
+        for (NetWorkInfo chiamate : netWorkInfos) {
+            if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
                 codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
                 break;
             }
@@ -107,7 +104,7 @@ public class NotificaMittentePagoPATest {
 
     public String getNumeroProtocollo() {
         logger.info("Si recupera l'ultimo numero protocollo utilizzato");
-       this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
+        this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
         try {
             TimeUnit.SECONDS.sleep(10);
         } catch (InterruptedException e) {
@@ -115,15 +112,15 @@ public class NotificaMittentePagoPATest {
         }
         String urlNotifiche = "https://webapi.test.notifichedigitali.it/delivery/notifications/";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
-            if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=50")){
-                String responseBody= netWorkInfo.getResponseBody();
+            if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=50")) {
+                String responseBody = netWorkInfo.getResponseBody();
                 String[] allNotifiche = responseBody.split("],\"moreResult\":");
                 String[] notifiche = allNotifiche[0].split("},");
-                for (String notifica:notifiche) {
-                    if (notifica.contains("Pagamento rata IMU")){
+                for (String notifica : notifiche) {
+                    if (notifica.contains("Pagamento rata IMU")) {
                         String[] campiNotifiche = notifica.split("\",");
-                        for (String campoNotifica: campiNotifiche) {
-                            if (campoNotifica.startsWith("\"paProtocolNumber\"")){
+                        for (String campoNotifica : campiNotifiche) {
+                            if (campoNotifica.startsWith("\"paProtocolNumber\"")) {
                                 String[] rigaNumeroProtocollo = campoNotifica.split(":\"");
                                 return rigaNumeroProtocollo[1];
                             }
@@ -155,7 +152,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella section Informazioni preliminari inserire i dati della notifica {string} senza pagamento")
     public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento(String datiNotificaFile) {
-        logger.info("Inserimento dei dati della notifica senza pagamento dal file "+datiNotificaFile+".yaml");
+        logger.info("Inserimento dei dati della notifica senza pagamento dal file " + datiNotificaFile + ".yaml");
 
         aggiornamentoNumeroProtocollo();
 
@@ -312,12 +309,13 @@ public class NotificaMittentePagoPATest {
 
         AllegatiPASection allegatiPASection = new AllegatiPASection(this.driver);
         allegatiPASection.selectInviaButton();
-        if (allegatiPASection.verificaMessaggioErrore()){
+        if (allegatiPASection.verificaMessaggioErrore()) {
             aggiornamentoNumeroProtocolloAllegati();
             logger.error("Si vede il messaggio di dati non corretti");
             Assert.fail("Si vede il messaggio di dati non corretti");
         }
     }
+
     private void aggiornamentoNumeroProtocolloAllegati() {
         logger.info("Aggiornamento del numero protocollo");
         String nomeFile = "datiNotifica.yaml";
@@ -363,6 +361,7 @@ public class NotificaMittentePagoPATest {
         dataPopulation.writeDataPopulation("datiNotifica.yaml", allDatataPopulation);
 
     }
+
     @Then("Si visualizza correttamente la frase La notifica è stata correttamente creata")
     public void siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata() {
         logger.info("Verifica visualizzazione frase: La notifica è stata correttamente creata");
@@ -395,13 +394,9 @@ public class NotificaMittentePagoPATest {
         String dataNotifica = dateFormat.format(date).replace("-", "/");
 
         String coidiceIUNOld = this.datiNotifica.get("codiceIUN").toString();
-        CookiesSection cookiesSection = new CookiesSection(this.driver);
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
                 piattaformaNotifichePage.aggionamentoPagina();
-                if (cookiesSection.waitLoadCookiesPage()) {
-                    cookiesSection.selezionaAccettaTuttiButton();
-                }
                 piattaformaNotifichePage.insertCodiceFiscale(this.personaFisica.get("codiceFiscale").toString());
                 piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
                 piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
@@ -481,7 +476,7 @@ public class NotificaMittentePagoPATest {
             Assert.fail("I codici fiscali delle notifiche non vengono visualizzati correttamente");
         }
         List<WebElement> listeOggetti = piattaformaNotifichePage.ricercaListaOggetti();
-        if (listeOggetti != null && listeOggetti.size() >=1 ){
+        if (listeOggetti != null && listeOggetti.size() >= 1) {
             logger.info("La lista degli oggetti viene visualizzata correttamente");
         } else {
             logger.error("La lista degli oggetti non viene visualizzata correttamente");
@@ -750,9 +745,9 @@ public class NotificaMittentePagoPATest {
     @And("Nella section Informazioni preliminari si visualizza un messaggio di errore")
     public void nellaSectionInformazioniPreliminariSiVisualizzaUnMessaggioDiErrore() {
         logger.info("Si verifica sia presente un messaggio di errore");
-        if (piattaformaNotifichePage.errorMessage()){
+        if (piattaformaNotifichePage.errorMessage()) {
             logger.info("Si visualizza correttamente il messaggio di errore");
-        }else {
+        } else {
             logger.error("Non si visualizza correttamente il messaggio di errore");
             Assert.fail("Non si visualizza correttamente il messaggio di errore");
         }
@@ -799,7 +794,7 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDellaPersonaGiuridica(String dpFile) {
         logger.info("Si inseriscono i dati personali della persona giuridica");
 
-        this.personaGiuridica = dataPopulation.readDataPopulation(dpFile +".yaml");
+        this.personaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
 
         destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
@@ -820,10 +815,10 @@ public class NotificaMittentePagoPATest {
 
         destinatarioPASection.checkBoxAggiungiDomicilio();
         destinatarioPASection.insertDomicilioDigitaleErrato(personaGiuridicaErrore1.get("emailPec").toString());
-        Assert.assertEquals("l'errore  attuale 'Indirizzo PEC non valido' è diverso di :"+destinatarioPASection.getDomicilioDigitaleError(),"Indirizzo PEC non valido",destinatarioPASection.getDomicilioDigitaleError());
+        Assert.assertEquals("l'errore  attuale 'Indirizzo PEC non valido' è diverso di :" + destinatarioPASection.getDomicilioDigitaleError(), "Indirizzo PEC non valido", destinatarioPASection.getDomicilioDigitaleError());
 
         destinatarioPASection.insertCodiceFiscaleErrato(personaGiuridicaErrore1.get("codiceFiscale").toString());
-        Assert.assertEquals("l'errore  attuale 'Il valore inserito non è corretto' è diverso di :"+destinatarioPASection.getcodiceFiscaleError(),"Il valore inserito non è corretto",destinatarioPASection.getcodiceFiscaleError());
+        Assert.assertEquals("l'errore  attuale 'Il valore inserito non è corretto' è diverso di :" + destinatarioPASection.getcodiceFiscaleError(), "Il valore inserito non è corretto", destinatarioPASection.getcodiceFiscaleError());
 
     }
 
@@ -831,16 +826,16 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionAllegatiCaricareLAttoEInserireIlNomeAttoConEstenzioneNonValida() {
         logger.info("Si inserisce un file con estensione sbagliata");
         AllegatiPASection allegatiPASection = new AllegatiPASection(this.driver);
-        String pathDocumentiFile = System.getProperty("user.dir")+"/src/test/resources/dataPopulation/fileUpload/semiOfficial1.jpg";
+        String pathDocumentiFile = System.getProperty("user.dir") + "/src/test/resources/dataPopulation/fileUpload/semiOfficial1.jpg";
         allegatiPASection.caricareNotificaPdfDalComputer(pathDocumentiFile);
     }
 
     @Then("Si visualizza correttamente il messaggio di errore estensione file non supportata. Riprovare con un altro file.")
     public void siVisualizzaCorrettamenteIlMessaggioDiErroreEstensioneFileNonSupportataRiprovareConUnAltroFile() {
-       logger.info("Si controlla che si vede il messaggio di errore");
-        if(piattaformaNotifichePage.estensioneSbagliataErrore()){
+        logger.info("Si controlla che si vede il messaggio di errore");
+        if (piattaformaNotifichePage.estensioneSbagliataErrore()) {
             logger.info("Si visualizza correttamente il messaggio di errore: Estensione file non supportata. Riprovare con un altro file.");
-        }else {
+        } else {
             logger.error("Non si visualizza correttamente il messaggio di errore: Estensione file non supportata. Riprovare con un altro file.");
             Assert.fail("Non si visualizza correttamente il messaggio di errore: Estensione file non supportata. Riprovare con un altro file.");
         }
@@ -889,7 +884,7 @@ public class NotificaMittentePagoPATest {
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
         String dataNotifica = dateFormat.format(date).replace("-", "/");
-        String codiceFiscale =this.personaFisica.get("codiceFiscale").toString();
+        String codiceFiscale = this.personaFisica.get("codiceFiscale").toString();
 
         String coidiceIUNOld = this.datiNotifica.get("codiceIUN").toString();
         CookiesSection cookiesSection = new CookiesSection(this.driver);
@@ -916,7 +911,7 @@ public class NotificaMittentePagoPATest {
                 }
             }
         }
-        if (codiceIUN.equals("")){
+        if (codiceIUN.equals("")) {
             logger.error("Notifica non trovata il sistema ha impiegato troppo tempo a rispondere");
             Assert.fail("Notifica non trovata il sistema ha impiegato troppo tempo a rispondere");
         }
@@ -924,11 +919,11 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo")
     public void nellaPaginaPiattaformaNotificheSiRecuperaLUltimoNumeroProtocollo() {
-      String numeroProtocollo = getNumeroProtocollo();
-        if(numeroProtocollo != null){
+        String numeroProtocollo = getNumeroProtocollo();
+        if (numeroProtocollo != null) {
             this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-            this.datiNotifica.put("numeroProtocollo",numeroProtocollo);
-            dataPopulation.writeDataPopulation("datiNotifica.yaml",this.datiNotifica);
+            this.datiNotifica.put("numeroProtocollo", numeroProtocollo);
+            dataPopulation.writeDataPopulation("datiNotifica.yaml", this.datiNotifica);
         }
     }
 
@@ -936,8 +931,8 @@ public class NotificaMittentePagoPATest {
     public void siVerificaCheLaNotificaVieneCreataCorrettamente(String dpFile) {
         logger.info("si verifica se la notifica è stata accettata o rifiutata");
         String variabileAmbiente = System.getProperty("environment");
-        final String urlNotificationRequest = "https://webapi."+variabileAmbiente+".notifichedigitali.it/delivery/v2.1/requests";
-        final String urlRichiestaNotifica = "https://api."+variabileAmbiente+".notifichedigitali.it/delivery/v2.1/requests/";
+        final String urlNotificationRequest = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.1/requests";
+        final String urlRichiestaNotifica = "https://api." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.1/requests/";
         AccettazioneRichiestaNotifica accettazioneRichiestaNotifica = new AccettazioneRichiestaNotifica();
         String codiceApi;
         if (variabileAmbiente.equals("test")) {
@@ -953,52 +948,52 @@ public class NotificaMittentePagoPATest {
             throw new RuntimeException(e);
         }
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
-        if(notificationRequestId==null){
-            logger.error("NotificationRequestId non trovato, il codice della risposta al url "+ urlNotificationRequest +" è assente dal network ");
-            Assert.fail("NotificationRequestId non trovato, il codice della risposta al url "+ urlNotificationRequest +" è assente dal network ");
+        if (notificationRequestId == null) {
+            logger.error("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è assente dal network ");
+            Assert.fail("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è assente dal network ");
         }
         accettazioneRichiestaNotifica.setNotificationRequestId(notificationRequestId);
         accettazioneRichiestaNotifica.setRichiestaNotificaEndPoint(urlRichiestaNotifica);
-        do{
+        do {
             try {
                 TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             boolean result = accettazioneRichiestaNotifica.runGetRichiestaNotifica();
-            if (result){
+            if (result) {
                 statusNotifica = accettazioneRichiestaNotifica.getStatusNotifica();
-                logger.info("lo stato della notifica è :"+statusNotifica);
-            }else{
-                if(accettazioneRichiestaNotifica.getResponseCode()!=200){
-                    logger.error("la risposta dell'accettazione della notifica "+ notificationRequestId+ " è: "+accettazioneRichiestaNotifica.getResponseCode());
-                    Assert.fail("la risposta dell'accettazione della notifica "+ notificationRequestId+ " è: "+accettazioneRichiestaNotifica.getResponseCode());
+                logger.info("lo stato della notifica è :" + statusNotifica);
+            } else {
+                if (accettazioneRichiestaNotifica.getResponseCode() != 200) {
+                    logger.error("la risposta dell'accettazione della notifica " + notificationRequestId + " è: " + accettazioneRichiestaNotifica.getResponseCode());
+                    Assert.fail("la risposta dell'accettazione della notifica " + notificationRequestId + " è: " + accettazioneRichiestaNotifica.getResponseCode());
                 }
             }
-        }while (statusNotifica.equals("WAITING"));
+        } while (statusNotifica.equals("WAITING"));
 
-        if (statusNotifica.equals("ACCEPTED")){
+        if (statusNotifica.equals("ACCEPTED")) {
             logger.info("La notifica è stata Accettata");
             String codiceIUN = accettazioneRichiestaNotifica.getCodiceIUN();
-            this.datiNotifica = dataPopulation.readDataPopulation(dpFile+".yaml");
-            if (codiceIUN != null && !codiceIUN.equals("")){
-                this.datiNotifica.put("codiceIUN",codiceIUN);
-                this.dataPopulation.writeDataPopulation(dpFile+".yaml",this.datiNotifica);
+            this.datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+            if (codiceIUN != null && !codiceIUN.equals("")) {
+                this.datiNotifica.put("codiceIUN", codiceIUN);
+                this.dataPopulation.writeDataPopulation(dpFile + ".yaml", this.datiNotifica);
                 logger.info("La notifica è stata creata correttamente");
             }
-        }else {
-            logger.error("La notifica "+ notificationRequestId +" è stata rifiuta: "+accettazioneRichiestaNotifica.getResponseReasonPhrase());
-            Assert.fail("La notifica "+ notificationRequestId +" è stata rifiuta: "+accettazioneRichiestaNotifica.getResponseReasonPhrase());
+        } else {
+            logger.error("La notifica " + notificationRequestId + " è stata rifiuta: " + accettazioneRichiestaNotifica.getResponseReasonPhrase());
+            Assert.fail("La notifica " + notificationRequestId + " è stata rifiuta: " + accettazioneRichiestaNotifica.getResponseReasonPhrase());
         }
     }
 
     private String getNotificationRequestId(String urlNotificationRequest) {
-        for (NetWorkInfo netWorkInfo : netWorkInfos ) {
-            if (netWorkInfo.getRequestUrl().equals(urlNotificationRequest) && netWorkInfo.getRequestMethod().equals("POST") && netWorkInfo.getResponseStatus().equals("202")){
+        for (NetWorkInfo netWorkInfo : netWorkInfos) {
+            if (netWorkInfo.getRequestUrl().equals(urlNotificationRequest) && netWorkInfo.getRequestMethod().equals("POST") && netWorkInfo.getResponseStatus().equals("202")) {
                 String values = netWorkInfo.getResponseBody();
                 List<String> results = Splitter.on(CharMatcher.anyOf(",:")).splitToList(values);
                 String result = results.get(1);
-                return result.substring(1,result.length()-1);
+                return result.substring(1, result.length() - 1);
             }
         }
         return null;
@@ -1021,12 +1016,12 @@ public class NotificaMittentePagoPATest {
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresenti();
         this.personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         String codiceIun = this.personaFisica.get("codiceIUN").toString();
-        if (codiciIun.contains(codiceIun)){
+        if (codiciIun.contains(codiceIun)) {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
-        }else {
+        } else {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiciIun.get(0));
-            this.personaFisica.put("codiceIUN",codiciIun.get(0));
-            dataPopulation.writeDataPopulation("datiNotifica.yaml",this.personaFisica);
+            this.personaFisica.put("codiceIUN", codiciIun.get(0));
+            dataPopulation.writeDataPopulation("datiNotifica.yaml", this.personaFisica);
         }
     }
 
@@ -1045,7 +1040,7 @@ public class NotificaMittentePagoPATest {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            if (piattaformaNotifichePage.getListStato("Depositata")!= 0 && piattaformaNotifichePage.getListStato("Invio in corso") != 0)  {
+            if (piattaformaNotifichePage.getListStato("Depositata") != 0 && piattaformaNotifichePage.getListStato("Invio in corso") != 0) {
                 piattaformaNotifichePage.aggionamentoPagina();
                 piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
                 piattaformaNotifichePage.inserimentoCodiceIUN(datiNotifica.get("codiceIUN").toString());
@@ -1062,7 +1057,7 @@ public class NotificaMittentePagoPATest {
     }
 
     @And("Nella pagina Piattaforma Notifiche inserire il codice fiscale sbagliato {string}")
-    public void inserimentoCodiceFiscaleSbagliato(String codiceFiscaleSbagliato){
+    public void inserimentoCodiceFiscaleSbagliato(String codiceFiscaleSbagliato) {
         logger.info("inserimento codice fiscale sbagliato nella ricerca di una notifica");
         piattaformaNotifichePage.insertCodiceFiscale(codiceFiscaleSbagliato);
         piattaformaNotifichePage.selectFiltraButton();
@@ -1070,7 +1065,7 @@ public class NotificaMittentePagoPATest {
     }
 
     @Then("Nella pagina Piattaforma Notifiche si controlla che si visualizza il messaggio di errore codice fiscale")
-    public void nellaPiattaformaNotificheSiControllaEsistenzaMessaggioErroreCF(){
+    public void nellaPiattaformaNotificheSiControllaEsistenzaMessaggioErroreCF() {
         logger.info("si controlla che si visualizza il messaggio di errore ‘Inserisci il codice per intero’ ");
         Assert.assertTrue("Nessun errore visualizzato insirendo CF sbagliato", piattaformaNotifichePage.controlloEsistenzaMessagioErroreCF());
 
@@ -1083,16 +1078,16 @@ public class NotificaMittentePagoPATest {
     }
 
     @And("Nella pagina Piattaforma Notifiche inserire il codice IUN sbagliato {string}")
-    public void nellaPaginaPiattaformaNotificheInserireIUNsbagliato(String codiceIUNSbagliato){
+    public void nellaPaginaPiattaformaNotificheInserireIUNsbagliato(String codiceIUNSbagliato) {
         logger.info("Inserimento codice IUN sbagliato");
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUNSbagliato);
         piattaformaNotifichePage.selectFiltraButton();
     }
 
     @Then("Nella pagina Piattaforma Notifiche si visualizza il messaggio di errore codice IUN")
-    public void nellaPaginaPiattaformaNotificheSiVisualizzaIlMessaggioDiErroreIUN(){
+    public void nellaPaginaPiattaformaNotificheSiVisualizzaIlMessaggioDiErroreIUN() {
         logger.info("si controlla esistenza messaggio di errore codice IUN");
-        Assert.assertTrue("Nessun errore visualizzato insirendo IUN sbagliato",piattaformaNotifichePage.controlloEsistenzaMessagioErroreIUN());
+        Assert.assertTrue("Nessun errore visualizzato insirendo IUN sbagliato", piattaformaNotifichePage.controlloEsistenzaMessagioErroreIUN());
         logger.info("Messaggio di errore 'Inserisci un codice IUN valido' trovato");
     }
 

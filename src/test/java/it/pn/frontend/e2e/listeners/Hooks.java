@@ -1,6 +1,8 @@
 package it.pn.frontend.e2e.listeners;
 
-import io.cucumber.java.*;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
@@ -11,9 +13,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
+import org.openqa.selenium.devtools.v117.network.Network;
 import org.openqa.selenium.devtools.v117.network.model.Headers;
 import org.openqa.selenium.devtools.v117.network.model.RequestWillBeSent;
-import org.openqa.selenium.devtools.v117.network.Network;
 import org.openqa.selenium.devtools.v117.network.model.ResourceType;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -33,11 +35,11 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class Hooks {
-    private static final Logger logger =  LoggerFactory.getLogger("Hooks");
+    private static final Logger logger = LoggerFactory.getLogger("Hooks");
 
     public static WebDriver driver;
 
-    public  DevTools devTools;
+    public DevTools devTools;
 
     public Map<String, RequestWillBeSent> requests = new HashMap<>();
 
@@ -45,9 +47,11 @@ public class Hooks {
 
     private String headless;
 
+    private final CookieConfig cookieConfig = new CookieConfig();
+
     private final String os = System.getProperty("os.name");
 
-    protected void firefox(){
+    protected void firefox() {
 
         WebDriverManager.firefoxdriver().setup();
         FirefoxProfile profile = new FirefoxProfile();
@@ -55,13 +59,13 @@ public class Hooks {
         firefoxOptions.setProfile(profile);
         firefoxOptions.addArguments("-private");
 
-        if(this.headless!=null && this.headless.equalsIgnoreCase("true")){
+        if (this.headless != null && this.headless.equalsIgnoreCase("true")) {
             firefoxOptions.addArguments("--width=1200");
             firefoxOptions.addArguments("--height=800");
             firefoxOptions.addArguments("--headless");
         }
         driver = new FirefoxDriver(firefoxOptions);
-        if(this.headless!=null && this.headless.equalsIgnoreCase("false")){
+        if (this.headless != null && this.headless.equalsIgnoreCase("false")) {
             driver.manage().window().maximize();
         }
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
@@ -70,14 +74,14 @@ public class Hooks {
 
     }
 
-    protected void chrome(){
+    protected void chrome() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--lang=it");
         chromeOptions.addArguments("--incognito");
         chromeOptions.addArguments("--disable-dev-shm-usage");
         chromeOptions.addArguments("--remote-allow-origins=*");
-        if(this.headless!=null && this.headless.equalsIgnoreCase("true")){
+        if (this.headless != null && this.headless.equalsIgnoreCase("true")) {
             chromeOptions.addArguments("no-sandbox");
             chromeOptions.addArguments("headless");
             chromeOptions.addArguments("window-size=1920,1080");
@@ -85,13 +89,13 @@ public class Hooks {
 
         driver = new ChromeDriver(chromeOptions);
 
-        if(this.headless!=null && this.headless.equalsIgnoreCase("false")){
+        if (this.headless != null && this.headless.equalsIgnoreCase("false")) {
             driver.manage().window().maximize();
         }
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
-        devTools = ((HasDevTools)driver).getDevTools();
+        devTools = ((HasDevTools) driver).getDevTools();
         devTools.createSession();
         devTools.send(Network.enable(
                 Optional.empty(),
@@ -107,27 +111,31 @@ public class Hooks {
 
     }
 
-    private void captureHttpRequests(){
+    private void captureHttpRequests() {
         devTools.addListener(
                 Network.requestWillBeSent(),
-                request ->{
-                    requests.put(request.getRequestId().toString(),request);
-                    //logger.info("Request URL : "+request.getRequest().getUrl());
+                request -> {
+                    String url = request.getRequest().getUrl();
+                    if (!cookieConfig.getCookies(url).isEmpty()) {
+                        cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
+                    }
+                    requests.put(request.getRequestId().toString(), request);
+//                    logger.info("Request URL : " + request.getRequest().getUrl());
                 }
         );
     }
 
-    public void captureHttpResponse(){
+    public void captureHttpResponse() {
         devTools.addListener(
                 Network.responseReceived(),
                 response -> {
                     String requestId = response.getRequestId().toString();
-                    if(requests.containsKey(requestId)){
+                    if (requests.containsKey(requestId)) {
                         RequestWillBeSent request = requests.get(requestId);
                         Headers headers = request.getRequest().getHeaders();
-                        if(response.getType().equals(ResourceType.XHR)){
+                        if (response.getType().equals(ResourceType.XHR)) {
                             NetWorkInfo netWorkInfo = new NetWorkInfo();
-                            if(headers.get("Authorization") != null) {
+                            if (headers.get("Authorization") != null) {
                                 netWorkInfo.setAuthorizationBearer(Objects.requireNonNull(headers.get("Authorization")).toString());
                                 netWorkInfo.setRequestId(requestId);
                                 netWorkInfo.setRequestUrl(request.getRequest().getUrl());
@@ -144,23 +152,22 @@ public class Hooks {
         );
     }
 
+    protected void edge() {
 
-    protected void edge(){
-
-        if(this.os.toLowerCase().contains("windows")){
+        if (this.os.toLowerCase().contains("windows")) {
             WebDriverManager.edgedriver().setup();
-        }else{
-            Assert.fail("browser edge non capatibile con il os : "+this.os);
+        } else {
+            Assert.fail("browser edge non capatibile con il os : " + this.os);
         }
 
         EdgeOptions edgeOptions = new EdgeOptions();
         edgeOptions.setCapability("ms:inPrivate", true);
-        if(this.headless!=null && this.headless.equalsIgnoreCase("true")){
+        if (this.headless != null && this.headless.equalsIgnoreCase("true")) {
             edgeOptions.addArguments("window-size=1920,1080");
             edgeOptions.addArguments("--headless");
         }
         driver = new EdgeDriver(edgeOptions);
-        if(this.headless!=null && this.headless.equalsIgnoreCase("false")){
+        if (this.headless != null && this.headless.equalsIgnoreCase("false")) {
             driver.manage().window().maximize();
         }
 
@@ -170,34 +177,34 @@ public class Hooks {
     }
 
     @Before
-    public void startScenario(Scenario scenario){
+    public void startScenario(Scenario scenario) {
 
-        logger.info("-------------------------------------------START SCENARIO: "+scenario.getName()+"------------------------------------------------");
+        logger.info("-------------------------------------------START SCENARIO: " + scenario.getName() + "------------------------------------------------");
 
-        Collection<String> tags= scenario.getSourceTagNames();
-            for(String tag : tags){
-                if(tag.startsWith("@TA_")){
-                    MDC.put("tag",tag);
-                    MDC.put("team","TA-QA");
-                }
+        Collection<String> tags = scenario.getSourceTagNames();
+        for (String tag : tags) {
+            if (tag.startsWith("@TA_")) {
+                MDC.put("tag", tag);
+                MDC.put("team", "TA-QA");
             }
+        }
 
-        logger.info("os type : "+this.os);
-        logger.info("user language : "+System.getProperty("user.language"));
+        logger.info("os type : " + this.os);
+        logger.info("user language : " + System.getProperty("user.language"));
 
 
         String browser = null;
-        if(System.getProperty("browser") == null){
+        if (System.getProperty("browser") == null) {
             Assert.fail(" valorizzare la variabile browser");
-        }else{
+        } else {
             browser = System.getProperty("browser");
         }
 
-        if(System.getProperty("headless") != null){
+        if (System.getProperty("headless") != null) {
             this.headless = System.getProperty("headless");
         }
 
-        if (System.getProperty("environment") == null){
+        if (System.getProperty("environment") == null) {
             Assert.fail(" valorizzare la variabile environment");
         }
 
@@ -210,13 +217,13 @@ public class Hooks {
                 Assert.fail("browser not correct");
             }
         }
-
+        cookieConfig.addCookie();
     }
 
     @After
     public void endScenario(Scenario scenario) {
 
-        for(NetWorkInfo netWorkInfo : netWorkInfos){
+        for (NetWorkInfo netWorkInfo : netWorkInfos) {
             logger.info(netWorkInfo.getRequestId());
             logger.info(netWorkInfo.getRequestUrl());
             logger.info(netWorkInfo.getRequestMethod());
@@ -224,8 +231,8 @@ public class Hooks {
             logger.info(netWorkInfo.getResponseBody());
         }
 
-        if(scenario.isFailed()){
-            logger.error("scenario go to error : "+scenario.getName());
+        if (scenario.isFailed()) {
+            logger.error("scenario go to error : " + scenario.getName());
             try {
 
                 File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -236,7 +243,7 @@ public class Hooks {
                 DateFormat formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
                 String today = formatter.format(date);
 
-                String testCaseFailed = "screenShots/"+scenario.getName()+"_"+today+".png";
+                String testCaseFailed = "screenShots/" + scenario.getName() + "_" + today + ".png";
 
                 FileUtils.copyFile(screenshot, new File(testCaseFailed));
 
@@ -263,6 +270,6 @@ public class Hooks {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        logger.info("-------------------------------------------END SCENARIO: "+scenario.getName()+"------------------------------------------------");
+        logger.info("-------------------------------------------END SCENARIO: " + scenario.getName() + "------------------------------------------------");
     }
 }
