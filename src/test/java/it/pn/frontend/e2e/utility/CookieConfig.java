@@ -1,4 +1,4 @@
-package it.pn.frontend.e2e.listeners;
+package it.pn.frontend.e2e.utility;
 
 import org.openqa.selenium.Cookie;
 import org.slf4j.Logger;
