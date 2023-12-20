@@ -16,13 +16,13 @@ public class CookieConfig {
         this.cookieMap = new HashMap<>();
     }
 
-    private boolean isCookieEnabled() {
+    public static boolean isCookieEnabled() {
         String isCookieEnabled = System.getProperty("cookie.enabled");
         if (isCookieEnabled == null) {
-            logger.info("Cookie are disabled");
+            logger.info("Cookies are disabled");
             return false;
         }
-        logger.info("Cookie are enabled");
+        logger.info("Cookies are enabled");
         return true;
     }
 
@@ -54,6 +54,14 @@ public class CookieConfig {
                 new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "selfcare.dev.notifichedigitali.it", "/", null),
                 new Cookie("OptanonConsent", optanonConsentValue, "selfcare.dev.notifichedigitali.it", "/", null)
         )));
+        cookieMap.put("https://imprese.dev.notifichedigitali.it/", new HashSet<>(Arrays.asList(
+                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "imprese.dev.notifichedigitali.it", "/", null),
+                new Cookie("OptanonConsent", optanonConsentValue, "imprese.dev.notifichedigitali.it", "/", null)
+        )));
+        cookieMap.put("https://cittadini.dev.notifichedigitali.it/", new HashSet<>(Arrays.asList(
+                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "cittadini.dev.notifichedigitali.it", "/", null),
+                new Cookie("OptanonConsent", optanonConsentValue, "cittadini.dev.notifichedigitali.it", "/", null)
+        )));
     }
 
     // Set up cookie for test environment
@@ -64,6 +72,14 @@ public class CookieConfig {
         cookieMap.put("https://selfcare.test.notifichedigitali.it/", new HashSet<>(Arrays.asList(
                 new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "selfcare.test.notifichedigitali.it", "/", null),
                 new Cookie("OptanonConsent", optanonConsentValue, "selfcare.test.notifichedigitali.it", "/", null)
+        )));
+        cookieMap.put("https://imprese.test.notifichedigitali.it/", new HashSet<>(Arrays.asList(
+                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "imprese.test.notifichedigitali.it", "/", null),
+                new Cookie("OptanonConsent", optanonConsentValue, "imprese.test.notifichedigitali.it", "/", null)
+        )));
+        cookieMap.put("https://cittadini.test.notifichedigitali.it/", new HashSet<>(Arrays.asList(
+                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "cittadini.test.notifichedigitali.it", "/", null),
+                new Cookie("OptanonConsent", optanonConsentValue, "cittadini.test.notifichedigitali.it", "/", null)
         )));
     }
 

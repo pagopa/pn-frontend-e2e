@@ -12,6 +12,7 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.mittente.*;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
+import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
@@ -274,9 +275,12 @@ public class LoginMittentePagoPA {
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();
-        CookiesSection cookiesSection = new CookiesSection(this.driver);
-        if (cookiesSection.waitLoadCookiesPage()) {
-            cookiesSection.selezionaAccettaTuttiButton();
+
+        if (!CookieConfig.isCookieEnabled()) {
+            CookiesSection cookiesSection = new CookiesSection(this.driver);
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
+            }
         }
 
         AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);

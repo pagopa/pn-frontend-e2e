@@ -13,6 +13,7 @@ import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.*;
+import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -444,9 +445,11 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche accetta i Cookies")
     public void nellaPaginaPiattaformaNotificheAccettaICookies() {
-        CookiesSection cookiesSection = new CookiesSection(this.driver);
-        cookiesSection.waitLoadCookiesPage();
-        cookiesSection.selezionaAccettaTuttiButton();
+        if (!CookieConfig.isCookieEnabled()) {
+            CookiesSection cookiesSection = new CookiesSection(this.driver);
+            cookiesSection.waitLoadCookiesPage();
+            cookiesSection.selezionaAccettaTuttiButton();
+        }
     }
 
     @And("Nella pagina dettaglio notifica cliccare sull'opzione vedi più dettagli")
@@ -712,8 +715,10 @@ public class NotificaMittentePagoPATest {
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
                 piattaformaNotifichePage.aggionamentoPagina();
-                if (cookiesSection.waitLoadCookiesPage()) {
-                    cookiesSection.selezionaAccettaTuttiButton();
+                if (!CookieConfig.isCookieEnabled()) {
+                    if (cookiesSection.waitLoadCookiesPage()) {
+                        cookiesSection.selezionaAccettaTuttiButton();
+                    }
                 }
                 piattaformaNotifichePage.insertCodiceFiscale(this.personeFisiche.get("codiceFiscale").toString());
                 piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
@@ -914,8 +919,10 @@ public class NotificaMittentePagoPATest {
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
                 piattaformaNotifichePage.aggionamentoPagina();
-                if (cookiesSection.waitLoadCookiesPage()) {
-                    cookiesSection.selezionaAccettaTuttiButton();
+                if (!CookieConfig.isCookieEnabled()) {
+                    if (cookiesSection.waitLoadCookiesPage()) {
+                        cookiesSection.selezionaAccettaTuttiButton();
+                    }
                 }
                 piattaformaNotifichePage.insertCodiceFiscale(codiceFiscale);
                 piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
@@ -989,9 +996,9 @@ public class NotificaMittentePagoPATest {
             throw new RuntimeException(e);
         }
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
-        if(notificationRequestId==null){
-            logger.error("NotificationRequestId non trovato, il codice della risposta al url "+ urlNotificationRequest +" è diverso di 202 ");
-            Assert.fail("NotificationRequestId non trovato, il codice della risposta al url "+ urlNotificationRequest +" è diverso di 202 ");
+        if (notificationRequestId == null) {
+            logger.error("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è diverso di 202 ");
+            Assert.fail("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è diverso di 202 ");
         }
         accettazioneRichiestaNotifica.setNotificationRequestId(notificationRequestId);
         accettazioneRichiestaNotifica.setRichiestaNotificaEndPoint(urlRichiestaNotifica);
@@ -1011,37 +1018,37 @@ public class NotificaMittentePagoPATest {
                     Assert.fail("la risposta dell'accettazione della notifica " + notificationRequestId + " è: " + accettazioneRichiestaNotifica.getResponseCode());
                 }
             }
-        }while (statusNotifica.equals("WAITING"));
+        } while (statusNotifica.equals("WAITING"));
         return new EsitoNotifica(statusNotifica, accettazioneRichiestaNotifica, notificationRequestId);
     }
 
     @And("Si verifica che la notifica viene creata correttamente {string}")
     public void siVerificaCheLaNotificaVieneCreataCorrettamente(String dpFile) {
         EsitoNotifica esitoNotifica = this.siVerificaEsitoNotifica(dpFile);
-        if (esitoNotifica.statusNotifica.equals("ACCEPTED")){
+        if (esitoNotifica.statusNotifica.equals("ACCEPTED")) {
             logger.info("La notifica è stata Accettata");
             String codiceIUN = esitoNotifica.accettazioneRichiestaNotifica.getCodiceIUN();
-            this.datiNotifica = dataPopulation.readDataPopulation(dpFile+".yaml");
-            if (codiceIUN != null && !codiceIUN.equals("")){
-                this.datiNotifica.put("codiceIUN",codiceIUN);
-                this.dataPopulation.writeDataPopulation(dpFile+".yaml",this.datiNotifica);
+            this.datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+            if (codiceIUN != null && !codiceIUN.equals("")) {
+                this.datiNotifica.put("codiceIUN", codiceIUN);
+                this.dataPopulation.writeDataPopulation(dpFile + ".yaml", this.datiNotifica);
                 logger.info("La notifica è stata creata correttamente");
             }
-        }else {
-            logger.error("La notifica "+ esitoNotifica.notificationRequestId +" è stata rifiuta: "+esitoNotifica.accettazioneRichiestaNotifica.getResponseReasonPhrase());
-            Assert.fail("La notifica "+ esitoNotifica.notificationRequestId +" è stata rifiuta: "+esitoNotifica.accettazioneRichiestaNotifica.getResponseReasonPhrase());
+        } else {
+            logger.error("La notifica " + esitoNotifica.notificationRequestId + " è stata rifiuta: " + esitoNotifica.accettazioneRichiestaNotifica.getResponseReasonPhrase());
+            Assert.fail("La notifica " + esitoNotifica.notificationRequestId + " è stata rifiuta: " + esitoNotifica.accettazioneRichiestaNotifica.getResponseReasonPhrase());
         }
     }
 
     @And("Si verifica che la notifica e' stata rifiutata {string}")
     public void siVerificaCheLaNotificaVieneRifiutata(String dpFile) {
         EsitoNotifica esitoNotifica = this.siVerificaEsitoNotifica(dpFile);
-        if (esitoNotifica.statusNotifica.equals("REFUSED")){
+        if (esitoNotifica.statusNotifica.equals("REFUSED")) {
             logger.info("La notifica è stata Rifiutata");
-        }else {
-            logger.error("La notifica "+ esitoNotifica.notificationRequestId +" è stata accettata: " + esitoNotifica.statusNotifica );
+        } else {
+            logger.error("La notifica " + esitoNotifica.notificationRequestId + " è stata accettata: " + esitoNotifica.statusNotifica);
             logger.error(esitoNotifica.accettazioneRichiestaNotifica.getresponseBody());
-            Assert.fail("La notifica "+ esitoNotifica.notificationRequestId +" è stata accettata: ");
+            Assert.fail("La notifica " + esitoNotifica.notificationRequestId + " è stata accettata: ");
         }
     }
 
@@ -1053,20 +1060,20 @@ public class NotificaMittentePagoPATest {
          * (2) no POST requests with the provided URL were found
          */
         boolean foundRequestWithUndesiredStatus = false;
-        for (NetWorkInfo netWorkInfo : netWorkInfos ) {
-            if (netWorkInfo.getRequestUrl().equals(urlNotificationRequest) && netWorkInfo.getRequestMethod().equals("POST") && netWorkInfo.getResponseStatus().equals("202")){
+        for (NetWorkInfo netWorkInfo : netWorkInfos) {
+            if (netWorkInfo.getRequestUrl().equals(urlNotificationRequest) && netWorkInfo.getRequestMethod().equals("POST") && netWorkInfo.getResponseStatus().equals("202")) {
                 String values = netWorkInfo.getResponseBody();
                 List<String> results = Splitter.on(CharMatcher.anyOf(",:")).splitToList(values);
                 String result = results.get(1);
-                return result.substring(1,result.length()-1);
+                return result.substring(1, result.length() - 1);
             } else if (netWorkInfo.getRequestUrl().equals(urlNotificationRequest) && netWorkInfo.getRequestMethod().equals("POST") && !netWorkInfo.getResponseStatus().equals("202")) {
                 foundRequestWithUndesiredStatus = true;
             }
         }
         if (foundRequestWithUndesiredStatus) {
-            logger.error("NotificationRequestId non trovato, il codice della risposta al POST sull'url "+ urlNotificationRequest +" è diverso di 202 ");
+            logger.error("NotificationRequestId non trovato, il codice della risposta al POST sull'url " + urlNotificationRequest + " è diverso di 202 ");
         } else {
-            logger.error("NotificationRequestId non trovato, non ci sono trovate chiamate POST per la url "+ urlNotificationRequest);
+            logger.error("NotificationRequestId non trovato, non ci sono trovate chiamate POST per la url " + urlNotificationRequest);
         }
         return null;
     }
