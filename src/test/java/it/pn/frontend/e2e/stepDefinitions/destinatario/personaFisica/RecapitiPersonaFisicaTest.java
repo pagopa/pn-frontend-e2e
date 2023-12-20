@@ -66,7 +66,8 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP() {
         logger.info("Si visualizza correttamente il pop-up di inserimento OTP");
-        String url = "https://webapi.test.notifichedigitali.it/address-book/v1/digital-address";
+        String varabileAmbiente = System.getProperty("environment");
+        String url = "https://webapi."+varabileAmbiente+".notifichedigitali.it/address-book/v1/digital-address";
         recapitiDestinatarioPage.waitLoadPopUp();
         try {
             TimeUnit.SECONDS.sleep(5);
