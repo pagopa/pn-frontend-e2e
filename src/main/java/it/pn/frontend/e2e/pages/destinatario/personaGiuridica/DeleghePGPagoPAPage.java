@@ -181,6 +181,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickBottoneConferma() {
+        getWebDriverWait(40).withMessage("Il bottone conferma nel pop up di scelta gruppo non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
         this.confermaButton.click();
     }
 

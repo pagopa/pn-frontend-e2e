@@ -303,7 +303,7 @@ public class RecapitiPersonaFisicaTest {
         } else {
                 String variabileAmbiente = System.getProperty("environment");
              if (variabileAmbiente.equalsIgnoreCase("test")){
-                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080";
+                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
              } else if (variabileAmbiente.equalsIgnoreCase("dev")){
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
              }
