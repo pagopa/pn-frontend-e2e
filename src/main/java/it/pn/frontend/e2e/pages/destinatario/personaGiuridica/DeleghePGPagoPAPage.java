@@ -33,11 +33,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(id = "associate-form-group")
     WebElement assegnaGruppoRadioButton;
 
-    @FindBy(xpath = "//div[@role='dialog']//input[@id='groups']")
-    WebElement gruppoField;
-
-    @FindBy(id = "groups-option-0")
-    WebElement gruppoOption;
+    By gruppoField = By.xpath("//div[@role='dialog']//input[@id='groups']");
 
     @FindBy(id = "group-confirm-button")
     WebElement confermaButton;
@@ -175,9 +171,10 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickGruppoField() {
-        this.gruppoField.sendKeys("Test gruppi");
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.gruppoOption));
-        this.js().executeScript("arguments[0].click()",this.gruppoOption);
+        this.element(gruppoField).sendKeys("Test gruppi");
+        By gruppoOption = By.id("groups-option-0");
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.element(gruppoOption)));
+        this.js().executeScript("arguments[0].click()",this.element(gruppoOption));
     }
 
     public void clickBottoneConferma() {
