@@ -10,7 +10,7 @@ Feature: Mittente effetua una ricerca notifiche per codice IUN
   @mittente
   @ricercaNatoficheMittente
 
-  Scenario: Mittente loggato effettua una ricerca per codice IUN
+  Scenario: PN-9218 - Mittente loggato effettua una ricerca per codice IUN
     When Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche si recupera un codice IUN valido
     And Cliccare sul bottone Filtra

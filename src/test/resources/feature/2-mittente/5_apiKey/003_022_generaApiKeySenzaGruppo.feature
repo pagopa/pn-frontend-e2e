@@ -13,7 +13,7 @@ Feature: Mittente genera Api Key senza gruppo
   @ApikeyMittente
 
 
-  Scenario: Mittente genera Api Key senza gruppo
+  Scenario: PN-9230 - Mittente genera Api Key senza gruppo
     When Nella pagina Api Key si clicca sul bottone genera Api Key
     And Si visualizza correttamente la sezione genera Api key
     And Nella sezione genera Api Key inserire il nome "testAutomationFE" per l Api Key

@@ -12,7 +12,7 @@ Feature: Mittente seleziona l'opzione visualizza api Key
   @mittente
   @ApikeyMittente
 
-  Scenario: Mittente seleziona l'opzione visualizza api Key
+  Scenario: PN-9232 - Mittente seleziona l'opzione visualizza api Key
     When Nella pagina Api Key si clicca sul bottone menu di una Api Key attiva presente in elenco
     And Nella pagina Api Key si clicca sulla voce visualizza del menu Api Key
     And Nella pagina Api Key si visualizza il pop up visualizza Api Key

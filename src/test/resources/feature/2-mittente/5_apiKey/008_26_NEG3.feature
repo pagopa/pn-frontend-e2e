@@ -12,7 +12,7 @@ Feature: Mittente seleziona CTA annulla in attiva api Key
   @mittente
   @ApikeyMittente
 
-  Scenario: Mittente seleziona CTA annulla in attiva api Key
+  Scenario: PN-9234 - Mittente seleziona CTA annulla in attiva api Key
     When Nella pagina Api Key si clicca sul bottone menu di una Api Key bloccata presente in elenco
     And Nella pagina Api Key si clicca sulla voce attiva del menu Api Key
     And Nella pagina Api Key si visualizza il pop up attiva Api Key

@@ -13,7 +13,7 @@ Feature: Mittente visualizza correttamente la sezione genera Api Key
   @ApikeyMittente
 
 
-  Scenario: Mittente visualizza correttamente la sezione genera Api Key
+  Scenario: PN-9229 - Mittente visualizza correttamente la sezione genera Api Key
     When Nella pagina Api Key si clicca sul bottone genera Api Key
     Then Si visualizza correttamente la sezione genera Api key
     And Logout da portale mittente

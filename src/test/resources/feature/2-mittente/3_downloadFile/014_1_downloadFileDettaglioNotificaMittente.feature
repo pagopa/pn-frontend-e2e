@@ -11,7 +11,7 @@ Feature: Mittente scarica tutti i file all'interno di una notifica
   @mittente
   @DownloadFileMittente
 
-  Scenario: Mittente scarica attestazioni
+  Scenario: PN-9327 - Mittente scarica attestazioni
     When Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita
     And Si visualizza correttamente la sezione Dettaglio Notifica
     Then Nella sezione Dettaglio Notifica si scaricano tutti i file presenti

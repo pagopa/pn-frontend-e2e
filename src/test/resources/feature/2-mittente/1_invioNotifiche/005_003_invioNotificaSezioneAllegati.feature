@@ -10,7 +10,7 @@ Feature: il mittente inserisce tutti i dati di una notifica
     @mittente
     @invioNotifiche
 
-  Scenario Outline: il mittente inserisce tutti i dati di una notifica
+  Scenario Outline: PN-9215 - il mittente inserisce tutti i dati di una notifica
     When Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari

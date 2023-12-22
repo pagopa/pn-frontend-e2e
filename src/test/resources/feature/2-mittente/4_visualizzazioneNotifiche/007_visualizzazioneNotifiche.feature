@@ -10,7 +10,7 @@ Feature: Mittente visualizza correttamente la pagina notifiche
   @mittente
   @visualizzazioneNotificheMittente
 
-  Scenario: Mittente visualizza correttamente la pagina notifiche
+  Scenario: PN-9216 - Mittente visualizza correttamente la pagina notifiche
     When Nella pagina Piattaforma Notifiche visualizzano correttamente i filtri di ricerca
     Then Nella pagina Piattaforma Notifiche si visualizza correttamente l'elenco delle notifiche
     And Logout da portale mittente

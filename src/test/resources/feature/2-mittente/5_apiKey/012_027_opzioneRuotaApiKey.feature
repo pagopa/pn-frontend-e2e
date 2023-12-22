@@ -12,7 +12,7 @@ Feature: Mittente seleziona l'opzione ruota api Key
   @mittente
   @ApikeyMittente
 
-  Scenario: Mittente seleziona l'opzione ruota Api Key
+  Scenario: PN-9235 - Mittente seleziona l'opzione ruota Api Key
     When Nella pagina Api Key si clicca sul bottone menu di una Api Key attiva presente in elenco
     And Nella pagina Api Key si clicca sulla voce ruota del menu Api Key
     And Nella pagina Api Key si visualizza il pop up ruota Api Key

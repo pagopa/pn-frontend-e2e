@@ -14,7 +14,7 @@ Feature: Mittente genera Api Key senza inserire il nome dell api key
 
 
 
-  Scenario:Mittente genera Api Key senza inserire il nome dell api key
+  Scenario: PN-9235 - Mittente genera Api Key senza inserire il nome dell api key
     When Nella pagina Api Key si clicca sul bottone genera Api Key
     And Si visualizza correttamente la sezione genera Api key
     And Nella sezione genera Api Key inserire il nome "testAutomationFE" per l Api Key
