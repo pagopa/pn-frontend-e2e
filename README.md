@@ -73,3 +73,17 @@ default di `Cucumber Java`.
 > passaggi sopra,
 > altrimenti non verranno eseguiti i test con i parametri aggiornati.
 
+## Variabili d'ambiente
+
+Tutte le variabili devono avere all'inizio il prefisso `-D` per essere riconosciute da maven.
+Esempio: `-Dbrowser=chrome`
+
+Lista:
+
+- `browser`: browser di esecuzione dei test. Valori possibili: `chrome`, `firefox`, `edge`
+- `environment`: ambiente di esecuzione dei test. Valori possibili: `dev`, `test`
+- `screenshot`: se `true` salva gli screenshot in caso di fallimento dei test. Valori possibili: `true`, `false`
+- `headless`: se `true` esegue i test in modalità headless. Valori possibili: `true`, `false`
+- `logFileName`: nome del file di log. Esempio: `-DlogFileName=nomeFile`
+- `cookie.config`: se `true` inietta i cookie ad ogni scenario senza la comparsa del banner OneTrust. Valori
+  possibili: `true`, `false`
