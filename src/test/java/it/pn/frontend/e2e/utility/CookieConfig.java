@@ -4,6 +4,7 @@ import org.openqa.selenium.Cookie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class CookieConfig {
@@ -48,39 +49,57 @@ public class CookieConfig {
     // Set up cookie for dev environment
     private void setUpCookieDev() {
         Date currentDate = new Date();
-        String optanonConsentValue = "isGpcEnabled=0&datestamp=Tue+Dec+19+2023+10%3A24%3A38+GMT%2B0100+(Ora+standard+dell%E2%80%99Europa+centrale)&version=202303.2.0&browserGpcFlag=0&isIABGlobal=false&hosts=&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A0";
+
+        // Cookie values
+        String optanonConsentValue = "isGpcEnabled=0&datestamp=" + this.getCurrentDateFormatted() + "+GMT%2B0100+(Ora+standard+dell%E2%80%99Europa+centrale)&version=202303.2.0&browserGpcFlag=0&isIABGlobal=false&hosts=&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A0";
         String OptanonAlertBoxClosedValue = currentDate.toString();
         cookieMap.put("https://selfcare.dev.notifichedigitali.it/", new HashSet<>(Arrays.asList(
-                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "selfcare.dev.notifichedigitali.it", "/", null),
-                new Cookie("OptanonConsent", optanonConsentValue, "selfcare.dev.notifichedigitali.it", "/", null)
+                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "selfcare.dev.notifichedigitali.it", "/", null, false),
+                new Cookie("OptanonConsent", optanonConsentValue, "selfcare.dev.notifichedigitali.it", "/", null, false)
         )));
         cookieMap.put("https://imprese.dev.notifichedigitali.it/", new HashSet<>(Arrays.asList(
-                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "imprese.dev.notifichedigitali.it", "/", null),
-                new Cookie("OptanonConsent", optanonConsentValue, "imprese.dev.notifichedigitali.it", "/", null)
+                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "imprese.dev.notifichedigitali.it", "/", null, false),
+                new Cookie("OptanonConsent", optanonConsentValue, "imprese.dev.notifichedigitali.it", "/", null, false)
         )));
         cookieMap.put("https://cittadini.dev.notifichedigitali.it/", new HashSet<>(Arrays.asList(
-                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "cittadini.dev.notifichedigitali.it", "/", null),
-                new Cookie("OptanonConsent", optanonConsentValue, "cittadini.dev.notifichedigitali.it", "/", null)
+                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "cittadini.dev.notifichedigitali.it", "/", null, false),
+                new Cookie("OptanonConsent", optanonConsentValue, "cittadini.dev.notifichedigitali.it", "/", null, false)
         )));
     }
 
     // Set up cookie for test environment
     private void setUpCookieTest() {
         Date currentDate = new Date();
-        String optanonConsentValue = "isGpcEnabled=0&datestamp=Wed+Dec+20+2023+14%3A17%3A59+GMT%2B0100+(Ora+standard+dell%E2%80%99Europa+centrale)&version=202303.2.0&browserGpcFlag=0&isIABGlobal=false&hosts=&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A0";
+
+        // Cookie values
+        String optanonConsentValue = "isGpcEnabled=0&datestamp=" + this.getCurrentDateFormatted() + "+GMT%2B0100+(Ora+standard+dell%E2%80%99Europa+centrale)&version=202303.2.0&browserGpcFlag=0&isIABGlobal=false&hosts=&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A0";
         String OptanonAlertBoxClosedValue = currentDate.toString();
         cookieMap.put("https://selfcare.test.notifichedigitali.it/", new HashSet<>(Arrays.asList(
-                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "selfcare.test.notifichedigitali.it", "/", null),
-                new Cookie("OptanonConsent", optanonConsentValue, "selfcare.test.notifichedigitali.it", "/", null)
+                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "selfcare.test.notifichedigitali.it", "/", null, false),
+                new Cookie("OptanonConsent", optanonConsentValue, "selfcare.test.notifichedigitali.it", "/", null, false)
         )));
         cookieMap.put("https://imprese.test.notifichedigitali.it/", new HashSet<>(Arrays.asList(
-                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "imprese.test.notifichedigitali.it", "/", null),
-                new Cookie("OptanonConsent", optanonConsentValue, "imprese.test.notifichedigitali.it", "/", null)
+                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "imprese.test.notifichedigitali.it", "/", null, false),
+                new Cookie("OptanonConsent", optanonConsentValue, "imprese.test.notifichedigitali.it", "/", null, false)
         )));
         cookieMap.put("https://cittadini.test.notifichedigitali.it/", new HashSet<>(Arrays.asList(
-                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "cittadini.test.notifichedigitali.it", "/", null),
-                new Cookie("OptanonConsent", optanonConsentValue, "cittadini.test.notifichedigitali.it", "/", null)
+                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "cittadini.test.notifichedigitali.it", "/", null, false),
+                new Cookie("OptanonConsent", optanonConsentValue, "cittadini.test.notifichedigitali.it", "/", null, false)
         )));
+    }
+
+    private String getCurrentDateFormatted() {
+        Date currentDate = new Date();
+
+        // Format the current date in the desired format
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss", Locale.ENGLISH);
+        String formattedDate = dateFormat.format(currentDate);
+
+        // Remove spaces and replace them with "+"
+        formattedDate = formattedDate.replace(" ", "+");
+        formattedDate = formattedDate.replace(":", "%3A");
+
+        return formattedDate;
     }
 
     public Set<Cookie> getCookies(String url) {
