@@ -4,6 +4,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import it.pn.frontend.e2e.utility.CookieConfig;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.OutputType;
@@ -12,8 +13,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.DevToolsException;
 import org.openqa.selenium.devtools.HasDevTools;
+import org.openqa.selenium.devtools.DevToolsException;
 import org.openqa.selenium.devtools.v117.network.Network;
 import org.openqa.selenium.devtools.v117.network.model.Headers;
 import org.openqa.selenium.devtools.v117.network.model.RequestWillBeSent;
@@ -47,6 +48,8 @@ public class Hooks {
     public static List<NetWorkInfo> netWorkInfos = new ArrayList<>();
 
     private String headless;
+
+    private final CookieConfig cookieConfig = new CookieConfig();
 
     private final String os = System.getProperty("os.name");
 
@@ -114,8 +117,12 @@ public class Hooks {
         devTools.addListener(
                 Network.requestWillBeSent(),
                 request -> {
+                    String url = request.getRequest().getUrl();
+                    if (!cookieConfig.getCookies(url).isEmpty()) {
+                        cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
+                    }
                     requests.put(request.getRequestId().toString(), request);
-                    //logger.info("Request URL : "+request.getRequest().getUrl());
+//                    logger.info("Request URL : " + request.getRequest().getUrl());
                 }
         );
     }
@@ -217,7 +224,7 @@ public class Hooks {
                 Assert.fail("browser not correct");
             }
         }
-
+        cookieConfig.addCookie();
     }
 
     @After

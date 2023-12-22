@@ -9,6 +9,7 @@ import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeadeFRSection;
+import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import org.junit.Assert;
@@ -41,29 +42,31 @@ public class NotifichePersonaFisicaPAgoPATest {
 
     @Then("pagina Piattaforma  Notifiche persona fisica viene visualizzata correttamente")
     public void paginaPiattaformaNotificheDestinatarioVieneVisualizzataCorrettamente() {
-            HeadeFRSection headeFRSection = new HeadeFRSection(this.driver);
-            headeFRSection.waitLoadHeaderDESection();
+        HeadeFRSection headeFRSection = new HeadeFRSection(this.driver);
+        headeFRSection.waitLoadHeaderDESection();
 
+        if (!CookieConfig.isCookieEnabled()) {
             CookiesSection cookiesSection = new CookiesSection(this.driver);
-            if (cookiesSection.waitLoadCookiesPage()){
+            if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
-
-            NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-            notifichePFPage.waitLoadNotificheDEPage();
-            if (notifichePFPage.verificaPresenzaCodiceIunTextField()) {
-                logger.info("text field codice ium presente");
-            } else {
-                logger.info("text field codice ium non presente");
-                Assert.fail("text field codice ium non presente");
-            }
-
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
         }
+
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.waitLoadNotificheDEPage();
+        if (notifichePFPage.verificaPresenzaCodiceIunTextField()) {
+            logger.info("text field codice ium presente");
+        } else {
+            logger.info("text field codice ium non presente");
+            Assert.fail("text field codice ium non presente");
+        }
+
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @And("Si visualizza correttamente la Pagina Notifiche persona fisica")
     public void siVisualizzaCorrettamenteLaPaginaNotificheDestinatario() {
@@ -106,7 +109,7 @@ public class NotifichePersonaFisicaPAgoPATest {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         int numeroRigheNotifiche = notifichePFPage.siVisualizzaNotifichePresenti();
 
-        if (numeroRigheNotifiche !=0){
+        if (numeroRigheNotifiche != 0) {
             logger.info("Si visualizza correttamente l'elenco notifica");
         } else {
             logger.error("NON visualizza correttamente l'elenco notifica");
@@ -119,15 +122,15 @@ public class NotifichePersonaFisicaPAgoPATest {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         List<WebElement> dateNotifiche = notifichePFPage.getDateNotifiche();
 
-        if(dateNotifiche.size() != 0){
+        if (dateNotifiche.size() != 0) {
             boolean result = notifichePFPage.controllaNotifiche(dateNotifiche);
-            if (result){
+            if (result) {
                 logger.info("Le date sono ordinate correttamente");
-            }else {
+            } else {
                 logger.error("Le date NON sono ordinate correttamente");
                 Assert.fail("Le date NON sono ordinate correttamente");
             }
-        }else {
+        } else {
             logger.error("Non sono presenti notifiche con date");
             Assert.fail("Non sono presenti notifiche con date");
         }
@@ -141,8 +144,8 @@ public class NotifichePersonaFisicaPAgoPATest {
 
     @And("Si visualizza correttamente una pagina diversa dalla precedente")
     public void siVisualizzaCorrettamenteUnaPaginaDiversaDallaPrecedente() {
-            NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-            notifichePFPage.waitLoadPaginaDifferente();
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.waitLoadPaginaDifferente();
     }
 
     @And("Ci si posiziona su una pagina differente attraverso i numeri")
@@ -200,36 +203,34 @@ public class NotifichePersonaFisicaPAgoPATest {
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponubili();
         DownloadFile downloadFile = new DownloadFile(this.driver);
         DataPopulation dataPopulation = new DataPopulation();
-        Map<String,Object> datiNotifica = dataPopulation.readDataPopulation(dpFile+".yaml");
+        Map<String, Object> datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String workingDirectory = System.getProperty("user.dir");
         boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
-        File pathCartella = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/personaFisica");
-        if (!downloadFile.controlloEsistenzaCartella(pathCartella)){
+        File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/personaFisica");
+        if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }
-        for (int i = 0; i <numeroLinkAttestazioniOpponibile ; i++) {
+        for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
             dettaglioNotificaSection.clickLinkAttestazionipponibile(i);
             try {
                 TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            String urlFileAttestazioneOppponubile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/"+datiNotifica.get("codiceIUN").toString()+"/legal-facts/");
-            if (headless && urlFileAttestazioneOppponubile.isEmpty()){
+            String urlFileAttestazioneOppponubile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/" + datiNotifica.get("codiceIUN").toString() + "/legal-facts/");
+            if (headless && urlFileAttestazioneOppponubile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
-                logger.error("Non è stato recuperato url per il download per il link: "+testoLink);
-                Assert.fail("Non è stato recuperato url per il download per il link: "+testoLink);
+                logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
+                Assert.fail("Non è stato recuperato url per il download per il link: " + testoLink);
             }
-            File file = new File(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN"+i+".pdf");
-            downloadFile.download(urlFileAttestazioneOppponubile,file,headless);
-            if (!headless){
+            File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + i + ".pdf");
+            downloadFile.download(urlFileAttestazioneOppponubile, file, headless);
+            if (!headless) {
                 dettaglioNotificaSection.goBack();
             }
         }
-        downloadFile.controlloDownload(workingDirectory+"/src/test/resources/dataPopulation/downloadFileNotifica/destinatario",numeroLinkAttestazioniOpponibile);
+        downloadFile.controlloDownload(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario", numeroLinkAttestazioniOpponibile);
     }
-
-
 
     @And("Si clicca sul opzione Vedi Dettaglio")
     public void siCliccaSulOpzioneVediDettaglio() {
@@ -240,7 +241,7 @@ public class NotifichePersonaFisicaPAgoPATest {
     @And("Si visualizza correttamente la Pagina Notifiche persona fisica delegante {string}")
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaFisicaDelegante(String dpFile) {
         DataPopulation dataPopulation = new DataPopulation();
-        Map <String, Object> personaFisicaDelgante = dataPopulation.readDataPopulation(dpFile+".yaml");
+        Map<String, Object> personaFisicaDelgante = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String nome = personaFisicaDelgante.get("name").toString();
         String cognome = personaFisicaDelgante.get("familyName").toString();
 
@@ -255,12 +256,12 @@ public class NotifichePersonaFisicaPAgoPATest {
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresentiPF();
         this.personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         String codiceIun = this.personaFisica.get("codiceIUN").toString();
-        if (codiciIun.contains(codiceIun)){
+        if (codiciIun.contains(codiceIun)) {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
-        }else {
+        } else {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiciIun.get(0));
-            this.personaFisica.put("codiceIUN",codiciIun.get(0));
-            dataPopulation.writeDataPopulation("datiNotifica.yaml",this.personaFisica);
+            this.personaFisica.put("codiceIUN", codiciIun.get(0));
+            dataPopulation.writeDataPopulation("datiNotifica.yaml", this.personaFisica);
         }
     }
 }
