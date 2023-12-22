@@ -79,6 +79,7 @@ public class DestinatarioPASection extends BasePage {
     @FindBy(xpath = "//input[@value='PG']")
     WebElement personaGiuridicaRadioButton;
 
+
     public DestinatarioPASection(WebDriver driver) {
         super(driver);
     }
@@ -152,6 +153,10 @@ public class DestinatarioPASection extends BasePage {
 
     public void inserireCodicePostale(String codicePostale) {
         this.scrollToElementClickAndInsertText(this.codicePostaleTextField,codicePostale);
+    }
+
+    public void cambiareCodicePostale(String codicePostale) {
+        this.scrollToElementClickAndReplaceText(this.codicePostaleTextField,codicePostale);
     }
 
     public void inserireStato(String stato) {

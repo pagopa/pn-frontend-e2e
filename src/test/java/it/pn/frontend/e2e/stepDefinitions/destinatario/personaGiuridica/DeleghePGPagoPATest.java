@@ -221,6 +221,14 @@ public class DeleghePGPagoPATest {
     }
 
     @And("Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega {string}")
+    public void nellaPaginaDelegheSezioneDelegheAcaricoDellImpresaSiCliccaSulMenuDellaDelega(String dpFile) {
+        logger.info("Si clicca sul menu delle delega");
+
+        this.datiDelega = dataPopulation.readDataPopulation(dpFile+".yaml");
+        this.delegatiImpresaSection.clickMenuDelega(datiDelega.get("ragioneSociale").toString());
+
+    }
+
     @And("Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega {string}")
     public void nellaPaginaDelegheSezioneDelegheDellImpresaSiCliccaSulMenuDellaDelega(String dpFile) {
         logger.info("Si clicca sul menu delle delega");
@@ -443,6 +451,7 @@ public class DeleghePGPagoPATest {
         creazioneDelega.setUrl(url);
         String body = creazioneBodyChiamata(dpFile);
         if (!body.isEmpty()){
+            logger.info("Il body della chiamata è: "+body);
             creazioneDelega.setBody(body);
         }else {
             logger.error("Non è stato possibile leggere il file json del body");
@@ -470,7 +479,7 @@ public class DeleghePGPagoPATest {
         codiceFiscaleDelegante = dataPopulation.readDataPopulation(dpFile+".yaml").get("codiceFiscale").toString();
         try {
             String pathIniziale = System.getProperty("user.dir");
-            String text = Files.readString(Paths.get(pathIniziale+"\\src\\test\\resources\\dataPopulation\\bodyChiamataDeleghe.json"));
+            String text = Files.readString(Paths.get(pathIniziale+"/src/test/resources/dataPopulation/bodyChiamataDeleghe.json"));
             JSONObject object = new JSONObject(text);
             Map<String, Object> delegato = new HashMap<>();
             Map<String, Object> delegante = new HashMap<>();

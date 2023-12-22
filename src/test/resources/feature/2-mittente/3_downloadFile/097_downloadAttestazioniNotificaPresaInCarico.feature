@@ -8,7 +8,7 @@ Feature: il mittente download attestazione notifica presa in carico
   @TestSuite
   @TA_MittenteDownloadAttestazionePresaInCarico
   @mittente
-  @DownloadFile
+  @DownloadFileMittente
 
   Scenario: il mittente scarica il file Attestazione opponibile a terzi: notifica presa in carico
     When Cliccare sulla notifica restituita

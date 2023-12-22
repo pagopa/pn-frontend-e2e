@@ -11,8 +11,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.TimeUnit;
-
 public class DelegatiImpresaSection extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DelegatiImpresaSection");
@@ -70,7 +68,7 @@ public class DelegatiImpresaSection extends BasePage {
     }
     public void controlloCreazioneDelega(String ragioneSociale) {
         try{
-            By delegaCreata = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//div/div/span[contains(text(),'In attesa di conferma')]");
+            By delegaCreata = By.xpath("//td[@scope='col' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@scope='col']//div/div/span[contains(text(),'In attesa di conferma')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaCreata));
             this.logger.info("Si visualizza la delega creata");
         } catch (TimeoutException e) {
@@ -93,7 +91,7 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void clickMenuDelega(String ragioneSociale) {
         try{
-            By menuDelega = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
+            By menuDelega = By.xpath("//td[@scope='col' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@scope='col']//button[@data-testid='delegationMenuIcon']");
             this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuDelega));
             WebElement menuDelegaWebElement = this.driver.findElement(menuDelega);
             if (menuDelegaWebElement.isDisplayed()){
@@ -128,7 +126,7 @@ public class DelegatiImpresaSection extends BasePage {
         try {
             By titlePopUpBy = By.xpath("//h5[contains(text(),'Vuoi revocare la delega ')]");
 
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(titlePopUpBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePopUpBy));
 
             logger.info("Il pop-up revoca si visualizza correttamente");
         }catch (TimeoutException e){
@@ -138,12 +136,6 @@ public class DelegatiImpresaSection extends BasePage {
     }
 
     public void clickRevocaButton() {
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
-            logger.error("pausa con errore: "+e.getMessage());
-            throw new RuntimeException(e);
-        }
         this.revocaButton.click();
     }
 

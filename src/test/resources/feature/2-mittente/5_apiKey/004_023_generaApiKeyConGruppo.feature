@@ -1,4 +1,4 @@
-Feature: Mittente genera Api Key senza gruppo
+Feature: Mittente genera Api Key con gruppo
 
   Background: login mittente
     Given Login Page mittente "mittente" viene visualizzata
@@ -8,11 +8,11 @@ Feature: Mittente genera Api Key senza gruppo
     And Si visualizza correttamente la pagina Api Key
 
   @TestSuite
-  @@TA_MittenteGeneraApiKeyConGruppo
+  @TA_MittenteGeneraApiKeyConGruppo
   @mittente
   @ApikeyMittente
 
-  Scenario:
+  Scenario: Mittente genera Api Key con gruppo
     When Nella pagina Api Key si clicca sul bottone genera Api Key
     And Si visualizza correttamente la sezione genera Api key
     And Nella sezione genera Api Key inserire il nome "testAutomationFE" per l Api Key

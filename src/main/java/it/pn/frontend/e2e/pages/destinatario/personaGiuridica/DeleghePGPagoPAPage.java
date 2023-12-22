@@ -24,25 +24,21 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(id = "taxId")
     WebElement cfTextField;
 
-    @FindBy(xpath = "//button[@data-testid='confirmButton']")
+    @FindBy(id = "confirm-button")
     WebElement filtraButton;
 
     @FindBy(id = "code-confirm-button")
     WebElement accettaDelegaButton;
 
-    @FindBy(xpath = "//span[@data-testid='associate-group']")
+    @FindBy(id = "associate-form-group")
     WebElement assegnaGruppoRadioButton;
 
-    @FindBy(xpath = "//div[@role='dialog']//input[@id='groups']")
-    WebElement gruppoField;
-
-    @FindBy(id = "groups-option-0")
-    WebElement gruppoOption;
+    By gruppoField = By.xpath("//div[@role='dialog']//input[@id='groups']");
 
     @FindBy(id = "group-confirm-button")
     WebElement confermaButton;
 
-    @FindBy(xpath = "//span[@data-testid='no-group']")
+    @FindBy(id = "associate-form-no-group")
     WebElement nonGruppoRadioButton;
 
     @FindBy(id = "reject-delegation-button")
@@ -69,7 +65,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             By titlePage = By.id("Deleghe-page");
 
             this.getWebDriverWait(30).withMessage("il titolo della pagina deleghe PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
+            this.getWebDriverWait(30).withMessage("Il bottone deleghe a carico dell'impresa non è visibile").until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
 
             this.logger.info("Deleghe page si visualizza correttamente");
 
@@ -88,11 +84,13 @@ public class DeleghePGPagoPAPage extends BasePage {
         }catch(TimeoutException e){
             logger.error("il bottone delegati imprese non è cliccabile"+ e.getMessage());
             Assert.fail("il bottone delegati imprese non è cliccabile"+ e.getMessage());
-        }    }
+        }
+
+    }
 
     public boolean CercaEsistenzaDelegaPG(String ragioneSociale) {
         try {
-            By nomeDelegato = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]");
+            By nomeDelegato = By.xpath("//td[@scope='col' and div/p[contains(text(),'"+ragioneSociale+"')]]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
             return true;
         }catch (TimeoutException | NoSuchElementException e){
@@ -101,7 +99,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
     public void clickRevocaMenuButtonPG(String ragioneSociale) {
 
-        By menuButton = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//button[@data-testid='delegationMenuIcon']");
+        By menuButton = By.xpath("//td[@scope='col' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@scope='col']//button[@data-testid='delegationMenuIcon']");
         this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuButton));
         this.js().executeScript("arguments[0].click()",this.element(menuButton));
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.revocaMenuButton));
@@ -173,12 +171,14 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickGruppoField() {
-        this.gruppoField.sendKeys("Test gruppi");
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.gruppoOption));
-        this.js().executeScript("arguments[0].click()",this.gruppoOption);
+        this.element(gruppoField).sendKeys("Test gruppi");
+        By gruppoOption = By.id("groups-option-0");
+        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.element(gruppoOption)));
+        this.js().executeScript("arguments[0].click()",this.element(gruppoOption));
     }
 
     public void clickBottoneConferma() {
+        getWebDriverWait(40).withMessage("Il bottone conferma nel pop up di scelta gruppo non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
         this.confermaButton.click();
     }
 
@@ -198,7 +198,7 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public void controlloStatoAttiva(String ragioneSociale) {
         try {
-            By statoAttivaBy = By.xpath("//tr[@data-testid='table(notifications).row']//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//div/div/span[contains(text(),'Attiva')]");
+            By statoAttivaBy = By.xpath("//tr[@data-testid='delegationsBodyRowDesktop']//td[@scope='col' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@scope='col']//div/div/span[contains(text(),'Attiva')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoAttivaBy));
             logger.info("La delega ha lo stato Attiva");
         }catch (TimeoutException e){
@@ -237,19 +237,19 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void waitLoadPopUpModifica() {
         try {
             By titlePOPUPBy = By.id("dialog-title");
-            By nonAssegnaButtonBy = By.xpath("//span[@data-testid='no-group']");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePOPUPBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(nonAssegnaButtonBy));
+            By nonAssegnaButtonBy = By.id("associate-form-no-group");
+            this.getWebDriverWait(30).withMessage("Il titolo del pop up non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePOPUPBy));
+            this.getWebDriverWait(30).withMessage("Il bottone non assegna sul pop up non è cliccabile").until(ExpectedConditions.elementToBeClickable(nonAssegnaButtonBy));
             logger.info("Si visualizza correttamente il pop-up");
         }catch (TimeoutException e){
-            logger.error("Si visualizza NON correttamente il pop-up con errore: "+e.getMessage());
-            Assert.fail("Si visualizza NON correttamente il pop-up con errore: "+e.getMessage());
+            logger.error("NON Si  visualizza  correttamente il pop-up con errore: "+e.getMessage());
+            Assert.fail("NON Si visualizza correttamente il pop-up con errore: "+e.getMessage());
         }
     }
 
     public boolean verificaPresenzaGruppo(String ragioneSociale) {
         try {
-            By gruppoBy = By.xpath("//td[@role='cell' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@role='cell']//span[contains(text(),'Test gruppi')]");
+            By gruppoBy = By.xpath("//td[@scope='col' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@scope='col']//span[contains(text(),'Test gruppi')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(gruppoBy));
             return true;
         }catch (TimeoutException e) {
@@ -259,8 +259,9 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void inserireGruppoDelegante() {
+        this.getWebDriverWait(30).withMessage("Il campo cerca gruppo non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.searchGroupTextField));
         this.searchGroupTextField.click();
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.groupOption));
+        this.getWebDriverWait(30).withMessage("l'opzione gruppo non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.groupOption));
         this.groupOption.click();
     }
 }

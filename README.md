@@ -87,3 +87,11 @@ Lista:
 - `logFileName`: nome del file di log. Esempio: `-DlogFileName=nomeFile`
 - `cookie.config`: se `true` inietta i cookie ad ogni scenario senza la comparsa del banner OneTrust. Valori
   possibili: `true`, `false`
+
+## Altro
+
+Per lanciare i test dei recapiti in locale, bisogna prima stabilire una connessione ssm al exchanel da **CLI** (per la
+configurazione guardare il manuale).
+
+Esempio comando per l'ambiente di test:
+`aws --profile pn-test-core ssm start-session --target "i-0c7b5a5e1e47dcdff" --document-name AWS-StartPortForwardingSessionToRemoteHost --parameters "{\"portNumber\":[\"8080\"],\"localPortNumber\":[\"8887\"],\"host\":[\"internal-EcsA-20230504103152508600000011-1839177861.eu-south-1.elb.amazonaws.com\"]}"`
