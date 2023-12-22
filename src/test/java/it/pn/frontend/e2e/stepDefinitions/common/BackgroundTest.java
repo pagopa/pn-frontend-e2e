@@ -16,6 +16,8 @@ public class BackgroundTest {
 
     private final String nomeFileNuovaDelegaPG = "nuovaDelegaPG";
 
+    private final String mittente = "mittente";
+
     private final DeleghePagoPATest deleghePagoPATest = new DeleghePagoPATest();
 
     private final RecapitiPersonaFisicaTest recapitiPersonaFisicaTest = new RecapitiPersonaFisicaTest();
@@ -213,5 +215,16 @@ public class BackgroundTest {
         recapitiPGTest.siVisualizzaRecapitiPagePersonaGiuridca();
     }
 
+    public void aggiungiPecSezioneGiaAssociati(){
+        recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiSelezionaLEnte(mittente);
+        recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiSelezionaIlTipoDiIndirizzo();
+        recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiInserisceLaPECAggiuntivaDePersonaFisica(nomeFilePersonaFisica);
+        recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiCliccaSulBottoneAssocia();
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequest(nomeFilePersonaFisica);
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP(nomeFilePersonaFisica);
+        recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiControllaCheLaPecAggiuntivaSiaStataInseritaCorrettamente();
+
+    }
 
 }
