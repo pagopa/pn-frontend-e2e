@@ -72,7 +72,7 @@ public class ITuoiRecapitiPage extends BasePage {
 
 
 
-    public void clickSalvaemail() {
+    public void  clickSalvaemail() {
         By salvaButtonBy = By.xpath("//button[contains(text(),'Salva')]");
         this.driver.findElement(salvaButtonBy).click();
     }

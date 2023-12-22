@@ -10,7 +10,7 @@ Feature: la persona fisica elimina l'indirizzo Email
   @recapitiPF
   @PF
 
-  Scenario: la persona fisica elimina l'indirizzo Email
+  Scenario: PN-9310-A36 - la persona fisica elimina l'indirizzo Email
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email

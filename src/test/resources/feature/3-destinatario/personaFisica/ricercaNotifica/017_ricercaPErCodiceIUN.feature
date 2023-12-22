@@ -11,7 +11,7 @@ Feature: Ricerca persona fisica per Codice IUN
   @PF
   @PFRicercaNotifica
 
-  Scenario: Ricerca persona fisica per Codice IUN
+  Scenario:PN-9219 - Ricerca persona fisica per Codice IUN
     When Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica
     And Nella pagina Piattaforma Notifiche PF si recupera un codice IUN valido
     And Cliccare sul bottone Filtra persona fisica
