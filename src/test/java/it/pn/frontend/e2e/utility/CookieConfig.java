@@ -17,7 +17,7 @@ public class CookieConfig {
     }
 
     public static boolean isCookieEnabled() {
-        String isCookieEnabled = System.getProperty("cookie.enabled");
+        String isCookieEnabled = System.getProperty("cookie.config");
         if (isCookieEnabled == null || isCookieEnabled.equals("false")) {
             logger.info("Cookies are disabled");
             return false;
