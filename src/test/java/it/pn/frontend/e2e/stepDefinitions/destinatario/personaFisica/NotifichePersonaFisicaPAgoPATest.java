@@ -170,7 +170,7 @@ public class NotifichePersonaFisicaPAgoPATest {
     public void siVisualizzaUnNumeroDiPagineVisualizzateUgualeAQuelloSelezionato() {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         try {
-            TimeUnit.SECONDS.sleep(4);
+            TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

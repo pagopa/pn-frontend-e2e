@@ -67,10 +67,10 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP() {
         logger.info("Si visualizza correttamente il pop-up di inserimento OTP");
         String varabileAmbiente = System.getProperty("environment");
-        String url = "https://webapi."+varabileAmbiente+".notifichedigitali.it/address-book/v1/digital-address";
+        String url = "https://webapi." + varabileAmbiente + ".notifichedigitali.it/address-book/v1/digital-address";
         recapitiDestinatarioPage.waitLoadPopUp();
         try {
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -102,7 +102,7 @@ public class RecapitiPersonaFisicaTest {
     public void siVisualizzaCorrettamenteIlMessaggioDiErrore() {
         logger.info("Si controlla che il messaggio di errore sia visibile");
 
-        if(!recapitiDestinatarioPage.waitMessaggioErrore()){
+        if (!recapitiDestinatarioPage.waitMessaggioErrore()) {
             logger.error("Il messaggio di errore non viene visualizzato");
             Assert.fail("Il messaggio di errore non viene visualizzato");
         }
@@ -126,7 +126,7 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si inserisce la PEC errata {string}")
     public void nellaPaginaITuoiRecapitiSiInserisceLaPECErrata(String dpFile) {
         logger.info("Si inserisce la PEC errata");
-        String pecErrata = dataPopulation.readDataPopulation(dpFile+".yaml").get("pecErrore").toString();
+        String pecErrata = dataPopulation.readDataPopulation(dpFile + ".yaml").get("pecErrore").toString();
         recapitiDestinatarioPage.insertEmailPEC(pecErrata);
     }
 
@@ -230,9 +230,9 @@ public class RecapitiPersonaFisicaTest {
             dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
         } else {
             String variabileAmbiente = System.getProperty("environment");
-            if (variabileAmbiente.equalsIgnoreCase("test")){
+            if (variabileAmbiente.equalsIgnoreCase("test")) {
                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
-            } else if (variabileAmbiente.equalsIgnoreCase("dev")){
+            } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
             }
             url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("emailPec");
@@ -241,8 +241,7 @@ public class RecapitiPersonaFisicaTest {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
                 personaFisica.put("OTPpec", OTP);
                 dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
-            }
-            else {
+            } else {
                 logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
                 Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
             }
@@ -257,7 +256,7 @@ public class RecapitiPersonaFisicaTest {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.sendOTP(otp);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
-        if(recapitiDestinatarioPage.waitMessaggioErrore()){
+        if (recapitiDestinatarioPage.waitMessaggioErrore()) {
             logger.error("Il codice OTP inserito è sbagliato");
             Assert.fail("Il codice OTP inserito è sbagliato");
         }
@@ -267,7 +266,6 @@ public class RecapitiPersonaFisicaTest {
     @Then("Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente() {
         logger.info("Si controlla che la pec sia stata inserita correttamente");
-
 
 
         if (recapitiDestinatarioPage.siVisualizzaPopUpConferma()) {
@@ -289,7 +287,7 @@ public class RecapitiPersonaFisicaTest {
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
         try {
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -302,21 +300,21 @@ public class RecapitiPersonaFisicaTest {
             personaFisica.put("OTPmail", OTP);
             dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
         } else {
-                String variabileAmbiente = System.getProperty("environment");
-             if (variabileAmbiente.equalsIgnoreCase("test")){
-                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
-             } else if (variabileAmbiente.equalsIgnoreCase("dev")){
+            String variabileAmbiente = System.getProperty("environment");
+            if (variabileAmbiente.equalsIgnoreCase("test")) {
+                startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
+            } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
-             }
-             url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("mail");
-             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+            }
+            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("mail");
+            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
                 personaFisica.put("OTPmail", OTP);
                 dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
-            }else {
-                logger.error("La chiamata non ha risposto correttamente con codice:"+ recuperoOTPRecapiti.getResponseCode());
-                Assert.fail("La chiamata non ha risposto correttamentecon codice:"+ recuperoOTPRecapiti.getResponseCode());
+            } else {
+                logger.error("La chiamata non ha risposto correttamente con codice:" + recuperoOTPRecapiti.getResponseCode());
+                Assert.fail("La chiamata non ha risposto correttamentecon codice:" + recuperoOTPRecapiti.getResponseCode());
             }
         }
     }
@@ -334,7 +332,7 @@ public class RecapitiPersonaFisicaTest {
     @Then("Nella pagina I Tuoi Recapiti si controlla che la Email sia presente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLaEmailSiaPresente() {
         logger.info("Si controlla che la Email sia stata inserita correttamente");
-        if (!recapitiDestinatarioPage.verificaMailAssociata()){
+        if (!recapitiDestinatarioPage.verificaMailAssociata()) {
             logger.error("Email non è stata inserita correttamente");
             Assert.fail("Email non è stata inserita correttamente");
         }
@@ -408,7 +406,7 @@ public class RecapitiPersonaFisicaTest {
         RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
 
         try {
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
             logger.error("pausa con errore: " + e.getMessage());
             throw new RuntimeException(e);
@@ -423,9 +421,9 @@ public class RecapitiPersonaFisicaTest {
             dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
         } else {
             String variabileAmbiente = System.getProperty("environment");
-            if (variabileAmbiente.equalsIgnoreCase("test")){
+            if (variabileAmbiente.equalsIgnoreCase("test")) {
                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
-            } else if (variabileAmbiente.equalsIgnoreCase("dev")){
+            } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
             }
             url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("email");
@@ -434,10 +432,9 @@ public class RecapitiPersonaFisicaTest {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
                 personaFisica.put("OTPmail", OTP);
                 dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
-            }
-            else {
-                logger.error("La chiamata con url: "+url+" ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
-                Assert.fail("La chiamata  con url: "+url+" ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+            } else {
+                logger.error("La chiamata con url: " + url + " ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+                Assert.fail("La chiamata  con url: " + url + " ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
             }
         }
     }
@@ -461,7 +458,7 @@ public class RecapitiPersonaFisicaTest {
     @Then("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo Email non sia presente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoEmailNonSiaPresente() {
         logger.info("Si controlla che l'indirizzo Email non sia presente");
-        if (!recapitiDestinatarioPage.verificaMailAssociata()){
+        if (!recapitiDestinatarioPage.verificaMailAssociata()) {
             logger.error("Email non è stata eliminata correttamente");
             Assert.fail("Email non è stata eliminata correttamente");
         }
@@ -471,7 +468,7 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteLaSezioneAltriRecapiti() {
         logger.info("Si controlla che l'indirizzo Email non sia presente");
 
-       recapitiDestinatarioPage.visualizzazioneSezioneAltriRecapiti();
+        recapitiDestinatarioPage.visualizzazioneSezioneAltriRecapiti();
 
     }
 
@@ -492,7 +489,7 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiInserisceUnaNuovaPECDellaPersonaFisica(String dpFile) {
         logger.info("Si inserisce una nuova PEC");
         recapitiDestinatarioPage.cancellaTesto();
-        String pec = dataPopulation.readDataPopulation(dpFile+".yaml").get("pec").toString();
+        String pec = dataPopulation.readDataPopulation(dpFile + ".yaml").get("pec").toString();
         recapitiDestinatarioPage.insertEmailPEC(pec);
     }
 
@@ -510,7 +507,7 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.clickConfermaButton();
             recapitiDestinatarioPage.visualizzaValidazione();
         } else {
-            String pec = dataPopulation.readDataPopulation(dpFile+".yaml").get("pec").toString();
+            String pec = dataPopulation.readDataPopulation(dpFile + ".yaml").get("pec").toString();
             if (recapitiDestinatarioPage.siControllaPECModificata(pec)) {
                 logger.info("La PEC è stata modificata");
             } else {
@@ -531,7 +528,7 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaPECTramiteChiamataRequest(String dpFile) {
         logger.info("Si recupera il codice OTP della nuova pec");
 
-        Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile+".yaml");
+        Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String pec = personaFisica.get("pec").toString();
         RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
 
@@ -541,12 +538,12 @@ public class RecapitiPersonaFisicaTest {
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
             personaFisica.put("OTPpec", OTP);
-            dataPopulation.writeDataPopulation(dpFile+".yaml", personaFisica);
+            dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
         } else {
             String variabileAmbiente = System.getProperty("environment");
-            if (variabileAmbiente.equalsIgnoreCase("test")){
+            if (variabileAmbiente.equalsIgnoreCase("test")) {
                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
-            } else if (variabileAmbiente.equalsIgnoreCase("dev")){
+            } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
             }
             url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("pec");
@@ -555,8 +552,7 @@ public class RecapitiPersonaFisicaTest {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
                 personaFisica.put("OTPpec", OTP);
                 dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
-            }
-            else {
+            } else {
                 logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
                 Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
             }
@@ -723,8 +719,8 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella sezione altri recapiti si controlla l'esistenza di una PEC {string}")
     public void nellaSezioneAltriRecapitiSiControllaLEsistenzaDiUnaPEC(String dpFile) {
         logger.info("Si controlla esistenza di una PEC aggiuntiva");
-        String pec = dataPopulation.readDataPopulation(dpFile+".yaml").get("emailPec").toString();
-        if (recapitiDestinatarioPage.verificaNuovaEmailEPEC(pec)){
+        String pec = dataPopulation.readDataPopulation(dpFile + ".yaml").get("emailPec").toString();
+        if (recapitiDestinatarioPage.verificaNuovaEmailEPEC(pec)) {
             recapitiDestinatarioPage.eliminaNuovaPec();
         }
     }
@@ -743,8 +739,8 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("si verifica esistenza due pec")
-    public void SicontrollaEsistenzaDuePec(){
-        if(!recapitiDestinatarioPage.siVisulizzaPecInserita()){
+    public void SicontrollaEsistenzaDuePec() {
+        if (!recapitiDestinatarioPage.siVisulizzaPecInserita()) {
             BackgroundTest backgroundTest = new BackgroundTest();
             backgroundTest.aggiungiNuovaPECPF();
             backgroundTest.aggiungiPecSezioneGiaAssociati();

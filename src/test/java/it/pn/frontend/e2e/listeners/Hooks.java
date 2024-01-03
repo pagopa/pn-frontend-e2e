@@ -13,8 +13,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.DevToolsException;
+import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.v117.network.Network;
 import org.openqa.selenium.devtools.v117.network.model.Headers;
 import org.openqa.selenium.devtools.v117.network.model.RequestWillBeSent;
@@ -70,7 +70,7 @@ public class Hooks {
         if (this.headless != null && this.headless.equalsIgnoreCase("false")) {
             driver.manage().window().maximize();
         }
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         //driver.get(this.url);
         logger.info("firefox driver started");
 
@@ -178,7 +178,7 @@ public class Hooks {
             driver.manage().window().maximize();
         }
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         //driver.get(this.url);
         logger.info("edge driver started");
     }
@@ -273,7 +273,7 @@ public class Hooks {
         requests.clear();
         netWorkInfos.clear();
         try {
-            TimeUnit.SECONDS.sleep(30);
+            TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
