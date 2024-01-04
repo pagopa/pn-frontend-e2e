@@ -231,7 +231,13 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickOpzioneModifica() {
-        this.opzioneModifica.click();
+        try{
+            this.getWebDriverWait(30).withMessage("il pulsante modifica delega non é presente").until(ExpectedConditions.elementToBeClickable(opzioneModifica));
+            this.opzioneModifica.click();
+        }catch (TimeoutException e ){
+            logger.error(" errore: "+e.getMessage());
+            Assert.fail(" errore: "+e.getMessage());
+        }
     }
 
     public void waitLoadPopUpModifica() {
