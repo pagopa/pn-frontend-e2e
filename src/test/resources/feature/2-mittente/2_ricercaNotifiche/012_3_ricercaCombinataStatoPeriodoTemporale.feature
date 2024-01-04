@@ -10,7 +10,7 @@ Feature: il mittente fa una ricerca combinata tra stato e arco temporale
     @ricercaNatoficheMittente
     @TA_MittenteRicercaPerStatoPeriodo
 
-  Scenario Outline: il mittente fa una ricerca sia per arco temporale che per stato
+  Scenario Outline: PN-9222 - il mittente fa una ricerca sia per arco temporale che per stato
     When Nella pagina Piattaforma Notifiche inserire un arco temporale
     And Nella pagina piattaforma Notifiche selezionare uno stato notifica <stato>
     And Cliccare sul bottone Filtra
