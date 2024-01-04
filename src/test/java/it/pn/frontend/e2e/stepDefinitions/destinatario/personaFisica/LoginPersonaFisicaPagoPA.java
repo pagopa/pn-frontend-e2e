@@ -236,7 +236,7 @@ public class LoginPersonaFisicaPagoPA {
 
 
         try {
-            TimeUnit.SECONDS.sleep(15);
+            TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -275,7 +275,7 @@ public class LoginPersonaFisicaPagoPA {
                 break;
             }
             try {
-                TimeUnit.SECONDS.sleep(15);
+                TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -491,7 +491,7 @@ public class LoginPersonaFisicaPagoPA {
                 break;
             }
             try {
-                TimeUnit.SECONDS.sleep(15);
+                TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
