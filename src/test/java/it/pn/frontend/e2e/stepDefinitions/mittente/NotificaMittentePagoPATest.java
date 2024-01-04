@@ -76,11 +76,6 @@ public class NotificaMittentePagoPATest {
 
         String variabileAmbiente = System.getProperty("environment");
         String urlChiamata = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/notifications/sent?";
-        try {
-            TimeUnit.SECONDS.sleep(10);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
             logger.error("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
@@ -107,7 +102,7 @@ public class NotificaMittentePagoPATest {
         logger.info("Si recupera l'ultimo numero protocollo utilizzato");
         this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
         try {
-            TimeUnit.SECONDS.sleep(10);
+            TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -672,7 +667,7 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         for (int i = 0; i < 10; i++) {
             try {
-                TimeUnit.SECONDS.sleep(15);
+                TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -1115,7 +1110,7 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         for (int i = 0; i < 10; i++) {
             try {
-                TimeUnit.SECONDS.sleep(15);
+                TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
