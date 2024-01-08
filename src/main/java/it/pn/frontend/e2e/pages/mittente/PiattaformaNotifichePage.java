@@ -253,7 +253,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public void selezionaNotifica() {
         waitLoadPage();
         try {
-            By notificaBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh')]");
+            By notificaBy =  By.id("notificationsTable.body.row");
             attesaCaricamentoPagina();
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificaBy));
             List<WebElement> notifiche = this.elements(notificaBy);

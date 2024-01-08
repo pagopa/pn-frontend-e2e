@@ -527,4 +527,6 @@ public class DeleghePGPagoPATest {
             backgroundTest.aggiuntaNuovaDelegaPG();
         }
     }
+
+
 }

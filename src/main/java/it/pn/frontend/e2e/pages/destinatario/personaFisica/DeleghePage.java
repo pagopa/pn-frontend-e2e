@@ -43,6 +43,7 @@ public class DeleghePage extends BasePage {
     public void clickAggiungiDelegaButton()  {
         try {
             this.getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(this.addDelegaButton));
+            logger.info("click sul bottone add deleghe");
             this.addDelegaButton.click();
         }catch(TimeoutException e){
             logger.error("Il bottone aggiungi delega non è cliccabile con errore : " + e.getMessage());
