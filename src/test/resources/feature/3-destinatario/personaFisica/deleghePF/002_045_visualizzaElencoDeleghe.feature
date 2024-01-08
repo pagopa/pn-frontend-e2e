@@ -10,7 +10,7 @@ Feature:La persona fisica visualizza la sezione aggiungi una nuova delega
   @DeleghePF
   @PF
 
-  Scenario:La persona fisica visualizza la sezione aggiungi una nuova delega
+  Scenario:PN-9399 - La persona fisica visualizza la sezione aggiungi una nuova delega
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
     And Nella sezione Deleghe si verifica sia presente una delega

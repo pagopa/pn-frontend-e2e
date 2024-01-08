@@ -10,7 +10,7 @@ Feature: La persona fisica visualizza la sezione notifiche
   @PFvisualizzaNotifiche
   @PF
 
-  Scenario:La persona fisica visualizza la sezione notifiche
+  Scenario:PN-9184 - La persona fisica visualizza la sezione notifiche
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche
     And Si visualizza correttamente la Pagina Notifiche persona fisica
     And Nella Pagina Notifiche persona fisica si visualizzano correttamente i filtri di ricerca

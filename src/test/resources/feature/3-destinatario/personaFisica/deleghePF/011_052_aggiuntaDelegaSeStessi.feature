@@ -10,7 +10,7 @@ Feature:La persona fisica aggiunge una delega a se stessi
   @DeleghePF
   @PF
 
-  Scenario:La persona fisica aggiunge una delega a se stessi
+  Scenario:PN-9420 - La persona fisica aggiunge una delega a se stessi
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
     And Nella sezione Deleghe click sul bottone aggiungi nuova delega

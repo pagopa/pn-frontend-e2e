@@ -8,7 +8,7 @@ Feature: la persona fisica inserisce un numero di telefono errato
   @TA_inserimentoTelefonoErratoPF
   @PF
   @recapitiPF
-  Scenario: La persona fisica inserisce un numero di telefono errato
+  Scenario: PN-9311-B37 - La persona fisica inserisce un numero di telefono errato
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono errato "2318773225"

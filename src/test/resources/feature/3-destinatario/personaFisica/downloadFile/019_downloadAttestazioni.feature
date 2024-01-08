@@ -12,7 +12,7 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
   @TA_PFDownloadAttestazioni
   @PF
 
-  Scenario: persona fisica scarica attestazione
+  Scenario: PN-9239 - persona fisica scarica attestazione
     When La persona fisica clicca sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica persona fisica
     Then Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto "datiNotifica"

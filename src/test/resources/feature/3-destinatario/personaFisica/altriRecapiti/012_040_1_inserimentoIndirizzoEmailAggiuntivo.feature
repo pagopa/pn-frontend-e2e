@@ -10,7 +10,7 @@ Feature: la persona fisica inserisce un indirizzo Email aggiuntivo
   @TA_emailAggiuntivaPF
   @recapitiPF
 
-  Scenario: la persona fisica inserisce un indirizzo Email aggiuntivo
+  Scenario: PN-9318-I40 - la persona fisica inserisce un indirizzo Email aggiuntivo
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email diversa

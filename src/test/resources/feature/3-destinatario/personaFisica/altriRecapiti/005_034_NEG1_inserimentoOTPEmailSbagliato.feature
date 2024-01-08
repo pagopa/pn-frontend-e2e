@@ -9,7 +9,7 @@ Feature: la persona fisica inserisce un OTP email sbagliato
   @PF
   @recapitiPF
 
-  Scenario: la persona fisica inserisce un OTP email sbagliato
+  Scenario: PN-9308-E34 - la persona fisica inserisce un OTP email sbagliato
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una email
