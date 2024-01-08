@@ -10,7 +10,7 @@ Feature: il mittente fa una ricerca combinata tra cf e periodo temporale
   @mittente
   @ricercaNatoficheMittente
 
-  Scenario: il mittente fa una ricera sia per cf che per periodo temporale
+  Scenario: PN-9222 - il mittente fa una ricera sia per cf che per periodo temporale
     When Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica "personaFisica"
     And Nella pagina Piattaforma Notifiche inserire un arco temporale
     And Cliccare sul bottone Filtra

@@ -12,7 +12,7 @@ Feature: Mittente visualizza il dettaglio di una notifica
   @mittente
   @visualizzazioneNotificheMittente
 
-  Scenario: Mittente visualizza dettaglio notifica
+  Scenario: PN-9225 - Mittente visualizza dettaglio notifica
     When Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica
     And Nella pagina dettaglio notifica cliccare sull'opzione vedi più dettagli

@@ -10,7 +10,7 @@ Feature: Mittente effetua una ricerca notifiche per Stato
     @mittente
     @ricercaNatoficheMittente
 
-  Scenario Outline: Mittente logato effettua una ricerca per stato notifica
+  Scenario Outline: PN-9324 - Mittente logato effettua una ricerca per stato notifica
     When Nella pagina piattaforma Notifiche selezionare uno stato notifica <stato>
     And Cliccare sul bottone Filtra
     Then Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con lo stato della notifica <stato>

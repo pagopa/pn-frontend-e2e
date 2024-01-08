@@ -10,7 +10,7 @@ Feature: il mittente fa una ricerca combinata tra stato e data
     @ricercaNatoficheMittente
     @TA_MittenteRicercaPerDataStato
 
-  Scenario Outline: il mittente fa una ricerca sia per data che per stato
+  Scenario Outline: PN-9222 - il mittente fa una ricerca sia per data che per stato
     When Nella pagina Piattaforma Notifiche inserire una data
     And Nella pagina piattaforma Notifiche selezionare uno stato notifica <stato>
     And Cliccare sul bottone Filtra
