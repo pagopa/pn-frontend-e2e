@@ -4,6 +4,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import it.pn.frontend.e2e.utility.CookieConfig;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.OutputType;
@@ -48,6 +49,8 @@ public class Hooks {
 
     private String headless;
 
+    private final CookieConfig cookieConfig = new CookieConfig();
+
     private final String os = System.getProperty("os.name");
 
     protected void firefox() {
@@ -67,7 +70,7 @@ public class Hooks {
         if (this.headless != null && this.headless.equalsIgnoreCase("false")) {
             driver.manage().window().maximize();
         }
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         //driver.get(this.url);
         logger.info("firefox driver started");
 
@@ -114,8 +117,12 @@ public class Hooks {
         devTools.addListener(
                 Network.requestWillBeSent(),
                 request -> {
+                    String url = request.getRequest().getUrl();
+                    if (!cookieConfig.getCookies(url).isEmpty()) {
+                        cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
+                    }
                     requests.put(request.getRequestId().toString(), request);
-                    //logger.info("Request URL : "+request.getRequest().getUrl());
+//                    logger.info("Request URL : " + request.getRequest().getUrl());
                 }
         );
     }
@@ -171,7 +178,7 @@ public class Hooks {
             driver.manage().window().maximize();
         }
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         //driver.get(this.url);
         logger.info("edge driver started");
     }
@@ -217,7 +224,7 @@ public class Hooks {
                 Assert.fail("browser not correct");
             }
         }
-
+        cookieConfig.addCookie();
     }
 
     @After
@@ -266,7 +273,7 @@ public class Hooks {
         requests.clear();
         netWorkInfos.clear();
         try {
-            TimeUnit.SECONDS.sleep(30);
+            TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

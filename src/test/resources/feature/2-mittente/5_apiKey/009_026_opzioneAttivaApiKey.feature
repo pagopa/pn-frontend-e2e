@@ -13,7 +13,7 @@ Feature: Mittente seleziona l'opzione attiva api Key
   @mittente
   @ApikeyMittente
 
-  Scenario: Mittente seleziona l'opzione attiva Api Key
+  Scenario: PN-9234 - Mittente seleziona l'opzione attiva Api Key
     When Nella pagina Api Key si clicca sul bottone menu di una Api Key bloccata presente in elenco
     And Nella pagina Api Key si clicca sulla voce attiva del menu Api Key
     And Nella pagina Api Key si visualizza il pop up attiva Api Key

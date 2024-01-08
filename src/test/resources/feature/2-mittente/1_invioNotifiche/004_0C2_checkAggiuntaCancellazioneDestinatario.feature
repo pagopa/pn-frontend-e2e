@@ -9,7 +9,7 @@ Feature: Il mittente inserisce 2 destinatari e viene eliminato il primo
   @TestSuite
   @mittente
   @invioNotifiche
-  Scenario: il mittente inserisce i dati sbagliati fino alla sezione Destinatario
+  Scenario: PN-8902 - il mittente inserisce i dati sbagliati fino alla sezione Destinatario
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     And Nella section Informazioni preliminari inserire i dati della notifica "datiNotifica" senza pagamento

@@ -12,7 +12,7 @@ Feature: Mittente effetua una ricerca notifiche per CF sbagliato
   @ricercaNatoficheMittente
 
 
-  Scenario: Mittente loggato effettua una ricerca per CF sbagliato
+  Scenario: PN-9321 - Mittente loggato effettua una ricerca per CF sbagliato
     When Nella pagina Piattaforma Notifiche inserire il codice fiscale sbagliato "QWERTY123"
     Then Nella pagina Piattaforma Notifiche si controlla che si visualizza il messaggio di errore codice fiscale
     And Nella pagina Piattaforma Notifiche si controlla che il bottone Filtra sia attivo

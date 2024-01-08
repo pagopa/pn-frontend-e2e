@@ -9,6 +9,7 @@ import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.section.CookiesSection;
+import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import org.junit.Assert;
@@ -49,10 +50,13 @@ public class NotifichePGPagoPATest {
     @And("Si visualizza correttamente la Pagina Notifiche persona giuridica {string}")
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica(String dpFile) {
         personaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        CookiesSection cookiesSection = new CookiesSection(this.driver);
-        if (cookiesSection.waitLoadCookiesPage()) {
-            logger.info("Si accettano i cookies");
-            cookiesSection.selezionaAccettaTuttiButton();
+        if (!CookieConfig.isCookieEnabled()) {
+            logger.info("SONO ENTRATO");
+            CookiesSection cookiesSection = new CookiesSection(this.driver);
+            if (cookiesSection.waitLoadCookiesPage()) {
+                logger.info("Si accettano i cookies");
+                cookiesSection.selezionaAccettaTuttiButton();
+            }
         }
         piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(personaGiuridica.get("ragioneSociale").toString());
 
@@ -96,7 +100,7 @@ public class NotifichePGPagoPATest {
 
     @And("Si visualizza correttamente la Pagina Notifiche persona giuridica sezione notifiche delegate {string}")
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridicaSezioneNotificheDelegate(String dpFile) {
-        String ragioneSpciale= dataPopulation.readDataPopulation(dpFile+".yaml").get("ragioneSociale").toString();
+        String ragioneSpciale = dataPopulation.readDataPopulation(dpFile + ".yaml").get("ragioneSociale").toString();
         piattaformaNotifichePGPAPage.waitLoadSezioneNotificheDelegate(ragioneSpciale);
     }
 
@@ -159,14 +163,17 @@ public class NotifichePGPagoPATest {
         logger.info("Si recupera il bearer token");
         DataPopulation dataPopulation = new DataPopulation();
         personaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        CookiesSection cookiesSection = new CookiesSection(this.driver);
-        if (cookiesSection.waitLoadCookiesPage()) {
-            logger.info("Si accettano i cookies");
-            cookiesSection.selezionaAccettaTuttiButton();
+
+        if (!CookieConfig.isCookieEnabled()) {
+            CookiesSection cookiesSection = new CookiesSection(this.driver);
+            if (cookiesSection.waitLoadCookiesPage()) {
+                logger.info("Si accettano i cookies");
+                cookiesSection.selezionaAccettaTuttiButton();
+            }
         }
         piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(personaGiuridica.get("ragioneSociale").toString());
         try {
-            TimeUnit.SECONDS.sleep(15);
+            TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

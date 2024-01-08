@@ -13,6 +13,7 @@ import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeadeFRSection;
+import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -55,10 +56,13 @@ public class LoginPersonaFisicaPagoPA {
         this.datiPersonaFisica = dataPopulation.readDataPopulation(datipersonaFisica + ".yaml");
 
         logger.info("cookies start");
+        CookiesSection cookiesPage;
 
-        CookiesSection cookiesPage = new CookiesSection(this.driver);
-        if (cookiesPage.waitLoadCookiesPage()) {
-            cookiesPage.selezionaAccettaTuttiButton();
+        if (!CookieConfig.isCookieEnabled()) {
+            cookiesPage = new CookiesSection(this.driver);
+            if (cookiesPage.waitLoadCookiesPage()) {
+                cookiesPage.selezionaAccettaTuttiButton();
+            }
         }
 
         logger.info("cookies end");
@@ -68,8 +72,11 @@ public class LoginPersonaFisicaPagoPA {
         accediApiattaformaNotifichePage.waitLoadAccediApiattaformaNotifichePage();
         accediApiattaformaNotifichePage.selezionaAccediButton();
 
-        if (cookiesPage.waitLoadCookiesPage()) {
-            cookiesPage.selezionaAccettaTuttiButton();
+        if (!CookieConfig.isCookieEnabled()) {
+            cookiesPage = new CookiesSection(this.driver);
+            if (cookiesPage.waitLoadCookiesPage()) {
+                cookiesPage.selezionaAccettaTuttiButton();
+            }
         }
 
         ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.driver);
@@ -119,12 +126,15 @@ public class LoginPersonaFisicaPagoPA {
 
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void home_page_destinatario_viene_visualizzata_correttamente() {
+        CookiesSection cookiesSection;
 
-        CookiesSection cookiesSection = new CookiesSection(this.driver);
-
-        if (cookiesSection.waitLoadCookiesPage()) {
-            cookiesSection.selezionaAccettaTuttiButton();
+        if (!CookieConfig.isCookieEnabled()) {
+            cookiesSection = new CookiesSection(this.driver);
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
+            }
         }
+
         boolean httpRequestToken = false;
         for (int index = 0; index < 30; index++) {
 
@@ -146,9 +156,11 @@ public class LoginPersonaFisicaPagoPA {
         HeadeFRSection headeFRSection = new HeadeFRSection(this.driver);
         headeFRSection.waitLoadHeaderDESection();
 
-
-        if (cookiesSection.waitLoadCookiesPage()) {
-            cookiesSection.selezionaAccettaTuttiButton();
+        if (!CookieConfig.isCookieEnabled()) {
+            cookiesSection = new CookiesSection(this.driver);
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
+            }
         }
 
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
@@ -201,16 +213,18 @@ public class LoginPersonaFisicaPagoPA {
         ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.driver);
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
 
-        CookiesSection cookiesSection = new CookiesSection(this.driver);
-        if (cookiesSection.waitLoadCookiesPage()) {
-            logger.info("banner dei cookies visualizzato");
-            cookiesSection.selezionaAccettaTuttiButton();
-            try {
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+        if (!CookieConfig.isCookieEnabled()) {
+            CookiesSection cookiesSection = new CookiesSection(this.driver);
+            if (cookiesSection.waitLoadCookiesPage()) {
+                logger.info("banner dei cookies visualizzato");
+                cookiesSection.selezionaAccettaTuttiButton();
+                try {
+                    TimeUnit.SECONDS.sleep(2);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                logger.info("banner dei cookies sparito");
             }
-            logger.info("banner dei cookies sparito");
         }
 
         if (comeVuoiAccederePage.verificaPresenzaSpidButton()) {
@@ -222,7 +236,7 @@ public class LoginPersonaFisicaPagoPA {
 
 
         try {
-            TimeUnit.SECONDS.sleep(15);
+            TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -261,7 +275,7 @@ public class LoginPersonaFisicaPagoPA {
                 break;
             }
             try {
-                TimeUnit.SECONDS.sleep(15);
+                TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -477,7 +491,7 @@ public class LoginPersonaFisicaPagoPA {
                 break;
             }
             try {
-                TimeUnit.SECONDS.sleep(15);
+                TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -495,28 +509,29 @@ public class LoginPersonaFisicaPagoPA {
 
         this.driver.get(this.urlPersonaFisica.get("urlPortale"));
     }
+
     @When("Login portale persona fisica tramite token exchange {string}")
     public void loginPortalePersonaFisicaTramiteTokenExchange(String dpFile) {
         String variabileAmbiente = System.getProperty("environment");
         DataPopulation dataPopulation = new DataPopulation();
-        String urlInziale = "https://cittadini."+variabileAmbiente+".notifichedigitali.it/#token=";
-        String user = dataPopulation.readDataPopulation(dpFile+".yaml").get("user").toString();
+        String urlInziale = "https://cittadini." + variabileAmbiente + ".notifichedigitali.it/#token=";
+        String user = dataPopulation.readDataPopulation(dpFile + ".yaml").get("user").toString();
         String token;
-        if(user.equalsIgnoreCase("cesare")){
+        if (user.equalsIgnoreCase("cesare")) {
 
-            if (variabileAmbiente.equalsIgnoreCase("test")){
+            if (variabileAmbiente.equalsIgnoreCase("test")) {
                 token = dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPFDelegante").toString();
-            }else{
+            } else {
                 token = dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPFDelegante").toString();
             }
-        }else {
-            if (variabileAmbiente.equalsIgnoreCase("test")){
+        } else {
+            if (variabileAmbiente.equalsIgnoreCase("test")) {
                 token = dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPFDelegato").toString();
-            }else{
+            } else {
                 token = dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPFDelegato").toString();
             }
         }
-        String url = urlInziale+token;
+        String url = urlInziale + token;
         this.driver.get(url);
     }
 }
