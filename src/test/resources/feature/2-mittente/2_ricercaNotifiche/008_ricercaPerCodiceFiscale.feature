@@ -11,7 +11,7 @@ Feature: Mittente effetua una ricerca notifiche per CF
   @ricercaNatoficheMittente
 
 
-  Scenario: Mittente loggato effettua una ricerca per CF
+  Scenario: PN-9217 - Mittente loggato effettua una ricerca per CF
     When Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica "personaFisica"
     And Cliccare sul bottone Filtra
     Then Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice fiscale del destinatario "personaFisica"

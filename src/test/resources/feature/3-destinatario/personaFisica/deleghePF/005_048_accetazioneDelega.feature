@@ -10,7 +10,7 @@ Feature: il delegato accetta la delega
   @DeleghePF
   @PF
 
-  Scenario: il delegato accetta la delega
+  Scenario: PN-9411 - il delegato accetta la delega
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico "personaFisica"
     And si sceglie opzione accetta

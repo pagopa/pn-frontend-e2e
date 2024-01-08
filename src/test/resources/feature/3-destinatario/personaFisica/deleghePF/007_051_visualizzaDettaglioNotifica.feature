@@ -13,7 +13,7 @@ Feature: Il delegato visualizza il dettaglio di una notifica
   @DeleghePF
   @PF
 
-  Scenario:Il delegato visualizza il dettaglio di una notifica
+  Scenario:PN-9417 - Il delegato visualizza il dettaglio di una notifica
     When Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica
     And Si seleziona il nome del delegante nell elenco
     And Si visualizza correttamente la Pagina Notifiche persona fisica delegante "personaFisica"

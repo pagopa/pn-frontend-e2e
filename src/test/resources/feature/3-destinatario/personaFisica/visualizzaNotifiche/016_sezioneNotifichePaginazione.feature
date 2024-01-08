@@ -11,7 +11,7 @@ Feature:La persona fisica visualizza le notifiche in elenco
     @PF
 
 
-    Scenario:La persona fisica visualizza le notifiche in elenco
+    Scenario:PN-9209 - La persona fisica visualizza le notifiche in elenco
       When Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica
       Then Si visualizzano correttamente le notifiche in elenco paginato
       And Si visualizzano le notifiche dalla piu recente

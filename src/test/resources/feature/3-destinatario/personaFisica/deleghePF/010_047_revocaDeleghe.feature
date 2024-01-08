@@ -10,7 +10,7 @@ Feature:La persona fisica revoca una delega
   @DeleghePF
   @PF
 
-  Scenario:La persona fisica revoca una delega
+  Scenario:PN-9403 - La persona fisica revoca una delega
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
     And Nella sezione Deleghe si verifica sia presente una delega "nuova_delega"

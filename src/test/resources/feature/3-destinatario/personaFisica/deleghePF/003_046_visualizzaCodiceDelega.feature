@@ -11,7 +11,7 @@ Feature:La persona fisica visualizza il codice  di una delega
   @PF
 
 
-  Scenario:La persona fisica visualizza il codice  di una delega
+  Scenario:PN-9402 - La persona fisica visualizza il codice  di una delega
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
     And Nella sezione Deleghe si verifica sia presente una delega "nuova_delega"

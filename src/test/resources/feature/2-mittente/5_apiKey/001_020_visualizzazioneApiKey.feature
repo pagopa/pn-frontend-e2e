@@ -11,7 +11,7 @@ Feature: Mittente visualizza correttamente la pagina Api Key
   @ApikeyMittente
 
 
-  Scenario: Mittente visualizza correttamente la pagina Api Key
+  Scenario: PN-9228 - Mittente visualizza correttamente la pagina Api Key
     When Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
     And Si visualizza correttamente la pagina Api Key
     And Si visualizza correttamente la lista delle Api Key generate

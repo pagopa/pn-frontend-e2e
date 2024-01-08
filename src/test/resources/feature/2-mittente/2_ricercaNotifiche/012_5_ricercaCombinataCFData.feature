@@ -10,7 +10,7 @@ Feature: il mittente fa una ricerca combinata tra cf e data
   @ricercaNatoficheMittente
   @TA_MittenteRicercaPerCFeData
 
-  Scenario: il mittente fa una ricera sia per cf che per data
+  Scenario: PN-9222 - il mittente fa una ricera sia per cf che per data
     When Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica "personaFisica"
     And Nella pagina Piattaforma Notifiche inserire una data
     And Cliccare sul bottone Filtra

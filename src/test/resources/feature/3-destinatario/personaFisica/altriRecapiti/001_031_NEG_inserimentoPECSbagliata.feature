@@ -9,7 +9,7 @@ Feature: La persona fisica inserisce una PEC sbagliata
   @recapitiPF
   @PF
 
-  Scenario: La persona fisica inserisce una PEC sbagliata
+  Scenario: PN-9240-B31 - La persona fisica inserisce una PEC sbagliata
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una pec
