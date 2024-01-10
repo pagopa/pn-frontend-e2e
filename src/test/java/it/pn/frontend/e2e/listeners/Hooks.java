@@ -139,6 +139,7 @@ public class Hooks {
                             NetWorkInfo netWorkInfo = new NetWorkInfo();
                             if (headers.get("Authorization") != null) {
                                 netWorkInfo.setAuthorizationBearer((headers.get("Authorization")).toString());
+                                System.setProperty("Authorization", netWorkInfo.getAuthorizationBearer());
                             }
                             netWorkInfo.setRequestId(requestId);
                             netWorkInfo.setRequestUrl(request.getRequest().getUrl());
