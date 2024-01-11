@@ -11,6 +11,7 @@ import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.mittente.AreaRiservataPAPage;
 import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
+import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.*;
 import it.pn.frontend.e2e.utility.CookieConfig;
@@ -35,6 +36,8 @@ public class NotificaMittentePagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittentePagoPATest");
 
     private final WebDriver driver = Hooks.driver;
+
+    private RestNotification restNotification = new RestNotification();
     private Map<String, Object> datiNotifica = new HashMap<>();
     private Map<String, Object> personaFisica = new HashMap<>();
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
@@ -950,6 +953,24 @@ public class NotificaMittentePagoPATest {
             dataPopulation.writeDataPopulation("datiNotifica.yaml", this.datiNotifica);
         }
     }
+
+//    @Given("creo una notifica tramite REST")
+//    public void creoUnaNotificaTramiteREST() {
+//        // Invia la richiesta REST per la creazione di una notifica
+//        ArrayList<Recipient> recipients = new ArrayList<>();
+//        recipients.add(new Recipient());
+//        ArrayList<Document> documents = new ArrayList<>();
+//        documents.add(new Document());
+//        NewNotification notification = new NewNotification("TA-FFSMRC-20240110-4", "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
+//        String response = String.valueOf(restNotification.newNotificationWithOneRecipientAndDocument(notification));
+//        if (response != null) {
+//            logger.info("La risposta della creazione della notifica è: " + response);
+//        } else {
+//            logger.error("La risposta della creazione della notifica è: " + response);
+//            Assert.fail("La risposta della creazione della notifica è: " + response);
+//        }
+//        // Puoi analizzare la risposta se necessario
+//    }
 
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.

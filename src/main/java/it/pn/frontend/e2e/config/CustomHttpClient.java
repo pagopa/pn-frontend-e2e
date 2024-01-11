@@ -13,25 +13,34 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
 
+
 public class CustomHttpClient {
+    private static CustomHttpClient instance;
+
     private static final Logger logger = LoggerFactory.getLogger("CustomHttpClient");
+
 
     private String baseUrlApi;
     private String authToken;
 
-    public CustomHttpClient() {
+    private CustomHttpClient() {
         this.baseUrlApi = System.getProperty("baseUrlApi");
-        if (System.getProperty("Authorization") != null) {
-            this.authToken = System.getProperty("Authorization");
-            logger.info("Authorization token found");
-        } else {
-            logger.error("Authorization token not found");
-        }
     }
 
     public CustomHttpClient(String baseUrlApi, String authToken) {
         this.baseUrlApi = baseUrlApi;
         this.authToken = authToken;
+    }
+
+    public static CustomHttpClient getInstance() {
+        if (instance == null) {
+            synchronized (CustomHttpClient.class) {
+                if (instance == null) {
+                    instance = new CustomHttpClient();
+                }
+            }
+        }
+        return instance;
     }
 
     public String sendHttpPostRequest(String endpoint, Map<String, String> headers, NewNotification newNotification) throws IOException {
@@ -40,7 +49,7 @@ public class CustomHttpClient {
 
         // Set header auth
         if (authToken != null && !authToken.isEmpty()) {
-            connection.setRequestProperty("Authorization", "Bearer " + authToken);
+            connection.setRequestProperty("Authorization", authToken);
         }
 
         // Set content type to JSON
@@ -69,7 +78,7 @@ public class CustomHttpClient {
 
         // Check response
         int responseCode = connection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) {
+        if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
             try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
                 StringBuilder content = new StringBuilder();
                 String inputLine;
@@ -81,9 +90,17 @@ public class CustomHttpClient {
                 return content.toString();
             }
         } else {
-            logger.error("Failed to execute Post Request");
+            logger.error("Failed to execute Post Request " + connection.getResponseMessage());
             return null;
 //            throw new HttpErrorException("Failed to execute Post Request", responseCode);
         }
+    }
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 }

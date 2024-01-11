@@ -9,14 +9,14 @@ import org.slf4j.LoggerFactory;
 public class RestNotification {
     private static final Logger logger = LoggerFactory.getLogger("RestNotification");
 
-    private CustomHttpClient httpClient;
+    private final CustomHttpClient httpClient;
 
     public RestNotification() {
-        this.httpClient = new CustomHttpClient();
+        this.httpClient = CustomHttpClient.getInstance();
     }
 
 
-    public NewNotificationResponse createNewNotification(NewNotification notification) {
+    public NewNotificationResponse newNotificationWithOneRecipientAndDocument(NewNotification notification) {
         try {
             String response = this.httpClient.sendHttpPostRequest("/delivery/v2.1/requests", null, notification);
             if (response != null) {
