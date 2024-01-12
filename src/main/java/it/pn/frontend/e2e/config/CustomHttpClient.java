@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import it.pn.frontend.e2e.exceptions.CustomHttpException;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.ClassicHttpRequest;
@@ -78,7 +79,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
                 return convertJsonToObjectType(responseString, responseType);
             } else {
                 logger.error("Response code: " + response.getCode());
-                return null;
+                throw new CustomHttpException("Error in HTTP request: " + response.getCode());
             }
         });
     }
@@ -91,7 +92,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
             return objectMapper.readValue(jsonString, responseType);
         } catch (IOException e) {
             logger.error("Error converting JSON to object: " + e.getMessage());
-            return null;
+            throw new CustomHttpException("Error in HTTP request: " + e.getMessage());
         }
     }
 

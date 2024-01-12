@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.rest;// ... Altre importazioni ...
 
 import it.pn.frontend.e2e.config.CustomHttpClient;
+import it.pn.frontend.e2e.exceptions.RestNotificationException;
 import it.pn.frontend.e2e.model.NewNotification;
 import it.pn.frontend.e2e.model.NewNotificationResponse;
 import org.slf4j.Logger;
@@ -24,6 +25,7 @@ public class RestNotification {
             }
         } catch (IOException e) {
             logger.error("Error during createNewNotification", e);
+            throw new RestNotificationException("Error during createNewNotification", e);
         }
         return null;
     }
