@@ -5,6 +5,10 @@ public class NewNotificationResponse {
     private String paProtocolNumber;
     private String idempotenceToken;
 
+
+    public NewNotificationResponse() {
+    }
+
     public NewNotificationResponse(String notificationRequestId, String paProtocolNumber, String idempotenceToken) {
         this.notificationRequestId = notificationRequestId;
         this.paProtocolNumber = paProtocolNumber;

@@ -961,16 +961,17 @@ public class NotificaMittentePagoPATest {
 //        recipients.add(new Recipient());
 //        ArrayList<Document> documents = new ArrayList<>();
 //        documents.add(new Document());
-//        NewNotification notification = new NewNotification("TA-FFSMRC-20240110-4", "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
-//        String response = String.valueOf(restNotification.newNotificationWithOneRecipientAndDocument(notification));
+//        NewNotification notification = new NewNotification("TA-FFSMRC-20240110-45", "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
+//        NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification);
 //        if (response != null) {
-//            logger.info("La risposta della creazione della notifica è: " + response);
+//            logger.info("La risposta della creazione della notifica è: " + response.getNotificationRequestId());
 //        } else {
 //            logger.error("La risposta della creazione della notifica è: " + response);
 //            Assert.fail("La risposta della creazione della notifica è: " + response);
 //        }
 //        // Puoi analizzare la risposta se necessario
 //    }
+
 
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.

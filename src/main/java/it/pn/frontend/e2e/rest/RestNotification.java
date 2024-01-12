@@ -1,4 +1,4 @@
-package it.pn.frontend.e2e.rest;
+package it.pn.frontend.e2e.rest;// ... Altre importazioni ...
 
 import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.model.NewNotification;
@@ -6,28 +6,25 @@ import it.pn.frontend.e2e.model.NewNotificationResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+
 public class RestNotification {
     private static final Logger logger = LoggerFactory.getLogger("RestNotification");
 
-    private final CustomHttpClient httpClient;
-
     public RestNotification() {
-        this.httpClient = CustomHttpClient.getInstance();
     }
 
-
     public NewNotificationResponse newNotificationWithOneRecipientAndDocument(NewNotification notification) {
+        final CustomHttpClient<NewNotification, NewNotificationResponse> httpClient2 = CustomHttpClient.getInstance();  // Modifica qui
         try {
-            String response = this.httpClient.sendHttpPostRequest("/delivery/v2.1/requests", null, notification);
+            NewNotificationResponse response = httpClient2.sendHttpPostRequest("/delivery/v2.1/requests", null, notification, NewNotificationResponse.class);
             if (response != null) {
-                logger.info(response);
-                return new NewNotificationResponse("test", "test", "test");
+                logger.info(String.valueOf(response));
+                return response;
             }
-        } catch (Exception e) {
-            logger.error("Error during createNewNotification");
-            e.printStackTrace();
+        } catch (IOException e) {
+            logger.error("Error during createNewNotification", e);
         }
         return null;
     }
-
 }

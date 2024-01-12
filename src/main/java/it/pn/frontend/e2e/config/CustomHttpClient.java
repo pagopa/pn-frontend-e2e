@@ -1,106 +1,109 @@
 package it.pn.frontend.e2e.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.pn.frontend.e2e.model.NewNotification;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.ClassicHttpRequest;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.HttpHeaders;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
+import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Map;
 
-
-public class CustomHttpClient {
-    private static CustomHttpClient instance;
+public class CustomHttpClient<RequestType, ResponseType> {
+    private static CustomHttpClient<?, ?> instance;
 
     private static final Logger logger = LoggerFactory.getLogger("CustomHttpClient");
-
-
     private String baseUrlApi;
-    private String authToken;
+
+    private String apiKey;
+
+
+    private final CloseableHttpClient httpClient;
+    private ClassicHttpRequest httpRequest;
 
     private CustomHttpClient() {
         this.baseUrlApi = System.getProperty("baseUrlApi");
+        this.httpClient = HttpClients.createDefault();
+        this.apiKey = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";
     }
 
-    public CustomHttpClient(String baseUrlApi, String authToken) {
+    public CustomHttpClient(String baseUrlApi) {
         this.baseUrlApi = baseUrlApi;
-        this.authToken = authToken;
+        this.httpClient = HttpClients.createDefault();
+        this.apiKey = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";
     }
 
-    public static CustomHttpClient getInstance() {
+    public CustomHttpClient(String baseUrlApi, String apiKeyTest) {
+        this.baseUrlApi = baseUrlApi;
+        this.httpClient = HttpClients.createDefault();
+        this.apiKey = apiKeyTest;
+    }
+
+
+    public static <R, S> CustomHttpClient<R, S> getInstance() {
         if (instance == null) {
             synchronized (CustomHttpClient.class) {
                 if (instance == null) {
-                    instance = new CustomHttpClient();
+                    instance = new CustomHttpClient<>();
                 }
             }
         }
-        return instance;
+        return (CustomHttpClient<R, S>) instance;
     }
 
-    public String sendHttpPostRequest(String endpoint, Map<String, String> headers, NewNotification newNotification) throws IOException {
+    public ResponseType sendHttpPostRequest(String endpoint, Map<String, String> headers, RequestType requestObject, Class<ResponseType> responseType) throws IOException {
         String apiUrl = baseUrlApi + endpoint;
-        HttpURLConnection connection = (HttpURLConnection) new URL(apiUrl).openConnection();
-
-        // Set header auth
-        if (authToken != null && !authToken.isEmpty()) {
-            connection.setRequestProperty("Authorization", authToken);
-        }
-
-        // Set content type to JSON
-        connection.setRequestProperty("Content-Type", "application/json");
-
-        // Add custom headers
-        if (headers != null) {
-            for (Map.Entry<String, String> entry : headers.entrySet()) {
-                connection.setRequestProperty(entry.getKey(), entry.getValue());
-            }
-        }
-
-        // Enable input/output streams for writing/reading data
-        connection.setDoOutput(true);
-        connection.setDoInput(true);
 
         // Convert NewNotification to JSON
         ObjectMapper objectMapper = new ObjectMapper();
-        String jsonBody = objectMapper.writeValueAsString(newNotification);
+        String jsonBody = objectMapper.writeValueAsString(requestObject);
 
-        // Write JSON to the request body
-        try (OutputStream outputStream = connection.getOutputStream()) {
-            byte[] input = jsonBody.getBytes("utf-8");
-            outputStream.write(input, 0, input.length);
-        }
-
-        // Check response
-        int responseCode = connection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                StringBuilder content = new StringBuilder();
-                String inputLine;
-
-                while ((inputLine = in.readLine()) != null) {
-                    content.append(inputLine);
-                }
-
-                return content.toString();
+        this.httpRequest = ClassicRequestBuilder
+                .post(apiUrl)
+                .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
+                .addHeader("x-api-key", this.apiKey)
+                .setEntity(new StringEntity(jsonBody))
+                .build();
+        return this.httpClient.execute(httpRequest, response -> {
+            if (response.getCode() == 200 || response.getCode() == 202) {
+                final HttpEntity entity = response.getEntity();
+                String responseString = EntityUtils.toString(entity);
+                logger.info("Response body: " + responseString);
+                return convertJsonToObjectType(responseString, responseType);
+            } else {
+                logger.error("Response code: " + response.getCode());
+                return null;
             }
-        } else {
-            logger.error("Failed to execute Post Request " + connection.getResponseMessage());
+        });
+    }
+
+    // Esempio di un metodo di conversione da JSON a un tipo specificato
+    private <R> R convertJsonToObjectType(String jsonString, Class<R> responseType) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            logger.info("Converting JSON to object: " + jsonString);
+            return objectMapper.readValue(jsonString, responseType);
+        } catch (IOException e) {
+            logger.error("Error converting JSON to object: " + e.getMessage());
             return null;
-//            throw new HttpErrorException("Failed to execute Post Request", responseCode);
         }
     }
 
-    public String getAuthToken() {
-        return authToken;
+    public String getBaseUrlApi() {
+        return baseUrlApi;
     }
 
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
+    public void setBaseUrlApi(String baseUrlApi) {
+        this.baseUrlApi = baseUrlApi;
+    }
+
+    public String getxApikey() {
+        return apiKey;
     }
 }

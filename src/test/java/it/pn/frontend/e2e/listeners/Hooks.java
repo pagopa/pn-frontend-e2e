@@ -4,7 +4,6 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
@@ -141,11 +140,6 @@ public class Hooks {
                             if (headers.get("Authorization") != null) {
                                 netWorkInfo.setAuthorizationBearer(
                                         (Objects.requireNonNull(headers.get("Authorization"))).toString());
-                                // Add the auth token to the CustomHttpClient
-                                CustomHttpClient customHttpClient = CustomHttpClient.getInstance();
-                                customHttpClient.setAuthToken(
-                                        Objects.requireNonNull(headers.get("Authorization")).toString()
-                                );
                             }
                             netWorkInfo.setRequestId(requestId);
                             netWorkInfo.setRequestUrl(request.getRequest().getUrl());
