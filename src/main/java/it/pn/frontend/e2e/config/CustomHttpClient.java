@@ -61,28 +61,33 @@ public class CustomHttpClient<RequestType, ResponseType> {
     public ResponseType sendHttpPostRequest(String endpoint, Map<String, String> headers, RequestType requestObject, Class<ResponseType> responseType) throws IOException {
         String apiUrl = baseUrlApi + endpoint;
 
-        // Convert NewNotification to JSON
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonBody = objectMapper.writeValueAsString(requestObject);
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
 
-        this.httpRequest = ClassicRequestBuilder
-                .post(apiUrl)
-                .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
-                .addHeader("x-api-key", this.apiKey)
-                .setEntity(new StringEntity(jsonBody))
-                .build();
-        return this.httpClient.execute(httpRequest, response -> {
-            if (response.getCode() == 200 || response.getCode() == 202) {
-                final HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                logger.info("Response body: " + responseString);
-                return convertJsonToObjectType(responseString, responseType);
-            } else {
-                logger.error("Response code: " + response.getCode());
-                throw new CustomHttpException("Error in HTTP request: " + response.getCode());
-            }
-        });
+            // Convert the request object to JSON
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonBody = objectMapper.writeValueAsString(requestObject);
+
+            this.httpRequest = ClassicRequestBuilder
+                    .post(apiUrl)
+                    .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
+                    .addHeader("x-api-key", this.apiKey)
+                    .setEntity(new StringEntity(jsonBody))
+                    .build();
+
+            return client.execute(httpRequest, response -> {
+                if (response.getCode() == 200 || response.getCode() == 202) {
+                    final HttpEntity entity = response.getEntity();
+                    String responseString = EntityUtils.toString(entity);
+                    logger.info("Response body: " + responseString);
+                    return convertJsonToObjectType(responseString, responseType);
+                } else {
+                    logger.error("Response code: " + response.getCode());
+                    throw new CustomHttpException("Error in HTTP request to " + apiUrl + ": " + response.getCode());
+                }
+            });
+        }
     }
+
 
     // Esempio di un metodo di conversione da JSON a un tipo specificato
     private <R> R convertJsonToObjectType(String jsonString, Class<R> responseType) {
@@ -91,8 +96,8 @@ public class CustomHttpClient<RequestType, ResponseType> {
             logger.info("Converting JSON to object: " + jsonString);
             return objectMapper.readValue(jsonString, responseType);
         } catch (IOException e) {
-            logger.error("Error converting JSON to object: " + e.getMessage());
-            throw new CustomHttpException("Error in HTTP request: " + e.getMessage());
+            logger.error("Failed to convert JSON to object: " + e.getMessage());
+            throw new CustomHttpException("Error converting JSON to object: " + e.getMessage());
         }
     }
 
