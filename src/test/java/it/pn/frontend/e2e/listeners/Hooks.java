@@ -90,7 +90,6 @@ public class Hooks {
         }
 
         driver = new ChromeDriver(chromeOptions);
-
         if (this.headless != null && this.headless.equalsIgnoreCase("false")) {
             driver.manage().window().maximize();
         }
@@ -122,7 +121,6 @@ public class Hooks {
                         cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
                     }
                     requests.put(request.getRequestId().toString(), request);
-//                    logger.info("Request URL : " + request.getRequest().getUrl());
                 }
         );
     }

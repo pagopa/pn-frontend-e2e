@@ -29,7 +29,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
     private ClassicHttpRequest httpRequest;
 
     private CustomHttpClient() {
-        this.baseUrlApi = System.getProperty("baseUrlApi");
+        this.baseUrlApi = "https://api.test.notifichedigitali.it";
         this.httpClient = HttpClients.createDefault();
         this.apiKey = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";
     }
@@ -62,8 +62,6 @@ public class CustomHttpClient<RequestType, ResponseType> {
         String apiUrl = baseUrlApi + endpoint;
 
         try (CloseableHttpClient client = HttpClients.createDefault()) {
-
-            // Convert the request object to JSON
             ObjectMapper objectMapper = new ObjectMapper();
             String jsonBody = objectMapper.writeValueAsString(requestObject);
 
@@ -89,7 +87,14 @@ public class CustomHttpClient<RequestType, ResponseType> {
     }
 
 
-    // Esempio di un metodo di conversione da JSON a un tipo specificato
+    /**
+     * Convert JSON string to object
+     *
+     * @param jsonString
+     * @param responseType
+     * @param <R>
+     * @return
+     */
     private <R> R convertJsonToObjectType(String jsonString, Class<R> responseType) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -111,5 +116,9 @@ public class CustomHttpClient<RequestType, ResponseType> {
 
     public String getxApikey() {
         return apiKey;
+    }
+
+    public void setxApikey(String apiKey) {
+        this.apiKey = apiKey;
     }
 }
