@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.model.Document;
 import it.pn.frontend.e2e.model.NewNotification;
 import it.pn.frontend.e2e.model.NewNotificationResponse;
@@ -11,6 +12,7 @@ import it.pn.frontend.e2e.model.enums.PhysicalCommunicationTypeEnum;
 import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 public class NewNotifichePagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("NewNotifichePagoPATest");
     private final RestNotification restNotification = new RestNotification();
-
+    private final WebDriver driver = Hooks.driver;
 
     @When("Creo in background una notifica con un destinatario e un documento tramite API REST")
     public void creoUnaNotificaConUnDestinatarioEUnDocumento() {
@@ -48,9 +50,14 @@ public class NewNotifichePagoPATest {
         Assert.fail("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
     }
 
-    @Then("Verifico che la notifica sia stata creata correttamente")
-    public void verificoCheLaNotificaSiaStataCreataCorrettamente() {
+    @Then("Attendo {int} minuti e verifico in background che la notifica sia stata creata correttamente")
+    public void verificoCheLaNotificaSiaStataCreataCorrettamente(int minutes) {
+        DataPopulation.waitForMinutes(minutes);
+        driver.navigate().refresh();
 
+        /* TODO
+        Need to implement the check of the notification
+         */
     }
 
 
