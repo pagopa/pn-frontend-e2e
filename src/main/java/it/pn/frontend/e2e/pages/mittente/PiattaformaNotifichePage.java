@@ -99,8 +99,8 @@ public class PiattaformaNotifichePage extends BasePage {
             this.cfTextField.sendKeys(codiceFiscale);
             logger.info("Codice Fiscale inserito correttamente");
         } catch (TimeoutException e) {
-            logger.error("Codice Fiscale Non inserito con errore: "+e.getMessage());
-            Assert.fail("Codice Fiscale Non inserito con errore: "+e.getMessage());
+            logger.error("Codice Fiscale Non inserito con errore: " + e.getMessage());
+            Assert.fail("Codice Fiscale Non inserito con errore: " + e.getMessage());
         }
 
     }
@@ -110,9 +110,9 @@ public class PiattaformaNotifichePage extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.filtraButton));
             this.filtraButton.click();
             logger.info("Bottone filtra cliccato correttamente");
-        }catch (TimeoutException e){
-            logger.error("Bottone filtra non cliccabile con errore "+e.getMessage());
-            Assert.fail("Bottone filtra non cliccabile con errore "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Bottone filtra non cliccabile con errore " + e.getMessage());
+            Assert.fail("Bottone filtra non cliccabile con errore " + e.getMessage());
         }
     }
 
@@ -121,22 +121,22 @@ public class PiattaformaNotifichePage extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.filtraDeleganteButton));
             this.filtraDeleganteButton.click();
             logger.info("Bottone filtra, nella pagina notifiche del delegato, cliccato correttamente");
-        }catch (TimeoutException e){
-            logger.error("Bottone filtra, nella pagina notifiche del delegato, non cliccabile con errore "+e.getMessage());
-            Assert.fail("Bottone filtra, nella pagina notifiche del delegato, non cliccabile con errore "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Bottone filtra, nella pagina notifiche del delegato, non cliccabile con errore " + e.getMessage());
+            Assert.fail("Bottone filtra, nella pagina notifiche del delegato, non cliccabile con errore " + e.getMessage());
         }
     }
 
     public int getListaCf(String cfInserito) {
-        try{
+        try {
             By cfListBy = By.xpath("//p[contains(text(),'" + cfInserito + "')]");
             attesaCaricamentoPagina();
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(cfListBy));
             logger.info("Codici fiscali trovati correttamente");
             return this.elements(cfListBy).size();
-        }catch (TimeoutException | NoSuchElementException e){
-            logger.error("Codici fiscali non trovati "+e.getMessage());
-            Assert.fail("Codici fiscali non trovati "+e.getMessage());
+        } catch (TimeoutException | NoSuchElementException e) {
+            logger.error("Codici fiscali non trovati " + e.getMessage());
+            Assert.fail("Codici fiscali non trovati " + e.getMessage());
             return 0;
         }
 
@@ -167,13 +167,13 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void inserimentoCodiceIUN(String codiceIUN) {
-        try{
+        try {
             getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.codiceIUNTextField));
             this.codiceIUNTextField.sendKeys(codiceIUN);
             logger.info("Codice IUN inserito");
-        }catch (TimeoutException e){
-            logger.error("Codice IUN non inserito con errore "+e.getMessage());
-            Assert.fail("Codice IUN non inserito con errore "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Codice IUN non inserito con errore " + e.getMessage());
+            Assert.fail("Codice IUN non inserito con errore " + e.getMessage());
         }
 
 
@@ -217,14 +217,14 @@ public class PiattaformaNotifichePage extends BasePage {
     public void selezionareStatoNotifica(String statoInserito) {
         this.statoNotificaField.click();
         try {
-            By statoNotificaBy = By.xpath("//li[contains(@data-value,'"+statoInserito+"')]");
+            By statoNotificaBy = By.xpath("//li[contains(@data-value,'" + statoInserito + "')]");
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(statoNotificaBy));
 
             if (this.element(statoNotificaBy).isDisplayed()) {
-                this.js().executeScript("arguments[0].click()",this.element(statoNotificaBy));
-            }else {
-                this.js().executeScript("arguments[0].scrollIntoView(true);",this.element(statoNotificaBy));
-                this.js().executeScript("arguments[0].click()",this.element(statoNotificaBy));
+                this.js().executeScript("arguments[0].click()", this.element(statoNotificaBy));
+            } else {
+                this.js().executeScript("arguments[0].scrollIntoView(true);", this.element(statoNotificaBy));
+                this.js().executeScript("arguments[0].click()", this.element(statoNotificaBy));
             }
             logger.info("Stato notifica selezionato correttamente");
         } catch (TimeoutException e) {
@@ -238,12 +238,12 @@ public class PiattaformaNotifichePage extends BasePage {
             By statoNotificaBy = By.xpath("//span[contains(text(),'" + statoNotifica + "')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
             return this.elements(statoNotificaBy).size();
-        }catch (TimeoutException e){
+        } catch (TimeoutException e) {
             return 0;
         }
     }
 
-    public boolean IsAnAdvancedStatus(){
+    public boolean IsAnAdvancedStatus() {
         By statoNotificaBy = By.xpath("//div[contains(@id,'status-chip-')]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
         String status = this.element(statoNotificaBy).getText();
@@ -253,16 +253,11 @@ public class PiattaformaNotifichePage extends BasePage {
     public void selezionaNotifica() {
         waitLoadPage();
         try {
-            By notificaBy =  By.id("notificationsTable.body.row");
+            By notificaBy = By.id("notificationsTable.body.row");
             attesaCaricamentoPagina();
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificaBy));
             List<WebElement> notifiche = this.elements(notificaBy);
-            if (notifiche.get(0).isDisplayed()){
-                this.js().executeScript("arguments[0].click()",notifiche.get(0));
-            }else {
-                this.js().executeScript("arguments[0].scrollIntoView(true);",notifiche.get(0));
-                this.js().executeScript("arguments[0].click()",notifiche.get(0));
-            }
+            notifiche.get(0).click();
         } catch (TimeoutException e) {
             logger.error("Notifica non trovata con errore: " + e.getMessage());
             Assert.fail("Notifica non trovata con errore: " + e.getMessage());
@@ -271,7 +266,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void selectInviaUnaNuovaNotificaButton() {
         this.getWebDriverWait(30).withMessage("Il bottone invia notifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(inviaNuovaNotificaButton));
-        this.js().executeScript("arguments[0].click()",this.inviaNuovaNotificaButton);
+        this.js().executeScript("arguments[0].click()", this.inviaNuovaNotificaButton);
     }
 
 
@@ -341,9 +336,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void selezionareLaVoceApiKey() {
         getWebDriverWait(30).withMessage("la voce api key non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.apiKeyButton));
-        this.js().executeScript("arguments[0].click()",this.apiKeyButton);
+        this.js().executeScript("arguments[0].click()", this.apiKeyButton);
     }
-
 
 
     public String conversioneFormatoDate(String date) {
@@ -473,7 +467,7 @@ public class PiattaformaNotifichePage extends BasePage {
         LocalDate dataSuccessiva;
         final String dataOggi = "Oggi";
         LocalDate dataPrecedente;
-        if (listaDate != null){
+        if (listaDate != null) {
             for (int i = 0; i < listaDate.size() - 1; i++) {
                 String dataDopo = listaDate.get(i).getText();
                 String dataPrima = listaDate.get(i + 1).getText();
@@ -538,54 +532,62 @@ public class PiattaformaNotifichePage extends BasePage {
         if (!pageNumberButton.isDisplayed()) {
             this.js().executeScript("arguments[0].scrollIntoView(true);", pageNumberButton);
         }
-        this.js().executeScript("arguments[0].click()",this.pageNumberButton);
+        this.js().executeScript("arguments[0].click()", this.pageNumberButton);
     }
 
     public void siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro() {
         if (!numeroNotificheButton.isDisplayed()) {
             this.js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
         }
-        this.js().executeScript("arguments[0].click()",this.numeroNotificheButton);
+        this.js().executeScript("arguments[0].click()", this.numeroNotificheButton);
         this.js().executeScript("arguments[0].click()", this.numberElement);
     }
 
-    public void clickContinuaDisabled() {this.continuaButtonDisabled.isDisplayed();}
+    public void clickContinuaDisabled() {
+        this.continuaButtonDisabled.isDisplayed();
+    }
 
     public void inserimentoOggettoNotificaErrato(String oggettoDellaNotifica) {
-      this.scrollToElementClickAndInsertText(this.oggettoDellaNotificaTextField,oggettoDellaNotifica);
+        this.scrollToElementClickAndInsertText(this.oggettoDellaNotificaTextField, oggettoDellaNotifica);
     }
-    public boolean errorMessage() {return this.errorMessage.isDisplayed();}
+
+    public boolean errorMessage() {
+        return this.errorMessage.isDisplayed();
+    }
 
     public void clickIndietroButton() {
         this.getWebDriverWait(30).withMessage("Il bottone indietro non è  cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(this.indietroButton));
-        this.indietroButton.click();}
+        this.indietroButton.click();
+    }
 
     public void vuoiUscirePopUp() {
-    try{
-        By vuoiUscirePUBy = By.xpath("//h2[contains(text(),'Vuoi uscire?')]");
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(vuoiUscirePUBy));
-        logger.info("Si visualizza il pop up vuoi uscire");
-    }catch (TimeoutException e){
-        logger.error("Non si visualizza il pop up vuoi uscire con errore:"+e.getMessage());
-        Assert.fail("Non si visualizza il pop up vuoi uscire con errore:"+e.getMessage());
+        try {
+            By vuoiUscirePUBy = By.xpath("//h2[contains(text(),'Vuoi uscire?')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(vuoiUscirePUBy));
+            logger.info("Si visualizza il pop up vuoi uscire");
+        } catch (TimeoutException e) {
+            logger.error("Non si visualizza il pop up vuoi uscire con errore:" + e.getMessage());
+            Assert.fail("Non si visualizza il pop up vuoi uscire con errore:" + e.getMessage());
+        }
     }
+
+    public void clickSuEsci() {
+        this.getWebDriverWait(30).withMessage("Il bottone esci non è  cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(this.esciButton));
+        this.esciButton.click();
     }
 
-        public void clickSuEsci() {
-            this.getWebDriverWait(30).withMessage("Il bottone esci non è  cliccabile")
-                    .until(ExpectedConditions.elementToBeClickable(this.esciButton));
-        this.esciButton.click();}
-
-    public boolean estensioneSbagliataErrore() {return this.estenzioneSbagliataMessage.isDisplayed();}
-
+    public boolean estensioneSbagliataErrore() {
+        return this.estenzioneSbagliataMessage.isDisplayed();
+    }
 
 
     public List<String> getCodiceIunPresenti() {
         By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh']//button");
         List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
         List<String> listaCodici = new ArrayList<>();
-        for (WebElement rigaTabella: righeTabella) {
+        for (WebElement rigaTabella : righeTabella) {
             String codiceIun = rigaTabella.getText();
             listaCodici.add(codiceIun);
         }
@@ -596,7 +598,7 @@ public class PiattaformaNotifichePage extends BasePage {
         By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-2ebubn']//button");
         List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
         List<String> listaCodici = new ArrayList<>();
-        for (WebElement rigaTabella: righeTabella) {
+        for (WebElement rigaTabella : righeTabella) {
             String codiceIun = rigaTabella.getText();
             listaCodici.add(codiceIun);
         }
@@ -611,30 +613,30 @@ public class PiattaformaNotifichePage extends BasePage {
         By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh' and button/p[contains(text(),'27957814470')]]/following-sibling::td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-2ebubn']//button");
         List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
         List<String> listaCodici = new ArrayList<>();
-        for (WebElement rigaTabella: righeTabella) {
+        for (WebElement rigaTabella : righeTabella) {
             String codiceIun = rigaTabella.getText();
             listaCodici.add(codiceIun);
         }
         return listaCodici;
     }
 
-    public boolean controlloEsistenzaMessagioErroreCF(){
+    public boolean controlloEsistenzaMessagioErroreCF() {
         By errorMessageBy = By.id("recipientId-helper-text");
         getWebDriverWait(30).withMessage("Messagio di errore 'Inserisci il codice per intero' non trovato").until(ExpectedConditions.visibilityOfElementLocated(errorMessageBy));
         return this.element(errorMessageBy).isDisplayed();
     }
 
 
-    public boolean verificaBottoneFiltraDisabilitato(){
-        try{
+    public boolean verificaBottoneFiltraDisabilitato() {
+        try {
             getWebDriverWait(30).withMessage("buttone Filtra non è visibile").until(ExpectedConditions.visibilityOf(this.filtraButton));
             return Boolean.parseBoolean(this.filtraButton.getAttribute("disabled"));
-        }catch (TimeoutException e){
+        } catch (TimeoutException e) {
             return false;
         }
     }
 
-    public boolean controlloEsistenzaMessagioErroreIUN(){
+    public boolean controlloEsistenzaMessagioErroreIUN() {
         By errorMessageBy = By.id("iunMatch-helper-text");
         getWebDriverWait(30).withMessage("Messagio di errore 'Inserisci un codice IUN valido' non trovato").until(ExpectedConditions.visibilityOfElementLocated(errorMessageBy));
         return this.element(errorMessageBy).isDisplayed();
