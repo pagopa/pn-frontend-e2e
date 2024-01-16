@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.pn.frontend.e2e.exceptions.CustomHttpException;
+import it.pn.frontend.e2e.exceptions.RestNotificationException;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.ClassicHttpRequest;
@@ -80,7 +80,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
                     return convertJsonToObjectType(responseString, responseType);
                 } else {
                     logger.error("Response code: " + response.getCode());
-                    throw new CustomHttpException("Error in HTTP request to " + apiUrl + ": " + response.getCode());
+                    throw new IOException("Error in HTTP request to " + apiUrl + ": " + response.getCode());
                 }
             });
         }
@@ -95,14 +95,14 @@ public class CustomHttpClient<RequestType, ResponseType> {
      * @param <R>
      * @return
      */
-    private <R> R convertJsonToObjectType(String jsonString, Class<R> responseType) {
+    private <R> R convertJsonToObjectType(String jsonString, Class<R> responseType) throws IOException {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             logger.info("Converting JSON to object: " + jsonString);
             return objectMapper.readValue(jsonString, responseType);
         } catch (IOException e) {
             logger.error("Failed to convert JSON to object: " + e.getMessage());
-            throw new CustomHttpException("Error converting JSON to object: " + e.getMessage());
+            throw new IOException("Error converting JSON to object: " + e.getMessage());
         }
     }
 

@@ -24,42 +24,34 @@ public class Document {
 
     }
 
-    @JsonProperty("digests")
     public Digests getDigests() {
         return digests;
     }
 
-    @JsonProperty("digests")
     public void setDigests(Digests value) {
         this.digests = value;
     }
 
-    @JsonProperty("contentType")
     public String getContentType() {
         return contentType;
     }
 
-    @JsonProperty("contentType")
     public void setContentType(String value) {
         this.contentType = value;
     }
 
-    @JsonProperty("ref")
     public Ref getRef() {
         return ref;
     }
 
-    @JsonProperty("ref")
     public void setRef(Ref value) {
         this.ref = value;
     }
 
-    @JsonProperty("title")
     public String getTitle() {
         return title;
     }
 
-    @JsonProperty("title")
     public void setTitle(String value) {
         this.title = value;
     }

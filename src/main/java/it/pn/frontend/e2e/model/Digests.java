@@ -13,12 +13,10 @@ public class Digests {
         this.sha256 = sha256;
     }
 
-    @JsonProperty("sha256")
     public String getSha256() {
         return sha256;
     }
 
-    @JsonProperty("sha256")
     public void setSha256(String value) {
         this.sha256 = value;
     }

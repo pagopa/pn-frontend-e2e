@@ -22,7 +22,7 @@ public class RestNotification {
      * @return NewNotificationResponse object with the response
      * @throws RestNotificationException if there is an error during the request
      */
-    public NewNotificationResponse newNotificationWithOneRecipientAndDocument(NewNotification notification) {
+    public NewNotificationResponse newNotificationWithOneRecipientAndDocument(NewNotification notification) throws RestNotificationException {
         final CustomHttpClient<NewNotification, NewNotificationResponse> httpClient2 = CustomHttpClient.getInstance();  // Modifica qui
         try {
             NewNotificationResponse response = httpClient2.sendHttpPostRequest("/delivery/v2.1/requests", null, notification, NewNotificationResponse.class);

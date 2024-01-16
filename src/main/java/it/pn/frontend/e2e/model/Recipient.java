@@ -26,52 +26,42 @@ public class Recipient {
         this.digitalDomicile = digitalDomicile;
     }
 
-    @JsonProperty("denomination")
     public String getDenomination() {
         return denomination;
     }
 
-    @JsonProperty("denomination")
     public void setDenomination(String value) {
         this.denomination = value;
     }
 
-    @JsonProperty("recipientType")
     public RecipientTypeEnum getRecipientType() {
         return recipientType;
     }
 
-    @JsonProperty("recipientType")
     public void setRecipientType(RecipientTypeEnum value) {
         this.recipientType = value;
     }
 
-    @JsonProperty("taxId")
     public String getTaxID() {
         return taxID;
     }
 
-    @JsonProperty("taxId")
     public void setTaxID(String value) {
         this.taxID = value;
     }
 
-    @JsonProperty("physicalAddress")
     public PhysicalAddress getPhysicalAddress() {
         return physicalAddress;
     }
 
-    @JsonProperty("physicalAddress")
     public void setPhysicalAddress(PhysicalAddress value) {
         this.physicalAddress = value;
     }
 
-    @JsonProperty("digitalDomicile")
     public DigitalDomicile getDigitalDomicile() {
         return digitalDomicile;
     }
 
-    @JsonProperty("digitalDomicile")
     public void setDigitalDomicile(DigitalDomicile value) {
         this.digitalDomicile = value;
     }

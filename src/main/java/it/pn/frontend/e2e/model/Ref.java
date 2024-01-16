@@ -16,22 +16,18 @@ public class Ref {
         this.versionToken = versionToken;
     }
 
-    @JsonProperty("key")
     public String getKey() {
         return key;
     }
 
-    @JsonProperty("key")
     public void setKey(String value) {
         this.key = value;
     }
 
-    @JsonProperty("versionToken")
     public String getVersionToken() {
         return versionToken;
     }
 
-    @JsonProperty("versionToken")
     public void setVersionToken(String value) {
         this.versionToken = value;
     }

@@ -28,62 +28,50 @@ public class PhysicalAddress {
         this.foreignState = foreignState;
     }
 
-    @JsonProperty("address")
     public String getAddress() {
         return address;
     }
 
-    @JsonProperty("address")
     public void setAddress(String value) {
         this.address = value;
     }
 
-    @JsonProperty("zip")
     public String getZip() {
         return zip;
     }
 
-    @JsonProperty("zip")
     public void setZip(String value) {
         this.zip = value;
     }
 
-    @JsonProperty("municipality")
     public String getMunicipality() {
         return municipality;
     }
 
-    @JsonProperty("municipality")
     public void setMunicipality(String value) {
         this.municipality = value;
     }
 
-    @JsonProperty("municipalityDetails")
     public String getMunicipalityDetails() {
         return municipalityDetails;
     }
 
-    @JsonProperty("municipalityDetails")
     public void setMunicipalityDetails(String value) {
         this.municipalityDetails = value;
     }
 
-    @JsonProperty("province")
     public String getProvince() {
         return province;
     }
 
-    @JsonProperty("province")
     public void setProvince(String value) {
         this.province = value;
     }
 
-    @JsonProperty("foreignState")
     public String getForeignState() {
         return foreignState;
     }
 
-    @JsonProperty("foreignState")
     public void setForeignState(String value) {
         this.foreignState = value;
     }

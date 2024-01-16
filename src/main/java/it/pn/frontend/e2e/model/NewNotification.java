@@ -14,7 +14,7 @@ public class NewNotification {
     private PhysicalCommunicationTypeEnum physicalCommunicationTypeEnum;
     private String group;
     private String taxonomyCode;
-    private NotificationFeePolicyEnum notificationFeePolicy;
+    private NotificationFeePolicyEnum notificationFeePolicyEnum;
     private String senderDenomination;
     private String senderTaxID;
     private String abstractS;
@@ -27,34 +27,29 @@ public class NewNotification {
         this.documents = documents;
         this.physicalCommunicationTypeEnum = physicalCommunicationTypeEnum;
         this.taxonomyCode = taxonomyCode;
-        this.notificationFeePolicy = notificationFeePolicy;
+        this.notificationFeePolicyEnum = notificationFeePolicy;
         this.group = "6564b9a671919a696157f2c0";
         this.senderDenomination = "Comune di Milano";
         this.senderTaxID = "00215150236";
         this.abstractS = "PAGAMENTO RATA IMU";
     }
 
-    @JsonProperty("paProtocolNumber")
     public String getPaProtocolNumber() {
         return paProtocolNumber;
     }
 
-    @JsonProperty("paProtocolNumber")
     public void setPaProtocolNumber(String value) {
         this.paProtocolNumber = value;
     }
 
-    @JsonProperty("subject")
     public String getSubject() {
         return subject;
     }
 
-    @JsonProperty("subject")
     public void setSubject(String value) {
         this.subject = value;
     }
 
-    @JsonProperty("recipients")
     public ArrayList<Recipient> getRecipients() {
         return recipients;
     }
@@ -63,82 +58,66 @@ public class NewNotification {
         this.recipients = value;
     }
 
-    @JsonProperty("documents")
     public ArrayList<Document> getDocuments() {
         return documents;
     }
 
-    @JsonProperty("documents")
     public void setDocuments(ArrayList<Document> value) {
         this.documents = value;
     }
 
-    @JsonProperty("physicalCommunicationType")
     public PhysicalCommunicationTypeEnum getPhysicalCommunicationType() {
         return physicalCommunicationTypeEnum;
     }
 
-    @JsonProperty("physicalCommunicationType")
     public void setPhysicalCommunicationType(PhysicalCommunicationTypeEnum value) {
         this.physicalCommunicationTypeEnum = value;
     }
 
-    @JsonProperty("group")
     public String getGroup() {
         return group;
     }
 
-    @JsonProperty("group")
     public void setGroup(String value) {
         this.group = value;
     }
 
-    @JsonProperty("taxonomyCode")
     public String getTaxonomyCode() {
         return taxonomyCode;
     }
 
-    @JsonProperty("taxonomyCode")
     public void setTaxonomyCode(String value) {
         this.taxonomyCode = value;
     }
 
-    @JsonProperty("notificationFeePolicy")
     public NotificationFeePolicyEnum getNotificationFeePolicy() {
-        return notificationFeePolicy;
+        return notificationFeePolicyEnum;
     }
 
-    @JsonProperty("notificationFeePolicy")
     public void setNotificationFeePolicy(NotificationFeePolicyEnum value) {
-        this.notificationFeePolicy = value;
+        this.notificationFeePolicyEnum = value;
     }
 
-    @JsonProperty("senderDenomination")
     public String getSenderDenomination() {
         return senderDenomination;
     }
 
-    @JsonProperty("senderDenomination")
     public void setSenderDenomination(String value) {
         this.senderDenomination = value;
     }
 
-    @JsonProperty("senderTaxId")
     public String getSenderTaxID() {
         return senderTaxID;
     }
 
-    @JsonProperty("senderTaxId")
     public void setSenderTaxID(String value) {
         this.senderTaxID = value;
     }
 
-    @JsonProperty("abstract")
     public String getWelcomeAbstract() {
         return abstractS;
     }
 
-    @JsonProperty("abstract")
     public void setWelcomeAbstract(String value) {
         this.abstractS = value;
     }
