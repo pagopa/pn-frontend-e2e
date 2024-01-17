@@ -8,7 +8,7 @@ Feature: La persona giuridica visualizza tutti gli elementi della sezione altri 
   @PG
   @recapitiPG
 
-  Scenario: La persona giuridica visualizza tutti gli elementi della sezione altri recapiti
+  Scenario: PN-9162 - La persona giuridica visualizza tutti gli elementi della sezione altri recapiti
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
     Then Si visualizzano correttamente tutti gli elementi della sezione altri recapiti della persona giuridica

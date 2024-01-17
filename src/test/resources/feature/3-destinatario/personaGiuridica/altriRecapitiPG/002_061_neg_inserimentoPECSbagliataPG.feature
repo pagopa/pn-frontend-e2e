@@ -11,7 +11,7 @@ Feature: La persona giuridica inserisce una PEC
   @TA_inserimentoPECErrataPG
 
 
-  Scenario: La persona giuridica loggato inserisce una PEC
+  Scenario: PN-9152-B60 - La persona giuridica loggato inserisce una PEC
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una pec

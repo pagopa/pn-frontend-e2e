@@ -9,7 +9,7 @@ Feature: la persona giuridica inserisce un OTP email sbagliato
   @TA_inserimentoOTPErratoPG
   @recapitiPG
 
- Scenario: la persona giuridica inserisce un OTP email sbagliato
+ Scenario: PN-9155-D63 - La persona giuridica inserisce un OTP email sbagliato
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una email

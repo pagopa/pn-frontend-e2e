@@ -9,7 +9,7 @@ Feature: Il delegato persona giuridica modifica una delega assegnandoli un grupp
   @DeleghePG
   @PG
 
-  Scenario: Il delegato persona giuridica modifica una delega assegnandoli un gruppo
+  Scenario: PN-9173 - Il delegato persona giuridica modifica una delega assegnandoli un gruppo
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella sezione Deleghe si verifica sia presente una delega accettata per PG "personaGiuridica"
     And Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega "personaGiuridica"

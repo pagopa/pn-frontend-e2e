@@ -1,4 +1,4 @@
-Feature:La persona giuridica visuallizza le deleghe
+Feature:La persona giuridica visualizza le deleghe
 
   Background: Login persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
@@ -9,7 +9,7 @@ Feature:La persona giuridica visuallizza le deleghe
   @TA_PGricercaDelegheSenzaGruppo
   @DeleghePG
   @PG
-  Scenario: La persona giuridica fa una ricerca delle deleghe
+  Scenario: PN-9166 - La persona giuridica fa una ricerca delle deleghe
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Nella sezione Deleghe si verifica sia presente una delega accettata per PG "personaGiuridica"

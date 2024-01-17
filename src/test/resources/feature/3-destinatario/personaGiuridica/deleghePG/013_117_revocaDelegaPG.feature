@@ -16,7 +16,7 @@ Feature: La persona giuridica revoca una delega
   @TA_PGrevocaNuovaDelega
   @DeleghePG
   @PG
-  Scenario: La persona giuridica revoca una delega
+  Scenario: PN-9169 - La persona giuridica revoca una delega
     When Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega "nuovaDelegaPG"
     And Nella sezione Deleghe persona giuridica si sceglie l'opzione revoca
     Then Si clicca sul bottone revoca
