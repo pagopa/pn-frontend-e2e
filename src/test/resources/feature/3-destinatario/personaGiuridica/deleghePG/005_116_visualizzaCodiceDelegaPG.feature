@@ -10,7 +10,7 @@ Feature:La persona giuridica visualizza il codice di una delega
   @DeleghePG
   @PG
 
-  Scenario:La persona giuridica visualizza il codice di una delega
+  Scenario: PN-9168 - La persona giuridica visualizza il codice di una delega
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Nella pagina Deleghe si clicca su Delegati dall impresa

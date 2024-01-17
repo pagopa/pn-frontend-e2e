@@ -9,7 +9,7 @@ Feature: La persona giuridica elimina l'indirizzo email
   @PG
   @recapitiPG
 
-  Scenario: La persona giuridica elimina l'indirizzo email
+  Scenario: PN-9157 - La persona giuridica elimina l'indirizzo email
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
     And Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email

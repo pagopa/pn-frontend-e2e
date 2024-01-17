@@ -10,7 +10,7 @@ Feature: La persona giuridica ricerca per periodo temporale
   @RicercaNotifichePG
   @PG
 
-  Scenario: La persona giuridica ricerca per periodo temporale
+  Scenario: PN-9150 - La persona giuridica ricerca per periodo temporale
     And Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa
     And Nella pagina Piattaforma Notifiche persona giuridica inserire un arco temporale
     And Cliccare sul bottone Filtra persona giuridica

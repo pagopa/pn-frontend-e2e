@@ -10,7 +10,7 @@ Feature: La persona giuridica inserisce l'email
   @PG
   @recapitiPG
 
-  Scenario: La persona giuridica inserisce l'email
+  Scenario: PN-9155 - La persona giuridica inserisce l'email
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una email

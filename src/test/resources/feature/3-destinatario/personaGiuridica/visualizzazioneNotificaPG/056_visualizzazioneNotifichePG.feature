@@ -10,7 +10,7 @@ Feature: La persona fisica visualizza la sezione notifiche
   @VisualizzazioneNotifichePG
   @PG
 
-  Scenario: La persona giuridica visualizza la sezione notifiche
+  Scenario: PN-9147 - La persona giuridica visualizza la sezione notifiche
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa
     And Nella sezione Deleghe si verifica sia presente una delega accettata per PG "personaGiuridica"
