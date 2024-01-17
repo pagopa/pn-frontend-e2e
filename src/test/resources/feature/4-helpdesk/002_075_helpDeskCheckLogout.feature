@@ -1,4 +1,4 @@
-Feature: utente helpdesk dopo il login effettua il logout
+Feature: Utente helpdesk dopo il login effettua il logout
 
   Background: Login utente in helpdesk
     Given Login helpdesk con utente test "testHelpdesk"
@@ -8,7 +8,7 @@ Feature: utente helpdesk dopo il login effettua il logout
   @test75
 
 
-  Scenario: visualizzazione corretta pagina login dopo logout
+  Scenario: PN-9603 - Visualizzazione corretta pagina login dopo logout
     And Nella Home di helpdesk utente clicca su logout
     Then visualizzazione corretta pagina di login
 
