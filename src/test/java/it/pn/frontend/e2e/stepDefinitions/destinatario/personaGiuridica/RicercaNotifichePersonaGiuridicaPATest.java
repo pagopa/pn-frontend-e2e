@@ -156,7 +156,6 @@ public class RicercaNotifichePersonaGiuridicaPATest {
 
         ricercaNotifichePGPage.clickFiltraButton();
         boolean isErrorMessageStillDisplayed = ricercaNotifichePGPage.isErrorMessageDisplayed();
-
         if (isErrorMessageStillDisplayed){
             logger.info("Il buttone Filtra e disattivato");
         }else {
