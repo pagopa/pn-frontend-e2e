@@ -25,6 +25,8 @@ public class RicercaNotifichePersonaGiuridicaPATest {
     private final WebDriver driver = Hooks.driver;
     RicercaNotifichePGPage ricercaNotifichePGPage = new RicercaNotifichePGPage(this.driver);
     private Map<String, Object> datiNotificaPG;
+    private Map<String, Object> datiNotificaNonValidoPG;
+
 
     @When("Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa")
     public void cliccareSuNotificheDellImpresa(){
@@ -33,7 +35,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
     }
 
     @And("Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN da dati notifica {string}")
-    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIUNDaDatiNotifica(String datiNotificaPG) {
+    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIUNDaDatiNotifica(String datiNotificaPG) throws InterruptedException {
         logger.info("Si inserisce il codice IUN");
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotificaPG = dataPopulation.readDataPopulation(datiNotificaPG+".yaml");
@@ -58,7 +60,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         ricercaNotifichePGPage.clickFiltraButton();
     }
 
-    @Then("Nella pagina Piattaforma Notifiche persona giuridica vengo restituite tutte le notifiche con il codice IUN della notifica {string}")
+    @And("Nella pagina Piattaforma Notifiche persona giuridica vengo restituite tutte le notifiche con il codice IUN della notifica {string}")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaVengoRestituiteTutteLeNotificheConIlCodiceIUNDellaNotifica(String datiNotificaPG) {
         logger.info("Si verifica i risultati restituiti");
 
@@ -98,7 +100,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         piattaformaNotifichePage.inserimentoArcoTemporale(datada, dataa);
     }
 
-    @Then("Nella pagina Piattaforma Notifiche persona giuridica vengo restituite tutte le notifiche con la data della notifica compresa con le date precedentemente inserite")
+    @And("Nella pagina Piattaforma Notifiche persona giuridica vengo restituite tutte le notifiche con la data della notifica compresa con le date precedentemente inserite")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaVengoRestituiteTutteLeNotificheConLaDataDellaNotificaCompresaConLeDatePrecedentementeInserite() {
         HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
         headerPGSection.waitLoadHeaderPGPage();
@@ -115,6 +117,54 @@ public class RicercaNotifichePersonaGiuridicaPATest {
             Assert.fail("Il risultato NON coerente con le date inserite");
         }
     }
+    @And("Cliccare sul bottone Rimuovi filtri persona giuridica")
+    public void cliccare_sul_bottone_rimuovi_filtri_persona_giuridica() {
+        ricercaNotifichePGPage.clickRimuoviFiltriButton();
+
+    }
+    @And("Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN non valido da dati notifica {string}")
+    public void nella_pagina_piattaforma_notifiche_persona_giuridica_inserire_il_codice_iun_non_valido_da_dati_notifica(String datiNotificaNonValidoPG) throws InterruptedException {
+        logger.info("Si inserisce il codice IUN non valido");
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiNotificaNonValidoPG = dataPopulation.readDataPopulation(datiNotificaNonValidoPG+".yaml");
+        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
+        notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotificaNonValidoPG.get("codiceIUN").toString());
+    }
+    @Then("Viene visualizzato un messaggio in rosso di errore sotto il campo errato e il rettangolo diventa rosso e il tasto Filtra è disattivo")
+    public void viene_visualizzato_un_messaggio_in_rosso_di_errore_sotto_il_campo_errato_e_il_rettangolo_diventa_rosso_e_il_tasto_è_disattivo() {
+
+        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
+
+        boolean isErrorMessageDisplayed = ricercaNotifichePGPage.isErrorMessageDisplayed();
+
+        if (isErrorMessageDisplayed) {
+            logger.info("Il messagio di errore e visualizzato");
+        } else {
+            logger.error("Il messagio di errore non e visualizzato");
+            Assert.fail("Il messagio di errore non e visualizzato");
+        }
+
+        boolean isTextBoxInValid = notificheDestinatarioPage.isTextBoxInvalid();
+
+        if (isTextBoxInValid) {
+            logger.info("IUN text box non e valido");
+        } else {
+            logger.error("UIN text box non e passato al lo stato non valido ");
+            Assert.fail("UIN text box non e passato al lo stato non valido");
+
+        }
+
+        ricercaNotifichePGPage.clickFiltraButton();
+        boolean isErrorMessageStillDisplayed = ricercaNotifichePGPage.isErrorMessageDisplayed();
+
+        if (isErrorMessageStillDisplayed){
+            logger.info("Il buttone Filtra e disattivato");
+        }else {
+            logger.error("Il buttone Filtra e attivo");
+            Assert.fail("Il buttone Filtra e attivo");
+        }
+    }
+
 
 }
 

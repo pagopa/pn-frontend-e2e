@@ -34,7 +34,7 @@ public class RicercaNotifichePersonaFisicaPATest {
         }
 
     @And("Nella pagina Piattaforma Notifiche  persona fisica inserire il codice IUN da dati notifica {string}")
-    public void nellaPaginaPiattaformaNotificheDestinatarioInserireIlCodiceIUNDaDatiNotifica(String dpDataNotifica) {
+    public void nellaPaginaPiattaformaNotificheDestinatarioInserireIlCodiceIUNDaDatiNotifica(String dpDataNotifica) throws InterruptedException {
         logger.info("Si inserisce il codice IUN");
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation(dpDataNotifica+".yaml");

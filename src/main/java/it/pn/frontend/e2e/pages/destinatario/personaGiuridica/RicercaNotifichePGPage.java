@@ -17,6 +17,13 @@ public class RicercaNotifichePGPage extends BasePage {
 
     @FindBy(id ="filter-notifications-button")
     WebElement filtraButton;
+    @FindBy(css ="[data-testid='cancelButton']")
+    WebElement rimuoviFiltriButton;
+    @FindBy(id = "iunMatch-helper-text")
+    WebElement nonValidIunMessage;
+
+            ;
+
 
 
     public void clickNotificheImpresa() {
@@ -59,4 +66,17 @@ public class RicercaNotifichePGPage extends BasePage {
         getWebDriverWait(30).withMessage("Il bottone filtra nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.filtraButton));
         this.filtraButton.click();
     }
+
+    public void clickRimuoviFiltriButton() {
+        getWebDriverWait(30).withMessage("Il bottone rimuovi filtri nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.rimuoviFiltriButton));
+        this.rimuoviFiltriButton.click();
+    }
+
+    public boolean isErrorMessageDisplayed(){
+        return getWebDriverWait(30).withMessage("Il messagio di errore non e visibile").until(ExpectedConditions.visibilityOf(nonValidIunMessage)).isDisplayed();
+    }
+
+
+
+
 }
