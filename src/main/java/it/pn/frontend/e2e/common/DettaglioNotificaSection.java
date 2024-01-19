@@ -30,7 +30,7 @@ public class DettaglioNotificaSection extends BasePage{
     public void waitLoadDettaglioNotificaDESection() {
         try {
             By titleDettaglioNotificaField = By.id("title-of-page");
-            By statoNotifcaBy = By.id("notification-state");
+            By statoNotificaBy = By.id("notification-state");
             By indietroButtonBy = By.id("breadcrumb-indietro-button");
             By informazioniBy = By.id("notification-detail-table");
             By allegatiSection = By.id("notification-detail-document-attached");
@@ -38,7 +38,7 @@ public class DettaglioNotificaSection extends BasePage{
             this.getWebDriverWait(30).withMessage("il bottone indietro non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButtonBy));
             this.getWebDriverWait(30).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
             this.getWebDriverWait(30).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
-            this.getWebDriverWait(30).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotifcaBy));
+            this.getWebDriverWait(30).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
             logger.info("Dettaglio Notifica Section caricata");
         }catch (TimeoutException e){
             logger.error("Dettaglio Notifica Section non caricata con errore: "+ e.getMessage());
@@ -47,7 +47,7 @@ public class DettaglioNotificaSection extends BasePage{
     }
 
 
-    public void clickLinkAttestazionipponibile(int numeroLinkAttestazioniOpponibile) {
+    public void clickLinkAttestazioniOpponibile(int numeroLinkAttestazioniOpponibile) {
        if(attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()){
            attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
        }else{
@@ -56,7 +56,7 @@ public class DettaglioNotificaSection extends BasePage{
        }
     }
 
-    public int getLinkAttestazioniOpponubili() {
+    public int getLinkAttestazioniOpponibili() {
         return attestazioniFile.size();
     }
 

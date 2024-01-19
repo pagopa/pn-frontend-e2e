@@ -16,6 +16,7 @@ public class RecapitiPGPage extends BasePage {
     public RecapitiPGPage(WebDriver driver) {
         super(driver);
     }
+
     public void waitLoadRecapitiPage() {
         try {
             By racapitiPageTitle = By.id("Recapiti-page");

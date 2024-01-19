@@ -6,8 +6,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.api.mittente.SpidAcsMittente;
 import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
-import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoContinueResponse;
-import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoLogin;
+import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoContinueResponse;
+import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogin;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.mittente.*;
 import it.pn.frontend.e2e.section.CookiesSection;
@@ -26,17 +26,15 @@ import java.util.concurrent.TimeUnit;
 
 
 public class LoginMittentePagoPA {
-
     private static final Logger logger = LoggerFactory.getLogger("LoginMittentePagoPA");
     private Map<String, Object> datiMittente;
-
     private Map<String, String> urlMittente;
     private final WebDriver driver = Hooks.driver;
 
-
     @Given("Login Page mittente {string} viene visualizzata")
-    public void login_page_mittente_viene_visualizzata(String datiMittenteFile) {
+    public void loginPageMittenteVieneVisualizzata(String datiMittenteFile) {
         logger.info("Si recupera l'ambiente e si visualizza la pagina di login");
+
         DataPopulation dataPopulation = new DataPopulation();
         this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
         String variabileAmbiente = System.getProperty("environment");
@@ -45,13 +43,14 @@ public class LoginMittentePagoPA {
             case "test", "uat" ->
                     this.driver.get(this.datiMittente.get("url").toString().replace("dev", variabileAmbiente));
             default ->
-                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Insaerisci in -Denvironment test o dev o uat");
+                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
     }
 
     @When("Login con mittente {string}")
-    public void login_con_mittente(String datiMittenteFile) {
+    public void loginConMittente(String datiMittenteFile) {
         logger.info("Si effetua la Login dal portale mittente");
+
         DataPopulation dataPopulation = new DataPopulation();
         this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
 
@@ -194,55 +193,55 @@ public class LoginMittentePagoPA {
         cookie.setHttpOnly(cookiesHttOnlyFromSpidLoginMittente);
         cookieStore.addCookie(cookie);
 
-        SpidTestenvWesteuropeAzurecontainerIoLogin spidTestenvWesteuropeAzurecontainerIoLogin =
-                new SpidTestenvWesteuropeAzurecontainerIoLogin(
+        SpidTestEnvWestEuropeAzureContainerIoLogin spidTestEnvWestEuropeAzureContainerIoLogin =
+                new SpidTestEnvWestEuropeAzureContainerIoLogin(
                         requestKeyFromSpidLoginMittente,
                         relayStateFromSpidLoginMittente,
                         user, password,
                         cookieStore
                 );
-        spidTestenvWesteuropeAzurecontainerIoLogin.setSpidTestenvWesteuropeAzurecontainerIoLoginEndPoint("https://selc-u-spid-testenv.westeurope.azurecontainer.io/login");
-        spidTestenvWesteuropeAzurecontainerIoLogin.runSpidTestenvWesteuropeAzurecontainerIoLogin();
+        spidTestEnvWestEuropeAzureContainerIoLogin.setSpidTestEnvWestEuropeAzureContainerIoLoginEndPoint("https://selc-u-spid-testenv.westeurope.azurecontainer.io/login");
+        spidTestEnvWestEuropeAzureContainerIoLogin.runSpidTestEnvWestEuropeAzureContainerIoLogin();
 
-        if (spidTestenvWesteuropeAzurecontainerIoLogin.getResponseBody() == null) {
+        if (spidTestEnvWestEuropeAzureContainerIoLogin.getResponseBody() == null) {
             Assert.fail(" api selc-u-spid-testenv.westeurope.azurecontainer.io/login ha risposto con body vuoto");
         }
 
-        String requestKeyFromSpidTestenvWesteuropeAzurecontainerIoLogin = spidTestenvWesteuropeAzurecontainerIoLogin.getRequestKeyOutput();
-        if (requestKeyFromSpidTestenvWesteuropeAzurecontainerIoLogin != null) {
-            logger.info("requestKeyFromSpidTestenvWesteuropeAzurecontainerIoLogin : " + requestKeyFromSpidTestenvWesteuropeAzurecontainerIoLogin);
+        String requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin = spidTestEnvWestEuropeAzureContainerIoLogin.getRequestKeyOutput();
+        if (requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin != null) {
+            logger.info("requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin : " + requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin);
         } else {
-            Assert.fail("requestKeyFromSpidTestenvWesteuropeAzurecontainerIoLogin is null");
+            Assert.fail("requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin is null");
         }
 
-        SpidTestenvWesteuropeAzurecontainerIoContinueResponse spidTestenvWesteuropeAzurecontainerIoContinueResponse =
-                new SpidTestenvWesteuropeAzurecontainerIoContinueResponse(
-                        requestKeyFromSpidTestenvWesteuropeAzurecontainerIoLogin, cookieStore
+        SpidTestEnvWestEuropeAzureContainerIoContinueResponse spidTestEnvWestEuropeAzureContainerIoContinueResponse =
+                new SpidTestEnvWestEuropeAzureContainerIoContinueResponse(
+                        requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin, cookieStore
                 );
 
-        spidTestenvWesteuropeAzurecontainerIoContinueResponse.setSpidTestenvWesteuropeAzurecontainerIoContinueResponseEndPoint("https://selc-u-spid-testenv.westeurope.azurecontainer.io/continue-response");
-        spidTestenvWesteuropeAzurecontainerIoContinueResponse.runSpidTestenvWesteuropeAzurecontainerIoContinueResponse();
-        if (spidTestenvWesteuropeAzurecontainerIoContinueResponse.getResponseBody() == null) {
+        spidTestEnvWestEuropeAzureContainerIoContinueResponse.setSpidTestEnvWestEuropeAzureContainerIoContinueResponseEndPoint("https://selc-u-spid-testenv.westeurope.azurecontainer.io/continue-response");
+        spidTestEnvWestEuropeAzureContainerIoContinueResponse.runSpidTestEnvWestEuropeAzureContainerIoContinueResponse();
+        if (spidTestEnvWestEuropeAzureContainerIoContinueResponse.getResponseBody() == null) {
             Assert.fail(" api selc-u-spid-testenv.westeurope.azurecontainer.io/continue-response");
         }
 
-        String samlResponseFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse = spidTestenvWesteuropeAzurecontainerIoContinueResponse.getSamlResponseOutput();
-        if (samlResponseFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse != null) {
-            logger.info("samlResponseFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse : " + samlResponseFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse);
+        String samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse = spidTestEnvWestEuropeAzureContainerIoContinueResponse.getSamlResponseOutput();
+        if (samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse != null) {
+            logger.info("samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse : " + samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse);
         } else {
-            Assert.fail("samlResponseFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse is null");
+            Assert.fail("samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse is null");
         }
 
-        String relayStateFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse = spidTestenvWesteuropeAzurecontainerIoContinueResponse.getRelayStateOutput();
-        if (relayStateFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse != null) {
-            logger.info("relayStateFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse : " + relayStateFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse);
+        String relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse = spidTestEnvWestEuropeAzureContainerIoContinueResponse.getRelayStateOutput();
+        if (relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse != null) {
+            logger.info("relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse : " + relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse);
         } else {
-            Assert.fail("relayStateFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse is null");
+            Assert.fail("relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse is null");
         }
 
         SpidAcsMittente spidAcsMittente = new SpidAcsMittente(
-                samlResponseFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse,
-                relayStateFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse,
+                samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse,
+                relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse,
                 cookieStore
         );
 
@@ -259,8 +258,9 @@ public class LoginMittentePagoPA {
 
 
     @Then("Home page mittente viene visualizzata correttamente")
-    public void home_page_mittente_viene_visualizzata_correttamente() {
+    public void homePageMittenteVieneVisualizzataCorrettamente() {
         logger.info("Home page mittente viene visualizzata correttamente");
+
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
 
@@ -281,8 +281,9 @@ public class LoginMittentePagoPA {
 
 
     @And("Logout da portale mittente")
-    public void Logout_da_portale_mittente() {
+    public void logoutDaPortaleMittente() {
         logger.info("Si esce dal portale mittente");
+
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();
@@ -309,6 +310,7 @@ public class LoginMittentePagoPA {
     @When("Login con mittente tramite token exchange")
     public void loginConMittenteTramiteTokenExchange() {
         logger.info("Si effettua la login del mittente tramite token");
+
         String variabileAmbiente = System.getProperty("environment");
         String urlInziale = "https://selfcare." + variabileAmbiente + ".notifichedigitali.it/#selfCareToken=";
         String token;

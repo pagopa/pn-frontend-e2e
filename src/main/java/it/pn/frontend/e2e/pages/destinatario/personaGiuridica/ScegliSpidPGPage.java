@@ -16,23 +16,20 @@ public class ScegliSpidPGPage extends BasePage {
 
     @FindBy(id = "xx_testenv2")
     WebElement testButton;
+
     public ScegliSpidPGPage(WebDriver driver) {
         super(driver);
     }
 
     public void waitLoadScegliSpidPGPage() {
-
         try {
             By titlePageBy = By.xpath("//div[contains(text(),'Scegli il tuo SPID')]");
-
             this.getWebDriverWait(30).withMessage("Il titolo della pagina Scegli il tuo SPID non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             this.getWebDriverWait(30).withMessage("Il bottone test della pagina Scegli il tuo SPID non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.testButton));
-
             logger.info("ScegliSpidPGPage caricata correttamente");
-
-        }catch (TimeoutException e){
-            logger.error("ScegliSpidPGPage  non caricata correttamente con errore: " +e.getMessage());
-            Assert.fail("ScegliSpidPGPage  non caricata correttamente con errore: " +e.getMessage());
+        } catch (TimeoutException e){
+            logger.error("ScegliSpidPGPage non caricata correttamente con errore: " +e.getMessage());
+            Assert.fail("ScegliSpidPGPage non caricata correttamente con errore: " +e.getMessage());
         }
     }
 

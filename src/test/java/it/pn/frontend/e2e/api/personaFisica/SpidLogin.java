@@ -19,19 +19,15 @@ public class SpidLogin {
     private static final Logger logger = LoggerFactory.getLogger("SpidLogin");
     private String spidLoginEndPoint;
     private String responseBody;
-
-    private final  String authLevel;
-
+    private final String authLevel;
     private final String entityID;
 
     public SpidLogin (String entityID, String authLevel){
         this.entityID = entityID;
         this.authLevel = authLevel;
-
     }
 
     public void runSpidLogin() {
-
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
             ClassicHttpRequest httpGet = ClassicRequestBuilder
                     .get(this.getSpidLoginEndPoint())

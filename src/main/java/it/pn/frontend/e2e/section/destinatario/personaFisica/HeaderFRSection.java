@@ -11,16 +11,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HeadeFRSection extends BasePage {
+public class HeaderFRSection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("HeaderPFSection");
 
     @FindBy(css = "button[aria-label='party-menu-button']")
     WebElement profiloUtenteMenu;
 
-
-
-    public HeadeFRSection(WebDriver driver) {
+    public HeaderFRSection(WebDriver driver) {
         super(driver);
     }
 
@@ -31,20 +29,22 @@ public class HeadeFRSection extends BasePage {
             this.getWebDriverWait(40).withMessage("il titolo del header non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
             this.getWebDriverWait(40).withMessage("menu dell'utente non è visibile").until(ExpectedConditions.visibilityOfElementLocated(menuProfilo));
             logger.info("Header DE Section caricata");
-        }catch (TimeoutException e){
+        } catch (TimeoutException e){
             logger.error("Header DE Section non caricata con errore : "+e.getMessage());
             Assert.fail("Header DE Section non caricata con errore : "+e.getMessage());
         }
     }
 
-    public void selezionaprofiloUtenteMenu(){
+    public void selezionaProfiloUtenteMenu(){
         this.js().executeScript("arguments[0].scrollIntoView(true);",this.profiloUtenteMenu);
+        logger.info("click sul profilo utente");
         this.js().executeScript("arguments[0].click()",this.profiloUtenteMenu);
     }
 
     public void selezionaVoceEsci(){
         By esciVoce = By.xpath("//span[contains(text(),'Esci')]");
         this.getWebDriverWait(30).withMessage("la voce esci non è visibile").until(ExpectedConditions.visibilityOfElementLocated(esciVoce));
+        logger.info("click su voce esci");
         this.element(esciVoce).click();
     }
 

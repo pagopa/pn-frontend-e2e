@@ -67,11 +67,10 @@ public class DisserviziAppPage extends BasePage {
 
     public boolean checkDisservizioInCorso(){
         try{
-
             WebElement dateDisservizioCreato =  this.elements(By.xpath("//td[@data-testid='tableBodyCell']")).get(1);
             return this.getWebDriverWait(60).withMessage("disservizio non creato").until(ExpectedConditions.textToBePresentInElement(dateDisservizioCreato,"-"));
         }catch (TimeoutException e){
-            logger.error("creazione disservizio con errore:"+e.getMessage());
+            logger.info("disservizio non creato");
             return false;
         }
     }

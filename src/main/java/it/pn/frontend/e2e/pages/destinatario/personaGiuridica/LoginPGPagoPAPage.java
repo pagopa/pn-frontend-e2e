@@ -31,15 +31,12 @@ public class LoginPGPagoPAPage extends BasePage {
     public void waitLoadLoginPGPage() {
         try {
             By titlePageBy = By.xpath("//h1[contains(text(),'Login')]");
-
             this.getWebDriverWait(30).withMessage("il titolo della pagina Login PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             this.getWebDriverWait(30).withMessage("Il campo username della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.usernameField));
             this.getWebDriverWait(30).withMessage("Il campo password della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.passwordField));
             this.getWebDriverWait(30).withMessage("Il bottone invia della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.inviaButton));
-
             logger.info("LoginPGPage caricata correttamente");
-
-        }catch (TimeoutException e){
+        } catch (TimeoutException e){
             logger.error("LoginPGPage non caricata correttamente con errore :" +e.getMessage());
             Assert.fail("LoginPGPage non caricata correttamente con errore :" +e.getMessage());
         }

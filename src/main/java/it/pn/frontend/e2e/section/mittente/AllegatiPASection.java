@@ -33,8 +33,8 @@ public class AllegatiPASection extends BasePage {
 
     public void waitLoadAllegatiPASection() {
         try{
-            By allegatiTitleFieald = By.xpath("//h3[contains(text(),'Allegati')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(allegatiTitleFieald));
+            By allegatiTitleField = By.xpath("//h3[contains(text(),'Allegati')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(allegatiTitleField));
             logger.info("Allegati PA Section caricata");
         }catch (TimeoutException e){
             logger.error("Allegati PA Section non caricata con errore: "+e.getMessage());
@@ -53,6 +53,7 @@ public class AllegatiPASection extends BasePage {
 
     public boolean verificaCaricamentoNotificaPdf() {
         getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.hashCodeTextField));
+        logger.info("check caricamento notifica pdf");
         return this.hashCodeTextField.isDisplayed();
     }
 
@@ -60,6 +61,7 @@ public class AllegatiPASection extends BasePage {
         if (!this.nomeAttoTextField.isDisplayed()) {
             this.js().executeScript("arguments[0].scrollIntoView(true)", this.nomeAttoTextField);
         }
+        logger.info("inserimento nome allegato");
         this.nomeAttoTextField.click();
         this.nomeAttoTextField.sendKeys(nomeAtto);
     }
@@ -73,8 +75,10 @@ public class AllegatiPASection extends BasePage {
         try {
             By messageErrorBy = By.id("alert-1");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messageErrorBy));
+            logger.info("messaggio di errore presente");
             return true;
         }catch (TimeoutException e) {
+            logger.info("messaggio di errore non presente");
             return  false;
         }
     }

@@ -10,7 +10,7 @@ Feature: Mittente genera una notifica tramite destinatario con pec
   @mittente
   @invioNotifiche
 
-  Scenario: Mittente genera una notifica tramite destinatario con pec
+  Scenario: PN-9644 - Mittente genera una notifica tramite destinatario con pec
     When Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari

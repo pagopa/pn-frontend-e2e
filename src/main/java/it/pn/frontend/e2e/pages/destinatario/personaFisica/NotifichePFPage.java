@@ -97,7 +97,7 @@ public class NotifichePFPage extends BasePage {
 
     public void inserimentoArcoTemporale(String dataDA, String dataA) {
         this.getWebDriverWait(40).withMessage("Data Inizio input non è visibile").until(ExpectedConditions.visibilityOf(this.dataInizioField));
-        this.getWebDriverWait(40).withMessage("Data Fine  input non è visibile").until(ExpectedConditions.visibilityOf(this.dataFineField));
+        this.getWebDriverWait(40).withMessage("Data Fine input non è visibile").until(ExpectedConditions.visibilityOf(this.dataFineField));
         this.dataInizioField.sendKeys(dataDA);
         this.dataFineField.sendKeys(dataA);
     }
@@ -119,6 +119,7 @@ public class NotifichePFPage extends BasePage {
             numeroPagina.click();
             return true;
         }catch (TimeoutException e){
+            logger.error("bottone pagina 2 non trovata con errore: "+e.getMessage());
             return false;
         }
     }
@@ -127,7 +128,7 @@ public class NotifichePFPage extends BasePage {
         this.getWebDriverWait(30).withMessage("Notifiche menu button non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.notificheDeButton));
         this.js().executeScript("arguments[0].click()",this.notificheDeButton);}
 
-    public void clickTueNotificheButton(){
+    public void clickLeTueNotificheButton(){
         try {
             By leTueNotificheButtonBy = By.id("side-item-Le tue notifiche");
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(leTueNotificheButtonBy));
@@ -228,7 +229,7 @@ public class NotifichePFPage extends BasePage {
         return true;
     }
 
-    public void clickSullaFreccia() {this.paginaSuccessivaButton.click();}
+    public void clickPaginaSuccessiva() {this.paginaSuccessivaButton.click();}
 
     public void waitLoadPaginaDifferente() {
         try{

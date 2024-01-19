@@ -63,17 +63,12 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void waitLoadDeleghePage() {
         try{
             By titlePage = By.id("Deleghe-page");
-
             this.getWebDriverWait(30).withMessage("il titolo della pagina deleghe PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
             this.getWebDriverWait(30).withMessage("Il bottone deleghe a carico dell'impresa non è visibile").until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
-
-            this.logger.info("Deleghe page si visualizza correttamente");
-
-        }catch (TimeoutException e){
-
-            this.logger.error("Deleghe page non si visualizza correttamente con errore: "+e.getMessage());
+            logger.info("Deleghe page si visualizza correttamente");
+        } catch (TimeoutException e){
+            logger.error("Deleghe page non si visualizza correttamente con errore: "+e.getMessage());
             Assert.fail("Deleghe page non si visualizza correttamente con errore: "+e.getMessage());
-
         }
     }
 
@@ -88,17 +83,17 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     }
 
-    public boolean CercaEsistenzaDelegaPG(String ragioneSociale) {
+    public boolean cercaEsistenzaDelegaPG(String ragioneSociale) {
         try {
             By nomeDelegato = By.xpath("//td[@scope='col' and div/p[contains(text(),'"+ragioneSociale+"')]]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
             return true;
         }catch (TimeoutException | NoSuchElementException e){
+            logger.error("ricerca esistenza delega pg non riuscita con errore: "+ e.getMessage());
             return false;
         }
     }
     public void clickRevocaMenuButtonPG(String ragioneSociale) {
-
         By menuButton = By.xpath("//td[@scope='col' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@scope='col']//button[@data-testid='delegationMenuIcon']");
         this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuButton));
         this.js().executeScript("arguments[0].click()",this.element(menuButton));
@@ -113,17 +108,11 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void verificaPresenzaElencoDeleghe() {
         try{
             By tableDelegheBy = By.id("notifications-table");
-
-
             this.getWebDriverWait(50).until(ExpectedConditions.visibilityOfElementLocated(tableDelegheBy));
-
-            this.logger.info("L'elenco delle deleghe si visualizza correttamente");
-
-        }catch (TimeoutException e){
-
-            this.logger.error("L'elenco delle deleghe non si visualizza correttamente con errore: "+e.getMessage());
+            logger.info("L'elenco delle deleghe si visualizza correttamente");
+        } catch (TimeoutException e){
+           logger.error("L'elenco delle deleghe non si visualizza correttamente con errore: "+e.getMessage());
             Assert.fail("L'elenco delle deleghe non si visualizza correttamente con errore: "+e.getMessage());
-
         }
     }
 
@@ -140,12 +129,12 @@ public class DeleghePGPagoPAPage extends BasePage {
         try{
             this.getWebDriverWait(60).withMessage("ragione sociale non caricata").until(ExpectedConditions.visibilityOfElementLocated(delegaBy));
             logger.info("controllo ragione sociale");
-        }catch (TimeoutException e ){
+        } catch (TimeoutException e ){
             logger.error("ragione sociale non caricata"+e.getMessage());
             Assert.fail("ragione sociale non caricata"+e.getMessage());
         }
         logger.info("ragione sociale caricata correttamente");
-          return this.elements(delegaBy).size() == 1;
+        return this.elements(delegaBy).size() == 1;
 
     }
 
@@ -244,8 +233,8 @@ public class DeleghePGPagoPAPage extends BasePage {
         try {
             By titlePOPUPBy = By.id("dialog-title");
             By nonAssegnaButtonBy = By.id("associate-form-no-group");
-            this.getWebDriverWait(30).withMessage("Il titolo del pop up non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePOPUPBy));
-            this.getWebDriverWait(30).withMessage("Il bottone non assegna sul pop up non è cliccabile").until(ExpectedConditions.elementToBeClickable(nonAssegnaButtonBy));
+            this.getWebDriverWait(30).withMessage("Il titolo del pop-up non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePOPUPBy));
+            this.getWebDriverWait(30).withMessage("Il bottone non assegna sul pop-up non è cliccabile").until(ExpectedConditions.elementToBeClickable(nonAssegnaButtonBy));
             logger.info("Si visualizza correttamente il pop-up");
         }catch (TimeoutException e){
             logger.error("NON Si  visualizza  correttamente il pop-up con errore: "+e.getMessage());
@@ -259,6 +248,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(gruppoBy));
             return true;
         }catch (TimeoutException e) {
+            logger.info("gruppo non presente");
             return false;
         }
 

@@ -8,7 +8,7 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
-import it.pn.frontend.e2e.section.destinatario.personaFisica.HeadeFRSection;
+import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderFRSection;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
@@ -27,7 +27,6 @@ import java.util.concurrent.TimeUnit;
 public class NotifichePersonaFisicaPAgoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("NotifichePersonaFisicaTest");
-
     private final WebDriver driver = Hooks.driver;
     private Map<String, Object> personaFisica = new HashMap<>();
     private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
@@ -35,15 +34,15 @@ public class NotifichePersonaFisicaPAgoPATest {
 
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche")
-    public void nella_piattaforma_destinatario_cliccare_sul_bottone_notifiche() {
+    public void nellaPiattaformaDestinatarioCliccareSulBottoneNotifiche() {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.clickNotificheButton();
     }
 
     @Then("pagina Piattaforma  Notifiche persona fisica viene visualizzata correttamente")
     public void paginaPiattaformaNotificheDestinatarioVieneVisualizzataCorrettamente() {
-        HeadeFRSection headeFRSection = new HeadeFRSection(this.driver);
-        headeFRSection.waitLoadHeaderDESection();
+        HeaderFRSection headerFRSection = new HeaderFRSection(this.driver);
+        headerFRSection.waitLoadHeaderDESection();
 
         if (!CookieConfig.isCookieEnabled()) {
             CookiesSection cookiesSection = new CookiesSection(this.driver);
@@ -55,12 +54,11 @@ public class NotifichePersonaFisicaPAgoPATest {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.waitLoadNotificheDEPage();
         if (notifichePFPage.verificaPresenzaCodiceIunTextField()) {
-            logger.info("text field codice ium presente");
+            logger.info("text field codice iun presente");
         } else {
-            logger.info("text field codice ium non presente");
-            Assert.fail("text field codice ium non presente");
+            logger.info("text field codice iun non presente");
+            Assert.fail("text field codice iun non presente");
         }
-
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
@@ -110,10 +108,10 @@ public class NotifichePersonaFisicaPAgoPATest {
         int numeroRigheNotifiche = notifichePFPage.siVisualizzaNotifichePresenti();
 
         if (numeroRigheNotifiche != 0) {
-            logger.info("Si visualizza correttamente l'elenco notifica");
+            logger.info("Si visualizza correttamente l'elenco notifiche");
         } else {
-            logger.error("NON visualizza correttamente l'elenco notifica");
-            Assert.fail("NON visualizza correttamente l'elenco notifica");
+            logger.error("NON visualizza correttamente l'elenco notifiche");
+            Assert.fail("NON visualizza correttamente l'elenco notifiche");
         }
     }
 
@@ -139,7 +137,7 @@ public class NotifichePersonaFisicaPAgoPATest {
     @And("Si aggiorna la paginazione utilizzando le frecce")
     public void siAggiornaLaPaginazioneUtilizzandoLeFrecce() {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-        notifichePFPage.clickSullaFreccia();
+        notifichePFPage.clickPaginaSuccessiva();
     }
 
     @And("Si visualizza correttamente una pagina diversa dalla precedente")
@@ -200,7 +198,7 @@ public class NotifichePersonaFisicaPAgoPATest {
     @Then("Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto {string}")
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaDestinatarioESiControllaCheIlDownloadSiaAvvenuto(String dpFile) {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponubili();
+        int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponibili();
         DownloadFile downloadFile = new DownloadFile(this.driver);
         DataPopulation dataPopulation = new DataPopulation();
         Map<String, Object> datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
@@ -211,7 +209,7 @@ public class NotifichePersonaFisicaPAgoPATest {
             pathCartella.mkdirs();
         }
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
-            dettaglioNotificaSection.clickLinkAttestazionipponibile(i);
+            dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
             try {
                 TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {

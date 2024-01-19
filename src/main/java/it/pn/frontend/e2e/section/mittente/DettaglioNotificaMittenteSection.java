@@ -28,6 +28,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     @FindBy(xpath = "//button[contains(@data-testid,'documentButton')]" )
     List<WebElement> linkAllegati;
+
     @FindBy(xpath = "//button[contains(@data-testid,'breadcrumb-indietro-button')]")
     WebElement indietroButton;
 
@@ -88,7 +89,6 @@ public class DettaglioNotificaMittenteSection extends BasePage {
                 infoNotifica.put("codiceIUN","nd");
             }
         }
-
         return infoNotifica;
     }
 
@@ -97,8 +97,10 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         try {
             By codiceIUNBy = By.xpath("//td[contains(text(),'Codice IUN')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiceIUNBy));
+            logger.info("codice iun presente");
             return true;
         }catch (TimeoutException e){
+            logger.info("codice iun non presente");
             return false;
         }
     }
@@ -108,13 +110,12 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public boolean controlloTestoFile(String path, String testoDaControllare) {
-
         File file = new File(System.getProperty("user.dir")+path);
         try {
             PDDocument pdfFile = PDDocument.load(file);
             PDFTextStripper pdfStripper = new PDFTextStripper();
             String testoFile = pdfStripper.getText(pdfFile).replaceAll ("\r\n|\r|\n", "");
-            logger.info(testoFile);
+            logger.info("check corrispondenza testo con pdf");
             if (testoFile.contains(testoDaControllare)){
                 pdfFile.close();
                 return true;
@@ -132,6 +133,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(percorsoNotificaBy));
         this.numeriStatiNotifica = this.elements(percorsoNotificaBy).size();
         getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.vediDettagliButton));
+        logger.info("click su vedi dettagli");
         this.vediDettagliButton.click();
     }
 
@@ -148,7 +150,9 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         }
     }
 
-    public void clickIndietroButton() {this.indietroButton.click();}
+    public void clickIndietroButton() {
+        logger.info("click su pulsante indietro");
+        this.indietroButton.click();}
 
     public boolean controlloTestoFileCodiceIUN(String path, String codiceIUN) {
         File file = new File(System.getProperty("user.dir")+path);
@@ -198,12 +202,13 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             this.linkAllegati.get(0).click();
         }else {
             this.js().executeScript("arguments[0].scrollIntoView(true);", this.linkAllegati.get(0));
+            logger.info("click sul link allegati");
             this.linkAllegati.get(0).click();
         }
-
     }
 
     public void clickLinkAvvenutaRicezione(int i) {
+        logger.info("click sul link avvenuta ricezione");
         if (this.linkAllegati.get(i).isDisplayed()){
             this.linkAllegati.get(i).click();
         }else {

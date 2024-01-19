@@ -112,62 +112,77 @@ public class DestinatarioPASection extends BasePage {
     }
 
     public void selezionarePersonaFisica() {
+        logger.info("selezione pf su checkbox");
         this.personaFisicaCheckBox.click();
     }
 
     public void inserireNomeDestinatario(String nomeDestinatario) {
+        logger.info("inserimento nome destinatario");
         this.scrollToElementClickAndInsertText(this.nomeDestinatarioTextField, nomeDestinatario);
     }
 
     public void inserireCognomeDestinatario(String cognomeDestinatario) {
+        logger.info("inserimento cognome destinatario");
         this.scrollToElementClickAndInsertText(this.cognomeDestinatarioTextField, cognomeDestinatario);
     }
 
     public void inserireCodiceFiscaleDestinatario(String codiceFiscale) {
+        logger.info("inserimento codice fiscale destinatario");
         this.scrollToElementClickAndInsertText(this.codiceFiscaleDestinatarioTextField,codiceFiscale);
     }
 
     public void selezionaAggiungiUnIndirizzoFisico() {
+        logger.info("click su scelta indirizzo fisico");
         this.aggiungiUnIndirizzoFisicoCheckBox.click();
     }
 
     public void inserireIndirizzo(String indirizzo) {
+        logger.info("inserimento indirizzo fisico");
         this.scrollToElementClickAndInsertText(this.indirizzoTextField, indirizzo);
     }
 
     public void inserireNumeroCivico(String numeroCivico) {
+        logger.info("inserimento numero civico");
         this.scrollToElementClickAndInsertText(this.numeroCivicoTextField, numeroCivico);
     }
 
     public void inserireLocalita(String localita) {
+        logger.info("inserimento localitá");
         this.scrollToElementClickAndInsertText(this.localitaTextField, localita);
     }
 
     public void inserireComune(String comune) {
+        logger.info("inserimento comune");
         this.scrollToElementClickAndInsertText(this.comuneTextField,comune);
     }
 
     public void inserireProvincia(String provincia) {
+        logger.info("inserimento provincia");
         this.scrollToElementClickAndInsertText(this.provinciaTextField, provincia);
     }
 
     public void inserireCodicePostale(String codicePostale) {
+        logger.info("inserimento codice postale");
         this.scrollToElementClickAndInsertText(this.codicePostaleTextField,codicePostale);
     }
 
     public void cambiareCodicePostale(String codicePostale) {
+        logger.info("cambio codice postale");
         this.scrollToElementClickAndReplaceText(this.codicePostaleTextField,codicePostale);
     }
 
     public void inserireStato(String stato) {
+        logger.info("inserimento stato");
         this.scrollToElementClickAndInsertText(this.statoTextField, stato);
     }
 
     public void selezionareAggiungiDestinatarioButton() {
+        logger.info("scelta aggiungi destinatario");
         this.aggiungiDestinatarioButton.click();
     }
 
     public void selezionareRimuoviDestinatarioButton() {
+        logger.info("click su rimuovi destinatario");
         this.rimuoviDestinatarioButtons.get(1).click();
     }
 
@@ -180,6 +195,7 @@ public class DestinatarioPASection extends BasePage {
             }
         }
     }
+
     public void inserimentoInformazioniPreliminari(Map<String,Object> destinatari, int i){
         selezionarePersonaFisica();
         String nomeDestinatario = ricercaInformazione(destinatari.get("name").toString().split(","), i);
@@ -191,6 +207,7 @@ public class DestinatarioPASection extends BasePage {
         inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]",cfDestinatario);
         selezionaAggiungiUnIndirizzoFisicoMulti(i+1);
     }
+
     public void inserimentoInformazioniAggiuntive(Map<String,Object> destinatari, int i){
         String indirizzoDestinatario = ricercaInformazione(destinatari.get("indirizzo").toString().split(","), i);
         inserireInfoMultiDestinatario("//label[contains(@id,'address-label')]/following-sibling::div/input",indirizzoDestinatario);
@@ -206,10 +223,11 @@ public class DestinatarioPASection extends BasePage {
         inserireInfoMultiDestinatario("//input[contains(@id,'zip')]",codicePostale);
         inserireInfoMultiDestinatario("//input[contains(@id,'foreignState')]",destinatari.get("stato").toString());
     }
+
     private void selezionaAggiungiUnIndirizzoFisicoMulti(int i) {
-        By aggiungiIndrizzoBy = By.xpath("//label[@data-testid='showPhysicalAddress"+i+"']");
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(aggiungiIndrizzoBy));
-        List<WebElement> aggiungiIndirizzoButton = this.elements(aggiungiIndrizzoBy);
+        By aggiungiIndirizzoBy = By.xpath("//label[@data-testid='showPhysicalAddress"+i+"']");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(aggiungiIndirizzoBy));
+        List<WebElement> aggiungiIndirizzoButton = this.elements(aggiungiIndirizzoBy);
         this.scrollToElementClickAndInsertText(aggiungiIndirizzoButton.get(aggiungiIndirizzoButton.size() - 1), null);
     }
 
@@ -228,7 +246,6 @@ public class DestinatarioPASection extends BasePage {
     public boolean inserireIlSestoDestinatario() {
         this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
         By aggiungereDestinatarioButtonBy = By.xpath("//button[contains(@data-testid,'add-recipient')]");
-        //this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(aggiungereDestinatarioButtonBy));
         return this.elements(aggiungereDestinatarioButtonBy).size() == 0;
     }
 
@@ -268,22 +285,24 @@ public class DestinatarioPASection extends BasePage {
     By radioButtonPgBy = By.xpath("//input[@name='recipients["+posizione+"].recipientType' and @value ='PG']");
     this.element(radioButtonPgBy).click();
     }
+
     public void checkBoxAggiungiDomicilio() {
         this.checkBoxAggiungiDomicilioDigitale.click();
     }
+
     public void insertDomicilioDigitale(String emailPec) {
         this.domicilioDigitaleTextField.sendKeys(emailPec);
     }
+
     public void insertDomicilioDigitaleErrato(String emailPec) {
         this.domicilioDigitaleTextField.sendKeys(emailPec);
     }
-
 
     public void insertRagioneSociale(String ragioneSociale) {
         this.ragioneSocialeTextField.sendKeys(ragioneSociale);
     }
 
-    public void insertpartitaIva(String codiceFiscale) {
+    public void insertPartitaIva(String codiceFiscale) {
         this.partitaIvaTextField.sendKeys(codiceFiscale);
     }
 
@@ -302,7 +321,7 @@ public class DestinatarioPASection extends BasePage {
         this.driver.findElement(valoreErratoBy).sendKeys(codiceFiscale);
     }
 
-    public String getcodiceFiscaleError(){
+    public String getCodiceFiscaleError(){
         logger.info("TA_QA: si legge il messagio di errore del Codice fiscale");
         By valoreCFErratoBy = By.id("recipients[0].taxId-helper-text");
         getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(valoreCFErratoBy));
@@ -319,6 +338,5 @@ public class DestinatarioPASection extends BasePage {
     public boolean verificaNumeroDestinatari() {
         logger.info("TA_QA: si verifica il numero dei destinatari");
         return this.rimuoviDestinatarioButtons.isEmpty();
-
     }
 }

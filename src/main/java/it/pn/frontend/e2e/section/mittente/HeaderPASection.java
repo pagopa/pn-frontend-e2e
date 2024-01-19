@@ -37,7 +37,7 @@ public class HeaderPASection extends BasePage {
             this.esciButton.click();
         } catch (TimeoutException e) {
             logger.error("Il bottone esci non cliccabile con errore: " + e.getMessage());
-            Assert.fail("Il bottone esci non è cliccabile con errore: " + e.getMessage());
+            Assert.fail("Il bottone esci non cliccabile con errore: " + e.getMessage());
         }
 
     }

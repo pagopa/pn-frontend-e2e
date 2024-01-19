@@ -13,7 +13,7 @@ Feature: il mittente effettua il download attestazione opponibile a terzi avvenu
   @mittente
   @DownloadFileMittente
 
-  Scenario: il mittente effettua il download attestazione opponibile a terzi avvenuto successo
+  Scenario: PN-9647 - il mittente effettua il download attestazione opponibile a terzi avvenuto successo
     When Cliccare sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica
     And Nella sezione Dettaglio Notifiche si seleziona il file, "Attestazione opponibile a terzi: avvenuto accesso", da scaricare

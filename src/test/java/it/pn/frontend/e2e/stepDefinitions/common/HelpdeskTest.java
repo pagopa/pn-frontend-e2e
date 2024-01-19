@@ -18,17 +18,11 @@ import java.util.concurrent.TimeUnit;
 
 public class HelpdeskTest {
     private final WebDriver driver = Hooks.driver;
-
     private final DataPopulation dataPopulation = new DataPopulation();
-
     private final Logger logger = LoggerFactory.getLogger("HelpdeskAppTest");
-
     private HelpdeskPage helpdeskPage = new HelpdeskPage(this.driver);
     private Map<String, Object> datiTestHelpdesk = new HashMap<>();
-
     private Map<String, Object> datiPersonaFisica = new HashMap<>();
-
-
 
     @Given("Login helpdesk con utente test {string}")
     public void loginHelpdeskConUtenteTest(String nameFile) {
@@ -124,7 +118,6 @@ public class HelpdeskTest {
         this.datiPersonaFisica = this.dataPopulation.readDataPopulation(nameFile+".yaml");
         helpdeskPage.insertCfAndRicercaOnPage(datiPersonaFisica.get("codiceFiscale").toString());
     }
-
 
     @And("Nella Home di helpdesk utente clicca su logout")
     public void nellaHomeDiHelpdeskUtenteCliccaSuLogout() {

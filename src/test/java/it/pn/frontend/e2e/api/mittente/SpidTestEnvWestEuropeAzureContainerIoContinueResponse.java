@@ -19,32 +19,22 @@ import org.junit.Assert;
 import java.io.IOException;
 import java.util.List;
 
-public class SpidTestenvWesteuropeAzurecontainerIoLogin {
+public class SpidTestEnvWestEuropeAzureContainerIoContinueResponse {
 
-    private static final Logger logger = LoggerFactory.getLogger("SpidTestenvWesteuropeAzurecontainerIoLogin");
-
-    private String spidTestenvWesteuropeAzurecontainerIoLoginEndPoint;
+    private static final Logger logger = LoggerFactory.getLogger("SpidTestenvWesteuropeAzurecontainerIoContinueResponse");
+    private String spidTestEnvWestEuropeAzureContainerIoContinueResponseEndPoint;
     private final String requestKey;
-    private final String relayState;
-    private final String username;
-    private final String password;
     private final BasicCookieStore cookieStore;
     private String responseBody;
 
-    public SpidTestenvWesteuropeAzurecontainerIoLogin(String requestKey,
-                                                      String relayState,
-                                                      String username,
-                                                      String password,
-                                                      BasicCookieStore cookieStore){
-
+    public SpidTestEnvWestEuropeAzureContainerIoContinueResponse(
+            String requestKey, BasicCookieStore cookieStore
+    ){
         this.requestKey = requestKey;
-        this.relayState = relayState;
-        this.username = username;
-        this.password = password;
         this.cookieStore = cookieStore;
     }
 
-    public void runSpidTestenvWesteuropeAzurecontainerIoLogin(){
+    public void runSpidTestEnvWestEuropeAzureContainerIoContinueResponse(){
         CloseableHttpClient httpclient = HttpClients.custom().setDefaultCookieStore(this.cookieStore).build();
 
         HttpClientContext context = HttpClientContext.create();
@@ -52,22 +42,10 @@ public class SpidTestenvWesteuropeAzurecontainerIoLogin {
 
 
         ClassicHttpRequest httpPost = ClassicRequestBuilder
-                .post(this.spidTestenvWesteuropeAzurecontainerIoLoginEndPoint)
+                .post(this.spidTestEnvWestEuropeAzureContainerIoContinueResponseEndPoint)
                 .addHeader(HttpHeaders.CONTENT_TYPE,"application/x-www-form-urlencoded")
                 .addParameter("request_key",this.requestKey)
-                .addParameter("relay_state", this.relayState)
-                .addParameter("username", this.username)
-                .addParameter("password", this.password)
-                .addParameter("confirm","")
-                .addParameter("wrong_conditions_notbefore","")
-                .addParameter("wrong_conditions_notonorafter","")
-                .addParameter("wrong_subj_notonorafter","")
-                .addParameter("wrong_subj_notonorafter","")
-                .addParameter("spid_level","")
-                .addParameter("sign_assertion","on")
-                .addParameter("sign_message","on")
-                .addParameter("private_key","")
-                .addParameter("public_key","")
+                .addParameter("confirm", "")
                 .build();
         try {
             this.responseBody = httpclient.execute(httpPost, classicHttpResponse -> {
@@ -79,7 +57,7 @@ public class SpidTestenvWesteuropeAzurecontainerIoLogin {
                     logger.info(cookie.getPath());
                     logger.info(String.valueOf(cookie.isHttpOnly()));
                 }
-                Assert.assertEquals(this.spidTestenvWesteuropeAzurecontainerIoLoginEndPoint +" risponde con : "+classicHttpResponse.getCode(), classicHttpResponse.getCode(),200);
+                Assert.assertEquals( this.spidTestEnvWestEuropeAzureContainerIoContinueResponseEndPoint +" risponde con : "+classicHttpResponse.getCode(),classicHttpResponse.getCode(),200);
                 final HttpEntity entity = classicHttpResponse.getEntity();
                 String resultContent = EntityUtils.toString(entity);
                 logger.info(resultContent);
@@ -90,18 +68,21 @@ public class SpidTestenvWesteuropeAzurecontainerIoLogin {
         }
     }
 
-    public void setSpidTestenvWesteuropeAzurecontainerIoLoginEndPoint(String spidTestenvWesteuropeAzurecontainerIoLoginEndPoint) {
-        this.spidTestenvWesteuropeAzurecontainerIoLoginEndPoint = spidTestenvWesteuropeAzurecontainerIoLoginEndPoint;
+    public void setSpidTestEnvWestEuropeAzureContainerIoContinueResponseEndPoint(String spidTestEnvWestEuropeAzureContainerIoContinueResponseEndPoint) {
+        this.spidTestEnvWestEuropeAzureContainerIoContinueResponseEndPoint = spidTestEnvWestEuropeAzureContainerIoContinueResponseEndPoint;
     }
 
     public String getResponseBody() {
         return responseBody;
     }
 
-    public String getRequestKeyOutput(){
-        return this.doc().select("input[name='request_key']").attr("value");
+    public String getRelayStateOutput(){
+        return this.doc().select("input[name='RelayState']").attr("value");
     }
 
+    public String getSamlResponseOutput(){
+        return this.doc().select("input[name='SAMLResponse']").attr("value");
+    }
 
     private Document doc() {
         return Jsoup.parse(this.responseBody);

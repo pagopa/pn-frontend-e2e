@@ -53,9 +53,9 @@ public class CreazioneDelega {
                     return false;
                 }
             });
-        }catch (IOException e){
+        } catch (IOException e){
             return false;
-        }
+         }
         return this.responseBody!=null;
     }
 

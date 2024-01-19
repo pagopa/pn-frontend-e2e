@@ -6,8 +6,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.api.mittente.SpidAcsMittente;
 import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
-import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoContinueResponse;
-import it.pn.frontend.e2e.api.mittente.SpidTestenvWesteuropeAzurecontainerIoLogin;
+import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoContinueResponse;
+import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogin;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
@@ -31,20 +31,15 @@ public class LoginPGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("LoginPGPagoPATest");
     private final WebDriver driver = Hooks.driver;
     private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
-
     private Map<String, String> urlPersonaGiuridica;
-
     private final DataPopulation dataPopulation = new DataPopulation();
-
     private final HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
-
-    private final AcccediAreaRiservataPGPage acccediAreaRiservataPGPage = new AcccediAreaRiservataPGPage(this.driver);
-
+    private final AccediAreaRiservataPGPage accediAreaRiservataPGPage = new AccediAreaRiservataPGPage(this.driver);
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
 
     @Given("Login Page persona giuridica {string} viene visualizzata")
-    public void login_page_persona_giuridica_viene_visualizzata(String datiPersonaGiuridicaFile) {
+    public void loginPagePersonaGiuridicaVieneVisualizzata(String datiPersonaGiuridicaFile) {
         this.datiPersonaGiuridica = dataPopulation.readDataPopulation(datiPersonaGiuridicaFile + ".yaml");
         String variabileAmbiente = System.getProperty("environment");
         switch (variabileAmbiente) {
@@ -52,7 +47,7 @@ public class LoginPGPagoPATest {
             case "test", "uat" ->
                     this.driver.get(this.datiPersonaGiuridica.get("url").toString().replace("dev", variabileAmbiente));
             default ->
-                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Insaerisci in -Denvironment test o dev o uat");
+                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
     }
 
@@ -61,11 +56,11 @@ public class LoginPGPagoPATest {
         this.datiPersonaGiuridica = dataPopulation.readDataPopulation("personaGiuridica.yaml");
         String userMittente = this.datiPersonaGiuridica.get("user").toString();
         String pwdMittente = this.datiPersonaGiuridica.get("pwd").toString();
-        this.readurlPortaleMittente(userMittente, pwdMittente);
+        this.readUrlPortaleMittente(userMittente, pwdMittente);
         boolean urlWithTokenFound = false;
         int numProvaLogin = 0;
         while (numProvaLogin < 10) {
-            this.readurlPortaleMittente(userMittente, pwdMittente);
+            this.readUrlPortaleMittente(userMittente, pwdMittente);
             if (this.urlPersonaGiuridica.get("responseCode").equalsIgnoreCase("301")) {
                 urlWithTokenFound = true;
                 break;
@@ -100,13 +95,13 @@ public class LoginPGPagoPATest {
         impresaPage.clickAccediButton();
     }
 
-    private void readurlPortaleMittente(String user, String password) {
+    private void readUrlPortaleMittente(String user, String password) {
 
         SpidLoginMittente spidLoginMittente = new SpidLoginMittente("xx_testenv2", "SpidL2");
         spidLoginMittente.setSpidLoginMittenteEndPoint("https://api-pnpg.uat.selfcare.pagopa.it/spid/v1/login");
         spidLoginMittente.runSpidLoginMittente();
         if (spidLoginMittente.getResponseBody() == null) {
-            Assert.fail(" api spid login risponde con body vuoto");
+            Assert.fail("api spid login risponde con body vuoto");
         }
 
         String cookiesNameFromSpidLoginMittente = spidLoginMittente.getCookieName();
@@ -165,55 +160,55 @@ public class LoginPGPagoPATest {
         cookie.setHttpOnly(cookiesHttOnlyFromSpidLoginMittente);
         cookieStore.addCookie(cookie);
 
-        SpidTestenvWesteuropeAzurecontainerIoLogin spidTestenvWesteuropeAzurecontainerIoLogin =
-                new SpidTestenvWesteuropeAzurecontainerIoLogin(
+        SpidTestEnvWestEuropeAzureContainerIoLogin spidTestEnvWestEuropeAzureContainerIoLogin =
+                new SpidTestEnvWestEuropeAzureContainerIoLogin(
                         requestKeyFromSpidLoginMittente,
                         relayStateFromSpidLoginMittente,
                         user, password,
                         cookieStore
                 );
-        spidTestenvWesteuropeAzurecontainerIoLogin.setSpidTestenvWesteuropeAzurecontainerIoLoginEndPoint("https://selc-u-pnpg-spid-testenv.westeurope.azurecontainer.io/login");
-        spidTestenvWesteuropeAzurecontainerIoLogin.runSpidTestenvWesteuropeAzurecontainerIoLogin();
+        spidTestEnvWestEuropeAzureContainerIoLogin.setSpidTestEnvWestEuropeAzureContainerIoLoginEndPoint("https://selc-u-pnpg-spid-testenv.westeurope.azurecontainer.io/login");
+        spidTestEnvWestEuropeAzureContainerIoLogin.runSpidTestEnvWestEuropeAzureContainerIoLogin();
 
-        if (spidTestenvWesteuropeAzurecontainerIoLogin.getResponseBody() == null) {
+        if (spidTestEnvWestEuropeAzureContainerIoLogin.getResponseBody() == null) {
             Assert.fail(" api selc-u-spid-testenv.westeurope.azurecontainer.io/login ha risposto con body vuoto");
         }
 
-        String requestKeyFromSpidTestenvWesteuropeAzurecontainerIoLogin = spidTestenvWesteuropeAzurecontainerIoLogin.getRequestKeyOutput();
-        if (requestKeyFromSpidTestenvWesteuropeAzurecontainerIoLogin != null) {
-            logger.info("requestKeyFromSpidTestenvWesteuropeAzurecontainerIoLogin : " + requestKeyFromSpidTestenvWesteuropeAzurecontainerIoLogin);
+        String requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin = spidTestEnvWestEuropeAzureContainerIoLogin.getRequestKeyOutput();
+        if (requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin != null) {
+            logger.info("requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin : " + requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin);
         } else {
-            Assert.fail("requestKeyFromSpidTestenvWesteuropeAzurecontainerIoLogin is null");
+            Assert.fail("requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin is null");
         }
 
-        SpidTestenvWesteuropeAzurecontainerIoContinueResponse spidTestenvWesteuropeAzurecontainerIoContinueResponse =
-                new SpidTestenvWesteuropeAzurecontainerIoContinueResponse(
-                        requestKeyFromSpidTestenvWesteuropeAzurecontainerIoLogin, cookieStore
+        SpidTestEnvWestEuropeAzureContainerIoContinueResponse spidTestEnvWestEuropeAzureContainerIoContinueResponse =
+                new SpidTestEnvWestEuropeAzureContainerIoContinueResponse(
+                        requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin, cookieStore
                 );
 
-        spidTestenvWesteuropeAzurecontainerIoContinueResponse.setSpidTestenvWesteuropeAzurecontainerIoContinueResponseEndPoint("https://selc-u-pnpg-spid-testenv.westeurope.azurecontainer.io/continue-response");
-        spidTestenvWesteuropeAzurecontainerIoContinueResponse.runSpidTestenvWesteuropeAzurecontainerIoContinueResponse();
-        if (spidTestenvWesteuropeAzurecontainerIoContinueResponse.getResponseBody() == null) {
+        spidTestEnvWestEuropeAzureContainerIoContinueResponse.setSpidTestEnvWestEuropeAzureContainerIoContinueResponseEndPoint("https://selc-u-pnpg-spid-testenv.westeurope.azurecontainer.io/continue-response");
+        spidTestEnvWestEuropeAzureContainerIoContinueResponse.runSpidTestEnvWestEuropeAzureContainerIoContinueResponse();
+        if (spidTestEnvWestEuropeAzureContainerIoContinueResponse.getResponseBody() == null) {
             Assert.fail(" api selc-u-spid-testenv.westeurope.azurecontainer.io/continue-response");
         }
 
-        String samlResponseFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse = spidTestenvWesteuropeAzurecontainerIoContinueResponse.getSamlResponseOutput();
-        if (samlResponseFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse != null) {
-            logger.info("samlResponseFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse : " + samlResponseFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse);
+        String samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse = spidTestEnvWestEuropeAzureContainerIoContinueResponse.getSamlResponseOutput();
+        if (samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse != null) {
+            logger.info("samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse : " + samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse);
         } else {
-            Assert.fail("samlResponseFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse is null");
+            Assert.fail("samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse is null");
         }
 
-        String relayStateFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse = spidTestenvWesteuropeAzurecontainerIoContinueResponse.getRelayStateOutput();
-        if (relayStateFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse != null) {
-            logger.info("relayStateFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse : " + relayStateFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse);
+        String relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse = spidTestEnvWestEuropeAzureContainerIoContinueResponse.getRelayStateOutput();
+        if (relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse != null) {
+            logger.info("relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse : " + relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse);
         } else {
-            Assert.fail("relayStateFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse is null");
+            Assert.fail("relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse is null");
         }
 
         SpidAcsMittente spidAcsMittente = new SpidAcsMittente(
-                samlResponseFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse,
-                relayStateFromSpidTestenvWesteuropeAzurecontainerIoContinueResponse,
+                samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse,
+                relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse,
                 cookieStore
         );
 
@@ -239,6 +234,7 @@ public class LoginPGPagoPATest {
     @When("Login con persona giuridica {string}")
     public void loginConPersonaGiuridica(String nomeFile) {
         logger.info("La persona guiridica cerca di fare il login");
+
         this.datiPersonaGiuridica = this.dataPopulation.readDataPopulation(nomeFile + ".yaml");
 
         CookiesSection cookiesSection;
@@ -260,8 +256,8 @@ public class LoginPGPagoPATest {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
-        acccediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
-        acccediAreaRiservataPGPage.clickSpidButton();
+        accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
+        accediAreaRiservataPGPage.clickSpidButton();
 
         ScegliSpidPGPage scegliSpidPGPage = new ScegliSpidPGPage(this.driver);
         scegliSpidPGPage.clickTestButton();
@@ -288,8 +284,7 @@ public class LoginPGPagoPATest {
         headerPGSection.waitLoadHeaderPGPage();
         headerPGSection.clickEsciButton();
 
-        acccediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
-
+        accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
 
         try {
             TimeUnit.SECONDS.sleep(5);
@@ -303,11 +298,11 @@ public class LoginPGPagoPATest {
         this.datiPersonaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String userMittente = this.datiPersonaGiuridica.get("user").toString();
         String pwdMittente = this.datiPersonaGiuridica.get("pwd").toString();
-        this.readurlPortaleMittente(userMittente, pwdMittente);
+        this.readUrlPortaleMittente(userMittente, pwdMittente);
         boolean urlWithTokenFound = false;
         int numProvaLogin = 0;
         while (numProvaLogin < 10) {
-            this.readurlPortaleMittente(userMittente, pwdMittente);
+            this.readUrlPortaleMittente(userMittente, pwdMittente);
             if (this.urlPersonaGiuridica.get("responseCode").equalsIgnoreCase("301")) {
                 urlWithTokenFound = true;
                 break;
@@ -346,6 +341,7 @@ public class LoginPGPagoPATest {
     @When("Login portale persona giuridica tramite token exchange {string}")
     public void loginPortalePersonaGiuridicaTramiteTokenExchange(String dpFile) {
         logger.info("Si effettua il login PG tramite token");
+
         String variabileAmbiente = System.getProperty("environment");
         String urlIniziale = "https://imprese." + variabileAmbiente + ".notifichedigitali.it/#selfCareToken=";
         String token;
@@ -365,6 +361,5 @@ public class LoginPGPagoPATest {
         }
         String url = urlIniziale + token;
         this.driver.get(url);
-
     }
 }

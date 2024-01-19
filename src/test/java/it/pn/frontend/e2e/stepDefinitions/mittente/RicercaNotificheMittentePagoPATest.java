@@ -217,6 +217,7 @@ public class RicercaNotificheMittentePagoPATest {
     @And("Nella pagina Piattaforma Notifiche inserire la data invio notifica")
     public void nellaPaginaPiattaformaNotificheInserireLaDataInvioNotifica() {
         logger.info("Inserimento data invio notifica");
+
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
 
         Date date = Calendar.getInstance().getTime();
@@ -229,6 +230,7 @@ public class RicercaNotificheMittentePagoPATest {
     @And("Nella pagina piattaforma Notifiche selezionare lo stato notifica Depositata")
     public void nellaPaginaPiattaformaNotificheSelezionareLoStatoNotifica() {
         logger.info("Si seleziona lo stato notifica Depositata");
+
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
     }
@@ -265,8 +267,8 @@ public class RicercaNotificheMittentePagoPATest {
             logger.info("Il codice fiscale della notifica è uguale a quello selezionato");
 
         } else {
-            logger.error("Il codice fiscale della notifica NON sono uguali a quello selezionato");
-            Assert.fail("Il codice fiscale notifica NON sono uguali a quello selezionato");
+            logger.error("Il codice fiscale della notifica NON è uguale a quello selezionato");
+            Assert.fail("Il codice fiscale notifica NON è uguale a quello selezionato");
         }
 
         int results = piattaformaNotifichePage.controlloNumeroRisultatiDate();
@@ -375,8 +377,8 @@ public class RicercaNotificheMittentePagoPATest {
             logger.info("Il codice fiscale della notifica è uguale a quello selezionato");
 
         } else {
-            logger.error("Il codice fiscale della notifica NON sono uguali a quello selezionato");
-            Assert.fail("Il codice fiscale notifica NON sono uguali a quello selezionato");
+            logger.error("Il codice fiscale della notifica NON è uguale a quello selezionato");
+            Assert.fail("Il codice fiscale notifica NON è uguale  a quello selezionato");
         }
 
         int results = piattaformaNotifichePage.controlloNumeroRisultatiDate();
@@ -408,8 +410,8 @@ public class RicercaNotificheMittentePagoPATest {
             logger.info("Il codice fiscale della notifica è uguale a quello selezionato");
 
         } else {
-            logger.error("Il codice fiscale della notifica NON sono uguali a quello selezionato");
-            Assert.fail("Il codice fiscale notifica NON sono uguali a quello selezionato");
+            logger.error("Il codice fiscale della notifica NON è uguale  a quello selezionato");
+            Assert.fail("Il codice fiscale notifica NON è uguale  a quello selezionato");
         }
         int numeroStatoNotificha = piattaformaNotifichePage.getListStato(statoNotifica);
 

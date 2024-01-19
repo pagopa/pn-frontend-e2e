@@ -38,23 +38,15 @@ import java.util.concurrent.TimeUnit;
 
 public class Hooks {
     private static final Logger logger = LoggerFactory.getLogger("Hooks");
-
     public static WebDriver driver;
-
     public DevTools devTools;
-
     public Map<String, RequestWillBeSent> requests = new HashMap<>();
-
     public static List<NetWorkInfo> netWorkInfos = new ArrayList<>();
-
     private String headless;
-
     private final CookieConfig cookieConfig = new CookieConfig();
-
     private final String os = System.getProperty("os.name");
 
     protected void firefox() {
-
         WebDriverManager.firefoxdriver().setup();
         FirefoxProfile profile = new FirefoxProfile();
         FirefoxOptions firefoxOptions = new FirefoxOptions();
@@ -71,9 +63,7 @@ public class Hooks {
             driver.manage().window().maximize();
         }
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        //driver.get(this.url);
         logger.info("firefox driver started");
-
     }
 
     protected void chrome() {
@@ -107,8 +97,6 @@ public class Hooks {
 
         this.captureHttpRequests();
         this.captureHttpResponse();
-
-        //driver.get(this.url);
         logger.info("chromedriver started");
 
     }
@@ -122,7 +110,6 @@ public class Hooks {
                         cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
                     }
                     requests.put(request.getRequestId().toString(), request);
-//                    logger.info("Request URL : " + request.getRequest().getUrl());
                 }
         );
     }
@@ -160,13 +147,11 @@ public class Hooks {
 
 
     protected void edge() {
-
         if (this.os.toLowerCase().contains("windows")) {
             WebDriverManager.edgedriver().setup();
         } else {
-            Assert.fail("browser edge non capatibile con il os : " + this.os);
+            Assert.fail("browser edge non compatibile con il os : " + this.os);
         }
-
         EdgeOptions edgeOptions = new EdgeOptions();
         edgeOptions.setCapability("ms:inPrivate", true);
         if (this.headless != null && this.headless.equalsIgnoreCase("true")) {
@@ -179,15 +164,12 @@ public class Hooks {
         }
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        //driver.get(this.url);
         logger.info("edge driver started");
     }
 
     @Before
     public void startScenario(Scenario scenario) {
-
         logger.info("-------------------------------------------START SCENARIO: " + scenario.getName() + "------------------------------------------------");
-
         Collection<String> tags = scenario.getSourceTagNames();
         for (String tag : tags) {
             if (tag.startsWith("@TA_")) {
@@ -199,22 +181,18 @@ public class Hooks {
         logger.info("os type : " + this.os);
         logger.info("user language : " + System.getProperty("user.language"));
 
-
         String browser = null;
         if (System.getProperty("browser") == null) {
-            Assert.fail(" valorizzare la variabile browser");
+            Assert.fail("valorizzare la variabile browser");
         } else {
             browser = System.getProperty("browser");
         }
-
         if (System.getProperty("headless") != null) {
             this.headless = System.getProperty("headless");
         }
-
         if (System.getProperty("environment") == null) {
-            Assert.fail(" valorizzare la variabile environment");
+            Assert.fail("valorizzare la variabile environment");
         }
-
         switch (browser) {
             case "firefox" -> firefox();
             case "chrome" -> chrome();
@@ -241,31 +219,17 @@ public class Hooks {
         if (scenario.isFailed()) {
             logger.error("scenario go to error : " + scenario.getName());
             try {
-
                 File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-
                 byte[] screenshotByte = FileUtils.readFileToByteArray(screenshot);
-
                 Date date = Calendar.getInstance().getTime();
                 DateFormat formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
                 String today = formatter.format(date);
-
                 String testCaseFailed = "screenShots/" + scenario.getName() + "_" + today + ".png";
-
                 FileUtils.copyFile(screenshot, new File(testCaseFailed));
-
                 scenario.attach(screenshotByte, "image/png", scenario.getName());
-
             } catch (IOException e) {
                 logger.error(e.getCause().toString());
             }
-
-            /*
-            time out che serve per pulire la sessione
-
-
-             */
-
         }
 
         logger.info("quit driver");

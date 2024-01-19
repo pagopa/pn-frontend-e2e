@@ -20,20 +20,11 @@ public class SpidDemoStart {
     private static final Logger logger = LoggerFactory.getLogger("SpidDemoStart");
     private String spidDemoStartEndPoint;
     private String responseBody;
-
-    /*
-    parametri di input
-     */
     private final String samlRequestInput;
     private final String relayStateInput;
     private final String sigAlgInput;
     private final String signatureInput;
     private final String bindingInput;
-
-    /*
-    end parametri di input
-     */
-
 
     public SpidDemoStart (String samlRequestInput,
                           String relayStateInput,
@@ -68,7 +59,7 @@ public class SpidDemoStart {
                 logger.info(resultContent);
                 return resultContent;
             });
-        }catch (IOException e){
+        } catch (IOException e){
             Assert.fail(e.getMessage());
         }
     }

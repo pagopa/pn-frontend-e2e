@@ -25,13 +25,16 @@ public class BasePage {
     protected void scrollToElementClickAndInsertText(WebElement element, String text){
         try {
             if (!element.isDisplayed()) {
+                loggerBase.info("scroll elemento");
                 this.js().executeScript("arguments[0].scrollIntoView(true);", element);
             }
             this.js().executeScript("arguments[0].click()", element);
             if (text != null) {
+                loggerBase.info("inserimento testo");
                 element.sendKeys(text);
             }
         }catch (ElementNotInteractableException e){
+            loggerBase.error("elemento non interagibile");
             this.js().executeScript("arguments[0].click()", element);
             if (text != null) {
                 element.sendKeys(text);
@@ -51,11 +54,13 @@ public class BasePage {
             // makes the .clear() ineffective; cfr. https://github.com/SeleniumHQ/selenium/issues/6741.
             // About the second one I have no clue about why it does not work.
             element.sendKeys(Keys.END);
+            loggerBase.info("cancello testo");
             while (element.getAttribute("value").length() > 0) {
                 element.sendKeys(Keys.BACK_SPACE);
             }
             // now that the input is clear, we insert the new value
-            element.sendKeys(text);
+             loggerBase.info("inserisco nuovo testo");
+             element.sendKeys(text);
         };
 
         try {
@@ -106,7 +111,7 @@ public class BasePage {
     public void aggionamentoPagina(){
         this.driver.navigate().refresh();
     }
-    public void waitloadingSpinner(){
+    public void waitLoadingSpinner(){
         By loadingSpinnerBy = By.xpath("//span[@role = 'loadingSpinner']");
         getWebDriverWait(60).withMessage("la pagina è ancora in caricamento").until(ExpectedConditions.invisibilityOfElementLocated(loadingSpinnerBy));
     }

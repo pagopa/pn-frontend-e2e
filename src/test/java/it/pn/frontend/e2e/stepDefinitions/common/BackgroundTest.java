@@ -9,35 +9,21 @@ import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 public class BackgroundTest {
     private final String nomeFileDatiNotifica = "datiNotifica";
     private final String nomeFilePersonaFisica = "personaFisica";
-
     private final String nomeFilePG = "personaGiuridica";
-
     private final String nomeFileNuovaDelega = "nuova_delega";
-
     private final String nomeFileNuovaDelegaPG = "nuovaDelegaPG";
-
     private final String mittente = "mittente";
-
     private final DeleghePagoPATest deleghePagoPATest = new DeleghePagoPATest();
-
     private final RecapitiPersonaFisicaTest recapitiPersonaFisicaTest = new RecapitiPersonaFisicaTest();
-
     private final RecapitiPGPagoPaTest recapitiPGTest = new RecapitiPGPagoPaTest();
-
     private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
-
     private final LoginPersonaFisicaPagoPA personaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
-
     private final DeleghePGPagoPATest deleghePGPagoPATest = new DeleghePGPagoPATest();
-
     private final DisserviziAppPGTest disserviziAppPGTest = new DisserviziAppPGTest();
-
     private final HelpdeskTest helpdeskTest = new HelpdeskTest();
-
     private final NotifichePGPagoPATest notifichePGPagoPATest = new NotifichePGPagoPATest();
 
     public void invioNotificaErrorePec() {
-
         NotificaMittentePagoPATest notificaMittentePagoPATest = new NotificaMittentePagoPATest();
         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheSiRecuperaLUltimoNumeroProtocollo();
         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica();
@@ -71,18 +57,18 @@ public class BackgroundTest {
 
     public void loginPF(String nomeFileLogin) {
         personaFisicaPagoPA.loginPortaleDelegatoTramiteRequestMethod(nomeFileLogin);
-        personaFisicaPagoPA.home_page_destinatario_viene_visualizzata_correttamente();
-        deleghePagoPATest.wait_deleghe_Button();
+        personaFisicaPagoPA.homePageDestinatarioVieneVisualizzataCorrettamente();
+        deleghePagoPATest.waitDelegheButton();
         deleghePagoPATest.visualizzaDelegheSection();
     }
 
     public void loginPFRecapiti(String nomeFileLogin) {
         personaFisicaPagoPA.loginPortaleDelegatoTramiteRequestMethod(nomeFileLogin);
-        personaFisicaPagoPA.home_page_destinatario_viene_visualizzata_correttamente();
+        personaFisicaPagoPA.homePageDestinatarioVieneVisualizzataCorrettamente();
     }
 
     public void loginPG(String nomeFileLogin) {
-        loginPGPagoPATest.login_page_persona_giuridica_viene_visualizzata(nomeFileLogin);
+        loginPGPagoPATest.loginPagePersonaGiuridicaVieneVisualizzata(nomeFileLogin);
     }
 
     public void getStatoDellaPiattaformaPage() {
@@ -100,15 +86,15 @@ public class BackgroundTest {
     }
 
     public void logoutPF() {
-        personaFisicaPagoPA.logout_da_portale_destinatario();
+        personaFisicaPagoPA.logoutDaPortaleDestinatario();
     }
 
     public void accettazioneDelegaPF() {
-        deleghePagoPATest.wait_deleghe_Button();
+        deleghePagoPATest.waitDelegheButton();
         deleghePagoPATest.siSceglieOpzioneAccetta();
         deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp(nomeFileNuovaDelega);
         deleghePagoPATest.siCliccaSulBottoneAccetta();
-        deleghePagoPATest.siControllaCheLaDelegaALoStatoAttiva(nomeFilePersonaFisica);
+        deleghePagoPATest.siControllaCheLaDelegaHaLoStatoAttiva(nomeFilePersonaFisica);
     }
 
     public void aggiungaDelegaPG() {
@@ -224,7 +210,6 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequest(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiControllaCheLaPecAggiuntivaSiaStataInseritaCorrettamente();
-
     }
 
 }

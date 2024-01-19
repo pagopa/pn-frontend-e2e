@@ -29,19 +29,19 @@ public class ITuoiRecapitiPage extends BasePage {
         super(driver);
     }
 
-    public void ITuoiRecapitiButtonClick() {
+    public void iTuoiRecapitiButtonClick() {
         try {
             getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.iTuoiRecapitiButton));
             this.js().executeScript("arguments[0].click()", this.iTuoiRecapitiButton);
         } catch (TimeoutException e) {
-            logger.error(" il bottone i tuoi Recapiti non trovato o non è cliccabile: " + e.getMessage());
+            logger.error("il bottone i tuoi Recapiti non trovato o non è cliccabile: " + e.getMessage());
             Assert.fail("il bottone i tuoi Recapiti non trovato o non è cliccabile: " + e.getMessage());
         }
     }
 
     public void waitLoadITuoiRecapitiPage() {
         try {
-           By titlePageBy = By.xpath("//h4[contains(@id,'ecapiti-page')]");
+            By titlePageBy = By.xpath("//h4[contains(@id,'ecapiti-page')]");
             By subTitlePageBy = By.id("subtitle-page");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(subTitlePageBy));
@@ -72,7 +72,7 @@ public class ITuoiRecapitiPage extends BasePage {
 
 
 
-    public void  clickSalvaemail() {
+    public void clickSalvaEmail() {
         By salvaButtonBy = By.xpath("//button[contains(text(),'Salva')]");
         this.driver.findElement(salvaButtonBy).click();
     }
@@ -142,9 +142,8 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void selezionaTipoEmail() {
         this.tipoIndirizzoField.click();
-
         By opzionePEC = By.xpath("//li[@data-value ='EMAIL']");
-        this.getWebDriverWait(30).withMessage("Non è visibile l'opzione 'Indirizzo email'").until(ExpectedConditions.elementToBeClickable(opzionePEC));
+        this.getWebDriverWait(30).withMessage("Non è visibile l'opzione indirizzo email'").until(ExpectedConditions.elementToBeClickable(opzionePEC));
         this.element(opzionePEC).click();
     }
 
