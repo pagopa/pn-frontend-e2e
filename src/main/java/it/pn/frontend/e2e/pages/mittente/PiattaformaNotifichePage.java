@@ -265,7 +265,8 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selezionaNotificaIUN(String IUN) {
-        driver.navigate().to("https://selfcare.test.notifichedigitali.it/dashboard/"+IUN+"/dettaglio");
+        String variabileAmbiente = System.getProperty("environment");
+        driver.navigate().to("https://selfcare." + variabileAmbiente + ".notifichedigitali.it/dashboard/" + IUN + "/dettaglio");
     }
 
     public void selectInviaUnaNuovaNotificaButton() {

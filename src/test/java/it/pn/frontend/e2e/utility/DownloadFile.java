@@ -90,10 +90,9 @@ public class DownloadFile extends BasePage {
     }
 
     public boolean controlloEsistenzaCartella(File cartella) {
-
         return cartella.exists();
-
     }
+
     public String getUrl(String urlChiamata) {
         String url = "";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
@@ -102,7 +101,6 @@ public class DownloadFile extends BasePage {
                     logger.error("La chiamata "+netWorkInfo.getRequestUrl()+"ha risposto con questo codice: "+ netWorkInfo.getResponseStatus());
                 }
                 String values = netWorkInfo.getResponseBody();
-                logger.info("values: "+ values);
                 List<String> results = Splitter.on(CharMatcher.anyOf(",;:")).splitToList(values);
 
                 for (String result : results) {
@@ -123,6 +121,5 @@ public class DownloadFile extends BasePage {
             logger.error("Non è stata trovata la chiamata "+ urlChiamata);
         }
         return url;
-
     }
 }
