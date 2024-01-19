@@ -208,6 +208,8 @@ public class Hooks {
     @After
     public void endScenario(Scenario scenario) {
 
+        System.clearProperty("IUN");
+
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
             logger.info(netWorkInfo.getRequestId());
             logger.info(netWorkInfo.getRequestUrl());

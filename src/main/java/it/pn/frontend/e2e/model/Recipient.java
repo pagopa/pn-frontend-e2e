@@ -1,27 +1,26 @@
 package it.pn.frontend.e2e.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import it.pn.frontend.e2e.model.enums.RecipientTypeEnum;
 
 public class Recipient {
     private String denomination;
     private RecipientTypeEnum recipientType;
-    private String taxID;
+    private String taxId;
     private PhysicalAddress physicalAddress;
     private DigitalDomicile digitalDomicile;
 
     public Recipient() {
         this.denomination = "Gaio Giulio Cesare";
         this.recipientType = RecipientTypeEnum.PF;
-        this.taxID = "CSRGGL44L13H501E";
+        this.taxId = "CSRGGL44L13H501E";
         this.physicalAddress = new PhysicalAddress();
         this.digitalDomicile = new DigitalDomicile();
     }
 
-    public Recipient(String denomination, RecipientTypeEnum recipientType, String taxID, PhysicalAddress physicalAddress, DigitalDomicile digitalDomicile) {
+    public Recipient(String denomination, RecipientTypeEnum recipientType, String taxId, PhysicalAddress physicalAddress, DigitalDomicile digitalDomicile) {
         this.denomination = denomination;
         this.recipientType = recipientType;
-        this.taxID = taxID;
+        this.taxId = taxId;
         this.physicalAddress = physicalAddress;
         this.digitalDomicile = digitalDomicile;
     }
@@ -42,12 +41,12 @@ public class Recipient {
         this.recipientType = value;
     }
 
-    public String getTaxID() {
-        return taxID;
+    public String getTaxId() {
+        return taxId;
     }
 
-    public void setTaxID(String value) {
-        this.taxID = value;
+    public void setTaxId(String value) {
+        this.taxId = value;
     }
 
     public PhysicalAddress getPhysicalAddress() {

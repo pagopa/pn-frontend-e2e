@@ -102,6 +102,7 @@ public class DownloadFile extends BasePage {
                     logger.error("La chiamata "+netWorkInfo.getRequestUrl()+"ha risposto con questo codice: "+ netWorkInfo.getResponseStatus());
                 }
                 String values = netWorkInfo.getResponseBody();
+                logger.info("values: "+ values);
                 List<String> results = Splitter.on(CharMatcher.anyOf(",;:")).splitToList(values);
 
                 for (String result : results) {

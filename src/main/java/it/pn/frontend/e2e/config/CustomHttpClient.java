@@ -24,7 +24,6 @@ public class CustomHttpClient<RequestType, ResponseType> {
 
     private String apiKey;
 
-
     private final CloseableHttpClient httpClient;
     private ClassicHttpRequest httpRequest;
 
@@ -73,13 +72,19 @@ public class CustomHttpClient<RequestType, ResponseType> {
                     .build();
 
             return client.execute(httpRequest, response -> {
+                final HttpEntity entity;
+                final String responseString;
+                
                 if (response.getCode() == 200 || response.getCode() == 202) {
-                    final HttpEntity entity = response.getEntity();
-                    String responseString = EntityUtils.toString(entity);
+                    entity = response.getEntity();
+                    responseString = EntityUtils.toString(entity);
                     logger.info("Response body: " + responseString);
                     return convertJsonToObjectType(responseString, responseType);
                 } else {
+                    entity = response.getEntity();
+                    responseString = EntityUtils.toString(entity);
                     logger.error("Response code: " + response.getCode());
+                    logger.error("Response body: " + responseString);
                     throw new IOException("Error in HTTP request to " + apiUrl + ": " + response.getCode());
                 }
             });

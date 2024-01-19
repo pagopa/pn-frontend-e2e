@@ -35,17 +35,16 @@ public class NewNotifichePagoPATest {
             ArrayList<Document> documents = new ArrayList<>();
             documents.add(new Document());
             NewNotification notification = new NewNotification(DataPopulation.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
-
             NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification);
 
             if (response != null) {
                 logger.info("Notifica creata con successo");
+                System.setProperty("IUN", DataPopulation.decodeNotificationRequestId(response.getNotificationRequestId()));
                 return;
             } else {
                 logger.warn("Tentativo #" + attempt + " di creazione della notifica fallito. Riprovo...");
                 attempt++;
             }
-
         }
 
         logger.error("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
