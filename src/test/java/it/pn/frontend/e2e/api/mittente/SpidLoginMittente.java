@@ -18,7 +18,6 @@ import java.io.IOException;
 public class SpidLoginMittente {
 
     private static final Logger logger = LoggerFactory.getLogger("SpidLoginMittente");
-
     private final String entityID;
     private final String authLevel;
     private String spidLoginMittenteEndPoint;
@@ -57,7 +56,6 @@ public class SpidLoginMittente {
                 this.cookieHttpOnly = context.getCookieStore().getCookies().get(0).isHttpOnly();
                 return null;
             });
-
 
         } catch (IOException e) {
             Assert.fail(e.getMessage());

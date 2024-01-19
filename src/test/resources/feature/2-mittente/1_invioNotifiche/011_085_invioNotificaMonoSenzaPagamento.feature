@@ -10,7 +10,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
   @mittente
   @invioNotifiche
 
-  Scenario: Mittente genera una notifica senza pagamento
+  Scenario: PN-9645 - Mittente genera una notifica senza pagamento
     When Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari

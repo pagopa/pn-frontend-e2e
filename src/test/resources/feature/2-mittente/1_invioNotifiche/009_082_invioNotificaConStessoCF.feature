@@ -10,7 +10,7 @@ Feature: invio notifica con lo stesso codice fiscale
   @mittente
   @invioNotifiche
 
-  Scenario: il mittente invia la notifica con lo stesso codice fiscale
+  Scenario: PN-9643 - il mittente invia la notifica con lo stesso codice fiscale
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     And Nella section Informazioni preliminari inserire i dati della notifica "datiNotifica" senza pagamento

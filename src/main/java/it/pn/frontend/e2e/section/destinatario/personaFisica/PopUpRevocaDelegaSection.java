@@ -5,8 +5,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PopUpRevocaDelegaSection extends BasePage {
+    private static final Logger logger = LoggerFactory.getLogger("RevocaDelegaSection");
+
     @FindBy(id = "responsive-dialog-title")
     WebElement title;
 
@@ -24,6 +28,7 @@ public class PopUpRevocaDelegaSection extends BasePage {
 
     public void clickRevocaLaDelega() {
         this.getWebDriverWait(30).withMessage("Il bottone non viene cliccato con errore").until(ExpectedConditions.elementToBeClickable(this.revocaDialogAction));
+        logger.info("click revoca delega");
         this.revocaDialogAction.click();
     }
 

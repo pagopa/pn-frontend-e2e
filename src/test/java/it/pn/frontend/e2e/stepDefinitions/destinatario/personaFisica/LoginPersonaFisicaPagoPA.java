@@ -12,7 +12,7 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
 import it.pn.frontend.e2e.section.CookiesSection;
-import it.pn.frontend.e2e.section.destinatario.personaFisica.HeadeFRSection;
+import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderFRSection;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
@@ -28,15 +28,13 @@ public class LoginPersonaFisicaPagoPA {
 
     private static final Logger logger = LoggerFactory.getLogger("LoginPersonaFisicaPagoPA");
     private Map<String, Object> datiPersonaFisica;
-
     private Map<String, String> urlPersonaFisica;
     private final WebDriver driver = Hooks.driver;
-
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
     private Map<String, Object> datiDelegato;
 
     @Given("Login Page persona fisica {string} viene visualizzata")
-    public void login_page_destinatario_viene_visualizzata(String datipersonaFisica) {
+    public void loginPageDestinatarioVieneVisualizzata(String datipersonaFisica) {
         DataPopulation dataPopulation = new DataPopulation();
         this.datiPersonaFisica = dataPopulation.readDataPopulation(datipersonaFisica + ".yaml");
         String variabileAmbiente = System.getProperty("environment");
@@ -45,12 +43,12 @@ public class LoginPersonaFisicaPagoPA {
             case "test", "uat" ->
                     this.driver.get(this.datiPersonaFisica.get("url").toString().replace("dev", variabileAmbiente));
             default ->
-                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Insaerisci in -Denvironment test o dev o uat");
+                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
     }
 
     @When("Login con persona fisica {string}")
-    public void login_con_destinatario(String datipersonaFisica) {
+    public void loginConDestinatario(String datipersonaFisica) {
         logger.info("user persona fisica : " + this.datiPersonaFisica.get("user").toString());
         DataPopulation dataPopulation = new DataPopulation();
         this.datiPersonaFisica = dataPopulation.readDataPopulation(datipersonaFisica + ".yaml");
@@ -64,14 +62,10 @@ public class LoginPersonaFisicaPagoPA {
                 cookiesPage.selezionaAccettaTuttiButton();
             }
         }
-
         logger.info("cookies end");
-
-
-        AccediApiattaformaNotifichePage accediApiattaformaNotifichePage = new AccediApiattaformaNotifichePage(this.driver);
-        accediApiattaformaNotifichePage.waitLoadAccediApiattaformaNotifichePage();
+        AccediAPiattaformaNotifichePage accediApiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        accediApiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
         accediApiattaformaNotifichePage.selezionaAccediButton();
-
         if (!CookieConfig.isCookieEnabled()) {
             cookiesPage = new CookiesSection(this.driver);
             if (cookiesPage.waitLoadCookiesPage()) {
@@ -81,7 +75,7 @@ public class LoginPersonaFisicaPagoPA {
 
         ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.driver);
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
-        comeVuoiAccederePage.selezionareSpidButton();
+        comeVuoiAccederePage.selezionaSpidButton();
 
         ScegliSpidPFPage scegliSpidPFPage = new ScegliSpidPFPage(this.driver);
         scegliSpidPFPage.waitLoadScegliSpidDEPage();
@@ -103,7 +97,7 @@ public class LoginPersonaFisicaPagoPA {
             Assert.fail("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + this.datiPersonaFisica.get("name").toString());
         }
 
-        String cognomeUtenteLetto = confermaDatiSpidPFPage.leggiCogomeUtente();
+        String cognomeUtenteLetto = confermaDatiSpidPFPage.leggiCognomeUtente();
         if (cognomeUtenteLetto.equals(this.datiPersonaFisica.get("familyName").toString())) {
             logger.info("cognome utente letto : " + cognomeUtenteLetto + " uguale a : " + this.datiPersonaFisica.get("familyName").toString());
         } else {
@@ -120,12 +114,12 @@ public class LoginPersonaFisicaPagoPA {
         }
 
         confermaDatiSpidPFPage.selezionaConfermaButton();
-        HeadeFRSection headeFRSection = new HeadeFRSection(this.driver);
-        headeFRSection.waitUrlToken();
+        HeaderFRSection headerFRSection = new HeaderFRSection(this.driver);
+        headerFRSection.waitUrlToken();
     }
 
     @Then("Home page persona fisica viene visualizzata correttamente")
-    public void home_page_destinatario_viene_visualizzata_correttamente() {
+    public void homePageDestinatarioVieneVisualizzataCorrettamente() {
         CookiesSection cookiesSection;
 
         if (!CookieConfig.isCookieEnabled()) {
@@ -153,8 +147,8 @@ public class LoginPersonaFisicaPagoPA {
         } else {
             logger.warn("Http token persona fisica not found");
         }
-        HeadeFRSection headeFRSection = new HeadeFRSection(this.driver);
-        headeFRSection.waitLoadHeaderDESection();
+        HeaderFRSection headerFRSection = new HeaderFRSection(this.driver);
+        headerFRSection.waitLoadHeaderDESection();
 
         if (!CookieConfig.isCookieEnabled()) {
             cookiesSection = new CookiesSection(this.driver);
@@ -166,10 +160,10 @@ public class LoginPersonaFisicaPagoPA {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.waitLoadNotificheDEPage();
         if (notifichePFPage.verificaPresenzaCodiceIunTextField()) {
-            logger.info("text field codice ium presente");
+            logger.info("text field codice iun presente");
         } else {
-            logger.info("text field codice ium non presente");
-            Assert.fail("text field codice ium non presente");
+            logger.info("text field codice iun non presente");
+            Assert.fail("text field codice iun non presente");
         }
 
         try {
@@ -204,11 +198,11 @@ public class LoginPersonaFisicaPagoPA {
     }
 
     @And("Logout da portale persona fisica")
-    public void logout_da_portale_destinatario() {
-        HeadeFRSection headeFRSection = new HeadeFRSection(this.driver);
-        headeFRSection.waitLoadHeaderDESection();
-        headeFRSection.selezionaprofiloUtenteMenu();
-        headeFRSection.selezionaVoceEsci();
+    public void logoutDaPortaleDestinatario() {
+        HeaderFRSection headerFRSection = new HeaderFRSection(this.driver);
+        headerFRSection.waitLoadHeaderDESection();
+        headerFRSection.selezionaProfiloUtenteMenu();
+        headerFRSection.selezionaVoceEsci();
 
         ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.driver);
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
@@ -234,7 +228,6 @@ public class LoginPersonaFisicaPagoPA {
             Assert.fail("Spid Button nella pagina Come vuoi accedere portale persona fisica non visualizzato");
         }
 
-
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
@@ -246,18 +239,14 @@ public class LoginPersonaFisicaPagoPA {
         String variabileAmbiente = System.getProperty("environment");
         boolean urlFound = false;
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
-            //logger.info(netWorkInfo.getRequestId());
             logger.info(netWorkInfo.getRequestUrl());
-            //logger.info(netWorkInfo.getRequestMethod());
             logger.info(netWorkInfo.getResponseStatus());
-            //logger.info(netWorkInfo.getResponseBody());
             String urlToFind = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/token-exchange";
             urlFound = false;
             if (netWorkInfo.getRequestUrl().contains(urlToFind)) {
                 urlFound = true;
                 break;
             }
-
         }
         return urlFound;
     }
@@ -289,7 +278,6 @@ public class LoginPersonaFisicaPagoPA {
             Assert.fail("Codice risposta ricevuto per questo end point: '" + this.urlPersonaFisica.get("urlPortale") + "' è : " + this.urlPersonaFisica.get("responseCode"));
 
         }
-
 
         this.driver.get(this.urlPersonaFisica.get("urlPortale"));
     }
@@ -471,7 +459,6 @@ public class LoginPersonaFisicaPagoPA {
         } else {
             Assert.fail("url persona fisica è null ");
         }
-
     }
 
     @When("Login {string} portale persona fisica tramite request method")
@@ -503,9 +490,7 @@ public class LoginPersonaFisicaPagoPA {
         } else {
             logger.error("procedura di login from spid provata : " + numProvaLogin);
             Assert.fail("Codice risposta ricevuto per questo end point: '" + this.urlPersonaFisica.get("urlPortale") + "' è : " + this.urlPersonaFisica.get("responseCode"));
-
         }
-
 
         this.driver.get(this.urlPersonaFisica.get("urlPortale"));
     }
@@ -514,7 +499,7 @@ public class LoginPersonaFisicaPagoPA {
     public void loginPortalePersonaFisicaTramiteTokenExchange(String dpFile) {
         String variabileAmbiente = System.getProperty("environment");
         DataPopulation dataPopulation = new DataPopulation();
-        String urlInziale = "https://cittadini." + variabileAmbiente + ".notifichedigitali.it/#token=";
+        String urlIniziale = "https://cittadini." + variabileAmbiente + ".notifichedigitali.it/#token=";
         String user = dataPopulation.readDataPopulation(dpFile + ".yaml").get("user").toString();
         String token;
         if (user.equalsIgnoreCase("cesare")) {
@@ -531,7 +516,7 @@ public class LoginPersonaFisicaPagoPA {
                 token = dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPFDelegato").toString();
             }
         }
-        String url = urlInziale + token;
+        String url = urlIniziale + token;
         this.driver.get(url);
     }
 }

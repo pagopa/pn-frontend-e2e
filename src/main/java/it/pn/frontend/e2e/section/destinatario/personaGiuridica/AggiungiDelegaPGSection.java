@@ -15,7 +15,6 @@ public class AggiungiDelegaPGSection extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("AggiungiDelegaPGSection");
 
-
     @FindBy(id = "select-pg")
     WebElement personaGiuridicaButton;
 
@@ -38,7 +37,7 @@ public class AggiungiDelegaPGSection extends BasePage {
     WebElement codiceFiscaleInput;
 
     @FindBy(xpath = "//input[contains(@value,'entiSelezionati')]")
-    WebElement SoloEntiSelezionatiRadioButton;
+    WebElement soloEntiSelezionatiRadioButton;
 
     @FindBy(id ="enti")
     WebElement enteElementInput;
@@ -66,6 +65,7 @@ public class AggiungiDelegaPGSection extends BasePage {
 
     public void clickSulBottoneInviaRichiesta() {
         this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.inviaLaRichiestaButton));
+        logger.info("click invia richiesta pulsante");
         this.inviaLaRichiestaButton.click();
         this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.tornaDelegheButton));
         this.tornaDelegheButton.click();
@@ -91,16 +91,19 @@ public class AggiungiDelegaPGSection extends BasePage {
     }
 
     public void inserireCF(String cf) {
+        logger.info("inserimento cf");
         this.codiceFiscaleInput.sendKeys(cf);
     }
 
     public void selectSoloEntiSelezionati() {
-        this.SoloEntiSelezionatiRadioButton.click();
+        this.soloEntiSelezionatiRadioButton.click();
     }
 
     public void selezionaUnEnte(String ente) {
         this.getWebDriverWait(60).withMessage("il campo ente non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(this.enteElementInput));
+        logger.info("selezione e inserimento dati ente");
+
         this.enteElementInput.click();
         this.enteElementInput.sendKeys(ente);
 
@@ -128,7 +131,7 @@ public class AggiungiDelegaPGSection extends BasePage {
         return this.messaggioErroreData.getText();
     }
 
-    public void clearImputData() {
+    public void clearInputData() {
         getWebDriverWait(30).withMessage("Il campo data termine delega non è cliccabile ")
                 .until(ExpectedConditions.elementToBeClickable(this.dataTermineDelegaInput));
         this.dataTermineDelegaInput.click();
@@ -138,7 +141,7 @@ public class AggiungiDelegaPGSection extends BasePage {
         }
     }
 
-    public void selectpersonaGiuridicaRadioButton() {
+    public void selectPersonaGiuridicaRadioButton() {
         this.personaGiuridicaButton.click();
     }
 

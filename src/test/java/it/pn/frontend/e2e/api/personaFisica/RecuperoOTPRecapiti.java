@@ -16,12 +16,9 @@ public class RecuperoOTPRecapiti {
 
     private static final Logger logger = LoggerFactory.getLogger("RecuperoOTPRecapiti");
     private String startUrl;
-
     private final String urlEndPoint = "external-channels/verification-code/";
-
-    private String digitalAdress;
+    private String digitalAddress;
     private String responseBody;
-
     private int responseCode;
     public int getResponseCode() {
         return responseCode;
@@ -32,11 +29,11 @@ public class RecuperoOTPRecapiti {
     public void setResponseBody(String responseBody) {
         this.responseBody = responseBody;
     }
-    public String getDigitalAdress() {
-        return digitalAdress;
+    public String getDigitalAddress() {
+        return digitalAddress;
     }
-    public void setDigitalAdress(String digitalAdress) {
-        this.digitalAdress = digitalAdress;
+    public void setDigitalAddress(String digitalAddress) {
+        this.digitalAddress = digitalAddress;
     }
     public String getUrlEndPoint() {
         return urlEndPoint;

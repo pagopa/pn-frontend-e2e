@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class AutorizzaInvioDatiPGPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("AutorizzaInvioDatiPGPage");
+
     public AutorizzaInvioDatiPGPage(WebDriver driver) {
         super(driver);
     }
@@ -23,13 +24,10 @@ public class AutorizzaInvioDatiPGPage extends BasePage {
     public void waitLoadAutorizzaInvioDatiPGPage() {
         try {
             By titlePageBy = By.xpath("//h1[contains(text(),'Autorizzi')]");
-
             this.getWebDriverWait(30).withMessage("Il titolo della pagina autorizzi invio dati PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             this.getWebDriverWait(30).withMessage("Il bottone invia nella pagina autorizzi invio dati PG non è visibile").until(ExpectedConditions.elementToBeClickable(this.inviaButton));
-
             logger.info("AutorizzaInviaDatiPGPage caricata correttamente");
-
-        }catch (TimeoutException e){
+        } catch (TimeoutException e){
             logger.error("AutorizzaInviaDatiPGPage non caricata correttamente con errore: "+e.getMessage());
             Assert.fail("AutorizzaInviaDatiPGPage non caricata correttamente con errore: "+e.getMessage());
         }

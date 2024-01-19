@@ -109,6 +109,7 @@ public class AccettazioneRichiestaNotifica {
         String result = results.get(results.size()-1);
         return result.substring(1,result.length()-2);
     }
+
     public String getResponseReasonPhrase() {
         return responseReasonPhrase;
     }

@@ -25,15 +25,14 @@ import java.util.concurrent.TimeUnit;
 public class DownloadFileMittentePagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("DownloadFileMittentePagoPATest");
     private final WebDriver driver = Hooks.driver;
-
     private Map<String, Object> datiNotifica = new HashMap<>();
-
     private DownloadFile downloadFile;
 
 
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
     public void clickNotificaRestituita() {
         logger.info("Si clicca sulla notifica restituita");
+
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.selezionaNotifica();
     }
@@ -41,6 +40,7 @@ public class DownloadFileMittentePagoPATest {
     @And("Si visualizza correttamente la sezione Dettaglio Notifica")
     public void siVisualizzaCorrettamenteLaSezioneDettaglioNotifica() {
         logger.info("Viene caricato correttamente la sezione Dettaglio Notifica");
+
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
     }
@@ -48,6 +48,7 @@ public class DownloadFileMittentePagoPATest {
     @Then("Nella sezione Dettaglio Notifica si scaricano tutti i file presenti")
     public void downloadECheckFile() {
         logger.info("Si scaricano tutti i file all'interno della notifica");
+
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         DataPopulation dataPopulation = new DataPopulation();
@@ -63,7 +64,7 @@ public class DownloadFileMittentePagoPATest {
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         int count = 1;
 
-        dettaglioNotificaMittenteSection.waitloadingSpinner();
+        dettaglioNotificaMittenteSection.waitLoadingSpinner();
         String codiceIUN;
         String destinatario = dettaglioNotificaMittenteSection.getInfoNotifica(1);
         if (destinatario.contains("-")) {
@@ -122,10 +123,10 @@ public class DownloadFileMittentePagoPATest {
             dettaglioNotificaSection.waitLoadDettaglioNotificaDESection();
         }
 
-        int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponubili();
+        int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponibili();
 
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
-            dettaglioNotificaSection.clickLinkAttestazionipponibile(i);
+            dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
             try {
                 TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {
@@ -147,14 +148,15 @@ public class DownloadFileMittentePagoPATest {
             dettaglioNotificaSection.waitLoadDettaglioNotificaDESection();
         }
         count = count - 1;
-        final String pathOfdownloadedFile = workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente";
-        downloadFile.controlloDownload(pathOfdownloadedFile, count);
+        final String pathOfDownloadedFile = workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente";
+        downloadFile.controlloDownload(pathOfDownloadedFile, count);
 
     }
 
     @When("Cliccare sulla notifica restituita")
     public void cliccareSullaNotificaRestituita() {
         logger.info("Si clicca sulla notifica");
+
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.selezionaNotifica();
     }
@@ -196,12 +198,11 @@ public class DownloadFileMittentePagoPATest {
         if (!headless) {
             dettaglioNotificaMittenteSection.goBack();
         }
-
     }
 
     @Then("Si controlla il testo all interno del file {string}")
     public void siControllaIlTestoAlSuoInterno(String nomeFile) {
-        logger.info("Si controlla che il testo al suo interno si coretto");
+        logger.info("Si controlla che il testo al suo interno si corretto");
 
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         Map<String, String> infoNotifiche = dettaglioNotificaMittenteSection.recuperoInfoNotifiche();
@@ -250,7 +251,7 @@ public class DownloadFileMittentePagoPATest {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
-        piattaformaNotifichePage.waitloadingSpinner();
+        piattaformaNotifichePage.waitLoadingSpinner();
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPersonaGiuridica();
         DataPopulation dataPopulation = new DataPopulation();
 

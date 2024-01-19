@@ -17,6 +17,7 @@ public class DelegatiImpresaSection extends BasePage {
 
     @FindBy(id= "show-code-button")
     WebElement mostraCodiceOption;
+
     @FindBy(id = "revoke-delegation-button")
     WebElement revocaMenuButton;
 
@@ -31,26 +32,18 @@ public class DelegatiImpresaSection extends BasePage {
     @FindBy(id = "add-deleghe")
     WebElement addDelegheButton;
 
-
-
     public DelegatiImpresaSection(WebDriver driver) {
         super(driver);
     }
 
     public void waitLoadDelegatiImpresaPage() {
         try {
-
-
             this.getWebDriverWait(30).withMessage("il titolo della sezione deledati dall'impresa non è visibile").until(ExpectedConditions.visibilityOf(titlePageBy));
             this.getWebDriverWait(30).withMessage("il bottone aggiungi delega non è visibile").until(ExpectedConditions.visibilityOf(addDelegheButton));
-
             logger.info("Delegati dall'impresa caricata correttamente");
-
-        }catch (TimeoutException e){
-
+        } catch (TimeoutException e){
             logger.error("Delegati dall'impresa non caricata correttamente con errore: "+e.getMessage());
             Assert.fail("Delegati dall'impresa non caricata correttamente con errore: "+e.getMessage());
-
         }
     }
 
@@ -63,9 +56,8 @@ public class DelegatiImpresaSection extends BasePage {
            logger.error("bottone non trovato: "+e.getMessage());
            Assert.fail("bottone non trovato: "+e.getMessage());
         }
-
-
     }
+
     public void controlloCreazioneDelega(String ragioneSociale) {
         try{
             By delegaCreata = By.xpath("//td[@scope='col' and div/p[contains(text(),'"+ragioneSociale+"')]]/following-sibling::td[@scope='col']//div/div/span[contains(text(),'In attesa di conferma')]");
@@ -84,7 +76,7 @@ public class DelegatiImpresaSection extends BasePage {
             logger.info("Trovato correttamente almeno una delega");
             return true;
         }catch (TimeoutException e){
-            logger.warn("Non trovata alcuna delega");
+            logger.info("Non trovata alcuna delega");
             return false;
         }
     }
@@ -110,6 +102,7 @@ public class DelegatiImpresaSection extends BasePage {
     public void clickMostraCodice() {
         this.mostraCodiceOption.click();
     }
+
     public void clickRevocaMenuButtonPG(){
         try{
             logger.info("verifica esistenza bottone revoca");
@@ -125,16 +118,16 @@ public class DelegatiImpresaSection extends BasePage {
     public void waitPopUpRevoca() {
         try {
             By titlePopUpBy = By.xpath("//h5[contains(text(),'Vuoi revocare la delega ')]");
-
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePopUpBy));
-
             logger.info("Il pop-up revoca si visualizza correttamente");
-        }catch (TimeoutException e){
+        } catch (TimeoutException e){
             logger.error("Il pop-up revoca NON si visualizza correttamente con errore: "+e.getMessage());
             Assert.fail("Il pop-up revoca NON si visualizza correttamente con errore: "+e.getMessage());
         }
     }
 
+
+    //analizzare metodo ridontante con quello di riga 106
     public void clickRevocaButton() {
         this.revocaButton.click();
     }
@@ -142,4 +135,5 @@ public class DelegatiImpresaSection extends BasePage {
     public void clickAnnulla() {
         this.annullaButton.click();
     }
+
 }

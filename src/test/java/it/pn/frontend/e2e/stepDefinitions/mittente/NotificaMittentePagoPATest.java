@@ -40,13 +40,9 @@ public class NotificaMittentePagoPATest {
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
     private Map<String, Object> personaGiuridica = new HashMap<>();
     private Map<String, Object> personeFisiche = new HashMap<>();
-
     private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-
     private final DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
-
     private final DataPopulation dataPopulation = new DataPopulation();
-
     private final DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
@@ -64,6 +60,7 @@ public class NotificaMittentePagoPATest {
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche")
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche() {
         logger.info("Si visualizza correttamente la pagina Piattaforma Notifiche");
+
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
 
@@ -88,6 +85,7 @@ public class NotificaMittentePagoPATest {
 
     private int getCodiceRispostaChiamataApi(String urlChiamata) {
         logger.info("Recupero codice risposta della chiamata" + urlChiamata);
+
         int codiceRispostaChiamataApi = 0;
         for (NetWorkInfo chiamate : netWorkInfos) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
@@ -100,6 +98,7 @@ public class NotificaMittentePagoPATest {
 
     public String getNumeroProtocollo() {
         logger.info("Si recupera l'ultimo numero protocollo utilizzato");
+
         this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
         try {
             TimeUnit.SECONDS.sleep(5);
@@ -131,8 +130,9 @@ public class NotificaMittentePagoPATest {
     @And("Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica")
     public void nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica() {
         logger.info("Selezione bottone invia una nuova notifica");
+
         piattaformaNotifichePage.selectInviaUnaNuovaNotificaButton();
-        piattaformaNotifichePage.waitloadingSpinner();
+        piattaformaNotifichePage.waitLoadingSpinner();
     }
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari")
@@ -221,6 +221,7 @@ public class NotificaMittentePagoPATest {
     @And("Cliccare su continua")
     public void cliccareSuContinua() {
         logger.info("Cliccare sul bottone continua");
+
         InvioNotifichePAPage invioNotifichePAPage = new InvioNotifichePAPage(this.driver);
         invioNotifichePAPage.selezionareContinuaButton();
     }
@@ -228,6 +229,7 @@ public class NotificaMittentePagoPATest {
     @And("Aspetta {int} secondi")
     public void aspettaSecondi(int quantiSecondi) {
         logger.info("Aspetta " + quantiSecondi + " secondi");
+
         try {
             TimeUnit.SECONDS.sleep(quantiSecondi);
         } catch (Exception exc) {
@@ -285,6 +287,7 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionDestinatarioSettareComeCAP(String cap) {
         // this assumes that previously the test scenario enforces the destinatarioPASection to appear,
         // e.g. through siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionDestinatario
+
         destinatarioPASection.cambiareCodicePostale(cap);
     }
 
@@ -336,6 +339,7 @@ public class NotificaMittentePagoPATest {
 
     private void aggiornamentoNumeroProtocolloAllegati() {
         logger.info("Aggiornamento del numero protocollo");
+
         String nomeFile = "datiNotifica.yaml";
         String numeroProtocolloKey = "numeroProtocollo";
         DataPopulation dataPopulation = new DataPopulation();
@@ -435,7 +439,6 @@ public class NotificaMittentePagoPATest {
         logger.error("Il server ha impiegato troppo tempo nel generare la notifica");
         Assert.fail("Il server ha impiegato troppo tempo nel generare la notifica");
 
-
     }
 
     @And("Nella pagina Piattaforma Notifiche accetta i Cookies")
@@ -449,14 +452,12 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina dettaglio notifica cliccare sull'opzione vedi più dettagli")
     public void nellaPaginaDettaglioNotificaCliccareSullOpzioneVediPiuDettagli() {
-
         dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
         this.dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
     }
 
     @And("Si visualizza correttamente l elenco completo degli stati che la notifica ha percorso")
     public void siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso() {
-
         dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
         dettaglioNotificaMittenteSection.siVisualizzaPercosoNotifica();
 
@@ -471,7 +472,6 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche visualizzano correttamente i filtri di ricerca")
     public void nellaPaginaPiattaformaNotificheVisualizzanoCorrettamenteIFiltriDiRicerca() {
-
         piattaformaNotifichePage.siVisualizzaCorrettamenteIlCFField();
         piattaformaNotifichePage.siVisualizzaCorrettamenteIlCodiceIUNField();
         piattaformaNotifichePage.siVisualizzaCorrettamenteLoStatoField();
@@ -495,8 +495,8 @@ public class NotificaMittentePagoPATest {
             logger.error("I codici fiscali delle notifiche non vengono visualizzati correttamente");
             Assert.fail("I codici fiscali delle notifiche non vengono visualizzati correttamente");
         }
-        List<WebElement> listeOggetti = piattaformaNotifichePage.ricercaListaOggetti();
-        if (listeOggetti != null && listeOggetti.size() >= 1) {
+        List<WebElement> listaOggetti = piattaformaNotifichePage.ricercaListaOggetti();
+        if (listaOggetti != null && listaOggetti.size() >= 1) {
             logger.info("La lista degli oggetti viene visualizzata correttamente");
         } else {
             logger.error("La lista degli oggetti non viene visualizzata correttamente");
@@ -528,6 +528,7 @@ public class NotificaMittentePagoPATest {
     @Then("Nella section Destinatario viene visualizzato un solo destinatario")
     public void nellaSectionDestinatarioVieneVisualizzatoUnSoloDestinatario() {
         logger.info("Verifica visualizzazione di un solo destinatario");
+
         if (destinatarioPASection.verificaNumeroDestinatari()) {
             logger.info("Viene visualizzato un solo destinatario");
         } else {
@@ -554,10 +555,10 @@ public class NotificaMittentePagoPATest {
 
         String nNotificheInviate = piattaformaNotifichePage.numeroNotifiche();
         if (nNotificheInviate.equals("10")) {
-            logger.info("Il numero di notifiche e corretto");
+            logger.info("Il numero di notifiche é corretto");
         } else {
-            logger.error("Il numero di notifiche non e coretto");
-            Assert.fail("Il numero di notifiche non e coretto");
+            logger.error("Il numero di notifiche non é corretto");
+            Assert.fail("Il numero di notifiche non é corretto");
         }
     }
 
@@ -581,7 +582,6 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche si controlla che vengano visualizzate tutte notifiche")
     public void nellaPaginaPiattaformaNotificheSiControllaCheVenganoVisualizzateTutteNotifiche() {
-
         piattaformaNotifichePage.waitLoadPage();
         int numeroRighe = piattaformaNotifichePage.getNRighe();
         if (numeroRighe > 10) {
@@ -594,7 +594,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella section Destinatario cliccare su Aggiungi destinatario")
     public void nellaSectionDestinatarioCliccareSuAggiungiDestinatario() {
-        logger.info("Si sta cercando di selezionare il bottone aiggiungere Destinatario");
+        logger.info("Si sta cercando di selezionare il bottone aggiungere Destinatario");
 
         destinatarioPASection.selezionareAggiungiDestinatarioButton();
     }
@@ -643,12 +643,8 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionDestinatarioSiInserisceLoStessoDestinatarioDiPrima(String dpFile) {
         logger.info("Si inserisce lo stesso destinatario di prima");
 
-
         this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
-
         destinatarioPASection.inserimentoMultiDestinatario(personaFisica, 1);
-
     }
 
     @Then("Si visualizza correttamente l errore di stesso codice fiscale")
@@ -705,7 +701,7 @@ public class NotificaMittentePagoPATest {
         DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
         String dataNotifica = dateFormat.format(date).replace("-", "/");
 
-        String coidiceIUNOld = this.datiNotifica.get("codiceIUN").toString();
+        String codiceIUNOld = this.datiNotifica.get("codiceIUN").toString();
         CookiesSection cookiesSection = new CookiesSection(this.driver);
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
@@ -723,7 +719,7 @@ public class NotificaMittentePagoPATest {
             piattaformaNotifichePage.waitLoadRefreshPage();
             String codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
             if (!codiceIUN.equals("")) {
-                if (!codiceIUN.equals(coidiceIUNOld)) {
+                if (!codiceIUN.equals(codiceIUNOld)) {
                     this.datiNotifica.put("codiceIUN", codiceIUN);
                     dataPopulation.writeDataPopulation("datiNotifica.yaml", this.datiNotifica);
                     logger.info("Stato notifica uguale a Depositata e codice IUN aggiornato correttamente");
@@ -760,13 +756,13 @@ public class NotificaMittentePagoPATest {
         logger.info("Si inserisce l'oggetto della notifica errato");
 
         Map<String, Object> datiNotificaErrore1 = dataPopulation.readDataPopulation(datiNotificaErrore + ".yaml");
-
         piattaformaNotifichePage.inserimentoOggettoNotificaErrato(datiNotificaErrore1.get("oggettoDellaNotifica").toString());
     }
 
     @And("Nella section Informazioni preliminari si visualizza un messaggio di errore")
     public void nellaSectionInformazioniPreliminariSiVisualizzaUnMessaggioDiErrore() {
         logger.info("Si verifica sia presente un messaggio di errore");
+
         if (piattaformaNotifichePage.errorMessage()) {
             logger.info("Si visualizza correttamente il messaggio di errore");
         } else {
@@ -778,28 +774,32 @@ public class NotificaMittentePagoPATest {
     @And("Nella section cliccare sul tasto indietro")
     public void nellaSectionInformazioniPreliminariCliccareSulTastoIndietro() {
         logger.info("Si clicca sul tasto indietro");
+
         piattaformaNotifichePage.clickIndietroButton();
     }
 
     @And("Nella section si visualizza il popup vuoi uscire")
     public void nellaSectionInformazioniPreliminariSiVisualizzaIlPopupVuoiUscire() {
-        logger.info("Si verifica sia presente il pop up vuoi uscire");
+        logger.info("Si verifica sia presente il pop-up vuoi uscire");
+
         piattaformaNotifichePage.vuoiUscirePopUp();
     }
 
     @And("Nella section cliccare sul tasto esci")
     public void nellaSectionInformazioniPreliminariCliccareSulTastoEsci() {
         logger.info("Si clicca sul tasto esci");
+
         piattaformaNotifichePage.clickSuEsci();
     }
 
     @And("Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica {string}")
     public void nellaSectionDestinatarioInserireRagioneSocialeEPartitaIVADallaPersonaGiuridica(String personaGiuridica) {
         logger.info("Si inserisce la ragione sociale e la partita iva della persona giuridica");
+
         this.personaGiuridica = dataPopulation.readDataPopulation(personaGiuridica + ".yaml");
 
         destinatarioPASection.insertRagioneSociale(this.personaGiuridica.get("ragioneSociale").toString());
-        destinatarioPASection.insertpartitaIva(this.personaGiuridica.get("codiceFiscale").toString());
+        destinatarioPASection.insertPartitaIva(this.personaGiuridica.get("codiceFiscale").toString());
     }
 
     @And("Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona giuridica {string}")
@@ -833,6 +833,7 @@ public class NotificaMittentePagoPATest {
     @And("Nella section Destinatario inserire i dati errati dalla persona giuridica {string}")
     public void nellaSectionDestinatarioInserireIDatiErratiDallaPersonaGiuridica(String personaGiuridicaErrore) {
         logger.info("Si inseriscono i dati errati per persona giuridica");
+
         Map<String, Object> personaGiuridicaErrore1 = dataPopulation.readDataPopulation(personaGiuridicaErrore + ".yaml");
 
         destinatarioPASection.checkBoxAggiungiDomicilio();
@@ -840,13 +841,14 @@ public class NotificaMittentePagoPATest {
         Assert.assertEquals("l'errore  attuale 'Indirizzo PEC non valido' è diverso di :" + destinatarioPASection.getDomicilioDigitaleError(), "Indirizzo PEC non valido", destinatarioPASection.getDomicilioDigitaleError());
 
         destinatarioPASection.insertCodiceFiscaleErrato(personaGiuridicaErrore1.get("codiceFiscale").toString());
-        Assert.assertEquals("l'errore  attuale 'Il valore inserito non è corretto' è diverso di :" + destinatarioPASection.getcodiceFiscaleError(), "Il valore inserito non è corretto", destinatarioPASection.getcodiceFiscaleError());
+        Assert.assertEquals("l'errore  attuale 'Il valore inserito non è corretto' è diverso di :" + destinatarioPASection.getCodiceFiscaleError(), "Il valore inserito non è corretto", destinatarioPASection.getCodiceFiscaleError());
 
     }
 
     @And("Nella section Allegati caricare l'atto e inserire il nome atto con estenzione non valida")
     public void nellaSectionAllegatiCaricareLAttoEInserireIlNomeAttoConEstenzioneNonValida() {
         logger.info("Si inserisce un file con estensione sbagliata");
+
         AllegatiPASection allegatiPASection = new AllegatiPASection(this.driver);
         String pathDocumentiFile = System.getProperty("user.dir") + "/src/test/resources/dataPopulation/fileUpload/semiOfficial1.jpg";
         allegatiPASection.caricareNotificaPdfDalComputer(pathDocumentiFile);
@@ -855,6 +857,7 @@ public class NotificaMittentePagoPATest {
     @Then("Si visualizza correttamente il messaggio di errore estensione file non supportata. Riprovare con un altro file.")
     public void siVisualizzaCorrettamenteIlMessaggioDiErroreEstensioneFileNonSupportataRiprovareConUnAltroFile() {
         logger.info("Si controlla che si vede il messaggio di errore");
+
         if (piattaformaNotifichePage.estensioneSbagliataErrore()) {
             logger.info("Si visualizza correttamente il messaggio di errore: Estensione file non supportata. Riprovare con un altro file.");
         } else {
@@ -908,7 +911,7 @@ public class NotificaMittentePagoPATest {
         String dataNotifica = dateFormat.format(date).replace("-", "/");
         String codiceFiscale = this.personaFisica.get("codiceFiscale").toString();
 
-        String coidiceIUNOld = this.datiNotifica.get("codiceIUN").toString();
+        String codiceIUNOld = this.datiNotifica.get("codiceIUN").toString();
         CookiesSection cookiesSection = new CookiesSection(this.driver);
         String codiceIUN = "";
         for (int i = 0; i < 12; i++) {
@@ -927,7 +930,7 @@ public class NotificaMittentePagoPATest {
             piattaformaNotifichePage.waitLoadRefreshPage();
             codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
             if (!codiceIUN.equals("")) {
-                if (!codiceIUN.equals(coidiceIUNOld)) {
+                if (!codiceIUN.equals(codiceIUNOld)) {
                     this.datiNotifica.put("codiceIUN", codiceIUN);
                     dataPopulation.writeDataPopulation("datiNotificaPG.yaml", this.datiNotifica);
                     logger.info("Stato notifica uguale a Depositata e codice IUN aggiornato correttamente");
@@ -1069,7 +1072,7 @@ public class NotificaMittentePagoPATest {
         if (foundRequestWithUndesiredStatus) {
             logger.error("NotificationRequestId non trovato, il codice della risposta al POST sull'url " + urlNotificationRequest + " è diverso di 202 ");
         } else {
-            logger.error("NotificationRequestId non trovato, non ci sono trovate chiamate POST per la url " + urlNotificationRequest);
+            logger.error("NotificationRequestId non trovato, non sono state trovate chiamate POST per la url " + urlNotificationRequest);
         }
         return null;
     }
@@ -1134,27 +1137,29 @@ public class NotificaMittentePagoPATest {
     @And("Nella pagina Piattaforma Notifiche inserire il codice fiscale sbagliato {string}")
     public void inserimentoCodiceFiscaleSbagliato(String codiceFiscaleSbagliato) {
         logger.info("inserimento codice fiscale sbagliato nella ricerca di una notifica");
+
         piattaformaNotifichePage.insertCodiceFiscale(codiceFiscaleSbagliato);
         piattaformaNotifichePage.selectFiltraButton();
-
     }
 
     @Then("Nella pagina Piattaforma Notifiche si controlla che si visualizza il messaggio di errore codice fiscale")
     public void nellaPiattaformaNotificheSiControllaEsistenzaMessaggioErroreCF() {
         logger.info("si controlla che si visualizza il messaggio di errore ‘Inserisci il codice per intero’ ");
-        Assert.assertTrue("Nessun errore visualizzato insirendo CF sbagliato", piattaformaNotifichePage.controlloEsistenzaMessagioErroreCF());
 
+        Assert.assertTrue("Nessun errore visualizzato insirendo CF sbagliato", piattaformaNotifichePage.controlloEsistenzaMessagioErroreCF());
     }
 
     @And("Nella pagina Piattaforma Notifiche si controlla che il bottone Filtra sia attivo")
     public void nellaPaginaPiattaformaNotificheSiControllacheFiltraSiaDisattivo() {
         logger.info("Si controlla che il bottone Filtra sia attivo");
+
         Assert.assertFalse("il bottone Filtra è disabilitato", piattaformaNotifichePage.verificaBottoneFiltraDisabilitato());
     }
 
     @And("Nella pagina Piattaforma Notifiche inserire il codice IUN sbagliato {string}")
     public void nellaPaginaPiattaformaNotificheInserireIUNsbagliato(String codiceIUNSbagliato) {
         logger.info("Inserimento codice IUN sbagliato");
+
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUNSbagliato);
         piattaformaNotifichePage.selectFiltraButton();
     }
@@ -1162,6 +1167,7 @@ public class NotificaMittentePagoPATest {
     @Then("Nella pagina Piattaforma Notifiche si visualizza il messaggio di errore codice IUN")
     public void nellaPaginaPiattaformaNotificheSiVisualizzaIlMessaggioDiErroreIUN() {
         logger.info("si controlla esistenza messaggio di errore codice IUN");
+
         Assert.assertTrue("Nessun errore visualizzato insirendo IUN sbagliato", piattaformaNotifichePage.controlloEsistenzaMessagioErroreIUN());
         logger.info("Messaggio di errore 'Inserisci un codice IUN valido' trovato");
     }
@@ -1169,6 +1175,7 @@ public class NotificaMittentePagoPATest {
     @Then("Nella section si visualizza correttamente i campi vuoti")
     public void nellaSectionSiVisualizzaCorrettamenteICampiVuoti() {
         logger.info("Si verifica che i campi sono vuoti");
+
         if (piattaformaNotifichePage.verificaCampiPreliminariNotificaVuoti()) {
             logger.info("I campi sono vuoti");
         } else {

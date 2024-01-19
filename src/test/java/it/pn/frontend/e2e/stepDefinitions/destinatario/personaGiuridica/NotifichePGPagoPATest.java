@@ -26,7 +26,6 @@ import java.util.concurrent.TimeUnit;
 public class NotifichePGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("NotifichePGPagoPATest");
     private final WebDriver driver = Hooks.driver;
-
     List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
     DataPopulation dataPopulation = new DataPopulation();
     Map<String, Object> personaGiuridica = new HashMap<>();
@@ -35,6 +34,7 @@ public class NotifichePGPagoPATest {
     @And("Nella Home page persona giuridica si clicca su Send Notifiche Digitali")
     public void clickSendNotificheDigitali() {
         this.logger.info("Si clicca su Send Notifiche Digitali");
+
         HomePagePG homePagePG = new HomePagePG(this.driver);
         homePagePG.waitLoadHomePagePGPage();
         String variabileAmbiente = System.getProperty("environment");
@@ -42,7 +42,7 @@ public class NotifichePGPagoPATest {
             case "dev" -> homePagePG.clickSendNotificheDigitali(5);
             case "test" -> homePagePG.clickSendNotificheDigitali(6);
             default ->
-                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Insaerisci in -Denvironment test o dev o uat");
+                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
     }
 
@@ -51,7 +51,6 @@ public class NotifichePGPagoPATest {
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica(String dpFile) {
         personaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         if (!CookieConfig.isCookieEnabled()) {
-            logger.info("SONO ENTRATO");
             CookiesSection cookiesSection = new CookiesSection(this.driver);
             if (cookiesSection.waitLoadCookiesPage()) {
                 logger.info("Si accettano i cookies");
@@ -75,6 +74,7 @@ public class NotifichePGPagoPATest {
 
     private int getCodiceRispostaChiamataApi(String urlChiamata) {
         logger.info("Recupero codice risposta della chiamata" + urlChiamata);
+
         int codiceRispostaChiamataApi = 0;
         for (NetWorkInfo chiamate : netWorkInfos) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
@@ -85,16 +85,17 @@ public class NotifichePGPagoPATest {
         return codiceRispostaChiamataApi;
     }
 
-
     @When("Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaClickSulBottoneDeleghe() {
         logger.info("Si clicca sul bottone Deleghe");
+
         piattaformaNotifichePGPAPage.clickSuDelegeButton();
     }
 
     @And("Nella Pagina Notifiche persona giuridica si clicca su notifiche delegate")
     public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSuNotificheDelegate() {
         logger.info("Si clicca correttamente su notifiche delegate");
+
         piattaformaNotifichePGPAPage.clickNotificheDelegate();
     }
 
@@ -107,13 +108,14 @@ public class NotifichePGPagoPATest {
     @When("Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaSiCliccaSulBottoneITuoiRecapiti() {
         logger.info("Si clicca sulla voce recapiti nel menu");
+
         piattaformaNotifichePGPAPage.clickRecapitiButton();
     }
 
     @Then("Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona giuridica, e si controlla che il download sia avvenuto {string}")
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaPersonaGiuridicaESiControllaCheIlDownloadSiaAvvenuto(String dpFile) {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponubili();
+        int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponibili();
         DownloadFile downloadFile = new DownloadFile(this.driver);
         DataPopulation dataPopulation = new DataPopulation();
         Map<String, Object> datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
@@ -124,7 +126,7 @@ public class NotifichePGPagoPATest {
             pathCartella.mkdirs();
         }
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
-            dettaglioNotificaSection.clickLinkAttestazionipponibile(i);
+            dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
             try {
                 TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {

@@ -7,7 +7,6 @@ public class NetWorkInfo {
     private String requestMethod;
     private String responseStatus;
     private String responseBody;
-
     private String authorizationBearer;
 
     public String getAuthorizationBearer() {
@@ -57,6 +56,5 @@ public class NetWorkInfo {
     public void setResponseBody(String responseBody) {
         this.responseBody = responseBody;
     }
-
 
 }

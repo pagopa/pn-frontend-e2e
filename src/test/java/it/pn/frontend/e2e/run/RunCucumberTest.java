@@ -29,7 +29,6 @@ public class RunCucumberTest {
     private static final String TEST_CONFIG_FILE = "test-config.properties";
     private static final Properties properties = new Properties();
     private static final Logger logger = LoggerFactory.getLogger("RunCucumberTest");
-
     private static String testSuite;
 
     private static boolean loadProperties() {
@@ -61,17 +60,12 @@ public class RunCucumberTest {
         } else {
             logger.info("run tutti i test");
         }
-
         logger.info("start the test suite = " + testSuite);
     }
 
-
     @AfterClass
     public static void finishTestSuite() {
-
         logger.info("finish the test suite = " + testSuite);
-
-
     }
 }
 

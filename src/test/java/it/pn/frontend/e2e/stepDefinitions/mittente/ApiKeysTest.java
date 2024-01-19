@@ -19,9 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class ApiKeysTest {
 
     private static final Logger logger = LoggerFactory.getLogger("ApiKeysTest");
-
     private final WebDriver driver = Hooks.driver;
-
     private final ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
 
     @And("Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu")
@@ -95,6 +93,7 @@ public class ApiKeysTest {
     @Then("Si visualizza correttamente l api key {string} nell elenco in stato attivo")
     public void siVisualizzaCorrettamenteLApiKeyNellElencoInStatoAttivo(String nomeApiKey) {
         logger.info("Si controlla che sia stato creata l'api key");
+
         ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
         apiKeyPAPage.waitLoadApikeyPage();
         apiKeyPAPage.siVisualizzaNuovaApiAttiva(nomeApiKey);
@@ -102,87 +101,72 @@ public class ApiKeysTest {
 
     @When("Nella pagina Api Key si clicca sul bottone menu di una Api Key attiva presente in elenco")
     public void nellaPaginaApiKeySiCliccaSulBottoneMenuDiUnaApiKeyAttivaPresenteInElenco() {
-
         apiKeyPAPage.clickMenuButton();
     }
 
     @And("Nella pagina Api Key si clicca sulla voce blocca del menu Api Key")
     public void nellaPaginaApiKeySiCliccaSullaVoceBloccaDelMenuApiKey() {
-
         apiKeyPAPage.clickSuBlocca();
     }
 
     @And("Nella pagina Api Key si visualizza il pop up blocca Api Key")
     public void nellaPaginaApiKeySiVisualizzaIlPopUpBloccaApiKey() {
-
         apiKeyPAPage.siVisualizzaPopUp();
     }
 
     @And("Nella pop up cliccare sul tasto annulla")
     public void nellaPopUpCliccareSulTastoAnnulla() {
-
         apiKeyPAPage.clickSuAnnulla();
     }
 
     @And("Nella pop up cliccare sul tasto conferma")
     public void nellaPopUpCliccareSulTastoConferma() {
-
         apiKeyPAPage.clickSuConfermaNelPopUp();
     }
 
     @Then("Nella pagina Api Key si visualizza la notifica selezionata nello stato bloccata")
     public void nellaPaginaApiKeySiVisualizzaLaNotificaSelezionataNelloStatoBloccata() {
-
         apiKeyPAPage.notificaSelezionataStatoBloccata();
     }
 
     @When("Nella pagina Api Key si clicca sul bottone menu di una Api Key bloccata presente in elenco")
     public void nellaPaginaApiKeySiCliccaSulBottoneMenuDiUnaApiKeyBloccataPresenteInElenco() {
-
         apiKeyPAPage.clickMenuButtonBlocca();
     }
 
 
     @And("Nella pagina Api Key si clicca sulla voce attiva del menu Api Key")
     public void nellaPaginaApiKeySiCliccaSullaVoceAttivaDelMenuApiKey() {
-
         apiKeyPAPage.clickAttivaSulMenu();
     }
 
     @And("Nella pagina Api Key si visualizza il pop up attiva Api Key")
     public void nellaPaginaApiKeySiVisualizzaIlPopUpAttivaApiKey() {
-
         apiKeyPAPage.siVisualizzaPoPUpAttiva();
     }
 
     @Then("Nella pagina Api Key si visualizza la notifica selezionata nello stato attiva")
     public void nellaPaginaApiKeySiVisualizzaLaNotificaSelezionataNelloStatoAttiva() {
-
         apiKeyPAPage.siVisualizzaNotificaSelezionataBloccata();
     }
 
     @And("Nella pagina Api Key si clicca sulla voce ruota del menu Api Key")
     public void nellaPaginaApiKeySiCliccaSullaVoceRuotaDelMenuApiKey() {
-
         apiKeyPAPage.clickRuotaSulMenu();
     }
 
     @And("Nella pagina Api Key si visualizza il pop up ruota Api Key")
     public void nellaPaginaApiKeySiVisualizzaIlPopUpRuotaApiKey() {
-
         apiKeyPAPage.siVisualizzaPoPUpRuota();
     }
 
     @Then("Nella pagina Api Key si visualizza la notifica selezionata nello stato ruota")
     public void nellaPaginaApiKeySiVisualizzaLaNotificaSelezionataNelloStatoRuota() {
-
         apiKeyPAPage.siVisualizzaNotificaSelezionataRuotata();
     }
 
     @And("Si visualizza correttamente la lista delle Api Key generate")
     public void siVisualizzaCorrettamenteLaListaDelleApiKeyGenerate() {
-
-
         if (apiKeyPAPage.siVisualizzaApiKeyConTesto()){
             logger.info("Si visualizza correttamente l'Api Key delle Api Key");
         }else {
@@ -221,7 +205,6 @@ public class ApiKeysTest {
 
     @Then("Nella pagina Api Key posizionare il cursore sullo stato dell'operazione")
     public void nellaPaginaApiKeyPosizionareIlCursoreSulloStatoDellOperazione() {
-
         apiKeyPAPage.mouseHover();
         apiKeyPAPage.waitLoadMessaggioData();
     }
@@ -236,31 +219,26 @@ public class ApiKeysTest {
             case "dev" ->  gruppo = datiNotifica.get("gruppoDev").toString();
             case "test", "uat" -> gruppo = datiNotifica.get("gruppoTest").toString();
         }
-
         apiKeyPAPage.inserireGruppoApi(gruppo);
     }
 
     @And("Nella sezione genera Api Key cancellare il testo inserito")
     public void nellaSezioneGeneraApiKeyCancellareIlTestoInserito() {
-
         apiKeyPAPage.cancellareTestoInserito();
     }
 
     @Then("Nella sezione genera si visualizza un messaggio di errore")
     public void nellaSezioneGeneraSiVisualizzaUnMessaggioDiErrore() {
-
         apiKeyPAPage.siVisualizzaMessaggioErroreApiName();
     }
 
     @And("Nella pagina Api Key si clicca sulla voce visualizza del menu Api Key")
     public void nellaPaginaApiKeySiCliccaSullaVoceVisualizzaDelMenuApiKey() {
-
         apiKeyPAPage.clickSuVisualizza();
     }
 
     @And("Nella pagina Api Key si visualizza il pop up visualizza Api Key")
     public void nellaPaginaApiKeySiVisualizzaIlPopUpVisualizzaApiKey() {
-
         apiKeyPAPage.siVisualizzaPopUpVisualizza();
     }
 
@@ -272,11 +250,13 @@ public class ApiKeysTest {
     @And("Nella pagina Api Key si clicca sulla voce visualizza id gruppo del menu Api Key")
     public void nellaPaginaApiKeySiCliccaSullaVoceVisualizzaIdGruppoDelMenuApiKey() {
         logger.info("Si clicca sulla voce visualizza id gruppo");
+
         apiKeyPAPage.clickVisualizzaIdApiKey();
     }
     @And("Nella pagina Api Key si visualizza il pop up Gruppi associati alla API")
     public void nellaPaginaApiKeySiVisualizzaIlPopUpGruppiAssociatiAllaAPI() {
         logger.info("Si controlla che si vede il pop-up gruppi associato alla Api");
+
         apiKeyPAPage.popUpGruppiAssociati();
     }
 

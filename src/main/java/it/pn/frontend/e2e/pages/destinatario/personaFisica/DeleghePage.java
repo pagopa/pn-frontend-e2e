@@ -33,10 +33,10 @@ public class DeleghePage extends BasePage {
             By deleghePageTitle = By.id("Deleghe-page");
             this.getWebDriverWait(30).withMessage("Il titolo  della pagina deleghe non è visibile").until(ExpectedConditions.visibilityOfElementLocated(deleghePageTitle));
             this.getWebDriverWait(30).withMessage("aggiungi delega button non è visibile").until(ExpectedConditions.visibilityOf(this.addDelegaButton));
-            this.logger.info("Il titolo o il bottone aggiungi delega è visibile nella pagina aggiuDeleghe");
+            this.logger.info("Il titolo o il bottone aggiungi delega è visibile nella pagina aggiungiDeleghe");
         } catch (TimeoutException e) {
-            logger.error("Il titolo o il bottone aggiungi delega non è visibile nella pagina aggiuDeleghe con errore : " + e.getMessage());
-            Assert.fail("Il titolo o il bottone aggiungi delega non è visibile nella pagina aggiuDeleghe con errore : " + e.getMessage());
+            logger.error("Il titolo o il bottone aggiungi delega non è visibile nella pagina aggiungiDeleghe con errore : " + e.getMessage());
+            Assert.fail("Il titolo o il bottone aggiungi delega non è visibile nella pagina aggiungiDeleghe con errore : " + e.getMessage());
         }
     }
 
@@ -62,12 +62,13 @@ public class DeleghePage extends BasePage {
         }
     }
 
-    public boolean CercaEsistenzaDelega(String nome,String cognome) {
+    public boolean cercaEsistenzaDelega(String nome, String cognome) {
         try {
             By nomeDelegato = By.xpath("//div[@data-testid='delegates-wrapper']//div/p[contains(text(),'"+nome+" "+cognome+"')]");
-            this.getWebDriverWait(30).withMessage("Il nome Delegato non è visibile").until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
+            this.getWebDriverWait(30).withMessage("Il nome del Delegato non è visibile").until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
             return true;
         }catch (TimeoutException | NoSuchElementException e){
+            logger.error("nome del delegato non presente con errore" + e.getMessage());
             return false;
         }
     }
@@ -95,14 +96,13 @@ public class DeleghePage extends BasePage {
     }
 
     public void clickMenuDelega(String nome, String cognome) {
-
         try{
             TimeUnit.SECONDS.sleep(10);
             By menuDelega = By.xpath("//div[@data-testid='delegates-wrapper']//td[@scope='col' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@scope='col']//button[@data-testid='delegationMenuIcon']");
             this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuDelega));
             this.js().executeScript("arguments[0].click()",this.element(menuDelega));
             logger.info("cliccato correttamente su menu delega button");
-        }catch (StaleElementReferenceException e){
+        } catch (StaleElementReferenceException e) {
         By menuDelega = By.xpath("//div[@data-testid='delegates-wrapper']//td[@scope='col' and div/p[contains(text(),'"+nome+" "+cognome+"')]]/following-sibling::td[@scope='col']//button[@data-testid='delegationMenuIcon']");
         this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuDelega));
         this.js().executeScript("arguments[0].click()",this.element(menuDelega));
@@ -114,7 +114,7 @@ public class DeleghePage extends BasePage {
         }
     }
 
-    public void siSceglieLOpzioneMostraCodice() {this.mostraCodiceOption.click();}
+    public void siSceglieOpzioneMostraCodice() {this.mostraCodiceOption.click();}
 
     public void siCliccaSulBottoneChiudi() {
         try{
@@ -156,7 +156,7 @@ public class DeleghePage extends BasePage {
         }
     }
 
-    public void clickRiufitaPopUp() {
+    public void clickRifiutaPopUp() {
         try{
             By rifiutaButtonPopUpBy = By.xpath("//button[contains(text(),'Rifiuta la delega')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(rifiutaButtonPopUpBy));
@@ -220,7 +220,6 @@ public class DeleghePage extends BasePage {
         this.getWebDriverWait(30).withMessage("Non si trova nessuno stato delega").until(ExpectedConditions.visibilityOfElementLocated(statoDelegaBy));
         WebElement statoDelega = this.element(statoDelegaBy);
         return statoDelega.getText();
-
     }
 
 

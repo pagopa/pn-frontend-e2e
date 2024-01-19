@@ -34,7 +34,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         logger.info("click sul bottone 'stato della piattaforma'");
         this.getWebDriverWait(60).until(ExpectedConditions.visibilityOf(this.buttonEnterIntoDisservizi));
         buttonEnterIntoDisservizi.click();
-
     }
 
     public void waitLoadPiattaformaNotificaPage(String ragioneSociale) {

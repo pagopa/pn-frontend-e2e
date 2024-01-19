@@ -34,6 +34,7 @@ public class SuccessPASection extends BasePage {
     }
 
     public void vaiAlleNotifiche() {
+        logger.info("click pulsante vai alle notifiche");
         this.successButton.click();
     }
 }

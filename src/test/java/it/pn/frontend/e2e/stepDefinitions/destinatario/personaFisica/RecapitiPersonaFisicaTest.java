@@ -20,13 +20,11 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class RecapitiPersonaFisicaTest {
+
     private static final Logger logger = LoggerFactory.getLogger("InserimentoOTPSbagliato");
     private final WebDriver driver = Hooks.driver;
-
     private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
-
     private final DataPopulation dataPopulation = new DataPopulation();
-
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti")
@@ -34,7 +32,7 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si cerca di cliccare il bottone I Tuoi Recapiti");
 
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
-        iTuoiRecapitiPage.ITuoiRecapitiButtonClick();
+        iTuoiRecapitiPage.iTuoiRecapitiButtonClick();
     }
 
     @And("Si visualizza correttamente la pagina I Tuoi Recapiti")
@@ -85,9 +83,11 @@ public class RecapitiPersonaFisicaTest {
     private boolean verificaChiamataEmail(String url) {
         for (NetWorkInfo info : netWorkInfos) {
             if (info.getRequestUrl().contains(url) && info.getResponseStatus().equals("200")) {
+                logger.info("La chiamata per inviare email é utilizzabile");
                 return true;
             }
         }
+        logger.info("La chiamata per inviare email non é utilizzabile");
         return false;
     }
 
@@ -133,7 +133,7 @@ public class RecapitiPersonaFisicaTest {
     @Then("Si visualizza correttamente il messaggio di pec errata")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioDiPecErrata() {
         String errorMessageRead = recapitiDestinatarioPage.getPecErrorMessage();
-        Assert.assertEquals("messagio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo PEC non valido", "Indirizzo PEC non valido", errorMessageRead);
+        Assert.assertEquals("messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo PEC non valido", "Indirizzo PEC non valido", errorMessageRead);
     }
 
     @And("Si controlla che il tasto conferma sia bloccato")
@@ -150,13 +150,13 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioEmailErrata() {
 
         String errorMessageRead = recapitiDestinatarioPage.getEmailErrorMessage();
-        Assert.assertEquals("messagio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo e-mail non valido", "Indirizzo e-mail non valido", errorMessageRead);
+        Assert.assertEquals("messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo e-mail non valido", "Indirizzo e-mail non valido", errorMessageRead);
     }
 
     @And("Si controlla che il tasto avvisami via email sia bloccato")
     public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoAvvisamiViaEmailSiaBloccato() {
 
-        Assert.assertTrue("il buttone avvisami via email non è disabilitato", recapitiDestinatarioPage.avvisamiViaEmailIsDisabled());
+        Assert.assertTrue("il bottone avvisami via email non è disabilitato", recapitiDestinatarioPage.avvisamiViaEmailIsDisabled());
     }
 
     @And("Si inserisce l'email della {string} e si clicca sul bottone avvisami via email")
@@ -173,12 +173,12 @@ public class RecapitiPersonaFisicaTest {
 
     @And("Si visualizza correttamente il pop-up e si clicca su conferma")
     public void siVisualizzaCorrettamenteIlPopUpESiCliccaSuConferma() {
-        logger.info("click popup conferma email");
+        logger.info("click pop-up conferma email");
 
-        Assert.assertFalse("il popup Conferma email non si visualizza", recapitiDestinatarioPage.verificaPopupConfirmaEmail());
+        Assert.assertFalse("il popup Conferma email non si visualizza", recapitiDestinatarioPage.verificaPopUpConfermaEmail());
 
         recapitiDestinatarioPage.clickHoCapitoCheckBoxPopup();
-        recapitiDestinatarioPage.confirmaEmailPopup();
+        recapitiDestinatarioPage.confermaEmailPopup();
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono del PF {string} e clicca sul bottone avvisami via SMS")
@@ -205,14 +205,14 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioDiNumeroDiTelefonoErrato() {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         String errorMessageRead = iTuoiRecapitiPage.getPhoneErrorMessage();
-        Assert.assertEquals("messagio di errore letto : '" + errorMessageRead + "' non è uguale a : Numero di cellulare non valido", "Numero di cellulare non valido", errorMessageRead);
+        Assert.assertEquals("messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Numero di cellulare non valido", "Numero di cellulare non valido", errorMessageRead);
 
     }
 
     @And("Nella pagina I Tuoi Recapiti si controlla che il tasto avvisami via sms sia bloccato")
     public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoAvvisamiViaSmsSiaBloccato() {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        Assert.assertTrue("il buttone avvisami via SMS non è disabilitato", iTuoiRecapitiPage.avvisamiViaSMSIsDisabled());
+        Assert.assertTrue("il bottone avvisami via SMS non è disabilitato", iTuoiRecapitiPage.avvisamiViaSMSIsDisabled());
     }
 
     @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request {string}")
@@ -355,13 +355,13 @@ public class RecapitiPersonaFisicaTest {
         } else if (recapitiDestinatarioPage.controlloEmailAssociata(email)) {
             iTuoiRecapitiPage.eliminaEmailEsistente();
             if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
-                recapitiDestinatarioPage.ClickconfermaButtonEliminaPopUp();
+                recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
             } else {
                 recapitiDestinatarioPage.clickSuChiudiPopUp();
                 recapitiDestinatarioPage.eliminaNuovaEmail();
                 iTuoiRecapitiPage.eliminaEmailEsistente();
                 recapitiDestinatarioPage.waitLoadPopUpElimina();
-                recapitiDestinatarioPage.ClickconfermaButtonEliminaPopUp();
+                recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
             }
             backgroundTest.aggiuntaEmailPF();
         }
@@ -388,7 +388,7 @@ public class RecapitiPersonaFisicaTest {
 
         String email = dataPopulation.readDataPopulation(dpFile + ".yaml").get("email").toString();
         iTuoiRecapitiPage.insertEmail(email);
-        iTuoiRecapitiPage.clickSalvaemail();
+        iTuoiRecapitiPage.clickSalvaEmail();
 
     }
 
@@ -451,7 +451,7 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.clickSuChiudiPopUp();
             recapitiDestinatarioPage.eliminaNuovaPec();
             recapitiDestinatarioPage.waitLoadPopUpElimina();
-            recapitiDestinatarioPage.ClickconfermaButtonEliminaPopUp();
+            recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
         }
     }
 
@@ -477,7 +477,7 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si controlla la presenza di una pec");
         String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("emailPec").toString();
         BackgroundTest backgroundTest = new BackgroundTest();
-        if (!recapitiDestinatarioPage.siVisulizzaPecInserita()) {
+        if (!recapitiDestinatarioPage.siVisualizzaPecInserita()) {
             backgroundTest.aggiungiPECPF();
         } else if (!recapitiDestinatarioPage.siControllaPECModificata(pec)) {
             recapitiDestinatarioPage.eliminaPecEsistente();
@@ -570,7 +570,7 @@ public class RecapitiPersonaFisicaTest {
     public void nelPopUpEliminaIndirizzoPecSiCliccaSulBottoneConferma() {
         logger.info("Si clicca sul bottone conferma");
         if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi PEC")) {
-            recapitiDestinatarioPage.clickSuComefermaElimina();
+            recapitiDestinatarioPage.clickSuConfermaElimina();
         } else {
             recapitiDestinatarioPage.clickSuChiudiPopUp();
             recapitiDestinatarioPage.eliminaNuovaPec();
@@ -660,11 +660,6 @@ public class RecapitiPersonaFisicaTest {
     public void nellaSezioneAltriRecapitiSiControllaCheLaEmailAggiuntivaSiaStataInseritaCorrettamente() {
         logger.info("Si controlla che sia stata aggiunta la email");
 
-       /* if(recapitiDestinatarioPage.siVisualizzaPopUpConferma()){
-            recapitiDestinatarioPage.clickConfermaButton();
-        }
-
-        recapitiDestinatarioPage.aggionamentoPagina();*/
 
         recapitiDestinatarioPage.siControllaEmailAggiunta();
     }
@@ -711,7 +706,7 @@ public class RecapitiPersonaFisicaTest {
                 recapitiDestinatarioPage.eliminaNuovaEmail();
                 iTuoiRecapitiPage.eliminaEmailEsistente();
                 recapitiDestinatarioPage.waitLoadPopUpElimina();
-                recapitiDestinatarioPage.ClickconfermaButtonEliminaPopUp();
+                recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
             }
         }
     }
@@ -730,7 +725,7 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si controlla che ci sia una email pec");
         String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("emailPec").toString();
         BackgroundTest backgroundTest = new BackgroundTest();
-        if (!recapitiDestinatarioPage.siVisulizzaPecInserita()) {
+        if (!recapitiDestinatarioPage.siVisualizzaPecInserita()) {
             backgroundTest.aggiungiPECPF();
         } else if (recapitiDestinatarioPage.siControllaPECModificata(pec)) {
             recapitiDestinatarioPage.eliminaPecEsistente();
@@ -739,12 +734,11 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("si verifica esistenza due pec")
-    public void SicontrollaEsistenzaDuePec() {
-        if (!recapitiDestinatarioPage.siVisulizzaPecInserita()) {
+    public void siVerificaEsistenzaDuePEC() {
+        if (!recapitiDestinatarioPage.siVisualizzaPecInserita()) {
             BackgroundTest backgroundTest = new BackgroundTest();
             backgroundTest.aggiungiNuovaPECPF();
             backgroundTest.aggiungiPecSezioneGiaAssociati();
-
         }
     }
 
