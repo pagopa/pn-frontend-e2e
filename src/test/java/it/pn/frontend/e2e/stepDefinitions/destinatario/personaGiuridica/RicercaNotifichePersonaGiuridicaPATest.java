@@ -120,8 +120,8 @@ public class RicercaNotifichePersonaGiuridicaPATest {
     @And("Cliccare sul bottone Rimuovi filtri persona giuridica")
     public void cliccare_sul_bottone_rimuovi_filtri_persona_giuridica() {
         ricercaNotifichePGPage.clickRimuoviFiltriButton();
-
     }
+
     @And("Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN non valido da dati notifica {string}")
     public void nella_pagina_piattaforma_notifiche_persona_giuridica_inserire_il_codice_iun_non_valido_da_dati_notifica(String datiNotificaNonValidoPG) throws InterruptedException {
         logger.info("Si inserisce il codice IUN non valido");
