@@ -58,17 +58,17 @@ public class LoginMittentePagoPA {
         preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
-        logger.info("cookies start");
-        CookiesSection cookiesPage;
-
-        if (!CookieConfig.isCookieEnabled()) {
+        if (driver.getCurrentUrl().contains("https://uat.selfcare.pagopa.it/") ||
+                !CookieConfig.isCookieEnabled()) {
+            logger.info("cookies start");
+            CookiesSection cookiesPage;
             cookiesPage = new CookiesSection(this.driver);
+            cookiesPage.selezionaAccettaTuttiButton();
             if (cookiesPage.waitLoadCookiesPage()) {
                 cookiesPage.selezionaAccettaTuttiButton();
             }
+            logger.info("cookies end");
         }
-
-        logger.info("cookies end");
 
         AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();

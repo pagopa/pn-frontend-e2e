@@ -10,7 +10,7 @@ Feature: la persona giuridica inserisce una email errata
   @recapitiPG
 
 
-  Scenario: la persona giuridica inserisce una email errata
+  Scenario: PN-9155-B63 - La persona giuridica inserisce una email errata
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una email

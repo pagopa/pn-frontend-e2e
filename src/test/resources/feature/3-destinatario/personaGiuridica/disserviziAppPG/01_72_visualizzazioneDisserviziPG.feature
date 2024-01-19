@@ -9,7 +9,7 @@ Feature: La persona giuridica visualizza i disservizi della applicazione
   @test72
   @TA_PG_VisualizzaDisservizio
 
-  Scenario: il persona giuridica loggato visualizza lo stato dei disservizi
+  Scenario: PN-9163 - Il persona giuridica loggato visualizza lo stato dei disservizi
     And Nella dashboard persona giuridica clicca su disservizi app
     And Si visualizza correttamente la Pagina dello Stato della piattaforma
     And Si visualizzano correttamente i dati sullo stato della piattaforma

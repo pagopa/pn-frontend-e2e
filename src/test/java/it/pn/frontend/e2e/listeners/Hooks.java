@@ -80,7 +80,6 @@ public class Hooks {
         }
 
         driver = new ChromeDriver(chromeOptions);
-
         if (this.headless != null && this.headless.equalsIgnoreCase("false")) {
             driver.manage().window().maximize();
         }
@@ -125,7 +124,8 @@ public class Hooks {
                         if (response.getType().equals(ResourceType.XHR)) {
                             NetWorkInfo netWorkInfo = new NetWorkInfo();
                             if (headers.get("Authorization") != null) {
-                                netWorkInfo.setAuthorizationBearer((headers.get("Authorization")).toString());
+                                netWorkInfo.setAuthorizationBearer(
+                                        (Objects.requireNonNull(headers.get("Authorization"))).toString());
                             }
                             netWorkInfo.setRequestId(requestId);
                             netWorkInfo.setRequestUrl(request.getRequest().getUrl());

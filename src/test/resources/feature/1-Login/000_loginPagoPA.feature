@@ -22,7 +22,7 @@ Feature: Login pagoPA
   @TA_loginpersonaGiuridica
   @TestSuite
   @loginFE
-  Scenario: Login pagoPA persona giuridica
+  Scenario: PN-9146 - Login pagoPA persona giuridica
     Given Login Page persona giuridica "personaGiuridica" viene visualizzata
     When Login con persona giuridica "personaGiuridica"
     Then Home page persona giuridica viene visualizzata correttamente

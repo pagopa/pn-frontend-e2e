@@ -9,7 +9,7 @@ Feature: La persona giuridica ricerca per codice IUN
   @RicercaNotifichePG
   @PG
 
-  Scenario: La persona giuridica ricerca per codice IUN
+  Scenario: PN-9149 - La persona giuridica ricerca per codice IUN
     And Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa
     And Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN da dati notifica "datiNotificaPG"
     And Cliccare sul bottone Filtra persona giuridica

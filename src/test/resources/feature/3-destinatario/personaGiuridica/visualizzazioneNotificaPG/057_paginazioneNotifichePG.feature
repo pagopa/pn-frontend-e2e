@@ -10,7 +10,7 @@ Feature: La persona fisica visualizza la sezione notifiche
   @VisualizzazioneNotifichePG
   @PG
 
-  Scenario: La persona giuridica visualizza la sezione notifiche
+  Scenario: PN-9148 - La persona giuridica visualizza la sezione notifiche
     And Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa
     And Si visualizzano le notifiche dalla piu recente
     And Si aggiorna la paginazione utilizzando le frecce

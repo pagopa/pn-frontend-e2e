@@ -1,4 +1,4 @@
-Feature: utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
+Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
 
   Background: Login utente in helpdesk
     Given Login helpdesk con utente test "testHelpdesk"
@@ -8,7 +8,7 @@ Feature: utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
   @test74
 
 
-  Scenario: visualizzazione corretta pagina sezione ricerca ed estrazione dati in helpdesk
+  Scenario: PN-9602 - Visualizzazione corretta pagina sezione ricerca ed estrazione dati in helpdesk
     When Nella Home di helpdesk utente clicca su sezione ricerca ed estrazione dati
     Then visualizzazione corretta pagina ricerca ed estrazione dati
 
