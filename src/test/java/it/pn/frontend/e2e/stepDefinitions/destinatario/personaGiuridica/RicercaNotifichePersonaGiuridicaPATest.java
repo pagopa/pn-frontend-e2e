@@ -16,6 +16,7 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.time.LocalDate;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
 
 
     @When("Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa")
-    public void cliccareSuNotificheDellImpresa(){
+    public void cliccareSuNotificheDellImpresa() {
         logger.info("Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa");
         ricercaNotifichePGPage.clickNotificheImpresa();
     }
@@ -38,7 +39,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIUNDaDatiNotifica(String datiNotificaPG) throws InterruptedException {
         logger.info("Si inserisce il codice IUN");
         DataPopulation dataPopulation = new DataPopulation();
-        this.datiNotificaPG = dataPopulation.readDataPopulation(datiNotificaPG+".yaml");
+        this.datiNotificaPG = dataPopulation.readDataPopulation(datiNotificaPG + ".yaml");
         NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
         notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotificaPG.get("codiceIUN").toString());
     }
@@ -46,7 +47,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
     @When("La persona giuridica clicca sulla notifica restituita {string}")
     public void ilPersonaGiuridicaCliccaSullaNotificaRestituita(String dpFile) {
         DataPopulation dataPopulation = new DataPopulation();
-        String codiceIUNPG = dataPopulation.readDataPopulation(dpFile+".yaml").get("codiceIUN").toString();
+        String codiceIUNPG = dataPopulation.readDataPopulation(dpFile + ".yaml").get("codiceIUN").toString();
         ricercaNotifichePGPage.cliccaNotificaRestituita(codiceIUNPG);
     }
 
@@ -70,7 +71,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         DataPopulation dataPopulation = new DataPopulation();
 
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
-        String ragioneSociale = dataPopulation.readDataPopulation( "personaGiuridica.yaml").get("ragioneSociale").toString();
+        String ragioneSociale = dataPopulation.readDataPopulation("personaGiuridica.yaml").get("ragioneSociale").toString();
         piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(ragioneSociale);
 
         this.datiNotificaPG = dataPopulation.readDataPopulation(datiNotificaPG + ".yaml");
@@ -110,57 +111,59 @@ public class RicercaNotifichePersonaGiuridicaPATest {
 
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         boolean result = notifichePFPage.getListData();
-        if (result){
+        if (result) {
             logger.info("Il risultato coerente con le date inserite");
-        }else {
+        } else {
             logger.error("Il risultato NON coerente con le date inserite");
             Assert.fail("Il risultato NON coerente con le date inserite");
         }
     }
+
     @And("Cliccare sul bottone Rimuovi filtri persona giuridica")
-    public void cliccare_sul_bottone_rimuovi_filtri_persona_giuridica() {
+    public void cliccareSulBottoneRimuoviFiltriPersonaGiuridica() {
         ricercaNotifichePGPage.clickRimuoviFiltriButton();
     }
 
     @And("Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN non valido da dati notifica {string}")
-    public void nella_pagina_piattaforma_notifiche_persona_giuridica_inserire_il_codice_iun_non_valido_da_dati_notifica(String datiNotificaNonValidoPG) throws InterruptedException {
+    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIunNonValidoDaDatiNotifica(String datiNotificaNonValidoPG) throws InterruptedException {
         logger.info("Si inserisce il codice IUN non valido");
         DataPopulation dataPopulation = new DataPopulation();
-        this.datiNotificaNonValidoPG = dataPopulation.readDataPopulation(datiNotificaNonValidoPG+".yaml");
+        this.datiNotificaNonValidoPG = dataPopulation.readDataPopulation(datiNotificaNonValidoPG + ".yaml");
         NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
         notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotificaNonValidoPG.get("codiceIUN").toString());
     }
+
     @Then("Viene visualizzato un messaggio in rosso di errore sotto il campo errato e il rettangolo diventa rosso e il tasto Filtra è disattivo")
-    public void viene_visualizzato_un_messaggio_in_rosso_di_errore_sotto_il_campo_errato_e_il_rettangolo_diventa_rosso_e_il_tasto_è_disattivo() {
+    public void vieneVisualizzatoUnMessaggioInRossoDiErroreSottoIlCampoErratoEIlRettangoloDiventaRossoEIlTastoFiltraEDisattivo() {
 
         NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
 
         boolean isErrorMessageDisplayed = ricercaNotifichePGPage.isErrorMessageDisplayed();
 
         if (isErrorMessageDisplayed) {
-            logger.info("Il messagio di errore e visualizzato");
+            logger.info("il messaggio di errore é visualizzato");
         } else {
-            logger.error("Il messagio di errore non e visualizzato");
-            Assert.fail("Il messagio di errore non e visualizzato");
+            logger.error("il messaggio di errore non é visualizzato");
+            Assert.fail("il messaggio di errore non é visualizzato");
         }
 
         boolean isTextBoxInValid = notificheDestinatarioPage.isTextBoxInvalid();
 
         if (isTextBoxInValid) {
-            logger.info("IUN text box non e valido");
+            logger.info("IUN text box non é valido");
         } else {
-            logger.error("UIN text box non e passato al lo stato non valido ");
-            Assert.fail("UIN text box non e passato al lo stato non valido");
+            logger.error("IUN text box non é passato allo stato non valido");
+            Assert.fail("IUN text box non é passato allo stato non valido");
 
         }
 
         ricercaNotifichePGPage.clickFiltraButton();
         boolean isErrorMessageStillDisplayed = ricercaNotifichePGPage.isErrorMessageDisplayed();
-        if (isErrorMessageStillDisplayed){
-            logger.info("Il buttone Filtra e disattivato");
-        }else {
-            logger.error("Il buttone Filtra e attivo");
-            Assert.fail("Il buttone Filtra e attivo");
+        if (isErrorMessageStillDisplayed) {
+            logger.info("Il bottone Filtra é dissativato");
+        } else {
+            logger.error("Il bottone Filtra é attivo");
+            Assert.fail("Il bottone Filtra é attivo");
         }
     }
 
