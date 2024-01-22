@@ -1,17 +1,12 @@
 Feature: la persona fisica inserisce una email pec
 
-  Background: Login persona fisica
-    Given Login Page persona fisica "personaFisica" viene visualizzata
-    When Login portale persona fisica tramite token exchange "personaFisica"
-    Then Home page persona fisica viene visualizzata correttamente
-
   @TestSuite
   @TA_inserimentoPECPF
   @PF
   @recapitiPF
-
-
+    
   Scenario: PN-9240-A31 - La persona fisica inserisce una email pec
+    Given PF - Si effettua la login tramite token exchange di "personaFisica" e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una pec

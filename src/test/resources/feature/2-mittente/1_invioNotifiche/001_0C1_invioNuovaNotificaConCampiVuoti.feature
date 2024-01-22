@@ -1,9 +1,9 @@
 Feature: Il mittente inserisce i dati di una nuova notifica, dopo l'inserzione decide di tornare indietro per poi creare una nuova notifica
 
-  Background: login pagoPA mittente
-    Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente tramite token exchange
-    Then Si visualizza correttamente la pagina Piattaforma Notifiche
+#  Background: login pagoPA mittente
+#    Given Login Page mittente "mittente" viene visualizzata
+#    When Login con mittente tramite token exchange
+#    Then Si visualizza correttamente la pagina Piattaforma Notifiche
 
   @TA_inviaNuovaNotificaConCampiVuoti
   @TestSuite
@@ -11,6 +11,7 @@ Feature: Il mittente inserisce i dati di una nuova notifica, dopo l'inserzione d
   @invioNotifiche
 
   Scenario: PN-8895 - Il mittente inserisce i dati non corretti nella sezione informazioni preliminari
+    Given PA - Si effettua la login tramite token exchange di "mittente" e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     And Nella section Informazioni preliminari inserire i dati della notifica "datiNotifica" senza pagamento

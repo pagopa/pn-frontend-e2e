@@ -1,16 +1,12 @@
 Feature:La persona fisica aggiunge una nuova delega
 
-  Background: Login persona fisica
-    Given Login Page persona fisica "personaFisica" viene visualizzata
-    When Login portale persona fisica tramite token exchange "personaFisica"
-    Then Home page persona fisica viene visualizzata correttamente
-
   @TestSuite
   @TA_PF_aggiuntaNuovaDelega
   @DeleghePF
   @PF
 
   Scenario:PN-9401 - La persona fisica aggiunge una nuova delega
+    Given PF - Si effettua la login tramite token exchange di "personaFisica" e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
     And Si controlla che non sia presente una delega con stesso nome "nuova_delega"

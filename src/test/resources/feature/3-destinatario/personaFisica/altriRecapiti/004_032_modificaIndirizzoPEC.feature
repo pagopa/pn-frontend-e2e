@@ -1,16 +1,12 @@
 Feature: la persona fisica modifica l'indirizzo pec già presente
-
-  Background:  Login persona fisica
-    Given Login Page persona fisica "personaFisica" viene visualizzata
-    When Login portale persona fisica tramite token exchange "personaFisica"
-    Then Home page persona fisica viene visualizzata correttamente
-
+  
   @TestSuite
   @PF
   @TA_modificaPECPF
   @recapitiPF
 
   Scenario: PN-9306-D32 - la persona fisica modifica l'indirizzo pec già presente
+    Given PF - Si effettua la login tramite token exchange di "personaFisica" e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che ci sia già una pec

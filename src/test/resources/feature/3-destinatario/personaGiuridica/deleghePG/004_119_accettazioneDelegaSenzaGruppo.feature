@@ -1,8 +1,4 @@
 Feature:Il delegato persona giuridica accetta la delega non assegnandoli un gruppo
-  Background: Login delegato persona giuridica
-    Given Login Page persona giuridica "personaGiuridica" viene visualizzata
-    When Login portale persona giuridica tramite token exchange "delegatoPG"
-    Then Si visualizza correttamente la Pagina Notifiche persona giuridica "delegatoPG"
 
   @TestSuite
   @TA_PGaccettazioneDelegaSenzaGruppo
@@ -10,6 +6,7 @@ Feature:Il delegato persona giuridica accetta la delega non assegnandoli un grup
   @PG
 
   Scenario: PN-9171 - Il delegato persona giuridica accetta la delega non assegnandoli un gruppo
+    Given PG - Si effettua la login tramite token exchange di "personaGiuridica" e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Nella sezione Deleghe si verifica sia presente una delega per PG "personaGiuridica"

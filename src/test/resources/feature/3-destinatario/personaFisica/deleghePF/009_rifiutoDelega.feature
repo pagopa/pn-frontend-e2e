@@ -1,16 +1,12 @@
 Feature: Il delgato persona fisica rifiuta la delega che gli è stata inviata
 
-  Background: Login delegato
-    Given Login Page persona fisica "personaFisica" viene visualizzata
-    When Login portale persona fisica tramite token exchange "delegatoPF"
-    Then Home page persona fisica viene visualizzata correttamente
-
   @TestSuite
   @@TA_PFrifiutoDelega
   @DeleghePF
   @PF
 
   Scenario: PN-9414 - Il delegato persona fisica rifiuta la delega che gli è stata inviata
+    Given PF - Si effettua la login tramite token exchange di "personaFisica" e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Si verifica sia presente una delega da rifiutare nella sezione Deleghe a Tuo Carico "personaFisica"
     And Nella pagina Deleghe si clicca sul menu della delega a tuo carico "personaFisica"
