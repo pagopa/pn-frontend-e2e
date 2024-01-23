@@ -24,6 +24,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
     private final WebDriver driver = Hooks.driver;
     RicercaNotifichePGPage ricercaNotifichePGPage = new RicercaNotifichePGPage(this.driver);
     private Map<String, Object> datiNotificaPG;
+    private Map<String, Object> datiNotificaNonValidoPG;
 
     @When("Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa")
     public void cliccareSuNotificheDellImpresa() {
