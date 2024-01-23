@@ -11,8 +11,10 @@ import org.slf4j.LoggerFactory;
 public class InformazioniPreliminariPASection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("InformazioniPreliminariPASection");
+
     @FindBy(id = "paProtocolNumber")
     WebElement numeroProtocolloTextField;
+
     @FindBy(id = "subject")
     WebElement oggettoNotificaTextField;
 
@@ -43,7 +45,6 @@ public class InformazioniPreliminariPASection extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.descrizioneTextField));
             getWebDriverWait(60).until(ExpectedConditions.visibilityOf(this.codiceTassonometricoTextField));
             logger.info("Informazioni preliminari PA Section caricata");
-
         } catch (TimeoutException e) {
             logger.error("Informazioni preliminari PA Section non caricata. L'elemento NumProtocollo, Ogetto, descrizione o codicetassonometrico non caricato con errore : " + e.getMessage());
             Assert.fail("Informazioni preliminari PA Section non caricata con errore : " + e.getMessage());
@@ -54,18 +55,22 @@ public class InformazioniPreliminariPASection extends BasePage {
         By numeroProtocolloTextBy = By.id("paProtocolNumber");
         WebElement numeroProtocolloTextInput = driver.findElement(numeroProtocolloTextBy);
         getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(numeroProtocolloTextInput));
+        logger.info("inserimento testo in numero protocollo");
         scrollToElementClickAndInsertText(numeroProtocolloTextInput, numeroProtocollo);
     }
 
     public void insertOggettoNotifica(String oggettoDellaNotifica) {
+        logger.info("inserimento oggetto notifica");
         this.scrollToElementClickAndInsertText(this.oggettoNotificaTextField, oggettoDellaNotifica);
     }
 
     public void insertDescrizione(String descrizione) {
+        logger.info("inserimento descrizione");
         this.scrollToElementClickAndInsertText(this.descrizioneTextField, descrizione);
     }
 
     public void insertGruppo(String gruppo) {
+        logger.info("inserimento gruppo");
         if (this.gruppoListBox.isDisplayed()){
             this.gruppoListBox.click();
         }else {
@@ -84,12 +89,12 @@ public class InformazioniPreliminariPASection extends BasePage {
     }
 
     public void insertCodiceTassonometrico(String codiceTassonometrico) {
+        logger.info("inserimento codice tassonometrico");
         this.scrollToElementClickAndInsertText(this.codiceTassonometricoTextField, codiceTassonometrico);
     }
 
     public void selectRaccomandataAR() {
-
+        logger.info("selezione raccomandata AR");
         this.raccomandataARButton.click();
-
     }
 }

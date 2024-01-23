@@ -33,13 +33,13 @@ public class ComeVuoiAccederePage extends BasePage {
         }
     }
 
-    public void selezionareSpidButton(){
+    public void selezionaSpidButton(){
         getWebDriverWait(60).withMessage("Il bottone SPID non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.spidButton));
         this.spidButton.click();
     }
 
     public boolean verificaPresenzaSpidButton(){
-        this.getWebDriverWait(60).withMessage("spid button non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.spidButton));
+        this.getWebDriverWait(60).withMessage("spid button non è visibile").until(ExpectedConditions.elementToBeClickable(this.spidButton));
         return  this.spidButton.isDisplayed();
     }
 }

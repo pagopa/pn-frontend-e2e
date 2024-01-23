@@ -16,13 +16,9 @@ public class LoggerStartupListener extends ContextAwareBase implements LoggerCon
     @Override
     public void start() {
         if (started) return;
-
-        String logFile = System.getProperty("logFileName"); // log.file is our custom jvm parameter to change log file name dynamicly if needed
-
+        String logFile = System.getProperty("logFileName"); // log.file is our custom jvm parameter to change log file name dynamically if needed
         Context context = getContext();
-
         context.putProperty("LOG_FILE", Objects.requireNonNullElse(logFile, "appLogs"));
-
         started = true;
     }
 
@@ -50,7 +46,6 @@ public class LoggerStartupListener extends ContextAwareBase implements LoggerCon
 
     @Override
     public void onStop(LoggerContext context) {
-
     }
 
     @Override

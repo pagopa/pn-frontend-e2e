@@ -10,7 +10,7 @@ Feature: il mittente inserisce tutti i dati di una notifica senza allegati
   @mittente
   @invioNotifiche
 
-  Scenario: il mittente inserisce tutti i dati di una notifica senza allegati
+  Scenario: PN-9642 - il mittente inserisce tutti i dati di una notifica senza allegati
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     And Nella section Informazioni preliminari inserire i dati della notifica "datiNotifica" senza pagamento

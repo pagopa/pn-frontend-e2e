@@ -19,11 +19,6 @@ public class SpidDemoLogin {
     private static final Logger logger = LoggerFactory.getLogger("SpidDemoLogin");
     private String spidDemoLoginEndPoint;
     private String responseBody;
-
-    /*
-    parametri di input
-     */
-
     private final String username;
     private final String password;
     private final String spidLevelInput;
@@ -36,11 +31,6 @@ public class SpidDemoLogin {
     private final String minAgeInput;
     private final String maxAgeInput;
     private final String retryInput;
-
-    /*
-        end parametri di input
-         */
-
 
     public SpidDemoLogin(String username,
                          String password, String spidLevelInput,
@@ -92,8 +82,7 @@ public class SpidDemoLogin {
                 logger.info(resultContent);
                 return resultContent;
             });
-
-        }catch (IOException e){
+        } catch (IOException e){
             Assert.fail(e.getMessage());
         }
     }

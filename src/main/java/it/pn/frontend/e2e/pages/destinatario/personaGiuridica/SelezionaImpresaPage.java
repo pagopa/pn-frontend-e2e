@@ -27,23 +27,23 @@ public class SelezionaImpresaPage extends BasePage {
             By titlePageBy = By.xpath("//h3[contains(text(),'Seleziona la tua impresa')]");
             this.getWebDriverWait(30).withMessage("Il titolo della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             this.getWebDriverWait(30).withMessage("Il bottone accedi della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOf(this.accediButton));
-
-            logger.info("SelezionaImpresaPage caricata correttamente");
-
-        }catch (TimeoutException e){
-            logger.error("SelezionaImpresaPage non caricata correttamente con errore: "+e.getMessage());
-            Assert.fail("SelezionaImpresaPage non caricata correttamente con errore: "+e.getMessage());
+            logger.info("Seleziona Impresa Page caricata correttamente");
+        } catch (TimeoutException e){
+            logger.error("Seleziona Impresa Page non caricata correttamente con errore: "+e.getMessage());
+            Assert.fail("Seleziona Impresa Page non caricata correttamente con errore: "+e.getMessage());
         }
     }
 
     public void clickAccediButton() {
         this.getWebDriverWait(30).withMessage("Il bottone accedi della pagina Seleziona la tua impresa non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.accediButton));
+        logger.info("click su pulsante accedi");
         this.accediButton.click();
     }
 
     public void clickSuImpresa(String ragioneSociale) {
         By impresaBy = By.xpath("//h6[contains(text(),'"+ragioneSociale+"')]");
         this.getWebDriverWait(30).withMessage("l'ente: "+ragioneSociale+" della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(impresaBy));
+        logger.info("click su impresa");
         this.element(impresaBy).click();
     }
 }

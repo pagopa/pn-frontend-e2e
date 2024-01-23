@@ -25,7 +25,7 @@ public class GeneraApiKeySection extends BasePage {
             logger.info("Api Key caricata");
         }catch (TimeoutException e){
             logger.error("Genera Api Key NON caricata con errore : "+e.getMessage());
-            Assert.fail("Genera Api KeyNON caricata con errore : "+e.getMessage());
+            Assert.fail("Genera Api Key NON caricata con errore : "+e.getMessage());
         }
     }
 }

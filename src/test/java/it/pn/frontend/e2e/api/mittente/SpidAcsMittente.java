@@ -46,23 +46,21 @@ public class SpidAcsMittente {
                     .addParameter("RelayState", "")
                     .addParameter("SAMLResponse", this.samlResponse)
                     .build();
+
             httpclient.execute(httpPost, classicHttpResponse -> {
                 logger.info(classicHttpResponse.getCode() + " " + classicHttpResponse.getReasonPhrase());
-
                 Header[] headers = classicHttpResponse.getHeaders();
                 for (Header header : headers) {
                     logger.info("Key : " + header.getName()
                             + " ,Value : " + header.getValue());
                 }
-
                 spidAcsMittenteResponse.put("responseCode", String.valueOf(classicHttpResponse.getCode()));
                 spidAcsMittenteResponse.put("urlPortale",classicHttpResponse.getHeader("Location").getValue());
-
-
                 logger.info(classicHttpResponse.getHeader("Location").getValue());
                 logger.info(spidAcsMittenteResponse.get("urlPortale"));
                 return null;
             });
+
         }catch (IOException e){
             Assert.fail(e.getMessage());
         }
@@ -79,7 +77,6 @@ public class SpidAcsMittente {
     public void setSpidAcsEndPoint(String spidAcsEndPoint) {
         this.spidAcsEndPoint = spidAcsEndPoint;
     }
-
 
     public Map<String, String> getSpidAcsMittenteResponse() {
         return spidAcsMittenteResponse;

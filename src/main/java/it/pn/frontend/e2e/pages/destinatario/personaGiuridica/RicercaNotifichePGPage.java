@@ -23,7 +23,6 @@ public class RicercaNotifichePGPage extends BasePage {
     @FindBy(id = "iunMatch-helper-text")
     WebElement nonValidIunMessage;
 
-
     public void clickNotificheImpresa() {
         try {
             By notificheImpresaButton = By.xpath("//div[@data-testid=\"sideMenuItem-Notifiche dell'impresa\"]");

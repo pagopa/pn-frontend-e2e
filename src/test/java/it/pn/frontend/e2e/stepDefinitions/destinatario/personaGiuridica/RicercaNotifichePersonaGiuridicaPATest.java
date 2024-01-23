@@ -16,28 +16,26 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.time.LocalDate;
 import java.util.Map;
 
 public class RicercaNotifichePersonaGiuridicaPATest {
-
     private final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaGiuridicaPATest");
     private final WebDriver driver = Hooks.driver;
     RicercaNotifichePGPage ricercaNotifichePGPage = new RicercaNotifichePGPage(this.driver);
     private Map<String, Object> datiNotificaPG;
-    private Map<String, Object> datiNotificaNonValidoPG;
-
 
     @When("Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa")
     public void cliccareSuNotificheDellImpresa() {
         logger.info("Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa");
+
         ricercaNotifichePGPage.clickNotificheImpresa();
     }
 
     @And("Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN da dati notifica {string}")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIUNDaDatiNotifica(String datiNotificaPG) throws InterruptedException {
         logger.info("Si inserisce il codice IUN");
+
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotificaPG = dataPopulation.readDataPopulation(datiNotificaPG + ".yaml");
         NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
@@ -80,7 +78,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
         boolean result = notificheDestinatarioPage.verificaCodiceIUN(codiceIUNInserito);
         if (result) {
-            logger.info("Il risultato coerente con il codice IUN inserito");
+            logger.info("Il risultato é coerente con il codice IUN inserito");
         } else {
 
             logger.error("Gli stati della notifica NON sono uguali a quelli selezionati");
@@ -112,10 +110,10 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         boolean result = notifichePFPage.getListData();
         if (result) {
-            logger.info("Il risultato coerente con le date inserite");
+            logger.info("Il risultato é coerente con le date inserite");
         } else {
-            logger.error("Il risultato NON coerente con le date inserite");
-            Assert.fail("Il risultato NON coerente con le date inserite");
+            logger.error("Il risultato NON é coerente con le date inserite");
+            Assert.fail("Il risultato NON é coerente con le date inserite");
         }
     }
 

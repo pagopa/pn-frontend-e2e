@@ -51,7 +51,7 @@ public class ConfermaDatiSpidPFPage extends BasePage {
         return this.nomeUtenteLabel.getText();
     }
 
-    public String leggiCogomeUtente(){
+    public String leggiCognomeUtente(){
         getWebDriverWait(30).withMessage("cognome utente non è visibile").until(ExpectedConditions.visibilityOf(this.cognomeUtenteLabel));
         return this.cognomeUtenteLabel.getText();
     }

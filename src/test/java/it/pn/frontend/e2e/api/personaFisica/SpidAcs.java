@@ -20,7 +20,6 @@ public class SpidAcs {
     private static final Logger logger = LoggerFactory.getLogger("SpidAcs");
     private String spidAcsEndPoint;
     private Map<String, String> headerLocal;
-
     private final String relayStateInput;
     private final String samlResponseInput;
 
@@ -45,11 +44,9 @@ public class SpidAcs {
                     logger.info("Key : " + header.getName()
                             + " ,Value : " + header.getValue());
                 }
-
                 Map<String, String> hm = new HashMap<>();
                 hm.put("responseCode", String.valueOf(classicHttpResponse.getCode()));
                 hm.put("urlPortale",classicHttpResponse.getHeader("Location").getValue());
-
                 logger.info(classicHttpResponse.getHeader("Location").getValue());
                 logger.info(hm.get("urlPortale"));
                 return hm;
