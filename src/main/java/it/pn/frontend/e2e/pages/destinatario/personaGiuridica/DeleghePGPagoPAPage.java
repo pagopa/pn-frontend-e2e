@@ -55,6 +55,27 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     @FindBy(id = "groups-option-0")
     WebElement groupOption;
+    @FindBy(id = "breadcrumb-indietro-button")
+    WebElement indietroButton;
+
+    @FindBy(css = "[data-testid='notificationDetailTableRow']")
+    WebElement sezioneDeiDati;
+
+    @FindBy(css = "[data-testid='notification-payment-recipient-title']")
+    WebElement sezionePagamento;
+
+    @FindBy(css = "[data-testid='menu-item(recapiti)']")
+    WebElement sezioneRecapiti;
+
+    @FindBy(id = "notification-detail-document-attached")
+    WebElement documentiAllegati;
+
+    @FindBy(id = "notification-state")
+    WebElement statoDelloNotifiche;
+
+    @FindBy(css = "[data-testid='download-legalfact']")
+    WebElement attestazione;
+
 
     public DeleghePGPagoPAPage(WebDriver driver) {
         super(driver);
@@ -260,4 +281,34 @@ public class DeleghePGPagoPAPage extends BasePage {
         this.getWebDriverWait(30).withMessage("l'opzione gruppo non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.groupOption));
         this.groupOption.click();
     }
+
+    public boolean isBackButtonDisplayed() {
+        return getWebDriverWait(30).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton)).isDisplayed();
+    }
+
+    public boolean sezioneDeiDatiDisplayed() {
+        return getWebDriverWait(30).withMessage("Il sezione dei dati non è visibile").until(ExpectedConditions.visibilityOf(sezioneDeiDati)).isDisplayed();
+    }
+
+    public boolean sezionePagamentoDisplayed() {
+        return getWebDriverWait(30).withMessage("Il sezione pagamento non è visibile").until(ExpectedConditions.visibilityOf(sezionePagamento)).isDisplayed();
+    }
+
+    public boolean sezioneRecapitiDisplayed() {
+        return getWebDriverWait(30).withMessage("Il sezione recapiti non è visibile").until(ExpectedConditions.visibilityOf(sezionePagamento)).isDisplayed();
+    }
+    public boolean documentiAllegatiDisplayed() {
+        return getWebDriverWait(30).withMessage("Il documenti allegati non è visibile").until(ExpectedConditions.visibilityOf(documentiAllegati)).isDisplayed();
+
+    }
+    public boolean statoDelloNotificheDisplayed() {
+        return getWebDriverWait(30).withMessage("Il stato dello notifiche non è visibile").until(ExpectedConditions.visibilityOf(statoDelloNotifiche)).isDisplayed();
+
+    }
+    public boolean atteztazioneDisplayed() {
+        return getWebDriverWait(30).withMessage("L'attestazione non è visibile").until(ExpectedConditions.visibilityOf(attestazione)).isDisplayed();
+
+    }
 }
+
+

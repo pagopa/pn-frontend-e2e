@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.section.CookiesSection;
@@ -103,6 +104,8 @@ public class NotifichePGPagoPATest {
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridicaSezioneNotificheDelegate(String dpFile) {
         String ragioneSpciale = dataPopulation.readDataPopulation(dpFile + ".yaml").get("ragioneSociale").toString();
         piattaformaNotifichePGPAPage.waitLoadSezioneNotificheDelegate(ragioneSpciale);
+
+
     }
 
     @When("Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti")
@@ -182,5 +185,95 @@ public class NotifichePGPagoPATest {
         String bearerToken = getBearerToken();
         personaGiuridica.put("bearerToken", bearerToken);
         dataPopulation.writeDataPopulation(dpFile + ".yaml", personaGiuridica);
+    }
+
+    @And("Nella sezione Dettaglio Notifiche si visualizza opzione indietro, sezione dei dati, sezione pagamento")
+    public void nella_sezione_dettaglio_notifiche_si_visualizza_opzione_indietro_sezione_dei_dati_sezione_pagamento() {
+        DeleghePGPagoPAPage deleghePGPagoPAPage = new DeleghePGPagoPAPage(this.driver);
+
+        boolean isBackButtonDisplayed = deleghePGPagoPAPage.isBackButtonDisplayed();
+
+        if (isBackButtonDisplayed){
+            logger.info("il bottone indietro è viziualizzato");
+        }else {
+            logger.error("il bottone indietro non è viziualizzato ");
+            Assert.fail("il bottone indietro non è viziualizzato ");
+        }
+
+        boolean sezioneDeiDati = deleghePGPagoPAPage.sezioneDeiDatiDisplayed();
+
+        if (sezioneDeiDati) {
+            logger.info(" il sezione dei dati è viziaulizzato ");
+
+        }else {
+            logger.info("sezione dei dati non è viziualizzato");
+            Assert.fail("sezione dei dati non è viziualizzato");
+        }
+
+        boolean sezionePagamento = deleghePGPagoPAPage.sezionePagamentoDisplayed();
+        if (sezionePagamento) {
+            logger.info(" il sezione pagamento è viziaulizzato ");
+        }else{
+            logger.info("sezione dei dati non è viziualizzato");
+            Assert.fail("sezione dei dati non è viziualizzato");
+        }
+
+    }
+    @When("Nella sezione Dettaglio Notifiche si visualizza banner Recapiti, documenti allegati, altri documenti, stato dello notifiche, attestazioni")
+    public void nella_sezione_dettaglio_notifiche_si_visualizza_banner_recapiti_documenti_allegati_altri_documenti_stato_dello_notifiche_attestazioni() {
+        DeleghePGPagoPAPage deleghePGPagoPAPage = new DeleghePGPagoPAPage(this.driver);
+
+        boolean sezioneRecapiti = deleghePGPagoPAPage.sezioneRecapitiDisplayed();
+
+
+        if (sezioneRecapiti){
+            logger.info("il sezione recapiti è viziualizzato");
+        }else {
+            logger.error("il sezione recapiti non è viziualizzato ");
+            Assert.fail("il sezione recapiti  non è viziualizzato ");
+        }
+
+        boolean documentiAllegati = deleghePGPagoPAPage.documentiAllegatiDisplayed();
+
+
+        if (documentiAllegati){
+            logger.info("il documenti allegati è viziualizzato");
+        }else {
+            logger.error("il documenti allegati non è viziualizzato ");
+            Assert.fail("il documenti allegati non è viziualizzato ");
+
+        }
+        boolean statoDelloNotifiche = deleghePGPagoPAPage.statoDelloNotificheDisplayed();
+
+
+        if (statoDelloNotifiche){
+            logger.info("il stato dello notifiche è viziualizzato");
+        }else {
+            logger.error("il stato dello notifiche non è viziualizzato ");
+            Assert.fail("il stato dello notifiche non è viziualizzato ");
+
+        }
+
+        boolean attestazione = deleghePGPagoPAPage.atteztazioneDisplayed();
+
+
+        if (attestazione){
+            logger.info("l'attestazione è viziualizzato");
+        }else {
+            logger.error("l'attestazione non è viziualizzato ");
+            Assert.fail("l'attestazione non è viziualizzato ");
+
+        }
+
+
+    }
+    @When("Nella sezione Dettaglio Notifiche si clicca su link di documento allegato per salvare in locale")
+    public void nella_sezione_dettaglio_notifiche_si_clicca_su_link_di_documento_allegato_per_salvare_in_locale() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    @When("Nella sezione Dettaglio Notifiche si clicca su link di attestazione per salvare in locale")
+    public void nella_sezione_dettaglio_notifiche_si_clicca_su_link_di_attestazione_per_salvare_(){
+
     }
 }
