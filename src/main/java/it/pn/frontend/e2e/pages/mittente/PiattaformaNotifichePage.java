@@ -264,6 +264,11 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
+    public void selezionaNotificaIUN(String IUN) {
+        String variabileAmbiente = System.getProperty("environment");
+        driver.navigate().to("https://selfcare." + variabileAmbiente + ".notifichedigitali.it/dashboard/" + IUN + "/dettaglio");
+    }
+
     public void selectInviaUnaNuovaNotificaButton() {
         this.getWebDriverWait(30).withMessage("Il bottone invia notifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(inviaNuovaNotificaButton));
         this.js().executeScript("arguments[0].click()", this.inviaNuovaNotificaButton);

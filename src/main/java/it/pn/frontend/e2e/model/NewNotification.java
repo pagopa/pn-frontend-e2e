@@ -1,6 +1,5 @@
 package it.pn.frontend.e2e.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import it.pn.frontend.e2e.model.enums.NotificationFeePolicyEnum;
 import it.pn.frontend.e2e.model.enums.PhysicalCommunicationTypeEnum;
 
@@ -11,26 +10,26 @@ public class NewNotification {
     private String subject;
     private ArrayList<Recipient> recipients;
     private ArrayList<Document> documents;
-    private PhysicalCommunicationTypeEnum physicalCommunicationTypeEnum;
+    private PhysicalCommunicationTypeEnum physicalCommunicationType;
     private String group;
     private String taxonomyCode;
-    private NotificationFeePolicyEnum notificationFeePolicyEnum;
+    private NotificationFeePolicyEnum notificationFeePolicy;
     private String senderDenomination;
-    private String senderTaxID;
+    private String senderTaxId;
     private String abstractS;
 
     public NewNotification(String paProtocolNumber, String subject, ArrayList<Recipient> recipients, ArrayList<Document> documents,
-                           PhysicalCommunicationTypeEnum physicalCommunicationTypeEnum, String taxonomyCode, NotificationFeePolicyEnum notificationFeePolicy) {
+                           PhysicalCommunicationTypeEnum physicalCommunicationType, String taxonomyCode, NotificationFeePolicyEnum notificationFeePolicy) {
         this.paProtocolNumber = paProtocolNumber;
         this.subject = subject;
         this.recipients = recipients;
         this.documents = documents;
-        this.physicalCommunicationTypeEnum = physicalCommunicationTypeEnum;
+        this.physicalCommunicationType = physicalCommunicationType;
         this.taxonomyCode = taxonomyCode;
-        this.notificationFeePolicyEnum = notificationFeePolicy;
+        this.notificationFeePolicy = notificationFeePolicy;
         this.group = "6564b9a671919a696157f2c0";
         this.senderDenomination = "Comune di Milano";
-        this.senderTaxID = "00215150236";
+        this.senderTaxId = "00215150236";
         this.abstractS = "PAGAMENTO RATA IMU";
     }
 
@@ -67,11 +66,11 @@ public class NewNotification {
     }
 
     public PhysicalCommunicationTypeEnum getPhysicalCommunicationType() {
-        return physicalCommunicationTypeEnum;
+        return physicalCommunicationType;
     }
 
     public void setPhysicalCommunicationType(PhysicalCommunicationTypeEnum value) {
-        this.physicalCommunicationTypeEnum = value;
+        this.physicalCommunicationType = value;
     }
 
     public String getGroup() {
@@ -91,11 +90,11 @@ public class NewNotification {
     }
 
     public NotificationFeePolicyEnum getNotificationFeePolicy() {
-        return notificationFeePolicyEnum;
+        return notificationFeePolicy;
     }
 
     public void setNotificationFeePolicy(NotificationFeePolicyEnum value) {
-        this.notificationFeePolicyEnum = value;
+        this.notificationFeePolicy = value;
     }
 
     public String getSenderDenomination() {
@@ -106,12 +105,12 @@ public class NewNotification {
         this.senderDenomination = value;
     }
 
-    public String getSenderTaxID() {
-        return senderTaxID;
+    public String getSenderTaxId() {
+        return senderTaxId;
     }
 
-    public void setSenderTaxID(String value) {
-        this.senderTaxID = value;
+    public void setSenderTaxId(String value) {
+        this.senderTaxId = value;
     }
 
     public String getWelcomeAbstract() {
@@ -121,5 +120,4 @@ public class NewNotification {
     public void setWelcomeAbstract(String value) {
         this.abstractS = value;
     }
-
 }

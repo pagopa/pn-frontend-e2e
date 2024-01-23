@@ -28,13 +28,12 @@ public class DownloadFileMittentePagoPATest {
     private Map<String, Object> datiNotifica = new HashMap<>();
     private DownloadFile downloadFile;
 
-
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
     public void clickNotificaRestituita() {
         logger.info("Si clicca sulla notifica restituita");
-
+        logger.info("GENERATED IUN: " + System.getProperty("IUN"));
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-        piattaformaNotifichePage.selezionaNotifica();
+        piattaformaNotifichePage.selezionaNotificaIUN(System.getProperty("IUN"));
     }
 
     @And("Si visualizza correttamente la sezione Dettaglio Notifica")
