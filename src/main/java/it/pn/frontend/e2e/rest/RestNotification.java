@@ -32,7 +32,6 @@ public class RestNotification {
             }
         } catch (IOException e) {
             logger.error("Error during createNewNotification", e);
-            throw new RestNotificationException("Error during createNewNotification", e);
         }
         return null;
     }

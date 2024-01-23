@@ -20,8 +20,9 @@ public class NotificheDestinatarioPage extends BasePage{
         super(driver);
     }
 
-    public void inserisciCodiceIUN(String codiceIUN) {
+    public void inserisciCodiceIUN(String codiceIUN) throws InterruptedException {
         getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(this.codiceIunTextField));
+        Thread.sleep(1000);
         this.codiceIunTextField.sendKeys(codiceIUN);
     }
     public boolean verificaCodiceIUN(String codiceIUNInserito) {
@@ -35,6 +36,13 @@ public class NotificheDestinatarioPage extends BasePage{
             Assert.fail("Il codice IUN"+codiceIUNInserito+" non è stato trovato con errore:"+e.getMessage());
         }
         return false;
+    }
+
+    public boolean isTextBoxInvalid(){
+        getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(codiceIunTextField));
+        String ariaInvalid = codiceIunTextField.getAttribute("aria-invalid");
+        final String isTextboxInvalid = "true";
+        return isTextboxInvalid.equals(ariaInvalid);
     }
 
 }

@@ -81,4 +81,17 @@ public class DataPopulation {
             throw new RuntimeException("Errore durante l'attesa.", e);
         }
     }
+
+    /**
+     * Decode the NotificationRequestId from the response of the newNotification API
+     * The NotificationRequestId is encoded in base64
+     * The decoded NotificationRequestId is a String IUN
+     *
+     * @param NotificationRequestId the requestID to decode
+     * @return String IUN
+     */
+    public static String decodeNotificationRequestId (String NotificationRequestId) {
+        byte[] decodedBytes = java.util.Base64.getDecoder().decode(NotificationRequestId);
+        return new String(decodedBytes);
+    }
 }
