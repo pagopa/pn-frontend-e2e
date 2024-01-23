@@ -70,11 +70,11 @@ public class DataPopulation {
     /**
      * Wait for the specified number of seconds
      *
-     * @param minutes the number of minutes to wait
+     * @param seconds the number of seconds to wait
      */
-    public static void waitForMinutes(int minutes) {
+    public static void waitTime(int seconds) {
         try {
-            long millisecondsToWait = TimeUnit.MINUTES.toMillis(minutes);
+            long millisecondsToWait = TimeUnit.SECONDS.toMillis(seconds);
             Thread.sleep(millisecondsToWait);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();

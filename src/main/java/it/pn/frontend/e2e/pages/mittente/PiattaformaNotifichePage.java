@@ -95,8 +95,10 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void insertCodiceFiscale(String codiceFiscale) {
         try {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.cfTextField));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.cfTextField));
+            this.cfTextField.click();
             this.cfTextField.sendKeys(codiceFiscale);
+            this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.cfTextField, "value", codiceFiscale));
             logger.info("Codice Fiscale inserito correttamente");
         } catch (TimeoutException e) {
             logger.error("Codice Fiscale Non inserito con errore: " + e.getMessage());
@@ -168,7 +170,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void inserimentoCodiceIUN(String codiceIUN) {
         try {
-            getWebDriverWait(40).until(ExpectedConditions.visibilityOf(this.codiceIUNTextField));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.codiceIUNTextField));
+            this.codiceIUNTextField.click();
             this.codiceIUNTextField.sendKeys(codiceIUN);
             logger.info("Codice IUN inserito");
         } catch (TimeoutException e) {
@@ -201,8 +204,15 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void inserimentoArcoTemporale(String da, String a) {
+        this.getWebDriverWait(10)
+                .until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField, this.dataFineField));
+
+        this.dataInizioField.click();
         this.dataInizioField.sendKeys(da);
+        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", da));
+        this.dataFineField.click();
         this.dataFineField.sendKeys(a);
+        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataFineField, "value", a));
     }
 
     public int getListDate() {
@@ -355,8 +365,10 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void inserimentoData(String dataInserita) {
-        getWebDriverWait(30).withMessage("il campo data non è visibile nella pagina").until(ExpectedConditions.visibilityOf(this.dataInizioField));
+        getWebDriverWait(10).withMessage("il campo data non è visibile nella pagina").until(ExpectedConditions.visibilityOf(this.dataInizioField));
+        this.dataInizioField.click();
         this.dataInizioField.sendKeys(dataInserita);
+        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", dataInserita));
     }
 
     public boolean verificaEsistenzaRisultati() {

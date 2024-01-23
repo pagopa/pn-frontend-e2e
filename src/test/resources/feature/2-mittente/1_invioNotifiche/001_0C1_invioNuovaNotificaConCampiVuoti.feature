@@ -1,10 +1,5 @@
 Feature: Il mittente inserisce i dati di una nuova notifica, dopo l'inserzione decide di tornare indietro per poi creare una nuova notifica
 
-#  Background: login pagoPA mittente
-#    Given Login Page mittente "mittente" viene visualizzata
-#    When Login con mittente tramite token exchange
-#    Then Si visualizza correttamente la pagina Piattaforma Notifiche
-
   @TA_inviaNuovaNotificaConCampiVuoti
   @TestSuite
   @mittente
