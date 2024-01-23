@@ -219,7 +219,7 @@ public class NotifichePGPagoPATest {
         }
 
     }
-    @When("Nella sezione Dettaglio Notifiche si visualizza banner Recapiti, documenti allegati, altri documenti, stato dello notifiche, attestazioni")
+    @And("Nella sezione Dettaglio Notifiche si visualizza banner Recapiti, documenti allegati, altri documenti, stato dello notifiche, attestazioni")
     public void nella_sezione_dettaglio_notifiche_si_visualizza_banner_recapiti_documenti_allegati_altri_documenti_stato_dello_notifiche_attestazioni() {
         DeleghePGPagoPAPage deleghePGPagoPAPage = new DeleghePGPagoPAPage(this.driver);
 
@@ -267,12 +267,12 @@ public class NotifichePGPagoPATest {
 
 
     }
-    @When("Nella sezione Dettaglio Notifiche si clicca su link di documento allegato per salvare in locale")
+    @And("Nella sezione Dettaglio Notifiche si clicca su link di documento allegato per salvare in locale")
     public void nella_sezione_dettaglio_notifiche_si_clicca_su_link_di_documento_allegato_per_salvare_in_locale() {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
-    @When("Nella sezione Dettaglio Notifiche si clicca su link di attestazione per salvare in locale")
+    @And("Nella sezione Dettaglio Notifiche si clicca su link di attestazione per salvare in locale")
     public void nella_sezione_dettaglio_notifiche_si_clicca_su_link_di_attestazione_per_salvare_(){
 
     }
