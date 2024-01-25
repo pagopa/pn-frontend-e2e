@@ -1,16 +1,12 @@
 Feature: il mittente inserisce tutti i dati di una notifica
 
-  Background: login pagoPA mittente
-    Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente tramite token exchange
-    Then Si visualizza correttamente la pagina Piattaforma Notifiche
-
   @TA_invioNotificaConAllegati
     @TestSuite
     @mittente
     @invioNotifiche
 
   Scenario Outline: PN-9215 - il mittente inserisce tutti i dati di una notifica
+    Given PA - Si effettua la login tramite token exchange di "mittente" e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari

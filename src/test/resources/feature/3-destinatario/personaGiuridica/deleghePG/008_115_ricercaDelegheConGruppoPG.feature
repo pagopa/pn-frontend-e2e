@@ -1,10 +1,5 @@
 Feature:La persona giuridica fa una ricerca per gruppo delle deleghe
 
-  Background: Login persona giuridica
-    Given Login Page persona giuridica "personaGiuridica" viene visualizzata
-    When Login portale persona giuridica tramite token exchange "delegatoPG"
-    Then Si visualizza correttamente la Pagina Notifiche persona giuridica "delegatoPG"
-
   @TestSuite
   @TA_PGricercaDeleghePerGruppo
   @DeleghePG
@@ -12,6 +7,7 @@ Feature:La persona giuridica fa una ricerca per gruppo delle deleghe
 
 
   Scenario: PN-9167 - La persona giuridica fa una ricerca per gruppo delle deleghe
+    Given PG - Si effettua la login tramite token exchange di "personaGiuridica" e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Nella pagina Deleghe si clicca su Deleghe a carico dell impresa

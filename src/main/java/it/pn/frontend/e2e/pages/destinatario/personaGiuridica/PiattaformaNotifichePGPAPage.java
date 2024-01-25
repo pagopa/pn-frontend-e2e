@@ -42,8 +42,8 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             By codiceIunTextFieldBy = By.id("iunMatch");
             By dataInizioFieldBy = By.id("startDate");
             By dataFineFieldBy = By.id("endDate");
-            this.getWebDriverWait(30).withMessage("Il titolo della pagina Notifiche PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            this.getWebDriverWait(40).withMessage("Il campo cidice iun della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(codiceIunTextFieldBy));
+            this.getWebDriverWait(90).withMessage("Il titolo della pagina Notifiche PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
+            this.getWebDriverWait(40).withMessage("Il campo codice iun della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(codiceIunTextFieldBy));
             this.getWebDriverWait(40).withMessage("Il campo data inizio della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(dataInizioFieldBy));
             this.getWebDriverWait(40).withMessage("Il campo data fine della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(dataFineFieldBy));
             logger.info("La piagine Piattamorma Notifiche si carica correttamente");

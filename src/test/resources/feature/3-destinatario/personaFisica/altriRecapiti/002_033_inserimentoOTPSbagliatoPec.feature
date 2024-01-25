@@ -1,16 +1,12 @@
 Feature:La persona fisica inserisce una OTP sbagliato PEC
 
-  Background: Login persona fisica
-    Given Login Page persona fisica "personaFisica" viene visualizzata
-    When Login portale persona fisica tramite token exchange "personaFisica"
-    Then Home page persona fisica viene visualizzata correttamente
-
   @TestSuite
   @TA_inserimentoOTPPECErratoPF
   @PF
   @recapitiPF
 
   Scenario:La persona fisica loggato inserisce un OTP sbagliato PEC
+    Given PF - Si effettua la login tramite token exchange di "personaFisica" e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una pec

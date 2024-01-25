@@ -1,16 +1,12 @@
 Feature: il mittente download attestazione notifica presa in carico
 
-  Background: Login mittente
-    Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente tramite token exchange
-    Then Si visualizza correttamente la pagina Piattaforma Notifiche
-
   @TestSuite
   @TA_MittenteDownloadAttestazionePresaInCarico
   @mittente
   @DownloadFileMittente
 
   Scenario: il mittente scarica il file Attestazione opponibile a terzi: notifica presa in carico
+    Given PA - Si effettua la login tramite token exchange di "mittente" e viene visualizzata la dashboard
     When Cliccare sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica
     And Nella sezione Dettaglio Notifiche si seleziona il file, "Attestazione opponibile a terzi: notifica presa in carico", da scaricare
