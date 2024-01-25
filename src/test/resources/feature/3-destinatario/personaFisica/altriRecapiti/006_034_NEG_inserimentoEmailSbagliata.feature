@@ -1,8 +1,4 @@
 Feature: La persona fisica inserisce una email sbagliata
-  Background: Login persona fisica
-    Given Login Page persona fisica "personaFisica" viene visualizzata
-    When Login portale persona fisica tramite token exchange "personaFisica"
-    Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
   @TA_inserimentoEmailErrataPF
@@ -10,6 +6,7 @@ Feature: La persona fisica inserisce una email sbagliata
   @recapitiPF
 
   Scenario: PN-9308-B34 - La persona fisica inserisce una email sbagliata
+    Given PF - Si effettua la login tramite token exchange di "personaFisica" e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una email

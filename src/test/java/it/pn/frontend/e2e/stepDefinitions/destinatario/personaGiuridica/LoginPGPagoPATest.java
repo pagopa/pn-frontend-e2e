@@ -51,6 +51,26 @@ public class LoginPGPagoPATest {
         }
     }
 
+    @Given("PG - Si effettua la login tramite token exchange di {string} e viene visualizzata la dashboard")
+    public void loginPgConTokenExchange(String datiPersonaGiuridicaFile) {
+        this.datiPersonaGiuridica = dataPopulation.readDataPopulation(datiPersonaGiuridicaFile + ".yaml");
+        String variabileAmbiente = System.getProperty("environment");
+        switch (variabileAmbiente) {
+            case "dev" -> this.driver.get(this.datiPersonaGiuridica.get("url").toString());
+            case "test", "uat" ->
+                    this.driver.get(this.datiPersonaGiuridica.get("url").toString().replace("dev", variabileAmbiente));
+            default ->
+                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+        }
+
+        // Login con token exchange
+        loginPortalePersonaGiuridicaTramiteTokenExchange(datiPersonaGiuridicaFile);
+
+        // Si visualizza la dashboard
+        NotifichePGPagoPATest notifichePGPagoPATest = new NotifichePGPagoPATest();
+        notifichePGPagoPATest.siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica(datiPersonaGiuridicaFile);
+    }
+
     @When("Login portale persona giuridica tramite request method")
     public void loginPortalePersonaGiuridicaTramiteRequestMethod() {
         this.datiPersonaGiuridica = dataPopulation.readDataPopulation("personaGiuridica.yaml");

@@ -1,16 +1,12 @@
 Feature: invio notifica con lo stesso codice fiscale
 
-  Background: Login mittente
-    Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente tramite token exchange
-    Then Si visualizza correttamente la pagina Piattaforma Notifiche
-
   @TestSuite
   @TA_invioNotificaConStessoCF
   @mittente
   @invioNotifiche
 
   Scenario: PN-9643 - il mittente invia la notifica con lo stesso codice fiscale
+    Given PA - Si effettua la login tramite token exchange di "mittente" e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     And Nella section Informazioni preliminari inserire i dati della notifica "datiNotifica" senza pagamento

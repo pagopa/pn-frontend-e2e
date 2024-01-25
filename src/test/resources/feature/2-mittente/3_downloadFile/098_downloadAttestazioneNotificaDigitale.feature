@@ -1,18 +1,14 @@
 Feature: il mittente effettua il download attestazione opponibile a terzi notifica digitale
 
-  Background: Login mittente
-    Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente tramite token exchange
-    Then Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Nella pagina Piattaforma Notifiche si recupera un codice IUN di una persona giuridica
-    And Cliccare sul bottone Filtra
-
   @TestSuite
   @TA_MittenteDownloadAttestazioneNotificaDigitale
   @mittente
   @DownloadFileMittente
 
   Scenario: il mittente effettua il download attestazione opponibile a terzi notifica digitale
+    Given PA - Si effettua la login tramite token exchange di "mittente" e viene visualizzata la dashboard
+    And Nella pagina Piattaforma Notifiche si recupera un codice IUN di una persona giuridica
+    And Cliccare sul bottone Filtra
     When Cliccare sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica
     And Nella sezione Dettaglio Notifiche si seleziona il file, "Attestazione opponibile a terzi: notifica digitale", da scaricare

@@ -1,8 +1,4 @@
 Feature: La persona fisica inserisce una PEC sbagliata
-  Background: Login persona fisica
-    Given Login Page persona fisica "personaFisica" viene visualizzata
-    When Login portale persona fisica tramite token exchange "personaFisica"
-    Then Home page persona fisica viene visualizzata correttamente
 
   @TestSuite
   @TA_inserimentoPECErrataPF
@@ -10,6 +6,7 @@ Feature: La persona fisica inserisce una PEC sbagliata
   @PF
 
   Scenario: PN-9240-B31 - La persona fisica inserisce una PEC sbagliata
+    Given PF - Si effettua la login tramite token exchange di "personaFisica" e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una pec
