@@ -186,94 +186,201 @@ public class NotifichePGPagoPATest {
         personaGiuridica.put("bearerToken", bearerToken);
         dataPopulation.writeDataPopulation(dpFile + ".yaml", personaGiuridica);
     }
+    @And("Nella Pagina Notifiche persona giuridica si clicca su notifica")
+    public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSuNotifica() {
+        logger.info("Si clicca sulla notificha presenta in elenco");
+
+        piattaformaNotifichePGPAPage.clickNotificheButton();
+    }
 
     @And("Nella sezione Dettaglio Notifiche si visualizza opzione indietro, sezione dei dati, sezione pagamento")
-    public void nella_sezione_dettaglio_notifiche_si_visualizza_opzione_indietro_sezione_dei_dati_sezione_pagamento() {
-        DeleghePGPagoPAPage deleghePGPagoPAPage = new DeleghePGPagoPAPage(this.driver);
+    public void nellaSezioneDettaglioNotificheSiVisualizzaOpzioneIndietroSezioneDeiDatiSezionePagamento() {
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
 
-        boolean isBackButtonDisplayed = deleghePGPagoPAPage.isBackButtonDisplayed();
+        boolean isBackButtonDisplayed = piattaformaNotifichePGPAPage.isBackButtonDisplayed();
 
         if (isBackButtonDisplayed){
-            logger.info("il bottone indietro è viziualizzato");
+            logger.info("Il bottone indietro è viziualizzato");
         }else {
-            logger.error("il bottone indietro non è viziualizzato ");
-            Assert.fail("il bottone indietro non è viziualizzato ");
+            logger.error("Il bottone indietro non è viziualizzato ");
+            Assert.fail("Il bottone indietro non è viziualizzato ");
         }
 
-        boolean sezioneDeiDati = deleghePGPagoPAPage.sezioneDeiDatiDisplayed();
+        boolean sezioneDeiDati = piattaformaNotifichePGPAPage.sezioneDeiDatiDisplayed();
 
         if (sezioneDeiDati) {
-            logger.info(" il sezione dei dati è viziaulizzato ");
+            logger.info(" Il sezione dei dati è viziaulizzato ");
 
         }else {
-            logger.info("sezione dei dati non è viziualizzato");
-            Assert.fail("sezione dei dati non è viziualizzato");
+            logger.error("Sezione dei dati non è viziualizzato");
+            Assert.fail("Sezione dei dati non è viziualizzato");
         }
 
-        boolean sezionePagamento = deleghePGPagoPAPage.sezionePagamentoDisplayed();
-        if (sezionePagamento) {
-            logger.info(" il sezione pagamento è viziaulizzato ");
+        boolean sezionePagamentoIsDisplayed = piattaformaNotifichePGPAPage.sezionePagamentoDisplayed();
+
+        if (!sezionePagamentoIsDisplayed) {
+            logger.info("La notifica non prevede il pagamento ");
         }else{
-            logger.info("sezione dei dati non è viziualizzato");
-            Assert.fail("sezione dei dati non è viziualizzato");
+            logger.info("La notifica prevede il pagamento");
+            boolean radioBoxPresent = piattaformaNotifichePGPAPage.isRadioBoxPresent();
+
+            if (radioBoxPresent){
+
+                piattaformaNotifichePGPAPage.clickRadioBoxButton(piattaformaNotifichePGPAPage.cssBuild());
+            }
+
+            boolean titoloPagamentoIsDisplayed = piattaformaNotifichePGPAPage.titoloDiPagamentoDisplayed();
+            if (titoloPagamentoIsDisplayed){
+                logger.info("Sezione titolo di pagamento è viziualizzato");
+            }else{
+                logger.error("Sezione titolo di pagamento non è viziualizzato");
+                Assert.fail("Sezione titolo di pagamento non è viziualizzato");
+            }
+
+            boolean codiceAvvisoIsDisplayed = piattaformaNotifichePGPAPage.codiceAvvisoDisplayed();
+            if (codiceAvvisoIsDisplayed){
+                logger.info("Sezione codice avviso è viziualizzato");
+            }else{
+                logger.error("Sezione codice avviso non è viziualizzato");
+                Assert.fail("Sezione codice avviso non è viziualizzato");
+            }
+
+            boolean modelloF24IsDisplayed = piattaformaNotifichePGPAPage.modelloF24Displayed();
+            if (modelloF24IsDisplayed){
+                logger.info("Sezione scarica modello F24 è viziualizzato");
+            }else{
+                logger.error("Sezione scarica modello F24 non è viziualizzato");
+                Assert.fail("Sezione scarica modello F24 non è viziualizzato");
+            }
+
+            boolean scaricaAvvisoDisplayed = piattaformaNotifichePGPAPage.scaricaAvvisoDisplayed();
+            if (scaricaAvvisoDisplayed){
+                logger.info("Sezione scarica avviso è viziualizzato");
+            }else{
+                logger.error("Sezione scarica avviso non è viziualizzato");
+                Assert.fail("Sezione scarica avviso non è viziualizzato");
+            }
+
+            boolean pagaAvvisoDisplayed = piattaformaNotifichePGPAPage.pagaAvvisoDisplayed();
+            if (pagaAvvisoDisplayed){
+                logger.info("Sezione paga avviso è viziualizzato");
+            }else{
+                logger.error("Sezione paga avviso non è viziualizzato");
+                Assert.fail("Sezione paga avviso non è viziualizzato");
+            }
         }
 
     }
     @And("Nella sezione Dettaglio Notifiche si visualizza banner Recapiti, documenti allegati, altri documenti, stato dello notifiche, attestazioni")
-    public void nella_sezione_dettaglio_notifiche_si_visualizza_banner_recapiti_documenti_allegati_altri_documenti_stato_dello_notifiche_attestazioni() {
-        DeleghePGPagoPAPage deleghePGPagoPAPage = new DeleghePGPagoPAPage(this.driver);
+    public void nellaSezioneDettaglioNotificheSiVisualizzaBannerRecapitiDocumentiAllegatiAltriDocumentiStatoDelloNotificheAttestazioni() {
 
-        boolean sezioneRecapiti = deleghePGPagoPAPage.sezioneRecapitiDisplayed();
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+
+        boolean sezioneRecapiti = piattaformaNotifichePGPAPage.sezioneRecapitiDisplayed();
 
 
         if (sezioneRecapiti){
-            logger.info("il sezione recapiti è viziualizzato");
+            logger.info("Il sezione recapiti è viziualizzato");
         }else {
-            logger.error("il sezione recapiti non è viziualizzato ");
-            Assert.fail("il sezione recapiti  non è viziualizzato ");
+            logger.error("Il sezione recapiti non è viziualizzato ");
+            Assert.fail("Il sezione recapiti  non è viziualizzato ");
         }
 
-        boolean documentiAllegati = deleghePGPagoPAPage.documentiAllegatiDisplayed();
+        boolean documentiAllegati = piattaformaNotifichePGPAPage.documentiAllegatiDisplayed();
 
 
         if (documentiAllegati){
-            logger.info("il documenti allegati è viziualizzato");
+            logger.info("Il documenti allegati è viziualizzato");
         }else {
-            logger.error("il documenti allegati non è viziualizzato ");
-            Assert.fail("il documenti allegati non è viziualizzato ");
+            logger.error("Il documenti allegati non è viziualizzato ");
+            Assert.fail("Il documenti allegati non è viziualizzato ");
 
         }
-        boolean statoDelloNotifiche = deleghePGPagoPAPage.statoDelloNotificheDisplayed();
+        boolean statoDelloNotifiche = piattaformaNotifichePGPAPage.statoDelloNotificheDisplayed();
 
 
         if (statoDelloNotifiche){
-            logger.info("il stato dello notifiche è viziualizzato");
+            logger.info("Il stato dello notifiche è viziualizzato");
         }else {
-            logger.error("il stato dello notifiche non è viziualizzato ");
-            Assert.fail("il stato dello notifiche non è viziualizzato ");
+            logger.error("Il stato dello notifiche non è viziualizzato ");
+            Assert.fail("Il stato dello notifiche non è viziualizzato ");
 
         }
 
-        boolean attestazione = deleghePGPagoPAPage.atteztazioneDisplayed();
+        boolean attestazione = piattaformaNotifichePGPAPage.atteztazioneDisplayed();
 
 
         if (attestazione){
-            logger.info("l'attestazione è viziualizzato");
+            logger.info("L'attestazione è viziualizzato");
         }else {
-            logger.error("l'attestazione non è viziualizzato ");
-            Assert.fail("l'attestazione non è viziualizzato ");
+            logger.error("L'attestazione non è viziualizzato ");
+            Assert.fail("L'attestazione non è viziualizzato ");
 
         }
 
 
     }
     @And("Nella sezione Dettaglio Notifiche si clicca su link di documento allegato per salvare in locale")
-    public void nella_sezione_dettaglio_notifiche_si_clicca_su_link_di_documento_allegato_per_salvare_in_locale() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-    @And("Nella sezione Dettaglio Notifiche si clicca su link di attestazione per salvare in locale")
-    public void nella_sezione_dettaglio_notifiche_si_clicca_su_link_di_attestazione_per_salvare_(){
+    public void nellaSezioneDettaglioNotificheSiCliccaSuLinkDiDocumentoAllegatoPerSalvareInLocale() {
+
+        logger.info("Si clicca sul link di documento allegato per salvare in locale ");
+
+        piattaformaNotifichePGPAPage.clickDocumentButton();
+        boolean isPdfFileDisplayed = piattaformaNotifichePGPAPage.isTypePdfDisplayed();
+        if (isPdfFileDisplayed){
+            logger.info("Il documento allegato è scaricato");
+        }else{
+            logger.error("Il documento allegato non è scaricato");
+            Assert.fail("Il documento allegato non è scaricato");
+        }
+        driver.navigate().back();
+
 
     }
+    @And("Nella sezione Dettaglio Notifiche si clicca su link di attestazione per salvare in locale")
+    public void nellaSezioneDettaglioNotificheSiCliccaSuLinkDiAttestazionePerSalvare_(){
+
+        logger.info("Si clicca sul link di attestazione per salvare in locale ");
+
+        piattaformaNotifichePGPAPage.clickatestazionePersalvare();
+        boolean isPdfFileDisplayed = piattaformaNotifichePGPAPage.isTypePdfDisplayed();
+        if (isPdfFileDisplayed){
+            logger.info("L'attestazione allegato è scaricato");
+        }else{
+            logger.error("L'attestazione allegato non è scaricato");
+            Assert.fail("L'attestazione allegato non è scaricato");
+        }
+        driver.navigate().back();
+
+    }
+
+    @And("Nella sezione Dettaglio Notifiche si clicca su Vedi piu dettaglio nella parte dello stato della notifica")
+    public void nellaSezioneDettaglioNotificheSiCliccaSuVediPiuDettaglioNellaParteDelloStatoDellaNotifica() throws InterruptedException {
+
+        boolean vediPiuDettagliDisplayed = piattaformaNotifichePGPAPage.vediPiuDettagli();
+
+        if (vediPiuDettagliDisplayed){
+            piattaformaNotifichePGPAPage.clickVediPiuDettagli();
+            Thread.sleep(1000);
+            boolean vediMenoDettagliDisplayed = piattaformaNotifichePGPAPage.vediMenoDettagliDisplayed();
+            if(vediMenoDettagliDisplayed){
+                logger.info("La sezione vedi piu dettagli è visualizzato");
+            }else{
+                logger.error("La sezione vedi piu dettagli non è visualizzato");
+                Assert.fail("La sezione vedi piu dettagli non è visualizzato");
+            }
+        }else {
+            logger.error("Il bottone vedi piu dettagli non è visualizzato");
+            Assert.fail("Il bottone vedi piu dettagli non è visualizzato");
+        }
+
+    }
+
+    @And("Nella sezione Dettaglio Notifiche si clicca su l'opzione Indietro")
+    public void nellaSezioneDettaglioNotificheSiCliccaSuLopzioneIndietro() {
+        logger.info("Il bottone indietro non è visibile");
+        piattaformaNotifichePGPAPage.clickIndietroButton();
+    }
+
+
 }
