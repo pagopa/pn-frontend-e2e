@@ -42,6 +42,12 @@ public class NotifichePFPage extends BasePage {
     @FindBy(id = "rows-per-page")
     WebElement numeroPagineButton;
 
+    @FindBy(id = "iunMatch-helper-text")
+    WebElement notValidIunMessage;
+
+    @FindBy(css = "[data-testid='cancelButton']")
+    WebElement rimuoviFiltriButton;
+
     public NotifichePFPage(WebDriver driver) {
         super(driver);
     }
@@ -311,5 +317,26 @@ public class NotifichePFPage extends BasePage {
             Assert.fail("Notifiche DE Page non caricata con errore : " + e.getMessage());
         }
 
+    }
+
+    public void clickFiltraButton() {
+        getWebDriverWait(30).withMessage("Il bottone filtra nella pagina ricerca Notifiche PF non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.filtraButton));
+        this.filtraButton.click();
+    }
+
+    public boolean isErrorMessageDisplayed() {
+        return getWebDriverWait(30).withMessage("Il messaggio di errore non e visibile").until(ExpectedConditions.visibilityOf(notValidIunMessage)).isDisplayed();
+    }
+
+    public boolean isTextBoxInvalid(){
+        final String isTextboxInvalid;
+        getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(codiceIunTextField));
+        String ariaInvalid = codiceIunTextField.getAttribute("aria-invalid");
+        isTextboxInvalid = "true";
+        return isTextboxInvalid.equals(ariaInvalid);
+    }
+    public void clickRimuoviFiltriButton() {
+        getWebDriverWait(30).withMessage("Il bottone rimuovi filtri nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.rimuoviFiltriButton));
+        this.rimuoviFiltriButton.click();
     }
 }
