@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.api.personaFisica.SpidAcs;
 import it.pn.frontend.e2e.api.personaFisica.SpidDemoLogin;
 import it.pn.frontend.e2e.api.personaFisica.SpidDemoStart;
 import it.pn.frontend.e2e.api.personaFisica.SpidLogin;
+import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
@@ -270,6 +271,23 @@ public class LoginPersonaFisicaPagoPA {
             }
         }
         return urlFound;
+    }
+
+    @When("Nella Pagina Notifiche persona fisica si clicca su notifiche dell impresa")
+    public void cliccareSuNotificheDellImpresa(){
+        logger.info("Nella Pagina Notifiche persona fisica si clicca su notifiche dell impresa");
+
+        ricercaNotifichePersonaFisicaPagoPA.clickNotificheImpresa();
+    }
+
+    @And("Nella pagina Piattaforma Notifiche  persona fisica inserire il codice IUN da dati notifica {string}")
+    public void nellaPaginaPiattaformaNotifichePersonaFisicaInserireIlCodiceIUNDaDatiNotifica(String datiNotificaPG) {
+        logger.info("Si inserisce il codice IUN");
+
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiNotifica = dataPopulation.readDataPopulation(datiNotificaPG+".yaml");
+        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
+        notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
     }
 
     @When("Login portale persona fisica tramite request method")
