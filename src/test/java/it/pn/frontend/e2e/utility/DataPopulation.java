@@ -58,7 +58,7 @@ public class DataPopulation {
 
         // Generate a random number between 0 and 100
         Random random = new Random();
-        String randomNumber = String.valueOf(random.nextInt(100));
+        String randomNumber = String.valueOf(random.nextInt(10000));
 
         // Concatenate the current date and the random number
         String protocolNumber = "TA-FFSMRC-" + currentDate + "-" + randomNumber;
@@ -90,7 +90,7 @@ public class DataPopulation {
      * @param NotificationRequestId the requestID to decode
      * @return String IUN
      */
-    public static String decodeNotificationRequestId (String NotificationRequestId) {
+    public static String decodeNotificationRequestId(String NotificationRequestId) {
         byte[] decodedBytes = java.util.Base64.getDecoder().decode(NotificationRequestId);
         return new String(decodedBytes);
     }

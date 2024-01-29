@@ -472,8 +472,8 @@ public class RecapitiPersonaFisicaTest {
 
     }
 
-    @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già una pec")
-    public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaPec() {
+    @And("Nella pagina I Tuoi Recapiti di PF, si controlla che ci sia già una pec")
+    public void nellaPaginaITuoiRecapitiDiPfSiControllaCheCiSiaGiaUnaPec() {
         logger.info("Si controlla la presenza di una pec");
         String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("emailPec").toString();
         BackgroundTest backgroundTest = new BackgroundTest();
@@ -482,6 +482,19 @@ public class RecapitiPersonaFisicaTest {
         } else if (!recapitiDestinatarioPage.siControllaPECModificata(pec)) {
             recapitiDestinatarioPage.eliminaPecEsistente();
             backgroundTest.aggiungiPECPF();
+        }
+    }
+
+    @And("Nella pagina I Tuoi Recapiti di PG, si controlla che ci sia già una pec")
+    public void nellaPaginaITuoiRecapitiDiPgSiControllaCheCiSiaGiaUnaPec() {
+        logger.info("Si controlla la presenza di una pec");
+        String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("emailPec").toString();
+        BackgroundTest backgroundTest = new BackgroundTest();
+        if (!recapitiDestinatarioPage.siVisualizzaPecInserita()) {
+            backgroundTest.aggiungiPECPG();
+        } else if (!recapitiDestinatarioPage.siControllaPECModificata(pec)) {
+            recapitiDestinatarioPage.eliminaPecEsistente();
+            backgroundTest.aggiungiPECPG();
         }
     }
 
@@ -609,11 +622,8 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("Nella sezione altri recapiti si inserisce la PEC aggiuntiva de persona fisica {string}")
-    public void nellaSezioneAltriRecapitiSiInserisceLaPECAggiuntivaDePersonaFisica(String dpFile) {
-
-        Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        recapitiDestinatarioPage.insertPECAggiuntiva(personaFisica.get("emailPec").toString());
-
+    public void nellaSezioneAltriRecapitiSiInserisceLaPECAggiuntivaDePersonaFisica(String email) {
+        recapitiDestinatarioPage.insertPECAggiuntiva(email);
     }
 
     @And("Nella sezione altri recapiti si clicca sul bottone associa")
@@ -641,9 +651,8 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("Nella sezione altri recapiti si inserisce la Email aggiuntiva della persona fisica {string}")
-    public void nellaSezioneAltriRecapitiSiInserisceLaEmailAggiuntivaDellaPersonaFisica(String dpFile) {
-        Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        recapitiDestinatarioPage.insertEmailAggiuntiva(personaFisica.get("mail").toString());
+    public void nellaSezioneAltriRecapitiSiInserisceLaEmailAggiuntivaDellaPersonaFisica(String email) {
+        recapitiDestinatarioPage.insertEmailAggiuntiva(email);
     }
 
     @And("Nella sezione altri recapiti si seleziona il tipo di indirizzo scegliendo email")
