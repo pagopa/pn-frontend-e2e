@@ -19,5 +19,5 @@ Feature: La persona giuridica visualizza la sezione notifiche
     And Nella sezione Dettaglio Notifiche si clicca su link di attestazione per salvare in locale
     And Nella sezione Dettaglio Notifiche si clicca su Vedi piu dettaglio nella parte dello stato della notifica
     And Nella sezione Dettaglio Notifiche si clicca su l'opzione Indietro
-    Then Si visualizza correttamente la Pagina Notifiche persona giuridica sezione notifiche delegate "personaGiuridica"
+    Then Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
     And  Logout da portale persona giuridica

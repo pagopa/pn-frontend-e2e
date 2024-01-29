@@ -202,10 +202,8 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void clickRadioBoxButton(String css) {
 
-        radioButton= driver.findElement(By.cssSelector(css));
-
-        getWebDriverWait(30).withMessage("Il radio box button non è visibile").until(ExpectedConditions.visibilityOf(radioButton));
-        this.js().executeScript("arguments[0].click()", this.radioButton);
+        getWebDriverWait(30).withMessage("Il radio box button non è cliccabile").until(ExpectedConditions.elementToBeClickable(radioButton));
+        radioButton.click();
     }
 
 

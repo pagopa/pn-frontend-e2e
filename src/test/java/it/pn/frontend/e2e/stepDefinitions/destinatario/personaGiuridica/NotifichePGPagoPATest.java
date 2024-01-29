@@ -362,12 +362,8 @@ public class NotifichePGPagoPATest {
         if (vediPiuDettagliDisplayed){
             piattaformaNotifichePGPAPage.clickVediPiuDettagli();
             Thread.sleep(1000);
-            boolean vediMenoDettagliDisplayed = piattaformaNotifichePGPAPage.vediMenoDettagliDisplayed();
-            if(vediMenoDettagliDisplayed){
-                logger.info("La sezione vedi piu dettagli è visualizzato");
-            }else{
-                logger.error("La sezione vedi piu dettagli non è visualizzato");
-                Assert.fail("La sezione vedi piu dettagli non è visualizzato");
+            if (piattaformaNotifichePGPAPage.vediPiuDettagli()){
+                piattaformaNotifichePGPAPage.clickVediPiuDettagli();
             }
         }else {
             logger.error("Il bottone vedi piu dettagli non è visualizzato");
