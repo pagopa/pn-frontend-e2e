@@ -1,18 +1,14 @@
 Feature: La persona giuridica aggiunge una nuova delega
 
-  Background: Login persona giuridica
-    Given Login Page persona giuridica "personaGiuridica" viene visualizzata
-    When Login "personaGiuridica_1" portale persona giuridica tramite request method
-    Then Home page persona giuridica viene visualizzata correttamente
-    And Nella Home page persona giuridica si clicca su Send Notifiche Digitali
-    And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica_1"
-
   @TestSuite
   @TA_PGaggiungiAltraNuovaDelega
   @DeleghePG
   @PG
 
   Scenario: PN-9165 - La persona giuridica aggiunge una nuova delega
+    Given PG - Si effettua la login tramite token exchange di "personaGiuridica" e viene visualizzata la dashboard
+    And Nella Home page persona giuridica si clicca su Send Notifiche Digitali
+    And Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica_1"
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Nella pagina Deleghe si clicca su Delegati dall impresa

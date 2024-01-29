@@ -88,7 +88,8 @@ public class NewNotifichePagoPATest {
 
     @Then("Attendo {int} minuti e verifico in background che la notifica sia stata creata correttamente")
     public void verificoCheLaNotificaSiaStataCreataCorrettamente(int minutes) {
-        DataPopulation.waitForMinutes(minutes);
+        minutes = minutes * 60 * 1000;
+        DataPopulation.waitTime(minutes);
         driver.navigate().refresh();
 
         /* TODO
