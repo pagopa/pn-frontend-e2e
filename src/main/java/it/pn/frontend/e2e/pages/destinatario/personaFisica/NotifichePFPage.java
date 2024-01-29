@@ -43,7 +43,7 @@ public class NotifichePFPage extends BasePage {
     WebElement numeroPagineButton;
 
     @FindBy(id = "iunMatch-helper-text")
-    WebElement nonValidIunMessage;
+    WebElement notValidIunMessage;
 
     @FindBy(css = "[data-testid='cancelButton']")
     WebElement rimuoviFiltriButton;
@@ -325,13 +325,14 @@ public class NotifichePFPage extends BasePage {
     }
 
     public boolean isErrorMessageDisplayed() {
-        return getWebDriverWait(30).withMessage("Il messagio di errore non e visibile").until(ExpectedConditions.visibilityOf(nonValidIunMessage)).isDisplayed();
+        return getWebDriverWait(30).withMessage("Il messaggio di errore non e visibile").until(ExpectedConditions.visibilityOf(notValidIunMessage)).isDisplayed();
     }
 
     public boolean isTextBoxInvalid(){
+        final String isTextboxInvalid;
         getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(codiceIunTextField));
         String ariaInvalid = codiceIunTextField.getAttribute("aria-invalid");
-        final String isTextboxInvalid = "true";
+        isTextboxInvalid = "true";
         return isTextboxInvalid.equals(ariaInvalid);
     }
     public void clickRimuoviFiltriButton() {
