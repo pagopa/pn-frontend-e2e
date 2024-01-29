@@ -47,6 +47,29 @@ public class LoginMittentePagoPA {
         }
     }
 
+    @Given("PA - Si effettua la login tramite token exchange di {string} e viene visualizzata la dashboard")
+    public void loginMittenteConTokenExchange(String datiMittenteFile) {
+        logger.info("Si recupera l'ambiente e si visualizza la pagina di login");
+
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
+        String variabileAmbiente = System.getProperty("environment");
+        switch (variabileAmbiente) {
+            case "dev" -> this.driver.get(this.datiMittente.get("url").toString());
+            case "test", "uat" ->
+                    this.driver.get(this.datiMittente.get("url").toString().replace("dev", variabileAmbiente));
+            default ->
+                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+        }
+
+        // Si effettua il login con token exchange
+        loginConMittenteTramiteTokenExchange();
+
+        // Si visualizza la dashboard
+        NotificaMittentePagoPATest notificaMittentePagoPATest = new NotificaMittentePagoPATest();
+        notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche();
+    }
+
     @When("Login con mittente {string}")
     public void loginConMittente(String datiMittenteFile) {
         logger.info("Si effetua la Login dal portale mittente");

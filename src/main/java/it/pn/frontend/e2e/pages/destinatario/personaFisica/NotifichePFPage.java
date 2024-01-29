@@ -42,28 +42,34 @@ public class NotifichePFPage extends BasePage {
     @FindBy(id = "rows-per-page")
     WebElement numeroPagineButton;
 
+    @FindBy(id = "iunMatch-helper-text")
+    WebElement notValidIunMessage;
+
+    @FindBy(css = "[data-testid='cancelButton']")
+    WebElement rimuoviFiltriButton;
+
     public NotifichePFPage(WebDriver driver) {
         super(driver);
     }
 
     public void waitLoadNotificheDEPage() {
-        try{
+        try {
             By titleLabel = By.id("Le tue notifiche-page");
             By tableNotifiche = By.id("notifications-table");
             this.getWebDriverWait(40).withMessage("Il titolo della pagina Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
             this.getWebDriverWait(40).withMessage("La tabella delle Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
             logger.info("Notifiche DE Page caricata");
-        }catch (TimeoutException e){
-            logger.error("Notifiche DE Page non caricata con errore : "+e.getMessage());
-            Assert.fail("Notifiche DE Page non caricata con errore : "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Notifiche DE Page non caricata con errore : " + e.getMessage());
+            Assert.fail("Notifiche DE Page non caricata con errore : " + e.getMessage());
         }
     }
 
     public boolean verificaPresenzaCodiceIunTextField() {
-        try{
+        try {
             getWebDriverWait(30).withMessage("Il campo codice iun non è visibile").until(ExpectedConditions.visibilityOf(this.codiceIunTextField));
             return codiceIunTextField.isDisplayed();
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             logger.error("text field codice iun non visualizzato");
             return false;
         }
@@ -71,15 +77,15 @@ public class NotifichePFPage extends BasePage {
 
 
     public void waitESelectDelegheButton() {
-        try{
+        try {
             By buttonDelegeBy = By.xpath("//div[contains(@data-testid,'menu-item(deleghe)')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(buttonDelegeBy));
             WebElement buttonDelegheWebElement = this.driver.findElement(buttonDelegeBy);
             buttonDelegheWebElement.click();
             logger.info("cliccato correttamente su delega button");
-        }catch (TimeoutException e){
-            logger.error("Delega button NON trovata con errore: "+e.getMessage());
-            Assert.fail("Delega button NON trovata con errore: "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Delega button NON trovata con errore: " + e.getMessage());
+            Assert.fail("Delega button NON trovata con errore: " + e.getMessage());
         }
     }
 
@@ -89,17 +95,21 @@ public class NotifichePFPage extends BasePage {
     }
 
 
-
     public String controlloDateInserite(String data) {
         String[] date = data.split("-");
-        return date[2]+"/" + date[1]+ "/"+date[0];
+        return date[2] + "/" + date[1] + "/" + date[0];
     }
 
     public void inserimentoArcoTemporale(String dataDA, String dataA) {
-        this.getWebDriverWait(40).withMessage("Data Inizio input non è visibile").until(ExpectedConditions.visibilityOf(this.dataInizioField));
-        this.getWebDriverWait(40).withMessage("Data Fine input non è visibile").until(ExpectedConditions.visibilityOf(this.dataFineField));
+        this.getWebDriverWait(10)
+                .until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField, this.dataFineField));
+
+        this.dataInizioField.click();
         this.dataInizioField.sendKeys(dataDA);
+        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", dataDA));
+        this.dataFineField.click();
         this.dataFineField.sendKeys(dataA);
+        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataFineField, "value", dataA));
     }
 
     public boolean getListData() {
@@ -118,25 +128,26 @@ public class NotifichePFPage extends BasePage {
             WebElement numeroPagina = this.element(numeroButtonBy);
             numeroPagina.click();
             return true;
-        }catch (TimeoutException e){
-            logger.error("bottone pagina 2 non trovata con errore: "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("bottone pagina 2 non trovata con errore: " + e.getMessage());
             return false;
         }
     }
 
     public void clickNotificheButton() {
         this.getWebDriverWait(30).withMessage("Notifiche menu button non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.notificheDeButton));
-        this.js().executeScript("arguments[0].click()",this.notificheDeButton);}
+        this.js().executeScript("arguments[0].click()", this.notificheDeButton);
+    }
 
-    public void clickLeTueNotificheButton(){
+    public void clickLeTueNotificheButton() {
         try {
             By leTueNotificheButtonBy = By.id("side-item-Le tue notifiche");
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(leTueNotificheButtonBy));
-            this.js().executeScript("arguments[0].click()",this.element(leTueNotificheButtonBy));
+            this.js().executeScript("arguments[0].click()", this.element(leTueNotificheButtonBy));
             logger.info("Si clicca sul bottone le tue notifiche");
-        }catch (TimeoutException e){
-            logger.error("Il bottone le tue notifiche non è cliccabile con errore: "+e.getMessage());
-            Assert.fail("Il bottone le tue notifiche non è cliccabile con errore: "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Il bottone le tue notifiche non è cliccabile con errore: " + e.getMessage());
+            Assert.fail("Il bottone le tue notifiche non è cliccabile con errore: " + e.getMessage());
         }
     }
 
@@ -145,9 +156,9 @@ public class NotifichePFPage extends BasePage {
             By notifichePageTitleBy = By.id("Le tue notifiche-page");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notifichePageTitleBy));
             logger.info("Il titolo della pagina notifiche persona fisica si visualizza correttamente");
-        }catch (TimeoutException e){
-            logger.error("Il titolo della pagina notifiche persona fisica NON si visualizza correttamente con errore:"+e.getMessage());
-            Assert.fail("Il titolo della pagina notifiche persona fisica NON si visualizza correttamente con errore:"+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Il titolo della pagina notifiche persona fisica NON si visualizza correttamente con errore:" + e.getMessage());
+            Assert.fail("Il titolo della pagina notifiche persona fisica NON si visualizza correttamente con errore:" + e.getMessage());
         }
     }
 
@@ -160,9 +171,9 @@ public class NotifichePFPage extends BasePage {
             By filtroDataABy = By.id("endDate");
             getWebDriverWait(30).withMessage("il filtro Data A non è visibile").until(ExpectedConditions.visibilityOfElementLocated(filtroDataABy));
             logger.info("Si visualizzano correttamente i filtri ricerca");
-        }catch (TimeoutException e){
-            logger.error("Non si visualizzano correttamente i filtri ricerca con errore:"+e.getMessage());
-            Assert.fail("Non si visualizzano correttamente i filtri ricerca con errore:"+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Non si visualizzano correttamente i filtri ricerca con errore:" + e.getMessage());
+            Assert.fail("Non si visualizzano correttamente i filtri ricerca con errore:" + e.getMessage());
         }
     }
 
@@ -181,9 +192,9 @@ public class NotifichePFPage extends BasePage {
             getWebDriverWait(30).withMessage("il nome della colonna Mittente non è visibile").until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaMittenteBy));
             logger.info("Si visualizza correttamente l'elenco delle notifiche");
 
-        }catch (Exception e){
-            logger.error("NON si visualizza correttamente l'elenco delle notifiche con errore:"+e.getMessage());
-            Assert.fail("NON si visualizza correttamente l'elenco delle notifiche con errore:"+e.getMessage());
+        } catch (Exception e) {
+            logger.error("NON si visualizza correttamente l'elenco delle notifiche con errore:" + e.getMessage());
+            Assert.fail("NON si visualizza correttamente l'elenco delle notifiche con errore:" + e.getMessage());
         }
     }
 
@@ -205,45 +216,47 @@ public class NotifichePFPage extends BasePage {
     }
 
     public boolean controllaNotifiche(List<WebElement> dateNotifiche) {
-        for (int i = 0; i<dateNotifiche.size()-1;i++){
+        for (int i = 0; i < dateNotifiche.size() - 1; i++) {
             String dataString1 = dateNotifiche.get(i).getText();
-            String datastring2 = dateNotifiche.get(i+1).getText();
+            String datastring2 = dateNotifiche.get(i + 1).getText();
             LocalDate data1;
             LocalDate data2;
-            if(dataString1.equals("Oggi")){
+            if (dataString1.equals("Oggi")) {
                 data1 = LocalDate.now();
-            }else {
+            } else {
                 String[] date = dataString1.split("/");
-                data1 = LocalDate.parse(date[2]+"-"+date[1]+"-"+date[0]);
+                data1 = LocalDate.parse(date[2] + "-" + date[1] + "-" + date[0]);
             }
-            if(datastring2.equals("Oggi")){
+            if (datastring2.equals("Oggi")) {
                 data2 = LocalDate.now();
-            }else {
+            } else {
                 String[] date = datastring2.split("/");
-                data2 = LocalDate.parse(date[2]+"-"+date[1]+"-"+date[0]);
+                data2 = LocalDate.parse(date[2] + "-" + date[1] + "-" + date[0]);
             }
-            if(data1.isBefore(data2)){
+            if (data1.isBefore(data2)) {
                 return false;
             }
         }
         return true;
     }
 
-    public void clickPaginaSuccessiva() {this.paginaSuccessivaButton.click();}
+    public void clickPaginaSuccessiva() {
+        this.paginaSuccessivaButton.click();
+    }
 
     public void waitLoadPaginaDifferente() {
-        try{
+        try {
             By paginaSuccessivaBy = By.id("page1");
             getWebDriverWait(30).withMessage("la prima pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(paginaSuccessivaBy));
             logger.info("Si visualizza una pagina differente dalla precedente");
-        }catch (TimeoutException e){
+        } catch (TimeoutException e) {
             logger.error("NON si visualizza una");
         }
     }
 
     public void siSceglieUnaPaginaDiversaConNumero() {
         getWebDriverWait(30).withMessage("la terza pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(this.numeroPaginaTreButton));
-        this.js().executeScript("arguments[0].click()",this.numeroPaginaTreButton);
+        this.js().executeScript("arguments[0].click()", this.numeroPaginaTreButton);
     }
 
     public void modificaNumeroNotifichePagina() {
@@ -259,9 +272,9 @@ public class NotifichePFPage extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(numeroDiversoPagineBy));
             this.element(numeroDiversoPagineBy).click();
             logger.info("Cambiato il numero di pagine visualizzate a 20");
-        }catch (TimeoutException e){
-            logger.error("NON cambia il numero di pagine visualizzate a 20 con errore:"+e.getMessage());
-            Assert.fail("NON cambia il numero di pagine visualizzate a 20 con errore:"+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("NON cambia il numero di pagine visualizzate a 20 con errore:" + e.getMessage());
+            Assert.fail("NON cambia il numero di pagine visualizzate a 20 con errore:" + e.getMessage());
         }
 
     }
@@ -273,7 +286,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void selezionaNotifica() {
-        try{
+        try {
             By notificaBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh')]");
             try {
                 TimeUnit.SECONDS.sleep(2);
@@ -282,15 +295,15 @@ public class NotifichePFPage extends BasePage {
             }
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificaBy));
             this.element(notificaBy).click();
-        }catch (TimeoutException e){
-            logger.error("Notifica non trovata con errore: "+e.getMessage());
-            Assert.fail("Notifica non trovata con errore: "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Notifica non trovata con errore: " + e.getMessage());
+            Assert.fail("Notifica non trovata con errore: " + e.getMessage());
         }
     }
 
     public void waitLoadNotificheDEPageDelegante(String nome, String cognome) {
-        try{
-            By titleLabel = By.id("Le notifiche di "+nome+" "+cognome+"-page");
+        try {
+            By titleLabel = By.id("Le notifiche di " + nome + " " + cognome + "-page");
             By tableNotifiche = By.id("notifications-table");
             this.getWebDriverWait(40).withMessage("Il titolo della pagina notifiche delegante non è visibile")
                     .until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
@@ -299,10 +312,31 @@ public class NotifichePFPage extends BasePage {
                     .until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
             logger.info("Notifiche DE Page caricata");
 
-        }catch (TimeoutException e){
-            logger.error("Notifiche DE Page non caricata con errore : "+e.getMessage());
-            Assert.fail("Notifiche DE Page non caricata con errore : "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Notifiche DE Page non caricata con errore : " + e.getMessage());
+            Assert.fail("Notifiche DE Page non caricata con errore : " + e.getMessage());
         }
 
+    }
+
+    public void clickFiltraButton() {
+        getWebDriverWait(30).withMessage("Il bottone filtra nella pagina ricerca Notifiche PF non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.filtraButton));
+        this.filtraButton.click();
+    }
+
+    public boolean isErrorMessageDisplayed() {
+        return getWebDriverWait(30).withMessage("Il messaggio di errore non e visibile").until(ExpectedConditions.visibilityOf(notValidIunMessage)).isDisplayed();
+    }
+
+    public boolean isTextBoxInvalid(){
+        final String isTextboxInvalid;
+        getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(codiceIunTextField));
+        String ariaInvalid = codiceIunTextField.getAttribute("aria-invalid");
+        isTextboxInvalid = "true";
+        return isTextboxInvalid.equals(ariaInvalid);
+    }
+    public void clickRimuoviFiltriButton() {
+        getWebDriverWait(30).withMessage("Il bottone rimuovi filtri nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.rimuoviFiltriButton));
+        this.rimuoviFiltriButton.click();
     }
 }

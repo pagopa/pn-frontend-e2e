@@ -1,18 +1,14 @@
 Feature: Mittente genera Api Key con gruppo
 
-  Background: login mittente
-    Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente tramite token exchange
-    Then Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
-    And Si visualizza correttamente la pagina Api Key
-
   @TestSuite
   @TA_MittenteGeneraApiKeyConGruppo
   @mittente
   @ApikeyMittente
 
   Scenario: PN-9231 - Mittente genera Api Key con gruppo
+    Given PA - Si effettua la login tramite token exchange di "mittente" e viene visualizzata la dashboard
+    And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
+    And Si visualizza correttamente la pagina Api Key
     When Nella pagina Api Key si clicca sul bottone genera Api Key
     And Si visualizza correttamente la sezione genera Api key
     And Nella sezione genera Api Key inserire il nome "testAutomationFE" per l Api Key

@@ -21,6 +21,7 @@ public class RicercaNotifichePersonaFisicaPATest {
     private static final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaFisicaTest");
     private final WebDriver  driver = Hooks.driver;
     private Map<String, Object> datiNotifica = new HashMap<>();
+    private Map<String, Object> datiNotificaNonValidoPF;
 
     @When("Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica")
         public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheDestinatario() {
@@ -33,7 +34,7 @@ public class RicercaNotifichePersonaFisicaPATest {
         }
 
     @And("Nella pagina Piattaforma Notifiche  persona fisica inserire il codice IUN da dati notifica {string}")
-    public void nellaPaginaPiattaformaNotificheDestinatarioInserireIlCodiceIUNDaDatiNotifica(String dpDataNotifica) {
+    public void nellaPaginaPiattaformaNotificheDestinatarioInserireIlCodiceIUNDaDatiNotifica(String dpDataNotifica) throws InterruptedException {
         logger.info("Si inserisce il codice IUN");
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation(dpDataNotifica+".yaml");
@@ -118,5 +119,55 @@ public class RicercaNotifichePersonaFisicaPATest {
             logger.info("Bottone pagina 2 non trovato non effettuato il passaggio di pagina");
         }
     }
+
+    @And("Cliccare sul bottone Rimuovi filtri persona fisica")
+    public void cliccareSulBottoneRimuoviFiltriPersonaFisica() {
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.clickRimuoviFiltriButton();
+    }
+
+    @And("Nella pagina Piattaforma Notifiche  persona fisica inserire il codice IUN non valido da dati notifica {string}")
+    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIunNonValidoDaDatiNotifica(String datiNotificaNonValidoPF) throws InterruptedException {
+        logger.info("Si inserisce il codice IUN non valido");
+        DataPopulation dataPopulation = new DataPopulation();
+        this.datiNotificaNonValidoPF = dataPopulation.readDataPopulation(datiNotificaNonValidoPF + ".yaml");
+        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
+        notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotificaNonValidoPF.get("codiceIUN").toString());
+    }
+
+    @Then("Nella pagina Piattaforma Notifiche persona fisica viene visualizzato un messaggio in rosso di errore sotto il campo errato e il rettangolo diventa rosso e il tasto Filtra è disattivo")
+    public void NellaPaginaPiattaformaNotifichePersonaFisicaVieneVisualizzatoUnMessaggioInRossoDiErroreSottoIlCampoErratoEIlRettangoloDiventaRossoEIlTastoFiltraEDisattivo() {
+
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+
+        boolean isErrorMessageDisplayed = notifichePFPage.isErrorMessageDisplayed();
+
+        if (isErrorMessageDisplayed) {
+            logger.info("il messaggio di errore é visualizzato");
+        } else {
+            logger.error("il messaggio di errore non é visualizzato");
+            Assert.fail("il messaggio di errore non é visualizzato");
+        }
+
+        boolean isTextBoxInValid = notifichePFPage.isTextBoxInvalid();
+
+        if (isTextBoxInValid) {
+            logger.info("IUN text box non é valido");
+        } else {
+            logger.error("IUN text box non é passato allo stato non valido");
+            Assert.fail("IUN text box non é passato allo stato non valido");
+
+        }
+
+        notifichePFPage.clickFiltraButton();
+        boolean isErrorMessageStillDisplayed = notifichePFPage.isErrorMessageDisplayed();
+        if (isErrorMessageStillDisplayed) {
+            logger.info("Il bottone Filtra é dissativato");
+        } else {
+            logger.error("Il bottone Filtra é attivo");
+            Assert.fail("Il bottone Filtra é attivo");
+        }
+    }
+
 
 }

@@ -1,14 +1,12 @@
 Feature: Il mittente inserisce i dati non coretti nella sezione informazioni preliminari
 
-  Background: login pagoPA mittente
-    Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente tramite token exchange
-    Then Si visualizza correttamente la pagina Piattaforma Notifiche
   @TA_inserimentoDatiErratiInfoPreliminari
   @TestSuite
   @mittente
   @invioNotifiche
+
   Scenario:Il mittente inserisce i dati non corretti nella sezione informazioni preliminari
+    Given PA - Si effettua la login tramite token exchange di "mittente" e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     And Nella section si prova ad cliccare sul tasto continua senza aver inserito nessun dato
