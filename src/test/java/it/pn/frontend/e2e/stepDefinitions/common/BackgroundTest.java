@@ -201,7 +201,7 @@ public class BackgroundTest {
         recapitiPGTest.siVisualizzaRecapitiPagePersonaGiuridca();
     }
 
-    public void aggiungiPecSezioneGiaAssociati(){
+    public void aggiungiPecSezioneGiaAssociati() {
         recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiSelezionaLEnte(mittente);
         recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiSelezionaIlTipoDiIndirizzo();
         recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiInserisceLaPECAggiuntivaDePersonaFisica(nomeFilePersonaFisica);
