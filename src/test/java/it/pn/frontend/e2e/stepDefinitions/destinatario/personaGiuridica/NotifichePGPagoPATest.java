@@ -200,20 +200,20 @@ public class NotifichePGPagoPATest {
         boolean isBackButtonDisplayed = piattaformaNotifichePGPAPage.isBackButtonDisplayed();
 
         if (isBackButtonDisplayed){
-            logger.info("Il bottone indietro è visiualizzato");
+            logger.info("Il bottone indietro è visualizzato");
         }else {
-            logger.error("Il bottone indietro non è visiualizzato ");
-            Assert.fail("Il bottone indietro non è visiualizzato ");
+            logger.error("Il bottone indietro non è visualizzato ");
+            Assert.fail("Il bottone indietro non è visualizzato ");
         }
 
         boolean sezioneDeiDati = piattaformaNotifichePGPAPage.sezioneDeiDatiDisplayed();
 
         if (sezioneDeiDati) {
-            logger.info(" Il sezione dei dati è visiaulizzato ");
+            logger.info(" Il sezione dei dati è visualizzato ");
 
         }else {
-            logger.error("Sezione dei dati non è visiualizzato");
-            Assert.fail("Sezione dei dati non è visiualizzato");
+            logger.error("Sezione dei dati non è visualizzato");
+            Assert.fail("Sezione dei dati non è visualizzato");
         }
 
         boolean sezionePagamentoIsDisplayed = piattaformaNotifichePGPAPage.sezionePagamentoDisplayed();
@@ -231,42 +231,42 @@ public class NotifichePGPagoPATest {
 
             boolean titoloPagamentoIsDisplayed = piattaformaNotifichePGPAPage.titoloDiPagamentoDisplayed();
             if (titoloPagamentoIsDisplayed){
-                logger.info("Sezione titolo di pagamento è visiualizzato");
+                logger.info("Sezione titolo di pagamento è visualizzato");
             }else{
-                logger.error("Sezione titolo di pagamento non è visiualizzato");
-                Assert.fail("Sezione titolo di pagamento non è visiualizzato");
+                logger.error("Sezione titolo di pagamento non è visualizzato");
+                Assert.fail("Sezione titolo di pagamento non è visualizzato");
             }
 
             boolean codiceAvvisoIsDisplayed = piattaformaNotifichePGPAPage.codiceAvvisoDisplayed();
             if (codiceAvvisoIsDisplayed){
-                logger.info("Sezione codice avviso è visiualizzato");
+                logger.info("Sezione codice avviso è visualizzato");
             }else{
-                logger.error("Sezione codice avviso non è visiualizzato");
-                Assert.fail("Sezione codice avviso non è visiualizzato");
+                logger.error("Sezione codice avviso non è visualizzato");
+                Assert.fail("Sezione codice avviso non è visualizzato");
             }
 
             boolean modelloF24IsDisplayed = piattaformaNotifichePGPAPage.modelloF24Displayed();
             if (modelloF24IsDisplayed){
-                logger.info("Sezione scarica modello F24 è visiualizzato");
+                logger.info("Sezione scarica modello F24 è visualizzato");
             }else{
-                logger.error("Sezione scarica modello F24 non è visiualizzato");
-                Assert.fail("Sezione scarica modello F24 non è visiualizzato");
+                logger.error("Sezione scarica modello F24 non è visualizzato");
+                Assert.fail("Sezione scarica modello F24 non è visualizzato");
             }
 
             boolean scaricaAvvisoDisplayed = piattaformaNotifichePGPAPage.scaricaAvvisoDisplayed();
             if (scaricaAvvisoDisplayed){
-                logger.info("Sezione scarica avviso è visiualizzato");
+                logger.info("Sezione scarica avviso è visualizzato");
             }else{
-                logger.error("Sezione scarica avviso non è visiualizzato");
-                Assert.fail("Sezione scarica avviso non è visiualizzato");
+                logger.error("Sezione scarica avviso non è visualizzato");
+                Assert.fail("Sezione scarica avviso non è visualizzato");
             }
 
             boolean pagaAvvisoDisplayed = piattaformaNotifichePGPAPage.pagaAvvisoDisplayed();
             if (pagaAvvisoDisplayed){
-                logger.info("Sezione paga avviso è visiualizzato");
+                logger.info("Sezione paga avviso è visualizzato");
             }else{
-                logger.error("Sezione paga avviso non è visiualizzato");
-                Assert.fail("Sezione paga avviso non è visiualizzato");
+                logger.error("Sezione paga avviso non è visualizzato");
+                Assert.fail("Sezione paga avviso non è visualizzato");
             }
         }
 
@@ -280,30 +280,30 @@ public class NotifichePGPagoPATest {
 
 
         if (sezioneRecapiti){
-            logger.info("Il sezione recapiti è viziualizzato");
+            logger.info("Il sezione recapiti è visualizzato");
         }else {
-            logger.error("Il sezione recapiti non è viziualizzato ");
-            Assert.fail("Il sezione recapiti  non è viziualizzato ");
+            logger.error("Il sezione recapiti non è visualizzato ");
+            Assert.fail("Il sezione recapiti  non è visualizzato ");
         }
 
         boolean documentiAllegati = piattaformaNotifichePGPAPage.documentiAllegatiDisplayed();
 
 
         if (documentiAllegati){
-            logger.info("Il documenti allegati è viziualizzato");
+            logger.info("Il documenti allegati è visualizzato");
         }else {
-            logger.error("Il documenti allegati non è viziualizzato ");
-            Assert.fail("Il documenti allegati non è viziualizzato ");
+            logger.error("Il documenti allegati non è visualizzato ");
+            Assert.fail("Il documenti allegati non è visualizzato ");
 
         }
         boolean statoDelloNotifiche = piattaformaNotifichePGPAPage.statoDelloNotificheDisplayed();
 
 
         if (statoDelloNotifiche){
-            logger.info("Il stato dello notifiche è viziualizzato");
+            logger.info("Il stato dello notifiche è visualizzato");
         }else {
-            logger.error("Il stato dello notifiche non è viziualizzato ");
-            Assert.fail("Il stato dello notifiche non è viziualizzato ");
+            logger.error("Il stato dello notifiche non è visualizzato ");
+            Assert.fail("Il stato dello notifiche non è visualizzato ");
 
         }
 
@@ -311,10 +311,10 @@ public class NotifichePGPagoPATest {
 
 
         if (attestazione){
-            logger.info("L'attestazione è viziualizzato");
+            logger.info("L'attestazione è visualizzato");
         }else {
-            logger.error("L'attestazione non è viziualizzato ");
-            Assert.fail("L'attestazione non è viziualizzato ");
+            logger.error("L'attestazione non è visualizzato ");
+            Assert.fail("L'attestazione non è visualizzato ");
         }
     }
 
