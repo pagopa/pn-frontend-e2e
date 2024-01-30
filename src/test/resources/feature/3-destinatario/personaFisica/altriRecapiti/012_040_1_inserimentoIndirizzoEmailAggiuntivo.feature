@@ -14,7 +14,7 @@ Feature: la persona fisica inserisce un indirizzo Email aggiuntivo
     And Nella sezione altri recapiti si controlla l'esistenza di una email "personaFisica"
     And Nella sezione altri recapiti si seleziona l'ente "mittente"
     And Nella sezione altri recapiti si seleziona il tipo di indirizzo scegliendo email
-    And Nella sezione altri recapiti si inserisce la Email aggiuntiva della persona fisica "personaFisica"
+    And Nella sezione altri recapiti si inserisce la Email aggiuntiva della persona fisica "test2@test.com"
     And Nella sezione altri recapiti si clicca sul bottone associa
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"

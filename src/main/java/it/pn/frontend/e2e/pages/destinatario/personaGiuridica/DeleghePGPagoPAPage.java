@@ -56,6 +56,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(id = "groups-option-0")
     WebElement groupOption;
 
+
     public DeleghePGPagoPAPage(WebDriver driver) {
         super(driver);
     }
