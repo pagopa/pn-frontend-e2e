@@ -15,6 +15,8 @@ public class BasePage {
 
     protected WebDriver driver;
 
+    protected int loadComponentWaitTime = Integer.parseInt(System.getProperty("loadComponentWaitTime"));
+
     private static final Logger loggerBase = LoggerFactory.getLogger("BasePage");
 
     public BasePage(WebDriver driver){
