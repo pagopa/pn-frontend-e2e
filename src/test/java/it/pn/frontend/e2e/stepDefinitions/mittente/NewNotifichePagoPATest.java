@@ -29,12 +29,13 @@ public class NewNotifichePagoPATest {
         int maxAttempts = 3;
         int attempt = 1;
 
+        ArrayList<Recipient> recipients = new ArrayList<>();
+        recipients.add(new Recipient());
+        ArrayList<Document> documents = new ArrayList<>();
+        documents.add(new Document());
+        NewNotification notification = new NewNotification(DataPopulation.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
+
         while (attempt <= maxAttempts) {
-            ArrayList<Recipient> recipients = new ArrayList<>();
-            recipients.add(new Recipient());
-            ArrayList<Document> documents = new ArrayList<>();
-            documents.add(new Document());
-            NewNotification notification = new NewNotification(DataPopulation.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
             NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification);
 
             if (response != null) {
@@ -43,6 +44,7 @@ public class NewNotifichePagoPATest {
                 return;
             } else {
                 logger.warn("Tentativo #" + attempt + " di creazione della notifica fallito. Riprovo...");
+                notification.setPaProtocolNumber(DataPopulation.generatePaProtocolNumber());
                 attempt++;
             }
         }
@@ -88,10 +90,8 @@ public class NewNotifichePagoPATest {
 
     @Then("Attendo {int} minuti e verifico in background che la notifica sia stata creata correttamente")
     public void verificoCheLaNotificaSiaStataCreataCorrettamente(int minutes) {
-        minutes = minutes * 60 * 1000;
-        DataPopulation.waitTime(minutes);
+        DataPopulation.waitTime(minutes * 60);
         driver.navigate().refresh();
-
         /* TODO
         Need to implement the check of the notification
          */

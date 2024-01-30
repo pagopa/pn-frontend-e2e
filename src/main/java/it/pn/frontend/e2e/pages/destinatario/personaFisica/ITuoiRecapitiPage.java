@@ -41,10 +41,14 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void waitLoadITuoiRecapitiPage() {
         try {
-            By titlePageBy = By.xpath("//h4[contains(@id,'ecapiti-page')]");
+            By titlePageByOne = By.xpath("//h4[contains(@id,'Recapiti-page')]");
+            By titlePageByTwo = By.xpath("//h4[contains(@id,'I tuoi recapiti-page')]");
             By subTitlePageBy = By.id("subtitle-page");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(subTitlePageBy));
+            this.getWebDriverWait(10).until(ExpectedConditions.or(
+                    ExpectedConditions.visibilityOfElementLocated(titlePageByOne),
+                    ExpectedConditions.visibilityOfElementLocated(titlePageByTwo)
+            ));
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(subTitlePageBy));
             logger.info("La pagina I Tuoi Recapiti si vede correttamente");
         } catch (TimeoutException e) {
             logger.error("La pagina I Tuoi Recapiti NON si vede correttamente con errori:" + e.getMessage());
@@ -53,12 +57,11 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
 
-
     public void sendOTP(String otp) {
         String[] otps = otp.split("");
         try {
             By otpInputby = By.xpath("//input[contains(@id,'code-input')]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(otpInputby));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(otpInputby));
             List<WebElement> otpInputs = this.elements(otpInputby);
             for (int i = 0; i < otps.length; i++) {
                 otpInputs.get(i).sendKeys(otps[i]);
@@ -69,7 +72,6 @@ public class ITuoiRecapitiPage extends BasePage {
             Assert.fail("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
         }
     }
-
 
 
     public void clickSalvaEmail() {
@@ -88,7 +90,6 @@ public class ITuoiRecapitiPage extends BasePage {
         this.getWebDriverWait(30).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoEmailFieldBy));
         this.element(inserimentoEmailFieldBy).sendKeys(emailPEC);
     }
-
 
 
     public void insertTelephoneNumber(String phoneNumber) {
@@ -139,11 +140,18 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
 
-
     public void selezionaTipoEmail() {
         this.tipoIndirizzoField.click();
-        By opzionePEC = By.xpath("//li[@data-value ='EMAIL']");
-        this.getWebDriverWait(30).withMessage("Non è visibile l'opzione indirizzo email'").until(ExpectedConditions.elementToBeClickable(opzionePEC));
+        // wait 2 seconds for the options to become visible
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            logger.error("errore: " + e.getMessage());
+        }
+        By opzionePEC = By.id("dropdown-EMAIL");
+        this.getWebDriverWait(10)
+                .withMessage("Non è visibile l'opzione indirizzo email")
+                .until(ExpectedConditions.elementToBeClickable(opzionePEC));
         this.element(opzionePEC).click();
     }
 
