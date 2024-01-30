@@ -254,9 +254,13 @@ public class NotifichePFPage extends BasePage {
         }
     }
 
-    public void siSceglieUnaPaginaDiversaConNumero() {
+    public void siSceglieUnaPaginaDiversaConNumeroESiFiltra(String iun) {
         getWebDriverWait(30).withMessage("la terza pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(this.numeroPaginaTreButton));
         this.js().executeScript("arguments[0].click()", this.numeroPaginaTreButton);
+        this.codiceIunTextField.click();
+        this.codiceIunTextField.sendKeys(iun);
+        clickFiltraButton();
+        clickRimuoviFiltriButton();
     }
 
     public void modificaNumeroNotifichePagina() {

@@ -146,10 +146,13 @@ public class NotifichePersonaFisicaPagoPATest {
         notifichePFPage.waitLoadPaginaDifferente();
     }
 
-    @And("Ci si posiziona su una pagina differente attraverso i numeri")
-    public void ciSiPosizionaSuUnaPaginaDifferenteAttraversoINumeri() {
+    @And("Ci si posiziona su una pagina differente attraverso i numeri e si applica filtro {string}")
+    public void ciSiPosizionaSuUnaPaginaDifferenteAttraversoINumeriESiApplicaFiltro(String dpFile) {
+        DataPopulation dataPopulation = new DataPopulation();
+        Map<String, Object> datiPg = dataPopulation.readDataPopulation(dpFile + ".yaml");
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-        notifichePFPage.siSceglieUnaPaginaDiversaConNumero();
+
+        notifichePFPage.siSceglieUnaPaginaDiversaConNumeroESiFiltra(datiPg.get("codiceIUN").toString());
     }
 
     @And("Si modifica il numero di notifiche visualizzate scegliendo un valore diverso da quello di default")
@@ -266,6 +269,7 @@ public class NotifichePersonaFisicaPagoPATest {
     @And("Si Controlla la paginazione di default")
     public void siControllaLaPaginazioneDiDefault() {
         logger.info("controllo paginazione di default in pagina notifiche");
+        piattaformaNotifichePage.checkDefaultPagination();
     }
 }
 
