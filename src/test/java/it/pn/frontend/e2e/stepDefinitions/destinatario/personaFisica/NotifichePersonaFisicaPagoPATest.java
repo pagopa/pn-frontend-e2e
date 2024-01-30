@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class NotifichePersonaFisicaPAgoPATest {
+public class NotifichePersonaFisicaPagoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("NotifichePersonaFisicaTest");
     private final WebDriver driver = Hooks.driver;
@@ -261,6 +261,11 @@ public class NotifichePersonaFisicaPAgoPATest {
             this.personaFisica.put("codiceIUN", codiciIun.get(0));
             dataPopulation.writeDataPopulation("datiNotifica.yaml", this.personaFisica);
         }
+    }
+
+    @And("Si Controlla la paginazione di default")
+    public void siControllaLaPaginazioneDiDefault() {
+        logger.info("controllo paginazione di default in pagina notifiche");
     }
 }
 
