@@ -273,23 +273,6 @@ public class LoginPersonaFisicaPagoPA {
         return urlFound;
     }
 
-    @When("Nella Pagina Notifiche persona fisica si clicca su notifiche dell impresa")
-    public void cliccareSuNotificheDellImpresa(){
-        logger.info("Nella Pagina Notifiche persona fisica si clicca su notifiche dell impresa");
-
-        ricercaNotifichePersonaFisicaPagoPA.clickNotificheImpresa();
-    }
-
-    @And("Nella pagina Piattaforma Notifiche  persona fisica inserire il codice IUN da dati notifica {string}")
-    public void nellaPaginaPiattaformaNotifichePersonaFisicaInserireIlCodiceIUNDaDatiNotifica(String datiNotificaPG) {
-        logger.info("Si inserisce il codice IUN");
-
-        DataPopulation dataPopulation = new DataPopulation();
-        this.datiNotifica = dataPopulation.readDataPopulation(datiNotificaPG+".yaml");
-        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
-        notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
-    }
-
     @When("Login portale persona fisica tramite request method")
     public void loginPortaleDestinatarioTramiteRequestMethod() {
         boolean urlWithTokenFound = false;

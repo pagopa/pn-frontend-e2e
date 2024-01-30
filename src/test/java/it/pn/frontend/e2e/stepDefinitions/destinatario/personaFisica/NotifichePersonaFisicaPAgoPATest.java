@@ -5,7 +5,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderFRSection;
@@ -39,7 +41,203 @@ public class NotifichePersonaFisicaPAgoPATest {
         notifichePFPage.clickNotificheButton();
     }
 
-    @Then("pagina Piattaforma  Notifiche persona fisica viene visualizzata correttamente")
+    @And("Nella Pagina Notifiche persona fisica si clicca su notifiche dell impresa")
+    public void cliccareSuNotificheDellImpresa() {
+        logger.info("Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa");
+        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+
+        accediAPiattaformaNotifichePage.clickNotificheImpresa();
+    }
+
+    @And("Nella sezione Dettaglio Notifiche persona fisica si visualizza opzione indietro, sezione dei dati, sezione pagamento")
+    public void nellaSezioneDettaglioNotifichePersonaFisicaSiVisualizzaOpzioneIndietroSezioneDeiDatiSezionePagamento() {
+        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+
+        boolean isBackButtonDisplayed = accediAPiattaformaNotifichePage.isBackButtonDisplayed();
+
+        if (isBackButtonDisplayed){
+            logger.info("Il bottone indietro è visualizzato");
+        }else {
+            logger.error("Il bottone indietro non è visualizzato ");
+            Assert.fail("Il bottone indietro non è visualizzato ");
+        }
+
+        boolean sezioneDeiDati = accediAPiattaformaNotifichePage.sezioneDeiDatiDisplayed();
+
+        if (sezioneDeiDati) {
+            logger.info(" Il sezione dei dati è visualizzato ");
+
+        }else {
+            logger.error("Sezione dei dati non è visualizzato");
+            Assert.fail("Sezione dei dati non è visualizzato");
+        }
+
+        boolean sezionePagamentoIsDisplayed = accediAPiattaformaNotifichePage.sezionePagamentoDisplayed();
+
+        if (!sezionePagamentoIsDisplayed) {
+            logger.info("La notifica non prevede il pagamento ");
+        }else{
+            logger.info("La notifica prevede il pagamento");
+            boolean radioBoxPresent = accediAPiattaformaNotifichePage.isRadioBoxPresent();
+
+            if (radioBoxPresent){
+
+                accediAPiattaformaNotifichePage.clickRadioBoxButton(accediAPiattaformaNotifichePage.cssBuildRadioButton());
+            }
+
+            boolean titoloPagamentoIsDisplayed = accediAPiattaformaNotifichePage.titoloDiPagamentoDisplayed();
+            if (titoloPagamentoIsDisplayed){
+                logger.info("Sezione titolo di pagamento è visualizzato");
+            }else{
+                logger.error("Sezione titolo di pagamento non è visualizzato");
+                Assert.fail("Sezione titolo di pagamento non è visualizzato");
+            }
+
+            boolean codiceAvvisoIsDisplayed = accediAPiattaformaNotifichePage.codiceAvvisoDisplayed();
+            if (codiceAvvisoIsDisplayed){
+                logger.info("Sezione codice avviso è visualizzato");
+            }else{
+                logger.error("Sezione codice avviso non è visualizzato");
+                Assert.fail("Sezione codice avviso non è visualizzato");
+            }
+
+            boolean modelloF24IsDisplayed = accediAPiattaformaNotifichePage.modelloF24Displayed();
+            if (modelloF24IsDisplayed){
+                logger.info("Sezione scarica modello F24 è visualizzato");
+            }else{
+                logger.error("Sezione scarica modello F24 non è visualizzato");
+                Assert.fail("Sezione scarica modello F24 non è visualizzato");
+            }
+
+            boolean scaricaAvvisoDisplayed = accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed();
+            if (scaricaAvvisoDisplayed){
+                logger.info("Sezione scarica avviso è visualizzato");
+            }else{
+                logger.error("Sezione scarica avviso non è visualizzato");
+                Assert.fail("Sezione scarica avviso non è visualizzato");
+            }
+
+            boolean pagaAvvisoDisplayed = accediAPiattaformaNotifichePage.pagaAvvisoDisplayed();
+            if (pagaAvvisoDisplayed){
+                logger.info("Sezione paga avviso è visualizzato");
+            }else{
+                logger.error("Sezione paga avviso non è visualizzato");
+                Assert.fail("Sezione paga avviso non è visualizzato");
+            }
+        }
+
+    }
+    @And("Nella sezione Dettaglio Notifiche persona fisica si visualizza banner Recapiti, documenti allegati, altri documenti, stato dello notifiche, attestazioni")
+    public void nellaSezioneDettaglioNotifichePersonaFisicaSiVisualizzaBannerRecapitiDocumentiAllegatiAltriDocumentiStatoDelloNotificheAttestazioni() {
+
+        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+
+        boolean sezioneRecapiti = accediAPiattaformaNotifichePage.sezioneRecapitiDisplayed();
+
+
+        if (sezioneRecapiti){
+            logger.info("Il sezione recapiti è visualizzato");
+        }else {
+            logger.error("Il sezione recapiti non è visualizzato ");
+            Assert.fail("Il sezione recapiti  non è visualizzato ");
+        }
+
+        boolean documentiAllegati = accediAPiattaformaNotifichePage.documentiAllegatiDisplayed();
+
+
+        if (documentiAllegati){
+            logger.info("Il documenti allegati è visualizzato");
+        }else {
+            logger.error("Il documenti allegati non è visualizzato ");
+            Assert.fail("Il documenti allegati non è visualizzato ");
+
+        }
+        boolean statoDelloNotifiche = accediAPiattaformaNotifichePage.statoDelloNotificheDisplayed();
+
+
+        if (statoDelloNotifiche){
+            logger.info("Il stato dello notifiche è visualizzato");
+        }else {
+            logger.error("Il stato dello notifiche non è visualizzato ");
+            Assert.fail("Il stato dello notifiche non è visualizzato ");
+
+        }
+
+        boolean attestazione = accediAPiattaformaNotifichePage.attestazioneDisplayed();
+
+
+        if (attestazione){
+            logger.info("L'attestazione è visualizzato");
+        }else {
+            logger.error("L'attestazione non è visualizzato ");
+            Assert.fail("L'attestazione non è visualizzato ");
+        }
+    }
+
+    @And("Nella sezione Dettaglio Notifiche persona fisica si clicca su link di documento allegato per salvare in locale")
+    public void nellaSezioneDettaglioNotifichePersonaFisicaSiCliccaSuLinkDiDocumentoAllegatoPerSalvareInLocale() {
+        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+
+        logger.info("Si clicca sul link di documento allegato per salvare in locale ");
+
+        accediAPiattaformaNotifichePage.clickDocumentButton();
+        boolean isPdfFileDisplayed = accediAPiattaformaNotifichePage.isTypePdfDisplayed();
+        if (isPdfFileDisplayed){
+            logger.info("Il documento allegato è scaricato");
+        }else{
+            logger.error("Il documento allegato non è scaricato");
+            Assert.fail("Il documento allegato non è scaricato");
+        }
+        driver.navigate().back();
+    }
+
+    @And("Nella sezione Dettaglio Notifiche persona fisica si clicca su link di attestazione per salvare in locale")
+    public void nellaSezioneDettaglioNotifichePersonaFisicaSiCliccaSuLinkDiAttestazionePerSalvare_(){
+        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        logger.info("Si clicca sul link di attestazione per salvare in locale ");
+
+        accediAPiattaformaNotifichePage.clickatestazionePersalvare();
+        boolean isPdfFileDisplayed = accediAPiattaformaNotifichePage.isTypePdfDisplayed();
+        if (isPdfFileDisplayed){
+            logger.info("L'attestazione allegato è scaricato");
+        }else{
+            logger.error("L'attestazione allegato non è scaricato");
+            Assert.fail("L'attestazione allegato non è scaricato");
+        }
+        driver.navigate().back();
+
+    }
+
+    @And("Nella sezione Dettaglio Notifiche persona fisica si clicca su Vedi piu dettaglio nella parte dello stato della notifica")
+    public void nellaSezioneDettaglioNotifichePersonaFisicaSiCliccaSuVediPiuDettaglioNellaParteDelloStatoDellaNotifica() throws InterruptedException {
+        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        boolean vediPiuDettagliDisplayed = accediAPiattaformaNotifichePage.vediPiuDettagli();
+
+        if (vediPiuDettagliDisplayed) {
+            accediAPiattaformaNotifichePage.clickVediPiuDettagli();
+            Thread.sleep(1000);
+            if (accediAPiattaformaNotifichePage.vediPiuDettagli()) {
+                accediAPiattaformaNotifichePage.clickVediPiuDettagli();
+            }
+        } else {
+            logger.error("Il bottone vedi piu dettagli non è visualizzato");
+            Assert.fail("Il bottone vedi piu dettagli non è visualizzato");
+        }
+    }
+
+
+
+    @And("Nella sezione Dettaglio Notifiche persona fisica si clicca su l'opzione Indietro")
+    public void nellaSezioneDettaglioNotifichePersonaFisicaSiCliccaSuLopzioneIndietro() {
+            AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        logger.info("Il bottone indietro non è visibile");
+        accediAPiattaformaNotifichePage.clickIndietroButton();
+    }
+
+
+
+
+@Then("pagina Piattaforma  Notifiche persona fisica viene visualizzata correttamente")
     public void paginaPiattaformaNotificheDestinatarioVieneVisualizzataCorrettamente() {
         HeaderFRSection headerFRSection = new HeaderFRSection(this.driver);
         headerFRSection.waitLoadHeaderDESection();
