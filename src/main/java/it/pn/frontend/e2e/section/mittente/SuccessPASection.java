@@ -25,7 +25,7 @@ public class SuccessPASection extends BasePage {
     public void waitLoadSuccessPASection() {
         try{
             By successCheckBy = By.id("title-sync-feedback");
-            this.getWebDriverWait(90).until(ExpectedConditions.visibilityOfElementLocated(successCheckBy));
+            this.getWebDriverWait(this.loadComponentWaitTime).until(ExpectedConditions.visibilityOfElementLocated(successCheckBy));
             logger.info("TA_QA: La notifica è stata creata con successo, PA section caricata correttamente");
         }catch (TimeoutException e){
             logger.error("TA_QA: Il titolo della Success PA section non caricata con errore: "+e.getMessage());
