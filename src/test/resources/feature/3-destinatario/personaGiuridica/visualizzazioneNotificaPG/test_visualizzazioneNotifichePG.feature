@@ -1,9 +1,6 @@
 Feature: La persona giuridica visualizza la sezione notifiche
 
-  Background: Login persona giuridica
-    Given Login Page persona giuridica "personaGiuridica" viene visualizzata
-    When Login portale persona giuridica tramite token exchange "personaGiuridica"
-    Then Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
+
 
   @TestSuite
   @TA_PGVisualizzaNotifiche
@@ -11,6 +8,8 @@ Feature: La persona giuridica visualizza la sezione notifiche
   @PG
 
   Scenario: PN-test - La persona giuridica visualizza la sezione notifiche
+    Given PG - Si effettua la login tramite token exchange di "personaGiuridica" e viene visualizzata la dashboard
+
     When Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa
     And Nella Pagina Notifiche persona giuridica si clicca su notifica
     And Nella sezione Dettaglio Notifiche si visualizza opzione indietro, sezione dei dati, sezione pagamento

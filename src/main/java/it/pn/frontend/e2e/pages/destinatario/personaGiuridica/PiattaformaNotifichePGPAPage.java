@@ -196,7 +196,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
 
-    public String cssBuild(){
+    public String cssBuildRadioButton(){
         return "[value='" + codiceAvvisoSpan.getText() + "']";
     }
 
@@ -238,7 +238,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         return getWebDriverWait(30).withMessage("Il stato dello notifiche non è visibile").until(ExpectedConditions.visibilityOf(statoDelloNotifiche)).isDisplayed();
 
     }
-    public boolean atteztazioneDisplayed() {
+    public boolean attestazioneDisplayed() {
         return getWebDriverWait(30).withMessage("L'attestazione non è visibile").until(ExpectedConditions.visibilityOf(attestazione)).isDisplayed();
 
     }
