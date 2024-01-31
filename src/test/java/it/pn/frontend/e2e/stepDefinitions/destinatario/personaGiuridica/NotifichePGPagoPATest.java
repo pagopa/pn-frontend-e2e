@@ -339,7 +339,7 @@ public class NotifichePGPagoPATest {
 
         logger.info("Si clicca sul link di attestazione per salvare in locale ");
 
-        piattaformaNotifichePGPAPage.clickatestazionePersalvare();
+        piattaformaNotifichePGPAPage.clickAttestazionePersalvare();
         boolean isPdfFileDisplayed = piattaformaNotifichePGPAPage.isTypePdfDisplayed();
         if (isPdfFileDisplayed){
             logger.info("L'attestazione allegato è scaricato");

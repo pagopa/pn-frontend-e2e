@@ -155,8 +155,8 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         notificheButton.click();
     }
 
-    public void clickatestazionePersalvare() {
-        getWebDriverWait(30).withMessage("Il attestazione non è visibile").until(ExpectedConditions.visibilityOf(attestazione));
+    public void clickAttestazionePersalvare() {
+        getWebDriverWait(30).withMessage("L'attestazione non è visibile").until(ExpectedConditions.visibilityOf(attestazione));
         this.js().executeScript("arguments[0].click()", this.attestazione);
     }
 
