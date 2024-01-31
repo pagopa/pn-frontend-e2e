@@ -260,6 +260,11 @@ public class NotifichePFPage extends BasePage {
         this.codiceIunTextField.click();
         this.codiceIunTextField.sendKeys(iun);
         clickFiltraButton();
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         clickRimuoviFiltriButton();
     }
 
@@ -332,13 +337,14 @@ public class NotifichePFPage extends BasePage {
         return getWebDriverWait(30).withMessage("Il messaggio di errore non e visibile").until(ExpectedConditions.visibilityOf(notValidIunMessage)).isDisplayed();
     }
 
-    public boolean isTextBoxInvalid(){
+    public boolean isTextBoxInvalid() {
         final String isTextboxInvalid;
         getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(codiceIunTextField));
         String ariaInvalid = codiceIunTextField.getAttribute("aria-invalid");
         isTextboxInvalid = "true";
         return isTextboxInvalid.equals(ariaInvalid);
     }
+
     public void clickRimuoviFiltriButton() {
         getWebDriverWait(30).withMessage("Il bottone rimuovi filtri nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.rimuoviFiltriButton));
         this.rimuoviFiltriButton.click();

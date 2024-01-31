@@ -16,6 +16,7 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.time.LocalDate;
 import java.util.Map;
 
@@ -106,7 +107,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         headerPGSection.waitLoadHeaderPGPage();
 
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
-        piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage("Vita Nova Sas");
+        piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage("Convivio Spa");
 
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         boolean result = notifichePFPage.getListData();
