@@ -9,7 +9,6 @@ Feature: La persona giuridica visualizza la sezione notifiche
 
   Scenario: PN-test - La persona giuridica visualizza la sezione notifiche
     Given PG - Si effettua la login tramite token exchange di "personaGiuridica" e viene visualizzata la dashboard
-
     When Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa
     And Nella Pagina Notifiche persona giuridica si clicca su notifica
     And Nella sezione Dettaglio Notifiche si visualizza opzione indietro, sezione dei dati, sezione pagamento

@@ -22,6 +22,10 @@ public class RicercaNotifichePGPage extends BasePage {
     WebElement rimuoviFiltriButton;
     @FindBy(id = "iunMatch-helper-text")
     WebElement nonValidIunMessage;
+    @FindBy(css = "[id='page2']")
+    WebElement page2Button;
+    @FindBy(id = "startDate")
+    WebElement dataInizioField;
 
     public void clickNotificheImpresa() {
         try {
@@ -73,5 +77,23 @@ public class RicercaNotifichePGPage extends BasePage {
         return getWebDriverWait(30).withMessage("Il messagio di errore non e visibile").until(ExpectedConditions.visibilityOf(nonValidIunMessage)).isDisplayed();
     }
 
+    public void clickPage2Button() {
+        getWebDriverWait(30).withMessage("Il bottone pagina 2  nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.page2Button));
+        this.page2Button.click();
+    }
 
+    public void inserimentoDataErrato(String da) {
+        this.getWebDriverWait(10)
+                .until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField));
+
+        this.dataInizioField.click();
+        this.dataInizioField.sendKeys(da);
+        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", da));
+    }
+    public boolean isDateBoxInvalid(){
+        getWebDriverWait(30).withMessage("Il campo data inizio non è visibile").until(ExpectedConditions.visibilityOf(dataInizioField));
+        String ariaInvalid = dataInizioField.getAttribute("aria-invalid");
+        final String isTextboxInvalid = "true";
+        return isTextboxInvalid.equals(ariaInvalid);
+    }
 }

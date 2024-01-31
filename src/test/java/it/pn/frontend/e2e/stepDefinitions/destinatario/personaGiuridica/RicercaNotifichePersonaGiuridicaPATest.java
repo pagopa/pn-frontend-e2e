@@ -167,7 +167,49 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         }
     }
 
+    @And("Nella pagina Piattaforma Notifiche persona giuridica si clicca su seconda pagina")
+    public void NellaPaginaPiattaformaNotifichePersonaGiuridicaSiCliccaSuSecondaPagina() {
+        ricercaNotifichePGPage.clickPage2Button();
+    }
 
+    @And("Si visualizza correttamente la Pagina Notifiche persona giuridica sezione notifiche")
+    public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridicaSezioneNotifiche() {
+        ricercaNotifichePGPage.waitLoadDettaglioNotificaPGSection();
+    }
+
+    @And("Nella pagina Piattaforma Notifiche persona giuridica inserire una data con formato errato")
+    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireUnaDataConFormatoErrato() {
+
+        String dateDa = "01011111";
+
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        String datada = piattaformaNotifichePage.conversioneFormatoDate(dateDa);
+        ricercaNotifichePGPage.inserimentoDataErrato(datada);
+    }
+
+    @Then("Il rettangolo del campo errato diventa rosso e il tasto Filtra è disattivo")
+    public void ilRettangoloDelCampoErratoDiventaRossoEIlTastoFiltraèDisattivo() {
+
+        boolean isDateBoxInvalid = ricercaNotifichePGPage.isDateBoxInvalid();
+
+        if (isDateBoxInvalid) {
+            logger.info("Il campo data inizio non é valido");
+        } else {
+            logger.error("Il campo data inizio non é passato allo stato non valido");
+            Assert.fail("Il campo data inizio non é passato allo stato non valido");
+        }
+
+        ricercaNotifichePGPage.clickFiltraButton();
+
+        boolean isDateBoxStillInvalid = ricercaNotifichePGPage.isDateBoxInvalid();
+
+        if (isDateBoxStillInvalid) {
+            logger.info("Il bottone Filtra é dissativato");
+        } else {
+            logger.error("Il bottone Filtra é attivo");
+            Assert.fail("Il bottone Filtra é attivo");
+        }
+    }
 }
 
 
