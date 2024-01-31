@@ -77,6 +77,7 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "//form[contains(@data-testid,'preliminaryInformationsForm')]")
     WebElement preliminaryInformationsForm;
 
+
     public PiattaformaNotifichePage(WebDriver driver) {
         super(driver);
     }
@@ -670,5 +671,15 @@ public class PiattaformaNotifichePage extends BasePage {
             }
         }
         return true;
+    }
+
+    public void checkDefaultPagination(){
+        final String defaultNumberOfPage = "10";
+        if(numeroNotificheButton.getText().equals(defaultNumberOfPage)){
+            logger.info("numero di default delle notifiche visualizzate corretto");
+        }else{
+            logger.error("numero di default delle notifiche visualizzate non corretto");
+            Assert.fail("numero di default delle notifiche visualizzate non corretto");
+        }
     }
 }

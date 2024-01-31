@@ -80,8 +80,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     WebElement documentButton;
 
 
-
-
     public PiattaformaNotifichePGPAPage(WebDriver driver) {
         super(driver);
     }
@@ -102,10 +100,10 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             this.getWebDriverWait(40).withMessage("Il campo codice iun della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(codiceIunTextFieldBy));
             this.getWebDriverWait(40).withMessage("Il campo data inizio della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(dataInizioFieldBy));
             this.getWebDriverWait(40).withMessage("Il campo data fine della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(dataFineFieldBy));
-            logger.info("La piagine Piattamorma Notifiche si carica correttamente");
+            logger.info("La  pagina Piattaforma Notifiche si carica correttamente");
         } catch (TimeoutException e) {
-            logger.error("La piagine Piattamorma Notifiche non si carica correttamente con errore: " + e.getMessage());
-            Assert.fail("La piagine Piattamorma Notifiche non si carica correttamente con errore: " + e.getMessage());
+            logger.error("La pagina Piattaforma Notifiche non si carica correttamente con errore: " + e.getMessage());
+            Assert.fail("La pagina Piattaforma Notifiche non si carica correttamente con errore: " + e.getMessage());
         }
     }
 
