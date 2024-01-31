@@ -196,7 +196,7 @@ public class NotifichePersonaFisicaPAgoPATest {
         AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
         logger.info("Si clicca sul link di attestazione per salvare in locale ");
 
-        accediAPiattaformaNotifichePage.clickatestazionePersalvare();
+        accediAPiattaformaNotifichePage.clickAttestazionePersalvare();
         boolean isPdfFileDisplayed = accediAPiattaformaNotifichePage.isTypePdfDisplayed();
         if (isPdfFileDisplayed){
             logger.info("L'attestazione allegato è scaricato");

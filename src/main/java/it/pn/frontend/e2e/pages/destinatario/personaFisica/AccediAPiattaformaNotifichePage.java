@@ -114,8 +114,8 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         notificheButton.click();
     }
 
-    public void clickatestazionePersalvare() {
-        getWebDriverWait(30).withMessage("Il attestazione non è visibile").until(ExpectedConditions.visibilityOf(attestazione));
+    public void clickAttestazionePersalvare() {
+        getWebDriverWait(30).withMessage("L'attestazione non è visibile").until(ExpectedConditions.visibilityOf(attestazione));
         this.js().executeScript("arguments[0].click()", this.attestazione);
     }
 
@@ -189,6 +189,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     public boolean sezioneRecapitiDisplayed() {
         return getWebDriverWait(30).withMessage("Il sezione recapiti non è visibile").until(ExpectedConditions.visibilityOf(sezioneRecapiti)).isDisplayed();
     }
+
     public boolean documentiAllegatiDisplayed() {
         return getWebDriverWait(30).withMessage("Il documenti allegati non è visibile").until(ExpectedConditions.visibilityOf(documentiAllegati)).isDisplayed();
 
