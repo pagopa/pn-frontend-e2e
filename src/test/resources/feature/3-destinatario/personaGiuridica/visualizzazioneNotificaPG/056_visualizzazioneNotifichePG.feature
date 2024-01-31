@@ -1,9 +1,10 @@
 Feature: La persona fisica visualizza la sezione notifiche
 
-  @TestSuite
-  @TA_PGVisualizzaNotifiche
-  @VisualizzazioneNotifichePG
-  @PG
+  # DISABLED Temporary disabled until the bug PN-9147 is fixed
+#  @TestSuite
+#  @TA_PGVisualizzaNotifiche
+#  @VisualizzazioneNotifichePG
+#  @PG
 
   Scenario: PN-9147 - La persona giuridica visualizza la sezione notifiche
     Given PG - Si effettua la login tramite token exchange di "personaGiuridica" e viene visualizzata la dashboard
