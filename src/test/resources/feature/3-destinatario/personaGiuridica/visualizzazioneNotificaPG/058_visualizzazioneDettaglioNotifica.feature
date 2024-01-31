@@ -1,13 +1,12 @@
-Feature: La persona giuridica visualizza la sezione notifiche
-
+Feature: La persona giuridica visualizza il dettaglio della notifica
 
 
   @TestSuite
-  @TA_PGVisualizzaNotifiche
+  @TA_PGVisualizzaDettaglioNotifica
   @VisualizzazioneNotifichePG
   @PG
 
-  Scenario: PN-test - La persona giuridica visualizza la sezione notifiche
+  Scenario: PN-9151 - La persona giuridica visualizza il dettaglio della notifica
     Given PG - Si effettua la login tramite token exchange di "personaGiuridica" e viene visualizzata la dashboard
 
     When Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa
