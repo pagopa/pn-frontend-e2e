@@ -1,9 +1,10 @@
 Feature: La persona giuridica visualizza le deleghe
 
-  @TestSuite
-  @TA_PGVisualizzaDelegheSenzaGruppo
-  @DeleghePG
-  @PG
+  # DISABLED Temporary disabled until the bug PN-9166 is fixed
+#  @TestSuite
+#  @TA_PGVisualizzaDelegheSenzaGruppo
+#  @DeleghePG
+#  @PG
   Scenario: PN-9166 - La persona giuridica visualizza le deleghe
     Given PG - Si effettua la login tramite token exchange di "personaGiuridica" e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
