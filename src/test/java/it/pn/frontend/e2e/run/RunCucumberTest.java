@@ -52,7 +52,13 @@ public class RunCucumberTest {
     public static void startTestSuite() {
         if (loadProperties()) {
             logger.info("properties loaded");
-            properties.forEach((property, value) -> System.setProperty(property.toString(), value.toString()));
+            properties.forEach((property, value) -> {
+                        String actualSystemProperty = System.getProperty(property.toString());
+                        if (actualSystemProperty == null) {
+                            System.setProperty(property.toString(), value.toString());
+                        }
+                    }
+            );
         }
         if (System.getProperty("cucumber.filter.tags") != null) {
             testSuite = System.getProperty("cucumber.filter.tags").substring(1);
