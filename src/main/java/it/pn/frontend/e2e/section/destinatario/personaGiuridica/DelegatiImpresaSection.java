@@ -31,6 +31,8 @@ public class DelegatiImpresaSection extends BasePage {
     WebElement titlePageBy;
     @FindBy(id = "add-deleghe")
     WebElement addDelegheButton;
+    @FindBy(xpath = "//button[@data-testid='delegationMenuIcon']")
+    WebElement menuDelegaButton;
 
     public DelegatiImpresaSection(WebDriver driver) {
         super(driver);
@@ -109,6 +111,8 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void clickRevocaMenuButtonPG() {
         try {
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.menuDelegaButton));
+            this.menuDelegaButton.click();
             logger.info("verifica esistenza bottone revoca");
             this.getWebDriverWait(30).withMessage("bottone non trovato").until(ExpectedConditions.elementToBeClickable(this.revocaMenuButton));
             logger.info("click sul bottone revoca");
