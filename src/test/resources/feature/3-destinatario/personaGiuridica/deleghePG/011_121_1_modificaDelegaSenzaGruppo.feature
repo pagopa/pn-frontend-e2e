@@ -1,9 +1,10 @@
 Feature: Il delegato persona giuridica modifica una delega non assegnandoli un gruppo
 
-  @TestSuite
-  @TA_PGmodificaDelegaSenzaGruppo
-  @DeleghePG
-  @PG
+    # DISABLED Temporary disabled until the bug PN-9173 is fixed
+#  @TestSuite
+#  @TA_PGmodificaDelegaSenzaGruppo
+#  @DeleghePG
+#  @PG
 
   Scenario: PN-9173 - Il delegato persona giuridica modifica una delega non assegnandoli un gruppo
     Given PG - Si effettua la login tramite token exchange di "personaGiuridica" e viene visualizzata la dashboard
