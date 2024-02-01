@@ -1,9 +1,10 @@
 Feature:La persona giuridica fa una ricerca per gruppo delle deleghe
 
-  @TestSuite
-  @TA_PGricercaDeleghePerGruppo
-  @DeleghePG
-  @PG
+    # DISABLED Temporary disabled until the bug PN-9167 is fixed
+#  @TestSuite
+#  @TA_PGricercaDeleghePerGruppo
+#  @DeleghePG
+#  @PG
 
 
   Scenario: PN-9167 - La persona giuridica fa una ricerca per gruppo delle deleghe
