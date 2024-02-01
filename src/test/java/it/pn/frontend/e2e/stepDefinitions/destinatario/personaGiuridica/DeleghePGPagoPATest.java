@@ -120,7 +120,7 @@ public class DeleghePGPagoPATest {
         this.datiDelega = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml");
 
         delegatiImpresaSection.waitLoadDelegatiImpresaPage();
-        delegatiImpresaSection.controlloCreazioneDelega(this.datiDelega.get("ragioneSociale").toString());
+        delegatiImpresaSection.controlloEsistenzaDelega(this.datiDelega.get("ragioneSociale").toString());
     }
 
     @And("Si controlla che non sia presente una delega con stesso nome {string} persona giuridica")
@@ -223,7 +223,7 @@ public class DeleghePGPagoPATest {
         logger.info("Si clicca sul menu delle delega");
 
         this.datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        this.delegatiImpresaSection.clickMenuDelega(datiDelega.get("ragioneSociale").toString());
+        this.delegatiImpresaSection.controlloEsistenzaDelega(datiDelega.get("ragioneSociale").toString());
     }
 
     @And("Nella pagina Deleghe sezione Deleghe dell impresa si sceglie l'opzione mostra codice")

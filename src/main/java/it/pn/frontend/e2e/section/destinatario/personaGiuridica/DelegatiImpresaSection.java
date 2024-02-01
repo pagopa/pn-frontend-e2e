@@ -38,7 +38,7 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void waitLoadDelegatiImpresaPage() {
         try {
-            this.getWebDriverWait(30).withMessage("il titolo della sezione deledati dall'impresa non è visibile").until(ExpectedConditions.visibilityOf(titlePageBy));
+            this.getWebDriverWait(30).withMessage("il titolo della sezione delegati dall'impresa non è visibile").until(ExpectedConditions.visibilityOf(titlePageBy));
             this.getWebDriverWait(30).withMessage("il bottone aggiungi delega non è visibile").until(ExpectedConditions.visibilityOf(addDelegheButton));
             logger.info("Delegati dall'impresa caricata correttamente");
         } catch (TimeoutException e) {
@@ -58,7 +58,7 @@ public class DelegatiImpresaSection extends BasePage {
         }
     }
 
-    public void controlloCreazioneDelega(String ragioneSociale) {
+    public void controlloEsistenzaDelega(String ragioneSociale) {
         try {
             By nomeDelegato = By.id("delegatesBodyRowDesktop");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
