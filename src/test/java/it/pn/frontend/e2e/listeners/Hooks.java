@@ -62,7 +62,7 @@ public class Hooks {
         if (this.headless != null && this.headless.equalsIgnoreCase("false")) {
             driver.manage().window().maximize();
         }
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         logger.info("firefox driver started");
     }
 
