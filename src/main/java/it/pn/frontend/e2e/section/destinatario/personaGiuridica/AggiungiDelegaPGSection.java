@@ -24,7 +24,7 @@ public class AggiungiDelegaPGSection extends BasePage {
     @FindBy(xpath = "//button[contains(@data-testid,'createButton')]")
     WebElement inviaLaRichiestaButton;
 
-    @FindBy(xpath = "//button[@id='courtesy-page-button']")
+    @FindBy(id = "breadcrumb-indietro-button")
     WebElement tornaDelegheButton;
 
     @FindBy(xpath = "//input[contains(@id,'expirationDate')]")
@@ -39,7 +39,7 @@ public class AggiungiDelegaPGSection extends BasePage {
     @FindBy(xpath = "//input[contains(@value,'entiSelezionati')]")
     WebElement soloEntiSelezionatiRadioButton;
 
-    @FindBy(id ="enti")
+    @FindBy(id = "enti")
     WebElement enteElementInput;
 
     @FindBy(id = "expirationDate-helper-text")
@@ -56,9 +56,9 @@ public class AggiungiDelegaPGSection extends BasePage {
             this.getWebDriverWait(40).withMessage("il campo codice fiscale non è visibile").until(ExpectedConditions.visibilityOf(this.codiceFiscaleInput));
             this.getWebDriverWait(40).withMessage("Il bottone persona giuridica non è visibile").until(ExpectedConditions.visibilityOf(this.personaGiuridicaButton));
             logger.info("Si visualizza correttamente la sezione Aggiungi una delega");
-        }catch (TimeoutException e){
-            logger.error("Non si visualizza correttamente la sezione Aggiungi una delega con errore: "+e.getMessage());
-            Assert.fail("Non si visualizza correttamente la sezione Aggiungi una delega con errore: "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Non si visualizza correttamente la sezione Aggiungi una delega con errore: " + e.getMessage());
+            Assert.fail("Non si visualizza correttamente la sezione Aggiungi una delega con errore: " + e.getMessage());
         }
     }
 
@@ -111,7 +111,7 @@ public class AggiungiDelegaPGSection extends BasePage {
         By menuEntiOptionBy = By.xpath("//div[@role='presentation']");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuEntiOptionBy));
         WebElement menuEntiOption = this.driver.findElement(menuEntiOptionBy);
-        this.js().executeScript("arguments[0].click()",menuEntiOption);
+        this.js().executeScript("arguments[0].click()", menuEntiOption);
 
         //click on option 0
         By comuneOptionBy = By.id("enti-option-0");
@@ -122,7 +122,7 @@ public class AggiungiDelegaPGSection extends BasePage {
 
 
     public void insertDataErrata() {
-        LocalDate dataDaInserire =  LocalDate.now().minusDays(1);
+        LocalDate dataDaInserire = LocalDate.now().minusDays(1);
         dataTermineDelegaInput.sendKeys(dataDaInserire.toString());
     }
 
@@ -136,8 +136,8 @@ public class AggiungiDelegaPGSection extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(this.dataTermineDelegaInput));
         this.dataTermineDelegaInput.click();
         String name = this.dataTermineDelegaInput.getAttribute("value");
-        for(int index = 0; index<name.length(); index++){
-           this.dataTermineDelegaInput.sendKeys(Keys.BACK_SPACE);
+        for (int index = 0; index < name.length(); index++) {
+            this.dataTermineDelegaInput.sendKeys(Keys.BACK_SPACE);
         }
     }
 
