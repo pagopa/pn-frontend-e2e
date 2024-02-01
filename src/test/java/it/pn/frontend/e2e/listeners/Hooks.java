@@ -84,7 +84,7 @@ public class Hooks {
             driver.manage().window().maximize();
         }
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 
         devTools = ((HasDevTools) driver).getDevTools();
         devTools.createSession();
@@ -163,7 +163,7 @@ public class Hooks {
             driver.manage().window().maximize();
         }
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         logger.info("edge driver started");
     }
 
