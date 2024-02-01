@@ -494,7 +494,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void visualizzazioneSezioneAltriRecapiti() {
-        By altriRecapitiSectionBy = By.id("specialContact");
+        By altriRecapitiSectionBy = By.id("specialContactTitle");
         getWebDriverWait(10).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
     }
 
