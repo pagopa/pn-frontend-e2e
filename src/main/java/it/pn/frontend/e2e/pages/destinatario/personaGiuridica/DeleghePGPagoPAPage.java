@@ -38,7 +38,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(id = "group-confirm-button")
     WebElement confermaButton;
 
-    @FindBy(id = "associate-form-no-group")
+    @FindBy(id = "associate-no-group")
     WebElement nonGruppoRadioButton;
 
     @FindBy(id = "reject-delegation-button")
@@ -205,6 +205,9 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickNonAssegnaGruppo() {
+        this.getWebDriverWait(30)
+                .withMessage("Il pulsante radiobutton 'Non assegnare ad un gruppo' non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(this.nonGruppoRadioButton));
         this.nonGruppoRadioButton.click();
     }
 
