@@ -106,6 +106,7 @@ public class DelegatiImpresaSection extends BasePage {
     }
 
     public void clickMostraCodice() {
+        this.menuDelegaButton.click();
         this.mostraCodiceOption.click();
     }
 
