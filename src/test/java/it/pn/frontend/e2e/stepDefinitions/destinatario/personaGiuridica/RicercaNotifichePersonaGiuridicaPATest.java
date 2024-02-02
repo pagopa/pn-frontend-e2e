@@ -16,6 +16,7 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.time.LocalDate;
 import java.util.Map;
 
@@ -126,10 +127,8 @@ public class RicercaNotifichePersonaGiuridicaPATest {
     @And("Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN non valido da dati notifica {string}")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIunNonValidoDaDatiNotifica(String datiNotificaNonValidoPG) throws InterruptedException {
         logger.info("Si inserisce il codice IUN non valido");
-        DataPopulation dataPopulation = new DataPopulation();
-        this.datiNotificaNonValidoPG = dataPopulation.readDataPopulation(datiNotificaNonValidoPG + ".yaml");
         NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
-        notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotificaNonValidoPG.get("codiceIUN").toString());
+        notificheDestinatarioPage.inserisciCodiceIUN(datiNotificaNonValidoPG);
     }
 
     @Then("Viene visualizzato un messaggio in rosso di errore sotto il campo errato e il rettangolo diventa rosso e il tasto Filtra è disattivo")

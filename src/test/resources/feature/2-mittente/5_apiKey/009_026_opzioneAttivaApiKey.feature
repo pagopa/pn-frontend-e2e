@@ -7,7 +7,7 @@ Feature: Mittente seleziona l'opzione attiva api Key
   @ApikeyMittente
 
   Scenario: PN-9234 - Mittente seleziona l'opzione attiva Api Key
-    Given PA - Si effettua la login tramite token exchange di "mittente" e viene visualizzata la dashboard
+    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
     And Si visualizza correttamente la pagina Api Key
     When Nella pagina Api Key si clicca sul bottone menu di una Api Key bloccata presente in elenco

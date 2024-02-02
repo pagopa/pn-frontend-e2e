@@ -6,7 +6,7 @@ Feature: la persona fisica inserisce una Email
   @PF
 
   Scenario: PN-9308-A34 - la persona fisica inserisce una Email
-    Given PF - Si effettua la login tramite token exchange di "personaFisica" e viene visualizzata la dashboard
+    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una email

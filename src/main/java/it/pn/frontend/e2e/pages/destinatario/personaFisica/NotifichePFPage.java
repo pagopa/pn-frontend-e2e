@@ -56,8 +56,8 @@ public class NotifichePFPage extends BasePage {
         try {
             By titleLabel = By.id("Le tue notifiche-page");
             By tableNotifiche = By.id("notifications-table");
-            this.getWebDriverWait(40).withMessage("Il titolo della pagina Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
-            this.getWebDriverWait(40).withMessage("La tabella delle Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
+            this.getWebDriverWait(30).withMessage("Il titolo della pagina Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
+            this.getWebDriverWait(30).withMessage("La tabella delle Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
             logger.info("Notifiche DE Page caricata");
         } catch (TimeoutException e) {
             logger.error("Notifiche DE Page non caricata con errore : " + e.getMessage());
@@ -254,9 +254,18 @@ public class NotifichePFPage extends BasePage {
         }
     }
 
-    public void siSceglieUnaPaginaDiversaConNumero() {
+    public void siSceglieUnaPaginaDiversaConNumeroESiFiltra(String iun) {
         getWebDriverWait(30).withMessage("la terza pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(this.numeroPaginaTreButton));
         this.js().executeScript("arguments[0].click()", this.numeroPaginaTreButton);
+        this.codiceIunTextField.click();
+        this.codiceIunTextField.sendKeys(iun);
+        clickFiltraButton();
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        clickRimuoviFiltriButton();
     }
 
     public void modificaNumeroNotifichePagina() {
@@ -328,13 +337,14 @@ public class NotifichePFPage extends BasePage {
         return getWebDriverWait(30).withMessage("Il messaggio di errore non e visibile").until(ExpectedConditions.visibilityOf(notValidIunMessage)).isDisplayed();
     }
 
-    public boolean isTextBoxInvalid(){
+    public boolean isTextBoxInvalid() {
         final String isTextboxInvalid;
         getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(codiceIunTextField));
         String ariaInvalid = codiceIunTextField.getAttribute("aria-invalid");
         isTextboxInvalid = "true";
         return isTextboxInvalid.equals(ariaInvalid);
     }
+
     public void clickRimuoviFiltriButton() {
         getWebDriverWait(30).withMessage("Il bottone rimuovi filtri nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.rimuoviFiltriButton));
         this.rimuoviFiltriButton.click();

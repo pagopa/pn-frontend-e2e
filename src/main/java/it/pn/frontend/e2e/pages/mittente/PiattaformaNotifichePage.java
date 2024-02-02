@@ -77,6 +77,7 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "//form[contains(@data-testid,'preliminaryInformationsForm')]")
     WebElement preliminaryInformationsForm;
 
+
     public PiattaformaNotifichePage(WebDriver driver) {
         super(driver);
     }
@@ -84,8 +85,8 @@ public class PiattaformaNotifichePage extends BasePage {
     public void waitLoadPiattaformaNotifichePAPage() {
         try {
             By notificheTitle = By.id("Notifiche-page");
-            this.getWebDriverWait(this.loadComponentWaitTime).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf(this.inviaNuovaNotificaButton));
-            this.getWebDriverWait(this.loadComponentWaitTime).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOfElementLocated(notificheTitle));
+            this.getWebDriverWait(30).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf(this.inviaNuovaNotificaButton));
+            this.getWebDriverWait(30).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOfElementLocated(notificheTitle));
             logger.info("Piattaforma Notifiche Page caricata");
         } catch (TimeoutException e) {
             logger.error("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
@@ -670,5 +671,15 @@ public class PiattaformaNotifichePage extends BasePage {
             }
         }
         return true;
+    }
+
+    public void checkDefaultPagination() {
+        final String defaultNumberOfPage = "10";
+        if (numeroNotificheButton.getText().equals(defaultNumberOfPage)) {
+            logger.info("numero di default delle notifiche visualizzate corretto");
+        } else {
+            logger.error("numero di default delle notifiche visualizzate non corretto");
+            Assert.fail("numero di default delle notifiche visualizzate non corretto");
+        }
     }
 }

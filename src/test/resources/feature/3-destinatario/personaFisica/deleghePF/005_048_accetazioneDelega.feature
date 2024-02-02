@@ -6,7 +6,7 @@ Feature: il delegato accetta la delega
   @PF
 
   Scenario: PN-9411 - il delegato accetta la delega
-    Given PF - Si effettua la login tramite token exchange di "personaFisica" e viene visualizzata la dashboard
+    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico "personaFisica"
     And si sceglie opzione accetta

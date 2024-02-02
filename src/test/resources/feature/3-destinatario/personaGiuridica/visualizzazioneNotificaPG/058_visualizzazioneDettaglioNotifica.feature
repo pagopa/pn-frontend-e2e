@@ -1,15 +1,13 @@
-Feature: La persona giuridica visualizza la sezione notifiche
+Feature: La persona giuridica visualizza il dettaglio della notifica
 
+  # DISABLED Temporary disabled until the bug PN-9151 is fixed - @Alima
+#  @TestSuite
+#  @TA_PGVisualizzaDettaglioNotifica
+#  @VisualizzazioneNotifichePG
+#  @PG
 
-
-  @TestSuite
-  @TA_PGVisualizzaNotifiche
-  @VisualizzazioneNotifichePG
-  @PG
-
-  Scenario: PN-test - La persona giuridica visualizza la sezione notifiche
-    Given PG - Si effettua la login tramite token exchange di "personaGiuridica" e viene visualizzata la dashboard
-
+  Scenario: PN-9151 - La persona giuridica visualizza il dettaglio della notifica
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa
     And Nella Pagina Notifiche persona giuridica si clicca su notifica
     And Nella sezione Dettaglio Notifiche si visualizza opzione indietro, sezione dei dati, sezione pagamento

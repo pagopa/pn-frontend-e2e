@@ -3,3 +3,4 @@ logs
 screenShots
 target
 src/test/resources/dataPopulation/downloadFileNotifica
+src/test/resources/test-config.properties

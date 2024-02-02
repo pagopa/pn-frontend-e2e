@@ -10,7 +10,7 @@ import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
-import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderFRSection;
+import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class NotifichePersonaFisicaPAgoPATest {
+public class NotifichePersonaFisicaPagoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("NotifichePersonaFisicaTest");
     private final WebDriver driver = Hooks.driver;
@@ -239,8 +239,8 @@ public class NotifichePersonaFisicaPAgoPATest {
 
 @Then("pagina Piattaforma  Notifiche persona fisica viene visualizzata correttamente")
     public void paginaPiattaformaNotificheDestinatarioVieneVisualizzataCorrettamente() {
-        HeaderFRSection headerFRSection = new HeaderFRSection(this.driver);
-        headerFRSection.waitLoadHeaderDESection();
+        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
+        headerPFSection.waitLoadHeaderDESection();
 
         if (!CookieConfig.isCookieEnabled()) {
             CookiesSection cookiesSection = new CookiesSection(this.driver);
@@ -344,10 +344,13 @@ public class NotifichePersonaFisicaPAgoPATest {
         notifichePFPage.waitLoadPaginaDifferente();
     }
 
-    @And("Ci si posiziona su una pagina differente attraverso i numeri")
-    public void ciSiPosizionaSuUnaPaginaDifferenteAttraversoINumeri() {
+    @And("Ci si posiziona su una pagina differente attraverso i numeri e si applica filtro {string}")
+    public void ciSiPosizionaSuUnaPaginaDifferenteAttraversoINumeriESiApplicaFiltro(String dpFile) {
+        DataPopulation dataPopulation = new DataPopulation();
+        Map<String, Object> datiPg = dataPopulation.readDataPopulation(dpFile + ".yaml");
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-        notifichePFPage.siSceglieUnaPaginaDiversaConNumero();
+
+        notifichePFPage.siSceglieUnaPaginaDiversaConNumeroESiFiltra(datiPg.get("codiceIUN").toString());
     }
 
     @And("Si modifica il numero di notifiche visualizzate scegliendo un valore diverso da quello di default")
@@ -459,6 +462,12 @@ public class NotifichePersonaFisicaPAgoPATest {
             this.personaFisica.put("codiceIUN", codiciIun.get(0));
             dataPopulation.writeDataPopulation("datiNotifica.yaml", this.personaFisica);
         }
+    }
+
+    @And("Si Controlla la paginazione di default")
+    public void siControllaLaPaginazioneDiDefault() {
+        logger.info("controllo paginazione di default in pagina notifiche");
+        piattaformaNotifichePage.checkDefaultPagination();
     }
 }
 
