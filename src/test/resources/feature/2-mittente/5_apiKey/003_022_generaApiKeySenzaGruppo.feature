@@ -6,7 +6,7 @@ Feature: Mittente genera Api Key senza gruppo
   @ApikeyMittente
 
   Scenario: PN-9230 - Mittente genera Api Key senza gruppo
-    Given PA - Si effettua la login tramite token exchange di "mittente" e viene visualizzata la dashboard
+    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
     And Si visualizza correttamente la pagina Api Key
     When Nella pagina Api Key si clicca sul bottone genera Api Key
