@@ -132,7 +132,6 @@ public class DeleghePagoPATest {
     @And("Nella sezione Deleghe si sceglie l'opzione mostra codice")
     public void nellaSezioneDelegheSiSceglieLOpzioneMostraCodice() {
         logger.info("Si clicca su mostra codice");
-
         this.deleghePage.siSceglieOpzioneMostraCodice();
     }
 
@@ -324,7 +323,7 @@ public class DeleghePagoPATest {
         String cognome = datiDelega.get("cognome").toString();
         if (deleghePage.cercaEsistenzaDelega(nome, cognome)) {
             logger.info("Delega con lo stesso nome trovata");
-            deleghePage.clickRevocaButtonOnMenu();
+            deleghePage.clickRevocaButtonOnMenu(nome, cognome);
             this.popUpRevocaDelegaSection.waitLoadPopUpRevocaDelegaSection();
             this.popUpRevocaDelegaSection.clickRevocaLaDelega();
         } else {

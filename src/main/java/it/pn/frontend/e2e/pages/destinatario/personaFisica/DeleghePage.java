@@ -24,8 +24,6 @@ public class DeleghePage extends BasePage {
     @FindBy(id = "show-code-button")
     WebElement mostraCodiceOption;
 
-    @FindBy(xpath = "//button[@data-testid='delegationMenuIcon']")
-    WebElement menuButton;
 
     public DeleghePage(WebDriver driver) {
         super(driver);
@@ -75,9 +73,10 @@ public class DeleghePage extends BasePage {
         }
     }
 
-    public void clickRevocaButtonOnMenu() {
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.menuButton));
-        this.menuButton.click();
+    public void clickRevocaButtonOnMenu(String nome, String cognome) {
+        By menuDelega = By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']");
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
+        this.js().executeScript("arguments[0].click()", this.element(menuDelega));
         this.getWebDriverWait(60).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(this.revocaButton));
         this.revocaButton.click();
     }
@@ -97,12 +96,12 @@ public class DeleghePage extends BasePage {
     public void clickMenuDelega(String nome, String cognome) {
         try {
             TimeUnit.SECONDS.sleep(10);
-            By menuDelega = By.xpath("//div[@data-testid='delegates-wrapper']//td[@scope='col' and div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td[@scope='col']//button[@data-testid='delegationMenuIcon']");
+            By menuDelega = By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']");
             this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuDelega));
             this.js().executeScript("arguments[0].click()", this.element(menuDelega));
             logger.info("cliccato correttamente su menu delega button");
         } catch (StaleElementReferenceException e) {
-            By menuDelega = By.xpath("//div[@data-testid='delegates-wrapper']//td[@scope='col' and div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td[@scope='col']//button[@data-testid='delegationMenuIcon']");
+            By menuDelega = By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']");
             this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuDelega));
             this.js().executeScript("arguments[0].click()", this.element(menuDelega));
         } catch (TimeoutException e) {
