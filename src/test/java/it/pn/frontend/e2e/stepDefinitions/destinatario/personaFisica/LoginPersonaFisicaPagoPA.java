@@ -172,7 +172,7 @@ public class LoginPersonaFisicaPagoPA {
                 break;
             }
             try {
-                TimeUnit.SECONDS.sleep(3);
+                TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

@@ -25,6 +25,9 @@ public class AggiungiDelegaPGSection extends BasePage {
     WebElement inviaLaRichiestaButton;
 
     @FindBy(id = "breadcrumb-indietro-button")
+    WebElement tornaIndietroButton;
+
+    @FindBy(id = "courtesy-page-button")
     WebElement tornaDelegheButton;
 
     @FindBy(xpath = "//input[contains(@id,'expirationDate')]")

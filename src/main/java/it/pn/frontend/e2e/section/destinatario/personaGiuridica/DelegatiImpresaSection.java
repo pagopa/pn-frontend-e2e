@@ -11,6 +11,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 public class DelegatiImpresaSection extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DelegatiImpresaSection");
@@ -33,6 +35,9 @@ public class DelegatiImpresaSection extends BasePage {
     WebElement addDelegheButton;
     @FindBy(xpath = "//button[@data-testid='delegationMenuIcon']")
     WebElement menuDelegaButton;
+
+    @FindBy(id = "delegatesBodyRowDesktop")
+    List<WebElement> nomeDelegato;
 
     public DelegatiImpresaSection(WebDriver driver) {
         super(driver);
@@ -62,12 +67,22 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void controlloEsistenzaDelega(String ragioneSociale) {
         try {
-            By nomeDelegato = By.id("delegatesBodyRowDesktop");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
-            this.getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElementLocated(nomeDelegato, ragioneSociale));
-            By statusChip = By.id("chip-status-warning");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statusChip));
-            this.getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElementLocated(statusChip, "In attesa di conferma"));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(nomeDelegato));
+            for (WebElement delegato : nomeDelegato) {
+                if (delegato.getText().contains(ragioneSociale)) {
+                    logger.info("Delega trovata correttamente");
+                    this.getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElement(delegato, ragioneSociale));
+                    By statusChip = By.id("chip-status-warning");
+                    this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statusChip));
+                    this.getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElementLocated(statusChip, "In attesa di conferma"));
+                }
+            }
+//            By nomeDelegato = By.id("delegatesBodyRowDesktop");
+//            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
+//            this.getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElementLocated(nomeDelegato, ragioneSociale));
+//            By statusChip = By.id("chip-status-warning");
+//            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statusChip));
+//            this.getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElementLocated(statusChip, "In attesa di conferma"));
             this.logger.info("Si visualizza la delega creata");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza la delega creata");

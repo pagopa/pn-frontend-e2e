@@ -35,7 +35,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "phone")
     WebElement inserimentoPhoneField;
 
-    @FindBy(xpath = "//p[contains(text(),'PEC associata')]/following-sibling::div/div/button[contains(text(),'Elimina')]")
+    @FindBy(id = "cancelContact-default")
     WebElement eliminaPECButton;
 
     @FindBy(xpath = "//div/h2[contains(text(),'Grazie!')]/following-sibling::div//button")
