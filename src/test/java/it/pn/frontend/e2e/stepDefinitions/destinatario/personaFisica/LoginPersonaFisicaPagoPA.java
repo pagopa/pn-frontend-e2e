@@ -48,27 +48,6 @@ public class LoginPersonaFisicaPagoPA {
         }
     }
 
-//    @Given("PF - Si effettua la login tramite token exchange di {string} e viene visualizzata la dashboard")
-//    public void loginPfConTokenExchange(String datipersonaFisica) {
-//        DataPopulation dataPopulation = new DataPopulation();
-//        this.datiPersonaFisica = dataPopulation.readDataPopulation(datipersonaFisica + ".yaml");
-//        String variabileAmbiente = System.getProperty("environment");
-//        switch (variabileAmbiente) {
-//            case "dev" -> this.driver.get(this.datiPersonaFisica.get("url").toString());
-//            case "test", "uat" ->
-//                    this.driver.get(this.datiPersonaFisica.get("url").toString().replace("dev", variabileAmbiente));
-//            default ->
-//                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
-//        }
-//
-//        // Login tramite token exchange
-//        loginPortalePersonaFisicaTramiteTokenExchange(datipersonaFisica);
-//
-//        // Verifica che la dashboard sia visualizzata
-//        homePageDestinatarioVieneVisualizzataCorrettamente();
-//
-//    }
-
     @Given("PF - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
     public void loginMittenteConTokenExchange(String personaFisica) {
         DataPopulation dataPopulation = new DataPopulation();
