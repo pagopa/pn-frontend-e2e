@@ -62,7 +62,7 @@ public class Hooks {
         if (this.headless != null && this.headless.equalsIgnoreCase("false")) {
             driver.manage().window().maximize();
         }
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         logger.info("firefox driver started");
     }
 
@@ -84,7 +84,7 @@ public class Hooks {
             driver.manage().window().maximize();
         }
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
         devTools = ((HasDevTools) driver).getDevTools();
         devTools.createSession();
@@ -163,7 +163,7 @@ public class Hooks {
             driver.manage().window().maximize();
         }
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         logger.info("edge driver started");
     }
 

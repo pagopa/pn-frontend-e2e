@@ -8,7 +8,7 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
-import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderFRSection;
+import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
@@ -41,8 +41,8 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @Then("pagina Piattaforma  Notifiche persona fisica viene visualizzata correttamente")
     public void paginaPiattaformaNotificheDestinatarioVieneVisualizzataCorrettamente() {
-        HeaderFRSection headerFRSection = new HeaderFRSection(this.driver);
-        headerFRSection.waitLoadHeaderDESection();
+        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
+        headerPFSection.waitLoadHeaderDESection();
 
         if (!CookieConfig.isCookieEnabled()) {
             CookiesSection cookiesSection = new CookiesSection(this.driver);
