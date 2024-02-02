@@ -1,11 +1,11 @@
 Feature: Il delegato persona fisica annulLa l'operazione di rifiuto delega
+  #Disbaled until 9414 is refactorized
+  #@TestSuite
+  #@TA_PFannulaRifiutoDelega
+  #@DeleghePF
+  #@PF
 
-  @TestSuite
-  @TA_PFannulaRifiutoDelega
-  @DeleghePF
-  @PF
-
-  Scenario: Il delegato persona fisica annulLa l'operazione di rifiuto delega
+  Scenario:PN-9414-NEG - Il delegato persona fisica annulLa l'operazione di rifiuto delega
     Given PF - Si effettua la login tramite token exchange di "personaFisica" e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico "personaFisica"
