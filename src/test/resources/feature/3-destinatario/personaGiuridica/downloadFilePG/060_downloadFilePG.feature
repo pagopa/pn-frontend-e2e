@@ -4,9 +4,9 @@ Feature: persona giuridica scarica attestazioni all'interno di una notifica
   @TA_PG_DownloadFile
   @DownloadFilePG
   @PG
-    
+
   Scenario: PN-9151 - Persona giuridica scarica attestazione
-    Given PG - Si effettua la login tramite token exchange di "personaGiuridica" e viene visualizzata la dashboard
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa
     And Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN da dati notifica "datiNotificaPG"
     And Cliccare sul bottone Filtra persona fisica

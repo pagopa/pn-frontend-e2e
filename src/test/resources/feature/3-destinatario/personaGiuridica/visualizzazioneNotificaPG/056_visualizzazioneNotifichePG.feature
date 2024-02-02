@@ -7,7 +7,7 @@ Feature: La persona fisica visualizza la sezione notifiche
 #  @PG
 
   Scenario: PN-9147 - La persona giuridica visualizza la sezione notifiche
-    Given PG - Si effettua la login tramite token exchange di "personaGiuridica" e viene visualizzata la dashboard
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa
     And Nella sezione Deleghe si verifica sia presente una delega accettata per PG "personaGiuridica"

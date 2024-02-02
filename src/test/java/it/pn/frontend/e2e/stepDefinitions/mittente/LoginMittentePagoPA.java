@@ -31,6 +31,8 @@ public class LoginMittentePagoPA {
     private Map<String, String> urlMittente;
     private final WebDriver driver = Hooks.driver;
 
+    private final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
+
     @Given("Login Page mittente {string} viene visualizzata")
     public void loginPageMittenteVieneVisualizzata(String datiMittenteFile) {
         logger.info("Si recupera l'ambiente e si visualizza la pagina di login");
@@ -47,27 +49,33 @@ public class LoginMittentePagoPA {
         }
     }
 
-    @Given("PA - Si effettua la login tramite token exchange di {string} e viene visualizzata la dashboard")
-    public void loginMittenteConTokenExchange(String datiMittenteFile) {
-        logger.info("Si recupera l'ambiente e si visualizza la pagina di login");
-
+    @Given("PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard")
+    public void loginMittenteConTokenExchange() {
         DataPopulation dataPopulation = new DataPopulation();
-        this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
-        String variabileAmbiente = System.getProperty("environment");
-        switch (variabileAmbiente) {
-            case "dev" -> this.driver.get(this.datiMittente.get("url").toString());
-            case "test", "uat" ->
-                    this.driver.get(this.datiMittente.get("url").toString().replace("dev", variabileAmbiente));
-            default ->
-                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+        String environment = System.getProperty("environment");
+        String token = "";
+        switch (environment) {
+            case "dev" ->
+                    token = dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevMittente").toString();
+            case "test" ->
+                    token = dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestMittente").toString();
+            default -> {
+                logger.error("Ambiente non valido");
+                Assert.fail("Ambiente non valido o non trovato!");
+            }
         }
 
         // Si effettua il login con token exchange
-        loginConMittenteTramiteTokenExchange();
+        String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
+        this.driver.get(urlLogin);
+        logger.info("Login effettuato con successo");
+        DataPopulation.waitTime(10);
 
-        // Si visualizza la dashboard
-        NotificaMittentePagoPATest notificaMittentePagoPATest = new NotificaMittentePagoPATest();
-        notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche();
+        // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
+        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        headerPASection.waitLoadHeaderSection();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
     }
 
     @When("Login con mittente {string}")

@@ -6,7 +6,7 @@ Feature: Mittente effetua una ricerca notifiche per codice IUN
   @ricercaNatoficheMittente
 
   Scenario: PN-9218 - Mittente loggato effettua una ricerca per codice IUN
-    Given PA - Si effettua la login tramite token exchange di "mittente" e viene visualizzata la dashboard
+    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si visualizza correttamente la pagina Piattaforma Notifiche
     And Nella pagina Piattaforma Notifiche si recupera un codice IUN valido
     And Cliccare sul bottone Filtra

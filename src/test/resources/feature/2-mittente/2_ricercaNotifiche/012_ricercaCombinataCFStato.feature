@@ -6,7 +6,7 @@ Feature: il mittente fa una ricerca combinata tra cf e stato
     @TA_MittenteRicercaPerCFeStato
 
   Scenario Outline: PN-9222 - il mittente fa una ricera sia per cf che per stato
-    Given PA - Si effettua la login tramite token exchange di "mittente" e viene visualizzata la dashboard
+    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica "personaFisica"
     And Nella pagina piattaforma Notifiche selezionare uno stato notifica <stato>
     And Cliccare sul bottone Filtra

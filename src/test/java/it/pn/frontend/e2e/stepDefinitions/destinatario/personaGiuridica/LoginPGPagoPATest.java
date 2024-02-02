@@ -36,6 +36,7 @@ public class LoginPGPagoPATest {
     private final HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
     private final AccediAreaRiservataPGPage accediAreaRiservataPGPage = new AccediAreaRiservataPGPage(this.driver);
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
+    private final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
 
 
     @Given("Login Page persona giuridica {string} viene visualizzata")
@@ -51,24 +52,38 @@ public class LoginPGPagoPATest {
         }
     }
 
-    @Given("PG - Si effettua la login tramite token exchange di {string} e viene visualizzata la dashboard")
-    public void loginPgConTokenExchange(String datiPersonaGiuridicaFile) {
-        this.datiPersonaGiuridica = dataPopulation.readDataPopulation(datiPersonaGiuridicaFile + ".yaml");
-        String variabileAmbiente = System.getProperty("environment");
-        switch (variabileAmbiente) {
-            case "dev" -> this.driver.get(this.datiPersonaGiuridica.get("url").toString());
-            case "test", "uat" ->
-                    this.driver.get(this.datiPersonaGiuridica.get("url").toString().replace("dev", variabileAmbiente));
-            default ->
-                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+    @Given("PG - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
+    public void loginMittenteConTokenExchange(String personaGiuridica) {
+        DataPopulation dataPopulation = new DataPopulation();
+        String environment = System.getProperty("environment");
+        String token = "";
+        switch (environment) {
+            case "dev" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPGDelegante").toString()
+                    :
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPGDelegato").toString();
+            case "test" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPGDelegante").toString()
+                    :
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPGDelegato").toString();
+            default -> {
+                logger.error("Ambiente non valido");
+                Assert.fail("Ambiente non valido o non trovato!");
+            }
         }
 
-        // Login con token exchange
-        loginPortalePersonaGiuridicaTramiteTokenExchange(datiPersonaGiuridicaFile);
+        // Si effettua il login con token exchange
+        String urlLogin = "https://imprese." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
+        this.driver.get(urlLogin);
+        logger.info("Login effettuato con successo");
+        DataPopulation.waitTime(10);
 
-        // Si visualizza la dashboard
-        NotifichePGPagoPATest notifichePGPagoPATest = new NotifichePGPagoPATest();
-        notifichePGPagoPATest.siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica(datiPersonaGiuridicaFile);
+        // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
+        HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
+        headerPGSection.waitLoadHeaderPGPage();
+        PiattaformaNotifichePGPAPage notifichePGPage = new PiattaformaNotifichePGPAPage(this.driver);
+        Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("personaGiuridica.yaml");
+        notifichePGPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
     }
 
     @When("Login portale persona giuridica tramite request method")

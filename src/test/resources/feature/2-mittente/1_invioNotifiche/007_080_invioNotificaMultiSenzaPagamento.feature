@@ -6,7 +6,7 @@ Feature: Mittente genera una notifica con più destinatari che non prevede pagam
     @invioNotifiche
 
   Scenario Outline: PN-9226 - Mittente genera una notifica con più destinatari che non prevede pagamento
-    Given PA - Si effettua la login tramite token exchange di "mittente" e viene visualizzata la dashboard
+    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari

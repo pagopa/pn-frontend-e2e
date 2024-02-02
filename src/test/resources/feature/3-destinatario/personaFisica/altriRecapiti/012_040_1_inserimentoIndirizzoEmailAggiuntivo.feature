@@ -6,7 +6,7 @@ Feature: la persona fisica inserisce un indirizzo Email aggiuntivo
   @recapitiPF
 
   Scenario: PN-9318-I40 - la persona fisica inserisce un indirizzo Email aggiuntivo
-    Given PF - Si effettua la login tramite token exchange di "personaFisica" e viene visualizzata la dashboard
+    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email diversa
