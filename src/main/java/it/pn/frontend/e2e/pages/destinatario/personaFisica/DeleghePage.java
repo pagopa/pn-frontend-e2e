@@ -24,6 +24,9 @@ public class DeleghePage extends BasePage {
     @FindBy(id = "show-code-button")
     WebElement mostraCodiceOption;
 
+    @FindBy(xpath = "//button[@data-testid='delegationMenuIcon']")
+    WebElement menuButton;
+
     public DeleghePage(WebDriver driver) {
         super(driver);
     }
@@ -72,15 +75,11 @@ public class DeleghePage extends BasePage {
         }
     }
 
-    public void clickRevocaButton(String nome, String cognome) {
-
-        By menuButton = By.xpath("//div[@data-testid='delegates-wrapper']//td[@scope='col' and div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td[@scope='col']//button[@data-testid='delegationMenuIcon']");
-        this.getWebDriverWait(60).withMessage("menu delega non cliccabile ").until(ExpectedConditions.elementToBeClickable(menuButton));
-        this.js().executeScript("arguments[0].click()", this.element(menuButton));
+    public void clickRevocaButtonOnMenu() {
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.menuButton));
+        this.menuButton.click();
         this.getWebDriverWait(60).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(this.revocaButton));
         this.revocaButton.click();
-
-
     }
 
     public boolean siVisualizzaUnaDelega() {
@@ -120,7 +119,7 @@ public class DeleghePage extends BasePage {
 
     public void siCliccaSulBottoneChiudi() {
         try {
-            By closeCodiceButtonBy = By.xpath("//button[@data-testid='codeCancelButton']");
+            By closeCodiceButtonBy = By.id("code-cancel-button");
             getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(closeCodiceButtonBy));
             logger.info("Il bottone chiudi viene visualizzato correttamente");
             this.element(closeCodiceButtonBy).click();

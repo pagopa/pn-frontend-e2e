@@ -324,7 +324,7 @@ public class DeleghePagoPATest {
         String cognome = datiDelega.get("cognome").toString();
         if (deleghePage.cercaEsistenzaDelega(nome, cognome)) {
             logger.info("Delega con lo stesso nome trovata");
-            deleghePage.clickRevocaButton(nome, cognome);
+            deleghePage.clickRevocaButtonOnMenu();
             this.popUpRevocaDelegaSection.waitLoadPopUpRevocaDelegaSection();
             this.popUpRevocaDelegaSection.clickRevocaLaDelega();
         } else {
