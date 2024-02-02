@@ -1,7 +1,7 @@
 Feature: Il delgato persona fisica rifiuta la delega che gli è stata inviata
 
   @TestSuite
-  @@TA_PFrifiutoDelega
+  @TA_PFrifiutoDelega
   @DeleghePF
   @PF
 
