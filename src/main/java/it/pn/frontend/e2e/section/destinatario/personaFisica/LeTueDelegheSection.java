@@ -214,7 +214,7 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public String getTextCodiceSbagliato(){
-        By errorMessageBy = By.xpath("//div[@data-testid='CodeModal error title']");
+        By errorMessageBy = By.id("codeModalErrorTitle");
         WebElement testoCodiceSbagliato = this.element(errorMessageBy);
         this.getWebDriverWait(30).withMessage("il messaggio di errore per il codice sbagliato non è visibile").until(ExpectedConditions.visibilityOf(this.element(errorMessageBy)));
         return testoCodiceSbagliato.getText();
@@ -297,7 +297,7 @@ public class LeTueDelegheSection extends BasePage {
 
     public boolean verificaEsistenzaErroreCodiceSbagliato() {
         try{
-            By esistenzaBy = By.xpath("//div[@data-testid='CodeModal error title']");
+            By esistenzaBy = By.id("codeModalErrorTitle");
             this.getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(esistenzaBy));
             logger.info("Errore codice sbagliato trovato");
             return true;

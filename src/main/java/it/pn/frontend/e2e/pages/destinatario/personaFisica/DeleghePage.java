@@ -206,7 +206,7 @@ public class DeleghePage extends BasePage {
 
     public boolean siVisualizzaUnaDelegaConNomeDelegato(String nome, String cognome) {
         try {
-            By delegaBy = By.xpath("//tr[@id = 'delegatorsTable.body.row']//p[contains(text(),'" + nome + " " + cognome + "')]");
+            By delegaBy = By.xpath("//table[@id='notifications-table']//p[contains(text(),'" + nome + " " + cognome + "')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaBy));
             logger.info("Si trova una delega");
             return true;
