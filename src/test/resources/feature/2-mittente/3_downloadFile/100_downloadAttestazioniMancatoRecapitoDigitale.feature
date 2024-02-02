@@ -6,7 +6,7 @@ Feature: il mittente effettua il download attestazione opponibile a terzi mancat
   @DownloadFileMittente
 
   Scenario:il mittente effettua il download attestazione opponibile a terzi mancato recapito digitale
-    Given PA - Si effettua la login tramite token exchange di "mittente" e viene visualizzata la dashboard
+    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche si verifica l'esistenza della notifica con il codice IUN
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica "datiNotifica"
     And Cliccare sul bottone Filtra

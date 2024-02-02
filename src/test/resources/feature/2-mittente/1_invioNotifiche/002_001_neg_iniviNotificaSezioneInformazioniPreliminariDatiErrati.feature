@@ -6,7 +6,7 @@ Feature: Il mittente inserisce i dati non coretti nella sezione informazioni pre
   @invioNotifiche
 
   Scenario:Il mittente inserisce i dati non corretti nella sezione informazioni preliminari
-    Given PA - Si effettua la login tramite token exchange di "mittente" e viene visualizzata la dashboard
+    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     And Nella section si prova ad cliccare sul tasto continua senza aver inserito nessun dato

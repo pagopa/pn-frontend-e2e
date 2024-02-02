@@ -6,7 +6,7 @@ Feature: Mittente visualizza il dettaglio di una notifica
   @visualizzazioneNotificheMittente
 
   Scenario: PN-9225 - Mittente visualizza dettaglio notifica
-    Given PA - Si effettua la login tramite token exchange di "mittente" e viene visualizzata la dashboard
+    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche si recupera un codice IUN valido
     And Cliccare sul bottone Filtra
     When Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita

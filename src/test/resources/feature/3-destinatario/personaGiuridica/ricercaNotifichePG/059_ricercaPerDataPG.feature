@@ -6,7 +6,7 @@ Feature: La persona giuridica ricerca per periodo temporale
   @PG
 
   Scenario: PN-9150 - La persona giuridica ricerca per periodo temporale
-    Given PG - Si effettua la login tramite token exchange di "personaGiuridica" e viene visualizzata la dashboard
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa
     And Nella pagina Piattaforma Notifiche persona giuridica inserire un arco temporale
     And Cliccare sul bottone Filtra persona giuridica
