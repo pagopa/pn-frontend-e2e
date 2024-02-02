@@ -1,9 +1,10 @@
 Feature: Il delegato visualizza il dettaglio di una notifica
 
-  @TestSuite
-  @TA_PFdelegatovisualizzaDettaglioNotifica
-  @DeleghePF
-  @PF
+  #Disabled until 9417 is not completed on mapping
+  #@TestSuite
+  #@TA_PFdelegatovisualizzaDettaglioNotifica
+  #@DeleghePF
+  #@PF
 
   Scenario:PN-9417 - Il delegato visualizza il dettaglio di una notifica
     Given PF - Si effettua la login tramite token exchange di "personaFisica" e viene visualizzata la dashboard
