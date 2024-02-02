@@ -14,5 +14,6 @@ Feature:La persona fisica visualizza la sezione aggiungi una nuova delega
     And Nella sezione Deleghe si visualizza il sottotitolo
     And Nella sezione Deleghe si visualizza il bottone aggiungi una delega
     Then Nella sezione Deleghe si visualizzano tutti i campi dell'elenco dei delegati
+    And Si controlla che non sia presente una delega con stesso nome "nuova_delega"
     And Logout da portale persona fisica
 

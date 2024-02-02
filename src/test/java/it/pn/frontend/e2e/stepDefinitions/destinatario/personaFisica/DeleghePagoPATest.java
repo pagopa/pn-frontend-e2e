@@ -177,6 +177,7 @@ public class DeleghePagoPATest {
     @And("Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico {string}")
     public void siVerificaSiaPresenteUnaDelegaNellaSezioneDelegheATuoCarico(String dpFile) {
         logger.info("Si controlla che ci sia almeno una delega");
+
         this.deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
         BackgroundTest backgroundTest = new BackgroundTest();
         this.deleghePage.vaiInFondoAllaPagina();
