@@ -226,7 +226,7 @@ public class LeTueDelegheSection extends BasePage {
 
     public void controlloStatoAttiva(String nome, String cognome) {
         try {
-            By statoAttivaBy = By.xpath("//tr[@data-testid='delegatorsTable.body.row']//td[@scope='col' and div/p[contains(text(),'"+nome + " "+ cognome +"')]]/following-sibling::td[@scope='col']//div/div/span[contains(text(),'Attiva')]");
+            By statoAttivaBy = By.xpath("//table[@id='notifications-table']//td[.//div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//div/div[@id='chip-status-success']");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoAttivaBy));
             logger.info("La delega ha lo stato Attiva");
         }catch (TimeoutException e){
