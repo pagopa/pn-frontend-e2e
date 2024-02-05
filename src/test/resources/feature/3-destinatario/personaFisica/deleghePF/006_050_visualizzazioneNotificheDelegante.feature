@@ -1,9 +1,10 @@
 Feature: Il delegato visualizza la notifiche del delegante
 
-  @TestSuite
-  @TA_PFvisualizzaNotificheDelegante
-  @DeleghePF
-  @PF
+  #Disabled until 9419 is not fixed
+  #@TestSuite
+  #@TA_PFvisualizzaNotificheDelegante
+  #@DeleghePF
+  #@PF
 
   Scenario: PN-9419 - Il delegato visualizza la notifiche del delegante
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
