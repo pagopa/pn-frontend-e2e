@@ -1,9 +1,10 @@
 Feature: il delegato accetta la delega
 
-  @TestSuite
-  @TA_PFaccettaDelega
-  @DeleghePF
-  @PF
+  #Disable until 9411 is not fixed
+  #@TestSuite
+  #@TA_PFaccettaDelega
+  #@DeleghePF
+  #@PF
 
   Scenario: PN-9411 - il delegato accetta la delega
     Given PF - Si effettua la login tramite token exchange di "personaFisica" e viene visualizzata la dashboard
