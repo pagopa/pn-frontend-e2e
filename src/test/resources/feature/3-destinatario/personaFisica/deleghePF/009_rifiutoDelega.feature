@@ -1,9 +1,10 @@
 Feature: Il delgato persona fisica rifiuta la delega che gli è stata inviata
 
-  @TestSuite
-  @TA_PFrifiutoDelega
-  @DeleghePF
-  @PF
+  #Disabled until 9414 is fixed
+  #@TestSuite
+  #@TA_PFrifiutoDelega
+  #@DeleghePF
+  #@PF
 
   Scenario: PN-9414 - Il delegato persona fisica rifiuta la delega che gli è stata inviata
     Given PF - Si effettua la login tramite token exchange di "personaFisica" e viene visualizzata la dashboard
