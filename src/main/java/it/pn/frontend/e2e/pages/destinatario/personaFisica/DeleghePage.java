@@ -134,7 +134,7 @@ public class DeleghePage extends BasePage {
 
     public void clickMenuPerRifiuto(String nome, String cognome) {
         try {
-            By menuDelegheBy = By.xpath("//div[@data-testid='delegators-wrapper']//td[@scope='col' and div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td[@scope='col']//button[@data-testid='delegationMenuIcon']");
+            By menuDelegheBy = By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']");
             getWebDriverWait(this.loadComponentWaitTime).until(ExpectedConditions.visibilityOfElementLocated(menuDelegheBy));
             logger.info("Si clicca correttamente il menu della delega");
             this.element(menuDelegheBy).click();

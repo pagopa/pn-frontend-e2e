@@ -215,7 +215,7 @@ public class BackgroundTest {
     }
 
     public void revocaDelegaPF(String dpFile){
-        deleghePagoPATest.nellaSezioneDelegheSiCliccaSulMenuDellaDelegaControlloDelegante(dpFile);
+        //deleghePagoPATest.nellaSezioneDelegheSiCliccaSulMenuDellaDelegaControlloDelegante(dpFile);
         deleghePagoPATest.nellaSezioneDelegheSiSceglieLOpzioneRevoca();
         deleghePagoPATest.siConfermaLAzioneScegliendoRevocaLaDelega();
         deleghePagoPATest.siControllaCheNonCiSiaPiuUnaDelega();

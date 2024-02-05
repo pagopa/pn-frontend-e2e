@@ -21,7 +21,7 @@ public class DettaglioNotificaSection extends BasePage{
     @FindBy(id = "more-less-timeline-step")
     WebElement vediDettagliButton;
 
-    @FindBy (xpath = "//li[contains(@class,'MuiTimelineItem-root MuiTimelineItem-positionRight MuiTimelineItem-missingOppositeContent css-1y9sx96')]")
+    @FindBy (xpath = "//li[contains(@class,'MuiTimelineItem-root MuiTimelineItem-positionRight MuiTimelineItem-missingOppositeContent css-528dse')]")
     List<WebElement> tuttiStatiNotificaList;
     public DettaglioNotificaSection(WebDriver driver) {
         super(driver);
