@@ -6,7 +6,7 @@ Feature: la persona giuridica inserisce un numero di telefono errato
   @recapitiPG
 
   Scenario: PN-9158-A66 - La persona giuridica inserisce un numero di telefono errato
-    Given PG - Si effettua la login tramite token exchange di "personaGiuridica" e viene visualizzata la dashboard
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
     And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono errato "2318773225"

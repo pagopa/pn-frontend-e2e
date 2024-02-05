@@ -8,7 +8,7 @@ Feature:La persona giuridica fa una ricerca per gruppo delle deleghe
 
 
   Scenario: PN-9167 - La persona giuridica fa una ricerca per gruppo delle deleghe
-    Given PG - Si effettua la login tramite token exchange di "personaGiuridica" e viene visualizzata la dashboard
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Nella pagina Deleghe si clicca su Deleghe a carico dell impresa
