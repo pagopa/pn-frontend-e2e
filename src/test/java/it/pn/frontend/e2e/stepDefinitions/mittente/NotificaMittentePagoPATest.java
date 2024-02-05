@@ -171,49 +171,13 @@ public class NotificaMittentePagoPATest {
 
     private void aggiornamentoNumeroProtocollo() {
         logger.info("Aggiornamento del numero protocollo");
-
-
-        String numeroProtocolOld = dataPopulation.readDataPopulation("datiNotifica.yaml").get("numeroProtocollo").toString();
-        String identificativoProtocollo = substring(numeroProtocolOld, 0, 10);
-        if (identificativoProtocollo.length() < 10) {
-            identificativoProtocollo = "TA-FFSMRC-";
-        }
-        String dataProtocolOld = substring(numeroProtocolOld, 10, 18);
-        String counter = substring(numeroProtocolOld, 19);
-
-        Date date = Calendar.getInstance().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        String dataProtocol = dateFormat.format(date);
-
-        String numeroProtocol;
-        if (dataProtocol.equalsIgnoreCase(dataProtocolOld)) {
-
-            /*
-            da 0 a 9 numeri 0 a 9
-            da 17 a 42 lettere maiuscole da A a Z
-            */
-
-            String temp = null;
-            if (counter.equals("9")) {
-                temp = String.valueOf((char) (counter.charAt(0) + 8));
-            } else if (counter.equals("Z")) {
-                logger.error(numeroProtocolOld + " oltre questo numero protocollo per la giornata di : " + dataProtocolOld + " non si può andare");
-                Assert.fail(numeroProtocolOld + " oltre questo numero protocollo per la giornata di : " + dataProtocolOld + " non si può andare");
-            } else {
-                temp = String.valueOf((char) (counter.charAt(0) + 1));
-            }
-
-            counter = temp;
-            logger.info(counter);
-            numeroProtocol = identificativoProtocollo + dataProtocol + "-" + counter;
-        } else {
-            numeroProtocol = identificativoProtocollo + dataProtocol + "-0";
-        }
-
-        logger.info("numero Protocollo generato : " + numeroProtocol);
-
         Map<String, Object> allDatataPopulation = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        allDatataPopulation.put("numeroProtocollo", numeroProtocol);
+        String numeroProtocolOld = allDatataPopulation.get("numeroProtocollo").toString();
+        String numeroProtocolNew;
+        do {
+            numeroProtocolNew = DataPopulation.generatePaProtocolNumber();
+        } while (numeroProtocolOld.equals(numeroProtocolNew));
+        allDatataPopulation.put("numeroProtocollo", numeroProtocolNew);
         dataPopulation.writeDataPopulation("datiNotifica.yaml", allDatataPopulation);
 
     }
