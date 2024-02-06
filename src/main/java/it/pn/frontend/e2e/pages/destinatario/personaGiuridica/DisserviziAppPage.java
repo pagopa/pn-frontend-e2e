@@ -10,6 +10,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 public class DisserviziAppPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("Disservizi Page");
 
@@ -17,18 +19,18 @@ public class DisserviziAppPage extends BasePage {
         super(driver);
     }
 
-    public void waitLoadStatoDellaPiattaformaPage(){
-        try{
+    public void waitLoadStatoDellaPiattaformaPage() {
+        try {
             By DisserviziPageTitle = By.id("Stato della piattaforma-page");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(DisserviziPageTitle));
             logger.info("Si visualizza correttamente la sezione disservizi");
-        }catch (TimeoutException e){
-            logger.error("Non si visualizza correttamente la sezione disservizi con errore:"+e.getMessage());
-            Assert.fail("Non si visualizza correttamente la sezione disservizi con errore"+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Non si visualizza correttamente la sezione disservizi con errore:" + e.getMessage());
+            Assert.fail("Non si visualizza correttamente la sezione disservizi con errore" + e.getMessage());
         }
     }
 
-    public void checkDatiPaginaDisservizi(){
+    public void checkDatiPaginaDisservizi() {
         try {
             By titlePage = By.id("Stato della piattaforma-page");
             By subtitlePage = By.id("subtitle-page");
@@ -38,9 +40,9 @@ public class DisserviziAppPage extends BasePage {
             this.getWebDriverWait(40).withMessage("sottotitolo pagina non presente").until(ExpectedConditions.visibilityOfElementLocated(subtitlePage));
             this.getWebDriverWait(40).withMessage("stato dell'applicazione non presente").until(ExpectedConditions.visibilityOfElementLocated(boxStatus));
             this.getWebDriverWait(60).withMessage("ultimo aggiornamento stato piattaforma non presente").until(ExpectedConditions.visibilityOfElementLocated(dateLastCheck));
-        }catch (TimeoutException e){
-            logger.error("Dati presenti nella pagina stato della piattaforma non corretti: "+e.getMessage());
-            Assert.fail("Dati presenti nella pagina stato della piattaforma non corretti: "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Dati presenti nella pagina stato della piattaforma non corretti: " + e.getMessage());
+            Assert.fail("Dati presenti nella pagina stato della piattaforma non corretti: " + e.getMessage());
         }
     }
 
@@ -59,17 +61,23 @@ public class DisserviziAppPage extends BasePage {
             By nomeColonnaStatoBy = By.xpath("//th[contains(text(),'Stato')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaStatoBy));
             logger.info("Si visualizza correttamente l'elenco dei disservizi");
-        }catch (Exception e){
-            logger.error("NON si visualizza correttamente l'elenco dei disservizi con errore:"+e.getMessage());
-            Assert.fail("NON si visualizza correttamente l'elenco dei disservizi con errore:"+e.getMessage());
+        } catch (Exception e) {
+            logger.error("NON si visualizza correttamente l'elenco dei disservizi con errore:" + e.getMessage());
+            Assert.fail("NON si visualizza correttamente l'elenco dei disservizi con errore:" + e.getMessage());
         }
     }
 
-    public boolean checkDisservizioInCorso(){
-        try{
-            WebElement dateDisservizioCreato =  this.elements(By.xpath("//td[@data-testid='tableBodyCell']")).get(1);
-            return this.getWebDriverWait(60).withMessage("disservizio non creato").until(ExpectedConditions.textToBePresentInElement(dateDisservizioCreato,"-"));
-        }catch (TimeoutException e){
+    public boolean checkDisservizioInCorso() {
+        try {
+            List<WebElement> dateDisservizioCreato = this.elements(By.xpath("//div[@data-testid='downtime-status']"));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(dateDisservizioCreato));
+            for (WebElement disservizio : dateDisservizioCreato) {
+                if (disservizio.getText().contains("In corso")) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (TimeoutException e) {
             logger.info("disservizio non creato");
             return false;
         }

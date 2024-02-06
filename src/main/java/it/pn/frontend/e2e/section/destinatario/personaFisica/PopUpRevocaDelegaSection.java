@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 public class PopUpRevocaDelegaSection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("RevocaDelegaSection");
 
-    @FindBy(id = "responsive-dialog-title")
+    @FindBy(id = "confirmation-dialog-delegations")
     WebElement title;
 
     @FindBy(id = "dialog-action-button")
