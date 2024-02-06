@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.stepDefinitions.common;
 
+import it.pn.frontend.e2e.pages.destinatario.personaFisica.DeleghePage;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.RecapitiPersonaFisicaTest;
@@ -14,6 +15,7 @@ public class BackgroundTest {
     private final String nomeFileNuovaDelegaPG = "nuovaDelegaPG";
     private final String mittente = "mittente";
     private final DeleghePagoPATest deleghePagoPATest = new DeleghePagoPATest();
+
     private final RecapitiPersonaFisicaTest recapitiPersonaFisicaTest = new RecapitiPersonaFisicaTest();
     private final RecapitiPGPagoPaTest recapitiPGTest = new RecapitiPGPagoPaTest();
     private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
@@ -210,6 +212,13 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequest(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiControllaCheLaPecAggiuntivaSiaStataInseritaCorrettamente();
+    }
+
+    public void revocaDelegaPF(String dpFile){
+        //deleghePagoPATest.nellaSezioneDelegheSiCliccaSulMenuDellaDelegaControlloDelegante(dpFile);
+        deleghePagoPATest.nellaSezioneDelegheSiSceglieLOpzioneRevoca();
+        deleghePagoPATest.siConfermaLAzioneScegliendoRevocaLaDelega();
+        deleghePagoPATest.siControllaCheNonCiSiaPiuUnaDelega();
     }
 
 }
