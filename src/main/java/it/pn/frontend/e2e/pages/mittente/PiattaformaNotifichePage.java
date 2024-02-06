@@ -554,11 +554,14 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro() {
-        if (!numeroNotificheButton.isDisplayed()) {
-            this.js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
-        }
-        this.js().executeScript("arguments[0].click()", this.numeroNotificheButton);
-        this.js().executeScript("arguments[0].click()", this.numberElement);
+        this.getWebDriverWait(10)
+                .withMessage("Il pulsante 'righe per pagina' non è presente")
+                .until(ExpectedConditions.visibilityOf(this.numeroNotificheButton));
+        this.numeroNotificheButton.click();
+        this.getWebDriverWait(10)
+                .withMessage("Il pulsante '50' per assegnare il numero di notifiche per pagina non è presente")
+                .until(ExpectedConditions.visibilityOf(this.numberElement));
+        this.numberElement.click();
     }
 
     public void clickContinuaDisabled() {
