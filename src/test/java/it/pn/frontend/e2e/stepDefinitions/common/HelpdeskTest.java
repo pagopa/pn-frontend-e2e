@@ -26,13 +26,14 @@ public class HelpdeskTest {
 
     @Given("Login helpdesk con utente test {string}")
     public void loginHelpdeskConUtenteTest(String nameFile) {
-        this.datiTestHelpdesk = this.dataPopulation.readDataPopulation(nameFile+".yaml");
+        this.datiTestHelpdesk = this.dataPopulation.readDataPopulation(nameFile + ".yaml");
         String variabileAmbiente = System.getProperty("environment");
         switch (variabileAmbiente) {
             case "dev" -> helpdeskPage.changePage(this.datiTestHelpdesk.get("url").toString());
             case "test", "uat" ->
                     helpdeskPage.changePage(this.datiTestHelpdesk.get("url").toString().replace("dev", variabileAmbiente));
-            default -> Assert.fail("Non è stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+            default ->
+                    Assert.fail("Non è stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
         helpdeskPage.checkForm();
         switch (variabileAmbiente) {
@@ -40,15 +41,16 @@ public class HelpdeskTest {
                 helpdeskPage.insertUsername(this.datiTestHelpdesk.get("userDev").toString());
                 helpdeskPage.insertPassword(this.datiTestHelpdesk.get("pwdDev").toString());
             }
-            case "test" ->{
+            case "test" -> {
                 helpdeskPage.insertUsername(this.datiTestHelpdesk.get("userTest").toString());
                 helpdeskPage.insertPassword(this.datiTestHelpdesk.get("pwdTest").toString());
             }
-            case "uat" ->{
+            case "uat" -> {
                 helpdeskPage.insertUsername(this.datiTestHelpdesk.get("userUat").toString());
                 helpdeskPage.insertPassword(this.datiTestHelpdesk.get("pwdUat").toString());
             }
-            default -> Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+            default ->
+                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
         helpdeskPage.clickInviaButton();
     }
@@ -73,10 +75,13 @@ public class HelpdeskTest {
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
-            logger.error("pausa con errore: "+e.getMessage());
+            logger.error("pausa con errore: " + e.getMessage());
             throw new RuntimeException(e);
         }
-        helpdeskPage.handleDisservizio("KO");
+        if (!helpdeskPage.checkIsCreatedDisservizio()) {
+            helpdeskPage.handleDisservizio("KO");
+            DataPopulation.waitTime(10);
+        }
     }
 
     @And("Si verifica la creazione del disservizio")
@@ -91,14 +96,14 @@ public class HelpdeskTest {
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
-            logger.error("pausa con errore: "+e.getMessage());
+            logger.error("pausa con errore: " + e.getMessage());
             throw new RuntimeException(e);
         }
         helpdeskPage.handleDisservizio("OK");
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
-            logger.error("pausa con errore: "+e.getMessage());
+            logger.error("pausa con errore: " + e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -115,7 +120,7 @@ public class HelpdeskTest {
 
     @And("viene inserito codice fiscale {string}")
     public void vieneInseritoCodiceFiscale(String nameFile) {
-        this.datiPersonaFisica = this.dataPopulation.readDataPopulation(nameFile+".yaml");
+        this.datiPersonaFisica = this.dataPopulation.readDataPopulation(nameFile + ".yaml");
         helpdeskPage.insertCfAndRicercaOnPage(datiPersonaFisica.get("codiceFiscale").toString());
     }
 
