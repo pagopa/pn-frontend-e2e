@@ -174,9 +174,6 @@ public class DownloadFileMittentePagoPATest {
         boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-        // This is necessary to wait for attachment to be processed before clicking on the link
-        // because the link is not available immediately after the page is loaded
-        DataPopulation.waitTime(60 * 7);
         dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibile(nomeFile);
         try {
             TimeUnit.SECONDS.sleep(5);
