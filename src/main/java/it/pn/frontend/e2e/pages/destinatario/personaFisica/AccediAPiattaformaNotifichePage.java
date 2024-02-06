@@ -60,27 +60,6 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     @FindBy(css = ".MuiTypography-caption-semibold.css-1g3z0lx")
     WebElement codiceAvvisoSpan;
 
-    @FindBy(id = "side-item-Recapiti")
-    WebElement sezioneRecapiti;
-
-    @FindBy(id = "notification-detail-document-attached")
-    WebElement documentiAllegati;
-
-    @FindBy(id = "notification-state")
-    WebElement statoDelloNotifiche;
-
-    @FindBy(css = "[data-testid='more-less-timeline-step']")
-    WebElement vediPiuDettagli;
-
-    @FindBy(linkText = "Vedi meno dettagli")
-    WebElement vediMenoDettagliButton;
-
-    @FindBy(css="[type='application/pdf']")
-    WebElement pdfType;
-
-    @FindBy(css = "[data-testid='documentButton']")
-    WebElement documentButton;
-
     public AccediAPiattaformaNotifichePage(WebDriver driver) {
         super(driver);
     }
@@ -185,61 +164,6 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     public boolean pagaAvvisoDisplayed() {
         return getWebDriverWait(30).withMessage("Il sezione paga avviso non è visibile").until(ExpectedConditions.visibilityOf(pagaAvviso)).isDisplayed();
     }
-
-    public boolean sezioneRecapitiDisplayed() {
-        return getWebDriverWait(30).withMessage("Il sezione recapiti non è visibile").until(ExpectedConditions.visibilityOf(sezioneRecapiti)).isDisplayed();
-    }
-
-    public boolean documentiAllegatiDisplayed() {
-        return getWebDriverWait(30).withMessage("Il documenti allegati non è visibile").until(ExpectedConditions.visibilityOf(documentiAllegati)).isDisplayed();
-
-    }
-    public boolean statoDelloNotificheDisplayed() {
-        return getWebDriverWait(30).withMessage("Il stato dello notifiche non è visibile").until(ExpectedConditions.visibilityOf(statoDelloNotifiche)).isDisplayed();
-
-    }
-    public boolean attestazioneDisplayed() {
-        return getWebDriverWait(30).withMessage("L'attestazione non è visibile").until(ExpectedConditions.visibilityOf(attestazione)).isDisplayed();
-
-    }
-    public boolean vediPiuDettagli() {
-        return getWebDriverWait(30).withMessage("Il bottone vedi piu dettagli non è visibile").until(ExpectedConditions.visibilityOf(vediPiuDettagli)).isDisplayed();
-    }
-
-    public void clickVediPiuDettagli(){
-
-        getWebDriverWait(30).withMessage("Il bottone vedi piu dettagli non è visibile").until(ExpectedConditions.visibilityOf(vediPiuDettagli));
-        vediPiuDettagli.click();
-
-    }
-
-    public boolean vediMenoDettagliDisplayed() throws InterruptedException {
-        Thread.sleep(1000);
-        return getWebDriverWait(30).withMessage("Il bottone vedi meno dettagli non è visibile").until(ExpectedConditions.visibilityOf(vediMenoDettagliButton)).isDisplayed();
-    }
-
-    public boolean isTypePdfDisplayed(){
-        return getWebDriverWait(30).withMessage("Il format di file e PDF").until(ExpectedConditions.visibilityOf(pdfType)).isDisplayed();
-    }
-
-    public void clickDocumentButton(){
-
-        getWebDriverWait(30).withMessage("Il bottone documento allegato non è visibile").until(ExpectedConditions.visibilityOf(documentButton));
-        this.js().executeScript("arguments[0].click()", this.documentButton);
-
-    }
-
-    public void clickNotificheImpresa() {
-        try {
-            By notificheImpresaButton = By.xpath("//div[@data-testid=\"sideMenuItem-Notifiche dell'impresa\"]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheImpresaButton));
-            logger.info("Si clicca sulla voce notifiche dell'impresa");
-        } catch (Exception e) {
-            logger.error("Non si clicca sulla voce notifiche dell'impresa con errore:" + e.getMessage());
-            Assert.fail("Non si clicca sulla voce notifiche dell'impresa con errore:" + e.getMessage());
-        }
-    }
-
 }
 
 
