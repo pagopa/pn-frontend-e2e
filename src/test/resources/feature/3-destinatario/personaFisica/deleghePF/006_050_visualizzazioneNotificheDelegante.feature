@@ -1,13 +1,12 @@
 Feature: Il delegato visualizza la notifiche del delegante
-
-  #Disabled until 9419 is not fixed
-  #@TestSuite
-  #@TA_PFvisualizzaNotificheDelegante
-  #@DeleghePF
-  #@PF
+  
+  @TestSuite
+  @TA_PFvisualizzaNotificheDelegante
+  @DeleghePF
+  @PF
 
   Scenario: PN-9419 - Il delegato visualizza la notifiche del delegante
-    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
     And Nella sezione Deleghe si verifica sia presente una delega accettata
