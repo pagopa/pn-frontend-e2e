@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 
 public class DeleghePGPagoPAPage extends BasePage {
 
@@ -57,7 +59,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     WebElement groupOption;
 
     @FindBy(id = "delegatesBodyRowDesktop")
-    WebElement nomeDelegato;
+    List<WebElement> nomeDelegato;
 
 
     public DeleghePGPagoPAPage(WebDriver driver) {
@@ -89,10 +91,14 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public boolean cercaEsistenzaDelegaPG(String ragioneSociale) {
         try {
-            By nomeDelegato = By.id("delegatesBodyRowDesktop");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
-            this.getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElementLocated(nomeDelegato, ragioneSociale));
-            return true;
+            // nomeDelegato verify each row if it contains the ragioneSociale
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(nomeDelegato));
+            for (WebElement delegato : nomeDelegato) {
+                if (delegato.getText().contains(ragioneSociale)) {
+                    return true;
+                }
+            }
+            return false;
         } catch (TimeoutException | NoSuchElementException e) {
             logger.error("ricerca esistenza delega pg non riuscita con errore: " + e.getMessage());
             return false;
@@ -100,13 +106,17 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickRevocaMenuButtonPG(String ragioneSociale) {
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(nomeDelegato));
-        this.getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElement(nomeDelegato, ragioneSociale));
-        WebElement menuButton = nomeDelegato.findElement(By.tagName("button"));
-        this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuButton));
-        menuButton.click();
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.revocaMenuButton));
-        this.revocaMenuButton.click();
+        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(nomeDelegato));
+        WebElement menuButton;
+        for (WebElement delegato : nomeDelegato) {
+            if (delegato.getText().contains(ragioneSociale)) {
+                menuButton = delegato.findElement(By.tagName("button"));
+                this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(menuButton));
+                menuButton.click();
+                this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.revocaMenuButton));
+                this.revocaMenuButton.click();
+            }
+        }
     }
 
     public void clickSuDelegheCaricoDellImpresa() {
