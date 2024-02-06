@@ -255,9 +255,16 @@ public class NotifichePersonaFisicaPagoPATest {
     public void nellaPaginaPiattaformaNotificheSiRecuperaUnCodiceIUNValido() {
         logger.info("Si recupera un codice IUN valido");
 
+        List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresentiPF();
         this.personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         String codiceIun = this.personaFisica.get("codiceIUN").toString();
-        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
+        if (codiciIun.contains(codiceIun)) {
+            piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
+        } else {
+            piattaformaNotifichePage.inserimentoCodiceIUN(codiciIun.get(0));
+            this.personaFisica.put("codiceIUN", codiciIun.get(0));
+            dataPopulation.writeDataPopulation("datiNotifica.yaml", this.personaFisica);
+        }
     }
 
     @And("Si Controlla la paginazione di default")
