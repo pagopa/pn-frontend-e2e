@@ -164,8 +164,6 @@ public class RicercaNotifichePersonaGiuridicaPATest {
             Assert.fail("Il bottone Filtra é attivo");
         }
     }
-
-
 }
 
 
