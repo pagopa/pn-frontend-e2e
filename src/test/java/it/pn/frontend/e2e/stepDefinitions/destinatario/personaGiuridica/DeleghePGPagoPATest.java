@@ -262,11 +262,11 @@ public class DeleghePGPagoPATest {
 
     }
 
-    @And("Nella sezione Deleghe si clicca sul bottone Accetta")
-    public void nellaSezioneDelegheSiCliccaSulBottoneAccetta() {
+    @And("Nella sezione Deleghe si clicca sul bottone conferma codice")
+    public void nellaSezioneDelegheSiCliccaSulBottoneConfermaCodice() {
         logger.info("Si clicca sul bottone accetta delega");
 
-        deleghePGPagoPAPage.clickBottoneAccetta();
+        deleghePGPagoPAPage.clickConfirmCodeButton();
     }
 
     @And("Si assegna un gruppo alla delega")
@@ -279,8 +279,8 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.clickGruppoField();
     }
 
-    @And("Si clicca sul bottone conferma")
-    public void siCliccaSulBottoneConferma() {
+    @And("Si clicca sul bottone conferma gruppo")
+    public void siCliccaSulBottoneConfermaGruppo() {
         logger.info("Si seleziona il bottone conferma");
 
         deleghePGPagoPAPage.clickBottoneConferma();
@@ -501,7 +501,7 @@ public class DeleghePGPagoPATest {
         LeTueDelegheSection deleghePage = new LeTueDelegheSection(this.driver);
         BackgroundTest backgroundTest = new BackgroundTest();
         if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG(ragioneSociale)) {
-            backgroundTest.loginPGTokenExchange();
+            //backgroundTest.loginPGTokenExchange();
             aggiuntaDelegaConChiamata(dpFile);
             backgroundTest.accettazioneDelegaSenzaGruppo();
         } else if (deleghePage.controlloPresenzaBottoneAccetta()) {

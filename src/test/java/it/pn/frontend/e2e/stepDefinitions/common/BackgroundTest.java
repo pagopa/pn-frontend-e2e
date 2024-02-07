@@ -1,6 +1,5 @@
 package it.pn.frontend.e2e.stepDefinitions.common;
 
-import it.pn.frontend.e2e.pages.destinatario.personaFisica.DeleghePage;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.RecapitiPersonaFisicaTest;
@@ -156,9 +155,8 @@ public class BackgroundTest {
     public void accettazioneDelegaSenzaGruppo() {
         deleghePagoPATest.siSceglieOpzioneAccetta();
         deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp("nuovaDelegaPG");
-        deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneAccetta();
-        deleghePGPagoPATest.nonSiAssegnaUnGruppoAllaDelega();
-        deleghePGPagoPATest.siCliccaSulBottoneConferma();
+        deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneConfermaCodice();
+        deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
         deleghePGPagoPATest.siControllaCheLaDelegaPGALoStatoAttiva("personaGiuridica");
     }
 

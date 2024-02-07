@@ -1,10 +1,9 @@
 Feature:Il delegato persona giuridica rifiuta la delega
 
-    # DISABLED Temporary disabled until the bug PN-9172 is fixed
-#  @TestSuite
-#  @TA_PGrifiutoDelega
-#  @DeleghePG
-#  @PG
+  @TestSuite
+  @TA_PGrifiutoDelega
+  @DeleghePG
+  @PG
 
   Scenario: PN-9172 - Il delegato persona giuridica rifiuta la delega
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

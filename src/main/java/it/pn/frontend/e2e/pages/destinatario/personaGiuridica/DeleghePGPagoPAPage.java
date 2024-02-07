@@ -30,7 +30,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     WebElement filtraButton;
 
     @FindBy(id = "code-confirm-button")
-    WebElement accettaDelegaButton;
+    WebElement confirmCodeButton;
 
     @FindBy(id = "associate-form-group")
     WebElement assegnaGruppoRadioButton;
@@ -154,8 +154,8 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     }
 
-    public void clickBottoneAccetta() {
-        this.accettaDelegaButton.click();
+    public void clickConfirmCodeButton() {
+        this.confirmCodeButton.click();
     }
 
     public void waitLoadPopUpGruppo() {
