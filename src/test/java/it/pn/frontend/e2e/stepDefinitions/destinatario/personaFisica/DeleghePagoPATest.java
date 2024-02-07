@@ -207,7 +207,7 @@ public class DeleghePagoPATest {
         }
     }
 
-    @And("si sceglie opzione accetta")
+    @And("Si sceglie opzione accetta")
     public void siSceglieOpzioneAccetta() {
         logger.info("Si sceglie l'opzione accetta");
         this.leTueDelegheSection.clickOpzioneAccetta();

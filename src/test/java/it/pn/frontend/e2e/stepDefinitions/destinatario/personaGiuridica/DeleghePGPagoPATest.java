@@ -360,8 +360,8 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.clickGruppoField();
     }
 
-    @And("Si clicca su conferma")
-    public void siCliccaSuConferma() {
+    @And("Si clicca su conferma in assegnazione gruppo")
+    public void siCliccaSuConfermaInAssegnazioneGruppo() {
         logger.info("Si clicca su conferma del pop-up");
 
         deleghePGPagoPAPage.clickBottoneConferma();
@@ -431,8 +431,6 @@ public class DeleghePGPagoPATest {
 
         String ragioneSociale = dataPopulation.readDataPopulation(dpFile + ".yaml").get("ragioneSociale").toString();
         if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG(ragioneSociale)) {
-            BackgroundTest backgroundTest = new BackgroundTest();
-            backgroundTest.loginPGTokenExchange();
             aggiuntaDelegaConChiamata(dpFile);
         }
     }
@@ -457,6 +455,7 @@ public class DeleghePGPagoPATest {
             logger.error("La chiamata ha risposto con questo codice: " + creazioneDelega.getResponseCode());
             Assert.fail("La chiamata ha risposto con questo codice: " + creazioneDelega.getResponseCode());
         }
+
         deleghePGPagoPAPage.aggionamentoPagina();
         deleghePGPagoPAPage.waitLoadDeleghePage();
     }
@@ -473,18 +472,18 @@ public class DeleghePGPagoPATest {
             String pathIniziale = System.getProperty("user.dir");
             String text = Files.readString(Paths.get(pathIniziale + "/src/test/resources/dataPopulation/bodyChiamataDeleghe.json"));
             JSONObject object = new JSONObject(text);
-            Map<String, Object> delegato = new HashMap<>();
             Map<String, Object> delegante = new HashMap<>();
+            Map<String, Object> delegato = new HashMap<>();
             LocalDate date = LocalDate.now();
-            delegante.put("displayName", ragioneSocialeDelegante);
-            delegante.put("companyName", ragioneSocialeDelegante);
-            delegante.put("fiscalCode", codiceFiscaleDelegante);
-            delegante.put("person", false);
-            delegato.put("displayName", ragioneSociale);
-            delegato.put("companyName", ragioneSociale);
-            delegato.put("fiscalCode", codiceFiscale);
+            delegato.put("displayName", ragioneSocialeDelegante);
+            delegato.put("companyName", ragioneSocialeDelegante);
+            delegato.put("fiscalCode", codiceFiscaleDelegante);
             delegato.put("person", false);
-            object.put("delegator", delegante);
+            delegante.put("displayName", ragioneSociale);
+            delegante.put("companyName", ragioneSociale);
+            delegante.put("fiscalCode", codiceFiscale);
+            delegante.put("person", false);
+            object.put("delegator", delegato);
             object.put("delegate", delegato);
             object.put("datefrom", date);
             object.put("dateto", date.plusDays(1));
@@ -520,4 +519,14 @@ public class DeleghePGPagoPATest {
         }
     }
 
+    @And("Si clicca sul bottone conferma delega")
+    public void siCliccaSulBottoneConfermaDelega() {
+        logger.info("Si clicca su conferma del pop-up");
+
+        deleghePGPagoPAPage.clickBottoneConfermaDelega();
+        if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
+            logger.error("il codice inserito è sbagliato");
+            Assert.fail("il codice inserito è sbagliato");
+        }
+    }
 }

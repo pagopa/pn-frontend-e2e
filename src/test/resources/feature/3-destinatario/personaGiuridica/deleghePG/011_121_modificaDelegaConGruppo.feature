@@ -13,6 +13,6 @@ Feature: Il delegato persona giuridica modifica una delega assegnandoli un grupp
     And Nella sezione Deleghe si clicca sul bottone modifica
     And Si clicca sul bottone assegna a un gruppo
     And Si selezione il gruppo della delega
-    And Si clicca su conferma
+    And Si clicca su conferma in assegnazione gruppo
     And Si controlla che la delega a cambiato gruppo
     And Logout da portale persona giuridica

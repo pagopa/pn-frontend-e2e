@@ -40,6 +40,9 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(id = "group-confirm-button")
     WebElement confermaButton;
 
+    @FindBy(id = "code-confirm-button")
+    WebElement confermaAccettazioneDelegaButton;
+
     @FindBy(id = "associate-no-group")
     WebElement nonGruppoRadioButton;
 
@@ -90,19 +93,14 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public boolean cercaEsistenzaDelegaPG(String ragioneSociale) {
+        By delegaExist = By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]");
         try {
-            // nomeDelegato verify each row if it contains the ragioneSociale
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(nomeDelegato));
-            for (WebElement delegato : nomeDelegato) {
-                if (delegato.getText().contains(ragioneSociale)) {
-                    return true;
-                }
-            }
-            return false;
-        } catch (TimeoutException | NoSuchElementException e) {
-            logger.error("ricerca esistenza delega pg non riuscita con errore: " + e.getMessage());
+            this.getWebDriverWait(30).withMessage("delega non trovata").until(ExpectedConditions.visibilityOfElementLocated(delegaExist));
+            return true;
+        }catch (TimeoutException e){
             return false;
         }
+
     }
 
     public void clickRevocaMenuButtonPG(String ragioneSociale) {
@@ -189,9 +187,14 @@ public class DeleghePGPagoPAPage extends BasePage {
         this.confermaButton.click();
     }
 
+    public void clickBottoneConfermaDelega(){
+        getWebDriverWait(20).withMessage("il bottone conferma delega pg non é visibile").until(ExpectedConditions.elementToBeClickable(confermaAccettazioneDelegaButton));
+        confermaAccettazioneDelegaButton.click();
+    }
+
     public boolean verificaEsistenzaErroreCodiceSbagliato() {
         try {
-            By esistenzaBy = By.id("alert-api-status}");
+            By esistenzaBy = By.id("alert-api-status");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(esistenzaBy));
             logger.info("Errore codice sbagliato trovato");
             return true;
@@ -205,7 +208,7 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public void controlloStatoAttiva(String ragioneSociale) {
         try {
-            By statoAttivaBy = By.xpath("//tr[@data-testid='delegationsBodyRowDesktop']//td[@scope='col' and div/p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td[@scope='col']//div/div/span[contains(text(),'Attiva')]");
+            By statoAttivaBy = By.xpath("//tr[contains(td/div/p, '" + ragioneSociale + "')]//span[contains(., 'Attiva')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoAttivaBy));
             logger.info("La delega ha lo stato Attiva");
         } catch (TimeoutException e) {
