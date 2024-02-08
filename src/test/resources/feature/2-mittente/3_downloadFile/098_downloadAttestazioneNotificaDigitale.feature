@@ -1,11 +1,9 @@
 Feature: il mittente effettua il download attestazione opponibile a terzi notifica digitale
 
-# DISABLED Temporary disabled until is fixed -
-# the cause is due to the fact that the implementation of the check is wrong
-#  @TestSuite
-#  @TA_MittenteDownloadAttestazioneNotificaDigitale
-#  @mittente
-#  @DownloadFileMittente
+  @TestSuite
+  @TA_MittenteDownloadAttestazioneNotificaDigitale
+  @mittente
+  @DownloadFileMittente
 
   Scenario: PN-9926 - il mittente effettua il download attestazione opponibile a terzi notifica digitale
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
