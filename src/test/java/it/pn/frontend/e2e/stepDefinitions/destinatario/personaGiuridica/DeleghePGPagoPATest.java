@@ -293,13 +293,13 @@ public class DeleghePGPagoPATest {
         }
     }
 
-    @And("Si controlla che la delega PG a lo stato Attiva {string}")
-    public void siControllaCheLaDelegaPGALoStatoAttiva(String dpFile) {
+    @And("^Si controlla che la delega PG ha lo stato Attiva (.*)$")
+    public void siControllaCheLaDelegaPGALoStatoAttiva(String ragioneScoiale) {
         this.logger.info("Si controlla che lo stato della delega sia attivo");
 
-        this.datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        //this.datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
-        this.deleghePGPagoPAPage.controlloStatoAttiva(this.datiDelega.get("ragioneSociale").toString());
+        this.deleghePGPagoPAPage.controlloStatoAttiva(ragioneScoiale);
     }
 
     @And("Non si assegna un gruppo alla delega")
