@@ -294,12 +294,10 @@ public class DeleghePGPagoPATest {
     }
 
     @And("^Si controlla che la delega PG ha lo stato Attiva (.*)$")
-    public void siControllaCheLaDelegaPGALoStatoAttiva(String ragioneScoiale) {
+    public void siControllaCheLaDelegaPGALoStatoAttiva(String ragioneSociale) {
         this.logger.info("Si controlla che lo stato della delega sia attivo");
 
-        //this.datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
-        this.deleghePGPagoPAPage.controlloStatoAttiva(ragioneScoiale);
+        this.deleghePGPagoPAPage.controlloStatoAttiva(ragioneSociale);
     }
 
     @And("Non si assegna un gruppo alla delega")

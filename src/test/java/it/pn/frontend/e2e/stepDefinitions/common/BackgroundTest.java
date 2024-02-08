@@ -157,7 +157,7 @@ public class BackgroundTest {
         deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp("nuovaDelegaPG");
         deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneConfermaCodice();
         deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
-        deleghePGPagoPATest.siControllaCheLaDelegaPGALoStatoAttiva("personaGiuridica");
+        deleghePGPagoPATest.siControllaCheLaDelegaPGALoStatoAttiva("Convivio Spa");
     }
 
     public void aggiuntaNuovaDelegaPG() {
