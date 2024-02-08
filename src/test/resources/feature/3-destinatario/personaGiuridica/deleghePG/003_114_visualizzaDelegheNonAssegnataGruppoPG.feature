@@ -4,7 +4,7 @@ Feature: La persona giuridica visualizza le deleghe
   @TA_PGVisualizzaDelegheSenzaGruppo
   @DeleghePG
   @PG
-  Scenario: PN-9166 - La persona giuridica visualizza le deleghe
+  Scenario: PN-9166-A112 - La persona giuridica visualizza le deleghe
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
