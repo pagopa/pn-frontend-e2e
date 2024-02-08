@@ -260,42 +260,7 @@ public class NotifichePersonaFisicaPagoPATest {
         }
     }
 
-    @Then("Si selezionano i file documenti allegati da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto {string}")
-    public void siSelezionanoIFileDocumentiAllegatiDaScaricareAllInternoDellaNotificaDestinatarioESiControllaCheIlDownloadSiaAvvenuto(String dpFile) {
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        int numeroLinkDocumentiAllegati = dettaglioNotificaSection.getLinkDocumentiAllegati();
-        DownloadFile downloadFile = new DownloadFile(this.driver);
-        DataPopulation dataPopulation = new DataPopulation();
-        Map<String, Object> datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        String workingDirectory = System.getProperty("user.dir");
-        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
-        File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/personaFisica");
-        if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
-            pathCartella.mkdirs();
-        }
-        for (int i = 0; i < numeroLinkDocumentiAllegati; i++) {
-            dettaglioNotificaSection.clickLinkDocumentiAllegati(i);
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            String urlFileDocumentoAllegato = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery/notifications/received/" + datiNotifica.get("codiceIUN").toString() + "/attachments/documents/" + 0);
-            if (headless && urlFileDocumentoAllegato.isEmpty()) {
-                String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
-                logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
-                Assert.fail("Non è stato recuperato url per il download per il link: " + testoLink);
-            }
-            File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + i + ".pdf");
-            downloadFile.download(urlFileDocumentoAllegato, file, headless);
-            if (!headless) {
-                dettaglioNotificaSection.goBack();
-            }
-        }
-        downloadFile.controlloDownload(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario", numeroLinkDocumentiAllegati);
-    }
-
-    @Then("Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto {string}")
+   @Then("Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto {string}")
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaDestinatarioESiControllaCheIlDownloadSiaAvvenuto(String dpFile) {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponibili();
