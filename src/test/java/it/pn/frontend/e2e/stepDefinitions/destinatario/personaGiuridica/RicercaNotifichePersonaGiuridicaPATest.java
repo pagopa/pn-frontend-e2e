@@ -56,6 +56,50 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         ricercaNotifichePGPage.waitLoadDettaglioNotificaPGSection();
     }
 
+    @And("Si controlla se la notifica prevede il pagamento")
+    public void siControllaSeLaNotificaPrevedeIlPagamento() {
+
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+
+        boolean sezionePagamentoIsDisplayed = piattaformaNotifichePGPAPage.sezionePagamentoDisplayed();
+
+        if (!sezionePagamentoIsDisplayed) {
+            logger.info("La notifica non prevede il pagamento ");
+        } else {
+            logger.info("La notifica prevede il pagamento");
+            boolean radioBoxPresent = piattaformaNotifichePGPAPage.isRadioBoxPresent();
+
+            if (radioBoxPresent) {
+
+                piattaformaNotifichePGPAPage.clickRadioBoxButton(piattaformaNotifichePGPAPage.cssBuildRadioButton());
+            }
+
+            boolean titoloPagamentoIsDisplayed = piattaformaNotifichePGPAPage.titoloDiPagamentoDisplayed();
+            if (titoloPagamentoIsDisplayed) {
+                logger.info("Sezione titolo di pagamento è visualizzato");
+            } else {
+                logger.error("Sezione titolo di pagamento non è visualizzato");
+                Assert.fail("Sezione titolo di pagamento non è visualizzato");
+            }
+
+            boolean codiceAvvisoIsDisplayed = piattaformaNotifichePGPAPage.codiceAvvisoDisplayed();
+            if (codiceAvvisoIsDisplayed) {
+                logger.info("Sezione codice avviso è visualizzato");
+            } else {
+                logger.error("Sezione codice avviso non è visualizzato");
+                Assert.fail("Sezione codice avviso non è visualizzato");
+            }
+
+            boolean modelloF24IsDisplayed = piattaformaNotifichePGPAPage.modelloF24Displayed();
+            if (modelloF24IsDisplayed) {
+                logger.info("Sezione scarica modello F24 è visualizzato");
+            } else {
+                logger.error("Sezione scarica modello F24 non è visualizzato");
+                Assert.fail("Sezione scarica modello F24 non è visualizzato");
+            }
+        }
+    }
+
     @And("Cliccare sul bottone Filtra persona giuridica")
     public void cliccareSulBottoneFiltraPersonaGiuridica() {
         ricercaNotifichePGPage.clickFiltraButton();
