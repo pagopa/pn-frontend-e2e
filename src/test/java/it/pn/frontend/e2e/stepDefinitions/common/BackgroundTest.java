@@ -219,4 +219,10 @@ public class BackgroundTest {
         deleghePagoPATest.siControllaCheNonCiSiaPiuUnaDelega();
     }
 
+    public void rifiutoDelegaACaricoDellImpresa(String dpFile){
+        deleghePGPagoPATest.nellaPaginaDelegheSezioneDelegheAcaricoDellImpresaSiCliccaSulMenuDellaDelega(dpFile);
+        deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneRifiuta();
+        deleghePGPagoPATest.siCliccaSulBottoneRifiutaDelega();
+        deleghePGPagoPATest.siControllaCheLaDelegaNonSiPiuPresenteInElenco();
+    }
 }
