@@ -280,14 +280,15 @@ public class NotifichePersonaFisicaPagoPATest {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            String urlFileAttestazioneOppponubile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/" + datiNotifica.get("codiceIUN").toString() + "/legal-facts/");
-            if (headless && urlFileAttestazioneOppponubile.isEmpty()) {
+            String urlFileAttestazioneOppponibile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/" + datiNotifica.get("codiceIUN").toString() + "/legal-facts/");
+
+            if (headless && urlFileAttestazioneOppponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
                 logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
                 Assert.fail("Non è stato recuperato url per il download per il link: " + testoLink);
             }
             File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + i + ".pdf");
-            downloadFile.download(urlFileAttestazioneOppponubile, file, headless);
+            downloadFile.download(urlFileAttestazioneOppponibile, file, headless);
             if (!headless) {
                 dettaglioNotificaSection.goBack();
             }

@@ -80,8 +80,8 @@ public class RicercaNotifichePersonaFisicaPATest {
     public void nellaPaginaPiattaformaNotificheDestinatarioInserireUnaDataDaDAAA() {
         logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca ");
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-        LocalDate dataFine = LocalDate.now();
-        LocalDate dataInizio = dataFine.minusDays(5);
+        LocalDate dataFine = LocalDate.of(2023,11, 9);
+        LocalDate dataInizio = LocalDate.of(2023,11, 7);
         String dataDA = notifichePFPage.controlloDateInserite(dataInizio.toString());
         String dataA = notifichePFPage.controlloDateInserite(dataFine.toString());
         notifichePFPage.inserimentoArcoTemporale(dataDA, dataA);

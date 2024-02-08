@@ -132,7 +132,6 @@ public class DeleghePagoPATest {
     @And("Nella sezione Deleghe si sceglie l'opzione mostra codice")
     public void nellaSezioneDelegheSiSceglieLOpzioneMostraCodice() {
         logger.info("Si clicca su mostra codice");
-
         this.deleghePage.siSceglieOpzioneMostraCodice();
     }
 
@@ -178,6 +177,7 @@ public class DeleghePagoPATest {
     @And("Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico {string}")
     public void siVerificaSiaPresenteUnaDelegaNellaSezioneDelegheATuoCarico(String dpFile) {
         logger.info("Si controlla che ci sia almeno una delega");
+
         this.deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
         BackgroundTest backgroundTest = new BackgroundTest();
         this.deleghePage.vaiInFondoAllaPagina();
@@ -324,7 +324,7 @@ public class DeleghePagoPATest {
         String cognome = datiDelega.get("cognome").toString();
         if (deleghePage.cercaEsistenzaDelega(nome, cognome)) {
             logger.info("Delega con lo stesso nome trovata");
-            deleghePage.clickRevocaButton(nome, cognome);
+            deleghePage.clickRevocaButtonOnMenu(nome, cognome);
             this.popUpRevocaDelegaSection.waitLoadPopUpRevocaDelegaSection();
             this.popUpRevocaDelegaSection.clickRevocaLaDelega();
         } else {
