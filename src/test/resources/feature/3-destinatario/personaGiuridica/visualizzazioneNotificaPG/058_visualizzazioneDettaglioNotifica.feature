@@ -6,7 +6,7 @@ Feature: La persona giuridica visualizza il dettaglio della notifica
 #  @VisualizzazioneNotifichePG
 #  @PG
 
-  Scenario: PN-9151 - La persona giuridica visualizza il dettaglio della notifica
+  Scenario Outline: PN-9151 - La persona giuridica visualizza il dettaglio della notifica
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa
     And Nella Pagina Notifiche persona giuridica si clicca su notifica
@@ -16,5 +16,8 @@ Feature: La persona giuridica visualizza il dettaglio della notifica
     And Nella sezione Dettaglio Notifiche si clicca su link di attestazione per salvare in locale
     And Nella sezione Dettaglio Notifiche si clicca su Vedi piu dettaglio nella parte dello stato della notifica
     And Nella sezione Dettaglio Notifiche si clicca su l'opzione Indietro
-    Then Si visualizza correttamente la Pagina Notifiche persona giuridica "personaGiuridica"
+    Then Si visualizza correttamente la Pagina Notifiche persona giuridica <ragioneSociale>
     And  Logout da portale persona giuridica
+    Examples:
+      | ragioneSociale |
+      | Convivio Spa   |

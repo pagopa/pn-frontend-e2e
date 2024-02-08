@@ -209,7 +209,7 @@ public class DeleghePGPagoPATest {
          BackgroundTest backgroundTest = new BackgroundTest();
 
         if (!this.delegatiImpresaSection.siVisualizzaUnaDelega()) {
-            backgroundTest.aggiungaDelegaPG();
+            backgroundTest.aggiuntaNuovaDelegaPG();
         }
     }
 
