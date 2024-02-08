@@ -15,4 +15,5 @@ Feature:Il delegato persona giuridica accetta la delega non assegnandoli un grup
     And Si clicca sul bottone conferma delega
     And Si clicca su conferma in assegnazione gruppo
     And Si controlla che la delega PG a lo stato Attiva "personaGiuridica"
+    And Si ripristina lo stato iniziale delle deleghe a carico dell impresa "personaGiuridica"
     And Logout da portale persona giuridica
