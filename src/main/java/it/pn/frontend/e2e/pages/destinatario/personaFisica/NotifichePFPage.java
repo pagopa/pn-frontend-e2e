@@ -56,8 +56,8 @@ public class NotifichePFPage extends BasePage {
         try {
             By titleLabel = By.id("Le tue notifiche-page");
             By tableNotifiche = By.id("notifications-table");
-            this.getWebDriverWait(40).withMessage("Il titolo della pagina Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
-            this.getWebDriverWait(40).withMessage("La tabella delle Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
+            this.getWebDriverWait(30).withMessage("Il titolo della pagina Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
+            this.getWebDriverWait(30).withMessage("La tabella delle Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
             logger.info("Notifiche DE Page caricata");
         } catch (TimeoutException e) {
             logger.error("Notifiche DE Page non caricata con errore : " + e.getMessage());

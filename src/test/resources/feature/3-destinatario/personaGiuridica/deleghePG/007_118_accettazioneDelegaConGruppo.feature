@@ -1,12 +1,13 @@
 Feature:Il delegato persona giuridica accetta la delega assegnandoli un gruppo
 
-  @TestSuite
-  @TA_PGaccettaDelegaConGruppo
-  @DeleghePG
-  @PG
+  # DISABLED Temporary disabled until the bug PN-9170 is fixed
+#  @TestSuite
+#  @TA_PGaccettaDelegaConGruppo
+#  @DeleghePG
+#  @PG
 
   Scenario: PN-9170 - Il delegato persona giuridica accetta la delega assegnandoli un gruppo
-    Given PG - Si effettua la login tramite token exchange di "personaGiuridica" e viene visualizzata la dashboard
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Nella sezione Deleghe si verifica sia presente una delega

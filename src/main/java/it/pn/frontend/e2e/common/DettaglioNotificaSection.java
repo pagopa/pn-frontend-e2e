@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class DettaglioNotificaSection extends BasePage{
+public class DettaglioNotificaSection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
 
     @FindBy(xpath = "//button[contains(text(),'Attestazione opponibile a terzi: ')]")
@@ -21,8 +21,9 @@ public class DettaglioNotificaSection extends BasePage{
     @FindBy(id = "more-less-timeline-step")
     WebElement vediDettagliButton;
 
-    @FindBy (xpath = "//li[contains(@class,'MuiTimelineItem-root MuiTimelineItem-positionRight MuiTimelineItem-missingOppositeContent css-1y9sx96')]")
+    @FindBy(xpath = "//*[contains(@class, 'MuiTimelineItem-root')]")
     List<WebElement> tuttiStatiNotificaList;
+
     public DettaglioNotificaSection(WebDriver driver) {
         super(driver);
     }
@@ -40,20 +41,20 @@ public class DettaglioNotificaSection extends BasePage{
             this.getWebDriverWait(30).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
             this.getWebDriverWait(30).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
             logger.info("Dettaglio Notifica Section caricata");
-        }catch (TimeoutException e){
-            logger.error("Dettaglio Notifica Section non caricata con errore: "+ e.getMessage());
-            Assert.fail("Dettaglio Notifica Section non caricata con errore: "+ e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Dettaglio Notifica Section non caricata con errore: " + e.getMessage());
+            Assert.fail("Dettaglio Notifica Section non caricata con errore: " + e.getMessage());
         }
     }
 
 
     public void clickLinkAttestazioniOpponibile(int numeroLinkAttestazioniOpponibile) {
-       if(attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()){
-           attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
-       }else{
-           this.js().executeScript("arguments[0].scrollIntoView(true);",attestazioniFile.get(numeroLinkAttestazioniOpponibile));
-           attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
-       }
+        if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
+            attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
+        } else {
+            this.js().executeScript("arguments[0].scrollIntoView(true);", attestazioniFile.get(numeroLinkAttestazioniOpponibile));
+            attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
+        }
     }
 
     public int getLinkAttestazioniOpponibili() {
@@ -63,7 +64,7 @@ public class DettaglioNotificaSection extends BasePage{
     public void selezioneVediDettaglioButton() {
         getWebDriverWait(30).withMessage("bottone vedi dettaglio non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.vediDettagliButton));
         vediDettagliButton.click();
-        if (tuttiStatiNotificaList.size() >= 1){
+        if (!tuttiStatiNotificaList.isEmpty()) {
             logger.info("Tutti gli stati sono stati visualizzati correttamente");
         } else {
             logger.error("Tutti i stati non sono stati visualizzati correttamente");

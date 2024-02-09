@@ -1,12 +1,12 @@
 Feature:La persona fisica visualizza le notifiche in elenco
-  
+
   @TestSuite
   @TA_PFPaginazioneNotifiche
   @PFvisualizzaNotifiche
   @PF
 
   Scenario:PN-9209 - La persona fisica visualizza le notifiche in elenco
-    Given PF - Si effettua la login tramite token exchange di "personaFisica" e viene visualizzata la dashboard
+    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica
     Then Si visualizzano correttamente le notifiche in elenco paginato
     And Si visualizzano le notifiche dalla piu recente

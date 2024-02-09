@@ -12,7 +12,7 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
 import it.pn.frontend.e2e.section.CookiesSection;
-import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderFRSection;
+import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
@@ -32,6 +32,7 @@ public class LoginPersonaFisicaPagoPA {
     private final WebDriver driver = Hooks.driver;
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
     private Map<String, Object> datiDelegato;
+    private static final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
 
     @Given("Login Page persona fisica {string} viene visualizzata")
     public void loginPageDestinatarioVieneVisualizzata(String datipersonaFisica) {
@@ -47,26 +48,39 @@ public class LoginPersonaFisicaPagoPA {
         }
     }
 
-    @Given("PF - Si effettua la login tramite token exchange di {string} e viene visualizzata la dashboard")
-    public void loginPfConTokenExchange(String datipersonaFisica) {
+    @Given("PF - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
+    public void loginMittenteConTokenExchange(String personaFisica) {
         DataPopulation dataPopulation = new DataPopulation();
-        this.datiPersonaFisica = dataPopulation.readDataPopulation(datipersonaFisica + ".yaml");
-        String variabileAmbiente = System.getProperty("environment");
-        switch (variabileAmbiente) {
-            case "dev" -> this.driver.get(this.datiPersonaFisica.get("url").toString());
-            case "test", "uat" ->
-                    this.driver.get(this.datiPersonaFisica.get("url").toString().replace("dev", variabileAmbiente));
-            default ->
-                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+        String environment = System.getProperty("environment");
+        String token = "";
+        switch (environment) {
+            case "dev" -> token = personaFisica.equalsIgnoreCase("delegante") ?
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPFDelegante").toString()
+                    :
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPFDelegato").toString();
+            case "test" -> token = personaFisica.equalsIgnoreCase("delegante") ?
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPFDelegante").toString()
+                    :
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPFDelegato").toString();
+            default -> {
+                logger.error("Ambiente non valido");
+                Assert.fail("Ambiente non valido o non trovato!");
+            }
         }
 
-        // Login tramite token exchange
-        loginPortalePersonaFisicaTramiteTokenExchange(datipersonaFisica);
+        // Si effettua il login con token exchange
+        String urlLogin = "https://cittadini." + environment + ".notifichedigitali.it/#token=" + token;
+        this.driver.get(urlLogin);
+        logger.info("Login effettuato con successo");
+        DataPopulation.waitTime(10);
 
-        // Verifica che la dashboard sia visualizzata
-        homePageDestinatarioVieneVisualizzataCorrettamente();
-
+        // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
+        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
+        headerPFSection.waitLoadHeaderDESection();
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.waitLoadNotificheDEPage();
     }
+
 
     @When("Login con persona fisica {string}")
     public void loginConDestinatario(String datipersonaFisica) {
@@ -135,8 +149,8 @@ public class LoginPersonaFisicaPagoPA {
         }
 
         confermaDatiSpidPFPage.selezionaConfermaButton();
-        HeaderFRSection headerFRSection = new HeaderFRSection(this.driver);
-        headerFRSection.waitUrlToken();
+        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
+        headerPFSection.waitUrlToken();
     }
 
     @Then("Home page persona fisica viene visualizzata correttamente")
@@ -158,7 +172,7 @@ public class LoginPersonaFisicaPagoPA {
                 break;
             }
             try {
-                TimeUnit.SECONDS.sleep(3);
+                TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -168,8 +182,8 @@ public class LoginPersonaFisicaPagoPA {
         } else {
             logger.warn("Http token persona fisica not found");
         }
-        HeaderFRSection headerFRSection = new HeaderFRSection(this.driver);
-        headerFRSection.waitLoadHeaderDESection();
+        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
+        headerPFSection.waitLoadHeaderDESection();
 
         if (!CookieConfig.isCookieEnabled()) {
             cookiesSection = new CookiesSection(this.driver);
@@ -220,10 +234,10 @@ public class LoginPersonaFisicaPagoPA {
 
     @And("Logout da portale persona fisica")
     public void logoutDaPortaleDestinatario() {
-        HeaderFRSection headerFRSection = new HeaderFRSection(this.driver);
-        headerFRSection.waitLoadHeaderDESection();
-        headerFRSection.selezionaProfiloUtenteMenu();
-        headerFRSection.selezionaVoceEsci();
+        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
+        headerPFSection.waitLoadHeaderDESection();
+        headerPFSection.selezionaProfiloUtenteMenu();
+        headerPFSection.selezionaVoceEsci();
 
         ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.driver);
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();

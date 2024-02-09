@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 public class PiattaformaNotifichePGPAPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("PiattaformaNotifichePGPAPage");
 
@@ -38,11 +40,11 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     @FindBy(css = "[role='radiogroup']")
     WebElement radioBox;
 
-    @FindBy(css = "[name='radio-buttons-group']")
-    WebElement radioButton;
+    @FindBy(xpath = "//span[@data-testid='radio-button']")
+    List<WebElement> radioButton;
 
-    @FindBy(linkText = "Pagamento di Test")
-    WebElement titoloPagamento;
+    @FindBy(xpath = "//span[contains(text(), 'Pagamento di Test')]")
+    List<WebElement> titoloPagamento;
 
     @FindBy(css = "[data-testid='download-f24-button']")
     WebElement modelloF24;
@@ -53,8 +55,8 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     @FindBy(css = "[data-testid='pay-button']")
     WebElement pagaAvviso;
 
-    @FindBy(linkText = "Codice avviso")
-    WebElement codiceAvviso;
+    @FindBy(xpath = "//span[contains(text(), 'Codice avviso')]")
+    List<WebElement> codiceAvviso;
     @FindBy(css = ".MuiTypography-caption-semibold.css-1g3z0lx")
     WebElement codiceAvvisoSpan;
 
@@ -73,7 +75,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     @FindBy(linkText = "Vedi meno dettagli")
     WebElement vediMenoDettagliButton;
 
-    @FindBy(css="[type='application/pdf']")
+    @FindBy(css = "[type='application/pdf']")
     WebElement pdfType;
 
     @FindBy(css = "[data-testid='documentButton']")
@@ -172,10 +174,10 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
 
     public boolean sezionePagamentoDisplayed() {
-        try{
-           return  getWebDriverWait(30).withMessage("Il sezione pagamento non è visibile").until(ExpectedConditions.visibilityOf(sezionePagamento)).isDisplayed();
+        try {
+            return getWebDriverWait(30).withMessage("Il sezione pagamento non è visibile").until(ExpectedConditions.visibilityOf(sezionePagamento)).isDisplayed();
 
-        }catch(NoSuchElementException | TimeoutException e){
+        } catch (NoSuchElementException | TimeoutException e) {
 
             logger.warn("Il sezione pagamento non è visibile");
             return false;
@@ -184,33 +186,34 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
 
     public boolean isRadioBoxPresent() {
-        try{
+        try {
             return getWebDriverWait(30).withMessage("Il radio box non è visibile").until(ExpectedConditions.visibilityOf(radioBox)).isDisplayed();
 
-        }catch(NoSuchElementException | TimeoutException e){
+        } catch (NoSuchElementException | TimeoutException e) {
 
             logger.warn("Il radio box non è visibile");
             return false;
         }
     }
 
-    public String cssBuildRadioButton(){
+    public String cssBuildRadioButton() {
         return "[value='" + codiceAvvisoSpan.getText() + "']";
     }
 
     public void clickRadioBoxButton(String css) {
 
-        getWebDriverWait(30).withMessage("Il radio box button non è cliccabile").until(ExpectedConditions.elementToBeClickable(radioButton));
-        radioButton.click();
+        getWebDriverWait(30).withMessage("Il radio box button non è cliccabile").until(ExpectedConditions.elementToBeClickable(radioButton.get(0)));
+        radioButton.get(0).click();
+//        radioButton.click();
     }
 
 
     public boolean titoloDiPagamentoDisplayed() {
-        return getWebDriverWait(30).withMessage("Il sezione titolo pagamento non è visibile").until(ExpectedConditions.visibilityOf(titoloPagamento)).isDisplayed();
+        return getWebDriverWait(30).withMessage("Il sezione titolo pagamento non è visibile").until(ExpectedConditions.visibilityOf(titoloPagamento.get(0))).isDisplayed();
     }
 
     public boolean codiceAvvisoDisplayed() {
-        return getWebDriverWait(30).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvviso)).isDisplayed();
+        return getWebDriverWait(30).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvviso.get(0))).isDisplayed();
     }
 
     public boolean modelloF24Displayed() {
@@ -228,26 +231,30 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     public boolean sezioneRecapitiDisplayed() {
         return getWebDriverWait(30).withMessage("Il sezione recapiti non è visibile").until(ExpectedConditions.visibilityOf(sezioneRecapiti)).isDisplayed();
     }
+
     public boolean documentiAllegatiDisplayed() {
         return getWebDriverWait(30).withMessage("Il documenti allegati non è visibile").until(ExpectedConditions.visibilityOf(documentiAllegati)).isDisplayed();
 
     }
+
     public boolean statoDelloNotificheDisplayed() {
         return getWebDriverWait(30).withMessage("Il stato dello notifiche non è visibile").until(ExpectedConditions.visibilityOf(statoDelloNotifiche)).isDisplayed();
 
     }
+
     public boolean attestazioneDisplayed() {
         return getWebDriverWait(30).withMessage("L'attestazione non è visibile").until(ExpectedConditions.visibilityOf(attestazione)).isDisplayed();
 
     }
+
     public boolean vediPiuDettagli() {
         return getWebDriverWait(30).withMessage("Il bottone vedi piu dettagli non è visibile").until(ExpectedConditions.visibilityOf(vediPiuDettagli)).isDisplayed();
     }
 
-    public void clickVediPiuDettagli(){
+    public void clickVediPiuDettagli() {
 
-         getWebDriverWait(30).withMessage("Il bottone vedi piu dettagli non è visibile").until(ExpectedConditions.visibilityOf(vediPiuDettagli));
-            vediPiuDettagli.click();
+        getWebDriverWait(30).withMessage("Il bottone vedi piu dettagli non è visibile").until(ExpectedConditions.visibilityOf(vediPiuDettagli));
+        vediPiuDettagli.click();
 
     }
 
@@ -256,11 +263,11 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         return getWebDriverWait(30).withMessage("Il bottone vedi meno dettagli non è visibile").until(ExpectedConditions.visibilityOf(vediMenoDettagliButton)).isDisplayed();
     }
 
-    public boolean isTypePdfDisplayed(){
+    public boolean isTypePdfDisplayed() {
         return getWebDriverWait(30).withMessage("Il format di file e PDF").until(ExpectedConditions.visibilityOf(pdfType)).isDisplayed();
     }
 
-    public void clickDocumentButton(){
+    public void clickDocumentButton() {
 
         getWebDriverWait(30).withMessage("Il bottone documento allegato non è visibile").until(ExpectedConditions.visibilityOf(documentButton));
         this.js().executeScript("arguments[0].click()", this.documentButton);

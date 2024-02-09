@@ -74,6 +74,15 @@ public class DataPopulation {
      */
     public static void waitTime(int seconds) {
         try {
+            int minutes;
+            int remainingSeconds;
+            if (seconds >= 60) {
+                minutes = seconds / 60;
+                remainingSeconds = seconds % 60;
+                logger.info("Si aspettano " + minutes + " minuti e " + remainingSeconds + " secondi... prima di proseguire oltre");
+            } else {
+                logger.info("Si aspettano " + seconds + " secondi... prima di proseguire oltre");
+            }
             long millisecondsToWait = TimeUnit.SECONDS.toMillis(seconds);
             Thread.sleep(millisecondsToWait);
         } catch (InterruptedException e) {
