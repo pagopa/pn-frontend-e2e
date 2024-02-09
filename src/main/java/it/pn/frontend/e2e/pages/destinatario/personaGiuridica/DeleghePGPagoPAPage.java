@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -8,6 +9,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 
@@ -207,7 +211,6 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     }
 
-
     public void controlloStatoAttiva(String ragioneSociale) {
         try {
             By statoAttivaBy = By.xpath("//tr[contains(td/div/p, '" + ragioneSociale + "')]//span[contains(., 'Attiva')]");
@@ -220,10 +223,11 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickNonAssegnaGruppo() {
+        By nonGruppoRadioButtonLabel = By.id("associate-form-group");
         this.getWebDriverWait(30)
-                .withMessage("Il pulsante radiobutton 'Non assegnare ad un gruppo' non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(this.nonGruppoRadioButton));
-        this.nonGruppoRadioButton.click();
+                .withMessage("Il pulsante radiobutton 'Non assegnare ad un gruppo' non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(nonGruppoRadioButtonLabel));
+        nonGruppoRadioButton.click();
     }
 
     public void clickOpzioneRifiuta() {
@@ -258,9 +262,9 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void waitLoadPopUpModifica() {
         try {
             By titlePOPUPBy = By.id("dialog-title");
-            By nonAssegnaButtonBy = By.id("associate-form-no-group");
+            //By nonAssegnaButtonBy = By.id("associate-no-group");
             this.getWebDriverWait(30).withMessage("Il titolo del pop-up non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePOPUPBy));
-            this.getWebDriverWait(30).withMessage("Il bottone non assegna sul pop-up non è cliccabile").until(ExpectedConditions.elementToBeClickable(nonAssegnaButtonBy));
+            //this.getWebDriverWait(30).withMessage("Il bottone non assegna sul pop-up non è cliccabile").until(ExpectedConditions.visibilityOf(this.nonGruppoRadioButton));
             logger.info("Si visualizza correttamente il pop-up");
         } catch (TimeoutException e) {
             logger.error("NON Si  visualizza  correttamente il pop-up con errore: " + e.getMessage());
@@ -286,4 +290,30 @@ public class DeleghePGPagoPAPage extends BasePage {
         this.getWebDriverWait(30).withMessage("l'opzione gruppo non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.groupOption));
         this.groupOption.click();
     }
+
+    public String getCodiceVerificaDelegaACaricoDellImpresaAPI(){
+        try{
+            String pathIniziale = System.getProperty("user.dir");
+            String text = Files.readString(Paths.get(pathIniziale + "/src/test/resources/dataPopulation/bodyChiamataDeleghe.json"));
+            JSONObject object = new JSONObject(text);
+            return object.getString("verificationCode");
+        }catch (IOException e) {
+            logger.error("non é stato possibile reperire il codice di verifica dal json");
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void inserimentoCodiceDelegaACaricoDellImpresaAPI(String codiceDelega){
+        String[] codiciDelega = codiceDelega.split("");
+        for (int i = 0; i < 5; i++) {
+            String xpathBy = "code-input-" + i;
+            By codiceDelegaInputBy = By.id(xpathBy);
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(codiceDelegaInputBy));
+            WebElement codiceDelegaInput = driver.findElement(codiceDelegaInputBy);
+            codiceDelegaInput.sendKeys(codiciDelega[i]);
+        }
+
+    }
+
+
 }

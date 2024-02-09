@@ -26,7 +26,6 @@ import java.util.Map;
 public class DeleghePGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("DeleghePGPagoPATest");
     private final WebDriver driver = Hooks.driver;
-
     private final DeleghePGPagoPAPage deleghePGPagoPAPage = new DeleghePGPagoPAPage(this.driver);
     private final DelegatiImpresaSection delegatiImpresaSection = new DelegatiImpresaSection(this.driver);
     private final AggiungiDelegaPGSection aggiungiDelegaPGSection = new AggiungiDelegaPGSection(this.driver);
@@ -209,7 +208,7 @@ public class DeleghePGPagoPATest {
          BackgroundTest backgroundTest = new BackgroundTest();
 
         if (!this.delegatiImpresaSection.siVisualizzaUnaDelega()) {
-            backgroundTest.aggiuntaNuovaDelegaPG();
+            backgroundTest.aggiuntaNuovaDelegaDellImpresaPG();
         }
     }
 
@@ -425,7 +424,7 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.inserireGruppoDelegante();
     }
 
-
+/*
     @And("Nella sezione Deleghe si verifica sia presente una delega per PG {string}")
     public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelegaPG(String dpFile) {
         logger.info("Si verifica sia presente una delega per PG");
@@ -434,7 +433,7 @@ public class DeleghePGPagoPATest {
         if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG(ragioneSociale)) {
             aggiuntaDelegaConChiamata(dpFile);
         }
-    }
+    }*/
 
     public void aggiuntaDelegaConChiamata(String dpFile) {
         CreazioneDelega creazioneDelega = new CreazioneDelega();
@@ -457,39 +456,42 @@ public class DeleghePGPagoPATest {
             Assert.fail("La chiamata ha risposto con questo codice: " + creazioneDelega.getResponseCode());
         }
 
+
         deleghePGPagoPAPage.aggionamentoPagina();
         deleghePGPagoPAPage.waitLoadDeleghePage();
+
     }
 
 
     private String creazioneBodyChiamata(String dpFile) {
         String body;
-        String ragioneSociale = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml").get("ragioneSociale").toString();
-        String ragioneSocialeDelegante = dataPopulation.readDataPopulation(dpFile + ".yaml").get("ragioneSociale").toString();
-        String codiceFiscale = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml").get("codiceFiscale").toString();
-        String codiceFiscaleDelegante;
-        codiceFiscaleDelegante = dataPopulation.readDataPopulation(dpFile + ".yaml").get("codiceFiscale").toString();
+        String ragioneSocialeDelegante = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml").get("ragioneSociale").toString();
+        String ragioneSocialeDelegato = dataPopulation.readDataPopulation(dpFile + ".yaml").get("ragioneSociale").toString();
+        String codiceFiscaleDelegante = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml").get("codiceFiscale").toString();
+        String codiceFiscaleDelegato = dataPopulation.readDataPopulation(dpFile + ".yaml").get("codiceFiscale").toString();
         try {
             String pathIniziale = System.getProperty("user.dir");
             String text = Files.readString(Paths.get(pathIniziale + "/src/test/resources/dataPopulation/bodyChiamataDeleghe.json"));
             JSONObject object = new JSONObject(text);
+            // ---------------------//
             Map<String, Object> delegante = new HashMap<>();
-            Map<String, Object> delegato = new HashMap<>();
-            LocalDate date = LocalDate.now();
-            delegato.put("displayName", ragioneSocialeDelegante);
-            delegato.put("companyName", ragioneSocialeDelegante);
-            delegato.put("fiscalCode", codiceFiscaleDelegante);
-            delegato.put("person", false);
-            delegante.put("displayName", ragioneSociale);
-            delegante.put("companyName", ragioneSociale);
-            delegante.put("fiscalCode", codiceFiscale);
+            delegante.put("displayName", ragioneSocialeDelegante);
+            delegante.put("companyName", ragioneSocialeDelegante);
+            delegante.put("fiscalCode", codiceFiscaleDelegante);
             delegante.put("person", false);
-            object.put("delegator", delegato);
+            // ---------------------//
+            Map<String, Object> delegato = new HashMap<>();
+            delegato.put("displayName", ragioneSocialeDelegato);
+            delegato.put("companyName", ragioneSocialeDelegato);
+            delegato.put("fiscalCode", codiceFiscaleDelegato);
+            delegato.put("person", false);
+            // ---------------------//
+            LocalDate date = LocalDate.now();
+            object.put("delegator", delegante);
             object.put("delegate", delegato);
             object.put("datefrom", date);
             object.put("dateto", date.plusDays(1));
             body = object.toString();
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -514,10 +516,11 @@ public class DeleghePGPagoPATest {
     @And("Nella pagina Deleghe sezione Deleghe a carico dell'impresa si controlla la presenza di una delega per PG {string}")
     public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiControllaLaPresenzaDiUnaDelegaPerPG(String dpFile) {
         logger.info("Si controlla che ci sia una delega");
+
         String ragioneSociale = dataPopulation.readDataPopulation(dpFile + ".yaml").get("ragioneSociale").toString();
         if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG(ragioneSociale)) {
             BackgroundTest backgroundTest = new BackgroundTest();
-            backgroundTest.aggiuntaNuovaDelegaPG();
+            aggiuntaDelegaConChiamata(dpFile);
         }
     }
 
@@ -537,5 +540,18 @@ public class DeleghePGPagoPATest {
         BackgroundTest backgroundTest = new BackgroundTest();
 
         backgroundTest.rifiutoDelegaACaricoDellImpresa(dpFile);
+    }
+
+    @And("Si accetta la delega con un gruppo")
+    public void siAccettaLaDelegaConUnGruppo() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+        backgroundTest.accettazioneDelegaConGruppo();
+    }
+
+    @And("Si inserisce il codice della delega a carico dell impresa nella modale")
+    public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale() {
+        String codeVerification = deleghePGPagoPAPage.getCodiceVerificaDelegaACaricoDellImpresaAPI();
+        logger.info(codeVerification);
+        deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI(codeVerification);
     }
 }
