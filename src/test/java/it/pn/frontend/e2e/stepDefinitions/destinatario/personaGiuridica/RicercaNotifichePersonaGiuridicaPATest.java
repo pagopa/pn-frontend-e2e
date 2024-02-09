@@ -167,15 +167,22 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         }
     }
 
-    @And("Nella pagina Piattaforma Notifiche persona giuridica si clicca su seconda pagina")
-    public void NellaPaginaPiattaformaNotifichePersonaGiuridicaSiCliccaSuSecondaPagina() {
-        ricercaNotifichePGPage.clickPage2Button();
+    @And("Se i risultati sono contenuti in più pagine persona giuridica è possibile effettuare il cambio pagina")
+    public void seIRisultatiSonoContenutiInPiuPagineDestinatarioEPossibileEffettuareIlCambioPagina() {
+        logger.info("Se i risultati sono contenuti in più pagine è possibile effettuare il cambio pagina");
+
+
+        if(ricercaNotifichePGPage.verificaEsistenzaEPassaggioPaginaPG()){
+            logger.info("Bottone pagina 2 trovato e cliccato");
+
+            HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
+            headerPGSection.waitLoadHeaderPGPage();
+            ricercaNotifichePGPage.waitLoadNotifichePGPage();
+        }else {
+            logger.info("Bottone pagina 2 non trovato non effettuato il passaggio di pagina");
+        }
     }
 
-    @And("Si visualizza correttamente la Pagina Notifiche persona giuridica sezione notifiche")
-    public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridicaSezioneNotifiche() {
-        ricercaNotifichePGPage.waitLoadDettaglioNotificaPGSection();
-    }
 
     @And("Nella pagina Piattaforma Notifiche persona giuridica inserire una data con formato errato")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireUnaDataConFormatoErrato() {

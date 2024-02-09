@@ -96,4 +96,31 @@ public class RicercaNotifichePGPage extends BasePage {
         final String isTextboxInvalid = "true";
         return isTextboxInvalid.equals(ariaInvalid);
     }
+
+    public boolean verificaEsistenzaEPassaggioPaginaPG() {
+        this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
+        try {
+            By numeroButtonBy = By.id("page2");
+            this.getWebDriverWait(20).withMessage("bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOfElementLocated(numeroButtonBy));
+            logger.info("Bottone pagina 2 trovato");
+
+            WebElement numeroPagina = this.element(numeroButtonBy);
+            numeroPagina.click();
+            return true;
+        } catch (TimeoutException e) {
+            logger.error("bottone pagina 2 non trovata con errore: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public void waitLoadNotifichePGPage() {
+        try {
+            By tableNotifiche = By.id("notifications-table");
+            this.getWebDriverWait(40).withMessage("La tabella delle Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
+            logger.info("Notifiche PG Page caricata");
+        } catch (TimeoutException e) {
+            logger.error("Notifiche PG Page non caricata con errore : " + e.getMessage());
+            Assert.fail("Notifiche PG Page non caricata con errore : " + e.getMessage());
+        }
+    }
 }
