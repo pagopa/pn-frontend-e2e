@@ -557,6 +557,7 @@ public class PiattaformaNotifichePage extends BasePage {
         this.getWebDriverWait(10)
                 .withMessage("Il pulsante 'righe per pagina' non è presente")
                 .until(ExpectedConditions.visibilityOf(this.numeroNotificheButton));
+        this.js().executeScript("arguments[0].scrollIntoView(true);", this.numeroNotificheButton);
         this.numeroNotificheButton.click();
         this.getWebDriverWait(10)
                 .withMessage("Il pulsante '50' per assegnare il numero di notifiche per pagina non è presente")
