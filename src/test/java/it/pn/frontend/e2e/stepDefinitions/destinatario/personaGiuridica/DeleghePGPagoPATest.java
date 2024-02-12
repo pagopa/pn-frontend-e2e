@@ -554,9 +554,9 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI(codeVerification);
     }
 
-    @And("Accetta la delega a carico dell impresa ed assegna gruppo")
+   /* @And("Accetta la delega a carico dell impresa ed assegna gruppo")
     public void accettaLaDelegaACaricoDellImpresaEdAssegnaGruppo() {
         BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.accettaDelegaACaricoDellImpresaEdAssegnaGruppo();
-    }
+    }*/
 }
