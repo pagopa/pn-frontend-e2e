@@ -1,11 +1,11 @@
 Feature: La persona giuridica revoca una delega
 
   @TestSuite
-  @TA_PGrevocaNuovaDelega
-  @DeleghePG
-  @PG
+    @TA_PGrevocaNuovaDelega
+    @DeleghePG
+    @PG
 
-  Scenario: PN-9169 - La persona giuridica revoca una delega
+  Scenario Outline: PN-9169 - La persona giuridica revoca una delega
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Si visualizza correttamente la Pagina Notifiche persona giuridica <ragioneSociale>
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
