@@ -553,4 +553,10 @@ public class DeleghePGPagoPATest {
         logger.info(codeVerification);
         deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI(codeVerification);
     }
+
+    @And("Accetta la delega a carico dell impresa ed assegna gruppo")
+    public void accettaLaDelegaACaricoDellImpresaEdAssegnaGruppo() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+        backgroundTest.accettaDelegaACaricoDellImpresaEdAssegnaGruppo();
+    }
 }

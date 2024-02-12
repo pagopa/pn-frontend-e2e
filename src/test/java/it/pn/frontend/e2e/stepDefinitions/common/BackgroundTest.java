@@ -181,6 +181,14 @@ public class BackgroundTest {
         deleghePGPagoPATest.nellaSezioneDelegatiDallImpresaSiVisualizzaLaDelegaInStatoDiAttesaDiConferma();
     }
 
+    public void accettaDelegaACaricoDellImpresaEdAssegnaGruppo(){
+        deleghePagoPATest.siSceglieOpzioneAccetta();
+        deleghePGPagoPATest.siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale();
+        deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneConfermaCodice();
+        deleghePGPagoPATest.siAssegnaUnGruppoAllaDelega();
+        deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
+    }
+
 
 
 
