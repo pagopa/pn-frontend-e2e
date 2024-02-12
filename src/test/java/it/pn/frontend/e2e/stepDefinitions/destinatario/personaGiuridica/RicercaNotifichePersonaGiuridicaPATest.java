@@ -185,11 +185,8 @@ public class RicercaNotifichePersonaGiuridicaPATest {
     @And("Nella pagina Piattaforma Notifiche persona giuridica inserire una data con formato errato")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireUnaDataConFormatoErrato() {
 
-        String dateDa = "01011111";
-
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-        String datada = piattaformaNotifichePage.conversioneFormatoDate(dateDa);
-        ricercaNotifichePGPage.inserimentoDataErrato(datada);
+        String dataDa = "01/01/1111";
+        ricercaNotifichePGPage.inserimentoDataErrato(dataDa);
     }
 
     @Then("Il rettangolo del campo errato diventa rosso e il tasto Filtra è disattivo")
