@@ -117,7 +117,7 @@ public class DeleghePagoPATest {
         logger.info("Si controlla che sia presente una delega");
         BackgroundTest backgroundTest = new BackgroundTest();
         if (!this.deleghePage.siVisualizzaUnaDelega()) {
-            backgroundTest.aggiuntaNuovaDelegaPG();
+            backgroundTest.aggiuntaNuovaDelegaDellImpresaPG();
         }
     }
 
