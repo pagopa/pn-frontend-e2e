@@ -1,7 +1,10 @@
 package it.pn.frontend.e2e.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.pn.frontend.e2e.exceptions.RestNotificationException;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.ClassicHttpRequest;
@@ -14,14 +17,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class CustomHttpClient<RequestType, ResponseType> {
     private static CustomHttpClient<?, ?> instance;
-
+    private final Gson gson = new Gson();
     private static final Logger logger = LoggerFactory.getLogger("CustomHttpClient");
+    @Setter
+    @Getter
     private String baseUrlApi;
 
+    @Setter
+    @Getter
     private String apiKey;
 
     private final CloseableHttpClient httpClient;
@@ -63,23 +73,25 @@ public class CustomHttpClient<RequestType, ResponseType> {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             ObjectMapper objectMapper = new ObjectMapper();
             String jsonBody = objectMapper.writeValueAsString(requestObject);
-
             this.httpRequest = ClassicRequestBuilder
                     .post(apiUrl)
                     .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
                     .addHeader("x-api-key", this.apiKey)
                     .setEntity(new StringEntity(jsonBody))
                     .build();
-
+            if (headers != null) {
+                headers.forEach(this.httpRequest::addHeader);
+            }
             return client.execute(httpRequest, response -> {
                 final HttpEntity entity;
                 final String responseString;
-                
-                if (response.getCode() == 200 || response.getCode() == 202) {
+
+                if (response.getCode() == 200 || response.getCode() == 202 || response.getCode() == 201) {
                     entity = response.getEntity();
                     responseString = EntityUtils.toString(entity);
-                    logger.info("Response body: " + responseString);
-                    return convertJsonToObjectType(responseString, responseType);
+                    ResponseType responseObject = gson.fromJson(responseString, responseType);
+                    logger.info("Response body: " + responseObject);
+                    return responseObject;
                 } else {
                     entity = response.getEntity();
                     responseString = EntityUtils.toString(entity);
@@ -91,39 +103,62 @@ public class CustomHttpClient<RequestType, ResponseType> {
         }
     }
 
+    public void sendHttpPatchRequest(String endpoint, Map<String, String> headers) throws IOException {
+        String apiUrl = baseUrlApi + endpoint;
 
-    /**
-     * Convert JSON string to object
-     *
-     * @param jsonString
-     * @param responseType
-     * @param <R>
-     * @return
-     */
-    private <R> R convertJsonToObjectType(String jsonString, Class<R> responseType) throws IOException {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            logger.info("Converting JSON to object: " + jsonString);
-            return objectMapper.readValue(jsonString, responseType);
-        } catch (IOException e) {
-            logger.error("Failed to convert JSON to object: " + e.getMessage());
-            throw new IOException("Error converting JSON to object: " + e.getMessage());
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            this.httpRequest = ClassicRequestBuilder
+                    .patch(apiUrl)
+                    .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
+                    .addHeader("x-api-key", this.apiKey)
+                    .build();
+            if (headers != null) {
+                headers.forEach(this.httpRequest::addHeader);
+            }
+            client.execute(httpRequest, response -> {
+                if (response.getCode() == 200 || response.getCode() == 202 || response.getCode() == 201 || response.getCode() == 204) {
+                    logger.info("Response code: " + response.getCode());
+                } else {
+                    logger.error("Response code: " + response.getCode());
+                    throw new IOException("Error in HTTP request to " + apiUrl + ": " + response.getCode());
+                }
+                return null;
+            });
         }
     }
 
-    public String getBaseUrlApi() {
-        return baseUrlApi;
-    }
+    public List<ResponseType> sendHttpGetRequest(String endpoint, Map<String, String> headers, Class<ResponseType> responseType) throws IOException {
+        String apiUrl = baseUrlApi + endpoint;
 
-    public void setBaseUrlApi(String baseUrlApi) {
-        this.baseUrlApi = baseUrlApi;
-    }
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            this.httpRequest = ClassicRequestBuilder
+                    .get(apiUrl)
+                    .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
+                    .addHeader("x-api-key", this.apiKey)
+                    .build();
+            if (headers != null) {
+                headers.forEach(this.httpRequest::addHeader);
+            }
+            return client.execute(httpRequest, response -> {
+                final HttpEntity entity;
+                final String responseString;
 
-    public String getxApikey() {
-        return apiKey;
-    }
-
-    public void setxApikey(String apiKey) {
-        this.apiKey = apiKey;
+                if (response.getCode() == 200 || response.getCode() == 202 || response.getCode() == 201) {
+                    entity = response.getEntity();
+                    responseString = EntityUtils.toString(entity);
+                    Type listType = new TypeToken<ArrayList<ResponseType>>() {
+                    }.getType();
+                    List<ResponseType> responseObject = gson.fromJson(responseString, listType);
+                    logger.info("Response body: " + responseObject);
+                    return responseObject;
+                } else {
+                    entity = response.getEntity();
+                    responseString = EntityUtils.toString(entity);
+                    logger.error("Response code: " + response.getCode());
+                    logger.error("Response body: " + responseString);
+                    throw new IOException("Error in HTTP request to " + apiUrl + ": " + response.getCode());
+                }
+            });
+        }
     }
 }
