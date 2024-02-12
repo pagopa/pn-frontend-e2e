@@ -519,7 +519,6 @@ public class DeleghePGPagoPATest {
 
         String ragioneSociale = dataPopulation.readDataPopulation(dpFile + ".yaml").get("ragioneSociale").toString();
         if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG(ragioneSociale)) {
-            BackgroundTest backgroundTest = new BackgroundTest();
             aggiuntaDelegaConChiamata(dpFile);
         }
     }
