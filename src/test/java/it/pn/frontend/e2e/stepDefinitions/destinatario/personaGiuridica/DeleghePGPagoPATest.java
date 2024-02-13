@@ -371,8 +371,8 @@ public class DeleghePGPagoPATest {
         }
     }
 
-    @And("Si controlla che la delega a cambiato gruppo")
-    public void siControllaCheLaDelegaACambiatoStato() {
+    @And("Si controlla che la delega ha cambiato gruppo")
+    public void siControllaCheLaDelegaHaCambiatoStato() {
         logger.info("Si controlla che la delega abbia il gruppo");
 
         this.datiDelega = dataPopulation.readDataPopulation("personaGiuridica_1.yaml");
@@ -507,7 +507,7 @@ public class DeleghePGPagoPATest {
         if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG(ragioneSociale)) {
 
             aggiuntaDelegaConChiamata(dpFile);
-            backgroundTest.accettazioneDelegaSenzaGruppo();
+
         } else if (deleghePage.controlloPresenzaBottoneAccetta()) {
             backgroundTest.accettazioneDelegaSenzaGruppo();
         }
