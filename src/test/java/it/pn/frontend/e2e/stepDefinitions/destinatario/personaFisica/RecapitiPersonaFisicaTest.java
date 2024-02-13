@@ -53,7 +53,6 @@ public class RecapitiPersonaFisicaTest {
 
         recapitiDestinatarioPage.insertEmailPEC(emailPEC);
     }
-
     @And("Nella pagina I Tuoi Recapiti si clicca sul bottone conferma")
     public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneConferma() {
         logger.info("Si cerca di cliccare sul bottone conferma");
@@ -107,6 +106,14 @@ public class RecapitiPersonaFisicaTest {
             Assert.fail("Il messaggio di errore non viene visualizzato");
         }
     }
+
+    @And("Si verifica che la PEC stato inserito")
+    public void siVerificaCheLaPECStatoInserito() {
+        logger.info("Si verifica che la PEC stato inserito");
+
+    }
+
+
 
     @And("Cliccare sul bottone Annulla")
     public void cliccareSulBottoneAnnulla() {

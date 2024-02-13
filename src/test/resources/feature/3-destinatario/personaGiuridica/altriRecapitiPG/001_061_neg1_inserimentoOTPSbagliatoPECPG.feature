@@ -16,5 +16,10 @@ Feature: La persona giuridica inserisce una OTP sbagliato PEC
     And Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato "15494"
     And Nella pagina I Tuoi Recapiti clicca sul bottone conferma
     And Si visualizza correttamente il messaggio di errore
-    Then Cliccare sul bottone Annulla
+    And Cliccare sul bottone Annulla
+    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP scaduto
+    And Nella pagina I Tuoi Recapiti clicca sul bottone conferma
+    And Si visualizza correttamente il messaggio di errore
+    And Si clicca sul link generane uno nuovo e inserire il codice OTP corretto
+    Then Si verifica che la PEC stato inserito
     And Logout da portale persona giuridica

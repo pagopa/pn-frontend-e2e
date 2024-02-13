@@ -150,6 +150,19 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
+    public void verifyPecEmailDisplayed() {
+        try {
+            By pecEmailAdress = By.id("legalContacts");
+            getWebDriverWait(30).withMessage("l'email PEC associata della pagina recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(pecEmailAdress));
+            logger.info("Si visualizza correttamente l'email PEC associata");
+        }catch (TimeoutException e){
+            logger.error("Non si visualizza correttamente l'email PEC associata:"+e.getMessage());
+            Assert.fail("Non si visualizza correttamente l'email PEC associata:"+e.getMessage());
+        }
+    }
+
+
+
     public void annullaButtonClick() {
         try {
             getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.annullaButton));

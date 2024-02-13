@@ -20,7 +20,15 @@ public class RecapitiPGPage extends BasePage {
     public void waitLoadRecapitiPage() {
         try {
             By racapitiPageTitle = By.id("Recapiti-page");
+            By recapitiPageSubtitle = By.xpath("//p[contains(text(),'Quando c’è una notifica per l’impresa, l’avviso di avvenuta ricezione viene inviato a questo indirizzo')]");
+            By pecTextBox = By.id("pec");
+            By confermationButton = By.id("add-contact");
+            By infoAlert = By.cssSelector("[data-testid='legal-contact-disclaimer']");
             getWebDriverWait(30).withMessage("il titolo Ricapiti della pagina recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(racapitiPageTitle));
+            getWebDriverWait(30).withMessage("il Sottotitolo della pagina recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(recapitiPageSubtitle));
+            getWebDriverWait(30).withMessage("il textbox pec della pagina recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(pecTextBox));
+            getWebDriverWait(30).withMessage("il bottone conferma della pagina recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(confermationButton));
+            getWebDriverWait(30).withMessage("l'alert informativo della pagina recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(infoAlert));
             logger.info("Si visualizza correttamente recapiti page");
         }catch (TimeoutException e){
             logger.error("Non si visualizza correttamente recapiti page con errore:"+e.getMessage());
