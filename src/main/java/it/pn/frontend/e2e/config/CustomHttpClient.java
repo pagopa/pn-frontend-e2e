@@ -161,4 +161,34 @@ public class CustomHttpClient<RequestType, ResponseType> {
             });
         }
     }
+
+    public String getJwtToken(String TokenExchange) throws IOException {
+        String env = System.getProperty("environment");
+        CloseableHttpClient client = HttpClients.createDefault();
+        this.httpRequest = ClassicRequestBuilder
+                .post("https://webapi." + env + ".notifichedigitali.it/token-exchange")
+                .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
+                .addHeader("Origin", "https://cittadini." + env + ".notifichedigitali.it")
+                .setEntity(new StringEntity("{\"authorizationToken\":\"" + TokenExchange + "\"}"))
+                .build();
+        return client.execute(httpRequest, response -> {
+            final HttpEntity entity;
+            final String responseString;
+
+            if (response.getCode() == 200 || response.getCode() == 202 || response.getCode() == 201) {
+                entity = response.getEntity();
+                // convert this response json and get the attribute "sessionToken" as string
+                responseString = EntityUtils.toString(entity);
+                Map<String, String> map = gson.fromJson(responseString, Map.class);
+                logger.info("Response body: " + map.get("sessionToken"));
+                return map.get("sessionToken");
+            } else {
+                entity = response.getEntity();
+                responseString = EntityUtils.toString(entity);
+                logger.error("Response code: " + response.getCode());
+                logger.error("Response body: " + responseString);
+                throw new IOException("Error in HTTP request to " + "https://webapi." + env + ".notifichedigitali.it/token-exchange" + ": " + response.getCode());
+            }
+        });
+    }
 }

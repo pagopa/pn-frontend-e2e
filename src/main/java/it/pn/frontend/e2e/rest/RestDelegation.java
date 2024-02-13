@@ -15,9 +15,18 @@ import java.util.Map;
 public class RestDelegation {
     private static final Logger logger = LoggerFactory.getLogger("RestDelegation");
     final CustomHttpClient<DelegateRequest, DelegateResponse> httpClient = CustomHttpClient.getInstance();
+
+    private static RestDelegation instance;
     final private String env = System.getProperty("environment");
     final private String token = System.getProperty("token");
     private Map<String, String> headers = new HashMap<>();
+
+    public static synchronized RestDelegation getInstance() {
+        if (instance == null) {
+            instance = new RestDelegation();
+        }
+        return instance;
+    }
 
     public RestDelegation() {
         this.httpClient.setBaseUrlApi("https://webapi." + env + ".notifichedigitali.it");
@@ -35,8 +44,10 @@ public class RestDelegation {
      * @return DelegateResponse object with the response
      * @throws RestDelegationException if there is an error during the request
      */
-    public DelegateResponse addDelegationPF(DelegateRequest delegateRequest) throws RestDelegationException {
+    public DelegateResponse addDelegationPF(DelegateRequest delegateRequest, String tokenExchange) throws RestDelegationException {
         try {
+            String jwtToken = httpClient.getJwtToken(tokenExchange);
+            this.headers.put("Authorization", "Bearer " + jwtToken);
             DelegateResponse response = httpClient.sendHttpPostRequest("/mandate/api/v1/mandate", this.headers, delegateRequest, DelegateResponse.class);
             if (response != null) {
                 logger.info(String.valueOf(response));
@@ -50,6 +61,9 @@ public class RestDelegation {
 
     /**
      * Revoke a PF delegation
+     * <br>
+     * <b>Keep in mind this method works only for the annotation @After into Hooks.java, because there isn't a jwt token set
+     * if you don't invoke an "addDelegation"</b>
      *
      * @param mandateId String with the mandateId
      * @throws RestDelegationException if there is an error during the request

@@ -250,12 +250,17 @@ public class Hooks {
 
     /**
      * Clear the delegate of PF after the scenario
+     * P.S: This will work only if you invoke the feature step that creates the delegate
      */
     @After(value = "@DeleghePF")
     public void clearDelegate() {
-        if (System.getProperty("mandateId") != null) {
-            RestDelegation restDelegation = new RestDelegation();
-            restDelegation.revokeDelegationPF(System.getProperty("mandateId"));
+        String mandateId = System.getProperty("mandateId");
+        if (mandateId != null) {
+            RestDelegation restDelegation = RestDelegation.getInstance();
+            restDelegation.revokeDelegationPF(mandateId);
+            logger.info("Delega PF revocata con successo");
+        } else {
+            logger.info("mandateId non trovato");
         }
     }
 }
