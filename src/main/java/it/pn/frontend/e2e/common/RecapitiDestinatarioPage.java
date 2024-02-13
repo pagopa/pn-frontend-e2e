@@ -497,6 +497,11 @@ public class RecapitiDestinatarioPage extends BasePage {
         By altriRecapitiSectionBy = By.id("specialContact");
         getWebDriverWait(30).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
     }
+    public void visualizzazioneSezioneAltriRecapitiPG() {
+        vaiInFondoAllaPagina();
+        By altriRecapitiSectionBy = By.id("specialContactTitle");
+        getWebDriverWait(30).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
+    }
 
 }
 
