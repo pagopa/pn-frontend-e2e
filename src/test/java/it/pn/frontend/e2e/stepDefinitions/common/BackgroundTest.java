@@ -242,6 +242,11 @@ public class BackgroundTest {
         deleghePagoPATest.siControllaCheNonCiSiaPiuUnaDelega();
     }
 
+    public void revocaDelegaPG(String dpFile){
+        deleghePGPagoPATest.siControllaCheNonSiaPresenteUnaDelegaConStessoNomePersonaGiuridica(dpFile);
+        deleghePagoPATest.siControllaCheNonCiSiaPiuUnaDelega();
+    }
+
     public void rifiutoDelegaACaricoDellImpresa(String dpFile){
         deleghePGPagoPATest.nellaPaginaDelegheSezioneDelegheAcaricoDellImpresaSiCliccaSulMenuDellaDelega(dpFile);
         deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneRifiuta();

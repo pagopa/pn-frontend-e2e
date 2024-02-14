@@ -554,6 +554,13 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI(codeVerification);
     }
 
+    @And("Si ripristina lo stato iniziale delle deleghe dall impresa {string}")
+    public void siRipristinaLoStatoInizialeDelleDelegheDallImpresa(String dpFile) {
+        BackgroundTest backgroundTest = new BackgroundTest();
+
+        backgroundTest.revocaDelegaPG(dpFile);
+    }
+
    /* @And("Accetta la delega a carico dell impresa ed assegna gruppo")
     public void accettaLaDelegaACaricoDellImpresaEdAssegnaGruppo() {
         BackgroundTest backgroundTest = new BackgroundTest();

@@ -422,7 +422,7 @@ public class DeleghePagoPATest {
         this.deleghe = dataPopulation.readDataPopulation("delegatoPF.yaml");
         String nome = this.deleghe.get("name").toString();
         String cognome = this.deleghe.get("familyName").toString();
-        if (deleghePage.siVisualizzaUnaDelegaConNome(nome, cognome)) {
+        if (!deleghePage.siVisualizzaUnaDelegaConNome(nome, cognome)) {
             logger.info("La delega è stata revocata correttamente");
         } else {
             logger.error("La delega è ancora presente in lista");
