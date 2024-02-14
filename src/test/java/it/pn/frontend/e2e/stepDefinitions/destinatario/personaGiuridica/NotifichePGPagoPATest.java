@@ -48,7 +48,7 @@ public class NotifichePGPagoPATest {
     }
 
 
-    @And("^Si visualizza correttamente la Pagina Notifiche persona giuridica (.*)$")
+    @And("Si visualizza correttamente la Pagina Notifiche persona giuridica {string}")
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica(String ragioneSociale) {
         if (!CookieConfig.isCookieEnabled()) {
             CookiesSection cookiesSection = new CookiesSection(this.driver);
@@ -100,8 +100,7 @@ public class NotifichePGPagoPATest {
     }
 
     @And("Si visualizza correttamente la Pagina Notifiche persona giuridica sezione notifiche delegate {string}")
-    public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridicaSezioneNotificheDelegate(String dpFile) {
-        String ragioneSociale = dataPopulation.readDataPopulation(dpFile + ".yaml").get("ragioneSociale").toString();
+    public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridicaSezioneNotificheDelegate(String ragioneSociale) {
         piattaformaNotifichePGPAPage.waitLoadSezioneNotificheDelegate(ragioneSociale);
     }
 
