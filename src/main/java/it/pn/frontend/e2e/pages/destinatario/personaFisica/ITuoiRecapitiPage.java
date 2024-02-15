@@ -73,6 +73,24 @@ public class ITuoiRecapitiPage extends BasePage {
         }
     }
 
+    public void sendOTPScaduto(String otp) throws InterruptedException {
+        String[] otps = otp.split("");
+        try {
+            By otpInputby = By.xpath("//input[contains(@id,'code-input')]");
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(otpInputby));
+            List<WebElement> otpInputs = this.elements(otpInputby);
+            Thread.sleep(600000);
+            for (int i = 0; i < otps.length; i++) {
+                otpInputs.get(i).sendKeys(otps[i]);
+            }
+            logger.info("Il codice otp viene inserito correttamente");
+        } catch (TimeoutException e) {
+            logger.error("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
+            Assert.fail("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
+        }
+    }
+
+
 
     public void clickSalvaEmail() {
         By salvaButtonBy = By.xpath("//button[contains(text(),'Salva')]");

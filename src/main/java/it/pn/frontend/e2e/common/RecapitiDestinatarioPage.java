@@ -62,6 +62,9 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(xpath = "//form[@data-testid = 'specialContactForm']//div//button[contains(text(),'Elimina')]")
     List<WebElement> eliminaButtonList;
 
+    @FindBy(xpath = "//p[contains(text(),'generane uno nuovo')]/parent::div")
+    WebElement generaneUnoNuovoButton;
+
     public RecapitiDestinatarioPage(WebDriver driver) {
         super(driver);
     }
@@ -94,6 +97,11 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void confermaButtonClick() {
         this.getWebDriverWait(60).withMessage("Il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
         this.confermaButton.click();
+    }
+
+    public void generaneUnoNuovoButtonClick() {
+        this.getWebDriverWait(60).withMessage("Il bottone generane uno nuovo non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
+        this.generaneUnoNuovoButton.click();
     }
 
     public void clickConfermaButtonEliminaPopUp() {
@@ -152,7 +160,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void verifyPecEmailDisplayed() {
         try {
-            By pecEmailAdress = By.id("legalContacts");
+            By pecEmailAdress = By.xpath("//p[contains(text(), 'PEC associata')]");
             getWebDriverWait(30).withMessage("l'email PEC associata della pagina recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(pecEmailAdress));
             logger.info("Si visualizza correttamente l'email PEC associata");
         }catch (TimeoutException e){

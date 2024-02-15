@@ -60,6 +60,13 @@ public class RecapitiPersonaFisicaTest {
         recapitiDestinatarioPage.confermaButtonClick();
     }
 
+    @And("Si clicca sul link generane uno nuovo OTP")
+    public void siCliccaSulLinkGeneraneUnoNuovoOTP() {
+        logger.info("Si cerca di cliccare sul bottone generane uno nuovo OTP");
+
+        recapitiDestinatarioPage.generaneUnoNuovoButtonClick();
+    }
+
     @And("Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP() {
         logger.info("Si visualizza correttamente il pop-up di inserimento OTP");
@@ -110,6 +117,8 @@ public class RecapitiPersonaFisicaTest {
     @And("Si verifica che la PEC stato inserito")
     public void siVerificaCheLaPECStatoInserito() {
         logger.info("Si verifica che la PEC stato inserito");
+
+        recapitiDestinatarioPage.verifyPecEmailDisplayed();
 
     }
 
@@ -262,6 +271,21 @@ public class RecapitiPersonaFisicaTest {
         String otp = dataPopulation.readDataPopulation(dpFile + ".yaml").get("OTPpec").toString();
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.sendOTP(otp);
+        recapitiDestinatarioPage.confermaButtonClickPopUp();
+        if (recapitiDestinatarioPage.waitMessaggioErrore()) {
+            logger.error("Il codice OTP inserito è sbagliato");
+            Assert.fail("Il codice OTP inserito è sbagliato");
+        }
+
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce il codice OTP scaduto {string}")
+    public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTPScaduto(String dpFile) throws InterruptedException {
+        logger.info("Si inserisce il codice OTP di verifica");
+
+        String otp = dataPopulation.readDataPopulation(dpFile + ".yaml").get("OTPpec").toString();
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.sendOTPScaduto(otp);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
         if (recapitiDestinatarioPage.waitMessaggioErrore()) {
             logger.error("Il codice OTP inserito è sbagliato");

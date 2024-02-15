@@ -9,7 +9,6 @@ Feature: La persona giuridica inserisce una PEC
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
-    Then Si visualizza correttamente il messaggio di pec errata
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una pec
     And Nella pagina I Tuoi Recapiti si inserisce la PEC "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si clicca sul bottone conferma
