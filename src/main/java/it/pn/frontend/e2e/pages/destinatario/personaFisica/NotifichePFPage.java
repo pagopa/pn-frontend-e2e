@@ -42,6 +42,9 @@ public class NotifichePFPage extends BasePage {
     @FindBy(id = "page2")
     WebElement paginaSeconda;
 
+    @FindBy(id = "page1")
+    WebElement paginaPrima;
+
     @FindBy(id = "rows-per-page")
     WebElement numeroPagineButton;
 
@@ -258,7 +261,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void waitLoadSecondaPagina() {
-           String isPageSelected =  paginaSeconda.getAttribute("aria-current").toString();
+           String isPageSelected = paginaSeconda.getAttribute("aria-current");
             if (isPageSelected.equalsIgnoreCase("true")) {
                 logger.info("Si visualizza una pagina differente dalla precedente");
             }else {
@@ -362,5 +365,21 @@ public class NotifichePFPage extends BasePage {
     public void clickRimuoviFiltriButton() {
         getWebDriverWait(30).withMessage("Il bottone rimuovi filtri nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.rimuoviFiltriButton));
         this.rimuoviFiltriButton.click();
+    }
+
+    public void clickPage3(){
+        getWebDriverWait(30).withMessage("Il bottone pagina 3 nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.numeroPaginaTreButton));
+        this.numeroPaginaTreButton.click();
+    }
+
+    public void firstPageDisplayed() {
+        String isPageSelected = paginaPrima.getAttribute("aria-current");
+        if (isPageSelected.equalsIgnoreCase("true")) {
+            logger.info("Si visualizza prima pagina");
+        }else {
+            logger.error("Non si visualizza prima pagina");
+            Assert.fail("Non si visualizza prima");
+        }
+
     }
 }
