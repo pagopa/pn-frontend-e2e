@@ -39,6 +39,9 @@ public class NotifichePFPage extends BasePage {
     @FindBy(id = "page3")
     WebElement numeroPaginaTreButton;
 
+    @FindBy(id = "page2")
+    WebElement paginaSeconda;
+
     @FindBy(id = "rows-per-page")
     WebElement numeroPagineButton;
 
@@ -252,6 +255,17 @@ public class NotifichePFPage extends BasePage {
         } catch (TimeoutException e) {
             logger.error("NON si visualizza una");
         }
+    }
+
+    public void waitLoadSecondaPagina() {
+           String isPageSelected =  paginaSeconda.getAttribute("aria-current").toString();
+            if (isPageSelected.equalsIgnoreCase("true")) {
+                logger.info("Si visualizza una pagina differente dalla precedente");
+            }else {
+                logger.error("Non si visualizza una pagina differente dalla precedente");
+                Assert.fail("Non si visualizza una pagina differente dalla precedente");
+            }
+
     }
 
     public void siSceglieUnaPaginaDiversaConNumeroESiFiltra(String iun) {
