@@ -1,6 +1,5 @@
 Feature: persona fisica scarica attestazioni all'interno di una notifica
 
-  #Disabled until PN-9239 is fixed
   @TestSuite
   @test19
   @TA_PFDownloadAttestazioni
