@@ -424,16 +424,7 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.inserireGruppoDelegante();
     }
 
-/*
-    @And("Nella sezione Deleghe si verifica sia presente una delega per PG {string}")
-    public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelegaPG(String dpFile) {
-        logger.info("Si verifica sia presente una delega per PG");
 
-        String ragioneSociale = dataPopulation.readDataPopulation(dpFile + ".yaml").get("ragioneSociale").toString();
-        if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG(ragioneSociale)) {
-            aggiuntaDelegaConChiamata(dpFile);
-        }
-    }*/
 
     public void aggiuntaDelegaConChiamata(String dpFile) {
         CreazioneDelega creazioneDelega = new CreazioneDelega();
@@ -560,10 +551,4 @@ public class DeleghePGPagoPATest {
 
         backgroundTest.revocaDelegaPG(dpFile);
     }
-
-   /* @And("Accetta la delega a carico dell impresa ed assegna gruppo")
-    public void accettaLaDelegaACaricoDellImpresaEdAssegnaGruppo() {
-        BackgroundTest backgroundTest = new BackgroundTest();
-        backgroundTest.accettaDelegaACaricoDellImpresaEdAssegnaGruppo();
-    }*/
 }
