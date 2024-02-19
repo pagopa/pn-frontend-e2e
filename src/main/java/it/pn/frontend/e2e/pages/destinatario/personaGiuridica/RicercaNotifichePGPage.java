@@ -51,7 +51,23 @@ public class RicercaNotifichePGPage extends BasePage {
     public void waitLoadDettaglioNotificaPGSection() {
         try {
             By pageTitleDettaglioNotifica = By.id("Pagamento rata IMU-page");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(pageTitleDettaglioNotifica));
+            By titleDettaglioNotificaField = By.id("title-of-page");
+            By statoNotificaBy = By.id("notification-state");
+            By indietroButtonBy = By.id("breadcrumb-indietro-button");
+            By informazioniBy = By.id("notification-detail-table");
+            By allegatiSection = By.id("notification-detail-document-attached");
+            By bannerRecapiti = By.id("side-item-Recapiti");
+            By attestazioneOpponibile = By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: ')]");
+
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(pageTitleDettaglioNotifica));
+            this.getWebDriverWait(30).withMessage("Il titolo Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
+            this.getWebDriverWait(30).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButtonBy));
+            this.getWebDriverWait(30).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
+            this.getWebDriverWait(30).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
+            this.getWebDriverWait(30).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
+            this.getWebDriverWait(30).withMessage("Il banner Recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(bannerRecapiti));
+            this.getWebDriverWait(30).withMessage("La sezione attestazione opponibili non è visibile").until(ExpectedConditions.visibilityOfElementLocated(attestazioneOpponibile));
+
             logger.info("La pagina dettaglio notifica si è caricata correttamente");
         } catch (TimeoutException e) {
             logger.error("La pagina dettaglio notifica NON si è caricata correttamente con errore:" + e.getMessage());

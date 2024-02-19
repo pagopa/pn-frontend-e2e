@@ -5,7 +5,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.model.Document;
-import it.pn.frontend.e2e.model.NewNotification;
+import it.pn.frontend.e2e.model.NewNotificationRequest;
 import it.pn.frontend.e2e.model.NewNotificationResponse;
 import it.pn.frontend.e2e.model.Recipient;
 import it.pn.frontend.e2e.model.enums.NotificationFeePolicyEnum;
@@ -33,7 +33,7 @@ public class NewNotifichePagoPATest {
         recipients.add(new Recipient());
         ArrayList<Document> documents = new ArrayList<>();
         documents.add(new Document());
-        NewNotification notification = new NewNotification(DataPopulation.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
+        NewNotificationRequest notification = new NewNotificationRequest(DataPopulation.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
 
         while (attempt <= maxAttempts) {
             NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification);

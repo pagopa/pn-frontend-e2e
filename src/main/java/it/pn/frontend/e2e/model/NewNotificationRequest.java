@@ -5,7 +5,7 @@ import it.pn.frontend.e2e.model.enums.PhysicalCommunicationTypeEnum;
 
 import java.util.ArrayList;
 
-public class NewNotification {
+public class NewNotificationRequest {
     private String paProtocolNumber;
     private String subject;
     private ArrayList<Recipient> recipients;
@@ -18,8 +18,8 @@ public class NewNotification {
     private String senderTaxId;
     private String abstractS;
 
-    public NewNotification(String paProtocolNumber, String subject, ArrayList<Recipient> recipients, ArrayList<Document> documents,
-                           PhysicalCommunicationTypeEnum physicalCommunicationType, String taxonomyCode, NotificationFeePolicyEnum notificationFeePolicy) {
+    public NewNotificationRequest(String paProtocolNumber, String subject, ArrayList<Recipient> recipients, ArrayList<Document> documents,
+                                  PhysicalCommunicationTypeEnum physicalCommunicationType, String taxonomyCode, NotificationFeePolicyEnum notificationFeePolicy) {
         this.paProtocolNumber = paProtocolNumber;
         this.subject = subject;
         this.recipients = recipients;
