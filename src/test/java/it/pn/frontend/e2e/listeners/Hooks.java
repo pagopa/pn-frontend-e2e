@@ -223,7 +223,7 @@ public class Hooks {
         if (scenario.isFailed()) {
             logger.error("scenario go to error : " + scenario.getName());
             try {
-                File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+                File screenshot = ( (TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
                 byte[] screenshotByte = FileUtils.readFileToByteArray(screenshot);
                 Date date = Calendar.getInstance().getTime();
                 DateFormat formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");

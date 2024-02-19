@@ -128,7 +128,7 @@ public class DeleghePagoPATest {
         logger.info("Si controlla che sia presente una delega");
         BackgroundTest backgroundTest = new BackgroundTest();
         if (!this.deleghePage.siVisualizzaUnaDelega()) {
-            backgroundTest.aggiuntaNuovaDelegaPF();
+            backgroundTest.aggiuntaNuovaDelegaDellImpresaPG();
         }
     }
 
@@ -218,7 +218,7 @@ public class DeleghePagoPATest {
         }
     }
 
-    @And("si sceglie opzione accetta")
+    @And("Si sceglie opzione accetta")
     public void siSceglieOpzioneAccetta() {
         logger.info("Si sceglie l'opzione accetta");
         this.leTueDelegheSection.clickOpzioneAccetta();
@@ -464,7 +464,7 @@ public class DeleghePagoPATest {
         this.deleghe = dataPopulation.readDataPopulation("delegatoPF.yaml");
         String nome = this.deleghe.get("name").toString();
         String cognome = this.deleghe.get("familyName").toString();
-        if (deleghePage.siVisualizzaUnaDelegaConNome(nome, cognome)) {
+        if (!deleghePage.siVisualizzaUnaDelegaConNome(nome, cognome)) {
             logger.info("La delega è stata revocata correttamente");
         } else {
             logger.error("La delega è ancora presente in lista");
