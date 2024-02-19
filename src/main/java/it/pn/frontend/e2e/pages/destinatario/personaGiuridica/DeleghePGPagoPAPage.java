@@ -262,9 +262,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void waitLoadPopUpModifica() {
         try {
             By titlePOPUPBy = By.id("dialog-title");
-            //By nonAssegnaButtonBy = By.id("associate-no-group");
             this.getWebDriverWait(30).withMessage("Il titolo del pop-up non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePOPUPBy));
-            //this.getWebDriverWait(30).withMessage("Il bottone non assegna sul pop-up non è cliccabile").until(ExpectedConditions.visibilityOf(this.nonGruppoRadioButton));
             logger.info("Si visualizza correttamente il pop-up");
         } catch (TimeoutException e) {
             logger.error("NON Si  visualizza  correttamente il pop-up con errore: " + e.getMessage());
