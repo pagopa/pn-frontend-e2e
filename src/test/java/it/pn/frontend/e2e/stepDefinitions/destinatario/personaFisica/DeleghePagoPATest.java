@@ -4,8 +4,12 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.model.Delegate;
+import it.pn.frontend.e2e.model.DelegateRequest;
+import it.pn.frontend.e2e.model.DelegateResponse;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.DeleghePage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
+import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.PopUpRevocaDelegaSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
@@ -15,6 +19,9 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -28,6 +35,10 @@ public class DeleghePagoPATest {
     private final PopUpRevocaDelegaSection popUpRevocaDelegaSection = new PopUpRevocaDelegaSection(this.driver);
     private final DataPopulation dataPopulation = new DataPopulation();
     private final DeleghePage deleghePage = new DeleghePage(this.driver);
+    private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
+
+
+    private final RestDelegation restDelegation = RestDelegation.getInstance();
 
     @When("Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe")
     public void waitDelegheButton() {
@@ -221,6 +232,37 @@ public class DeleghePagoPATest {
 
         Map<String, Object> destinatari = dataPopulation.readDataPopulation(dpFile + ".yaml");
         this.leTueDelegheSection.inserireCodiceDelega(destinatari.get("codiceDelega").toString());
+    }
+
+    /**
+     * Crea in background una delega per persona fisica
+     *
+     * @param personaFisica Example:
+     *                      | accessoCome | tipoDiAccesso (personaFisica, delegatoPF)|
+     *                      | displayName | Nome delegato |
+     *                      | firstName | Nome |
+     *                      | lastName | Cognome |
+     *                      | fiscalCode | Codice fiscale |
+     *                      | person | true (se persona fisica o impresa) |
+     */
+    @When("Creo in background una delega per persona fisica")
+    public void creaInBackgroundUnaDelegaPerPersonaFisica(Map<String, String> personaFisica) {
+        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        Delegate delegate = Delegate.builder()
+                .displayName(personaFisica.get("displayName"))
+                .firstName(personaFisica.get("firstName"))
+                .lastName(personaFisica.get("lastName"))
+                .fiscalCode(personaFisica.get("fiscalCode"))
+                .person(Boolean.parseBoolean(personaFisica.get("person"))).build();
+        DelegateRequest delegateRequest = DelegateRequest.builder()
+                .dateto(date)
+                .delegate(delegate)
+                .visibilityIds(new ArrayList<String>())
+                .verificationCode("12345")
+                .build();
+        String tokenExchange = loginPersonaFisicaPagoPA.getTokenExchangeFromFile(personaFisica.get("accessoCome"));
+        DelegateResponse response = restDelegation.addDelegationPF(delegateRequest, tokenExchange);
+        System.setProperty("mandateId", response.getMandateId());
     }
 
     @And("Si clicca sul bottone Accetta")
