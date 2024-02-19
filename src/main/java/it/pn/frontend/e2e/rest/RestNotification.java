@@ -2,7 +2,7 @@ package it.pn.frontend.e2e.rest;// ... Altre importazioni ...
 
 import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
-import it.pn.frontend.e2e.model.NewNotification;
+import it.pn.frontend.e2e.model.NewNotificationRequest;
 import it.pn.frontend.e2e.model.NewNotificationResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +22,8 @@ public class RestNotification {
      * @return NewNotificationResponse object with the response
      * @throws RestNotificationException if there is an error during the request
      */
-    public NewNotificationResponse newNotificationWithOneRecipientAndDocument(NewNotification notification) throws RestNotificationException {
-        final CustomHttpClient<NewNotification, NewNotificationResponse> httpClient2 = CustomHttpClient.getInstance();  // Modifica qui
+    public NewNotificationResponse newNotificationWithOneRecipientAndDocument(NewNotificationRequest notification) throws RestNotificationException {
+        final CustomHttpClient<NewNotificationRequest, NewNotificationResponse> httpClient2 = CustomHttpClient.getInstance();  // Modifica qui
         try {
             NewNotificationResponse response = httpClient2.sendHttpPostRequest("/delivery/v2.1/requests", null, notification, NewNotificationResponse.class);
             if (response != null) {

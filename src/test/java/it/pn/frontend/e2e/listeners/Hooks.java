@@ -4,6 +4,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
@@ -124,6 +125,7 @@ public class Hooks {
                         if (response.getType().equals(ResourceType.XHR)) {
                             NetWorkInfo netWorkInfo = new NetWorkInfo();
                             if (headers.get("Authorization") != null) {
+                                System.setProperty("token", Objects.requireNonNull(headers.get("Authorization")).toString());
                                 netWorkInfo.setAuthorizationBearer(
                                         (Objects.requireNonNull(headers.get("Authorization"))).toString());
                             }
@@ -244,5 +246,21 @@ public class Hooks {
             throw new RuntimeException(e);
         }
         logger.info("-------------------------------------------END SCENARIO: " + scenario.getName() + "------------------------------------------------");
+    }
+
+    /**
+     * Clear the delegate of PF after the scenario
+     * P.S: This will work only if you invoke the feature step that creates the delegate
+     */
+    @After(value = "@DeleghePF")
+    public void clearDelegate() {
+        String mandateId = System.getProperty("mandateId");
+        if (mandateId != null) {
+            RestDelegation restDelegation = RestDelegation.getInstance();
+            restDelegation.revokeDelegationPF(mandateId);
+            logger.info("Delega PF revocata con successo");
+        } else {
+            logger.info("mandateId non trovato");
+        }
     }
 }

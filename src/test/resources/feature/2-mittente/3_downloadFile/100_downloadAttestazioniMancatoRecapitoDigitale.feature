@@ -1,15 +1,14 @@
 Feature: il mittente effettua il download attestazione opponibile a terzi mancato recapito digitale
 
-# DISABLED Temporary disabled until is fixed - the cause is due to the fact that the attachment is not present in the notification
-  # and must be waited before to be downloaded
-#  @TestSuite
-#  @TA_MittenteDownloadAttestazioneMancatoRicapDigitale
-#  @mittente
-#  @DownloadFileMittente
+  @TestSuite
+  @TA_MittenteDownloadAttestazioneMancatoRicapDigitale
+  @mittente
+  @DownloadFileMittente
 
-  Scenario:il mittente effettua il download attestazione opponibile a terzi mancato recapito digitale
+  Scenario: PN-9927 - il mittente effettua il download attestazione opponibile a terzi mancato recapito digitale
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche si verifica l'esistenza della notifica con il codice IUN
+    And Attendo 6 minuti e verifico in background che la notifica sia stata creata correttamente
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica "datiNotifica"
     And Cliccare sul bottone Filtra
     And Si verifica che la notifica sia nello stato consegnata

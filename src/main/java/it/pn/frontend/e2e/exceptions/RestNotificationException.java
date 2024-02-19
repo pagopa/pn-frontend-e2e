@@ -1,6 +1,6 @@
 package it.pn.frontend.e2e.exceptions;
 
-public class RestNotificationException extends Exception {
+public class RestNotificationException extends RuntimeException {
     public RestNotificationException(String message) {
         super(message);
     }
