@@ -1,11 +1,11 @@
-Feature: La persona giuridica aggiunge una nuova delega
+Feature:La persona giuridica aggiunge una nuova delega
 
-  @TestSuite
+    @TestSuite
     @TA_PGaggiungiAltraNuovaDelega
     @DeleghePG
     @PG
 
-  Scenario : PN-9165 - La persona giuridica aggiunge una nuova delega
+  Scenario:PN-9165 - La persona giuridica aggiunge una nuova delega
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
