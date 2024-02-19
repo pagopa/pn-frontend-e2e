@@ -18,7 +18,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     WebElement delegheSideMenu;
     @FindBy(css = "[id='notificationsTable.body.row']")
     WebElement notificheButton;
-
     @FindBy(id = "side-item-Recapiti")
     WebElement recapitiButton;
 
@@ -81,6 +80,8 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     @FindBy(css = "[data-testid='documentButton']")
     WebElement documentButton;
 
+    @FindBy(id = "side-item-Notifiche")
+    WebElement sideItemNotificheButton;
 
     public PiattaformaNotifichePGPAPage(WebDriver driver) {
         super(driver);
@@ -122,8 +123,8 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void clickNotificheDelegate() {
         try {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.notificheButton));
-            this.js().executeScript("arguments[0].click()", this.notificheButton);
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.sideItemNotificheButton));
+            sideItemNotificheButton.click();
             By notificheDelegateButton = By.id("side-item-Notifiche delegate");
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificheDelegateButton));
             this.js().executeScript("arguments[0].click()", this.element(notificheDelegateButton));
@@ -155,8 +156,8 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         notificheButton.click();
     }
 
-    public void clickatestazionePersalvare() {
-        getWebDriverWait(30).withMessage("Il attestazione non è visibile").until(ExpectedConditions.visibilityOf(attestazione));
+    public void clickAttestazionePersalvare() {
+        getWebDriverWait(30).withMessage("L'attestazione non è visibile").until(ExpectedConditions.visibilityOf(attestazione));
         this.js().executeScript("arguments[0].click()", this.attestazione);
     }
 

@@ -554,4 +554,25 @@ public class LoginPersonaFisicaPagoPA {
         String url = urlIniziale + token;
         this.driver.get(url);
     }
+
+    public String getTokenExchangeFromFile(String personaFisica) {
+        DataPopulation dataPopulation = new DataPopulation();
+        String environment = System.getProperty("environment");
+        String token = "";
+        switch (environment) {
+            case "dev" -> token = personaFisica.equalsIgnoreCase("delegante") ?
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPFDelegante").toString()
+                    :
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPFDelegato").toString();
+            case "test" -> token = personaFisica.equalsIgnoreCase("delegante") ?
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPFDelegante").toString()
+                    :
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPFDelegato").toString();
+            default -> {
+                logger.error("Ambiente non valido");
+                Assert.fail("Ambiente non valido o non trovato!");
+            }
+        }
+        return token;
+    }
 }
