@@ -71,7 +71,7 @@ public class RecapitiPGPagoPaTest {
     public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapitiDellaPersonaGiuridica() {
         logger.info("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti della persona giuridica");
 
-        recapitiDestinatarioPage.visualizzazioneSezioneAltriRecapiti();
+        recapitiDestinatarioPage.visualizzazioneSezioneAltriRecapitiPG();
     }
 
     @And("Nella pagina I Tuoi Recapiti PG si controlla che ci sia già una pec")

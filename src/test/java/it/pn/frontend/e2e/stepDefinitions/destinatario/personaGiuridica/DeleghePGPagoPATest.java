@@ -33,6 +33,8 @@ public class DeleghePGPagoPATest {
     private Map<String, Object> datiDelega = new HashMap<>();
     Map<String, Object> datiPersonaFisica = new HashMap<>();
 
+
+
     @And("Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa")
     public void siVisualizzaLaPaginaDeleghe() {
         logger.info("Si controlla che si visualizza la pagina Deleghe");
@@ -203,10 +205,10 @@ public class DeleghePGPagoPATest {
     @And("Nella pagina Deleghe sezione Deleghe dell impresa  si verifica sia presente una delega")
     public void nellaPaginaDelegheSezioneDelegheDellImpresaSiVerificaSiaPresenteUnaDelega() {
         logger.info("Si controlla che ci sia almeno una delega");
+         BackgroundTest backgroundTest = new BackgroundTest();
 
-        BackgroundTest backgroundTest = new BackgroundTest();
         if (!this.delegatiImpresaSection.siVisualizzaUnaDelega()) {
-            backgroundTest.aggiungaDelegaPG();
+            backgroundTest.aggiuntaNuovaDelegaDellImpresaPG();
         }
     }
 
@@ -262,11 +264,11 @@ public class DeleghePGPagoPATest {
 
     }
 
-    @And("Nella sezione Deleghe si clicca sul bottone Accetta")
-    public void nellaSezioneDelegheSiCliccaSulBottoneAccetta() {
+    @And("Nella sezione Deleghe si clicca sul bottone conferma codice")
+    public void nellaSezioneDelegheSiCliccaSulBottoneConfermaCodice() {
         logger.info("Si clicca sul bottone accetta delega");
 
-        deleghePGPagoPAPage.clickBottoneAccetta();
+        deleghePGPagoPAPage.clickConfirmCodeButton();
     }
 
     @And("Si assegna un gruppo alla delega")
@@ -279,8 +281,8 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.clickGruppoField();
     }
 
-    @And("Si clicca sul bottone conferma")
-    public void siCliccaSulBottoneConferma() {
+    @And("Si clicca sul bottone conferma gruppo")
+    public void siCliccaSulBottoneConfermaGruppo() {
         logger.info("Si seleziona il bottone conferma");
 
         deleghePGPagoPAPage.clickBottoneConferma();
@@ -290,13 +292,11 @@ public class DeleghePGPagoPATest {
         }
     }
 
-    @And("Si controlla che la delega PG a lo stato Attiva {string}")
-    public void siControllaCheLaDelegaPGALoStatoAttiva(String dpFile) {
+    @And("^Si controlla che la delega PG ha lo stato Attiva (.*)$")
+    public void siControllaCheLaDelegaPGALoStatoAttiva(String ragioneSociale) {
         this.logger.info("Si controlla che lo stato della delega sia attivo");
 
-        this.datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
-        this.deleghePGPagoPAPage.controlloStatoAttiva(this.datiDelega.get("ragioneSociale").toString());
+        this.deleghePGPagoPAPage.controlloStatoAttiva(ragioneSociale);
     }
 
     @And("Non si assegna un gruppo alla delega")
@@ -360,8 +360,8 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.clickGruppoField();
     }
 
-    @And("Si clicca su conferma")
-    public void siCliccaSuConferma() {
+    @And("Si clicca su conferma in assegnazione gruppo")
+    public void siCliccaSuConfermaInAssegnazioneGruppo() {
         logger.info("Si clicca su conferma del pop-up");
 
         deleghePGPagoPAPage.clickBottoneConferma();
@@ -371,8 +371,8 @@ public class DeleghePGPagoPATest {
         }
     }
 
-    @And("Si controlla che la delega a cambiato gruppo")
-    public void siControllaCheLaDelegaACambiatoStato() {
+    @And("Si controlla che la delega ha cambiato gruppo")
+    public void siControllaCheLaDelegaHaCambiatoStato() {
         logger.info("Si controlla che la delega abbia il gruppo");
 
         this.datiDelega = dataPopulation.readDataPopulation("personaGiuridica_1.yaml");
@@ -425,17 +425,6 @@ public class DeleghePGPagoPATest {
     }
 
 
-    @And("Nella sezione Deleghe si verifica sia presente una delega per PG {string}")
-    public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelegaPG(String dpFile) {
-        logger.info("Si verifica sia presente una delega per PG");
-
-        String ragioneSociale = dataPopulation.readDataPopulation(dpFile + ".yaml").get("ragioneSociale").toString();
-        if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG(ragioneSociale)) {
-            BackgroundTest backgroundTest = new BackgroundTest();
-            backgroundTest.loginPGTokenExchange();
-            aggiuntaDelegaConChiamata(dpFile);
-        }
-    }
 
     public void aggiuntaDelegaConChiamata(String dpFile) {
         CreazioneDelega creazioneDelega = new CreazioneDelega();
@@ -457,39 +446,43 @@ public class DeleghePGPagoPATest {
             logger.error("La chiamata ha risposto con questo codice: " + creazioneDelega.getResponseCode());
             Assert.fail("La chiamata ha risposto con questo codice: " + creazioneDelega.getResponseCode());
         }
+
+
         deleghePGPagoPAPage.aggionamentoPagina();
         deleghePGPagoPAPage.waitLoadDeleghePage();
+
     }
 
 
     private String creazioneBodyChiamata(String dpFile) {
         String body;
-        String ragioneSociale = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml").get("ragioneSociale").toString();
-        String ragioneSocialeDelegante = dataPopulation.readDataPopulation(dpFile + ".yaml").get("ragioneSociale").toString();
-        String codiceFiscale = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml").get("codiceFiscale").toString();
-        String codiceFiscaleDelegante;
-        codiceFiscaleDelegante = dataPopulation.readDataPopulation(dpFile + ".yaml").get("codiceFiscale").toString();
+        String ragioneSocialeDelegante = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml").get("ragioneSociale").toString();
+        String ragioneSocialeDelegato = dataPopulation.readDataPopulation(dpFile + ".yaml").get("ragioneSociale").toString();
+        String codiceFiscaleDelegante = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml").get("codiceFiscale").toString();
+        String codiceFiscaleDelegato = dataPopulation.readDataPopulation(dpFile + ".yaml").get("codiceFiscale").toString();
         try {
             String pathIniziale = System.getProperty("user.dir");
             String text = Files.readString(Paths.get(pathIniziale + "/src/test/resources/dataPopulation/bodyChiamataDeleghe.json"));
             JSONObject object = new JSONObject(text);
-            Map<String, Object> delegato = new HashMap<>();
+            // ---------------------//
             Map<String, Object> delegante = new HashMap<>();
-            LocalDate date = LocalDate.now();
             delegante.put("displayName", ragioneSocialeDelegante);
             delegante.put("companyName", ragioneSocialeDelegante);
             delegante.put("fiscalCode", codiceFiscaleDelegante);
             delegante.put("person", false);
-            delegato.put("displayName", ragioneSociale);
-            delegato.put("companyName", ragioneSociale);
-            delegato.put("fiscalCode", codiceFiscale);
+            // ---------------------//
+            Map<String, Object> delegato = new HashMap<>();
+            delegato.put("displayName", ragioneSocialeDelegato);
+            delegato.put("companyName", ragioneSocialeDelegato);
+            delegato.put("fiscalCode", codiceFiscaleDelegato);
             delegato.put("person", false);
+            // ---------------------//
+            LocalDate date = LocalDate.now();
             object.put("delegator", delegante);
             object.put("delegate", delegato);
             object.put("datefrom", date);
             object.put("dateto", date.plusDays(1));
             body = object.toString();
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -498,13 +491,14 @@ public class DeleghePGPagoPATest {
 
     @And("Nella sezione Deleghe si verifica sia presente una delega accettata per PG {string}")
     public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelegaAccettataPerPG(String dpFile) {
+        BackgroundTest backgroundTest = new BackgroundTest();
+
         String ragioneSociale = this.dataPopulation.readDataPopulation(dpFile + ".yaml").get("ragioneSociale").toString();
         LeTueDelegheSection deleghePage = new LeTueDelegheSection(this.driver);
-        BackgroundTest backgroundTest = new BackgroundTest();
         if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG(ragioneSociale)) {
-            backgroundTest.loginPGTokenExchange();
+
             aggiuntaDelegaConChiamata(dpFile);
-            backgroundTest.accettazioneDelegaSenzaGruppo();
+
         } else if (deleghePage.controlloPresenzaBottoneAccetta()) {
             backgroundTest.accettazioneDelegaSenzaGruppo();
         }
@@ -513,11 +507,48 @@ public class DeleghePGPagoPATest {
     @And("Nella pagina Deleghe sezione Deleghe a carico dell'impresa si controlla la presenza di una delega per PG {string}")
     public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiControllaLaPresenzaDiUnaDelegaPerPG(String dpFile) {
         logger.info("Si controlla che ci sia una delega");
+
         String ragioneSociale = dataPopulation.readDataPopulation(dpFile + ".yaml").get("ragioneSociale").toString();
         if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG(ragioneSociale)) {
-            BackgroundTest backgroundTest = new BackgroundTest();
-            backgroundTest.aggiuntaNuovaDelegaPG();
+            aggiuntaDelegaConChiamata(dpFile);
         }
     }
 
+    @And("Si clicca sul bottone conferma delega")
+    public void siCliccaSulBottoneConfermaDelega() {
+        logger.info("Si clicca su conferma del pop-up");
+
+        deleghePGPagoPAPage.clickBottoneConfermaDelega();
+        if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
+            logger.error("il codice inserito è sbagliato");
+            Assert.fail("il codice inserito è sbagliato");
+        }
+    }
+
+    @And("Si ripristina lo stato iniziale delle deleghe a carico dell impresa {string}")
+    public void siRipristinaLoStatoInizialeDelleDelegheACaricoDellImpresa(String dpFile) {
+        BackgroundTest backgroundTest = new BackgroundTest();
+
+        backgroundTest.rifiutoDelegaACaricoDellImpresa(dpFile);
+    }
+
+    @And("Si accetta la delega con un gruppo")
+    public void siAccettaLaDelegaConUnGruppo() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+        backgroundTest.accettazioneDelegaConGruppo();
+    }
+
+    @And("Si inserisce il codice della delega a carico dell impresa nella modale")
+    public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale() {
+        String codeVerification = deleghePGPagoPAPage.getCodiceVerificaDelegaACaricoDellImpresaAPI();
+        logger.info(codeVerification);
+        deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI(codeVerification);
+    }
+
+    @And("Si ripristina lo stato iniziale delle deleghe dall impresa {string}")
+    public void siRipristinaLoStatoInizialeDelleDelegheDallImpresa(String dpFile) {
+        BackgroundTest backgroundTest = new BackgroundTest();
+
+        backgroundTest.revocaDelegaPG(dpFile);
+    }
 }

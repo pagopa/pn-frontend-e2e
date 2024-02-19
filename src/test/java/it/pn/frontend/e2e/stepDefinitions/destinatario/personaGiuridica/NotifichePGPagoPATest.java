@@ -49,8 +49,7 @@ public class NotifichePGPagoPATest {
 
 
     @And("Si visualizza correttamente la Pagina Notifiche persona giuridica {string}")
-    public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica(String dpFile) {
-        personaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+    public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica(String ragioneSociale) {
         if (!CookieConfig.isCookieEnabled()) {
             CookiesSection cookiesSection = new CookiesSection(this.driver);
             if (cookiesSection.waitLoadCookiesPage()) {
@@ -58,7 +57,7 @@ public class NotifichePGPagoPATest {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
-        piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(personaGiuridica.get("ragioneSociale").toString());
+        piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(ragioneSociale);
 
         String variabileAmbiente = System.getProperty("environment");
         String urlChiamata = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/notifications/received?";
@@ -101,11 +100,8 @@ public class NotifichePGPagoPATest {
     }
 
     @And("Si visualizza correttamente la Pagina Notifiche persona giuridica sezione notifiche delegate {string}")
-    public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridicaSezioneNotificheDelegate(String dpFile) {
-        String ragioneSpciale = dataPopulation.readDataPopulation(dpFile + ".yaml").get("ragioneSociale").toString();
-        piattaformaNotifichePGPAPage.waitLoadSezioneNotificheDelegate(ragioneSpciale);
-
-
+    public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridicaSezioneNotificheDelegate(String ragioneSociale) {
+        piattaformaNotifichePGPAPage.waitLoadSezioneNotificheDelegate(ragioneSociale);
     }
 
     @When("Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti")
