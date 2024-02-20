@@ -253,7 +253,7 @@ public class Hooks {
      * P.S: This will work only if you invoke the feature step that creates the delegate
      */
     @After(value = "@DeleghePF")
-    public void clearDelegate() {
+    public void clearDelegatePF() {
         String mandateId = System.getProperty("mandateId");
         if (mandateId != null) {
             RestDelegation restDelegation = RestDelegation.getInstance();
@@ -263,4 +263,17 @@ public class Hooks {
             logger.info("mandateId non trovato");
         }
     }
+
+    @After(value = "@DeleghePG")
+    public void clearDelegatePG() {
+        String mandateId = System.getProperty("mandateId");
+        if (mandateId != null) {
+            RestDelegation restDelegation = RestDelegation.getInstance();
+           // restDelegation.cancelDelegationPG(mandateId);
+            logger.info("Delega PG rifiutata con successo");
+        } else {
+            logger.info("mandateId non trovato");
+        }
+    }
+
 }

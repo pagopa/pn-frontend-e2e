@@ -4,9 +4,9 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.model.Delegate;
-import it.pn.frontend.e2e.model.DelegateRequest;
-import it.pn.frontend.e2e.model.DelegateResponse;
+import it.pn.frontend.e2e.model.delegate.DelegatePF;
+import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
+import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.DeleghePage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.rest.RestDelegation;
@@ -248,20 +248,20 @@ public class DeleghePagoPATest {
     @When("Creo in background una delega per persona fisica")
     public void creaInBackgroundUnaDelegaPerPersonaFisica(Map<String, String> personaFisica) {
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        Delegate delegate = Delegate.builder()
+        DelegatePF delegatePF = DelegatePF.builder()
                 .displayName(personaFisica.get("displayName"))
                 .firstName(personaFisica.get("firstName"))
                 .lastName(personaFisica.get("lastName"))
                 .fiscalCode(personaFisica.get("fiscalCode"))
                 .person(Boolean.parseBoolean(personaFisica.get("person"))).build();
-        DelegateRequest delegateRequest = DelegateRequest.builder()
+        DelegateRequestPF delegateRequestPF = DelegateRequestPF.builder()
                 .dateto(date)
-                .delegate(delegate)
+                .delegate(delegatePF)
                 .visibilityIds(new ArrayList<String>())
                 .verificationCode("12345")
                 .build();
         String tokenExchange = loginPersonaFisicaPagoPA.getTokenExchangeFromFile(personaFisica.get("accessoCome"));
-        DelegateResponse response = restDelegation.addDelegationPF(delegateRequest, tokenExchange);
+        DelegateResponsePF response = restDelegation.addDelegationPF(delegateRequestPF, tokenExchange);
         System.setProperty("mandateId", response.getMandateId());
     }
 

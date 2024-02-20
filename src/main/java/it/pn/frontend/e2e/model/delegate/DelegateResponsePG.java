@@ -1,5 +1,6 @@
-package it.pn.frontend.e2e.model;
+package it.pn.frontend.e2e.model.delegate;
 
+import it.pn.frontend.e2e.model.Delegator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,10 +13,10 @@ import java.util.Map;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DelegateResponse {
+public class DelegateResponsePG {
     private String mandateId;
     private Delegator delegator;
-    private Delegate delegate;
+    private DelegatePG delegate;
     private String status;
     private List<String> visibilityIds;
     private String verificationCode;
@@ -24,3 +25,4 @@ public class DelegateResponse {
     private Map<String, String> groups;
 
 }
+
