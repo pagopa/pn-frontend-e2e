@@ -1,7 +1,7 @@
 Feature:La persona fisica visualizza le notifiche in elenco
 
   @TestSuite
-  @TA_PFPaginazioneNotifiche1
+  @TA_PFPaginazioneConFrecce
   @PFvisualizzaNotifiche
   @PF
 
