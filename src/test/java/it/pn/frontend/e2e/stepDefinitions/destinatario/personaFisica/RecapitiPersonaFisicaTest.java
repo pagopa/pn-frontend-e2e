@@ -30,7 +30,6 @@ public class RecapitiPersonaFisicaTest {
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti")
     public void ITuoiRecapitiButtonClick() {
         logger.info("Si cerca di cliccare il bottone I Tuoi Recapiti");
-
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
         iTuoiRecapitiPage.iTuoiRecapitiButtonClick();
     }
@@ -38,7 +37,6 @@ public class RecapitiPersonaFisicaTest {
     @And("Si visualizza correttamente la pagina I Tuoi Recapiti")
     public void siVisualizzaCorrettamenteLaPaginaITuoiRecapiti() {
         logger.info("Si controlla che si visualizza correttamente la pagina I Tuoi Recapiti");
-
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
     }
@@ -294,6 +292,43 @@ public class RecapitiPersonaFisicaTest {
 
         String startUrl = "http://localhost:8887/";
         String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("mail");
+        boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+        if (results) {
+            String OTP = recuperoOTPRecapiti.getResponseBody();
+            personaFisica.put("OTPmail", OTP);
+            dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+        } else {
+            String variabileAmbiente = System.getProperty("environment");
+            if (variabileAmbiente.equalsIgnoreCase("test")) {
+                startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
+            } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
+                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
+            }
+            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("mail");
+            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+            if (results) {
+                String OTP = recuperoOTPRecapiti.getResponseBody();
+                personaFisica.put("OTPmail", OTP);
+                dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+            } else {
+                logger.error("La chiamata non ha risposto correttamente con codice:" + recuperoOTPRecapiti.getResponseCode());
+                Assert.fail("La chiamata non ha risposto correttamentecon codice:" + recuperoOTPRecapiti.getResponseCode());
+            }
+        }
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della Email 'altri recapiti' tramite request method {string}")
+    public void nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaEmailAltriRecapitiTramiteRequestMethod(String dpFile) {
+        Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        String startUrl = "http://localhost:8887/";
+        String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("additionalEmail");
         boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
@@ -653,6 +688,9 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella sezione altri recapiti si inserisce la Email aggiuntiva della persona fisica {string}")
     public void nellaSezioneAltriRecapitiSiInserisceLaEmailAggiuntivaDellaPersonaFisica(String email) {
         recapitiDestinatarioPage.insertEmailAggiuntiva(email);
+        Map<String, Object> dataPersonaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
+        dataPersonaFisica.put("additionalEmail", email);
+        dataPopulation.writeDataPopulation("personaFisica.yaml", dataPersonaFisica);
     }
 
     @And("Nella sezione altri recapiti si seleziona il tipo di indirizzo scegliendo email")
@@ -668,8 +706,6 @@ public class RecapitiPersonaFisicaTest {
     @Then("Nella sezione altri recapiti si controlla che la Email aggiuntiva sia stata inserita correttamente")
     public void nellaSezioneAltriRecapitiSiControllaCheLaEmailAggiuntivaSiaStataInseritaCorrettamente() {
         logger.info("Si controlla che sia stata aggiunta la email");
-
-
         recapitiDestinatarioPage.siControllaEmailAggiunta();
     }
 
@@ -770,7 +806,6 @@ public class RecapitiPersonaFisicaTest {
 
         if (!recapitiDestinatarioPage.verificaMailAssociata()) {
             backgroundTest.aggiuntaEmailPF();
-            backgroundTest.aggiuntaNuovaEmail();
         }
     }
 }
