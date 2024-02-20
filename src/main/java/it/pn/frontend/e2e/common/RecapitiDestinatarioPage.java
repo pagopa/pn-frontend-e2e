@@ -386,7 +386,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void siControllaEmailAggiunta() {
-        By pecAssociataBy = By.xpath("//form[@data-testid='specialContactForm']//div/p");
+        By pecAssociataBy = By.xpath("//form[@data-testid='specialContactForm']");
         this.getWebDriverWait(10).withMessage("La mail non è stata aggiunta correttamente").until(ExpectedConditions.visibilityOfElementLocated(pecAssociataBy));
     }
 
