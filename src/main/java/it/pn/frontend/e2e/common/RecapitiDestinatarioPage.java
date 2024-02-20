@@ -387,7 +387,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void siControllaEmailAggiunta() {
         By pecAssociataBy = By.xpath("//form[@data-testid='specialContactForm']//div/p");
-        this.getWebDriverWait(30).withMessage("La mail non è stata aggiunta correttamente").until(ExpectedConditions.visibilityOfElementLocated(pecAssociataBy));
+        this.getWebDriverWait(10).withMessage("La mail non è stata aggiunta correttamente").until(ExpectedConditions.visibilityOfElementLocated(pecAssociataBy));
     }
 
     public boolean controlloEmailAssociata(String email) {
@@ -495,13 +495,13 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void visualizzazioneSezioneAltriRecapiti() {
         By altriRecapitiSectionBy = By.id("specialContact");
-        getWebDriverWait(30).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
     }
 
     public void visualizzazioneSezioneAltriRecapitiPG() {
         vaiInFondoAllaPagina();
         By altriRecapitiSectionBy = By.id("specialContactTitle");
-        getWebDriverWait(30).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
     }
 
 }
