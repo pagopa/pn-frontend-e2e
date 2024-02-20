@@ -39,6 +39,12 @@ public class NotifichePFPage extends BasePage {
     @FindBy(id = "page3")
     WebElement numeroPaginaTreButton;
 
+    @FindBy(id = "page2")
+    WebElement paginaSeconda;
+
+    @FindBy(id = "page1")
+    WebElement paginaPrima;
+
     @FindBy(id = "rows-per-page")
     WebElement numeroPagineButton;
 
@@ -254,6 +260,17 @@ public class NotifichePFPage extends BasePage {
         }
     }
 
+    public void waitLoadSecondaPagina() {
+           String isPageSelected = paginaSeconda.getAttribute("aria-current");
+            if (isPageSelected.equalsIgnoreCase("true")) {
+                logger.info("Si visualizza una pagina differente dalla precedente");
+            }else {
+                logger.error("Non si visualizza una pagina differente dalla precedente");
+                Assert.fail("Non si visualizza una pagina differente dalla precedente");
+            }
+
+    }
+
     public void siSceglieUnaPaginaDiversaConNumeroESiFiltra(String iun) {
         getWebDriverWait(30).withMessage("la terza pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(this.numeroPaginaTreButton));
         this.js().executeScript("arguments[0].click()", this.numeroPaginaTreButton);
@@ -348,5 +365,21 @@ public class NotifichePFPage extends BasePage {
     public void clickRimuoviFiltriButton() {
         getWebDriverWait(30).withMessage("Il bottone rimuovi filtri nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.rimuoviFiltriButton));
         this.rimuoviFiltriButton.click();
+    }
+
+    public void clickPage3(){
+        getWebDriverWait(30).withMessage("Il bottone pagina 3 nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.numeroPaginaTreButton));
+        this.numeroPaginaTreButton.click();
+    }
+
+    public void firstPageDisplayed() {
+        String isPageSelected = paginaPrima.getAttribute("aria-current");
+        if (isPageSelected.equalsIgnoreCase("true")) {
+            logger.info("Si visualizza prima pagina");
+        }else {
+            logger.error("Non si visualizza prima pagina");
+            Assert.fail("Non si visualizza prima");
+        }
+
     }
 }

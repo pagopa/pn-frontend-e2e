@@ -169,5 +169,15 @@ public class RicercaNotifichePersonaFisicaPATest {
         }
     }
 
+    @And("Si clicca su pagina diversa dalla prima")
+    public void siCliccaSupaginaDiversaDallaPrima(){
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.clickPage3();
+    }
 
+    @And("Si verifica che visualizza la prima pagina")
+    public void siVerificaCheVisualizzaLaPrimaPagina(){
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.firstPageDisplayed();
+    }
 }
