@@ -23,6 +23,9 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "code-cancel-button")
     WebElement annullaButton;
 
+    @FindBy(id = "confirmDialog")
+    WebElement confermaButtonPostInserimento;
+
     @FindBy(xpath = "//button[@data-testid='add email']")
     WebElement avvisamiMailButton;
 
@@ -105,7 +108,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void waitLoadPopUp() {
         try {
             By titleBy = By.id("dialog-title");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleBy));
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(titleBy));
             logger.info("Il pop-up di conferma viene visualizzato correttamente");
         } catch (TimeoutException e) {
             logger.error("Il pop-up di conferma NON viene visualizzato correttamente con errori: " + e.getMessage());
@@ -131,8 +134,11 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void confermaButtonClickPopUp() {
         try {
-            getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(this.confermaButtonPopUp));
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(this.confermaButtonPopUp));
             this.confermaButtonPopUp.click();
+            if (confermaButtonPostInserimento.isDisplayed()) {
+                confermaButtonPostInserimento.click();
+            }
         } catch (TimeoutException e) {
             logger.error("Il bottone conferma all'interno del popup non è cliccabile con errore:" + e.getMessage());
             Assert.fail("Il bottone conferma all'interno del popup non è cliccabile con errore:" + e.getMessage());

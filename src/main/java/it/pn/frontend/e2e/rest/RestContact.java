@@ -49,7 +49,7 @@ public class RestContact {
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzo digitale di cortesia rimosso con successo");
         } catch (IOException e) {
-            logger.error("Error during removeDigitalAdressCourtesyEmail", e);
+            logger.warn("Error during removeDigitalAdressCourtesyEmail: " + e.getMessage());
             logger.warn("Non è stato possibile rimuovere l'indirizzo digitale di cortesia");
         }
     }
