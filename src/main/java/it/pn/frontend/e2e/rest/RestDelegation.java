@@ -100,13 +100,13 @@ public class RestDelegation {
         }
     }
 
-   /* public void cancelDelegationPG(String mandateId) throws RestDelegationException {
+    public void cancelDelegationPG(String mandateId) throws RestDelegationException {
         try {
-            httpClient.sendHttpPatchRequest("/mandate/api/v1/mandate/" + mandateId + "/reject", this.headers);
+            httpClientPG.sendHttpPatchRequest("/mandate/api/v1/mandate/" + mandateId + "/reject", this.headers);
         } catch (IOException e) {
             logger.error("Error during rejectDelegationPG", e);
         }
-    }*/
+    }
 
     public List<DelegateResponsePF> getDelegator() {
         try {

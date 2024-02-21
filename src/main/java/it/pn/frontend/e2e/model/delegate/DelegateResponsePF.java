@@ -1,6 +1,5 @@
 package it.pn.frontend.e2e.model.delegate;
 
-import it.pn.frontend.e2e.model.Delegator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

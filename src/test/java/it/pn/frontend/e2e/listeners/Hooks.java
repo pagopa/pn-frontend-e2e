@@ -269,7 +269,7 @@ public class Hooks {
         String mandateId = System.getProperty("mandateId");
         if (mandateId != null) {
             RestDelegation restDelegation = RestDelegation.getInstance();
-           // restDelegation.cancelDelegationPG(mandateId);
+            restDelegation.cancelDelegationPG(mandateId);
             logger.info("Delega PG rifiutata con successo");
         } else {
             logger.info("mandateId non trovato");

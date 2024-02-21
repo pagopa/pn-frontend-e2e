@@ -2,28 +2,22 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import it.pn.frontend.e2e.api.personaGiuridica.CreazioneDelega;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.model.delegate.DelegatePG;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
-import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
 import it.pn.frontend.e2e.rest.RestDelegation;
-import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.AggiungiDelegaPGSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.DelegatiImpresaSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
-import org.json.JSONObject;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -303,11 +297,11 @@ public class DeleghePGPagoPATest {
         }
     }
 
-    @And("^Si controlla che la delega PG ha lo stato Attiva (.*)$")
+    @And("Si controlla che la delega PG ha lo stato Attiva {string}")
     public void siControllaCheLaDelegaPGALoStatoAttiva(String ragioneSociale) {
-        this.logger.info("Si controlla che lo stato della delega sia attivo");
+        logger.info("Si controlla che lo stato della delega sia attivo");
 
-        this.deleghePGPagoPAPage.controlloStatoAttiva(ragioneSociale);
+        deleghePGPagoPAPage.controlloStatoAttiva(ragioneSociale);
     }
 
     @And("Non si assegna un gruppo alla delega")
@@ -456,7 +450,8 @@ public class DeleghePGPagoPATest {
             String tokenExchange = loginPGPagoPaTest.getTokenExchangePGFromFile(personaGiuridica.get("accessoCome"));
             DelegateResponsePG response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
             System.setProperty("mandateId", response.getMandateId());
-
+            System.setProperty("verificationCode", response.getVerificationCode());
+            driver.navigate().refresh();
         }
     }
 
@@ -486,9 +481,11 @@ public class DeleghePGPagoPATest {
 
     @And("Si inserisce il codice della delega a carico dell impresa nella modale")
     public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale() {
-        String codeVerification = deleghePGPagoPAPage.getCodiceVerificaDelegaACaricoDellImpresaAPI();
-        logger.info(codeVerification);
-        deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI(codeVerification);
+        //String codeVerification = deleghePGPagoPAPage.getCodiceVerificaDelegaACaricoDellImpresaAPI();
+        //logger.info(codeVerification);
+        String verificationCode = System.getProperty("verificationCode");
+
+        deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI(verificationCode);
     }
 
     @And("Si ripristina lo stato iniziale delle deleghe dall impresa {string}")
@@ -496,5 +493,12 @@ public class DeleghePGPagoPATest {
         BackgroundTest backgroundTest = new BackgroundTest();
 
         backgroundTest.revocaDelegaPG(dpFile);
+    }
+
+    @And("Si accetta la delega {string} gruppo")
+    public void siAccettaLaDelegaGruppo(String withGroup) {
+        BackgroundTest backgroundTest = new BackgroundTest();
+
+        backgroundTest.accettazioneDelegaSceltaGruppo(!withGroup.equalsIgnoreCase("senza"));
     }
 }

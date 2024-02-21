@@ -22,9 +22,6 @@ Feature:Il delegato persona giuridica annulLa l'operazione di rifiuto delega
     And Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega "personaGiuridica"
     And Nella sezione Deleghe si clicca sul bottone rifiuta
     And Si clicca sul bottone annulla
-    And Si controlla che la delega PG ha lo stato Attiva <ragioneSociale>
+    And Si controlla che la delega PG ha lo stato Attiva "Le Epistolae srl"
     And Si ripristina lo stato iniziale delle deleghe a carico dell impresa "personaGiuridica"
     And Logout da portale persona giuridica
-    Examples:
-      | ragioneSociale |
-      | Convivio Spa   |

@@ -15,10 +15,7 @@ Feature:Il delegato persona giuridica rifiuta la delega
       | companyName    | Convivio Spa  |
       | displayName    | Convivio Spa  |
       | person         | false         |
-    And Si sceglie opzione accetta
-    And Si inserisce il codice della delega a carico dell impresa nella modale
-    And Nella sezione Deleghe si clicca sul bottone conferma codice
-    And Si clicca sul bottone conferma gruppo
+    And Si accetta la delega "senza" gruppo
     And Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega "personaGiuridica"
     And Nella sezione Deleghe si clicca sul bottone rifiuta
     And Si clicca sul bottone rifiuta delega

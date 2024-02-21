@@ -15,14 +15,6 @@ Feature:Il delegato persona giuridica accetta la delega assegnandoli un gruppo
       | companyName    | Convivio Spa  |
       | displayName    | Convivio Spa  |
       | person         | false         |
-    And Si sceglie opzione accetta
-    And Si inserisce il codice della delega a carico dell impresa nella modale
-    And Nella sezione Deleghe si clicca sul bottone conferma codice
-    And Si assegna un gruppo alla delega
-    And Si clicca sul bottone conferma gruppo
-    And Si controlla che la delega PG ha lo stato Attiva <ragioneSociale>
-    And Si ripristina lo stato iniziale delle deleghe a carico dell impresa "personaGiuridica"
+    And Si accetta la delega "con" gruppo
+    And Si controlla che la delega PG ha lo stato Attiva "Le Epistolae srl"
     And Logout da portale persona giuridica
-    Examples:
-      | ragioneSociale |
-      | Convivio Spa   |
