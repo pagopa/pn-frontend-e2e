@@ -556,6 +556,8 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.visualizzaValidazione();
         } else {
             String pec = dataPopulation.readDataPopulation(dpFile + ".yaml").get("pec").toString();
+            DataPopulation.waitTime(5);
+            driver.navigate().refresh();
             if (recapitiDestinatarioPage.siControllaPECModificata(pec)) {
                 logger.info("La PEC è stata modificata");
             } else {

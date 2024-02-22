@@ -23,9 +23,6 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "code-cancel-button")
     WebElement annullaButton;
 
-    @FindBy(id = "confirmDialog")
-    WebElement confermaButtonPostInserimento;
-
     @FindBy(xpath = "//button[@data-testid='add email']")
     WebElement avvisamiMailButton;
 
@@ -136,9 +133,11 @@ public class RecapitiDestinatarioPage extends BasePage {
         try {
             getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(this.confermaButtonPopUp));
             this.confermaButtonPopUp.click();
-            if (confermaButtonPostInserimento.isDisplayed()) {
-                confermaButtonPostInserimento.click();
+            By confermaButtonPostInserimentoBy = By.id("confirmDialog");
+            if (!driver.findElements(confermaButtonPostInserimentoBy).isEmpty()) {
+                this.element(confermaButtonPostInserimentoBy).click();
             }
+            // if confermaButtonPostInserimento appears, click it otherwise go on
         } catch (TimeoutException e) {
             logger.error("Il bottone conferma all'interno del popup non è cliccabile con errore:" + e.getMessage());
             Assert.fail("Il bottone conferma all'interno del popup non è cliccabile con errore:" + e.getMessage());
@@ -299,7 +298,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean siControllaPECModificata(String pecInserita) {
         By pecBy = By.xpath("//div[@data-testid = 'legalContacts']//div//p");
-        this.getWebDriverWait(30).withMessage("Non trovata nessuna email PEC inserita").until(ExpectedConditions.visibilityOfElementLocated(pecBy));
+        this.getWebDriverWait(10).withMessage("Non trovata nessuna email PEC inserita").until(ExpectedConditions.visibilityOfElementLocated(pecBy));
         WebElement pec = this.element(pecBy);
         return pec.getText().equals(pecInserita);
     }
