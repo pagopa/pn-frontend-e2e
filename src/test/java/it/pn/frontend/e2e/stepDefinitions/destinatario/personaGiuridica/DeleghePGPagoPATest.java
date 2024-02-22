@@ -499,6 +499,6 @@ public class DeleghePGPagoPATest {
     public void siAccettaLaDelegaGruppo(String withGroup) {
         BackgroundTest backgroundTest = new BackgroundTest();
 
-        backgroundTest.accettazioneDelegaSceltaGruppo(!withGroup.equalsIgnoreCase("senza"));
+        backgroundTest.accettazioneDelegaSceltaGruppo(withGroup.equalsIgnoreCase("senza"));
     }
 }

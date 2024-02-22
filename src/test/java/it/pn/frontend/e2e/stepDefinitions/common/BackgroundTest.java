@@ -138,10 +138,11 @@ public class BackgroundTest {
     public void accettazioneDelegaSceltaGruppo(boolean withGroup) {
         deleghePagoPATest.siSceglieOpzioneAccetta();
         deleghePGPagoPATest.siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale();
-        if(withGroup)deleghePGPagoPATest.siAssegnaUnGruppoAllaDelega();
         deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneConfermaCodice();
+        if(!withGroup){
+            deleghePGPagoPATest.siAssegnaUnGruppoAllaDelega();
+        }
         deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
-        //deleghePGPagoPATest.siControllaCheLaDelegaPGALoStatoAttiva("Convivio Spa");
     }
 
     public void accettazioneDelegaConGruppo() {
