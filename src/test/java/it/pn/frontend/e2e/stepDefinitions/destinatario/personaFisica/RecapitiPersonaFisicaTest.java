@@ -683,7 +683,9 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.aggionamentoPagina();
             recapitiDestinatarioPage.waitLoadPage();
         }
-        String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("emailPec").toString();
+        String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("additionalEmail").toString();
+        DataPopulation.waitTime(10);
+        driver.navigate().refresh();
         if (!recapitiDestinatarioPage.verificaNuovaEmailEPEC(pec)) {
             logger.error("La email PEC non è stata associata correttamente");
             Assert.fail("La email PEC non è stata associata correttamente");
