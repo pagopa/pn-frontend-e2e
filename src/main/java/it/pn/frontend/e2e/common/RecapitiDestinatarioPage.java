@@ -90,12 +90,12 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void insertEmailPEC(String emailPEC) {
         By inserimentoPecFieldBy = By.id("pec");
-        this.getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoPecFieldBy));
+        this.getWebDriverWait(10).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoPecFieldBy));
         this.element(inserimentoPecFieldBy).sendKeys(emailPEC);
     }
 
     public void confermaButtonClick() {
-        this.getWebDriverWait(60).withMessage("Il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
+        this.getWebDriverWait(10).withMessage("Il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
         this.confermaButton.click();
     }
 
@@ -148,7 +148,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public boolean waitMessaggioErrore() {
         try {
             By messaggioErroreBy = By.id("error-alert");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messaggioErroreBy));
+            this.getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(messaggioErroreBy));
             logger.info("Il messaggio di errore viene visualizzato correttamente");
             return true;
         } catch (TimeoutException e) {
@@ -200,7 +200,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public boolean verificaPecAssociata() {
         try {
             By pecAssociata = By.xpath("//p[contains(text(), 'PEC associata')]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(pecAssociata));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(pecAssociata));
             return true;
         } catch (TimeoutException e) {
             logger.error("pec associata non trovata" + e.getMessage());
@@ -211,7 +211,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public boolean siVisualizzaPopUpConferma() {
         try {
             By popUpConfermaBy = By.xpath("//h2[contains(text(),'Grazie!')]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popUpConfermaBy));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(popUpConfermaBy));
             return true;
         } catch (TimeoutException e) {
             logger.error("pop up conferma non trovato" + e.getMessage());

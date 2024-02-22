@@ -264,8 +264,8 @@ public class RecapitiPersonaFisicaTest {
     @Then("Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente() {
         logger.info("Si controlla che la pec sia stata inserita correttamente");
-
-
+        DataPopulation.waitTime(10);
+        driver.navigate().refresh();
         if (recapitiDestinatarioPage.siVisualizzaPopUpConferma()) {
             logger.info("Si clicca su conferma nel pop-up");
             recapitiDestinatarioPage.clickConfermaButton();
