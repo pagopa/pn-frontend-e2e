@@ -148,6 +148,12 @@ public class NotifichePersonaFisicaPagoPATest {
         notifichePFPage.waitLoadPaginaDifferente();
     }
 
+    @And("Si visualizza correttamente la prossima pagina")
+    public void siVisualizzaCorrettamenteLaSecondaPagina() {
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.waitLoadSecondaPagina();
+    }
+
     @And("Ci si posiziona su una pagina differente attraverso i numeri e si applica filtro {string}")
     public void ciSiPosizionaSuUnaPaginaDifferenteAttraversoINumeriESiApplicaFiltro(String dpFile) {
         DataPopulation dataPopulation = new DataPopulation();
@@ -334,6 +340,7 @@ public class NotifichePersonaFisicaPagoPATest {
         logger.info("controllo paginazione di default in pagina notifiche");
         piattaformaNotifichePage.checkDefaultPagination();
     }
+
 }
 
 
