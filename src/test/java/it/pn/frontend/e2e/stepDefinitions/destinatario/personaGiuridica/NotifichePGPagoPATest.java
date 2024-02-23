@@ -92,6 +92,13 @@ public class NotifichePGPagoPATest {
         piattaformaNotifichePGPAPage.clickSuDelegeButton();
     }
 
+    @And("Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe")
+    public void visualizzaDelegheSection() {
+        logger.info("Si visualizza la sezione deleghe");
+        DeleghePGPagoPAPage deleghePage = new DeleghePGPagoPAPage(this.driver);
+        deleghePage.waitLoadDeleghePage();
+    }
+
     @And("Nella Pagina Notifiche persona giuridica si clicca su notifiche delegate")
     public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSuNotificheDelegate() {
         logger.info("Si clicca correttamente su notifiche delegate");
