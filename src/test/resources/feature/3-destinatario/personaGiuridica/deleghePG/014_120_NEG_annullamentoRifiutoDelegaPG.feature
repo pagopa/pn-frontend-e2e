@@ -5,7 +5,7 @@ Feature:Il delegato persona giuridica annulLa l'operazione di rifiuto delega
   @DeleghePG
   @PG
 
-  Scenario Outline: PN-9172-A118 - Il delegato persona giuridica annulla l'operazione di rifiuto delega
+  Scenario: PN-9172-A118 - Il delegato persona giuridica annulla l'operazione di rifiuto delega
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
