@@ -4,6 +4,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import org.apache.commons.io.FileUtils;
@@ -223,7 +224,7 @@ public class Hooks {
         if (scenario.isFailed()) {
             logger.error("scenario go to error : " + scenario.getName());
             try {
-                File screenshot = ( (TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+                File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
                 byte[] screenshotByte = FileUtils.readFileToByteArray(screenshot);
                 Date date = Calendar.getInstance().getTime();
                 DateFormat formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
@@ -263,4 +264,18 @@ public class Hooks {
             logger.info("mandateId non trovato");
         }
     }
+
+    /**
+     * Clear the contacts of PF after the scenario
+     * P.S: This will work only if there are any contacts available
+     */
+    @After(value = "@recapitiPF")
+    public void clearRecapiti() {
+        RestContact restContact = RestContact.getInstance();
+        restContact.removeDigitalAdressCourtesyEmail();
+        restContact.getDigitalAddress()
+                .getCourtesy()
+                .forEach(restContact::removeSpecialContact);
+    }
+
 }

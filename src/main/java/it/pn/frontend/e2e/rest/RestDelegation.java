@@ -78,7 +78,7 @@ public class RestDelegation {
 
     public List<DelegateResponse> getDelegator() {
         try {
-            List<DelegateResponse> response = httpClient.sendHttpGetRequest("/mandate/api/v1/mandates-by-delegator", this.headers, DelegateResponse.class);
+            List<DelegateResponse> response = httpClient.sendHttpGetRequestList("/mandate/api/v1/mandates-by-delegator", this.headers, DelegateResponse.class);
             if (response != null) {
                 logger.info(String.valueOf(response));
                 return response;
