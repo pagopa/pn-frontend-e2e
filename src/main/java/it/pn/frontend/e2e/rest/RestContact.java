@@ -41,7 +41,7 @@ public class RestContact {
      *
      * @throws RestContactException if there is an error during the request
      */
-    public void removeDigitalAdressCourtesyEmail() throws RestContactException {
+    public void removeDigitalAddressCourtesyEmail() throws RestContactException {
         String url = "https://webapi." + env + ".notifichedigitali.it/address-book/v1/digital-address/courtesy/default/EMAIL";
         String response = "";
         try {
@@ -49,7 +49,25 @@ public class RestContact {
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzo digitale di cortesia rimosso con successo");
         } catch (IOException e) {
-            logger.error("Error during removeDigitalAdressCourtesyEmail", e);
+            logger.warn("Error during removeDigitalAdressCourtesyEmail: " + e.getMessage());
+            logger.warn("Non è stato possibile rimuovere l'indirizzo digitale di cortesia");
+        }
+    }
+
+    /**
+     * Remove the default digital address pec from the contact
+     *
+     * @throws RestContactException if there is an error during the request
+     */
+    public void removeDigitalAddressLegalPec() throws RestContactException {
+        String url = "https://webapi." + env + ".notifichedigitali.it/address-book/v1/digital-address/legal/default/PEC";
+        String response = "";
+        try {
+            response = httpClient.sendHttpDeleteRequest(url, this.headers, String.class);
+            logger.info("Risposta ricevuta: " + response);
+            logger.info("Indirizzo digitale di cortesia rimosso con successo");
+        } catch (IOException e) {
+            logger.warn("Error during removeDigitalAdressLegalPec: " + e.getMessage());
             logger.warn("Non è stato possibile rimuovere l'indirizzo digitale di cortesia");
         }
     }
@@ -61,14 +79,17 @@ public class RestContact {
      * @throws RestDelegationException if there is an error during the request
      */
     public void removeSpecialContact(DigitalAddress digitalAddress) throws RestDelegationException {
-        String url = "https://webapi." + env + ".notifichedigitali.it/address-book/v1/digital-address/courtesy/" + digitalAddress.getSenderId() + "/EMAIL";
+        String channelType = digitalAddress.getChannelType().toString();
+        String addressType = digitalAddress.getAddressType().toLowerCase();
+        String url = "https://webapi." + env + ".notifichedigitali.it/address-book/v1/digital-address/"
+                + addressType + "/" + digitalAddress.getSenderId() + "/" + channelType;
         String response = "";
         try {
             response = httpClient.sendHttpDeleteRequest(url, this.headers, String.class);
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzo digitale di 'altri recapiti' rimosso con successo");
         } catch (IOException e) {
-            logger.error("Error during removeSpecialContact", e);
+            logger.error("Error during removeSpecialContact: " + e.getMessage());
             logger.warn("Non è stato possibile rimuovere l'indirizzo digitale di 'altri recapiti'");
         }
     }

@@ -264,8 +264,8 @@ public class RecapitiPersonaFisicaTest {
     @Then("Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente() {
         logger.info("Si controlla che la pec sia stata inserita correttamente");
-
-
+        DataPopulation.waitTime(10);
+        driver.navigate().refresh();
         if (recapitiDestinatarioPage.siVisualizzaPopUpConferma()) {
             logger.info("Si clicca su conferma nel pop-up");
             recapitiDestinatarioPage.clickConfermaButton();
@@ -556,6 +556,8 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.visualizzaValidazione();
         } else {
             String pec = dataPopulation.readDataPopulation(dpFile + ".yaml").get("pec").toString();
+            DataPopulation.waitTime(5);
+            driver.navigate().refresh();
             if (recapitiDestinatarioPage.siControllaPECModificata(pec)) {
                 logger.info("La PEC è stata modificata");
             } else {
@@ -659,6 +661,9 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella sezione altri recapiti si inserisce la PEC aggiuntiva de persona fisica {string}")
     public void nellaSezioneAltriRecapitiSiInserisceLaPECAggiuntivaDePersonaFisica(String email) {
         recapitiDestinatarioPage.insertPECAggiuntiva(email);
+        Map<String, Object> dataPersonaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
+        dataPersonaFisica.put("additionalEmail", email);
+        dataPopulation.writeDataPopulation("personaFisica.yaml", dataPersonaFisica);
     }
 
     @And("Nella sezione altri recapiti si clicca sul bottone associa")
@@ -678,7 +683,9 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.aggionamentoPagina();
             recapitiDestinatarioPage.waitLoadPage();
         }
-        String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("emailPec").toString();
+        String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("additionalEmail").toString();
+        DataPopulation.waitTime(10);
+        driver.navigate().refresh();
         if (!recapitiDestinatarioPage.verificaNuovaEmailEPEC(pec)) {
             logger.error("La email PEC non è stata associata correttamente");
             Assert.fail("La email PEC non è stata associata correttamente");
@@ -693,14 +700,15 @@ public class RecapitiPersonaFisicaTest {
         dataPopulation.writeDataPopulation("personaFisica.yaml", dataPersonaFisica);
     }
 
-    @And("Nella sezione altri recapiti si seleziona il tipo di indirizzo scegliendo email")
-    public void nellaSezioneAltriRecapitiSiSelezionaIlTipoDiIndirizzoScegliendoEmail() {
+    @And("Nella sezione altri recapiti si seleziona il tipo di indirizzo scegliendo {string}")
+    public void nellaSezioneAltriRecapitiSiSelezionaIlTipoDiIndirizzoScegliendoEmail(String tipoIndirizzo) {
         logger.info("Si seleziona il tipo di indirizzo scegliendo email");
-
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-
-        iTuoiRecapitiPage.selezionaTipoEmail();
-
+        if (tipoIndirizzo.equalsIgnoreCase("PEC"))
+            iTuoiRecapitiPage.selezionaTipoPec();
+        else {
+            iTuoiRecapitiPage.selezionaTipoEmail();
+        }
     }
 
     @Then("Nella sezione altri recapiti si controlla che la Email aggiuntiva sia stata inserita correttamente")
@@ -790,8 +798,9 @@ public class RecapitiPersonaFisicaTest {
     @Then("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti")
     public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapiti() {
         logger.info("Si controlla che si visualizzano correttamente tutti gli elementi della sezione recapiti gia associati");
+        DataPopulation.waitTime(20);
+        this.driver.navigate().refresh();
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-
         iTuoiRecapitiPage.waitLoadRecapitiGiaAssociatoSection();
     }
 

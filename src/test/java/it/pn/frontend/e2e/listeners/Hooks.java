@@ -4,6 +4,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import it.pn.frontend.e2e.model.DigitalAddressResponse;
 import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
@@ -272,10 +273,27 @@ public class Hooks {
     @After(value = "@recapitiPF")
     public void clearRecapiti() {
         RestContact restContact = RestContact.getInstance();
-        restContact.removeDigitalAdressCourtesyEmail();
-        restContact.getDigitalAddress()
-                .getCourtesy()
-                .forEach(restContact::removeSpecialContact);
+        DigitalAddressResponse digitalAddress = restContact.getDigitalAddress();
+        // Check for legal ones and remove them
+        if (!digitalAddress.getLegal().isEmpty()) {
+            digitalAddress.getLegal().forEach(address -> {
+                if (address.getSenderId().equalsIgnoreCase("default")) {
+                    restContact.removeDigitalAddressLegalPec();
+                } else {
+                    restContact.removeSpecialContact(address);
+                }
+            });
+        }
+        // Check for courtesy ones and remove them
+        if (!digitalAddress.getCourtesy().isEmpty()) {
+            digitalAddress.getCourtesy().forEach(address -> {
+                if (address.getSenderId().equalsIgnoreCase("default")) {
+                    restContact.removeDigitalAddressCourtesyEmail();
+                } else {
+                    restContact.removeSpecialContact(address);
+                }
+            });
+        }
     }
 
 }
