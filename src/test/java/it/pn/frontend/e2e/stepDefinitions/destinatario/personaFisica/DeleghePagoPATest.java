@@ -260,7 +260,7 @@ public class DeleghePagoPATest {
                 .visibilityIds(new ArrayList<String>())
                 .verificationCode("12345")
                 .build();
-        String tokenExchange = loginPersonaFisicaPagoPA.getTokenExchangeFromFile(personaFisica.get("accessoCome"));
+        String tokenExchange = loginPersonaFisicaPagoPA.getTokenExchangePFFromFile(personaFisica.get("accessoCome"));
         DelegateResponsePF response = restDelegation.addDelegationPF(delegateRequestPF, tokenExchange);
         System.setProperty("mandateId", response.getMandateId());
     }
