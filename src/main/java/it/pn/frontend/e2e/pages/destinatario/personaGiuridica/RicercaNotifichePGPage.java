@@ -26,6 +26,8 @@ public class RicercaNotifichePGPage extends BasePage {
     WebElement page2Button;
     @FindBy(id = "startDate")
     WebElement dataInizioField;
+    @FindBy(id = "notificationsTable.body.row")
+    WebElement primaNotifica;
 
     public void clickNotificheImpresa() {
         try {
@@ -80,7 +82,6 @@ public class RicercaNotifichePGPage extends BasePage {
     }
     public void waitLoadDettaglioNotificaPGDelegato() {
         try {
-            By titleDettaglioNotificaField = By.id("title-of-page");
             By statoNotificaBy = By.id("notification-state");
             By indietroButtonBy = By.id("breadcrumb-indietro-button");
             By informazioniBy = By.id("notification-detail-table");
@@ -89,9 +90,8 @@ public class RicercaNotifichePGPage extends BasePage {
             By attestazioneOpponibile = By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: ')]");
 
 
-            this.getWebDriverWait(30).withMessage("Il titolo Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
-            this.getWebDriverWait(30).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButtonBy));
             this.getWebDriverWait(30).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
+            this.getWebDriverWait(30).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButtonBy));
             this.getWebDriverWait(30).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
             this.getWebDriverWait(30).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
             this.getWebDriverWait(30).withMessage("Il banner Recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(bannerRecapiti));
@@ -166,11 +166,10 @@ public class RicercaNotifichePGPage extends BasePage {
     }
 
     public void cliccaSuPrimaNotifica(){
-
         try {
-            By firstNotification = By.id("notificationsTable.body.row");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(firstNotification));
+            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(primaNotifica));
             logger.info("Si clicca sulla prima notifica");
+            primaNotifica.click();
         } catch (Exception e) {
             logger.error("Non si clicca sulla prima notifica con errore:" + e.getMessage());
             Assert.fail("Non si clicca sulla prima notifica con errore:" + e.getMessage());

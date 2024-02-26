@@ -9,7 +9,7 @@ Feature:Il delegato persona giuridica rifiuta la delega
     Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe
-    And Nella sezione Deleghe si verifica sia presente una delega accettata per PG "delegatoPG"
+    And Nella sezione Deleghe si verifica sia presente una delega accettata per PG "personaGiuridica"
     And Nella Pagina Notifiche persona giuridica si clicca su notifiche delegate
     And Si visualizza l elenco delle notifiche relative al delegante
     And La persona giuridica clicca sulla prima notifica restituita

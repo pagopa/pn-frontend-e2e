@@ -52,8 +52,8 @@ public class RicercaNotifichePersonaGiuridicaPATest {
 
     @And("La persona giuridica clicca sulla prima notifica restituita")
     public void laPersonaGiuridicaCliccaSullaPrimaNotificaRestituita() {
-        RicercaNotifichePGPage ricercaNotifichePGPage1 = new RicercaNotifichePGPage(this.driver);
-        ricercaNotifichePGPage1.cliccaSuPrimaNotifica();
+        RicercaNotifichePGPage ricercaNotifichePGPage = new RicercaNotifichePGPage(this.driver);
+        ricercaNotifichePGPage.cliccaSuPrimaNotifica();
     }
 
     @And("Si visualizza correttamente la section Dettaglio Notifica persona giuridica")
