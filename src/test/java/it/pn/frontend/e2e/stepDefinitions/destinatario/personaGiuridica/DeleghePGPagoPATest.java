@@ -429,11 +429,9 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.inserireGruppoDelegante();
     }
 
-    @And("Nella pagina Deleghe sezione Deleghe a carico dell'impresa si controlla la presenza di una delega per PG")
-    public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiControllaLaPresenzaDiUnaDelegaPerPG(Map<String, String> personaGiuridica) {
+    @And("Creo in background una delega per persona giuridica")
+    public void creoInBackgroundUnaDelegaPerPersonaGiuridica(Map<String, String> personaGiuridica) {
         logger.info("Si controlla che ci sia una delega");
-        String ragioneSociale = personaGiuridica.get("ragioneSociale");
-        if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG(ragioneSociale)) {
             String dateto = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             DelegatePG delegatePG = DelegatePG.builder()
                     .companyName(personaGiuridica.get("companyName"))
@@ -453,7 +451,6 @@ public class DeleghePGPagoPATest {
             System.setProperty("verificationCode", response.getVerificationCode());
             driver.navigate().refresh();
         }
-    }
 
     @And("Si clicca sul bottone conferma delega")
     public void siCliccaSulBottoneConfermaDelega() {
@@ -481,8 +478,7 @@ public class DeleghePGPagoPATest {
 
     @And("Si inserisce il codice della delega a carico dell impresa nella modale")
     public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale() {
-        //String codeVerification = deleghePGPagoPAPage.getCodiceVerificaDelegaACaricoDellImpresaAPI();
-        //logger.info(codeVerification);
+
         String verificationCode = System.getProperty("verificationCode");
 
         deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI(verificationCode);

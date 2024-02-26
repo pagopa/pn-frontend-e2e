@@ -10,7 +10,7 @@ Feature: La persona fisica visualizza la sezione notifiche
   Scenario: PN-9147 - La persona giuridica visualizza la sezione notifiche
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
-    And Nella pagina Deleghe sezione Deleghe a carico dell'impresa si controlla la presenza di una delega per PG
+    And Creo in background una delega per persona giuridica
       | accessoCome    | delegante     |
       | fiscalCode     | 27957814470   |
       | companyName    | Convivio Spa  |

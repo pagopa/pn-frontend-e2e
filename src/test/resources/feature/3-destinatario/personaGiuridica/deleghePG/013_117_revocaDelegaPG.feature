@@ -11,7 +11,7 @@ Feature:La persona giuridica revoca una delega
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Nella pagina Deleghe si clicca su Delegati dall impresa
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe dell impresa
-    And Nella pagina Deleghe sezione Deleghe a carico dell'impresa si controlla la presenza di una delega per PG
+    And Creo in background una delega per persona giuridica
       | accessoCome    | delegante     |
       | fiscalCode     | 27957814470   |
       | companyName    | Convivio Spa  |
