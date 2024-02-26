@@ -92,7 +92,7 @@ public class RestDelegation {
      * @param mandateId String with the mandateId
      * @throws RestDelegationException if there is an error during the request
      */
-    public void revokeDelegationPF(String mandateId) throws RestDelegationException {
+    public void revokeDelegation(String mandateId) throws RestDelegationException {
         try {
             httpClientPF.sendHttpPatchRequest("/mandate/api/v1/mandate/" + mandateId + "/revoke", this.headers);
         } catch (IOException e) {
@@ -100,11 +100,20 @@ public class RestDelegation {
         }
     }
 
-    public void cancelDelegationPG(String mandateId) throws RestDelegationException {
+    /**
+     * Reject a delegation
+     * <br>
+     * <b>Keep in mind this method works only for the annotation @After into Hooks.java, because there isn't a jwt token set
+     * if you don't invoke an "addDelegation"</b>
+     *
+     * @param mandateId String with the mandateId
+     * @throws RestDelegationException if there is an error during the request
+     */
+    public void rejectDelegation(String mandateId) throws RestDelegationException {
         try {
             httpClientPG.sendHttpPatchRequest("/mandate/api/v1/mandate/" + mandateId + "/reject", this.headers);
         } catch (IOException e) {
-            logger.error("Error during rejectDelegationPG", e);
+            logger.error("Error during rejectDelegation", e);
         }
     }
 
