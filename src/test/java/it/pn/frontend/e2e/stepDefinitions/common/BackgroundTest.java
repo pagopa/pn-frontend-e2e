@@ -135,13 +135,16 @@ public class BackgroundTest {
     }
 
 
-    public void accettazioneDelegaSenzaGruppo() {
+    public void accettazioneDelegaSceltaGruppo(boolean withGroup) {
         deleghePagoPATest.siSceglieOpzioneAccetta();
-        deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp("nuovaDelegaPG");
+        deleghePGPagoPATest.siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale();
         deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneConfermaCodice();
+        if(!withGroup){
+            deleghePGPagoPATest.siAssegnaUnGruppoAllaDelega();
+        }
         deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
-        deleghePGPagoPATest.siControllaCheLaDelegaPGALoStatoAttiva("Convivio Spa");
     }
+
     public void accettazioneDelegaConGruppo() {
         deleghePagoPATest.siSceglieOpzioneAccetta();
         deleghePGPagoPATest.siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale();

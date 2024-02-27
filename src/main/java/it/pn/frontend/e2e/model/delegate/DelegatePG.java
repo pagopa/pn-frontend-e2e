@@ -1,14 +1,13 @@
-package it.pn.frontend.e2e.model;
+package it.pn.frontend.e2e.model.delegate;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class Delegate {
+public class DelegatePG {
     private String displayName;
-    private String firstName;
+    private String companyName;
     private String fiscalCode;
-    private String lastName;
     private boolean person;
 }
