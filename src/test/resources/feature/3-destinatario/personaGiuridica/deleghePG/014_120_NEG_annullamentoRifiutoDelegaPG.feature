@@ -23,5 +23,4 @@ Feature:Il delegato persona giuridica annulLa l'operazione di rifiuto delega
     And Nella sezione Deleghe si clicca sul bottone rifiuta
     And Si clicca sul bottone annulla
     And Si controlla che la delega PG ha lo stato Attiva "Convivio Spa"
-    And Si ripristina lo stato iniziale delle deleghe a carico dell impresa "personaGiuridica"
     And Logout da portale persona giuridica
