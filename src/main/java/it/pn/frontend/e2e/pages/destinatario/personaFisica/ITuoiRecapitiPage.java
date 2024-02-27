@@ -31,7 +31,7 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void iTuoiRecapitiButtonClick() {
         try {
-            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.iTuoiRecapitiButton));
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(this.iTuoiRecapitiButton));
             this.js().executeScript("arguments[0].click()", this.iTuoiRecapitiButton);
         } catch (TimeoutException e) {
             logger.error("il bottone i tuoi Recapiti non trovato o non è cliccabile: " + e.getMessage());
@@ -155,14 +155,29 @@ public class ITuoiRecapitiPage extends BasePage {
         this.element(opzionePEC).click();
     }
 
+    public void selezionaTipoPec() {
+        this.tipoIndirizzoField.click();
+        // wait 2 seconds for the options to become visible
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            logger.error("errore: " + e.getMessage());
+        }
+        By opzionePEC = By.id("dropdown-PEC");
+        this.getWebDriverWait(10)
+                .withMessage("Non è visibile l'opzione indirizzo email")
+                .until(ExpectedConditions.elementToBeClickable(opzionePEC));
+        this.element(opzionePEC).click();
+    }
+
     public void waitLoadRecapitiGiaAssociatoSection() {
         By titlePage = By.xpath("//p[contains(text(),'Già associati')]");
         By tableBy = By.xpath("//table[@aria-label = 'Già associati']");
         By eliminaBy = By.xpath("//form[@data-testid = 'specialContactForm']//div//button[contains(text(),'Elimina')]");
         By modificaBy = By.xpath("//form[@data-testid = 'specialContactForm']//div//button[contains(text(),'Modifica')]");
-        this.getWebDriverWait(30).withMessage("Non si visualizza il titolo 'Gia Associati'").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-        this.getWebDriverWait(30).withMessage("Non si visualizza la tabella 'Gia Associati'").until(ExpectedConditions.visibilityOfElementLocated(tableBy));
-        this.getWebDriverWait(30).withMessage("Non si visualizza il bottone elimina della sezione recapiti gia associati ").until(ExpectedConditions.visibilityOfElementLocated(eliminaBy));
-        this.getWebDriverWait(30).withMessage("Non si visualizza il bottone modifica della sezione recapiti gia associati").until(ExpectedConditions.visibilityOfElementLocated(modificaBy));
+        this.getWebDriverWait(10).withMessage("Non si visualizza il titolo 'Gia Associati'").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
+        this.getWebDriverWait(10).withMessage("Non si visualizza la tabella 'Gia Associati'").until(ExpectedConditions.visibilityOfElementLocated(tableBy));
+        this.getWebDriverWait(10).withMessage("Non si visualizza il bottone elimina della sezione recapiti gia associati ").until(ExpectedConditions.visibilityOfElementLocated(eliminaBy));
+        this.getWebDriverWait(10).withMessage("Non si visualizza il bottone modifica della sezione recapiti gia associati").until(ExpectedConditions.visibilityOfElementLocated(modificaBy));
     }
 }
