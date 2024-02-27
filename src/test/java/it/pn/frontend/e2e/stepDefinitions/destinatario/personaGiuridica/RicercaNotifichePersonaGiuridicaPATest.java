@@ -208,6 +208,54 @@ public class RicercaNotifichePersonaGiuridicaPATest {
             Assert.fail("Il bottone Filtra é attivo");
         }
     }
+
+    @And("Se i risultati sono contenuti in più pagine persona giuridica è possibile effettuare il cambio pagina")
+    public void seIRisultatiSonoContenutiInPiuPagineDestinatarioEPossibileEffettuareIlCambioPagina() {
+        logger.info("Se i risultati sono contenuti in più pagine è possibile effettuare il cambio pagina");
+
+
+        if(ricercaNotifichePGPage.verificaEsistenzaEPassaggioPaginaPG()){
+            logger.info("Bottone pagina 2 trovato e cliccato");
+
+            HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
+            headerPGSection.waitLoadHeaderPGPage();
+            ricercaNotifichePGPage.waitLoadNotifichePGPage();
+        }else {
+            logger.info("Bottone pagina 2 non trovato non effettuato il passaggio di pagina");
+        }
+    }
+
+
+    @And("Nella pagina Piattaforma Notifiche persona giuridica inserire una data con formato errato")
+    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireUnaDataConFormatoErrato() {
+
+        String dataDa = "01/01/1111";
+        ricercaNotifichePGPage.inserimentoDataErrato(dataDa);
+    }
+
+    @Then("Il rettangolo del campo errato diventa rosso e il tasto Filtra è disattivo")
+    public void ilRettangoloDelCampoErratoDiventaRossoEIlTastoFiltraèDisattivo() {
+
+        boolean isDateBoxInvalid = ricercaNotifichePGPage.isDateBoxInvalid();
+
+        if (isDateBoxInvalid) {
+            logger.info("Il campo data inizio non é valido");
+        } else {
+            logger.error("Il campo data inizio non é passato allo stato non valido");
+            Assert.fail("Il campo data inizio non é passato allo stato non valido");
+        }
+
+        ricercaNotifichePGPage.clickFiltraButton();
+
+        boolean isDateBoxStillInvalid = ricercaNotifichePGPage.isDateBoxInvalid();
+
+        if (isDateBoxStillInvalid) {
+            logger.info("Il bottone Filtra é dissativato");
+        } else {
+            logger.error("Il bottone Filtra é attivo");
+            Assert.fail("Il bottone Filtra é attivo");
+        }
+    }
 }
 
 

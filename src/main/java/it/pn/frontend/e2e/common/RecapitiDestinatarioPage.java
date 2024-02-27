@@ -87,12 +87,12 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void insertEmailPEC(String emailPEC) {
         By inserimentoPecFieldBy = By.id("pec");
-        this.getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoPecFieldBy));
+        this.getWebDriverWait(10).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoPecFieldBy));
         this.element(inserimentoPecFieldBy).sendKeys(emailPEC);
     }
 
     public void confermaButtonClick() {
-        this.getWebDriverWait(60).withMessage("Il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
+        this.getWebDriverWait(10).withMessage("Il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
         this.confermaButton.click();
     }
 
@@ -105,7 +105,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void waitLoadPopUp() {
         try {
             By titleBy = By.id("dialog-title");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleBy));
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(titleBy));
             logger.info("Il pop-up di conferma viene visualizzato correttamente");
         } catch (TimeoutException e) {
             logger.error("Il pop-up di conferma NON viene visualizzato correttamente con errori: " + e.getMessage());
@@ -131,8 +131,13 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void confermaButtonClickPopUp() {
         try {
-            getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(this.confermaButtonPopUp));
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(this.confermaButtonPopUp));
             this.confermaButtonPopUp.click();
+            By confermaButtonPostInserimentoBy = By.id("confirmDialog");
+            if (!driver.findElements(confermaButtonPostInserimentoBy).isEmpty()) {
+                this.element(confermaButtonPostInserimentoBy).click();
+            }
+            // if confermaButtonPostInserimento appears, click it otherwise go on
         } catch (TimeoutException e) {
             logger.error("Il bottone conferma all'interno del popup non è cliccabile con errore:" + e.getMessage());
             Assert.fail("Il bottone conferma all'interno del popup non è cliccabile con errore:" + e.getMessage());
@@ -142,7 +147,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public boolean waitMessaggioErrore() {
         try {
             By messaggioErroreBy = By.id("error-alert");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messaggioErroreBy));
+            this.getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(messaggioErroreBy));
             logger.info("Il messaggio di errore viene visualizzato correttamente");
             return true;
         } catch (TimeoutException e) {
@@ -194,7 +199,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public boolean verificaPecAssociata() {
         try {
             By pecAssociata = By.xpath("//p[contains(text(), 'PEC associata')]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(pecAssociata));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(pecAssociata));
             return true;
         } catch (TimeoutException e) {
             logger.error("pec associata non trovata" + e.getMessage());
@@ -205,7 +210,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public boolean siVisualizzaPopUpConferma() {
         try {
             By popUpConfermaBy = By.xpath("//h2[contains(text(),'Grazie!')]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(popUpConfermaBy));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(popUpConfermaBy));
             return true;
         } catch (TimeoutException e) {
             logger.error("pop up conferma non trovato" + e.getMessage());
@@ -293,7 +298,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean siControllaPECModificata(String pecInserita) {
         By pecBy = By.xpath("//div[@data-testid = 'legalContacts']//div//p");
-        this.getWebDriverWait(30).withMessage("Non trovata nessuna email PEC inserita").until(ExpectedConditions.visibilityOfElementLocated(pecBy));
+        this.getWebDriverWait(10).withMessage("Non trovata nessuna email PEC inserita").until(ExpectedConditions.visibilityOfElementLocated(pecBy));
         WebElement pec = this.element(pecBy);
         return pec.getText().equals(pecInserita);
     }
@@ -386,8 +391,8 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void siControllaEmailAggiunta() {
-        By pecAssociataBy = By.xpath("//form[@data-testid='specialContactForm']//div/p");
-        this.getWebDriverWait(30).withMessage("La mail non è stata aggiunta correttamente").until(ExpectedConditions.visibilityOfElementLocated(pecAssociataBy));
+        By pecAssociataBy = By.xpath("//form[@data-testid='specialContactForm']");
+        this.getWebDriverWait(10).withMessage("La mail non è stata aggiunta correttamente").until(ExpectedConditions.visibilityOfElementLocated(pecAssociataBy));
     }
 
     public boolean controlloEmailAssociata(String email) {
@@ -495,12 +500,13 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void visualizzazioneSezioneAltriRecapiti() {
         By altriRecapitiSectionBy = By.id("specialContact");
-        getWebDriverWait(30).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
     }
+
     public void visualizzazioneSezioneAltriRecapitiPG() {
         vaiInFondoAllaPagina();
         By altriRecapitiSectionBy = By.id("specialContactTitle");
-        getWebDriverWait(30).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
     }
 
 }

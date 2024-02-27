@@ -127,7 +127,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
         }
     }
 
-    public List<ResponseType> sendHttpGetRequest(String endpoint, Map<String, String> headers, Class<ResponseType> responseType) throws IOException {
+    public List<ResponseType> sendHttpGetRequestList(String endpoint, Map<String, String> headers, Class<ResponseType> responseType) throws IOException {
         String apiUrl = baseUrlApi + endpoint;
 
         try (CloseableHttpClient client = HttpClients.createDefault()) {
@@ -149,6 +149,38 @@ public class CustomHttpClient<RequestType, ResponseType> {
                     Type listType = new TypeToken<ArrayList<ResponseType>>() {
                     }.getType();
                     List<ResponseType> responseObject = gson.fromJson(responseString, listType);
+                    logger.info("Response body: " + responseObject);
+                    return responseObject;
+                } else {
+                    entity = response.getEntity();
+                    responseString = EntityUtils.toString(entity);
+                    logger.error("Response code: " + response.getCode());
+                    logger.error("Response body: " + responseString);
+                    throw new IOException("Error in HTTP request to " + apiUrl + ": " + response.getCode());
+                }
+            });
+        }
+    }
+
+    public ResponseType sendHttpGetRequest(String apiUrl, Map<String, String> headers, Class<ResponseType> responseType) throws IOException {
+
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            this.httpRequest = ClassicRequestBuilder
+                    .get(apiUrl)
+                    .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
+                    .addHeader("x-api-key", this.apiKey)
+                    .build();
+            if (headers != null) {
+                headers.forEach(this.httpRequest::addHeader);
+            }
+            return client.execute(httpRequest, response -> {
+                final HttpEntity entity;
+                final String responseString;
+
+                if (response.getCode() == 200 || response.getCode() == 202 || response.getCode() == 201) {
+                    entity = response.getEntity();
+                    responseString = EntityUtils.toString(entity);
+                    ResponseType responseObject = gson.fromJson(responseString, responseType);
                     logger.info("Response body: " + responseObject);
                     return responseObject;
                 } else {
@@ -190,5 +222,40 @@ public class CustomHttpClient<RequestType, ResponseType> {
                 throw new IOException("Error in HTTP request to " + "https://webapi." + env + ".notifichedigitali.it/token-exchange" + ": " + response.getCode());
             }
         });
+    }
+
+    public ResponseType sendHttpDeleteRequest(String endpoint, Map<String, String> headers, Class<ResponseType> responseType) throws IOException {
+        String env = System.getProperty("environment");
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            this.httpRequest = ClassicRequestBuilder
+                    .delete(endpoint)
+                    .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
+                    .addHeader("Origin", "https://cittadini." + env + ".notifichedigitali.it")
+                    .build();
+            if (headers != null) {
+                headers.forEach(this.httpRequest::addHeader);
+            }
+            return client.execute(httpRequest, response -> {
+                final HttpEntity entity;
+                final String responseString;
+
+                if (response.getCode() == 204) {
+                    entity = response.getEntity();
+                    if (entity != null) {
+                        responseString = EntityUtils.toString(entity);
+                        ResponseType responseObject = gson.fromJson(responseString, responseType);
+                        logger.info("Response body: " + responseObject);
+                        return responseObject;
+                    }
+                    return null;
+                } else {
+                    entity = response.getEntity();
+                    responseString = EntityUtils.toString(entity);
+                    logger.error("Response code: " + response.getCode());
+                    logger.error("Response body: " + responseString);
+                    throw new IOException("Error in HTTP request to " + endpoint + ": " + response.getCode());
+                }
+            });
+        }
     }
 }

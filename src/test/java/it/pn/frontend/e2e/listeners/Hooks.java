@@ -4,6 +4,8 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import it.pn.frontend.e2e.model.DigitalAddressResponse;
+import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import org.apache.commons.io.FileUtils;
@@ -223,7 +225,7 @@ public class Hooks {
         if (scenario.isFailed()) {
             logger.error("scenario go to error : " + scenario.getName());
             try {
-                File screenshot = ( (TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+                File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
                 byte[] screenshotByte = FileUtils.readFileToByteArray(screenshot);
                 Date date = Calendar.getInstance().getTime();
                 DateFormat formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
@@ -252,28 +254,46 @@ public class Hooks {
      * Clear the delegate of PF after the scenario
      * P.S: This will work only if you invoke the feature step that creates the delegate
      */
-    @After("@DeleghePF or @DeleghePG")
-    public void clearDelegatePF() {
+    @After(value = "@DeleghePF")
+    public void clearDelegate() {
         String mandateId = System.getProperty("mandateId");
         if (mandateId != null) {
             RestDelegation restDelegation = RestDelegation.getInstance();
-            restDelegation.revokeDelegation(mandateId);
-            logger.info("Delega revocata con successo");
+            restDelegation.revokeDelegationPF(mandateId);
+            logger.info("Delega PF revocata con successo");
         } else {
             logger.info("mandateId non trovato");
         }
     }
 
-    /*@After(value = "@DeleghePG")
-    public void clearDelegatePG() {
-        String mandateId = System.getProperty("mandateId");
-        if (mandateId != null) {
-            RestDelegation restDelegation = RestDelegation.getInstance();
-            restDelegation.revokeDelegation(mandateId);
-            logger.info("Delega PG revocata con successo");
-        } else {
-            logger.info("mandateId non trovato");
+    /**
+     * Clear the contacts of PF after the scenario
+     * P.S: This will work only if there are any contacts available
+     */
+    @After(value = "@recapitiPF")
+    public void clearRecapiti() {
+        RestContact restContact = RestContact.getInstance();
+        DigitalAddressResponse digitalAddress = restContact.getDigitalAddress();
+        // Check for legal ones and remove them
+        if (!digitalAddress.getLegal().isEmpty()) {
+            digitalAddress.getLegal().forEach(address -> {
+                if (address.getSenderId().equalsIgnoreCase("default")) {
+                    restContact.removeDigitalAddressLegalPec();
+                } else {
+                    restContact.removeSpecialContact(address);
+                }
+            });
         }
-    }*/
+        // Check for courtesy ones and remove them
+        if (!digitalAddress.getCourtesy().isEmpty()) {
+            digitalAddress.getCourtesy().forEach(address -> {
+                if (address.getSenderId().equalsIgnoreCase("default")) {
+                    restContact.removeDigitalAddressCourtesyEmail();
+                } else {
+                    restContact.removeSpecialContact(address);
+                }
+            });
+        }
+    }
 
 }
