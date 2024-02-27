@@ -461,6 +461,7 @@ public class DeleghePagoPATest {
     @Then("Si controlla che non ci sia più una delega")
     public void siControllaCheNonCiSiaPiuUnaDelega() {
         logger.info("Si controlla che non sia più presente una delega");
+        DataPopulation.waitTime(6);
         this.deleghe = dataPopulation.readDataPopulation("delegatoPF.yaml");
         String nome = this.deleghe.get("name").toString();
         String cognome = this.deleghe.get("familyName").toString();
