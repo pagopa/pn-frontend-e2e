@@ -160,7 +160,13 @@ public class NotifichePFPage extends BasePage {
     public void siVisualizzaPaginaNotifichePersonaFisica() {
         try {
             By notifichePageTitleBy = By.id("Le tue notifiche-page");
+            By bannerRecapiti = By.cssSelector("[data-testid='menu-item(i tuoi recapiti)']");
+            By filtriDiRicerca = By.cssSelector("[data-testid='filter-form']");
+            By elencoNotifiche = By.id("notificationsTable.body.row");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notifichePageTitleBy));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(bannerRecapiti));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(filtriDiRicerca));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(elencoNotifiche));
             logger.info("Il titolo della pagina notifiche persona fisica si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il titolo della pagina notifiche persona fisica NON si visualizza correttamente con errore:" + e.getMessage());
@@ -196,6 +202,12 @@ public class NotifichePFPage extends BasePage {
 
             By nomeColonnaMittenteBy = By.xpath("//th[contains(text(),'Mittente')]");
             getWebDriverWait(30).withMessage("il nome della colonna Mittente non è visibile").until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaMittenteBy));
+
+            By nomeColonnaCodiceIUNBy = By.xpath("//th[contains(text(),'Codice IUN')]");
+            getWebDriverWait(30).withMessage("il nome della colonna Codice IUN non è visibile").until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaCodiceIUNBy));
+
+            By nomeColonnaStatoBy = By.xpath("//th[contains(text(),'Stato')]");
+            getWebDriverWait(30).withMessage("il nome della colonna Stato non è visibile").until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaStatoBy));
             logger.info("Si visualizza correttamente l'elenco delle notifiche");
 
         } catch (Exception e) {
