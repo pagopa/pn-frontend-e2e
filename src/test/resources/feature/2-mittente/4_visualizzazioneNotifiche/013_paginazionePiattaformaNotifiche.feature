@@ -14,5 +14,9 @@ Feature:il mittente cambia visualizzazione della pagina
     And Nella pagina Piattaforma Notifiche si cambia pagina utilizzando un numero
     Then Nella pagina Piattaforma Notifiche si cambia il numero elementi visualizzati attraverso il filtro
     And Nella pagina Piattaforma Notifiche si controlla che vengano visualizzate tutte notifiche
+    And Si clicca sulla pagina numero 3 delle notifiche
+    When Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica "personaFisica"
+    And Cliccare sul bottone Filtra
+    Then Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice fiscale del destinatario "personaFisica"
     And Logout da portale mittente
 
