@@ -79,11 +79,19 @@ public class LoginPGPagoPATest {
         DataPopulation.waitTime(10);
 
         // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
-        HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
-        headerPGSection.waitLoadHeaderPGPage();
-        PiattaformaNotifichePGPAPage notifichePGPage = new PiattaformaNotifichePGPAPage(this.driver);
-        Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("personaGiuridica.yaml");
-        notifichePGPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
+        if(personaGiuridica.equalsIgnoreCase("delegante")){
+            HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
+            headerPGSection.waitLoadHeaderPGPage();
+            PiattaformaNotifichePGPAPage notifichePGPage = new PiattaformaNotifichePGPAPage(this.driver);
+            Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("personaGiuridica.yaml");
+            notifichePGPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
+        }else {
+            HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
+            headerPGSection.waitLoadHeaderPGPage();
+            PiattaformaNotifichePGPAPage notifichePGPage = new PiattaformaNotifichePGPAPage(this.driver);
+            Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("delegatoPG.yaml");
+            notifichePGPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
+        }
     }
 
     @When("Login portale persona giuridica tramite request method")
