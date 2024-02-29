@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.api.personaFisica;
 
+import lombok.Data;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.ClassicHttpRequest;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
+@Data
 public class RecuperoOTPRecapiti {
 
     private static final Logger logger = LoggerFactory.getLogger("RecuperoOTPRecapiti");
@@ -20,52 +22,28 @@ public class RecuperoOTPRecapiti {
     private String digitalAddress;
     private String responseBody;
     private int responseCode;
-    public int getResponseCode() {
-        return responseCode;
-    }
-    public String getResponseBody() {
-        return responseBody;
-    }
-    public void setResponseBody(String responseBody) {
-        this.responseBody = responseBody;
-    }
-    public String getDigitalAddress() {
-        return digitalAddress;
-    }
-    public void setDigitalAddress(String digitalAddress) {
-        this.digitalAddress = digitalAddress;
-    }
-    public String getUrlEndPoint() {
-        return urlEndPoint;
-    }
-    public String getStartUrl() {
-        return startUrl;
-    }
-    public void setStartUrl(String startUrl){
-        this.startUrl = startUrl;
-    }
 
     public boolean runRecuperoOTPRecapiti(String url) {
-        try{
+        try {
             CloseableHttpClient httpClient = HttpClients.createDefault();
             ClassicHttpRequest httpGet = ClassicRequestBuilder
                     .get(url)
-                    .addHeader(HttpHeaders.CONTENT_TYPE,"application/json")
+                    .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
                     .build();
             httpClient.execute(httpGet, response -> {
-                logger.info("La request get verso "+url+" ha risposto con codice :"+response.getCode()+" e la reason Phrase è "+response.getReasonPhrase());
-                if (response.getCode()==200){
+                logger.info("La request get verso " + url + " ha risposto con codice : " + response.getCode() + "\ne la reason Phrase è " + response.getReasonPhrase());
+                if (response.getCode() == 200) {
                     final HttpEntity entity = response.getEntity();
                     setResponseBody(EntityUtils.toString(entity));
                     return true;
-                }else {
+                } else {
                     this.responseCode = response.getCode();
                     return false;
                 }
             });
-        }catch (IOException e){
+        } catch (IOException e) {
             return false;
         }
-        return this.responseBody!=null;
+        return this.responseBody != null;
     }
 }
