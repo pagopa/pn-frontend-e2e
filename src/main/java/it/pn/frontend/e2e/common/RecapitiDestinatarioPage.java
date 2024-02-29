@@ -479,7 +479,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void clickHoCapitoCheckBoxPopup() {
         By hoCapitoCheckboxBy = By.xpath("//span[contains(text(),'Ho capito')]/preceding-sibling::span/input");
         WebElement hoCapitoCheckBox = this.driver.findElement(hoCapitoCheckboxBy);
-        logger.error("click su checkbox ho capito");
+        logger.info("click su checkbox ho capito");
         hoCapitoCheckBox.click();
     }
 
