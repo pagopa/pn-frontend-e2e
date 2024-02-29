@@ -274,4 +274,17 @@ public class ApiKeysTest {
 
         apiKeyPAPage.chiudiPopUpVisualizza();
     }
+
+    @And("Si copia correttamente la Api Key cliccando sul bottone di copia")
+    public void siCopiaCorrettamenteLaApiKeyCliccandoSulBottoneDiCopia() {
+        logger.info("Si clicca copia sul tasto 'copy-clipboard' per copiare la Api Key");
+        String apikeyCopied = apiKeyPAPage.copiaApiKey();
+        logger.info("La Api Key copiata è: " + apikeyCopied);
+    }
+
+    @Then("Nella pagina Api Key posizionare il cursuore sopra il numero gruppi")
+    public void nellaPaginaApiKeyPosizionareIlCursuoreSopraIlNumeroGruppi() {
+        apiKeyPAPage.mouseHoverGroups();
+        apiKeyPAPage.waitLoadMessaggioData();
+    }
 }
