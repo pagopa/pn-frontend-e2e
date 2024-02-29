@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RecapitiPGPage;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
@@ -86,5 +87,30 @@ public class RecapitiPGPagoPaTest {
             recapitiDestinatarioPage.eliminaPecEsistente();
             backgroundTest.aggiungiPECPG();
         }
+    }
+
+    @And("Si clicca su elimina email")
+    public void siCliccaSuEliminaEmail() {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+
+        iTuoiRecapitiPage.eliminaEmailEsistente();
+    }
+
+    @And("Si annulla eliminazione email")
+    public void siAnnullaEliminazioneEmail() {
+        recapitiDestinatarioPage.checkButtonAnnullaEliminazioneInPopUp();
+        recapitiDestinatarioPage.clickButtonAnnullaEliminazioneInPopUp();
+    }
+
+    @And("Si conferma eliminazione nel pop up")
+    public void siConfermaEliminazioneNelPopUp() {
+        if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
+            recapitiDestinatarioPage.confermaButtonEliminaClick();
+        }
+    }
+
+    @And("Si controlla presenza email precedentemente salvata {string}")
+    public void siControllaPresenzaEmailPrecedentementeSalvata(String email) {
+        recapitiDestinatarioPage.checkEmailPrecedentementeSalvata(email);
     }
 }

@@ -62,6 +62,12 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(xpath = "//form[@data-testid = 'specialContactForm']//div//button[contains(text(),'Elimina')]")
     List<WebElement> eliminaButtonList;
 
+    @FindBy(id = "buttonAnnulla")
+    WebElement buttonAnnullaEliminazioneInPopUp;
+
+    @FindBy(id = "courtesyContacts-email")
+    WebElement emailAssociata;
+
     public RecapitiDestinatarioPage(WebDriver driver) {
         super(driver);
     }
@@ -235,8 +241,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean verificaMailAssociata() {
         try {
-            By emailAssociataBy = By.id("courtesyContacts-email");
-            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(emailAssociataBy));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(emailAssociata));
             return true;
         } catch (TimeoutException e) {
             return false;
@@ -507,6 +512,28 @@ public class RecapitiDestinatarioPage extends BasePage {
         vaiInFondoAllaPagina();
         By altriRecapitiSectionBy = By.id("specialContactTitle");
         getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
+    }
+
+    public void checkButtonAnnullaEliminazioneInPopUp(){
+        try{
+            getWebDriverWait(20).withMessage("pulsante annulla eliminazione non trovato").until(ExpectedConditions.visibilityOf(buttonAnnullaEliminazioneInPopUp));
+            logger.info("pulsante annulla eliminazione visibile");
+        }catch(TimeoutException e){
+            logger.error("caricamento pop-up con errore:" + e.getMessage());
+            Assert.fail("caricamento pop-up con errore:" + e.getMessage());
+        }
+    }
+    public void clickButtonAnnullaEliminazioneInPopUp(){
+        buttonAnnullaEliminazioneInPopUp.click();
+    }
+
+    public void checkEmailPrecedentementeSalvata(String email){
+        if(emailAssociata.getText().equalsIgnoreCase(email)){
+            logger.info("la mail associata risulta uguale alla precedente");
+        }else{
+            logger.error("la mail associata é diversa dalla precedentemente salvata");
+            Assert.fail("la mail associata é diversa dalla precedentemente salvata");
+        }
     }
 
 }
