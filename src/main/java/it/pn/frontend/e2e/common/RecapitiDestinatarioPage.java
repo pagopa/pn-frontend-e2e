@@ -112,6 +112,10 @@ public class RecapitiDestinatarioPage extends BasePage {
         try {
             By titleBy = By.id("dialog-title");
             this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(titleBy));
+            boolean checkButton = !confermaButtonPopUp.isEnabled() && annullaButton.isEnabled();
+            if(!checkButton){
+                Assert.fail("i pulsanti all'interno del pop-up non rispettano le condizioni");
+            }
             logger.info("Il pop-up di conferma viene visualizzato correttamente");
         } catch (TimeoutException e) {
             logger.error("Il pop-up di conferma NON viene visualizzato correttamente con errori: " + e.getMessage());
@@ -134,6 +138,8 @@ public class RecapitiDestinatarioPage extends BasePage {
             Assert.fail("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
         }
     }
+
+
 
     public void confermaButtonClickPopUp() {
         try {
