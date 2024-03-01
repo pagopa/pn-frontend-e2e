@@ -686,4 +686,27 @@ public class PiattaformaNotifichePage extends BasePage {
             Assert.fail("numero di default delle notifiche visualizzate non corretto");
         }
     }
+
+    public boolean controlloEsistenzaStato() {
+        this.statoNotificaField.click();
+        try {
+            List<WebElement> statiNotifica = this.elements(By.xpath("//li[@data-value]"));
+            this.getWebDriverWait(10).withMessage("Il menu a tendina dello stato notifica del filtro non è visibile").until(ExpectedConditions.visibilityOfAllElements(statiNotifica));
+            ArrayList<String> stati = new ArrayList<>(List.of("Tutti gli stati", "Depositata", "Invio in corso", "Consegnata", "Perfezionata per decorrenza termini", "Avvenuto accesso", "Annullata", "Destinatario irreperibile"));
+            for (WebElement stato : statiNotifica) {
+                if (!stati.contains(stato.getText())) {
+                    logger.error("Lo stato " + stato.getText() + " non è presente nella lista");
+                    return false;
+                }
+            }
+            logger.info("Tutti gli stati sono presenti nella lista");
+            return true;
+        } catch (TimeoutException e) {
+            logger.error("Stato notifica NON trovata con errore: " + e.getMessage());
+            Assert.fail("Stato notifica NON trovata con errore: " + e.getMessage());
+            return false;
+        } finally {
+            this.element(By.id("menu-status")).click();
+        }
+    }
 }

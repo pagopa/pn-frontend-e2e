@@ -452,4 +452,14 @@ public class RicercaNotificheMittentePagoPATest {
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
     }
 
+    @Then("Nella pagina piattaforma Notifiche è presente un campo di ricerca con un menu a tendina per selezionare lo stato della notifica")
+    public void nellaPaginaPiattaformaNotificheÈPresenteUnCampoDiRicercaConUnMenuATendinaPerSelezionareLoStatoDellaNotifica() {
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        if (piattaformaNotifichePage.controlloEsistenzaStato()) {
+            logger.info("Campo stato notifica trovato");
+        } else {
+            logger.error("Campo stato notifica NON trovato");
+            Assert.fail("Campo stato notifica NON trovato");
+        }
+    }
 }
