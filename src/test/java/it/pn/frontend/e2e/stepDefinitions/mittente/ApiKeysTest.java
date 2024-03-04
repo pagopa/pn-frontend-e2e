@@ -220,7 +220,7 @@ public class ApiKeysTest {
             case "dev" -> gruppo = datiNotifica.get("gruppoDev").toString();
             case "test", "uat" -> {
                 gruppo = datiNotifica.get("gruppoTest").toString();
-                gruppo2 = datiNotifica.get("gruppoTest2").toString();
+                gruppo2 = "test-2-ta";
             }
         }
         apiKeyPAPage.inserireGruppoApi(gruppo);
