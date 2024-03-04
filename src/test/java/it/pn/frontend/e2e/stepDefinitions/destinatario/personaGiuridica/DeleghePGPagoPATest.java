@@ -130,6 +130,14 @@ public class DeleghePGPagoPATest {
         delegatiImpresaSection.controlloEsistenzaDelega(this.datiDelega.get("ragioneSociale").toString());
     }
 
+    @And("Nella sezione Delegati dall impresa si visualizza correttamente una delega in stato di attesa di conferma {string}")
+    public void nellaSezioneDelegatiDallImpresaSiVisualizzaCorrettamenteUnaDelegaInStatoDiAttesaConferma(String ragioneSociale) {
+        logger.info("Si controlla che la delega sia in stato attesa di conferma");
+
+        delegatiImpresaSection.waitLoadDelegatiImpresaPage();
+        delegatiImpresaSection.controlloEsistenzaDelega(ragioneSociale);
+    }
+
     @And("Si controlla che non sia presente una delega con stesso nome {string} persona giuridica")
     public void siControllaCheNonSiaPresenteUnaDelegaConStessoNomePersonaGiuridica(String nomeFile) {
         logger.info("Si controlla che non ci sia una delega con lo stesso nome");
@@ -496,5 +504,24 @@ public class DeleghePGPagoPATest {
         BackgroundTest backgroundTest = new BackgroundTest();
 
         backgroundTest.accettazioneDelegaSceltaGruppo(withGroup.equalsIgnoreCase("senza"));
+    }
+
+    @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si controlla che ci sia una delega con la ragione sociale inserita {string}")
+    public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiControllaCheCiSiaUnaDelegaConLaRagioneSocialeInserita(String codFiscale) {
+        if (deleghePGPagoPAPage.controlloDelegaRestituita(codFiscale)) {
+            this.logger.info("La delega restituita è corretta");
+        } else {
+            this.logger.error("La delega restituita NON è corretta");
+            Assert.fail("La delega restituita NON è corretta");
+        }
+    }
+
+    @And("Si revoca delega come delegante con api")
+    public void siRevocaDelegaComeDelegantConApi() {
+
+        String tokenExchange = loginPGPagoPaTest.getTokenExchangePGFromFile("delegante");
+        String mandateId = System.getProperty("mandateId");
+        restDelegation.revokeDelegation(mandateId);
+
     }
 }

@@ -77,12 +77,6 @@ public class DelegatiImpresaSection extends BasePage {
                     this.getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElementLocated(statusChip, "In attesa di conferma"));
                 }
             }
-//            By nomeDelegato = By.id("delegatesBodyRowDesktop");
-//            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDelegato));
-//            this.getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElementLocated(nomeDelegato, ragioneSociale));
-//            By statusChip = By.id("chip-status-warning");
-//            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statusChip));
-//            this.getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElementLocated(statusChip, "In attesa di conferma"));
             this.logger.info("Si visualizza la delega creata");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza la delega creata");
