@@ -19,5 +19,5 @@ Feature:La persona giuridica fa una ricerca per gruppo delle deleghe
     And Si accetta la delega "con" gruppo
     And Nella pagina Deleghe sezione Deleghe a Carico dell impresa si inserisce il gruppo del delegante
     And Nella pagina Deleghe sezione Deleghe a Carico dell impresa si clicca su bottone Filtra
-    And Nella pagina Deleghe sezione Deleghe a Carico dell impresa si controlla che venga restituita la delega con il codice fiscale inserito "personaGiuridica_1"
+    And Nella pagina Deleghe sezione Deleghe a Carico dell impresa si controlla che venga restituita la delega con il codice fiscale inserito "Convivio Spa"
     And Logout da portale persona giuridica
