@@ -555,7 +555,7 @@ public class LoginPersonaFisicaPagoPA {
         this.driver.get(url);
     }
 
-    public String getTokenExchangeFromFile(String personaFisica) {
+    public String getTokenExchangePFFromFile(String personaFisica) {
         DataPopulation dataPopulation = new DataPopulation();
         String environment = System.getProperty("environment");
         String token = "";

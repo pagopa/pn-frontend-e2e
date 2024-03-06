@@ -95,20 +95,14 @@ public class DeleghePage extends BasePage {
 
     public void clickMenuDelega(String nome, String cognome) {
         try {
-            TimeUnit.SECONDS.sleep(10);
+            //TimeUnit.SECONDS.sleep(10);
             By menuDelega = By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']");
             this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuDelega));
             this.js().executeScript("arguments[0].click()", this.element(menuDelega));
             logger.info("cliccato correttamente su menu delega button");
-        } catch (StaleElementReferenceException e) {
-            By menuDelega = By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']");
-            this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuDelega));
-            this.js().executeScript("arguments[0].click()", this.element(menuDelega));
         } catch (TimeoutException e) {
             logger.error("Menu delega button NON trovata con errore: " + e.getMessage());
             Assert.fail("Menu delega button NON trovata con errore: " + e.getMessage());
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -134,6 +128,7 @@ public class DeleghePage extends BasePage {
 
     public void clickMenuPerRifiuto(String nome, String cognome) {
         try {
+            logger.info(nome + cognome );
             By menuDelegheBy = By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']");
             getWebDriverWait(this.loadComponentWaitTime).until(ExpectedConditions.visibilityOfElementLocated(menuDelegheBy));
             logger.info("Si clicca correttamente il menu della delega");
@@ -146,7 +141,7 @@ public class DeleghePage extends BasePage {
 
     public void clickRifiuta() {
         try {
-            By rifiutaButtonBy = By.xpath("//li[contains(text(),'Rifiuta')]");
+            By rifiutaButtonBy = By.id("reject-delegation-button");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(rifiutaButtonBy));
             this.element(rifiutaButtonBy).click();
             logger.info("Si visualizza il bottone rifiuta");
@@ -195,7 +190,7 @@ public class DeleghePage extends BasePage {
     public boolean siVisualizzaUnaDelegaConNome(String nome, String cognome) {
         try {
             By delegaBy = By.xpath("//tr[@id = 'delegatesTable.body.row']//p[contains(text(),'" + nome + " " + cognome + "')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaBy));
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(delegaBy));
             logger.info("Si trova una delega");
             return true;
         } catch (TimeoutException e) {
