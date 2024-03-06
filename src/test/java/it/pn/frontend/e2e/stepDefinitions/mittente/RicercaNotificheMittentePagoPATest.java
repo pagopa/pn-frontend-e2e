@@ -52,6 +52,19 @@ public class RicercaNotificheMittentePagoPATest {
         piattaformaNotifichePage.selectFiltraButton();
     }
 
+    @And("Si verifica che il bottone Filtra sia disabilitato")
+    public void siVerificaCheIlBottoneFiltraSiaDisabilitato() {
+        logger.info("Si verifica che il bottone Filtra sia disabilitato");
+
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        if (piattaformaNotifichePage.isFiltraButtonDisabled()) {
+            logger.info("Il bottone Filtra è disabilitato");
+        } else {
+            logger.error("Il bottone Filtra è abilitato");
+            Assert.fail("Il bottone Filtra è abilitato");
+        }
+    }
+
     @And("Cliccare sul bottone Filtra del delegato")
     public void cliccareSulBottoneFiltraDelDelegato() {
         logger.info("Si clicca sul tasto filtra del delegante sotto notifiche");
@@ -452,6 +465,16 @@ public class RicercaNotificheMittentePagoPATest {
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
     }
 
+    @And("Si verifica che i campi della ricerca delle date siano errate")
+    public void siVerificaCheICampiDellaRicercaDelleDateSianoErrate() {
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        if (piattaformaNotifichePage.controlloDateErrate()) {
+            logger.info("Le date inserite sono errate");
+        } else {
+            logger.error("Le date inserite sono corrette");
+            Assert.fail("Le date inserite sono corrette");
+        }
+    }
     @Then("Nella pagina piattaforma Notifiche è presente un campo di ricerca con un menu a tendina per selezionare lo stato della notifica")
     public void nellaPaginaPiattaformaNotificheÈPresenteUnCampoDiRicercaConUnMenuATendinaPerSelezionareLoStatoDellaNotifica() {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
