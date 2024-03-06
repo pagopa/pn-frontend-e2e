@@ -77,6 +77,9 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "//form[contains(@data-testid,'preliminaryInformationsForm')]")
     WebElement preliminaryInformationsForm;
 
+    @FindBy(xpath = "//input[@aria-invalid='true']")
+    List<WebElement> inputsError;
+
 
     public PiattaformaNotifichePage(WebDriver driver) {
         super(driver);
@@ -685,5 +688,20 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.error("numero di default delle notifiche visualizzate non corretto");
             Assert.fail("numero di default delle notifiche visualizzate non corretto");
         }
+    }
+
+    public boolean isFiltraButtonDisabled() {
+        return !inputsError.isEmpty() || filtraButton.getAttribute("disabled") != null;
+    }
+
+    public boolean controlloDateErrate() {
+        boolean isDateErrate = false;
+        for (WebElement input : inputsError) {
+            if (input.getAttribute("id").equals("startDate") || input.getAttribute("id").equals("endDate")) {
+                isDateErrate = true;
+                break;
+            }
+        }
+        return isDateErrate;
     }
 }
