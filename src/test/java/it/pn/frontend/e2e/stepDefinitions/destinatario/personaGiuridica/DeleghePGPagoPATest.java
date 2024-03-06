@@ -297,6 +297,17 @@ public class DeleghePGPagoPATest {
         }
     }
 
+    @And("Si clicca sul bottone conferma gruppo errato")
+    public void siCliccaSulBottoneConfermaGruppoErrato() {
+        logger.info("Si seleziona il bottone conferma");
+
+        deleghePGPagoPAPage.clickBottoneConferma();
+        if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
+            logger.info("il codice inserito è sbagliato");
+        }
+    }
+
+
     @And("Si controlla che la delega PG ha lo stato Attiva {string}")
     public void siControllaCheLaDelegaPGALoStatoAttiva(String ragioneSociale) {
         logger.info("Si controlla che lo stato della delega sia attivo");
@@ -452,14 +463,30 @@ public class DeleghePGPagoPATest {
             driver.navigate().refresh();
         }
 
-    @And("Si clicca sul bottone conferma delega")
-    public void siCliccaSulBottoneConfermaDelega() {
+    @And("Si clicca sul bottone accetta delega dopo aver inserito il codice di verifica")
+    public void siCliccaSulBottoneAccettaDelegaDopoAverInseritoIlCodiceDiVerifica() {
         logger.info("Si clicca su conferma del pop-up");
 
         deleghePGPagoPAPage.clickBottoneConfermaDelega();
         if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
             logger.error("il codice inserito è sbagliato");
             Assert.fail("il codice inserito è sbagliato");
+        }
+    }
+
+    public void siCliccaSulBottoneAccettaDelega() {
+        logger.info("Si clicca su conferma del pop-up");
+
+        deleghePGPagoPAPage.clickBottoneConfermaDelega();
+    }
+
+    @And("Si controlla codice verifica accettazione delega errato")
+    public void siControllaCodiceVerificaAccettazioneDelegaErrato() {
+        logger.info("Si clicca su conferma del pop-up per controllo codice verifica errato");
+
+        deleghePGPagoPAPage.clickBottoneConfermaDelega();
+        if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
+            logger.info("il codice inserito è sbagliato");
         }
     }
 
@@ -496,5 +523,30 @@ public class DeleghePGPagoPATest {
         BackgroundTest backgroundTest = new BackgroundTest();
 
         backgroundTest.accettazioneDelegaSceltaGruppo(withGroup.equalsIgnoreCase("senza"));
+    }
+
+    public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModaleErrata(){
+
+        deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI("00000");
+
+    }
+
+    public void nonSiAssegnaUnGruppoAllaDelegaCheLoRichiede() {
+        deleghePGPagoPAPage.checkErroreInSelezioneGruppo();
+    }
+
+    @And("Si emula accettazione della delega con gruppo con errore")
+    public void siEmulaAccettazioneDellaDelegaConGruppoConErrore() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+
+        backgroundTest.checkDelegaSceltaGruppoEInserimentoCodiceErrata();
+    }
+
+    public void siCliccaSulBottoneIndietroInInserimentoCodiceVerifica() {
+        deleghePGPagoPAPage.clickIndietroInInserimentoCodiceVerifica();
+    }
+
+    public void siCliccaSulBottoneIndietroInAssegnazioneGruppo(){
+        deleghePGPagoPAPage.clickButtonIndietroInAssegnazioneGruppo();
     }
 }
