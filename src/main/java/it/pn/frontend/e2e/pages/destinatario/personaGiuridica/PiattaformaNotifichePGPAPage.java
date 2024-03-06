@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Set;
 
 public class PiattaformaNotifichePGPAPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("PiattaformaNotifichePGPAPage");
@@ -274,7 +275,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         this.js().executeScript("arguments[0].click()", this.documentButton);
 
     }
-
 }
 
 
