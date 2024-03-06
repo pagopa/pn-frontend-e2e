@@ -17,6 +17,6 @@ Feature:il mittente cambia visualizzazione della pagina
     And Si clicca sulla pagina numero 3 delle notifiche
     When Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica "personaFisica"
     And Cliccare sul bottone Filtra
-    Then Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice fiscale del destinatario "personaFisica"
+    Then Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice fiscale del destinatario "CSRGGL44L13H501E"
     And Logout da portale mittente
 
