@@ -13,7 +13,7 @@ Feature: La persona giuridica elimina l'indirizzo email
     And Si clicca su elimina email
     And Si annulla eliminazione email
     And Si controlla presenza email precedentemente salvata "prova@test.it"
+    And Si clicca su elimina email
     And Si conferma eliminazione nel pop up
-    #And Nella pagina I Tuoi Recapiti si clicca sul bottone elimina email e si conferma nel pop up
     Then Nella pagina I Tuoi Recapiti si controlla che l'indirizzo Email non sia presente
     And Logout da portale persona giuridica
