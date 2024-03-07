@@ -39,6 +39,10 @@ public class DeleghePGPagoPATest {
     private LoginPGPagoPATest loginPGPagoPaTest = new LoginPGPagoPATest();
 
 
+    public void vaiAllaSezioneDelegatiDellImpresa(){
+        logger.info("navigate to delegati");
+        driver.navigate().to("https://imprese." + System.getProperty("environment") + ".notifichedigitali.it/deleghe/delegati");
+    }
 
     @And("Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa")
     public void siVisualizzaLaPaginaDeleghe() {

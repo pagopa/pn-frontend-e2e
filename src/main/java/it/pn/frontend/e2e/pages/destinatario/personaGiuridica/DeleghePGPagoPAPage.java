@@ -313,5 +313,16 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     }
 
+    public boolean siVisualizzaUnaDelegaPG() {
+        try {
+            By menuDelega = By.xpath("//tr[contains(@class,'MuiTableRow-root css-g76qb5')]");
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
+            logger.info("Trovato correttamente almeno una delega");
+            return true;
+        } catch (TimeoutException e) {
+            logger.warn("Deleghe NON trovate con errore: " + e.getMessage());
+            return false;
+        }
+    }
 
 }
