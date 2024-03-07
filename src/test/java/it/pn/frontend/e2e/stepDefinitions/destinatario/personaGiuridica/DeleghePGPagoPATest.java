@@ -519,9 +519,20 @@ public class DeleghePGPagoPATest {
     @And("Si revoca delega come delegante con api")
     public void siRevocaDelegaComeDelegantConApi() {
 
-        String tokenExchange = loginPGPagoPaTest.getTokenExchangePGFromFile("delegante");
+        loginPGPagoPaTest.getTokenExchangePGFromFile("delegante");
         String mandateId = System.getProperty("mandateId");
         restDelegation.revokeDelegation(mandateId);
 
+    }
+
+    @And("Si controlla la tabella deleghe a carico dell impresa")
+    public void siControllaLaTabellaDelegheACaricoDellImpresa() {
+
+        deleghePGPagoPAPage.checkTabellaDelegheACaricoDellImpresa();
+    }
+
+    @And("Si controlla la tabella delegati dall impresa")
+    public void siControllaLaTabellaDelegatiDallImpresa() {
+        delegatiImpresaSection.checkTabellaDelegheDellImpresa();
     }
 }

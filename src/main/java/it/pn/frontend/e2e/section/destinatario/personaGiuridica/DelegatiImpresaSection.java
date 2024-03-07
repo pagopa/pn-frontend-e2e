@@ -39,6 +39,9 @@ public class DelegatiImpresaSection extends BasePage {
     @FindBy(id = "delegatesBodyRowDesktop")
     List<WebElement> nomeDelegato;
 
+    @FindBy(id = "notifications-table")
+    WebElement tabelleDelleDelegheDellImpresa;
+
     public DelegatiImpresaSection(WebDriver driver) {
         super(driver);
     }
@@ -67,7 +70,8 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void controlloEsistenzaDelega(String ragioneSociale) {
         try {
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(nomeDelegato));
+            getWebDriverWait(10).withMessage("tabella deleghe non trovata").until(ExpectedConditions.visibilityOf(tabelleDelleDelegheDellImpresa));
+            getWebDriverWait(10).withMessage("nome delegato non trovato").until(ExpectedConditions.visibilityOfAllElements(nomeDelegato));
             for (WebElement delegato : nomeDelegato) {
                 if (delegato.getText().contains(ragioneSociale)) {
                     logger.info("Delega trovata correttamente");
@@ -77,10 +81,10 @@ public class DelegatiImpresaSection extends BasePage {
                     this.getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElementLocated(statusChip, "In attesa di conferma"));
                 }
             }
-            this.logger.info("Si visualizza la delega creata");
+            logger.info("Si visualizza la delega creata");
         } catch (TimeoutException e) {
-            logger.error("Non si visualizza la delega creata");
-            Assert.fail("Non si visualizza la delega creata");
+            logger.error("Non si visualizza correttamente la delega creata:"+e.getMessage());
+            Assert.fail("Non si visualizza correttamente la delega creata:"+e.getMessage());
         }
     }
 
@@ -154,6 +158,27 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void clickAnnulla() {
         this.annullaButton.click();
+    }
+
+    public void checkTabellaDelegheDellImpresa() {
+        By menuDelega = By.xpath("//table[@id='notifications-table']//following-sibling::td//button[@data-testid='delegationMenuIcon']");
+        By colonnaNome = By.xpath("//table[@id='notifications-table']//th[span[contains(text(),'Nome')]]");
+        By colonnaInizioDelega = By.xpath("//table[@id='notifications-table']//th[contains(text(),'Inizio delega')]");
+        By colonnaFineDelega = By.xpath("//table[@id='notifications-table']//th[span[contains(text(),'Fine delega')]]");
+        By colonnaPermessi = By.xpath("//table[@id='notifications-table']//th[contains(text(),'Permessi')]");
+        By colonnaStato = By.xpath("//table[@id='notifications-table']//th[contains(text(),'Stato')]");
+        try {
+        getWebDriverWait(10).withMessage("tabella deleghe dell impresa non caricata correttamente").until(ExpectedConditions.visibilityOf(tabelleDelleDelegheDellImpresa));
+        getWebDriverWait(10).withMessage("colonna nome non caricata correttamente").until(ExpectedConditions.visibilityOfElementLocated(colonnaNome));
+        getWebDriverWait(10).withMessage("colonna inizio delega non caricata correttamente").until(ExpectedConditions.visibilityOfElementLocated(colonnaInizioDelega));
+        getWebDriverWait(10).withMessage("colonna fine delega non caricata correttamente").until(ExpectedConditions.visibilityOfElementLocated(colonnaFineDelega));
+        getWebDriverWait(10).withMessage("colonna permessi non caricata correttamente").until(ExpectedConditions.visibilityOfElementLocated(colonnaPermessi));
+        getWebDriverWait(10).withMessage("colonna stato non caricata correttamente").until(ExpectedConditions.visibilityOfElementLocated(colonnaStato));
+        getWebDriverWait(10).withMessage("menu non caricato correttamente").until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
+    }catch (TimeoutException e){
+            logger.error("tabella delegati dall imprese non caricata correttamente" + e.getMessage());
+            Assert.fail("tabella delegati dall imprese non caricata correttamente" + e.getMessage());
+        }
     }
 
 }
