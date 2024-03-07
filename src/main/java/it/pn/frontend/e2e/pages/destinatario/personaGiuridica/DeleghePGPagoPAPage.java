@@ -184,7 +184,6 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void clickAssegnaGruppoRadioButton() {
         logger.info("Click sul radio button assegna gruppo");
 
-        //getWebDriverWait(10).withMessage("il radio button assegna gruppo non é visibile").until(ExpectedConditions.visibilityOf(assegnaGruppoRadioButton));
         this.assegnaGruppoRadioButton.click();
     }
 

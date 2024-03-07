@@ -302,9 +302,7 @@ public class DeleghePGPagoPATest {
         logger.info("Si seleziona il bottone conferma");
 
         deleghePGPagoPAPage.clickBottoneConferma();
-        if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
-            logger.info("il codice inserito è sbagliato");
-        }
+        deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato();
     }
 
 
@@ -315,12 +313,12 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.controlloStatoAttiva(ragioneSociale);
     }
 
-    @And("Non si assegna un gruppo alla delega")
+   /* @And("Non si assegna un gruppo alla delega")
     public void nonSiAssegnaUnGruppoAllaDelega() {
         logger.info("Si clicca sul bottone non assegna gruppo");
 
         deleghePGPagoPAPage.clickNonAssegnaGruppo();
-    }
+    }*/
 
     @And("Nella sezione Deleghe si clicca sul bottone rifiuta")
     public void nellaSezioneDelegheSiCliccaSulBottoneRifiuta() {
@@ -480,14 +478,13 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.clickBottoneConfermaDelega();
     }
 
-    @And("Si controlla codice verifica accettazione delega errato")
+    /*@And("Si controlla codice verifica accettazione delega errato")
     public void siControllaCodiceVerificaAccettazioneDelegaErrato() {
         logger.info("Si clicca su conferma del pop-up per controllo codice verifica errato");
 
         deleghePGPagoPAPage.clickBottoneConfermaDelega();
-        if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
-            logger.info("il codice inserito è sbagliato");
-        }
+        deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato();
+
     }
 
     @And("Si ripristina lo stato iniziale delle deleghe a carico dell impresa {string}")
@@ -501,7 +498,7 @@ public class DeleghePGPagoPATest {
     public void siAccettaLaDelegaConUnGruppo() {
         BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.accettazioneDelegaConGruppo();
-    }
+    }*/
 
     @And("Si inserisce il codice della delega a carico dell impresa nella modale")
     public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale() {
