@@ -992,7 +992,7 @@ public class NotificaMittentePagoPATest {
             logger.info("La notifica è stata Accettata");
             String codiceIUN = esitoNotifica.accettazioneRichiestaNotifica.getCodiceIUN();
             this.datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-            if (codiceIUN != null && !codiceIUN.equals("")) {
+            if (codiceIUN != null && !codiceIUN.isEmpty()) {
                 this.datiNotifica.put("codiceIUN", codiceIUN);
                 this.dataPopulation.writeDataPopulation(dpFile + ".yaml", this.datiNotifica);
                 logger.info("La notifica è stata creata correttamente");

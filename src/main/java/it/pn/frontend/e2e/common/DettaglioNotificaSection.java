@@ -33,22 +33,26 @@ public class DettaglioNotificaSection extends BasePage {
 
     public void waitLoadDettaglioNotificaDESection() {
         try {
+            // This check is due to the fact that the page is different if the user is logged in as a selfcare user
+            boolean isSelfcare = driver.getCurrentUrl().contains("selfcare");
             By titleDettaglioNotificaField = By.id("title-of-page");
             By statoNotificaBy = By.id("notification-state");
             By indietroButtonBy = By.id("breadcrumb-indietro-button");
             By informazioniBy = By.id("notification-detail-table");
             By allegatiSection = By.id("notification-detail-document-attached");
             By sezioneRecapiti = By.id("side-item-I tuoi recapiti");
-            By altriDocumenti = By.cssSelector("[data-testid='aarBox']");
-            By attestazione = By.cssSelector("[data-testid='download-legalfact']");
+            By altriDocumenti = isSelfcare ? By.xpath("//div[@data-testid='aarDownload']") : By.xpath("//div[@data-testid='aarBox']");
+            By attestazione = By.xpath("//button[@data-testid='download-legalfact']");
             this.getWebDriverWait(30).withMessage("il titolo Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
             this.getWebDriverWait(30).withMessage("il bottone indietro non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButtonBy));
             this.getWebDriverWait(30).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
             this.getWebDriverWait(30).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
             this.getWebDriverWait(30).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
-            this.getWebDriverWait(30).withMessage("Il sezione recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(sezioneRecapiti)).isDisplayed();
-            this.getWebDriverWait(30).withMessage("Il sezione altri documenti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(altriDocumenti)).isDisplayed();
-            this.getWebDriverWait(30).withMessage("Il sezione attestazione opponibile non è visibile").until(ExpectedConditions.visibilityOfElementLocated(attestazione)).isDisplayed();
+            if (!isSelfcare) {
+                this.getWebDriverWait(30).withMessage("Il sezione recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(sezioneRecapiti));
+            }
+            this.getWebDriverWait(30).withMessage("Il sezione altri documenti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(altriDocumenti));
+            this.getWebDriverWait(30).withMessage("Il pulsante sezione attestazione opponibile non è visibile").until(ExpectedConditions.elementToBeClickable(attestazione));
             logger.info("Dettaglio Notifica Section caricata");
         } catch (TimeoutException e) {
             logger.error("Dettaglio Notifica Section non caricata con errore: " + e.getMessage());
@@ -67,10 +71,10 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void clickLinkDocumentiAllegati(int numeroLinkDocumentiAllegati) {
-        if(documentiAllegati.get(numeroLinkDocumentiAllegati).isDisplayed()){
+        if (documentiAllegati.get(numeroLinkDocumentiAllegati).isDisplayed()) {
             documentiAllegati.get(numeroLinkDocumentiAllegati).click();
-        }else{
-            this.js().executeScript("arguments[0].scrollIntoView(true);",attestazioniFile.get(numeroLinkDocumentiAllegati));
+        } else {
+            this.js().executeScript("arguments[0].scrollIntoView(true);", attestazioniFile.get(numeroLinkDocumentiAllegati));
             documentiAllegati.get(numeroLinkDocumentiAllegati).click();
         }
     }
