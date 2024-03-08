@@ -75,6 +75,11 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(id = "notifications-table")
     WebElement tabelleDelleDelegheACaricoDellImpresa;
 
+    @FindBy(id = "code-cancel-button")
+    WebElement buttonIndietroCodiceDiVerifica;
+
+    @FindBy(xpath = "//button[@data-testid='groupCancelButton']")
+    WebElement buttonIndietroInAssegnazioneGruppo;
 
     public DeleghePGPagoPAPage(WebDriver driver) {
         super(driver);
@@ -207,7 +212,7 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public boolean verificaEsistenzaErroreCodiceSbagliato() {
         try {
-            By esistenzaBy = By.id("alert-api-status");
+            By esistenzaBy = By.id("alert-api-status}");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(esistenzaBy));
             logger.info("Errore codice sbagliato trovato");
             return true;
@@ -321,6 +326,29 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
 
+    public void checkErroreInSelezioneGruppo() {
+        gruppoField.sendKeys("Errore Test");
+        By gruppoNonTrovato = By.xpath("//div[contains(text(),'Nessun gruppo trovato')]");
+        try{
+            getWebDriverWait(10).withMessage("testo di errore non trovato").until(ExpectedConditions.visibilityOfElementLocated(gruppoNonTrovato));
+            logger.info("testo di errore gruppo trovato con successo");
+        }catch (TimeoutException e){
+            logger.error("errore in cattura testo di errore ricerca gruppo per assegnazione con errore:" + e.getMessage());
+            Assert.fail("errore in cattura testo di errore ricerca gruppo per assegnazione con errore:" + e.getMessage());
+        }
+
+    }
+
+
+    public void clickIndietroInInserimentoCodiceVerifica() {
+        getWebDriverWait(10).withMessage("bottone indietro in inserimento codice non trovato").until(ExpectedConditions.visibilityOf(buttonIndietroCodiceDiVerifica));
+    buttonIndietroCodiceDiVerifica.click();
+    }
+
+    public void clickButtonIndietroInAssegnazioneGruppo(){
+        getWebDriverWait(10).withMessage("bottone indietro in assegnazione gruppo non trovato").until(ExpectedConditions.visibilityOf(buttonIndietroInAssegnazioneGruppo));
+        buttonIndietroInAssegnazioneGruppo.click();
+    }
     public void checkTabellaDelegheACaricoDellImpresa() {
         By menuDelega = By.xpath("//table[@id='notifications-table']//following-sibling::td//button[@data-testid='delegationMenuIcon']");
         By colonnaNome = By.xpath("//table[@id='notifications-table']//th[contains(text(),'Nome')]");
