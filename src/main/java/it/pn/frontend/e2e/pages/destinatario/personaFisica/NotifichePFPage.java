@@ -15,6 +15,12 @@ import java.util.concurrent.TimeUnit;
 public class NotifichePFPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("NotifichePFPage");
 
+    @FindBy(id = "Le tue notifiche-page")
+    WebElement titleLabel;
+
+    @FindBy(id = "notifications-table")
+    WebElement tableNotifiche;
+
     @FindBy(id = "iunMatch")
     WebElement codiceIunTextField;
 
@@ -60,10 +66,8 @@ public class NotifichePFPage extends BasePage {
 
     public void waitLoadNotificheDEPage() {
         try {
-            By titleLabel = By.id("Le tue notifiche-page");
-            By tableNotifiche = By.id("notifications-table");
-            this.getWebDriverWait(30).withMessage("Il titolo della pagina Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
-            this.getWebDriverWait(30).withMessage("La tabella delle Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
+            this.getWebDriverWait(30).withMessage("Il titolo della pagina Notifiche non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));
+            this.getWebDriverWait(30).withMessage("La tabella delle Notifiche non è visibile").until(ExpectedConditions.visibilityOf(tableNotifiche));
             logger.info("Notifiche DE Page caricata");
         } catch (TimeoutException e) {
             logger.error("Notifiche DE Page non caricata con errore : " + e.getMessage());
@@ -107,15 +111,15 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void inserimentoArcoTemporale(String dataDA, String dataA) {
-        this.getWebDriverWait(10)
+        this.getWebDriverWait(10).withMessage("I campi di inserimento data non sono visibili")
                 .until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField, this.dataFineField));
 
         this.dataInizioField.click();
         this.dataInizioField.sendKeys(dataDA);
-        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", dataDA));
+        this.getWebDriverWait(3).withMessage("Il valore del campo inserimento data DA non corrisponde").until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", dataDA));
         this.dataFineField.click();
         this.dataFineField.sendKeys(dataA);
-        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataFineField, "value", dataA));
+        this.getWebDriverWait(3).withMessage("Il valore del campo inserimento data A non corrisponde").until(ExpectedConditions.attributeToBe(this.dataFineField, "value", dataA));
     }
 
     public boolean getListData() {
@@ -127,12 +131,9 @@ public class NotifichePFPage extends BasePage {
     public boolean verificaEsistenzaEPassaggioPagina() {
         this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
         try {
-            By numeroButtonBy = By.id("page2");
-            this.getWebDriverWait(20).withMessage("bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOfElementLocated(numeroButtonBy));
+            this.getWebDriverWait(20).withMessage("bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOf(paginaSeconda));
             logger.info("Bottone pagina 2 trovato");
-
-            WebElement numeroPagina = this.element(numeroButtonBy);
-            numeroPagina.click();
+            paginaSeconda.click();
             return true;
         } catch (TimeoutException e) {
             logger.error("bottone pagina 2 non trovata con errore: " + e.getMessage());
@@ -393,5 +394,19 @@ public class NotifichePFPage extends BasePage {
             Assert.fail("Non si visualizza prima");
         }
 
+    }
+
+    public boolean isDateBoxInvalid(){
+        getWebDriverWait(30).withMessage("Il campo data inizio non è visibile").until(ExpectedConditions.visibilityOf(dataInizioField));
+        String ariaInvalid = dataInizioField.getAttribute("aria-invalid");
+        final String isTextboxInvalid = "true";
+        return isTextboxInvalid.equals(ariaInvalid);
+    }
+
+    public void inserimentoDataErrato(String data) {
+        this.getWebDriverWait(10).withMessage("Il campo data inizio non è visibile").until(ExpectedConditions.visibilityOf(this.dataInizioField));
+        this.dataInizioField.click();
+        this.dataInizioField.sendKeys(data);
+        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", data));
     }
 }

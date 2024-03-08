@@ -15,6 +15,9 @@ public class HeaderPFSection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("HeaderPFSection");
 
+    @FindBy(css = "a[title='Sito di PagoPA S.p.A.']")
+    WebElement titleLabel;
+
     @FindBy(css = "button[aria-label='party-menu-button']")
     WebElement profiloUtenteMenu;
 
@@ -24,10 +27,8 @@ public class HeaderPFSection extends BasePage {
 
     public void waitLoadHeaderDESection() {
         try {
-            By titleLabel = By.cssSelector("a[title='Sito di PagoPA S.p.A.']");
-            By menuProfilo = By.cssSelector("button[aria-label='party-menu-button']");
-            this.getWebDriverWait(30).withMessage("il titolo del header non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
-            this.getWebDriverWait(30).withMessage("menu dell'utente non è visibile").until(ExpectedConditions.visibilityOfElementLocated(menuProfilo));
+            this.getWebDriverWait(30).withMessage("il titolo del header non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));
+            this.getWebDriverWait(30).withMessage("menu dell'utente non è visibile").until(ExpectedConditions.visibilityOf(profiloUtenteMenu));
             logger.info("Header DE Section caricata");
         } catch (TimeoutException e) {
             logger.error("Header DE Section non caricata con errore : " + e.getMessage());
