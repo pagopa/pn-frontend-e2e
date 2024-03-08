@@ -154,6 +154,7 @@ public class LoginPersonaFisicaPagoPA {
 
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
+        DataPopulation.waitTime(10);
         CookiesSection cookiesSection;
 
         if (!CookieConfig.isCookieEnabled()) {
