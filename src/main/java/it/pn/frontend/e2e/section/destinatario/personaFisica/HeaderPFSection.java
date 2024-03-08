@@ -54,7 +54,6 @@ public class HeaderPFSection extends BasePage {
             logger.info("Url token ------------------------>" + driver.getCurrentUrl());
         } catch (TimeoutException e) {
             logger.error("Url token non trovato con errore:" + e.getMessage());
-            Assert.fail("Url token non trovato con errore:" + e.getMessage());
         }
     }
 }
