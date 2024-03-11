@@ -7,13 +7,11 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.mittente.ApiKeyPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.GeneraApiKeySection;
-import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class ApiKeysTest {
@@ -211,15 +209,13 @@ public class ApiKeysTest {
 
     @And("Nella sezione genera Api Key inserire un gruppo")
     public void nellaSezioneGeneraApiKeyInserireUnGruppo() {
-        DataPopulation dataPopulation = new DataPopulation();
-        Map<String, Object> datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         String variabileAmbiente = System.getProperty("environment");
         String gruppo = "";
         String gruppo2 = "";
         switch (variabileAmbiente) {
-            case "dev" -> gruppo = datiNotifica.get("gruppoDev").toString();
+            case "dev" -> gruppo = "GruppoTest";
             case "test", "uat" -> {
-                gruppo = datiNotifica.get("gruppoTest").toString();
+                gruppo = "test-TA-FE-TEST";
                 gruppo2 = "test-2-ta";
             }
         }
