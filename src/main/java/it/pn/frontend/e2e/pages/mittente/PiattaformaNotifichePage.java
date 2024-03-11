@@ -77,6 +77,9 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "//form[contains(@data-testid,'preliminaryInformationsForm')]")
     WebElement preliminaryInformationsForm;
 
+    @FindBy(xpath = "//input[@aria-invalid='true']")
+    List<WebElement> inputsError;
+
 
     public PiattaformaNotifichePage(WebDriver driver) {
         super(driver);
@@ -684,6 +687,36 @@ public class PiattaformaNotifichePage extends BasePage {
         } else {
             logger.error("numero di default delle notifiche visualizzate non corretto");
             Assert.fail("numero di default delle notifiche visualizzate non corretto");
+        }
+    }
+
+    public boolean isFiltraButtonDisabled() {
+        return !inputsError.isEmpty() || filtraButton.getAttribute("disabled") != null;
+    }
+
+    public boolean controlloDateErrate() {
+        boolean isDateErrate = false;
+        for (WebElement input : inputsError) {
+            if (input.getAttribute("id").equals("startDate") || input.getAttribute("id").equals("endDate")) {
+                isDateErrate = true;
+                break;
+            }
+        }
+        return isDateErrate;
+    }
+
+    public void clickPagina(int pagina) {
+        String paginaString = "page" + pagina;
+        By paginaBy = By.id(paginaString);
+        try {
+            this.getWebDriverWait(30).withMessage("Il bottone pagina " + pagina + " non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(this.element(paginaBy)));
+            this.js().executeScript("arguments[0].scrollIntoView(true);", this.element(paginaBy));
+            this.element(paginaBy).click();
+            logger.info("Bottone pagina " + pagina + " cliccato correttamente");
+        } catch (TimeoutException e) {
+            logger.error("Il bottone pagina " + pagina + " non è cliccabile con errore: " + e.getMessage());
+            Assert.fail("Il bottone pagina " + pagina + " non è cliccabile con errore: " + e.getMessage());
         }
     }
 }

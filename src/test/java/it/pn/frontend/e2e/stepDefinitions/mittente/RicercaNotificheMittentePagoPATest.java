@@ -52,6 +52,19 @@ public class RicercaNotificheMittentePagoPATest {
         piattaformaNotifichePage.selectFiltraButton();
     }
 
+    @And("Si verifica che il bottone Filtra sia disabilitato")
+    public void siVerificaCheIlBottoneFiltraSiaDisabilitato() {
+        logger.info("Si verifica che il bottone Filtra sia disabilitato");
+
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        if (piattaformaNotifichePage.isFiltraButtonDisabled()) {
+            logger.info("Il bottone Filtra è disabilitato");
+        } else {
+            logger.error("Il bottone Filtra è abilitato");
+            Assert.fail("Il bottone Filtra è abilitato");
+        }
+    }
+
     @And("Cliccare sul bottone Filtra del delegato")
     public void cliccareSulBottoneFiltraDelDelegato() {
         logger.info("Si clicca sul tasto filtra del delegante sotto notifiche");
@@ -61,7 +74,7 @@ public class RicercaNotificheMittentePagoPATest {
     }
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice fiscale del destinatario {string}")
-    public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConIlCodiceFiscaleDelDestinatario(String dpDestinatario) {
+    public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConIlCodiceFiscaleDelDestinatario(String codiceFiscale) {
         logger.info("Si verifica i risultati restituiti");
 
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
@@ -69,19 +82,14 @@ public class RicercaNotificheMittentePagoPATest {
 
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
-
-        DataPopulation dataPopulation = new DataPopulation();
-        this.personaFisica = dataPopulation.readDataPopulation(dpDestinatario + ".yaml");
-
-        String cfInserito = this.personaFisica.get("codiceFiscale").toString();
-        int listaCF = piattaformaNotifichePage.getListaCf(cfInserito);
+        int listaCF = piattaformaNotifichePage.getListaCf(codiceFiscale);
 
         if (listaCF >= 1) {
             logger.info("Il codice fiscale della notifica è uguale a quello selezionato");
 
         } else {
-            logger.error("Codici fiscali non presenti o non uguali a quello selezionato " + cfInserito);
-            Assert.fail("Codici fiscali non presenti o non uguali a quello selezionato " + cfInserito);
+            logger.error("Codici fiscali non presenti o non uguali a quello selezionato " + codiceFiscale);
+            Assert.fail("Codici fiscali non presenti o non uguali a quello selezionato " + codiceFiscale);
         }
     }
 
@@ -452,4 +460,14 @@ public class RicercaNotificheMittentePagoPATest {
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
     }
 
+    @And("Si verifica che i campi della ricerca delle date siano errate")
+    public void siVerificaCheICampiDellaRicercaDelleDateSianoErrate() {
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        if (piattaformaNotifichePage.controlloDateErrate()) {
+            logger.info("Le date inserite sono errate");
+        } else {
+            logger.error("Le date inserite sono corrette");
+            Assert.fail("Le date inserite sono corrette");
+        }
+    }
 }
