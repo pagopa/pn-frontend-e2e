@@ -111,9 +111,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void inserimentoArcoTemporale(String dataDA, String dataA) {
-        this.getWebDriverWait(10).withMessage("I campi di inserimento data non sono visibili")
-                .until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField, this.dataFineField));
-
+        this.getWebDriverWait(10).withMessage("I campi di inserimento data non sono visibili").until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField, this.dataFineField));
         this.dataInizioField.click();
         this.dataInizioField.sendKeys(dataDA);
         this.getWebDriverWait(3).withMessage("Il valore del campo inserimento data DA non corrisponde").until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", dataDA));
@@ -274,13 +272,13 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void waitLoadSecondaPagina() {
-           String isPageSelected = paginaSeconda.getAttribute("aria-current");
-            if (isPageSelected.equalsIgnoreCase("true")) {
-                logger.info("Si visualizza una pagina differente dalla precedente");
-            }else {
-                logger.error("Non si visualizza una pagina differente dalla precedente");
-                Assert.fail("Non si visualizza una pagina differente dalla precedente");
-            }
+        String isPageSelected = paginaSeconda.getAttribute("aria-current");
+        if (isPageSelected.equalsIgnoreCase("true")) {
+            logger.info("Si visualizza una pagina differente dalla precedente");
+        } else {
+            logger.error("Non si visualizza una pagina differente dalla precedente");
+            Assert.fail("Non si visualizza una pagina differente dalla precedente");
+        }
 
     }
 
@@ -380,7 +378,7 @@ public class NotifichePFPage extends BasePage {
         this.rimuoviFiltriButton.click();
     }
 
-    public void clickPage3(){
+    public void clickPage3() {
         getWebDriverWait(30).withMessage("Il bottone pagina 3 nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.numeroPaginaTreButton));
         this.numeroPaginaTreButton.click();
     }
@@ -389,14 +387,14 @@ public class NotifichePFPage extends BasePage {
         String isPageSelected = paginaPrima.getAttribute("aria-current");
         if (isPageSelected.equalsIgnoreCase("true")) {
             logger.info("Si visualizza prima pagina");
-        }else {
+        } else {
             logger.error("Non si visualizza prima pagina");
             Assert.fail("Non si visualizza prima");
         }
 
     }
 
-    public boolean isDateBoxInvalid(){
+    public boolean isDateBoxInvalid() {
         getWebDriverWait(30).withMessage("Il campo data inizio non è visibile").until(ExpectedConditions.visibilityOf(dataInizioField));
         String ariaInvalid = dataInizioField.getAttribute("aria-invalid");
         final String isTextboxInvalid = "true";

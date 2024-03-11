@@ -48,7 +48,6 @@ public class RicercaNotifichePersonaFisicaPATest {
     @And("Cliccare sul bottone Filtra persona fisica")
     public void cliccareSulBottoneFiltra() {
         logger.info("Si clicca sul tasto filtra");
-
         NotifichePFPage NotifichePFPage = new NotifichePFPage(this.driver);
         NotifichePFPage.selectFiltraButton();
     }
@@ -90,12 +89,9 @@ public class RicercaNotifichePersonaFisicaPATest {
     @And("Se i risultati sono contenuti in più pagine persona fisica è possibile effettuare il cambio pagina")
     public void seIRisultatiSonoContenutiInPiuPagineDestinatarioEPossibileEffettuareIlCambioPagina() {
         logger.info("Se i risultati sono contenuti in più pagine è possibile effettuare il cambio pagina");
-
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-
         if (notifichePFPage.verificaEsistenzaEPassaggioPagina()) {
             logger.info("Bottone pagina 2 trovato e cliccato");
-
             HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
             headerPFSection.waitLoadHeaderDESection();
             notifichePFPage.waitLoadNotificheDEPage();
