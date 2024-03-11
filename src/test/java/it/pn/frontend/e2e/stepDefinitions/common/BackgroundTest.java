@@ -145,18 +145,6 @@ public class BackgroundTest {
         deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
     }
 
-    public void checkDelegaSceltaGruppoEInserimentoCodiceErrata() {
-        deleghePagoPATest.siSceglieOpzioneAccetta();
-        deleghePGPagoPATest.siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModaleErrata();
-        deleghePGPagoPATest.siCliccaSulBottoneAccettaDelega();
-        deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppoErrato();
-        deleghePGPagoPATest.siCliccaSulBottoneAssegnaAUnGruppo();
-        deleghePGPagoPATest.nonSiAssegnaUnGruppoAllaDelegaCheLoRichiede();
-        deleghePGPagoPATest.siCliccaSulBottoneIndietroInAssegnazioneGruppo();
-        deleghePGPagoPATest.siCliccaSulBottoneIndietroInInserimentoCodiceVerifica();
-    }
-
-
     public void accettazioneDelegaConGruppo() {
         deleghePagoPATest.siSceglieOpzioneAccetta();
         deleghePGPagoPATest.siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale();
