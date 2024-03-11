@@ -69,6 +69,17 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(id = "delegatesBodyRowDesktop")
     List<WebElement> nomeDelegato;
 
+    @FindBy(xpath = "//div[@data-testid='emptyState']")
+    WebElement tabellaVuotaDelegheACaricoDellImpresa;
+
+    @FindBy(id = "notifications-table")
+    WebElement tabelleDelleDelegheACaricoDellImpresa;
+
+    @FindBy(id = "code-cancel-button")
+    WebElement buttonIndietroCodiceDiVerifica;
+
+    @FindBy(xpath = "//button[@data-testid='groupCancelButton']")
+    WebElement buttonIndietroInAssegnazioneGruppo;
 
     public DeleghePGPagoPAPage(WebDriver driver) {
         super(driver);
@@ -77,8 +88,9 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void waitLoadDeleghePage() {
         try {
             By titlePage = By.id("Deleghe-page");
-            this.getWebDriverWait(30).withMessage("il titolo della pagina deleghe PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            this.getWebDriverWait(30).withMessage("Il bottone deleghe a carico dell'impresa non è visibile").until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
+            getWebDriverWait(30).withMessage("il titolo della pagina deleghe PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
+            getWebDriverWait(30).withMessage("Il bottone deleghe a carico dell'impresa non è visibile").until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
+            getWebDriverWait(30).withMessage("la tabella delle deleghe a carico dell impresa non é caricabile").until(ExpectedConditions.visibilityOf(tabellaVuotaDelegheACaricoDellImpresa));
             logger.info("Deleghe page si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Deleghe page non si visualizza correttamente con errore: " + e.getMessage());
@@ -200,7 +212,7 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public boolean verificaEsistenzaErroreCodiceSbagliato() {
         try {
-            By esistenzaBy = By.id("alert-api-status");
+            By esistenzaBy = By.id("alert-api-status}");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(esistenzaBy));
             logger.info("Errore codice sbagliato trovato");
             return true;
@@ -313,5 +325,52 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     }
 
+
+    public void checkErroreInSelezioneGruppo() {
+        gruppoField.sendKeys("Errore Test");
+        By gruppoNonTrovato = By.xpath("//div[contains(text(),'Nessun gruppo trovato')]");
+        try{
+            getWebDriverWait(10).withMessage("testo di errore non trovato").until(ExpectedConditions.visibilityOfElementLocated(gruppoNonTrovato));
+            logger.info("testo di errore gruppo trovato con successo");
+        }catch (TimeoutException e){
+            logger.error("errore in cattura testo di errore ricerca gruppo per assegnazione con errore:" + e.getMessage());
+            Assert.fail("errore in cattura testo di errore ricerca gruppo per assegnazione con errore:" + e.getMessage());
+        }
+
+    }
+
+
+    public void clickIndietroInInserimentoCodiceVerifica() {
+        getWebDriverWait(10).withMessage("bottone indietro in inserimento codice non trovato").until(ExpectedConditions.visibilityOf(buttonIndietroCodiceDiVerifica));
+    buttonIndietroCodiceDiVerifica.click();
+    }
+
+    public void clickButtonIndietroInAssegnazioneGruppo(){
+        getWebDriverWait(10).withMessage("bottone indietro in assegnazione gruppo non trovato").until(ExpectedConditions.visibilityOf(buttonIndietroInAssegnazioneGruppo));
+        buttonIndietroInAssegnazioneGruppo.click();
+    }
+    public void checkTabellaDelegheACaricoDellImpresa() {
+        By menuDelega = By.xpath("//table[@id='notifications-table']//following-sibling::td//button[@data-testid='delegationMenuIcon']");
+        By colonnaNome = By.xpath("//table[@id='notifications-table']//th[contains(text(),'Nome')]");
+        By colonnaInizioDelega = By.xpath("//table[@id='notifications-table']//th[contains(text(),'Inizio delega')]");
+        By colonnaFineDelega = By.xpath("//table[@id='notifications-table']//th[contains(text(),'Fine delega')]");
+        By colonnaPermessi = By.xpath("//table[@id='notifications-table']//th[contains(text(),'Permessi')]");
+        By colonnaGruppi = By.xpath("//table[@id='notifications-table']//th[contains(text(),'Gruppi')]");
+        By colonnaStato = By.xpath("//table[@id='notifications-table']//th[contains(text(),'Stato')]");
+        try {
+            getWebDriverWait(10).withMessage("tabella deleghe dell impresa non caricata correttamente").until(ExpectedConditions.visibilityOf(tabelleDelleDelegheACaricoDellImpresa));
+            getWebDriverWait(10).withMessage("colonna nome non caricata correttamente").until(ExpectedConditions.visibilityOfElementLocated(colonnaNome));
+            getWebDriverWait(10).withMessage("colonna inizio delega non caricata correttamente").until(ExpectedConditions.visibilityOfElementLocated(colonnaInizioDelega));
+            getWebDriverWait(10).withMessage("colonna fine delega non caricata correttamente").until(ExpectedConditions.visibilityOfElementLocated(colonnaFineDelega));
+            getWebDriverWait(10).withMessage("colonna permessi non caricata correttamente").until(ExpectedConditions.visibilityOfElementLocated(colonnaPermessi));
+            getWebDriverWait(10).withMessage("colonna gruppi non caricata correttamente").until(ExpectedConditions.visibilityOfElementLocated(colonnaGruppi));
+            getWebDriverWait(10).withMessage("colonna stato non caricata correttamente").until(ExpectedConditions.visibilityOfElementLocated(colonnaStato));
+            getWebDriverWait(10).withMessage("menu non caricato correttamente").until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
+        }catch (TimeoutException e){
+            logger.error("tabella deleghe a carico dell impresa non caricata correttamente" + e.getMessage());
+            Assert.fail("tabella deleghe a carico dell impresa non caricata correttamente" + e.getMessage());
+        }
+
+    }
 
 }
