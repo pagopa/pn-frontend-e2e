@@ -704,4 +704,19 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         return isDateErrate;
     }
+
+    public void clickPagina(int pagina) {
+        String paginaString = "page" + pagina;
+        By paginaBy = By.id(paginaString);
+        try {
+            this.getWebDriverWait(30).withMessage("Il bottone pagina " + pagina + " non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(this.element(paginaBy)));
+            this.js().executeScript("arguments[0].scrollIntoView(true);", this.element(paginaBy));
+            this.element(paginaBy).click();
+            logger.info("Bottone pagina " + pagina + " cliccato correttamente");
+        } catch (TimeoutException e) {
+            logger.error("Il bottone pagina " + pagina + " non è cliccabile con errore: " + e.getMessage());
+            Assert.fail("Il bottone pagina " + pagina + " non è cliccabile con errore: " + e.getMessage());
+        }
+    }
 }
