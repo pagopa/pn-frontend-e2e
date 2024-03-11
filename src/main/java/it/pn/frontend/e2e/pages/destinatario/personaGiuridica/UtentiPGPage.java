@@ -115,16 +115,39 @@ public class UtentiPGPage extends BasePage {
         String utentiUrl = "https://imprese." + environment + ".notifichedigitali.it/dashboard/" + companyId + "/users";
 
         //switch tab
-       /*   String parentWindowHandle = driver.getWindowHandle();
-          Set<String> windowHandles = driver.getWindowHandles();
-          for (String handle : windowHandles){
-              if(!handle.equals(parentWindowHandle)){
-                 this.driver.switchTo().window(handle);
-                  logger.info(driver.getTitle());
-                  break;
-              }
-          }*/
-        this.driver.get(utentiUrl);
+        String parentWindowHandle = driver.getWindowHandle();
+        Set<String> windowHandles = driver.getWindowHandles();
+        for (String handle : windowHandles) {
+            if (!handle.equals(parentWindowHandle)) {
+                this.driver.switchTo().window(handle);
+                logger.info(driver.getTitle());
+                break;
+            }
+        }
+    }
+
+    public void clickSezioneUtentiDaRiepilogo(){
+        getWebDriverWait(30).withMessage("Il sezione Utenti non è cliccabile").until(ExpectedConditions.elementToBeClickable(sezioneUtenti));
+        sezioneUtenti.click();
+    }
+
+        public void loginUtenti(String nome, String pwd){
+        accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
+        accediAreaRiservataPGPage.clickSpidButton();
+
+        ScegliSpidPGPage scegliSpidPGPage = new ScegliSpidPGPage(this.driver);
+        scegliSpidPGPage.clickTestButton();
+
+        LoginPGPagoPAPage loginPGPagoPAPage = new LoginPGPagoPAPage(this.driver);
+        loginPGPagoPAPage.waitLoadLoginPGPage();
+        loginPGPagoPAPage.insertUsername(nome);
+        loginPGPagoPAPage.insertPassword(pwd);
+        loginPGPagoPAPage.clickInviaButton();
+
+
+        AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage = new AutorizzaInvioDatiPGPage(this.driver);
+        autorizzaInvioDatiPGPage.waitLoadAutorizzaInvioDatiPGPage();
+        autorizzaInvioDatiPGPage.clickInviaButton();
 
     }
     public void waitLoadUtentiPage() {
@@ -171,22 +194,30 @@ public class UtentiPGPage extends BasePage {
         }
     }
 
-    public void insertData(String codiceFiscale,String name, String surname, String email ){
+    public void insertData(String codiceFiscale,String name, String surname, String email ) throws InterruptedException {
 
         codiceFiscaleBox.sendKeys(codiceFiscale);
-        if (nameBox.getText().equalsIgnoreCase(name) && surnameBox.getText().equalsIgnoreCase(surname)){
+        Thread.sleep(2000);
+        if (nameBox.getAttribute("value").equalsIgnoreCase(name) && surnameBox.getAttribute("value").equalsIgnoreCase(surname)){
             logger.info("Il nome e il cognome è generato correttamente");
         }else {
             logger.error("Il nome e il cognome non è generato correttamente");
             Assert.fail("Il nome e il cognome non è generato correttamente");
         }
+
+        this.js().executeScript("arguments[0].setAttribute('autocomplete', 'off')" , emailBox);
+        emailBox.sendKeys(Keys.chord(Keys.CONTROL,"a"),Keys.DELETE);
         emailBox.sendKeys(email);
+        confirmEmailBox.clear();
         confirmEmailBox.sendKeys(email);
     }
 
     public void selectProduct(String product){
-        Select combobox = new Select(selectProductDropdown);
-        combobox.selectByVisibleText(product);
+        getWebDriverWait(30).withMessage("il combobox seleziona il prodotto non è cliccabile").until(ExpectedConditions.visibilityOf(selectProductDropdown));
+        actions.moveToElement(selectProductDropdown).click().perform();
+        WebElement productButton = driver.findElement(By.xpath("//li[contains(text(),'" + product + "')]"));
+        getWebDriverWait(30).withMessage("il prodotto" + product + "non è cliccabile").until(ExpectedConditions.elementToBeClickable(productButton));
+        productButton.click();
         logger.info("Ruolo :" + product);
         getWebDriverWait(30).withMessage("il radioBottone Amministratore della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(adminRadioButton));
     }
@@ -194,7 +225,7 @@ public class UtentiPGPage extends BasePage {
     public void selectRole(){
         adminRadioButton.click();
         logger.info("Si clicca sul bottone Continue");
-        continueButton.click();
+        actions.moveToElement(continueButton).click().perform();
         getWebDriverWait(30).withMessage("il popup assegna ruolo non è visualizzata").until(ExpectedConditions.visibilityOf(confirmPopup));
     }
 
@@ -211,11 +242,14 @@ public class UtentiPGPage extends BasePage {
     }
 
     public void waitSuccessMessage(){
-        if(successMessage.isDisplayed()){
-            logger.info("Si visualizza correttamente messaggio di successo");
-        }else if (userExistsMessage.isDisplayed()){
-            logger.error("Hai già aggiunto questo utente. Selezionare un altro prodotto o aggiungere un nuovo utente");
-            Assert.fail("Hai già aggiunto questo utente. Selezionare un altro prodotto o aggiungere un nuovo utente");
+        try {
+
+            if (successMessage.isDisplayed()) {
+                logger.info("Si visualizza correttamente messaggio di successo");
+            }
+        } catch (NoSuchElementException e ){
+            logger.error("Hai già aggiunto questo utente." + e);
+            Assert.fail("Hai già aggiunto questo utente." + e);
         }
     }
 
@@ -265,10 +299,10 @@ public class UtentiPGPage extends BasePage {
     }
 
     public void inserisciNuovoEmail(String newMail){
-        emailBox.clear();
+        emailBox.sendKeys(Keys.chord(Keys.CONTROL,"a"),Keys.DELETE);
         emailBox.sendKeys(newMail);
         getWebDriverWait(30).withMessage("il messaggio errore email non è visibile").until(ExpectedConditions.visibilityOf(wrongMailErrorMessage));
-        confirmEmailBox.clear();
+        confirmEmailBox.sendKeys(Keys.chord(Keys.CONTROL,"a"),Keys.DELETE);
         confirmEmailBox.sendKeys(newMail);
     }
 
@@ -287,12 +321,12 @@ public class UtentiPGPage extends BasePage {
     public void clickRemoveButton(){
         getWebDriverWait(30).withMessage("il bottone rimuovi non è cliccabile").until(ExpectedConditions.elementToBeClickable(removeButton));
         logger.info("Si clicca sul bottone rimuovi");
-        confermaButton.click();
+        removeButton.click();
     }
 
-    public void checkRemoveRolePopup(){
-        getWebDriverWait(30).withMessage("il popup rimuovi ruolo non è visibile").until(ExpectedConditions.visibilityOf(removeRolePopup));
-        logger.info("il popup rimouvi ruolo è visualizzata correttamente");
+    public void checkRemoveUserPopup(){
+        getWebDriverWait(30).withMessage("il popup elimina utente non è visibile").until(ExpectedConditions.visibilityOf(removeUserPopup));
+        logger.info("il popup elimina utente è visualizzata correttamente");
     }
 
     public void clickRemoveRoleButton(){
@@ -301,7 +335,7 @@ public class UtentiPGPage extends BasePage {
         removeRuoloButton.click();
     }
 
-    public void checkRoleDeletedMEssage(){
+    public void checkUserDeletedMEssage(){
         getWebDriverWait(30).withMessage("il messaggio utente rimosso non è visibile").until(ExpectedConditions.elementToBeClickable(roleDeletedMessage));
         logger.info("Si visualizza correttamente il messaggio utente rimosso");
     }

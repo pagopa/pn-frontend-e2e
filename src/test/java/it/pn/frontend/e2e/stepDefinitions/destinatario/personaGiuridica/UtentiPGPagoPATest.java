@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class UtentiPGPagoPATest {
@@ -16,6 +17,8 @@ public class UtentiPGPagoPATest {
     private final WebDriver driver = Hooks.driver;
 
     private final UtentiPGPage utentiPGPage = new UtentiPGPage(this.driver);
+    private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
+    private final DataPopulation dataPopulation = new DataPopulation();
 
 
     @And("Si visualizza correttamente la pagina utenti")
@@ -34,7 +37,7 @@ public class UtentiPGPagoPATest {
     }
 
     @And("Si inserisce i dati personali {string}")
-    public void siInserisceIDatiPersonali(String dpFile) {
+    public void siInserisceIDatiPersonali(String dpFile) throws InterruptedException {
         DataPopulation dataPopulation = new DataPopulation();
         Map<String, Object> utentePG = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String codiceFiscale = utentePG.get("codiceFiscale").toString();
@@ -101,7 +104,7 @@ public class UtentiPGPagoPATest {
     @And("Nella pagina riepilogativa utenti si clicca sul bottone rimuovi")
     public void nellaPaginaRiepilogativaUtentiSiCliccaSulBottoneRimuovi(){
         utentiPGPage.clickRemoveButton();
-        utentiPGPage.checkRemoveRolePopup();
+        utentiPGPage.checkRemoveUserPopup();
     }
 
     @And("Nella pagina riepilogativa utenti si clicca sul bottone annula")
@@ -112,7 +115,7 @@ public class UtentiPGPagoPATest {
     @And("Si clicca sul bottone rimuovi dell popup")
     public void siCliccaSulBottoneRimuoviDellPopup(){
         utentiPGPage.clickRemoveRoleButton();
-        utentiPGPage.checkRoleDeletedMEssage();
+        utentiPGPage.checkUserDeletedMEssage();
     }
 
     @And("Si apre dettaglio dell utente appena creato {string}")
@@ -123,8 +126,21 @@ public class UtentiPGPagoPATest {
         utentiPGPage.getUserDetailsPage(name);
     }
     @When("Nella Pagina Notifiche persona giuridica si clicca su utenti")
-    public void NellaPaginaNotifichePersonaGiuridicaSiCliccaSuUtenti() throws InterruptedException {
+    public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSuUtenti() {
         utentiPGPage.clickSezioneUtenti();
 
+    }
+
+    @And("Nella Pagina riepilogativa si clicca su utenti")
+    public void nellaPaginaRiepilogativaSiCliccaSuUtenti(){
+        utentiPGPage.clickSezioneUtentiDaRiepilogo();
+    }
+
+    @And("Nella pagina utenti si effettua la login tramite credenziali {string}")
+    public void nellaPaginaUtentiSiEffettuaLaLoginTramiteCredenziali(String dpFile){
+        this.datiPersonaGiuridica = this.dataPopulation.readDataPopulation(dpFile + ".yaml");
+        String nome = this.datiPersonaGiuridica.get("user").toString();
+        String pwd = this.datiPersonaGiuridica.get("pwd").toString();
+        utentiPGPage.loginUtenti(nome,pwd);
     }
 }
