@@ -74,7 +74,7 @@ public class RicercaNotificheMittentePagoPATest {
     }
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice fiscale del destinatario {string}")
-    public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConIlCodiceFiscaleDelDestinatario(String dpDestinatario) {
+    public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConIlCodiceFiscaleDelDestinatario(String codiceFiscale) {
         logger.info("Si verifica i risultati restituiti");
 
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
@@ -82,19 +82,14 @@ public class RicercaNotificheMittentePagoPATest {
 
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
-
-        DataPopulation dataPopulation = new DataPopulation();
-        this.personaFisica = dataPopulation.readDataPopulation(dpDestinatario + ".yaml");
-
-        String cfInserito = this.personaFisica.get("codiceFiscale").toString();
-        int listaCF = piattaformaNotifichePage.getListaCf(cfInserito);
+        int listaCF = piattaformaNotifichePage.getListaCf(codiceFiscale);
 
         if (listaCF >= 1) {
             logger.info("Il codice fiscale della notifica è uguale a quello selezionato");
 
         } else {
-            logger.error("Codici fiscali non presenti o non uguali a quello selezionato " + cfInserito);
-            Assert.fail("Codici fiscali non presenti o non uguali a quello selezionato " + cfInserito);
+            logger.error("Codici fiscali non presenti o non uguali a quello selezionato " + codiceFiscale);
+            Assert.fail("Codici fiscali non presenti o non uguali a quello selezionato " + codiceFiscale);
         }
     }
 
