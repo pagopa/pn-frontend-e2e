@@ -506,31 +506,6 @@ public class DeleghePGPagoPATest {
         backgroundTest.accettazioneDelegaSceltaGruppo(withGroup.equalsIgnoreCase("senza"));
     }
 
-    public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModaleErrata(){
-
-        deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI("00000");
-
-    }
-
-    public void nonSiAssegnaUnGruppoAllaDelegaCheLoRichiede() {
-        deleghePGPagoPAPage.checkErroreInSelezioneGruppo();
-    }
-
-    @And("Si emula accettazione della delega con gruppo con errore")
-    public void siEmulaAccettazioneDellaDelegaConGruppoConErrore() {
-        BackgroundTest backgroundTest = new BackgroundTest();
-
-        backgroundTest.checkDelegaSceltaGruppoEInserimentoCodiceErrata();
-    }
-
-    public void siCliccaSulBottoneIndietroInInserimentoCodiceVerifica() {
-        deleghePGPagoPAPage.clickIndietroInInserimentoCodiceVerifica();
-    }
-
-    public void siCliccaSulBottoneIndietroInAssegnazioneGruppo(){
-        deleghePGPagoPAPage.clickButtonIndietroInAssegnazioneGruppo();
-    }
-
     @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si controlla che ci sia una delega con la ragione sociale inserita {string}")
     public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiControllaCheCiSiaUnaDelegaConLaRagioneSocialeInserita(String codFiscale) {
         if (deleghePGPagoPAPage.controlloDelegaRestituita(codFiscale)) {
