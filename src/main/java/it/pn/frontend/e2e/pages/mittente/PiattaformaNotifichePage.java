@@ -47,6 +47,9 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(id = "next")
     WebElement frecciaPaginaSuccessiva;
 
+    @FindBy(id = "page2")
+    WebElement secondPage;
+
     @FindBy(id = "page3")
     WebElement pageNumberButton;
 
@@ -158,14 +161,10 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean verificaEsistenzaEPassaggioPagina() {
         this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
-
         try {
-            By numeroButtonBy = By.id("page2");
-            this.getWebDriverWait(20).withMessage("Il bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOfElementLocated(numeroButtonBy));
+            this.getWebDriverWait(10).withMessage("Il bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOf(secondPage));
             logger.info("Bottone pagina 2 trovato");
-
-            WebElement numeroPagina = this.element(numeroButtonBy);
-            numeroPagina.click();
+            secondPage.click();
             return true;
         } catch (TimeoutException e) {
             return false;
