@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
@@ -22,6 +23,7 @@ public class RicercaNotifichePersonaFisicaPATest {
     private static final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaFisicaTest");
     private final WebDriver driver = Hooks.driver;
     private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+    private final DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
     private Map<String, Object> datiNotifica = new HashMap<>();
     private Map<String, Object> datiNotificaNonValidoPF;
 
@@ -91,7 +93,6 @@ public class RicercaNotifichePersonaFisicaPATest {
     @And("Se i risultati sono contenuti in più pagine persona fisica è possibile effettuare il cambio pagina")
     public void seIRisultatiSonoContenutiInPiuPagineDestinatarioEPossibileEffettuareIlCambioPagina() {
         logger.info("Se i risultati sono contenuti in più pagine è possibile effettuare il cambio pagina");
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         if (piattaformaNotifichePage.verificaEsistenzaEPassaggioPagina()) {
             logger.info("Bottone pagina 2 trovato e cliccato");
@@ -181,35 +182,9 @@ public class RicercaNotifichePersonaFisicaPATest {
     }
 
     @Then("Il rettangolo del campo errato diventa rosso")
-    public void ilRettangoloDelCampoErratoDiventaRosso() {
-
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-        boolean isDateBoxInvalid = notifichePFPage.isDateBoxInvalid();
-
-        if (isDateBoxInvalid) {
-            logger.info("Il campo data inizio non é valido");
-        } else {
-            logger.error("Il campo data inizio non é passato allo stato non valido");
-            Assert.fail("Il campo data inizio non é passato allo stato non valido");
-        }
-
-        notifichePFPage.clickFiltraButton();
-
-        boolean isDateBoxStillInvalid = notifichePFPage.isDateBoxInvalid();
-
-        if (isDateBoxStillInvalid) {
-            logger.info("Il bottone Filtra é dissativato");
-        } else {
-            logger.error("Il bottone Filtra é attivo");
-            Assert.fail("Il bottone Filtra é attivo");
-        }
-    }
-
-    @Then("Nella pagina Piattaforma Notifiche persona fisica viene inserita una data con formato errato")
-    public void nellaPaginaPiattaformaNotifichePersonaFisicaVieneInseritaUnaDataConFormatoErrato() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-        String data = "01/01/1111";
-        notifichePFPage.inserimentoDataErrato(data);
+    public void ilRettangoloDelCampoErratoDiventaRosso(){
+        logger.info("Si controlla che almeno un campo data sia in stato invalido");
+        destinatarioPage.isDateBoxInvalid();
     }
 }
 

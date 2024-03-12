@@ -340,7 +340,6 @@ public class NotifichePFPage extends BasePage {
             logger.error("Notifiche DE Page non caricata con errore : " + e.getMessage());
             Assert.fail("Notifiche DE Page non caricata con errore : " + e.getMessage());
         }
-
     }
 
     public void clickFiltraButton() {
@@ -374,19 +373,5 @@ public class NotifichePFPage extends BasePage {
             Assert.fail("Non si visualizza prima");
         }
 
-    }
-
-    public boolean isDateBoxInvalid() {
-        getWebDriverWait(10).withMessage("Il campo data inizio non è visibile").until(ExpectedConditions.visibilityOf(dataInizioField));
-        String ariaInvalid = dataInizioField.getAttribute("aria-invalid");
-        final String isTextboxInvalid = "true";
-        return isTextboxInvalid.equals(ariaInvalid);
-    }
-
-    public void inserimentoDataErrato(String data) {
-        this.getWebDriverWait(10).withMessage("Il campo data inizio non è visibile").until(ExpectedConditions.visibilityOf(this.dataInizioField));
-        this.dataInizioField.click();
-        this.dataInizioField.sendKeys(data);
-        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", data));
     }
 }

@@ -13,7 +13,7 @@ Feature:La persona fisica visualizza le notifiche in elenco
     And Si clicca su pagina diversa dalla prima
     And Nella pagina Piattaforma Notifiche persona giuridica inserire un arco temporale
     And Cliccare sul bottone Filtra persona giuridica
-    Then Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con la data della notifica compresa con le date precedentemente inserite
+    Then Vengono visualizzate correttamente le notifiche comprese nell'arco temporale inserito
     And Si verifica che visualizza la prima pagina
     And Logout da portale persona fisica
 

@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RicercaNotifichePGPage;
@@ -23,7 +24,9 @@ import java.util.Map;
 public class RicercaNotifichePersonaGiuridicaPATest {
     private final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaGiuridicaPATest");
     private final WebDriver driver = Hooks.driver;
+    private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
     RicercaNotifichePGPage ricercaNotifichePGPage = new RicercaNotifichePGPage(this.driver);
+    DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
     private Map<String, Object> datiNotificaPG;
     private Map<String, Object> datiNotificaNonValidoPG;
 
@@ -214,7 +217,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         logger.info("Se i risultati sono contenuti in più pagine è possibile effettuare il cambio pagina");
 
 
-        if(ricercaNotifichePGPage.verificaEsistenzaEPassaggioPaginaPG()){
+        if(piattaformaNotifichePage.verificaEsistenzaEPassaggioPagina()){
             logger.info("Bottone pagina 2 trovato e cliccato");
 
             HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
@@ -225,12 +228,10 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         }
     }
 
-
-    @And("Nella pagina Piattaforma Notifiche persona giuridica inserire una data con formato errato")
-    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireUnaDataConFormatoErrato() {
-
-        String dataDa = "01/01/1111";
-        ricercaNotifichePGPage.inserimentoDataErrato(dataDa);
+    @And("Nella pagina Piattaforma Notifiche destinatario inserire una data con formato errato")
+    public void nellaPaginaPiattaformaNotificheDestinatarioInserireUnaDataConFormatoErrato() {
+        logger.info("Si inserisce un formato data non valido in entrambi i campi per ricerca notifica");
+        destinatarioPage.inserimentoDataErrato();
     }
 
     @Then("Il rettangolo del campo errato diventa rosso e il tasto Filtra è disattivo")
