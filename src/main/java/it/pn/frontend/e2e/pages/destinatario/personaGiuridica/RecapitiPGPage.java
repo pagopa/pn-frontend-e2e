@@ -20,7 +20,15 @@ public class RecapitiPGPage extends BasePage {
     public void waitLoadRecapitiPage() {
         try {
             By racapitiPageTitle = By.id("Recapiti-page");
+            By titoloEmail = By.id("E-mail o numero di cellulare-page");
+            By sottoTitolo = By.xpath("//p[contains(text(),'viene inviato un messaggio')]");
+            By indirizzoEmail = By.id("email");
+            By avvisamoViaEmailButton = By.id("courtesy-email-button");
+            By alertInformativo = By.xpath("//span[contains(text(),'non è raggiungibile tramite ')]");
             getWebDriverWait(30).withMessage("il titolo Ricapiti della pagina recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(racapitiPageTitle));
+            getWebDriverWait(30).withMessage("il titolo Email della pagina recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titoloEmail));
+            getWebDriverWait(30).withMessage("il sottotitolo della pagina recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(sottoTitolo));
+            getWebDriverWait(30).withMessage("'l'indirizzio email della pagina recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(racapitiPageTitle));
             logger.info("Si visualizza correttamente recapiti page");
         }catch (TimeoutException e){
             logger.error("Non si visualizza correttamente recapiti page con errore:"+e.getMessage());
