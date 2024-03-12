@@ -77,8 +77,8 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void waitLoadDeleghePage() {
         try {
             By titlePage = By.id("Deleghe-page");
-            this.getWebDriverWait(30).withMessage("il titolo della pagina deleghe PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            this.getWebDriverWait(30).withMessage("Il bottone deleghe a carico dell'impresa non è visibile").until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
+            this.getWebDriverWait(10).withMessage("il titolo della pagina deleghe PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
+            this.getWebDriverWait(10).withMessage("Il bottone deleghe a carico dell'impresa non è visibile").until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
             logger.info("Deleghe page si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Deleghe page non si visualizza correttamente con errore: " + e.getMessage());
@@ -109,14 +109,14 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickRevocaMenuButtonPG(String ragioneSociale) {
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(nomeDelegato));
+        this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(nomeDelegato));
         WebElement menuButton;
         for (WebElement delegato : nomeDelegato) {
             if (delegato.getText().contains(ragioneSociale)) {
                 menuButton = delegato.findElement(By.tagName("button"));
-                this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(menuButton));
+                this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(menuButton));
                 menuButton.click();
-                this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.revocaMenuButton));
+                this.getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.revocaMenuButton));
                 this.revocaMenuButton.click();
             }
         }
