@@ -126,19 +126,6 @@ public class NotifichePFPage extends BasePage {
         return !this.elements(dataListBy).isEmpty();
     }
 
-    public boolean verificaEsistenzaEPassaggioPagina() {
-        this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
-        try {
-            this.getWebDriverWait(20).withMessage("bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOf(paginaSeconda));
-            logger.info("Bottone pagina 2 trovato");
-            paginaSeconda.click();
-            return true;
-        } catch (TimeoutException e) {
-            logger.error("bottone pagina 2 non trovata con errore: " + e.getMessage());
-            return false;
-        }
-    }
-
     public void clickNotificheButton() {
         this.getWebDriverWait(30).withMessage("Notifiche menu button non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.notificheDeButton));
         this.js().executeScript("arguments[0].click()", this.notificheDeButton);
@@ -378,11 +365,6 @@ public class NotifichePFPage extends BasePage {
         this.rimuoviFiltriButton.click();
     }
 
-    public void clickPage3() {
-        getWebDriverWait(30).withMessage("Il bottone pagina 3 nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.numeroPaginaTreButton));
-        this.numeroPaginaTreButton.click();
-    }
-
     public void firstPageDisplayed() {
         String isPageSelected = paginaPrima.getAttribute("aria-current");
         if (isPageSelected.equalsIgnoreCase("true")) {
@@ -395,7 +377,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public boolean isDateBoxInvalid() {
-        getWebDriverWait(30).withMessage("Il campo data inizio non è visibile").until(ExpectedConditions.visibilityOf(dataInizioField));
+        getWebDriverWait(10).withMessage("Il campo data inizio non è visibile").until(ExpectedConditions.visibilityOf(dataInizioField));
         String ariaInvalid = dataInizioField.getAttribute("aria-invalid");
         final String isTextboxInvalid = "true";
         return isTextboxInvalid.equals(ariaInvalid);

@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
+import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
@@ -20,6 +21,7 @@ import java.util.Map;
 public class RicercaNotifichePersonaFisicaPATest {
     private static final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaFisicaTest");
     private final WebDriver driver = Hooks.driver;
+    private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
     private Map<String, Object> datiNotifica = new HashMap<>();
     private Map<String, Object> datiNotificaNonValidoPF;
 
@@ -89,8 +91,9 @@ public class RicercaNotifichePersonaFisicaPATest {
     @And("Se i risultati sono contenuti in più pagine persona fisica è possibile effettuare il cambio pagina")
     public void seIRisultatiSonoContenutiInPiuPagineDestinatarioEPossibileEffettuareIlCambioPagina() {
         logger.info("Se i risultati sono contenuti in più pagine è possibile effettuare il cambio pagina");
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-        if (notifichePFPage.verificaEsistenzaEPassaggioPagina()) {
+        if (piattaformaNotifichePage.verificaEsistenzaEPassaggioPagina()) {
             logger.info("Bottone pagina 2 trovato e cliccato");
             HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
             headerPFSection.waitLoadHeaderDESection();
@@ -151,8 +154,8 @@ public class RicercaNotifichePersonaFisicaPATest {
 
     @And("Si clicca su pagina diversa dalla prima")
     public void siCliccaSupaginaDiversaDallaPrima(){
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-        notifichePFPage.clickPage3();
+        logger.info("si clicca su una pagina diversa dalla prima");
+        piattaformaNotifichePage.clickPagina(3);
     }
 
     @And("Si verifica che visualizza la prima pagina")
