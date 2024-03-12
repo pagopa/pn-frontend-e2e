@@ -42,7 +42,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     public void waitLoadDettaglioNotificaSection() {
         try {
             By titleDettaglioNotificaField = By.id("title-of-page");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
             logger.info("Dettaglio Notifica Section caricata");
         } catch (TimeoutException e) {
             logger.error("Dettaglio Notifica Section non caricata con errore: " + e.getMessage());
@@ -110,9 +110,9 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         return infoNotifiche.get(i).getText();
     }
 
-    public boolean controlloTestoFile(String path, String testoDaControllare) {
-        String filePath = System.getProperty("user.dir") + path;
-        File file = new File(filePath);
+    public boolean controlloTestoFile(String nameFile, String testoDaControllare) {
+        String basePathFile = "src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nameFile + ".pdf";
+        File file = new File(basePathFile);
         logger.info("percorso file: " + file.getAbsolutePath());
         try {
             PDDocument pdfFile = PDDocument.load(file);
@@ -158,8 +158,9 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         this.indietroButton.click();
     }
 
-    public boolean controlloTestoFileCodiceIUN(String path, String codiceIUN) {
-        File file = new File(System.getProperty("user.dir") + path);
+    public boolean controlloTestoFileCodiceIUN(String fileName, String codiceIUN) {
+        String basePathFile = "src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + fileName + ".pdf";
+        File file = new File(basePathFile);
         try {
             PDDocument pdfFile = PDDocument.load(file);
             PDFTextStripper pdfStripper = new PDFTextStripper();
@@ -178,8 +179,9 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     }
 
-    public boolean controlloTestoFileData(String path, String testoDaControllare) {
-        File file = new File(System.getProperty("user.dir") + path);
+    public boolean controlloTestoFileData(String fileName, String testoDaControllare) {
+        String basePathFile = "src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + fileName + ".pdf";
+        File file = new File(basePathFile);
         try {
             PDDocument pdfFile = PDDocument.load(file);
             PDFTextStripper pdfStripper = new PDFTextStripper();

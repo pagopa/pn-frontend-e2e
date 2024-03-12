@@ -88,8 +88,8 @@ public class PiattaformaNotifichePage extends BasePage {
     public void waitLoadPiattaformaNotifichePAPage() {
         try {
             By notificheTitle = By.id("Notifiche-page");
-            this.getWebDriverWait(30).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf(this.inviaNuovaNotificaButton));
-            this.getWebDriverWait(30).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOfElementLocated(notificheTitle));
+            this.getWebDriverWait(10).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf(this.inviaNuovaNotificaButton));
+            this.getWebDriverWait(10).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOfElementLocated(notificheTitle));
             logger.info("Piattaforma Notifiche Page caricata");
         } catch (TimeoutException e) {
             logger.error("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
@@ -113,7 +113,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void selectFiltraButton() {
         try {
-            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.filtraButton));
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(this.filtraButton));
             this.filtraButton.click();
             logger.info("Bottone filtra cliccato correttamente");
         } catch (TimeoutException e) {
@@ -250,7 +250,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public int getListStato(String statoNotifica) {
         try {
             By statoNotificaBy = By.xpath("//span[contains(text(),'" + statoNotifica + "')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
             return this.elements(statoNotificaBy).size();
         } catch (TimeoutException e) {
             return 0;
