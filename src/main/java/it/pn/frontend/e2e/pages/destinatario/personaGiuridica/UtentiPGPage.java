@@ -2,24 +2,24 @@ package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 public class UtentiPGPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("UtentiPGPage");
+    private final AccediAreaRiservataPGPage accediAreaRiservataPGPage = new AccediAreaRiservataPGPage(this.driver);
+    Actions actions = new Actions(this.driver);
+
 
     public UtentiPGPage(WebDriver driver) {super(driver);}
 
@@ -53,7 +53,7 @@ public class UtentiPGPage extends BasePage {
     @FindBy(id = "confirmEmail")
     WebElement confirmEmailBox;
 
-    @FindBy(id = "mui-component-select-products")
+    @FindBy(id = "select-label-products")
     WebElement selectProductDropdown;
 
     @FindBy(xpath = "//button[contains(text(),'Continua')]")
@@ -92,16 +92,16 @@ public class UtentiPGPage extends BasePage {
     @FindBy(xpath = "//span[contains(text(),'Rimuovi')]")
     WebElement removeButton;
 
-    @FindBy(xpath = "//p[contains(text(),'Rimuovi Ruolo')]")
-    WebElement removeRolePopup;
+    @FindBy(xpath = "//p[contains(text(),'Elimina Utente')]")
+    WebElement removeUserPopup;
 
     @FindBy(xpath = "//button[contains(text(),'Rimuovi')]")
     WebElement removeRuoloButton;
 
-    @FindBy(xpath = "//p[contains(text(),'Ruolo rimosso correttamente')]")
+    @FindBy(xpath = "//p[contains(text(),'Utente rimosso correttamente')]")
     WebElement roleDeletedMessage;
 
-    @FindBy(id = "menu-item(utenti)")
+    @FindBy(xpath = "//span[contains(text(),'Utenti')]")
     WebElement sezioneUtenti;
 
 
