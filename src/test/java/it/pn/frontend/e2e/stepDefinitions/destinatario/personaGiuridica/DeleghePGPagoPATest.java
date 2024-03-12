@@ -187,12 +187,12 @@ public class DeleghePGPagoPATest {
     }
 
     @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si inserisce il codice fiscale del delegante {string}")
-    public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiInserisceIlCodiceFiscaleDelDelegante(String dpFile) {
+    public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiInserisceIlCodiceFiscaleDelDelegante(String codiceFiscale) {
         logger.info("Si inserisce il codice fiscale del delegante");
 
-        this.datiPersonaFisica = this.dataPopulation.readDataPopulation(dpFile + ".yaml");
 
-        deleghePGPagoPAPage.insertCFDelegante(this.datiPersonaFisica.get("codiceFiscale").toString());
+
+        deleghePGPagoPAPage.insertCFDelegante(codiceFiscale);
     }
 
     @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si clicca su bottone Filtra")
@@ -204,10 +204,9 @@ public class DeleghePGPagoPATest {
     }
 
     @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si controlla che venga restituita la delega con il codice fiscale inserito {string}")
-    public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiControllaCheVengaRestituitaLaDelegaConIlCodiceFiscaleInserito(String dpFile) {
-        this.datiDelega = this.dataPopulation.readDataPopulation(dpFile + ".yaml");
-        String delegante = this.datiDelega.get("ragioneSociale").toString();
-        if (deleghePGPagoPAPage.controlloDelegaRestituita(delegante)) {
+    public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiControllaCheVengaRestituitaLaDelegaConIlCodiceFiscaleInserito(String ragioneSociale) {
+
+        if (deleghePGPagoPAPage.controlloDelegaRestituita(ragioneSociale)) {
             this.logger.info("La delega restituita è corretta");
         } else {
             this.logger.error("La delega restituita NON è corretta");

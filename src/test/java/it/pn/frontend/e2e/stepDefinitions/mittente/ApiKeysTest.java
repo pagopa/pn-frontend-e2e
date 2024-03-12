@@ -7,13 +7,11 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.mittente.ApiKeyPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.GeneraApiKeySection;
-import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class ApiKeysTest {
@@ -167,37 +165,37 @@ public class ApiKeysTest {
 
     @And("Si visualizza correttamente la lista delle Api Key generate")
     public void siVisualizzaCorrettamenteLaListaDelleApiKeyGenerate() {
-        if (apiKeyPAPage.siVisualizzaApiKeyConTesto()){
+        if (apiKeyPAPage.siVisualizzaApiKeyConTesto()) {
             logger.info("Si visualizza correttamente l'Api Key delle Api Key");
-        }else {
+        } else {
             logger.error("NON si visualizza correttamente l'Api Key delle Api Key");
             Assert.fail("NON si visualizza correttamente l'Api Key delle Api Key");
         }
 
-        if (apiKeyPAPage.siVisualizzaNomeEDataConTesto()){
+        if (apiKeyPAPage.siVisualizzaNomeEDataConTesto()) {
             logger.info("Si visualizza correttamente le date delle Api Key");
-        }else {
+        } else {
             logger.error("NON si visualizza correttamente le date delle Api Key");
             Assert.fail("NON si visualizza correttamente le date delle Api Key");
         }
 
-        if (apiKeyPAPage.siVisualizzaGruppoConTesto()){
+        if (apiKeyPAPage.siVisualizzaGruppoConTesto()) {
             logger.info("Si visualizza correttamente il gruppo delle Api Key");
-        }else {
+        } else {
             logger.error("NON si visualizza correttamente il gruppo delle Api Key");
             Assert.fail("NON si visualizza correttamente il gruppo delle Api Key");
         }
 
-        if (apiKeyPAPage.siVisualizzaStatoConTesto()){
+        if (apiKeyPAPage.siVisualizzaStatoConTesto()) {
             logger.info("Si visualizza correttamente lo stato delle api key");
-        }else {
+        } else {
             logger.error("NON si visualizza correttamente lo stato delle api key");
             Assert.fail("NON si visualizza correttamente lo stato delle api key");
         }
 
-        if (apiKeyPAPage.siVisualizzaMenuApiKey()){
+        if (apiKeyPAPage.siVisualizzaMenuApiKey()) {
             logger.info("Si visualizza correttamente il bottone del menu Api Key");
-        }else {
+        } else {
             logger.error("NON si visualizza correttamente il bottone del menu Api Key");
             Assert.fail("NON si visualizza correttamente il bottone del menu Api Key");
         }
@@ -211,15 +209,20 @@ public class ApiKeysTest {
 
     @And("Nella sezione genera Api Key inserire un gruppo")
     public void nellaSezioneGeneraApiKeyInserireUnGruppo() {
-        DataPopulation dataPopulation = new DataPopulation();
-        Map<String,Object> datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         String variabileAmbiente = System.getProperty("environment");
-        String gruppo="";
+        String gruppo = "";
+        String gruppo2 = "";
         switch (variabileAmbiente) {
-            case "dev" ->  gruppo = datiNotifica.get("gruppoDev").toString();
-            case "test", "uat" -> gruppo = datiNotifica.get("gruppoTest").toString();
+            case "dev" -> gruppo = "GruppoTest";
+            case "test", "uat" -> {
+                gruppo = "test-TA-FE-TEST";
+                gruppo2 = "test-2-ta";
+            }
         }
         apiKeyPAPage.inserireGruppoApi(gruppo);
+        if (!gruppo2.isEmpty()) {
+            apiKeyPAPage.inserireGruppoApi(gruppo2);
+        }
     }
 
     @And("Nella sezione genera Api Key cancellare il testo inserito")
@@ -253,6 +256,7 @@ public class ApiKeysTest {
 
         apiKeyPAPage.clickVisualizzaIdApiKey();
     }
+
     @And("Nella pagina Api Key si visualizza il pop up Gruppi associati alla API")
     public void nellaPaginaApiKeySiVisualizzaIlPopUpGruppiAssociatiAllaAPI() {
         logger.info("Si controlla che si vede il pop-up gruppi associato alla Api");
@@ -265,5 +269,18 @@ public class ApiKeysTest {
         logger.info("Si clicca sul tasto chiudi");
 
         apiKeyPAPage.chiudiPopUpVisualizza();
+    }
+
+    @And("Si copia correttamente la Api Key cliccando sul bottone di copia")
+    public void siCopiaCorrettamenteLaApiKeyCliccandoSulBottoneDiCopia() {
+        logger.info("Si clicca copia sul tasto 'copy-clipboard' per copiare la Api Key");
+        String apikeyCopied = apiKeyPAPage.copiaApiKey();
+        logger.info("La Api Key copiata è: " + apikeyCopied);
+    }
+
+    @Then("Nella pagina Api Key posizionare il cursuore sopra il numero gruppi")
+    public void nellaPaginaApiKeyPosizionareIlCursuoreSopraIlNumeroGruppi() {
+        apiKeyPAPage.mouseHoverGroups();
+        apiKeyPAPage.waitLoadMessaggioData();
     }
 }
