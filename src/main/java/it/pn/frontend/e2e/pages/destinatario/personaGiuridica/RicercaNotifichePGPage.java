@@ -158,7 +158,7 @@ public class RicercaNotifichePGPage extends BasePage {
 
     public void cliccaSuPrimaNotifica(){
         try {
-            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(primaNotifica));
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(primaNotifica));
             logger.info("Si clicca sulla prima notifica");
             primaNotifica.click();
         } catch (Exception e) {
