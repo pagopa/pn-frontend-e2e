@@ -76,6 +76,7 @@ public class Hooks {
         chromeOptions.addArguments("--incognito");
         chromeOptions.addArguments("--disable-dev-shm-usage");
         chromeOptions.addArguments("--remote-allow-origins=*");
+        chromeOptions.addArguments("--enable-clipboard");
         if (this.headless != null && this.headless.equalsIgnoreCase("true")) {
             chromeOptions.addArguments("no-sandbox");
             chromeOptions.addArguments("headless");
