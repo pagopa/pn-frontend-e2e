@@ -88,9 +88,9 @@ public class NotifichePFPage extends BasePage {
 
     public void waitESelectDelegheButton() {
         try {
-            By buttonDelegeBy = By.xpath("//div[contains(@data-testid,'menu-item(deleghe)')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(buttonDelegeBy));
-            WebElement buttonDelegheWebElement = this.driver.findElement(buttonDelegeBy);
+            By buttonDelegheBy = By.xpath("//div[contains(@data-testid,'menu-item(deleghe)')]");
+            this.getWebDriverWait(10).withMessage("Non viene visualizzato il bottone deleghe nella sidebar").until(ExpectedConditions.visibilityOfElementLocated(buttonDelegheBy));
+            WebElement buttonDelegheWebElement = this.driver.findElement(buttonDelegheBy);
             buttonDelegheWebElement.click();
             logger.info("cliccato correttamente su delega button");
         } catch (TimeoutException e) {

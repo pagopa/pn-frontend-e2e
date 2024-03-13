@@ -1,4 +1,4 @@
-Feature: Ricerca notifica per periodo temporale persona fisica
+Feature: Ricerca notifica persona fisica inserimento formato data errato
 
   @TestSuite
   @TA_PFinserimentoDataErrata
