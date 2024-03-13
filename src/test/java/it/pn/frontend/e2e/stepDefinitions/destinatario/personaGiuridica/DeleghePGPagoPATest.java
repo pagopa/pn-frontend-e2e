@@ -17,7 +17,6 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -38,12 +37,6 @@ public class DeleghePGPagoPATest {
 
     private LoginPGPagoPATest loginPGPagoPaTest = new LoginPGPagoPATest();
 
-
-    public void vaiAllaSezioneDelegatiDellImpresa(){
-        logger.info("navigate to delegati");
-        driver.navigate().to("https://imprese." + System.getProperty("environment") + ".notifichedigitali.it/deleghe/delegati");
-    }
-
     @And("Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa")
     public void siVisualizzaLaPaginaDeleghe() {
         logger.info("Si controlla che si visualizza la pagina Deleghe");
@@ -54,7 +47,6 @@ public class DeleghePGPagoPATest {
     @And("Nella pagina Deleghe si clicca su Delegati dall impresa")
     public void nellaPaginaDelegheSiCliccaSuDelegatiDallImpresa() {
         logger.info("Si clicca sul delegati dell'impresa");
-
         deleghePGPagoPAPage.clickDelegatiImpresa();
     }
 
@@ -195,7 +187,6 @@ public class DeleghePGPagoPATest {
         logger.info("Si inserisce il codice fiscale del delegante");
 
 
-
         deleghePGPagoPAPage.insertCFDelegante(codiceFiscale);
     }
 
@@ -221,7 +212,7 @@ public class DeleghePGPagoPATest {
     @And("Nella pagina Deleghe sezione Deleghe dell impresa  si verifica sia presente una delega")
     public void nellaPaginaDelegheSezioneDelegheDellImpresaSiVerificaSiaPresenteUnaDelega() {
         logger.info("Si controlla che ci sia almeno una delega");
-         BackgroundTest backgroundTest = new BackgroundTest();
+        BackgroundTest backgroundTest = new BackgroundTest();
 
         if (!this.delegatiImpresaSection.siVisualizzaUnaDelega()) {
             backgroundTest.aggiuntaNuovaDelegaDellImpresaPG();
@@ -443,25 +434,25 @@ public class DeleghePGPagoPATest {
     @And("Creo in background una delega per persona giuridica")
     public void creoInBackgroundUnaDelegaPerPersonaGiuridica(Map<String, String> personaGiuridica) {
         logger.info("Si controlla che ci sia una delega");
-            String dateto = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            DelegatePG delegatePG = DelegatePG.builder()
-                    .companyName(personaGiuridica.get("companyName"))
-                    .displayName(personaGiuridica.get("displayName"))
-                    .fiscalCode(personaGiuridica.get("fiscalCode"))
-                    .person(Boolean.parseBoolean(personaGiuridica.get("person")))
-                    .build();
-            DelegateRequestPG delegateRequestPG = DelegateRequestPG.builder()
-                    .dateto(dateto)
-                    .delegate(delegatePG)
-                    .visibilityIds(new ArrayList<>())
-                    .verificationCode("12345")
-                    .build();
-            String tokenExchange = loginPGPagoPaTest.getTokenExchangePGFromFile(personaGiuridica.get("accessoCome"));
-            DelegateResponsePG response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
-            System.setProperty("mandateId", response.getMandateId());
-            System.setProperty("verificationCode", response.getVerificationCode());
-            driver.navigate().refresh();
-        }
+        String dateto = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        DelegatePG delegatePG = DelegatePG.builder()
+                .companyName(personaGiuridica.get("companyName"))
+                .displayName(personaGiuridica.get("displayName"))
+                .fiscalCode(personaGiuridica.get("fiscalCode"))
+                .person(Boolean.parseBoolean(personaGiuridica.get("person")))
+                .build();
+        DelegateRequestPG delegateRequestPG = DelegateRequestPG.builder()
+                .dateto(dateto)
+                .delegate(delegatePG)
+                .visibilityIds(new ArrayList<>())
+                .verificationCode("12345")
+                .build();
+        String tokenExchange = loginPGPagoPaTest.getTokenExchangePGFromFile(personaGiuridica.get("accessoCome"));
+        DelegateResponsePG response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
+        System.setProperty("mandateId", response.getMandateId());
+        System.setProperty("verificationCode", response.getVerificationCode());
+        driver.navigate().refresh();
+    }
 
     @And("Si clicca sul bottone conferma delega")
     public void siCliccaSulBottoneConfermaDelega() {

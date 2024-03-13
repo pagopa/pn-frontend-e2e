@@ -69,13 +69,14 @@ public class BackgroundTest {
         notifichePGPagoPATest.nellaPaginaPiattaformaNotifichePersonaGiuridicaClickSulBottoneDeleghe();
         notifichePGPagoPATest.visualizzaDelegheSection();
     }
-        public void accettazioneDelegaPG(){
+
+    public void accettazioneDelegaPG() {
         deleghePagoPATest.siSceglieOpzioneAccetta();
         deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp(nomeFileNuovaDelegaPG);
         deleghePagoPATest.siCliccaSulBottoneAccetta();
         deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
 
-        }
+    }
 
 
     public void loginPFRecapiti(String nomeFileLogin) {
@@ -153,7 +154,7 @@ public class BackgroundTest {
         deleghePagoPATest.siSceglieOpzioneAccetta();
         deleghePGPagoPATest.siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale();
         deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneConfermaCodice();
-        if(!withGroup){
+        if (!withGroup) {
             deleghePGPagoPATest.siAssegnaUnGruppoAllaDelega();
         }
         deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
@@ -169,7 +170,7 @@ public class BackgroundTest {
     }
 
     public void aggiuntaNuovaDelegaDellImpresaPG() {
-        deleghePGPagoPATest.vaiAllaSezioneDelegatiDellImpresa();
+        deleghePGPagoPATest.nellaPaginaDelegheSiCliccaSuDelegatiDallImpresa();
         deleghePGPagoPATest.nellaSezioneDelegatiDellImpresaClickSulBottoneAggiungiNuovaDelega();
         deleghePGPagoPATest.siVisualizzaLaSezioneLeTueDeleghePersonaGiuridica();
         deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaInserireIDati(nomeFileNuovaDelegaPG);
@@ -222,12 +223,12 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiControllaCheLaPecAggiuntivaSiaStataInseritaCorrettamente();
     }
 
-    public void revocaDelegaPG(String dpFile){
+    public void revocaDelegaPG(String dpFile) {
         deleghePGPagoPATest.siControllaCheNonSiaPresenteUnaDelegaConStessoNomePersonaGiuridica(dpFile);
         deleghePagoPATest.siControllaCheNonCiSiaPiuUnaDelega();
     }
 
-    public void rifiutoDelegaACaricoDellImpresa(String dpFile){
+    public void rifiutoDelegaACaricoDellImpresa(String dpFile) {
         deleghePGPagoPATest.nellaPaginaDelegheSezioneDelegheAcaricoDellImpresaSiCliccaSulMenuDellaDelega(dpFile);
         deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneRifiuta();
         deleghePGPagoPATest.siCliccaSulBottoneRifiutaDelega();
