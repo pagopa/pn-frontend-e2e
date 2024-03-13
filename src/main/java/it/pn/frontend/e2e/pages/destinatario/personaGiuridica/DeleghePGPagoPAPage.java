@@ -323,7 +323,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     public boolean siVisualizzaUnaDelegaPG() {
         try {
             By menuDelega = By.xpath("//button[@data-testid='delegationMenuIcon']");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
             logger.info("Trovato correttamente almeno una delega");
             return true;
         } catch (TimeoutException e) {
