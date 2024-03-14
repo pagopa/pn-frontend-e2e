@@ -79,11 +79,19 @@ public class LoginPGPagoPATest {
         DataPopulation.waitTime(10);
 
         // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
-        HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
-        headerPGSection.waitLoadHeaderPGPage();
-        PiattaformaNotifichePGPAPage notifichePGPage = new PiattaformaNotifichePGPAPage(this.driver);
-        Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("personaGiuridica.yaml");
-        notifichePGPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
+        if(personaGiuridica.equalsIgnoreCase("delegante")){
+            HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
+            headerPGSection.waitLoadHeaderPGPage();
+            PiattaformaNotifichePGPAPage notifichePGPage = new PiattaformaNotifichePGPAPage(this.driver);
+            Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("personaGiuridica.yaml");
+            notifichePGPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
+        }else {
+            HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
+            headerPGSection.waitLoadHeaderPGPage();
+            PiattaformaNotifichePGPAPage notifichePGPage = new PiattaformaNotifichePGPAPage(this.driver);
+            Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("delegatoPG.yaml");
+            notifichePGPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
+        }
     }
 
     @When("Login portale persona giuridica tramite request method")
@@ -396,5 +404,26 @@ public class LoginPGPagoPATest {
         }
         String url = urlIniziale + token;
         this.driver.get(url);
+    }
+
+    public String getTokenExchangePGFromFile(String personaGiuridica) {
+        DataPopulation dataPopulation = new DataPopulation();
+        String environment = System.getProperty("environment");
+        String token = "";
+        switch (environment) {
+            case "dev" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPGDelegante").toString()
+                    :
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPGDelegato").toString();
+            case "test" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPGDelegante").toString()
+                    :
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPGDelegato").toString();
+            default -> {
+                logger.error("Ambiente non valido");
+                Assert.fail("Ambiente non valido o non trovato!");
+            }
+        }
+        return token;
     }
 }

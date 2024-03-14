@@ -47,6 +47,9 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(id = "next")
     WebElement frecciaPaginaSuccessiva;
 
+    @FindBy(id = "page2")
+    WebElement secondPage;
+
     @FindBy(id = "page3")
     WebElement pageNumberButton;
 
@@ -76,6 +79,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
     @FindBy(xpath = "//form[contains(@data-testid,'preliminaryInformationsForm')]")
     WebElement preliminaryInformationsForm;
+
+    @FindBy(xpath = "//input[@aria-invalid='true']")
+    List<WebElement> inputsError;
 
 
     public PiattaformaNotifichePage(WebDriver driver) {
@@ -155,14 +161,10 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean verificaEsistenzaEPassaggioPagina() {
         this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
-
         try {
-            By numeroButtonBy = By.id("page2");
-            this.getWebDriverWait(20).withMessage("Il bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOfElementLocated(numeroButtonBy));
+            this.getWebDriverWait(10).withMessage("Il bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOf(secondPage));
             logger.info("Bottone pagina 2 trovato");
-
-            WebElement numeroPagina = this.element(numeroButtonBy);
-            numeroPagina.click();
+            secondPage.click();
             return true;
         } catch (TimeoutException e) {
             return false;
@@ -684,6 +686,59 @@ public class PiattaformaNotifichePage extends BasePage {
         } else {
             logger.error("numero di default delle notifiche visualizzate non corretto");
             Assert.fail("numero di default delle notifiche visualizzate non corretto");
+        }
+    }
+
+    public boolean isFiltraButtonDisabled() {
+        return !inputsError.isEmpty() || filtraButton.getAttribute("disabled") != null;
+    }
+
+    public boolean controlloDateErrate() {
+        boolean isDateErrate = false;
+        for (WebElement input : inputsError) {
+            if (input.getAttribute("id").equals("startDate") || input.getAttribute("id").equals("endDate")) {
+                isDateErrate = true;
+                break;
+            }
+        }
+        return isDateErrate;
+    }
+
+    public boolean controlloEsistenzaStato() {
+        this.statoNotificaField.click();
+        try {
+            List<WebElement> statiNotifica = this.elements(By.xpath("//li[@data-value]"));
+            this.getWebDriverWait(10).withMessage("Il menu a tendina dello stato notifica del filtro non è visibile").until(ExpectedConditions.visibilityOfAllElements(statiNotifica));
+            ArrayList<String> stati = new ArrayList<>(List.of("Tutti gli stati", "Depositata", "Invio in corso", "Consegnata", "Perfezionata per decorrenza termini", "Avvenuto accesso", "Annullata", "Destinatario irreperibile"));
+            for (WebElement stato : statiNotifica) {
+                if (!stati.contains(stato.getText())) {
+                    logger.error("Lo stato " + stato.getText() + " non è presente nella lista");
+                    return false;
+                }
+            }
+            logger.info("Tutti gli stati sono presenti nella lista");
+            return true;
+        } catch (TimeoutException e) {
+            logger.error("Stato notifica NON trovata con errore: " + e.getMessage());
+            Assert.fail("Stato notifica NON trovata con errore: " + e.getMessage());
+            return false;
+        } finally {
+            this.element(By.id("menu-status")).click();
+        }
+    }
+
+    public void clickPagina(int pagina) {
+        String paginaString = "page" + pagina;
+        By paginaBy = By.id(paginaString);
+        try {
+            this.getWebDriverWait(30).withMessage("Il bottone pagina " + pagina + " non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(this.element(paginaBy)));
+            this.js().executeScript("arguments[0].scrollIntoView(true);", this.element(paginaBy));
+            this.element(paginaBy).click();
+            logger.info("Bottone pagina " + pagina + " cliccato correttamente");
+        } catch (TimeoutException e) {
+            logger.error("Il bottone pagina " + pagina + " non è cliccabile con errore: " + e.getMessage());
+            Assert.fail("Il bottone pagina " + pagina + " non è cliccabile con errore: " + e.getMessage());
         }
     }
 }

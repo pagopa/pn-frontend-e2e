@@ -918,6 +918,11 @@ public class NotificaMittentePagoPATest {
         }
     }
 
+    @And("Si clicca sulla pagina numero {int} delle notifiche")
+    public void siCliccaSullaSecondaPaginaDelleNotifiche(int pagina) {
+        piattaformaNotifichePage.clickPagina(pagina);
+    }
+
 
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.

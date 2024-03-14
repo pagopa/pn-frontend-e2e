@@ -15,6 +15,12 @@ import java.util.concurrent.TimeUnit;
 public class NotifichePFPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("NotifichePFPage");
 
+    @FindBy(id = "Le tue notifiche-page")
+    WebElement titleLabel;
+
+    @FindBy(id = "notifications-table")
+    WebElement tableNotifiche;
+
     @FindBy(id = "iunMatch")
     WebElement codiceIunTextField;
 
@@ -60,10 +66,8 @@ public class NotifichePFPage extends BasePage {
 
     public void waitLoadNotificheDEPage() {
         try {
-            By titleLabel = By.id("Le tue notifiche-page");
-            By tableNotifiche = By.id("notifications-table");
-            this.getWebDriverWait(30).withMessage("Il titolo della pagina Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
-            this.getWebDriverWait(30).withMessage("La tabella delle Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
+            this.getWebDriverWait(10).withMessage("Il titolo della pagina Notifiche non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));
+            this.getWebDriverWait(10).withMessage("La tabella delle Notifiche non è visibile").until(ExpectedConditions.visibilityOf(tableNotifiche));
             logger.info("Notifiche DE Page caricata");
         } catch (TimeoutException e) {
             logger.error("Notifiche DE Page non caricata con errore : " + e.getMessage());
@@ -107,37 +111,19 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void inserimentoArcoTemporale(String dataDA, String dataA) {
-        this.getWebDriverWait(10)
-                .until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField, this.dataFineField));
-
+        this.getWebDriverWait(10).withMessage("I campi di inserimento data non sono visibili").until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField, this.dataFineField));
         this.dataInizioField.click();
         this.dataInizioField.sendKeys(dataDA);
-        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", dataDA));
+        this.getWebDriverWait(3).withMessage("Il valore del campo inserimento data DA non corrisponde").until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", dataDA));
         this.dataFineField.click();
         this.dataFineField.sendKeys(dataA);
-        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataFineField, "value", dataA));
+        this.getWebDriverWait(3).withMessage("Il valore del campo inserimento data A non corrisponde").until(ExpectedConditions.attributeToBe(this.dataFineField, "value", dataA));
     }
 
     public boolean getListData() {
         By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]");
         this.getWebDriverWait(40).withMessage("La colonna Data nella pagina notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
         return !this.elements(dataListBy).isEmpty();
-    }
-
-    public boolean verificaEsistenzaEPassaggioPagina() {
-        this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
-        try {
-            By numeroButtonBy = By.id("page2");
-            this.getWebDriverWait(20).withMessage("bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOfElementLocated(numeroButtonBy));
-            logger.info("Bottone pagina 2 trovato");
-
-            WebElement numeroPagina = this.element(numeroButtonBy);
-            numeroPagina.click();
-            return true;
-        } catch (TimeoutException e) {
-            logger.error("bottone pagina 2 non trovata con errore: " + e.getMessage());
-            return false;
-        }
     }
 
     public void clickNotificheButton() {
@@ -160,7 +146,13 @@ public class NotifichePFPage extends BasePage {
     public void siVisualizzaPaginaNotifichePersonaFisica() {
         try {
             By notifichePageTitleBy = By.id("Le tue notifiche-page");
+            By bannerRecapiti = By.cssSelector("[data-testid='menu-item(i tuoi recapiti)']");
+            By filtriDiRicerca = By.cssSelector("[data-testid='filter-form']");
+            By elencoNotifiche = By.id("notificationsTable.body.row");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notifichePageTitleBy));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(bannerRecapiti));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(filtriDiRicerca));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(elencoNotifiche));
             logger.info("Il titolo della pagina notifiche persona fisica si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il titolo della pagina notifiche persona fisica NON si visualizza correttamente con errore:" + e.getMessage());
@@ -196,6 +188,12 @@ public class NotifichePFPage extends BasePage {
 
             By nomeColonnaMittenteBy = By.xpath("//th[contains(text(),'Mittente')]");
             getWebDriverWait(30).withMessage("il nome della colonna Mittente non è visibile").until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaMittenteBy));
+
+            By nomeColonnaCodiceIUNBy = By.xpath("//th[contains(text(),'Codice IUN')]");
+            getWebDriverWait(30).withMessage("il nome della colonna Codice IUN non è visibile").until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaCodiceIUNBy));
+
+            By nomeColonnaStatoBy = By.xpath("//th[contains(text(),'Stato')]");
+            getWebDriverWait(30).withMessage("il nome della colonna Stato non è visibile").until(ExpectedConditions.visibilityOfElementLocated(nomeColonnaStatoBy));
             logger.info("Si visualizza correttamente l'elenco delle notifiche");
 
         } catch (Exception e) {
@@ -261,13 +259,13 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void waitLoadSecondaPagina() {
-           String isPageSelected = paginaSeconda.getAttribute("aria-current");
-            if (isPageSelected.equalsIgnoreCase("true")) {
-                logger.info("Si visualizza una pagina differente dalla precedente");
-            }else {
-                logger.error("Non si visualizza una pagina differente dalla precedente");
-                Assert.fail("Non si visualizza una pagina differente dalla precedente");
-            }
+        String isPageSelected = paginaSeconda.getAttribute("aria-current");
+        if (isPageSelected.equalsIgnoreCase("true")) {
+            logger.info("Si visualizza una pagina differente dalla precedente");
+        } else {
+            logger.error("Non si visualizza una pagina differente dalla precedente");
+            Assert.fail("Non si visualizza una pagina differente dalla precedente");
+        }
 
     }
 
@@ -367,19 +365,28 @@ public class NotifichePFPage extends BasePage {
         this.rimuoviFiltriButton.click();
     }
 
-    public void clickPage3(){
-        getWebDriverWait(30).withMessage("Il bottone pagina 3 nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.numeroPaginaTreButton));
-        this.numeroPaginaTreButton.click();
-    }
-
     public void firstPageDisplayed() {
         String isPageSelected = paginaPrima.getAttribute("aria-current");
         if (isPageSelected.equalsIgnoreCase("true")) {
             logger.info("Si visualizza prima pagina");
-        }else {
+        } else {
             logger.error("Non si visualizza prima pagina");
             Assert.fail("Non si visualizza prima");
         }
 
+    }
+
+    public boolean isDateBoxInvalid() {
+        getWebDriverWait(10).withMessage("Il campo data inizio non è visibile").until(ExpectedConditions.visibilityOf(dataInizioField));
+        String ariaInvalid = dataInizioField.getAttribute("aria-invalid");
+        final String isTextboxInvalid = "true";
+        return isTextboxInvalid.equals(ariaInvalid);
+    }
+
+    public void inserimentoDataErrato(String data) {
+        this.getWebDriverWait(10).withMessage("Il campo data inizio non è visibile").until(ExpectedConditions.visibilityOf(this.dataInizioField));
+        this.dataInizioField.click();
+        this.dataInizioField.sendKeys(data);
+        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", data));
     }
 }
