@@ -573,6 +573,12 @@ public class RecapitiPersonaFisicaTest {
 
         recapitiDestinatarioPage.clickSuModificaPEC();
     }
+    @And("Nella pagina I Tuoi Recapiti l'indirizzo PEC non modificabile")
+    public void NellaPaginaITuoiRecapitiLindirizzoPecNonModificabile(){
+        recapitiDestinatarioPage.pecTextboxInvalid();
+    }
+
+
 
     @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request {string}")
     public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaPECTramiteChiamataRequest(String dpFile) {

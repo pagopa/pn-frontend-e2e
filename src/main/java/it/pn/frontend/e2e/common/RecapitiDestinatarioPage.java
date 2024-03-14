@@ -38,7 +38,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "cancelContact-default")
     WebElement eliminaPECButton;
 
-    @FindBy(xpath = "//div/h2[contains(text(),'Grazie!')]/following-sibling::div//button")
+        @FindBy(xpath = "//div/h2[contains(text(),'Grazie!')]/following-sibling::div//button")
     WebElement confermaButtonPoPUpPec;
 
     @FindBy(xpath = "//p[contains(text(),'Indirizzo e-mail')]/following-sibling::div/div/button[contains(text(),'Modifica')]")
@@ -68,6 +68,9 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "courtesyContacts-email")
     WebElement emailAssociata;
 
+    @FindBy(id = "legalContacts")
+    WebElement pecEmail;
+
     public RecapitiDestinatarioPage(WebDriver driver) {
         super(driver);
     }
@@ -82,6 +85,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             clickSuEliminaPec();
             waitLoadPopUpElimina();
             clickSuConfermaElimina();
+
         }
     }
 
@@ -111,7 +115,13 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void waitLoadPopUp() {
         try {
             By titleBy = By.id("dialog-title");
+            By sottoTitolo = By.id("dialog-description");
+            By otpBox = By.cssSelector("[data-testid='codeInput(0)']");
+            By otpMessage = By.xpath("//p[contains(text(),'Non l’hai ricevuto?')]");
             this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(titleBy));
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(sottoTitolo));
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(otpBox));
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(otpMessage));
             boolean checkButton = !confermaButtonPopUp.isEnabled() && annullaButton.isEnabled();
             if(!checkButton){
                 Assert.fail("i pulsanti all'interno del pop-up non rispettano le condizioni");
@@ -299,6 +309,11 @@ public class RecapitiDestinatarioPage extends BasePage {
             logger.error("Non si riesce a cancellare il testo della  email PEC :" + e.getMessage());
             Assert.fail("Non si riesce a cancellare il testo della  email PEC :" + e.getMessage());
         }
+    }
+
+    public void pecTextboxInvalid(){
+        getWebDriverWait(10).withMessage("Il textbox Pec email è modificabile").until(ExpectedConditions.visibilityOf(pecEmail));
+        logger.info("Il textbox Pec email non è modificabile");
     }
 
     public void clickSuSalva() {
