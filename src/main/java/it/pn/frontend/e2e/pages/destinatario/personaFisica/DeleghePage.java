@@ -73,7 +73,7 @@ public class DeleghePage extends BasePage {
 
     public void clickRevocaButtonOnMenu(String nome, String cognome) {
         By menuDelega = By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']");
-        this.getWebDriverWait(30).withMessage("Menù opzioni delega non visualizzato").until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
+        this.getWebDriverWait(10).withMessage("Menù opzioni delega non visualizzato").until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
         this.js().executeScript("arguments[0].click()", this.element(menuDelega));
         this.getWebDriverWait(10).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(this.revocaButton));
         this.revocaButton.click();

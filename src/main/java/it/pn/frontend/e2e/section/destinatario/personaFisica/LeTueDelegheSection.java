@@ -296,7 +296,7 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public boolean siVisualizzaPermessiDelega() {
-        this.getWebDriverWait(30).withMessage("I permessi della delega non sono visualizzati correttamente").until(ExpectedConditions.visibilityOf(permessiDelegaField));
+        this.getWebDriverWait(10).withMessage("I permessi della delega non sono visualizzati correttamente").until(ExpectedConditions.visibilityOf(permessiDelegaField));
         logger.info("check visualizzazione permessi delega");
         return this.permessiDelegaField.isDisplayed();
     }
