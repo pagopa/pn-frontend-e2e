@@ -763,6 +763,19 @@ public class RecapitiPersonaFisicaTest {
             }
         }
     }
+    @And("Nella pagina I Tuoi Recapiti si inserisce l'email con un numero maggiore di 254 caratteri")
+    public void nellaPaginaITuoiRecapitiSiInserisceLEmailConUnNumeroMaggioreDi254Caratteri(){
+        String email254Caratteri = "random_email_address_123456789012345" +
+                "67890123456789011111111111111111112345678902934823456" +
+                "789012345678901234567890123456789012345678901234567890" +
+                "12345678901234567890123456789012345678901234567890123456" +
+                "78901234567890123456789012345678901234567890@example.com";
+
+        recapitiDestinatarioPage.insertEmail(email254Caratteri);
+
+
+
+    }
 
     @And("Nella sezione altri recapiti si controlla l'esistenza di una PEC {string}")
     public void nellaSezioneAltriRecapitiSiControllaLEsistenzaDiUnaPEC(String dpFile) {
