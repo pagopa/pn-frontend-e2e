@@ -188,11 +188,9 @@ public class DownloadFileMittentePagoPATest {
             logger.error("Non è stato recuperato url per il download per il link: " + nomeFile);
             Assert.fail("Non è stato recuperato url per il download per il link: " + nomeFile);
         }
-        final String workingDirectory = System.getProperty("user.dir");
-
         nomeFile = nomeFile.replace(" ", "_").replace(":", "");
-        File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf");
-
+        File file = new File("src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf");
+        logger.info("Il file verrà scaricato in: " + file.getAbsolutePath());
         downloadFile.download(url, file, headless);
         if (!headless) {
             dettaglioNotificaMittenteSection.goBack();
@@ -206,7 +204,7 @@ public class DownloadFileMittentePagoPATest {
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         Map<String, String> infoNotifiche = dettaglioNotificaMittenteSection.recuperoInfoNotifiche();
         if (nomeFile.equals("Attestazione_opponibile_a_terzi_notifica_presa_in_carico")) {
-            if (dettaglioNotificaMittenteSection.controlloTestoFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("mittente"))) {
+            if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, infoNotifiche.get("mittente"))) {
                 logger.info("Il nome del mittente all'interno del file è corretto");
             } else {
                 logger.error("Il nome del mittente  all'interno del file  NON è corretto");
@@ -214,28 +212,28 @@ public class DownloadFileMittentePagoPATest {
             }
         }
 
-        if (dettaglioNotificaMittenteSection.controlloTestoFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("destinatario"))) {
+        if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, infoNotifiche.get("destinatario"))) {
             logger.info("Il nome del destinatario all'interno del file è corretto");
         } else {
             logger.error("Il nome del destinatario  all'interno del file  NON è corretto");
             Assert.fail("Il nome del destinatario  all'interno del file  NON è corretto");
         }
 
-        if (dettaglioNotificaMittenteSection.controlloTestoFile("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("codiceFiscale"))) {
+        if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, infoNotifiche.get("codiceFiscale"))) {
             logger.info("Il codiceFiscale del destinatario all'interno del file è corretto");
         } else {
             logger.error("Il codiceFiscale del destinatario  all'interno del file  NON è corretto");
             Assert.fail("Il codiceFiscale del destianatario  all'interno del file  NON è corretto");
         }
 
-        if (dettaglioNotificaMittenteSection.controlloTestoFileData("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("data"))) {
+        if (dettaglioNotificaMittenteSection.controlloTestoFileData(nomeFile, infoNotifiche.get("data"))) {
             logger.info("La data della notifica all'interno del file è corretta");
         } else {
             logger.error("La data della notifica all'interno del file  NON è corretta");
             Assert.fail("La data della notifica  all'interno del file  NON è corretta");
         }
 
-        if (dettaglioNotificaMittenteSection.controlloTestoFileCodiceIUN("/src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf", infoNotifiche.get("codiceIUN"))) {
+        if (dettaglioNotificaMittenteSection.controlloTestoFileCodiceIUN(nomeFile, infoNotifiche.get("codiceIUN"))) {
             logger.info("Il codice IUN della notifica all'interno del file è corretto");
         } else {
             logger.error("Il codice IUN della notifica all'interno del file  NON è corretto");

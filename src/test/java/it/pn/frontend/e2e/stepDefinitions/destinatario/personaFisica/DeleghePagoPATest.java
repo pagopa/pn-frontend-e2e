@@ -262,7 +262,9 @@ public class DeleghePagoPATest {
                 .build();
         String tokenExchange = loginPersonaFisicaPagoPA.getTokenExchangePFFromFile(personaFisica.get("accessoCome"));
         DelegateResponsePF response = restDelegation.addDelegationPF(delegateRequestPF, tokenExchange);
-        System.setProperty("mandateId", response.getMandateId());
+        if (response != null) {
+            System.setProperty("mandateId", response.getMandateId());
+        }
     }
 
     @And("Si clicca sul bottone Accetta")

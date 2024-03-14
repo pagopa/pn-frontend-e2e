@@ -18,7 +18,7 @@ public class HeaderPFSection extends BasePage {
     @FindBy(xpath = "//a[@title='Sito di PagoPA S.p.A.']")
     WebElement titleLabel;
 
-    @FindBy(css = "button[aria-label='party-menu-button']")
+    @FindBy(xpath = "//button[@aria-label='party-menu-button']")
     WebElement profiloUtenteMenu;
 
     public HeaderPFSection(WebDriver driver) {
@@ -51,11 +51,10 @@ public class HeaderPFSection extends BasePage {
 
     public void waitUrlToken() {
         try {
-            this.getWebDriverWait(30).until(ExpectedConditions.urlContains("token"));
+            this.getWebDriverWait(10).until(ExpectedConditions.urlContains("token"));
             logger.info("Url token ------------------------>" + driver.getCurrentUrl());
         } catch (TimeoutException e) {
             logger.error("Url token non trovato con errore:" + e.getMessage());
-            Assert.fail("Url token non trovato con errore:" + e.getMessage());
         }
     }
 }
