@@ -11,6 +11,11 @@ Feature: la persona fisica modifica l'indirizzo Email
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email
     And Nella pagina I Tuoi Recapiti si clicca sul bottone modifica
+    And Si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email
+    And Nella pagina I Tuoi Recapiti si inserisce l'email errata "provà&@gmail.com"
+    Then Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio email errata
+    And Nella pagina I Tuoi Recapiti si inserisce un email maggiore di 255 caratteri
+    Then Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio email errata
     And Nella pagina I Tuoi Recapiti si inserisce la nuova Email del PF "personaFisica" e clicca su salva
     And Si visualizza correttamente il pop-up e si clicca su conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
