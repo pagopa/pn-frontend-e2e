@@ -151,27 +151,9 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         this.js().executeScript("arguments[0].click()", this.recapitiButton);
     }
 
-    public void clickNotificheButton() {
-        getWebDriverWait(30).withMessage("Il bottone notifiche non è visibile").until(ExpectedConditions.visibilityOf(notificheButton));
-        notificheButton.click();
-    }
-
-    public void clickAttestazionePersalvare() {
-        getWebDriverWait(30).withMessage("L'attestazione non è visibile").until(ExpectedConditions.visibilityOf(attestazione));
-        this.js().executeScript("arguments[0].click()", this.attestazione);
-    }
-
-    public boolean isBackButtonDisplayed() {
-        return getWebDriverWait(30).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton)).isDisplayed();
-    }
-
     public void clickIndietroButton() {
         getWebDriverWait(30).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
         this.js().executeScript("arguments[0].click()", this.indietroButton);
-    }
-
-    public boolean sezioneDeiDatiDisplayed() {
-        return getWebDriverWait(30).withMessage("Il sezione dei dati non è visibile").until(ExpectedConditions.visibilityOf(sezioneDeiDati)).isDisplayed();
     }
 
     public boolean sezionePagamentoDisplayed() {
@@ -221,60 +203,4 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         return getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
     }
 
-    public boolean scaricaAvvisoDisplayed() {
-        return getWebDriverWait(30).withMessage("Il sezione scarica avviso non è visibile").until(ExpectedConditions.visibilityOf(scaricaAvviso)).isDisplayed();
-    }
-
-    public boolean pagaAvvisoDisplayed() {
-        return getWebDriverWait(30).withMessage("Il sezione paga avviso non è visibile").until(ExpectedConditions.visibilityOf(pagaAvviso)).isDisplayed();
-    }
-
-    public boolean sezioneRecapitiDisplayed() {
-        return getWebDriverWait(30).withMessage("Il sezione recapiti non è visibile").until(ExpectedConditions.visibilityOf(sezioneRecapiti)).isDisplayed();
-    }
-
-    public boolean documentiAllegatiDisplayed() {
-        return getWebDriverWait(30).withMessage("Il documenti allegati non è visibile").until(ExpectedConditions.visibilityOf(documentiAllegati)).isDisplayed();
-
-    }
-
-    public boolean statoDelloNotificheDisplayed() {
-        return getWebDriverWait(30).withMessage("Il stato dello notifiche non è visibile").until(ExpectedConditions.visibilityOf(statoDelloNotifiche)).isDisplayed();
-
-    }
-
-    public boolean attestazioneDisplayed() {
-        return getWebDriverWait(30).withMessage("L'attestazione non è visibile").until(ExpectedConditions.visibilityOf(attestazione)).isDisplayed();
-
-    }
-
-    public boolean vediPiuDettagli() {
-        return getWebDriverWait(30).withMessage("Il bottone vedi piu dettagli non è visibile").until(ExpectedConditions.visibilityOf(vediPiuDettagli)).isDisplayed();
-    }
-
-    public void clickVediPiuDettagli() {
-
-        getWebDriverWait(30).withMessage("Il bottone vedi piu dettagli non è visibile").until(ExpectedConditions.visibilityOf(vediPiuDettagli));
-        vediPiuDettagli.click();
-
-    }
-
-    public boolean vediMenoDettagliDisplayed() throws InterruptedException {
-        Thread.sleep(1000);
-        return getWebDriverWait(30).withMessage("Il bottone vedi meno dettagli non è visibile").until(ExpectedConditions.visibilityOf(vediMenoDettagliButton)).isDisplayed();
-    }
-
-    public boolean isTypePdfDisplayed() {
-        return getWebDriverWait(30).withMessage("Il format di file e PDF").until(ExpectedConditions.visibilityOf(pdfType)).isDisplayed();
-    }
-
-    public void clickDocumentButton() {
-
-        getWebDriverWait(30).withMessage("Il bottone documento allegato non è visibile").until(ExpectedConditions.visibilityOf(documentButton));
-        this.js().executeScript("arguments[0].click()", this.documentButton);
-
-    }
-
 }
-
-
