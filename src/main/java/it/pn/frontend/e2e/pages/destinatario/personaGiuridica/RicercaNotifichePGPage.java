@@ -24,6 +24,8 @@ public class RicercaNotifichePGPage extends BasePage {
     WebElement nonValidIunMessage;
     @FindBy(id = "startDate")
     WebElement dataInizioField;
+    @FindBy(id = "notificationsTable.body.row")
+    WebElement primaNotifica;
 
     public void clickNotificheImpresa() {
         try {
@@ -76,6 +78,27 @@ public class RicercaNotifichePGPage extends BasePage {
             Assert.fail("La pagina dettaglio notifica NON si è caricata correttamente con errore:" + e.getMessage());
         }
     }
+    public void waitLoadDettaglioNotificaPGDelegato() {
+        try {
+            By statoNotificaBy = By.id("notification-state");
+            By indietroButtonBy = By.id("breadcrumb-indietro-button");
+            By informazioniBy = By.id("notification-detail-table");
+            By allegatiSection = By.id("notification-detail-document-attached");
+            By bannerRecapiti = By.id("side-item-Recapiti");
+            By attestazioneOpponibile = By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: ')]");
+
+            this.getWebDriverWait(10).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
+            this.getWebDriverWait(10).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButtonBy));
+            this.getWebDriverWait(10).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
+            this.getWebDriverWait(10).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
+            this.getWebDriverWait(10).withMessage("Il banner Recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(bannerRecapiti));
+            this.getWebDriverWait(10).withMessage("La sezione attestazione opponibili non è visibile").until(ExpectedConditions.visibilityOfElementLocated(attestazioneOpponibile));
+            logger.info("La pagina dettaglio notifica si è caricata correttamente");
+        } catch (TimeoutException e) {
+            logger.error("La pagina dettaglio notifica NON si è caricata correttamente con errore:" + e.getMessage());
+            Assert.fail("La pagina dettaglio notifica NON si è caricata correttamente con errore:" + e.getMessage());
+        }
+    }
 
     public void clickFiltraButton() {
         getWebDriverWait(30).withMessage("Il bottone filtra nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.filtraButton));
@@ -108,5 +131,17 @@ public class RicercaNotifichePGPage extends BasePage {
             logger.error("Notifiche PG Page non caricata con errore : " + e.getMessage());
             Assert.fail("Notifiche PG Page non caricata con errore : " + e.getMessage());
         }
+    }
+
+    public void cliccaSuPrimaNotifica(){
+        try {
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(primaNotifica));
+            logger.info("Si clicca sulla prima notifica");
+            primaNotifica.click();
+        } catch (Exception e) {
+            logger.error("Non si clicca sulla prima notifica con errore:" + e.getMessage());
+            Assert.fail("Non si clicca sulla prima notifica con errore:" + e.getMessage());
+        }
+
     }
 }

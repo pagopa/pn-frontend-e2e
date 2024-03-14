@@ -116,14 +116,14 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickRevocaMenuButtonPG(String ragioneSociale) {
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(nomeDelegato));
+        this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(nomeDelegato));
         WebElement menuButton;
         for (WebElement delegato : nomeDelegato) {
             if (delegato.getText().contains(ragioneSociale)) {
                 menuButton = delegato.findElement(By.tagName("button"));
-                this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(menuButton));
+                this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(menuButton));
                 menuButton.click();
-                this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.revocaMenuButton));
+                this.getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.revocaMenuButton));
                 this.revocaMenuButton.click();
             }
         }
@@ -320,6 +320,17 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     }
 
+    public boolean siVisualizzaUnaDelegaPG() {
+        try {
+            By menuDelega = By.xpath("//button[@data-testid='delegationMenuIcon']");
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
+            logger.info("Trovato correttamente almeno una delega");
+            return true;
+        } catch (TimeoutException e) {
+            logger.warn("Deleghe NON trovate con errore: " + e.getMessage());
+            return false;
+        }
+    }
 
     public void checkTabellaDelegheACaricoDellImpresa() {
         By menuDelega = By.xpath("//table[@id='notifications-table']//following-sibling::td//button[@data-testid='delegationMenuIcon']");

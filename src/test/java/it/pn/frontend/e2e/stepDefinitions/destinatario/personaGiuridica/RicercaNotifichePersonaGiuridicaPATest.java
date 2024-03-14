@@ -28,7 +28,6 @@ public class RicercaNotifichePersonaGiuridicaPATest {
     RicercaNotifichePGPage ricercaNotifichePGPage = new RicercaNotifichePGPage(this.driver);
     DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
     private Map<String, Object> datiNotificaPG;
-    private Map<String, Object> datiNotificaNonValidoPG;
 
     @When("Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa")
     public void cliccareSuNotificheDellImpresa() {
@@ -54,10 +53,23 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         ricercaNotifichePGPage.cliccaNotificaRestituita(codiceIUNPG);
     }
 
+    @And("La persona giuridica clicca sulla prima notifica restituita")
+    public void laPersonaGiuridicaCliccaSullaPrimaNotificaRestituita() {
+        RicercaNotifichePGPage ricercaNotifichePGPage = new RicercaNotifichePGPage(this.driver);
+        ricercaNotifichePGPage.cliccaSuPrimaNotifica();
+    }
+
     @And("Si visualizza correttamente la section Dettaglio Notifica persona giuridica")
     public void siVisualizzaCorrettamenteLaSectionDettaglioNotificaPersonaGiuridica() {
         ricercaNotifichePGPage.waitLoadDettaglioNotificaPGSection();
     }
+
+    @And("Si visualizza correttamente la section Dettaglio Notifica persona giuridica delegato")
+    public void siVisualizzaCorrettamenteLaSectionDettaglioNotificaPersonaGiuridicaDelegato() {
+        ricercaNotifichePGPage.waitLoadDettaglioNotificaPGDelegato();
+    }
+
+
 
     @And("Si controlla se la notifica prevede il pagamento")
     public void siControllaSeLaNotificaPrevedeIlPagamento() {
