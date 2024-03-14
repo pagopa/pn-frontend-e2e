@@ -37,8 +37,9 @@ public class DestinatarioPage extends BasePage {
         this.getWebDriverWait(3).withMessage("Il valore della data che si vuole inserire non corrisponde").until(ExpectedConditions.attributeToBe(this.dataFineField, "value", data));
     }
 
-    public void isDateBoxInvalid(){
+    public boolean isDateBoxInvalid(){
         final String isTextboxInvalid = "true";
+        boolean invalidBoxDate = true;
         try {
             getWebDriverWait(10).withMessage("Il campo data inizio non è visibile").until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField, this.dataFineField));
             String ariaInvalidInizio = dataInizioField.getAttribute("aria-invalid");
@@ -48,12 +49,13 @@ public class DestinatarioPage extends BasePage {
             }else{
                 logger.error("Nessuno dei campi data è passato allo stato invalido");
                 Assert.fail("Nessuno dei campi data è passato allo stato invalido");
+                invalidBoxDate = false;
             }
         } catch (TimeoutException e){
             logger.error("Campi data non visualizzati correttamente con errore: " + e.getMessage());
             Assert.fail("Campi data non visualizzati correttamente con errore: " + e.getMessage());
         }
-
+        return invalidBoxDate;
     }
 
 

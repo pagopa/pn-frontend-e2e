@@ -240,30 +240,20 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         }
     }
 
-    @And("Nella pagina Piattaforma Notifiche destinatario inserire una data con formato errato")
-    public void nellaPaginaPiattaformaNotificheDestinatarioInserireUnaDataConFormatoErrato() {
+    @And("Nella pagina Piattaforma Notifiche destinatario si inserisce una data con formato errato")
+    public void nellaPaginaPiattaformaNotificheDestinatarioSiInserisceUnaDataConFormatoErrato() {
         logger.info("Si inserisce un formato data non valido in entrambi i campi per ricerca notifica");
         destinatarioPage.inserimentoDataErrato();
     }
 
     @Then("Il rettangolo del campo errato diventa rosso e il tasto Filtra è disattivo")
     public void ilRettangoloDelCampoErratoDiventaRossoEIlTastoFiltraèDisattivo() {
-
-        boolean isDateBoxInvalid = ricercaNotifichePGPage.isDateBoxInvalid();
-
-        if (isDateBoxInvalid) {
-            logger.info("Il campo data inizio non é valido");
-        } else {
-            logger.error("Il campo data inizio non é passato allo stato non valido");
-            Assert.fail("Il campo data inizio non é passato allo stato non valido");
-        }
-
+        destinatarioPage.isDateBoxInvalid();
         ricercaNotifichePGPage.clickFiltraButton();
-
-        boolean isDateBoxStillInvalid = ricercaNotifichePGPage.isDateBoxInvalid();
+        boolean isDateBoxStillInvalid = destinatarioPage.isDateBoxInvalid();
 
         if (isDateBoxStillInvalid) {
-            logger.info("Il bottone Filtra é dissativato");
+            logger.info("Il bottone Filtra é disattivato");
         } else {
             logger.error("Il bottone Filtra é attivo");
             Assert.fail("Il bottone Filtra é attivo");

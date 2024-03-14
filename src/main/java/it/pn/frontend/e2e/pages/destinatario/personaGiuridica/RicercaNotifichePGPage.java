@@ -114,14 +114,6 @@ public class RicercaNotifichePGPage extends BasePage {
         return getWebDriverWait(30).withMessage("Il messagio di errore non e visibile").until(ExpectedConditions.visibilityOf(nonValidIunMessage)).isDisplayed();
     }
 
-    public boolean isDateBoxInvalid(){
-        getWebDriverWait(10).withMessage("Il campo data inizio non è visibile").until(ExpectedConditions.visibilityOf(dataInizioField));
-        final String isTextboxInvalid = "true";
-        String ariaInvalid = dataInizioField.getAttribute("aria-invalid");
-
-        return isTextboxInvalid.equals(ariaInvalid);
-    }
-
     public void waitLoadNotifichePGPage() {
         try {
             By tableNotifiche = By.id("notifications-table");
