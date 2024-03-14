@@ -22,8 +22,6 @@ public class RicercaNotifichePGPage extends BasePage {
     WebElement rimuoviFiltriButton;
     @FindBy(id = "iunMatch-helper-text")
     WebElement nonValidIunMessage;
-    @FindBy(id = "startDate")
-    WebElement dataInizioField;
     @FindBy(id = "notificationsTable.body.row")
     WebElement primaNotifica;
 
