@@ -41,7 +41,7 @@ public class UtentiPGPagoPATest {
         String codiceFiscale = nuovoUtente.get("codiceFiscale");
         String name = nuovoUtente.get("name");
         String surname = nuovoUtente.get("familyName");
-        String email = nuovoUtente.get("mail");
+        String email = nuovoUtente.get("email");
         utentiPGPage.insertData(codiceFiscale,name,surname,email);
     }
 

@@ -194,7 +194,10 @@ public class UtentiPGPage extends BasePage {
 
     public void selectRole() {
         adminRadioButton.click();
-        logger.info("Si clicca sul bottone Continue");
+        if (continueButton.getAttribute("disabled")==null){
+            logger.info("il bottone Continua è attivo");
+        };
+        logger.info("Si clicca sul bottone Continua");
         actions.moveToElement(continueButton).click().perform();
         getWebDriverWait(10).withMessage("il popup assegna ruolo non è visualizzata").until(ExpectedConditions.visibilityOf(confirmPopup));
     }
