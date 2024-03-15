@@ -75,6 +75,9 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(id = "notifications-table")
     WebElement tabelleDelleDelegheACaricoDellImpresa;
 
+    @FindBy(id = "alert-api-status}")
+    WebElement alertPopUp;
+
 
     public DeleghePGPagoPAPage(WebDriver driver) {
         super(driver);
@@ -207,8 +210,7 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public boolean verificaEsistenzaErroreCodiceSbagliato() {
         try {
-            By esistenzaBy = By.id("alert-api-status}");
-            this.getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(esistenzaBy));
+            this.getWebDriverWait(5).withMessage("Alert non visualizzato correttamente").until(ExpectedConditions.visibilityOf(alertPopUp));
             logger.info("Errore codice sbagliato trovato");
             return true;
         } catch (TimeoutException e) {
@@ -334,9 +336,8 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public void checkAlertWrongDelegationCode() {
         try {
-            By alertWrongCode = By.id("alert-api-status}");
             By alertCloseButtonBy = By.xpath("//button[@aria-label='Close']");
-            this.getWebDriverWait(10).withMessage("Alert non visualizzato correttamente").until(ExpectedConditions.visibilityOfElementLocated(alertWrongCode));
+            this.getWebDriverWait(5).withMessage("Alert non visualizzato correttamente").until(ExpectedConditions.visibilityOf(alertPopUp));
             logger.info("Alert visualizzato correttamente in pagina");
             WebElement alertCloseButton = driver.findElement(alertCloseButtonBy);
             alertCloseButton.click();
