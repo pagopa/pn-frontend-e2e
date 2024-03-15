@@ -22,8 +22,6 @@ public class RicercaNotifichePGPage extends BasePage {
     WebElement rimuoviFiltriButton;
     @FindBy(id = "iunMatch-helper-text")
     WebElement nonValidIunMessage;
-    @FindBy(id = "startDate")
-    WebElement dataInizioField;
     @FindBy(id = "notificationsTable.body.row")
     WebElement primaNotifica;
 
@@ -112,37 +110,6 @@ public class RicercaNotifichePGPage extends BasePage {
 
     public boolean isErrorMessageDisplayed() {
         return getWebDriverWait(30).withMessage("Il messagio di errore non e visibile").until(ExpectedConditions.visibilityOf(nonValidIunMessage)).isDisplayed();
-    }
-
-    public void inserimentoDataErrato(String da) {
-        this.getWebDriverWait(10)
-                .until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField));
-
-        this.dataInizioField.click();
-        this.dataInizioField.sendKeys(da);
-        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", da));
-    }
-    public boolean isDateBoxInvalid(){
-        getWebDriverWait(10).withMessage("Il campo data inizio non è visibile").until(ExpectedConditions.visibilityOf(dataInizioField));
-        String ariaInvalid = dataInizioField.getAttribute("aria-invalid");
-        final String isTextboxInvalid = "true";
-        return isTextboxInvalid.equals(ariaInvalid);
-    }
-
-    public boolean verificaEsistenzaEPassaggioPaginaPG() {
-        this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
-        try {
-            By numeroButtonBy = By.id("page2");
-            this.getWebDriverWait(20).withMessage("bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOfElementLocated(numeroButtonBy));
-            logger.info("Bottone pagina 2 trovato");
-
-            WebElement numeroPagina = this.element(numeroButtonBy);
-            numeroPagina.click();
-            return true;
-        } catch (TimeoutException e) {
-            logger.error("bottone pagina 2 non trovata con errore: " + e.getMessage());
-            return false;
-        }
     }
 
     public void waitLoadNotifichePGPage() {

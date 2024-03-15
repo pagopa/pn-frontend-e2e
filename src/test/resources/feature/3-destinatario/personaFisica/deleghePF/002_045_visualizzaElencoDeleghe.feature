@@ -1,7 +1,7 @@
 Feature:La persona fisica visualizza la sezione aggiungi una nuova delega
 
   @TestSuite
-  @TA_PFvisualizzaElencoCampiAggiugiDelega
+  @TA_PFvisualizzaElencoCampiAggiungiDelega
   @DeleghePF
   @PF
 
