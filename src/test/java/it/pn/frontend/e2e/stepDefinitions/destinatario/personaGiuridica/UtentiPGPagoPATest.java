@@ -36,14 +36,12 @@ public class UtentiPGPagoPATest {
         utentiPGPage.waitLoadAggiungiUtentePage();
     }
 
-    @And("Si inserisce i dati personali {string}")
-    public void siInserisceIDatiPersonali(String dpFile) throws InterruptedException {
-        DataPopulation dataPopulation = new DataPopulation();
-        Map<String, Object> utentePG = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        String codiceFiscale = utentePG.get("codiceFiscale").toString();
-        String name = utentePG.get("name").toString();
-        String surname = utentePG.get("familyName").toString();
-        String email = utentePG.get("mail").toString();
+    @And("Si inserisce i dati personali")
+    public void siInserisceIDatiPersonali(Map<String, String> nuovoUtente) throws InterruptedException {
+        String codiceFiscale = nuovoUtente.get("codiceFiscale");
+        String name = nuovoUtente.get("name");
+        String surname = nuovoUtente.get("familyName");
+        String email = nuovoUtente.get("mail");
         utentiPGPage.insertData(codiceFiscale,name,surname,email);
     }
 
@@ -57,8 +55,8 @@ public class UtentiPGPagoPATest {
         utentiPGPage.selectRole();
     }
 
-    @And("Si clicca sul bottone annula nel popup")
-    public void siCliccaSulBottoneAnnulaNelPopup(){
+    @And("Si clicca sul bottone annulla nel popup")
+    public void siCliccaSulBottoneAnnullaNelPopup(){
         utentiPGPage.clickRejectPopup();
     }
 
@@ -81,11 +79,8 @@ public class UtentiPGPagoPATest {
     }
 
     @And("Si modifica il campo email e conferma email {string}")
-    public void siModificaIlCampoEmailEConfermaEmail(String dpFile){
-        DataPopulation dataPopulation = new DataPopulation();
-        Map<String, Object> utentePG = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        String emailNew = utentePG.get("newMail").toString();
-        utentiPGPage.inserisciNuovoEmail(emailNew);
+    public void siModificaIlCampoEmailEConfermaEmail(String mail){;
+        utentiPGPage.inserisciNuovoEmail(mail);
     }
 
     @And("Nella pagina riepilogativa utenti si clicca sul bottone conferma")
@@ -94,11 +89,8 @@ public class UtentiPGPagoPATest {
     }
 
     @And("Si visualizza correttamente nuovo email {string}")
-    public void siVisualizzaCorrettamenteNuovoEmail(String dpFile) {
-        DataPopulation dataPopulation = new DataPopulation();
-        Map<String, Object> utentePG = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        String emailNew = utentePG.get("newMail").toString();
-        utentiPGPage.checkNewEmail(emailNew);
+    public void siVisualizzaCorrettamenteNuovoEmail(String mail) {
+        utentiPGPage.checkNewEmail(mail);
     }
 
     @And("Nella pagina riepilogativa utenti si clicca sul bottone rimuovi")
@@ -119,10 +111,8 @@ public class UtentiPGPagoPATest {
     }
 
     @And("Si apre dettaglio dell utente appena creato {string}")
-    public void siApreDettaglioDellUtenteAppenaCreato(String dpFile){
-        DataPopulation dataPopulation = new DataPopulation();
-        Map<String, Object> utentePG = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        String name = utentePG.get("name").toString().toLowerCase();
+    public void siApreDettaglioDellUtenteAppenaCreato(String nameUtente){
+        String name = nameUtente.toLowerCase();
         utentiPGPage.getUserDetailsPage(name);
     }
     @When("Nella Pagina Notifiche persona giuridica si clicca su utenti")
@@ -136,11 +126,10 @@ public class UtentiPGPagoPATest {
         utentiPGPage.clickSezioneUtentiDaRiepilogo();
     }
 
-    @And("Nella pagina utenti si effettua la login tramite credenziali {string}")
-    public void nellaPaginaUtentiSiEffettuaLaLoginTramiteCredenziali(String dpFile){
-        this.datiPersonaGiuridica = this.dataPopulation.readDataPopulation(dpFile + ".yaml");
-        String nome = this.datiPersonaGiuridica.get("user").toString();
-        String pwd = this.datiPersonaGiuridica.get("pwd").toString();
+    @And("Nella pagina utenti si effettua la login tramite credenziali")
+    public void nellaPaginaUtentiSiEffettuaLaLoginTramiteCredenziali(Map<String, String> nuovoUtente){
+        String nome = nuovoUtente.get("user");
+        String pwd = nuovoUtente.get("pwd");
         utentiPGPage.loginUtenti(nome,pwd);
     }
 }

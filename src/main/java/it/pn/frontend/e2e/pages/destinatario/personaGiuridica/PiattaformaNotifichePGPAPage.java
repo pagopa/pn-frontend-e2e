@@ -152,26 +152,13 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
 
     public void clickNotificheButton() {
-        getWebDriverWait(30).withMessage("Il bottone notifiche non è visibile").until(ExpectedConditions.visibilityOf(notificheButton));
+        getWebDriverWait(10).withMessage("Il bottone notifiche non è visibile").until(ExpectedConditions.visibilityOf(notificheButton));
         notificheButton.click();
     }
 
-    public void clickAttestazionePersalvare() {
-        getWebDriverWait(30).withMessage("L'attestazione non è visibile").until(ExpectedConditions.visibilityOf(attestazione));
-        this.js().executeScript("arguments[0].click()", this.attestazione);
-    }
-
-    public boolean isBackButtonDisplayed() {
-        return getWebDriverWait(30).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton)).isDisplayed();
-    }
-
     public void clickIndietroButton() {
-        getWebDriverWait(30).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
+        getWebDriverWait(10).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
         this.js().executeScript("arguments[0].click()", this.indietroButton);
-    }
-
-    public boolean sezioneDeiDatiDisplayed() {
-        return getWebDriverWait(30).withMessage("Il sezione dei dati non è visibile").until(ExpectedConditions.visibilityOf(sezioneDeiDati)).isDisplayed();
     }
 
     public boolean sezionePagamentoDisplayed() {
@@ -184,7 +171,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             return false;
         }
     }
-
 
     public boolean isRadioBoxPresent() {
         try {
