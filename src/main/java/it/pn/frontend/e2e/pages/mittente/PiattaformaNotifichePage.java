@@ -167,6 +167,7 @@ public class PiattaformaNotifichePage extends BasePage {
             secondPage.click();
             return true;
         } catch (TimeoutException e) {
+            logger.error("bottone pagina 2 non trovata con errore: " + e.getMessage());
             return false;
         }
     }
