@@ -538,7 +538,7 @@ public class DeleghePGPagoPATest {
         deleghePagoPATest.siSceglieOpzioneAccetta();
         String verificationCode = "00000";
         deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI(verificationCode);
-        nellaSezioneDelegheSiCliccaSulBottoneConfermaCodice();
+        deleghePGPagoPAPage.clickConfirmCodeButton();
         deleghePGPagoPAPage.clickBottoneConferma();
     }
 

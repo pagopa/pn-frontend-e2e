@@ -335,7 +335,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void checkAlertWrongDelegationCode() {
         try {
             By alertWrongCode = By.id("alert-api-status}");
-            By alertCloseButtonBy = By.xpath("//*[@aria-label='Close']");
+            By alertCloseButtonBy = By.xpath("//button[@aria-label='Close']");
             this.getWebDriverWait(10).withMessage("Alert non visualizzato correttamente").until(ExpectedConditions.visibilityOfElementLocated(alertWrongCode));
             logger.info("Alert visualizzato correttamente in pagina");
             WebElement alertCloseButton = driver.findElement(alertCloseButtonBy);
@@ -350,7 +350,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void clickButtonIndietroDaAssegnaGruppo() {
         try {
             logger.info("Si clicca sul bottone indietro per tornare al pop-up di inserimento codice delega");
-            By buttonIndietroPopUpAssegnaGruppo = By.xpath("//*[@data-testid='groupCancelButton']");
+            By buttonIndietroPopUpAssegnaGruppo = By.xpath("//button[@data-testid='groupCancelButton']");
             this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(buttonIndietroPopUpAssegnaGruppo));
             WebElement buttonIndietroClick = driver.findElement(buttonIndietroPopUpAssegnaGruppo);
             buttonIndietroClick.click();
@@ -375,7 +375,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             }
         }
         if (isInvalid) {
-            logger.info("Textbox di input codice delega sono in stato invalido");
+            logger.info("Textbox di input codice delega invalido");
         } else {
             logger.error("Almeno una textbox di input codice delega non in stato invalido");
             Assert.fail("Almeno una textbox di input codice delega non in stato invalido");
