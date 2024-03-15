@@ -109,7 +109,7 @@ public class DeleghePGPagoPAPage extends BasePage {
         try {
             this.getWebDriverWait(30).withMessage("delega non trovata").until(ExpectedConditions.visibilityOfElementLocated(delegaExist));
             return true;
-        }catch (TimeoutException e){
+        } catch (TimeoutException e) {
             return false;
         }
 
@@ -196,23 +196,23 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickBottoneConferma() {
-        getWebDriverWait(40).withMessage("Il bottone conferma nel pop up di scelta gruppo non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
+        getWebDriverWait(10).withMessage("Il bottone conferma nel pop up di scelta gruppo non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
         this.confermaButton.click();
     }
 
-    public void clickBottoneConfermaDelega(){
+    public void clickBottoneConfermaDelega() {
         getWebDriverWait(20).withMessage("il bottone conferma delega pg non é visibile").until(ExpectedConditions.elementToBeClickable(confermaAccettazioneDelegaButton));
         confermaAccettazioneDelegaButton.click();
     }
 
     public boolean verificaEsistenzaErroreCodiceSbagliato() {
         try {
-            By esistenzaBy = By.id("alert-api-status");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(esistenzaBy));
+            By esistenzaBy = By.id("alert-api-status}");
+            this.getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(esistenzaBy));
             logger.info("Errore codice sbagliato trovato");
             return true;
         } catch (TimeoutException e) {
-            logger.info("errore non trovato");
+            logger.info("Errore non trovato");
             return false;
         }
 
@@ -296,19 +296,19 @@ public class DeleghePGPagoPAPage extends BasePage {
         this.groupOption.click();
     }
 
-    public String getCodiceVerificaDelegaACaricoDellImpresaAPI(){
-        try{
+    public String getCodiceVerificaDelegaACaricoDellImpresaAPI() {
+        try {
             String pathIniziale = System.getProperty("user.dir");
             String text = Files.readString(Paths.get(pathIniziale + "/src/test/resources/dataPopulation/bodyChiamataDeleghe.json"));
             JSONObject object = new JSONObject(text);
             return object.getString("verificationCode");
-        }catch (IOException e) {
+        } catch (IOException e) {
             logger.error("non é stato possibile reperire il codice di verifica dal json");
             throw new RuntimeException(e);
         }
     }
 
-    public void inserimentoCodiceDelegaACaricoDellImpresaAPI(String codiceDelega){
+    public void inserimentoCodiceDelegaACaricoDellImpresaAPI(String codiceDelega) {
         String[] codiciDelega = codiceDelega.split("");
         for (int i = 0; i < 5; i++) {
             String xpathBy = "code-input-" + i;
@@ -332,6 +332,56 @@ public class DeleghePGPagoPAPage extends BasePage {
         }
     }
 
+    public void checkAlertWrongDelegationCode() {
+        try {
+            By alertWrongCode = By.id("alert-api-status}");
+            By alertCloseButtonBy = By.xpath("//*[@aria-label='Close']");
+            this.getWebDriverWait(10).withMessage("Alert non visualizzato correttamente").until(ExpectedConditions.visibilityOfElementLocated(alertWrongCode));
+            logger.info("Alert visualizzato correttamente in pagina");
+            WebElement alertCloseButton = driver.findElement(alertCloseButtonBy);
+            alertCloseButton.click();
+            logger.info("Alert chiusa");
+        } catch (TimeoutException e) {
+            logger.error("Alert non visualizzato con errore: " + e.getMessage());
+            Assert.fail("Alert non visualizzato con errore: " + e.getMessage());
+        }
+    }
+
+    public void clickButtonIndietroDaAssegnaGruppo() {
+        try {
+            logger.info("Si clicca sul bottone indietro per tornare al pop-up di inserimento codice delega");
+            By buttonIndietroPopUpAssegnaGruppo = By.xpath("//*[@data-testid='groupCancelButton']");
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(buttonIndietroPopUpAssegnaGruppo));
+            WebElement buttonIndietroClick = driver.findElement(buttonIndietroPopUpAssegnaGruppo);
+            buttonIndietroClick.click();
+            logger.info("Bottone indietro cliccato");
+        } catch (TimeoutException e) {
+            logger.error("Bottone non visualizzato con errore " + e.getMessage());
+            Assert.fail("Bottone non visualizzato con errore: " + e.getMessage());
+        }
+    }
+
+    public void checkTextboxCodiceSonoRosse() {
+        final String textboxIsInvalid = "true";
+        boolean isInvalid = true;
+        for (int i = 0; i < 5; i++) {
+            String xpathBy = "code-input-" + i;
+            By codiceDelegaInputBy = By.id(xpathBy);
+            getWebDriverWait(10).withMessage("Textbox di input codice delega non visualizzata").until(ExpectedConditions.visibilityOfElementLocated(codiceDelegaInputBy));
+            WebElement codiceDelegaInput = driver.findElement(codiceDelegaInputBy);
+            String stateInput = codiceDelegaInput.getAttribute("aria-invalid");
+            if (!textboxIsInvalid.equals(stateInput)) {
+                isInvalid = false;
+            }
+        }
+        if (isInvalid) {
+            logger.info("Textbox di input codice delega sono in stato invalido");
+        } else {
+            logger.error("Almeno una textbox di input codice delega non in stato invalido");
+            Assert.fail("Almeno una textbox di input codice delega non in stato invalido");
+        }
+    }
+
     public void checkTabellaDelegheACaricoDellImpresa() {
         By menuDelega = By.xpath("//table[@id='notifications-table']//following-sibling::td//button[@data-testid='delegationMenuIcon']");
         By colonnaNome = By.xpath("//table[@id='notifications-table']//th[contains(text(),'Nome')]");
@@ -349,7 +399,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             getWebDriverWait(10).withMessage("colonna gruppi non caricata correttamente").until(ExpectedConditions.visibilityOfElementLocated(colonnaGruppi));
             getWebDriverWait(10).withMessage("colonna stato non caricata correttamente").until(ExpectedConditions.visibilityOfElementLocated(colonnaStato));
             getWebDriverWait(10).withMessage("menu non caricato correttamente").until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
-        }catch (TimeoutException e){
+        } catch (TimeoutException e) {
             logger.error("tabella deleghe a carico dell impresa non caricata correttamente" + e.getMessage());
             Assert.fail("tabella deleghe a carico dell impresa non caricata correttamente" + e.getMessage());
         }

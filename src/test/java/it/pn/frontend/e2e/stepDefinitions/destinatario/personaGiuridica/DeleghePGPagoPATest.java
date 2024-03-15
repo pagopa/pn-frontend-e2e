@@ -11,6 +11,7 @@ import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.AggiungiDelegaPGSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.DelegatiImpresaSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePagoPATest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -27,6 +28,7 @@ public class DeleghePGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("DeleghePGPagoPATest");
     private final WebDriver driver = Hooks.driver;
     private final DeleghePGPagoPAPage deleghePGPagoPAPage = new DeleghePGPagoPAPage(this.driver);
+    private final DeleghePagoPATest deleghePagoPATest = new DeleghePagoPATest();
     private final DelegatiImpresaSection delegatiImpresaSection = new DelegatiImpresaSection(this.driver);
     private final AggiungiDelegaPGSection aggiungiDelegaPGSection = new AggiungiDelegaPGSection(this.driver);
     private final DataPopulation dataPopulation = new DataPopulation();
@@ -152,8 +154,8 @@ public class DeleghePGPagoPATest {
         }
     }
 
-    @And("Nella sezione Le Tue Deleghe inserire una data con formato errato e andecedente alla data")
-    public void nellaSezioneLeTueDelegheInserireUnaDataConFormatoErratoEAndecedenteAllaData() {
+    @And("Nella sezione Le Tue Deleghe inserire una data con formato errato e antecedente alla data")
+    public void nellaSezioneLeTueDelegheInserireUnaDataConFormatoErratoEAntecedenteAllaData() {
         logger.info("Si inserisce una data errata e antecedente");
 
         aggiungiDelegaPGSection.clearInputData();
@@ -528,5 +530,23 @@ public class DeleghePGPagoPATest {
     @And("Si controlla la tabella delegati dall impresa")
     public void siControllaLaTabellaDelegatiDallImpresa() {
         delegatiImpresaSection.checkTabellaDelegheDellImpresa();
+    }
+
+    @And("Si inserisce un codice della delega a carico dell impresa errato nella modale")
+    public void siInserisceUnCodiceDellaDelegaACaricoDellImpresaErratoNellaModale() {
+        logger.info("Si inserisce un codice della delega errato nella modale");
+        deleghePagoPATest.siSceglieOpzioneAccetta();
+        String verificationCode = "00000";
+        deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI(verificationCode);
+        nellaSezioneDelegheSiCliccaSulBottoneConfermaCodice();
+        deleghePGPagoPAPage.clickBottoneConferma();
+    }
+
+    @Then("Le textbox che contengono le cifre del codice delega diventano rosse")
+    public void leTextboxCheContengonoLeCifreDelCodiceDelegaDiventanoRosse() {
+        logger.info("Si visualizza alert di errore in pagina");
+        deleghePGPagoPAPage.checkAlertWrongDelegationCode();
+        deleghePGPagoPAPage.clickButtonIndietroDaAssegnaGruppo();
+        deleghePGPagoPAPage.checkTextboxCodiceSonoRosse();
     }
 }
