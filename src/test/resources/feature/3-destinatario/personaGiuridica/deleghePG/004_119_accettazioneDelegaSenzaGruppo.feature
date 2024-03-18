@@ -15,6 +15,8 @@ Feature:Il delegato persona giuridica accetta la delega non assegnandoli un grup
       | companyName    | Convivio Spa  |
       | displayName    | Convivio Spa  |
       | person         | false         |
+    And Si inserisce un codice della delega a carico dell impresa errato nella modale
+    Then Le textbox che contengono le cifre del codice delega diventano rosse
     And Si accetta la delega "senza" gruppo
     And Si controlla che la delega PG ha lo stato Attiva "Convivio Spa"
     And Logout da portale persona giuridica
