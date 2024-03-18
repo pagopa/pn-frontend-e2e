@@ -64,8 +64,7 @@ public class DeleghePagoPATest {
     @And("Si visualizza la sezione Le Tue Deleghe")
     public void siVisualizzaLaSezioneLeTueDeleghe() {
         logger.info("Si visualizza la sezione Le Tue Deleghe");
-        LeTueDelegheSection deleghePage = new LeTueDelegheSection(this.driver);
-        deleghePage.waitNuovaDelegaSection();
+        leTueDelegheSection.waitNuovaDelegaSection();
     }
 
     @And("Nella sezione Le Tue Deleghe inserire i dati {string}")
@@ -128,7 +127,7 @@ public class DeleghePagoPATest {
         logger.info("Si controlla che sia presente una delega");
         BackgroundTest backgroundTest = new BackgroundTest();
         if (!this.deleghePage.siVisualizzaUnaDelega()) {
-            backgroundTest.aggiuntaNuovaDelegaDellImpresaPG();
+            backgroundTest.aggiuntaNuovaDelegaPF();
         }
     }
 
