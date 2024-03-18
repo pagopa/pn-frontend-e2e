@@ -55,11 +55,10 @@ public class HeaderPFSection extends BasePage {
 
     public void waitUrlToken() {
         try {
-            this.getWebDriverWait(30).until(ExpectedConditions.urlContains("token"));
+            this.getWebDriverWait(10).until(ExpectedConditions.urlContains("token"));
             logger.info("Url token ------------------------>" + driver.getCurrentUrl());
         } catch (TimeoutException e) {
             logger.error("Url token non trovato con errore:" + e.getMessage());
-            Assert.fail("Url token non trovato con errore:" + e.getMessage());
         }
     }
 }

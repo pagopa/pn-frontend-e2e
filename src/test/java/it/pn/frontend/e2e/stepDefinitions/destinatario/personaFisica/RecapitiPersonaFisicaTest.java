@@ -144,11 +144,21 @@ public class RecapitiPersonaFisicaTest {
         recapitiDestinatarioPage.insertEmail(emailErrata);
     }
 
+    @And("Nella pagina I Tuoi Recapiti si inserisce un email maggiore di {int} caratteri")
+    public void nellaPaginaITuoiRecapitiSiInserisceUnEmailMaggioreDiCaratteri(int numeroCaratteri) {
+        String email = "test";
+        for (int i = 0; i < numeroCaratteri; i++) {
+            email += "a";
+        }
+        recapitiDestinatarioPage.insertEmail(email);
+    }
+
     @Then("Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio email errata")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioEmailErrata() {
-
         String errorMessageRead = recapitiDestinatarioPage.getEmailErrorMessage();
-        Assert.assertEquals("messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo e-mail non valido", "Indirizzo e-mail non valido", errorMessageRead);
+        if (!errorMessageRead.contains("Indirizzo e-mail non valido") && !errorMessageRead.contains("Scrivi massimo 254 caratteri")) {
+            Assert.fail("messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo e-mail non valido o Scrivi massimo 254 caratteri");
+        }
     }
 
     @And("Si controlla che il tasto avvisami via email sia bloccato")
@@ -277,7 +287,7 @@ public class RecapitiPersonaFisicaTest {
             }
         }
     }
-    
+
     @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method {string}")
     public void nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaEmailTramiteRequestMethod(String dpFile) {
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
@@ -403,10 +413,8 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si clicca sul bottone modifica")
     public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneModifica() {
         logger.info("Si clicca sul bottone modifica");
-
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
-
         recapitiDestinatarioPage.clickSuModifica();
     }
 
@@ -808,6 +816,20 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si clicca sul bottone annulla");
         recapitiDestinatarioPage.clickSuAnnulla();
         recapitiDestinatarioPage.verificaPecNonModificabile();
+    }
+
+    @And("Si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email")
+    public void siVisualizzanoCorrettamenteGliElementiPostModifica() {
+        logger.info("Si controlla che si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email");
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.checkPostModifica();
+    }
+
+    @When("Nella pagina I Tuoi Recapiti si visualizza correttamente il riquadro relativo alla PEC")
+    public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlRiquadroRelativoAllaPEC() {
+        logger.info("Si visualizza correttamente il riquadro relativo alla PEC");
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.checkRiquadroPEC();
     }
 }
 

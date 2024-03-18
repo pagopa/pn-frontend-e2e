@@ -147,7 +147,6 @@ public class BackgroundTest {
 
 
     public void accettazioneDelegaSceltaGruppo(boolean withGroup) {
-        deleghePagoPATest.siSceglieOpzioneAccetta();
         deleghePGPagoPATest.siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale();
         deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneConfermaCodice();
         if (!withGroup) {

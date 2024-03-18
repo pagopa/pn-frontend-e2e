@@ -61,10 +61,11 @@ public class RestDelegation {
         }
         return null;
     }
+
     /**
      * Add a new PG delegation
      *
-     * @param delegateRequestPG DelegateRequest object with all the data
+     * @param delegateRequest DelegateRequest object with all the data
      * @return DelegateResponse object with the response
      * @throws RestDelegationException if there is an error during the request
      */
