@@ -1,4 +1,4 @@
-Feature: La persona fisica visualizza la sezione notifiche
+Feature: La persona giuridica visualizza la sezione notifiche
 
   @TestSuite
   @TA_PGPaginazioneNotifiche
