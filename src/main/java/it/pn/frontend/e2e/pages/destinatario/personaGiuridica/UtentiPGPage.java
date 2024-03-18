@@ -17,7 +17,7 @@ public class UtentiPGPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("UtentiPGPage");
     private final AccediAreaRiservataPGPage accediAreaRiservataPGPage = new AccediAreaRiservataPGPage(this.driver);
-    Actions actions = new Actions(this.driver);
+    private final Actions actions = new Actions(this.driver);
     @FindBy(xpath = "//button[contains(text(),'Aggiungi utente')]")
     WebElement addUserButton;
     @FindBy(xpath = "//button[contains(text(),'Indietro')]")
@@ -50,8 +50,6 @@ public class UtentiPGPage extends BasePage {
     WebElement assegnaButton;
     @FindBy(xpath = "//p[contains(text(),'Utente aggiunto correttamente')]")
     WebElement successMessage;
-    @FindBy(xpath = "//p[contains(text(),'Hai già aggiunto questo utente')]")
-    WebElement userExistsMessage;
     @FindBy(xpath = "//button[contains(text(),'Modifica')]")
     WebElement modificaButton;
     @FindBy(id = "confirmEmail-helper-text")
@@ -82,7 +80,6 @@ public class UtentiPGPage extends BasePage {
         String companyId = "d0f52c7d-76d5-4520-8971-edffeb5b46d5";
         String environment = System.getProperty("environment");
         String utentiUrl = "https://imprese." + environment + ".notifichedigitali.it/dashboard/" + companyId + "/users";
-
         //switch tab
         String parentWindowHandle = driver.getWindowHandle();
         Set<String> windowHandles = driver.getWindowHandles();
@@ -113,11 +110,9 @@ public class UtentiPGPage extends BasePage {
         loginPGPagoPAPage.insertPassword(pwd);
         loginPGPagoPAPage.clickInviaButton();
 
-
         AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage = new AutorizzaInvioDatiPGPage(this.driver);
         autorizzaInvioDatiPGPage.waitLoadAutorizzaInvioDatiPGPage();
         autorizzaInvioDatiPGPage.clickInviaButton();
-
     }
 
     public void waitLoadUtentiPage() {
@@ -165,7 +160,6 @@ public class UtentiPGPage extends BasePage {
     }
 
     public void insertData(String codiceFiscale, String name, String surname, String email) throws InterruptedException {
-
         codiceFiscaleBox.sendKeys(codiceFiscale);
         Thread.sleep(2000);
         if (nameBox.getAttribute("value").equalsIgnoreCase(name) && surnameBox.getAttribute("value").equalsIgnoreCase(surname)) {
@@ -174,7 +168,6 @@ public class UtentiPGPage extends BasePage {
             logger.error("Il nome e il cognome non è generato correttamente");
             Assert.fail("Il nome e il cognome non è generato correttamente");
         }
-
         this.js().executeScript("arguments[0].setAttribute('autocomplete', 'off')", emailBox);
         emailBox.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
         emailBox.sendKeys(email);
@@ -194,9 +187,9 @@ public class UtentiPGPage extends BasePage {
 
     public void selectRole() {
         adminRadioButton.click();
-        if (continueButton.getAttribute("disabled")==null){
+        if (continueButton.getAttribute("disabled") == null) {
             logger.info("il bottone Continua è attivo");
-        };
+        }
         logger.info("Si clicca sul bottone Continua");
         actions.moveToElement(continueButton).click().perform();
         getWebDriverWait(10).withMessage("il popup assegna ruolo non è visualizzata").until(ExpectedConditions.visibilityOf(confirmPopup));
@@ -209,6 +202,10 @@ public class UtentiPGPage extends BasePage {
     }
 
     public void clickContinueAndAssign() {
+        getWebDriverWait(10).withMessage("il bottone continua non è visibile o cliccabile").until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOf(continueButton),
+                ExpectedConditions.elementToBeClickable(continueButton)
+        ));
         continueButton.click();
         getWebDriverWait(10).withMessage("il bottone assegna non è visibile").until(ExpectedConditions.visibilityOf(assegnaButton));
         assegnaButton.click();
@@ -216,7 +213,6 @@ public class UtentiPGPage extends BasePage {
 
     public void waitSuccessMessage() {
         try {
-
             if (successMessage.isDisplayed()) {
                 logger.info("Si visualizza correttamente messaggio di successo");
             }
@@ -228,15 +224,13 @@ public class UtentiPGPage extends BasePage {
     public void waitLoadRecapPage() {
         try {
             By indietroButton = By.xpath("//button[contains(text(),'Indietro')]");
-            By titolo = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/main/div/div/div[2]");
+            By titolo = By.xpath("//main//h4");
             By modificaButton = By.xpath("//button[contains(text(),'Modifica')]");
             By rimuoviButton = By.xpath("//span[contains(text(),'Rimuovi')]");
             By nameField = By.xpath("//p[contains(text(),'Nome')]");
             By surnameField = By.xpath("//p[contains(text(),'Cognome')]");
             By codiceFiscaleField = By.xpath("//p[contains(text(),'Codice Fiscale')]");
             By emailField = By.xpath("//p[contains(text(),'Email')]");
-
-
             getWebDriverWait(10).withMessage("il bottone indietro della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButton));
             getWebDriverWait(10).withMessage("il titolo della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titolo));
             getWebDriverWait(10).withMessage("il bottone modifica della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(modificaButton));
@@ -253,7 +247,7 @@ public class UtentiPGPage extends BasePage {
     }
 
     public void clickModifyButton() {
-        getWebDriverWait(30).withMessage("il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(modificaButton));
+        getWebDriverWait(10).withMessage("il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(modificaButton));
         logger.info("Si clicca sul bottone modifica");
         modificaButton.click();
     }
@@ -261,7 +255,6 @@ public class UtentiPGPage extends BasePage {
     public void checkEmailBoxActive() {
         String checkEmail = emailBox.getAttribute("disabled");
         String checkConfirmEmail = confirmEmailBox.getAttribute("disabled");
-
         if (checkEmail == null && checkConfirmEmail == null) {
             logger.info("il campo email e il campo conferma email sono attivi");
         } else {
@@ -273,15 +266,15 @@ public class UtentiPGPage extends BasePage {
     public void inserisciNuovoEmail(String newMail) {
         emailBox.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
         emailBox.sendKeys(newMail);
-        getWebDriverWait(30).withMessage("il messaggio errore email non è visibile").until(ExpectedConditions.visibilityOf(wrongMailErrorMessage));
+        getWebDriverWait(10).withMessage("il messaggio errore email non è visibile").until(ExpectedConditions.visibilityOf(wrongMailErrorMessage));
         confirmEmailBox.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
         confirmEmailBox.sendKeys(newMail);
     }
 
     public void clickConfirm() {
-        getWebDriverWait(30).withMessage("il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(confermaButton));
+        getWebDriverWait(10).withMessage("il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(confermaButton));
         confermaButton.click();
-        getWebDriverWait(30).withMessage("il messaggio successo non è visibile").until(ExpectedConditions.elementToBeClickable(successModifyMessage));
+        getWebDriverWait(10).withMessage("il messaggio successo non è visibile").until(ExpectedConditions.elementToBeClickable(successModifyMessage));
     }
 
     public void checkNewEmail(String newEmail) {
@@ -317,5 +310,4 @@ public class UtentiPGPage extends BasePage {
         getWebDriverWait(10).withMessage("l'utente apena creato non è visibile").until(ExpectedConditions.visibilityOf(findUserByName));
         findUserByName.click();
     }
-
 }
