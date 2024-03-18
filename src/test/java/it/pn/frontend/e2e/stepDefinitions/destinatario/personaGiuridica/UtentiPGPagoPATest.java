@@ -4,21 +4,16 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.UtentiPGPage;
-import it.pn.frontend.e2e.utility.DataPopulation;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class UtentiPGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("UtentiPGPagoPATest");
     private final WebDriver driver = Hooks.driver;
     private final UtentiPGPage utentiPGPage = new UtentiPGPage(this.driver);
-    private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
-    private final DataPopulation dataPopulation = new DataPopulation();
-
 
     @And("Si visualizza correttamente la pagina utenti")
     public void siVisualizzaCorrettamenteLaPAginaUtenti() {
