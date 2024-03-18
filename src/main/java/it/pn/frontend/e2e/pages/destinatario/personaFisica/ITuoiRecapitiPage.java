@@ -25,6 +25,9 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(id = "addressType")
     WebElement tipoIndirizzoField;
 
+    @FindBy(id = "subtitle-page")
+    List<WebElement> subTitlesSection;
+
     public ITuoiRecapitiPage(WebDriver driver) {
         super(driver);
     }
@@ -195,5 +198,34 @@ public class ITuoiRecapitiPage extends BasePage {
                 ExpectedConditions.visibilityOfElementLocated(emailField),
                 ExpectedConditions.attributeToBe(this.element(emailField), "readonly", ""),
                 ExpectedConditions.attributeToBeNotEmpty(this.element(emailField), "value")));
+    }
+
+    public void checkRiquadroPEC() {
+        try {
+            By titleSection = By.id("Recapito legale-page");
+            By pecField = By.id("pec");
+            By confirmButton = By.id("add-contact");
+            By infoBanner = By.xpath("//span[@data-testid='legal-contact-disclaimer']");
+            this.getWebDriverWait(10).withMessage("Non si visualizza il titolo della sezione recapito legale o il contenuto è errato").until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(titleSection),
+                    ExpectedConditions.attributeToBe(this.element(titleSection), "innerText", "Recapito legale")));
+            this.getWebDriverWait(10).withMessage("Non si visualizza il sottotitolo della sezione recapito legale o il contenuto è errato").until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOf(subTitlesSection.get(1)),
+                    ExpectedConditions.attributeToBe(subTitlesSection.get(1), "innerText", "Quando c’è una notifica per te, ti inviamo qui l’avviso di avvenuta ricezione. Accedi a SEND per leggerla e pagare eventuali spese.")));
+            this.getWebDriverWait(10).withMessage("Non si visualizza il campo pec o non è modificabile").until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(pecField),
+                    ExpectedConditions.attributeToBe(this.element(pecField), "readonly", ""),
+                    ExpectedConditions.attributeToBe(this.element(pecField), "placeholder", "Il tuo indirizzo PEC")));
+            this.getWebDriverWait(10).withMessage("Non si visualizza il bottone conferma o non è cliccabile").until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(confirmButton),
+                    ExpectedConditions.not(ExpectedConditions.elementToBeClickable(confirmButton))));
+            this.getWebDriverWait(10).withMessage("Non si visualizza il banner informativo o il suo contenuto è errato").until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(infoBanner),
+                    ExpectedConditions.attributeToBe(this.element(infoBanner), "innerText", "Questo è l’indirizzo principale che verrà utilizzato per inviarti gli avvisi di avvenuta ricezione in via digitale. Inserendolo, non riceverai più raccomandate cartacee.")));
+            logger.info("Il riquadro PEC si visualizza correttamente");
+        } catch (TimeoutException e) {
+            logger.error("Il riquadro PEC NON si visualizza correttamente con errori:" + e.getMessage());
+            Assert.fail("Il riquadro PEC NON si visualizza correttamente con errori:" + e.getMessage());
+        }
     }
 }
