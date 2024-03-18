@@ -129,7 +129,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             }
             this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(footerNotReceived));
             boolean checkButton = !confermaButtonPopUp.isEnabled() && annullaButton.isEnabled();
-            if(!checkButton){
+            if (!checkButton) {
                 Assert.fail("i pulsanti all'interno del pop-up non rispettano le condizioni");
             }
             logger.info("Il pop-up di conferma viene visualizzato correttamente");
@@ -342,8 +342,8 @@ public class RecapitiDestinatarioPage extends BasePage {
     public String waitLoadPopUpElimina() {
         By titlePopUp = By.id("dialog-title");
         By subTitlePopUp = By.id("dialog-description");
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
+        this.getWebDriverWait(30).withMessage("Non è stato caricato il titolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
+        this.getWebDriverWait(30).withMessage("Non è stato caricato il sottotitolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
         return this.element(titlePopUp).getText();
     }
 

@@ -293,6 +293,7 @@ public class RecapitiPersonaFisicaTest {
                 Assert.fail("Pec non associata con errore");
             }
         }
+
     }
 
     @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method {string}")
