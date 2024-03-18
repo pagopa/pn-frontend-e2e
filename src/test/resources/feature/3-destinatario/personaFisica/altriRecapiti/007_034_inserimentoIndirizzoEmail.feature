@@ -9,6 +9,7 @@ Feature: la persona fisica inserisce una Email
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
+    And Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione 'E-mail o numero di cellulare'
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una email
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
     And Si visualizza correttamente il pop-up e si clicca su conferma
