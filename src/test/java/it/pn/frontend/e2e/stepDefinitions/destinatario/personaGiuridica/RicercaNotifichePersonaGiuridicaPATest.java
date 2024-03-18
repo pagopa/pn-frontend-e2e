@@ -32,14 +32,12 @@ public class RicercaNotifichePersonaGiuridicaPATest {
     @When("Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa")
     public void cliccareSuNotificheDellImpresa() {
         logger.info("Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa");
-
         ricercaNotifichePGPage.clickNotificheImpresa();
     }
 
     @And("Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN da dati notifica {string}")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIUNDaDatiNotifica(String datiNotificaPG) throws InterruptedException {
         logger.info("Si inserisce il codice IUN");
-
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotificaPG = dataPopulation.readDataPopulation(datiNotificaPG + ".yaml");
         NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
@@ -69,15 +67,10 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         ricercaNotifichePGPage.waitLoadDettaglioNotificaPGDelegato();
     }
 
-
-
     @And("Si controlla se la notifica prevede il pagamento")
     public void siControllaSeLaNotificaPrevedeIlPagamento() {
-
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
-
         boolean sezionePagamentoIsDisplayed = piattaformaNotifichePGPAPage.sezionePagamentoDisplayed();
-
         if (!sezionePagamentoIsDisplayed) {
             logger.info("La notifica non prevede il pagamento ");
         } else {
@@ -85,7 +78,6 @@ public class RicercaNotifichePersonaGiuridicaPATest {
             boolean radioBoxPresent = piattaformaNotifichePGPAPage.isRadioBoxPresent();
 
             if (radioBoxPresent) {
-
                 piattaformaNotifichePGPAPage.clickRadioBoxButton(piattaformaNotifichePGPAPage.cssBuildRadioButton());
             }
 
@@ -141,12 +133,9 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         if (result) {
             logger.info("Il risultato é coerente con il codice IUN inserito");
         } else {
-
             logger.error("Gli stati della notifica NON sono uguali a quelli selezionati");
             Assert.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
-
         }
-
     }
 
     @And("Nella pagina Piattaforma Notifiche persona giuridica inserire un arco temporale")
@@ -192,11 +181,8 @@ public class RicercaNotifichePersonaGiuridicaPATest {
 
     @Then("Viene visualizzato un messaggio in rosso di errore sotto il campo errato e il rettangolo diventa rosso e il tasto Filtra è disattivo")
     public void vieneVisualizzatoUnMessaggioInRossoDiErroreSottoIlCampoErratoEIlRettangoloDiventaRossoEIlTastoFiltraEDisattivo() {
-
         NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
-
         boolean isErrorMessageDisplayed = ricercaNotifichePGPage.isErrorMessageDisplayed();
-
         if (isErrorMessageDisplayed) {
             logger.info("il messaggio di errore é visualizzato");
         } else {
@@ -205,15 +191,12 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         }
 
         boolean isTextBoxInValid = notificheDestinatarioPage.isTextBoxInvalid();
-
         if (isTextBoxInValid) {
             logger.info("IUN text box non é valido");
         } else {
             logger.error("IUN text box non é passato allo stato non valido");
             Assert.fail("IUN text box non é passato allo stato non valido");
-
         }
-
         ricercaNotifichePGPage.clickFiltraButton();
         boolean isErrorMessageStillDisplayed = ricercaNotifichePGPage.isErrorMessageDisplayed();
         if (isErrorMessageStillDisplayed) {
@@ -227,15 +210,12 @@ public class RicercaNotifichePersonaGiuridicaPATest {
     @And("Se i risultati sono contenuti in più pagine persona giuridica è possibile effettuare il cambio pagina")
     public void seIRisultatiSonoContenutiInPiuPagineDestinatarioEPossibileEffettuareIlCambioPagina() {
         logger.info("Se i risultati sono contenuti in più pagine è possibile effettuare il cambio pagina");
-
-
-        if(piattaformaNotifichePage.verificaEsistenzaEPassaggioPagina()){
+        if (piattaformaNotifichePage.verificaEsistenzaEPassaggioPagina()) {
             logger.info("Bottone pagina 2 trovato e cliccato");
-
             HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
             headerPGSection.waitLoadHeaderPGPage();
             ricercaNotifichePGPage.waitLoadNotifichePGPage();
-        }else {
+        } else {
             logger.info("Bottone pagina 2 non trovato non effettuato il passaggio di pagina");
         }
     }
@@ -251,7 +231,6 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         destinatarioPage.isDateBoxInvalid();
         ricercaNotifichePGPage.clickFiltraButton();
         boolean isDateBoxStillInvalid = destinatarioPage.isDateBoxInvalid();
-
         if (isDateBoxStillInvalid) {
             logger.info("Il bottone Filtra é disattivato");
         } else {
@@ -260,5 +239,3 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         }
     }
 }
-
-
