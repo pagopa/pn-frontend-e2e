@@ -180,4 +180,28 @@ public class ITuoiRecapitiPage extends BasePage {
         this.getWebDriverWait(10).withMessage("Non si visualizza il bottone elimina della sezione recapiti gia associati ").until(ExpectedConditions.visibilityOfElementLocated(eliminaBy));
         this.getWebDriverWait(10).withMessage("Non si visualizza il bottone modifica della sezione recapiti gia associati").until(ExpectedConditions.visibilityOfElementLocated(modificaBy));
     }
+
+    public void checkRiquadroPEC() {
+        try {
+            By titleSection = By.xpath("//h6[@id='Recapito legale-page' and contains(text(),'Recapito legale')]");
+            By subTitleSection = By.xpath("//p[@id='subtitle-page' and contains(text(),'Quando c’è una notifica per te, ti inviamo qui l’avviso di avvenuta ricezione. Accedi a SEND per leggerla e pagare eventuali spese.')]");
+            By pecField = By.id("pec");
+            By confirmButton = By.id("add-contact");
+            By infoBanner = By.xpath("//span[@data-testid='legal-contact-disclaimer' and contains(text(),'Questo è l’indirizzo principale che verrà utilizzato per inviarti gli avvisi di avvenuta ricezione in via digitale. Inserendolo, non riceverai più raccomandate cartacee.')]");
+            this.getWebDriverWait(10).withMessage("Non si visualizza il titolo della sezione recapito legale").until(ExpectedConditions.visibilityOfElementLocated(titleSection));
+            this.getWebDriverWait(10).withMessage("Non si visualizza il sottotitolo della sezione recapito legale").until(ExpectedConditions.visibilityOfElementLocated(subTitleSection));
+            this.getWebDriverWait(10).withMessage("Non si visualizza il campo pec o non è modificabile").until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(pecField),
+                    ExpectedConditions.attributeToBe(this.element(pecField), "readonly", ""),
+                    ExpectedConditions.attributeToBe(this.element(pecField), "placeholder", "Il tuo indirizzo PEC")));
+            this.getWebDriverWait(10).withMessage("Non si visualizza il bottone conferma o non è cliccabile").until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(confirmButton),
+                    ExpectedConditions.not(ExpectedConditions.elementToBeClickable(confirmButton))));
+            this.getWebDriverWait(10).withMessage("Non si visualizza il banner informativo").until(ExpectedConditions.visibilityOfElementLocated(infoBanner));
+            logger.info("Il riquadro PEC si visualizza correttamente");
+        } catch (TimeoutException e) {
+            logger.error("Il riquadro PEC NON si visualizza correttamente con errori:" + e.getMessage());
+            Assert.fail("Il riquadro PEC NON si visualizza correttamente con errori:" + e.getMessage());
+        }
+    }
 }

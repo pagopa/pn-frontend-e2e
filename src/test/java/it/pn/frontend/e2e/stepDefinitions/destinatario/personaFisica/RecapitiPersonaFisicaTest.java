@@ -817,5 +817,12 @@ public class RecapitiPersonaFisicaTest {
             backgroundTest.aggiuntaEmailPF();
         }
     }
+
+    @When("Nella pagina I Tuoi Recapiti si visualizza correttamente il riquadro relativo alla PEC")
+    public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlRiquadroRelativoAllaPEC() {
+        logger.info("Si visualizza correttamente il riquadro relativo alla PEC");
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.checkRiquadroPEC();
+    }
 }
 
