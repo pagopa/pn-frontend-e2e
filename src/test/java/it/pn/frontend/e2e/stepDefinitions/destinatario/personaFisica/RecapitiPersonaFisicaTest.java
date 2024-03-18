@@ -578,10 +578,15 @@ public class RecapitiPersonaFisicaTest {
         recapitiDestinatarioPage.pecTextboxInvalid();
     }
 
+    @And("Nella pagina I Tuoi Recapiti si clicca sul bottone annulla")
+    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneAnnulla(){
+        logger.info("Si clicca sul bottone annulla modifica PEC");
+        recapitiDestinatarioPage.clickSuAnnullaModificaPEC();
+    }
 
 
     @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request {string}")
-    public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaPECTramiteChiamataRequest(String dpFile) {
+    public void     nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaPECTramiteChiamataRequest(String dpFile) {
         logger.info("Si recupera il codice OTP della nuova pec");
 
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");

@@ -294,6 +294,12 @@ public class RecapitiDestinatarioPage extends BasePage {
         this.element(modificaButtonBy).click();
     }
 
+    public void clickSuAnnullaModificaPEC() {
+        By annullaButtonBy = By.xpath("//p[contains(text(),'PEC associata')]/following-sibling::div/div/button[contains(text(),'Annulla')]");
+        this.getWebDriverWait(30).withMessage("Non si riesce a cliccare sul bottone modifica PEC").until(ExpectedConditions.elementToBeClickable(annullaButtonBy));
+        this.element(annullaButtonBy).click();
+    }
+
     public void cancellaTesto() {
         try {
             By pecInputBy = By.id("pec");
