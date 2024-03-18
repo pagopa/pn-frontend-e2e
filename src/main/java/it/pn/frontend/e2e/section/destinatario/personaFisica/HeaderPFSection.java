@@ -2,7 +2,6 @@ package it.pn.frontend.e2e.section.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,6 +9,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class HeaderPFSection extends BasePage {
 
@@ -20,6 +21,11 @@ public class HeaderPFSection extends BasePage {
 
     @FindBy(xpath = "//button[@aria-label='party-menu-button']")
     WebElement profiloUtenteMenu;
+    @FindBy(xpath = "//button[@aria-label='party-menu-button']")
+    WebElement buttonProfile;
+
+    @FindBy(xpath = "//ul[@role='menu']//li")
+    List<WebElement> menuProfileItems;
 
     public HeaderPFSection(WebDriver driver) {
         super(driver);
@@ -28,7 +34,7 @@ public class HeaderPFSection extends BasePage {
     public void waitLoadHeaderDESection() {
         try {
             this.getWebDriverWait(10).withMessage("il titolo del header non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));
-            this.getWebDriverWait(10).withMessage("menu dell'utente non è visibile").until(ExpectedConditions.visibilityOf(profiloUtenteMenu));
+            this.getWebDriverWait(10).withMessage("menu dell'utente non è visibile").until(ExpectedConditions.visibilityOf(buttonProfile));
             logger.info("Header DE Section caricata");
         } catch (TimeoutException e) {
             logger.error("Header DE Section non caricata con errore : " + e.getMessage());
@@ -37,16 +43,16 @@ public class HeaderPFSection extends BasePage {
     }
 
     public void selezionaProfiloUtenteMenu() {
-        this.js().executeScript("arguments[0].scrollIntoView(true);", this.profiloUtenteMenu);
+        this.js().executeScript("arguments[0].scrollIntoView(true);", this.buttonProfile);
         logger.info("click sul profilo utente");
-        this.js().executeScript("arguments[0].click()", this.profiloUtenteMenu);
+        this.js().executeScript("arguments[0].click()", this.buttonProfile);
     }
 
     public void selezionaVoceEsci() {
-        By esciVoce = By.xpath("//span[contains(text(),'Esci')]");
-        this.getWebDriverWait(30).withMessage("la voce esci non è visibile").until(ExpectedConditions.visibilityOfElementLocated(esciVoce));
+        WebElement esciVoce = this.menuProfileItems.get(1);
+        this.getWebDriverWait(10).withMessage("la voce esci non è visibile").until(ExpectedConditions.visibilityOf(esciVoce));
         logger.info("click su voce esci");
-        this.element(esciVoce).click();
+        esciVoce.click();
     }
 
     public void waitUrlToken() {
