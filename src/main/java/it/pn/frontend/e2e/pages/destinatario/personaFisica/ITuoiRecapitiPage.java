@@ -24,7 +24,7 @@ public class ITuoiRecapitiPage extends BasePage {
 
     @FindBy(id = "addressType")
     WebElement tipoIndirizzoField;
-    
+
     @FindBy(id = "subtitle-page")
     List<WebElement> subTitlesSection;
 
@@ -84,7 +84,7 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void eliminaEmailEsistente() {
         By eliminaMailButton = By.xpath("//p[contains(text(),'Indirizzo e-mail')]/following-sibling::div/div/button[contains(text(),'Elimina')]");
-        this.getWebDriverWait(40).withMessage("il Bottone elimina e-mail non presente").until(ExpectedConditions.elementToBeClickable(eliminaMailButton));
+        this.getWebDriverWait(10).withMessage("il Bottone elimina e-mail non presente").until(ExpectedConditions.elementToBeClickable(eliminaMailButton));
         this.js().executeScript("arguments[0].click();", this.element(eliminaMailButton));
     }
 
@@ -182,6 +182,22 @@ public class ITuoiRecapitiPage extends BasePage {
         this.getWebDriverWait(10).withMessage("Non si visualizza la tabella 'Gia Associati'").until(ExpectedConditions.visibilityOfElementLocated(tableBy));
         this.getWebDriverWait(10).withMessage("Non si visualizza il bottone elimina della sezione recapiti gia associati ").until(ExpectedConditions.visibilityOfElementLocated(eliminaBy));
         this.getWebDriverWait(10).withMessage("Non si visualizza il bottone modifica della sezione recapiti gia associati").until(ExpectedConditions.visibilityOfElementLocated(modificaBy));
+    }
+
+    public void checkPostModifica() {
+        By saveButton = By.id("saveModifyButton-default");
+        By cancelButton = By.xpath("//button[contains(text(),'Annulla')]");
+        By emailField = By.id("email");
+        this.getWebDriverWait(10).withMessage("Non si visualizza il bottone salva o non è cliccabile").until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOfElementLocated(saveButton),
+                ExpectedConditions.elementToBeClickable(saveButton)));
+        this.getWebDriverWait(10).withMessage("Non si visualizza il bottone annulla o non è cliccabile").until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOfElementLocated(cancelButton),
+                ExpectedConditions.elementToBeClickable(cancelButton)));
+        this.getWebDriverWait(10).withMessage("Non si visualizza il campo email o non è modificabile").until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOfElementLocated(emailField),
+                ExpectedConditions.attributeToBe(this.element(emailField), "readonly", ""),
+                ExpectedConditions.attributeToBeNotEmpty(this.element(emailField), "value")));
     }
 
     public void checkRiquadroPEC() {

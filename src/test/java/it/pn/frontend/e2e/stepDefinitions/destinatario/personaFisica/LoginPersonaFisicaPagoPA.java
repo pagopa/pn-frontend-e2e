@@ -147,9 +147,8 @@ public class LoginPersonaFisicaPagoPA {
             logger.error("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + this.datiPersonaFisica.get("fiscalNumber").toString());
             Assert.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + this.datiPersonaFisica.get("fiscalNumber").toString());
         }
-
-        confermaDatiSpidPFPage.selezionaConfermaButton();
         HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
+        confermaDatiSpidPFPage.selezionaConfermaButton();
         headerPFSection.waitUrlToken();
     }
 
