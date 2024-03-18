@@ -22,12 +22,12 @@ public class PopUpRevocaDelegaSection extends BasePage {
     }
 
     public void waitLoadPopUpRevocaDelegaSection(){
-            this.getWebDriverWait(30).withMessage("la sezione revoca delega non è caricata").until(ExpectedConditions.visibilityOf(this.title));
-            this.getWebDriverWait(60).withMessage("Il bottone Revoca la delega sul pop up non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.revocaDialogAction));
+            this.getWebDriverWait(10).withMessage("la sezione revoca delega non è caricata").until(ExpectedConditions.visibilityOf(this.title));
+            this.getWebDriverWait(10).withMessage("Il bottone Revoca la delega sul pop up non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.revocaDialogAction));
     }
 
     public void clickRevocaLaDelega() {
-        this.getWebDriverWait(30).withMessage("Il bottone non viene cliccato con errore").until(ExpectedConditions.elementToBeClickable(this.revocaDialogAction));
+        this.getWebDriverWait(10).withMessage("Non è possibile cliccare il bottone").until(ExpectedConditions.elementToBeClickable(this.revocaDialogAction));
         logger.info("click revoca delega");
         this.revocaDialogAction.click();
     }

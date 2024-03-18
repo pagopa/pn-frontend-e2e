@@ -91,7 +91,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void clickSuChiudiPopUp() {
         By chiudiButtonBy = By.xpath("//button[contains(text(),'Chiudi')]");
-        this.getWebDriverWait(30).withMessage("Il bottone chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudiButtonBy));
+        this.getWebDriverWait(10).withMessage("Il bottone chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudiButtonBy));
         this.js().executeScript("arguments[0].click()", this.element(chiudiButtonBy));
     }
 
@@ -108,7 +108,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void clickConfermaButtonEliminaPopUp() {
         By confermaEliminaButton = By.xpath("//h2[@id='dialog-title']/following-sibling::div/button[contains(text(),'Conferma')]");
-        this.getWebDriverWait(60).withMessage("Il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.element(confermaEliminaButton)));
+        this.getWebDriverWait(10).withMessage("Il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.element(confermaEliminaButton)));
         this.element(confermaEliminaButton).click();
     }
 
@@ -123,7 +123,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(otpBox));
             this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(otpMessage));
             boolean checkButton = !confermaButtonPopUp.isEnabled() && annullaButton.isEnabled();
-            if(!checkButton){
+            if (!checkButton) {
                 Assert.fail("i pulsanti all'interno del pop-up non rispettano le condizioni");
             }
             logger.info("Il pop-up di conferma viene visualizzato correttamente");
@@ -148,7 +148,6 @@ public class RecapitiDestinatarioPage extends BasePage {
             Assert.fail("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
         }
     }
-
 
 
     public void confermaButtonClickPopUp() {
@@ -199,7 +198,10 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void insertEmail(String email) {
-        getWebDriverWait(30).withMessage("l'input mail non è visibile").until(ExpectedConditions.visibilityOf(this.inserimentoMailField));
+        getWebDriverWait(10).withMessage("l'input mail non è visibile").until(ExpectedConditions.visibilityOf(this.inserimentoMailField));
+        if (!inserimentoMailField.getAttribute("value").isEmpty()) {
+            inserimentoMailField.clear();
+        }
         if (inserimentoMailField.isDisplayed()) {
             inserimentoMailField.sendKeys(email);
         } else {
@@ -277,15 +279,13 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void clickSuModifica() {
         By modificaMailButton = By.xpath("//p[contains(text(),'Indirizzo e-mail')]/following-sibling::div/div/button[contains(text(),'Modifica')]");
-        getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(modificaMailButton));
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(modificaMailButton));
         if (modificaEmailButton.isDisplayed()) {
             this.modificaEmailButton.click();
         } else {
             this.js().executeScript("arguments[0].scrollIntoView(true);", modificaEmailButton);
             this.modificaEmailButton.click();
         }
-
-
     }
 
     public void clickSuModificaPEC() {
@@ -345,8 +345,8 @@ public class RecapitiDestinatarioPage extends BasePage {
     public String waitLoadPopUpElimina() {
         By titlePopUp = By.id("dialog-title");
         By subTitlePopUp = By.id("dialog-description");
-        this.getWebDriverWait(30).withMessage("Non è stato caricato il titolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
-        this.getWebDriverWait(30).withMessage("Non è stato caricato il sottotitolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
+        this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
+        this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
         return this.element(titlePopUp).getText();
     }
 
@@ -430,7 +430,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public boolean controlloEmailAssociata(String email) {
         try {
             By emailBy = By.xpath("//div[@data-testid = 'courtesyContacts']//div//p[contains(text(),'" + email + "')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(emailBy));
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(emailBy));
             return true;
         } catch (TimeoutException e) {
             logger.error("email associata non presente con errore" + e.getMessage());
@@ -476,7 +476,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public String getEmailErrorMessage() {
         By errorBy = By.id("email-helper-text");
         WebElement errorMessage = driver.findElement(errorBy);
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(errorMessage));
+        this.getWebDriverWait(10).until(ExpectedConditions.visibilityOf(errorMessage));
         return errorMessage.getText();
     }
 
@@ -541,23 +541,24 @@ public class RecapitiDestinatarioPage extends BasePage {
         getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
     }
 
-    public void checkButtonAnnullaEliminazioneInPopUp(){
-        try{
+    public void checkButtonAnnullaEliminazioneInPopUp() {
+        try {
             getWebDriverWait(20).withMessage("pulsante annulla eliminazione non trovato").until(ExpectedConditions.visibilityOf(buttonAnnullaEliminazioneInPopUp));
             logger.info("pulsante annulla eliminazione visibile");
-        }catch(TimeoutException e){
+        } catch (TimeoutException e) {
             logger.error("caricamento pop-up con errore:" + e.getMessage());
             Assert.fail("caricamento pop-up con errore:" + e.getMessage());
         }
     }
-    public void clickButtonAnnullaEliminazioneInPopUp(){
+
+    public void clickButtonAnnullaEliminazioneInPopUp() {
         buttonAnnullaEliminazioneInPopUp.click();
     }
 
-    public void checkEmailPrecedentementeSalvata(String email){
-        if(emailAssociata.getText().equalsIgnoreCase(email)){
+    public void checkEmailPrecedentementeSalvata(String email) {
+        if (emailAssociata.getText().equalsIgnoreCase(email)) {
             logger.info("la mail associata risulta uguale alla precedente");
-        }else{
+        } else {
             logger.error("la mail associata é diversa dalla precedentemente salvata");
             Assert.fail("la mail associata é diversa dalla precedentemente salvata");
         }

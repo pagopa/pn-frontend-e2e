@@ -41,6 +41,13 @@ public class RecapitiPersonaFisicaTest {
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
     }
 
+    @And("Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione 'E-mail o numero di cellulare'")
+    public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteLaSezioneEmailONumeroDiCellulare() {
+        logger.info("Si controlla che si visualizza correttamente la sezione 'E-mail o numero di cellulare'");
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.waitLoadCourtesyContacts();
+    }
+
     @And("Nella pagina I Tuoi Recapiti si inserisce la PEC {string}")
     public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario(String dpFile) {
         logger.info("Si inserisce la email PEC");
@@ -144,11 +151,21 @@ public class RecapitiPersonaFisicaTest {
         recapitiDestinatarioPage.insertEmail(emailErrata);
     }
 
+    @And("Nella pagina I Tuoi Recapiti si inserisce un email maggiore di {int} caratteri")
+    public void nellaPaginaITuoiRecapitiSiInserisceUnEmailMaggioreDiCaratteri(int numeroCaratteri) {
+        String email = "test";
+        for (int i = 0; i < numeroCaratteri; i++) {
+            email += "a";
+        }
+        recapitiDestinatarioPage.insertEmail(email);
+    }
+
     @Then("Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio email errata")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioEmailErrata() {
-
         String errorMessageRead = recapitiDestinatarioPage.getEmailErrorMessage();
-        Assert.assertEquals("messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo e-mail non valido", "Indirizzo e-mail non valido", errorMessageRead);
+        if (!errorMessageRead.contains("Indirizzo e-mail non valido") && !errorMessageRead.contains("Scrivi massimo 254 caratteri")) {
+            Assert.fail("messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo e-mail non valido o Scrivi massimo 254 caratteri");
+        }
     }
 
     @And("Si controlla che il tasto avvisami via email sia bloccato")
@@ -405,10 +422,8 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si clicca sul bottone modifica")
     public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneModifica() {
         logger.info("Si clicca sul bottone modifica");
-
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
-
         recapitiDestinatarioPage.clickSuModifica();
     }
 
@@ -827,6 +842,20 @@ public class RecapitiPersonaFisicaTest {
         if (!recapitiDestinatarioPage.verificaMailAssociata()) {
             backgroundTest.aggiuntaEmailPF();
         }
+    }
+
+    @And("Si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email")
+    public void siVisualizzanoCorrettamenteGliElementiPostModifica() {
+        logger.info("Si controlla che si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email");
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.checkPostModifica();
+    }
+
+    @When("Nella pagina I Tuoi Recapiti si visualizza correttamente il riquadro relativo alla PEC")
+    public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlRiquadroRelativoAllaPEC() {
+        logger.info("Si visualizza correttamente il riquadro relativo alla PEC");
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.checkRiquadroPEC();
     }
 }
 

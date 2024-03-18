@@ -211,7 +211,7 @@ public class NotifichePGPagoPATest {
 
     @And("Nella sezione Dettaglio Notifiche si clicca su l'opzione Indietro")
     public void nellaSezioneDettaglioNotificheSiCliccaSuLopzioneIndietro() {
-        logger.info("Il bottone indietro non è visibile");
+        logger.info("Si clicca sul bottone indietro");
         piattaformaNotifichePGPAPage.clickIndietroButton();
     }
 

@@ -13,7 +13,6 @@ import java.util.List;
 public class PiattaformaNotifichePGPAPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("PiattaformaNotifichePGPAPage");
 
-
     @FindBy(id = "side-item-Deleghe")
     WebElement delegheSideMenu;
     @FindBy(css = "[id='notificationsTable.body.row']")
@@ -24,14 +23,8 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     @FindBy(id = "side-item-Stato della piattaforma")
     WebElement buttonEnterIntoDisservizi;
 
-    @FindBy(css = "[data-testid='download-legalfact']")
-    WebElement attestazione;
-
     @FindBy(id = "breadcrumb-indietro-button")
     WebElement indietroButton;
-
-    @FindBy(css = "[class='MuiTableBody-root css-1xnox0e']")
-    WebElement sezioneDeiDati;
 
     @FindBy(css = "[data-testid='paymentInfoBox']")
     WebElement sezionePagamento;
@@ -48,37 +41,10 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     @FindBy(css = "[data-testid='download-f24-button']")
     WebElement modelloF24;
 
-    @FindBy(css = "[data-testid='download-pagoPA-notice-button']")
-    WebElement scaricaAvviso;
-
-    @FindBy(css = "[data-testid='pay-button']")
-    WebElement pagaAvviso;
-
     @FindBy(xpath = "//span[contains(text(), 'Codice avviso')]")
     List<WebElement> codiceAvviso;
     @FindBy(css = ".MuiTypography-caption-semibold.css-1g3z0lx")
     WebElement codiceAvvisoSpan;
-
-    @FindBy(id = "side-item-Recapiti")
-    WebElement sezioneRecapiti;
-
-    @FindBy(id = "notification-detail-document-attached")
-    WebElement documentiAllegati;
-
-    @FindBy(id = "notification-state")
-    WebElement statoDelloNotifiche;
-
-    @FindBy(css = "[data-testid='more-less-timeline-step']")
-    WebElement vediPiuDettagli;
-
-    @FindBy(linkText = "Vedi meno dettagli")
-    WebElement vediMenoDettagliButton;
-
-    @FindBy(css = "[type='application/pdf']")
-    WebElement pdfType;
-
-    @FindBy(css = "[data-testid='documentButton']")
-    WebElement documentButton;
 
     @FindBy(id = "side-item-Notifiche")
     WebElement sideItemNotificheButton;
@@ -112,7 +78,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void clickSuDelegeButton() {
         try {
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.delegheSideMenu));
+            this.getWebDriverWait(10).withMessage("Sezione deleghe nel side menu non visualizzata").until(ExpectedConditions.visibilityOf(this.delegheSideMenu));
             this.js().executeScript("arguments[0].click()", this.delegheSideMenu);
             logger.info("click sul bottone Deleghe effetuato");
         } catch (TimeoutException e) {
@@ -123,10 +89,10 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void clickNotificheDelegate() {
         try {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.sideItemNotificheButton));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.sideItemNotificheButton));
             sideItemNotificheButton.click();
             By notificheDelegateButton = By.id("side-item-Notifiche delegate");
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificheDelegateButton));
+            this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(notificheDelegateButton));
             this.js().executeScript("arguments[0].click()", this.element(notificheDelegateButton));
             logger.info("Si clicca correttamente sulla voce notifiche delegate");
         } catch (TimeoutException e) {
@@ -151,29 +117,29 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         this.js().executeScript("arguments[0].click()", this.recapitiButton);
     }
 
+    public void clickNotificheButton() {
+        getWebDriverWait(10).withMessage("Il bottone notifiche non è visibile").until(ExpectedConditions.visibilityOf(notificheButton));
+        notificheButton.click();
+    }
+
     public void clickIndietroButton() {
-        getWebDriverWait(30).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
+        getWebDriverWait(10).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
         this.js().executeScript("arguments[0].click()", this.indietroButton);
     }
 
     public boolean sezionePagamentoDisplayed() {
         try {
             return getWebDriverWait(30).withMessage("Il sezione pagamento non è visibile").until(ExpectedConditions.visibilityOf(sezionePagamento)).isDisplayed();
-
         } catch (NoSuchElementException | TimeoutException e) {
-
             logger.warn("Il sezione pagamento non è visibile");
             return false;
         }
     }
 
-
     public boolean isRadioBoxPresent() {
         try {
             return getWebDriverWait(30).withMessage("Il radio box non è visibile").until(ExpectedConditions.visibilityOf(radioBox)).isDisplayed();
-
         } catch (NoSuchElementException | TimeoutException e) {
-
             logger.warn("Il radio box non è visibile");
             return false;
         }
@@ -184,12 +150,9 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
 
     public void clickRadioBoxButton(String css) {
-
-        getWebDriverWait(30).withMessage("Il radio box button non è cliccabile").until(ExpectedConditions.elementToBeClickable(radioButton.get(0)));
+        getWebDriverWait(10).withMessage("Il radio box button non è cliccabile").until(ExpectedConditions.elementToBeClickable(radioButton.get(0)));
         radioButton.get(0).click();
-//        radioButton.click();
     }
-
 
     public boolean titoloDiPagamentoDisplayed() {
         return getWebDriverWait(30).withMessage("Il sezione titolo pagamento non è visibile").until(ExpectedConditions.visibilityOf(titoloPagamento.get(0))).isDisplayed();
@@ -202,5 +165,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     public boolean modelloF24Displayed() {
         return getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
     }
-
 }
+
+
