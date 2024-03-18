@@ -70,7 +70,6 @@ public class RicercaNotifichePersonaGiuridicaPATest {
     }
 
 
-
     @And("Si controlla se la notifica prevede il pagamento")
     public void siControllaSeLaNotificaPrevedeIlPagamento() {
 
@@ -85,7 +84,6 @@ public class RicercaNotifichePersonaGiuridicaPATest {
             boolean radioBoxPresent = piattaformaNotifichePGPAPage.isRadioBoxPresent();
 
             if (radioBoxPresent) {
-
                 piattaformaNotifichePGPAPage.clickRadioBoxButton(piattaformaNotifichePGPAPage.cssBuildRadioButton());
             }
 
@@ -229,13 +227,13 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         logger.info("Se i risultati sono contenuti in più pagine è possibile effettuare il cambio pagina");
 
 
-        if(piattaformaNotifichePage.verificaEsistenzaEPassaggioPagina()){
+        if (piattaformaNotifichePage.verificaEsistenzaEPassaggioPagina()) {
             logger.info("Bottone pagina 2 trovato e cliccato");
 
             HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
             headerPGSection.waitLoadHeaderPGPage();
             ricercaNotifichePGPage.waitLoadNotifichePGPage();
-        }else {
+        } else {
             logger.info("Bottone pagina 2 non trovato non effettuato il passaggio di pagina");
         }
     }
