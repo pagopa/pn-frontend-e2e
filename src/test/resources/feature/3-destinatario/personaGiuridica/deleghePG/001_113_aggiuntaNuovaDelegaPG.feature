@@ -14,9 +14,10 @@ Feature: La persona giuridica aggiunge una nuova delega
     And Si controlla che non sia presente una delega con stesso nome "nuovaDelegaPG" persona giuridica
     And Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega
     And Si visualizza la sezione Aggiungi Delega persona giuridica
-    And Nella sezione Aggiungi Delega persona giuridica inserire i dati "nuovaDelegaPG"
     And Nella sezione Aggiungi Delega persona giuridica verificare che la data sia corretta
+    And Nella sezione Aggiungi Delega persona giuridica inserire i dati "nuovaDelegaPG"
     And Nella sezione Aggiungi Delega persona giuridica salvare il codice verifica all'interno del file "nuovaDelegaPG"
-    And Nella sezione Aggiungi Delega  persona giuridica click sul bottone Invia richiesta e sul bottone torna alle deleghe
+    And Nella sezione Aggiungi Delega persona giuridica click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella sezione Delegati dall impresa si visualizza la delega in stato di attesa di conferma
+    And Non si inserisce il codice OTP e l invito della delega non è più presente
     And Logout da portale persona giuridica

@@ -14,6 +14,9 @@ import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -109,7 +112,7 @@ public class DeleghePGPagoPATest {
         dataPopulation.writeDataPopulation(dpFile + ".yaml", this.datiDelega);
     }
 
-    @And("Nella sezione Aggiungi Delega  persona giuridica click sul bottone Invia richiesta e sul bottone torna alle deleghe")
+    @And("Nella sezione Aggiungi Delega persona giuridica click sul bottone Invia richiesta e sul bottone torna alle deleghe")
     public void nellaSezioneLeTueDeleghePersonaGiuridicaclickSulBottoneInviaRichiestaESulBottoneTornaAlleDeleghe() {
         logger.info("Si clicca sul bottone invia richiesta");
 
@@ -124,6 +127,8 @@ public class DeleghePGPagoPATest {
 
         delegatiImpresaSection.waitLoadDelegatiImpresaPage();
         delegatiImpresaSection.controlloEsistenzaDelega(this.datiDelega.get("ragioneSociale").toString());
+        delegatiImpresaSection.clickMenuDelega(this.datiDelega.get("ragioneSociale").toString());
+        delegatiImpresaSection.esistenzaRevocaButton();
     }
 
     @And("Nella sezione Delegati dall impresa si visualizza correttamente una delega in stato di attesa di conferma {string}")
@@ -528,5 +533,13 @@ public class DeleghePGPagoPATest {
     @And("Si controlla la tabella delegati dall impresa")
     public void siControllaLaTabellaDelegatiDallImpresa() {
         delegatiImpresaSection.checkTabellaDelegheDellImpresa();
+    }
+
+    @And("Non si inserisce il codice OTP e l invito della delega non è più presente")
+    public void nonSiInserisceIlCodiceOTPELInvitoDellaDelegaNonèPiùPresente(){
+        logger.info("Si attendono 15 minuti e 15 secondi per la decadenza dell accettazione della delega");
+        DataPopulation.waitTime(61*15);
+        driver.navigate().refresh();
+        deleghePGPagoPAPage.waitLoadDeleghePage();
     }
 }

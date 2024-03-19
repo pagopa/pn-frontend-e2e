@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -75,6 +77,8 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(id = "notifications-table")
     WebElement tabelleDelleDelegheACaricoDellImpresa;
 
+    @FindBy(id = "expirationDate")
+    WebElement expirationDate;
 
     public DeleghePGPagoPAPage(WebDriver driver) {
         super(driver);
@@ -83,9 +87,9 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void waitLoadDeleghePage() {
         try {
             By titlePage = By.id("Deleghe-page");
-            getWebDriverWait(30).withMessage("il titolo della pagina deleghe PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            getWebDriverWait(30).withMessage("Il bottone deleghe a carico dell'impresa non è visibile").until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
-            getWebDriverWait(30).withMessage("la tabella delle deleghe a carico dell impresa non é caricabile").until(ExpectedConditions.visibilityOf(tabellaVuotaDelegheACaricoDellImpresa));
+            getWebDriverWait(10).withMessage("il titolo della pagina deleghe PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
+            getWebDriverWait(10).withMessage("Il bottone deleghe a carico dell'impresa non è visibile").until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
+            getWebDriverWait(10).withMessage("la tabella delle deleghe a carico dell impresa non é caricabile").until(ExpectedConditions.visibilityOf(tabellaVuotaDelegheACaricoDellImpresa));
             logger.info("Deleghe page si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Deleghe page non si visualizza correttamente con errore: " + e.getMessage());
@@ -95,8 +99,9 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public void clickDelegatiImpresa() {
         try {
-            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(delegatiImpresaButton));
+            getWebDriverWait(10).withMessage("Non è possibile cliccare il bottone delegati dell impresa").until(ExpectedConditions.elementToBeClickable(delegatiImpresaButton));
             this.delegatiImpresaButton.click();
+            logger.info("Bottone delegati dell impresa cliccato");
         } catch (TimeoutException e) {
             logger.error("il bottone delegati imprese non è cliccabile" + e.getMessage());
             Assert.fail("il bottone delegati imprese non è cliccabile" + e.getMessage());
@@ -109,7 +114,7 @@ public class DeleghePGPagoPAPage extends BasePage {
         try {
             this.getWebDriverWait(30).withMessage("delega non trovata").until(ExpectedConditions.visibilityOfElementLocated(delegaExist));
             return true;
-        }catch (TimeoutException e){
+        } catch (TimeoutException e) {
             return false;
         }
 
@@ -130,13 +135,14 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickSuDelegheCaricoDellImpresa() {
+        logger.info("Click sezione deleghe a carico dell impresa");
         this.delegheCaricoImpresaButton.click();
     }
 
     public void verificaPresenzaElencoDeleghe() {
         try {
             By tableDelegheBy = By.id("notifications-table");
-            this.getWebDriverWait(50).until(ExpectedConditions.visibilityOfElementLocated(tableDelegheBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(tableDelegheBy));
             logger.info("L'elenco delle deleghe si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("L'elenco delle deleghe non si visualizza correttamente con errore: " + e.getMessage());
@@ -200,7 +206,7 @@ public class DeleghePGPagoPAPage extends BasePage {
         this.confermaButton.click();
     }
 
-    public void clickBottoneConfermaDelega(){
+    public void clickBottoneConfermaDelega() {
         getWebDriverWait(20).withMessage("il bottone conferma delega pg non é visibile").until(ExpectedConditions.elementToBeClickable(confermaAccettazioneDelegaButton));
         confermaAccettazioneDelegaButton.click();
     }
@@ -296,19 +302,19 @@ public class DeleghePGPagoPAPage extends BasePage {
         this.groupOption.click();
     }
 
-    public String getCodiceVerificaDelegaACaricoDellImpresaAPI(){
-        try{
+    public String getCodiceVerificaDelegaACaricoDellImpresaAPI() {
+        try {
             String pathIniziale = System.getProperty("user.dir");
             String text = Files.readString(Paths.get(pathIniziale + "/src/test/resources/dataPopulation/bodyChiamataDeleghe.json"));
             JSONObject object = new JSONObject(text);
             return object.getString("verificationCode");
-        }catch (IOException e) {
+        } catch (IOException e) {
             logger.error("non é stato possibile reperire il codice di verifica dal json");
             throw new RuntimeException(e);
         }
     }
 
-    public void inserimentoCodiceDelegaACaricoDellImpresaAPI(String codiceDelega){
+    public void inserimentoCodiceDelegaACaricoDellImpresaAPI(String codiceDelega) {
         String[] codiciDelega = codiceDelega.split("");
         for (int i = 0; i < 5; i++) {
             String xpathBy = "code-input-" + i;
@@ -349,7 +355,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             getWebDriverWait(10).withMessage("colonna gruppi non caricata correttamente").until(ExpectedConditions.visibilityOfElementLocated(colonnaGruppi));
             getWebDriverWait(10).withMessage("colonna stato non caricata correttamente").until(ExpectedConditions.visibilityOfElementLocated(colonnaStato));
             getWebDriverWait(10).withMessage("menu non caricato correttamente").until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
-        }catch (TimeoutException e){
+        } catch (TimeoutException e) {
             logger.error("tabella deleghe a carico dell impresa non caricata correttamente" + e.getMessage());
             Assert.fail("tabella deleghe a carico dell impresa non caricata correttamente" + e.getMessage());
         }
