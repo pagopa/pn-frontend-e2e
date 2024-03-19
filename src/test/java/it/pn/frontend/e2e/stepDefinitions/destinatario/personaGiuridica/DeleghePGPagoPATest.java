@@ -492,6 +492,9 @@ public class DeleghePGPagoPATest {
         backgroundTest.checkDelegaSceltaGruppoEInserimentoCodiceErrata();
     }
 
+    public void checkErroreInInserimentoCodiceErrato()  {
+        deleghePGPagoPAPage.checkErroreInInserimentoCodice();
+    }
     public void siCliccaSulBottoneIndietroInInserimentoCodiceVerifica() {
         deleghePGPagoPAPage.clickIndietroInInserimentoCodiceVerifica();
     }

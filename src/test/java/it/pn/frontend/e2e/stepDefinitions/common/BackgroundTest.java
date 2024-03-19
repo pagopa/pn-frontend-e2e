@@ -167,6 +167,7 @@ public class BackgroundTest {
         deleghePGPagoPATest.siCliccaSulBottoneAssegnaAUnGruppo();
         deleghePGPagoPATest.nonSiAssegnaUnGruppoAllaDelegaCheLoRichiede();
         deleghePGPagoPATest.siCliccaSulBottoneIndietroInAssegnazioneGruppo();
+        deleghePGPagoPATest.checkErroreInInserimentoCodiceErrato();
         deleghePGPagoPATest.siCliccaSulBottoneIndietroInInserimentoCodiceVerifica();
     }
 

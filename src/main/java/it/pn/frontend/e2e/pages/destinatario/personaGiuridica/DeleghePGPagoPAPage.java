@@ -80,8 +80,12 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     @FindBy(xpath = "//button[@data-testid='groupCancelButton']")
     WebElement buttonIndietroInAssegnazioneGruppo;
+
     @FindBy(id = "alert-api-status}")
     WebElement alertPopUp;
+
+    @FindBy(id = "error-alert")
+    WebElement errorCodeInPopUp;
 
 
     public DeleghePGPagoPAPage(WebDriver driver) {
@@ -435,4 +439,7 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     }
 
+    public void checkErroreInInserimentoCodice() {
+        getWebDriverWait(10).withMessage("errore in inserimento codice errato non trovato").until(ExpectedConditions.visibilityOf(errorCodeInPopUp));
+    }
 }
