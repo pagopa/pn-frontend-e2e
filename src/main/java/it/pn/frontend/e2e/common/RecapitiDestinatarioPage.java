@@ -239,8 +239,8 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean siVisualizzaPopUpConferma() {
         try {
-            By popUpConfermaBy = By.xpath("//h2[contains(text(),'Grazie!')]");
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(popUpConfermaBy));
+            By popUpConfermaTitleBy = By.id("dialog-title");
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(popUpConfermaTitleBy));
             return true;
         } catch (TimeoutException e) {
             logger.error("pop up conferma non trovato: \n" + e.getMessage());
@@ -342,8 +342,8 @@ public class RecapitiDestinatarioPage extends BasePage {
     public String waitLoadPopUpElimina() {
         By titlePopUp = By.id("dialog-title");
         By subTitlePopUp = By.id("dialog-description");
-        this.getWebDriverWait(30).withMessage("Non è stato caricato il titolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
-        this.getWebDriverWait(30).withMessage("Non è stato caricato il sottotitolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
+        this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
+        this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
         return this.element(titlePopUp).getText();
     }
 

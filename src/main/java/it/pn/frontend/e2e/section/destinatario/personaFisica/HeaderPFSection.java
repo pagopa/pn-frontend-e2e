@@ -18,9 +18,7 @@ public class HeaderPFSection extends BasePage {
 
     @FindBy(xpath = "//a[@title='Sito di PagoPA S.p.A.']")
     WebElement titleLabel;
-
-    @FindBy(xpath = "//button[@aria-label='party-menu-button']")
-    WebElement profiloUtenteMenu;
+    
     @FindBy(xpath = "//button[@aria-label='party-menu-button']")
     WebElement buttonProfile;
 

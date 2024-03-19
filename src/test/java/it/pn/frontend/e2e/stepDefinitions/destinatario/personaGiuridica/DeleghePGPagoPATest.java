@@ -506,9 +506,7 @@ public class DeleghePGPagoPATest {
 
     @And("Si inserisce il codice della delega a carico dell impresa nella modale")
     public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale() {
-
         String verificationCode = System.getProperty("verificationCode");
-
         deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI(verificationCode);
     }
 
@@ -522,7 +520,6 @@ public class DeleghePGPagoPATest {
     @And("Si accetta la delega {string} gruppo")
     public void siAccettaLaDelegaGruppo(String withGroup) {
         BackgroundTest backgroundTest = new BackgroundTest();
-
         backgroundTest.accettazioneDelegaSceltaGruppo(withGroup.equalsIgnoreCase("senza"));
     }
 
