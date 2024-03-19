@@ -918,6 +918,11 @@ public class NotificaMittentePagoPATest {
         }
     }
 
+    @And("Si clicca sulla pagina numero {int} delle notifiche")
+    public void siCliccaSullaSecondaPaginaDelleNotifiche(int pagina) {
+        piattaformaNotifichePage.clickPagina(pagina);
+    }
+
 
 
 
@@ -944,8 +949,8 @@ public class NotificaMittentePagoPATest {
     protected EsitoNotifica siVerificaEsitoNotifica(String dpFile) {
         logger.info("si verifica se la notifica è stata accettata o rifiutata");
         String variabileAmbiente = System.getProperty("environment");
-        final String urlNotificationRequest = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.1/requests";
-        final String urlRichiestaNotifica = "https://api." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.1/requests/";
+        final String urlNotificationRequest = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.3/requests";
+        final String urlRichiestaNotifica = "https://api." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.3/requests/";
         AccettazioneRichiestaNotifica accettazioneRichiestaNotifica = new AccettazioneRichiestaNotifica();
         String codiceApi;
         if (variabileAmbiente.equals("test")) {
@@ -994,7 +999,7 @@ public class NotificaMittentePagoPATest {
             logger.info("La notifica è stata Accettata");
             String codiceIUN = esitoNotifica.accettazioneRichiestaNotifica.getCodiceIUN();
             this.datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-            if (codiceIUN != null && !codiceIUN.equals("")) {
+            if (codiceIUN != null && !codiceIUN.isEmpty()) {
                 this.datiNotifica.put("codiceIUN", codiceIUN);
                 this.dataPopulation.writeDataPopulation(dpFile + ".yaml", this.datiNotifica);
                 logger.info("La notifica è stata creata correttamente");

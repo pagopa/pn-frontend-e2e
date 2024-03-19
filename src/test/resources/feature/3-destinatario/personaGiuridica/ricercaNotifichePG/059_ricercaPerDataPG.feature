@@ -13,7 +13,7 @@ Feature: La persona giuridica ricerca per periodo temporale
     And Nella pagina Piattaforma Notifiche persona giuridica vengo restituite tutte le notifiche con la data della notifica compresa con le date precedentemente inserite
     And Se i risultati sono contenuti in più pagine persona giuridica è possibile effettuare il cambio pagina
     And  Cliccare sul bottone Rimuovi filtri persona giuridica
-    And  Nella pagina Piattaforma Notifiche persona giuridica inserire una data con formato errato
+    And  Nella pagina Piattaforma Notifiche destinatario si inserisce una data con formato errato
     And Cliccare sul bottone Filtra persona giuridica
     Then Il rettangolo del campo errato diventa rosso e il tasto Filtra è disattivo
     And  Logout da portale persona giuridica

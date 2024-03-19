@@ -5,7 +5,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
+import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
@@ -20,6 +22,8 @@ import java.util.Map;
 public class RicercaNotifichePersonaFisicaPATest {
     private static final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaFisicaTest");
     private final WebDriver driver = Hooks.driver;
+    private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+    private final DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
     private Map<String, Object> datiNotifica = new HashMap<>();
     private Map<String, Object> datiNotificaNonValidoPF;
 
@@ -48,7 +52,6 @@ public class RicercaNotifichePersonaFisicaPATest {
     @And("Cliccare sul bottone Filtra persona fisica")
     public void cliccareSulBottoneFiltra() {
         logger.info("Si clicca sul tasto filtra");
-
         NotifichePFPage NotifichePFPage = new NotifichePFPage(this.driver);
         NotifichePFPage.selectFiltraButton();
     }
@@ -87,31 +90,12 @@ public class RicercaNotifichePersonaFisicaPATest {
         notifichePFPage.inserimentoArcoTemporale(dataDA, dataA);
     }
 
-    @Then("Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con la data della notifica compresa con le date precedentemente inserite")
-    public void nellaPaginaPiattaformaNotificheDestinatarioVengoRestituiteTutteLeNotificheConLaDataDellaNotificaCompresaTraDaEA() {
-        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
-        headerPFSection.waitLoadHeaderDESection();
-
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-        notifichePFPage.waitLoadNotificheDEPage();
-        boolean result = notifichePFPage.getListData();
-        if (result) {
-            logger.info("Il risultato é coerente con le date inserite");
-        } else {
-            logger.error("Il risultato NON é coerente con le date inserite");
-            Assert.fail("Il risultato NON é coerente con le date inserite");
-        }
-    }
-
     @And("Se i risultati sono contenuti in più pagine persona fisica è possibile effettuare il cambio pagina")
     public void seIRisultatiSonoContenutiInPiuPagineDestinatarioEPossibileEffettuareIlCambioPagina() {
         logger.info("Se i risultati sono contenuti in più pagine è possibile effettuare il cambio pagina");
-
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-
-        if (notifichePFPage.verificaEsistenzaEPassaggioPagina()) {
+        if (piattaformaNotifichePage.verificaEsistenzaEPassaggioPagina()) {
             logger.info("Bottone pagina 2 trovato e cliccato");
-
             HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
             headerPFSection.waitLoadHeaderDESection();
             notifichePFPage.waitLoadNotificheDEPage();
@@ -171,8 +155,8 @@ public class RicercaNotifichePersonaFisicaPATest {
 
     @And("Si clicca su pagina diversa dalla prima")
     public void siCliccaSupaginaDiversaDallaPrima(){
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-        notifichePFPage.clickPage3();
+        logger.info("si clicca su una pagina diversa dalla prima");
+        piattaformaNotifichePage.clickPagina(3);
     }
 
     @And("Si verifica che visualizza la prima pagina")
@@ -180,4 +164,27 @@ public class RicercaNotifichePersonaFisicaPATest {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.firstPageDisplayed();
     }
+
+    @Then("Vengono visualizzate correttamente le notifiche comprese nell'arco temporale inserito")
+    public void vengonoVisualizzateCorrettamenteLeNotificheCompreseNellArcoTemporaleInserito() {
+        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
+        headerPFSection.waitLoadHeaderDESection();
+
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.waitLoadNotificheDEPage();
+        boolean result = notifichePFPage.getListData();
+        if (result) {
+            logger.info("Il risultato é coerente con le date inserite");
+        } else {
+            logger.error("Il risultato NON é coerente con le date inserite");
+            Assert.fail("Il risultato NON é coerente con le date inserite");
+        }
+    }
+
+    @Then("Il rettangolo del campo errato diventa rosso")
+    public void ilRettangoloDelCampoErratoDiventaRosso(){
+        logger.info("Si controlla che almeno un campo data sia in stato invalido");
+        destinatarioPage.isDateBoxInvalid();
+    }
 }
+

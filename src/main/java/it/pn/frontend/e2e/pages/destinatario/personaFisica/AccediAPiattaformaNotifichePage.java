@@ -64,22 +64,22 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         super(driver);
     }
 
-    public void waitLoadAccediAPiattaformaNotifichePage(){
-        try{
+    public void waitLoadAccediAPiattaformaNotifichePage() {
+        try {
             By titleLabel = By.id("login-page-title");
             By loginBy = By.id("login-button");
             this.getWebDriverWait(30).withMessage("Il titolo della pagina accedi a piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
             this.getWebDriverWait(30).withMessage("Il bottone login della pagina accedi a piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(loginBy));
             this.getWebDriverWait(30).withMessage("Il bottone login della pagina accedi a piattaforma notifiche non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.accediButton));
             logger.info("Accedi A Piattaforma Notifiche Page caricata");
-        }catch (TimeoutException e){
-            logger.info("Accedi A Piattaforma Notifiche Page non caricata con errore : "+e.getMessage());
-            Assert.fail("Accedi A Piattaforma Notifiche Page non caricata con errore : "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.info("Accedi A Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
+            Assert.fail("Accedi A Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
         }
     }
 
-    public void selezionaAccediButton(){
-        this.js().executeScript("arguments[0].click()",this.accediButton);
+    public void selezionaAccediButton() {
+        this.js().executeScript("arguments[0].click()", this.accediButton);
     }
 
 
@@ -112,10 +112,10 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public boolean sezionePagamentoDisplayed() {
-        try{
-            return  getWebDriverWait(30).withMessage("Il sezione pagamento non è visibile").until(ExpectedConditions.visibilityOf(sezionePagamento)).isDisplayed();
+        try {
+            return getWebDriverWait(30).withMessage("Il sezione pagamento non è visibile").until(ExpectedConditions.visibilityOf(sezionePagamento)).isDisplayed();
 
-        }catch(NoSuchElementException | TimeoutException e){
+        } catch (NoSuchElementException | TimeoutException e) {
 
             logger.warn("Il sezione pagamento non è visibile");
             return false;
@@ -124,17 +124,17 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
 
     public boolean isRadioBoxPresent() {
-        try{
+        try {
             return getWebDriverWait(30).withMessage("Il radio box non è visibile").until(ExpectedConditions.visibilityOf(radioBox)).isDisplayed();
 
-        }catch(NoSuchElementException | TimeoutException e){
+        } catch (NoSuchElementException | TimeoutException e) {
 
             logger.warn("Il radio box non è visibile");
             return false;
         }
     }
 
-    public String cssBuildRadioButton(){
+    public String cssBuildRadioButton() {
         return "[value='" + codiceAvvisoSpan.getText() + "']";
     }
 
@@ -142,6 +142,11 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
         getWebDriverWait(30).withMessage("Il radio box button non è cliccabile").until(ExpectedConditions.elementToBeClickable(radioButton));
         radioButton.click();
+    }
+
+    public void clickStatoDellaPiattaforma() {
+        getWebDriverWait(10).withMessage("Il bottone stato della piattaforma non è visibile").until(ExpectedConditions.visibilityOf(buttonEnterIntoDisservizi));
+        buttonEnterIntoDisservizi.click();
     }
 
 

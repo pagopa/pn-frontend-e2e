@@ -10,6 +10,8 @@ import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPag
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.section.CookiesSection;
+import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
+import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
@@ -28,8 +30,10 @@ public class NotifichePGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("NotifichePGPagoPATest");
     private final WebDriver driver = Hooks.driver;
     List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
+    DeleghePGPagoPAPage deleghePage = new DeleghePGPagoPAPage(this.driver);
     DataPopulation dataPopulation = new DataPopulation();
     Map<String, Object> personaGiuridica = new HashMap<>();
+    private final LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
     private final PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
 
     @And("Nella Home page persona giuridica si clicca su Send Notifiche Digitali")
@@ -92,11 +96,33 @@ public class NotifichePGPagoPATest {
         piattaformaNotifichePGPAPage.clickSuDelegeButton();
     }
 
+    @And("Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe")
+    public void visualizzaDelegheSection() {
+        logger.info("Si visualizza la sezione deleghe");
+        deleghePage.waitLoadDeleghePage();
+    }
+
     @And("Nella Pagina Notifiche persona giuridica si clicca su notifiche delegate")
     public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSuNotificheDelegate() {
         logger.info("Si clicca correttamente su notifiche delegate");
 
         piattaformaNotifichePGPAPage.clickNotificheDelegate();
+    }
+
+    @And("Nella sezione Deleghe si verifica sia presente una delega accettata per PG")
+    public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelegaAccettataPerPG(){
+        logger.info("Si controlla che sia presente una delega");
+        BackgroundTest backgroundTest = new BackgroundTest();
+        if (!this.deleghePage.siVisualizzaUnaDelegaPG()) {
+            backgroundTest.loginPGDeleghe("personaGiuridica");
+            backgroundTest.aggiuntaNuovaDelegaDellImpresaPG();
+            backgroundTest.logoutPG();
+            backgroundTest.loginPGDeleghe("delegatoPG");
+            backgroundTest.accettazioneDelegaPG();
+        } else if (this.leTueDelegheSection.controlloPresenzaBottoneAccetta()) {
+        backgroundTest.accettazioneDelegaPG();
+    }
+        this.driver.navigate().refresh();
     }
 
     @And("Si visualizza correttamente la Pagina Notifiche persona giuridica sezione notifiche delegate {string}")
@@ -185,7 +211,7 @@ public class NotifichePGPagoPATest {
 
     @And("Nella sezione Dettaglio Notifiche si clicca su l'opzione Indietro")
     public void nellaSezioneDettaglioNotificheSiCliccaSuLopzioneIndietro() {
-        logger.info("Il bottone indietro non è visibile");
+        logger.info("Si clicca sul bottone indietro");
         piattaformaNotifichePGPAPage.clickIndietroButton();
     }
 

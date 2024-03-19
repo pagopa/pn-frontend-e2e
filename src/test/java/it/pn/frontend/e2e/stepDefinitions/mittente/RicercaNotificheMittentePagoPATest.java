@@ -74,7 +74,7 @@ public class RicercaNotificheMittentePagoPATest {
     }
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice fiscale del destinatario {string}")
-    public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConIlCodiceFiscaleDelDestinatario(String dpDestinatario) {
+    public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConIlCodiceFiscaleDelDestinatario(String codiceFiscale) {
         logger.info("Si verifica i risultati restituiti");
 
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
@@ -82,19 +82,14 @@ public class RicercaNotificheMittentePagoPATest {
 
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
-
-        DataPopulation dataPopulation = new DataPopulation();
-        this.personaFisica = dataPopulation.readDataPopulation(dpDestinatario + ".yaml");
-
-        String cfInserito = this.personaFisica.get("codiceFiscale").toString();
-        int listaCF = piattaformaNotifichePage.getListaCf(cfInserito);
+        int listaCF = piattaformaNotifichePage.getListaCf(codiceFiscale);
 
         if (listaCF >= 1) {
             logger.info("Il codice fiscale della notifica è uguale a quello selezionato");
 
         } else {
-            logger.error("Codici fiscali non presenti o non uguali a quello selezionato " + cfInserito);
-            Assert.fail("Codici fiscali non presenti o non uguali a quello selezionato " + cfInserito);
+            logger.error("Codici fiscali non presenti o non uguali a quello selezionato " + codiceFiscale);
+            Assert.fail("Codici fiscali non presenti o non uguali a quello selezionato " + codiceFiscale);
         }
     }
 
@@ -117,10 +112,10 @@ public class RicercaNotificheMittentePagoPATest {
     }
 
     @And("Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica {string}")
-    public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotifica(String dpDatiiNotifica) {
+    public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotifica(String dpDatiNotifica) {
         logger.info("Si inserisce il codice IUN");
         DataPopulation dataPopulation = new DataPopulation();
-        this.datiNotifica = dataPopulation.readDataPopulation(dpDatiiNotifica + ".yaml");
+        this.datiNotifica = dataPopulation.readDataPopulation(dpDatiNotifica + ".yaml");
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
     }
@@ -473,6 +468,16 @@ public class RicercaNotificheMittentePagoPATest {
         } else {
             logger.error("Le date inserite sono corrette");
             Assert.fail("Le date inserite sono corrette");
+        }
+    }
+    @Then("Nella pagina piattaforma Notifiche è presente un campo di ricerca con un menu a tendina per selezionare lo stato della notifica")
+    public void nellaPaginaPiattaformaNotificheÈPresenteUnCampoDiRicercaConUnMenuATendinaPerSelezionareLoStatoDellaNotifica() {
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        if (piattaformaNotifichePage.controlloEsistenzaStato()) {
+            logger.info("Campo stato notifica trovato");
+        } else {
+            logger.error("Campo stato notifica NON trovato");
+            Assert.fail("Campo stato notifica NON trovato");
         }
     }
 }
