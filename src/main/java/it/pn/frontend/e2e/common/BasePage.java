@@ -44,43 +44,6 @@ public class BasePage {
         }
     }
 
-    protected void scrollToElementClickAndReplaceText(WebElement element, String text) {
-        Runnable clearAndInsertNewValue = () -> {
-            // first clear the current text
-            // -----------------------------------------
-            // tried with both of the following, neither one worked
-            //    element.clear()
-            //    new Actions(this.driver).keyDown(Keys.CONTROL).sendKeys("a")
-            //      .keyUp(Keys.CONTROL).pause(200).sendKeys(Keys.BACK_SPACE);
-            // About the first I guess the fact that we're dealing with React-controlled inputs
-            // makes the .clear() ineffective; cfr. https://github.com/SeleniumHQ/selenium/issues/6741.
-            // About the second one I have no clue about why it does not work.
-            element.sendKeys(Keys.END);
-            loggerBase.info("cancello testo");
-            while (!element.getAttribute("value").isEmpty()) {
-                element.sendKeys(Keys.BACK_SPACE);
-            }
-            // now that the input is clear, we insert the new value
-            loggerBase.info("inserisco nuovo testo");
-            element.sendKeys(text);
-        };
-
-        try {
-            if (!element.isDisplayed()) {
-                this.js().executeScript("arguments[0].scrollIntoView(true);", element);
-            }
-            this.js().executeScript("arguments[0].click()", element);
-            if (text != null) {
-                clearAndInsertNewValue.run();
-            }
-        } catch (ElementNotInteractableException e) {
-            this.js().executeScript("arguments[0].click()", element);
-            if (text != null) {
-                clearAndInsertNewValue.run();
-            }
-        }
-    }
-    
     protected WebDriverWait getWebDriverWait(long timeout) {
         return new WebDriverWait(this.driver, Duration.ofSeconds(timeout), Duration.ofMillis(500));
     }
