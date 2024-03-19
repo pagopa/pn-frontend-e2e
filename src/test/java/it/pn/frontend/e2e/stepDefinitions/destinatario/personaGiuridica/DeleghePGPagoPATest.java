@@ -11,12 +11,12 @@ import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.AggiungiDelegaPGSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.DelegatiImpresaSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePagoPATest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,6 +28,7 @@ public class DeleghePGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("DeleghePGPagoPATest");
     private final WebDriver driver = Hooks.driver;
     private final DeleghePGPagoPAPage deleghePGPagoPAPage = new DeleghePGPagoPAPage(this.driver);
+    private final DeleghePagoPATest deleghePagoPATest = new DeleghePagoPATest();
     private final DelegatiImpresaSection delegatiImpresaSection = new DelegatiImpresaSection(this.driver);
     private final AggiungiDelegaPGSection aggiungiDelegaPGSection = new AggiungiDelegaPGSection(this.driver);
     private final DataPopulation dataPopulation = new DataPopulation();
@@ -37,8 +38,6 @@ public class DeleghePGPagoPATest {
     private final RestDelegation restDelegation = RestDelegation.getInstance();
 
     private LoginPGPagoPATest loginPGPagoPaTest = new LoginPGPagoPATest();
-
-
 
     @And("Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa")
     public void siVisualizzaLaPaginaDeleghe() {
@@ -50,7 +49,6 @@ public class DeleghePGPagoPATest {
     @And("Nella pagina Deleghe si clicca su Delegati dall impresa")
     public void nellaPaginaDelegheSiCliccaSuDelegatiDallImpresa() {
         logger.info("Si clicca sul delegati dell'impresa");
-
         deleghePGPagoPAPage.clickDelegatiImpresa();
     }
 
@@ -156,8 +154,8 @@ public class DeleghePGPagoPATest {
         }
     }
 
-    @And("Nella sezione Le Tue Deleghe inserire una data con formato errato e andecedente alla data")
-    public void nellaSezioneLeTueDelegheInserireUnaDataConFormatoErratoEAndecedenteAllaData() {
+    @And("Nella sezione Le Tue Deleghe inserire una data con formato errato e antecedente alla data")
+    public void nellaSezioneLeTueDelegheInserireUnaDataConFormatoErratoEAntecedenteAllaData() {
         logger.info("Si inserisce una data errata e antecedente");
 
         aggiungiDelegaPGSection.clearInputData();
@@ -193,6 +191,7 @@ public class DeleghePGPagoPATest {
 
 
         deleghePGPagoPAPage.insertCFDelegante(codiceFiscale);
+        deleghePGPagoPAPage.insertCFDelegante(codiceFiscale);
     }
 
     @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si clicca su bottone Filtra")
@@ -217,7 +216,7 @@ public class DeleghePGPagoPATest {
     @And("Nella pagina Deleghe sezione Deleghe dell impresa  si verifica sia presente una delega")
     public void nellaPaginaDelegheSezioneDelegheDellImpresaSiVerificaSiaPresenteUnaDelega() {
         logger.info("Si controlla che ci sia almeno una delega");
-         BackgroundTest backgroundTest = new BackgroundTest();
+        BackgroundTest backgroundTest = new BackgroundTest();
 
         if (!this.delegatiImpresaSection.siVisualizzaUnaDelega()) {
             backgroundTest.aggiuntaNuovaDelegaDellImpresaPG();
@@ -439,25 +438,25 @@ public class DeleghePGPagoPATest {
     @And("Creo in background una delega per persona giuridica")
     public void creoInBackgroundUnaDelegaPerPersonaGiuridica(Map<String, String> personaGiuridica) {
         logger.info("Si controlla che ci sia una delega");
-            String dateto = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            DelegatePG delegatePG = DelegatePG.builder()
-                    .companyName(personaGiuridica.get("companyName"))
-                    .displayName(personaGiuridica.get("displayName"))
-                    .fiscalCode(personaGiuridica.get("fiscalCode"))
-                    .person(Boolean.parseBoolean(personaGiuridica.get("person")))
-                    .build();
-            DelegateRequestPG delegateRequestPG = DelegateRequestPG.builder()
-                    .dateto(dateto)
-                    .delegate(delegatePG)
-                    .visibilityIds(new ArrayList<>())
-                    .verificationCode("12345")
-                    .build();
-            String tokenExchange = loginPGPagoPaTest.getTokenExchangePGFromFile(personaGiuridica.get("accessoCome"));
-            DelegateResponsePG response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
-            System.setProperty("mandateId", response.getMandateId());
-            System.setProperty("verificationCode", response.getVerificationCode());
-            driver.navigate().refresh();
-        }
+        String dateto = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        DelegatePG delegatePG = DelegatePG.builder()
+                .companyName(personaGiuridica.get("companyName"))
+                .displayName(personaGiuridica.get("displayName"))
+                .fiscalCode(personaGiuridica.get("fiscalCode"))
+                .person(Boolean.parseBoolean(personaGiuridica.get("person")))
+                .build();
+        DelegateRequestPG delegateRequestPG = DelegateRequestPG.builder()
+                .dateto(dateto)
+                .delegate(delegatePG)
+                .visibilityIds(new ArrayList<>())
+                .verificationCode("12345")
+                .build();
+        String tokenExchange = loginPGPagoPaTest.getTokenExchangePGFromFile(personaGiuridica.get("accessoCome"));
+        DelegateResponsePG response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
+        System.setProperty("mandateId", response.getMandateId());
+        System.setProperty("verificationCode", response.getVerificationCode());
+        driver.navigate().refresh();
+    }
 
     @And("Si clicca sul bottone conferma delega")
     public void siCliccaSulBottoneConfermaDelega() {
@@ -533,5 +532,23 @@ public class DeleghePGPagoPATest {
     @And("Si controlla la tabella delegati dall impresa")
     public void siControllaLaTabellaDelegatiDallImpresa() {
         delegatiImpresaSection.checkTabellaDelegheDellImpresa();
+    }
+
+    @And("Si inserisce un codice della delega a carico dell impresa errato nella modale")
+    public void siInserisceUnCodiceDellaDelegaACaricoDellImpresaErratoNellaModale() {
+        logger.info("Si inserisce un codice della delega errato nella modale");
+        deleghePagoPATest.siSceglieOpzioneAccetta();
+        String verificationCode = "00000";
+        deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI(verificationCode);
+        deleghePGPagoPAPage.clickConfirmCodeButton();
+        deleghePGPagoPAPage.clickBottoneConferma();
+    }
+
+    @Then("Le textbox che contengono le cifre del codice delega diventano rosse")
+    public void leTextboxCheContengonoLeCifreDelCodiceDelegaDiventanoRosse() {
+        logger.info("Si visualizza alert di errore in pagina");
+        deleghePGPagoPAPage.checkAlertWrongDelegationCode();
+        deleghePGPagoPAPage.clickButtonIndietroDaAssegnaGruppo();
+        deleghePGPagoPAPage.checkTextboxCodiceSonoRosse();
     }
 }

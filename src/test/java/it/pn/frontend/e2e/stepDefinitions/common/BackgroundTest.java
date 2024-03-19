@@ -64,6 +64,21 @@ public class BackgroundTest {
         deleghePagoPATest.visualizzaDelegheSection();
     }
 
+    public void loginPGDeleghe(String nomeFileLogin) {
+        loginPGPagoPATest.loginPortalePersonaGiuridicaTramiteTokenExchange(nomeFileLogin);
+        notifichePGPagoPATest.nellaPaginaPiattaformaNotifichePersonaGiuridicaClickSulBottoneDeleghe();
+        notifichePGPagoPATest.visualizzaDelegheSection();
+    }
+
+    public void accettazioneDelegaPG() {
+        deleghePagoPATest.siSceglieOpzioneAccetta();
+        deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp(nomeFileNuovaDelegaPG);
+        deleghePagoPATest.siCliccaSulBottoneAccetta();
+        deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
+
+    }
+
+
     public void loginPFRecapiti(String nomeFileLogin) {
         personaFisicaPagoPA.loginPortaleDelegatoTramiteRequestMethod(nomeFileLogin);
         personaFisicaPagoPA.homePageDestinatarioVieneVisualizzataCorrettamente();
@@ -136,10 +151,9 @@ public class BackgroundTest {
 
 
     public void accettazioneDelegaSceltaGruppo(boolean withGroup) {
-        deleghePagoPATest.siSceglieOpzioneAccetta();
         deleghePGPagoPATest.siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale();
         deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneConfermaCodice();
-        if(!withGroup){
+        if (!withGroup) {
             deleghePGPagoPATest.siAssegnaUnGruppoAllaDelega();
         }
         deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
@@ -155,9 +169,10 @@ public class BackgroundTest {
     }
 
     public void aggiuntaNuovaDelegaDellImpresaPG() {
+        deleghePGPagoPATest.nellaPaginaDelegheSiCliccaSuDelegatiDallImpresa();
         deleghePGPagoPATest.nellaSezioneDelegatiDellImpresaClickSulBottoneAggiungiNuovaDelega();
         deleghePGPagoPATest.siVisualizzaLaSezioneLeTueDeleghePersonaGiuridica();
-        deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaInserireIDati("nuovaDelegaPG");
+        deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaInserireIDati(nomeFileNuovaDelegaPG);
         deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaSalvareIlCodiceVerificaAllInternoDelFile(nomeFileNuovaDelegaPG);
         deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaVerificareCheLaDataSiaCorretta();
         deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaclickSulBottoneInviaRichiestaESulBottoneTornaAlleDeleghe();
@@ -207,12 +222,12 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiControllaCheLaPecAggiuntivaSiaStataInseritaCorrettamente();
     }
 
-    public void revocaDelegaPG(String dpFile){
+    public void revocaDelegaPG(String dpFile) {
         deleghePGPagoPATest.siControllaCheNonSiaPresenteUnaDelegaConStessoNomePersonaGiuridica(dpFile);
         deleghePagoPATest.siControllaCheNonCiSiaPiuUnaDelega();
     }
 
-    public void rifiutoDelegaACaricoDellImpresa(String dpFile){
+    public void rifiutoDelegaACaricoDellImpresa(String dpFile) {
         deleghePGPagoPATest.nellaPaginaDelegheSezioneDelegheAcaricoDellImpresaSiCliccaSulMenuDellaDelega(dpFile);
         deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneRifiuta();
         deleghePGPagoPATest.siCliccaSulBottoneRifiutaDelega();

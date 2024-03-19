@@ -112,10 +112,10 @@ public class RicercaNotificheMittentePagoPATest {
     }
 
     @And("Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica {string}")
-    public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotifica(String dpDatiiNotifica) {
+    public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotifica(String dpDatiNotifica) {
         logger.info("Si inserisce il codice IUN");
         DataPopulation dataPopulation = new DataPopulation();
-        this.datiNotifica = dataPopulation.readDataPopulation(dpDatiiNotifica + ".yaml");
+        this.datiNotifica = dataPopulation.readDataPopulation(dpDatiNotifica + ".yaml");
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
     }
@@ -468,6 +468,16 @@ public class RicercaNotificheMittentePagoPATest {
         } else {
             logger.error("Le date inserite sono corrette");
             Assert.fail("Le date inserite sono corrette");
+        }
+    }
+    @Then("Nella pagina piattaforma Notifiche è presente un campo di ricerca con un menu a tendina per selezionare lo stato della notifica")
+    public void nellaPaginaPiattaformaNotificheÈPresenteUnCampoDiRicercaConUnMenuATendinaPerSelezionareLoStatoDellaNotifica() {
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        if (piattaformaNotifichePage.controlloEsistenzaStato()) {
+            logger.info("Campo stato notifica trovato");
+        } else {
+            logger.error("Campo stato notifica NON trovato");
+            Assert.fail("Campo stato notifica NON trovato");
         }
     }
 }

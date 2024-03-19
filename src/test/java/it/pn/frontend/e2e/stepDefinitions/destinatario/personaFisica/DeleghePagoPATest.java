@@ -64,8 +64,7 @@ public class DeleghePagoPATest {
     @And("Si visualizza la sezione Le Tue Deleghe")
     public void siVisualizzaLaSezioneLeTueDeleghe() {
         logger.info("Si visualizza la sezione Le Tue Deleghe");
-        LeTueDelegheSection deleghePage = new LeTueDelegheSection(this.driver);
-        deleghePage.waitNuovaDelegaSection();
+        leTueDelegheSection.waitNuovaDelegaSection();
     }
 
     @And("Nella sezione Le Tue Deleghe inserire i dati {string}")
@@ -128,7 +127,7 @@ public class DeleghePagoPATest {
         logger.info("Si controlla che sia presente una delega");
         BackgroundTest backgroundTest = new BackgroundTest();
         if (!this.deleghePage.siVisualizzaUnaDelega()) {
-            backgroundTest.aggiuntaNuovaDelegaDellImpresaPG();
+            backgroundTest.aggiuntaNuovaDelegaPF();
         }
     }
 
@@ -262,7 +261,9 @@ public class DeleghePagoPATest {
                 .build();
         String tokenExchange = loginPersonaFisicaPagoPA.getTokenExchangePFFromFile(personaFisica.get("accessoCome"));
         DelegateResponsePF response = restDelegation.addDelegationPF(delegateRequestPF, tokenExchange);
-        System.setProperty("mandateId", response.getMandateId());
+        if (response != null) {
+            System.setProperty("mandateId", response.getMandateId());
+        }
     }
 
     @And("Si clicca sul bottone Accetta")

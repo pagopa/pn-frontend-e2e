@@ -47,6 +47,9 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(id = "next")
     WebElement frecciaPaginaSuccessiva;
 
+    @FindBy(id = "page2")
+    WebElement secondPage;
+
     @FindBy(id = "page3")
     WebElement pageNumberButton;
 
@@ -88,8 +91,8 @@ public class PiattaformaNotifichePage extends BasePage {
     public void waitLoadPiattaformaNotifichePAPage() {
         try {
             By notificheTitle = By.id("Notifiche-page");
-            this.getWebDriverWait(30).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf(this.inviaNuovaNotificaButton));
-            this.getWebDriverWait(30).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOfElementLocated(notificheTitle));
+            this.getWebDriverWait(10).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf(this.inviaNuovaNotificaButton));
+            this.getWebDriverWait(10).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOfElementLocated(notificheTitle));
             logger.info("Piattaforma Notifiche Page caricata");
         } catch (TimeoutException e) {
             logger.error("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
@@ -113,7 +116,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void selectFiltraButton() {
         try {
-            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.filtraButton));
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(this.filtraButton));
             this.filtraButton.click();
             logger.info("Bottone filtra cliccato correttamente");
         } catch (TimeoutException e) {
@@ -158,16 +161,13 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean verificaEsistenzaEPassaggioPagina() {
         this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
-
         try {
-            By numeroButtonBy = By.id("page2");
-            this.getWebDriverWait(20).withMessage("Il bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOfElementLocated(numeroButtonBy));
+            this.getWebDriverWait(10).withMessage("Il bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOf(secondPage));
             logger.info("Bottone pagina 2 trovato");
-
-            WebElement numeroPagina = this.element(numeroButtonBy);
-            numeroPagina.click();
+            secondPage.click();
             return true;
         } catch (TimeoutException e) {
+            logger.error("bottone pagina 2 non trovata con errore: " + e.getMessage());
             return false;
         }
     }
@@ -250,7 +250,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public int getListStato(String statoNotifica) {
         try {
             By statoNotificaBy = By.xpath("//span[contains(text(),'" + statoNotifica + "')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
             return this.elements(statoNotificaBy).size();
         } catch (TimeoutException e) {
             return 0;
@@ -703,6 +703,29 @@ public class PiattaformaNotifichePage extends BasePage {
             }
         }
         return isDateErrate;
+    }
+
+    public boolean controlloEsistenzaStato() {
+        this.statoNotificaField.click();
+        try {
+            List<WebElement> statiNotifica = this.elements(By.xpath("//li[@data-value]"));
+            this.getWebDriverWait(10).withMessage("Il menu a tendina dello stato notifica del filtro non è visibile").until(ExpectedConditions.visibilityOfAllElements(statiNotifica));
+            ArrayList<String> stati = new ArrayList<>(List.of("Tutti gli stati", "Depositata", "Invio in corso", "Consegnata", "Perfezionata per decorrenza termini", "Avvenuto accesso", "Annullata", "Destinatario irreperibile"));
+            for (WebElement stato : statiNotifica) {
+                if (!stati.contains(stato.getText())) {
+                    logger.error("Lo stato " + stato.getText() + " non è presente nella lista");
+                    return false;
+                }
+            }
+            logger.info("Tutti gli stati sono presenti nella lista");
+            return true;
+        } catch (TimeoutException e) {
+            logger.error("Stato notifica NON trovata con errore: " + e.getMessage());
+            Assert.fail("Stato notifica NON trovata con errore: " + e.getMessage());
+            return false;
+        } finally {
+            this.element(By.id("menu-status")).click();
+        }
     }
 
     public void clickPagina(int pagina) {
