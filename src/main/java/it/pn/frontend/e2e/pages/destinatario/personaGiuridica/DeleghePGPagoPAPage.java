@@ -75,6 +75,10 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(id = "notifications-table")
     WebElement tabelleDelleDelegheACaricoDellImpresa;
 
+    @FindBy(id = "alert-api-status}")
+    WebElement alertPopUp;
+
+
     public DeleghePGPagoPAPage(WebDriver driver) {
         super(driver);
     }
@@ -197,7 +201,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickBottoneConferma() {
-        getWebDriverWait(40).withMessage("Il bottone conferma nel pop up di scelta gruppo non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
+        getWebDriverWait(10).withMessage("Il bottone conferma nel pop up di scelta gruppo non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
         this.confermaButton.click();
     }
 
@@ -208,12 +212,11 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public boolean verificaEsistenzaErroreCodiceSbagliato() {
         try {
-            By esistenzaBy = By.id("alert-api-status");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(esistenzaBy));
+            this.getWebDriverWait(5).withMessage("Alert non visualizzato correttamente").until(ExpectedConditions.visibilityOf(alertPopUp));
             logger.info("Errore codice sbagliato trovato");
             return true;
         } catch (TimeoutException e) {
-            logger.info("errore non trovato");
+            logger.info("Errore non trovato");
             return false;
         }
 
@@ -330,6 +333,55 @@ public class DeleghePGPagoPAPage extends BasePage {
         } catch (TimeoutException e) {
             logger.warn("Deleghe NON trovate con errore: " + e.getMessage());
             return false;
+        }
+    }
+
+    public void checkAlertWrongDelegationCode() {
+        try {
+            By alertCloseButtonBy = By.xpath("//button[@aria-label='Close']");
+            this.getWebDriverWait(5).withMessage("Alert non visualizzato correttamente").until(ExpectedConditions.visibilityOf(alertPopUp));
+            logger.info("Alert visualizzato correttamente in pagina");
+            WebElement alertCloseButton = driver.findElement(alertCloseButtonBy);
+            alertCloseButton.click();
+            logger.info("Alert chiusa");
+        } catch (TimeoutException e) {
+            logger.error("Alert non visualizzato con errore: " + e.getMessage());
+            Assert.fail("Alert non visualizzato con errore: " + e.getMessage());
+        }
+    }
+
+    public void clickButtonIndietroDaAssegnaGruppo() {
+        try {
+            logger.info("Si clicca sul bottone indietro per tornare al pop-up di inserimento codice delega");
+            By buttonIndietroPopUpAssegnaGruppo = By.xpath("//button[@data-testid='groupCancelButton']");
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(buttonIndietroPopUpAssegnaGruppo));
+            WebElement buttonIndietroClick = driver.findElement(buttonIndietroPopUpAssegnaGruppo);
+            buttonIndietroClick.click();
+            logger.info("Bottone indietro cliccato");
+        } catch (TimeoutException e) {
+            logger.error("Bottone non visualizzato con errore " + e.getMessage());
+            Assert.fail("Bottone non visualizzato con errore: " + e.getMessage());
+        }
+    }
+
+    public void checkTextboxCodiceSonoRosse() {
+        final String textboxIsInvalid = "true";
+        boolean isInvalid = true;
+        for (int i = 0; i < 5; i++) {
+            String xpathBy = "code-input-" + i;
+            By codiceDelegaInputBy = By.id(xpathBy);
+            getWebDriverWait(10).withMessage("Textbox di input codice delega non visualizzata").until(ExpectedConditions.visibilityOfElementLocated(codiceDelegaInputBy));
+            WebElement codiceDelegaInput = driver.findElement(codiceDelegaInputBy);
+            String stateInput = codiceDelegaInput.getAttribute("aria-invalid");
+            if (!textboxIsInvalid.equals(stateInput)) {
+                isInvalid = false;
+            }
+        }
+        if (isInvalid) {
+            logger.info("Textbox di input codice delega invalido");
+        } else {
+            logger.error("Almeno una textbox di input codice delega non in stato invalido");
+            Assert.fail("Almeno una textbox di input codice delega non in stato invalido");
         }
     }
 

@@ -54,8 +54,7 @@ public class NewNotifichePagoPATest {
     }
 
 
-    // TO DO
-    /*
+    /* TODO
     @When("Creo in background una notifica con multi destinatario {int} e multi documento tramite API REST")
     public void creoUnaNotificaConUnDestinatarioEUnDocumento(Integer numMultiRecipients) throws RestNotificationException {
         int maxAttempts = 3;
