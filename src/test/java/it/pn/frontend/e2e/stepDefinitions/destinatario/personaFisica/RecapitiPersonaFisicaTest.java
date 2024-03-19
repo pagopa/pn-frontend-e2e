@@ -549,10 +549,9 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce una nuova PEC {string}")
-    public void nellaPaginaITuoiRecapitiSiInserisceUnaNuovaPECDellaPersonaFisica(String dpFile) {
+    public void nellaPaginaITuoiRecapitiSiInserisceUnaNuovaPECDellaPersonaFisica(String pec) {
         logger.info("Si inserisce una nuova PEC");
         recapitiDestinatarioPage.cancellaTesto();
-        String pec = dataPopulation.readDataPopulation(dpFile + ".yaml").get("pec").toString();
         recapitiDestinatarioPage.insertEmailPEC(pec);
     }
 

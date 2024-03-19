@@ -14,7 +14,7 @@ Feature: La persona giuridica modifica l'indirizzo PEC
     And Nella pagina I Tuoi Recapiti si clicca sul bottone annulla
     And Nella pagina I Tuoi Recapiti l'indirizzo PEC non modificabile
     And Nella pagina I Tuoi Recapiti si clicca sul bottone modifica PEC
-    And Nella pagina I Tuoi Recapiti si inserisce una nuova PEC "personaGiuridica"
+    And Nella pagina I Tuoi Recapiti si inserisce una nuova PEC "prova@pec.it"
     And Nella pagina I Tuoi Recapiti si clicca sul bottone salva
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request "personaGiuridica"
