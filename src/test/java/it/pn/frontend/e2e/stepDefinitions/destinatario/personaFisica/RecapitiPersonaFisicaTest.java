@@ -562,14 +562,13 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @Then("Nella pagina I Tuoi Recapiti si verifica che la pec sia stata modificata {string}")
-    public void nellaPaginaITuoiRecapitiSiVerificaCheLaPecSiaStataModificata(String dpFile) {
+    public void nellaPaginaITuoiRecapitiSiVerificaCheLaPecSiaStataModificata(String pec) {
         logger.info("Si controlla che la PEC sia stata modificata");
 
         if (recapitiDestinatarioPage.siVisualizzaPopUpConferma()) {
             recapitiDestinatarioPage.clickConfermaButton();
             recapitiDestinatarioPage.visualizzaValidazione();
         } else {
-            String pec = dataPopulation.readDataPopulation(dpFile + ".yaml").get("pec").toString();
             DataPopulation.waitTime(5);
             driver.navigate().refresh();
             if (recapitiDestinatarioPage.siControllaPECModificata(pec)) {

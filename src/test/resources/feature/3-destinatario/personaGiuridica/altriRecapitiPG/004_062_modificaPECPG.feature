@@ -19,6 +19,6 @@ Feature: La persona giuridica modifica l'indirizzo PEC
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
-    Then Nella pagina I Tuoi Recapiti si verifica che la pec sia stata modificata "personaGiuridica"
+    Then Nella pagina I Tuoi Recapiti si verifica che la pec sia stata modificata "prova@pec.it"
     And Logout da portale persona giuridica
 
