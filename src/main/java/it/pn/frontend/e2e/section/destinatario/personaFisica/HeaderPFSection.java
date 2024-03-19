@@ -43,7 +43,7 @@ public class HeaderPFSection extends BasePage {
     public void selezionaProfiloUtenteMenu() {
         this.js().executeScript("arguments[0].scrollIntoView(true);", this.buttonProfile);
         logger.info("click sul profilo utente");
-        this.js().executeScript("arguments[0].click()", this.buttonProfile);
+        this.buttonProfile.click();
     }
 
     public void selezionaVoceEsci() {
