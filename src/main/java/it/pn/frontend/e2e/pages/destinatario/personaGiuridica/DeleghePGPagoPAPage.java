@@ -12,8 +12,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -76,9 +74,6 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     @FindBy(id = "notifications-table")
     WebElement tabelleDelleDelegheACaricoDellImpresa;
-
-    @FindBy(id = "expirationDate")
-    WebElement expirationDate;
 
     public DeleghePGPagoPAPage(WebDriver driver) {
         super(driver);
