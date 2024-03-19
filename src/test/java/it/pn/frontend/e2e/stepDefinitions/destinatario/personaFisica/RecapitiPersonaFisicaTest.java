@@ -10,6 +10,7 @@ import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.OTPStorage;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -268,6 +269,21 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si inserisce il codice OTP di verifica");
 
         String otp = dataPopulation.readDataPopulation(dpFile + ".yaml").get("OTPpec").toString();
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.sendOTP(otp);
+        recapitiDestinatarioPage.confermaButtonClickPopUp();
+        if (recapitiDestinatarioPage.waitMessaggioErrore()) {
+            logger.error("Il codice OTP inserito è sbagliato");
+            Assert.fail("Il codice OTP inserito è sbagliato");
+        }
+
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce il codice OTP")
+    public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP() {
+        logger.info("Si inserisce il codice OTP di verifica");
+
+        String otp = OTPStorage.getOtp();
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.sendOTP(otp);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
@@ -626,6 +642,39 @@ public class RecapitiPersonaFisicaTest {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
                 personaFisica.put("OTPpec", OTP);
                 dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+            } else {
+                logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+                Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+            }
+        }
+
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request")
+    public void     nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaPECTramiteChiamataRequest() {
+        logger.info("Si recupera il codice OTP della nuova pec");
+
+        String pec = "prova@pec.it";
+        RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
+
+        String startUrl = "http://localhost:8887/";
+        String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + pec;
+        boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+        if (results) {
+            String OTP = recuperoOTPRecapiti.getResponseBody();
+            OTPStorage.setOtp(OTP);
+        } else {
+            String variabileAmbiente = System.getProperty("environment");
+            if (variabileAmbiente.equalsIgnoreCase("test")) {
+                startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
+            } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
+                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
+            }
+            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + "prova@pec.it";
+            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+            if (results) {
+                String OTP = recuperoOTPRecapiti.getResponseBody();
+                OTPStorage.setOtp(OTP);
             } else {
                 logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
                 Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
