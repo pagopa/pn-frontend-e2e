@@ -130,10 +130,6 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequest(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente();
-        logoutPF();
-        loginPFRecapiti(nomeFilePersonaFisica);
-        recapitiPersonaFisicaTest.ITuoiRecapitiButtonClick();
-        recapitiPersonaFisicaTest.siVisualizzaCorrettamenteLaPaginaITuoiRecapiti();
     }
 
     public void aggiungiNuovaPECPF() {
@@ -205,10 +201,6 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequest(nomeFilePG);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP(nomeFilePG);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente();
-        logoutPG();
-        loginPGRecapiti(nomeFilePG);
-        notifichePGPagoPATest.nellaPaginaPiattaformaNotifichePersonaGiuridicaSiCliccaSulBottoneITuoiRecapiti();
-        recapitiPGTest.siVisualizzaRecapitiPagePersonaGiuridca();
     }
 
     public void aggiungiPecSezioneGiaAssociati() {
