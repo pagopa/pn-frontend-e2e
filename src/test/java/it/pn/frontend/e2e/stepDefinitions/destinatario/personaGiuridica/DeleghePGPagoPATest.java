@@ -111,7 +111,7 @@ public class DeleghePGPagoPATest {
         dataPopulation.writeDataPopulation(dpFile + ".yaml", this.datiDelega);
     }
 
-    @And("Nella sezione Aggiungi Delega  persona giuridica click sul bottone Invia richiesta e sul bottone torna alle deleghe")
+    @And("Nella sezione Aggiungi Delega persona giuridica click sul bottone Invia richiesta e sul bottone torna alle deleghe")
     public void nellaSezioneLeTueDeleghePersonaGiuridicaclickSulBottoneInviaRichiestaESulBottoneTornaAlleDeleghe() {
         logger.info("Si clicca sul bottone invia richiesta");
 
@@ -126,6 +126,8 @@ public class DeleghePGPagoPATest {
 
         delegatiImpresaSection.waitLoadDelegatiImpresaPage();
         delegatiImpresaSection.controlloEsistenzaDelega(this.datiDelega.get("ragioneSociale").toString());
+        delegatiImpresaSection.clickMenuDelega(this.datiDelega.get("ragioneSociale").toString());
+        delegatiImpresaSection.esistenzaRevocaButton();
     }
 
     @And("Nella sezione Delegati dall impresa si visualizza correttamente una delega in stato di attesa di conferma {string}")
@@ -527,6 +529,13 @@ public class DeleghePGPagoPATest {
     @And("Si controlla la tabella delegati dall impresa")
     public void siControllaLaTabellaDelegatiDallImpresa() {
         delegatiImpresaSection.checkTabellaDelegheDellImpresa();
+    }
+
+    @And("Non si inserisce il codice OTP e l invito della delega non è più presente")
+    public void nonSiInserisceIlCodiceOTPELInvitoDellaDelegaNonèPiùPresente(){
+        DataPopulation.waitTime(61*15);
+        driver.navigate().refresh();
+        deleghePGPagoPAPage.waitLoadDeleghePage();
     }
 
     @And("Si inserisce un codice della delega a carico dell impresa errato nella modale")
