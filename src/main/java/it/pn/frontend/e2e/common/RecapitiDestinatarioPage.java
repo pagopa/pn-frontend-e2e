@@ -324,8 +324,14 @@ public class RecapitiDestinatarioPage extends BasePage {
     public String waitLoadPopUpElimina() {
         By titlePopUp = By.id("dialog-title");
         By subTitlePopUp = By.id("dialog-description");
+        By cancelButton = By.id("buttonAnnulla");
+        By confirmButton = By.id("buttonConferma");
         this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
         this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
+        this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(cancelButton));
+        this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(confirmButton));
+
+
         return this.element(titlePopUp).getText();
     }
 
@@ -333,6 +339,12 @@ public class RecapitiDestinatarioPage extends BasePage {
         By confermaRimuoviPECBy = By.xpath("//button[contains(text(),'Annulla')]/following-sibling::button");
         this.getWebDriverWait(30).withMessage("Non è stato possibile cliccare sul bottone conferma").until(ExpectedConditions.elementToBeClickable(confermaRimuoviPECBy));
         this.element(confermaRimuoviPECBy).click();
+    }
+
+    public void clickSuAnnullaElimina() {
+        By annullaRimuoviPECBy = By.id("buttonAnnulla");
+        this.getWebDriverWait(30).withMessage("Non è stato possibile cliccare sul bottone annulla").until(ExpectedConditions.elementToBeClickable(annullaRimuoviPECBy));
+        this.element(annullaRimuoviPECBy).click();
     }
 
     public boolean siControllaNonPresenzaPEC() {
@@ -347,6 +359,17 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
+    public boolean siControllaPresenzaPEC() {
+        try {
+            By pecField = By.id("legalContacts");
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(pecField));
+            logger.info("pec presente");
+            return true;
+        } catch (TimeoutException e) {
+            logger.error("pec non presente con errore" + e.getMessage());
+            return false;
+        }
+    }
 
     public void insertEnte(String comune) {
         this.enteField.sendKeys(comune);
