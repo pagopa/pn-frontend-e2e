@@ -16,7 +16,6 @@ Feature: La persona fisica visualizza la sezione notifiche
       | companyName | Convivio Spa |
       | displayName | Convivio Spa |
       | person      | false        |
-    And Si sceglie opzione accetta
     And Si accetta la delega "senza" gruppo
     And Nella Pagina Notifiche persona giuridica si clicca su notifiche delegate
     And Si visualizza correttamente la Pagina Notifiche persona giuridica sezione notifiche delegate "Convivio Spa"
