@@ -315,7 +315,7 @@ public class DeleghePGPagoPAPage extends BasePage {
         for (int i = 0; i < 5; i++) {
             String xpathBy = "code-input-" + i;
             By codiceDelegaInputBy = By.id(xpathBy);
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(codiceDelegaInputBy));
+            getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(codiceDelegaInputBy));
             WebElement codiceDelegaInput = driver.findElement(codiceDelegaInputBy);
             codiceDelegaInput.sendKeys(codiciDelega[i]);
         }
