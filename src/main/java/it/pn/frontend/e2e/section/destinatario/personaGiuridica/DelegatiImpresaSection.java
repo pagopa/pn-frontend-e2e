@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -154,12 +153,11 @@ public class DelegatiImpresaSection extends BasePage {
     public void esistenzaRevocaButton() {
         try{
             this.getWebDriverWait(10).withMessage("Bottone di revoca non visualizzato").until(ExpectedConditions.and(ExpectedConditions.visibilityOf(this.revocaMenuButton), ExpectedConditions.elementToBeClickable(this.revocaMenuButton)));
-            logger.info("Bottone revoca visualizzato e cliccabile");
-            Actions actions = new Actions(driver);
-            actions.moveByOffset(100, 200).click().perform();
+            logger.info("Bottone revoca visualizzabile e cliccabile");
+            driver.navigate().refresh();
         } catch(TimeoutException e){
-            logger.error("Bottone revoca non visualizzato e non cliccabile con errore: " + e.getMessage());
-            Assert.fail("Bottone revoca non visualizzato e non cliccabile con errore: " + e.getMessage());
+            logger.error("Bottone revoca non visualizzabile e non cliccabile con errore: " + e.getMessage());
+            Assert.fail("Bottone revoca non visualizzabile e non cliccabile con errore: " + e.getMessage());
         }
     }
 

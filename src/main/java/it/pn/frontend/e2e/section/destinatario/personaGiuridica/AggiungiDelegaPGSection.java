@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class AggiungiDelegaPGSection extends BasePage {
@@ -72,7 +73,12 @@ public class AggiungiDelegaPGSection extends BasePage {
             this.getWebDriverWait(10).withMessage("Il radio button tutti gli enti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(radioButtonTuttiEnti));
             By radioButtonSoloEnti = By.id("enti-selezionati");
             this.getWebDriverWait(10).withMessage("Il radio button solo enti selezionati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(radioButtonSoloEnti));
-            this.getWebDriverWait(10).withMessage("Il radio button tutti gli enti non è visibile").until(ExpectedConditions.visibilityOf(this.dataTermineDelegaInput));
+            LocalDate dateTomorrow = LocalDate.now().plusDays(1);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            this.getWebDriverWait(10).withMessage("Il campo periodi di validità della delega non è visibile o non ha la data corretta").until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOf(this.dataTermineDelegaInput),
+                    ExpectedConditions.attributeContains(this.dataTermineDelegaInput, "value", dateTomorrow.format(formatter))
+            ));
             By verificationCode = By.xpath("//div[@data-testid='verificationCode']");
             this.getWebDriverWait(10).withMessage("Il codice ci verifica della delega non è visibile").until(ExpectedConditions.visibilityOfElementLocated(verificationCode));
             logger.info("Si visualizza correttamente la sezione Aggiungi una delega");

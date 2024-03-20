@@ -536,7 +536,6 @@ public class DeleghePGPagoPATest {
 
     @And("Non si inserisce il codice OTP e l invito della delega non è più presente")
     public void nonSiInserisceIlCodiceOTPELInvitoDellaDelegaNonèPiùPresente(){
-        logger.info("Si attendono 15 minuti e 15 secondi per la decadenza dell accettazione della delega");
         DataPopulation.waitTime(61*15);
         driver.navigate().refresh();
         deleghePGPagoPAPage.waitLoadDeleghePage();
