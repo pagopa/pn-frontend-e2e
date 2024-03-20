@@ -104,6 +104,7 @@ public class DisserviziAppPAPage extends BasePage {
 
     public void checkDisserviziInCorso() {
         try {
+            driver.navigate().refresh();
             List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
             if (!disserviziTableRows.isEmpty()) {
                 for (WebElement disserviziRow : disserviziTableRows) {
@@ -111,6 +112,13 @@ public class DisserviziAppPAPage extends BasePage {
                     if (!disserviziColumns.isEmpty()) {
                         // check if the columns are not empty
                         for (WebElement disserviziColumn : disserviziColumns) {
+                            if (disserviziColumn.getText().contains("-")) {
+                                logger.info("Si visualizza data di fine come: -");
+                            }
+                            if (disserviziColumn.getText().contains("L'attestazione sarà disponibile al termine del disservizio")) {
+                                logger.info("Si visualizza ");
+                                return;
+                            }
                             if (disserviziColumn.getText().contains("In corso")) {
                                 logger.info("Si visualizza un record in elenco relativo ad un disservizio ancora in corso");
                                 return;

@@ -1,9 +1,9 @@
 Feature: La persona giuridica visualizza i disservizi della applicazione
 
-  #Da fixare, integrare chiamate api per helpdesk
-  #@TestSuite
-  #@test72
-  #@TA_PG_VisualizzaDisservizio
+  @TestSuite
+  @TA_PG_VisualizzaDisservizio
+  @DisserviziAppPG
+  @PG
 
   Scenario: PN-9163 - Il persona giuridica loggato visualizza lo stato dei disservizi
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
@@ -18,5 +18,7 @@ Feature: La persona giuridica visualizza i disservizi della applicazione
     And Si crea il disservizio
     And Si verifica la creazione del disservizio
     And Si verifica avvenuto disservizio in pagina stato piattaforma
-    And Annullamento disservizio
+    And Si visualizza un record in elenco relativo ad un disservizio ancora in corso
+    #And Annullamento disservizio
+    And Logout da portale persona giuridica
 
