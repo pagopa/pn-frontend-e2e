@@ -6,6 +6,9 @@ import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.RecapitiPer
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class BackgroundTest {
     private final String nomeFileDatiNotifica = "datiNotifica";
     private final String nomeFilePersonaFisica = "personaFisica";
@@ -23,6 +26,18 @@ public class BackgroundTest {
     private final DisserviziAppPGTest disserviziAppPGTest = new DisserviziAppPGTest();
     private final HelpdeskTest helpdeskTest = new HelpdeskTest();
     private final NotifichePGPagoPATest notifichePGPagoPATest = new NotifichePGPagoPATest();
+
+    private static Map<String, String> datiPersonaFisica;
+    static
+    {
+        datiPersonaFisica = new HashMap<>();
+        datiPersonaFisica.put("nome", "Lucrezia");
+        datiPersonaFisica.put("cognome", "Borgia");
+        datiPersonaFisica.put("codiceFiscale", "BRGLRZ80D58H501Q");
+        datiPersonaFisica.put("ente", "Comune di Verona");
+        datiPersonaFisica.put("ragioneSociale", "Lucrezia Borgia");
+    }
+
 
     public void invioNotificaErrorePec() {
         NotificaMittentePagoPATest notificaMittentePagoPATest = new NotificaMittentePagoPATest();
@@ -48,8 +63,8 @@ public class BackgroundTest {
     public void aggiuntaNuovaDelegaPF() {
         deleghePagoPATest.visualizzaDelegheSection();
         deleghePagoPATest.nellaSezioneDelegheClickSulBottoneAggiungiNuovaDelega();
-        deleghePagoPATest.siVisualizzaLaSezioneLeTueDeleghe();
-        deleghePagoPATest.nellaSezioneLeTueDelegheInserireIDati(nomeFileNuovaDelega);
+        deleghePagoPATest.siVisualizzaCorrettamenteLaPaginaNuovaDelega();
+        deleghePagoPATest.nellaSezioneLeTueDelegheInserireIDati(datiPersonaFisica);
         deleghePagoPATest.nellaSezioneLeTueDelegheVerificareCheLaDataSiaCorretta();
         deleghePagoPATest.nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile(nomeFileNuovaDelega);
         deleghePagoPATest.nellaSezioneLeTueDelegheClickSulBottoneInviaRichiestaESulBottoneTornaAlleDeleghe();
