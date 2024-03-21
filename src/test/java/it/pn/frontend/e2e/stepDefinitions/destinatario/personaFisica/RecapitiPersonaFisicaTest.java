@@ -10,7 +10,6 @@ import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
-import it.pn.frontend.e2e.utility.OTPStorage;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -23,6 +22,8 @@ import java.util.concurrent.TimeUnit;
 public class RecapitiPersonaFisicaTest {
 
     private static final Logger logger = LoggerFactory.getLogger("InserimentoOTPSbagliato");
+
+    public static String OTP;
     private final WebDriver driver = Hooks.driver;
     private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
     private final DataPopulation dataPopulation = new DataPopulation();
@@ -282,10 +283,8 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si inserisce il codice OTP")
     public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP() {
         logger.info("Si inserisce il codice OTP di verifica");
-
-        String otp = OTPStorage.getOtp();
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        iTuoiRecapitiPage.sendOTP(otp);
+        iTuoiRecapitiPage.sendOTP(OTP);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
         if (recapitiDestinatarioPage.waitMessaggioErrore()) {
             logger.error("Il codice OTP inserito è sbagliato");
@@ -649,8 +648,7 @@ public class RecapitiPersonaFisicaTest {
         String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + pec;
         boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
         if (results) {
-            String OTP = recuperoOTPRecapiti.getResponseBody();
-            OTPStorage.setOtp(OTP);
+            OTP = recuperoOTPRecapiti.getResponseBody();
         } else {
             String variabileAmbiente = System.getProperty("environment");
             if (variabileAmbiente.equalsIgnoreCase("test")) {
@@ -661,8 +659,7 @@ public class RecapitiPersonaFisicaTest {
             url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + "prova@pec.it";
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
             if (results) {
-                String OTP = recuperoOTPRecapiti.getResponseBody();
-                OTPStorage.setOtp(OTP);
+                OTP = recuperoOTPRecapiti.getResponseBody();
             } else {
                 logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
                 Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
