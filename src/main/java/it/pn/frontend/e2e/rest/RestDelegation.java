@@ -97,7 +97,7 @@ public class RestDelegation {
         try {
             httpClientPF.sendHttpPatchRequest("/mandate/api/v1/mandate/" + mandateId + "/revoke", this.headers);
         } catch (IOException e) {
-            logger.error("Error during revokeDelegationPF", e);
+            logger.error("Error during revokeDelegation", e);
         }
     }
 
