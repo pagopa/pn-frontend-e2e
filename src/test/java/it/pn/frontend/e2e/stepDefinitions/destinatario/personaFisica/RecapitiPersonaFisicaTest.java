@@ -41,6 +41,13 @@ public class RecapitiPersonaFisicaTest {
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
     }
 
+    @And("Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione 'E-mail o numero di cellulare'")
+    public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteLaSezioneEmailONumeroDiCellulare() {
+        logger.info("Si controlla che si visualizza correttamente la sezione 'E-mail o numero di cellulare'");
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.waitLoadCourtesyContacts();
+    }
+
     @And("Nella pagina I Tuoi Recapiti si inserisce la PEC {string}")
     public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario(String dpFile) {
         logger.info("Si inserisce la email PEC");
@@ -286,9 +293,7 @@ public class RecapitiPersonaFisicaTest {
                 Assert.fail("Pec non associata con errore");
             }
         }
-
     }
-
 
     @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method {string}")
     public void nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaEmailTramiteRequestMethod(String dpFile) {
@@ -575,11 +580,11 @@ public class RecapitiPersonaFisicaTest {
         }
     }
 
-    @And("Nella pagina I Tuoi Recapiti si clicca sul bottone modifica PEC")
+    @And("Nella pagina I Tuoi Recapiti si clicca sul bottone modifica PEC e si verifica che si possa modificare la PEC")
     public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneModificaPEC() {
         logger.info("Si clicca sul bottone modifica PEC");
-
         recapitiDestinatarioPage.clickSuModificaPEC();
+        recapitiDestinatarioPage.verificaPecModificabile();
     }
 
     @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request {string}")
@@ -781,19 +786,6 @@ public class RecapitiPersonaFisicaTest {
         }
     }
 
-    @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già la nuova pec")
-    public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaLaNuovaPec() {
-        logger.info("Si controlla che ci sia una email pec");
-        String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("emailPec").toString();
-        BackgroundTest backgroundTest = new BackgroundTest();
-        if (!recapitiDestinatarioPage.siVisualizzaPecInserita()) {
-            backgroundTest.aggiungiPECPF();
-        } else if (recapitiDestinatarioPage.siControllaPECModificata(pec)) {
-            recapitiDestinatarioPage.eliminaPecEsistente();
-            backgroundTest.aggiungiNuovaPECPF();
-        }
-    }
-
     @And("si verifica esistenza due pec")
     public void siVerificaEsistenzaDuePEC() {
         if (!recapitiDestinatarioPage.siVisualizzaPecInserita()) {
@@ -824,6 +816,13 @@ public class RecapitiPersonaFisicaTest {
         if (!recapitiDestinatarioPage.verificaMailAssociata()) {
             backgroundTest.aggiuntaEmailPF();
         }
+    }
+
+    @And("Si clicca sul bottone annulla per annullare la modifica della PEC e si verifica che non si possa modificare la PEC")
+    public void siCliccaSulBottoneAnnullaPerAnnullareLaModificaDellaPEC() {
+        logger.info("Si clicca sul bottone annulla");
+        recapitiDestinatarioPage.clickSuAnnulla();
+        recapitiDestinatarioPage.verificaPecNonModificabile();
     }
 
     @And("Si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email")

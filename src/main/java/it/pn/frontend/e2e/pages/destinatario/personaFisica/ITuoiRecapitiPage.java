@@ -59,6 +59,37 @@ public class ITuoiRecapitiPage extends BasePage {
         }
     }
 
+    public void waitLoadCourtesyContacts() {
+        try {
+            By courtesyContactTitle = By.id("E-mail o numero di cellulare-page");
+            this.getWebDriverWait(10).withMessage("il titolo del contatto di cortesia non è presente o non ha il testo corretto").until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(courtesyContactTitle),
+                    ExpectedConditions.textToBe(courtesyContactTitle, "E-mail o numero di cellulare")));
+            By courtesyContactSubtitle = By.xpath("//p[contains(@id,'subtitle-page') and contains(text(),'e-mail o un SMS')]");
+            final String subtitleText = "Quando c’è una notifica per te, ti inviamo un’e-mail o un SMS. Accedi a SEND per leggerla e pagare eventuali spese. Qui ricevi anche eventuali comunicazioni importanti.";
+            this.getWebDriverWait(10).withMessage("il sottotitolo del contatto di cortesia non è presente o non ha il testo corretto").until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(courtesyContactSubtitle),
+                    ExpectedConditions.textToBe(courtesyContactSubtitle, subtitleText)));
+            By emailTextBox = By.id("email");
+            this.getWebDriverWait(10).withMessage("il campo email non è presente o non ha il placeholder corretto").until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(emailTextBox),
+                    ExpectedConditions.attributeToBe(emailTextBox, "placeholder", "Il tuo indirizzo e-mail")
+            ));
+            By ctaAvvisamiViaEmail = By.id("courtesy-email-button");
+            this.getWebDriverWait(10).withMessage("il bottone avvisami via email non è presente").until(ExpectedConditions.visibilityOfElementLocated(ctaAvvisamiViaEmail));
+            By contactDisclaimer = By.xpath("//div[@data-testid='contacts disclaimer']");
+            final String disclaimerText = "Se non hai la PEC, leggi subito la notifica: non riceverai la raccomandata cartacea e risparmierai tempo e denaro.";
+            this.getWebDriverWait(10).withMessage("il disclaimer del contatto di cortesia non è presente o non ha il testo corretto").until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(contactDisclaimer),
+                    ExpectedConditions.textToBe(contactDisclaimer, disclaimerText)
+            ));
+            logger.info("Il contatto di cortesia si visualizza correttamente");
+        } catch (TimeoutException e) {
+            logger.error("il contatto di cortesia non si visualizza correttamente con errori:" + e.getMessage());
+            Assert.fail("il contatto di cortesia non si visualizza correttamente con errori:" + e.getMessage());
+        }
+    }
+
 
     public void sendOTP(String otp) {
         String[] otps = otp.split("");
