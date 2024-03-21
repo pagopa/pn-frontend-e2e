@@ -599,18 +599,8 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si clicca sul bottone modifica PEC");
         recapitiDestinatarioPage.clickSuModificaPEC();
         recapitiDestinatarioPage.verificaPecModificabile();
-    }
-    @And("Nella pagina I Tuoi Recapiti l'indirizzo PEC non modificabile")
-    public void NellaPaginaITuoiRecapitiLindirizzoPecNonModificabile(){
-        recapitiDestinatarioPage.pecTextboxInvalid();
-    }
 
-    @And("Nella pagina I Tuoi Recapiti si clicca sul bottone annulla")
-    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneAnnulla(){
-        logger.info("Si clicca sul bottone annulla modifica PEC");
-        recapitiDestinatarioPage.clickSuAnnullaModificaPEC();
     }
-
 
     @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request {string}")
     public void     nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaPECTramiteChiamataRequest(String dpFile) {

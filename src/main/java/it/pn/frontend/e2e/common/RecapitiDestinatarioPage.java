@@ -38,7 +38,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "cancelContact-default")
     WebElement eliminaPECButton;
 
-        @FindBy(xpath = "//div/h2[contains(text(),'Grazie!')]/following-sibling::div//button")
+    @FindBy(xpath = "//div/h2[contains(text(),'Grazie!')]/following-sibling::div//button")
     WebElement confermaButtonPoPUpPec;
 
     @FindBy(xpath = "//p[contains(text(),'Indirizzo e-mail')]/following-sibling::div/div/button[contains(text(),'Modifica')]")
@@ -309,11 +309,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-    public void clickSuAnnullaModificaPEC() {
-        By annullaButtonBy = By.xpath("//p[contains(text(),'PEC associata')]/following-sibling::div/div/button[contains(text(),'Annulla')]");
-        this.getWebDriverWait(30).withMessage("Non si riesce a cliccare sul bottone modifica PEC").until(ExpectedConditions.elementToBeClickable(annullaButtonBy));
-        this.element(annullaButtonBy).click();
-    }
 
     public void cancellaTesto() {
         try {
@@ -327,10 +322,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-    public void pecTextboxInvalid(){
-        getWebDriverWait(10).withMessage("Il textbox Pec email è modificabile").until(ExpectedConditions.visibilityOf(pecEmail));
-        logger.info("Il textbox Pec email non è modificabile");
-    }
+
 
     public void clickSuSalva() {
         By salvaButtonBy = By.xpath("//button[contains(text(),'Salva')]");
