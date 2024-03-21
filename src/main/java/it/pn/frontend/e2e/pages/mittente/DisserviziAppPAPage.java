@@ -116,7 +116,7 @@ public class DisserviziAppPAPage extends BasePage {
                                 logger.info("Si visualizza data di fine come: -");
                             }
                             if (disserviziColumn.getText().contains("L'attestazione sarà disponibile al termine del disservizio")) {
-                                logger.info("Si visualizza ");
+                                logger.info("Si visualizza la frase corretta in 'Attestazioni opponibili a terzi'");
                                 return;
                             }
                             if (disserviziColumn.getText().contains("In corso")) {

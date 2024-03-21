@@ -87,6 +87,17 @@ public class DeleghePGPagoPATest {
         aggiungiDelegaPGSection.selezionaUnEnte(datiDelega.get("ente").toString());
     }
 
+    @And("Nella sezione Aggiungi Delega persona giuridica inserire i dati")
+    public void nellaSezioneLeTueDeleghePersonaGiuridicaInserireIDati(Map<String, String> personaGiuridica) {
+        logger.info("Si aggiungono tutti i dati del delegato");
+        aggiungiDelegaPGSection.selectPersonaGiuridicaRadioButton();
+        aggiungiDelegaPGSection.insertRagioneSociale(personaGiuridica.get("ragioneSociale"));
+        aggiungiDelegaPGSection.inserireCF(personaGiuridica.get("codiceFiscale"));
+        aggiungiDelegaPGSection.selectSoloEntiSelezionati();
+        aggiungiDelegaPGSection.waitLoadAggiungiDelegaPage();
+        aggiungiDelegaPGSection.selezionaUnEnte(personaGiuridica.get("ente"));
+    }
+
     @And("Nella sezione Aggiungi Delega persona giuridica verificare che la data sia corretta")
     public void nellaSezioneLeTueDeleghePersonaGiuridicaVerificareCheLaDataSiaCorretta() {
         logger.info("Si controlla che la data di fine delega sia corretta");
@@ -128,6 +139,8 @@ public class DeleghePGPagoPATest {
         delegatiImpresaSection.controlloEsistenzaDelega(this.datiDelega.get("ragioneSociale").toString());
         delegatiImpresaSection.clickMenuDelega(this.datiDelega.get("ragioneSociale").toString());
         delegatiImpresaSection.esistenzaRevocaButton();
+        delegatiImpresaSection.clickRevocaMenuButtonPG();
+        delegatiImpresaSection.clickRevocaButton();
     }
 
     @And("Si controlla che non sia presente una delega con stesso nome {string} persona giuridica")
@@ -137,6 +150,21 @@ public class DeleghePGPagoPATest {
         this.datiDelega = dataPopulation.readDataPopulation(nomeFile + ".yaml");
 
         String ragioneSociale = datiDelega.get("ragioneSociale").toString();
+
+        if (deleghePGPagoPAPage.cercaEsistenzaDelegaPG(ragioneSociale)) {
+            logger.info("Delega con lo stesso nome trovata");
+            deleghePGPagoPAPage.clickRevocaMenuButtonPG(ragioneSociale);
+            delegatiImpresaSection.waitPopUpRevoca(ragioneSociale);
+            delegatiImpresaSection.clickRevocaButton();
+        } else {
+            logger.info("Delega con lo stesso nome NON trovata");
+        }
+    }
+
+    @And("Si controlla che non sia presente una delega con stesso nome persona giuridica")
+    public void siControllaCheNonSiaPresenteUnaDelegaConStessoNomePersonaGiuridica(Map<String, String> delegaPG) {
+        logger.info("Si controlla che non ci sia una delega con lo stesso nome");
+        String ragioneSociale = delegaPG.get("ragioneSociale");
 
         if (deleghePGPagoPAPage.cercaEsistenzaDelegaPG(ragioneSociale)) {
             logger.info("Delega con lo stesso nome trovata");
@@ -500,13 +528,6 @@ public class DeleghePGPagoPATest {
 
     public void siCliccaSulBottoneIndietroInAssegnazioneGruppo(){
         deleghePGPagoPAPage.clickButtonIndietroInAssegnazioneGruppo();
-    }
-
-    @And("Non si inserisce il codice OTP e l invito della delega non è più presente")
-    public void nonSiInserisceIlCodiceOTPELInvitoDellaDelegaNonèPiùPresente(){
-        DataPopulation.waitTime(61*15);
-        driver.navigate().refresh();
-        deleghePGPagoPAPage.waitLoadDeleghePage();
     }
 
     @And("Si inserisce un codice della delega a carico dell impresa errato nella modale")
