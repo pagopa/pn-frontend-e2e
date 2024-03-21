@@ -488,7 +488,7 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("Nella pagina I Tuoi Recapiti si clicca sul bottone elimina email e si conferma nel pop up")
-    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneElimina() {
+    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneEliminaEmailESiConfermaNelPopUp() {
         logger.info("Si clicca sul bottone elimina email");
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
 
@@ -503,12 +503,39 @@ public class RecapitiPersonaFisicaTest {
         }
     }
 
+    @And("Nella pagina I Tuoi Recapiti si clicca sul bottone elimina email e si annulla nel pop up")
+    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneEliminaEmailESiAnnullaNelPopUp() {
+        logger.info("Si clicca sul bottone elimina email");
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+
+        iTuoiRecapitiPage.eliminaEmailEsistente();
+        if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
+            recapitiDestinatarioPage.annullaButtonEliminaClick();
+        } else {
+            recapitiDestinatarioPage.clickSuChiudiPopUp();
+            recapitiDestinatarioPage.eliminaNuovaPec();
+            recapitiDestinatarioPage.waitLoadPopUpElimina();
+            recapitiDestinatarioPage.clickButtonAnnullaEliminazioneInPopUp();
+        }
+    }
+
     @Then("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo Email non sia presente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoEmailNonSiaPresente() {
         logger.info("Si controlla che l'indirizzo Email non sia presente");
         if (!recapitiDestinatarioPage.verificaMailAssociata()) {
             logger.error("Email non è stata eliminata correttamente");
             Assert.fail("Email non è stata eliminata correttamente");
+        }
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo Email non stata eleminata")
+    public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoEmailNonStataEleminata() {
+        logger.info("Si controlla che l'indirizzo Email non stata eleminata");
+        if (recapitiDestinatarioPage.siControllaPresenzaEmail()) {
+            logger.info("L'email non è stata eliminata");
+        } else {
+            logger.error("L'email è stata eliminata");
+            Assert.fail("L'email è stata eliminata");
         }
     }
 
