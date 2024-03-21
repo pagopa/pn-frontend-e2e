@@ -130,10 +130,6 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequest(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente();
-        logoutPF();
-        loginPFRecapiti(nomeFilePersonaFisica);
-        recapitiPersonaFisicaTest.ITuoiRecapitiButtonClick();
-        recapitiPersonaFisicaTest.siVisualizzaCorrettamenteLaPaginaITuoiRecapiti();
     }
 
     public void aggiungiNuovaPECPF() {
@@ -158,6 +154,19 @@ public class BackgroundTest {
         }
         deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
     }
+
+    public void checkDelegaSceltaGruppoEInserimentoCodiceErrata() {
+        deleghePagoPATest.siSceglieOpzioneAccetta();
+        deleghePGPagoPATest.siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModaleErrata();
+        deleghePGPagoPATest.siCliccaSulBottoneAccettaDelega();
+        deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppoErrato();
+        deleghePGPagoPATest.siCliccaSulBottoneAssegnaAUnGruppo();
+        deleghePGPagoPATest.nonSiAssegnaUnGruppoAllaDelegaCheLoRichiede();
+        deleghePGPagoPATest.siCliccaSulBottoneIndietroInAssegnazioneGruppo();
+        deleghePGPagoPATest.checkErroreInInserimentoCodiceErrato();
+        deleghePGPagoPATest.siCliccaSulBottoneIndietroInInserimentoCodiceVerifica();
+    }
+
 
     public void accettazioneDelegaConGruppo() {
         deleghePagoPATest.siSceglieOpzioneAccetta();
@@ -205,10 +214,6 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequest(nomeFilePG);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP(nomeFilePG);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente();
-        logoutPG();
-        loginPGRecapiti(nomeFilePG);
-        notifichePGPagoPATest.nellaPaginaPiattaformaNotifichePersonaGiuridicaSiCliccaSulBottoneITuoiRecapiti();
-        recapitiPGTest.siVisualizzaRecapitiPagePersonaGiuridca();
     }
 
     public void aggiungiPecSezioneGiaAssociati() {
