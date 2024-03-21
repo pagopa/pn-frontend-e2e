@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class DestinatarioPASection extends BasePage {
 
-    private static  final Logger logger = LoggerFactory.getLogger("DestinatarioPASection");
+    private static final Logger logger = LoggerFactory.getLogger("DestinatarioPASection");
 
     @FindBy(css = "input[value='PF']")
     WebElement personaFisicaCheckBox;
@@ -84,12 +84,12 @@ public class DestinatarioPASection extends BasePage {
         super(driver);
     }
 
-    public String ricercaInformazione(String[] dati, int posizioneDestinatario ){
+    public String ricercaInformazione(String[] dati, int posizioneDestinatario) {
         String datoDestianario = dati[posizioneDestinatario];
-        if (posizioneDestinatario == 0){
-            datoDestianario = datoDestianario.replace("[","");
-        }else if (posizioneDestinatario == 3){
-            datoDestianario = datoDestianario.replace("]","");
+        if (posizioneDestinatario == 0) {
+            datoDestianario = datoDestianario.replace("[", "");
+        } else if (posizioneDestinatario == 3) {
+            datoDestianario = datoDestianario.replace("]", "");
         }
         if (posizioneDestinatario > 0) {
             datoDestianario = datoDestianario.substring(1);
@@ -98,15 +98,14 @@ public class DestinatarioPASection extends BasePage {
     }
 
 
-
     public void waitLoadDestinatarioPASection() {
-        try{
+        try {
             By titleDestinatarioFieald = By.id("title-heading-section");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleDestinatarioFieald));
             logger.info("Destinatario PA Section caricata ");
-        }catch (TimeoutException e){
-            logger.error("Destinatario PA Section non caricata con errore : "+e.getMessage());
-            Assert.fail("Destinatario PA Section non caricata con errore : "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Destinatario PA Section non caricata con errore : " + e.getMessage());
+            Assert.fail("Destinatario PA Section non caricata con errore : " + e.getMessage());
         }
 
     }
@@ -128,7 +127,7 @@ public class DestinatarioPASection extends BasePage {
 
     public void inserireCodiceFiscaleDestinatario(String codiceFiscale) {
         logger.info("inserimento codice fiscale destinatario");
-        this.scrollToElementClickAndInsertText(this.codiceFiscaleDestinatarioTextField,codiceFiscale);
+        this.scrollToElementClickAndInsertText(this.codiceFiscaleDestinatarioTextField, codiceFiscale);
     }
 
     public void selezionaAggiungiUnIndirizzoFisico() {
@@ -153,7 +152,7 @@ public class DestinatarioPASection extends BasePage {
 
     public void inserireComune(String comune) {
         logger.info("inserimento comune");
-        this.scrollToElementClickAndInsertText(this.comuneTextField,comune);
+        this.scrollToElementClickAndInsertText(this.comuneTextField, comune);
     }
 
     public void inserireProvincia(String provincia) {
@@ -163,12 +162,13 @@ public class DestinatarioPASection extends BasePage {
 
     public void inserireCodicePostale(String codicePostale) {
         logger.info("inserimento codice postale");
-        this.scrollToElementClickAndInsertText(this.codicePostaleTextField,codicePostale);
+        this.scrollToElementClickAndInsertText(this.codicePostaleTextField, codicePostale);
     }
 
     public void cambiareCodicePostale(String codicePostale) {
         logger.info("cambio codice postale");
-        this.scrollToElementClickAndReplaceText(this.codicePostaleTextField,codicePostale);
+        clearWebElementField(this.codicePostaleTextField);
+        codicePostaleTextField.sendKeys(codicePostale);
     }
 
     public void inserireStato(String stato) {
@@ -186,46 +186,46 @@ public class DestinatarioPASection extends BasePage {
         this.rimuoviDestinatarioButtons.get(1).click();
     }
 
-    public void inserimentoMultiDestinatario(Map<String,Object> destinatari, int nDestinatari) {
+    public void inserimentoMultiDestinatario(Map<String, Object> destinatari, int nDestinatari) {
         for (int i = 0; i < nDestinatari; i++) {
-            inserimentoInformazioniPreliminari(destinatari,i);
-            inserimentoInformazioniAggiuntive(destinatari,i);
-            if (i != nDestinatari-1){
+            inserimentoInformazioniPreliminari(destinatari, i);
+            inserimentoInformazioniAggiuntive(destinatari, i);
+            if (i != nDestinatari - 1) {
                 selezionareAggiungiDestinatarioButton();
             }
         }
     }
 
-    public void inserimentoInformazioniPreliminari(Map<String,Object> destinatari, int i){
+    public void inserimentoInformazioniPreliminari(Map<String, Object> destinatari, int i) {
         selezionarePersonaFisica();
         String nomeDestinatario = ricercaInformazione(destinatari.get("name").toString().split(","), i);
-        inserireInfoMultiDestinatario("//input[contains(@id,'firstName')]",nomeDestinatario);
+        inserireInfoMultiDestinatario("//input[contains(@id,'firstName')]", nomeDestinatario);
         String cognomeDestinatario = ricercaInformazione(destinatari.get("familyName").toString().split(","), i);
-        inserireInfoMultiDestinatario("//input[contains(@id,'lastName')]",cognomeDestinatario);
+        inserireInfoMultiDestinatario("//input[contains(@id,'lastName')]", cognomeDestinatario);
         String cfDestinatario = ricercaInformazione(destinatari.get("codiceFiscale").toString().split(","), i);
-        cfDestinatario = cfDestinatario.replace(" ","");
-        inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]",cfDestinatario);
-        selezionaAggiungiUnIndirizzoFisicoMulti(i+1);
+        cfDestinatario = cfDestinatario.replace(" ", "");
+        inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]", cfDestinatario);
+        selezionaAggiungiUnIndirizzoFisicoMulti(i + 1);
     }
 
-    public void inserimentoInformazioniAggiuntive(Map<String,Object> destinatari, int i){
+    public void inserimentoInformazioniAggiuntive(Map<String, Object> destinatari, int i) {
         String indirizzoDestinatario = ricercaInformazione(destinatari.get("indirizzo").toString().split(","), i);
-        inserireInfoMultiDestinatario("//label[contains(@id,'address-label')]/following-sibling::div/input",indirizzoDestinatario);
+        inserireInfoMultiDestinatario("//label[contains(@id,'address-label')]/following-sibling::div/input", indirizzoDestinatario);
         String nCivicoDestinatario = ricercaInformazione(destinatari.get("numeroCivico").toString().split(","), i);
-        inserireInfoMultiDestinatario("//input[contains(@id,'houseNumber')]",nCivicoDestinatario);
+        inserireInfoMultiDestinatario("//input[contains(@id,'houseNumber')]", nCivicoDestinatario);
         String localitaDestinatario = ricercaInformazione(destinatari.get("localita").toString().split(","), i);
-        inserireInfoMultiDestinatario("//label[contains(@id,'municipalityDetails-label')]/following-sibling::div/input",localitaDestinatario);
+        inserireInfoMultiDestinatario("//label[contains(@id,'municipalityDetails-label')]/following-sibling::div/input", localitaDestinatario);
         String comuneDestinatario = ricercaInformazione(destinatari.get("comune").toString().split(","), i);
-        inserireInfoMultiDestinatario("//label[contains(@id,'municipality-label')]/following-sibling::div/input",comuneDestinatario);
+        inserireInfoMultiDestinatario("//label[contains(@id,'municipality-label')]/following-sibling::div/input", comuneDestinatario);
         String provinciaDestinatario = ricercaInformazione(destinatari.get("provincia").toString().split(","), i);
-        inserireInfoMultiDestinatario("//input[contains(@id,'province')]",provinciaDestinatario);
+        inserireInfoMultiDestinatario("//input[contains(@id,'province')]", provinciaDestinatario);
         String codicePostale = ricercaInformazione(destinatari.get("codicepostale").toString().split(","), i);
-        inserireInfoMultiDestinatario("//input[contains(@id,'zip')]",codicePostale);
-        inserireInfoMultiDestinatario("//input[contains(@id,'foreignState')]",destinatari.get("stato").toString());
+        inserireInfoMultiDestinatario("//input[contains(@id,'zip')]", codicePostale);
+        inserireInfoMultiDestinatario("//input[contains(@id,'foreignState')]", destinatari.get("stato").toString());
     }
 
     private void selezionaAggiungiUnIndirizzoFisicoMulti(int i) {
-        By aggiungiIndirizzoBy = By.xpath("//label[@data-testid='showPhysicalAddress"+i+"']");
+        By aggiungiIndirizzoBy = By.xpath("//label[@data-testid='showPhysicalAddress" + i + "']");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(aggiungiIndirizzoBy));
         List<WebElement> aggiungiIndirizzoButton = this.elements(aggiungiIndirizzoBy);
         this.scrollToElementClickAndInsertText(aggiungiIndirizzoButton.get(aggiungiIndirizzoButton.size() - 1), null);
@@ -254,36 +254,36 @@ public class DestinatarioPASection extends BasePage {
             By errorMessage = By.xpath("//p[@id='recipients[1].taxId-helper-text']");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(errorMessage));
             logger.info("Il messaggio di errore viene visualizzato");
-        }catch (TimeoutException e){
-            logger.error("Il messaggio di errore non viene visualizzato con errore: "+e.getMessage());
-            Assert.fail("Il messaggio di errore non viene visualizzato con errore: "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Il messaggio di errore non viene visualizzato con errore: " + e.getMessage());
+            Assert.fail("Il messaggio di errore non viene visualizzato con errore: " + e.getMessage());
         }
 
     }
 
     public void inserimentoMultiDestinatarioPG(Map<String, Object> personeGiuridiche, int nDestinatari) {
         for (int i = 0; i < nDestinatari; i++) {
-            inserimentoInformazioniPreliminariPG(personeGiuridiche,i);
-            inserimentoInformazioniAggiuntive(personeGiuridiche,i);
-            if (i != nDestinatari-1){
+            inserimentoInformazioniPreliminariPG(personeGiuridiche, i);
+            inserimentoInformazioniAggiuntive(personeGiuridiche, i);
+            if (i != nDestinatari - 1) {
                 selezionareAggiungiDestinatarioButton();
             }
         }
     }
 
     private void inserimentoInformazioniPreliminariPG(Map<String, Object> personeGiuridiche, int i) {
-        clickRadioButtonPersonaGiuridica(i+1);
+        clickRadioButtonPersonaGiuridica(i + 1);
         String nomeDestinatario = ricercaInformazione(personeGiuridiche.get("name").toString().split(","), i);
-        inserireInfoMultiDestinatario("//input[contains(@id,'firstName')]",nomeDestinatario);
+        inserireInfoMultiDestinatario("//input[contains(@id,'firstName')]", nomeDestinatario);
         String cfDestinatario = ricercaInformazione(personeGiuridiche.get("codiceFiscale").toString().split(","), i);
-        cfDestinatario = cfDestinatario.replace(" ","");
-        inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]",cfDestinatario);
-        selezionaAggiungiUnIndirizzoFisicoMulti(i+1);
+        cfDestinatario = cfDestinatario.replace(" ", "");
+        inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]", cfDestinatario);
+        selezionaAggiungiUnIndirizzoFisicoMulti(i + 1);
     }
 
     private void clickRadioButtonPersonaGiuridica(int posizione) {
-    By radioButtonPgBy = By.xpath("//input[@name='recipients["+posizione+"].recipientType' and @value ='PG']");
-    this.element(radioButtonPgBy).click();
+        By radioButtonPgBy = By.xpath("//input[@name='recipients[" + posizione + "].recipientType' and @value ='PG']");
+        this.element(radioButtonPgBy).click();
     }
 
     public void checkBoxAggiungiDomicilio() {
@@ -314,21 +314,21 @@ public class DestinatarioPASection extends BasePage {
         this.personaGiuridicaRadioButton.click();
     }
 
-    public void insertCodiceFiscaleErrato(String codiceFiscale){
+    public void insertCodiceFiscaleErrato(String codiceFiscale) {
         logger.info("TA_QA: si inserisci codice fiscale errato");
         By valoreErratoBy = By.id("recipients[0].taxId");
         getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(valoreErratoBy));
         this.driver.findElement(valoreErratoBy).sendKeys(codiceFiscale);
     }
 
-    public String getCodiceFiscaleError(){
+    public String getCodiceFiscaleError() {
         logger.info("TA_QA: si legge il messagio di errore del Codice fiscale");
         By valoreCFErratoBy = By.id("recipients[0].taxId-helper-text");
         getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(valoreCFErratoBy));
         return driver.findElement(valoreCFErratoBy).getText();
     }
 
-    public String getDomicilioDigitaleError(){
+    public String getDomicilioDigitaleError() {
         logger.info("TA_QA: si legge il messagio di errore del digital domicile");
         By valoreErratoBy = By.id("recipients[0].digitalDomicile-helper-text");
         getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(valoreErratoBy));

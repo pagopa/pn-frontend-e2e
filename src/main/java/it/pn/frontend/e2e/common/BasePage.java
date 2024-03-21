@@ -19,12 +19,12 @@ public class BasePage {
 
     private static final Logger loggerBase = LoggerFactory.getLogger("BasePage");
 
-    public BasePage(WebDriver driver){
+    public BasePage(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(this.driver,this);
+        PageFactory.initElements(this.driver, this);
     }
 
-    protected void scrollToElementClickAndInsertText(WebElement element, String text){
+    protected void scrollToElementClickAndInsertText(WebElement element, String text) {
         try {
             if (!element.isDisplayed()) {
                 loggerBase.info("scroll elemento");
@@ -35,7 +35,7 @@ public class BasePage {
                 loggerBase.info("inserimento testo");
                 element.sendKeys(text);
             }
-        }catch (ElementNotInteractableException e){
+        } catch (ElementNotInteractableException e) {
             loggerBase.error("elemento non interagibile");
             this.js().executeScript("arguments[0].click()", element);
             if (text != null) {
@@ -44,62 +44,23 @@ public class BasePage {
         }
     }
 
-    protected void scrollToElementClickAndReplaceText(WebElement element, String text){
-         Runnable clearAndInsertNewValue = () -> {
-            // first clear the current text
-            // -----------------------------------------
-            // tried with both of the following, neither one worked
-            //    element.clear()
-            //    new Actions(this.driver).keyDown(Keys.CONTROL).sendKeys("a")
-            //      .keyUp(Keys.CONTROL).pause(200).sendKeys(Keys.BACK_SPACE);
-            // About the first I guess the fact that we're dealing with React-controlled inputs
-            // makes the .clear() ineffective; cfr. https://github.com/SeleniumHQ/selenium/issues/6741.
-            // About the second one I have no clue about why it does not work.
-            element.sendKeys(Keys.END);
-            loggerBase.info("cancello testo");
-            while (element.getAttribute("value").length() > 0) {
-                element.sendKeys(Keys.BACK_SPACE);
-            }
-            // now that the input is clear, we insert the new value
-             loggerBase.info("inserisco nuovo testo");
-             element.sendKeys(text);
-        };
-
-        try {
-            if (!element.isDisplayed()) {
-                this.js().executeScript("arguments[0].scrollIntoView(true);", element);
-            }
-            this.js().executeScript("arguments[0].click()", element);
-            if (text != null) {
-                clearAndInsertNewValue.run();
-            }
-        }catch (ElementNotInteractableException e){
-            this.js().executeScript("arguments[0].click()", element);
-            if (text != null) {
-                clearAndInsertNewValue.run();
-            }
-        }
-    }
-
-    protected WebDriverWait getWebDriverWait(long timeout){
+    protected WebDriverWait getWebDriverWait(long timeout) {
         return new WebDriverWait(this.driver, Duration.ofSeconds(timeout), Duration.ofMillis(500));
     }
 
-    protected WebElement element(By by){
+    protected WebElement element(By by) {
         return this.driver.findElement(by);
     }
 
-    protected List<WebElement> elements(By by){
+    protected List<WebElement> elements(By by) {
         return this.driver.findElements(by);
     }
 
-
-
-    protected JavascriptExecutor js(){
+    protected JavascriptExecutor js() {
         return (JavascriptExecutor) driver;
     }
 
-    public void waitLoadPage(){
+    public void waitLoadPage() {
         try {
             TimeUnit.SECONDS.sleep(7);
             TimeUnit.SECONDS.sleep(10);
@@ -107,19 +68,35 @@ public class BasePage {
             throw new RuntimeException(e);
         }
     }
+
     public void vaiInFondoAllaPagina() {
         this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
     }
-    public void aggionamentoPagina(){
+
+    public void aggionamentoPagina() {
         this.driver.navigate().refresh();
     }
-    public void waitLoadingSpinner(){
+
+    public void waitLoadingSpinner() {
         By loadingSpinnerBy = By.xpath("//span[@role = 'loadingSpinner']");
         getWebDriverWait(60).withMessage("la pagina è ancora in caricamento").until(ExpectedConditions.invisibilityOfElementLocated(loadingSpinnerBy));
     }
 
-    public void goBack(){
+    public void goBack() {
         this.driver.navigate().back();
+    }
+
+    /**
+     * Clear the text field of a WebElement
+     * Note: this method replace <b>clear()</b> because
+     * it does not work with React-controlled inputs
+     *
+     * @param element WebElement to clear the text field
+     */
+    public void clearWebElementField(WebElement element) {
+        while (!element.getAttribute("value").isEmpty()) {
+            element.sendKeys(Keys.BACK_SPACE);
+        }
     }
 }
 
