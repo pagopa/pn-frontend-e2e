@@ -226,9 +226,7 @@ public class DeleghePagoPATest {
     @And("Si inserisce il codice delega nel pop-up {string}")
     public void siInserisceIlCodiceDelegaNelPopUp(String dpFile) {
         logger.info("Si inserisce il codice per accettare la delega");
-
         this.leTueDelegheSection.waitPopUpLoad();
-
         Map<String, Object> destinatari = dataPopulation.readDataPopulation(dpFile + ".yaml");
         this.leTueDelegheSection.inserireCodiceDelega(destinatari.get("codiceDelega").toString());
     }

@@ -166,5 +166,3 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         return getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
     }
 }
-
-

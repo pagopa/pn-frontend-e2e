@@ -48,8 +48,8 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void waitLoadDelegatiImpresaPage() {
         try {
-            this.getWebDriverWait(30).withMessage("il titolo della sezione delegati dall'impresa non è visibile").until(ExpectedConditions.visibilityOf(titlePageBy));
-            this.getWebDriverWait(30).withMessage("il bottone aggiungi delega non è visibile").until(ExpectedConditions.visibilityOf(addDelegheButton));
+            this.getWebDriverWait(10).withMessage("il titolo della sezione delegati dall'impresa non è visibile").until(ExpectedConditions.visibilityOf(titlePageBy));
+            this.getWebDriverWait(10).withMessage("il bottone aggiungi delega non è visibile").until(ExpectedConditions.visibilityOf(addDelegheButton));
             logger.info("Delegati dall'impresa caricata correttamente");
         } catch (TimeoutException e) {
             logger.error("Delegati dall'impresa non caricata correttamente con errore: " + e.getMessage());
@@ -59,7 +59,7 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void clickAggiungiDelegaButton() {
         try {
-            this.getWebDriverWait(30).withMessage("bottone aggiunta deleghe non caricato").until(ExpectedConditions.elementToBeClickable(this.addDelegheButton));
+            this.getWebDriverWait(10).withMessage("bottone aggiunta deleghe non caricato").until(ExpectedConditions.elementToBeClickable(this.addDelegheButton));
             logger.info("click sul bottone aggiunta delega");
             this.addDelegheButton.click();
         } catch (TimeoutException e) {
@@ -141,8 +141,8 @@ public class DelegatiImpresaSection extends BasePage {
     public void waitPopUpRevoca(String ragionSociale) {
         try {
             By titlePopUpBy = By.id("dialog-title");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePopUpBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.textToBe(titlePopUpBy, "Vuoi revocare la delega a " + ragionSociale + "?"));
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(titlePopUpBy));
+            this.getWebDriverWait(10).until(ExpectedConditions.textToBe(titlePopUpBy, "Vuoi revocare la delega a " + ragionSociale + "?"));
             logger.info("Il pop-up revoca si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il pop-up revoca NON si visualizza correttamente con errore: " + e.getMessage());
@@ -150,9 +150,20 @@ public class DelegatiImpresaSection extends BasePage {
         }
     }
 
+    public void esistenzaRevocaButton() {
+        try{
+            this.getWebDriverWait(10).withMessage("Bottone di revoca non visualizzato").until(ExpectedConditions.and(ExpectedConditions.visibilityOf(this.revocaMenuButton), ExpectedConditions.elementToBeClickable(this.revocaMenuButton)));
+            logger.info("Bottone revoca visualizzabile e cliccabile");
+            driver.navigate().refresh();
+        } catch(TimeoutException e){
+            logger.error("Bottone revoca non visualizzabile e non cliccabile con errore: " + e.getMessage());
+            Assert.fail("Bottone revoca non visualizzabile e non cliccabile con errore: " + e.getMessage());
+        }
+    }
 
     //analizzare metodo ridontante con quello di riga 106
     public void clickRevocaButton() {
+        logger.info("Click su revoca delega");
         this.revocaButton.click();
     }
 
