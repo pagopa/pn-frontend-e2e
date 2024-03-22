@@ -203,7 +203,7 @@ public class DeleghePGPagoPATest {
     public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiInserisceIlCodiceFiscaleDelDelegante(String codiceFiscale) {
         logger.info("Si inserisce il codice fiscale del delegante");
 
-
+        deleghePGPagoPAPage.insertCFDelegante(codiceFiscale);
         deleghePGPagoPAPage.insertCFDelegante(codiceFiscale);
     }
 
