@@ -104,7 +104,7 @@ public class DisserviziAppPAPage extends BasePage {
 
     public void checkDisserviziInCorso() {
         try {
-            driver.navigate().refresh();
+            aggionamentoPagina();
             List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
             if (!disserviziTableRows.isEmpty()) {
                 for (WebElement disserviziRow : disserviziTableRows) {
