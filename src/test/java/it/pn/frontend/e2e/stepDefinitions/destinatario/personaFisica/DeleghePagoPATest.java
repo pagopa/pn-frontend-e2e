@@ -120,15 +120,6 @@ public class DeleghePagoPATest {
         deleghePage.controlloCreazioneDelega();
     }
 
-    /*@And("Nella sezione Deleghe si verifica sia presente una delega")
-    public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelega() {
-        logger.info("Si controlla che sia presente una delega");
-        BackgroundTest backgroundTest = new BackgroundTest();
-        if (!this.deleghePage.siVisualizzaUnaDelega()) {
-            backgroundTest.aggiuntaNuovaDelegaPF();
-        }
-    }*/
-
     @And("Nella sezione Deleghe si clicca sul menu della delega {string}")
     public void nellaSezioneDelegheSiCliccaSulMenuDellaDelega(String dpFile) {
         logger.info("Si clicca sul menu della delega");
@@ -276,9 +267,8 @@ public class DeleghePagoPATest {
     @And("Si controlla che la delega ha lo stato Attiva {string}")
     public void siControllaCheLaDelegaHaLoStatoAttiva(String dpFile) {
         logger.info("Si controlla che la delega abbia lo stato Attiva");
-        this.deleghe = this.dataPopulation.readDataPopulation(dpFile + ".yaml");
-        this.leTueDelegheSection.controlloStatoAttiva(deleghe.get("name").toString(), deleghe.get("familyName").toString());
-        this.leTueDelegheSection.controlloStatoAttiva(deleghe.get("name").toString(), deleghe.get("familyName").toString());
+        deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        leTueDelegheSection.controlloStatoAttiva(deleghe.get("name").toString(), deleghe.get("familyName").toString());
     }
 
     @And("Si controlla che la delega è ancora presente {string}")
