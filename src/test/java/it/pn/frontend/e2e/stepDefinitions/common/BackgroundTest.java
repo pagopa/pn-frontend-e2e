@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BackgroundTest {
+
     private final String nomeFileDatiNotifica = "datiNotifica";
     private final String nomeFilePersonaFisica = "personaFisica";
     private final String nomeFilePG = "personaGiuridica";
@@ -26,10 +27,9 @@ public class BackgroundTest {
     private final DisserviziAppPGTest disserviziAppPGTest = new DisserviziAppPGTest();
     private final HelpdeskTest helpdeskTest = new HelpdeskTest();
     private final NotifichePGPagoPATest notifichePGPagoPATest = new NotifichePGPagoPATest();
+    private Map<String, String> datiPersonaFisica;
 
-    private static Map<String, String> datiPersonaFisica;
-    static
-    {
+    public BackgroundTest(){
         datiPersonaFisica = new HashMap<>();
         datiPersonaFisica.put("nome", "Lucrezia");
         datiPersonaFisica.put("cognome", "Borgia");
