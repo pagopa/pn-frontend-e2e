@@ -33,9 +33,11 @@ import static org.apache.commons.lang3.StringUtils.substring;
 public class NotificaMittentePagoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittentePagoPATest");
-
     private final WebDriver driver = Hooks.driver;
     private Map<String, Object> datiNotifica = new HashMap<>();
+    private Map<String, String> datiNotificaMap = new HashMap<>();
+    private Map<String, String> destinatarioMap = new HashMap<>();
+    private Map<String, String> indirizzoMap = new HashMap<>();
     private Map<String, Object> personaFisica = new HashMap<>();
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
     private Map<String, Object> personaGiuridica = new HashMap<>();
@@ -44,11 +46,13 @@ public class NotificaMittentePagoPATest {
     private final DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
     private final DataPopulation dataPopulation = new DataPopulation();
     private final DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
+    private final String variabileAmbiente = System.getProperty("environment");
+    private final InformazioniPreliminariPASection informazioniPreliminariPASection = new InformazioniPreliminariPASection(this.driver);
+
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
         AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
-        String variabileAmbiente = System.getProperty("environment");
         logger.info("Cliccare sul bottone di Piattaforma Notifiche dell'Ambiente " + variabileAmbiente);
         switch (variabileAmbiente) {
             case "dev" -> areaRiservataPAPage.selezionaPiattaformaNotificaDev();
@@ -71,7 +75,6 @@ public class NotificaMittentePagoPATest {
             throw new RuntimeException(e);
         }
 
-        String variabileAmbiente = System.getProperty("environment");
         String urlChiamata = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/notifications/sent?";
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
@@ -130,7 +133,6 @@ public class NotificaMittentePagoPATest {
     @And("Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica")
     public void nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica() {
         logger.info("Selezione bottone invia una nuova notifica");
-
         piattaformaNotifichePage.selectInviaUnaNuovaNotificaButton();
         piattaformaNotifichePage.waitLoadingSpinner();
     }
@@ -141,26 +143,19 @@ public class NotificaMittentePagoPATest {
 
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
-
-        InformazioniPreliminariPASection informazioniPreliminariPASection = new InformazioniPreliminariPASection(this.driver);
         informazioniPreliminariPASection.waitLoadInformazioniPreliminariPASection();
     }
 
     @And("Nella section Informazioni preliminari inserire i dati della notifica {string} senza pagamento")
     public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento(String datiNotificaFile) {
         logger.info("Inserimento dei dati della notifica senza pagamento dal file " + datiNotificaFile + ".yaml");
-
         aggiornamentoNumeroProtocollo();
-
         this.datiNotifica = dataPopulation.readDataPopulation(datiNotificaFile + ".yaml");
-
-        String variabileAmbiente = System.getProperty("environment");
         String gruppo = "";
         switch (variabileAmbiente) {
             case "dev" -> gruppo = datiNotifica.get("gruppoDev").toString();
             case "test", "uat" -> gruppo = datiNotifica.get("gruppoTest").toString();
         }
-        InformazioniPreliminariPASection informazioniPreliminariPASection = new InformazioniPreliminariPASection(this.driver);
         informazioniPreliminariPASection.insertOggettoNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString());
         informazioniPreliminariPASection.insertDescrizione(this.datiNotifica.get("descrizione").toString());
         informazioniPreliminariPASection.insertNumeroDiProtocollo(this.datiNotifica.get("numeroProtocollo").toString());
@@ -185,7 +180,6 @@ public class NotificaMittentePagoPATest {
     @And("Cliccare su continua")
     public void cliccareSuContinua() {
         logger.info("Cliccare sul bottone continua");
-
         InvioNotifichePAPage invioNotifichePAPage = new InvioNotifichePAPage(this.driver);
         invioNotifichePAPage.selezionareContinuaButton();
     }
@@ -923,6 +917,86 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.clickPagina(pagina);
     }
 
+    @Then("Nella section Informazioni preliminari si inseriscono i dati della notifica")
+    public void nellaSectionInformazioniPreliminariSiInserisconoIDatiDellaNotifica(Map<String, String> datiNotifica) {
+        logger.info("Si inseriscono i dati della notifica nella sezione Informazioni Preliminari");
+        String numeroDiProtocollo = DataPopulation.generatePaProtocolNumber();
+        informazioniPreliminariPASection.insertOggettoNotifica(datiNotifica.get("oggettoNotifica"));
+        informazioniPreliminariPASection.insertDescrizione(datiNotifica.get("descrizione"));
+        informazioniPreliminariPASection.insertNumeroDiProtocollo(numeroDiProtocollo);
+        informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
+        informazioniPreliminariPASection.insertCodiceTassonometrico(datiNotifica.get("codiceTassonomico"));
+        if (datiNotifica.get("modalitaInvio").equals("A/R")) {
+            informazioniPreliminariPASection.selectRaccomandataAR();
+        } else {
+            informazioniPreliminariPASection.selectRegisteredLetter890();
+        }
+        datiNotifica.put("numeroProtocollo", numeroDiProtocollo);
+        datiNotificaMap = datiNotifica;
+    }
+
+    @Then("Nella section Destinatario si inseriscono i dati del destinatario")
+    public void nellaSectionDestinatarioSiInserisconoIDatiDelDestinatario(Map<String, String> destinatario) {
+        logger.info("Si inseriscono i dati del destinatario nella sezione Destinatario");
+        if (destinatario.get("soggettoGiuridico").equals("PF")) {
+            destinatarioPASection.selezionarePersonaFisica();
+        } else {
+            destinatarioPASection.clickRadioButtonPersonaGiuridica();
+        }
+        String nomeDestinatario = destinatario.get("nomeCognomeDestinatario");
+        if (nomeDestinatario.split(" ").length > 0) {
+            destinatarioPASection.inserireNomeDestinatario(nomeDestinatario.split(" ")[0]);
+            destinatarioPASection.inserireCognomeDestinatario(nomeDestinatario.split(" ")[1]);
+        } else {
+            destinatarioPASection.insertRagioneSociale(nomeDestinatario);
+        }
+        destinatarioPASection.inserireCodiceFiscaleDestinatario(destinatario.get("codiceFiscale"));
+        destinatarioMap = destinatario;
+    }
+
+    @And("Nella section Destinitario si clicca su {string} e si inseriscono i dati")
+    public void nellaSectionDestinitarioSiCliccaSuESiInserisconoIDati(String tipoIndirizzo, Map<String, String> indirizzo) {
+        logger.info("Si clicca su " + tipoIndirizzo + " e si inseriscono i dati");
+        if (tipoIndirizzo.contains("Aggiungi un indirizzo fisico")) {
+            destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
+        } else {
+            destinatarioPASection.checkBoxAggiungiDomicilio();
+        }
+        destinatarioPASection.inserireIndirizzo(indirizzo.get("indirizzo"));
+        destinatarioPASection.inserireNumeroCivico(indirizzo.get("civico"));
+        destinatarioPASection.inserireLocalita(indirizzo.get("localita"));
+        destinatarioPASection.inserireComune(indirizzo.get("comune"));
+        destinatarioPASection.inserireProvincia(indirizzo.get("provincia"));
+        destinatarioPASection.inserireCodicePostale(indirizzo.get("cap"));
+        destinatarioPASection.inserireStato(indirizzo.get("stato"));
+        indirizzoMap = indirizzo;
+    }
+
+    @Then("Nella section Allegati si carica un atto")
+    public void nellaSectionAllegatiSiCaricaUnAtto() {
+        logger.info("Caricamento dell'allegato notifica.pdf");
+
+        AllegatiPASection allegatiPASection = new AllegatiPASection(this.driver);
+        File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
+        String pathNotificaFile = notificaFile.getAbsolutePath();
+        allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
+
+        if (allegatiPASection.verificaCaricamentoNotificaPdf()) {
+            logger.info("File notifica.pdf caricato correttamente");
+        } else {
+            logger.error("File notifica.pdf non caricato");
+            Assert.fail("File notifica.pdf non caricato");
+        }
+        allegatiPASection.inserimentoNomeAllegato(datiNotificaMap.get("descrizione"));
+    }
+
+    @And("Si verifica che la notifica è stata creata correttamente")
+    public void siVerificaCheLaNotificaeStataCreataCorrettamente() {
+        logger.info("Si verifica che la notifica sia stata creata correttamente filtrandolo per il numero di protocollo");
+
+    }
+
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */
@@ -945,15 +1019,14 @@ public class NotificaMittentePagoPATest {
      */
     protected EsitoNotifica siVerificaEsitoNotifica(String dpFile) {
         logger.info("si verifica se la notifica è stata accettata o rifiutata");
-        String variabileAmbiente = System.getProperty("environment");
         final String urlNotificationRequest = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.3/requests";
         final String urlRichiestaNotifica = "https://api." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.3/requests/";
         AccettazioneRichiestaNotifica accettazioneRichiestaNotifica = new AccettazioneRichiestaNotifica();
         String codiceApi;
         if (variabileAmbiente.equals("test")) {
-            codiceApi = dataPopulation.readDataPopulation("mittente.yaml").get("codiceApiKeyTEST").toString();
+            codiceApi = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";
         } else {
-            codiceApi = dataPopulation.readDataPopulation("mittente.yaml").get("codiceApiKeyDEV").toString();
+            codiceApi = "a9f0508d-c344-4347-807f-343bc8210996";
         }
         accettazioneRichiestaNotifica.setxApikey(codiceApi);
         String statusNotifica = "WAITING";
