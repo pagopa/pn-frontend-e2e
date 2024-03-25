@@ -10,8 +10,12 @@ Feature:La persona fisica aggiunge una delega a se stessi
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
     And Nella sezione Deleghe click sul bottone aggiungi nuova delega
-    And Si visualizza la sezione Le Tue Deleghe
-    And Nella sezione Le Tue Deleghe inserire i dati "nuova_delega_err"
+    And Si visualizza correttamente la pagina nuova delega
+    And Nella sezione Le Tue Deleghe inserire i dati
+      | nome          | Gaio Giulio       |
+      | cognome       | Cesare            |
+      | codiceFiscale | CSRGGL44L13H501E  |
+      | ente          | Comune di Palermo |
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta
     And Nella sezione Le Tue Deleghe si visualizza il messaggio di errore
     And Logout da portale persona fisica
