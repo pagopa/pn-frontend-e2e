@@ -221,8 +221,8 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiControllaCheLaPecAggiuntivaSiaStataInseritaCorrettamente();
     }
 
-    public void revocaDelegaPG(String dpFile) {
-        deleghePGPagoPATest.siControllaCheNonSiaPresenteUnaDelegaConStessoNomePersonaGiuridica(dpFile);
+    public void revocaDelegaPG(String ragioneSociale) {
+        deleghePGPagoPATest.siControllaCheNonSiaPresenteUnaDelegaConStessoNomePersonaGiuridica(ragioneSociale);
         deleghePagoPATest.siControllaCheNonCiSiaPiuUnaDelega();
     }
 

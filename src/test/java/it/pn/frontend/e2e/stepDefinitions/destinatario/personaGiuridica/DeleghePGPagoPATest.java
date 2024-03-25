@@ -139,32 +139,11 @@ public class DeleghePGPagoPATest {
         delegatiImpresaSection.controlloEsistenzaDelega(this.datiDelega.get("ragioneSociale").toString());
         delegatiImpresaSection.clickMenuDelega(this.datiDelega.get("ragioneSociale").toString());
         delegatiImpresaSection.esistenzaRevocaButton();
-        delegatiImpresaSection.clickRevocaMenuButtonPG();
-        delegatiImpresaSection.clickRevocaButton();
     }
 
-    @And("Si controlla che non sia presente una delega con stesso nome {string} persona giuridica")
-    public void siControllaCheNonSiaPresenteUnaDelegaConStessoNomePersonaGiuridica(String nomeFile) {
+    @And("Si controlla che non sia presente una delega con stesso nome persona giuridica {string}")
+    public void siControllaCheNonSiaPresenteUnaDelegaConStessoNomePersonaGiuridica(String ragioneSociale) {
         logger.info("Si controlla che non ci sia una delega con lo stesso nome");
-
-        this.datiDelega = dataPopulation.readDataPopulation(nomeFile + ".yaml");
-
-        String ragioneSociale = datiDelega.get("ragioneSociale").toString();
-
-        if (deleghePGPagoPAPage.cercaEsistenzaDelegaPG(ragioneSociale)) {
-            logger.info("Delega con lo stesso nome trovata");
-            deleghePGPagoPAPage.clickRevocaMenuButtonPG(ragioneSociale);
-            delegatiImpresaSection.waitPopUpRevoca(ragioneSociale);
-            delegatiImpresaSection.clickRevocaButton();
-        } else {
-            logger.info("Delega con lo stesso nome NON trovata");
-        }
-    }
-
-    @And("Si controlla che non sia presente una delega con stesso nome persona giuridica")
-    public void siControllaCheNonSiaPresenteUnaDelegaConStessoNomePersonaGiuridica(Map<String, String> delegaPG) {
-        logger.info("Si controlla che non ci sia una delega con lo stesso nome");
-        String ragioneSociale = delegaPG.get("ragioneSociale");
 
         if (deleghePGPagoPAPage.cercaEsistenzaDelegaPG(ragioneSociale)) {
             logger.info("Delega con lo stesso nome trovata");
@@ -489,10 +468,9 @@ public class DeleghePGPagoPATest {
     }
 
     @And("Si ripristina lo stato iniziale delle deleghe dall impresa {string}")
-    public void siRipristinaLoStatoInizialeDelleDelegheDallImpresa(String dpFile) {
+    public void siRipristinaLoStatoInizialeDelleDelegheDallImpresa(String ragioneSociale) {
         BackgroundTest backgroundTest = new BackgroundTest();
-
-        backgroundTest.revocaDelegaPG(dpFile);
+        backgroundTest.revocaDelegaPG(ragioneSociale);
     }
 
     @And("Si accetta la delega {string} gruppo")

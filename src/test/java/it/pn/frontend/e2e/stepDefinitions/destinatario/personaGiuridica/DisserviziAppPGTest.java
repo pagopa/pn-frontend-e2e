@@ -61,16 +61,9 @@ public class DisserviziAppPGTest {
         }
         backgroundTest.getStatoDellaPiattaformaPage();
         boolean res = false;
-        DataPopulation.waitTime(15);
         for (int i = 0; i < 2; i++) {
+            DataPopulation.waitTime(15);
             disserviziAppPage.aggionamentoPagina();
-            try {
-                TimeUnit.SECONDS.sleep(1);
-                DataPopulation.waitTime(15);
-            } catch (InterruptedException e) {
-                logger.error("pausa con errore: " + e.getMessage());
-                throw new RuntimeException(e);
-            }
             if (disserviziAppPage.checkDisservizioInCorso()) {
                 res = true;
                 break;
