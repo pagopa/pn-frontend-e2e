@@ -72,15 +72,10 @@ public class HelpdeskTest {
 
     @And("Si crea il disservizio")
     public void siCreaIlDisservizio() {
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            logger.error("pausa con errore: " + e.getMessage());
-            throw new RuntimeException(e);
-        }
+        DataPopulation.waitTime(5);
         if (!helpdeskPage.checkIsCreatedDisservizio()) {
             helpdeskPage.handleDisservizio("KO");
-            DataPopulation.waitTime(10);
+            DataPopulation.waitTime(5);
         }
     }
 

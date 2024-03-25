@@ -174,7 +174,7 @@ public class HelpdeskPage extends BasePage {
     public boolean checkIsCreatedDisservizio() {
         try {
             WebElement dateDisservizio = this.elements(By.xpath("//div[@data-field='data']")).get(1);
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(dateDisservizio));
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOf(dateDisservizio));
             if (dateDisservizio.getText() != null && !dateDisservizio.getText().isEmpty()) {
                 logger.info("disservizio creato correttamente");
                 return true;

@@ -23,6 +23,10 @@ public class DisserviziAppPAPage extends BasePage {
     @FindBy(id = "notifications-table")
     WebElement disserviziTable;
 
+    @FindBy(xpath = "//tr[@id='tableDowntimeLog.row']//td//div[@data-testid='downtime-status']")
+    List<WebElement> statusList;
+
+
     public void waitLoadStatoDellaPiattaformaPage() {
         try {
             By disserviziPageTitle = By.id("Stato della piattaforma-page");
@@ -103,27 +107,15 @@ public class DisserviziAppPAPage extends BasePage {
     }
 
     public void checkDisserviziInCorso() {
-        try {
-            List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
-            if (!disserviziTableRows.isEmpty()) {
-                for (WebElement disserviziRow : disserviziTableRows) {
-                    List<WebElement> disserviziColumns = disserviziRow.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']"));
-                    if (!disserviziColumns.isEmpty()) {
-                        // check if the columns are not empty
-                        for (WebElement disserviziColumn : disserviziColumns) {
-                            if (disserviziColumn.getText().contains("In corso")) {
-                                logger.info("Si visualizza un record in elenco relativo ad un disservizio ancora in corso");
-                                return;
-                            }
-                        }
-                    }
+        if (!statusList.isEmpty()) {
+            for (WebElement status : statusList) {
+                if (status.getText().contains("In corso")) {
+                    logger.info("Si visualizza un record in elenco relativo ad un disservizio ancora in corso");
+                    return;
                 }
             }
-            logger.error("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
-            Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
-        } catch (TimeoutException e) {
-            logger.error("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso con errore:" + e.getMessage());
-            Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso con errore" + e.getMessage());
         }
+        logger.error("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
+        Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
     }
 }
