@@ -349,10 +349,10 @@ public class RecapitiDestinatarioPage extends BasePage {
         By subTitlePopUp = By.id("dialog-description");
         By cancelButton = By.id("buttonAnnulla");
         By confirmButton = By.id("buttonConferma");
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(cancelButton));
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(confirmButton));
+        this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
+        this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
+        this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOfElementLocated(cancelButton));
+        this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOfElementLocated(confirmButton));
 
 
         return this.element(titlePopUp).getText();
@@ -365,26 +365,13 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickSuAnnullaElimina() {
-        By annullaRimuoviPECBy = By.id("buttonAnnulla");
-        this.getWebDriverWait(30).withMessage("Non è stato possibile cliccare sul bottone annulla").until(ExpectedConditions.elementToBeClickable(annullaRimuoviPECBy));
-        this.element(annullaRimuoviPECBy).click();
-    }
-
-    public boolean siControllaNonPresenzaPEC() {
-        try {
-            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOf(pecField));
-            logger.info("pec presente");
-            return true;
-        } catch (TimeoutException e) {
-            logger.error("pec non presente con errore" + e.getMessage());
-            return false;
-        }
+        this.getWebDriverWait(10).withMessage("Non è stato possibile cliccare sul bottone annulla").until(ExpectedConditions.elementToBeClickable(buttonAnnullaEliminazioneInPopUp));
+        buttonAnnullaEliminazioneInPopUp.click();
     }
 
     public boolean siControllaPresenzaPEC() {
         try {
-            By pecField = By.id("legalContacts");
-            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(pecField));
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOf(pecEmail));
             logger.info("pec presente");
             return true;
         } catch (TimeoutException e) {

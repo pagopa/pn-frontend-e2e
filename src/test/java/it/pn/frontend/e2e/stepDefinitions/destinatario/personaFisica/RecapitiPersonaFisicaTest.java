@@ -689,7 +689,7 @@ public class RecapitiPersonaFisicaTest {
 
     @And("Nel pop up elimina indirizzo pec si clicca sul bottone annulla")
     public void nelPopUpEliminaIndirizzoPecSiCliccaSulBottoneAnnulla() {
-        logger.info("Si clicca sul bottone conferma");
+        logger.info("Si clicca sul bottone annnulla");
         if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi PEC")) {
             recapitiDestinatarioPage.clickSuAnnullaElimina();
         } else {
@@ -699,11 +699,11 @@ public class RecapitiPersonaFisicaTest {
         }
     }
 
-            @Then("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo pec non sia presente")
+    @Then("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo pec non sia presente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoPecNonSiaPresente() {
         logger.info("Si controlla che la PEC sia stata eliminata");
 
-        if (recapitiDestinatarioPage.siControllaNonPresenzaPEC()) {
+        if (!recapitiDestinatarioPage.siControllaPresenzaPEC()) {
             logger.info("La PEC è stata eliminata correttamente");
         } else {
             logger.error("La PEC non è stata eliminata");
