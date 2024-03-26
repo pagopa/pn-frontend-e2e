@@ -69,19 +69,23 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(id = "delegatesBodyRowDesktop")
     List<WebElement> nomeDelegato;
 
-    @FindBy(id = "code-cancel-button")
-    WebElement buttonIndietroCodiceDiVerifica;
-
-    @FindBy(xpath = "//button[@data-testid='groupCancelButton']")
-    WebElement buttonIndietroInAssegnazioneGruppo;
     @FindBy(xpath = "//div[@data-testid='emptyState']")
     WebElement tabellaVuotaDelegheACaricoDellImpresa;
 
     @FindBy(id = "notifications-table")
     WebElement tabelleDelleDelegheACaricoDellImpresa;
 
+    @FindBy(id = "code-cancel-button")
+    WebElement buttonIndietroCodiceDiVerifica;
+
+    @FindBy(xpath = "//button[@data-testid='groupCancelButton']")
+    WebElement buttonIndietroInAssegnazioneGruppo;
+
     @FindBy(id = "alert-api-status}")
     WebElement alertPopUp;
+
+    @FindBy(id = "error-alert")
+    WebElement errorCodeInPopUp;
 
 
     public DeleghePGPagoPAPage(WebDriver driver) {
@@ -91,9 +95,9 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void waitLoadDeleghePage() {
         try {
             By titlePage = By.id("Deleghe-page");
-            getWebDriverWait(30).withMessage("il titolo della pagina deleghe PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            getWebDriverWait(30).withMessage("Il bottone deleghe a carico dell'impresa non è visibile").until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
-            getWebDriverWait(30).withMessage("la tabella delle deleghe a carico dell impresa non é caricabile").until(ExpectedConditions.visibilityOf(tabellaVuotaDelegheACaricoDellImpresa));
+            getWebDriverWait(10).withMessage("il titolo della pagina deleghe PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
+            getWebDriverWait(10).withMessage("Il bottone deleghe a carico dell'impresa non è visibile").until(ExpectedConditions.visibilityOf(this.delegheCaricoImpresaButton));
+            getWebDriverWait(10).withMessage("la tabella delle deleghe a carico dell impresa non é caricabile").until(ExpectedConditions.visibilityOf(tabellaVuotaDelegheACaricoDellImpresa));
             logger.info("Deleghe page si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Deleghe page non si visualizza correttamente con errore: " + e.getMessage());
@@ -103,8 +107,9 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public void clickDelegatiImpresa() {
         try {
-            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(delegatiImpresaButton));
+            getWebDriverWait(10).withMessage("Non è possibile cliccare il bottone delegati dell impresa").until(ExpectedConditions.elementToBeClickable(delegatiImpresaButton));
             this.delegatiImpresaButton.click();
+            logger.info("Bottone delegati dell impresa cliccato");
         } catch (TimeoutException e) {
             logger.error("il bottone delegati imprese non è cliccabile" + e.getMessage());
             Assert.fail("il bottone delegati imprese non è cliccabile" + e.getMessage());
@@ -138,13 +143,14 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickSuDelegheCaricoDellImpresa() {
+        logger.info("Click sezione deleghe a carico dell impresa");
         this.delegheCaricoImpresaButton.click();
     }
 
     public void verificaPresenzaElencoDeleghe() {
         try {
             By tableDelegheBy = By.id("notifications-table");
-            this.getWebDriverWait(50).until(ExpectedConditions.visibilityOfElementLocated(tableDelegheBy));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(tableDelegheBy));
             logger.info("L'elenco delle deleghe si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("L'elenco delle deleghe non si visualizza correttamente con errore: " + e.getMessage());
@@ -388,6 +394,29 @@ public class DeleghePGPagoPAPage extends BasePage {
         }
     }
 
+    public void checkErroreInSelezioneGruppo() {
+        gruppoField.sendKeys("Errore Test");
+        By gruppoNonTrovato = By.xpath("//div[contains(text(),'Nessun gruppo trovato')]");
+        try{
+            getWebDriverWait(10).withMessage("testo di errore non trovato").until(ExpectedConditions.visibilityOfElementLocated(gruppoNonTrovato));
+            logger.info("testo di errore gruppo trovato con successo");
+        }catch (TimeoutException e){
+            logger.error("errore in cattura testo di errore ricerca gruppo per assegnazione con errore:" + e.getMessage());
+            Assert.fail("errore in cattura testo di errore ricerca gruppo per assegnazione con errore:" + e.getMessage());
+        }
+
+    }
+
+
+    public void clickIndietroInInserimentoCodiceVerifica() {
+        getWebDriverWait(10).withMessage("bottone indietro in inserimento codice non trovato").until(ExpectedConditions.visibilityOf(buttonIndietroCodiceDiVerifica));
+    buttonIndietroCodiceDiVerifica.click();
+    }
+
+    public void clickButtonIndietroInAssegnazioneGruppo(){
+        getWebDriverWait(10).withMessage("bottone indietro in assegnazione gruppo non trovato").until(ExpectedConditions.visibilityOf(buttonIndietroInAssegnazioneGruppo));
+        buttonIndietroInAssegnazioneGruppo.click();
+    }
     public void checkTabellaDelegheACaricoDellImpresa() {
         By menuDelega = By.xpath("//table[@id='notifications-table']//following-sibling::td//button[@data-testid='delegationMenuIcon']");
         By colonnaNome = By.xpath("//table[@id='notifications-table']//th[contains(text(),'Nome')]");
@@ -412,27 +441,7 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     }
 
-    public void checkErroreInSelezioneGruppo() {
-        gruppoField.sendKeys("Errore Test");
-        By gruppoNonTrovato = By.xpath("//div[contains(text(),'Nessun gruppo trovato')]");
-        try{
-            getWebDriverWait(10).withMessage("testo di errore non trovato").until(ExpectedConditions.visibilityOfElementLocated(gruppoNonTrovato));
-            logger.info("testo di errore gruppo trovato con successo");
-        }catch (TimeoutException e){
-            logger.error("errore in cattura testo di errore ricerca gruppo per assegnazione con errore:" + e.getMessage());
-            Assert.fail("errore in cattura testo di errore ricerca gruppo per assegnazione con errore:" + e.getMessage());
-        }
-
-    }
-
-
-    public void clickIndietroInInserimentoCodiceVerifica() {
-        getWebDriverWait(10).withMessage("bottone indietro in inserimento codice non trovato").until(ExpectedConditions.visibilityOf(buttonIndietroCodiceDiVerifica));
-    buttonIndietroCodiceDiVerifica.click();
-    }
-
-    public void clickButtonIndietroInAssegnazioneGruppo(){
-        getWebDriverWait(10).withMessage("bottone indietro in assegnazione gruppo non trovato").until(ExpectedConditions.visibilityOf(buttonIndietroInAssegnazioneGruppo));
-        buttonIndietroInAssegnazioneGruppo.click();
+    public void checkErroreInInserimentoCodice() {
+        getWebDriverWait(10).withMessage("errore in inserimento codice errato non trovato").until(ExpectedConditions.visibilityOf(errorCodeInPopUp));
     }
 }

@@ -55,7 +55,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void clickOnButtonEnterIntoDisservizi() {
         logger.info("click sul bottone 'stato della piattaforma'");
-        this.getWebDriverWait(60).until(ExpectedConditions.visibilityOf(this.buttonEnterIntoDisservizi));
+        this.getWebDriverWait(10).withMessage("Bottone 'stato della piattaforma' non visualizzato").until(ExpectedConditions.visibilityOf(this.buttonEnterIntoDisservizi));
         buttonEnterIntoDisservizi.click();
     }
 
@@ -166,5 +166,3 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         return getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
     }
 }
-
-

@@ -68,6 +68,9 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "courtesyContacts-email")
     WebElement emailAssociata;
 
+    @FindBy(id = "legalContacts")
+    WebElement pecEmail;
+
     @FindBy(id = "pec")
     WebElement pecField;
 
@@ -154,7 +157,6 @@ public class RecapitiDestinatarioPage extends BasePage {
             Assert.fail("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
         }
     }
-
 
     public void confermaButtonClickPopUp() {
         try {
@@ -307,6 +309,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
+
     public void cancellaTesto() {
         try {
             this.js().executeScript("arguments[0].click()", pecField);
@@ -318,6 +321,8 @@ public class RecapitiDestinatarioPage extends BasePage {
             Assert.fail("Non si riesce a cancellare il testo della  email PEC :" + e.getMessage());
         }
     }
+
+
 
     public void clickSuSalva() {
         By salvaButtonBy = By.xpath("//button[contains(text(),'Salva')]");

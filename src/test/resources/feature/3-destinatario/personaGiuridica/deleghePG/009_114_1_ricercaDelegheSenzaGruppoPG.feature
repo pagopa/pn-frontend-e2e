@@ -15,7 +15,6 @@ Feature:La persona giuridica visualizza le deleghe
       | companyName | Convivio Spa |
       | displayName | Convivio Spa |
       | person      | false        |
-    And Si sceglie opzione accetta
     And Si accetta la delega "senza" gruppo
     And Nella pagina Deleghe sezione Deleghe a Carico dell impresa si inserisce il codice fiscale del delegante "27957814470"
     And Nella pagina Deleghe sezione Deleghe a Carico dell impresa si clicca su bottone Filtra
