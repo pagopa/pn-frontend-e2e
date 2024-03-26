@@ -548,19 +548,6 @@ public class RecapitiPersonaFisicaTest {
         }
     }
 
-    @And("Nella pagina I Tuoi Recapiti di PG, si controlla che ci sia già una pec")
-    public void nellaPaginaITuoiRecapitiDiPgSiControllaCheCiSiaGiaUnaPec() {
-        logger.info("Si controlla la presenza di una pec");
-        String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("emailPec").toString();
-        BackgroundTest backgroundTest = new BackgroundTest();
-        if (!recapitiDestinatarioPage.siVisualizzaPecInserita()) {
-            backgroundTest.aggiungiPECPG();
-        } else if (!recapitiDestinatarioPage.siControllaPECModificata(pec)) {
-            recapitiDestinatarioPage.eliminaPecEsistente();
-            backgroundTest.aggiungiPECPG();
-        }
-    }
-
     @And("Nella pagina I Tuoi Recapiti si inserisce una nuova PEC {string}")
     public void nellaPaginaITuoiRecapitiSiInserisceUnaNuovaPECDellaPersonaFisica(String pec) {
         logger.info("Si inserisce una nuova PEC");
@@ -882,6 +869,12 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si visualizza correttamente il riquadro relativo alla PEC");
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.checkRiquadroPEC();
+    }
+
+    @And("Nella sezione altri recapiti si clicca sul bottone conferma per inserire un recapito")
+    public void nellaSezioneAltriRecapitiSiCliccaSulBottoneConfermaPerInserireUnRecapito(){
+        logger.info("Si clicca su conferma");
+        recapitiDestinatarioPage.clickConfermaRecapitoGiaPresente();
     }
 }
 

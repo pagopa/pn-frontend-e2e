@@ -16,5 +16,6 @@ Feature: La persona giuridica visualizza tutti gli elementi della sezione altri 
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
     Then Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente
+    And Nella sezione altri recapiti si inserisce un recapito
     Then Si visualizzano correttamente tutti gli elementi della sezione altri recapiti della persona giuridica
     And Logout da portale persona giuridica
