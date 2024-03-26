@@ -53,17 +53,17 @@ public class CookieConfig {
         // Cookie values
         String optanonConsentValue = "isGpcEnabled=0&datestamp=" + this.getCurrentDateFormatted() + "+GMT%2B0100+(Ora+standard+dell%E2%80%99Europa+centrale)&version=202303.2.0&browserGpcFlag=0&isIABGlobal=false&hosts=&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A0";
         String OptanonAlertBoxClosedValue = currentDate.toString();
-        cookieMap.put("https://selfcare.dev.notifichedigitali.it/", new HashSet<>(Arrays.asList(
-                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "selfcare.dev.notifichedigitali.it", "/", null, false),
-                new Cookie("OptanonConsent", optanonConsentValue, "selfcare.dev.notifichedigitali.it", "/", null, false)
+        cookieMap.put("https://pa-webapp.fe-prototype.pn.pagopa.it", new HashSet<>(Arrays.asList(
+                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "pa-webapp.fe-prototype.pn.pagopa.it", "/", null, false),
+                new Cookie("OptanonConsent", optanonConsentValue, "pa-webapp.fe-prototype.pn.pagopa.it", "/", null, false)
         )));
-        cookieMap.put("https://imprese.dev.notifichedigitali.it/", new HashSet<>(Arrays.asList(
-                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "imprese.dev.notifichedigitali.it", "/", null, false),
-                new Cookie("OptanonConsent", optanonConsentValue, "imprese.dev.notifichedigitali.it", "/", null, false)
+        cookieMap.put("https://pg-webapp.fe-prototype.pn.pagopa.it", new HashSet<>(Arrays.asList(
+                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "pg-webapp.fe-prototype.pn.pagopa.it", "/", null, false),
+                new Cookie("OptanonConsent", optanonConsentValue, "pg-webapp.fe-prototype.pn.pagopa.it", "/", null, false)
         )));
-        cookieMap.put("https://cittadini.dev.notifichedigitali.it/", new HashSet<>(Arrays.asList(
-                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "cittadini.dev.notifichedigitali.it", "/", null, false),
-                new Cookie("OptanonConsent", optanonConsentValue, "cittadini.dev.notifichedigitali.it", "/", null, false)
+        cookieMap.put("https://pf-webapp.fe-prototype.pn.pagopa.it", new HashSet<>(Arrays.asList(
+                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "pf-webapp.fe-prototype.pn.pagopa.it", "/", null, false),
+                new Cookie("OptanonConsent", optanonConsentValue, "pf-webapp.fe-prototype.pn.pagopa.it", "/", null, false)
         )));
     }
 
