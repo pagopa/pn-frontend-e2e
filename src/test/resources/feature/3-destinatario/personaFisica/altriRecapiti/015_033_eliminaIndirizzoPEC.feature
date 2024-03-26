@@ -5,7 +5,7 @@ Feature: la persona fisica elimina l'indirizzo pec
   @TA_eliminaPECPF
   @recapitiPF
 
-  Scenario: PN-9307 -A33 la persona fisica elimina l'indirizzo pec
+  Scenario: PN-9307-A33 - La persona fisica elimina l'indirizzo pec
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
