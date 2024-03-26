@@ -7,6 +7,7 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.model.delegate.DelegatePF;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
+import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.DeleghePage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.rest.RestDelegation;
@@ -36,6 +37,7 @@ public class DeleghePagoPATest {
     private final DataPopulation dataPopulation = new DataPopulation();
     private final DeleghePage deleghePage = new DeleghePage(this.driver);
     private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
+    private final DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
 
 
     private final RestDelegation restDelegation = RestDelegation.getInstance();
@@ -220,6 +222,15 @@ public class DeleghePagoPATest {
         this.leTueDelegheSection.inserireCodiceDelega(destinatari.get("codiceDelega").toString());
     }
 
+    @And("Si inserisce il codice delega nel pop-up")
+    public void siInserisceIlCodiceDelegaNelPopUp() {
+        logger.info("Si inserisce il codice per accettare la delega");
+
+        String verificationCode = System.getProperty("verificationCode");
+        leTueDelegheSection.waitPopUpLoad();
+        leTueDelegheSection.inserireCodiceDelega(verificationCode);
+    }
+
     /**
      * Crea in background una delega per persona fisica
      *
@@ -250,7 +261,9 @@ public class DeleghePagoPATest {
         DelegateResponsePF response = restDelegation.addDelegationPF(delegateRequestPF, tokenExchange);
         if (response != null) {
             System.setProperty("mandateId", response.getMandateId());
+            System.setProperty("verificationCode", response.getVerificationCode());
         }
+        driver.navigate().refresh();
     }
 
     @And("Si clicca sul bottone Accetta")
@@ -470,5 +483,17 @@ public class DeleghePagoPATest {
     public void siVisualizzaCorrettamenteLaPaginaNuovaDelega() {
         logger.info("Si visualizza la sezione Le Tue Deleghe");
         leTueDelegheSection.waitNuovaDelegaSection();
+    }
+
+    @And("Si accetta la delega")
+    public void siAccettaLaDelega() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+        backgroundTest.accettaDelegaPF();
+
+    }
+
+    @And("Si clicca sulle notifiche nel layout {string}" )
+    public void siCliccaSulleNotificheNelLayout(String nomeDelegante) {
+        destinatarioPage.clickButtonNotificheOnSideMenu(nomeDelegante);
     }
 }

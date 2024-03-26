@@ -15,8 +15,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     @FindBy(id = "side-item-Deleghe")
     WebElement delegheSideMenu;
-    @FindBy(css = "[id='notificationsTable.body.row']")
-    WebElement notificheButton;
+
     @FindBy(id = "side-item-Recapiti")
     WebElement recapitiButton;
 
@@ -117,10 +116,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         this.js().executeScript("arguments[0].click()", this.recapitiButton);
     }
 
-    public void clickNotificheButton() {
-        getWebDriverWait(10).withMessage("Il bottone notifiche non è visibile").until(ExpectedConditions.visibilityOf(notificheButton));
-        notificheButton.click();
-    }
+
 
     public void clickIndietroButton() {
         getWebDriverWait(10).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));

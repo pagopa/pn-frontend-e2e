@@ -83,6 +83,10 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "//input[@aria-invalid='true']")
     List<WebElement> inputsError;
 
+    @FindBy(id = "notifications-table")
+    WebElement notificationsTable;
+
+
 
     public PiattaformaNotifichePage(WebDriver driver) {
         super(driver);
@@ -742,4 +746,21 @@ public class PiattaformaNotifichePage extends BasePage {
             Assert.fail("Il bottone pagina " + pagina + " non è cliccabile con errore: " + e.getMessage());
         }
     }
+
+    public void checkPaginaNotificheDelegante(String nomeDelegante) {
+        String idNotificationTitlePage = "Le notifiche di " + nomeDelegante + "-page";
+        By titlePage = By.id(idNotificationTitlePage);
+
+        try {
+            getWebDriverWait(30).withMessage("il titolo della pagina non é caricato").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
+            getWebDriverWait(30).withMessage("tabella notifiche non caricata").until(ExpectedConditions.visibilityOf(notificationsTable));
+
+            logger.info("Pagina notifiche delegante caricata correttamente");
+        } catch (TimeoutException e) {
+            logger.error("Pagina notifiche delegante non caricata con errore: " + e.getMessage());
+            Assert.fail("Pagina notifiche delegante non caricata con errore: " + e.getMessage());
+        }
+    }
+
+
 }

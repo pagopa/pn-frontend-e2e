@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.pages.destinatario;
 
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,6 +10,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class DestinatarioPage extends BasePage {
 
@@ -24,17 +27,24 @@ public class DestinatarioPage extends BasePage {
     WebElement dataInizioField;
     @FindBy(id = "endDate")
     WebElement dataFineField;
+    @FindBy(id = "side-item-Notifiche")
+    WebElement sideItemNotificheButton;
+    @FindBy(id = "notificationsTable.body.row")
+    List<WebElement> listaNotificheDelegante;
+    @FindBy(id = "notification-detail-table")
+    WebElement datiDettaglioNotifica;
+
 
     public void inserimentoDataErrato() {
         String data = "01/01/1111";
-        this.getWebDriverWait(10).withMessage("Il campo data inizio non è visibile").until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField));
-        this.dataInizioField.click();
-        this.dataInizioField.sendKeys(data);
-        this.getWebDriverWait(3).withMessage("Il valore della data che si vuole inserire non corrisponde").until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", data));
-        this.getWebDriverWait(10).withMessage("Il campo data fine non è visibile").until(ExpectedConditions.visibilityOfAllElements(this.dataFineField));
-        this.dataFineField.click();
-        this.dataFineField.sendKeys(data);
-        this.getWebDriverWait(3).withMessage("Il valore della data che si vuole inserire non corrisponde").until(ExpectedConditions.attributeToBe(this.dataFineField, "value", data));
+        getWebDriverWait(10).withMessage("Il campo data inizio non è visibile").until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField));
+        dataInizioField.click();
+        dataInizioField.sendKeys(data);
+        getWebDriverWait(3).withMessage("Il valore della data che si vuole inserire non corrisponde").until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", data));
+        getWebDriverWait(10).withMessage("Il campo data fine non è visibile").until(ExpectedConditions.visibilityOfAllElements(this.dataFineField));
+        dataFineField.click();
+        dataFineField.sendKeys(data);
+        getWebDriverWait(3).withMessage("Il valore della data che si vuole inserire non corrisponde").until(ExpectedConditions.attributeToBe(this.dataFineField, "value", data));
     }
 
     public boolean isDateBoxInvalid(){
@@ -58,5 +68,34 @@ public class DestinatarioPage extends BasePage {
         return invalidBoxDate;
     }
 
+    public void clickButtonNotificheOnSideMenu(String nomeDelegante){
+        logger.info("verifica bottone notifiche nel layout");
 
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.sideItemNotificheButton));
+        sideItemNotificheButton.click();
+
+        String id = "side-item-" + nomeDelegante;
+        By buttonNotificheOnSideMenu = By.id(id);
+        getWebDriverWait(10).withMessage("bottone notifiche nel layout non visibile").until(ExpectedConditions.visibilityOfElementLocated(buttonNotificheOnSideMenu));
+        this.js().executeScript("arguments[0].click()", this.element(buttonNotificheOnSideMenu));
+
+    }
+
+    public void clickSulDettaglioNotificaDelegante(){
+        WebElement singolaNotificaDelegante = listaNotificheDelegante.get(0);
+        getWebDriverWait(10).withMessage("la singola notifica del delegante non è visibile").until(ExpectedConditions.visibilityOf(singolaNotificaDelegante));
+        logger.info("Si clicca sulla notifica del delegante");
+        singolaNotificaDelegante.click();
+    }
+
+
+    public void checkDettaglioNotificaPage() {
+        try {
+            getWebDriverWait(10).withMessage("i dati del dettaglio notifica non sono visibili").until(ExpectedConditions.visibilityOf(datiDettaglioNotifica));
+            logger.info("dettaglio notifica caricato correttamente");
+        } catch (TimeoutException e){
+            logger.error("Dettaglio notifica non caricato con errore: " + e.getMessage());
+            Assert.fail("Dettaglio notifica non caricato con errore: " + e.getMessage());
+        }
+    }
 }
