@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.TimeUnit;
+
 
 public class DeleghePage extends BasePage {
 
@@ -21,6 +23,9 @@ public class DeleghePage extends BasePage {
 
     @FindBy(id = "show-code-button")
     WebElement mostraCodiceOption;
+
+    @FindBy(id = "dialog-close-button")
+    WebElement annullaButton;
 
 
     public DeleghePage(WebDriver driver) {
@@ -93,7 +98,7 @@ public class DeleghePage extends BasePage {
 
     public void clickMenuDelega(String nome, String cognome) {
         try {
-            //TimeUnit.SECONDS.sleep(10);
+            TimeUnit.SECONDS.sleep(2);
             By menuDelega = By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']");
             this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuDelega));
             this.js().executeScript("arguments[0].click()", this.element(menuDelega));
@@ -101,6 +106,8 @@ public class DeleghePage extends BasePage {
         } catch (TimeoutException e) {
             logger.error("Menu delega button NON trovata con errore: " + e.getMessage());
             Assert.fail("Menu delega button NON trovata con errore: " + e.getMessage());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -121,12 +128,11 @@ public class DeleghePage extends BasePage {
     }
 
     public void clickOpzioneRevoca() {
-        this.revocaButton.click();
+        revocaButton.click();
     }
 
     public void clickMenuPerRifiuto(String nome, String cognome) {
         try {
-            logger.info(nome + cognome );
             By menuDelegheBy = By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']");
             getWebDriverWait(this.loadComponentWaitTime).until(ExpectedConditions.visibilityOfElementLocated(menuDelegheBy));
             logger.info("Si clicca correttamente il menu della delega");
@@ -200,7 +206,7 @@ public class DeleghePage extends BasePage {
     public boolean siVisualizzaUnaDelegaConNomeDelegato(String nome, String cognome) {
         try {
             By delegaBy = By.xpath("//table[@id='notifications-table']//p[contains(text(),'" + nome + " " + cognome + "')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(delegaBy));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(delegaBy));
             logger.info("Si trova una delega");
             return true;
         } catch (TimeoutException e) {
@@ -211,10 +217,16 @@ public class DeleghePage extends BasePage {
 
     public String vericaStatoDelega() {
         By statoDelegaBy = By.xpath("//div[@id='chip-status-success']/span");
-        this.getWebDriverWait(30).withMessage("Non si trova nessuno stato delega").until(ExpectedConditions.visibilityOfElementLocated(statoDelegaBy));
+        getWebDriverWait(10).withMessage("Non si trova nessuno stato delega").until(ExpectedConditions.visibilityOfElementLocated(statoDelegaBy));
         WebElement statoDelega = this.element(statoDelegaBy);
         return statoDelega.getText();
     }
 
 
+    public void clickAnnullaRevoca(){
+        getWebDriverWait(10).withMessage("bottone annulla delega non trovato").until(ExpectedConditions.visibilityOf(annullaButton));
+        logger.info("click sul pulsante annulla revoca");
+
+        annullaButton.click();
+    }
 }
