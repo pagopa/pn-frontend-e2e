@@ -92,6 +92,12 @@ public class NotifichePersonaFisicaPagoPATest {
         notifichePFPage.siVisualizzaElencoNotifiche();
     }
 
+    @And("Si visualizza l elenco delle notifiche dell impresa")
+    public void siVisualizzaLElencoDelleNotificheDellImpresa() {
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.siVisualizzaElencoNotifiche();
+    }
+
     @And("Si seleziona il nome del delegante nell elenco")
     public void siSelezionaIlNomeDelDeleganteNellElenco() {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
