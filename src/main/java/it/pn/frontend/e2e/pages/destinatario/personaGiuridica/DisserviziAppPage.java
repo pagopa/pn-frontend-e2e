@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,10 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class DisserviziAppPage extends BasePage {
+
+    @FindBy(id = "Stato della piattaforma-page")
+    WebElement titlePage;
+
     private final Logger logger = LoggerFactory.getLogger("Disservizi Page");
 
     public DisserviziAppPage(WebDriver driver) {
@@ -21,8 +26,7 @@ public class DisserviziAppPage extends BasePage {
 
     public void waitLoadStatoDellaPiattaformaPage() {
         try {
-            By DisserviziPageTitle = By.id("Stato della piattaforma-page");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(DisserviziPageTitle));
+            this.getWebDriverWait(10).withMessage("Titolo della pagina non presente").until(ExpectedConditions.visibilityOf(titlePage));
             logger.info("Si visualizza correttamente la sezione disservizi");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente la sezione disservizi con errore:" + e.getMessage());
@@ -32,14 +36,13 @@ public class DisserviziAppPage extends BasePage {
 
     public void checkDatiPaginaDisservizi() {
         try {
-            By titlePage = By.id("Stato della piattaforma-page");
             By subtitlePage = By.id("subtitle-page");
             By boxStatus = By.xpath("//div[@data-testid='app-status-bar']");
             By dateLastCheck = By.xpath("//div[@data-testid='appStatus-lastCheck']");
-            this.getWebDriverWait(40).withMessage("titolo non presente").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            this.getWebDriverWait(40).withMessage("sottotitolo pagina non presente").until(ExpectedConditions.visibilityOfElementLocated(subtitlePage));
-            this.getWebDriverWait(40).withMessage("stato dell'applicazione non presente").until(ExpectedConditions.visibilityOfElementLocated(boxStatus));
-            this.getWebDriverWait(60).withMessage("ultimo aggiornamento stato piattaforma non presente").until(ExpectedConditions.visibilityOfElementLocated(dateLastCheck));
+            this.getWebDriverWait(10).withMessage("titolo non presente").until(ExpectedConditions.visibilityOf(titlePage));
+            this.getWebDriverWait(10).withMessage("sottotitolo pagina non presente").until(ExpectedConditions.visibilityOfElementLocated(subtitlePage));
+            this.getWebDriverWait(10).withMessage("stato dell'applicazione non presente").until(ExpectedConditions.visibilityOfElementLocated(boxStatus));
+            this.getWebDriverWait(10).withMessage("ultimo aggiornamento stato piattaforma non presente").until(ExpectedConditions.visibilityOfElementLocated(dateLastCheck));
         } catch (TimeoutException e) {
             logger.error("Dati presenti nella pagina stato della piattaforma non corretti: " + e.getMessage());
             Assert.fail("Dati presenti nella pagina stato della piattaforma non corretti: " + e.getMessage());

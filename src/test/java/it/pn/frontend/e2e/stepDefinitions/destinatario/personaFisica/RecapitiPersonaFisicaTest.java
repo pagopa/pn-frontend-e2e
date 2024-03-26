@@ -625,7 +625,7 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request")
-    public void     nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaPECTramiteChiamataRequest() {
+    public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaPECTramiteChiamataRequest() {
         logger.info("Si recupera il codice OTP della nuova pec");
 
         String pec = "prova@pec.it";

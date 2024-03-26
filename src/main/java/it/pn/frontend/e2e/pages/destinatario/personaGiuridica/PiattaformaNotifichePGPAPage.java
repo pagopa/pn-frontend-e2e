@@ -55,7 +55,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void clickOnButtonEnterIntoDisservizi() {
         logger.info("click sul bottone 'stato della piattaforma'");
-        this.getWebDriverWait(60).until(ExpectedConditions.visibilityOf(this.buttonEnterIntoDisservizi));
+        this.getWebDriverWait(10).withMessage("Bottone 'stato della piattaforma' non visualizzato").until(ExpectedConditions.visibilityOf(this.buttonEnterIntoDisservizi));
         buttonEnterIntoDisservizi.click();
     }
 
