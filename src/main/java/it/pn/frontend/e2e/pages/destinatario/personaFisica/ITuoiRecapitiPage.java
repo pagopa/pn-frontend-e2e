@@ -204,17 +204,6 @@ public class ITuoiRecapitiPage extends BasePage {
         this.element(opzionePEC).click();
     }
 
-    public void waitLoadRecapitiGiaAssociatoSection() {
-        By titlePage = By.xpath("//p[contains(text(),'Già associati')]");
-        By tableBy = By.xpath("//table[@aria-label = 'Già associati']");
-        By eliminaBy = By.xpath("//form[@data-testid = 'specialContactForm']//div//button[contains(text(),'Elimina')]");
-        By modificaBy = By.xpath("//form[@data-testid = 'specialContactForm']//div//button[contains(text(),'Modifica')]");
-        getWebDriverWait(10).withMessage("Non si visualizza il titolo 'Gia Associati'").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-        getWebDriverWait(10).withMessage("Non si visualizza la tabella 'Gia Associati'").until(ExpectedConditions.visibilityOfElementLocated(tableBy));
-        getWebDriverWait(10).withMessage("Non si visualizza il bottone elimina della sezione recapiti gia associati ").until(ExpectedConditions.visibilityOfElementLocated(eliminaBy));
-        getWebDriverWait(10).withMessage("Non si visualizza il bottone modifica della sezione recapiti gia associati").until(ExpectedConditions.visibilityOfElementLocated(modificaBy));
-    }
-
     public void checkPostModifica() {
         By saveButton = By.id("saveModifyButton-default");
         By cancelButton = By.xpath("//button[contains(text(),'Annulla')]");
