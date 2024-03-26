@@ -66,7 +66,7 @@ public class LoginMittentePagoPA {
         }
 
         // Si effettua il login con token exchange
-        String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
+        String urlLogin = "https://pa-webapp.fe-prototype.pn.pagopa.it/#selfCareToken=" + token;
         this.driver.get(urlLogin);
         logger.info("Login effettuato con successo");
         DataPopulation.waitTime(10);

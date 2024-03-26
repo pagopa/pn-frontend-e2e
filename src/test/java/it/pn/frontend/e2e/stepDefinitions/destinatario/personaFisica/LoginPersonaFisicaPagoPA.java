@@ -69,7 +69,7 @@ public class LoginPersonaFisicaPagoPA {
         }
 
         // Si effettua il login con token exchange
-        String urlLogin = "https://cittadini." + environment + ".notifichedigitali.it/#token=" + token;
+        String urlLogin = "https://pf-webapp.fe-prototype.pn.pagopa.it/#selfCareToken=" + token;
         this.driver.get(urlLogin);
         logger.info("Login effettuato con successo");
         DataPopulation.waitTime(10);

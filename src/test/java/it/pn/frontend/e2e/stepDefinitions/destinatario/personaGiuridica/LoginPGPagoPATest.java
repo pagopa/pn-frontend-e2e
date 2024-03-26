@@ -73,19 +73,19 @@ public class LoginPGPagoPATest {
         }
 
         // Si effettua il login con token exchange
-        String urlLogin = "https://imprese." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
+        String urlLogin = "https://pg-webapp.fe-prototype.pn.pagopa.it/#selfCareToken=" + token;
         this.driver.get(urlLogin);
         logger.info("Login effettuato con successo");
         DataPopulation.waitTime(10);
 
         // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
-        if(personaGiuridica.equalsIgnoreCase("delegante")){
+        if (personaGiuridica.equalsIgnoreCase("delegante")) {
             HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
             headerPGSection.waitLoadHeaderPGPage();
             PiattaformaNotifichePGPAPage notifichePGPage = new PiattaformaNotifichePGPAPage(this.driver);
             Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("personaGiuridica.yaml");
             notifichePGPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
-        }else {
+        } else {
             HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
             headerPGSection.waitLoadHeaderPGPage();
             PiattaformaNotifichePGPAPage notifichePGPage = new PiattaformaNotifichePGPAPage(this.driver);
