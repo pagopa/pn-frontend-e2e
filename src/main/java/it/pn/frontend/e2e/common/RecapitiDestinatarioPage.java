@@ -277,7 +277,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public boolean siVisualizzaPecInserita() {
         try {
             By pecInseritaBy = By.xpath("//p[contains(text(),'PEC associata')]");
-            this.getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(pecInseritaBy));
+            getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(pecInseritaBy));
             return true;
         } catch (TimeoutException e) {
             logger.error("Pec inserita non presente con errore:" + e.getMessage());
@@ -331,7 +331,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean siControllaPECModificata(String pecInserita) {
         By pecBy = By.xpath("//div[@data-testid = 'legalContacts']//div//p");
-        this.getWebDriverWait(10).withMessage("Non trovata nessuna email PEC inserita").until(ExpectedConditions.visibilityOfElementLocated(pecBy));
+        getWebDriverWait(10).withMessage("Non trovata nessuna email PEC inserita").until(ExpectedConditions.visibilityOfElementLocated(pecBy));
         WebElement pec = this.element(pecBy);
         return pec.getText().equals(pecInserita);
     }
@@ -535,14 +535,14 @@ public class RecapitiDestinatarioPage extends BasePage {
         getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
     }
 
-    public void visualizzazioneSezioneAltriRecapitiPG() {
+    public void visualizzazioneCampiSezioneAltriRecapiti() {
         vaiInFondoAllaPagina();
-        By altriRecapitiSectionBy = By.id("specialContactTitle");
+        By altriRecapitiSectionBy = By.xpath(".//h5[contains(@id, 'specialContact')]");
         By titleGiaAssociatiBy = By.xpath("//p[contains(text(), 'Già associati')]");
         WebElement tableGiaAssociati = driver.findElement(By.xpath("//table[@aria-label='Già associati']"));
         By modifyButtonBy = By.xpath(".//button[contains(@id, 'modifyContact')]");
         By deleteButtonBy = By.xpath(".//button[contains(@id, 'cancelContact')]");
-        getWebDriverWait(10).withMessage("Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
+        getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
         getWebDriverWait(10).withMessage("Non si visualizza il titolo della tabella").until(ExpectedConditions.visibilityOfElementLocated(titleGiaAssociatiBy));
         getWebDriverWait(10).withMessage("Non si visualizza la tabella dei recapiti già associati").until(ExpectedConditions.visibilityOf(tableGiaAssociati));
         getWebDriverWait(10).withMessage("Bottone modifica non visualizzato e non cliccabile").until(ExpectedConditions.and(
@@ -557,7 +557,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             if (columns.get(0).getText().contains("Comune di Verona")) {
                 logger.info("Si visualizza l'ente inserito correttamente");
             }
-            if (columns.get(1).getText().contains("pec@pec.pagopa.it")) {
+            if (columns.get(1).getText().contains("@")) {
                 logger.info("Si visualizza l'indirizzo pec inserito correttamente");
             }
             if (columns.get(2).getText().contains("-") && columns.get(3).getText().contains("-")) {

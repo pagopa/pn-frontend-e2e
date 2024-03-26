@@ -382,7 +382,7 @@ public class NotificaMittentePagoPATest {
         String coidiceIUNOld = this.datiNotifica.get("codiceIUN").toString();
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
-                piattaformaNotifichePage.aggionamentoPagina();
+                piattaformaNotifichePage.aggiornamentoPagina();
                 piattaformaNotifichePage.insertCodiceFiscale(this.personaFisica.get("codiceFiscale").toString());
                 piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
                 piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
@@ -632,7 +632,7 @@ public class NotificaMittentePagoPATest {
                 throw new RuntimeException(e);
             }
             if (!piattaformaNotifichePage.IsAnAdvancedStatus()) {
-                piattaformaNotifichePage.aggionamentoPagina();
+                piattaformaNotifichePage.aggiornamentoPagina();
                 piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
                 piattaformaNotifichePage.inserimentoCodiceIUN(datiNotifica.get("codiceIUN").toString());
                 piattaformaNotifichePage.selectFiltraButton();
@@ -669,7 +669,7 @@ public class NotificaMittentePagoPATest {
         CookiesSection cookiesSection = new CookiesSection(this.driver);
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
-                piattaformaNotifichePage.aggionamentoPagina();
+                piattaformaNotifichePage.aggiornamentoPagina();
                 if (!CookieConfig.isCookieEnabled()) {
                     if (cookiesSection.waitLoadCookiesPage()) {
                         cookiesSection.selezionaAccettaTuttiButton();
@@ -703,7 +703,7 @@ public class NotificaMittentePagoPATest {
 
         this.datiNotifica = dataPopulation.readDataPopulation(dpDatiiNotifica + ".yaml");
 
-        piattaformaNotifichePage.aggionamentoPagina();
+        piattaformaNotifichePage.aggiornamentoPagina();
         piattaformaNotifichePage.waitLoadRefreshPage();
         piattaformaNotifichePage.inserimentoCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
     }
@@ -880,7 +880,7 @@ public class NotificaMittentePagoPATest {
         String codiceIUN = "";
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
-                piattaformaNotifichePage.aggionamentoPagina();
+                piattaformaNotifichePage.aggiornamentoPagina();
                 if (!CookieConfig.isCookieEnabled()) {
                     if (cookiesSection.waitLoadCookiesPage()) {
                         cookiesSection.selezionaAccettaTuttiButton();
@@ -1087,7 +1087,7 @@ public class NotificaMittentePagoPATest {
                 throw new RuntimeException(e);
             }
             if (piattaformaNotifichePage.getListStato("Depositata") != 0 && piattaformaNotifichePage.getListStato("Invio in corso") != 0) {
-                piattaformaNotifichePage.aggionamentoPagina();
+                piattaformaNotifichePage.aggiornamentoPagina();
                 piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
                 piattaformaNotifichePage.inserimentoCodiceIUN(datiNotifica.get("codiceIUN").toString());
                 piattaformaNotifichePage.selectFiltraButton();

@@ -149,7 +149,7 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVerificaCheLaPecSiaStataModificata(nomeFilePersonaFisica);
         logoutPF();
         loginPFRecapiti(nomeFilePersonaFisica);
-        recapitiPersonaFisicaTest.ITuoiRecapitiButtonClick();
+        recapitiPersonaFisicaTest.nellaPaginaPiattaformaNotifichePersonaFisicaSiCliccaSulBottoneITuoiRecapiti();
         recapitiPersonaFisicaTest.siVisualizzaCorrettamenteLaPaginaITuoiRecapiti();
     }
 

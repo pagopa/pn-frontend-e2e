@@ -68,11 +68,12 @@ public class RecapitiPGPagoPaTest {
         recapitiDestinatarioPage.clickAvvisamiSMS();
     }
 
-    @Then("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti della persona giuridica")
-    public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapitiDellaPersonaGiuridica() {
-        logger.info("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti della persona giuridica");
-
-        recapitiDestinatarioPage.visualizzazioneSezioneAltriRecapitiPG();
+    @Then("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti")
+    public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapiti() {
+        logger.info("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti");
+        DataPopulation.waitTime(10);
+        this.driver.navigate().refresh();
+        recapitiDestinatarioPage.visualizzazioneCampiSezioneAltriRecapiti();
     }
 
     @And("Nella pagina I Tuoi Recapiti di PG, si controlla che ci sia già una pec")
