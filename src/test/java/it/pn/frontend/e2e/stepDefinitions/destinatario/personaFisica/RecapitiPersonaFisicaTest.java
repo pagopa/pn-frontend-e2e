@@ -691,7 +691,7 @@ public class RecapitiPersonaFisicaTest {
     public void nelPopUpEliminaIndirizzoPecSiCliccaSulBottoneAnnulla() {
         logger.info("Si clicca sul bottone annnulla");
         if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi PEC")) {
-            recapitiDestinatarioPage.clickSuAnnullaElimina();
+            recapitiDestinatarioPage.clickButtonAnnullaEliminazioneInPopUp();
         } else {
             recapitiDestinatarioPage.clickSuChiudiPopUp();
             recapitiDestinatarioPage.eliminaNuovaPec();
