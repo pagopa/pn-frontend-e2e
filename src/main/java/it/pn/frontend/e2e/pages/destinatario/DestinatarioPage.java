@@ -68,7 +68,7 @@ public class DestinatarioPage extends BasePage {
         return invalidBoxDate;
     }
 
-    public void clickButtonNotificheOnSideMenu(String nomeDelegante){
+    public void clickButtonNotificheDelegateOnSideMenu(String nomeDelegante){
         logger.info("verifica bottone notifiche nel layout");
 
         getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.sideItemNotificheButton));
@@ -88,14 +88,4 @@ public class DestinatarioPage extends BasePage {
         singolaNotificaDelegante.click();
     }
 
-
-    public void checkDettaglioNotificaPage() {
-        try {
-            getWebDriverWait(10).withMessage("i dati del dettaglio notifica non sono visibili").until(ExpectedConditions.visibilityOf(datiDettaglioNotifica));
-            logger.info("dettaglio notifica caricato correttamente");
-        } catch (TimeoutException e){
-            logger.error("Dettaglio notifica non caricato con errore: " + e.getMessage());
-            Assert.fail("Dettaglio notifica non caricato con errore: " + e.getMessage());
-        }
-    }
 }

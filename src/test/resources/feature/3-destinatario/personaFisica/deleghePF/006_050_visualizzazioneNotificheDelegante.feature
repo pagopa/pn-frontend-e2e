@@ -17,7 +17,7 @@ Feature: Il delegato visualizza la notifiche del delegante
       | firstName   | Lucrezia         |
       | lastName    | Borgia           |
     And Si accetta la delega
-    And Si clicca sulle notifiche nel layout "Gaio Giulio Cesare"
+    And Si clicca sulle notifiche delegate nel layout "Gaio Giulio Cesare"
     And Si controlla la pagina delle notifiche delegati di "Gaio Giulio Cesare"
     And Si clicca sulla notifica del delegante
     And Si controlla il dettaglio della notifica

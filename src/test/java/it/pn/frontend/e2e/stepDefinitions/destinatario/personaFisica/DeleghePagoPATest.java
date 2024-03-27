@@ -495,8 +495,8 @@ public class DeleghePagoPATest {
 
     }
 
-    @And("Si clicca sulle notifiche nel layout {string}" )
-    public void siCliccaSulleNotificheNelLayout(String nomeDelegante) {
-        destinatarioPage.clickButtonNotificheOnSideMenu(nomeDelegante);
+    @And("Si clicca sulle notifiche delegate nel layout {string}" )
+    public void siCliccaSulleNotificheDelegateNelLayout(String nomeDelegante) {
+        destinatarioPage.clickButtonNotificheDelegateOnSideMenu(nomeDelegante);
     }
 }

@@ -36,38 +36,12 @@ public class NotifichePersonaFisicaPagoPATest {
     private final DataPopulation dataPopulation = new DataPopulation();
     private final DestinatarioPage destinatarioPage = new DestinatarioPage(driver);
 
+    private final DettaglioNotificaSection dettaglioNotifica = new DettaglioNotificaSection(driver);
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche")
     public void nellaPiattaformaDestinatarioCliccareSulBottoneNotifiche() {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.clickNotificheButton();
-    }
-
-@Then("pagina Piattaforma  Notifiche persona fisica viene visualizzata correttamente")
-    public void paginaPiattaformaNotificheDestinatarioVieneVisualizzataCorrettamente() {
-        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
-        headerPFSection.waitLoadHeaderDESection();
-
-        if (!CookieConfig.isCookieEnabled()) {
-            CookiesSection cookiesSection = new CookiesSection(this.driver);
-            if (cookiesSection.waitLoadCookiesPage()) {
-                cookiesSection.selezionaAccettaTuttiButton();
-            }
-        }
-
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-        notifichePFPage.waitLoadNotificheDEPage();
-        if (notifichePFPage.verificaPresenzaCodiceIunTextField()) {
-            logger.info("text field codice iun presente");
-        } else {
-            logger.info("text field codice iun non presente");
-            Assert.fail("text field codice iun non presente");
-        }
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @And("Si visualizza correttamente la Pagina Notifiche persona fisica")
@@ -98,12 +72,6 @@ public class NotifichePersonaFisicaPagoPATest {
     public void siSelezionaIlNomeDelDeleganteNellElenco() {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.clickNomeDelegante();
-    }
-
-    @Then("Si visualizzano tutte le notifiche del delegante selezionato")
-    public void siVisualizzanoTutteLeNotificheDelDeleganteSelezionato() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-        notifichePFPage.siVisualizzaElencoNotifiche();
     }
 
     @Then("Si visualizzano correttamente le notifiche in elenco paginato")
@@ -355,7 +323,7 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @And("Si controlla il dettaglio della notifica")
     public void siControllaIlDettaglioDellaNotifica() {
-        destinatarioPage.checkDettaglioNotificaPage();
+        dettaglioNotifica.waitLoadDettaglioNotificaDESection();
     }
 }
 
