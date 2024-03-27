@@ -545,17 +545,9 @@ public class RecapitiDestinatarioPage extends BasePage {
         By altriRecapitiSectionBy = By.id("specialContactTitle");
         By titleGiaAssociatiBy = By.xpath("//p[contains(text(), 'Già associati')]");
         WebElement tableGiaAssociati = driver.findElement(By.xpath("//table[@aria-label='Già associati']"));
-        By modifyButtonBy = By.xpath(".//button[contains(@id, 'modifyContact')]");
-        By deleteButtonBy = By.xpath(".//button[contains(@id, 'cancelContact')]");
         getWebDriverWait(10).withMessage("Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
         getWebDriverWait(10).withMessage("Non si visualizza il titolo della tabella").until(ExpectedConditions.visibilityOfElementLocated(titleGiaAssociatiBy));
         getWebDriverWait(10).withMessage("Non si visualizza la tabella dei recapiti già associati").until(ExpectedConditions.visibilityOf(tableGiaAssociati));
-        getWebDriverWait(10).withMessage("Bottone modifica non visualizzato e non cliccabile").until(ExpectedConditions.and(
-                ExpectedConditions.visibilityOfElementLocated(modifyButtonBy),
-                ExpectedConditions.elementToBeClickable(modifyButtonBy)));
-        getWebDriverWait(10).withMessage("Bottone elimina non visualizzato e non cliccabile").until(ExpectedConditions.and(
-                ExpectedConditions.visibilityOfElementLocated(deleteButtonBy),
-                ExpectedConditions.elementToBeClickable(deleteButtonBy)));
         List<WebElement> tableRows = tableGiaAssociati.findElements(By.xpath(".//tbody/tr"));
         for (WebElement row : tableRows) {
             List<WebElement> columns = row.findElements(By.xpath(".//td"));
@@ -563,6 +555,14 @@ public class RecapitiDestinatarioPage extends BasePage {
                 logger.info("Si visualizza l'ente inserito correttamente");
             }
             if (columns.get(1).getText().contains("pec@pec.pagopa.it")) {
+                By modifyButtonBy = By.xpath(".//button[contains(@id, 'modifyContact')]");
+                By deleteButtonBy = By.xpath(".//button[contains(@id, 'cancelContact')]");
+                getWebDriverWait(10).withMessage("Bottone modifica non visualizzato e non cliccabile").until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOfElementLocated(modifyButtonBy),
+                        ExpectedConditions.elementToBeClickable(modifyButtonBy)));
+                getWebDriverWait(10).withMessage("Bottone elimina non visualizzato e non cliccabile").until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOfElementLocated(deleteButtonBy),
+                        ExpectedConditions.elementToBeClickable(deleteButtonBy)));
                 logger.info("Si visualizza l'indirizzo pec inserito correttamente");
             }
             if (columns.get(2).getText().contains("-") && columns.get(3).getText().contains("-")) {

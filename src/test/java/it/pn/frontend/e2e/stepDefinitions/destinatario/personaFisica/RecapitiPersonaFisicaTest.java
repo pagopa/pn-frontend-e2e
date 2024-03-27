@@ -61,6 +61,12 @@ public class RecapitiPersonaFisicaTest {
         recapitiDestinatarioPage.insertEmailPEC(emailPEC);
     }
 
+    @And("Nella pagina I Tuoi Recapiti si inserisce l'indirizzo della PEC {string}")
+    public void nellaPaginaITuoiRecapitiSiInserisceLIndirizzoDellaPECDelDestinatario(String emailPEC) {
+        logger.info("Si inserisce la email PEC");
+        recapitiDestinatarioPage.insertEmailPEC(emailPEC);
+    }
+
     @And("Nella pagina I Tuoi Recapiti si clicca sul bottone conferma")
     public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneConferma() {
         logger.info("Si cerca di cliccare sul bottone conferma");
