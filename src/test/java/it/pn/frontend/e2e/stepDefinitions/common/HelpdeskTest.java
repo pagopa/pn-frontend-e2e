@@ -8,12 +8,15 @@ import it.pn.frontend.e2e.common.HelpdeskPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class HelpdeskTest {
@@ -92,7 +95,16 @@ public class HelpdeskTest {
     @And("Annullamento disservizio")
     public void annullamentoDisservizio() {
         BackgroundTest backgroundTest = new BackgroundTest();
-        backgroundTest.getHelpdeskMonitoraggioPiattaforma("testHelpdesk");
+        logger.info("Torno sulla scheda di helpdesk");
+        String sendHandle = driver.getWindowHandle();
+        Set<String> windowHandles = driver.getWindowHandles();
+        for (String handle : windowHandles) {
+            if (!handle.equals(sendHandle)) {
+                this.driver.switchTo().window(handle);
+                break;
+            }
+        }
+        backgroundTest.getHelpdeskMonitoraggioPiattaforma();
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
@@ -105,6 +117,13 @@ public class HelpdeskTest {
         } catch (InterruptedException e) {
             logger.error("pausa con errore: " + e.getMessage());
             throw new RuntimeException(e);
+        }
+        logger.info("Torno sulla piattaforma send per il logout");
+        for (String handle : windowHandles) {
+            if (handle.equals(sendHandle)) {
+                this.driver.switchTo().window(handle);
+                break;
+            }
         }
     }
 
@@ -149,5 +168,17 @@ public class HelpdeskTest {
         helpdeskPage.checkCodiceFiscale();
     }
 
+    @Given("Login helpdesk in nuova scheda")
+    public void loginHelpdeskInNuovaScheda(Map<String, String> login){
+        logger.info("Si apre una nuova finestra");
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+        javascriptExecutor.executeScript("window.open();");
+        logger.info("Si seleziona la nuova finestra aperta");
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(tabs.size() - 1));
+        logger.info("Nella nuova finestra aperta si va sulla pagina di login di helpdesk");
+        driver.get("https://helpdesk.test.notifichedigitali.it/login");
+        helpdeskPage.loginHelpdeskNuovaScheda(login);
+    }
 
 }
