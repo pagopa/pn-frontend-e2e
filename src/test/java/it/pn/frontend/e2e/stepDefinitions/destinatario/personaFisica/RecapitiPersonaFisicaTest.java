@@ -525,7 +525,7 @@ public class RecapitiPersonaFisicaTest {
 
         iTuoiRecapitiPage.eliminaEmailEsistente();
         if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
-            recapitiDestinatarioPage.annullaButtonEliminaClick();
+            recapitiDestinatarioPage.clickButtonAnnullaEliminazioneInPopUp();
         } else {
             recapitiDestinatarioPage.clickSuChiudiPopUp();
             recapitiDestinatarioPage.eliminaNuovaPec();
@@ -546,7 +546,7 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo Email non stata eleminata")
     public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoEmailNonStataEleminata() {
         logger.info("Si controlla che l'indirizzo Email non stata eleminata");
-        if (recapitiDestinatarioPage.siControllaPresenzaEmail()) {
+        if (recapitiDestinatarioPage.verificaMailAssociata()) {
             logger.info("L'email non è stata eliminata");
         } else {
             logger.error("L'email è stata eliminata");
@@ -730,7 +730,7 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoPecNonSiaPresente() {
         logger.info("Si controlla che la PEC sia stata eliminata");
 
-        if (!recapitiDestinatarioPage.siControllaPresenzaPEC()) {
+        if (recapitiDestinatarioPage.siControllaEliminazionePEC()) {
             logger.info("La PEC è stata eliminata correttamente");
         } else {
             logger.error("La PEC non è stata eliminata");

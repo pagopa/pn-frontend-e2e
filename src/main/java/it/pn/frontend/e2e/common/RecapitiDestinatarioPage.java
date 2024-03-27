@@ -71,6 +71,9 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "pec")
     WebElement pecField;
 
+    @FindBy(id = "legalContacts")
+    WebElement pecEmail;
+
     public RecapitiDestinatarioPage(WebDriver driver) {
         super(driver);
     }
@@ -351,14 +354,24 @@ public class RecapitiDestinatarioPage extends BasePage {
         this.getWebDriverWait(30).withMessage("Non è stato possibile cliccare sul bottone conferma").until(ExpectedConditions.elementToBeClickable(confermaRimuoviPECBy));
         this.element(confermaRimuoviPECBy).click();
     }
-
-    public boolean siControllaNonPresenzaPEC() {
+    public boolean siControllaEliminazionePEC() {
         try {
             this.getWebDriverWait(10).until(ExpectedConditions.visibilityOf(pecField));
-            logger.info("pec presente");
+            logger.info("pec non presente");
             return true;
         } catch (TimeoutException e) {
-            logger.error("pec non presente con errore" + e.getMessage());
+            logger.error("pec presente con errore" + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean siControllaPresenzaPEC() {
+        try {
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOf(pecEmail));
+            logger.info("pec non presente");
+            return true;
+        } catch (TimeoutException e) {
+            logger.error("pec presente con errore" + e.getMessage());
             return false;
         }
     }
