@@ -31,9 +31,6 @@ public class DestinatarioPage extends BasePage {
     WebElement sideItemNotificheButton;
     @FindBy(id = "notificationsTable.body.row")
     List<WebElement> listaNotificheDelegante;
-    @FindBy(id = "notification-detail-table")
-    WebElement datiDettaglioNotifica;
-
 
     public void inserimentoDataErrato() {
         String data = "01/01/1111";
@@ -83,8 +80,8 @@ public class DestinatarioPage extends BasePage {
 
     public void clickSulDettaglioNotificaDelegante(){
         WebElement singolaNotificaDelegante = listaNotificheDelegante.get(0);
-        getWebDriverWait(10).withMessage("la singola notifica del delegante non è visibile").until(ExpectedConditions.visibilityOf(singolaNotificaDelegante));
-        logger.info("Si clicca sulla notifica del delegante");
+        getWebDriverWait(10).withMessage("la prima notifica della tabella non è visibile").until(ExpectedConditions.visibilityOf(singolaNotificaDelegante));
+        logger.info("Si clicca sulla prima notifica del delegante");
         singolaNotificaDelegante.click();
     }
 
