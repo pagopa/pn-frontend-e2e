@@ -377,6 +377,17 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
+    public boolean siControllaEleminazionePEC() {
+        try {
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOf(pecField));
+            logger.info("pec non presente");
+            return true;
+        } catch (TimeoutException e) {
+            logger.error("pec presente con errore" + e.getMessage());
+            return false;
+        }
+    }
+
     public void insertEnte(String comune) {
         this.enteField.sendKeys(comune);
         // wait 2seconds for the list to appear

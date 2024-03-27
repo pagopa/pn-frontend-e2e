@@ -703,7 +703,7 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoPecNonSiaPresente() {
         logger.info("Si controlla che la PEC sia stata eliminata");
 
-        if (!recapitiDestinatarioPage.siControllaPresenzaPEC()) {
+        if (recapitiDestinatarioPage.siControllaEleminazionePEC()) {
             logger.info("La PEC è stata eliminata correttamente");
         } else {
             logger.error("La PEC non è stata eliminata");
