@@ -22,12 +22,7 @@ public class WebTool {
     private static final Logger logger = LoggerFactory.getLogger("WebTool");
     private static final WebDriver driver = Hooks.driver;
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
-
-    // create custom enum
-    public enum AppPortal {
-        PF, PG, PA, HELPDESK
-    }
-
+    
     public static String switchToPortal(AppPortal portal) {
         openNewTab();
         switch (portal) {

@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class BasePage {
-
     protected WebDriver driver;
 
     protected int loadComponentWaitTime = Integer.parseInt(System.getProperty("loadComponentWaitTime"));
@@ -110,7 +109,4 @@ public class BasePage {
             element.sendKeys(Keys.BACK_SPACE);
         }
     }
-
-
 }
-

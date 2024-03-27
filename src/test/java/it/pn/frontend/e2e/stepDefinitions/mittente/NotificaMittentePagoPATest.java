@@ -14,6 +14,7 @@ import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.*;
+import it.pn.frontend.e2e.utility.AppPortal;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
@@ -1033,7 +1034,7 @@ public class NotificaMittentePagoPATest {
 
     @Then("In parallelo si effettua l'accesso al portale destinatario persona fisica e si apre la notifica ricevuta")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioESiApreLaNotificaRicevuta() {
-        WebTool.switchToPortal(WebTool.AppPortal.PF);
+        WebTool.switchToPortal(AppPortal.PF);
         piattaformaNotifichePage.selezionaNotifica();
         WebTool.waitTime(5);
         WebTool.closeTab();

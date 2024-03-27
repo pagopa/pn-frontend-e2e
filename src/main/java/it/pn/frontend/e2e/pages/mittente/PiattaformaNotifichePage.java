@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class PiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("notificaMittentePagoPA");
+    private NetWorkInfo netWorkInfo;
 
     @FindBy(id = "recipientId")
     WebElement cfTextField;
@@ -753,5 +754,9 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.error("Stato " + stato + " non presente con errore: " + e.getMessage());
             Assert.fail("Stato " + stato + " non presente con errore: " + e.getMessage());
         }
+    }
+
+    public void verificaNotificaCreata() {
+
     }
 }
