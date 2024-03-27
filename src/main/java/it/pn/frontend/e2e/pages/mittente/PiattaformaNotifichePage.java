@@ -753,7 +753,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         try {
             getWebDriverWait(10).withMessage("il titolo della pagina non é caricato").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            getWebDriverWait(10).withMessage("tabella notifiche non caricata").until(ExpectedConditions.visibilityOf(notificationsTable));
+            getWebDriverWait(20).withMessage("tabella notifiche non caricata").until(ExpectedConditions.visibilityOf(notificationsTable));
 
             logger.info("Pagina notifiche delegante caricata correttamente");
         } catch (TimeoutException e) {
