@@ -464,11 +464,14 @@ public class DeleghePagoPATest {
             Assert.fail("La delega è ancora presente in lista");
         }
     }
-
-
     @And("Si visualizza correttamente la pagina nuova delega")
     public void siVisualizzaCorrettamenteLaPaginaNuovaDelega() {
         logger.info("Si visualizza la sezione Le Tue Deleghe");
         leTueDelegheSection.waitNuovaDelegaSection();
+    }
+
+    @And("Si visualizza correttamente la modale mostra codice")
+    public void siVisualizzaCorrettamenteLaModaleMostraCodice() {
+        deleghePage.checkModaleMostraCodice();
     }
 }
