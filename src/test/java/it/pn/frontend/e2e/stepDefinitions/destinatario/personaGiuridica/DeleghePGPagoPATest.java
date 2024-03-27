@@ -88,6 +88,17 @@ public class DeleghePGPagoPATest {
         aggiungiDelegaPGSection.selezionaUnEnte(datiDelega.get("ente").toString());
     }
 
+    @And("Nella sezione Aggiungi Delega persona giuridica inserire i dati")
+    public void nellaSezioneLeTueDeleghePersonaGiuridicaInserireIDati(Map<String, String> personaGiuridica) {
+        logger.info("Si aggiungono tutti i dati del delegato");
+        aggiungiDelegaPGSection.selectPersonaGiuridicaRadioButton();
+        aggiungiDelegaPGSection.insertRagioneSociale(personaGiuridica.get("ragioneSociale"));
+        aggiungiDelegaPGSection.inserireCF(personaGiuridica.get("codiceFiscale"));
+        aggiungiDelegaPGSection.selectSoloEntiSelezionati();
+        aggiungiDelegaPGSection.waitLoadAggiungiDelegaPage();
+        aggiungiDelegaPGSection.selezionaUnEnte(personaGiuridica.get("ente"));
+    }
+
     @And("Nella sezione Aggiungi Delega persona giuridica verificare che la data sia corretta")
     public void nellaSezioneLeTueDeleghePersonaGiuridicaVerificareCheLaDataSiaCorretta() {
         logger.info("Si controlla che la data di fine delega sia corretta");
@@ -131,13 +142,9 @@ public class DeleghePGPagoPATest {
         delegatiImpresaSection.esistenzaRevocaButton();
     }
 
-    @And("Si controlla che non sia presente una delega con stesso nome {string} persona giuridica")
-    public void siControllaCheNonSiaPresenteUnaDelegaConStessoNomePersonaGiuridica(String nomeFile) {
+    @And("Si controlla che non sia presente una delega con stesso nome persona giuridica {string}")
+    public void siControllaCheNonSiaPresenteUnaDelegaConStessoNomePersonaGiuridica(String ragioneSociale) {
         logger.info("Si controlla che non ci sia una delega con lo stesso nome");
-
-        this.datiDelega = dataPopulation.readDataPopulation(nomeFile + ".yaml");
-
-        String ragioneSociale = datiDelega.get("ragioneSociale").toString();
 
         if (deleghePGPagoPAPage.cercaEsistenzaDelegaPG(ragioneSociale)) {
             logger.info("Delega con lo stesso nome trovata");
@@ -175,8 +182,6 @@ public class DeleghePGPagoPATest {
     @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si inserisce il codice fiscale del delegante {string}")
     public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiInserisceIlCodiceFiscaleDelDelegante(String codiceFiscale) {
         logger.info("Si inserisce il codice fiscale del delegante");
-
-        deleghePGPagoPAPage.insertCFDelegante(codiceFiscale);
         deleghePGPagoPAPage.insertCFDelegante(codiceFiscale);
     }
 
@@ -464,10 +469,9 @@ public class DeleghePGPagoPATest {
     }
 
     @And("Si ripristina lo stato iniziale delle deleghe dall impresa {string}")
-    public void siRipristinaLoStatoInizialeDelleDelegheDallImpresa(String dpFile) {
+    public void siRipristinaLoStatoInizialeDelleDelegheDallImpresa(String ragioneSociale) {
         BackgroundTest backgroundTest = new BackgroundTest();
-
-        backgroundTest.revocaDelegaPG(dpFile);
+        backgroundTest.revocaDelegaPG(ragioneSociale);
     }
 
     @And("Si accetta la delega {string} gruppo")

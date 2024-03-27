@@ -154,6 +154,7 @@ public class DelegatiImpresaSection extends BasePage {
         try{
             this.getWebDriverWait(10).withMessage("Bottone di revoca non visualizzato").until(ExpectedConditions.and(ExpectedConditions.visibilityOf(this.revocaMenuButton), ExpectedConditions.elementToBeClickable(this.revocaMenuButton)));
             logger.info("Bottone revoca visualizzabile e cliccabile");
+            this.revocaMenuButton.click();
             driver.navigate().refresh();
         } catch(TimeoutException e){
             logger.error("Bottone revoca non visualizzabile e non cliccabile con errore: " + e.getMessage());

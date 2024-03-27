@@ -687,17 +687,44 @@ public class RecapitiPersonaFisicaTest {
         }
     }
 
+
+    @And("Nel pop up elimina indirizzo pec si clicca sul bottone annulla")
+    public void nelPopUpEliminaIndirizzoPecSiCliccaSulBottoneAnnulla() {
+        logger.info("Si clicca sul bottone annnulla");
+        if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi PEC")) {
+            recapitiDestinatarioPage.clickButtonAnnullaEliminazioneInPopUp();
+        } else {
+            recapitiDestinatarioPage.clickSuChiudiPopUp();
+            recapitiDestinatarioPage.eliminaNuovaPec();
+            recapitiDestinatarioPage.eliminaPecEsistente();
+        }
+    }
+
     @Then("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo pec non sia presente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoPecNonSiaPresente() {
         logger.info("Si controlla che la PEC sia stata eliminata");
 
-        if (recapitiDestinatarioPage.siControllaNonPresenzaPEC()) {
+        if (!recapitiDestinatarioPage.siControllaPresenzaPEC()) {
             logger.info("La PEC è stata eliminata correttamente");
         } else {
             logger.error("La PEC non è stata eliminata");
             Assert.fail("La PEC non è stata eliminata");
         }
     }
+
+    @Then("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo pec presente")
+    public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoPecPresente() {
+        logger.info("Si controlla che la PEC non stata eliminata");
+
+        if (recapitiDestinatarioPage.siControllaPresenzaPEC()) {
+            logger.info("La PEC non è stata eliminata");
+        } else {
+            logger.error("La PEC è stata eliminata");
+            Assert.fail("La PEC è stata eliminata");
+        }
+    }
+
+
 
     @And("Nella sezione altri recapiti si seleziona l'ente {string}")
     public void nellaSezioneAltriRecapitiSiSelezionaLEnte(String dpFile) {
