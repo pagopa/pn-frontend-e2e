@@ -99,10 +99,6 @@ public class BackgroundTest {
         personaFisicaPagoPA.homePageDestinatarioVieneVisualizzataCorrettamente();
     }
 
-    public void loginPG(String nomeFileLogin) {
-        loginPGPagoPATest.loginPagePersonaGiuridicaVieneVisualizzata(nomeFileLogin);
-    }
-
     public void getStatoDellaPiattaformaPage() {
         disserviziAppPGTest.nellaDashboardPersonaGiuridicaCliccaSuDisserviziApp();
         disserviziAppPGTest.siVisualizzaCorrettamenteLaPaginaDelloStatoDellaPiattaforma();
@@ -110,10 +106,7 @@ public class BackgroundTest {
         disserviziAppPGTest.siVisualizzaStoricoDisservizi();
     }
 
-    public void getHelpdeskMonitoraggioPiattaforma(String nomeFileLogin) {
-        helpdeskTest.loginHelpdeskConUtenteTest(nomeFileLogin);
-        helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
-        helpdeskTest.clickSuCardMonitoraggioPiattaforma();
+    public void getHelpdeskMonitoraggioPiattaforma() {
         helpdeskTest.siVisualizzaCorrettamenteHomeMonitoraggio();
     }
 
@@ -251,8 +244,8 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiControllaCheLaPecAggiuntivaSiaStataInseritaCorrettamente();
     }
 
-    public void revocaDelegaPG(String dpFile) {
-        deleghePGPagoPATest.siControllaCheNonSiaPresenteUnaDelegaConStessoNomePersonaGiuridica(dpFile);
+    public void revocaDelegaPG(String ragioneSociale) {
+        deleghePGPagoPATest.siControllaCheNonSiaPresenteUnaDelegaConStessoNomePersonaGiuridica(ragioneSociale);
         deleghePagoPATest.siControllaCheNonCiSiaPiuUnaDelega();
     }
 

@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class HelpdeskPage extends BasePage {
@@ -51,6 +52,9 @@ public class HelpdeskPage extends BasePage {
     @FindBy(id = "Codice Univoco (uid)")
     WebElement inputUid;
 
+    @FindBy(id = "cardTitle-Monitoraggio Piattaforma Notifiche")
+    WebElement monitoraggioPN;
+
 
     private final Logger logger = LoggerFactory.getLogger("Helpdesk Page");
 
@@ -80,8 +84,7 @@ public class HelpdeskPage extends BasePage {
 
     public void checkHome() {
         try {
-            By titlePage = By.id("cardTitle-Monitoraggio Piattaforma Notifiche");
-            this.getWebDriverWait(40).withMessage("home non presente").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
+            this.getWebDriverWait(10).withMessage("home non presente").until(ExpectedConditions.visibilityOf(this.monitoraggioPN));
             logger.info("pagina home carica");
         } catch (TimeoutException e) {
             logger.error("errore caricamento home helpdesk: " + e.getMessage());
@@ -92,7 +95,7 @@ public class HelpdeskPage extends BasePage {
     public void checkMonitoraggio() {
         try {
             TimeUnit.SECONDS.sleep(5);
-            this.getWebDriverWait(30).withMessage("elenco monitoraggio non trovato").until(ExpectedConditions.visibilityOf(this.buttonMenu));
+            this.getWebDriverWait(10).withMessage("elenco monitoraggio non trovato").until(ExpectedConditions.visibilityOf(this.buttonMenu));
             logger.info("pagina monitoraggio caricata");
         } catch (TimeoutException | InterruptedException e) {
             logger.error("errore caricamento home monitoraggio: " + e.getMessage());
@@ -119,10 +122,9 @@ public class HelpdeskPage extends BasePage {
 
     public void clickMonitoraggio() {
         try {
-            By monitoraggioButton = By.id("cardTitle-Monitoraggio Piattaforma Notifiche");
             logger.info("clicco sulla card monitoraggio piattaforma notifiche");
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(monitoraggioButton));
-            this.elements(monitoraggioButton).get(0).click();
+            this.getWebDriverWait(10).withMessage("Il bottone monitoraggio non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.monitoraggioPN));
+            this.monitoraggioPN.click();
         } catch (TimeoutException e) {
             logger.error("Card monitoraggio non cliccabile: " + e.getMessage());
             Assert.fail("Card monitoraggio non cliccabile: " + e.getMessage());
@@ -150,7 +152,7 @@ public class HelpdeskPage extends BasePage {
             }
             this.elements(buttonPreCreateDisservizio).get(0).click();
         } catch (TimeoutException e) {
-            logger.error(" button 'Inserisci X' non trovato: ".replace("X", type) + e.getMessage());
+            logger.error("button 'Inserisci X' non trovato: ".replace("X", type) + e.getMessage());
             Assert.fail("button 'Inserisci X' non trovato: ".replace("X", type) + e.getMessage());
         }
         try {
@@ -176,7 +178,7 @@ public class HelpdeskPage extends BasePage {
             WebElement dateDisservizio = this.elements(By.xpath("//div[@data-field='data']")).get(1);
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(dateDisservizio));
             if (dateDisservizio.getText() != null && !dateDisservizio.getText().isEmpty()) {
-                logger.info("disservizio creato correttamente");
+                logger.info("disservizio già in corso");
                 return true;
             }
             return false;
@@ -309,5 +311,15 @@ public class HelpdeskPage extends BasePage {
             logger.error("codice fiscale diverso");
             Assert.fail("dopo ricerca di corrispondenza il codice fiscale risulta differente");
         }
+    }
+
+    public void loginHelpdeskNuovaScheda(Map<String, String> login){
+        this.getWebDriverWait(10).withMessage("Non si visualizza il campo email").until(ExpectedConditions.visibilityOf(this.emailInput));
+        this.getWebDriverWait(10).withMessage("Non si visualizza il campo password").until(ExpectedConditions.visibilityOf(this.passwordInput));
+        this.getWebDriverWait(10).withMessage("Non si visualizza il bottone LOGIN").until(ExpectedConditions.visibilityOf(this.loginButton));
+        this.emailInput.sendKeys(login.get("utente"));
+        this.passwordInput.sendKeys(login.get("password"));
+        this.loginButton.click();
+        logger.info("Visualizzazione pagina login corretta");
     }
 }

@@ -15,5 +15,5 @@ Feature:La persona giuridica visualizza il codice di una delega
     And Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega "nuovaDelegaPG"
     And Nella pagina Deleghe sezione Deleghe dell impresa si sceglie l'opzione mostra codice
     Then Si clicca sul bottone chiudi
-    And Si ripristina lo stato iniziale delle deleghe dall impresa "nuovaDelegaPG"
+    And Si ripristina lo stato iniziale delle deleghe dall impresa "Le Epistolae srl"
     And Logout da portale persona giuridica
