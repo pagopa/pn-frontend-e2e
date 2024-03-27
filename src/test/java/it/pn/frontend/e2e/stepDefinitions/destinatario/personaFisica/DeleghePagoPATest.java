@@ -7,6 +7,7 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.model.delegate.DelegatePF;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
+import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.DeleghePage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.rest.RestDelegation;
@@ -36,6 +37,7 @@ public class DeleghePagoPATest {
     private final DataPopulation dataPopulation = new DataPopulation();
     private final DeleghePage deleghePage = new DeleghePage(this.driver);
     private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
+    private final DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
 
 
     private final RestDelegation restDelegation = RestDelegation.getInstance();
@@ -173,17 +175,19 @@ public class DeleghePagoPATest {
         this.leTueDelegheSection.messaggioDiErroreDelegaPresente();
     }
 
-    @And("Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico {string}")
-    public void siVerificaSiaPresenteUnaDelegaNellaSezioneDelegheATuoCarico(String dpFile) {
+    @And("Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico")
+    public void siVerificaSiaPresenteUnaDelegaNellaSezioneDelegheATuoCarico(Map<String, String> datiPersonaFisica) {
         logger.info("Si controlla che ci sia almeno una delega");
 
-        this.deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        String nome = datiPersonaFisica.get("nome");
+        String cognome = datiPersonaFisica.get("cognome");
+
         BackgroundTest backgroundTest = new BackgroundTest();
-        this.deleghePage.vaiInFondoAllaPagina();
-        boolean esistenzaDelega = this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString());
+        deleghePage.vaiInFondoAllaPagina();
+        boolean esistenzaDelega = deleghePage.siVisualizzaUnaDelegaConNomeDelegato(nome, cognome);
         String stato = "";
         if (esistenzaDelega && !this.leTueDelegheSection.controlloPresenzaBottoneAccetta()) {
-            stato = this.deleghePage.vericaStatoDelega();
+            stato = deleghePage.vericaStatoDelega();
         }
         String PF = "personaFisica";
         if (!esistenzaDelega) {
@@ -194,7 +198,7 @@ public class DeleghePagoPATest {
         }
 
         if (esistenzaDelega && stato.equalsIgnoreCase("Attiva")) {
-            nellaPaginaDelegheSiCliccaSulMenuDellaDelega(PF);
+            nellaPaginaDelegheSiCliccaSulMenuDellaDelega(datiPersonaFisica);
             nellaPaginaDelegheSiSceglieOpzioneRifiuta();
             siCliccaSulBottoneRifiutaAllInternoDelPopUp();
             siControllaCheLaDelegaNonSiaPiuPresenteNellaLista(PF);
@@ -218,6 +222,15 @@ public class DeleghePagoPATest {
         this.leTueDelegheSection.waitPopUpLoad();
         Map<String, Object> destinatari = dataPopulation.readDataPopulation(dpFile + ".yaml");
         this.leTueDelegheSection.inserireCodiceDelega(destinatari.get("codiceDelega").toString());
+    }
+
+    @And("Si inserisce il codice delega nel pop-up")
+    public void siInserisceIlCodiceDelegaNelPopUp() {
+        logger.info("Si inserisce il codice per accettare la delega");
+
+        String verificationCode = System.getProperty("verificationCode");
+        leTueDelegheSection.waitPopUpLoad();
+        leTueDelegheSection.inserireCodiceDelega(verificationCode);
     }
 
     /**
@@ -250,7 +263,9 @@ public class DeleghePagoPATest {
         DelegateResponsePF response = restDelegation.addDelegationPF(delegateRequestPF, tokenExchange);
         if (response != null) {
             System.setProperty("mandateId", response.getMandateId());
+            System.setProperty("verificationCode", response.getVerificationCode());
         }
+        driver.navigate().refresh();
     }
 
     @And("Si clicca sul bottone Accetta")
@@ -363,12 +378,11 @@ public class DeleghePagoPATest {
         }
     }
 
-    @And("Nella pagina Deleghe si clicca sul menu della delega a tuo carico {string}")
-    public void nellaPaginaDelegheSiCliccaSulMenuDellaDelega(String dpFile) {
+    @And("Nella pagina Deleghe si clicca sul menu della delega a tuo carico")
+    public void nellaPaginaDelegheSiCliccaSulMenuDellaDelega(Map<String,String> personaFisica) {
         logger.info("Si clicca sul menu delle delega");
-        this.deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        String nome = this.deleghe.get("name").toString();
-        String cognome = this.deleghe.get("familyName").toString();
+        String nome = personaFisica.get("nome");
+        String cognome = personaFisica.get("cognome");
         deleghePage.clickMenuPerRifiuto(nome, cognome);
     }
 
@@ -435,14 +449,16 @@ public class DeleghePagoPATest {
         notifichePFPage.clickLeTueNotificheButton();
     }
 
-    @And("Si verifica sia presente una delega da rifiutare nella sezione Deleghe a Tuo Carico {string}")
-    public void siVerificaSiaPresenteUnaDelegaDaRifiutareNellaSezioneDelegheATuoCarico(String dpFile) {
+    @And("Si verifica sia presente una delega da rifiutare nella sezione Deleghe a Tuo Carico")
+    public void siVerificaSiaPresenteUnaDelegaDaRifiutareNellaSezioneDelegheATuoCarico(Map<String,String> personaFisica) {
         logger.info("Si controlla che ci sia almeno una delega");
-        this.deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
+
+        String nome = personaFisica.get("nome");
+        String cognome = personaFisica.get("cognome");
         BackgroundTest backgroundTest = new BackgroundTest();
-        this.deleghePage.vaiInFondoAllaPagina();
-        boolean esistenzaDelaga = this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString());
-        if (!esistenzaDelaga) {
+        deleghePage.vaiInFondoAllaPagina();
+        boolean esistenzaDelega = this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(nome, cognome);
+        if (!esistenzaDelega) {
             backgroundTest.loginPF("personaFisica");
             backgroundTest.aggiuntaNuovaDelegaPF();
             backgroundTest.logoutPF();
@@ -470,5 +486,17 @@ public class DeleghePagoPATest {
     public void siVisualizzaCorrettamenteLaPaginaNuovaDelega() {
         logger.info("Si visualizza la sezione Le Tue Deleghe");
         leTueDelegheSection.waitNuovaDelegaSection();
+    }
+
+    @And("Si accetta la delega")
+    public void siAccettaLaDelega() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+        backgroundTest.accettaDelegaPF();
+
+    }
+
+    @And("Si clicca sulle notifiche delegate nel layout {string}" )
+    public void siCliccaSulleNotificheDelegateNelLayout(String nomeDelegante) {
+        destinatarioPage.clickButtonNotificheDelegateOnSideMenu(nomeDelegante);
     }
 }
