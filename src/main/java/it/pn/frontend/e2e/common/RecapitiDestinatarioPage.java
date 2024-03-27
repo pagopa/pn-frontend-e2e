@@ -65,6 +65,10 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "buttonAnnulla")
     WebElement buttonAnnullaEliminazioneInPopUp;
 
+    @FindBy(id = "buttonConferma")
+    WebElement buttonConfermaEliminazioneInPopUp;
+
+
     @FindBy(id = "courtesyContacts-email")
     WebElement emailAssociata;
 
@@ -347,8 +351,12 @@ public class RecapitiDestinatarioPage extends BasePage {
     public String waitLoadPopUpElimina() {
         By titlePopUp = By.id("dialog-title");
         By subTitlePopUp = By.id("dialog-description");
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
+        this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
+        this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
+        this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOf(buttonAnnullaEliminazioneInPopUp));
+        this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOf(buttonConfermaEliminazioneInPopUp));
+
+
         return this.element(titlePopUp).getText();
     }
 
@@ -358,9 +366,9 @@ public class RecapitiDestinatarioPage extends BasePage {
         this.element(confermaRimuoviPECBy).click();
     }
 
-    public boolean siControllaNonPresenzaPEC() {
+    public boolean siControllaPresenzaPEC() {
         try {
-            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOf(pecField));
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOf(pecEmail));
             logger.info("pec presente");
             return true;
         } catch (TimeoutException e) {
@@ -368,7 +376,6 @@ public class RecapitiDestinatarioPage extends BasePage {
             return false;
         }
     }
-
 
     public void insertEnte(String comune) {
         this.enteField.sendKeys(comune);
@@ -553,6 +560,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickButtonAnnullaEliminazioneInPopUp() {
+        this.getWebDriverWait(10).withMessage("Non è stato possibile cliccare sul bottone annulla").until(ExpectedConditions.elementToBeClickable(buttonAnnullaEliminazioneInPopUp));
         buttonAnnullaEliminazioneInPopUp.click();
     }
 
