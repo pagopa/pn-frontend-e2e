@@ -269,7 +269,7 @@ public class PiattaformaNotifichePage extends BasePage {
         try {
             By notificaBy = By.id("notificationsTable.body.row");
             attesaCaricamentoPagina();
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificaBy));
+            this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(notificaBy));
             List<WebElement> notifiche = this.elements(notificaBy);
             notifiche.get(0).click();
         } catch (TimeoutException e) {
@@ -740,6 +740,18 @@ public class PiattaformaNotifichePage extends BasePage {
         } catch (TimeoutException e) {
             logger.error("Il bottone pagina " + pagina + " non è cliccabile con errore: " + e.getMessage());
             Assert.fail("Il bottone pagina " + pagina + " non è cliccabile con errore: " + e.getMessage());
+        }
+    }
+
+    public void verificaPresenzaStato(String stato) {
+        By statusChip = By.xpath("//div[@data-testid='itemStatus']//span[contains(text(),'" + stato + "')]");
+        try {
+            this.getWebDriverWait(10).withMessage("Lo stato " + stato + " non è presente")
+                    .until(ExpectedConditions.visibilityOfElementLocated(statusChip));
+            logger.info("Stato " + stato + " presente");
+        } catch (TimeoutException e) {
+            logger.error("Stato " + stato + " non presente con errore: " + e.getMessage());
+            Assert.fail("Stato " + stato + " non presente con errore: " + e.getMessage());
         }
     }
 }

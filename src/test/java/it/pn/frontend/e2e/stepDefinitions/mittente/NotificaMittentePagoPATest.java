@@ -11,10 +11,12 @@ import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.mittente.AreaRiservataPAPage;
 import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
+import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.*;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -170,7 +172,7 @@ public class NotificaMittentePagoPATest {
         String numeroProtocolOld = allDatataPopulation.get("numeroProtocollo").toString();
         String numeroProtocolNew;
         do {
-            numeroProtocolNew = DataPopulation.generatePaProtocolNumber();
+            numeroProtocolNew = WebTool.generatePaProtocolNumber();
         } while (numeroProtocolOld.equals(numeroProtocolNew));
         allDatataPopulation.put("numeroProtocollo", numeroProtocolNew);
         dataPopulation.writeDataPopulation("datiNotifica.yaml", allDatataPopulation);
@@ -920,7 +922,7 @@ public class NotificaMittentePagoPATest {
     @Then("Nella section Informazioni preliminari si inseriscono i dati della notifica")
     public void nellaSectionInformazioniPreliminariSiInserisconoIDatiDellaNotifica(Map<String, String> datiNotifica) {
         logger.info("Si inseriscono i dati della notifica nella sezione Informazioni Preliminari");
-        String numeroDiProtocollo = DataPopulation.generatePaProtocolNumber();
+        String numeroDiProtocollo = WebTool.generatePaProtocolNumber();
         informazioniPreliminariPASection.insertOggettoNotifica(datiNotifica.get("oggettoNotifica"));
         informazioniPreliminariPASection.insertDescrizione(datiNotifica.get("descrizione"));
         informazioniPreliminariPASection.insertNumeroDiProtocollo(numeroDiProtocollo);
@@ -931,7 +933,7 @@ public class NotificaMittentePagoPATest {
         } else {
             informazioniPreliminariPASection.selectRegisteredLetter890();
         }
-        datiNotifica.put("numeroProtocollo", numeroDiProtocollo);
+        datiNotificaMap.put("numeroProtocollo", numeroDiProtocollo);
         datiNotificaMap = datiNotifica;
     }
 
@@ -990,10 +992,57 @@ public class NotificaMittentePagoPATest {
         allegatiPASection.inserimentoNomeAllegato(datiNotificaMap.get("descrizione"));
     }
 
+    /**
+     * This feature step is used to check the status of the notification after it has been sent through UI.
+     * TODO: This step should be refactored by splitting it into separate methods.
+     */
     @And("Si verifica che la notifica è stata creata correttamente")
     public void siVerificaCheLaNotificaeStataCreataCorrettamente() {
         logger.info("Si verifica che la notifica sia stata creata correttamente filtrandolo per il numero di protocollo");
+        String notificationRequestId = "";
+        for (NetWorkInfo netWorkInfo : netWorkInfos) {
+            if (netWorkInfo.getRequestUrl().contains("/delivery/v2.3/requests") && netWorkInfo.getRequestMethod().equals("POST")) {
+                if (netWorkInfo.getResponseStatus().equals("202") && !netWorkInfo.getResponseBody().isEmpty()) {
+                    notificationRequestId = netWorkInfo.getResponseBody().split("\"notificationRequestId\":\"")[1].split("\"")[0];
+                    logger.info("NotificationRequestId: " + notificationRequestId);
+                    break;
+                }
+            }
+        }
+        if (!notificationRequestId.isEmpty()) {
+            String statusNotifica;
+            int maximumRetry = 0;
+            do {
+                if (maximumRetry > 4) {
+                    logger.error("Sono stati fatti 5 tentativi per verificare la creazione della notifica");
+                    Assert.fail("La notifica risulta ancora in stato WAITING dopo 5 tentativi");
+                }
+                RestNotification restNotification = new RestNotification();
+                statusNotifica = restNotification.getNotificationStatus(notificationRequestId);
+                WebTool.waitTime(90);
+                logger.info("Tentativo n. " + maximumRetry + " - Stato notifica: " + statusNotifica);
+                maximumRetry++;
+            } while (statusNotifica.equals("WAITING"));
+            driver.navigate().refresh();
+            logger.info("La notifica è stata creata correttamente");
+        } else {
+            logger.error("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
+            Assert.fail("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
+        }
+    }
 
+    @Then("In parallelo si effettua l'accesso al portale destinatario persona fisica e si apre la notifica ricevuta")
+    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioESiApreLaNotificaRicevuta() {
+        WebTool.switchToPortal(WebTool.AppPortal.PF);
+        piattaformaNotifichePage.selezionaNotifica();
+        WebTool.waitTime(5);
+        WebTool.closeTab();
+    }
+
+    @Then("Si verifica che la notifica abbia lo stato {string}")
+    public void siVerificaCheLaNotificaAbbiaLoStato(String stato) {
+        logger.info("Si verifica che la notifica abbia lo stato " + stato);
+        piattaformaNotifichePage.verificaPresenzaStato(stato);
     }
 
 
