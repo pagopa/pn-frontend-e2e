@@ -271,19 +271,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-    public boolean siControllaPresenzaEmail() {
-        try {
-            By emailField = By.id("courtesyContacts-email");
-            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(emailField));
-            logger.info("email presente");
-            return true;
-        } catch (TimeoutException e) {
-            logger.error("email non presente con errore" + e.getMessage());
-            return false;
-        }
-    }
-
-
     public boolean siVisualizzaPecInserita() {
         try {
             By pecInseritaBy = By.xpath("//p[contains(text(),'PEC associata')]");
@@ -354,12 +341,8 @@ public class RecapitiDestinatarioPage extends BasePage {
     public String waitLoadPopUpElimina() {
         By titlePopUp = By.id("dialog-title");
         By subTitlePopUp = By.id("dialog-description");
-        By cancelButton = By.id("buttonAnnulla");
-        By confirmButton = By.id("buttonConferma");
         this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
         this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(cancelButton));
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(confirmButton));
         return this.element(titlePopUp).getText();
     }
 
@@ -483,12 +466,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         By confermaEliminaButtonBy = By.xpath("//div[@aria-labelledby='dialog-title']//button[contains(text(),'Conferma')]");
         this.getWebDriverWait(40).withMessage("Il bottone conferma del pop-up elimina non cliccabile").until(ExpectedConditions.elementToBeClickable(confermaEliminaButtonBy));
         this.element(confermaEliminaButtonBy).click();
-    }
-
-    public void annullaButtonEliminaClick() {
-        By annullaEliminaButtonBy = By.id ("buttonAnnulla");
-        this.getWebDriverWait(10).withMessage("Il bottone annulla del pop-up elimina non cliccabile").until(ExpectedConditions.elementToBeClickable(annullaEliminaButtonBy));
-        this.element(annullaEliminaButtonBy).click();
     }
 
     public String getEmailErrorMessage() {

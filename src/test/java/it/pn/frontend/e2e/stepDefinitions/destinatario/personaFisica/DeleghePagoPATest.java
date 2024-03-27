@@ -61,26 +61,24 @@ public class DeleghePagoPATest {
         deleghePage.clickAggiungiDelegaButton();
     }
 
-    @And("Si visualizza la sezione Le Tue Deleghe")
-    public void siVisualizzaLaSezioneLeTueDeleghe() {
-        logger.info("Si visualizza la sezione Le Tue Deleghe");
-        leTueDelegheSection.waitNuovaDelegaSection();
-    }
 
-    @And("Nella sezione Le Tue Deleghe inserire i dati {string}")
-    public void nellaSezioneLeTueDelegheInserireIDati(String dpFile) {
+    @And("Nella sezione Le Tue Deleghe inserire i dati")
+    public void nellaSezioneLeTueDelegheInserireIDati(Map<String, String> personaFisica) {
         logger.info("Nella sezione Le Tue Deleghe inserire i dati");
 
-        this.leTueDelegheSection.selectPersonaFisicaRadioButton();
+        String nome = personaFisica.get("nome");
+        String cognome = personaFisica.get("cognome");
+        String codiceFiscale = personaFisica.get("codiceFiscale");
+        String ente = personaFisica.get("ente");
 
 
-        deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        leTueDelegheSection.selectPersonaFisicaRadioButton();
 
-        this.leTueDelegheSection.insertNomeCognome(deleghe.get("nome").toString(), deleghe.get("cognome").toString());
-        this.leTueDelegheSection.inserireCF(deleghe.get("codiceFiscale").toString());
-        this.leTueDelegheSection.selectSoloEntiSelezionati();
-        this.leTueDelegheSection.waitLoadPage();
-        this.leTueDelegheSection.selezionaUnEnte(deleghe.get("ente").toString());
+        leTueDelegheSection.insertNomeCognome(nome, cognome);
+        leTueDelegheSection.inserireCF(codiceFiscale);
+        leTueDelegheSection.selectSoloEntiSelezionati();
+        leTueDelegheSection.waitLoadPage();
+        leTueDelegheSection.selezionaUnEnte(ente);
 
     }
 
@@ -120,15 +118,6 @@ public class DeleghePagoPATest {
 
         deleghePage.waitDeleghePage();
         deleghePage.controlloCreazioneDelega();
-    }
-
-    @And("Nella sezione Deleghe si verifica sia presente una delega")
-    public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelega() {
-        logger.info("Si controlla che sia presente una delega");
-        BackgroundTest backgroundTest = new BackgroundTest();
-        if (!this.deleghePage.siVisualizzaUnaDelega()) {
-            backgroundTest.aggiuntaNuovaDelegaPF();
-        }
     }
 
     @And("Nella sezione Deleghe si clicca sul menu della delega {string}")
@@ -278,8 +267,8 @@ public class DeleghePagoPATest {
     @And("Si controlla che la delega ha lo stato Attiva {string}")
     public void siControllaCheLaDelegaHaLoStatoAttiva(String dpFile) {
         logger.info("Si controlla che la delega abbia lo stato Attiva");
-        this.deleghe = this.dataPopulation.readDataPopulation(dpFile + ".yaml");
-        this.leTueDelegheSection.controlloStatoAttiva(deleghe.get("name").toString(), deleghe.get("familyName").toString());
+        deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        leTueDelegheSection.controlloStatoAttiva(deleghe.get("name").toString(), deleghe.get("familyName").toString());
     }
 
     @And("Si controlla che la delega è ancora presente {string}")
@@ -357,12 +346,13 @@ public class DeleghePagoPATest {
     }
 
 
-    @And("Si controlla che non sia presente una delega con stesso nome {string}")
-    public void siControllaCheNonSiaPresenteUnaDelegaConStessoNome(String dpFile) {
+    @And("Si controlla che non sia presente una delega con stesso nome")
+    public void siControllaCheNonSiaPresenteUnaDelegaConStessoNome(Map<String,String> personaFisica) {
         logger.info("Si controlla che non ci sia una delega con lo stesso nome");
-        Map<String, Object> datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        String nome = datiDelega.get("nome").toString();
-        String cognome = datiDelega.get("cognome").toString();
+
+        String nome = personaFisica.get("nome");
+        String cognome = personaFisica.get("cognome");
+
         if (deleghePage.cercaEsistenzaDelega(nome, cognome)) {
             logger.info("Delega con lo stesso nome trovata");
             deleghePage.clickRevocaButtonOnMenu(nome, cognome);
@@ -413,12 +403,15 @@ public class DeleghePagoPATest {
         }
     }
 
-    @And("Nella sezione Deleghe si verifica sia presente una delega {string}")
-    public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelega(String dpFile) {
+    @And("Nella sezione Deleghe si verifica sia presente una delega")
+    public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelega(Map<String, String> personaFisica) {
         logger.info("Si controlla la presenza di una delega");
-        this.deleghe = this.dataPopulation.readDataPopulation(dpFile + ".yaml");
+
+        String nome = personaFisica.get("nome");
+        String cognome = personaFisica.get("cognome");
         BackgroundTest backgroundTest = new BackgroundTest();
-        if (!this.deleghePage.siVisualizzaUnaDelegaConNome(deleghe.get("nome").toString(), deleghe.get("cognome").toString())) {
+
+        if (!this.deleghePage.siVisualizzaUnaDelegaConNome(nome, cognome)) {
             backgroundTest.aggiuntaNuovaDelegaPF();
         }
     }
@@ -470,5 +463,12 @@ public class DeleghePagoPATest {
             logger.error("La delega è ancora presente in lista");
             Assert.fail("La delega è ancora presente in lista");
         }
+    }
+
+
+    @And("Si visualizza correttamente la pagina nuova delega")
+    public void siVisualizzaCorrettamenteLaPaginaNuovaDelega() {
+        logger.info("Si visualizza la sezione Le Tue Deleghe");
+        leTueDelegheSection.waitNuovaDelegaSection();
     }
 }
