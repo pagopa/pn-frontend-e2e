@@ -479,7 +479,10 @@ public class DeleghePagoPATest {
             Assert.fail("La delega è ancora presente in lista");
         }
     }
-
+    @And("Si annulla azione revoca")
+    public void siAnnullaAzioneRevoca() {
+        deleghePage.clickAnnullaRevoca();
+    }
 
     @And("Si visualizza correttamente la pagina nuova delega")
     public void siVisualizzaCorrettamenteLaPaginaNuovaDelega() {
