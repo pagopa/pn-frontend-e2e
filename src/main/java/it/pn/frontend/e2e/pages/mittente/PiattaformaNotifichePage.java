@@ -16,8 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class PiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("notificaMittentePagoPA");
-    private NetWorkInfo netWorkInfo;
-
+    
     @FindBy(id = "recipientId")
     WebElement cfTextField;
     @FindBy(id = "filter-button")
