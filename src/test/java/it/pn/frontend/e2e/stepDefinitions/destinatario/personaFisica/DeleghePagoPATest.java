@@ -122,12 +122,11 @@ public class DeleghePagoPATest {
         deleghePage.controlloCreazioneDelega();
     }
 
-    @And("Nella sezione Deleghe si clicca sul menu della delega {string}")
-    public void nellaSezioneDelegheSiCliccaSulMenuDellaDelega(String dpFile) {
+    @And("Nella sezione Deleghe si clicca sul menu della delega")
+    public void nellaSezioneDelegheSiCliccaSulMenuDellaDelega(Map<String, String> personaFisica) {
         logger.info("Si clicca sul menu della delega");
-        this.deleghe = this.dataPopulation.readDataPopulation(dpFile + ".yaml");
-
-        this.deleghePage.clickMenuDelega(this.deleghe.get("nome").toString(), this.deleghe.get("cognome").toString());
+        String fullName = personaFisica.get("nome") + " " + personaFisica.get("cognome");
+        deleghePage.clickMenuDelegato(fullName);
     }
 
     @And("Nella sezione Deleghe si sceglie l'opzione mostra codice")
@@ -140,14 +139,14 @@ public class DeleghePagoPATest {
     public void siCliccaSulBottoneChiudi() {
         logger.info("Si clicca sul bottone chiudi");
 
-        this.deleghePage.siCliccaSulBottoneChiudi();
+        deleghePage.siCliccaSulBottoneChiudi();
     }
 
     @And("Nella sezione Deleghe si sceglie l'opzione revoca")
     public void nellaSezioneDelegheSiSceglieLOpzioneRevoca() {
         logger.info("Si clicca sulla opzione revoca delega");
 
-        this.deleghePage.clickOpzioneRevoca();
+        deleghePage.clickOpzioneRevoca();
     }
 
     @Then("Si conferma l'azione scegliendo revoca la delega")
@@ -158,7 +157,7 @@ public class DeleghePagoPATest {
     @And("Nella sezione Le Tue Deleghe click sul bottone Invia richiesta")
     public void nellaSezioneLeTueDelegheClickSulBottoneInviaRichiesta() {
         logger.info("Si clicca sul bottone  invia richiesta");
-        this.leTueDelegheSection.clickInviaRichiesta();
+        leTueDelegheSection.clickInviaRichiesta();
     }
 
     @And("Nella sezione Le Tue Deleghe si visualizza il messaggio di errore")
@@ -480,23 +479,14 @@ public class DeleghePagoPATest {
             Assert.fail("La delega è ancora presente in lista");
         }
     }
-
+    @And("Si annulla azione revoca")
+    public void siAnnullaAzioneRevoca() {
+        deleghePage.clickAnnullaRevoca();
+    }
 
     @And("Si visualizza correttamente la pagina nuova delega")
     public void siVisualizzaCorrettamenteLaPaginaNuovaDelega() {
         logger.info("Si visualizza la sezione Le Tue Deleghe");
         leTueDelegheSection.waitNuovaDelegaSection();
-    }
-
-    @And("Si accetta la delega")
-    public void siAccettaLaDelega() {
-        BackgroundTest backgroundTest = new BackgroundTest();
-        backgroundTest.accettaDelegaPF();
-
-    }
-
-    @And("Si clicca sulle notifiche delegate nel layout {string}" )
-    public void siCliccaSulleNotificheDelegateNelLayout(String nomeDelegante) {
-        destinatarioPage.clickButtonNotificheDelegateOnSideMenu(nomeDelegante);
     }
 }
