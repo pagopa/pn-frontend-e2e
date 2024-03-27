@@ -123,10 +123,8 @@ public class DeleghePagoPATest {
     @And("Nella sezione Deleghe si clicca sul menu della delega")
     public void nellaSezioneDelegheSiCliccaSulMenuDellaDelega(Map<String, String> personaFisica) {
         logger.info("Si clicca sul menu della delega");
-        String nome = personaFisica.get("nome");
-        String cognome = personaFisica.get("cognome");
-
-        deleghePage.clickMenuDelega(nome, cognome);
+        String fullName = personaFisica.get("nome") + " " + personaFisica.get("cognome");
+        deleghePage.clickMenuDelegato(fullName);
     }
 
     @And("Nella sezione Deleghe si sceglie l'opzione mostra codice")

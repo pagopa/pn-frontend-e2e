@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -96,18 +97,21 @@ public class DeleghePage extends BasePage {
         }
     }
 
-    public void clickMenuDelega(String nome, String cognome) {
-        try {
-            TimeUnit.SECONDS.sleep(2);
-            By menuDelega = By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']");
-            this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuDelega));
-            this.js().executeScript("arguments[0].click()", this.element(menuDelega));
-            logger.info("cliccato correttamente su menu delega button");
-        } catch (TimeoutException e) {
-            logger.error("Menu delega button NON trovata con errore: " + e.getMessage());
-            Assert.fail("Menu delega button NON trovata con errore: " + e.getMessage());
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+    public void clickMenuDelegato(String fullName) {
+        List<WebElement> tableRows = driver.findElements(By.id("delegatesTable.body.row")); // Take all the rows of the table
+        if (!tableRows.isEmpty()) {
+            for (WebElement row : tableRows) {
+                WebElement cellName = row.findElement(By.xpath(".//td//p[contains(text(), '" + fullName + "')]")); // Take the cell with the name of the delegate from the row
+                getWebDriverWait(10).withMessage("Non è stato trovato la riga corrispondente della delega con il nome: " + fullName).until(ExpectedConditions.visibilityOf(cellName));
+                WebElement menuButton = row.findElement(By.xpath(".//button[@data-testid='delegationMenuIcon']")); // take the menu button from the row
+                getWebDriverWait(10).withMessage("Non è stato trovato il menu della delega con il nome: " + fullName).until(ExpectedConditions.visibilityOf(menuButton));
+                menuButton.click();
+                logger.info("Cliccato correttamente su menu delega button");
+                return;
+            }
+        } else {
+            logger.error("Non è stato trovato nessun delegato con il nome: " + fullName);
+            Assert.fail("Non è stato trovato nessun delegato con il nome: " + fullName);
         }
     }
 
