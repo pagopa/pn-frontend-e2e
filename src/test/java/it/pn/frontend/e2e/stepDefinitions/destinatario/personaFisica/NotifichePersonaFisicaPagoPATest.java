@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
@@ -30,9 +31,11 @@ public class NotifichePersonaFisicaPagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("NotifichePersonaFisicaTest");
     private final WebDriver driver = Hooks.driver;
     private Map<String, Object> personaFisica = new HashMap<>();
-    private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+    private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
     private final DataPopulation dataPopulation = new DataPopulation();
+    private final DestinatarioPage destinatarioPage = new DestinatarioPage(driver);
 
+    private final DettaglioNotificaSection dettaglioNotifica = new DettaglioNotificaSection(driver);
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche")
     public void nellaPiattaformaDestinatarioCliccareSulBottoneNotifiche() {
@@ -95,12 +98,6 @@ public class NotifichePersonaFisicaPagoPATest {
     public void siSelezionaIlNomeDelDeleganteNellElenco() {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.clickNomeDelegante();
-    }
-
-    @Then("Si visualizzano tutte le notifiche del delegante selezionato")
-    public void siVisualizzanoTutteLeNotificheDelDeleganteSelezionato() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-        notifichePFPage.siVisualizzaElencoNotifiche();
     }
 
     @Then("Si visualizzano correttamente le notifiche in elenco paginato")
@@ -340,6 +337,20 @@ public class NotifichePersonaFisicaPagoPATest {
         piattaformaNotifichePage.checkDefaultPagination();
     }
 
+    @And("Si controlla la pagina delle notifiche delegati di {string}")
+    public void siControllaLaPaginaDelleNotificheDelegatiDi(String nomeDelegante) {
+        piattaformaNotifichePage.checkPaginaNotificheDelegante(nomeDelegante);
+    }
+
+    @And("Si clicca sulla notifica del delegante")
+    public void siCliccaSullaNotificaDelDelegante() {
+        destinatarioPage.clickSulDettaglioNotificaDelegante();
+    }
+
+    @And("Si controlla il dettaglio della notifica")
+    public void siControllaIlDettaglioDellaNotifica() {
+        dettaglioNotifica.waitLoadDettaglioNotificaDESection();
+    }
 }
 
 
