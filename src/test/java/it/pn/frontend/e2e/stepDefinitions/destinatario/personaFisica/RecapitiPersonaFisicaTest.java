@@ -85,7 +85,6 @@ public class RecapitiPersonaFisicaTest {
             logger.error("La chiamata per inviare l'otp NON è stata effettuata");
             Assert.fail("La chiamata per inviare l'otp NON è stata effettuata");
         }
-        DataPopulation.waitTime(45);
     }
 
     private boolean verificaChiamataEmail(String url) {
