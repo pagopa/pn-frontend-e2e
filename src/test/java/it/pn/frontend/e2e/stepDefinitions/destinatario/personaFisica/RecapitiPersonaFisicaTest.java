@@ -271,6 +271,47 @@ public class RecapitiPersonaFisicaTest {
         }
     }
 
+    @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request dell'email {string} e viene inserito")
+    public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequestDellEmailEVieneInserito(String email) {
+
+        RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+
+        String startUrl = "http://localhost:8887/";
+        String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + email;
+        boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+        if (results) {
+            String OTP = recuperoOTPRecapiti.getResponseBody();
+            iTuoiRecapitiPage.sendOTP(OTP);
+            recapitiDestinatarioPage.confermaButtonClickPopUp();
+            if (recapitiDestinatarioPage.waitMessaggioErrore()) {
+                logger.error("Il codice OTP inserito è sbagliato");
+                Assert.fail("Il codice OTP inserito è sbagliato");
+            }
+        } else {
+            String variabileAmbiente = System.getProperty("environment");
+            if (variabileAmbiente.equalsIgnoreCase("test")) {
+                startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
+            } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
+                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
+            }
+            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + email;
+            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+            if (results) {
+                String OTP = recuperoOTPRecapiti.getResponseBody();
+                iTuoiRecapitiPage.sendOTP(OTP);
+                recapitiDestinatarioPage.confermaButtonClickPopUp();
+                if (recapitiDestinatarioPage.waitMessaggioErrore()) {
+                    logger.error("Il codice OTP inserito è sbagliato");
+                    Assert.fail("Il codice OTP inserito è sbagliato");
+                }
+            } else {
+                logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+                Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+            }
+        }
+    }
+
     @And("Nella pagina I Tuoi Recapiti si inserisce il codice OTP {string}")
     public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP(String dpFile) {
         logger.info("Si inserisce il codice OTP di verifica");
