@@ -489,4 +489,14 @@ public class DeleghePagoPATest {
         logger.info("Si visualizza la sezione Le Tue Deleghe");
         leTueDelegheSection.waitNuovaDelegaSection();
     }
+
+    @And("Si controlla che sia visibile opzione revoca delega")
+    public void siControllaCheSiaVisibileOpzioneRevocaDelega() {
+        deleghePage.checkOpzioneRevoca();
+    }
+
+    @And("Si chiude il menu della delega")
+    public void siChiudeIlMenuDellaDelega() {
+            deleghePage.closeOverElement();
+    }
 }

@@ -23,5 +23,10 @@ Feature:La persona fisica aggiunge una nuova delega
     And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "nuova_delega"
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella sezione Deleghe si visualizza la delega in stato di attesa di conferma
+    And Nella sezione Deleghe si clicca sul menu della delega
+      | nome    | Lucrezia |
+      | cognome | Borgia   |
+    And Si controlla che sia visibile opzione revoca delega
+    And Si chiude il menu della delega
     And Logout da portale persona fisica
 
