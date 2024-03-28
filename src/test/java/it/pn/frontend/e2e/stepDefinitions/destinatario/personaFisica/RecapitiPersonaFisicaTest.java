@@ -30,7 +30,7 @@ public class RecapitiPersonaFisicaTest {
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti")
-    public void ITuoiRecapitiButtonClick() {
+    public void nellaPaginaPiattaformaNotifichePersonaFisicaSiCliccaSulBottoneITuoiRecapiti() {
         logger.info("Si cerca di cliccare il bottone I Tuoi Recapiti");
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
         iTuoiRecapitiPage.iTuoiRecapitiButtonClick();
@@ -548,19 +548,6 @@ public class RecapitiPersonaFisicaTest {
         }
     }
 
-    @And("Nella pagina I Tuoi Recapiti di PG, si controlla che ci sia già una pec")
-    public void nellaPaginaITuoiRecapitiDiPgSiControllaCheCiSiaGiaUnaPec() {
-        logger.info("Si controlla la presenza di una pec");
-        String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("emailPec").toString();
-        BackgroundTest backgroundTest = new BackgroundTest();
-        if (!recapitiDestinatarioPage.siVisualizzaPecInserita()) {
-            backgroundTest.aggiungiPECPG();
-        } else if (!recapitiDestinatarioPage.siControllaPECModificata(pec)) {
-            recapitiDestinatarioPage.eliminaPecEsistente();
-            backgroundTest.aggiungiPECPG();
-        }
-    }
-
     @And("Nella pagina I Tuoi Recapiti si inserisce una nuova PEC {string}")
     public void nellaPaginaITuoiRecapitiSiInserisceUnaNuovaPECDellaPersonaFisica(String pec) {
         logger.info("Si inserisce una nuova PEC");
@@ -765,7 +752,7 @@ public class RecapitiPersonaFisicaTest {
 
         if (recapitiDestinatarioPage.siVisualizzaPopUpConferma()) {
             recapitiDestinatarioPage.clickConfermaButton();
-            recapitiDestinatarioPage.aggionamentoPagina();
+            recapitiDestinatarioPage.aggiornamentoPagina();
             recapitiDestinatarioPage.waitLoadPage();
         }
         String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("additionalEmail").toString();
@@ -867,15 +854,6 @@ public class RecapitiPersonaFisicaTest {
         }
     }
 
-    @Then("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti")
-    public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapiti() {
-        logger.info("Si controlla che si visualizzano correttamente tutti gli elementi della sezione recapiti gia associati");
-        DataPopulation.waitTime(20);
-        this.driver.navigate().refresh();
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        iTuoiRecapitiPage.waitLoadRecapitiGiaAssociatoSection();
-    }
-
     @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email diversa")
     public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaEmailDiversa() {
         logger.info("Si controlla che che ci sia già una Email diversa");
@@ -909,6 +887,12 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si visualizza correttamente il riquadro relativo alla PEC");
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.checkRiquadroPEC();
+    }
+
+    @And("Nella sezione altri recapiti si clicca sul bottone conferma per inserire un recapito")
+    public void nellaSezioneAltriRecapitiSiCliccaSulBottoneConfermaPerInserireUnRecapito(){
+        logger.info("Si clicca su conferma");
+        recapitiDestinatarioPage.clickConfermaRecapitoGiaPresente();
     }
 }
 

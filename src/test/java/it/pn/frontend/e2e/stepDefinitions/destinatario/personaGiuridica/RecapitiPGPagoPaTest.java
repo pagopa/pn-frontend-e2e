@@ -68,17 +68,17 @@ public class RecapitiPGPagoPaTest {
         recapitiDestinatarioPage.clickAvvisamiSMS();
     }
 
-    @Then("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti della persona giuridica")
-    public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapitiDellaPersonaGiuridica() {
-        logger.info("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti della persona giuridica");
-
-        recapitiDestinatarioPage.visualizzazioneSezioneAltriRecapitiPG();
+    @Then("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti")
+    public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapiti() {
+        logger.info("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti");
+        DataPopulation.waitTime(10);
+        this.driver.navigate().refresh();
+        recapitiDestinatarioPage.visualizzazioneCampiSezioneAltriRecapiti();
     }
 
-    @And("Nella pagina I Tuoi Recapiti PG si controlla che ci sia già una pec")
-    public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaPec() {
+    @And("Nella pagina I Tuoi Recapiti di PG, si controlla che ci sia già una pec")
+    public void nellaPaginaITuoiRecapitiDiPgSiControllaCheCiSiaGiaUnaPec() {
         logger.info("Si controlla la presenza di una pec");
-
         String pec = dataPopulation.readDataPopulation("personaGiuridica.yaml").get("emailPec").toString();
         BackgroundTest backgroundTest = new BackgroundTest();
         if (!recapitiDestinatarioPage.siVisualizzaPecInserita()) {
@@ -112,5 +112,11 @@ public class RecapitiPGPagoPaTest {
     @And("Si controlla presenza email precedentemente salvata {string}")
     public void siControllaPresenzaEmailPrecedentementeSalvata(String email) {
         recapitiDestinatarioPage.checkEmailPrecedentementeSalvata(email);
+    }
+
+    @And("Nella sezione altri recapiti si inserisce un recapito")
+    public void nellaSezioneAltriRecapitiSiInserisceUnRecapito(){
+        BackgroundTest backgroundTest = new BackgroundTest();
+        backgroundTest.aggiungiPecSezioneGiaAssociati();
     }
 }
