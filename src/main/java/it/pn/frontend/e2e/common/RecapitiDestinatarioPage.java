@@ -190,7 +190,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void annullaButtonClick() {
         try {
-            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.annullaButton));
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(this.annullaButton));
             this.annullaButton.click();
         } catch (TimeoutException e) {
             logger.error("Il bottone annulla non è cliccabile con errore: " + e.getMessage());
@@ -325,7 +325,6 @@ public class RecapitiDestinatarioPage extends BasePage {
             Assert.fail("Non si riesce a cancellare il testo della  email PEC :" + e.getMessage());
         }
     }
-
 
 
     public void clickSuSalva() {
@@ -604,5 +603,18 @@ public class RecapitiDestinatarioPage extends BasePage {
                 ExpectedConditions.visibilityOfElementLocated(annullaButtonBy),
                 ExpectedConditions.elementToBeClickable(annullaButtonBy)));
         this.element(annullaButtonBy).click();
+    }
+
+    public void checkNumeroDiCellulareCorretto(String cellulare) {
+        By numeroDiCellulareBy = By.id("courtesyContacts-phone");
+        getWebDriverWait(10).withMessage("Numero di cellulare appena inserito non visualizzato").until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOfElementLocated(numeroDiCellulareBy),
+                ExpectedConditions.attributeToBe(numeroDiCellulareBy, "innerText", "+39" + cellulare)));
+    }
+
+    public void clickSuBottoneCellulareDiCortesia(String CTA){
+        By bottoneActionBy = By.xpath("//form[contains(., 'Numero di cellulare')]//button[contains(text(), '" + CTA + "')]");
+        getWebDriverWait(10).withMessage("Il bottone non è cliccabile").until(ExpectedConditions.visibilityOfElementLocated(bottoneActionBy));
+        this.element(bottoneActionBy).click();
     }
 }

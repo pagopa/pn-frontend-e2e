@@ -85,6 +85,7 @@ public class RecapitiPersonaFisicaTest {
             logger.error("La chiamata per inviare l'otp NON è stata effettuata");
             Assert.fail("La chiamata per inviare l'otp NON è stata effettuata");
         }
+        DataPopulation.waitTime(45);
     }
 
     private boolean verificaChiamataEmail(String url) {
@@ -193,7 +194,6 @@ public class RecapitiPersonaFisicaTest {
         logger.info("click pop-up conferma email");
 
         Assert.assertFalse("il popup Conferma email non si visualizza", recapitiDestinatarioPage.verificaPopUpConfermaEmail());
-
         recapitiDestinatarioPage.clickHoCapitoCheckBoxPopup();
         recapitiDestinatarioPage.confermaEmailPopup();
     }
@@ -243,6 +243,10 @@ public class RecapitiPersonaFisicaTest {
         boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
+
+            System.out.println("Sono nella sezione di sopra, devo ancora capire bene che cosa fa questa sezione");
+            System.out.println("\n\n\n"+OTP+"\n\n\n");
+
             personaFisica.put("OTPpec", OTP);
             dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
         } else {
@@ -256,6 +260,11 @@ public class RecapitiPersonaFisicaTest {
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
+
+                System.out.println("sono nella sezione di sotto, devo ancora capire bene che cosa fa questa sezione");
+                System.out.println("\n\n\n"+OTP+"\n\n\n");
+
+
                 personaFisica.put("OTPpec", OTP);
                 dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
             } else {

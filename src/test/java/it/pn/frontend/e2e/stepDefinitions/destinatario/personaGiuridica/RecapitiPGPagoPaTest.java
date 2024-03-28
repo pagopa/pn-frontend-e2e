@@ -68,6 +68,15 @@ public class RecapitiPGPagoPaTest {
         recapitiDestinatarioPage.clickAvvisamiSMS();
     }
 
+    //metodo senza logica Yaml
+    @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono {string} e si clicca sul bottone avvisami via SMS")
+    public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoESiCliccaSulBottoneAvvisamiViaSMS(String cellulare) {
+        logger.info("Si inserisce l'email del PG e clicca sul bottone avvisami via numero telefonico");
+
+        recapitiDestinatarioPage.insertPhone(cellulare);
+        recapitiDestinatarioPage.clickAvvisamiSMS();
+    }
+
     @Then("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti della persona giuridica")
     public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapitiDellaPersonaGiuridica() {
         logger.info("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti della persona giuridica");
@@ -102,9 +111,9 @@ public class RecapitiPGPagoPaTest {
         recapitiDestinatarioPage.clickButtonAnnullaEliminazioneInPopUp();
     }
 
-    @And("Si conferma eliminazione nel pop up")
-    public void siConfermaEliminazioneNelPopUp() {
-        if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
+    @And("Si conferma {string} nel pop up")
+    public void siConfermaEliminazioneNelPopUp(String contattoCortesia) {
+        if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase(contattoCortesia)) {
             recapitiDestinatarioPage.confermaButtonEliminaClick();
         }
     }
@@ -112,5 +121,23 @@ public class RecapitiPGPagoPaTest {
     @And("Si controlla presenza email precedentemente salvata {string}")
     public void siControllaPresenzaEmailPrecedentementeSalvata(String email) {
         recapitiDestinatarioPage.checkEmailPrecedentementeSalvata(email);
+    }
+
+    @And("Si annulla eliminazione numero di cellulare")
+    public void siAnnullaEliminazioneNUmeroDiCellulare() {
+        recapitiDestinatarioPage.checkButtonAnnullaEliminazioneInPopUp();
+        recapitiDestinatarioPage.clickButtonAnnullaEliminazioneInPopUp();
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si visualizza correttamente il numero di cellulare {string}")
+    public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlNumeroDiCellulare(String cellulare){
+        logger.info("Si controlla la presenza e correttezza del numero di cellulare inserito");
+        recapitiDestinatarioPage.checkNumeroDiCellulareCorretto(cellulare);
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si preme sul bottone {string} del numero di cellulare di cortesia")
+    public void nellaPaginaITuoiRecapitiSiPremeSulBottoneDelNumeroDiCellulareDiCortesia(String CTA){
+        logger.info("Si preme sul bottone " + CTA + " del numero di cellulare di cortesia");
+        recapitiDestinatarioPage.clickSuBottoneCellulareDiCortesia(CTA);
     }
 }
