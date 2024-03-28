@@ -115,6 +115,7 @@ public class DestinatarioPASection extends BasePage {
         this.personaFisicaCheckBox.click();
     }
 
+
     public void inserireNomeDestinatario(String nomeDestinatario) {
         logger.info("inserimento nome destinatario");
         this.scrollToElementClickAndInsertText(this.nomeDestinatarioTextField, nomeDestinatario);

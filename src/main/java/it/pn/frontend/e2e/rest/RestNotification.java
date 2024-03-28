@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.rest;// ... Altre importazioni ...
 
+import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
 import it.pn.frontend.e2e.model.NewNotificationRequest;
@@ -34,5 +35,27 @@ public class RestNotification {
             logger.error("Error during createNewNotification", e);
         }
         return null;
+    }
+
+    public String getNotificationStatus(String notificationRequestId) {
+        final CustomHttpClient<Object, Object> httpClient2 = CustomHttpClient.getInstance();  // Modifica qui
+        try {
+            Object response = httpClient2.sendHttpGetRequest("/delivery/v2.3/requests?notificationRequestId=" + notificationRequestId, null, Object.class);
+            if (response instanceof LinkedTreeMap) {
+                LinkedTreeMap<String, Object> responseData = (LinkedTreeMap<String, Object>) response;
+                if (responseData.containsKey("notificationRequestStatus")) {
+                    return responseData.get("notificationRequestStatus").toString();
+                } else {
+                    logger.error("L'attributo 'notificationRequestStatus' non è presente nella risposta JSON");
+                    return null;
+                }
+            } else {
+                logger.error("La risposta non è valida o non può essere convertita in JSON");
+                return null;
+            }
+        } catch (IOException e) {
+            logger.error("Error during getNotificationStatus", e);
+            return null;
+        }
     }
 }

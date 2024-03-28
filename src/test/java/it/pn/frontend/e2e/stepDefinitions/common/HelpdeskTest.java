@@ -7,6 +7,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.HelpdeskPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -75,15 +76,10 @@ public class HelpdeskTest {
 
     @And("Si crea il disservizio")
     public void siCreaIlDisservizio() {
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            logger.error("pausa con errore: " + e.getMessage());
-            throw new RuntimeException(e);
-        }
+        WebTool.waitTime(5);
         if (!helpdeskPage.checkIsCreatedDisservizio()) {
             helpdeskPage.handleDisservizio("KO");
-            DataPopulation.waitTime(10);
+            WebTool.waitTime(5);
         }
     }
 

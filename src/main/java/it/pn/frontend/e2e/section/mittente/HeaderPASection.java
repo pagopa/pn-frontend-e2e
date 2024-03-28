@@ -2,7 +2,10 @@ package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -19,14 +22,14 @@ public class HeaderPASection extends BasePage {
         super(driver);
     }
 
-    public void waitLoadHeaderSection(){
-        try{
+    public void waitLoadHeaderSection() {
+        try {
             By titleLabel = By.cssSelector("a[title='Sito di PagoPA S.p.A.']");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
             logger.info("Header PA Section caricata");
-        }catch (TimeoutException e){
-            logger.error("Il titolo nel Header: 'Sito di PagoPA S.p.A.' non è caricato con errore : "+e.getMessage());
-            Assert.fail("Il titolo nel Header: 'Sito di PagoPA S.p.A.' non è caricato con errore : "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Il titolo nel Header: 'Sito di PagoPA S.p.A.' non è caricato con errore : " + e.getMessage());
+            Assert.fail("Il titolo nel Header: 'Sito di PagoPA S.p.A.' non è caricato con errore : " + e.getMessage());
         }
     }
 

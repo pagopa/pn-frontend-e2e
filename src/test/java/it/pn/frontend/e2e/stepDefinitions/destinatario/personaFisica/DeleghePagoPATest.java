@@ -15,6 +15,7 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection
 import it.pn.frontend.e2e.section.destinatario.personaFisica.PopUpRevocaDelegaSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -361,7 +362,7 @@ public class DeleghePagoPATest {
 
 
     @And("Si controlla che non sia presente una delega con stesso nome")
-    public void siControllaCheNonSiaPresenteUnaDelegaConStessoNome(Map<String,String> personaFisica) {
+    public void siControllaCheNonSiaPresenteUnaDelegaConStessoNome(Map<String, String> personaFisica) {
         logger.info("Si controlla che non ci sia una delega con lo stesso nome");
 
         String nome = personaFisica.get("nome");
@@ -468,7 +469,7 @@ public class DeleghePagoPATest {
     @Then("Si controlla che non ci sia più una delega")
     public void siControllaCheNonCiSiaPiuUnaDelega() {
         logger.info("Si controlla che non sia più presente una delega");
-        DataPopulation.waitTime(6);
+        WebTool.waitTime(6);
         this.deleghe = dataPopulation.readDataPopulation("delegatoPF.yaml");
         String nome = this.deleghe.get("name").toString();
         String cognome = this.deleghe.get("familyName").toString();

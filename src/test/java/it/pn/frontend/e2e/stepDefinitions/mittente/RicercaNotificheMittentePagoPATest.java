@@ -47,7 +47,6 @@ public class RicercaNotificheMittentePagoPATest {
     @And("Cliccare sul bottone Filtra")
     public void cliccareSulBottoneFiltra() {
         logger.info("Si clicca sul tasto filtra");
-
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.selectFiltraButton();
     }
@@ -470,6 +469,7 @@ public class RicercaNotificheMittentePagoPATest {
             Assert.fail("Le date inserite sono corrette");
         }
     }
+
     @Then("Nella pagina piattaforma Notifiche è presente un campo di ricerca con un menu a tendina per selezionare lo stato della notifica")
     public void nellaPaginaPiattaformaNotificheÈPresenteUnCampoDiRicercaConUnMenuATendinaPerSelezionareLoStatoDellaNotifica() {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);

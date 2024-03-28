@@ -15,6 +15,7 @@ import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
 import org.junit.Assert;
@@ -76,16 +77,16 @@ public class LoginPGPagoPATest {
         String urlLogin = "https://imprese." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
         this.driver.get(urlLogin);
         logger.info("Login effettuato con successo");
-        DataPopulation.waitTime(10);
+        WebTool.waitTime(10);
 
         // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
-        if(personaGiuridica.equalsIgnoreCase("delegante")){
+        if (personaGiuridica.equalsIgnoreCase("delegante")) {
             HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
             headerPGSection.waitLoadHeaderPGPage();
             PiattaformaNotifichePGPAPage notifichePGPage = new PiattaformaNotifichePGPAPage(this.driver);
             Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("personaGiuridica.yaml");
             notifichePGPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
-        }else {
+        } else {
             HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
             headerPGSection.waitLoadHeaderPGPage();
             PiattaformaNotifichePGPAPage notifichePGPage = new PiattaformaNotifichePGPAPage(this.driver);

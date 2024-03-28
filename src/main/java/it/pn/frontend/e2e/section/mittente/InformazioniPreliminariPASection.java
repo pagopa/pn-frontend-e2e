@@ -2,7 +2,10 @@ package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -30,6 +33,9 @@ public class InformazioniPreliminariPASection extends BasePage {
     @FindBy(xpath = "//input[@value='AR_REGISTERED_LETTER']")
     WebElement raccomandataARButton;
 
+    @FindBy(xpath = "//input[@value='REGISTERED_LETTER_890']")
+    WebElement registeredLetter890Button;
+
     public InformazioniPreliminariPASection(WebDriver driver) {
         super(driver);
     }
@@ -54,7 +60,7 @@ public class InformazioniPreliminariPASection extends BasePage {
     public void insertNumeroDiProtocollo(String numeroProtocollo) {
         By numeroProtocolloTextBy = By.id("paProtocolNumber");
         WebElement numeroProtocolloTextInput = driver.findElement(numeroProtocolloTextBy);
-        getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(numeroProtocolloTextInput));
+        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(numeroProtocolloTextInput));
         logger.info("inserimento testo in numero protocollo");
         scrollToElementClickAndInsertText(numeroProtocolloTextInput, numeroProtocollo);
     }
@@ -71,20 +77,20 @@ public class InformazioniPreliminariPASection extends BasePage {
 
     public void insertGruppo(String gruppo) {
         logger.info("inserimento gruppo");
-        if (this.gruppoListBox.isDisplayed()){
+        if (this.gruppoListBox.isDisplayed()) {
             this.gruppoListBox.click();
-        }else {
-            this.scrollToElementClickAndInsertText(this.gruppoListBox,null);
+        } else {
+            this.scrollToElementClickAndInsertText(this.gruppoListBox, null);
         }
 
-        try{
-            By gruppoBy = By.xpath("//li[contains(text(),'"+gruppo+"')]");
+        try {
+            By gruppoBy = By.xpath("//li[contains(text(),'" + gruppo + "')]");
             this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(gruppoBy));
-            logger.info("gruppo "+gruppo+" trovato con successo");
+            logger.info("gruppo " + gruppo + " trovato con successo");
             element(gruppoBy).click();
-        }catch (TimeoutException e){
-            logger.info("gruppo "+gruppo+" NON trovato con errore : "+e.getMessage());
-            Assert.fail("gruppo "+gruppo+" NON trovato con errore : "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.info("gruppo " + gruppo + " NON trovato con errore : " + e.getMessage());
+            Assert.fail("gruppo " + gruppo + " NON trovato con errore : " + e.getMessage());
         }
     }
 
@@ -96,5 +102,10 @@ public class InformazioniPreliminariPASection extends BasePage {
     public void selectRaccomandataAR() {
         logger.info("selezione raccomandata AR");
         this.raccomandataARButton.click();
+    }
+
+    public void selectRegisteredLetter890() {
+        logger.info("selezione registered letter 890");
+        this.registeredLetter890Button.click();
     }
 }
