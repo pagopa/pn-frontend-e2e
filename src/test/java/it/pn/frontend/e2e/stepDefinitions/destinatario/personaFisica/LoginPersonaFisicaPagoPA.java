@@ -15,6 +15,7 @@ import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -72,7 +73,7 @@ public class LoginPersonaFisicaPagoPA {
         String urlLogin = "https://cittadini." + environment + ".notifichedigitali.it/#token=" + token;
         this.driver.get(urlLogin);
         logger.info("Login effettuato con successo");
-        DataPopulation.waitTime(10);
+        WebTool.waitTime(10);
 
         // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
         HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
