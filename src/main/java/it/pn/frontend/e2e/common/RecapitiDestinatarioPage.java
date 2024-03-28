@@ -65,18 +65,14 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "buttonAnnulla")
     WebElement buttonAnnullaEliminazioneInPopUp;
 
-    @FindBy(id = "buttonConferma")
-    WebElement buttonConfermaEliminazioneInPopUp;
-
-
     @FindBy(id = "courtesyContacts-email")
     WebElement emailAssociata;
 
-    @FindBy(id = "legalContacts")
-    WebElement pecEmail;
-
     @FindBy(id = "pec")
     WebElement pecField;
+
+    @FindBy(id = "legalContacts")
+    WebElement pecEmail;
 
     public RecapitiDestinatarioPage(WebDriver driver) {
         super(driver);
@@ -313,7 +309,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-
     public void cancellaTesto() {
         try {
             this.js().executeScript("arguments[0].click()", pecField);
@@ -325,8 +320,6 @@ public class RecapitiDestinatarioPage extends BasePage {
             Assert.fail("Non si riesce a cancellare il testo della  email PEC :" + e.getMessage());
         }
     }
-
-
 
     public void clickSuSalva() {
         By salvaButtonBy = By.xpath("//button[contains(text(),'Salva')]");
@@ -353,10 +346,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         By subTitlePopUp = By.id("dialog-description");
         this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
         this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOf(buttonAnnullaEliminazioneInPopUp));
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOf(buttonConfermaEliminazioneInPopUp));
-
-
         return this.element(titlePopUp).getText();
     }
 
@@ -365,17 +354,14 @@ public class RecapitiDestinatarioPage extends BasePage {
         this.getWebDriverWait(30).withMessage("Non è stato possibile cliccare sul bottone conferma").until(ExpectedConditions.elementToBeClickable(confermaRimuoviPECBy));
         this.element(confermaRimuoviPECBy).click();
     }
+    public boolean siControllaEliminazionePEC() {
+       return pecField.isDisplayed();
+    }
 
     public boolean siControllaPresenzaPEC() {
-        try {
-            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOf(pecEmail));
-            logger.info("pec presente");
-            return true;
-        } catch (TimeoutException e) {
-            logger.error("pec non presente con errore" + e.getMessage());
-            return false;
-        }
+        return pecEmail.isDisplayed();
     }
+
 
     public void insertEnte(String comune) {
         this.enteField.sendKeys(comune);
@@ -587,10 +573,9 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void verificaPecNonModificabile() {
         try {
-            By textFieldPec = By.id("legalContacts");
             getWebDriverWait(10).until(ExpectedConditions.and(
                     ExpectedConditions.invisibilityOf(pecField),
-                    ExpectedConditions.visibilityOfElementLocated(textFieldPec)));
+                    ExpectedConditions.visibilityOf(pecEmail)));
             logger.info("pec non modificabile");
         } catch (TimeoutException e) {
             logger.error("pec modificabile con errore:" + e.getMessage());
