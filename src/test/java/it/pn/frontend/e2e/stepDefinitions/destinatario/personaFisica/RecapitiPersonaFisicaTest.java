@@ -538,8 +538,10 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoEmailNonSiaPresente() {
         logger.info("Si controlla che l'indirizzo Email non sia presente");
         if (!recapitiDestinatarioPage.verificaMailAssociata()) {
-            logger.error("Email non è stata eliminata correttamente");
-            Assert.fail("Email non è stata eliminata correttamente");
+            logger.info("Email è stata eliminata correttamente");
+        }else {
+            logger.error("Email non è stata eliminata");
+            Assert.fail("Email non è stata eliminata");
         }
     }
 
