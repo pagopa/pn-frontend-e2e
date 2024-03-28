@@ -173,10 +173,6 @@ public class DisserviziAppPAPage extends BasePage {
         }
     }
 
-    public int getLinkAttestazioniOpponibili(){
-        return attestazioniFile.size();
-    }
-
     public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioniOpponibile) {
         if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
             attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
@@ -184,9 +180,5 @@ public class DisserviziAppPAPage extends BasePage {
             this.js().executeScript("arguments[0].scrollIntoView(true);", attestazioniFile.get(numeroLinkAttestazioniOpponibile));
             attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
         }
-    }
-
-    public String getTextLinkAttestazioniOpponibiliDisservizi(int i) {
-        return attestazioniFile.get(i).getText();
     }
 }

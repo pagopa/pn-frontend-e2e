@@ -73,6 +73,55 @@ public class DownloadFile extends BasePage {
         }
     }
 
+
+    public void downloadAttestazioneDisservizi(String urlLink, File fileLoc, boolean headless) throws IOException {
+        if (headless) {
+            try {
+                byte[] buffer = new byte[1024];
+                double totalDownload = 0.00;
+                int readBytes; // Stores the number of bytes read in each iteration.
+                double percentOfDownload = 0.00;
+
+                URL url = new URL(urlLink);
+                HttpURLConnection http = (HttpURLConnection) url.openConnection();
+                http.setRequestProperty("Authorization", getBearerSessionToken());
+                double fileSize = (double) http.getContentLengthLong();
+
+                BufferedInputStream input = new BufferedInputStream(http.getInputStream());
+                FileOutputStream output = new FileOutputStream(fileLoc);
+                BufferedOutputStream bufferOut = new BufferedOutputStream(output, 1024);
+
+                while ((readBytes = input.read(buffer, 0, 1024)) >= 0) {
+                    // Writing the content onto the file.
+                    bufferOut.write(buffer, 0, readBytes);
+                    // TotalDownload is the total bytes written onto the file.
+                    totalDownload += readBytes;
+                    // Calculating the percentage of download.
+                    percentOfDownload = (totalDownload * 100) / fileSize;
+                    // Formatting the percentage up to 2 decimal points.
+                    String percent = String.format("%.2f", percentOfDownload);
+                    System.out.println("Downloaded " + percent + "%");
+                }
+
+                System.out.println("Your download is now complete.");
+
+                // Closing streams
+                bufferOut.close();
+                input.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                URL url = new URL(urlLink);
+                FileUtils.copyURLToFile(url, fileLoc, 1000, 1000);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
     public void controlloDownload(String path, int numberOfFile){
         File directory = new File(path);
 
