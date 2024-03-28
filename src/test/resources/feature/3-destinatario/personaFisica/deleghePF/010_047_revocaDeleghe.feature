@@ -12,7 +12,14 @@ Feature:La persona fisica revoca una delega
     And Nella sezione Deleghe si verifica sia presente una delega
       | nome    | Lucrezia |
       | cognome | Borgia   |
-    And Nella sezione Deleghe si clicca sul menu della delega "nuova_delega"
+    And Nella sezione Deleghe si clicca sul menu della delega
+      | nome    | Lucrezia |
+      | cognome | Borgia   |
+    And Nella sezione Deleghe si sceglie l'opzione revoca
+    And Si annulla azione revoca
+    And Nella sezione Deleghe si clicca sul menu della delega
+      | nome    | Lucrezia |
+      | cognome | Borgia   |
     And Nella sezione Deleghe si sceglie l'opzione revoca
     And Si conferma l'azione scegliendo revoca la delega
     Then Si controlla che non ci sia più una delega

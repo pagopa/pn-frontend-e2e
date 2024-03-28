@@ -65,6 +65,9 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "buttonAnnulla")
     WebElement buttonAnnullaEliminazioneInPopUp;
 
+    @FindBy(id = "buttonConferma")
+    WebElement buttonConfermaEliminazioneInPopUp;
+
     @FindBy(id = "courtesyContacts-email")
     WebElement emailAssociata;
 
@@ -322,7 +325,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-
     public void clickSuSalva() {
         By salvaButtonBy = By.xpath("//button[contains(text(),'Salva')]");
         this.getWebDriverWait(30).withMessage("Non si riesce a cliccare sul bottone salva").until(ExpectedConditions.elementToBeClickable(salvaButtonBy));
@@ -346,20 +348,22 @@ public class RecapitiDestinatarioPage extends BasePage {
     public String waitLoadPopUpElimina() {
         By titlePopUp = By.id("dialog-title");
         By subTitlePopUp = By.id("dialog-description");
-        getWebDriverWait(10).withMessage("Non è stato caricato il titolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
-        getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del pop-up").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
+        getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
+        getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
+        getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOf(buttonAnnullaEliminazioneInPopUp));
+        getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOf(buttonConfermaEliminazioneInPopUp));
         return this.element(titlePopUp).getText();
     }
 
     public void clickSuConfermaElimina() {
-        By confermaRimuoviPECBy = By.id("buttonConferma");
-        getWebDriverWait(10).withMessage("Non è stato possibile cliccare sul bottone conferma").until(ExpectedConditions.elementToBeClickable(confermaRimuoviPECBy));
+        By confermaRimuoviPECBy = By.xpath("//button[contains(text(),'Annulla')]/following-sibling::button");
+        getWebDriverWait(30).withMessage("Non è stato possibile cliccare sul bottone conferma").until(ExpectedConditions.elementToBeClickable(confermaRimuoviPECBy));
         this.element(confermaRimuoviPECBy).click();
     }
 
-    public boolean siControllaNonPresenzaPEC() {
+    public boolean siControllaPresenzaPEC() {
         try {
-            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOf(pecField));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(pecEmail));
             logger.info("pec presente");
             return true;
         } catch (TimeoutException e) {
@@ -367,7 +371,6 @@ public class RecapitiDestinatarioPage extends BasePage {
             return false;
         }
     }
-
 
     public void insertEnte(String comune) {
         this.enteField.sendKeys(comune);
@@ -577,6 +580,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickButtonAnnullaEliminazioneInPopUp() {
+        getWebDriverWait(10).withMessage("Non è stato possibile cliccare sul bottone annulla").until(ExpectedConditions.elementToBeClickable(buttonAnnullaEliminazioneInPopUp));
         buttonAnnullaEliminazioneInPopUp.click();
     }
 
