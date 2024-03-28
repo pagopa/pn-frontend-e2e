@@ -135,6 +135,17 @@ public class DeleghePage extends BasePage {
         revocaButton.click();
     }
 
+    public void checkOpzioneRevoca() {
+        try {
+            getWebDriverWait(10).withMessage("opzione revoca non visibile").until(ExpectedConditions.visibilityOf(revocaButton));
+            logger.info("é possibile revocare la delega");
+        } catch (TimeoutException e) {
+            logger.error("Non si visualizza correttamente il menu della delega con errore:" + e.getMessage());
+            Assert.fail("Non si visualizza correttamente il menu della delega con errore:" + e.getMessage());
+        }
+
+    }
+
     public void clickMenuPerRifiuto(String nome, String cognome) {
         try {
             By menuDelegheBy = By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']");

@@ -98,5 +98,9 @@ public class BasePage {
             element.sendKeys(Keys.BACK_SPACE);
         }
     }
+
+    public void closeOverElement(){
+        driver.findElement(By.xpath("//html")).click();
+    }
 }
 

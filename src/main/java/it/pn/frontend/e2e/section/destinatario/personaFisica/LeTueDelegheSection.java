@@ -79,6 +79,14 @@ public class LeTueDelegheSection extends BasePage {
     @FindBy(xpath = "//tr[@data-testid='delegatorsTable.body.row']")
     List<WebElement> delegatorsTableRows;
 
+    @FindBy(id = "Aggiungi una delega-page")
+    WebElement titoloPaginaNuovaDelega;
+
+    @FindBy(xpath = "//input[@value='PG']")
+    WebElement radioButtonPg;
+
+    @FindBy(xpath = "//input[@value='tuttiGliEnti']")
+    WebElement radioButtonTuttiEntiSelezionati;
 
     public LeTueDelegheSection(WebDriver driver) {
         super(driver);
@@ -86,15 +94,29 @@ public class LeTueDelegheSection extends BasePage {
 
     public void waitNuovaDelegaSection() {
         try {
-            By leTueDeleghePageTitle = By.id("Aggiungi una delega-page");
-            this.getWebDriverWait(10).withMessage("Il titolo della pagina non è  visibile").until(ExpectedConditions.visibilityOfElementLocated(leTueDeleghePageTitle));
-            this.getWebDriverWait(10).withMessage("L'input nome non è visibile").until(ExpectedConditions.visibilityOf(this.inputNome));
-            this.getWebDriverWait(10).withMessage("L'input codice fiscale non è visibile").until(ExpectedConditions.visibilityOf(this.codiceFiscaleInput));
-            this.getWebDriverWait(10).withMessage("L'input cognome non è visibile").until(ExpectedConditions.visibilityOf(this.inputCognome));
-            logger.info("Le tue deleghe page caricata");
+            By personaFisicaButtonRadio = By.id("select-pf-radio");
+            By personaGiuridicaButtonRadio = By.id("select-pg-radio");
+            By radioButtonTuttiEnti = By.id("tutti-gli-enti-selezionati");
+            By radioButtonSoloEntiSelezionati = By.id("enti-selezionati");
+            getWebDriverWait(10).withMessage("Il titolo della pagina non è  visibile").until(ExpectedConditions.visibilityOf(titoloPaginaNuovaDelega));
+            getWebDriverWait(10).withMessage("L'input nome non è visibile").until(ExpectedConditions.visibilityOf(inputNome));
+            getWebDriverWait(10).withMessage("L'input cognome non è visibile").until(ExpectedConditions.visibilityOf(inputCognome));
+            getWebDriverWait(10).withMessage("radio button pf non è visibile").until(ExpectedConditions.presenceOfElementLocated(personaFisicaButtonRadio));
+            getWebDriverWait(10).withMessage("radio button pg non è visibile").until(ExpectedConditions.presenceOfElementLocated(personaGiuridicaButtonRadio));
+            getWebDriverWait(10).withMessage("L'input codice fiscale non è visibile").until(ExpectedConditions.visibilityOf(codiceFiscaleInput));
+            getWebDriverWait(10).withMessage("radio button tutti enti non è visibile").until(ExpectedConditions.presenceOfElementLocated(radioButtonTuttiEnti));
+            getWebDriverWait(10).withMessage("radio button solo enti non è visibile").until(ExpectedConditions.presenceOfElementLocated(radioButtonSoloEntiSelezionati));
+            int index = 0;
+            for (WebElement codice: codiceVerificaList) {
+                getWebDriverWait(10).withMessage("codice di verifica-"+ index + " non è visibile").until(ExpectedConditions.visibilityOf(codice));
+                index++;
+            }
+            getWebDriverWait(10).withMessage("L'input data scadenza non è visibile").until(ExpectedConditions.visibilityOf(dataTermineDelegaInput));
+            getWebDriverWait(10).withMessage("bottone invia richiesta non è visibile").until(ExpectedConditions.visibilityOf(inviaLaRichiestaButton));
+            logger.info("nuova delega page caricata");
         } catch (TimeoutException e) {
-            logger.error("Le tue deleghe page non caricata con errore :" + e.getMessage());
-            Assert.fail("Le tue deleghe page non caricata con errore :" + e.getMessage());
+            logger.error("nuova delega page non caricata con errore :" + e.getMessage());
+            Assert.fail("nuova delega page non caricata con errore :" + e.getMessage());
         }
     }
 
@@ -249,9 +271,6 @@ public class LeTueDelegheSection extends BasePage {
                     .findFirst()
                     .orElse(null);
             this.getWebDriverWait(5).until(ExpectedConditions.visibilityOf(delega));
-//            By statoAttivaBy = By.xpath("//tr[@data-testid='delegatorsTable.body.row']//td[@scope='col' and div/p[contains(text(),'" + nome + " " + cognome + "')]]");
-//            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoAttivaBy));
-//            logger.info("La delega con nome " + nome + "  " + cognome + "è ancora presente");
         } catch (TimeoutException e) {
             logger.error("La delega non è presente con errore: " + e.getMessage());
             Assert.fail("La delega non è presente con errore: " + e.getMessage());
