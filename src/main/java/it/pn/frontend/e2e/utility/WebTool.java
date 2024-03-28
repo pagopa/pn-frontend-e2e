@@ -2,10 +2,13 @@ package it.pn.frontend.e2e.utility;
 
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
+import it.pn.frontend.e2e.model.enums.AppPortal;
+import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
+import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
-import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
-import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
-import it.pn.frontend.e2e.stepDefinitions.mittente.LoginMittentePagoPA;
+import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
+import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
+import it.pn.frontend.e2e.section.mittente.HeaderPASection;
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -22,24 +25,32 @@ public class WebTool {
     private static final Logger logger = LoggerFactory.getLogger("WebTool");
     private static final WebDriver driver = Hooks.driver;
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
-    
+    private final String env = System.getProperty("environment");
+
     public static String switchToPortal(AppPortal portal) {
         openNewTab();
         switch (portal) {
             case PA -> {
-                LoginMittentePagoPA loginMittentePagoPA = new LoginMittentePagoPA();
-                loginMittentePagoPA.loginMittenteConTokenExchange();
+                driver.get(portal.url);
+                HeaderPASection headerPASection = new HeaderPASection(driver);
+                headerPASection.waitLoadHeaderSection();
+                PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+                piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
             }
             case PF -> {
-                LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
-                loginPersonaFisicaPagoPA.loginMittenteConTokenExchange("delegante");
+                driver.get(portal.url);
+                HeaderPFSection headerPFSection = new HeaderPFSection(driver);
+                headerPFSection.waitLoadHeaderDESection();
+                NotifichePFPage notifichePFPage = new NotifichePFPage(driver);
+                notifichePFPage.waitLoadNotificheDEPage();
             }
             case PG -> {
-                LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
-                loginPGPagoPATest.loginMittenteConTokenExchange("delegante");
+                driver.get(portal.url);
+                HeaderPGSection headerPGSection = new HeaderPGSection(driver);
+                headerPGSection.waitLoadHeaderPGPage();
             }
             case HELPDESK -> {
-                /* TODO */
+                driver.get(portal.url);
             }
             default -> {
                 logger.error("Tipologia di portale non specificato o errato!");

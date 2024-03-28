@@ -8,13 +8,12 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.api.mittente.AccettazioneRichiestaNotifica;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
+import it.pn.frontend.e2e.model.enums.AppPortal;
 import it.pn.frontend.e2e.pages.mittente.AreaRiservataPAPage;
 import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
-import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.*;
-import it.pn.frontend.e2e.utility.AppPortal;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
@@ -993,43 +992,10 @@ public class NotificaMittentePagoPATest {
         allegatiPASection.inserimentoNomeAllegato(datiNotificaMap.get("descrizione"));
     }
 
-    /**
-     * This feature step is used to check the status of the notification after it has been sent through UI.
-     * TODO: This step should be refactored by splitting it into separate methods.
-     */
     @And("Si verifica che la notifica è stata creata correttamente")
     public void siVerificaCheLaNotificaeStataCreataCorrettamente() {
         logger.info("Si verifica che la notifica sia stata creata correttamente filtrandolo per il numero di protocollo");
-        String notificationRequestId = "";
-        for (NetWorkInfo netWorkInfo : netWorkInfos) {
-            if (netWorkInfo.getRequestUrl().contains("/delivery/v2.3/requests") && netWorkInfo.getRequestMethod().equals("POST")) {
-                if (netWorkInfo.getResponseStatus().equals("202") && !netWorkInfo.getResponseBody().isEmpty()) {
-                    notificationRequestId = netWorkInfo.getResponseBody().split("\"notificationRequestId\":\"")[1].split("\"")[0];
-                    logger.info("NotificationRequestId: " + notificationRequestId);
-                    break;
-                }
-            }
-        }
-        if (!notificationRequestId.isEmpty()) {
-            String statusNotifica;
-            int maximumRetry = 0;
-            do {
-                if (maximumRetry > 4) {
-                    logger.error("Sono stati fatti 5 tentativi per verificare la creazione della notifica");
-                    Assert.fail("La notifica risulta ancora in stato WAITING dopo 5 tentativi");
-                }
-                RestNotification restNotification = new RestNotification();
-                statusNotifica = restNotification.getNotificationStatus(notificationRequestId);
-                WebTool.waitTime(90);
-                logger.info("Tentativo n. " + maximumRetry + " - Stato notifica: " + statusNotifica);
-                maximumRetry++;
-            } while (statusNotifica.equals("WAITING"));
-            driver.navigate().refresh();
-            logger.info("La notifica è stata creata correttamente");
-        } else {
-            logger.error("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
-            Assert.fail("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
-        }
+        piattaformaNotifichePage.verificaNotificaCreata();
     }
 
     @Then("In parallelo si effettua l'accesso al portale destinatario persona fisica e si apre la notifica ricevuta")
@@ -1045,8 +1011,7 @@ public class NotificaMittentePagoPATest {
         logger.info("Si verifica che la notifica abbia lo stato " + stato);
         piattaformaNotifichePage.verificaPresenzaStato(stato);
     }
-
-
+    
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */
