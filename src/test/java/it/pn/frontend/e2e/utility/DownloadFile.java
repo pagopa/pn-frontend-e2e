@@ -2,8 +2,11 @@ package it.pn.frontend.e2e.utility;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import org.apache.commons.io.FileUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -34,6 +37,8 @@ public class DownloadFile extends BasePage {
                 URL url = new URL(urlLink);
                 HttpURLConnection http = (HttpURLConnection)url.openConnection();
                 double filesize = (double)http.getContentLengthLong();
+
+                http.setRequestProperty("Authorization", getBearerSessionToken());
 
                 BufferedInputStream input = new BufferedInputStream(http.getInputStream());
                 FileOutputStream ouputfile = new FileOutputStream(fileLoc);
@@ -121,5 +126,46 @@ public class DownloadFile extends BasePage {
             logger.error("Non è stata trovata la chiamata "+ urlChiamata);
         }
         return url;
+    }
+
+    public String getLegalFactId() {
+        try {
+            URL url = new URL("https://webapi.test.notifichedigitali.it/downtime/v1/history?fromTime=1900-01-01T00%3A00%3A00Z&toTime=2024-03-28T10%3A38%3A50.251Z&functionality=NOTIFICATION_CREATE&functionality=NOTIFICATION_VISUALIZATION&functionality=NOTIFICATION_WORKFLOW&page=0&size=10");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("Authorization", getBearerSessionToken() );
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+
+            JSONObject jsonResponse = new JSONObject(response.toString());
+            JSONArray resultArray = jsonResponse.getJSONArray("result");
+            if (!resultArray.isEmpty()) {
+                JSONObject firstResult = resultArray.getJSONObject(0);
+                return firstResult.getString("legalFactId");
+            }
+        } catch (Exception e) {
+           throw new RuntimeException("Failed to fetch legalFactId",e);
+        }
+        return null;
+    }
+
+    private String getBearerSessionToken() {
+        List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
+        String bearerToken = "";
+        for (NetWorkInfo netWorkInfo : netWorkInfos) {
+            String variabileAmbiente = System.getProperty("environment");
+            String urlChiamata = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/notifications/received?";
+            if (netWorkInfo.getRequestUrl().contains(urlChiamata)) {
+                bearerToken = netWorkInfo.getAuthorizationBearer();
+            }
+        }
+        return bearerToken;
     }
 }
