@@ -10,9 +10,9 @@ Feature: Il destinatario persona fisica visualizza i disservizi della piattaform
     And Si visualizza correttamente home Helpdesk
     And Click su card monitoraggio piattaforma
     And Si visualizza correttamente home monitoraggio
-    And Annullamento disservizio
+    And Si annulla un disservizio in corso
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche selezionare la voce 'stato della piattaforma'
     And Si visualizza correttamente la tabella dei disservizi
-    #And Si visualizza un record in elenco relativo ad un disservizio ancora in corso
+    And Si visualizzano tutti i record in elenco relativi a disservizi risolti
     And Logout da portale persona fisica
