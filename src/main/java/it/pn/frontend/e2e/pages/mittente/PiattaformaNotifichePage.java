@@ -1,6 +1,10 @@
 package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.NetWorkInfo;
+import it.pn.frontend.e2e.rest.RestNotification;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -16,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class PiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("notificaMittentePagoPA");
+    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     @FindBy(id = "recipientId")
     WebElement cfTextField;
@@ -82,6 +87,10 @@ public class PiattaformaNotifichePage extends BasePage {
 
     @FindBy(xpath = "//input[@aria-invalid='true']")
     List<WebElement> inputsError;
+
+    @FindBy(id = "notifications-table")
+    WebElement notificationsTable;
+
 
 
     public PiattaformaNotifichePage(WebDriver driver) {
@@ -269,7 +278,7 @@ public class PiattaformaNotifichePage extends BasePage {
         try {
             By notificaBy = By.id("notificationsTable.body.row");
             attesaCaricamentoPagina();
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificaBy));
+            this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(notificaBy));
             List<WebElement> notifiche = this.elements(notificaBy);
             notifiche.get(0).click();
         } catch (TimeoutException e) {
@@ -284,8 +293,8 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selectInviaUnaNuovaNotificaButton() {
-        this.getWebDriverWait(30).withMessage("Il bottone invia notifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(inviaNuovaNotificaButton));
-        this.js().executeScript("arguments[0].click()", this.inviaNuovaNotificaButton);
+        this.getWebDriverWait(10).withMessage("Il bottone invia notifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(inviaNuovaNotificaButton));
+        this.inviaNuovaNotificaButton.click();
     }
 
 
@@ -740,6 +749,68 @@ public class PiattaformaNotifichePage extends BasePage {
         } catch (TimeoutException e) {
             logger.error("Il bottone pagina " + pagina + " non è cliccabile con errore: " + e.getMessage());
             Assert.fail("Il bottone pagina " + pagina + " non è cliccabile con errore: " + e.getMessage());
+        }
+    }
+
+    public void checkPaginaNotificheDelegante(String nomeDelegante) {
+        String idNotificationTitlePage = "Le notifiche di " + nomeDelegante + "-page";
+        By titlePage = By.id(idNotificationTitlePage);
+
+        try {
+            getWebDriverWait(10).withMessage("il titolo della pagina non é caricato").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
+            getWebDriverWait(20).withMessage("tabella notifiche non caricata").until(ExpectedConditions.visibilityOf(notificationsTable));
+
+            logger.info("Pagina notifiche delegante caricata correttamente");
+        } catch (TimeoutException e) {
+            logger.error("Pagina notifiche delegante non caricata con errore: " + e.getMessage());
+            Assert.fail("Pagina notifiche delegante non caricata con errore: " + e.getMessage());
+        }
+    }
+
+
+
+    public void verificaPresenzaStato(String stato) {
+        By statusChip = By.xpath("//div[@data-testid='itemStatus']//span[contains(text(),'" + stato + "')]");
+        try {
+            this.getWebDriverWait(10).withMessage("Lo stato " + stato + " non è presente")
+                    .until(ExpectedConditions.visibilityOfElementLocated(statusChip));
+            logger.info("Stato " + stato + " presente");
+        } catch (TimeoutException e) {
+            logger.error("Stato " + stato + " non presente con errore: " + e.getMessage());
+            Assert.fail("Stato " + stato + " non presente con errore: " + e.getMessage());
+        }
+    }
+
+    public void verificaNotificaCreata() {
+        String notificationRequestId = "";
+        for (NetWorkInfo netWorkInfo : netWorkInfos) {
+            if (netWorkInfo.getRequestUrl().contains("/delivery/v2.3/requests") && netWorkInfo.getRequestMethod().equals("POST")) {
+                if (netWorkInfo.getResponseStatus().equals("202") && !netWorkInfo.getResponseBody().isEmpty()) {
+                    notificationRequestId = netWorkInfo.getResponseBody().split("\"notificationRequestId\":\"")[1].split("\"")[0];
+                    logger.info("NotificationRequestId: " + notificationRequestId);
+                    break;
+                }
+            }
+        }
+        if (!notificationRequestId.isEmpty()) {
+            String statusNotifica;
+            int maximumRetry = 0;
+            do {
+                if (maximumRetry > 4) {
+                    logger.error("Sono stati fatti 5 tentativi per verificare la creazione della notifica");
+                    Assert.fail("La notifica risulta ancora in stato WAITING dopo 5 tentativi");
+                }
+                RestNotification restNotification = new RestNotification();
+                statusNotifica = restNotification.getNotificationStatus(notificationRequestId);
+                WebTool.waitTime(90);
+                logger.info("Tentativo n. " + maximumRetry + " - Stato notifica: " + statusNotifica);
+                maximumRetry++;
+            } while (statusNotifica.equals("WAITING"));
+            driver.navigate().refresh();
+            logger.info("La notifica è stata creata correttamente");
+        } else {
+            logger.error("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
+            Assert.fail("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
         }
     }
 }
