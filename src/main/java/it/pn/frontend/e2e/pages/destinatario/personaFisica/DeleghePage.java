@@ -211,7 +211,7 @@ public class DeleghePage extends BasePage {
 
     public String vericaStatoDelega() {
         By statoDelegaBy = By.id("chip-status-success");
-        getWebDriverWait(30).withMessage("Non si trova nessuno stato delega").until(ExpectedConditions.visibilityOfElementLocated(statoDelegaBy));
+        getWebDriverWait(10).withMessage("Non si trova nessuno stato delega").until(ExpectedConditions.visibilityOfElementLocated(statoDelegaBy));
         WebElement statoDelega = this.element(statoDelegaBy);
         return statoDelega.getText();
     }
@@ -221,11 +221,14 @@ public class DeleghePage extends BasePage {
         try {
             By titoloModale = By.id("dialog-title");
             By sottotitoloModale = By.id("dialog-description");
-            By codiceVerifica = By.xpath("//div[@data-testid='codeInput(0)']");
+            int i = 4;
 
             getWebDriverWait(10).withMessage("Non si trova il titolo").until(ExpectedConditions.visibilityOfElementLocated(titoloModale));
             getWebDriverWait(10).withMessage("Non si trova il sottotitolo").until(ExpectedConditions.visibilityOfElementLocated(sottotitoloModale));
-            getWebDriverWait(10).withMessage("Non si trova codice verifica").until(ExpectedConditions.visibilityOfElementLocated(codiceVerifica));
+            while(i>=0){
+                getWebDriverWait(10).withMessage("Non si trova codice verifica").until(ExpectedConditions.visibilityOfElementLocated(By.id("code-input-"+i)));
+                i--;
+            }
         }catch (TimeoutException e ){
             logger.error("modale mostra codice non caricata con errore: " + e.getMessage());
             Assert.fail("modale mostra codice non caricata con errore: " + e.getMessage());
