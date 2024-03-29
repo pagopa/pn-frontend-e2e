@@ -112,19 +112,21 @@ public class DisserviziAppPAPage extends BasePage {
             for (WebElement status : statusList) {
                 if (status.getText().contains("In corso")) {
                     logger.info("Si visualizza un record in elenco relativo ad un disservizio ancora in corso");
-                    return;
+                    continue;
                 }
                 if (status.getText().contains("-")) {
                     logger.info("Si visualizza data di fine come: -");
+                    continue;
                 }
                 if (status.getText().contains("L'attestazione sarà disponibile al termine del disservizio")) {
                     logger.info("Si visualizza la frase corretta in 'Attestazioni opponibili a terzi'");
                     return;
                 }
             }
+        } else {
+            logger.error("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
+            Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
         }
-        logger.error("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
-        Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
     }
 
     public void checkDisserviziDisponibili() {
