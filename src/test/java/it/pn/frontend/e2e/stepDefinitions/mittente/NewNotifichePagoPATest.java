@@ -11,7 +11,7 @@ import it.pn.frontend.e2e.model.Recipient;
 import it.pn.frontend.e2e.model.enums.NotificationFeePolicyEnum;
 import it.pn.frontend.e2e.model.enums.PhysicalCommunicationTypeEnum;
 import it.pn.frontend.e2e.rest.RestNotification;
-import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -33,18 +33,18 @@ public class NewNotifichePagoPATest {
         recipients.add(new Recipient());
         ArrayList<Document> documents = new ArrayList<>();
         documents.add(new Document());
-        NewNotificationRequest notification = new NewNotificationRequest(DataPopulation.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
+        NewNotificationRequest notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
 
         while (attempt <= maxAttempts) {
             NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification);
 
             if (response != null) {
                 logger.info("Notifica creata con successo");
-                System.setProperty("IUN", DataPopulation.decodeNotificationRequestId(response.getNotificationRequestId()));
+                System.setProperty("IUN", WebTool.decodeNotificationRequestId(response.getNotificationRequestId()));
                 return;
             } else {
                 logger.warn("Tentativo #" + attempt + " di creazione della notifica fallito. Riprovo...");
-                notification.setPaProtocolNumber(DataPopulation.generatePaProtocolNumber());
+                notification.setPaProtocolNumber(WebTool.generatePaProtocolNumber());
                 attempt++;
             }
         }
@@ -89,7 +89,7 @@ public class NewNotifichePagoPATest {
 
     @Then("Attendo {int} minuti e verifico in background che la notifica sia stata creata correttamente")
     public void verificoCheLaNotificaSiaStataCreataCorrettamente(int minutes) {
-        DataPopulation.waitTime(minutes * 60);
+        WebTool.waitTime(minutes * 60);
         driver.navigate().refresh();
         /* TODO
         Need to implement the check of the notification
