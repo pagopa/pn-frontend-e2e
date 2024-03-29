@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RecapitiPGPage;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,7 +72,7 @@ public class RecapitiPGPagoPaTest {
     @Then("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti")
     public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapiti() {
         logger.info("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti");
-        DataPopulation.waitTime(10);
+        WebTool.waitTime(10);
         this.driver.navigate().refresh();
         recapitiDestinatarioPage.visualizzazioneCampiSezioneAltriRecapiti();
     }

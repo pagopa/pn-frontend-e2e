@@ -31,32 +31,31 @@ public class AccettazioneRichiestaNotifica {
 
     private String responseReasonPhrase;
 
-    private  int responseCode;
+    private int responseCode;
 
-    public boolean runGetRichiestaNotifica(){
-        try{
-
+    public boolean runGetRichiestaNotifica() {
+        try {
             CloseableHttpClient httpclient = HttpClients.createDefault();
             ClassicHttpRequest httpGet = ClassicRequestBuilder
                     .get(this.getRichiestaNotificaEndPoint())
-                    .addHeader(HttpHeaders.CONTENT_TYPE,"application/json")
-                    .addHeader("x-api-key",getxApikey())
-                    .addParameter("notificationRequestId",this.notificationRequestId)
+                    .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
+                    .addHeader("x-api-key", getxApikey())
+                    .addParameter("notificationRequestId", this.notificationRequestId)
                     .build();
             httpclient.execute(httpGet, response -> {
                 logger.info(response.getCode() + " " + response.getReasonPhrase());
                 setResponseReasonPhrase(response.getReasonPhrase());
-                if (response.getCode() == 200){
+                if (response.getCode() == 200) {
                     final HttpEntity entity = response.getEntity();
                     this.responseBody = EntityUtils.toString(entity);
                     return true;
-                }else {
+                } else {
                     this.responseCode = response.getCode();
                     return false;
                 }
 
             });
-        }catch (IOException e){
+        } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
         return this.responseBody != null;
@@ -106,8 +105,8 @@ public class AccettazioneRichiestaNotifica {
     public String getCodiceIUN() {
         String body = getresponseBody();
         List<String> results = Splitter.on(CharMatcher.anyOf(",:")).splitToList(body);
-        String result = results.get(results.size()-1);
-        return result.substring(1,result.length()-2);
+        String result = results.get(results.size() - 1);
+        return result.substring(1, result.length() - 2);
     }
 
     public String getResponseReasonPhrase() {

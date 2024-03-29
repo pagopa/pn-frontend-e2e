@@ -566,6 +566,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             if (columns.get(2).getText().contains("-") && columns.get(3).getText().contains("-")) {
                 logger.info("Si visualizzano il cellulare e la mail inseriti correttamente");
             }
+            break;
         }
     }
 
