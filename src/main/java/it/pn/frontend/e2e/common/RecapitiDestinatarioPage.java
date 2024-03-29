@@ -125,16 +125,16 @@ public class RecapitiDestinatarioPage extends BasePage {
             List<WebElement> inputBoxes = driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"));
             // The message is different in PG and PF
             By footerNotReceived = By.xpath("//p[contains(text(), 'Non l’hai ricevuto? Controlla')]");
-            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(titleBy));
-            this.getWebDriverWait(10).until(ExpectedConditions.and(
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(titleBy));
+            getWebDriverWait(10).until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(descriptionBy),
                     ExpectedConditions.attributeContains(descriptionBy, "textContent", "Il codice è valido per 15 minuti.")));
-            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(titleOption));
-            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(inputBoxes));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(titleOption));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(inputBoxes));
             if (inputBoxes.size() != 5) {
                 Assert.fail("Il numero di input box non è corretto");
             }
-            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(footerNotReceived));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(footerNotReceived));
             boolean checkButton = !confermaButtonPopUp.isEnabled() && annullaButton.isEnabled();
             if (!checkButton) {
                 Assert.fail("i pulsanti all'interno del pop-up non rispettano le condizioni");
@@ -350,10 +350,10 @@ public class RecapitiDestinatarioPage extends BasePage {
     public String waitLoadPopUpElimina() {
         By titlePopUp = By.id("dialog-title");
         By subTitlePopUp = By.id("dialog-description");
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOf(buttonAnnullaEliminazioneInPopUp));
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOf(buttonConfermaEliminazioneInPopUp));
+        getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
+        getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
+        getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOf(buttonAnnullaEliminazioneInPopUp));
+        getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOf(buttonConfermaEliminazioneInPopUp));
 
 
         return this.element(titlePopUp).getText();
@@ -476,7 +476,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void confermaButtonEliminaClick() {
         By confermaEliminaButtonBy = By.xpath("//div[@aria-labelledby='dialog-title']//button[contains(text(),'Conferma')]");
-        this.getWebDriverWait(40).withMessage("Il bottone conferma del pop-up elimina non cliccabile").until(ExpectedConditions.elementToBeClickable(confermaEliminaButtonBy));
+        this.getWebDriverWait(10).withMessage("Il bottone conferma del pop-up elimina non cliccabile").until(ExpectedConditions.elementToBeClickable(confermaEliminaButtonBy));
         this.element(confermaEliminaButtonBy).click();
     }
 
@@ -513,7 +513,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void confermaEmailPopup() {
         By popupConfirmaButtonBy = By.xpath("//button[@data-testid='disclaimer-confirm-button']");
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(popupConfirmaButtonBy));
+        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(popupConfirmaButtonBy));
         this.driver.findElement(popupConfirmaButtonBy).click();
     }
 
@@ -559,7 +559,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickButtonAnnullaEliminazioneInPopUp() {
-        this.getWebDriverWait(10).withMessage("Non è stato possibile cliccare sul bottone annulla").until(ExpectedConditions.elementToBeClickable(buttonAnnullaEliminazioneInPopUp));
+        getWebDriverWait(10).withMessage("Non è stato possibile cliccare sul bottone annulla").until(ExpectedConditions.elementToBeClickable(buttonAnnullaEliminazioneInPopUp));
         buttonAnnullaEliminazioneInPopUp.click();
     }
 
@@ -616,5 +616,17 @@ public class RecapitiDestinatarioPage extends BasePage {
         By bottoneActionBy = By.xpath("//form[contains(., 'Numero di cellulare')]//button[contains(text(), '" + CTA + "')]");
         getWebDriverWait(10).withMessage("Il bottone non è cliccabile").until(ExpectedConditions.visibilityOfElementLocated(bottoneActionBy));
         this.element(bottoneActionBy).click();
+    }
+
+    public void checkNumeroDiCellulareNonPresente(){
+        try {
+            getWebDriverWait(10).withMessage("Input numero di cellulare non visualizzato o non vuoto").until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOf(inserimentoPhoneField),
+                    ExpectedConditions.attributeToBe(inserimentoPhoneField, "value", "")
+            ));
+        }catch(TimeoutException e){
+            logger.error("Input numero di cellulare non visualizzato o non vuoto con errore: " + e.getMessage());
+            Assert.fail("Input numero di cellulare non visualizzato o non vuoto con errore: " + e.getMessage());
+        }
     }
 }

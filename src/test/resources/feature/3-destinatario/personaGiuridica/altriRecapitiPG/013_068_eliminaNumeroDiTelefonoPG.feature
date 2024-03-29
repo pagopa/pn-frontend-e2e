@@ -1,4 +1,4 @@
-Feature:
+Feature: La persona giuridica elimina il numero di cellulare di cortesia
 
   @TestSuite
   @TA_eliminaNumeroDiTelefonoPG
@@ -11,13 +11,13 @@ Feature:
     And Si visualizza correttamente la pagina Recapiti persona giuridica
     And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono "3334545899" e si clicca sul bottone avvisami via SMS
     And Si visualizza correttamente il pop-up e si clicca su conferma
-    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
 
+    #In questo step viene fatta una chiamata per OTP delle mail, da cambiare quando avremo la chiamata per il cellulare
+    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
 
     # manca la chiamata per prendere l'OTP per inserimento del cellulare
     #And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
     #And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
-
 
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il numero di cellulare "3334545899"
     And Nella pagina I Tuoi Recapiti si preme sul bottone "Elimina" del numero di cellulare di cortesia
@@ -25,3 +25,5 @@ Feature:
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il numero di cellulare "3334545899"
     And Nella pagina I Tuoi Recapiti si preme sul bottone "Elimina" del numero di cellulare di cortesia
     And Si conferma "Rimuovi cellulare" nel pop up
+    Then Nella pagina I Tuoi Recapiti si controlla che il numero di cellulare non sia presente
+    And Logout da portale persona giuridica
