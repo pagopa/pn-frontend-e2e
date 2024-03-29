@@ -6,7 +6,7 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DisserviziAppPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
-import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -61,7 +61,7 @@ public class DisserviziAppPGTest {
         backgroundTest.getStatoDellaPiattaformaPage();
         boolean res = false;
         for (int i = 0; i < 2; i++) {
-            DataPopulation.waitTime(15);
+            WebTool.waitTime(15);
             disserviziAppPage.aggionamentoPagina();
             if (disserviziAppPage.checkDisservizioInCorso()) {
                 res = true;
