@@ -545,8 +545,8 @@ public class RecapitiPersonaFisicaTest {
         }
     }
 
-    @And("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo Email non stata eleminata")
-    public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoEmailNonStataEleminata() {
+    @And("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo Email non è stata eleminata")
+    public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoEmailNonEStataEleminata() {
         logger.info("Si controlla che l'indirizzo Email non stata eleminata");
         if (recapitiDestinatarioPage.verificaMailAssociata()) {
             logger.info("L'email non è stata eliminata");
