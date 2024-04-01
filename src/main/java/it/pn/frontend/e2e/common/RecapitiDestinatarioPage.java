@@ -274,6 +274,10 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
+    public boolean verificaMailField() {
+        return inserimentoMailField.isDisplayed();
+    }
+
     public boolean siVisualizzaPecInserita() {
         try {
             By pecInseritaBy = By.xpath("//p[contains(text(),'PEC associata')]");
