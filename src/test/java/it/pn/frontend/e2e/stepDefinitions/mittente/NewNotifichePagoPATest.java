@@ -61,18 +61,18 @@ public class NewNotifichePagoPATest {
         recipients.add(new Recipient("Le Epistolae srl", RecipientTypeEnum.PG,"80016350821",new PhysicalAddress(),new DigitalDomicile()));
         ArrayList<Document> documents = new ArrayList<>();
         documents.add(new Document());
-        NewNotificationRequest notification = new NewNotificationRequest(DataPopulation.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
+        NewNotificationRequest notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
 
         while (attempt <= maxAttempts) {
             NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification);
 
             if (response != null) {
                 logger.info("Notifica creata con successo");
-                System.setProperty("IUN", DataPopulation.decodeNotificationRequestId(response.getNotificationRequestId()));
+                System.setProperty("IUN", WebTool.decodeNotificationRequestId(response.getNotificationRequestId()));
                 return;
             } else {
                 logger.warn("Tentativo #" + attempt + " di creazione della notifica fallito. Riprovo...");
-                notification.setPaProtocolNumber(DataPopulation.generatePaProtocolNumber());
+                notification.setPaProtocolNumber(WebTool.generatePaProtocolNumber());
                 attempt++;
             }
         }
