@@ -113,4 +113,10 @@ public class RecapitiPGPagoPaTest {
     public void siControllaPresenzaEmailPrecedentementeSalvata(String email) {
         recapitiDestinatarioPage.checkEmailPrecedentementeSalvata(email);
     }
+
+    @And("Nella pagina I Tuoi Recapiti si visualizza il pop up di disclaimer")
+    public void nellaPaginaITuoiRecapitiSiVisualizzaIlPopUpDiDisclaimer() {
+        logger.info("Si controlla il disclaimer per il cambio dell'email di cortesia");
+        recapitiDestinatarioPage.checkDisclaimer();
+    }
 }
