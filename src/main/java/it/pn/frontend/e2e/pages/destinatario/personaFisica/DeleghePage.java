@@ -220,13 +220,30 @@ public class DeleghePage extends BasePage {
     }
 
     public String vericaStatoDelega() {
-        By statoDelegaBy = By.xpath("//div[@id='chip-status-success']/span");
+        By statoDelegaBy = By.id("chip-status-success");
         getWebDriverWait(10).withMessage("Non si trova nessuno stato delega").until(ExpectedConditions.visibilityOfElementLocated(statoDelegaBy));
         WebElement statoDelega = this.element(statoDelegaBy);
         return statoDelega.getText();
     }
 
 
+    public void checkModaleMostraCodice() {
+        try {
+            By titoloModale = By.id("dialog-title");
+            By sottotitoloModale = By.id("dialog-description");
+            int i = 4;
+
+            getWebDriverWait(10).withMessage("Non si trova il titolo").until(ExpectedConditions.visibilityOfElementLocated(titoloModale));
+            getWebDriverWait(10).withMessage("Non si trova il sottotitolo").until(ExpectedConditions.visibilityOfElementLocated(sottotitoloModale));
+            while(i>=0){
+                getWebDriverWait(10).withMessage("Non si trova codice verifica").until(ExpectedConditions.visibilityOfElementLocated(By.id("code-input-"+i)));
+                i--;
+            }
+        }catch (TimeoutException e ){
+            logger.error("modale mostra codice non caricata con errore: " + e.getMessage());
+            Assert.fail("modale mostra codice non caricata con errore: " + e.getMessage());
+        }
+    }
     public void clickAnnullaRevoca(){
         getWebDriverWait(10).withMessage("bottone annulla delega non trovato").until(ExpectedConditions.visibilityOf(annullaButton));
         logger.info("click sul pulsante annulla revoca");
