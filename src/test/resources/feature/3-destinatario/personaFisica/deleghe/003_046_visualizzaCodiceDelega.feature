@@ -12,7 +12,9 @@ Feature:La persona fisica visualizza il codice  di una delega
     And Nella sezione Deleghe si verifica sia presente una delega
       | nome    | Lucrezia |
       | cognome | Borgia   |
-    And Nella sezione Deleghe si clicca sul menu della delega "nuova_delega"
+    And Nella sezione Deleghe si clicca sul menu della delega
+      | nome    | Lucrezia |
+      | cognome | Borgia   |
     And Nella sezione Deleghe si sceglie l'opzione mostra codice
     Then Si clicca sul bottone chiudi
     And Logout da portale persona fisica

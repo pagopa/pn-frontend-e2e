@@ -10,6 +10,7 @@ import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -296,7 +297,7 @@ public class RecapitiPersonaFisicaTest {
     @Then("Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente() {
         logger.info("Si controlla che la pec sia stata inserita correttamente");
-        DataPopulation.waitTime(10);
+        WebTool.waitTime(10);
         driver.navigate().refresh();
         if (recapitiDestinatarioPage.siVisualizzaPopUpConferma()) {
             logger.info("Si clicca su conferma nel pop-up");
@@ -503,7 +504,7 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("Nella pagina I Tuoi Recapiti si clicca sul bottone elimina email e si conferma nel pop up")
-    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneElimina() {
+    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneEliminaEmailESiConfermaNelPopUp() {
         logger.info("Si clicca sul bottone elimina email");
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
 
@@ -518,12 +519,41 @@ public class RecapitiPersonaFisicaTest {
         }
     }
 
+    @And("Nella pagina I Tuoi Recapiti si clicca sul bottone elimina email e si annulla nel pop up")
+    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneEliminaEmailESiAnnullaNelPopUp() {
+        logger.info("Si clicca sul bottone elimina email");
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+
+        iTuoiRecapitiPage.eliminaEmailEsistente();
+        if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
+            recapitiDestinatarioPage.clickButtonAnnullaEliminazioneInPopUp();
+        } else {
+            recapitiDestinatarioPage.clickSuChiudiPopUp();
+            recapitiDestinatarioPage.eliminaNuovaPec();
+            recapitiDestinatarioPage.waitLoadPopUpElimina();
+            recapitiDestinatarioPage.clickButtonAnnullaEliminazioneInPopUp();
+        }
+    }
+
     @Then("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo Email non sia presente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoEmailNonSiaPresente() {
         logger.info("Si controlla che l'indirizzo Email non sia presente");
-        if (!recapitiDestinatarioPage.verificaMailAssociata()) {
-            logger.error("Email non è stata eliminata correttamente");
-            Assert.fail("Email non è stata eliminata correttamente");
+        if (recapitiDestinatarioPage.verificaMailField()) {
+            logger.info("Email è stata eliminata correttamente");
+        }else {
+            logger.error("Email non è stata eliminata");
+            Assert.fail("Email non è stata eliminata");
+        }
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo Email non è stata eleminata")
+    public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoEmailNonEStataEleminata() {
+        logger.info("Si controlla che l'indirizzo Email non stata eleminata");
+        if (recapitiDestinatarioPage.verificaMailAssociata()) {
+            logger.info("L'email non è stata eliminata");
+        } else {
+            logger.error("L'email è stata eliminata");
+            Assert.fail("L'email è stata eliminata");
         }
     }
 
@@ -582,7 +612,7 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.clickConfermaButton();
             recapitiDestinatarioPage.visualizzaValidazione();
         } else {
-            DataPopulation.waitTime(5);
+            WebTool.waitTime(5);
             driver.navigate().refresh();
             if (recapitiDestinatarioPage.siControllaPECModificata(pec)) {
                 logger.info("La PEC è stata modificata");
@@ -602,7 +632,7 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request {string}")
-    public void     nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaPECTramiteChiamataRequest(String dpFile) {
+    public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaPECTramiteChiamataRequest(String dpFile) {
         logger.info("Si recupera il codice OTP della nuova pec");
 
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
@@ -686,17 +716,44 @@ public class RecapitiPersonaFisicaTest {
         }
     }
 
+
+    @And("Nel pop up elimina indirizzo pec si clicca sul bottone annulla")
+    public void nelPopUpEliminaIndirizzoPecSiCliccaSulBottoneAnnulla() {
+        logger.info("Si clicca sul bottone annnulla");
+        if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi PEC")) {
+            recapitiDestinatarioPage.clickButtonAnnullaEliminazioneInPopUp();
+        } else {
+            recapitiDestinatarioPage.clickSuChiudiPopUp();
+            recapitiDestinatarioPage.eliminaNuovaPec();
+            recapitiDestinatarioPage.eliminaPecEsistente();
+        }
+    }
+
     @Then("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo pec non sia presente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoPecNonSiaPresente() {
         logger.info("Si controlla che la PEC sia stata eliminata");
 
-        if (recapitiDestinatarioPage.siControllaNonPresenzaPEC()) {
+        if (recapitiDestinatarioPage.siControllaEliminazionePEC()) {
             logger.info("La PEC è stata eliminata correttamente");
         } else {
             logger.error("La PEC non è stata eliminata");
             Assert.fail("La PEC non è stata eliminata");
         }
     }
+
+    @Then("Nella pagina I Tuoi Recapiti si controlla che l'indirizzo pec presente")
+    public void nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoPecPresente() {
+        logger.info("Si controlla che la PEC non stata eliminata");
+
+        if (recapitiDestinatarioPage.siControllaPresenzaPEC()) {
+            logger.info("La PEC non è stata eliminata");
+        } else {
+            logger.error("La PEC è stata eliminata");
+            Assert.fail("La PEC è stata eliminata");
+        }
+    }
+
+
 
     @And("Nella sezione altri recapiti si seleziona l'ente {string}")
     public void nellaSezioneAltriRecapitiSiSelezionaLEnte(String dpFile) {
@@ -742,7 +799,7 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.waitLoadPage();
         }
         String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("additionalEmail").toString();
-        DataPopulation.waitTime(10);
+        WebTool.waitTime(10);
         driver.navigate().refresh();
         if (!recapitiDestinatarioPage.verificaNuovaEmailEPEC(pec)) {
             logger.error("La email PEC non è stata associata correttamente");
@@ -843,7 +900,7 @@ public class RecapitiPersonaFisicaTest {
     @Then("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti")
     public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapiti() {
         logger.info("Si controlla che si visualizzano correttamente tutti gli elementi della sezione recapiti gia associati");
-        DataPopulation.waitTime(20);
+        WebTool.waitTime(20);
         this.driver.navigate().refresh();
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.waitLoadRecapitiGiaAssociatoSection();

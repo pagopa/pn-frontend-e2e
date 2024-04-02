@@ -162,8 +162,8 @@ public class CustomHttpClient<RequestType, ResponseType> {
         }
     }
 
-    public ResponseType sendHttpGetRequest(String apiUrl, Map<String, String> headers, Class<ResponseType> responseType) throws IOException {
-
+    public ResponseType sendHttpGetRequest(String endpoint, Map<String, String> headers, Class<ResponseType> responseType) throws IOException {
+        String apiUrl = baseUrlApi + endpoint;
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             this.httpRequest = ClassicRequestBuilder
                     .get(apiUrl)
