@@ -1,4 +1,4 @@
-Feature:Il delegato persona giuridica rifiuta la delega
+Feature:Il delegato persona giuridica accede ad una delega
 
   @TestSuite
   @TA_PGdelegatoAccedeNotifica
