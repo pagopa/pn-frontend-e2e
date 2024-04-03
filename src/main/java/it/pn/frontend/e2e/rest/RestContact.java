@@ -96,8 +96,7 @@ public class RestContact {
 
     public DigitalAddressResponse getDigitalAddress() throws RestContactException {
         CustomHttpClient<?, DigitalAddressResponse> httpClientDigitalAddress = CustomHttpClient.getInstance();
-        httpClientDigitalAddress.setBaseUrlApi("https://webapi." + env + ".notifichedigitali.it");
-        String url = "/address-book/v1/digital-address";
+        String url = "https://webapi." + env + ".notifichedigitali.it/address-book/v1/digital-address";
         try {
             DigitalAddressResponse response = httpClientDigitalAddress.sendHttpGetRequest(url, this.headers, DigitalAddressResponse.class);
             logger.info("Risposta ricevuta: " + response);

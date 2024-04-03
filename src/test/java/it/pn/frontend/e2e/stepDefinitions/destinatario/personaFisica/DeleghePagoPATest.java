@@ -490,4 +490,9 @@ public class DeleghePagoPATest {
         logger.info("Si visualizza la sezione Le Tue Deleghe");
         leTueDelegheSection.waitNuovaDelegaSection();
     }
+
+    @And("Si visualizza correttamente la modale mostra codice")
+    public void siVisualizzaCorrettamenteLaModaleMostraCodice() {
+        deleghePage.checkModaleMostraCodice();
+    }
 }

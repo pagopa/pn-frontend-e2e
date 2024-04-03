@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Time;
 import java.util.List;
 
 public class RecapitiDestinatarioPage extends BasePage {
@@ -54,7 +53,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "s_pec")
     WebElement indirizzoPecField;
 
-    @FindBy(xpath = "//button[@data-testid = 'addSpecialButton']")
+    @FindBy(id = "addSpecialButton")
     WebElement associaButton;
 
     @FindBy(id = "s_mail")
@@ -74,9 +73,6 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     @FindBy(id = "courtesyContacts-phone")
     WebElement cellulareAssociato;
-
-    @FindBy(id = "//span[contains(text(),'Ho capito')]/preceding-sibling::span/input")
-    WebElement hoCapitoCheckBox;
 
     @FindBy(id = "legalContacts")
     WebElement pecEmail;
@@ -103,17 +99,17 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void clickSuChiudiPopUp() {
         By chiudiButtonBy = By.xpath("//button[contains(text(),'Chiudi')]");
-        this.getWebDriverWait(10).withMessage("Il bottone chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudiButtonBy));
+        getWebDriverWait(10).withMessage("Il bottone chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudiButtonBy));
         this.js().executeScript("arguments[0].click()", this.element(chiudiButtonBy));
     }
 
     public void insertEmailPEC(String emailPEC) {
-        this.getWebDriverWait(10).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOf(pecField));
+        getWebDriverWait(10).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOf(pecField));
         pecField.sendKeys(emailPEC);
     }
 
     public void confermaButtonClick() {
-        this.getWebDriverWait(10).withMessage("Il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
+        getWebDriverWait(10).withMessage("Il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
         this.confermaButton.click();
     }
 
@@ -186,7 +182,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public boolean waitMessaggioErrore() {
         try {
             By messaggioErroreBy = By.id("error-alert");
-            this.getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(messaggioErroreBy));
+            getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(messaggioErroreBy));
             logger.info("Il messaggio di errore viene visualizzato correttamente");
             return true;
         } catch (TimeoutException e) {
@@ -240,7 +236,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean verificaPecAssociata() {
         try {
-            By pecAssociata = By.xpath("//p[contains(text(), 'PEC associata')]");
+            By pecAssociata = By.id("associatedPEC");
             getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(pecAssociata));
             return true;
         } catch (TimeoutException e) {
@@ -261,7 +257,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickConfermaButton() {
-        this.getWebDriverWait(30).withMessage("Il bottone conferma del pop up non é cliccabile").until(ExpectedConditions.elementToBeClickable(confermaButtonPoPUpPec));
+        getWebDriverWait(10).withMessage("Il bottone conferma del pop up non é cliccabile").until(ExpectedConditions.elementToBeClickable(confermaButtonPoPUpPec));
         this.confermaButtonPoPUpPec.click();
     }
 
@@ -277,11 +273,15 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean verificaMailAssociata() {
         try {
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(emailAssociata));
+            getWebDriverWait(5).withMessage("L'email di cortesia non è presente").until(ExpectedConditions.visibilityOf(emailAssociata));
             return true;
         } catch (TimeoutException e) {
             return false;
         }
+    }
+
+    public boolean verificaMailField() {
+        return inserimentoMailField.isDisplayed();
     }
 
     public boolean siVisualizzaPecInserita() {
@@ -319,7 +319,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-
     public void cancellaTesto() {
         try {
             this.js().executeScript("arguments[0].click()", pecField);
@@ -331,7 +330,6 @@ public class RecapitiDestinatarioPage extends BasePage {
             Assert.fail("Non si riesce a cancellare il testo della  email PEC :" + e.getMessage());
         }
     }
-
 
     public void clickSuSalva() {
         By salvaButtonBy = By.xpath("//button[contains(text(),'Salva')]");
@@ -348,7 +346,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
 
     public void clickSuEliminaPec() {
-        this.getWebDriverWait(30).withMessage("Non si è riuscito ad cliccare sul bottone elimina PEC").until(ExpectedConditions.elementToBeClickable(eliminaPECButton));
+        getWebDriverWait(10).withMessage("Non si è riuscito ad cliccare sul bottone elimina PEC").until(ExpectedConditions.elementToBeClickable(eliminaPECButton));
         logger.info("click sul pulsante elimina pec");
         this.eliminaPECButton.click();
     }
@@ -356,30 +354,26 @@ public class RecapitiDestinatarioPage extends BasePage {
     public String waitLoadPopUpElimina() {
         By titlePopUp = By.id("dialog-title");
         By subTitlePopUp = By.id("dialog-description");
-        getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
-        getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
-        getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOf(buttonAnnullaEliminazioneInPopUp));
-        getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOf(buttonConfermaEliminazioneInPopUp));
-
-
+        By confermaEliminaButtonBy = By.xpath("//div[@aria-labelledby='dialog-title']//button[contains(text(),'Conferma')]");
+        this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
+        this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
+        this.getWebDriverWait(10).withMessage("Non è stato caricato il bottone annulla del modal").until(ExpectedConditions.visibilityOf(buttonAnnullaEliminazioneInPopUp));
+        this.getWebDriverWait(10).withMessage("Non è stato caricato il bottone conferma del modal").until(ExpectedConditions.visibilityOfElementLocated(confermaEliminaButtonBy));
         return this.element(titlePopUp).getText();
     }
 
     public void clickSuConfermaElimina() {
-        By confermaRimuoviPECBy = By.xpath("//button[contains(text(),'Annulla')]/following-sibling::button");
-        this.getWebDriverWait(30).withMessage("Non è stato possibile cliccare sul bottone conferma").until(ExpectedConditions.elementToBeClickable(confermaRimuoviPECBy));
+        By confermaRimuoviPECBy = By.id("buttonConferma");
+        getWebDriverWait(10).withMessage("Non è stato possibile cliccare sul bottone conferma").until(ExpectedConditions.elementToBeClickable(confermaRimuoviPECBy));
         this.element(confermaRimuoviPECBy).click();
     }
 
+    public boolean siControllaEliminazionePEC() {
+        return pecField.isDisplayed();
+    }
+
     public boolean siControllaPresenzaPEC() {
-        try {
-            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOf(pecEmail));
-            logger.info("pec presente");
-            return true;
-        } catch (TimeoutException e) {
-            logger.error("pec non presente con errore" + e.getMessage());
-            return false;
-        }
+        return pecEmail.isDisplayed();
     }
 
     public void insertEnte(String comune) {
@@ -393,13 +387,13 @@ public class RecapitiDestinatarioPage extends BasePage {
         this.enteField.sendKeys(Keys.ARROW_DOWN);
         this.enteField.sendKeys(Keys.ENTER);
         // verify if the first option is the one we want by checking the value
-        this.getWebDriverWait(10).withMessage("Il comune non è visibile").until(ExpectedConditions.attributeContains(this.enteField, "value", comune));
+        getWebDriverWait(10).withMessage("Il comune non è visibile").until(ExpectedConditions.attributeContains(this.enteField, "value", comune));
     }
 
     public void clickSuIndirizzoPEC() {
         this.tipoIndirizzoField.click();
         By opzionePEC = By.xpath("//li[@data-value ='PEC']");
-        this.getWebDriverWait(30).withMessage("Non è visibile l'opzione 'Indirizzo PEC'").until(ExpectedConditions.elementToBeClickable(opzionePEC));
+        getWebDriverWait(30).withMessage("Non è visibile l'opzione 'Indirizzo PEC'").until(ExpectedConditions.elementToBeClickable(opzionePEC));
         this.element(opzionePEC).click();
     }
 
@@ -417,7 +411,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickSuAssocia() {
-        this.getWebDriverWait(30).withMessage("Il bottone associa non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.associaButton));
+        getWebDriverWait(10).withMessage("Il bottone associa non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.associaButton));
         this.js().executeScript("arguments[0].click()", associaButton);
     }
 
@@ -473,10 +467,10 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void eliminaNuovaPec() {
-        this.getWebDriverWait(30).withMessage("Non è stato possibile cliccare sul bottone elimina email").until(ExpectedConditions.elementToBeClickable(this.eliminaButtonList.get(0)));
+        getWebDriverWait(30).withMessage("Non è stato possibile cliccare sul bottone elimina email").until(ExpectedConditions.elementToBeClickable(this.eliminaButtonList.get(0)));
         this.js().executeScript("arguments[0].click()", this.eliminaButtonList.get(0));
         By confermaPopUpBy = By.xpath("//div[@aria-labelledby='dialog-title']//div/button[contains(text(),'Conferma')]");
-        this.getWebDriverWait(30).withMessage("Il bottone del pop-up non  è cliccabile").until(ExpectedConditions.elementToBeClickable(confermaPopUpBy));
+        getWebDriverWait(30).withMessage("Il bottone del pop-up non  è cliccabile").until(ExpectedConditions.elementToBeClickable(confermaPopUpBy));
         this.element(confermaPopUpBy).click();
     }
 
@@ -511,7 +505,8 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickHoCapitoCheckBoxPopup() {
-        getWebDriverWait(10).withMessage("Checkbox 'ho capito' non visualizzata").until(ExpectedConditions.visibilityOf(hoCapitoCheckBox));
+        By hoCapitoCheckboxBy = By.xpath("//span[contains(text(),'Ho capito')]/preceding-sibling::span/input");
+        WebElement hoCapitoCheckBox = this.driver.findElement(hoCapitoCheckboxBy);
         logger.info("click su checkbox ho capito");
         hoCapitoCheckBox.click();
     }
@@ -550,7 +545,32 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void visualizzazioneSezioneAltriRecapitiPG() {
         vaiInFondoAllaPagina();
         By altriRecapitiSectionBy = By.id("specialContactTitle");
-        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
+        By titleGiaAssociatiBy = By.xpath("//p[contains(text(), 'Già associati')]");
+        WebElement tableGiaAssociati = driver.findElement(By.xpath("//table[@aria-label='Già associati']"));
+        getWebDriverWait(10).withMessage("Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
+        getWebDriverWait(10).withMessage("Non si visualizza il titolo della tabella").until(ExpectedConditions.visibilityOfElementLocated(titleGiaAssociatiBy));
+        getWebDriverWait(10).withMessage("Non si visualizza la tabella dei recapiti già associati").until(ExpectedConditions.visibilityOf(tableGiaAssociati));
+        List<WebElement> tableRows = tableGiaAssociati.findElements(By.xpath(".//tbody/tr"));
+        for (WebElement row : tableRows) {
+            List<WebElement> columns = row.findElements(By.xpath(".//td"));
+            if (columns.get(0).getText().contains("Comune di Verona")) {
+                logger.info("Si visualizza l'ente inserito correttamente");
+            }
+            if (columns.get(1).getText().contains("pec@pec.pagopa.it")) {
+                By modifyButtonBy = By.xpath(".//button[contains(@id, 'modifyContact')]");
+                By deleteButtonBy = By.xpath(".//button[contains(@id, 'cancelContact')]");
+                getWebDriverWait(10).withMessage("Bottone modifica non visualizzato e non cliccabile").until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOfElementLocated(modifyButtonBy),
+                        ExpectedConditions.elementToBeClickable(modifyButtonBy)));
+                getWebDriverWait(10).withMessage("Bottone elimina non visualizzato e non cliccabile").until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOfElementLocated(deleteButtonBy),
+                        ExpectedConditions.elementToBeClickable(deleteButtonBy)));
+                logger.info("Si visualizza l'indirizzo pec inserito correttamente");
+            }
+            if (columns.get(2).getText().contains("-") && columns.get(3).getText().contains("-")) {
+                logger.info("Si visualizzano il cellulare e la mail inseriti correttamente");
+            }
+        }
     }
 
     public void checkButtonAnnullaEliminazioneInPopUp() {
@@ -591,10 +611,9 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void verificaPecNonModificabile() {
         try {
-            By textFieldPec = By.id("legalContacts");
             getWebDriverWait(10).until(ExpectedConditions.and(
                     ExpectedConditions.invisibilityOf(pecField),
-                    ExpectedConditions.visibilityOfElementLocated(textFieldPec)));
+                    ExpectedConditions.visibilityOf(pecEmail)));
             logger.info("pec non modificabile");
         } catch (TimeoutException e) {
             logger.error("pec modificabile con errore:" + e.getMessage());
@@ -608,6 +627,12 @@ public class RecapitiDestinatarioPage extends BasePage {
                 ExpectedConditions.visibilityOfElementLocated(annullaButtonBy),
                 ExpectedConditions.elementToBeClickable(annullaButtonBy)));
         this.element(annullaButtonBy).click();
+    }
+
+    public void clickConfermaRecapitoGiaPresente() {
+        By confermaButton = By.xpath("//div[@data-testid='dialog-actions']//button[contains(text(), 'Conferma')]");
+        getWebDriverWait(10).withMessage("Bottone conferma non visualizzato").until(ExpectedConditions.and(ExpectedConditions.visibilityOfElementLocated(confermaButton), ExpectedConditions.elementToBeClickable(confermaButton)));
+        this.element(confermaButton).click();
     }
 
     public void checkNumeroDiCellulareCorretto(String cellulare) {
@@ -650,16 +675,17 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void checkDisclaimer(){
+        By hoCapitoCheckboxBy = By.xpath("//span[contains(text(),'Ho capito')]/preceding-sibling::span/input");
         By textDisclaimerBy = By.xpath("//div[contains(text(), 'Se l’impresa non ha una PEC')]");
         By annullaButtonBy = By.id("cancelButton");
-        By confermaButton = By.id("confirmButton");
+        By confermaButtonBy = By.id("confirmButton");
         try {
             getWebDriverWait(10).withMessage("Testo del disclaimer non visualizzato").until(ExpectedConditions.visibilityOfElementLocated(textDisclaimerBy));
-            getWebDriverWait(10).withMessage("Checkbox 'ho capito' non visualizzata").until(ExpectedConditions.visibilityOf(hoCapitoCheckBox));
+            getWebDriverWait(10).withMessage("Checkbox 'Ho capito' non visualizzata").until(ExpectedConditions.visibilityOfElementLocated(hoCapitoCheckboxBy));
             getWebDriverWait(10).withMessage("Bottone annulla non visualizzato").until(ExpectedConditions.visibilityOfElementLocated(annullaButtonBy));
             getWebDriverWait(10).withMessage("Bottone conferma non visualizzato o cliccabile").until(ExpectedConditions.and(
-                    ExpectedConditions.visibilityOfElementLocated(confermaButton),
-                    ExpectedConditions.attributeToBe(confermaButton, "disabled", "true")));
+                    ExpectedConditions.visibilityOfElementLocated(confermaButtonBy),
+                    ExpectedConditions.attributeToBe(confermaButtonBy, "disabled", "true")));
         } catch (TimeoutException e){
             logger.error("Qualche componente del pop up non viene visualizzato con errore: " + e.getMessage());
             Assert.fail("Qualche componente del pop up non viene visualizzato con errore: " + e.getMessage());

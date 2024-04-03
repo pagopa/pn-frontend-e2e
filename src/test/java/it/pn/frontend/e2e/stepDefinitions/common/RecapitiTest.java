@@ -6,6 +6,7 @@ import it.pn.frontend.e2e.api.personaFisica.RecuperoOTPRecapiti;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
+import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -17,7 +18,7 @@ import java.util.Map;
 public class RecapitiTest {
 
     private final WebDriver driver = Hooks.driver;
-    private final BackgroundTest backgroundTest = new BackgroundTest();
+    public static String OTP;
     private final Logger logger = LoggerFactory.getLogger("RecapitiTest");
     private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
     private final ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
@@ -59,13 +60,14 @@ public class RecapitiTest {
         recapitiDestinatarioPage.checkNumeroDiCellulareNonPresente();
     }
 
-    @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email e si inserisce {string}")
-    public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaEmail(String email) {
+    @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email o si inserisce {string}")
+    public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaEmailOSiInserisce(String email) {
         logger.info("Si controlla che che ci sia già una Email e se ne inserisce una");
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        BackgroundTest backgroundTest = new BackgroundTest();
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
         if (!recapitiDestinatarioPage.verificaMailAssociata()) {
-            backgroundTest.aggiuntaEmailPF();
+            backgroundTest.aggiuntaEmailDiCortesia(email);
         } else if (recapitiDestinatarioPage.controlloEmailAssociata(email)) {
             iTuoiRecapitiPage.eliminaEmailEsistente();
             if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
@@ -77,7 +79,7 @@ public class RecapitiTest {
                 recapitiDestinatarioPage.waitLoadPopUpElimina();
                 recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
             }
-            backgroundTest.aggiuntaEmailPF();
+            backgroundTest.aggiuntaEmailDiCortesia(email);
         }
         WebTool.waitTime(10);
     }
@@ -125,46 +127,26 @@ public class RecapitiTest {
         recapitiDestinatarioPage.confermaEmailPopup();
     }
 
-    @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request dell'email {string} e viene inserito")
-    public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequestDellEmailEVieneInserito(String email) {
-
-        RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-
-        String startUrl = "http://localhost:8887/";
-        String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + email;
-        boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
-        if (results) {
-            String OTP = recuperoOTPRecapiti.getResponseBody();
-            iTuoiRecapitiPage.sendOTP(OTP);
-            recapitiDestinatarioPage.confermaButtonClickPopUp();
-            if (recapitiDestinatarioPage.waitMessaggioErrore()) {
-                logger.error("Il codice OTP inserito è sbagliato");
-                Assert.fail("Il codice OTP inserito è sbagliato");
-            }
-        } else {
-            String variabileAmbiente = System.getProperty("environment");
-            if (variabileAmbiente.equalsIgnoreCase("test")) {
-                startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
-            } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
-                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
-            }
-            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + email;
-            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
-            if (results) {
-                String OTP = recuperoOTPRecapiti.getResponseBody();
-                iTuoiRecapitiPage.sendOTP(OTP);
-                recapitiDestinatarioPage.confermaButtonClickPopUp();
-                if (recapitiDestinatarioPage.waitMessaggioErrore()) {
-                    logger.error("Il codice OTP inserito è sbagliato");
-                    Assert.fail("Il codice OTP inserito è sbagliato");
-                }
-            } else {
-                logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
-                Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
-            }
-        }
+    @And("Si inserisce l'email di cortesia e si clicca sul bottone avvisami via email")
+    public void siInserisceLEmailDiCortesiaESiCliccaSulBottoneAvvisamiViaEmail(String email) {
+        logger.info("Si inserisce l'email");
+        recapitiDestinatarioPage.insertEmail(email);
+        recapitiDestinatarioPage.clickAvvisamiViaEmail();
     }
 
+    @And("Si visualizza il pop-up disclaimer si clicca la checkbox e il bottone conferma")
+    public void siVisualizzaIlPopUpDisclaimerSiCliccaLaCheckboxEIlBottoneConferma() {
+        logger.info("Si visualizza il disclaimer, clicco la checkbox e il bottone conferma");
+        recapitiDestinatarioPage.clickHoCapitoCheckBoxPopup();
+        recapitiDestinatarioPage.confermaEmailPopup();
+    }
 
+    @Then("Si controlla che l'Email inserita sia presente")
+    public void siControllaCheLEmailInseritaSiaPresente() {
+        logger.info("Si controlla che la Email sia stata inserita correttamente");
+        if (!recapitiDestinatarioPage.verificaMailAssociata()) {
+            logger.error("Email non è stata inserita correttamente");
+            Assert.fail("Email non è stata inserita correttamente");
+        }
+    }
 }

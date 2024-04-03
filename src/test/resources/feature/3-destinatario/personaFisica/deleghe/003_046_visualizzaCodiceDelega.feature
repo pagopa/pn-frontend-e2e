@@ -16,5 +16,6 @@ Feature:La persona fisica visualizza il codice  di una delega
       | nome    | Lucrezia |
       | cognome | Borgia   |
     And Nella sezione Deleghe si sceglie l'opzione mostra codice
+    And Si visualizza correttamente la modale mostra codice
     Then Si clicca sul bottone chiudi
     And Logout da portale persona fisica
