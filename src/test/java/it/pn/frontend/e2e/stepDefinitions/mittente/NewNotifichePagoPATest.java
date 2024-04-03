@@ -4,10 +4,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
 import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.model.Document;
-import it.pn.frontend.e2e.model.NewNotificationRequest;
-import it.pn.frontend.e2e.model.NewNotificationResponse;
-import it.pn.frontend.e2e.model.Recipient;
+import it.pn.frontend.e2e.model.*;
 import it.pn.frontend.e2e.model.enums.NotificationFeePolicyEnum;
 import it.pn.frontend.e2e.model.enums.PhysicalCommunicationTypeEnum;
 import it.pn.frontend.e2e.rest.RestNotification;
@@ -33,6 +30,7 @@ public class NewNotifichePagoPATest {
         recipients.add(new Recipient());
         ArrayList<Document> documents = new ArrayList<>();
         documents.add(new Document());
+
         NewNotificationRequest notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
 
         while (attempt <= maxAttempts) {
@@ -48,6 +46,34 @@ public class NewNotifichePagoPATest {
                 attempt++;
             }
         }
+    }
+
+        @When("Creo in background una notifica non pagata con un destinatario e un documento tramite API REST")
+        public void creoUnaNotificaNonPagataConUnDestinatarioEUnDocumento() throws RestNotificationException {
+            int maxAttempts = 3;
+            int attempt = 1;
+
+            ArrayList<Recipient> recipients = new ArrayList<>();
+            recipients.add(new Recipient());
+            ArrayList<Document> documents = new ArrayList<>();
+            documents.add(new Document());
+            ArrayList<Payment> payments = new ArrayList<>();
+            payments.add(new Payment());
+            NewNotificationRequest notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, payments, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
+
+            while (attempt <= maxAttempts) {
+                NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification);
+
+                if (response != null) {
+                    logger.info("Notifica creata con successo");
+                    System.setProperty("IUN", WebTool.decodeNotificationRequestId(response.getNotificationRequestId()));
+                    return;
+                } else {
+                    logger.warn("Tentativo #" + attempt + " di creazione della notifica fallito. Riprovo...");
+                    notification.setPaProtocolNumber(WebTool.generatePaProtocolNumber());
+                    attempt++;
+                }
+            }
 
         logger.error("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
         Assert.fail("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");

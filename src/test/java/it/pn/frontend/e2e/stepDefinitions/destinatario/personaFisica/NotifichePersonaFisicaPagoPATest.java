@@ -115,6 +115,7 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @And("Si visualizzano le notifiche dalla piu recente")
     public void siVisualizzanoLeNotificheDallaPiuRecente() {
+        driver.navigate().refresh();
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         List<WebElement> dateNotifiche = notifichePFPage.getDateNotifiche();
 
