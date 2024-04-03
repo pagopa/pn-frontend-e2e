@@ -2,12 +2,15 @@ package it.pn.frontend.e2e.model;
 
 import it.pn.frontend.e2e.model.enums.RecipientTypeEnum;
 
+import java.util.ArrayList;
+
 public class Recipient {
     private String denomination;
     private RecipientTypeEnum recipientType;
     private String taxId;
     private PhysicalAddress physicalAddress;
     private DigitalDomicile digitalDomicile;
+    private ArrayList<Payment> payments;
 
     public Recipient() {
         this.denomination = "Gaio Giulio Cesare";
@@ -23,6 +26,15 @@ public class Recipient {
         this.taxId = taxId;
         this.physicalAddress = physicalAddress;
         this.digitalDomicile = digitalDomicile;
+    }
+
+    public Recipient(String denomination, RecipientTypeEnum recipientType, String taxId, PhysicalAddress physicalAddress, DigitalDomicile digitalDomicile, ArrayList<Payment> payments) {
+        this.denomination = denomination;
+        this.recipientType = recipientType;
+        this.taxId = taxId;
+        this.physicalAddress = physicalAddress;
+        this.digitalDomicile = digitalDomicile;
+        this.payments = payments;
     }
 
     public String getDenomination() {
@@ -63,5 +75,12 @@ public class Recipient {
 
     public void setDigitalDomicile(DigitalDomicile value) {
         this.digitalDomicile = value;
+    }
+
+    public void setPayments(ArrayList<Payment> payments) {
+        this.payments = payments;
+    }
+    public ArrayList<Payment> getPayments(){
+        return payments;
     }
 }

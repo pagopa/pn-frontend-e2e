@@ -14,9 +14,9 @@ public class Attachment {
     private Ref ref;
 
     public Attachment() {
-        this.digests = new Digests("jezIVxlG1M1woCSUngM6KipUN3/p8cG5RMIPnuEanlE=");
+        this.digests = new Digests("1QKD/Ks6BohyQ+bgMxHf9NrpNhVmGUPxRYE1aerU4JQ=");
         this.contentType = "application/pdf";
-        this.ref = new Ref("safestorage://1bd8b2NprkYpytFzpkxMIOf4T","\\\"^Fx{'f(l_f&9!=O*y<D%sA>");
+        this.ref = new Ref("PN_NOTIFICATION_ATTACHMENTS-fa170285562b4dcd90a1bc08b2334a87.pdf","v1");
     }
 
     public Attachment(Digests digests, String contentType, Ref ref) {

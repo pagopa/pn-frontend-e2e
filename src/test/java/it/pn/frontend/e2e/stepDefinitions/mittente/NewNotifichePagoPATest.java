@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.stepDefinitions.mittente;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
@@ -7,17 +8,20 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.model.*;
 import it.pn.frontend.e2e.model.enums.NotificationFeePolicyEnum;
 import it.pn.frontend.e2e.model.enums.PhysicalCommunicationTypeEnum;
+import it.pn.frontend.e2e.model.enums.RecipientTypeEnum;
 import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 
 public class NewNotifichePagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("NewNotifichePagoPATest");
+    private static final ObjectMapper objectMapper = new ObjectMapper();
     private final RestNotification restNotification = new RestNotification();
     private final WebDriver driver = Hooks.driver;
 
@@ -49,17 +53,21 @@ public class NewNotifichePagoPATest {
     }
 
         @When("Creo in background una notifica non pagata con un destinatario e un documento tramite API REST")
-        public void creoUnaNotificaNonPagataConUnDestinatarioEUnDocumento() throws RestNotificationException {
+        public void creoUnaNotificaNonPagataConUnDestinatarioEUnDocumento() throws RestNotificationException, JsonProcessingException {
             int maxAttempts = 3;
             int attempt = 1;
 
+
+            Payment payment = new Payment();
+            ArrayList<Payment> payments = new ArrayList<>();
+            payments.add(payment);
+
             ArrayList<Recipient> recipients = new ArrayList<>();
-            recipients.add(new Recipient());
+            recipients.add(new Recipient("Gaio Giulio Cesare", RecipientTypeEnum.PF,"CSRGGL44L13H501E",new PhysicalAddress(), new DigitalDomicile(), payments));
             ArrayList<Document> documents = new ArrayList<>();
             documents.add(new Document());
-            ArrayList<Payment> payments = new ArrayList<>();
-            payments.add(new Payment());
-            NewNotificationRequest notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, payments, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
+            NewNotificationRequest notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
+            String json = objectMapper.writeValueAsString(notification);
 
             while (attempt <= maxAttempts) {
                 NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification);
