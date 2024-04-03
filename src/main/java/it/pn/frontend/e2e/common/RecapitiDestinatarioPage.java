@@ -357,12 +357,13 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickSuConfermaElimina() {
-        By confermaRimuoviPECBy = By.xpath("//button[contains(text(),'Annulla')]/following-sibling::button");
-        getWebDriverWait(30).withMessage("Non è stato possibile cliccare sul bottone conferma").until(ExpectedConditions.elementToBeClickable(confermaRimuoviPECBy));
+        By confermaRimuoviPECBy = By.id("buttonConferma");
+        getWebDriverWait(10).withMessage("Non è stato possibile cliccare sul bottone conferma").until(ExpectedConditions.elementToBeClickable(confermaRimuoviPECBy));
         this.element(confermaRimuoviPECBy).click();
     }
+
     public boolean siControllaEliminazionePEC() {
-       return pecField.isDisplayed();
+        return pecField.isDisplayed();
     }
 
     public boolean siControllaPresenzaPEC() {
@@ -537,7 +538,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void visualizzazioneCampiSezioneAltriRecapiti() {
         vaiInFondoAllaPagina();
-        By altriRecapitiSectionBy = By.id("specialContactTitle");
+        By altriRecapitiSectionBy = By.xpath("//h5[contains(@id, 'specialContact')]");
         By titleGiaAssociatiBy = By.xpath("//p[contains(text(), 'Già associati')]");
         WebElement tableGiaAssociati = driver.findElement(By.xpath("//table[@aria-label='Già associati']"));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
