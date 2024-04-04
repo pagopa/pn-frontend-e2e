@@ -852,11 +852,10 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.inserimentoMultiDestinatarioPG(personeGiuridiche, nDestinatariInt);
     }
 
-    @And("Nella section cliccare sul tasto torna a informazioni preliminari")
-    public void nellaSectionCliccareSulTastoTornaAInformazioniPreliminari() {
-        logger.info("Si cerca di tornare alla sezione Informazione Preliminari");
-
-        destinatarioPASection.clickSuTornaInformazioniPreliminari();
+    @And("Nella section Destinatario inserire i dati del destinatari persona giuridicha aggiuntiva")
+    public void nellaSectionDestinatarioInserireIDatiDelDestinatarioPersonaGiuridichaAggiuntiva(Map<String, String> destinatario) {
+        logger.info("Si cerca di aggiungere" + " personeGiuridicha");
+        destinatarioPASection.inserimentoDestinatarioPGAggiuntivo(destinatario);
     }
 
     @And("Verifica dello stato della notifica persona giuridica come depositata {string}")
@@ -1001,6 +1000,14 @@ public class NotificaMittentePagoPATest {
     @Then("In parallelo si effettua l'accesso al portale destinatario persona fisica e si apre la notifica ricevuta")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioESiApreLaNotificaRicevuta() {
         WebTool.switchToPortal(AppPortal.PF);
+        piattaformaNotifichePage.selezionaNotifica();
+        WebTool.waitTime(5);
+        WebTool.closeTab();
+    }
+
+    @Then("In parallelo si effettua l'accesso al portale destinatario persona giuridica e si apre la notifica ricevuta")
+    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPGESiApreLaNotificaRicevuta() {
+        WebTool.switchToPortal(AppPortal.PG);
         piattaformaNotifichePage.selezionaNotifica();
         WebTool.waitTime(5);
         WebTool.closeTab();
