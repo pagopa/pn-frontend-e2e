@@ -65,20 +65,17 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "buttonAnnulla")
     WebElement buttonAnnullaEliminazioneInPopUp;
 
-    @FindBy(id = "buttonConferma")
-    WebElement buttonConfermaEliminazioneInPopUp;
-
     @FindBy(id = "courtesyContacts-email")
     WebElement emailAssociata;
 
     @FindBy(id = "courtesyContacts-phone")
     WebElement cellulareAssociato;
 
-    @FindBy(id = "legalContacts")
-    WebElement pecEmail;
-
     @FindBy(id = "pec")
     WebElement pecField;
+
+    @FindBy(id = "legalContacts")
+    WebElement pecEmail;
 
     public RecapitiDestinatarioPage(WebDriver driver) {
         super(driver);
