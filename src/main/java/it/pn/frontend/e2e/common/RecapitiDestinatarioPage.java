@@ -675,13 +675,13 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void checkDisclaimer(){
-        By hoCapitoCheckboxBy = By.xpath("//span[contains(text(),'Ho capito')]/preceding-sibling::span/input");
         By textDisclaimerBy = By.xpath("//div[contains(text(), 'Se l’impresa non ha una PEC')]");
+        By hoCapitoCheckboxBy = By.xpath("//span[@data-testid='disclaimer-checkbox']");
         By annullaButtonBy = By.id("cancelButton");
         By confermaButtonBy = By.id("confirmButton");
         try {
             getWebDriverWait(10).withMessage("Testo del disclaimer non visualizzato").until(ExpectedConditions.visibilityOfElementLocated(textDisclaimerBy));
-            getWebDriverWait(10).withMessage("Checkbox 'Ho capito' non visualizzata").until(ExpectedConditions.visibilityOfElementLocated(hoCapitoCheckboxBy));
+            getWebDriverWait(10).withMessage("Checkbox 'Ho capito' non Visualizzata").until(ExpectedConditions.visibilityOfElementLocated(hoCapitoCheckboxBy));
             getWebDriverWait(10).withMessage("Bottone annulla non visualizzato").until(ExpectedConditions.visibilityOfElementLocated(annullaButtonBy));
             getWebDriverWait(10).withMessage("Bottone conferma non visualizzato o cliccabile").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(confermaButtonBy),
