@@ -31,9 +31,9 @@ public class NewNotificationRequest {
         this.physicalCommunicationType = physicalCommunicationType;
         this.taxonomyCode = taxonomyCode;
         this.notificationFeePolicy = notificationFeePolicy;
-        this.group = "6564b9a671919a696157f2c0";
-        this.senderDenomination = "Comune di Milano";
-        this.senderTaxId = "00215150236";
+        this.group = "6467344676f10c7617353c90";
+        this.senderDenomination = "Comune di Palermo";
+        this.senderTaxId = "80016350821";
         this.abstractS = "PAGAMENTO RATA IMU";
     }
 

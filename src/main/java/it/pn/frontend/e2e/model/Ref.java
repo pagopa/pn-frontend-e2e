@@ -7,8 +7,8 @@ public class Ref {
     private String versionToken;
 
     public Ref() {
-        this.key = "PN_NOTIFICATION_ATTACHMENTS-da1f715b18a04dd2a7db502dd068bde6.pdf";
-        this.versionToken = "x.zyzguesUQfFBpFz3EFmY_mzq_IbVyX";
+        this.key = "PN_NOTIFICATION_ATTACHMENTS-2996b353d33a42e49e42d0745ca6e712.pdf";
+        this.versionToken = "v1";
     }
 
     public Ref(String key, String versionToken) {

@@ -6,7 +6,7 @@ public class Digests {
     private String sha256;
 
     public Digests() {
-        this.sha256 = "z18S3aiGYNsz4FMCZSkuQhnF7yxcqkt1ehJlFc7c88I=";
+        this.sha256 = "jezIVxlG1M1woCSUngM6KipUN3/p8cG5RMIPnuEanlE=";
     }
 
     public Digests(String sha256) {
