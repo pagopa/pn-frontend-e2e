@@ -83,6 +83,15 @@ public class HelpdeskTest {
         }
     }
 
+    @And("Si risolve il disservizio")
+    public void siRisolveIlDisservizio() {
+        WebTool.waitTime(5);
+        if (helpdeskPage.checkIsCreatedDisservizio()) {
+            helpdeskPage.handleDisservizio("OK");
+            WebTool.waitTime(5);
+        }
+    }
+
     @And("Si verifica la creazione del disservizio")
     public void siVerificaLaCreazioneDelDisservizio() {
         helpdeskPage.checkIsCreatedDisservizio();
@@ -177,4 +186,15 @@ public class HelpdeskTest {
         helpdeskPage.loginHelpdeskNuovaScheda(login);
     }
 
+    @Given("Creazione disservizio su portale helpdesk")
+    public void creazioneDisservizioSuPortaleHelpdesk() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+        backgroundTest.creazioneDisservizio();
+    }
+
+    @And("Risoluzione disservizio su portale helpdesk")
+    public void risoluzioneDisservizioSuPortaleHelpdesk() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+        backgroundTest.risoluzioneDisservizio();
+    }
 }

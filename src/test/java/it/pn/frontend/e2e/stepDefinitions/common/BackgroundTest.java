@@ -20,7 +20,6 @@ public class BackgroundTest {
     private final DeleghePagoPATest deleghePagoPATest = new DeleghePagoPATest();
 
     private final RecapitiPersonaFisicaTest recapitiPersonaFisicaTest = new RecapitiPersonaFisicaTest();
-    private final RecapitiPGPagoPaTest recapitiPGTest = new RecapitiPGPagoPaTest();
     private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
     private final LoginPersonaFisicaPagoPA personaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
     private final DeleghePGPagoPATest deleghePGPagoPATest = new DeleghePGPagoPATest();
@@ -122,15 +121,6 @@ public class BackgroundTest {
         deleghePagoPATest.siControllaCheLaDelegaHaLoStatoAttiva(nomeFilePersonaFisica);
     }
 
-    public void accettaDelegaPF() {
-        deleghePagoPATest.waitDelegheButton();
-        deleghePagoPATest.siSceglieOpzioneAccetta();
-        deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp();
-        deleghePagoPATest.siCliccaSulBottoneAccetta();
-        deleghePagoPATest.siControllaCheLaDelegaHaLoStatoAttiva(nomeFilePersonaFisica);
-    }
-
-
     public void aggiuntaEmailPF() {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLEmailDelPFECliccaSulBottoneAvvisamiViaEmail(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.siVisualizzaCorrettamenteIlPopUpESiCliccaSuConferma();
@@ -185,15 +175,6 @@ public class BackgroundTest {
     }
 
 
-    public void accettazioneDelegaConGruppo() {
-        deleghePagoPATest.siSceglieOpzioneAccetta();
-        deleghePGPagoPATest.siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale();
-        deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneConfermaCodice();
-        deleghePGPagoPATest.siAssegnaUnGruppoAllaDelega();
-        deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
-        deleghePGPagoPATest.siControllaCheLaDelegaPGALoStatoAttiva("Convivio Spa");
-    }
-
     public void aggiuntaNuovaDelegaDellImpresaPG() {
         deleghePGPagoPATest.nellaPaginaDelegheSiCliccaSuDelegatiDallImpresa();
         deleghePGPagoPATest.nellaSezioneDelegatiDellImpresaClickSulBottoneAggiungiNuovaDelega();
@@ -205,24 +186,10 @@ public class BackgroundTest {
         deleghePGPagoPATest.nellaSezioneDelegatiDallImpresaSiVisualizzaLaDelegaInStatoDiAttesaDiConferma();
     }
 
-    public void aggiuntaNuovaEmail() {
-        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLaNuovaEmailDelPFECliccaSulBottoneAvvisamiViaEmail("personaFisica");
-        recapitiPersonaFisicaTest.siVisualizzaCorrettamenteIlPopUpESiCliccaSuConferma();
-        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
-        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaNuovaEmailTramiteRequestMethod("personaFisica");
-        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLOTPRicevutoViaEmail("personaFisica");
-        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiControllaCheLaEmailSiaStataModificata();
-    }
-
     public void logoutPG() {
         loginPGPagoPATest.logoutDaPortalePersonaGiuridica();
     }
 
-    public void loginPGRecapiti(String nomeFilePG) {
-        loginPGPagoPATest.loginPortalePersonaGiuridicaTramiteTokenExchange("personaGiuridica");
-        NotifichePGPagoPATest notifichePGPagoPATest = new NotifichePGPagoPATest();
-        notifichePGPagoPATest.siRecuperaBearerToken("personaGiuridica");
-    }
 
     public void aggiungiPECPG() {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario(nomeFilePG);
@@ -249,10 +216,22 @@ public class BackgroundTest {
         deleghePagoPATest.siControllaCheNonCiSiaPiuUnaDelega();
     }
 
-    public void rifiutoDelegaACaricoDellImpresa(String dpFile) {
-        deleghePGPagoPATest.nellaPaginaDelegheSezioneDelegheAcaricoDellImpresaSiCliccaSulMenuDellaDelega(dpFile);
-        deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneRifiuta();
-        deleghePGPagoPATest.siCliccaSulBottoneRifiutaDelega();
-        deleghePGPagoPATest.siControllaCheLaDelegaNonSiPiuPresenteInElenco();
+    public void creazioneDisservizio(){
+        helpdeskTest.loginHelpdeskConUtenteTest("testHelpdesk");
+        helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
+        helpdeskTest.clickSuCardMonitoraggioPiattaforma();
+        helpdeskTest.siVisualizzaCorrettamenteHomeMonitoraggio();
+        helpdeskTest.siCreaIlDisservizio();
+        helpdeskTest.siVerificaLaCreazioneDelDisservizio();
+    }
+
+    public void risoluzioneDisservizio(){
+        helpdeskTest.loginHelpdeskConUtenteTest("testHelpdesk");
+        helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
+        helpdeskTest.clickSuCardMonitoraggioPiattaforma();
+        helpdeskTest.siVisualizzaCorrettamenteHomeMonitoraggio();
+        helpdeskTest.siRisolveIlDisservizio();
+        helpdeskTest.siRisolveIlDisservizio();
+        helpdeskTest.siVerificaLaCreazioneDelDisservizio();
     }
 }

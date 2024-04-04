@@ -5,11 +5,13 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -276,5 +278,19 @@ public class DownloadFileMittentePagoPATest {
         if (!codiciIun.contains(codiceIun)) {
             backgroundTest.invioNotificaErrorePec();
         }
+    }
+
+    @And("Visualizza file di un disservizio risolto, {string}")
+    public void visualizzaFileDiUnDisservizioRisoltoDaScaricare(String nomeFile) {
+        logger.info("Si cerca di scaricare il file " + nomeFile);
+
+        DisserviziAppPAPage disserviziAppPAPage = new DisserviziAppPAPage(driver);
+        disserviziAppPAPage.clickVisualizzaAttestazione();
+
+        WebTool.waitTime(3);
+
+        disserviziAppPAPage.checkVisualizzazioneFileDisservizioRisolto();
+        disserviziAppPAPage.goBack();
+
     }
 }

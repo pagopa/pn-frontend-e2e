@@ -33,6 +33,8 @@ public class DisserviziAppPAPage extends BasePage {
             By disserviziPageSubTitle = By.id("subtitle-page");
             By disserviziBoxAlert = By.id("appStatusBar");
             By disserviziLastUpdate = By.id("appStatusLastCheck");
+            By disserviziTitleOfTable = By.xpath("//h6[contains(text(),'Storico dei disservizi')]");
+
             getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo della pagina")
                     .until(ExpectedConditions.visibilityOfElementLocated(disserviziPageTitle));
             getWebDriverWait(3).until(ExpectedConditions.textToBe(disserviziPageTitle, "Stato della piattaforma"));
@@ -41,15 +43,20 @@ public class DisserviziAppPAPage extends BasePage {
             getWebDriverWait(3).until(ExpectedConditions.textToBe(disserviziPageSubTitle, "Verifica il funzionamento di SEND, visualizza lo storico dei disservizi e scarica le relative attestazioni opponibili a terzi."));
             getWebDriverWait(10).withMessage("Non si visualizza correttamente la sezione disservizi")
                     .until(ExpectedConditions.visibilityOfElementLocated(disserviziBoxAlert));
+
             if (this.element(disserviziBoxAlert).getText().contains("C'è un disservizio in corso")) {
                 getWebDriverWait(3).until(ExpectedConditions.textToBe(disserviziBoxAlert, "C'è un disservizio in corso. Per maggiori dettagli, consulta la tabella qui sotto."));
             } else {
                 getWebDriverWait(3).until(ExpectedConditions.textToBe(disserviziBoxAlert, "Tutti i servizi di SEND sono operativi."));
             }
+
             getWebDriverWait(10).withMessage("Non si visualizza correttamente l'ultimo aggiornamento della pagina")
                     .until(ExpectedConditions.visibilityOfElementLocated(disserviziLastUpdate));
             getWebDriverWait(10).withMessage("Non si visualizza correttamente la tabella dei disservizi")
                     .until(ExpectedConditions.visibilityOf(disserviziTable));
+            getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo della tabella dei disservizi")
+                    .until(ExpectedConditions.visibilityOfElementLocated(disserviziTitleOfTable));
+
             logger.info("Si visualizza correttamente la sezione disservizi");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente la sezione disservizi con errore:" + e.getMessage());
@@ -80,9 +87,9 @@ public class DisserviziAppPAPage extends BasePage {
                 logger.error("Non si visualizza correttamente l'header della tabella dei disservizi");
                 Assert.fail("Non si visualizza correttamente l'header della tabella dei disservizi");
             }
-            List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
             getWebDriverWait(10).withMessage("Non si visualizza correttamente l'header della tabella dei disservizi")
                     .until(ExpectedConditions.visibilityOf(disserviziTableHeader));
+            List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
             // check if the rows are not empty
             if (!disserviziTableRows.isEmpty()) {
                 for (WebElement disserviziRow : disserviziTableRows) {
@@ -126,6 +133,42 @@ public class DisserviziAppPAPage extends BasePage {
         } else {
             logger.error("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
             Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
+        }
+    }
+
+    public void checkDisservizioRisolto() {
+        aggionamentoPagina();
+        List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
+        if (!disserviziTableRows.isEmpty()){
+            WebElement primaRiga = disserviziTableRows.get(0);
+            WebElement dataFinePrimaRiga = primaRiga.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//p[contains(text(), 'ore')]")).get(1);
+            WebElement statoPrimaRiga = primaRiga.findElement(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//span[contains(text(), 'Risolto')]"));
+            if (dataFinePrimaRiga.isDisplayed() && statoPrimaRiga.isDisplayed()){
+                logger.info("Disservizio risolto trovato");
+            }else {
+                logger.error("Non si visualizza un record in elenco relativo ad un disservizio risolto");
+                Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio risolto");
+            }
+        }
+
+    }
+
+    public void clickVisualizzaAttestazione() {
+        List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
+        if (!disserviziTableRows.isEmpty()){
+            WebElement primaRiga = disserviziTableRows.get(0);
+            WebElement linkDownloadAttestazione =primaRiga.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(0);
+            linkDownloadAttestazione.click();
+        }
+    }
+
+
+    public void checkVisualizzazioneFileDisservizioRisolto() {
+        try {
+            getWebDriverWait(5).until(ExpectedConditions.urlContains("pn-safestorage"));
+        }catch (TimeoutException e){
+            logger.error("Non si visualizza il file del disservizio risolto");
+            Assert.fail("Non si visualizza il file del disservizio risolto");
         }
     }
 }
