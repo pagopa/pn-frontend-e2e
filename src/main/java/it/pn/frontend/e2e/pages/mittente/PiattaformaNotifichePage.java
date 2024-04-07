@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class PiattaformaNotifichePage extends BasePage {
@@ -812,5 +813,50 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.error("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
             Assert.fail("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
         }
+    }
+
+   public void visualizzaTimelineTuttiDestinatari(Map<String,String> destinatari){
+        logger.info("Si clicca vedi piu dettagli");
+       List<WebElement>  viewMore =driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
+        viewMore.get(1).click();
+        List<WebElement> destinatarioPF = driver.findElements(By.xpath("//p[contains(text(),'("+ destinatari.get("PF") + ") all')]"));
+        List<WebElement> destinatarioPG = driver.findElements(By.xpath("//p[contains(text(),'("+ destinatari.get("PG") + ") all')]"));
+
+        if (destinatarioPF.get(0).isDisplayed() && destinatarioPG.get(0).isDisplayed()){
+            logger.info("Si visualizza  gli eventi relativi a tutti i destinatari");
+        }else {
+            logger.error("Non si visualizza  gli eventi relativi a tutti i destinatari");
+            Assert.fail("Non si visualizza  gli eventi relativi a tutti i destinatari");
+        }
+
+       logger.info("Si visualizza correttamente la timeline relativi a tutti i destinatari");
+    }
+
+    public void visualizzaTimelinePG(String check){
+        By viewMore = By.xpath("//li[5]/div[3]/div/div/button ");
+        this.element(viewMore).click();
+
+        List<WebElement> findKeyWord = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
+
+        if (findKeyWord.get(0).isDisplayed()){
+            logger.info("Si visualizza la timeline correttamente");
+        }else {
+            logger.error("Non si visualizza  la timeline correttamente");
+            Assert.fail("Non si visualizza  la timeline correttamente");
+        }
+
+    }
+    public void visualizzaTimelinePF(String check){
+        List<WebElement>  viewMore =driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
+        viewMore.get(0).click();
+        List<WebElement> findKeyWord = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
+
+        if (findKeyWord.get(0).isDisplayed()){
+            logger.info("Si visualizza la timeline correttamente");
+        }else {
+            logger.error("Non si visualizza  la timeline correttamente");
+            Assert.fail("Non si visualizza  la timeline correttamente");
+        }
+
     }
 }

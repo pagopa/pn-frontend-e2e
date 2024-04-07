@@ -36,21 +36,20 @@ public class NotificaMittentePagoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittentePagoPATest");
     private final WebDriver driver = Hooks.driver;
-    private Map<String, Object> datiNotifica = new HashMap<>();
-    private Map<String, String> datiNotificaMap = new HashMap<>();
-    private Map<String, String> destinatarioMap = new HashMap<>();
-    private Map<String, String> indirizzoMap = new HashMap<>();
-    private Map<String, Object> personaFisica = new HashMap<>();
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
-    private Map<String, Object> personaGiuridica = new HashMap<>();
-    private Map<String, Object> personeFisiche = new HashMap<>();
     private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
     private final DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
     private final DataPopulation dataPopulation = new DataPopulation();
     private final DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
     private final String variabileAmbiente = System.getProperty("environment");
     private final InformazioniPreliminariPASection informazioniPreliminariPASection = new InformazioniPreliminariPASection(this.driver);
-
+    private Map<String, Object> datiNotifica = new HashMap<>();
+    private Map<String, String> datiNotificaMap = new HashMap<>();
+    private Map<String, String> destinatarioMap = new HashMap<>();
+    private Map<String, String> indirizzoMap = new HashMap<>();
+    private Map<String, Object> personaFisica = new HashMap<>();
+    private Map<String, Object> personaGiuridica = new HashMap<>();
+    private Map<String, Object> personeFisiche = new HashMap<>();
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
@@ -192,10 +191,17 @@ public class NotificaMittentePagoPATest {
 
         try {
             TimeUnit.SECONDS.sleep(quantiSecondi);
+            driver.navigate().refresh();
         } catch (Exception exc) {
             logger.error(exc.toString());
             throw new RuntimeException(exc);
         }
+    }
+
+
+    @And("Si visualizza correttamente la timeline relativi a tutti i destinatari")
+    public void siVisualizzaCorrettamenteLaTimelineRelativiATuttiIDestinatari(Map<String, String> destinatari) {
+        piattaformaNotifichePage.visualizzaTimelineTuttiDestinatari(destinatari);
     }
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario")
@@ -1002,6 +1008,23 @@ public class NotificaMittentePagoPATest {
         WebTool.switchToPortal(AppPortal.PF);
         piattaformaNotifichePage.selezionaNotifica();
         WebTool.waitTime(5);
+        WebTool.closeTab();
+    }
+
+    @Then("In parallelo si effettua l'accesso al portale destinatario e si verifica la timeline {string}")
+    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPFESiVerificaLaTimeline(String destinatario) {
+        if (destinatario.equalsIgnoreCase("PF")){
+            WebTool.switchToPortal(AppPortal.PF);
+        }else{
+            WebTool.switchToPortal(AppPortal.PG);
+        }
+        piattaformaNotifichePage.selezionaNotifica();
+        WebTool.waitTime(5);
+        if(destinatario.equalsIgnoreCase("PF")) {
+            piattaformaNotifichePage.visualizzaTimelinePF("Invio via PEC riuscito");
+        }else{
+            piattaformaNotifichePage.visualizzaTimelinePG("Invio via PEC fallito");
+        }
         WebTool.closeTab();
     }
 
