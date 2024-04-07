@@ -55,7 +55,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si visualizza correttamente la timeline relativi a tutti i destinatari
       | PF | CSRGGL44L13H501E |
       | PG | 27957814470      |
-    Then In parallelo si effettua l'accesso al portale destinatario e si verifica la timeline "PF"
+    Then In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline "Invio via PEC riuscito"
     And Aspetta 10 secondi
-    Then In parallelo si effettua l'accesso al portale destinatario e si verifica la timeline "PG"
+    Then In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline "Invio via PEC riuscito"
     And Logout da portale mittente
