@@ -16,17 +16,19 @@ public class PagoPa {
 
     private Attachment attachment;
 
+   private  static String randomNoticeCode(){
     Random random = new Random();
-    long min = 10000000000L; // Minimum 11-digit number
-    long max = 99999999999L; // Maximum 11-digit number
-    long range = max - min + 1;
-    long creditIdLong = (long)(random.nextDouble() * range) + min;
-    String creditorId = String.valueOf(creditIdLong);
+    StringBuilder sb =  new StringBuilder(18);
+        for(int i = 0; i< 18; i++){
+            sb.append(random.nextInt(10));
+        }
+    return sb.toString();
+   }
 
 
     public PagoPa(){
-        this.noticeCode = "302000100000019421";
-        this.creditorTaxId = creditorId;
+        this.noticeCode = randomNoticeCode();
+        this.creditorTaxId = "77777777777";
         this.applyCost = false;
         this.attachment = new Attachment();
     }

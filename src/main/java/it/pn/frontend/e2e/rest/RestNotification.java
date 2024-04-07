@@ -25,9 +25,9 @@ public class RestNotification {
      */
     public NewNotificationResponse newNotificationWithOneRecipientAndDocument(NewNotificationRequest notification) throws RestNotificationException {
         final CustomHttpClient<NewNotificationRequest, NewNotificationResponse> httpClient2 = CustomHttpClient.getInstance();
-       // httpClient2.setApiKey("5df3a854-110c-46e9-a94b-274e2e74132d");// Modifica qui
+        httpClient2.setApiKey("5df3a854-110c-46e9-a94b-274e2e74132d");// Modifica qui
         try {
-            NewNotificationResponse response = httpClient2.sendHttpPostRequest("/delivery/v2.1/requests", null, notification, NewNotificationResponse.class);
+            NewNotificationResponse response = httpClient2.sendHttpPostRequest("/delivery/v2.3/requests", null, notification, NewNotificationResponse.class);
             if (response != null) {
                 logger.info(String.valueOf(response));
                 return response;
