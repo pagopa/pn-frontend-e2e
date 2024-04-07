@@ -34,7 +34,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | soggettoGiuridico | PG           |
       | ragioneSociale    | Convivio Spa |
       | codiceFiscale     | 27957814470  |
-      | pecInvalid        | test@fail.it |
+      | pec               | test@fail.it |
       | indirizzo         | Via Roma     |
       | civico            | 20           |
       | localita          | Milano       |

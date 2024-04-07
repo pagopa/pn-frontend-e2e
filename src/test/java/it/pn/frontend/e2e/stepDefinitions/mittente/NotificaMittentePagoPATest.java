@@ -1011,20 +1011,12 @@ public class NotificaMittentePagoPATest {
         WebTool.closeTab();
     }
 
-    @Then("In parallelo si effettua l'accesso al portale destinatario e si verifica la timeline {string}")
-    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPFESiVerificaLaTimeline(String destinatario) {
-        if (destinatario.equalsIgnoreCase("PF")){
-            WebTool.switchToPortal(AppPortal.PF);
-        }else{
-            WebTool.switchToPortal(AppPortal.PG);
-        }
+    @Then("In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline {string}")
+    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPFESiVerificaLaTimeline(String messagio) {
+        WebTool.switchToPortal(AppPortal.PF);
         piattaformaNotifichePage.selezionaNotifica();
         WebTool.waitTime(5);
-        if(destinatario.equalsIgnoreCase("PF")) {
-            piattaformaNotifichePage.visualizzaTimelinePF("Invio via PEC riuscito");
-        }else{
-            piattaformaNotifichePage.visualizzaTimelinePG("Invio via PEC fallito");
-        }
+        piattaformaNotifichePage.visualizzaTimelinePF("Invio via PEC riuscito");
         WebTool.closeTab();
     }
 
@@ -1033,6 +1025,15 @@ public class NotificaMittentePagoPATest {
         WebTool.switchToPortal(AppPortal.PG);
         piattaformaNotifichePage.selezionaNotifica();
         WebTool.waitTime(5);
+        WebTool.closeTab();
+    }
+
+    @Then("In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline {string}")
+    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPGESiVerificaLaTimeline(String messagio) {
+        WebTool.switchToPortal(AppPortal.PG);
+        piattaformaNotifichePage.selezionaNotifica();
+        WebTool.waitTime(5);
+        piattaformaNotifichePage.visualizzaTimelinePF(messagio);
         WebTool.closeTab();
     }
 
@@ -1268,4 +1269,11 @@ public class NotificaMittentePagoPATest {
             Assert.fail("I campi non sono vuoti");
         }
     }
+
+    @And("Si aggiungi un domicilio digitale {string}")
+    public void SiAggiungiUnDomicilioDigitale(String mail){
+        destinatarioPASection.checkBoxAggiungiDomicilio();
+        destinatarioPASection.insertDomicilioDigitale(mail);
+    }
+
 }

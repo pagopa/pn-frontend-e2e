@@ -818,7 +818,11 @@ public class PiattaformaNotifichePage extends BasePage {
    public void visualizzaTimelineTuttiDestinatari(Map<String,String> destinatari){
         logger.info("Si clicca vedi piu dettagli");
        List<WebElement>  viewMore =driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
+       if(viewMore.size()== 2){
         viewMore.get(1).click();
+       }else {
+           viewMore.get(0).click();
+       }
         List<WebElement> destinatarioPF = driver.findElements(By.xpath("//p[contains(text(),'("+ destinatari.get("PF") + ") all')]"));
         List<WebElement> destinatarioPG = driver.findElements(By.xpath("//p[contains(text(),'("+ destinatari.get("PG") + ") all')]"));
 

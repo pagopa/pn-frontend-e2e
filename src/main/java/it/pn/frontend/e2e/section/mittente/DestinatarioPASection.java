@@ -287,7 +287,7 @@ public class DestinatarioPASection extends BasePage {
         By addSecondPec = By.cssSelector("[data-testid='recipients[1].digitalDomicileCheckbox']");
         this.element(addSecondPec).click();
         By secondPecField = By.id("recipients[1].digitalDomicile");
-        this.element(secondPecField).sendKeys(destinatario.get("pecInvalid"));
+        this.element(secondPecField).sendKeys(destinatario.get("pec"));
         By addSecondAddress = By.xpath("//label[@data-testid='showPhysicalAddress1']");
         this.element(addSecondAddress).click();
         By secondAddress = By.id("recipients[1].address");
