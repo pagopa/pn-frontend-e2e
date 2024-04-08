@@ -1,5 +1,7 @@
 package it.pn.frontend.e2e.common;
 
+import it.pn.frontend.e2e.model.enums.Disservice;
+import it.pn.frontend.e2e.model.enums.Status;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -10,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -23,9 +26,6 @@ public class HelpdeskPage extends BasePage {
 
     @FindBy(id = "Password")
     WebElement passwordInput;
-
-    @FindBy(xpath = "//button[@aria-label='more']")
-    WebElement buttonMenu;
 
     @FindBy(id = "logout")
     WebElement buttonLogout;
@@ -54,6 +54,15 @@ public class HelpdeskPage extends BasePage {
 
     @FindBy(id = "cardTitle-Monitoraggio Piattaforma Notifiche")
     WebElement monitoraggioPN;
+
+    @FindBy(xpath = ".//div[@data-field='functionality' and @role='cell']")
+    List<WebElement> services;
+
+    @FindBy(xpath = ".//div[@data-field='data' and @role='cell']")
+    List<WebElement> serviceDates;
+
+    @FindBy(xpath = ".//button[@role='menuitem']")
+    List<WebElement> serviceStatusButtons;
 
 
     private final Logger logger = LoggerFactory.getLogger("Helpdesk Page");
@@ -92,15 +101,12 @@ public class HelpdeskPage extends BasePage {
         }
     }
 
-    public void checkMonitoraggio() {
-        try {
-            TimeUnit.SECONDS.sleep(5);
-            this.getWebDriverWait(10).withMessage("elenco monitoraggio non trovato").until(ExpectedConditions.visibilityOf(this.buttonMenu));
-            logger.info("pagina monitoraggio caricata");
-        } catch (TimeoutException | InterruptedException e) {
-            logger.error("errore caricamento home monitoraggio: " + e.getMessage());
-            Assert.fail("errore caricamento home monitoraggio: " + e.getMessage());
+    public void waitLoadServiceTable() {
+        if (services.size() < 3) {
+            logger.error("I servizi visualizzati sono meno di 3");
+            Assert.fail("I servizi visualizzati sono meno di 3");
         }
+        getWebDriverWait(10).withMessage("Non è visibile la tabella dei disservizi").until(ExpectedConditions.visibilityOfAllElements(services));
     }
 
     public void insertUsername(String user) {
@@ -131,46 +137,50 @@ public class HelpdeskPage extends BasePage {
         }
     }
 
-    public void handleDisservizio(String type) {
-        logger.info("clicco sul menu della tabella");
-        this.js().executeScript("arguments[0].click()", buttonMenu);
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
-            logger.error("pausa con errore: " + e.getMessage());
-            throw new RuntimeException(e);
-        }
-        try {
-            logger.info("Click su button 'Inserisci X'".replace("X", type));
-            By buttonPreCreateDisservizio = By.id("X-insert".replace("X", type));
-            this.getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(buttonPreCreateDisservizio));
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                logger.error("pausa con errore: " + e.getMessage());
-                throw new RuntimeException(e);
+    public void handleDisservizio(Disservice disservizio, Status status) {
+        waitLoadServiceTable();
+        getWebDriverWait(10).withMessage("Non sono visibili i pulsanti per il disservizio").until(ExpectedConditions.visibilityOfAllElements(serviceStatusButtons));
+        for (int i = 0; i < services.size(); i++) {
+            if (services.get(i).getText().equals(disservizio.getValue())) {
+                logger.info("Clicco sul menu del disservizio: " + disservizio.getValue());
+                serviceStatusButtons.get(i).click();
+                break;
             }
-            this.elements(buttonPreCreateDisservizio).get(0).click();
-        } catch (TimeoutException e) {
-            logger.error("button 'Inserisci X' non trovato: ".replace("X", type) + e.getMessage());
-            Assert.fail("button 'Inserisci X' non trovato: ".replace("X", type) + e.getMessage());
         }
-        try {
-            logger.info("Click su button 'Inserisci'");
-            By buttonCreateDisservizio = By.id("buttonInserisciDisservizio");
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(buttonCreateDisservizio));
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                logger.error("pausa con errore: " + e.getMessage());
-                throw new RuntimeException(e);
-            }
-            this.element(buttonCreateDisservizio).click();
-        } catch (TimeoutException e) {
-            logger.error("button 'Inserisci' non trovato: " + e.getMessage());
-            Assert.fail("button 'Inserisci' non trovato: " + e.getMessage());
+        // this is useful to check if we correctly clicked on the menu and the tooltip is displayed otherwise we fail the test
+        WebElement tooltip = this.element(By.xpath(".//div[@role='tooltip']"));
+        if (!tooltip.isDisplayed()) {
+            logger.error("Non è stato possibile visualizzare il tooltip per il disservizio");
+            Assert.fail("Non è stato possibile visualizzare il tooltip per il disservizio");
         }
+        WebElement button = tooltip.findElement(By.id(status.getValue() + "-insert"));
+        getWebDriverWait(10).withMessage("Il pulsante: " + status.getValue() + " non è visibile o cliccabile").until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOf(button),
+                ExpectedConditions.elementToBeClickable(button)
+        ));
+        button.click();
+        WebElement buttonInsert = this.element(By.id("buttonInserisciDisservizio"));
+        getWebDriverWait(10).withMessage("Il pulsante di inserimento del servizio non è visibile o cliccabile").until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOf(buttonInsert),
+                ExpectedConditions.elementToBeClickable(buttonInsert)
+        ));
+        buttonInsert.click();
+        // When we insert a new status of a service there is alway an alert that shows up, this is useful when we want to make sure the status has changed
+        WebElement alertSuccess = this.element(By.xpath(".//div[@role='alert']"));
+        getWebDriverWait(10).withMessage("L'alert di successo post-inserimento servizio o disservizio non è visibile").until(ExpectedConditions.visibilityOf(alertSuccess));
+        logger.info(disservizio.getValue() + " è stato cambiato con successo in " + status.getValue());
+    }
 
+    public boolean checkServiceStatus(Disservice disservizio) {
+        waitLoadServiceTable();
+        getWebDriverWait(10).withMessage("Non sono visibili i stati dei servizi").until(ExpectedConditions.visibilityOfAllElements(serviceDates));
+        for (int i = 0; i < services.size(); i++) {
+            if (services.get(i).getText().equals(disservizio.getValue())) {
+                // check status based on the service date if present or not
+                return !serviceDates.get(i).getText().isEmpty();
+            }
+        }
+        return false;
     }
 
     public boolean checkIsCreatedDisservizio() {
@@ -313,7 +323,7 @@ public class HelpdeskPage extends BasePage {
         }
     }
 
-    public void loginHelpdeskNuovaScheda(Map<String, String> login){
+    public void loginHelpdeskNuovaScheda(Map<String, String> login) {
         this.getWebDriverWait(10).withMessage("Non si visualizza il campo email").until(ExpectedConditions.visibilityOf(this.emailInput));
         this.getWebDriverWait(10).withMessage("Non si visualizza il campo password").until(ExpectedConditions.visibilityOf(this.passwordInput));
         this.getWebDriverWait(10).withMessage("Non si visualizza il bottone LOGIN").until(ExpectedConditions.visibilityOf(this.loginButton));

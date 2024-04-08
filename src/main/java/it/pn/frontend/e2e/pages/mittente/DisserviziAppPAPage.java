@@ -128,4 +128,29 @@ public class DisserviziAppPAPage extends BasePage {
             Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
         }
     }
+
+    public void checkDisserviziDisponibili() {
+        aggiornamentoPagina();
+        if (!statusList.isEmpty()) {
+            for (WebElement status : statusList) {
+                if (status.getText().contains("Risolto")) {
+                    logger.info("Si visualizza un record in elenco relativo ad un disservizio risolto");
+                    continue;
+                } else {
+                    logger.error("Non si visualizza un record in elenco relativo ad un disservizio risolto");
+                    Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio risolto");
+                }
+                if (status.getText().contains("/") || status.getText().contains("Oggi") && status.getText().contains(":")) {
+                    logger.info("Si visualizza data di fine servizio");
+                    continue;
+                }
+                if (status.getText().contains("Scarica l'attestazione")) {
+                    logger.info("Si visualizza la frase corretta in 'Scarica l'attestazione'");
+                }
+            }
+        } else {
+            logger.error("Non si visualizza un record in elenco relativo ad un disservizio disponibile");
+            Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio disponibile");
+        }
+    }
 }
