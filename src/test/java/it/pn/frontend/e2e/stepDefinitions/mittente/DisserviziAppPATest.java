@@ -45,4 +45,10 @@ public class DisserviziAppPATest {
         logger.info("Si visualizza un record in elenco relativo ad un disservizio risolto");
         disserviziAppPAPage.checkDisservizioRisolto();
     }
+
+    @And("Si visualizzano tutti i record in elenco relativi a disservizi risolti")
+    public void siVisualizzanoTuttiIRecordInElencoRelativiADisserviziRisolti() {
+        logger.info("Si visualizzano tutti i record in elenco relativi a disservizi risolti");
+        disserviziAppPAPage.checkDisserviziDisponibili();
+    }
 }
