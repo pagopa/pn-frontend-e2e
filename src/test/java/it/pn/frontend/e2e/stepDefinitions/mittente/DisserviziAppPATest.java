@@ -39,4 +39,10 @@ public class DisserviziAppPATest {
         logger.info("Si visualizza un record in elenco relativo ad un disservizio ancora in corso");
         disserviziAppPAPage.checkDisserviziInCorso();
     }
+
+    @And("Si visualizzano tutti i record in elenco relativi a disservizi risolti")
+    public void siVisualizzanoTuttiIRecordInElencoRelativiADisserviziRisolti() {
+        logger.info("Si visualizzano tutti i record in elenco relativi a disservizi risolti");
+        disserviziAppPAPage.checkDisserviziDisponibili();
+    }
 }
