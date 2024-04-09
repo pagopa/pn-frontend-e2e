@@ -13,6 +13,7 @@ Feature:La persona fisica visualizza le notifiche in elenco
     And Cliccare sulla notifica restituita
     And Si controlla se la sezione pagamento visualizzata correttamente
     And Si controlla che costi di notifica inclusi non presente
-    Then Cliccare sul bottone Paga
-    And Si verifica che visualizzato visualizzato lo stato Pagato
+    And Cliccare sul bottone Paga
+    Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
+    And Si verifica che visualizzato lo stato Pagato
     And Logout da portale persona fisica

@@ -55,10 +55,16 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     @FindBy(css = "[data-testid='pay-button']")
     WebElement pagaAvviso;
 
-    @FindBy(linkText = "Codice avviso")
+    @FindBy(xpath = "//span[contains(text(),'Codice avviso')]")
     WebElement codiceAvviso;
+    @FindBy(xpath = "//span[contains(text(),'Scade il')]")
+    WebElement scadenzaAvviso;
     @FindBy(css = ".MuiTypography-caption-semibold.css-1g3z0lx")
     WebElement codiceAvvisoSpan;
+    @FindBy(css = "[data-testid='payment-amount']")
+    WebElement paymentAmount;
+    @FindBy(css = "[data-testid='apply-costs-caption']")
+    WebElement costiNotifica;
 
     public AccediAPiattaformaNotifichePage(WebDriver driver) {
         super(driver);
@@ -168,6 +174,59 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     public boolean pagaAvvisoDisplayed() {
         return getWebDriverWait(30).withMessage("Il sezione paga avviso non è visibile").until(ExpectedConditions.visibilityOf(pagaAvviso)).isDisplayed();
+    }
+
+    public void siVisualizzaSezionePagamento(){
+        try {
+            getWebDriverWait(10).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvviso));
+            getWebDriverWait(10).withMessage("Il sezione data di scadenza avviso non è visibile").until(ExpectedConditions.visibilityOf(scadenzaAvviso));
+            getWebDriverWait(10).withMessage("Il sezione importo di avviso non è visibile").until(ExpectedConditions.visibilityOf(paymentAmount));
+            getWebDriverWait(10).withMessage("Il sezione scarica avviso non è visibile").until(ExpectedConditions.visibilityOf(scaricaAvviso));
+            logger.info("Si visualizza correttamente il sezione pagamento di notifica");
+        }catch (RuntimeException e) {
+            logger.info("Non si visualizza correttamente il sezione pagamento di notifica con errore : " + e.getMessage());
+            Assert.fail("Non si visualizza correttamente il sezione pagamento di notifica con errore : " + e.getMessage());
+        }
+    }
+
+    public boolean siControllaCostiDiNotifica(){
+        try {
+            getWebDriverWait(10).withMessage("Costi di notifica inclusi").until(ExpectedConditions.visibilityOf(costiNotifica));
+            return true;
+        }catch (RuntimeException e) {
+            logger.info("Costi di notifica non inclusi");
+            return false;
+        }
+    }
+
+    public void cliccaPaga(){
+        logger.info("Si clicca su bottone paga");
+        pagaAvviso.click();
+    }
+
+    public void inserireDatiPagamento(String email){
+        By emailPagamento = By.id("email");
+        By confermaEmailPagamento = By.id("confirmEmail");
+        By continuaPagamento = By.id("paymentEmailPageButtonContinue");
+        this.element(emailPagamento).sendKeys(email);
+        this.element(confermaEmailPagamento).sendKeys(email);
+        this.element(continuaPagamento).click();
+    }
+
+    public void checkoutPagamento(){
+        logger.info("Si procede con il pagamento");
+        this.element(By.cssSelector("[data-qaid='CP']")).click();
+        this.js().executeScript("arguments[0].click()", this.element((By.id("Numero carta"))));
+        this.js().executeScript("arguments[0].sendKeys(arguments[1])", this.element((By.id("Numero carta"))), "4165654565485486");
+        this.element(By.id("Numero carta")).sendKeys("4165654565485486");
+        this.element(By.id("EXPIRATION_DATE")).click();
+        this.element(By.id("EXPIRATION_DATE")).sendKeys("12/28");
+        this.element(By.id("SECURITY_CODE")).sendKeys("555");
+        this.element(By.cssSelector("[aria-label='Continua']")).click();
+    }
+
+    public void siVisualizzaStatoPagato(){
+
     }
 }
 

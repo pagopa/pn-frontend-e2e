@@ -18,8 +18,8 @@ public class PagoPa {
 
    private  static String randomNoticeCode(){
     Random random = new Random();
-    StringBuilder sb =  new StringBuilder(18);
-        for(int i = 0; i< 18; i++){
+    StringBuilder sb =  new StringBuilder("30210");
+        for(int i = 0; i< 13; i++){
             sb.append(random.nextInt(10));
         }
     return sb.toString();

@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 public class NewNotifichePagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("NewNotifichePagoPATest");
-    private static final ObjectMapper objectMapper = new ObjectMapper();
     private final RestNotification restNotification = new RestNotification();
     private final WebDriver driver = Hooks.driver;
 
@@ -67,7 +66,6 @@ public class NewNotifichePagoPATest {
             ArrayList<Document> documents = new ArrayList<>();
             documents.add(new Document());
             NewNotificationRequest notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
-            String json = objectMapper.writeValueAsString(notification);
 
             while (attempt <= maxAttempts) {
                 NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification);
