@@ -278,7 +278,7 @@ public class PiattaformaNotifichePage extends BasePage {
         try {
             By notificaBy = By.id("notificationsTable.body.row");
             attesaCaricamentoPagina();
-            this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(notificaBy));
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(notificaBy));
             List<WebElement> notifiche = this.elements(notificaBy);
             notifiche.get(0).click();
         } catch (TimeoutException e) {
@@ -811,6 +811,16 @@ public class PiattaformaNotifichePage extends BasePage {
         } else {
             logger.error("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
             Assert.fail("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
+        }
+    }
+
+    public void verificaInvioNotificaDiCortesia(){
+        By voceNotificaDiCortesia = By.xpath("//span[contains(text(), 'Invio del messaggio di cortesia')]");
+        try {
+            getWebDriverWait(10).withMessage("Voce nel dettaglio della notifica non trovata").until(ExpectedConditions.visibilityOfElementLocated(voceNotificaDiCortesia));
+        } catch (TimeoutException e){
+            logger.error("Voce dell'invio del messaggio di cortesia nel dettaglio della notifica non trovata: " + e.getMessage());
+            Assert.fail("Voce dell'invio del messaggio di cortesia nel dettaglio della notifica non trovata: " + e.getMessage());
         }
     }
 }

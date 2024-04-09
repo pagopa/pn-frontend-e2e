@@ -21,7 +21,7 @@ public class RecapitiPGPagoPaTest {
     private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
 
     @And("Si visualizza correttamente la pagina Recapiti persona giuridica")
-    public void siVisualizzaRecapitiPagePersonaGiuridca(){
+    public void siVisualizzaRecapitiPagePersonaGiuridica(){
         logger.info("Si visualizza correttamente la pagina Recapiti persona giuridica");
 
         recapitiPGPage.waitLoadRecapitiPage();

@@ -940,20 +940,16 @@ public class NotificaMittentePagoPATest {
     @Then("Nella section Destinatario si inseriscono i dati del destinatario")
     public void nellaSectionDestinatarioSiInserisconoIDatiDelDestinatario(Map<String, String> destinatario) {
         logger.info("Si inseriscono i dati del destinatario nella sezione Destinatario");
+        String nomeDestinatario = destinatario.get("nomeCognomeDestinatario");
         if (destinatario.get("soggettoGiuridico").equals("PF")) {
             destinatarioPASection.selezionarePersonaFisica();
-        } else {
-            destinatarioPASection.clickRadioButtonPersonaGiuridica();
-        }
-        String nomeDestinatario = destinatario.get("nomeCognomeDestinatario");
-        if (nomeDestinatario.split(" ").length > 0) {
             destinatarioPASection.inserireNomeDestinatario(nomeDestinatario.split(" ")[0]);
             destinatarioPASection.inserireCognomeDestinatario(nomeDestinatario.split(" ")[1]);
         } else {
+            destinatarioPASection.clickRadioButtonPersonaGiuridica();
             destinatarioPASection.insertRagioneSociale(nomeDestinatario);
         }
         destinatarioPASection.inserireCodiceFiscaleDestinatario(destinatario.get("codiceFiscale"));
-        destinatarioMap = destinatario;
     }
 
     @And("Nella section Destinitario si clicca su {string} e si inseriscono i dati")
@@ -963,6 +959,8 @@ public class NotificaMittentePagoPATest {
             destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
         } else {
             destinatarioPASection.checkBoxAggiungiDomicilio();
+            destinatarioPASection.insertDomicilioDigitale(indirizzo.get("digitalAddress"));
+            return;
         }
         destinatarioPASection.inserireIndirizzo(indirizzo.get("indirizzo"));
         destinatarioPASection.inserireNumeroCivico(indirizzo.get("civico"));
@@ -998,12 +996,42 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.verificaNotificaCreata();
     }
 
-    @Then("In parallelo si effettua l'accesso al portale destinatario persona fisica e si apre la notifica ricevuta")
-    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioESiApreLaNotificaRicevuta() {
-        WebTool.switchToPortal(AppPortal.PF);
+    @Then("In parallelo si effettua l'accesso al portale destinatario {string} e si apre la notifica ricevuta")
+    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioESiApreLaNotificaRicevuta(String destinatario) {
+        if("persona fisica".equalsIgnoreCase(destinatario)) {
+            WebTool.switchToPortal(AppPortal.PF);
+        } else {
+            WebTool.switchToPortal(AppPortal.PG);
+        }
         piattaformaNotifichePage.selezionaNotifica();
         WebTool.waitTime(5);
         WebTool.closeTab();
+    }
+
+    @Then("In parallelo si effettua l'accesso al portale di {string}")
+    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatario(String portal) {
+        portal = portal.toLowerCase();
+        switch(portal){
+            case "persona fisica":
+                WebTool.switchToPortal(AppPortal.PF);
+                break;
+            case "persona giuridica":
+                WebTool.switchToPortal(AppPortal.PG);
+                break;
+            case "pubblica amministrazione":
+                WebTool.switchToPortal(AppPortal.PA);
+                break;
+            default:
+                logger.error("Tipologia di portale non specificato o errato!");
+                Assert.fail("Tipologia di portale non specificato o errato!");
+        }
+        WebTool.waitTime(5);
+    }
+
+    @And("Nella timeline della notifica si visualizza l'invio del messaggio di cortesia")
+    public void nellaTimelineDellaNotificaSiVisualizzaLInvioDelMessaggioDiCortesia(){
+        logger.info("Si verifica la presenza della voce 'Invio della notifica di cortesia in corso' nella timeline della notifica");
+        piattaformaNotifichePage.verificaInvioNotificaDiCortesia();
     }
 
     @Then("Si verifica che la notifica abbia lo stato {string}")
@@ -1011,7 +1039,7 @@ public class NotificaMittentePagoPATest {
         logger.info("Si verifica che la notifica abbia lo stato " + stato);
         piattaformaNotifichePage.verificaPresenzaStato(stato);
     }
-    
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */
