@@ -28,7 +28,7 @@ public class RicercaNotifichePGPage extends BasePage {
     public void clickNotificheImpresa() {
         try {
             By notificheImpresaButton = By.xpath("//div[@data-testid=\"sideMenuItem-Notifiche dell'impresa\"]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheImpresaButton));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(notificheImpresaButton));
             logger.info("Si clicca sulla voce notifiche dell'impresa");
             this.element(notificheImpresaButton).click();
         } catch (Exception e) {
