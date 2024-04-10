@@ -309,18 +309,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         this.groupOption.click();
     }
 
-    public String getCodiceVerificaDelegaACaricoDellImpresaAPI() {
-        try {
-            String pathIniziale = System.getProperty("user.dir");
-            String text = Files.readString(Paths.get(pathIniziale + "/src/test/resources/dataPopulation/bodyChiamataDeleghe.json"));
-            JSONObject object = new JSONObject(text);
-            return object.getString("verificationCode");
-        } catch (IOException e) {
-            logger.error("non é stato possibile reperire il codice di verifica dal json");
-            throw new RuntimeException(e);
-        }
-    }
-
     public void inserimentoCodiceDelegaACaricoDellImpresaAPI(String codiceDelega) {
         String[] codiciDelega = codiceDelega.split("");
         for (int i = 0; i < 5; i++) {
