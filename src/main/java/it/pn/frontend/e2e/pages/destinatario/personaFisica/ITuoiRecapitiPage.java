@@ -219,13 +219,13 @@ public class ITuoiRecapitiPage extends BasePage {
         By saveButton = By.id("saveModifyButton-default");
         By cancelButton = By.xpath("//button[contains(text(),'Annulla')]");
         By emailField = By.id("email");
-        getWebDriverWait(10).withMessage("Non si visualizza il bottone salva o non è cliccabile").until(ExpectedConditions.and(
+        getWebDriverWait(10).withMessage("Non si visualizza il bottone salva e non è cliccabile").until(ExpectedConditions.and(
                 ExpectedConditions.visibilityOfElementLocated(saveButton),
                 ExpectedConditions.elementToBeClickable(saveButton)));
-        getWebDriverWait(10).withMessage("Non si visualizza il bottone annulla o non è cliccabile").until(ExpectedConditions.and(
+        getWebDriverWait(10).withMessage("Non si visualizza il bottone annulla e non è cliccabile").until(ExpectedConditions.and(
                 ExpectedConditions.visibilityOfElementLocated(cancelButton),
                 ExpectedConditions.elementToBeClickable(cancelButton)));
-        getWebDriverWait(10).withMessage("Non si visualizza il campo email o non è modificabile").until(ExpectedConditions.and(
+        getWebDriverWait(10).withMessage("Non si visualizza il campo email e non è modificabile").until(ExpectedConditions.and(
                 ExpectedConditions.visibilityOfElementLocated(emailField),
                 ExpectedConditions.attributeToBe(this.element(emailField), "readonly", ""),
                 ExpectedConditions.attributeToBeNotEmpty(this.element(emailField), "value")));
