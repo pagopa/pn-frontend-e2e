@@ -103,9 +103,9 @@ public class RecapitiPGPagoPaTest {
         recapitiDestinatarioPage.clickButtonAnnullaEliminazioneInPopUp();
     }
 
-    @And("Si conferma eliminazione nel pop up")
-    public void siConfermaEliminazioneNelPopUp() {
-        if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
+    @And("Si conferma {string} nel pop up")
+    public void siConfermaEliminazioneNelPopUp(String contattoCortesia) {
+        if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase(contattoCortesia)) {
             recapitiDestinatarioPage.confermaButtonEliminaClick();
         }
     }
@@ -119,5 +119,11 @@ public class RecapitiPGPagoPaTest {
     public void nellaSezioneAltriRecapitiSiInserisceUnRecapito(){
         BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.aggiungiPecSezioneGiaAssociati();
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si visualizza il pop up di disclaimer")
+    public void nellaPaginaITuoiRecapitiSiVisualizzaIlPopUpDiDisclaimer() {
+        logger.info("Si controlla il disclaimer per il cambio dell'email di cortesia");
+        recapitiDestinatarioPage.checkDisclaimer();
     }
 }

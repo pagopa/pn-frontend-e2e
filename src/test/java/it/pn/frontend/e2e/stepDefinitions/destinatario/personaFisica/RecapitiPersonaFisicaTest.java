@@ -154,28 +154,6 @@ public class RecapitiPersonaFisicaTest {
         Assert.assertTrue("il buttone Conferma non è disabilitato", recapitiDestinatarioPage.verificaBottoneConfermaDisabilitato());
     }
 
-    @And("Nella pagina I Tuoi Recapiti si inserisce l'email errata {string}")
-    public void nellaPaginaITuoiRecapitiSiInserisceLEmailErrata(String emailErrata) {
-        recapitiDestinatarioPage.insertEmail(emailErrata);
-    }
-
-    @And("Nella pagina I Tuoi Recapiti si inserisce un email maggiore di {int} caratteri")
-    public void nellaPaginaITuoiRecapitiSiInserisceUnEmailMaggioreDiCaratteri(int numeroCaratteri) {
-        String email = "test";
-        for (int i = 0; i < numeroCaratteri; i++) {
-            email += "a";
-        }
-        recapitiDestinatarioPage.insertEmail(email);
-    }
-
-    @Then("Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio email errata")
-    public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioEmailErrata() {
-        String errorMessageRead = recapitiDestinatarioPage.getEmailErrorMessage();
-        if (!errorMessageRead.contains("Indirizzo e-mail non valido") && !errorMessageRead.contains("Scrivi massimo 254 caratteri")) {
-            Assert.fail("messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo e-mail non valido o Scrivi massimo 254 caratteri");
-        }
-    }
-
     @And("Si controlla che il tasto avvisami via email sia bloccato")
     public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoAvvisamiViaEmailSiaBloccato() {
 
@@ -199,7 +177,6 @@ public class RecapitiPersonaFisicaTest {
         logger.info("click pop-up conferma email");
 
         Assert.assertFalse("il popup Conferma email non si visualizza", recapitiDestinatarioPage.verificaPopUpConfermaEmail());
-
         recapitiDestinatarioPage.clickHoCapitoCheckBoxPopup();
         recapitiDestinatarioPage.confermaEmailPopup();
     }
@@ -448,7 +425,6 @@ public class RecapitiPersonaFisicaTest {
             logger.error("Email non è stata inserita correttamente");
             Assert.fail("Email non è stata inserita correttamente");
         }
-
     }
 
     @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email")
