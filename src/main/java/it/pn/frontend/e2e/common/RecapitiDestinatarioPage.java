@@ -284,7 +284,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public boolean siVisualizzaPecInserita() {
         try {
             By pecInseritaBy = By.xpath("//p[contains(text(),'PEC associata')]");
-            this.getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(pecInseritaBy));
+            getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(pecInseritaBy));
             return true;
         } catch (TimeoutException e) {
             logger.error("Pec inserita non presente con errore:" + e.getMessage());
@@ -336,7 +336,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean siControllaPECModificata(String pecInserita) {
         By pecBy = By.xpath("//div[@data-testid = 'legalContacts']//div//p");
-        this.getWebDriverWait(10).withMessage("Non trovata nessuna email PEC inserita").until(ExpectedConditions.visibilityOfElementLocated(pecBy));
+        getWebDriverWait(10).withMessage("Non trovata nessuna email PEC inserita").until(ExpectedConditions.visibilityOfElementLocated(pecBy));
         WebElement pec = this.element(pecBy);
         return pec.getText().equals(pecInserita);
     }
@@ -539,9 +539,9 @@ public class RecapitiDestinatarioPage extends BasePage {
         getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
     }
 
-    public void visualizzazioneSezioneAltriRecapitiPG() {
+    public void visualizzazioneCampiSezioneAltriRecapiti() {
         vaiInFondoAllaPagina();
-        By altriRecapitiSectionBy = By.id("specialContactTitle");
+        By altriRecapitiSectionBy = By.xpath("//h5[contains(@id, 'specialContact')]");
         By titleGiaAssociatiBy = By.xpath("//p[contains(text(), 'Già associati')]");
         WebElement tableGiaAssociati = driver.findElement(By.xpath("//table[@aria-label='Già associati']"));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
@@ -567,6 +567,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             if (columns.get(2).getText().contains("-") && columns.get(3).getText().contains("-")) {
                 logger.info("Si visualizzano il cellulare e la mail inseriti correttamente");
             }
+            break;
         }
     }
 

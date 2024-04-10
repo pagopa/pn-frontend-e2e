@@ -107,7 +107,7 @@ public class DisserviziAppPAPage extends BasePage {
     }
 
     public void checkDisserviziInCorso() {
-        aggionamentoPagina();
+        aggiornamentoPagina();
         if (!statusList.isEmpty()) {
             for (WebElement status : statusList) {
                 if (status.getText().contains("In corso")) {
@@ -130,7 +130,7 @@ public class DisserviziAppPAPage extends BasePage {
     }
 
     public void checkDisserviziDisponibili() {
-        aggionamentoPagina();
+        aggiornamentoPagina();
         if (!statusList.isEmpty()) {
             for (WebElement status : statusList) {
                 if (status.getText().contains("Risolto")) {

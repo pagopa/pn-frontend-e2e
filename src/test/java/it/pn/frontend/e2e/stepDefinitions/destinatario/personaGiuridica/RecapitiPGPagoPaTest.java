@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RecapitiPGPage;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,11 +69,12 @@ public class RecapitiPGPagoPaTest {
         recapitiDestinatarioPage.clickAvvisamiSMS();
     }
 
-    @Then("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti della persona giuridica")
-    public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapitiDellaPersonaGiuridica() {
-        logger.info("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti della persona giuridica");
-
-        recapitiDestinatarioPage.visualizzazioneSezioneAltriRecapitiPG();
+    @Then("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti")
+    public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapiti() {
+        logger.info("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti");
+        WebTool.waitTime(10);
+        this.driver.navigate().refresh();
+        recapitiDestinatarioPage.visualizzazioneCampiSezioneAltriRecapiti();
     }
 
     @And("Nella pagina I Tuoi Recapiti di PG, si controlla che ci sia già una pec")
