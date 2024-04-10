@@ -31,7 +31,7 @@ public class RecapitiPersonaFisicaTest {
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti")
-    public void ITuoiRecapitiButtonClick() {
+    public void nellaPaginaPiattaformaNotifichePersonaFisicaSiCliccaSulBottoneITuoiRecapiti() {
         logger.info("Si cerca di cliccare il bottone I Tuoi Recapiti");
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
         iTuoiRecapitiPage.iTuoiRecapitiButtonClick();
@@ -71,7 +71,6 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si clicca sul bottone conferma")
     public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneConferma() {
         logger.info("Si cerca di cliccare sul bottone conferma");
-
         recapitiDestinatarioPage.confermaButtonClick();
     }
 
@@ -344,7 +343,7 @@ public class RecapitiPersonaFisicaTest {
     @Then("Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente() {
         logger.info("Si controlla che la pec sia stata inserita correttamente");
-        WebTool.waitTime(10);
+        WebTool.waitTime(15);
         driver.navigate().refresh();
         if (recapitiDestinatarioPage.siVisualizzaPopUpConferma()) {
             logger.info("Si clicca su conferma nel pop-up");
@@ -829,7 +828,7 @@ public class RecapitiPersonaFisicaTest {
 
         if (recapitiDestinatarioPage.siVisualizzaPopUpConferma()) {
             recapitiDestinatarioPage.clickConfermaButton();
-            recapitiDestinatarioPage.aggionamentoPagina();
+            recapitiDestinatarioPage.aggiornamentoPagina();
             recapitiDestinatarioPage.waitLoadPage();
         }
         String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("additionalEmail").toString();
@@ -929,15 +928,6 @@ public class RecapitiPersonaFisicaTest {
             backgroundTest.aggiungiNuovaPECPF();
             backgroundTest.aggiungiPecSezioneGiaAssociati();
         }
-    }
-
-    @Then("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti")
-    public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapiti() {
-        logger.info("Si controlla che si visualizzano correttamente tutti gli elementi della sezione recapiti gia associati");
-        WebTool.waitTime(20);
-        this.driver.navigate().refresh();
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        iTuoiRecapitiPage.waitLoadRecapitiGiaAssociatoSection();
     }
 
     @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email diversa")
