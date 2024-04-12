@@ -89,7 +89,7 @@ public class HelpdeskTest {
     public void siRisolveIlDisservizio() {
         WebTool.waitTime(5);
         if (helpdeskPage.checkIsCreatedDisservizio()) {
-            helpdeskPage.handleDisservizio("OK");
+            helpdeskPage.handleDisservizio(Disservice.CREAZIONE_NOTIFICHE,Status.OK);
             WebTool.waitTime(5);
         }
     }

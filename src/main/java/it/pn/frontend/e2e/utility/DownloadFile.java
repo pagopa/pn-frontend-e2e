@@ -23,6 +23,9 @@ public class DownloadFile extends BasePage {
         super(driver);
     }
 
+    BufferedInputStream input = null;
+    BufferedOutputStream bufferOut = null;
+
     public void download(String urlLink, File fileLoc, boolean healdess) {
         if (healdess){
             try {
@@ -30,14 +33,16 @@ public class DownloadFile extends BasePage {
                 double TotalDownload = 0.00;
                 int readbyte = 0; //Stores the number of bytes written in each iteration.
                 double percentOfDownload = 0.00;
-
                 URL url = new URL(urlLink);
                 HttpURLConnection http = (HttpURLConnection)url.openConnection();
                 double filesize = (double)http.getContentLengthLong();
 
-                BufferedInputStream input = new BufferedInputStream(http.getInputStream());
-                FileOutputStream ouputfile = new FileOutputStream(fileLoc);
-                BufferedOutputStream bufferOut = new BufferedOutputStream(ouputfile, 1024);
+                input = new BufferedInputStream(http.getInputStream());
+
+                FileOutputStream outputFile = new FileOutputStream(fileLoc);
+                bufferOut= new BufferedOutputStream(outputFile, 1024);
+
+
                 while((readbyte = input.read(buffer, 0, 1024)) >= 0) {
                     //Writing the content onto the file.
                     bufferOut.write(buffer,0,readbyte);
@@ -50,11 +55,17 @@ public class DownloadFile extends BasePage {
                     System.out.println("Downloaded "+ percent + "%");
                 }
                 System.out.println("Your download is now complete.");
-                bufferOut.close();
-                input.close();
+                bufferOut.flush();
             }
             catch(IOException e){
                 e.printStackTrace();
+            }finally {
+                try {
+                    bufferOut.close();
+                    input.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }else {
             try {

@@ -1,21 +1,23 @@
 package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.model.Disservice;
+import it.pn.frontend.e2e.utility.DownloadFile;
+import it.pn.frontend.e2e.utility.WebTool;
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.*;
 import java.util.List;
 
-public class DisserviziAppPAPage extends BasePage {
+public class DisserviziAppPAPage<URl> extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("Disservizi PA Page");
-
+    private DownloadFile downloadFile;
     public DisserviziAppPAPage(WebDriver driver) {
         super(driver);
     }
@@ -25,7 +27,6 @@ public class DisserviziAppPAPage extends BasePage {
 
     @FindBy(xpath = "//tr[@id='tableDowntimeLog.row']//td//div[@data-testid='downtime-status']")
     List<WebElement> statusList;
-
 
     public void waitLoadStatoDellaPiattaformaPage() {
         try {
@@ -61,6 +62,24 @@ public class DisserviziAppPAPage extends BasePage {
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente la sezione disservizi con errore:" + e.getMessage());
             Assert.fail("Non si visualizza correttamente la sezione disservizi con errore" + e.getMessage());
+        }
+    }
+
+    public Disservice getDateDisservice(){
+
+        List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
+        if (!disserviziTableRows.isEmpty()) {
+            WebElement primaRiga = disserviziTableRows.get(0);
+            String dataInizioPrimaRiga = primaRiga.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//p[contains(text(), 'ore')]")).get(0).getText();
+            String dataFinePrimaRiga = primaRiga.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//p[contains(text(), 'ore')]")).get(1).getText();
+            return Disservice.builder()
+                    .dataDa(dataInizioPrimaRiga)
+                    .dataA(dataFinePrimaRiga)
+                    .build();
+        }else {
+            logger.error("non é stato possibile recuperare i dati dalla tabella dei disservizi");
+            Assert.fail("non é stato possibile recuperare i dati dalla tabella dei disservizi");
+            return null;
         }
     }
 
@@ -177,7 +196,7 @@ public class DisserviziAppPAPage extends BasePage {
             Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio disponibile");
         }
     }
-}
+
 
     public void clickVisualizzaAttestazione() {
         List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
@@ -186,6 +205,14 @@ public class DisserviziAppPAPage extends BasePage {
             WebElement linkDownloadAttestazione =primaRiga.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(0);
             linkDownloadAttestazione.click();
         }
+
+        getWebDriverWait(30).until(d->{
+            try {
+        return d.getCurrentUrl().contains("pn-safestorage");
+            }catch (TimeoutException e){
+                return false;
+            }
+        });
     }
 
 
@@ -196,5 +223,76 @@ public class DisserviziAppPAPage extends BasePage {
             logger.error("Non si visualizza il file del disservizio risolto");
             Assert.fail("Non si visualizza il file del disservizio risolto");
         }
+    }
+
+    public void downloadAttestazioneDisservizio(String nomeFile){
+        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
+
+        downloadFile = new DownloadFile(this.driver);
+
+        WebTool.waitTime(3);
+
+        final String url = driver.getCurrentUrl();
+        System.out.println("getCurrentUrl"+url);
+
+        if (!headless && url.isEmpty()) {
+            logger.error("Non è stato recuperato url per il download per il link: " + nomeFile);
+            Assert.fail("Non è stato recuperato url per il download per il link: " + nomeFile);
+        }
+        nomeFile = nomeFile.replace(" ", "_").replace(":", "");
+        File file = new File("src/test/resources/dataPopulation/downloadFileDisservizio/mittente/" + nomeFile + ".pdf");
+        logger.info("Il file verrà scaricato in: " + file.getAbsolutePath());
+        downloadFile.download(url, file, headless);
+        if (!headless) {
+            goBack();
+        }
+    }
+
+    public void confrontoFileConDisservizio(String nomefile) {
+        try{
+            driver.findElement(By.xpath("//html")).sendKeys(Keys.CONTROL+ "a");
+            driver.findElement(By.xpath("//html")).sendKeys(Keys.CONTROL+ "C");
+            //System.out.println("url ->"+text);
+
+            PDDocument doc=null;
+            BufferedInputStream file=null;
+
+            /*URL urlOfPdf = new URL(getURL);
+            System.out.println(urlOfPdf);
+
+            BufferedInputStream fileToParse = new BufferedInputStream(urlOfPdf.openStream());
+            PDDocument document = PDDocument.load(fileToParse);
+            System.out.println("document ->"+document);
+
+            PDFTextStripper output = new PDFTextStripper();
+
+            System.out.println("output->"+output);
+
+            output.setEndPage(1);
+            String text = output.getText(document);
+            System.out.println(text);*/
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+              /*Disservice disservice = getDateDisservice();
+        String basePathFile = "src/test/resources/dataPopulation/downloadFileDisservizio/mittente/" + nomefile + ".pdf";
+        File file = new File(basePathFile);
+        logger.info("percorso file: " + file.getAbsolutePath());
+        try {
+            PDDocument pdfFile = PDDocument.load(file);
+            PDFTextStripper pdfStripper = new PDFTextStripper();
+            String testoFile = pdfStripper.getText(pdfFile).replaceAll("\r\n|\r|\n", "");
+            logger.info("check corrispondenza testo con pdf");
+            if (testoFile.contains(disservice.getDataA()) && testoFile.contains(disservice.getDataDa())) {
+                pdfFile.close();
+                return true;
+            }
+            pdfFile.close();
+        } catch (IOException e) {
+            logger.error("File non trovato con errore: " + e.getMessage());
+            Assert.fail("File non trovato con errore: " + e.getMessage());
+        }
+        return false;*/
     }
 }

@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.model.Disservice;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
@@ -12,16 +13,22 @@ import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
+import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Wait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import org.apache.pdfbox.pdmodel.PDDocument;
+
 
 
 public class DownloadFileMittentePagoPATest {
@@ -184,8 +191,8 @@ public class DownloadFileMittentePagoPATest {
         }
         downloadFile = new DownloadFile(this.driver);
 
-        String varabileAmbiente = System.getProperty("environment");
-        final String url = downloadFile.getUrl("https://webapi." + varabileAmbiente + ".notifichedigitali.it/delivery-push/");
+        String variabileAmbiente = System.getProperty("environment");
+        final String url = downloadFile.getUrl("https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery-push/");
         if (headless && url.isEmpty()) {
             logger.error("Non è stato recuperato url per il download per il link: " + nomeFile);
             Assert.fail("Non è stato recuperato url per il download per il link: " + nomeFile);
@@ -280,17 +287,26 @@ public class DownloadFileMittentePagoPATest {
         }
     }
 
-    @And("Visualizza file di un disservizio risolto, {string}")
-    public void visualizzaFileDiUnDisservizioRisoltoDaScaricare(String nomeFile) {
-        logger.info("Si cerca di scaricare il file " + nomeFile);
+    @And("Visualizza file di un disservizio risolto")
+    public void visualizzaFileDiUnDisservizioRisoltoDaScaricare() {
+        logger.info("controllo esistenza file disservizio ");
 
         DisserviziAppPAPage disserviziAppPAPage = new DisserviziAppPAPage(driver);
         disserviziAppPAPage.clickVisualizzaAttestazione();
 
-        WebTool.waitTime(3);
+        logger.info("URL"+ driver.getCurrentUrl());
 
-        disserviziAppPAPage.checkVisualizzazioneFileDisservizioRisolto();
-        disserviziAppPAPage.goBack();
+        WebTool.waitTime(4);
+        //disserviziAppPAPage.checkVisualizzazioneFileDisservizioRisolto();
+    }
+
+    @And("Download file attestazione disservizio, {string}")
+    public void downloadFileAttestazioneDisservizio(String nomeFile) {
+        logger.info("si effettua download del disservizio");
+
+        DisserviziAppPAPage disserviziAppPAPage = new DisserviziAppPAPage(driver);
+
+        disserviziAppPAPage.downloadAttestazioneDisservizio(nomeFile);
 
     }
 }

@@ -51,4 +51,16 @@ public class DisserviziAppPATest {
         logger.info("Si visualizzano tutti i record in elenco relativi a disservizi risolti");
         disserviziAppPAPage.checkDisserviziDisponibili();
     }
+
+    @And("Controllo corrispondenza dati con pdf, {string}")
+    public void controlloCorrispondenzaDatiConPdf(String nomefile) {
+        logger.info("check dati con pdf e disservizio");
+
+        disserviziAppPAPage.confrontoFileConDisservizio(nomefile);
+        /*if (!isCorrect){
+            logger.error("i dati del pdf non corrispondono a quelli della tabella");
+            Assert.fail("i dati del pdf non corrispondono a quelli della tabella");
+        }*/
+
+    }
 }
