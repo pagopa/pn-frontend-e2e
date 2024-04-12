@@ -18,6 +18,7 @@ import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -1038,6 +1039,18 @@ public class NotificaMittentePagoPATest {
     public void siVerificaCheLaNotificaAbbiaLoStato(String stato) {
         logger.info("Si verifica che la notifica abbia lo stato " + stato);
         piattaformaNotifichePage.verificaPresenzaStato(stato);
+    }
+
+    @And("Si verifica che l'invio della notifica sia fallito {int} volte")
+    public void siVerificaCheLInvioDellaNotificaSiaFallitoDueVolte(int numeroFallimenti) {
+        logger.info("Si verifica che l'invio della notifica sia fallito " + numeroFallimenti + " volta/e");
+        dettaglioNotificaMittenteSection.checkDoppioFallimentoInvioViaPEC(numeroFallimenti);
+    }
+
+    @And("Si verifica l'invio della raccomandata semplice")
+    public void siVerificaLInvioDellaRaccomandataSemplice(){
+        logger.info("Si verifica l'avvenuto invio della notifica per raccomandata semplice");
+        dettaglioNotificaMittenteSection.checkInvioRaccomandataSemplice();
     }
 
     /**
