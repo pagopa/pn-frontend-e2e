@@ -689,4 +689,65 @@ public class RecapitiDestinatarioPage extends BasePage {
             Assert.fail("Qualche componente del pop up non viene visualizzato con errore: " + e.getMessage());
         }
     }
+
+    public void visualizzazioneSezioneAltriRecapitiPG() {
+        By altriRecapitiSectionBy = By.id("specialContact");
+        By sottoTitolo = By.xpath("//p[contains(text(),'Se si desidera che')");
+        By ente = By.id("sender-label");
+        By tipoDiRecapito = By.id("addressType-label");
+        By textBox = By.id("s_mail");
+        By associaButton = By.id("addSpecialButton");
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(sottoTitolo));
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(ente));
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(tipoDiRecapito));
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(textBox));
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(associaButton));
+    }
+
+    public void selezionaTipoEmail() {
+        this.tipoIndirizzoField.click();
+        // wait 2 seconds for the options to become visible
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            logger.error("errore: " + e.getMessage());
+        }
+        By opzioneEmail = By.id("EMAIL");
+        getWebDriverWait(10)
+                .withMessage("Non è visibile l'opzione indirizzo email")
+                .until(ExpectedConditions.elementToBeClickable(opzioneEmail));
+        this.element(opzioneEmail).click();
+    }
+
+    public void selezionaTipoPec() {
+        this.tipoIndirizzoField.click();
+        // wait 2 seconds for the options to become visible
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            logger.error("errore: " + e.getMessage());
+        }
+        By opzionePEC = By.id("PEC");
+        getWebDriverWait(10)
+                .withMessage("Non è visibile l'opzione indirizzo email")
+                .until(ExpectedConditions.elementToBeClickable(opzionePEC));
+        this.element(opzionePEC).click();
+    }
+
+    public void selezionaTipoCelulare() {
+        this.tipoIndirizzoField.click();
+        // wait 2 seconds for the options to become visible
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            logger.error("errore: " + e.getMessage());
+        }
+        By opzioneCelulare = By.id("Celulare");
+        getWebDriverWait(10)
+                .withMessage("Non è visibile l'opzione celulare")
+                .until(ExpectedConditions.elementToBeClickable(opzioneCelulare));
+        this.element(opzioneCelulare).click();
+    }
+
 }

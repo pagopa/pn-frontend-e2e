@@ -126,4 +126,25 @@ public class RecapitiPGPagoPaTest {
         logger.info("Si controlla il disclaimer per il cambio dell'email di cortesia");
         recapitiDestinatarioPage.checkDisclaimer();
     }
+
+      @And("Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti persona giuridica")
+      public void siVisualizzaAltriRecapitiPagePersonaGiuridca(){
+    recapitiDestinatarioPage.visualizzazioneSezioneAltriRecapitiPG();
+}
+    @And("Nella sezione altri recapiti si seleziona il tipo di indirizzo PG scegliendo {string}")
+    public void selezionaIlTipoDiIndirizzo(String tipoIndirizzo){
+        logger.info("Si seleziona il tipo di indirizzo scegliendo email");
+        if (tipoIndirizzo.equalsIgnoreCase("PEC"))
+            recapitiDestinatarioPage.selezionaTipoPec();
+        else if(tipoIndirizzo.equalsIgnoreCase("Email")){
+            recapitiDestinatarioPage.selezionaTipoEmail();
+        }else{
+            recapitiDestinatarioPage.selezionaTipoCelulare();
+        }
+    }
+
+    @And("Nella sezione altri recapiti si inserisce la email aggiuntiva {string}")
+    public void siInserisceEmailAggiuntiva(String email){
+        recapitiDestinatarioPage.insertEmailAggiuntiva(email);
+    }
 }
