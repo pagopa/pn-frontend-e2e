@@ -14,6 +14,7 @@ import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.*;
+import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
@@ -137,6 +138,18 @@ public class NotificaMittentePagoPATest {
         logger.info("Selezione bottone invia una nuova notifica");
         piattaformaNotifichePage.selectInviaUnaNuovaNotificaButton();
         piattaformaNotifichePage.waitLoadingSpinner();
+    }
+
+    @And("Si finalizza l'invio della notifica e si controlla che venga creata correttamente")
+    public void siFinalizzaLInvioDellaNotificaESiControllaCheVengaCreataCorrettamente() {
+        logger.info("Si finalizza l'invio della notifica e si controlla che venga creata correttamente");
+        siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionAllegati();
+        nellaSectionAllegatiSiCaricaUnAtto();
+        nellaSectionAllegatiCliccareSulBottoneInvia();
+        siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata();
+        cliccareSulBottoneVaiAlleNotifiche();
+        siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche();
+        siVerificaCheLaNotificaeStataCreataCorrettamente();
     }
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari")
