@@ -1011,7 +1011,26 @@ public class NotificaMittentePagoPATest {
         logger.info("Si verifica che la notifica abbia lo stato " + stato);
         piattaformaNotifichePage.verificaPresenzaStato(stato);
     }
-    
+
+    @And("Si annulla la notifica")
+    public void siAnnullaLaNotifica() {
+        logger.info("Si clicca sul pusante annulla notifica");
+        piattaformaNotifichePage.clickBottoneAnnullaNotifica();
+        piattaformaNotifichePage.clickAnnullaNotificaModale();
+    }
+
+    @And("Il bottone annulla notifica non è visualizzabile nella descrizione della notifica")
+    public void ilBottoneAnnullaNotificaNonÈVisualizzabileNellaDescrizioneDellaNotifica() {
+        logger.info("Si controlla che il bottone annulla notifica non sia visualizzabile");
+        piattaformaNotifichePage.checkBottoneAnnullaNotifica();
+    }
+
+    @And("Nella pagina Piattaforma Notifiche la notifica presenta lo stato {string}")
+    public void nellaPaginaPiattaformaNotificheLaNotificaPresentaLoStato(String stato) {
+        logger.info("Si controlla che nella pagina piattaforma notifiche la notifica abbia lo stato " + stato);
+        piattaformaNotifichePage.checkStatoNotifica(stato);
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */

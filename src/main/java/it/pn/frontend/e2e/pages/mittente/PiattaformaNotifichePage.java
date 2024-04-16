@@ -92,7 +92,6 @@ public class PiattaformaNotifichePage extends BasePage {
     WebElement notificationsTable;
 
 
-
     public PiattaformaNotifichePage(WebDriver driver) {
         super(driver);
     }
@@ -768,7 +767,6 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
 
-
     public void verificaPresenzaStato(String stato) {
         By statusChip = By.xpath("//div[@data-testid='itemStatus']//span[contains(text(),'" + stato + "')]");
         try {
@@ -811,6 +809,56 @@ public class PiattaformaNotifichePage extends BasePage {
         } else {
             logger.error("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
             Assert.fail("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
+        }
+    }
+
+    public void clickBottoneAnnullaNotifica() {
+        try {
+            By bottoneAnnullaNotifica = By.xpath("//button[@data-testid='cancelNotificationBtn']");
+            getWebDriverWait(10).until(ExpectedConditions.and(ExpectedConditions.visibilityOfElementLocated(bottoneAnnullaNotifica), ExpectedConditions.elementToBeClickable(bottoneAnnullaNotifica)));
+            element(bottoneAnnullaNotifica).click();
+        } catch (TimeoutException e) {
+            logger.error("Bottone annulla notifica non visibile e cliccabile");
+            Assert.fail("Bottone annulla notifica non visibile e cliccabile");
+
+        }
+    }
+
+    public void clickAnnullaNotificaModale() {
+        try {
+            By bottoneAnnullaNotificaModale = By.xpath("//button[@data-testid='modalCloseAndProceedBtnId']");
+            getWebDriverWait(10).until(ExpectedConditions.and(ExpectedConditions.visibilityOfElementLocated(bottoneAnnullaNotificaModale), ExpectedConditions.elementToBeClickable(bottoneAnnullaNotificaModale)));
+            element(bottoneAnnullaNotificaModale).click();
+        } catch (TimeoutException e) {
+            logger.error("Bottone annulla notifica della modale non visibile e cliccabile");
+            Assert.fail("Bottone annulla notifica della modale non visibile e cliccabile");
+
+        }
+    }
+
+    public void checkBottoneAnnullaNotifica() {
+        try {
+            By bottoneAnnullaNotifica = By.xpath("//button[@data-testid='cancelNotificationBtn']");
+            getWebDriverWait(10).until(ExpectedConditions.invisibilityOfElementLocated(bottoneAnnullaNotifica));
+        } catch (TimeoutException e) {
+            logger.error("Bottone annulla notifica visibile");
+            Assert.fail("Bottone annulla notifica visibile");
+
+        }
+    }
+
+    // da ultimare per ricerca notifica non posizionale
+    public void checkStatoNotifica(String stato) {
+        waitLoadPage();
+        try {
+            By notificaBy = By.id("notificationsTable.body.row");
+            By boxStatoNotifica = By.id("status-chip-");
+            attesaCaricamentoPagina();
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(notificaBy));
+            List<WebElement> notifiche = this.elements(notificaBy);
+        } catch (TimeoutException e) {
+            logger.error("Notifica non trovata con errore: " + e.getMessage());
+            Assert.fail("Notifica non trovata con errore: " + e.getMessage());
         }
     }
 }
