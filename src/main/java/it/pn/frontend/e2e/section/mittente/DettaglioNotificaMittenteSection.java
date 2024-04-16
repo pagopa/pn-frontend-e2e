@@ -298,6 +298,14 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             Assert.fail("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
         }
     }
-    //p[text()='" + domicilioSpeciale + "']
-    //div[contains(p, '" + domicilioSpeciale + "') and contains(span, 'Invio via PEC riuscito')]
+
+    public void checkTentatoInvioADomicilioSpeciale(String domicilioSpeciale) {
+        try {
+            By invioDomicilioSpecialeBy = By.xpath("//div[contains(span/text(), 'Invio via PEC fallito') and (//div[contains(p/text(), '" + domicilioSpeciale + "')])]");
+            getWebDriverWait(10).withMessage("Non si visualizza l'invio della notifica al domicilio speciale nella timeline").until(ExpectedConditions.visibilityOfElementLocated(invioDomicilioSpecialeBy));
+        } catch (TimeoutException e) {
+            logger.error("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
+            Assert.fail("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
+        }
+    }
 }

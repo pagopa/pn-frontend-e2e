@@ -39,10 +39,10 @@ Feature: Mittente invia una notifica digitale con domicilio speciale impostato a
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica è stata creata correttamente
-    And Aspetta 180 secondi
+    And Aspetta 240 secondi
     And Cliccare sulla notifica restituita
     And Si clicca sul opzione Vedi Dettaglio
-    #And Si verifica l'invio della notifica al domicilio speciale inserito "prova@test.it"
+    And Si verifica il tentato invio della notifica al domicilio speciale inserito "prova@fail.it"
     And Si verifica che l'invio della notifica sia fallito 2 volte
     And Si verifica l'invio della raccomandata semplice
     And Logout da portale mittente

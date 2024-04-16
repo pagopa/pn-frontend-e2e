@@ -1058,6 +1058,12 @@ public class NotificaMittentePagoPATest {
         dettaglioNotificaMittenteSection.checkInvioADomicilioSpeciale(domicilioSpeciale);
     }
 
+    @And("Si verifica il tentato invio della notifica al domicilio speciale inserito {string}")
+    public void siVerificaIlTentatoInvioDellaNotificaAlDomicilioSpecialeInserito(String domicilioSpeciale) {
+        logger.info("Si verifica il tentato invio al domicilio speciale " + domicilioSpeciale + " inserito nella notifica");
+        dettaglioNotificaMittenteSection.checkTentatoInvioADomicilioSpeciale(domicilioSpeciale);
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */
