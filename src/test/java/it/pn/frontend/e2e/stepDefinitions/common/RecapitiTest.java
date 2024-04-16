@@ -39,15 +39,15 @@ public class RecapitiTest {
     }
 
     @And("Nella pagina I Tuoi Recapiti si preme sul bottone {string} del numero di cellulare di cortesia")
-    public void nellaPaginaITuoiRecapitiSiPremeSulBottoneDelNumeroDiCellulareDiCortesia(String CTA) {
-        logger.info("Si preme sul bottone " + CTA + " del numero di cellulare di cortesia");
-        recapitiDestinatarioPage.clickSuBottoneCellulareDiCortesia(CTA);
+    public void nellaPaginaITuoiRecapitiSiPremeSulBottoneDelNumeroDiCellulareDiCortesia(String actionButton) {
+        logger.info("Si preme sul bottone " + actionButton + " del numero di cellulare di cortesia");
+        recapitiDestinatarioPage.clickSuBottoneCellulareDiCortesia(actionButton);
     }
 
     @And("Nella pagina I Tuoi Recapiti si preme sul bottone {string} dell'email di cortesia")
-    public void nellaPaginaITuoiRecapitiSiPremeSulBottoneDellEmailDiCortesia(String CTA) {
-        logger.info("Si preme sul bottone " + CTA + " dell'email di cortesia");
-        recapitiDestinatarioPage.clickSuBottoneEmailDiCortesia(CTA);
+    public void nellaPaginaITuoiRecapitiSiPremeSulBottoneDellEmailDiCortesia(String actionButton) {
+        logger.info("Si preme sul bottone " + actionButton + " dell'email di cortesia");
+        recapitiDestinatarioPage.clickSuBottoneEmailDiCortesia(actionButton);
     }
 
     @Then("Nella pagina I Tuoi Recapiti si controlla che il numero di cellulare non sia presente")
