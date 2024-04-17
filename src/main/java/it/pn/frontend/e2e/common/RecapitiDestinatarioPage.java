@@ -691,10 +691,10 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void visualizzazioneSezioneAltriRecapitiPG() {
-        By altriRecapitiSectionBy = By.id("specialContact");
-        By sottoTitolo = By.xpath("//p[contains(text(),'Se si desidera che')");
-        By ente = By.id("sender-label");
-        By tipoDiRecapito = By.id("addressType-label");
+        By altriRecapitiSectionBy = By.id("specialContactTitle");
+        By sottoTitolo = By.xpath("//p[contains(text(),'Se si desidera che')]");
+        By ente = By.id("sender");
+        By tipoDiRecapito = By.id("addressType");
         By textBox = By.id("s_mail");
         By associaButton = By.id("addSpecialButton");
         getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
