@@ -695,7 +695,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         By sottoTitolo = By.xpath("//p[contains(text(),'Se si desidera che')]");
         By ente = By.id("sender");
         By tipoDiRecapito = By.id("addressType");
-        By textBox = By.id("s_mail");
+        By textBox = By.id("s_pec-label");
         By associaButton = By.id("addSpecialButton");
         getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
         getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(sottoTitolo));
@@ -730,7 +730,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
         By opzionePEC = By.id("PEC");
         getWebDriverWait(10)
-                .withMessage("Non è visibile l'opzione indirizzo email")
+                .withMessage("Non è visibile l'opzione indirizzo PEC")
                 .until(ExpectedConditions.elementToBeClickable(opzionePEC));
         this.element(opzionePEC).click();
     }

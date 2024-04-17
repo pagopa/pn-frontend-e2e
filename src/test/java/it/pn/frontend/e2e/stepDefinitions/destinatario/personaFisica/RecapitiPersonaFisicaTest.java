@@ -774,6 +774,14 @@ public class RecapitiPersonaFisicaTest {
 
     }
 
+    @And("Nella sezione altri recapiti PG si seleziona l'ente {string}")
+    public void nellaSezioneAltriRecapitiPGSiSelezionaLEnte(String ente) {
+        logger.info("Si sceglie l'ente");
+
+        recapitiDestinatarioPage.insertEnte(ente);
+
+    }
+
     @And("Nella sezione altri recapiti si seleziona il tipo di indirizzo")
     public void nellaSezioneAltriRecapitiSiSelezionaIlTipoDiIndirizzo() {
         logger.info("Si selezione il tipo di indirizzo come PEC");

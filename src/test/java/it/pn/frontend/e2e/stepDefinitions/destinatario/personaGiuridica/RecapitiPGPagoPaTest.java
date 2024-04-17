@@ -133,7 +133,7 @@ public class RecapitiPGPagoPaTest {
 }
     @And("Nella sezione altri recapiti si seleziona il tipo di indirizzo PG scegliendo {string}")
     public void selezionaIlTipoDiIndirizzo(String tipoIndirizzo){
-        logger.info("Si seleziona il tipo di indirizzo scegliendo email");
+        logger.info("Si seleziona il tipo di indirizzo digitale");
         if (tipoIndirizzo.equalsIgnoreCase("PEC"))
             recapitiDestinatarioPage.selezionaTipoPec();
         else if(tipoIndirizzo.equalsIgnoreCase("Email")){
@@ -147,4 +147,10 @@ public class RecapitiPGPagoPaTest {
     public void siInserisceEmailAggiuntiva(String email){
         recapitiDestinatarioPage.insertEmailAggiuntiva(email);
     }
+
+    @And("Nella sezione altri recapiti si inserisce la PEC aggiuntiva {string}")
+    public void siInseriscePECAggiuntiva(String pec){
+        recapitiDestinatarioPage.insertPECAggiuntiva(pec);
+    }
+
 }
