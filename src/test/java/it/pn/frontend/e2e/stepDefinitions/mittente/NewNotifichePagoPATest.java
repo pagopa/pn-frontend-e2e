@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class NewNotifichePagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("NewNotifichePagoPATest");
@@ -53,12 +54,12 @@ public class NewNotifichePagoPATest {
     }
 
     @And("Creo in background una notifica PG con un destinatario e un documento tramite API REST")
-    public void creoUnaNotificaPGConUnDestinatarioEUnDocumento() throws RestNotificationException {
+    public void creoUnaNotificaPGConUnDestinatarioEUnDocumento(Map<String, String> recipient) throws RestNotificationException {
         int maxAttempts = 3;
         int attempt = 1;
 
         ArrayList<Recipient> recipients = new ArrayList<>();
-        recipients.add(new Recipient("Le Epistolae srl", RecipientTypeEnum.PG,"80016350821",new PhysicalAddress(),new DigitalDomicile()));
+        recipients.add(new Recipient(recipient.get("denomination"), RecipientTypeEnum.PG, recipient.get("taxId"),new PhysicalAddress(), new DigitalDomicile()));
         ArrayList<Document> documents = new ArrayList<>();
         documents.add(new Document());
         NewNotificationRequest notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
