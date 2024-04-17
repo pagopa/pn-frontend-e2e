@@ -13,6 +13,7 @@ import it.pn.frontend.e2e.section.destinatario.personaGiuridica.DelegatiImpresaS
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePagoPATest;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -324,7 +325,7 @@ public class DeleghePGPagoPATest {
 
         this.datiDelega = this.dataPopulation.readDataPopulation("personaGiuridica.yaml");
 
-        deleghePGPagoPAPage.aggionamentoPagina();
+        deleghePGPagoPAPage.aggiornamentoPagina();
 
         if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG(this.datiDelega.get("ragioneSociale").toString())) {
             logger.info("La delega è stata rifiutata correttamente");
@@ -424,25 +425,25 @@ public class DeleghePGPagoPATest {
     @And("Creo in background una delega per persona giuridica")
     public void creoInBackgroundUnaDelegaPerPersonaGiuridica(Map<String, String> personaGiuridica) {
         logger.info("Si controlla che ci sia una delega");
-            String dateto = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            DelegatePG delegatePG = DelegatePG.builder()
-                    .companyName(personaGiuridica.get("companyName"))
-                    .displayName(personaGiuridica.get("displayName"))
-                    .fiscalCode(personaGiuridica.get("fiscalCode"))
-                    .person(Boolean.parseBoolean(personaGiuridica.get("person")))
-                    .build();
-            DelegateRequestPG delegateRequestPG = DelegateRequestPG.builder()
-                    .dateto(dateto)
-                    .delegate(delegatePG)
-                    .visibilityIds(new ArrayList<>())
-                    .verificationCode("12345")
-                    .build();
-            String tokenExchange = loginPGPagoPaTest.getTokenExchangePGFromFile(personaGiuridica.get("accessoCome"));
-            DelegateResponsePG response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
-            System.setProperty("mandateId", response.getMandateId());
-            System.setProperty("verificationCode", response.getVerificationCode());
-            driver.navigate().refresh();
-        }
+        String dateto = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        DelegatePG delegatePG = DelegatePG.builder()
+                .companyName(personaGiuridica.get("companyName"))
+                .displayName(personaGiuridica.get("displayName"))
+                .fiscalCode(personaGiuridica.get("fiscalCode"))
+                .person(Boolean.parseBoolean(personaGiuridica.get("person")))
+                .build();
+        DelegateRequestPG delegateRequestPG = DelegateRequestPG.builder()
+                .dateto(dateto)
+                .delegate(delegatePG)
+                .visibilityIds(new ArrayList<>())
+                .verificationCode("12345")
+                .build();
+        String tokenExchange = loginPGPagoPaTest.getTokenExchangePGFromFile(personaGiuridica.get("accessoCome"));
+        DelegateResponsePG response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
+        System.setProperty("mandateId", response.getMandateId());
+        System.setProperty("verificationCode", response.getVerificationCode());
+        driver.navigate().refresh();
+    }
 
     @And("Si clicca sul bottone accetta delega dopo aver inserito il codice di verifica")
     public void siCliccaSulBottoneAccettaDelegaDopoAverInseritoIlCodiceDiVerifica() {
@@ -478,7 +479,8 @@ public class DeleghePGPagoPATest {
         BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.accettazioneDelegaSceltaGruppo(withGroup.equalsIgnoreCase("senza"));
     }
-    public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModaleErrata(){
+
+    public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModaleErrata() {
 
         deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI("00000");
 
@@ -495,15 +497,23 @@ public class DeleghePGPagoPATest {
         backgroundTest.checkDelegaSceltaGruppoEInserimentoCodiceErrata();
     }
 
-    public void checkErroreInInserimentoCodiceErrato()  {
+    public void checkErroreInInserimentoCodiceErrato() {
         deleghePGPagoPAPage.checkErroreInInserimentoCodice();
     }
+
     public void siCliccaSulBottoneIndietroInInserimentoCodiceVerifica() {
         deleghePGPagoPAPage.clickIndietroInInserimentoCodiceVerifica();
     }
 
-    public void siCliccaSulBottoneIndietroInAssegnazioneGruppo(){
+    public void siCliccaSulBottoneIndietroInAssegnazioneGruppo() {
         deleghePGPagoPAPage.clickButtonIndietroInAssegnazioneGruppo();
+    }
+
+    @And("Non si inserisce il codice OTP e l invito della delega non è più presente")
+    public void nonSiInserisceIlCodiceOTPELInvitoDellaDelegaNonèPiùPresente() {
+        WebTool.waitTime(61 * 15);
+        driver.navigate().refresh();
+        deleghePGPagoPAPage.waitLoadDeleghePage();
     }
 
     @And("Si inserisce un codice della delega a carico dell impresa errato nella modale")

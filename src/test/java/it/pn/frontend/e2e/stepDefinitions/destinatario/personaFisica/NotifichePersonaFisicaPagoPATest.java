@@ -5,9 +5,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
-import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
@@ -31,9 +31,11 @@ public class NotifichePersonaFisicaPagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("NotifichePersonaFisicaTest");
     private final WebDriver driver = Hooks.driver;
     private Map<String, Object> personaFisica = new HashMap<>();
-    private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+    private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
     private final DataPopulation dataPopulation = new DataPopulation();
+    private final DestinatarioPage destinatarioPage = new DestinatarioPage(driver);
 
+    private final DettaglioNotificaSection dettaglioNotifica = new DettaglioNotificaSection(driver);
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche")
     public void nellaPiattaformaDestinatarioCliccareSulBottoneNotifiche() {
@@ -41,7 +43,7 @@ public class NotifichePersonaFisicaPagoPATest {
         notifichePFPage.clickNotificheButton();
     }
 
-@Then("pagina Piattaforma  Notifiche persona fisica viene visualizzata correttamente")
+    @Then("pagina Piattaforma  Notifiche persona fisica viene visualizzata correttamente")
     public void paginaPiattaformaNotificheDestinatarioVieneVisualizzataCorrettamente() {
         HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
         headerPFSection.waitLoadHeaderDESection();
@@ -92,16 +94,16 @@ public class NotifichePersonaFisicaPagoPATest {
         notifichePFPage.siVisualizzaElencoNotifiche();
     }
 
+    @And("Si visualizza l elenco delle notifiche dell impresa")
+    public void siVisualizzaLElencoDelleNotificheDellImpresa() {
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.siVisualizzaElencoNotifiche();
+    }
+
     @And("Si seleziona il nome del delegante nell elenco")
     public void siSelezionaIlNomeDelDeleganteNellElenco() {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.clickNomeDelegante();
-    }
-
-    @Then("Si visualizzano tutte le notifiche del delegante selezionato")
-    public void siVisualizzanoTutteLeNotificheDelDeleganteSelezionato() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-        notifichePFPage.siVisualizzaElencoNotifiche();
     }
 
     @Then("Si visualizzano correttamente le notifiche in elenco paginato")
@@ -215,58 +217,58 @@ public class NotifichePersonaFisicaPagoPATest {
 
         if (!sezionePagamentoIsDisplayed) {
             logger.info("La notifica non prevede il pagamento ");
-        }else{
+        } else {
             logger.info("La notifica prevede il pagamento");
             boolean radioBoxPresent = accediAPiattaformaNotifichePage.isRadioBoxPresent();
 
-            if (radioBoxPresent){
+            if (radioBoxPresent) {
 
                 accediAPiattaformaNotifichePage.clickRadioBoxButton(accediAPiattaformaNotifichePage.cssBuildRadioButton());
             }
 
             boolean titoloPagamentoIsDisplayed = accediAPiattaformaNotifichePage.titoloDiPagamentoDisplayed();
-            if (titoloPagamentoIsDisplayed){
+            if (titoloPagamentoIsDisplayed) {
                 logger.info("Sezione titolo di pagamento è visualizzato");
-            }else{
+            } else {
                 logger.error("Sezione titolo di pagamento non è visualizzato");
                 Assert.fail("Sezione titolo di pagamento non è visualizzato");
             }
 
             boolean codiceAvvisoIsDisplayed = accediAPiattaformaNotifichePage.codiceAvvisoDisplayed();
-            if (codiceAvvisoIsDisplayed){
+            if (codiceAvvisoIsDisplayed) {
                 logger.info("Sezione codice avviso è visualizzato");
-            }else{
+            } else {
                 logger.error("Sezione codice avviso non è visualizzato");
                 Assert.fail("Sezione codice avviso non è visualizzato");
             }
 
             boolean modelloF24IsDisplayed = accediAPiattaformaNotifichePage.modelloF24Displayed();
-            if (modelloF24IsDisplayed){
+            if (modelloF24IsDisplayed) {
                 logger.info("Sezione scarica modello F24 è visualizzato");
-            }else{
+            } else {
                 logger.error("Sezione scarica modello F24 non è visualizzato");
                 Assert.fail("Sezione scarica modello F24 non è visualizzato");
             }
 
             boolean scaricaAvvisoDisplayed = accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed();
-            if (scaricaAvvisoDisplayed){
+            if (scaricaAvvisoDisplayed) {
                 logger.info("Sezione scarica avviso è visualizzato");
-            }else{
+            } else {
                 logger.error("Sezione scarica avviso non è visualizzato");
                 Assert.fail("Sezione scarica avviso non è visualizzato");
             }
 
             boolean pagaAvvisoDisplayed = accediAPiattaformaNotifichePage.pagaAvvisoDisplayed();
-            if (pagaAvvisoDisplayed){
+            if (pagaAvvisoDisplayed) {
                 logger.info("Sezione paga avviso è visualizzato");
-            }else{
+            } else {
                 logger.error("Sezione paga avviso non è visualizzato");
                 Assert.fail("Sezione paga avviso non è visualizzato");
             }
         }
     }
 
-   @Then("Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto {string}")
+    @Then("Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto {string}")
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaDestinatarioESiControllaCheIlDownloadSiaAvvenuto(String dpFile) {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponibili();
@@ -341,6 +343,20 @@ public class NotifichePersonaFisicaPagoPATest {
         piattaformaNotifichePage.checkDefaultPagination();
     }
 
+    @And("Si controlla la pagina delle notifiche delegati di {string}")
+    public void siControllaLaPaginaDelleNotificheDelegatiDi(String nomeDelegante) {
+        piattaformaNotifichePage.checkPaginaNotificheDelegante(nomeDelegante);
+    }
+
+    @And("Si clicca sulla notifica del delegante")
+    public void siCliccaSullaNotificaDelDelegante() {
+        destinatarioPage.clickSulDettaglioNotificaDelegante();
+    }
+
+    @And("Si controlla il dettaglio della notifica")
+    public void siControllaIlDettaglioDellaNotifica() {
+        dettaglioNotifica.waitLoadDettaglioNotificaDESection();
+    }
 }
 
 

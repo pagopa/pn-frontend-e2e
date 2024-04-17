@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import it.pn.frontend.e2e.utility.DownloadFile;
+import it.pn.frontend.e2e.utility.DownloadFile;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,5 +80,11 @@ public class DisserviziAppPATest {
             }
 
         downloadFile.controlloDownload(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario", 1);
+    }
+
+    @And("Si visualizzano tutti i record in elenco relativi a disservizi risolti")
+    public void siVisualizzanoTuttiIRecordInElencoRelativiADisserviziRisolti() {
+        logger.info("Si visualizzano tutti i record in elenco relativi a disservizi risolti");
+        disserviziAppPAPage.checkDisserviziDisponibili();
     }
 }

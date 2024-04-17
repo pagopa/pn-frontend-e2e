@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class BasePage {
-
     protected WebDriver driver;
 
     protected int loadComponentWaitTime = Integer.parseInt(System.getProperty("loadComponentWaitTime"));
@@ -44,6 +43,19 @@ public class BasePage {
         }
     }
 
+    public void scrollToElementAndClick(WebElement element) {
+        try {
+            if (!element.isDisplayed()) {
+                loggerBase.info("scroll elemento");
+                this.js().executeScript("arguments[0].scrollIntoView(true);", element);
+            }
+            this.js().executeScript("arguments[0].click()", element);
+        } catch (ElementNotInteractableException e) {
+            loggerBase.error("elemento non interagibile");
+            this.js().executeScript("arguments[0].click()", element);
+        }
+    }
+
     protected WebDriverWait getWebDriverWait(long timeout) {
         return new WebDriverWait(this.driver, Duration.ofSeconds(timeout), Duration.ofMillis(500));
     }
@@ -62,7 +74,6 @@ public class BasePage {
 
     public void waitLoadPage() {
         try {
-            TimeUnit.SECONDS.sleep(7);
             TimeUnit.SECONDS.sleep(10);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
@@ -73,7 +84,7 @@ public class BasePage {
         this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
     }
 
-    public void aggionamentoPagina() {
+    public void aggiornamentoPagina() {
         this.driver.navigate().refresh();
     }
 
@@ -99,4 +110,3 @@ public class BasePage {
         }
     }
 }
-

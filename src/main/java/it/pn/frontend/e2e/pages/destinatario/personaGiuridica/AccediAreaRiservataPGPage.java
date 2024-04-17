@@ -24,8 +24,8 @@ public class AccediAreaRiservataPGPage extends BasePage {
     public void waitLoadAccediAreaRiservataPGPage() {
         try {
             By titleBy = By.xpath("//h3[contains(text(),'Come vuoi accedere?')]");
-            this.getWebDriverWait(30).withMessage("il titolo della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleBy));
-            this.getWebDriverWait(30).withMessage("Lo spid Button della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.elementToBeClickable(this.spidButton));
+            getWebDriverWait(30).withMessage("il titolo della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleBy));
+            getWebDriverWait(30).withMessage("Lo spid Button della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.elementToBeClickable(this.spidButton));
             logger.info("AccediAreaRiservaPage caricata correttamente");
         } catch (TimeoutException e ){
             logger.error("Accedi Area Riservata Page non caricata correttamente con errore: "+e.getMessage());

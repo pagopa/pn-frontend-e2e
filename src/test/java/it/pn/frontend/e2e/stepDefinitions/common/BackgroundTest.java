@@ -27,6 +27,7 @@ public class BackgroundTest {
     private final DisserviziAppPGTest disserviziAppPGTest = new DisserviziAppPGTest();
     private final HelpdeskTest helpdeskTest = new HelpdeskTest();
     private final NotifichePGPagoPATest notifichePGPagoPATest = new NotifichePGPagoPATest();
+    private final RecapitiTest recapitiTest = new RecapitiTest();
     private Map<String, String> datiPersonaFisica;
 
     public BackgroundTest(){
@@ -122,6 +123,14 @@ public class BackgroundTest {
         deleghePagoPATest.siControllaCheLaDelegaHaLoStatoAttiva(nomeFilePersonaFisica);
     }
 
+    public void accettaDelegaPF() {
+        deleghePagoPATest.waitDelegheButton();
+        deleghePagoPATest.siSceglieOpzioneAccetta();
+        deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp();
+        deleghePagoPATest.siCliccaSulBottoneAccetta();
+        deleghePagoPATest.siControllaCheLaDelegaHaLoStatoAttiva(nomeFilePersonaFisica);
+    }
+
 
     public void aggiuntaEmailPF() {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLEmailDelPFECliccaSulBottoneAvvisamiViaEmail(nomeFilePersonaFisica);
@@ -149,7 +158,7 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVerificaCheLaPecSiaStataModificata(nomeFilePersonaFisica);
         logoutPF();
         loginPFRecapiti(nomeFilePersonaFisica);
-        recapitiPersonaFisicaTest.ITuoiRecapitiButtonClick();
+        recapitiPersonaFisicaTest.nellaPaginaPiattaformaNotifichePersonaFisicaSiCliccaSulBottoneITuoiRecapiti();
         recapitiPersonaFisicaTest.siVisualizzaCorrettamenteLaPaginaITuoiRecapiti();
     }
 
@@ -228,12 +237,9 @@ public class BackgroundTest {
     public void aggiungiPecSezioneGiaAssociati() {
         recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiSelezionaLEnte(mittente);
         recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiSelezionaIlTipoDiIndirizzo();
-        recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiInserisceLaPECAggiuntivaDePersonaFisica(nomeFilePersonaFisica);
+        recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiInserisceLaPECAggiuntivaDePersonaFisica("pec@pec.pagopa.it");
         recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiCliccaSulBottoneAssocia();
-        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
-        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequest(nomeFilePersonaFisica);
-        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP(nomeFilePersonaFisica);
-        recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiControllaCheLaPecAggiuntivaSiaStataInseritaCorrettamente();
+        recapitiPersonaFisicaTest.nellaSezioneAltriRecapitiSiCliccaSulBottoneConfermaPerInserireUnRecapito();
     }
 
     public void revocaDelegaPG(String ragioneSociale) {
@@ -246,5 +252,13 @@ public class BackgroundTest {
         deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneRifiuta();
         deleghePGPagoPATest.siCliccaSulBottoneRifiutaDelega();
         deleghePGPagoPATest.siControllaCheLaDelegaNonSiPiuPresenteInElenco();
+    }
+
+    public void aggiuntaEmailDiCortesia(String email) {
+        recapitiTest.siInserisceLEmailDiCortesiaESiCliccaSulBottoneAvvisamiViaEmail(email);
+        recapitiTest.siVisualizzaIlPopUpDisclaimerSiCliccaLaCheckboxEIlBottoneConferma();
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequestDellEmailEVieneInserito(email);
+        recapitiTest.siControllaCheLEmailInseritaSiaPresente();
     }
 }
