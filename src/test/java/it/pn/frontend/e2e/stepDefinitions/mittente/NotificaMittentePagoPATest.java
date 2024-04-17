@@ -139,6 +139,18 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.waitLoadingSpinner();
     }
 
+    @And("Si finalizza l'invio della notifica e si controlla che venga creata correttamente")
+    public void siFinalizzaLInvioDellaNotificaESiControllaCheVengaCreataCorrettamente() {
+        logger.info("Si finalizza l'invio della notifica e si controlla che venga creata correttamente");
+        siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionAllegati();
+        nellaSectionAllegatiSiCaricaUnAtto();
+        nellaSectionAllegatiCliccareSulBottoneInvia();
+        siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata();
+        cliccareSulBottoneVaiAlleNotifiche();
+        siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche();
+        siVerificaCheLaNotificaeStataCreataCorrettamente();
+    }
+
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari")
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionInformazioniPreliminari() {
         logger.info("Verifica visualizzazione section Informazioni preliminari");
