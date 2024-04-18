@@ -166,64 +166,6 @@ public class NotificaMittentePagoPATest {
         informazioniPreliminariPASection.selectRaccomandataAR();
     }
 
-    @And("Creazione notifica completa")
-    public void creazioneNotificaCompleta(Map<String,String> datiNotificaMap) {
-        logger.info("Inserimento dei dati della notifica senza pagamento " );
-        AllegatiPASection allegatiPASection = new AllegatiPASection(driver);
-        File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
-        datiNotifica = dataPopulation.readDataPopulation(datiNotificaMap.get("nomeFileYaml") + ".yaml");
-
-        aggiornamentoNumeroProtocollo();
-
-        String gruppo = "";
-        switch (variabileAmbiente) {
-            case "dev" -> gruppo = datiNotificaMap.get("gruppoDev");
-            case "test", "uat" -> gruppo = datiNotificaMap.get("gruppoTest");
-        }
-
-        //Sezione preliminare
-        informazioniPreliminariPASection.insertOggettoNotifica(datiNotificaMap.get("oggettoDellaNotifica"));
-        informazioniPreliminariPASection.insertDescrizione(datiNotificaMap.get("descrizione"));
-        informazioniPreliminariPASection.insertNumeroDiProtocollo(datiNotifica.get("numeroProtocollo").toString());
-        informazioniPreliminariPASection.insertGruppo(gruppo);
-        informazioniPreliminariPASection.insertCodiceTassonometrico(datiNotificaMap.get("codiceTassonometrico"));
-        informazioniPreliminariPASection.selectRaccomandataAR();
-        cliccareSuContinua();
-
-        //Dati destinatario
-        siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionDestinatario();
-        destinatarioPASection.selezionarePersonaFisica();
-        destinatarioPASection.inserireNomeDestinatario(datiNotificaMap.get("nomePF"));
-        destinatarioPASection.inserireCognomeDestinatario(datiNotificaMap.get("cognomePF"));
-        destinatarioPASection.inserireCodiceFiscaleDestinatario(datiNotificaMap.get("codiceFiscalePF"));
-        destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
-        destinatarioPASection.inserireIndirizzo(datiNotificaMap.get("indirizzoPF"));
-        destinatarioPASection.inserireNumeroCivico(datiNotificaMap.get("numeroCivicoPF"));
-        destinatarioPASection.inserireComune(datiNotificaMap.get("comunePF"));
-        destinatarioPASection.inserireProvincia(datiNotificaMap.get("provinciaPF"));
-        destinatarioPASection.inserireCodicePostale(datiNotificaMap.get("codicepostalePF"));
-        destinatarioPASection.inserireStato(datiNotificaMap.get("statoPF"));
-        destinatarioPASection.vaiInFondoAllaPagina();
-        cliccareSuContinua();
-
-
-        //Sezione allegati
-        siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionAllegati();
-        String pathNotificaFile = notificaFile.getAbsolutePath();
-        allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
-
-        if (allegatiPASection.verificaCaricamentoNotificaPdf()) {
-            logger.info("File notifica.pdf caricato correttamente");
-        } else {
-            logger.error("File notifica.pdf non caricato");
-            Assert.fail("File notifica.pdf non caricato");
-        }
-        allegatiPASection.inserimentoNomeAllegato(datiNotificaMap.get("nomeDocumentoNotifica"));
-        nellaSectionAllegatiCliccareSulBottoneInvia();
-        siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata();
-        cliccareSulBottoneVaiAlleNotifiche();
-    }
-
     private void aggiornamentoNumeroProtocollo() {
         logger.info("Aggiornamento del numero protocollo");
         Map<String, Object> allDatataPopulation = dataPopulation.readDataPopulation("datiNotifica.yaml");
@@ -234,6 +176,7 @@ public class NotificaMittentePagoPATest {
         } while (numeroProtocolOld.equals(numeroProtocolNew));
         allDatataPopulation.put("numeroProtocollo", numeroProtocolNew);
         dataPopulation.writeDataPopulation("datiNotifica.yaml", allDatataPopulation);
+
     }
 
     @And("Cliccare su continua")
@@ -1068,9 +1011,7 @@ public class NotificaMittentePagoPATest {
         logger.info("Si verifica che la notifica abbia lo stato " + stato);
         piattaformaNotifichePage.verificaPresenzaStato(stato);
     }
-
-
-
+    
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */
