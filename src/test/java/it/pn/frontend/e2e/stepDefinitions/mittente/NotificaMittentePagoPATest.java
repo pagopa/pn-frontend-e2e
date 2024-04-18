@@ -1016,7 +1016,7 @@ public class NotificaMittentePagoPATest {
         WebTool.switchToPortal(AppPortal.PF);
         piattaformaNotifichePage.selezionaNotifica();
         WebTool.waitTime(5);
-        piattaformaNotifichePage.visualizzaTimelinePF("Invio via PEC riuscito");
+        piattaformaNotifichePage.visualizzaTimelinePF(messagio);
         WebTool.closeTab();
     }
 
