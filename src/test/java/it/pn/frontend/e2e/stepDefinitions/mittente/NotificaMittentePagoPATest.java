@@ -234,6 +234,7 @@ public class NotificaMittentePagoPATest {
         } while (numeroProtocolOld.equals(numeroProtocolNew));
         allDatataPopulation.put("numeroProtocollo", numeroProtocolNew);
         dataPopulation.writeDataPopulation("datiNotifica.yaml", allDatataPopulation);
+
     }
 
     @And("Cliccare su continua")
@@ -1068,9 +1069,7 @@ public class NotificaMittentePagoPATest {
         logger.info("Si verifica che la notifica abbia lo stato " + stato);
         piattaformaNotifichePage.verificaPresenzaStato(stato);
     }
-
-
-
+    
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */
