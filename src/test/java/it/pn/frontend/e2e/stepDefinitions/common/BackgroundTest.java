@@ -261,4 +261,12 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequestDellEmailEVieneInserito(email);
         recapitiTest.siControllaCheLEmailInseritaSiaPresente();
     }
+
+    public void aggiuntaPEC(String emailPEC){
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiControllaCheNonCiSiaGiaUnaPec();
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLEmailPerLaPECDelDestinatario(emailPEC);
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiCliccaSulBottoneConferma();
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequestDellEmailEVieneInserito(emailPEC);
+    }
 }
