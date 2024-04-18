@@ -56,9 +56,9 @@ public class RecapitiTest {
         recapitiDestinatarioPage.checkNumeroDiCellulareNonPresente();
     }
 
-    @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email o si inserisce {string}")
-    public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaEmailOSiInserisce(String email) {
-        logger.info("Si controlla che che ci sia già una Email e se ne inserisce una");
+    @And("Nella pagina I Tuoi Recapiti si controlla che non ci sia già una Email di cortesia e si inserisce {string}")
+    public void nellaPaginaITuoiRecapitiSiControllaCheNonCiSiaGiaUnaEmailDiCortesiaESiInserisce(String email) {
+        logger.info("Si controlla che ci sia già una Email di cortesia e se ne inserisce una");
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         BackgroundTest backgroundTest = new BackgroundTest();
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
@@ -76,6 +76,30 @@ public class RecapitiTest {
                 recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
             }
             backgroundTest.aggiuntaEmailDiCortesia(email);
+        }
+        WebTool.waitTime(10);
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si controlla che non ci sia già una PEC e si inserisce {string}")
+    public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaPECESiInserisce(String emailPEC) {
+        logger.info("Si controlla che non ci sia già una PEC e se ne inserisce una");
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        BackgroundTest backgroundTest = new BackgroundTest();
+        iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
+        if (recapitiDestinatarioPage.checkFieldInputPEC()) {
+            backgroundTest.aggiuntaPEC(emailPEC);
+        } else if (recapitiDestinatarioPage.siControllaPresenzaPEC()) {
+            iTuoiRecapitiPage.eliminaPECEsistente();
+            if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi PEC")) {
+                recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
+            } else {
+                recapitiDestinatarioPage.clickSuChiudiPopUp();
+                recapitiDestinatarioPage.eliminaNuovaEmail();
+                iTuoiRecapitiPage.eliminaPECEsistente();
+                recapitiDestinatarioPage.waitLoadPopUpElimina();
+                recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
+            }
+            backgroundTest.aggiuntaPEC(emailPEC);
         }
         WebTool.waitTime(10);
     }

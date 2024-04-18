@@ -14,6 +14,8 @@ import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.*;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
@@ -50,6 +52,8 @@ public class NotificaMittentePagoPATest {
     private final DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
     private final String variabileAmbiente = System.getProperty("environment");
     private final InformazioniPreliminariPASection informazioniPreliminariPASection = new InformazioniPreliminariPASection(this.driver);
+    private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
+    private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
 
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
@@ -137,6 +141,18 @@ public class NotificaMittentePagoPATest {
         logger.info("Selezione bottone invia una nuova notifica");
         piattaformaNotifichePage.selectInviaUnaNuovaNotificaButton();
         piattaformaNotifichePage.waitLoadingSpinner();
+    }
+
+    @And("Si finalizza l'invio della notifica e si controlla che venga creata correttamente")
+    public void siFinalizzaLInvioDellaNotificaESiControllaCheVengaCreataCorrettamente() {
+        logger.info("Si finalizza l'invio della notifica e si controlla che venga creata correttamente");
+        siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionAllegati();
+        nellaSectionAllegatiSiCaricaUnAtto();
+        nellaSectionAllegatiCliccareSulBottoneInvia();
+        siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata();
+        cliccareSulBottoneVaiAlleNotifiche();
+        siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche();
+        siVerificaCheLaNotificaeStataCreataCorrettamente();
     }
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari")
@@ -1050,6 +1066,24 @@ public class NotificaMittentePagoPATest {
     public void siVerificaLInvioDellaRaccomandataSemplice(){
         logger.info("Si verifica l'avvenuto invio della notifica per raccomandata semplice");
         dettaglioNotificaMittenteSection.checkInvioRaccomandataSemplice();
+    }
+
+    @And("Si verifica l'invio della notifica al domicilio di piattaforma inserito {string}")
+    public void siVerificaLInvioDellaNotificaAlDomicilioDiPiattaformaInserito(String domicilioDiPiattaforma) {
+        logger.info("Si verifica l'avvenuto invio della notifica al domicilio di piattaforma " + domicilioDiPiattaforma);
+        dettaglioNotificaMittenteSection.checkInvioADomicilioDiPiattaforma(domicilioDiPiattaforma);
+    }
+
+    @And("Si accede nuovamente al portale {string} con token {string} per eliminare i recapiti inseriti")
+    public void siAccedeNuovamenteAlPortaleConTokenPerEliminareIRecapitiInseriti(String tipoPersona, String tipoToken) {
+        logger.info("Si accede nuovamente al portale " + tipoPersona + " per eliminare i recapiti inseriti");
+        if(("persona fisica").equalsIgnoreCase(tipoPersona)){
+            loginPersonaFisicaPagoPA.loginMittenteConTokenExchange(tipoToken);
+            loginPersonaFisicaPagoPA.logoutDaPortaleDestinatario();
+        } else {
+            loginPGPagoPATest.loginMittenteConTokenExchange(tipoToken);
+            loginPGPagoPATest.logoutDaPortalePersonaGiuridica();
+        }
     }
 
     /**
