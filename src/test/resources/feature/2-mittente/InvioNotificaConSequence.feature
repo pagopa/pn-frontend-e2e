@@ -3,6 +3,11 @@ Feature: invio notifica con sequence
   @InvioNotificaConSequence
 
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL-DiscoveryIrreperibile_AR] - Il mittente invia una notifica a destinatario con sequence
+    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
+    And Si verifica siano presenti recapiti digitali
+      | email | provaemail@test.it |
+    And Logout da portale persona fisica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
@@ -23,5 +28,7 @@ Feature: invio notifica con sequence
       | codicepostalePF      | 20147   |
       | statoPF              | ITALIA   |
       | nomeDocumentoNotifica | RATA SCADUTA IMU |
-    Then Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
+    And Si verifica che la notifica è stata creata correttamente
+    #And Si seleziona la notifica
+    And Si controlla lo stato irreperibile in dettaglio notifica
     And Logout da portale mittente

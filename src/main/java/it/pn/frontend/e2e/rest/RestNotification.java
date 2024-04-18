@@ -39,12 +39,14 @@ public class RestNotification {
 
     public String getNotificationStatus(String notificationRequestId) {
         final CustomHttpClient<Object, Object> httpClient2 = CustomHttpClient.getInstance();  // Modifica qui
+        httpClient2.setBaseUrlApi("https://api.test.notifichedigitali.it");
         try {
             Object response = httpClient2.sendHttpGetRequest("/delivery/v2.3/requests?notificationRequestId=" + notificationRequestId, null, Object.class);
             if (response instanceof LinkedTreeMap) {
                 LinkedTreeMap<String, Object> responseData = (LinkedTreeMap<String, Object>) response;
                 if (responseData.containsKey("notificationRequestStatus")) {
-                    return responseData.get("notificationRequestStatus").toString();
+                    logger.info("RESPONSEEEE"+responseData);
+                    return responseData.toString();
                 } else {
                     logger.error("L'attributo 'notificationRequestStatus' non è presente nella risposta JSON");
                     return null;
@@ -57,5 +59,30 @@ public class RestNotification {
             logger.error("Error during getNotificationStatus", e);
             return null;
         }
+    }
+
+    public String getNotifications() {
+        final CustomHttpClient<Object, Object> httpClient2 = CustomHttpClient.getInstance();  // Modifica qui
+        httpClient2.setBaseUrlApi("https://webapi.test.notifichedigitali.it");
+        try {
+            Object response = httpClient2.sendHttpGetRequest("/delivery/notifications/sent", null, Object.class);
+            logger.info("RESPONSEEEE " + response.toString());
+           /* if (response instanceof LinkedTreeMap) {
+                LinkedTreeMap<String, Object> responseData = (LinkedTreeMap<String, Object>) response;
+                if (responseData.containsKey("notificationRequestStatus")) {
+                    return responseData.get("notificationRequestStatus").toString();
+                } else {
+                    logger.error("L'attributo 'notificationRequestStatus' non è presente nella risposta JSON");
+                    return null;
+                }
+            } else {
+                logger.error("La risposta non è valida o non può essere convertita in JSON");
+                return null;
+            }*/
+        } catch (IOException e) {
+            logger.error("Error during getNotifications", e);
+            return null;
+        }
+        return null;
     }
 }

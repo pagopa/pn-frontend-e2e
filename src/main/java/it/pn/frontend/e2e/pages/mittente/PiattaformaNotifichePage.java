@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.pages.mittente;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
+import it.pn.frontend.e2e.model.NewNotificationResponse;
 import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
@@ -782,10 +783,13 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void verificaNotificaCreata() {
+        NewNotificationResponse newNotificationResponse = new NewNotificationResponse();
+
         String notificationRequestId = "";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
             if (netWorkInfo.getRequestUrl().contains("/delivery/v2.3/requests") && netWorkInfo.getRequestMethod().equals("POST")) {
                 if (netWorkInfo.getResponseStatus().equals("202") && !netWorkInfo.getResponseBody().isEmpty()) {
+                    logger.info("BODYYYYY:" + netWorkInfo.getResponseBody());
                     notificationRequestId = netWorkInfo.getResponseBody().split("\"notificationRequestId\":\"")[1].split("\"")[0];
                     logger.info("NotificationRequestId: " + notificationRequestId);
                     break;
@@ -806,11 +810,18 @@ public class PiattaformaNotifichePage extends BasePage {
                 logger.info("Tentativo n. " + maximumRetry + " - Stato notifica: " + statusNotifica);
                 maximumRetry++;
             } while (statusNotifica.equals("WAITING"));
+
+            logger.info("Tentativo n. " + maximumRetry + " - Stato notifica: " + statusNotifica);
             driver.navigate().refresh();
             logger.info("La notifica è stata creata correttamente");
         } else {
             logger.error("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
             Assert.fail("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
         }
+    }
+
+    public void getNotifications() {
+        RestNotification restNotification = new RestNotification();
+restNotification.getNotifications();
     }
 }

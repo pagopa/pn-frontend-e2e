@@ -262,4 +262,15 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     public String getTextDocumentiAllegati() {
         return linkAllegati.get(0).getText();
     }
+
+    public void checkIrreperibilita(){
+        try {
+            By testIrreperibilita = By.id("Destinatario irreperibile-status");
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(testIrreperibilita));
+            logger.info("irreperibilitá avvenuta");
+        } catch (TimeoutException e) {
+            logger.error("irreperibilitá non avvenuta con errore: " + e.getMessage());
+            Assert.fail("irreperibilitá non avvenuta con errore: " + e.getMessage());
+        }
+    }
 }

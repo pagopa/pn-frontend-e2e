@@ -468,17 +468,30 @@ public class NotificaMittentePagoPATest {
         }
     }
 
+    @When("Cliccare sulla notifica restituita")
+    public void cliccareSullaNotificaRestituita() {
+        logger.info("Si clicca sulla notifica");
+
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.selezionaNotifica();
+    }
+
+    @And("Si visualizza correttamente la section Dettaglio Notifica")
+    public void siVisualizzaCorrettamenteLaSectionDettaglioNotifica() {
+        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
+        dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
+    }
+
     @And("Nella pagina dettaglio notifica cliccare sull'opzione vedi più dettagli")
     public void nellaPaginaDettaglioNotificaCliccareSullOpzioneVediPiuDettagli() {
         dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
-        this.dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
+        dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
     }
 
     @And("Si visualizza correttamente l elenco completo degli stati che la notifica ha percorso")
     public void siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso() {
         dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
         dettaglioNotificaMittenteSection.siVisualizzaPercosoNotifica();
-
     }
 
 
@@ -1069,7 +1082,22 @@ public class NotificaMittentePagoPATest {
         logger.info("Si verifica che la notifica abbia lo stato " + stato);
         piattaformaNotifichePage.verificaPresenzaStato(stato);
     }
-    
+
+    @And("Si controlla lo stato irreperibile in dettaglio notifica")
+    public void siControllaLoStatoIrreperibileInDettaglioNotifica() {
+       // cliccareSullaNotificaRestituita();
+
+        siVisualizzaCorrettamenteLaSectionDettaglioNotifica();
+        siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso();
+        dettaglioNotificaMittenteSection.checkIrreperibilita();
+    }
+
+    @And("Si seleziona la notifica")
+    public void siSelezionaLaNotifica() {
+        piattaformaNotifichePage.getNotifications();
+
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */

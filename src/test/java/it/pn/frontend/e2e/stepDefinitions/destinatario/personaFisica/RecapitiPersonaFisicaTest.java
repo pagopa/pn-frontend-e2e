@@ -455,8 +455,8 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email")
     public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaEmail() {
         logger.info("Si controlla che che ci sia già una Email");
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
 
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
         String email = personaFisica.get("email").toString();
@@ -979,6 +979,23 @@ public class RecapitiPersonaFisicaTest {
     public void nellaSezioneAltriRecapitiSiCliccaSulBottoneConfermaPerInserireUnRecapito(){
         logger.info("Si clicca su conferma");
         recapitiDestinatarioPage.clickConfermaRecapitoGiaPresente();
+    }
+
+    @And("Si verifica siano presenti recapiti digitali")
+    public void siVerificaSianoPresentiRecapitiDigitali(Map<String,String> datiPF) {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
+
+        String email = datiPF.get("email");
+        if (recapitiDestinatarioPage.siVisualizzaPecInserita()) {
+            nellaPaginaITuoiRecapitiSiCliccaSulBottoneEliminaPEC();
+            nelPopUpEliminaIndirizzoPecSiCliccaSulBottoneConferma();
+            nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoPecNonSiaPresente();
+        }
+        if (recapitiDestinatarioPage.controlloEmailAssociata(email)) {
+            iTuoiRecapitiPage.eliminaEmailEsistente();
+            nellaPaginaITuoiRecapitiSiCliccaSulBottoneEliminaEmailESiConfermaNelPopUp();
+            nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoEmailNonSiaPresente();
+        }
     }
 }
 
