@@ -352,10 +352,10 @@ public class RecapitiDestinatarioPage extends BasePage {
         By titlePopUp = By.id("dialog-title");
         By subTitlePopUp = By.id("dialog-description");
         By confermaEliminaButtonBy = By.xpath("//div[@aria-labelledby='dialog-title']//button[contains(text(),'Conferma')]");
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il bottone annulla del modal").until(ExpectedConditions.visibilityOf(buttonAnnullaEliminazioneInPopUp));
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il bottone conferma del modal").until(ExpectedConditions.visibilityOfElementLocated(confermaEliminaButtonBy));
+        getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
+        getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
+        getWebDriverWait(10).withMessage("Non è stato caricato il bottone annulla del modal").until(ExpectedConditions.visibilityOf(buttonAnnullaEliminazioneInPopUp));
+        getWebDriverWait(10).withMessage("Non è stato caricato il bottone conferma del modal").until(ExpectedConditions.visibilityOfElementLocated(confermaEliminaButtonBy));
         return this.element(titlePopUp).getText();
     }
 
@@ -367,6 +367,16 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean siControllaEliminazionePEC() {
         return pecField.isDisplayed();
+    }
+
+    public boolean checkFieldInputPEC(){
+        try {
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(pecField));
+            return true;
+        } catch (TimeoutException e){
+            logger.info("Non si visualizza il campo input per inserimento della PEC");
+            return false;
+        }
     }
 
     public boolean siControllaPresenzaPEC() {
