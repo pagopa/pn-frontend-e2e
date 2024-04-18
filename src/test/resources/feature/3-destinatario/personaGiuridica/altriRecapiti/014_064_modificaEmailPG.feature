@@ -9,7 +9,7 @@ Feature: La persona giuridica modifica l'email di cortesia
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
-    And Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email o si inserisce "prova@test.it"
+    And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una Email di cortesia e si inserisce "prova@test.it"
     And Nella pagina I Tuoi Recapiti si preme sul bottone "Modifica" dell'email di cortesia
     Then Si visualizza il campo email modificabile
     And Nella pagina I Tuoi Recapiti si preme sul bottone "Annulla" dell'email di cortesia

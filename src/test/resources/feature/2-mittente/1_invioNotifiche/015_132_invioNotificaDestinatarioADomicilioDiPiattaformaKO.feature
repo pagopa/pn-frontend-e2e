@@ -1,22 +1,22 @@
-Feature: Invio notifica digitale a destinatario con indirizzo mail di cortesia impostato
+Feature: Mittente invia una notifica digitale al destinatario con KO e invio raccomandata semplice
 
-  @TA_invioNotificaConMailDiCortesiaImpostata
   @TestSuite
+  @TA_invioNotificaDestinatarioADomicilioDiPiattaformaKO
   @mittente
   @invioNotifiche
   @recapitiPF
 
-  Scenario: PN-9244 - Invio notifica digitale a destinatario con indirizzo mail di cortesia impostato
+  Scenario: PN-9246 - Mittente invia una notifica digitale al destinatario con KO e invio raccomandata semplice
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
-    And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una Email di cortesia e si inserisce "prova@test.it"
+    And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una PEC e si inserisce "prova@fail.it"
     And Logout da portale persona fisica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica
-      | oggettoNotifica   | Pagamento RATA IMU |
+      | oggettoNotifica   | Pagamento rata IMU |
       | descrizione       | PAGAMENTO RATA IMU |
       | gruppo            | test-TA-FE-TEST    |
       | codiceTassonomico | 123456A            |
@@ -36,10 +36,17 @@ Feature: Invio notifica digitale a destinatario con indirizzo mail di cortesia i
       | cap       | 20147    |
       | stato     | Italia   |
     And Cliccare su continua
-    And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
+    And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
+    Then Nella section Allegati si carica un atto
+    And Nella section Allegati cliccare sul bottone Invia
+    Then Si visualizza correttamente la frase La notifica è stata correttamente creata
+    And Cliccare sul bottone vai alle notifiche
+    And Si visualizza correttamente la pagina Piattaforma Notifiche
+    And Si verifica che la notifica è stata creata correttamente
     And Aspetta 180 secondi
     And Cliccare sulla notifica restituita
     And Si clicca sul opzione Vedi Dettaglio
-    And Nella timeline della notifica si visualizza l'invio del messaggio di cortesia
+    And Si verifica che l'invio della notifica sia fallito 2 volte
+    And Si verifica l'invio della raccomandata semplice
     And Logout da portale mittente
     And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
