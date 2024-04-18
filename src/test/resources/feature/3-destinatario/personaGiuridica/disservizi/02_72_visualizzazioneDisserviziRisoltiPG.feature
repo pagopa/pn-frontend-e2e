@@ -5,7 +5,7 @@ Feature: La persona giuridica visualizza i disservizi della applicazione
   @DisserviziAppPG
   @PG
 
-  Scenario: PN-9163 - Il persona giuridica loggato visualizza lo stato dei disservizi
+  Scenario: PN-9164 - Il persona giuridica loggato visualizza lo stato dei disservizi
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella dashboard persona giuridica clicca su disservizi app
     And Si visualizza correttamente la Pagina dello Stato della piattaforma

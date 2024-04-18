@@ -71,10 +71,10 @@ public class DisserviziAppPATest {
                 throw new RuntimeException(e);
             }
             String legalFactId = downloadFile.getLegalFactId();
-            String urlFileAttestazioneOppponubile ="https://webapi.test.notifichedigitali.it/downtime/v1/legal-facts/" + legalFactId;
+            String urlFileAttestazioneOpponibile ="https://webapi.test.notifichedigitali.it/downtime/v1/legal-facts/" + legalFactId;
 
             File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + 0 + ".pdf");
-            downloadFile.downloadAttestazioneDisservizi(urlFileAttestazioneOppponubile, file, headless);
+            downloadFile.downloadAttestazioneDisservizi(urlFileAttestazioneOpponibile, file, headless);
             if (!headless) {
                 disserviziAppPAPage.goBack();
             }
