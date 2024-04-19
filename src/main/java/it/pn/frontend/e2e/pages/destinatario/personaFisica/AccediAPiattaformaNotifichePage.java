@@ -66,6 +66,9 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     @FindBy(css = "[data-testid='apply-costs-caption']")
     WebElement costiNotifica;
 
+    @FindBy(xpath = "/html/body/div/div/div/div/input")
+    WebElement creditCardNumber;
+
     public AccediAPiattaformaNotifichePage(WebDriver driver) {
         super(driver);
     }
@@ -216,12 +219,19 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     public void checkoutPagamento(){
         logger.info("Si procede con il pagamento");
         this.element(By.cssSelector("[data-qaid='CP']")).click();
-        this.js().executeScript("arguments[0].click()", this.element((By.id("Numero carta"))));
-        this.js().executeScript("arguments[0].sendKeys(arguments[1])", this.element((By.id("Numero carta"))), "4165654565485486");
+        getWebDriverWait(10).withMessage("Il textbox numero di carta non e visibile").until(ExpectedConditions.visibilityOf(creditCardNumber));
+        creditCardNumber.click();
+        creditCardNumber.clear();
+        creditCardNumber.sendKeys("5186151650005008");
+
+
+        /*this.js().executeScript("arguments[0].click()", this.element((By.id("CARD_NUMBER"))));
+        this.js().executeScript("arguments[0].sendKeys(arguments[1])", this.element((By.id("CARD_NUMBER"))), "4165654565485486");
         this.element(By.id("Numero carta")).sendKeys("4165654565485486");
         this.element(By.id("EXPIRATION_DATE")).click();
         this.element(By.id("EXPIRATION_DATE")).sendKeys("12/28");
-        this.element(By.id("SECURITY_CODE")).sendKeys("555");
+        this.element(By.id("SECURITY_CODE")).sendKeys("555");/*
+        */
         this.element(By.cssSelector("[aria-label='Continua']")).click();
     }
 

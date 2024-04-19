@@ -280,7 +280,7 @@ public class PiattaformaNotifichePage extends BasePage {
             attesaCaricamentoPagina();
             this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(notificaBy));
             List<WebElement> notifiche = this.elements(notificaBy);
-            notifiche.get(0).click();
+            notifiche.get(2).click();
         } catch (TimeoutException e) {
             logger.error("Notifica non trovata con errore: " + e.getMessage());
             Assert.fail("Notifica non trovata con errore: " + e.getMessage());
