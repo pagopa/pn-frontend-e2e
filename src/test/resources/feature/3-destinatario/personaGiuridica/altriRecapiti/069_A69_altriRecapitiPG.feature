@@ -13,5 +13,5 @@ Feature: La persona giuridica visualizza tutti gli elementi della sezione altri 
     And Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti persona giuridica
     And Nella sezione altri recapiti PG si seleziona l'ente "Agenzia delle Entrate"
     And Nella sezione altri recapiti si seleziona il tipo di indirizzo PG scegliendo "PEC"
-    Then Nella sezione altri recapiti si inserisce la PEC aggiuntiva "pec@pec.pagopa.it"
+    Then Nella sezione altri recapiti si inserisce la PEC aggiuntiva "prova@pec.it"
     And Logout da portale persona giuridica

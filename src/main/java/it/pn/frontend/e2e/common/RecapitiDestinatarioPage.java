@@ -750,4 +750,44 @@ public class RecapitiDestinatarioPage extends BasePage {
         this.element(opzioneCelulare).click();
     }
 
+    public void checkMessaggioDiErrore(){
+        By errorMessage = By.id("s_pec-helper-text");
+        getWebDriverWait(5).withMessage("Il messaggio di errore non è visibile").until(ExpectedConditions.visibilityOfElementLocated(errorMessage));
+        if(associaButton.getAttribute("disabled")==null){
+            logger.error("Il bottone Associa è attivo");
+            Assert.fail("Il bottone Associa è attivo");
+        }
+        if(indirizzoPecField.getAttribute("aria-invalid").equalsIgnoreCase("false")){
+            logger.error("la textbox non presenta il bordo rosso");
+            Assert.fail("la textbox non presenta il bordo rosso");
+        }
+    }
+
+    public void clearMailbox(){
+        this.js().executeScript("arguments[0].setAttribute('autocomplete', 'off')", indirizzoPecField);
+        indirizzoPecField.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+    }
+
+    public void clickConfermaPopupOTP(){
+        By confirmOtpPopup = By.id("code-confirm-button");
+        getWebDriverWait(5).withMessage("il bottone Confirm non è cliccabile").until(ExpectedConditions.elementToBeClickable(confirmOtpPopup));
+        this.element(confirmOtpPopup).click();
+    }
+    public void clickAnnullaPopupOTP(){
+        By cancelOtpPopup = By.id("code-cancel-button");
+        getWebDriverWait(5).withMessage("il bottone Confirm non è cliccabile").until(ExpectedConditions.elementToBeClickable(cancelOtpPopup));
+        this.element(cancelOtpPopup).click();
+    }
+
+    public boolean waitErrorMessagePopupOTP() {
+        try {
+            By errorMessageOtp = By.id("codeModalErrorTitle");
+            getWebDriverWait(5).withMessage("Il messaggio di errore inserimento OTP non è visibile").until(ExpectedConditions.visibilityOfElementLocated(errorMessageOtp));
+            logger.info("Il messaggio di errore viene visualizzato correttamente");
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
 }
