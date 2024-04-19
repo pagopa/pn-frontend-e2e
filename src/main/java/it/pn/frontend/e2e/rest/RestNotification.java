@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class RestNotification {
     private static final Logger logger = LoggerFactory.getLogger("RestNotification");
@@ -37,7 +38,7 @@ public class RestNotification {
         return null;
     }
 
-    public String getNotificationStatus(String notificationRequestId) {
+    public LinkedTreeMap<String,Object> getNotificationStatus(String notificationRequestId) {
         final CustomHttpClient<Object, Object> httpClient2 = CustomHttpClient.getInstance();  // Modifica qui
         httpClient2.setBaseUrlApi("https://api.test.notifichedigitali.it");
         try {
@@ -45,9 +46,8 @@ public class RestNotification {
             if (response instanceof LinkedTreeMap) {
                 LinkedTreeMap<String, Object> responseData = (LinkedTreeMap<String, Object>) response;
                 if (responseData.containsKey("notificationRequestStatus")) {
-                    logger.info("RESPONSEEEE"+responseData);
-                    return responseData.toString();
-                } else {
+                    return responseData;
+                }else {
                     logger.error("L'attributo 'notificationRequestStatus' non è presente nella risposta JSON");
                     return null;
                 }
@@ -59,30 +59,5 @@ public class RestNotification {
             logger.error("Error during getNotificationStatus", e);
             return null;
         }
-    }
-
-    public String getNotifications() {
-        final CustomHttpClient<Object, Object> httpClient2 = CustomHttpClient.getInstance();  // Modifica qui
-        httpClient2.setBaseUrlApi("https://webapi.test.notifichedigitali.it");
-        try {
-            Object response = httpClient2.sendHttpGetRequest("/delivery/notifications/sent", null, Object.class);
-            logger.info("RESPONSEEEE " + response.toString());
-           /* if (response instanceof LinkedTreeMap) {
-                LinkedTreeMap<String, Object> responseData = (LinkedTreeMap<String, Object>) response;
-                if (responseData.containsKey("notificationRequestStatus")) {
-                    return responseData.get("notificationRequestStatus").toString();
-                } else {
-                    logger.error("L'attributo 'notificationRequestStatus' non è presente nella risposta JSON");
-                    return null;
-                }
-            } else {
-                logger.error("La risposta non è valida o non può essere convertita in JSON");
-                return null;
-            }*/
-        } catch (IOException e) {
-            logger.error("Error during getNotifications", e);
-            return null;
-        }
-        return null;
     }
 }

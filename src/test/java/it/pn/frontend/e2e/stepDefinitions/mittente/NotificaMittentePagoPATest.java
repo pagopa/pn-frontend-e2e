@@ -187,7 +187,11 @@ public class NotificaMittentePagoPATest {
         informazioniPreliminariPASection.insertNumeroDiProtocollo(datiNotifica.get("numeroProtocollo").toString());
         informazioniPreliminariPASection.insertGruppo(gruppo);
         informazioniPreliminariPASection.insertCodiceTassonometrico(datiNotificaMap.get("codiceTassonometrico"));
-        informazioniPreliminariPASection.selectRaccomandataAR();
+        if (datiNotificaMap.get("modello").equals("AR")){
+            informazioniPreliminariPASection.selectRaccomandataAR();
+        }else{
+            informazioniPreliminariPASection.selectRegisteredLetter890();
+        }
         cliccareSuContinua();
 
         //Dati destinatario
@@ -1083,19 +1087,16 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.verificaPresenzaStato(stato);
     }
 
-    @And("Si controlla lo stato irreperibile in dettaglio notifica")
-    public void siControllaLoStatoIrreperibileInDettaglioNotifica() {
-       // cliccareSullaNotificaRestituita();
-
+    @And("Si controlla lo stato timeline {string} in dettaglio notifica")
+    public void siControllaLoStatoTimelineInDettaglioNotifica(String statoTimelineNotifica) {
         siVisualizzaCorrettamenteLaSectionDettaglioNotifica();
         siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso();
-        dettaglioNotificaMittenteSection.checkIrreperibilita();
+        dettaglioNotificaMittenteSection.checkStatoTimeline(statoTimelineNotifica);
     }
 
     @And("Si seleziona la notifica")
     public void siSelezionaLaNotifica() {
-        piattaformaNotifichePage.getNotifications();
-
+        piattaformaNotifichePage.clickSuNotifica();
     }
 
     /**

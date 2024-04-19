@@ -263,7 +263,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         return linkAllegati.get(0).getText();
     }
 
-    public void checkIrreperibilita(){
+    public void checkStatoTimeline(String statoTimeline){
         try {
             By testIrreperibilita = By.id("Destinatario irreperibile-status");
             this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(testIrreperibilita));
