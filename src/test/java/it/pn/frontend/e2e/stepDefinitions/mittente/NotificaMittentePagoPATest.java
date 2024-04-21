@@ -863,10 +863,6 @@ public class NotificaMittentePagoPATest {
         logger.info("Si cerca di aggiungere" + " personeGiuridicha");
         destinatarioPASection.inserimentoDestinatarioPGAggiuntivo(destinatario);
     }
-    @And("Si aggiungi un domicilio digitale {string}")
-    public void siAggiungiUnDomicilioDigitale(String email){
-        destinatarioPASection.insertDomicilioDigitale(email);
-    }
 
 
     @And("Verifica dello stato della notifica persona giuridica come depositata {string}")
@@ -1021,7 +1017,7 @@ public class NotificaMittentePagoPATest {
         WebTool.switchToPortal(AppPortal.PF);
         piattaformaNotifichePage.selezionaNotifica();
         WebTool.waitTime(5);
-        piattaformaNotifichePage.visualizzaTimelinePF(messagio);
+        piattaformaNotifichePage.visualizzaTimeline(messagio);
         WebTool.closeTab();
     }
 
@@ -1038,7 +1034,7 @@ public class NotificaMittentePagoPATest {
         WebTool.switchToPortal(AppPortal.PG);
         piattaformaNotifichePage.selezionaNotifica();
         WebTool.waitTime(5);
-        piattaformaNotifichePage.visualizzaTimelinePG(messagio);
+        piattaformaNotifichePage.visualizzaTimeline(messagio);
         WebTool.closeTab();
     }
 

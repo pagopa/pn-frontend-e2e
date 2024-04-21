@@ -836,31 +836,17 @@ public class PiattaformaNotifichePage extends BasePage {
        logger.info("Si visualizza correttamente la timeline relativi a tutti i destinatari");
     }
 
-    public void visualizzaTimelinePG(String check){
-        By viewMore = By.xpath("//li[5]/div[3]/div/div/button ");
+    public void visualizzaTimeline(String check) {
+        By viewMore = By.xpath("//*[@id='more-less-timeline-step']");
         this.element(viewMore).click();
 
         List<WebElement> findKeyWord = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
 
-        if (findKeyWord.get(0).isDisplayed()){
+        if (findKeyWord.get(0).isDisplayed()) {
             logger.info("Si visualizza la timeline correttamente");
-        }else {
+        } else {
             logger.error("Non si visualizza  la timeline correttamente");
             Assert.fail("Non si visualizza  la timeline correttamente");
         }
-
-    }
-    public void visualizzaTimelinePF(String check){
-        List<WebElement>  viewMore =driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
-        viewMore.get(0).click();
-        List<WebElement> findKeyWord = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
-
-        if (findKeyWord.get(0).isDisplayed()){
-            logger.info("Si visualizza la timeline correttamente");
-        }else {
-            logger.error("Non si visualizza  la timeline correttamente");
-            Assert.fail("Non si visualizza  la timeline correttamente");
-        }
-
     }
 }

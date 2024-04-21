@@ -1,7 +1,7 @@
 Feature: Mittente invia una notifica digitale al destinatario con indirizzo fornito dalla PA
 
   @TestSuite
-  @TA_invioNotificaDueDestinatari
+  @TA_invioNotificaDueDestinatariUnoRaggiungibile
   @mittente
   @invioNotifiche
 
@@ -21,20 +21,21 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | soggettoGiuridico       | PF               |
       | nomeCognomeDestinatario | Gaio Giulio      |
       | codiceFiscale           | CSRGGL44L13H501E |
+    And Si aggiungi un domicilio digitale "test@fail.it"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
-      | indirizzo | Via Roma |
-      | civico    | 20       |
-      | localita  | Milano   |
-      | comune    | Milano   |
-      | provincia | MI       |
-      | cap       | 20147    |
-      | stato     | Italia   |
+      | indirizzo | @fail-irreperibile_ar |
+      | civico    | 20                    |
+      | localita  | Milano                |
+      | comune    | Milano                |
+      | provincia | MI                    |
+      | cap       | 20147                 |
+      | stato     | Italia                |
     And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario inserire i dati del destinatari persona giuridicha aggiuntiva
       | soggettoGiuridico | PG           |
       | ragioneSociale    | Convivio Spa |
       | codiceFiscale     | 27957814470  |
-      | pec               | test@fail.it |
+      | pec               | prova@pec.it |
       | indirizzo         | Via Roma     |
       | civico            | 20           |
       | localita          | Milano       |
@@ -55,7 +56,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si visualizza correttamente la timeline relativi a tutti i destinatari
       | PF | CSRGGL44L13H501E |
       | PG | 27957814470      |
-    Then In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline "andato a buon fine"
+    Then In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline "Invio via PEC fallito"
     And Aspetta 10 secondi
     Then In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline "Invio via PEC riuscito"
     And Logout da portale mittente
