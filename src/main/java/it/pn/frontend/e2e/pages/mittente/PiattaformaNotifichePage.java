@@ -837,8 +837,9 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void visualizzaTimeline(String check) {
-        By viewMore = By.xpath("//*[@id='more-less-timeline-step']");
-        this.element(viewMore).click();
+        List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
+        viewMore.get(0).click();
+        if (viewMore.size()==2){viewMore.get(1).click();}
 
         List<WebElement> findKeyWord = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
 
@@ -852,8 +853,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void verificaDestinatariNonRaggiungibili(Map<String,String> destinatari){
         logger.info("Si clicca vedi piu dettagli");
-        By viewMore = By.xpath("//*[@id='more-less-timeline-step']");
-        this.element(viewMore).click();
+        List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
+        viewMore.get(0).click();
+        if (viewMore.size()==2){viewMore.get(1).click();}
         By destinatarioPF = By.xpath("//p[contains(text(),'" + destinatari.get("PF") + " è fallito')]");
         By destinatarioPG = By.xpath("//p[contains(text(),'" + destinatari.get("PG") + " è fallito')]");
 
