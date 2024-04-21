@@ -849,4 +849,20 @@ public class PiattaformaNotifichePage extends BasePage {
             Assert.fail("Non si visualizza  la timeline correttamente");
         }
     }
+
+    public void verificaDestinatariNonRaggiungibili(Map<String,String> destinatari){
+        logger.info("Si clicca vedi piu dettagli");
+        By viewMore = By.xpath("//*[@id='more-less-timeline-step']");
+        this.element(viewMore).click();
+        By destinatarioPF = By.xpath("//p[contains(text(),'" + destinatari.get("PF") + " è fallito')]");
+        By destinatarioPG = By.xpath("//p[contains(text(),'" + destinatari.get("PG") + " è fallito')]");
+
+        if (this.element(destinatarioPF).isDisplayed() && this.element(destinatarioPG).isDisplayed()){
+            logger.info("Entrambi destinatari non raggiungibili al primo tentativo");
+        }else {
+            logger.error("Uno dei destinatari viene raggiunto al primo tentativo");
+            Assert.fail("Uno dei destinatari viene raggiunto al primo tentativo");
+        }
+    }
+
 }

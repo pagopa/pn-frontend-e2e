@@ -1277,4 +1277,16 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.insertDomicilioDigitale(mail);
     }
 
+    @And("Si verifica che entrambi destinatari non raggiungibili al primo tentativo")
+    public void siVerificaCheEntrambiDestinatariNonRaggiungibiliAlPrimoTentativo(Map<String, String> destinatari) {
+        piattaformaNotifichePage.verificaDestinatariNonRaggiungibili(destinatari);
+    }
+
+    @And("Si verifica che destinatario raggiungibile {string}")
+    public void siVerificaCheDestinatarioRaggiungibile(String message){
+        piattaformaNotifichePage.visualizzaTimeline(message);
+        logger.info("Il destinatario raggiungibile");
+    }
+
+
 }

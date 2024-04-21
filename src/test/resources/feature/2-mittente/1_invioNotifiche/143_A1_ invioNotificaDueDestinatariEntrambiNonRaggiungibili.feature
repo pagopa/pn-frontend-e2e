@@ -19,8 +19,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     Then Nella section Destinatario si inseriscono i dati del destinatario
       | soggettoGiuridico       | PF               |
-      | nomeCognomeDestinatario | Lucrezia Borgia  |
-      | codiceFiscale           | BRGLRZ80D58H501Q |
+      | nomeCognomeDestinatario | Gaio Giulio      |
+      | codiceFiscale           | CSRGGL44L13H501E |
     And Si aggiungi un domicilio digitale "test@fail.it"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | @fail-irreperibile_ar |
