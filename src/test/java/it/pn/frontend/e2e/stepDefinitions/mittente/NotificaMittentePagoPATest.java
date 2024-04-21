@@ -1038,7 +1038,7 @@ public class NotificaMittentePagoPATest {
         WebTool.switchToPortal(AppPortal.PG);
         piattaformaNotifichePage.selezionaNotifica();
         WebTool.waitTime(5);
-        piattaformaNotifichePage.visualizzaTimelinePF(messagio);
+        piattaformaNotifichePage.visualizzaTimelinePG(messagio);
         WebTool.closeTab();
     }
 
