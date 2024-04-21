@@ -21,6 +21,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | soggettoGiuridico       | PF               |
       | nomeCognomeDestinatario | Gaio Giulio      |
       | codiceFiscale           | CSRGGL44L13H501E |
+    And Si aggiungi un domicilio digitale "test@pec.it"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma |
       | civico    | 20       |
