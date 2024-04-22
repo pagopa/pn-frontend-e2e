@@ -108,6 +108,15 @@ public class RecapitiTest {
         recapitiDestinatarioPage.insertEmail(email);
     }
 
+    @And("Nella pagina I Tuoi Recapiti si inserisce un email aggiuntiva maggiore di {int} caratteri")
+    public void nellaPaginaITuoiRecapitiSiInserisceUnEmailAggiuntivaMaggioreDiCaratteri(int numeroCaratteri) {
+        String email = "test";
+        for (int i = 0; i < numeroCaratteri; i++) {
+            email += "a";
+        }
+        recapitiDestinatarioPage.insertEmailAggiuntiva(email);
+    }
+
     @And("Nella pagina I Tuoi Recapiti si inserisce la nuova email {string}")
     public void nellaPaginaITuoiRecapitiSiInserisceLaNuovaEmailProvaTestIt(String email) {
         logger.info("Si inserisce la nuova mail e si clicca sul bottone avvisami via email");

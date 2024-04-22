@@ -690,19 +690,22 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-    public void visualizzazioneSezioneAltriRecapitiPG() {
+    public void visualizzazioneSezioneAltriRecapitiPG(String textboxId) {
+        String id = "";
         By altriRecapitiSectionBy = By.id("specialContactTitle");
         By sottoTitolo = By.xpath("//p[contains(text(),'Se si desidera che')]");
         By ente = By.id("sender");
         By tipoDiRecapito = By.id("addressType");
-        By textBox = By.id("s_pec-label");
+        if (textboxId.equalsIgnoreCase("pec")){id = "s_pec-label";}
+        if (textboxId.equalsIgnoreCase("email")){id = "s_mail";}
+        By textBox = By.id(id);
         By associaButton = By.id("addSpecialButton");
         getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
-        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(sottoTitolo));
-        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(ente));
-        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(tipoDiRecapito));
-        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(textBox));
-        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(associaButton));
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il sottotitolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(sottoTitolo));
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  ente della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(ente));
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  tipo di recapito della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(tipoDiRecapito));
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  textbox della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(textBox));
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il bottone associa della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(associaButton));
     }
 
     public void selezionaTipoEmail() {
@@ -750,22 +753,41 @@ public class RecapitiDestinatarioPage extends BasePage {
         this.element(opzioneCelulare).click();
     }
 
-    public void checkMessaggioDiErrore(){
-        By errorMessage = By.id("s_pec-helper-text");
+    public void checkMessaggioDiErrore(String check){
+        String id = "";
+        if (check.equalsIgnoreCase("pec")){
+            id = "s_pec-helper-text";
+            if(indirizzoPecField.getAttribute("aria-invalid").equalsIgnoreCase("false")){
+                logger.error("la textbox non presenta il bordo rosso");
+                Assert.fail("la textbox non presenta il bordo rosso");
+            }
+        }
+        if (check.equalsIgnoreCase("email")){
+            id = "s_mail-helper-text";
+            if(emailField.getAttribute("aria-invalid").equalsIgnoreCase("false")){
+                logger.error("la textbox non presenta il bordo rosso");
+                Assert.fail("la textbox non presenta il bordo rosso");
+            }
+        }
+        By errorMessage = By.id(id);
         getWebDriverWait(5).withMessage("Il messaggio di errore non è visibile").until(ExpectedConditions.visibilityOfElementLocated(errorMessage));
         if(associaButton.getAttribute("disabled")==null){
             logger.error("Il bottone Associa è attivo");
             Assert.fail("Il bottone Associa è attivo");
         }
-        if(indirizzoPecField.getAttribute("aria-invalid").equalsIgnoreCase("false")){
-            logger.error("la textbox non presenta il bordo rosso");
-            Assert.fail("la textbox non presenta il bordo rosso");
-        }
+
     }
 
-    public void clearMailbox(){
+    public void clearMailbox(String check){
+        if(check.equalsIgnoreCase("pec")){
         this.js().executeScript("arguments[0].setAttribute('autocomplete', 'off')", indirizzoPecField);
         indirizzoPecField.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+        }
+        if (check.equalsIgnoreCase("email")) {
+            this.js().executeScript("arguments[0].setAttribute('autocomplete', 'off')",emailField );
+            emailField.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+        }
+
     }
 
     public void clickConfermaPopupOTP(){

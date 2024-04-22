@@ -128,9 +128,9 @@ public class RecapitiPGPagoPaTest {
         recapitiDestinatarioPage.checkDisclaimer();
     }
 
-      @And("Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti persona giuridica")
-      public void siVisualizzaAltriRecapitiPagePersonaGiuridca(){
-    recapitiDestinatarioPage.visualizzazioneSezioneAltriRecapitiPG();
+      @And("Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti persona giuridica {string}")
+      public void siVisualizzaAltriRecapitiPagePersonaGiuridca(String textboxId){
+    recapitiDestinatarioPage.visualizzazioneSezioneAltriRecapitiPG(textboxId);
 }
     @And("Nella sezione altri recapiti si seleziona il tipo di indirizzo PG scegliendo {string}")
     public void selezionaIlTipoDiIndirizzo(String tipoIndirizzo){
@@ -154,6 +154,11 @@ public class RecapitiPGPagoPaTest {
         recapitiDestinatarioPage.insertPECAggiuntiva(pec);
     }
 
+    @And("Nella sezione altri recapiti si inserisce la Email aggiuntiva {string}")
+    public void siInserisceAggiuntiva(String email){
+        recapitiDestinatarioPage.insertPECAggiuntiva(email);
+    }
+
     @And("Nella pagina I Tuoi Recapiti si inserisce un PEC maggiore di {int} caratteri")
     public void nellaPaginaITuoiRecapitiSiInserisceUnPECMaggioreDiCaratteri(int numeroCaratteri) {
         StringBuilder email = new StringBuilder("test");
@@ -161,16 +166,16 @@ public class RecapitiPGPagoPaTest {
         recapitiDestinatarioPage.insertPECAggiuntiva(email.toString());
     }
 
-    @And("Nella sezione altri recapiti si visualizza il messaggio di errore")
-    public void nellaSezioneAltriRecapitiSiVisualizzaIlMessagioDiErrore(){
-        recapitiDestinatarioPage.checkMessaggioDiErrore();
+    @And("Nella sezione altri recapiti si visualizza il messaggio di errore {string}")
+    public void nellaSezioneAltriRecapitiSiVisualizzaIlMessagioDiErrore(String check){
+        recapitiDestinatarioPage.checkMessaggioDiErrore(check);
         logger.info("Si visualizza il messaggio di errore");
     }
 
 
-    @And("Nella sezione altri recapiti si cancella email da textbox")
-    public void nellaSezioneAltriRecapitiSiCancellaEmailDaTextbox(){
-        recapitiDestinatarioPage.clearMailbox();
+    @And("Nella sezione altri recapiti si cancella email da textbox {string}")
+    public void nellaSezioneAltriRecapitiSiCancellaEmailDaTextbox(String check){
+        recapitiDestinatarioPage.clearMailbox(check);
     }
 
     @And("Nella sezione altri recapiti si clicca sul bottone conferma di popup")
