@@ -4,9 +4,9 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
   @mittente
   @invioNotifiche
 
-  @InvioNotificaADueDestinatariEntrambiRaggiungibili
+  @InvioNotificaADueDestinatari
 
-  Scenario: [TA-FE INVIO NOTIFICA A DUE DESTINATARI] - Il mittente invia una notifica a due destinatari , entrambi raggiungibili al primo tentavio
+  Scenario: [TA-FE INVIO NOTIFICA A DUE DESTINATARI ENTRAMBI RAGGIUNGIBILI] - Il mittente invia una notifica a due destinatari , entrambi raggiungibili al primo tentavio
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
@@ -62,9 +62,9 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     Then In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline "Invio via PEC riuscito"
     And Logout da portale mittente
 
-  @InvioNotificaADueDestinatariSoloUnoRaggiungibile
+  @InvioNotificaADueDestinatari
 
-  Scenario: [TA-FE INVIO NOTIFICA A DUE DESTINATARI] - Il mittente invia una notifica a due destinatari , solo uno raggiungibile al primo tentativo
+  Scenario: [TA-FE INVIO NOTIFICA A DUE DESTINATARI SOLO UNO RAGGIUNGIBILE] - Il mittente invia una notifica a due destinatari , solo uno raggiungibile al primo tentativo
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
@@ -120,9 +120,9 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     Then In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline "Invio via PEC riuscito"
     And Logout da portale mittente
 
-  @InvioNotificaADueDestinatariEntrambiNonRaggiungibili
+  @InvioNotificaADueDestinatari
 
-  Scenario: [TA-FE INVIO NOTIFICA A DUE DESTINATARI] - Il mittente invia una notifica a due destinatari , entrambi non raggiungibili al primo tentativo
+  Scenario: [TA-FE INVIO NOTIFICA A DUE DESTINATARI ENTRAMBI NON RAGGIUNGIBILI] - Il mittente invia una notifica a due destinatari , entrambi non raggiungibili al primo tentativo
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
