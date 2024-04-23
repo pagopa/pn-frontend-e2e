@@ -818,11 +818,14 @@ public class PiattaformaNotifichePage extends BasePage {
    public void visualizzaTimelineTuttiDestinatari(Map<String,String> destinatari){
         logger.info("Si clicca vedi piu dettagli");
        List<WebElement>  viewMore =driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
-       if(viewMore.size()== 2){
+      //Equals() method utilizzato per String. Per confrontare int variabile dobbiamo usare ==
+       String size = Integer.toString(viewMore.size());
+       if(size.equals("2")){
         viewMore.get(1).click();
        }else {
            viewMore.get(0).click();
        }
+       //PF e PG vengono usati in modo da recuperare i dati test step. destinatari.get("PF") recupera CF da tabella nel FF
         List<WebElement> destinatarioPF = driver.findElements(By.xpath("//p[contains(text(),'("+ destinatari.get("PF") + ") all')]"));
         List<WebElement> destinatarioPG = driver.findElements(By.xpath("//p[contains(text(),'("+ destinatari.get("PG") + ") all')]"));
 
@@ -839,7 +842,8 @@ public class PiattaformaNotifichePage extends BasePage {
     public void visualizzaTimeline(String check) {
         List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
         viewMore.get(0).click();
-        if (viewMore.size()==2){viewMore.get(1).click();}
+        String size = Integer.toString(viewMore.size());
+        if(size.equals("2")) {viewMore.get(1).click();}
 
         List<WebElement> findKeyWord = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
 
@@ -855,7 +859,8 @@ public class PiattaformaNotifichePage extends BasePage {
         logger.info("Si clicca vedi piu dettagli");
         List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
         viewMore.get(0).click();
-        if (viewMore.size()==2){viewMore.get(1).click();}
+        String size = Integer.toString(viewMore.size());
+        if(size.equals("2")){viewMore.get(1).click();}
         By destinatarioPF = By.xpath("//p[contains(text(),'" + destinatari.get("PF") + " è fallito')]");
         By destinatarioPG = By.xpath("//p[contains(text(),'" + destinatari.get("PG") + " è fallito')]");
 
