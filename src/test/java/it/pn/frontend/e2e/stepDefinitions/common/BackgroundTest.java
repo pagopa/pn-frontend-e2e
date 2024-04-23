@@ -126,7 +126,7 @@ public class BackgroundTest {
     public void accettaDelegaPF() {
         deleghePagoPATest.waitDelegheButton();
         deleghePagoPATest.siSceglieOpzioneAccetta();
-        deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp();
+        deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp("personaFisica");
         deleghePagoPATest.siCliccaSulBottoneAccetta();
         deleghePagoPATest.siControllaCheLaDelegaHaLoStatoAttiva(nomeFilePersonaFisica);
     }

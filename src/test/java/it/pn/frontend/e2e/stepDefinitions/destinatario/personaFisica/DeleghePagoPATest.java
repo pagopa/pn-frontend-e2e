@@ -232,7 +232,7 @@ public class DeleghePagoPATest {
         this.leTueDelegheSection.inserireCodiceDelega(codice);
     }
 
-    @And("Si inserisce il codice delega nel pop-up {string}")
+    @And("Si inserisce il codice delega nel pop-up OTP {string}")
     public void siInserisceIlCodiceDelegaNelPopUpOTP(String data) {
         log.info("Si inserisce il codice per accettare la delega");
         String verificationCode = "";
