@@ -54,6 +54,9 @@ public class NotificaMittentePagoPATest {
     private final InformazioniPreliminariPASection informazioniPreliminariPASection = new InformazioniPreliminariPASection(this.driver);
     private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
     private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
+    private final String PF = "persona fisica";
+    private final String PG = "persona giuridica";
+    private final String PA = "pubblica amministrazione";
 
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
@@ -1014,7 +1017,7 @@ public class NotificaMittentePagoPATest {
 
     @Then("In parallelo si effettua l'accesso al portale destinatario {string} e si apre la notifica ricevuta")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioESiApreLaNotificaRicevuta(String destinatario) {
-        if("persona fisica".equalsIgnoreCase(destinatario)) {
+        if(PF.equalsIgnoreCase(destinatario)) {
             WebTool.switchToPortal(AppPortal.PF);
         } else {
             WebTool.switchToPortal(AppPortal.PG);
@@ -1028,13 +1031,13 @@ public class NotificaMittentePagoPATest {
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatario(String portal) {
         portal = portal.toLowerCase();
         switch(portal){
-            case "persona fisica":
+            case PF:
                 WebTool.switchToPortal(AppPortal.PF);
                 break;
-            case "persona giuridica":
+            case PG:
                 WebTool.switchToPortal(AppPortal.PG);
                 break;
-            case "pubblica amministrazione":
+            case PA:
                 WebTool.switchToPortal(AppPortal.PA);
                 break;
             default:
@@ -1089,7 +1092,7 @@ public class NotificaMittentePagoPATest {
     @And("Si accede nuovamente al portale {string} con token {string} per eliminare i recapiti inseriti")
     public void siAccedeNuovamenteAlPortaleConTokenPerEliminareIRecapitiInseriti(String tipoPersona, String tipoToken) {
         logger.info("Si accede nuovamente al portale " + tipoPersona + " per eliminare i recapiti inseriti");
-        if(("persona fisica").equalsIgnoreCase(tipoPersona)){
+        if(PF.equalsIgnoreCase(tipoPersona)){
             loginPersonaFisicaPagoPA.loginMittenteConTokenExchange(tipoToken);
             loginPersonaFisicaPagoPA.logoutDaPortaleDestinatario();
         } else {

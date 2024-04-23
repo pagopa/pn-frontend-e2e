@@ -48,7 +48,7 @@ public class HeaderPFSection extends BasePage {
 
     public void selezionaVoceEsci() {
         WebElement esciVoce = this.menuProfileItems.get(1);
-        this.getWebDriverWait(30).withMessage("la voce esci non è visibile").until(ExpectedConditions.visibilityOf(esciVoce));
+        getWebDriverWait(30).withMessage("la voce esci non è visibile").until(ExpectedConditions.visibilityOf(esciVoce));
         logger.info("click su voce esci");
         esciVoce.click();
     }

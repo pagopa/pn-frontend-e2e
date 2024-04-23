@@ -18,6 +18,8 @@ public class RecapitiTest {
     private final Logger logger = LoggerFactory.getLogger("RecapitiTest");
     private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
     private final ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+    private final String PEC = "PEC";
+    private final String contattoDiCortesia = "email di cortesia";
 
     @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono {string} e si clicca sul bottone avvisami via SMS")
     public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoESiCliccaSulBottoneAvvisamiViaSMS(String cellulare) {
@@ -56,52 +58,20 @@ public class RecapitiTest {
         recapitiDestinatarioPage.checkNumeroDiCellulareNonPresente();
     }
 
-    @And("Nella pagina I Tuoi Recapiti si controlla che non ci sia già una Email di cortesia e si inserisce {string}")
-    public void nellaPaginaITuoiRecapitiSiControllaCheNonCiSiaGiaUnaEmailDiCortesiaESiInserisce(String email) {
-        logger.info("Si controlla che ci sia già una Email di cortesia e se ne inserisce una");
+    @And("Nella pagina I Tuoi Recapiti si controlla che non ci sia già una {string} e si inserisce {string}")
+    public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaPECESiInserisce(String tipoContatto, String indirizzoMail) {
+        logger.info("Si controlla che non ci sia già una " + tipoContatto + " e se ne inserisce una");
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         BackgroundTest backgroundTest = new BackgroundTest();
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
-        if (!recapitiDestinatarioPage.verificaMailAssociata()) {
-            backgroundTest.aggiuntaEmailDiCortesia(email);
-        } else if (recapitiDestinatarioPage.controlloEmailAssociata(email)) {
-            iTuoiRecapitiPage.eliminaEmailEsistente();
-            if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
-                recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
-            } else {
-                recapitiDestinatarioPage.clickSuChiudiPopUp();
-                recapitiDestinatarioPage.eliminaNuovaEmail();
-                iTuoiRecapitiPage.eliminaEmailEsistente();
-                recapitiDestinatarioPage.waitLoadPopUpElimina();
-                recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
-            }
-            backgroundTest.aggiuntaEmailDiCortesia(email);
+        if (PEC.equalsIgnoreCase(tipoContatto)){
+            backgroundTest.aggiuntaPECConControlli(indirizzoMail);
+        } else if (contattoDiCortesia.equalsIgnoreCase(tipoContatto)){
+            backgroundTest.aggiuntaEmailDiCortesiaConControlli(indirizzoMail);
+        } else {
+            logger.error("Errore nella scrittura del tipo di contatto da controllare e inserire");
+            Assert.fail("Errore nella scrittura del tipo di contatto da controllare e inserire");
         }
-        WebTool.waitTime(10);
-    }
-
-    @And("Nella pagina I Tuoi Recapiti si controlla che non ci sia già una PEC e si inserisce {string}")
-    public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaPECESiInserisce(String emailPEC) {
-        logger.info("Si controlla che non ci sia già una PEC e se ne inserisce una");
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        BackgroundTest backgroundTest = new BackgroundTest();
-        iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
-        if (recapitiDestinatarioPage.checkFieldInputPEC()) {
-            backgroundTest.aggiuntaPEC(emailPEC);
-        } else if (recapitiDestinatarioPage.siControllaPresenzaPEC()) {
-            iTuoiRecapitiPage.eliminaPECEsistente();
-            if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi PEC")) {
-                recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
-            } else {
-                recapitiDestinatarioPage.clickSuChiudiPopUp();
-                recapitiDestinatarioPage.eliminaNuovaEmail();
-                iTuoiRecapitiPage.eliminaPECEsistente();
-                recapitiDestinatarioPage.waitLoadPopUpElimina();
-                recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
-            }
-            backgroundTest.aggiuntaPEC(emailPEC);
-        }
-        WebTool.waitTime(10);
     }
 
     @Then("Si visualizza il campo email modificabile")

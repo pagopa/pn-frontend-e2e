@@ -32,13 +32,7 @@ Feature: Mittente invia una notifica digitale con domicilio speciale impostato a
       | cap       | 20147    |
       | stato     | Italia   |
     And Cliccare su continua
-    And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
-    Then Nella section Allegati si carica un atto
-    And Nella section Allegati cliccare sul bottone Invia
-    Then Si visualizza correttamente la frase La notifica è stata correttamente creata
-    And Cliccare sul bottone vai alle notifiche
-    And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Si verifica che la notifica è stata creata correttamente
+    And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
     And Aspetta 180 secondi
     And Cliccare sulla notifica restituita
     And Si clicca sul opzione Vedi Dettaglio
