@@ -21,6 +21,6 @@ Feature: La persona giuridica visualizza i disservizi della applicazione
     And Si verifica la creazione del disservizio
     And Si verifica avvenuto disservizio in pagina stato piattaforma
     And Si visualizza un record in elenco relativo ad un disservizio ancora in corso
-    And Annullamento disservizio
+    And Si annulla un disservizio in corso
     And Logout da portale persona giuridica
 

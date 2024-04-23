@@ -47,11 +47,11 @@ public class ITuoiRecapitiPage extends BasePage {
             By titlePageByOne = By.xpath("//h4[contains(@id,'Recapiti-page')]");
             By titlePageByTwo = By.xpath("//h4[contains(@id,'I tuoi recapiti-page')]");
             By subTitlePageBy = By.id("subtitle-page");
-            this.getWebDriverWait(10).until(ExpectedConditions.or(
+            getWebDriverWait(10).until(ExpectedConditions.or(
                     ExpectedConditions.visibilityOfElementLocated(titlePageByOne),
                     ExpectedConditions.visibilityOfElementLocated(titlePageByTwo)
             ));
-            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(subTitlePageBy));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(subTitlePageBy));
             logger.info("La pagina I Tuoi Recapiti si vede correttamente");
         } catch (TimeoutException e) {
             logger.error("La pagina I Tuoi Recapiti NON si vede correttamente con errori:" + e.getMessage());
@@ -121,7 +121,7 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void insertEmail(String emailPEC) {
         By inserimentoEmailFieldBy = By.id("email");
-        this.getWebDriverWait(30).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoEmailFieldBy));
+        getWebDriverWait(10).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoEmailFieldBy));
         this.element(inserimentoEmailFieldBy).sendKeys(emailPEC);
     }
 
@@ -183,7 +183,7 @@ public class ITuoiRecapitiPage extends BasePage {
             logger.error("errore: " + e.getMessage());
         }
         By opzionePEC = By.id("dropdown-EMAIL");
-        this.getWebDriverWait(10)
+        getWebDriverWait(10)
                 .withMessage("Non è visibile l'opzione indirizzo email")
                 .until(ExpectedConditions.elementToBeClickable(opzionePEC));
         this.element(opzionePEC).click();
@@ -198,34 +198,23 @@ public class ITuoiRecapitiPage extends BasePage {
             logger.error("errore: " + e.getMessage());
         }
         By opzionePEC = By.id("dropdown-PEC");
-        this.getWebDriverWait(10)
+        getWebDriverWait(10)
                 .withMessage("Non è visibile l'opzione indirizzo email")
                 .until(ExpectedConditions.elementToBeClickable(opzionePEC));
         this.element(opzionePEC).click();
-    }
-
-    public void waitLoadRecapitiGiaAssociatoSection() {
-        By titlePage = By.xpath("//p[contains(text(),'Già associati')]");
-        By tableBy = By.xpath("//table[@aria-label = 'Già associati']");
-        By eliminaBy = By.xpath("//form[@data-testid = 'specialContactForm']//div//button[contains(text(),'Elimina')]");
-        By modificaBy = By.xpath("//form[@data-testid = 'specialContactForm']//div//button[contains(text(),'Modifica')]");
-        this.getWebDriverWait(10).withMessage("Non si visualizza il titolo 'Gia Associati'").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-        this.getWebDriverWait(10).withMessage("Non si visualizza la tabella 'Gia Associati'").until(ExpectedConditions.visibilityOfElementLocated(tableBy));
-        this.getWebDriverWait(10).withMessage("Non si visualizza il bottone elimina della sezione recapiti gia associati ").until(ExpectedConditions.visibilityOfElementLocated(eliminaBy));
-        this.getWebDriverWait(10).withMessage("Non si visualizza il bottone modifica della sezione recapiti gia associati").until(ExpectedConditions.visibilityOfElementLocated(modificaBy));
     }
 
     public void checkPostModifica() {
         By saveButton = By.id("saveModifyButton-default");
         By cancelButton = By.xpath("//button[contains(text(),'Annulla')]");
         By emailField = By.id("email");
-        this.getWebDriverWait(10).withMessage("Non si visualizza il bottone salva o non è cliccabile").until(ExpectedConditions.and(
+        getWebDriverWait(10).withMessage("Non si visualizza il bottone salva e non è cliccabile").until(ExpectedConditions.and(
                 ExpectedConditions.visibilityOfElementLocated(saveButton),
                 ExpectedConditions.elementToBeClickable(saveButton)));
-        this.getWebDriverWait(10).withMessage("Non si visualizza il bottone annulla o non è cliccabile").until(ExpectedConditions.and(
+        getWebDriverWait(10).withMessage("Non si visualizza il bottone annulla e non è cliccabile").until(ExpectedConditions.and(
                 ExpectedConditions.visibilityOfElementLocated(cancelButton),
                 ExpectedConditions.elementToBeClickable(cancelButton)));
-        this.getWebDriverWait(10).withMessage("Non si visualizza il campo email o non è modificabile").until(ExpectedConditions.and(
+        getWebDriverWait(10).withMessage("Non si visualizza il campo email e non è modificabile").until(ExpectedConditions.and(
                 ExpectedConditions.visibilityOfElementLocated(emailField),
                 ExpectedConditions.attributeToBe(this.element(emailField), "readonly", ""),
                 ExpectedConditions.attributeToBeNotEmpty(this.element(emailField), "value")));
