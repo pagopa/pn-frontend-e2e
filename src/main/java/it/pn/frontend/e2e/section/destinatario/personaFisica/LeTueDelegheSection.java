@@ -54,6 +54,9 @@ public class LeTueDelegheSection extends BasePage {
     @FindBy(id = "code-confirm-button")
     WebElement accettaPopUpButton;
 
+    @FindBy(id ="code-cancel-button")
+    WebElement indietroPopUpButton;
+
     @FindBy(id = "Deleghe-page")
     WebElement deleghePageTitle;
 
@@ -227,6 +230,11 @@ public class LeTueDelegheSection extends BasePage {
     public void clickAccettaButton() {
         this.accettaPopUpButton.click();
     }
+
+    public void clickIndietroButton(){
+      this.indietroPopUpButton.click();
+    }
+
 
     public void controlloStatoAttiva(String nome, String cognome) {
         try {

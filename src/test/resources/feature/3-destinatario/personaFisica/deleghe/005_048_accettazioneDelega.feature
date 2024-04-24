@@ -17,7 +17,16 @@ Feature: il delegato accetta la delega
       | lastName    | Borgia           |
     And Si verifica che presente un indicatore numerico in corrispondenza della voce di menù Deleghe
     And Si sceglie opzione accetta
+    And  Si clicca sul bottone indietro popup
+    And Si sceglie opzione accetta
+    And Si inserisce il codice delega nel pop-up OTP "errato"
+    And Si clicca sul bottone Accetta
+    And Si vefifica il messaggio di codice sbagliato
+    And  Si clicca sul bottone indietro popup
+    And Si sceglie opzione accetta
     And Si inserisce il codice delega nel pop-up OTP "corretto"
     And Si clicca sul bottone Accetta
-    And Si controlla che la delega ha lo stato Attiva "personaFisica"
+    And Si controlla che la delega ha lo stato Attiva
+      | firstName   | Gaio Giulio       |
+      | lastName    | Cesare            |
     And Logout da portale persona fisica

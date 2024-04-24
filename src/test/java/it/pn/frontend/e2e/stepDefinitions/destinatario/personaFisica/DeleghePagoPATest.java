@@ -291,11 +291,33 @@ public class DeleghePagoPATest {
         }
     }
 
+    @And("Si vefifica il messaggio di codice sbagliato")
+    public void siVerificaIlMessaggioDiCodiceSbagliato(){
+        if (leTueDelegheSection.verificaEsistenzaErroreCodiceSbagliato()) {
+            log.info("Il messaggio di codice sbagliato è visualizzata");
+        }else{
+            log.error("Il messaggio di codice sbagliato non è visualizzata");
+            Assert.fail("Il messaggio di codice sbagliato non è visualizzata");
+        }
+
+    }
+    @And("Si clicca sul bottone indietro popup")
+    public void siCliccaSulBottoneIndietroPopUp(){
+        leTueDelegheSection.clickIndietroButton();
+    }
+
+
     @And("Si controlla che la delega ha lo stato Attiva {string}")
     public void siControllaCheLaDelegaHaLoStatoAttiva(String dpFile) {
         log.info("Si controlla che la delega abbia lo stato Attiva");
         deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
         leTueDelegheSection.controlloStatoAttiva(deleghe.get("name").toString(), deleghe.get("familyName").toString());
+    }
+
+    @And("Si controlla che la delega ha lo stato Attiva")
+    public void siControllaCheLaDelegaHaLoStatoAttiva(Map<String,String> data) {
+        log.info("Si controlla che la delega abbia lo stato Attiva");
+        leTueDelegheSection.controlloStatoAttiva(data.get("firstName"), data.get("lastName"));
     }
 
     @And("Si controlla che la delega è ancora presente {string}")
