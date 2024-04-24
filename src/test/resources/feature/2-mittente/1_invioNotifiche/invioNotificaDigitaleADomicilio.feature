@@ -1,10 +1,9 @@
 Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio impostati ogni volta
 
-  @TA_invioNotificaConMailDiCortesiaImpostata
   @TestSuite
   @mittente
   @invioNotifiche
-  @recapitiPF
+  @invioNotificaDigitaleADomicilioImpostato
 
   Scenario: [TA-FE INVIO DI UNA NOTIFICA DIGITALE A DESTINATARIO CON DOMICILIO IMPOSTATO] - Il mittente invia una notifica digitale a destinatario con indirizzo mail di cortesia impostato
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
@@ -44,11 +43,6 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Logout da portale mittente
     And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
 
-  @TestSuite
-  @TA_invioNotificaDestinatarioADomicilioDiPiattaformaOK
-  @mittente
-  @invioNotifiche
-  @recapitiPF
 
   Scenario: [TA-FE INVIO DI UNA NOTIFICA DIGITALE A DESTINATARIO CON DOMICILIO IMPOSTATO] - Mittente invia una notifica digitale al destinatario con domicilio di piattaforma e attende lo stato consegnata
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
@@ -89,11 +83,6 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Logout da portale mittente
     And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
 
-  @TestSuite
-  @TA_invioNotificaDestinatarioADomicilioDiPiattaformaKO
-  @mittente
-  @invioNotifiche
-  @recapitiPF
 
   Scenario: [TA-FE INVIO DI UNA NOTIFICA DIGITALE A DESTINATARIO CON DOMICILIO IMPOSTATO] - Mittente invia una notifica digitale al destinatario con KO e invio raccomandata semplice
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
@@ -134,10 +123,6 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Logout da portale mittente
     And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
 
-  @TestSuite
-  @TA_invioNotificaConDomicilioSpecialeImpostato
-  @mittente
-  @invioNotifiche
 
   Scenario: [TA-FE INVIO DI UNA NOTIFICA DIGITALE A DESTINATARIO CON DOMICILIO IMPOSTATO] - Mittente invia una notifica digitale con domicilio speciale impostato al destinatario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
@@ -174,10 +159,6 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     Then Si verifica che la notifica abbia lo stato "Consegnata"
     And Logout da portale mittente
 
-  @TestSuite
-  @TA_invioNotificaConDomicilioSpecialeEKO
-  @mittente
-  @invioNotifiche
 
   Scenario: [TA-FE INVIO DI UNA NOTIFICA DIGITALE A DESTINATARIO CON DOMICILIO IMPOSTATO] - Mittente invia una notifica digitale con domicilio speciale impostato al destinatario con KO e invio raccomandata semplice
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
