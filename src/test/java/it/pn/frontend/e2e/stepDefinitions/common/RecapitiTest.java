@@ -5,7 +5,6 @@ import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
-import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -61,13 +60,11 @@ public class RecapitiTest {
     @And("Nella pagina I Tuoi Recapiti si controlla che non ci sia già una {string} e si inserisce {string}")
     public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaPECESiInserisce(String tipoContatto, String indirizzoMail) {
         logger.info("Si controlla che non ci sia già una " + tipoContatto + " e se ne inserisce una");
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         BackgroundTest backgroundTest = new BackgroundTest();
-        iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
         if (PEC.equalsIgnoreCase(tipoContatto)){
-            backgroundTest.aggiuntaPECConControlli(indirizzoMail);
+            backgroundTest.checkPECEsistentePerEliminazioneEInserimento(indirizzoMail);
         } else if (contattoDiCortesia.equalsIgnoreCase(tipoContatto)){
-            backgroundTest.aggiuntaEmailDiCortesiaConControlli(indirizzoMail);
+            backgroundTest.checkEmailDiCortesiaPerEliminazioneEInserimento(indirizzoMail);
         } else {
             logger.error("Errore nella scrittura del tipo di contatto da controllare e inserire");
             Assert.fail("Errore nella scrittura del tipo di contatto da controllare e inserire");

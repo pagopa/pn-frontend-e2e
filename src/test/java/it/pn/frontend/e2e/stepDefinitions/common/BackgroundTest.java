@@ -1,6 +1,5 @@
 package it.pn.frontend.e2e.stepDefinitions.common;
 
-import io.cucumber.messages.types.Hook;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
@@ -39,7 +38,7 @@ public class BackgroundTest {
     private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(driver);
     private final ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
 
-    public BackgroundTest(){
+    public BackgroundTest() {
         datiPersonaFisica = new HashMap<>();
         datiPersonaFisica.put("nome", "Lucrezia");
         datiPersonaFisica.put("cognome", "Borgia");
@@ -271,34 +270,46 @@ public class BackgroundTest {
         recapitiTest.siControllaCheLEmailInseritaSiaPresente();
     }
 
-    public void aggiuntaPEC(String emailPEC){
-        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiControllaCheNonCiSiaGiaUnaPec();
+    public void siEliminaPecEsistenteEAltriRecapitiAssociati() {
+        recapitiDestinatarioPage.clickSuEliminaPec();
+        if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi PEC")) {
+            recapitiDestinatarioPage.clickSuConfermaElimina();
+        } else {
+            recapitiDestinatarioPage.clickSuChiudiPopUp();
+            recapitiDestinatarioPage.eliminaNuovaPec();
+            recapitiDestinatarioPage.clickSuEliminaPec();
+            recapitiDestinatarioPage.waitLoadPopUpElimina();
+            recapitiDestinatarioPage.clickSuConfermaElimina();
+        }
+    }
+
+    public void siInserisceUnaPECConCampoInputVisibile(String emailPEC) {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLEmailPerLaPECDelDestinatario(emailPEC);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiCliccaSulBottoneConferma();
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequestDellEmailEVieneInserito(emailPEC);
     }
 
-    public void aggiuntaPECConControlli(String emailPEC) {
-        if (recapitiDestinatarioPage.checkFieldInputPEC()) {
-            aggiuntaPEC(emailPEC);
+    public void checkPECEsistentePerEliminazioneEInserimento(String emailPEC) {
+        if (!recapitiDestinatarioPage.verificaPecAssociata()) {
+            siInserisceUnaPECConCampoInputVisibile(emailPEC);
         } else if (recapitiDestinatarioPage.siControllaPresenzaPEC()) {
-            iTuoiRecapitiPage.eliminaPECEsistente();
+            recapitiDestinatarioPage.clickSuEliminaPec();
             if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi PEC")) {
-                recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
+                recapitiDestinatarioPage.clickSuConfermaElimina();
             } else {
                 recapitiDestinatarioPage.clickSuChiudiPopUp();
                 recapitiDestinatarioPage.eliminaNuovaEmail();
-                iTuoiRecapitiPage.eliminaPECEsistente();
+                recapitiDestinatarioPage.clickSuEliminaPec();
                 recapitiDestinatarioPage.waitLoadPopUpElimina();
-                recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
+                recapitiDestinatarioPage.clickSuConfermaElimina();
             }
-            aggiuntaPEC(emailPEC);
+            siInserisceUnaPECConCampoInputVisibile(emailPEC);
         }
         WebTool.waitTime(10);
     }
 
-    public void aggiuntaEmailDiCortesiaConControlli(String emailDiCortesia) {
+    public void checkEmailDiCortesiaPerEliminazioneEInserimento(String emailDiCortesia) {
         if (!recapitiDestinatarioPage.verificaMailAssociata()) {
             aggiuntaEmailDiCortesia(emailDiCortesia);
         } else if (recapitiDestinatarioPage.controlloEmailAssociata(emailDiCortesia)) {

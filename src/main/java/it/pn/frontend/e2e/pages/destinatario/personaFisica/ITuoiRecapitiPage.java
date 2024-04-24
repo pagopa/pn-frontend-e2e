@@ -119,12 +119,6 @@ public class ITuoiRecapitiPage extends BasePage {
         this.js().executeScript("arguments[0].click();", this.element(eliminaMailButton));
     }
 
-    public void eliminaPECEsistente() {
-        By eliminaPECAssociataButton = By.xpath("//div[@data-testid='legalContacts']//button[@id='cancelContact-default']");
-        getWebDriverWait(10).withMessage("il Bottone elimina PEC associata non è presente").until(ExpectedConditions.elementToBeClickable(eliminaPECAssociataButton));
-        this.js().executeScript("arguments[0].click();", this.element(eliminaPECAssociataButton));
-    }
-
     public void insertEmail(String emailPEC) {
         By inserimentoEmailFieldBy = By.id("email");
         getWebDriverWait(10).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoEmailFieldBy));
