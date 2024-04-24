@@ -4,11 +4,12 @@ import it.pn.frontend.e2e.rest.RestContact;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 public class NotificationSingleton {
 
-    private String iun;
+    private Map<String, String> scenarioIun = new ConcurrentHashMap<>();
     private String notificationRequestId;
     private static NotificationSingleton instance;
 
@@ -22,6 +23,11 @@ public class NotificationSingleton {
         return instance;
     }
 
+    public void setScenarioIun(String scenarioName,String iun){
+        scenarioIun.put(scenarioName,iun);
+    }
 
-
+    public String getIun(String scenarioName){
+        return scenarioIun.get(scenarioName);
+    }
 }

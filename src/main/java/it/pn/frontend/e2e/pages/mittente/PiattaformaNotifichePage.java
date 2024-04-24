@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.mittente;
 
 import com.google.gson.internal.LinkedTreeMap;
+import io.cucumber.java.Scenario;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
@@ -800,28 +801,30 @@ public class PiattaformaNotifichePage extends BasePage {
                 }
             }
         }
+
         if (!notificationRequestId.isEmpty()) {
-            //LinkedTreeMap<String, Object> notificationData;
-              String notificationStatus;
-            //String notificationIUN;
+            LinkedTreeMap<String, Object> notificationData;
+            String notificationStatus;
+            String notificationIUN;
             int maximumRetry = 0;
-            do {
+            notificationStatus = restNotification.getNotificationStatus(notificationRequestId).get("notificationRequestStatus").toString();
+            while (notificationStatus.equals("WAITING")){
                 if (maximumRetry > 4) {
                     logger.error("Sono stati fatti 5 tentativi per verificare la creazione della notifica");
                     Assert.fail("La notifica risulta ancora in stato WAITING dopo 5 tentativi");
                 }
-                //notificationData = restNotification.getNotificationStatus(notificationRequestId);
-                notificationStatus = restNotification.getNotificationStatus(notificationRequestId).get("notificationRequestStatus").toString();
-                //notificationIUN = notificationData.get("iun").toString();
-                //if (notificationStatus.equals("ACCEPTED")){
-               //     notificationSingleton.setIun(notificationIUN);
-                //}else{
-                    WebTool.waitTime(90);
-                    logger.info("Tentativo n. " + maximumRetry + " - Stato notifica: " + notificationStatus);
-                    maximumRetry++;
-              //  }
-            } while (notificationStatus.equals("WAITING"));
-            notificationSingleton.setIun(restNotification.getNotificationStatus(notificationRequestId).get("iun").toString());
+                notificationData = restNotification.getNotificationStatus(notificationRequestId);
+                notificationStatus = notificationData.get("notificationRequestStatus").toString();
+                if(notificationStatus.equals("ACCEPTED")){
+                    notificationIUN = notificationData.get("iun").toString();
+                    notificationSingleton.setScenarioIun(scenarioName,notificationIUN);
+                }else{
+                WebTool.waitTime(90);
+                logger.info("Tentativo n. " + maximumRetry + " - Stato notifica: " + notificationStatus);
+                maximumRetry++;
+                 }
+            }
+            //notificationSingleton.setScenarioIun(scenario.getName(),restNotification.getNotificationStatus(notificationRequestId).get("iun").toString());
             driver.navigate().refresh();
             logger.info("La notifica è stata creata correttamente");
         } else {
@@ -844,7 +847,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void clickSuNotifica() {
-        String iun = notificationSingleton.getIun();
+        String iun = notificationSingleton.getIun(scenarioName);
         try{
             By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'"+iun+"')]]");
             getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOfElementLocated(notification));

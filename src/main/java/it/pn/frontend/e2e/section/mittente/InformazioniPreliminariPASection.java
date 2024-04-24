@@ -85,7 +85,7 @@ public class InformazioniPreliminariPASection extends BasePage {
 
         try {
             By gruppoBy = By.xpath("//li[contains(text(),'" + gruppo + "')]");
-            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(gruppoBy));
+            getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(gruppoBy));
             logger.info("gruppo " + gruppo + " trovato con successo");
             element(gruppoBy).click();
         } catch (TimeoutException e) {

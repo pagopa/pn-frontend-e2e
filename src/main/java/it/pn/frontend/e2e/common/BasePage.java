@@ -1,5 +1,8 @@
 package it.pn.frontend.e2e.common;
 
+import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
+import it.pn.frontend.e2e.listeners.Hooks;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,8 +15,10 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class BasePage {
+
     protected WebDriver driver;
 
+    protected String scenarioName = Hooks.scenario;
     protected int loadComponentWaitTime = Integer.parseInt(System.getProperty("loadComponentWaitTime"));
 
     private static final Logger loggerBase = LoggerFactory.getLogger("BasePage");

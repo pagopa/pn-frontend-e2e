@@ -1,12 +1,14 @@
 package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -265,8 +267,8 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void checkStatoTimeline(String statoTimeline){
         try {
-            By testIrreperibilita = By.id("Destinatario irreperibile-status");
-            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(testIrreperibilita));
+            By testIrreperibilita = By.id(statoTimeline);
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(testIrreperibilita));
             logger.info("irreperibilitá avvenuta");
         } catch (TimeoutException e) {
             logger.error("irreperibilitá non avvenuta con errore: " + e.getMessage());

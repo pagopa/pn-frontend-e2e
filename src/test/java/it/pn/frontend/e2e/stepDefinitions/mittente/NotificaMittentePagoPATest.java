@@ -1087,9 +1087,12 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.verificaPresenzaStato(stato);
     }
 
+
     @And("Si controlla lo stato timeline {string} in dettaglio notifica")
     public void siControllaLoStatoTimelineInDettaglioNotifica(String statoTimelineNotifica) {
         siVisualizzaCorrettamenteLaSectionDettaglioNotifica();
+        WebTool.waitTime(790);
+        driver.navigate().refresh();
         siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso();
         dettaglioNotificaMittenteSection.checkStatoTimeline(statoTimelineNotifica);
     }

@@ -43,7 +43,10 @@ public class Hooks {
     private static final Logger logger = LoggerFactory.getLogger("Hooks");
     public static WebDriver driver;
     public DevTools devTools;
+
     public Map<String, RequestWillBeSent> requests = new HashMap<>();
+
+    public static String scenario;
     public static List<NetWorkInfo> netWorkInfos = new ArrayList<>();
     private String headless;
     private final CookieConfig cookieConfig = new CookieConfig();
@@ -175,6 +178,7 @@ public class Hooks {
     @Before
     public void startScenario(Scenario scenario) {
         logger.info("-------------------------------------------START SCENARIO: " + scenario.getName() + "------------------------------------------------");
+        this.scenario = scenario.getName();
         Collection<String> tags = scenario.getSourceTagNames();
         for (String tag : tags) {
             if (tag.startsWith("@TA_")) {
