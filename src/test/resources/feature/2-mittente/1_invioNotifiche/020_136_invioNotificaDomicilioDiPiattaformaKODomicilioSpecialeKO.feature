@@ -39,14 +39,11 @@ Feature: Mittente invia una notifica digitale a destinatario, KO invio sia a dom
       | stato     | Italia   |
     And Cliccare su continua
     And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
-    And Aspetta 240 secondi
+    And Aspetta 330 secondi
     And Cliccare sulla notifica restituita
     And Si clicca sul opzione Vedi Dettaglio
     And Si verifica il tentato invio della notifica al domicilio speciale inserito "prova2@fail.it"
-
-    #da testare e capire che cosa si vede nello specifico per i metodi da utilizzare o implementare
-
-    And Si verifica che l'invio della notifica sia fallito 2 volte
+    And Si verifica che l'invio della notifica sia fallito 4 volte
     And Si verifica l'invio della raccomandata semplice
     And Logout da portale mittente
     And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
