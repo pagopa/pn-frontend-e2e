@@ -42,9 +42,7 @@ Feature: Mittente invia una notifica digitale a destinatario, KO invio a domicil
     And Aspetta 240 secondi
     And Cliccare sulla notifica restituita
     And Si clicca sul opzione Vedi Dettaglio
-    #And Si verifica il tentato invio della notifica al domicilio speciale inserito "prova@fail.it"
-    #da testare e capire che cosa si vede nello specifico per i metodi da utilizzare o implementare
-    And Si verifica che l'invio della notifica sia fallito 2 volte
+    And Si verifica che l'invio della notifica sia fallito 1 volte
     And Si verifica l'invio della notifica al domicilio speciale inserito "prova@test.it"
     Then Si verifica che la notifica abbia lo stato "Consegnata"
     And Logout da portale mittente
