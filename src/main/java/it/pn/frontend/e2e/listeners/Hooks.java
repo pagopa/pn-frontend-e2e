@@ -271,7 +271,7 @@ public class Hooks {
      * Clear the contacts of PF after the scenario
      * P.S: This will work only if there are any contacts available
      */
-    @After(value = "@recapitiPF or @recapitiPG or @invioNotificaDigitaleADomicilioImpostato")
+    @After(value = "@recapitiPF or @recapitiPG")
     public void clearRecapiti() {
         RestContact restContact = RestContact.getInstance();
         DigitalAddressResponse digitalAddress = restContact.getDigitalAddress();

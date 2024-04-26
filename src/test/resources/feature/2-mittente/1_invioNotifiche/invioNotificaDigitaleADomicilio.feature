@@ -1,6 +1,7 @@
 Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio impostati ogni volta
 
   @invioNotificaDigitaleADomicilioImpostato
+  @recapitiPF
   Scenario: [TA-FE INVIO DI UNA NOTIFICA DIGITALE A DESTINATARIO CON DOMICILIO IMPOSTATO] - Il mittente invia una notifica digitale a destinatario con indirizzo mail di cortesia impostato
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -40,6 +41,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
 
   @invioNotificaDigitaleADomicilioImpostato
+  @recapitiPF
   Scenario: [TA-FE INVIO DI UNA NOTIFICA DIGITALE A DESTINATARIO CON DOMICILIO IMPOSTATO] - Mittente invia una notifica digitale al destinatario con domicilio di piattaforma e attende lo stato consegnata
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -80,6 +82,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
 
   @invioNotificaDigitaleADomicilioImpostato
+  @recapitiPF
   Scenario: [TA-FE INVIO DI UNA NOTIFICA DIGITALE A DESTINATARIO CON DOMICILIO IMPOSTATO] - Mittente invia una notifica digitale al destinatario con KO e invio raccomandata semplice
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
