@@ -88,8 +88,7 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void selezioneVediDettaglioButton() {
-        getWebDriverWait(10).withMessage("Bottone vedi dettaglio non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.vediDettagliButton));
-        vediDettagliButton.click();
+        scrollToElementAndClick(vediDettagliButton);
         if (!tuttiStatiNotificaList.isEmpty()) {
             logger.info("Tutti gli stati sono stati visualizzati correttamente");
         } else {
