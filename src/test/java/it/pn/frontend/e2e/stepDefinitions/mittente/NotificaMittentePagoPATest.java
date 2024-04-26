@@ -1015,6 +1015,7 @@ public class NotificaMittentePagoPATest {
     @And("Si annulla la notifica")
     public void siAnnullaLaNotifica() {
         logger.info("Si clicca sul pusante annulla notifica");
+        WebTool.waitTime(10);
         piattaformaNotifichePage.clickBottoneAnnullaNotifica();
         piattaformaNotifichePage.clickAnnullaNotificaModale();
     }
@@ -1029,6 +1030,24 @@ public class NotificaMittentePagoPATest {
     public void nellaPaginaPiattaformaNotificheLaNotificaPresentaLoStato(String stato) {
         logger.info("Si controlla che nella pagina piattaforma notifiche la notifica abbia lo stato " + stato);
         piattaformaNotifichePage.checkStatoNotifica(stato);
+    }
+
+    @And("Si attende che lo stato della notifica sia {string}")
+    public void siAttendeCheLoStatoDellaNotificaSia(String statoNotifica) {
+        logger.info("Si clicca sulla notifica appena creata quando lo stato diventa: " + statoNotifica);
+        piattaformaNotifichePage.selezionaNotificaConStato(statoNotifica);
+    }
+
+    @Then("Si controlla la comparsa del pop up di conferma annullamento")
+    public void siControllaLaComparsaDelPopUpDiConfermaAnnullamento() {
+        logger.info("Si controlla la presenza del pop up di conferma dell'annullamento della notifica");
+        piattaformaNotifichePage.checkPopUpConfermaAnnullamentoNotifica();
+    }
+
+    @And("Si clicca il bottone indietro nella descrizione della notifica")
+    public void siCliccaIlBottoneIndietroNellaDescrizioneDellaNotifica() {
+        logger.info("Si clicca sul bottone indietro della pagina della descrizione della notifica");
+        dettaglioNotificaMittenteSection.clickIndietroButton();
     }
 
     /**
