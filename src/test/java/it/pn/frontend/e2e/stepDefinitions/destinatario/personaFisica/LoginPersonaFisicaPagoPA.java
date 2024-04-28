@@ -21,6 +21,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -47,6 +48,12 @@ public class LoginPersonaFisicaPagoPA {
             default ->
                     Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
+    }
+        @Given("Login Page persona fisica test viene visualizzata")
+        public void loginPageDestinatarioVieneVisualizzataConUrl() {
+
+           String url = "https://cittadini.test.notifichedigitali.it/";
+            this.driver.get(url);
     }
 
     @Given("PF - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
@@ -147,6 +154,72 @@ public class LoginPersonaFisicaPagoPA {
         } else {
             logger.error("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + this.datiPersonaFisica.get("fiscalNumber").toString());
             Assert.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + this.datiPersonaFisica.get("fiscalNumber").toString());
+        }
+        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
+        confermaDatiSpidPFPage.selezionaConfermaButton();
+        headerPFSection.waitUrlToken();
+    }
+    @When("Login con persona fisica")
+    public void loginConDestinatario(Map<String,String> datiPF) {
+        logger.info("user persona fisica : " + datiPF.get("user"));
+        logger.info("cookies start");
+        CookiesSection cookiesPage;
+
+        if (!CookieConfig.isCookieEnabled()) {
+            cookiesPage = new CookiesSection(this.driver);
+            if (cookiesPage.waitLoadCookiesPage()) {
+                cookiesPage.selezionaAccettaTuttiButton();
+            }
+        }
+        logger.info("cookies end");
+        AccediAPiattaformaNotifichePage accediApiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        accediApiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
+        accediApiattaformaNotifichePage.selezionaAccediButton();
+        if (!CookieConfig.isCookieEnabled()) {
+            cookiesPage = new CookiesSection(this.driver);
+            if (cookiesPage.waitLoadCookiesPage()) {
+                cookiesPage.selezionaAccettaTuttiButton();
+            }
+        }
+
+        ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.driver);
+        comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
+        comeVuoiAccederePage.selezionaSpidButton();
+
+        ScegliSpidPFPage scegliSpidPFPage = new ScegliSpidPFPage(this.driver);
+        scegliSpidPFPage.waitLoadScegliSpidDEPage();
+        scegliSpidPFPage.selezionareTestButton();
+
+        LoginSpidPFPage loginSpidPFPage = new LoginSpidPFPage(this.driver);
+        loginSpidPFPage.waitLoadLoginSpidDEPage();
+        loginSpidPFPage.inserisciUtente(datiPF.get("user"));
+        loginSpidPFPage.inserisciPassword(datiPF.get("pwd"));
+        loginSpidPFPage.selezionaEntraConSpidButton();
+
+        ConfermaDatiSpidPFPage confermaDatiSpidPFPage = new ConfermaDatiSpidPFPage(this.driver);
+        confermaDatiSpidPFPage.waitLoadConfermaDatiSpidDEPage();
+        String nomeUtenteLetto = confermaDatiSpidPFPage.leggiNomeUtente();
+        if (nomeUtenteLetto.equals(datiPF.get("name"))) {
+            logger.info("nome utente letto : " + nomeUtenteLetto + " uguale a : " + datiPF.get("name"));
+        } else {
+            logger.error("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + datiPF.get("name"));
+            Assert.fail("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + datiPF.get("name"));
+        }
+
+        String cognomeUtenteLetto = confermaDatiSpidPFPage.leggiCognomeUtente();
+        if (cognomeUtenteLetto.equals(datiPF.get("familyName"))) {
+            logger.info("cognome utente letto : " + cognomeUtenteLetto + " uguale a : " + datiPF.get("familyName"));
+        } else {
+            logger.error("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + datiPF.get("familyName"));
+            Assert.fail("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + datiPF.get("familyName"));
+        }
+
+        String numeroFiscaleLetto = confermaDatiSpidPFPage.leggiNumeroFiscale();
+        if (numeroFiscaleLetto.equals(datiPF.get("fiscalNumber"))) {
+            logger.info("numero fiscale letto : " + numeroFiscaleLetto + " uguale a : " + datiPF.get("fiscalNumber"));
+        } else {
+            logger.error("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
+            Assert.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
         }
         HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
         confermaDatiSpidPFPage.selezionaConfermaButton();
