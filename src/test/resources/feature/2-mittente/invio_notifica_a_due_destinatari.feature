@@ -2,7 +2,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
   @TestSuite
 
-  @InvioNotificaADueDestinatari
+  @InvioNotificaADueDestinatari1
 
   Scenario: [TA-FE INVIO NOTIFICA A DUE DESTINATARI ENTRAMBI RAGGIUNGIBILI] - Il mittente invia una notifica a due destinatari , entrambi raggiungibili al primo tentavio
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
