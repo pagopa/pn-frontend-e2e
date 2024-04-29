@@ -609,8 +609,7 @@ public class NotificaMittentePagoPATest {
 
     @Then("Si visualizza correttamente l errore di stesso codice fiscale")
     public void siVisualizzaCorrettamenteLErroreDiStessoCodiceFiscale() {
-        logger.info("Si visualizza il messaggio di errore stesso codice fiscale");
-
+        logger.info("Si visualizzano i messaggi di errore del campo codice fiscale");
         destinatarioPASection.waitMessaggioErrore();
     }
 
@@ -1011,7 +1010,26 @@ public class NotificaMittentePagoPATest {
         logger.info("Si verifica che la notifica abbia lo stato " + stato);
         piattaformaNotifichePage.verificaPresenzaStato(stato);
     }
-    
+
+    @Then("Nella section del destinatario numero {int} si inseriscono i suoi dati")
+    public void nellaSectionDelDestinatarioNumeroSiInserisconoISuoiDati(int numeroDestinatario, Map<String, String> destinatario) {
+        logger.info("Si inseriscono i dati del destinatario nella sezione Destinatario");
+        numeroDestinatario--;
+        if (destinatario.get("soggettoGiuridico").equals("PF")) {
+            destinatarioPASection.selezionarePersonaFisicaMultiDestinatario(numeroDestinatario);
+        } else {
+            destinatarioPASection.clickRadioButtonPersonaGiuridica();
+        }
+        String nomeDestinatario = destinatario.get("nomeCognomeDestinatario");
+        if (nomeDestinatario.split(" ").length > 0) {
+            destinatarioPASection.inserireNomeMultiDestinatario(numeroDestinatario, nomeDestinatario.split(" ")[0]);
+            destinatarioPASection.inserireCognomeMultiDestinatario(numeroDestinatario, nomeDestinatario.split(" ")[1]);
+        } else {
+            destinatarioPASection.insertRagioneSociale(nomeDestinatario);
+        }
+        destinatarioPASection.inserireCodiceFiscaleMultiDestinatario(numeroDestinatario, destinatario.get("codiceFiscale"));
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */
