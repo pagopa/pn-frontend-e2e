@@ -27,6 +27,12 @@ public class DisserviziAppPAPage extends BasePage {
     List<WebElement> statusList;
 
 
+    @FindBy(css = "[data-testid='download-legal-fact']")
+    List<WebElement> attestazioniFile;
+
+    @FindBy(xpath = "//span[contains(text(), 'Risolto')]")
+    List<WebElement> stato;
+
     public void waitLoadStatoDellaPiattaformaPage() {
         try {
             By disserviziPageTitle = By.id("Stato della piattaforma-page");
@@ -107,7 +113,7 @@ public class DisserviziAppPAPage extends BasePage {
     }
 
     public void checkDisserviziInCorso() {
-        aggionamentoPagina();
+        aggiornamentoPagina();
         if (!statusList.isEmpty()) {
             for (WebElement status : statusList) {
                 if (status.getText().contains("In corso")) {
@@ -130,7 +136,7 @@ public class DisserviziAppPAPage extends BasePage {
     }
 
     public void checkDisserviziDisponibili() {
-        aggionamentoPagina();
+        aggiornamentoPagina();
         if (!statusList.isEmpty()) {
             for (WebElement status : statusList) {
                 if (status.getText().contains("Risolto")) {
@@ -151,6 +157,47 @@ public class DisserviziAppPAPage extends BasePage {
         } else {
             logger.error("Non si visualizza un record in elenco relativo ad un disservizio disponibile");
             Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio disponibile");
+        }
+    }
+    public void checkDisserviziRisolto() {
+        try {
+            aggiornamentoPagina();
+            List<WebElement> disserviziTableRow = driver.findElements(By.cssSelector("[aria-rowindex='1']"));
+            if (!disserviziTableRow.isEmpty()) {
+                for (WebElement disserviziRow : disserviziTableRow) {
+                    List<WebElement> disserviziColumns = disserviziRow.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']"));
+                    if (!disserviziColumns.isEmpty()) {
+                        // check if the columns are not empty
+                        for (WebElement disserviziColumn : disserviziColumns) {
+                            if (disserviziColumn.getText().contains(",")) {
+                                logger.info("Si visualizza data di inizio e data di fine'");
+                            }
+
+                            if (attestazioniFile.get(0).isDisplayed()) {
+                                logger.info("Si visualizza bottone scarica l'attestazione'");
+                            }
+                            if (stato.get(0).isDisplayed()) {
+                                logger.info("Si visualizza un record in elenco relativo ad un disservizio Risolto");
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+            logger.error("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
+            Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
+        } catch (TimeoutException e) {
+            logger.error("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso con errore:" + e.getMessage());
+            Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso con errore" + e.getMessage());
+        }
+    }
+
+    public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioniOpponibile) {
+        if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
+            attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
+        } else {
+            this.js().executeScript("arguments[0].scrollIntoView(true);", attestazioniFile.get(numeroLinkAttestazioniOpponibile));
+            attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
         }
     }
 }
