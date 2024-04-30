@@ -232,6 +232,7 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickIndietroButton(){
+        this.getWebDriverWait(5).withMessage("Il bottone indietr non è visibile").until(ExpectedConditions.visibilityOf(indietroPopUpButton));
       this.indietroPopUpButton.click();
     }
 
@@ -332,10 +333,9 @@ public class LeTueDelegheSection extends BasePage {
         }
 
     }
-
     public void checkIndicatoreNumerico(){
         try {
-            By notificationNumber = By.cssSelector("[data-testid='notifications']");
+            By notificationNumber = By.xpath("//*[@data-testid='notifications']");
             getWebDriverWait(5).withMessage("La notifica con il indicatore non è visibile").until(ExpectedConditions.visibilityOfElementLocated(notificationNumber));
         }catch (RuntimeException e){
             logger.error("Il indicatore numerico di notifica non è visibile");
