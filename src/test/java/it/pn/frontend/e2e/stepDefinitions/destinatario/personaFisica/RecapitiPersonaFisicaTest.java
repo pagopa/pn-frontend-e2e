@@ -227,6 +227,7 @@ public class RecapitiPersonaFisicaTest {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.insertTelephoneNumber(phoneNumber);
         iTuoiRecapitiPage.clickAvvisamiViaSMS();
+
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono errato {string}")
