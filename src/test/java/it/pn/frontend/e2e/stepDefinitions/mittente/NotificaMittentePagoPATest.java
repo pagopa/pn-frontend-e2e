@@ -185,6 +185,7 @@ public class NotificaMittentePagoPATest {
         informazioniPreliminariPASection.insertOggettoNotifica(datiNotificaMap.get("oggettoDellaNotifica"));
         informazioniPreliminariPASection.insertDescrizione(datiNotificaMap.get("descrizione"));
         informazioniPreliminariPASection.insertNumeroDiProtocollo(datiNotifica.get("numeroProtocollo").toString());
+        WebTool.waitTime(2);
         informazioniPreliminariPASection.insertGruppo(gruppo);
         informazioniPreliminariPASection.insertCodiceTassonometrico(datiNotificaMap.get("codiceTassonometrico"));
         if (datiNotificaMap.get("modello").equals("AR")){
@@ -495,7 +496,7 @@ public class NotificaMittentePagoPATest {
     @And("Si visualizza correttamente l elenco completo degli stati che la notifica ha percorso")
     public void siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso() {
         dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
-        dettaglioNotificaMittenteSection.siVisualizzaPercosoNotifica();
+        dettaglioNotificaMittenteSection.siVisualizzaPercorsoNotifica();
     }
 
 
@@ -1088,14 +1089,26 @@ public class NotificaMittentePagoPATest {
     }
 
 
-    @And("Si controlla lo stato timeline {string} in dettaglio notifica")
-    public void siControllaLoStatoTimelineInDettaglioNotifica(String statoTimelineNotifica) {
-        siVisualizzaCorrettamenteLaSectionDettaglioNotifica();
-        WebTool.waitTime(790);
-        driver.navigate().refresh();
+    @And("Si controlla lo stato timeline in dettaglio notifica")
+    public void siControllaLoStatoTimelineInDettaglioNotifica(Map<String, String> datiDettaglioNotifica) {
+        String idStato = datiDettaglioNotifica.get("xpathStato");
+        String viewDetail = datiDettaglioNotifica.get("vediDettagli");
         siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso();
-        dettaglioNotificaMittenteSection.checkStatoTimeline(statoTimelineNotifica);
+        WebTool.waitTime(2);
+        if (viewDetail.equals("true")){
+            dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
+        }
+        dettaglioNotificaMittenteSection.checkStatoTimeline(idStato);
     }
+
+    @And("Si attende completamento notifica")
+    public void siAttendeCompletamentoNotifica() {
+        siVisualizzaCorrettamenteLaSectionDettaglioNotifica();
+        WebTool.waitTime(400);
+        driver.navigate().refresh();
+    }
+
+
 
     @And("Si seleziona la notifica")
     public void siSelezionaLaNotifica() {

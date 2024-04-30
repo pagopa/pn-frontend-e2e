@@ -1,14 +1,12 @@
 package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -142,7 +140,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         this.vediDettagliButton.click();
     }
 
-    public void siVisualizzaPercosoNotifica() {
+    public void siVisualizzaPercorsoNotifica() {
         try {
             By newPercorsoNotificaBy = By.xpath("//div[contains(@data-testid,'itemStatus')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(newPercorsoNotificaBy));
@@ -267,12 +265,12 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void checkStatoTimeline(String statoTimeline){
         try {
-            By testIrreperibilita = By.id(statoTimeline);
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(testIrreperibilita));
-            logger.info("irreperibilitá avvenuta");
+            By stato = By.xpath(statoTimeline);
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(stato));
+            logger.info("stato timeline checkato con successo avvenuta");
         } catch (TimeoutException e) {
-            logger.error("irreperibilitá non avvenuta con errore: " + e.getMessage());
-            Assert.fail("irreperibilitá non avvenuta con errore: " + e.getMessage());
+            logger.error("checkato stato timeline non avvenuta con errore: " + e.getMessage());
+            Assert.fail("checkato stato timeline non avvenuta con errore: " + e.getMessage());
         }
     }
 }

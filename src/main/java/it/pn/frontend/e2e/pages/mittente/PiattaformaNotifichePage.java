@@ -824,7 +824,6 @@ public class PiattaformaNotifichePage extends BasePage {
                 maximumRetry++;
                  }
             }
-            //notificationSingleton.setScenarioIun(scenario.getName(),restNotification.getNotificationStatus(notificationRequestId).get("iun").toString());
             driver.navigate().refresh();
             logger.info("La notifica è stata creata correttamente");
         } else {
