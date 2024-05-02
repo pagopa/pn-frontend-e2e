@@ -114,18 +114,13 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato tre volte {string}")
     public void nellaPaginaITuoiRecapitiSiInserisceOTPSbagliato3Volte(String otp) {
         logger.info("Si inserisce l'otp sbagliato 3 volte");
-        recapitiDestinatarioPage.sendOTP(otp);
-        recapitiDestinatarioPage.confermaButtonClickPopUp();
-        recapitiDestinatarioPage.clearOTP();
-        // secondo inserimento
-        recapitiDestinatarioPage.sendOTP(otp);
-        recapitiDestinatarioPage.confermaButtonClickPopUp();
-        recapitiDestinatarioPage.clearOTP();
-        // terzo inserimento
-        recapitiDestinatarioPage.sendOTP(otp);
-        recapitiDestinatarioPage.confermaButtonClickPopUp();
-
-
+        int attempts = 0;
+        while (attempts < 3) {
+            recapitiDestinatarioPage.sendOTP(otp);
+            recapitiDestinatarioPage.confermaButtonClickPopUp();
+            recapitiDestinatarioPage.clearOTP();
+            attempts++;
+        }
     }
 
     @And("Si visualizza correttamente il messaggio di errore")

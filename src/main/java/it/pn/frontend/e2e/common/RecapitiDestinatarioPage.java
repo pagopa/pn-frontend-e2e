@@ -166,7 +166,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(otpInputby));
             List<WebElement> otpInputs = this.elements(otpInputby);
             for (WebElement otpInput : otpInputs) {
-                otpInput.clear();
+                clearWebElementField(otpInput);
             }
             logger.info("I campi di inserimento del codice OTP sono stati svuotati correttamente");
         } catch (TimeoutException e) {
