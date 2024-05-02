@@ -11,6 +11,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 public class AllegatiPASection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("AllegatiSection");
@@ -23,6 +25,10 @@ public class AllegatiPASection extends BasePage {
 
     @FindBy(id = "documents.0.name")
     WebElement nomeAttoTextField;
+    @FindBy(id = "documents.1.name")
+    WebElement nomeSecondoAttoTextField;
+    @FindBy(id = "documents.2.name")
+    WebElement nomeTerzoAttoTextField;
 
     @FindBy(xpath = "//button[@data-testid='step-submit']")
     WebElement inviaButton;
@@ -50,6 +56,25 @@ public class AllegatiPASection extends BasePage {
             this.selezionaloDalTuoComputerInput.sendKeys(pathNotificaFile);
         }
     }
+    public void messagioDiErroreDoc(){
+        By errorMessageDoc = By.id("file-upload-error");
+        getWebDriverWait(5).withMessage("Il messagio di formato errato non è visibile").until(ExpectedConditions.visibilityOfElementLocated(errorMessageDoc));
+    }
+
+    public void checkCodiceHash(){
+        By codiceHash = By.id("file-upload-hash-code");
+        getWebDriverWait(5).withMessage("Il codice hash non è visibile").until(ExpectedConditions.visibilityOfElementLocated(codiceHash));
+    }
+    public void clickAggiungiNuovoDocumento(){
+        By addNewDocuments = By.xpath("//*[@data-testId='add-another-doc']");
+        getWebDriverWait(5).withMessage("Il bottone aggiungi nuovo documento non è cliccabile").until(ExpectedConditions.elementToBeClickable(addNewDocuments));
+        this.element(addNewDocuments).click();
+    }
+
+    public void eliminaAtto(){
+        List<WebElement> deleteIcons = driver.findElements(By.xpath("//*[@data-testid='DeleteIcon']"));
+        deleteIcons.get(0).click();
+    }
 
     public boolean verificaCaricamentoNotificaPdf() {
         getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.hashCodeTextField));
@@ -64,6 +89,22 @@ public class AllegatiPASection extends BasePage {
         logger.info("inserimento nome allegato");
         this.nomeAttoTextField.click();
         this.nomeAttoTextField.sendKeys(nomeAtto);
+    }
+    public void inserimentoNomeSecondoAllegato(String nomeAtto) {
+        if (!this.nomeSecondoAttoTextField.isDisplayed()) {
+            this.js().executeScript("arguments[0].scrollIntoView(true)", this.nomeSecondoAttoTextField);
+        }
+        logger.info("inserimento nome allegato");
+        this.nomeSecondoAttoTextField.click();
+        this.nomeSecondoAttoTextField.sendKeys(nomeAtto);
+    }
+    public void inserimentoNomeTerzoAllegato(String nomeAtto) {
+        if (!this.nomeTerzoAttoTextField.isDisplayed()) {
+            this.js().executeScript("arguments[0].scrollIntoView(true)", this.nomeTerzoAttoTextField);
+        }
+        logger.info("inserimento nome allegato");
+        this.nomeTerzoAttoTextField.click();
+        this.nomeTerzoAttoTextField.sendKeys(nomeAtto);
     }
 
     public void selectInviaButton() {
@@ -83,3 +124,4 @@ public class AllegatiPASection extends BasePage {
         }
     }
 }
+

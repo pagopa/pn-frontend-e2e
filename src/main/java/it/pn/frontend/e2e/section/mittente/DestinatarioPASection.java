@@ -2,10 +2,7 @@ package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -129,6 +126,21 @@ public class DestinatarioPASection extends BasePage {
     public void inserireCodiceFiscaleDestinatario(String codiceFiscale) {
         logger.info("inserimento codice fiscale destinatario");
         this.scrollToElementClickAndInsertText(this.codiceFiscaleDestinatarioTextField, codiceFiscale);
+    }
+
+    public boolean checkCampiDestinatarioPopalati(){
+
+           if (!nomeDestinatarioTextField.getAttribute("value").isEmpty() &&
+                   !cognomeDestinatarioTextField.getAttribute("value").isEmpty() &&
+                   !codiceFiscaleDestinatarioTextField.getAttribute("value").isEmpty()
+           ) {
+               logger.info("I campi sono popolati");
+               return true;
+           }else{
+               logger.info("I campi non sono popolati");
+               return false;
+           }
+
     }
 
     public void selezionaAggiungiUnIndirizzoFisico() {
