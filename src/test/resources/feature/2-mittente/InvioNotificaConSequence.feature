@@ -470,12 +470,12 @@ Feature: invio notifica con sequence
     And Si seleziona la notifica
     And Si attende completamento notifica
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato  | //p[contains(text(),"Il destinatario ha rifiutato il ritiro della raccomandata A/R")]   |
+      | xpathStato  | //p[contains(text(),"non è andato a buon fine per destinatario assente")]   |
       | vediDettagli | true |
     And Logout da portale mittente
 
   @WorkflowNotificaConSequence14
-  Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL-Giacenza_AR] - Il mittente invia una notifica a destinatario con sequence
+  Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL-Giacenza-gt10_AR] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si verifica siano presenti recapiti digitali
@@ -495,7 +495,7 @@ Feature: invio notifica con sequence
       | nomePF               | Gaio Giulio           |
       | cognomePF            | Cesare                |
       | codiceFiscalePF      | CSRGGL44L13H501E      |
-      | indirizzoPF          | via @FAIL-Giacenza_AR|
+      | indirizzoPF          | via @FAIL-Giacenza-gt10_AR|
       | numeroCivicoPF       | 20   |
       | comunePF             | MILANO  |
       | provinciaPF          | MI   |
@@ -506,6 +506,9 @@ Feature: invio notifica con sequence
     And Si seleziona la notifica
     And Si attende completamento notifica
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato  | //p[contains(text(),"Il destinatario ha rifiutato il ritiro della raccomandata A/R")]   |
+      | xpathStato  | //p[contains(text(),"presso il punto di giacenza entro 10 giorni")]   |
       | vediDettagli | true |
+    And Si controlla lo stato timeline in dettaglio notifica
+      | xpathStato  | //p[contains(text(),"non è andato a buon fine per destinatario assente")]   |
+      | vediDettagli | false |
     And Logout da portale mittente

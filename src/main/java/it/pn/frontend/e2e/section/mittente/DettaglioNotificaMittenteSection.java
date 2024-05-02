@@ -22,7 +22,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
 
     @FindBy(id = "more-less-timeline-step")
-    WebElement vediDettagliButton;
+    List<WebElement> vediDettagliButton;
 
     @FindBy(xpath = "//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11dv4ll')]")
     List<WebElement> infoNotifiche;
@@ -133,11 +133,13 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void clickVediPiuDettaglio() {
         By percorsoNotificaBy = By.xpath("//div[contains(@data-testid,'itemStatus')]");
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(percorsoNotificaBy));
-        this.numeriStatiNotifica = this.elements(percorsoNotificaBy).size();
-        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.vediDettagliButton));
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(percorsoNotificaBy));
+        numeriStatiNotifica = elements(percorsoNotificaBy).size();
+        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(vediDettagliButton.get(0)));
+        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(vediDettagliButton.get(1)));
         logger.info("click su vedi dettagli");
-        this.vediDettagliButton.click();
+        vediDettagliButton.get(0).click();
+        vediDettagliButton.get(1).click();
     }
 
     public void siVisualizzaPercorsoNotifica() {
