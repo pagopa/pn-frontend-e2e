@@ -62,7 +62,7 @@ public class DisserviziAppPGTest {
         boolean res = false;
         for (int i = 0; i < 2; i++) {
             WebTool.waitTime(15);
-            disserviziAppPage.aggionamentoPagina();
+            disserviziAppPage.aggiornamentoPagina();
             if (disserviziAppPage.checkDisservizioInCorso()) {
                 res = true;
                 break;

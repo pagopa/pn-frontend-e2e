@@ -325,7 +325,7 @@ public class DeleghePGPagoPATest {
 
         this.datiDelega = this.dataPopulation.readDataPopulation("personaGiuridica.yaml");
 
-        deleghePGPagoPAPage.aggionamentoPagina();
+        deleghePGPagoPAPage.aggiornamentoPagina();
 
         if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG(this.datiDelega.get("ragioneSociale").toString())) {
             logger.info("La delega è stata rifiutata correttamente");

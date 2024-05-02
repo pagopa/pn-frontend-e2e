@@ -27,6 +27,7 @@ public class BackgroundTest {
     private final DisserviziAppPGTest disserviziAppPGTest = new DisserviziAppPGTest();
     private final HelpdeskTest helpdeskTest = new HelpdeskTest();
     private final NotifichePGPagoPATest notifichePGPagoPATest = new NotifichePGPagoPATest();
+    private final RecapitiTest recapitiTest = new RecapitiTest();
     private Map<String, String> datiPersonaFisica;
 
     public BackgroundTest(){
@@ -125,7 +126,7 @@ public class BackgroundTest {
     public void accettaDelegaPF() {
         deleghePagoPATest.waitDelegheButton();
         deleghePagoPATest.siSceglieOpzioneAccetta();
-        deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp();
+        deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp("personaFisica");
         deleghePagoPATest.siCliccaSulBottoneAccetta();
         deleghePagoPATest.siControllaCheLaDelegaHaLoStatoAttiva(nomeFilePersonaFisica);
     }
@@ -157,7 +158,7 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVerificaCheLaPecSiaStataModificata(nomeFilePersonaFisica);
         logoutPF();
         loginPFRecapiti(nomeFilePersonaFisica);
-        recapitiPersonaFisicaTest.ITuoiRecapitiButtonClick();
+        recapitiPersonaFisicaTest.nellaPaginaPiattaformaNotifichePersonaFisicaSiCliccaSulBottoneITuoiRecapiti();
         recapitiPersonaFisicaTest.siVisualizzaCorrettamenteLaPaginaITuoiRecapiti();
     }
 
@@ -251,5 +252,13 @@ public class BackgroundTest {
         deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneRifiuta();
         deleghePGPagoPATest.siCliccaSulBottoneRifiutaDelega();
         deleghePGPagoPATest.siControllaCheLaDelegaNonSiPiuPresenteInElenco();
+    }
+
+    public void aggiuntaEmailDiCortesia(String email) {
+        recapitiTest.siInserisceLEmailDiCortesiaESiCliccaSulBottoneAvvisamiViaEmail(email);
+        recapitiTest.siVisualizzaIlPopUpDisclaimerSiCliccaLaCheckboxEIlBottoneConferma();
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequestDellEmailEVieneInserito(email);
+        recapitiTest.siControllaCheLEmailInseritaSiaPresente();
     }
 }

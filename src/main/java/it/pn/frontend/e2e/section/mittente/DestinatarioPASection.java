@@ -271,6 +271,40 @@ public class DestinatarioPASection extends BasePage {
             }
         }
     }
+    public void inserimentoDestinatarioPGAggiuntivo(Map<String, String> destinatario) {
+
+        String soggettoGiuridico = destinatario.get("soggettoGiuridico");
+        if(soggettoGiuridico.equals("PG")){
+            By secondPGButton = By.xpath("//input[@name='recipients[1].recipientType' and @value ='PG']");
+            element(secondPGButton).click();
+        }else {
+            throw new IllegalStateException("soggettoGiuridico non è PG");
+        }
+        By ragioneSociale = By.id("recipients[1].firstName");
+        element(ragioneSociale).sendKeys(destinatario.get("ragioneSociale"));
+        By secondCodiceFiscale = By.id("recipients[1].taxId");
+        element(secondCodiceFiscale).sendKeys(destinatario.get("codiceFiscale"));
+        By addSecondPec = By.xpath("//*[@data-testid='recipients[1].digitalDomicileCheckbox']");
+        element(addSecondPec).click();
+        By secondPecField = By.id("recipients[1].digitalDomicile");
+        element(secondPecField).sendKeys(destinatario.get("pec"));
+        By addSecondAddress = By.xpath("//label[@data-testid='showPhysicalAddress1']");
+        element(addSecondAddress).click();
+        By secondAddress = By.id("recipients[1].address");
+        element(secondAddress).sendKeys(destinatario.get("indirizzo"));
+        By secondNumber = By.id("recipients[1].houseNumber");
+        element(secondNumber).sendKeys(destinatario.get("civico"));
+        By secondMunicipalityDetails = By.id("recipients[1].municipalityDetails");
+        element(secondMunicipalityDetails).sendKeys(destinatario.get("localita"));
+        By secondMunicipality = By.id("recipients[1].municipality");
+        element(secondMunicipality).sendKeys(destinatario.get("comune"));
+        By secondProvince = By.id("recipients[1].province");
+        element(secondProvince).sendKeys(destinatario.get("provincia"));
+        By secondZip = By.id("recipients[1].zip");
+        element(secondZip).sendKeys(destinatario.get("cap"));
+        By secondCountry = By.id("recipients[1].foreignState");
+        element(secondCountry).sendKeys(destinatario.get("stato"));
+    }
 
     private void inserimentoInformazioniPreliminariPG(Map<String, Object> personeGiuridiche, int i) {
         clickRadioButtonPersonaGiuridica(i + 1);

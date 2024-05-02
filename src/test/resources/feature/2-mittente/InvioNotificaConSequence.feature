@@ -329,4 +329,3 @@ Feature: invio notifica con sequence
       | xpathStato  | //p[contains(text(),"La raccomandata A/R internazionale")] |
       | vediDettagli | false |
     And Logout da portale mittente
-
