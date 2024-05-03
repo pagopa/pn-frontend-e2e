@@ -2,7 +2,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
   @TestSuite
   @InvioNotificaACaricaDocumentoPdf
-  Scenario: PN-9257 [TA-FE INVIO NOTIFICA A DUE DESTINATARI ENTRAMBI NON RAGGIUNGIBILI] - Il mittente invia una notifica a due destinatari , entrambi non raggiungibili al primo tentativo
+  Scenario: PN-9319-Inserimento file pdf
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
