@@ -256,7 +256,7 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata un
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica è stata creata correttamente
-    Then In parallelo si effettua l'accesso al portale destinatario persona fisica e si apre la notifica ricevuta
+    Then In parallelo si effettua l'accesso al portale destinatario "persona fisica" e si apre la notifica ricevuta
     And Aspetta 180 secondi
     And Si attende che lo stato della notifica sia "Avvenuto accesso"
     And Cliccare sulla notifica restituita
