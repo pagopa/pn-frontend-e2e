@@ -65,6 +65,7 @@ public class AllegatiPASection extends BasePage {
         By codiceHash = By.id("file-upload-hash-code");
         getWebDriverWait(5).withMessage("Il codice hash non è visibile").until(ExpectedConditions.visibilityOfElementLocated(codiceHash));
     }
+
     public void clickAggiungiNuovoDocumento(){
         By addNewDocuments = By.xpath("//*[@data-testId='add-another-doc']");
         getWebDriverWait(5).withMessage("Il bottone aggiungi nuovo documento non è cliccabile").until(ExpectedConditions.elementToBeClickable(addNewDocuments));

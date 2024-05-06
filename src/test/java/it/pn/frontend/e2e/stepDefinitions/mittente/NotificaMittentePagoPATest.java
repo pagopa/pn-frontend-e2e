@@ -1117,7 +1117,7 @@ public class NotificaMittentePagoPATest {
 
     @And ("Si elimina un atto")
     public void siEliminaUnAtto(){
-        logger.info("Si elemina un atto");
+        logger.info("Si elimina un atto");
         allegatiPASection.eliminaAtto();
     }
 
