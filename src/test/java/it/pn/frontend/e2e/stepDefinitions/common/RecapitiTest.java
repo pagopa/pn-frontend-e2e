@@ -5,7 +5,6 @@ import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
-import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -18,6 +17,8 @@ public class RecapitiTest {
     private final Logger logger = LoggerFactory.getLogger("RecapitiTest");
     private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
     private final ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+    private final String PEC = "PEC";
+    private final String contattoDiCortesia = "email di cortesia";
     private final String ELIMINA = "Elimina";
 
     @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono {string} e si clicca sul bottone avvisami via SMS")
@@ -57,28 +58,18 @@ public class RecapitiTest {
         recapitiDestinatarioPage.checkNumeroDiCellulareNonPresente();
     }
 
-    @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email o si inserisce {string}")
-    public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaEmailOSiInserisce(String email) {
-        logger.info("Si controlla che che ci sia già una Email e se ne inserisce una");
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+    @And("Nella pagina I Tuoi Recapiti si controlla che non ci sia già una {string} e si inserisce {string}")
+    public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaPECESiInserisce(String tipoContatto, String indirizzoMail) {
+        logger.info("Si controlla che non ci sia già una " + tipoContatto + " e se ne inserisce una");
         BackgroundTest backgroundTest = new BackgroundTest();
-        iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
-        if (!recapitiDestinatarioPage.verificaMailAssociata()) {
-            backgroundTest.aggiuntaEmailDiCortesia(email);
-        } else if (recapitiDestinatarioPage.controlloEmailAssociata(email)) {
-            iTuoiRecapitiPage.eliminaEmailEsistente();
-            if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
-                recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
-            } else {
-                recapitiDestinatarioPage.clickSuChiudiPopUp();
-                recapitiDestinatarioPage.eliminaNuovaEmail();
-                iTuoiRecapitiPage.eliminaEmailEsistente();
-                recapitiDestinatarioPage.waitLoadPopUpElimina();
-                recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
-            }
-            backgroundTest.aggiuntaEmailDiCortesia(email);
+        if (PEC.equalsIgnoreCase(tipoContatto)){
+            backgroundTest.checkPECEsistentePerEliminazioneEInserimento(indirizzoMail);
+        } else if (contattoDiCortesia.equalsIgnoreCase(tipoContatto)){
+            backgroundTest.checkEmailDiCortesiaPerEliminazioneEInserimento(indirizzoMail);
+        } else {
+            logger.error("Errore nella scrittura del tipo di contatto da controllare e inserire");
+            Assert.fail("Errore nella scrittura del tipo di contatto da controllare e inserire");
         }
-        WebTool.waitTime(10);
     }
 
     @Then("Si visualizza il campo email modificabile")

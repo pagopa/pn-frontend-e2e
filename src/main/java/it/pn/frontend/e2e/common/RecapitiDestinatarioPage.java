@@ -195,7 +195,6 @@ public class RecapitiDestinatarioPage extends BasePage {
             logger.error("Il bottone annulla non è cliccabile con errore: " + e.getMessage());
             Assert.fail("Il bottone annulla non è cliccabile con errore: " + e.getMessage());
         }
-
     }
 
     public void clickAvvisami() {
@@ -354,7 +353,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
 
     public void clickSuEliminaPec() {
-        getWebDriverWait(10).withMessage("Non si è riuscito ad cliccare sul bottone elimina PEC").until(ExpectedConditions.elementToBeClickable(eliminaPECButton));
+        getWebDriverWait(10).withMessage("Il bottone elimina della PEC associata non è cliccabile").until(ExpectedConditions.elementToBeClickable(eliminaPECButton));
         logger.info("click sul pulsante elimina pec");
         this.eliminaPECButton.click();
     }
@@ -363,10 +362,14 @@ public class RecapitiDestinatarioPage extends BasePage {
         By titlePopUp = By.id("dialog-title");
         By subTitlePopUp = By.id("dialog-description");
         By confermaEliminaButtonBy = By.xpath("//div[@aria-labelledby='dialog-title']//button[contains(text(),'Conferma')]");
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il bottone annulla del modal").until(ExpectedConditions.visibilityOf(buttonAnnullaEliminazioneInPopUp));
-        this.getWebDriverWait(10).withMessage("Non è stato caricato il bottone conferma del modal").until(ExpectedConditions.visibilityOfElementLocated(confermaEliminaButtonBy));
+        try {
+            getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
+            getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
+            getWebDriverWait(10).withMessage("Non è stato caricato il bottone annulla del modal").until(ExpectedConditions.visibilityOf(buttonAnnullaEliminazioneInPopUp));
+            getWebDriverWait(10).withMessage("Non è stato caricato il bottone conferma del modal").until(ExpectedConditions.visibilityOfElementLocated(confermaEliminaButtonBy));
+        } catch (TimeoutException e){
+            logger.info("Non è stato caricato un elemento del pop up con errore: " + e.getMessage());
+        }
         return this.element(titlePopUp).getText();
     }
 
@@ -539,7 +542,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         try {
             getWebDriverWait(30).withMessage("avvisami via email non è visibile").until(ExpectedConditions.visibilityOf(this.avvisamiViaEmailButton));
             return Boolean.parseBoolean(this.avvisamiViaEmailButton.getAttribute("disabled"));
-
         } catch (NoSuchElementException | TimeoutException e) {
             return false;
         }

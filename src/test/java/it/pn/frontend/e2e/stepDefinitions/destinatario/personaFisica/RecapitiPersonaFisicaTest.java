@@ -62,6 +62,12 @@ public class RecapitiPersonaFisicaTest {
         recapitiDestinatarioPage.insertEmailPEC(emailPEC);
     }
 
+    @And("Nella pagina I Tuoi Recapiti si inserisce l'email {string} per la PEC del destinatario")
+    public void nellaPaginaITuoiRecapitiSiInserisceLEmailPerLaPECDelDestinatario(String emailPEC) {
+        logger.info("Si inserisce la email PEC");
+        recapitiDestinatarioPage.insertEmailPEC(emailPEC);
+    }
+
     @And("Nella pagina I Tuoi Recapiti si inserisce l'indirizzo della PEC {string}")
     public void nellaPaginaITuoiRecapitiSiInserisceLIndirizzoDellaPECDelDestinatario(String emailPEC) {
         logger.info("Si inserisce la email PEC");
@@ -852,8 +858,9 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si controlla che non ci sia già una pec")
     public void nellaPaginaITuoiRecapitiSiControllaCheNonCiSiaGiaUnaPec() {
         logger.info("Si controlla che non ci sia una pec");
+        BackgroundTest backgroundTest = new BackgroundTest();
         if (recapitiDestinatarioPage.verificaPecAssociata()) {
-            recapitiDestinatarioPage.eliminaPecEsistente();
+            backgroundTest.siEliminaPecEsistenteEAltriRecapitiAssociati();
         }
     }
 
