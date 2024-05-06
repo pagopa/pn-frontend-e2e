@@ -57,11 +57,6 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         ricercaNotifichePGPage.cliccaSuPrimaNotifica();
     }
 
-    @And("Si visualizza correttamente la section Dettaglio Notifica persona giuridica")
-    public void siVisualizzaCorrettamenteLaSectionDettaglioNotificaPersonaGiuridica() {
-        ricercaNotifichePGPage.waitLoadDettaglioNotificaPGSection();
-    }
-
     @And("Si visualizza correttamente la section Dettaglio Notifica persona giuridica delegato")
     public void siVisualizzaCorrettamenteLaSectionDettaglioNotificaPersonaGiuridicaDelegato() {
         ricercaNotifichePGPage.waitLoadDettaglioNotificaPGDelegato();

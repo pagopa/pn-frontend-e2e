@@ -38,22 +38,25 @@ public class NotificaMittentePagoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittentePagoPATest");
     private final WebDriver driver = Hooks.driver;
-    private Map<String, Object> datiNotifica = new HashMap<>();
-    private Map<String, String> datiNotificaMap = new HashMap<>();
-    private Map<String, String> destinatarioMap = new HashMap<>();
-    private Map<String, String> indirizzoMap = new HashMap<>();
-    private Map<String, Object> personaFisica = new HashMap<>();
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
-    private Map<String, Object> personaGiuridica = new HashMap<>();
-    private Map<String, Object> personeFisiche = new HashMap<>();
     private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
     private final DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
     private final DataPopulation dataPopulation = new DataPopulation();
     private final DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
     private final String variabileAmbiente = System.getProperty("environment");
     private final InformazioniPreliminariPASection informazioniPreliminariPASection = new InformazioniPreliminariPASection(this.driver);
+    private Map<String, Object> datiNotifica = new HashMap<>();
+    private Map<String, String> datiNotificaMap = new HashMap<>();
+    private Map<String, String> destinatarioMap = new HashMap<>();
+    private Map<String, String> indirizzoMap = new HashMap<>();
+    private Map<String, Object> personaFisica = new HashMap<>();
+    private Map<String, Object> personaGiuridica = new HashMap<>();
+    private Map<String, Object> personeFisiche = new HashMap<>();
     private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
     private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
+    private final String PF = "persona fisica";
+    private final String PG = "persona giuridica";
+    private final String PA = "pubblica amministrazione";
 
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
@@ -208,10 +211,17 @@ public class NotificaMittentePagoPATest {
 
         try {
             TimeUnit.SECONDS.sleep(quantiSecondi);
+            driver.navigate().refresh();
         } catch (Exception exc) {
             logger.error(exc.toString());
             throw new RuntimeException(exc);
         }
+    }
+
+
+    @And("Si visualizza correttamente la timeline relativi a tutti i destinatari")
+    public void siVisualizzaCorrettamenteLaTimelineRelativiATuttiIDestinatari(Map<String, String> destinatari) {
+        piattaformaNotifichePage.visualizzaTimelineTuttiDestinatari(destinatari);
     }
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario")
@@ -868,11 +878,10 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.inserimentoMultiDestinatarioPG(personeGiuridiche, nDestinatariInt);
     }
 
-    @And("Nella section cliccare sul tasto torna a informazioni preliminari")
-    public void nellaSectionCliccareSulTastoTornaAInformazioniPreliminari() {
-        logger.info("Si cerca di tornare alla sezione Informazione Preliminari");
-
-        destinatarioPASection.clickSuTornaInformazioniPreliminari();
+    @And("Nella section Destinatario inserire i dati del destinatari persona giuridicha aggiuntiva")
+    public void nellaSectionDestinatarioInserireIDatiDelDestinatarioPersonaGiuridichaAggiuntiva(Map<String, String> destinatario) {
+        logger.info("Si cerca di aggiungere" + " personeGiuridicha");
+        destinatarioPASection.inserimentoDestinatarioPGAggiuntivo(destinatario);
     }
 
     @And("Verifica dello stato della notifica persona giuridica come depositata {string}")
@@ -1014,7 +1023,7 @@ public class NotificaMittentePagoPATest {
 
     @Then("In parallelo si effettua l'accesso al portale destinatario {string} e si apre la notifica ricevuta")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioESiApreLaNotificaRicevuta(String destinatario) {
-        if("persona fisica".equalsIgnoreCase(destinatario)) {
+        if(PF.equalsIgnoreCase(destinatario)) {
             WebTool.switchToPortal(AppPortal.PF);
         } else {
             WebTool.switchToPortal(AppPortal.PG);
@@ -1024,17 +1033,43 @@ public class NotificaMittentePagoPATest {
         WebTool.closeTab();
     }
 
+    @Then("In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline {string}")
+    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPFESiVerificaLaTimeline(String messagio) {
+        WebTool.switchToPortal(AppPortal.PF);
+        piattaformaNotifichePage.selezionaNotifica();
+        WebTool.waitTime(5);
+        piattaformaNotifichePage.visualizzaTimeline(messagio);
+        WebTool.closeTab();
+    }
+
+    @Then("In parallelo si effettua l'accesso al portale destinatario persona giuridica e si apre la notifica ricevuta")
+    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPGESiApreLaNotificaRicevuta() {
+        WebTool.switchToPortal(AppPortal.PG);
+        piattaformaNotifichePage.selezionaNotifica();
+        WebTool.waitTime(5);
+        WebTool.closeTab();
+    }
+
+    @Then("In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline {string}")
+    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPGESiVerificaLaTimeline(String messagio) {
+        WebTool.switchToPortal(AppPortal.PG);
+        piattaformaNotifichePage.selezionaNotifica();
+        WebTool.waitTime(5);
+        piattaformaNotifichePage.visualizzaTimeline(messagio);
+        WebTool.closeTab();
+    }
+
     @Then("In parallelo si effettua l'accesso al portale di {string}")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatario(String portal) {
         portal = portal.toLowerCase();
         switch(portal){
-            case "persona fisica":
+            case PF:
                 WebTool.switchToPortal(AppPortal.PF);
                 break;
-            case "persona giuridica":
+            case PG:
                 WebTool.switchToPortal(AppPortal.PG);
                 break;
-            case "pubblica amministrazione":
+            case PA:
                 WebTool.switchToPortal(AppPortal.PA);
                 break;
             default:
@@ -1097,7 +1132,7 @@ public class NotificaMittentePagoPATest {
     @And("Si accede nuovamente al portale {string} con token {string} per eliminare i recapiti inseriti")
     public void siAccedeNuovamenteAlPortaleConTokenPerEliminareIRecapitiInseriti(String tipoPersona, String tipoToken) {
         logger.info("Si accede nuovamente al portale " + tipoPersona + " per eliminare i recapiti inseriti");
-        if(("persona fisica").equalsIgnoreCase(tipoPersona)){
+        if(PF.equalsIgnoreCase(tipoPersona)){
             loginPersonaFisicaPagoPA.loginMittenteConTokenExchange(tipoToken);
             loginPersonaFisicaPagoPA.logoutDaPortaleDestinatario();
         } else {
@@ -1332,4 +1367,23 @@ public class NotificaMittentePagoPATest {
             Assert.fail("I campi non sono vuoti");
         }
     }
+
+    @And("Si aggiungi un domicilio digitale {string}")
+    public void SiAggiungiUnDomicilioDigitale(String mail){
+        destinatarioPASection.checkBoxAggiungiDomicilio();
+        destinatarioPASection.insertDomicilioDigitale(mail);
+    }
+
+    @And("Si verifica che entrambi destinatari non raggiungibili al primo tentativo")
+    public void siVerificaCheEntrambiDestinatariNonRaggiungibiliAlPrimoTentativo(Map<String, String> destinatari) {
+        piattaformaNotifichePage.verificaDestinatariNonRaggiungibili(destinatari);
+    }
+
+    @And("Si verifica che destinatario raggiungibile {string}")
+    public void siVerificaCheDestinatarioRaggiungibile(String message){
+        piattaformaNotifichePage.visualizzaTimeline(message);
+        logger.info("Il destinatario raggiungibile");
+    }
+
+
 }

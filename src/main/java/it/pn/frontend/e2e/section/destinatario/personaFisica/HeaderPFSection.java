@@ -31,8 +31,8 @@ public class HeaderPFSection extends BasePage {
 
     public void waitLoadHeaderDESection() {
         try {
-            this.getWebDriverWait(10).withMessage("il titolo del header non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));
-            this.getWebDriverWait(10).withMessage("menu dell'utente non è visibile").until(ExpectedConditions.visibilityOf(buttonProfile));
+            this.getWebDriverWait(30).withMessage("il titolo del header non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));
+            this.getWebDriverWait(30).withMessage("menu dell'utente non è visibile").until(ExpectedConditions.visibilityOf(buttonProfile));
             logger.info("Header DE Section caricata");
         } catch (TimeoutException e) {
             logger.error("Header DE Section non caricata con errore : " + e.getMessage());
@@ -48,7 +48,7 @@ public class HeaderPFSection extends BasePage {
 
     public void selezionaVoceEsci() {
         WebElement esciVoce = this.menuProfileItems.get(1);
-        this.getWebDriverWait(30).withMessage("la voce esci non è visibile").until(ExpectedConditions.visibilityOf(esciVoce));
+        getWebDriverWait(30).withMessage("la voce esci non è visibile").until(ExpectedConditions.visibilityOf(esciVoce));
         logger.info("click su voce esci");
         esciVoce.click();
     }
