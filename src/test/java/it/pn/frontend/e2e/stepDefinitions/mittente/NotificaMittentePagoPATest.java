@@ -14,6 +14,8 @@ import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.*;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
@@ -50,6 +52,12 @@ public class NotificaMittentePagoPATest {
     private Map<String, Object> personaFisica = new HashMap<>();
     private Map<String, Object> personaGiuridica = new HashMap<>();
     private Map<String, Object> personeFisiche = new HashMap<>();
+    private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
+    private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
+    private final String PF = "persona fisica";
+    private final String PG = "persona giuridica";
+    private final String PA = "pubblica amministrazione";
+
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
@@ -136,6 +144,18 @@ public class NotificaMittentePagoPATest {
         logger.info("Selezione bottone invia una nuova notifica");
         piattaformaNotifichePage.selectInviaUnaNuovaNotificaButton();
         piattaformaNotifichePage.waitLoadingSpinner();
+    }
+
+    @And("Si finalizza l'invio della notifica e si controlla che venga creata correttamente")
+    public void siFinalizzaLInvioDellaNotificaESiControllaCheVengaCreataCorrettamente() {
+        logger.info("Si finalizza l'invio della notifica e si controlla che venga creata correttamente");
+        siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionAllegati();
+        nellaSectionAllegatiSiCaricaUnAtto();
+        nellaSectionAllegatiCliccareSulBottoneInvia();
+        siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata();
+        cliccareSulBottoneVaiAlleNotifiche();
+        siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche();
+        siVerificaCheLaNotificaeStataCreataCorrettamente();
     }
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari")
@@ -864,7 +884,6 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.inserimentoDestinatarioPGAggiuntivo(destinatario);
     }
 
-
     @And("Verifica dello stato della notifica persona giuridica come depositata {string}")
     public void verificaDelloStatoDellaNotificaPersonaGiuridicaComeDepositata(String statoNotifica) {
         logger.info("Verifica dello stato della notifica come 'Depositata'");
@@ -946,20 +965,16 @@ public class NotificaMittentePagoPATest {
     @Then("Nella section Destinatario si inseriscono i dati del destinatario")
     public void nellaSectionDestinatarioSiInserisconoIDatiDelDestinatario(Map<String, String> destinatario) {
         logger.info("Si inseriscono i dati del destinatario nella sezione Destinatario");
+        String nomeDestinatario = destinatario.get("nomeCognomeDestinatario");
         if (destinatario.get("soggettoGiuridico").equals("PF")) {
             destinatarioPASection.selezionarePersonaFisica();
-        } else {
-            destinatarioPASection.clickRadioButtonPersonaGiuridica();
-        }
-        String nomeDestinatario = destinatario.get("nomeCognomeDestinatario");
-        if (nomeDestinatario.split(" ").length > 0) {
             destinatarioPASection.inserireNomeDestinatario(nomeDestinatario.split(" ")[0]);
             destinatarioPASection.inserireCognomeDestinatario(nomeDestinatario.split(" ")[1]);
         } else {
+            destinatarioPASection.clickRadioButtonPersonaGiuridica();
             destinatarioPASection.insertRagioneSociale(nomeDestinatario);
         }
         destinatarioPASection.inserireCodiceFiscaleDestinatario(destinatario.get("codiceFiscale"));
-        destinatarioMap = destinatario;
     }
 
     @And("Nella section Destinitario si clicca su {string} e si inseriscono i dati")
@@ -969,6 +984,8 @@ public class NotificaMittentePagoPATest {
             destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
         } else {
             destinatarioPASection.checkBoxAggiungiDomicilio();
+            destinatarioPASection.insertDomicilioDigitale(indirizzo.get("digitalAddress"));
+            return;
         }
         destinatarioPASection.inserireIndirizzo(indirizzo.get("indirizzo"));
         destinatarioPASection.inserireNumeroCivico(indirizzo.get("civico"));
@@ -1004,9 +1021,13 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.verificaNotificaCreata();
     }
 
-    @Then("In parallelo si effettua l'accesso al portale destinatario persona fisica e si apre la notifica ricevuta")
-    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioESiApreLaNotificaRicevuta() {
-        WebTool.switchToPortal(AppPortal.PF);
+    @Then("In parallelo si effettua l'accesso al portale destinatario {string} e si apre la notifica ricevuta")
+    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioESiApreLaNotificaRicevuta(String destinatario) {
+        if(PF.equalsIgnoreCase(destinatario)) {
+            WebTool.switchToPortal(AppPortal.PF);
+        } else {
+            WebTool.switchToPortal(AppPortal.PG);
+        }
         piattaformaNotifichePage.selezionaNotifica();
         WebTool.waitTime(5);
         WebTool.closeTab();
@@ -1038,12 +1059,80 @@ public class NotificaMittentePagoPATest {
         WebTool.closeTab();
     }
 
+    @Then("In parallelo si effettua l'accesso al portale di {string}")
+    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatario(String portal) {
+        portal = portal.toLowerCase();
+        switch(portal){
+            case PF:
+                WebTool.switchToPortal(AppPortal.PF);
+                break;
+            case PG:
+                WebTool.switchToPortal(AppPortal.PG);
+                break;
+            case PA:
+                WebTool.switchToPortal(AppPortal.PA);
+                break;
+            default:
+                logger.error("Tipologia di portale non specificato o errato!");
+                Assert.fail("Tipologia di portale non specificato o errato!");
+        }
+        WebTool.waitTime(5);
+    }
+
+    @And("Nella timeline della notifica si visualizza l'invio del messaggio di cortesia")
+    public void nellaTimelineDellaNotificaSiVisualizzaLInvioDelMessaggioDiCortesia(){
+        logger.info("Si verifica la presenza della voce 'Invio della notifica di cortesia in corso' nella timeline della notifica");
+        piattaformaNotifichePage.verificaInvioNotificaDiCortesia();
+    }
+
     @Then("Si verifica che la notifica abbia lo stato {string}")
     public void siVerificaCheLaNotificaAbbiaLoStato(String stato) {
         logger.info("Si verifica che la notifica abbia lo stato " + stato);
         piattaformaNotifichePage.verificaPresenzaStato(stato);
     }
-    
+
+    @And("Si verifica che l'invio della notifica sia fallito {int} volte")
+    public void siVerificaCheLInvioDellaNotificaSiaFallitoDueVolte(int numeroFallimenti) {
+        logger.info("Si verifica che l'invio della notifica sia fallito " + numeroFallimenti + " volta/e");
+        dettaglioNotificaMittenteSection.checkDoppioFallimentoInvioViaPEC(numeroFallimenti);
+    }
+
+    @And("Si verifica l'invio della raccomandata semplice")
+    public void siVerificaLInvioDellaRaccomandataSemplice(){
+        logger.info("Si verifica l'avvenuto invio della notifica per raccomandata semplice");
+        dettaglioNotificaMittenteSection.checkInvioRaccomandataSemplice();
+    }
+
+    @And("Si verifica l'invio della notifica al domicilio speciale inserito {string}")
+    public void siVerificaLInvioDellaNotificaAlDomicilioSpecialeInserito(String domicilioSpeciale){
+        logger.info("Si verifica l'avvenuto invio della notifica al domicilio speciale " + domicilioSpeciale);
+        dettaglioNotificaMittenteSection.checkInvioADomicilioSpeciale(domicilioSpeciale);
+    }
+
+    @And("Si verifica il tentato invio della notifica al domicilio speciale inserito {string}")
+    public void siVerificaIlTentatoInvioDellaNotificaAlDomicilioSpecialeInserito(String domicilioSpeciale) {
+        logger.info("Si verifica il tentato invio al domicilio speciale " + domicilioSpeciale + " inserito nella notifica");
+        dettaglioNotificaMittenteSection.checkTentatoInvioADomicilioSpeciale(domicilioSpeciale);
+    }
+
+    @And("Si verifica l'invio della notifica al domicilio di piattaforma inserito {string}")
+    public void siVerificaLInvioDellaNotificaAlDomicilioDiPiattaformaInserito(String domicilioDiPiattaforma) {
+        logger.info("Si verifica l'avvenuto invio della notifica al domicilio di piattaforma " + domicilioDiPiattaforma);
+        dettaglioNotificaMittenteSection.checkInvioADomicilioDiPiattaforma(domicilioDiPiattaforma);
+    }
+
+    @And("Si accede nuovamente al portale {string} con token {string} per eliminare i recapiti inseriti")
+    public void siAccedeNuovamenteAlPortaleConTokenPerEliminareIRecapitiInseriti(String tipoPersona, String tipoToken) {
+        logger.info("Si accede nuovamente al portale " + tipoPersona + " per eliminare i recapiti inseriti");
+        if(PF.equalsIgnoreCase(tipoPersona)){
+            loginPersonaFisicaPagoPA.loginMittenteConTokenExchange(tipoToken);
+            loginPersonaFisicaPagoPA.logoutDaPortaleDestinatario();
+        } else {
+            loginPGPagoPATest.loginMittenteConTokenExchange(tipoToken);
+            loginPGPagoPATest.logoutDaPortalePersonaGiuridica();
+        }
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */
