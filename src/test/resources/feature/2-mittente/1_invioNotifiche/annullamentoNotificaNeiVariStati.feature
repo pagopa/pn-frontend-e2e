@@ -1,6 +1,6 @@
 Feature: Mittente invia una notifica analogica o digitale che viene annullata una volta raggiunto un determinato stato
 
-  @annullamentoNotificaNeiVariStati
+  @annullamentoNotifica
   Scenario: [TA-FE INVIO DI UNA NOTIFICA E ANNULLAMENTO] - Mittente invia una notifica e quando passa allo stato depositata viene annullata
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
@@ -44,7 +44,7 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata un
     And Nella pagina Piattaforma Notifiche la notifica presenta lo stato "Annullata"
     And Logout da portale mittente
 
-  @annullamentoNotificaNeiVariStati
+  @annullamentoNotifica
   Scenario: [TA-FE INVIO DI UNA NOTIFICA E ANNULLAMENTO] - Mittente invia una notifica e quando passa allo stato invio in corso viene annullata
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
@@ -88,7 +88,7 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata un
     And Nella pagina Piattaforma Notifiche la notifica presenta lo stato "Annullata"
     And Logout da portale mittente
 
-  @annullamentoNotificaNeiVariStati
+  @annullamentoNotifica
   Scenario: [TA-FE INVIO DI UNA NOTIFICA E ANNULLAMENTO] - Mittente invia una notifica e quando passa allo stato consegnata viene annullata
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
@@ -133,7 +133,7 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata un
     And Nella pagina Piattaforma Notifiche la notifica presenta lo stato "Annullata"
     And Logout da portale mittente
 
-  @annullamentoNotificaNeiVariStati
+  @annullamentoNotifica
   Scenario: [TA-FE INVIO DI UNA NOTIFICA E ANNULLAMENTO] - Mittente invia una notifica e quando passa allo stato perfezionata per decorrenza termini viene annullata
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
@@ -178,7 +178,7 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata un
     And Nella pagina Piattaforma Notifiche la notifica presenta lo stato "Annullata"
     And Logout da portale mittente
 
-  @annullamentoNotificaNeiVariStati
+  @annullamentoNotifica
   Scenario: [TA-FE INVIO DI UNA NOTIFICA E ANNULLAMENTO] - Mittente invia una notifica e quando passa allo stato destinatario irreperibile viene annullata
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
@@ -223,7 +223,7 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata un
     And Nella pagina Piattaforma Notifiche la notifica presenta lo stato "Annullata"
     And Logout da portale mittente
 
-  @annullamentoNotificaNeiVariStati
+  @annullamentoNotifica
   Scenario: [TA-FE INVIO DI UNA NOTIFICA E ANNULLAMENTO] - Mittente invia una notifica e quando passa allo stato avvenuto accesso viene annullata
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
