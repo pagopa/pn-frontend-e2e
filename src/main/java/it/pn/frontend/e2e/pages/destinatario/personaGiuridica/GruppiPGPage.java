@@ -244,7 +244,7 @@ public class GruppiPGPage extends BasePage {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String formattedDate = currentDate.format(formatter);
             By descrizioneModificata = By.xpath("//div[p[@aria-label and contains(text(), 'Nuova descrizione')]]");
-            List<WebElement> dataCreazioneEModifica = driver.findElements(By.xpath("//div[contains(@class, 'MuiGrid-root')]//p[text()='03/05/2024']"));
+            List<WebElement> dataCreazioneEModifica = driver.findElements(By.xpath("//div[contains(@class, 'MuiGrid-root')]//p[text()='" + formattedDate + "']"));
             getWebDriverWait(10).withMessage("La descrizione modificata non viene visualizzata e non è corretta").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(descrizioneModificata),
                     ExpectedConditions.attributeToBe(descrizioneModificata, "textContent", "Nuova descrizione")
