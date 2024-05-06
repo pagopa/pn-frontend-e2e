@@ -89,6 +89,39 @@ public class LoginPersonaFisicaPagoPA {
         notifichePFPage.waitLoadNotificheDEPage();
     }
 
+    @Given("PF - Si effettua la login tramite token exchange con utente {string} e viene visualizzata la dashboard")
+    public void loginMittenteConTokenExchangeEUtente(String utente) {
+        DataPopulation dataPopulation = new DataPopulation();
+        String environment = System.getProperty("environment");
+        String token = "";
+        switch (environment) {
+            case "dev" -> {
+                //ToDo add token for dev
+            }
+            case "test" -> {
+                if(utente.equalsIgnoreCase("Cristoforo Colombo")) {
+                    token =  dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPFColombo").toString();
+                }
+            }
+            default -> {
+                logger.error("Ambiente non valido");
+                Assert.fail("Ambiente non valido o non trovato!");
+            }
+        }
+
+        // Si effettua il login con token exchange
+        String urlLogin = "https://cittadini." + environment + ".notifichedigitali.it/#token=" + token;
+        this.driver.get(urlLogin);
+        logger.info("Login effettuato con successo");
+        WebTool.waitTime(10);
+
+        // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
+        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
+        headerPFSection.waitLoadHeaderDESection();
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.waitLoadNotificheDEPage();
+    }
+
 
     @When("Login con persona fisica {string}")
     public void loginConDestinatario(String datipersonaFisica) {
