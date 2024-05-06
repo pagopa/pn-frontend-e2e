@@ -37,7 +37,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica è stata creata correttamente
-    Then In parallelo si effettua l'accesso al portale destinatario persona fisica e si apre la notifica ricevuta
+    Then In parallelo si effettua l'accesso al portale destinatario "persona fisica" e si apre la notifica ricevuta
     And Aspetta 180 secondi
     And Cliccare sulla notifica restituita
     Then Si verifica che la notifica abbia lo stato "Avvenuto accesso"
