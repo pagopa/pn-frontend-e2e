@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class WebTool {
@@ -74,6 +75,17 @@ public class WebTool {
         driver.close();
         String newTab = driver.getWindowHandles().stream().reduce((first, second) -> second).orElse(null);
         driver.switchTo().window(newTab);
+    }
+
+    public static void switchToOtherTab(){
+        String parentWindowHandle = driver.getWindowHandle();
+        Set<String> windowHandles = driver.getWindowHandles();
+        for (String handle : windowHandles) {
+            if (!handle.equals(parentWindowHandle)) {
+                driver.switchTo().window(handle);
+                break;
+            }
+        }
     }
 
     /**
