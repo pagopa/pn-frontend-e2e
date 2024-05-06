@@ -20,6 +20,7 @@ import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -40,6 +41,7 @@ public class NotificaMittentePagoPATest {
     private final WebDriver driver = Hooks.driver;
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
     private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+    private final AllegatiPASection allegatiPASection = new AllegatiPASection(this.driver);
     private final DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
     private final DataPopulation dataPopulation = new DataPopulation();
     private final DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
@@ -57,6 +59,7 @@ public class NotificaMittentePagoPATest {
     private final String PF = "persona fisica";
     private final String PG = "persona giuridica";
     private final String PA = "pubblica amministrazione";
+
 
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
@@ -962,6 +965,24 @@ public class NotificaMittentePagoPATest {
         datiNotificaMap = datiNotifica;
     }
 
+    @Then("Nella section Informazioni preliminari si inseriscono i dati della notifica senza salvare numero di protocollo")
+    public void nellaSectionInformazioniPreliminariSiInserisconoIDatiDellaNotificaSenzaNumero(Map<String, String> datiNotifica) {
+        logger.info("Si inseriscono i dati della notifica nella sezione Informazioni Preliminari");
+        String numeroDiProtocollo = WebTool.generatePaProtocolNumber();
+        informazioniPreliminariPASection.insertOggettoNotifica(datiNotifica.get("oggettoNotifica"));
+        informazioniPreliminariPASection.insertDescrizione(datiNotifica.get("descrizione"));
+        informazioniPreliminariPASection.insertNumeroDiProtocollo(numeroDiProtocollo);
+        informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
+        informazioniPreliminariPASection.insertCodiceTassonometrico(datiNotifica.get("codiceTassonomico"));
+        if (datiNotifica.get("modalitaInvio").equals("A/R")) {
+            informazioniPreliminariPASection.selectRaccomandataAR();
+        } else {
+            informazioniPreliminariPASection.selectRegisteredLetter890();
+        }
+
+    }
+
+
     @Then("Nella section Destinatario si inseriscono i dati del destinatario")
     public void nellaSectionDestinatarioSiInserisconoIDatiDelDestinatario(Map<String, String> destinatario) {
         logger.info("Si inseriscono i dati del destinatario nella sezione Destinatario");
@@ -975,6 +996,31 @@ public class NotificaMittentePagoPATest {
             destinatarioPASection.insertRagioneSociale(nomeDestinatario);
         }
         destinatarioPASection.inserireCodiceFiscaleDestinatario(destinatario.get("codiceFiscale"));
+    }
+
+    @And("Si verifica che il form di inserimento manuale della notifica è vuoto")
+    public void siVerificaCheIlFormDiInserimentoManualeDellaNotificaEVuoto(){
+     if(informazioniPreliminariPASection.checkFormInfoPreliminari()){
+         logger.info("Il form di inserimento manuale della notifica è vuoto");
+     }else{
+         logger.error("Il form di inserimento manuale della notifica non è vuoto");
+         Assert.fail("Il form di inserimento manuale della notifica non è vuoto");
+     }
+    }
+
+    @And("Si clicca sul bottone torna a informazioni preliminari")
+    public void siCliccaSulBottonTornaAInformazioniPreliminari(){
+        destinatarioPASection.clickSuTornaInformazioniPreliminari();
+    }
+
+    @And("Tutti i campi precedentemente inseriti risultano ancora popolati")
+    public void tuttiICampiPrecedentementeInseritiRisultanoAncoraPopolati(){
+        if (destinatarioPASection.checkCampiDestinatarioPopalati()){
+            logger.info("I campi sezione destinatario sono popolati");
+        }else {
+            logger.error("I campi sezione destinatario non sono popolati");
+            Assert.fail("I campi sezione destinatario non sono popolati");
+        }
     }
 
     @And("Nella section Destinitario si clicca su {string} e si inseriscono i dati")
@@ -1001,7 +1047,6 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionAllegatiSiCaricaUnAtto() {
         logger.info("Caricamento dell'allegato notifica.pdf");
 
-        AllegatiPASection allegatiPASection = new AllegatiPASection(this.driver);
         File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
         String pathNotificaFile = notificaFile.getAbsolutePath();
         allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
@@ -1013,6 +1058,67 @@ public class NotificaMittentePagoPATest {
             Assert.fail("File notifica.pdf non caricato");
         }
         allegatiPASection.inserimentoNomeAllegato(datiNotificaMap.get("descrizione"));
+    }
+
+    @And("Nella section Allegati si carica secondo atto")
+    public void siCaricaNuoviDocumenti(){
+        logger.info("Caricamento dell'allegato notifica.pdf");
+
+            File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
+            String pathNotificaFile = notificaFile.getAbsolutePath();
+            allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
+
+            if (allegatiPASection.verificaCaricamentoNotificaPdf()) {
+                logger.info("File notifica.pdf caricato correttamente");
+            } else {
+                logger.error("File notifica.pdf non caricato");
+                Assert.fail("File notifica.pdf non caricato");
+            }
+            allegatiPASection.inserimentoNomeSecondoAllegato(datiNotificaMap.get("descrizione"));
+    }
+    @And("Nella section Allegati si carica terzo atto")
+    public void siCaricaTerzoDocumento(){
+        logger.info("Caricamento dell'allegato notifica.pdf");
+
+        File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
+        String pathNotificaFile = notificaFile.getAbsolutePath();
+        allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
+
+        if (allegatiPASection.verificaCaricamentoNotificaPdf()) {
+            logger.info("File notifica.pdf caricato correttamente");
+        } else {
+            logger.error("File notifica.pdf non caricato");
+            Assert.fail("File notifica.pdf non caricato");
+        }
+        allegatiPASection.inserimentoNomeTerzoAllegato(datiNotificaMap.get("descrizione"));
+    }
+
+    @And("Si visualizza correttamente il codice hash del documento")
+    public void siVisualizzaCorrettamenteIlCodiceHashDelDocumento(){
+        allegatiPASection.checkCodiceHash();
+
+
+    }
+
+    @Then("Nella section Allegati si carica un atto non pdf e visualizza messaggio di errore")
+    public void nellaSectionAllegatiSiCaricaUnAttoNonPdf() {
+        logger.info("Caricamento dell'allegato notifica.doc");
+        File notificaFile = new File("src/test/resources/notifichePdf/notifica.doc");
+        String pathNotificaFile = notificaFile.getAbsolutePath();
+        allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
+        allegatiPASection.messagioDiErroreDoc();
+    }
+
+    @And("Si clicca sul bottone aggiungi nuovo documento")
+    public void siCliccaSulBottoneAggiungiNuovoDocumento(){
+        logger.info("Si aggiunge un nuovo atto");
+        allegatiPASection.clickAggiungiNuovoDocumento();
+    }
+
+    @And ("Si elimina un atto")
+    public void siEliminaUnAtto(){
+        logger.info("Si elimina un atto");
+        allegatiPASection.eliminaAtto();
     }
 
     @And("Si verifica che la notifica è stata creata correttamente")

@@ -1,6 +1,6 @@
 Feature: il mittente inserisce i dati fino alla sezione Destinatario
 
-  @TA_inserimentoDatiFinoDestinatario
+    @TA_inserimentoDatiFinoDestinatario
     @TestSuite
     @mittente
     @invioNotifiche
