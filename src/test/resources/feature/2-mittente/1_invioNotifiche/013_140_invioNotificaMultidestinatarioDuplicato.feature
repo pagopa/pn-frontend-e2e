@@ -1,11 +1,11 @@
-Feature: Mittente invia una notifica digitale al destinatario con indirizzo fornito dalla PA
+Feature: Mittente invia una notifica digitale a multidestinatario duplicato, viene visualizzato messaggio di errore
 
   @TestSuite
-  @TA_invioNotificaConIndirizzoFornitoDallaPA
+  @TA_invioNotificaMultidestinatarioDuplicato
   @mittente
   @invioNotifiche
 
-  Scenario: PN-9242 - Mittente invia una notifica digitale al destinatario con indirizzo fornito dalla PA
+  Scenario: PN-9254 - Mittente invia una notifica digitale a multidestinatario duplicato, viene visualizzato messaggio di errore
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
@@ -29,16 +29,10 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | provincia | MI       |
       | cap       | 20147    |
       | stato     | Italia   |
-    And Cliccare su continua
-    And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
-    Then Nella section Allegati si carica un atto
-    And Nella section Allegati cliccare sul bottone Invia
-    Then Si visualizza correttamente la frase La notifica è stata correttamente creata
-    And Cliccare sul bottone vai alle notifiche
-    And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Si verifica che la notifica è stata creata correttamente
-    Then In parallelo si effettua l'accesso al portale destinatario "persona fisica" e si apre la notifica ricevuta
-    And Aspetta 180 secondi
-    And Cliccare sulla notifica restituita
-    Then Si verifica che la notifica abbia lo stato "Avvenuto accesso"
+    And Nella section Destinatario cliccare su Aggiungi destinatario
+    Then Nella section del destinatario numero 2 si inseriscono i suoi dati
+      | soggettoGiuridico       | PF               |
+      | nomeCognomeDestinatario | Gaio Giulio      |
+      | codiceFiscale           | CSRGGL44L13H501E |
+    Then Si visualizza correttamente l errore di stesso codice fiscale
     And Logout da portale mittente

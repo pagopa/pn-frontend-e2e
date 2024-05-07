@@ -262,4 +262,61 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     public String getTextDocumentiAllegati() {
         return linkAllegati.get(0).getText();
     }
+
+    public void checkInvioADomicilioDiPiattaforma(String domicilioDiPiattaforma) {
+        try {
+            By invioDomicilioDiPiattaformaBy = By.xpath("//div[contains(span/text(), 'Invio via PEC riuscito') and (//div[contains(p/text(), '" + domicilioDiPiattaforma + "')])]");
+            getWebDriverWait(10).withMessage("Non si visualizza l'invio della notifica al domicilio di piattaforma nella timeline").until(ExpectedConditions.visibilityOfElementLocated(invioDomicilioDiPiattaformaBy));
+        } catch (TimeoutException e) {
+            logger.error("L'invio della notifica al domicilio di piattaforma indicato non viene effettuato con errore: " + e.getMessage());
+            Assert.fail("L'invio della notifica al domicilio di piattaforma indicato non viene effettuato con errore: " + e.getMessage());
+        }
+
+    }
+
+    public void checkDoppioFallimentoInvioViaPEC(int numeroFallimenti){
+        try {
+            By invioPECFallitoBy = By.xpath("//span[text()='Invio via PEC fallito']");
+            List<WebElement> invioPECFallitoList = driver.findElements(invioPECFallitoBy);
+            logger.info("L'invio della notifica è fallito questo numero di volte: " + invioPECFallitoList.size());
+            if (invioPECFallitoList.size() != numeroFallimenti) {
+                logger.error("L'invio della notifica non è fallito " + numeroFallimenti + " volta/e");
+                Assert.fail("L'invio della notifica non è fallito " + numeroFallimenti + " volta/e");
+            }
+        } catch (TimeoutException e) {
+            logger.error("NON è fallito l'invio della notifica: " + e.getMessage());
+            Assert.fail("NON è fallito l'invio della notifica: " + e.getMessage());
+        }
+    }
+
+    public void checkInvioRaccomandataSemplice() {
+        try {
+            By invioRaccomandataSemplice = By.xpath("//span[text()='Invio via raccomandata semplice']");
+            getWebDriverWait(10).withMessage("Non si visualizza l'invio della raccomandata nella timeline della notifica").until(ExpectedConditions.visibilityOfElementLocated(invioRaccomandataSemplice));
+            logger.info("L'invio della notifica avviene via raccomandata semplice");
+        } catch (TimeoutException e) {
+            logger.error("L'invio della notifica per raccomandata non viene visualizzato: " + e.getMessage());
+            Assert.fail("L'invio della notifica per raccomandata non viene visualizzato: " + e.getMessage());
+        }
+    }
+
+    public void checkInvioADomicilioSpeciale(String domicilioSpeciale) {
+        try {
+            By invioDomicilioSpecialeBy = By.xpath("//div[contains(span/text(), 'Invio via PEC riuscito') and (//div[contains(p/text(), '" + domicilioSpeciale + "')])]");
+            getWebDriverWait(10).withMessage("Non si visualizza l'invio della notifica al domicilio speciale nella timeline").until(ExpectedConditions.visibilityOfElementLocated(invioDomicilioSpecialeBy));
+        } catch (TimeoutException e) {
+            logger.error("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
+            Assert.fail("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
+        }
+    }
+
+    public void checkTentatoInvioADomicilioSpeciale(String domicilioSpeciale) {
+        try {
+            By invioDomicilioSpecialeBy = By.xpath("//div[contains(span/text(), 'Invio via PEC fallito') and (//div[contains(p/text(), '" + domicilioSpeciale + "')])]");
+            getWebDriverWait(10).withMessage("Non si visualizza l'invio della notifica al domicilio speciale nella timeline").until(ExpectedConditions.visibilityOfElementLocated(invioDomicilioSpecialeBy));
+        } catch (TimeoutException e) {
+            logger.error("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
+            Assert.fail("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
+        }
+    }
 }
