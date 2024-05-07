@@ -318,7 +318,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Logout da portale mittente
 
   @invioNotificaDigitaleADomicilioImpostato
-  Scenario: PN-9253 - Mittente invia una notifica digitale a destinatario persona giuridica senza domicilio di piattaforma e speciale, solo generale
+  Scenario: [TA-FE INVIO DI UNA NOTIFICA DIGITALE A DESTINATARIO CON DOMICILIO IMPOSTATO] - Mittente invia una notifica digitale a destinatario persona giuridica senza domicilio di piattaforma e speciale, solo generale
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
