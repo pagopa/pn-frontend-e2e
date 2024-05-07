@@ -5,7 +5,7 @@ Feature: La persona giuridica visualizza tutti gli elementi della sezione altri 
   @PG
   @recapitiPG
 
-  Scenario: PN-9161 -D1 La persona giuridica inserisce PEC sbagliato e corretto
+  Scenario: PN-9161 -D1 La persona giuridica inserisce email sbagliato e corretto
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
@@ -13,7 +13,7 @@ Feature: La persona giuridica visualizza tutti gli elementi della sezione altri 
     And Si inserisce l'email "prova@test.it" e si clicca sul bottone avvisami via email
     And Si visualizza correttamente il pop-up e si clicca su conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email tramite chiamata request
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email "prova@test.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     Then Nella pagina I Tuoi Recapiti si controlla che la Email sia presente
     And Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti persona giuridica "email"
@@ -34,13 +34,14 @@ Feature: La persona giuridica visualizza tutti gli elementi della sezione altri 
     And Nella sezione altri recapiti si clicca sul bottone annulla di popup
     And Nella sezione altri recapiti si clicca sul bottone associa
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email tramite chiamata request
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email "prova@mail.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP scaduto
     And Nella sezione altri recapiti si visualizza correttamente il messaggio di errore di popup
     And Nella sezione altri recapiti si clicca sul bottone annulla di popup
     And Nella sezione altri recapiti si clicca sul bottone associa
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email "prova@mail.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
-    And Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione 'E-mail o numero di cellulare'
+    And Si verifica se popup conferma presente
+    Then Si visualizzano correttamente tutti gli elementi della sezione altri recapiti
     And Logout da portale persona giuridica

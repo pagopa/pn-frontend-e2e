@@ -135,7 +135,7 @@ public class RecapitiPGPagoPaTest {
     @And("Nella sezione altri recapiti si seleziona il tipo di indirizzo PG scegliendo {string}")
     public void selezionaIlTipoDiIndirizzo(String tipoIndirizzo){
         logger.info("Si seleziona il tipo di indirizzo digitale");
-        if (tipoIndirizzo.equalsIgnoreCase("PEC"))
+        if (tipoIndirizzo.equalsIgnoreCase("pec"))
             recapitiDestinatarioPage.selezionaTipoPec();
         else if(tipoIndirizzo.equalsIgnoreCase("Email")){
             recapitiDestinatarioPage.selezionaTipoEmail();

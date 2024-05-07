@@ -327,6 +327,15 @@ public class RecapitiPersonaFisicaTest {
         }
     }
 
+    @And("Si verifica se popup conferma presente")
+    public void verificaPopupConferma(){
+        if (recapitiDestinatarioPage.siVisualizzaPopUpConferma()) {
+            logger.info("Si clicca su conferma nel pop-up");
+            recapitiDestinatarioPage.clickConfermaButton();
+            driver.navigate().refresh();
+        }
+    }
+
     @And("Nella pagina I Tuoi Recapiti si inserisce il codice OTP scaduto")
     public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTPScaduto() {
         logger.info("Si inserisce il codice OTP di verifica");
@@ -724,16 +733,13 @@ public class RecapitiPersonaFisicaTest {
         }
 
     }
-    @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email tramite chiamata request")
-    public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaEmailTramiteChiamataRequest() {
-        logger.info("Si recupera il codice OTP della nuova pec");
-
-        String pec = "prova@test.it";
+    @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email {string} tramite chiamata request")
+    public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaEmailTramiteChiamataRequest(String mail) {
+        logger.info("Si recupera il codice OTP della nuova email");
         RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
 
-
         String startUrl = "http://localhost:8887/";
-        String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + pec;
+        String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + mail;
         boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
         if (results) {
             OTP = recuperoOTPRecapiti.getResponseBody();
