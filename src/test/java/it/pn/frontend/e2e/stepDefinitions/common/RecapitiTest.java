@@ -12,13 +12,14 @@ import org.slf4j.LoggerFactory;
 
 public class RecapitiTest {
 
-    private final WebDriver driver = Hooks.driver;
-    public static String OTP;
-    private final Logger logger = LoggerFactory.getLogger("RecapitiTest");
-    private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
-    private final ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
     private final String PEC = "PEC";
     private final String contattoDiCortesia = "email di cortesia";
+    private final String ELIMINA = "Elimina";
+    private final Logger logger = LoggerFactory.getLogger("RecapitiTest");
+    private final WebDriver driver = Hooks.driver;
+    public static String OTP;
+    private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
+    private final ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
 
     @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono {string} e si clicca sul bottone avvisami via SMS")
     public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoESiCliccaSulBottoneAvvisamiViaSMS(String cellulare) {
@@ -114,7 +115,7 @@ public class RecapitiTest {
         recapitiDestinatarioPage.confermaEmailPopup();
     }
 
-    @And("Si inserisce l'email di cortesia e si clicca sul bottone avvisami via email")
+    @And("Si inserisce l'email di cortesia {string} e si clicca sul bottone avvisami via email")
     public void siInserisceLEmailDiCortesiaESiCliccaSulBottoneAvvisamiViaEmail(String email) {
         logger.info("Si inserisce l'email");
         recapitiDestinatarioPage.insertEmail(email);
@@ -134,6 +135,40 @@ public class RecapitiTest {
         if (!recapitiDestinatarioPage.verificaMailAssociata()) {
             logger.error("Email non è stata inserita correttamente");
             Assert.fail("Email non è stata inserita correttamente");
+        }
+    }
+
+    @Then("Si visualizza correttamente il messaggio di errore dei tre tentativi")
+    public void siVisualizzaCorrettamenteIlMessaggioDiErroreDeiTreTentativi() {
+        logger.info("Si verifica la visualizzazione del corretto messaggio di errore");
+        recapitiDestinatarioPage.checkMessaggioErroreTreTentativiOTPSbagliato();
+        recapitiDestinatarioPage.annullaButtonClick();
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si controlla che non ci sia una email di cortesia impostata")
+    public void nellaPaginaITuoiRecapitiSiControllaCheNonCiSiaUnaEmailDiCortesiaImpostata() {
+        logger.info("Si controlla la presenza di una email di cortesia");
+        if(recapitiDestinatarioPage.verificaMailAssociata()){
+            logger.info("Email di cortesia trovata, si procede con l'eliminazione");
+            recapitiDestinatarioPage.clickSuBottoneEmailDiCortesia(ELIMINA);
+            recapitiDestinatarioPage.confermaButtonEliminaClick();
+        }
+    }
+
+    @And("Si inserisce il codice OTP errato {string} per tre volte e si controlla il messaggio di errore")
+    public void siInserisceIlCodiceOTPErratoPerTreVolteESiControllaIlMessaggioDiErrore(String OTP) {
+        logger.info("Si inserisce un codice OTP errato per 3 volte e si controlla il messaggio di errore");
+        BackgroundTest backgroundTest = new BackgroundTest();
+        backgroundTest.inserimentoOTPErratoTreVolteEControlloMessaggio(OTP);
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si controlla che non ci sia un numero di cellulare di cortesia impostato")
+    public void nellaPaginaITuoiRecapitiSiControllaCheNonCiSiaUnNumeroDiCellulareDiCortesiaImpostato() {
+        logger.info("Si controlla la presenza di un numero di cellulare di cortesia");
+        if(recapitiDestinatarioPage.verificaNumeroDiCellulareAssociato()) {
+            logger.info("Numero di cellulare di cortesia trovato, si procede con l'eliminazione");
+            recapitiDestinatarioPage.clickSuBottoneCellulareDiCortesia(ELIMINA);
+            recapitiDestinatarioPage.confermaButtonEliminaClick();
         }
     }
 }

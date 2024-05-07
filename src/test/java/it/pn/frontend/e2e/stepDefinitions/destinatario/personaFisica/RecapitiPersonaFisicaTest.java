@@ -113,7 +113,6 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato {string}")
     public void nellaPaginaITuoiRecapitiSiInserisceOTPSbagliato(String otp) {
         logger.info("Si inserisce l'otp sbagliato");
-
         recapitiDestinatarioPage.sendOTP(otp);
     }
 
@@ -138,7 +137,6 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti clicca sul bottone conferma")
     public void nellaPaginaITuoiRecapitiCliccaSulBottoneConferma() {
         logger.info("Si cerca di cliccare sul bottone conferma");
-
         recapitiDestinatarioPage.confermaButtonClickPopUp();
     }
 
