@@ -638,8 +638,7 @@ public class NotificaMittentePagoPATest {
 
     @Then("Si visualizza correttamente l errore di stesso codice fiscale")
     public void siVisualizzaCorrettamenteLErroreDiStessoCodiceFiscale() {
-        logger.info("Si visualizza il messaggio di errore stesso codice fiscale");
-
+        logger.info("Si visualizzano i messaggi di errore del campo codice fiscale");
         destinatarioPASection.waitMessaggioErrore();
     }
 
@@ -881,9 +880,16 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.inserimentoMultiDestinatarioPG(personeGiuridiche, nDestinatariInt);
     }
 
-    @And("Nella section Destinatario inserire i dati del destinatari persona giuridicha aggiuntiva")
+    @And("Nella section cliccare sul tasto torna a informazioni preliminari")
+    public void nellaSectionCliccareSulTastoTornaAInformazioniPreliminari() {
+        logger.info("Si cerca di tornare alla sezione Informazione Preliminari");
+
+        destinatarioPASection.clickSuTornaInformazioniPreliminari();
+    }
+
+    @And("Nella section Destinatario inserire i dati del destinatario persona giuridica aggiuntiva")
     public void nellaSectionDestinatarioInserireIDatiDelDestinatarioPersonaGiuridichaAggiuntiva(Map<String, String> destinatario) {
-        logger.info("Si cerca di aggiungere" + " personeGiuridicha");
+        logger.info("Si cerca di aggiungere la persone giuridica aggiuntiva");
         destinatarioPASection.inserimentoDestinatarioPGAggiuntivo(destinatario);
     }
 
@@ -1237,6 +1243,26 @@ public class NotificaMittentePagoPATest {
             loginPGPagoPATest.loginMittenteConTokenExchange(tipoToken);
             loginPGPagoPATest.logoutDaPortalePersonaGiuridica();
         }
+    }
+
+
+    @Then("Nella section del destinatario numero {int} si inseriscono i suoi dati")
+    public void nellaSectionDelDestinatarioNumeroSiInserisconoISuoiDati(int numeroDestinatario, Map<String, String> destinatario) {
+        logger.info("Si inseriscono i dati del destinatario nella sezione Destinatario");
+        numeroDestinatario--;
+        if (destinatario.get("soggettoGiuridico").equals("PF")) {
+            destinatarioPASection.selezionarePersonaFisicaMultiDestinatario(numeroDestinatario);
+        } else {
+            destinatarioPASection.clickRadioButtonPersonaGiuridica();
+        }
+        String nomeDestinatario = destinatario.get("nomeCognomeDestinatario");
+        if (nomeDestinatario.split(" ").length > 0) {
+            destinatarioPASection.inserireNomeMultiDestinatario(numeroDestinatario, nomeDestinatario.split(" ")[0]);
+            destinatarioPASection.inserireCognomeMultiDestinatario(numeroDestinatario, nomeDestinatario.split(" ")[1]);
+        } else {
+            destinatarioPASection.insertRagioneSociale(nomeDestinatario);
+        }
+        destinatarioPASection.inserireCodiceFiscaleMultiDestinatario(numeroDestinatario, destinatario.get("codiceFiscale"));
     }
 
     /**
