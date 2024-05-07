@@ -181,9 +181,9 @@ public class NotificaMittentePagoPATest {
         }
 
         //Sezione preliminare
+        informazioniPreliminariPASection.insertNumeroDiProtocollo(datiNotifica.get("numeroProtocollo").toString());
         informazioniPreliminariPASection.insertOggettoNotifica(datiNotificaMap.get("oggettoDellaNotifica"));
         informazioniPreliminariPASection.insertDescrizione(datiNotificaMap.get("descrizione"));
-        informazioniPreliminariPASection.insertNumeroDiProtocollo(datiNotifica.get("numeroProtocollo").toString());
         WebTool.waitTime(2);
         informazioniPreliminariPASection.insertGruppo(gruppo);
         informazioniPreliminariPASection.insertCodiceTassonometrico(datiNotificaMap.get("codiceTassonometrico"));

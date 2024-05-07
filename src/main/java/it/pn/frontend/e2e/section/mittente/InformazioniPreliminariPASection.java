@@ -77,10 +77,10 @@ public class InformazioniPreliminariPASection extends BasePage {
 
     public void insertGruppo(String gruppo) {
         logger.info("inserimento gruppo");
-        if (this.gruppoListBox.isDisplayed()) {
-            this.gruppoListBox.click();
+        if (gruppoListBox.isDisplayed()) {
+            gruppoListBox.click();
         } else {
-            this.scrollToElementClickAndInsertText(this.gruppoListBox, null);
+            scrollToElementClickAndInsertText(gruppoListBox, null);
         }
 
         try {
