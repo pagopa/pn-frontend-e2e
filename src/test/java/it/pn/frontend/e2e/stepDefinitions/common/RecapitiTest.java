@@ -12,14 +12,14 @@ import org.slf4j.LoggerFactory;
 
 public class RecapitiTest {
 
-    private final WebDriver driver = Hooks.driver;
-    public static String OTP;
-    private final Logger logger = LoggerFactory.getLogger("RecapitiTest");
-    private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
-    private final ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
     private final String PEC = "PEC";
     private final String contattoDiCortesia = "email di cortesia";
     private final String ELIMINA = "Elimina";
+    private final Logger logger = LoggerFactory.getLogger("RecapitiTest");
+    private final WebDriver driver = Hooks.driver;
+    public static String OTP;
+    private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
+    private final ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
 
     @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono {string} e si clicca sul bottone avvisami via SMS")
     public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoESiCliccaSulBottoneAvvisamiViaSMS(String cellulare) {
