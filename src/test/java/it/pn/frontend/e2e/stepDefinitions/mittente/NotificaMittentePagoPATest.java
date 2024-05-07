@@ -1041,11 +1041,11 @@ public class NotificaMittentePagoPATest {
     }
 
     @Then("In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline {string}")
-    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPFESiVerificaLaTimeline(String messagio) {
+    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPFESiVerificaLaTimeline(String messaggio) {
         WebTool.switchToPortal(AppPortal.PF);
         piattaformaNotifichePage.selezionaNotifica();
         WebTool.waitTime(5);
-        piattaformaNotifichePage.visualizzaTimeline(messagio);
+        piattaformaNotifichePage.visualizzaTimeline(messaggio);
         WebTool.closeTab();
     }
 
