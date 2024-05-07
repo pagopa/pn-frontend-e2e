@@ -339,7 +339,7 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si inserisce il codice OTP scaduto")
     public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTPScaduto() {
         logger.info("Si inserisce il codice OTP di verifica");
-        notificaMittentePagoPATest.aspettaSecondi(900);
+        notificaMittentePagoPATest.aspettaSecondi(910);
         iTuoiRecapitiPage.sendOTP(OTP);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
     }
