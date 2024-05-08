@@ -171,43 +171,18 @@ public class NotificaMittentePagoPATest {
         AllegatiPASection allegatiPASection = new AllegatiPASection(driver);
         File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
         datiNotifica = dataPopulation.readDataPopulation(datiNotificaMap.get("nomeFileYaml") + ".yaml");
+        datiNotificaMap.put("numeroProtocollo",datiNotifica.get("numeroProtocollo").toString());
 
         aggiornamentoNumeroProtocollo();
 
-        String gruppo = "";
-        switch (variabileAmbiente) {
-            case "dev" -> gruppo = datiNotificaMap.get("gruppoDev");
-            case "test", "uat" -> gruppo = datiNotificaMap.get("gruppoTest");
-        }
 
         //Sezione preliminare
-        informazioniPreliminariPASection.insertNumeroDiProtocollo(datiNotifica.get("numeroProtocollo").toString());
-        informazioniPreliminariPASection.insertOggettoNotifica(datiNotificaMap.get("oggettoDellaNotifica"));
-        informazioniPreliminariPASection.insertDescrizione(datiNotificaMap.get("descrizione"));
-        WebTool.waitTime(2);
-        informazioniPreliminariPASection.insertGruppo(gruppo);
-        informazioniPreliminariPASection.insertCodiceTassonometrico(datiNotificaMap.get("codiceTassonometrico"));
-        if (datiNotificaMap.get("modello").equals("AR")){
-            informazioniPreliminariPASection.selectRaccomandataAR();
-        }else{
-            informazioniPreliminariPASection.selectRegisteredLetter890();
-        }
+        informazioniPreliminariPASection.compilazioneInformazioniPreliminari(datiNotificaMap);
         cliccareSuContinua();
 
         //Dati destinatario
         siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionDestinatario();
-        destinatarioPASection.selezionarePersonaFisica();
-        destinatarioPASection.inserireNomeDestinatario(datiNotificaMap.get("nomePF"));
-        destinatarioPASection.inserireCognomeDestinatario(datiNotificaMap.get("cognomePF"));
-        destinatarioPASection.inserireCodiceFiscaleDestinatario(datiNotificaMap.get("codiceFiscalePF"));
-        destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
-        destinatarioPASection.inserireIndirizzo(datiNotificaMap.get("indirizzoPF"));
-        destinatarioPASection.inserireNumeroCivico(datiNotificaMap.get("numeroCivicoPF"));
-        destinatarioPASection.inserireComune(datiNotificaMap.get("comunePF"));
-        destinatarioPASection.inserireProvincia(datiNotificaMap.get("provinciaPF"));
-        destinatarioPASection.inserireCodicePostale(datiNotificaMap.get("codicepostalePF"));
-        destinatarioPASection.inserireStato(datiNotificaMap.get("statoPF"));
-        destinatarioPASection.vaiInFondoAllaPagina();
+        destinatarioPASection.compilazioneDestinario(datiNotificaMap);
         cliccareSuContinua();
 
 

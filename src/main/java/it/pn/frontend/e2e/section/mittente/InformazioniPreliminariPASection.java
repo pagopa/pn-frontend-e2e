@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -10,6 +11,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Map;
 
 public class InformazioniPreliminariPASection extends BasePage {
 
@@ -107,5 +110,23 @@ public class InformazioniPreliminariPASection extends BasePage {
     public void selectRegisteredLetter890() {
         logger.info("selezione registered letter 890");
         this.registeredLetter890Button.click();
+    }
+    public void compilazioneInformazioniPreliminari(Map<String,String> datiNotificaMap) {
+        String gruppo = "";
+        switch (System.getProperty("environment")) {
+            case "dev" -> gruppo = datiNotificaMap.get("gruppoDev");
+            case "test", "uat" -> gruppo = datiNotificaMap.get("gruppoTest");
+        }
+        insertNumeroDiProtocollo(datiNotificaMap.get("numeroProtocollo"));
+        insertOggettoNotifica(datiNotificaMap.get("oggettoDellaNotifica"));
+        insertDescrizione(datiNotificaMap.get("descrizione"));
+        WebTool.waitTime(2);
+        insertGruppo(gruppo);
+        insertCodiceTassonometrico(datiNotificaMap.get("codiceTassonometrico"));
+        if (datiNotificaMap.get("modello").equals("AR")){
+            selectRaccomandataAR();
+        }else{
+            selectRegisteredLetter890();
+        }
     }
 }

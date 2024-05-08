@@ -374,4 +374,19 @@ public class DestinatarioPASection extends BasePage {
         logger.info("TA_QA: si verifica il numero dei destinatari");
         return this.rimuoviDestinatarioButtons.isEmpty();
     }
+
+    public void compilazioneDestinario(Map<String,String> datiNotificaMap){
+        selezionarePersonaFisica();
+        inserireNomeDestinatario(datiNotificaMap.get("nomePF"));
+        inserireCognomeDestinatario(datiNotificaMap.get("cognomePF"));
+        inserireCodiceFiscaleDestinatario(datiNotificaMap.get("codiceFiscalePF"));
+        selezionaAggiungiUnIndirizzoFisico();
+        inserireIndirizzo(datiNotificaMap.get("indirizzoPF"));
+        inserireNumeroCivico(datiNotificaMap.get("numeroCivicoPF"));
+        inserireComune(datiNotificaMap.get("comunePF"));
+        inserireProvincia(datiNotificaMap.get("provinciaPF"));
+        inserireCodicePostale(datiNotificaMap.get("codicepostalePF"));
+        inserireStato(datiNotificaMap.get("statoPF"));
+        vaiInFondoAllaPagina();
+    }
 }

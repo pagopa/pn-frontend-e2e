@@ -17,7 +17,7 @@ public class RestNotification {
     public RestNotification() {
     }
 
-    /**
+    /**]
      * Create a new notification with one recipient and one document
      *
      * @param notification NewNotification object with all the data

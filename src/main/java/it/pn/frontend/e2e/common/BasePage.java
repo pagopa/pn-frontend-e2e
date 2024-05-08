@@ -18,7 +18,6 @@ public class BasePage {
 
     protected WebDriver driver;
 
-    protected String scenarioName = Hooks.scenario;
     protected int loadComponentWaitTime = Integer.parseInt(System.getProperty("loadComponentWaitTime"));
 
     private static final Logger loggerBase = LoggerFactory.getLogger("BasePage");

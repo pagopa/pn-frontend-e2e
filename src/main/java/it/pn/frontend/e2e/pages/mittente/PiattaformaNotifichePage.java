@@ -26,12 +26,11 @@ public class PiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("notificaMittentePagoPA");
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
-
-    private final NotificationSingleton notificationSingleton = new NotificationSingleton();
-
+    private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
 
     @FindBy(id = "recipientId")
     WebElement cfTextField;
+
     @FindBy(id = "filter-button")
     WebElement filtraButton;
 
@@ -49,7 +48,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
     @FindBy(id = "status")
     WebElement statoNotificaField;
-
 
     @FindBy(id = "side-item-API Key")
     WebElement apiKeyButton;
@@ -818,7 +816,7 @@ public class PiattaformaNotifichePage extends BasePage {
                 notificationStatus = notificationData.get("notificationRequestStatus").toString();
                 if(notificationStatus.equals("ACCEPTED")){
                     notificationIUN = notificationData.get("iun").toString();
-                    notificationSingleton.setScenarioIun(scenarioName,notificationIUN);
+                    notificationSingleton.setScenarioIun(Hooks.scenario,notificationIUN);
                 }else{
                 WebTool.waitTime(90);
                 logger.info("Tentativo n. " + maximumRetry + " - Stato notifica: " + notificationStatus);
@@ -847,7 +845,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void clickSuNotifica() {
-        String iun = notificationSingleton.getIun(scenarioName);
+        String iun = notificationSingleton.getIun(Hooks.scenario);
         try{
             By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'"+iun+"')]]");
             getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOfElementLocated(notification));

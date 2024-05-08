@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -136,10 +137,15 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(percorsoNotificaBy));
         numeriStatiNotifica = elements(percorsoNotificaBy).size();
         getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(vediDettagliButton.get(0)));
-        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(vediDettagliButton.get(1)));
         logger.info("click su vedi dettagli");
         vediDettagliButton.get(0).click();
-        vediDettagliButton.get(1).click();
+        try{
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(vediDettagliButton.get(1)));
+            vediDettagliButton.get(1).click();
+        } catch (TimeoutException e) {
+            logger.info("ulteriore vedi dettaglio non presente");
+        }
+
     }
 
     public void siVisualizzaPercorsoNotifica() {

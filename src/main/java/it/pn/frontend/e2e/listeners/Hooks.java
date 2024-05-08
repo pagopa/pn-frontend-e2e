@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.model.DigitalAddressResponse;
 import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
+import lombok.Getter;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.OutputType;
@@ -43,9 +44,9 @@ public class Hooks {
     private static final Logger logger = LoggerFactory.getLogger("Hooks");
     public static WebDriver driver;
     public DevTools devTools;
-
     public Map<String, RequestWillBeSent> requests = new HashMap<>();
 
+    @Getter
     public static String scenario;
     public static List<NetWorkInfo> netWorkInfos = new ArrayList<>();
     private String headless;

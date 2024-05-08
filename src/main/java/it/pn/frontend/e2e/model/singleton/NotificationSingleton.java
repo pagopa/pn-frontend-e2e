@@ -10,7 +10,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class NotificationSingleton {
 
     private Map<String, String> scenarioIun = new ConcurrentHashMap<>();
-    private String notificationRequestId;
     private static NotificationSingleton instance;
 
     private void NotificationSingleton(){
