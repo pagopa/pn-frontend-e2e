@@ -1,4 +1,4 @@
-Feature: Mittente invia una notifica analogica o digitale che viene annullata
+Feature: Mittente invia una notifica analogica o digitale che viene annullata e lato destinatario si controlla non sia possibile scaricare alcun file
 
   @checkDownloadFileNotificaAnnullata
   Scenario: [TA-FE INVIO DI UNA NOTIFICA, ANNULLAMENTO, CHECK DOWNLOAD FILE PER PF] - Mittente invia una notifica e la annulla, il destinatario persona fisica non può scaricare i file
