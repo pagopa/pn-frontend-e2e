@@ -47,7 +47,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence2
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL-Discovery_AR] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -95,7 +95,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence3
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@OK_RIR] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
