@@ -49,6 +49,16 @@ public class RicercaNotifichePersonaFisicaPATest {
         notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
     }
 
+    @And("Nella pagina Piattaforma Notifiche  persona fisica inserire il codice IUN {string}")
+    public void nellaPaginaPiattaformaNotificheDestinatarioInserireIlCodiceIUN(String IUN) throws InterruptedException {
+        logger.info("Si inserisce il codice IUN");
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.waitLoadPage();
+
+        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
+        notificheDestinatarioPage.inserisciCodiceIUN(IUN);
+    }
+
     @And("Cliccare sul bottone Filtra persona fisica")
     public void cliccareSulBottoneFiltra() {
         logger.info("Si clicca sul tasto filtra");
@@ -71,6 +81,24 @@ public class RicercaNotifichePersonaFisicaPATest {
 
         NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
         boolean result = notificheDestinatarioPage.verificaCodiceIUN(codiceIUNInserito);
+        if (result) {
+            logger.info("Il risultato é coerente con il codice IUN inserito");
+        } else {
+            logger.error("Il risultato NON é coerente con il codice IUN inserito");
+            Assert.fail("Il risultato NON é coerente con il coodice IUN inserito");
+        }
+    }
+    @Then("Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN {string}")
+    public void nellaPaginaPiattaformaNotificheDestinatarioVengoRestituiteTutteLeNotificheConIlCodiceIUN(String IUN) {
+        logger.info("Si verificano i risultati restituiti");
+        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
+        headerPFSection.waitLoadHeaderDESection();
+
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.waitLoadNotificheDEPage();
+
+        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
+        boolean result = notificheDestinatarioPage.verificaCodiceIUN(IUN);
         if (result) {
             logger.info("Il risultato é coerente con il codice IUN inserito");
         } else {
