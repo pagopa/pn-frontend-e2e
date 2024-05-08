@@ -37,6 +37,16 @@ public class RicercaNotifichePersonaFisicaPATest {
         notifichePFPage.waitLoadNotificheDEPage();
     }
 
+    @And("Collegarsi a link {string}")
+    public void collegarsiLink(String url){
+        driver.navigate().to(url);
+    }
+
+    @And("Si visualizza correttamente il messaggio di errore {int}")
+    public void siVisualizzaMessaggioErroreConCodice(int code){
+        piattaformaNotifichePage.checkMessaggioErroreConCodice(code);
+    }
+
     @And("Nella pagina Piattaforma Notifiche  persona fisica inserire il codice IUN da dati notifica {string}")
     public void nellaPaginaPiattaformaNotificheDestinatarioInserireIlCodiceIUNDaDatiNotifica(String dpDataNotifica) throws InterruptedException {
         logger.info("Si inserisce il codice IUN");

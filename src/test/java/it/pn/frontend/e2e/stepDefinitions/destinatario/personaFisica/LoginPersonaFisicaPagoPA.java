@@ -270,6 +270,12 @@ public class LoginPersonaFisicaPagoPA {
         }
     }
 
+    @And("Si chiudi il browser")
+    public void siChiudiIlBrowser(){
+        logger.info("Si chiudi il browser");
+        driver.quit();
+    }
+
     private boolean readHttpRequest() {
         String variabileAmbiente = System.getProperty("environment");
         boolean urlFound = false;
