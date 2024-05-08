@@ -327,4 +327,13 @@ public class BackgroundTest {
         }
         WebTool.waitTime(10);
     }
+
+    public void inserimentoOTPErratoTreVolteEControlloMessaggio(String OTP) {
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceOTPSbagliato(OTP);
+        for(int i = 0; i < 3; i++){
+            recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiCliccaSulBottoneConferma();
+        }
+        recapitiTest.siVisualizzaCorrettamenteIlMessaggioDiErroreDeiTreTentativi();
+    }
 }
