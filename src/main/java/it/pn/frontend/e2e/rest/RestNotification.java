@@ -37,16 +37,16 @@ public class RestNotification {
         return null;
     }
 
-    public String getNotificationStatus(String notificationRequestId) {
-        final CustomHttpClient<Object, Object> httpClient2 = CustomHttpClient.getInstance();  // Modifica qui
+    public LinkedTreeMap<String,Object> getNotificationStatus(String notificationRequestId) {
+        final CustomHttpClient<Object, Object> httpClient2 = CustomHttpClient.getInstance();
         httpClient2.setBaseUrlApi("https://api.test.notifichedigitali.it");
         try {
             Object response = httpClient2.sendHttpGetRequest("/delivery/v2.3/requests?notificationRequestId=" + notificationRequestId, null, Object.class);
             if (response instanceof LinkedTreeMap) {
                 LinkedTreeMap<String, Object> responseData = (LinkedTreeMap<String, Object>) response;
                 if (responseData.containsKey("notificationRequestStatus")) {
-                    return responseData.get("notificationRequestStatus").toString();
-                } else {
+                    return responseData;
+                }else {
                     logger.error("L'attributo 'notificationRequestStatus' non è presente nella risposta JSON");
                     return null;
                 }

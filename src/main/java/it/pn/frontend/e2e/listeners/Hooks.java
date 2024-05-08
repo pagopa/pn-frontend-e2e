@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.model.DigitalAddressResponse;
 import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
+import lombok.Getter;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.OutputType;
@@ -46,6 +47,8 @@ public class Hooks {
     public Map<String, RequestWillBeSent> requests = new HashMap<>();
     public static List<NetWorkInfo> netWorkInfos = new ArrayList<>();
     private String headless;
+    @Getter
+    public static String scenario;
     private final CookieConfig cookieConfig = new CookieConfig();
     private final String os = System.getProperty("os.name");
 
@@ -175,6 +178,7 @@ public class Hooks {
     @Before
     public void startScenario(Scenario scenario) {
         logger.info("-------------------------------------------START SCENARIO: " + scenario.getName() + "------------------------------------------------");
+        this.scenario = scenario.getName();
         Collection<String> tags = scenario.getSourceTagNames();
         for (String tag : tags) {
             if (tag.startsWith("@TA_")) {

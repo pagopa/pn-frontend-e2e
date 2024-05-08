@@ -1509,5 +1509,79 @@ public class NotificaMittentePagoPATest {
         logger.info("Il destinatario raggiungibile");
     }
 
+    @And("Creazione notifica completa")
+    public void creazioneNotificaCompleta(Map<String,String> datiNotificaMap) {
+        logger.info("Inserimento dei dati della notifica senza pagamento " );
+        AllegatiPASection allegatiPASection = new AllegatiPASection(driver);
+        File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
+        datiNotifica = dataPopulation.readDataPopulation(datiNotificaMap.get("nomeFileYaml") + ".yaml");
+
+        aggiornamentoNumeroProtocollo();
+
+
+        //Sezione preliminare
+        informazioniPreliminariPASection.compilazioneInformazioniPreliminari(datiNotifica.get("numeroProtocollo").toString(),datiNotificaMap);
+        cliccareSuContinua();
+
+        //Dati destinatario
+        siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionDestinatario();
+        destinatarioPASection.compilazioneDestinario(datiNotificaMap);
+        cliccareSuContinua();
+
+
+        //Sezione allegati
+        siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionAllegati();
+        String pathNotificaFile = notificaFile.getAbsolutePath();
+        allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
+
+        if (allegatiPASection.verificaCaricamentoNotificaPdf()) {
+            logger.info("File notifica.pdf caricato correttamente");
+        } else {
+            logger.error("File notifica.pdf non caricato");
+            Assert.fail("File notifica.pdf non caricato");
+        }
+        allegatiPASection.inserimentoNomeAllegato(datiNotificaMap.get("nomeDocumentoNotifica"));
+        nellaSectionAllegatiCliccareSulBottoneInvia();
+        siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata();
+        cliccareSulBottoneVaiAlleNotifiche();
+    }
+
+    @And("Si controlla lo stato timeline in dettaglio notifica")
+    public void siControllaLoStatoTimelineInDettaglioNotifica(Map<String, String> datiDettaglioNotifica) {
+        String idStato = datiDettaglioNotifica.get("xpathStato");
+        String viewDetail = datiDettaglioNotifica.get("vediDettagli");
+        siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso();
+        WebTool.waitTime(2);
+        if (viewDetail.equals("true")){
+            dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
+        }
+        dettaglioNotificaMittenteSection.checkStatoTimeline(idStato);
+    }
+
+    @And("Si attende completamento notifica")
+    public void siAttendeCompletamentoNotifica() {
+        siVisualizzaCorrettamenteLaSectionDettaglioNotifica();
+        WebTool.waitTime(400);
+        driver.navigate().refresh();
+    }
+
+    @And("Si seleziona la notifica")
+    public void siSelezionaLaNotifica() {
+        piattaformaNotifichePage.clickSuNotifica();
+    }
+
+    @When("Cliccare sulla notifica restituita")
+    public void cliccareSullaNotificaRestituita() {
+        logger.info("Si clicca sulla notifica");
+
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.selezionaNotifica();
+    }
+
+    @And("Si visualizza correttamente la section Dettaglio Notifica")
+    public void siVisualizzaCorrettamenteLaSectionDettaglioNotifica() {
+        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
+        dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
+    }
 
 }

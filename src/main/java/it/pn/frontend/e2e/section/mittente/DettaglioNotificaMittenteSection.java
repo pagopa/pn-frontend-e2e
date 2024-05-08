@@ -22,8 +22,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
 
     @FindBy(id = "more-less-timeline-step")
-    WebElement vediDettagliButton;
-
+    List<WebElement> vediDettagliButton;
     @FindBy(xpath = "//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11dv4ll')]")
     List<WebElement> infoNotifiche;
 
@@ -133,11 +132,17 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void clickVediPiuDettaglio() {
         By percorsoNotificaBy = By.xpath("//div[contains(@data-testid,'itemStatus')]");
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(percorsoNotificaBy));
-        this.numeriStatiNotifica = this.elements(percorsoNotificaBy).size();
-        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.vediDettagliButton));
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(percorsoNotificaBy));
+        numeriStatiNotifica = elements(percorsoNotificaBy).size();
+        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(vediDettagliButton.get(0)));
         logger.info("click su vedi dettagli");
-        this.vediDettagliButton.click();
+        vediDettagliButton.get(0).click();
+        try{
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(vediDettagliButton.get(1)));
+            vediDettagliButton.get(1).click();
+        } catch (TimeoutException e) {
+            logger.info("ulteriore vedi dettaglio non presente");
+        }
     }
 
     public void siVisualizzaPercosoNotifica() {
@@ -317,6 +322,17 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         } catch (TimeoutException e) {
             logger.error("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
             Assert.fail("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
+        }
+    }
+
+    public void checkStatoTimeline(String statoTimeline){
+        try {
+            By stato = By.xpath(statoTimeline);
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(stato));
+            logger.info("stato timeline checkato con successo avvenuta");
+        } catch (TimeoutException e) {
+            logger.error("checkato stato timeline non avvenuta con errore: " + e.getMessage());
+            Assert.fail("checkato stato timeline non avvenuta con errore: " + e.getMessage());
         }
     }
 }
