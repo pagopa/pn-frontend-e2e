@@ -9,11 +9,10 @@ import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,8 +20,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class WebTool {
-    private static final Logger logger = LoggerFactory.getLogger("WebTool");
     private static final WebDriver driver = Hooks.driver;
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
     private final String env = System.getProperty("environment");
@@ -53,7 +52,7 @@ public class WebTool {
                 driver.get(portal.url);
             }
             default -> {
-                logger.error("Tipologia di portale non specificato o errato!");
+                log.error("Tipologia di portale non specificato o errato!");
                 Assert.fail("Tipologia di portale non specificato o errato!");
             }
         }
@@ -71,6 +70,7 @@ public class WebTool {
     }
 
     public static void closeTab() {
+        log.info("Si chiude la scheda corrente");
         driver.close();
         String newTab = driver.getWindowHandles().stream().reduce((first, second) -> second).orElse(null);
         driver.switchTo().window(newTab);
@@ -92,7 +92,7 @@ public class WebTool {
 
         // Concatenate the current date and the random number
         String protocolNumber = "TA-FFSMRC-" + currentDate + "-" + randomNumber;
-        logger.info("Protocol number generated: " + protocolNumber);
+        log.info("Protocol number generated: " + protocolNumber);
 
         return protocolNumber;
     }
@@ -122,9 +122,9 @@ public class WebTool {
             if (seconds >= 60) {
                 minutes = seconds / 60;
                 remainingSeconds = seconds % 60;
-                logger.info("Si aspettano " + minutes + " minuto/i e " + remainingSeconds + " secondi... prima di proseguire oltre");
+                log.info("Si aspettano " + minutes + " minuto/i e " + remainingSeconds + " secondi... prima di proseguire oltre");
             } else {
-                logger.info("Si aspettano " + seconds + " secondi... prima di proseguire oltre");
+                log.info("Si aspettano " + seconds + " secondi... prima di proseguire oltre");
             }
             long millisecondsToWait = TimeUnit.SECONDS.toMillis(seconds);
             Thread.sleep(millisecondsToWait);
