@@ -9,4 +9,3 @@ Feature: La persona fisica visualizza errore
     Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Collegarsi a link "https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=22"
     Then Si visualizza correttamente il messaggio di errore 22
-    And  Si chiudi il browser
