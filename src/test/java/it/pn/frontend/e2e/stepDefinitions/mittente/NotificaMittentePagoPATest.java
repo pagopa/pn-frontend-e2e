@@ -171,13 +171,12 @@ public class NotificaMittentePagoPATest {
         AllegatiPASection allegatiPASection = new AllegatiPASection(driver);
         File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
         datiNotifica = dataPopulation.readDataPopulation(datiNotificaMap.get("nomeFileYaml") + ".yaml");
-        datiNotificaMap.put("numeroProtocollo",datiNotifica.get("numeroProtocollo").toString());
 
         aggiornamentoNumeroProtocollo();
 
 
         //Sezione preliminare
-        informazioniPreliminariPASection.compilazioneInformazioniPreliminari(datiNotificaMap);
+        informazioniPreliminariPASection.compilazioneInformazioniPreliminari(datiNotifica.get("numeroProtocollo").toString(),datiNotificaMap);
         cliccareSuContinua();
 
         //Dati destinatario

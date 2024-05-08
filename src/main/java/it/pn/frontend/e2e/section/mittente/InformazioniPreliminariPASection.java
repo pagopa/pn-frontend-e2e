@@ -111,13 +111,13 @@ public class InformazioniPreliminariPASection extends BasePage {
         logger.info("selezione registered letter 890");
         this.registeredLetter890Button.click();
     }
-    public void compilazioneInformazioniPreliminari(Map<String,String> datiNotificaMap) {
+    public void compilazioneInformazioniPreliminari(String numeroProtocollo, Map<String,String> datiNotificaMap) {
         String gruppo = "";
         switch (System.getProperty("environment")) {
             case "dev" -> gruppo = datiNotificaMap.get("gruppoDev");
             case "test", "uat" -> gruppo = datiNotificaMap.get("gruppoTest");
         }
-        insertNumeroDiProtocollo(datiNotificaMap.get("numeroProtocollo"));
+        insertNumeroDiProtocollo(numeroProtocollo);
         insertOggettoNotifica(datiNotificaMap.get("oggettoDellaNotifica"));
         insertDescrizione(datiNotificaMap.get("descrizione"));
         WebTool.waitTime(2);
