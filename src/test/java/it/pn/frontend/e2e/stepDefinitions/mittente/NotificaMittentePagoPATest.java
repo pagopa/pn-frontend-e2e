@@ -1299,6 +1299,12 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.inserireCodiceFiscaleMultiDestinatario(numeroDestinatario, destinatario.get("codiceFiscale"));
     }
 
+    @And("Si verifica l'invio della notifica al domicilio fisico")
+    public void siVerificaLInvioDellaNotificaAlDomicilioFisico() {
+        logger.info("Si controlla che la notifica sia stata inviato al domicilio fisico");
+        dettaglioNotificaMittenteSection.checkInvioADomicilioFisico();
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */

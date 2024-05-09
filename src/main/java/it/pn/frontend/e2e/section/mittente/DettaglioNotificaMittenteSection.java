@@ -319,4 +319,20 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             Assert.fail("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
         }
     }
+
+    public void checkInvioADomicilioFisico() {
+        try {
+            By invioRaccomandata = By.xpath("//span[contains(text(), 'Invio via raccomandata A/R')]");
+            By stampaRaccomandata = By.xpath("//div[contains(span/text(), \"Aggiornamento sull'invio cartaceo\") and (div[contains(p/text(), 'stampata ed imbustata')])]");
+            By aggiornamentoInvio = By.xpath("//div[contains(span/text(), \"Aggiornamento sull'invio cartaceo\") and (div[contains(p/text(), 'nuovo documento allegato')])]");
+            By invioCartaceoABuonFine = By.xpath("//span[contains(text(), 'Invio per via cartacea andato a buon fine')]");
+            getWebDriverWait(10).withMessage("L'invio della raccomandata all'indirizzo fisico non è visibile").until(ExpectedConditions.visibilityOfElementLocated(invioRaccomandata));
+            getWebDriverWait(10).withMessage("Step timeline della raccomandata stampata ed imbustata non visibile").until(ExpectedConditions.visibilityOfElementLocated(stampaRaccomandata));
+            getWebDriverWait(10).withMessage("L'aggiornamento dell'invio della raccomandata all'indirizzo fisico non è visibile").until(ExpectedConditions.visibilityOfElementLocated(aggiornamentoInvio));
+            getWebDriverWait(10).withMessage("L'invio della raccomandata andato a buon fine non è visibile").until(ExpectedConditions.visibilityOfElementLocated(invioCartaceoABuonFine));
+        } catch (TimeoutException e) {
+            logger.error("L'invio della notifica al domicilio fisico non viene effettuato con errore: " + e.getMessage());
+            Assert.fail("L'invio della notifica al domicilio fisico non viene effettuato con errore: " + e.getMessage());
+        }
+    }
 }
