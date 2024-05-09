@@ -369,27 +369,25 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @And("Si verifica che gli allegati denominati {string} non sono scaricabili")
     public void siVerificaCheGliAllegatiDenominatiNonSonoScaricabili(String descrizioneAllegato) {
-        logger.info("Si seleziona la notifica e si controlla che non sia possibile scaricare gli allegati");
+        logger.info("Si controlla che non sia possibile scaricare gli allegati");
         piattaformaNotifichePage.checkAllegatoScaricabile(descrizioneAllegato);
     }
 
     @And("Si verifica che gli AAR non sono scaricabili")
     public void siVerificaCheGliAARNonSonoScaricabili() {
-        logger.info("Si seleziona la notifica e si controlla che non sia possibile scaricare gli AAR");
+        logger.info("Si controlla che non sia possibile scaricare gli AAR");
         piattaformaNotifichePage.checkAARScaricabili();
     }
 
     @And("Si verifica che le attestazioni opponibili a terzi non siano scaricabili")
     public void siVerificaCheLeAttestazioniOpponibiliATerziNonSianoScaricabili() {
-        logger.info("Si seleziona la notifica e si controlla che non sia possibile scaricare le attestazioni opponibili a terzi");
+        logger.info("Si controlla che non sia possibile scaricare le attestazioni opponibili a terzi");
         piattaformaNotifichePage.checkAttestazioniOpponibiliATerziScaricabili();
-        WebTool.closeTab();
     }
 
     @And("Si verifica che non sia possibile scaricare le ricevute PEC")
     public void siVerificaCheNonSiaPossibileScaricareLeRicevutePEC() {
-        logger.info("Si seleziona l anotifica e si controlla che non sia possibile scaricare le ricevute PEC");
-        piattaformaNotifichePage.selezionaNotifica();
+        logger.info("Si controlla che non sia possibile scaricare le ricevute PEC");
         piattaformaNotifichePage.checkRicevutePECScaricabili();
         WebTool.closeTab();
     }
