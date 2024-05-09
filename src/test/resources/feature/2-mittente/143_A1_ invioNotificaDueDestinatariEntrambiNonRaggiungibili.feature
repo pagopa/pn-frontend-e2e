@@ -29,7 +29,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | cap       | 20147                 |
       | stato     | Italia                |
     And Nella section Destinatario cliccare su Aggiungi destinatario
-    And Nella section Destinatario inserire i dati del destinatari persona giuridicha aggiuntiva
+    And Nella section Destinatario inserire i dati del destinatario persona giuridica aggiuntiva
       | soggettoGiuridico | PG           |
       | ragioneSociale    | Convivio Spa |
       | codiceFiscale     | 27957814470  |

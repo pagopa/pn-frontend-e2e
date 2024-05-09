@@ -974,6 +974,11 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
+    public void verificaNotificheNonDisponibili(){
+        By noResultField = By.xpath("//div[@data-testid='emptyState']");
+        getWebDriverWait(5).withMessage("Ci sono risultati disponibili per il filtro di ricerca").until(ExpectedConditions.visibilityOfElementLocated(noResultField));
+    }
+
     public void checkAllegatoScaricabile(String descrizioneAllegato) {
         try {
             By linkAllegato = By.xpath("//button[contains(., '" + descrizioneAllegato + "') and @id='document-button']");

@@ -113,8 +113,19 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato {string}")
     public void nellaPaginaITuoiRecapitiSiInserisceOTPSbagliato(String otp) {
         logger.info("Si inserisce l'otp sbagliato");
-
         recapitiDestinatarioPage.sendOTP(otp);
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato tre volte {string}")
+    public void nellaPaginaITuoiRecapitiSiInserisceOTPSbagliato3Volte(String otp) {
+        logger.info("Si inserisce l'otp sbagliato 3 volte");
+        int attempts = 0;
+        while (attempts < 3) {
+            recapitiDestinatarioPage.sendOTP(otp);
+            recapitiDestinatarioPage.confermaButtonClickPopUp();
+            recapitiDestinatarioPage.clearOTP();
+            attempts++;
+        }
     }
 
     @And("Si visualizza correttamente il messaggio di errore")
@@ -138,7 +149,6 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti clicca sul bottone conferma")
     public void nellaPaginaITuoiRecapitiCliccaSulBottoneConferma() {
         logger.info("Si cerca di cliccare sul bottone conferma");
-
         recapitiDestinatarioPage.confermaButtonClickPopUp();
     }
 
@@ -178,6 +188,14 @@ public class RecapitiPersonaFisicaTest {
         recapitiDestinatarioPage.clickAvvisamiViaEmail();
     }
 
+    @And("Si inserisce l'email {string} e si clicca sul bottone avvisami via email")
+    public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPFECliccaSulBottoneAvvisami(String email) {
+        logger.info("Si inserisce la email");
+
+        recapitiDestinatarioPage.insertEmail(email);
+        recapitiDestinatarioPage.clickAvvisamiViaEmail();
+    }
+
     @And("Si visualizza correttamente il pop-up e si clicca su conferma")
     public void siVisualizzaCorrettamenteIlPopUpESiCliccaSuConferma() {
         logger.info("click pop-up conferma email");
@@ -199,6 +217,16 @@ public class RecapitiPersonaFisicaTest {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.insertTelephoneNumber(phoneNumber);
         iTuoiRecapitiPage.clickAvvisamiViaSMS();
+    }
+    @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono PF {string} e clicca sul bottone avvisami via SMS")
+    public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoPF(String phoneNumber) {
+
+        logger.info("Si inserisce il numero di telefono PF");
+
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.insertTelephoneNumber(phoneNumber);
+        iTuoiRecapitiPage.clickAvvisamiViaSMS();
+
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono errato {string}")

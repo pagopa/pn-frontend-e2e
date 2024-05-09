@@ -51,6 +51,14 @@ public class RicercaNotificheMittentePagoPATest {
         piattaformaNotifichePage.selectFiltraButton();
     }
 
+    @And("Si verifica che non ci sono notifiche disponibili")
+    public  void siVerificaCheNonCiSonoNotifiche(){
+        logger.info("Si verifica che non ci sono notifiche disponibili con i fitri applicati");
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.verificaNotificheNonDisponibili();
+    }
+
+
     @And("Si verifica che il bottone Filtra sia disabilitato")
     public void siVerificaCheIlBottoneFiltraSiaDisabilitato() {
         logger.info("Si verifica che il bottone Filtra sia disabilitato");
