@@ -20,7 +20,6 @@ import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -886,7 +885,7 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.clickSuTornaInformazioniPreliminari();
     }
 
-    @And("Nella section Destinatario inserire i dati del destinatari persona giuridicha aggiuntiva")
+    @And("Nella section Destinatario inserire i dati del destinatario persona giuridica aggiuntiva")
     public void nellaSectionDestinatarioInserireIDatiDelDestinatarioPersonaGiuridichaAggiuntiva(Map<String, String> destinatario) {
         logger.info("Si cerca di aggiungere la persona giuridica aggiuntiva");
         destinatarioPASection.inserimentoDestinatarioPGAggiuntivo(destinatario);
