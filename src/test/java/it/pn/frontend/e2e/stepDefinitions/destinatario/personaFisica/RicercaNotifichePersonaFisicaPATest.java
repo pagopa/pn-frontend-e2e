@@ -37,7 +37,7 @@ public class RicercaNotifichePersonaFisicaPATest {
         notifichePFPage.waitLoadNotificheDEPage();
     }
 
-    @And("Nella pagina Piattaforma Notifiche  persona fisica inserire il codice IUN da dati notifica {string}")
+    @And("Nella pagina Piattaforma Notifiche persona fisica inserire il codice IUN da dati notifica {string}")
     public void nellaPaginaPiattaformaNotificheDestinatarioInserireIlCodiceIUNDaDatiNotifica(String dpDataNotifica) throws InterruptedException {
         logger.info("Si inserisce il codice IUN");
         DataPopulation dataPopulation = new DataPopulation();
@@ -49,7 +49,7 @@ public class RicercaNotifichePersonaFisicaPATest {
         notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
     }
 
-    @And("Nella pagina Piattaforma Notifiche  persona fisica inserire il codice IUN {string}")
+    @And("Nella pagina Piattaforma Notifiche persona fisica inserire il codice IUN {string}")
     public void nellaPaginaPiattaformaNotificheDestinatarioInserireIlCodiceIUN(String IUN) throws InterruptedException {
         logger.info("Si inserisce il codice IUN");
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
@@ -138,7 +138,7 @@ public class RicercaNotifichePersonaFisicaPATest {
         notifichePFPage.clickRimuoviFiltriButton();
     }
 
-    @And("Nella pagina Piattaforma Notifiche  persona fisica inserire il codice IUN non valido da dati notifica {string}")
+    @And("Nella pagina Piattaforma Notifiche persona fisica inserire il codice IUN non valido da dati notifica {string}")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIunNonValidoDaDatiNotifica(String datiNotificaNonValidoPF) throws InterruptedException {
         logger.info("Si inserisce il codice IUN non valido");
         DataPopulation dataPopulation = new DataPopulation();
