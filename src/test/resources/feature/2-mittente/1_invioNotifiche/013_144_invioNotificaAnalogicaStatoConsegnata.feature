@@ -1,7 +1,7 @@
 Feature: Mittente invia una notifica analogica a monodestinatario PF che assume lo stato di consegnata
 
   @invioNotificaAnalogicaStatoConsegnata
-  Scenario: PN-9258 - Mittente invia una notifica analogica al destinatario e assume lo stato consegnata
+  Scenario: [TA-FE INVIO NOTIFICA ANALOGICA A DESTINATARIO CHE ASSUME LO STATO CONSEGNATA] - Mittente invia una notifica analogica al destinatario che assume lo stato consegnata
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
@@ -27,7 +27,7 @@ Feature: Mittente invia una notifica analogica a monodestinatario PF che assume 
       | stato     | Italia   |
     And Cliccare su continua
     And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
-    And Aspetta 120 secondi
+    And Aspetta 60 secondi
     And Si attende che lo stato della notifica sia "Consegnata"
     And Cliccare sulla notifica restituita
     Then Si verifica che la notifica abbia lo stato "Consegnata"
