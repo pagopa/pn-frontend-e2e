@@ -27,7 +27,7 @@ Feature: Mittente invia una notifica analogica a monodestinatario PF che assume 
       | stato     | Italia   |
     And Cliccare su continua
     And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
-    And Aspetta 60 secondi
+    And Aspetta 90 secondi
     And Si attende che lo stato della notifica sia "Consegnata"
     And Cliccare sulla notifica restituita
     Then Si verifica che la notifica abbia lo stato "Consegnata"
