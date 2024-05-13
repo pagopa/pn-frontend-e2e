@@ -33,8 +33,8 @@ Feature: Mittente invia una notifica digitale che viene annullata e lato destina
       | stato     | Italia   |
     And Cliccare su continua
     And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
-    And Aspetta 150 secondi
-    And Si attende che lo stato della notifica sia "Consegnata"
+    And Aspetta 120 secondi
+    And Si attende che lo stato della notifica sia "Perfezionata per decorrenza termini"
     And Cliccare sulla notifica restituita
     And Si annulla la notifica
     Then Si controlla la comparsa del pop up di conferma annullamento
