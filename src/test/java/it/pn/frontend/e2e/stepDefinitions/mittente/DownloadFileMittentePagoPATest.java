@@ -152,20 +152,6 @@ public class DownloadFileMittentePagoPATest {
 
     }
 
-    @When("Cliccare sulla notifica restituita")
-    public void cliccareSullaNotificaRestituita() {
-        logger.info("Si clicca sulla notifica");
-
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-        piattaformaNotifichePage.selezionaNotifica();
-    }
-
-    @And("Si visualizza correttamente la section Dettaglio Notifica")
-    public void siVisualizzaCorrettamenteLaSectionDettaglioNotifica() {
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-        dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
-    }
-
     @And("Nella sezione Dettaglio Notifiche si seleziona il file, {string}, da scaricare")
     public void siSelezionanoIlFileDaScaricare(String nomeFile) {
         logger.info("Si cerca di scaricare il file " + nomeFile);

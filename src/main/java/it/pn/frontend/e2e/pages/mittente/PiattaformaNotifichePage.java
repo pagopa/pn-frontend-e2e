@@ -803,25 +803,26 @@ public class PiattaformaNotifichePage extends BasePage {
             String notificationIUN;
             int maximumRetry = 0;
             notificationStatus = restNotification.getNotificationStatus(notificationRequestId).get("notificationRequestStatus").toString();
-            while (notificationStatus.equals("WAITING")){
-                if (maximumRetry > 4) {
-                    logger.error("Sono stati fatti 5 tentativi per verificare la creazione della notifica");
-                    Assert.fail("La notifica risulta ancora in stato WAITING dopo 5 tentativi");
+            while (notificationStatus.equals("WAITING")) {
+                if (maximumRetry > 6) {
+                    logger.error("Sono stati fatti 6 tentativi per verificare la creazione della notifica");
+                    Assert.fail("La notifica risulta ancora in stato WAITING dopo 6 tentativi");
                 }
                 notificationData = restNotification.getNotificationStatus(notificationRequestId);
                 notificationStatus = notificationData.get("notificationRequestStatus").toString();
-                if(notificationStatus.equals("ACCEPTED")){
+                if (notificationStatus.equals("ACCEPTED")) {
                     notificationIUN = notificationData.get("iun").toString();
-                    notificationSingleton.setScenarioIun(Hooks.scenario,notificationIUN);
-                }else{
-                    WebTool.waitTime(90);
+                    notificationSingleton.setScenarioIun(Hooks.scenario, notificationIUN);
+                    break;
+                } else {
+                    WebTool.waitTime(60);
                     logger.info("Tentativo n. " + maximumRetry + " - Stato notifica: " + notificationStatus);
                     maximumRetry++;
                 }
             }
             driver.navigate().refresh();
             logger.info("La notifica è stata creata correttamente");
-        }  else {
+        } else {
             logger.error("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
             Assert.fail("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
         }
@@ -983,33 +984,34 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
-    public void verificaNotificheNonDisponibili(){
+    public void verificaNotificheNonDisponibili() {
         By noResultField = By.xpath("//div[@data-testid='emptyState']");
         getWebDriverWait(5).withMessage("Ci sono risultati disponibili per il filtro di ricerca").until(ExpectedConditions.visibilityOfElementLocated(noResultField));
     }
 
     public void clickSuNotifica() {
         String iun = notificationSingleton.getIun(Hooks.scenario);
-        try{
-            By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'"+iun+"')]]");
+        try {
+            By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
             getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOfElementLocated(notification));
             element(notification).click();
-        }catch (TimeoutException e){
-            logger.error("non é stato possibile recupare la notifica con errore"+ e);
-            Assert.fail("non é stato possibile recupare la notifica con errore"+ e);
+        } catch (TimeoutException e) {
+            logger.error("non é stato possibile recupare la notifica con errore" + e);
+            Assert.fail("non é stato possibile recupare la notifica con errore" + e);
         }
 
     }
+
     public void checkNotifica() {
         NewNotificationResponse newNotificationResponse = new NewNotificationResponse();
         String iun = newNotificationResponse.getNotificationIUN();
-        try{
-            By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'"+iun+"')]]");
-    getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOfElementLocated(notification));
-}catch (TimeoutException e){
-        logger.error("non é stato possibile recupare la notifica con errore"+ e);
-        Assert.fail("non é stato possibile recupare la notifica con errore"+ e);
+        try {
+            By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
+            getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOfElementLocated(notification));
+        } catch (TimeoutException e) {
+            logger.error("non é stato possibile recupare la notifica con errore" + e);
+            Assert.fail("non é stato possibile recupare la notifica con errore" + e);
         }
 
-        }
+    }
 }
