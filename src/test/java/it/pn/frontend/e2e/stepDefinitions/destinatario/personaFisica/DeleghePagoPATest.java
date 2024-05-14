@@ -533,4 +533,10 @@ public class DeleghePagoPATest {
         log.info("Si controlla indicatore numerico");
        leTueDelegheSection.checkIndicatoreNumerico();
     }
+
+    @And("Nella pagina Piattaforma Notifiche persona fisica si clicca sulle notifiche di {string}")
+    public void nellaPaginaPiattaformaNotifichePersonaFisicaSiCliccaSulleNotificheDi(String personaFisica) {
+        log.info("Nella pagina Piattaforma Notifiche della persona fisica nel menu laterale si clicca sulla voce notifiche di " + personaFisica);
+        deleghePage.clickDelegheDelDelegante(personaFisica);
+    }
 }

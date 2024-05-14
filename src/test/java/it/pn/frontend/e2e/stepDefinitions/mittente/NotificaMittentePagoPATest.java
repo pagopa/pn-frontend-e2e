@@ -1299,6 +1299,12 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.inserireCodiceFiscaleMultiDestinatario(numeroDestinatario, destinatario.get("codiceFiscale"));
     }
 
+    @And("Si verifica quando viene inviato il messaggio al contatto di cortesia")
+    public void siVerificaQuandoVieneInviatoIlMessaggioAlContattoDiCortesia() {
+        logger.info("Si verifica l'invio del messaggio al contatto di cortesia inserito");
+        dettaglioNotificaMittenteSection.checkInvioMessaggioDiCortesia();
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */

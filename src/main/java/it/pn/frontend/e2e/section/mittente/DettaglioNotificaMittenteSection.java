@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.Assert;
@@ -274,7 +275,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     }
 
-    public void checkDoppioFallimentoInvioViaPEC(int numeroFallimenti){
+    public void checkDoppioFallimentoInvioViaPEC(int numeroFallimenti) {
         try {
             By invioPECFallitoBy = By.xpath("//span[text()='Invio via PEC fallito']");
             List<WebElement> invioPECFallitoList = driver.findElements(invioPECFallitoBy);
@@ -317,6 +318,32 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         } catch (TimeoutException e) {
             logger.error("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
             Assert.fail("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
+        }
+    }
+
+    public void checkInvioMessaggioDiCortesia() {
+        boolean testSuccess = false;
+        for (int i = 0; i < 8; i++) {
+            try {
+                WebElement vediPiuDettagli = driver.findElement(By.id("more-less-timeline-step"));
+                if (vediPiuDettagli != null){
+                    vediPiuDettagli.click();
+                }
+                WebElement messaggioCortesia = driver.findElement(By.xpath("//span[contains(text(), 'Invio del messaggio di cortesia')]"));
+                if (messaggioCortesia != null) {
+                    logger.info("L'invio del messaggio al contatto di cortesia è avvenuto");
+                    testSuccess = true;
+                    break;
+                }
+            } catch (NoSuchElementException e) {
+                logger.info("Dopo " + (i + 1) + " tentativi l'invio del messaggio al contatto di cortesia non è avvenuto");
+            }
+            WebTool.waitTime(15);
+            driver.navigate().refresh();
+        }
+        if (!testSuccess) {
+            logger.error("L'invio del messaggio al contatto di cortesia non è avvenuto");
+            Assert.fail("L'invio del messaggio al contatto di cortesia non è avvenuto");
         }
     }
 }
