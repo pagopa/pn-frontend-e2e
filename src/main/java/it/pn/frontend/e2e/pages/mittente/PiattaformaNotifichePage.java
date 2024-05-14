@@ -1014,4 +1014,58 @@ public class PiattaformaNotifichePage extends BasePage {
         }
 
     }
+    public void checkAllegatoScaricabile(String descrizioneAllegato) {
+        try {
+            By linkAllegato = By.xpath("//button[contains(., '" + descrizioneAllegato + "') and @id='document-button']");
+            getWebDriverWait(10).withMessage("Non esiste il bottone per il download degli allegati, si procede con il test").until(ExpectedConditions.visibilityOfElementLocated(linkAllegato));
+            logger.error("Non è corretto che il bottone per il download dell'allegato sia visibile");
+            Assert.fail("Non è corretto che il bottone per il download dell'allegato sia visibile");
+        } catch (TimeoutException e) {
+            logger.info("Non è visibile il bottone per il download dell'allegato: " + e.getMessage());
+        }
+    }
+
+    public void checkAARScaricabili() {
+        try {
+            By linkAAR = By.xpath("//button[contains(., 'Avviso di avvenuta ricezione') and @id='document-button']");
+            getWebDriverWait(10).withMessage("Il bottone per il download degli AAR non è visibile e non è disattivato").until(ExpectedConditions.and(
+                    ExpectedConditions.attributeToBe(linkAAR, "disabled", "true"),
+                    ExpectedConditions.visibilityOfElementLocated(linkAAR)
+            ));
+        } catch (TimeoutException e) {
+            logger.error("Il bottone per il download degli AAR è abilitato");
+            Assert.fail("Il bottone per il download degli AAR è abilitato");
+        }
+    }
+
+    public void checkAttestazioniOpponibiliATerziScaricabili() {
+        try {
+            By linkAttestazione = By.xpath("//button[contains(text(), 'Attestazione opponibile a terzi') and @data-testid='download-legalfact']");
+            getWebDriverWait(10).withMessage("Il bottone per il download delle attestazioni opponibili a terzi non è visibile e non è disattivato").until(ExpectedConditions.and(
+                    ExpectedConditions.attributeToBe(linkAttestazione, "disabled", "true"),
+                    ExpectedConditions.visibilityOfElementLocated(linkAttestazione)
+            ));
+        } catch (TimeoutException e) {
+            logger.error("Il bottone per scaricare le attestazioni opponibili a terzi è abilitato");
+            Assert.fail("Il bottone per scaricare le attestazioni opponibili a terzi è abilitato");
+        }
+    }
+
+    public void checkRicevutePECScaricabili() {
+        try {
+            By linkAccettazionePEC = By.xpath("//button[contains(., 'Ricevuta di accettazione PEC') and @data-testid='download-legalfact']");
+            By linkConsegnaPEC = By.xpath("//button[contains(., 'Ricevuta di consegna PEC') and @data-testid='download-legalfact']");
+            getWebDriverWait(10).withMessage("Il bottone per scaricare la ricevuta di accettazione PEC non è visibile e non è disattivato").until(ExpectedConditions.and(
+                    ExpectedConditions.attributeToBe(linkAccettazionePEC, "disabled", "true"),
+                    ExpectedConditions.visibilityOfElementLocated(linkAccettazionePEC)
+            ));
+            getWebDriverWait(10).withMessage("Il bottone per scaricare la ricevuta di consegna PEC non è visibile e non è disattivato").until(ExpectedConditions.and(
+                    ExpectedConditions.attributeToBe(linkConsegnaPEC, "disabled", "true"),
+                    ExpectedConditions.visibilityOfElementLocated(linkConsegnaPEC)
+            ));
+        } catch (TimeoutException e) {
+            logger.error("I bottoni per il download delle ricevute PEC non sono correttamente visualizzati e disabilitati con errore: " + e.getMessage());
+            Assert.fail("I bottoni per il download delle ricevute PEC non sono correttamente visualizzati e disabilitati con errore: " + e.getMessage());
+        }
+    }
 }
