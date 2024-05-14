@@ -179,7 +179,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         try {
             getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(this.confermaButtonPopUp));
             this.confermaButtonPopUp.click();
-            By confermaButtonPostInserimentoBy = By.id("confirmDialog");
+            By confermaButtonPostInserimentoBy = By.xpath("//button[contains(text(), 'Conferma')]");
             if (!driver.findElements(confermaButtonPostInserimentoBy).isEmpty()) {
                 this.element(confermaButtonPostInserimentoBy).click();
             }
