@@ -48,8 +48,6 @@ public class NotificaMittentePagoPATest {
     private final InformazioniPreliminariPASection informazioniPreliminariPASection = new InformazioniPreliminariPASection(this.driver);
     private Map<String, Object> datiNotifica = new HashMap<>();
     private Map<String, String> datiNotificaMap = new HashMap<>();
-    private Map<String, String> destinatarioMap = new HashMap<>();
-    private Map<String, String> indirizzoMap = new HashMap<>();
     private Map<String, Object> personaFisica = new HashMap<>();
     private Map<String, Object> personaGiuridica = new HashMap<>();
     private Map<String, Object> personeFisiche = new HashMap<>();
@@ -1043,7 +1041,6 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.inserireProvincia(indirizzo.get("provincia"));
         destinatarioPASection.inserireCodicePostale(indirizzo.get("cap"));
         destinatarioPASection.inserireStato(indirizzo.get("stato"));
-        indirizzoMap = indirizzo;
     }
 
     @Then("Nella section Allegati si carica un atto")
