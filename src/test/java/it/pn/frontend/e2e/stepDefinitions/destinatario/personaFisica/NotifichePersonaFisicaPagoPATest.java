@@ -14,6 +14,7 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -356,6 +357,14 @@ public class NotifichePersonaFisicaPagoPATest {
     @And("Si controlla il dettaglio della notifica")
     public void siControllaIlDettaglioDellaNotifica() {
         dettaglioNotifica.waitLoadDettaglioNotificaDESection();
+    }
+
+    @And("Si controlla che nel portale del destinatario la notifica sia {string} e si chiude la scheda")
+    public void siControllaCheNelPortaleDelDestinatarioLaNotificaSiaESiChiudeLaScheda(String statoNotifica) {
+        logger.info("Si controlla che anche nel portale del destinatario la notifica sia in stato " + statoNotifica + " e si chiude la scheda");
+        piattaformaNotifichePage.selezionaNotifica();
+        piattaformaNotifichePage.verificaPresenzaStato(statoNotifica);
+        WebTool.closeTab();
     }
 }
 

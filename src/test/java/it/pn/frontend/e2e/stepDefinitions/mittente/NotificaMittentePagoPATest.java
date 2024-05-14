@@ -20,7 +20,6 @@ import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -59,7 +58,6 @@ public class NotificaMittentePagoPATest {
     private final String PF = "persona fisica";
     private final String PG = "persona giuridica";
     private final String PA = "pubblica amministrazione";
-
 
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
@@ -889,7 +887,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella section Destinatario inserire i dati del destinatario persona giuridica aggiuntiva")
     public void nellaSectionDestinatarioInserireIDatiDelDestinatarioPersonaGiuridichaAggiuntiva(Map<String, String> destinatario) {
-        logger.info("Si cerca di aggiungere la persone giuridica aggiuntiva");
+        logger.info("Si cerca di aggiungere la persona giuridica aggiuntiva");
         destinatarioPASection.inserimentoDestinatarioPGAggiuntivo(destinatario);
     }
 
@@ -987,7 +985,6 @@ public class NotificaMittentePagoPATest {
         }
 
     }
-
 
     @Then("Nella section Destinatario si inseriscono i dati del destinatario")
     public void nellaSectionDestinatarioSiInserisconoIDatiDelDestinatario(Map<String, String> destinatario) {
@@ -1146,11 +1143,11 @@ public class NotificaMittentePagoPATest {
     }
 
     @Then("In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline {string}")
-    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPFESiVerificaLaTimeline(String messagio) {
+    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPFESiVerificaLaTimeline(String messaggio) {
         WebTool.switchToPortal(AppPortal.PF);
         piattaformaNotifichePage.selezionaNotifica();
         WebTool.waitTime(5);
-        piattaformaNotifichePage.visualizzaTimeline(messagio);
+        piattaformaNotifichePage.visualizzaTimeline(messaggio);
         WebTool.closeTab();
     }
 
@@ -1203,6 +1200,44 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.verificaPresenzaStato(stato);
     }
 
+    @And("Si annulla la notifica")
+    public void siAnnullaLaNotifica() {
+        logger.info("Si clicca sul pusante annulla notifica");
+        WebTool.waitTime(10);
+        piattaformaNotifichePage.clickBottoneAnnullaNotifica();
+        piattaformaNotifichePage.clickAnnullaNotificaModale();
+    }
+
+    @And("Il bottone annulla notifica non è visualizzabile nella descrizione della notifica")
+    public void ilBottoneAnnullaNotificaNonÈVisualizzabileNellaDescrizioneDellaNotifica() {
+        logger.info("Si controlla che il bottone annulla notifica non sia visualizzabile");
+        piattaformaNotifichePage.checkBottoneAnnullaNotifica();
+    }
+
+    @And("Nella pagina Piattaforma Notifiche la notifica presenta lo stato {string}")
+    public void nellaPaginaPiattaformaNotificheLaNotificaPresentaLoStato(String stato) {
+        logger.info("Si controlla che nella pagina piattaforma notifiche la notifica abbia lo stato " + stato);
+        piattaformaNotifichePage.checkStatoNotifica(stato);
+    }
+
+    @And("Si attende che lo stato della notifica sia {string}")
+    public void siAttendeCheLoStatoDellaNotificaSia(String statoNotifica) {
+        logger.info("Si clicca sulla notifica appena creata quando lo stato diventa: " + statoNotifica);
+        piattaformaNotifichePage.selezionaNotificaConStato(statoNotifica);
+    }
+
+    @Then("Si controlla la comparsa del pop up di conferma annullamento")
+    public void siControllaLaComparsaDelPopUpDiConfermaAnnullamento() {
+        logger.info("Si controlla la presenza del pop up di conferma dell'annullamento della notifica");
+        piattaformaNotifichePage.checkPopUpConfermaAnnullamentoNotifica();
+    }
+
+    @And("Si clicca il bottone indietro nella descrizione della notifica")
+    public void siCliccaIlBottoneIndietroNellaDescrizioneDellaNotifica() {
+        logger.info("Si clicca sul bottone indietro della pagina della descrizione della notifica");
+        dettaglioNotificaMittenteSection.clickIndietroButton();
+    }
+
     @And("Si verifica che l'invio della notifica sia fallito {int} volte")
     public void siVerificaCheLInvioDellaNotificaSiaFallitoDueVolte(int numeroFallimenti) {
         logger.info("Si verifica che l'invio della notifica sia fallito " + numeroFallimenti + " volta/e");
@@ -1244,7 +1279,6 @@ public class NotificaMittentePagoPATest {
             loginPGPagoPATest.logoutDaPortalePersonaGiuridica();
         }
     }
-
 
     @Then("Nella section del destinatario numero {int} si inseriscono i suoi dati")
     public void nellaSectionDelDestinatarioNumeroSiInserisconoISuoiDati(int numeroDestinatario, Map<String, String> destinatario) {

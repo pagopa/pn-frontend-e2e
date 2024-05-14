@@ -27,6 +27,9 @@ public class DettaglioNotificaSection extends BasePage {
     @FindBy(xpath = "//*[contains(@class, 'MuiTimelineItem-root')]")
     List<WebElement> tuttiStatiNotificaList;
 
+    @FindBy(id = "breadcrumb-indietro-button")
+    WebElement indietroButton;
+
     public DettaglioNotificaSection(WebDriver driver) {
         super(driver);
     }
@@ -37,14 +40,13 @@ public class DettaglioNotificaSection extends BasePage {
             boolean isSelfcare = driver.getCurrentUrl().contains("selfcare");
             By titleDettaglioNotificaField = By.id("title-of-page");
             By statoNotificaBy = By.id("notification-state");
-            By indietroButtonBy = By.id("breadcrumb-indietro-button");
             By informazioniBy = By.id("notification-detail-table");
             By allegatiSection = By.id("notification-detail-document-attached");
             By sezioneRecapiti = By.id("side-item-I tuoi recapiti");
             By altriDocumenti = isSelfcare ? By.xpath("//div[@data-testid='aarDownload']") : By.xpath("//div[@data-testid='aarBox']");
             By attestazione = By.xpath("//button[@data-testid='download-legalfact']");
             this.getWebDriverWait(30).withMessage("il titolo Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
-            this.getWebDriverWait(30).withMessage("il bottone indietro non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButtonBy));
+            this.getWebDriverWait(30).withMessage("il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
             this.getWebDriverWait(30).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
             this.getWebDriverWait(30).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
             this.getWebDriverWait(30).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
