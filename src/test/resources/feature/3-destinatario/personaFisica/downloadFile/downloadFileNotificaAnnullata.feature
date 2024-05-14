@@ -33,18 +33,16 @@ Feature: Mittente invia una notifica digitale che viene annullata e lato destina
       | stato     | Italia   |
     And Cliccare su continua
     And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
-    And Aspetta 120 secondi
-    And Si attende che lo stato della notifica sia "Perfezionata per decorrenza termini"
+    And Aspetta 180 secondi
     And Cliccare sulla notifica restituita
     And Si annulla la notifica
     Then Si controlla la comparsa del pop up di conferma annullamento
     Then Si verifica che la notifica abbia lo stato "Annullata"
     And Aspetta 120 secondi
-    Then In parallelo si effettua l'accesso al portale di "persona fisica"
+    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Cliccare sulla notifica restituita
     And Si verifica che gli allegati denominati "PAGAMENTO RATA IMU" non sono scaricabili
     And Si verifica che gli AAR non sono scaricabili
     And Si verifica che le attestazioni opponibili a terzi non siano scaricabili
     And Si verifica che non sia possibile scaricare le ricevute PEC
-    And Logout da portale mittente
-    And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
+    And Logout da portale persona fisica

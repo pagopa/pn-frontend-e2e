@@ -389,7 +389,6 @@ public class NotifichePersonaFisicaPagoPATest {
     public void siVerificaCheNonSiaPossibileScaricareLeRicevutePEC() {
         logger.info("Si controlla che non sia possibile scaricare le ricevute PEC");
         piattaformaNotifichePage.checkRicevutePECScaricabili();
-        WebTool.closeTab();
     }
 }
 
