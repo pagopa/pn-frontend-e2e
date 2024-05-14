@@ -277,7 +277,6 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata
     And Logout da portale mittente
 
   @annullamentoNotifica
-  @annullamentoNotificaDelegato
   @DeleghePF
   Scenario: [TA-FE INVIO DI UNA NOTIFICA E ANNULLAMENTO] - Mittente invia una notifica con delegato e la annulla, si verifica che sia visibile anche lato delegato
     Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
@@ -328,17 +327,15 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata
     Then Si controlla la comparsa del pop up di conferma annullamento
     Then Si verifica che la notifica abbia lo stato "Annullata"
     And Il bottone annulla notifica non è visualizzabile nella descrizione della notifica
-    And Si clicca il bottone indietro nella descrizione della notifica
     And Aspetta 120 secondi
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche la notifica presenta lo stato "Annullata"
     Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona fisica si clicca sulle notifiche di "Gaio Giulio Cesare"
     And Nella pagina Piattaforma Notifiche la notifica presenta lo stato "Annullata"
-    And Logout da portale mittente
+    And Logout da portale persona fisica
 
   @annullamentoNotifica
-  @annullamentonotificaconmessaggiodicortesiainviatoconsuccesso
   @recapitiPF
   Scenario: [TA-FE INVIO DI UNA NOTIFICA E ANNULLAMENTO] - Mittente invia una notifica e la annulla, il delegato riceve ugualmente il messaggio al contatto di cortesia impostato
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
