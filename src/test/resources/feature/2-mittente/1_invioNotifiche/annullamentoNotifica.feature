@@ -379,7 +379,6 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata
     And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
 
   @annullamentoNotifica
-  @annullamentonotificaconcontrolloricezionePEC
   @recapitiPF
   Scenario: [TA-FE INVIO DI UNA NOTIFICA E ANNULLAMENTO] - Mittente invia una notifica e la annulla, il delegato riceve ugualmente l'email alla PEC inserita
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
