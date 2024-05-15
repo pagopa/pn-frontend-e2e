@@ -47,6 +47,7 @@ Feature: Mittente invia una notifica digitale che viene annullata e lato destina
     And Aspetta 120 secondi
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Si seleziona la notifica
+    And Si verifica la presenza dello stato "Annullata" nella timeline della notifica
     And Si verifica che gli allegati denominati "PAGAMENTO RATA IMU" non sono scaricabili
     And Si verifica che gli AAR non sono scaricabili
     And Si verifica che le attestazioni opponibili a terzi non siano scaricabili

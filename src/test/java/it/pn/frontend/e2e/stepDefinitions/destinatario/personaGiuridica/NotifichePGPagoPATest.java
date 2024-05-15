@@ -10,6 +10,7 @@ import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
+import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
@@ -36,6 +37,7 @@ public class NotifichePGPagoPATest {
     Map<String, Object> personaGiuridica = new HashMap<>();
     private final LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
     private final PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+    private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
     private final DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
 
     @And("Nella Home page persona giuridica si clicca su Send Notifiche Digitali")
@@ -221,5 +223,11 @@ public class NotifichePGPagoPATest {
     public void siVerificaLaPresenzaDelBannerDiAvvisoAnnullamentoNotifica() {
         logger.info("Si verifica che nel dettaglio della notifica sia presente il banner di annullamento");
         destinatarioPage.checkBannerAnnullamentoNotifica();
+    }
+
+    @And("Si verifica la presenza dello stato {string} nella timeline della notifica")
+    public void siVerificaLaPresenzaDelloStatoNellaTimelineDellaNotifica(String statoNotifica) {
+        logger.info("Si verifica che nella timeline della notifica sia presente lo stato " + statoNotifica);
+        piattaformaNotifichePage.verificaPresenzaStato(statoNotifica);
     }
 }
