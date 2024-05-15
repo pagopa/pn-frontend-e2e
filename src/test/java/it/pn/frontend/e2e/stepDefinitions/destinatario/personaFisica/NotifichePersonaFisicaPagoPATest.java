@@ -15,6 +15,7 @@ import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -337,6 +338,14 @@ public class NotifichePersonaFisicaPagoPATest {
         }
     }
 
+    @And("Nella pagina Piattaforma Notifiche PF si filtra per codice IUN {string}")
+    public void nellaPaginaPiattaformaNotificheSiRecuperaUnCodiceIUNValido(String codiceIun) {
+        logger.info("Si recupera un codice IUN valido");
+
+            piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
+
+    }
+
     @And("Si Controlla la paginazione di default")
     public void siControllaLaPaginazioneDiDefault() {
         logger.info("controllo paginazione di default in pagina notifiche");
@@ -356,6 +365,18 @@ public class NotifichePersonaFisicaPagoPATest {
     @And("Si controlla il dettaglio della notifica")
     public void siControllaIlDettaglioDellaNotifica() {
         dettaglioNotifica.waitLoadDettaglioNotificaDESection();
+    }
+
+    @And("Si controlla testo in box pagamento")
+    public void siControllaTestoInBoxPagamento(Map<String,String> campiDiControllo) {
+        dettaglioNotifica.checkTestoBoxPagamento(By.xpath(campiDiControllo.get("xpath")), Boolean.valueOf(campiDiControllo.get("isTrue")));
+    }
+
+    @And("Nella pagina Piattaforma Notifiche di PF si visualizzano correttamente i filtri di ricerca")
+    public void nellaPaginaPiattaformaNotificheVisualizzanoCorrettamenteIFiltriDiRicerca() {
+        piattaformaNotifichePage.siVisualizzaCorrettamenteIlCodiceIUNField();
+        piattaformaNotifichePage.siVisualizzaCorrettamenteLaDataInzioField();
+        piattaformaNotifichePage.siVisualizzaCorrettamenteLaDataFineField();
     }
 }
 

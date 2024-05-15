@@ -101,4 +101,17 @@ public class DettaglioNotificaSection extends BasePage {
     public String getTextLinkAttestazioniOpponibili(int i) {
         return attestazioniFile.get(i).getText();
     }
+
+    public void checkTestoBoxPagamento(By xpath, Boolean isTrue) {
+        try {
+            if (isTrue){
+                getWebDriverWait(10).withMessage("campo non trovato").until(ExpectedConditions.visibilityOfElementLocated(xpath));
+            }else {
+                getWebDriverWait(10).withMessage("campo  trovato").until(ExpectedConditions.invisibilityOfElementLocated(xpath));
+            }
+        } catch (TimeoutException e) {
+            logger.error("il box pagamento non é stato caricato correttamente: " + e.getMessage());
+            Assert.fail("il box pagamento non é stato caricato correttamente: " + e.getMessage());
+        }
+    }
 }
