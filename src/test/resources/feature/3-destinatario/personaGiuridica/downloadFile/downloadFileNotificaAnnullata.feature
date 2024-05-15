@@ -51,4 +51,5 @@ Feature: Mittente invia una notifica digitale che viene annullata e lato destina
     And Si verifica che gli AAR non sono scaricabili
     And Si verifica che le attestazioni opponibili a terzi non siano scaricabili
     And Si verifica che non sia possibile scaricare le ricevute PEC
+    And Si verifica la presenza del banner di avviso annullamento notifica
     And Logout da portale persona giuridica

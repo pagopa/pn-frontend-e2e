@@ -85,4 +85,15 @@ public class DestinatarioPage extends BasePage {
         singolaNotificaDelegante.click();
     }
 
+    public void checkBannerAnnullamentoNotifica() {
+        try{
+            By bannerAnnullamentoNotificaBy = By.xpath("//div[@data-testid='cancelledAlertText']");
+            getWebDriverWait(10).withMessage("Il banner di annullamento della notifica non è presente").until(ExpectedConditions.visibilityOfElementLocated(bannerAnnullamentoNotificaBy));
+            getWebDriverWait(10).withMessage("Il banner di annullamento della notifica presenta la corretta descrizione").until(
+                    ExpectedConditions.attributeToBe(bannerAnnullamentoNotificaBy, "textContent", "Questa notifica è stata annullata dall’ente mittente. Puoi ignorarne il contenuto."));
+        } catch (TimeoutException e){
+            logger.error("Il banner di annullamento della notifica non è presente e non presenta la corretta descrizione con errore: " + e.getMessage());
+            Assert.fail("Il banner di annullamento della notifica non è presente e non presenta la corretta descrizione con errore: " + e.getMessage());
+        }
+    }
 }

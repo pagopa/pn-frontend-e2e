@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.common;
 
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -17,6 +18,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     @FindBy(xpath = "//button[@data-testid='add email']")
     WebElement avvisamiViaEmailButton;
+
     @FindBy(id = "code-confirm-button")
     WebElement confermaButtonPopUp;
 
@@ -179,7 +181,8 @@ public class RecapitiDestinatarioPage extends BasePage {
         try {
             getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(this.confermaButtonPopUp));
             this.confermaButtonPopUp.click();
-            By confermaButtonPostInserimentoBy = By.xpath("//button[contains(text(), 'Conferma')]");
+            WebTool.waitTime(5);
+            By confermaButtonPostInserimentoBy = By.xpath("//div[@data-testid='dialog-actions']/button[contains(text(), 'Conferma')]");
             if (!driver.findElements(confermaButtonPostInserimentoBy).isEmpty()) {
                 this.element(confermaButtonPostInserimentoBy).click();
             }
