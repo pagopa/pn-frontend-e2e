@@ -12,8 +12,8 @@ Feature: Mittente visualizza correttamente la notifica in stato Annulato
     And Cliccare sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si verifica che la notifica abbia lo stato "Annullata"
-    And Nella sezione Dettaglio Notifiche si scarica il file AAR
-    Then Si controlla il testo all interno del file "Avviso_di_avvenuta_ricezione"
+    And Nella sezione Dettaglio Notifiche si scarica il file Attestazioni Opponibili
+    Then Si controlla il testo all interno del file "Attestazioni_Opponoboli"
     And Logout da portale mittente
 
 

@@ -70,6 +70,18 @@ public class RicercaNotificheMittentePagoPATest {
         }
     }
 
+    @And("Si visualizza correttamente il messaggio notifica annullata")
+    public void siVisulizzaIlMessagioAnnullato(){
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        if(piattaformaNotifichePGPAPage.messaggioNotificaAnnullataDisplayed()){
+            logger.info("Si visualizza correttamente il messaggio notifica annulata");
+        }else{
+            logger.error("Non si visualizza correttamente il messaggio notifica annulata");
+            Assert.fail("Non si visualizza correttamente il messaggio notifica annulata");
+        }
+
+    }
+
 
     @And("Si verifica che il bottone Filtra sia disabilitato")
     public void siVerificaCheIlBottoneFiltraSiaDisabilitato() {
