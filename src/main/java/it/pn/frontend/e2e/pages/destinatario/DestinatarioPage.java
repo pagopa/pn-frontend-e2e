@@ -54,9 +54,9 @@ public class DestinatarioPage extends BasePage {
             if(isTextboxInvalid.equals(ariaInvalidInizio) || isTextboxInvalid.equals(ariaInvalidFine)){
                 logger.info("Almeno un campo data è in stato invalido");
             }else{
+                invalidBoxDate = false;
                 logger.error("Nessuno dei campi data è passato allo stato invalido");
                 Assert.fail("Nessuno dei campi data è passato allo stato invalido");
-                invalidBoxDate = false;
             }
         } catch (TimeoutException e){
             logger.error("Campi data non visualizzati correttamente con errore: " + e.getMessage());
