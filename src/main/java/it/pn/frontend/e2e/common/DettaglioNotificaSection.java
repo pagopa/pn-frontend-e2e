@@ -114,4 +114,32 @@ public class DettaglioNotificaSection extends BasePage {
             Assert.fail("il box pagamento non é stato caricato correttamente: " + e.getMessage());
         }
     }
+
+    public void waitLoadDettaglioNotificaAnnullataDESection() {
+        try {
+            boolean isSelfcare = driver.getCurrentUrl().contains("selfcare");
+            By titleDettaglioNotificaField = By.id("title-of-page");
+            By statoNotificaBy = By.id("notification-state");
+            By indietroButtonBy = By.id("breadcrumb-indietro-button");
+            By informazioniBy = By.id("notification-detail-table");
+            By allegatiSection = By.id("notification-detail-document-attached");
+            By sezioneRecapiti = By.id("side-item-I tuoi recapiti");
+            By altriDocumenti = isSelfcare ? By.xpath("//div[@data-testid='aarDownload']") : By.xpath("//div[@data-testid='aarBox']");
+            By attestazione = By.xpath("//button[@data-testid='download-legalfact']");
+            getWebDriverWait(30).withMessage("il titolo Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
+            getWebDriverWait(30).withMessage("il bottone indietro non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButtonBy));
+            getWebDriverWait(30).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
+            getWebDriverWait(30).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
+            getWebDriverWait(30).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
+            if (!isSelfcare) {
+                getWebDriverWait(30).withMessage("Il sezione recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(sezioneRecapiti));
+            }
+           getWebDriverWait(30).withMessage("Il sezione altri documenti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(altriDocumenti));
+            getWebDriverWait(30).withMessage("Il pulsante sezione attestazione opponibile non è visibile").until(ExpectedConditions.visibilityOfElementLocated(attestazione));
+            logger.info("Dettaglio Notifica Section caricata");
+        } catch (TimeoutException e) {
+            logger.error("Dettaglio Notifica Section non caricata con errore: " + e.getMessage());
+            Assert.fail("Dettaglio Notifica Section non caricata con errore: " + e.getMessage());
+        }
+    }
 }
