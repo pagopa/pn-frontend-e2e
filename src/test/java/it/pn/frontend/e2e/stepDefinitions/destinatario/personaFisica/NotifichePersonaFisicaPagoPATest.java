@@ -14,6 +14,7 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -383,6 +384,14 @@ public class NotifichePersonaFisicaPagoPATest {
     public void siVisualizzaCorrettamenteLaSectionDettaglioNotificaAnnullataPersonaFisica() {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         dettaglioNotificaSection.waitLoadDettaglioNotificaAnnullataDESection();
+    }
+
+    @And("Si controlla lo stato timeline in dettaglio notifica")
+    public void siControllaLoStatoTimelineInDettaglioNotificaPF(Map<String, String> datiDettaglioNotifica) {
+        String idStato = datiDettaglioNotifica.get("xpath");
+        dettaglioNotifica.waitLoadDettaglioNotificaDESection();
+        WebTool.waitTime(2);
+        dettaglioNotifica.checkStatoTimeline(idStato);
     }
 }
 

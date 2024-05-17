@@ -148,4 +148,15 @@ public class DettaglioNotificaSection extends BasePage {
             Assert.fail("Dettaglio Notifica Annullata Section non caricata con errore: " + e.getMessage());
         }
     }
+
+    public void checkStatoTimeline(String statoTimeline){
+        try {
+            By stato = By.xpath(statoTimeline);
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(stato));
+            logger.info("stato timeline checkato con successo avvenuta");
+        } catch (TimeoutException e) {
+            logger.error("checkato stato timeline non avvenuta con errore: " + e.getMessage());
+            Assert.fail("checkato stato timeline non avvenuta con errore: " + e.getMessage());
+        }
+    }
 }
