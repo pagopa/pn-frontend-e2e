@@ -1,6 +1,6 @@
 Feature:Controllo dati notifica con pagamento
 
-  @ControlloNotificaConPagamento
+  @ControlloNotificaConPagamento8
   Scenario:[NOTIFICA-ANNULLATA CON PAGAMENTO AFFETTUATO] Verifica testo rimborso su notifica pagata e successivamente annullata
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche di PF si visualizzano correttamente i filtri di ricerca
@@ -13,6 +13,28 @@ Feature:Controllo dati notifica con pagamento
       | xpath    | //div[@data-testid='cancelledAlertPayment']|
       | isTrue    | true         |
     And Logout da portale persona fisica
+
+  @ControlloNotificaConPagamento7
+  Scenario:[NOTIFICA-AVVISO PAGO-PA DA PAGARE] Verifica dati  box pagamento
+    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Nella pagina Piattaforma Notifiche di PF si visualizzano correttamente i filtri di ricerca
+    And Nella pagina Piattaforma Notifiche PF si filtra per codice IUN "XDNJ-ZKJL-DQRZ-202405-X-1"
+    And Cliccare sul bottone Filtra persona fisica
+    And Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN "XDNJ-ZKJL-DQRZ-202405-X-1"
+    And Cliccare sulla notifica restituita
+    Then Si visualizza correttamente la section Dettaglio Notifica persona fisica
+    And Si controlla testo in box pagamento
+      | xpath    | //span[contains(text(),"Codice avviso")]|
+      | isTrue    | true         |
+    And Si controlla testo in box pagamento
+      | xpath    | //span[contains(text(),"Scade il")]|
+      | isTrue    | true         |
+    And Si controlla testo in box pagamento
+      | xpath    | //p[@data-testid="notification-payment-recipient-subtitle"]|
+      | isTrue    | true         |
+    And Logout da portale persona fisica
+
+
 
   @ControlloNotificaConPagamento1
   Scenario:[NOTIFICA- AVVISO PAGO-PA COSTI INCLUSI] Verifica testo avviso pago pa e notifica con costi inclusi
@@ -151,3 +173,22 @@ Feature:Controllo dati notifica con pagamento
 
 
 
+  @ControlloNotificaConPagamento6
+  Scenario:[NOTIFICA-MULTIDESTINATARIO- F24 COSTI NON INCLUSI] Verifica testo avviso pago pa con anche f24 e notifica senza costi inclusi
+    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Nella pagina Piattaforma Notifiche di PF si visualizzano correttamente i filtri di ricerca
+    And Nella pagina Piattaforma Notifiche PF si filtra per codice IUN "UNUX-TQKU-UDXR-202405-L-1"
+    And Cliccare sul bottone Filtra persona fisica
+    And Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN "UNUX-TQKU-UDXR-202405-L-1"
+    And Cliccare sulla notifica restituita
+    Then Si visualizza correttamente la section Dettaglio Notifica persona fisica
+    And Si controlla lo stato timeline in dettaglio notifica
+      | xpath    | //span[contains(text(),"L'invio della notifica è terminato in quanto un recapito di almeno un destinatario è valido.")]|
+    # il parametro isTrue é utilizzato per verificare se un elemento deve esistere o no
+    And Si controlla testo in box pagamento
+      | xpath    | //p[@data-testid='f24-apply-costs-caption']|
+      | isTrue    | false         |
+    And Si controlla testo in box pagamento
+      | xpath    | //button[@data-testid='download-f24-button']|
+      | isTrue    | true         |
+    And Logout da portale persona fisica
