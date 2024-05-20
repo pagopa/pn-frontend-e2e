@@ -206,6 +206,26 @@ public class DownloadFileMittentePagoPATest {
         downloadFile.controlloDownload(pathOfDownloadedFile, count);
     }
 
+    @Then("Si clicca sul documento allegato")
+    public void clickDocumentoAllegato(){
+        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
+        dettaglioNotificaMittenteSection.clickLinkDocumentiAllegati();
+        driver.navigate().back();
+    }
+
+    @Then("Si clicca sul documento AAR")
+    public void clickDocumentoAAR(){
+        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
+        dettaglioNotificaMittenteSection.clickLinkAvvenutaRicezione(0);
+        driver.navigate().back();
+    }
+
+    @Then("Si clicca sul documento Attestazione")
+    public void clickDocumentoAttestazione(){
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        dettaglioNotificaSection.clickLinkAttestazioniOpponibile(0);
+        driver.navigate().back();
+    }
     @And("Nella sezione Dettaglio Notifiche si scarica il file AAR")
     public void downloadFileAAR(){
         logger.info("Si scaricano solo i file AAR all'interno della notifica");
