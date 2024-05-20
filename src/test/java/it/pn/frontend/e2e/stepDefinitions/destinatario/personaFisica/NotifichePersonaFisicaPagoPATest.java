@@ -393,6 +393,11 @@ public class NotifichePersonaFisicaPagoPATest {
         WebTool.waitTime(2);
         dettaglioNotifica.checkStatoTimeline(idStato);
     }
+
+    @And("Si seleziona un avviso pagopa")
+    public void siSelezionaUnAvvisoPagopa() {
+        dettaglioNotifica.selezioneAvvisoPagoPa();
+    }
 }
 
 

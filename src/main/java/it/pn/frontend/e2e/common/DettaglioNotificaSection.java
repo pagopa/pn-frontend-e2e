@@ -27,6 +27,8 @@ public class DettaglioNotificaSection extends BasePage {
     @FindBy(xpath = "//*[contains(@class, 'MuiTimelineItem-root')]")
     List<WebElement> tuttiStatiNotificaList;
 
+
+
     public DettaglioNotificaSection(WebDriver driver) {
         super(driver);
     }
@@ -157,6 +159,18 @@ public class DettaglioNotificaSection extends BasePage {
         } catch (TimeoutException e) {
             logger.error("checkato stato timeline non avvenuta con errore: " + e.getMessage());
             Assert.fail("checkato stato timeline non avvenuta con errore: " + e.getMessage());
+        }
+    }
+
+    public void selezioneAvvisoPagoPa() {
+        try {
+            By checkboxAvvisoPagoPa = By.xpath("//span[@data-testid='radio-button']");
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(checkboxAvvisoPagoPa));
+            element(checkboxAvvisoPagoPa).click();
+            logger.info("check su avviso pagopa avvenuto con successo");
+        }catch (TimeoutException e){
+            logger.error("check su avviso pagopa non avvenuto con successo: " + e.getMessage());
+            Assert.fail("check su avviso pagopa non avvenuto con successo: " + e.getMessage());
         }
     }
 }

@@ -173,7 +173,7 @@ Feature:Controllo dati notifica con pagamento
 
 
 
-  @ControlloNotificaConPagamento6
+  @ControlloNotificaConPagamento9
   Scenario:[NOTIFICA-MULTIDESTINATARIO- F24 COSTI NON INCLUSI] Verifica testo avviso pago pa con anche f24 e notifica senza costi inclusi
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche di PF si visualizzano correttamente i filtri di ricerca
@@ -192,3 +192,26 @@ Feature:Controllo dati notifica con pagamento
       | xpath    | //button[@data-testid='download-f24-button']|
       | isTrue    | true         |
     And Logout da portale persona fisica
+
+  @ControlloNotificaConPagamento10
+  Scenario:[NOTIFICA-MONODESTINATARIO- MULTI AVVISO PAGO-PA] Verifica multi avviso pago pa e click su di esso
+    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Nella pagina Piattaforma Notifiche di PF si visualizzano correttamente i filtri di ricerca
+    And Nella pagina Piattaforma Notifiche PF si filtra per codice IUN "UKNJ-JHLX-XGHQ-202405-L-1"
+    And Cliccare sul bottone Filtra persona fisica
+    And Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN "UKNJ-JHLX-XGHQ-202405-L-1"
+    And Cliccare sulla notifica restituita
+    Then Si visualizza correttamente la section Dettaglio Notifica persona fisica
+    # il parametro isTrue é utilizzato per verificare se un elemento deve esistere o no
+    And Si controlla testo in box pagamento
+      | xpath    | //button[@data-testid='pay-button'][@disabled]|
+      | isTrue    | true         |
+    And Si seleziona un avviso pagopa
+    And Si controlla testo in box pagamento
+      | xpath    | //button[@data-testid='pay-button' and not(@disabled)]|
+      | isTrue    | true         |
+    And Si controlla testo in box pagamento
+      | xpath    | //button[@data-testid='download-f24-button']|
+      | isTrue    | true         |
+    And Logout da portale persona fisica
+
