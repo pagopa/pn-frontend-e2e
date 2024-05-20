@@ -12,7 +12,7 @@ Feature: Mittente visualizza correttamente la notifica in stato Annulato
     And Cliccare sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si visualizza correttamente box di pagamento
-    And Si visualizza correttamente il messaggio notifica annulata
+    And Si visualizza correttamente il messaggio notifica annullata
     Then Si verifica che la notifica abbia lo stato "Annullata"
     And Logout da portale mittente
 
