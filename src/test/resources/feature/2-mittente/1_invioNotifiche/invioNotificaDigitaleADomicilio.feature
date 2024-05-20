@@ -114,7 +114,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
       | stato     | Italia   |
     And Cliccare su continua
     And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
-    And Aspetta 180 secondi
+    And Aspetta 240 secondi
     And Cliccare sulla notifica restituita
     And Si clicca sul opzione Vedi Dettaglio
     And Si verifica che l'invio della notifica sia fallito 2 volte

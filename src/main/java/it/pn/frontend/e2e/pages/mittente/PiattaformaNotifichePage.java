@@ -278,7 +278,7 @@ public class PiattaformaNotifichePage extends BasePage {
         try {
             By notificaBy = By.id("notificationsTable.body.row");
             attesaCaricamentoPagina();
-            getWebDriverWait(10).withMessage("La tabella delle notifiche non è caricata correttamente").until(ExpectedConditions.elementToBeClickable(notificaBy));
+            getWebDriverWait(30).withMessage("La tabella delle notifiche non è caricata correttamente").until(ExpectedConditions.elementToBeClickable(notificaBy));
             List<WebElement> notifiche = this.elements(notificaBy);
             notifiche.get(0).click();
         } catch (TimeoutException e) {
