@@ -823,7 +823,7 @@ public class NotificaMittentePagoPATest {
 
         this.personaGiuridica = dataPopulation.readDataPopulation(personaGiuridica + ".yaml");
 
-        destinatarioPASection.checkBoxAggiungiDomicilio();
+        destinatarioPASection.checkBoxAggiungiDomicilioDigitale();
         destinatarioPASection.insertDomicilioDigitale(this.personaGiuridica.get("emailPec").toString());
     }
 
@@ -851,7 +851,7 @@ public class NotificaMittentePagoPATest {
 
         Map<String, Object> personaGiuridicaErrore1 = dataPopulation.readDataPopulation(personaGiuridicaErrore + ".yaml");
 
-        destinatarioPASection.checkBoxAggiungiDomicilio();
+        destinatarioPASection.checkBoxAggiungiDomicilioDigitale();
         destinatarioPASection.insertDomicilioDigitaleErrato(personaGiuridicaErrore1.get("emailPec").toString());
         Assert.assertEquals("l'errore  attuale 'Indirizzo PEC non valido' è diverso di :" + destinatarioPASection.getDomicilioDigitaleError(), "Indirizzo PEC non valido", destinatarioPASection.getDomicilioDigitaleError());
 
@@ -1016,7 +1016,7 @@ public class NotificaMittentePagoPATest {
         if (tipoIndirizzo.contains("Aggiungi un indirizzo fisico")) {
             destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
         } else {
-            destinatarioPASection.checkBoxAggiungiDomicilio();
+            destinatarioPASection.checkBoxAggiungiDomicilioDigitale();
         }
         destinatarioPASection.inserireIndirizzo(indirizzo.get("indirizzo"));
         destinatarioPASection.inserireNumeroCivico(indirizzo.get("civico"));
@@ -1117,6 +1117,12 @@ public class NotificaMittentePagoPATest {
     @And("Si seleziona la notifica")
     public void siSelezionaLaNotifica() {
         piattaformaNotifichePage.clickSuNotifica();
+    }
+
+    @And("Si controlla allegato in timeline")
+    public void siControllaAllegatoInTimeline(Map<String, String> xpathAllegatoNotifica) {
+       // WebElement linkAllegato =
+        //dettaglioNotificaMittenteSection.scrollToElementAndClick();
     }
 
     /**
@@ -1246,7 +1252,7 @@ public class NotificaMittentePagoPATest {
 
         this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
-        destinatarioPASection.checkBoxAggiungiDomicilio();
+        destinatarioPASection.checkBoxAggiungiDomicilioDigitale();
         destinatarioPASection.insertDomicilioDigitale(this.personaFisica.get("emailPecErrore").toString());
     }
 
@@ -1348,7 +1354,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Si aggiungi un domicilio digitale {string}")
     public void SiAggiungiUnDomicilioDigitale(String mail){
-        destinatarioPASection.checkBoxAggiungiDomicilio();
+        destinatarioPASection.checkBoxAggiungiDomicilioDigitale();
         destinatarioPASection.insertDomicilioDigitale(mail);
     }
 

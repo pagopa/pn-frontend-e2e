@@ -142,7 +142,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         try{
             getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(vediDettagliButton.get(1)));
             vediDettagliButton.get(1).click();
-        } catch (TimeoutException e) {
+        } catch (Exception e) {
             logger.info("ulteriore vedi dettaglio non presente");
         }
 

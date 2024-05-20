@@ -79,6 +79,8 @@ public class DestinatarioPASection extends BasePage {
     @FindBy(xpath = "//input[@value='PG']")
     WebElement personaGiuridicaRadioButton;
 
+    @FindBy(id = "add-digital-domicile")
+    WebElement checkDomicilioDigitale;
 
     public DestinatarioPASection(WebDriver driver) {
         super(driver);
@@ -134,6 +136,11 @@ public class DestinatarioPASection extends BasePage {
     public void selezionaAggiungiUnIndirizzoFisico() {
         logger.info("click su scelta indirizzo fisico");
         this.aggiungiUnIndirizzoFisicoCheckBox.click();
+    }
+
+    public void selezionaAggiungiUnIndirizzoDigitale() {
+        logger.info("click su scelta indirizzo digitale");
+        checkDomicilioDigitale.click();
     }
 
     public void inserireIndirizzo(String indirizzo) {
@@ -321,7 +328,7 @@ public class DestinatarioPASection extends BasePage {
         this.element(radioButtonPgBy).click();
     }
 
-    public void checkBoxAggiungiDomicilio() {
+    public void checkBoxAggiungiDomicilioDigitale() {
         this.checkBoxAggiungiDomicilioDigitale.click();
     }
 
@@ -380,6 +387,10 @@ public class DestinatarioPASection extends BasePage {
         inserireNomeDestinatario(datiNotificaMap.get("nomePF"));
         inserireCognomeDestinatario(datiNotificaMap.get("cognomePF"));
         inserireCodiceFiscaleDestinatario(datiNotificaMap.get("codiceFiscalePF"));
+        if (datiNotificaMap.get("email") != null && !datiNotificaMap.get("email").isBlank()  || datiNotificaMap.get("pec") != null && !datiNotificaMap.get("pec").isBlank()){
+            selezionaAggiungiUnIndirizzoDigitale();
+            insertDomicilioDigitale(datiNotificaMap.get("pec"));
+        }
         selezionaAggiungiUnIndirizzoFisico();
         inserireIndirizzo(datiNotificaMap.get("indirizzoPF"));
         inserireNumeroCivico(datiNotificaMap.get("numeroCivicoPF"));
