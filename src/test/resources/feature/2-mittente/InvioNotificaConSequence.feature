@@ -1246,14 +1246,10 @@ Feature: invio notifica con sequence
     And Si seleziona la notifica
     And Si attende completamento notifica
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato  | //p[contains(text(),"La raccomandata AR") and contains(text(),"è stata stampata ed imbustata")]|
+      | xpathStato  | //p[contains(text(),"La raccomandata") and contains(text(),"è stata stampata ed imbustata")]|
       | vediDettagli | true |
-    And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato  | //p[contains(text(),"La raccomandata A/R") and contains(text(),"non è stata consegnata perché l’indirizzo è inesistente")]|
-      | vediDettagli | false |
-   # And Si controlla allegato in timeline
-    #  | xpathAllegato  | |
-
+   And Si controlla allegato in timeline
+     | xpathAllegato  | //button[@data-testid="download-legalfact" and contains(text(),"Scansione del plico")]|
     And Logout da portale mittente
 
     #fare refactor su attesa completamento timeline

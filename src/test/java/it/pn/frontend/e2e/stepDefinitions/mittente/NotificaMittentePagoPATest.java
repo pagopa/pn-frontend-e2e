@@ -1121,8 +1121,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Si controlla allegato in timeline")
     public void siControllaAllegatoInTimeline(Map<String, String> xpathAllegatoNotifica) {
-       // WebElement linkAllegato =
-        //dettaglioNotificaMittenteSection.scrollToElementAndClick();
+        dettaglioNotificaMittenteSection.siCliccaSuAllegatoInTimeline(xpathAllegatoNotifica.get("xpathAllegato"));
     }
 
     /**

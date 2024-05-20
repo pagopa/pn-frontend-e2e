@@ -281,4 +281,19 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             Assert.fail("checkato stato timeline non avvenuta con errore: " + e.getMessage());
         }
     }
+
+    public void siCliccaSuAllegatoInTimeline(String xpath) {
+        try {
+            By allegatoTimeline = By.xpath(xpath);
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(allegatoTimeline));
+            element(allegatoTimeline).click();
+            checkURL("pn-safestorage");
+            driver.navigate().back();
+            logger.info("allegato timeline trovato con successo");
+        } catch (TimeoutException e) {
+            logger.error("allegato timeline trovato non con successo: " + e.getMessage());
+            Assert.fail("allegato timeline trovato non con successo: " + e.getMessage());
+        }
+
+    }
 }

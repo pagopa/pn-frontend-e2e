@@ -113,4 +113,8 @@ public class BasePage {
             element.sendKeys(Keys.BACK_SPACE);
         }
     }
+
+    public boolean checkURL(String url){
+        return driver.getCurrentUrl().contains(url);
+    }
 }
