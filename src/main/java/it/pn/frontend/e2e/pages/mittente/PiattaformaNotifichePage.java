@@ -908,7 +908,7 @@ public class PiattaformaNotifichePage extends BasePage {
             }else{
                 logger.error("Non si visualizza il messaggio di errore");
                 Assert.fail("Non si visualizza il messaggio di errore");
-            }
+             }
             }
             case 21 -> {
                 if (erroreMessaggio.getText().contains("passato troppo tempo da quando hai iniziato")){
