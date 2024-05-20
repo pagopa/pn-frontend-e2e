@@ -37,9 +37,34 @@ public class RicercaNotifichePersonaFisicaPATest {
         notifichePFPage.waitLoadNotificheDEPage();
     }
 
-    @And("Collegarsi a link {string}")
-    public void collegarsiLink(String url){
-        driver.navigate().to(url);
+    @And("Collegarsi a link con codice {int}")
+    public void collegarsiLink(int code){
+        switch (code) {
+            case 19 -> {
+                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=19");
+            }
+            case 20 -> {
+                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=20");
+            }
+            case 21 -> {
+                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=21");
+            }
+            case 22 -> {
+                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=22");
+            }
+            case 23 -> {
+                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=23");
+            }
+            case 25 -> {
+                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=25");
+            }
+            case 30 -> {
+                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=30");
+            }
+            case 1001 -> {
+                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=1001");
+            }
+            }
     }
 
     @And("Si visualizza correttamente il messaggio di errore {int}")
