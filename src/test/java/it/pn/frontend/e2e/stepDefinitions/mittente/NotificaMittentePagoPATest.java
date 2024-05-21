@@ -20,7 +20,6 @@ import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -1269,6 +1268,11 @@ public class NotificaMittentePagoPATest {
     public void siControllaSiaPresenteIlBoxPerIlPagamento() {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
         dettaglioNotificaMittenteSection.checkBoxPagamento();
+    }
+
+    @Then("Si controlla sia presente il modello F24")
+    public void siControllaSiaPresenteIlModelloF24() {
+        dettaglioNotificaMittenteSection.checkModelloF24();
     }
 
     /**

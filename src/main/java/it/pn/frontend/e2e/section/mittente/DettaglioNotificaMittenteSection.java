@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.Assert;
@@ -275,7 +274,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     }
 
-    public void checkDoppioFallimentoInvioViaPEC(int numeroFallimenti){
+    public void checkDoppioFallimentoInvioViaPEC(int numeroFallimenti) {
         try {
             By invioPECFallitoBy = By.xpath("//span[text()='Invio via PEC fallito']");
             List<WebElement> invioPECFallitoList = driver.findElements(invioPECFallitoBy);
@@ -322,19 +321,28 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void checkBoxPagamento() {
-        try{
-            By boxPagamentoContainer = By.xpath("//div[@data-testid='paymentInfoBox']");
-            WebElement container = driver.findElement(boxPagamentoContainer);
-            js().executeScript("arguments[0].scrollIntoView(true)", container);
-            logger.info("\n\n\n ho scorso nel posto che volevo \n\n\n");
-            WebTool.waitTime(10);
+        try {
+            WebElement boxPagamentoContainer = driver.findElement(By.xpath("//div[@data-testid='paymentInfoBox']"));
             By boxPagamento = By.xpath("//div[@data-testid='payment-item']");
-            logger.info("\n\n\n preso tutto \n\n\n");
-            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOfElementLocated(boxPagamentoContainer));
+            js().executeScript("arguments[0].scrollIntoView(true)", boxPagamentoContainer);
+            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(boxPagamentoContainer));
             getWebDriverWait(10).withMessage("Non si visualizza l'avviso PagoPA per il pagamento della notifica").until(ExpectedConditions.visibilityOfElementLocated(boxPagamento));
         } catch (TimeoutException e) {
-            logger.error("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
-            Assert.fail("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
+            logger.error("Box per il pagamento della notifica non visualizzato correttamente con errore: " + e.getMessage());
+            Assert.fail("Box per il pagamento della notifica non visualizzato correttamente con errore: " + e.getMessage());
+        }
+    }
+
+    public void checkModelloF24() {
+        try {
+            WebElement boxPagamentoContainer = driver.findElement(By.xpath("//div[@data-testid='paymentInfoBox']"));
+            By modelloF24 = By.xpath("//span[@data-testid='f24']");
+            js().executeScript("arguments[0].scrollIntoView(true)", boxPagamentoContainer);
+            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(boxPagamentoContainer));
+            getWebDriverWait(10).withMessage("Non si visualizza il contenitore del modello F24").until(ExpectedConditions.visibilityOfElementLocated(modelloF24));
+        } catch (TimeoutException e) {
+            logger.error("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
+            Assert.fail("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
         }
     }
 }
