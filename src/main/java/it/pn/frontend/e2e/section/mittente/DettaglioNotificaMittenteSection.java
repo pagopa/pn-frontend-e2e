@@ -33,6 +33,12 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     @FindBy(xpath = "//button[contains(@data-testid,'breadcrumb-indietro-button')]")
     WebElement indietroButton;
 
+    @FindBy(xpath = "//div[@data-testid='paymentInfoBox']")
+    WebElement containerPaymentBox;
+
+    @FindBy(id = "recipients-select")
+    WebElement selectMultiDestinatario;
+
     private int numeriStatiNotifica;
 
     public DettaglioNotificaMittenteSection(WebDriver driver) {
@@ -320,12 +326,11 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         }
     }
 
-    public void checkBoxPagamento() {
+    public void checkAvvisoPagoPa() {
         try {
-            WebElement boxPagamentoContainer = driver.findElement(By.xpath("//div[@data-testid='paymentInfoBox']"));
             By boxPagamento = By.xpath("//div[@data-testid='payment-item']");
-            js().executeScript("arguments[0].scrollIntoView(true)", boxPagamentoContainer);
-            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(boxPagamentoContainer));
+            js().executeScript("arguments[0].scrollIntoView(true)", containerPaymentBox);
+            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(containerPaymentBox));
             getWebDriverWait(10).withMessage("Non si visualizza l'avviso PagoPA per il pagamento della notifica").until(ExpectedConditions.visibilityOfElementLocated(boxPagamento));
         } catch (TimeoutException e) {
             logger.error("Box per il pagamento della notifica non visualizzato correttamente con errore: " + e.getMessage());
@@ -335,14 +340,38 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void checkModelloF24() {
         try {
-            WebElement boxPagamentoContainer = driver.findElement(By.xpath("//div[@data-testid='paymentInfoBox']"));
             By modelloF24 = By.xpath("//span[@data-testid='f24']");
-            js().executeScript("arguments[0].scrollIntoView(true)", boxPagamentoContainer);
-            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(boxPagamentoContainer));
+            js().executeScript("arguments[0].scrollIntoView(true)", containerPaymentBox);
+            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(containerPaymentBox));
             getWebDriverWait(10).withMessage("Non si visualizza il contenitore del modello F24").until(ExpectedConditions.visibilityOfElementLocated(modelloF24));
         } catch (TimeoutException e) {
             logger.error("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
             Assert.fail("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
+        }
+    }
+
+    public void checkBoxPagamentoMultiDestinatario() {
+        try {
+            js().executeScript("arguments[0].scrollIntoView(true)", containerPaymentBox);
+            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(containerPaymentBox));
+            getWebDriverWait(10).withMessage("Non si visualizza l'input per la selezione del destinatario").until(ExpectedConditions.visibilityOf(selectMultiDestinatario));
+        } catch (TimeoutException e) {
+            logger.error("Dettaglio notifica multi destinatario non ancora pagata visualizzata non correttamente con errore: " + e.getMessage());
+            Assert.fail("Dettaglio notifica multi destinatario non ancora pagata visualizzata non correttamente con errore: " + e.getMessage());
+        }
+    }
+
+    public void clickMultiDestinatario() {
+        try {
+            js().executeScript("arguments[0].scrollIntoView(true)", selectMultiDestinatario);
+            getWebDriverWait(10).withMessage("L'input per la selezione del destinatario non è cliccabile").until(ExpectedConditions.elementToBeClickable(selectMultiDestinatario));
+            selectMultiDestinatario.click();
+            List<WebElement> selectOption = driver.findElements(By.xpath("//li[@role='option']"));
+            getWebDriverWait(10).withMessage("Non si visualizza la lista delle opzioni destinatario").until(ExpectedConditions.visibilityOfAllElements(selectOption));
+            selectOption.get(0).click();
+        } catch (TimeoutException e) {
+            logger.error("Non è stato possibile selezionare un destinatario con errore: " + e.getMessage());
+            Assert.fail("Non è stato possibile selezionare un destinatario con errore: " + e.getMessage());
         }
     }
 }
