@@ -25,6 +25,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     @FindBy(id = "recipientId")
     WebElement cfTextField;
+
     @FindBy(id = "filter-button")
     WebElement filtraButton;
 
@@ -42,7 +43,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
     @FindBy(id = "status")
     WebElement statoNotificaField;
-
 
     @FindBy(id = "side-item-API Key")
     WebElement apiKeyButton;
@@ -125,12 +125,12 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void selectFiltraButton() {
         try {
-            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(this.filtraButton));
-            this.filtraButton.click();
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(filtraButton));
+            filtraButton.click();
             logger.info("Bottone filtra cliccato correttamente");
         } catch (TimeoutException e) {
-            logger.error("Bottone filtra non cliccabile con errore " + e.getMessage());
-            Assert.fail("Bottone filtra non cliccabile con errore " + e.getMessage());
+            logger.error("Bottone filtra non cliccabile con errore: " + e.getMessage());
+            Assert.fail("Bottone filtra non cliccabile con errore: " + e.getMessage());
         }
     }
 
@@ -183,9 +183,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void inserimentoCodiceIUN(String codiceIUN) {
         try {
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.codiceIUNTextField));
-            this.codiceIUNTextField.click();
-            this.codiceIUNTextField.sendKeys(codiceIUN);
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(codiceIUNTextField));
+            codiceIUNTextField.click();
+            codiceIUNTextField.sendKeys(codiceIUN);
             logger.info("Codice IUN inserito");
         } catch (TimeoutException e) {
             logger.error("Codice IUN non inserito con errore " + e.getMessage());
@@ -889,4 +889,19 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(5).withMessage("Ci sono risultati disponibili per il filtro di ricerca").until(ExpectedConditions.visibilityOfElementLocated(noResultField));
     }
 
+    public void clickNotificaRicercata() {
+        logger.info("Si clicca la notifica ricercata");
+        try {
+            TimeUnit.SECONDS.sleep(2);
+            By notitifcaRicercata = By.id("notificationsTable.body.row");
+            getWebDriverWait(10).withMessage("La notifica ricercata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(notitifcaRicercata));
+            element(notitifcaRicercata).click();
+        } catch (TimeoutException e){
+            logger.error("Non si riesce a cliccare la notifica ricercata con errore: " + e.getMessage());
+            Assert.fail("Non si riesce a cliccare la notifica ricercata con errore: " + e.getMessage());
+        } catch (InterruptedException e){
+            logger.error("Attesa per rendere cliccabile la notifica interrota con errore: " + e.getMessage());
+            Assert.fail("Attesa per rendere cliccabile la notifica interrota con errore: " + e.getMessage());
+        }
+    }
 }

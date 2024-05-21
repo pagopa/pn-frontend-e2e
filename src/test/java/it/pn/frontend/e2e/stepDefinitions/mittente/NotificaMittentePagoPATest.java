@@ -1265,6 +1265,12 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.inserireCodiceFiscaleMultiDestinatario(numeroDestinatario, destinatario.get("codiceFiscale"));
     }
 
+    @Then("Si controlla sia presente il box per il pagamento")
+    public void siControllaSiaPresenteIlBoxPerIlPagamento() {
+        logger.info("Si controlla la presenza del box per il pagamento della notifica");
+        dettaglioNotificaMittenteSection.checkBoxPagamento();
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */

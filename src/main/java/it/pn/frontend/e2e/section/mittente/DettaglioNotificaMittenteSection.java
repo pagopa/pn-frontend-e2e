@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.Assert;
@@ -314,6 +315,23 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         try {
             By invioDomicilioSpecialeBy = By.xpath("//div[contains(span/text(), 'Invio via PEC fallito') and (//div[contains(p/text(), '" + domicilioSpeciale + "')])]");
             getWebDriverWait(10).withMessage("Non si visualizza l'invio della notifica al domicilio speciale nella timeline").until(ExpectedConditions.visibilityOfElementLocated(invioDomicilioSpecialeBy));
+        } catch (TimeoutException e) {
+            logger.error("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
+            Assert.fail("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
+        }
+    }
+
+    public void checkBoxPagamento() {
+        try{
+            By boxPagamentoContainer = By.xpath("//div[@data-testid='paymentInfoBox']");
+            WebElement container = driver.findElement(boxPagamentoContainer);
+            js().executeScript("arguments[0].scrollIntoView(true)", container);
+            logger.info("\n\n\n ho scorso nel posto che volevo \n\n\n");
+            WebTool.waitTime(10);
+            By boxPagamento = By.xpath("//div[@data-testid='payment-item']");
+            logger.info("\n\n\n preso tutto \n\n\n");
+            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOfElementLocated(boxPagamentoContainer));
+            getWebDriverWait(10).withMessage("Non si visualizza l'avviso PagoPA per il pagamento della notifica").until(ExpectedConditions.visibilityOfElementLocated(boxPagamento));
         } catch (TimeoutException e) {
             logger.error("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
             Assert.fail("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
