@@ -198,6 +198,7 @@ public class NotificaMittentePagoPATest {
         }
         allegatiPASection.inserimentoNomeAllegato(datiNotificaMap.get("nomeDocumentoNotifica"));
         nellaSectionAllegatiCliccareSulBottoneInvia();
+        WebTool.waitTime(5);
         siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata();
         cliccareSulBottoneVaiAlleNotifiche();
     }
