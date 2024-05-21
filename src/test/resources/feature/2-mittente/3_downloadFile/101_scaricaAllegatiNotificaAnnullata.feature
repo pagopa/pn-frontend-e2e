@@ -12,6 +12,9 @@ Feature: Mittente visualizza correttamente la notifica in stato Annulato
     And Cliccare sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si verifica che la notifica abbia lo stato "Annullata"
+     #per il momento non e possibile scaricare documento
+   #And Nella sezione Dettaglio Notifiche si scarica il documento allegato
+     # Then Si controlla il testo all interno del file "PN_NOTIFICATION_ATTACHMENTS"
     Then Si clicca sul documento allegato
     And Logout da portale mittente
 
