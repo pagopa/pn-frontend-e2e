@@ -160,6 +160,20 @@ public class RecapitiDestinatarioPage extends BasePage {
             Assert.fail("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
         }
     }
+    public void clearOTP() {
+        try {
+            By otpInputby = By.xpath("//input[contains(@id,'code-input')]");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(otpInputby));
+            List<WebElement> otpInputs = this.elements(otpInputby);
+            for (WebElement otpInput : otpInputs) {
+                clearWebElementField(otpInput);
+            }
+            logger.info("I campi di inserimento del codice OTP sono stati svuotati correttamente");
+        } catch (TimeoutException e) {
+            logger.error("Impossibile svuotare i campi di inserimento del codice OTP con errore: " + e.getMessage());
+            Assert.fail("Impossibile svuotare i campi di inserimento del codice OTP con errore: " + e.getMessage());
+        }
+    }
 
     public void confermaButtonClickPopUp() {
         try {
