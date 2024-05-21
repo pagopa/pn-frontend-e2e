@@ -67,8 +67,14 @@ public class AllegatiPASection extends BasePage {
     }
 
     public void selectInviaButton() {
-        getWebDriverWait(10).until(ExpectedConditions.and(ExpectedConditions.elementToBeClickable(inviaButton),ExpectedConditions.visibilityOf(inviaButton)));
-        inviaButton.click();
+
+        try {
+            getWebDriverWait(10).until(ExpectedConditions.and(ExpectedConditions.elementToBeClickable(inviaButton),ExpectedConditions.visibilityOf(inviaButton)));
+            inviaButton.click();
+            logger.info("click avvenuto con successo su invio allegati");
+        }catch (TimeoutException e) {
+            logger.error("click non avvenuto con successo su invio allegati con errore: "+e.getMessage());
+            Assert.fail("click non avvenuto con successo su invio allegati con errore: "+e.getMessage());        }
     }
 
     public boolean verificaMessaggioErrore() {
