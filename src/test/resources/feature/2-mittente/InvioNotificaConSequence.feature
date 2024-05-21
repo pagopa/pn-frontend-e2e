@@ -43,7 +43,7 @@ Feature: invio notifica con sequence
       | xpathStato  | //p[contains(text(),"C'è un nuovo documento allegato")]|
       | vediDettagli | false |
     And Si controlla lo stato timeline in dettaglio notifica
-      | idStato  | //div[@id='Destinatario irreperibile-status']  |
+      | xpathStato  | //div[@id='Destinatario irreperibile-status']  |
       | vediDettagli | false |
     And Logout da portale mittente
 
