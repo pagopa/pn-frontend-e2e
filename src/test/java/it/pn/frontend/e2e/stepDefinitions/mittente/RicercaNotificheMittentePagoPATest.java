@@ -488,4 +488,20 @@ public class RicercaNotificheMittentePagoPATest {
             Assert.fail("Campo stato notifica NON trovato");
         }
     }
+
+    @And("Nella pagina piattaforma notifiche si effettua la ricerca per codice IUN {string}")
+    public void nellaPaginaPiattformaNotificheSiEffettuaLaRicercaPerCodiceIUN(String codiceIUN) throws InterruptedException {
+        logger.info("Si cerca una notifica tramite IUN: " + codiceIUN);
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
+        piattaformaNotifichePage.selectFiltraButton();
+    }
+
+
+    @And("Si clicca la notifica ricercata")
+    public void siCliccaLaNotificaRicercata() {
+        logger.info("Se presente si clicca la notifica ricercata");
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.clickNotificaRicercata();
+    }
 }

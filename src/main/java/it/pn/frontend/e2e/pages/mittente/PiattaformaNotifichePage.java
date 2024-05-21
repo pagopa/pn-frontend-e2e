@@ -25,6 +25,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     @FindBy(id = "recipientId")
     WebElement cfTextField;
+
     @FindBy(id = "filter-button")
     WebElement filtraButton;
 
@@ -42,7 +43,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
     @FindBy(id = "status")
     WebElement statoNotificaField;
-
 
     @FindBy(id = "side-item-API Key")
     WebElement apiKeyButton;
@@ -128,12 +128,12 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void selectFiltraButton() {
         try {
-            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(this.filtraButton));
-            this.filtraButton.click();
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(filtraButton));
+            filtraButton.click();
             logger.info("Bottone filtra cliccato correttamente");
         } catch (TimeoutException e) {
-            logger.error("Bottone filtra non cliccabile con errore " + e.getMessage());
-            Assert.fail("Bottone filtra non cliccabile con errore " + e.getMessage());
+            logger.error("Bottone filtra non cliccabile con errore: " + e.getMessage());
+            Assert.fail("Bottone filtra non cliccabile con errore: " + e.getMessage());
         }
     }
 
@@ -186,9 +186,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void inserimentoCodiceIUN(String codiceIUN) {
         try {
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.codiceIUNTextField));
-            this.codiceIUNTextField.click();
-            this.codiceIUNTextField.sendKeys(codiceIUN);
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(codiceIUNTextField));
+            codiceIUNTextField.click();
+            codiceIUNTextField.sendKeys(codiceIUN);
             logger.info("Codice IUN inserito");
         } catch (TimeoutException e) {
             logger.error("Codice IUN non inserito con errore " + e.getMessage());
@@ -887,73 +887,89 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
-    public void verificaNotificheNonDisponibili(){
+    public void verificaNotificheNonDisponibili() {
         By noResultField = By.xpath("//div[@data-testid='emptyState']");
         getWebDriverWait(5).withMessage("Ci sono risultati disponibili per il filtro di ricerca").until(ExpectedConditions.visibilityOfElementLocated(noResultField));
+    }
+
+    public void clickNotificaRicercata() {
+        logger.info("Si clicca la notifica ricercata");
+        try {
+            TimeUnit.SECONDS.sleep(2);
+            By notitifcaRicercata = By.id("notificationsTable.body.row");
+            getWebDriverWait(10).withMessage("La notifica ricercata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(notitifcaRicercata));
+            element(notitifcaRicercata).click();
+        } catch (TimeoutException e) {
+            logger.error("Non si riesce a cliccare la notifica ricercata con errore: " + e.getMessage());
+            Assert.fail("Non si riesce a cliccare la notifica ricercata con errore: " + e.getMessage());
+        } catch (InterruptedException e) {
+            logger.error("Attesa per rendere cliccabile la notifica interrota con errore: " + e.getMessage());
+            Assert.fail("Attesa per rendere cliccabile la notifica interrota con errore: " + e.getMessage());
+        }
     }
 
     public void checkMessaggioErroreConCodice(int code) {
         switch (code) {
             case 19 -> {
-                if (erroreMessaggio.getText().contains("inserito troppe volte un nome")){
+                if (erroreMessaggio.getText().contains("inserito troppe volte un nome")) {
                     logger.info("Si visualizza correttamente il messaggio di errore");
-                }else{
+                } else {
                     logger.error("Non si visualizza il messaggio di errore");
                     Assert.fail("Non si visualizza il messaggio di errore");
                 }
             }
             case 20 -> {
-                if (erroreMessaggio.getText().contains("richiesto un login con un secondo fattore di autenticazione")){
-                logger.info("Si visualizza correttamente il messaggio di errore");
-            }else{
-                logger.error("Non si visualizza il messaggio di errore");
-                Assert.fail("Non si visualizza il messaggio di errore");
-             }
+                if (erroreMessaggio.getText().contains("richiesto un login con un secondo fattore di autenticazione")) {
+                    logger.info("Si visualizza correttamente il messaggio di errore");
+                } else {
+                    logger.error("Non si visualizza il messaggio di errore");
+                    Assert.fail("Non si visualizza il messaggio di errore");
+                }
             }
             case 21 -> {
-                if (erroreMessaggio.getText().contains("passato troppo tempo da quando hai iniziato")){
+                if (erroreMessaggio.getText().contains("passato troppo tempo da quando hai iniziato")) {
                     logger.info("Si visualizza correttamente il messaggio di errore");
-                }else{
+                } else {
                     logger.error("Non si visualizza il messaggio di errore");
                     Assert.fail("Non si visualizza il messaggio di errore");
                 }
             }
             case 22 -> {
-                if (erroreMessaggio.getText().contains("devi acconsentire all’invio di alcuni dati")){
+                if (erroreMessaggio.getText().contains("devi acconsentire all’invio di alcuni dati")) {
                     logger.info("Si visualizza correttamente il messaggio di errore");
-                }else{
+                } else {
                     logger.error("Non si visualizza il messaggio di errore");
                     Assert.fail("Non si visualizza il messaggio di errore");
                 }
             }
             case 23 -> {
-                if (erroreMessaggio.getText().contains("tua identità SPID risulta sospesa o revocata")){
+                if (erroreMessaggio.getText().contains("tua identità SPID risulta sospesa o revocata")) {
                     logger.info("Si visualizza correttamente il messaggio di errore");
-                }else{
+                } else {
                     logger.error("Non si visualizza il messaggio di errore");
                     Assert.fail("Non si visualizza il messaggio di errore");
                 }
             }
             case 25 -> {
-                if (erroreMessaggio.getText().contains("annullato l’operazione di login")){
+                if (erroreMessaggio.getText().contains("annullato l’operazione di login")) {
                     logger.info("Si visualizza correttamente il messaggio di errore");
-                }else{
+                } else {
                     logger.error("Non si visualizza il messaggio di errore");
                     Assert.fail("Non si visualizza il messaggio di errore");
                 }
             }
             case 30 -> {
-                if (erroreMessaggio.getText().contains("tipologia di identità SPID che hai usato")){
+                if (erroreMessaggio.getText().contains("tipologia di identità SPID che hai usato")) {
                     logger.info("Si visualizza correttamente il messaggio di errore");
-                }else{
+                } else {
                     logger.error("Non si visualizza il messaggio di errore");
                     Assert.fail("Non si visualizza il messaggio di errore");
                 }
             }
             case 1001 -> {
-                if (erroreMessaggio.getText().contains("non hai l’età minima richiesta per usare")){
+                if (erroreMessaggio.getText().contains("non hai l’età minima richiesta per usare")) {
                     logger.info("Si visualizza correttamente il messaggio di errore");
-                }else{
+                } else {
                     logger.error("Non si visualizza il messaggio di errore");
                     Assert.fail("Non si visualizza il messaggio di errore");
                 }
