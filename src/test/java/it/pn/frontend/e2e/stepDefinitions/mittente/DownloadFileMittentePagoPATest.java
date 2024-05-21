@@ -168,7 +168,6 @@ public class DownloadFileMittentePagoPATest {
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }
-        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         int count = 1;
 
         dettaglioNotificaMittenteSection.waitLoadingSpinner();
@@ -242,7 +241,6 @@ public class DownloadFileMittentePagoPATest {
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }
-        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         int count = 1;
 
         dettaglioNotificaMittenteSection.waitLoadingSpinner();
@@ -297,7 +295,6 @@ public class DownloadFileMittentePagoPATest {
             if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
                 pathCartella.mkdirs();
             }
-            this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
             int count = 1;
 
         dettaglioNotificaMittenteSection.waitLoadingSpinner();

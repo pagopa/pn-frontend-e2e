@@ -47,7 +47,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     @FindBy(id = "side-item-Notifiche")
     WebElement sideItemNotificheButton;
-    @FindBy(xpath = ".//div[@data-testId ='alert']")
+    @FindBy(xpath = "//div[@data-testId ='alert']")
     WebElement notificaAnnullata;
 
     public PiattaformaNotifichePGPAPage(WebDriver driver) {
@@ -135,9 +135,9 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
     public boolean messaggioNotificaAnnullataDisplayed() {
         try {
-            return getWebDriverWait(5).withMessage("Il messagio notifica annullata non è visibile").until(ExpectedConditions.visibilityOf(notificaAnnullata)).isDisplayed();
+            return getWebDriverWait(5).withMessage("Il messaggio notifica annullata non è visibile").until(ExpectedConditions.visibilityOf(notificaAnnullata)).isDisplayed();
         } catch (NoSuchElementException | TimeoutException e) {
-            logger.warn("Il messagio notifica annullata non è visibile");
+            logger.warn("Il messaggio notifica annullata non è visibile");
             return false;
         }
     }
