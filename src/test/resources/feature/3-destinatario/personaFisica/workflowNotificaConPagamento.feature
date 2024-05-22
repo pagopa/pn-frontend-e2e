@@ -1,5 +1,6 @@
 Feature:Controllo dati notifica con pagamento
 
+
   @ControlloNotificaConPagamento
   Scenario:[NOTIFICA-ANNULLATA CON PAGAMENTO AFFETTUATO] Verifica testo rimborso su notifica pagata e successivamente annullata
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
@@ -12,7 +13,7 @@ Feature:Controllo dati notifica con pagamento
     And Si controlla che il testo sia nel box pagamento "//div[@data-testid='cancelledAlertPayment']"
     And Logout da portale persona fisica
 
-  
+  @ControlloNotificaConPagamento
   Scenario:[NOTIFICA-AVVISO PAGO-PA DA PAGARE] Verifica dati  box pagamento
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche di PF si visualizzano correttamente i filtri di ricerca
