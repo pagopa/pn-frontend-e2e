@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DestinatarioPASection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
@@ -56,6 +57,29 @@ public class RicercaNotificheMittentePagoPATest {
         logger.info("Si verifica che non ci sono notifiche disponibili con i fitri applicati");
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.verificaNotificheNonDisponibili();
+    }
+
+    @And("Si visualizza correttamente box di pagamento")
+    public void siVisualizzaBoxPagamento(){
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        if(piattaformaNotifichePGPAPage.sezionePagamentoDisplayed()){
+            logger.info("Si visualizza correttamente box di pagamento");
+        }else{
+            logger.error("Non si visualizza correttamente box di pagamento");
+            Assert.fail("Non si visualizza correttamente box di pagamento");
+        }
+    }
+
+    @And("Si visualizza correttamente il messaggio notifica annullata")
+    public void siVisulizzaIlMessagioAnnullato(){
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        if(piattaformaNotifichePGPAPage.messaggioNotificaAnnullataDisplayed()){
+            logger.info("Si visualizza correttamente il messaggio notifica annulata");
+        }else{
+            logger.error("Non si visualizza correttamente il messaggio notifica annulata");
+            Assert.fail("Non si visualizza correttamente il messaggio notifica annulata");
+        }
+
     }
 
 
