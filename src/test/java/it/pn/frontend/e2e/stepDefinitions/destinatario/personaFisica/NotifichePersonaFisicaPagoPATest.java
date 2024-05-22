@@ -368,9 +368,14 @@ public class NotifichePersonaFisicaPagoPATest {
         dettaglioNotifica.waitLoadDettaglioNotificaDESection();
     }
 
-    @And("Si controlla testo in box pagamento")
-    public void siControllaTestoInBoxPagamento(Map<String,String> campiDiControllo) {
-        dettaglioNotifica.checkTestoBoxPagamento(By.xpath(campiDiControllo.get("xpath")), Boolean.valueOf(campiDiControllo.get("isTrue")));
+    @And("Si controlla che il testo sia nel box pagamento {string}")
+    public void siControllaTestoSiaNelBoxPagamento(String xpath) {
+        dettaglioNotifica.checkElementVisible(By.xpath(xpath));
+    }
+
+    @And("Si controlla che il testo non sia nel box pagamento {string}")
+    public void siControllaTestoNonSiaNelBoxPagamento(String xpath) {
+        dettaglioNotifica.checkElementNotVisible(By.xpath(xpath));
     }
 
     @And("Nella pagina Piattaforma Notifiche di PF si visualizzano correttamente i filtri di ricerca")
