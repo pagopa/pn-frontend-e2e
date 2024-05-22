@@ -170,13 +170,12 @@ public class NotificaMittentePagoPATest {
         logger.info("Inserimento dei dati della notifica senza pagamento " );
         AllegatiPASection allegatiPASection = new AllegatiPASection(driver);
         File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
-        datiNotifica = dataPopulation.readDataPopulation(datiNotificaMap.get("nomeFileYaml") + ".yaml");
 
         aggiornamentoNumeroProtocollo();
 
 
         //Sezione preliminare
-        informazioniPreliminariPASection.compilazioneInformazioniPreliminari(datiNotifica.get("numeroProtocollo").toString(),datiNotificaMap);
+        informazioniPreliminariPASection.compilazioneInformazioniPreliminari(datiNotificaMap);
         cliccareSuContinua();
 
         //Dati destinatario
