@@ -215,3 +215,18 @@ Feature:Controllo dati notifica con pagamento
       | isTrue    | true         |
     And Logout da portale persona fisica
 
+  @ControlloNotificaConPagamento11
+  Scenario:[NOTIFICA-MONODESTINATARIO- AVVISO PAGO-PA] Verifica codice avviso pago-pa notifica pagata
+    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Nella pagina Piattaforma Notifiche di PF si visualizzano correttamente i filtri di ricerca
+    And Nella pagina Piattaforma Notifiche PF si filtra per codice IUN "JGNE-ETKV-HLQG-202405-J-1"
+    And Cliccare sul bottone Filtra persona fisica
+    And Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN "JGNE-ETKV-HLQG-202405-J-1"
+    And Cliccare sulla notifica restituita
+    Then Si visualizza correttamente la section Dettaglio Notifica persona fisica
+    # il parametro isTrue é utilizzato per verificare se un elemento deve esistere o no
+    And Si controlla testo in box pagamento
+      | xpath    | //span[contains(text(),'Codice avviso')]|
+      | isTrue    | true         |
+    And Logout da portale persona fisica
+
