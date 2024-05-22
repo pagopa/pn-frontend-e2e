@@ -27,7 +27,6 @@ Feature:Controllo dati notifica con pagamento
     And Logout da portale persona fisica
 
 
-
   @ControlloNotificaConPagamento
   Scenario:[NOTIFICA- AVVISO PAGO-PA COSTI INCLUSI] Verifica testo avviso pago pa e notifica con costi inclusi
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

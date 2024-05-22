@@ -41,7 +41,7 @@ public class DettaglioNotificaSection extends BasePage {
             By informazioniBy = By.id("notification-detail-table");
             By allegatiSection = By.id("notification-detail-document-attached");
             By sezioneRecapiti = By.id("side-item-I tuoi recapiti");
-            By aarDownload =  By.xpath("//div[@data-testid='aarDownload']");
+            By aarDownload = By.xpath("//div[@data-testid='aarDownload']");
             By aarBox = By.xpath("//div[@data-testid='aarBox']");
 
             By attestazione = By.xpath("//button[@data-testid='download-legalfact']");
@@ -107,45 +107,10 @@ public class DettaglioNotificaSection extends BasePage {
         return attestazioniFile.get(i).getText();
     }
 
-    public void checkTestoBoxPagamento(By xpath, Boolean isTrue) {
-        try {
-            if (isTrue){
-                getWebDriverWait(10).withMessage("campo non trovato").until(ExpectedConditions.visibilityOfElementLocated(xpath));
-            }else {
-                getWebDriverWait(10).withMessage("campo trovato").until(ExpectedConditions.invisibilityOfElementLocated(xpath));
-            }
-        } catch (TimeoutException e) {
-            logger.error("il box pagamento non é stato caricato correttamente: " + e.getMessage());
-            Assert.fail("il box pagamento non é stato caricato correttamente: " + e.getMessage());
-        }
-    }
 
-    public void checkElementVisible(By xpath) {
-        try {
-            WebElement element = getWebDriverWait(10)
-                    .withMessage("Campo non trovato")
-                    .until(ExpectedConditions.visibilityOfElementLocated(xpath));
-            if (!element.isDisplayed()) {
-                throw new TimeoutException("Il campo è stato trovato ma non è visibile.");
-            }
-        } catch (TimeoutException e) {
-            logger.error("Il box pagamento non è stato caricato correttamente: " + e.getMessage());
-            Assert.fail("Il box pagamento non è stato caricato correttamente: " + e.getMessage());
-        }
-    }
-
-    public void checkElementNotVisible(By xpath) {
-        try {
-            boolean isNotVisible = getWebDriverWait(10)
-                    .withMessage("Campo trovato")
-                    .until(ExpectedConditions.invisibilityOfElementLocated(xpath));
-            if (!isNotVisible) {
-                throw new TimeoutException("Il campo è stato trovato ed è visibile.");
-            }
-        } catch (TimeoutException e) {
-            logger.error("Il box pagamento non è stato caricato correttamente: " + e.getMessage());
-            Assert.fail("Il box pagamento non è stato caricato correttamente: " + e.getMessage());
-        }
+    public boolean isFieldDisplayed(By xpath) {
+        getWebDriverWait(10).withMessage("Campo non trovato").until(ExpectedConditions.visibilityOfElementLocated(xpath));
+        return element(xpath).isDisplayed();
     }
 
     public void waitLoadDettaglioNotificaAnnullataDESection() {
@@ -157,7 +122,8 @@ public class DettaglioNotificaSection extends BasePage {
             By informazioniBy = By.id("notification-detail-table");
             By allegatiSection = By.id("notification-detail-document-attached");
             By sezioneRecapiti = By.id("side-item-I tuoi recapiti");
-            By altriDocumenti = isSelfcare ? By.xpath("//div[@data-testid='aarDownload']") : By.xpath("//div[@data-testid='aarBox']");
+            By aarDownload = By.xpath("//div[@data-testid='aarDownload']");
+            By aarBox = By.xpath("//div[@data-testid='aarBox']");
             By attestazione = By.xpath("//button[@data-testid='download-legalfact']");
             By copyNotificaAnnullata = By.xpath("//div[@data-testid='cancelledAlertText]");
             By chipAnnullataInTimeline = By.id("Annullata-status");
@@ -170,7 +136,9 @@ public class DettaglioNotificaSection extends BasePage {
             if (!isSelfcare) {
                 getWebDriverWait(10).withMessage("Il sezione recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(sezioneRecapiti));
             }
-            getWebDriverWait(10).withMessage("Il sezione altri documenti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(altriDocumenti));
+            getWebDriverWait(10).withMessage("La sezione recapiti non è visibile").until(ExpectedConditions.or(
+                    ExpectedConditions.visibilityOfElementLocated(aarDownload),
+                    ExpectedConditions.visibilityOfElementLocated(aarBox)));
             getWebDriverWait(10).withMessage("Il pulsante sezione attestazione opponibile non è visibile").until(ExpectedConditions.visibilityOfElementLocated(attestazione));
             getWebDriverWait(10).withMessage("Il copy di notifica annullata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(copyNotificaAnnullata));
             getWebDriverWait(10).withMessage("La chip di notifica annullata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(chipAnnullataInTimeline));
@@ -181,24 +149,18 @@ public class DettaglioNotificaSection extends BasePage {
         }
     }
 
-    public void checkStatoTimeline(String statoTimeline){
-        try {
-            By stato = By.xpath(statoTimeline);
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(stato));
-            logger.info("stato timeline checkato con successo avvenuta");
-        } catch (TimeoutException e) {
-            logger.error("checkato stato timeline non avvenuta con errore: " + e.getMessage());
-            Assert.fail("checkato stato timeline non avvenuta con errore: " + e.getMessage());
-        }
+    public void checkStatoTimeline(By statoTimeline) {
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(statoTimeline));
+        logger.info("lo stato " + statoTimeline + " esiste");
     }
 
     public void selezioneAvvisoPagoPa() {
         try {
             By checkboxAvvisoPagoPa = By.xpath("//span[@data-testid='radio-button']");
-            getWebDriverWait(10).until(ExpectedConditions.and(ExpectedConditions.visibilityOfElementLocated(checkboxAvvisoPagoPa),ExpectedConditions.elementToBeClickable(checkboxAvvisoPagoPa)));
+            getWebDriverWait(10).until(ExpectedConditions.and(ExpectedConditions.visibilityOfElementLocated(checkboxAvvisoPagoPa), ExpectedConditions.elementToBeClickable(checkboxAvvisoPagoPa)));
             element(checkboxAvvisoPagoPa).click();
             logger.info("check su avviso pagopa avvenuto con successo");
-        }catch (TimeoutException e){
+        } catch (TimeoutException e) {
             logger.error("check su avviso pagopa non avvenuto con successo: " + e.getMessage());
             Assert.fail("check su avviso pagopa non avvenuto con successo: " + e.getMessage());
         }

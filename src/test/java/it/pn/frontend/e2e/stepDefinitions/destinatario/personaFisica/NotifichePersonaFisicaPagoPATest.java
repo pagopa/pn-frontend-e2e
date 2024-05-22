@@ -342,9 +342,7 @@ public class NotifichePersonaFisicaPagoPATest {
     @And("Nella pagina Piattaforma Notifiche PF si filtra per codice IUN {string}")
     public void nellaPaginaPiattaformaNotificheSiRecuperaUnCodiceIUNValido(String codiceIun) {
         logger.info("Si recupera un codice IUN valido");
-
-            piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
-
+        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
     }
 
     @And("Si Controlla la paginazione di default")
@@ -370,12 +368,18 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @And("Si controlla che il testo sia nel box pagamento {string}")
     public void siControllaTestoSiaNelBoxPagamento(String xpath) {
-        dettaglioNotifica.checkElementVisible(By.xpath(xpath));
+        boolean isPresent = dettaglioNotifica.isFieldDisplayed(By.xpath(xpath));
+        if (!isPresent) {
+            Assert.fail("L'elemento non esiste");
+        }
     }
 
     @And("Si controlla che il testo non sia nel box pagamento {string}")
     public void siControllaTestoNonSiaNelBoxPagamento(String xpath) {
-        dettaglioNotifica.checkElementNotVisible(By.xpath(xpath));
+        boolean isNotPresent = dettaglioNotifica.isFieldDisplayed(By.xpath(xpath));
+        if (!isNotPresent) {
+            Assert.fail("L'elemento esiste");
+        }
     }
 
     @And("Nella pagina Piattaforma Notifiche di PF si visualizzano correttamente i filtri di ricerca")
@@ -393,10 +397,10 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @And("Si controlla lo stato timeline in dettaglio notifica")
     public void siControllaLoStatoTimelineInDettaglioNotificaPF(Map<String, String> datiDettaglioNotifica) {
-        String idStato = datiDettaglioNotifica.get("xpath");
+        String xpath = datiDettaglioNotifica.get("xpath");
         dettaglioNotifica.waitLoadDettaglioNotificaDESection();
         WebTool.waitTime(2);
-        dettaglioNotifica.checkStatoTimeline(idStato);
+        dettaglioNotifica.checkStatoTimeline(By.xpath(xpath));
     }
 
     @And("Si seleziona un avviso pagopa")
