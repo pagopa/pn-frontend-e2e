@@ -1018,7 +1018,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Tutti i campi precedentemente inseriti risultano ancora popolati")
     public void tuttiICampiPrecedentementeInseritiRisultanoAncoraPopolati() {
-        if (destinatarioPASection.checkCampiDestinatarioPopalati()) {
+        if (destinatarioPASection.checkCampiDestinatarioPopolati()) {
             logger.info("I campi sezione destinatario sono popolati");
         } else {
             logger.error("I campi sezione destinatario non sono popolati");
