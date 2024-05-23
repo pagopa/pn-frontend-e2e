@@ -337,6 +337,18 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             Assert.fail("Box per il pagamento della notifica non visualizzato correttamente con errore: " + e.getMessage());
         }
     }
+    public void clickAvvisoPagoPa() {
+        try {
+            By avvisoPagoPa = By.xpath("//button[contains(text(),'Avviso pagoPA')]");
+            js().executeScript("arguments[0].scrollIntoView(true)", containerPaymentBox);
+            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(containerPaymentBox));
+            getWebDriverWait(10).withMessage("Non si visualizza l'avviso PagoPA per il pagamento della notifica").until(ExpectedConditions.visibilityOfElementLocated(avvisoPagoPa));
+            this.element(avvisoPagoPa).click();
+        } catch (TimeoutException e) {
+            logger.error("Box per il pagamento della notifica non visualizzato correttamente con errore: " + e.getMessage());
+            Assert.fail("Box per il pagamento della notifica non visualizzato correttamente con errore: " + e.getMessage());
+        }
+    }
 
     public void checkModelloF24() {
         try {
@@ -348,6 +360,22 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             logger.error("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
             Assert.fail("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
         }
+    }
+
+    public void checkBoxModelloF24() {
+        try {
+            By boxModelloF24 = By.xpath("//div[@data-testid='dialog-content']");
+            getWebDriverWait(10).withMessage("Non si visualizza il box allegati modelli F24").until(ExpectedConditions.visibilityOfElementLocated(boxModelloF24));
+        } catch (TimeoutException e) {
+            logger.error("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
+            Assert.fail("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
+        }
+    }
+
+    public void siCliccaSulBottoneChiudi(){
+        By chiudiBoxF24 = By.xpath("//button[@data-testid='close-dialog']");
+        getWebDriverWait(10).withMessage("Il bottone chiudi non cliccabile").until(ExpectedConditions.elementToBeClickable(chiudiBoxF24));
+        element(chiudiBoxF24).click();
     }
 
     public void checkBoxPagamentoMultiDestinatario() {
@@ -372,6 +400,16 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         } catch (TimeoutException e) {
             logger.error("Non è stato possibile selezionare un destinatario con errore: " + e.getMessage());
             Assert.fail("Non è stato possibile selezionare un destinatario con errore: " + e.getMessage());
+        }
+    }
+
+    public void checkAttestazionePresaInCarico() {
+        try {
+            By attestazionePresaInCarico = By.xpath("//button[contains(text(),'presa in carico')]");
+            getWebDriverWait(10).withMessage("Non si visualizza attestazione opponibile a terzi notifica presa in carico").until(ExpectedConditions.visibilityOfElementLocated(attestazionePresaInCarico));
+        } catch (TimeoutException e) {
+            logger.error("Attestazione opponibile a terzi notifica presa in carico non visualizzato correttamente con errore: " + e.getMessage());
+            Assert.fail("Attestazione opponibile a terzi notifica presa in carico non visualizzato correttamente con errore: " + e.getMessage());
         }
     }
 }

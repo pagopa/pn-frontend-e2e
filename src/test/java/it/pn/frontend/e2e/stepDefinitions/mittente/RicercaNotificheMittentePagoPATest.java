@@ -52,7 +52,7 @@ public class RicercaNotificheMittentePagoPATest {
     }
 
     @And("Si verifica che non ci sono notifiche disponibili")
-    public  void siVerificaCheNonCiSonoNotifiche(){
+    public void siVerificaCheNonCiSonoNotifiche() {
         logger.info("Si verifica che non ci sono notifiche disponibili con i fitri applicati");
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.verificaNotificheNonDisponibili();
@@ -504,4 +504,12 @@ public class RicercaNotificheMittentePagoPATest {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.clickNotificaRicercata();
     }
+
+    @And("Si clicca sul bottone vedi tutti")
+    public void siCliccaVediTutti() {
+        logger.info("Si clicca sul bottone vedi tutti");
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.clickVediTutti();
+    }
+
 }
