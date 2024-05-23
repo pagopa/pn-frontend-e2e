@@ -1,7 +1,9 @@
 package it.pn.frontend.e2e.model;
 
 import it.pn.frontend.e2e.model.enums.RecipientTypeEnum;
+import lombok.Data;
 
+@Data
 public class Recipient {
     private String denomination;
     private RecipientTypeEnum recipientType;
@@ -23,45 +25,5 @@ public class Recipient {
         this.taxId = taxId;
         this.physicalAddress = physicalAddress;
         this.digitalDomicile = digitalDomicile;
-    }
-
-    public String getDenomination() {
-        return denomination;
-    }
-
-    public void setDenomination(String value) {
-        this.denomination = value;
-    }
-
-    public RecipientTypeEnum getRecipientType() {
-        return recipientType;
-    }
-
-    public void setRecipientType(RecipientTypeEnum value) {
-        this.recipientType = value;
-    }
-
-    public String getTaxId() {
-        return taxId;
-    }
-
-    public void setTaxId(String value) {
-        this.taxId = value;
-    }
-
-    public PhysicalAddress getPhysicalAddress() {
-        return physicalAddress;
-    }
-
-    public void setPhysicalAddress(PhysicalAddress value) {
-        this.physicalAddress = value;
-    }
-
-    public DigitalDomicile getDigitalDomicile() {
-        return digitalDomicile;
-    }
-
-    public void setDigitalDomicile(DigitalDomicile value) {
-        this.digitalDomicile = value;
     }
 }

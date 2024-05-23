@@ -25,18 +25,39 @@ public class NewNotifichePagoPATest {
     private final WebDriver driver = Hooks.driver;
 
     @When("Creo in background una notifica con un destinatario e un documento tramite API REST")
-    public void creoUnaNotificaConUnDestinatarioEUnDocumento() throws RestNotificationException {
+    public void creoUnaNotificaConUnDestinatarioEUnDocumento(Map<String, Boolean> pagamenti) throws RestNotificationException {
         int maxAttempts = 3;
         int attempt = 1;
 
+        boolean avvisoPagoPa = pagamenti.get("avvisoPagoPa");
+        boolean f24 = pagamenti.get("F24");
+        boolean entrambi = pagamenti.get("entrambi");
         ArrayList<Recipient> recipients = new ArrayList<>();
         recipients.add(new Recipient());
         ArrayList<Document> documents = new ArrayList<>();
         documents.add(new Document());
-        NewNotificationRequest notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
+        ArrayList<NotificationPaymentItem> payments = new ArrayList<>();
 
+        if (avvisoPagoPa && !f24 && !entrambi) {
+            PagoPaPayment pagamentoAvvisoPagoPa = new PagoPaPayment("1QKD/Ks6BohyQ+bgMxHf9NrpNhVmGUPxRYE1aerU4JQ=", "PN_NOTIFICATION_ATTACHMENTS-735290b9a029454e8b58651ecba8e6ff.pdf", "v1");
+            NotificationPaymentItem pagamento = new NotificationPaymentItem(pagamentoAvvisoPagoPa);
+            payments.add(pagamento);
+        } else if (!avvisoPagoPa && f24 && !entrambi) {
+            F24 modelloF24 = new F24("UtTwRseo3KHQIFkl7+VGNeZDWauWqYyDEjrxl9w/h2g=", "PN_F24_META-77214509e33f405dab9c52ecfeb3e783.json", "v1");
+            NotificationPaymentItem pagamento = new NotificationPaymentItem(modelloF24);
+            payments.add(pagamento);
+        } else if (!avvisoPagoPa && !f24 && entrambi) {
+            NotificationPaymentItem pagamento = new NotificationPaymentItem();
+            payments.add(pagamento);
+        } else {
+            logger.error("Le condizioni del map dei pagamenti non sono corrette");
+            Assert.fail("Le condizioni del map dei pagamenti non sono corrette");
+        }
+
+        NewNotificationRequest notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE, payments);
+        logger.info(notification.toString());
         while (attempt <= maxAttempts) {
-            NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification);
+            NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification, pagamenti);
 
             if (response != null) {
                 logger.info("Notifica creata con successo");
@@ -54,18 +75,18 @@ public class NewNotifichePagoPATest {
     }
 
     @And("Creo in background una notifica PG con un destinatario e un documento tramite API REST")
-    public void creoUnaNotificaPGConUnDestinatarioEUnDocumento(Map<String, String> recipient) throws RestNotificationException {
+    public void creoUnaNotificaPGConUnDestinatarioEUnDocumento(Map<String, String> recipient, Map<String, Boolean> pagamenti) throws RestNotificationException {
         int maxAttempts = 3;
         int attempt = 1;
 
         ArrayList<Recipient> recipients = new ArrayList<>();
-        recipients.add(new Recipient(recipient.get("denomination"), RecipientTypeEnum.PG, recipient.get("taxId"),new PhysicalAddress(), new DigitalDomicile()));
+        recipients.add(new Recipient(recipient.get("denomination"), RecipientTypeEnum.PG, recipient.get("taxId"), new PhysicalAddress(), new DigitalDomicile()));
         ArrayList<Document> documents = new ArrayList<>();
         documents.add(new Document());
         NewNotificationRequest notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
 
         while (attempt <= maxAttempts) {
-            NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification);
+            NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification, pagamenti);
 
             if (response != null) {
                 logger.info("Notifica creata con successo");
@@ -118,7 +139,7 @@ public class NewNotifichePagoPATest {
 
     @Then("Attendo {int} minuti e verifico in background che la notifica sia stata creata correttamente")
     public void verificoCheLaNotificaSiaStataCreataCorrettamente(int minutes) {
-        WebTool.waitTime(minutes * 60);
+        WebTool.waitTime(minutes * 2);
         driver.navigate().refresh();
         /* TODO
         Need to implement the check of the notification
