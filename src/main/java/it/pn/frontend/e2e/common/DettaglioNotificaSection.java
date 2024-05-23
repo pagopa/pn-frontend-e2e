@@ -114,8 +114,12 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public boolean isFieldNotDisplayed(By xpath) {
-        getWebDriverWait(10).withMessage("Campo trovato").until(ExpectedConditions.invisibilityOfElementLocated(xpath));
-        return element(xpath).isDisplayed();
+        List<WebElement> elements = driver.findElements(xpath);
+        if (!elements.isEmpty()) {
+            return false;
+        }
+        return true;
+
     }
 
     public void waitLoadDettaglioNotificaAnnullataDESection() {

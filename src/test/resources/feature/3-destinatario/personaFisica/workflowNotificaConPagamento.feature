@@ -43,7 +43,7 @@ Feature:Controllo dati notifica con pagamento
     And Si controlla che il testo sia nel box pagamento "//button[@data-testid='download-pagoPA-notice-button']"
     And Logout da portale persona fisica
 
-  @ControlloNotificaConPagamento
+  @ControlloNotificaConPagamento1
   Scenario:[NOTIFICA- AVVISO PAGO-PA COSTI NON INCLUSI] Verifica testo avviso pago pa e notifica senza costi inclusi
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche di PF si visualizzano correttamente i filtri di ricerca
@@ -73,12 +73,12 @@ Feature:Controllo dati notifica con pagamento
   Scenario:[NOTIFICA- F24 COSTI NON INCLUSI] Verifica testo f24 e notifica senza costi inclusi
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche di PF si visualizzano correttamente i filtri di ricerca
-    And Nella pagina Piattaforma Notifiche PF si filtra per codice IUN "GQRP-QZRG-KGZM-202405-E-1 "
+    And Nella pagina Piattaforma Notifiche PF si filtra per codice IUN "ZGAX-WJZX-KLMA-202405-E-1"
     And Cliccare sul bottone Filtra persona fisica
-    And Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN "GQRP-QZRG-KGZM-202405-E-1"
+    And Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN "ZGAX-WJZX-KLMA-202405-E-1"
     And Cliccare sulla notifica restituita
     Then Si visualizza correttamente la section Dettaglio Notifica persona fisica
-    And Si controlla che il testo sia nel box pagamento "//p[@data-testid='f24-apply-costs-caption']"
+    And Si controlla che il testo non sia nel box pagamento "//p[@data-testid='f24-apply-costs-caption']"
     And Si controlla che il testo sia nel box pagamento "//button[@data-testid='download-f24-button']"
     And Logout da portale persona fisica
 
@@ -139,7 +139,7 @@ Feature:Controllo dati notifica con pagamento
     And Cliccare sulla notifica restituita
     Then Si visualizza correttamente la section Dettaglio Notifica persona fisica
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpath | //span[contains(text(),"L'invio della notifica è terminato in quanto un recapito di almeno un destinatario è valido.")] |
+      | xpath | //span[contains(text(),"Almeno un destinatario ha letto la notifica.")] |
     And Si controlla che il testo non sia nel box pagamento "//p[@data-testid='f24-apply-costs-caption']"
     And Si controlla che il testo sia nel box pagamento "//button[@data-testid='download-f24-button']"
     And Logout da portale persona fisica

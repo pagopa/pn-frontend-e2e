@@ -375,8 +375,10 @@ public class NotifichePersonaFisicaPagoPATest {
     }
 
     @And("Si controlla che il testo non sia nel box pagamento {string}")
-    public void siControllaTestoNonSiaNelBoxPagamento(String xpath) {
-        boolean isNotPresent = dettaglioNotifica.isFieldDisplayed(By.xpath(xpath));
+    public void siControllaTestoNonSiaNelBoxPagamento(String xpathString) {
+        By xpath = By.xpath(xpathString);
+
+        boolean isNotPresent = dettaglioNotifica.isFieldNotDisplayed(xpath);
         if (!isNotPresent) {
             Assert.fail("L'elemento esiste");
         }
