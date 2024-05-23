@@ -1,5 +1,6 @@
 Feature:Controllo dati notifica con pagamento
 
+  @TestSuite
 
   @ControlloNotificaConPagamento
   Scenario:[NOTIFICA-ANNULLATA CON PAGAMENTO AFFETTUATO] Verifica testo rimborso su notifica pagata e successivamente annullata
