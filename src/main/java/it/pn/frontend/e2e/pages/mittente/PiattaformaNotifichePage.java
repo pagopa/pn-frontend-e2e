@@ -983,7 +983,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void clickVediTutti() {
         By vediTutti = By.xpath("//button[@data-testid='show-all-attachments']");
-        getWebDriverWait(10).withMessage("Il bottone vedi tutti non cliccabile").until(ExpectedConditions.and(visibilityOfElementLocated(vediTutti),elementToBeClickable(vediTutti)));
+        getWebDriverWait(4).withMessage("Il bottone vedi tutti non cliccabile").until(ExpectedConditions.elementToBeClickable(vediTutti));
         element(vediTutti).click();
     }
 

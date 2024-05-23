@@ -6,7 +6,7 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
   @visualizzazioneNotificheMittente
 
   @CheckNotificaConDocumentiAllegati
-  Scenario: [TA-FE VISUALLIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente visualizza box allegati modelli F24
+  Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente visualizza box allegati modelli F24
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina piattaforma notifiche si effettua la ricerca per codice IUN "JDHQ-WTRG-YPTR-202405-G-1"
     And Si clicca la notifica ricercata
@@ -16,7 +16,7 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
     And Logout da portale mittente
 
   @CheckNotificaConDocumentiAllegati
-  Scenario: [TA-FE VISUALLIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente visualizza dettaglio notifica con attestazione opponibile a terzi notifica presa in carico
+  Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente visualizza dettaglio notifica con attestazione opponibile a terzi notifica presa in carico
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina piattaforma notifiche si effettua la ricerca per codice IUN "JHME-HQME-DGEL-202405-E-1"
     And Si clicca la notifica ricercata
@@ -25,7 +25,7 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
     And Logout da portale mittente
 
   @CheckNotificaConDocumentiAllegati
-  Scenario: [TA-FE VISUALLIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente scarica l'avviso PagoPa
+  Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente scarica l'avviso PagoPa
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina piattaforma notifiche si effettua la ricerca per codice IUN "JHME-HQME-DGEL-202405-E-1"
     And Si clicca la notifica ricercata
@@ -36,7 +36,7 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
     And Logout da portale mittente
 
   @CheckNotificaConDocumentiAllegati
-  Scenario: [TA-FE VISUALLIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente scarica modello F24
+  Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente scarica modello F24
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina piattaforma notifiche si effettua la ricerca per codice IUN "JHME-HQME-DGEL-202405-E-1"
     And Si clicca la notifica ricercata
@@ -45,7 +45,7 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
     And Logout da portale mittente
 
   @CheckNotificaConDocumentiAllegati
-  Scenario: [TA-FE VISUALLIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente visualizza box di pagamento su notifica multi destinatario non ancora pagata solo con avviso PagoPa e modello F24 e costi di notifica non inclusi
+  Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente visualizza box di pagamento su notifica multi destinatario non ancora pagata solo con avviso PagoPa e modello F24 e costi di notifica non inclusi
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina piattaforma notifiche si effettua la ricerca per codice IUN "TNPU-WLHJ-NVLZ-202405-T-1"
     And Si clicca la notifica ricercata
@@ -56,7 +56,7 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
     And Logout da portale mittente
 
   @CheckNotificaConDocumentiAllegati
-  Scenario: [TA-FE VISUALLIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente visualizza box di pagamento su notifica multi destinatario non ancora pagata solo con avviso PagoPa e modello F24 e costi di notifica inclusi
+  Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente visualizza box di pagamento su notifica multi destinatario non ancora pagata solo con avviso PagoPa e modello F24 e costi di notifica inclusi
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina piattaforma notifiche si effettua la ricerca per codice IUN "RHTG-TGXM-PVAX-202405-A-1"
     And Si clicca la notifica ricercata
@@ -67,7 +67,7 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
     And Logout da portale mittente
 
   @CheckNotificaConDocumentiAllegati
-  Scenario: [TA-FE VISUALLIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente visualizza box di pagamento su notifica multi destinatario non ancora pagata solo con modello F24 e costi di notifica non inclusi
+  Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente visualizza box di pagamento su notifica multi destinatario non ancora pagata solo con modello F24 e costi di notifica non inclusi
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina piattaforma notifiche si effettua la ricerca per codice IUN "QWZV-LDXY-NGTG-202405-X-1"
     And Si clicca la notifica ricercata
@@ -77,7 +77,7 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
     And Logout da portale mittente
 
   @CheckNotificaConDocumentiAllegati
-  Scenario: [TA-FE VISUALLIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente visualizza box di pagamento su notifica multi destinatario non ancora pagata solo con avviso PagoPa e costi di notifica non inclusi
+  Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente visualizza box di pagamento su notifica multi destinatario non ancora pagata solo con avviso PagoPa e costi di notifica non inclusi
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina piattaforma notifiche si effettua la ricerca per codice IUN "TJYG-JZKE-ZGQR-202405-D-1"
     And Si clicca la notifica ricercata
