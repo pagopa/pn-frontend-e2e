@@ -65,7 +65,7 @@ Feature:Controllo dati notifica con pagamento
     And Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN "YKNL-AMKL-UXPD-202405-M-1"
     And Cliccare sulla notifica restituita
     Then Si visualizza correttamente la section Dettaglio Notifica persona fisica
-    And Si controlla che il testo non sia nel box pagamento "//p[@data-testid='f24-apply-costs-caption']"
+    And Si controlla che il testo sia nel box pagamento "//p[@data-testid='f24-apply-costs-caption']"
     And Si controlla che il testo sia nel box pagamento "//button[@data-testid='download-f24-button']"
     And Logout da portale persona fisica
 
