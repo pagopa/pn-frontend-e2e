@@ -44,7 +44,7 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
     Then Si verifica che che non sia possibile effettuare il download del modelo F24
     And Logout da portale mittente
 
-  @CheckNotificaConDocumentiAllegati1
+  @CheckNotificaConDocumentiAllegati
   Scenario: PN-10385 - Mittente visualizza box di pagamento su notifica multi destinatario non ancora pagata solo con avviso PagoPa e modello F24 e costi di notifica non inclusi
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina piattaforma notifiche si effettua la ricerca per codice IUN "TNPU-WLHJ-NVLZ-202405-T-1"
