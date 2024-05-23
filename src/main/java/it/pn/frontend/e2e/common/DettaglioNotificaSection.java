@@ -113,6 +113,11 @@ public class DettaglioNotificaSection extends BasePage {
         return element(xpath).isDisplayed();
     }
 
+    public boolean isFieldNotDisplayed(By xpath) {
+        getWebDriverWait(10).withMessage("Campo trovato").until(ExpectedConditions.invisibilityOfElementLocated(xpath));
+        return element(xpath).isDisplayed();
+    }
+
     public void waitLoadDettaglioNotificaAnnullataDESection() {
         try {
             boolean isSelfcare = driver.getCurrentUrl().contains("selfcare");
@@ -125,7 +130,7 @@ public class DettaglioNotificaSection extends BasePage {
             By aarDownload = By.xpath("//div[@data-testid='aarDownload']");
             By aarBox = By.xpath("//div[@data-testid='aarBox']");
             By attestazione = By.xpath("//button[@data-testid='download-legalfact']");
-            By copyNotificaAnnullata = By.xpath("//div[@data-testid='cancelledAlertText]");
+            By copyNotificaAnnullata = By.xpath("//div[@data-testid='cancelledAlertText']");
             By chipAnnullataInTimeline = By.id("Annullata-status");
 
             getWebDriverWait(10).withMessage("il titolo Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
