@@ -20,7 +20,6 @@ import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -449,7 +448,6 @@ public class NotificaMittentePagoPATest {
     public void siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso() {
         dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
         dettaglioNotificaMittenteSection.siVisualizzaPercosoNotifica();
-
     }
 
 
@@ -1263,6 +1261,30 @@ public class NotificaMittentePagoPATest {
             destinatarioPASection.insertRagioneSociale(nomeDestinatario);
         }
         destinatarioPASection.inserireCodiceFiscaleMultiDestinatario(numeroDestinatario, destinatario.get("codiceFiscale"));
+    }
+
+    @Then("Si controlla sia presente l'avviso PagoPa")
+    public void siControllaSiaPresenteLAvvisoPagoPa() {
+        logger.info("Si controlla la presenza del box per il pagamento della notifica");
+        dettaglioNotificaMittenteSection.checkAvvisoPagoPa();
+    }
+
+    @Then("Si controlla sia presente il modello F24")
+    public void siControllaSiaPresenteIlModelloF24() {
+        logger.info("Si controlla sia presente il modello F24");
+        dettaglioNotificaMittenteSection.checkModelloF24();
+    }
+
+    @Then("Si controlla sia presente il box per il pagamento del multidestinatario")
+    public void siControllaSiaPresenteIlBoxPerIlPagamentoDelMultidestinatario() {
+        logger.info("Si verifica la presenza della select per la selezione del destinatario");
+        dettaglioNotificaMittenteSection.checkBoxPagamentoMultiDestinatario();
+    }
+
+    @And("Si seleziona un destinatario")
+    public void siSelezionaUnDestinatario() {
+        logger.info("Si seleziona il primo destinatario presente nella selct");
+        dettaglioNotificaMittenteSection.clickMultiDestinatario();
     }
 
     /**
