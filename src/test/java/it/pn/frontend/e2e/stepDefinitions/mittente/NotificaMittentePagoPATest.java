@@ -448,7 +448,6 @@ public class NotificaMittentePagoPATest {
     public void siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso() {
         dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
         dettaglioNotificaMittenteSection.siVisualizzaPercosoNotifica();
-
     }
 
 
