@@ -4,19 +4,19 @@ import lombok.Data;
 
 @Data
 public class NotificationPaymentAttachment {
-    private Digests digests;
+    private NotificationAttachmentDigests digests;
     private String contentType;
-    private Ref ref;
+    private NotificationAttachmentBodyRef ref;
 
     public NotificationPaymentAttachment() {
-        this.digests = new Digests("1QKD/Ks6BohyQ+bgMxHf9NrpNhVmGUPxRYE1aerU4JQ=");
+        this.digests = new NotificationAttachmentDigests("1QKD/Ks6BohyQ+bgMxHf9NrpNhVmGUPxRYE1aerU4JQ=");
         this.contentType = "application/pdf";
-        this.ref = new Ref("PN_NOTIFICATION_ATTACHMENTS-735290b9a029454e8b58651ecba8e6ff.pdf", "v1");
+        this.ref = new NotificationAttachmentBodyRef("PN_NOTIFICATION_ATTACHMENTS-735290b9a029454e8b58651ecba8e6ff.pdf", "v1");
     }
 
     public NotificationPaymentAttachment(String sha256, String key, String versionToken) {
-        this.digests = new Digests(sha256);
+        this.digests = new NotificationAttachmentDigests(sha256);
         this.contentType = "application/pdf";
-        this.ref = new Ref(key, versionToken);
+        this.ref = new NotificationAttachmentBodyRef(key, versionToken);
     }
 }

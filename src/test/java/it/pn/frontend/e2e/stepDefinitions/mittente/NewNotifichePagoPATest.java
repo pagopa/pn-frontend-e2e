@@ -38,16 +38,20 @@ public class NewNotifichePagoPATest {
         documents.add(new Document());
         ArrayList<NotificationPaymentItem> payments = new ArrayList<>();
 
+        PagoPaPayment avviso = new PagoPaPayment("1QKD/Ks6BohyQ+bgMxHf9NrpNhVmGUPxRYE1aerU4JQ=", "PN_NOTIFICATION_ATTACHMENTS-735290b9a029454e8b58651ecba8e6ff.pdf", "v1");
+        F24Payment modello = new F24Payment("UtTwRseo3KHQIFkl7+VGNeZDWauWqYyDEjrxl9w/h2g=", "PN_F24_META-77214509e33f405dab9c52ecfeb3e783.json", "v1");
+
+
         if (avvisoPagoPa && !f24 && !entrambi) {
             PagoPaPayment pagamentoAvvisoPagoPa = new PagoPaPayment("1QKD/Ks6BohyQ+bgMxHf9NrpNhVmGUPxRYE1aerU4JQ=", "PN_NOTIFICATION_ATTACHMENTS-735290b9a029454e8b58651ecba8e6ff.pdf", "v1");
             NotificationPaymentItem pagamento = new NotificationPaymentItem(pagamentoAvvisoPagoPa);
             payments.add(pagamento);
         } else if (!avvisoPagoPa && f24 && !entrambi) {
-            F24 modelloF24 = new F24("UtTwRseo3KHQIFkl7+VGNeZDWauWqYyDEjrxl9w/h2g=", "PN_F24_META-77214509e33f405dab9c52ecfeb3e783.json", "v1");
-            NotificationPaymentItem pagamento = new NotificationPaymentItem(modelloF24);
+            F24Payment modelloF24Payment = new F24Payment("UtTwRseo3KHQIFkl7+VGNeZDWauWqYyDEjrxl9w/h2g=", "PN_F24_META-77214509e33f405dab9c52ecfeb3e783.json", "v1");
+            NotificationPaymentItem pagamento = new NotificationPaymentItem(modelloF24Payment);
             payments.add(pagamento);
         } else if (!avvisoPagoPa && !f24 && entrambi) {
-            NotificationPaymentItem pagamento = new NotificationPaymentItem();
+            NotificationPaymentItem pagamento = new NotificationPaymentItem(avviso, modello);
             payments.add(pagamento);
         } else {
             logger.error("Le condizioni del map dei pagamenti non sono corrette");
@@ -55,7 +59,7 @@ public class NewNotifichePagoPATest {
         }
 
         NewNotificationRequest notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE, payments);
-        logger.info(notification.toString());
+
         while (attempt <= maxAttempts) {
             NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification, pagamenti);
 
@@ -139,7 +143,7 @@ public class NewNotifichePagoPATest {
 
     @Then("Attendo {int} minuti e verifico in background che la notifica sia stata creata correttamente")
     public void verificoCheLaNotificaSiaStataCreataCorrettamente(int minutes) {
-        WebTool.waitTime(minutes * 2);
+        WebTool.waitTime(minutes * 60);
         driver.navigate().refresh();
         /* TODO
         Need to implement the check of the notification

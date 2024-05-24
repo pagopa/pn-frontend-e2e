@@ -19,7 +19,7 @@ public class NewNotificationRequest {
     private String senderDenomination;
     private String senderTaxId;
     private String abstractS;
-    private ArrayList<NotificationPaymentItem> notificationPaymentItem;
+    private ArrayList<NotificationPaymentItem> payments;
 
     public NewNotificationRequest(String paProtocolNumber, String subject, ArrayList<Recipient> recipients, ArrayList<Document> documents,
                                   PhysicalCommunicationTypeEnum physicalCommunicationType, String taxonomyCode, NotificationFeePolicyEnum notificationFeePolicy) {
@@ -37,7 +37,7 @@ public class NewNotificationRequest {
     }
 
     public NewNotificationRequest(String paProtocolNumber, String subject, ArrayList<Recipient> recipients, ArrayList<Document> documents,
-                                  PhysicalCommunicationTypeEnum physicalCommunicationType, String taxonomyCode, NotificationFeePolicyEnum notificationFeePolicy, ArrayList<NotificationPaymentItem> notificationPaymentItem) {
+                                  PhysicalCommunicationTypeEnum physicalCommunicationType, String taxonomyCode, NotificationFeePolicyEnum notificationFeePolicy, ArrayList<NotificationPaymentItem> payments) {
         this.paProtocolNumber = paProtocolNumber;
         this.subject = subject;
         this.recipients = recipients;
@@ -49,6 +49,6 @@ public class NewNotificationRequest {
         this.senderDenomination = "Comune di Milano";
         this.senderTaxId = "00215150236";
         this.abstractS = "PAGAMENTO RATA IMU";
-        this.notificationPaymentItem = notificationPaymentItem;
+        this.payments = payments;
     }
 }
