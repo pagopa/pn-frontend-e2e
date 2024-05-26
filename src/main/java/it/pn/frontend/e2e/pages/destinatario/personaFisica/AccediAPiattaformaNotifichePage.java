@@ -166,6 +166,11 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         return getWebDriverWait(30).withMessage("Il sezione scarica avviso non è visibile").until(ExpectedConditions.visibilityOf(scaricaAvviso)).isDisplayed();
     }
 
+    public void clickAvvisoPagoPAPG() {
+         getWebDriverWait(30).withMessage("Il sezione scarica avviso non è cliccabile").until(ExpectedConditions.elementToBeClickable(scaricaAvviso));
+         scaricaAvviso.click();
+    }
+
     public boolean pagaAvvisoDisplayed() {
         return getWebDriverWait(30).withMessage("Il sezione paga avviso non è visibile").until(ExpectedConditions.visibilityOf(pagaAvviso)).isDisplayed();
     }

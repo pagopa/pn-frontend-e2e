@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
+import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
@@ -215,4 +216,39 @@ public class NotifichePGPagoPATest {
         piattaformaNotifichePGPAPage.clickIndietroButton();
     }
 
+
+    @And("Si clicca sul radio bottone di pagamento")
+    public void siCliccaRadioButtonPagamento(){
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        piattaformaNotifichePGPAPage.clickRadioBoxButton();
+    }
+
+    @And("Si controlla sia presente il modello F24 PG")
+    public void siControllaSiaPresenteIlModelloF24PG() {
+        logger.info("Si controlla sia presente il modello F24 PG");
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        piattaformaNotifichePGPAPage.modelloF24Displayed();
+    }
+
+    @And("Si clicca il modello F24 PG")
+    public void siCliccaIlModelloF24PG() {
+        logger.info("Si clicca il modello F24 PG");
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        piattaformaNotifichePGPAPage.clickModelloF24();
+    }
+
+
+
+    @And("Si controlla sia presente l'avviso PagoPa PG")
+    public void siControllaSiaPresenteLAvvisoPagoPaPG() {
+        logger.info("Si controlla la presenza del box per il pagamento della notifica");
+        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed();
+    }
+    @And("Si clicca l'avviso PagoPa PG")
+    public void siCliccaLAvvisoPagoPaPG() {
+        logger.info("Si clicca l'avviso PagoPa PG");
+        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        accediAPiattaformaNotifichePage.clickAvvisoPagoPAPG();
+    }
 }

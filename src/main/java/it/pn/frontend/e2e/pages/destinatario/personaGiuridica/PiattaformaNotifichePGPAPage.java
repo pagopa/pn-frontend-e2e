@@ -145,7 +145,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         return "[value='" + codiceAvvisoSpan.getText() + "']";
     }
 
-    public void clickRadioBoxButton(String css) {
+    public void clickRadioBoxButton() {
         getWebDriverWait(10).withMessage("Il radio box button non è cliccabile").until(ExpectedConditions.elementToBeClickable(radioButton.get(0)));
         radioButton.get(0).click();
     }
@@ -160,5 +160,10 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public boolean modelloF24Displayed() {
         return getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
+    }
+
+    public void clickModelloF24() {
+         getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(modelloF24));
+         modelloF24.click();
     }
 }

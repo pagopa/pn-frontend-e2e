@@ -32,7 +32,7 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
     And Si controlla sia presente l'avviso PagoPa
     And Si clicca l'avviso PagoPa
     And Aspetta 3 secondi
-    Then Si chiude l'avviso PagoPa
+    Then Si torna alla pagina precedente
     And Logout da portale mittente
 
   @CheckNotificaConDocumentiAllegati

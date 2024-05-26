@@ -73,7 +73,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
             boolean radioBoxPresent = piattaformaNotifichePGPAPage.isRadioBoxPresent();
 
             if (radioBoxPresent) {
-                piattaformaNotifichePGPAPage.clickRadioBoxButton(piattaformaNotifichePGPAPage.cssBuildRadioButton());
+                piattaformaNotifichePGPAPage.clickRadioBoxButton();
             }
 
             boolean titoloPagamentoIsDisplayed = piattaformaNotifichePGPAPage.titoloDiPagamentoDisplayed();

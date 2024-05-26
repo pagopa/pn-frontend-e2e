@@ -1275,9 +1275,9 @@ public class NotificaMittentePagoPATest {
         dettaglioNotificaMittenteSection.clickAvvisoPagoPa();
     }
 
-    @Then("Si chiude l'avviso PagoPa")
-    public void siChiudeLAvvisoPagoPa() {
-        logger.info("Si clicca l'avviso PagoPa");
+    @Then("Si torna alla pagina precedente")
+    public void siTornaAllaPaginaPrecedente() {
+        logger.info("Si torna alla pagina precedente");
         this.driver.navigate().back();
     }
 
