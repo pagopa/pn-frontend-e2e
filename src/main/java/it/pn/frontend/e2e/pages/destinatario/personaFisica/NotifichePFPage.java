@@ -60,6 +60,12 @@ public class NotifichePFPage extends BasePage {
     @FindBy(css = "[data-testid='cancelButton']")
     WebElement rimuoviFiltriButton;
 
+    @FindBy(xpath = "//button[@data-testid='download-f24-button']")
+    WebElement buttonDownloadF24;
+
+    @FindBy(xpath = "//button[@data-testid='download-pagoPA-notice-button']")
+    WebElement buttonDownloadAvvisoPagoPA;
+
     public NotifichePFPage(WebDriver driver) {
         super(driver);
     }
@@ -372,6 +378,42 @@ public class NotifichePFPage extends BasePage {
             logger.error("Non si visualizza prima pagina");
             Assert.fail("Non si visualizza prima");
         }
+    }
 
+    public void clickScaricaF24Button() {
+        try {
+            getWebDriverWait(10).withMessage("Il bottone per scaricare l'F24 non è visibile").until(ExpectedConditions.visibilityOf(buttonDownloadF24));
+            getWebDriverWait(10).withMessage("Il bottone per scaricare l'F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(buttonDownloadF24));
+            scrollToElementAndClick(buttonDownloadF24);
+        } catch (TimeoutException e){
+            logger.error("Il bottone per scaricare il file F24 non è visibile e cliccabile con errore: " + e.getMessage());
+            Assert.fail("Il bottone per scaricare il file F24 non è visibile e cliccabile con errore: " + e.getMessage());
+        }
+    }
+
+    public void checkFileF24IsOpen() {
+        try {
+            driver.navigate().refresh();
+            TimeUnit.SECONDS.sleep(10);
+            By fileOpened = By.xpath("//embed");
+            getWebDriverWait(10).withMessage("Il file F24 non è aperto correttamente").until(ExpectedConditions.visibilityOfElementLocated(fileOpened));
+        } catch (TimeoutException e){
+            logger.error("Il file F24 non è stato aperto correttamente con errore: " + e.getMessage());
+            Assert.fail("Il file F24 non è stato aperto correttamente con errore: " + e.getMessage());
+        } catch (InterruptedException e){
+            logger.error("La pausa non è andata a buon fine con errore: " + e.getMessage());
+            Assert.fail("La pausa non è andata a buon fine con errore: " + e.getMessage());
+        }
+    }
+
+    public void clickScaricaAvvisoPagoPAButton() {
+        try {
+            getWebDriverWait(10).withMessage("Il bottone per scaricare l'avviso PagoPA non è visibile").until(ExpectedConditions.visibilityOf(buttonDownloadAvvisoPagoPA));
+            getWebDriverWait(10).withMessage("Il bottone per scaricare l'avviso PagoPA non è cliccabile").until(ExpectedConditions.elementToBeClickable(buttonDownloadAvvisoPagoPA));
+            scrollToElementAndClick(buttonDownloadAvvisoPagoPA);
+        } catch (TimeoutException e){
+            logger.error("Il bottone per scaricare il file avviso PagoPA non è visibile e cliccabile con errore: " + e.getMessage());
+            Assert.fail("Il bottone per scaricare il file avviso PagoPA non è visibile e cliccabile con errore: " + e.getMessage());
+        }
     }
 }
