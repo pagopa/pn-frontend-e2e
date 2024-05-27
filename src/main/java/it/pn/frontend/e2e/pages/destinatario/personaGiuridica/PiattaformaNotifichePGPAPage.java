@@ -169,11 +169,32 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
 
     public boolean modelloF24Displayed() {
-        return getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
+        try {
+            getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
+            return true;
+        }catch (RuntimeException e){
+            return false;
+        }
     }
 
     public void clickModelloF24() {
          getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(modelloF24));
          modelloF24.click();
+    }
+
+    public void clickSecondoModelloF24() {
+        List<WebElement> f24 = driver.findElements(By.xpath("//button[@data-testid='download-f24-button']"));
+        getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(f24.get(1)));
+        f24.get(1).click();
+    }
+
+    public void checkBoxModelloF24PG() {
+        try {
+            By boxModelloF24 = By.xpath("//div[@data-testid='f24only-box']");
+            getWebDriverWait(10).withMessage("Non si visualizza il box allegati modelli F24").until(ExpectedConditions.visibilityOfElementLocated(boxModelloF24));
+        } catch (TimeoutException e) {
+            logger.error("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
+            Assert.fail("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
+        }
     }
 }
