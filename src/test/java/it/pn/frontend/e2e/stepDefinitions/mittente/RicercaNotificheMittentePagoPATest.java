@@ -511,5 +511,5 @@ public class RicercaNotificheMittentePagoPATest {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.clickVediTutti();
     }
+     }
 
-}
