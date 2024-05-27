@@ -31,7 +31,7 @@ public class RestNotification {
             boolean avvisoPagoPa = pagamenti.get("avvisoPagoPa");
             boolean f24 = pagamenti.get("F24");
             boolean entrambi = pagamenti.get("entrambi");
-            NewNotificationResponse response = httpClient2.sendHttpPostRequest("/delivery/v2.3/requests", null, notification, NewNotificationResponse.class);
+            NewNotificationResponse response = null;
             if(avvisoPagoPa && !f24 && !entrambi){
                 response = httpClient2.sendHttpPostRequest("/delivery/v2.3/requests", null, notification, NewNotificationResponse.class);
             } else if(!avvisoPagoPa && f24 && !entrambi){
