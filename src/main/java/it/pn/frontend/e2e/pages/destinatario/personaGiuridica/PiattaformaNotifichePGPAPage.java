@@ -183,10 +183,11 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
 
     public void clickSecondoModelloF24() {
-        List<WebElement> f24 = driver.findElements(By.xpath("//button[@data-testid='download-f24-button']"));
-        logger.info("F24 trovato:" + f24.size());
-        getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(f24.get(1)));
-        f24.get(1).click();
+       //List<WebElement> f24 = driver.findElements(By.xpath("//button[@data-testid='download-f24-button']"));
+        //logger.info("F24 trovato:" + f24.size());
+        By f24 = By.xpath("//*[@id=\"root\"]/div[1]/div/main/div/div/div[1]/div[3]/div[4]/div/div/div[2]/div/div[2]/button");
+        getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(f24));
+        this.element(f24).click();
     }
 
     public void checkBoxModelloF24PG() {
