@@ -56,7 +56,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si controlla sia visualizza box allegati modelli F24 PG
     And Si clicca il modello F24 PG
     And Aspetta 3 secondi
-    And Si torna alla pagina precedente
+    #And Si torna alla pagina precedente
     And Si clicca il secondo modello F24 PG
     And Aspetta 3 secondi
     Then Si torna alla pagina precedente
