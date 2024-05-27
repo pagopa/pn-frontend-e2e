@@ -339,7 +339,7 @@ public class NotifichePersonaFisicaPagoPATest {
         }
     }
 
-    @And("Nella pagina Piattaforma Notifiche PF si filtra per codice IUN {string}")
+    @And("Nella pagina Piattaforma Notifiche del destinatario si filtra per codice IUN {string}")
     public void nellaPaginaPiattaformaNotificheSiRecuperaUnCodiceIUNValido(String codiceIun) {
         logger.info("Si recupera un codice IUN valido");
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
@@ -384,7 +384,7 @@ public class NotifichePersonaFisicaPagoPATest {
         }
     }
 
-    @And("Nella pagina Piattaforma Notifiche di PF si visualizzano correttamente i filtri di ricerca")
+    @And("Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca")
     public void nellaPaginaPiattaformaNotificheVisualizzanoCorrettamenteIFiltriDiRicerca() {
         piattaformaNotifichePage.siVisualizzaCorrettamenteIlCodiceIUNField();
         piattaformaNotifichePage.siVisualizzaCorrettamenteLaDataInzioField();
