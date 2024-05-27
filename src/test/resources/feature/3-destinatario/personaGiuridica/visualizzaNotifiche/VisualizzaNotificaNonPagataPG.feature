@@ -48,7 +48,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     Then Si controlla non sia presente il modello F24 PG
     And Logout da portale persona giuridica
 
-  @CheckNotificaConDocumentiAllegatiPG
+  @CheckNotificaConDocumentiAllegatiPG1
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - PG visualizza Notifica mono destinatario non ancora pagata solo con più modelli F24
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina piattaforma notifiche PG si effettua la ricerca per codice IUN "XJRT-KHQU-UGEJ-202405-Q-1"
