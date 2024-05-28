@@ -58,11 +58,6 @@ public class NotificaMittentePagoPATest {
     private Map<String, Object> personaFisica = new HashMap<>();
     private Map<String, Object> personaGiuridica = new HashMap<>();
     private Map<String, Object> personeFisiche = new HashMap<>();
-    private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
-    private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
-    private final String PF = "persona fisica";
-    private final String PG = "persona giuridica";
-    private final String PA = "pubblica amministrazione";
 
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
