@@ -15,6 +15,7 @@ import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.FactoryProperties;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -91,10 +92,10 @@ public class LoginPersonaFisicaPagoPA {
 
     @Given("PF - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
     public void loginMittenteConToken(String personaFisica) {
-        DataPopulation dataPopulation = new DataPopulation();
-        String urlLoginPF = System.getProperty("url.login.pf");
-        String tokenCesare = System.getProperty("token.login.pf.cesare");
-        String tokenLucrezia = System.getProperty("token.login.pf.lucrezia");
+        FactoryProperties factoryProperties = new FactoryProperties();
+        String urlLoginPF = factoryProperties.getUrlLoginPF();
+        String tokenCesare = factoryProperties.getTokenCesare();
+        String tokenLucrezia = factoryProperties.getTokenLucrezia();
         String urlLogin = "";
         if (personaFisica.equalsIgnoreCase("lucrezia")) {
             urlLogin = urlLoginPF + tokenLucrezia;
