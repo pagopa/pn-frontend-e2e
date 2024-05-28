@@ -48,8 +48,21 @@ public class RunCucumberTest {
         return false;
     }
 
+    private static void setApiBaseUrl() {
+        String baseUrlProperty = System.getProperty("apiBaseUrl");
+        String env = System.getProperty("environment");
+        if (baseUrlProperty == null || env == null) {
+            logger.error("apiBaseUrl property not set");
+            return;
+        }
+        String apiBaseUrl = baseUrlProperty.replace("{ENV}", env);
+        logger.info("apiBaseUrl = " + apiBaseUrl);
+        System.setProperty("apiBaseUrl", apiBaseUrl);
+    }
+
     @BeforeClass
     public static void startTestSuite() {
+        setApiBaseUrl();
         if (loadProperties()) {
             logger.info("properties loaded");
             properties.forEach((property, value) -> {
