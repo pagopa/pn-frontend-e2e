@@ -39,7 +39,7 @@ public class RicercaNotifichePersonaFisicaPATest {
 
     @And("Nella pagina Piattaforma Notifiche persona fisica inserire il codice IUN da dati notifica {string}")
     @And("Collegarsi a link con codice {int}")
-    public void collegarsiLink(int code){
+    public void collegarsiLink(int code) {
         switch (code) {
             case 19 -> {
                 this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=19");
@@ -65,11 +65,11 @@ public class RicercaNotifichePersonaFisicaPATest {
             case 1001 -> {
                 this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=1001");
             }
-            }
+        }
     }
 
     @And("Si visualizza correttamente il messaggio di errore {int}")
-    public void siVisualizzaMessaggioErroreConCodice(int code){
+    public void siVisualizzaMessaggioErroreConCodice(int code) {
         piattaformaNotifichePage.checkMessaggioErroreConCodice(code);
     }
 
@@ -98,8 +98,8 @@ public class RicercaNotifichePersonaFisicaPATest {
     @And("Cliccare sul bottone Filtra persona fisica")
     public void cliccareSulBottoneFiltra() {
         logger.info("Si clicca sul tasto filtra");
-        NotifichePFPage NotifichePFPage = new NotifichePFPage(this.driver);
-        NotifichePFPage.selectFiltraButton();
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.selectFiltraButton();
     }
 
     @Then("Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN della notifica {string}")
@@ -124,6 +124,7 @@ public class RicercaNotifichePersonaFisicaPATest {
             Assert.fail("Il risultato NON é coerente con il coodice IUN inserito");
         }
     }
+
     @Then("Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN {string}")
     public void nellaPaginaPiattaformaNotificheDestinatarioVengoRestituiteTutteLeNotificheConIlCodiceIUN(String IUN) {
         logger.info("Si verificano i risultati restituiti");
@@ -147,8 +148,8 @@ public class RicercaNotifichePersonaFisicaPATest {
     public void nellaPaginaPiattaformaNotificheDestinatarioInserireUnaDataDaDAAA() {
         logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca ");
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-        LocalDate dataFine = LocalDate.of(2023,11, 9);
-        LocalDate dataInizio = LocalDate.of(2023,11, 7);
+        LocalDate dataFine = LocalDate.of(2023, 11, 9);
+        LocalDate dataInizio = LocalDate.of(2023, 11, 7);
         String dataDA = notifichePFPage.controlloDateInserite(dataInizio.toString());
         String dataA = notifichePFPage.controlloDateInserite(dataFine.toString());
         notifichePFPage.inserimentoArcoTemporale(dataDA, dataA);
@@ -218,13 +219,13 @@ public class RicercaNotifichePersonaFisicaPATest {
     }
 
     @And("Si clicca su pagina diversa dalla prima")
-    public void siCliccaSupaginaDiversaDallaPrima(){
+    public void siCliccaSupaginaDiversaDallaPrima() {
         logger.info("si clicca su una pagina diversa dalla prima");
         piattaformaNotifichePage.clickPagina(3);
     }
 
     @And("Si verifica che visualizza la prima pagina")
-    public void siVerificaCheVisualizzaLaPrimaPagina(){
+    public void siVerificaCheVisualizzaLaPrimaPagina() {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.firstPageDisplayed();
     }
@@ -246,7 +247,7 @@ public class RicercaNotifichePersonaFisicaPATest {
     }
 
     @Then("Il rettangolo del campo errato diventa rosso")
-    public void ilRettangoloDelCampoErratoDiventaRosso(){
+    public void ilRettangoloDelCampoErratoDiventaRosso() {
         logger.info("Si controlla che almeno un campo data sia in stato invalido");
         destinatarioPage.isDateBoxInvalid();
     }
