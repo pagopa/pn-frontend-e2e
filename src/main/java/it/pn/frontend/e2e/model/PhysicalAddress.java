@@ -1,6 +1,5 @@
 package it.pn.frontend.e2e.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
