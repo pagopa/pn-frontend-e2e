@@ -1,14 +1,17 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
+import io.cucumber.java.bs.A;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
+import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
+import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
@@ -215,4 +218,106 @@ public class NotifichePGPagoPATest {
         piattaformaNotifichePGPAPage.clickIndietroButton();
     }
 
+
+    @And("Si clicca sul radio bottone di pagamento")
+    public void siCliccaRadioButtonPagamento(){
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        piattaformaNotifichePGPAPage.clickRadioBoxButton();
+    }
+
+    @And("Si controlla sia presente il modello F24 PG")
+    public void siControllaSiaPresenteIlModelloF24PG() {
+        logger.info("Si controlla sia presente il modello F24 PG");
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        if(piattaformaNotifichePGPAPage.modelloF24Displayed()){
+           logger.info("Il modello F24 è trovato");
+        }else{
+            logger.error("Il modello F24 non è trovato");
+            Assert.fail("Il modello F24 non è trovato");
+        }
+    }
+
+    @And("Si controlla non sia presente il modello F24 PG")
+    public void siControllaNonSiaPresenteIlModelloF24PG() {
+        logger.info("Si controlla non sia presente il modello F24 PG");
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        if(!piattaformaNotifichePGPAPage.modelloF24Displayed()){
+            logger.info("Il modello F24 non è trovato");
+        }else{
+            logger.error("Il modello F24 è trovato");
+            Assert.fail("Il modello F24 è trovato");
+        }
+    }
+
+    @And("Si clicca il modello F24 PG")
+    public void siCliccaIlModelloF24PG() {
+        logger.info("Si clicca il modello F24 PG");
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        piattaformaNotifichePGPAPage.clickModelloF24();
+    }
+
+    @And("Si clicca il secondo modello F24 PG")
+    public void siCliccaIlSecondoModelloF24PG() {
+        logger.info("Si clicca il secondo modello F24 PG");
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        piattaformaNotifichePGPAPage.clickSecondoModelloF24();
+    }
+
+    @And("Si controlla sia presente l'avviso PagoPa PG")
+    public void siControllaSiaPresenteLAvvisoPagoPaPG() {
+        logger.info("Si controlla la presenza del box per il pagamento della notifica");
+        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        if(accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed()){
+            logger.info("Avviso PagoPA è trovato");
+        }else{
+            logger.error("Avviso PagoPA non è trovato");
+            Assert.fail("Avviso PagoPA non è trovato");
+        }
+    }
+
+    @And("Si controlla non sia presente l'avviso PagoPa PG")
+    public void siControllaNonSiaPresenteLAvvisoPagoPaPG() {
+        logger.info("Si controlla la presenza del box per il pagamento della notifica");
+        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        if(!accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed()){
+            logger.info("Avviso PagoPA non è trovato");
+        }else{
+            logger.error("Avviso PagoPA è trovato");
+            Assert.fail("Avviso PagoPA è trovato");
+        }
+    }
+
+    @And("Si clicca l'avviso PagoPa PG")
+    public void siCliccaLAvvisoPagoPaPG() {
+        logger.info("Si clicca l'avviso PagoPa PG");
+        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        accediAPiattaformaNotifichePage.clickAvvisoPagoPAPG();
+    }
+
+    @And("Si controlla sia visualizza box allegati modelli F24 PG")
+    public void siControllaSiaVisualizzaBoxF24PG() {
+        logger.info("Si controlla sia presente il box allegati modelli F24");
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        piattaformaNotifichePGPAPage.checkBoxModelloF24PG();
+    }
+
+    @And("Nella pagina piattaforma notifiche PG si effettua la ricerca per codice IUN {string}")
+    public void nellaPaginaPiattformaNotificheSiEffettuaLaRicercaPerCodiceIUN(String codiceIUN) throws InterruptedException {
+        logger.info("Si cerca una notifica tramite IUN: " + codiceIUN);
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
+        piattaformaNotifichePage.selectFiltraDelegatoButton();
+    }
+
+    @And("Si controlla la presenza di codice avviso")
+    public void siControllaLaPresenzaDiCodiceAvviso(){
+        logger.info("Si controlla la presenza di codice avviso");
+        AccediAPiattaformaNotifichePage  accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        if(accediAPiattaformaNotifichePage.codiceAvvisoDisplayed()){
+            logger.info("Codice avviso è visuallizato corrttamente");
+        }else {
+            logger.error("Codice avviso non è visuallizato corrttamente");
+            Assert.fail("Codice avviso non è visuallizato corrttamente");
+        }
+    }
 }
