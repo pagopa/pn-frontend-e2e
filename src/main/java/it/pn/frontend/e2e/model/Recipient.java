@@ -3,6 +3,8 @@ package it.pn.frontend.e2e.model;
 import it.pn.frontend.e2e.model.enums.RecipientTypeEnum;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class Recipient {
     private String denomination;
@@ -10,6 +12,7 @@ public class Recipient {
     private String taxId;
     private PhysicalAddress physicalAddress;
     private DigitalDomicile digitalDomicile;
+    private List<NotificationPaymentItem> payments;
 
     public Recipient() {
         this.denomination = "Gaio Giulio Cesare";
@@ -17,6 +20,7 @@ public class Recipient {
         this.taxId = "CSRGGL44L13H501E";
         this.physicalAddress = new PhysicalAddress();
         this.digitalDomicile = new DigitalDomicile();
+        this.payments = null;
     }
 
     public Recipient(String denomination, RecipientTypeEnum recipientType, String taxId, PhysicalAddress physicalAddress, DigitalDomicile digitalDomicile) {
@@ -25,5 +29,15 @@ public class Recipient {
         this.taxId = taxId;
         this.physicalAddress = physicalAddress;
         this.digitalDomicile = digitalDomicile;
+        this.payments = null;
+    }
+
+    public Recipient(String denomination, RecipientTypeEnum recipientType, String taxId, PhysicalAddress physicalAddress, DigitalDomicile digitalDomicile, List<NotificationPaymentItem> payments) {
+        this.denomination = denomination;
+        this.recipientType = recipientType;
+        this.taxId = taxId;
+        this.physicalAddress = physicalAddress;
+        this.digitalDomicile = digitalDomicile;
+        this.payments = payments;
     }
 }

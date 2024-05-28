@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class NewNotifichePagoPATest {
@@ -36,19 +37,17 @@ public class NewNotifichePagoPATest {
         recipients.add(new Recipient());
         ArrayList<Document> documents = new ArrayList<>();
         documents.add(new Document());
-        ArrayList<NotificationPaymentItem> payments = new ArrayList<>();
+        List<NotificationPaymentItem> payments = new ArrayList<>();
 
-        PagoPaPayment avviso = new PagoPaPayment("1QKD/Ks6BohyQ+bgMxHf9NrpNhVmGUPxRYE1aerU4JQ=", "PN_NOTIFICATION_ATTACHMENTS-735290b9a029454e8b58651ecba8e6ff.pdf", "v1");
-        F24Payment modello = new F24Payment("UtTwRseo3KHQIFkl7+VGNeZDWauWqYyDEjrxl9w/h2g=", "PN_F24_META-77214509e33f405dab9c52ecfeb3e783.json", "v1");
+        PagoPaPayment avviso = new PagoPaPayment(WebTool.generateNoticeCodeNumber());
+        F24Payment modello = new F24Payment();
 
 
         if (avvisoPagoPa && !f24 && !entrambi) {
-            PagoPaPayment pagamentoAvvisoPagoPa = new PagoPaPayment("1QKD/Ks6BohyQ+bgMxHf9NrpNhVmGUPxRYE1aerU4JQ=", "PN_NOTIFICATION_ATTACHMENTS-735290b9a029454e8b58651ecba8e6ff.pdf", "v1");
-            NotificationPaymentItem pagamento = new NotificationPaymentItem(pagamentoAvvisoPagoPa);
+            NotificationPaymentItem pagamento = new NotificationPaymentItem(avviso);
             payments.add(pagamento);
         } else if (!avvisoPagoPa && f24 && !entrambi) {
-            F24Payment modelloF24Payment = new F24Payment("UtTwRseo3KHQIFkl7+VGNeZDWauWqYyDEjrxl9w/h2g=", "PN_F24_META-77214509e33f405dab9c52ecfeb3e783.json", "v1");
-            NotificationPaymentItem pagamento = new NotificationPaymentItem(modelloF24Payment);
+            NotificationPaymentItem pagamento = new NotificationPaymentItem(modello);
             payments.add(pagamento);
         } else if (!avvisoPagoPa && !f24 && entrambi) {
             NotificationPaymentItem pagamento = new NotificationPaymentItem(avviso, modello);
@@ -57,9 +56,12 @@ public class NewNotifichePagoPATest {
             logger.error("Le condizioni del map dei pagamenti non sono corrette");
             Assert.fail("Le condizioni del map dei pagamenti non sono corrette");
         }
+        for (Recipient recipient : recipients) {
+            recipient.setPayments(payments);
+        }
 
-        NewNotificationRequest notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE, payments);
-
+        NewNotificationRequest notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.REGISTERED_LETTER_890, "010202N", NotificationFeePolicyEnum.DELIVERY_MODE);
+        logger.info("\n\n\n" + notification + "\n\n\n");
         while (attempt <= maxAttempts) {
             NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification, pagamenti);
 

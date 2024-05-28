@@ -25,4 +25,10 @@ public class F24Payment {
         this.applyCost = applyCost;
         this.metadataAttachment = new NotificationMetadataAttachment(sha256, key, versionToken);
     }
+
+    public F24Payment(boolean applyCost, String sha256, String key, String versionToken) {
+        this.title = "F24_STANDARD_CLMCST42R12D969Z_0";
+        this.applyCost = applyCost;
+        this.metadataAttachment = new NotificationMetadataAttachment(sha256, key, versionToken);
+    }
 }

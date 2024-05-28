@@ -10,7 +10,14 @@ public class PagoPaPayment {
     private NotificationPaymentAttachment attachment;
 
     public PagoPaPayment() {
-        this.noticeCode = "302060159717521353";
+        this.noticeCode = "123456789012345678";
+        this.creditorTaxId = "77777777777";
+        this.applyCost = true;
+        this.attachment = new NotificationPaymentAttachment();
+    }
+
+    public PagoPaPayment(String noticeCode) {
+        this.noticeCode = noticeCode;
         this.creditorTaxId = "77777777777";
         this.applyCost = true;
         this.attachment = new NotificationPaymentAttachment();

@@ -11,9 +11,9 @@ public class Document {
 
 
     public Document() {
-        this.digests = new Digests();
+        this.digests = new Digests("jezIVxlG1M1woCSUngM6KipUN3/p8cG5RMIPnuEanlE=");
         this.contentType = "application/pdf";
-        this.ref = new Ref();
+        this.ref = new Ref("PN_NOTIFICATION_ATTACHMENTS-c4829b50846f4fb8b4961ec6586d6117.pdf", "v1");
         this.title = "RATA SCADUTA IMU";
     }
 
@@ -22,6 +22,5 @@ public class Document {
         this.contentType = contentType;
         this.ref = ref;
         this.title = title;
-
     }
 }
