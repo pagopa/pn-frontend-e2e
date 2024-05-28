@@ -95,6 +95,9 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(id = "notifications-table")
     WebElement notificationsTable;
 
+    @FindBy(id = "notificationsTable.body.row")
+    List<WebElement> notificationsTableLines;
+
     @FindBy(id = "message")
     WebElement erroreMessaggio;
 
@@ -798,16 +801,19 @@ public class PiattaformaNotifichePage extends BasePage {
             }
         }
         if (!notificationRequestId.isEmpty()) {
-            String statusNotifica;
+            String statusNotifica = "";
             int maximumRetry = 0;
             do {
-                if (maximumRetry > 4) {
+                if (maximumRetry > 6) {
                     logger.error("Sono stati fatti 5 tentativi per verificare la creazione della notifica");
                     Assert.fail("La notifica risulta ancora in stato WAITING dopo 5 tentativi");
                 }
                 RestNotification restNotification = new RestNotification();
                 statusNotifica = restNotification.getNotificationStatus(notificationRequestId);
-                WebTool.waitTime(90);
+                if (statusNotifica.equals("ACCEPTED")) {
+                    break;
+                }
+                WebTool.waitTime(60);
                 logger.info("Tentativo n. " + maximumRetry + " - Stato notifica: " + statusNotifica);
                 maximumRetry++;
             } while (statusNotifica.equals("WAITING"));
@@ -816,6 +822,91 @@ public class PiattaformaNotifichePage extends BasePage {
         } else {
             logger.error("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
             Assert.fail("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
+        }
+    }
+
+    public void clickBottoneAnnullaNotifica() {
+        try {
+            By bottoneAnnullaNotifica = By.xpath("//button[@data-testid='cancelNotificationBtn']");
+            getWebDriverWait(10).until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(bottoneAnnullaNotifica),
+                    ExpectedConditions.elementToBeClickable(bottoneAnnullaNotifica)));
+            element(bottoneAnnullaNotifica).click();
+        } catch (TimeoutException e) {
+            logger.error("Bottone annulla notifica non visibile e cliccabile");
+            Assert.fail("Bottone annulla notifica non visibile e cliccabile");
+
+        }
+    }
+
+    public void clickAnnullaNotificaModale() {
+        try {
+            By bottoneAnnullaNotificaModale = By.xpath("//button[@data-testid='modalCloseAndProceedBtnId']");
+            getWebDriverWait(10).until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(bottoneAnnullaNotificaModale),
+                    ExpectedConditions.elementToBeClickable(bottoneAnnullaNotificaModale)));
+            element(bottoneAnnullaNotificaModale).click();
+        } catch (TimeoutException e) {
+            logger.error("Bottone annulla notifica della modale non visibile e cliccabile");
+            Assert.fail("Bottone annulla notifica della modale non visibile e cliccabile");
+
+        }
+    }
+
+    public void checkBottoneAnnullaNotifica() {
+        try {
+            By bottoneAnnullaNotifica = By.xpath("//button[@data-testid='cancelNotificationBtn']");
+            getWebDriverWait(10).until(ExpectedConditions.invisibilityOfElementLocated(bottoneAnnullaNotifica));
+        } catch (TimeoutException e) {
+            logger.error("Bottone annulla notifica visibile");
+            Assert.fail("Bottone annulla notifica visibile");
+
+        }
+    }
+
+    public void checkStatoNotifica(String stato) {
+        driver.navigate().refresh();
+        WebTool.waitTime(10);
+        try {
+            WebElement notificationLine = notificationsTableLines.get(0);
+            WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + stato));
+            getWebDriverWait(10).withMessage("La notifica non ha lo stato " + stato).until(ExpectedConditions.visibilityOf(chipStatus));
+        } catch (TimeoutException e) {
+            logger.error("Notifica non trovata con errore: " + e.getMessage());
+            Assert.fail("Notifica non trovata con errore: " + e.getMessage());
+        }
+    }
+
+    public void selezionaNotificaConStato(String statoNotifica) {
+        boolean testSuccess = false;
+        for (int i = 0; i < 8; i++) {
+            try {
+                WebElement notificationLine = notificationsTableLines.get(0);
+                WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + statoNotifica));
+                if (chipStatus != null) {
+                    logger.info("La notifica è passata allo stato " + statoNotifica + " e si procede con il test");
+                    testSuccess = true;
+                    break;
+                }
+            } catch (NoSuchElementException e) {
+                logger.info("Dopo " + i + " tentativi la notifica non è ancora passata allo stato: " + statoNotifica);
+            }
+            WebTool.waitTime(15);
+            driver.navigate().refresh();
+        }
+        if (!testSuccess) {
+            logger.error("La notifica non è passata allo stato " + statoNotifica);
+            Assert.fail("La notifica non è passata allo stato " + statoNotifica);
+        }
+    }
+
+    public void checkPopUpConfermaAnnullamentoNotifica() {
+        try {
+            By popUpConfermaAnnullamento = By.xpath("//div[@role='alert']/div[text()='La richiesta di annullamento è stata accettata.']");
+            getWebDriverWait(10).withMessage("Pop up NON visualizzato").until(ExpectedConditions.visibilityOfElementLocated(popUpConfermaAnnullamento));
+        } catch (TimeoutException e) {
+            logger.error("Il pop up di conferma dell'annullamento della notifica non viene visualizzato con errore: " + e.getMessage());
+            Assert.fail("Il pop up di conferma dell'annullamento della notifica non viene visualizzato con errore: " + e.getMessage());
         }
     }
 

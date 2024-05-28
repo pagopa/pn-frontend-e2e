@@ -59,6 +59,7 @@ public class NotificaMittentePagoPATest {
     private Map<String, Object> personaGiuridica = new HashMap<>();
     private Map<String, Object> personeFisiche = new HashMap<>();
 
+
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
         AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
@@ -447,7 +448,6 @@ public class NotificaMittentePagoPATest {
         dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
         dettaglioNotificaMittenteSection.siVisualizzaPercosoNotifica();
     }
-
 
     @Then("Si clicca sul bottone indietro")
     public void siCliccaSulBottoneIndietro() {
@@ -885,7 +885,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella section Destinatario inserire i dati del destinatario persona giuridica aggiuntiva")
     public void nellaSectionDestinatarioInserireIDatiDelDestinatarioPersonaGiuridichaAggiuntiva(Map<String, String> destinatario) {
-        logger.info("Si cerca di aggiungere la persone giuridica aggiuntiva");
+        logger.info("Si cerca di aggiungere la persona giuridica aggiuntiva");
         destinatarioPASection.inserimentoDestinatarioPGAggiuntivo(destinatario);
     }
 
@@ -983,7 +983,6 @@ public class NotificaMittentePagoPATest {
         }
 
     }
-
 
     @Then("Nella section Destinatario si inseriscono i dati del destinatario")
     public void nellaSectionDestinatarioSiInserisconoIDatiDelDestinatario(Map<String, String> destinatario) {
@@ -1099,8 +1098,6 @@ public class NotificaMittentePagoPATest {
     @And("Si visualizza correttamente il codice hash del documento")
     public void siVisualizzaCorrettamenteIlCodiceHashDelDocumento() {
         allegatiPASection.checkCodiceHash();
-
-
     }
 
     @Then("Nella section Allegati si carica un atto non pdf e visualizza messaggio di errore")
@@ -1143,11 +1140,11 @@ public class NotificaMittentePagoPATest {
     }
 
     @Then("In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline {string}")
-    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPFESiVerificaLaTimeline(String messagio) {
+    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPFESiVerificaLaTimeline(String messaggio) {
         WebTool.switchToPortal(AppPortal.PF);
         piattaformaNotifichePage.selezionaNotifica();
         WebTool.waitTime(5);
-        piattaformaNotifichePage.visualizzaTimeline(messagio);
+        piattaformaNotifichePage.visualizzaTimeline(messaggio);
         WebTool.closeTab();
     }
 
@@ -1200,6 +1197,44 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.verificaPresenzaStato(stato);
     }
 
+    @And("Si annulla la notifica")
+    public void siAnnullaLaNotifica() {
+        logger.info("Si clicca sul pusante annulla notifica");
+        WebTool.waitTime(10);
+        piattaformaNotifichePage.clickBottoneAnnullaNotifica();
+        piattaformaNotifichePage.clickAnnullaNotificaModale();
+    }
+
+    @And("Il bottone annulla notifica non è visualizzabile nella descrizione della notifica")
+    public void ilBottoneAnnullaNotificaNonÈVisualizzabileNellaDescrizioneDellaNotifica() {
+        logger.info("Si controlla che il bottone annulla notifica non sia visualizzabile");
+        piattaformaNotifichePage.checkBottoneAnnullaNotifica();
+    }
+
+    @And("Nella pagina Piattaforma Notifiche la notifica presenta lo stato {string}")
+    public void nellaPaginaPiattaformaNotificheLaNotificaPresentaLoStato(String stato) {
+        logger.info("Si controlla che nella pagina piattaforma notifiche la notifica abbia lo stato " + stato);
+        piattaformaNotifichePage.checkStatoNotifica(stato);
+    }
+
+    @And("Si attende che lo stato della notifica sia {string}")
+    public void siAttendeCheLoStatoDellaNotificaSia(String statoNotifica) {
+        logger.info("Si clicca sulla notifica appena creata quando lo stato diventa: " + statoNotifica);
+        piattaformaNotifichePage.selezionaNotificaConStato(statoNotifica);
+    }
+
+    @Then("Si controlla la comparsa del pop up di conferma annullamento")
+    public void siControllaLaComparsaDelPopUpDiConfermaAnnullamento() {
+        logger.info("Si controlla la presenza del pop up di conferma dell'annullamento della notifica");
+        piattaformaNotifichePage.checkPopUpConfermaAnnullamentoNotifica();
+    }
+
+    @And("Si clicca il bottone indietro nella descrizione della notifica")
+    public void siCliccaIlBottoneIndietroNellaDescrizioneDellaNotifica() {
+        logger.info("Si clicca sul bottone indietro della pagina della descrizione della notifica");
+        dettaglioNotificaMittenteSection.clickIndietroButton();
+    }
+
     @And("Si verifica che l'invio della notifica sia fallito {int} volte")
     public void siVerificaCheLInvioDellaNotificaSiaFallitoDueVolte(int numeroFallimenti) {
         logger.info("Si verifica che l'invio della notifica sia fallito " + numeroFallimenti + " volta/e");
@@ -1242,7 +1277,6 @@ public class NotificaMittentePagoPATest {
         }
     }
 
-
     @Then("Nella section del destinatario numero {int} si inseriscono i suoi dati")
     public void nellaSectionDelDestinatarioNumeroSiInserisconoISuoiDati(int numeroDestinatario, Map<String, String> destinatario) {
         logger.info("Si inseriscono i dati del destinatario nella sezione Destinatario");
@@ -1262,6 +1296,12 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.inserireCodiceFiscaleMultiDestinatario(numeroDestinatario, destinatario.get("codiceFiscale"));
     }
 
+    @And("Si verifica l'invio della notifica al domicilio fisico")
+    public void siVerificaLInvioDellaNotificaAlDomicilioFisico() {
+        logger.info("Si controlla che la notifica sia stata inviato al domicilio fisico");
+        dettaglioNotificaMittenteSection.checkInvioADomicilioFisico();
+    }
+
     @Then("Si controlla sia presente l'avviso PagoPa")
     public void siControllaSiaPresenteLAvvisoPagoPa() {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
@@ -1279,7 +1319,6 @@ public class NotificaMittentePagoPATest {
         logger.info("Si torna alla pagina precedente");
         this.driver.navigate().back();
     }
-
 
     @Then("Si verifica che che non sia possibile effettuare il download del modelo F24")
     public void siVerificaF24() {
@@ -1310,7 +1349,6 @@ public class NotificaMittentePagoPATest {
         logger.info("Si controlla sia presente attestazione opponibile a terzi notifica presa in carico");
         dettaglioNotificaMittenteSection.checkAttestazionePresaInCarico();
     }
-
 
     @Then("Si controlla sia presente il box per il pagamento del multidestinatario")
     public void siControllaSiaPresenteIlBoxPerIlPagamentoDelMultidestinatario() {

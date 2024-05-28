@@ -366,6 +366,14 @@ public class NotifichePersonaFisicaPagoPATest {
         dettaglioNotifica.waitLoadDettaglioNotificaDESection();
     }
 
+    @And("Si controlla che nel portale del destinatario la notifica sia {string} e si chiude la scheda")
+    public void siControllaCheNelPortaleDelDestinatarioLaNotificaSiaESiChiudeLaScheda(String statoNotifica) {
+        logger.info("Si controlla che anche nel portale del destinatario la notifica sia in stato " + statoNotifica + " e si chiude la scheda");
+        piattaformaNotifichePage.selezionaNotifica();
+        piattaformaNotifichePage.verificaPresenzaStato(statoNotifica);
+        WebTool.closeTab();
+    }
+
     @And("Si controlla che il testo sia nel box pagamento {string}")
     public void siControllaTestoSiaNelBoxPagamento(String xpath) {
         boolean isPresent = dettaglioNotifica.isFieldDisplayed(By.xpath(xpath));
