@@ -46,13 +46,13 @@ public class DettaglioNotificaSection extends BasePage {
             By aarDownload = By.xpath("//div[@data-testid='aarDownload']");
             By aarBox = By.xpath("//div[@data-testid='aarBox']");
             By attestazione = By.xpath("//button[@data-testid='download-legalfact']");
-            this.getWebDriverWait(10).withMessage("il titolo Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
-            this.getWebDriverWait(10).withMessage("il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
-            this.getWebDriverWait(10).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
-            this.getWebDriverWait(10).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
-            this.getWebDriverWait(10).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
+            getWebDriverWait(10).withMessage("il titolo Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
+            getWebDriverWait(10).withMessage("il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
+            getWebDriverWait(10).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
+            getWebDriverWait(10).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
+            getWebDriverWait(10).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
             if (!isSelfcare) {
-                this.getWebDriverWait(10).withMessage("Il sezione recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(sezioneRecapiti));
+                getWebDriverWait(10).withMessage("Il sezione recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(sezioneRecapiti));
             }
 
             getWebDriverWait(10).withMessage("La sezione recapiti non è visibile").until(ExpectedConditions.or(
@@ -70,7 +70,7 @@ public class DettaglioNotificaSection extends BasePage {
         if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
             attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
         } else {
-            this.js().executeScript("arguments[0].scrollIntoView(true);", attestazioniFile.get(numeroLinkAttestazioniOpponibile));
+            js().executeScript("arguments[0].scrollIntoView(true);", attestazioniFile.get(numeroLinkAttestazioniOpponibile));
             attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
         }
     }
@@ -79,7 +79,7 @@ public class DettaglioNotificaSection extends BasePage {
         if (documentiAllegati.get(numeroLinkDocumentiAllegati).isDisplayed()) {
             documentiAllegati.get(numeroLinkDocumentiAllegati).click();
         } else {
-            this.js().executeScript("arguments[0].scrollIntoView(true);", attestazioniFile.get(numeroLinkDocumentiAllegati));
+            js().executeScript("arguments[0].scrollIntoView(true);", attestazioniFile.get(numeroLinkDocumentiAllegati));
             documentiAllegati.get(numeroLinkDocumentiAllegati).click();
         }
     }
@@ -93,7 +93,7 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void selezioneVediDettaglioButton() {
-        getWebDriverWait(10).withMessage("Bottone vedi dettaglio non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.vediDettagliButton));
+        getWebDriverWait(10).withMessage("Bottone vedi dettaglio non è cliccabile").until(ExpectedConditions.elementToBeClickable(vediDettagliButton));
         vediDettagliButton.click();
         if (!tuttiStatiNotificaList.isEmpty()) {
             logger.info("Tutti gli stati sono stati visualizzati correttamente");

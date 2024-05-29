@@ -37,7 +37,6 @@ public class RicercaNotifichePersonaFisicaPATest {
         notifichePFPage.waitLoadNotificheDEPage();
     }
 
-    @And("Nella pagina Piattaforma Notifiche persona fisica inserire il codice IUN da dati notifica {string}")
     @And("Collegarsi a link con codice {int}")
     public void collegarsiLink(int code) {
         switch (code) {
@@ -71,18 +70,6 @@ public class RicercaNotifichePersonaFisicaPATest {
     @And("Si visualizza correttamente il messaggio di errore {int}")
     public void siVisualizzaMessaggioErroreConCodice(int code) {
         piattaformaNotifichePage.checkMessaggioErroreConCodice(code);
-    }
-
-    @And("Nella pagina Piattaforma Notifiche  persona fisica inserire il codice IUN da dati notifica {string}")
-    public void nellaPaginaPiattaformaNotificheDestinatarioInserireIlCodiceIUNDaDatiNotifica(String dpDataNotifica) throws InterruptedException {
-        logger.info("Si inserisce il codice IUN");
-        DataPopulation dataPopulation = new DataPopulation();
-        this.datiNotifica = dataPopulation.readDataPopulation(dpDataNotifica + ".yaml");
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-        notifichePFPage.waitLoadPage();
-
-        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
-        notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
     }
 
     @And("Nella pagina Piattaforma Notifiche persona fisica inserire il codice IUN {string}")
