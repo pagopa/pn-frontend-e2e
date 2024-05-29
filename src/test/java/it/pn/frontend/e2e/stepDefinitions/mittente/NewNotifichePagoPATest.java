@@ -38,19 +38,17 @@ public class NewNotifichePagoPATest {
         ArrayList<Document> documents = new ArrayList<>();
         documents.add(new Document());
         List<NotificationPaymentItem> payments = new ArrayList<>();
-
-        PagoPaPayment avviso = new PagoPaPayment(WebTool.generateNoticeCodeNumber());
-        F24Payment modello = new F24Payment();
-
+        PagoPaPayment pagoPaPayment = new PagoPaPayment(WebTool.generateNoticeCodeNumber());
+        F24Payment modelloF24 = new F24Payment();
 
         if (avvisoPagoPa && !f24 && !entrambi) {
-            NotificationPaymentItem pagamento = new NotificationPaymentItem(avviso);
+            NotificationPaymentItem pagamento = new NotificationPaymentItem(pagoPaPayment);
             payments.add(pagamento);
         } else if (!avvisoPagoPa && f24 && !entrambi) {
-            NotificationPaymentItem pagamento = new NotificationPaymentItem(modello);
+            NotificationPaymentItem pagamento = new NotificationPaymentItem(modelloF24);
             payments.add(pagamento);
         } else if (!avvisoPagoPa && !f24 && entrambi) {
-            NotificationPaymentItem pagamento = new NotificationPaymentItem(avviso, modello);
+            NotificationPaymentItem pagamento = new NotificationPaymentItem(pagoPaPayment, modelloF24);
             payments.add(pagamento);
         } else {
             logger.error("Le condizioni del map dei pagamenti non sono corrette");
@@ -61,7 +59,7 @@ public class NewNotifichePagoPATest {
         }
 
         NewNotificationRequest notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.REGISTERED_LETTER_890, "010202N", NotificationFeePolicyEnum.DELIVERY_MODE);
-        logger.info("\n\n\n" + notification + "\n\n\n");
+
         while (attempt <= maxAttempts) {
             NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification, pagamenti);
 
