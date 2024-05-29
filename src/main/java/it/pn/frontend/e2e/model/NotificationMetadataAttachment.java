@@ -11,7 +11,7 @@ public class NotificationMetadataAttachment {
     public NotificationMetadataAttachment() {
         this.digests = new NotificationAttachmentDigests("UtTwRseo3KHQIFkl7+VGNeZDWauWqYyDEjrxl9w/h2g=");
         this.contentType = "application/json";
-        this.ref = new NotificationAttachmentBodyRef("PN_F24_META-77214509e33f405dab9c52ecfeb3e783.json", "v1");
+        this.ref = new NotificationAttachmentBodyRef("PN_F24_META-5cf8e14c93c34ed194ff3ace14620fc1.json", "v1");
     }
 
     public NotificationMetadataAttachment(String sha256, String key, String versionToken) {
