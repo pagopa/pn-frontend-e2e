@@ -128,7 +128,7 @@ public class DestinatarioPASection extends BasePage {
         this.scrollToElementClickAndInsertText(this.codiceFiscaleDestinatarioTextField, codiceFiscale);
     }
 
-    public boolean checkCampiDestinatarioPopalati(){
+    public boolean checkCampiDestinatarioPopolati(){
 
            if (!nomeDestinatarioTextField.getAttribute("value").isEmpty() &&
                    !cognomeDestinatarioTextField.getAttribute("value").isEmpty() &&

@@ -14,7 +14,9 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -337,6 +339,12 @@ public class NotifichePersonaFisicaPagoPATest {
         }
     }
 
+    @And("Nella pagina Piattaforma Notifiche del destinatario si filtra per codice IUN {string}")
+    public void nellaPaginaPiattaformaNotificheSiRecuperaUnCodiceIUNValido(String codiceIun) {
+        logger.info("Si recupera un codice IUN valido");
+        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
+    }
+
     @And("Si Controlla la paginazione di default")
     public void siControllaLaPaginazioneDiDefault() {
         logger.info("controllo paginazione di default in pagina notifiche");
@@ -356,6 +364,50 @@ public class NotifichePersonaFisicaPagoPATest {
     @And("Si controlla il dettaglio della notifica")
     public void siControllaIlDettaglioDellaNotifica() {
         dettaglioNotifica.waitLoadDettaglioNotificaDESection();
+    }
+
+    @And("Si controlla che il testo sia nel box pagamento {string}")
+    public void siControllaTestoSiaNelBoxPagamento(String xpath) {
+        boolean isPresent = dettaglioNotifica.isFieldDisplayed(By.xpath(xpath));
+        if (!isPresent) {
+            Assert.fail("L'elemento non esiste");
+        }
+    }
+
+    @And("Si controlla che il testo non sia nel box pagamento {string}")
+    public void siControllaTestoNonSiaNelBoxPagamento(String xpathString) {
+        By xpath = By.xpath(xpathString);
+
+        boolean isNotPresent = dettaglioNotifica.isFieldNotDisplayed(xpath);
+        if (!isNotPresent) {
+            Assert.fail("L'elemento esiste");
+        }
+    }
+
+    @And("Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca")
+    public void nellaPaginaPiattaformaNotificheVisualizzanoCorrettamenteIFiltriDiRicerca() {
+        piattaformaNotifichePage.siVisualizzaCorrettamenteIlCodiceIUNField();
+        piattaformaNotifichePage.siVisualizzaCorrettamenteLaDataInzioField();
+        piattaformaNotifichePage.siVisualizzaCorrettamenteLaDataFineField();
+    }
+
+    @Then("Si visualizza correttamente la section Dettaglio Notifica annullata persona fisica")
+    public void siVisualizzaCorrettamenteLaSectionDettaglioNotificaAnnullataPersonaFisica() {
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        dettaglioNotificaSection.waitLoadDettaglioNotificaAnnullataDESection();
+    }
+
+    @And("Si controlla lo stato timeline in dettaglio notifica")
+    public void siControllaLoStatoTimelineInDettaglioNotificaPF(Map<String, String> datiDettaglioNotifica) {
+        String xpath = datiDettaglioNotifica.get("xpath");
+        dettaglioNotifica.waitLoadDettaglioNotificaDESection();
+        WebTool.waitTime(2);
+        dettaglioNotifica.checkStatoTimeline(By.xpath(xpath));
+    }
+
+    @And("Si seleziona un avviso pagopa")
+    public void siSelezionaUnAvvisoPagopa() {
+        dettaglioNotifica.selezioneAvvisoPagoPa();
     }
 }
 
