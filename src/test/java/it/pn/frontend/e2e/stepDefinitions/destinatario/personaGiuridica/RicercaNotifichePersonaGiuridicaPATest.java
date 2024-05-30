@@ -73,7 +73,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
             boolean radioBoxPresent = piattaformaNotifichePGPAPage.isRadioBoxPresent();
 
             if (radioBoxPresent) {
-                piattaformaNotifichePGPAPage.clickRadioBoxButton(piattaformaNotifichePGPAPage.cssBuildRadioButton());
+                piattaformaNotifichePGPAPage.clickRadioBoxButton();
             }
 
             boolean titoloPagamentoIsDisplayed = piattaformaNotifichePGPAPage.titoloDiPagamentoDisplayed();
@@ -107,24 +107,21 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         ricercaNotifichePGPage.clickFiltraButton();
     }
 
-    @And("Nella pagina Piattaforma Notifiche persona giuridica vengo restituite tutte le notifiche con il codice IUN della notifica {string}")
-    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaVengoRestituiteTutteLeNotificheConIlCodiceIUNDellaNotifica(String datiNotificaPG) {
+    @And("Nella pagina Piattaforma Notifiche persona giuridica vengo restituite tutte le notifiche con il codice IUN della notifica")
+    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaVengoRestituiteTutteLeNotificheConIlCodiceIUNDellaNotifica(Map<String, String> datiPG) {
         logger.info("Si verifica i risultati restituiti");
+
+        String iun = datiPG.get("iun");
+        String ragioneSociale = datiPG.get("ragioneSociale");
 
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
 
-        DataPopulation dataPopulation = new DataPopulation();
-
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
-        String ragioneSociale = dataPopulation.readDataPopulation("personaGiuridica.yaml").get("ragioneSociale").toString();
         piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(ragioneSociale);
 
-        this.datiNotificaPG = dataPopulation.readDataPopulation(datiNotificaPG + ".yaml");
-        String codiceIUNInserito = this.datiNotificaPG.get("codiceIUN").toString();
-
-        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
-        boolean result = notificheDestinatarioPage.verificaCodiceIUN(codiceIUNInserito);
+        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(driver);
+        boolean result = notificheDestinatarioPage.verificaCodiceIUN(iun);
         if (result) {
             logger.info("Il risultato é coerente con il codice IUN inserito");
         } else {
