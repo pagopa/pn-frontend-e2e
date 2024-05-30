@@ -77,6 +77,12 @@ public class Hooks {
         chromeOptions.addArguments("--disable-dev-shm-usage");
         chromeOptions.addArguments("--remote-allow-origins=*");
         chromeOptions.addArguments("--enable-clipboard");
+        String downloadFilepath = System.getProperty("downloadFilePath");
+
+        HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+        chromePrefs.put("download.default_directory", downloadFilepath);
+
+        chromeOptions.setExperimentalOption("prefs", chromePrefs);
         if (this.headless != null && this.headless.equalsIgnoreCase("true")) {
             chromeOptions.addArguments("no-sandbox");
             chromeOptions.addArguments("headless");

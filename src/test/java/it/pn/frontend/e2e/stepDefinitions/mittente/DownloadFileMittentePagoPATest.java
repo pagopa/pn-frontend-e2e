@@ -5,7 +5,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.model.Disservice;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
@@ -13,22 +12,16 @@ import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.Wait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import org.apache.pdfbox.pdmodel.PDDocument;
-
 
 
 public class DownloadFileMittentePagoPATest {
@@ -292,21 +285,20 @@ public class DownloadFileMittentePagoPATest {
         logger.info("controllo esistenza file disservizio ");
 
         DisserviziAppPAPage disserviziAppPAPage = new DisserviziAppPAPage(driver);
-        disserviziAppPAPage.clickVisualizzaAttestazione();
-
-        logger.info("URL"+ driver.getCurrentUrl());
+        //disserviziAppPAPage.downloadAttestazione();
 
         WebTool.waitTime(4);
+
         //disserviziAppPAPage.checkVisualizzazioneFileDisservizioRisolto();
     }
 
-    @And("Download file attestazione disservizio, {string}")
-    public void downloadFileAttestazioneDisservizio(String nomeFile) {
+    @And("Download file attestazione disservizio")
+    public void downloadFileAttestazioneDisservizio() {
         logger.info("si effettua download del disservizio");
 
         DisserviziAppPAPage disserviziAppPAPage = new DisserviziAppPAPage(driver);
 
-        disserviziAppPAPage.downloadAttestazioneDisservizio(nomeFile);
-
+        disserviziAppPAPage.downloadAttestazione();
+        WebTool.waitTime(3);
     }
 }

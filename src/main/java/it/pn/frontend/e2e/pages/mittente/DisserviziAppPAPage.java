@@ -5,20 +5,25 @@ import it.pn.frontend.e2e.model.Disservice;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.Assert;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.util.Arrays;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class DisserviziAppPAPage<URl> extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("Disservizi PA Page");
     private DownloadFile downloadFile;
+
     public DisserviziAppPAPage(WebDriver driver) {
         super(driver);
     }
@@ -66,7 +71,7 @@ public class DisserviziAppPAPage<URl> extends BasePage {
         }
     }
 
-    public Disservice getDateDisservice(){
+    public Disservice getDateDisservice() {
 
         List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
         if (!disserviziTableRows.isEmpty()) {
@@ -77,7 +82,7 @@ public class DisserviziAppPAPage<URl> extends BasePage {
                     .dataDa(dataInizioPrimaRiga)
                     .dataA(dataFinePrimaRiga)
                     .build();
-        }else {
+        } else {
             logger.error("non é stato possibile recuperare i dati dalla tabella dei disservizi");
             Assert.fail("non é stato possibile recuperare i dati dalla tabella dei disservizi");
             return null;
@@ -159,13 +164,13 @@ public class DisserviziAppPAPage<URl> extends BasePage {
     public void checkDisservizioRisolto() {
         aggionamentoPagina();
         List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
-        if (!disserviziTableRows.isEmpty()){
+        if (!disserviziTableRows.isEmpty()) {
             WebElement primaRiga = disserviziTableRows.get(0);
             WebElement dataFinePrimaRiga = primaRiga.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//p[contains(text(), 'ore')]")).get(1);
             WebElement statoPrimaRiga = primaRiga.findElement(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//span[contains(text(), 'Risolto')]"));
-            if (dataFinePrimaRiga.isDisplayed() && statoPrimaRiga.isDisplayed()){
+            if (dataFinePrimaRiga.isDisplayed() && statoPrimaRiga.isDisplayed()) {
                 logger.info("Disservizio risolto trovato");
-            }else {
+            } else {
                 logger.error("Non si visualizza un record in elenco relativo ad un disservizio risolto");
                 Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio risolto");
             }
@@ -199,33 +204,25 @@ public class DisserviziAppPAPage<URl> extends BasePage {
     }
 
 
-    public void clickVisualizzaAttestazione() {
+    public void downloadAttestazione() {
         List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
-        if (!disserviziTableRows.isEmpty()){
+        if (!disserviziTableRows.isEmpty()) {
             WebElement primaRiga = disserviziTableRows.get(0);
-            WebElement linkDownloadAttestazione =primaRiga.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(0);
+            WebElement linkDownloadAttestazione = primaRiga.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(0);
             linkDownloadAttestazione.click();
         }
-
-        getWebDriverWait(30).until(d->{
-            try {
-        return d.getCurrentUrl().contains("pn-safestorage");
-            }catch (TimeoutException e){
-                return false;
-            }
-        });
     }
 
     public void checkVisualizzazioneFileDisservizioRisolto() {
         try {
             getWebDriverWait(5).until(ExpectedConditions.urlContains("pn-safestorage"));
-        }catch (TimeoutException e){
+        } catch (TimeoutException e) {
             logger.error("Non si visualizza il file del disservizio risolto");
             Assert.fail("Non si visualizza il file del disservizio risolto");
         }
     }
 
-    public void downloadAttestazioneDisservizio(String nomeFile){
+    public void downloadAttestazioneDisservizio(String nomeFile) {
         boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
 
         downloadFile = new DownloadFile(this.driver);
@@ -233,7 +230,7 @@ public class DisserviziAppPAPage<URl> extends BasePage {
         WebTool.waitTime(3);
 
         final String url = driver.getCurrentUrl();
-        System.out.println("getCurrentUrl"+url);
+        System.out.println("getCurrentUrl" + url);
 
         if (!headless && url.isEmpty()) {
             logger.error("Non è stato recuperato url per il download per il link: " + nomeFile);
@@ -248,51 +245,50 @@ public class DisserviziAppPAPage<URl> extends BasePage {
         }
     }
 
-    public void confrontoFileConDisservizio(String nomefile) {
-        try{
-            driver.findElement(By.xpath("//html")).sendKeys(Keys.CONTROL+ "a");
-            driver.findElement(By.xpath("//html")).sendKeys(Keys.CONTROL+ "C");
-            //System.out.println("url ->"+text);
+    public boolean confrontoFileConDisservizio() {
 
-            PDDocument doc=null;
-            BufferedInputStream file=null;
+        Disservice dateDisservice = getDateDisservice();
+        String folderPath = System.getProperty("downloadFilePath");
+        // Stringa da cercare nel nome del file
+        String searchString = "PN_DOWNTIME_LEGAL_FACTS";
 
-            /*URL urlOfPdf = new URL(getURL);
-            System.out.println(urlOfPdf);
+        // Creazione di un oggetto File che rappresenta la cartella
+        File folder = new File(folderPath);
 
-            BufferedInputStream fileToParse = new BufferedInputStream(urlOfPdf.openStream());
-            PDDocument document = PDDocument.load(fileToParse);
-            System.out.println("document ->"+document);
+        // Controllo che il percorso specificato sia una directory
+        if (folder.isDirectory()) {
+            // Ottieni l'elenco di tutti i file nella cartella
+            File[] files = folder.listFiles();
 
-            PDFTextStripper output = new PDFTextStripper();
+            // Verifica che la cartella non sia vuota
+            if (files != null) {
+                // Cerca i file che contengono la stringa specificata nel nome
+                for (File file : files) {
+                    if (file.isFile() && file.getName().contains(searchString)) {
+                        // Puoi eseguire altre operazioni sul file qui
+                        try {
+                            PDFTextStripper pdfTextStripper = new PDFTextStripper();
+                            String text = pdfTextStripper.getText(PDDocument.load(file));
+                            System.out.println(text);
+                            System.out.println(dateDisservice.getDataA() + dateDisservice.getDataDa());
+                            if (text.contains(dateDisservice.getDataA()) && text.contains(dateDisservice.getDataDa())) {
+                                return true;
+                            }
+                            //break// Rimuovere il commento se si desidera fermarsi al primo file trovato
+                        } catch (IOException e) {
+                            logger.error("Errore nel leggere il PDF: " + file.getName(), e);
+                            Assert.fail("Errore nel leggere il PDF: " + file.getName());
+                        }
+                    }
+                }
+            } else {
+                System.out.println("La cartella è vuota o non è possibile accedervi.");
 
-            System.out.println("output->"+output);
-
-            output.setEndPage(1);
-            String text = output.getText(document);
-            System.out.println(text);*/
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-              /*Disservice disservice = getDateDisservice();
-        String basePathFile = "src/test/resources/dataPopulation/downloadFileDisservizio/mittente/" + nomefile + ".pdf";
-        File file = new File(basePathFile);
-        logger.info("percorso file: " + file.getAbsolutePath());
-        try {
-            PDDocument pdfFile = PDDocument.load(file);
-            PDFTextStripper pdfStripper = new PDFTextStripper();
-            String testoFile = pdfStripper.getText(pdfFile).replaceAll("\r\n|\r|\n", "");
-            logger.info("check corrispondenza testo con pdf");
-            if (testoFile.contains(disservice.getDataA()) && testoFile.contains(disservice.getDataDa())) {
-                pdfFile.close();
-                return true;
             }
-            pdfFile.close();
-        } catch (IOException e) {
-            logger.error("File non trovato con errore: " + e.getMessage());
-            Assert.fail("File non trovato con errore: " + e.getMessage());
+        } else {
+            System.out.println("Il percorso specificato non è una directory.");
         }
-        return false;*/
+        return false;
     }
+
 }

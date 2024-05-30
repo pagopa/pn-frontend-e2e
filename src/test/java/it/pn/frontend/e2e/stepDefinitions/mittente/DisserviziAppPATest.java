@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,15 +53,14 @@ public class DisserviziAppPATest {
         disserviziAppPAPage.checkDisserviziDisponibili();
     }
 
-    @And("Controllo corrispondenza dati con pdf, {string}")
-    public void controlloCorrispondenzaDatiConPdf(String nomefile) {
+    @And("Controllo corrispondenza dati con pdf")
+    public void controlloCorrispondenzaDatiConPdf() {
         logger.info("check dati con pdf e disservizio");
 
-        disserviziAppPAPage.confrontoFileConDisservizio(nomefile);
-        /*if (!isCorrect){
+        boolean isCorrect = disserviziAppPAPage.confrontoFileConDisservizio();
+        if (!isCorrect) {
             logger.error("i dati del pdf non corrispondono a quelli della tabella");
             Assert.fail("i dati del pdf non corrispondono a quelli della tabella");
-        }*/
-
+        }
     }
 }
