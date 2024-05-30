@@ -40,7 +40,6 @@ Feature: annullamento della notifica
     And Logout da portale mittente
 
   @annullamentoNotifica
-  @nuovachiamatadaprovare
   Scenario: PN-10394 - Mittente invia una notifica con avviso PagoPa e F24, la annulla e controlla quali file sono scaricabili
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Aspetta 10 secondi
