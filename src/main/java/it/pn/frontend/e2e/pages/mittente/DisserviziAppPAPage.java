@@ -243,6 +243,7 @@ public class DisserviziAppPAPage<URl> extends BasePage {
 
     public boolean confrontoFileConDisservizio() {
 
+        Disservice disservice = new Disservice();
         Disservice dateDisservice = getDateDisservice();
 
         logger.info("date prese con successo dal disserivizio");
