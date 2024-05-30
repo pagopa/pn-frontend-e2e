@@ -68,5 +68,5 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Nella pagina piattaforma notifiche PG si effettua la ricerca per codice IUN "NGQY-TQWG-YPRT-202405-E-1"
     And Si clicca la notifica ricercata
     And Si controlla la presenza di codice avviso
-    And Si controlla non sia presente l'avviso PagoPa PG
+    And Si controlla non sia presente l'avviso PagoPa
     And Logout da portale persona giuridica

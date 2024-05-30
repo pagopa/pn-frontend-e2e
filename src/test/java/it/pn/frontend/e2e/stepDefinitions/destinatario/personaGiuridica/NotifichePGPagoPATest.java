@@ -275,8 +275,8 @@ public class NotifichePGPagoPATest {
         }
     }
 
-    @And("Si controlla non sia presente l'avviso PagoPa PG")
-    public void siControllaNonSiaPresenteLAvvisoPagoPaPG() {
+    @And("Si controlla non sia presente l'avviso PagoPa")
+    public void siControllaNonSiaPresenteLAvvisoPagoPa() {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
         AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
         if(!accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed()){
