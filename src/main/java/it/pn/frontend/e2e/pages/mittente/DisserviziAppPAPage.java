@@ -269,8 +269,6 @@ public class DisserviziAppPAPage<URl> extends BasePage {
                         try {
                             PDFTextStripper pdfTextStripper = new PDFTextStripper();
                             String text = pdfTextStripper.getText(PDDocument.load(file));
-                            System.out.println(text);
-                            System.out.println(dateDisservice.getDataA() + dateDisservice.getDataDa());
                             if (text.contains(dateDisservice.getDataA()) && text.contains(dateDisservice.getDataDa())) {
                                 return true;
                             }

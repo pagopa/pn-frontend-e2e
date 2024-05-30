@@ -4,7 +4,7 @@ Feature: Mittente effettua il download delle attestazioni dei disservizi risolti
   @mittente
   @TA_MittenteDownloadDisservizioRisolto
   @TA_PA_DownloadDisservizioRisolto
-
+  @File
     #Il test è scritto in modo da avere headless a true
 
   Scenario: PN-9238 - Mittente effettua il download delle attestazioni dei disservizi risolti

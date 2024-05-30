@@ -274,6 +274,30 @@ public class Hooks {
     }
 
     /**
+     * Clear directory of file downloaded
+     * P.S: This will work only if you invoke the feature step that creates the delegate
+     */
+    @After("@File")
+    public void clearDirectory() {
+        String folderPath = System.getProperty("downloadFilePath");
+
+        File folder = new File(folderPath);
+
+        if (folder.isDirectory()) {
+            File[] files = folder.listFiles();
+            for (File file : files) {
+                if (file.isFile()) {
+                    if (file.delete()) {
+                        System.out.println("File cancellato: " + file.getAbsolutePath());
+                    } else {
+                        System.out.println("Impossibile cancellare il file: " + file.getAbsolutePath());
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Clear the contacts of PF after the scenario
      * P.S: This will work only if there are any contacts available
      */
