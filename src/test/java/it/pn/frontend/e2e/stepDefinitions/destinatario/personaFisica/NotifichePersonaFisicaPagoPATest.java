@@ -429,6 +429,12 @@ public class NotifichePersonaFisicaPagoPATest {
         notifichePFPage.checkFileF24IsOpen();
     }
 
+    @And("Si controlla di aver aperto l'avviso PagoPa")
+    public void siControllaDiAverApertoLAvvisoPagoPa() {
+        logger.info("Si controlla di aver aperto correttamente l'avviso PagoPa");
+        notifichePFPage.checkAvvisoPagoPaIsOpen();
+    }
+
     @And("Si torna alla pagina precedente")
     public void siTornaAllaPaginaPrecedente() {
         logger.info("Si torna alla pagina precedente");

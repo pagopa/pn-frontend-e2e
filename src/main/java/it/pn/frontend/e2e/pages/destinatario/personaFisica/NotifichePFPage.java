@@ -393,16 +393,19 @@ public class NotifichePFPage extends BasePage {
 
     public void checkFileF24IsOpen() {
         try {
-            driver.navigate().refresh();
-            TimeUnit.SECONDS.sleep(10);
-            By fileOpened = By.xpath("//embed");
-            getWebDriverWait(10).withMessage("Il file F24 non è aperto correttamente").until(ExpectedConditions.visibilityOfElementLocated(fileOpened));
+            getWebDriverWait(10).withMessage("Il file del modello F24 non è stato aperto correttamente").until(ExpectedConditions.urlContains(".pdf"));
         } catch (TimeoutException e){
             logger.error("Il file F24 non è stato aperto correttamente con errore: " + e.getMessage());
             Assert.fail("Il file F24 non è stato aperto correttamente con errore: " + e.getMessage());
-        } catch (InterruptedException e){
-            logger.error("La pausa non è andata a buon fine con errore: " + e.getMessage());
-            Assert.fail("La pausa non è andata a buon fine con errore: " + e.getMessage());
+        }
+    }
+
+    public void checkAvvisoPagoPaIsOpen() {
+        try {
+            getWebDriverWait(10).withMessage("Il file dell'avviso PagoPa non è stato aperto correttamente").until(ExpectedConditions.urlContains(".pdf"));
+        } catch (TimeoutException e){
+            logger.error("Il file dell'avviso PagoPa non è stato aperto correttamente con errore: " + e.getMessage());
+            Assert.fail("Il file dell'avviso PagoPa non è stato aperto correttamente con errore: " + e.getMessage());
         }
     }
 
