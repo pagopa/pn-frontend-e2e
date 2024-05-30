@@ -844,7 +844,7 @@ public class PiattaformaNotifichePage extends BasePage {
         try {
             By bottoneAnnullaNotificaModale = By.xpath("//button[@data-testid='modalCloseAndProceedBtnId']");
             getWebDriverWait(10).withMessage("Bottone annulla notifica nella modale non visibile").until(ExpectedConditions.visibilityOfElementLocated(bottoneAnnullaNotificaModale));
-            getWebDriverWait(10).withMessage("Bottone annulla notifica nella modale non cliccabile").until(ExpectedConditions.elementToBeClickable(bottoneAnnullaNotificaModale));
+            getWebDriverWait(10).withMessage("Bottone annulla notifica nella modale non cliccabile ").until(ExpectedConditions.elementToBeClickable(bottoneAnnullaNotificaModale));
             element(bottoneAnnullaNotificaModale).click();
         } catch (TimeoutException e) {
             logger.error("Bottone annulla notifica della modale non visibile e cliccabile");
