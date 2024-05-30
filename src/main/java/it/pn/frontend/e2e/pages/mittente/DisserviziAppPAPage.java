@@ -207,20 +207,16 @@ public class DisserviziAppPAPage<URl> extends BasePage {
     public void downloadAttestazione() {
         List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
         if (!disserviziTableRows.isEmpty()) {
+            logger.info("tabella caricata e non vuota");
+
             WebElement primaRiga = disserviziTableRows.get(0);
             WebElement linkDownloadAttestazione = primaRiga.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(0);
             linkDownloadAttestazione.click();
+            logger.info("click effettuato con successo");
+
         }
     }
 
-    public void checkVisualizzazioneFileDisservizioRisolto() {
-        try {
-            getWebDriverWait(5).until(ExpectedConditions.urlContains("pn-safestorage"));
-        } catch (TimeoutException e) {
-            logger.error("Non si visualizza il file del disservizio risolto");
-            Assert.fail("Non si visualizza il file del disservizio risolto");
-        }
-    }
 
     public void downloadAttestazioneDisservizio(String nomeFile) {
         boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
@@ -248,6 +244,9 @@ public class DisserviziAppPAPage<URl> extends BasePage {
     public boolean confrontoFileConDisservizio() {
 
         Disservice dateDisservice = getDateDisservice();
+
+        logger.info("date prese con successo dal disserivizio");
+
         String folderPath = System.getProperty("downloadFilePath");
         // Stringa da cercare nel nome del file
         String searchString = "PN_DOWNTIME_LEGAL_FACTS";
@@ -269,6 +268,8 @@ public class DisserviziAppPAPage<URl> extends BasePage {
                         try {
                             PDFTextStripper pdfTextStripper = new PDFTextStripper();
                             String text = pdfTextStripper.getText(PDDocument.load(file));
+                            logger.info(text);
+                            logger.info("si effettua il controllo tra il testo del documento e quello del disservizio");
                             if (text.contains(dateDisservice.getDataA()) && text.contains(dateDisservice.getDataDa())) {
                                 return true;
                             }
