@@ -270,6 +270,9 @@ public class DisserviziAppPAPage<URl> extends BasePage {
                             String text = pdfTextStripper.getText(PDDocument.load(file));
                             logger.info(text);
                             logger.info("si effettua il controllo tra il testo del documento e quello del disservizio");
+                            logger.info(dateDisservice.getDataDa());
+                            logger.info(dateDisservice.getDataA());
+
                             if (text.contains(dateDisservice.getDataA()) && text.contains(dateDisservice.getDataDa())) {
                                 return true;
                             }
