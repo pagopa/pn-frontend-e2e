@@ -20,9 +20,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class DisserviziAppPAPage<URl> extends BasePage {
+public class DisserviziAppPAPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("Disservizi PA Page");
     private DownloadFile downloadFile;
+    private Disservice disservice = new Disservice();
 
     public DisserviziAppPAPage(WebDriver driver) {
         super(driver);
@@ -71,21 +72,20 @@ public class DisserviziAppPAPage<URl> extends BasePage {
         }
     }
 
-    public Disservice getDateDisservice() {
+    public void getDateDisservice() {
 
         List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
         if (!disserviziTableRows.isEmpty()) {
             WebElement primaRiga = disserviziTableRows.get(0);
             String dataInizioPrimaRiga = primaRiga.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//p[contains(text(), 'ore')]")).get(0).getText();
             String dataFinePrimaRiga = primaRiga.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//p[contains(text(), 'ore')]")).get(1).getText();
-            return Disservice.builder()
-                    .dataDa(dataInizioPrimaRiga)
-                    .dataA(dataFinePrimaRiga)
-                    .build();
+            disservice.setDataDa(dataInizioPrimaRiga);
+            disservice.setDataA(dataFinePrimaRiga);
+
         } else {
             logger.error("non é stato possibile recuperare i dati dalla tabella dei disservizi");
             Assert.fail("non é stato possibile recuperare i dati dalla tabella dei disservizi");
-            return null;
+
         }
     }
 
@@ -243,8 +243,7 @@ public class DisserviziAppPAPage<URl> extends BasePage {
 
     public boolean confrontoFileConDisservizio() {
 
-        Disservice disservice = new Disservice();
-        Disservice dateDisservice = getDateDisservice();
+        getDateDisservice();
 
         logger.info("date prese con successo dal disserivizio");
 
@@ -271,10 +270,10 @@ public class DisserviziAppPAPage<URl> extends BasePage {
                             String text = pdfTextStripper.getText(PDDocument.load(file));
                             logger.info(text);
                             logger.info("si effettua il controllo tra il testo del documento e quello del disservizio");
-                            logger.info(dateDisservice.getDataDa());
-                            logger.info(dateDisservice.getDataA());
+                            logger.info(disservice.getDataDa());
+                            logger.info(disservice.getDataA());
 
-                            if (text.contains(dateDisservice.getDataA()) && text.contains(dateDisservice.getDataDa())) {
+                            if (text.contains(disservice.getDataA()) && text.contains(disservice.getDataDa())) {
                                 return true;
                             }
                             //break// Rimuovere il commento se si desidera fermarsi al primo file trovato

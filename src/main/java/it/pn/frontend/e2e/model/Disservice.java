@@ -1,12 +1,10 @@
 package it.pn.frontend.e2e.model;
 
 import it.pn.frontend.e2e.utility.WebTool;
-import lombok.Builder;
 import lombok.Setter;
 
 import java.time.ZoneId;
 
-@Builder
 @Setter
 public class Disservice {
 
@@ -15,7 +13,7 @@ public class Disservice {
     private ZoneId targetZoneId; // zona target, puoi cambiarla a tuo piacimento
 
     public Disservice() {
-        targetZoneId = ZoneId.of("Europe/ Paris");
+        this.targetZoneId = ZoneId.of("Europe/Paris");
     }
 
     public String getDataA() {
@@ -24,7 +22,7 @@ public class Disservice {
     }
 
     public String getDataDa() {
-        String dataFormatted = dataA.replace("ore", "").trim();
+        String dataFormatted = dataDa.replace("ore", "").trim();
         return WebTool.convertToLocalTime(dataFormatted, targetZoneId);
     }
 }
