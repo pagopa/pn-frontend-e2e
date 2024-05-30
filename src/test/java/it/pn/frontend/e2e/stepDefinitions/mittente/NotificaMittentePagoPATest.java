@@ -1188,6 +1188,21 @@ public class NotificaMittentePagoPATest {
         WebTool.waitTime(5);
     }
 
+    @And("Si annulla la notifica")
+    public void siAnnullaLaNotifica() {
+        logger.info("Si clicca sul pusante annulla notifica");
+        WebTool.waitTime(10);
+        piattaformaNotifichePage.clickBottoneAnnullaNotifica();
+        WebTool.waitTime(2);
+        piattaformaNotifichePage.clickAnnullaNotificaModale();
+    }
+
+    @Then("Si controlla la comparsa del pop up di conferma annullamento")
+    public void siControllaLaComparsaDelPopUpDiConfermaAnnullamento() {
+        logger.info("Si controlla la presenza del pop up di conferma dell'annullamento della notifica");
+        piattaformaNotifichePage.checkPopUpConfermaAnnullamentoNotifica();
+    }
+
     @And("Nella timeline della notifica si visualizza l'invio del messaggio di cortesia")
     public void nellaTimelineDellaNotificaSiVisualizzaLInvioDelMessaggioDiCortesia() {
         logger.info("Si verifica la presenza della voce 'Invio della notifica di cortesia in corso' nella timeline della notifica");
