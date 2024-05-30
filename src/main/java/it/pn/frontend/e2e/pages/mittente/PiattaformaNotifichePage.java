@@ -831,9 +831,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void clickBottoneAnnullaNotifica() {
         try {
-            By bottoneAnnullaNotifica = By.xpath("//button[@data-testid='cancelNotificationBtn']");
-            getWebDriverWait(10).until(ExpectedConditions.and(ExpectedConditions.visibilityOfElementLocated(bottoneAnnullaNotifica), ExpectedConditions.elementToBeClickable(bottoneAnnullaNotifica)));
-            element(bottoneAnnullaNotifica).click();
+            WebElement bottoneAnnullaNotifica = driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']"));
+            getWebDriverWait(10).until(ExpectedConditions.and(ExpectedConditions.visibilityOf(bottoneAnnullaNotifica), ExpectedConditions.elementToBeClickable(bottoneAnnullaNotifica)));
+            scrollToElementAndClick(bottoneAnnullaNotifica);
         } catch (TimeoutException e) {
             logger.error("Bottone annulla notifica non visibile e cliccabile");
             Assert.fail("Bottone annulla notifica non visibile e cliccabile");

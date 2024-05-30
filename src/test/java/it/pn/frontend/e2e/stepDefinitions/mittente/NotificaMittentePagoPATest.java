@@ -1191,9 +1191,7 @@ public class NotificaMittentePagoPATest {
     @And("Si annulla la notifica")
     public void siAnnullaLaNotifica() {
         logger.info("Si clicca sul pusante annulla notifica");
-        WebTool.waitTime(10);
         piattaformaNotifichePage.clickBottoneAnnullaNotifica();
-        WebTool.waitTime(2);
         piattaformaNotifichePage.clickAnnullaNotificaModale();
     }
 

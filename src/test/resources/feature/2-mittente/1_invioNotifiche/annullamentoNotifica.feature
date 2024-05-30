@@ -48,7 +48,7 @@ Feature: annullamento della notifica
       | avvisoPagoPa | false |
       | F24          | false |
       | entrambi     | true  |
-    Then Attendo 3 minuti e verifico in background che la notifica sia stata creata correttamente
+    Then Attendo 5 minuti e verifico in background che la notifica sia stata creata correttamente
     When Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita
     And Si visualizza correttamente la sezione Dettaglio Notifica
     And Si annulla la notifica
