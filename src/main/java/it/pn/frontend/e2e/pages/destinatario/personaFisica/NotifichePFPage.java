@@ -66,8 +66,8 @@ public class NotifichePFPage extends BasePage {
 
     public void waitLoadNotificheDEPage() {
         try {
-            this.getWebDriverWait(10).withMessage("Il titolo della pagina Notifiche non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));
-            this.getWebDriverWait(10).withMessage("La tabella delle Notifiche non è visibile").until(ExpectedConditions.visibilityOf(tableNotifiche));
+            getWebDriverWait(10).withMessage("Il titolo della pagina Notifiche non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));
+            getWebDriverWait(10).withMessage("La tabella delle Notifiche non è visibile").until(ExpectedConditions.visibilityOf(tableNotifiche));
             logger.info("Notifiche DE Page caricata");
         } catch (TimeoutException e) {
             logger.error("Notifiche DE Page non caricata con errore : " + e.getMessage());

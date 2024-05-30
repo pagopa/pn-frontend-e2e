@@ -11,9 +11,11 @@ import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+
 public class BasePage {
     protected WebDriver driver;
 
+    private static final int waitLoadComponentTime = Integer.parseInt(System.getProperty("waitLoadComponentTime"));
     private static final Logger loggerBase = LoggerFactory.getLogger("BasePage");
 
     public BasePage(WebDriver driver) {
@@ -56,6 +58,10 @@ public class BasePage {
 
     protected WebDriverWait getWebDriverWait(long timeout) {
         return new WebDriverWait(this.driver, Duration.ofSeconds(timeout), Duration.ofMillis(500));
+    }
+
+    protected WebDriverWait getWebDriverWait() {
+        return new WebDriverWait(this.driver, Duration.ofSeconds(waitLoadComponentTime), Duration.ofMillis(500));
     }
 
     protected WebElement element(By by) {
