@@ -84,7 +84,7 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP() {
         logger.info("Si visualizza correttamente il pop-up di inserimento OTP");
         String varabileAmbiente = System.getProperty("environment");
-        String url = "https://webapi." + varabileAmbiente + ".notifichedigitali.it/address-book/v1/digital-address";
+        String url = "https://webapi." + varabileAmbiente + ".notifichedigitali.it/bff/v1/address";
         recapitiDestinatarioPage.waitLoadPopUp();
         try {
             TimeUnit.SECONDS.sleep(3);
@@ -218,6 +218,7 @@ public class RecapitiPersonaFisicaTest {
         iTuoiRecapitiPage.insertTelephoneNumber(phoneNumber);
         iTuoiRecapitiPage.clickAvvisamiViaSMS();
     }
+
     @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono PF {string} e clicca sul bottone avvisami via SMS")
     public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoPF(String phoneNumber) {
 
@@ -596,7 +597,7 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si controlla che l'indirizzo Email non sia presente");
         if (recapitiDestinatarioPage.verificaMailField()) {
             logger.info("Email è stata eliminata correttamente");
-        }else {
+        } else {
             logger.error("Email non è stata eliminata");
             Assert.fail("Email non è stata eliminata");
         }
@@ -797,7 +798,6 @@ public class RecapitiPersonaFisicaTest {
     }
 
 
-
     @And("Nella sezione altri recapiti si seleziona l'ente {string}")
     public void nellaSezioneAltriRecapitiSiSelezionaLEnte(String dpFile) {
         logger.info("Si sceglie l'ente");
@@ -977,7 +977,7 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("Nella sezione altri recapiti si clicca sul bottone conferma per inserire un recapito")
-    public void nellaSezioneAltriRecapitiSiCliccaSulBottoneConfermaPerInserireUnRecapito(){
+    public void nellaSezioneAltriRecapitiSiCliccaSulBottoneConfermaPerInserireUnRecapito() {
         logger.info("Si clicca su conferma");
         recapitiDestinatarioPage.clickConfermaRecapitoGiaPresente();
     }
