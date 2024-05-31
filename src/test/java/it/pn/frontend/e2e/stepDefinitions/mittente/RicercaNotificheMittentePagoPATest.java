@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DestinatarioPASection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
@@ -50,6 +51,37 @@ public class RicercaNotificheMittentePagoPATest {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.selectFiltraButton();
     }
+
+    @And("Si verifica che non ci sono notifiche disponibili")
+    public void siVerificaCheNonCiSonoNotifiche() {
+        logger.info("Si verifica che non ci sono notifiche disponibili con i fitri applicati");
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.verificaNotificheNonDisponibili();
+    }
+
+    @And("Si visualizza correttamente box di pagamento")
+    public void siVisualizzaBoxPagamento(){
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        if(piattaformaNotifichePGPAPage.sezionePagamentoDisplayed()){
+            logger.info("Si visualizza correttamente box di pagamento");
+        }else{
+            logger.error("Non si visualizza correttamente box di pagamento");
+            Assert.fail("Non si visualizza correttamente box di pagamento");
+        }
+    }
+
+    @And("Si visualizza correttamente il messaggio notifica annullata")
+    public void siVisulizzaIlMessagioAnnullato(){
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        if(piattaformaNotifichePGPAPage.messaggioNotificaAnnullataDisplayed()){
+            logger.info("Si visualizza correttamente il messaggio notifica annulata");
+        }else{
+            logger.error("Non si visualizza correttamente il messaggio notifica annulata");
+            Assert.fail("Non si visualizza correttamente il messaggio notifica annulata");
+        }
+
+    }
+
 
     @And("Si verifica che il bottone Filtra sia disabilitato")
     public void siVerificaCheIlBottoneFiltraSiaDisabilitato() {
@@ -480,4 +512,28 @@ public class RicercaNotificheMittentePagoPATest {
             Assert.fail("Campo stato notifica NON trovato");
         }
     }
-}
+
+    @And("Nella pagina piattaforma notifiche si effettua la ricerca per codice IUN {string}")
+    public void nellaPaginaPiattformaNotificheSiEffettuaLaRicercaPerCodiceIUN(String codiceIUN) throws InterruptedException {
+        logger.info("Si cerca una notifica tramite IUN: " + codiceIUN);
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
+        piattaformaNotifichePage.selectFiltraButton();
+    }
+
+
+    @And("Si clicca la notifica ricercata")
+    public void siCliccaLaNotificaRicercata() {
+        logger.info("Se presente si clicca la notifica ricercata");
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.clickNotificaRicercata();
+    }
+
+    @And("Si clicca sul bottone vedi tutti")
+    public void siCliccaVediTutti() {
+        logger.info("Si clicca sul bottone vedi tutti");
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.clickVediTutti();
+    }
+     }
+
