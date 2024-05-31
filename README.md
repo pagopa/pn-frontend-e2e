@@ -87,7 +87,6 @@ Lista:
 - `logFileName`: nome del file di log. Esempio: `-DlogFileName=nomeFile`
 - `cookie.config`: se `true` inietta i cookie ad ogni scenario senza la comparsa del banner OneTrust. Valori
   possibili: `true`, `false`
-- `loadComponentWaitTime`: valore numerico che stabilisce i secondi di attesa per il caricamento di un componente web
 
 ## Altro
 

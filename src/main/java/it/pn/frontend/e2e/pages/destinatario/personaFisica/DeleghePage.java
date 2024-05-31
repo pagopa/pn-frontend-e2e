@@ -136,7 +136,7 @@ public class DeleghePage extends BasePage {
     public void clickMenuPerRifiuto(String nome, String cognome) {
         try {
             By menuDelegheBy = By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']");
-            getWebDriverWait(this.loadComponentWaitTime).until(ExpectedConditions.visibilityOfElementLocated(menuDelegheBy));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(menuDelegheBy));
             logger.info("Si clicca correttamente il menu della delega");
             this.element(menuDelegheBy).click();
         } catch (TimeoutException e) {
@@ -233,16 +233,17 @@ public class DeleghePage extends BasePage {
 
             getWebDriverWait(10).withMessage("Non si trova il titolo").until(ExpectedConditions.visibilityOfElementLocated(titoloModale));
             getWebDriverWait(10).withMessage("Non si trova il sottotitolo").until(ExpectedConditions.visibilityOfElementLocated(sottotitoloModale));
-            while(i>=0){
-                getWebDriverWait(10).withMessage("Non si trova codice verifica").until(ExpectedConditions.visibilityOfElementLocated(By.id("code-input-"+i)));
+            while (i >= 0) {
+                getWebDriverWait(10).withMessage("Non si trova codice verifica").until(ExpectedConditions.visibilityOfElementLocated(By.id("code-input-" + i)));
                 i--;
             }
-        }catch (TimeoutException e ){
+        } catch (TimeoutException e) {
             logger.error("modale mostra codice non caricata con errore: " + e.getMessage());
             Assert.fail("modale mostra codice non caricata con errore: " + e.getMessage());
         }
     }
-    public void clickAnnullaRevoca(){
+
+    public void clickAnnullaRevoca() {
         getWebDriverWait(10).withMessage("bottone annulla delega non trovato").until(ExpectedConditions.visibilityOf(annullaButton));
         logger.info("click sul pulsante annulla revoca");
 

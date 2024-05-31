@@ -15,13 +15,13 @@ import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.FactoryProperties;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -49,11 +49,12 @@ public class LoginPersonaFisicaPagoPA {
                     Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
     }
-        @Given("Login Page persona fisica test viene visualizzata")
-        public void loginPageDestinatarioVieneVisualizzataConUrl() {
 
-           String url = "https://cittadini.test.notifichedigitali.it/";
-            this.driver.get(url);
+    @Given("Login Page persona fisica test viene visualizzata")
+    public void loginPageDestinatarioVieneVisualizzataConUrl() {
+
+        String url = "https://cittadini.test.notifichedigitali.it/";
+        this.driver.get(url);
     }
 
     @Given("PF - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
@@ -89,6 +90,31 @@ public class LoginPersonaFisicaPagoPA {
         notifichePFPage.waitLoadNotificheDEPage();
     }
 
+    @Given("PF - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
+    public void loginMittenteConToken(String personaFisica) {
+        FactoryProperties factoryProperties = new FactoryProperties();
+        String urlLoginPF = factoryProperties.getUrlLoginPF();
+        String tokenCesare = factoryProperties.getTokenCesare();
+        String tokenLucrezia = factoryProperties.getTokenLucrezia();
+        String urlLogin = "";
+        if (personaFisica.equalsIgnoreCase("lucrezia")) {
+            urlLogin = urlLoginPF + tokenLucrezia;
+        } else {
+            urlLogin = urlLoginPF + tokenCesare;
+        }
+
+        // Si effettua il login con token exchange
+        driver.get(urlLogin);
+        logger.info("Login effettuato con successo");
+        WebTool.waitTime(10);
+
+        // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
+        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
+        headerPFSection.waitLoadHeaderDESection();
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.waitLoadNotificheDEPage();
+    }
+
     @Given("PF - Si effettua la login tramite token exchange con utente {string} e viene visualizzata la dashboard")
     public void loginMittenteConTokenExchangeEUtente(String utente) {
         DataPopulation dataPopulation = new DataPopulation();
@@ -99,8 +125,8 @@ public class LoginPersonaFisicaPagoPA {
                 //ToDo add token for dev
             }
             case "test" -> {
-                if(utente.equalsIgnoreCase("Cristoforo Colombo")) {
-                    token =  dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPFColombo").toString();
+                if (utente.equalsIgnoreCase("Cristoforo Colombo")) {
+                    token = dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPFColombo").toString();
                 }
             }
             default -> {
@@ -192,8 +218,9 @@ public class LoginPersonaFisicaPagoPA {
         confermaDatiSpidPFPage.selezionaConfermaButton();
         headerPFSection.waitUrlToken();
     }
+
     @When("Login con persona fisica")
-    public void loginConDestinatario(Map<String,String> datiPF) {
+    public void loginConDestinatario(Map<String, String> datiPF) {
         logger.info("user persona fisica : " + datiPF.get("user"));
         logger.info("cookies start");
         CookiesSection cookiesPage;
