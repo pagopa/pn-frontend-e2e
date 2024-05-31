@@ -216,27 +216,62 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         this.element(continuaPagamento).click();
     }
 
-    public void checkoutPagamento(){
+    public void checkoutPagamento() throws InterruptedException {
         logger.info("Si procede con il pagamento");
         this.element(By.cssSelector("[data-qaid='CP']")).click();
-        getWebDriverWait(10).withMessage("Il textbox numero di carta non e visibile").until(ExpectedConditions.visibilityOf(creditCardNumber));
+        Thread.sleep(5000);
+        // frame of the card number
+        WebElement iframeCardNumber  = driver.findElement(By.xpath("//iframe[@id='frame_CARD_NUMBER']"));
+        driver.switchTo().frame(iframeCardNumber);
+        getWebDriverWait(10).withMessage("Il textbox numero di carta non è visibile").until(ExpectedConditions.visibilityOf(creditCardNumber));
         creditCardNumber.click();
         creditCardNumber.clear();
         creditCardNumber.sendKeys("5186151650005008");
+        driver.switchTo().defaultContent();
 
+        //frame of the expiry date
+        WebElement iframeExpiry  = driver.findElement(By.xpath("//iframe[@id='frame_EXPIRATION_DATE']"));
+        driver.switchTo().frame(iframeExpiry);
+        By scadenza = By.xpath("//input[@id='EXPIRATION_DATE']");
+        getWebDriverWait(20).withMessage("Il textbox scadenza non è visibile").until(ExpectedConditions.visibilityOfElementLocated(scadenza));
+        this.element(scadenza).click();
+        this.element(scadenza).clear();
+        this.element(scadenza).sendKeys("12/26");
+        driver.switchTo().defaultContent();
 
-        /*this.js().executeScript("arguments[0].click()", this.element((By.id("CARD_NUMBER"))));
-        this.js().executeScript("arguments[0].sendKeys(arguments[1])", this.element((By.id("CARD_NUMBER"))), "4165654565485486");
-        this.element(By.id("Numero carta")).sendKeys("4165654565485486");
-        this.element(By.id("EXPIRATION_DATE")).click();
-        this.element(By.id("EXPIRATION_DATE")).sendKeys("12/28");
-        this.element(By.id("SECURITY_CODE")).sendKeys("555");/*
-        */
-        this.element(By.cssSelector("[aria-label='Continua']")).click();
+        //frame of the security code
+        WebElement iframeSecurityCode  = driver.findElement(By.xpath("//iframe[@id='frame_SECURITY_CODE']"));
+        driver.switchTo().frame(iframeSecurityCode);
+        By codice = By.xpath("//input[@id='SECURITY_CODE']");
+        getWebDriverWait(10).withMessage("Il textbox codice di sicurezza non è visibile").until(ExpectedConditions.visibilityOfElementLocated(codice));
+        this.element(codice).click();
+        this.element(codice).clear();
+        this.element(codice).sendKeys("123");
+        driver.switchTo().defaultContent();
+
+        //frame of the cardholder name
+        WebElement iframeTitolare  = driver.findElement(By.xpath("//iframe[@id='frame_CARDHOLDER_NAME']"));
+        driver.switchTo().frame(iframeTitolare);
+        By titolare = By.xpath("//input[@id='CARDHOLDER_NAME']");
+        getWebDriverWait(10).withMessage("Il textbox titolare non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titolare));
+        this.element(titolare).click();
+        this.element(titolare).clear();
+        this.element(titolare).sendKeys("Titolare");
+        driver.switchTo().defaultContent();
+
+        By continuaBottone = By.xpath("//button[@aria-label='Continua']");
+        getWebDriverWait(5).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(continuaBottone));
+        this.element(continuaBottone).click();
+
+        By pagaButton = By.xpath("//button[@id='paymentCheckPageButtonPay']");
+        getWebDriverWait(5).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
+        this.element(pagaButton).click();
+
     }
 
     public void siVisualizzaStatoPagato(){
-
+        By statoPagamento = By.xpath("//div[@id='status-chip-In elaborazione']");
+        getWebDriverWait(5).withMessage("Lo stato di pagamento non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoPagamento));
     }
 }
 

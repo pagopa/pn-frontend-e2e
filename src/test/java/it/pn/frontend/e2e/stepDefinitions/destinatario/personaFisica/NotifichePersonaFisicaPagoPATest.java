@@ -373,7 +373,7 @@ public class NotifichePersonaFisicaPagoPATest {
     }
 
     @Then("Si inserisce i dati di pagamento e procede con il pagamento {string}")
-    public void siInserisceIDatiDiPagamento(String email){
+    public void siInserisceIDatiDiPagamento(String email) throws InterruptedException {
         logger.info("Si inserisce i dati di pagamento");
         CookiesSection cookiesSection = new CookiesSection(this.driver);
         cookiesSection.selezionaAccettaTuttiButton();
