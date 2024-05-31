@@ -55,7 +55,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     @FindBy(css = "[data-testid='pay-button']")
     WebElement pagaAvviso;
 
-    @FindBy(linkText = "Codice avviso")
+    @FindBy(xpath = "//span[contains(text(),'Codice avviso')]")
     WebElement codiceAvviso;
     @FindBy(css = ".MuiTypography-caption-semibold.css-1g3z0lx")
     WebElement codiceAvvisoSpan;
@@ -155,15 +155,30 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public boolean codiceAvvisoDisplayed() {
-        return getWebDriverWait(30).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvviso)).isDisplayed();
+        try {
+            getWebDriverWait(5).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvviso)).isDisplayed();
+        return true;
+        }catch (RuntimeException e){
+            return false;
+        }
     }
 
     public boolean modelloF24Displayed() {
-        return getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
+        return getWebDriverWait(5).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
     }
 
     public boolean scaricaAvvisoDisplayed() {
-        return getWebDriverWait(30).withMessage("Il sezione scarica avviso non è visibile").until(ExpectedConditions.visibilityOf(scaricaAvviso)).isDisplayed();
+        try {
+            getWebDriverWait(5).withMessage("Il sezione scarica avviso non è visibile").until(ExpectedConditions.visibilityOf(scaricaAvviso)).isDisplayed();
+            return true;
+        }catch (RuntimeException e){
+            return false;
+        }
+    }
+
+    public void clickAvvisoPagoPAPG() {
+         getWebDriverWait(30).withMessage("Il sezione scarica avviso non è cliccabile").until(ExpectedConditions.elementToBeClickable(scaricaAvviso));
+         scaricaAvviso.click();
     }
 
     public boolean pagaAvvisoDisplayed() {

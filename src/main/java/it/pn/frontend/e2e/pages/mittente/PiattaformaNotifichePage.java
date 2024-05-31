@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
 public class PiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("notificaMittentePagoPA");
@@ -128,7 +131,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void selectFiltraButton() {
         try {
-            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(filtraButton));
+            getWebDriverWait(10).until(elementToBeClickable(filtraButton));
             filtraButton.click();
             logger.info("Bottone filtra cliccato correttamente");
         } catch (TimeoutException e) {
@@ -139,7 +142,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void selectFiltraDelegatoButton() {
         try {
-            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.filtraDeleganteButton));
+            getWebDriverWait(30).until(elementToBeClickable(this.filtraDeleganteButton));
             this.filtraDeleganteButton.click();
             logger.info("Bottone filtra, nella pagina notifiche del delegato, cliccato correttamente");
         } catch (TimeoutException e) {
@@ -244,7 +247,7 @@ public class PiattaformaNotifichePage extends BasePage {
         this.statoNotificaField.click();
         try {
             By statoNotificaBy = By.xpath("//li[contains(@data-value,'" + statoInserito + "')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(statoNotificaBy));
+            this.getWebDriverWait(30).until(elementToBeClickable(statoNotificaBy));
 
             if (this.element(statoNotificaBy).isDisplayed()) {
                 this.js().executeScript("arguments[0].click()", this.element(statoNotificaBy));
@@ -281,7 +284,7 @@ public class PiattaformaNotifichePage extends BasePage {
         try {
             By notificaBy = By.id("notificationsTable.body.row");
             attesaCaricamentoPagina();
-            getWebDriverWait(10).withMessage("La tabella delle notifiche non è caricata correttamente").until(ExpectedConditions.elementToBeClickable(notificaBy));
+            getWebDriverWait(10).withMessage("La tabella delle notifiche non è caricata correttamente").until(elementToBeClickable(notificaBy));
             List<WebElement> notifiche = this.elements(notificaBy);
             notifiche.get(0).click();
         } catch (TimeoutException e) {
@@ -296,7 +299,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selectInviaUnaNuovaNotificaButton() {
-        this.getWebDriverWait(10).withMessage("Il bottone invia notifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(inviaNuovaNotificaButton));
+        this.getWebDriverWait(10).withMessage("Il bottone invia notifica non è cliccabile").until(elementToBeClickable(inviaNuovaNotificaButton));
         this.inviaNuovaNotificaButton.click();
     }
 
@@ -366,7 +369,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selezionareLaVoceApiKey() {
-        getWebDriverWait(30).withMessage("la voce api key non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.apiKeyButton));
+        getWebDriverWait(30).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(this.apiKeyButton));
         this.js().executeScript("arguments[0].click()", this.apiKeyButton);
     }
 
@@ -594,7 +597,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void clickIndietroButton() {
         this.getWebDriverWait(30).withMessage("Il bottone indietro non è  cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(this.indietroButton));
+                .until(elementToBeClickable(this.indietroButton));
         this.indietroButton.click();
     }
 
@@ -611,7 +614,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void clickSuEsci() {
         this.getWebDriverWait(30).withMessage("Il bottone esci non è  cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(this.esciButton));
+                .until(elementToBeClickable(this.esciButton));
         this.esciButton.click();
     }
 
@@ -745,7 +748,7 @@ public class PiattaformaNotifichePage extends BasePage {
         By paginaBy = By.id(paginaString);
         try {
             this.getWebDriverWait(30).withMessage("Il bottone pagina " + pagina + " non è cliccabile")
-                    .until(ExpectedConditions.elementToBeClickable(this.element(paginaBy)));
+                    .until(elementToBeClickable(this.element(paginaBy)));
             this.js().executeScript("arguments[0].scrollIntoView(true);", this.element(paginaBy));
             this.element(paginaBy).click();
             logger.info("Bottone pagina " + pagina + " cliccato correttamente");
@@ -976,6 +979,12 @@ public class PiattaformaNotifichePage extends BasePage {
             }
 
         }
+    }
+
+    public void clickVediTutti() {
+        By vediTutti = By.xpath("//button[@data-testid='show-all-attachments']");
+        getWebDriverWait(4).withMessage("Il bottone vedi tutti non cliccabile").until(ExpectedConditions.elementToBeClickable(vediTutti));
+        element(vediTutti).click();
     }
 
 }
