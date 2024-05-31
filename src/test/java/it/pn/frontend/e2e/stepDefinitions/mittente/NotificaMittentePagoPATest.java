@@ -117,7 +117,7 @@ public class NotificaMittentePagoPATest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        String urlNotifiche = "https://webapi.test.notifichedigitali.it/delivery/notifications/";
+        String urlNotifiche = "https://webapi.test.notifichedigitali.it/bff/v1/notifications/";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
             if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=50")) {
                 String responseBody = netWorkInfo.getResponseBody();

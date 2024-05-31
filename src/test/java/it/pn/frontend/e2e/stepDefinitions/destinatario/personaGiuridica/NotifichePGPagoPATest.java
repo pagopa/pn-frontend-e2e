@@ -180,7 +180,7 @@ public class NotifichePGPagoPATest {
         String bearerToken = "";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
             String variabileAmbiente = System.getProperty("environment");
-            String urlChiamata = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/notifications/received?";
+            String urlChiamata = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/bff/v1/notifications/received?";
             if (netWorkInfo.getRequestUrl().contains(urlChiamata)) {
                 bearerToken = netWorkInfo.getAuthorizationBearer();
             }
