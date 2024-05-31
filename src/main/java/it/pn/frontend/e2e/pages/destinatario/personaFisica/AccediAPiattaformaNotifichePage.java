@@ -157,8 +157,8 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     public boolean codiceAvvisoDisplayed() {
         try {
             getWebDriverWait(5).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvviso)).isDisplayed();
-        return true;
-        }catch (RuntimeException e){
+            return true;
+        } catch (RuntimeException e) {
             return false;
         }
     }
@@ -171,18 +171,22 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         try {
             getWebDriverWait(5).withMessage("Il sezione scarica avviso non è visibile").until(ExpectedConditions.visibilityOf(scaricaAvviso)).isDisplayed();
             return true;
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return false;
         }
     }
 
     public void clickAvvisoPagoPAPG() {
-         getWebDriverWait(30).withMessage("Il sezione scarica avviso non è cliccabile").until(ExpectedConditions.elementToBeClickable(scaricaAvviso));
-         scaricaAvviso.click();
+        getWebDriverWait(30).withMessage("Il sezione scarica avviso non è cliccabile").until(ExpectedConditions.elementToBeClickable(scaricaAvviso));
+        scaricaAvviso.click();
     }
 
     public boolean pagaAvvisoDisplayed() {
         return getWebDriverWait(30).withMessage("Il sezione paga avviso non è visibile").until(ExpectedConditions.visibilityOf(pagaAvviso)).isDisplayed();
+    }
+
+    public void checkButtonPagaIsDisplayed() {
+        getWebDriverWait(10).withMessage("Il bottone per il pagamento della notifica è visibile").until(ExpectedConditions.not(ExpectedConditions.visibilityOf(pagaAvviso)));
     }
 }
 

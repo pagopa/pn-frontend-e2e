@@ -36,6 +36,7 @@ public class NotifichePersonaFisicaPagoPATest {
     private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
     private final DataPopulation dataPopulation = new DataPopulation();
     private final DestinatarioPage destinatarioPage = new DestinatarioPage(driver);
+    private final AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
 
     private final DettaglioNotificaSection dettaglioNotifica = new DettaglioNotificaSection(driver);
 
@@ -408,6 +409,12 @@ public class NotifichePersonaFisicaPagoPATest {
     @And("Si seleziona un avviso pagopa")
     public void siSelezionaUnAvvisoPagopa() {
         dettaglioNotifica.selezioneAvvisoPagoPa();
+    }
+
+    @And("Si controlla non sia presente il bottone paga")
+    public void siControllaNonSiaPresenteIlBottonePaga() {
+        logger.info("Si controlla che il bottone per il pagamento non sia visibile all'interno del dettaglio della notifica");
+        accediAPiattaformaNotifichePage.checkButtonPagaIsDisplayed();
     }
 }
 
