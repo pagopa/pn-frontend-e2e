@@ -10,6 +10,7 @@ import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -357,15 +358,11 @@ public class DownloadFileMittentePagoPATest {
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibile(nomeFile);
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        WebTool.waitTime(5);
         downloadFile = new DownloadFile(this.driver);
 
         String varabileAmbiente = System.getProperty("environment");
-        final String url = downloadFile.getUrl("https://webapi." + varabileAmbiente + ".notifichedigitali.it/delivery-push/");
+        final String url = downloadFile.getUrl("https://webapi." + varabileAmbiente + ".notifichedigitali.it/bff/v1/notifications/sent/");
         if (headless && url.isEmpty()) {
             logger.error("Non è stato recuperato url per il download per il link: " + nomeFile);
             Assert.fail("Non è stato recuperato url per il download per il link: " + nomeFile);

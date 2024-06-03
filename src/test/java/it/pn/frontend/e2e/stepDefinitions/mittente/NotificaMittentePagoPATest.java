@@ -112,14 +112,10 @@ public class NotificaMittentePagoPATest {
         logger.info("Si recupera l'ultimo numero protocollo utilizzato");
 
         this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        WebTool.waitTime(5);
         String urlNotifiche = "https://webapi.test.notifichedigitali.it/bff/v1/notifications/";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
-            if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=50")) {
+            if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=10")) {
                 String responseBody = netWorkInfo.getResponseBody();
                 String[] allNotifiche = responseBody.split("],\"moreResult\":");
                 String[] notifiche = allNotifiche[0].split("},");
@@ -1331,7 +1327,7 @@ public class NotificaMittentePagoPATest {
      */
     protected EsitoNotifica siVerificaEsitoNotifica(String dpFile) {
         logger.info("si verifica se la notifica è stata accettata o rifiutata");
-        final String urlNotificationRequest = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.3/requests";
+        final String urlNotificationRequest = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/bff/v1/notifications/sent";
         final String urlRichiestaNotifica = "https://api." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.3/requests/";
         AccettazioneRichiestaNotifica accettazioneRichiestaNotifica = new AccettazioneRichiestaNotifica();
         String codiceApi;
@@ -1342,11 +1338,7 @@ public class NotificaMittentePagoPATest {
         }
         accettazioneRichiestaNotifica.setxApikey(codiceApi);
         String statusNotifica = "WAITING";
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        WebTool.waitTime(5);
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
         if (notificationRequestId == null) {
             logger.error("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è diverso di 202 ");
