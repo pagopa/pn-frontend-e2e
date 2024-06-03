@@ -23,8 +23,8 @@ public class PagoPaPayment {
         this.attachment = new NotificationPaymentAttachment();
     }
 
-    public PagoPaPayment(String sha256, String key, String versionToken) {
-        this.noticeCode = "302060159717521353";
+    public PagoPaPayment(String noticeCode, String sha256, String key, String versionToken) {
+        this.noticeCode = noticeCode;
         this.creditorTaxId = "77777777777";
         this.applyCost = true;
         this.attachment = new NotificationPaymentAttachment(sha256, key, versionToken);
