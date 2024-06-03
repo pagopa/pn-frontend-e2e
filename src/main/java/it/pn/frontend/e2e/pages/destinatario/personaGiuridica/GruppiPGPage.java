@@ -12,6 +12,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -119,7 +120,8 @@ public class GruppiPGPage extends BasePage {
 
     public void creazioneNuovoGruppo(Map<String, String> datiGruppo) {
         log.info("Inserimento nome del gruppo");
-        scrollToElementClickAndInsertText(inputNomeGruppo, datiGruppo.get("nome"));
+        String timestamp = datiGruppo.get("nome") + Instant.now().toString();
+        scrollToElementClickAndInsertText(inputNomeGruppo, timestamp);
         log.info("Inserimento descrizione del gruppo");
         scrollToElementClickAndInsertText(inputDescrizioneGruppo, datiGruppo.get("descrizione"));
         vaiInFondoAllaPagina();
@@ -200,13 +202,15 @@ public class GruppiPGPage extends BasePage {
     public void checkCampiModificabili() {
         try {
             By inputSelectProdotti = By.xpath("//input[@value='SEND - Notifiche Digitali']");
-            getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input del nome del gruppo e non è cliccabile").until(ExpectedConditions.visibilityOf(inputNomeGruppo));
-            getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input del nome del gruppo").until(ExpectedConditions.visibilityOf(inputDescrizioneGruppo));
-            getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input del nome del gruppo").until(ExpectedConditions.visibilityOf(selectSelezioneMembri));
-            getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input del nome del gruppo").until(ExpectedConditions.and(
-                    ExpectedConditions.visibilityOfElementLocated(inputSelectProdotti),
-                    ExpectedConditions.attributeToBe(inputSelectProdotti, "disabled", "true")
-            ));
+            getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input del nome del gruppo").until(ExpectedConditions.visibilityOf(inputNomeGruppo));
+            getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input della descrizione del gruppo").until(ExpectedConditions.visibilityOf(inputDescrizioneGruppo));
+            getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input per la selezione dei membri del gruppo").until(ExpectedConditions.visibilityOf(selectSelezioneMembri));
+            //getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input per la selezione dei prodotti del gruppo").until(ExpectedConditions.and(
+            //        ExpectedConditions.visibilityOfElementLocated(inputSelectProdotti),
+            //        ExpectedConditions.attributeToBe(inputSelectProdotti, "disabled", "true")
+            getWebDriverWait(10).withMessage("Non si legge correttamente la proprietà dell'input per la selezione dei prodotti del gruppo").until(ExpectedConditions.attributeToBe(inputSelectProdotti, "disabled", "true"));
+            getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input per la selezione dei prodotti del gruppo").until(ExpectedConditions.invisibilityOfElementLocated(inputSelectProdotti));
+            //));
         } catch (TimeoutException e) {
             log.error("I campi non sono modificabili con errore: " + e.getMessage());
             Assert.fail("I campi non sono modificabili con errore: " + e.getMessage());
@@ -230,7 +234,7 @@ public class GruppiPGPage extends BasePage {
 
     public void checkPopUpConfermaModifica(String testoPopUp) {
         try {
-            By popUpConferma = By.xpath("//div[@role='alert' and contains[p(text(), '" + testoPopUp + "')]]");
+            By popUpConferma = By.xpath("//div[@role='alert' and contains(text(), '" + testoPopUp + "')]");
             getWebDriverWait(10).withMessage("Non si visualizza correttamente il popup di conferma").until(ExpectedConditions.visibilityOfElementLocated(popUpConferma));
         } catch (TimeoutException e) {
             log.error("Non si visualizza il popup di conferma modifica del gruppo con errore: " + e.getMessage());

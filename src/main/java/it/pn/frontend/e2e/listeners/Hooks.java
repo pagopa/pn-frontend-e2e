@@ -297,4 +297,9 @@ public class Hooks {
         }
     }
 
+    @After(value = "@gruppiPF or @gruppiPG")
+    public void clearGruppi() {
+
+    }
+
 }
