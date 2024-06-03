@@ -21,7 +21,6 @@ Feature: Si eseguono e si controllano tutte le operazioni che possono essere ese
     And Si controlla che i campi del gruppo sono modificabili
     And Si modifica il campo "descrizione" inserendo "Nuova descrizione"
     And Si controlla che il bottone conferma sia ablitato e lo si clicca
-    And Aspetta 20 secondi
     Then Si visualizza il popup di conferma con la scritta "Gruppo modificato correttamente"
     And Si controlla che le modifiche siano state salvate
     And Logout da portale persona giuridica
@@ -47,18 +46,17 @@ Feature: Si eseguono e si controllano tutte le operazioni che possono essere ese
     And Si clicca sul bottone "Annulla"
     And Si visualizza correttamente la pagina di riepilogo del gruppo "Gruppo Test"
     And Si clicca sul bottone "Sospendi"
-    And Si clicca sul bottone "Sospendi"
+    And Si clicca sul bottone "Sospendi" del popup
     Then Si visualizza il popup di conferma con la scritta "Gruppo sospeso correttamente"
     And Nella pagina di descrizione del gruppo si visualizza la voce sospeso
     And Si clicca sul bottone "Riattiva"
     And Si verifica che venga mostrato correttamente il popup di riattivazione
     And Si clicca sul bottone "Annulla"
-    And Si visualizza correttamente la pagina di riepilogo del gruppo "Gruppo Test"
+    And Si visualizza correttamente la pagina di riepilogo del gruppo "Gruppo Test" sospeso
     And Si clicca sul bottone "Riattiva"
-    And Si clicca sul bottone "Riattiva"
+    And Si clicca sul bottone "Riattiva" del popup
     Then Si visualizza il popup di conferma con la scritta "Gruppo riattivato correttamente"
     And Logout da portale persona giuridica
-
 
   @TestSuite
   @gruppiPG
@@ -81,7 +79,7 @@ Feature: Si eseguono e si controllano tutte le operazioni che possono essere ese
     And Si clicca sul bottone "Annulla"
     And Si visualizza correttamente la pagina di riepilogo del gruppo "Gruppo Test"
     And Si clicca sul bottone "Duplica"
-    And Si clicca sul bottone "Duplica"
+    And Si clicca sul bottone "Duplica" del popup
     And Si verifica che la pagina di duplicazione del gruppo si visualizza correttamente
     And Si clicca sul bottone "Conferma"
     And Si visualizza correttamente la pagina di riepilogo del gruppo "Copia di Gruppo Test"
@@ -90,7 +88,7 @@ Feature: Si eseguono e si controllano tutte le operazioni che possono essere ese
     And Si clicca sul bottone "Annulla"
     And Si visualizza correttamente la pagina di riepilogo del gruppo "Copia di Gruppo Test"
     And Si clicca sul bottone "Elimina"
-    And Si clicca sul bottone "Elimina"
+    And Si clicca sul bottone "Elimina" del popup
     Then Si visualizza il popup di conferma con la scritta "Gruppo eliminato correttamente"
     And Si visualizza correttamente la pagina gruppi
     And Logout da portale persona giuridica

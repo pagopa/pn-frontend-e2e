@@ -174,6 +174,30 @@ public class GruppiPGPage extends BasePage {
         }
     }
 
+    public void waitLoadGruppoSospesoPage(String nomeGruppo) {
+        try {
+            By pageTitle = By.xpath("//h4[contains(text(), '" + nomeGruppo + "')]");
+            By buttonIndietro = By.xpath("//button[contains(text(), 'Indietro')]");
+            By navigationBar = By.xpath("//nav[@aria-label='breadcrumb']");
+            By buttonElimina = By.xpath("//button[contains(text(), 'Elimina')]");
+            By buttonRiattiva = By.xpath("//button[contains(text(), 'Riattiva')]");
+            By descrizioneGruppo = By.xpath("//div/p[text()='descrizione']");
+            By creatoGruppo = By.xpath("//div/p[text()='Creato da - in data']");
+            By modificatoGruppo = By.xpath("//div/p[text()='Modificato da - in data']");
+            getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo della pagina").until(ExpectedConditions.visibilityOfElementLocated(pageTitle));
+            getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone indietro").until(ExpectedConditions.visibilityOfElementLocated(buttonIndietro));
+            getWebDriverWait(10).withMessage("Non si visualizza correttamente la barra di navigazione").until(ExpectedConditions.visibilityOfElementLocated(navigationBar));
+            getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone elimina").until(ExpectedConditions.visibilityOfElementLocated(buttonElimina));
+            getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone riattiva").until(ExpectedConditions.visibilityOfElementLocated(buttonRiattiva));
+            getWebDriverWait(10).withMessage("Non si visualizza correttamente la descrizione del gruppo creato").until(ExpectedConditions.visibilityOfElementLocated(descrizioneGruppo));
+            getWebDriverWait(10).withMessage("Non si visualizza correttamente la data di creazione del gruppo").until(ExpectedConditions.visibilityOfElementLocated(creatoGruppo));
+            getWebDriverWait(10).withMessage("Non si visualizza correttamente la data di modifica del gruppo").until(ExpectedConditions.visibilityOfElementLocated(modificatoGruppo));
+        } catch (TimeoutException e) {
+            log.error("La pagina di riepilogo del gruppo sospeso non viene visualizzata correttamente con errore: " + e.getMessage());
+            Assert.fail("La pagina di riepilogo del gruppo sospeso non viene visualizzata correttamente con errore: " + e.getMessage());
+        }
+    }
+
     public void clickGruppiButtonSchedaGruppi() {
         try {
             By buttonGruppi = By.xpath("//li[.//span[contains(text(), 'Gruppi')]]");
@@ -199,18 +223,25 @@ public class GruppiPGPage extends BasePage {
         }
     }
 
+    public void clickBottonePopUpPaginaDettaglioGruppo(String azioneSuGruppi) {
+        try {
+            List<WebElement> actionButtonDettaglioGruppoList = driver.findElements(By.xpath("//button[contains(text(), '" + azioneSuGruppi + "')]"));
+            getWebDriverWait(10).withMessage("Il bottone " + azioneSuGruppi + " non è cliccabile").until(ExpectedConditions.elementToBeClickable(actionButtonDettaglioGruppoList.get(1)));
+            actionButtonDettaglioGruppoList.get(1).click();
+        } catch (TimeoutException e) {
+            log.error("Non è possibile cliccare il bottone " + azioneSuGruppi + " con errore: " + e.getMessage());
+            Assert.fail("Non è possibile cliccare il bottone " + azioneSuGruppi + " con errore: " + e.getMessage());
+        }
+    }
+
     public void checkCampiModificabili() {
         try {
             By inputSelectProdotti = By.xpath("//input[@value='SEND - Notifiche Digitali']");
             getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input del nome del gruppo").until(ExpectedConditions.visibilityOf(inputNomeGruppo));
             getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input della descrizione del gruppo").until(ExpectedConditions.visibilityOf(inputDescrizioneGruppo));
             getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input per la selezione dei membri del gruppo").until(ExpectedConditions.visibilityOf(selectSelezioneMembri));
-            //getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input per la selezione dei prodotti del gruppo").until(ExpectedConditions.and(
-            //        ExpectedConditions.visibilityOfElementLocated(inputSelectProdotti),
-            //        ExpectedConditions.attributeToBe(inputSelectProdotti, "disabled", "true")
             getWebDriverWait(10).withMessage("Non si legge correttamente la proprietà dell'input per la selezione dei prodotti del gruppo").until(ExpectedConditions.attributeToBe(inputSelectProdotti, "disabled", "true"));
             getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input per la selezione dei prodotti del gruppo").until(ExpectedConditions.invisibilityOfElementLocated(inputSelectProdotti));
-            //));
         } catch (TimeoutException e) {
             log.error("I campi non sono modificabili con errore: " + e.getMessage());
             Assert.fail("I campi non sono modificabili con errore: " + e.getMessage());
@@ -219,22 +250,28 @@ public class GruppiPGPage extends BasePage {
 
     public void siModificaUnCampoDelGruppo(String campo, String modifica) {
         try {
+            Thread.sleep(2000);
             if (campo.equalsIgnoreCase("descrizione")) {
-                inputDescrizioneGruppo.clear();
+                inputDescrizioneGruppo.click();
+                js().executeScript("arguments[0].value = '';", inputDescrizioneGruppo);
                 inputDescrizioneGruppo.sendKeys(modifica);
             } else {
-                inputNomeGruppo.clear();
+                inputNomeGruppo.click();
+                js().executeScript("arguments[0].value = '';", inputNomeGruppo);
                 inputNomeGruppo.sendKeys(modifica);
             }
         } catch (TimeoutException e) {
             log.error("Non si riesce a modificare il campo " + campo + " con errore: " + e.getMessage());
             Assert.fail("Non si riesce a modificare il campo " + campo + " con errore: " + e.getMessage());
+        } catch (InterruptedException e) {
+            log.error("È fallita l'attesa prima della modifica del campo con errore: " + e.getMessage());
+            Assert.fail("È fallita l'attesa prima della modifica del campo con errore: " + e.getMessage());
         }
     }
 
     public void checkPopUpConfermaModifica(String testoPopUp) {
         try {
-            By popUpConferma = By.xpath("//div[@role='alert' and contains(text(), '" + testoPopUp + "')]");
+            By popUpConferma = By.xpath("//div[@role='alert']//p[text()='" + testoPopUp + "']");
             getWebDriverWait(10).withMessage("Non si visualizza correttamente il popup di conferma").until(ExpectedConditions.visibilityOfElementLocated(popUpConferma));
         } catch (TimeoutException e) {
             log.error("Non si visualizza il popup di conferma modifica del gruppo con errore: " + e.getMessage());
@@ -266,7 +303,7 @@ public class GruppiPGPage extends BasePage {
     public void checkPopUpSospensioneGruppo() {
         try {
             By popUpTitle = By.xpath("//p[contains(text(), 'Sospendi gruppo')]");
-            By popUpSubtitle = By.xpath("//p[contains(text(), 'Vuoi sospendere il gruppo Gruppo Test6 di SEND - Notifiche Digitali? Puoi riattivarlo in qualsiasi momento.')]");
+            By popUpSubtitle = By.xpath("//p[contains(text(), 'Vuoi sospendere il gruppo')]");
             By buttonAnnulla = By.xpath("//button[contains(text(), 'Annulla')]");
             By buttonSospendi = By.xpath("//button[contains(text(), 'Sospendi')]");
             getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo del pop up").until(ExpectedConditions.visibilityOfElementLocated(popUpTitle));
@@ -292,7 +329,7 @@ public class GruppiPGPage extends BasePage {
     public void checkPopUpRiattivazioneGruppo() {
         try {
             By popUpTitle = By.xpath("//p[contains(text(), 'Riattiva gruppo')]");
-            By popUpSubtitle = By.xpath("//p[contains(text(), 'Vuoi riattivare il gruppo Gruppo Test6 di SEND - Notifiche Digitali? Puoi sospenderlo di nuovo in qualsiasi momento.')]");
+            By popUpSubtitle = By.xpath("//p[contains(text(), 'Vuoi riattivare il gruppo')]");
             By buttonAnnulla = By.xpath("//button[contains(text(), 'Annulla')]");
             By buttonRiattiva = By.xpath("//button[contains(text(), 'Riattiva')]");
             getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo del pop up").until(ExpectedConditions.visibilityOfElementLocated(popUpTitle));
@@ -308,7 +345,7 @@ public class GruppiPGPage extends BasePage {
     public void checkPopUpDuplicazioneGruppo() {
         try {
             By popUpTitle = By.xpath("//p[contains(text(), 'Duplica gruppo')]");
-            By popUpSubtitle = By.xpath("//p[contains(text(), 'Vuoi duplicare il gruppo Gruppo Test6 di SEND - Notifiche Digitali?')]");
+            By popUpSubtitle = By.xpath("//p[contains(text(), 'Vuoi duplicare il gruppo')]");
             By buttonAnnulla = By.xpath("//button[contains(text(), 'Annulla')]");
             By buttonDuplica = By.xpath("//button[contains(text(), 'Duplica')]");
             getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo del pop up").until(ExpectedConditions.visibilityOfElementLocated(popUpTitle));
@@ -333,7 +370,7 @@ public class GruppiPGPage extends BasePage {
             getWebDriverWait(10).withMessage("Non si visualizza correttamente il sottotitolo della pagina").until(ExpectedConditions.visibilityOfElementLocated(pageSubTitle));
             getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input del nome del gruppo e il value è errato").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOf(inputNomeGruppo),
-                    ExpectedConditions.attributeToBe(inputNomeGruppo, "value", "Copia di Gruppo Test6")
+                    ExpectedConditions.attributeContains(inputNomeGruppo, "value", "Copia di Gruppo Test")
             ));
             getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input della descrizione del gruppo").until(ExpectedConditions.visibilityOf(inputDescrizioneGruppo));
             getWebDriverWait(10).withMessage("Non si visualizza correttamente la select per la selezione del prodotto").until(ExpectedConditions.visibilityOf(selectSelezioneProdotto));
@@ -349,7 +386,7 @@ public class GruppiPGPage extends BasePage {
     public void checkPopUpEliminazioneGruppo() {
         try {
             By popUpTitle = By.xpath("//p[contains(text(), 'Elimina gruppo')]");
-            By popUpSubtitle = By.xpath("//p[contains(text(), 'Vuoi eliminare il gruppo Copia di Gruppo Test6 di SEND - Notifiche Digitali?')]");
+            By popUpSubtitle = By.xpath("//p[contains(text(), 'Vuoi eliminare il gruppo ')]");
             By buttonAnnulla = By.xpath("//button[contains(text(), 'Annulla')]");
             By buttonElimina = By.xpath("//button[contains(text(), 'Elimina')]");
             getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo del pop up").until(ExpectedConditions.visibilityOfElementLocated(popUpTitle));

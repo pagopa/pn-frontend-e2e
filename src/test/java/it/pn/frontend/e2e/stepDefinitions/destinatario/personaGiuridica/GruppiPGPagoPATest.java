@@ -66,6 +66,12 @@ public class GruppiPGPagoPATest {
         gruppiPGPage.waitLoadGruppoCreatoPage(nomeGruppo);
     }
 
+    @And("Si visualizza correttamente la pagina di riepilogo del gruppo {string} sospeso")
+    public void siVisualizzaCorrettamenteLaPaginaDiRiepilogoDelGruppoDisattivato(String nomeGruppo) {
+        log.info("Si verifica che la pagina di riepilogo del gruppo " + nomeGruppo + " sospeso sia visualizzata correttamente");
+        gruppiPGPage.waitLoadGruppoSospesoPage(nomeGruppo);
+    }
+
     @And("Si ritorna alla pagina principale della sezione gruppi")
     public void siRitornaAllaPaginaPrincipaleDellaSezioneGruppi() {
         log.info("Si ritorna alla pagina principale");
@@ -77,6 +83,12 @@ public class GruppiPGPagoPATest {
         log.info("Si clicca sul bottone " + azioneSuGruppi);
         gruppiPGPage.clickBottonePaginaDettaglioGruppo(azioneSuGruppi);
     }
+    @And("Si clicca sul bottone {string} del popup")
+    public void siCliccaSulBottoneDelPopup(String azioneSuGruppi) {
+        log.info("Si clicca sul bottone " + azioneSuGruppi + " del popup");
+        gruppiPGPage.clickBottonePopUpPaginaDettaglioGruppo(azioneSuGruppi);
+    }
+
 
     @And("Si controlla che i campi del gruppo sono modificabili")
     public void siControllaCheICampiDelGruppoSonoModificabili() {
