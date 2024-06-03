@@ -1,4 +1,5 @@
 package it.pn.frontend.e2e.utility;
+
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
 import it.pn.frontend.e2e.common.BasePage;
@@ -38,34 +39,33 @@ public class DownloadFile extends BasePage {
                 int readbyte = 0; //Stores the number of bytes written in each iteration.
                 double percentOfDownload = 0.00;
                 URL url = new URL(urlLink);
-                HttpURLConnection http = (HttpURLConnection)url.openConnection();
-                double filesize = (double)http.getContentLengthLong();
+                HttpURLConnection http = (HttpURLConnection) url.openConnection();
+                double filesize = (double) http.getContentLengthLong();
 
                 http.setRequestProperty("Authorization", getBearerSessionToken());
 
                 BufferedInputStream input = new BufferedInputStream(http.getInputStream());
-                FileOutputStream ouputfile = new FileOutputStream(fileLoc);
-                BufferedOutputStream bufferOut = new BufferedOutputStream(ouputfile, 1024);
-                while((readbyte = input.read(buffer, 0, 1024)) >= 0) {
-                HttpURLConnection http = (HttpURLConnection) url.openConnection();
-                double filesize = (double) http.getContentLengthLong();
-                input = new BufferedInputStream(http.getInputStream());
                 FileOutputStream outputFile = new FileOutputStream(fileLoc);
-                bufferOut = new BufferedOutputStream(outputFile, 1024);
-                while ((readbyte = input.read(buffer, 0, 1024)) >= 0) {
-                    //Writing the content onto the file.
-                    bufferOut.write(buffer, 0, readbyte);
-                    //TotalDownload is the total bytes written onto the file.
-                    TotalDownload += readbyte;
-                    //Calculating the percentage of download.
-                    percentOfDownload = (TotalDownload * 100) / filesize;
-                    //Formatting the percentage up to 2 decimal points.
-                    String percent = String.format("%.2f", percentOfDownload);
-                    System.out.println("Downloaded " + percent + "%");
-                }
 
-                System.out.println("Your download is now complete.");
-                bufferOut.flush();
+                while ((readbyte = input.read(buffer, 0, 1024)) >= 0) {
+
+
+                    bufferOut = new BufferedOutputStream(outputFile, 1024);
+                    while ((readbyte = input.read(buffer, 0, 1024)) >= 0) {
+                        //Writing the content onto the file.
+                        bufferOut.write(buffer, 0, readbyte);
+                        //TotalDownload is the total bytes written onto the file.
+                        TotalDownload += readbyte;
+                        //Calculating the percentage of download.
+                        percentOfDownload = (TotalDownload * 100) / filesize;
+                        //Formatting the percentage up to 2 decimal points.
+                        String percent = String.format("%.2f", percentOfDownload);
+                        System.out.println("Downloaded " + percent + "%");
+                    }
+
+                    System.out.println("Your download is now complete.");
+                    bufferOut.flush();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
@@ -81,14 +81,12 @@ public class DownloadFile extends BasePage {
                 String url = this.driver.getCurrentUrl();
                 URL urlPDF = new URL(this.driver.getCurrentUrl());
                 File pdf = new File(fileLoc.getAbsolutePath());
-                FileUtils.copyURLToFile(urlPDF,pdf,1000,1000);
+                FileUtils.copyURLToFile(urlPDF, pdf, 1000, 1000);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
     }
-
-    public void controlloDownload(String path, int numberOfFile) {
 
     public void downloadAttestazioneDisservizi(String urlLink, File fileLoc, boolean headless) throws IOException {
         if (headless) {
@@ -137,8 +135,7 @@ public class DownloadFile extends BasePage {
         }
     }
 
-
-    public void controlloDownload(String path, int numberOfFile){
+    public void controlloDownload(String path, int numberOfFile) {
         File directory = new File(path);
 
         File[] fList = directory.listFiles(File::isFile);
@@ -199,7 +196,7 @@ public class DownloadFile extends BasePage {
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("Content-Type", "application/json");
-            con.setRequestProperty("Authorization", getBearerSessionToken() );
+            con.setRequestProperty("Authorization", getBearerSessionToken());
 
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String inputLine;
@@ -216,7 +213,7 @@ public class DownloadFile extends BasePage {
                 return firstResult.getString("legalFactId");
             }
         } catch (Exception e) {
-           throw new RuntimeException("Failed to fetch legalFactId",e);
+            throw new RuntimeException("Failed to fetch legalFactId", e);
         }
         return null;
     }
@@ -234,3 +231,4 @@ public class DownloadFile extends BasePage {
         return bearerToken;
     }
 }
+

@@ -167,7 +167,7 @@ public class DisserviziAppPAPage extends BasePage {
     }
 
     public void checkDisservizioRisolto() {
-        aggionamentoPagina();
+        aggiornamentoPagina();
         List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
         if (!disserviziTableRows.isEmpty()) {
             WebElement primaRiga = disserviziTableRows.get(0);
@@ -219,6 +219,7 @@ public class DisserviziAppPAPage extends BasePage {
             logger.info("click effettuato con successo");
         }
     }
+
     public void checkDisserviziRisolto() {
         try {
             aggiornamentoPagina();
@@ -260,7 +261,6 @@ public class DisserviziAppPAPage extends BasePage {
             attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
         }
     }
-}
 
     public boolean confrontoFileConDisservizio() {
         getDateDisservice();
@@ -302,3 +302,5 @@ public class DisserviziAppPAPage extends BasePage {
         return false;
     }
 }
+
+

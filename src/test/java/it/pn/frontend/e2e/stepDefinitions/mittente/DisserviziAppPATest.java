@@ -3,13 +3,11 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
+import it.pn.frontend.e2e.utility.DownloadFile;
 import org.junit.Assert;
-import it.pn.frontend.e2e.utility.DownloadFile;
-import it.pn.frontend.e2e.utility.DownloadFile;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,12 +52,6 @@ public class DisserviziAppPATest {
         disserviziAppPAPage.checkDisservizioRisolto();
     }
 
-    @And("Si visualizza un record in elenco relativo ad un disservizio risolto")
-    public void siVisualizzaUnRecordInElencoRelativoAdUnDisservizioRisolto() {
-        logger.info("Si visualizza un record in elenco relativo ad un disservizio risolto");
-        disserviziAppPAPage.checkDisserviziRisolto();
-    }
-
     @And("Si scarica attestazione opponibile, e si controlla che il download sia avvenuto")
     public void siScaricaAttestazioneOpponibileDisservizi() throws IOException {
         logger.info("Si scarica attestazione opponibile");
@@ -71,20 +63,20 @@ public class DisserviziAppPATest {
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }
-            disserviziAppPAPage.clickLinkAttestazioniOpponibileDisservizi(0);
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            String legalFactId = downloadFile.getLegalFactId();
-            String urlFileAttestazioneOpponibile ="https://webapi.test.notifichedigitali.it/downtime/v1/legal-facts/" + legalFactId;
+        disserviziAppPAPage.clickLinkAttestazioniOpponibileDisservizi(0);
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        String legalFactId = downloadFile.getLegalFactId();
+        String urlFileAttestazioneOpponibile = "https://webapi.test.notifichedigitali.it/downtime/v1/legal-facts/" + legalFactId;
 
-            File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + 0 + ".pdf");
-            downloadFile.downloadAttestazioneDisservizi(urlFileAttestazioneOpponibile, file, headless);
-            if (!headless) {
-                disserviziAppPAPage.goBack();
-            }
+        File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + 0 + ".pdf");
+        downloadFile.downloadAttestazioneDisservizi(urlFileAttestazioneOpponibile, file, headless);
+        if (!headless) {
+            disserviziAppPAPage.goBack();
+        }
 
         downloadFile.controlloDownload(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario", 1);
     }
