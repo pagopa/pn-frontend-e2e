@@ -3,7 +3,6 @@ Feature: Mittente effettua il download delle attestazioni dei disservizi risolti
   @TestSuite
   @mittente
   @TA_MittenteDownloadDisservizioRisolto
-  @TA_PA_DownloadDisservizioRisolto
   @File
     #per il funzionamento corretto del test su aws, il parametro di configurazione deve essere settato a true
 
