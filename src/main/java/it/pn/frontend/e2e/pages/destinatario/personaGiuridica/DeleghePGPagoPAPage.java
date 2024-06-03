@@ -69,7 +69,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(id = "delegatesBodyRowDesktop")
     List<WebElement> nomeDelegato;
 
-    @FindBy(xpath = "//div[@data-testid='emptyState']")
+    @FindBy(xpath = "//div[@data-testid='delegationsOfTheCompany']")
     WebElement tabellaVuotaDelegheACaricoDellImpresa;
 
     @FindBy(id = "notifications-table")

@@ -26,8 +26,8 @@ public class HeaderPGSection extends BasePage {
         try {
             By titlePageBy = By.xpath("//a[@title = 'Sito di PagoPA S.p.A.']");
             By esciButtonBy = By.xpath("//button[@title = 'Esci']");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(esciButtonBy));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(esciButtonBy));
             logger.info("HeaderSectionPG caricata correttamente");
         } catch (TimeoutException e){
             logger.error("HeaderSectionPG non caricata correttamente con errrore: "+e.getMessage());

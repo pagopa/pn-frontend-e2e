@@ -1,16 +1,23 @@
 package it.pn.frontend.e2e.stepDefinitions.common;
 
+import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
+import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
+import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.RecapitiPersonaFisicaTest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
+import it.pn.frontend.e2e.utility.WebTool;
+import org.openqa.selenium.WebDriver;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class BackgroundTest {
 
+    private final WebDriver driver = Hooks.driver;
     private final String nomeFileDatiNotifica = "datiNotifica";
     private final String nomeFilePersonaFisica = "personaFisica";
     private final String nomeFilePG = "personaGiuridica";
@@ -26,9 +33,12 @@ public class BackgroundTest {
     private final DisserviziAppPGTest disserviziAppPGTest = new DisserviziAppPGTest();
     private final HelpdeskTest helpdeskTest = new HelpdeskTest();
     private final NotifichePGPagoPATest notifichePGPagoPATest = new NotifichePGPagoPATest();
+    private final RecapitiTest recapitiTest = new RecapitiTest();
     private Map<String, String> datiPersonaFisica;
+    private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(driver);
+    private final ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
 
-    public BackgroundTest(){
+    public BackgroundTest() {
         datiPersonaFisica = new HashMap<>();
         datiPersonaFisica.put("nome", "Lucrezia");
         datiPersonaFisica.put("cognome", "Borgia");
@@ -121,6 +131,15 @@ public class BackgroundTest {
         deleghePagoPATest.siControllaCheLaDelegaHaLoStatoAttiva(nomeFilePersonaFisica);
     }
 
+    public void accettaDelegaPF() {
+        deleghePagoPATest.waitDelegheButton();
+        deleghePagoPATest.siSceglieOpzioneAccetta();
+        deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp("personaFisica");
+        deleghePagoPATest.siCliccaSulBottoneAccetta();
+        deleghePagoPATest.siControllaCheLaDelegaHaLoStatoAttiva(nomeFilePersonaFisica);
+    }
+
+
     public void aggiuntaEmailPF() {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLEmailDelPFECliccaSulBottoneAvvisamiViaEmail(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.siVisualizzaCorrettamenteIlPopUpESiCliccaSuConferma();
@@ -147,7 +166,7 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVerificaCheLaPecSiaStataModificata(nomeFilePersonaFisica);
         logoutPF();
         loginPFRecapiti(nomeFilePersonaFisica);
-        recapitiPersonaFisicaTest.ITuoiRecapitiButtonClick();
+        recapitiPersonaFisicaTest.nellaPaginaPiattaformaNotifichePersonaFisicaSiCliccaSulBottoneITuoiRecapiti();
         recapitiPersonaFisicaTest.siVisualizzaCorrettamenteLaPaginaITuoiRecapiti();
     }
 
@@ -230,5 +249,80 @@ public class BackgroundTest {
         helpdeskTest.siRisolveIlDisservizio();
         helpdeskTest.siRisolveIlDisservizio();
         helpdeskTest.siVerificaLaCreazioneDelDisservizio();
+    }
+
+    public void aggiuntaEmailDiCortesia(String email) {
+        recapitiTest.siInserisceLEmailDiCortesiaESiCliccaSulBottoneAvvisamiViaEmail(email);
+        recapitiTest.siVisualizzaIlPopUpDisclaimerSiCliccaLaCheckboxEIlBottoneConferma();
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequestDellEmailEVieneInserito(email);
+        recapitiTest.siControllaCheLEmailInseritaSiaPresente();
+    }
+
+    public void siEliminaPecEsistenteEAltriRecapitiAssociati() {
+        recapitiDestinatarioPage.clickSuEliminaPec();
+        if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi PEC")) {
+            recapitiDestinatarioPage.clickSuConfermaElimina();
+        } else {
+            recapitiDestinatarioPage.clickSuChiudiPopUp();
+            recapitiDestinatarioPage.eliminaNuovaPec();
+            recapitiDestinatarioPage.clickSuEliminaPec();
+            recapitiDestinatarioPage.waitLoadPopUpElimina();
+            recapitiDestinatarioPage.clickSuConfermaElimina();
+        }
+    }
+
+    public void siInserisceUnaPECConCampoInputVisibile(String emailPEC) {
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLEmailPerLaPECDelDestinatario(emailPEC);
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiCliccaSulBottoneConferma();
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequestDellEmailEVieneInserito(emailPEC);
+    }
+
+    public void checkPECEsistentePerEliminazioneEInserimento(String emailPEC) {
+        if (!recapitiDestinatarioPage.verificaPecAssociata()) {
+            siInserisceUnaPECConCampoInputVisibile(emailPEC);
+        } else if (recapitiDestinatarioPage.siControllaPresenzaPEC()) {
+            recapitiDestinatarioPage.clickSuEliminaPec();
+            if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi PEC")) {
+                recapitiDestinatarioPage.clickSuConfermaElimina();
+            } else {
+                recapitiDestinatarioPage.clickSuChiudiPopUp();
+                recapitiDestinatarioPage.eliminaNuovaEmail();
+                recapitiDestinatarioPage.clickSuEliminaPec();
+                recapitiDestinatarioPage.waitLoadPopUpElimina();
+                recapitiDestinatarioPage.clickSuConfermaElimina();
+            }
+            siInserisceUnaPECConCampoInputVisibile(emailPEC);
+        }
+        WebTool.waitTime(10);
+    }
+
+    public void checkEmailDiCortesiaPerEliminazioneEInserimento(String emailDiCortesia) {
+        if (!recapitiDestinatarioPage.verificaMailAssociata()) {
+            aggiuntaEmailDiCortesia(emailDiCortesia);
+        } else if (recapitiDestinatarioPage.controlloEmailAssociata(emailDiCortesia)) {
+            iTuoiRecapitiPage.eliminaEmailEsistente();
+            if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
+                recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
+            } else {
+                recapitiDestinatarioPage.clickSuChiudiPopUp();
+                recapitiDestinatarioPage.eliminaNuovaEmail();
+                iTuoiRecapitiPage.eliminaEmailEsistente();
+                recapitiDestinatarioPage.waitLoadPopUpElimina();
+                recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
+            }
+            aggiuntaEmailDiCortesia(emailDiCortesia);
+        }
+        WebTool.waitTime(10);
+    }
+
+    public void inserimentoOTPErratoTreVolteEControlloMessaggio(String OTP) {
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceOTPSbagliato(OTP);
+        for(int i = 0; i < 3; i++){
+            recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiCliccaSulBottoneConferma();
+        }
+        recapitiTest.siVisualizzaCorrettamenteIlMessaggioDiErroreDeiTreTentativi();
     }
 }

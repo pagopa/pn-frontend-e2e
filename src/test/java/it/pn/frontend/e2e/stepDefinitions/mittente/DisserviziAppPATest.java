@@ -3,13 +3,20 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import org.junit.Assert;
+import it.pn.frontend.e2e.utility.DownloadFile;
+import it.pn.frontend.e2e.utility.DownloadFile;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class DisserviziAppPATest {
     private static final Logger logger = LoggerFactory.getLogger("DisserviziAppPATest");
@@ -45,6 +52,41 @@ public class DisserviziAppPATest {
     public void siVisualizzaUnRecordInElencoRelativoAdUnDisservizioRisolto() {
         logger.info("Si visualizza un record in elenco relativo ad un disservizio risolto");
         disserviziAppPAPage.checkDisservizioRisolto();
+    }
+
+    @And("Si visualizza un record in elenco relativo ad un disservizio risolto")
+    public void siVisualizzaUnRecordInElencoRelativoAdUnDisservizioRisolto() {
+        logger.info("Si visualizza un record in elenco relativo ad un disservizio risolto");
+        disserviziAppPAPage.checkDisserviziRisolto();
+    }
+
+    @And("Si scarica attestazione opponibile, e si controlla che il download sia avvenuto")
+    public void siScaricaAttestazioneOpponibileDisservizi() throws IOException {
+        logger.info("Si scarica attestazione opponibile");
+        DownloadFile downloadFile = new DownloadFile(this.driver);
+        String workingDirectory = System.getProperty("user.dir");
+        File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/personaGiuridica");
+
+        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
+        if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
+            pathCartella.mkdirs();
+        }
+            disserviziAppPAPage.clickLinkAttestazioniOpponibileDisservizi(0);
+            try {
+                TimeUnit.SECONDS.sleep(5);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            String legalFactId = downloadFile.getLegalFactId();
+            String urlFileAttestazioneOpponibile ="https://webapi.test.notifichedigitali.it/downtime/v1/legal-facts/" + legalFactId;
+
+            File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + 0 + ".pdf");
+            downloadFile.downloadAttestazioneDisservizi(urlFileAttestazioneOpponibile, file, headless);
+            if (!headless) {
+                disserviziAppPAPage.goBack();
+            }
+
+        downloadFile.controlloDownload(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario", 1);
     }
 
     @And("Si visualizzano tutti i record in elenco relativi a disservizi risolti")

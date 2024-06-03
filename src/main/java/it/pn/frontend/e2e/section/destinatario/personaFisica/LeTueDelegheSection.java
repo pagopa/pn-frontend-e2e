@@ -54,6 +54,9 @@ public class LeTueDelegheSection extends BasePage {
     @FindBy(id = "code-confirm-button")
     WebElement accettaPopUpButton;
 
+    @FindBy(id ="code-cancel-button")
+    WebElement indietroPopUpButton;
+
     @FindBy(id = "Deleghe-page")
     WebElement deleghePageTitle;
 
@@ -228,6 +231,12 @@ public class LeTueDelegheSection extends BasePage {
         this.accettaPopUpButton.click();
     }
 
+    public void clickIndietroButton(){
+        this.getWebDriverWait(5).withMessage("Il bottone indietr non è visibile").until(ExpectedConditions.visibilityOf(indietroPopUpButton));
+      this.indietroPopUpButton.click();
+    }
+
+
     public void controlloStatoAttiva(String nome, String cognome) {
         try {
             By statoAttivaBy = By.xpath("//table[@id='notifications-table']//td[.//div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//div/div[@id='chip-status-success']");
@@ -323,6 +332,15 @@ public class LeTueDelegheSection extends BasePage {
             return false;
         }
 
+    }
+    public void checkIndicatoreNumerico(){
+        try {
+            By notificationNumber = By.xpath("//*[@data-testid='notifications']");
+            getWebDriverWait(5).withMessage("La notifica con il indicatore non è visibile").until(ExpectedConditions.visibilityOfElementLocated(notificationNumber));
+        }catch (RuntimeException e){
+            logger.error("Il indicatore numerico di notifica non è visibile");
+            Assert.fail("Il indicatore numerico di notifica non è visibile");
+        }
     }
 }
 
