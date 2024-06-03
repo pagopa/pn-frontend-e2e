@@ -69,6 +69,9 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "/html/body/div/div/div/div/input")
     WebElement creditCardNumber;
 
+    @FindBy(xpath = "//td[@id='row-value-4']")
+    WebElement iunCode;
+
     public AccediAPiattaformaNotifichePage(WebDriver driver) {
         super(driver);
     }
@@ -226,7 +229,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10).withMessage("Il textbox numero di carta non è visibile").until(ExpectedConditions.visibilityOf(creditCardNumber));
         creditCardNumber.click();
         creditCardNumber.clear();
-        creditCardNumber.sendKeys("5186151650005008");
+        creditCardNumber.sendKeys("5255000260000014");
         driver.switchTo().defaultContent();
 
         //frame of the expiry date
@@ -236,7 +239,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(20).withMessage("Il textbox scadenza non è visibile").until(ExpectedConditions.visibilityOfElementLocated(scadenza));
         this.element(scadenza).click();
         this.element(scadenza).clear();
-        this.element(scadenza).sendKeys("12/26");
+        this.element(scadenza).sendKeys("12/30");
         driver.switchTo().defaultContent();
 
         //frame of the security code
