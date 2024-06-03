@@ -29,7 +29,6 @@ public class DownloadFile extends BasePage {
     BufferedOutputStream bufferOut = null;
 
     public void download(String urlLink, File fileLoc, boolean healdess) {
-        logger.info("INTO DOWNLOAD");
         if (healdess) {
             try {
                 byte[] buffer = new byte[1024];
@@ -39,15 +38,9 @@ public class DownloadFile extends BasePage {
                 URL url = new URL(urlLink);
                 HttpURLConnection http = (HttpURLConnection) url.openConnection();
                 double filesize = (double) http.getContentLengthLong();
-
-                logger.info(filesize + "FILESIZEEEEE");
-
-
                 input = new BufferedInputStream(http.getInputStream());
-
                 FileOutputStream outputFile = new FileOutputStream(fileLoc);
                 bufferOut = new BufferedOutputStream(outputFile, 1024);
-
                 while ((readbyte = input.read(buffer, 0, 1024)) >= 0) {
                     //Writing the content onto the file.
                     bufferOut.write(buffer, 0, readbyte);

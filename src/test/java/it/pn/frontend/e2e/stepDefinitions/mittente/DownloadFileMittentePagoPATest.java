@@ -280,18 +280,6 @@ public class DownloadFileMittentePagoPATest {
         }
     }
 
-    @And("Visualizza file di un disservizio risolto")
-    public void visualizzaFileDiUnDisservizioRisoltoDaScaricare() {
-        logger.info("controllo esistenza file disservizio ");
-
-        DisserviziAppPAPage disserviziAppPAPage = new DisserviziAppPAPage(driver);
-        //disserviziAppPAPage.downloadAttestazione();
-
-        WebTool.waitTime(4);
-
-        //disserviziAppPAPage.checkVisualizzazioneFileDisservizioRisolto();
-    }
-
     @And("Download file attestazione disservizio")
     public void downloadFileAttestazioneDisservizio() {
         logger.info("si effettua download del disservizio");

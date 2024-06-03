@@ -2,8 +2,6 @@ package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.model.Disservice;
-import it.pn.frontend.e2e.utility.DownloadFile;
-import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.Assert;
@@ -22,7 +20,7 @@ import java.util.List;
 
 public class DisserviziAppPAPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("Disservizi PA Page");
-    private DownloadFile downloadFile;
+
     private Disservice disservice = new Disservice();
 
     public DisserviziAppPAPage(WebDriver driver) {
@@ -73,15 +71,15 @@ public class DisserviziAppPAPage extends BasePage {
     }
 
     public void getDateDisservice() {
-
         List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
+
         if (!disserviziTableRows.isEmpty()) {
             WebElement primaRiga = disserviziTableRows.get(0);
             String dataInizioPrimaRiga = primaRiga.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//p[contains(text(), 'ore')]")).get(0).getText();
             String dataFinePrimaRiga = primaRiga.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//p[contains(text(), 'ore')]")).get(1).getText();
+
             disservice.setDataDa(dataInizioPrimaRiga);
             disservice.setDataA(dataFinePrimaRiga);
-
         } else {
             logger.error("non é stato possibile recuperare i dati dalla tabella dei disservizi");
             Assert.fail("non é stato possibile recuperare i dati dalla tabella dei disservizi");
@@ -175,7 +173,6 @@ public class DisserviziAppPAPage extends BasePage {
                 Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio risolto");
             }
         }
-
     }
 
     public void checkDisserviziDisponibili() {
@@ -213,52 +210,21 @@ public class DisserviziAppPAPage extends BasePage {
             WebElement linkDownloadAttestazione = primaRiga.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(0);
             linkDownloadAttestazione.click();
             logger.info("click effettuato con successo");
-
-        }
-    }
-
-
-    public void downloadAttestazioneDisservizio(String nomeFile) {
-        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
-
-        downloadFile = new DownloadFile(this.driver);
-
-        WebTool.waitTime(3);
-
-        final String url = driver.getCurrentUrl();
-        System.out.println("getCurrentUrl" + url);
-
-        if (!headless && url.isEmpty()) {
-            logger.error("Non è stato recuperato url per il download per il link: " + nomeFile);
-            Assert.fail("Non è stato recuperato url per il download per il link: " + nomeFile);
-        }
-        nomeFile = nomeFile.replace(" ", "_").replace(":", "");
-        File file = new File("src/test/resources/dataPopulation/downloadFileDisservizio/mittente/" + nomeFile + ".pdf");
-        logger.info("Il file verrà scaricato in: " + file.getAbsolutePath());
-        downloadFile.download(url, file, headless);
-        if (!headless) {
-            goBack();
         }
     }
 
     public boolean confrontoFileConDisservizio() {
-
         getDateDisservice();
-
         logger.info("date prese con successo dal disserivizio");
-
         String folderPath = System.getProperty("downloadFilePath");
         // Stringa da cercare nel nome del file
         String searchString = "PN_DOWNTIME_LEGAL_FACTS";
-
         // Creazione di un oggetto File che rappresenta la cartella
         File folder = new File(folderPath);
-
         // Controllo che il percorso specificato sia una directory
         if (folder.isDirectory()) {
             // Ottieni l'elenco di tutti i file nella cartella
             File[] files = folder.listFiles();
-
             // Verifica che la cartella non sia vuota
             if (files != null) {
                 // Cerca i file che contengono la stringa specificata nel nome
@@ -268,11 +234,6 @@ public class DisserviziAppPAPage extends BasePage {
                         try {
                             PDFTextStripper pdfTextStripper = new PDFTextStripper();
                             String text = pdfTextStripper.getText(PDDocument.load(file));
-                            logger.info(text);
-                            logger.info("si effettua il controllo tra il testo del documento e quello del disservizio");
-                            logger.info(disservice.getDataDa());
-                            logger.info(disservice.getDataA());
-
                             if (text.contains(disservice.getDataA()) && text.contains(disservice.getDataDa())) {
                                 return true;
                             }
@@ -285,12 +246,10 @@ public class DisserviziAppPAPage extends BasePage {
                 }
             } else {
                 System.out.println("La cartella è vuota o non è possibile accedervi.");
-
             }
         } else {
             System.out.println("Il percorso specificato non è una directory.");
         }
         return false;
     }
-
 }
