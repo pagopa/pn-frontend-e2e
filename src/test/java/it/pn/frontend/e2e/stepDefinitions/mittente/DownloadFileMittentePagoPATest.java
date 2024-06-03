@@ -82,7 +82,7 @@ public class DownloadFileMittentePagoPATest {
 
         final String filepath = workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN";
 
-        final String urlDocumenti = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/bff/v1/notifications/sent/" + codiceIUN + "/attachments/documents/0";
+        final String urlDocumenti = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/bff/v1/notifications/sent/" + codiceIUN + "/documents/";
 
         final String urlDocumentiAllegati = downloadFile.getUrl(urlDocumenti);
         File file = new File(filepath + count + ".pdf");
