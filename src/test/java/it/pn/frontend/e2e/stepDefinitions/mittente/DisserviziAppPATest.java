@@ -3,19 +3,17 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import it.pn.frontend.e2e.utility.DownloadFile;
-import it.pn.frontend.e2e.utility.DownloadFile;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 public class DisserviziAppPATest {
     private static final Logger logger = LoggerFactory.getLogger("DisserviziAppPATest");
@@ -64,20 +62,16 @@ public class DisserviziAppPATest {
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }
-            disserviziAppPAPage.clickLinkAttestazioniOpponibileDisservizi(0);
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            String legalFactId = downloadFile.getLegalFactId();
-            String urlFileAttestazioneOpponibile ="https://webapi.test.notifichedigitali.it/downtime/v1/legal-facts/" + legalFactId;
+        disserviziAppPAPage.clickLinkAttestazioniOpponibileDisservizi(0);
+        WebTool.waitTime(5);
+        String legalFactId = downloadFile.getLegalFactId();
+        String urlFileAttestazioneOpponibile = "https://webapi.test.notifichedigitali.it/bff/v1/downtime/legal-facts/" + legalFactId;
 
-            File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + 0 + ".pdf");
-            downloadFile.downloadAttestazioneDisservizi(urlFileAttestazioneOpponibile, file, headless);
-            if (!headless) {
-                disserviziAppPAPage.goBack();
-            }
+        File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + 0 + ".pdf");
+        downloadFile.downloadAttestazioneDisservizi(urlFileAttestazioneOpponibile, file, headless);
+        if (!headless) {
+            disserviziAppPAPage.goBack();
+        }
 
         downloadFile.controlloDownload(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario", 1);
     }
