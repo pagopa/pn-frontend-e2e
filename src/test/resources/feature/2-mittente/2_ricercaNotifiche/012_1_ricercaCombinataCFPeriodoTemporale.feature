@@ -3,7 +3,7 @@ Feature: il mittente fa una ricerca combinata tra cf e periodo temporale
   @TestSuite
   @TA_MittenteRicercaPerCFePertiodo
   @mittente
-  @ricercaNatoficheMittente
+  @ricercaNotificheMittente
 
   Scenario: PN-9222 - il mittente fa una ricera sia per cf che per periodo temporale
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
