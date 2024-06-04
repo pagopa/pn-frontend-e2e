@@ -43,7 +43,6 @@ Feature: annullamento della notifica
   @chiamatamultipagamento
   Scenario: PN-10394 - Mittente invia una notifica con avviso PagoPa e F24, la annulla e controlla quali file sono scaricabili
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
-    And Aspetta 10 secondi
     When Creo in background una notifica con un destinatario e un documento tramite API REST
       | avvisoPagoPa | true  |
       | F24          | false |

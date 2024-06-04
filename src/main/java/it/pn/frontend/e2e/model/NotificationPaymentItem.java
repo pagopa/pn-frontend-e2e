@@ -1,9 +1,11 @@
 package it.pn.frontend.e2e.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import it.pn.frontend.e2e.utility.WebTool;
 import lombok.Data;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class NotificationPaymentItem {
     private PagoPaPayment pagoPa;
     private F24Payment f24;

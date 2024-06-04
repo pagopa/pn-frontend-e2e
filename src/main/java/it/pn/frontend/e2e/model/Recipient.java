@@ -1,11 +1,13 @@
 package it.pn.frontend.e2e.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import it.pn.frontend.e2e.model.enums.RecipientTypeEnum;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Recipient {
     private String denomination;
     private RecipientTypeEnum recipientType;

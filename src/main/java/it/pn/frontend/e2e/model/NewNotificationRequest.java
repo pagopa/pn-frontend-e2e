@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import it.pn.frontend.e2e.model.enums.NotificationFeePolicyEnum;
 import it.pn.frontend.e2e.model.enums.PhysicalCommunicationTypeEnum;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.Data;
 import java.util.ArrayList;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class NewNotificationRequest {
     private String paProtocolNumber;
     private String subject;
