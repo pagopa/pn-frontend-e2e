@@ -46,10 +46,10 @@ public class DisserviziAppPATest {
         disserviziAppPAPage.checkDisserviziInCorso();
     }
 
-    @And("Si visualizza un record in elenco relativo ad un disservizio risolto")
-    public void siVisualizzaUnRecordInElencoRelativoAdUnDisservizioRisolto() {
+    @And("Si visualizza un record in elenco relativo ad un disservizio risolto {string}")
+    public void siVisualizzaUnRecordInElencoRelativoAdUnDisservizioRisolto(String tipoDisservizio) {
         logger.info("Si visualizza un record in elenco relativo ad un disservizio risolto");
-        disserviziAppPAPage.checkDisservizioRisolto();
+        disserviziAppPAPage.checkDisservizioRisolto(tipoDisservizio);
     }
 
     @And("Si scarica attestazione opponibile, e si controlla che il download sia avvenuto")

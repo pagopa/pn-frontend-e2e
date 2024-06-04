@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.model.Disservice;
+import it.pn.frontend.e2e.utility.DataPopulation;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.Assert;
@@ -21,7 +21,7 @@ import java.util.List;
 public class DisserviziAppPAPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("Disservizi PA Page");
 
-    private Disservice disservice = new Disservice();
+    private DataPopulation dataPopulation = new DataPopulation();
 
     public DisserviziAppPAPage(WebDriver driver) {
         super(driver);
@@ -85,8 +85,8 @@ public class DisserviziAppPAPage extends BasePage {
             String dataInizioPrimaRiga = primaRiga.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//p[contains(text(), 'ore')]")).get(0).getText();
             String dataFinePrimaRiga = primaRiga.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//p[contains(text(), 'ore')]")).get(1).getText();
 
-            disservice.setDataDa(dataInizioPrimaRiga);
-            disservice.setDataA(dataFinePrimaRiga);
+            dataPopulation.setDataDa(dataInizioPrimaRiga);
+            dataPopulation.setDataA(dataFinePrimaRiga);
         } else {
             logger.error("non é stato possibile recuperare i dati dalla tabella dei disservizi");
             Assert.fail("non é stato possibile recuperare i dati dalla tabella dei disservizi");
@@ -166,11 +166,11 @@ public class DisserviziAppPAPage extends BasePage {
         }
     }
 
-    public void checkDisservizioRisolto() {
+    public void checkDisservizioRisolto(String tipoDisservizio) {
         aggiornamentoPagina();
-        List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
-        if (!disserviziTableRows.isEmpty()) {
-            WebElement primaRiga = disserviziTableRows.get(0);
+        List<WebElement> disserviziTableRowsWithTypeOfDisservice = disserviziTable.findElements(By.xpath("//tr[@id='tableDowntimeLog.row' and contains(., '" + tipoDisservizio + "')]"));
+        if (!disserviziTableRowsWithTypeOfDisservice.isEmpty()) {
+            WebElement primaRiga = disserviziTableRowsWithTypeOfDisservice.get(0);
             WebElement dataFinePrimaRiga = primaRiga.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//p[contains(text(), 'ore')]")).get(1);
             WebElement statoPrimaRiga = primaRiga.findElement(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//span[contains(text(), 'Risolto')]"));
             if (dataFinePrimaRiga.isDisplayed() && statoPrimaRiga.isDisplayed()) {
@@ -220,38 +220,6 @@ public class DisserviziAppPAPage extends BasePage {
         }
     }
 
-    public void checkDisserviziRisolto() {
-        try {
-            aggiornamentoPagina();
-            List<WebElement> disserviziTableRow = driver.findElements(By.cssSelector("[aria-rowindex='1']"));
-            if (!disserviziTableRow.isEmpty()) {
-                for (WebElement disserviziRow : disserviziTableRow) {
-                    List<WebElement> disserviziColumns = disserviziRow.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']"));
-                    if (!disserviziColumns.isEmpty()) {
-                        // check if the columns are not empty
-                        for (WebElement disserviziColumn : disserviziColumns) {
-                            if (disserviziColumn.getText().contains(",")) {
-                                logger.info("Si visualizza data di inizio e data di fine'");
-                            }
-
-                            if (attestazioniFile.get(0).isDisplayed()) {
-                                logger.info("Si visualizza bottone scarica l'attestazione'");
-                            }
-                            if (stato.get(0).isDisplayed()) {
-                                logger.info("Si visualizza un record in elenco relativo ad un disservizio Risolto");
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-            logger.error("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
-            Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
-        } catch (TimeoutException e) {
-            logger.error("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso con errore:" + e.getMessage());
-            Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso con errore" + e.getMessage());
-        }
-    }
 
     public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioniOpponibile) {
         if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
@@ -283,7 +251,7 @@ public class DisserviziAppPAPage extends BasePage {
                         try {
                             PDFTextStripper pdfTextStripper = new PDFTextStripper();
                             String text = pdfTextStripper.getText(PDDocument.load(file));
-                            if (text.contains(disservice.getDataA()) && text.contains(disservice.getDataDa())) {
+                            if (text.contains(dataPopulation.getDataA()) && text.contains(dataPopulation.getDataDa())) {
                                 return true;
                             }
                             //break// Rimuovere il commento se si desidera fermarsi al primo file trovato
