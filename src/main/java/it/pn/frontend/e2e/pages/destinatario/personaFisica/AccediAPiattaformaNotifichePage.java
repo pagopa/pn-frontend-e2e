@@ -186,7 +186,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void checkButtonPagaIsDisplayed() {
-        getWebDriverWait(10).withMessage("Il bottone per il pagamento della notifica è visibile").until(ExpectedConditions.not(ExpectedConditions.visibilityOf(pagaAvviso)));
+        getWebDriverWait(10).withMessage("Il bottone per il pagamento della notifica è visibile").until(ExpectedConditions.invisibilityOf(pagaAvviso));
     }
 }
 
