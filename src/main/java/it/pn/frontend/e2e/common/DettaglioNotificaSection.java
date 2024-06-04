@@ -174,4 +174,10 @@ public class DettaglioNotificaSection extends BasePage {
             Assert.fail("check su avviso pagopa non avvenuto con successo: " + e.getMessage());
         }
     }
+
+    public void clickFile(String fileName) {
+        By file = By.xpath("//button[contains(text(),'" + fileName + "')]");
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(file));
+        element(file).click();
+    }
 }

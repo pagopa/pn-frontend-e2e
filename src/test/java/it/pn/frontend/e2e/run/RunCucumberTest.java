@@ -8,8 +8,13 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 @RunWith(Cucumber.class)
@@ -60,6 +65,47 @@ public class RunCucumberTest {
         System.setProperty("apiBaseUrl", apiBaseUrl);
     }
 
+    private static void setUpDownloadFolder() {
+        String downloadDir = System.getProperty("downloadFolder");
+        Path fullPath = Paths.get(System.getProperty("user.dir"), downloadDir.replace("/", File.separator));
+        if (Files.notExists(fullPath)) {
+            try {
+                Files.createDirectories(fullPath);
+                logger.info("Download directory created: " + fullPath.toAbsolutePath());
+            } catch (IOException e) {
+                logger.error("Error creating download folder: " + fullPath.toAbsolutePath(), e);
+            }
+        } else {
+            logger.info("Download directory already exists: " + fullPath.toAbsolutePath());
+        }
+    }
+
+    private static void removeDownloadFolder() {
+        String downloadDir = System.getProperty("downloadFolder", "/src/test/resources/dataPopulation/downloadFileNotifica");
+        Path fullPath = Paths.get(System.getProperty("user.dir"), downloadDir.replace("/", File.separator));
+        if (Files.exists(fullPath)) {
+            try {
+                deleteRecursively(fullPath);
+                logger.info("Download directory deleted: " + fullPath.toAbsolutePath());
+            } catch (IOException e) {
+                logger.error("Error deleting download folder: " + fullPath.toAbsolutePath(), e);
+            }
+        } else {
+            logger.info("Download directory does not exist: " + fullPath.toAbsolutePath());
+        }
+    }
+
+    private static void deleteRecursively(Path path) throws IOException {
+        if (Files.isDirectory(path)) {
+            try (DirectoryStream<Path> entries = Files.newDirectoryStream(path)) {
+                for (Path entry : entries) {
+                    deleteRecursively(entry);
+                }
+            }
+        }
+        Files.delete(path);
+    }
+
     @BeforeClass
     public static void startTestSuite() {
         setApiBaseUrl();
@@ -73,6 +119,7 @@ public class RunCucumberTest {
                     }
             );
         }
+        setUpDownloadFolder();
         if (System.getProperty("cucumber.filter.tags") != null) {
             testSuite = System.getProperty("cucumber.filter.tags").substring(1);
             logger.info("run test della test suite = " + testSuite);
@@ -84,6 +131,7 @@ public class RunCucumberTest {
 
     @AfterClass
     public static void finishTestSuite() {
+        removeDownloadFolder();
         logger.info("finish the test suite = " + testSuite);
     }
 }

@@ -285,12 +285,8 @@ public class NotifichePersonaFisicaPagoPATest {
         }
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
             dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            String urlFileAttestazioneOppponibile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/" + datiNotifica.get("codiceIUN").toString() + "/legal-facts/");
+            WebTool.waitTime(5);
+            String urlFileAttestazioneOppponibile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/bff/v1/notifications/received/" + datiNotifica.get("codiceIUN").toString());
 
             if (headless && urlFileAttestazioneOppponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
@@ -408,6 +404,12 @@ public class NotifichePersonaFisicaPagoPATest {
     @And("Si seleziona un avviso pagopa")
     public void siSelezionaUnAvvisoPagopa() {
         dettaglioNotifica.selezioneAvvisoPagoPa();
+    }
+
+    @Then("Si seleziona il file {string} da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto con successo")
+    public void siSelezionaIlFileDaScaricareAllInternoDellaNotificaPersonaFisicaESiControllaCheIlDownloadSiaAvvenutoConSuccesso(String fileName) {
+        dettaglioNotifica.clickFile(fileName);
+        dettaglioNotifica.goBack();
     }
 }
 
