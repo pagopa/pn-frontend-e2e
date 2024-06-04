@@ -275,6 +275,29 @@ public class NotifichePGPagoPATest {
         }
     }
 
+    @And("Si controlla sia presente piu avvisi PagoPa PG")
+    public void siControllaSiaPresentePiuAvvisiPagoPaPG(){
+        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        if(accediAPiattaformaNotifichePage.piuAvvisiDisplayed()){
+            logger.info("Avvissi PagoPA sono trovati");
+        }else{
+            logger.error("Avvissi PagoPA non sono trovati");
+            Assert.fail("Avvissi PagoPA non sono trovati");
+        }
+    }
+
+    @And("Si controlla sia presente l'avvisi PagoPa PG")
+    public void siControllaSiaPresenteLAvvisiPagoPaPG() {
+        logger.info("Si controlla la presenza del box per il pagamento della notifica");
+        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        if(accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed()){
+            logger.info("Avviso PagoPA è trovato");
+        }else{
+            logger.error("Avviso PagoPA non è trovato");
+            Assert.fail("Avviso PagoPA non è trovato");
+        }
+    }
+
     @And("Si controlla non sia presente l'avviso PagoPa")
     public void siControllaNonSiaPresenteLAvvisoPagoPa() {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");

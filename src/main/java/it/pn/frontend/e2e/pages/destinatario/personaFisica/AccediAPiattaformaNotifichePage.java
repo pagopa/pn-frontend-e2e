@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 public class AccediAPiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("AccediAPiattaformaNotifichePage");
@@ -59,6 +61,9 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     WebElement codiceAvviso;
     @FindBy(css = ".MuiTypography-caption-semibold.css-1g3z0lx")
     WebElement codiceAvvisoSpan;
+
+    @FindBy(xpath = "//div[@data-testid='pagopa-item']")
+    List<WebElement> pagopaItems;
 
     public AccediAPiattaformaNotifichePage(WebDriver driver) {
         super(driver);
@@ -173,6 +178,17 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
             return true;
         }catch (RuntimeException e){
             return false;
+        }
+    }
+
+    public boolean piuAvvisiDisplayed() {
+        getWebDriverWait(3).withMessage("Avvisi pagoPa non sono trovati").until(ExpectedConditions.visibilityOf(pagopaItems.get(0))).isDisplayed();
+        if (pagopaItems.size() < 2) {
+            logger.info("Avvisi pagoPa non sono trovati");
+            return false;
+        }else {
+            logger.info("Avvisi pagoPa sono trovati");
+            return true;
         }
     }
 
