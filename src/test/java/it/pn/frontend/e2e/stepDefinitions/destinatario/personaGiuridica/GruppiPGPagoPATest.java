@@ -149,4 +149,10 @@ public class GruppiPGPagoPATest {
         log.info("Si verifica che il pop up di eliminazione del  gruppo venga mostrato correttamente");
         gruppiPGPage.checkPopUpEliminazioneGruppo();
     }
+
+    @And("Si {string} il gruppo {string} creato inizialmente")
+    public void siIlGruppoCreatoInizialmente(String azioneGruppo, String nomeGruppo) {
+        log.info("Si elimina il gruppo " + nomeGruppo + " creato all'inizio del test");
+        gruppiPGPage.eliminaGruppoDaPaginaIniziale(azioneGruppo, nomeGruppo);
+    }
 }

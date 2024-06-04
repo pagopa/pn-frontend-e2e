@@ -398,4 +398,20 @@ public class GruppiPGPage extends BasePage {
             Assert.fail("Il popup di eliminazione del gruppo non viene mostrato correttamente con errore: " + e.getMessage());
         }
     }
+
+    public void eliminaGruppoDaPaginaIniziale(String azioneGruppo, String nomeGruppo) {
+        try{
+            By tableRowGruppo = By.xpath("//div[contains(.//p, '" + nomeGruppo + "') and @data-field='name']");
+            getWebDriverWait(10).withMessage("Non è stata trovata la riga del gruppo con il nome indicato nello step del test").until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(tableRowGruppo),
+                    ExpectedConditions.elementToBeClickable(tableRowGruppo)
+            ));
+            element(tableRowGruppo).click();
+            clickBottonePaginaDettaglioGruppo(azioneGruppo);
+            clickBottonePopUpPaginaDettaglioGruppo(azioneGruppo);
+        } catch (TimeoutException e){
+            log.error("Non è stato possibile cancellare il gruppo creato all'inizio del test con errore: " + e.getMessage());
+            Assert.fail("Non è stato possibile cancellare il gruppo creato all'inizio del test con errore: " + e.getMessage());
+        }
+    }
 }
