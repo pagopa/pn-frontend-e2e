@@ -1,6 +1,5 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
-import io.cucumber.java.bs.A;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
