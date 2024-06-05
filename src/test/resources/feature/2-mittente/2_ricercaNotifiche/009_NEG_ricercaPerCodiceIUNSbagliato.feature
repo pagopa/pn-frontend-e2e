@@ -2,7 +2,7 @@ Feature: Mittente effetua una ricerca notifiche per codice IUN sbagliato
 
   @TA_MittenteRicercaCodiceIUNSbagliato
   @mittente
-  @ricercaNatoficheMittente
+  @ricercaNotificheMittente
   @TestSuite
 
   Scenario: PN-9322 - Mittente loggato effettua una ricerca per codice IUN sbagliato

@@ -68,6 +68,16 @@ public class InformazioniPreliminariPASection extends BasePage {
         scrollToElementClickAndInsertText(numeroProtocolloTextInput, numeroProtocollo);
     }
 
+    public boolean checkFormInfoPreliminari(){
+        if (oggettoNotificaTextField.getAttribute("value").isEmpty() && descrizioneTextField.getAttribute("value").isEmpty()) {
+         logger.info("Il form di inserimento manuale della notifica è vuoto");
+         return true;
+        }else {
+           logger.info("Il form di inserimento manuale della notifica non è vuoto");
+        return false;
+        }
+    }
+
     public void insertOggettoNotifica(String oggettoDellaNotifica) {
         logger.info("inserimento oggetto notifica");
         this.scrollToElementClickAndInsertText(this.oggettoNotificaTextField, oggettoDellaNotifica);

@@ -2,7 +2,7 @@ Feature: il mittente fa una ricerca combinata tra cf e data
 
   @TestSuite
   @mittente
-  @ricercaNatoficheMittente
+  @ricercaNotificheMittente
   @TA_MittenteRicercaPerCFeData
 
   Scenario: PN-9222 - il mittente fa una ricera sia per cf che per data
