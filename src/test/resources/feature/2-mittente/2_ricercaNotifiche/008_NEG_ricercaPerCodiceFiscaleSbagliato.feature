@@ -4,7 +4,7 @@ Feature: Mittente effetua una ricerca notifiche per CF sbagliato
   @TA_MittenteRicercaPerCFErrato
   @TestSuite
   @mittente
-  @ricercaNatoficheMittente
+  @ricercaNotificheMittente
 
   Scenario: PN-9321 - Mittente loggato effettua una ricerca per CF sbagliato
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

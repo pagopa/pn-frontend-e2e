@@ -77,6 +77,12 @@ public class Hooks {
         chromeOptions.addArguments("--disable-dev-shm-usage");
         chromeOptions.addArguments("--remote-allow-origins=*");
         chromeOptions.addArguments("--enable-clipboard");
+        String downloadFilepath = System.getProperty("downloadFilePath");
+
+        HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+        chromePrefs.put("download.default_directory", downloadFilepath);
+
+        chromeOptions.setExperimentalOption("prefs", chromePrefs);
         if (this.headless != null && this.headless.equalsIgnoreCase("true")) {
             chromeOptions.addArguments("no-sandbox");
             chromeOptions.addArguments("headless");
@@ -264,6 +270,30 @@ public class Hooks {
             logger.info("Delega revocata con successo");
         } else {
             logger.info("mandateId non trovato");
+        }
+    }
+
+    /**
+     * Clear directory of file downloaded
+     * P.S: This will work only if you invoke the feature step that creates the delegate
+     */
+    @After("@File")
+    public void clearDirectory() {
+        String folderPath = System.getProperty("downloadFilePath");
+
+        File folder = new File(folderPath);
+
+        if (folder.isDirectory()) {
+            File[] files = folder.listFiles();
+            for (File file : files) {
+                if (file.isFile()) {
+                    if (file.delete()) {
+                        System.out.println("File cancellato: " + file.getAbsolutePath());
+                    } else {
+                        System.out.println("Impossibile cancellare il file: " + file.getAbsolutePath());
+                    }
+                }
+            }
         }
     }
 
