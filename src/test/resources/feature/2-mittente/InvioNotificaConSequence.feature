@@ -143,7 +143,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence4
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@OK-Giacenza_AR] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -194,7 +194,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence5
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@OK-Giacenza-gt10_AR] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -245,7 +245,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence6
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@OK-PersonaAbilitata_890] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -287,7 +287,7 @@ Feature: invio notifica con sequence
       | vediDettagli | true |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence7
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@OK-CompiutaGiacenza_890] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -338,7 +338,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence8
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@OK-GiacenzaDelegato-gt10_890] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -390,7 +390,7 @@ Feature: invio notifica con sequence
     And Logout da portale mittente
 
 
-  @WorkflowNotificaConSequence9
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@OK_RIR] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -438,7 +438,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence10
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL_AR] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -480,7 +480,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence11
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL_IndirizzoInesistenteAR] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -523,7 +523,7 @@ Feature: invio notifica con sequence
     And Logout da portale mittente
 
 
-  @WorkflowNotificaConSequence12
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL-Giacenza_AR] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -574,7 +574,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence13
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL-Giacenza-gt10_AR] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -622,7 +622,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence14
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL-CompiutaGiacenza_AR] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -670,7 +670,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence14
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@OK-CausaForzaMaggiore_AR] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -715,7 +715,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence15
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@OK-NonRendicontabile_AR] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -760,7 +760,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence16
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL_IndirizzoInesatto890] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -802,7 +802,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence17
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@OK-Giacenza-lte10_890] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -850,7 +850,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence18
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@OK-Giacenza-gt10-23L_890] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -898,7 +898,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence19
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@OK-GiacenzaDelegato-lte10_890] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -949,7 +949,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence20
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@OK-GiacenzaDelegato-gt10-23L_890] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -1045,7 +1045,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence22
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL-Giacenza-gt10_890] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -1093,7 +1093,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence22
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL-Giacenza-gt10-23L_890] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -1141,7 +1141,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence23
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL_Consolidatore-AR] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -1177,7 +1177,7 @@ Feature: invio notifica con sequence
       | vediDettagli | true |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence24
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@OK-Retry_RS] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -1213,7 +1213,7 @@ Feature: invio notifica con sequence
       | vediDettagli | true |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence25
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL_RS] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
