@@ -779,7 +779,6 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
 
-
     public void verificaPresenzaStato(String stato) {
         By statusChip = By.xpath("//div[@data-testid='itemStatus']//span[contains(text(),'" + stato + "')]");
         try {
@@ -797,7 +796,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         String notificationRequestId = "";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
-            if (netWorkInfo.getRequestUrl().contains("/delivery/v2.3/requests") && netWorkInfo.getRequestMethod().equals("POST")) {
+            if (netWorkInfo.getRequestUrl().contains("/bff/v1/notifications/sent") && netWorkInfo.getRequestMethod().equals("POST")) {
                 if (netWorkInfo.getResponseStatus().equals("202") && !netWorkInfo.getResponseBody().isEmpty()) {
                     notificationRequestId = netWorkInfo.getResponseBody().split("\"notificationRequestId\":\"")[1].split("\"")[0];
                     logger.info("NotificationRequestId: " + notificationRequestId);
@@ -805,41 +804,11 @@ public class PiattaformaNotifichePage extends BasePage {
                 }
             }
         }
-
-        if (!notificationRequestId.isEmpty()) {
-            LinkedTreeMap<String, Object> notificationData;
-            String notificationStatus;
-            String notificationIUN;
-            int maximumRetry = 0;
-            notificationStatus = restNotification.getNotificationStatus(notificationRequestId).get("notificationRequestStatus").toString();
-            while (notificationStatus.equals("WAITING")){
-                if (maximumRetry > 4) {
-                    logger.error("Sono stati fatti 5 tentativi per verificare la creazione della notifica");
-                    Assert.fail("La notifica risulta ancora in stato WAITING dopo 5 tentativi");
-                }
-                notificationData = restNotification.getNotificationStatus(notificationRequestId);
-                notificationStatus = notificationData.get("notificationRequestStatus").toString();
-                if(notificationStatus.equals("ACCEPTED")){
-                    notificationIUN = notificationData.get("iun").toString();
-                    notificationSingleton.setScenarioIun(Hooks.scenario,notificationIUN);
-                }else{
-                WebTool.waitTime(90);
-                logger.info("Tentativo n. " + maximumRetry + " - Stato notifica: " + notificationStatus);
-                maximumRetry++;
-                 }
-            }
-            driver.navigate().refresh();
-            logger.info("La notifica è stata creata correttamente");
-        } else {
-            logger.error("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
-            Assert.fail("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
-        }
         Assert.assertFalse("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ", notificationRequestId.isEmpty());
         String statusNotifica;
         int maximumRetry = 0;
         do {
             Assert.assertTrue("La notifica risulta ancora in stato WAITING dopo 5 tentativi", maximumRetry < 4);
-            RestNotification restNotification = new RestNotification();
             statusNotifica = restNotification.getNotificationStatus(notificationRequestId);
             WebTool.waitTime(90);
             logger.info("Tentativo n. " + maximumRetry + " - Stato notifica: " + statusNotifica);
@@ -854,190 +823,187 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10).withMessage("Voce nel dettaglio della notifica non trovata").until(ExpectedConditions.visibilityOfElementLocated(voceNotificaDiCortesia));
     }
 
-    public void visualizzaTimelineTuttiDestinatari(Map<String, String> destinatari) {
-    public void checkNotifica() {
-        NewNotificationResponse newNotificationResponse = new NewNotificationResponse();
-        String iun = newNotificationResponse.getNotificationIUN();
-        try{
-            By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'"+iun+"')]]");
-            getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOfElementLocated(notification));
-        }catch (TimeoutException e){
-            logger.error("non é stato possibile recupare la notifica con errore"+ e);
-            Assert.fail("non é stato possibile recupare la notifica con errore"+ e);
+        public void checkNotifica () {
+            NewNotificationResponse newNotificationResponse = new NewNotificationResponse();
+            String iun = newNotificationResponse.getNotificationIUN();
+            try {
+                By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
+                getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOfElementLocated(notification));
+            } catch (TimeoutException e) {
+                logger.error("non é stato possibile recupare la notifica con errore" + e);
+                Assert.fail("non é stato possibile recupare la notifica con errore" + e);
+            }
+
         }
 
-    }
+        public void clickSuNotifica () {
+            String iun = notificationSingleton.getIun(Hooks.scenario);
+            try {
+                By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
+                getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOfElementLocated(notification));
+                element(notification).click();
+            } catch (TimeoutException e) {
+                logger.error("non é stato possibile recupare la notifica con errore" + e);
+                Assert.fail("non é stato possibile recupare la notifica con errore" + e);
+            }
 
-    public void clickSuNotifica() {
-        String iun = notificationSingleton.getIun(Hooks.scenario);
-        try{
-            By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'"+iun+"')]]");
-            getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOfElementLocated(notification));
-            element(notification).click();
-        }catch (TimeoutException e){
-            logger.error("non é stato possibile recupare la notifica con errore"+ e);
-            Assert.fail("non é stato possibile recupare la notifica con errore"+ e);
         }
 
-    }
+        public void visualizzaTimelineTuttiDestinatari (Map < String, String > destinatari){
+            logger.info("Si clicca vedi piu dettagli");
+            List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
+            //Equals() method utilizzato per String. Per confrontare int variabile dobbiamo usare ==
+            String size = Integer.toString(viewMore.size());
+            if (size.equals("2")) {
+                viewMore.get(1).click();
+            } else {
+                viewMore.get(0).click();
+            }
+            //PF e PG vengono usati in modo da recuperare i dati test step. destinatari.get("PF") recupera CF da tabella nel FF
+            List<WebElement> destinatarioPF = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PF") + ") all')]"));
+            List<WebElement> destinatarioPG = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PG") + ") all')]"));
 
-   public void visualizzaTimelineTuttiDestinatari(Map<String,String> destinatari){
-        logger.info("Si clicca vedi piu dettagli");
-        List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
-        //Equals() method utilizzato per String. Per confrontare int variabile dobbiamo usare ==
-        String size = Integer.toString(viewMore.size());
-        if (size.equals("2")) {
-            viewMore.get(1).click();
-        } else {
+            if (destinatarioPF.get(0).isDisplayed() && destinatarioPG.get(0).isDisplayed()) {
+                logger.info("Si visualizza  gli eventi relativi a tutti i destinatari");
+            } else {
+                logger.error("Non si visualizza  gli eventi relativi a tutti i destinatari");
+                Assert.fail("Non si visualizza  gli eventi relativi a tutti i destinatari");
+            }
+
+            logger.info("Si visualizza correttamente la timeline relativi a tutti i destinatari");
+        }
+
+        public void visualizzaTimeline (String check){
+            List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
             viewMore.get(0).click();
-        }
-        //PF e PG vengono usati in modo da recuperare i dati test step. destinatari.get("PF") recupera CF da tabella nel FF
-        List<WebElement> destinatarioPF = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PF") + ") all')]"));
-        List<WebElement> destinatarioPG = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PG") + ") all')]"));
+            String size = Integer.toString(viewMore.size());
+            if (size.equals("2")) {
+                viewMore.get(1).click();
+            }
 
-        if (destinatarioPF.get(0).isDisplayed() && destinatarioPG.get(0).isDisplayed()) {
-            logger.info("Si visualizza  gli eventi relativi a tutti i destinatari");
-        } else {
-            logger.error("Non si visualizza  gli eventi relativi a tutti i destinatari");
-            Assert.fail("Non si visualizza  gli eventi relativi a tutti i destinatari");
-        }
+            List<WebElement> findKeyWord = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
 
-        logger.info("Si visualizza correttamente la timeline relativi a tutti i destinatari");
-    }
-
-    public void visualizzaTimeline(String check) {
-        List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
-        viewMore.get(0).click();
-        String size = Integer.toString(viewMore.size());
-        if (size.equals("2")) {
-            viewMore.get(1).click();
+            if (findKeyWord.get(0).isDisplayed()) {
+                logger.info("Si visualizza la timeline correttamente");
+            } else {
+                logger.error("Non si visualizza  la timeline correttamente");
+                Assert.fail("Non si visualizza  la timeline correttamente");
+            }
         }
 
-        List<WebElement> findKeyWord = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
+        public void verificaDestinatariNonRaggiungibili (Map < String, String > destinatari){
+            logger.info("Si clicca vedi piu dettagli");
+            List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
+            viewMore.get(0).click();
+            String size = Integer.toString(viewMore.size());
+            if (size.equals("2")) {
+                viewMore.get(1).click();
+            }
+            By destinatarioPF = By.xpath("//p[contains(text(),'" + destinatari.get("PF") + " è fallito')]");
+            By destinatarioPG = By.xpath("//p[contains(text(),'" + destinatari.get("PG") + " è fallito')]");
 
-        if (findKeyWord.get(0).isDisplayed()) {
-            logger.info("Si visualizza la timeline correttamente");
-        } else {
-            logger.error("Non si visualizza  la timeline correttamente");
-            Assert.fail("Non si visualizza  la timeline correttamente");
+            if (this.element(destinatarioPF).isDisplayed() && this.element(destinatarioPG).isDisplayed()) {
+                logger.info("Entrambi destinatari non raggiungibili al primo tentativo");
+            } else {
+                logger.error("Uno dei destinatari viene raggiunto al primo tentativo");
+                Assert.fail("Uno dei destinatari viene raggiunto al primo tentativo");
+            }
         }
-    }
 
-    public void verificaDestinatariNonRaggiungibili(Map<String, String> destinatari) {
-        logger.info("Si clicca vedi piu dettagli");
-        List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
-        viewMore.get(0).click();
-        String size = Integer.toString(viewMore.size());
-        if (size.equals("2")) {
-            viewMore.get(1).click();
+        public void verificaNotificheNonDisponibili () {
+            By noResultField = By.xpath("//div[@data-testid='emptyState']");
+            getWebDriverWait(5).withMessage("Ci sono risultati disponibili per il filtro di ricerca").until(ExpectedConditions.visibilityOfElementLocated(noResultField));
         }
-        By destinatarioPF = By.xpath("//p[contains(text(),'" + destinatari.get("PF") + " è fallito')]");
-        By destinatarioPG = By.xpath("//p[contains(text(),'" + destinatari.get("PG") + " è fallito')]");
 
-        if (this.element(destinatarioPF).isDisplayed() && this.element(destinatarioPG).isDisplayed()) {
-            logger.info("Entrambi destinatari non raggiungibili al primo tentativo");
-        } else {
-            logger.error("Uno dei destinatari viene raggiunto al primo tentativo");
-            Assert.fail("Uno dei destinatari viene raggiunto al primo tentativo");
+        public void clickNotificaRicercata () {
+            logger.info("Si clicca la notifica ricercata");
+            try {
+                TimeUnit.SECONDS.sleep(2);
+                By notitifcaRicercata = By.id("notificationsTable.body.row");
+                getWebDriverWait(10).withMessage("La notifica ricercata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(notitifcaRicercata));
+                element(notitifcaRicercata).click();
+            } catch (TimeoutException e) {
+                logger.error("Non si riesce a cliccare la notifica ricercata con errore: " + e.getMessage());
+                Assert.fail("Non si riesce a cliccare la notifica ricercata con errore: " + e.getMessage());
+            } catch (InterruptedException e) {
+                logger.error("Attesa per rendere cliccabile la notifica interrota con errore: " + e.getMessage());
+                Assert.fail("Attesa per rendere cliccabile la notifica interrota con errore: " + e.getMessage());
+            }
         }
-    }
 
-    public void verificaNotificheNonDisponibili() {
-        By noResultField = By.xpath("//div[@data-testid='emptyState']");
-        getWebDriverWait(5).withMessage("Ci sono risultati disponibili per il filtro di ricerca").until(ExpectedConditions.visibilityOfElementLocated(noResultField));
-    }
+        public void checkMessaggioErroreConCodice ( int code){
+            switch (code) {
+                case 19 -> {
+                    if (erroreMessaggio.getText().contains("inserito troppe volte un nome")) {
+                        logger.info("Si visualizza correttamente il messaggio di errore");
+                    } else {
+                        logger.error("Non si visualizza il messaggio di errore");
+                        Assert.fail("Non si visualizza il messaggio di errore");
+                    }
+                }
+                case 20 -> {
+                    if (erroreMessaggio.getText().contains("richiesto un login con un secondo fattore di autenticazione")) {
+                        logger.info("Si visualizza correttamente il messaggio di errore");
+                    } else {
+                        logger.error("Non si visualizza il messaggio di errore");
+                        Assert.fail("Non si visualizza il messaggio di errore");
+                    }
+                }
+                case 21 -> {
+                    if (erroreMessaggio.getText().contains("passato troppo tempo da quando hai iniziato")) {
+                        logger.info("Si visualizza correttamente il messaggio di errore");
+                    } else {
+                        logger.error("Non si visualizza il messaggio di errore");
+                        Assert.fail("Non si visualizza il messaggio di errore");
+                    }
+                }
+                case 22 -> {
+                    if (erroreMessaggio.getText().contains("devi acconsentire all’invio di alcuni dati")) {
+                        logger.info("Si visualizza correttamente il messaggio di errore");
+                    } else {
+                        logger.error("Non si visualizza il messaggio di errore");
+                        Assert.fail("Non si visualizza il messaggio di errore");
+                    }
+                }
+                case 23 -> {
+                    if (erroreMessaggio.getText().contains("tua identità SPID risulta sospesa o revocata")) {
+                        logger.info("Si visualizza correttamente il messaggio di errore");
+                    } else {
+                        logger.error("Non si visualizza il messaggio di errore");
+                        Assert.fail("Non si visualizza il messaggio di errore");
+                    }
+                }
+                case 25 -> {
+                    if (erroreMessaggio.getText().contains("annullato l’operazione di login")) {
+                        logger.info("Si visualizza correttamente il messaggio di errore");
+                    } else {
+                        logger.error("Non si visualizza il messaggio di errore");
+                        Assert.fail("Non si visualizza il messaggio di errore");
+                    }
+                }
+                case 30 -> {
+                    if (erroreMessaggio.getText().contains("tipologia di identità SPID che hai usato")) {
+                        logger.info("Si visualizza correttamente il messaggio di errore");
+                    } else {
+                        logger.error("Non si visualizza il messaggio di errore");
+                        Assert.fail("Non si visualizza il messaggio di errore");
+                    }
+                }
+                case 1001 -> {
+                    if (erroreMessaggio.getText().contains("non hai l’età minima richiesta per usare")) {
+                        logger.info("Si visualizza correttamente il messaggio di errore");
+                    } else {
+                        logger.error("Non si visualizza il messaggio di errore");
+                        Assert.fail("Non si visualizza il messaggio di errore");
+                    }
+                }
 
-    public void clickNotificaRicercata() {
-        logger.info("Si clicca la notifica ricercata");
-        try {
-            TimeUnit.SECONDS.sleep(2);
-            By notitifcaRicercata = By.id("notificationsTable.body.row");
-            getWebDriverWait(10).withMessage("La notifica ricercata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(notitifcaRicercata));
-            element(notitifcaRicercata).click();
-        } catch (TimeoutException e) {
-            logger.error("Non si riesce a cliccare la notifica ricercata con errore: " + e.getMessage());
-            Assert.fail("Non si riesce a cliccare la notifica ricercata con errore: " + e.getMessage());
-        } catch (InterruptedException e) {
-            logger.error("Attesa per rendere cliccabile la notifica interrota con errore: " + e.getMessage());
-            Assert.fail("Attesa per rendere cliccabile la notifica interrota con errore: " + e.getMessage());
+            }
         }
-    }
 
-    public void checkMessaggioErroreConCodice(int code) {
-        switch (code) {
-            case 19 -> {
-                if (erroreMessaggio.getText().contains("inserito troppe volte un nome")) {
-                    logger.info("Si visualizza correttamente il messaggio di errore");
-                } else {
-                    logger.error("Non si visualizza il messaggio di errore");
-                    Assert.fail("Non si visualizza il messaggio di errore");
-                }
-            }
-            case 20 -> {
-                if (erroreMessaggio.getText().contains("richiesto un login con un secondo fattore di autenticazione")) {
-                    logger.info("Si visualizza correttamente il messaggio di errore");
-                } else {
-                    logger.error("Non si visualizza il messaggio di errore");
-                    Assert.fail("Non si visualizza il messaggio di errore");
-                }
-            }
-            case 21 -> {
-                if (erroreMessaggio.getText().contains("passato troppo tempo da quando hai iniziato")) {
-                    logger.info("Si visualizza correttamente il messaggio di errore");
-                } else {
-                    logger.error("Non si visualizza il messaggio di errore");
-                    Assert.fail("Non si visualizza il messaggio di errore");
-                }
-            }
-            case 22 -> {
-                if (erroreMessaggio.getText().contains("devi acconsentire all’invio di alcuni dati")) {
-                    logger.info("Si visualizza correttamente il messaggio di errore");
-                } else {
-                    logger.error("Non si visualizza il messaggio di errore");
-                    Assert.fail("Non si visualizza il messaggio di errore");
-                }
-            }
-            case 23 -> {
-                if (erroreMessaggio.getText().contains("tua identità SPID risulta sospesa o revocata")) {
-                    logger.info("Si visualizza correttamente il messaggio di errore");
-                } else {
-                    logger.error("Non si visualizza il messaggio di errore");
-                    Assert.fail("Non si visualizza il messaggio di errore");
-                }
-            }
-            case 25 -> {
-                if (erroreMessaggio.getText().contains("annullato l’operazione di login")) {
-                    logger.info("Si visualizza correttamente il messaggio di errore");
-                } else {
-                    logger.error("Non si visualizza il messaggio di errore");
-                    Assert.fail("Non si visualizza il messaggio di errore");
-                }
-            }
-            case 30 -> {
-                if (erroreMessaggio.getText().contains("tipologia di identità SPID che hai usato")) {
-                    logger.info("Si visualizza correttamente il messaggio di errore");
-                } else {
-                    logger.error("Non si visualizza il messaggio di errore");
-                    Assert.fail("Non si visualizza il messaggio di errore");
-                }
-            }
-            case 1001 -> {
-                if (erroreMessaggio.getText().contains("non hai l’età minima richiesta per usare")) {
-                    logger.info("Si visualizza correttamente il messaggio di errore");
-                } else {
-                    logger.error("Non si visualizza il messaggio di errore");
-                    Assert.fail("Non si visualizza il messaggio di errore");
-                }
-            }
-
+        public void clickVediTutti () {
+            By vediTutti = By.xpath("//button[@data-testid='show-all-attachments']");
+            getWebDriverWait(4).withMessage("Il bottone vedi tutti non cliccabile").until(ExpectedConditions.elementToBeClickable(vediTutti));
+            element(vediTutti).click();
         }
     }
-
-    public void clickVediTutti() {
-        By vediTutti = By.xpath("//button[@data-testid='show-all-attachments']");
-        getWebDriverWait(4).withMessage("Il bottone vedi tutti non cliccabile").until(ExpectedConditions.elementToBeClickable(vediTutti));
-        element(vediTutti).click();
-    }
-
-
-}
