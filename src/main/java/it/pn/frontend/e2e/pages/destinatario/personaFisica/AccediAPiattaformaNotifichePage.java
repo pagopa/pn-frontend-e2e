@@ -154,26 +154,16 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         return getWebDriverWait(30).withMessage("Il sezione titolo pagamento non è visibile").until(ExpectedConditions.visibilityOf(titoloPagamento)).isDisplayed();
     }
 
-    public boolean codiceAvvisoDisplayed() {
-        try {
-            getWebDriverWait(5).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvviso)).isDisplayed();
-            return true;
-        } catch (RuntimeException e) {
-            return false;
-        }
+    public void codiceAvvisoDisplayed() {
+        getWebDriverWait(5).withMessage("La sezione del codice di avviso non è visualizzata").until(ExpectedConditions.visibilityOf(codiceAvviso)).isDisplayed();
     }
 
     public boolean modelloF24Displayed() {
         return getWebDriverWait(5).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
     }
 
-    public boolean scaricaAvvisoDisplayed() {
-        try {
-            getWebDriverWait(5).withMessage("Il sezione scarica avviso non è visibile").until(ExpectedConditions.visibilityOf(scaricaAvviso)).isDisplayed();
-            return true;
-        } catch (RuntimeException e) {
-            return false;
-        }
+    public void scaricaAvvisoDisplayed() {
+        getWebDriverWait(5).withMessage("La sezione scarica avviso non è visualizzata").until(ExpectedConditions.visibilityOf(scaricaAvviso)).isDisplayed();
     }
 
     public void clickAvvisoPagoPAPG() {
