@@ -127,7 +127,7 @@ public class GruppiPGPage extends BasePage {
         By buttonModifica = By.xpath("//button[contains(text(), 'Modifica')]");
         By buttonSospendi = By.xpath("//button[contains(text(), 'Sospendi')]");
         By buttonDuplica = By.xpath("//button[contains(text(), 'Duplica')]");
-        By descrizioneGruppo = By.xpath("//div/p[text()='descrizione']");
+        By descrizioneGruppo = By.xpath("//div/p[@aria-label]");
         By creatoGruppo = By.xpath("//div/p[text()='Creato da - in data']");
         By modificatoGruppo = By.xpath("//div/p[text()='Modificato da - in data']");
         By buttonAggiungiUtente = By.xpath("//button[contains(text(), 'Aggiungi utente')]");
@@ -150,7 +150,7 @@ public class GruppiPGPage extends BasePage {
         By navigationBar = By.xpath("//nav[@aria-label='breadcrumb']");
         By buttonElimina = By.xpath("//button[contains(text(), 'Elimina')]");
         By buttonRiattiva = By.xpath("//button[contains(text(), 'Riattiva')]");
-        By descrizioneGruppo = By.xpath("//div/p[text()='descrizione']");
+        By descrizioneGruppo = By.xpath("//div/p[@aria-label]");
         By creatoGruppo = By.xpath("//div/p[text()='Creato da - in data']");
         By modificatoGruppo = By.xpath("//div/p[text()='Modificato da - in data']");
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo della pagina").until(ExpectedConditions.visibilityOfElementLocated(pageTitle));
