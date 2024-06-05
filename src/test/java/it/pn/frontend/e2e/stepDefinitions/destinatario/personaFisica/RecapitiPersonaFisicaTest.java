@@ -84,7 +84,7 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP() {
         logger.info("Si visualizza correttamente il pop-up di inserimento OTP");
         String varabileAmbiente = System.getProperty("environment");
-        String url = "https://webapi." + varabileAmbiente + ".notifichedigitali.it/bff/v1/address";
+        String url = WebTool.getApiBaseUrl() + "address";
         recapitiDestinatarioPage.waitLoadPopUp();
         try {
             TimeUnit.SECONDS.sleep(3);

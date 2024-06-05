@@ -65,7 +65,7 @@ public class DisserviziAppPATest {
         disserviziAppPAPage.clickLinkAttestazioniOpponibileDisservizi(0);
         WebTool.waitTime(5);
         String legalFactId = downloadFile.getLegalFactId();
-        String urlFileAttestazioneOpponibile = "https://webapi.test.notifichedigitali.it/bff/v1/downtime/legal-facts/" + legalFactId;
+        String urlFileAttestazioneOpponibile = WebTool.getApiBaseUrl() + "downtime/legal-facts/" + legalFactId;
 
         File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + 0 + ".pdf");
         downloadFile.downloadAttestazioneDisservizi(urlFileAttestazioneOpponibile, file, headless);

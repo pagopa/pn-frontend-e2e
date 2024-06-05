@@ -315,7 +315,7 @@ public class LoginPersonaFisicaPagoPA {
         }
 
         String variabileAmbiente = System.getProperty("environment");
-        String urlChiamata = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/bff/v1/notifications/received?";
+        String urlChiamata = WebTool.getApiBaseUrl() + "notifications/received?";
 
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {

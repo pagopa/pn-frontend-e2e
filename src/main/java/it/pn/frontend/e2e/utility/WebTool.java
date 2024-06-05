@@ -9,6 +9,7 @@ import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
+import lombok.Getter;
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -26,6 +27,9 @@ public class WebTool {
     private static final WebDriver driver = Hooks.driver;
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
     private final String env = System.getProperty("environment");
+
+    @Getter
+    private static final String apiBaseUrl = System.getProperty("apiBaseUrl");
 
     public static String switchToPortal(AppPortal portal) {
         openNewTab();

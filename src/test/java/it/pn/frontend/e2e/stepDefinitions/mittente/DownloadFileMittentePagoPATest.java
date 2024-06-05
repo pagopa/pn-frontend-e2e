@@ -82,7 +82,7 @@ public class DownloadFileMittentePagoPATest {
 
         final String filepath = workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN";
 
-        final String urlDocumenti = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/bff/v1/notifications/sent/" + codiceIUN + "/documents/";
+        final String urlDocumenti = WebTool.getApiBaseUrl() + "notifications/sent/" + codiceIUN + "/documents/";
 
         final String urlDocumentiAllegati = downloadFile.getUrl(urlDocumenti);
         File file = new File(filepath + count + ".pdf");
@@ -106,7 +106,7 @@ public class DownloadFileMittentePagoPATest {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            final String url = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/bff/v1/" + codiceIUN + "/document/AAR?documentId=safestorage:";
+            final String url = WebTool.getApiBaseUrl() + "notifications/sent/" + codiceIUN + "/documents/AAR?documentId=safestorage:";
             final String urlAvvenutaRicezione = downloadFile.getUrl(url);
             if (headless && urlAvvenutaRicezione.isEmpty()) {
                 String testoLink = dettaglioNotificaMittenteSection.getTextLinkAvvenutaRicezione(i);
@@ -132,8 +132,7 @@ public class DownloadFileMittentePagoPATest {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            final String urlAttestazione = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/bff/v1/";
-            final String urlFileAttestazioneOppponubile = downloadFile.getUrl(urlAttestazione);
+            final String urlFileAttestazioneOppponubile = downloadFile.getUrl(WebTool.getApiBaseUrl());
             if (headless && urlFileAttestazioneOppponubile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
                 logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
@@ -187,7 +186,7 @@ public class DownloadFileMittentePagoPATest {
         }
 
         final String filepath = workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN";
-        final String urlDocumenti = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/bff/v1/notifications/sent/" + codiceIUN + "/attachments/documents/0";
+        final String urlDocumenti = WebTool.getApiBaseUrl() + "notifications/sent/" + codiceIUN + "/attachments/documents/0";
         final String urlDocumentiAllegati = downloadFile.getUrl(urlDocumenti);
         File file = new File(filepath + count + "PN_NOTIFICATION_ATTACHMENTS.pdf");
 
@@ -256,11 +255,7 @@ public class DownloadFileMittentePagoPATest {
         int numeroLinkAvvenutaRicezione = dettaglioNotificaMittenteSection.getLinkAvvenutaRicezione();
         for (int i = 1; i < numeroLinkAvvenutaRicezione; i++) {
             dettaglioNotificaMittenteSection.clickLinkAvvenutaRicezione(i);
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            WebTool.waitTime(5);
             final String url = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery-push/" + codiceIUN + "/document/AAR?documentId=safestorage:";
             final String urlAvvenutaRicezione = downloadFile.getUrl(url);
             if (urlAvvenutaRicezione.isEmpty()) {
@@ -315,8 +310,7 @@ public class DownloadFileMittentePagoPATest {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            final String urlAttestazione = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/bff/v1/";
-            final String urlFileAttestazioneOpponibile = downloadFile.getUrl(urlAttestazione);
+            final String urlFileAttestazioneOpponibile = downloadFile.getUrl(WebTool.getApiBaseUrl());
             if (urlFileAttestazioneOpponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
                 logger.error("Non è stato recuperato l'URL per il download per il link: " + testoLink);
@@ -362,7 +356,7 @@ public class DownloadFileMittentePagoPATest {
         downloadFile = new DownloadFile(this.driver);
 
         String varabileAmbiente = System.getProperty("environment");
-        final String url = downloadFile.getUrl("https://webapi." + varabileAmbiente + ".notifichedigitali.it/bff/v1/notifications/sent/");
+        final String url = downloadFile.getUrl(WebTool.getApiBaseUrl() + "notifications/sent/");
         if (headless && url.isEmpty()) {
             logger.error("Non è stato recuperato url per il download per il link: " + nomeFile);
             Assert.fail("Non è stato recuperato url per il download per il link: " + nomeFile);

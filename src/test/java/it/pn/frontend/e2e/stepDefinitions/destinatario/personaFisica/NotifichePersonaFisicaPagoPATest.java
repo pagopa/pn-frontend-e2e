@@ -286,7 +286,8 @@ public class NotifichePersonaFisicaPagoPATest {
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
             dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
             WebTool.waitTime(5);
-            String urlFileAttestazioneOppponibile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/bff/v1/notifications/received/" + datiNotifica.get("codiceIUN").toString());
+            String fullPath = WebTool.getApiBaseUrl() + "/bff/v1/notifications/received/" + datiNotifica.get("codiceIUN").toString();
+            String urlFileAttestazioneOppponibile = downloadFile.getUrl(fullPath);
 
             if (headless && urlFileAttestazioneOppponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);

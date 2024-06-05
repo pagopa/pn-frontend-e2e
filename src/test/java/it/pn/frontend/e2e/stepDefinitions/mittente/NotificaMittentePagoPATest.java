@@ -84,7 +84,7 @@ public class NotificaMittentePagoPATest {
             throw new RuntimeException(e);
         }
 
-        String urlChiamata = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/bff/v1/notifications/sent?";
+        String urlChiamata = WebTool.getApiBaseUrl() + "notifications/sent?";
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
             logger.error("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
@@ -113,7 +113,7 @@ public class NotificaMittentePagoPATest {
 
         this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
         WebTool.waitTime(5);
-        String urlNotifiche = "https://webapi.test.notifichedigitali.it/bff/v1/notifications/";
+        String urlNotifiche = WebTool.getApiBaseUrl() + "notifications/";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
             if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=10")) {
                 String responseBody = netWorkInfo.getResponseBody();
@@ -1327,7 +1327,7 @@ public class NotificaMittentePagoPATest {
      */
     protected EsitoNotifica siVerificaEsitoNotifica(String dpFile) {
         logger.info("si verifica se la notifica è stata accettata o rifiutata");
-        final String urlNotificationRequest = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/bff/v1/notifications/sent";
+        final String urlNotificationRequest = WebTool.getApiBaseUrl() + "notifications/sent";
         final String urlRichiestaNotifica = "https://api." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.3/requests/";
         AccettazioneRichiestaNotifica accettazioneRichiestaNotifica = new AccettazioneRichiestaNotifica();
         String codiceApi;
