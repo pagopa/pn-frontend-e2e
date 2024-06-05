@@ -25,6 +25,7 @@ import java.util.Properties;
         },
         monochrome = true
 )
+
 public class RunCucumberTest {
     private static final String TEST_CONFIG_FILE = "test-config.properties";
     private static final Properties properties = new Properties();

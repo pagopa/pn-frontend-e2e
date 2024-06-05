@@ -19,7 +19,6 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class PiattaformaNotifichePage extends BasePage {
 
@@ -797,36 +796,24 @@ public class PiattaformaNotifichePage extends BasePage {
                 }
             }
         }
-        if (!notificationRequestId.isEmpty()) {
-            String statusNotifica;
-            int maximumRetry = 0;
-            do {
-                if (maximumRetry > 4) {
-                    logger.error("Sono stati fatti 5 tentativi per verificare la creazione della notifica");
-                    Assert.fail("La notifica risulta ancora in stato WAITING dopo 5 tentativi");
-                }
-                RestNotification restNotification = new RestNotification();
-                statusNotifica = restNotification.getNotificationStatus(notificationRequestId);
-                WebTool.waitTime(90);
-                logger.info("Tentativo n. " + maximumRetry + " - Stato notifica: " + statusNotifica);
-                maximumRetry++;
-            } while (statusNotifica.equals("WAITING"));
-            driver.navigate().refresh();
-            logger.info("La notifica è stata creata correttamente");
-        } else {
-            logger.error("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
-            Assert.fail("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ");
-        }
+        Assert.assertFalse("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ", notificationRequestId.isEmpty());
+        String statusNotifica;
+        int maximumRetry = 0;
+        do {
+            Assert.assertTrue("La notifica risulta ancora in stato WAITING dopo 5 tentativi", maximumRetry < 4);
+            RestNotification restNotification = new RestNotification();
+            statusNotifica = restNotification.getNotificationStatus(notificationRequestId);
+            WebTool.waitTime(90);
+            logger.info("Tentativo n. " + maximumRetry + " - Stato notifica: " + statusNotifica);
+            maximumRetry++;
+        } while (statusNotifica.equals("WAITING"));
+        driver.navigate().refresh();
+        logger.info("La notifica è stata creata correttamente");
     }
 
     public void verificaInvioNotificaDiCortesia() {
-        try {
-            By voceNotificaDiCortesia = By.xpath("//span[contains(text(), 'Invio del messaggio di cortesia')]");
-            getWebDriverWait(10).withMessage("Voce nel dettaglio della notifica non trovata").until(ExpectedConditions.visibilityOfElementLocated(voceNotificaDiCortesia));
-        } catch (TimeoutException e) {
-            logger.error("Voce dell'invio del messaggio di cortesia nel dettaglio della notifica non trovata: " + e.getMessage());
-            Assert.fail("Voce dell'invio del messaggio di cortesia nel dettaglio della notifica non trovata: " + e.getMessage());
-        }
+        By voceNotificaDiCortesia = By.xpath("//span[contains(text(), 'Invio del messaggio di cortesia')]");
+        getWebDriverWait(10).withMessage("Voce nel dettaglio della notifica non trovata").until(ExpectedConditions.visibilityOfElementLocated(voceNotificaDiCortesia));
     }
 
     public void clickBottoneAnnullaNotifica() {
@@ -1004,5 +991,6 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(4).withMessage("Il bottone vedi tutti non cliccabile").until(ExpectedConditions.elementToBeClickable(vediTutti));
         element(vediTutti).click();
     }
+
 
 }

@@ -109,4 +109,5 @@ public class BasePage {
             element.sendKeys(Keys.BACK_SPACE);
         }
     }
+
 }

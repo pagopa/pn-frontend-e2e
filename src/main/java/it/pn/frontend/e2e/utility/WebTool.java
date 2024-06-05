@@ -16,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -151,5 +153,23 @@ public class WebTool {
             finalNumber = finalNumber + paddingString;
         }
         return finalNumber;
+    }
+
+
+    public static String convertToLocalTime(String timeString, ZoneId targetZoneId) {
+        // Parse la stringa del tempo nel formato hh:mm a LocalTime
+        LocalTime localTime = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HH:mm"));
+
+        // Ottieni la data corrente
+        LocalDate currentDate = LocalDate.now();
+
+        // Combina la data corrente con l'ora per ottenere LocalDateTime
+        LocalDateTime localDateTime = LocalDateTime.of(currentDate, localTime);
+
+        // Converte LocalDateTime al fuso orario target
+        ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.systemDefault()).withZoneSameInstant(targetZoneId);
+
+        // Ritorna l'ora locale nel formato hh:mm
+        return zonedDateTime.format(DateTimeFormatter.ofPattern("HH:mm"));
     }
 }
