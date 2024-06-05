@@ -284,7 +284,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         By pagaButton = By.xpath("//button[@id='paymentCheckPageButtonPay']");
         getWebDriverWait(5).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
         this.element(pagaButton).click();
-        Thread.sleep(28000);
+        Thread.sleep(32000);
 
         List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Chiudi')]"));
         getWebDriverWait(5).withMessage("Il bottone Chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudi.get(0)));
