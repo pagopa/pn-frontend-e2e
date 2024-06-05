@@ -28,7 +28,6 @@ Feature: Si eseguono e si controllano tutte le operazioni che possono essere ese
     And Si visualizza correttamente la pagina gruppi
     And Logout da portale persona giuridica
 
-  @TestSuite
   @gruppiPG
   Scenario: [TA-FE GRUPPI PERSONA GIURIDICA] - Si crea un gruppo per la persona giuridica, lo si sospende, lo si riattiva e infine lo si elimina
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
@@ -65,7 +64,6 @@ Feature: Si eseguono e si controllano tutte le operazioni che possono essere ese
     And Si visualizza correttamente la pagina gruppi
     And Logout da portale persona giuridica
 
-  @TestSuite
   @gruppiPG
   Scenario: [TA-FE GRUPPI PERSONA GIURIDICA] - Si crea un gruppo per la persona giuridica, lo si duplica e lo si elimina
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
