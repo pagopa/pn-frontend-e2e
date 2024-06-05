@@ -830,36 +830,21 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void clickBottoneAnnullaNotifica() {
-        try {
             WebElement bottoneAnnullaNotifica = driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']"));
-            getWebDriverWait(10).until(ExpectedConditions.and(ExpectedConditions.visibilityOf(bottoneAnnullaNotifica), ExpectedConditions.elementToBeClickable(bottoneAnnullaNotifica)));
+            getWebDriverWait(10).withMessage("Bottone annulla notifica non visibile e cliccabile").until(ExpectedConditions.and(ExpectedConditions.visibilityOf(bottoneAnnullaNotifica), ExpectedConditions.elementToBeClickable(bottoneAnnullaNotifica)));
             scrollToElementAndClick(bottoneAnnullaNotifica);
-        } catch (TimeoutException e) {
-            logger.error("Bottone annulla notifica non visibile e cliccabile");
-            Assert.fail("Bottone annulla notifica non visibile e cliccabile");
-        }
     }
 
     public void clickAnnullaNotificaModale() {
-        try {
             By bottoneAnnullaNotificaModale = By.xpath("//button[@data-testid='modalCloseAndProceedBtnId']");
             getWebDriverWait(10).withMessage("Bottone annulla notifica nella modale non visibile").until(ExpectedConditions.visibilityOfElementLocated(bottoneAnnullaNotificaModale));
             getWebDriverWait(10).withMessage("Bottone annulla notifica nella modale non cliccabile ").until(ExpectedConditions.elementToBeClickable(bottoneAnnullaNotificaModale));
             element(bottoneAnnullaNotificaModale).click();
-        } catch (TimeoutException e) {
-            logger.error("Bottone annulla notifica della modale non visibile e cliccabile");
-            Assert.fail("Bottone annulla notifica della modale non visibile e cliccabile");
-        }
     }
 
     public void checkPopUpConfermaAnnullamentoNotifica() {
-        try {
             By popUpConfermaAnnullamento = By.xpath("//div[@role='alert']/div[text()='La richiesta di annullamento è stata accettata.']");
-            getWebDriverWait(10).withMessage("Pop up NON visualizzato").until(ExpectedConditions.visibilityOfElementLocated(popUpConfermaAnnullamento));
-        } catch (TimeoutException e) {
-            logger.error("Il pop up di conferma dell'annullamento della notifica non viene visualizzato con errore: " + e.getMessage());
-            Assert.fail("Il pop up di conferma dell'annullamento della notifica non viene visualizzato con errore: " + e.getMessage());
-        }
+            getWebDriverWait(10).withMessage("Il popup di conferma dell'annullamento della notifica non viene visualizzato").until(ExpectedConditions.visibilityOfElementLocated(popUpConfermaAnnullamento));
     }
 
     public void visualizzaTimelineTuttiDestinatari(Map<String, String> destinatari) {
