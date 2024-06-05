@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.List;
 
 public class AccediAPiattaformaNotifichePage extends BasePage {
 
@@ -221,6 +222,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     public void checkoutPagamento() throws InterruptedException {
         logger.info("Si procede con il pagamento");
+        Thread.sleep(5000);
         this.element(By.cssSelector("[data-qaid='CP']")).click();
         Thread.sleep(5000);
         // frame of the card number
@@ -229,7 +231,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10).withMessage("Il textbox numero di carta non è visibile").until(ExpectedConditions.visibilityOf(creditCardNumber));
         creditCardNumber.click();
         creditCardNumber.clear();
-        creditCardNumber.sendKeys("5255000260000014");
+        creditCardNumber.sendKeys("5186151650005008");
         driver.switchTo().defaultContent();
 
         //frame of the expiry date
@@ -239,7 +241,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(20).withMessage("Il textbox scadenza non è visibile").until(ExpectedConditions.visibilityOfElementLocated(scadenza));
         this.element(scadenza).click();
         this.element(scadenza).clear();
-        this.element(scadenza).sendKeys("12/30");
+        this.element(scadenza).sendKeys("12/26");
         driver.switchTo().defaultContent();
 
         //frame of the security code
@@ -266,15 +268,33 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(5).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(continuaBottone));
         this.element(continuaBottone).click();
 
+        Thread.sleep(2000);
+
+        //Select Nexi
+        By modificaButton = By.xpath("//button[@aria-label='Modifica PSP']");
+        getWebDriverWait(5).withMessage("Il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(modificaButton));
+        this.element(modificaButton).click();
+
+        Thread.sleep(2000);
+
+        By nexiButton = By.xpath("//div[contains(text(),'Nexi')]");
+        getWebDriverWait(5).withMessage("Il bottone Nexi non è cliccabile").until(ExpectedConditions.elementToBeClickable(nexiButton));
+        this.element(nexiButton).click();
+
         By pagaButton = By.xpath("//button[@id='paymentCheckPageButtonPay']");
         getWebDriverWait(5).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
         this.element(pagaButton).click();
+        Thread.sleep(28000);
 
+        List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Chiudi')]"));
+        getWebDriverWait(5).withMessage("Il bottone Chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudi.get(0)));
+        chiudi.get(0).click();
     }
 
     public void siVisualizzaStatoPagato(){
-        By statoPagamento = By.xpath("//div[@id='status-chip-In elaborazione']");
+        By statoPagamento = By.xpath("//div[@id='status-chip-Pagato']");
         getWebDriverWait(5).withMessage("Lo stato di pagamento non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoPagamento));
+        logger.info("Lo stato di pagamento è Pagato");
     }
 }
 
