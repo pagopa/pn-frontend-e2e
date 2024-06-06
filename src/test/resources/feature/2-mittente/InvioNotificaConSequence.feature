@@ -1213,7 +1213,7 @@ Feature: invio notifica con sequence
       | vediDettagli | true |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence1
+  @WorkflowNotificaConSequence
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL_RS] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
