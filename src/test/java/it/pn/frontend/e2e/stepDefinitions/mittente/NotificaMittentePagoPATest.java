@@ -9,11 +9,13 @@ import it.pn.frontend.e2e.api.mittente.AccettazioneRichiestaNotifica;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.enums.AppPortal;
+import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.mittente.AreaRiservataPAPage;
 import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.*;
+import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
 import it.pn.frontend.e2e.utility.CookieConfig;
@@ -51,6 +53,7 @@ public class NotificaMittentePagoPATest {
     private final String PF = "persona fisica";
     private final String PG = "persona giuridica";
     private final String PA = "pubblica amministrazione";
+    private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
     private Map<String, Object> datiNotifica = new HashMap<>();
     private Map<String, String> datiNotificaMap = new HashMap<>();
     private Map<String, String> destinatarioMap = new HashMap<>();
@@ -1274,7 +1277,9 @@ public class NotificaMittentePagoPATest {
 
     @And("Si seleziona la notifica")
     public void siSelezionaLaNotifica() {
-        piattaformaNotifichePage.clickSuNotifica();
+        BackgroundTest backgroundTest = new BackgroundTest();
+        String iun = notificationSingleton.getIun(Hooks.scenario);
+        backgroundTest.siFiltraLaTabellaDelleNotifichePerIUN(iun);
     }
 
     @And("Si controlla allegato in timeline")

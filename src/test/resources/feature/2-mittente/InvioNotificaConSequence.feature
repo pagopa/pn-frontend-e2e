@@ -1213,7 +1213,7 @@ Feature: invio notifica con sequence
       | vediDettagli | true |
     And Logout da portale mittente
 
-  @WorkflowNotificaConSequence
+  @WorkflowNotificaConSequence1
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL_RS] - Il mittente invia una notifica a destinatario con sequence
     Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -1243,6 +1243,8 @@ Feature: invio notifica con sequence
       | statoPF              | ITALIA   |
       | nomeDocumentoNotifica | RATA SCADUTA IMU |
     And Si verifica che la notifica è stata creata correttamente
+    #inserire filtro sulla notifica restituita in modo da averla sicuramente
+    #sostiture controllo con pec
     And Si seleziona la notifica
     And Si attende completamento notifica
     And Si controlla lo stato timeline in dettaglio notifica

@@ -3,10 +3,14 @@ package it.pn.frontend.e2e.stepDefinitions.common;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
+import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.RecapitiPersonaFisicaTest;
-import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.*;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.DeleghePGPagoPATest;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.DisserviziAppPGTest;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.NotifichePGPagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.openqa.selenium.WebDriver;
@@ -33,7 +37,7 @@ public class BackgroundTest {
     private final HelpdeskTest helpdeskTest = new HelpdeskTest();
     private final NotifichePGPagoPATest notifichePGPagoPATest = new NotifichePGPagoPATest();
     private final RecapitiTest recapitiTest = new RecapitiTest();
-    private Map<String, String> datiPersonaFisica;
+    private final Map<String, String> datiPersonaFisica;
     private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(driver);
     private final ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
 
@@ -232,7 +236,7 @@ public class BackgroundTest {
         deleghePagoPATest.siControllaCheNonCiSiaPiuUnaDelega();
     }
 
-    public void creazioneDisservizio(){
+    public void creazioneDisservizio() {
         helpdeskTest.loginHelpdeskConUtenteTest("testHelpdesk");
         helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
         helpdeskTest.clickSuCardMonitoraggioPiattaforma();
@@ -241,7 +245,7 @@ public class BackgroundTest {
         helpdeskTest.siVerificaLaCreazioneDelDisservizio();
     }
 
-    public void risoluzioneDisservizio(){
+    public void risoluzioneDisservizio() {
         helpdeskTest.loginHelpdeskConUtenteTest("testHelpdesk");
         helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
         helpdeskTest.clickSuCardMonitoraggioPiattaforma();
@@ -320,9 +324,16 @@ public class BackgroundTest {
     public void inserimentoOTPErratoTreVolteEControlloMessaggio(String OTP) {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceOTPSbagliato(OTP);
-        for(int i = 0; i < 3; i++){
+        for (int i = 0; i < 3; i++) {
             recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiCliccaSulBottoneConferma();
         }
         recapitiTest.siVisualizzaCorrettamenteIlMessaggioDiErroreDeiTreTentativi();
+    }
+
+    public void siFiltraLaTabellaDelleNotifichePerIUN(String iun) {
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.inserimentoCodiceIUN(iun);
+        piattaformaNotifichePage.selectFiltraButton();
+        piattaformaNotifichePage.clickSuNotifica();
     }
 }

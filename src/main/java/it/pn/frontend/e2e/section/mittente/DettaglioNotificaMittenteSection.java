@@ -139,9 +139,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void clickVediPiuDettaglio() {
-        By percorsoNotificaBy = By.xpath("//div[contains(@data-testid,'itemStatus')]");
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(percorsoNotificaBy));
-        numeriStatiNotifica = elements(percorsoNotificaBy).size();
+
         getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(vediDettagliButton.get(0)));
         logger.info("click su vedi dettagli");
         vediDettagliButton.get(0).click();
@@ -151,7 +149,6 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         } catch (Exception e) {
             logger.info("ulteriore vedi dettaglio non presente");
         }
-
     }
 
     public void siVisualizzaPercorsoNotifica() {
