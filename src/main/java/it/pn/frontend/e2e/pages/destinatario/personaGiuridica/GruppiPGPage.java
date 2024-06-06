@@ -206,7 +206,7 @@ public class GruppiPGPage extends BasePage {
                 inputNomeGruppo.sendKeys(modifica);
             }
         } catch (InterruptedException e) {
-            log.error("È fallita l'attesa prima della modifica del campo con errore: " + e.getMessage());
+            log.error("È fallita l'attesa prima della modifica del campo con errore: {}", e.getMessage());
             Assert.fail("È fallita l'attesa prima della modifica del campo con errore: " + e.getMessage());
         }
     }

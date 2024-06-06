@@ -62,13 +62,13 @@ public class GruppiPGPagoPATest {
 
     @And("Si visualizza correttamente la pagina di riepilogo del gruppo {string}")
     public void siVisualizzaCorrettamenteLaPaginaDiRiepilogoDelGruppo(String nomeGruppo) {
-        log.info("Si verifica che la pagina di riepilogo del gruppo " + nomeGruppo + " creato sia visualizzata correttamente");
+        log.info("Si verifica che la pagina di riepilogo del gruppo {} creato sia visualizzata correttamente", nomeGruppo);
         gruppiPGPage.waitLoadGruppoCreatoPage(nomeGruppo);
     }
 
     @And("Si visualizza correttamente la pagina di riepilogo del gruppo {string} sospeso")
     public void siVisualizzaCorrettamenteLaPaginaDiRiepilogoDelGruppoDisattivato(String nomeGruppo) {
-        log.info("Si verifica che la pagina di riepilogo del gruppo " + nomeGruppo + " sospeso sia visualizzata correttamente");
+        log.info("Si verifica che la pagina di riepilogo del gruppo {} sospeso sia visualizzata correttamente", nomeGruppo);
         gruppiPGPage.waitLoadGruppoSospesoPage(nomeGruppo);
     }
 
@@ -80,12 +80,13 @@ public class GruppiPGPagoPATest {
 
     @And("Si clicca sul bottone {string}")
     public void siCliccaSulBottone(String azioneSuGruppi) {
-        log.info("Si clicca sul bottone " + azioneSuGruppi);
+        log.info("Si clicca sul bottone {}", azioneSuGruppi);
         gruppiPGPage.clickBottonePaginaDettaglioGruppo(azioneSuGruppi);
     }
+
     @And("Si clicca sul bottone {string} del popup")
     public void siCliccaSulBottoneDelPopup(String azioneSuGruppi) {
-        log.info("Si clicca sul bottone " + azioneSuGruppi + " del popup");
+        log.info("Si clicca sul bottone {} del popup", azioneSuGruppi);
         gruppiPGPage.clickBottonePopUpPaginaDettaglioGruppo(azioneSuGruppi);
     }
 
@@ -98,13 +99,13 @@ public class GruppiPGPagoPATest {
 
     @And("Si modifica il campo {string} inserendo {string}")
     public void siModificaIlCampoInserendo(String campo, String modifica) {
-        log.info("Si modifica il campo " + campo + " inserendo " + modifica);
+        log.info("Si modifica il campo {} inserendo {}", campo, modifica);
         gruppiPGPage.siModificaUnCampoDelGruppo(campo, modifica);
     }
 
     @Then("Si visualizza il popup di conferma con la scritta {string}")
     public void siVisualizzaIlPopupDiConfermaConLaScritta(String testoPopUp) {
-        log.info("Si controlla venga visualizzato il popup di conferma con la scritta " + testoPopUp);
+        log.info("Si controlla venga visualizzato il popup di conferma con la scritta {}", testoPopUp);
         gruppiPGPage.checkPopUpConfermaModifica(testoPopUp);
     }
 
@@ -152,7 +153,7 @@ public class GruppiPGPagoPATest {
 
     @And("Si {string} il gruppo {string} creato inizialmente")
     public void siIlGruppoCreatoInizialmente(String azioneGruppo, String nomeGruppo) {
-        log.info("Si elimina il gruppo " + nomeGruppo + " creato all'inizio del test");
+        log.info("Si elimina il gruppo {} creato all'inizio del test", nomeGruppo);
         gruppiPGPage.eliminaGruppoDaPaginaIniziale(azioneGruppo, nomeGruppo);
     }
 }
