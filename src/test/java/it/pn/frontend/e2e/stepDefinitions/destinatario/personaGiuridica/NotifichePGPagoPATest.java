@@ -17,6 +17,7 @@ import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -66,7 +67,7 @@ public class NotifichePGPagoPATest {
         piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(ragioneSociale);
 
         String variabileAmbiente = System.getProperty("environment");
-        String urlChiamata = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/notifications/received?";
+        String urlChiamata = WebTool.getApiBaseUrl() + "notifications/received?";
 
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
@@ -180,7 +181,7 @@ public class NotifichePGPagoPATest {
         String bearerToken = "";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
             String variabileAmbiente = System.getProperty("environment");
-            String urlChiamata = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/notifications/received?";
+            String urlChiamata = WebTool.getApiBaseUrl() + "notifications/received?";
             if (netWorkInfo.getRequestUrl().contains(urlChiamata)) {
                 bearerToken = netWorkInfo.getAuthorizationBearer();
             }

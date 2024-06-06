@@ -9,6 +9,7 @@ import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
+import lombok.Getter;
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -21,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class WebTool {
@@ -29,6 +31,9 @@ public class WebTool {
     private static final WebDriver driver = Hooks.driver;
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
     private final String env = System.getProperty("environment");
+
+    @Getter
+    private static final String apiBaseUrl = System.getProperty("apiBaseUrl");
 
     public static String switchToPortal(AppPortal portal) {
         openNewTab();
@@ -77,6 +82,17 @@ public class WebTool {
         driver.close();
         String newTab = driver.getWindowHandles().stream().reduce((first, second) -> second).orElse(null);
         driver.switchTo().window(newTab);
+    }
+
+    public static void switchToOtherTab(){
+        String parentWindowHandle = driver.getWindowHandle();
+        Set<String> windowHandles = driver.getWindowHandles();
+        for (String handle : windowHandles) {
+            if (!handle.equals(parentWindowHandle)) {
+                driver.switchTo().window(handle);
+                break;
+            }
+        }
     }
 
     /**
