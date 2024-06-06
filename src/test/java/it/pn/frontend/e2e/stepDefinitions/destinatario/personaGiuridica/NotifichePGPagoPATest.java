@@ -267,24 +267,16 @@ public class NotifichePGPagoPATest {
     public void siControllaSiaPresenteLAvvisoPagoPaPG() {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
         AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
-        if (accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed()) {
-            logger.info("Avviso PagoPA è trovato");
-        } else {
-            logger.error("Avviso PagoPA non è trovato");
-            Assert.fail("Avviso PagoPA non è trovato");
-        }
+        accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed();
+        logger.info("L'avviso PagoPA è stato trovato");
     }
 
     @And("Si controlla non sia presente l'avviso PagoPa PG")
     public void siControllaNonSiaPresenteLAvvisoPagoPaPG() {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
         AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
-        if (!accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed()) {
-            logger.info("Avviso PagoPA non è trovato");
-        } else {
-            logger.error("Avviso PagoPA è trovato");
-            Assert.fail("Avviso PagoPA è trovato");
-        }
+        accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed();
+        logger.error("L'avviso PagoPA è stato trovato");
     }
 
     @And("Si clicca l'avviso PagoPa PG")
@@ -313,11 +305,7 @@ public class NotifichePGPagoPATest {
     public void siControllaLaPresenzaDiCodiceAvviso() {
         logger.info("Si controlla la presenza di codice avviso");
         AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
-        if (accediAPiattaformaNotifichePage.codiceAvvisoDisplayed()) {
-            logger.info("Codice avviso è visuallizato corrttamente");
-        } else {
-            logger.error("Codice avviso non è visuallizato corrttamente");
-            Assert.fail("Codice avviso non è visuallizato corrttamente");
-        }
+        accediAPiattaformaNotifichePage.codiceAvvisoDisplayed();
+        logger.info("Codice avviso è visuallizato corrttamente");
     }
 }

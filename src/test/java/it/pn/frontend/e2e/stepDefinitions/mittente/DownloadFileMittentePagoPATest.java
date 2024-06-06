@@ -33,8 +33,8 @@ public class DownloadFileMittentePagoPATest {
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
     public void clickNotificaRestituita() {
         logger.info("Si clicca sulla notifica restituita");
-        logger.info("GENERATED IUN: " + System.getProperty("IUN"));
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        logger.info("GENERATED IUN: {}", System.getProperty("IUN"));
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.selezionaNotificaIUN(System.getProperty("IUN"));
     }
 

@@ -22,9 +22,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class WebTool {
+    private static final Integer NOTICE_CODE_LENGTH = 18;
     private static final Logger logger = LoggerFactory.getLogger("WebTool");
     private static final WebDriver driver = Hooks.driver;
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
@@ -80,6 +82,17 @@ public class WebTool {
         driver.close();
         String newTab = driver.getWindowHandles().stream().reduce((first, second) -> second).orElse(null);
         driver.switchTo().window(newTab);
+    }
+
+    public static void switchToOtherTab(){
+        String parentWindowHandle = driver.getWindowHandle();
+        Set<String> windowHandles = driver.getWindowHandles();
+        for (String handle : windowHandles) {
+            if (!handle.equals(parentWindowHandle)) {
+                driver.switchTo().window(handle);
+                break;
+            }
+        }
     }
 
     /**
@@ -138,6 +151,24 @@ public class WebTool {
             Thread.currentThread().interrupt();
             throw new RuntimeException("Errore durante l'attesa.", e);
         }
+    }
+
+    public static String generateNoticeCodeNumber() {
+        String threadNumber = (Thread.currentThread().getId() + "");
+        String numberOfThread = threadNumber.length() < 2 ? "0" + threadNumber : threadNumber.substring(0, 2);
+        String timeNano = System.nanoTime() + "";
+        String randomClassePagamento = new Random().nextInt(14) + "";
+        randomClassePagamento = randomClassePagamento.length() < 2 ? "0" + randomClassePagamento : randomClassePagamento;
+        String finalNumber = "" + String.format("302" + randomClassePagamento + numberOfThread + timeNano.substring(0, timeNano.length() - 4));
+        // String finalNumber = "" + String.format("30210" +randomClassePagamento + numberOfThread + timeNano.substring(0, timeNano.length()-6));
+        if (finalNumber.length() > NOTICE_CODE_LENGTH) {
+            finalNumber = finalNumber.substring(0, NOTICE_CODE_LENGTH);
+        } else {
+            int remainingLength = NOTICE_CODE_LENGTH - finalNumber.length();
+            String paddingString = String.valueOf(new Random().nextInt(9)).repeat(remainingLength);
+            finalNumber = finalNumber + paddingString;
+        }
+        return finalNumber;
     }
 
 
