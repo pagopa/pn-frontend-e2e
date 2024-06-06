@@ -11,17 +11,16 @@ import it.pn.frontend.e2e.model.enums.PhysicalCommunicationTypeEnum;
 import it.pn.frontend.e2e.model.enums.RecipientTypeEnum;
 import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.utility.WebTool;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class NewNotifichePagoPATest {
-    private static final Logger logger = LoggerFactory.getLogger("NewNotifichePagoPATest");
     private final RestNotification restNotification = new RestNotification();
     private final WebDriver driver = Hooks.driver;
 
@@ -51,7 +50,7 @@ public class NewNotifichePagoPATest {
             NotificationPaymentItem pagamento = new NotificationPaymentItem(pagoPaPayment, modelloF24);
             payments.add(pagamento);
         } else {
-            logger.error("Le condizioni del map dei pagamenti non sono corrette");
+            log.error("Le condizioni del map dei pagamenti non sono corrette");
             Assert.fail("Le condizioni del map dei pagamenti non sono corrette");
         }
         for (Recipient recipient : recipients) {
@@ -64,17 +63,17 @@ public class NewNotifichePagoPATest {
             NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification, pagamenti);
 
             if (response != null) {
-                logger.info("Notifica creata con successo");
+                log.info("Notifica creata con successo");
                 System.setProperty("IUN", WebTool.decodeNotificationRequestId(response.getNotificationRequestId()));
                 return;
             } else {
-                logger.warn("Tentativo #" + attempt + " di creazione della notifica fallito. Riprovo...");
+                log.warn("Tentativo #{} di creazione della notifica fallito. Riprovo...", attempt);
                 notification.setPaProtocolNumber(WebTool.generatePaProtocolNumber());
                 attempt++;
             }
         }
 
-        logger.error("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
+        log.error("Errore nella creazione della notifica dopo {} tentativi", maxAttempts);
         Assert.fail("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
     }
 
@@ -93,17 +92,17 @@ public class NewNotifichePagoPATest {
             NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification, pagamenti);
 
             if (response != null) {
-                logger.info("Notifica creata con successo");
+                log.info("Notifica creata con successo");
                 System.setProperty("IUN", WebTool.decodeNotificationRequestId(response.getNotificationRequestId()));
                 return;
             } else {
-                logger.warn("Tentativo #" + attempt + " di creazione della notifica fallito. Riprovo...");
+                log.warn("Tentativo #{} di creazione della notifica fallito. Riprovo...", attempt);
                 notification.setPaProtocolNumber(WebTool.generatePaProtocolNumber());
                 attempt++;
             }
         }
 
-        logger.error("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
+        log.error("Errore nella creazione della notifica dopo {} tentativi", maxAttempts);
         Assert.fail("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
     }
 
@@ -127,16 +126,16 @@ public class NewNotifichePagoPATest {
             NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification);
 
             if (response != null) {
-                logger.info("Notifica creata con successo");
+                log.info("Notifica creata con successo");
                 return;
             } else {
-                logger.warn("Tentativo #" + attempt + " di creazione della notifica fallito. Riprovo...");
+                log.warn("Tentativo #" + attempt + " di creazione della notifica fallito. Riprovo...");
                 attempt++;
             }
 
         }
 
-        logger.error("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
+        log.error("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
         Assert.fail("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
     }
      */
