@@ -155,7 +155,7 @@ public class NotificaMittentePagoPATest {
         siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata();
         cliccareSulBottoneVaiAlleNotifiche();
         siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche();
-        siVerificaCheLaNotificaeStataCreataCorrettamente();
+        siVerificaCheLaNotificaEStataCreataCorrettamente();
     }
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari")
@@ -1177,7 +1177,7 @@ public class NotificaMittentePagoPATest {
     }
 
     @And("Si verifica che la notifica è stata creata correttamente")
-    public void siVerificaCheLaNotificaeStataCreataCorrettamente() {
+    public void siVerificaCheLaNotificaEStataCreataCorrettamente() {
         logger.info("Si verifica che la notifica sia stata creata correttamente filtrandolo per il numero di protocollo");
         piattaformaNotifichePage.verificaNotificaCreata();
     }
@@ -1272,8 +1272,6 @@ public class NotificaMittentePagoPATest {
         driver.navigate().refresh();
     }
 
-
-
     @And("Si seleziona la notifica")
     public void siSelezionaLaNotifica() {
         piattaformaNotifichePage.clickSuNotifica();
@@ -1283,6 +1281,17 @@ public class NotificaMittentePagoPATest {
     public void siControllaAllegatoInTimeline(Map<String, String> xpathAllegatoNotifica) {
         dettaglioNotificaMittenteSection.siCliccaSuAllegatoInTimeline(xpathAllegatoNotifica.get("xpathAllegato"));
     }
+
+    @And("Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica {string}")
+    public void nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaFisica(String dpFile) {
+        logger.info("Si inserisce un domicilio digitale della persona giuridica");
+
+        this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+
+        destinatarioPASection.checkBoxAggiungiDomicilio();
+        destinatarioPASection.insertDomicilioDigitale(this.personaFisica.get("emailPecErrore").toString());
+    }
+
 
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.

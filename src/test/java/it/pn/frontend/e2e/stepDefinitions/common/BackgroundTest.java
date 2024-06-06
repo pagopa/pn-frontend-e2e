@@ -3,7 +3,6 @@ package it.pn.frontend.e2e.stepDefinitions.common;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
-import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.RecapitiPersonaFisicaTest;
@@ -50,6 +49,7 @@ public class BackgroundTest {
 
     public void invioNotificaErrorePec() {
         NotificaMittentePagoPATest notificaMittentePagoPATest = new NotificaMittentePagoPATest();
+
         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheSiRecuperaLUltimoNumeroProtocollo();
         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica();
         notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionInformazioniPreliminari();
@@ -66,7 +66,7 @@ public class BackgroundTest {
         notificaMittentePagoPATest.siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata();
         notificaMittentePagoPATest.cliccareSulBottoneVaiAlleNotifiche();
         notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche();
-        notificaMittentePagoPATest.siVerificaCheLaNotificaVieneCreataCorrettamente(nomeFileDatiNotifica);
+        notificaMittentePagoPATest.siVerificaCheLaNotificaEStataCreataCorrettamente();
     }
 
     public void aggiuntaNuovaDelegaPF() {
