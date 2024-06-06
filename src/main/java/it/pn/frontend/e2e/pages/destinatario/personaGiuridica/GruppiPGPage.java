@@ -20,19 +20,24 @@ import java.util.Map;
 @Slf4j
 public class GruppiPGPage extends BasePage {
 
-    private final AccediAreaRiservataPGPage accediAreaRiservataPGPage = new AccediAreaRiservataPGPage(this.driver);
-    private final Actions actions = new Actions(this.driver);
+    private final AccediAreaRiservataPGPage accediAreaRiservataPGPage = new AccediAreaRiservataPGPage(driver);
+    private final Actions actions = new Actions(driver);
 
     @FindBy(id = "side-item-Gruppi")
     WebElement gruppiButton;
+    
     @FindBy(id = "name")
     WebElement inputNomeGruppo;
+    
     @FindBy(id = "description")
     WebElement inputDescrizioneGruppo;
+    
     @FindBy(id = "product-select")
     WebElement selectSelezioneProdotto;
+    
     @FindBy(id = "members-select")
     WebElement selectSelezioneMembri;
+    
     @FindBy(xpath = "//button[contains(text(), 'Conferma')]")
     WebElement buttonConferma;
 
@@ -41,7 +46,7 @@ public class GruppiPGPage extends BasePage {
     }
 
     public void clickGruppiButton() {
-        this.js().executeScript("arguments[0].scrollIntoView(true);", gruppiButton);
+        js().executeScript("arguments[0].scrollIntoView(true);", gruppiButton);
         getWebDriverWait(10).withMessage("Il bottone gruppi non è visibile").until(ExpectedConditions.visibilityOf(gruppiButton));
         gruppiButton.click();
         WebTool.switchToOtherTab();
@@ -50,14 +55,14 @@ public class GruppiPGPage extends BasePage {
     public void loginGruppi(String nome, String pwd) {
         accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
         accediAreaRiservataPGPage.clickSpidButton();
-        ScegliSpidPGPage scegliSpidPGPage = new ScegliSpidPGPage(this.driver);
+        ScegliSpidPGPage scegliSpidPGPage = new ScegliSpidPGPage(driver);
         scegliSpidPGPage.clickTestButton();
-        LoginPGPagoPAPage loginPGPagoPAPage = new LoginPGPagoPAPage(this.driver);
+        LoginPGPagoPAPage loginPGPagoPAPage = new LoginPGPagoPAPage(driver);
         loginPGPagoPAPage.waitLoadLoginPGPage();
         loginPGPagoPAPage.insertUsername(nome);
         loginPGPagoPAPage.insertPassword(pwd);
         loginPGPagoPAPage.clickInviaButton();
-        AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage = new AutorizzaInvioDatiPGPage(this.driver);
+        AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage = new AutorizzaInvioDatiPGPage(driver);
         autorizzaInvioDatiPGPage.waitLoadAutorizzaInvioDatiPGPage();
         autorizzaInvioDatiPGPage.clickInviaButton();
     }
@@ -101,9 +106,11 @@ public class GruppiPGPage extends BasePage {
     public void creazioneNuovoGruppo(Map<String, String> datiGruppo) {
         log.info("Inserimento nome del gruppo");
         String timestamp = datiGruppo.get("nome") + Instant.now().toString();
-        scrollToElementClickAndInsertText(inputNomeGruppo, timestamp);
+        inputNomeGruppo.click();
+        inputNomeGruppo.sendKeys(timestamp);
         log.info("Inserimento descrizione del gruppo");
-        scrollToElementClickAndInsertText(inputDescrizioneGruppo, datiGruppo.get("descrizione"));
+        inputDescrizioneGruppo.click();
+        inputDescrizioneGruppo.sendKeys(timestamp);
         vaiInFondoAllaPagina();
         log.info("Click sulla select per la selezione dei membri");
         selectSelezioneMembri.click();
