@@ -2,7 +2,7 @@ Feature: il mittente fa una ricerca combinata tra stato e data
 
   @TestSuite
     @mittente
-    @ricercaNatoficheMittente
+    @ricercaNotificheMittente
     @TA_MittenteRicercaPerDataStato
 
   Scenario Outline: PN-9222 - il mittente fa una ricerca sia per data che per stato
