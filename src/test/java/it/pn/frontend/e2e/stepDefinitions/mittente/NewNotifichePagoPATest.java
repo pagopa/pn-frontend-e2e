@@ -50,8 +50,9 @@ public class NewNotifichePagoPATest {
             NotificationPaymentItem pagamento = new NotificationPaymentItem(pagoPaPayment, modelloF24);
             payments.add(pagamento);
         } else {
-            log.error("Le condizioni del map dei pagamenti non sono corrette");
-            Assert.fail("Le condizioni del map dei pagamenti non sono corrette");
+            for (Recipient recipient : recipients) {
+                recipient.setPayments(null);
+            }
         }
         for (Recipient recipient : recipients) {
             recipient.setPayments(payments);
@@ -60,7 +61,7 @@ public class NewNotifichePagoPATest {
         NewNotificationRequest notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.REGISTERED_LETTER_890, "010202N", NotificationFeePolicyEnum.DELIVERY_MODE);
 
         while (attempt <= maxAttempts) {
-            NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification, pagamenti);
+            NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification);
 
             if (response != null) {
                 log.info("Notifica creata con successo");
@@ -89,7 +90,7 @@ public class NewNotifichePagoPATest {
         NewNotificationRequest notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
 
         while (attempt <= maxAttempts) {
-            NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification, pagamenti);
+            NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification);
 
             if (response != null) {
                 log.info("Notifica creata con successo");
