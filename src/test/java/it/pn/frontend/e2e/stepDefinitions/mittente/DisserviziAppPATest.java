@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNot
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,10 +46,10 @@ public class DisserviziAppPATest {
         disserviziAppPAPage.checkDisserviziInCorso();
     }
 
-    @And("Si visualizza un record in elenco relativo ad un disservizio risolto")
-    public void siVisualizzaUnRecordInElencoRelativoAdUnDisservizioRisolto() {
+    @And("Si visualizza un record in elenco relativo ad un disservizio risolto {string}")
+    public void siVisualizzaUnRecordInElencoRelativoAdUnDisservizioRisolto(String tipoDisservizio) {
         logger.info("Si visualizza un record in elenco relativo ad un disservizio risolto");
-        disserviziAppPAPage.checkDisserviziRisolto();
+        disserviziAppPAPage.checkDisservizioRisolto(tipoDisservizio);
     }
 
     @And("Si scarica attestazione opponibile, e si controlla che il download sia avvenuto")
@@ -80,5 +81,16 @@ public class DisserviziAppPATest {
     public void siVisualizzanoTuttiIRecordInElencoRelativiADisserviziRisolti() {
         logger.info("Si visualizzano tutti i record in elenco relativi a disservizi risolti");
         disserviziAppPAPage.checkDisserviziDisponibili();
+    }
+
+    @And("Controllo corrispondenza dati con pdf")
+    public void controlloCorrispondenzaDatiConPdf() {
+        logger.info("check dati con pdf e disservizio");
+
+        boolean isCorrect = disserviziAppPAPage.confrontoFileConDisservizio();
+        if (!isCorrect) {
+            logger.error("i dati del pdf non corrispondono a quelli della tabella");
+            Assert.fail("i dati del pdf non corrispondono a quelli della tabella");
+        }
     }
 }

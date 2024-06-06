@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
@@ -465,5 +466,15 @@ public class DownloadFileMittentePagoPATest {
         if (!codiciIun.contains(codiceIun)) {
             backgroundTest.invioNotificaErrorePec();
         }
+    }
+
+    @And("Download file attestazione disservizio")
+    public void downloadFileAttestazioneDisservizio() {
+        logger.info("si effettua download del disservizio");
+
+        DisserviziAppPAPage disserviziAppPAPage = new DisserviziAppPAPage(driver);
+
+        disserviziAppPAPage.downloadAttestazione();
+        WebTool.waitTime(3);
     }
 }
