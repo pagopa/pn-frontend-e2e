@@ -55,7 +55,6 @@ public class DownloadFileMittentePagoPATest {
         DataPopulation dataPopulation = new DataPopulation();
 
         String workingDirectory = System.getProperty("user.dir");
-        String variabileAmbiente = System.getProperty("environment");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
         downloadFile = new DownloadFile(this.driver);
         boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
@@ -162,7 +161,6 @@ public class DownloadFileMittentePagoPATest {
         DataPopulation dataPopulation = new DataPopulation();
 
         String workingDirectory = System.getProperty("user.dir");
-        String variabileAmbiente = System.getProperty("environment");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
         DownloadFile downloadFile = new DownloadFile(this.driver);
         boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
@@ -286,7 +284,6 @@ public class DownloadFileMittentePagoPATest {
         DataPopulation dataPopulation = new DataPopulation();
 
         String workingDirectory = System.getProperty("user.dir");
-        String variabileAmbiente = System.getProperty("environment");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
         DownloadFile downloadFile = new DownloadFile(this.driver);
         boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
@@ -356,7 +353,6 @@ public class DownloadFileMittentePagoPATest {
         WebTool.waitTime(5);
         downloadFile = new DownloadFile(this.driver);
 
-        String varabileAmbiente = System.getProperty("environment");
         final String url = downloadFile.getUrl(WebTool.getApiBaseUrl() + "notifications/sent/");
         if (headless && url.isEmpty()) {
             logger.error("Non è stato recuperato url per il download per il link: " + nomeFile);
