@@ -33,6 +33,7 @@ import org.slf4j.MDC;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -107,7 +108,6 @@ public class Hooks {
         this.captureHttpRequests();
         this.captureHttpResponse();
         logger.info("chromedriver started");
-
     }
 
     private void captureHttpRequests() {

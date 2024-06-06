@@ -7,6 +7,7 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import it.pn.frontend.e2e.utility.DownloadFile;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -14,7 +15,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 public class DisserviziAppPATest {
     private static final Logger logger = LoggerFactory.getLogger("DisserviziAppPATest");
@@ -64,13 +64,9 @@ public class DisserviziAppPATest {
             pathCartella.mkdirs();
         }
         disserviziAppPAPage.clickLinkAttestazioniOpponibileDisservizi(0);
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        WebTool.waitTime(5);
         String legalFactId = downloadFile.getLegalFactId();
-        String urlFileAttestazioneOpponibile = "https://webapi.test.notifichedigitali.it/downtime/v1/legal-facts/" + legalFactId;
+        String urlFileAttestazioneOpponibile = WebTool.getApiBaseUrl() + "downtime/legal-facts/" + legalFactId;
 
         File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + 0 + ".pdf");
         downloadFile.downloadAttestazioneDisservizi(urlFileAttestazioneOpponibile, file, headless);
