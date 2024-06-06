@@ -85,16 +85,8 @@ public class Hooks {
 
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
         if (this.headless != null && this.headless.equalsIgnoreCase("true")) {
-            downloadFilepath = Path.of("").toAbsolutePath().toString() + System.getProperty("downloadFolder").replace("/", File.separator);
-            Map<String, Object> prefs = new HashMap<>();
-            prefs.put("plugins.always_open_pdf_externally", true);
-            prefs.put("plugins.plugins_disabled", new String[]{"Chrome PDF Viewer"});
-            prefs.put("download.default_directory", downloadFilepath);
-            prefs.put("download.prompt_for_download", false);
-            prefs.put("profile.default_content_settings.popups", 0);
-            chromeOptions.setExperimentalOption("prefs", prefs);
             chromeOptions.addArguments("no-sandbox");
-            chromeOptions.addArguments("--headless");
+            chromeOptions.addArguments("headless");
             chromeOptions.addArguments("window-size=1920,1080");
         }
 
@@ -116,7 +108,6 @@ public class Hooks {
         this.captureHttpRequests();
         this.captureHttpResponse();
         logger.info("chromedriver started");
-
     }
 
     private void captureHttpRequests() {
