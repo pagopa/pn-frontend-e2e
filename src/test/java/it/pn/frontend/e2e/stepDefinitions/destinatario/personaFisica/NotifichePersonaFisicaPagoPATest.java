@@ -407,11 +407,6 @@ public class NotifichePersonaFisicaPagoPATest {
         dettaglioNotifica.selezioneAvvisoPagoPa();
     }
 
-    @Then("Si seleziona il file {string} da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto con successo")
-    public void siSelezionaIlFileDaScaricareAllInternoDellaNotificaPersonaFisicaESiControllaCheIlDownloadSiaAvvenutoConSuccesso(String fileName) {
-        dettaglioNotifica.clickFile(fileName);
-        dettaglioNotifica.goBack();
-    }
 }
 
 
