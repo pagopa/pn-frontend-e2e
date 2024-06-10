@@ -166,7 +166,7 @@ public class HelpdeskTest {
     }
 
     @Then("controllo link per scaricare zip e scarico file")
-    public void controlloLinkPerScaricareZip() {
+    public void controlloLinkPerScaricareZip() throws IOException {
         helpdeskPage.checkZipLink();
     }
 

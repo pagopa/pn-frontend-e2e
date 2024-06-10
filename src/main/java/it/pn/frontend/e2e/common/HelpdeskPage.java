@@ -2,6 +2,8 @@ package it.pn.frontend.e2e.common;
 
 import it.pn.frontend.e2e.model.enums.Disservice;
 import it.pn.frontend.e2e.model.enums.Status;
+import it.pn.frontend.e2e.utility.DownloadFile;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -16,6 +18,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -378,40 +382,59 @@ public class HelpdeskPage extends BasePage {
         }
     }
 
-    public void checkZipLink(){
-        try {
-            logger.info("controllo esistenza link per scaricare zip");
-            By zipLink = By.xpath("//a[contains(text(),'Download')]");
-            this.getWebDriverWait(10).withMessage("Link per scaricare zip non trovato").until(ExpectedConditions.visibilityOfElementLocated(zipLink));
-            this.element(zipLink).click();
-            Robot robot = new Robot();
-            robot.setAutoDelay(100);
-            robot.delay(2000);
-            String workingDirectory = System.getProperty("user.dir");
-            String path = workingDirectory + "/src/test/resources/dataPopulation/zip";
+    public void checkZipLink() throws IOException {
+        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
+        if (!headless) {
+            try {
+                logger.info("controllo esistenza link per scaricare zip");
+                By zipLink = By.xpath("//a[contains(text(),'Download')]");
+                this.getWebDriverWait(10).withMessage("Link per scaricare zip non trovato").until(ExpectedConditions.visibilityOfElementLocated(zipLink));
+                this.element(zipLink).click();
+                Robot robot = new Robot();
+                robot.setAutoDelay(100);
+                robot.delay(2000);
+                String workingDirectory = System.getProperty("user.dir");
+                String path = workingDirectory + "/src/test/resources/dataPopulation/zip";
 
-            pressTabKey(robot, 6);
-            robot.keyPress(KeyEvent.VK_ENTER);
-            robot.keyRelease(KeyEvent.VK_ENTER);
+                pressTabKey(robot, 6);
+                robot.keyPress(KeyEvent.VK_ENTER);
+                robot.keyRelease(KeyEvent.VK_ENTER);
 
-            typeFilePath(robot, path);
+                typeFilePath(robot, path);
 
-            robot.keyPress(KeyEvent.VK_ENTER);
-            robot.keyRelease(KeyEvent.VK_ENTER);
+                robot.keyPress(KeyEvent.VK_ENTER);
+                robot.keyRelease(KeyEvent.VK_ENTER);
 
-            robot.delay(1000);
+                robot.delay(1000);
 
-            pressTabKey(robot, 8);
+                pressTabKey(robot, 8);
 
-            robot.keyPress(KeyEvent.VK_ENTER);
-            robot.keyRelease(KeyEvent.VK_ENTER);
+                robot.keyPress(KeyEvent.VK_ENTER);
+                robot.keyRelease(KeyEvent.VK_ENTER);
 
-            logger.info("Zip scaricato");
-        } catch (TimeoutException e) {
-            logger.error("Link per scaricare zip non trovato: " + e.getMessage());
-            Assert.fail("Link per scaricare zip non trovato: " + e.getMessage());
-        } catch (AWTException e) {
-            throw new RuntimeException(e);
+                logger.info("Zip scaricato");
+            } catch (TimeoutException e) {
+                logger.error("Link per scaricare zip non trovato: " + e.getMessage());
+                Assert.fail("Link per scaricare zip non trovato: " + e.getMessage());
+            } catch (AWTException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            try {
+                By zipLink = By.xpath("//a[contains(text(),'Download')]");
+                String url = this.element(zipLink).getAttribute("href");
+                String workingDirectory = System.getProperty("user.dir");
+                File downloadDirectory = new File(workingDirectory + "/src/test/resources/dataPopulation/zip");
+
+                // Generate a unique filename for the downloaded ZIP file
+                String fileName = "downloaded_" + System.currentTimeMillis() + ".zip";
+
+                File downloadFile = new File(downloadDirectory, fileName);
+                FileUtils.copyURLToFile(new URL(url), downloadFile, 1000, 1000);
+                logger.info("ZIP file downloaded successfully.");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
