@@ -12,9 +12,24 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.Key;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
+
+import net.lingala.zip4j.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
+import net.lingala.zip4j.model.FileHeader;
 
 public class HelpdeskPage extends BasePage {
 
@@ -35,6 +50,9 @@ public class HelpdeskPage extends BasePage {
 
     @FindBy(id = "Codice Fiscale")
     WebElement codiceFiscaleInput;
+
+    @FindBy(id = "IUN")
+    WebElement iunInput;
 
     @FindBy(id = "ricerca")
     WebElement buttonRicerca;
@@ -68,6 +86,7 @@ public class HelpdeskPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("Helpdesk Page");
 
     private String codiceFiscale;
+    private String zipPassword;
     private String codiceIdentificativoPF;
 
     public HelpdeskPage(WebDriver driver) {
@@ -267,6 +286,28 @@ public class HelpdeskPage extends BasePage {
         }
     }
 
+    public void insertIunAndRicercaOnPage(String iun) {
+        logger.info("inserisco numero ticket");
+        numeroTicketInput.sendKeys("testTAFE01");
+        logger.info("inserisco codice IUN");
+        iunInput.sendKeys(iun);
+        logger.info("clicco sul bottone di ricerca");
+        try {
+            this.getWebDriverWait(30).withMessage("bottone per la ricerca non trovato").until(ExpectedConditions.elementToBeClickable(buttonRicerca));
+            buttonRicerca.click();
+        } catch (TimeoutException e) {
+            logger.error("bottone non cliccabile:" + e.getMessage());
+            Assert.fail("bottone non cliccabile:" + e.getMessage());
+
+        }
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            logger.error("pausa con errore: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
     public void checkUid() {
         try {
             logger.info("controllo esistenza codice univoco");
@@ -284,6 +325,10 @@ public class HelpdeskPage extends BasePage {
 
     public void setCodiceFiscale(String codiceFiscale) {
         this.codiceFiscale = codiceFiscale;
+    }
+
+    public void setPassword(String password){
+        this.zipPassword = password;
     }
 
     public void changeOption() {
@@ -304,6 +349,219 @@ public class HelpdeskPage extends BasePage {
         }
     }
 
+    public void selectOttieniNotifica() {
+        logger.info("click su tipo estrazione dati");
+        By inputTipoEstrazione = By.xpath("//div[@data-testid='select-Tipo Estrazione']");
+        this.element(inputTipoEstrazione).click();
+        try {
+            logger.info("selezione ottieni notifica");
+            By selectTypeOfOttieniCF = By.xpath("//li[contains(text(),'Ottieni notifica')]");
+            logger.info("controllo esistenza selezione");
+            this.getWebDriverWait(30).withMessage("opzione ottieni cf non trovata").until(ExpectedConditions.visibilityOfElementLocated(selectTypeOfOttieniCF));
+            this.element(selectTypeOfOttieniCF).click();
+            By checkIunIsDisplayed = By.id("IUN");
+            this.getWebDriverWait(30).withMessage("input IUN non trovato").until(ExpectedConditions.visibilityOfElementLocated(checkIunIsDisplayed));
+        } catch (TimeoutException e) {
+            logger.error("opzione ottieni notifica non trovata: " + e.getMessage());
+            Assert.fail("opzione ottieni notifica non trovata: " + e.getMessage());
+        }
+    }
+
+    public void checkMessaggioSuccesso(){
+        try {
+            logger.info("controllo esistenza messaggio di successo");
+            By messaggio = By.xpath("//p[contains(text(),'Operazione completata con successo')]");
+            this.getWebDriverWait(10).withMessage("Messaggio di successo non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
+        } catch (TimeoutException e) {
+            logger.error("Messaggio di successo non trovato: " + e.getMessage());
+            Assert.fail("Messaggio di successo non trovato: " + e.getMessage());
+        }
+    }
+
+    public void checkZipLink(){
+        try {
+            logger.info("controllo esistenza link per scaricare zip");
+            By zipLink = By.xpath("//a[contains(text(),'Download')]");
+            this.getWebDriverWait(10).withMessage("Link per scaricare zip non trovato").until(ExpectedConditions.visibilityOfElementLocated(zipLink));
+            this.element(zipLink).click();
+            Robot robot = new Robot();
+            robot.setAutoDelay(100);
+            robot.delay(2000);
+            String workingDirectory = System.getProperty("user.dir");
+            String path = workingDirectory + "/src/test/resources/dataPopulation/zip";
+
+            pressTabKey(robot, 6);
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+
+            typeFilePath(robot, path);
+
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+
+            robot.delay(1000);
+
+            pressTabKey(robot, 8);
+
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+
+            logger.info("Zip scaricato");
+        } catch (TimeoutException e) {
+            logger.error("Link per scaricare zip non trovato: " + e.getMessage());
+            Assert.fail("Link per scaricare zip non trovato: " + e.getMessage());
+        } catch (AWTException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void typeFilePath(Robot robot, String filePath) {
+        for (char c : filePath.toCharArray()) {
+            typeCharacter(robot, c);
+        }
+    }
+
+    private void typeCharacter(Robot robot, char character) {
+        switch (character) {
+            case ':':
+                robot.keyPress(KeyEvent.VK_SHIFT);
+                robot.keyPress(KeyEvent.VK_SEMICOLON);
+                robot.keyRelease(KeyEvent.VK_SEMICOLON);
+                robot.keyRelease(KeyEvent.VK_SHIFT);
+                break;
+            case '\\':
+                robot.keyPress(KeyEvent.VK_BACK_SLASH);
+                robot.keyRelease(KeyEvent.VK_BACK_SLASH);
+                break;
+            case '/':
+                robot.keyPress(KeyEvent.VK_SLASH);
+                robot.keyRelease(KeyEvent.VK_SLASH);
+                break;
+            case '.':
+                robot.keyPress(KeyEvent.VK_PERIOD);
+                robot.keyRelease(KeyEvent.VK_PERIOD);
+                break;
+            default:
+                if (Character.isUpperCase(character)) {
+                    robot.keyPress(KeyEvent.VK_SHIFT);
+                    robot.keyPress(Character.toUpperCase(character));
+                    robot.keyRelease(Character.toUpperCase(character));
+                    robot.keyRelease(KeyEvent.VK_SHIFT);
+                } else {
+                    robot.keyPress(Character.toUpperCase(character));
+                    robot.keyRelease(Character.toUpperCase(character));
+                }
+        }
+    }
+
+    private static void pressTabKey(Robot robot, int times) {
+        for (int i = 0; i < times; i++) {
+            robot.keyPress(KeyEvent.VK_TAB);
+            robot.keyRelease(KeyEvent.VK_TAB);
+            robot.delay(500);
+        }
+    }
+
+
+    public void extractZip() throws IOException {
+        String workingDirectory = System.getProperty("user.dir");
+        String zipDirectoryPath = workingDirectory + "/src/test/resources/dataPopulation/zip";
+        String extractDirectoryPath = zipDirectoryPath + "/extract";
+
+        // Find the latest ZIP file
+        File latestZipFile = findLatestZipFile(zipDirectoryPath);
+        if (latestZipFile == null) {
+            throw new IOException("No ZIP file found in the directory: " + zipDirectoryPath);
+        }
+
+        // Extract the ZIP file
+        ZipFile zip = new ZipFile(latestZipFile,zipPassword.toCharArray());
+        zip.extractAll(extractDirectoryPath);
+
+        // Log extracted files
+        Files.walk(Paths.get(extractDirectoryPath)).forEach(path -> {
+            if (Files.isRegularFile(path)) {
+                System.out.println("Found file: " + path.toString());
+            }
+        });
+    }
+
+    public File findLatestZipFile(String directoryPath) throws IOException {
+        try (Stream<Path> files = Files.list(Paths.get(directoryPath))) {
+            return files
+                    .filter(file -> !Files.isDirectory(file) && file.toString().endsWith(".zip"))
+                    .max(Comparator.comparingLong(file -> file.toFile().lastModified()))
+                    .map(Path::toFile)
+                    .orElse(null);
+        }
+    }
+
+    public void checkPassword(){
+        try {
+            logger.info("controllo esistenza password");
+            By messaggio = By.xpath("//p[contains(text(),'Password:')]");
+            this.getWebDriverWait(10).withMessage("Password non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
+            String password = this.element(messaggio).getText().split(": ")[1];
+            setPassword(password);
+
+        } catch (TimeoutException e) {
+            logger.error("Password non trovato: " + e.getMessage());
+            Assert.fail("Password non trovato: " + e.getMessage());
+        }
+    }
+
+    public void EliminaFileZipEstratto() throws IOException {
+        String workingDirectory = System.getProperty("user.dir");
+        String zipDirectoryPath = workingDirectory + "/src/test/resources/dataPopulation/zip";
+        String extractDirectoryPath = zipDirectoryPath + "/extract";
+
+        // Find the latest ZIP file
+        File latestZipFile = findLatestZipFile(zipDirectoryPath);
+        if (latestZipFile != null) {
+            Files.deleteIfExists(latestZipFile.toPath());
+            System.out.println("Deleted ZIP file: " + latestZipFile.getName());
+        } else {
+            System.out.println("No ZIP file found in the directory: " + zipDirectoryPath);
+        }
+
+        deleteFilesInDirectory(extractDirectoryPath, null);
+
+        System.out.println("Cleanup completed successfully.");
+    }
+
+    public boolean trovaDocumentoConTitolo(String docName) throws IOException {
+        String workingDirectory = System.getProperty("user.dir");
+        String extractDirectoryPath = workingDirectory + "/src/test/resources/dataPopulation/zip/extract";
+        Path extractDir = Paths.get(extractDirectoryPath);
+
+        try (Stream<Path> files = Files.walk(extractDir)) {
+            return files
+                    .filter(Files::isRegularFile)
+                    .anyMatch(file -> file.getFileName().toString().equals(docName));
+        }
+    }
+
+    private void deleteFilesInDirectory(String directoryPath, String extension) throws IOException {
+        Path dir = Paths.get(directoryPath);
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+            for (Path entry : stream) {
+                if (Files.isRegularFile(entry)) {
+                    if (extension == null || entry.toString().endsWith(extension)) {
+                        Files.delete(entry);
+                        System.out.println("Deleted file: " + entry.toString());
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new IOException("Failed to delete files in directory: " + directoryPath, e);
+        }
+    }
+
+    public void clickResettaFiltri(){
+      By bottoneReset = By.xpath("//button[@id='resetFilter']");
+      getWebDriverWait(5).withMessage("Il bottone resetta non è cliccabile").until(ExpectedConditions.elementToBeClickable(bottoneReset));
+      this.element(bottoneReset).click();
+    }
 
     public void checkCodiceFiscale() {
         inputUid.sendKeys(this.codiceIdentificativoPF);

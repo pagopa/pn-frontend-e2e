@@ -16,6 +16,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -154,6 +155,54 @@ public class HelpdeskTest {
         helpdeskPage.insertCfAndRicercaOnPage(datiPersonaFisica.get("codiceFiscale").toString());
     }
 
+    @And("viene inserito codice IUN {string}")
+    public void vieneInseritoIun(String iun) {
+        helpdeskPage.insertIunAndRicercaOnPage(iun);
+    }
+
+    @Then("controllo messaggio di successo")
+    public void controlloMessaggioSuccesso() {
+        helpdeskPage.checkMessaggioSuccesso();
+    }
+
+    @Then("controllo link per scaricare zip e scarico file")
+    public void controlloLinkPerScaricareZip() {
+        helpdeskPage.checkZipLink();
+    }
+
+    @And("Inserisco la password ed estraggo il file zip")
+    public void inseriscoPasswordEdEstraggoZip() throws IOException {
+        logger.info("Inserisco la password ed estraggo il file zip");
+        helpdeskPage.extractZip();
+    }
+
+    @And("Controllo sia presente documento {string}")
+    public void controlloPresenteDocumento(String docName) throws IOException {
+        logger.info("Controllo sia presente documento" + docName);
+        if (helpdeskPage.trovaDocumentoConTitolo(docName)){
+            logger.info("Documento " + docName + " è trovato");
+        }else {
+            logger.error("Documento" + docName + " non è trovato");
+            Assert.fail("Documento" + docName + " non è trovato");
+        }
+    }
+
+    @And("Si elimina file estratto")
+    public void siEliminaFileEstratto() throws IOException {
+        logger.info("Si elimina file estratto");
+        helpdeskPage.EliminaFileZipEstratto();
+    }
+
+    @And("Si clicca sul bottone resetta filtri")
+    public void siCliccaResettaFiltri(){
+        helpdeskPage.clickResettaFiltri();
+    }
+
+    @Then("controllo password")
+    public void controlloPassword() {
+        helpdeskPage.checkPassword();
+    }
+
     @And("Nella Home di helpdesk utente clicca su logout")
     public void nellaHomeDiHelpdeskUtenteCliccaSuLogout() {
         helpdeskPage.logout();
@@ -202,5 +251,11 @@ public class HelpdeskTest {
     public void risoluzioneDisservizioSuPortaleHelpdesk() {
         BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.risoluzioneDisservizio();
+    }
+
+    @And("Selezione ottieni notifica")
+    public void selezioneOttieniNotifica(){
+        logger.info("Selezione ottieni notifica");
+        helpdeskPage.selectOttieniNotifica();
     }
 }
