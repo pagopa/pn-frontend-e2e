@@ -249,16 +249,16 @@ public class NotifichePGPagoPATest {
         }
     }
 
-    @And("Si clicca il modello F24 PG")
-    public void siCliccaIlModelloF24PG() {
-        logger.info("Si clicca il modello F24 PG");
+    @And("Si clicca il modello F24 destinatario")
+    public void siCliccaIlModelloF24Destinatario() {
+        logger.info("Si clicca il modello F24 destinatario");
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
         piattaformaNotifichePGPAPage.clickModelloF24();
     }
 
-    @And("Si clicca il secondo modello F24 PG")
-    public void siCliccaIlSecondoModelloF24PG() {
-        logger.info("Si clicca il secondo modello F24 PG");
+    @And("Si clicca il secondo modello F24 destinatario")
+    public void siCliccaIlSecondoModelloF24Destinatario() {
+        logger.info("Si clicca il secondo modello F24 destinatario");
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
         piattaformaNotifichePGPAPage.clickSecondoModelloF24();
     }
@@ -286,8 +286,8 @@ public class NotifichePGPagoPATest {
         accediAPiattaformaNotifichePage.clickAvvisoPagoPAPG();
     }
 
-    @And("Si controlla sia visualizza box allegati modelli F24 PG")
-    public void siControllaSiaVisualizzaBoxF24PG() {
+    @And("Si controlla sia visualizza box allegati modelli F24 destinatario")
+    public void siControllaSiaVisualizzaBoxF24Destinatario() {
         logger.info("Si controlla sia presente il box allegati modelli F24");
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
         piattaformaNotifichePGPAPage.checkBoxModelloF24PG();

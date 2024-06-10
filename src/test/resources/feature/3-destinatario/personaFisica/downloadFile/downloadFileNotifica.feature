@@ -1,6 +1,6 @@
 Feature: Mittente invia una notifica digitale che viene annullata e lato destinatario si controlla non sia possibile scaricare alcun file
 
-  @checkDownloadFileNotificaAnnullata
+  @checkDownloadFileNotifica
   @recapitiPF
   Scenario: [TA-FE INVIO DI UNA NOTIFICA, ANNULLAMENTO, CHECK DOWNLOAD FILE PER PF] - Mittente invia una notifica e la annulla, il destinatario persona fisica non può scaricare i file
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
@@ -45,4 +45,20 @@ Feature: Mittente invia una notifica digitale che viene annullata e lato destina
     And Si verifica che gli AAR non sono scaricabili
     And Si verifica che le attestazioni opponibili a terzi non siano scaricabili
     And Si verifica che non sia possibile scaricare le ricevute PEC
+    And Logout da portale persona fisica
+
+  @checkDownloadFileNotificaAnnullata
+  @checkdownloadPersonaFisica
+  Scenario: [TA-FE DOWNLOAD PIU' MODELLI F24] - Mittente invia una notifica e la annulla, il destinatario persona fisica non può scaricare i file
+    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Nella pagina Piattaforma Notifiche del destinatario si filtra per codice IUN "RHVZ-HZAH-NDKL-202406-K-1"
+    And Cliccare sul bottone Filtra persona fisica
+    When La persona fisica clicca sulla notifica restituita
+    And Si controlla il dettaglio della notifica
+    And Si controlla sia visualizza box allegati modelli F24 destinatario
+    And Si clicca il modello F24 destinatario
+    And Aspetta 10 secondi
+    And Si torna alla pagina precedente
+    And Si clicca il secondo modello F24 destinatario
+    And Si torna alla pagina precedente
     And Logout da portale persona fisica

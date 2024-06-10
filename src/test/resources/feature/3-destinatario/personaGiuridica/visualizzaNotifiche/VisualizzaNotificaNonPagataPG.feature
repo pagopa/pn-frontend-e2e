@@ -13,7 +13,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si controlla sia presente l'avviso PagoPa PG
     And Si controlla sia presente il modello F24 PG
-    And Si clicca il modello F24 PG
+    And Si clicca il modello F24 destinatario
     Then Si torna alla pagina precedente
     And Logout da portale persona giuridica
 
@@ -53,8 +53,8 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina piattaforma notifiche PG si effettua la ricerca per codice IUN "XJRT-KHQU-UGEJ-202405-Q-1"
     And Si clicca la notifica ricercata
-    And Si controlla sia visualizza box allegati modelli F24 PG
-    And Si clicca il modello F24 PG
+    And Si controlla sia visualizza box allegati modelli F24 destinatario
+    And Si clicca il modello F24 destinatario
     And Aspetta 3 secondi
     #Questi step sono commentati perche su aws quando clicca su link, il file viene scaricato, ma in locale si apre in nuova scheda
     #And Si torna alla pagina precedente

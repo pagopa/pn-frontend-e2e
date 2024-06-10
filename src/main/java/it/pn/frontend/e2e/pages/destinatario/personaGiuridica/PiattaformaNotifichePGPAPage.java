@@ -119,7 +119,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
 
 
-
     public void clickIndietroButton() {
         getWebDriverWait(10).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
         this.js().executeScript("arguments[0].click()", this.indietroButton);
@@ -133,6 +132,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             return false;
         }
     }
+
     public boolean messaggioNotificaAnnullataDisplayed() {
         try {
             return getWebDriverWait(5).withMessage("Il messaggio notifica annullata non è visibile").until(ExpectedConditions.visibilityOf(notificaAnnullata)).isDisplayed();
@@ -172,14 +172,14 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         try {
             getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
             return true;
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return false;
         }
     }
 
     public void clickModelloF24() {
-         getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(modelloF24));
-         modelloF24.click();
+        getWebDriverWait(30).withMessage("Il bottone scarica modello F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(modelloF24));
+        modelloF24.click();
     }
 
     public void clickSecondoModelloF24() {
