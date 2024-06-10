@@ -56,5 +56,8 @@ Feature: Mittente invia una notifica digitale che viene annullata e lato destina
     And Si controlla il dettaglio della notifica
     And Si controlla sia visualizza box allegati modelli F24 destinatario
     And Si clicca il modello F24 destinatario
+    #Questi step sono commentati perche su aws quando clicca su link, il file viene scaricato, ma in locale si apre in nuova scheda
+    #And Si torna alla pagina precedente
     And Si clicca il secondo modello F24 destinatario
+    #Then Si torna alla pagina precedente
     And Logout da portale persona fisica
