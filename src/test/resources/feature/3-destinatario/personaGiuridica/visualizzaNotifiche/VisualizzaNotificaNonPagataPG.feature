@@ -58,7 +58,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Aspetta 3 secondi
     #Questi step sono commentati perche su aws quando clicca su link, il file viene scaricato, ma in locale si apre in nuova scheda
     #And Si torna alla pagina precedente
-    And Si clicca il secondo modello F24 PG
+    And Si clicca il secondo modello F24 destinatario
     #Then Si torna alla pagina precedente
     And Logout da portale persona giuridica
 
