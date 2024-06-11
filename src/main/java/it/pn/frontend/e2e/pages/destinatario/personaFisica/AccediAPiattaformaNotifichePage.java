@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -63,12 +64,17 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void waitLoadAccediAPiattaformaNotifichePage() {
-        By titleLabel = By.id("login-page-title");
-        By loginBy = By.id("login-button");
-        this.getWebDriverWait(30).withMessage("Il titolo della pagina accedi a piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
-        this.getWebDriverWait(30).withMessage("Il bottone login della pagina accedi a piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(loginBy));
-        this.getWebDriverWait(30).withMessage("Il bottone login della pagina accedi a piattaforma notifiche non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.accediButton));
-        logger.info("Accedi A Piattaforma Notifiche Page caricata");
+        try {
+            By titleLabel = By.id("login-page-title");
+            By loginBy = By.id("login-button");
+            this.getWebDriverWait(30).withMessage("Il titolo della pagina accedi a piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
+            this.getWebDriverWait(30).withMessage("Il bottone login della pagina accedi a piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(loginBy));
+            this.getWebDriverWait(30).withMessage("Il bottone login della pagina accedi a piattaforma notifiche non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.accediButton));
+            logger.info("Accedi A Piattaforma Notifiche Page caricata");
+        } catch (TimeoutException e) {
+            logger.info("Accedi A Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
+            Assert.fail("Accedi A Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
+        }
     }
 
     public void selezionaAccediButton() {
@@ -141,20 +147,30 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         buttonEnterIntoDisservizi.click();
     }
 
-    public void titoloDiPagamentoDisplayed() {
-        getWebDriverWait(30).withMessage("La sezione titolo del pagamento non è visualizzata").until(ExpectedConditions.visibilityOf(titoloPagamento)).isDisplayed();
+    public boolean titoloDiPagamentoDisplayed() {
+        return getWebDriverWait(30).withMessage("Il sezione titolo pagamento non è visibile").until(ExpectedConditions.visibilityOf(titoloPagamento)).isDisplayed();
     }
 
-    public void codiceAvvisoDisplayed() {
-        getWebDriverWait(5).withMessage("La sezione del codice di avviso non è visualizzata").until(ExpectedConditions.visibilityOf(codiceAvviso)).isDisplayed();
+    public boolean codiceAvvisoDisplayed() {
+        try {
+            getWebDriverWait(5).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvviso)).isDisplayed();
+            return true;
+        } catch (RuntimeException e) {
+            return false;
+        }
     }
 
-    public void modelloF24Displayed() {
-        getWebDriverWait(5).withMessage("La sezione scarica modello F24 non è visualizzata").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
+    public boolean modelloF24Displayed() {
+        return getWebDriverWait(5).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
     }
 
-    public void scaricaAvvisoDisplayed() {
-        getWebDriverWait(5).withMessage("La sezione scarica avviso non è visualizzata").until(ExpectedConditions.visibilityOf(scaricaAvviso)).isDisplayed();
+    public boolean scaricaAvvisoDisplayed() {
+        try {
+            getWebDriverWait(5).withMessage("Il sezione scarica avviso non è visibile").until(ExpectedConditions.visibilityOf(scaricaAvviso)).isDisplayed();
+            return true;
+        } catch (RuntimeException e) {
+            return false;
+        }
     }
 
     public void clickAvvisoPagoPAPG() {
@@ -162,8 +178,12 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         scaricaAvviso.click();
     }
 
-    public void pagaAvvisoDisplayed() {
-        getWebDriverWait(30).withMessage("La sezione paga avviso non è visualizzata").until(ExpectedConditions.visibilityOf(pagaAvviso)).isDisplayed();
+    public boolean pagaAvvisoDisplayed() {
+        return getWebDriverWait(30).withMessage("Il sezione paga avviso non è visibile").until(ExpectedConditions.visibilityOf(pagaAvviso)).isDisplayed();
+    }
+
+    public void checkButtonPagaIsDisplayed() {
+        getWebDriverWait(10).withMessage("Il bottone per il pagamento della notifica è visibile").until(ExpectedConditions.invisibilityOf(pagaAvviso));
     }
 }
 

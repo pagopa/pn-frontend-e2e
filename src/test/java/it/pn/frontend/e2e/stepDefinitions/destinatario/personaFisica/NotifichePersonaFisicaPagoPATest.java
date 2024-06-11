@@ -36,6 +36,7 @@ public class NotifichePersonaFisicaPagoPATest {
     private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
     private final DataPopulation dataPopulation = new DataPopulation();
     private final DestinatarioPage destinatarioPage = new DestinatarioPage(driver);
+    private final AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
 
     private final DettaglioNotificaSection dettaglioNotifica = new DettaglioNotificaSection(driver);
 
@@ -189,8 +190,12 @@ public class NotifichePersonaFisicaPagoPATest {
         }
         int numeroRigheNotifiche = notifichePFPage.conteggioNotifiche();
 
-        Assert.assertEquals("NON si visualizzano venti notifiche in elenco", 20, numeroRigheNotifiche);
-        logger.info("Si visualizzano venti notifiche in elenco");
+        if (numeroRigheNotifiche == 20) {
+            logger.info("Si visualizzano venti notifiche in elenco");
+        } else {
+            logger.error("NON si visualizzano venti notifiche in elenco");
+            Assert.fail("NON si visualizzano venti notifiche in elenco");
+        }
     }
 
     @When("La persona fisica clicca sulla notifica restituita")
@@ -220,23 +225,49 @@ public class NotifichePersonaFisicaPagoPATest {
             boolean radioBoxPresent = accediAPiattaformaNotifichePage.isRadioBoxPresent();
 
             if (radioBoxPresent) {
+
                 accediAPiattaformaNotifichePage.clickRadioBoxButton(accediAPiattaformaNotifichePage.cssBuildRadioButton());
             }
 
-            accediAPiattaformaNotifichePage.titoloDiPagamentoDisplayed();
-            logger.info("La sezione titolo del pagamento è visualizzata correttamente");
+            boolean titoloPagamentoIsDisplayed = accediAPiattaformaNotifichePage.titoloDiPagamentoDisplayed();
+            if (titoloPagamentoIsDisplayed) {
+                logger.info("Sezione titolo di pagamento è visualizzato");
+            } else {
+                logger.error("Sezione titolo di pagamento non è visualizzato");
+                Assert.fail("Sezione titolo di pagamento non è visualizzato");
+            }
 
-            accediAPiattaformaNotifichePage.codiceAvvisoDisplayed();
-            logger.info("La sezione del codice di avviso è visualizzata");
+            boolean codiceAvvisoIsDisplayed = accediAPiattaformaNotifichePage.codiceAvvisoDisplayed();
+            if (codiceAvvisoIsDisplayed) {
+                logger.info("Sezione codice avviso è visualizzato");
+            } else {
+                logger.error("Sezione codice avviso non è visualizzato");
+                Assert.fail("Sezione codice avviso non è visualizzato");
+            }
 
-            accediAPiattaformaNotifichePage.modelloF24Displayed();
-            logger.info("La sezione scarica modello F24 è visualizzata correttamente");
+            boolean modelloF24IsDisplayed = accediAPiattaformaNotifichePage.modelloF24Displayed();
+            if (modelloF24IsDisplayed) {
+                logger.info("Sezione scarica modello F24 è visualizzato");
+            } else {
+                logger.error("Sezione scarica modello F24 non è visualizzato");
+                Assert.fail("Sezione scarica modello F24 non è visualizzato");
+            }
 
-            accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed();
-            logger.info("la sezione scarica avviso è visualizzata correttamente");
+            boolean scaricaAvvisoDisplayed = accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed();
+            if (scaricaAvvisoDisplayed) {
+                logger.info("Sezione scarica avviso è visualizzato");
+            } else {
+                logger.error("Sezione scarica avviso non è visualizzato");
+                Assert.fail("Sezione scarica avviso non è visualizzato");
+            }
 
-            accediAPiattaformaNotifichePage.pagaAvvisoDisplayed();
-            logger.info("La sezione paga avviso è visualizzata correttamente");
+            boolean pagaAvvisoDisplayed = accediAPiattaformaNotifichePage.pagaAvvisoDisplayed();
+            if (pagaAvvisoDisplayed) {
+                logger.info("Sezione paga avviso è visualizzato");
+            } else {
+                logger.error("Sezione paga avviso non è visualizzato");
+                Assert.fail("Sezione paga avviso non è visualizzato");
+            }
         }
     }
 
@@ -256,8 +287,7 @@ public class NotifichePersonaFisicaPagoPATest {
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
             dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
             WebTool.waitTime(5);
-            String fullPath = WebTool.getApiBaseUrl() + "/bff/v1/notifications/received/" + datiNotifica.get("codiceIUN").toString();
-            String urlFileAttestazioneOppponibile = downloadFile.getUrl(fullPath);
+            String urlFileAttestazioneOppponibile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/" + datiNotifica.get("codiceIUN").toString() + "/legal-facts/");
 
             if (headless && urlFileAttestazioneOppponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
@@ -377,6 +407,11 @@ public class NotifichePersonaFisicaPagoPATest {
         dettaglioNotifica.selezioneAvvisoPagoPa();
     }
 
+    @And("Si controlla non sia presente il bottone paga")
+    public void siControllaNonSiaPresenteIlBottonePaga() {
+        logger.info("Si controlla che il bottone per il pagamento non sia visibile all'interno del dettaglio della notifica");
+        accediAPiattaformaNotifichePage.checkButtonPagaIsDisplayed();
+    }
 }
 
 
