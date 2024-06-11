@@ -258,4 +258,8 @@ public class CustomHttpClient<RequestType, ResponseType> {
             });
         }
     }
+
+    /*public ResponseType sendHttpPutRequest(String endpoint, Map<String, String> headers, Class<ResponseType> responseType) throws IOException {
+
+    }*/
 }
