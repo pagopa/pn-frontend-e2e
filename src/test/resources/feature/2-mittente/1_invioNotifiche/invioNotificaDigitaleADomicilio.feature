@@ -1,3 +1,4 @@
+@TestSuite
 Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio impostati ogni volta
 
   @invioNotificaDigitaleADomicilioImpostato
