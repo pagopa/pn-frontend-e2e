@@ -1,6 +1,5 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
-import io.cucumber.java.bs.A;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -35,7 +34,6 @@ public class NotifichePGPagoPATest {
     private final WebDriver driver = Hooks.driver;
     List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
     DeleghePGPagoPAPage deleghePage = new DeleghePGPagoPAPage(this.driver);
-    DataPopulation dataPopulation = new DataPopulation();
     Map<String, Object> personaGiuridica = new HashMap<>();
     private final LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
     private final PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
