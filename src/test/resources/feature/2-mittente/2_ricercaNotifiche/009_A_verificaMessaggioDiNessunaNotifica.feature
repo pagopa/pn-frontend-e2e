@@ -2,7 +2,7 @@ Feature: Mittente effetua una ricerca notifiche con diversi filtri
 
   @TA_MittenteRicercaNotificaSenzaResultato
   @mittente
-  @ricercaNatoficheMittente
+  @ricercaNotificheMittente
   @TestSuite
 
   Scenario: PN-9326 - Verifica messaggio di nessuna notifica

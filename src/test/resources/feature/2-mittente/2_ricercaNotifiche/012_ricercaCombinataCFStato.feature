@@ -2,7 +2,7 @@ Feature: il mittente fa una ricerca combinata tra cf e stato
 
   @TestSuite
     @mittente
-    @ricercaNatoficheMittente
+    @ricercaNotificheMittente
     @TA_MittenteRicercaPerCFeStato
 
   Scenario Outline: PN-9222 - il mittente fa una ricera sia per cf che per stato

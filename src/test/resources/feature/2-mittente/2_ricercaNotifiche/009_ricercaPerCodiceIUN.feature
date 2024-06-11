@@ -3,7 +3,7 @@ Feature: Mittente effetua una ricerca notifiche per codice IUN
   @TestSuite
   @TA_MittenteRicercaPerCodiceIUN
   @mittente
-  @ricercaNatoficheMittente
+  @ricercaNotificheMittente
 
   Scenario: PN-9218 - Mittente loggato effettua una ricerca per codice IUN
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
