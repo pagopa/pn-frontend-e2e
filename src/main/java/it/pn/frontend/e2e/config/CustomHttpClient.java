@@ -90,13 +90,13 @@ public class CustomHttpClient<RequestType, ResponseType> {
                     entity = response.getEntity();
                     responseString = EntityUtils.toString(entity);
                     ResponseType responseObject = gson.fromJson(responseString, responseType);
-                    logger.info("Response body: " + responseObject);
+                    logger.info("Response body: {}", responseObject);
                     return responseObject;
                 } else {
                     entity = response.getEntity();
                     responseString = EntityUtils.toString(entity);
-                    logger.error("Response code: " + response.getCode());
-                    logger.error("Response body: " + responseString);
+                    logger.error("Response code: {}", response.getCode());
+                    logger.error("Response body: {}", responseString);
                     throw new IOException("Error in HTTP request to " + apiUrl + ": " + response.getCode());
                 }
             });

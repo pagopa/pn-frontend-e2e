@@ -84,7 +84,7 @@ public class NotificaMittentePagoPATest {
             throw new RuntimeException(e);
         }
 
-        String urlChiamata = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/notifications/sent?";
+        String urlChiamata = WebTool.getApiBaseUrl() + "notifications/sent?";
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
             logger.error("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
@@ -112,14 +112,10 @@ public class NotificaMittentePagoPATest {
         logger.info("Si recupera l'ultimo numero protocollo utilizzato");
 
         this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        String urlNotifiche = "https://webapi.test.notifichedigitali.it/delivery/notifications/";
+        WebTool.waitTime(5);
+        String urlNotifiche = WebTool.getApiBaseUrl() + "notifications/";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
-            if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=50")) {
+            if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=10")) {
                 String responseBody = netWorkInfo.getResponseBody();
                 String[] allNotifiche = responseBody.split("],\"moreResult\":");
                 String[] notifiche = allNotifiche[0].split("},");
@@ -1188,6 +1184,19 @@ public class NotificaMittentePagoPATest {
         WebTool.waitTime(5);
     }
 
+    @And("Si annulla la notifica")
+    public void siAnnullaLaNotifica() {
+        logger.info("Si clicca sul pusante annulla notifica");
+        piattaformaNotifichePage.clickBottoneAnnullaNotifica();
+        piattaformaNotifichePage.clickAnnullaNotificaModale();
+    }
+
+    @Then("Si controlla la comparsa del pop up di conferma annullamento")
+    public void siControllaLaComparsaDelPopUpDiConfermaAnnullamento() {
+        logger.info("Si controlla la presenza del pop up di conferma dell'annullamento della notifica");
+        piattaformaNotifichePage.checkPopUpConfermaAnnullamentoNotifica();
+    }
+
     @And("Nella timeline della notifica si visualizza l'invio del messaggio di cortesia")
     public void nellaTimelineDellaNotificaSiVisualizzaLInvioDelMessaggioDiCortesia() {
         logger.info("Si verifica la presenza della voce 'Invio della notifica di cortesia in corso' nella timeline della notifica");
@@ -1331,7 +1340,7 @@ public class NotificaMittentePagoPATest {
      */
     protected EsitoNotifica siVerificaEsitoNotifica(String dpFile) {
         logger.info("si verifica se la notifica è stata accettata o rifiutata");
-        final String urlNotificationRequest = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.3/requests";
+        final String urlNotificationRequest = WebTool.getApiBaseUrl() + "notifications/sent";
         final String urlRichiestaNotifica = "https://api." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.3/requests/";
         AccettazioneRichiestaNotifica accettazioneRichiestaNotifica = new AccettazioneRichiestaNotifica();
         String codiceApi;
@@ -1342,11 +1351,7 @@ public class NotificaMittentePagoPATest {
         }
         accettazioneRichiestaNotifica.setxApikey(codiceApi);
         String statusNotifica = "WAITING";
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        WebTool.waitTime(5);
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
         if (notificationRequestId == null) {
             logger.error("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è diverso di 202 ");

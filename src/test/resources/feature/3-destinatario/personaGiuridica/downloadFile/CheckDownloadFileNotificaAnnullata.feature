@@ -1,3 +1,4 @@
+@TestSuite
 Feature: Il destinatario apre una notifica con pagamento annullata
 
   @checkDownloadFileNotificaAnnullata

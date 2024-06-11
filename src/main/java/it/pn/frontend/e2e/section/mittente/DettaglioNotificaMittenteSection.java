@@ -337,6 +337,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             Assert.fail("Box per il pagamento della notifica non visualizzato correttamente con errore: " + e.getMessage());
         }
     }
+
     public void clickAvvisoPagoPa() {
         try {
             By avvisoPagoPa = By.xpath("//button[contains(text(),'Avviso pagoPA')]");
