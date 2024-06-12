@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.cucumber.java.DocStringType;
 import lombok.Data;
 
 import javax.annotation.processing.Generated;
@@ -28,4 +27,13 @@ public class PreLoadRequest {
         return this;
     }
 
+    public PreLoadRequest sha256(String sha256) {
+        this.sha256 = sha256;
+        return this;
+    }
+
+    public PreLoadRequest contentType(String contentType) {
+        this.contentType = contentType;
+        return this;
+    }
 }

@@ -151,6 +151,36 @@ public class NewNotifichePagoPATest {
         Assert.fail("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
     }
 
+    @And("Faccio il preload del documento")
+    public void faccioIlPreloadDelDocumento() {
+        int maxAttempts = 3;
+        int attempt = 1;
+
+        PreLoadRequest preLoadRequest = new PreLoadRequest()
+                .preloadIdx("0")
+                .sha256("z18S3aiGYNsz4FMCZSkuQhnF7yxcqkt1ehJlFc7c88I=")
+                .contentType(APPLICATION_PDF);
+
+        List<PreLoadRequest> preLoadRequestList = new ArrayList<>();
+        preLoadRequestList.add(preLoadRequest);
+
+        while (attempt <= maxAttempts) {
+            List<PreLoadResponse> response = restNotification.preLoadDocument(preLoadRequestList);
+
+            if (response != null) {
+                log.info("PreLoad del documento effettuato con successo");
+                log.info("\n\n\nkey: {}\n\n\n", response.get(0).getKey());
+                return;
+            } else {
+                log.warn("Tentativo #{} di preload del documento. Riprovo...", attempt);
+                attempt++;
+            }
+        }
+
+        log.error("Errore nella creazione della notifica dopo {} tentativi", maxAttempts);
+        Assert.fail("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
+    }
+
 
     /* TODO
     @When("Creo in background una notifica con multi destinatario {int} e multi documento tramite API REST")
@@ -194,7 +224,7 @@ public class NewNotifichePagoPATest {
          */
     }
 
-    public NotificationDocument preloadDocumentV2(NotificationDocument document) throws IOException {
+    /*public NotificationDocument preloadDocumentV2(NotificationDocument document) throws IOException {
         Pair<String, String> preloadDocument = preloadGeneric(document.getRef().getKey(), LOAD_TO_PRESIGNED);
         documentSetKeyV20(document, preloadDocument.getValue1());
         documentSetVersionTokenV20(document, "v1");
@@ -313,7 +343,7 @@ public class NewNotifichePagoPATest {
             }
             loadToPresigned(url, secret, sha256, resource, resourceType, depth + 1);
         }
-    }
+    }*/
 
 
 }

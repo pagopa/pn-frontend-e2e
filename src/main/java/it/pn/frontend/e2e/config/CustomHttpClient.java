@@ -259,6 +259,42 @@ public class CustomHttpClient<RequestType, ResponseType> {
         }
     }
 
+    public List<ResponseType> sendHttpPreloadPostRequest(String endpoint, Map<String, String> headers, List<RequestType> requestObject, Class<ResponseType> responseType) throws IOException {
+        String apiUrl = baseUrlApi + endpoint;
+
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonBody = objectMapper.writeValueAsString(requestObject);
+            this.httpRequest = ClassicRequestBuilder
+                    .post(apiUrl)
+                    .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
+                    .addHeader("x-api-key", this.apiKey)
+                    .setEntity(new StringEntity(jsonBody))
+                    .build();
+            if (headers != null) {
+                headers.forEach(this.httpRequest::addHeader);
+            }
+            return client.execute(httpRequest, response -> {
+                final HttpEntity entity;
+                final String responseString;
+
+                if (response.getCode() == 200 || response.getCode() == 202 || response.getCode() == 201) {
+                    entity = response.getEntity();
+                    responseString = EntityUtils.toString(entity);
+                    List<ResponseType> responseObject = objectMapper.readValue(responseString, objectMapper.getTypeFactory().constructCollectionType(List.class, responseType));
+                    logger.info("Response body: {}", responseObject);
+                    return responseObject;
+                } else {
+                    entity = response.getEntity();
+                    responseString = EntityUtils.toString(entity);
+                    logger.error("Response code: {}", response.getCode());
+                    logger.error("Response body: {}", responseString);
+                    throw new IOException("Error in HTTP request to " + apiUrl + ": " + response.getCode());
+                }
+            });
+        }
+    }
+
     /*public ResponseType sendHttpPutRequest(String endpoint, Map<String, String> headers, Class<ResponseType> responseType) throws IOException {
 
     }*/

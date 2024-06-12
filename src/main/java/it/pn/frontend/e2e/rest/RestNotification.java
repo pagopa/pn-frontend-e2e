@@ -5,10 +5,13 @@ import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
 import it.pn.frontend.e2e.model.NewNotificationRequest;
 import it.pn.frontend.e2e.model.NewNotificationResponse;
+import it.pn.frontend.e2e.model.PreLoadRequest;
+import it.pn.frontend.e2e.model.PreLoadResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.List;
 
 public class RestNotification {
     private static final Logger logger = LoggerFactory.getLogger("RestNotification");
@@ -33,6 +36,20 @@ public class RestNotification {
             }
         } catch (IOException e) {
             logger.error("Error during createNewNotification", e);
+        }
+        return null;
+    }
+
+    public List<PreLoadResponse> preLoadDocument(List<PreLoadRequest> preLoadList) throws RestNotificationException {
+        final CustomHttpClient<PreLoadRequest, PreLoadResponse> httpClient2 = CustomHttpClient.getInstance();
+        try {
+            List<PreLoadResponse> response = httpClient2.sendHttpPreloadPostRequest("/delivery/attachments/preload", null, preLoadList, PreLoadResponse.class);
+            if (response != null) {
+                logger.info(String.valueOf(response));
+                return response;
+            }
+        } catch (IOException e) {
+            logger.error("Error during document preload", e);
         }
         return null;
     }
