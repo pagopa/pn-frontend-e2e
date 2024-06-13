@@ -500,6 +500,8 @@ public class HelpdeskPage extends BasePage {
             }
         } else {
             try {
+                String pageSrc= driver.getPageSource();
+                logger.info("Page src" + pageSrc);
                 By zipLink = By.xpath("//a[contains(text(),'Download')]");
                 String url = this.element(zipLink).getAttribute("href");
                 String workingDirectory = System.getProperty("user.dir");
@@ -714,6 +716,8 @@ public class HelpdeskPage extends BasePage {
 
 
     public void inserimentoArcoTemporale() throws InterruptedException {
+        String pageSrc= driver.getPageSource();
+        logger.info("Page src" + pageSrc);
         By calendarIcon = By.cssSelector("[data-testid='CalendarIcon']");
         this.element(calendarIcon).click();
         By previousMonth = By.xpath("//button[@aria-label='Previous month']");
@@ -721,10 +725,5 @@ public class HelpdeskPage extends BasePage {
         Thread.sleep(1000);
         By dateEleven = By.xpath("//button[contains(text(),'11')]");
         this.element(dateEleven).click();
-    }
-
-    public String conversioneFormatoDate(String date) {
-        String[] dateInserita = date.split("-");
-        return dateInserita[2] + "/" + dateInserita[1] + "/" + dateInserita[0];
     }
 }
