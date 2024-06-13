@@ -713,25 +713,10 @@ public class HelpdeskPage extends BasePage {
     }
 
 
-    public void inserimentoArcoTemporale(String da, String a) throws InterruptedException {
-      /*  this.getWebDriverWait(10)
-                .until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField, this.dataFineField));
-        this.dataInizioField.click();
-        this.dataInizioField.sendKeys(da);
-        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", da));
-        this.dataFineField.click();
-        this.dataFineField.sendKeys(a);
-        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataFineField, "value", a)); */
-
-        By calendarIcon = By.xpath("//div[1]/div[4]/div/div/div[1]/div/div/div/button");
+    public void inserimentoArcoTemporale() throws InterruptedException {
+        By calendarIcon = By.cssSelector("[data-testid='CalendarIcon']");
         this.element(calendarIcon).click();
         By previousMonth = By.xpath("//button[@aria-label='Previous month']");
-        this.element(previousMonth).click();
-        Thread.sleep(1000);
-        this.element(previousMonth).click();
-        Thread.sleep(1000);
-        this.element(previousMonth).click();
-        Thread.sleep(1000);
         this.element(previousMonth).click();
         Thread.sleep(1000);
         By dateEleven = By.xpath("//button[contains(text(),'11')]");

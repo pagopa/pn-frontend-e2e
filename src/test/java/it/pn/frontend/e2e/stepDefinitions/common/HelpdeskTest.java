@@ -198,11 +198,7 @@ public class HelpdeskTest {
     @And("viene inserito un range temporale maggiore di 3 mesi")
     public void inserisceRangeTemporaleMaggioreDi3Mesi() throws InterruptedException {
         logger.info("viene inserito un range temporale maggiore di 3 mesi");
-        LocalDate dateA = LocalDate.now();
-        LocalDate dateDa = dateA.minusDays(95);
-        String dataa = helpdeskPage.conversioneFormatoDate(dateA.toString());
-        String datada = helpdeskPage.conversioneFormatoDate(dateDa.toString());
-        helpdeskPage.inserimentoArcoTemporale(datada, dataa);
+        helpdeskPage.inserimentoArcoTemporale();
     }
 
     @And("viene visualizzato messaggio di errore data")
