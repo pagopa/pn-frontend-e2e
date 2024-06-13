@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.common.HelpdeskPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.model.enums.Disservice;
 import it.pn.frontend.e2e.model.enums.Status;
+import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
@@ -17,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -154,11 +156,71 @@ public class HelpdeskTest {
         this.datiPersonaFisica = this.dataPopulation.readDataPopulation(nameFile + ".yaml");
         helpdeskPage.insertCfAndRicercaOnPage(datiPersonaFisica.get("codiceFiscale").toString());
     }
+    @And("viene inserito codice fiscale senza ricerca {string}")
+    public void vieneInseritoCodiceFiscaleSenzaRicerca(String CF) {
+        helpdeskPage.insertCF(CF);
+    }
 
     @And("viene inserito codice IUN {string}")
     public void vieneInseritoIun(String iun) {
         helpdeskPage.insertIunAndRicercaOnPage(iun);
     }
+
+    @And("viene inserito codice IUN senza ricerca {string}")
+    public void vieneInseritoIunSenzaRicerca(String iun) {
+        helpdeskPage.insertIun(iun);
+    }
+
+
+    @And("viene inserito numero ticket")
+    public void vieneInseritoNumeroTicket() {
+        helpdeskPage.insertNumeroTicket();
+    }
+
+    @And("viene inserito codice univoco {string}")
+    public void vieneInseritoUID(String uid){
+        helpdeskPage.insertUid(uid);
+    }
+
+    @And("Cliccare sul bottone ricerca")
+    public void cliccareSulBottoneRicerca(){
+        logger.info("Cliccare sul bottone ricerca");
+        helpdeskPage.clickRicercaBottone();
+    }
+
+    @And ("Spuntare la casella Deanonimizzazione dati")
+    public void spuntareDeanonimizzazioneDati(){
+    logger.info("Spuntare la casella Deanonimizzazione dati");
+    helpdeskPage.spuntareDeanonimizzazioneDati();
+
+    }
+
+    @And("viene inserito un range temporale maggiore di 3 mesi")
+    public void inserisceRangeTemporaleMaggioreDi3Mesi() throws InterruptedException {
+        logger.info("viene inserito un range temporale maggiore di 3 mesi");
+        LocalDate dateA = LocalDate.now();
+        LocalDate dateDa = dateA.minusDays(95);
+        String dataa = helpdeskPage.conversioneFormatoDate(dateA.toString());
+        String datada = helpdeskPage.conversioneFormatoDate(dateDa.toString());
+        helpdeskPage.inserimentoArcoTemporale(datada, dataa);
+    }
+
+    @And("viene visualizzato messaggio di errore data")
+    public void vieneVisualizzatoMessaggioDiErroreData(){
+        helpdeskPage.checkMessaggioDiErroreData();
+    }
+
+    @And("viene visualizzato messaggio di errore IUN")
+    public void vieneVisualizzatoMessaggioDiErroreIUN(){
+        helpdeskPage.checkMessaggioDiErroreIUN();
+    }
+
+    @And("viene visualizzato messaggio di errore CF")
+    public void vieneVisualizzatoMessaggioDiErroreCF(){
+        helpdeskPage.checkMessaggioDiErroreCF();
+    }
+
+
 
     @Then("controllo messaggio di successo")
     public void controlloMessaggioSuccesso() {
@@ -196,6 +258,12 @@ public class HelpdeskTest {
     @And("Si clicca sul bottone resetta filtri")
     public void siCliccaResettaFiltri(){
         helpdeskPage.clickResettaFiltri();
+    }
+
+    @And("Si verifica che i campi sono puliti")
+    public void siVerificaCheICampiSonoPuliti(){
+        helpdeskPage.checkCampiPuliti();
+
     }
 
     @Then("controllo password")
@@ -258,4 +326,10 @@ public class HelpdeskTest {
         logger.info("Selezione ottieni notifica");
         helpdeskPage.selectOttieniNotifica();
     }
+     @And("Selezione ottieni log completi")
+    public void selezioneOttieniLogCompleti(){
+         logger.info("Selezione ottieni log completi");
+         helpdeskPage.selectOttieniLogCompleti();
+     }
+
 }

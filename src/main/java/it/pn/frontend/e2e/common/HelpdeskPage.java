@@ -2,7 +2,6 @@ package it.pn.frontend.e2e.common;
 
 import it.pn.frontend.e2e.model.enums.Disservice;
 import it.pn.frontend.e2e.model.enums.Status;
-import it.pn.frontend.e2e.utility.DownloadFile;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -18,13 +17,11 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.Key;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +29,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import net.lingala.zip4j.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
-import net.lingala.zip4j.model.FileHeader;
+
 
 public class HelpdeskPage extends BasePage {
 
@@ -61,6 +57,9 @@ public class HelpdeskPage extends BasePage {
     @FindBy(id = "ricerca")
     WebElement buttonRicerca;
 
+    @FindBy(xpath = "//div[1]/div[4]/div/label/span[1]")
+    WebElement deanonimizzazioneDati;
+
     @FindBy(xpath = "//p[contains(text(),'Codice Univoco')]")
     WebElement Uid;
 
@@ -85,6 +84,12 @@ public class HelpdeskPage extends BasePage {
 
     @FindBy(xpath = ".//button[@role='menuitem']")
     List<WebElement> serviceStatusButtons;
+
+    @FindBy(xpath = "//div[1]/div[4]/div/div/div[1]/div/div/input")
+    WebElement dataInizioField;
+
+    @FindBy(xpath = "//div/div[1]/div[4]/div/div/div[2]/div/div/input")
+    WebElement dataFineField;
 
 
     private final Logger logger = LoggerFactory.getLogger("Helpdesk Page");
@@ -290,6 +295,12 @@ public class HelpdeskPage extends BasePage {
         }
     }
 
+    public void insertCF(String codiceFiscale) {
+        logger.info("inserisco codice fiscale");
+        setCodiceFiscale(codiceFiscale);
+        codiceFiscaleInput.sendKeys(codiceFiscale);
+    }
+
     public void insertIunAndRicercaOnPage(String iun) {
         logger.info("inserisco numero ticket");
         numeroTicketInput.sendKeys("testTAFE01");
@@ -311,6 +322,23 @@ public class HelpdeskPage extends BasePage {
             throw new RuntimeException(e);
         }
     }
+
+    public void insertIun(String iun) {
+        logger.info("inserisco codice IUN");
+        iunInput.sendKeys(iun);
+
+    }
+
+    public void insertUid(String uid) {
+        logger.info("inserisco codice univoco");
+        inputUid.sendKeys(uid);
+
+    }
+    public void insertNumeroTicket() {
+        logger.info("inserisco numero ticket");
+        numeroTicketInput.sendKeys("testTAFE01");
+    }
+
 
     public void checkUid() {
         try {
@@ -361,7 +389,7 @@ public class HelpdeskPage extends BasePage {
             logger.info("selezione ottieni notifica");
             By selectTypeOfOttieniCF = By.xpath("//li[contains(text(),'Ottieni notifica')]");
             logger.info("controllo esistenza selezione");
-            this.getWebDriverWait(30).withMessage("opzione ottieni cf non trovata").until(ExpectedConditions.visibilityOfElementLocated(selectTypeOfOttieniCF));
+            this.getWebDriverWait(30).withMessage("opzione ottieni notifica non trovata").until(ExpectedConditions.visibilityOfElementLocated(selectTypeOfOttieniCF));
             this.element(selectTypeOfOttieniCF).click();
             By checkIunIsDisplayed = By.id("IUN");
             this.getWebDriverWait(30).withMessage("input IUN non trovato").until(ExpectedConditions.visibilityOfElementLocated(checkIunIsDisplayed));
@@ -370,17 +398,68 @@ public class HelpdeskPage extends BasePage {
             Assert.fail("opzione ottieni notifica non trovata: " + e.getMessage());
         }
     }
+    public void selectOttieniLogCompleti() {
+        logger.info("click su tipo estrazione dati");
+        By inputTipoEstrazione = By.xpath("//div[@data-testid='select-Tipo Estrazione']");
+        this.element(inputTipoEstrazione).click();
+        try {
+            logger.info("selezione ottieni log completi");
+            By selectTypeOfOttieniLogCompleti = By.xpath("//li[contains(text(),'Ottieni log completi')]");
+            logger.info("controllo esistenza selezione");
+            this.getWebDriverWait(30).withMessage("opzione ottieni log completi non trovata").until(ExpectedConditions.visibilityOfElementLocated(selectTypeOfOttieniLogCompleti));
+            this.element(selectTypeOfOttieniLogCompleti).click();
+            By checkNumeroTicketIsDisplayed = By.id("Numero Ticket");
+            this.getWebDriverWait(30).withMessage("input Numero Ticket non trovato").until(ExpectedConditions.visibilityOfElementLocated(checkNumeroTicketIsDisplayed));
+        } catch (TimeoutException e) {
+            logger.error("opzione ottieni log comleti non trovata: " + e.getMessage());
+            Assert.fail("opzione ottieni log completi non trovata: " + e.getMessage());
+        }
+    }
+
 
     public void checkMessaggioSuccesso(){
         try {
             logger.info("controllo esistenza messaggio di successo");
             By messaggio = By.xpath("//p[contains(text(),'Operazione completata con successo')]");
-            this.getWebDriverWait(10).withMessage("Messaggio di successo non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
+            this.getWebDriverWait(70).withMessage("Messaggio di successo non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
         } catch (TimeoutException e) {
             logger.error("Messaggio di successo non trovato: " + e.getMessage());
             Assert.fail("Messaggio di successo non trovato: " + e.getMessage());
         }
     }
+
+    public void checkMessaggioDiErroreData(){
+        try {
+            logger.info("controllo esistenza messaggio di errore");
+            By messaggio = By.xpath("//p[contains(text(),'intervallo temporale non può superare i 3 mesi')]");
+            this.getWebDriverWait(15).withMessage("Messaggio di errore non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
+        } catch (TimeoutException e) {
+            logger.error("Messaggio di errore non trovato: " + e.getMessage());
+            Assert.fail("Messaggio di errore non trovato: " + e.getMessage());
+        }
+    }
+    public void checkMessaggioDiErroreIUN(){
+        try {
+            logger.info("controllo esistenza messaggio di errore");
+            By messaggio = By.xpath("//p[contains(text(),'Inserimento errato')]");
+            this.getWebDriverWait(15).withMessage("Messaggio di errore non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
+        } catch (TimeoutException e) {
+            logger.error("Messaggio di errore non trovato: " + e.getMessage());
+            Assert.fail("Messaggio di errore non trovato: " + e.getMessage());
+        }
+    }
+
+    public void checkMessaggioDiErroreCF(){
+        try {
+            logger.info("controllo esistenza messaggio di errore");
+            By messaggio = By.xpath("//p[contains(text(),'Inserimento errato')]");
+            this.getWebDriverWait(15).withMessage("Messaggio di errore non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
+        } catch (TimeoutException e) {
+            logger.error("Messaggio di errore non trovato: " + e.getMessage());
+            Assert.fail("Messaggio di errore non trovato: " + e.getMessage());
+        }
+    }
+
 
     public void checkZipLink() throws IOException {
         boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
@@ -586,6 +665,15 @@ public class HelpdeskPage extends BasePage {
       this.element(bottoneReset).click();
     }
 
+    public void checkCampiPuliti(){
+        if (numeroTicketInput.getAttribute("value").isEmpty() && codiceFiscaleInput.getAttribute("value").isEmpty()){
+            logger.info("I campi sono puliti");
+        }else {
+            logger.error("I campi non sono puliti");
+            Assert.fail("I campi non sono puliti");
+        }
+    }
+
     public void checkCodiceFiscale() {
         inputUid.sendKeys(this.codiceIdentificativoPF);
         buttonRicerca.click();
@@ -612,5 +700,46 @@ public class HelpdeskPage extends BasePage {
         this.passwordInput.sendKeys(login.get("password"));
         this.loginButton.click();
         logger.info("Visualizzazione pagina login corretta");
+    }
+
+    public void clickRicercaBottone(){
+        getWebDriverWait(3).withMessage("Il bottone ricerca non è cliccabile").until(ExpectedConditions.elementToBeClickable(buttonRicerca));
+        buttonRicerca.click();
+    }
+
+    public void spuntareDeanonimizzazioneDati(){
+        getWebDriverWait(3).withMessage("Il Deanonimizzazione dati non è cliccabile").until(ExpectedConditions.elementToBeClickable(deanonimizzazioneDati));
+        deanonimizzazioneDati.click();
+    }
+
+
+    public void inserimentoArcoTemporale(String da, String a) throws InterruptedException {
+      /*  this.getWebDriverWait(10)
+                .until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField, this.dataFineField));
+        this.dataInizioField.click();
+        this.dataInizioField.sendKeys(da);
+        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", da));
+        this.dataFineField.click();
+        this.dataFineField.sendKeys(a);
+        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataFineField, "value", a)); */
+
+        By calendarIcon = By.xpath("//div[1]/div[4]/div/div/div[1]/div/div/div/button");
+        this.element(calendarIcon).click();
+        By previousMonth = By.xpath("//button[@aria-label='Previous month']");
+        this.element(previousMonth).click();
+        Thread.sleep(1000);
+        this.element(previousMonth).click();
+        Thread.sleep(1000);
+        this.element(previousMonth).click();
+        Thread.sleep(1000);
+        this.element(previousMonth).click();
+        Thread.sleep(1000);
+        By dateEleven = By.xpath("//button[contains(text(),'11')]");
+        this.element(dateEleven).click();
+    }
+
+    public String conversioneFormatoDate(String date) {
+        String[] dateInserita = date.split("-");
+        return dateInserita[2] + "/" + dateInserita[1] + "/" + dateInserita[0];
     }
 }
