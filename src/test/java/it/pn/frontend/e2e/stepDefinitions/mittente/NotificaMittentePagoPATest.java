@@ -1283,13 +1283,6 @@ public class NotificaMittentePagoPATest {
         dettaglioNotificaMittenteSection.clickAvvisoPagoPa();
     }
 
-    @Then("Si torna alla pagina precedente")
-    public void siTornaAllaPaginaPrecedente() {
-        logger.info("Si torna alla pagina precedente");
-        this.driver.navigate().back();
-    }
-
-
     @Then("Si verifica che che non sia possibile effettuare il download del modelo F24")
     public void siVerificaF24() {
         logger.info("Si verifica che non sia possibile effettuare il download del modelo F24");
