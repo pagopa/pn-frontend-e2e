@@ -36,6 +36,7 @@ public class NotifichePersonaFisicaPagoPATest {
     private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
     private final DataPopulation dataPopulation = new DataPopulation();
     private final DestinatarioPage destinatarioPage = new DestinatarioPage(driver);
+    private final AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
     private final NotifichePFPage notifichePFPage = new NotifichePFPage(driver);
 
     private final DettaglioNotificaSection dettaglioNotifica = new DettaglioNotificaSection(driver);
@@ -286,11 +287,7 @@ public class NotifichePersonaFisicaPagoPATest {
         }
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
             dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            WebTool.waitTime(5);
             String urlFileAttestazioneOppponibile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/" + datiNotifica.get("codiceIUN").toString() + "/legal-facts/");
 
             if (headless && urlFileAttestazioneOppponibile.isEmpty()) {
@@ -340,7 +337,7 @@ public class NotifichePersonaFisicaPagoPATest {
         }
     }
 
-    @And("Nella pagina Piattaforma Notifiche PF si filtra per codice IUN {string}")
+    @And("Nella pagina Piattaforma Notifiche del destinatario si filtra per codice IUN {string}")
     public void nellaPaginaPiattaformaNotificheSiRecuperaUnCodiceIUNValido(String codiceIun) {
         logger.info("Si recupera un codice IUN valido");
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
@@ -385,7 +382,7 @@ public class NotifichePersonaFisicaPagoPATest {
         }
     }
 
-    @And("Nella pagina Piattaforma Notifiche di PF si visualizzano correttamente i filtri di ricerca")
+    @And("Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca")
     public void nellaPaginaPiattaformaNotificheVisualizzanoCorrettamenteIFiltriDiRicerca() {
         piattaformaNotifichePage.siVisualizzaCorrettamenteIlCodiceIUNField();
         piattaformaNotifichePage.siVisualizzaCorrettamenteLaDataInzioField();
@@ -439,6 +436,12 @@ public class NotifichePersonaFisicaPagoPATest {
     public void siTornaAllaPaginaPrecedente() {
         logger.info("Si torna alla pagina precedente");
         driver.navigate().back();
+    }
+
+    @And("Si controlla non sia presente il bottone paga")
+    public void siControllaNonSiaPresenteIlBottonePaga() {
+        logger.info("Si controlla che il bottone per il pagamento non sia visibile all'interno del dettaglio della notifica");
+        accediAPiattaformaNotifichePage.checkButtonPagaIsDisplayed();
     }
 }
 

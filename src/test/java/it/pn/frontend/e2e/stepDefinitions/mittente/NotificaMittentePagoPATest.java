@@ -46,6 +46,11 @@ public class NotificaMittentePagoPATest {
     private final DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
     private final String variabileAmbiente = System.getProperty("environment");
     private final InformazioniPreliminariPASection informazioniPreliminariPASection = new InformazioniPreliminariPASection(this.driver);
+    private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
+    private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
+    private final String PF = "persona fisica";
+    private final String PG = "persona giuridica";
+    private final String PA = "pubblica amministrazione";
     private Map<String, Object> datiNotifica = new HashMap<>();
     private Map<String, String> datiNotificaMap = new HashMap<>();
     private Map<String, String> destinatarioMap = new HashMap<>();
@@ -53,13 +58,6 @@ public class NotificaMittentePagoPATest {
     private Map<String, Object> personaFisica = new HashMap<>();
     private Map<String, Object> personaGiuridica = new HashMap<>();
     private Map<String, Object> personeFisiche = new HashMap<>();
-    private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
-    private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
-    private final String PF = "persona fisica";
-    private final String PG = "persona giuridica";
-    private final String PA = "pubblica amministrazione";
-
-
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
@@ -86,7 +84,7 @@ public class NotificaMittentePagoPATest {
             throw new RuntimeException(e);
         }
 
-        String urlChiamata = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/notifications/sent?";
+        String urlChiamata = WebTool.getApiBaseUrl() + "notifications/sent?";
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
             logger.error("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
@@ -114,14 +112,10 @@ public class NotificaMittentePagoPATest {
         logger.info("Si recupera l'ultimo numero protocollo utilizzato");
 
         this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        String urlNotifiche = "https://webapi.test.notifichedigitali.it/delivery/notifications/";
+        WebTool.waitTime(5);
+        String urlNotifiche = WebTool.getApiBaseUrl() + "notifications/";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
-            if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=50")) {
+            if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=10")) {
                 String responseBody = netWorkInfo.getResponseBody();
                 String[] allNotifiche = responseBody.split("],\"moreResult\":");
                 String[] notifiche = allNotifiche[0].split("},");
@@ -1003,25 +997,25 @@ public class NotificaMittentePagoPATest {
     }
 
     @And("Si verifica che il form di inserimento manuale della notifica è vuoto")
-    public void siVerificaCheIlFormDiInserimentoManualeDellaNotificaEVuoto(){
-     if(informazioniPreliminariPASection.checkFormInfoPreliminari()){
-         logger.info("Il form di inserimento manuale della notifica è vuoto");
-     }else{
-         logger.error("Il form di inserimento manuale della notifica non è vuoto");
-         Assert.fail("Il form di inserimento manuale della notifica non è vuoto");
-     }
+    public void siVerificaCheIlFormDiInserimentoManualeDellaNotificaEVuoto() {
+        if (informazioniPreliminariPASection.checkFormInfoPreliminari()) {
+            logger.info("Il form di inserimento manuale della notifica è vuoto");
+        } else {
+            logger.error("Il form di inserimento manuale della notifica non è vuoto");
+            Assert.fail("Il form di inserimento manuale della notifica non è vuoto");
+        }
     }
 
     @And("Si clicca sul bottone torna a informazioni preliminari")
-    public void siCliccaSulBottonTornaAInformazioniPreliminari(){
+    public void siCliccaSulBottonTornaAInformazioniPreliminari() {
         destinatarioPASection.clickSuTornaInformazioniPreliminari();
     }
 
     @And("Tutti i campi precedentemente inseriti risultano ancora popolati")
-    public void tuttiICampiPrecedentementeInseritiRisultanoAncoraPopolati(){
-        if (destinatarioPASection.checkCampiDestinatarioPopalati()){
+    public void tuttiICampiPrecedentementeInseritiRisultanoAncoraPopolati() {
+        if (destinatarioPASection.checkCampiDestinatarioPopolati()) {
             logger.info("I campi sezione destinatario sono popolati");
-        }else {
+        } else {
             logger.error("I campi sezione destinatario non sono popolati");
             Assert.fail("I campi sezione destinatario non sono popolati");
         }
@@ -1065,23 +1059,24 @@ public class NotificaMittentePagoPATest {
     }
 
     @And("Nella section Allegati si carica secondo atto")
-    public void siCaricaNuoviDocumenti(){
+    public void siCaricaNuoviDocumenti() {
         logger.info("Caricamento dell'allegato notifica.pdf");
 
-            File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
-            String pathNotificaFile = notificaFile.getAbsolutePath();
-            allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
+        File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
+        String pathNotificaFile = notificaFile.getAbsolutePath();
+        allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
 
-            if (allegatiPASection.verificaCaricamentoNotificaPdf()) {
-                logger.info("File notifica.pdf caricato correttamente");
-            } else {
-                logger.error("File notifica.pdf non caricato");
-                Assert.fail("File notifica.pdf non caricato");
-            }
-            allegatiPASection.inserimentoNomeSecondoAllegato(datiNotificaMap.get("descrizione"));
+        if (allegatiPASection.verificaCaricamentoNotificaPdf()) {
+            logger.info("File notifica.pdf caricato correttamente");
+        } else {
+            logger.error("File notifica.pdf non caricato");
+            Assert.fail("File notifica.pdf non caricato");
+        }
+        allegatiPASection.inserimentoNomeSecondoAllegato(datiNotificaMap.get("descrizione"));
     }
+
     @And("Nella section Allegati si carica terzo atto")
-    public void siCaricaTerzoDocumento(){
+    public void siCaricaTerzoDocumento() {
         logger.info("Caricamento dell'allegato notifica.pdf");
 
         File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
@@ -1098,7 +1093,7 @@ public class NotificaMittentePagoPATest {
     }
 
     @And("Si visualizza correttamente il codice hash del documento")
-    public void siVisualizzaCorrettamenteIlCodiceHashDelDocumento(){
+    public void siVisualizzaCorrettamenteIlCodiceHashDelDocumento() {
         allegatiPASection.checkCodiceHash();
 
 
@@ -1114,13 +1109,13 @@ public class NotificaMittentePagoPATest {
     }
 
     @And("Si clicca sul bottone aggiungi nuovo documento")
-    public void siCliccaSulBottoneAggiungiNuovoDocumento(){
+    public void siCliccaSulBottoneAggiungiNuovoDocumento() {
         logger.info("Si aggiunge un nuovo atto");
         allegatiPASection.clickAggiungiNuovoDocumento();
     }
 
-    @And ("Si elimina un atto")
-    public void siEliminaUnAtto(){
+    @And("Si elimina un atto")
+    public void siEliminaUnAtto() {
         logger.info("Si elimina un atto");
         allegatiPASection.eliminaAtto();
     }
@@ -1133,7 +1128,7 @@ public class NotificaMittentePagoPATest {
 
     @Then("In parallelo si effettua l'accesso al portale destinatario {string} e si apre la notifica ricevuta")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioESiApreLaNotificaRicevuta(String destinatario) {
-        if(PF.equalsIgnoreCase(destinatario)) {
+        if (PF.equalsIgnoreCase(destinatario)) {
             WebTool.switchToPortal(AppPortal.PF);
         } else {
             WebTool.switchToPortal(AppPortal.PG);
@@ -1172,7 +1167,7 @@ public class NotificaMittentePagoPATest {
     @Then("In parallelo si effettua l'accesso al portale di {string}")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatario(String portal) {
         portal = portal.toLowerCase();
-        switch(portal){
+        switch (portal) {
             case PF:
                 WebTool.switchToPortal(AppPortal.PF);
                 break;
@@ -1189,8 +1184,21 @@ public class NotificaMittentePagoPATest {
         WebTool.waitTime(5);
     }
 
+    @And("Si annulla la notifica")
+    public void siAnnullaLaNotifica() {
+        logger.info("Si clicca sul pusante annulla notifica");
+        piattaformaNotifichePage.clickBottoneAnnullaNotifica();
+        piattaformaNotifichePage.clickAnnullaNotificaModale();
+    }
+
+    @Then("Si controlla la comparsa del pop up di conferma annullamento")
+    public void siControllaLaComparsaDelPopUpDiConfermaAnnullamento() {
+        logger.info("Si controlla la presenza del pop up di conferma dell'annullamento della notifica");
+        piattaformaNotifichePage.checkPopUpConfermaAnnullamentoNotifica();
+    }
+
     @And("Nella timeline della notifica si visualizza l'invio del messaggio di cortesia")
-    public void nellaTimelineDellaNotificaSiVisualizzaLInvioDelMessaggioDiCortesia(){
+    public void nellaTimelineDellaNotificaSiVisualizzaLInvioDelMessaggioDiCortesia() {
         logger.info("Si verifica la presenza della voce 'Invio della notifica di cortesia in corso' nella timeline della notifica");
         piattaformaNotifichePage.verificaInvioNotificaDiCortesia();
     }
@@ -1208,13 +1216,13 @@ public class NotificaMittentePagoPATest {
     }
 
     @And("Si verifica l'invio della raccomandata semplice")
-    public void siVerificaLInvioDellaRaccomandataSemplice(){
+    public void siVerificaLInvioDellaRaccomandataSemplice() {
         logger.info("Si verifica l'avvenuto invio della notifica per raccomandata semplice");
         dettaglioNotificaMittenteSection.checkInvioRaccomandataSemplice();
     }
 
     @And("Si verifica l'invio della notifica al domicilio speciale inserito {string}")
-    public void siVerificaLInvioDellaNotificaAlDomicilioSpecialeInserito(String domicilioSpeciale){
+    public void siVerificaLInvioDellaNotificaAlDomicilioSpecialeInserito(String domicilioSpeciale) {
         logger.info("Si verifica l'avvenuto invio della notifica al domicilio speciale " + domicilioSpeciale);
         dettaglioNotificaMittenteSection.checkInvioADomicilioSpeciale(domicilioSpeciale);
     }
@@ -1234,7 +1242,7 @@ public class NotificaMittentePagoPATest {
     @And("Si accede nuovamente al portale {string} con token {string} per eliminare i recapiti inseriti")
     public void siAccedeNuovamenteAlPortaleConTokenPerEliminareIRecapitiInseriti(String tipoPersona, String tipoToken) {
         logger.info("Si accede nuovamente al portale " + tipoPersona + " per eliminare i recapiti inseriti");
-        if(PF.equalsIgnoreCase(tipoPersona)){
+        if (PF.equalsIgnoreCase(tipoPersona)) {
             loginPersonaFisicaPagoPA.loginMittenteConTokenExchange(tipoToken);
             loginPersonaFisicaPagoPA.logoutDaPortaleDestinatario();
         } else {
@@ -1269,11 +1277,49 @@ public class NotificaMittentePagoPATest {
         dettaglioNotificaMittenteSection.checkAvvisoPagoPa();
     }
 
+    @Then("Si clicca l'avviso PagoPa")
+    public void siCliccaLAvvisoPagoPa() {
+        logger.info("Si clicca l'avviso PagoPa");
+        dettaglioNotificaMittenteSection.clickAvvisoPagoPa();
+    }
+
+    @Then("Si torna alla pagina precedente")
+    public void siTornaAllaPaginaPrecedente() {
+        logger.info("Si torna alla pagina precedente");
+        this.driver.navigate().back();
+    }
+
+
+    @Then("Si verifica che che non sia possibile effettuare il download del modelo F24")
+    public void siVerificaF24() {
+        logger.info("Si verifica che non sia possibile effettuare il download del modelo F24");
+        dettaglioNotificaMittenteSection.checkModelloF24();
+    }
+
     @Then("Si controlla sia presente il modello F24")
     public void siControllaSiaPresenteIlModelloF24() {
         logger.info("Si controlla sia presente il modello F24");
         dettaglioNotificaMittenteSection.checkModelloF24();
     }
+
+    @And("Si controlla sia visualizza box allegati modelli F24")
+    public void siControllaSiaVisualizzaBoxF24() {
+        logger.info("Si controlla sia presente il box allegati modelli F24");
+        dettaglioNotificaMittenteSection.checkBoxModelloF24();
+    }
+
+    @Then("Si clicca sul bottone chiudi box F24")
+    public void siCliccaSulBottoneChiudiBoxF24() {
+        logger.info("Si clicca sul bottone chiudi box F24");
+        dettaglioNotificaMittenteSection.siCliccaSulBottoneChiudi();
+    }
+
+    @Then("Si controlla sia presente attestazione opponibile a terzi notifica presa in carico")
+    public void siControllaSiaPresenteAttestazionePresaInCarico() {
+        logger.info("Si controlla sia presente attestazione opponibile a terzi notifica presa in carico");
+        dettaglioNotificaMittenteSection.checkAttestazionePresaInCarico();
+    }
+
 
     @Then("Si controlla sia presente il box per il pagamento del multidestinatario")
     public void siControllaSiaPresenteIlBoxPerIlPagamentoDelMultidestinatario() {
@@ -1288,28 +1334,13 @@ public class NotificaMittentePagoPATest {
     }
 
     /**
-     * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
-     */
-    class EsitoNotifica {
-        String statusNotifica;
-        AccettazioneRichiestaNotifica accettazioneRichiestaNotifica;
-        String notificationRequestId;
-
-        public EsitoNotifica(String statusNotifica, AccettazioneRichiestaNotifica accettazioneRichiestaNotifica, String notificationRequestId) {
-            this.statusNotifica = statusNotifica;
-            this.accettazioneRichiestaNotifica = accettazioneRichiestaNotifica;
-            this.notificationRequestId = notificationRequestId;
-        }
-    }
-
-    /**
      * Factorize out the assessment of the esito notifica from siVerificaCheLaNotificaVieneCreataCorrettamente,
      * this was motivated by the need to add siVerificaCheLaNotificaVieneRifiutata
      * that needs to perform the same assessment.
      */
     protected EsitoNotifica siVerificaEsitoNotifica(String dpFile) {
         logger.info("si verifica se la notifica è stata accettata o rifiutata");
-        final String urlNotificationRequest = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.3/requests";
+        final String urlNotificationRequest = WebTool.getApiBaseUrl() + "notifications/sent";
         final String urlRichiestaNotifica = "https://api." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.3/requests/";
         AccettazioneRichiestaNotifica accettazioneRichiestaNotifica = new AccettazioneRichiestaNotifica();
         String codiceApi;
@@ -1320,11 +1351,7 @@ public class NotificaMittentePagoPATest {
         }
         accettazioneRichiestaNotifica.setxApikey(codiceApi);
         String statusNotifica = "WAITING";
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        WebTool.waitTime(5);
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
         if (notificationRequestId == null) {
             logger.error("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è diverso di 202 ");
@@ -1515,7 +1542,7 @@ public class NotificaMittentePagoPATest {
     }
 
     @And("Si aggiungi un domicilio digitale {string}")
-    public void SiAggiungiUnDomicilioDigitale(String mail){
+    public void SiAggiungiUnDomicilioDigitale(String mail) {
         destinatarioPASection.checkBoxAggiungiDomicilio();
         destinatarioPASection.insertDomicilioDigitale(mail);
     }
@@ -1526,9 +1553,24 @@ public class NotificaMittentePagoPATest {
     }
 
     @And("Si verifica che destinatario raggiungibile {string}")
-    public void siVerificaCheDestinatarioRaggiungibile(String message){
+    public void siVerificaCheDestinatarioRaggiungibile(String message) {
         piattaformaNotifichePage.visualizzaTimeline(message);
         logger.info("Il destinatario raggiungibile");
+    }
+
+    /**
+     * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
+     */
+    class EsitoNotifica {
+        String statusNotifica;
+        AccettazioneRichiestaNotifica accettazioneRichiestaNotifica;
+        String notificationRequestId;
+
+        public EsitoNotifica(String statusNotifica, AccettazioneRichiestaNotifica accettazioneRichiestaNotifica, String notificationRequestId) {
+            this.statusNotifica = statusNotifica;
+            this.accettazioneRichiestaNotifica = accettazioneRichiestaNotifica;
+            this.notificationRequestId = notificationRequestId;
+        }
     }
 
 

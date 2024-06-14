@@ -51,7 +51,7 @@ public class DettaglioNotificaSection extends BasePage {
             getWebDriverWait(10).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
             getWebDriverWait(10).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
             getWebDriverWait(10).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
-            if (!isSelfcare) {
+            if (isSelfcare) {
                 getWebDriverWait(10).withMessage("Il sezione recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(sezioneRecapiti));
             }
 
@@ -142,7 +142,7 @@ public class DettaglioNotificaSection extends BasePage {
             getWebDriverWait(10).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
             getWebDriverWait(10).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
             getWebDriverWait(10).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
-            if (!isSelfcare) {
+            if (isSelfcare) {
                 getWebDriverWait(10).withMessage("Il sezione recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(sezioneRecapiti));
             }
             getWebDriverWait(10).withMessage("La sezione recapiti non è visibile").until(ExpectedConditions.or(
