@@ -25,6 +25,7 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
     And Si clicca sul bottone resetta filtri
     And Aspetta 3 secondi
     And Selezione ottieni log completi
+    And Selezione ottieni log completi
     And viene inserito numero ticket
     And viene inserito codice fiscale senza ricerca "CSRGGL44L13H501E"
     And viene inserito un range temporale maggiore di 3 mesi
