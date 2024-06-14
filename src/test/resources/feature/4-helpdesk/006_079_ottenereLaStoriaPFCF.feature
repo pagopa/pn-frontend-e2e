@@ -22,9 +22,12 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
     And Inserisco la password ed estraggo il file zip
     And Controllo sia presente documento "dati.txt"
     And Si elimina file estratto
-    And Si clicca sul bottone resetta filtri
-    And Aspetta 3 secondi
-    And Selezione ottieni log completi
+
+
+    @test79b
+    Scenario: PN-9607-b
+    When Nella Home di helpdesk utente clicca su sezione ricerca ed estrazione dati
+    And visualizzazione corretta pagina ricerca ed estrazione dati
     And Selezione ottieni log completi
     And viene inserito numero ticket
     And viene inserito codice fiscale senza ricerca "CSRGGL44L13H501E"

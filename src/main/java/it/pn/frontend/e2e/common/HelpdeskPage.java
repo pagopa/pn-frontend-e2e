@@ -719,7 +719,9 @@ public class HelpdeskPage extends BasePage {
 
 
     public void inserimentoArcoTemporale() throws InterruptedException {
-        calendarIcon.get(3).click();
+        //calendarIcon.get(3).click();
+        By calendario = By.xpath("//*[@data-testid='CalendarIcon']");
+        this.element(calendario).click();
         By previousMonth = By.xpath("//button[@aria-label='Previous month']");
         this.element(previousMonth).click();
         Thread.sleep(1000);
