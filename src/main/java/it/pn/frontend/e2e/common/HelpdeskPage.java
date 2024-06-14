@@ -91,6 +91,9 @@ public class HelpdeskPage extends BasePage {
     @FindBy(xpath = "//div/div[1]/div[4]/div/div/div[2]/div/div/input")
     WebElement dataFineField;
 
+    @FindBy(xpath = "//*[@data-testid='CalendarIcon']")
+    List<WebElement> calendarIcon;
+
 
     private final Logger logger = LoggerFactory.getLogger("Helpdesk Page");
 
@@ -716,8 +719,7 @@ public class HelpdeskPage extends BasePage {
 
 
     public void inserimentoArcoTemporale() throws InterruptedException {
-        By calendarIcon = By.cssSelector("[data-testid='CalendarIcon']");
-        this.element(calendarIcon).click();
+        calendarIcon.get(0).click();
         By previousMonth = By.xpath("//button[@aria-label='Previous month']");
         this.element(previousMonth).click();
         Thread.sleep(1000);
