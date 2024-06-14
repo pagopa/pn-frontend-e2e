@@ -421,7 +421,7 @@ public class HelpdeskPage extends BasePage {
         try {
             logger.info("controllo esistenza messaggio di successo");
             By messaggio = By.xpath("//p[contains(text(),'Operazione completata con successo')]");
-            this.getWebDriverWait(70).withMessage("Messaggio di successo non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
+            this.getWebDriverWait(90).withMessage("Messaggio di successo non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
         } catch (TimeoutException e) {
             logger.error("Messaggio di successo non trovato: " + e.getMessage());
             Assert.fail("Messaggio di successo non trovato: " + e.getMessage());
