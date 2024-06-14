@@ -23,4 +23,15 @@ public class Document {
         this.ref = ref;
         this.title = title;
     }
+
+    public Document(Digests digests, String contentType, Ref ref) {
+        this.digests = digests;
+        this.contentType = contentType;
+        this.ref = ref;
+    }
+
+    public Document(Digests digests, Ref ref) {
+        this.digests = digests;
+        this.ref = ref;
+    }
 }

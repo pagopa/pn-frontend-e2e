@@ -9,13 +9,6 @@ public class PagoPaPayment {
     private boolean applyCost;
     private NotificationPaymentAttachment attachment;
 
-    public PagoPaPayment() {
-        this.noticeCode = "123456789012345678";
-        this.creditorTaxId = "77777777777";
-        this.applyCost = true;
-        this.attachment = new NotificationPaymentAttachment();
-    }
-
     public PagoPaPayment(String noticeCode) {
         this.noticeCode = noticeCode;
         this.creditorTaxId = "77777777777";

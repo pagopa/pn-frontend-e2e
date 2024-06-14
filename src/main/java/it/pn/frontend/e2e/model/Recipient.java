@@ -34,6 +34,15 @@ public class Recipient {
         this.payments = null;
     }
 
+    public Recipient(String denomination, RecipientTypeEnum recipientType, String taxId) {
+        this.denomination = denomination;
+        this.recipientType = recipientType;
+        this.taxId = taxId;
+        this.physicalAddress = new PhysicalAddress();
+        this.digitalDomicile = new DigitalDomicile();
+        this.payments = null;
+    }
+
     public Recipient(String denomination, RecipientTypeEnum recipientType, String taxId, PhysicalAddress physicalAddress, DigitalDomicile digitalDomicile, List<NotificationPaymentItem> payments) {
         this.denomination = denomination;
         this.recipientType = recipientType;

@@ -20,7 +20,7 @@ public class NewNotificationRequest {
     private NotificationFeePolicyEnum notificationFeePolicy;
     private String senderDenomination;
     private String senderTaxId;
-    private String abstractS;
+    private String _abstract;
     private int paFee;
     private int vat;
 
@@ -36,7 +36,7 @@ public class NewNotificationRequest {
         this.group = "6564b9a671919a696157f2c0";
         this.senderDenomination = "Comune di Palermo";
         this.senderTaxId = "00215150236";
-        this.abstractS = "PAGAMENTO RATA IMU";
+        this._abstract = "PAGAMENTO RATA IMU";
         this.paFee = 0;
         this.vat = 0;
     }
