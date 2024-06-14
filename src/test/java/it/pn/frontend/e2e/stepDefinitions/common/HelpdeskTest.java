@@ -156,6 +156,7 @@ public class HelpdeskTest {
         this.datiPersonaFisica = this.dataPopulation.readDataPopulation(nameFile + ".yaml");
         helpdeskPage.insertCfAndRicercaOnPage(datiPersonaFisica.get("codiceFiscale").toString());
     }
+
     @And("viene inserito codice fiscale senza ricerca {string}")
     public void vieneInseritoCodiceFiscaleSenzaRicerca(String CF) {
         helpdeskPage.insertCF(CF);
