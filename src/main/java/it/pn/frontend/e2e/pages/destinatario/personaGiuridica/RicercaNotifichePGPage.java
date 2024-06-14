@@ -28,8 +28,9 @@ public class RicercaNotifichePGPage extends BasePage {
     public void clickNotificheImpresa() {
         try {
             By notificheImpresaButton = By.xpath("//div[@data-testid=\"sideMenuItem-Notifiche dell'impresa\"]");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(notificheImpresaButton));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(notificheImpresaButton));
             logger.info("Si clicca sulla voce notifiche dell'impresa");
+            this.element(notificheImpresaButton).click();
         } catch (Exception e) {
             logger.error("Non si clicca sulla voce notifiche dell'impresa con errore:" + e.getMessage());
             Assert.fail("Non si clicca sulla voce notifiche dell'impresa con errore:" + e.getMessage());
@@ -50,32 +51,6 @@ public class RicercaNotifichePGPage extends BasePage {
         }
     }
 
-    public void waitLoadDettaglioNotificaPGSection() {
-        try {
-            By pageTitleDettaglioNotifica = By.id("Pagamento rata IMU-page");
-            By titleDettaglioNotificaField = By.id("title-of-page");
-            By statoNotificaBy = By.id("notification-state");
-            By indietroButtonBy = By.id("breadcrumb-indietro-button");
-            By informazioniBy = By.id("notification-detail-table");
-            By allegatiSection = By.id("notification-detail-document-attached");
-            By bannerRecapiti = By.id("side-item-Recapiti");
-            By attestazioneOpponibile = By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: ')]");
-
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(pageTitleDettaglioNotifica));
-            this.getWebDriverWait(30).withMessage("Il titolo Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
-            this.getWebDriverWait(30).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButtonBy));
-            this.getWebDriverWait(30).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
-            this.getWebDriverWait(30).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
-            this.getWebDriverWait(30).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
-            this.getWebDriverWait(30).withMessage("Il banner Recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(bannerRecapiti));
-            this.getWebDriverWait(30).withMessage("La sezione attestazione opponibili non è visibile").until(ExpectedConditions.visibilityOfElementLocated(attestazioneOpponibile));
-
-            logger.info("La pagina dettaglio notifica si è caricata correttamente");
-        } catch (TimeoutException e) {
-            logger.error("La pagina dettaglio notifica NON si è caricata correttamente con errore:" + e.getMessage());
-            Assert.fail("La pagina dettaglio notifica NON si è caricata correttamente con errore:" + e.getMessage());
-        }
-    }
     public void waitLoadDettaglioNotificaPGDelegato() {
         try {
             By statoNotificaBy = By.id("notification-state");
@@ -85,12 +60,12 @@ public class RicercaNotifichePGPage extends BasePage {
             By bannerRecapiti = By.id("side-item-Recapiti");
             By attestazioneOpponibile = By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: ')]");
 
-            this.getWebDriverWait(10).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
-            this.getWebDriverWait(10).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButtonBy));
-            this.getWebDriverWait(10).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
-            this.getWebDriverWait(10).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
-            this.getWebDriverWait(10).withMessage("Il banner Recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(bannerRecapiti));
-            this.getWebDriverWait(10).withMessage("La sezione attestazione opponibili non è visibile").until(ExpectedConditions.visibilityOfElementLocated(attestazioneOpponibile));
+            getWebDriverWait(10).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
+            getWebDriverWait(10).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButtonBy));
+            getWebDriverWait(10).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
+            getWebDriverWait(10).withMessage("Lo stato della notifica non non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
+            getWebDriverWait(10).withMessage("Il banner Recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(bannerRecapiti));
+            getWebDriverWait(10).withMessage("La sezione attestazione opponibili non è visibile").until(ExpectedConditions.visibilityOfElementLocated(attestazioneOpponibile));
             logger.info("La pagina dettaglio notifica si è caricata correttamente");
         } catch (TimeoutException e) {
             logger.error("La pagina dettaglio notifica NON si è caricata correttamente con errore:" + e.getMessage());

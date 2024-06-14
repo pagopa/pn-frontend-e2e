@@ -1,14 +1,14 @@
 package it.pn.frontend.e2e.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import it.pn.frontend.e2e.model.enums.NotificationFeePolicyEnum;
 import it.pn.frontend.e2e.model.enums.PhysicalCommunicationTypeEnum;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.ArrayList;
 
-@Setter
-@Getter
+@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class NewNotificationRequest {
     private String paProtocolNumber;
     private String subject;
@@ -21,6 +21,8 @@ public class NewNotificationRequest {
     private String senderDenomination;
     private String senderTaxId;
     private String abstractS;
+    private int paFee;
+    private int vat;
 
     public NewNotificationRequest(String paProtocolNumber, String subject, ArrayList<Recipient> recipients, ArrayList<Document> documents,
                                   PhysicalCommunicationTypeEnum physicalCommunicationType, String taxonomyCode, NotificationFeePolicyEnum notificationFeePolicy) {
@@ -31,10 +33,11 @@ public class NewNotificationRequest {
         this.physicalCommunicationType = physicalCommunicationType;
         this.taxonomyCode = taxonomyCode;
         this.notificationFeePolicy = notificationFeePolicy;
-        this.group = "6467344676f10c7617353c90";
+        this.group = "6564b9a671919a696157f2c0";
         this.senderDenomination = "Comune di Palermo";
-        this.senderTaxId = "80016350821";
+        this.senderTaxId = "00215150236";
         this.abstractS = "PAGAMENTO RATA IMU";
+        this.paFee = 0;
+        this.vat = 0;
     }
-
 }

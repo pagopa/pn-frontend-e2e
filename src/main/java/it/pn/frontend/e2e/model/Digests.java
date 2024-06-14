@@ -1,7 +1,8 @@
 package it.pn.frontend.e2e.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
+@Data
 public class Digests {
     private String sha256;
 
@@ -11,13 +12,5 @@ public class Digests {
 
     public Digests(String sha256) {
         this.sha256 = sha256;
-    }
-
-    public String getSha256() {
-        return sha256;
-    }
-
-    public void setSha256(String value) {
-        this.sha256 = value;
     }
 }

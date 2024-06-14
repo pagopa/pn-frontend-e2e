@@ -1,7 +1,8 @@
 package it.pn.frontend.e2e.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
+@Data
 public class Ref {
     private String key;
     private String versionToken;
@@ -14,21 +15,5 @@ public class Ref {
     public Ref(String key, String versionToken) {
         this.key = key;
         this.versionToken = versionToken;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String value) {
-        this.key = value;
-    }
-
-    public String getVersionToken() {
-        return versionToken;
-    }
-
-    public void setVersionToken(String value) {
-        this.versionToken = value;
     }
 }

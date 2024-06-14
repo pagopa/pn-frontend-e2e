@@ -6,6 +6,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.HelpdeskPage;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.model.enums.Disservice;
+import it.pn.frontend.e2e.model.enums.Status;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
@@ -71,14 +73,23 @@ public class HelpdeskTest {
 
     @And("Si visualizza correttamente home monitoraggio")
     public void siVisualizzaCorrettamenteHomeMonitoraggio() {
-        helpdeskPage.checkMonitoraggio();
+        helpdeskPage.waitLoadServiceTable();
     }
 
     @And("Si crea il disservizio")
     public void siCreaIlDisservizio() {
         WebTool.waitTime(5);
         if (!helpdeskPage.checkIsCreatedDisservizio()) {
-            helpdeskPage.handleDisservizio("KO");
+            helpdeskPage.handleDisservizio(Disservice.CREAZIONE_NOTIFICHE, Status.KO);
+            WebTool.waitTime(5);
+        }
+    }
+
+    @And("Si risolve il disservizio")
+    public void siRisolveIlDisservizio() {
+        WebTool.waitTime(5);
+        if (helpdeskPage.checkIsCreatedDisservizio()) {
+            helpdeskPage.handleDisservizio(Disservice.CREAZIONE_NOTIFICHE,Status.OK);
             WebTool.waitTime(5);
         }
     }
@@ -88,7 +99,7 @@ public class HelpdeskTest {
         helpdeskPage.checkIsCreatedDisservizio();
     }
 
-    @And("Annullamento disservizio")
+    @And("Si annulla un disservizio in corso")
     public void annullamentoDisservizio() {
         BackgroundTest backgroundTest = new BackgroundTest();
         logger.info("Torno sulla scheda di helpdesk");
@@ -107,7 +118,11 @@ public class HelpdeskTest {
             logger.error("pausa con errore: " + e.getMessage());
             throw new RuntimeException(e);
         }
-        helpdeskPage.handleDisservizio("OK");
+        if (helpdeskPage.checkServiceStatus(Disservice.CREAZIONE_NOTIFICHE)) {
+            helpdeskPage.handleDisservizio(Disservice.CREAZIONE_NOTIFICHE, Status.OK);
+        } else {
+            logger.info("Lo stato del servizio: " + Disservice.CREAZIONE_NOTIFICHE + " è già in OK");
+        }
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
@@ -165,7 +180,7 @@ public class HelpdeskTest {
     }
 
     @Given("Login helpdesk in nuova scheda")
-    public void loginHelpdeskInNuovaScheda(Map<String, String> login){
+    public void loginHelpdeskInNuovaScheda(Map<String, String> login) {
         logger.info("Si apre una nuova finestra");
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
         javascriptExecutor.executeScript("window.open();");
@@ -177,4 +192,15 @@ public class HelpdeskTest {
         helpdeskPage.loginHelpdeskNuovaScheda(login);
     }
 
+    @Given("Creazione disservizio su portale helpdesk")
+    public void creazioneDisservizioSuPortaleHelpdesk() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+        backgroundTest.creazioneDisservizio();
+    }
+
+    @And("Risoluzione disservizio su portale helpdesk")
+    public void risoluzioneDisservizioSuPortaleHelpdesk() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+        backgroundTest.risoluzioneDisservizio();
+    }
 }

@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.json.JSONObject;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -9,9 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 
@@ -69,7 +65,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(id = "delegatesBodyRowDesktop")
     List<WebElement> nomeDelegato;
 
-    @FindBy(xpath = "//div[@data-testid='emptyState']")
+    @FindBy(xpath = "//div[@data-testid='delegationsOfTheCompany']")
     WebElement tabellaVuotaDelegheACaricoDellImpresa;
 
     @FindBy(id = "notifications-table")
@@ -307,18 +303,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         this.searchGroupTextField.click();
         this.getWebDriverWait(30).withMessage("l'opzione gruppo non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.groupOption));
         this.groupOption.click();
-    }
-
-    public String getCodiceVerificaDelegaACaricoDellImpresaAPI() {
-        try {
-            String pathIniziale = System.getProperty("user.dir");
-            String text = Files.readString(Paths.get(pathIniziale + "/src/test/resources/dataPopulation/bodyChiamataDeleghe.json"));
-            JSONObject object = new JSONObject(text);
-            return object.getString("verificationCode");
-        } catch (IOException e) {
-            logger.error("non é stato possibile reperire il codice di verifica dal json");
-            throw new RuntimeException(e);
-        }
     }
 
     public void inserimentoCodiceDelegaACaricoDellImpresaAPI(String codiceDelega) {

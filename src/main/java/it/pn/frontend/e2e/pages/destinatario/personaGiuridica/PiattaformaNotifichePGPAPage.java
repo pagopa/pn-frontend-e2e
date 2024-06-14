@@ -47,6 +47,8 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     @FindBy(id = "side-item-Notifiche")
     WebElement sideItemNotificheButton;
+    @FindBy(xpath = "//div[@data-testId ='alert']")
+    WebElement notificaAnnullata;
 
     public PiattaformaNotifichePGPAPage(WebDriver driver) {
         super(driver);
@@ -112,7 +114,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
 
     public void clickRecapitiButton() {
-        getWebDriverWait(30).withMessage("Il bottone recapiti non è visibile").until(ExpectedConditions.visibilityOf(recapitiButton));
+        getWebDriverWait(10).withMessage("Il bottone recapiti non è visibile").until(ExpectedConditions.visibilityOf(recapitiButton));
         this.js().executeScript("arguments[0].click()", this.recapitiButton);
     }
 
@@ -125,9 +127,17 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public boolean sezionePagamentoDisplayed() {
         try {
-            return getWebDriverWait(30).withMessage("Il sezione pagamento non è visibile").until(ExpectedConditions.visibilityOf(sezionePagamento)).isDisplayed();
+            return getWebDriverWait(5).withMessage("Il sezione pagamento non è visibile").until(ExpectedConditions.visibilityOf(sezionePagamento)).isDisplayed();
         } catch (NoSuchElementException | TimeoutException e) {
             logger.warn("Il sezione pagamento non è visibile");
+            return false;
+        }
+    }
+    public boolean messaggioNotificaAnnullataDisplayed() {
+        try {
+            return getWebDriverWait(5).withMessage("Il messaggio notifica annullata non è visibile").until(ExpectedConditions.visibilityOf(notificaAnnullata)).isDisplayed();
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.warn("Il messaggio notifica annullata non è visibile");
             return false;
         }
     }
@@ -145,7 +155,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         return "[value='" + codiceAvvisoSpan.getText() + "']";
     }
 
-    public void clickRadioBoxButton(String css) {
+    public void clickRadioBoxButton() {
         getWebDriverWait(10).withMessage("Il radio box button non è cliccabile").until(ExpectedConditions.elementToBeClickable(radioButton.get(0)));
         radioButton.get(0).click();
     }
@@ -159,6 +169,33 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
 
     public boolean modelloF24Displayed() {
-        return getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
+        try {
+            getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
+            return true;
+        }catch (RuntimeException e){
+            return false;
+        }
+    }
+
+    public void clickModelloF24() {
+         getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(modelloF24));
+         modelloF24.click();
+    }
+
+    public void clickSecondoModelloF24() {
+        List<WebElement> f24 = driver.findElements(By.xpath("//button[@data-testid='download-f24-button']"));
+        logger.info("F24 trovato:" + f24.size());
+        getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(f24.get(1)));
+        f24.get(1).click();
+    }
+
+    public void checkBoxModelloF24PG() {
+        try {
+            By boxModelloF24 = By.xpath("//div[@data-testid='f24only-box']");
+            getWebDriverWait(10).withMessage("Non si visualizza il box allegati modelli F24").until(ExpectedConditions.visibilityOfElementLocated(boxModelloF24));
+        } catch (TimeoutException e) {
+            logger.error("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
+            Assert.fail("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
+        }
     }
 }

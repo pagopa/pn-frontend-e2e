@@ -8,8 +8,13 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 @RunWith(Cucumber.class)
@@ -25,6 +30,7 @@ import java.util.Properties;
         },
         monochrome = true
 )
+
 public class RunCucumberTest {
     private static final String TEST_CONFIG_FILE = "test-config.properties";
     private static final Properties properties = new Properties();

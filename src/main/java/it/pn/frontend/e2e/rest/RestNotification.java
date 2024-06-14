@@ -40,6 +40,7 @@ public class RestNotification {
 
     public String getNotificationStatus(String notificationRequestId) {
         final CustomHttpClient<Object, Object> httpClient2 = CustomHttpClient.getInstance();  // Modifica qui
+        httpClient2.setBaseUrlApi("https://api.test.notifichedigitali.it");
         try {
             Object response = httpClient2.sendHttpGetRequest("/delivery/v2.3/requests?notificationRequestId=" + notificationRequestId, null, Object.class);
             if (response instanceof LinkedTreeMap) {

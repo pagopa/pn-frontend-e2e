@@ -49,6 +49,13 @@ public class LoginPersonaFisicaPagoPA {
         }
     }
 
+    @Given("Login Page persona fisica test viene visualizzata")
+    public void loginPageDestinatarioVieneVisualizzataConUrl() {
+
+        String url = "https://cittadini.test.notifichedigitali.it/";
+        this.driver.get(url);
+    }
+
     @Given("PF - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
     public void loginMittenteConTokenExchange(String personaFisica) {
         DataPopulation dataPopulation = new DataPopulation();
@@ -63,6 +70,39 @@ public class LoginPersonaFisicaPagoPA {
                     dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPFDelegante").toString()
                     :
                     dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPFDelegato").toString();
+            default -> {
+                logger.error("Ambiente non valido");
+                Assert.fail("Ambiente non valido o non trovato!");
+            }
+        }
+
+        // Si effettua il login con token exchange
+        String urlLogin = "https://cittadini." + environment + ".notifichedigitali.it/#token=" + token;
+        this.driver.get(urlLogin);
+        logger.info("Login effettuato con successo");
+        WebTool.waitTime(10);
+
+        // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
+        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
+        headerPFSection.waitLoadHeaderDESection();
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.waitLoadNotificheDEPage();
+    }
+
+    @Given("PF - Si effettua la login tramite token exchange con utente {string} e viene visualizzata la dashboard")
+    public void loginMittenteConTokenExchangeEUtente(String utente) {
+        DataPopulation dataPopulation = new DataPopulation();
+        String environment = System.getProperty("environment");
+        String token = "";
+        switch (environment) {
+            case "dev" -> {
+                //ToDo add token for dev
+            }
+            case "test" -> {
+                if (utente.equalsIgnoreCase("Cristoforo Colombo")) {
+                    token = dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPFColombo").toString();
+                }
+            }
             default -> {
                 logger.error("Ambiente non valido");
                 Assert.fail("Ambiente non valido o non trovato!");
@@ -153,6 +193,73 @@ public class LoginPersonaFisicaPagoPA {
         headerPFSection.waitUrlToken();
     }
 
+    @When("Login con persona fisica")
+    public void loginConDestinatario(Map<String, String> datiPF) {
+        logger.info("user persona fisica : " + datiPF.get("user"));
+        logger.info("cookies start");
+        CookiesSection cookiesPage;
+
+        if (!CookieConfig.isCookieEnabled()) {
+            cookiesPage = new CookiesSection(this.driver);
+            if (cookiesPage.waitLoadCookiesPage()) {
+                cookiesPage.selezionaAccettaTuttiButton();
+            }
+        }
+        logger.info("cookies end");
+        AccediAPiattaformaNotifichePage accediApiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        accediApiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
+        accediApiattaformaNotifichePage.selezionaAccediButton();
+        if (!CookieConfig.isCookieEnabled()) {
+            cookiesPage = new CookiesSection(this.driver);
+            if (cookiesPage.waitLoadCookiesPage()) {
+                cookiesPage.selezionaAccettaTuttiButton();
+            }
+        }
+
+        ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.driver);
+        comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
+        comeVuoiAccederePage.selezionaSpidButton();
+
+        ScegliSpidPFPage scegliSpidPFPage = new ScegliSpidPFPage(this.driver);
+        scegliSpidPFPage.waitLoadScegliSpidDEPage();
+        scegliSpidPFPage.selezionareTestButton();
+
+        LoginSpidPFPage loginSpidPFPage = new LoginSpidPFPage(this.driver);
+        loginSpidPFPage.waitLoadLoginSpidDEPage();
+        loginSpidPFPage.inserisciUtente(datiPF.get("user"));
+        loginSpidPFPage.inserisciPassword(datiPF.get("pwd"));
+        loginSpidPFPage.selezionaEntraConSpidButton();
+
+        ConfermaDatiSpidPFPage confermaDatiSpidPFPage = new ConfermaDatiSpidPFPage(this.driver);
+        confermaDatiSpidPFPage.waitLoadConfermaDatiSpidDEPage();
+        String nomeUtenteLetto = confermaDatiSpidPFPage.leggiNomeUtente();
+        if (nomeUtenteLetto.equals(datiPF.get("name"))) {
+            logger.info("nome utente letto : " + nomeUtenteLetto + " uguale a : " + datiPF.get("name"));
+        } else {
+            logger.error("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + datiPF.get("name"));
+            Assert.fail("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + datiPF.get("name"));
+        }
+
+        String cognomeUtenteLetto = confermaDatiSpidPFPage.leggiCognomeUtente();
+        if (cognomeUtenteLetto.equals(datiPF.get("familyName"))) {
+            logger.info("cognome utente letto : " + cognomeUtenteLetto + " uguale a : " + datiPF.get("familyName"));
+        } else {
+            logger.error("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + datiPF.get("familyName"));
+            Assert.fail("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + datiPF.get("familyName"));
+        }
+
+        String numeroFiscaleLetto = confermaDatiSpidPFPage.leggiNumeroFiscale();
+        if (numeroFiscaleLetto.equals(datiPF.get("fiscalNumber"))) {
+            logger.info("numero fiscale letto : " + numeroFiscaleLetto + " uguale a : " + datiPF.get("fiscalNumber"));
+        } else {
+            logger.error("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
+            Assert.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
+        }
+        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
+        confermaDatiSpidPFPage.selezionaConfermaButton();
+        headerPFSection.waitUrlToken();
+    }
+
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
         CookiesSection cookiesSection;
@@ -208,7 +315,7 @@ public class LoginPersonaFisicaPagoPA {
         }
 
         String variabileAmbiente = System.getProperty("environment");
-        String urlChiamata = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/notifications/received?";
+        String urlChiamata = WebTool.getApiBaseUrl() + "notifications/received?";
 
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {

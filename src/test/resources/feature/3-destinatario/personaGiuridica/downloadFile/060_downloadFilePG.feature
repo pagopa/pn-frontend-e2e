@@ -11,7 +11,7 @@ Feature: persona giuridica scarica attestazioni all'interno di una notifica
     And Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN da dati notifica "datiNotificaPG"
     And Cliccare sul bottone Filtra persona fisica
     When La persona giuridica clicca sulla notifica restituita "datiNotificaPG"
-    And Si visualizza correttamente la section Dettaglio Notifica persona giuridica
+    And Si visualizza correttamente la section Dettaglio Notifica persona giuridica delegato
     And Si controlla se la notifica prevede il pagamento
     Then Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona giuridica, e si controlla che il download sia avvenuto "datiNotificaPG"
     And Si clicca sul opzione Vedi Dettaglio

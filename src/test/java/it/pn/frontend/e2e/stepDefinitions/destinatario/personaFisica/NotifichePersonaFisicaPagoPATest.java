@@ -14,7 +14,9 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -34,6 +36,7 @@ public class NotifichePersonaFisicaPagoPATest {
     private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
     private final DataPopulation dataPopulation = new DataPopulation();
     private final DestinatarioPage destinatarioPage = new DestinatarioPage(driver);
+    private final AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
 
     private final DettaglioNotificaSection dettaglioNotifica = new DettaglioNotificaSection(driver);
     private final AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
@@ -91,6 +94,12 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @And("Si visualizza l elenco delle notifiche relative al delegante")
     public void siVisualizzaLElencoDelleNotificheRelativeAlDelegante() {
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.siVisualizzaElencoNotifiche();
+    }
+
+    @And("Si visualizza l elenco delle notifiche dell impresa")
+    public void siVisualizzaLElencoDelleNotificheDellImpresa() {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.siVisualizzaElencoNotifiche();
     }
@@ -207,6 +216,8 @@ public class NotifichePersonaFisicaPagoPATest {
     @And("Si controlla sezione Pagamento se notifica prevede il pagamento")
     public void siControllaSezionePagamentoSeNotificaPrevedeIlPagamento() {
 
+        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+
         boolean sezionePagamentoIsDisplayed = accediAPiattaformaNotifichePage.sezionePagamentoDisplayed();
 
         if (!sezionePagamentoIsDisplayed) {
@@ -277,11 +288,7 @@ public class NotifichePersonaFisicaPagoPATest {
         }
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
             dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            WebTool.waitTime(5);
             String urlFileAttestazioneOppponibile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/" + datiNotifica.get("codiceIUN").toString() + "/legal-facts/");
 
             if (headless && urlFileAttestazioneOppponibile.isEmpty()) {
@@ -331,6 +338,12 @@ public class NotifichePersonaFisicaPagoPATest {
         }
     }
 
+    @And("Nella pagina Piattaforma Notifiche del destinatario si filtra per codice IUN {string}")
+    public void nellaPaginaPiattaformaNotificheSiRecuperaUnCodiceIUNValido(String codiceIun) {
+        logger.info("Si recupera un codice IUN valido");
+        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
+    }
+
     @And("Si Controlla la paginazione di default")
     public void siControllaLaPaginazioneDiDefault() {
         logger.info("controllo paginazione di default in pagina notifiche");
@@ -352,40 +365,55 @@ public class NotifichePersonaFisicaPagoPATest {
         dettaglioNotifica.waitLoadDettaglioNotificaDESection();
     }
 
-
-    @And("Si controlla se la sezione pagamento visualizzata correttamente")
-    public void siControllaSeLaSezionePagamentoVisualizzataCorrettamente() { accediAPiattaformaNotifichePage.siVisualizzaSezionePagamento(); }
-
-    @And("Si controlla che costi di notifica inclusi non presente")
-    public void siControllaCostiDiNotifica() {
-
-        if (!accediAPiattaformaNotifichePage.siControllaCostiDiNotifica()) {
-            logger.info("Costi di notifica non inclusi");
-        }else {
-            logger.error("Costi di notifica inclusi");
-            Assert.fail("Costi di notifica inclusi");
+    @And("Si controlla che il testo sia nel box pagamento {string}")
+    public void siControllaTestoSiaNelBoxPagamento(String xpath) {
+        boolean isPresent = dettaglioNotifica.isFieldDisplayed(By.xpath(xpath));
+        if (!isPresent) {
+            Assert.fail("L'elemento non esiste");
         }
     }
 
-    @And("Cliccare sul bottone Paga")
-    public void cliccaBottonePaga(){
-        accediAPiattaformaNotifichePage.cliccaPaga();
+    @And("Si controlla che il testo non sia nel box pagamento {string}")
+    public void siControllaTestoNonSiaNelBoxPagamento(String xpathString) {
+        By xpath = By.xpath(xpathString);
+
+        boolean isNotPresent = dettaglioNotifica.isFieldNotDisplayed(xpath);
+        if (!isNotPresent) {
+            Assert.fail("L'elemento esiste");
+        }
     }
 
-    @Then("Si inserisce i dati di pagamento e procede con il pagamento {string}")
-    public void siInserisceIDatiDiPagamento(String email) throws InterruptedException {
-        logger.info("Si inserisce i dati di pagamento");
-        CookiesSection cookiesSection = new CookiesSection(this.driver);
-        cookiesSection.chiudiPagamentoPopup();
-        accediAPiattaformaNotifichePage.inserireDatiPagamento(email);
-        accediAPiattaformaNotifichePage.checkoutPagamento();
+    @And("Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca")
+    public void nellaPaginaPiattaformaNotificheVisualizzanoCorrettamenteIFiltriDiRicerca() {
+        piattaformaNotifichePage.siVisualizzaCorrettamenteIlCodiceIUNField();
+        piattaformaNotifichePage.siVisualizzaCorrettamenteLaDataInzioField();
+        piattaformaNotifichePage.siVisualizzaCorrettamenteLaDataFineField();
     }
 
-    @And("Si verifica che visualizzato lo stato Pagato")
-    public void siVisualizzaStatoPagato(){
-        accediAPiattaformaNotifichePage.siVisualizzaStatoPagato();
+    @Then("Si visualizza correttamente la section Dettaglio Notifica annullata persona fisica")
+    public void siVisualizzaCorrettamenteLaSectionDettaglioNotificaAnnullataPersonaFisica() {
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        dettaglioNotificaSection.waitLoadDettaglioNotificaAnnullataDESection();
     }
 
+    @And("Si controlla lo stato timeline in dettaglio notifica")
+    public void siControllaLoStatoTimelineInDettaglioNotificaPF(Map<String, String> datiDettaglioNotifica) {
+        String xpath = datiDettaglioNotifica.get("xpath");
+        dettaglioNotifica.waitLoadDettaglioNotificaDESection();
+        WebTool.waitTime(2);
+        dettaglioNotifica.checkStatoTimeline(By.xpath(xpath));
+    }
+
+    @And("Si seleziona un avviso pagopa")
+    public void siSelezionaUnAvvisoPagopa() {
+        dettaglioNotifica.selezioneAvvisoPagoPa();
+    }
+
+    @And("Si controlla non sia presente il bottone paga")
+    public void siControllaNonSiaPresenteIlBottonePaga() {
+        logger.info("Si controlla che il bottone per il pagamento non sia visibile all'interno del dettaglio della notifica");
+        accediAPiattaformaNotifichePage.checkButtonPagaIsDisplayed();
+    }
 }
 
 

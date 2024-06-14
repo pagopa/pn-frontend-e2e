@@ -13,7 +13,6 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("AccediAPiattaformaNotifichePage");
 
-
     @FindBy(id = "login-button")
     WebElement accediButton;
 
@@ -92,13 +91,13 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void selezionaAccediButton() {
-        this.js().executeScript("arguments[0].click()", this.accediButton);
+        js().executeScript("arguments[0].click()", this.accediButton);
     }
 
 
     public void clickRecapitiButton() {
         getWebDriverWait(30).withMessage("Il bottone recapiti non è visibile").until(ExpectedConditions.visibilityOf(recapitiButton));
-        this.js().executeScript("arguments[0].click()", this.recapitiButton);
+        js().executeScript("arguments[0].click()", this.recapitiButton);
     }
 
     public void clickNotificheButton() {
@@ -152,7 +151,6 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void clickRadioBoxButton(String css) {
-
         getWebDriverWait(30).withMessage("Il radio box button non è cliccabile").until(ExpectedConditions.elementToBeClickable(radioButton));
         radioButton.click();
     }
@@ -162,25 +160,43 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         buttonEnterIntoDisservizi.click();
     }
 
-
     public boolean titoloDiPagamentoDisplayed() {
         return getWebDriverWait(30).withMessage("Il sezione titolo pagamento non è visibile").until(ExpectedConditions.visibilityOf(titoloPagamento)).isDisplayed();
     }
 
     public boolean codiceAvvisoDisplayed() {
-        return getWebDriverWait(30).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvviso)).isDisplayed();
+        try {
+            getWebDriverWait(5).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvviso)).isDisplayed();
+            return true;
+        } catch (RuntimeException e) {
+            return false;
+        }
     }
 
     public boolean modelloF24Displayed() {
-        return getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
+        return getWebDriverWait(5).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
     }
 
     public boolean scaricaAvvisoDisplayed() {
-        return getWebDriverWait(30).withMessage("Il sezione scarica avviso non è visibile").until(ExpectedConditions.visibilityOf(scaricaAvviso)).isDisplayed();
+        try {
+            getWebDriverWait(5).withMessage("Il sezione scarica avviso non è visibile").until(ExpectedConditions.visibilityOf(scaricaAvviso)).isDisplayed();
+            return true;
+        } catch (RuntimeException e) {
+            return false;
+        }
+    }
+
+    public void clickAvvisoPagoPAPG() {
+        getWebDriverWait(30).withMessage("Il sezione scarica avviso non è cliccabile").until(ExpectedConditions.elementToBeClickable(scaricaAvviso));
+        scaricaAvviso.click();
     }
 
     public boolean pagaAvvisoDisplayed() {
         return getWebDriverWait(30).withMessage("Il sezione paga avviso non è visibile").until(ExpectedConditions.visibilityOf(pagaAvviso)).isDisplayed();
+    }
+
+    public void checkButtonPagaIsDisplayed() {
+        getWebDriverWait(10).withMessage("Il bottone per il pagamento della notifica è visibile").until(ExpectedConditions.invisibilityOf(pagaAvviso));
     }
 
     public void siVisualizzaSezionePagamento(){

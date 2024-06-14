@@ -84,7 +84,7 @@ public class BasePage {
         this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
     }
 
-    public void aggionamentoPagina() {
+    public void aggiornamentoPagina() {
         this.driver.navigate().refresh();
     }
 
@@ -109,4 +109,5 @@ public class BasePage {
             element.sendKeys(Keys.BACK_SPACE);
         }
     }
+
 }
