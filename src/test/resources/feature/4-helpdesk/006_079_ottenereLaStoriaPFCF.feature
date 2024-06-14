@@ -28,11 +28,12 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
     And viene inserito numero ticket
     And viene inserito codice fiscale senza ricerca "CSRGGL44L13H501E"
     And Aspetta 3 secondi
+    And Selezione ottieni log completi
+    And viene inserito numero ticket
+    And viene inserito codice fiscale senza ricerca "CSRGGL44L13H501E"
     And viene inserito un range temporale maggiore di 3 mesi
     And viene visualizzato messaggio di errore data
     And Si clicca sul bottone resetta filtri
-    And Aspetta 3 secondi
-    And Selezione ottieni log completi
     And viene inserito numero ticket
     And viene inserito codice fiscale senza ricerca "1111111111111111"
     And Cliccare sul bottone ricerca

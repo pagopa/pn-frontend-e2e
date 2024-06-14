@@ -716,8 +716,6 @@ public class HelpdeskPage extends BasePage {
 
 
     public void inserimentoArcoTemporale() throws InterruptedException {
-        String pageSrc= driver.getPageSource();
-        logger.info("Page src" + pageSrc);
         By calendarIcon = By.cssSelector("[data-testid='CalendarIcon']");
         this.element(calendarIcon).click();
         By previousMonth = By.xpath("//button[@aria-label='Previous month']");
