@@ -85,13 +85,7 @@ public class HelpdeskPage extends BasePage {
     @FindBy(xpath = ".//button[@role='menuitem']")
     List<WebElement> serviceStatusButtons;
 
-    @FindBy(xpath = "//div[1]/div[4]/div/div/div[1]/div/div/input")
-    WebElement dataInizioField;
-
-    @FindBy(xpath = "//div/div[1]/div[4]/div/div/div[2]/div/div/input")
-    WebElement dataFineField;
-
-    @FindBy(xpath = "//button")
+    @FindBy(xpath = "//button[contains(@aria-label,\"Choose date\")]")
     List<WebElement> calendarIcon;
 
 
@@ -719,9 +713,7 @@ public class HelpdeskPage extends BasePage {
 
 
     public void inserimentoArcoTemporale() throws InterruptedException {
-        //calendarIcon.get(3).click();
-        By calendario = By.xpath("//*[@data-testid='CalendarIcon']");
-        this.element(calendario).click();
+        calendarIcon.get(0).click();
         By previousMonth = By.xpath("//button[@aria-label='Previous month']");
         this.element(previousMonth).click();
         Thread.sleep(1000);
