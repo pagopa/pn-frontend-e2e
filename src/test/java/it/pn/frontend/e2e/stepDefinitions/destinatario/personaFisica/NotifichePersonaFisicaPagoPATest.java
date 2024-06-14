@@ -37,6 +37,7 @@ public class NotifichePersonaFisicaPagoPATest {
     private final DataPopulation dataPopulation = new DataPopulation();
     private final DestinatarioPage destinatarioPage = new DestinatarioPage(driver);
     private final AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
+    private final NotifichePFPage notifichePFPage = new NotifichePFPage(driver);
 
     private final DettaglioNotificaSection dettaglioNotifica = new DettaglioNotificaSection(driver);
 
@@ -405,6 +406,36 @@ public class NotifichePersonaFisicaPagoPATest {
     @And("Si seleziona un avviso pagopa")
     public void siSelezionaUnAvvisoPagopa() {
         dettaglioNotifica.selezioneAvvisoPagoPa();
+    }
+
+    @Then("Si clicca sul bottone scarica F24")
+    public void siCliccaSulBottoneScaricaF24() {
+        logger.info("Si clicca sul bottone per scaricare il modello F24, viene aperto il file");
+        notifichePFPage.clickScaricaF24Button();
+    }
+
+    @Then("Si clicca sul bottone scarica avviso PagoPA")
+    public void siCliccaSulBottoneScaricaAvvisoPagoPA() {
+        logger.info("Si clicca sul bottone per scaricare l'avviso PagoPA, viene aperto il file");
+        notifichePFPage.clickScaricaAvvisoPagoPAButton();
+    }
+
+    @And("Si controlla di aver aperto il file F24")
+    public void siControllaDiAverApertoIlFileF24() {
+        logger.info("Si controlla di aver aperto correttamente il file F24");
+        notifichePFPage.checkFileF24IsOpen();
+    }
+
+    @And("Si controlla di aver aperto l'avviso PagoPa")
+    public void siControllaDiAverApertoLAvvisoPagoPa() {
+        logger.info("Si controlla di aver aperto correttamente l'avviso PagoPa");
+        notifichePFPage.checkAvvisoPagoPaIsOpen();
+    }
+
+    @And("Si torna alla pagina precedente")
+    public void siTornaAllaPaginaPrecedente() {
+        logger.info("Si torna alla pagina precedente");
+        driver.navigate().back();
     }
 
     @And("Si controlla non sia presente il bottone paga")
