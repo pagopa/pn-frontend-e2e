@@ -126,6 +126,15 @@ public class NewNotifichePagoPATest {
         Assert.fail("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
     }
 
+    @Then("Attendo {int} minuti e verifico in background che la notifica sia stata creata correttamente")
+    public void verificoCheLaNotificaSiaStataCreataCorrettamente(int minutes) {
+        WebTool.waitTime(minutes * 60);
+        driver.navigate().refresh();
+        /* TODO
+        Need to implement the check of the notification
+         */
+    }
+
     /* TODO
     @When("Creo in background una notifica con multi destinatario {int} e multi documento tramite API REST")
     public void creoUnaNotificaConUnDestinatarioEUnDocumento(Integer numMultiRecipients) throws RestNotificationException {
