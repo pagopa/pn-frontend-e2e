@@ -208,8 +208,16 @@ public class NotificaMittentePagoPATest {
     @And("Aspetta {int} secondi")
     public void aspettaSecondi(int quantiSecondi) {
         logger.info("Aspetta " + quantiSecondi + " secondi");
-         WebTool.waitTime(quantiSecondi);
+
+        try {
+            TimeUnit.SECONDS.sleep(quantiSecondi);
+            driver.navigate().refresh();
+        } catch (Exception exc) {
+            logger.error(exc.toString());
+            throw new RuntimeException(exc);
+        }
     }
+
 
     @And("Si visualizza correttamente la timeline relativi a tutti i destinatari")
     public void siVisualizzaCorrettamenteLaTimelineRelativiATuttiIDestinatari(Map<String, String> destinatari) {
