@@ -86,9 +86,6 @@ public class HelpdeskPage extends BasePage {
     @FindBy(xpath = ".//button[@role='menuitem']")
     List<WebElement> serviceStatusButtons;
 
-    @FindBy(xpath = "//button[contains(@aria-label,'Choose date')]")
-    List<WebElement> calendarIcon;
-
 
     private final Logger logger = LoggerFactory.getLogger("Helpdesk Page");
 
@@ -715,9 +712,9 @@ public class HelpdeskPage extends BasePage {
 
     public void inserimentoArcoTemporale() throws InterruptedException {
         WebTool.waitTime(3);
-            By calendarButton = By.xpath("//*[@data-testid='CalendarIcon']");
-            getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(calendarButton));
-            element(calendarButton).click();
+            List<By> calendarButton = (List<By>) By.xpath("//button[*[local-name()='svg' and @data-testid='CalendarIcon']]");
+            getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(calendarButton.get(0)));
+            element(calendarButton.get(0)).click();
             logger.info("Calendario cliccato");
 
         By previousMonth = By.xpath("//button[@aria-label='Previous month']");
