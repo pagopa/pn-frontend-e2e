@@ -45,7 +45,6 @@ public class RestNotification {
         try {
             List<PreLoadResponse> response = httpClient2.sendHttpPreloadPostRequest("/delivery/attachments/preload", null, preLoadList, PreLoadResponse.class);
             if (response != null) {
-                logger.info(String.valueOf(response));
                 return response;
             }
         } catch (IOException e) {

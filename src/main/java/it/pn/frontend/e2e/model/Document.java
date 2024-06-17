@@ -1,7 +1,9 @@
 package it.pn.frontend.e2e.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class Document {
     private Digests digests;
