@@ -85,6 +85,9 @@ public class HelpdeskPage extends BasePage {
     @FindBy(xpath = ".//button[@role='menuitem']")
     List<WebElement> serviceStatusButtons;
 
+    @FindBy(xpath = "//button[contains(@aria-label,'Choose date')]")
+    List<WebElement> calendarIcon;
+
 
     private final Logger logger = LoggerFactory.getLogger("Helpdesk Page");
 
