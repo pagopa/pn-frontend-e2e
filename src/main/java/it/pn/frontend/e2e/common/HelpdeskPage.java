@@ -710,18 +710,10 @@ public class HelpdeskPage extends BasePage {
 
 
     public void inserimentoArcoTemporale() throws InterruptedException {
-        try {
-            By calendarButton = By.xpath("//*[@data-testid='CalendarIcon']");
-            getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(calendarButton));
-            logger.info("Calendario cliccato");
-        }catch (TimeoutException e){
-            selectOttieniLogCompleti();
-            insertNumeroTicket();
-            insertCF("CSRGGL44L13H501E");
-            By calendarButton = By.xpath("//*[@data-testid='CalendarIcon']");
-            getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(calendarButton));
-            element(calendarButton).click();
-        }
+        By calendarButton = By.xpath("//*[@data-testid='CalendarIcon']");
+        getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(calendarButton));
+        element(calendarButton).click();
+        logger.info("Calendario cliccato");
         By previousMonth = By.xpath("//button[@aria-label='Previous month']");
         this.element(previousMonth).click();
         Thread.sleep(1000);
