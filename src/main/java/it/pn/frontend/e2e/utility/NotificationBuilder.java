@@ -14,7 +14,7 @@ import java.util.Base64;
 import java.util.List;
 
 @Slf4j
-public class NotificationConstructor {
+public class NotificationBuilder {
     public static final String APPLICATION_PDF = "application/pdf";
     private final RestNotification restNotification = new RestNotification();
 

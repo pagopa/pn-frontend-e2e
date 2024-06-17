@@ -9,7 +9,7 @@ import it.pn.frontend.e2e.model.*;
 import it.pn.frontend.e2e.model.enums.NotificationFeePolicyEnum;
 import it.pn.frontend.e2e.model.enums.PhysicalCommunicationTypeEnum;
 import it.pn.frontend.e2e.rest.RestNotification;
-import it.pn.frontend.e2e.utility.NotificationConstructor;
+import it.pn.frontend.e2e.utility.NotificationBuilder;
 import it.pn.frontend.e2e.utility.WebTool;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -20,7 +20,7 @@ import java.util.*;
 @Slf4j
 public class NewNotifichePagoPATest {
     private final RestNotification restNotification = new RestNotification();
-    private static final NotificationConstructor notificationConstructor = new NotificationConstructor();
+    private static final NotificationBuilder notificationBuilder = new NotificationBuilder();
     private final WebDriver driver = Hooks.driver;
 
     @When("Creo in background una notifica per persona fisica tramite API REST")
@@ -29,9 +29,9 @@ public class NewNotifichePagoPATest {
         int attempt = 1;
 
         String costiNotifica = datiNotifica.get("costiNotifica");
-        ArrayList<Recipient> recipients = notificationConstructor.multiDestinatarioPF(datiNotifica.get("multidestinatario"));
-        ArrayList<Document> documents = notificationConstructor.preloadDocument(Integer.parseInt(datiNotifica.get("documenti")));
-        ArrayList<NotificationPaymentItem> payments = notificationConstructor.paymentsCreation(Integer.parseInt(datiNotifica.get("avvisoPagoPa")), Integer.parseInt(datiNotifica.get("F24")), costiNotifica);
+        ArrayList<Recipient> recipients = notificationBuilder.multiDestinatarioPF(datiNotifica.get("multidestinatario"));
+        ArrayList<Document> documents = notificationBuilder.preloadDocument(Integer.parseInt(datiNotifica.get("documenti")));
+        ArrayList<NotificationPaymentItem> payments = notificationBuilder.paymentsCreation(Integer.parseInt(datiNotifica.get("avvisoPagoPa")), Integer.parseInt(datiNotifica.get("F24")), costiNotifica);
         for (Recipient recipient : recipients) {
             recipient.setPayments(payments);
         }
@@ -67,9 +67,9 @@ public class NewNotifichePagoPATest {
         int attempt = 1;
 
         String costiNotifica = datiNotifica.get("costiNotifica");
-        ArrayList<Recipient> recipients = notificationConstructor.multiDestinatarioPG(datiNotifica.get("multidestinatario"));
-        ArrayList<Document> documents = notificationConstructor.preloadDocument(Integer.parseInt(datiNotifica.get("documenti")));
-        ArrayList<NotificationPaymentItem> payments = notificationConstructor.paymentsCreation(Integer.parseInt(datiNotifica.get("avvisoPagoPa")), Integer.parseInt(datiNotifica.get("F24")), costiNotifica);
+        ArrayList<Recipient> recipients = notificationBuilder.multiDestinatarioPG(datiNotifica.get("multidestinatario"));
+        ArrayList<Document> documents = notificationBuilder.preloadDocument(Integer.parseInt(datiNotifica.get("documenti")));
+        ArrayList<NotificationPaymentItem> payments = notificationBuilder.paymentsCreation(Integer.parseInt(datiNotifica.get("avvisoPagoPa")), Integer.parseInt(datiNotifica.get("F24")), costiNotifica);
         for (Recipient recipient : recipients) {
             recipient.setPayments(payments);
         }
