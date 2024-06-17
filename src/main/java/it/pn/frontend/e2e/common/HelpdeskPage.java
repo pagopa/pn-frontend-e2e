@@ -712,9 +712,9 @@ public class HelpdeskPage extends BasePage {
 
     public void inserimentoArcoTemporale() throws InterruptedException {
         WebTool.waitTime(3);
-            List<WebElement> calendarButton = elements(By.xpath("//div[@data-testid='data-range-picker']"));
-            getWebDriverWait(20).until(ExpectedConditions.visibilityOf(calendarButton.get(0)));
-            calendarButton.get(0).click();
+            By calendarButton = By.xpath("//div[@data-testid='data-range-picker']//div//div//button");
+            getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(calendarButton));
+            element(calendarButton).click();
 
 
         By previousMonth = By.xpath("//button[@aria-label='Previous month']");
