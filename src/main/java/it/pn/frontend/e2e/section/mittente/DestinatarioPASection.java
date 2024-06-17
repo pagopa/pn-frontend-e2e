@@ -76,6 +76,9 @@ public class DestinatarioPASection extends BasePage {
     @FindBy(xpath = "//input[@value='PG']")
     WebElement personaGiuridicaRadioButton;
 
+    @FindBy(id = "add-digital-domicile")
+    WebElement checkDomicilioDigitale;
+
 
     public DestinatarioPASection(WebDriver driver) {
         super(driver);
@@ -145,7 +148,12 @@ public class DestinatarioPASection extends BasePage {
 
     public void selezionaAggiungiUnIndirizzoFisico() {
         logger.info("click su scelta indirizzo fisico");
-        this.aggiungiUnIndirizzoFisicoCheckBox.click();
+        aggiungiUnIndirizzoFisicoCheckBox.click();
+    }
+
+    public void selezionaAggiungiUnIndirizzoDigitale() {
+        logger.info("click su scelta indirizzo digitale");
+        checkDomicilioDigitale.click();
     }
 
     public void inserireIndirizzo(String indirizzo) {
@@ -387,6 +395,25 @@ public class DestinatarioPASection extends BasePage {
     public boolean verificaNumeroDestinatari() {
         logger.info("TA_QA: si verifica il numero dei destinatari");
         return this.rimuoviDestinatarioButtons.isEmpty();
+    }
+
+    public void compilazioneDestinario(Map<String,String> datiNotificaMap){
+        selezionarePersonaFisica();
+        inserireNomeDestinatario(datiNotificaMap.get("nomePF"));
+        inserireCognomeDestinatario(datiNotificaMap.get("cognomePF"));
+        inserireCodiceFiscaleDestinatario(datiNotificaMap.get("codiceFiscalePF"));
+        if (datiNotificaMap.get("email") != null && !datiNotificaMap.get("email").isBlank()  || datiNotificaMap.get("pec") != null && !datiNotificaMap.get("pec").isBlank()){
+            selezionaAggiungiUnIndirizzoDigitale();
+            insertDomicilioDigitale(datiNotificaMap.get("pec"));
+        }
+        selezionaAggiungiUnIndirizzoFisico();
+        inserireIndirizzo(datiNotificaMap.get("indirizzoPF"));
+        inserireNumeroCivico(datiNotificaMap.get("numeroCivicoPF"));
+        inserireComune(datiNotificaMap.get("comunePF"));
+        inserireProvincia(datiNotificaMap.get("provinciaPF"));
+        inserireCodicePostale(datiNotificaMap.get("codicepostalePF"));
+        inserireStato(datiNotificaMap.get("statoPF"));
+        vaiInFondoAllaPagina();
     }
 
     public void selezionarePersonaFisicaMultiDestinatario(int numeroDestinatario) {
