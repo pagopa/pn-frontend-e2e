@@ -713,6 +713,7 @@ public class HelpdeskPage extends BasePage {
 
 
     public void inserimentoArcoTemporale() throws InterruptedException {
+        Thread.sleep(5000);
         try {
             By calendarButton = By.xpath("//*[@data-testid='CalendarIcon']");
             getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(calendarButton));
