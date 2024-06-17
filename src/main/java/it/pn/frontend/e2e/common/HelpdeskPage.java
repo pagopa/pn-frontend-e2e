@@ -715,7 +715,7 @@ public class HelpdeskPage extends BasePage {
             List<By> calendarButton = (List<By>) By.xpath("//button[*[local-name()='svg' and @data-testid='CalendarIcon']]");
             getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(calendarButton.get(0)));
             element(calendarButton.get(0)).click();
-            logger.info("Calendario cliccato");
+
 
         By previousMonth = By.xpath("//button[@aria-label='Previous month']");
         this.element(previousMonth).click();
