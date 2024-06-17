@@ -717,6 +717,7 @@ public class HelpdeskPage extends BasePage {
         try {
             By calendarButton = By.xpath("//*[@data-testid='CalendarIcon']");
             getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(calendarButton));
+            this.element(calendarButton).click();
             logger.info("Calendario cliccato");
         }catch (TimeoutException e){
             selectOttieniLogCompleti();
