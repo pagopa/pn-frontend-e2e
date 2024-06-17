@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.common;
 
 import it.pn.frontend.e2e.model.enums.Disservice;
 import it.pn.frontend.e2e.model.enums.Status;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -713,7 +714,7 @@ public class HelpdeskPage extends BasePage {
 
 
     public void inserimentoArcoTemporale() throws InterruptedException {
-        Thread.sleep(5000);
+        WebTool.waitTime(20);
             By calendarButton = By.xpath("//*[@data-testid='CalendarIcon']");
             getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(calendarButton));
             this.element(calendarButton).click();
