@@ -42,7 +42,6 @@ public class NewNotifichePagoPATest {
         } else {
             notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.REGISTERED_LETTER_890, "010202N", NotificationFeePolicyEnum.DELIVERY_MODE);
         }
-        log.info("\n\n\nbody della notifica:\n{}", notification);
         while (attempt <= maxAttempts) {
             NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification);
 

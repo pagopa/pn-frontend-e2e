@@ -29,7 +29,7 @@ public class NotificationBuilder {
 
     public ArrayList<Recipient> multiDestinatarioPF(String multiDestinatarioFlag) {
         ArrayList<Recipient> recipients = new ArrayList<>();
-        recipients.add(new Recipient());
+        recipients.add(new Recipient("Gaio Giulio Cesare", RecipientTypeEnum.PF, "CSRGGL44L13H501E"));
         if (multiDestinatarioFlag.equalsIgnoreCase("true")) {
             recipients.add(new Recipient("Lucrezia Borgia", RecipientTypeEnum.PF, "BRGLRZ80D58H501Q"));
         }
@@ -41,53 +41,14 @@ public class NotificationBuilder {
         if (avvisoPagoPa == 0 && F24 == 0) {
             return null;
         }
-        if (avvisoPagoPa > F24) {
-            for (int i = 0; i < avvisoPagoPa; i++) {
-                payments = preloadPagoPaPayment(payments, costiNotifica);
-            }
-            for (int i = 0; i < F24; i++) {
-                payments = preloadF24Payment(payments, i, costiNotifica);
-            }
-        } else {
-            for (int i = 0; i < F24; i++) {
-                payments = preloadF24Payment(payments, i, costiNotifica);
-            }
-            for (int i = 0; i < avvisoPagoPa; i++) {
-                payments = preloadPagoPaPayment(payments, costiNotifica);
-            }
+        for (int i = 0; i < avvisoPagoPa; i++) {
+            payments = preloadPagoPaPayment(payments, costiNotifica);
+        }
+        for (int i = 0; i < F24; i++) {
+            payments = preloadF24Payment(payments, i, costiNotifica);
         }
         return payments;
     }
-
-    /*public List<NotificationPaymentItem> paymentsCreation(int avvisoPagoPa, int F24) {
-    if (avvisoPagoPa == 0 && F24 == 0) {
-        return Collections.emptyList();
-    }
-
-    List<NotificationPaymentItem> payments = new ArrayList<>();
-
-    int max = Math.max(avvisoPagoPa, F24);
-
-    for (int i = 0; i < max; i++) {
-        NotificationPaymentItem paymentItem = new NotificationPaymentItem();
-        if (i < avvisoPagoPa) {
-            paymentItem.setPagoPa(preloadPagoPaPayment(i));
-        }
-        if (i < F24) {
-            paymentItem.setF24(preloadF24Payment(i));
-        }
-        payments.add(paymentItem);
-    }
-
-    // Gestione delle eccedenze
-    if (avvisoPagoPa > F24) {
-        IntStream.range(F24, avvisoPagoPa).forEach(i -> payments.get(i).setF24(null));
-    } else {
-        IntStream.range(avvisoPagoPa, F24).forEach(i -> payments.get(i).setPagoPa(null));
-    }
-
-    return payments;
-}*/
 
     public ArrayList<NotificationPaymentItem> preloadPagoPaPayment(ArrayList<NotificationPaymentItem> payments, String costiNotifica) {
         File documentFile = new File("src/test/resources/dataPopulation/fileUpload/sample.pdf");
@@ -99,20 +60,16 @@ public class NotificationBuilder {
         List<PreLoadRequest> preLoadRequestList = new ArrayList<>();
         preLoadRequestList.add(preLoadRequest);
         List<PreLoadResponse> response = restNotification.preLoadDocument(preLoadRequestList);
-        if (response != null) {
-            log.info("PreLoad del documento effettuato con successo");
-            if (costiNotifica.equalsIgnoreCase("false")) {
-                PagoPaPayment avvisoPagoPa = new PagoPaPayment(WebTool.generateNoticeCodeNumber(), sha256, response.get(0).getKey(), "v1", false);
-                NotificationPaymentItem payment = new NotificationPaymentItem(avvisoPagoPa);
-                payments.add(payment);
-            } else {
-                PagoPaPayment avvisoPagoPa = new PagoPaPayment(WebTool.generateNoticeCodeNumber(), sha256, response.get(0).getKey(), "v1");
-                NotificationPaymentItem payment = new NotificationPaymentItem(avvisoPagoPa);
-                payments.add(payment);
-            }
+        Assert.assertNotNull("La chiamata per il preload del documento non è andata a buon fine", response);
+        log.info("PreLoad del documento effettuato con successo");
+        if (costiNotifica.equalsIgnoreCase("false")) {
+            PagoPaPayment avvisoPagoPa = new PagoPaPayment(WebTool.generateNoticeCodeNumber(), sha256, response.get(0).getKey(), "v1", false);
+            NotificationPaymentItem payment = new NotificationPaymentItem(avvisoPagoPa);
+            payments.add(payment);
         } else {
-            log.error("La chiamata per il preload del documento non è andata a buon fine");
-            Assert.fail("La chiamata per il preload del documento non è andata a buon fine");
+            PagoPaPayment avvisoPagoPa = new PagoPaPayment(WebTool.generateNoticeCodeNumber(), sha256, response.get(0).getKey(), "v1");
+            NotificationPaymentItem payment = new NotificationPaymentItem(avvisoPagoPa);
+            payments.add(payment);
         }
         return payments;
     }
@@ -127,29 +84,45 @@ public class NotificationBuilder {
         List<PreLoadRequest> preLoadRequestList = new ArrayList<>();
         preLoadRequestList.add(preLoadRequest);
         List<PreLoadResponse> response = restNotification.preLoadDocument(preLoadRequestList);
-        if (response != null) {
-            log.info("PreLoad del documento effettuato con successo");
-            if (costiNotifica.equalsIgnoreCase("false")) {
-                F24Payment f24 = new F24Payment(sha256, response.get(0).getKey(), "v1", false);
-                NotificationPaymentItem payment = new NotificationPaymentItem(f24);
-                payments.add(payment);
+        Assert.assertNotNull("La chiamata per il preload del documento non è andata a buon fine", response);
+        log.info("PreLoad del documento effettuato con successo");
+        if (costiNotifica.equalsIgnoreCase("false")) {
+            F24Payment f24 = new F24Payment(sha256, response.get(0).getKey(), "v1", false);
+            if (!payments.get(i).getPagoPa().getNoticeCode().isEmpty()) {
+                payments.get(i).setF24(f24);
             } else {
-                F24Payment f24 = new F24Payment(sha256, response.get(0).getKey(), "v1");
                 NotificationPaymentItem payment = new NotificationPaymentItem(f24);
                 payments.add(payment);
             }
         } else {
-            log.error("La chiamata per il preload del documento non è andata a buon fine");
-            Assert.fail("La chiamata per il preload del documento non è andata a buon fine");
+            F24Payment f24 = new F24Payment(sha256, response.get(0).getKey(), "v1");
+            if (!payments.get(i).getPagoPa().getNoticeCode().isEmpty()) {
+                payments.get(i).setF24(f24);
+            } else {
+                NotificationPaymentItem payment = new NotificationPaymentItem(f24);
+                payments.add(payment);
+            }
         }
         return payments;
     }
 
     public ArrayList<Document> preloadDocument(int numeroDocumenti) {
-        File documentFile = new File("src/test/resources/dataPopulation/fileUpload/sample.pdf");
         List<PreLoadRequest> preLoadRequestList = new ArrayList<>();
         List<String> sha256List = new ArrayList<>();
-        for (int i = 0; i < numeroDocumenti; i++){
+        listForPreloadPopulation(numeroDocumenti, sha256List, preLoadRequestList);
+        List<PreLoadResponse> response = restNotification.preLoadDocument(preLoadRequestList);
+        Assert.assertNotNull("La chiamata per il preload del documento non è andata a buon fine", response);
+        log.info("PreLoad del documento effettuato con successo");
+        ArrayList<Document> documents = new ArrayList<>();
+        for (int i = 0; i < numeroDocumenti; i++) {
+            documents.add(new Document(new Digests(sha256List.get(i)), APPLICATION_PDF, new Ref(response.get(i).getKey(), "v1")));
+        }
+        return documents;
+    }
+
+    public void listForPreloadPopulation(int documentNumber, List<String> sha256List, List<PreLoadRequest> preLoadRequestList) {
+        File documentFile = new File("src/test/resources/dataPopulation/fileUpload/sample.pdf");
+        for (int i = 0; i < documentNumber; i++) {
             String sha256 = computeSha256(documentFile.getAbsolutePath().replace("\\", "/"));
             PreLoadRequest preLoadRequest = new PreLoadRequest()
                     .preloadIdx("0")
@@ -158,18 +131,6 @@ public class NotificationBuilder {
             sha256List.add(sha256);
             preLoadRequestList.add(preLoadRequest);
         }
-        ArrayList<Document> documents = new ArrayList<>();
-        for (int i = 0; i < numeroDocumenti; i++) {
-            List<PreLoadResponse> response = restNotification.preLoadDocument(preLoadRequestList);
-            if (response != null) {
-                log.info("PreLoad del documento effettuato con successo");
-                documents.add(new Document(new Digests(sha256List.get(i)), APPLICATION_PDF, new Ref(response.get(i).getKey(), "v1")));
-            } else {
-                log.error("La chiamata per il preload del documento non è andata a buon fine");
-                Assert.fail("La chiamata per il preload del documento non è andata a buon fine");
-            }
-        }
-        return documents;
     }
 
     //come eccezione ho: IOException e FileNotFoundException
