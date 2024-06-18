@@ -197,7 +197,7 @@ public class HelpdeskTest {
     }
 
     @And("viene inserito un range temporale maggiore di 3 mesi")
-    public void inserisceRangeTemporaleMaggioreDi3Mesi() throws InterruptedException {
+    public void inserisceRangeTemporaleMaggioreDi3Mesi() {
         logger.info("viene inserito un range temporale maggiore di 3 mesi");
         helpdeskPage.inserimentoArcoTemporale();
     }
