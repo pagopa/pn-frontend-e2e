@@ -292,8 +292,6 @@ public class HelpdeskPage extends BasePage {
 
     public void insertCF(String codiceFiscale) {
         logger.info("inserisco codice fiscale");
-
-        logger.info(driver.getPageSource());
         setCodiceFiscale(codiceFiscale);
         codiceFiscaleInput.sendKeys(codiceFiscale);
 
@@ -714,8 +712,7 @@ public class HelpdeskPage extends BasePage {
 
 
     public void inserimentoArcoTemporale() throws InterruptedException {
-        WebTool.waitTime(3);
-        logger.info(driver.getPageSource());
+        WebTool.waitTime(60);
 
         By calendarButton = By.xpath("//div[@data-testid='data-range-picker']//div//div//button");
             getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(calendarButton));
