@@ -7,7 +7,10 @@ Feature:La persona fisica visualizza le notifiche in elenco
 
   Scenario:PN-9436 - Visualizzazione dettaglio di una notifica mono destinatario non ancora pagata, con successivo pagamento dell’avviso.
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    When Creo in background una notifica non pagata con un destinatario e un documento tramite API REST
+    When Creo in background una notifica con un destinatario e un documento tramite API REST
+      | avvisoPagoPa | false |
+      | F24          | false |
+      | entrambi     | true  |
     And Aspetta 300 secondi
     And Si visualizzano le notifiche dalla piu recente
     And Cliccare sulla notifica restituita

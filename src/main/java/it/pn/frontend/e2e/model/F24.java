@@ -12,9 +12,9 @@ public class F24 {
 
 
     public F24(){
-        this.title = "F24";
-        this.applyCost = false;
-        this.metadataAttachment = new MetadataAttachment();
+        title = "F24";
+        applyCost = false;
+       metadataAttachment = new MetadataAttachment();
     }
 
     public F24(String title, Boolean applyCost, MetadataAttachment metadataAttachment){

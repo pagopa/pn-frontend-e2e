@@ -10,7 +10,7 @@ public class Payment {
     private PagoPa pagoPa;
 
     public Payment(){
-        this.pagoPa = new PagoPa();
+        pagoPa = new PagoPa();
     }
 
     public Payment(PagoPa pagoPa){

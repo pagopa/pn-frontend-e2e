@@ -50,14 +50,9 @@ public class CookiesSection extends BasePage {
     }
 
     public void chiudiPagamentoPopup() {
-        try {
             this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(this.chiudiPagamentoPopupButton));
             logger.info("Si seleziona chiudi i cookies");
             Actions actions = new Actions(driver);
             actions.moveToElement(this.chiudiPagamentoPopupButton).click().perform();
-        } catch (TimeoutException e) {
-            logger.error("Non è cliccabile il bottone chiudi i cookies" + e.getMessage());
-            Assert.fail("Non è cliccabile il bottone chiudi i cookies" + e.getMessage());
-        }
     }
 }

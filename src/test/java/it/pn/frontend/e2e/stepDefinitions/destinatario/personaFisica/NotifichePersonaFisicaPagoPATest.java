@@ -39,8 +39,6 @@ public class NotifichePersonaFisicaPagoPATest {
     private final AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
 
     private final DettaglioNotificaSection dettaglioNotifica = new DettaglioNotificaSection(driver);
-    private final AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
-
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche")
     public void nellaPiattaformaDestinatarioCliccareSulBottoneNotifiche() {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
@@ -414,6 +412,37 @@ public class NotifichePersonaFisicaPagoPATest {
         logger.info("Si controlla che il bottone per il pagamento non sia visibile all'interno del dettaglio della notifica");
         accediAPiattaformaNotifichePage.checkButtonPagaIsDisplayed();
     }
+
+    @And("Si controlla se la sezione pagamento visualizzata correttamente")
+    public void siControllaSeLaSezionePagamentoVisualizzataCorrettamente() { accediAPiattaformaNotifichePage.siVisualizzaSezionePagamento(); }
+
+    @And("Si controlla che costi di notifica inclusi non presente")
+    public void siControllaCostiDiNotifica() {
+        if (!accediAPiattaformaNotifichePage.siControllaCostiDiNotifica()) {
+            logger.info("Costi di notifica non inclusi");
+        }else {
+            logger.error("Costi di notifica inclusi");
+            Assert.fail("Costi di notifica inclusi");
+        }
+    }
+
+    @And("Cliccare sul bottone Paga")
+    public void cliccaBottonePaga(){
+        accediAPiattaformaNotifichePage.cliccaPaga();
+    }
+
+    @Then("Si inserisce i dati di pagamento e procede con il pagamento {string}")
+        public void siInserisceIDatiDiPagamento(String email) throws InterruptedException {
+            logger.info("Si inserisce i dati di pagamento");
+            CookiesSection cookiesSection = new CookiesSection(this.driver);
+            cookiesSection.selezionaAccettaTuttiButton();
+            accediAPiattaformaNotifichePage.inserireDatiPagamento(email);
+            accediAPiattaformaNotifichePage.checkoutPagamento();
+        }
+        @And("Si verifica che visualizzato lo stato Pagato")
+        public void siVisualizzaStatoPagato(){
+            accediAPiattaformaNotifichePage.siVisualizzaStatoPagato();
+        }
 }
 
 

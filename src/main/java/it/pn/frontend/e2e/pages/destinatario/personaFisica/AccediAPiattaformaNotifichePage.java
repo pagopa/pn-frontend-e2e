@@ -200,16 +200,11 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void siVisualizzaSezionePagamento(){
-        try {
             getWebDriverWait(10).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvviso));
             getWebDriverWait(10).withMessage("Il sezione data di scadenza avviso non è visibile").until(ExpectedConditions.visibilityOf(scadenzaAvviso));
             getWebDriverWait(10).withMessage("Il sezione importo di avviso non è visibile").until(ExpectedConditions.visibilityOf(paymentAmount));
             getWebDriverWait(10).withMessage("Il sezione scarica avviso non è visibile").until(ExpectedConditions.visibilityOf(scaricaAvviso));
             logger.info("Si visualizza correttamente il sezione pagamento di notifica");
-        }catch (RuntimeException e) {
-            logger.info("Non si visualizza correttamente il sezione pagamento di notifica con errore : " + e.getMessage());
-            Assert.fail("Non si visualizza correttamente il sezione pagamento di notifica con errore : " + e.getMessage());
-        }
     }
 
     public boolean siControllaCostiDiNotifica(){
@@ -231,9 +226,9 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         By emailPagamento = By.id("email");
         By confermaEmailPagamento = By.id("confirmEmail");
         By continuaPagamento = By.id("paymentEmailPageButtonContinue");
-        this.element(emailPagamento).sendKeys(email);
-        this.element(confermaEmailPagamento).sendKeys(email);
-        this.element(continuaPagamento).click();
+        element(emailPagamento).sendKeys(email);
+        element(confermaEmailPagamento).sendKeys(email);
+        element(continuaPagamento).click();
     }
 
     public void checkoutPagamento() throws InterruptedException {
@@ -289,7 +284,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         //Select Nexi
         By modificaButton = By.xpath("//button[@aria-label='Modifica PSP']");
         getWebDriverWait(5).withMessage("Il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(modificaButton));
-        this.element(modificaButton).click();
+        element(modificaButton).click();
 
         Thread.sleep(2000);
 
