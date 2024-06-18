@@ -20,7 +20,7 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
   #   And Inserisco la password ed estraggo il file zip
   # #   And Controllo sia presente documento "dati.txt"
   #   And Si elimina file estratto
-    And Aspetta 3 secondi
+    #And Aspetta 3 secondi
     And viene inserito un range temporale maggiore di 3 mesi
     And viene visualizzato messaggio di errore data
     And Si clicca sul bottone resetta filtri
