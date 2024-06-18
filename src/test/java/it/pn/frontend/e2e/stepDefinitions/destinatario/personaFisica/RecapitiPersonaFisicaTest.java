@@ -343,6 +343,7 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP() {
         logger.info("Si inserisce il codice OTP di verifica");
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        WebTool.waitTime(2);
         iTuoiRecapitiPage.sendOTP(OTP);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
         if (recapitiDestinatarioPage.waitMessaggioErrore()) {
@@ -980,6 +981,23 @@ public class RecapitiPersonaFisicaTest {
     public void nellaSezioneAltriRecapitiSiCliccaSulBottoneConfermaPerInserireUnRecapito() {
         logger.info("Si clicca su conferma");
         recapitiDestinatarioPage.clickConfermaRecapitoGiaPresente();
+    }
+
+    @And("Si verifica siano presenti recapiti digitali")
+    public void siVerificaSianoPresentiRecapitiDigitali(Map<String,String> datiPF) {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
+
+        String email = datiPF.get("email");
+        if (recapitiDestinatarioPage.siVisualizzaPecInserita()) {
+            nellaPaginaITuoiRecapitiSiCliccaSulBottoneEliminaPEC();
+            nelPopUpEliminaIndirizzoPecSiCliccaSulBottoneConferma();
+            nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoPecNonSiaPresente();
+        }
+        if (recapitiDestinatarioPage.controlloEmailAssociata(email)) {
+            iTuoiRecapitiPage.eliminaEmailEsistente();
+            nellaPaginaITuoiRecapitiSiCliccaSulBottoneEliminaEmailESiConfermaNelPopUp();
+            nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoEmailNonSiaPresente();
+        }
     }
 }
 
