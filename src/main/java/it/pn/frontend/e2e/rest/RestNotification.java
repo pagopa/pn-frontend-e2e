@@ -7,6 +7,7 @@ import it.pn.frontend.e2e.model.NewNotificationRequest;
 import it.pn.frontend.e2e.model.NewNotificationResponse;
 import it.pn.frontend.e2e.model.PreLoadRequest;
 import it.pn.frontend.e2e.model.PreLoadResponse;
+import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,6 +52,16 @@ public class RestNotification {
             logger.error("Error during document preload", e);
         }
         return null;
+    }
+
+    public void documentUpload(String url, String secret, String sha256, String key) throws RestNotificationException {
+        final CustomHttpClient<?,?> httpClient2 = CustomHttpClient.getInstance();
+        try {
+            httpClient2.sendHttpUpLoadPutRequest(url, secret, sha256, key, null);
+        } catch (IOException e) {
+            logger.error("Error during document upload", e);
+            Assert.fail("Error during document upload" + e.getMessage());
+        }
     }
 
     public String getNotificationStatus(String notificationRequestId) {

@@ -116,6 +116,7 @@ public class NotificationBuilder {
         ArrayList<Document> documents = new ArrayList<>();
         for (int i = 0; i < numeroDocumenti; i++) {
             documents.add(new Document(new Digests(sha256List.get(i)), APPLICATION_PDF, new Ref(response.get(i).getKey(), "v1")));
+            documentUpload(response.get(i).getUrl(), response.get(i).getSecret(), sha256List.get(i), response.get(i).getKey());
         }
         return documents;
     }
@@ -131,6 +132,10 @@ public class NotificationBuilder {
             sha256List.add(sha256);
             preLoadRequestList.add(preLoadRequest);
         }
+    }
+
+    public void documentUpload(String url, String secret, String sha256, String key){
+        restNotification.documentUpload(url, secret, sha256, key);
     }
 
     //come eccezione ho: IOException e FileNotFoundException

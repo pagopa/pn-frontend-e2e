@@ -295,6 +295,44 @@ public class CustomHttpClient<RequestType, ResponseType> {
         }
     }
 
+    public void sendHttpUpLoadPutRequest(String url, String secret, String sha256, String key, Map<String, String> headers) throws IOException {
+        logger.info("\n\n\nkey: {}\n\n\n", key);
+        logger.info("\n\n\nurl: {}\n\n\n", url);
+        logger.info("\n\n\nsecret: {}\n\n\n", secret);
+        logger.info("\n\n\nsha256: {}\n\n\n", sha256);
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            this.httpRequest = ClassicRequestBuilder
+                    .put(url)
+                    .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
+                    .addHeader("x-amz-meta-secret", secret)
+                    .addHeader(HttpHeaders.TRAILER, "x-amz-checksum-sha256")
+                    .addHeader("x-amz-checksum-sha256", sha256)
+                    .setEntity(new StringEntity(key))
+                    .build();
+            logger.info("\n\n\nHeaders: {}\n\n\n", httpRequest);
+            if (headers != null) {
+                headers.forEach(this.httpRequest::addHeader);
+            }
+            client.execute(httpRequest, response -> {
+                final HttpEntity entity;
+                final String responseString;
+
+                if (response.getCode() == 200 || response.getCode() == 202 || response.getCode() == 201) {
+                    entity = response.getEntity();
+                    responseString = EntityUtils.toString(entity);
+                    logger.info("Response upload body: {}", responseString);
+                    return null;
+                } else {
+                    entity = response.getEntity();
+                    responseString = EntityUtils.toString(entity);
+                    logger.error("Response upload code: {}", response.getCode());
+                    logger.error("Response upload body: {}", responseString);
+                    throw new IOException("Error in HTTP request to " + url + ": " + response.getCode());
+                }
+            });
+        }
+    }
+
     /*public ResponseType sendHttpPutRequest(String endpoint, Map<String, String> headers, Class<ResponseType> responseType) throws IOException {
 
     }*/
