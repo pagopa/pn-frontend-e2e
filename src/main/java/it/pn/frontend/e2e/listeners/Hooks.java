@@ -237,7 +237,7 @@ public class Hooks {
                 Date date = Calendar.getInstance().getTime();
                 DateFormat formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
                 String today = formatter.format(date);
-                String testCaseFailed = "screenShots/" + scenario.getName() + "_" + today + ".png";
+                String testCaseFailed = "logs/" + scenario.getName() + "_" + today + ".png";
                 FileUtils.copyFile(screenshot, new File(testCaseFailed));
                 scenario.attach(screenshotByte, "image/png", scenario.getName());
             } catch (IOException e) {
