@@ -64,10 +64,12 @@ public class NotificationBuilder {
         log.info("PreLoad del documento effettuato con successo");
         if (costiNotifica.equalsIgnoreCase("false")) {
             PagoPaPayment avvisoPagoPa = new PagoPaPayment(WebTool.generateNoticeCodeNumber(), sha256, response.get(0).getKey(), "v1", false);
+            restNotification.uploadDocument(response.get(0).getUrl(), response.get(0).getSecret(), sha256);
             NotificationPaymentItem payment = new NotificationPaymentItem(avvisoPagoPa);
             payments.add(payment);
         } else {
             PagoPaPayment avvisoPagoPa = new PagoPaPayment(WebTool.generateNoticeCodeNumber(), sha256, response.get(0).getKey(), "v1");
+            restNotification.uploadDocument(response.get(0).getUrl(), response.get(0).getSecret(), sha256);
             NotificationPaymentItem payment = new NotificationPaymentItem(avvisoPagoPa);
             payments.add(payment);
         }
@@ -88,6 +90,7 @@ public class NotificationBuilder {
         log.info("PreLoad del documento effettuato con successo");
         if (costiNotifica.equalsIgnoreCase("false")) {
             F24Payment f24 = new F24Payment(sha256, response.get(0).getKey(), "v1", false);
+            restNotification.uploadDocument(response.get(i).getUrl(), response.get(i).getSecret(), sha256);
             if (!payments.get(i).getPagoPa().getNoticeCode().isEmpty()) {
                 payments.get(i).setF24(f24);
             } else {
@@ -96,6 +99,7 @@ public class NotificationBuilder {
             }
         } else {
             F24Payment f24 = new F24Payment(sha256, response.get(0).getKey(), "v1");
+            restNotification.uploadDocument(response.get(i).getUrl(), response.get(i).getSecret(), sha256);
             if (!payments.get(i).getPagoPa().getNoticeCode().isEmpty()) {
                 payments.get(i).setF24(f24);
             } else {
@@ -116,7 +120,7 @@ public class NotificationBuilder {
         ArrayList<Document> documents = new ArrayList<>();
         for (int i = 0; i < numeroDocumenti; i++) {
             documents.add(new Document(new Digests(sha256List.get(i)), APPLICATION_PDF, new Ref(response.get(i).getKey(), "v1")));
-            documentUpload(response.get(i).getUrl(), response.get(i).getSecret(), sha256List.get(i), response.get(i).getKey());
+            restNotification.uploadDocument(response.get(i).getUrl(), response.get(i).getSecret(), sha256List.get(i));
         }
         return documents;
     }
@@ -132,10 +136,6 @@ public class NotificationBuilder {
             sha256List.add(sha256);
             preLoadRequestList.add(preLoadRequest);
         }
-    }
-
-    public void documentUpload(String url, String secret, String sha256, String key){
-        restNotification.documentUpload(url, secret, sha256, key);
     }
 
     //come eccezione ho: IOException e FileNotFoundException

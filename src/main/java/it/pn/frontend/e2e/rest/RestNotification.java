@@ -54,10 +54,10 @@ public class RestNotification {
         return null;
     }
 
-    public void documentUpload(String url, String secret, String sha256, String key) throws RestNotificationException {
+    public void uploadDocument(String url, String secret, String sha256) throws RestNotificationException {
         final CustomHttpClient<?,?> httpClient2 = CustomHttpClient.getInstance();
         try {
-            httpClient2.sendHttpUpLoadPutRequest(url, secret, sha256, key, null);
+            httpClient2.sendHttpUpLoadPutRequest(url, secret, sha256, null);
         } catch (IOException e) {
             logger.error("Error during document upload", e);
             Assert.fail("Error during document upload" + e.getMessage());
