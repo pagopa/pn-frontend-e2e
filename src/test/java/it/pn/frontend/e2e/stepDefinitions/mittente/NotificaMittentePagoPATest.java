@@ -53,8 +53,6 @@ public class NotificaMittentePagoPATest {
     private final String PA = "pubblica amministrazione";
     private Map<String, Object> datiNotifica = new HashMap<>();
     private Map<String, String> datiNotificaMap = new HashMap<>();
-    private Map<String, String> destinatarioMap = new HashMap<>();
-    private Map<String, String> indirizzoMap = new HashMap<>();
     private Map<String, Object> personaFisica = new HashMap<>();
     private Map<String, Object> personaGiuridica = new HashMap<>();
     private Map<String, Object> personeFisiche = new HashMap<>();
@@ -1036,7 +1034,6 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.inserireProvincia(indirizzo.get("provincia"));
         destinatarioPASection.inserireCodicePostale(indirizzo.get("cap"));
         destinatarioPASection.inserireStato(indirizzo.get("stato"));
-        indirizzoMap = indirizzo;
     }
 
     @Then("Nella section Allegati si carica un atto")
@@ -1233,7 +1230,7 @@ public class NotificaMittentePagoPATest {
     @And("Si verifica che l'invio della notifica sia fallito {int} volte")
     public void siVerificaCheLInvioDellaNotificaSiaFallitoDueVolte(int numeroFallimenti) {
         logger.info("Si verifica che l'invio della notifica sia fallito " + numeroFallimenti + " volta/e");
-        dettaglioNotificaMittenteSection.checkDoppioFallimentoInvioViaPEC(numeroFallimenti);
+        dettaglioNotificaMittenteSection.checkNumeroFallimentiInvioViaPEC(numeroFallimenti);
     }
 
     @And("Si verifica l'invio della raccomandata semplice")
@@ -1245,7 +1242,7 @@ public class NotificaMittentePagoPATest {
     @And("Si verifica l'invio della notifica al domicilio speciale inserito {string}")
     public void siVerificaLInvioDellaNotificaAlDomicilioSpecialeInserito(String domicilioSpeciale) {
         logger.info("Si verifica l'avvenuto invio della notifica al domicilio speciale " + domicilioSpeciale);
-        dettaglioNotificaMittenteSection.checkInvioADomicilioSpeciale(domicilioSpeciale);
+        dettaglioNotificaMittenteSection.checkStepInvioNotificaViaPEC(domicilioSpeciale);
     }
 
     @And("Si verifica il tentato invio della notifica al domicilio speciale inserito {string}")
@@ -1257,7 +1254,13 @@ public class NotificaMittentePagoPATest {
     @And("Si verifica l'invio della notifica al domicilio di piattaforma inserito {string}")
     public void siVerificaLInvioDellaNotificaAlDomicilioDiPiattaformaInserito(String domicilioDiPiattaforma) {
         logger.info("Si verifica l'avvenuto invio della notifica al domicilio di piattaforma " + domicilioDiPiattaforma);
-        dettaglioNotificaMittenteSection.checkInvioADomicilioDiPiattaforma(domicilioDiPiattaforma);
+        dettaglioNotificaMittenteSection.checkStepInvioNotificaViaPEC(domicilioDiPiattaforma);
+    }
+
+    @And("Si verifica l'invio della notifica al domicilio generale {string}")
+    public void siVerificaLInvioDellaNotificaAlDomicilioGenerale(String emailPEC) {
+        logger.info("Si controllo l'invio della notifica tramite contatto del registro nazionale");
+        dettaglioNotificaMittenteSection.checkStepInvioNotificaViaPEC(emailPEC);
     }
 
     @And("Si accede nuovamente al portale {string} con token {string} per eliminare i recapiti inseriti")
@@ -1301,12 +1304,6 @@ public class NotificaMittentePagoPATest {
     public void siCliccaLAvvisoPagoPa() {
         logger.info("Si clicca l'avviso PagoPa");
         dettaglioNotificaMittenteSection.clickAvvisoPagoPa();
-    }
-
-    @Then("Si torna alla pagina precedente")
-    public void siTornaAllaPaginaPrecedente() {
-        logger.info("Si torna alla pagina precedente");
-        this.driver.navigate().back();
     }
 
     @Then("Si verifica che che non sia possibile effettuare il download del modelo F24")
