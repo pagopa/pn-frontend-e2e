@@ -981,5 +981,11 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si clicca su conferma");
         recapitiDestinatarioPage.clickConfermaRecapitoGiaPresente();
     }
+
+    @And("Si verifica se il campo numero di cellulare è presente e se è valorizzato")
+    public void siVerificaSeIlCampoNumeroDiCellulareÈPresenteESeEValorizzato() {
+        logger.info("Si verifica se il campo numero di cellulare è presente e se è valorizzato");
+        recapitiDestinatarioPage.verificaNumeroCellulare();
+    }
 }
 
