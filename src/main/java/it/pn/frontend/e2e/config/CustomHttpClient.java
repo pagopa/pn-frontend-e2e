@@ -296,10 +296,6 @@ public class CustomHttpClient<RequestType, ResponseType> {
     }
 
     public void sendHttpUpLoadPutRequest(String url, String secret, String sha256, String key, Map<String, String> headers) throws IOException {
-        logger.info("\n\n\nkey: {}\n\n\n", key);
-        logger.info("\n\n\nurl: {}\n\n\n", url);
-        logger.info("\n\n\nsecret: {}\n\n\n", secret);
-        logger.info("\n\n\nsha256: {}\n\n\n", sha256);
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             this.httpRequest = ClassicRequestBuilder
                     .put(url)
@@ -309,7 +305,6 @@ public class CustomHttpClient<RequestType, ResponseType> {
                     .addHeader("x-amz-checksum-sha256", sha256)
                     .setEntity(new StringEntity(key))
                     .build();
-            logger.info("\n\n\nHeaders: {}\n\n\n", httpRequest);
             if (headers != null) {
                 headers.forEach(this.httpRequest::addHeader);
             }
