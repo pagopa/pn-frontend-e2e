@@ -29,4 +29,10 @@ Feature: persona fisica aggiunge una delega dall'elenco degli enti radice
       | Mercurio Riscossioni         |
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella sezione Deleghe si visualizza la delega in stato di attesa di conferma
+    And Nella sezione Deleghe si clicca sul menu della delega
+      | nome    | Lucrezia |
+      | cognome | Borgia   |
+    And Nella sezione Deleghe si sceglie l'opzione revoca
+    And Si conferma l'azione scegliendo revoca la delega
+    Then Si controlla che non ci sia più una delega
     And Logout da portale persona fisica
