@@ -5,14 +5,16 @@ import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
 import it.pn.frontend.e2e.model.NewNotificationRequest;
 import it.pn.frontend.e2e.model.NewNotificationResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import it.pn.frontend.e2e.model.PreLoadRequest;
+import it.pn.frontend.e2e.model.PreLoadResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 
 import java.io.IOException;
+import java.util.List;
 
+@Slf4j
 public class RestNotification {
-    private static final Logger logger = LoggerFactory.getLogger("RestNotification");
-
     public RestNotification() {
     }
 
@@ -27,14 +29,36 @@ public class RestNotification {
         final CustomHttpClient<NewNotificationRequest, NewNotificationResponse> httpClient2 = CustomHttpClient.getInstance();  // Modifica qui
         try {
             NewNotificationResponse response = httpClient2.sendHttpPostRequest("/delivery/v2.3/requests", null, notification, NewNotificationResponse.class);
+            Assert.assertNotNull("Error during createNewNotification", response);
+            log.info(String.valueOf(response));
+            return response;
+        } catch (IOException e) {
+            log.error("Error during createNewNotification", e);
+        }
+        return null;
+    }
+
+    public List<PreLoadResponse> preLoadDocument(List<PreLoadRequest> preLoadList) throws RestNotificationException {
+        final CustomHttpClient<PreLoadRequest, PreLoadResponse> httpClient2 = CustomHttpClient.getInstance();
+        try {
+            List<PreLoadResponse> response = httpClient2.sendHttpPreloadPostRequest("/delivery/attachments/preload", null, preLoadList, PreLoadResponse.class);
             if (response != null) {
-                logger.info(String.valueOf(response));
                 return response;
             }
         } catch (IOException e) {
-            logger.error("Error during createNewNotification", e);
+            log.error("Error during document preload", e);
         }
         return null;
+    }
+
+    public void uploadDocument(String url, String secret, String sha256) throws RestNotificationException {
+        final CustomHttpClient<?, ?> httpClient2 = CustomHttpClient.getInstance();
+        try {
+            httpClient2.sendHttpUpLoadPutRequest(url, secret, sha256, null);
+        } catch (IOException e) {
+            log.error("Error during document upload", e);
+            Assert.fail("Error during document upload" + e.getMessage());
+        }
     }
 
     public LinkedTreeMap<String, Object> getNotificationStatus(String notificationRequestId) {
@@ -47,15 +71,15 @@ public class RestNotification {
                 if (responseData.containsKey("notificationRequestStatus")) {
                     return responseData;
                 }else {
-                    logger.error("L'attributo 'notificationRequestStatus' non è presente nella risposta JSON");
+                    log.error("L'attributo 'notificationRequestStatus' non è presente nella risposta JSON");
                     return null;
                 }
             } else {
-                logger.error("La risposta non è valida o non può essere convertita in JSON");
+                log.error("La risposta non è valida o non può essere convertita in JSON");
                 return null;
             }
         } catch (IOException e) {
-            logger.error("Error during getNotificationStatus", e);
+            log.error("Error during getNotificationStatus", e);
             return null;
         }
     }

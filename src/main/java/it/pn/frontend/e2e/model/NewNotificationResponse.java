@@ -1,6 +1,5 @@
 package it.pn.frontend.e2e.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

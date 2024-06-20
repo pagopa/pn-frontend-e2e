@@ -56,7 +56,6 @@ public class DestinatarioPage extends BasePage {
             }else{
                 logger.error("Nessuno dei campi data è passato allo stato invalido");
                 Assert.fail("Nessuno dei campi data è passato allo stato invalido");
-                invalidBoxDate = false;
             }
         } catch (TimeoutException e){
             logger.error("Campi data non visualizzati correttamente con errore: " + e.getMessage());
