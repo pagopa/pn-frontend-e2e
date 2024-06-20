@@ -514,7 +514,7 @@ public class RicercaNotificheMittentePagoPATest {
     }
 
     @And("Nella pagina piattaforma notifiche si effettua la ricerca per codice IUN {string}")
-    public void nellaPaginaPiattformaNotificheSiEffettuaLaRicercaPerCodiceIUN(String codiceIUN) throws InterruptedException {
+    public void nellaPaginaPiattformaNotificheSiEffettuaLaRicercaPerCodiceIUN(String codiceIUN) {
         logger.info("Si cerca una notifica tramite IUN: " + codiceIUN);
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
