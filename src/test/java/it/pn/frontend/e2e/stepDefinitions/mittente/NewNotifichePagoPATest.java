@@ -23,7 +23,7 @@ public class NewNotifichePagoPATest {
     private final WebDriver driver = Hooks.driver;
 
     @When("Creo in background una notifica per destinatario tramite API REST")
-    public void creoUnaNotificaPerPersonaFisicaTramiteAPIREST(Map<String, String> datiNotifica) throws RestNotificationException {
+    public void creoUnaNotificaPerDestinatarioTramiteAPIREST(Map<String, String> datiNotifica) throws RestNotificationException {
         int maxAttempts = 3;
         int attempt = 1;
 
