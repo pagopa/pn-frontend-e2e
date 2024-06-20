@@ -18,20 +18,18 @@ public class NotificationBuilder {
     public static final String APPLICATION_PDF = "application/pdf";
     private final RestNotification restNotification = new RestNotification();
 
-    public ArrayList<Recipient> multiDestinatarioPG(String multiDestinatarioFlag) {
+    public ArrayList<Recipient> destinatarioCreation(String tipoDestinatario, String multiDestinatarioFlag) {
         ArrayList<Recipient> recipients = new ArrayList<>();
-        recipients.add(new Recipient("Convivio Spa", RecipientTypeEnum.PG, "27957814470"));
-        if (multiDestinatarioFlag.equalsIgnoreCase("true")) {
-            recipients.add(new Recipient("DivinaCommedia Srl", RecipientTypeEnum.PG, "70412331207"));
-        }
-        return recipients;
-    }
-
-    public ArrayList<Recipient> multiDestinatarioPF(String multiDestinatarioFlag) {
-        ArrayList<Recipient> recipients = new ArrayList<>();
-        recipients.add(new Recipient("Gaio Giulio Cesare", RecipientTypeEnum.PF, "CSRGGL44L13H501E"));
-        if (multiDestinatarioFlag.equalsIgnoreCase("true")) {
-            recipients.add(new Recipient("Lucrezia Borgia", RecipientTypeEnum.PF, "BRGLRZ80D58H501Q"));
+        if(tipoDestinatario.equalsIgnoreCase("PF")){
+            recipients.add(new Recipient("Gaio Giulio Cesare", RecipientTypeEnum.PF, "CSRGGL44L13H501E"));
+            if (multiDestinatarioFlag.equalsIgnoreCase("true")) {
+                recipients.add(new Recipient("Lucrezia Borgia", RecipientTypeEnum.PF, "BRGLRZ80D58H501Q"));
+            }
+        }else {
+            recipients.add(new Recipient("Convivio Spa", RecipientTypeEnum.PG, "27957814470"));
+            if (multiDestinatarioFlag.equalsIgnoreCase("true")) {
+                recipients.add(new Recipient("DivinaCommedia Srl", RecipientTypeEnum.PG, "70412331207"));
+            }
         }
         return recipients;
     }
@@ -138,11 +136,10 @@ public class NotificationBuilder {
         }
     }
 
-    //come eccezione ho: IOException e FileNotFoundException
     public String computeSha256(String resName) {
         try (InputStream stream = new BufferedInputStream(new FileInputStream(resName))) {
             return computeSha256(stream);
-        } catch (Exception e) {
+        } catch (IOException e) {
             log.error("Il preload non è andato a buon fine con errore: {}", e.getMessage());
             Assert.fail("Il preload non è andato a buon fine con errore: " + e.getMessage());
             return null;
@@ -154,8 +151,8 @@ public class NotificationBuilder {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] encodedhash = digest.digest(inStrm.readAllBytes());
             return bytesToBase64(encodedhash);
-        } catch (NoSuchAlgorithmException exc) {
-            throw new IOException("SHA-256 algorithm not found", exc);
+        } catch (NoSuchAlgorithmException e) {
+            throw new IOException("SHA-256 algorithm not found", e);
         }
     }
 

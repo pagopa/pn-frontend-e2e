@@ -9,8 +9,8 @@ public class DigitalDomicile {
     private String address;
 
     public DigitalDomicile() {
-        this.type = DigitalDomicileTypeEnum.PEC;
-        this.address = "test@test.com";
+        type = DigitalDomicileTypeEnum.PEC;
+        address = "test@test.com";
     }
 
     public DigitalDomicile(DigitalDomicileTypeEnum type, String address) {

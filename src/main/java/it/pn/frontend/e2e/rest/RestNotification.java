@@ -29,10 +29,9 @@ public class RestNotification {
         final CustomHttpClient<NewNotificationRequest, NewNotificationResponse> httpClient2 = CustomHttpClient.getInstance();  // Modifica qui
         try {
             NewNotificationResponse response = httpClient2.sendHttpPostRequest("/delivery/v2.3/requests", null, notification, NewNotificationResponse.class);
-            if (response != null) {
-                log.info(String.valueOf(response));
-                return response;
-            }
+            Assert.assertNotNull("Error during createNewNotification", response);
+            log.info(String.valueOf(response));
+            return response;
         } catch (IOException e) {
             log.error("Error during createNewNotification", e);
         }
@@ -53,7 +52,7 @@ public class RestNotification {
     }
 
     public void uploadDocument(String url, String secret, String sha256) throws RestNotificationException {
-        final CustomHttpClient<?,?> httpClient2 = CustomHttpClient.getInstance();
+        final CustomHttpClient<?, ?> httpClient2 = CustomHttpClient.getInstance();
         try {
             httpClient2.sendHttpUpLoadPutRequest(url, secret, sha256, null);
         } catch (IOException e) {

@@ -3,7 +3,8 @@ Feature: annullamento della notifica
   @annullamentoNotificaPF
   Scenario: [TA-FE MITTENTE CREA E ANNULLA UNA NOTIFICA CON PAGAMENTO] - Mittente invia una notifica con avviso PagoPa e F24, la annulla e controlla quali file sono scaricabili
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
-    When Creo in background una notifica per persona fisica tramite API REST
+    When Creo in background una notifica per destinatario tramite API REST
+      | destinatario      | PF    |
       | documenti         | 1     |
       | multidestinatario | false |
       | avvisoPagoPa      | 1     |
