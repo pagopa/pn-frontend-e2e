@@ -110,4 +110,8 @@ public class BasePage {
         }
     }
 
+    public boolean checkURL(String url){
+        return driver.getCurrentUrl().contains(url);
+    }
+
 }

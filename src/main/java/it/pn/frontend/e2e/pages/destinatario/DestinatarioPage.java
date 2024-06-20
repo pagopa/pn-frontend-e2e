@@ -56,7 +56,6 @@ public class DestinatarioPage extends BasePage {
             }else{
                 logger.error("Nessuno dei campi data è passato allo stato invalido");
                 Assert.fail("Nessuno dei campi data è passato allo stato invalido");
-                invalidBoxDate = false;
             }
         } catch (TimeoutException e){
             logger.error("Campi data non visualizzati correttamente con errore: " + e.getMessage());
@@ -83,6 +82,12 @@ public class DestinatarioPage extends BasePage {
         getWebDriverWait(10).withMessage("la prima notifica della tabella non è visibile").until(ExpectedConditions.visibilityOf(singolaNotificaDelegante));
         logger.info("Si clicca sulla prima notifica del delegante");
         singolaNotificaDelegante.click();
+    }
+
+    public void clickProdotto(String xpath){
+        By prodottoDestinatario = By.xpath(xpath);
+        getWebDriverWait(10).withMessage("prodotto non disponbile").until(ExpectedConditions.visibilityOfElementLocated(prodottoDestinatario));
+        element(prodottoDestinatario).click();
     }
 
 }

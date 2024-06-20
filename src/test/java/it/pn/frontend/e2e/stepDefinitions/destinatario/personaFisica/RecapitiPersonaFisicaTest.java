@@ -83,14 +83,9 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP() {
         logger.info("Si visualizza correttamente il pop-up di inserimento OTP");
-        String varabileAmbiente = System.getProperty("environment");
         String url = WebTool.getApiBaseUrl() + "address";
         recapitiDestinatarioPage.waitLoadPopUp();
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        WebTool.waitTime(3);
         if (verificaChiamataEmail(url)) {
             logger.info("La chiamata per inviare l'otp è stata effettuata");
         } else {
@@ -343,6 +338,7 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP() {
         logger.info("Si inserisce il codice OTP di verifica");
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        WebTool.waitTime(2);
         iTuoiRecapitiPage.sendOTP(OTP);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
         if (recapitiDestinatarioPage.waitMessaggioErrore()) {
@@ -980,6 +976,23 @@ public class RecapitiPersonaFisicaTest {
     public void nellaSezioneAltriRecapitiSiCliccaSulBottoneConfermaPerInserireUnRecapito() {
         logger.info("Si clicca su conferma");
         recapitiDestinatarioPage.clickConfermaRecapitoGiaPresente();
+    }
+
+    @And("Si verifica siano presenti recapiti digitali")
+    public void siVerificaSianoPresentiRecapitiDigitali(Map<String,String> datiPF) {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
+
+        String email = datiPF.get("email");
+        if (recapitiDestinatarioPage.siVisualizzaPecInserita()) {
+            nellaPaginaITuoiRecapitiSiCliccaSulBottoneEliminaPEC();
+            nelPopUpEliminaIndirizzoPecSiCliccaSulBottoneConferma();
+            nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoPecNonSiaPresente();
+        }
+        if (recapitiDestinatarioPage.controlloEmailAssociata(email)) {
+            iTuoiRecapitiPage.eliminaEmailEsistente();
+            nellaPaginaITuoiRecapitiSiCliccaSulBottoneEliminaEmailESiConfermaNelPopUp();
+            nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoEmailNonSiaPresente();
+        }
     }
 }
 

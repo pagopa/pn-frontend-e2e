@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.model.DigitalAddressResponse;
 import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
+import lombok.Getter;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.OutputType;
@@ -18,10 +19,10 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.DevToolsException;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v117.network.Network;
-import org.openqa.selenium.devtools.v117.network.model.Headers;
-import org.openqa.selenium.devtools.v117.network.model.RequestWillBeSent;
-import org.openqa.selenium.devtools.v117.network.model.ResourceType;
+import org.openqa.selenium.devtools.v120.network.Network;
+import org.openqa.selenium.devtools.v120.network.model.Headers;
+import org.openqa.selenium.devtools.v120.network.model.RequestWillBeSent;
+import org.openqa.selenium.devtools.v120.network.model.ResourceType;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -48,6 +49,9 @@ public class Hooks {
     private String headless;
     private final CookieConfig cookieConfig = new CookieConfig();
     private final String os = System.getProperty("os.name");
+
+    @Getter
+    public static String scenario;
 
     protected void firefox() {
         WebDriverManager.firefoxdriver().setup();
@@ -180,6 +184,7 @@ public class Hooks {
     @Before
     public void startScenario(Scenario scenario) {
         logger.info("-------------------------------------------START SCENARIO: " + scenario.getName() + "------------------------------------------------");
+        this.scenario = scenario.getName();
         Collection<String> tags = scenario.getSourceTagNames();
         for (String tag : tags) {
             if (tag.startsWith("@TA_")) {

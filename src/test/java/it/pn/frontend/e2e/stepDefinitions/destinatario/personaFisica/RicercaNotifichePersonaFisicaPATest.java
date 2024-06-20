@@ -244,7 +244,7 @@ public class RicercaNotifichePersonaFisicaPATest {
         logger.info("Si cerca una notifica tramite IUN: " + codiceIUN);
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
-        piattaformaNotifichePage.selectFiltraDelegatoButton();
+        piattaformaNotifichePage.selectFiltraNotificaButton();
     }
 }
 
