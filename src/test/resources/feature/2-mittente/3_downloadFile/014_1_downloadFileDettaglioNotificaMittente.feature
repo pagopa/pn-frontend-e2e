@@ -7,7 +7,8 @@ Feature: Mittente scarica tutti i file all'interno di una notifica
 
   Scenario: PN-9327 - Mittente scarica attestazioni
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
-    When Creo in background una notifica per persona fisica tramite API REST
+    When Creo in background una notifica per destinatario tramite API REST
+      | destinatario      | PF    |
       | documenti         | 1     |
       | multidestinatario | false |
       | avvisoPagoPa      | 1     |

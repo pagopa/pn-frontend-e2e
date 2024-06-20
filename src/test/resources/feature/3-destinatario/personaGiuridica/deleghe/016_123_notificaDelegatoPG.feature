@@ -7,7 +7,8 @@ Feature:Il delegato persona giuridica accede ad una delega
 
   Scenario: PN-9177 - Il delegato persona giuridica accede ad una notifica
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    And Creo in background una notifica per persona giuridica tramite API REST
+    And Creo in background una notifica per destinatario tramite API REST
+      | destinatario      | PG    |
       | documenti         | 1     |
       | multidestinatario | false |
       | avvisoPagoPa      | 1     |
