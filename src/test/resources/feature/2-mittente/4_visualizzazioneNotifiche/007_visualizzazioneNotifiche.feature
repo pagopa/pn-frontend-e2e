@@ -11,7 +11,7 @@ Feature: Mittente visualizza correttamente la pagina notifiche
     Then Nella pagina Piattaforma Notifiche si visualizza correttamente l'elenco delle notifiche
     And Logout da portale mittente
 
-  @visualizzazioneNotificheMittente
+  @visualizzazioneNotificheMittente1
   Scenario: [TA-FE VISUALIZZAZIONE NOTIFICA DOPO INVIO PG] - Invio notifica a PA con successiva visualizzazione lato PG
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
