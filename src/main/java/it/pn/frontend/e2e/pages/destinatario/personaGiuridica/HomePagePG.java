@@ -40,6 +40,8 @@ public class HomePagePG extends BasePage {
         }
     }
 
+
+
     public void clickSendNotificheDigitali(int i) {
         notificheDigitaliCardList.get(i).click();
     }

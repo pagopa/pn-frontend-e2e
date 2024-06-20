@@ -269,18 +269,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         return linkAllegati.get(0).getText();
     }
 
-    public void checkInvioADomicilioDiPiattaforma(String domicilioDiPiattaforma) {
-        try {
-            By invioDomicilioDiPiattaformaBy = By.xpath("//div[contains(span/text(), 'Invio via PEC riuscito') and (//div[contains(p/text(), '" + domicilioDiPiattaforma + "')])]");
-            getWebDriverWait(10).withMessage("Non si visualizza l'invio della notifica al domicilio di piattaforma nella timeline").until(ExpectedConditions.visibilityOfElementLocated(invioDomicilioDiPiattaformaBy));
-        } catch (TimeoutException e) {
-            logger.error("L'invio della notifica al domicilio di piattaforma indicato non viene effettuato con errore: " + e.getMessage());
-            Assert.fail("L'invio della notifica al domicilio di piattaforma indicato non viene effettuato con errore: " + e.getMessage());
-        }
-
-    }
-
-    public void checkDoppioFallimentoInvioViaPEC(int numeroFallimenti) {
+    public void checkNumeroFallimentiInvioViaPEC(int numeroFallimenti) {
         try {
             By invioPECFallitoBy = By.xpath("//span[text()='Invio via PEC fallito']");
             List<WebElement> invioPECFallitoList = driver.findElements(invioPECFallitoBy);
@@ -306,16 +295,6 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         }
     }
 
-    public void checkInvioADomicilioSpeciale(String domicilioSpeciale) {
-        try {
-            By invioDomicilioSpecialeBy = By.xpath("//div[contains(span/text(), 'Invio via PEC riuscito') and (//div[contains(p/text(), '" + domicilioSpeciale + "')])]");
-            getWebDriverWait(10).withMessage("Non si visualizza l'invio della notifica al domicilio speciale nella timeline").until(ExpectedConditions.visibilityOfElementLocated(invioDomicilioSpecialeBy));
-        } catch (TimeoutException e) {
-            logger.error("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
-            Assert.fail("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
-        }
-    }
-
     public void checkTentatoInvioADomicilioSpeciale(String domicilioSpeciale) {
         try {
             By invioDomicilioSpecialeBy = By.xpath("//div[contains(span/text(), 'Invio via PEC fallito') and (//div[contains(p/text(), '" + domicilioSpeciale + "')])]");
@@ -323,6 +302,20 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         } catch (TimeoutException e) {
             logger.error("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
             Assert.fail("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
+        }
+    }
+
+    public void checkStepInvioNotificaViaPEC(String emailPEC) {
+        try {
+            By invioViaPECBy = By.xpath("//div[contains(span/text(), 'Invio via PEC') and (//div[contains(p/text(), '" + emailPEC + "')])]");
+            By invioPresoInCaricoBy = By.xpath("//div[contains(span/text(), 'Invio via PEC preso in carico') and (//div[contains(p/text(), '" + emailPEC + "')])]");
+            By invioRiuscitoBy = By.xpath("//div[contains(span/text(), 'Invio via PEC riuscito') and (//div[contains(p/text(), '" + emailPEC + "')])]");
+            getWebDriverWait(10).withMessage("Non si visualizza il tentativo di invio della notifica al domicilio generale").until(ExpectedConditions.visibilityOfElementLocated(invioViaPECBy));
+            getWebDriverWait(10).withMessage("Non si visualizza la presa in carico dell'invio della notifica al domicilio generale").until(ExpectedConditions.visibilityOfElementLocated(invioPresoInCaricoBy));
+            getWebDriverWait(10).withMessage("Non si visualizza la riuscita dell'invio della notifica al domicilio generale").until(ExpectedConditions.visibilityOfElementLocated(invioRiuscitoBy));
+        } catch (TimeoutException e) {
+            logger.error("Non si visualizza correttamente uno step nella timeline della notifica, precisamente: " + e.getMessage());
+            Assert.fail("Non si visualizza correttamente uno step nella timeline della notifica, precisamente: " + e.getMessage());
         }
     }
 
