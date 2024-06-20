@@ -85,4 +85,10 @@ public class DestinatarioPage extends BasePage {
         singolaNotificaDelegante.click();
     }
 
+    public void clickProdotto(String xpath){
+        By prodottoDestinatario = By.xpath(xpath);
+        getWebDriverWait(10).withMessage("prodotto non disponbile").until(ExpectedConditions.visibilityOfElementLocated(prodottoDestinatario));
+        element(prodottoDestinatario).click();
+    }
+
 }

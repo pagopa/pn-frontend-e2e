@@ -101,7 +101,7 @@ public class RicercaNotificheMittentePagoPATest {
         logger.info("Si clicca sul tasto filtra del delegante sotto notifiche");
 
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-        piattaformaNotifichePage.selectFiltraDelegatoButton();
+        piattaformaNotifichePage.selectFiltraNotificaButton();
     }
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice fiscale del destinatario {string}")

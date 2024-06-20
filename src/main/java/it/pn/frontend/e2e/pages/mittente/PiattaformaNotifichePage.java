@@ -36,7 +36,7 @@ public class PiattaformaNotifichePage extends BasePage {
     WebElement filtraButton;
 
     @FindBy(id = "filter-notifications-button")
-    WebElement filtraDeleganteButton;
+    WebElement filtraNotificaButton;
 
     @FindBy(id = "iunMatch")
     WebElement codiceIUNTextField;
@@ -138,15 +138,13 @@ public class PiattaformaNotifichePage extends BasePage {
         logger.info("Bottone filtra cliccato correttamente");
     }
 
-    public void selectFiltraDelegatoButton() {
-        try {
-            getWebDriverWait(30).until(elementToBeClickable(this.filtraDeleganteButton));
-            this.filtraDeleganteButton.click();
+    public void selectFiltraNotificaButton() {
+
+            getWebDriverWait(10).until(elementToBeClickable(filtraNotificaButton));
+            filtraNotificaButton.click();
             logger.info("Bottone filtra, nella pagina notifiche del delegato, cliccato correttamente");
-        } catch (TimeoutException e) {
-            logger.error("Bottone filtra, nella pagina notifiche del delegato, non cliccabile con errore " + e.getMessage());
-            Assert.fail("Bottone filtra, nella pagina notifiche del delegato, non cliccabile con errore " + e.getMessage());
-        }
+
+
     }
 
     public int getListaCf(String cfInserito) {

@@ -2,14 +2,13 @@ package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.sql.Time;
 
 public class SelezionaImpresaPage extends BasePage {
 
@@ -39,11 +38,18 @@ public class SelezionaImpresaPage extends BasePage {
         logger.info("click su pulsante accedi");
         this.accediButton.click();
     }
-
-    public void clickSuImpresa(String ragioneSociale) {
-        By impresaBy = By.xpath("//h6[contains(text(),'"+ragioneSociale+"')]");
-        this.getWebDriverWait(30).withMessage("l'ente: "+ragioneSociale+" della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(impresaBy));
-        logger.info("click su impresa");
-        this.element(impresaBy).click();
+    public boolean clickSuImpresa(String ragioneSociale) {
+        //insert try catch for handle element not clickable
+        try{
+            By impresaBy = By.xpath("//h6[contains(text(),'"+ragioneSociale+"')]");
+            getWebDriverWait(5).withMessage("l'ente: "+ragioneSociale+" della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.elementToBeClickable(impresaBy));
+            element(impresaBy).click();
+            logger.info("check su impresa");
+        }catch (ElementClickInterceptedException e){
+            logger.info("impresa non cliccabile");
+            return false;
+        }
+        return true;
     }
+
 }

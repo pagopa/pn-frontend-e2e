@@ -329,7 +329,7 @@ public class BackgroundTest {
     public void siFiltraLaTabellaDelleNotifichePerIUN(String iun) {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
-        piattaformaNotifichePage.selectFiltraButton();
+        piattaformaNotifichePage.selectFiltraNotificaButton();
         piattaformaNotifichePage.clickSuNotifica();
     }
 }
