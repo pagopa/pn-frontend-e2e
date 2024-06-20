@@ -142,9 +142,9 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selectFiltraNotificaButton() {
-            getWebDriverWait(10).until(elementToBeClickable(filtraNotificaButton));
-            filtraNotificaButton.click();
-            logger.info("Bottone filtra, nella pagina notifiche del delegato, cliccato correttamente");
+        getWebDriverWait(10).until(elementToBeClickable(filtraNotificaButton));
+        filtraNotificaButton.click();
+        logger.info("Bottone filtra, nella pagina notifiche del delegato, cliccato correttamente");
     }
 
     public int getListaCf(String cfInserito) {
@@ -768,9 +768,9 @@ public class PiattaformaNotifichePage extends BasePage {
         try {
             this.getWebDriverWait(10).withMessage("Lo stato " + stato + " non è presente")
                     .until(ExpectedConditions.visibilityOfElementLocated(statusChip));
-            logger.info("Stato " + stato + " presente");
+            logger.info("Stato {} presente", stato);
         } catch (TimeoutException e) {
-            logger.error("Stato " + stato + " non presente con errore: " + e.getMessage());
+            logger.error("Stato {} non presente con errore: {}", stato, e.getMessage());
             Assert.fail("Stato " + stato + " non presente con errore: " + e.getMessage());
         }
     }
@@ -782,7 +782,7 @@ public class PiattaformaNotifichePage extends BasePage {
             if (netWorkInfo.getRequestUrl().contains("bff/v1/notifications/sent") && netWorkInfo.getRequestMethod().equals("POST")) {
                 if (netWorkInfo.getResponseStatus().equals("202") && !netWorkInfo.getResponseBody().isEmpty()) {
                     notificationRequestId = netWorkInfo.getResponseBody().split("\"notificationRequestId\":\"")[1].split("\"")[0];
-                    logger.info("NotificationRequestId: " + notificationRequestId);
+                    logger.info("NotificationRequestId: {}", notificationRequestId);
                     break;
                 }
             }
@@ -793,15 +793,16 @@ public class PiattaformaNotifichePage extends BasePage {
         String notificationIUN;
         int maximumRetry = 0;
         do {
-            Assert.assertTrue("La notifica risulta ancora in stato WAITING dopo 5 tentativi", maximumRetry <= 5);
+            Assert.assertTrue("La notifica risulta ancora in stato WAITING dopo 5 tentativi", maximumRetry <= 6);
             notificationData = restNotification.getNotificationStatus(notificationRequestId);
             notificationStatus = notificationData.get("notificationRequestStatus").toString();
             if (notificationStatus.equals("ACCEPTED")) {
                 notificationIUN = notificationData.get("iun").toString();
                 notificationSingleton.setScenarioIun(Hooks.getScenario(), notificationIUN);
+                return;
             } else {
-                WebTool.waitTime(90);
-                logger.info("Tentativo n. " + maximumRetry + " - Stato notifica: " + notificationStatus);
+                WebTool.waitTime(60);
+                logger.info("Tentativo n.{} - Stato notifica: {}", maximumRetry, notificationStatus);
                 maximumRetry++;
             }
         } while (notificationStatus.equals("WAITING"));
@@ -863,7 +864,7 @@ public class PiattaformaNotifichePage extends BasePage {
             driver.navigate().refresh();
         }
         if (!testSuccess) {
-            logger.error("La notifica non è passata allo stato " + statoNotifica);
+            logger.error("La notifica non è passata allo stato {}", statoNotifica);
             Assert.fail("La notifica non è passata allo stato " + statoNotifica);
         }
     }
@@ -875,14 +876,14 @@ public class PiattaformaNotifichePage extends BasePage {
             By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
             getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOfElementLocated(notification));
         } catch (TimeoutException e) {
-            logger.error("non é stato possibile recupare la notifica con errore" + e);
+            logger.error("non é stato possibile recupare la notifica con errore: {}", e.getMessage());
             Assert.fail("non é stato possibile recupare la notifica con errore" + e);
         }
     }
 
     public void clickSuNotifica() {
         String iun = notificationSingleton.getIun(Hooks.scenario);
-        logger.info("iun notifica " + iun);
+        logger.info("iun notifica {}", iun);
         By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
         getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOfElementLocated(notification));
         element(notification).click();
