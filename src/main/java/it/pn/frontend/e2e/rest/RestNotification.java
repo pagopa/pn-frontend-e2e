@@ -7,16 +7,14 @@ import it.pn.frontend.e2e.model.NewNotificationRequest;
 import it.pn.frontend.e2e.model.NewNotificationResponse;
 import it.pn.frontend.e2e.model.PreLoadRequest;
 import it.pn.frontend.e2e.model.PreLoadResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
 
+@Slf4j
 public class RestNotification {
-    private static final Logger logger = LoggerFactory.getLogger("RestNotification");
-
     public RestNotification() {
     }
 
@@ -32,11 +30,11 @@ public class RestNotification {
         try {
             NewNotificationResponse response = httpClient2.sendHttpPostRequest("/delivery/v2.3/requests", null, notification, NewNotificationResponse.class);
             if (response != null) {
-                logger.info(String.valueOf(response));
+                log.info(String.valueOf(response));
                 return response;
             }
         } catch (IOException e) {
-            logger.error("Error during createNewNotification", e);
+            log.error("Error during createNewNotification", e);
         }
         return null;
     }
@@ -49,7 +47,7 @@ public class RestNotification {
                 return response;
             }
         } catch (IOException e) {
-            logger.error("Error during document preload", e);
+            log.error("Error during document preload", e);
         }
         return null;
     }
@@ -59,7 +57,7 @@ public class RestNotification {
         try {
             httpClient2.sendHttpUpLoadPutRequest(url, secret, sha256, null);
         } catch (IOException e) {
-            logger.error("Error during document upload", e);
+            log.error("Error during document upload", e);
             Assert.fail("Error during document upload" + e.getMessage());
         }
     }
@@ -74,15 +72,15 @@ public class RestNotification {
                 if (responseData.containsKey("notificationRequestStatus")) {
                     return responseData.get("notificationRequestStatus").toString();
                 } else {
-                    logger.error("L'attributo 'notificationRequestStatus' non è presente nella risposta JSON");
+                    log.error("L'attributo 'notificationRequestStatus' non è presente nella risposta JSON");
                     return null;
                 }
             } else {
-                logger.error("La risposta non è valida o non può essere convertita in JSON");
+                log.error("La risposta non è valida o non può essere convertita in JSON");
                 return null;
             }
         } catch (IOException e) {
-            logger.error("Error during getNotificationStatus", e);
+            log.error("Error during getNotificationStatus", e);
             return null;
         }
     }
