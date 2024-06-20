@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.model.DigitalAddressResponse;
 import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
+import lombok.Getter;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.OutputType;
@@ -18,10 +19,10 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.DevToolsException;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v117.network.Network;
-import org.openqa.selenium.devtools.v117.network.model.Headers;
-import org.openqa.selenium.devtools.v117.network.model.RequestWillBeSent;
-import org.openqa.selenium.devtools.v117.network.model.ResourceType;
+import org.openqa.selenium.devtools.v120.network.Network;
+import org.openqa.selenium.devtools.v120.network.model.Headers;
+import org.openqa.selenium.devtools.v120.network.model.RequestWillBeSent;
+import org.openqa.selenium.devtools.v120.network.model.ResourceType;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -48,6 +49,9 @@ public class Hooks {
     private String headless;
     private final CookieConfig cookieConfig = new CookieConfig();
     private final String os = System.getProperty("os.name");
+
+    @Getter
+    public static String scenario;
 
     protected void firefox() {
         WebDriverManager.firefoxdriver().setup();
@@ -77,6 +81,12 @@ public class Hooks {
         chromeOptions.addArguments("--disable-dev-shm-usage");
         chromeOptions.addArguments("--remote-allow-origins=*");
         chromeOptions.addArguments("--enable-clipboard");
+        String downloadFilepath = System.getProperty("downloadFilePath");
+
+        HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+        chromePrefs.put("download.default_directory", downloadFilepath);
+
+        chromeOptions.setExperimentalOption("prefs", chromePrefs);
         if (this.headless != null && this.headless.equalsIgnoreCase("true")) {
             chromeOptions.addArguments("no-sandbox");
             chromeOptions.addArguments("headless");
@@ -101,7 +111,6 @@ public class Hooks {
         this.captureHttpRequests();
         this.captureHttpResponse();
         logger.info("chromedriver started");
-
     }
 
     private void captureHttpRequests() {
@@ -175,6 +184,7 @@ public class Hooks {
     @Before
     public void startScenario(Scenario scenario) {
         logger.info("-------------------------------------------START SCENARIO: " + scenario.getName() + "------------------------------------------------");
+        this.scenario = scenario.getName();
         Collection<String> tags = scenario.getSourceTagNames();
         for (String tag : tags) {
             if (tag.startsWith("@TA_")) {
@@ -268,6 +278,30 @@ public class Hooks {
     }
 
     /**
+     * Clear directory of file downloaded
+     * P.S: This will work only if you invoke the feature step that creates the delegate
+     */
+    @After("@File")
+    public void clearDirectory() {
+        String folderPath = System.getProperty("downloadFilePath");
+
+        File folder = new File(folderPath);
+
+        if (folder.isDirectory()) {
+            File[] files = folder.listFiles();
+            for (File file : files) {
+                if (file.isFile()) {
+                    if (file.delete()) {
+                        System.out.println("File cancellato: " + file.getAbsolutePath());
+                    } else {
+                        System.out.println("Impossibile cancellare il file: " + file.getAbsolutePath());
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Clear the contacts of PF after the scenario
      * P.S: This will work only if there are any contacts available
      */
@@ -296,5 +330,4 @@ public class Hooks {
             });
         }
     }
-
 }

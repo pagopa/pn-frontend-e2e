@@ -421,3 +421,25 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata
     And Il bottone annulla notifica non è visualizzabile nella descrizione della notifica
     And Logout da portale mittente
     And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
+
+  @annullamentoNotificaPF
+  Scenario: [TA-FE MITTENTE CREA E ANNULLA UNA NOTIFICA CON PAGAMENTO] - Mittente invia una notifica con avviso PagoPa e F24, la annulla e controlla quali file sono scaricabili
+    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
+    When Creo in background una notifica per destinatario tramite API REST
+      | destinatario      | PF    |
+      | documenti         | 1     |
+      | multidestinatario | false |
+      | avvisoPagoPa      | 1     |
+      | F24               | 1     |
+      | costiNotifica     | true  |
+    Then Attendo 4 minuti e verifico in background che la notifica sia stata creata correttamente
+    When Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita
+    And Si visualizza correttamente la sezione Dettaglio Notifica
+    And Si annulla la notifica
+    Then Si controlla la comparsa del pop up di conferma annullamento
+    Then Si verifica che la notifica abbia lo stato "Annullata"
+    Then Si controlla sia presente il modello F24
+    Then Si controlla sia presente l'avviso PagoPa
+    Then Si clicca l'avviso PagoPa
+    Then Si torna alla pagina precedente
+    And Logout da portale mittente

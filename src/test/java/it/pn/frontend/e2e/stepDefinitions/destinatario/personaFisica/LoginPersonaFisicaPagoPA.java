@@ -48,11 +48,12 @@ public class LoginPersonaFisicaPagoPA {
                     Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
     }
-        @Given("Login Page persona fisica test viene visualizzata")
-        public void loginPageDestinatarioVieneVisualizzataConUrl() {
 
-           String url = "https://cittadini.test.notifichedigitali.it/";
-            this.driver.get(url);
+    @Given("Login Page persona fisica test viene visualizzata")
+    public void loginPageDestinatarioVieneVisualizzataConUrl() {
+
+        String url = "https://cittadini.test.notifichedigitali.it/";
+        this.driver.get(url);
     }
 
     @Given("PF - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
@@ -98,8 +99,8 @@ public class LoginPersonaFisicaPagoPA {
                 //ToDo add token for dev
             }
             case "test" -> {
-                if(utente.equalsIgnoreCase("Cristoforo Colombo")) {
-                    token =  dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPFColombo").toString();
+                if (utente.equalsIgnoreCase("Cristoforo Colombo")) {
+                    token = dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPFColombo").toString();
                 }
             }
             default -> {
@@ -191,8 +192,9 @@ public class LoginPersonaFisicaPagoPA {
         confermaDatiSpidPFPage.selezionaConfermaButton();
         headerPFSection.waitUrlToken();
     }
+
     @When("Login con persona fisica")
-    public void loginConDestinatario(Map<String,String> datiPF) {
+    public void loginConDestinatario(Map<String, String> datiPF) {
         logger.info("user persona fisica : " + datiPF.get("user"));
         logger.info("cookies start");
         CookiesSection cookiesPage;
@@ -313,7 +315,7 @@ public class LoginPersonaFisicaPagoPA {
         }
 
         String variabileAmbiente = System.getProperty("environment");
-        String urlChiamata = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/notifications/received?";
+        String urlChiamata = WebTool.getApiBaseUrl() + "notifications/received?";
 
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {

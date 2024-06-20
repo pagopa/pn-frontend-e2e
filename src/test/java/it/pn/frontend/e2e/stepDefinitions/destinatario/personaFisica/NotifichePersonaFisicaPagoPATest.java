@@ -16,6 +16,7 @@ import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -35,6 +36,8 @@ public class NotifichePersonaFisicaPagoPATest {
     private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
     private final DataPopulation dataPopulation = new DataPopulation();
     private final DestinatarioPage destinatarioPage = new DestinatarioPage(driver);
+    private final AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
+    private final NotifichePFPage notifichePFPage = new NotifichePFPage(driver);
 
     private final DettaglioNotificaSection dettaglioNotifica = new DettaglioNotificaSection(driver);
 
@@ -284,11 +287,7 @@ public class NotifichePersonaFisicaPagoPATest {
         }
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
             dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            WebTool.waitTime(5);
             String urlFileAttestazioneOppponibile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/" + datiNotifica.get("codiceIUN").toString() + "/legal-facts/");
 
             if (headless && urlFileAttestazioneOppponibile.isEmpty()) {
@@ -338,6 +337,12 @@ public class NotifichePersonaFisicaPagoPATest {
         }
     }
 
+    @And("Nella pagina Piattaforma Notifiche del destinatario si filtra per codice IUN {string}")
+    public void nellaPaginaPiattaformaNotificheSiRecuperaUnCodiceIUNValido(String codiceIun) {
+        logger.info("Si recupera un codice IUN valido");
+        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
+    }
+
     @And("Si Controlla la paginazione di default")
     public void siControllaLaPaginazioneDiDefault() {
         logger.info("controllo paginazione di default in pagina notifiche");
@@ -365,6 +370,86 @@ public class NotifichePersonaFisicaPagoPATest {
         piattaformaNotifichePage.selezionaNotifica();
         piattaformaNotifichePage.verificaPresenzaStato(statoNotifica);
         WebTool.closeTab();
+    }
+
+    @And("Si controlla che il testo sia nel box pagamento {string}")
+    public void siControllaTestoSiaNelBoxPagamento(String xpath) {
+        boolean isPresent = dettaglioNotifica.isFieldDisplayed(By.xpath(xpath));
+        if (!isPresent) {
+            Assert.fail("L'elemento non esiste");
+        }
+    }
+
+    @And("Si controlla che il testo non sia nel box pagamento {string}")
+    public void siControllaTestoNonSiaNelBoxPagamento(String xpathString) {
+        By xpath = By.xpath(xpathString);
+
+        boolean isNotPresent = dettaglioNotifica.isFieldNotDisplayed(xpath);
+        if (!isNotPresent) {
+            Assert.fail("L'elemento esiste");
+        }
+    }
+
+    @And("Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca")
+    public void nellaPaginaPiattaformaNotificheVisualizzanoCorrettamenteIFiltriDiRicerca() {
+        piattaformaNotifichePage.siVisualizzaCorrettamenteIlCodiceIUNField();
+        piattaformaNotifichePage.siVisualizzaCorrettamenteLaDataInzioField();
+        piattaformaNotifichePage.siVisualizzaCorrettamenteLaDataFineField();
+    }
+
+    @Then("Si visualizza correttamente la section Dettaglio Notifica annullata persona fisica")
+    public void siVisualizzaCorrettamenteLaSectionDettaglioNotificaAnnullataPersonaFisica() {
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        dettaglioNotificaSection.waitLoadDettaglioNotificaAnnullataDESection();
+    }
+
+    @And("Si controlla lo stato timeline in dettaglio notifica")
+    public void siControllaLoStatoTimelineInDettaglioNotificaPF(Map<String, String> datiDettaglioNotifica) {
+        String xpath = datiDettaglioNotifica.get("xpath");
+        dettaglioNotifica.waitLoadDettaglioNotificaDESection();
+        WebTool.waitTime(2);
+        dettaglioNotifica.checkStatoTimeline(By.xpath(xpath));
+    }
+
+    @And("Si seleziona un avviso pagopa")
+    public void siSelezionaUnAvvisoPagopa() {
+        dettaglioNotifica.selezioneAvvisoPagoPa();
+    }
+
+    @Then("Si clicca sul bottone scarica F24")
+    public void siCliccaSulBottoneScaricaF24() {
+        logger.info("Si clicca sul bottone per scaricare il modello F24, viene aperto il file");
+        notifichePFPage.clickScaricaF24Button();
+    }
+
+    @Then("Si clicca sul bottone scarica avviso PagoPA")
+    public void siCliccaSulBottoneScaricaAvvisoPagoPA() {
+        logger.info("Si clicca sul bottone per scaricare l'avviso PagoPA, viene aperto il file");
+        notifichePFPage.clickScaricaAvvisoPagoPAButton();
+    }
+
+    @And("Si controlla di aver aperto il file F24")
+    public void siControllaDiAverApertoIlFileF24() {
+        logger.info("Si controlla di aver aperto correttamente il file F24");
+        notifichePFPage.checkFileF24IsOpen();
+    }
+
+    @And("Si controlla di aver aperto l'avviso PagoPa")
+    public void siControllaDiAverApertoLAvvisoPagoPa() {
+        logger.info("Si controlla di aver aperto correttamente l'avviso PagoPa");
+        notifichePFPage.checkAvvisoPagoPaIsOpen();
+    }
+
+    @And("Si torna alla pagina precedente")
+    public void siTornaAllaPaginaPrecedente() {
+        logger.info("Si torna alla pagina precedente");
+        driver.navigate().back();
+    }
+
+    @And("Si controlla non sia presente il bottone paga")
+    public void siControllaNonSiaPresenteIlBottonePaga() {
+        logger.info("Si controlla che il bottone per il pagamento non sia visibile all'interno del dettaglio della notifica");
+        accediAPiattaformaNotifichePage.checkButtonPagaIsDisplayed();
     }
 }
 

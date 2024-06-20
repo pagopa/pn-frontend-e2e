@@ -2,7 +2,7 @@ Feature: il mittente fa una ricerca combinata tra stato e arco temporale
 
   @TestSuite
     @mittente
-    @ricercaNatoficheMittente
+    @ricercaNotificheMittente
     @TA_MittenteRicercaPerStatoPeriodo
 
   Scenario Outline: PN-9222 - il mittente fa una ricerca sia per arco temporale che per stato
