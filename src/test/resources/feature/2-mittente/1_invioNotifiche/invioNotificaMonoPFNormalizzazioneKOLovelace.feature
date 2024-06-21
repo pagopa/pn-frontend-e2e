@@ -1,7 +1,7 @@
 Feature: Mittente genera una notifica che non prevede pagamento
 
   @TestSuite
-  @TA_InvioNotificaMonoPFNormalizzazioneKO
+  @TA_InvioNotificaMonoPFNormalizzazioneKOLovelace
   @mittente
   @invioNotifiche
 
