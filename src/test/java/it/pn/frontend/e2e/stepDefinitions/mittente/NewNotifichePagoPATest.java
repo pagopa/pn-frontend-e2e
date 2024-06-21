@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.stepDefinitions.mittente;
 
+import com.google.gson.internal.LinkedTreeMap;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
@@ -7,6 +8,7 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.model.*;
 import it.pn.frontend.e2e.model.enums.NotificationFeePolicyEnum;
 import it.pn.frontend.e2e.model.enums.PhysicalCommunicationTypeEnum;
+import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.utility.NotificationBuilder;
 import it.pn.frontend.e2e.utility.WebTool;
@@ -14,17 +16,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
 
 @Slf4j
 public class NewNotifichePagoPATest {
     private final RestNotification restNotification = new RestNotification();
     private static final NotificationBuilder notificationBuilder = new NotificationBuilder();
     private final WebDriver driver = Hooks.driver;
+    private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
+
 
     @When("Creo in background una notifica per destinatario tramite API REST")
     public void creoUnaNotificaPerDestinatarioTramiteAPIREST(Map<String, String> datiNotifica) throws RestNotificationException {
-        int maxAttempts = 3;
+        int maxAttempts = 4;
         int attempt = 1;
 
         String costiNotifica = datiNotifica.get("costiNotifica");
@@ -34,7 +39,6 @@ public class NewNotifichePagoPATest {
         for (Recipient recipient : recipients) {
             recipient.setPayments(payments);
         }
-
         NewNotificationRequest notification;
         if (costiNotifica.equalsIgnoreCase("false")) {
             notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.REGISTERED_LETTER_890, "010202N", NotificationFeePolicyEnum.FLAT_RATE);
@@ -42,13 +46,31 @@ public class NewNotifichePagoPATest {
             notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.REGISTERED_LETTER_890, "010202N", NotificationFeePolicyEnum.DELIVERY_MODE);
         }
         while (attempt <= maxAttempts) {
-            NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification);
+            NewNotificationResponse responseOfCreateNotification = restNotification.newNotificationWithOneRecipientAndDocument(notification);
 
-            if (response != null) {
+            if (responseOfCreateNotification != null) {
+                log.info("Inizio controllo notifica fino a stato accettata");
+                int maxAttemptsPolling = 0;
+                LinkedTreeMap<String, Object> getNotificationStatus;
+                String notificationStatus;
+                do {
+                    Assert.assertTrue("La notifica risulta ancora in stato WAITING dopo 5 tentativi", maxAttemptsPolling <= 4);
+                    log.info(responseOfCreateNotification.getNotificationRequestId());
+                    getNotificationStatus = restNotification.getNotificationStatus(responseOfCreateNotification.getNotificationRequestId());
+                    log.info(String.valueOf(getNotificationStatus));
+                    notificationStatus = getNotificationStatus.get("notificationRequestStatus").toString();
+                    if (!notificationStatus.equals("ACCEPTED")) {
+                        WebTool.waitTime(90);
+                        log.info("Tentativo n. " + maxAttemptsPolling + " - Stato notifica: " + notificationStatus);
+                        maxAttemptsPolling++;
+                    } else {
+                        driver.navigate().refresh();
+                        return;
+                    }
+                } while (notificationStatus.equals("WAITING"));
                 log.info("Notifica per persona fisica creata con successo");
-                System.setProperty("IUN", WebTool.decodeNotificationRequestId(response.getNotificationRequestId()));
-                log.info("Il codice IUN della notifica per PF è il seguente: {}", System.getProperty("IUN"));
-                return;
+                notificationSingleton.setScenarioIun(Hooks.getScenario(), WebTool.decodeNotificationRequestId(responseOfCreateNotification.getNotificationRequestId()));
+                log.info("Il codice IUN della notifica per PF è il seguente: {}", notificationSingleton.getIun(Hooks.getScenario()));
             } else {
                 log.warn("Tentativo #{} di creazione della notifica fallito. Riprovo...", attempt);
                 notification.setPaProtocolNumber(WebTool.generatePaProtocolNumber());

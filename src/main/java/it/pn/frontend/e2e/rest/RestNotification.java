@@ -7,6 +7,7 @@ import it.pn.frontend.e2e.model.NewNotificationRequest;
 import it.pn.frontend.e2e.model.NewNotificationResponse;
 import it.pn.frontend.e2e.model.PreLoadRequest;
 import it.pn.frontend.e2e.model.PreLoadResponse;
+import it.pn.frontend.e2e.utility.WebTool;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 
@@ -82,5 +83,11 @@ public class RestNotification {
             log.error("Error during getNotificationStatus", e);
             return null;
         }
+    }
+
+    public boolean pollingCreationNotification(LinkedTreeMap<String, Object> statusOfNotification){
+        int attempt = 0;
+
+        return false;
     }
 }
