@@ -24,8 +24,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
 @Slf4j
 public class DeleghePagoPATest {
 
@@ -237,7 +239,7 @@ public class DeleghePagoPATest {
         leTueDelegheSection.waitPopUpLoad();
         if (data.equalsIgnoreCase("corretto")) {
             verificationCode = System.getProperty("verificationCode");
-        }else {
+        } else {
             verificationCode = "54321";
         }
         leTueDelegheSection.inserireCodiceDelega(verificationCode);
@@ -290,17 +292,18 @@ public class DeleghePagoPATest {
     }
 
     @And("Si vefifica il messaggio di codice sbagliato")
-    public void siVerificaIlMessaggioDiCodiceSbagliato(){
+    public void siVerificaIlMessaggioDiCodiceSbagliato() {
         if (leTueDelegheSection.verificaEsistenzaErroreCodiceSbagliato()) {
             log.info("Il messaggio di codice sbagliato è visualizzata");
-        }else{
+        } else {
             log.error("Il messaggio di codice sbagliato non è visualizzata");
             Assert.fail("Il messaggio di codice sbagliato non è visualizzata");
         }
 
     }
+
     @And("Si clicca sul bottone indietro popup")
-    public void siCliccaSulBottoneIndietroPopUp(){
+    public void siCliccaSulBottoneIndietroPopUp() {
         leTueDelegheSection.clickIndietroButton();
     }
 
@@ -313,7 +316,7 @@ public class DeleghePagoPATest {
     }
 
     @And("Si controlla che la delega ha lo stato Attiva")
-    public void siControllaCheLaDelegaHaLoStatoAttiva(Map<String,String> data) {
+    public void siControllaCheLaDelegaHaLoStatoAttiva(Map<String, String> data) {
         log.info("Si controlla che la delega abbia lo stato Attiva");
         leTueDelegheSection.controlloStatoAttiva(data.get("firstName"), data.get("lastName"));
     }
@@ -411,7 +414,7 @@ public class DeleghePagoPATest {
     }
 
     @And("Nella pagina Deleghe si clicca sul menu della delega a tuo carico")
-    public void nellaPaginaDelegheSiCliccaSulMenuDellaDelega(Map<String,String> personaFisica) {
+    public void nellaPaginaDelegheSiCliccaSulMenuDellaDelega(Map<String, String> personaFisica) {
         log.info("Si clicca sul menu delle delega");
         String nome = personaFisica.get("nome");
         String cognome = personaFisica.get("cognome");
@@ -482,7 +485,7 @@ public class DeleghePagoPATest {
     }
 
     @And("Si verifica sia presente una delega da rifiutare nella sezione Deleghe a Tuo Carico")
-    public void siVerificaSiaPresenteUnaDelegaDaRifiutareNellaSezioneDelegheATuoCarico(Map<String,String> personaFisica) {
+    public void siVerificaSiaPresenteUnaDelegaDaRifiutareNellaSezioneDelegheATuoCarico(Map<String, String> personaFisica) {
         log.info("Si controlla che ci sia almeno una delega");
 
         String nome = personaFisica.get("nome");
@@ -512,6 +515,7 @@ public class DeleghePagoPATest {
             Assert.fail("La delega è ancora presente in lista");
         }
     }
+
     @And("Si annulla azione revoca")
     public void siAnnullaAzioneRevoca() {
         deleghePage.clickAnnullaRevoca();
@@ -529,8 +533,29 @@ public class DeleghePagoPATest {
     }
 
     @And("Si verifica che presente un indicatore numerico in corrispondenza della voce di menù Deleghe")
-    public void siVerificaIndicatoreNumericoMenuDeleghe(){
+    public void siVerificaIndicatoreNumericoMenuDeleghe() {
         log.info("Si controlla indicatore numerico");
-       leTueDelegheSection.checkIndicatoreNumerico();
+        leTueDelegheSection.checkIndicatoreNumerico();
+    }
+
+    /**
+     * @param tipoVisualizzazioneNotifica i valori possibili sono: Tutti gli enti o Solo enti selezionati
+     * @param tipoUtente
+     */
+    @Then("Nella sezione della nuova delega si sceglie la visualizzazione delle notifiche da parte di: {string}")
+    public void nellaSezioneSiSceglieLaVisualizzazioneDelleNotificheDaParteDi(String tipoVisualizzazioneNotifica) {
+        log.info("Si sceglie la visualizzazione delle notifiche");
+        if (tipoVisualizzazioneNotifica.equalsIgnoreCase("Tutti gli enti")) {
+            destinatarioPage.clickTuttiGliEnti();
+        } else {
+            destinatarioPage.clickSoloEntiSelezionati();
+        }
+    }
+
+    @And("Si verifica che nell'elenco degli enti sono presenti solamente enti radice")
+    public void siVerificaCheNellElencoDegliEntiSonoPresentiSolamenteEntiRadice(List<String> enti) {
+        log.info("Si verifica che nell'elenco degli enti sono presenti solamente enti radice");
+        destinatarioPage.clickListaEnti();
+        destinatarioPage.controlloEntiRadice(enti);
     }
 }
