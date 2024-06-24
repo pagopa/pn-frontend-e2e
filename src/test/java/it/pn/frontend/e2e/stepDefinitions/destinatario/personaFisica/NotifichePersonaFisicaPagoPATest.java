@@ -395,7 +395,7 @@ public class NotifichePersonaFisicaPagoPATest {
         dettaglioNotificaSection.waitLoadDettaglioNotificaAnnullataDESection();
     }
 
-    @And("Si controlla lo stato timeline in dettaglio notifica PF")
+    @And("Si controlla lo stato timeline in dettaglio notifica")
     public void siControllaLoStatoTimelineInDettaglioNotificaPF(Map<String, String> datiDettaglioNotifica) {
         String xpath = datiDettaglioNotifica.get("xpath");
         dettaglioNotifica.waitLoadDettaglioNotificaDESection();

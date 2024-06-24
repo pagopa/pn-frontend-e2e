@@ -1,6 +1,6 @@
 Feature: invio notifica con sequence
 
-  @TestSuite
+  @Parallel
   @WorkflowNotificaConSequence
   @NotificaConSequenceOKRIRAR
 
@@ -14,39 +14,41 @@ Feature: invio notifica con sequence
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     And Creazione notifica completa
-      | oggettoDellaNotifica | Pagamento rata IMU    |
-      | descrizione          | PAGAMENTO RATA IMU    |
-      | modello              | AR    |
-      | gruppoTest           | test-TA-FE-TEST       |
-      | gruppoDev            | GruppoTest            |
-      | codiceTassonometrico | 123456A               |
-      | nomeFileYaml         | datiNotifica          |
-      | nomePF               | Gaio Giulio           |
-      | cognomePF            | Cesare                |
-      | codiceFiscalePF      | CSRGGL44L13H501E      |
-      | indirizzoPF          | via @OK_RIR |
-      | numeroCivicoPF       | 627   |
-      | comunePF             | Limeira  |
-      | provinciaPF          | São Paulo   |
-      | codicepostalePF      | 13480-325   |
-      | statoPF              | BRASILE   |
-      | nomeDocumentoNotifica | RATA SCADUTA IMU |
+      | oggettoDellaNotifica  | Pagamento rata IMU |
+      | descrizione           | PAGAMENTO RATA IMU |
+      | modello               | AR                 |
+      | gruppoTest            | test-TA-FE-TEST    |
+      | gruppoDev             | GruppoTest         |
+      | destinatario          | PF                 |
+
+      | codiceTassonometrico  | 123456A            |
+      | nomeFileYaml          | datiNotifica       |
+      | nome                  | Gaio Giulio        |
+      | cognome               | Cesare             |
+      | codiceFiscale         | CSRGGL44L13H501E   |
+      | indirizzo             | via @OK_RIR        |
+      | numeroCivico          | 627                |
+      | comune                | Limeira            |
+      | provincia             | São Paulo          |
+      | codicepostale         | 13480-325          |
+      | stato=                | BRASILE            |
+      | nomeDocumentoNotifica | RATA SCADUTA IMU   |
     And Si verifica che la notifica è stata creata correttamente
     And Si seleziona la notifica
     And Si attende completamento notifica
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato  | //p[contains(text(),"La raccomandata A/R") and contains(text(),"è stata stampata ed imbustata")]|
-      | vediDettagli | true |
+      | xpathStato   | //p[contains(text(),"La raccomandata A/R") and contains(text(),"è stata stampata ed imbustata")] |
+      | vediDettagli | true                                                                                             |
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato  | //p[contains(text(),"C'è un nuovo documento allegato")]|
-      | vediDettagli | false |
+      | xpathStato   | //p[contains(text(),"C'è un nuovo documento allegato")] |
+      | vediDettagli | false                                                   |
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato  | //p[contains(text(),"La raccomandata A/R internazionale") and contains(text(),"è stata inoltrata verso il paese di destinazione")]|
-      | vediDettagli | false |
+      | xpathStato   | //p[contains(text(),"La raccomandata A/R internazionale") and contains(text(),"è stata inoltrata verso il paese di destinazione")] |
+      | vediDettagli | false                                                                                                                              |
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato  | //p[contains(text(),"La raccomandata A/R internazionale") and contains(text(),"è entrata nel paese di destinazione")]|
-      | vediDettagli | false |
+      | xpathStato   | //p[contains(text(),"La raccomandata A/R internazionale") and contains(text(),"è entrata nel paese di destinazione")] |
+      | vediDettagli | false                                                                                                                 |
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato  | //p[contains(text(),"La raccomandata A/R internazionale") and contains(text(),"è stata consegnata")]|
-      | vediDettagli | false |
+      | xpathStato   | //p[contains(text(),"La raccomandata A/R internazionale") and contains(text(),"è stata consegnata")] |
+      | vediDettagli | false                                                                                                |
     And Logout da portale mittente

@@ -1,6 +1,6 @@
 Feature: invio notifica con sequence
 
-  @TestSuite
+  @Parallel
   @WorkflowNotificaConSequence
   @NotificaConSequenceFailGiacenzagt10AR
 
@@ -14,39 +14,41 @@ Feature: invio notifica con sequence
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     And Creazione notifica completa
-      | oggettoDellaNotifica | Pagamento rata IMU    |
-      | descrizione          | PAGAMENTO RATA IMU    |
-      | modello              | AR    |
-      | gruppoTest           | test-TA-FE-TEST       |
-      | gruppoDev            | GruppoTest            |
-      | codiceTassonometrico | 123456A               |
-      | nomeFileYaml         | datiNotifica          |
-      | nomePF               | Gaio Giulio           |
-      | cognomePF            | Cesare                |
-      | codiceFiscalePF      | CSRGGL44L13H501E      |
-      | indirizzoPF          | via @FAIL-Giacenza-gt10_AR|
-      | numeroCivicoPF       | 20   |
-      | comunePF             | MILANO  |
-      | provinciaPF          | MI   |
-      | codicepostalePF      | 20147   |
-      | statoPF              | ITALIA   |
-      | nomeDocumentoNotifica | RATA SCADUTA IMU |
+      | oggettoDellaNotifica  | Pagamento rata IMU         |
+      | descrizione           | PAGAMENTO RATA IMU         |
+      | modello               | AR                         |
+      | gruppoTest            | test-TA-FE-TEST            |
+      | gruppoDev             | GruppoTest                 |
+      | codiceTassonometrico  | 123456A                    |
+      | nomeFileYaml          | datiNotifica               |
+      | destinatario          | PF                         |
+
+      | nome                  | Gaio Giulio                |
+      | cognome               | Cesare                     |
+      | codiceFiscale         | CSRGGL44L13H501E           |
+      | indirizzo             | via @FAIL-Giacenza-gt10_AR |
+      | numeroCivico          | 20                         |
+      | comune                | MILANO                     |
+      | provincia             | MI                         |
+      | codicepostale         | 20147                      |
+      | stato                 | ITALIA                     |
+      | nomeDocumentoNotifica | RATA SCADUTA IMU           |
     And Si verifica che la notifica è stata creata correttamente
     And Si seleziona la notifica
     And Si attende completamento notifica
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato  | //p[contains(text(),"La raccomandata A/R") and contains(text(),"è stata stampata ed imbustata")]|
-      | vediDettagli | true |
+      | xpathStato   | //p[contains(text(),"La raccomandata A/R") and contains(text(),"è stata stampata ed imbustata")] |
+      | vediDettagli | true                                                                                             |
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato  | //p[contains(text(),"Il tentativo di consegna della raccomandata A/R") and contains(text(),"non è andato a buon fine per destinatario assente")]|
-      | vediDettagli | false |
+      | xpathStato   | //p[contains(text(),"Il tentativo di consegna della raccomandata A/R") and contains(text(),"non è andato a buon fine per destinatario assente")] |
+      | vediDettagli | false                                                                                                                                            |
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato  | //p[contains(text(),"La giacenza della raccomandata A/R ") and contains(text(),"è iniziata")]|
-      | vediDettagli | false |
+      | xpathStato   | //p[contains(text(),"La giacenza della raccomandata A/R ") and contains(text(),"è iniziata")] |
+      | vediDettagli | false                                                                                         |
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato  | //p[contains(text(),"C'è un nuovo documento allegato")]|
-      | vediDettagli | false |
+      | xpathStato   | //p[contains(text(),"C'è un nuovo documento allegato")] |
+      | vediDettagli | false                                                   |
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato  | //p[contains(text(),"Il destinatario ha rifiutato il ritiro della raccomandata A/R ") and contains(text(),"presso il punto di giacenza")]|
-      | vediDettagli | false |
+      | xpathStato   | //p[contains(text(),"Il destinatario ha rifiutato il ritiro della raccomandata A/R ") and contains(text(),"presso il punto di giacenza")] |
+      | vediDettagli | false                                                                                                                                     |
     And Logout da portale mittente
