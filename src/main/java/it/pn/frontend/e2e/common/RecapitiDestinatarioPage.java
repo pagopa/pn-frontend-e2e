@@ -741,7 +741,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             dropdownBy = By.id("addressType");
         }
         getWebDriverWait(10).withMessage("Non è stato possibile cliccare sul dropdown").until(ExpectedConditions.elementToBeClickable(dropdownBy));
-        this.element(dropdownBy).click();
+        element(dropdownBy).click();
     }
 
     public void visualizzaListaEnti(List<String> enti) {
