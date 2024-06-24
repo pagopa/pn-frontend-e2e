@@ -1050,4 +1050,14 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(4).withMessage("Il bottone vedi tutti non cliccabile").until(ExpectedConditions.elementToBeClickable(vediTutti));
         element(vediTutti).click();
     }
+
+    public void downloadRicevutePEC() {
+        List<WebElement> ricevutePEC = driver.findElements(By.xpath("//span[contains(@data-testid, 'download-legalfact-micro')]"));
+        getWebDriverWait(10).withMessage("Le ricevute PEC non sono visibili").until(ExpectedConditions.visibilityOfAllElements(ricevutePEC));
+        for (WebElement element : ricevutePEC){
+            element.click();
+            logger.info("Elemento cliccato correttamente");
+            WebTool.waitTime(3);
+        }
+    }
 }

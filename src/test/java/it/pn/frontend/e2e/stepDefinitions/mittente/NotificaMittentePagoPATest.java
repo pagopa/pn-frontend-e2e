@@ -1648,6 +1648,12 @@ public class NotificaMittentePagoPATest {
         logger.info("Il destinatario raggiungibile");
     }
 
+    @And("Si controlla che le ricevute PEC siano scaricabili")
+    public void siControllaCheLeRicevutePECSianoScaricabili() {
+        logger.info("Si controlla che le ricevute PEC siano scaricabili in locale");
+        piattaformaNotifichePage.downloadRicevutePEC();
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */
