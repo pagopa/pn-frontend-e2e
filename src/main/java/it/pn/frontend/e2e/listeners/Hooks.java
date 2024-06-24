@@ -19,10 +19,10 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.DevToolsException;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v117.network.Network;
-import org.openqa.selenium.devtools.v117.network.model.Headers;
-import org.openqa.selenium.devtools.v117.network.model.RequestWillBeSent;
-import org.openqa.selenium.devtools.v117.network.model.ResourceType;
+import org.openqa.selenium.devtools.v120.network.Network;
+import org.openqa.selenium.devtools.v120.network.model.Headers;
+import org.openqa.selenium.devtools.v120.network.model.RequestWillBeSent;
+import org.openqa.selenium.devtools.v120.network.model.ResourceType;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -52,6 +52,9 @@ public class Hooks {
     private String headless;
     private final CookieConfig cookieConfig = new CookieConfig();
     private final String os = System.getProperty("os.name");
+
+    @Getter
+    public static String scenario;
 
     protected void firefox() {
         WebDriverManager.firefoxdriver().setup();
@@ -111,7 +114,6 @@ public class Hooks {
         this.captureHttpRequests();
         this.captureHttpResponse();
         logger.info("chromedriver started");
-
     }
 
     private void captureHttpRequests() {
@@ -331,5 +333,4 @@ public class Hooks {
             });
         }
     }
-
 }

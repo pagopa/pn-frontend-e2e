@@ -1,9 +1,5 @@
 package it.pn.frontend.e2e.model.singleton;
 
-import it.pn.frontend.e2e.rest.RestContact;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 

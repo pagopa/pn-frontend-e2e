@@ -1,8 +1,5 @@
 package it.pn.frontend.e2e.model;
 
-import io.cucumber.java.eo.Se;
-import it.pn.frontend.e2e.rest.RestContact;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

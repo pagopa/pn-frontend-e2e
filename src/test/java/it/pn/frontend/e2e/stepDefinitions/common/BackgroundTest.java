@@ -7,10 +7,7 @@ import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.RecapitiPersonaFisicaTest;
-import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.DeleghePGPagoPATest;
-import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.DisserviziAppPGTest;
-import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
-import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.NotifichePGPagoPATest;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.openqa.selenium.WebDriver;
@@ -70,7 +67,7 @@ public class BackgroundTest {
         notificaMittentePagoPATest.siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata();
         notificaMittentePagoPATest.cliccareSulBottoneVaiAlleNotifiche();
         notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche();
-        notificaMittentePagoPATest.siVerificaCheLaNotificaEStataCreataCorrettamente();
+        notificaMittentePagoPATest.siVerificaCheLaNotificaVieneCreataCorrettamente(nomeFileDatiNotifica);
     }
 
     public void aggiuntaNuovaDelegaPF() {
@@ -324,7 +321,7 @@ public class BackgroundTest {
     public void inserimentoOTPErratoTreVolteEControlloMessaggio(String OTP) {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceOTPSbagliato(OTP);
-        for (int i = 0; i < 3; i++) {
+        for(int i = 0; i < 3; i++){
             recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiCliccaSulBottoneConferma();
         }
         recapitiTest.siVisualizzaCorrettamenteIlMessaggioDiErroreDeiTreTentativi();
@@ -333,7 +330,7 @@ public class BackgroundTest {
     public void siFiltraLaTabellaDelleNotifichePerIUN(String iun) {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
-        piattaformaNotifichePage.selectFiltraButton();
+        piattaformaNotifichePage.selectFiltraNotificaButton();
         piattaformaNotifichePage.clickSuNotifica();
     }
 }

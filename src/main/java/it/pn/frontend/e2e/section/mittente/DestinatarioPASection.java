@@ -130,24 +130,24 @@ public class DestinatarioPASection extends BasePage {
         this.scrollToElementClickAndInsertText(this.codiceFiscaleDestinatarioTextField, codiceFiscale);
     }
 
-    public boolean checkCampiDestinatarioPopolati(){
+    public boolean checkCampiDestinatarioPopolati() {
 
-           if (!nomeDestinatarioTextField.getAttribute("value").isEmpty() &&
-                   !cognomeDestinatarioTextField.getAttribute("value").isEmpty() &&
-                   !codiceFiscaleDestinatarioTextField.getAttribute("value").isEmpty()
-           ) {
-               logger.info("I campi sono popolati");
-               return true;
-           }else{
-               logger.info("I campi non sono popolati");
-               return false;
-           }
+        if (!nomeDestinatarioTextField.getAttribute("value").isEmpty() &&
+                !cognomeDestinatarioTextField.getAttribute("value").isEmpty() &&
+                !codiceFiscaleDestinatarioTextField.getAttribute("value").isEmpty()
+        ) {
+            logger.info("I campi sono popolati");
+            return true;
+        } else {
+            logger.info("I campi non sono popolati");
+            return false;
+        }
 
     }
 
     public void selezionaAggiungiUnIndirizzoFisico() {
         logger.info("click su scelta indirizzo fisico");
-        this.aggiungiUnIndirizzoFisicoCheckBox.click();
+        aggiungiUnIndirizzoFisicoCheckBox.click();
     }
 
     public void selezionaAggiungiUnIndirizzoDigitale() {
@@ -292,13 +292,14 @@ public class DestinatarioPASection extends BasePage {
             }
         }
     }
+
     public void inserimentoDestinatarioPGAggiuntivo(Map<String, String> destinatario) {
 
         String soggettoGiuridico = destinatario.get("soggettoGiuridico");
-        if(soggettoGiuridico.equals("PG")){
+        if (soggettoGiuridico.equals("PG")) {
             By secondPGButton = By.xpath("//input[@name='recipients[1].recipientType' and @value ='PG']");
             element(secondPGButton).click();
-        }else {
+        } else {
             throw new IllegalStateException("soggettoGiuridico non è PG");
         }
         By ragioneSociale = By.id("recipients[1].firstName");
@@ -367,7 +368,7 @@ public class DestinatarioPASection extends BasePage {
     }
 
     public void clickRadioButtonPersonaGiuridica() {
-        this.personaGiuridicaRadioButton.click();
+        personaGiuridicaRadioButton.click();
     }
 
     public void insertCodiceFiscaleErrato(String codiceFiscale) {
@@ -396,22 +397,28 @@ public class DestinatarioPASection extends BasePage {
         return this.rimuoviDestinatarioButtons.isEmpty();
     }
 
-    public void compilazioneDestinario(Map<String,String> datiNotificaMap){
-        selezionarePersonaFisica();
-        inserireNomeDestinatario(datiNotificaMap.get("nomePF"));
-        inserireCognomeDestinatario(datiNotificaMap.get("cognomePF"));
-        inserireCodiceFiscaleDestinatario(datiNotificaMap.get("codiceFiscalePF"));
-        if (datiNotificaMap.get("email") != null && !datiNotificaMap.get("email").isBlank()  || datiNotificaMap.get("pec") != null && !datiNotificaMap.get("pec").isBlank()){
+    public void compilazioneDestinario(Map<String, String> datiNotificaMap) {
+        if (datiNotificaMap.get("destinatario").equalsIgnoreCase("pf")) {
+            selezionarePersonaFisica();
+            inserireNomeDestinatario(datiNotificaMap.get("nome"));
+            inserireCognomeDestinatario(datiNotificaMap.get("cognome"));
+        } else {
+            clickRadioButtonPersonaGiuridica();
+            insertRagioneSociale(datiNotificaMap.get("ragioneSociale"));
+        }
+
+        inserireCodiceFiscaleDestinatario(datiNotificaMap.get("codiceFiscale"));
+        if (datiNotificaMap.get("email") != null && !datiNotificaMap.get("email").isBlank() || datiNotificaMap.get("pec") != null && !datiNotificaMap.get("pec").isBlank()) {
             selezionaAggiungiUnIndirizzoDigitale();
             insertDomicilioDigitale(datiNotificaMap.get("pec"));
         }
         selezionaAggiungiUnIndirizzoFisico();
-        inserireIndirizzo(datiNotificaMap.get("indirizzoPF"));
-        inserireNumeroCivico(datiNotificaMap.get("numeroCivicoPF"));
-        inserireComune(datiNotificaMap.get("comunePF"));
-        inserireProvincia(datiNotificaMap.get("provinciaPF"));
-        inserireCodicePostale(datiNotificaMap.get("codicepostalePF"));
-        inserireStato(datiNotificaMap.get("statoPF"));
+        inserireIndirizzo(datiNotificaMap.get("indirizzo"));
+        inserireNumeroCivico(datiNotificaMap.get("numeroCivico"));
+        inserireComune(datiNotificaMap.get("comune"));
+        inserireProvincia(datiNotificaMap.get("provincia"));
+        inserireCodicePostale(datiNotificaMap.get("codicepostale"));
+        inserireStato(datiNotificaMap.get("stato"));
         vaiInFondoAllaPagina();
     }
 

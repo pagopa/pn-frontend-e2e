@@ -90,15 +90,15 @@ public class InformazioniPreliminariPASection extends BasePage {
 
     public void insertGruppo(String gruppo) {
         logger.info("inserimento gruppo");
-        if (gruppoListBox.isDisplayed()) {
-            gruppoListBox.click();
+        if (this.gruppoListBox.isDisplayed()) {
+            this.gruppoListBox.click();
         } else {
-            scrollToElementClickAndInsertText(gruppoListBox, null);
+            this.scrollToElementClickAndInsertText(this.gruppoListBox, null);
         }
 
         try {
             By gruppoBy = By.xpath("//li[contains(text(),'" + gruppo + "')]");
-            getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(gruppoBy));
+            this.getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated(gruppoBy));
             logger.info("gruppo " + gruppo + " trovato con successo");
             element(gruppoBy).click();
         } catch (TimeoutException e) {
@@ -121,7 +121,6 @@ public class InformazioniPreliminariPASection extends BasePage {
         logger.info("selezione registered letter 890");
         this.registeredLetter890Button.click();
     }
-
     public void compilazioneInformazioniPreliminari(Map<String,String> datiNotificaMap) {
         String gruppo = "";
         switch (System.getProperty("environment")) {
