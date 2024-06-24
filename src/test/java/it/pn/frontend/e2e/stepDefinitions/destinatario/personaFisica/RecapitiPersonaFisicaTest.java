@@ -461,8 +461,8 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email")
     public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaEmail() {
         logger.info("Si controlla che che ci sia già una Email");
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
 
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
         String email = personaFisica.get("email").toString();
@@ -792,7 +792,6 @@ public class RecapitiPersonaFisicaTest {
             Assert.fail("La PEC è stata eliminata");
         }
     }
-
 
     @And("Nella sezione altri recapiti si seleziona l'ente {string}")
     public void nellaSezioneAltriRecapitiSiSelezionaLEnte(String dpFile) {

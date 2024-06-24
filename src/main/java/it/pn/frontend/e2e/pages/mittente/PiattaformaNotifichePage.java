@@ -139,12 +139,9 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selectFiltraNotificaButton() {
-
             getWebDriverWait(10).until(elementToBeClickable(filtraNotificaButton));
             filtraNotificaButton.click();
             logger.info("Bottone filtra, nella pagina notifiche del delegato, cliccato correttamente");
-
-
     }
 
     public int getListaCf(String cfInserito) {
