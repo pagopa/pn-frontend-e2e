@@ -461,8 +461,8 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email")
     public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaEmail() {
         logger.info("Si controlla che che ci sia già una Email");
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
 
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
         String email = personaFisica.get("email").toString();
@@ -793,7 +793,6 @@ public class RecapitiPersonaFisicaTest {
         }
     }
 
-
     @And("Nella sezione altri recapiti si seleziona l'ente {string}")
     public void nellaSezioneAltriRecapitiSiSelezionaLEnte(String dpFile) {
         logger.info("Si sceglie l'ente");
@@ -979,7 +978,7 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("Si verifica siano presenti recapiti digitali")
-    public void siVerificaSianoPresentiRecapitiDigitali(Map<String,String> datiPF) {
+    public void siVerificaSianoPresentiRecapitiDigitali(Map<String, String> datiPF) {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
 
         String email = datiPF.get("email");
@@ -993,6 +992,18 @@ public class RecapitiPersonaFisicaTest {
             nellaPaginaITuoiRecapitiSiCliccaSulBottoneEliminaEmailESiConfermaNelPopUp();
             nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoEmailNonSiaPresente();
         }
+    }
+
+    @Then("Si clicca sul dropdown {string} di altri recapiti")
+    public void siCliccaSulDropdownDiAltriRecapiti(String dropdown) {
+        logger.info("Si clicca sul dropdown");
+        recapitiDestinatarioPage.clickDropdownAltriRecapiti(dropdown);
+    }
+
+    @And("Si visualizza correttamente la lista degli enti")
+    public void siVisualizzaCorrettamenteLaListaDegliEnti(List<String> enti) {
+        logger.info("Si visualizza la lista degli enti");
+        recapitiDestinatarioPage.visualizzaListaEnti(enti);
     }
 }
 
