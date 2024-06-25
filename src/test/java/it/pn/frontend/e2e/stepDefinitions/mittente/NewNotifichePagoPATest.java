@@ -32,19 +32,20 @@ public class NewNotifichePagoPATest {
         int maxAttempts = 4;
         int attempt = 1;
 
-        String costiNotifica = datiNotifica.get("costiNotifica");
-        ArrayList<Recipient> recipients = notificationBuilder.destinatarioCreation(datiNotifica.get("destinatario"), datiNotifica.get("multidestinatario"));
+        PhysicalCommunicationTypeEnum modelloNotifica = notificationBuilder.modelloNotifica(datiNotifica.get("modello"));
+        NotificationFeePolicyEnum feePolicy = notificationBuilder.notificaFeePolicy(datiNotifica.get("costiNotifica"));
+        ArrayList<Recipient> recipients = notificationBuilder.destinatarioBuilder(datiNotifica);
         ArrayList<Document> documents = notificationBuilder.preloadDocument(Integer.parseInt(datiNotifica.get("documenti")));
-        ArrayList<NotificationPaymentItem> payments = notificationBuilder.paymentsCreation(Integer.parseInt(datiNotifica.get("avvisoPagoPa")), Integer.parseInt(datiNotifica.get("F24")), costiNotifica);
+        ArrayList<NotificationPaymentItem> payments = notificationBuilder.paymentsBuilder(Integer.parseInt(datiNotifica.get("avvisoPagoPa")), Integer.parseInt(datiNotifica.get("F24")), datiNotifica.get("costiNotifica"));
+        if (datiNotifica.get("multidestinatario").equalsIgnoreCase("true")){
+            recipients = notificationBuilder.multidestinatarioBuilder(recipients, datiNotifica);
+        }
         for (Recipient recipient : recipients) {
             recipient.setPayments(payments);
         }
-        NewNotificationRequest notification;
-        if (costiNotifica.equalsIgnoreCase("false")) {
-            notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.REGISTERED_LETTER_890, "010202N", NotificationFeePolicyEnum.FLAT_RATE);
-        } else {
-            notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.REGISTERED_LETTER_890, "010202N", NotificationFeePolicyEnum.DELIVERY_MODE);
-        }
+
+        NewNotificationRequest notification = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, modelloNotifica, "010202N", feePolicy);
+
         while (attempt <= maxAttempts) {
             NewNotificationResponse responseOfCreateNotification = restNotification.newNotificationWithOneRecipientAndDocument(notification);
 
@@ -57,20 +58,19 @@ public class NewNotifichePagoPATest {
                     Assert.assertTrue("La notifica risulta ancora in stato WAITING dopo 5 tentativi", maxAttemptsPolling <= 4);
                     log.info(responseOfCreateNotification.getNotificationRequestId());
                     getNotificationStatus = restNotification.getNotificationStatus(responseOfCreateNotification.getNotificationRequestId());
-                    log.info(String.valueOf(getNotificationStatus));
                     notificationStatus = getNotificationStatus.get("notificationRequestStatus").toString();
                     if (!notificationStatus.equals("ACCEPTED")) {
                         WebTool.waitTime(90);
                         log.info("Tentativo n. " + maxAttemptsPolling + " - Stato notifica: " + notificationStatus);
                         maxAttemptsPolling++;
                     } else {
+                        log.info("Notifica per destinatario creata con successo");
+                        notificationSingleton.setScenarioIun(Hooks.getScenario(), WebTool.decodeNotificationRequestId(responseOfCreateNotification.getNotificationRequestId()));
+                        log.info("Il codice IUN della notifica creata è il seguente: {}", notificationSingleton.getIun(Hooks.getScenario()));
                         driver.navigate().refresh();
                         return;
                     }
                 } while (notificationStatus.equals("WAITING"));
-                log.info("Notifica per persona fisica creata con successo");
-                notificationSingleton.setScenarioIun(Hooks.getScenario(), WebTool.decodeNotificationRequestId(responseOfCreateNotification.getNotificationRequestId()));
-                log.info("Il codice IUN della notifica per PF è il seguente: {}", notificationSingleton.getIun(Hooks.getScenario()));
             } else {
                 log.warn("Tentativo #{} di creazione della notifica fallito. Riprovo...", attempt);
                 notification.setPaProtocolNumber(WebTool.generatePaProtocolNumber());
@@ -80,46 +80,4 @@ public class NewNotifichePagoPATest {
         log.error("Errore nella creazione della notifica per PF dopo {} tentativi", maxAttempts);
         Assert.fail("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
     }
-
-    @Then("Attendo {int} minuti e verifico in background che la notifica sia stata creata correttamente")
-    public void verificoCheLaNotificaSiaStataCreataCorrettamente(int minutes) {
-        WebTool.waitTime(minutes * 60);
-        driver.navigate().refresh();
-        /* TODO
-        Need to implement the check of the notification
-         */
-    }
-
-    /* TODO
-    @When("Creo in background una notifica con multi destinatario {int} e multi documento tramite API REST")
-    public void creoUnaNotificaConUnDestinatarioEUnDocumento(Integer numMultiRecipients) throws RestNotificationException {
-        int maxAttempts = 3;
-        int attempt = 1;
-
-        while (attempt <= maxAttempts) {
-            ArrayList<Recipient> recipients = new ArrayList<>();
-            ArrayList<Document> documents = new ArrayList<>();
-            for(int i=0; i<numMultiRecipients; i++){
-                recipients.add(new Recipient());
-                documents.add(new Document());
-            }
-
-            NewNotification notification = new NewNotification(DataPopulation.generatePaProtocolNumber(), "Pagamento Rata IMU", recipients, documents, PhysicalCommunicationTypeEnum.AR_REGISTERED_LETTER, "123456A", NotificationFeePolicyEnum.FLAT_RATE);
-
-            NewNotificationResponse response = restNotification.newNotificationWithOneRecipientAndDocument(notification);
-
-            if (response != null) {
-                log.info("Notifica creata con successo");
-                return;
-            } else {
-                log.warn("Tentativo #" + attempt + " di creazione della notifica fallito. Riprovo...");
-                attempt++;
-            }
-
-        }
-
-        log.error("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
-        Assert.fail("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
-    }*/
-
 }

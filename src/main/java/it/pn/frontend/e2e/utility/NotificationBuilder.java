@@ -1,6 +1,8 @@
 package it.pn.frontend.e2e.utility;
 
 import it.pn.frontend.e2e.model.*;
+import it.pn.frontend.e2e.model.enums.NotificationFeePolicyEnum;
+import it.pn.frontend.e2e.model.enums.PhysicalCommunicationTypeEnum;
 import it.pn.frontend.e2e.model.enums.RecipientTypeEnum;
 import it.pn.frontend.e2e.rest.RestNotification;
 import lombok.extern.slf4j.Slf4j;
@@ -12,29 +14,72 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 public class NotificationBuilder {
     public static final String APPLICATION_PDF = "application/pdf";
+    public static final String APPLICATION_JSON = "application/json";
     private final RestNotification restNotification = new RestNotification();
 
-    public ArrayList<Recipient> destinatarioCreation(String tipoDestinatario, String multiDestinatarioFlag) {
-        ArrayList<Recipient> recipients = new ArrayList<>();
-        if(tipoDestinatario.equalsIgnoreCase("PF")){
-            recipients.add(new Recipient("Gaio Giulio Cesare", RecipientTypeEnum.PF, "CSRGGL44L13H501E"));
-            if (multiDestinatarioFlag.equalsIgnoreCase("true")) {
-                recipients.add(new Recipient("Lucrezia Borgia", RecipientTypeEnum.PF, "BRGLRZ80D58H501Q"));
-            }
+    public PhysicalCommunicationTypeEnum modelloNotifica(String modello) {
+        return PhysicalCommunicationTypeEnum.fromString(modello);
+    }
+
+    public NotificationFeePolicyEnum notificaFeePolicy(String costiNotifica) {
+        if (costiNotifica.equalsIgnoreCase("false")) {
+            return NotificationFeePolicyEnum.FLAT_RATE;
         }else {
-            recipients.add(new Recipient("Convivio Spa", RecipientTypeEnum.PG, "27957814470"));
-            if (multiDestinatarioFlag.equalsIgnoreCase("true")) {
-                recipients.add(new Recipient("DivinaCommedia Srl", RecipientTypeEnum.PG, "70412331207"));
+            return NotificationFeePolicyEnum.DELIVERY_MODE;
+        }
+    }
+
+    public ArrayList<Recipient> destinatarioBuilder(Map<String, String> datiNotifica) {
+        ArrayList<Recipient> recipients = new ArrayList<>();
+        PhysicalAddress indirizzoFisico = PhysicalAddress.builder()
+                .at(datiNotifica.get("at"))
+                .address(datiNotifica.getOrDefault("indirizzo", "VIA ROMA 20"))
+                .addressDetails(datiNotifica.get("dettagliIndirizzo"))
+                .zip(datiNotifica.get("codicePostale"))
+                .municipality(datiNotifica.getOrDefault("comune", "Milano"))
+                .municipalityDetails(datiNotifica.get("dettagliComune"))
+                .province(datiNotifica.get("provincia"))
+                .foreignState(datiNotifica.get("stato"))
+                .build();
+        RecipientTypeEnum tipoDestinatario = RecipientTypeEnum.fromString(datiNotifica.get("tipoDestinatario"));
+        if (datiNotifica.get("domicilioDigitale") != null){
+            DigitalDomicile domicilioDigitale = new DigitalDomicile(datiNotifica.get("domicilioDigitale"));
+            recipients.add(new Recipient(datiNotifica.get("nomeCognome"), tipoDestinatario, datiNotifica.get("codiceFiscale"), indirizzoFisico, domicilioDigitale));
+        }else {
+            recipients.add(new Recipient(datiNotifica.get("nomeCognome"), tipoDestinatario, datiNotifica.get("codiceFiscale"), indirizzoFisico));
+        }
+        return recipients;
+    }
+
+    public ArrayList<Recipient> multidestinatarioBuilder(ArrayList<Recipient> recipients, Map<String, String> datiNotifica) {
+        for (int i = 2; datiNotifica.get("tipoDestinatario" + i) != null; i++){
+            PhysicalAddress indirizzoFisico = PhysicalAddress.builder()
+                    .at(datiNotifica.get("at" + i))
+                    .address(datiNotifica.getOrDefault("indirizzo" + i, "VIA ROMA 20"))
+                    .addressDetails(datiNotifica.get("dettagliIndirizzo" + i))
+                    .zip(datiNotifica.get("codicePostale" + i))
+                    .municipality(datiNotifica.getOrDefault("comune" + i, "Milano"))
+                    .municipalityDetails(datiNotifica.get("dettagliComune" + i))
+                    .province(datiNotifica.get("provincia" + i))
+                    .foreignState(datiNotifica.get("stato" + i))
+                    .build();
+            RecipientTypeEnum tipoDestinatario = RecipientTypeEnum.fromString(datiNotifica.get("tipoDestinatario" + i));
+            if (datiNotifica.get("domicilioDigitale" + i) != null){
+                DigitalDomicile domicilioDigitale = new DigitalDomicile(datiNotifica.get("domicilioDigitale" + i));
+                recipients.add(new Recipient(datiNotifica.get("nomeCognome" + i), tipoDestinatario, datiNotifica.get("codiceFiscale" + i), indirizzoFisico, domicilioDigitale));
+            }else {
+                recipients.add(new Recipient(datiNotifica.get("nomeCognome" + i), tipoDestinatario, datiNotifica.get("codiceFiscale" + i), indirizzoFisico));
             }
         }
         return recipients;
     }
 
-    public ArrayList<NotificationPaymentItem> paymentsCreation(int avvisoPagoPa, int F24, String costiNotifica) {
+    public ArrayList<NotificationPaymentItem> paymentsBuilder(int avvisoPagoPa, int F24, String costiNotifica) {
         ArrayList<NotificationPaymentItem> payments = new ArrayList<>();
         if (avvisoPagoPa == 0 && F24 == 0) {
             return null;
@@ -75,20 +120,25 @@ public class NotificationBuilder {
     }
 
     public ArrayList<NotificationPaymentItem> preloadF24Payment(ArrayList<NotificationPaymentItem> payments, int i, String costiNotifica) {
-        File documentFile = new File("src/test/resources/dataPopulation/fileUpload/sample.pdf");
-        String sha256 = computeSha256(documentFile.getAbsolutePath().replace("\\", "/"));
+        File metaDatiPreLoad;
+        if(costiNotifica.equalsIgnoreCase("false")){
+            metaDatiPreLoad = new File("src/test/resources/dataPopulation/fileUpload/METADATA_CORRETTO_FLAT.json");
+        } else {
+            metaDatiPreLoad = new File("src/test/resources/dataPopulation/fileUpload/METADATA_CORRETTO.json");
+        }
+        String sha256 = computeSha256(metaDatiPreLoad.getAbsolutePath().replace("\\", "/"));
         PreLoadRequest preLoadRequest = new PreLoadRequest()
                 .preloadIdx("0")
                 .sha256(sha256)
-                .contentType(APPLICATION_PDF);
+                .contentType(APPLICATION_JSON);
         List<PreLoadRequest> preLoadRequestList = new ArrayList<>();
         preLoadRequestList.add(preLoadRequest);
         List<PreLoadResponse> response = restNotification.preLoadDocument(preLoadRequestList);
-        Assert.assertNotNull("La chiamata per il preload del documento non è andata a buon fine", response);
-        log.info("PreLoad del documento effettuato con successo");
+        Assert.assertNotNull("La chiamata per il preload dell'F24 non è andata a buon fine", response);
+        log.info("PreLoad dell'F24 effettuato con successo");
         if (costiNotifica.equalsIgnoreCase("false")) {
             F24Payment f24 = new F24Payment(sha256, response.get(0).getKey(), "v1", false);
-            restNotification.uploadDocument(response.get(i).getUrl(), response.get(i).getSecret(), sha256);
+            restNotification.uploadDocumentF24(response.get(i).getUrl(), response.get(i).getSecret(), sha256, metaDatiPreLoad);
             if (!payments.get(i).getPagoPa().getNoticeCode().isEmpty()) {
                 payments.get(i).setF24(f24);
             } else {
@@ -97,7 +147,7 @@ public class NotificationBuilder {
             }
         } else {
             F24Payment f24 = new F24Payment(sha256, response.get(0).getKey(), "v1");
-            restNotification.uploadDocument(response.get(i).getUrl(), response.get(i).getSecret(), sha256);
+            restNotification.uploadDocumentF24(response.get(i).getUrl(), response.get(i).getSecret(), sha256, metaDatiPreLoad);
             if (!payments.get(i).getPagoPa().getNoticeCode().isEmpty()) {
                 payments.get(i).setF24(f24);
             } else {
@@ -156,7 +206,7 @@ public class NotificationBuilder {
         }
     }
 
-    private static String bytesToBase64(byte[] hash) {
+    private String bytesToBase64(byte[] hash) {
         byte[] encodedBytes = Base64.getEncoder().encode(hash);
         return new String(encodedBytes);
     }

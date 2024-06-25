@@ -11,6 +11,7 @@ import it.pn.frontend.e2e.utility.WebTool;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -59,6 +60,16 @@ public class RestNotification {
         } catch (IOException e) {
             log.error("Error during document upload", e);
             Assert.fail("Error during document upload" + e.getMessage());
+        }
+    }
+
+    public void uploadDocumentF24(String url, String secret, String sha256, File metaDatiDocument) throws RestNotificationException {
+        final CustomHttpClient<?, ?> httpClient2 = CustomHttpClient.getInstance();
+        try {
+            httpClient2.sendHttpUpLoadf24PutRequest(url, secret, sha256, null, metaDatiDocument);
+        } catch (IOException e) {
+            log.error("Error during F24 upload", e);
+            Assert.fail("Error during F24 upload" + e.getMessage());
         }
     }
 
