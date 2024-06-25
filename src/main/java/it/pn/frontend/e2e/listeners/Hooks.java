@@ -53,9 +53,6 @@ public class Hooks {
     private final CookieConfig cookieConfig = new CookieConfig();
     private final String os = System.getProperty("os.name");
 
-    @Getter
-    public static String scenario;
-
     protected void firefox() {
         WebDriverManager.firefoxdriver().setup();
         FirefoxProfile profile = new FirefoxProfile();
