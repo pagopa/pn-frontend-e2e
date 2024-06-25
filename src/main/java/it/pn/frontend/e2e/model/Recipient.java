@@ -17,10 +17,10 @@ public class Recipient {
     private List<NotificationPaymentItem> payments;
 
     public Recipient() {
-        this.recipientType = RecipientTypeEnum.PF;
-        this.taxId = "CSRGGL44L13H501E";
-        this.denomination = "Gaio Giulio Cesare";
-        this.physicalAddress = new PhysicalAddress();
+        this.recipientType = null;
+        this.taxId = null;
+        this.denomination = null;
+        this.physicalAddress = null;
         this.digitalDomicile = null;
         this.payments = null;
     }

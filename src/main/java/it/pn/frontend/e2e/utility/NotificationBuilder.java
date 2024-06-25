@@ -29,52 +29,31 @@ public class NotificationBuilder {
     public NotificationFeePolicyEnum notificaFeePolicy(String costiNotifica) {
         if (costiNotifica.equalsIgnoreCase("false")) {
             return NotificationFeePolicyEnum.FLAT_RATE;
-        }else {
+        } else {
             return NotificationFeePolicyEnum.DELIVERY_MODE;
         }
     }
 
-    public ArrayList<Recipient> destinatarioBuilder(Map<String, String> datiNotifica) {
-        ArrayList<Recipient> recipients = new ArrayList<>();
+    public ArrayList<Recipient> destinatarioBuilder(Map<String, String> datiNotifica, ArrayList<Recipient> recipients) {
         PhysicalAddress indirizzoFisico = PhysicalAddress.builder()
                 .at(datiNotifica.get("at"))
                 .address(datiNotifica.getOrDefault("indirizzo", "VIA ROMA 20"))
                 .addressDetails(datiNotifica.get("dettagliIndirizzo"))
-                .zip(datiNotifica.get("codicePostale"))
+                .zip(datiNotifica.getOrDefault("codicePostale", "20147"))
                 .municipality(datiNotifica.getOrDefault("comune", "Milano"))
                 .municipalityDetails(datiNotifica.get("dettagliComune"))
-                .province(datiNotifica.get("provincia"))
+                .province(datiNotifica.getOrDefault("provincia", "MI"))
                 .foreignState(datiNotifica.get("stato"))
                 .build();
         RecipientTypeEnum tipoDestinatario = RecipientTypeEnum.fromString(datiNotifica.get("tipoDestinatario"));
-        if (datiNotifica.get("domicilioDigitale") != null){
+        if (recipients == null) {
+            recipients = new ArrayList<>();
+        }
+        if (datiNotifica.get("domicilioDigitale") != null) {
             DigitalDomicile domicilioDigitale = new DigitalDomicile(datiNotifica.get("domicilioDigitale"));
             recipients.add(new Recipient(datiNotifica.get("nomeCognome"), tipoDestinatario, datiNotifica.get("codiceFiscale"), indirizzoFisico, domicilioDigitale));
-        }else {
+        } else {
             recipients.add(new Recipient(datiNotifica.get("nomeCognome"), tipoDestinatario, datiNotifica.get("codiceFiscale"), indirizzoFisico));
-        }
-        return recipients;
-    }
-
-    public ArrayList<Recipient> multidestinatarioBuilder(ArrayList<Recipient> recipients, Map<String, String> datiNotifica) {
-        for (int i = 2; datiNotifica.get("tipoDestinatario" + i) != null; i++){
-            PhysicalAddress indirizzoFisico = PhysicalAddress.builder()
-                    .at(datiNotifica.get("at" + i))
-                    .address(datiNotifica.getOrDefault("indirizzo" + i, "VIA ROMA 20"))
-                    .addressDetails(datiNotifica.get("dettagliIndirizzo" + i))
-                    .zip(datiNotifica.get("codicePostale" + i))
-                    .municipality(datiNotifica.getOrDefault("comune" + i, "Milano"))
-                    .municipalityDetails(datiNotifica.get("dettagliComune" + i))
-                    .province(datiNotifica.get("provincia" + i))
-                    .foreignState(datiNotifica.get("stato" + i))
-                    .build();
-            RecipientTypeEnum tipoDestinatario = RecipientTypeEnum.fromString(datiNotifica.get("tipoDestinatario" + i));
-            if (datiNotifica.get("domicilioDigitale" + i) != null){
-                DigitalDomicile domicilioDigitale = new DigitalDomicile(datiNotifica.get("domicilioDigitale" + i));
-                recipients.add(new Recipient(datiNotifica.get("nomeCognome" + i), tipoDestinatario, datiNotifica.get("codiceFiscale" + i), indirizzoFisico, domicilioDigitale));
-            }else {
-                recipients.add(new Recipient(datiNotifica.get("nomeCognome" + i), tipoDestinatario, datiNotifica.get("codiceFiscale" + i), indirizzoFisico));
-            }
         }
         return recipients;
     }
@@ -121,7 +100,7 @@ public class NotificationBuilder {
 
     public ArrayList<NotificationPaymentItem> preloadF24Payment(ArrayList<NotificationPaymentItem> payments, int i, String costiNotifica) {
         File metaDatiPreLoad;
-        if(costiNotifica.equalsIgnoreCase("false")){
+        if (costiNotifica.equalsIgnoreCase("false")) {
             metaDatiPreLoad = new File("src/test/resources/dataPopulation/fileUpload/METADATA_CORRETTO_FLAT.json");
         } else {
             metaDatiPreLoad = new File("src/test/resources/dataPopulation/fileUpload/METADATA_CORRETTO.json");
