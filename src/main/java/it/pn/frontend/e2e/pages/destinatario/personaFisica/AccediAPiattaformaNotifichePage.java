@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -184,6 +185,15 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     public void checkButtonPagaIsDisplayed() {
         getWebDriverWait(10).withMessage("Il bottone per il pagamento della notifica è visibile").until(ExpectedConditions.invisibilityOf(pagaAvviso));
+    }
+
+    public void clickLink(String linkName) {
+        By linkBy = By.xpath("//button//div[contains(text(),'" + linkName + "')] | //button[contains(text(),'" + linkName + "')]");
+        getWebDriverWait(10).withMessage("Il button " + linkName + " non è visibile o cliccabile").until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOfElementLocated(linkBy),
+                ExpectedConditions.elementToBeClickable(linkBy)));
+        element(linkBy).click();
+        WebTool.waitTime(5);
     }
 }
 

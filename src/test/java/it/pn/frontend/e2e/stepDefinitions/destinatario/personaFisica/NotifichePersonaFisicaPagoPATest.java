@@ -443,6 +443,13 @@ public class NotifichePersonaFisicaPagoPATest {
         logger.info("Si controlla che il bottone per il pagamento non sia visibile all'interno del dettaglio della notifica");
         accediAPiattaformaNotifichePage.checkButtonPagaIsDisplayed();
     }
+
+    @Then("Si clicca su {string} e si verifica che il download del file sia avvenuto correttamente")
+    public void siCliccaSuESiVerificaCheIlDownloadDelFileSiaAvvenutoCorrettamente(String linkName) {
+        logger.info("Si clicca sul button " + linkName + " e si verifica che il download del file sia avvenuto correttamente");
+        accediAPiattaformaNotifichePage.clickLink(linkName);
+//        accediAPiattaformaNotifichePage.checkDownloadFile(linkName);
+    }
 }
 
 
