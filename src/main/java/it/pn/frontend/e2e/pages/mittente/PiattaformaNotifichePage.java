@@ -139,7 +139,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selectFiltraNotificaButton() {
-        getWebDriverWait(10).until(elementToBeClickable(filtraNotificaButton));
+        getWebDriverWait(10).withMessage("Il filtro non è cliccabile").until(elementToBeClickable(filtraNotificaButton));
         filtraNotificaButton.click();
         logger.info("Bottone filtra, nella pagina notifiche del delegato, cliccato correttamente");
     }
