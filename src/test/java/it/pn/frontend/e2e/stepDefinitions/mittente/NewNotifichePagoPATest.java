@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.stepDefinitions.mittente;
 
 import com.google.gson.internal.LinkedTreeMap;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
 import it.pn.frontend.e2e.listeners.Hooks;

@@ -7,7 +7,6 @@ import it.pn.frontend.e2e.model.NewNotificationRequest;
 import it.pn.frontend.e2e.model.NewNotificationResponse;
 import it.pn.frontend.e2e.model.PreLoadRequest;
 import it.pn.frontend.e2e.model.PreLoadResponse;
-import it.pn.frontend.e2e.utility.WebTool;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 
