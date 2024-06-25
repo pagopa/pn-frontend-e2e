@@ -19,9 +19,8 @@ Feature: invio notifica con sequence
       | modello               | 890                                |
       | gruppoTest            | test-TA-FE-TEST                    |
       | gruppoDev             | GruppoTest                         |
-      | codiceTassonometrico  | 123456A
+      | codiceTassonometrico  | 123456A                            |
       | destinatario          | PF                                 |
-
       | nomeFileYaml          | datiNotifica                       |
       | nome                  | Gaio Giulio                        |
       | cognome               | Cesare                             |

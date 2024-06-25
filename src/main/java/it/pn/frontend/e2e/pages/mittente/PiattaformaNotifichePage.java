@@ -139,9 +139,9 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selectFiltraNotificaButton() {
-            getWebDriverWait(10).until(elementToBeClickable(filtraNotificaButton));
-            filtraNotificaButton.click();
-            logger.info("Bottone filtra, nella pagina notifiche del delegato, cliccato correttamente");
+        getWebDriverWait(10).until(elementToBeClickable(filtraNotificaButton));
+        filtraNotificaButton.click();
+        logger.info("Bottone filtra, nella pagina notifiche del delegato, cliccato correttamente");
     }
 
     public int getListaCf(String cfInserito) {
@@ -1009,4 +1009,10 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
 
+    public void verificaMittente(String ente) {
+        By mittente = By.id("row-value-1");
+        getWebDriverWait(10).withMessage("Mittente non trovato").until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOfElementLocated(mittente),
+                ExpectedConditions.textToBe(mittente, ente)));
+    }
 }
