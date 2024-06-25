@@ -21,7 +21,6 @@ Feature: invio notifica con sequence
       | gruppoDev             | GruppoTest                         |
       | codiceTassonometrico  | 123456A                            |
       | destinatario          | PF                                 |
-
       | nomeFileYaml          | datiNotifica                       |
       | nome                  | Gaio Giulio                        |
       | cognome               | Cesare                             |
