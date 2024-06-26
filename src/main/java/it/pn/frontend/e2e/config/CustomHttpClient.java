@@ -46,14 +46,14 @@ public class CustomHttpClient<RequestType, ResponseType> {
         this.apiKey = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";
     }
 
-    public CustomHttpClient(String baseUrlApi) {
-        this.baseUrlApi = baseUrlApi;
-        this.httpClient = HttpClients.createDefault();
-        this.apiKey = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";
-    }
-
     public CustomHttpClient(String baseUrlApi, String apiKeyTest) {
         this.baseUrlApi = baseUrlApi;
+        this.httpClient = HttpClients.createDefault();
+        this.apiKey = apiKeyTest;
+    }
+
+    public CustomHttpClient(String apiKeyTest) {
+        this.baseUrlApi =  "https://api.test.notifichedigitali.it";
         this.httpClient = HttpClients.createDefault();
         this.apiKey = apiKeyTest;
     }
@@ -64,6 +64,17 @@ public class CustomHttpClient<RequestType, ResponseType> {
             synchronized (CustomHttpClient.class) {
                 if (instance == null) {
                     instance = new CustomHttpClient<>();
+                }
+            }
+        }
+        return (CustomHttpClient<R, S>) instance;
+    }
+
+    public static <R, S> CustomHttpClient<R, S> getInstanceWithApiKey(String apiKey) {
+        if (instance == null) {
+            synchronized (CustomHttpClient.class) {
+                if (instance == null) {
+                    instance = new CustomHttpClient<>(apiKey);
                 }
             }
         }

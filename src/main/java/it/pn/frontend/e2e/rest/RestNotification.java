@@ -27,7 +27,7 @@ public class RestNotification {
      * @throws RestNotificationException if there is an error during the request
      */
     public NewNotificationResponse newNotificationWithOneRecipientAndDocument(NewNotificationRequest notification) throws RestNotificationException {
-        final CustomHttpClient<NewNotificationRequest, NewNotificationResponse> httpClient2 = CustomHttpClient.getInstance();  // Modifica qui
+        final CustomHttpClient<NewNotificationRequest, NewNotificationResponse> httpClient2 = CustomHttpClient.getInstanceWithApiKey("");  // Modifica qui
         try {
             NewNotificationResponse response = httpClient2.sendHttpPostRequest("/delivery/v2.3/requests", null, notification, NewNotificationResponse.class);
             Assert.assertNotNull("Error during createNewNotification", response);
