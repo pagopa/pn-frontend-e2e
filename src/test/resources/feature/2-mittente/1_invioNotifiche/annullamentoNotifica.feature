@@ -15,7 +15,7 @@ Feature: annullamento della notifica
       | codicePostale     | 20147              |
       | comune            | Milano             |
       | dettagliComune    | Milano             |
-      | provincia         | Mi                 |
+      | provincia         | MI                 |
       | stato             | Italia             |
       | nomeCognome       | Gaio Giulio Cesare |
       | codiceFiscale     | CSRGGL44L13H501E   |
@@ -23,10 +23,14 @@ Feature: annullamento della notifica
       | domicilioDigitale | test@test.com      |
       | avvisoPagoPa      | 1                  |
       | F24               | 1                  |
-      | costiNotifica     | true               |
-    And Si aggiunge un destinatario alla notifica
-      | nomeCognome       | Lucrezia Borgia  |
-      | codiceFiscale     | BRGLRZ80D58H501Q |
-      | tipoDestinatario  | PF               |
     Then Creo in background una notifica per destinatario tramite API REST
+    When Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita
+    And Si visualizza correttamente la sezione Dettaglio Notifica
+    And Si annulla la notifica
+    Then Si controlla la comparsa del pop up di conferma annullamento
+    Then Si verifica che la notifica abbia lo stato "Annullata"
+    Then Si controlla sia presente il modello F24
+    Then Si controlla sia presente l'avviso PagoPa
+    Then Si clicca l'avviso PagoPa
+    Then Si torna alla pagina precedente
     And Logout da portale mittente

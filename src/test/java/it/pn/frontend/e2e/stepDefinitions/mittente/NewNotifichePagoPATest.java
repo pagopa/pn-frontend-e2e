@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 
 import com.google.gson.internal.LinkedTreeMap;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
 import it.pn.frontend.e2e.listeners.Hooks;
@@ -35,11 +36,11 @@ public class NewNotifichePagoPATest {
     private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
 
 
-    @When("Creo in background una notifica per destinatario tramite API REST")
+    @Then("Creo in background una notifica per destinatario tramite API REST")
     public void creoUnaNotificaPerDestinatarioTramiteAPIREST() throws RestNotificationException {
         int maxAttempts = 4;
         int attempt = 1;
-        Assert.assertNotNull(notificationRequest.getRecipients());
+        Assert.assertNotNull("Non può essere creata una notifica senza alcun destinatario", notificationRequest.getRecipients());
         while (attempt <= maxAttempts) {
             NewNotificationResponse responseOfCreateNotification = restNotification.newNotificationWithOneRecipientAndDocument(notificationRequest);
 
@@ -79,10 +80,12 @@ public class NewNotifichePagoPATest {
     public void siAggiungeUnDestinatarioAllaNotifica(Map<String, String> datiDestinatario) {
         if (destinatariNumber <= 4) {
             log.info("Si procede con l'inserimento del destinatario nella notifica");
-            notificationRequest.setRecipients(notificationBuilder.destinatarioBuilder(datiDestinatario, notificationRequest.getRecipients()));
-            if (datiDestinatario.get("avvisoPagoPa") != null && datiDestinatario.get("F24") != null && datiDestinatario.get("costiNotifica") != null){
-                notificationRequest.getRecipients().get(destinatariNumber).setPayments(notificationBuilder.paymentsBuilder(Integer.parseInt(datiDestinatario.get("avvisoPagoPa")), Integer.parseInt(datiDestinatario.get("F24")), datiDestinatario.get("costiNotifica")));
+            String costiNotifica = "false";
+            if (notificationRequest.getNotificationFeePolicy() == NotificationFeePolicyEnum.DELIVERY_MODE) {
+                costiNotifica = "true";
             }
+            notificationRequest.setRecipients(notificationBuilder.destinatarioBuilder(datiDestinatario, notificationRequest.getRecipients()));
+            notificationRequest.getRecipients().get(destinatariNumber).setPayments(notificationBuilder.paymentsBuilder(Integer.parseInt(datiDestinatario.getOrDefault("avvisoPagoPa", "0")), Integer.parseInt(datiDestinatario.getOrDefault("F24", "0")), costiNotifica));
             destinatariNumber++;
         } else {
             log.error("Non è possibile aggiungere un ulteriore destinatario");
@@ -93,7 +96,7 @@ public class NewNotifichePagoPATest {
     @When("Si inizializzano i dati per la notifica")
     public void siInizializzanoIDatiPerLaNotifica(Map<String, String> datiNotifica) {
         PhysicalCommunicationTypeEnum modelloNotifica = notificationBuilder.modelloNotifica(datiNotifica.get("modello"));
-        NotificationFeePolicyEnum feePolicy = notificationBuilder.notificaFeePolicy(datiNotifica.get("costiNotifica"));
+        NotificationFeePolicyEnum feePolicy = notificationBuilder.notificaFeePolicy(datiNotifica.getOrDefault("costiNotifica", "false"));
         ArrayList<Document> documents = notificationBuilder.preloadDocument(Integer.parseInt(datiNotifica.get("documenti")));
         notificationRequest = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), datiNotifica.getOrDefault("oggettoNotifica", "PAGAMENTO RATA IMU"), null, documents, modelloNotifica, "010202N", feePolicy);
     }

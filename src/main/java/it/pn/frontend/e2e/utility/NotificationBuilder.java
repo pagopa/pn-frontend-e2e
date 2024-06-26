@@ -117,21 +117,21 @@ public class NotificationBuilder {
         log.info("PreLoad dell'F24 effettuato con successo");
         if (costiNotifica.equalsIgnoreCase("false")) {
             F24Payment f24 = new F24Payment(sha256, response.get(0).getKey(), "v1", false);
-            restNotification.uploadDocumentF24(response.get(i).getUrl(), response.get(i).getSecret(), sha256, metaDatiPreLoad);
-            if (!payments.get(i).getPagoPa().getNoticeCode().isEmpty()) {
-                payments.get(i).setF24(f24);
-            } else {
+            restNotification.uploadDocumentF24(response.get(0).getUrl(), response.get(0).getSecret(), sha256, metaDatiPreLoad);
+            if (payments.isEmpty() || payments.size() <= i) {
                 NotificationPaymentItem payment = new NotificationPaymentItem(f24);
                 payments.add(payment);
+            } else {
+                payments.get(i).setF24(f24);
             }
         } else {
             F24Payment f24 = new F24Payment(sha256, response.get(0).getKey(), "v1");
-            restNotification.uploadDocumentF24(response.get(i).getUrl(), response.get(i).getSecret(), sha256, metaDatiPreLoad);
-            if (!payments.get(i).getPagoPa().getNoticeCode().isEmpty()) {
-                payments.get(i).setF24(f24);
-            } else {
+            restNotification.uploadDocumentF24(response.get(0).getUrl(), response.get(0).getSecret(), sha256, metaDatiPreLoad);
+            if (payments.isEmpty() || payments.size() <= i) {
                 NotificationPaymentItem payment = new NotificationPaymentItem(f24);
                 payments.add(payment);
+            } else {
+                payments.get(i).setF24(f24);
             }
         }
         return payments;
