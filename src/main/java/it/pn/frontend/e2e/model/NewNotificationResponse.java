@@ -1,12 +1,15 @@
 package it.pn.frontend.e2e.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class NewNotificationResponse {
     private String notificationRequestId;
     private String paProtocolNumber;
     private String idempotenceToken;
+    private String notificationIUN;
 
 
     public NewNotificationResponse() {

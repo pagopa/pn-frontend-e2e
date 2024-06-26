@@ -9,14 +9,20 @@ public class F24Payment {
     private NotificationMetadataAttachment metadataAttachment;
 
     public F24Payment() {
-        this.title = "F24_STANDARD_CLMCST42R12D969Z_0";
-        this.applyCost = true;
-        this.metadataAttachment = new NotificationMetadataAttachment();
+        title = "F24_STANDARD_CLMCST42R12D969Z_0";
+        applyCost = true;
+        metadataAttachment = new NotificationMetadataAttachment();
     }
 
     public F24Payment(String sha256, String key, String versionToken) {
-        this.title = "F24_STANDARD_CLMCST42R12D969Z_0";
-        this.applyCost = true;
+        title = "F24_STANDARD_CLMCST42R12D969Z_0";
+        applyCost = true;
+        this.metadataAttachment = new NotificationMetadataAttachment(sha256, key, versionToken);
+    }
+
+    public F24Payment(String sha256, String key, String versionToken, boolean applyCost) {
+        title = "F24_STANDARD_CLMCST42R12D969Z_0";
+        this.applyCost = applyCost;
         this.metadataAttachment = new NotificationMetadataAttachment(sha256, key, versionToken);
     }
 
@@ -27,7 +33,7 @@ public class F24Payment {
     }
 
     public F24Payment(boolean applyCost, String sha256, String key, String versionToken) {
-        this.title = "F24_STANDARD_CLMCST42R12D969Z_0";
+        title = "F24_STANDARD_CLMCST42R12D969Z_0";
         this.applyCost = applyCost;
         this.metadataAttachment = new NotificationMetadataAttachment(sha256, key, versionToken);
     }
