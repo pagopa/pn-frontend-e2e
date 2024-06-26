@@ -26,13 +26,8 @@ public class SuccessPASection extends BasePage {
     }
 
     public void waitLoadSuccessPASection() {
-        try {
-            getWebDriverWait(20).until(ExpectedConditions.visibilityOf(successCheckBy));
+            getWebDriverWait(20).withMessage("TA_QA: Il titolo della Success PA section non caricata").until(ExpectedConditions.visibilityOf(successCheckBy));
             logger.info("TA_QA: La notifica è stata creata con successo, PA section caricata correttamente");
-        } catch (TimeoutException e) {
-            logger.error("TA_QA: Il titolo della Success PA section non caricata con errore: " + e.getMessage());
-            Assert.fail("TA_QA: Il titolo della Success PA section non caricata con errore: " + e.getMessage());
-        }
     }
 
     public void vaiAlleNotifiche() {
