@@ -258,7 +258,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean siVisualizzaPopUpConferma() {
         try {
-            By popUpConfermaTitleBy = By.id("dialog-title");
+            By popUpConfermaTitleBy = By.xpath("//div[@data-testid='dialog-actions']//button[contains(text(), 'Conferma')]");
             getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(popUpConfermaTitleBy));
             return true;
         } catch (TimeoutException e) {
