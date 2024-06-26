@@ -16,7 +16,6 @@ Feature: la persona giuridica inserisce un recapito aggiuntivo da un ente radice
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
     Then Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente
-#    And Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti
     Then Si clicca sul dropdown "ente" di altri recapiti
     And Si visualizza correttamente la lista degli enti
       | Agenzia delle Entrate        |
