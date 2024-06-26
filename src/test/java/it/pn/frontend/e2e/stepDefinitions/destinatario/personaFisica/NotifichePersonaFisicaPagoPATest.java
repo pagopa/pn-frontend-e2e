@@ -466,7 +466,7 @@ public class NotifichePersonaFisicaPagoPATest {
         public void siInserisceIDatiDiPagamento(String email) throws InterruptedException {
             logger.info("Si inserisce i dati di pagamento");
             CookiesSection cookiesSection = new CookiesSection(this.driver);
-            cookiesSection.selezionaAccettaTuttiButton();
+           // cookiesSection.selezionaAccettaTuttiButton();
             accediAPiattaformaNotifichePage.inserireDatiPagamento(email);
             accediAPiattaformaNotifichePage.checkoutPagamento();
         }

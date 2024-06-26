@@ -11,7 +11,7 @@ Feature:La persona fisica visualizza le notifiche in elenco
       | modello         | 890                |
       | documenti       | 1                  |
       | oggettoNotifica | Pagamento rata IMU |
-      | costiNotifica   | false               |
+      | costiNotifica   | false              |
     And Si aggiunge un destinatario alla notifica
       | at                | Presso             |
       | indirizzo         | VIA ROMA 20        |
@@ -28,6 +28,7 @@ Feature:La persona fisica visualizza le notifiche in elenco
       | avvisoPagoPa      | 1                  |
       | F24               | 1                  |
     Then Creo in background una notifica per destinatario tramite API REST
+    And Aspetta 10 secondi
     And Si visualizzano le notifiche dalla piu recente
     And Cliccare sulla notifica restituita
     And Si controlla se la sezione pagamento visualizzata correttamente
