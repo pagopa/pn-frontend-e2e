@@ -62,6 +62,10 @@ public class LoginPGPagoPATest {
         String environment = System.getProperty("environment");
         String token = "";
         switch (environment) {
+            case "uat" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokenuatPGDelegante").toString()
+                    :
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokenuatPGDelegato").toString();
             case "dev" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
                     dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPGDelegante").toString()
                     :
