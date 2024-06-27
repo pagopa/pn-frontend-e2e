@@ -344,7 +344,7 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si inserisce il codice OTP di verifica");
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         WebTool.waitTime(2);
-        logger.info("Sending OTP: " + OTP);
+        logger.info("OTP: " + OTP);
         iTuoiRecapitiPage.sendOTP(OTP);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
         if (recapitiDestinatarioPage.waitMessaggioErrore()) {
