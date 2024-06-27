@@ -540,7 +540,6 @@ public class DeleghePagoPATest {
 
     /**
      * @param tipoVisualizzazioneNotifica i valori possibili sono: Tutti gli enti o Solo enti selezionati
-     * @param tipoUtente
      */
     @Then("Nella sezione della nuova delega si sceglie la visualizzazione delle notifiche da parte di: {string}")
     public void nellaSezioneSiSceglieLaVisualizzazioneDelleNotificheDaParteDi(String tipoVisualizzazioneNotifica) {
