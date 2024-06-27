@@ -87,14 +87,9 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP() {
         logger.info("Si visualizza correttamente il pop-up di inserimento OTP");
-        String varabileAmbiente = System.getProperty("environment");
-        String url = "https://webapi." + varabileAmbiente + ".notifichedigitali.it/address-book/v1/digital-address";
+        String url = WebTool.getApiBaseUrl() + "address";
         recapitiDestinatarioPage.waitLoadPopUp();
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        WebTool.waitTime(3);
         if (verificaChiamataEmail(url)) {
             logger.info("La chiamata per inviare l'otp è stata effettuata");
         } else {
@@ -223,6 +218,7 @@ public class RecapitiPersonaFisicaTest {
         iTuoiRecapitiPage.insertTelephoneNumber(phoneNumber);
         iTuoiRecapitiPage.clickAvvisamiViaSMS();
     }
+
     @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono PF {string} e clicca sul bottone avvisami via SMS")
     public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoPF(String phoneNumber) {
 
@@ -347,6 +343,7 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP() {
         logger.info("Si inserisce il codice OTP di verifica");
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        WebTool.waitTime(2);
         iTuoiRecapitiPage.sendOTP(OTP);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
         if (recapitiDestinatarioPage.waitMessaggioErrore()) {
@@ -485,8 +482,8 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email")
     public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaEmail() {
         logger.info("Si controlla che che ci sia già una Email");
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
 
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
         String email = personaFisica.get("email").toString();
@@ -617,7 +614,7 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si controlla che l'indirizzo Email non sia presente");
         if (recapitiDestinatarioPage.verificaMailField()) {
             logger.info("Email è stata eliminata correttamente");
-        }else {
+        } else {
             logger.error("Email non è stata eliminata");
             Assert.fail("Email non è stata eliminata");
         }
@@ -845,8 +842,6 @@ public class RecapitiPersonaFisicaTest {
         }
     }
 
-
-
     @And("Nella sezione altri recapiti si seleziona l'ente {string}")
     public void nellaSezioneAltriRecapitiSiSelezionaLEnte(String dpFile) {
         logger.info("Si sceglie l'ente");
@@ -1042,9 +1037,38 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("Nella sezione altri recapiti si clicca sul bottone conferma per inserire un recapito")
-    public void nellaSezioneAltriRecapitiSiCliccaSulBottoneConfermaPerInserireUnRecapito(){
+    public void nellaSezioneAltriRecapitiSiCliccaSulBottoneConfermaPerInserireUnRecapito() {
         logger.info("Si clicca su conferma");
         recapitiDestinatarioPage.clickConfermaRecapitoGiaPresente();
+    }
+
+    @And("Si verifica siano presenti recapiti digitali")
+    public void siVerificaSianoPresentiRecapitiDigitali(Map<String, String> datiPF) {
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
+
+        String email = datiPF.get("email");
+        if (recapitiDestinatarioPage.siVisualizzaPecInserita()) {
+            nellaPaginaITuoiRecapitiSiCliccaSulBottoneEliminaPEC();
+            nelPopUpEliminaIndirizzoPecSiCliccaSulBottoneConferma();
+            nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoPecNonSiaPresente();
+        }
+        if (recapitiDestinatarioPage.controlloEmailAssociata(email)) {
+            iTuoiRecapitiPage.eliminaEmailEsistente();
+            nellaPaginaITuoiRecapitiSiCliccaSulBottoneEliminaEmailESiConfermaNelPopUp();
+            nellaPaginaITuoiRecapitiSiControllaCheLIndirizzoEmailNonSiaPresente();
+        }
+    }
+
+    @Then("Si clicca sul dropdown {string} di altri recapiti")
+    public void siCliccaSulDropdownDiAltriRecapiti(String dropdown) {
+        logger.info("Si clicca sul dropdown");
+        recapitiDestinatarioPage.clickDropdownAltriRecapiti(dropdown);
+    }
+
+    @And("Si visualizza correttamente la lista degli enti")
+    public void siVisualizzaCorrettamenteLaListaDegliEnti(List<String> enti) {
+        logger.info("Si visualizza la lista degli enti");
+        recapitiDestinatarioPage.visualizzaListaEnti(enti);
     }
 }
 

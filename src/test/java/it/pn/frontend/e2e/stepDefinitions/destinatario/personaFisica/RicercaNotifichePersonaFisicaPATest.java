@@ -250,5 +250,13 @@ public class RicercaNotifichePersonaFisicaPATest {
         logger.info("Si controlla che almeno un campo data sia in stato invalido");
         destinatarioPage.isDateBoxInvalid();
     }
+
+    @And("Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN {string}")
+    public void nellaPaginaPiattaformaNotificheDestinatarioSiEffettuaLaRicercaPerCodiceIUN(String codiceIUN) {
+        logger.info("Si cerca una notifica tramite IUN: " + codiceIUN);
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
+        piattaformaNotifichePage.selectFiltraNotificaButton();
+    }
 }
 

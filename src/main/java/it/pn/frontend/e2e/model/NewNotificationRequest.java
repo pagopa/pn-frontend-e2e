@@ -1,10 +1,14 @@
 package it.pn.frontend.e2e.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import it.pn.frontend.e2e.model.enums.NotificationFeePolicyEnum;
 import it.pn.frontend.e2e.model.enums.PhysicalCommunicationTypeEnum;
+import lombok.Data;
 
 import java.util.ArrayList;
 
+@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class NewNotificationRequest {
     private String paProtocolNumber;
     private String subject;
@@ -16,7 +20,9 @@ public class NewNotificationRequest {
     private NotificationFeePolicyEnum notificationFeePolicy;
     private String senderDenomination;
     private String senderTaxId;
-    private String abstractS;
+    private String _abstract;
+    private int paFee;
+    private int vat;
 
     public NewNotificationRequest(String paProtocolNumber, String subject, ArrayList<Recipient> recipients, ArrayList<Document> documents,
                                   PhysicalCommunicationTypeEnum physicalCommunicationType, String taxonomyCode, NotificationFeePolicyEnum notificationFeePolicy) {
@@ -28,96 +34,10 @@ public class NewNotificationRequest {
         this.taxonomyCode = taxonomyCode;
         this.notificationFeePolicy = notificationFeePolicy;
         this.group = "6564b9a671919a696157f2c0";
-        this.senderDenomination = "Comune di Milano";
+        this.senderDenomination = "Comune di Palermo";
         this.senderTaxId = "00215150236";
-        this.abstractS = "PAGAMENTO RATA IMU";
-    }
-
-    public String getPaProtocolNumber() {
-        return paProtocolNumber;
-    }
-
-    public void setPaProtocolNumber(String value) {
-        this.paProtocolNumber = value;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String value) {
-        this.subject = value;
-    }
-
-    public ArrayList<Recipient> getRecipients() {
-        return recipients;
-    }
-
-    public void setRecipients(ArrayList<Recipient> value) {
-        this.recipients = value;
-    }
-
-    public ArrayList<Document> getDocuments() {
-        return documents;
-    }
-
-    public void setDocuments(ArrayList<Document> value) {
-        this.documents = value;
-    }
-
-    public PhysicalCommunicationTypeEnum getPhysicalCommunicationType() {
-        return physicalCommunicationType;
-    }
-
-    public void setPhysicalCommunicationType(PhysicalCommunicationTypeEnum value) {
-        this.physicalCommunicationType = value;
-    }
-
-    public String getGroup() {
-        return group;
-    }
-
-    public void setGroup(String value) {
-        this.group = value;
-    }
-
-    public String getTaxonomyCode() {
-        return taxonomyCode;
-    }
-
-    public void setTaxonomyCode(String value) {
-        this.taxonomyCode = value;
-    }
-
-    public NotificationFeePolicyEnum getNotificationFeePolicy() {
-        return notificationFeePolicy;
-    }
-
-    public void setNotificationFeePolicy(NotificationFeePolicyEnum value) {
-        this.notificationFeePolicy = value;
-    }
-
-    public String getSenderDenomination() {
-        return senderDenomination;
-    }
-
-    public void setSenderDenomination(String value) {
-        this.senderDenomination = value;
-    }
-
-    public String getSenderTaxId() {
-        return senderTaxId;
-    }
-
-    public void setSenderTaxId(String value) {
-        this.senderTaxId = value;
-    }
-
-    public String getWelcomeAbstract() {
-        return abstractS;
-    }
-
-    public void setWelcomeAbstract(String value) {
-        this.abstractS = value;
+        this._abstract = "PAGAMENTO RATA IMU";
+        this.paFee = 0;
+        this.vat = 0;
     }
 }

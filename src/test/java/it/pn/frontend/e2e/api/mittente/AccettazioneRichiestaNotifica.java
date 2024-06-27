@@ -73,12 +73,12 @@ public class AccettazioneRichiestaNotifica {
         this.notificationRequestId = notificationRequestId;
     }
 
-    public String getresponseBody() {
+    public String getResponseBody() {
         return responseBody;
     }
 
     public String getStatusNotifica() {
-        String body = getresponseBody();
+        String body = getResponseBody();
 
         /*
          * I changed the implementation from raw string analysis to proper JSON parsing
@@ -103,7 +103,7 @@ public class AccettazioneRichiestaNotifica {
     }
 
     public String getCodiceIUN() {
-        String body = getresponseBody();
+        String body = getResponseBody();
         List<String> results = Splitter.on(CharMatcher.anyOf(",:")).splitToList(body);
         String result = results.get(results.size() - 1);
         return result.substring(1, result.length() - 2);

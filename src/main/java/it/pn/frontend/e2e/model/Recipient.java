@@ -1,67 +1,63 @@
 package it.pn.frontend.e2e.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import it.pn.frontend.e2e.model.enums.RecipientTypeEnum;
+import lombok.Data;
 
+import java.util.List;
+
+@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Recipient {
-    private String denomination;
     private RecipientTypeEnum recipientType;
     private String taxId;
+    private String denomination;
     private PhysicalAddress physicalAddress;
     private DigitalDomicile digitalDomicile;
+    private List<NotificationPaymentItem> payments;
 
     public Recipient() {
-        this.denomination = "Gaio Giulio Cesare";
-        this.recipientType = RecipientTypeEnum.PF;
-        this.taxId = "CSRGGL44L13H501E";
-        this.physicalAddress = new PhysicalAddress();
-        this.digitalDomicile = new DigitalDomicile();
+        this.recipientType = null;
+        this.taxId = null;
+        this.denomination = null;
+        this.physicalAddress = null;
+        this.digitalDomicile = null;
+        this.payments = null;
     }
 
     public Recipient(String denomination, RecipientTypeEnum recipientType, String taxId, PhysicalAddress physicalAddress, DigitalDomicile digitalDomicile) {
-        this.denomination = denomination;
         this.recipientType = recipientType;
         this.taxId = taxId;
+        this.denomination = denomination;
         this.physicalAddress = physicalAddress;
         this.digitalDomicile = digitalDomicile;
+        this.payments = null;
     }
 
-    public String getDenomination() {
-        return denomination;
+    public Recipient(String denomination, RecipientTypeEnum recipientType, String taxId) {
+        this.recipientType = recipientType;
+        this.taxId = taxId;
+        this.denomination = denomination;
+        this.physicalAddress = new PhysicalAddress();
+        this.digitalDomicile = null;
+        this.payments = null;
     }
 
-    public void setDenomination(String value) {
-        this.denomination = value;
+    public Recipient(String denomination, RecipientTypeEnum recipientType, String taxId, PhysicalAddress physicalAddress) {
+        this.recipientType = recipientType;
+        this.taxId = taxId;
+        this.denomination = denomination;
+        this.physicalAddress = physicalAddress;
+        this.digitalDomicile = null;
+        this.payments = null;
     }
 
-    public RecipientTypeEnum getRecipientType() {
-        return recipientType;
-    }
-
-    public void setRecipientType(RecipientTypeEnum value) {
-        this.recipientType = value;
-    }
-
-    public String getTaxId() {
-        return taxId;
-    }
-
-    public void setTaxId(String value) {
-        this.taxId = value;
-    }
-
-    public PhysicalAddress getPhysicalAddress() {
-        return physicalAddress;
-    }
-
-    public void setPhysicalAddress(PhysicalAddress value) {
-        this.physicalAddress = value;
-    }
-
-    public DigitalDomicile getDigitalDomicile() {
-        return digitalDomicile;
-    }
-
-    public void setDigitalDomicile(DigitalDomicile value) {
-        this.digitalDomicile = value;
+    public Recipient(String denomination, RecipientTypeEnum recipientType, String taxId, PhysicalAddress physicalAddress, DigitalDomicile digitalDomicile, List<NotificationPaymentItem> payments) {
+        this.recipientType = recipientType;
+        this.taxId = taxId;
+        this.denomination = denomination;
+        this.physicalAddress = physicalAddress;
+        this.digitalDomicile = digitalDomicile;
+        this.payments = payments;
     }
 }

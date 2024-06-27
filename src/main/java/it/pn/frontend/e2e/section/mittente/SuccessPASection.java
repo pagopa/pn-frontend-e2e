@@ -18,14 +18,16 @@ public class SuccessPASection extends BasePage {
     @FindBy(id = "go-to-notifications")
     WebElement successButton;
 
+    @FindBy(id = "title-sync-feedback")
+    WebElement successCheckBy;
+
     public SuccessPASection(WebDriver driver) {
         super(driver);
     }
 
     public void waitLoadSuccessPASection() {
         try {
-            By successCheckBy = By.id("title-sync-feedback");
-            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(successCheckBy));
+            getWebDriverWait(20).until(ExpectedConditions.visibilityOf(successCheckBy));
             logger.info("TA_QA: La notifica è stata creata con successo, PA section caricata correttamente");
         } catch (TimeoutException e) {
             logger.error("TA_QA: Il titolo della Success PA section non caricata con errore: " + e.getMessage());
@@ -35,6 +37,6 @@ public class SuccessPASection extends BasePage {
 
     public void vaiAlleNotifiche() {
         logger.info("click pulsante vai alle notifiche");
-        this.successButton.click();
+        successButton.click();
     }
 }
