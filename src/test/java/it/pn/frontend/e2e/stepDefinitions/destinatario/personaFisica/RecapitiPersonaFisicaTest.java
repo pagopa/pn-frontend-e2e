@@ -344,6 +344,7 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si inserisce il codice OTP di verifica");
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         WebTool.waitTime(2);
+        logger.info("Sending OTP: " + OTP);
         iTuoiRecapitiPage.sendOTP(OTP);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
         if (recapitiDestinatarioPage.waitMessaggioErrore()) {
@@ -365,6 +366,7 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTPScaduto() throws InterruptedException {
         logger.info("Si inserisce il codice OTP di verifica");
         driver.wait(910000);
+        logger.info("Sending OTP Scaduto: " + OTP);
         iTuoiRecapitiPage.sendOTP(OTP);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
     }
@@ -784,6 +786,8 @@ public class RecapitiPersonaFisicaTest {
                 Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
             }
         }
+
+        logger.info("OTP Ricuperato:" + OTP);
 
     }
 
