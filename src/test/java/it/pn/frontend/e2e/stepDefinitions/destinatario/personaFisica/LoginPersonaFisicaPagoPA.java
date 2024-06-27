@@ -62,6 +62,10 @@ public class LoginPersonaFisicaPagoPA {
         String environment = System.getProperty("environment");
         String token = "";
         switch (environment) {
+            case "uat" -> token = personaFisica.equalsIgnoreCase("delegante") ?
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokenuatPFDelegante").toString()
+                    :
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokenuatPFDelegato").toString();
             case "dev" -> token = personaFisica.equalsIgnoreCase("delegante") ?
                     dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPFDelegante").toString()
                     :
@@ -608,22 +612,18 @@ public class LoginPersonaFisicaPagoPA {
         boolean urlWithTokenFound = false;
         int numProvaLogin = 0;
         DataPopulation dataPopulation = new DataPopulation();
-        this.datiDelegato = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        datiDelegato = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
         String userDelegato = this.datiDelegato.get("user").toString();
         String passwordDelegato = this.datiDelegato.get("pwd").toString();
 
         while (numProvaLogin < 10) {
             this.readUrlLoginPersonaFisicaWithToken(userDelegato, passwordDelegato);
-            if (this.urlPersonaFisica.get("responseCode").equalsIgnoreCase("301")) {
+            if (urlPersonaFisica.get("responseCode").equalsIgnoreCase("301")) {
                 urlWithTokenFound = true;
                 break;
             }
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            WebTool.waitTime(5);
             numProvaLogin++;
         }
 
@@ -631,10 +631,10 @@ public class LoginPersonaFisicaPagoPA {
             logger.info("procedura di login from spid provata : " + numProvaLogin);
         } else {
             logger.error("procedura di login from spid provata : " + numProvaLogin);
-            Assert.fail("Codice risposta ricevuto per questo end point: '" + this.urlPersonaFisica.get("urlPortale") + "' è : " + this.urlPersonaFisica.get("responseCode"));
+            Assert.fail("Codice risposta ricevuto per questo end point: '" + urlPersonaFisica.get("urlPortale") + "' è : " + urlPersonaFisica.get("responseCode"));
         }
 
-        this.driver.get(this.urlPersonaFisica.get("urlPortale"));
+        driver.get(this.urlPersonaFisica.get("urlPortale"));
     }
 
     @When("Login portale persona fisica tramite token exchange {string}")
