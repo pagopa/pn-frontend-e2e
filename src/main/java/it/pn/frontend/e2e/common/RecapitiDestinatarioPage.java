@@ -160,6 +160,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             Assert.fail("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
         }
     }
+
     public void clearOTP() {
         try {
             By otpInputby = By.xpath("//input[contains(@id,'code-input')]");
@@ -257,7 +258,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean siVisualizzaPopUpConferma() {
         try {
-            By popUpConfermaTitleBy = By.id("dialog-title");
+            By popUpConfermaTitleBy = By.xpath("//div[@data-testid='dialog-actions']//button[contains(text(), 'Conferma')]");
             getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(popUpConfermaTitleBy));
             return true;
         } catch (TimeoutException e) {
@@ -381,7 +382,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
             getWebDriverWait(10).withMessage("Non è stato caricato il bottone annulla del modal").until(ExpectedConditions.visibilityOf(buttonAnnullaEliminazioneInPopUp));
             getWebDriverWait(10).withMessage("Non è stato caricato il bottone conferma del modal").until(ExpectedConditions.visibilityOfElementLocated(confermaEliminaButtonBy));
-        } catch (TimeoutException e){
+        } catch (TimeoutException e) {
             logger.info("Non è stato caricato un elemento del pop up con errore: " + e.getMessage());
         }
         return this.element(titlePopUp).getText();
@@ -729,6 +730,24 @@ public class RecapitiDestinatarioPage extends BasePage {
         } catch (TimeoutException e) {
             logger.error("Il messaggio di errore non viene visualizzato correttamente con errore: " + e.getMessage());
             Assert.fail("Il messaggio di errore non viene visualizzato correttamente con errore: " + e.getMessage());
+        }
+    }
+
+    public void clickDropdownAltriRecapiti(String dropdown) {
+        By dropdownBy;
+        if (dropdown.equalsIgnoreCase("ente")) {
+            dropdownBy = By.id("sender");
+        } else {
+            dropdownBy = By.id("addressType");
+        }
+        getWebDriverWait(10).withMessage("Non è stato possibile cliccare sul dropdown").until(ExpectedConditions.elementToBeClickable(dropdownBy));
+        element(dropdownBy).click();
+    }
+
+    public void visualizzaListaEnti(List<String> enti) {
+        for (String ente : enti) {
+            By enteRadice = By.xpath("//li//p[contains(text(),'" + ente + "')]");
+            getWebDriverWait(10).withMessage("Ente: " + ente + " non visibile").until(ExpectedConditions.visibilityOfElementLocated(enteRadice));
         }
     }
 }

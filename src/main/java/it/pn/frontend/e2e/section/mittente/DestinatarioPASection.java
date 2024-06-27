@@ -2,10 +2,7 @@ package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -81,7 +78,6 @@ public class DestinatarioPASection extends BasePage {
 
     @FindBy(id = "add-digital-domicile")
     WebElement checkDomicilioDigitale;
-
 
     public DestinatarioPASection(WebDriver driver) {
         super(driver);

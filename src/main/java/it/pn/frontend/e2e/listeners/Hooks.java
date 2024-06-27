@@ -45,13 +45,13 @@ public class Hooks {
     public static WebDriver driver;
     public DevTools devTools;
     public Map<String, RequestWillBeSent> requests = new HashMap<>();
+
+    @Getter
+    public static String scenario;
     public static List<NetWorkInfo> netWorkInfos = new ArrayList<>();
     private String headless;
     private final CookieConfig cookieConfig = new CookieConfig();
     private final String os = System.getProperty("os.name");
-
-    @Getter
-    public static String scenario;
 
     protected void firefox() {
         WebDriverManager.firefoxdriver().setup();
@@ -98,7 +98,7 @@ public class Hooks {
             driver.manage().window().maximize();
         }
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         devTools = ((HasDevTools) driver).getDevTools();
         devTools.createSession();

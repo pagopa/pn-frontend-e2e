@@ -18,7 +18,7 @@ public class DigitalDomicile {
         this.address = address;
     }
 
-    public DigitalDomicile( String address) {
+    public DigitalDomicile(String address) {
         this.type = DigitalDomicileTypeEnum.PEC;
         this.address = address;
     }

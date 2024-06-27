@@ -142,7 +142,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selectFiltraNotificaButton() {
-        getWebDriverWait(10).until(elementToBeClickable(filtraNotificaButton));
+        getWebDriverWait(10).withMessage("Il filtro non è cliccabile").until(elementToBeClickable(filtraNotificaButton));
         filtraNotificaButton.click();
         logger.info("Bottone filtra, nella pagina notifiche del delegato, cliccato correttamente");
     }
@@ -787,13 +787,13 @@ public class PiattaformaNotifichePage extends BasePage {
                 }
             }
         }
-        Assert.assertFalse("NotificationRequestId non trovato, il codice della risposta al url /delivery/v2.3/requests è diverso di 202 ", notificationRequestId.isEmpty());
+        Assert.assertFalse("NotificationRequestId non trovato, il codice della risposta al url bff/v1/notifications/sent è diverso di 202 ", notificationRequestId.isEmpty());
         LinkedTreeMap<String, Object> notificationData;
         String notificationStatus;
         String notificationIUN;
         int maximumRetry = 0;
         do {
-            Assert.assertTrue("La notifica risulta ancora in stato WAITING dopo 5 tentativi", maximumRetry <= 6);
+            Assert.assertTrue("La notifica risulta ancora in stato WAITING dopo 5 tentativi", maximumRetry <= 5);
             notificationData = restNotification.getNotificationStatus(notificationRequestId);
             notificationStatus = notificationData.get("notificationRequestStatus").toString();
             if (notificationStatus.equals("ACCEPTED")) {
@@ -801,7 +801,7 @@ public class PiattaformaNotifichePage extends BasePage {
                 notificationSingleton.setScenarioIun(Hooks.getScenario(), notificationIUN);
                 return;
             } else {
-                WebTool.waitTime(60);
+                WebTool.waitTime(90);
                 logger.info("Tentativo n.{} - Stato notifica: {}", maximumRetry, notificationStatus);
                 maximumRetry++;
             }
@@ -1061,5 +1061,12 @@ public class PiattaformaNotifichePage extends BasePage {
         By vediTutti = By.xpath("//button[@data-testid='show-all-attachments']");
         getWebDriverWait(4).withMessage("Il bottone vedi tutti non cliccabile").until(ExpectedConditions.elementToBeClickable(vediTutti));
         element(vediTutti).click();
+    }
+
+    public void verificaMittente(String ente) {
+        By mittente = By.id("row-value-1");
+        getWebDriverWait(10).withMessage("Mittente non trovato").until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOfElementLocated(mittente),
+                ExpectedConditions.textToBe(mittente, ente)));
     }
 }

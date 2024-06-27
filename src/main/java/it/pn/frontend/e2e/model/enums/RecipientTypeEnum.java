@@ -1,5 +1,13 @@
 package it.pn.frontend.e2e.model.enums;
 
 public enum RecipientTypeEnum {
-    PF, PG
+    PF, PG;
+
+    public static RecipientTypeEnum fromString(String value){
+        if (value.equalsIgnoreCase("PF")){
+            return RecipientTypeEnum.PF;
+        } else {
+            return RecipientTypeEnum.PG;
+        }
+    }
 }
