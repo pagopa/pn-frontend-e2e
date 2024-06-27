@@ -303,7 +303,7 @@ public class NotifichePGPagoPATest {
         logger.info("Si cerca una notifica tramite IUN: " + codiceIUN);
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
-        piattaformaNotifichePage.selectFiltraDelegatoButton();
+        piattaformaNotifichePage.selectFiltraNotificaButton();
     }
 
     @And("Si controlla la presenza di codice avviso")

@@ -132,15 +132,15 @@ public class DownloadFileMittentePagoPATest {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            final String urlFileAttestazioneOppponubile = downloadFile.getUrl(WebTool.getApiBaseUrl());
-            if (headless && urlFileAttestazioneOppponubile.isEmpty()) {
+            final String urlFileAttestazioneOppponibile = downloadFile.getUrl(WebTool.getApiBaseUrl());
+            if (headless && urlFileAttestazioneOppponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
                 logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
                 Assert.fail("Non è stato recuperato url per il download per il link: " + testoLink);
             }
             file = new File(filepath + count + ".pdf");
             count = count + 1;
-            downloadFile.download(urlFileAttestazioneOppponubile, file, headless);
+            downloadFile.download(urlFileAttestazioneOppponibile, file, headless);
             if (!headless) {
                 dettaglioNotificaSection.goBack();
             }
@@ -325,20 +325,6 @@ public class DownloadFileMittentePagoPATest {
 
         final String pathOfDownloadedFile = workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente";
         downloadFile.controlloDownload(pathOfDownloadedFile, count);
-    }
-
-    @When("Cliccare sulla notifica restituita")
-    public void cliccareSullaNotificaRestituita() {
-        logger.info("Si clicca sulla notifica");
-
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-        piattaformaNotifichePage.selezionaNotifica();
-    }
-
-    @And("Si visualizza correttamente la section Dettaglio Notifica")
-    public void siVisualizzaCorrettamenteLaSectionDettaglioNotifica() {
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-        dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
     }
 
     @And("Nella sezione Dettaglio Notifiche si seleziona il file, {string}, da scaricare")

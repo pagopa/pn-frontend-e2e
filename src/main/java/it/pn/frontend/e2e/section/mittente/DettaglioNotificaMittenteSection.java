@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +23,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
 
     @FindBy(id = "more-less-timeline-step")
-    WebElement vediDettagliButton;
+    List<WebElement> vediDettagliButton;
 
     @FindBy(xpath = "//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11dv4ll')]")
     List<WebElement> infoNotifiche;
@@ -138,15 +139,19 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void clickVediPiuDettaglio() {
-        By percorsoNotificaBy = By.xpath("//div[contains(@data-testid,'itemStatus')]");
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(percorsoNotificaBy));
-        this.numeriStatiNotifica = this.elements(percorsoNotificaBy).size();
-        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.vediDettagliButton));
+
+        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(vediDettagliButton.get(0)));
         logger.info("click su vedi dettagli");
-        this.vediDettagliButton.click();
+        vediDettagliButton.get(0).click();
+        try{
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(vediDettagliButton.get(1)));
+            vediDettagliButton.get(1).click();
+        } catch (Exception e) {
+            logger.info("ulteriore vedi dettaglio non presente");
+        }
     }
 
-    public void siVisualizzaPercosoNotifica() {
+    public void siVisualizzaPercorsoNotifica() {
         try {
             By newPercorsoNotificaBy = By.xpath("//div[contains(@data-testid,'itemStatus')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(newPercorsoNotificaBy));
@@ -270,6 +275,58 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void checkNumeroFallimentiInvioViaPEC(int numeroFallimenti) {
+        try {
+            By invioPECFallitoBy = By.xpath("//span[text()='Invio via PEC fallito']");
+            List<WebElement> invioPECFallitoList = driver.findElements(invioPECFallitoBy);
+            logger.info("L'invio della notifica è fallito questo numero di volte: " + invioPECFallitoList.size());
+            if (invioPECFallitoList.size() != numeroFallimenti) {
+                logger.error("L'invio della notifica non è fallito " + numeroFallimenti + " volta/e");
+                Assert.fail("L'invio della notifica non è fallito " + numeroFallimenti + " volta/e");
+            }
+        } catch (TimeoutException e) {
+            logger.error("NON è fallito l'invio della notifica: " + e.getMessage());
+            Assert.fail("NON è fallito l'invio della notifica: " + e.getMessage());
+        }
+    }
+
+    public void checkStatoTimeline(String statoTimeline){
+        try {
+            By stato = By.xpath(statoTimeline);
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(stato));
+            logger.info("stato timeline checkato con successo avvenuta");
+        } catch (TimeoutException e) {
+            logger.error("checkato stato timeline non avvenuta con errore: " + e.getMessage());
+            Assert.fail("checkato stato timeline non avvenuta con errore: " + e.getMessage());
+        }
+    }
+
+    public void siCliccaSuAllegatoInTimeline(String xpath) {
+        try {
+            By allegatoTimeline = By.xpath(xpath);
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(allegatoTimeline));
+            element(allegatoTimeline).click();
+            checkURL("pn-safestorage");
+            driver.navigate().back();
+            logger.info("allegato timeline trovato con successo");
+        } catch (TimeoutException e) {
+            logger.error("allegato timeline trovato non con successo: " + e.getMessage());
+            Assert.fail("allegato timeline trovato non con successo: " + e.getMessage());
+        }
+
+    }
+
+    public void checkInvioADomicilioDiPiattaforma(String domicilioDiPiattaforma) {
+        try {
+            By invioDomicilioDiPiattaformaBy = By.xpath("//div[contains(span/text(), 'Invio via PEC riuscito') and (//div[contains(p/text(), '" + domicilioDiPiattaforma + "')])]");
+            getWebDriverWait(10).withMessage("Non si visualizza l'invio della notifica al domicilio di piattaforma nella timeline").until(ExpectedConditions.visibilityOfElementLocated(invioDomicilioDiPiattaformaBy));
+        } catch (TimeoutException e) {
+            logger.error("L'invio della notifica al domicilio di piattaforma indicato non viene effettuato con errore: " + e.getMessage());
+            Assert.fail("L'invio della notifica al domicilio di piattaforma indicato non viene effettuato con errore: " + e.getMessage());
+        }
+
+    }
+
+    public void checkDoppioFallimentoInvioViaPEC(int numeroFallimenti) {
         try {
             By invioPECFallitoBy = By.xpath("//span[text()='Invio via PEC fallito']");
             List<WebElement> invioPECFallitoList = driver.findElements(invioPECFallitoBy);
