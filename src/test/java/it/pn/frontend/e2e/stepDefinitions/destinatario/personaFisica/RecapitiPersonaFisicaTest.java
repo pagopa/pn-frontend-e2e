@@ -365,8 +365,8 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si inserisce il codice OTP scaduto")
     public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTPScaduto() throws InterruptedException {
         logger.info("Si inserisce il codice OTP di verifica");
-        Thread.sleep(910000);
         logger.info("Sending OTP Scaduto: " + OTP);
+        Thread.sleep(910000);
         iTuoiRecapitiPage.sendOTP(OTP);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
     }
@@ -777,7 +777,7 @@ public class RecapitiPersonaFisicaTest {
             } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
             }
-            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + "prova@pec.it";
+            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + mail;
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
             if (results) {
                 OTP = recuperoOTPRecapiti.getResponseBody();
