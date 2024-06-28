@@ -1,7 +1,7 @@
 Feature: La persona giuridica visualizza tutti gli elementi della sezione altri recapiti
 
 
-  @TA_atriRecapitiPGVisualizzaCorrettamente
+  @TA_altriRecapitiPGVisualizzaCorrettamente
 
   Scenario: PN-9161 -A1 La persona giuridica visualizza tutti gli elementi della sezione altri recapiti
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
