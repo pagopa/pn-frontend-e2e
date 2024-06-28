@@ -32,6 +32,9 @@ public class CookieConfig {
         if (isCookieEnabled()) {
             // Based on the environment, the cookie is added to the map
             switch (env) {
+                case "uat":
+                    this.setUpCookieUat();
+                    break;
                 case "test":
                     this.setUpCookieTest();
                     break;
@@ -64,6 +67,27 @@ public class CookieConfig {
         cookieMap.put("https://cittadini.dev.notifichedigitali.it/", new HashSet<>(Arrays.asList(
                 new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "cittadini.dev.notifichedigitali.it", "/", null, false),
                 new Cookie("OptanonConsent", optanonConsentValue, "cittadini.dev.notifichedigitali.it", "/", null, false)
+        )));
+    }
+
+    // Set up cookie for uat environment
+    private void setUpCookieUat() {
+        Date currentDate = new Date();
+
+        // Cookie values
+        String optanonConsentValue = "isGpcEnabled=0&datestamp=" + this.getCurrentDateFormatted() + "+GMT%2B0100+(Ora+standard+dell%E2%80%99Europa+centrale)&version=202303.2.0&browserGpcFlag=0&isIABGlobal=false&hosts=&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A0";
+        String OptanonAlertBoxClosedValue = currentDate.toString();
+        cookieMap.put("https://selfcare.uat.notifichedigitali.it/", new HashSet<>(Arrays.asList(
+                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "selfcare.uat.notifichedigitali.it", "/", null, false),
+                new Cookie("OptanonConsent", optanonConsentValue, "selfcare.uat.notifichedigitali.it", "/", null, false)
+        )));
+        cookieMap.put("https://imprese.uat.notifichedigitali.it/", new HashSet<>(Arrays.asList(
+                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "imprese.uat.notifichedigitali.it", "/", null, false),
+                new Cookie("OptanonConsent", optanonConsentValue, "imprese.uat.notifichedigitali.it", "/", null, false)
+        )));
+        cookieMap.put("https://cittadini.uat.notifichedigitali.it/", new HashSet<>(Arrays.asList(
+                new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "cittadini.uat.notifichedigitali.it", "/", null, false),
+                new Cookie("OptanonConsent", optanonConsentValue, "cittadini.uat.notifichedigitali.it", "/", null, false)
         )));
     }
 

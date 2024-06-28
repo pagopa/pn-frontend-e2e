@@ -1,5 +1,7 @@
 Feature:Controllo dati notifica annullata
 
+  @TestSuite
+  @PF
 
   @ControlloNotificaAnnullata
   Scenario:[NOTIFICA-ANNULLATA] Verifica caratteristiche notifica annullata

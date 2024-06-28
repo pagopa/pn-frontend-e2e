@@ -1,5 +1,7 @@
-@TestSuite
 Feature: Il destinatario accede ad una notifica non ancora pagata e scarica i file
+
+  @TestSuite
+  @PF
 
   @downloadFileNotificaConPagamento
   Scenario: [TA-FE DOWNLOAD FILE NOTIFICA CON PAGAMENTO] - Il destinatario accede ad una notifica con pagamento scarica il modello F24
