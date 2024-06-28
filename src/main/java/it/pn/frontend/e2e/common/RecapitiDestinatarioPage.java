@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.common;
 
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -772,72 +773,48 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void selezionaTipoEmail() {
         this.tipoIndirizzoField.click();
-        // wait 2 seconds for the options to become visible
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            logger.error("errore: " + e.getMessage());
-        }
+        WebTool.waitTime(2);
         By opzioneEmail = By.id("EMAIL");
         getWebDriverWait(10)
                 .withMessage("Non è visibile l'opzione indirizzo email")
                 .until(ExpectedConditions.elementToBeClickable(opzioneEmail));
-        this.element(opzioneEmail).click();
+        element(opzioneEmail).click();
     }
 
     public void selezionaTipoPec() {
-        this.tipoIndirizzoField.click();
-        // wait 2 seconds for the options to become visible
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            logger.error("errore: " + e.getMessage());
-        }
+        tipoIndirizzoField.click();
+        WebTool.waitTime(2);
         By opzionePEC = By.id("PEC");
         getWebDriverWait(10)
                 .withMessage("Non è visibile l'opzione indirizzo PEC")
                 .until(ExpectedConditions.elementToBeClickable(opzionePEC));
-        this.element(opzionePEC).click();
+        element(opzionePEC).click();
     }
 
     public void selezionaTipoCelulare() {
         this.tipoIndirizzoField.click();
-        // wait 2 seconds for the options to become visible
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            logger.error("errore: " + e.getMessage());
-        }
+        WebTool.waitTime(2);
         By opzioneCelulare = By.id("Celulare");
         getWebDriverWait(10)
                 .withMessage("Non è visibile l'opzione celulare")
                 .until(ExpectedConditions.elementToBeClickable(opzioneCelulare));
-        this.element(opzioneCelulare).click();
+       element(opzioneCelulare).click();
     }
 
     public void checkMessaggioDiErrore(String check){
         String id = "";
         if (check.equalsIgnoreCase("pec")){
             id = "s_pec-helper-text";
-            if(indirizzoPecField.getAttribute("aria-invalid").equalsIgnoreCase("false")){
-                logger.error("la textbox non presenta il bordo rosso");
-                Assert.fail("la textbox non presenta il bordo rosso");
-            }
+            Assert.assertFalse("la textbox non presenta il bordo rosso",indirizzoPecField.getAttribute("aria-invalid").equalsIgnoreCase("false"));
         }
         if (check.equalsIgnoreCase("email")){
             id = "s_mail-helper-text";
-            if(emailField.getAttribute("aria-invalid").equalsIgnoreCase("false")){
-                logger.error("la textbox non presenta il bordo rosso");
-                Assert.fail("la textbox non presenta il bordo rosso");
-            }
-        }
-        By errorMessage = By.id(id);
-        getWebDriverWait(5).withMessage("Il messaggio di errore non è visibile").until(ExpectedConditions.visibilityOfElementLocated(errorMessage));
-        if(associaButton.getAttribute("disabled")==null){
-            logger.error("Il bottone Associa è attivo");
-            Assert.fail("Il bottone Associa è attivo");
+            Assert.assertFalse("la textbox non presenta il bordo rosso",emailField.getAttribute("aria-invalid").equalsIgnoreCase("false"));
         }
 
+        By errorMessage = By.id(id);
+        getWebDriverWait(5).withMessage("Il messaggio di errore non è visibile").until(ExpectedConditions.visibilityOfElementLocated(errorMessage));
+        Assert.assertNotNull("lIl bottone Associa è attivo", associaButton.getAttribute("disabled"));
     }
 
     public void clearMailbox(String check){
@@ -855,12 +832,12 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void clickConfermaPopupOTP(){
         By confirmOtpPopup = By.id("code-confirm-button");
         getWebDriverWait(5).withMessage("il bottone Confirm non è cliccabile").until(ExpectedConditions.elementToBeClickable(confirmOtpPopup));
-        this.element(confirmOtpPopup).click();
+        element(confirmOtpPopup).click();
     }
     public void clickAnnullaPopupOTP(){
         By cancelOtpPopup = By.id("code-cancel-button");
         getWebDriverWait(5).withMessage("il bottone Confirm non è cliccabile").until(ExpectedConditions.elementToBeClickable(cancelOtpPopup));
-        this.element(cancelOtpPopup).click();
+        element(cancelOtpPopup).click();
     }
 
     public boolean waitErrorMessagePopupOTP() {
@@ -870,6 +847,8 @@ public class RecapitiDestinatarioPage extends BasePage {
             logger.info("Il messaggio di errore viene visualizzato correttamente");
             return true;
         } catch (TimeoutException e) {
+            logger.info("Il messaggio di errore non viene visualizzato");
+
             return false;
         }
     }

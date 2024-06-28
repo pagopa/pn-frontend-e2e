@@ -1,9 +1,7 @@
 Feature: La persona giuridica visualizza tutti gli elementi della sezione altri recapiti
 
-  @TestSuite
+
   @TA_atriRecapitiPGInseriscePec
-  @PG
-  @recapitiPG
 
   Scenario: PN-9161 -B1 La persona giuridica inserisce PEC sbagliato e corretto
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
