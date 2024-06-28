@@ -326,14 +326,14 @@ public class NotifichePersonaFisicaPagoPATest {
         logger.info("Si recupera un codice IUN valido");
 
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresentiPF();
-        this.personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        String codiceIun = this.personaFisica.get("codiceIUN").toString();
+       personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        String codiceIun = personaFisica.get("codiceIUN").toString();
         if (codiciIun.contains(codiceIun)) {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
         } else {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiciIun.get(0));
-            this.personaFisica.put("codiceIUN", codiciIun.get(0));
-            dataPopulation.writeDataPopulation("datiNotifica.yaml", this.personaFisica);
+            personaFisica.put("codiceIUN", codiciIun.get(0));
+            dataPopulation.writeDataPopulation("datiNotifica.yaml",personaFisica);
         }
     }
 
@@ -466,7 +466,6 @@ public class NotifichePersonaFisicaPagoPATest {
         public void siInserisceIDatiDiPagamento(String email) throws InterruptedException {
             logger.info("Si inserisce i dati di pagamento");
             CookiesSection cookiesSection = new CookiesSection(this.driver);
-           // cookiesSection.selezionaAccettaTuttiButton();
             accediAPiattaformaNotifichePage.inserireDatiPagamento(email);
             accediAPiattaformaNotifichePage.checkoutPagamento();
         }
