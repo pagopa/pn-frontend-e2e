@@ -8,14 +8,12 @@ Feature: Mittente genera una notifica che non prevede pagamento
   Scenario: PN-9294 - Mittente genera una notifica mono destinatario a PF - Normalizzazione KO (indirizzo non trovato)
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
-      | modello         | 890                |
+      | modello         | A/R                |
       | documenti       | 1                  |
       | oggettoNotifica | Pagamento rata IMU |
       | costiNotifica   | false              |
     And Si aggiunge un destinatario alla notifica
-      | at                | Presso                |
       | indirizzo         | @FAIL-Irreperibile_AR |
-      | dettagliIndirizzo | Scala b               |
       | codicePostale     | 40121                 |
       | comune            | Bologna               |
       | dettagliComune    | Bologna               |
@@ -24,11 +22,8 @@ Feature: Mittente genera una notifica che non prevede pagamento
       | nomeCognome       | Giuseppe Coincidente  |
       | codiceFiscale     | CNCGPP80A01H501J      |
       | tipoDestinatario  | PF                    |
-      | domicilioDigitale | test@test.com         |
-      | avvisoPagoPa      | 1                     |
-      | F24               | 1                     |
     Then Creo in background una notifica per destinatario tramite API REST
-    And Aspetta 10 secondi
+    And Aspetta 600 secondi
     And Cliccare sulla notifica restituita
     And Si clicca sul opzione Vedi Dettaglio
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
