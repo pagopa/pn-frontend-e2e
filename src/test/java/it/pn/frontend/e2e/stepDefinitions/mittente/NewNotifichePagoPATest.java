@@ -50,13 +50,13 @@ public class NewNotifichePagoPATest {
                 LinkedTreeMap<String, Object> getNotificationStatus;
                 String notificationStatus;
                 do {
-                    Assert.assertTrue("La notifica risulta ancora in stato WAITING dopo 5 tentativi", maxAttemptsPolling <= 4);
+                    Assert.assertTrue("La notifica risulta ancora in stato WAITING dopo 10 tentativi", maxAttemptsPolling <= 9);
                     log.info(responseOfCreateNotification.getNotificationRequestId());
                     getNotificationStatus = restNotification.getNotificationStatus(responseOfCreateNotification.getNotificationRequestId());
                     notificationStatus = getNotificationStatus.get("notificationRequestStatus").toString();
                     if (!notificationStatus.equals("ACCEPTED")) {
-                        WebTool.waitTime(90);
-                        log.info("Tentativo n. " + maxAttemptsPolling + " - Stato notifica: " + notificationStatus);
+                        WebTool.waitTime(45);
+                        log.info("Tentativo n. {} - Stato notifica: {}", maxAttemptsPolling, notificationStatus);
                         maxAttemptsPolling++;
                     } else {
                         log.info("Notifica per destinatario creata con successo");

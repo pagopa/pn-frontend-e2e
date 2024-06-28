@@ -33,7 +33,7 @@ public class PiattaformaNotifichePage extends BasePage {
     WebElement cfTextField;
 
     @FindBy(id = "filter-button")
-    WebElement filtraButton;
+    WebElement filtraNotificaButtonMittente;
 
     @FindBy(id = "filter-notifications-button")
     WebElement filtraNotificaButton;
@@ -135,10 +135,10 @@ public class PiattaformaNotifichePage extends BasePage {
 
     }
 
-    public void selectFiltraButton() {
-        getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(filtraButton));
-        filtraButton.click();
-        logger.info("Bottone filtra cliccato correttamente");
+    public void selectFiltraNotificaButtonMittente() {
+        getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(filtraNotificaButtonMittente));
+        filtraNotificaButtonMittente.click();
+        logger.info("Bottone filtra, nella pagina del mittente, cliccato correttamente");
     }
 
     public void selectFiltraNotificaButton() {
@@ -658,8 +658,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean verificaBottoneFiltraDisabilitato() {
         try {
-            getWebDriverWait(30).withMessage("buttone Filtra non è visibile").until(ExpectedConditions.visibilityOf(this.filtraButton));
-            return Boolean.parseBoolean(this.filtraButton.getAttribute("disabled"));
+            getWebDriverWait(30).withMessage("buttone Filtra non è visibile").until(ExpectedConditions.visibilityOf(this.filtraNotificaButtonMittente));
+            return Boolean.parseBoolean(this.filtraNotificaButtonMittente.getAttribute("disabled"));
         } catch (TimeoutException e) {
             return false;
         }
@@ -695,7 +695,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public boolean isFiltraButtonDisabled() {
-        return !inputsError.isEmpty() || filtraButton.getAttribute("disabled") != null;
+        return !inputsError.isEmpty() || filtraNotificaButtonMittente.getAttribute("disabled") != null;
     }
 
     public boolean controlloDateErrate() {
@@ -841,32 +841,32 @@ public class PiattaformaNotifichePage extends BasePage {
             WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + stato));
             getWebDriverWait(10).withMessage("La notifica non ha lo stato " + stato).until(ExpectedConditions.visibilityOf(chipStatus));
         } catch (TimeoutException e) {
-            logger.error("Notifica non trovata con errore: " + e.getMessage());
+            logger.error("Notifica non trovata con errore: {}", e.getMessage());
             Assert.fail("Notifica non trovata con errore: " + e.getMessage());
         }
     }
 
+    /*List<WebElement> itemsStatus = driver.findElements(By.xpath("//div[contains(@data-testid, 'itemStatus')]"));
+                WebElement itemStatus = itemsStatus.get(0);
+                getWebDriverWait(10).withMessage("La notifica non ha lo stato " + statoNotifica).until(ExpectedConditions.attributeToBe(itemStatus, "textContent", statoNotifica));*/
+
     public void selezionaNotificaConStato(String statoNotifica) {
         boolean testSuccess = false;
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 12; i++) {
             try {
-                WebElement notificationLine = notificationsTableLines.get(0);
-                WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + statoNotifica));
+                WebElement chipStatus = driver.findElement(By.id(statoNotifica + "-status"));
                 if (chipStatus != null) {
-                    logger.info("La notifica è passata allo stato " + statoNotifica + " e si procede con il test");
+                    logger.info("La notifica è passata allo stato {} e si procede con il test", statoNotifica);
                     testSuccess = true;
                     break;
                 }
             } catch (NoSuchElementException e) {
-                logger.info("Dopo " + i + " tentativi la notifica non è ancora passata allo stato: " + statoNotifica);
+                logger.info("Dopo {} tentativi la notifica non è ancora passata allo stato: {}", i, statoNotifica);
             }
             WebTool.waitTime(15);
             driver.navigate().refresh();
         }
-        if (!testSuccess) {
-            logger.error("La notifica non è passata allo stato {}", statoNotifica);
-            Assert.fail("La notifica non è passata allo stato " + statoNotifica);
-        }
+        Assert.assertTrue("La notifica non è passata allo stato " + statoNotifica, testSuccess);
     }
 
     public void checkNotifica() {

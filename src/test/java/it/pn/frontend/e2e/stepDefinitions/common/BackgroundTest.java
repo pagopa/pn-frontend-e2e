@@ -327,10 +327,18 @@ public class BackgroundTest {
         recapitiTest.siVisualizzaCorrettamenteIlMessaggioDiErroreDeiTreTentativi();
     }
 
-    public void siFiltraLaTabellaDelleNotifichePerIUN(String iun) {
+    public void siFiltraLaTabellaDelleNotifichePerIUNDestinatario(String iun) {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButton();
+        piattaformaNotifichePage.clickSuNotifica();
+    }
+
+    public void siFiltraLaTabellaDelleNotifichePerIUNMittente(String iun) {
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.inserimentoCodiceIUN(iun);
+        piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
+        WebTool.waitTime(1);
         piattaformaNotifichePage.clickSuNotifica();
     }
 }

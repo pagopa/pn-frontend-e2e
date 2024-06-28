@@ -441,7 +441,7 @@ public class NotificaMittentePagoPATest {
                 piattaformaNotifichePage.insertCodiceFiscale(this.personaFisica.get("codiceFiscale").toString());
                 piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
                 piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
-                piattaformaNotifichePage.selectFiltraButton();
+                piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
             }
             piattaformaNotifichePage.waitLoadRefreshPage();
             String codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
@@ -701,7 +701,7 @@ public class NotificaMittentePagoPATest {
                 piattaformaNotifichePage.aggiornamentoPagina();
                 piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
                 piattaformaNotifichePage.inserimentoCodiceIUN(datiNotifica.get("codiceIUN").toString());
-                piattaformaNotifichePage.selectFiltraButton();
+                piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
             } else {
                 notificaTrovata = true;
                 break;
@@ -744,7 +744,7 @@ public class NotificaMittentePagoPATest {
                 piattaformaNotifichePage.insertCodiceFiscale(this.personeFisiche.get("codiceFiscale").toString());
                 piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
                 piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
-                piattaformaNotifichePage.selectFiltraButton();
+                piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
             }
             piattaformaNotifichePage.waitLoadRefreshPage();
             String codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
@@ -962,7 +962,7 @@ public class NotificaMittentePagoPATest {
                 piattaformaNotifichePage.insertCodiceFiscale(codiceFiscale);
                 piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
                 piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
-                piattaformaNotifichePage.selectFiltraButton();
+                piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
             }
             piattaformaNotifichePage.waitLoadRefreshPage();
             codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
@@ -1265,7 +1265,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Si attende che lo stato della notifica sia {string}")
     public void siAttendeCheLoStatoDellaNotificaSia(String statoNotifica) {
-        logger.info("Si clicca sulla notifica appena creata quando lo stato diventa: " + statoNotifica);
+        logger.info("Si clicca sulla notifica appena creata quando lo stato diventa: {}", statoNotifica);
         piattaformaNotifichePage.selezionaNotificaConStato(statoNotifica);
     }
 
@@ -1283,7 +1283,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Si verifica che l'invio della notifica sia fallito {int} volte")
     public void siVerificaCheLInvioDellaNotificaSiaFallitoDueVolte(int numeroFallimenti) {
-        logger.info("Si verifica che l'invio della notifica sia fallito " + numeroFallimenti + " volta/e");
+        logger.info("Si verifica che l'invio della notifica sia fallito {} volta/e", numeroFallimenti);
         dettaglioNotificaMittenteSection.checkNumeroFallimentiInvioViaPEC(numeroFallimenti);
     }
 
@@ -1298,7 +1298,14 @@ public class NotificaMittentePagoPATest {
     public void siSelezionaLaNotifica() {
         BackgroundTest backgroundTest = new BackgroundTest();
         String iun = notificationSingleton.getIun(Hooks.scenario);
-        backgroundTest.siFiltraLaTabellaDelleNotifichePerIUN(iun);
+        backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNDestinatario(iun);
+    }
+
+    @And("Si seleziona la notifica mittente")
+    public void siSelezionaLaNotificaMittente() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+        String iun = notificationSingleton.getIun(Hooks.scenario);
+        backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNMittente(iun);
     }
 
     @And("Si verifica l'invio della raccomandata semplice")
@@ -1565,7 +1572,7 @@ public class NotificaMittentePagoPATest {
                 piattaformaNotifichePage.aggiornamentoPagina();
                 piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
                 piattaformaNotifichePage.inserimentoCodiceIUN(datiNotifica.get("codiceIUN").toString());
-                piattaformaNotifichePage.selectFiltraButton();
+                piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
             } else {
                 notificaTrovata = true;
                 break;
@@ -1582,7 +1589,7 @@ public class NotificaMittentePagoPATest {
         logger.info("inserimento codice fiscale sbagliato nella ricerca di una notifica");
 
         piattaformaNotifichePage.insertCodiceFiscale(codiceFiscaleSbagliato);
-        piattaformaNotifichePage.selectFiltraButton();
+        piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
     }
 
     @Then("Nella pagina Piattaforma Notifiche si controlla che si visualizza il messaggio di errore codice fiscale")
@@ -1604,7 +1611,7 @@ public class NotificaMittentePagoPATest {
         logger.info("Inserimento codice IUN sbagliato");
 
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUNSbagliato);
-        piattaformaNotifichePage.selectFiltraButton();
+        piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
     }
 
     @Then("Nella pagina Piattaforma Notifiche si visualizza il messaggio di errore codice IUN")
