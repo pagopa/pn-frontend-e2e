@@ -56,6 +56,8 @@ public class LoginMittentePagoPA {
         String environment = System.getProperty("environment");
         String token = "";
         switch (environment) {
+            case "uat" ->
+                    token = dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokenuatMittente").toString();
             case "dev" ->
                     token = dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevMittente").toString();
             case "test" ->
