@@ -9,6 +9,7 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
+import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
@@ -29,6 +30,9 @@ public class RecapitiPersonaFisicaTest {
     private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
     private final DataPopulation dataPopulation = new DataPopulation();
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
+
+    private final NotificaMittentePagoPATest notificaMittentePagoPATest = new NotificaMittentePagoPATest();
+   private final ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti")
     public void nellaPaginaPiattaformaNotifichePersonaFisicaSiCliccaSulBottoneITuoiRecapiti() {
@@ -144,6 +148,7 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti clicca sul bottone conferma")
     public void nellaPaginaITuoiRecapitiCliccaSulBottoneConferma() {
         logger.info("Si cerca di cliccare sul bottone conferma");
+
         recapitiDestinatarioPage.confermaButtonClickPopUp();
     }
 
@@ -345,7 +350,23 @@ public class RecapitiPersonaFisicaTest {
             logger.error("Il codice OTP inserito è sbagliato");
             Assert.fail("Il codice OTP inserito è sbagliato");
         }
+    }
 
+    @And("Si verifica se popup conferma presente")
+    public void verificaPopupConferma(){
+        if (recapitiDestinatarioPage.siVisualizzaPopUpConferma()) {
+            logger.info("Si clicca su conferma nel pop-up");
+            recapitiDestinatarioPage.clickConfermaButton();
+            driver.navigate().refresh();
+        }
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce il codice OTP scaduto")
+    public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTPScaduto() throws InterruptedException {
+        logger.info("Si inserisce il codice OTP di verifica");
+        Thread.sleep(910000);
+        iTuoiRecapitiPage.sendOTP(OTP);
+        recapitiDestinatarioPage.confermaButtonClickPopUp();
     }
 
     @Then("Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente")
@@ -737,6 +758,36 @@ public class RecapitiPersonaFisicaTest {
         }
 
     }
+    @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email {string} tramite chiamata request")
+    public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaEmailTramiteChiamataRequest(String mail) {
+        logger.info("Si recupera il codice OTP della nuova email");
+        RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
+
+        String startUrl = "http://localhost:8887/";
+        String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + mail;
+        boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+        if (results) {
+            OTP = recuperoOTPRecapiti.getResponseBody();
+        } else {
+            String variabileAmbiente = System.getProperty("environment");
+            if (variabileAmbiente.equalsIgnoreCase("test")) {
+                startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
+            } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
+                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
+            }
+            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + mail;
+            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+            if (results) {
+                OTP = recuperoOTPRecapiti.getResponseBody();
+            } else {
+                logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+                Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+            }
+        }
+
+        logger.info("OTP Ricuperato:" + OTP);
+
+    }
 
     @And("Nella pagina I Tuoi Recapiti si clicca sul bottone elimina pec")
     public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneEliminaPEC() {
@@ -801,6 +852,22 @@ public class RecapitiPersonaFisicaTest {
 
         recapitiDestinatarioPage.insertEnte(mittente.get("comune").toString());
 
+    }
+
+    @And("Nella pagina Recapiti si inserisce il numero di telefono {string} e clicca sul bottone avvisami via SMS")
+    public void nellaPaginaRecapitiSiInserisceIlNumeroDiTelefono(String numero) {
+
+        logger.info("Si inserisce il numero di telefono");
+
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.insertTelephoneNumber(numero);
+        iTuoiRecapitiPage.clickAvvisamiViaSMS();
+    }
+
+    @And("Nella sezione altri recapiti PG si seleziona l'ente {string}")
+    public void nellaSezioneAltriRecapitiPGSiSelezionaLEnte(String ente) {
+        logger.info("Si sceglie l'ente");
+        recapitiDestinatarioPage.insertEnte(ente);
     }
 
     @And("Nella sezione altri recapiti si seleziona il tipo di indirizzo")
