@@ -298,7 +298,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         Thread.sleep(32000);
 
         List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Chiudi')]"));
-        getWebDriverWait(5).withMessage("Il bottone Chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudi.get(0)));
+        getWebDriverWait(10).withMessage("Il bottone Chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudi.get(0)));
         chiudi.get(0).click();
     }
 
