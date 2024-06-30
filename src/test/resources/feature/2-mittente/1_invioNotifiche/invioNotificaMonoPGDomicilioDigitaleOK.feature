@@ -5,6 +5,8 @@ Feature: Mittente genera una notifica che non prevede pagamento
   @mittente
   @invioNotifiche
 
+  @alimatest
+
   Scenario: PN-9291 - Mittente genera una notifica mono destinatario a PG con domicilio digitale KO
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
@@ -31,7 +33,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
       | stato     | Italia                |
     And Cliccare su continua
     And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
-    And Aspetta 300 secondi
+    And Aspetta 180 secondi
     And Cliccare sulla notifica restituita
     And Si clicca sul opzione Vedi Dettaglio
     Then Si verifica che la notifica abbia lo stato "Consegnata"

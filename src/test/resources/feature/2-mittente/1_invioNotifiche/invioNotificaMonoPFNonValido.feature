@@ -5,7 +5,9 @@ Feature: Mittente genera una notifica che non prevede pagamento
   @mittente
   @invioNotifiche
 
-  Scenario: PN-9294 - Mittente genera una notifica mono destinatario a PF - Normalizzazione KO (indirizzo non trovato)
+    @alimatest
+
+  Scenario: PN-9296 - Mittente genera una notifica mono destinatario a PF - Normalizzazione KO (indirizzo non trovato)
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
