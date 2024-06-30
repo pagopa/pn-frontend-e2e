@@ -6,7 +6,6 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
 
   @TestSuite
   @OttenereTracciatoAnonimizzataDiNotifica
-  @customtest
 
 
   Scenario: PN-9610 - Ottenere  il tracciato anonimizzata di una notifica dato il suo IUN

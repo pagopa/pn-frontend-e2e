@@ -6,7 +6,6 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
 
   @TestSuite
   @OttenereInfoCompletaDiNotifica
-  @customtest
 
 
   Scenario: PN-9606 - Ottenere le informazioni complete di una notifica
