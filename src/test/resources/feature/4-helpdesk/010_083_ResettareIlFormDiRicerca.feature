@@ -5,7 +5,8 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
     And Si visualizza correttamente home Helpdesk
 
   @TestSuite
-  @test83
+  @ResettareFormDiRicerca
+    @customtest
 
 
   Scenario: PN-9614 - Resettare il form di ricerca

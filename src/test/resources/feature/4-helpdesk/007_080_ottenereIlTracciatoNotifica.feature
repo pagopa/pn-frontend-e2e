@@ -5,7 +5,8 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
     And Si visualizza correttamente home Helpdesk
 
   @TestSuite
-  @test80
+  @OttenereTracciatoNonAnonimizzataDiNotifica
+  @customtest
 
 
   Scenario: PN-9608 - Ottenere  il tracciato non anonimizzata di una notifica dato il suo IUN
