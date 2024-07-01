@@ -17,6 +17,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -225,7 +226,7 @@ public class HelpdeskTest {
     }
 
     @Then("controllo link per scaricare zip e scarico file")
-    public void controlloLinkPerScaricareZip() throws IOException {
+    public void controlloLinkPerScaricareZip() throws IOException, AWTException {
         helpdeskPage.checkZipLink();
     }
 
@@ -238,12 +239,8 @@ public class HelpdeskTest {
     @And("Controllo sia presente documento {string}")
     public void controlloPresenteDocumento(String docName) throws IOException {
         logger.info("Controllo sia presente documento" + docName);
-        if (helpdeskPage.trovaDocumentoConTitolo(docName)){
+        Assert.assertTrue ("Documento " + docName + " non è trovato",helpdeskPage.trovaDocumentoConTitolo(docName));
             logger.info("Documento " + docName + " è trovato");
-        }else {
-            logger.error("Documento" + docName + " non è trovato");
-            Assert.fail("Documento" + docName + " non è trovato");
-        }
     }
 
     @And("Si elimina file estratto")

@@ -34,61 +34,41 @@ import net.lingala.zip4j.ZipFile;
 
 public class HelpdeskPage extends BasePage {
 
+    private final Logger logger = LoggerFactory.getLogger("Helpdesk Page");
     @FindBy(id = "buttonLogin")
     WebElement loginButton;
-
     @FindBy(id = "Email")
     WebElement emailInput;
-
     @FindBy(id = "Password")
     WebElement passwordInput;
-
     @FindBy(id = "logout")
     WebElement buttonLogout;
-
     @FindBy(id = "Numero Ticket")
     WebElement numeroTicketInput;
-
     @FindBy(id = "Codice Fiscale")
     WebElement codiceFiscaleInput;
-
     @FindBy(id = "IUN")
     WebElement iunInput;
-
     @FindBy(id = "ricerca")
     WebElement buttonRicerca;
-
     @FindBy(xpath = "//div[1]/div[4]/div/label/span[1]")
     WebElement deanonimizzazioneDati;
-
     @FindBy(xpath = "//p[contains(text(),'Codice Univoco')]")
     WebElement Uid;
-
     @FindBy(xpath = "//p[contains(text(),'Codice Fiscale')]")
     WebElement CfPersonaFisica;
-
-
     @FindBy(id = "Tipo Estrazione")
     WebElement selectTypeOfEstrazioneDati;
-
     @FindBy(id = "Codice Univoco (uid)")
     WebElement inputUid;
-
     @FindBy(id = "cardTitle-Monitoraggio Piattaforma Notifiche")
     WebElement monitoraggioPN;
-
     @FindBy(xpath = ".//div[@data-field='functionality' and @role='cell']")
     List<WebElement> services;
-
     @FindBy(xpath = ".//div[@data-field='data' and @role='cell']")
     List<WebElement> serviceDates;
-
     @FindBy(xpath = ".//button[@role='menuitem']")
     List<WebElement> serviceStatusButtons;
-
-
-    private final Logger logger = LoggerFactory.getLogger("Helpdesk Page");
-
     private String codiceFiscale;
     private String zipPassword;
     private String codiceIdentificativoPF;
@@ -97,6 +77,13 @@ public class HelpdeskPage extends BasePage {
         super(driver);
     }
 
+    private static void pressTabKey(Robot robot, int times) {
+        for (int i = 0; i < times; i++) {
+            robot.keyPress(KeyEvent.VK_TAB);
+            robot.keyRelease(KeyEvent.VK_TAB);
+            robot.delay(500);
+        }
+    }
 
     public void changePage(String HelpdeskURL) {
         this.driver.get(HelpdeskURL);
@@ -137,12 +124,10 @@ public class HelpdeskPage extends BasePage {
         this.emailInput.sendKeys(user);
     }
 
-
     public void insertPassword(String pwd) {
         logger.info("inserisco password");
         this.passwordInput.sendKeys(pwd);
     }
-
 
     public void clickInviaButton() {
         logger.info("clicco il bottone login");
@@ -303,20 +288,10 @@ public class HelpdeskPage extends BasePage {
         logger.info("inserisco codice IUN");
         iunInput.sendKeys(iun);
         logger.info("clicco sul bottone di ricerca");
-        try {
-            this.getWebDriverWait(30).withMessage("bottone per la ricerca non trovato").until(ExpectedConditions.elementToBeClickable(buttonRicerca));
-            buttonRicerca.click();
-        } catch (TimeoutException e) {
-            logger.error("bottone non cliccabile:" + e.getMessage());
-            Assert.fail("bottone non cliccabile:" + e.getMessage());
 
-        }
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            logger.error("pausa con errore: " + e.getMessage());
-            throw new RuntimeException(e);
-        }
+        this.getWebDriverWait(30).withMessage("bottone per la ricerca non trovato").until(ExpectedConditions.elementToBeClickable(buttonRicerca));
+        buttonRicerca.click();
+        WebTool.waitTime(3);
     }
 
     public void insertIun(String iun) {
@@ -330,11 +305,11 @@ public class HelpdeskPage extends BasePage {
         inputUid.sendKeys(uid);
 
     }
+
     public void insertNumeroTicket() {
         logger.info("inserisco numero ticket");
         numeroTicketInput.sendKeys("testTAFE01");
     }
-
 
     public void checkUid() {
         try {
@@ -355,7 +330,7 @@ public class HelpdeskPage extends BasePage {
         this.codiceFiscale = codiceFiscale;
     }
 
-    public void setPassword(String password){
+    public void setPassword(String password) {
         this.zipPassword = password;
     }
 
@@ -380,51 +355,38 @@ public class HelpdeskPage extends BasePage {
     public void selectOttieniNotifica() {
         logger.info("click su tipo estrazione dati");
         By inputTipoEstrazione = By.xpath("//div[@data-testid='select-Tipo Estrazione']");
-        this.element(inputTipoEstrazione).click();
-        try {
-            logger.info("selezione ottieni notifica");
-            By selectTypeOfOttieniCF = By.xpath("//li[contains(text(),'Ottieni notifica')]");
-            logger.info("controllo esistenza selezione");
-            this.getWebDriverWait(30).withMessage("opzione ottieni notifica non trovata").until(ExpectedConditions.visibilityOfElementLocated(selectTypeOfOttieniCF));
-            this.element(selectTypeOfOttieniCF).click();
-            By checkIunIsDisplayed = By.id("IUN");
-            this.getWebDriverWait(30).withMessage("input IUN non trovato").until(ExpectedConditions.visibilityOfElementLocated(checkIunIsDisplayed));
-        } catch (TimeoutException e) {
-            logger.error("opzione ottieni notifica non trovata: " + e.getMessage());
-            Assert.fail("opzione ottieni notifica non trovata: " + e.getMessage());
-        }
+        element(inputTipoEstrazione).click();
+        logger.info("selezione ottieni notifica");
+        By selectTypeOfOttieniCF = By.xpath("//li[contains(text(),'Ottieni notifica')]");
+        logger.info("controllo esistenza selezione");
+        getWebDriverWait(30).withMessage("opzione ottieni notifica non trovata").until(ExpectedConditions.visibilityOfElementLocated(selectTypeOfOttieniCF));
+        element(selectTypeOfOttieniCF).click();
+        By checkIunIsDisplayed = By.id("IUN");
+        getWebDriverWait(30).withMessage("input IUN non trovato").until(ExpectedConditions.visibilityOfElementLocated(checkIunIsDisplayed));
     }
+
     public void selectOttieniLogCompleti() {
         logger.info("click su tipo estrazione dati");
         By inputTipoEstrazione = By.xpath("//div[@data-testid='select-Tipo Estrazione']");
-        this.element(inputTipoEstrazione).click();
-        try {
-            logger.info("selezione ottieni log completi");
-            By selectTypeOfOttieniLogCompleti = By.xpath("//li[contains(text(),'Ottieni log completi')]");
-            logger.info("controllo esistenza selezione");
-            this.getWebDriverWait(30).withMessage("opzione ottieni log completi non trovata").until(ExpectedConditions.visibilityOfElementLocated(selectTypeOfOttieniLogCompleti));
-            this.element(selectTypeOfOttieniLogCompleti).click();
-            By checkNumeroTicketIsDisplayed = By.id("Numero Ticket");
-            this.getWebDriverWait(30).withMessage("input Numero Ticket non trovato").until(ExpectedConditions.visibilityOfElementLocated(checkNumeroTicketIsDisplayed));
-        } catch (TimeoutException e) {
-            logger.error("opzione ottieni log comleti non trovata: " + e.getMessage());
-            Assert.fail("opzione ottieni log completi non trovata: " + e.getMessage());
-        }
+        element(inputTipoEstrazione).click();
+
+        logger.info("selezione ottieni log completi");
+        By selectTypeOfOttieniLogCompleti = By.xpath("//li[contains(text(),'Ottieni log completi')]");
+        logger.info("controllo esistenza selezione");
+        getWebDriverWait(30).withMessage("opzione ottieni log completi non trovata").until(ExpectedConditions.visibilityOfElementLocated(selectTypeOfOttieniLogCompleti));
+        element(selectTypeOfOttieniLogCompleti).click();
+        By checkNumeroTicketIsDisplayed = By.id("Numero Ticket");
+        getWebDriverWait(30).withMessage("input Numero Ticket non trovato").until(ExpectedConditions.visibilityOfElementLocated(checkNumeroTicketIsDisplayed));
     }
 
+    public void checkMessaggioSuccesso() {
 
-    public void checkMessaggioSuccesso(){
-        try {
-            logger.info("controllo esistenza messaggio di successo");
-            By messaggio = By.xpath("//p[contains(text(),'Operazione completata con successo')]");
-            this.getWebDriverWait(90).withMessage("Messaggio di successo non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
-        } catch (TimeoutException e) {
-            logger.error("Messaggio di successo non trovato: " + e.getMessage());
-            Assert.fail("Messaggio di successo non trovato: " + e.getMessage());
-        }
+        logger.info("controllo esistenza messaggio di successo");
+        By messaggio = By.xpath("//p[contains(text(),'Operazione completata con successo')]");
+        this.getWebDriverWait(90).withMessage("Messaggio di successo non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
     }
 
-    public void checkMessaggioDiErroreData(){
+    public void checkMessaggioDiErroreData() {
         try {
             logger.info("controllo esistenza messaggio di errore");
             By messaggio = By.xpath("//p[contains(text(),'intervallo temporale non può superare i 3 mesi')]");
@@ -434,84 +396,63 @@ public class HelpdeskPage extends BasePage {
             Assert.fail("Messaggio di errore non trovato: " + e.getMessage());
         }
     }
-    public void checkMessaggioDiErroreIUN(){
-        try {
-            logger.info("controllo esistenza messaggio di errore");
-            By messaggio = By.xpath("//p[contains(text(),'Inserimento errato')]");
-            this.getWebDriverWait(15).withMessage("Messaggio di errore non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
-        } catch (TimeoutException e) {
-            logger.error("Messaggio di errore non trovato: " + e.getMessage());
-            Assert.fail("Messaggio di errore non trovato: " + e.getMessage());
-        }
+
+    public void checkMessaggioDiErroreIUN() {
+        logger.info("controllo esistenza messaggio di errore");
+        By messaggio = By.xpath("//p[contains(text(),'Inserimento errato')]");
+        this.getWebDriverWait(15).withMessage("Messaggio di errore non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
     }
 
-    public void checkMessaggioDiErroreCF(){
-        try {
-            logger.info("controllo esistenza messaggio di errore");
-            By messaggio = By.xpath("//p[contains(text(),'Inserimento errato')]");
-            this.getWebDriverWait(15).withMessage("Messaggio di errore non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
-        } catch (TimeoutException e) {
-            logger.error("Messaggio di errore non trovato: " + e.getMessage());
-            Assert.fail("Messaggio di errore non trovato: " + e.getMessage());
-        }
+    public void checkMessaggioDiErroreCF() {
+        logger.info("controllo esistenza messaggio di errore");
+        By messaggio = By.xpath("//p[contains(text(),'Inserimento errato')]");
+        this.getWebDriverWait(15).withMessage("Messaggio di errore non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
     }
 
-
-    public void checkZipLink() throws IOException {
+    public void checkZipLink() throws IOException, AWTException {
         boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
         if (!headless) {
-            try {
-                logger.info("controllo esistenza link per scaricare zip");
-                By zipLink = By.xpath("//a[contains(text(),'Download')]");
-                this.getWebDriverWait(10).withMessage("Link per scaricare zip non trovato").until(ExpectedConditions.visibilityOfElementLocated(zipLink));
-                this.element(zipLink).click();
-                Robot robot = new Robot();
-                robot.setAutoDelay(100);
-                robot.delay(2000);
-                String workingDirectory = System.getProperty("user.dir");
-                String path = workingDirectory + "/src/test/resources/dataPopulation/zip";
+            logger.info("controllo esistenza link per scaricare zip");
+            By zipLink = By.xpath("//a[contains(text(),'Download')]");
+            this.getWebDriverWait(10).withMessage("Link per scaricare zip non trovato").until(ExpectedConditions.visibilityOfElementLocated(zipLink));
+            this.element(zipLink).click();
+            Robot robot = new Robot();
+            robot.setAutoDelay(100);
+            robot.delay(2000);
+            String workingDirectory = System.getProperty("user.dir");
+            String path = workingDirectory + "/src/test/resources/dataPopulation/zip";
 
-                pressTabKey(robot, 6);
-                robot.keyPress(KeyEvent.VK_ENTER);
-                robot.keyRelease(KeyEvent.VK_ENTER);
+            pressTabKey(robot, 6);
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
 
-                typeFilePath(robot, path);
+            typeFilePath(robot, path);
 
-                robot.keyPress(KeyEvent.VK_ENTER);
-                robot.keyRelease(KeyEvent.VK_ENTER);
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
 
-                robot.delay(1000);
+            robot.delay(1000);
 
-                pressTabKey(robot, 8);
+            pressTabKey(robot, 8);
 
-                robot.keyPress(KeyEvent.VK_ENTER);
-                robot.keyRelease(KeyEvent.VK_ENTER);
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
 
-                logger.info("Zip scaricato");
-            } catch (TimeoutException e) {
-                logger.error("Link per scaricare zip non trovato: " + e.getMessage());
-                Assert.fail("Link per scaricare zip non trovato: " + e.getMessage());
-            } catch (AWTException e) {
-                throw new RuntimeException(e);
-            }
+            logger.info("Zip scaricato");
         } else {
-            try {
-                String pageSrc= driver.getPageSource();
-                logger.info("Page src" + pageSrc);
-                By zipLink = By.xpath("//a[contains(text(),'Download')]");
-                String url = this.element(zipLink).getAttribute("href");
-                String workingDirectory = System.getProperty("user.dir");
-                File downloadDirectory = new File(workingDirectory + "/src/test/resources/dataPopulation/zip");
+            String pageSrc = driver.getPageSource();
+            logger.info("Page src" + pageSrc);
+            By zipLink = By.xpath("//a[contains(text(),'Download')]");
+            String url = this.element(zipLink).getAttribute("href");
+            String workingDirectory = System.getProperty("user.dir");
+            File downloadDirectory = new File(workingDirectory + "/src/test/resources/dataPopulation/zip");
 
-                // Generate a unique filename for the downloaded ZIP file
-                String fileName = "downloaded_" + System.currentTimeMillis() + ".zip";
+            // Generate a unique filename for the downloaded ZIP file
+            String fileName = "downloaded_" + System.currentTimeMillis() + ".zip";
 
-                File downloadFile = new File(downloadDirectory, fileName);
-                FileUtils.copyURLToFile(new URL(url), downloadFile, 1000, 1000);
-                logger.info("ZIP file downloaded successfully.");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            File downloadFile = new File(downloadDirectory, fileName);
+            FileUtils.copyURLToFile(new URL(url), downloadFile, 1000, 1000);
+            logger.info("ZIP file downloaded successfully.");
         }
     }
 
@@ -554,15 +495,6 @@ public class HelpdeskPage extends BasePage {
         }
     }
 
-    private static void pressTabKey(Robot robot, int times) {
-        for (int i = 0; i < times; i++) {
-            robot.keyPress(KeyEvent.VK_TAB);
-            robot.keyRelease(KeyEvent.VK_TAB);
-            robot.delay(500);
-        }
-    }
-
-
     public void extractZip() throws IOException {
         String workingDirectory = System.getProperty("user.dir");
         String zipDirectoryPath = workingDirectory + "/src/test/resources/dataPopulation/zip";
@@ -575,7 +507,7 @@ public class HelpdeskPage extends BasePage {
         }
 
         // Extract the ZIP file
-        ZipFile zip = new ZipFile(latestZipFile,zipPassword.toCharArray());
+        ZipFile zip = new ZipFile(latestZipFile, zipPassword.toCharArray());
         zip.extractAll(extractDirectoryPath);
 
         // Log extracted files
@@ -596,18 +528,12 @@ public class HelpdeskPage extends BasePage {
         }
     }
 
-    public void checkPassword(){
-        try {
-            logger.info("controllo esistenza password");
-            By messaggio = By.xpath("//p[contains(text(),'Password:')]");
-            this.getWebDriverWait(10).withMessage("Password non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
-            String password = this.element(messaggio).getText().split(": ")[1];
-            setPassword(password);
-
-        } catch (TimeoutException e) {
-            logger.error("Password non trovato: " + e.getMessage());
-            Assert.fail("Password non trovato: " + e.getMessage());
-        }
+    public void checkPassword() {
+        logger.info("controllo esistenza password");
+        By messaggio = By.xpath("//p[contains(text(),'Password:')]");
+        this.getWebDriverWait(10).withMessage("Password non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
+        String password = this.element(messaggio).getText().split(": ")[1];
+        setPassword(password);
     }
 
     public void EliminaFileZipEstratto() throws IOException {
@@ -657,19 +583,15 @@ public class HelpdeskPage extends BasePage {
         }
     }
 
-    public void clickResettaFiltri(){
-      By bottoneReset = By.xpath("//button[@id='resetFilter']");
-      getWebDriverWait(5).withMessage("Il bottone resetta non è cliccabile").until(ExpectedConditions.elementToBeClickable(bottoneReset));
-      this.element(bottoneReset).click();
+    public void clickResettaFiltri() {
+        By bottoneReset = By.xpath("//button[@id='resetFilter']");
+        getWebDriverWait(5).withMessage("Il bottone resetta non è cliccabile").until(ExpectedConditions.elementToBeClickable(bottoneReset));
+        element(bottoneReset).click();
     }
 
-    public void checkCampiPuliti(){
-        if (numeroTicketInput.getAttribute("value").isEmpty() && codiceFiscaleInput.getAttribute("value").isEmpty()){
-            logger.info("I campi sono puliti");
-        }else {
-            logger.error("I campi non sono puliti");
-            Assert.fail("I campi non sono puliti");
-        }
+    public void checkCampiPuliti() {
+        Assert.assertTrue("I campi non sono puliti", numeroTicketInput.getAttribute("value").isEmpty() && codiceFiscaleInput.getAttribute("value").isEmpty());
+        logger.info("I campi sono puliti");
     }
 
     public void checkCodiceFiscale() {
@@ -700,28 +622,28 @@ public class HelpdeskPage extends BasePage {
         logger.info("Visualizzazione pagina login corretta");
     }
 
-    public void clickRicercaBottone(){
+    public void clickRicercaBottone() {
         getWebDriverWait(3).withMessage("Il bottone ricerca non è cliccabile").until(ExpectedConditions.elementToBeClickable(buttonRicerca));
         buttonRicerca.click();
     }
 
-    public void spuntareDeanonimizzazioneDati(){
+    public void spuntareDeanonimizzazioneDati() {
         getWebDriverWait(3).withMessage("Il Deanonimizzazione dati non è cliccabile").until(ExpectedConditions.elementToBeClickable(deanonimizzazioneDati));
         deanonimizzazioneDati.click();
     }
 
 
-    public void inserimentoArcoTemporale(){
+    public void inserimentoArcoTemporale() {
         WebTool.waitTime(60);
 
         logger.info(driver.getPageSource());
         By calendarButton = By.xpath("//div[@data-testid='data-range-picker']//div//div//button");
-            getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(calendarButton));
-            element(calendarButton).click();
+        getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(calendarButton));
+        element(calendarButton).click();
         By previousMonth = By.xpath("//button[@aria-label='Previous month']");
-        this.element(previousMonth).click();
+        element(previousMonth).click();
         WebTool.waitTime(1);
         By dateEleven = By.xpath("//button[contains(text(),'11')]");
-        this.element(dateEleven).click();
+        element(dateEleven).click();
     }
 }
