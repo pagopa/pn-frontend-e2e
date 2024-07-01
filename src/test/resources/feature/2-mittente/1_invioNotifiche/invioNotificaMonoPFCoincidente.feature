@@ -23,7 +23,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
       | codiceFiscale     | CNCGPP80A01H501J      |
       | tipoDestinatario  | PF                    |
     Then Creo in background una notifica per destinatario tramite API REST
-    And Aspetta 310 secondi
+    And Aspetta 360 secondi
     And Cliccare sulla notifica restituita
     And Si clicca sul opzione Vedi Dettaglio
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
