@@ -5,8 +5,6 @@ Feature: Mittente genera una notifica che non prevede pagamento
   @mittente
   @invioNotifiche
 
-  @alimatest
-
   Scenario: PN-9295 - Mittente genera una notifica mono destinatario a PF - Normalizzazione KO (indirizzo non trovato)
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
@@ -25,7 +23,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
       | codiceFiscale     | CNCGPP80A01H501J      |
       | tipoDestinatario  | PF                    |
     Then Creo in background una notifica per destinatario tramite API REST
-    And Aspetta 180 secondi
+    And Aspetta 310 secondi
     And Cliccare sulla notifica restituita
     And Si clicca sul opzione Vedi Dettaglio
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
