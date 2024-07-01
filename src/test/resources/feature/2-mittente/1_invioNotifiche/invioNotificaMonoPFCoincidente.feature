@@ -13,15 +13,15 @@ Feature: Mittente genera una notifica che non prevede pagamento
       | oggettoNotifica | Pagamento rata IMU |
       | costiNotifica   | false              |
     And Si aggiunge un destinatario alla notifica
-      | indirizzo         | @FAIL-Irreperibile_AR |
-      | codicePostale     | 40121                 |
-      | comune            | Bologna               |
-      | dettagliComune    | Bologna               |
-      | provincia         | BO                    |
-      | stato             | Italia                |
-      | nomeCognome       | Giuseppe Coincidente  |
-      | codiceFiscale     | CNCGPP80A01H501J      |
-      | tipoDestinatario  | PF                    |
+      | indirizzo        | @FAIL-Irreperibile_AR |
+      | codicePostale    | 40121                 |
+      | comune           | Bologna               |
+      | dettagliComune   | Bologna               |
+      | provincia        | BO                    |
+      | stato            | Italia                |
+      | nomeCognome      | Giuseppe Coincidente  |
+      | codiceFiscale    | CNCGPP80A01H501J      |
+      | tipoDestinatario | PF                    |
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 360 secondi
     And Cliccare sulla notifica restituita
