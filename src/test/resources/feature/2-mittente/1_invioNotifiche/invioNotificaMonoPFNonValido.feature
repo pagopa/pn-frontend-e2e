@@ -35,6 +35,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
       | name         | Franco                 |
       | familyName   | Non Valido             |
       | fiscalNumber | TINIT-NNVFNC80A01H501G |
+    And Aspetta 2 secondi
     And Cliccare sulla notifica restituita
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
     And Logout da portale persona fisica
