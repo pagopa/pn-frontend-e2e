@@ -165,7 +165,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
       | nomeCognome      | Convivio Spa |
       | codiceFiscale    | 27957814470  |
       | tipoDestinatario | PG           |
-      | avvisoPagoPa     | 2
+      | avvisoPagoPa     | 2            |
       | F24              | 1            |
     And Si aggiunge un destinatario alla notifica
       | indirizzo        | VIA ROMA           |
