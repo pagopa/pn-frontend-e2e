@@ -18,6 +18,7 @@ import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -34,7 +35,6 @@ public class NotifichePGPagoPATest {
     private final WebDriver driver = Hooks.driver;
     List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
     DeleghePGPagoPAPage deleghePage = new DeleghePGPagoPAPage(this.driver);
-    DataPopulation dataPopulation = new DataPopulation();
     Map<String, Object> personaGiuridica = new HashMap<>();
     private final LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
     private final PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
@@ -68,8 +68,7 @@ public class NotifichePGPagoPATest {
         }
         piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(ragioneSociale);
 
-        String variabileAmbiente = System.getProperty("environment");
-        String urlChiamata = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/notifications/received?";
+        String urlChiamata = WebTool.getApiBaseUrl() + "notifications/received?";
 
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
@@ -182,8 +181,7 @@ public class NotifichePGPagoPATest {
         List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
         String bearerToken = "";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
-            String variabileAmbiente = System.getProperty("environment");
-            String urlChiamata = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/notifications/received?";
+            String urlChiamata = WebTool.getApiBaseUrl() + "notifications/received?";
             if (netWorkInfo.getRequestUrl().contains(urlChiamata)) {
                 bearerToken = netWorkInfo.getAuthorizationBearer();
             }
@@ -315,11 +313,11 @@ public class NotifichePGPagoPATest {
     }
 
     @And("Nella pagina piattaforma notifiche PG si effettua la ricerca per codice IUN {string}")
-    public void nellaPaginaPiattformaNotificheSiEffettuaLaRicercaPerCodiceIUN(String codiceIUN) throws InterruptedException {
+    public void nellaPaginaPiattformaNotificheSiEffettuaLaRicercaPerCodiceIUN(String codiceIUN) {
         logger.info("Si cerca una notifica tramite IUN: " + codiceIUN);
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
-        piattaformaNotifichePage.selectFiltraDelegatoButton();
+        piattaformaNotifichePage.selectFiltraNotificaButton();
     }
 
     @And("Si controlla la presenza di codice avviso")

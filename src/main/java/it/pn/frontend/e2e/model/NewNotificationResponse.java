@@ -9,8 +9,8 @@ public class NewNotificationResponse {
     private String notificationRequestId;
     private String paProtocolNumber;
     private String idempotenceToken;
-
     private String notificationIUN;
+
 
     public NewNotificationResponse() {
     }
@@ -20,5 +20,4 @@ public class NewNotificationResponse {
         this.paProtocolNumber = paProtocolNumber;
         this.idempotenceToken = idempotenceToken;
     }
-
 }

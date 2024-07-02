@@ -162,6 +162,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             Assert.fail("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
         }
     }
+
     public void clearOTP() {
         try {
             By otpInputby = By.xpath("//input[contains(@id,'code-input')]");
@@ -260,7 +261,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean siVisualizzaPopUpConferma() {
         try {
-            By popUpConfermaTitleBy = By.id("dialog-title");
+            By popUpConfermaTitleBy = By.xpath("//div[@data-testid='dialog-actions']//button[contains(text(), 'Conferma')]");
             getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(popUpConfermaTitleBy));
             return true;
         } catch (TimeoutException e) {
@@ -378,13 +379,14 @@ public class RecapitiDestinatarioPage extends BasePage {
     public String waitLoadPopUpElimina() {
         By titlePopUp = By.id("dialog-title");
         By subTitlePopUp = By.id("dialog-description");
+        By bottoneAnnulaPopup = By.id("code-cancel-button");
         By confermaEliminaButtonBy = By.xpath("//div[@aria-labelledby='dialog-title']//button[contains(text(),'Conferma')]");
         try {
             getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
             getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
             getWebDriverWait(10).withMessage("Non è stato caricato il bottone annulla del modal").until(ExpectedConditions.visibilityOf(buttonAnnullaEliminazioneInPopUp));
             getWebDriverWait(10).withMessage("Non è stato caricato il bottone conferma del modal").until(ExpectedConditions.visibilityOfElementLocated(confermaEliminaButtonBy));
-        } catch (TimeoutException e){
+        } catch (TimeoutException e) {
             logger.info("Non è stato caricato un elemento del pop up con errore: " + e.getMessage());
         }
         return this.element(titlePopUp).getText();
@@ -734,4 +736,123 @@ public class RecapitiDestinatarioPage extends BasePage {
             Assert.fail("Il messaggio di errore non viene visualizzato correttamente con errore: " + e.getMessage());
         }
     }
+
+    public void clickDropdownAltriRecapiti(String dropdown) {
+        By dropdownBy;
+        if (dropdown.equalsIgnoreCase("ente")) {
+            dropdownBy = By.id("sender");
+        } else {
+            dropdownBy = By.id("addressType");
+        }
+        getWebDriverWait(10).withMessage("Non è stato possibile cliccare sul dropdown").until(ExpectedConditions.elementToBeClickable(dropdownBy));
+        element(dropdownBy).click();
+    }
+
+    public void visualizzaListaEnti(List<String> enti) {
+        for (String ente : enti) {
+            By enteRadice = By.xpath("//li//p[contains(text(),'" + ente + "')]");
+            getWebDriverWait(10).withMessage("Ente: " + ente + " non visibile").until(ExpectedConditions.visibilityOfElementLocated(enteRadice));
+        }
+    }
+
+    public void visualizzazioneSezioneAltriRecapitiPG(String textboxId) {
+        String id = "";
+        By altriRecapitiSectionBy = By.id("specialContactTitle");
+        By sottoTitolo = By.xpath("//p[contains(text(),'Se si desidera che')]");
+        By ente = By.id("sender");
+        By tipoDiRecapito = By.id("addressType");
+        if (textboxId.equalsIgnoreCase("pec")){id = "s_pec-label";}
+        if (textboxId.equalsIgnoreCase("email")){id = "s_mail";}
+        By textBox = By.id(id);
+        By associaButton = By.id("addSpecialButton");
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il sottotitolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(sottoTitolo));
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  ente della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(ente));
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  tipo di recapito della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(tipoDiRecapito));
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  textbox della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(textBox));
+        getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il bottone associa della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(associaButton));
+    }
+
+    public void selezionaTipoEmail() {
+        this.tipoIndirizzoField.click();
+        WebTool.waitTime(2);
+        By opzioneEmail = By.id("EMAIL");
+        getWebDriverWait(10)
+                .withMessage("Non è visibile l'opzione indirizzo email")
+                .until(ExpectedConditions.elementToBeClickable(opzioneEmail));
+        element(opzioneEmail).click();
+    }
+
+    public void selezionaTipoPec() {
+        tipoIndirizzoField.click();
+        WebTool.waitTime(2);
+        By opzionePEC = By.id("PEC");
+        getWebDriverWait(10)
+                .withMessage("Non è visibile l'opzione indirizzo PEC")
+                .until(ExpectedConditions.elementToBeClickable(opzionePEC));
+        element(opzionePEC).click();
+    }
+
+    public void selezionaTipoCelulare() {
+        this.tipoIndirizzoField.click();
+        WebTool.waitTime(2);
+        By opzioneCelulare = By.id("Celulare");
+        getWebDriverWait(10)
+                .withMessage("Non è visibile l'opzione celulare")
+                .until(ExpectedConditions.elementToBeClickable(opzioneCelulare));
+       element(opzioneCelulare).click();
+    }
+
+    public void checkMessaggioDiErrore(String check){
+        String id = "";
+        if (check.equalsIgnoreCase("pec")){
+            id = "s_pec-helper-text";
+            Assert.assertFalse("la textbox non presenta il bordo rosso",indirizzoPecField.getAttribute("aria-invalid").equalsIgnoreCase("false"));
+        }
+        if (check.equalsIgnoreCase("email")){
+            id = "s_mail-helper-text";
+            Assert.assertFalse("la textbox non presenta il bordo rosso",emailField.getAttribute("aria-invalid").equalsIgnoreCase("false"));
+        }
+
+        By errorMessage = By.id(id);
+        getWebDriverWait(5).withMessage("Il messaggio di errore non è visibile").until(ExpectedConditions.visibilityOfElementLocated(errorMessage));
+        Assert.assertNotNull("lIl bottone Associa è attivo", associaButton.getAttribute("disabled"));
+    }
+
+    public void clearMailbox(String check){
+        if(check.equalsIgnoreCase("pec")){
+        this.js().executeScript("arguments[0].setAttribute('autocomplete', 'off')", indirizzoPecField);
+        indirizzoPecField.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+        }
+        if (check.equalsIgnoreCase("email")) {
+            this.js().executeScript("arguments[0].setAttribute('autocomplete', 'off')",emailField );
+            emailField.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+        }
+
+    }
+
+    public void clickConfermaPopupOTP(){
+        By confirmOtpPopup = By.id("code-confirm-button");
+        getWebDriverWait(5).withMessage("il bottone Confirm non è cliccabile").until(ExpectedConditions.elementToBeClickable(confirmOtpPopup));
+        element(confirmOtpPopup).click();
+    }
+    public void clickAnnullaPopupOTP(){
+        By cancelOtpPopup = By.id("code-cancel-button");
+        getWebDriverWait(5).withMessage("il bottone Confirm non è cliccabile").until(ExpectedConditions.elementToBeClickable(cancelOtpPopup));
+        element(cancelOtpPopup).click();
+    }
+
+    public boolean waitErrorMessagePopupOTP() {
+        try {
+            By errorMessageOtp = By.id("codeModalErrorTitle");
+            getWebDriverWait(5).withMessage("Il messaggio di errore inserimento OTP non è visibile").until(ExpectedConditions.visibilityOfElementLocated(errorMessageOtp));
+            logger.info("Il messaggio di errore viene visualizzato correttamente");
+            return true;
+        } catch (TimeoutException e) {
+            logger.info("Il messaggio di errore non viene visualizzato");
+
+            return false;
+        }
+    }
+
 }

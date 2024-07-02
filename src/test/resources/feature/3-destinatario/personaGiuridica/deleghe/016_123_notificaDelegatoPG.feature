@@ -6,10 +6,14 @@ Feature:Il delegato persona giuridica accede ad una delega
   @PG
 
   Scenario: PN-9177 - Il delegato persona giuridica accede ad una notifica
-    Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
-    And Creo in background una notifica PG con un destinatario e un documento tramite API REST
-      | denomination | Le Epistolae srl |
-      | taxId        | 80016350821      |
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Creo in background una notifica per destinatario tramite API REST
+      | destinatario      | PG    |
+      | documenti         | 1     |
+      | multidestinatario | false |
+      | avvisoPagoPa      | 1     |
+      | F24               | 1     |
+      | costiNotifica     | true  |
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe
     And Nella sezione Deleghe si verifica sia presente una delega accettata per PG

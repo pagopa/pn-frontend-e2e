@@ -19,10 +19,10 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.DevToolsException;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v117.network.Network;
-import org.openqa.selenium.devtools.v117.network.model.Headers;
-import org.openqa.selenium.devtools.v117.network.model.RequestWillBeSent;
-import org.openqa.selenium.devtools.v117.network.model.ResourceType;
+import org.openqa.selenium.devtools.v120.network.Network;
+import org.openqa.selenium.devtools.v120.network.model.Headers;
+import org.openqa.selenium.devtools.v120.network.model.RequestWillBeSent;
+import org.openqa.selenium.devtools.v120.network.model.ResourceType;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -45,6 +45,9 @@ public class Hooks {
     public static WebDriver driver;
     public DevTools devTools;
     public Map<String, RequestWillBeSent> requests = new HashMap<>();
+
+    @Getter
+    public static String scenario;
     public static List<NetWorkInfo> netWorkInfos = new ArrayList<>();
     private String headless;
     @Getter
@@ -80,6 +83,12 @@ public class Hooks {
         chromeOptions.addArguments("--disable-dev-shm-usage");
         chromeOptions.addArguments("--remote-allow-origins=*");
         chromeOptions.addArguments("--enable-clipboard");
+        String downloadFilepath = System.getProperty("downloadFilePath");
+
+        HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+        chromePrefs.put("download.default_directory", downloadFilepath);
+
+        chromeOptions.setExperimentalOption("prefs", chromePrefs);
         if (this.headless != null && this.headless.equalsIgnoreCase("true")) {
             chromeOptions.addArguments("no-sandbox");
             chromeOptions.addArguments("headless");
@@ -91,7 +100,7 @@ public class Hooks {
             driver.manage().window().maximize();
         }
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         devTools = ((HasDevTools) driver).getDevTools();
         devTools.createSession();
@@ -104,7 +113,6 @@ public class Hooks {
         this.captureHttpRequests();
         this.captureHttpResponse();
         logger.info("chromedriver started");
-
     }
 
     private void captureHttpRequests() {
@@ -235,7 +243,7 @@ public class Hooks {
                 Date date = Calendar.getInstance().getTime();
                 DateFormat formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
                 String today = formatter.format(date);
-                String testCaseFailed = "screenShots/" + scenario.getName() + "_" + today + ".png";
+                String testCaseFailed = "logs/" + scenario.getName() + "_" + today + ".png";
                 FileUtils.copyFile(screenshot, new File(testCaseFailed));
                 scenario.attach(screenshotByte, "image/png", scenario.getName());
             } catch (IOException e) {
@@ -272,6 +280,30 @@ public class Hooks {
     }
 
     /**
+     * Clear directory of file downloaded
+     * P.S: This will work only if you invoke the feature step that creates the delegate
+     */
+    @After("@File")
+    public void clearDirectory() {
+        String folderPath = System.getProperty("downloadFilePath");
+
+        File folder = new File(folderPath);
+
+        if (folder.isDirectory()) {
+            File[] files = folder.listFiles();
+            for (File file : files) {
+                if (file.isFile()) {
+                    if (file.delete()) {
+                        System.out.println("File cancellato: " + file.getAbsolutePath());
+                    } else {
+                        System.out.println("Impossibile cancellare il file: " + file.getAbsolutePath());
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Clear the contacts of PF after the scenario
      * P.S: This will work only if there are any contacts available
      */
@@ -300,5 +332,4 @@ public class Hooks {
             });
         }
     }
-
 }

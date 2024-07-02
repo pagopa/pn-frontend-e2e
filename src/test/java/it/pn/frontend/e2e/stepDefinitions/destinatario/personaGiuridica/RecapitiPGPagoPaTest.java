@@ -9,6 +9,7 @@ import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RecapitiPGPage;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -126,4 +127,72 @@ public class RecapitiPGPagoPaTest {
         logger.info("Si controlla il disclaimer per il cambio dell'email di cortesia");
         recapitiDestinatarioPage.checkDisclaimer();
     }
+
+      @And("Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti persona giuridica {string}")
+      public void siVisualizzaAltriRecapitiPagePersonaGiuridca(String textboxId){
+    recapitiDestinatarioPage.visualizzazioneSezioneAltriRecapitiPG(textboxId);
+}
+    @And("Nella sezione altri recapiti si seleziona il tipo di indirizzo PG scegliendo {string}")
+    public void selezionaIlTipoDiIndirizzo(String tipoIndirizzo){
+        logger.info("Si seleziona il tipo di indirizzo digitale");
+        if (tipoIndirizzo.equalsIgnoreCase("pec"))
+            recapitiDestinatarioPage.selezionaTipoPec();
+        else if(tipoIndirizzo.equalsIgnoreCase("Email")){
+            recapitiDestinatarioPage.selezionaTipoEmail();
+        }else{
+            recapitiDestinatarioPage.selezionaTipoCelulare();
+        }
+    }
+
+    @And("Nella sezione altri recapiti si inserisce la email aggiuntiva {string}")
+    public void siInserisceEmailAggiuntiva(String email){
+        recapitiDestinatarioPage.insertEmailAggiuntiva(email);
+    }
+
+    @And("Nella sezione altri recapiti si inserisce la PEC aggiuntiva {string}")
+    public void siInseriscePECAggiuntiva(String pec){
+        recapitiDestinatarioPage.insertPECAggiuntiva(pec);
+    }
+
+    @And("Nella sezione altri recapiti si inserisce la Email aggiuntiva {string}")
+    public void siInserisceAggiuntiva(String email){
+        recapitiDestinatarioPage.insertPECAggiuntiva(email);
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce un PEC maggiore di {int} caratteri")
+    public void nellaPaginaITuoiRecapitiSiInserisceUnPECMaggioreDiCaratteri(int numeroCaratteri) {
+        StringBuilder email = new StringBuilder("test");
+        email.append("a".repeat(Math.max(0, numeroCaratteri)));
+        recapitiDestinatarioPage.insertPECAggiuntiva(email.toString());
+    }
+
+    @And("Nella sezione altri recapiti si visualizza il messaggio di errore {string}")
+    public void nellaSezioneAltriRecapitiSiVisualizzaIlMessagioDiErrore(String check){
+        recapitiDestinatarioPage.checkMessaggioDiErrore(check);
+        logger.info("Si visualizza il messaggio di errore");
+    }
+
+
+    @And("Nella sezione altri recapiti si cancella email da textbox {string}")
+    public void nellaSezioneAltriRecapitiSiCancellaEmailDaTextbox(String check){
+        recapitiDestinatarioPage.clearMailbox(check);
+    }
+
+    @And("Nella sezione altri recapiti si clicca sul bottone conferma di popup")
+    public void nellaSezioneAltriRecapitiSiCliccaConfermaPopup(){
+        recapitiDestinatarioPage.clickConfermaPopupOTP();
+    }
+
+    @And("Nella sezione altri recapiti si clicca sul bottone annulla di popup")
+    public void nellaSezioneAltriRecapitiSiCliccaAnnullaPopup(){
+        recapitiDestinatarioPage.clickAnnullaPopupOTP();
+    }
+    @And("Nella sezione altri recapiti si visualizza correttamente il messaggio di errore di popup")
+    public void nellaSezioneAltriRecapitiSiVisualizzaMessagioDiErrorePopup(){
+       if (!recapitiDestinatarioPage.waitErrorMessagePopupOTP()){
+           logger.error("Il messaggio di errore OTP popup non è visibile");
+           Assert.fail("Il messaggio di errore OTP popup non è visibile");
+       }
+    }
+
 }

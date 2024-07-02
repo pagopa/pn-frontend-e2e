@@ -1,5 +1,8 @@
 package it.pn.frontend.e2e.common;
 
+import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
+import it.pn.frontend.e2e.listeners.Hooks;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -109,4 +112,9 @@ public class BasePage {
             element.sendKeys(Keys.BACK_SPACE);
         }
     }
+
+    public boolean checkURL(String url){
+        return driver.getCurrentUrl().contains(url);
+    }
+
 }
