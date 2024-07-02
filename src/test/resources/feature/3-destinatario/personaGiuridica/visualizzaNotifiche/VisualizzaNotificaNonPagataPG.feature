@@ -44,7 +44,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Nella pagina piattaforma notifiche PG si effettua la ricerca per codice IUN "ADHM-RLUJ-MVGQ-202405-T-1"
     And Si clicca la notifica ricercata
     And Si verifica che la notifica abbia lo stato "Annullata"
-    And Si controlla non sia presente l'avviso PagoPa PG
+    And Si controlla non sia presente l'avviso PagoPa
     Then Si controlla non sia presente il modello F24 PG
     And Logout da portale persona giuridica
 
