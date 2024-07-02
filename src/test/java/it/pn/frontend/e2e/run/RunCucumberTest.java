@@ -1,36 +1,33 @@
 package it.pn.frontend.e2e.run;
 
+
 import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
+import io.cucumber.junit.platform.engine.Constants;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.platform.suite.api.*;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Properties;
+import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 
+
+@SelectPackages("it.pn.frontend.e2e.run")
 @RunWith(Cucumber.class)
-@CucumberOptions(
-        features = "src/test/resources/feature",
-        glue = {"it/pn/frontend/e2e/listeners", "it/pn/frontend/e2e/stepDefinitions"},
-        //tags = "@runner",
-        //plugin = { "pretty", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"}
-        plugin = {"pretty",
-                "json:target/cucumber-reports/report.json",
-                "html:target/cucumber-reports/report.html",
-                "junit:target/cucumber-reports/Cucumber.xml"
-        },
-        monochrome = true
-)
-
+@Suite
+@IncludeEngines("cucumber")
+@SelectClasspathResource("it/pn/frontend/e2e/stepDefinitions")
+@ConfigurationParameter(key = GLUE_PROPERTY_NAME,value = "it/pn/frontend/e2e/stepDefinitions")
+@ConfigurationParameter(key = GLUE_PROPERTY_NAME,value = "it/pn/frontend/e2e/listeners")
+@ConfigurationParameter(key = Constants.PLUGIN_PROPERTY_NAME,value = "pretty")
+@ConfigurationParameter(key = Constants.PLUGIN_PROPERTY_NAME,value = "json:target/cucumber-reports/report.json")
+@ConfigurationParameter(key = Constants.PLUGIN_PROPERTY_NAME,value = "html:target/cucumber-reports/report.html")
+@ConfigurationParameter(key = Constants.PLUGIN_PROPERTY_NAME,value = "junit:target/cucumber-reports/Cucumber.xml")
+@ConfigurationParameter(key = Constants.FEATURES_PROPERTY_NAME,value = "src/test/resources/feature")
 public class RunCucumberTest {
     private static final String TEST_CONFIG_FILE = "test-config.properties";
     private static final Properties properties = new Properties();

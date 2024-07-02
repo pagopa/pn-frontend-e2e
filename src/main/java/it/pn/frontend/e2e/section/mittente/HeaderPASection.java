@@ -22,6 +22,7 @@ public class HeaderPASection extends BasePage {
         super(driver);
     }
 
+
     public void waitLoadHeaderSection() {
         try {
             By titleLabel = By.cssSelector("a[title='Sito di PagoPA S.p.A.']");

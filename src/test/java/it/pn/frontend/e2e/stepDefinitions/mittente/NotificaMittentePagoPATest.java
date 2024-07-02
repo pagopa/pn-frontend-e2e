@@ -22,6 +22,7 @@ import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
+import org.junit.jupiter.api.Tag;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -35,6 +36,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 import static org.apache.commons.lang3.StringUtils.substring;
+
 
 public class NotificaMittentePagoPATest {
 
@@ -996,6 +998,7 @@ public class NotificaMittentePagoPATest {
     public void siCliccaSullaSecondaPaginaDelleNotifiche(int pagina) {
         piattaformaNotifichePage.clickPagina(pagina);
     }
+
 
     @Then("Nella section Informazioni preliminari si inseriscono i dati della notifica")
     public void nellaSectionInformazioniPreliminariSiInserisconoIDatiDellaNotifica(Map<String, String> datiNotifica) {

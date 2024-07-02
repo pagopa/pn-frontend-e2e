@@ -4,6 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+
     <groupId>it.pn.frontend.e2e</groupId>
     <artifactId>pn-frontend-e2e</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -13,26 +14,36 @@
     <url>http://www.example.com</url>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <!--<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+            <slf4j.version>2.0.13</slf4j.version>
+            <logback.version>1.5.6</logback.version>
+
+            <junit-jupiter.version>5.10.3</junit-jupiter.version>
+            <junit-platform-suite.version>1.10.3</junit-platform-suite.version>
+            <cucumber.version>7.18.0</cucumber.version>
+            <selenium-java.version>4.22.0</selenium-java.version>
+            <webdrivermanager.version>5.9.1</webdrivermanager.version>
+
+            <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
+
+            <java.version>17</java.version>
+            <maven.compiler.target>${java.version}</maven.compiler.target>
+            <maven.compiler.source>${java.version}</maven.compiler.source>
+
+            <project.encondig>UTF-8</project.encondig>
+            <project.build.sourceEncoding>${project.encondig}</project.build.sourceEncoding>
+            <project.reporting.outputEncoding>${project.encondig}</project.reporting.outputEncoding>
+
     </properties>
 
     <dependencies>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.18.1</version>
+            <version>${selenium-java.version}</version>
         </dependency>
-
 
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-devtools-v85 -->
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-devtools-v120 -->
@@ -42,32 +53,71 @@
             <version>4.16.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>4.5.1</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>4.5.1</version>
+            <scope>compile</scope>
+        </dependency>
+
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>7.11.1</version>
+            <version>${cucumber.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
-            <version>7.11.1</version>
+            <version>5.1.2</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.cucumber/gherkin -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite-api</artifactId>
+            <version>${junit-platform-suite.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit-platform-engine -->
         <dependency>
             <groupId>io.cucumber</groupId>
-            <artifactId>gherkin</artifactId>
-            <version>26.0.1</version>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <version>7.18.0</version>
+            <scope>test</scope>
         </dependency>
+
+
 
         <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>5.5.3</version>
+            <version>${webdrivermanager.version}</version>
         </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/io.cucumber/gherkin -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>gherkin</artifactId>
+            <version>28.0.0</version>
+        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
         <dependency>
@@ -106,12 +156,6 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-to-slf4j</artifactId>
-            <version>2.19.0</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -126,12 +170,7 @@
             <version>1.4.12</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>2.0.3</version>
-        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/org.json/json -->
         <dependency>
@@ -182,6 +221,7 @@
             <artifactId>opencsv</artifactId>
             <version>5.7.1</version>
         </dependency>
+
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-cucumber7-jvm</artifactId>
@@ -209,6 +249,19 @@
     <build>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (maybe moved to parent pom) -->
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <properties>
+                            <configurationParameters>
+                                cucumber.junit-platform.naming-strategy=long
+                            </configurationParameters>
+                        </properties>
+                        <reportFormat>plain</reportFormat>
+                    </configuration>
+                </plugin>
                 <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
@@ -226,10 +279,6 @@
                         <source>17</source>
                         <target>17</target>
                     </configuration>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
@@ -254,15 +303,5 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>14</source>
-                    <target>14</target>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 </project>
