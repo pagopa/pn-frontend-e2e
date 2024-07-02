@@ -182,42 +182,6 @@ public class NotificaMittentePagoPATest {
         informazioniPreliminariPASection.selectRaccomandataAR();
     }
 
-    @And("Creazione notifica completa")
-    public void creazioneNotificaCompleta(Map<String, String> datiNotificaMap) {
-        logger.info("Inserimento dei dati della notifica senza pagamento ");
-        AllegatiPASection allegatiPASection = new AllegatiPASection(driver);
-        File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
-
-        aggiornamentoNumeroProtocollo();
-
-
-        //Sezione preliminare
-        informazioniPreliminariPASection.compilazioneInformazioniPreliminari(datiNotificaMap);
-        cliccareSuContinua();
-
-        //Dati destinatario
-        siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionDestinatario();
-        destinatarioPASection.compilazioneDestinario(datiNotificaMap);
-        cliccareSuContinua();
-
-
-        //Sezione allegati
-        siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionAllegati();
-        String pathNotificaFile = notificaFile.getAbsolutePath();
-        allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
-
-        if (allegatiPASection.verificaCaricamentoNotificaPdf()) {
-            logger.info("File notifica.pdf caricato correttamente");
-        } else {
-            logger.error("File notifica.pdf non caricato");
-            Assert.fail("File notifica.pdf non caricato");
-        }
-        allegatiPASection.inserimentoNomeAllegato(datiNotificaMap.get("nomeDocumentoNotifica"));
-        nellaSectionAllegatiCliccareSulBottoneInvia();
-        WebTool.waitTime(5);
-        siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata();
-        cliccareSulBottoneVaiAlleNotifiche();
-    }
 
     private void aggiornamentoNumeroProtocollo() {
         logger.info("Aggiornamento del numero protocollo");
@@ -1636,7 +1600,7 @@ public class NotificaMittentePagoPATest {
 
 
         //Sezione preliminare
-        informazioniPreliminariPASection.compilazioneInformazioniPreliminari(datiNotifica.get("numeroProtocollo").toString(),datiNotificaMap);
+        informazioniPreliminariPASection.compilazioneInformazioniPreliminari(datiNotificaMap);
         cliccareSuContinua();
 
         //Dati destinatario
