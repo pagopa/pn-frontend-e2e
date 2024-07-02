@@ -18,6 +18,9 @@ public class CookiesSection extends BasePage {
     @FindBy(id = "onetrust-accept-btn-handler")
     WebElement accettaTuttiButton;
 
+    @FindBy(xpath = "//button[@aria-label='Chiudi']")
+    WebElement chiudiPagamentoPopupButton;
+
     public CookiesSection(WebDriver driver) {
         super(driver);
     }
@@ -44,5 +47,12 @@ public class CookiesSection extends BasePage {
             logger.error("Non è cliccabile il bottone accetta tutti i cookies" + e.getMessage());
             Assert.fail("Non è cliccabile il bottone accetta tutti i cookies" + e.getMessage());
         }
+    }
+
+    public void chiudiPagamentoPopup() {
+            this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(this.chiudiPagamentoPopupButton));
+            logger.info("Si seleziona chiudi i cookies");
+            Actions actions = new Actions(driver);
+            actions.moveToElement(this.chiudiPagamentoPopupButton).click().perform();
     }
 }

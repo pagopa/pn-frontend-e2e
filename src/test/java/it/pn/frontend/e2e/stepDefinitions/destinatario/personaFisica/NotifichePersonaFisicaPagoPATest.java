@@ -36,9 +36,10 @@ public class NotifichePersonaFisicaPagoPATest {
     private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
     private final DataPopulation dataPopulation = new DataPopulation();
     private final DestinatarioPage destinatarioPage = new DestinatarioPage(driver);
+    private final AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
+    private final NotifichePFPage notifichePFPage = new NotifichePFPage(driver);
 
     private final DettaglioNotificaSection dettaglioNotifica = new DettaglioNotificaSection(driver);
-
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche")
     public void nellaPiattaformaDestinatarioCliccareSulBottoneNotifiche() {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
@@ -123,6 +124,7 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @And("Si visualizzano le notifiche dalla piu recente")
     public void siVisualizzanoLeNotificheDallaPiuRecente() {
+        driver.navigate().refresh();
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         List<WebElement> dateNotifiche = notifichePFPage.getDateNotifiche();
 
@@ -285,11 +287,7 @@ public class NotifichePersonaFisicaPagoPATest {
         }
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
             dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            WebTool.waitTime(5);
             String urlFileAttestazioneOppponibile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/" + datiNotifica.get("codiceIUN").toString() + "/legal-facts/");
 
             if (headless && urlFileAttestazioneOppponibile.isEmpty()) {
@@ -328,14 +326,14 @@ public class NotifichePersonaFisicaPagoPATest {
         logger.info("Si recupera un codice IUN valido");
 
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresentiPF();
-        this.personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        String codiceIun = this.personaFisica.get("codiceIUN").toString();
+       personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        String codiceIun = personaFisica.get("codiceIUN").toString();
         if (codiciIun.contains(codiceIun)) {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
         } else {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiciIun.get(0));
-            this.personaFisica.put("codiceIUN", codiciIun.get(0));
-            dataPopulation.writeDataPopulation("datiNotifica.yaml", this.personaFisica);
+            personaFisica.put("codiceIUN", codiciIun.get(0));
+            dataPopulation.writeDataPopulation("datiNotifica.yaml",personaFisica);
         }
     }
 
@@ -409,6 +407,72 @@ public class NotifichePersonaFisicaPagoPATest {
     public void siSelezionaUnAvvisoPagopa() {
         dettaglioNotifica.selezioneAvvisoPagoPa();
     }
+
+    @Then("Si clicca sul bottone scarica F24")
+    public void siCliccaSulBottoneScaricaF24() {
+        logger.info("Si clicca sul bottone per scaricare il modello F24, viene aperto il file");
+        notifichePFPage.clickScaricaF24Button();
+    }
+
+    @Then("Si clicca sul bottone scarica avviso PagoPA")
+    public void siCliccaSulBottoneScaricaAvvisoPagoPA() {
+        logger.info("Si clicca sul bottone per scaricare l'avviso PagoPA, viene aperto il file");
+        notifichePFPage.clickScaricaAvvisoPagoPAButton();
+    }
+
+    @And("Si controlla di aver aperto il file F24")
+    public void siControllaDiAverApertoIlFileF24() {
+        logger.info("Si controlla di aver aperto correttamente il file F24");
+        notifichePFPage.checkFileF24IsOpen();
+    }
+
+    @And("Si controlla di aver aperto l'avviso PagoPa")
+    public void siControllaDiAverApertoLAvvisoPagoPa() {
+        logger.info("Si controlla di aver aperto correttamente l'avviso PagoPa");
+        notifichePFPage.checkAvvisoPagoPaIsOpen();
+    }
+
+    @And("Si torna alla pagina precedente")
+    public void siTornaAllaPaginaPrecedente() {
+        logger.info("Si torna alla pagina precedente");
+        driver.navigate().back();
+    }
+
+    @And("Si controlla non sia presente il bottone paga")
+    public void siControllaNonSiaPresenteIlBottonePaga() {
+        logger.info("Si controlla che il bottone per il pagamento non sia visibile all'interno del dettaglio della notifica");
+        accediAPiattaformaNotifichePage.checkButtonPagaIsDisplayed();
+    }
+
+    @And("Si controlla se la sezione pagamento visualizzata correttamente")
+    public void siControllaSeLaSezionePagamentoVisualizzataCorrettamente() { accediAPiattaformaNotifichePage.siVisualizzaSezionePagamento(); }
+
+    @And("Si controlla che costi di notifica inclusi non presente")
+    public void siControllaCostiDiNotifica() {
+        if (!accediAPiattaformaNotifichePage.siControllaCostiDiNotifica()) {
+            logger.info("Costi di notifica non inclusi");
+        }else {
+            logger.error("Costi di notifica inclusi");
+            Assert.fail("Costi di notifica inclusi");
+        }
+    }
+
+    @And("Cliccare sul bottone Paga")
+    public void cliccaBottonePaga(){
+        accediAPiattaformaNotifichePage.cliccaPaga();
+    }
+
+    @Then("Si inserisce i dati di pagamento e procede con il pagamento {string}")
+        public void siInserisceIDatiDiPagamento(String email) throws InterruptedException {
+            logger.info("Si inserisce i dati di pagamento");
+            CookiesSection cookiesSection = new CookiesSection(this.driver);
+            accediAPiattaformaNotifichePage.inserireDatiPagamento(email);
+            accediAPiattaformaNotifichePage.checkoutPagamento();
+        }
+        @And("Si verifica che visualizzato lo stato Pagato")
+        public void siVisualizzaStatoPagato(){
+            accediAPiattaformaNotifichePage.siVisualizzaStatoPagato();
+        }
 }
 
 

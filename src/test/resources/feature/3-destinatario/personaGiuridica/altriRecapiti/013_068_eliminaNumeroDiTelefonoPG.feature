@@ -1,6 +1,5 @@
 Feature: La persona giuridica elimina il numero di cellulare di cortesia
 
-  @TestSuite
   @TA_eliminaNumeroDiTelefonoPG
   @PG
   @recapitiPG

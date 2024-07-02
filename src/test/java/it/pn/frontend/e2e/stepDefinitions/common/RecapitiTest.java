@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 public class RecapitiTest {
 
     private final String PEC = "PEC";
-    private final String contattoDiCortesia = "email di cortesia";
+    private final String emailDiCortesia = "email di cortesia";
     private final String ELIMINA = "Elimina";
     private final Logger logger = LoggerFactory.getLogger("RecapitiTest");
     private final WebDriver driver = Hooks.driver;
@@ -64,7 +64,7 @@ public class RecapitiTest {
         BackgroundTest backgroundTest = new BackgroundTest();
         if (PEC.equalsIgnoreCase(tipoContatto)){
             backgroundTest.checkPECEsistentePerEliminazioneEInserimento(indirizzoMail);
-        } else if (contattoDiCortesia.equalsIgnoreCase(tipoContatto)){
+        } else if (emailDiCortesia.equalsIgnoreCase(tipoContatto)){
             backgroundTest.checkEmailDiCortesiaPerEliminazioneEInserimento(indirizzoMail);
         } else {
             logger.error("Errore nella scrittura del tipo di contatto da controllare e inserire");
@@ -98,6 +98,15 @@ public class RecapitiTest {
             email += "a";
         }
         recapitiDestinatarioPage.insertEmail(email);
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce un email aggiuntiva maggiore di {int} caratteri")
+    public void nellaPaginaITuoiRecapitiSiInserisceUnEmailAggiuntivaMaggioreDiCaratteri(int numeroCaratteri) {
+        String email = "test";
+        for (int i = 0; i < numeroCaratteri; i++) {
+            email += "a";
+        }
+        recapitiDestinatarioPage.insertEmailAggiuntiva(email);
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce la nuova email {string}")

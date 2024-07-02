@@ -23,7 +23,10 @@ Feature: Login pagoPA
   @TestSuite
   @loginFE
   Scenario: PN-9146 - Login pagoPA persona giuridica
-    Given Login Page persona giuridica "personaGiuridica" viene visualizzata
-    When Login con persona giuridica "personaGiuridica"
+    Given Login Page persona giuridica viene visualizzata
+    When Login con persona giuridica
+      | user           | DanteAlighieri |
+      | pwd            | test           |
+      | ragioneSociale | Convivio Spa   |
     Then Home page persona giuridica viene visualizzata correttamente
     And Logout da portale persona giuridica

@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.model.DigitalAddressResponse;
 import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
+import lombok.Getter;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.OutputType;
@@ -44,6 +45,9 @@ public class Hooks {
     public static WebDriver driver;
     public DevTools devTools;
     public Map<String, RequestWillBeSent> requests = new HashMap<>();
+
+    @Getter
+    public static String scenario;
     public static List<NetWorkInfo> netWorkInfos = new ArrayList<>();
     private String headless;
     private final CookieConfig cookieConfig = new CookieConfig();
@@ -94,7 +98,7 @@ public class Hooks {
             driver.manage().window().maximize();
         }
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         devTools = ((HasDevTools) driver).getDevTools();
         devTools.createSession();
@@ -107,7 +111,6 @@ public class Hooks {
         this.captureHttpRequests();
         this.captureHttpResponse();
         logger.info("chromedriver started");
-
     }
 
     private void captureHttpRequests() {
@@ -181,6 +184,7 @@ public class Hooks {
     @Before
     public void startScenario(Scenario scenario) {
         logger.info("-------------------------------------------START SCENARIO: " + scenario.getName() + "------------------------------------------------");
+        this.scenario = scenario.getName();
         Collection<String> tags = scenario.getSourceTagNames();
         for (String tag : tags) {
             if (tag.startsWith("@TA_")) {
@@ -326,5 +330,4 @@ public class Hooks {
             });
         }
     }
-
 }

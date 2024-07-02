@@ -32,6 +32,7 @@ public class DestinatarioPage extends BasePage {
     @FindBy(id = "notificationsTable.body.row")
     List<WebElement> listaNotificheDelegante;
 
+
     public void inserimentoDataErrato() {
         String data = "01/01/1111";
         getWebDriverWait(10).withMessage("Il campo data inizio non è visibile").until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField));
@@ -44,28 +45,27 @@ public class DestinatarioPage extends BasePage {
         getWebDriverWait(3).withMessage("Il valore della data che si vuole inserire non corrisponde").until(ExpectedConditions.attributeToBe(this.dataFineField, "value", data));
     }
 
-    public boolean isDateBoxInvalid(){
+    public boolean isDateBoxInvalid() {
         final String isTextboxInvalid = "true";
         boolean invalidBoxDate = true;
         try {
             getWebDriverWait(10).withMessage("Il campo data inizio non è visibile").until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField, this.dataFineField));
             String ariaInvalidInizio = dataInizioField.getAttribute("aria-invalid");
             String ariaInvalidFine = dataFineField.getAttribute("aria-invalid");
-            if(isTextboxInvalid.equals(ariaInvalidInizio) || isTextboxInvalid.equals(ariaInvalidFine)){
+            if (isTextboxInvalid.equals(ariaInvalidInizio) || isTextboxInvalid.equals(ariaInvalidFine)) {
                 logger.info("Almeno un campo data è in stato invalido");
-            }else{
+            } else {
                 logger.error("Nessuno dei campi data è passato allo stato invalido");
                 Assert.fail("Nessuno dei campi data è passato allo stato invalido");
-                invalidBoxDate = false;
             }
-        } catch (TimeoutException e){
+        } catch (TimeoutException e) {
             logger.error("Campi data non visualizzati correttamente con errore: " + e.getMessage());
             Assert.fail("Campi data non visualizzati correttamente con errore: " + e.getMessage());
         }
         return invalidBoxDate;
     }
 
-    public void clickButtonNotificheDelegateOnSideMenu(String nomeDelegante){
+    public void clickButtonNotificheDelegateOnSideMenu(String nomeDelegante) {
         logger.info("verifica bottone notifiche nel layout");
 
         getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.sideItemNotificheButton));
@@ -78,11 +78,43 @@ public class DestinatarioPage extends BasePage {
 
     }
 
-    public void clickSulDettaglioNotificaDelegante(){
+    public void clickSulDettaglioNotificaDelegante() {
         WebElement singolaNotificaDelegante = listaNotificheDelegante.get(0);
         getWebDriverWait(10).withMessage("la prima notifica della tabella non è visibile").until(ExpectedConditions.visibilityOf(singolaNotificaDelegante));
         logger.info("Si clicca sulla prima notifica del delegante");
         singolaNotificaDelegante.click();
     }
+
+    public void clickProdotto(String xpath) {
+        By prodottoDestinatario = By.xpath(xpath);
+        getWebDriverWait(10).withMessage("prodotto non disponbile").until(ExpectedConditions.visibilityOfElementLocated(prodottoDestinatario));
+        element(prodottoDestinatario).click();
+    }
+
+    public void clickTuttiGliEnti() {
+        By tuttiGliEnti = By.id("tutti-gli-enti-selezionati");
+        getWebDriverWait(10).withMessage("Il radio button 'tutti gli enti selezionati' non è visibile").until(ExpectedConditions.visibilityOfElementLocated(tuttiGliEnti));
+        element(tuttiGliEnti).click();
+    }
+
+    public void clickSoloEntiSelezionati() {
+        By soloEntiSelezionati = By.id("enti-selezionati");
+        getWebDriverWait(10).withMessage("Il radio button 'solo enti selezionati' non è visibile").until(ExpectedConditions.visibilityOfElementLocated(soloEntiSelezionati));
+        element(soloEntiSelezionati).click();
+    }
+
+    public void clickListaEnti() {
+        By listaEnti = By.id("enti");
+        getWebDriverWait(10).withMessage("Il menù a tendina degli enti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(listaEnti));
+        element(listaEnti).click();
+    }
+
+    public void controlloEntiRadice(List<String> enti) {
+        for (String ente : enti) {
+            By enteRadice = By.xpath("//li//p[contains(text(),'" + ente + "')]");
+            getWebDriverWait(10).withMessage("Ente: " + ente + " non visibile").until(ExpectedConditions.visibilityOfElementLocated(enteRadice));
+        }
+    }
+
 
 }
