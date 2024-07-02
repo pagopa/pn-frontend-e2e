@@ -7,23 +7,31 @@ Feature: Mittente genera una notifica che non prevede pagamento
 
   Scenario: PN-9294 - Mittente genera una notifica mono destinatario a PF - Normalizzazione KO (indirizzo non trovato)
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
-    When Si inizializzano i dati per la notifica
-      | modello         | A/R                |
-      | documenti       | 1                  |
-      | oggettoNotifica | Pagamento rata IMU |
-      | costiNotifica   | false              |
-    And Si aggiunge un destinatario alla notifica
-      | indirizzo        | @FAIL-Irreperibile_AR |
-      | codicePostale    | 20147                 |
-      | comune           | Milano                |
-      | dettagliComune   | Milano                |
-      | provincia        | MI                    |
-      | stato            | Italia                |
-      | nomeCognome      | Ada Lovelace          |
-      | codiceFiscale    | LVLDAA85T50G702B      |
-      | tipoDestinatario | PF                    |
-    Then Creo in background una notifica per destinatario tramite API REST
-    And Aspetta 360 secondi
+    And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
+    And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
+    Then Nella section Informazioni preliminari si inseriscono i dati della notifica
+      | oggettoNotifica   | Pagamento rata IMU |
+      | descrizione       | PAGAMENTO RATA IMU |
+      | gruppo            | test-TA-FE-TEST    |
+      | codiceTassonomico | 123456A            |
+      | modalitaInvio     | A/R                |
+    And Cliccare su continua
+    And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
+    Then Nella section Destinatario si inseriscono i dati del destinatario
+      | soggettoGiuridico       | PF               |
+      | nomeCognomeDestinatario | Ada Lovelace     |
+      | codiceFiscale           | LVLDAA85T50G702B |
+    And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
+      | indirizzo | @FAIL-Irreperibile_AR |
+      | civico    | 20                    |
+      | localita  | Milano                |
+      | comune    | Milano                |
+      | provincia | MI                    |
+      | cap       | 20147                 |
+      | stato     | Italia                |
+    And Cliccare su continua
+    And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
+    And Aspetta 300 secondi
     And Cliccare sulla notifica restituita
     And Si clicca sul opzione Vedi Dettaglio
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
