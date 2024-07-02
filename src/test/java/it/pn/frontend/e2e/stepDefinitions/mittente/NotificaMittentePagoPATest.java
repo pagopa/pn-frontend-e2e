@@ -10,11 +10,13 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.enums.AppPortal;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
+import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.mittente.AreaRiservataPAPage;
 import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.*;
+import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
 import it.pn.frontend.e2e.utility.CookieConfig;
@@ -52,10 +54,9 @@ public class NotificaMittentePagoPATest {
     private final String PF = "persona fisica";
     private final String PG = "persona giuridica";
     private final String PA = "pubblica amministrazione";
+    private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
     private Map<String, Object> datiNotifica = new HashMap<>();
     private Map<String, String> datiNotificaMap = new HashMap<>();
-    private Map<String, String> destinatarioMap = new HashMap<>();
-    private Map<String, String> indirizzoMap = new HashMap<>();
     private Map<String, Object> personaFisica = new HashMap<>();
     private Map<String, Object> personaGiuridica = new HashMap<>();
     private Map<String, Object> personeFisiche = new HashMap<>();
@@ -85,7 +86,7 @@ public class NotificaMittentePagoPATest {
             throw new RuntimeException(e);
         }
 
-        String urlChiamata = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/notifications/sent?";
+        String urlChiamata = WebTool.getApiBaseUrl() + "notifications/sent?";
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
             logger.error("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
@@ -113,14 +114,10 @@ public class NotificaMittentePagoPATest {
         logger.info("Si recupera l'ultimo numero protocollo utilizzato");
 
         this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        String urlNotifiche = "https://webapi.test.notifichedigitali.it/delivery/notifications/";
+        WebTool.waitTime(5);
+        String urlNotifiche = WebTool.getApiBaseUrl() + "notifications/";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
-            if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=50")) {
+            if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=10")) {
                 String responseBody = netWorkInfo.getResponseBody();
                 String[] allNotifiche = responseBody.split("],\"moreResult\":");
                 String[] notifiche = allNotifiche[0].split("},");
@@ -156,7 +153,7 @@ public class NotificaMittentePagoPATest {
         siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata();
         cliccareSulBottoneVaiAlleNotifiche();
         siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche();
-        siVerificaCheLaNotificaeStataCreataCorrettamente();
+        siVerificaCheLaNotificaEStataCreataCorrettamente();
     }
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari")
@@ -184,6 +181,43 @@ public class NotificaMittentePagoPATest {
         informazioniPreliminariPASection.insertGruppo(gruppo);
         informazioniPreliminariPASection.insertCodiceTassonometrico(this.datiNotifica.get("codiceTassonometrico").toString());
         informazioniPreliminariPASection.selectRaccomandataAR();
+    }
+
+    @And("Creazione notifica completa")
+    public void creazioneNotificaCompleta(Map<String, String> datiNotificaMap) {
+        logger.info("Inserimento dei dati della notifica senza pagamento ");
+        AllegatiPASection allegatiPASection = new AllegatiPASection(driver);
+        File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
+
+        aggiornamentoNumeroProtocollo();
+
+
+        //Sezione preliminare
+        informazioniPreliminariPASection.compilazioneInformazioniPreliminari(datiNotificaMap);
+        cliccareSuContinua();
+
+        //Dati destinatario
+        siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionDestinatario();
+        destinatarioPASection.compilazioneDestinario(datiNotificaMap);
+        cliccareSuContinua();
+
+
+        //Sezione allegati
+        siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionAllegati();
+        String pathNotificaFile = notificaFile.getAbsolutePath();
+        allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
+
+        if (allegatiPASection.verificaCaricamentoNotificaPdf()) {
+            logger.info("File notifica.pdf caricato correttamente");
+        } else {
+            logger.error("File notifica.pdf non caricato");
+            Assert.fail("File notifica.pdf non caricato");
+        }
+        allegatiPASection.inserimentoNomeAllegato(datiNotificaMap.get("nomeDocumentoNotifica"));
+        nellaSectionAllegatiCliccareSulBottoneInvia();
+        WebTool.waitTime(5);
+        siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata();
+        cliccareSulBottoneVaiAlleNotifiche();
     }
 
     private void aggiornamentoNumeroProtocollo() {
@@ -437,6 +471,20 @@ public class NotificaMittentePagoPATest {
         }
     }
 
+    @When("Cliccare sulla notifica restituita")
+    public void cliccareSullaNotificaRestituita() {
+        logger.info("Si clicca sulla notifica");
+
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.selezionaNotifica();
+    }
+
+    @And("Si visualizza correttamente la section Dettaglio Notifica")
+    public void siVisualizzaCorrettamenteLaSectionDettaglioNotifica() {
+        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
+        dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
+    }
+
     @And("Nella pagina dettaglio notifica cliccare sull'opzione vedi più dettagli")
     public void nellaPaginaDettaglioNotificaCliccareSullOpzioneVediPiuDettagli() {
         dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
@@ -446,7 +494,7 @@ public class NotificaMittentePagoPATest {
     @And("Si visualizza correttamente l elenco completo degli stati che la notifica ha percorso")
     public void siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso() {
         dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
-        dettaglioNotificaMittenteSection.siVisualizzaPercosoNotifica();
+        dettaglioNotificaMittenteSection.siVisualizzaPercorsoNotifica();
     }
 
 
@@ -1043,7 +1091,6 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.inserireProvincia(indirizzo.get("provincia"));
         destinatarioPASection.inserireCodicePostale(indirizzo.get("cap"));
         destinatarioPASection.inserireStato(indirizzo.get("stato"));
-        indirizzoMap = indirizzo;
     }
 
     @Then("Nella section Allegati si carica un atto")
@@ -1126,7 +1173,7 @@ public class NotificaMittentePagoPATest {
     }
 
     @And("Si verifica che la notifica è stata creata correttamente")
-    public void siVerificaCheLaNotificaeStataCreataCorrettamente() {
+    public void siVerificaCheLaNotificaEStataCreataCorrettamente() {
         logger.info("Si verifica che la notifica sia stata creata correttamente filtrandolo per il numero di protocollo");
         piattaformaNotifichePage.verificaNotificaCreata();
     }
@@ -1189,6 +1236,19 @@ public class NotificaMittentePagoPATest {
         WebTool.waitTime(5);
     }
 
+    @And("Si annulla la notifica")
+    public void siAnnullaLaNotifica() {
+        logger.info("Si clicca sul pusante annulla notifica");
+        piattaformaNotifichePage.clickBottoneAnnullaNotifica();
+        piattaformaNotifichePage.clickAnnullaNotificaModale();
+    }
+
+    @Then("Si controlla la comparsa del pop up di conferma annullamento")
+    public void siControllaLaComparsaDelPopUpDiConfermaAnnullamento() {
+        logger.info("Si controlla la presenza del pop up di conferma dell'annullamento della notifica");
+        piattaformaNotifichePage.checkPopUpConfermaAnnullamentoNotifica();
+    }
+
     @And("Nella timeline della notifica si visualizza l'invio del messaggio di cortesia")
     public void nellaTimelineDellaNotificaSiVisualizzaLInvioDelMessaggioDiCortesia() {
         logger.info("Si verifica la presenza della voce 'Invio della notifica di cortesia in corso' nella timeline della notifica");
@@ -1204,7 +1264,21 @@ public class NotificaMittentePagoPATest {
     @And("Si verifica che l'invio della notifica sia fallito {int} volte")
     public void siVerificaCheLInvioDellaNotificaSiaFallitoDueVolte(int numeroFallimenti) {
         logger.info("Si verifica che l'invio della notifica sia fallito " + numeroFallimenti + " volta/e");
-        dettaglioNotificaMittenteSection.checkDoppioFallimentoInvioViaPEC(numeroFallimenti);
+        dettaglioNotificaMittenteSection.checkNumeroFallimentiInvioViaPEC(numeroFallimenti);
+    }
+
+    @And("Si attende completamento notifica")
+    public void siAttendeCompletamentoNotifica() {
+        siVisualizzaCorrettamenteLaSectionDettaglioNotifica();
+        WebTool.waitTime(400);
+        driver.navigate().refresh();
+    }
+
+    @And("Si seleziona la notifica")
+    public void siSelezionaLaNotifica() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+        String iun = notificationSingleton.getIun(Hooks.scenario);
+        backgroundTest.siFiltraLaTabellaDelleNotifichePerIUN(iun);
     }
 
     @And("Si verifica l'invio della raccomandata semplice")
@@ -1216,7 +1290,7 @@ public class NotificaMittentePagoPATest {
     @And("Si verifica l'invio della notifica al domicilio speciale inserito {string}")
     public void siVerificaLInvioDellaNotificaAlDomicilioSpecialeInserito(String domicilioSpeciale) {
         logger.info("Si verifica l'avvenuto invio della notifica al domicilio speciale " + domicilioSpeciale);
-        dettaglioNotificaMittenteSection.checkInvioADomicilioSpeciale(domicilioSpeciale);
+        dettaglioNotificaMittenteSection.checkStepInvioNotificaViaPEC(domicilioSpeciale);
     }
 
     @And("Si verifica il tentato invio della notifica al domicilio speciale inserito {string}")
@@ -1228,8 +1302,16 @@ public class NotificaMittentePagoPATest {
     @And("Si verifica l'invio della notifica al domicilio di piattaforma inserito {string}")
     public void siVerificaLInvioDellaNotificaAlDomicilioDiPiattaformaInserito(String domicilioDiPiattaforma) {
         logger.info("Si verifica l'avvenuto invio della notifica al domicilio di piattaforma " + domicilioDiPiattaforma);
-        dettaglioNotificaMittenteSection.checkInvioADomicilioDiPiattaforma(domicilioDiPiattaforma);
+        dettaglioNotificaMittenteSection.checkStepInvioNotificaViaPEC(domicilioDiPiattaforma);
     }
+
+
+    @And("Si verifica l'invio della notifica al domicilio generale {string}")
+    public void siVerificaLInvioDellaNotificaAlDomicilioGenerale(String emailPEC) {
+        logger.info("Si controllo l'invio della notifica tramite contatto del registro nazionale");
+        dettaglioNotificaMittenteSection.checkStepInvioNotificaViaPEC(emailPEC);
+    }
+
 
     @And("Si accede nuovamente al portale {string} con token {string} per eliminare i recapiti inseriti")
     public void siAccedeNuovamenteAlPortaleConTokenPerEliminareIRecapitiInseriti(String tipoPersona, String tipoToken) {
@@ -1293,13 +1375,6 @@ public class NotificaMittentePagoPATest {
         dettaglioNotificaMittenteSection.clickAvvisoPagoPa();
     }
 
-    @Then("Si torna alla pagina precedente")
-    public void siTornaAllaPaginaPrecedente() {
-        logger.info("Si torna alla pagina precedente");
-        this.driver.navigate().back();
-    }
-
-
     @Then("Si verifica che che non sia possibile effettuare il download del modelo F24")
     public void siVerificaF24() {
         logger.info("Si verifica che non sia possibile effettuare il download del modelo F24");
@@ -1350,7 +1425,7 @@ public class NotificaMittentePagoPATest {
      */
     protected EsitoNotifica siVerificaEsitoNotifica(String dpFile) {
         logger.info("si verifica se la notifica è stata accettata o rifiutata");
-        final String urlNotificationRequest = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.3/requests";
+        final String urlNotificationRequest = WebTool.getApiBaseUrl() + "notifications/sent";
         final String urlRichiestaNotifica = "https://api." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.3/requests/";
         AccettazioneRichiestaNotifica accettazioneRichiestaNotifica = new AccettazioneRichiestaNotifica();
         String codiceApi;
@@ -1361,11 +1436,7 @@ public class NotificaMittentePagoPATest {
         }
         accettazioneRichiestaNotifica.setxApikey(codiceApi);
         String statusNotifica = "WAITING";
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        WebTool.waitTime(5);
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
         if (notificationRequestId == null) {
             logger.error("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è diverso di 202 ");
@@ -1399,10 +1470,10 @@ public class NotificaMittentePagoPATest {
         if (esitoNotifica.statusNotifica.equals("ACCEPTED")) {
             logger.info("La notifica è stata Accettata");
             String codiceIUN = esitoNotifica.accettazioneRichiestaNotifica.getCodiceIUN();
-            this.datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+            datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
             if (codiceIUN != null && !codiceIUN.isEmpty()) {
-                this.datiNotifica.put("codiceIUN", codiceIUN);
-                this.dataPopulation.writeDataPopulation(dpFile + ".yaml", this.datiNotifica);
+                datiNotifica.put("codiceIUN", codiceIUN);
+                dataPopulation.writeDataPopulation(dpFile + ".yaml", datiNotifica);
                 logger.info("La notifica è stata creata correttamente");
             }
         } else {
@@ -1418,7 +1489,7 @@ public class NotificaMittentePagoPATest {
             logger.info("La notifica è stata Rifiutata");
         } else {
             logger.error("La notifica " + esitoNotifica.notificationRequestId + " è stata accettata: " + esitoNotifica.statusNotifica);
-            logger.error(esitoNotifica.accettazioneRichiestaNotifica.getresponseBody());
+            logger.error(esitoNotifica.accettazioneRichiestaNotifica.getResponseBody());
             Assert.fail("La notifica " + esitoNotifica.notificationRequestId + " è stata accettata: ");
         }
     }
@@ -1570,6 +1641,12 @@ public class NotificaMittentePagoPATest {
     public void siVerificaCheDestinatarioRaggiungibile(String message) {
         piattaformaNotifichePage.visualizzaTimeline(message);
         logger.info("Il destinatario raggiungibile");
+    }
+
+    @Then("Si verifica che il mittente sia {string}")
+    public void siVerificaCheIlMittenteSia(String ente) {
+        logger.info("Si verifica che il mittente sia " + ente);
+        piattaformaNotifichePage.verificaMittente(ente);
     }
 
     /**

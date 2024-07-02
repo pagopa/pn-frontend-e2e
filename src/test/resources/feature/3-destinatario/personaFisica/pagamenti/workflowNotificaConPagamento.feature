@@ -91,7 +91,7 @@ Feature:Controllo dati notifica con pagamento
     And Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN "HPJD-GRJV-NGDL-202405-A-1"
     And Cliccare sulla notifica restituita
     Then Si visualizza correttamente la section Dettaglio Notifica persona fisica
-    And Si controlla lo stato timeline in dettaglio notifica
+    And Si controlla lo stato timeline in dettaglio notifica PF
       | xpath | //span[contains(text(),"Almeno un destinatario ha letto la notifica.")] |
     And Si controlla che il testo sia nel box pagamento "//p[@data-testid='apply-costs-caption']"
     And Si controlla che il testo sia nel box pagamento "//button[@data-testid='download-pagoPA-notice-button']"
@@ -106,7 +106,7 @@ Feature:Controllo dati notifica con pagamento
     And Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN "GKDW-YEZE-DNPL-202405-Z-1"
     And Cliccare sulla notifica restituita
     Then Si visualizza correttamente la section Dettaglio Notifica persona fisica
-    And Si controlla lo stato timeline in dettaglio notifica
+    And Si controlla lo stato timeline in dettaglio notifica PF
       | xpath | //span[contains(text(),"L'invio della notifica è terminato in quanto un recapito di almeno un destinatario è valido.")] |
     And Si controlla che il testo non sia nel box pagamento "//p[@data-testid='apply-costs-caption']"
     And Si controlla che il testo sia nel box pagamento "//button[@data-testid='download-pagoPA-notice-button']"
@@ -121,7 +121,7 @@ Feature:Controllo dati notifica con pagamento
     And Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN "ZVJN-QWEA-GLPY-202405-A-1"
     And Cliccare sulla notifica restituita
     Then Si visualizza correttamente la section Dettaglio Notifica persona fisica
-    And Si controlla lo stato timeline in dettaglio notifica
+    And Si controlla lo stato timeline in dettaglio notifica PF
       | xpath | //span[contains(text(),"L'invio della notifica è terminato in quanto un recapito di almeno un destinatario è valido.")] |
     And Si controlla che il testo sia nel box pagamento "//p[@data-testid='apply-costs-caption']"
     And Si controlla che il testo sia nel box pagamento "//button[@data-testid='download-pagoPA-notice-button']"
@@ -138,7 +138,7 @@ Feature:Controllo dati notifica con pagamento
     And Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN "UNUX-TQKU-UDXR-202405-L-1"
     And Cliccare sulla notifica restituita
     Then Si visualizza correttamente la section Dettaglio Notifica persona fisica
-    And Si controlla lo stato timeline in dettaglio notifica
+    And Si controlla lo stato timeline in dettaglio notifica PF
       | xpath | //span[contains(text(),"Almeno un destinatario ha letto la notifica.")] |
     And Si controlla che il testo non sia nel box pagamento "//p[@data-testid='f24-apply-costs-caption']"
     And Si controlla che il testo sia nel box pagamento "//button[@data-testid='download-f24-button']"

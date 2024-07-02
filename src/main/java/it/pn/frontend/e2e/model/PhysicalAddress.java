@@ -1,9 +1,16 @@
 package it.pn.frontend.e2e.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PhysicalAddress {
+    private String at;
     private String address;
+    private String addressDetails;
     private String zip;
     private String municipality;
     private String municipalityDetails;
@@ -11,7 +18,9 @@ public class PhysicalAddress {
     private String foreignState;
 
     public PhysicalAddress() {
+        this.at = "Presso";
         this.address = "VIA ROMA 20";
+        this.addressDetails = "Scala b";
         this.zip = "20147";
         this.municipality = "MILANO";
         this.municipalityDetails = "MILANO";
@@ -19,60 +28,14 @@ public class PhysicalAddress {
         this.foreignState = "ITALIA";
     }
 
-    public PhysicalAddress(String address, String zip, String municipality, String municipalityDetails, String province, String foreignState) {
+    public PhysicalAddress(String at, String address, String addressDetails, String zip, String municipality, String municipalityDetails, String province, String foreignState) {
+        this.at = at;
         this.address = address;
+        this.addressDetails = addressDetails;
         this.zip = zip;
         this.municipality = municipality;
         this.municipalityDetails = municipalityDetails;
         this.province = province;
         this.foreignState = foreignState;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String value) {
-        this.address = value;
-    }
-
-    public String getZip() {
-        return zip;
-    }
-
-    public void setZip(String value) {
-        this.zip = value;
-    }
-
-    public String getMunicipality() {
-        return municipality;
-    }
-
-    public void setMunicipality(String value) {
-        this.municipality = value;
-    }
-
-    public String getMunicipalityDetails() {
-        return municipalityDetails;
-    }
-
-    public void setMunicipalityDetails(String value) {
-        this.municipalityDetails = value;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String value) {
-        this.province = value;
-    }
-
-    public String getForeignState() {
-        return foreignState;
-    }
-
-    public void setForeignState(String value) {
-        this.foreignState = value;
     }
 }
