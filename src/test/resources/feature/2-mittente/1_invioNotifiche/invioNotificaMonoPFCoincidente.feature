@@ -31,8 +31,8 @@ Feature: Mittente genera una notifica che non prevede pagamento
       | stato     | Italia                |
     And Cliccare su continua
     And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
-    And Aspetta 600 secondi
     And Cliccare sulla notifica restituita
+    And Aspetta 600 secondi
     And Si clicca sul opzione Vedi Dettaglio
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
     And Logout da portale mittente
