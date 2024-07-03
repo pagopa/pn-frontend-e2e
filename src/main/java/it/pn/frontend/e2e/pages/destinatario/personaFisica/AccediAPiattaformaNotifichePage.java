@@ -258,7 +258,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10).withMessage("Il textbox numero di carta non è visibile").until(ExpectedConditions.visibilityOf(creditCardNumber));
         creditCardNumber.click();
         creditCardNumber.clear();
-        creditCardNumber.sendKeys("5186151650005008");
+        creditCardNumber.sendKeys("5127390031101597");
         driver.switchTo().defaultContent();
 
         //frame of the expiry date
@@ -268,7 +268,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(20).withMessage("Il textbox scadenza non è visibile").until(ExpectedConditions.visibilityOfElementLocated(scadenza));
         element(scadenza).click();
         element(scadenza).clear();
-        element(scadenza).sendKeys("12/26");
+        element(scadenza).sendKeys("10/24");
         driver.switchTo().defaultContent();
 
         //frame of the security code
@@ -278,7 +278,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10).withMessage("Il textbox codice di sicurezza non è visibile").until(ExpectedConditions.visibilityOfElementLocated(codice));
         element(codice).click();
         element(codice).clear();
-        element(codice).sendKeys("123");
+        element(codice).sendKeys("015");
         driver.switchTo().defaultContent();
 
         //frame of the cardholder name
@@ -311,7 +311,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         By pagaButton = By.xpath("//button[@id='paymentCheckPageButtonPay']");
         getWebDriverWait(5).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
         element(pagaButton).click();
-        WebTool.waitTime(32);
+        WebTool.waitTime(35);
         List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Chiudi')]"));
         getWebDriverWait(10).withMessage("Il bottone Chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudi.get(0)));
         chiudi.get(0).click();
