@@ -27,6 +27,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 5 secondi
     And Cliccare sulla notifica restituita
+    And Aspetta 60 secondi
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si controlla sia presente piu avvisi PagoPa PG
     And Si clicca sul radio bottone di pagamento
@@ -58,6 +59,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 5 secondi
     And Cliccare sulla notifica restituita
+    And Aspetta 60 secondi
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si controlla sia presente piu avvisi PagoPa PG
     And Si clicca sul radio bottone di pagamento
@@ -99,6 +101,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 5 secondi
     And Cliccare sulla notifica restituita
+    And Aspetta 60 secondi
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si controlla sia presente l'avviso PagoPa PG
     And Cliccare sul bottone Paga
@@ -139,6 +142,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 5 secondi
     And Cliccare sulla notifica restituita
+    And Aspetta 60 secondi
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si controlla sia presente piu avvisi PagoPa PG
     And Si clicca sul radio bottone di pagamento
@@ -180,6 +184,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 5 secondi
     And Cliccare sulla notifica restituita
+    And Aspetta 60 secondi
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si controlla sia presente piu avvisi PagoPa PG
     And Si clicca sul radio bottone di pagamento
