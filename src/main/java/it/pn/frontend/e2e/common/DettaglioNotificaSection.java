@@ -122,7 +122,7 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void waitLoadDettaglioNotificaAnnullataDESection() {
-        try {
+
             boolean isSelfcare = driver.getCurrentUrl().contains("selfcare");
             By titleDettaglioNotificaField = By.id("title-of-page");
             By statoNotificaBy = By.id("notification-state");
@@ -151,10 +151,6 @@ public class DettaglioNotificaSection extends BasePage {
             getWebDriverWait(10).withMessage("Il copy di notifica annullata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(copyNotificaAnnullata));
             getWebDriverWait(10).withMessage("La chip di notifica annullata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(chipAnnullataInTimeline));
             logger.info("Dettaglio Notifica Annullata Section caricata");
-        } catch (TimeoutException e) {
-            logger.error("Dettaglio Notifica Annullata Section non caricata con errore: " + e.getMessage());
-            Assert.fail("Dettaglio Notifica Annullata Section non caricata con errore: " + e.getMessage());
-        }
     }
 
     public void checkStatoTimeline(By statoTimeline) {

@@ -50,8 +50,6 @@ public class Hooks {
     public static String scenario;
     public static List<NetWorkInfo> netWorkInfos = new ArrayList<>();
     private String headless;
-    @Getter
-    public static String scenario;
     private final CookieConfig cookieConfig = new CookieConfig();
     private final String os = System.getProperty("os.name");
 

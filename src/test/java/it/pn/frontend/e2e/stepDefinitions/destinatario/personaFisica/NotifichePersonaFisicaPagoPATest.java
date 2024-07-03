@@ -427,14 +427,6 @@ public class NotifichePersonaFisicaPagoPATest {
         dettaglioNotificaSection.waitLoadDettaglioNotificaAnnullataDESection();
     }
 
-    @And("Si controlla lo stato timeline in dettaglio notifica")
-    public void siControllaLoStatoTimelineInDettaglioNotificaPF(Map<String, String> datiDettaglioNotifica) {
-        String xpath = datiDettaglioNotifica.get("xpath");
-        dettaglioNotifica.waitLoadDettaglioNotificaDESection();
-        WebTool.waitTime(2);
-        dettaglioNotifica.checkStatoTimeline(By.xpath(xpath));
-    }
-
     @And("Si seleziona un avviso pagopa")
     public void siSelezionaUnAvvisoPagopa() {
         dettaglioNotifica.selezioneAvvisoPagoPa();

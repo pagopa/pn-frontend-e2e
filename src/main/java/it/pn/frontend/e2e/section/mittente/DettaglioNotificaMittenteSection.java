@@ -46,15 +46,9 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void waitLoadDettaglioNotificaSection() {
-        try {
             By titleDettaglioNotificaField = By.id("title-of-page");
             this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
             logger.info("Dettaglio Notifica Section caricata");
-        } catch (TimeoutException e) {
-            logger.error("Dettaglio Notifica Section non caricata con errore: " + e.getMessage());
-            Assert.fail("Dettaglio Notifica Section non caricata con errore: " + e.getMessage());
-        }
-
     }
 
     public Map<String, String> recuperoInfoNotifiche() {

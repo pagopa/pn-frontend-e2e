@@ -1199,6 +1199,7 @@ public class NotificaMittentePagoPATest {
     public void siAnnullaLaNotifica() {
         logger.info("Si clicca sul pusante annulla notifica");
         piattaformaNotifichePage.clickBottoneAnnullaNotifica();
+        WebTool.waitTime(3);
         piattaformaNotifichePage.clickAnnullaNotificaModale();
     }
 
@@ -1231,6 +1232,7 @@ public class NotificaMittentePagoPATest {
         siVisualizzaCorrettamenteLaSectionDettaglioNotifica();
         WebTool.waitTime(400);
         driver.navigate().refresh();
+        WebTool.waitTime(3);
     }
 
     @And("Si seleziona la notifica")
@@ -1314,13 +1316,6 @@ public class NotificaMittentePagoPATest {
         logger.info("Si clicca l'avviso PagoPa");
         dettaglioNotificaMittenteSection.clickAvvisoPagoPa();
     }
-
-    @Then("Si torna alla pagina precedente")
-    public void siTornaAllaPaginaPrecedente() {
-        logger.info("Si torna alla pagina precedente");
-        this.driver.navigate().back();
-    }
-
 
     @Then("Si verifica che che non sia possibile effettuare il download del modelo F24")
     public void siVerificaF24() {

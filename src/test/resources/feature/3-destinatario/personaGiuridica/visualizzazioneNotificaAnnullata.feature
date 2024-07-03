@@ -1,30 +1,35 @@
-Feature: controlli notifica annullata persona giuridica
+Feature: PG visualizza notifica annullata da mittente
 
-  Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL-DiscoveryIrreperibile_AR] - Il mittente invia una notifica a destinatario con sequence
+  @TA_visualizzaNotificaAnnullataPG
+  @PG
+
+  Scenario: [TA-FE VISUALIZZAZIONE NOTIFICA ANNULLATA] PG visualizza notifica annullata da mittente
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
-    When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
-    And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
-    And Creazione notifica completa
-    | oggettoDellaNotifica | Pagamento rata IMU    |
-    | descrizione          | PAGAMENTO RATA IMU    |
-    | modello              | AR    |
-    | gruppoTest           | test-TA-FE-TEST       |
-    | gruppoDev            | GruppoTest            |
-    | codiceTassonometrico | 123456A               |
-    | nomeFileYaml         | datiNotifica          |
-    | nomePF               | Gaio Giulio           |
-    | cognomePF            | Cesare                |
-    | codiceFiscalePF      | CSRGGL44L13H501E      |
-    | indirizzoPF          | via @FAIL-DiscoveryIrreperibile_AR |
-    | numeroCivicoPF       | 20   |
-    | comunePF             | MILANO  |
-    | provinciaPF          | MI   |
-    | codicepostalePF      | 20147   |
-    | statoPF              | ITALIA   |
-    | nomeDocumentoNotifica | RATA SCADUTA IMU |
-    And Si verifica che la notifica è stata creata correttamente
+    When Si inizializzano i dati per la notifica
+      | modello         | 890                |
+      | documenti       | 1                  |
+      | oggettoNotifica | Pagamento rata IMU |
+      | costiNotifica   | true               |
+    And Si aggiunge un destinatario alla notifica
+      | at                | Presso             |
+      | indirizzo         | VIA ROMA 20        |
+      | dettagliIndirizzo | Scala b            |
+      | codicePostale     | 20147              |
+      | comune            | Milano             |
+      | dettagliComune    | Milano             |
+      | provincia         | MI                 |
+      | stato             | Italia             |
+      | nomeCognome       | Convivio Spa       |
+      | codiceFiscale     | 27957814470        |
+      | tipoDestinatario  | PG                 |
+      | domicilioDigitale | test@test.com      |
+      | avvisoPagoPa      | 1                  |
+      | F24               | 1                  |
+    Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica
     And Si attende completamento notifica
-    #inserire annullamento notifica
-  #login pg
-  #verifiche
+    And Si annulla la notifica
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca
+    And Si seleziona la notifica destinatario
+    And Si visualizza correttamente la section Dettaglio Notifica annullata persona fisica

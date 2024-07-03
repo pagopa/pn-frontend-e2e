@@ -141,7 +141,7 @@ public class PiattaformaNotifichePage extends BasePage {
         logger.info("Bottone filtra cliccato correttamente");
     }
 
-    public void selectFiltraNotificaButton() {
+    public void selectFiltraNotificaButtonDestinatario() {
         getWebDriverWait(10).withMessage("Il filtro non è cliccabile").until(elementToBeClickable(filtraNotificaButton));
         filtraNotificaButton.click();
         logger.info("Bottone filtra, nella pagina notifiche del delegato, cliccato correttamente");
@@ -831,28 +831,11 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void clickAnnullaNotificaModale() {
-        try {
             By bottoneAnnullaNotificaModale = By.xpath("//button[@data-testid='modalCloseAndProceedBtnId']");
-            getWebDriverWait(10).until(ExpectedConditions.and(
+            getWebDriverWait(20).until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(bottoneAnnullaNotificaModale),
                     ExpectedConditions.elementToBeClickable(bottoneAnnullaNotificaModale)));
             element(bottoneAnnullaNotificaModale).click();
-        } catch (TimeoutException e) {
-            logger.error("Bottone annulla notifica della modale non visibile e cliccabile");
-            Assert.fail("Bottone annulla notifica della modale non visibile e cliccabile");
-
-        }
-    }
-
-    public void checkBottoneAnnullaNotifica() {
-        try {
-            By bottoneAnnullaNotifica = By.xpath("//button[@data-testid='cancelNotificationBtn']");
-            getWebDriverWait(10).until(ExpectedConditions.invisibilityOfElementLocated(bottoneAnnullaNotifica));
-        } catch (TimeoutException e) {
-            logger.error("Bottone annulla notifica visibile");
-            Assert.fail("Bottone annulla notifica visibile");
-
-        }
     }
 
     public void checkStatoNotifica(String stato) {
