@@ -2,6 +2,7 @@ Feature: PG visualizza notifica annullata da mittente
 
   @TA_visualizzaNotificaAnnullataPG
   @PG
+  @Parallelism
 
   Scenario: [TA-FE VISUALIZZAZIONE NOTIFICA ANNULLATA] PG visualizza notifica annullata da mittente
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
