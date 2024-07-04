@@ -5,7 +5,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
   @PG
   @visualizzazioneNotifichePG
 
-  @PagaNotificaConDocumentiPG1
+  @PagaNotificaMonoDestinatarioConPiuAvvisi
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - PG  visualizza Notifica mono destinatario con più avvisi PagoPa - Pagamento di un avviso PagoPa
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
@@ -36,7 +36,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si verifica che visualizzato lo stato Pagato
     And Logout da portale persona giuridica
 
-  @PagaNotificaConDocumentiPG
+  @PagaNotificaMonoPiuAvvisiEF24
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - PG  visualizza Notifica mono destinatario con più avvisi PagoPa e modello F24  - Pagamento di un avviso PagoPa
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
@@ -69,7 +69,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si verifica che visualizzato lo stato Pagato
     And Logout da portale persona giuridica
 
-  @PagaNotificaConDocumentiPG
+  @PagaNotificaMultiConAvviso
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - PG  visualizza Notifica multi destinatario - Pagamento di un solo avviso PagoPa
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
@@ -110,7 +110,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Logout da portale persona giuridica
 
 
-  @PagaNotificaConDocumentiPG
+  @PagaNotificaMultiConPiuAvvisi
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - PG  visualizza Notifica multi destinatario con più avvisi PagoPa - Pagamento di un solo avviso PagoPa
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
@@ -151,7 +151,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si verifica che visualizzato lo stato Pagato
     And Logout da portale persona giuridica
 
-  @PagaNotificaConDocumentiPG
+  @PagaNotificaMultiConPiuAvvisiEF24
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - PG  visualizza Notifica multi destinatario con più avvisi PagoPa e modello F24  - Pagamento di un avviso PagoPa
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
