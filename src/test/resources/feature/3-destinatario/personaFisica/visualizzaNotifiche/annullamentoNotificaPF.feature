@@ -1,38 +1,37 @@
 Feature: Il mittente invia una notifica analogica o digitale a destinatario persona fisica e viene annullata
 
-@annullamentoNotificaPF
+  @TA_visualizzaNotificaAnnullataPF
+  @PF
+  @Parallelism
 Scenario: [TA-FE INVIO DI UNA NOTIFICA A PERSONA FISICA E ANNULLAMENTO] - Mittente invia una notifica e la annulla, anche la persona fisica vede la notifica annullata
-Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
-And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
-And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
-Then Nella section Informazioni preliminari si inseriscono i dati della notifica
-| oggettoNotifica   | Pagamento rata IMU |
-| descrizione       | PAGAMENTO RATA IMU |
-| gruppo            | test-TA-FE-TEST    |
-| codiceTassonomico | 123456A            |
-| modalitaInvio     | A/R                |
-And Cliccare su continua
-And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
-Then Nella section Destinatario si inseriscono i dati del destinatario
-| soggettoGiuridico       | PF               |
-| nomeCognomeDestinatario | Gaio Giulio      |
-| codiceFiscale           | CSRGGL44L13H501E |
-And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
-| indirizzo | Via Roma |
-| civico    | 20       |
-| localita  | Milano   |
-| comune    | Milano   |
-| provincia | MI       |
-| cap       | 20147    |
-| stato     | Italia   |
-And Cliccare su continua
-And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
-And Si attende che lo stato della notifica sia "Depositata"
-And Cliccare sulla notifica restituita
-And Si annulla la notifica
-Then Si controlla la comparsa del pop up di conferma annullamento
-Then Si verifica che la notifica abbia lo stato "Annullata"
-And Aspetta 120 secondi
-Then In parallelo si effettua l'accesso al portale di "persona fisica"
-And Si controlla che nel portale del destinatario la notifica sia "Annullata" e si chiude la scheda
-And Logout da portale mittente
+  Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
+  When Si inizializzano i dati per la notifica
+    | modello         | 890                |
+    | documenti       | 1                  |
+    | oggettoNotifica | Pagamento rata IMU |
+    | costiNotifica   | true               |
+  And Si aggiunge un destinatario alla notifica
+    | at                | Presso             |
+    | indirizzo         | VIA ROMA 20        |
+    | dettagliIndirizzo | Scala b            |
+    | codicePostale     | 20147              |
+    | comune            | Milano             |
+    | dettagliComune    | Milano             |
+    | provincia         | MI                 |
+    | stato             | Italia             |
+    | nomeCognome       | Gaio Giulio       |
+    | codiceFiscale     | CSRGGL44L13H501E        |
+    | tipoDestinatario  | PF                |
+    | domicilioDigitale | test@test.com      |
+    | avvisoPagoPa      | 1                  |
+    | F24               | 1                  |
+  Then Creo in background una notifica per destinatario tramite API REST
+  And Si seleziona la notifica
+  And Si attende completamento notifica
+  And Si annulla la notifica
+  And Si visualizza correttamente la section Dettaglio Notifica annullata
+  And Logout da portale mittente
+  Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+  And Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca
+  And Si seleziona la notifica destinatario
+  And Si visualizza correttamente la section Dettaglio Notifica annullata

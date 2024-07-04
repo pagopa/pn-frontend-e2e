@@ -1201,6 +1201,7 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.clickBottoneAnnullaNotifica();
         WebTool.waitTime(3);
         piattaformaNotifichePage.clickAnnullaNotificaModale();
+        WebTool.waitTime(3);
     }
 
     @Then("Si controlla la comparsa del pop up di conferma annullamento")

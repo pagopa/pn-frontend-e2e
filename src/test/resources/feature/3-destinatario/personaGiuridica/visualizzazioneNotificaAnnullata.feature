@@ -3,7 +3,7 @@ Feature: PG visualizza notifica annullata da mittente
   @TA_visualizzaNotificaAnnullataPG
   @PG
   @Parallelism
-
+  #Esito variabile in base al funzionamento del back end
   Scenario: [TA-FE VISUALIZZAZIONE NOTIFICA ANNULLATA] PG visualizza notifica annullata da mittente
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
@@ -30,7 +30,9 @@ Feature: PG visualizza notifica annullata da mittente
     And Si seleziona la notifica
     And Si attende completamento notifica
     And Si annulla la notifica
+    And Si visualizza correttamente la section Dettaglio Notifica annullata
+    And Logout da portale mittente
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca
     And Si seleziona la notifica destinatario
-    And Si visualizza correttamente la section Dettaglio Notifica annullata persona fisica
+    And Si visualizza correttamente la section Dettaglio Notifica annullata

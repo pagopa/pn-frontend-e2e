@@ -421,8 +421,8 @@ public class NotifichePersonaFisicaPagoPATest {
         piattaformaNotifichePage.siVisualizzaCorrettamenteLaDataFineField();
     }
 
-    @Then("Si visualizza correttamente la section Dettaglio Notifica annullata persona fisica")
-    public void siVisualizzaCorrettamenteLaSectionDettaglioNotificaAnnullataPersonaFisica() {
+    @Then("Si visualizza correttamente la section Dettaglio Notifica annullata")
+    public void siVisualizzaCorrettamenteLaSectionDettaglioNotificaAnnullata() {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         dettaglioNotificaSection.waitLoadDettaglioNotificaAnnullataDESection();
     }
