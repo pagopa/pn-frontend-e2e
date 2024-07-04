@@ -1360,14 +1360,9 @@ public class NotificaMittentePagoPATest {
     @And("Si controlla non sia presente l'avviso PagoPa mittente")
     public void siControllaNonSiaPresenteLAvvisoPagoPaMittente() {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
-        if(!dettaglioNotificaMittenteSection.checkAvvisoPagoPaVisibile()){
-            logger.info("Avviso PagoPA non è trovato");
-        }else{
-            logger.error("Avviso PagoPA è trovato");
-            Assert.fail("Avviso PagoPA è trovato");
-        }
+        Assert.assertFalse( "Avviso PagoPA è trovato",dettaglioNotificaMittenteSection.checkAvvisoPagoPaVisibile());
+        logger.info("Avviso PagoPA non è trovato");
     }
-
 
     @Then("Si clicca l'avviso PagoPa")
     public void siCliccaLAvvisoPagoPa() {

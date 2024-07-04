@@ -275,36 +275,25 @@ public class NotifichePGPagoPATest {
     @And("Si controlla sia presente piu avvisi PagoPa PG")
     public void siControllaSiaPresentePiuAvvisiPagoPaPG(){
         AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
-        if(accediAPiattaformaNotifichePage.piuAvvisiDisplayed()){
-            logger.info("Avvissi PagoPA sono trovati");
-        }else{
-            logger.error("Avvissi PagoPA non sono trovati");
-            Assert.fail("Avvissi PagoPA non sono trovati");
-        }
+        Assert.assertTrue("Avvissi PagoPA non sono trovati", accediAPiattaformaNotifichePage.piuAvvisiDisplayed());
+        logger.info("Avvissi PagoPA sono trovati");
+
     }
 
     @And("Si controlla sia presente l'avvisi PagoPa PG")
     public void siControllaSiaPresenteLAvvisiPagoPaPG() {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
         AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
-        if(accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed()){
-            logger.info("Avviso PagoPA è trovato");
-        }else{
-            logger.error("Avviso PagoPA non è trovato");
-            Assert.fail("Avviso PagoPA non è trovato");
-        }
+        Assert.assertTrue("Avviso PagoPA non è trovato", accediAPiattaformaNotifichePage.piuAvvisiDisplayed());
+        logger.info("Avviso PagoPA è trovato");
     }
 
     @And("Si controlla non sia presente l'avviso PagoPa")
     public void siControllaNonSiaPresenteLAvvisoPagoPa() {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
         AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
-        if(!accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed()){
-            logger.info("Avviso PagoPA non è trovato");
-        }else{
-            logger.error("Avviso PagoPA è trovato");
-            Assert.fail("Avviso PagoPA è trovato");
-        }
+        Assert.assertTrue("Avviso PagoPA non sia presente", accediAPiattaformaNotifichePage.piuAvvisiDisplayed());
+        logger.info("Avviso PagoPA è presente");
     }
 
     @And("Si clicca l'avviso PagoPa PG")
