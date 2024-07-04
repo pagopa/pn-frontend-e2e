@@ -9,6 +9,7 @@ import it.pn.frontend.e2e.api.mittente.AccettazioneRichiestaNotifica;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.enums.AppPortal;
+import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.mittente.AreaRiservataPAPage;
 import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
@@ -229,6 +230,7 @@ public class NotificaMittentePagoPATest {
         } while (numeroProtocolOld.equals(numeroProtocolNew));
         allDatataPopulation.put("numeroProtocollo", numeroProtocolNew);
         dataPopulation.writeDataPopulation("datiNotifica.yaml", allDatataPopulation);
+
     }
 
     @And("Cliccare su continua")
@@ -936,7 +938,6 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.inserimentoDestinatarioPGAggiuntivo(destinatario);
     }
 
-
     @And("Verifica dello stato della notifica persona giuridica come depositata {string}")
     public void verificaDelloStatoDellaNotificaPersonaGiuridicaComeDepositata(String statoNotifica) {
         logger.info("Verifica dello stato della notifica come 'Depositata'");
@@ -1349,6 +1350,19 @@ public class NotificaMittentePagoPATest {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
         dettaglioNotificaMittenteSection.checkAvvisoPagoPa();
     }
+    @And("Si controlla la presenza di codice avviso mittente")
+    public void siControllaLaPresenzaDiCodiceAvviso(){
+        logger.info("Si controlla la presenza di codice avviso");
+        dettaglioNotificaMittenteSection.checkCodiceAvvisoVisibile();
+
+    }
+
+    @And("Si controlla non sia presente l'avviso PagoPa mittente")
+    public void siControllaNonSiaPresenteLAvvisoPagoPaMittente() {
+        logger.info("Si controlla la presenza del box per il pagamento della notifica");
+        Assert.assertFalse( "Avviso PagoPA è trovato",dettaglioNotificaMittenteSection.checkAvvisoPagoPaVisibile());
+        logger.info("Avviso PagoPA non è trovato");
+    }
 
     @Then("Si clicca l'avviso PagoPa")
     public void siCliccaLAvvisoPagoPa() {
@@ -1644,4 +1658,6 @@ public class NotificaMittentePagoPATest {
             this.notificationRequestId = notificationRequestId;
         }
     }
+
+
 }
