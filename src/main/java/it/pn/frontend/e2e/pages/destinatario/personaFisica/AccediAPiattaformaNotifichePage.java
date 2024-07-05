@@ -311,8 +311,6 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         }else {
             elements(nexiButton).get(0).click();
         }
-
-
         WebTool.waitTime(2);
 
         By pagaButton = By.xpath("//button[@id='paymentCheckPageButtonPay']");
