@@ -1,7 +1,7 @@
 Feature:Il delegato persona giuridica accede ad una delega
 
   @TestSuite
-  @TA_PGdelegatoAccedeNotifica
+  @TA_PGdelegatoPagaNotifica
   @DeleghePG
   @PG
 
@@ -28,16 +28,13 @@ Feature:Il delegato persona giuridica accede ad una delega
       | F24               | 1                  |
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 10 secondi
-    When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
-    And Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe
-    And Nella sezione Deleghe si verifica sia presente una delega accettata per PG
-    And Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa
     And La persona giuridica clicca sulla prima notifica restituita
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
     And Si verifica che visualizzato lo stato Pagato
-    And Logout da portale persona giuridica
-    And PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
+    When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
+    And Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe
+    And Nella sezione Deleghe si verifica sia presente una delega accettata per PG
     And Nella Pagina Notifiche persona giuridica si clicca su notifiche delegate
     And La persona giuridica clicca sulla prima notifica restituita
     And Si verifica che visualizzato lo stato Pagato
