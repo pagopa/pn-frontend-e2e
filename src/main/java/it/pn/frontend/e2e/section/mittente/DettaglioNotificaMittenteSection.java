@@ -40,6 +40,9 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     @FindBy(id = "recipients-select")
     WebElement selectMultiDestinatario;
 
+    @FindBy(xpath = "//span[contains(text(),'Codice Avviso')]")
+    WebElement codiceAvvisoMittente;
+
     private int numeriStatiNotifica;
 
     public DettaglioNotificaMittenteSection(WebDriver driver) {
@@ -388,6 +391,27 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         }
     }
 
+    public boolean checkAvvisoPagoPaVisibile() {
+        try {
+            By avvisoButton = By.xpath("//button[contains(text(),'Avviso pagoPA')]");
+            js().executeScript("arguments[0].scrollIntoView(true)", containerPaymentBox);
+            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(containerPaymentBox));
+            getWebDriverWait(10).withMessage("Non si visualizza l'avviso PagoPA per il pagamento della notifica").until(ExpectedConditions.visibilityOfElementLocated(avvisoButton));
+            return true;
+        } catch (TimeoutException e) {
+            logger.error("Non si visualizza l'avviso PagoPA per il pagamento della notifica");
+            return false;
+        }
+    }
+
+    public boolean checkCodiceAvvisoVisibile() {
+        try {
+            getWebDriverWait(5).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvvisoMittente)).isDisplayed();
+            return true;
+        }catch (RuntimeException e){
+            return false;
+        }
+    }
     public void clickAvvisoPagoPa() {
         try {
             By avvisoPagoPa = By.xpath("//button[contains(text(),'Avviso pagoPA')]");

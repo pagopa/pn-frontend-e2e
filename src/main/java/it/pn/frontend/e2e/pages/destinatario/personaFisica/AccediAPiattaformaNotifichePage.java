@@ -74,6 +74,9 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "//td[@id='row-value-4']")
     WebElement iunCode;
 
+    @FindBy(xpath = "//div[@data-testid='pagopa-item']")
+    List<WebElement> pagopaItems;
+
     public AccediAPiattaformaNotifichePage(WebDriver driver) {
         super(driver);
     }
@@ -188,6 +191,17 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         }
     }
 
+    public boolean piuAvvisiDisplayed() {
+        getWebDriverWait(3).withMessage("Avvisi pagoPa non sono trovati").until(ExpectedConditions.visibilityOf(pagopaItems.get(0))).isDisplayed();
+        if (pagopaItems.size() < 2) {
+            logger.info("Avvisi pagoPa non sono trovati");
+            return false;
+        }else {
+            logger.info("Avvisi pagoPa sono trovati");
+            return true;
+        }
+    }
+
     public void clickAvvisoPagoPAPG() {
         getWebDriverWait(30).withMessage("Il sezione scarica avviso non è cliccabile").until(ExpectedConditions.elementToBeClickable(scaricaAvviso));
         scaricaAvviso.click();
@@ -244,7 +258,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10).withMessage("Il textbox numero di carta non è visibile").until(ExpectedConditions.visibilityOf(creditCardNumber));
         creditCardNumber.click();
         creditCardNumber.clear();
-        creditCardNumber.sendKeys("5186151650005008");
+        creditCardNumber.sendKeys("5127390031101597");
         driver.switchTo().defaultContent();
 
         //frame of the expiry date
@@ -254,7 +268,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(20).withMessage("Il textbox scadenza non è visibile").until(ExpectedConditions.visibilityOfElementLocated(scadenza));
         element(scadenza).click();
         element(scadenza).clear();
-        element(scadenza).sendKeys("12/26");
+        element(scadenza).sendKeys("10/24");
         driver.switchTo().defaultContent();
 
         //frame of the security code
@@ -264,7 +278,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10).withMessage("Il textbox codice di sicurezza non è visibile").until(ExpectedConditions.visibilityOfElementLocated(codice));
         element(codice).click();
         element(codice).clear();
-        element(codice).sendKeys("123");
+        element(codice).sendKeys("015");
         driver.switchTo().defaultContent();
 
         //frame of the cardholder name
@@ -297,7 +311,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         By pagaButton = By.xpath("//button[@id='paymentCheckPageButtonPay']");
         getWebDriverWait(5).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
         element(pagaButton).click();
-        WebTool.waitTime(32);
+        WebTool.waitTime(35);
         List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Chiudi')]"));
         getWebDriverWait(10).withMessage("Il bottone Chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudi.get(0)));
         chiudi.get(0).click();
