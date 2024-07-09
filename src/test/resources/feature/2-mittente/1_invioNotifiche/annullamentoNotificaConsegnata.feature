@@ -1,7 +1,9 @@
-@Parallel
 Feature: Mittente invia una notifica analogica o digitale che viene annullata
 
-  @annullamentoNotifica
+
+  @Parallel
+  @annullamentoNotificaMittente
+  @PA
   Scenario: [TA-FE INVIO DI UNA NOTIFICA E ANNULLAMENTO] - Mittente invia una notifica e quando passa allo stato consegnata viene annullata
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica

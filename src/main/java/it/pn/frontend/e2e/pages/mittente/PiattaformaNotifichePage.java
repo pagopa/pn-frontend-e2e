@@ -846,10 +846,6 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
-    /*List<WebElement> itemsStatus = driver.findElements(By.xpath("//div[contains(@data-testid, 'itemStatus')]"));
-                WebElement itemStatus = itemsStatus.get(0);
-                getWebDriverWait(10).withMessage("La notifica non ha lo stato " + statoNotifica).until(ExpectedConditions.attributeToBe(itemStatus, "textContent", statoNotifica));*/
-
     public void selezionaNotificaConStato(String statoNotifica) {
         boolean testSuccess = false;
         for (int i = 0; i < 12; i++) {
@@ -867,18 +863,6 @@ public class PiattaformaNotifichePage extends BasePage {
             driver.navigate().refresh();
         }
         Assert.assertTrue("La notifica non è passata allo stato " + statoNotifica, testSuccess);
-    }
-
-    public void checkNotifica() {
-        NewNotificationResponse newNotificationResponse = new NewNotificationResponse();
-        String iun = newNotificationResponse.getNotificationIUN();
-        try {
-            By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
-            getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOfElementLocated(notification));
-        } catch (TimeoutException e) {
-            logger.error("non é stato possibile recupare la notifica con errore: {}", e.getMessage());
-            Assert.fail("non é stato possibile recupare la notifica con errore" + e);
-        }
     }
 
     public void clickSuNotifica() {
