@@ -735,16 +735,12 @@ public class PiattaformaNotifichePage extends BasePage {
     public void clickPagina(int pagina) {
         String paginaString = "page" + pagina;
         By paginaBy = By.id(paginaString);
-        try {
-            this.getWebDriverWait(30).withMessage("Il bottone pagina " + pagina + " non è cliccabile")
-                    .until(elementToBeClickable(this.element(paginaBy)));
-            this.js().executeScript("arguments[0].scrollIntoView(true);", this.element(paginaBy));
-            this.element(paginaBy).click();
+
+            getWebDriverWait(30).withMessage("Il bottone pagina " + pagina + " non è cliccabile")
+                    .until(elementToBeClickable(element(paginaBy)));
+            js().executeScript("arguments[0].scrollIntoView(true);", element(paginaBy));
+            element(paginaBy).click();
             logger.info("Bottone pagina " + pagina + " cliccato correttamente");
-        } catch (TimeoutException e) {
-            logger.error("Il bottone pagina " + pagina + " non è cliccabile con errore: " + e.getMessage());
-            Assert.fail("Il bottone pagina " + pagina + " non è cliccabile con errore: " + e.getMessage());
-        }
     }
 
     public void checkPaginaNotificheDelegante(String nomeDelegante) {
@@ -810,18 +806,6 @@ public class PiattaformaNotifichePage extends BasePage {
         logger.info("La notifica è stata creata correttamente");
     }
 
-    public void checkNotifica() {
-        NewNotificationResponse newNotificationResponse = new NewNotificationResponse();
-        String iun = newNotificationResponse.getNotificationIUN();
-        try {
-            By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
-            getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOfElementLocated(notification));
-        } catch (TimeoutException e) {
-            logger.error("non é stato possibile recupare la notifica con errore" + e);
-            Assert.fail("non é stato possibile recupare la notifica con errore" + e);
-        }
-    }
-
     public void clickSuNotifica() {
         String iun = notificationSingleton.getIun(Hooks.scenario);
         logger.info("iun notifica " + iun);
@@ -838,50 +822,11 @@ public class PiattaformaNotifichePage extends BasePage {
             element(bottoneAnnullaNotificaModale).click();
     }
 
-    public void checkStatoNotifica(String stato) {
-        driver.navigate().refresh();
-        WebTool.waitTime(10);
-        try {
-            WebElement notificationLine = notificationsTableLines.get(0);
-            WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + stato));
-            getWebDriverWait(10).withMessage("La notifica non ha lo stato " + stato).until(ExpectedConditions.visibilityOf(chipStatus));
-        } catch (TimeoutException e) {
-            logger.error("Notifica non trovata con errore: " + e.getMessage());
-            Assert.fail("Notifica non trovata con errore: " + e.getMessage());
-        }
-    }
-
-    public void selezionaNotificaConStato(String statoNotifica) {
-        boolean testSuccess = false;
-        for (int i = 0; i < 8; i++) {
-            try {
-                WebElement notificationLine = notificationsTableLines.get(0);
-                WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + statoNotifica));
-                if (chipStatus != null) {
-                    logger.info("La notifica è passata allo stato " + statoNotifica + " e si procede con il test");
-                    testSuccess = true;
-                    break;
-                }
-            } catch (NoSuchElementException e) {
-                logger.info("Dopo " + i + " tentativi la notifica non è ancora passata allo stato: " + statoNotifica);
-            }
-            WebTool.waitTime(15);
-            driver.navigate().refresh();
-        }
-        if (!testSuccess) {
-            logger.error("La notifica non è passata allo stato " + statoNotifica);
-            Assert.fail("La notifica non è passata allo stato " + statoNotifica);
-        }
-    }
-
     public void checkPopUpConfermaAnnullamentoNotifica() {
-        try {
+
             By popUpConfermaAnnullamento = By.xpath("//div[@role='alert']/div[text()='La richiesta di annullamento è stata accettata.']");
             getWebDriverWait(10).withMessage("Pop up NON visualizzato").until(ExpectedConditions.visibilityOfElementLocated(popUpConfermaAnnullamento));
-        } catch (TimeoutException e) {
-            logger.error("Il pop up di conferma dell'annullamento della notifica non viene visualizzato con errore: " + e.getMessage());
-            Assert.fail("Il pop up di conferma dell'annullamento della notifica non viene visualizzato con errore: " + e.getMessage());
-        }
+
     }
 
     public void verificaInvioNotificaDiCortesia() {
