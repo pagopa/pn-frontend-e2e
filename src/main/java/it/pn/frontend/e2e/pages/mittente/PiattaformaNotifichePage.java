@@ -1078,4 +1078,9 @@ public class PiattaformaNotifichePage extends BasePage {
                 ExpectedConditions.visibilityOfElementLocated(mittente),
                 ExpectedConditions.textToBe(mittente, ente)));
     }
+
+    public void checkBottoneAnnullaNotifica() {
+        WebElement bottoneAnnullaNotifica = driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']"));
+        Assert.assertTrue("bottone visualizzabile", bottoneAnnullaNotifica.isDisplayed());
+    }
 }
