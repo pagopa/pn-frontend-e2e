@@ -3,11 +3,11 @@ package it.pn.frontend.e2e.section.destinatario.personaGiuridica;
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.Assert;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -157,7 +157,9 @@ public class AggiungiDelegaPGSection extends BasePage {
 
     public void insertDataCorretta() {
         LocalDate dataDaInserire = LocalDate.now().plusDays(1);
-        dataTermineDelegaInput.sendKeys(dataDaInserire.toString());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedDate = dataDaInserire.format(formatter);
+        dataTermineDelegaInput.sendKeys(formattedDate);
     }
 
     public String waitMessaggioErroreData() {
@@ -173,6 +175,14 @@ public class AggiungiDelegaPGSection extends BasePage {
         for (int index = 0; index < name.length(); index++) {
             this.dataTermineDelegaInput.sendKeys(Keys.BACK_SPACE);
         }
+    }
+
+    public void clearDateField() {
+        getWebDriverWait(30).withMessage("Il campo data termine delega non è cliccabile ")
+                .until(ExpectedConditions.elementToBeClickable(this.dataTermineDelegaInput));
+        this.dataTermineDelegaInput.click();
+        Actions action = new Actions(driver);
+        action.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
     }
 
     public void selectPersonaGiuridicaRadioButton() {

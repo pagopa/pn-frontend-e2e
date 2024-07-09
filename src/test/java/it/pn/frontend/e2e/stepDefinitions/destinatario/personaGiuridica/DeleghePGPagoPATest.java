@@ -168,7 +168,7 @@ public class DeleghePGPagoPATest {
     public void nellaSezioneLeTueDelegheInserireUnaData() {
         logger.info("Si inserisce una data");
 
-        aggiungiDelegaPGSection.clearInputData();
+        aggiungiDelegaPGSection.clearDateField();
         aggiungiDelegaPGSection.insertDataCorretta();
     }
 
