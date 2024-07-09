@@ -5,10 +5,12 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
+import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -22,6 +24,7 @@ import java.util.Map;
 public class RicercaNotifichePersonaFisicaPATest {
     private static final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaFisicaTest");
     private final WebDriver driver = Hooks.driver;
+    private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
     private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
     private final DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
     private Map<String, Object> datiNotifica = new HashMap<>();
@@ -37,6 +40,7 @@ public class RicercaNotifichePersonaFisicaPATest {
         notifichePFPage.waitLoadNotificheDEPage();
     }
 
+    @And("Nella pagina Piattaforma Notifiche persona fisica inserire il codice IUN da dati notifica {string}")
     @And("Collegarsi a link con codice {int}")
     public void collegarsiLink(int code) {
         switch (code) {
@@ -84,7 +88,7 @@ public class RicercaNotifichePersonaFisicaPATest {
         notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
     }
 
-    @And("Nella pagina Piattaforma Notifiche  persona fisica inserire il codice IUN {string}")
+    @And("Nella pagina Piattaforma Notifiche persona fisica inserire il codice IUN {string}")
     public void nellaPaginaPiattaformaNotificheDestinatarioInserireIlCodiceIUN(String IUN) throws InterruptedException {
         logger.info("Si inserisce il codice IUN");
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
@@ -174,7 +178,7 @@ public class RicercaNotifichePersonaFisicaPATest {
         notifichePFPage.clickRimuoviFiltriButton();
     }
 
-    @And("Nella pagina Piattaforma Notifiche  persona fisica inserire il codice IUN non valido da dati notifica {string}")
+    @And("Nella pagina Piattaforma Notifiche persona fisica inserire il codice IUN non valido da dati notifica {string}")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIunNonValidoDaDatiNotifica(String datiNotificaNonValidoPF) throws InterruptedException {
         logger.info("Si inserisce il codice IUN non valido");
         DataPopulation dataPopulation = new DataPopulation();
@@ -256,7 +260,14 @@ public class RicercaNotifichePersonaFisicaPATest {
         logger.info("Si cerca una notifica tramite IUN: " + codiceIUN);
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
-        piattaformaNotifichePage.selectFiltraNotificaButton();
+        piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
+    }
+
+    @And("Si seleziona la notifica destinatario")
+    public void siSelezionaLaNotificaDestinatario() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+        String iun = notificationSingleton.getIun(Hooks.scenario);
+        backgroundTest.siFiltraLaTabellaDelleNotificheDelDestinatarioPerIUN(iun);
     }
 }
 
