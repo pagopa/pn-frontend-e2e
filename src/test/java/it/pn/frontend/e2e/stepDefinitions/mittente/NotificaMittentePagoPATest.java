@@ -183,42 +183,6 @@ public class NotificaMittentePagoPATest {
         informazioniPreliminariPASection.selectRaccomandataAR();
     }
 
-    @And("Creazione notifica completa")
-    public void creazioneNotificaCompleta(Map<String, String> datiNotificaMap) {
-        logger.info("Inserimento dei dati della notifica senza pagamento ");
-        AllegatiPASection allegatiPASection = new AllegatiPASection(driver);
-        File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
-
-        aggiornamentoNumeroProtocollo();
-
-
-        //Sezione preliminare
-        informazioniPreliminariPASection.compilazioneInformazioniPreliminari(datiNotificaMap);
-        cliccareSuContinua();
-
-        //Dati destinatario
-        siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionDestinatario();
-        destinatarioPASection.compilazioneDestinario(datiNotificaMap);
-        cliccareSuContinua();
-
-
-        //Sezione allegati
-        siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionAllegati();
-        String pathNotificaFile = notificaFile.getAbsolutePath();
-        allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
-
-        if (allegatiPASection.verificaCaricamentoNotificaPdf()) {
-            logger.info("File notifica.pdf caricato correttamente");
-        } else {
-            logger.error("File notifica.pdf non caricato");
-            Assert.fail("File notifica.pdf non caricato");
-        }
-        allegatiPASection.inserimentoNomeAllegato(datiNotificaMap.get("nomeDocumentoNotifica"));
-        nellaSectionAllegatiCliccareSulBottoneInvia();
-        WebTool.waitTime(5);
-        siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata();
-        cliccareSulBottoneVaiAlleNotifiche();
-    }
 
     private void aggiornamentoNumeroProtocollo() {
         logger.info("Aggiornamento del numero protocollo");
@@ -1247,9 +1211,10 @@ public class NotificaMittentePagoPATest {
     @And("Si annulla la notifica")
     public void siAnnullaLaNotifica() {
         logger.info("Si clicca sul pusante annulla notifica");
-        WebTool.waitTime(10);
         piattaformaNotifichePage.clickBottoneAnnullaNotifica();
+        WebTool.waitTime(3);
         piattaformaNotifichePage.clickAnnullaNotificaModale();
+        WebTool.waitTime(3);
     }
 
     @And("Il bottone annulla notifica non è visualizzabile nella descrizione della notifica")
@@ -1293,6 +1258,7 @@ public class NotificaMittentePagoPATest {
         siVisualizzaCorrettamenteLaSectionDettaglioNotifica();
         WebTool.waitTime(400);
         driver.navigate().refresh();
+        WebTool.waitTime(3);
     }
 
     @And("Si seleziona la notifica")
@@ -1662,6 +1628,55 @@ public class NotificaMittentePagoPATest {
     public void siVerificaCheDestinatarioRaggiungibile(String message) {
         piattaformaNotifichePage.visualizzaTimeline(message);
         logger.info("Il destinatario raggiungibile");
+    }
+
+    @And("Creazione notifica completa")
+    public void creazioneNotificaCompleta(Map<String,String> datiNotificaMap) {
+        logger.info("Inserimento dei dati della notifica senza pagamento " );
+        AllegatiPASection allegatiPASection = new AllegatiPASection(driver);
+        File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
+        datiNotifica = dataPopulation.readDataPopulation(datiNotificaMap.get("nomeFileYaml") + ".yaml");
+
+        aggiornamentoNumeroProtocollo();
+
+
+        //Sezione preliminare
+        informazioniPreliminariPASection.compilazioneInformazioniPreliminari(datiNotificaMap);
+        cliccareSuContinua();
+
+        //Dati destinatario
+        siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionDestinatario();
+        destinatarioPASection.compilazioneDestinario(datiNotificaMap);
+        cliccareSuContinua();
+
+
+        //Sezione allegati
+        siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionAllegati();
+        String pathNotificaFile = notificaFile.getAbsolutePath();
+        allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
+
+        if (allegatiPASection.verificaCaricamentoNotificaPdf()) {
+            logger.info("File notifica.pdf caricato correttamente");
+        } else {
+            logger.error("File notifica.pdf non caricato");
+            Assert.fail("File notifica.pdf non caricato");
+        }
+        allegatiPASection.inserimentoNomeAllegato(datiNotificaMap.get("nomeDocumentoNotifica"));
+        nellaSectionAllegatiCliccareSulBottoneInvia();
+        siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata();
+        cliccareSulBottoneVaiAlleNotifiche();
+    }
+
+    @And("Si controlla lo stato timeline in dettaglio notifica")
+    public void siControllaLoStatoTimelineInDettaglioNotifica(Map<String, String> datiDettaglioNotifica) {
+        String idStato = datiDettaglioNotifica.get("xpathStato");
+        String viewDetail = datiDettaglioNotifica.get("vediDettagli");
+        siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso();
+        WebTool.waitTime(2);
+        if (viewDetail.equals("true")){
+            dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
+        }
+        dettaglioNotificaMittenteSection.checkStatoTimeline(idStato);
     }
 
     @Then("Si verifica che il mittente sia {string}")
