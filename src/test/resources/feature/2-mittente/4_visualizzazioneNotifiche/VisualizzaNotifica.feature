@@ -85,3 +85,12 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
     And Si seleziona un destinatario
     Then Si controlla sia presente l'avviso PagoPa
     And Logout da portale mittente
+
+  @CheckNotificaConDocumentiAllegati
+  Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente visualizza Notifica mono destinatario non ancora pagata solo con avviso PagoPa e assenza del PDF relativo al bollettino
+    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
+    And Nella pagina piattaforma notifiche si effettua la ricerca per codice IUN "YRUZ-NYXJ-DAJK-202405-N-1"
+    And Si clicca la notifica ricercata
+    And Si controlla la presenza di codice avviso mittente
+    And Si controlla non sia presente l'avviso PagoPa mittente
+    And Logout da portale mittente
