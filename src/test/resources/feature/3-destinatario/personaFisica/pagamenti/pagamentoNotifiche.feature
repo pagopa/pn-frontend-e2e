@@ -52,8 +52,7 @@ Feature:Pagamento notifica
       | F24              | 1                  |
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 5 secondi
-    And Cliccare sulla notifica restituita
-    And Aspetta 60 secondi
+    And Si seleziona la notifica destinatario
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si controlla sia presente piu avvisi PagoPa PG
     And Si clicca sul radio bottone di pagamento
@@ -95,8 +94,7 @@ Feature:Pagamento notifica
       | F24              | 1                  |
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 5 secondi
-    And Cliccare sulla notifica restituita
-    And Aspetta 60 secondi
+    And Si seleziona la notifica destinatario
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si controlla sia presente piu avvisi PagoPa PG
     And Si clicca sul radio bottone di pagamento
@@ -137,9 +135,8 @@ Feature:Pagamento notifica
       | tipoDestinatario | PF                 |
       | avvisoPagoPa     | 2                  |
     Then Creo in background una notifica per destinatario tramite API REST
-    And Aspetta 5 secondi
-    And Cliccare sulla notifica restituita
-    And Aspetta 60 secondi
+    And Aspetta 3 secondi
+    And Si seleziona la notifica destinatario
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si controlla sia presente piu avvisi PagoPa PG
     And Si clicca sul radio bottone di pagamento
