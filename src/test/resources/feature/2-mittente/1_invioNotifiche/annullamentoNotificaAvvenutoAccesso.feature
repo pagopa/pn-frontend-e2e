@@ -1,7 +1,7 @@
 Feature: Mittente invia una notifica analogica o digitale che viene annullata
 
   @Parallel
-  @annullamentoNotificaMittente1
+  @annullamentoNotificaMittente
   @PA
 
   Scenario: [TA-FE INVIO DI UNA NOTIFICA E ANNULLAMENTO] - Mittente invia una notifica e quando passa allo stato avvenuto accesso viene annullata
@@ -22,10 +22,8 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata
     And Si attende che lo stato della notifica sia "Avvenuto accesso"
     And Si annulla la notifica
     Then Si controlla la comparsa del pop up di conferma annullamento
-    #And Aspetta 120 secondi
     Then Si verifica che la notifica abbia lo stato "Annullata"
     And Il bottone annulla notifica non è visualizzabile nella descrizione della notifica
     And Si clicca il bottone indietro nella descrizione della notifica
-    #And Aspetta 120 secondi
     And Nella pagina Piattaforma Notifiche la notifica presenta lo stato "Annullata"
     And Logout da portale mittente
