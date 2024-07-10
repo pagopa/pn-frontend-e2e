@@ -805,7 +805,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void checkStatoNotifica(String stato) {
         try {
-            WebElement notificationLine = notificationsTableLines.get(2);
+            WebElement notificationLine = notificationsTableLines.get(0);
             WebElement chipStatus = notificationLine.findElement(By.xpath("//div[@id='status-chip-" + stato + "']"));
             getWebDriverWait(10).withMessage("La notifica non ha lo stato " + stato).until(ExpectedConditions.visibilityOf(chipStatus));
         } catch (TimeoutException e) {
