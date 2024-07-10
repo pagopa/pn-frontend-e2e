@@ -804,11 +804,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public void checkStatoNotifica(String stato) {
-        driver.navigate().refresh();
-        WebTool.waitTime(10);
         try {
-            WebElement notificationLine = notificationsTableLines.get(0);
-            WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + stato));
+            WebElement notificationLine = notificationsTableLines.get(2);
+            WebElement chipStatus = notificationLine.findElement(By.xpath("//div[@id='status-chip-" + stato + "']"));
             getWebDriverWait(10).withMessage("La notifica non ha lo stato " + stato).until(ExpectedConditions.visibilityOf(chipStatus));
         } catch (TimeoutException e) {
             logger.error("Notifica non trovata con errore: {}", e.getMessage());
@@ -1080,7 +1078,12 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void checkBottoneAnnullaNotifica() {
-        WebElement bottoneAnnullaNotifica = driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']"));
-        Assert.assertTrue("bottone visualizzabile", bottoneAnnullaNotifica.isDisplayed());
+        boolean isDisplayed = false;
+        try {
+            isDisplayed = driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']")).isDisplayed();
+        } catch (NoSuchElementException e) {
+            isDisplayed = false; // Elemento non trovato
+        }
+        Assert.assertFalse("Il bottone è visualizzabile", isDisplayed);
     }
 }

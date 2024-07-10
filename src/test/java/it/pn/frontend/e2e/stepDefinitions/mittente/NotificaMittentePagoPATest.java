@@ -1245,6 +1245,7 @@ public class NotificaMittentePagoPATest {
     public void siCliccaIlBottoneIndietroNellaDescrizioneDellaNotifica() {
         logger.info("Si clicca sul bottone indietro della pagina della descrizione della notifica");
         dettaglioNotificaMittenteSection.clickIndietroButton();
+        WebTool.waitTime(10);
     }
 
     @And("Si verifica che l'invio della notifica sia fallito {int} volte")
