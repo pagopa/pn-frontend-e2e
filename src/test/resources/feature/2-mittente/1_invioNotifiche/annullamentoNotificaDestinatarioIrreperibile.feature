@@ -7,12 +7,12 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata
   Scenario: [TA-FE INVIO DI UNA NOTIFICA E ANNULLAMENTO] - Mittente invia una notifica e quando passa allo stato destinatario irreperibile viene annullata
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
-      | modello         | 890                |
+      | modello         | AR                |
       | documenti       | 1                  |
       | oggettoNotifica | Pagamento rata IMU |
       | costiNotifica   | false              |
     And Si aggiunge un destinatario alla notifica
-      | indirizzo         | Via @FAIL-IRREPERIBILE_AR |
+      | indirizzo         | Via @FAIL-DiscoveryIrreperibile_AR |
       | nomeCognome       | Gaio Giulio Cesare        |
       | codiceFiscale     | CSRGGL44L13H501E          |
       | tipoDestinatario  | PF                        |
