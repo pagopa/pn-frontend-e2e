@@ -1,7 +1,7 @@
 Feature: Mittente invia una notifica analogica o digitale che viene annullata
 
   @Parallel
-  @annullamentoNotificaMittente
+  @annullamentoNotificaMittentePerfezionata
   @PA
 
   Scenario: [TA-FE INVIO DI UNA NOTIFICA E ANNULLAMENTO] - Mittente invia una notifica e quando passa allo stato perfezionata per decorrenza termini viene annullata
