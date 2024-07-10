@@ -18,6 +18,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     @FindBy(xpath = "//button[@data-testid='add email']")
     WebElement avvisamiViaEmailButton;
+
     @FindBy(id = "code-confirm-button")
     WebElement confermaButtonPopUp;
 
@@ -178,18 +179,16 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void confermaButtonClickPopUp() {
-        try {
-            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(this.confermaButtonPopUp));
-            this.confermaButtonPopUp.click();
-            By confermaButtonPostInserimentoBy = By.id("confirmDialog");
+
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(confermaButtonPopUp));
+            confermaButtonPopUp.click();
+            WebTool.waitTime(5);
+            By confermaButtonPostInserimentoBy = By.xpath("//div[@data-testid='dialog-actions']/button[contains(text(), 'Conferma')]");
             if (!driver.findElements(confermaButtonPostInserimentoBy).isEmpty()) {
-                this.element(confermaButtonPostInserimentoBy).click();
+                element(confermaButtonPostInserimentoBy).click();
             }
             // if confermaButtonPostInserimento appears, click it otherwise go on
-        } catch (TimeoutException e) {
-            logger.error("Il bottone conferma all'interno del popup non è cliccabile con errore:" + e.getMessage());
-            Assert.fail("Il bottone conferma all'interno del popup non è cliccabile con errore:" + e.getMessage());
-        }
+
     }
 
     public boolean waitMessaggioErrore() {

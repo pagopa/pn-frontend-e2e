@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
+import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
@@ -37,6 +38,8 @@ public class NotifichePGPagoPATest {
     Map<String, Object> personaGiuridica = new HashMap<>();
     private final LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
     private final PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+    private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+    private final DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
 
     @And("Nella Home page persona giuridica si clicca su Send Notifiche Digitali")
     public void clickSendNotificheDigitali() {
@@ -215,6 +218,17 @@ public class NotifichePGPagoPATest {
         piattaformaNotifichePGPAPage.clickIndietroButton();
     }
 
+    @And("Si verifica la presenza del banner di avviso annullamento notifica")
+    public void siVerificaLaPresenzaDelBannerDiAvvisoAnnullamentoNotifica() {
+        logger.info("Si verifica che nel dettaglio della notifica sia presente il banner di annullamento");
+        destinatarioPage.checkBannerAnnullamentoNotifica();
+    }
+
+    @And("Si verifica la presenza dello stato {string} nella timeline della notifica")
+    public void siVerificaLaPresenzaDelloStatoNellaTimelineDellaNotifica(String statoNotifica) {
+        logger.info("Si verifica che nella timeline della notifica sia presente lo stato " + statoNotifica);
+        piattaformaNotifichePage.verificaPresenzaStato(statoNotifica);
+    }
 
     @And("Si clicca sul radio bottone di pagamento")
     public void siCliccaRadioButtonPagamento(){
@@ -315,7 +329,7 @@ public class NotifichePGPagoPATest {
         logger.info("Si cerca una notifica tramite IUN: " + codiceIUN);
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
-        piattaformaNotifichePage.selectFiltraNotificaButton();
+        piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
     }
 
     @And("Si controlla la presenza di codice avviso")

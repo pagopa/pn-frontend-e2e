@@ -364,6 +364,38 @@ public class NotifichePersonaFisicaPagoPATest {
         dettaglioNotifica.waitLoadDettaglioNotificaDESection();
     }
 
+    @And("Si controlla che nel portale del destinatario la notifica sia {string} e si chiude la scheda")
+    public void siControllaCheNelPortaleDelDestinatarioLaNotificaSiaESiChiudeLaScheda(String statoNotifica) {
+        logger.info("Si controlla che anche nel portale del destinatario la notifica sia in stato " + statoNotifica + " e si chiude la scheda");
+        piattaformaNotifichePage.selezionaNotifica();
+        piattaformaNotifichePage.verificaPresenzaStato(statoNotifica);
+        WebTool.closeTab();
+    }
+
+    @And("Si verifica che gli allegati denominati {string} non sono scaricabili")
+    public void siVerificaCheGliAllegatiDenominatiNonSonoScaricabili(String descrizioneAllegato) {
+        logger.info("Si controlla che non sia possibile scaricare gli allegati");
+        piattaformaNotifichePage.checkAllegatoScaricabile(descrizioneAllegato);
+    }
+
+    @And("Si verifica che gli AAR non sono scaricabili")
+    public void siVerificaCheGliAARNonSonoScaricabili() {
+        logger.info("Si controlla che non sia possibile scaricare gli AAR");
+        piattaformaNotifichePage.checkAARScaricabili();
+    }
+
+    @And("Si verifica che le attestazioni opponibili a terzi non siano scaricabili")
+    public void siVerificaCheLeAttestazioniOpponibiliATerziNonSianoScaricabili() {
+        logger.info("Si controlla che non sia possibile scaricare le attestazioni opponibili a terzi");
+        piattaformaNotifichePage.checkAttestazioniOpponibiliATerziScaricabili();
+    }
+
+    @And("Si verifica che non sia possibile scaricare le ricevute PEC")
+    public void siVerificaCheNonSiaPossibileScaricareLeRicevutePEC() {
+        logger.info("Si controlla che non sia possibile scaricare le ricevute PEC");
+        piattaformaNotifichePage.checkRicevutePECScaricabili();
+    }
+
     @And("Si controlla che il testo sia nel box pagamento {string}")
     public void siControllaTestoSiaNelBoxPagamento(String xpath) {
         boolean isPresent = dettaglioNotifica.isFieldDisplayed(By.xpath(xpath));
@@ -389,18 +421,10 @@ public class NotifichePersonaFisicaPagoPATest {
         piattaformaNotifichePage.siVisualizzaCorrettamenteLaDataFineField();
     }
 
-    @Then("Si visualizza correttamente la section Dettaglio Notifica annullata persona fisica")
-    public void siVisualizzaCorrettamenteLaSectionDettaglioNotificaAnnullataPersonaFisica() {
+    @Then("Si visualizza correttamente la section Dettaglio Notifica annullata")
+    public void siVisualizzaCorrettamenteLaSectionDettaglioNotificaAnnullata() {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         dettaglioNotificaSection.waitLoadDettaglioNotificaAnnullataDESection();
-    }
-
-    @And("Si controlla lo stato timeline in dettaglio notifica")
-    public void siControllaLoStatoTimelineInDettaglioNotificaPF(Map<String, String> datiDettaglioNotifica) {
-        String xpath = datiDettaglioNotifica.get("xpath");
-        dettaglioNotifica.waitLoadDettaglioNotificaDESection();
-        WebTool.waitTime(2);
-        dettaglioNotifica.checkStatoTimeline(By.xpath(xpath));
     }
 
     @And("Si seleziona un avviso pagopa")
@@ -465,7 +489,6 @@ public class NotifichePersonaFisicaPagoPATest {
     @Then("Si inserisce i dati di pagamento e procede con il pagamento {string}")
         public void siInserisceIDatiDiPagamento(String email) throws InterruptedException {
             logger.info("Si inserisce i dati di pagamento");
-            CookiesSection cookiesSection = new CookiesSection(this.driver);
             accediAPiattaformaNotifichePage.inserireDatiPagamento(email);
             accediAPiattaformaNotifichePage.checkoutPagamento();
         }

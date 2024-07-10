@@ -7,6 +7,7 @@ Questo repository contiene i test e2e per le webapps di Piattaforma Notifiche
 ### Requisiti
 
 - **Java 7** o superiore
+- **JDK 17** o superiore
 - **IntelliJ IDEA** (consigliata) o qualsiasi IDE preferito
 
 Per poter eseguire i test bisogna seguire in ordine i seguenti passaggi:

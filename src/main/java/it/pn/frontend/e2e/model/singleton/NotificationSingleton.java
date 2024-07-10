@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.model.singleton;
 
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
