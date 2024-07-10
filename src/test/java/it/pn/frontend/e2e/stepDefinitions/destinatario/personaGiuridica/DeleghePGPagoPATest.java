@@ -164,6 +164,14 @@ public class DeleghePGPagoPATest {
         aggiungiDelegaPGSection.insertDataErrata();
     }
 
+    @And("Nella sezione Le Tue Deleghe inserire una data")
+    public void nellaSezioneLeTueDelegheInserireUnaData() {
+        logger.info("Si inserisce una data");
+
+        aggiungiDelegaPGSection.clearDateField();
+        aggiungiDelegaPGSection.insertDataCorretta();
+    }
+
     @And("Nella sezione Le Tue Deleghe si visualizza il messaggio di errore data errata")
     public void nellaSezioneLeTueDelegheSiVisualizzaIlMessaggioDiErroreDataErrata() {
         logger.info("Si controlla che si veda il messaggio di errore");
