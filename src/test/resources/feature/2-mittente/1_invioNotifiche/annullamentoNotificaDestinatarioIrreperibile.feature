@@ -5,6 +5,11 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata
   @PA
 
   Scenario: [TA-FE INVIO DI UNA NOTIFICA E ANNULLAMENTO] - Mittente invia una notifica e quando passa allo stato destinatario irreperibile viene annullata
+    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
+    And Si verifica siano presenti recapiti digitali
+      | email | provaemail@test.it |
+    And Logout da portale persona fisica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
       | modello         | AR                |
@@ -12,11 +17,10 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata
       | oggettoNotifica | Pagamento rata IMU |
       | costiNotifica   | false              |
     And Si aggiunge un destinatario alla notifica
-      | indirizzo         | Via @FAIL-DiscoveryIrreperibile_AR |
+      | indirizzo         | Via @FAIL-Irreperibile_AR |
       | nomeCognome       | Gaio Giulio Cesare        |
       | codiceFiscale     | CSRGGL44L13H501E          |
       | tipoDestinatario  | PF                        |
-      | domicilioDigitale | test@test.com             |
     Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica mittente
     And Si attende che lo stato della notifica sia "Destinatario irreperibile"

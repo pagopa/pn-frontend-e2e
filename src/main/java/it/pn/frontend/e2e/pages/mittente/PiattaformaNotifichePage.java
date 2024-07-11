@@ -804,19 +804,15 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public void checkStatoNotifica(String stato) {
-        try {
             WebElement notificationLine = notificationsTableLines.get(0);
             WebElement chipStatus = notificationLine.findElement(By.xpath("//div[@id='status-chip-" + stato + "']"));
             getWebDriverWait(10).withMessage("La notifica non ha lo stato " + stato).until(ExpectedConditions.visibilityOf(chipStatus));
-        } catch (TimeoutException e) {
-            logger.error("Notifica non trovata con errore: {}", e.getMessage());
-            Assert.fail("Notifica non trovata con errore: " + e.getMessage());
-        }
+
     }
 
     public void selezionaNotificaConStato(String statoNotifica) {
         boolean testSuccess = false;
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 15; i++) {
             try {
                 WebElement chipStatus = driver.findElement(By.id(statoNotifica + "-status"));
                 if (chipStatus != null) {
