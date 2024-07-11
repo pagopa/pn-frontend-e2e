@@ -49,7 +49,7 @@ public class RicercaNotificheMittentePagoPATest {
     public void cliccareSulBottoneFiltra() {
         logger.info("Si clicca sul tasto filtra");
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-        piattaformaNotifichePage.selectFiltraButton();
+        piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
     }
 
     @And("Si verifica che non ci sono notifiche disponibili")
@@ -60,22 +60,22 @@ public class RicercaNotificheMittentePagoPATest {
     }
 
     @And("Si visualizza correttamente box di pagamento")
-    public void siVisualizzaBoxPagamento(){
+    public void siVisualizzaBoxPagamento() {
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
-        if(piattaformaNotifichePGPAPage.sezionePagamentoDisplayed()){
+        if (piattaformaNotifichePGPAPage.sezionePagamentoDisplayed()) {
             logger.info("Si visualizza correttamente box di pagamento");
-        }else{
+        } else {
             logger.error("Non si visualizza correttamente box di pagamento");
             Assert.fail("Non si visualizza correttamente box di pagamento");
         }
     }
 
     @And("Si visualizza correttamente il messaggio notifica annullata")
-    public void siVisulizzaIlMessagioAnnullato(){
+    public void siVisulizzaIlMessagioAnnullato() {
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
-        if(piattaformaNotifichePGPAPage.messaggioNotificaAnnullataDisplayed()){
+        if (piattaformaNotifichePGPAPage.messaggioNotificaAnnullataDisplayed()) {
             logger.info("Si visualizza correttamente il messaggio notifica annulata");
-        }else{
+        } else {
             logger.error("Non si visualizza correttamente il messaggio notifica annulata");
             Assert.fail("Non si visualizza correttamente il messaggio notifica annulata");
         }
@@ -514,11 +514,11 @@ public class RicercaNotificheMittentePagoPATest {
     }
 
     @And("Nella pagina piattaforma notifiche si effettua la ricerca per codice IUN {string}")
-    public void nellaPaginaPiattformaNotificheSiEffettuaLaRicercaPerCodiceIUN(String codiceIUN) throws InterruptedException {
-        logger.info("Si cerca una notifica tramite IUN: " + codiceIUN);
+    public void nellaPaginaPiattformaNotificheSiEffettuaLaRicercaPerCodiceIUN(String codiceIUN) {
+        logger.info("Si cerca una notifica tramite IUN: {}", codiceIUN);
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
-        piattaformaNotifichePage.selectFiltraButton();
+        piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
     }
 
 
@@ -535,5 +535,5 @@ public class RicercaNotificheMittentePagoPATest {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.clickVediTutti();
     }
-     }
+}
 

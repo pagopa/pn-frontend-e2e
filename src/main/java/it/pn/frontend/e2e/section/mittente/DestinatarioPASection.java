@@ -266,7 +266,7 @@ public class DestinatarioPASection extends BasePage {
     public boolean inserireIlSestoDestinatario() {
         this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
         By aggiungereDestinatarioButtonBy = By.xpath("//button[contains(@data-testid,'add-recipient')]");
-        return this.elements(aggiungereDestinatarioButtonBy).size() == 0;
+        return this.elements(aggiungereDestinatarioButtonBy).isEmpty();
     }
 
     public void waitMessaggioErrore() {

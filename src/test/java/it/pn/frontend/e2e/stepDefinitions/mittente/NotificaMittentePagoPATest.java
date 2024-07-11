@@ -407,7 +407,7 @@ public class NotificaMittentePagoPATest {
                 piattaformaNotifichePage.insertCodiceFiscale(this.personaFisica.get("codiceFiscale").toString());
                 piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
                 piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
-                piattaformaNotifichePage.selectFiltraButton();
+                piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
             }
             piattaformaNotifichePage.waitLoadRefreshPage();
             String codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
@@ -460,7 +460,6 @@ public class NotificaMittentePagoPATest {
         dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
         dettaglioNotificaMittenteSection.siVisualizzaPercorsoNotifica();
     }
-
 
     @Then("Si clicca sul bottone indietro")
     public void siCliccaSulBottoneIndietro() {
@@ -668,7 +667,7 @@ public class NotificaMittentePagoPATest {
                 piattaformaNotifichePage.aggiornamentoPagina();
                 piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
                 piattaformaNotifichePage.inserimentoCodiceIUN(datiNotifica.get("codiceIUN").toString());
-                piattaformaNotifichePage.selectFiltraButton();
+                piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
             } else {
                 notificaTrovata = true;
                 break;
@@ -711,7 +710,7 @@ public class NotificaMittentePagoPATest {
                 piattaformaNotifichePage.insertCodiceFiscale(this.personeFisiche.get("codiceFiscale").toString());
                 piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
                 piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
-                piattaformaNotifichePage.selectFiltraButton();
+                piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
             }
             piattaformaNotifichePage.waitLoadRefreshPage();
             String codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
@@ -928,7 +927,7 @@ public class NotificaMittentePagoPATest {
                 piattaformaNotifichePage.insertCodiceFiscale(codiceFiscale);
                 piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
                 piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
-                piattaformaNotifichePage.selectFiltraButton();
+                piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
             }
             piattaformaNotifichePage.waitLoadRefreshPage();
             codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
@@ -1197,21 +1196,6 @@ public class NotificaMittentePagoPATest {
         WebTool.waitTime(5);
     }
 
-    @And("Si annulla la notifica")
-    public void siAnnullaLaNotifica() {
-        logger.info("Si clicca sul pusante annulla notifica");
-        piattaformaNotifichePage.clickBottoneAnnullaNotifica();
-        WebTool.waitTime(3);
-        piattaformaNotifichePage.clickAnnullaNotificaModale();
-        WebTool.waitTime(3);
-    }
-
-    @Then("Si controlla la comparsa del pop up di conferma annullamento")
-    public void siControllaLaComparsaDelPopUpDiConfermaAnnullamento() {
-        logger.info("Si controlla la presenza del pop up di conferma dell'annullamento della notifica");
-        piattaformaNotifichePage.checkPopUpConfermaAnnullamentoNotifica();
-    }
-
     @And("Nella timeline della notifica si visualizza l'invio del messaggio di cortesia")
     public void nellaTimelineDellaNotificaSiVisualizzaLInvioDelMessaggioDiCortesia() {
         logger.info("Si verifica la presenza della voce 'Invio della notifica di cortesia in corso' nella timeline della notifica");
@@ -1224,9 +1208,49 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.verificaPresenzaStato(stato);
     }
 
+    @And("Si annulla la notifica")
+    public void siAnnullaLaNotifica() {
+        logger.info("Si clicca sul pusante annulla notifica");
+        piattaformaNotifichePage.clickBottoneAnnullaNotifica();
+        WebTool.waitTime(3);
+        piattaformaNotifichePage.clickAnnullaNotificaModale();
+        WebTool.waitTime(3);
+    }
+
+    @And("Il bottone annulla notifica non è visualizzabile nella descrizione della notifica")
+    public void ilBottoneAnnullaNotificaNonÈVisualizzabileNellaDescrizioneDellaNotifica() {
+        logger.info("Si controlla che il bottone annulla notifica non sia visualizzabile");
+        piattaformaNotifichePage.checkBottoneAnnullaNotifica();
+    }
+
+    @And("Nella pagina Piattaforma Notifiche la notifica presenta lo stato {string}")
+    public void nellaPaginaPiattaformaNotificheLaNotificaPresentaLoStato(String stato) {
+        logger.info("Si controlla che nella pagina piattaforma notifiche la notifica abbia lo stato " + stato);
+        piattaformaNotifichePage.checkStatoNotifica(stato);
+    }
+
+    @And("Si attende che lo stato della notifica sia {string}")
+    public void siAttendeCheLoStatoDellaNotificaSia(String statoNotifica) {
+        logger.info("Si clicca sulla notifica appena creata quando lo stato diventa: {}", statoNotifica);
+        piattaformaNotifichePage.selezionaNotificaConStato(statoNotifica);
+    }
+
+    @Then("Si controlla la comparsa del pop up di conferma annullamento")
+    public void siControllaLaComparsaDelPopUpDiConfermaAnnullamento() {
+        logger.info("Si controlla la presenza del pop up di conferma dell'annullamento della notifica");
+        piattaformaNotifichePage.checkPopUpConfermaAnnullamentoNotifica();
+    }
+
+    @And("Si clicca il bottone indietro nella descrizione della notifica")
+    public void siCliccaIlBottoneIndietroNellaDescrizioneDellaNotifica() {
+        logger.info("Si clicca sul bottone indietro della pagina della descrizione della notifica");
+        dettaglioNotificaMittenteSection.clickIndietroButton();
+        WebTool.waitTime(10);
+    }
+
     @And("Si verifica che l'invio della notifica sia fallito {int} volte")
     public void siVerificaCheLInvioDellaNotificaSiaFallitoDueVolte(int numeroFallimenti) {
-        logger.info("Si verifica che l'invio della notifica sia fallito " + numeroFallimenti + " volta/e");
+        logger.info("Si verifica che l'invio della notifica sia fallito {} volta/e", numeroFallimenti);
         dettaglioNotificaMittenteSection.checkNumeroFallimentiInvioViaPEC(numeroFallimenti);
     }
 
@@ -1242,7 +1266,14 @@ public class NotificaMittentePagoPATest {
     public void siSelezionaLaNotifica() {
         BackgroundTest backgroundTest = new BackgroundTest();
         String iun = notificationSingleton.getIun(Hooks.scenario);
-        backgroundTest.siFiltraLaTabellaDelleNotifichePerIUN(iun);
+        backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNDestinatario(iun);
+    }
+
+    @And("Si seleziona la notifica mittente")
+    public void siSelezionaLaNotificaMittente() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+        String iun = notificationSingleton.getIun(Hooks.scenario);
+        backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNMittente(iun);
     }
 
     @And("Si verifica l'invio della raccomandata semplice")
@@ -1522,7 +1553,7 @@ public class NotificaMittentePagoPATest {
                 piattaformaNotifichePage.aggiornamentoPagina();
                 piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
                 piattaformaNotifichePage.inserimentoCodiceIUN(datiNotifica.get("codiceIUN").toString());
-                piattaformaNotifichePage.selectFiltraButton();
+                piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
             } else {
                 notificaTrovata = true;
                 break;
@@ -1539,7 +1570,7 @@ public class NotificaMittentePagoPATest {
         logger.info("inserimento codice fiscale sbagliato nella ricerca di una notifica");
 
         piattaformaNotifichePage.insertCodiceFiscale(codiceFiscaleSbagliato);
-        piattaformaNotifichePage.selectFiltraButton();
+        piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
     }
 
     @Then("Nella pagina Piattaforma Notifiche si controlla che si visualizza il messaggio di errore codice fiscale")
@@ -1561,7 +1592,7 @@ public class NotificaMittentePagoPATest {
         logger.info("Inserimento codice IUN sbagliato");
 
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUNSbagliato);
-        piattaformaNotifichePage.selectFiltraButton();
+        piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
     }
 
     @Then("Nella pagina Piattaforma Notifiche si visualizza il messaggio di errore codice IUN")
