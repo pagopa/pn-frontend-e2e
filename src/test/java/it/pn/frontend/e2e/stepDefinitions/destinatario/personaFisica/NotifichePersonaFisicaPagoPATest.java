@@ -40,7 +40,6 @@ public class NotifichePersonaFisicaPagoPATest {
     private final NotifichePFPage notifichePFPage = new NotifichePFPage(driver);
 
     private final DettaglioNotificaSection dettaglioNotifica = new DettaglioNotificaSection(driver);
-
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche")
     public void nellaPiattaformaDestinatarioCliccareSulBottoneNotifiche() {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
@@ -125,6 +124,7 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @And("Si visualizzano le notifiche dalla piu recente")
     public void siVisualizzanoLeNotificheDallaPiuRecente() {
+        driver.navigate().refresh();
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         List<WebElement> dateNotifiche = notifichePFPage.getDateNotifiche();
 
@@ -326,14 +326,14 @@ public class NotifichePersonaFisicaPagoPATest {
         logger.info("Si recupera un codice IUN valido");
 
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresentiPF();
-        this.personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        String codiceIun = this.personaFisica.get("codiceIUN").toString();
+       personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        String codiceIun = personaFisica.get("codiceIUN").toString();
         if (codiciIun.contains(codiceIun)) {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
         } else {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiciIun.get(0));
-            this.personaFisica.put("codiceIUN", codiciIun.get(0));
-            dataPopulation.writeDataPopulation("datiNotifica.yaml", this.personaFisica);
+            personaFisica.put("codiceIUN", codiciIun.get(0));
+            dataPopulation.writeDataPopulation("datiNotifica.yaml",personaFisica);
         }
     }
 
@@ -372,6 +372,30 @@ public class NotifichePersonaFisicaPagoPATest {
         WebTool.closeTab();
     }
 
+    @And("Si verifica che gli allegati denominati {string} non sono scaricabili")
+    public void siVerificaCheGliAllegatiDenominatiNonSonoScaricabili(String descrizioneAllegato) {
+        logger.info("Si controlla che non sia possibile scaricare gli allegati");
+        piattaformaNotifichePage.checkAllegatoScaricabile(descrizioneAllegato);
+    }
+
+    @And("Si verifica che gli AAR non sono scaricabili")
+    public void siVerificaCheGliAARNonSonoScaricabili() {
+        logger.info("Si controlla che non sia possibile scaricare gli AAR");
+        piattaformaNotifichePage.checkAARScaricabili();
+    }
+
+    @And("Si verifica che le attestazioni opponibili a terzi non siano scaricabili")
+    public void siVerificaCheLeAttestazioniOpponibiliATerziNonSianoScaricabili() {
+        logger.info("Si controlla che non sia possibile scaricare le attestazioni opponibili a terzi");
+        piattaformaNotifichePage.checkAttestazioniOpponibiliATerziScaricabili();
+    }
+
+    @And("Si verifica che non sia possibile scaricare le ricevute PEC")
+    public void siVerificaCheNonSiaPossibileScaricareLeRicevutePEC() {
+        logger.info("Si controlla che non sia possibile scaricare le ricevute PEC");
+        piattaformaNotifichePage.checkRicevutePECScaricabili();
+    }
+
     @And("Si controlla che il testo sia nel box pagamento {string}")
     public void siControllaTestoSiaNelBoxPagamento(String xpath) {
         boolean isPresent = dettaglioNotifica.isFieldDisplayed(By.xpath(xpath));
@@ -397,18 +421,10 @@ public class NotifichePersonaFisicaPagoPATest {
         piattaformaNotifichePage.siVisualizzaCorrettamenteLaDataFineField();
     }
 
-    @Then("Si visualizza correttamente la section Dettaglio Notifica annullata persona fisica")
-    public void siVisualizzaCorrettamenteLaSectionDettaglioNotificaAnnullataPersonaFisica() {
+    @Then("Si visualizza correttamente la section Dettaglio Notifica annullata")
+    public void siVisualizzaCorrettamenteLaSectionDettaglioNotificaAnnullata() {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         dettaglioNotificaSection.waitLoadDettaglioNotificaAnnullataDESection();
-    }
-
-    @And("Si controlla lo stato timeline in dettaglio notifica")
-    public void siControllaLoStatoTimelineInDettaglioNotificaPF(Map<String, String> datiDettaglioNotifica) {
-        String xpath = datiDettaglioNotifica.get("xpath");
-        dettaglioNotifica.waitLoadDettaglioNotificaDESection();
-        WebTool.waitTime(2);
-        dettaglioNotifica.checkStatoTimeline(By.xpath(xpath));
     }
 
     @And("Si seleziona un avviso pagopa")
@@ -451,6 +467,35 @@ public class NotifichePersonaFisicaPagoPATest {
         logger.info("Si controlla che il bottone per il pagamento non sia visibile all'interno del dettaglio della notifica");
         accediAPiattaformaNotifichePage.checkButtonPagaIsDisplayed();
     }
+
+    @And("Si controlla se la sezione pagamento visualizzata correttamente")
+    public void siControllaSeLaSezionePagamentoVisualizzataCorrettamente() { accediAPiattaformaNotifichePage.siVisualizzaSezionePagamento(); }
+
+    @And("Si controlla che costi di notifica inclusi non presente")
+    public void siControllaCostiDiNotifica() {
+        if (!accediAPiattaformaNotifichePage.siControllaCostiDiNotifica()) {
+            logger.info("Costi di notifica non inclusi");
+        }else {
+            logger.error("Costi di notifica inclusi");
+            Assert.fail("Costi di notifica inclusi");
+        }
+    }
+
+    @And("Cliccare sul bottone Paga")
+    public void cliccaBottonePaga(){
+        accediAPiattaformaNotifichePage.cliccaPaga();
+    }
+
+    @Then("Si inserisce i dati di pagamento e procede con il pagamento {string}")
+        public void siInserisceIDatiDiPagamento(String email) throws InterruptedException {
+            logger.info("Si inserisce i dati di pagamento");
+            accediAPiattaformaNotifichePage.inserireDatiPagamento(email);
+            accediAPiattaformaNotifichePage.checkoutPagamento();
+        }
+        @And("Si verifica che visualizzato lo stato Pagato")
+        public void siVisualizzaStatoPagato(){
+            accediAPiattaformaNotifichePage.siVisualizzaStatoPagato();
+        }
 }
 
 

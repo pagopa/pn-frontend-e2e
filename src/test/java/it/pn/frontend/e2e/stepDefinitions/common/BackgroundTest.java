@@ -34,7 +34,7 @@ public class BackgroundTest {
     private final HelpdeskTest helpdeskTest = new HelpdeskTest();
     private final NotifichePGPagoPATest notifichePGPagoPATest = new NotifichePGPagoPATest();
     private final RecapitiTest recapitiTest = new RecapitiTest();
-    private Map<String, String> datiPersonaFisica;
+    private final Map<String, String> datiPersonaFisica;
     private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(driver);
     private final ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
 
@@ -50,6 +50,7 @@ public class BackgroundTest {
 
     public void invioNotificaErrorePec() {
         NotificaMittentePagoPATest notificaMittentePagoPATest = new NotificaMittentePagoPATest();
+
         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheSiRecuperaLUltimoNumeroProtocollo();
         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica();
         notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionInformazioniPreliminari();
@@ -232,7 +233,7 @@ public class BackgroundTest {
         deleghePagoPATest.siControllaCheNonCiSiaPiuUnaDelega();
     }
 
-    public void creazioneDisservizio(){
+    public void creazioneDisservizio() {
         helpdeskTest.loginHelpdeskConUtenteTest("testHelpdesk");
         helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
         helpdeskTest.clickSuCardMonitoraggioPiattaforma();
@@ -241,7 +242,7 @@ public class BackgroundTest {
         helpdeskTest.siVerificaLaCreazioneDelDisservizio();
     }
 
-    public void risoluzioneDisservizio(){
+    public void risoluzioneDisservizio() {
         helpdeskTest.loginHelpdeskConUtenteTest("testHelpdesk");
         helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
         helpdeskTest.clickSuCardMonitoraggioPiattaforma();
@@ -329,7 +330,14 @@ public class BackgroundTest {
     public void siFiltraLaTabellaDelleNotifichePerIUN(String iun) {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
-        piattaformaNotifichePage.selectFiltraNotificaButton();
+        piattaformaNotifichePage.selectFiltraButton();
+        piattaformaNotifichePage.clickSuNotifica();
+    }
+
+    public void siFiltraLaTabellaDelleNotificheDelDestinatarioPerIUN(String iun) {
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.inserimentoCodiceIUN(iun);
+        piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
         piattaformaNotifichePage.clickSuNotifica();
     }
 }

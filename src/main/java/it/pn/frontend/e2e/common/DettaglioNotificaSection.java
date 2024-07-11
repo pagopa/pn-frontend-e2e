@@ -35,36 +35,25 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void waitLoadDettaglioNotificaDESection() {
-        try {
             // This check is due to the fact that the page is different if the user is logged in as a selfcare user
-            boolean isSelfcare = driver.getCurrentUrl().contains("selfcare");
             By titleDettaglioNotificaField = By.id("title-of-page");
             By statoNotificaBy = By.id("notification-state");
             By informazioniBy = By.id("notification-detail-table");
             By allegatiSection = By.id("notification-detail-document-attached");
-            By sezioneRecapiti = By.id("side-item-I tuoi recapiti");
             By aarDownload = By.xpath("//div[@data-testid='aarDownload']");
             By aarBox = By.xpath("//div[@data-testid='aarBox']");
-
             By attestazione = By.xpath("//button[@data-testid='download-legalfact']");
-
             getWebDriverWait(10).withMessage("il titolo Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
             getWebDriverWait(10).withMessage("il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
             getWebDriverWait(10).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
             getWebDriverWait(10).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
-            getWebDriverWait(10).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
-            if (isSelfcare) {
-                getWebDriverWait(10).withMessage("Il sezione recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(sezioneRecapiti));
-            }
+          getWebDriverWait(10).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
             getWebDriverWait(10).withMessage("La sezione recapiti non è visibile").until(ExpectedConditions.or(
                     ExpectedConditions.visibilityOfElementLocated(aarDownload),
                     ExpectedConditions.visibilityOfElementLocated(aarBox)));
             getWebDriverWait(10).withMessage("Il pulsante sezione attestazione opponibile non è visibile").until(ExpectedConditions.elementToBeClickable(attestazione));
             logger.info("Dettaglio Notifica Section caricata");
-        } catch (TimeoutException e) {
-            logger.error("Dettaglio Notifica Section non caricata con errore: " + e.getMessage());
-            Assert.fail("Dettaglio Notifica Section non caricata con errore: " + e.getMessage());
-        }
+
     }
 
     public void clickLinkAttestazioniOpponibile(int numeroLinkAttestazioniOpponibile) {
@@ -123,45 +112,34 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void waitLoadDettaglioNotificaAnnullataDESection() {
-        try {
-            boolean isSelfcare = driver.getCurrentUrl().contains("selfcare");
+
             By titleDettaglioNotificaField = By.id("title-of-page");
             By statoNotificaBy = By.id("notification-state");
             By indietroButtonBy = By.id("breadcrumb-indietro-button");
             By informazioniBy = By.id("notification-detail-table");
             By allegatiSection = By.id("notification-detail-document-attached");
-            By sezioneRecapiti = By.id("side-item-I tuoi recapiti");
             By aarDownload = By.xpath("//div[@data-testid='aarDownload']");
             By aarBox = By.xpath("//div[@data-testid='aarBox']");
             By attestazione = By.xpath("//button[@data-testid='download-legalfact']");
-            By copyNotificaAnnullata = By.xpath("//div[@data-testid='cancelledAlertText']");
-            By chipAnnullataInTimeline = By.id("Annullata-status");
+            By copyNotificaAnnullataDestinatario = By.xpath("//div[@data-testid='cancelledAlertText']");
+        By copyNotificaAnnullataMittente = By.xpath("//div[@data-testid='alert']");
+        By chipAnnullataInTimeline = By.id("Annullata-status");
 
             getWebDriverWait(10).withMessage("il titolo Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
             getWebDriverWait(10).withMessage("il bottone indietro non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButtonBy));
             getWebDriverWait(10).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
             getWebDriverWait(10).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
-            getWebDriverWait(10).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
-            if (isSelfcare) {
-                getWebDriverWait(10).withMessage("Il sezione recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(sezioneRecapiti));
-            }
+            getWebDriverWait(10).withMessage("Lo stato della notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
+
             getWebDriverWait(10).withMessage("La sezione recapiti non è visibile").until(ExpectedConditions.or(
                     ExpectedConditions.visibilityOfElementLocated(aarDownload),
                     ExpectedConditions.visibilityOfElementLocated(aarBox)));
             getWebDriverWait(10).withMessage("Il pulsante sezione attestazione opponibile non è visibile").until(ExpectedConditions.visibilityOfElementLocated(attestazione));
-            getWebDriverWait(10).withMessage("Il copy di notifica annullata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(copyNotificaAnnullata));
+            getWebDriverWait(10).withMessage("Il copy di notifica annullata non è visibile").until(ExpectedConditions.or(ExpectedConditions.visibilityOfElementLocated(copyNotificaAnnullataDestinatario),ExpectedConditions.visibilityOfElementLocated(copyNotificaAnnullataMittente)));
             getWebDriverWait(10).withMessage("La chip di notifica annullata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(chipAnnullataInTimeline));
             logger.info("Dettaglio Notifica Annullata Section caricata");
-        } catch (TimeoutException e) {
-            logger.error("Dettaglio Notifica Annullata Section non caricata con errore: " + e.getMessage());
-            Assert.fail("Dettaglio Notifica Annullata Section non caricata con errore: " + e.getMessage());
-        }
     }
 
-    public void checkStatoTimeline(By statoTimeline) {
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(statoTimeline));
-        logger.info("lo stato " + statoTimeline + " esiste");
-    }
 
     public void selezioneAvvisoPagoPa() {
         try {

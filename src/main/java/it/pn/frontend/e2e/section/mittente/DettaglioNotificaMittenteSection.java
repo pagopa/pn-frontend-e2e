@@ -23,7 +23,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
 
     @FindBy(id = "more-less-timeline-step")
-    WebElement vediDettagliButton;
+    List<WebElement> vediDettagliButton;
 
     @FindBy(xpath = "//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11dv4ll')]")
     List<WebElement> infoNotifiche;
@@ -40,6 +40,9 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     @FindBy(id = "recipients-select")
     WebElement selectMultiDestinatario;
 
+    @FindBy(xpath = "//span[contains(text(),'Codice Avviso')]")
+    WebElement codiceAvvisoMittente;
+
     private int numeriStatiNotifica;
 
     public DettaglioNotificaMittenteSection(WebDriver driver) {
@@ -47,15 +50,9 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void waitLoadDettaglioNotificaSection() {
-        try {
             By titleDettaglioNotificaField = By.id("title-of-page");
             this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
             logger.info("Dettaglio Notifica Section caricata");
-        } catch (TimeoutException e) {
-            logger.error("Dettaglio Notifica Section non caricata con errore: " + e.getMessage());
-            Assert.fail("Dettaglio Notifica Section non caricata con errore: " + e.getMessage());
-        }
-
     }
 
     public Map<String, String> recuperoInfoNotifiche() {
@@ -139,15 +136,19 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void clickVediPiuDettaglio() {
-        By percorsoNotificaBy = By.xpath("//div[contains(@data-testid,'itemStatus')]");
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(percorsoNotificaBy));
-        this.numeriStatiNotifica = this.elements(percorsoNotificaBy).size();
-        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.vediDettagliButton));
+
+        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(vediDettagliButton.get(0)));
         logger.info("click su vedi dettagli");
-        this.vediDettagliButton.click();
+        vediDettagliButton.get(0).click();
+        try{
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(vediDettagliButton.get(1)));
+            vediDettagliButton.get(1).click();
+        } catch (Exception e) {
+            logger.info("ulteriore vedi dettaglio non presente");
+        }
     }
 
-    public void siVisualizzaPercosoNotifica() {
+    public void siVisualizzaPercorsoNotifica() {
         try {
             By newPercorsoNotificaBy = By.xpath("//div[contains(@data-testid,'itemStatus')]");
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(newPercorsoNotificaBy));
@@ -296,6 +297,58 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         }
     }
 
+    public void checkStatoTimeline(String statoTimeline){
+        try {
+            By stato = By.xpath(statoTimeline);
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(stato));
+            logger.info("stato timeline checkato con successo avvenuta");
+        } catch (TimeoutException e) {
+            logger.error("checkato stato timeline non avvenuta con errore: " + e.getMessage());
+            Assert.fail("checkato stato timeline non avvenuta con errore: " + e.getMessage());
+        }
+    }
+
+    public void siCliccaSuAllegatoInTimeline(String xpath) {
+        try {
+            By allegatoTimeline = By.xpath(xpath);
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(allegatoTimeline));
+            element(allegatoTimeline).click();
+            checkURL("pn-safestorage");
+            driver.navigate().back();
+            logger.info("allegato timeline trovato con successo");
+        } catch (TimeoutException e) {
+            logger.error("allegato timeline trovato non con successo: " + e.getMessage());
+            Assert.fail("allegato timeline trovato non con successo: " + e.getMessage());
+        }
+
+    }
+
+    public void checkInvioADomicilioDiPiattaforma(String domicilioDiPiattaforma) {
+        try {
+            By invioDomicilioDiPiattaformaBy = By.xpath("//div[contains(span/text(), 'Invio via PEC riuscito') and (//div[contains(p/text(), '" + domicilioDiPiattaforma + "')])]");
+            getWebDriverWait(10).withMessage("Non si visualizza l'invio della notifica al domicilio di piattaforma nella timeline").until(ExpectedConditions.visibilityOfElementLocated(invioDomicilioDiPiattaformaBy));
+        } catch (TimeoutException e) {
+            logger.error("L'invio della notifica al domicilio di piattaforma indicato non viene effettuato con errore: " + e.getMessage());
+            Assert.fail("L'invio della notifica al domicilio di piattaforma indicato non viene effettuato con errore: " + e.getMessage());
+        }
+
+    }
+
+    public void checkDoppioFallimentoInvioViaPEC(int numeroFallimenti) {
+        try {
+            By invioPECFallitoBy = By.xpath("//span[text()='Invio via PEC fallito']");
+            List<WebElement> invioPECFallitoList = driver.findElements(invioPECFallitoBy);
+            logger.info("L'invio della notifica è fallito questo numero di volte: " + invioPECFallitoList.size());
+            if (invioPECFallitoList.size() != numeroFallimenti) {
+                logger.error("L'invio della notifica non è fallito " + numeroFallimenti + " volta/e");
+                Assert.fail("L'invio della notifica non è fallito " + numeroFallimenti + " volta/e");
+            }
+        } catch (TimeoutException e) {
+            logger.error("NON è fallito l'invio della notifica: " + e.getMessage());
+            Assert.fail("NON è fallito l'invio della notifica: " + e.getMessage());
+        }
+    }
+
     public void checkInvioRaccomandataSemplice() {
         try {
             By invioRaccomandataSemplice = By.xpath("//span[text()='Invio via raccomandata semplice']");
@@ -318,17 +371,12 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void checkStepInvioNotificaViaPEC(String emailPEC) {
-        try {
             By invioViaPECBy = By.xpath("//div[contains(span/text(), 'Invio via PEC') and (//div[contains(p/text(), '" + emailPEC + "')])]");
             By invioPresoInCaricoBy = By.xpath("//div[contains(span/text(), 'Invio via PEC preso in carico') and (//div[contains(p/text(), '" + emailPEC + "')])]");
             By invioRiuscitoBy = By.xpath("//div[contains(span/text(), 'Invio via PEC riuscito') and (//div[contains(p/text(), '" + emailPEC + "')])]");
             getWebDriverWait(10).withMessage("Non si visualizza il tentativo di invio della notifica al domicilio generale").until(ExpectedConditions.visibilityOfElementLocated(invioViaPECBy));
             getWebDriverWait(10).withMessage("Non si visualizza la presa in carico dell'invio della notifica al domicilio generale").until(ExpectedConditions.visibilityOfElementLocated(invioPresoInCaricoBy));
             getWebDriverWait(10).withMessage("Non si visualizza la riuscita dell'invio della notifica al domicilio generale").until(ExpectedConditions.visibilityOfElementLocated(invioRiuscitoBy));
-        } catch (TimeoutException e) {
-            logger.error("Non si visualizza correttamente uno step nella timeline della notifica, precisamente: " + e.getMessage());
-            Assert.fail("Non si visualizza correttamente uno step nella timeline della notifica, precisamente: " + e.getMessage());
-        }
     }
 
     public void checkAvvisoPagoPa() {
@@ -343,6 +391,27 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         }
     }
 
+    public boolean checkAvvisoPagoPaVisibile() {
+        try {
+            By avvisoButton = By.xpath("//button[contains(text(),'Avviso pagoPA')]");
+            js().executeScript("arguments[0].scrollIntoView(true)", containerPaymentBox);
+            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(containerPaymentBox));
+            getWebDriverWait(10).withMessage("Non si visualizza l'avviso PagoPA per il pagamento della notifica").until(ExpectedConditions.visibilityOfElementLocated(avvisoButton));
+            return true;
+        } catch (TimeoutException e) {
+            logger.error("Non si visualizza l'avviso PagoPA per il pagamento della notifica");
+            return false;
+        }
+    }
+
+    public boolean checkCodiceAvvisoVisibile() {
+        try {
+            getWebDriverWait(5).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvvisoMittente)).isDisplayed();
+            return true;
+        }catch (RuntimeException e){
+            return false;
+        }
+    }
     public void clickAvvisoPagoPa() {
         try {
             By avvisoPagoPa = By.xpath("//button[contains(text(),'Avviso pagoPA')]");

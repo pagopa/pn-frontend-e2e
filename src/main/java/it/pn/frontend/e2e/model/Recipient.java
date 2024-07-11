@@ -17,11 +17,11 @@ public class Recipient {
     private List<NotificationPaymentItem> payments;
 
     public Recipient() {
-        this.recipientType = RecipientTypeEnum.PF;
-        this.taxId = "CSRGGL44L13H501E";
-        this.denomination = "Gaio Giulio Cesare";
-        this.physicalAddress = new PhysicalAddress();
-        this.digitalDomicile = new DigitalDomicile();
+        this.recipientType = null;
+        this.taxId = null;
+        this.denomination = null;
+        this.physicalAddress = null;
+        this.digitalDomicile = null;
         this.payments = null;
     }
 
@@ -39,7 +39,16 @@ public class Recipient {
         this.taxId = taxId;
         this.denomination = denomination;
         this.physicalAddress = new PhysicalAddress();
-        this.digitalDomicile = new DigitalDomicile();
+        this.digitalDomicile = null;
+        this.payments = null;
+    }
+
+    public Recipient(String denomination, RecipientTypeEnum recipientType, String taxId, PhysicalAddress physicalAddress) {
+        this.recipientType = recipientType;
+        this.taxId = taxId;
+        this.denomination = denomination;
+        this.physicalAddress = physicalAddress;
+        this.digitalDomicile = null;
         this.payments = null;
     }
 

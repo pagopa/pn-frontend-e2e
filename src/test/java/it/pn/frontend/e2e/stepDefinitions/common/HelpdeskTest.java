@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.common.HelpdeskPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.model.enums.Disservice;
 import it.pn.frontend.e2e.model.enums.Status;
+import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
@@ -16,6 +17,9 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -154,6 +158,113 @@ public class HelpdeskTest {
         helpdeskPage.insertCfAndRicercaOnPage(datiPersonaFisica.get("codiceFiscale").toString());
     }
 
+    @And("viene inserito codice fiscale senza ricerca {string}")
+    public void vieneInseritoCodiceFiscaleSenzaRicerca(String CF) {
+        helpdeskPage.insertCF(CF);
+    }
+
+    @And("viene inserito codice IUN {string}")
+    public void vieneInseritoIun(String iun) {
+        helpdeskPage.insertIunAndRicercaOnPage(iun);
+    }
+
+    @And("viene inserito codice IUN senza ricerca {string}")
+    public void vieneInseritoIunSenzaRicerca(String iun) {
+        helpdeskPage.insertIun(iun);
+    }
+
+
+    @And("viene inserito numero ticket")
+    public void vieneInseritoNumeroTicket() {
+        helpdeskPage.insertNumeroTicket();
+    }
+
+    @And("viene inserito codice univoco {string}")
+    public void vieneInseritoUID(String uid){
+        helpdeskPage.insertUid(uid);
+    }
+
+    @And("Cliccare sul bottone ricerca")
+    public void cliccareSulBottoneRicerca(){
+        logger.info("Cliccare sul bottone ricerca");
+        helpdeskPage.clickRicercaBottone();
+    }
+
+    @And ("Spuntare la casella Deanonimizzazione dati")
+    public void spuntareDeanonimizzazioneDati(){
+    logger.info("Spuntare la casella Deanonimizzazione dati");
+    helpdeskPage.spuntareDeanonimizzazioneDati();
+
+    }
+
+    @And("viene inserito un range temporale maggiore di 3 mesi")
+    public void inserisceRangeTemporaleMaggioreDi3Mesi() {
+        logger.info("viene inserito un range temporale maggiore di 3 mesi");
+        helpdeskPage.inserimentoArcoTemporale();
+    }
+
+    @And("viene visualizzato messaggio di errore data")
+    public void vieneVisualizzatoMessaggioDiErroreData(){
+        helpdeskPage.checkMessaggioDiErroreData();
+    }
+
+    @And("viene visualizzato messaggio di errore IUN")
+    public void vieneVisualizzatoMessaggioDiErroreIUN(){
+        helpdeskPage.checkMessaggioDiErroreIUN();
+    }
+
+    @And("viene visualizzato messaggio di errore CF")
+    public void vieneVisualizzatoMessaggioDiErroreCF(){
+        helpdeskPage.checkMessaggioDiErroreCF();
+    }
+
+
+
+    @Then("controllo messaggio di successo")
+    public void controlloMessaggioSuccesso() {
+        helpdeskPage.checkMessaggioSuccesso();
+    }
+
+    @Then("controllo link per scaricare zip e scarico file")
+    public void controlloLinkPerScaricareZip() throws IOException, AWTException {
+        helpdeskPage.checkZipLink();
+    }
+
+    @And("Inserisco la password ed estraggo il file zip")
+    public void inseriscoPasswordEdEstraggoZip() throws IOException {
+        logger.info("Inserisco la password ed estraggo il file zip");
+        helpdeskPage.extractZip();
+    }
+
+    @And("Controllo sia presente documento {string}")
+    public void controlloPresenteDocumento(String docName) throws IOException {
+        logger.info("Controllo sia presente documento" + docName);
+        Assert.assertTrue ("Documento " + docName + " non è trovato",helpdeskPage.trovaDocumentoConTitolo(docName));
+            logger.info("Documento " + docName + " è trovato");
+    }
+
+    @And("Si elimina file estratto")
+    public void siEliminaFileEstratto() throws IOException {
+        logger.info("Si elimina file estratto");
+        helpdeskPage.EliminaFileZipEstratto();
+    }
+
+    @And("Si clicca sul bottone resetta filtri")
+    public void siCliccaResettaFiltri(){
+        helpdeskPage.clickResettaFiltri();
+    }
+
+    @And("Si verifica che i campi sono puliti")
+    public void siVerificaCheICampiSonoPuliti(){
+        helpdeskPage.checkCampiPuliti();
+
+    }
+
+    @Then("controllo password")
+    public void controlloPassword() {
+        helpdeskPage.checkPassword();
+    }
+
     @And("Nella Home di helpdesk utente clicca su logout")
     public void nellaHomeDiHelpdeskUtenteCliccaSuLogout() {
         helpdeskPage.logout();
@@ -203,4 +314,16 @@ public class HelpdeskTest {
         BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.risoluzioneDisservizio();
     }
+
+    @And("Selezione ottieni notifica")
+    public void selezioneOttieniNotifica(){
+        logger.info("Selezione ottieni notifica");
+        helpdeskPage.selectOttieniNotifica();
+    }
+     @And("Selezione ottieni log completi")
+    public void selezioneOttieniLogCompleti(){
+         logger.info("Selezione ottieni log completi");
+         helpdeskPage.selectOttieniLogCompleti();
+     }
+
 }

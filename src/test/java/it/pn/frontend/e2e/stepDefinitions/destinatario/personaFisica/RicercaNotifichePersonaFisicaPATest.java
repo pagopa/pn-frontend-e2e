@@ -5,10 +5,12 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
+import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -22,6 +24,7 @@ import java.util.Map;
 public class RicercaNotifichePersonaFisicaPATest {
     private static final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaFisicaTest");
     private final WebDriver driver = Hooks.driver;
+    private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
     private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
     private final DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
     private Map<String, Object> datiNotifica = new HashMap<>();
@@ -256,7 +259,14 @@ public class RicercaNotifichePersonaFisicaPATest {
         logger.info("Si cerca una notifica tramite IUN: " + codiceIUN);
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
-        piattaformaNotifichePage.selectFiltraNotificaButton();
+        piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
+    }
+
+    @And("Si seleziona la notifica destinatario")
+    public void siSelezionaLaNotificaDestinatario() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+        String iun = notificationSingleton.getIun(Hooks.scenario);
+        backgroundTest.siFiltraLaTabellaDelleNotificheDelDestinatarioPerIUN(iun);
     }
 }
 

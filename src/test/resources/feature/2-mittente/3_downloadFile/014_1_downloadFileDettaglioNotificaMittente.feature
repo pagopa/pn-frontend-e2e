@@ -14,7 +14,6 @@ Feature: Mittente scarica tutti i file all'interno di una notifica
       | avvisoPagoPa      | 1     |
       | F24               | 1     |
       | costiNotifica     | true  |
-    Then Attendo 5 minuti e verifico in background che la notifica sia stata creata correttamente
     When Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita
     And Si visualizza correttamente la sezione Dettaglio Notifica
     Then Nella sezione Dettaglio Notifica si scaricano tutti i file presenti
