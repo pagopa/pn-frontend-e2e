@@ -822,14 +822,9 @@ public class PiattaformaNotifichePage extends BasePage {
     public void checkStatoNotifica(String stato) {
         driver.navigate().refresh();
         WebTool.waitTime(10);
-        try {
             WebElement notificationLine = notificationsTableLines.get(0);
             WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + stato));
             getWebDriverWait(10).withMessage("La notifica non ha lo stato " + stato).until(ExpectedConditions.visibilityOf(chipStatus));
-        } catch (TimeoutException e) {
-            logger.error("Notifica non trovata con errore: " + e.getMessage());
-            Assert.fail("Notifica non trovata con errore: " + e.getMessage());
-        }
     }
 
     public void selezionaNotificaConStato(String statoNotifica) {
