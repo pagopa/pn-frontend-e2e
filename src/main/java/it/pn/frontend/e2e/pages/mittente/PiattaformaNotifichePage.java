@@ -862,6 +862,7 @@ public class PiattaformaNotifichePage extends BasePage {
                 By chipStatus = By.id(statoNotifica + "-status" );
                 if (chipStatus != null) {
                     logger.info("La notifica è passata allo stato " + statoNotifica + " e si procede con il test");
+                    driver.navigate().refresh();
                     testSuccess = true;
                     break;
                 }
