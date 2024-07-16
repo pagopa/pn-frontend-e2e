@@ -859,7 +859,7 @@ public class PiattaformaNotifichePage extends BasePage {
         boolean testSuccess = false;
         for (int i = 0; i < 12; i++) {
             try {
-                By chipStatus = By.id("status-chip-" + statoNotifica);
+                By chipStatus = By.id(statoNotifica + "-status" );
                 if (chipStatus != null) {
                     logger.info("La notifica è passata allo stato " + statoNotifica + " e si procede con il test");
                     testSuccess = true;
