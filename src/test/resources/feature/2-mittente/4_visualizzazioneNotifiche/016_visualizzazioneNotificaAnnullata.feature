@@ -65,7 +65,6 @@ Feature: Mittente visualizza correttamente la notifica in stato Annulato
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Si seleziona la notifica destinatario
     And Si visualizza correttamente la section Dettaglio Notifica annullata
-   # And Nella pagina Piattaforma Notifiche la notifica presenta lo stato "Annullata"
     Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona fisica si clicca sulle notifiche di "Gaio Giulio Cesare"
     And Si seleziona la notifica destinatario
