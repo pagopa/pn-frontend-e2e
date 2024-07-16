@@ -200,7 +200,7 @@ public class LeTueDelegheSection extends BasePage {
     public void waitPopUpLoad() {
         try {
             By titlePopUpBy = By.xpath("//h2[@id='dialog-title']");
-            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(titlePopUpBy));
+            getWebDriverWait(15).until(ExpectedConditions.visibilityOfElementLocated(titlePopUpBy));
             logger.info("Il pop-up per accettare la delega visualizzato correttamente");
         } catch (TimeoutException e) {
             logger.error("Il pop-up per accettare la delega NON visualizzato correttamente con errore: " + e.getMessage());
