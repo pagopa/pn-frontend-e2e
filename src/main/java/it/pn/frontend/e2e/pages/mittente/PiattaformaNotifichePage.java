@@ -4,7 +4,6 @@ import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
-import it.pn.frontend.e2e.model.NewNotificationResponse;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.utility.WebTool;
@@ -856,6 +855,28 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
+    public void pollingSuStatoNotificaPerCompletamento(String statoNotifica) {
+        boolean testSuccess = false;
+        for (int i = 0; i < 12; i++) {
+            try {
+                By chipStatus = By.id("status-chip-" + statoNotifica);
+                if (chipStatus != null) {
+                    logger.info("La notifica è passata allo stato " + statoNotifica + " e si procede con il test");
+                    testSuccess = true;
+                    break;
+                }
+            } catch (NoSuchElementException e) {
+                logger.info("Dopo " + i + " tentativi la notifica non è ancora passata allo stato: " + statoNotifica);
+            }
+            WebTool.waitTime(15);
+            driver.navigate().refresh();
+        }
+        if (!testSuccess) {
+            logger.error("La notifica non è passata allo stato " + statoNotifica);
+            Assert.fail("La notifica non è passata allo stato " + statoNotifica);
+        }
+    }
+
     public void clickAnnullaNotificaModale() {
             By bottoneAnnullaNotificaModale = By.xpath("//button[@data-testid='modalCloseAndProceedBtnId']");
             getWebDriverWait(20).until(ExpectedConditions.and(
@@ -1083,14 +1104,10 @@ public class PiattaformaNotifichePage extends BasePage {
         element(vediTutti).click();
     }
 
-    public void downloadRicevutePEC() {
-        List<WebElement> ricevutePEC = driver.findElements(By.xpath("//span[contains(@data-testid, 'download-legalfact-micro')]"));
-        getWebDriverWait(10).withMessage("Le ricevute PEC non sono visibili").until(ExpectedConditions.visibilityOfAllElements(ricevutePEC));
-        for (WebElement element : ricevutePEC){
-            element.click();
-            logger.info("Elemento cliccato correttamente");
-            WebTool.waitTime(3);
-        }
+    public void checkClickDownloadRicevutePEC() {
+        List<WebElement> ricevutePEC = driver.findElements(By.xpath("//button[contains(@data-testid, 'download-legalfact') and contains(text(), 'PEC')]"));
+        getWebDriverWait(10).withMessage("Le ricevute PEC non sono visibili").until(ExpectedConditions.and(ExpectedConditions.visibilityOfAllElements(ricevutePEC),ExpectedConditions.elementToBeClickable(ricevutePEC.get(0)),ExpectedConditions.elementToBeClickable(ricevutePEC.get(1))));
+
     }
 
     public void verificaMittente(String ente) {

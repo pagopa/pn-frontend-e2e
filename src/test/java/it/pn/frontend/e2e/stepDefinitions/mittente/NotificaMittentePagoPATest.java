@@ -9,7 +9,6 @@ import it.pn.frontend.e2e.api.mittente.AccettazioneRichiestaNotifica;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.enums.AppPortal;
-import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.mittente.AreaRiservataPAPage;
 import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
@@ -1631,7 +1630,7 @@ public class NotificaMittentePagoPATest {
     @And("Si controlla che le ricevute PEC siano scaricabili")
     public void siControllaCheLeRicevutePECSianoScaricabili() {
         logger.info("Si controlla che le ricevute PEC siano scaricabili in locale");
-        piattaformaNotifichePage.downloadRicevutePEC();
+        piattaformaNotifichePage.checkClickDownloadRicevutePEC();
     }
 
     @And("Creazione notifica completa")

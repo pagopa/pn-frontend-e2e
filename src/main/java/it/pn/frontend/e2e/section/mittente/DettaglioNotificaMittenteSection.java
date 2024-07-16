@@ -271,16 +271,6 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         return linkAllegati.get(0).getText();
     }
 
-    public void checkInvioADomicilioDiPiattaforma(String domicilioDiPiattaforma) {
-        try {
-            By invioDomicilioDiPiattaformaBy = By.xpath("//div[contains(span/text(), 'Invio via PEC riuscito') and (//div[contains(p/text(), '" + domicilioDiPiattaforma + "')])]");
-            getWebDriverWait(10).withMessage("Non si visualizza l'invio della notifica al domicilio di piattaforma nella timeline").until(ExpectedConditions.visibilityOfElementLocated(invioDomicilioDiPiattaformaBy));
-        } catch (TimeoutException e) {
-            logger.error("L'invio della notifica al domicilio di piattaforma indicato non viene effettuato con errore: " + e.getMessage());
-            Assert.fail("L'invio della notifica al domicilio di piattaforma indicato non viene effettuato con errore: " + e.getMessage());
-        }
-
-    }
 
     public void checkNumeroFallimentiInvioViaPEC(int numeroFallimenti) {
         try {
