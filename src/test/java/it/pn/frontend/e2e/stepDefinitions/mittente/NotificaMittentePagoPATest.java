@@ -1228,6 +1228,13 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.checkStatoNotifica(stato);
     }
 
+    @And("Si clicca il bottone indietro nella descrizione della notifica")
+    public void siCliccaIlBottoneIndietroNellaDescrizioneDellaNotifica() {
+        logger.info("Si clicca sul bottone indietro della pagina della descrizione della notifica");
+        dettaglioNotificaMittenteSection.clickIndietroButton();
+        WebTool.waitTime(10);
+    }
+
     @And("Si attende che lo stato della notifica sia {string}")
     public void siAttendeCheLoStatoDellaNotificaSia(String statoNotifica) {
         logger.info("Si clicca sulla notifica appena creata quando lo stato diventa: {}", statoNotifica);
