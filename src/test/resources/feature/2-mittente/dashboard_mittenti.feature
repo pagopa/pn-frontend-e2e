@@ -4,15 +4,15 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
   @DashboardMittenti
 
   @MittenteVisualizzaDashboardStatistiche
-  Scenario: PN-12036
+  Scenario: PN-12036 - Dashboard mittenti - Visualizzazione statistiche relative a una determinata PA
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche
     Then Si visualizza correttamente la pagina di Statistiche
     And Logout da portale mittente
 
 
-  @12037
-  Scenario: PN-12037
+  @MittenteVerificaEsportaGrafici
+  Scenario: PN-12037 - Dashboard mittenti - Verifica funzione esporta grafici
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche
     And Si visualizza correttamente la pagina di Statistiche
@@ -23,8 +23,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Logout da portale mittente
 
 
-  @12039
-  Scenario: PN-12039
+  @ApplicareFiltriDisponibiliVisulizzaGrafici
+  Scenario: PN-12039 - Dashboard mittenti - Applicare filtri disponibili e visualizzare i grafici relativi ai dati filtrati
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche
     And Si visualizza correttamente la pagina di Statistiche
@@ -39,8 +39,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Logout da portale mittente
 
 
-  @12040
-  Scenario: PN-12040
+  @VisualizzazioneStatisticheRelativePA
+  Scenario: PN-12040 - Dashboard mittenti - Visualizzazione delle statistiche relative alle Notifiche depositate dalla PA
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche
     And Si visualizza correttamente la pagina di Statistiche
@@ -54,8 +54,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Logout da portale mittente
 
 
-  @12041
-  Scenario: PN-12041
+  @VisualizzazioneGraficoDelleStatistiche
+  Scenario: PN-12041 - Dashboard mittenti - Visualizzazione grafico delle statistiche relative all'ultimo stato raggiunto dalle notifiche depositate
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche
     And Si visualizza correttamente la pagina di Statistiche
@@ -64,8 +64,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Logout da portale mittente
 
 
-  @12042
-  Scenario: PN-12042
+  @VisualizzazioneGraficoModalitaInvio
+  Scenario: PN-12042 - Dashboard mittenti - Visualizzazione grafico relativo alle Notifiche per modalità di invio
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche
     And Si visualizza correttamente la pagina di Statistiche
@@ -78,8 +78,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Logout da portale mittente
 
 
-  @12043
-  Scenario: PN-12043
+  @VisualizzareGraficiRelativiDatiFiltrati
+  Scenario: PN-12043 - Dashboard mittenti - Notifiche digitali - Applicare filtri disponibili e visualizzare i grafici relativi ai dati filtrati
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche
     And Si visualizza correttamente la pagina di Statistiche
@@ -94,8 +94,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Logout da portale mittente
 
 
-  @12044
-  Scenario: PN-12044
+  @VisualizzazioneGraficoPerEsitoInvio
+  Scenario: PN-12044 - Dashboard mittenti - Visualizzazione grafico relativo alle Notifiche digitali per esito di invio
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche
     And Si visualizza correttamente la pagina di Statistiche
@@ -103,8 +103,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     Then Nella pagina Statistiche si visualizza il grafico Invii digitali per esito
     And Logout da portale mittente
 
-  @12045
-  Scenario: PN-12045
+  @VisualizzazioneGraficoTempoMedioInviiDigitali
+  Scenario: PN-12045 - Dashboard mittenti - Visualizzazione grafico relativo al Tempo medio degli invii digitali
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche
     And Si visualizza correttamente la pagina di Statistiche
@@ -113,8 +113,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Logout da portale mittente
 
 
-  @12046
-  Scenario: PN-12046
+  @VisualizzazioneGraficoErroriTecnici
+  Scenario: PN-12046 - Dashboard mittenti - Visualizzazione grafico relativo agli Errori tecnici per tipologia
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche
     And Si visualizza correttamente la pagina di Statistiche
@@ -124,8 +124,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
 
 
-  @12047
-  Scenario: PN-12047
+  @ApplicazioneFiltroGraficiElevataDati
+  Scenario: PN-12047 - Dashboard mittenti - Applicazione filtro grafici con PA che restituisce una quantità elevata di dati
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche
     And Nella pagina Statistiche cliccare sul bottone ultimi 6 mesi
