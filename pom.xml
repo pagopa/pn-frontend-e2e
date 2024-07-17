@@ -36,12 +36,13 @@
 
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-devtools-v85 -->
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-devtools-v120 -->
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-devtools-v124 -->
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-devtools-v126 -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-devtools-v124</artifactId>
+            <artifactId>selenium-devtools-v126</artifactId>
             <version>4.22.0</version>
         </dependency>
+
 
         <dependency>
             <groupId>io.cucumber</groupId>
