@@ -35,9 +35,9 @@ public class HeaderPASection extends BasePage {
 
     public void selezionaEsciButton() {
         try {
-            getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(this.esciButton));
-            this.js().executeScript("arguments[0].scrollIntoView(true);", this.esciButton);
-            this.esciButton.click();
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(esciButton));
+            //this.js().executeScript("arguments[0].scrollIntoView(true);", this.esciButton);
+            esciButton.click();
         } catch (TimeoutException e) {
             logger.error("Il bottone esci non cliccabile con errore: " + e.getMessage());
             Assert.fail("Il bottone esci non cliccabile con errore: " + e.getMessage());
