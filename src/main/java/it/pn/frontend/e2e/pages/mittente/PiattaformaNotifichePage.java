@@ -798,31 +798,6 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
 
-    public void checkStatoNotifica(String stato) {
-            WebElement notificationLine = notificationsTableLines.get(0);
-            WebElement chipStatus = notificationLine.findElement(By.xpath("//div[@id='status-chip-" + stato + "']"));
-            getWebDriverWait(10).withMessage("La notifica non ha lo stato " + stato).until(ExpectedConditions.visibilityOf(chipStatus));
-
-    }
-
-    public void selezionaNotificaConStato(String statoNotifica) {
-        boolean testSuccess = false;
-        for (int i = 0; i < 15; i++) {
-            try {
-                WebElement chipStatus = driver.findElement(By.id(statoNotifica + "-status"));
-                if (chipStatus != null) {
-                    logger.info("La notifica è passata allo stato {} e si procede con il test", statoNotifica);
-                    testSuccess = true;
-                    break;
-                }
-            } catch (NoSuchElementException e) {
-                logger.info("Dopo {} tentativi la notifica non è ancora passata allo stato: {}", i, statoNotifica);
-            }
-            WebTool.waitTime(15);
-            driver.navigate().refresh();
-        }
-        Assert.assertTrue("La notifica non è passata allo stato " + statoNotifica, testSuccess);
-    }
 
     public void clickSuNotifica() {
         String iun = notificationSingleton.getIun(Hooks.scenario);
@@ -830,16 +805,6 @@ public class PiattaformaNotifichePage extends BasePage {
         By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
         getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOfElementLocated(notification));
         element(notification).click();
-    }
-
-    public void checkBottoneAnnullaNotifica() {
-        try {
-            By bottoneAnnullaNotifica = By.xpath("//button[@data-testid='cancelNotificationBtn']");
-            getWebDriverWait(10).until(ExpectedConditions.invisibilityOfElementLocated(bottoneAnnullaNotifica));
-        } catch (TimeoutException e) {
-            logger.error("Bottone annulla notifica visibile");
-            Assert.fail("Bottone annulla notifica visibile");
-        }
     }
 
     public void checkStatoNotifica(String stato) {
