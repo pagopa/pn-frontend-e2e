@@ -10,6 +10,7 @@ import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -149,33 +150,45 @@ public class DashboardPage extends BasePage {
    public void insertDataErrata(){
        getWebDriverWait(10).withMessage("Il filtro di data non visibile").until(ExpectedConditions.visibilityOf(dateDa.get(0)));
        logger.info("Si inserisce una data errata");
-       dateDa.get(0).clear();
+       dateDa.get(0).click();
+       Actions action = new Actions(driver);
+       action.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
+       WebTool.waitTime(1);
        dateDa.get(0).sendKeys("01/01/1111");
     }
 
     public void insertDataErrataNotificheDigitali(){
         getWebDriverWait(10).withMessage("Il filtro di data non visibile").until(ExpectedConditions.visibilityOf(dateDa.get(1)));
         logger.info("Si inserisce una data errata");
-        dateDa.get(1).clear();
+        dateDa.get(1).click();
+        Actions action = new Actions(driver);
+        action.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
+        WebTool.waitTime(1);
         dateDa.get(1).sendKeys("01/01/1111");
     }
     public void insertDataCorretta(){
         getWebDriverWait(10).withMessage("Il filtro di data non visibile").until(ExpectedConditions.visibilityOf(dateDa.get(0)));
         logger.info("Si inserisce una data corretta");
-        dateDa.get(0).clear();
+        dateDa.get(0).click();
+        Actions action = new Actions(driver);
+        action.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
         LocalDate dataDaInserire = LocalDate.now().minusDays(90);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedDate = dataDaInserire.format(formatter);
+        WebTool.waitTime(1);
         dateDa.get(0).sendKeys(formattedDate);
     }
 
     public void insertDataCorrettaNotificheDigitali(){
         getWebDriverWait(10).withMessage("Il filtro di data non visibile").until(ExpectedConditions.visibilityOf(dateDa.get(1)));
         logger.info("Si inserisce una data corretta");
-        dateDa.get(1).clear();
+        dateDa.get(1).click();
+        Actions action = new Actions(driver);
+        action.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
         LocalDate dataDaInserire = LocalDate.now().minusDays(90);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedDate = dataDaInserire.format(formatter);
+        WebTool.waitTime(1);
         dateDa.get(1).sendKeys(formattedDate);
     }
 
