@@ -89,7 +89,7 @@ public class Hooks {
 
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
         if (this.headless != null && this.headless.equalsIgnoreCase("true")) {
-            chromeOptions.addArguments("no-sandbox");
+            chromeOptions.addArguments("--no-sandbox");
             chromeOptions.addArguments("headless");
             chromeOptions.addArguments("window-size=1920,1080");
         }
