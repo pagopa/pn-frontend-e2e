@@ -15,7 +15,7 @@ public class HeaderPASection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("HeaderPASection");
 
-    @FindBy(css = "button[title='Esci']")
+    @FindBy(xpath = "//button[contains(text(),'Esci')]")
     WebElement esciButton;
 
     public HeaderPASection(WebDriver driver) {
