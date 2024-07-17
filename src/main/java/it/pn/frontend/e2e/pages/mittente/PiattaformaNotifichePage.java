@@ -32,7 +32,7 @@ public class PiattaformaNotifichePage extends BasePage {
     WebElement cfTextField;
 
     @FindBy(id = "filter-button")
-    WebElement filtraButton;
+    WebElement filtraNotificaButtonMittente;
 
     @FindBy(id = "filter-notifications-button")
     WebElement filtraNotificaButton;
@@ -134,10 +134,10 @@ public class PiattaformaNotifichePage extends BasePage {
 
     }
 
-    public void selectFiltraButton() {
-        getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(filtraButton));
-        filtraButton.click();
-        logger.info("Bottone filtra cliccato correttamente");
+    public void selectFiltraNotificaButtonMittente() {
+        getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(filtraNotificaButtonMittente));
+        filtraNotificaButtonMittente.click();
+        logger.info("Bottone filtra, nella pagina del mittente, cliccato correttamente");
     }
 
     public void selectFiltraNotificaButtonDestinatario() {
@@ -653,8 +653,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean verificaBottoneFiltraDisabilitato() {
         try {
-            getWebDriverWait(30).withMessage("buttone Filtra non è visibile").until(ExpectedConditions.visibilityOf(this.filtraButton));
-            return Boolean.parseBoolean(this.filtraButton.getAttribute("disabled"));
+            getWebDriverWait(30).withMessage("buttone Filtra non è visibile").until(ExpectedConditions.visibilityOf(this.filtraNotificaButtonMittente));
+            return Boolean.parseBoolean(this.filtraNotificaButtonMittente.getAttribute("disabled"));
         } catch (TimeoutException e) {
             return false;
         }
@@ -690,7 +690,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public boolean isFiltraButtonDisabled() {
-        return !inputsError.isEmpty() || filtraButton.getAttribute("disabled") != null;
+        return !inputsError.isEmpty() || filtraNotificaButtonMittente.getAttribute("disabled") != null;
     }
 
     public boolean controlloDateErrate() {
@@ -756,25 +756,20 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void verificaPresenzaStato(String stato) {
         By statusChip = By.xpath("//div[@data-testid='itemStatus']//span[contains(text(),'" + stato + "')]");
-        try {
-            this.getWebDriverWait(10).withMessage("Lo stato " + stato + " non è presente")
+
+          getWebDriverWait(10).withMessage("Lo stato " + stato + " non è presente")
                     .until(ExpectedConditions.visibilityOfElementLocated(statusChip));
-            logger.info("Stato " + stato + " presente");
-        } catch (TimeoutException e) {
-            logger.error("Stato " + stato + " non presente con errore: " + e.getMessage());
-            Assert.fail("Stato " + stato + " non presente con errore: " + e.getMessage());
-        }
+            logger.info("Stato {} presente", stato);
     }
 
     public void verificaNotificaCreata() {
         RestNotification restNotification = new RestNotification();
-
         String notificationRequestId = "";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
             if (netWorkInfo.getRequestUrl().contains("bff/v1/notifications/sent") && netWorkInfo.getRequestMethod().equals("POST")) {
                 if (netWorkInfo.getResponseStatus().equals("202") && !netWorkInfo.getResponseBody().isEmpty()) {
                     notificationRequestId = netWorkInfo.getResponseBody().split("\"notificationRequestId\":\"")[1].split("\"")[0];
-                    logger.info("NotificationRequestId: " + notificationRequestId);
+                    logger.info("NotificationRequestId: {}", notificationRequestId);
                     break;
                 }
             }
@@ -791,9 +786,10 @@ public class PiattaformaNotifichePage extends BasePage {
             if (notificationStatus.equals("ACCEPTED")) {
                 notificationIUN = notificationData.get("iun").toString();
                 notificationSingleton.setScenarioIun(Hooks.getScenario(), notificationIUN);
+                return;
             } else {
                 WebTool.waitTime(90);
-                logger.info("Tentativo n. " + maximumRetry + " - Stato notifica: " + notificationStatus);
+                logger.info("Tentativo n.{} - Stato notifica: {}", maximumRetry, notificationStatus);
                 maximumRetry++;
             }
         } while (notificationStatus.equals("WAITING"));
@@ -801,9 +797,36 @@ public class PiattaformaNotifichePage extends BasePage {
         logger.info("La notifica è stata creata correttamente");
     }
 
+
+    public void checkStatoNotifica(String stato) {
+            WebElement notificationLine = notificationsTableLines.get(0);
+            WebElement chipStatus = notificationLine.findElement(By.xpath("//div[@id='status-chip-" + stato + "']"));
+            getWebDriverWait(10).withMessage("La notifica non ha lo stato " + stato).until(ExpectedConditions.visibilityOf(chipStatus));
+
+    }
+
+    public void selezionaNotificaConStato(String statoNotifica) {
+        boolean testSuccess = false;
+        for (int i = 0; i < 15; i++) {
+            try {
+                WebElement chipStatus = driver.findElement(By.id(statoNotifica + "-status"));
+                if (chipStatus != null) {
+                    logger.info("La notifica è passata allo stato {} e si procede con il test", statoNotifica);
+                    testSuccess = true;
+                    break;
+                }
+            } catch (NoSuchElementException e) {
+                logger.info("Dopo {} tentativi la notifica non è ancora passata allo stato: {}", i, statoNotifica);
+            }
+            WebTool.waitTime(15);
+            driver.navigate().refresh();
+        }
+        Assert.assertTrue("La notifica non è passata allo stato " + statoNotifica, testSuccess);
+    }
+
     public void clickSuNotifica() {
         String iun = notificationSingleton.getIun(Hooks.scenario);
-        logger.info("iun notifica " + iun);
+        logger.info("iun notifica {}", iun);
         By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
         getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOfElementLocated(notification));
         element(notification).click();
@@ -1111,5 +1134,15 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10).withMessage("Mittente non trovato").until(ExpectedConditions.and(
                 ExpectedConditions.visibilityOfElementLocated(mittente),
                 ExpectedConditions.textToBe(mittente, ente)));
+    }
+
+    public void checkBottoneAnnullaNotifica() {
+        boolean isDisplayed = false;
+        try {
+            isDisplayed = driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']")).isDisplayed();
+        } catch (NoSuchElementException e) {
+            isDisplayed = false; // Elemento non trovato
+        }
+        Assert.assertFalse("Il bottone è visualizzabile", isDisplayed);
     }
 }

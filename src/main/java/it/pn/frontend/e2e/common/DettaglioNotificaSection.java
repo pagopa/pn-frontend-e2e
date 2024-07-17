@@ -60,8 +60,7 @@ public class DettaglioNotificaSection extends BasePage {
         if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
             attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
         } else {
-            this.js().executeScript("arguments[0].scrollIntoView(true);", attestazioniFile.get(numeroLinkAttestazioniOpponibile));
-            attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
+            scrollToElementAndClick(attestazioniFile.get(numeroLinkAttestazioniOpponibile));
         }
     }
 
@@ -69,8 +68,7 @@ public class DettaglioNotificaSection extends BasePage {
         if (documentiAllegati.get(numeroLinkDocumentiAllegati).isDisplayed()) {
             documentiAllegati.get(numeroLinkDocumentiAllegati).click();
         } else {
-            this.js().executeScript("arguments[0].scrollIntoView(true);", attestazioniFile.get(numeroLinkDocumentiAllegati));
-            documentiAllegati.get(numeroLinkDocumentiAllegati).click();
+            scrollToElementAndClick(documentiAllegati.get(numeroLinkDocumentiAllegati));
         }
     }
 

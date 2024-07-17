@@ -1,8 +1,5 @@
 package it.pn.frontend.e2e.common;
 
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
-import it.pn.frontend.e2e.listeners.Hooks;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;

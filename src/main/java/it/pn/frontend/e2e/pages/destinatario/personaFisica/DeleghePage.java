@@ -96,7 +96,7 @@ public class DeleghePage extends BasePage {
     }
 
     public void clickMenuDelegato(String fullName) {
-        List<WebElement> tableRows = driver.findElements(By.id("delegatesTable.body.row")); // Take all the rows of the table
+        List<WebElement> tableRows = driver.findElements(By.id("delegatesBodyRowDesktop")); // Take all the rows of the table
         if (!tableRows.isEmpty()) {
             for (WebElement row : tableRows) {
                 WebElement cellName = row.findElement(By.xpath(".//td//p[contains(text(), '" + fullName + "')]")); // Take the cell with the name of the delegate from the row
