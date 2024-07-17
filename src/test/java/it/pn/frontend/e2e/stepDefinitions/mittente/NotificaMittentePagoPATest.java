@@ -1269,6 +1269,11 @@ public class NotificaMittentePagoPATest {
         backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNDestinatario(iun);
     }
 
+    @And("Si attende completamento notifica {string}")
+    public void siAttendeCompletamentoNotificaV2(String statoNotifica) {
+        piattaformaNotifichePage.pollingSuStatoNotificaPerCompletamento(statoNotifica);
+    }
+
     @And("Si seleziona la notifica mittente")
     public void siSelezionaLaNotificaMittente() {
         BackgroundTest backgroundTest = new BackgroundTest();
