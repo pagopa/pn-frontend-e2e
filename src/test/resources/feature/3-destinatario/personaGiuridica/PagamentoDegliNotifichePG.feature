@@ -63,7 +63,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si controlla sia presente piu avvisi PagoPa PG
     And Si clicca sul radio bottone di pagamento
-    And Si controlla sia presente il modello F24 PG
+    And Si controlla sia presente il modello F24 destinatario
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
     And Si verifica che visualizzato lo stato Pagato
@@ -103,7 +103,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Cliccare sulla notifica restituita
     And Aspetta 60 secondi
     And Si visualizza correttamente la section Dettaglio Notifica
-    And Si controlla sia presente l'avviso PagoPa PG
+    And Si controlla sia presente l'avviso PagoPa destinatario
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
     And Si verifica che visualizzato lo stato Pagato
@@ -188,7 +188,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si controlla sia presente piu avvisi PagoPa PG
     And Si clicca sul radio bottone di pagamento
-    And Si controlla sia presente il modello F24 PG
+    And Si controlla sia presente il modello F24 destinatario
     And Si clicca sul radio bottone di pagamento
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"

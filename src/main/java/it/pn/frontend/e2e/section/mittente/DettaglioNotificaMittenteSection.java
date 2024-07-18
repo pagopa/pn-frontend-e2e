@@ -416,15 +416,11 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void checkModelloF24() {
-        try {
             By modelloF24 = By.xpath("//span[@data-testid='f24']");
             js().executeScript("arguments[0].scrollIntoView(true)", containerPaymentBox);
             getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(containerPaymentBox));
             getWebDriverWait(10).withMessage("Non si visualizza il contenitore del modello F24").until(ExpectedConditions.visibilityOfElementLocated(modelloF24));
-        } catch (TimeoutException e) {
-            logger.error("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
-            Assert.fail("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
-        }
+
     }
 
     public void checkBoxModelloF24() {

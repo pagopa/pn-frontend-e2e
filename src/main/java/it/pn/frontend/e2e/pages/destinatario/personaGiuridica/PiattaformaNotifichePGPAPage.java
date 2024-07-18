@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -151,9 +152,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
 
-    public String cssBuildRadioButton() {
-        return "[value='" + codiceAvvisoSpan.getText() + "']";
-    }
 
     public void clickRadioBoxButton() {
         getWebDriverWait(10).withMessage("Il radio box button non è cliccabile").until(ExpectedConditions.elementToBeClickable(radioButton.get(0)));
@@ -177,17 +175,15 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
 
-    public void clickModelloF24() {
-         getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(modelloF24));
-         modelloF24.click();
-    }
-
-    public void clickSecondoModelloF24() {
+    public void clickModelloF24Numero(int numOfF24) {
         List<WebElement> f24 = driver.findElements(By.xpath("//button[@data-testid='download-f24-button']"));
         logger.info("F24 trovato:" + f24.size());
-        getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(f24.get(1)));
-        f24.get(1).click();
+        WebTool.waitTime(3);
+        getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(f24.get(numOfF24 -1)));
+        f24.get(numOfF24 -1).click();
     }
+
+
 
     public void checkBoxModelloF24PG() {
         try {
