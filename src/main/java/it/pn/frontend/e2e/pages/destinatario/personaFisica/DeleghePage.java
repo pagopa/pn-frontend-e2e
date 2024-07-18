@@ -250,17 +250,11 @@ public class DeleghePage extends BasePage {
     }
 
     public void clickDelegheDelDelegante(String personaFisica) {
-        try {
             By menuDelegheDelegante = By.id("side-item-" + personaFisica);
             getWebDriverWait(10).withMessage("Voce del menu laterale non visibile e non cliccabile").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(menuDelegheDelegante),
                     ExpectedConditions.elementToBeClickable(menuDelegheDelegante)
             ));
             element(menuDelegheDelegante).click();
-        } catch (TimeoutException e){
-            logger.error("La voce per la pagina delle deleghe del delegante non è visualizzabile e cliccabile con errore: " +e.getMessage());
-            Assert.fail("La voce per la pagina delle deleghe del delegante non è visualizzabile e cliccabile con errore: " +e.getMessage());
-        }
-
     }
 }
