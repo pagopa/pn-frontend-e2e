@@ -15,7 +15,9 @@ Feature:Controllo dati notifica
     And Si controlla non sia presente l'avviso PagoPa
     And Logout da portale persona fisica
 
-  Scenario: [TA-FE INVIO DI UNA NOTIFICA A PERSONA FISICA E ANNULLAMENTO] - Mittente invia una notifica e la annulla, anche la persona fisica vede la notifica annullata
+
+  @CheckDownloadMultiF24PF
+  Scenario: [TA-FE INVIO DI UNA NOTIFICA A PERSONA FISICA E CONTROLLO DOWNLOAD F24] - Mittente invia una notifica e persona fisica effettua download di piú f24
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
       | modello         | 890                |
@@ -40,5 +42,7 @@ Feature:Controllo dati notifica
     Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica destinatario
     And Si attende completamento notifica "Consegnata"
+    #click due volte sullo stesso bottone perché dopo il download elimina sempre l ultimo bottone cliccato
     And Si clicca sul modello F24 destinatario numero 1
-    And Si clicca sul modello F24 destinatario numero 2
+    And Si clicca sul modello F24 destinatario numero 1
+    And Logout da portale persona fisica

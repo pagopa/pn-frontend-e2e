@@ -261,11 +261,13 @@ public class NotifichePGPagoPATest {
     }
 
     @And("Si clicca sul modello F24 destinatario numero {int}")
-    public void siCliccaIlModelloF24PGNumero(int numF24) {
-        logger.info("Si clicca il secondo modello F24 PG");
+    public void siCliccaIlModelloF24Destinatario(int numOfF24) {
+        logger.info("Si clicca  modello F24 destinatario");
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
-        piattaformaNotifichePGPAPage.clickModelloF24Numero(numF24);
+        piattaformaNotifichePGPAPage.vaiInFondoAllaPagina();
+        piattaformaNotifichePGPAPage.clickModelloF24Numero(numOfF24);
     }
+
 
     @And("Si controlla sia presente l'avviso PagoPa destinatario")
     public void siControllaSiaPresenteLAvvisoPagoPaDestinatario() {
