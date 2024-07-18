@@ -19,10 +19,11 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.DevToolsException;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v120.network.Network;
-import org.openqa.selenium.devtools.v120.network.model.Headers;
-import org.openqa.selenium.devtools.v120.network.model.RequestWillBeSent;
-import org.openqa.selenium.devtools.v120.network.model.ResourceType;
+import org.openqa.selenium.devtools.v126.network.Network;
+import org.openqa.selenium.devtools.v126.network.model.Headers;
+import org.openqa.selenium.devtools.v126.network.model.RequestWillBeSent;
+import org.openqa.selenium.devtools.v126.network.model.ResourceType;
+import org.openqa.selenium.devtools.v126.network.Network;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -88,7 +89,7 @@ public class Hooks {
 
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
         if (this.headless != null && this.headless.equalsIgnoreCase("true")) {
-            chromeOptions.addArguments("no-sandbox");
+            chromeOptions.addArguments("--no-sandbox");
             chromeOptions.addArguments("headless");
             chromeOptions.addArguments("window-size=1920,1080");
         }
