@@ -4,7 +4,6 @@ import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
-import it.pn.frontend.e2e.model.NewNotificationResponse;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.utility.WebTool;
