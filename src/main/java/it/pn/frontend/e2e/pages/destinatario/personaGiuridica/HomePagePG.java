@@ -54,12 +54,6 @@ public class HomePagePG extends BasePage {
             isDisplayed = false; // Elemento non trovato
         }
 
-        if (isDisplayed) {
-            logger.info("Il side menu deleghe è visibile");
-        } else {
-            logger.info("Il side menu deleghe non è presente");
-        }
-
         Assert.assertTrue("Il side menu deleghe non è visibile", !isDisplayed);
 
     }
