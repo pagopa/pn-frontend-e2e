@@ -459,4 +459,25 @@ public class DownloadFileMittentePagoPATest {
         disserviziAppPAPage.downloadAttestazione();
         WebTool.waitTime(3);
     }
+
+    @And("Nella pagina stato della piattaforma si cambia il numero elementi visualizzati attraverso il filtro")
+    public void nellaPaginaStatoDellaPiattaformaSiCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltroNumeroNotifiche() {
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
+    }
+
+    @And("Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta")
+    public void nellaPaginaStatoDellaPiattaformaSiCambiaPaginaUtilizzandoUnaFreccetta() {
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnaFrecetta(6);
+    }
+
+    @And("Si controlla che esista pop up scadenza")
+    public void siControllaCheEsistaPopUpScadenza() {
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(driver);
+
+        dettaglioNotificaSection.checkMessaggioScadenzaDownload();
+    }
+
+
 }
