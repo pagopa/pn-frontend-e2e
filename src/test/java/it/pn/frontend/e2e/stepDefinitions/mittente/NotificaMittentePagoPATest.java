@@ -1261,11 +1261,6 @@ public class NotificaMittentePagoPATest {
         WebTool.waitTime(3);
     }
 
-    @And("Si attende completamento notifica {string}")
-    public void siAttendeCompletamentoNotificaV2(String statoNotifica) {
-        piattaformaNotifichePage.pollingSuStatoNotificaPerCompletamento(statoNotifica);
-    }
-
     @And("Si seleziona la notifica")
     public void siSelezionaLaNotifica() {
         BackgroundTest backgroundTest = new BackgroundTest();
