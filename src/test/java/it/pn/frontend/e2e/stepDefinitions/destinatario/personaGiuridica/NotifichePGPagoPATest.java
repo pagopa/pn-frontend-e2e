@@ -24,7 +24,9 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -337,5 +339,26 @@ public class NotifichePGPagoPATest {
             logger.error("Codice avviso non è visuallizato corrttamente");
             Assert.fail("Codice avviso non è visuallizato corrttamente");
         }
+    }
+
+    @And("controllo link per scaricare zip e scarico file Ricevuta di consegna")
+    public void scaricaRicevutaDiConsegna() throws AWTException {
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        piattaformaNotifichePGPAPage.clickRicevutaDiConsegna();
+    }
+
+    @And("Controllo sia presente documento pdf")
+    public void controlloPresenteDocumento() throws IOException {
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        logger.info("Controllo sia presente documento pdf");
+        Assert.assertTrue ("Documento non è trovato",piattaformaNotifichePGPAPage.checkIfPdfExists());
+        logger.info("Documento è trovato");
+    }
+
+    @And("estraggo il file zip")
+    public void inseriscoPasswordEdEstraggoZip() throws IOException {
+        logger.info("estraggo il file zip");
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        piattaformaNotifichePGPAPage.extractZipWithoutPassword();
     }
 }

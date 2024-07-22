@@ -40,7 +40,7 @@ Feature:Il delegato persona giuridica accede ad una delega
       | nome          | Lucrezia            |
       | cognome       | Borgia              |
       | codiceFiscale | BRGLRZ80D58H501Q    |
-      | ente          | Comune di Verona    |
+      | ente          | Comune di Palermo   |
     And Nella sezione Le Tue Deleghe verificare che la data sia corretta
     And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "nuova_delega"
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
