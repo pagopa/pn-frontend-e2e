@@ -9,7 +9,6 @@ import it.pn.frontend.e2e.api.mittente.AccettazioneRichiestaNotifica;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.enums.AppPortal;
-import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.mittente.AreaRiservataPAPage;
 import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
@@ -1229,6 +1228,13 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.checkStatoNotifica(stato);
     }
 
+    @And("Si clicca il bottone indietro nella descrizione della notifica")
+    public void siCliccaIlBottoneIndietroNellaDescrizioneDellaNotifica() {
+        logger.info("Si clicca sul bottone indietro della pagina della descrizione della notifica");
+        dettaglioNotificaMittenteSection.clickIndietroButton();
+        WebTool.waitTime(10);
+    }
+
     @And("Si attende che lo stato della notifica sia {string}")
     public void siAttendeCheLoStatoDellaNotificaSia(String statoNotifica) {
         logger.info("Si clicca sulla notifica appena creata quando lo stato diventa: {}", statoNotifica);
@@ -1239,13 +1245,6 @@ public class NotificaMittentePagoPATest {
     public void siControllaLaComparsaDelPopUpDiConfermaAnnullamento() {
         logger.info("Si controlla la presenza del pop up di conferma dell'annullamento della notifica");
         piattaformaNotifichePage.checkPopUpConfermaAnnullamentoNotifica();
-    }
-
-    @And("Si clicca il bottone indietro nella descrizione della notifica")
-    public void siCliccaIlBottoneIndietroNellaDescrizioneDellaNotifica() {
-        logger.info("Si clicca sul bottone indietro della pagina della descrizione della notifica");
-        dettaglioNotificaMittenteSection.clickIndietroButton();
-        WebTool.waitTime(10);
     }
 
     @And("Si verifica che l'invio della notifica sia fallito {int} volte")
@@ -1262,11 +1261,21 @@ public class NotificaMittentePagoPATest {
         WebTool.waitTime(3);
     }
 
+    @And("Si attende completamento notifica {string}")
+    public void siAttendeCompletamentoNotificaV2(String statoNotifica) {
+        piattaformaNotifichePage.pollingSuStatoNotificaPerCompletamento(statoNotifica);
+    }
+
     @And("Si seleziona la notifica")
     public void siSelezionaLaNotifica() {
         BackgroundTest backgroundTest = new BackgroundTest();
         String iun = notificationSingleton.getIun(Hooks.scenario);
         backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNDestinatario(iun);
+    }
+
+    @And("Si attende completamento notifica {string}")
+    public void siAttendeCompletamentoNotificaV2(String statoNotifica) {
+        piattaformaNotifichePage.pollingSuStatoNotificaPerCompletamento(statoNotifica);
     }
 
     @And("Si seleziona la notifica mittente")
@@ -1299,7 +1308,6 @@ public class NotificaMittentePagoPATest {
         logger.info("Si verifica l'avvenuto invio della notifica al domicilio di piattaforma " + domicilioDiPiattaforma);
         dettaglioNotificaMittenteSection.checkStepInvioNotificaViaPEC(domicilioDiPiattaforma);
     }
-
 
     @And("Si verifica l'invio della notifica al domicilio generale {string}")
     public void siVerificaLInvioDellaNotificaAlDomicilioGenerale(String emailPEC) {
@@ -1374,6 +1382,12 @@ public class NotificaMittentePagoPATest {
     public void siControllaSiaPresenteIlModelloF24() {
         logger.info("Si controlla sia presente il modello F24");
         dettaglioNotificaMittenteSection.checkModelloF24();
+    }
+
+    @And("Si verifica quando viene inviato il messaggio al contatto di cortesia")
+    public void siVerificaQuandoVieneInviatoIlMessaggioAlContattoDiCortesia() {
+        logger.info("Si verifica l'invio del messaggio al contatto di cortesia inserito");
+        dettaglioNotificaMittenteSection.checkInvioMessaggioDiCortesia();
     }
 
     @And("Si controlla sia visualizza box allegati modelli F24")
@@ -1629,6 +1643,12 @@ public class NotificaMittentePagoPATest {
     public void siVerificaCheDestinatarioRaggiungibile(String message) {
         piattaformaNotifichePage.visualizzaTimeline(message);
         logger.info("Il destinatario raggiungibile");
+    }
+
+    @And("Si controlla che le ricevute PEC siano scaricabili")
+    public void siControllaCheLeRicevutePECSianoScaricabili() {
+        logger.info("Si controlla che le ricevute PEC siano scaricabili in locale");
+        piattaformaNotifichePage.checkClickDownloadRicevutePEC();
     }
 
     @And("Creazione notifica completa")

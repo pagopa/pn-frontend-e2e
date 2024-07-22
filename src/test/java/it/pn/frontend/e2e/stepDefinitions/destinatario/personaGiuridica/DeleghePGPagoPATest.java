@@ -6,6 +6,7 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.model.delegate.DelegatePG;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePG;
+import it.pn.frontend.e2e.model.singleton.MandateSingleton;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
 import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.AggiungiDelegaPGSection;
@@ -35,6 +36,7 @@ public class DeleghePGPagoPATest {
     private final DataPopulation dataPopulation = new DataPopulation();
     private Map<String, Object> datiDelega = new HashMap<>();
     Map<String, Object> datiPersonaFisica = new HashMap<>();
+    private final MandateSingleton mandateSingleton = MandateSingleton.getInstance();
 
     private final RestDelegation restDelegation = RestDelegation.getInstance();
 
@@ -472,7 +474,7 @@ public class DeleghePGPagoPATest {
 
     @And("Si inserisce il codice della delega a carico dell impresa nella modale")
     public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale() {
-        String verificationCode = System.getProperty("verificationCode");
+        String verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()));
         deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI(verificationCode);
     }
 
@@ -556,7 +558,7 @@ public class DeleghePGPagoPATest {
     public void siRevocaDelegaComeDelegantConApi() {
 
         loginPGPagoPaTest.getTokenExchangePGFromFile("delegante");
-        String mandateId = System.getProperty("mandateId");
+        String mandateId = mandateSingleton.getMandateId(Hooks.getScenario());
         restDelegation.revokeDelegation(mandateId);
 
     }

@@ -3,8 +3,10 @@ package it.pn.frontend.e2e.listeners;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import io.cucumber.java.it.Ma;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import it.pn.frontend.e2e.model.DigitalAddressResponse;
+import it.pn.frontend.e2e.model.singleton.MandateSingleton;
 import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
@@ -19,10 +21,11 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.DevToolsException;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v120.network.Network;
-import org.openqa.selenium.devtools.v120.network.model.Headers;
-import org.openqa.selenium.devtools.v120.network.model.RequestWillBeSent;
-import org.openqa.selenium.devtools.v120.network.model.ResourceType;
+import org.openqa.selenium.devtools.v126.network.Network;
+import org.openqa.selenium.devtools.v126.network.model.Headers;
+import org.openqa.selenium.devtools.v126.network.model.RequestWillBeSent;
+import org.openqa.selenium.devtools.v126.network.model.ResourceType;
+import org.openqa.selenium.devtools.v126.network.Network;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -88,7 +91,7 @@ public class Hooks {
 
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
         if (this.headless != null && this.headless.equalsIgnoreCase("true")) {
-            chromeOptions.addArguments("no-sandbox");
+            chromeOptions.addArguments("--no-sandbox");
             chromeOptions.addArguments("headless");
             chromeOptions.addArguments("window-size=1920,1080");
         }
@@ -267,7 +270,8 @@ public class Hooks {
      */
     @After("@DeleghePF or @DeleghePG")
     public void clearDelegate() {
-        String mandateId = System.getProperty("mandateId");
+        MandateSingleton mandateSingleton = MandateSingleton.getInstance();
+        String mandateId =mandateSingleton.getMandateId(Hooks.getScenario());
         if (mandateId != null) {
             RestDelegation restDelegation = RestDelegation.getInstance();
             restDelegation.revokeDelegation(mandateId);

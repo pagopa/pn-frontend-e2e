@@ -248,4 +248,13 @@ public class DeleghePage extends BasePage {
 
         annullaButton.click();
     }
+
+    public void clickDelegheDelDelegante(String personaFisica) {
+            By menuDelegheDelegante = By.id("side-item-" + personaFisica);
+            getWebDriverWait(10).withMessage("Voce del menu laterale non visibile e non cliccabile").until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(menuDelegheDelegante),
+                    ExpectedConditions.elementToBeClickable(menuDelegheDelegante)
+            ));
+            element(menuDelegheDelegante).click();
+    }
 }

@@ -3,10 +3,12 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.it.Ma;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.model.delegate.DelegatePF;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
+import it.pn.frontend.e2e.model.singleton.MandateSingleton;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.DeleghePage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
@@ -40,6 +42,7 @@ public class DeleghePagoPATest {
     private final DeleghePage deleghePage = new DeleghePage(this.driver);
     private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
     private final DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
+    private final MandateSingleton mandateSingleton = MandateSingleton.getInstance();
 
 
     private final RestDelegation restDelegation = RestDelegation.getInstance();
@@ -235,10 +238,11 @@ public class DeleghePagoPATest {
     @And("Si inserisce il codice delega nel pop-up OTP {string}")
     public void siInserisceIlCodiceDelegaNelPopUpOTP(String data) {
         log.info("Si inserisce il codice per accettare la delega");
+
         String verificationCode = "";
         leTueDelegheSection.waitPopUpLoad();
         if (data.equalsIgnoreCase("corretto")) {
-            verificationCode = System.getProperty("verificationCode");
+            verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()));
         } else {
             verificationCode = "54321";
         }
@@ -274,8 +278,8 @@ public class DeleghePagoPATest {
         String tokenExchange = loginPersonaFisicaPagoPA.getTokenExchangePFFromFile(personaFisica.get("accessoCome"));
         DelegateResponsePF response = restDelegation.addDelegationPF(delegateRequestPF, tokenExchange);
         if (response != null) {
-            System.setProperty("mandateId", response.getMandateId());
-            System.setProperty("verificationCode", response.getVerificationCode());
+            mandateSingleton.setScenarioMandateId(Hooks.getScenario(),response.getMandateId());
+            mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()),response.getVerificationCode() );
         }
         driver.navigate().refresh();
     }
@@ -556,5 +560,11 @@ public class DeleghePagoPATest {
         log.info("Si verifica che nell'elenco degli enti sono presenti solamente enti radice");
         destinatarioPage.clickListaEnti();
         destinatarioPage.controlloEntiRadice(enti);
+    }
+
+    @And("Nella pagina Piattaforma Notifiche persona fisica si clicca sulle notifiche di {string}")
+    public void nellaPaginaPiattaformaNotifichePersonaFisicaSiCliccaSulleNotificheDi(String personaFisica) {
+        log.info("Nella pagina Piattaforma Notifiche della persona fisica nel menu laterale si clicca sulla voce notifiche di " + personaFisica);
+        deleghePage.clickDelegheDelDelegante(personaFisica);
     }
 }

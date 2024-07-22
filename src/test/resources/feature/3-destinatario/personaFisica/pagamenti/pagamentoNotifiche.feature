@@ -56,7 +56,7 @@ Feature:Pagamento notifica
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si controlla sia presente piu avvisi PagoPa PG
     And Si clicca sul radio bottone di pagamento
-    And Si controlla sia presente il modello F24 PG
+    And Si controlla sia presente il modello F24 destinatario
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
     And Si verifica che visualizzato lo stato Pagato
@@ -99,7 +99,7 @@ Feature:Pagamento notifica
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si controlla sia presente piu avvisi PagoPa PG
     And Si clicca sul radio bottone di pagamento
-    And Si controlla sia presente il modello F24 PG
+    And Si controlla sia presente il modello F24 destinatario
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
     And Si verifica che visualizzato lo stato Pagato
