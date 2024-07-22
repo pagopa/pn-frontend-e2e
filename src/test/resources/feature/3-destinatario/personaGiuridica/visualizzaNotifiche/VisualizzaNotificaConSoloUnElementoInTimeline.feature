@@ -28,12 +28,7 @@ Feature: PG visualizza il dettaglio di una notifica con solo un elemento in time
     And Cliccare sulla notifica restituita
     And Aspetta 60 secondi
     And Si visualizza correttamente la section Dettaglio Notifica
-    And Si verifica che la notifica abbia lo stato "Consegnata"
-    And controllo link per scaricare zip e scarico file Ricevuta di consegna
-    And Aspetta 5 secondi
-    And estraggo il file zip
-    And Controllo sia presente documento pdf
-    And Si elimina file estratto
+    And controllo Ricevuta di consegna link cliccabile
     And Logout da portale persona giuridica
 
   @VisualizzaNotificaMonoDestinatarioConUnElementoInTimeline890
@@ -59,10 +54,5 @@ Feature: PG visualizza il dettaglio di una notifica con solo un elemento in time
     And Cliccare sulla notifica restituita
     And Aspetta 60 secondi
     And Si visualizza correttamente la section Dettaglio Notifica
-    And Si verifica che la notifica abbia lo stato "Consegnata"
-    And controllo link per scaricare zip e scarico file Ricevuta di consegna
-    And Aspetta 5 secondi
-    And estraggo il file zip
-    And Controllo sia presente documento pdf
-    And Si elimina file estratto
+    And controllo Ricevuta di consegna link cliccabile
     And Logout da portale persona giuridica

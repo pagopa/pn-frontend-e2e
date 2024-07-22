@@ -69,6 +69,14 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         super(driver);
     }
 
+    private static void pressTabKey(Robot robot, int times) {
+        for (int i = 0; i < times; i++) {
+            robot.keyPress(KeyEvent.VK_TAB);
+            robot.keyRelease(KeyEvent.VK_TAB);
+            robot.delay(500);
+        }
+    }
+
     public void clickOnButtonEnterIntoDisservizi() {
         logger.info("click sul bottone 'stato della piattaforma'");
         this.getWebDriverWait(10).withMessage("Bottone 'stato della piattaforma' non visualizzato").until(ExpectedConditions.visibilityOf(this.buttonEnterIntoDisservizi));
@@ -133,8 +141,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         this.js().executeScript("arguments[0].click()", this.recapitiButton);
     }
 
-
-
     public void clickIndietroButton() {
         getWebDriverWait(10).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
         this.js().executeScript("arguments[0].click()", this.indietroButton);
@@ -148,6 +154,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             return false;
         }
     }
+
     public boolean messaggioNotificaAnnullataDisplayed() {
         try {
             return getWebDriverWait(5).withMessage("Il messaggio notifica annullata non è visibile").until(ExpectedConditions.visibilityOf(notificaAnnullata)).isDisplayed();
@@ -166,7 +173,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
 
-
     public void clickRadioBoxButton() {
         getWebDriverWait(10).withMessage("Il radio box button non è cliccabile").until(ExpectedConditions.elementToBeClickable(radioButton.get(0)));
         radioButton.get(0).click();
@@ -184,7 +190,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         try {
             getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
             return true;
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return false;
         }
     }
@@ -193,11 +199,9 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         List<WebElement> f24 = driver.findElements(By.xpath("//button[@data-testid='download-f24-button']"));
         logger.info("F24 trovato:" + f24.size());
         WebTool.waitTime(3);
-        getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(f24.get(numOfF24 -1)));
-        f24.get(numOfF24 -1).click();
+        getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(f24.get(numOfF24 - 1)));
+        f24.get(numOfF24 - 1).click();
     }
-
-
 
     public void checkBoxModelloF24PG() {
         try {
@@ -209,52 +213,57 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
 
-        public void clickRicevutaDiConsegna() throws AWTException {
-            boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
-            if (!headless) {
-                logger.info("controllo esistenza bottone per scaricare zip");
-                getWebDriverWait(10).withMessage("Il bottone Ricevuta di consegna non cliccabile").until(ExpectedConditions.elementToBeClickable(ricevutaDiConsegnaButton));
-                logger.info("Si clicca sul bottone Ricevuta di consegna");
-                ricevutaDiConsegnaButton.click();
-                Robot robot = new Robot();
-                robot.setAutoDelay(100);
-                robot.delay(2000);
-                String workingDirectory = System.getProperty("user.dir");
-                String path = workingDirectory + "/src/test/resources/dataPopulation/zip";
+    public void checkRicevutaConsegnaCliccabile() {
+        logger.info("controllo esistenza bottone per scaricare zip");
+        getWebDriverWait(10).withMessage("Il bottone Ricevuta di consegna non cliccabile").until(ExpectedConditions.elementToBeClickable(ricevutaDiConsegnaButton));
+        logger.info("Il bottone Ricevuta di consegna non cliccabile");
+    }
 
-                pressTabKey(robot, 6);
-                robot.keyPress(KeyEvent.VK_ENTER);
-                robot.keyRelease(KeyEvent.VK_ENTER);
+    public void clickRicevutaDiConsegna() throws AWTException {
+        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
+        if (!headless) {
+            logger.info("controllo esistenza bottone per scaricare zip");
+            getWebDriverWait(10).withMessage("Il bottone Ricevuta di consegna non cliccabile").until(ExpectedConditions.elementToBeClickable(ricevutaDiConsegnaButton));
+            logger.info("Si clicca sul bottone Ricevuta di consegna");
+            ricevutaDiConsegnaButton.click();
+            Robot robot = new Robot();
+            robot.setAutoDelay(100);
+            robot.delay(2000);
+            String workingDirectory = System.getProperty("user.dir");
+            String path = workingDirectory + "/src/test/resources/dataPopulation/zip";
 
-                typeFilePath(robot, path);
+            pressTabKey(robot, 6);
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
 
-                robot.keyPress(KeyEvent.VK_ENTER);
-                robot.keyRelease(KeyEvent.VK_ENTER);
+            typeFilePath(robot, path);
 
-                robot.delay(1000);
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
 
-                pressTabKey(robot, 8);
+            robot.delay(1000);
 
-                robot.keyPress(KeyEvent.VK_ENTER);
-                robot.keyRelease(KeyEvent.VK_ENTER);
+            pressTabKey(robot, 8);
 
-                logger.info("ZIP scaricato");
-            } else {
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
 
-                String workingDirectory = System.getProperty("user.dir");
-                File downloadDirectory = new File(workingDirectory + "/src/test/resources/dataPopulation/zip");
+            logger.info("ZIP scaricato");
+        } else {
 
-                // Generate a unique filename for the downloaded ZIP file
-                String fileName = "downloaded_" + System.currentTimeMillis() + ".zip";
+            String workingDirectory = System.getProperty("user.dir");
+            File downloadDirectory = new File(workingDirectory + "/src/test/resources/dataPopulation/zip");
 
-                ricevutaDiConsegnaButton.click();
-                WebTool.waitTime(2);
-                File downloadedFile = new File(downloadDirectory + fileName);
-                Assert.assertTrue(downloadedFile.exists());
-                logger.info("ZIP file downloaded successfully.");
-            }
+            // Generate a unique filename for the downloaded ZIP file
+            String fileName = "downloaded_" + System.currentTimeMillis() + ".zip";
+
+            ricevutaDiConsegnaButton.click();
+            WebTool.waitTime(2);
+            File downloadedFile = new File(downloadDirectory + fileName);
+            Assert.assertTrue(downloadedFile.exists());
+            logger.info("ZIP file downloaded successfully.");
         }
-
+    }
 
     private void typeFilePath(Robot robot, String filePath) {
         for (char c : filePath.toCharArray()) {
@@ -292,14 +301,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
                     robot.keyPress(Character.toUpperCase(character));
                     robot.keyRelease(Character.toUpperCase(character));
                 }
-        }
-    }
-
-    private static void pressTabKey(Robot robot, int times) {
-        for (int i = 0; i < times; i++) {
-            robot.keyPress(KeyEvent.VK_TAB);
-            robot.keyRelease(KeyEvent.VK_TAB);
-            robot.delay(500);
         }
     }
 

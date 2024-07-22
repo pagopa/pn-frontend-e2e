@@ -347,6 +347,12 @@ public class NotifichePGPagoPATest {
         piattaformaNotifichePGPAPage.clickRicevutaDiConsegna();
     }
 
+    @And("controllo Ricevuta di consegna link cliccabile")
+    public void controlloRicevutaDiConsegnaLinkCliccabile(){
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        piattaformaNotifichePGPAPage.checkRicevutaConsegnaCliccabile();
+    }
+
     @And("Controllo sia presente documento pdf")
     public void controlloPresenteDocumento() throws IOException {
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
