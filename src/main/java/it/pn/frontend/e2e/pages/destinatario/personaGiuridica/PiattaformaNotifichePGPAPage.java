@@ -2,8 +2,10 @@ package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.HelpdeskPage;
+import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
 import net.lingala.zip4j.ZipFile;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -12,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -250,7 +253,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
             logger.info("ZIP scaricato");
         } else {
-
             String workingDirectory = System.getProperty("user.dir");
             File downloadDirectory = new File(workingDirectory + "/src/test/resources/dataPopulation/zip");
 
@@ -258,6 +260,11 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             String fileName = "downloaded_" + System.currentTimeMillis() + ".zip";
 
             ricevutaDiConsegnaButton.click();
+            DownloadFile downloadFile = new DownloadFile(this.driver);
+            final String urlFileRicevuta = downloadFile.getUrl(WebTool.getApiBaseUrl());
+            downloadFile.download(urlFileRicevuta, downloadDirectory, headless);
+
+
             WebTool.waitTime(2);
             File downloadedFile = new File(downloadDirectory + fileName);
             Assert.assertTrue(downloadedFile.exists());
