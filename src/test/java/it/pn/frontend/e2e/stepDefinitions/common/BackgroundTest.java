@@ -172,12 +172,12 @@ public class BackgroundTest {
     }
 
 
-    public void accettazioneDelegaSceltaGruppo(boolean withGroup) {
+    public void accettazioneDelegaSceltaGruppo(boolean withGroup, String gruppo) {
         deleghePagoPATest.siSceglieOpzioneAccetta();
         deleghePGPagoPATest.siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale();
         deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneConfermaCodice();
         if (!withGroup) {
-            deleghePGPagoPATest.siAssegnaUnGruppoAllaDelega();
+            deleghePGPagoPATest.siAssegnaUnGruppoAllaDelega(gruppo);
         }
         deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
     }
