@@ -62,6 +62,7 @@ Feature:Pagamento notifica
     And Si verifica che visualizzato lo stato Pagato
     And Logout da portale persona fisica
 
+
   @PagamentoNotificaMultiPFConPiuAvvisiEF24
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PF NON PAGATA] - PF  visualizza Notifica multi destinatario con più avvisi PagoPa e modello F24  - Pagamento di un avviso PagoPa
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

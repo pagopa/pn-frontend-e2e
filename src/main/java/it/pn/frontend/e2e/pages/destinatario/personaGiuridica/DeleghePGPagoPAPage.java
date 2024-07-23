@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -198,11 +199,15 @@ public class DeleghePGPagoPAPage extends BasePage {
         this.assegnaGruppoRadioButton.click();
     }
 
-    public void clickGruppoField() {
-        gruppoField.sendKeys("Test gruppi");
+    public void clickGruppoField(String gruppo) {
+        gruppoField.sendKeys(gruppo);
+       // WebTool.waitTime(1000);
         By gruppiOption = By.id("input-group-option-0");
-        this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(gruppiOption));
-        this.js().executeScript("arguments[0].click()", this.element(gruppiOption));
+       getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(gruppiOption));
+        element(gruppiOption).click();
+        WebElement closeSelectionButton = driver.findElements(By.xpath("//button[contains(@class, 'MuiAutocomplete-popupIndicator')]")).get(1);
+        closeSelectionButton.click();
+        logger.info("click su gruppo riuscito");
     }
 
     public void clickBottoneConferma() {

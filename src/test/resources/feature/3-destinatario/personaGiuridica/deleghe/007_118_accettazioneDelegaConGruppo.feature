@@ -15,6 +15,6 @@ Feature:Il delegato persona giuridica accetta la delega assegnandoli un gruppo
       | companyName | Convivio Spa |
       | displayName | Convivio Spa |
       | person      | false        |
-    And Si accetta la delega "con" gruppo
+    And Si accetta la delega "con" gruppo "Test gruppi"
     And Si controlla che la delega PG ha lo stato Attiva "Convivio Spa"
     And Logout da portale persona giuridica
