@@ -19,6 +19,17 @@ Feature:Deleghe lato ruolo operatore
 
   @TA_PGRuoloOperatoreControlloAnnullamentoNotifica
   Scenario: [TA-FE CONTROLLO DELGHE LAYOUT RUOLO OPERATORE]- Si controlla lato ruolo operatore che non sia possibile annullare la notifica
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
+    And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
+    And Creo in background una delega per persona giuridica
+      | accessoCome | delegante    |
+      | fiscalCode  | 27957814470  |
+      | companyName | Convivio Spa |
+      | displayName | Convivio Spa |
+      | person      | false        |
+    And Si accetta la delega "con" gruppo "gruppo-ruolo-operatore"
+    And Logout da portale persona giuridica
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
       | user           | GabrieleDAnnunzio |
@@ -27,27 +38,6 @@ Feature:Deleghe lato ruolo operatore
     And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     Then Home page persona giuridica ruolo operatore viene visualizzata correttamente
       | ragioneSociale | Convivio Spa   |
-    When Si inizializzano i dati per la notifica
-      | modello         | 890                |
-      | documenti       | 1                  |
-      | oggettoNotifica | Pagamento rata IMU |
-      | costiNotifica   | true               |
-    And Si aggiunge un destinatario alla notifica
-      | at                | Presso             |
-      | indirizzo         | VIA ROMA 20        |
-      | dettagliIndirizzo | Scala b            |
-      | codicePostale     | 20147              |
-      | comune            | Milano             |
-      | dettagliComune    | Milano             |
-      | provincia         | MI                 |
-      | stato             | Italia             |
-      | nomeCognome      | Convivio Spa |
-      | codiceFiscale    | 27957814470  |
-      | tipoDestinatario | PG           |
-      | domicilioDigitale | test@test.com      |
-      | avvisoPagoPa      | 1                  |
-      | F24               | 1                  |
-    Then Creo in background una notifica per destinatario tramite API REST
-    And Aspetta 20 secondi
-    And Si seleziona la notifica
+    And Cliccare sulla notifica restituita
+    And Il bottone annulla notifica non è visualizzabile nella descrizione della notifica
     And Logout da portale persona giuridica
