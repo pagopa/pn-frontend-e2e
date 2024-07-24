@@ -539,13 +539,18 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
-    public void siCambiaPaginaUtilizzandoUnaFrecetta() {
+    public void siCambiaPaginaUtilizzandoUnaFrecetta(Integer numPage) {
+        Integer index= 0;
         this.getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile")
                 .until(ExpectedConditions.visibilityOf(this.frecciaPaginaSuccessiva));
         if (!frecciaPaginaSuccessiva.isDisplayed()) {
             this.js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
         }
-        frecciaPaginaSuccessiva.click();
+        while(index <= numPage){
+            frecciaPaginaSuccessiva.click();
+            index++;
+            WebTool.waitTime(2);
+        }
     }
 
     public void siCambiaPaginaUtilizzandoUnNumero() {
@@ -845,6 +850,7 @@ public class PiattaformaNotifichePage extends BasePage {
                     ExpectedConditions.elementToBeClickable(bottoneAnnullaNotificaModale)));
             element(bottoneAnnullaNotificaModale).click();
     }
+
 
     public void checkPopUpConfermaAnnullamentoNotifica() {
 

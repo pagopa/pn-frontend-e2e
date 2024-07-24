@@ -150,4 +150,9 @@ public class DettaglioNotificaSection extends BasePage {
             Assert.fail("check su avviso pagopa non avvenuto con successo: " + e.getMessage());
         }
     }
+
+    public void checkMessaggioScadenzaDownload() {
+        By checkAvvisoDownloadScaduto = By.xpath("//div[contains(text(), 'Il documento sarà scaricabile tra pochi minuti')]");
+        getWebDriverWait(10).withMessage("Il pulsante sezione attestazione opponibile non è visibile").until(ExpectedConditions.visibilityOfElementLocated(checkAvvisoDownloadScaduto));
+    }
 }
