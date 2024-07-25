@@ -11,6 +11,7 @@ import it.pn.frontend.e2e.model.enums.NotificationFeePolicyEnum;
 import it.pn.frontend.e2e.model.enums.PhysicalCommunicationTypeEnum;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.rest.RestNotification;
+import it.pn.frontend.e2e.rest.RestRaddAlternative;
 import it.pn.frontend.e2e.utility.NotificationBuilder;
 import it.pn.frontend.e2e.utility.WebTool;
 import lombok.Getter;
@@ -36,6 +37,7 @@ public class DestinatarioPage extends BasePage {
     private NewNotificationRequest notificationRequest;
     private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
     private final RestNotification restNotification = new RestNotification();
+    private final RestRaddAlternative restRaddAlternative = new RestRaddAlternative();
     private static final NotificationBuilder notificationBuilder = new NotificationBuilder();
     private static int destinatariNumber;
     private final WebDriver driver = Hooks.driver;
@@ -199,5 +201,9 @@ public class DestinatarioPage extends BasePage {
         NotificationFeePolicyEnum feePolicy = notificationBuilder.notificaFeePolicy(datiNotifica.getOrDefault("costiNotifica", "false"));
         ArrayList<Document> documents = notificationBuilder.preloadDocument(Integer.parseInt(datiNotifica.get("documenti")));
         notificationRequest = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), datiNotifica.getOrDefault("oggettoNotifica", "PAGAMENTO RATA IMU"), null, documents, modelloNotifica, "010202N", feePolicy);
+    }
+
+    public void initRadd() {
+        restRaddAlternative.startTransactionRaddAlternative();
     }
 }
