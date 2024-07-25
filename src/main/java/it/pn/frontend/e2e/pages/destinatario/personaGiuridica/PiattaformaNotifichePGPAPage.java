@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.HelpdeskPage;
+import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
 import net.lingala.zip4j.ZipFile;
@@ -260,8 +261,16 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             String fileName = "downloaded_" + System.currentTimeMillis() + ".zip";
 
             ricevutaDiConsegnaButton.click();
+
+            DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
             DownloadFile downloadFile = new DownloadFile(this.driver);
-            final String urlFileRicevuta = downloadFile.getUrl(WebTool.getApiBaseUrl());
+            String codiceIUN;
+            String destinatario = dettaglioNotificaMittenteSection.getInfoNotifica(1);
+            codiceIUN = dettaglioNotificaMittenteSection.getInfoNotifica(3);
+
+
+
+            final String urlFileRicevuta = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/" + codiceIUN + "/legal-facts/");
             downloadFile.download(urlFileRicevuta, downloadDirectory, headless);
 
 
