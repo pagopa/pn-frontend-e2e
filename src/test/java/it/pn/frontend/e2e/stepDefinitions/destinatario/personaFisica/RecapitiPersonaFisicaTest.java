@@ -56,13 +56,8 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce la PEC {string}")
-    public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario(String dpFile) {
+    public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario(String emailPEC) {
         logger.info("Si inserisce la email PEC");
-
-        DataPopulation dataPopulation = new DataPopulation();
-        Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        String emailPEC = personaFisica.get("emailPec").toString();
-
         recapitiDestinatarioPage.insertEmailPEC(emailPEC);
     }
 
@@ -153,9 +148,8 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce la PEC errata {string}")
-    public void nellaPaginaITuoiRecapitiSiInserisceLaPECErrata(String dpFile) {
+    public void nellaPaginaITuoiRecapitiSiInserisceLaPECErrata(String pecErrata) {
         logger.info("Si inserisce la PEC errata");
-        String pecErrata = dataPopulation.readDataPopulation(dpFile + ".yaml").get("pecErrore").toString();
         recapitiDestinatarioPage.insertEmailPEC(pecErrata);
     }
 
