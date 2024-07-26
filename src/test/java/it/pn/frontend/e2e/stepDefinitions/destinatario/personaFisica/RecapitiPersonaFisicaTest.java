@@ -368,16 +368,10 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si controlla che la pec sia stata inserita correttamente");
         WebTool.waitTime(15);
         driver.navigate().refresh();
-        if (recapitiDestinatarioPage.siVisualizzaPopUpConferma()) {
-            logger.info("Si clicca su conferma nel pop-up");
-            recapitiDestinatarioPage.clickConfermaButton();
-            recapitiDestinatarioPage.visualizzaValidazione();
-        } else {
             if (!recapitiDestinatarioPage.verificaPecAssociata()) {
                 logger.error("Pec non associata con errore");
                 Assert.fail("Pec non associata con errore");
             }
-        }
     }
 
     @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method {string}")
