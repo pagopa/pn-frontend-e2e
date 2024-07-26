@@ -25,7 +25,7 @@ Feature:Il delegato persona giuridica accede ad una delega
       | avvisoPagoPa     | 1                  |
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 10 secondi
-    And La persona giuridica clicca sulla prima notifica restituita
+    And Si seleziona la notifica
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
     And Si verifica che visualizzato lo stato Pagato
@@ -53,6 +53,6 @@ Feature:Il delegato persona giuridica accede ad una delega
       | firstName   | Gaio Giulio       |
       | lastName    | Cesare            |
     And Nella Pagina Notifiche persona giuridica si clicca su notifiche delegate
-    And La persona giuridica clicca sulla prima notifica restituita
+    And Si seleziona la notifica
     And Si verifica che visualizzato lo stato Pagato
     And Logout da portale persona fisica

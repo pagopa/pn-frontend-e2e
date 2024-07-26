@@ -217,12 +217,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
 
-    public void checkRicevutaConsegnaCliccabile() {
-        logger.info("controllo esistenza bottone per scaricare zip");
-        getWebDriverWait(10).withMessage("Il bottone Ricevuta di consegna non cliccabile").until(ExpectedConditions.elementToBeClickable(ricevutaDiConsegnaButton));
-        logger.info("Il bottone Ricevuta di consegna non cliccabile");
-    }
-
     public void clickRicevutaDiConsegna() throws AWTException, IOException {
         boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
         if (!headless) {

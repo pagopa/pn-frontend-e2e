@@ -25,7 +25,7 @@ Feature: PF visualizza il dettaglio di una notifica con solo un elemento in time
       | tipoDestinatario | PF               |
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 5 secondi
-    And Cliccare sulla notifica restituita
+    And Si seleziona la notifica
     And Aspetta 200 secondi
     And Si visualizza correttamente la section Dettaglio Notifica
     And controllo link per scaricare zip e scarico file Ricevuta di consegna
@@ -56,7 +56,7 @@ Feature: PF visualizza il dettaglio di una notifica con solo un elemento in time
       | tipoDestinatario | PF               |
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 5 secondi
-    And Cliccare sulla notifica restituita
+    And Si seleziona la notifica
     And Aspetta 200 secondi
     And Si visualizza correttamente la section Dettaglio Notifica
     And controllo link per scaricare zip e scarico file Ricevuta di consegna

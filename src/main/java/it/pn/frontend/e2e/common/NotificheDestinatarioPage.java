@@ -45,4 +45,10 @@ public class NotificheDestinatarioPage extends BasePage{
         return isTextboxInvalid.equals(ariaInvalid);
     }
 
+    public void checkRicevutaConsegnaCliccabile() {
+        logger.info("controllo esistenza bottone per scaricare zip");
+        getWebDriverWait(10).withMessage("Il bottone Ricevuta di consegna non cliccabile").until(ExpectedConditions.elementToBeClickable(ricevutaDiConsegnaButton));
+        logger.info("Il bottone Ricevuta di consegna non cliccabile");
+    }
+
 }
