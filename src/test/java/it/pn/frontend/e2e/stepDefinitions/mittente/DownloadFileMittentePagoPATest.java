@@ -225,6 +225,12 @@ public class DownloadFileMittentePagoPATest {
         driver.navigate().back();
     }
 
+    @Then("Si clicca sul documento Attestazione scaduta")
+    public void clickDocumentoAttestazioneScaduta() {
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        dettaglioNotificaSection.clickLinkAttestazioniOpponibile(0);
+    }
+
     @And("Nella sezione Dettaglio Notifiche si scarica il file AAR")
     public void downloadFileAAR() {
         logger.info("Si scaricano solo i file AAR all'interno della notifica");
@@ -458,5 +464,12 @@ public class DownloadFileMittentePagoPATest {
 
         disserviziAppPAPage.downloadAttestazione();
         WebTool.waitTime(3);
+    }
+
+    @And("Si controlla che esista pop up scadenza")
+    public void siControllaCheEsistaPopUpScadenza() {
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(driver);
+
+        dettaglioNotificaSection.checkMessaggioScadenzaDownload();
     }
 }

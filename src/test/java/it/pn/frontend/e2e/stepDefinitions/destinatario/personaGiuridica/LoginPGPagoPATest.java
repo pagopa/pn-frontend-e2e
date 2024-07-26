@@ -12,6 +12,7 @@ import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
+import it.pn.frontend.e2e.pages.destinatario.personaFisica.ComeVuoiAccederePage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
@@ -296,17 +297,6 @@ public class LoginPGPagoPATest {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
-
-        PreAccediAreaRiservataPGPage preAccediAreaRiservataPGPage = new PreAccediAreaRiservataPGPage(this.driver);
-        preAccediAreaRiservataPGPage.waitLoadPreAccediPage();
-        preAccediAreaRiservataPGPage.clickAccediButton();
-
-        if (!CookieConfig.isCookieEnabled()) {
-            cookiesSection = new CookiesSection(this.driver);
-            if (cookiesSection.waitLoadCookiesPage()) {
-                cookiesSection.selezionaAccettaTuttiButton();
-            }
-        }
         accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
         accediAreaRiservataPGPage.clickSpidButton();
 
@@ -438,4 +428,5 @@ public class LoginPGPagoPATest {
         DestinatarioPage destinatarioPage = new DestinatarioPage(driver);
         destinatarioPage.clickProdotto(xpath);
     }
+
 }
