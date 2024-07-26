@@ -223,7 +223,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         logger.info("Il bottone Ricevuta di consegna non cliccabile");
     }
 
-    public void clickRicevutaDiConsegna() throws AWTException {
+    public void clickRicevutaDiConsegna() throws AWTException, IOException {
         boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
         if (!headless) {
             logger.info("controllo esistenza bottone per scaricare zip");
@@ -260,23 +260,17 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             // Generate a unique filename for the downloaded ZIP file
             String fileName = "downloaded_" + System.currentTimeMillis() + ".zip";
 
-            ricevutaDiConsegnaButton.click();
-
-            DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
             DownloadFile downloadFile = new DownloadFile(this.driver);
+            DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
             String codiceIUN;
-            String destinatario = dettaglioNotificaMittenteSection.getInfoNotifica(1);
+            WebTool.waitTime(1);
             codiceIUN = dettaglioNotificaMittenteSection.getInfoNotifica(3);
 
-
-
-            final String urlFileRicevuta = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/" + codiceIUN + "/legal-facts/");
-            downloadFile.download(urlFileRicevuta, downloadDirectory, headless);
-
-
-            WebTool.waitTime(2);
-            File downloadedFile = new File(downloadDirectory + fileName);
-            Assert.assertTrue(downloadedFile.exists());
+            File file = new File(downloadDirectory, fileName);
+            ricevutaDiConsegnaButton.click();
+            WebTool.waitTime(1);
+            final String urlFileRicevuta = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/bff/v1/notifications/received/" + codiceIUN + "/documents/");
+            FileUtils.copyURLToFile(new URL(urlFileRicevuta), file, 1000, 1000);
             logger.info("ZIP file downloaded successfully.");
         }
     }

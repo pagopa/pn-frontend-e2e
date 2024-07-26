@@ -342,7 +342,7 @@ public class NotifichePGPagoPATest {
     }
 
     @And("controllo link per scaricare zip e scarico file Ricevuta di consegna")
-    public void scaricaRicevutaDiConsegna() throws AWTException {
+    public void scaricaRicevutaDiConsegna() throws AWTException, IOException {
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
         piattaformaNotifichePGPAPage.clickRicevutaDiConsegna();
     }
