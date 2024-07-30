@@ -36,7 +36,8 @@ public class NewNotifichePagoPATest {
     }
 
     @And("Si completa percorso RADD")
-    public void siCompletaPercorsoRADD() {
-        destinatarioPage.initRadd();
+    public void siCompletaPercorsoRADD(Map<String,String> datiDestinatario) {
+        destinatarioPage.initRadd(datiDestinatario.get("tipoDestinatario"), datiDestinatario.get("codiceFiscale"));
+        destinatarioPage.completeRadd();
     }
 }
