@@ -60,6 +60,8 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
       | cap       | 20147    |
       | stato     | Italia   |
     And Cliccare su continua
+    And Si clicca sul bottone esci
+    And Si clicca sul bottone esci
     And PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Si clicca bottone accetta cookies
     And Aspetta 60 secondi
@@ -97,6 +99,8 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
       | cap       | 20147    |
       | stato     | Italia   |
     And Cliccare su continua
+    And Si clicca sul bottone esci
+    And Si clicca sul bottone esci
     And PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Si clicca bottone accetta cookies
     And Aspetta 60 secondi
