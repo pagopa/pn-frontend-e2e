@@ -5,6 +5,7 @@ import it.pn.frontend.e2e.model.enums.NotificationFeePolicyEnum;
 import it.pn.frontend.e2e.model.enums.PhysicalCommunicationTypeEnum;
 import it.pn.frontend.e2e.model.enums.RecipientTypeEnum;
 import it.pn.frontend.e2e.rest.RestNotification;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 
@@ -21,6 +22,8 @@ public class NotificationBuilder {
     public static final String APPLICATION_PDF = "application/pdf";
     public static final String APPLICATION_JSON = "application/json";
     private final RestNotification restNotification = new RestNotification();
+    @Getter
+    private String sha;
 
     public PhysicalCommunicationTypeEnum modelloNotifica(String modello) {
         return PhysicalCommunicationTypeEnum.fromString(modello);
@@ -106,6 +109,7 @@ public class NotificationBuilder {
             metaDatiPreLoad = new File("src/test/resources/dataPopulation/fileUpload/METADATA_CORRETTO.json");
         }
         String sha256 = computeSha256(metaDatiPreLoad.getAbsolutePath().replace("\\", "/"));
+        this.sha = sha256;
         PreLoadRequest preLoadRequest = new PreLoadRequest()
                 .preloadIdx("0")
                 .sha256(sha256)
@@ -189,4 +193,5 @@ public class NotificationBuilder {
         byte[] encodedBytes = Base64.getEncoder().encode(hash);
         return new String(encodedBytes);
     }
+
 }

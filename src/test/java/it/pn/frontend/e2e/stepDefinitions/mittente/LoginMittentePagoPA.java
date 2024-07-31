@@ -355,4 +355,18 @@ public class LoginMittentePagoPA {
         String url = urlInziale + token;
         driver.get(url);
     }
+
+    @And("Si clicca sul bottone test")
+    public void clickTestButton(){
+        AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);
+        acccediAreaRiservataPAPage.clickTestBottone();
+    }
+
+    @And("Si clicca bottone accetta cookies")
+    public void clickAcceptCookies(){
+        CookiesSection cookiesPage = new CookiesSection(this.driver);
+        if (cookiesPage.waitLoadCookiesPage()) {
+            cookiesPage.selezionaAccettaTuttiButton();
+        }
+    }
 }

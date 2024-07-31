@@ -15,6 +15,8 @@ public class NotificheDestinatarioPage extends BasePage{
 
     @FindBy(id = "iunMatch")
     WebElement codiceIunTextField;
+    @FindBy(xpath = "//button[contains(text(),'Ricevuta di consegna PEC')]")
+    WebElement ricevutaDiConsegnaButton;
 
     public NotificheDestinatarioPage(WebDriver driver) {
         super(driver);

@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.pages.mittente;
 
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.section.CookiesSection;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -12,6 +13,9 @@ public class AcccediAreaRiservataPAPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("AccediAreaRiservataPAPage");
     @FindBy(id = "spidButton")
     WebElement spidButton;
+
+    @FindBy (id = "forward_prod-pn-test")
+    WebElement testButton;
 
     public AcccediAreaRiservataPAPage(WebDriver driver) {
         super(driver);
@@ -39,5 +43,10 @@ public class AcccediAreaRiservataPAPage extends BasePage {
             logger.error("Il bottone SPID non è cliccabile con errore : "+e.getMessage());
             Assert.fail("Il bottone SPID non è cliccabile con errore : "+e.getMessage());
         }
+    }
+
+    public void clickTestBottone(){
+        getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(testButton));
+        testButton.click();
     }
 }

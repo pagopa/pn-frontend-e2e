@@ -1,5 +1,8 @@
 package it.pn.frontend.e2e.common;
 
+import io.cucumber.java.en.Then;
+import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
+import it.pn.frontend.e2e.utility.NotificationBuilder;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -10,13 +13,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DettaglioNotificaSection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
 
     @FindBy(xpath = "//button[contains(text(),'Attestazione opponibile a terzi: ')]")
     List<WebElement> attestazioniFile;
+
+    @FindBy(xpath = "//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11dv4ll')]")
+    List<WebElement> infoNotifiche;
 
     @FindBy(xpath = "//button/div[contains(text(),'NOTIFICATION')]")
     List<WebElement> documentiAllegati;
@@ -154,5 +162,38 @@ public class DettaglioNotificaSection extends BasePage {
     public void checkMessaggioScadenzaDownload() {
         By checkAvvisoDownloadScaduto = By.xpath("//div[contains(text(), 'Il documento sarà scaricabile tra pochi minuti')]");
         getWebDriverWait(10).withMessage("Il pulsante sezione attestazione opponibile non è visibile").until(ExpectedConditions.visibilityOfElementLocated(checkAvvisoDownloadScaduto));
+    }
+
+    @Then("Si controlla il SHA all interno del file atteztazione")
+    public void siControllaIlSHAAllInternoAOT() {
+        logger.info("Si controlla che il testo al suo interno si corretto");
+        NotificationBuilder notificationBuilder = new NotificationBuilder();
+        String sha256 = notificationBuilder.getSha();
+        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
+                if (dettaglioNotificaMittenteSection.controlloTestoFile("Attestazione_opponibile_a_terzi_notifica_presa_in_carico",sha256)) {
+                    logger.info("Il codice SHA all'interno del file è corretto");
+                } else {
+                    logger.error("Il codice SHA  all'interno del file  NON è corretto");
+                    Assert.fail("Il codice SHA  all'interno del file  NON è corretto");
+                }
+    }
+
+    public Map<String, String> recuperoInfoNotificheDestinatario() {
+        Map<String, String> infoNotifica = new HashMap<>();
+        String mittente = getInfoNotifica(0);
+        infoNotifica.put("mittente", mittente);
+        String destinatario = getInfoNotifica(1);
+        infoNotifica.put("destinatario", destinatario);
+        String data = getInfoNotifica(2);
+        infoNotifica.put("data", data);
+        String codiceIUN = getInfoNotifica(3);
+        infoNotifica.put("codiceIUN", codiceIUN);
+        infoNotifica.put("codiceAvviso", "nd");
+
+        return infoNotifica;
+    }
+
+    public String getInfoNotifica(int i) {
+        return infoNotifiche.get(i).getText();
     }
 }
