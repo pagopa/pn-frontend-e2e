@@ -37,7 +37,7 @@ Feature: persona giuridica scarica attestazione opponibile
     And Si clicca sul bottone esci
     And PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Si clicca bottone accetta cookies
-    And Aspetta 60 secondi
+    And Aspetta 120 secondi
     And Cliccare sulla notifica restituita
     And Nella sezione Dettaglio Notifiche PG si seleziona il file, "Attestazione opponibile a terzi: notifica presa in carico", da scaricare
     Then Si controlla il testo all interno del file destinatario "Attestazione_opponibile_a_terzi_notifica_presa_in_carico"
