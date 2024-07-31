@@ -27,7 +27,7 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
     And Aspetta 5 secondi
     And Si seleziona la notifica destinatario
     And Si visualizza correttamente la section Dettaglio Notifica
-    And Nella sezione Dettaglio Notifiche si seleziona il file, "Attestazione opponibile a terzi: notifica presa in carico", da scaricare
+    And Nella sezione Dettaglio Notifiche PG si seleziona il file, "Attestazione opponibile a terzi: notifica presa in carico", da scaricare
     Then Si controlla il SHA all interno del file atteztazione
     And Logout da portale persona fisica
 
@@ -72,7 +72,7 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
     And Logout da portale persona fisica
 
 
-      @@TA_PFVerificaEnteNelDettagglioNotifica
+      @@TA_PFVerificaEnteNelDettaglioNotifica
   Scenario: PN-10427 - Persona fisica verifica concatenazione nome ente Radice e ente Figlio in dettaglio notifica
     Given Login Page mittente "mittente_1" viene visualizzata
     When Login con mittente "mittente_1"
