@@ -13,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 
 
 import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 public class NewNotifichePagoPATest {
@@ -37,7 +38,8 @@ public class NewNotifichePagoPATest {
 
     @And("Si completa percorso RADD")
     public void siCompletaPercorsoRADD(Map<String,String> datiDestinatario) {
-        destinatarioPage.initRadd(datiDestinatario.get("tipoDestinatario"), datiDestinatario.get("codiceFiscale"));
-        destinatarioPage.completeRadd();
+        String operationId = UUID.randomUUID().toString();
+        destinatarioPage.initRadd(datiDestinatario.get("tipoDestinatario"), datiDestinatario.get("codiceFiscale"),operationId);
+        destinatarioPage.completeRadd(operationId);
     }
 }

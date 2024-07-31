@@ -1,14 +1,25 @@
 package it.pn.frontend.e2e.model.radd.CompleteTransaction;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.util.UUID;
+
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class CompleteTransactionRequest {
     private String operationId;
     private String operationDate;
 
-    public CompleteTransactionRequest() {
-        this.operationId = "5d2d53ad-6306-40fe-8126-51ccdd917cef";
-        this.operationDate = "2022-06-21T11:44:28Z";
+    public CompleteTransactionRequest(String operationId) {
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendInstant(3) // Formatta l'istante con precisione di tre cifre per i millisecondi
+                .toFormatter();
+        this.operationId = operationId;
+        this.operationDate = formatter.format(Instant.now());
     }
 }

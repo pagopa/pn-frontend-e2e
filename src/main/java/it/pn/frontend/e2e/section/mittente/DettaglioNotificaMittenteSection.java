@@ -475,4 +475,9 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             Assert.fail("Attestazione opponibile a terzi notifica presa in carico non visualizzato correttamente con errore: " + e.getMessage());
         }
     }
+
+    public void checkAlertRADD() {
+        By alertRADD = By.xpath("//div[@data-testid='raddAlert']");
+        getWebDriverWait(10).withMessage("Non si visualizza l'alert radd").until(ExpectedConditions.visibilityOfElementLocated(alertRADD));
+    }
 }

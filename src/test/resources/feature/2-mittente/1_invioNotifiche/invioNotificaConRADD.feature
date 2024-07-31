@@ -13,7 +13,7 @@ Feature: Mittente invia una notifica analogica con controllo RADD
       | costiNotifica   | false              |
     And Si aggiunge un destinatario alla notifica
       | at                | Presso           |
-      | indirizzo         | VIA ROMA 20      |
+      | indirizzo         | via Roma 20  |
       | dettagliIndirizzo | Scala b          |
       | codicePostale     | 70123           |
       | comune            | BARI           |
@@ -22,10 +22,13 @@ Feature: Mittente invia una notifica analogica con controllo RADD
       | stato             | Italia           |
       | nomeCognome       | Gaio Giulio      |
       | codiceFiscale     | CSRGGL44L13H501E |
-     | tipoDestinatario  | PF               |
+     | tipoDestinatario   | PF               |
     Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica mittente
+    And Aspetta 120 secondi
     And Si completa percorso RADD
       | codiceFiscale     | CSRGGL44L13H501E |
       | tipoDestinatario  | PF               |
+    And Aspetta 30 secondi
+    And Controllo alert RADD
     And Logout da portale mittente

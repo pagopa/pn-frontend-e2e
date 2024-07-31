@@ -203,11 +203,11 @@ public class DestinatarioPage extends BasePage {
         notificationRequest = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), datiNotifica.getOrDefault("oggettoNotifica", "PAGAMENTO RATA IMU"), null, documents, modelloNotifica, "010202N", feePolicy);
     }
 
-    public void initRadd(String tipoDestinatario, String codiceFiscale) {
-        restRaddAlternative.startTransactionRaddAlternative(tipoDestinatario,codiceFiscale);
+    public void initRadd(String tipoDestinatario, String codiceFiscale, String operationId) {
+        restRaddAlternative.startTransactionRaddAlternative(tipoDestinatario,codiceFiscale,operationId);
     }
 
-    public void completeRadd() {
-        restRaddAlternative.completeTransactionRaddAlternative();
+    public void completeRadd(String operationId) {
+        restRaddAlternative.completeTransactionRaddAlternative(operationId);
     }
 }
