@@ -11,6 +11,7 @@ import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
+import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
@@ -495,6 +496,13 @@ public class NotifichePersonaFisicaPagoPATest {
         @And("Si verifica che visualizzato lo stato Pagato")
         public void siVisualizzaStatoPagato(){
             accediAPiattaformaNotifichePage.siVisualizzaStatoPagato();
+        }
+
+        @And("Verifica nome ente mittente {string}")
+        public void verificaNomeEnteMittente(String nomeEnte){
+            DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+            Map<String, String> infoNotifiche = dettaglioNotificaSection.recuperoInfoNotificheDestinatario();
+            Assert.assertTrue(infoNotifiche.get("mittente").equalsIgnoreCase(nomeEnte));
         }
 }
 
