@@ -6,6 +6,7 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.model.delegate.DelegatePG;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePG;
+import it.pn.frontend.e2e.model.singleton.MandateSingleton;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
 import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.AggiungiDelegaPGSection;
@@ -35,6 +36,7 @@ public class DeleghePGPagoPATest {
     private final DataPopulation dataPopulation = new DataPopulation();
     private Map<String, Object> datiDelega = new HashMap<>();
     Map<String, Object> datiPersonaFisica = new HashMap<>();
+    private final MandateSingleton mandateSingleton = MandateSingleton.getInstance();
 
     private final RestDelegation restDelegation = RestDelegation.getInstance();
 
@@ -276,14 +278,14 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.clickConfirmCodeButton();
     }
 
-    @And("Si assegna un gruppo alla delega")
-    public void siAssegnaUnGruppoAllaDelega() {
+    @And("Si assegna un gruppo alla delega {string}")
+    public void siAssegnaUnGruppoAllaDelega(String gruppo) {
         logger.info("Si assegna un gruppo alla delega");
 
         deleghePGPagoPAPage.waitLoadPopUpGruppo();
         deleghePGPagoPAPage.clickAssegnaGruppoRadioButton();
         deleghePGPagoPAPage.waitLoadPopUpGruppo();
-        deleghePGPagoPAPage.clickGruppoField();
+        deleghePGPagoPAPage.clickGruppoField(gruppo);
     }
 
     @And("Si clicca sul bottone conferma gruppo")
@@ -363,7 +365,7 @@ public class DeleghePGPagoPATest {
         logger.info("Si seleziona un il gruppo di delega");
 
         deleghePGPagoPAPage.waitLoadPopUpModifica();
-        deleghePGPagoPAPage.clickGruppoField();
+        deleghePGPagoPAPage.clickGruppoField("Test gruppi");
     }
 
     @And("Si clicca su conferma in assegnazione gruppo")
@@ -448,8 +450,8 @@ public class DeleghePGPagoPATest {
                 .build();
         String tokenExchange = loginPGPagoPaTest.getTokenExchangePGFromFile(personaGiuridica.get("accessoCome"));
         DelegateResponsePG response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
-        System.setProperty("mandateId", response.getMandateId());
-        System.setProperty("verificationCode", response.getVerificationCode());
+        mandateSingleton.setScenarioMandateId(Hooks.getScenario(),response.getMandateId());
+        mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()),response.getVerificationCode());
         driver.navigate().refresh();
     }
 
@@ -472,7 +474,8 @@ public class DeleghePGPagoPATest {
 
     @And("Si inserisce il codice della delega a carico dell impresa nella modale")
     public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale() {
-        String verificationCode = System.getProperty("verificationCode");
+        String verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()));
+        logger.info(verificationCode);
         deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI(verificationCode);
     }
 
@@ -482,10 +485,10 @@ public class DeleghePGPagoPATest {
         backgroundTest.revocaDelegaPG(ragioneSociale);
     }
 
-    @And("Si accetta la delega {string} gruppo")
-    public void siAccettaLaDelegaGruppo(String withGroup) {
+    @And("Si accetta la delega {string} gruppo {string}")
+    public void siAccettaLaDelegaGruppo(String withGroup, String gruppo) {
         BackgroundTest backgroundTest = new BackgroundTest();
-        backgroundTest.accettazioneDelegaSceltaGruppo(withGroup.equalsIgnoreCase("senza"));
+        backgroundTest.accettazioneDelegaSceltaGruppo(withGroup.equalsIgnoreCase("senza"),gruppo);
     }
 
     public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModaleErrata() {
@@ -556,7 +559,7 @@ public class DeleghePGPagoPATest {
     public void siRevocaDelegaComeDelegantConApi() {
 
         loginPGPagoPaTest.getTokenExchangePGFromFile("delegante");
-        String mandateId = System.getProperty("mandateId");
+        String mandateId = mandateSingleton.getMandateId(Hooks.getScenario());
         restDelegation.revokeDelegation(mandateId);
 
     }

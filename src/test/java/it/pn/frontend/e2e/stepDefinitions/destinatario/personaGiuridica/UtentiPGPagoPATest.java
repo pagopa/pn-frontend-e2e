@@ -1,8 +1,10 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.UtentiPGPage;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ public class UtentiPGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("UtentiPGPagoPATest");
     private final WebDriver driver = Hooks.driver;
     private final UtentiPGPage utentiPGPage = new UtentiPGPage(this.driver);
+    private final HomePagePG homePagePG = new HomePagePG(this.driver);
 
     @And("Si visualizza correttamente la pagina utenti")
     public void siVisualizzaCorrettamenteLaPAginaUtenti() {
@@ -125,5 +128,15 @@ public class UtentiPGPagoPATest {
         String nome = nuovoUtente.get("user");
         String pwd = nuovoUtente.get("pwd");
         utentiPGPage.loginUtenti(nome, pwd);
+    }
+
+    @Then("Home page persona giuridica ruolo operatore viene visualizzata correttamente")
+    public void homePagePersonaGiuridicaRuoloOperatoreVieneVisualizzataCorrettamente(Map<String, String > datiLogin) {
+        homePagePG.waitLoadHomePagePGRuoloOperatorePage(datiLogin.get("ragioneSociale"));
+    }
+
+    @And("Si controlla che non esista il bottone deleghe nel side menu")
+    public void siControllaCheNonEsistaIlBottoneDelegheNelSideMenu() {
+        homePagePG.checkBottoneDeleghe();
     }
 }

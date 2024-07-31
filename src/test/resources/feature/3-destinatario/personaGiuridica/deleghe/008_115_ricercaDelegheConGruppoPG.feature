@@ -29,7 +29,7 @@ Feature:La persona giuridica fa una ricerca per gruppo delle deleghe
       | displayName    | Convivio Spa  |
       | person         | false         |
     And Si controlla la tabella deleghe a carico dell impresa
-    And Si accetta la delega "con" gruppo
+    And Si accetta la delega "con" gruppo "Test gruppi"
     And Nella pagina Deleghe sezione Deleghe a Carico dell impresa si inserisce il gruppo del delegante
     And Nella pagina Deleghe sezione Deleghe a Carico dell impresa si clicca su bottone Filtra
     And Nella pagina Deleghe sezione Deleghe a Carico dell impresa si controlla che ci sia una delega con la ragione sociale inserita "Convivio Spa"

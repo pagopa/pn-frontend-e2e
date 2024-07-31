@@ -15,7 +15,7 @@ Feature: Il delegato persona giuridica modifica una delega non assegnandoli un g
       | companyName    | Convivio Spa  |
       | displayName    | Convivio Spa  |
       | person         | false         |
-    And Si accetta la delega "con" gruppo
+    And Si accetta la delega "con" gruppo "Test gruppi"
     And Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega "personaGiuridica"
     And Nella sezione Deleghe si clicca sul bottone modifica
     And Si clicca sul bottone non assegna a un gruppo

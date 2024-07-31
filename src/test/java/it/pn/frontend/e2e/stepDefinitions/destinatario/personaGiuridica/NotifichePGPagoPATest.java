@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
+import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
@@ -24,7 +25,9 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,13 +36,13 @@ import java.util.concurrent.TimeUnit;
 public class NotifichePGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("NotifichePGPagoPATest");
     private final WebDriver driver = Hooks.driver;
-    List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
-    DeleghePGPagoPAPage deleghePage = new DeleghePGPagoPAPage(this.driver);
-    Map<String, Object> personaGiuridica = new HashMap<>();
     private final LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
     private final PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
     private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
     private final DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
+    List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
+    DeleghePGPagoPAPage deleghePage = new DeleghePGPagoPAPage(this.driver);
+    Map<String, Object> personaGiuridica = new HashMap<>();
 
     @And("Nella Home page persona giuridica si clicca su Send Notifiche Digitali")
     public void clickSendNotificheDigitali() {
@@ -114,7 +117,7 @@ public class NotifichePGPagoPATest {
     }
 
     @And("Nella sezione Deleghe si verifica sia presente una delega accettata per PG")
-    public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelegaAccettataPerPG(){
+    public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelegaAccettataPerPG() {
         logger.info("Si controlla che sia presente una delega");
         BackgroundTest backgroundTest = new BackgroundTest();
         if (!this.deleghePage.siVisualizzaUnaDelegaPG()) {
@@ -124,8 +127,8 @@ public class NotifichePGPagoPATest {
             backgroundTest.loginPGDeleghe("delegatoPG");
             backgroundTest.accettazioneDelegaPG();
         } else if (this.leTueDelegheSection.controlloPresenzaBottoneAccetta()) {
-        backgroundTest.accettazioneDelegaPG();
-    }
+            backgroundTest.accettazioneDelegaPG();
+        }
         this.driver.navigate().refresh();
     }
 
@@ -231,63 +234,58 @@ public class NotifichePGPagoPATest {
     }
 
     @And("Si clicca sul radio bottone di pagamento")
-    public void siCliccaRadioButtonPagamento(){
+    public void siCliccaRadioButtonPagamento() {
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
         piattaformaNotifichePGPAPage.clickRadioBoxButton();
     }
 
-    @And("Si controlla sia presente il modello F24 PG")
-    public void siControllaSiaPresenteIlModelloF24PG() {
+    @And("Si controlla sia presente il modello F24 destinatario")
+    public void siControllaSiaPresenteIlModelloF24Destinatario() {
         logger.info("Si controlla sia presente il modello F24 PG");
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
-        if(piattaformaNotifichePGPAPage.modelloF24Displayed()){
-           logger.info("Il modello F24 è trovato");
-        }else{
+        if (piattaformaNotifichePGPAPage.modelloF24Displayed()) {
+            logger.info("Il modello F24 è trovato");
+        } else {
             logger.error("Il modello F24 non è trovato");
             Assert.fail("Il modello F24 non è trovato");
         }
     }
 
-    @And("Si controlla non sia presente il modello F24 PG")
-    public void siControllaNonSiaPresenteIlModelloF24PG() {
+    @And("Si controlla non sia presente il modello F24 destinatario")
+    public void siControllaNonSiaPresenteIlModelloF24Destinatario() {
         logger.info("Si controlla non sia presente il modello F24 PG");
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
-        if(!piattaformaNotifichePGPAPage.modelloF24Displayed()){
+        if (!piattaformaNotifichePGPAPage.modelloF24Displayed()) {
             logger.info("Il modello F24 non è trovato");
-        }else{
+        } else {
             logger.error("Il modello F24 è trovato");
             Assert.fail("Il modello F24 è trovato");
         }
     }
 
-    @And("Si clicca il modello F24 PG")
-    public void siCliccaIlModelloF24PG() {
-        logger.info("Si clicca il modello F24 PG");
+    @And("Si clicca sul modello F24 destinatario numero {int}")
+    public void siCliccaIlModelloF24Destinatario(int numOfF24) {
+        logger.info("Si clicca  modello F24 destinatario");
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
-        piattaformaNotifichePGPAPage.clickModelloF24();
+        piattaformaNotifichePGPAPage.vaiInFondoAllaPagina();
+        piattaformaNotifichePGPAPage.clickModelloF24Numero(numOfF24);
     }
 
-    @And("Si clicca il secondo modello F24 PG")
-    public void siCliccaIlSecondoModelloF24PG() {
-        logger.info("Si clicca il secondo modello F24 PG");
-        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
-        piattaformaNotifichePGPAPage.clickSecondoModelloF24();
-    }
 
-    @And("Si controlla sia presente l'avviso PagoPa PG")
-    public void siControllaSiaPresenteLAvvisoPagoPaPG() {
+    @And("Si controlla sia presente l'avviso PagoPa destinatario")
+    public void siControllaSiaPresenteLAvvisoPagoPaDestinatario() {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
         AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
-        if(accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed()){
+        if (accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed()) {
             logger.info("Avviso PagoPA è trovato");
-        }else{
+        } else {
             logger.error("Avviso PagoPA non è trovato");
             Assert.fail("Avviso PagoPA non è trovato");
         }
     }
 
     @And("Si controlla sia presente piu avvisi PagoPa PG")
-    public void siControllaSiaPresentePiuAvvisiPagoPaPG(){
+    public void siControllaSiaPresentePiuAvvisiPagoPaPG() {
         AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
         Assert.assertTrue("Avvissi PagoPA non sono trovati", accediAPiattaformaNotifichePage.piuAvvisiDisplayed());
         logger.info("Avvissi PagoPA sono trovati");
@@ -310,11 +308,11 @@ public class NotifichePGPagoPATest {
         logger.info("Avviso PagoPA è presente");
     }
 
-    @And("Si clicca l'avviso PagoPa PG")
-    public void siCliccaLAvvisoPagoPaPG() {
-        logger.info("Si clicca l'avviso PagoPa PG");
+    @And("Si clicca l'avviso PagoPa destinatario")
+    public void siCliccaLAvvisoPagoPaDestinatario() {
+        logger.info("Si clicca l'avviso PagoPa destinatario");
         AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
-        accediAPiattaformaNotifichePage.clickAvvisoPagoPAPG();
+        accediAPiattaformaNotifichePage.clickAvvisoPagoPADestinatario();
     }
 
     @And("Si controlla sia visualizza box allegati modelli F24 PG")
@@ -333,14 +331,41 @@ public class NotifichePGPagoPATest {
     }
 
     @And("Si controlla la presenza di codice avviso")
-    public void siControllaLaPresenzaDiCodiceAvviso(){
+    public void siControllaLaPresenzaDiCodiceAvviso() {
         logger.info("Si controlla la presenza di codice avviso");
-        AccediAPiattaformaNotifichePage  accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
-        if(accediAPiattaformaNotifichePage.codiceAvvisoDisplayed()){
+        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        if (accediAPiattaformaNotifichePage.codiceAvvisoDisplayed()) {
             logger.info("Codice avviso è visuallizato corrttamente");
-        }else {
+        } else {
             logger.error("Codice avviso non è visuallizato corrttamente");
             Assert.fail("Codice avviso non è visuallizato corrttamente");
         }
+    }
+
+    @And("controllo link per scaricare zip e scarico file Ricevuta di consegna")
+    public void scaricaRicevutaDiConsegna() throws AWTException, IOException {
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        piattaformaNotifichePGPAPage.clickRicevutaDiConsegna();
+    }
+
+    @And("controllo Ricevuta di consegna link cliccabile")
+    public void controlloRicevutaDiConsegnaLinkCliccabile() {
+        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
+        notificheDestinatarioPage.checkRicevutaConsegnaCliccabile();
+    }
+
+    @And("Controllo sia presente documento pdf")
+    public void controlloPresenteDocumento() throws IOException {
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        logger.info("Controllo sia presente documento pdf");
+        Assert.assertTrue("Documento non è trovato", piattaformaNotifichePGPAPage.checkIfPdfExists());
+        logger.info("Documento è trovato");
+    }
+
+    @And("estraggo il file zip")
+    public void inseriscoPasswordEdEstraggoZip() throws IOException {
+        logger.info("estraggo il file zip");
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        piattaformaNotifichePGPAPage.extractZipWithoutPassword();
     }
 }

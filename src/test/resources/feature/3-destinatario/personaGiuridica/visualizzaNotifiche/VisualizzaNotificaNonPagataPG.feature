@@ -11,9 +11,9 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Nella pagina piattaforma notifiche PG si effettua la ricerca per codice IUN "JRNE-EZAY-DXGZ-202405-R-1"
     And Si clicca la notifica ricercata
     And Si visualizza correttamente la section Dettaglio Notifica
-    And Si controlla sia presente l'avviso PagoPa PG
-    And Si controlla sia presente il modello F24 PG
-    And Si clicca il modello F24 PG
+    And Si controlla sia presente l'avviso PagoPa destinatario
+    And Si controlla sia presente il modello F24 destinatario
+  And Si clicca sul modello F24 destinatario numero 1
     Then Si torna alla pagina precedente
     And Logout da portale persona giuridica
 
@@ -23,8 +23,8 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Nella pagina piattaforma notifiche PG si effettua la ricerca per codice IUN "LDTY-YKMT-NVTD-202405-L-1"
     And Si clicca la notifica ricercata
     And Si visualizza correttamente la section Dettaglio Notifica
-    And Si controlla sia presente l'avviso PagoPa PG
-    And Si clicca l'avviso PagoPa PG
+    And Si controlla sia presente l'avviso PagoPa destinatario
+    And Si clicca l'avviso PagoPa destinatario
     And Aspetta 3 secondi
     Then Si torna alla pagina precedente
     And Logout da portale persona giuridica
@@ -34,7 +34,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina piattaforma notifiche PG si effettua la ricerca per codice IUN "LEHT-MGMP-HUQN-202405-Y-1"
     And Si clicca la notifica ricercata
-    And Si controlla sia presente il modello F24 PG
+    And Si controlla sia presente il modello F24 destinatario
     Then Si controlla sia presente attestazione opponibile a terzi notifica presa in carico
     And Logout da portale persona giuridica
 
@@ -45,7 +45,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si clicca la notifica ricercata
     And Si verifica che la notifica abbia lo stato "Annullata"
     And Si controlla non sia presente l'avviso PagoPa
-    Then Si controlla non sia presente il modello F24 PG
+    Then Si controlla non sia presente il modello F24 destinatario
     And Logout da portale persona giuridica
 
   @CheckNotificaConDocumentiAllegatiPG
@@ -54,11 +54,11 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Nella pagina piattaforma notifiche PG si effettua la ricerca per codice IUN "XJRT-KHQU-UGEJ-202405-Q-1"
     And Si clicca la notifica ricercata
     And Si controlla sia visualizza box allegati modelli F24 PG
-    And Si clicca il modello F24 PG
+    And Si clicca sul modello F24 destinatario numero 1
     And Aspetta 3 secondi
     #Questi step sono commentati perche su aws quando clicca su link, il file viene scaricato, ma in locale si apre in nuova scheda
     #And Si torna alla pagina precedente
-    And Si clicca il secondo modello F24 PG
+    And Si clicca sul modello F24 destinatario numero 2
     #Then Si torna alla pagina precedente
     And Logout da portale persona giuridica
 

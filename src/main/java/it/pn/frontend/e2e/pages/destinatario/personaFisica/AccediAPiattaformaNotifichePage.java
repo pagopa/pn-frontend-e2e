@@ -202,7 +202,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         }
     }
 
-    public void clickAvvisoPagoPAPG() {
+    public void clickAvvisoPagoPADestinatario() {
         getWebDriverWait(30).withMessage("Il sezione scarica avviso non è cliccabile").until(ExpectedConditions.elementToBeClickable(scaricaAvviso));
         scaricaAvviso.click();
     }

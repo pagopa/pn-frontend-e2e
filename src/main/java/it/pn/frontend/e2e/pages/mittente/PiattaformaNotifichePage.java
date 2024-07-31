@@ -293,11 +293,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public void waitLoadRefreshPage() {
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        WebTool.waitTime(5);
     }
 
     public String ricercaNotifica(String oggettoDellaNotifica, String statoNotifica) {
@@ -543,13 +539,18 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
-    public void siCambiaPaginaUtilizzandoUnaFrecetta() {
+    public void siCambiaPaginaUtilizzandoUnaFrecetta(Integer numPage) {
+        Integer index= 0;
         this.getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile")
                 .until(ExpectedConditions.visibilityOf(this.frecciaPaginaSuccessiva));
         if (!frecciaPaginaSuccessiva.isDisplayed()) {
             this.js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
         }
-        frecciaPaginaSuccessiva.click();
+        while(index <= numPage){
+            frecciaPaginaSuccessiva.click();
+            index++;
+            WebTool.waitTime(2);
+        }
     }
 
     public void siCambiaPaginaUtilizzandoUnNumero() {
@@ -802,31 +803,6 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
 
-    public void checkStatoNotifica(String stato) {
-            WebElement notificationLine = notificationsTableLines.get(0);
-            WebElement chipStatus = notificationLine.findElement(By.xpath("//div[@id='status-chip-" + stato + "']"));
-            getWebDriverWait(10).withMessage("La notifica non ha lo stato " + stato).until(ExpectedConditions.visibilityOf(chipStatus));
-
-    }
-
-    public void selezionaNotificaConStato(String statoNotifica) {
-        boolean testSuccess = false;
-        for (int i = 0; i < 15; i++) {
-            try {
-                WebElement chipStatus = driver.findElement(By.id(statoNotifica + "-status"));
-                if (chipStatus != null) {
-                    logger.info("La notifica è passata allo stato {} e si procede con il test", statoNotifica);
-                    testSuccess = true;
-                    break;
-                }
-            } catch (NoSuchElementException e) {
-                logger.info("Dopo {} tentativi la notifica non è ancora passata allo stato: {}", i, statoNotifica);
-            }
-            WebTool.waitTime(15);
-            driver.navigate().refresh();
-        }
-        Assert.assertTrue("La notifica non è passata allo stato " + statoNotifica, testSuccess);
-    }
 
     public void clickSuNotifica() {
         String iun = notificationSingleton.getIun(Hooks.scenario);
@@ -836,22 +812,22 @@ public class PiattaformaNotifichePage extends BasePage {
         element(notification).click();
     }
 
-    public void clickAnnullaNotificaModale() {
-            By bottoneAnnullaNotificaModale = By.xpath("//button[@data-testid='modalCloseAndProceedBtnId']");
-            getWebDriverWait(20).until(ExpectedConditions.and(
-                    ExpectedConditions.visibilityOfElementLocated(bottoneAnnullaNotificaModale),
-                    ExpectedConditions.elementToBeClickable(bottoneAnnullaNotificaModale)));
-            element(bottoneAnnullaNotificaModale).click();
+    public void checkStatoNotifica(String stato) {
+        driver.navigate().refresh();
+        WebTool.waitTime(10);
+            WebElement notificationLine = notificationsTableLines.get(0);
+            WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + stato));
+            getWebDriverWait(10).withMessage("La notifica non ha lo stato " + stato).until(ExpectedConditions.visibilityOf(chipStatus));
     }
 
-    public void pollingSuStatoNotificaPerCompletamento(String statoNotifica) {
+    public void selezionaNotificaConStato(String statoNotifica) {
         boolean testSuccess = false;
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 8; i++) {
             try {
-                By chipStatus = By.id(statoNotifica + "-status" );
+                WebElement notificationLine = notificationsTableLines.get(0);
+                WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + statoNotifica));
                 if (chipStatus != null) {
                     logger.info("La notifica è passata allo stato " + statoNotifica + " e si procede con il test");
-                    driver.navigate().refresh();
                     testSuccess = true;
                     break;
                 }
@@ -866,6 +842,15 @@ public class PiattaformaNotifichePage extends BasePage {
             Assert.fail("La notifica non è passata allo stato " + statoNotifica);
         }
     }
+
+    public void clickAnnullaNotificaModale() {
+            By bottoneAnnullaNotificaModale = By.xpath("//button[@data-testid='modalCloseAndProceedBtnId']");
+            getWebDriverWait(20).until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(bottoneAnnullaNotificaModale),
+                    ExpectedConditions.elementToBeClickable(bottoneAnnullaNotificaModale)));
+            element(bottoneAnnullaNotificaModale).click();
+    }
+
 
     public void checkPopUpConfermaAnnullamentoNotifica() {
 
@@ -1077,7 +1062,6 @@ public class PiattaformaNotifichePage extends BasePage {
                     Assert.fail("Non si visualizza il messaggio di errore");
                 }
             }
-
         }
     }
 
@@ -1087,6 +1071,11 @@ public class PiattaformaNotifichePage extends BasePage {
         element(vediTutti).click();
     }
 
+    public void checkClickDownloadRicevutePEC() {
+        List<WebElement> ricevutePEC = driver.findElements(By.xpath("//button[contains(@data-testid, 'download-legalfact') and contains(text(), 'PEC')]"));
+        getWebDriverWait(10).withMessage("Le ricevute PEC non sono visibili").until(ExpectedConditions.and(ExpectedConditions.visibilityOfAllElements(ricevutePEC),ExpectedConditions.elementToBeClickable(ricevutePEC.get(0)),ExpectedConditions.elementToBeClickable(ricevutePEC.get(1))));
+
+    }
 
     public void verificaMittente(String ente) {
         By mittente = By.id("row-value-1");

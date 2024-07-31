@@ -3,7 +3,9 @@ package it.pn.frontend.e2e.listeners;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import io.cucumber.java.it.Ma;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import it.pn.frontend.e2e.model.singleton.MandateSingleton;
 import it.pn.frontend.e2e.model.address.DigitalAddressResponse;
 import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.rest.RestDelegation;
@@ -267,7 +269,8 @@ public class Hooks {
      */
     @After("@DeleghePF or @DeleghePG")
     public void clearDelegate() {
-        String mandateId = System.getProperty("mandateId");
+        MandateSingleton mandateSingleton = MandateSingleton.getInstance();
+        String mandateId =mandateSingleton.getMandateId(Hooks.getScenario());
         if (mandateId != null) {
             RestDelegation restDelegation = RestDelegation.getInstance();
             restDelegation.revokeDelegation(mandateId);
