@@ -7,8 +7,10 @@ import it.pn.frontend.e2e.listeners.Hooks;
 
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 
+import it.pn.frontend.e2e.utility.DataPopulation;
 import lombok.extern.slf4j.Slf4j;
 
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 
 
@@ -18,6 +20,7 @@ import java.util.UUID;
 @Slf4j
 public class NewNotifichePagoPATest {
     private final WebDriver driver = Hooks.driver;
+    private final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
 
     DestinatarioPage destinatarioPage = new DestinatarioPage(driver);
 
@@ -38,8 +41,21 @@ public class NewNotifichePagoPATest {
 
     @And("Si completa percorso RADD")
     public void siCompletaPercorsoRADD(Map<String,String> datiDestinatario) {
+        DataPopulation dataPopulation = new DataPopulation();
+        String environment = System.getProperty("environment");
+        String token = "";
+        switch (environment) {
+            case "dev" -> {
+                /* TODO */
+            }
+            case "test" ->
+                    token = dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestRaddista1").toString();
+            default -> {
+                log.error("Ambiente non valido");
+                Assert.fail("Ambiente non valido o non trovato!");
+            }
+        }
         String operationId = UUID.randomUUID().toString();
-        destinatarioPage.initRadd(datiDestinatario.get("tipoDestinatario"), datiDestinatario.get("codiceFiscale"),operationId);
-        destinatarioPage.completeRadd(operationId);
+        destinatarioPage.raddFlow(token,datiDestinatario.get("tipoDestinatario"), datiDestinatario.get("codiceFiscale"),operationId);
     }
 }

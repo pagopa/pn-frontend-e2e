@@ -37,7 +37,6 @@ public class DestinatarioPage extends BasePage {
     private NewNotificationRequest notificationRequest;
     private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
     private final RestNotification restNotification = new RestNotification();
-    private final RestRaddAlternative restRaddAlternative = new RestRaddAlternative();
     private static final NotificationBuilder notificationBuilder = new NotificationBuilder();
     private static int destinatariNumber;
     private final WebDriver driver = Hooks.driver;
@@ -203,11 +202,10 @@ public class DestinatarioPage extends BasePage {
         notificationRequest = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), datiNotifica.getOrDefault("oggettoNotifica", "PAGAMENTO RATA IMU"), null, documents, modelloNotifica, "010202N", feePolicy);
     }
 
-    public void initRadd(String tipoDestinatario, String codiceFiscale, String operationId) {
+    public void raddFlow(String token, String tipoDestinatario, String codiceFiscale, String operationId) {
+        final RestRaddAlternative restRaddAlternative = new RestRaddAlternative(token);
         restRaddAlternative.startTransactionRaddAlternative(tipoDestinatario,codiceFiscale,operationId);
-    }
-
-    public void completeRadd(String operationId) {
         restRaddAlternative.completeTransactionRaddAlternative(operationId);
+
     }
 }
