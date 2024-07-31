@@ -1,9 +1,9 @@
 Feature: persona fisica scarica attestazioni all'interno di una notifica
 
   @TestSuite
-  @TA_PFDownloadAttestazioneOpponibilePresaInCarico
   @PF
 
+  @TA_PFDownloadAttestazioneOpponibileEControllaSHA
   Scenario: PN-10391 - persona fisica scarica attestazione opponibile presa in carico
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
@@ -32,6 +32,7 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
     And Logout da portale persona fisica
 
 
+    @TA_PFDownloadAttestazioneOpponibilePresaInCaricoEVerificaEnte
   Scenario: PN-10428 - Persona fisica scarica Attestazione opponibile a terzi: notifica presa in carico
     Given Login Page mittente "mittente_1" viene visualizzata
     When Login con mittente "mittente_1"
@@ -71,6 +72,7 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
     And Logout da portale persona fisica
 
 
+      @@TA_PFVerificaEnteNelDettagglioNotifica
   Scenario: PN-10427 - Persona fisica verifica concatenazione nome ente Radice e ente Figlio in dettaglio notifica
     Given Login Page mittente "mittente_1" viene visualizzata
     When Login con mittente "mittente_1"
