@@ -28,11 +28,10 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginMittentePagoPA {
     private static final Logger logger = LoggerFactory.getLogger("LoginMittentePagoPA");
+    private final WebDriver driver = Hooks.driver;
+    private final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
     private Map<String, Object> datiMittente;
     private Map<String, String> urlMittente;
-    private final WebDriver driver = Hooks.driver;
-
-    private final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
 
     @Given("Login Page mittente {string} viene visualizzata")
     public void loginPageMittenteVieneVisualizzata(String datiMittenteFile) {
@@ -357,16 +356,22 @@ public class LoginMittentePagoPA {
     }
 
     @And("Si clicca sul bottone test")
-    public void clickTestButton(){
+    public void clickTestButton() {
         AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);
         acccediAreaRiservataPAPage.clickTestBottone();
     }
 
     @And("Si clicca bottone accetta cookies")
-    public void clickAcceptCookies(){
+    public void clickAcceptCookies() {
         CookiesSection cookiesPage = new CookiesSection(this.driver);
         if (cookiesPage.waitLoadCookiesPage()) {
             cookiesPage.selezionaAccettaTuttiButton();
         }
+    }
+
+    @And("Si clicca sul bottone esci")
+    public void siCLiccaSulBottoneEsci() {
+        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        headerPASection.selezionaEsciButton();
     }
 }

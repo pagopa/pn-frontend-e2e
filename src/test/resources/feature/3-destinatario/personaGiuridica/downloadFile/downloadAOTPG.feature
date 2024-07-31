@@ -33,8 +33,8 @@ Feature: persona giuridica scarica attestazione opponibile
       | cap       | 20147    |
       | stato     | Italia   |
     And Cliccare su continua
-    And Logout da portale mittente
-    And Nella section cliccare sul tasto esci
+    And Si clicca sul bottone esci
+    And Si clicca sul bottone esci
     And PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Si clicca bottone accetta cookies
     And Aspetta 60 secondi
