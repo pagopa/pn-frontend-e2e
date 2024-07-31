@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.common;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.utility.NotificationBuilder;
@@ -162,20 +163,6 @@ public class DettaglioNotificaSection extends BasePage {
     public void checkMessaggioScadenzaDownload() {
         By checkAvvisoDownloadScaduto = By.xpath("//div[contains(text(), 'Il documento sarà scaricabile tra pochi minuti')]");
         getWebDriverWait(10).withMessage("Il pulsante sezione attestazione opponibile non è visibile").until(ExpectedConditions.visibilityOfElementLocated(checkAvvisoDownloadScaduto));
-    }
-
-    @Then("Si controlla il SHA all interno del file atteztazione")
-    public void siControllaIlSHAAllInternoAOT() {
-        logger.info("Si controlla che il testo al suo interno si corretto");
-        NotificationBuilder notificationBuilder = new NotificationBuilder();
-        String sha256 = notificationBuilder.getSha();
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-                if (dettaglioNotificaMittenteSection.controlloTestoFile("Attestazione_opponibile_a_terzi_notifica_presa_in_carico",sha256)) {
-                    logger.info("Il codice SHA all'interno del file è corretto");
-                } else {
-                    logger.error("Il codice SHA  all'interno del file  NON è corretto");
-                    Assert.fail("Il codice SHA  all'interno del file  NON è corretto");
-                }
     }
 
     public Map<String, String> recuperoInfoNotificheDestinatario() {

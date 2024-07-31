@@ -17,10 +17,7 @@ import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
-import it.pn.frontend.e2e.utility.CookieConfig;
-import it.pn.frontend.e2e.utility.DataPopulation;
-import it.pn.frontend.e2e.utility.DownloadFile;
-import it.pn.frontend.e2e.utility.WebTool;
+import it.pn.frontend.e2e.utility.*;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -434,6 +431,20 @@ public class NotifichePGPagoPATest {
                 logger.error("Il nome del destinatario  all'interno del file  NON è corretto");
                 Assert.fail("Il nome del destinatario  all'interno del file  NON è corretto");
             }
+        }
+    }
+
+    @And("Si controlla il SHA all interno del file atteztazione")
+    public void siControllaIlShaAllInternoAot() {
+        logger.info("Si controlla che il testo al suo interno si corretto");
+        NotificationBuilder notificationBuilder = new NotificationBuilder();
+        String sha256 = notificationBuilder.getSha();
+        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
+        if (dettaglioNotificaMittenteSection.controlloTestoFile("Attestazione_opponibile_a_terzi_notifica_presa_in_carico",sha256)) {
+            logger.info("Il codice SHA all'interno del file è corretto");
+        } else {
+            logger.error("Il codice SHA  all'interno del file  NON è corretto");
+            Assert.fail("Il codice SHA  all'interno del file  NON è corretto");
         }
     }
 }
