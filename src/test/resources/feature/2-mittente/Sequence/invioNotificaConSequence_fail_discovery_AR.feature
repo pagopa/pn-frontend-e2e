@@ -12,15 +12,15 @@ Feature: invio notifica con sequence
       | oggettoNotifica | Pagamento rata IMU |
       | costiNotifica   | false              |
     And Si aggiunge un destinatario alla notifica
-      | nomeCognome      | Gaio Giulio Cesare |
-      | codiceFiscale    | CSRGGL44L13H501E   |
-      | tipoDestinatario | PF                 |
-      | indirizzo        | via @FAIL-Discovery_AR       |
-      | numeroCivico     | 20                 |
-      | comune           | MILANO             |
-      | provincia        | MI                 |
-      | codicepostale    | 20147              |
-      | stato            | ITALIA             |
+      | nomeCognome      | Gaio Giulio Cesare     |
+      | codiceFiscale    | CSRGGL44L13H501E       |
+      | tipoDestinatario | PF                     |
+      | indirizzo        | via @FAIL-Discovery_AR |
+      | numeroCivico     | 20                     |
+      | comune           | MILANO                 |
+      | provincia        | MI                     |
+      | codicepostale    | 20147                  |
+      | stato            | ITALIA                 |
     Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica mittente
     And Si attende che lo stato della notifica diventi "Depositata"
@@ -45,7 +45,7 @@ Feature: invio notifica con sequence
       | vediDettagli | false                                          |
     And Si verifica la cliccabilità della ricevuta di postalizzazione
       | xpathStato   | //span[contains(text(),"Scansione dell'indagine")] |
-      | vediDettagli | false                                          |
+      | vediDettagli | false                                              |
     And Logout da portale mittente
 
 
