@@ -1,6 +1,6 @@
 Feature: persona fisica scarica attestazioni all'interno di una notifica
 
-  @TestSuite
+  @parallel
   @PF
 
   @TA_PFDownloadAttestazioneOpponibileEControllaSHA
@@ -32,10 +32,14 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
     And Logout da portale persona fisica
 
 
-    @TA_PFDownloadAttestazioneOpponibilePresaInCaricoEVerificaEnte
+  @TA_PFDownloadAttestazioneOpponibilePresaInCaricoEVerificaEnte
   Scenario: PN-10428 - Persona fisica scarica Attestazione opponibile a terzi: notifica presa in carico
-    Given Login Page mittente "mittente_1" viene visualizzata
-    When Login con mittente "mittente_1"
+    Given Login Page mittente viene visualizzata
+      | url | https://selfcare.dev.notifichedigitali.it |
+    When Login con mittente
+      | user   | ggiorgi |
+      | pwd    | test    |
+      | comune | Viggiu  |
     And Si clicca sul bottone test
     And Si clicca bottone accetta cookies
     Then Home page mittente viene visualizzata correttamente
@@ -72,10 +76,14 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
     And Logout da portale persona fisica
 
 
-      @@TA_PFVerificaEnteNelDettaglioNotifica
+  @@TA_PFVerificaEnteNelDettaglioNotifica
   Scenario: PN-10427 - Persona fisica verifica concatenazione nome ente Radice e ente Figlio in dettaglio notifica
-    Given Login Page mittente "mittente_1" viene visualizzata
-    When Login con mittente "mittente_1"
+    Given Login Page mittente viene visualizzata
+      | url | https://selfcare.dev.notifichedigitali.it |
+    When Login con mittente
+      | user   | ggiorgi |
+      | pwd    | test    |
+      | comune | Viggiu  |
     And Si clicca sul bottone test
     And Si clicca bottone accetta cookies
     Then Home page mittente viene visualizzata correttamente

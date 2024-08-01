@@ -437,10 +437,8 @@ public class NotifichePGPagoPATest {
     @And("Si controlla il SHA all interno del file atteztazione")
     public void siControllaIlShaAllInternoAot() {
         logger.info("Si controlla che il testo al suo interno si corretto");
-        NotificationBuilder notificationBuilder = new NotificationBuilder();
-        String sha256 = notificationBuilder.getSha();
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-        if (dettaglioNotificaMittenteSection.controlloTestoFile("Attestazione_opponibile_a_terzi_notifica_presa_in_carico",sha256)) {
+        if (dettaglioNotificaMittenteSection.controlloSHAFile("Attestazione_opponibile_a_terzi_notifica_presa_in_carico")) {
             logger.info("Il codice SHA all'interno del file è corretto");
         } else {
             logger.error("Il codice SHA  all'interno del file  NON è corretto");

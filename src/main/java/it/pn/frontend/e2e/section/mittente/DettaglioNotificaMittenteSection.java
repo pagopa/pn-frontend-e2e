@@ -17,6 +17,8 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DettaglioNotificaMittenteSection extends BasePage {
 
@@ -124,6 +126,33 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             String testoFile = pdfStripper.getText(pdfFile).replaceAll("\r\n|\r|\n", "");
             logger.info("check corrispondenza testo con pdf");
             if (testoFile.contains(testoDaControllare)) {
+                pdfFile.close();
+                return true;
+            }
+            pdfFile.close();
+        } catch (IOException e) {
+            logger.error("File non trovato con errore: " + e.getMessage());
+            Assert.fail("File non trovato con errore: " + e.getMessage());
+        }
+        return false;
+    }
+
+
+    public boolean controlloSHAFile(String nameFile) {
+        String basePathFile = "src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nameFile + ".pdf";
+        File file = new File(basePathFile);
+        logger.info("percorso file: " + file.getAbsolutePath());
+        // Define the regex pattern for SHA-256
+        String sha256Pattern = "\\b[A-Fa-f0-9]{64}\\b";
+        Pattern pattern = Pattern.compile(sha256Pattern);
+
+        try {
+            PDDocument pdfFile = PDDocument.load(file);
+            PDFTextStripper pdfStripper = new PDFTextStripper();
+            String testoFile = pdfStripper.getText(pdfFile).replaceAll("\r\n|\r|\n", "");
+            Matcher matcher = pattern.matcher(testoFile);
+            logger.info("check corrispondenza testo con pdf");
+            if (matcher.find()) {
                 pdfFile.close();
                 return true;
             }

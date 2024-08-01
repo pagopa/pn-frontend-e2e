@@ -47,6 +47,7 @@ public class AcccediAreaRiservataPAPage extends BasePage {
 
     public void clickTestBottone(){
         getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(testButton));
+        getWebDriverWait(5).until(ExpectedConditions.visibilityOf(testButton));
         testButton.click();
     }
 }
