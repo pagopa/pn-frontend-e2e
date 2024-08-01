@@ -1709,6 +1709,11 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.verificaMittente(ente);
     }
 
+    @And("Controllo alert RADD")
+    public void controlloAlertRADD() {
+        dettaglioNotificaMittenteSection.checkAlertRADD();
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */

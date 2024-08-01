@@ -271,7 +271,6 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         return linkAllegati.get(0).getText();
     }
 
-
     public void checkNumeroFallimentiInvioViaPEC(int numeroFallimenti) {
         try {
             By invioPECFallitoBy = By.xpath("//span[text()='Invio via PEC fallito']");
@@ -474,6 +473,11 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         }
     }
 
+    public void checkAlertRADD() {
+        By alertRADD = By.xpath("//div[@data-testid='raddAlert']");
+        getWebDriverWait(10).withMessage("Non si visualizza l'alert radd").until(ExpectedConditions.visibilityOfElementLocated(alertRADD));
+    }
+
     public void checkInvioMessaggioDiCortesia() {
         boolean testSuccess = false;
         for (int i = 0; i < 8; i++) {
@@ -500,3 +504,5 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         }
     }
 }
+
+

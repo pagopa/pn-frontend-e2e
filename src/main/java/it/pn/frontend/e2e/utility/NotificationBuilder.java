@@ -1,9 +1,15 @@
 package it.pn.frontend.e2e.utility;
 
-import it.pn.frontend.e2e.model.*;
+import it.pn.frontend.e2e.model.address.DigitalDomicile;
+import it.pn.frontend.e2e.model.address.PhysicalAddress;
+import it.pn.frontend.e2e.model.documents.*;
 import it.pn.frontend.e2e.model.enums.NotificationFeePolicyEnum;
 import it.pn.frontend.e2e.model.enums.PhysicalCommunicationTypeEnum;
 import it.pn.frontend.e2e.model.enums.RecipientTypeEnum;
+import it.pn.frontend.e2e.model.notification.NotificationPaymentItem;
+import it.pn.frontend.e2e.model.notification.Recipient;
+import it.pn.frontend.e2e.model.payments.F24Payment;
+import it.pn.frontend.e2e.model.payments.PagoPaPayment;
 import it.pn.frontend.e2e.rest.RestNotification;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
