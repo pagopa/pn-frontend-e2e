@@ -396,42 +396,8 @@ public class NotifichePGPagoPATest {
 
     @Then("Si controlla il testo all interno del file destinatario {string}")
     public void siControllaIlTestoAlSuoInternoDestonatario(String nomeFile) {
-        logger.info("Si controlla che il testo al suo interno si corretto");
-
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-        Map<String, String> infoNotifiche = dettaglioNotificaSection.recuperoInfoNotificheDestinatario();
-        if (nomeFile.contains("PN_NOTIFICATION_ATTACHMENTS")) {
-            if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, "A Simple PDF File")) {
-                logger.info("Il testo all'interno del file è corretto");
-            } else {
-                logger.error("Il testo all'interno del file  NON è corretto");
-                Assert.fail("Il testo  all'interno del file  NON è corretto");
-            }
-        } else if (nomeFile.contains("Avviso di avvenuta ricezione")) {
-            if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, "A Simple PDF File")) {
-                logger.info("Il testo all'interno del file è corretto");
-            } else {
-                logger.error("Il testo all'interno del file  NON è corretto");
-                Assert.fail("Il testo  all'interno del file  NON è corretto");
-            }
-        } else {
-            if (nomeFile.equals("Attestazione_opponibile_a_terzi_notifica_presa_in_carico")) {
-                if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, infoNotifiche.get("mittente"))) {
-                    logger.info("Il nome del mittente all'interno del file è corretto");
-                } else {
-                    logger.error("Il nome del mittente  all'interno del file  NON è corretto");
-                    Assert.fail("Il nome del mittente  all'interno del file  NON è corretto");
-                }
-            }
-
-            if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, infoNotifiche.get("destinatario"))) {
-                logger.info("Il nome del destinatario all'interno del file è corretto");
-            } else {
-                logger.error("Il nome del destinatario  all'interno del file  NON è corretto");
-                Assert.fail("Il nome del destinatario  all'interno del file  NON è corretto");
-            }
-        }
+    logger.info("Si controlla che il testo al suo interno si corretto");
+    piattaformaNotifichePGPAPage.controllaTesto(nomeFile);
     }
 
     @And("Si controlla il SHA all interno del file atteztazione")

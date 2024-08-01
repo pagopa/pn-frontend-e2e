@@ -5,8 +5,12 @@ Feature: Login pagoPA
   @loginFE
 
   Scenario: Login pagoPA mittente
-    Given Login Page mittente "mittente" viene visualizzata
-    When Login con mittente "mittente"
+    Given Login Page mittente viene visualizzata
+      | url | https://selfcare.dev.notifichedigitali.it |
+    When Login con mittente
+      | user   | ggiorgi |
+      | pwd    | test    |
+      | comune | Viggiu  |
     Then Home page mittente viene visualizzata correttamente
     And Logout da portale mittente
 
