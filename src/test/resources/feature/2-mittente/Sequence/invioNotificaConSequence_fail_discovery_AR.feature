@@ -40,10 +40,10 @@ Feature: invio notifica con sequence
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //span[contains(text(),"L'invio per via cartacea non ha determinato la consegna")] |
       | vediDettagli | false                                                                              |
-    And Si clicca sulla ricevuta di postalizzazione
+    And Si verifica la cliccabilità della ricevuta di postalizzazione
       | xpathStato   | //span[contains(text(),"Scansione del plico")] |
       | vediDettagli | false                                          |
-    And Si clicca sulla ricevuta di postalizzazione
+    And Si verifica la cliccabilità della ricevuta di postalizzazione
       | xpathStato   | //span[contains(text(),"Scansione dell'indagine")] |
       | vediDettagli | false                                          |
     And Logout da portale mittente

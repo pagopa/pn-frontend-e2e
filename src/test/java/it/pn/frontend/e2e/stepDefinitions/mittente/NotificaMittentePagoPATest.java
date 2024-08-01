@@ -1711,8 +1711,8 @@ public class NotificaMittentePagoPATest {
         dettaglioNotificaMittenteSection.checkStatoTimeline(idStato);
     }
 
-    @And("Si clicca sulla ricevuta di postalizzazione")
-    public void siCliccaSullaRicevutaDiPostalizzazione(Map<String, String> datiDettaglioNotifica) {
+    @And("Si verifica la cliccabilità della ricevuta di postalizzazione")
+    public void siVerificaLaCliccabilitaDellaRicevutaDiPostalizzazione(Map<String, String> datiDettaglioNotifica) {
         String idStato = datiDettaglioNotifica.get("xpathStato");
         String viewDetail = datiDettaglioNotifica.get("vediDettagli");
         siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso();
@@ -1720,7 +1720,7 @@ public class NotificaMittentePagoPATest {
         if (viewDetail.equals("true")){
             dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
         }
-        dettaglioNotificaMittenteSection.siCliccaSuAllegatoInTimeline(idStato);
+        dettaglioNotificaMittenteSection.siVerificaLaCliccabilitaSuAllegatoInTimeline(idStato);
     }
 
     @Then("Si verifica che il mittente sia {string}")
