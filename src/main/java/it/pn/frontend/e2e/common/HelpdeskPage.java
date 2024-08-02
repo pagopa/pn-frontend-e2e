@@ -440,8 +440,6 @@ public class HelpdeskPage extends BasePage {
 
             logger.info("Zip scaricato");
         } else {
-            String pageSrc = driver.getPageSource();
-            logger.info("Page src" + pageSrc);
             By zipLink = By.xpath("//a[contains(text(),'Download')]");
             String url = this.element(zipLink).getAttribute("href");
             String workingDirectory = System.getProperty("user.dir");
@@ -541,18 +539,27 @@ public class HelpdeskPage extends BasePage {
         String zipDirectoryPath = workingDirectory + "/src/test/resources/dataPopulation/zip";
         String extractDirectoryPath = zipDirectoryPath + "/extract";
 
-        // Find the latest ZIP file
-        File latestZipFile = findLatestZipFile(zipDirectoryPath);
-        if (latestZipFile != null) {
-            Files.deleteIfExists(latestZipFile.toPath());
-            System.out.println("Deleted ZIP file: " + latestZipFile.getName());
-        } else {
-            System.out.println("No ZIP file found in the directory: " + zipDirectoryPath);
-        }
+        // Delete all ZIP files
+        deleteAllZipFiles(zipDirectoryPath);
 
         deleteFilesInDirectory(extractDirectoryPath, null);
 
         System.out.println("Cleanup completed successfully.");
+    }
+
+    private void deleteAllZipFiles(String directoryPath) throws IOException {
+        try (Stream<Path> files = Files.list(Paths.get(directoryPath))) {
+            files.filter(file -> file.toString().endsWith(".zip"))
+                    .forEach(file -> {
+                        try {
+                            Files.deleteIfExists(file);
+                            System.out.println("Deleted ZIP file: " + file.getFileName());
+                        } catch (IOException e) {
+                            System.err.println("Failed to delete ZIP file: " + file.getFileName());
+                            e.printStackTrace();
+                        }
+                    });
+        }
     }
 
     public boolean trovaDocumentoConTitolo(String docName) throws IOException {

@@ -575,7 +575,13 @@ public class NotificaMittentePagoPATest {
     @And("Nella pagina Piattaforma Notifiche si cambia pagina utilizzando una freccetta")
     public void nellaPaginaPiattaformaNotificheSiCambiaPaginaUtilizzandoUnaFreccetta() {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
-        piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnaFrecetta();
+        piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnaFrecetta(1);
+    }
+
+    @And("Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta {int}")
+    public void nellaPaginaStatoDellaPiattaformaSiCambiaPaginaUtilizzandoUnaFreccetta(Integer numPage) {
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnaFrecetta(numPage);
     }
 
     @And("Nella pagina Piattaforma Notifiche si cambia pagina utilizzando un numero")
@@ -589,6 +595,12 @@ public class NotificaMittentePagoPATest {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
     }
+    @And("Nella pagina stato della piattaforma si cambia il numero elementi visualizzati attraverso il filtro")
+    public void nellaPaginaStatoDellaPiattaformaSiCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltroNumeroNotifiche() {
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
+    }
+
 
     @And("Nella pagina Piattaforma Notifiche si controlla che vengano visualizzate tutte notifiche")
     public void nellaPaginaPiattaformaNotificheSiControllaCheVenganoVisualizzateTutteNotifiche() {
@@ -1282,10 +1294,6 @@ public class NotificaMittentePagoPATest {
         backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNDestinatario(iun);
     }
 
-    @And("Si attende completamento notifica {string}")
-    public void siAttendeCompletamentoNotificaV2(String statoNotifica) {
-        piattaformaNotifichePage.pollingSuStatoNotificaPerCompletamento(statoNotifica);
-    }
 
     @And("Si seleziona la notifica mittente")
     public void siSelezionaLaNotificaMittente() {
@@ -1713,6 +1721,11 @@ public class NotificaMittentePagoPATest {
     public void siVerificaCheIlMittenteSia(String ente) {
         logger.info("Si verifica che il mittente sia " + ente);
         piattaformaNotifichePage.verificaMittente(ente);
+    }
+
+    @And("Controllo alert RADD")
+    public void controlloAlertRADD() {
+        dettaglioNotificaMittenteSection.checkAlertRADD();
     }
 
     /**

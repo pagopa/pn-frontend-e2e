@@ -56,13 +56,8 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce la PEC {string}")
-    public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario(String dpFile) {
+    public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario(String emailPEC) {
         logger.info("Si inserisce la email PEC");
-
-        DataPopulation dataPopulation = new DataPopulation();
-        Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        String emailPEC = personaFisica.get("emailPec").toString();
-
         recapitiDestinatarioPage.insertEmailPEC(emailPEC);
     }
 
@@ -153,9 +148,8 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce la PEC errata {string}")
-    public void nellaPaginaITuoiRecapitiSiInserisceLaPECErrata(String dpFile) {
+    public void nellaPaginaITuoiRecapitiSiInserisceLaPECErrata(String pecErrata) {
         logger.info("Si inserisce la PEC errata");
-        String pecErrata = dataPopulation.readDataPopulation(dpFile + ".yaml").get("pecErrore").toString();
         recapitiDestinatarioPage.insertEmailPEC(pecErrata);
     }
 
@@ -374,16 +368,10 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si controlla che la pec sia stata inserita correttamente");
         WebTool.waitTime(15);
         driver.navigate().refresh();
-        if (recapitiDestinatarioPage.siVisualizzaPopUpConferma()) {
-            logger.info("Si clicca su conferma nel pop-up");
-            recapitiDestinatarioPage.clickConfermaButton();
-            recapitiDestinatarioPage.visualizzaValidazione();
-        } else {
             if (!recapitiDestinatarioPage.verificaPecAssociata()) {
                 logger.error("Pec non associata con errore");
                 Assert.fail("Pec non associata con errore");
             }
-        }
     }
 
     @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method {string}")

@@ -3,10 +3,10 @@ package it.pn.frontend.e2e.rest;// ... Altre importazioni ...
 import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
-import it.pn.frontend.e2e.model.NewNotificationRequest;
-import it.pn.frontend.e2e.model.NewNotificationResponse;
-import it.pn.frontend.e2e.model.PreLoadRequest;
-import it.pn.frontend.e2e.model.PreLoadResponse;
+import it.pn.frontend.e2e.model.notification.NewNotificationRequest;
+import it.pn.frontend.e2e.model.notification.NewNotificationResponse;
+import it.pn.frontend.e2e.model.documents.PreLoadRequest;
+import it.pn.frontend.e2e.model.documents.PreLoadResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 

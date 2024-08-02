@@ -486,6 +486,11 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         }
     }
 
+    public void checkAlertRADD() {
+        By alertRADD = By.xpath("//div[@data-testid='raddAlert']");
+        getWebDriverWait(10).withMessage("Non si visualizza l'alert radd").until(ExpectedConditions.visibilityOfElementLocated(alertRADD));
+    }
+
     public void checkInvioMessaggioDiCortesia() {
         boolean testSuccess = false;
         for (int i = 0; i < 8; i++) {

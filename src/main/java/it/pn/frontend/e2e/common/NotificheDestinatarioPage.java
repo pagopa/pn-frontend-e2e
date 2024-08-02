@@ -16,6 +16,9 @@ public class NotificheDestinatarioPage extends BasePage{
     @FindBy(id = "iunMatch")
     WebElement codiceIunTextField;
 
+    @FindBy(xpath = "//button[contains(text(), 'Ricevuta di consegna')]")
+    WebElement ricevutaDiConsegnaButton;
+
     public NotificheDestinatarioPage(WebDriver driver) {
         super(driver);
     }
@@ -43,6 +46,12 @@ public class NotificheDestinatarioPage extends BasePage{
         String ariaInvalid = codiceIunTextField.getAttribute("aria-invalid");
         final String isTextboxInvalid = "true";
         return isTextboxInvalid.equals(ariaInvalid);
+    }
+
+    public void checkRicevutaConsegnaCliccabile() {
+        logger.info("controllo esistenza bottone per scaricare zip");
+        getWebDriverWait(10).withMessage("Il bottone Ricevuta di consegna non cliccabile").until(ExpectedConditions.elementToBeClickable(ricevutaDiConsegnaButton));
+        logger.info("Il bottone Ricevuta di consegna non cliccabile");
     }
 
 }

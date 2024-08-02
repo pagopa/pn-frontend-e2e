@@ -1,8 +1,8 @@
 package it.pn.frontend.e2e.rest;
 
 import it.pn.frontend.e2e.config.CustomHttpClient;
-import it.pn.frontend.e2e.model.IncidentStatusResponse;
-import it.pn.frontend.e2e.model.NewIncidentRequest;
+import it.pn.frontend.e2e.model.incidents.IncidentStatusResponse;
+import it.pn.frontend.e2e.model.incidents.NewIncidentRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
