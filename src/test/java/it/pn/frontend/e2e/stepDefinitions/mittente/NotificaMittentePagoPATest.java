@@ -1004,6 +1004,24 @@ public class NotificaMittentePagoPATest {
         datiNotificaMap = datiNotifica;
     }
 
+    @Then("Nella section Informazioni preliminari si inseriscono i dati della notifica senza gruppo")
+    public void nellaSectionInformazioniPreliminariSiInserisconoIDatiDellaNotificaSenzaGruppo(Map<String, String> datiNotifica) {
+        logger.info("Si inseriscono i dati della notifica nella sezione Informazioni Preliminari");
+        String numeroDiProtocollo = WebTool.generatePaProtocolNumber();
+        informazioniPreliminariPASection.insertOggettoNotifica(datiNotifica.get("oggettoNotifica"));
+        informazioniPreliminariPASection.insertDescrizione(datiNotifica.get("descrizione"));
+        informazioniPreliminariPASection.insertNumeroDiProtocollo(numeroDiProtocollo);
+        informazioniPreliminariPASection.insertCodiceTassonometrico(datiNotifica.get("codiceTassonomico"));
+        if (datiNotifica.get("modalitaInvio").equals("A/R")) {
+            informazioniPreliminariPASection.selectRaccomandataAR();
+        } else {
+            informazioniPreliminariPASection.selectRegisteredLetter890();
+        }
+        datiNotificaMap.put("numeroProtocollo", numeroDiProtocollo);
+        datiNotificaMap = datiNotifica;
+    }
+
+
     @Then("Nella section Informazioni preliminari si inseriscono i dati della notifica senza salvare numero di protocollo")
     public void nellaSectionInformazioniPreliminariSiInserisconoIDatiDellaNotificaSenzaNumero(Map<String, String> datiNotifica) {
         logger.info("Si inseriscono i dati della notifica nella sezione Informazioni Preliminari");
