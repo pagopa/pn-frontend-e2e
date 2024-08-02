@@ -1,6 +1,6 @@
 Feature: PG visualizza il dettaglio di una notifica con documenti allegati
 
-  @TestSuite
+  @Parallel
   @TA_PGDettaglioNotificheConDocumenti
   @PG
   @visualizzazioneNotifichePG
@@ -14,6 +14,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
       | oggettoNotifica | Pagamento rata IMU |
       | costiNotifica   | false              |
     And Si aggiunge un destinatario alla notifica
+      | at        | Presso     |
       | indirizzo        | VIA ROMA     |
       | codicePostale    | 20147        |
       | comune           | Milano       |
@@ -26,7 +27,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
       | avvisoPagoPa     | 2            |
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 5 secondi
-    And Cliccare sulla notifica restituita
+    And Si seleziona la notifica destinatario
     And Aspetta 60 secondi
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si controlla sia presente piu avvisi PagoPa PG
