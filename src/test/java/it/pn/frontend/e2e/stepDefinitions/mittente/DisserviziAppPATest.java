@@ -28,6 +28,12 @@ public class DisserviziAppPATest {
         notifichePage.clickStatoDellaPiattaforma();
     }
 
+    @When("Nella pagina Piattaforma Notifiche selezionare la voce 'Notifiche'")
+    public void nellaPaginaPiattaformaNotificheSelezionareLaVoceNotifiche() {
+        logger.info("Nella pagina Piattaforma Notifiche selezionare la voce 'Notifiche'");
+        notifichePage.clickNotifiche();
+    }
+
     @Then("Si visualizza correttamente la pagina dello 'stato della piattaforma' di mittente")
     public void siVisualizzaCorrettamenteLaPaginaDelloStatoDellaPiattaformaDiMittente() {
         logger.info("Si visualizza correttamente la Pagina dello Stato della piattaforma di mittente");

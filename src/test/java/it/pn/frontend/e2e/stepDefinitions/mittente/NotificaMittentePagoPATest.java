@@ -21,6 +21,7 @@ import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGP
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
+import lombok.Setter;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -59,6 +60,8 @@ public class NotificaMittentePagoPATest {
     private Map<String, Object> personaFisica = new HashMap<>();
     private Map<String, Object> personaGiuridica = new HashMap<>();
     private Map<String, Object> personeFisiche = new HashMap<>();
+    @Setter
+    private String Iun;
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
@@ -440,6 +443,17 @@ public class NotificaMittentePagoPATest {
 
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.selezionaNotifica();
+    }
+
+    @And("Salva codice IUN")
+    public void salvaCodiceIUN(){
+        String IUN = dettaglioNotificaMittenteSection.salvaIUN();
+        setIun(IUN);
+    }
+
+    @And("viene inserito codice IUN salvato")
+    public void vieneInseritoIunSalvato() {
+        dettaglioNotificaMittenteSection.insertIunSalvatoAndRicercaOnPage(Iun);
     }
 
     @And("Si visualizza correttamente la section Dettaglio Notifica")

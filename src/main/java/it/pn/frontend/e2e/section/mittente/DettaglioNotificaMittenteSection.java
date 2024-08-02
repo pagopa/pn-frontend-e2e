@@ -43,6 +43,18 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     @FindBy(xpath = "//span[contains(text(),'Codice Avviso')]")
     WebElement codiceAvvisoMittente;
 
+    @FindBy(xpath = "//*[@id='row-value-5']/div")
+    WebElement codiceIUN;
+
+    @FindBy(id = "IUN")
+    WebElement iunInput;
+
+    @FindBy(id = "Numero Ticket")
+    WebElement numeroTicketInput;
+
+    @FindBy(id = "ricerca")
+    WebElement buttonRicerca;
+
     private int numeriStatiNotifica;
 
     public DettaglioNotificaMittenteSection(WebDriver driver) {
@@ -270,6 +282,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     public String getTextDocumentiAllegati() {
         return linkAllegati.get(0).getText();
     }
+
 
     public void checkNumeroFallimentiInvioViaPEC(int numeroFallimenti) {
         try {
@@ -503,6 +516,19 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             Assert.fail("L'invio del messaggio al contatto di cortesia non è avvenuto");
         }
     }
+
+    public String salvaIUN(){
+        return codiceIUN.getText();}
+
+    public void insertIunSalvatoAndRicercaOnPage(String iun) {
+        logger.info("inserisco numero ticket");
+        numeroTicketInput.sendKeys("testTAFE01");
+        logger.info("inserisco codice IUN");
+        iunInput.sendKeys(iun);
+        logger.info("clicco sul bottone di ricerca");
+
+        this.getWebDriverWait(30).withMessage("bottone per la ricerca non trovato").until(ExpectedConditions.elementToBeClickable(buttonRicerca));
+        buttonRicerca.click();
+        WebTool.waitTime(3);
+    }
 }
-
-
