@@ -41,7 +41,7 @@ Feature: invio notifica con sequence
       | xpathStato   | //p[contains(text(),"C'è un nuovo documento allegato")] |
       | vediDettagli | false                                                   |
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //p[contains(text(),"La raccomandata 890") and contains(text(),"è stata ritirata presso il punto di giacenza")] |
+      | xpathStato   |  //p[contains(text(),"La raccomandata 890") and contains(text(),"è stata ritirata da una persona delegata presso il punto di giacenza")] |
       | vediDettagli | false                                                                                                           |
     And Si verifica la cliccabilità della ricevuta di postalizzazione
       | xpathStato   | //span[contains(text(),"Avviso di ricevimento")] |
