@@ -843,6 +843,29 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
+    public void pollingSuStatoNotificaPerCompletamento(String statoNotifica) {
+        boolean testSuccess = false;
+        for (int i = 0; i < 12; i++) {
+            try {
+                By chipStatus = By.id(statoNotifica + "-status" );
+                if (chipStatus != null) {
+                    logger.info("La notifica è passata allo stato " + statoNotifica + " e si procede con il test");
+                    driver.navigate().refresh();
+                    testSuccess = true;
+                    break;
+                }
+            } catch (NoSuchElementException e) {
+                logger.info("Dopo " + i + " tentativi la notifica non è ancora passata allo stato: " + statoNotifica);
+            }
+            WebTool.waitTime(15);
+            driver.navigate().refresh();
+        }
+        if (!testSuccess) {
+            logger.error("La notifica non è passata allo stato " + statoNotifica);
+            Assert.fail("La notifica non è passata allo stato " + statoNotifica);
+        }
+    }
+
     public void clickAnnullaNotificaModale() {
             By bottoneAnnullaNotificaModale = By.xpath("//button[@data-testid='modalCloseAndProceedBtnId']");
             getWebDriverWait(20).until(ExpectedConditions.and(

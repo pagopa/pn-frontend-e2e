@@ -1253,6 +1253,11 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.selezionaNotificaConStato(statoNotifica);
     }
 
+    @And("Si attende completamento notifica {string}")
+    public void siAttendeCompletamentoNotificaV2(String statoNotifica) {
+        piattaformaNotifichePage.pollingSuStatoNotificaPerCompletamento(statoNotifica);
+    }
+
     @Then("Si controlla la comparsa del pop up di conferma annullamento")
     public void siControllaLaComparsaDelPopUpDiConfermaAnnullamento() {
         logger.info("Si controlla la presenza del pop up di conferma dell'annullamento della notifica");
