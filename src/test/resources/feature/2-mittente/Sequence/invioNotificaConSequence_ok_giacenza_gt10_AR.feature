@@ -41,7 +41,7 @@ Feature: invio notifica con sequence
       | xpathStato   | //p[contains(text(),"La raccomandata A/R") and contains(text(),"è stata consegnata presso un punto di giacenza")] |
       | vediDettagli | false                                                                                                             |
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //p[contains(text(),"presso un punto di giacenza entro 10 giorni")] |
+      | xpathStato   | //p[contains(text(),"presso il punto di giacenza entro 10 giorni")] |
       | vediDettagli | false                                                               |
     And Si verifica la cliccabilità della ricevuta di postalizzazione
       | xpathStato   | //span[contains(text(),"Ricevuta di consegna")] |
