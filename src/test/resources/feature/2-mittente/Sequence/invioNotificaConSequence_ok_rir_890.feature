@@ -3,11 +3,11 @@ Feature: invio notifica con sequence
   @Parallel
   @WorkflowNotificaConSequence
   @NotificaConSequenceOKRIR890
-
+#TEST DA ELIMINARE................
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@OK_RIR] - Il mittente invia una notifica a destinatario con sequence
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
-      | modello         | 890                |
+      | modello         | AR                |
       | documenti       | 1                  |
       | oggettoNotifica | Pagamento rata IMU |
       | costiNotifica   | false              |
@@ -26,19 +26,19 @@ Feature: invio notifica con sequence
     And Si attende che lo stato della notifica diventi "Depositata"
     And Si attende completamento notifica
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //p[contains(text(),"La raccomandata 890") and contains(text(),"è stata stampata ed imbustata")] |
+      | xpathStato   | //p[contains(text(),"La raccomandata A/R ") and contains(text(),"è stata stampata ed imbustata")] |
       | vediDettagli | true                                                                                             |
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),"C'è un nuovo documento allegato")] |
       | vediDettagli | false                                                   |
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //p[contains(text(),"La raccomandata 890 internazionale") and contains(text(),"è stata inoltrata verso il paese di destinazione")] |
+      | xpathStato   | //p[contains(text(),"La raccomandata A/R internazionale") and contains(text(),"è stata inoltrata verso il paese di destinazione")] |
       | vediDettagli | false                                                                                                                              |
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //p[contains(text(),"La raccomandata 890 internazionale") and contains(text(),"è entrata nel paese di destinazione")] |
+      | xpathStato   | //p[contains(text(),"La raccomandata A/R internazionale") and contains(text(),"è entrata nel paese di destinazione")] |
       | vediDettagli | false                                                                                                                 |
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //p[contains(text(),"La raccomandata 890 internazionale") and contains(text(),"è stata consegnata")] |
+      | xpathStato   | //p[contains(text(),"La raccomandata A/R internazionale") and contains(text(),"è stata consegnata")] |
       | vediDettagli | false                                                                                                |
     And Si verifica la cliccabilità della ricevuta di postalizzazione
       | xpathStato   | //span[contains(text(),"Ricevuta di consegna")] |

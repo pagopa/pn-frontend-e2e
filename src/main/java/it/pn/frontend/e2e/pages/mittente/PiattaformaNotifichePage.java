@@ -847,12 +847,14 @@ public class PiattaformaNotifichePage extends BasePage {
         boolean testSuccess = false;
         for (int i = 0; i < 8; i++) {
             try {
-                By chipStatus = By.id(statoNotifica+ "-status" );
-                if (chipStatus != null) {
+                WebElement chipStatus = driver.findElement(By.id(statoNotifica + "-status" ));
+                if (chipStatus.isDisplayed()) {
                     logger.info("La notifica è passata allo stato " + statoNotifica + " e si procede con il test");
+                    driver.navigate().refresh();
                     testSuccess = true;
                     break;
                 }
+
             } catch (NoSuchElementException e) {
                 logger.info("Dopo " + i + " tentativi la notifica non è ancora passata allo stato: " + statoNotifica);
             }

@@ -12,15 +12,15 @@ Feature: invio notifica con sequence
       | oggettoNotifica | Pagamento rata IMU |
       | costiNotifica   | false              |
     And Si aggiunge un destinatario alla notifica
-      | nomeCognome      | Gaio Giulio Cesare                 |
-      | codiceFiscale    | CSRGGL44L13H501E                   |
-      | tipoDestinatario | PF                                 |
+      | nomeCognome      | Gaio Giulio Cesare           |
+      | codiceFiscale    | CSRGGL44L13H501E             |
+      | tipoDestinatario | PF                           |
       | indirizzo        | via @OK-PersonaAbilitata_890 |
-      | numeroCivico     | 20                                 |
-      | comune           | MILANO                             |
-      | provincia        | MI                                 |
-      | codicepostale    | 20147                              |
-      | stato            | ITALIA                             |
+      | numeroCivico     | 20                           |
+      | comune           | MILANO                       |
+      | provincia        | MI                           |
+      | codicepostale    | 20147                        |
+      | stato            | ITALIA                       |
     Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica mittente
     And Si attende che lo stato della notifica diventi "Depositata"
@@ -31,10 +31,10 @@ Feature: invio notifica con sequence
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),"C'è un nuovo documento allegato")] |
       | vediDettagli | false                                                   |
-    And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //p[contains(text(),"La raccomandata 890") and contains(text(),"è stata consegnata a una persona abilitata")] |
-      | vediDettagli | true                                                                                                          |
     And Si verifica la cliccabilità della ricevuta di postalizzazione
       | xpathStato   | //span[contains(text(),"Avviso di ricevimento")] |
       | vediDettagli | false                                            |
+    And Si controlla lo stato timeline in dettaglio notifica
+      | xpathStato   | //p[contains(text(),"La raccomandata 890") and contains(text(),"è stata consegnata a una persona abilitata")] |
+      | vediDettagli | false                                                                                                          |
     And Logout da portale mittente
