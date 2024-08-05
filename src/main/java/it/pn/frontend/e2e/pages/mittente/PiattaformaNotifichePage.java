@@ -845,10 +845,10 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void pollingSuStatoNotificaPerCompletamento(String statoNotifica) {
         boolean testSuccess = false;
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 15; i++) {
             try {
-                By chipStatus = By.id(statoNotifica + "-status" );
-                if (chipStatus != null) {
+                WebElement chipStatus = driver.findElement(By.id(statoNotifica + "-status" ));
+                if (chipStatus.isDisplayed()) {
                     logger.info("La notifica è passata allo stato " + statoNotifica + " e si procede con il test");
                     driver.navigate().refresh();
                     testSuccess = true;
