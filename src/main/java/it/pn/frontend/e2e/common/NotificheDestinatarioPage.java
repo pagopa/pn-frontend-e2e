@@ -18,14 +18,6 @@ public class NotificheDestinatarioPage extends BasePage{
     @FindBy(xpath = "//button[contains(text(),'Ricevuta di consegna PEC')]")
     WebElement ricevutaDiConsegnaButton;
 
-    @FindBy(xpath = "//button[contains(text(), 'Ricevuta di consegna')]")
-    WebElement ricevutaDiConsegnaButton;
-
-    @FindBy(xpath = "//button[contains(text(), 'Ricevuta di consegna')]")
-    WebElement ricevutaDiConsegnaButton;
-
-    
-
     public NotificheDestinatarioPage(WebDriver driver) {
         super(driver);
     }
