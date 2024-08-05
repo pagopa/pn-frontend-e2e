@@ -4,13 +4,14 @@ import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
 import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.model.Document;
-import it.pn.frontend.e2e.model.NewNotificationRequest;
-import it.pn.frontend.e2e.model.NewNotificationResponse;
+import it.pn.frontend.e2e.model.documents.Document;
+import it.pn.frontend.e2e.model.notification.NewNotificationRequest;
+import it.pn.frontend.e2e.model.notification.NewNotificationResponse;
 import it.pn.frontend.e2e.model.enums.NotificationFeePolicyEnum;
 import it.pn.frontend.e2e.model.enums.PhysicalCommunicationTypeEnum;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.rest.RestNotification;
+import it.pn.frontend.e2e.rest.RestRaddAlternative;
 import it.pn.frontend.e2e.utility.NotificationBuilder;
 import it.pn.frontend.e2e.utility.WebTool;
 import lombok.Getter;
@@ -23,8 +24,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -201,5 +200,12 @@ public class DestinatarioPage extends BasePage {
         NotificationFeePolicyEnum feePolicy = notificationBuilder.notificaFeePolicy(datiNotifica.getOrDefault("costiNotifica", "false"));
         ArrayList<Document> documents = notificationBuilder.preloadDocument(Integer.parseInt(datiNotifica.get("documenti")));
         notificationRequest = new NewNotificationRequest(WebTool.generatePaProtocolNumber(), datiNotifica.getOrDefault("oggettoNotifica", "PAGAMENTO RATA IMU"), null, documents, modelloNotifica, "010202N", feePolicy);
+    }
+
+    public void raddFlow(String token, String tipoDestinatario, String codiceFiscale, String operationId) {
+        final RestRaddAlternative restRaddAlternative = new RestRaddAlternative(token);
+        restRaddAlternative.startTransactionRaddAlternative(tipoDestinatario,codiceFiscale,operationId);
+        restRaddAlternative.completeTransactionRaddAlternative(operationId);
+
     }
 }
