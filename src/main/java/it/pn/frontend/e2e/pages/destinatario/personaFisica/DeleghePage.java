@@ -95,7 +95,7 @@ public class DeleghePage extends BasePage {
         }
     }
 
-    public void clickMenuDelegato(String fullName) {
+    public void clickMenuDelegante(String fullName) {
         List<WebElement> tableRows = driver.findElements(By.id("delegatesBodyRowDesktop")); // Take all the rows of the table
         if (!tableRows.isEmpty()) {
             for (WebElement row : tableRows) {
@@ -107,6 +107,21 @@ public class DeleghePage extends BasePage {
                 logger.info("Cliccato correttamente su menu delega button");
                 return;
             }
+        } else {
+            logger.error("Non è stato trovato nessun delegato con il nome: " + fullName);
+            Assert.fail("Non è stato trovato nessun delegato con il nome: " + fullName);
+        }
+    }
+
+    public void clickMenuDelegato(String fullName) {
+        WebElement tableRows = driver.findElement(By.id("notifications-table")); // Take all the rows of the table
+        if (tableRows.isDisplayed()) {
+                WebElement cellName = tableRows.findElement(By.xpath(".//td//p[contains(text(), '" + fullName + "')]")); // Take the cell with the name of the delegate from the row
+                getWebDriverWait(10).withMessage("Non è stato trovato la riga corrispondente della delega con il nome: " + fullName).until(ExpectedConditions.visibilityOf(cellName));
+                WebElement menuButton = tableRows.findElement(By.xpath(".//button[@data-testid='delegationMenuIcon']")); // take the menu button from the row
+                getWebDriverWait(10).withMessage("Non è stato trovato il menu della delega con il nome: " + fullName).until(ExpectedConditions.visibilityOf(menuButton));
+                menuButton.click();
+                logger.info("Cliccato correttamente su menu delega button");
         } else {
             logger.error("Non è stato trovato nessun delegato con il nome: " + fullName);
             Assert.fail("Non è stato trovato nessun delegato con il nome: " + fullName);
