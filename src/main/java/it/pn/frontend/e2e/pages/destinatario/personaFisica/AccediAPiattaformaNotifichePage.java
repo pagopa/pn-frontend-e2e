@@ -15,7 +15,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("AccediAPiattaformaNotifichePage");
 
-    @FindBy(id = "login-button")
+    @FindBy(id = "spidButton")
     WebElement accediButton;
 
     @FindBy(css = "[id='notificationsTable.body.row']")
@@ -76,17 +76,13 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void waitLoadAccediAPiattaformaNotifichePage() {
-        try {
-            By titleLabel = By.id("login-page-title");
-            By loginBy = By.id("login-button");
+
+            By titleLabel = By.id("login-mode-page-title");
+            By loginBy = By.id("spidButton");
             getWebDriverWait(30).withMessage("Il titolo della pagina accedi a piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
-            getWebDriverWait(30).withMessage("Il bottone login della pagina accedi a piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(loginBy));
-            getWebDriverWait(30).withMessage("Il bottone login della pagina accedi a piattaforma notifiche non è cliccabile").until(ExpectedConditions.elementToBeClickable(accediButton));
+            getWebDriverWait(30).withMessage("Il bottone login della pagina accedi a piattaforma notifiche non è visibile e cliccabile").until(ExpectedConditions.and(ExpectedConditions.visibilityOfElementLocated(loginBy),ExpectedConditions.elementToBeClickable(loginBy)));
             logger.info("Accedi A Piattaforma Notifiche Page caricata");
-        } catch (TimeoutException e) {
-            logger.info("Accedi A Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
-            Assert.fail("Accedi A Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
-        }
+
     }
 
     public void selezionaAccediButton() {

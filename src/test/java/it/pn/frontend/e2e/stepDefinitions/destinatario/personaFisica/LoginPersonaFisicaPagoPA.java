@@ -106,15 +106,6 @@ public class LoginPersonaFisicaPagoPA {
             }
         }
         logger.info("cookies end");
-        AccediAPiattaformaNotifichePage accediApiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
-        accediApiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
-        accediApiattaformaNotifichePage.selezionaAccediButton();
-        if (!CookieConfig.isCookieEnabled()) {
-            cookiesPage = new CookiesSection(this.driver);
-            if (cookiesPage.waitLoadCookiesPage()) {
-                cookiesPage.selezionaAccettaTuttiButton();
-            }
-        }
 
         ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.driver);
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
