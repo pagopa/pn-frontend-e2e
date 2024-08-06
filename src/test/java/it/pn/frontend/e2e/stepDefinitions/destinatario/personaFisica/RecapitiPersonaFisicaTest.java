@@ -87,7 +87,7 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP() {
         logger.info("Si visualizza correttamente il pop-up di inserimento OTP");
-        String url = WebTool.getApiBaseUrl() + "address";
+        String url = WebTool.getApiBaseUrl() + "addresses";
         recapitiDestinatarioPage.waitLoadPopUp();
         WebTool.waitTime(3);
         if (verificaChiamataEmail(url)) {
@@ -99,6 +99,7 @@ public class RecapitiPersonaFisicaTest {
     }
 
     private boolean verificaChiamataEmail(String url) {
+        logger.info(netWorkInfos.toString());
         for (NetWorkInfo info : netWorkInfos) {
             if (info.getRequestUrl().contains(url) && info.getResponseStatus().equals("200")) {
                 logger.info("La chiamata per inviare email é utilizzabile");
@@ -122,9 +123,13 @@ public class RecapitiPersonaFisicaTest {
         while (attempts < 3) {
             recapitiDestinatarioPage.sendOTP(otp);
             recapitiDestinatarioPage.confermaButtonClickPopUp();
+            WebTool.waitTime(2);
             recapitiDestinatarioPage.clearOTP();
             attempts++;
         }
+        recapitiDestinatarioPage.sendOTP(otp);
+        recapitiDestinatarioPage.confermaButtonClickPopUp();
+        WebTool.waitTime(2);
     }
 
     @And("Si visualizza correttamente il messaggio di errore")

@@ -164,18 +164,14 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clearOTP() {
-        try {
             By otpInputby = By.xpath("//input[contains(@id,'code-input')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(otpInputby));
             List<WebElement> otpInputs = this.elements(otpInputby);
-            for (WebElement otpInput : otpInputs) {
-                clearWebElementField(otpInput);
+            for (int i = 4; i >= 0; i--) {
+                otpInputs.get(i).sendKeys(Keys.BACK_SPACE);
             }
-            logger.info("I campi di inserimento del codice OTP sono stati svuotati correttamente");
-        } catch (TimeoutException e) {
-            logger.error("Impossibile svuotare i campi di inserimento del codice OTP con errore: " + e.getMessage());
-            Assert.fail("Impossibile svuotare i campi di inserimento del codice OTP con errore: " + e.getMessage());
-        }
+            logger.info("Il codice otp viene cancellato correttamente");
+
     }
 
     public void confermaButtonClickPopUp() {
