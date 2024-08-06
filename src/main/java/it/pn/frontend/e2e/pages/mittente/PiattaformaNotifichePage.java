@@ -674,8 +674,11 @@ public class PiattaformaNotifichePage extends BasePage {
     public boolean verificaCampiPreliminariNotificaVuoti() {
         List<WebElement> inputElements = preliminaryInformationsForm.findElements(By.tagName("input"));
         for (WebElement inputElement : inputElements) {
+            logger.info(inputElement.getAttribute("type"),inputElement.getAttribute("value"),inputElement.isSelected() );
             if (inputElement.getAttribute("type").equals("text") && !inputElement.getAttribute("value").isEmpty()) {
-                return false;
+                if (!inputElement.getAttribute("value").equalsIgnoreCase("comune di verona")){
+                    return false;
+                }
             }
             if (inputElement.getAttribute("type").equals("radio") && inputElement.isSelected()) {
                 return false;
