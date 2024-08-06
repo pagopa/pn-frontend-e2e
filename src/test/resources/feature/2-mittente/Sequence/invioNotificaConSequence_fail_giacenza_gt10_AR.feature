@@ -40,7 +40,7 @@ Feature: invio notifica con sequence
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),"Il destinatario ha rifiutato il ritiro della raccomandata A/R ") and contains(text(),"presso il punto di giacenza")] |
       | vediDettagli | false                                                                                                                                     |
-    And Si verifica la cliccabilità della ricevuta di postalizzazione
+    And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //span[contains(text(),"Scansione del plico")] |
       | vediDettagli | false                                          |
     And Logout da portale mittente

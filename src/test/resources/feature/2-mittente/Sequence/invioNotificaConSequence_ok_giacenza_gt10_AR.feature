@@ -43,7 +43,7 @@ Feature: invio notifica con sequence
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),"presso il punto di giacenza entro 10 giorni")] |
       | vediDettagli | false                                                               |
-    And Si verifica la cliccabilità della ricevuta di postalizzazione
+    And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //span[contains(text(),"Ricevuta di consegna")] |
       | vediDettagli | false                                           |
     And Logout da portale mittente

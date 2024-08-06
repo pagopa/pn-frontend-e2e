@@ -1737,7 +1737,7 @@ public class NotificaMittentePagoPATest {
         dettaglioNotificaMittenteSection.checkStatoTimeline(idStato);
     }
 
-    @And("Si verifica la cliccabilità della ricevuta di postalizzazione")
+    @And("Si verifica che la ricevuta di postalizzazione sia cliccabile")
     public void siVerificaLaCliccabilitaDellaRicevutaDiPostalizzazione(Map<String, String> datiDettaglioNotifica) {
         String idStato = datiDettaglioNotifica.get("xpathStato");
         String viewDetail = datiDettaglioNotifica.get("vediDettagli");

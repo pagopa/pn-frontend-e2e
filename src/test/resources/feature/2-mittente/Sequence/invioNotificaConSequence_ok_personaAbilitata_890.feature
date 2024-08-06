@@ -31,7 +31,7 @@ Feature: invio notifica con sequence
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),"C'è un nuovo documento allegato")] |
       | vediDettagli | false                                                   |
-    And Si verifica la cliccabilità della ricevuta di postalizzazione
+    And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //span[contains(text(),"Avviso di ricevimento")] |
       | vediDettagli | false                                            |
     And Si controlla lo stato timeline in dettaglio notifica
