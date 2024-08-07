@@ -21,7 +21,7 @@ public class UtentiPGPage extends BasePage {
     @FindBy(xpath = "//button[contains(text(),'Aggiungi utente')]")
     WebElement addUserButton;
     @FindBy(xpath = "//button[contains(text(),'Indietro')]")
-    List<WebElement> indietroButton;
+    WebElement indietroButton;
     @FindBy(xpath = "//div/h4[contains(text(),'Aggiungi un nuovo utente')]")
     WebElement titoloAggiungiUtente;
     @FindBy(xpath = "//div/p[contains(text(),'Inserisci i dati dell’utente,')]")
@@ -141,7 +141,7 @@ public class UtentiPGPage extends BasePage {
 
     public void waitLoadAggiungiUtentePage() {
         try {
-            getWebDriverWait(10).withMessage("il bottone indietro Utenti / Aggiungi nuovo utente della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(indietroButton.get(0)));
+            getWebDriverWait(10).withMessage("il bottone indietro Utenti / Aggiungi nuovo utente della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
             getWebDriverWait(10).withMessage("il titolo della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(titoloAggiungiUtente));
             getWebDriverWait(10).withMessage("il sottotitolo della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(sottotitoloAggiungiUtente));
             getWebDriverWait(10).withMessage("il box codice fiscale della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(codiceFiscaleBox));
@@ -150,7 +150,6 @@ public class UtentiPGPage extends BasePage {
             getWebDriverWait(10).withMessage("il box email della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(emailBox));
             getWebDriverWait(10).withMessage("il box conferma email della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(confirmEmailBox));
             getWebDriverWait(10).withMessage("il combobox seleziona prodotto della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(selectProductDropdown));
-            getWebDriverWait(10).withMessage("il bottone indietro della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(indietroButton.get(1)));
             getWebDriverWait(10).withMessage("il bottone continua della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(continueButton));
             logger.info("Si visualizza correttamente aggiungi nuovo utente page");
         } catch (TimeoutException e) {
@@ -231,7 +230,7 @@ public class UtentiPGPage extends BasePage {
             By surnameField = By.xpath("//p[contains(text(),'Cognome')]");
             By codiceFiscaleField = By.xpath("//p[contains(text(),'Codice Fiscale')]");
             By emailField = By.xpath("//p[contains(text(),'Email')]");
-            getWebDriverWait(10).withMessage("il bottone indietro della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButton));
+           // getWebDriverWait(10).withMessage("il bottone indietro della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButton));
             getWebDriverWait(10).withMessage("il titolo della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titolo));
             getWebDriverWait(10).withMessage("il bottone modifica della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(modificaButton));
             getWebDriverWait(10).withMessage("il bottone rimuovi della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(rimuoviButton));
