@@ -470,7 +470,7 @@ public class DeleghePagoPATest {
         String cognome = personaFisica.get("cognome");
         BackgroundTest backgroundTest = new BackgroundTest();
 
-        if (!this.deleghePage.siVisualizzaUnaDelegaConNome(nome, cognome)) {
+        if (!deleghePage.siVisualizzaUnaDelegaConNome(nome, cognome)) {
             backgroundTest.aggiuntaNuovaDelegaPF();
         }
     }
