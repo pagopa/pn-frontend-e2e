@@ -21,6 +21,9 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     @FindBy(css = "[id='notificationsTable.body.row']")
     WebElement notificheButton;
 
+    @FindBy(id = "menu-item(notifiche)")
+    WebElement notificheMenuButton;
+
     @FindBy(id = "side-item-Recapiti")
     WebElement recapitiButton;
 
@@ -150,6 +153,11 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     public void clickStatoDellaPiattaforma() {
         getWebDriverWait(10).withMessage("Il bottone stato della piattaforma non è visibile").until(ExpectedConditions.visibilityOf(buttonEnterIntoDisservizi));
         buttonEnterIntoDisservizi.click();
+    }
+
+    public void clickNotifiche() {
+        getWebDriverWait(10).withMessage("Il bottone stato della piattaforma non è visibile").until(ExpectedConditions.visibilityOf(buttonEnterIntoDisservizi));
+        notificheMenuButton.click();
     }
 
     public boolean titoloDiPagamentoDisplayed() {

@@ -28,11 +28,10 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginMittentePagoPA {
     private static final Logger logger = LoggerFactory.getLogger("LoginMittentePagoPA");
+    private final WebDriver driver = Hooks.driver;
+    private final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
     private Map<String, Object> datiMittente;
     private Map<String, String> urlMittente;
-    private final WebDriver driver = Hooks.driver;
-
-    private final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
 
     @Given("Login Page mittente {string} viene visualizzata")
     public void loginPageMittenteVieneVisualizzata(String datiMittenteFile) {
@@ -45,6 +44,19 @@ public class LoginMittentePagoPA {
             case "dev" -> this.driver.get(this.datiMittente.get("url").toString());
             case "test", "uat" ->
                     this.driver.get(this.datiMittente.get("url").toString().replace("dev", variabileAmbiente));
+            default ->
+                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+        }
+    }
+
+    @Given("Login Page mittente viene visualizzata")
+    public void loginPageMittenteVieneVisualizzata(Map<String,String> datiMittenteTable) {
+        logger.info("Si recupera l'ambiente e si visualizza la pagina di login");
+        String variabileAmbiente = System.getProperty("environment");
+        switch (variabileAmbiente) {
+            case "dev" -> this.driver.get(datiMittenteTable.get("url"));
+            case "test", "uat" ->
+                    this.driver.get(datiMittenteTable.get("url").replace("dev", variabileAmbiente));
             default ->
                     Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
@@ -124,6 +136,51 @@ public class LoginMittentePagoPA {
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
         selezionaEntePAPage.cercaComune(this.datiMittente.get("comune").toString());
         selezionaEntePAPage.selezionareComune(this.datiMittente.get("comune").toString());
+        selezionaEntePAPage.selezionaAccedi();
+    }
+
+    @When("Login con mittente")
+    public void loginConMittente(Map<String,String> datiMittenteFile) {
+        logger.info("Si effetua la Login dal portale mittente");
+
+        PreAccediAreaRiservataPAPage preAccediAreaRiservataPAPage = new PreAccediAreaRiservataPAPage(this.driver);
+        preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
+        preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
+
+        if (driver.getCurrentUrl().contains("https://uat.selfcare.pagopa.it/") ||
+                !CookieConfig.isCookieEnabled()) {
+            logger.info("cookies start");
+            CookiesSection cookiesPage;
+            cookiesPage = new CookiesSection(this.driver);
+            cookiesPage.selezionaAccettaTuttiButton();
+            if (cookiesPage.waitLoadCookiesPage()) {
+                cookiesPage.selezionaAccettaTuttiButton();
+            }
+            logger.info("cookies end");
+        }
+
+        AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);
+        acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
+        acccediAreaRiservataPAPage.selezionareSpidButton();
+
+        ScegliSpidPAPage scegliSpidPAPage = new ScegliSpidPAPage(this.driver);
+
+        scegliSpidPAPage.selezionareTestButton();
+
+        LoginPAPage loginPAPage = new LoginPAPage(this.driver);
+        loginPAPage.waitLoadLoginPAPage();
+        loginPAPage.inserisciUtenete(datiMittenteFile.get("user"));
+        loginPAPage.inserisciPassword(datiMittenteFile.get("pwd"));
+        loginPAPage.selezionaInviaDati();
+
+        AutorizziInvioDatiPAPage autorizziInvioDatiPAPage = new AutorizziInvioDatiPAPage(this.driver);
+        autorizziInvioDatiPAPage.waitLoadAutorizziInvioDatiPAPage();
+        autorizziInvioDatiPAPage.selezionareInvia();
+
+        SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(this.driver);
+        selezionaEntePAPage.waitLoadSelezionaEntePAPage();
+        selezionaEntePAPage.cercaComune(datiMittenteFile.get("comune"));
+        selezionaEntePAPage.selezionareComune(datiMittenteFile.get("comune"));
         selezionaEntePAPage.selezionaAccedi();
     }
 
@@ -353,5 +410,25 @@ public class LoginMittentePagoPA {
         }
         String url = urlInziale + token;
         driver.get(url);
+    }
+
+    @And("Si clicca sul bottone test")
+    public void clickTestButton() {
+        AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);
+        acccediAreaRiservataPAPage.clickTestBottone();
+    }
+
+    @And("Si clicca bottone accetta cookies")
+    public void clickAcceptCookies() {
+        CookiesSection cookiesPage = new CookiesSection(this.driver);
+        if (cookiesPage.waitLoadCookiesPage()) {
+            cookiesPage.selezionaAccettaTuttiButton();
+        }
+    }
+
+    @And("Si clicca sul bottone esci")
+    public void siCLiccaSulBottoneEsci() {
+        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        headerPASection.selezionaEsciButton();
     }
 }

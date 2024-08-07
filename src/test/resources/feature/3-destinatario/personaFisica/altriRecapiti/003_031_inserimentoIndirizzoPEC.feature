@@ -11,7 +11,7 @@ Feature: la persona fisica inserisce una email pec
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     When Nella pagina I Tuoi Recapiti si visualizza correttamente il riquadro relativo alla PEC
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una pec
-    And Nella pagina I Tuoi Recapiti si inserisce la PEC "personaFisica"
+    And Nella pagina I Tuoi Recapiti si inserisce la PEC "pectest@pec.it"
     And Nella pagina I Tuoi Recapiti si clicca sul bottone conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaFisica"

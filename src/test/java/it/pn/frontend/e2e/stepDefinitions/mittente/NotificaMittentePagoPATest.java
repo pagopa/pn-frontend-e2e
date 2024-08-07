@@ -21,6 +21,7 @@ import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGP
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
+import lombok.Setter;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -59,6 +60,8 @@ public class NotificaMittentePagoPATest {
     private Map<String, Object> personaFisica = new HashMap<>();
     private Map<String, Object> personaGiuridica = new HashMap<>();
     private Map<String, Object> personeFisiche = new HashMap<>();
+    @Setter
+    private String Iun;
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
@@ -85,7 +88,7 @@ public class NotificaMittentePagoPATest {
             throw new RuntimeException(e);
         }
 
-        /*String urlChiamata = WebTool.getApiBaseUrl() + "notifications/sent?";
+        String urlChiamata = WebTool.getApiBaseUrl() + "notifications/sent?";
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
             logger.error("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
@@ -93,7 +96,7 @@ public class NotificaMittentePagoPATest {
         } else if (codiceRispostaChiamataApi == 0) {
             logger.error("TA_QA: La chiamata, " + urlChiamata + " non trovata");
             Assert.fail("TA_QA: La chiamata, " + urlChiamata + " non trovata");
-        }*/
+        }
     }
 
     private int getCodiceRispostaChiamataApi(String urlChiamata) {
@@ -442,6 +445,17 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.selezionaNotifica();
     }
 
+    @And("Salva codice IUN")
+    public void salvaCodiceIUN(){
+        String IUN = dettaglioNotificaMittenteSection.salvaIUN();
+        setIun(IUN);
+    }
+
+    @And("viene inserito codice IUN salvato")
+    public void vieneInseritoIunSalvato() {
+        dettaglioNotificaMittenteSection.insertIunSalvatoAndRicercaOnPage(Iun);
+    }
+
     @And("Si visualizza correttamente la section Dettaglio Notifica")
     public void siVisualizzaCorrettamenteLaSectionDettaglioNotifica() {
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
@@ -581,12 +595,6 @@ public class NotificaMittentePagoPATest {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
     }
-    @And("Nella pagina stato della piattaforma si cambia il numero elementi visualizzati attraverso il filtro")
-    public void nellaPaginaStatoDellaPiattaformaSiCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltroNumeroNotifiche() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
-        piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
-    }
-
 
     @And("Nella pagina Piattaforma Notifiche si controlla che vengano visualizzate tutte notifiche")
     public void nellaPaginaPiattaformaNotificheSiControllaCheVenganoVisualizzateTutteNotifiche() {
@@ -990,6 +998,24 @@ public class NotificaMittentePagoPATest {
         datiNotificaMap = datiNotifica;
     }
 
+    @Then("Nella section Informazioni preliminari si inseriscono i dati della notifica senza gruppo")
+    public void nellaSectionInformazioniPreliminariSiInserisconoIDatiDellaNotificaSenzaGruppo(Map<String, String> datiNotifica) {
+        logger.info("Si inseriscono i dati della notifica nella sezione Informazioni Preliminari");
+        String numeroDiProtocollo = WebTool.generatePaProtocolNumber();
+        informazioniPreliminariPASection.insertOggettoNotifica(datiNotifica.get("oggettoNotifica"));
+        informazioniPreliminariPASection.insertDescrizione(datiNotifica.get("descrizione"));
+        informazioniPreliminariPASection.insertNumeroDiProtocollo(numeroDiProtocollo);
+        informazioniPreliminariPASection.insertCodiceTassonometrico(datiNotifica.get("codiceTassonomico"));
+        if (datiNotifica.get("modalitaInvio").equals("A/R")) {
+            informazioniPreliminariPASection.selectRaccomandataAR();
+        } else {
+            informazioniPreliminariPASection.selectRegisteredLetter890();
+        }
+        datiNotificaMap.put("numeroProtocollo", numeroDiProtocollo);
+        datiNotificaMap = datiNotifica;
+    }
+
+
     @Then("Nella section Informazioni preliminari si inseriscono i dati della notifica senza salvare numero di protocollo")
     public void nellaSectionInformazioniPreliminariSiInserisconoIDatiDellaNotificaSenzaNumero(Map<String, String> datiNotifica) {
         logger.info("Si inseriscono i dati della notifica nella sezione Informazioni Preliminari");
@@ -1258,6 +1284,12 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.pollingSuStatoNotificaPerCompletamento(statoNotifica);
     }
 
+    @And("Si attende che lo stato della notifica diventi {string}")
+    public void siAttendeCheLoStatoDellaNotificaDiventi(String statoNotifica) {
+        logger.info("Si clicca sulla notifica appena creata quando lo stato diventa: {}", statoNotifica);
+        piattaformaNotifichePage.pollingSuStatoNotificaPerCompletamento(statoNotifica);
+    }
+
     @Then("Si controlla la comparsa del pop up di conferma annullamento")
     public void siControllaLaComparsaDelPopUpDiConfermaAnnullamento() {
         logger.info("Si controlla la presenza del pop up di conferma dell'annullamento della notifica");
@@ -1277,6 +1309,8 @@ public class NotificaMittentePagoPATest {
         driver.navigate().refresh();
         WebTool.waitTime(3);
     }
+
+    //TODO verificare..............
 
     @And("Si seleziona la notifica")
     public void siSelezionaLaNotifica() {
@@ -1708,10 +1742,27 @@ public class NotificaMittentePagoPATest {
         dettaglioNotificaMittenteSection.checkStatoTimeline(idStato);
     }
 
+    @And("Si verifica che la ricevuta di postalizzazione sia cliccabile")
+    public void siVerificaLaCliccabilitaDellaRicevutaDiPostalizzazione(Map<String, String> datiDettaglioNotifica) {
+        String idStato = datiDettaglioNotifica.get("xpathStato");
+        String viewDetail = datiDettaglioNotifica.get("vediDettagli");
+        siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso();
+        WebTool.waitTime(2);
+        if (viewDetail.equals("true")){
+            dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
+        }
+        dettaglioNotificaMittenteSection.siVerificaLaCliccabilitaSuAllegatoInTimeline(idStato);
+    }
+
     @Then("Si verifica che il mittente sia {string}")
     public void siVerificaCheIlMittenteSia(String ente) {
         logger.info("Si verifica che il mittente sia " + ente);
         piattaformaNotifichePage.verificaMittente(ente);
+    }
+
+    @And("Controllo alert RADD")
+    public void controlloAlertRADD() {
+        dettaglioNotificaMittenteSection.checkAlertRADD();
     }
 
     /**

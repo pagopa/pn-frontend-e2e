@@ -15,11 +15,10 @@ import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotific
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
+import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
-import it.pn.frontend.e2e.utility.CookieConfig;
-import it.pn.frontend.e2e.utility.DataPopulation;
-import it.pn.frontend.e2e.utility.DownloadFile;
-import it.pn.frontend.e2e.utility.WebTool;
+import it.pn.frontend.e2e.utility.*;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -28,6 +27,8 @@ import org.slf4j.LoggerFactory;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -367,5 +368,47 @@ public class NotifichePGPagoPATest {
         logger.info("estraggo il file zip");
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
         piattaformaNotifichePGPAPage.extractZipWithoutPassword();
+    }
+
+    @And("Nella sezione Dettaglio Notifiche PG si seleziona il file, {string}, da scaricare")
+    public void siSelezionanoIlFileDaScaricare(String nomeFile) throws IOException {
+        logger.info("Si cerca di scaricare il file " + nomeFile);
+
+        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
+        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
+        dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibile(nomeFile);
+        WebTool.waitTime(5);
+        DownloadFile downloadFile = new DownloadFile(this.driver);
+
+        final String url = downloadFile.getUrl(WebTool.getApiBaseUrl() + "notifications/received/");
+        if (headless && url.isEmpty()) {
+            logger.error("Non è stato recuperato url per il download per il link: " + nomeFile);
+            Assert.fail("Non è stato recuperato url per il download per il link: " + nomeFile);
+        }
+        nomeFile = nomeFile.replace(" ", "_").replace(":", "");
+        File file = new File("src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf");
+        logger.info("Il file verrà scaricato in: " + file.getAbsolutePath());
+        FileUtils.copyURLToFile(new URL(url), file, 1000, 1000);
+        if (!headless) {
+            dettaglioNotificaMittenteSection.goBack();
+        }
+    }
+
+    @Then("Si controlla il testo all interno del file destinatario {string}")
+    public void siControllaIlTestoAlSuoInternoDestonatario(String nomeFile) {
+    logger.info("Si controlla che il testo al suo interno si corretto");
+    piattaformaNotifichePGPAPage.controllaTesto(nomeFile);
+    }
+
+    @And("Si controlla il SHA all interno del file atteztazione")
+    public void siControllaIlShaAllInternoAot() {
+        logger.info("Si controlla che il testo al suo interno si corretto");
+        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
+        if (dettaglioNotificaMittenteSection.controlloSHAFile("Attestazione_opponibile_a_terzi_notifica_presa_in_carico")) {
+            logger.info("Il codice SHA all'interno del file è corretto");
+        } else {
+            logger.error("Il codice SHA  all'interno del file  NON è corretto");
+            Assert.fail("Il codice SHA  all'interno del file  NON è corretto");
+        }
     }
 }

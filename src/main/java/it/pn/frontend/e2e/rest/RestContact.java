@@ -3,8 +3,8 @@ package it.pn.frontend.e2e.rest;
 import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.exceptions.RestContactException;
 import it.pn.frontend.e2e.exceptions.RestDelegationException;
-import it.pn.frontend.e2e.model.DigitalAddress;
-import it.pn.frontend.e2e.model.DigitalAddressResponse;
+import it.pn.frontend.e2e.model.address.DigitalAddress;
+import it.pn.frontend.e2e.model.address.DigitalAddressResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
