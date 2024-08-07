@@ -26,6 +26,6 @@ Feature: invio notifica con sequence
     And Si attende che lo stato della notifica diventi "Depositata"
     And Si attende completamento notifica
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //p[contains(text(),"La raccomandata A/R") and contains(text(),"è stata stampata ed imbustata")] |
+      | xpathStato   | //p[contains(text(),"La raccomandata 890") and contains(text(),"è stata stampata ed imbustata")] |
       | vediDettagli | true |
     And Logout da portale mittente
