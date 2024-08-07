@@ -553,20 +553,6 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
-    public void siCambiaPaginaUtilizzandoUnaFrecetta(Integer numPage) {
-        Integer index= 0;
-        this.getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile")
-                .until(ExpectedConditions.visibilityOf(this.frecciaPaginaSuccessiva));
-        if (!frecciaPaginaSuccessiva.isDisplayed()) {
-            this.js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
-        }
-        while(index <= numPage){
-            frecciaPaginaSuccessiva.click();
-            index++;
-            WebTool.waitTime(2);
-        }
-    }
-
     public void siCambiaPaginaUtilizzandoUnNumero() {
         if (!pageNumberButton.isDisplayed()) {
             this.js().executeScript("arguments[0].scrollIntoView(true);", pageNumberButton);
@@ -845,6 +831,30 @@ public class PiattaformaNotifichePage extends BasePage {
                     testSuccess = true;
                     break;
                 }
+            } catch (NoSuchElementException e) {
+                logger.info("Dopo " + i + " tentativi la notifica non è ancora passata allo stato: " + statoNotifica);
+            }
+            WebTool.waitTime(15);
+            driver.navigate().refresh();
+        }
+        if (!testSuccess) {
+            logger.error("La notifica non è passata allo stato " + statoNotifica);
+            Assert.fail("La notifica non è passata allo stato " + statoNotifica);
+        }
+    }
+
+    public void pollingSuStatoNotifica(String statoNotifica) {
+        boolean testSuccess = false;
+        for (int i = 0; i < 8; i++) {
+            try {
+                WebElement chipStatus = driver.findElement(By.id(statoNotifica + "-status" ));
+                if (chipStatus.isDisplayed()) {
+                    logger.info("La notifica è passata allo stato " + statoNotifica + " e si procede con il test");
+                    driver.navigate().refresh();
+                    testSuccess = true;
+                    break;
+                }
+
             } catch (NoSuchElementException e) {
                 logger.info("Dopo " + i + " tentativi la notifica non è ancora passata allo stato: " + statoNotifica);
             }

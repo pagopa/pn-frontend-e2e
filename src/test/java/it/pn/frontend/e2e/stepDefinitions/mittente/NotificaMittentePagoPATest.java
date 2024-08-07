@@ -595,12 +595,6 @@ public class NotificaMittentePagoPATest {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
     }
-    @And("Nella pagina stato della piattaforma si cambia il numero elementi visualizzati attraverso il filtro")
-    public void nellaPaginaStatoDellaPiattaformaSiCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltroNumeroNotifiche() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
-        piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
-    }
-
 
     @And("Nella pagina Piattaforma Notifiche si controlla che vengano visualizzate tutte notifiche")
     public void nellaPaginaPiattaformaNotificheSiControllaCheVenganoVisualizzateTutteNotifiche() {
@@ -1285,6 +1279,12 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.selezionaNotificaConStato(statoNotifica);
     }
 
+    @And("Si attende che lo stato della notifica diventi {string}")
+    public void siAttendeCheLoStatoDellaNotificaDiventi(String statoNotifica) {
+        logger.info("Si clicca sulla notifica appena creata quando lo stato diventa: {}", statoNotifica);
+        piattaformaNotifichePage.pollingSuStatoNotifica(statoNotifica);
+    }
+
     @Then("Si controlla la comparsa del pop up di conferma annullamento")
     public void siControllaLaComparsaDelPopUpDiConfermaAnnullamento() {
         logger.info("Si controlla la presenza del pop up di conferma dell'annullamento della notifica");
@@ -1304,6 +1304,8 @@ public class NotificaMittentePagoPATest {
         driver.navigate().refresh();
         WebTool.waitTime(3);
     }
+
+    //TODO verificare..............
 
     @And("Si seleziona la notifica")
     public void siSelezionaLaNotifica() {
@@ -1733,6 +1735,18 @@ public class NotificaMittentePagoPATest {
             dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
         }
         dettaglioNotificaMittenteSection.checkStatoTimeline(idStato);
+    }
+
+    @And("Si verifica che la ricevuta di postalizzazione sia cliccabile")
+    public void siVerificaLaCliccabilitaDellaRicevutaDiPostalizzazione(Map<String, String> datiDettaglioNotifica) {
+        String idStato = datiDettaglioNotifica.get("xpathStato");
+        String viewDetail = datiDettaglioNotifica.get("vediDettagli");
+        siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso();
+        WebTool.waitTime(2);
+        if (viewDetail.equals("true")){
+            dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
+        }
+        dettaglioNotificaMittenteSection.siVerificaLaCliccabilitaSuAllegatoInTimeline(idStato);
     }
 
     @Then("Si verifica che il mittente sia {string}")
