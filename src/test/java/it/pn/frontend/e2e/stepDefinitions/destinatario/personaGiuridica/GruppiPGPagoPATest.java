@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.GruppiPGPage;
+import it.pn.frontend.e2e.utility.WebTool;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 
