@@ -14,7 +14,7 @@ public class DeleghePage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DeleghePage");
 
-    @FindBy(id = "add-delegation-button")
+    @FindBy(id = "add-deleghe")
     WebElement addDelegaButton;
 
     @FindBy(id = "revoke-delegation-button")
