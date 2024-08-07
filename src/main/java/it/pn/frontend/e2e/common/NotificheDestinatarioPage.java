@@ -20,9 +20,6 @@ public class NotificheDestinatarioPage extends BasePage{
     WebElement ricevutaDiConsegnaButton;
 
 
-    @FindBy(xpath = "//button[contains(text(), 'Ricevuta di consegna')]")
-    WebElement ricevutaDiConsegnaButton;
-
     public NotificheDestinatarioPage(WebDriver driver) {
         super(driver);
     }
