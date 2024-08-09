@@ -540,7 +540,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void siCambiaPaginaUtilizzandoUnaFrecetta(Integer numPage) {
-        Integer index= 0;
+        Integer index= 1;
         this.getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile")
                 .until(ExpectedConditions.visibilityOf(this.frecciaPaginaSuccessiva));
         if (!frecciaPaginaSuccessiva.isDisplayed()) {
