@@ -1751,6 +1751,7 @@ public class NotificaMittentePagoPATest {
         if (viewDetail.equals("true")){
             dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
         }
+
         dettaglioNotificaMittenteSection.siVerificaLaCliccabilitaSuAllegatoInTimeline(idStato);
     }
 
