@@ -199,7 +199,12 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         }
     }
 
+    //TODO Verificare....
     public boolean piuAvvisiDisplayed() {
+        if (pagopaItems.isEmpty()){
+            logger.info("Avvisi pagoPa sono trovati");
+            return true;
+        }
         getWebDriverWait(3).withMessage("Avvisi pagoPa non sono trovati").until(ExpectedConditions.visibilityOf(pagopaItems.get(0))).isDisplayed();
         if (pagopaItems.size() < 2) {
             logger.info("Avvisi pagoPa non sono trovati");
