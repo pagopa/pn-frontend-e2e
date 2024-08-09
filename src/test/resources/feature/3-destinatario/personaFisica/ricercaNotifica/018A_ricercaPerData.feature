@@ -13,7 +13,7 @@ Feature: Ricerca notifica per periodo temporale persona fisica
       | meseDa   | 11   |
       | giornoDa | 7    |
       | annoA    | 2023 |
-      | meseS    | 11   |
+      | meseA    | 11   |
       | giornoA  | 9    |
     And Cliccare sul bottone Filtra persona fisica
     Then Vengono visualizzate correttamente le notifiche comprese nell'arco temporale inserito

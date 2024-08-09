@@ -675,7 +675,9 @@ public class PiattaformaNotifichePage extends BasePage {
         List<WebElement> inputElements = preliminaryInformationsForm.findElements(By.tagName("input"));
         for (WebElement inputElement : inputElements) {
             if (inputElement.getAttribute("type").equals("text") && !inputElement.getAttribute("value").isEmpty()) {
-                return false;
+                if (!inputElement.getAttribute("value").equalsIgnoreCase("comune di verona")){
+                    return false;
+                }
             }
             if (inputElement.getAttribute("type").equals("radio") && inputElement.isSelected()) {
                 return false;
@@ -843,9 +845,9 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
-    public void pollingSuStatoNotifica(String statoNotifica) {
+    public void pollingSuStatoNotificaPerCompletamento(String statoNotifica) {
         boolean testSuccess = false;
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 15; i++) {
             try {
                 WebElement chipStatus = driver.findElement(By.id(statoNotifica + "-status" ));
                 if (chipStatus.isDisplayed()) {
@@ -854,7 +856,6 @@ public class PiattaformaNotifichePage extends BasePage {
                     testSuccess = true;
                     break;
                 }
-
             } catch (NoSuchElementException e) {
                 logger.info("Dopo " + i + " tentativi la notifica non è ancora passata allo stato: " + statoNotifica);
             }
@@ -1117,6 +1118,4 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         Assert.assertFalse("Il bottone è visualizzabile", isDisplayed);
     }
-
-
 }

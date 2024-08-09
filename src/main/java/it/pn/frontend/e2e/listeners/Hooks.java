@@ -46,7 +46,7 @@ public class Hooks {
     private static final Logger logger = LoggerFactory.getLogger("Hooks");
     public static WebDriver driver;
     public DevTools devTools;
-    public Map<String, RequestWillBeSent> requests = new HashMap<>();
+    public Map<String, RequestWillBeSent> requests =  new HashMap<>();;
 
     @Getter
     public static String scenario;
@@ -135,6 +135,7 @@ public class Hooks {
                     String requestId = response.getRequestId().toString();
                     if (requests.containsKey(requestId)) {
                         RequestWillBeSent request = requests.get(requestId);
+                        logger.info(request.getRequest().toString());
                         Headers headers = request.getRequest().getHeaders();
                         if (response.getType().equals(ResourceType.XHR)) {
                             NetWorkInfo netWorkInfo = new NetWorkInfo();

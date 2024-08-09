@@ -1279,10 +1279,15 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.selezionaNotificaConStato(statoNotifica);
     }
 
+    @And("Si attende completamento notifica {string}")
+    public void siAttendeCompletamentoNotificaV2(String statoNotifica) {
+        piattaformaNotifichePage.pollingSuStatoNotificaPerCompletamento(statoNotifica);
+    }
+
     @And("Si attende che lo stato della notifica diventi {string}")
     public void siAttendeCheLoStatoDellaNotificaDiventi(String statoNotifica) {
         logger.info("Si clicca sulla notifica appena creata quando lo stato diventa: {}", statoNotifica);
-        piattaformaNotifichePage.pollingSuStatoNotifica(statoNotifica);
+        piattaformaNotifichePage.pollingSuStatoNotificaPerCompletamento(statoNotifica);
     }
 
     @Then("Si controlla la comparsa del pop up di conferma annullamento")

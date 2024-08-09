@@ -15,7 +15,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("AccediAPiattaformaNotifichePage");
 
-    @FindBy(id = "login-button")
+    @FindBy(id = "spidButton")
     WebElement accediButton;
 
     @FindBy(css = "[id='notificationsTable.body.row']")
@@ -44,12 +44,6 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     @FindBy(css = "[role='radiogroup']")
     WebElement radioBox;
-
-    @FindBy(css = "[name='radio-buttons-group']")
-    WebElement radioButton;
-
-    @FindBy(linkText = "Pagamento di Test")
-    WebElement titoloPagamento;
 
     @FindBy(css = "[data-testid='download-f24-button']")
     WebElement modelloF24;
@@ -85,17 +79,13 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void waitLoadAccediAPiattaformaNotifichePage() {
-        try {
-            By titleLabel = By.id("login-page-title");
-            By loginBy = By.id("login-button");
+
+            By titleLabel = By.id("login-mode-page-title");
+            By loginBy = By.id("spidButton");
             getWebDriverWait(30).withMessage("Il titolo della pagina accedi a piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
-            getWebDriverWait(30).withMessage("Il bottone login della pagina accedi a piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(loginBy));
-            getWebDriverWait(30).withMessage("Il bottone login della pagina accedi a piattaforma notifiche non è cliccabile").until(ExpectedConditions.elementToBeClickable(accediButton));
+            getWebDriverWait(30).withMessage("Il bottone login della pagina accedi a piattaforma notifiche non è visibile e cliccabile").until(ExpectedConditions.and(ExpectedConditions.visibilityOfElementLocated(loginBy),ExpectedConditions.elementToBeClickable(loginBy)));
             logger.info("Accedi A Piattaforma Notifiche Page caricata");
-        } catch (TimeoutException e) {
-            logger.info("Accedi A Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
-            Assert.fail("Accedi A Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
-        }
+
     }
 
     public void selezionaAccediButton() {
@@ -154,11 +144,8 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         }
     }
 
-    public String cssBuildRadioButton() {
-        return "[value='" + codiceAvvisoSpan.getText() + "']";
-    }
-
-    public void clickRadioBoxButton(String css) {
+    public void clickRadioBoxButton() {
+        WebElement radioButton = driver.findElements(By.xpath("//span[@data-testid='radio-button']")).get(0);
         getWebDriverWait(30).withMessage("Il radio box button non è cliccabile").until(ExpectedConditions.elementToBeClickable(radioButton));
         radioButton.click();
     }
@@ -174,7 +161,8 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public boolean titoloDiPagamentoDisplayed() {
-        return getWebDriverWait(30).withMessage("Il sezione titolo pagamento non è visibile").until(ExpectedConditions.visibilityOf(titoloPagamento)).isDisplayed();
+        By titoloPagamento = By.xpath("//span[contains(text(),'Pagamento di Test')]");
+        return getWebDriverWait(30).withMessage("Il sezione titolo pagamento non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titoloPagamento)).isDisplayed();
     }
 
     public boolean codiceAvvisoDisplayed() {

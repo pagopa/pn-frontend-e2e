@@ -2,6 +2,7 @@ Feature: Si eseguono e si controllano tutte le operazioni che possono essere ese
 
   @TestSuite
   @gruppiPG
+
   Scenario: [TA-FE GRUPPI PERSONA GIURIDICA] - Si crea un gruppo per la persona giuridica, lo si modifica e lo si elimina
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone Gruppi
