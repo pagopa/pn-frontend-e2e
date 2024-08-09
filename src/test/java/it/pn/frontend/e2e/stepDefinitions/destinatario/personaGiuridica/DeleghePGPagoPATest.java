@@ -549,6 +549,7 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.checkAlertWrongDelegationCode();
         deleghePGPagoPAPage.clickButtonIndietroDaAssegnaGruppo();
         deleghePGPagoPAPage.checkTextboxCodiceSonoRosse();
+        deleghePGPagoPAPage.clickButtonIndietroCloseModale();
     }
 
     @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si controlla che ci sia una delega con la ragione sociale inserita {string}")
