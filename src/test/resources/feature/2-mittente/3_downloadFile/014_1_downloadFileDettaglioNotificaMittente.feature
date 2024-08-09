@@ -7,14 +7,29 @@ Feature: Mittente scarica tutti i file all'interno di una notifica
 
   Scenario: PN-9327 - Mittente scarica attestazioni
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
+    When Si inizializzano i dati per la notifica
+      | modello         | 890                |
+      | documenti       | 1                  |
+      | oggettoNotifica | Pagamento rata IMU |
+      | costiNotifica   | true               |
+    And Si aggiunge un destinatario alla notifica
+      | at                | Presso           |
+      | indirizzo         | VIA ROMA 20      |
+      | dettagliIndirizzo | Scala b          |
+      | codicePostale     | 20147            |
+      | comune            | Milano           |
+      | dettagliComune    | Milano           |
+      | provincia         | MI               |
+      | stato             | Italia           |
+      | nomeCognome       | Gaio Giulio      |
+      | codiceFiscale     | CSRGGL44L13H501E |
+      | tipoDestinatario  | PF               |
+      | domicilioDigitale | test@test.com    |
+      | avvisoPagoPa      | 1                |
+      | F24               | 1                |
     When Creo in background una notifica per destinatario tramite API REST
-      | destinatario      | PF    |
-      | documenti         | 1     |
-      | multidestinatario | false |
-      | avvisoPagoPa      | 1     |
-      | F24               | 1     |
-      | costiNotifica     | true  |
-    When Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita
-    And Si visualizza correttamente la sezione Dettaglio Notifica
+    And Si seleziona la notifica mittente
+    And Si attende che lo stato della notifica diventi "Depositata"
+    And Si attende completamento notifica
     Then Nella sezione Dettaglio Notifica si scaricano tutti i file presenti
     And Logout da portale mittente
