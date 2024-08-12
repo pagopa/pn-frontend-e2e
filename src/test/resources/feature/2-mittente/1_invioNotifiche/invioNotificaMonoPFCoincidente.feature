@@ -46,4 +46,3 @@ Feature: Mittente genera una notifica che non prevede pagamento
     And Cliccare sulla notifica restituita
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
     And Logout da portale persona fisica
-
