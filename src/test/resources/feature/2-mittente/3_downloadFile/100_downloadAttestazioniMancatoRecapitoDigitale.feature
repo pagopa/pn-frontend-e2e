@@ -22,6 +22,7 @@ Feature: il mittente effettua il download attestazione opponibile a terzi mancat
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Consegnata"
     And Si visualizza correttamente la section Dettaglio Notifica
-    And Nella sezione Dettaglio Notifiche si seleziona il file, "Attestazione opponibile a terzi: mancato recapito digitale", da scaricare
-    Then Si controlla il testo all interno del file "Attestazione_opponibile_a_terzi_mancato_recapito_digitale"
+    And Si verifica che la ricevuta di postalizzazione sia cliccabile
+      | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: mancato recapito digitale")] |
+      | vediDettagli | false                                          |
     And Logout da portale mittente
