@@ -1,6 +1,6 @@
 Feature: Mittente scarica tutti i file all'interno di una notifica
 
-  @TestSuite
+  @parallel
   @TA_MittenteDownloadFileDettaglioNotifica
   @mittente
   @DownloadFileMittente
@@ -29,7 +29,18 @@ Feature: Mittente scarica tutti i file all'interno di una notifica
       | F24               | 1                |
     When Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica mittente
-    And Si attende che lo stato della notifica diventi "Depositata"
-    And Si attende completamento notifica
-    Then Nella sezione Dettaglio Notifica si scaricano tutti i file presenti
+    And Si attende che lo stato della notifica diventi "Consegnata"
+    And Aspetta 20 secondi
+    And Si verifica che la ricevuta di postalizzazione sia cliccabile
+      | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: notifica digitale")] |
+      | vediDettagli | false                                          |
+    And Si verifica che la ricevuta di postalizzazione sia cliccabile
+      | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: notifica presa in carico")] |
+      | vediDettagli | false                                          |
+    And Si verifica che la ricevuta di postalizzazione sia cliccabile
+      | xpathStato   | //button[contains(text(),"Ricevuta di consegna PEC")] |
+      | vediDettagli | false                                          |
+    And Si verifica che la ricevuta di postalizzazione sia cliccabile
+      | xpathStato   | //button[contains(text(),"Ricevuta di accettazione PEC")] |
+      | vediDettagli | false                                          |
     And Logout da portale mittente

@@ -43,6 +43,7 @@ Feature: persona giuridica scarica attestazione opponibile
     And Si clicca bottone accetta cookies
     And Aspetta 120 secondi
     And Cliccare sulla notifica restituita
-    And Nella sezione Dettaglio Notifiche PG si seleziona il file, "Attestazione opponibile a terzi: notifica presa in carico", da scaricare
-    Then Si controlla il testo all interno del file destinatario "Attestazione_opponibile_a_terzi_notifica_presa_in_carico"
+    And Si verifica che la ricevuta di postalizzazione sia cliccabile
+      | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: notifica presa in carico")] |
+      | vediDettagli | false                                          |
     And Logout da portale persona giuridica

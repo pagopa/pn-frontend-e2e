@@ -135,7 +135,6 @@ public class Hooks {
                     String requestId = response.getRequestId().toString();
                     if (requests.containsKey(requestId)) {
                         RequestWillBeSent request = requests.get(requestId);
-                        logger.info(request.getRequest().toString());
                         Headers headers = request.getRequest().getHeaders();
                         if (response.getType().equals(ResourceType.XHR)) {
                             NetWorkInfo netWorkInfo = new NetWorkInfo();

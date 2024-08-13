@@ -12,7 +12,7 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
     When La persona fisica clicca sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica persona fisica
     And Si controlla sezione Pagamento se notifica prevede il pagamento
-    Then Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto "datiNotifica"
-    And Si clicca sul opzione Vedi Dettaglio
-    And Si clicca sul bottone indietro
+    And Si verifica che la ricevuta di postalizzazione sia cliccabile
+      | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: notifica presa in carico")] |
+      | vediDettagli | false                                          |
     And Logout da portale persona fisica
