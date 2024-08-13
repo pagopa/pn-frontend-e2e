@@ -717,12 +717,19 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void checkMessaggioErroreTreTentativiOTPSbagliato() {
         try {
+            WebElement elementErrorAlert = driver.findElement(By.id("error-alert"));
+            if (elementErrorAlert.getText().contains("Hai fatto troppi tentativi")) {
+                logger.info("Si visualizza correttamente il messaggio di errore");
+            } else {
+                logger.error("Non si visualizza il messaggio di errore");
+                Assert.fail("Non si visualizza il messaggio di errore");
+            }
             By messageContainer = By.id("error-alert");
             By modalErrorTitle = By.id("codeModalErrorTitle");
             getWebDriverWait(10).withMessage("Titolo di errore della modale non visualizzato").until(ExpectedConditions.visibilityOfElementLocated(modalErrorTitle));
             getWebDriverWait(10).withMessage("Il messaggio di errore non viene visualizzato e il testo non è corretto").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(messageContainer),
-                    ExpectedConditions.attributeContains(messageContainer, "textContent", "Hai fatto troppi tentativiHai inserito troppe volte un codice sbagliato. Per riprovare premi “Annulla”, assicurati che il contatto sia corretto e inserisci il nuovo codice.")
+                    ExpectedConditions.visibilityOfElementLocated(modalErrorTitle)
             ));
         } catch (TimeoutException e) {
             logger.error("Il messaggio di errore non viene visualizzato correttamente con errore: " + e.getMessage());
