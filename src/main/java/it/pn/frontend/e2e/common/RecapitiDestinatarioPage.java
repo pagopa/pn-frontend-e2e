@@ -719,7 +719,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         try {
             WebElement elementErrorAlert = driver.findElement(By.id("error-alert"));
             String testo = elementErrorAlert.getText().replace("\n", " ");
-            
+
             if (testo.contains("Hai fatto troppi tentativi Hai inserito troppe volte un codice sbagliato. Per riprovare premi “Annulla”, assicurati che il contatto sia corretto e inserisci il nuovo codice.")) {
                 logger.info("Si visualizza correttamente il messaggio di errore");
             } else {
