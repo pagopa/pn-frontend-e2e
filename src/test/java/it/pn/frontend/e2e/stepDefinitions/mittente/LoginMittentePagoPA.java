@@ -53,6 +53,9 @@ public class LoginMittentePagoPA {
     public void loginPageMittenteVieneVisualizzata(Map<String,String> datiMittenteTable) {
         logger.info("Si recupera l'ambiente e si visualizza la pagina di login");
         String variabileAmbiente = System.getProperty("environment");
+        DataPopulation dataPopulation = new DataPopulation();
+
+        this.datiMittente = dataPopulation.readDataPopulation("mittente.yaml");
         switch (variabileAmbiente) {
             case "dev" -> this.driver.get(datiMittenteTable.get("url"));
             case "test", "uat" ->
