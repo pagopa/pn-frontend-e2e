@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.UtentiPGPage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,7 @@ public class UtentiPGPagoPATest {
 
     @And("Si visualizza correttamente la pagina aggiungi nuovo utente")
     public void siVisualizzaCorrettamenteLaPaginaAggiungiNuovoUtente() {
+        WebTool.waitTime(5);
         utentiPGPage.waitLoadAggiungiUtentePage();
     }
 
