@@ -364,7 +364,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public int controlloNumeroRisultatiDate() {
-        By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]");
+        By dataListBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[1]");
         attesaCaricamentoPagina();
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
         logger.info("Date trovate correttamente");
@@ -446,25 +446,25 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public boolean verificaEsistenzaCFNotifiche() {
-        By cfFiealdBy = By.xpath("//td[button/p[contains(@class,'MuiTypography-root MuiTypography-body2')]]");
+        By cfFiealdBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[2]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(cfFiealdBy));
         return !this.elements(cfFiealdBy).isEmpty();
     }
 
     public boolean verificaEsistenzaCodiceIUNNotifiche() {
-        By codiciIUNBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh')]");
+        By codiciIUNBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiciIUNBy));
         return !this.elements(codiciIUNBy).isEmpty();
     }
 
     public boolean verificaEsistenzaGruppoNotifiche() {
-        By gruppiBy = By.xpath("//td[button/div/span[contains(@class,'css-t63gu0')]]");
+        By gruppiBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[5]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(gruppiBy));
         return !this.elements(gruppiBy).isEmpty();
     }
 
     public boolean verificaEsistenzaStatoNotifiche() {
-        By statiBy = By.xpath("//td[button/div/div[contains(@data-testid,'statusChip-')]]");
+        By statiBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[6]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statiBy));
         return !this.elements(statiBy).isEmpty();
     }
