@@ -301,7 +301,17 @@ public class NotifichePGPagoPATest {
     public void siControllaNonSiaPresenteLAvvisoPagoPa() {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
         AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        WebTool.waitTime(5);
         Assert.assertTrue("Avviso PagoPA non sia presente", accediAPiattaformaNotifichePage.piuAvvisiDisplayed());
+        logger.info("Avviso PagoPA è presente");
+    }
+
+    @And("Si controlla non sia presente l'allegato PagoPa")
+    public void siControllaNonSiaPresenteLAllegatoPagoPa() {
+        logger.info("Si controlla la presenza del box per il pagamento della notifica");
+        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        WebTool.waitTime(5);
+        Assert.assertTrue("Avviso PagoPA non sia presente", accediAPiattaformaNotifichePage.allegatoPagoPaDisplayed());
         logger.info("Avviso PagoPA è presente");
     }
 

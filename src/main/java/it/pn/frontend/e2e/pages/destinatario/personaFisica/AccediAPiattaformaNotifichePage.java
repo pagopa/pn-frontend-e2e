@@ -74,6 +74,11 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "//div[@data-testid='pagopa-item']")
     List<WebElement> pagopaItems;
 
+    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div/main/div/div/div[1]/div[3]/div[4]/div/button[2]")
+    List<WebElement> pagopaAllegatoItems;
+
+
+
     public AccediAPiattaformaNotifichePage(WebDriver driver) {
         super(driver);
     }
@@ -200,6 +205,15 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         }else {
             logger.info("Avvisi pagoPa sono trovati");
             return true;
+        }
+    }
+
+    public boolean allegatoPagoPaDisplayed() {
+        if (pagopaAllegatoItems.isEmpty()) {
+            logger.info("Allegati pagoPa non sono trovati");
+            return true;
+        }else {
+            return false;
         }
     }
 
