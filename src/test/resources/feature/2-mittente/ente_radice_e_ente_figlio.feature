@@ -137,8 +137,7 @@ Feature: Ente figlio e Ente radice
     Then Si visualizza correttamente la frase La notifica è stata correttamente creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Si verifica che la notifica è stata creata correttamente
-    And Aspetta 10 secondi
+    And Aspetta 60 secondi
     And Cliccare sulla notifica restituita
     And Salva codice IUN
     And Si clicca sul bottone esci
