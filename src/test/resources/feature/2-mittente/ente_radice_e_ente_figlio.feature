@@ -166,7 +166,7 @@ Feature: Ente figlio e Ente radice
     And Si controlla che la delega ha lo stato Attiva
       | firstName   | Gaio Giulio       |
       | lastName    | Cesare            |
-    And Nella Pagina Notifiche persona giuridica si clicca su notifiche delegate
+    And Nella Pagina Notifiche persona fisica si clicca su notifiche delegate
     And ricerca notifica con IUN salvato
     And Si seleziona la notifica
     And Logout da portale persona fisica
