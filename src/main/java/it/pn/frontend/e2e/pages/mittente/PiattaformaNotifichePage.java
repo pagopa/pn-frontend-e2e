@@ -613,7 +613,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public List<String> getCodiceIunPresenti() {
-        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh']//button");
+        By notificaCodiceIunBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button");
         List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella : righeTabella) {
@@ -624,7 +624,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public List<String> getCodiceIunPresentiPF() {
-        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-2ebubn']//button");
+        By notificaCodiceIunBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button");
         List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella : righeTabella) {
@@ -639,7 +639,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public List<String> getCodiceIunPersonaGiuridica() {
-        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-2ebubn']//button");
+        By notificaCodiceIunBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button");
         List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella : righeTabella) {
