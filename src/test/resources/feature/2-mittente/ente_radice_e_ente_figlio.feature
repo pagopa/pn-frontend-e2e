@@ -96,3 +96,74 @@ Feature: Ente figlio e Ente radice
     Then Nel pop up visualizza cliccare sul tasto chiudi
     And Si clicca sul bottone esci
     And Si clicca sul bottone esci
+
+
+  @test5
+  Scenario: PN-10419 - Ente Figlio - Verifica presenza notifiche da parte del delegato
+    Given Login Page mittente viene visualizzata
+      | url | https://selfcare.dev.notifichedigitali.it |
+    When Login con mittente
+      | user   | ggiorgi |
+      | pwd    | test    |
+      | comune | Viggiu  |
+    And Si clicca sul bottone test
+    And Si clicca bottone accetta cookies
+    And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"
+    And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
+    And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
+    Then Nella section Informazioni preliminari si inseriscono i dati della notifica
+      | oggettoNotifica   | Pagamento rata IMU |
+      | descrizione       | PAGAMENTO RATA IMU |
+      | gruppo            | test-TA-FE-TEST    |
+      | codiceTassonomico | 123456A            |
+      | modalitaInvio     | A/R                |
+    And Cliccare su continua
+    And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
+    Then Nella section Destinatario si inseriscono i dati del destinatario
+      | soggettoGiuridico       | PF                   |
+      | nomeCognomeDestinatario | Gaio Giulio |
+      | codiceFiscale           | CSRGGL44L13H501E     |
+    And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
+      | indirizzo | Via Roma |
+      | civico    | 20                    |
+      | localita  | Milano               |
+      | comune    | Milano               |
+      | provincia | MI                    |
+      | cap       | 20147                 |
+      | stato     | Italia                |
+    And Cliccare su continua
+    And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
+    And Cliccare sulla notifica restituita
+    And Salva codice IUN
+    And Si clicca sul bottone esci
+    And Si clicca sul bottone esci
+    Then PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
+    And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
+    And Si controlla che non sia presente una delega con stesso nome
+      | nome          | Lucrezia            |
+      | cognome       | Borgia              |
+    And Nella sezione Deleghe click sul bottone aggiungi nuova delega
+    And Si visualizza correttamente la pagina nuova delega
+    And Nella sezione Le Tue Deleghe inserire i dati
+      | nome          | Lucrezia            |
+      | cognome       | Borgia              |
+      | codiceFiscale | BRGLRZ80D58H501Q    |
+      | ente          | Comune di Viggiu   |
+    And Nella sezione Le Tue Deleghe verificare che la data sia corretta
+    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "nuova_delega"
+    And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
+    And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
+    When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
+    And Si sceglie opzione accetta
+    And Si inserisce il codice delega nel pop-up OTP "corretto"
+    And Si clicca sul bottone Accetta
+    And Si controlla che la delega ha lo stato Attiva
+      | firstName   | Gaio Giulio       |
+      | lastName    | Cesare            |
+    And Nella Pagina Notifiche persona giuridica si clicca su notifiche delegate
+    And ricerca notifica con IUN salvato
+    And Si seleziona la notifica
+    And Logout da portale persona fisica
+
+
