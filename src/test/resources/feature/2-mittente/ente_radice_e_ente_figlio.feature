@@ -111,10 +111,9 @@ Feature: Ente figlio e Ente radice
     And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
-    Then Nella section Informazioni preliminari si inseriscono i dati della notifica
-      | oggettoNotifica   | Pagamento rata IMU |
+    Then Nella section Informazioni preliminari si inseriscono i dati della notifica senza gruppo
+      | oggettoNotifica   | Pagamento RATA IMU |
       | descrizione       | PAGAMENTO RATA IMU |
-      | gruppo            | test-TA-FE-TEST    |
       | codiceTassonomico | 123456A            |
       | modalitaInvio     | A/R                |
     And Cliccare su continua
