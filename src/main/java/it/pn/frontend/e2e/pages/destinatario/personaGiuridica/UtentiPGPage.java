@@ -230,7 +230,6 @@ public class UtentiPGPage extends BasePage {
             By surnameField = By.xpath("//p[contains(text(),'Cognome')]");
             By codiceFiscaleField = By.xpath("//p[contains(text(),'Codice Fiscale')]");
             By emailField = By.xpath("//p[contains(text(),'Email')]");
-           // getWebDriverWait(10).withMessage("il bottone indietro della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButton));
             getWebDriverWait(10).withMessage("il titolo della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titolo));
             getWebDriverWait(10).withMessage("il bottone modifica della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(modificaButton));
             getWebDriverWait(10).withMessage("il bottone rimuovi della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(rimuoviButton));
