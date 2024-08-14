@@ -762,7 +762,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public void verificaPresenzaStato(String stato) {
-        WebTool.waitTime(5);
+        WebTool.waitTime(10);
         By statusChip = By.xpath("//div[@data-testid='itemStatus']//span[contains(text(),'" + stato + "')]");
           getWebDriverWait(10).withMessage("Lo stato " + stato + " non è presente")
                     .until(ExpectedConditions.visibilityOfElementLocated(statusChip));
