@@ -156,12 +156,12 @@ Feature: Ente figlio e Ente radice
       | codiceFiscale | BRGLRZ80D58H501Q    |
       | ente          | Comune di Viggiu   |
     And Nella sezione Le Tue Deleghe verificare che la data sia corretta
-    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "nuova_delega"
+    And Nella sezione Le Tue Deleghe salvare il codice verifica
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Si sceglie opzione accetta
-    And Si inserisce il codice delega nel pop-up OTP "corretto"
+    And Si inserisce il codice delega nel pop-up OTP
     And Si clicca sul bottone Accetta
     And Si controlla che la delega ha lo stato Attiva
       | firstName   | Gaio Giulio       |

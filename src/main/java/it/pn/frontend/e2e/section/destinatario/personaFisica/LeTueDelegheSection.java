@@ -21,6 +21,9 @@ public class LeTueDelegheSection extends BasePage {
     @FindBy(xpath = "//input[@value='PF']")
     WebElement personaFisicaRadioButton;
 
+    @FindBy(id = "side-item-Notifiche")
+    WebElement sideItemNotificheButton;
+
     @FindBy(id = "nome")
     WebElement inputNome;
 
@@ -218,6 +221,20 @@ public class LeTueDelegheSection extends BasePage {
             codiceDelegaInput.sendKeys(codiciDelega[i]);
         }
 
+    }
+
+    public void clickNotificheDelegatePF() {
+        try {
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.sideItemNotificheButton));
+            sideItemNotificheButton.click();
+            By notificheDelegateButton = By.id("side-item-Gaio Giulio Cesare");
+            this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(notificheDelegateButton));
+            this.js().executeScript("arguments[0].click()", this.element(notificheDelegateButton));
+            logger.info("Si clicca correttamente sulla voce notifiche delegate");
+        } catch (TimeoutException e) {
+            logger.error("Non si clicca correttamente sulla voce notifiche delegate con errore:" + e.getMessage());
+            Assert.fail("Non si clicca correttamente sulla voce notifiche delegate con errore" + e.getMessage());
+        }
     }
 
     public String getTextCodiceSbagliato() {
