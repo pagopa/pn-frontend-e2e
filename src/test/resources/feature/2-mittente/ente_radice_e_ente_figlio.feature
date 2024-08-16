@@ -3,7 +3,7 @@ Feature: Ente figlio e Ente radice
   @EnteRadiceEFiglio
 
 
-  @test1
+  @verificaAssenzaNotificheEnteRadice
   Scenario: PN-10413 - Ente Figlio - Verifica assenza notifiche ente radice
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.dev.notifichedigitali.it |
@@ -21,7 +21,7 @@ Feature: Ente figlio e Ente radice
     And Si clicca sul bottone esci
     And Si clicca sul bottone esci
 
-  @test2
+  @verificaAssenzaNotificheEnteFiglio
   Scenario: PN-10411 - Ente Radice - Verifica assenza notifiche ente figlio
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.dev.notifichedigitali.it |
@@ -40,7 +40,7 @@ Feature: Ente figlio e Ente radice
     And Si clicca sul bottone esci
     And Si clicca sul bottone esci
 
-  @test3
+  @verificaAssenzaApikeyEnteFiglio
   Scenario: PN-10412 - Ente Radice - Verifica assenza apikey ente figlio
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.dev.notifichedigitali.it |
@@ -69,7 +69,7 @@ Feature: Ente figlio e Ente radice
     And Si clicca sul bottone esci
     And Si clicca sul bottone esci
 
-  @test4
+  @verificaAssenzaApikeyEnteRadice
   Scenario: PN-10414 - Ente Figlio - Verifica assenza apikey ente radice
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.dev.notifichedigitali.it |
