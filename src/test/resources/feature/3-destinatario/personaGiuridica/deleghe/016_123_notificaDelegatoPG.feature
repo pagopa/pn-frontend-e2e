@@ -17,7 +17,7 @@ Feature:Il delegato persona giuridica accede ad una delega
       | person         | false         |
     And Si accetta la delega senza gruppo
     And Si controlla che la delega PG ha lo stato Attiva "Convivio Spa"
-    And Nella Pagina Notifiche persona giuridica si clicca su notifiche delegate
+    And Nella Pagina Notifiche destinatario si clicca su notifiche delegate
     When Si inizializzano i dati per la notifica
       | modello         | A/R                |
       | documenti       | 1                  |

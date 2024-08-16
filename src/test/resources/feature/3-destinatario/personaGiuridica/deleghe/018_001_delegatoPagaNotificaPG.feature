@@ -38,7 +38,7 @@ Feature:Il delegato persona giuridica accede ad una delega
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe dell impresa
     And Si controlla che non sia presente una delega con stesso nome persona giuridica "Le Epistolae srl"
     And Nella sezione Deleghe si verifica sia presente una delega accettata per PG
-    And Nella Pagina Notifiche persona giuridica si clicca su notifiche delegate
+    And Nella Pagina Notifiche destinatario si clicca su notifiche delegate
     And Aspetta 1 secondi
     And La persona giuridica clicca sulla prima notifica restituita
     And Si verifica che visualizzato lo stato Pagato
