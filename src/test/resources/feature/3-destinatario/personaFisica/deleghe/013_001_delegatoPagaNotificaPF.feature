@@ -52,7 +52,7 @@ Feature:Il delegato persona giuridica accede ad una delega
     And Si controlla che la delega ha lo stato Attiva
       | firstName   | Gaio Giulio       |
       | lastName    | Cesare            |
-    And Nella Pagina Notifiche persona giuridica si clicca su notifiche delegate
+    And Nella Pagina Notifiche destinatario si clicca su notifiche delegate
     And Si seleziona la notifica
     And Si verifica che visualizzato lo stato Pagato
     And Logout da portale persona fisica

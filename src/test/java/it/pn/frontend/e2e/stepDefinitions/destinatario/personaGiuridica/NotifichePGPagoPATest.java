@@ -110,7 +110,7 @@ public class NotifichePGPagoPATest {
         deleghePage.waitLoadDeleghePage();
     }
 
-    @And("Nella Pagina Notifiche persona giuridica si clicca su notifiche delegate")
+    @And("Nella Pagina Notifiche destinatario si clicca su notifiche delegate")
     public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSuNotificheDelegate() {
         logger.info("Si clicca correttamente su notifiche delegate");
 
