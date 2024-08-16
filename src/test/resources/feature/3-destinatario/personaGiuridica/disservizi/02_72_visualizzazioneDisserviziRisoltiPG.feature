@@ -11,7 +11,7 @@ Feature: La persona giuridica visualizza i disservizi della applicazione
     And Si visualizza correttamente la Pagina dello Stato della piattaforma
     And Si visualizzano correttamente i dati sullo stato della piattaforma
     And Si visualizza storico disservizi
-    And Si visualizza un record in elenco relativo ad un disservizio risolto
+    And Si visualizza un record in elenco relativo ad un disservizio risolto "Invio delle notifiche"
     And Si scarica attestazione opponibile, e si controlla che il download sia avvenuto
     And Logout da portale persona giuridica
 
