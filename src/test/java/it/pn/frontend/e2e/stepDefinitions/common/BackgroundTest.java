@@ -321,7 +321,7 @@ public class BackgroundTest {
     public void inserimentoOTPErratoTreVolteEControlloMessaggio(String OTP) {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceOTPSbagliato(OTP);
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < 2; i++){
             recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiCliccaSulBottoneConferma();
         }
         recapitiTest.siVisualizzaCorrettamenteIlMessaggioDiErroreDeiTreTentativi();

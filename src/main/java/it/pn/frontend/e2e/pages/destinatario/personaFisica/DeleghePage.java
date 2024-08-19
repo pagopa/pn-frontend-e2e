@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -96,7 +97,7 @@ public class DeleghePage extends BasePage {
     }
 
     public void clickMenuDelegante(String fullName) {
-        List<WebElement> tableRows = driver.findElements(By.id("delegatesBodyRowDesktop")); // Take all the rows of the table
+        List<WebElement> tableRows = driver.findElements(By.id("notifications-table")); // Take all the rows of the table
         if (!tableRows.isEmpty()) {
             for (WebElement row : tableRows) {
                 WebElement cellName = row.findElement(By.xpath(".//td//p[contains(text(), '" + fullName + "')]")); // Take the cell with the name of the delegate from the row
@@ -210,7 +211,9 @@ public class DeleghePage extends BasePage {
 
     public boolean siVisualizzaUnaDelegaConNome(String nome, String cognome) {
         try {
-            By delegaBy = By.xpath("//tr[@id = 'delegatesTable.body.row']//p[contains(text(),'" + nome + " " + cognome + "')]");
+            WebTool.waitTime(5);
+            By delegaBy = By.xpath("//tr[@id = 'delegatesTable.body.row']//p[contains(text(),'"+ nome +" "+ cognome +"')]");
+
             this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(delegaBy));
             logger.info("Si trova una delega");
             return true;

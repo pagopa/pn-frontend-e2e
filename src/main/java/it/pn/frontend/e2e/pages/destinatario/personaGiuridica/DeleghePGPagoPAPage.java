@@ -78,7 +78,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(xpath = "//button[@data-testid='groupCancelButton']")
     WebElement buttonIndietroInAssegnazioneGruppo;
 
-    @FindBy(id = "alert-api-status}")
+    @FindBy(id = "alert-api-status")
     WebElement alertPopUp;
 
     @FindBy(id = "error-alert")
@@ -361,6 +361,22 @@ public class DeleghePGPagoPAPage extends BasePage {
             Assert.fail("Bottone non visualizzato con errore: " + e.getMessage());
         }
     }
+
+    public void clickButtonIndietroCloseModale() {
+        try {
+            logger.info("Si clicca sul bottone indietro per tornare al tabella deleghe");
+            By buttonIndietroPopUpAssegnaGruppo = By.xpath("//button[@data-testid='codeCancelButton']");
+            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(buttonIndietroPopUpAssegnaGruppo));
+            WebElement buttonIndietroClick = driver.findElement(buttonIndietroPopUpAssegnaGruppo);
+            buttonIndietroClick.click();
+            logger.info("Bottone indietro cliccato");
+        } catch (TimeoutException e) {
+            logger.error("Bottone non visualizzato con errore " + e.getMessage());
+            Assert.fail("Bottone non visualizzato con errore: " + e.getMessage());
+        }
+    }
+
+
 
     public void checkTextboxCodiceSonoRosse() {
         final String textboxIsInvalid = "true";

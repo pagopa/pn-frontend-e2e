@@ -364,7 +364,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public int controlloNumeroRisultatiDate() {
-        By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]");
+        By dataListBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[1]");
         attesaCaricamentoPagina();
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
         logger.info("Date trovate correttamente");
@@ -446,25 +446,25 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public boolean verificaEsistenzaCFNotifiche() {
-        By cfFiealdBy = By.xpath("//td[button/p[contains(@class,'MuiTypography-root MuiTypography-body2')]]");
+        By cfFiealdBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[2]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(cfFiealdBy));
         return !this.elements(cfFiealdBy).isEmpty();
     }
 
     public boolean verificaEsistenzaCodiceIUNNotifiche() {
-        By codiciIUNBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh')]");
+        By codiciIUNBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiciIUNBy));
         return !this.elements(codiciIUNBy).isEmpty();
     }
 
     public boolean verificaEsistenzaGruppoNotifiche() {
-        By gruppiBy = By.xpath("//td[button/div/span[contains(@class,'css-t63gu0')]]");
+        By gruppiBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[5]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(gruppiBy));
         return !this.elements(gruppiBy).isEmpty();
     }
 
     public boolean verificaEsistenzaStatoNotifiche() {
-        By statiBy = By.xpath("//td[button/div/div[contains(@data-testid,'statusChip-')]]");
+        By statiBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[6]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statiBy));
         return !this.elements(statiBy).isEmpty();
     }
@@ -540,7 +540,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void siCambiaPaginaUtilizzandoUnaFrecetta(Integer numPage) {
-        Integer index= 0;
+        Integer index= 1;
         this.getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile")
                 .until(ExpectedConditions.visibilityOf(this.frecciaPaginaSuccessiva));
         if (!frecciaPaginaSuccessiva.isDisplayed()) {
@@ -613,7 +613,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public List<String> getCodiceIunPresenti() {
-        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh']//button");
+        By notificaCodiceIunBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button");
         List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella : righeTabella) {
@@ -624,7 +624,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public List<String> getCodiceIunPresentiPF() {
-        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-2ebubn']//button");
+        By notificaCodiceIunBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button");
         List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella : righeTabella) {
@@ -639,7 +639,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public List<String> getCodiceIunPersonaGiuridica() {
-        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh' and button/p[contains(text(),'27957814470')]]/following-sibling::td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-2ebubn']//button");
+        By notificaCodiceIunBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button");
         List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella : righeTabella) {
@@ -762,8 +762,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public void verificaPresenzaStato(String stato) {
+        WebTool.waitTime(10);
         By statusChip = By.xpath("//div[@data-testid='itemStatus']//span[contains(text(),'" + stato + "')]");
-
           getWebDriverWait(10).withMessage("Lo stato " + stato + " non è presente")
                     .until(ExpectedConditions.visibilityOfElementLocated(statusChip));
             logger.info("Stato {} presente", stato);

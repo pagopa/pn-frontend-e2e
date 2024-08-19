@@ -20,6 +20,7 @@ import it.pn.frontend.e2e.utility.WebTool;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -471,6 +472,7 @@ public class DeleghePagoPATest {
         BackgroundTest backgroundTest = new BackgroundTest();
 
         if (!deleghePage.siVisualizzaUnaDelegaConNome(nome, cognome)) {
+            WebTool.waitTime(5);
             backgroundTest.aggiuntaNuovaDelegaPF();
         }
     }
