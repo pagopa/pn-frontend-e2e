@@ -946,8 +946,9 @@ public class PiattaformaNotifichePage extends BasePage {
         if (size.equals("2")) {
             viewMore.get(1).click();
         }
-        By destinatarioPF = By.xpath("//p[contains(text(),'" + destinatari.get("PF") + " è fallito')]");
+        WebTool.waitTime(5);
         By destinatarioPG = By.xpath("//p[contains(text(),'" + destinatari.get("PG") + " è fallito')]");
+        By destinatarioPF = By.xpath("//p[contains(text(),'" + destinatari.get("PF") + " è fallito')]");
 
         if (this.element(destinatarioPF).isDisplayed() && this.element(destinatarioPG).isDisplayed()) {
             logger.info("Entrambi destinatari non raggiungibili al primo tentativo");

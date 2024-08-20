@@ -50,9 +50,11 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si verifica che la notifica è stata creata correttamente
     And Aspetta 10 secondi
     And Cliccare sulla notifica restituita
+    And Nella pagina dettaglio notifica cliccare sull'opzione vedi più dettagli
+    And Aspetta 10 secondi
     And Si verifica che entrambi destinatari non raggiungibili al primo tentativo
-      | PF | test@fail.it |
       | PG | mail@fail.it |
+      | PF | test@fail.it |
     And Aspetta 60 secondi
     Then Si verifica che destinatario raggiungibile "Invio via PEC riuscito"
     And Logout da portale mittente
