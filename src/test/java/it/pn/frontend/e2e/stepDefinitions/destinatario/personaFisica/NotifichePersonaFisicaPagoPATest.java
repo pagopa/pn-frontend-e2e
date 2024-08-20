@@ -484,6 +484,7 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @And("Cliccare sul bottone Paga")
     public void cliccaBottonePaga(){
+        WebTool.waitTime(5);
         accediAPiattaformaNotifichePage.cliccaPaga();
     }
 

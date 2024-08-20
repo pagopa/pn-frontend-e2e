@@ -270,6 +270,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         // frame of the card number
         WebElement iframeCardNumber = driver.findElement(By.xpath("//iframe[@id='frame_CARD_NUMBER']"));
         driver.switchTo().frame(iframeCardNumber);
+        WebTool.waitTime(5);
         getWebDriverWait(10).withMessage("Il textbox numero di carta non è visibile").until(ExpectedConditions.visibilityOf(creditCardNumber));
         creditCardNumber.click();
         creditCardNumber.clear();
