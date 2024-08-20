@@ -273,6 +273,7 @@ public class RecapitiPersonaFisicaTest {
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
+                logger.info("OTTTPPP"+OTP);
                 personaFisica.put("OTPpec", OTP);
                 dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
             } else {

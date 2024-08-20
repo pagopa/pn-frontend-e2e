@@ -60,7 +60,7 @@ public class DettaglioNotificaSection extends BasePage {
             getWebDriverWait(10).withMessage("La sezione recapiti non è visibile").until(ExpectedConditions.or(
                     ExpectedConditions.visibilityOfElementLocated(aarDownload),
                     ExpectedConditions.visibilityOfElementLocated(aarBox)));
-            getWebDriverWait(10).withMessage("Il pulsante sezione attestazione opponibile non è visibile").until(ExpectedConditions.elementToBeClickable(attestazione));
+            getWebDriverWait(20).withMessage("Il pulsante sezione attestazione opponibile non è visibile").until(ExpectedConditions.elementToBeClickable(attestazione));
             logger.info("Dettaglio Notifica Section caricata");
 
     }

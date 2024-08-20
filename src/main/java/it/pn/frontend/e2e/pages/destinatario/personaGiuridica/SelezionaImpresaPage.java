@@ -20,15 +20,10 @@ public class SelezionaImpresaPage extends BasePage {
     }
 
     public void waitLoadSelezionaImpresaPage() {
-        try{
             By titlePageBy = By.xpath("//h3[contains(text(),'Seleziona la tua impresa')]");
             this.getWebDriverWait(30).withMessage("Il titolo della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             this.getWebDriverWait(30).withMessage("Il bottone accedi della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOf(this.accediButton));
             logger.info("Seleziona Impresa Page caricata correttamente");
-        } catch (TimeoutException e){
-            logger.error("Seleziona Impresa Page non caricata correttamente con errore: "+e.getMessage());
-            Assert.fail("Seleziona Impresa Page non caricata correttamente con errore: "+e.getMessage());
-        }
     }
 
     public void clickAccediButton() {
