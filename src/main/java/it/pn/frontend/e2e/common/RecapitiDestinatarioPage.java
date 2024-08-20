@@ -190,11 +190,11 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean waitMessaggioErrore() {
         try {
-            By messaggioErroreBy = By.id("error-alert");
-            getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(messaggioErroreBy));
+            WebElement messaggioErroreBy = driver.findElement(By.id("error-alert"));
+            getWebDriverWait(5).until(ExpectedConditions.visibilityOf(messaggioErroreBy));
             logger.info("Il messaggio di errore viene visualizzato correttamente");
             return true;
-        } catch (TimeoutException e) {
+        } catch (TimeoutException | NoSuchElementException e) {
             return false;
         }
     }
@@ -247,7 +247,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             By pecAssociata = By.id("associatedPEC");
             getWebDriverWait(10).withMessage("PEC associata non presente").until(ExpectedConditions.visibilityOfElementLocated(pecAssociata));
             return true;
-        } catch (TimeoutException e) {
+        } catch (NoSuchElementException | TimeoutException e) {
             logger.error("pec associata non trovata" + e.getMessage());
             return false;
         }

@@ -44,14 +44,12 @@ public class DeleghePage extends BasePage {
     }
 
     public void clickAggiungiDelegaButton() {
-        try {
-            this.getWebDriverWait(10).withMessage("Il bottone agiungi delega non è visualizzato").until(ExpectedConditions.elementToBeClickable(this.addDelegaButton));
+
+            getWebDriverWait(10).withMessage("Il bottone aggiungi delega non è visualizzato").until(ExpectedConditions.elementToBeClickable(addDelegaButton));
             logger.info("click sul bottone add deleghe");
+            WebTool.waitTime(3);
             this.addDelegaButton.click();
-        } catch (TimeoutException e) {
-            logger.error("Il bottone aggiungi delega non è cliccabile con errore : " + e.getMessage());
-            Assert.fail("Il bottone aggiungi delega non è cliccabile con errore : " + e.getMessage());
-        }
+
     }
 
     public void controlloCreazioneDelega() {

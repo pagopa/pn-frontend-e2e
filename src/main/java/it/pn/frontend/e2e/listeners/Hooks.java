@@ -313,24 +313,30 @@ public class Hooks {
         RestContact restContact = RestContact.getInstance();
         DigitalAddressResponse digitalAddress = restContact.getDigitalAddress();
         // Check for legal ones and remove them
-        if (!digitalAddress.getLegal().isEmpty()) {
-            digitalAddress.getLegal().forEach(address -> {
-                if (address.getSenderId().equalsIgnoreCase("default")) {
-                    restContact.removeDigitalAddressLegalPec();
-                } else {
-                    restContact.removeSpecialContact(address);
-                }
-            });
+        if (digitalAddress != null){
+            if (!digitalAddress.getLegal().isEmpty()) {
+                digitalAddress.getLegal().forEach(address -> {
+                    if (address.getSenderId().equalsIgnoreCase("default")) {
+                        restContact.removeDigitalAddressLegalPec();
+                    } else {
+                        restContact.removeSpecialContact(address);
+                    }
+                });
+            }
         }
+
         // Check for courtesy ones and remove them
-        if (!digitalAddress.getCourtesy().isEmpty()) {
-            digitalAddress.getCourtesy().forEach(address -> {
-                if (address.getSenderId().equalsIgnoreCase("default")) {
-                    restContact.removeDigitalAddressCourtesyEmail();
-                } else {
-                    restContact.removeSpecialContact(address);
-                }
-            });
+        if (digitalAddress != null){
+            if (!digitalAddress.getCourtesy().isEmpty()) {
+                digitalAddress.getCourtesy().forEach(address -> {
+                    if (address.getSenderId().equalsIgnoreCase("default")) {
+                        restContact.removeDigitalAddressCourtesyEmail();
+                    } else {
+                        restContact.removeSpecialContact(address);
+                    }
+                });
+            }
         }
+
     }
 }
