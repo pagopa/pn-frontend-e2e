@@ -139,7 +139,7 @@ Feature: Ente figlio e Ente radice
     And Cliccare sul bottone vai alle notifiche
     And Aspetta 120 secondi
     And Cliccare sulla notifica restituita
-    And Aspetta 5 secondi
+    And Aspetta 10 secondi
     And Verifica nome ente mittente "Comune di Viggiu - EDILIZIA PRIVATA E SUAP"
     And Si clicca sul bottone esci
     And Logout da portale mittente
