@@ -116,3 +116,4 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
     And Aspetta 60 secondi
     And Cliccare sulla notifica restituita
     And Verifica nome ente mittente "Comune di Viggiu"
+    And Logout da portale persona fisica
