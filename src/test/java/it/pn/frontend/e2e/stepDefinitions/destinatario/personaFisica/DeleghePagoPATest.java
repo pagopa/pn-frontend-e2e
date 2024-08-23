@@ -18,6 +18,7 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.PopUpRevocaDelegaSe
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -43,6 +44,8 @@ public class DeleghePagoPATest {
     private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
     private final DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
     private final MandateSingleton mandateSingleton = MandateSingleton.getInstance();
+    @Setter
+    private String codiceVerifica;
 
 
     private final RestDelegation restDelegation = RestDelegation.getInstance();
@@ -112,6 +115,11 @@ public class DeleghePagoPATest {
         String codiceVerifica = this.leTueDelegheSection.salvataggioCodiceVerifica();
         deleghe.put("codiceDelega", codiceVerifica);
         dataPopulation.writeDataPopulation(dpFile + ".yaml", deleghe);
+    }
+
+    @And("Nella sezione Le Tue Deleghe salvare il codice verifica")
+    public void nellaSezioneLeTueDelegheSalvareIlCodiceVerifica() {
+        this.codiceVerifica = this.leTueDelegheSection.salvataggioCodiceVerifica();
     }
 
     @And("Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe")
@@ -218,6 +226,12 @@ public class DeleghePagoPATest {
     public void siSceglieOpzioneAccetta() {
         log.info("Si sceglie l'opzione accetta");
         this.leTueDelegheSection.clickOpzioneAccetta();
+    }
+
+    @And("Si inserisce il codice delega nel pop-up OTP")
+    public void inserisceCodiceOTPDelega(){
+        this.leTueDelegheSection.waitPopUpLoad();
+        this.leTueDelegheSection.inserireCodiceDelega(codiceVerifica);
     }
 
     @And("Si inserisce il codice delega nel pop-up {string}")
