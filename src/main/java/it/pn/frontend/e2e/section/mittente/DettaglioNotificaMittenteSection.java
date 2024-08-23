@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -56,6 +57,12 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     @FindBy(id = "ricerca")
     WebElement buttonRicerca;
+
+    @FindBy(xpath = "//span[contains(text(), 'Amministratore')]")
+    WebElement enteButton;
+
+    @FindBy(xpath = "//div[3]/div/div[1]/div/div/input")
+    WebElement apiKeyField;
 
     private int numeriStatiNotifica;
 
@@ -556,6 +563,10 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     public String salvaIUN(){
         return codiceIUN.getText();}
 
+    public String getApiKey(){
+        return apiKeyField.getAttribute("value");
+    }
+
     public void insertIunSalvatoAndRicercaOnPage(String iun) {
         logger.info("inserisco numero ticket");
         numeroTicketInput.sendKeys("testTAFE01");
@@ -566,5 +577,19 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         this.getWebDriverWait(30).withMessage("bottone per la ricerca non trovato").until(ExpectedConditions.elementToBeClickable(buttonRicerca));
         buttonRicerca.click();
         WebTool.waitTime(3);
+    }
+
+    public void sceglieEnte(String nomeEnte){
+        logger.info("Si sceglie ente: " + nomeEnte);
+        enteButton.click();
+        WebTool.waitTime(1);
+        By ente = By.xpath("//h6[contains(text(), '" + nomeEnte + "')]");
+        element(ente).click();
+    }
+
+    public void ricercaNotificaConIunSalvato(String iun){
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.inserimentoCodiceIUN(iun);
+        piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
     }
 }

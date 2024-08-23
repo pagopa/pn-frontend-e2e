@@ -171,11 +171,6 @@ public class DettaglioNotificaSection extends BasePage {
         infoNotifica.put("mittente", mittente);
         String destinatario = getInfoNotifica(1);
         infoNotifica.put("destinatario", destinatario);
-        String data = getInfoNotifica(2);
-        infoNotifica.put("data", data);
-        String codiceIUN = getInfoNotifica(3);
-        infoNotifica.put("codiceIUN", codiceIUN);
-        infoNotifica.put("codiceAvviso", "nd");
 
         return infoNotifica;
     }

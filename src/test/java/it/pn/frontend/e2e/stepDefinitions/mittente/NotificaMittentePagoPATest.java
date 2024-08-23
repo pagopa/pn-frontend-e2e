@@ -62,6 +62,8 @@ public class NotificaMittentePagoPATest {
     private Map<String, Object> personeFisiche = new HashMap<>();
     @Setter
     private String Iun;
+    @Setter
+    private String ApiKey;
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
@@ -451,9 +453,27 @@ public class NotificaMittentePagoPATest {
         setIun(IUN);
     }
 
+    @And("Salva Api key")
+    public void salvaApiKey(){
+        String apiKey = dettaglioNotificaMittenteSection.getApiKey();
+        setApiKey(apiKey);
+    }
+
+    @And("Si verifica che Api Key sono diversi")
+    public void verificaDiversiApiKey(){
+        String actualApiKey = dettaglioNotificaMittenteSection.getApiKey();
+        Assert.assertFalse(actualApiKey.equalsIgnoreCase(ApiKey));
+        logger.info("Api Keys sono diversi");
+    }
+
     @And("viene inserito codice IUN salvato")
     public void vieneInseritoIunSalvato() {
         dettaglioNotificaMittenteSection.insertIunSalvatoAndRicercaOnPage(Iun);
+    }
+
+    @And("ricerca notifica con IUN salvato")
+    public void ricercaNotificaConIunSalvato(){
+        dettaglioNotificaMittenteSection.ricercaNotificaConIunSalvato(Iun);
     }
 
     @And("Si visualizza correttamente la section Dettaglio Notifica")
@@ -1764,6 +1784,11 @@ public class NotificaMittentePagoPATest {
     @And("Controllo alert RADD")
     public void controlloAlertRADD() {
         dettaglioNotificaMittenteSection.checkAlertRADD();
+    }
+
+    @And("Si sceglie ente figlio {string}")
+    public void siSceglieEnteFiglio(String nomeEnte){
+        dettaglioNotificaMittenteSection.sceglieEnte(nomeEnte);
     }
 
     /**

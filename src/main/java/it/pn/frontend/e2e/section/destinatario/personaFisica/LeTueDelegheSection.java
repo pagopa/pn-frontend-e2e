@@ -21,6 +21,9 @@ public class LeTueDelegheSection extends BasePage {
     @FindBy(xpath = "//input[@value='PF']")
     WebElement personaFisicaRadioButton;
 
+    @FindBy(id = "side-item-Notifiche")
+    WebElement sideItemNotificheButton;
+
     @FindBy(id = "nome")
     WebElement inputNome;
 
@@ -217,6 +220,16 @@ public class LeTueDelegheSection extends BasePage {
             WebElement codiceDelegaInput = driver.findElement(codiceDelegaInputBy);
             codiceDelegaInput.sendKeys(codiciDelega[i]);
         }
+
+    }
+    public void clickNotificheDelegatePF() {
+
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.sideItemNotificheButton));
+        sideItemNotificheButton.click();
+        By notificheDelegateButton = By.id("side-item-Gaio Giulio Cesare");
+        this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(notificheDelegateButton));
+        this.js().executeScript("arguments[0].click()", this.element(notificheDelegateButton));
+        logger.info("Si clicca correttamente sulla voce notifiche delegate");
 
     }
 
