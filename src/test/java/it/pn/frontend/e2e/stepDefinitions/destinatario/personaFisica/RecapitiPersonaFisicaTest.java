@@ -13,7 +13,9 @@ import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,10 +58,10 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce la PEC {string}")
-    public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario(String dpFile) {
+    public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario(String emailPec ) {
         logger.info("Si inserisce la email PEC");
-        Map<String, Object> personafisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        recapitiDestinatarioPage.insertEmailPEC(personafisica.get("emailPec").toString());
+       // Map<String, Object> personafisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        recapitiDestinatarioPage.insertEmailPEC(emailPec);
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce l'email {string} per la PEC del destinatario")
@@ -77,6 +79,7 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si clicca sul bottone conferma")
     public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneConferma() {
         logger.info("Si cerca di cliccare sul bottone conferma");
+        WebTool.waitTime(10);
         recapitiDestinatarioPage.confermaButtonClick();
     }
 
@@ -86,6 +89,7 @@ public class RecapitiPersonaFisicaTest {
         String url = WebTool.getApiBaseUrl() + "addresses";
         recapitiDestinatarioPage.waitLoadPopUp();
         WebTool.waitTime(3);
+        logger.info("URL "+url);
         if (verificaChiamataEmail(url)) {
             logger.info("La chiamata per inviare l'otp è stata effettuata");
         } else {
@@ -98,6 +102,7 @@ public class RecapitiPersonaFisicaTest {
         logger.info(netWorkInfos.toString());
         for (NetWorkInfo info : netWorkInfos) {
             if (info.getRequestUrl().contains(url) && info.getResponseStatus().equals("200")) {
+                logger.info("URL"+url);
                 logger.info("La chiamata per inviare email é utilizzabile");
                 return true;
             }
@@ -634,10 +639,10 @@ public class RecapitiPersonaFisicaTest {
 
     }
 
-    @And("Nella pagina I Tuoi Recapiti di PF, si controlla che ci sia già una pec")
-    public void nellaPaginaITuoiRecapitiDiPfSiControllaCheCiSiaGiaUnaPec() {
+    @And("Nella pagina I Tuoi Recapiti di PF, si controlla che ci sia già una pec {string}")
+    public void nellaPaginaITuoiRecapitiDiPfSiControllaCheCiSiaGiaUnaPec(String pec) {
         logger.info("Si controlla la presenza di una pec");
-        String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("emailPec").toString();
+        //String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("emailPec").toString();
         BackgroundTest backgroundTest = new BackgroundTest();
         if (!recapitiDestinatarioPage.siVisualizzaPecInserita()) {
             backgroundTest.aggiungiPECPF();
@@ -710,6 +715,7 @@ public class RecapitiPersonaFisicaTest {
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
             }
             url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("pec");
+            logger.info("Chiamata verifica PEC :"+ url);
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
@@ -723,11 +729,11 @@ public class RecapitiPersonaFisicaTest {
 
     }
 
-    @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request")
-    public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaPECTramiteChiamataRequest() {
+    @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC {string} tramite chiamata request")
+    public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaEmailPECTramiteChiamataRequest(String emailPec) {
         logger.info("Si recupera il codice OTP della nuova pec");
 
-        String pec = "prova@pec.it";
+        String pec = emailPec;
         RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
 
         String startUrl = "http://localhost:8887/";
@@ -742,7 +748,7 @@ public class RecapitiPersonaFisicaTest {
             } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
             }
-            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + "prova@pec.it";
+            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + emailPec;
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
             if (results) {
                 OTP = recuperoOTPRecapiti.getResponseBody();
