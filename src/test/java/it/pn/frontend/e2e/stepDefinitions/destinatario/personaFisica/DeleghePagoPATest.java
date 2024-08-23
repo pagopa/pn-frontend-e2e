@@ -234,11 +234,6 @@ public class DeleghePagoPATest {
         this.leTueDelegheSection.inserireCodiceDelega(codiceVerifica);
     }
 
-    @And("Nella Pagina Notifiche persona fisica si clicca su notifiche delegate")
-    public void clickNotificheDelegantePF(){
-        leTueDelegheSection.clickNotificheDelegatePF();
-    }
-
     @And("Si inserisce il codice delega nel pop-up {string}")
     public void siInserisceIlCodiceDelegaNelPopUp(String dpFile) {
         log.info("Si inserisce il codice per accettare la delega");
