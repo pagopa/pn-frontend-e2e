@@ -10,9 +10,11 @@ Feature: Il mittente inserisce i dati non coretti nella sezione informazioni pre
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     And Nella section si prova ad cliccare sul tasto continua senza aver inserito nessun dato
-   # And Nella section Informazioni preliminari inserire i dati della notifica sbagliati "datiNotificaErrore" senza pagamento
+    #And Nella section Informazioni preliminari inserire i dati della notifica sbagliati "datiNotificaErrore" senza pagamento
     And Nella section Informazioni preliminari si inseriscono i dati della notifica
-      | oggettoNotifica   | Pagamento rata IMU |
+      | oggettoNotifica   | IMU |
+      | gruppo            | test-TA-FE-TEST   |
+      | codiceTassonomico | 123456            |
     And Nella section Informazioni preliminari si visualizza un messaggio di errore
     And Nella section cliccare sul tasto indietro
     And Nella section si visualizza il popup vuoi uscire
