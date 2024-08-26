@@ -29,6 +29,7 @@ public class RecapitiPGPagoPaTest {
         recapitiPGPage.waitLoadRecapitiPage();
     }
 
+    //TODO non usato...
     @And("Nella pagina Recapiti si inserisce la PEC del persona giuridica {string}")
     public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelPersonaGiuridica(String personaGiuridica) {
         logger.info("Si cerca di inserire la email pec");
@@ -37,7 +38,7 @@ public class RecapitiPGPagoPaTest {
         recapitiDestinatarioPage.insertEmailPEC(datiPG.get("emailPec").toString());
     }
 
-
+    //TODO non usato...
     @And("Nella pagina Recapiti persona giuridica si inserisce una PEC sbagliata {string}")
     public void nellaPaginaITuoiRecapitiPersonaGiuridicaSiInserisceUnaPECSbagliata(String emailPec) {
         logger.info("Si cerca di inserire la email pec sbagliata");
@@ -52,6 +53,7 @@ public class RecapitiPGPagoPaTest {
         recapitiDestinatarioPage.getPecErrorMessage();
     }
 
+    //TODO non usato...
     @And("Nella pagina I Tuoi Recapiti si inserisce l'email del PG {string} e clicca sul bottone avvisami via email")
     public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPGECliccaSulBottoneAvvisamiViaEmail(String personaGiuridica) {
         logger.info("Si inserisce l'email del PG e si clicca sul bottone avvisami via email");
@@ -62,11 +64,12 @@ public class RecapitiPGPagoPaTest {
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono del PG {string} e clicca sul bottone avvisami via SMS")
-    public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoDelPGECliccaSulBottoneAvvisamiViaSMS(String personaGiuridica) {
+    public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoDelPGECliccaSulBottoneAvvisamiViaSMS(String cellulare) {
         logger.info("Si inserisce l'email del PG e clicca sul bottone avvisami via numero telefonico");
 
-        Map<String, Object> datiPG = dataPopulation.readDataPopulation(personaGiuridica+".yaml");
-        recapitiDestinatarioPage.insertPhone(datiPG.get("cellulare").toString());
+       // Map<String, Object> datiPG = dataPopulation.readDataPopulation(personaGiuridica+".yaml");
+       // recapitiDestinatarioPage.insertPhone(datiPG.get("cellulare").toString());
+        recapitiDestinatarioPage.insertPhone(cellulare);
         recapitiDestinatarioPage.clickAvvisamiSMS();
     }
 
@@ -78,14 +81,14 @@ public class RecapitiPGPagoPaTest {
         recapitiDestinatarioPage.visualizzazioneCampiSezioneAltriRecapiti();
     }
 
-    @And("Nella pagina I Tuoi Recapiti di PG, si controlla che ci sia già una pec")
-    public void nellaPaginaITuoiRecapitiDiPgSiControllaCheCiSiaGiaUnaPec() {
+    @And("Nella pagina I Tuoi Recapiti di PG, si controlla che ci sia già una pec {string}")
+    public void nellaPaginaITuoiRecapitiDiPgSiControllaCheCiSiaGiaUnaPec(String emailPec) {
         logger.info("Si controlla la presenza di una pec");
-        String pec = dataPopulation.readDataPopulation("personaGiuridica.yaml").get("emailPec").toString();
+        //String pec = dataPopulation.readDataPopulation("personaGiuridica.yaml").get("emailPec").toString();
         BackgroundTest backgroundTest = new BackgroundTest();
         if (!recapitiDestinatarioPage.siVisualizzaPecInserita()) {
             backgroundTest.aggiungiPECPG();
-        } else if (!recapitiDestinatarioPage.siControllaPECModificata(pec)) {
+        } else if (!recapitiDestinatarioPage.siControllaPECModificata(emailPec)) {
             recapitiDestinatarioPage.eliminaPecEsistente();
             backgroundTest.aggiungiPECPG();
         }

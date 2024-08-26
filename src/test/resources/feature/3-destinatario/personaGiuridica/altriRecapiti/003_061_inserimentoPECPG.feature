@@ -13,7 +13,8 @@ Feature: La persona giuridica inserisce una PEC
     And Nella pagina I Tuoi Recapiti si inserisce la PEC "pec@pec.pagopa.it"
     And Nella pagina I Tuoi Recapiti si clicca sul bottone conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
-    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request dell'email "pectest@pec.it" e viene inserito
+    #And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
+    #And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
     Then Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente
     And Logout da portale persona giuridica

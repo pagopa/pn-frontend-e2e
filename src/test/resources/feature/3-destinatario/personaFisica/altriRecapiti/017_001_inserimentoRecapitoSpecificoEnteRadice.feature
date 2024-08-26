@@ -23,7 +23,7 @@ Feature: la persona fisica inserisce un recapito aggiuntivo da un ente radice
       | Comune di Vibo Valentia      |
       | Istituto Nazionale           |
       | Mercurio Riscossioni         |
-    And Nella sezione altri recapiti si controlla l'esistenza di una PEC "personaFisica"
+    And Nella sezione altri recapiti si controlla l'esistenza di una PEC "pectest@pec.it"
     And Nella sezione altri recapiti si seleziona l'ente "mittente"
     And Nella sezione altri recapiti si seleziona il tipo di indirizzo
     And Nella sezione altri recapiti si inserisce la PEC aggiuntiva de persona fisica "pectest2@pec.it"

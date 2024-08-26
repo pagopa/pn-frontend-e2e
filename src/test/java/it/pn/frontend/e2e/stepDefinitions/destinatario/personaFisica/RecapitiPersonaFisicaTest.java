@@ -266,6 +266,7 @@ public class RecapitiPersonaFisicaTest {
         boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
+            //TODO modificare gestione OTP
             personaFisica.put("OTPpec", OTP);
             dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
         } else {
@@ -987,10 +988,11 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("Nella sezione altri recapiti si controlla l'esistenza di una PEC {string}")
-    public void nellaSezioneAltriRecapitiSiControllaLEsistenzaDiUnaPEC(String dpFile) {
+    public void nellaSezioneAltriRecapitiSiControllaLEsistenzaDiUnaPEC(String emailPec) {
         logger.info("Si controlla esistenza di una PEC aggiuntiva");
-        String pec = dataPopulation.readDataPopulation(dpFile + ".yaml").get("emailPec").toString();
-        if (recapitiDestinatarioPage.verificaNuovaEmailEPEC(pec)) {
+        //String pec = dataPopulation.readDataPopulation(dpFile + ".yaml").get("emailPec").toString();
+
+        if (recapitiDestinatarioPage.verificaNuovaEmailEPEC(emailPec)) {
             recapitiDestinatarioPage.eliminaNuovaPec();
         }
     }

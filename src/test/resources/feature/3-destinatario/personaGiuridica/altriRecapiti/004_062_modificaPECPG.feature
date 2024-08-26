@@ -9,7 +9,7 @@ Feature: La persona giuridica modifica l'indirizzo PEC
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
-    And Nella pagina I Tuoi Recapiti di PG, si controlla che ci sia già una pec
+    And Nella pagina I Tuoi Recapiti di PG, si controlla che ci sia già una pec "pec@pec.pagopa.it"
     And Nella pagina I Tuoi Recapiti si clicca sul bottone modifica PEC e si verifica che si possa modificare la PEC
     And Si clicca sul bottone annulla per annullare la modifica della PEC e si verifica che non si possa modificare la PEC
     And Nella pagina I Tuoi Recapiti si clicca sul bottone modifica PEC e si verifica che si possa modificare la PEC

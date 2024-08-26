@@ -1009,7 +1009,7 @@ public class NotificaMittentePagoPATest {
         informazioniPreliminariPASection.insertNumeroDiProtocollo(numeroDiProtocollo);
         informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
         informazioniPreliminariPASection.insertCodiceTassonometrico(datiNotifica.get("codiceTassonomico"));
-        if (datiNotifica.get("modalitaInvio").equals("A/R")) {
+        if (datiNotifica.get("modalitaInvio") != null && datiNotifica.get("modalitaInvio").equals("A/R")) {
             informazioniPreliminariPASection.selectRaccomandataAR();
         } else {
             informazioniPreliminariPASection.selectRegisteredLetter890();
@@ -1585,13 +1585,13 @@ public class NotificaMittentePagoPATest {
     }
 
     @And("Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica {string}")
-    public void nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaFisica(String dpFile) {
+    public void nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaFisica(String emailPecErr) {
         logger.info("Si inserisce un domicilio digitale della persona giuridica");
 
-        this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
+        //this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         destinatarioPASection.checkBoxAggiungiDomicilio();
-        destinatarioPASection.insertDomicilioDigitale(this.personaFisica.get("emailPecErrore").toString());
+       // destinatarioPASection.insertDomicilioDigitale(this.personaFisica.get("emailPecErrore").toString());
+        destinatarioPASection.insertDomicilioDigitale(emailPecErr);
     }
 
     @And("Nella pagina Piattaforma Notifiche si recupera un codice IUN valido")

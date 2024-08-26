@@ -13,8 +13,9 @@ Feature: la persona giuridica inserisce un recapito aggiuntivo da un ente radice
     And Nella pagina I Tuoi Recapiti si inserisce la PEC "pec@pec.pagopa.it"
     And Nella pagina I Tuoi Recapiti si clicca sul bottone conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
-    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request dell'email "pec@pec.pagopa.it" e viene inserito
+   # And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
+    #And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
     Then Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente
     Then Si clicca sul dropdown "ente" di altri recapiti
     And Si visualizza correttamente la lista degli enti
@@ -28,13 +29,15 @@ Feature: la persona giuridica inserisce un recapito aggiuntivo da un ente radice
       | Comune di Vibo Valentia      |
       | Istituto Nazionale           |
       | Mercurio Riscossioni         |
-    And Nella sezione altri recapiti si controlla l'esistenza di una PEC "personaFisica"
+   # And Nella sezione altri recapiti si controlla l'esistenza di una PEC "personaFisica"
+    And Nella sezione altri recapiti si controlla l'esistenza di una PEC "pectest@pec.it"
     And Nella sezione altri recapiti si seleziona l'ente "mittente"
     And Nella sezione altri recapiti si seleziona il tipo di indirizzo
     And Nella sezione altri recapiti si inserisce la PEC aggiuntiva de persona fisica "pectest2@pec.it"
     And Nella sezione altri recapiti si clicca sul bottone associa
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email 'altri recapiti' tramite request method "personaFisica"
-    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP della email "personaFisica"
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request dell'email "pectest2@pec.it" e viene inserito
+    #And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email 'altri recapiti' tramite request method "personaFisica"
+   # And Nella pagina I Tuoi Recapiti si inserisce il codice OTP della email "personaFisica"
     Then Nella sezione altri recapiti si controlla che la pec aggiuntiva sia stata inserita correttamente
     And Logout da portale persona giuridica
