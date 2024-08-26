@@ -7,7 +7,6 @@ Feature: Il mittente inserisce i dati di una nuova notifica, dopo l'inserzione d
 
   Scenario: PN-8895 - Il mittente inserisce i dati non corretti nella sezione informazioni preliminari
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
-    And Aspetta 10 secondi
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     #And Nella section Informazioni preliminari inserire i dati della notifica "datiNotifica" senza pagamento
