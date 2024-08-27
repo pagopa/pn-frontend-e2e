@@ -114,4 +114,16 @@ public class BasePage {
         return driver.getCurrentUrl().contains(url);
     }
 
+    public  WebElement getWebElement(String element) {
+        WebElement webElement= null;
+        if (element.contains("\\")){
+            webElement =  driver.findElement(By.xpath(element));
+        }else {
+            webElement =  driver.findElement(By.id(element));
+        }
+        return webElement;
+    }
+
+
+
 }

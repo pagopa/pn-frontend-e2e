@@ -288,7 +288,10 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void selectInviaUnaNuovaNotificaButton() {
         this.getWebDriverWait(10).withMessage("Il bottone invia notifica non è cliccabile").until(elementToBeClickable(inviaNuovaNotificaButton));
-        this.inviaNuovaNotificaButton.click();
+        WebTool.waitTime(10);
+        scrollToElementAndClick(inviaNuovaNotificaButton);
+       // this.js().executeScript("arguments[0].click()", inviaNuovaNotificaButton);
+        //this.inviaNuovaNotificaButton.click();
     }
 
 

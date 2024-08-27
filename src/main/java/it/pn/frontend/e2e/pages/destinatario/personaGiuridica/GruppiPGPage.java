@@ -46,9 +46,11 @@ public class GruppiPGPage extends BasePage {
     }
 
     public void clickGruppiButton() {
+        WebTool.waitTime(10);
+        gruppiButton = getWebElement("side-item-Gruppi");
         js().executeScript("arguments[0].scrollIntoView(true);", gruppiButton);
         getWebDriverWait(10).withMessage("Il bottone gruppi non è visibile").until(ExpectedConditions.visibilityOf(gruppiButton));
-        gruppiButton.click();
+        scrollToElementAndClick(gruppiButton);
         WebTool.switchToOtherTab();
     }
 
