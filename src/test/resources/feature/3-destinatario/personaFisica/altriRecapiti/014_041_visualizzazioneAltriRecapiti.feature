@@ -14,6 +14,7 @@ Feature: la persona fisica visualizza correttamente la sezione altri recapiti
     And Nella sezione altri recapiti si seleziona il tipo di indirizzo scegliendo "PEC"
     And Nella sezione altri recapiti si inserisce la PEC aggiuntiva de persona fisica "test2@pec.com"
     And Nella sezione altri recapiti si clicca sul bottone associa
+    And Aspetta 10 secondi
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email 'altri recapiti' tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP della email "personaFisica"

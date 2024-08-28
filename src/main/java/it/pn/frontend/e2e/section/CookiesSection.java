@@ -39,7 +39,8 @@ public class CookiesSection extends BasePage {
 
     public void selezionaAccettaTuttiButton() {
         try {
-            this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(this.accettaTuttiButton));
+            accettaTuttiButton = getWebElement("onetrust-accept-btn-handler");
+            this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(accettaTuttiButton));
             logger.info("Si seleziona accetta tutti i cookies");
             Actions actions = new Actions(driver);
             actions.moveToElement(this.accettaTuttiButton).click().perform();

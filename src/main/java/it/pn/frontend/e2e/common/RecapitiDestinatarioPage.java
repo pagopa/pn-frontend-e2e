@@ -127,6 +127,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             List<WebElement> inputBoxes = driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"));
             // The message is different in PG and PF
             By footerNotReceived = By.xpath("//p[contains(text(), 'Non l’hai ricevuto? Controlla')]");
+            WebTool.waitTime(10);
             getWebDriverWait(10).withMessage("Non viene visualizzato correttamente il titolo").until(ExpectedConditions.visibilityOfElementLocated(titleBy));
             getWebDriverWait(10).withMessage("La descrizione non viene visualizzata e il testo non è corretto").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(descriptionBy),
