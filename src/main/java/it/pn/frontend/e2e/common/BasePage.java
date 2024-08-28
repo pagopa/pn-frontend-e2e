@@ -125,5 +125,34 @@ public class BasePage {
     }
 
 
+    // Refreshing DOM Elements
+    public  WebElement returnElement(String locatorType, String locatorPath) {
+        switch (locatorType.toLowerCase()) {
+            case "id":
+                return driver.findElement(By.id(locatorPath));
+
+            case "xpath":
+                return driver.findElement(By.xpath(locatorPath));
+
+            case "name":
+                return driver.findElement(By.name(locatorPath));
+
+            case "classname":
+                return driver.findElement(By.className(locatorPath));
+
+            case "cssselector":
+                return driver.findElement(By.cssSelector(locatorPath));
+
+            case "linktext":
+                return driver.findElement(By.linkText(locatorPath));
+
+            case "tagname":
+                return driver.findElement(By.tagName(locatorPath));
+
+            default:
+                throw new RuntimeException("Unknown locator " + locatorType + " : " + locatorPath);
+        }
+    }
+
 
 }
