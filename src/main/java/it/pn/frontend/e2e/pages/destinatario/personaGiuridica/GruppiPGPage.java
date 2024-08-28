@@ -122,6 +122,7 @@ public class GruppiPGPage extends BasePage {
     }
 
     public void checkButtonConfermaAndClick() {
+        buttonConferma = getWebElement("//button[contains(text(), 'Conferma')]");
         getWebDriverWait(10).withMessage("Il bottone conferma non è abilitato").until(ExpectedConditions.elementToBeClickable(buttonConferma));
         log.info("Il bottone è abilitato e lo si clicca");
         buttonConferma.click();

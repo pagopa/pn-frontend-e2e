@@ -110,16 +110,16 @@ public class BasePage {
         }
     }
 
-    public boolean checkURL(String url){
+    public boolean checkURL(String url) {
         return driver.getCurrentUrl().contains(url);
     }
 
-    public  WebElement getWebElement(String element) {
-        WebElement webElement= null;
-        if (element.contains("\\")){
-            webElement =  driver.findElement(By.xpath(element));
-        }else {
-            webElement =  driver.findElement(By.id(element));
+    public WebElement getWebElement(String element) {
+        WebElement webElement = null;
+        if (element.contains("//")) {
+            webElement = driver.findElement(By.xpath(element));
+        } else {
+            webElement = driver.findElement(By.id(element));
         }
         return webElement;
     }
