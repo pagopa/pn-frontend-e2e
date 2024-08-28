@@ -47,7 +47,7 @@ public class GruppiPGPage extends BasePage {
 
     public void clickGruppiButton() {
         WebTool.waitTime(10);
-        gruppiButton = getWebElement("side-item-Gruppi");
+        gruppiButton = returnElement("id","side-item-Gruppi");
         js().executeScript("arguments[0].scrollIntoView(true);", gruppiButton);
         getWebDriverWait(10).withMessage("Il bottone gruppi non è visibile").until(ExpectedConditions.visibilityOf(gruppiButton));
         scrollToElementAndClick(gruppiButton);
@@ -122,7 +122,7 @@ public class GruppiPGPage extends BasePage {
     }
 
     public void checkButtonConfermaAndClick() {
-        buttonConferma = getWebElement("//button[contains(text(), 'Conferma')]");
+        buttonConferma = returnElement("xpath","//button[contains(text(), 'Conferma')]");
         getWebDriverWait(10).withMessage("Il bottone conferma non è abilitato").until(ExpectedConditions.elementToBeClickable(buttonConferma));
         log.info("Il bottone è abilitato e lo si clicca");
         buttonConferma.click();
@@ -288,13 +288,14 @@ public class GruppiPGPage extends BasePage {
                 ExpectedConditions.visibilityOf(inputNomeGruppo),
                 ExpectedConditions.attributeContains(inputNomeGruppo, "value", "Copia di Gruppo Test")
         ));
-        inputDescrizioneGruppo = getWebElement("description");
+
+        inputDescrizioneGruppo = returnElement("id","description");
         getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input della descrizione del gruppo").until(ExpectedConditions.visibilityOf(inputDescrizioneGruppo));
-        selectSelezioneProdotto = getWebElement("product-select");
+        selectSelezioneProdotto = returnElement("id","product-select");
         getWebDriverWait(10).withMessage("Non si visualizza correttamente la select per la selezione del prodotto").until(ExpectedConditions.visibilityOf(selectSelezioneProdotto));
-        selectSelezioneMembri = getWebElement("members-select");
+        selectSelezioneMembri = returnElement("id","members-select");
         getWebDriverWait(10).withMessage("Non si visualizza correttamente la select per la selezione dei membri").until(ExpectedConditions.visibilityOf(selectSelezioneMembri));
-        buttonConferma = getWebElement("//button[contains(text(), 'Conferma')]");
+        buttonConferma = returnElement("xpath","//button[contains(text(), 'Conferma')]");
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone conferma").until(ExpectedConditions.visibilityOf(buttonConferma));
     }
 

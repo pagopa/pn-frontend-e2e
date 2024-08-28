@@ -111,7 +111,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public void waitLoadPiattaformaNotifichePAPage() {
         try {
             By notificheTitle = By.id("Notifiche-page");
-            inviaNuovaNotificaButton = getWebElement("new-notification-btn");
+            inviaNuovaNotificaButton = returnElement("id","new-notification-btn");
             this.getWebDriverWait(10).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf(inviaNuovaNotificaButton));
             this.getWebDriverWait(10).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOfElementLocated(notificheTitle));
             logger.info("Piattaforma Notifiche Page caricata");
@@ -289,7 +289,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void selectInviaUnaNuovaNotificaButton() {
         WebTool.waitTime(10);
-        inviaNuovaNotificaButton = getWebElement("new-notification-btn");
+        inviaNuovaNotificaButton = returnElement("id","new-notification-btn");
         this.getWebDriverWait(10).withMessage("Il bottone invia notifica non è cliccabile").until(elementToBeClickable(inviaNuovaNotificaButton));
         scrollToElementAndClick(inviaNuovaNotificaButton);
        // this.js().executeScript("arguments[0].click()", inviaNuovaNotificaButton);

@@ -192,7 +192,7 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void selezionaTipoPec() {
         WebTool.waitTime(10);
-        tipoIndirizzoField =  getWebElement("addressType");
+        tipoIndirizzoField = returnElement("id","addressType");
         tipoIndirizzoField.click();
         // wait 2 seconds for the options to become visible
         try {
