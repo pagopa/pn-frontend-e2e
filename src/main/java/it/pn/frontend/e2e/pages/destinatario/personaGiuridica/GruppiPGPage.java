@@ -288,9 +288,13 @@ public class GruppiPGPage extends BasePage {
                 ExpectedConditions.visibilityOf(inputNomeGruppo),
                 ExpectedConditions.attributeContains(inputNomeGruppo, "value", "Copia di Gruppo Test")
         ));
+        inputDescrizioneGruppo = getWebElement("description");
         getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input della descrizione del gruppo").until(ExpectedConditions.visibilityOf(inputDescrizioneGruppo));
+        selectSelezioneProdotto = getWebElement("product-select");
         getWebDriverWait(10).withMessage("Non si visualizza correttamente la select per la selezione del prodotto").until(ExpectedConditions.visibilityOf(selectSelezioneProdotto));
+        selectSelezioneMembri = getWebElement("members-select");
         getWebDriverWait(10).withMessage("Non si visualizza correttamente la select per la selezione dei membri").until(ExpectedConditions.visibilityOf(selectSelezioneMembri));
+        buttonConferma = getWebElement("//button[contains(text(), 'Conferma')]");
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone conferma").until(ExpectedConditions.visibilityOf(buttonConferma));
     }
 
