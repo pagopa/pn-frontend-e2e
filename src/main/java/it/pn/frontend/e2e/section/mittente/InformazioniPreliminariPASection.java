@@ -91,7 +91,9 @@ public class InformazioniPreliminariPASection extends BasePage {
     public void insertGruppo(String gruppo) {
         logger.info("inserimento gruppo");
         if (this.gruppoListBox.isDisplayed()) {
-            this.gruppoListBox.click();
+            WebTool.waitTime(10);
+            gruppoListBox = returnElement("id", "group");
+            gruppoListBox.click();
         } else {
             this.scrollToElementClickAndInsertText(this.gruppoListBox, null);
         }

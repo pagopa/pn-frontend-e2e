@@ -87,12 +87,7 @@ public class LoginMittentePagoPA {
         logger.info("Login effettuato con successo");
         WebTool.waitTime(10);
 
-        // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
-        headerPASection.waitLoadHeaderSection();
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-        piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
-
+        if (!CookieConfig.isCookieEnabled()) {
             logger.info("cookies start");
             CookiesSection cookiesPage;
             cookiesPage = new CookiesSection(this.driver);
@@ -101,6 +96,13 @@ public class LoginMittentePagoPA {
                 cookiesPage.selezionaAccettaTuttiButton();
             }
             logger.info("cookies end");
+        }
+
+        // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
+        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        headerPASection.waitLoadHeaderSection();
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
     }
 
