@@ -89,6 +89,13 @@ public class LoginMittentePagoPA {
         headerPASection.waitLoadHeaderSection();
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
+            logger.info("cookies start");
+            CookiesSection cookiesPage;
+            cookiesPage = new CookiesSection(this.driver);
+            if (cookiesPage.waitLoadCookiesPage()) {
+                    cookiesPage.selezionaAccettaTuttiButton();
+                    logger.info("cookies end");
+                }
     }
 
     @When("Login con mittente {string}")

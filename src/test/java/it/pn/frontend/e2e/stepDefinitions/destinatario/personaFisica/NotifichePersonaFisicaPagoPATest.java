@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
@@ -217,8 +218,8 @@ public class NotifichePersonaFisicaPagoPATest {
     public void siControllaSezionePagamentoSeNotificaPrevedeIlPagamento() {
 
         AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
-
-        boolean sezionePagamentoIsDisplayed = accediAPiattaformaNotifichePage.sezionePagamentoDisplayed();
+        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        boolean sezionePagamentoIsDisplayed = piattaformaNotifichePGPAPage.sezionePagamentoDisplayed();
 
         if (!sezionePagamentoIsDisplayed) {
             logger.info("La notifica non prevede il pagamento ");
@@ -247,7 +248,8 @@ public class NotifichePersonaFisicaPagoPATest {
                 Assert.fail("Sezione codice avviso non è visualizzato");
             }
 
-            boolean modelloF24IsDisplayed = accediAPiattaformaNotifichePage.modelloF24Displayed();
+
+            boolean modelloF24IsDisplayed = piattaformaNotifichePGPAPage.modelloF24Displayed();
             if (modelloF24IsDisplayed) {
                 logger.info("Sezione scarica modello F24 è visualizzato");
             } else {

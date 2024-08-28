@@ -101,48 +101,6 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     public void selezionaAccediButton() {
         js().executeScript("arguments[0].click()", accediButton);
     }
-
-
-    public void clickRecapitiButton() {
-        getWebDriverWait(30).withMessage("Il bottone recapiti non è visibile").until(ExpectedConditions.visibilityOf(recapitiButton));
-        js().executeScript("arguments[0].click()", recapitiButton);
-    }
-
-    public void clickNotificheButton() {
-        getWebDriverWait(30).withMessage("Il bottone notifiche non è visibile").until(ExpectedConditions.visibilityOf(notificheButton));
-        notificheButton.click();
-    }
-
-    public void clickAttestazionePersalvare() {
-        getWebDriverWait(30).withMessage("L'attestazione non è visibile").until(ExpectedConditions.visibilityOf(attestazione));
-        js().executeScript("arguments[0].click()", attestazione);
-    }
-
-    public boolean isBackButtonDisplayed() {
-        return getWebDriverWait(30).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton)).isDisplayed();
-    }
-
-    public void clickIndietroButton() {
-        getWebDriverWait(30).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
-        js().executeScript("arguments[0].click()", indietroButton);
-    }
-
-    public boolean sezioneDeiDatiDisplayed() {
-        return getWebDriverWait(30).withMessage("Il sezione dei dati non è visibile").until(ExpectedConditions.visibilityOf(sezioneDeiDati)).isDisplayed();
-    }
-
-    public boolean sezionePagamentoDisplayed() {
-        try {
-            return getWebDriverWait(30).withMessage("Il sezione pagamento non è visibile").until(ExpectedConditions.visibilityOf(sezionePagamento)).isDisplayed();
-
-        } catch (NoSuchElementException | TimeoutException e) {
-
-            logger.warn("Il sezione pagamento non è visibile");
-            return false;
-        }
-    }
-
-
     public boolean isRadioBoxPresent() {
         try {
             return getWebDriverWait(30).withMessage("Il radio box non è visibile").until(ExpectedConditions.visibilityOf(radioBox)).isDisplayed();
@@ -184,10 +142,6 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         } catch (RuntimeException e) {
             return false;
         }
-    }
-
-    public boolean modelloF24Displayed() {
-        return getWebDriverWait(5).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
     }
 
     public boolean scaricaAvvisoDisplayed() {

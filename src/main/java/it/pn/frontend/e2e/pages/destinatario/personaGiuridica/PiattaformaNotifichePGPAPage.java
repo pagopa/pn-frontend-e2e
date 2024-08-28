@@ -170,15 +170,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
 
-    public boolean isRadioBoxPresent() {
-        try {
-            return getWebDriverWait(30).withMessage("Il radio box non è visibile").until(ExpectedConditions.visibilityOf(radioBox)).isDisplayed();
-        } catch (NoSuchElementException | TimeoutException e) {
-            logger.warn("Il radio box non è visibile");
-            return false;
-        }
-    }
-
     public void clickRadioBoxButton() {
         getWebDriverWait(10).withMessage("Il radio box button non è cliccabile").until(ExpectedConditions.elementToBeClickable(radioButton.get(0)));
         radioButton.get(0).click();

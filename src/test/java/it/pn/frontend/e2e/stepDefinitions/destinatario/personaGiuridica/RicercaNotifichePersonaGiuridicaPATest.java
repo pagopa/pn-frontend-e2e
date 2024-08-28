@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
+import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RicercaNotifichePGPage;
@@ -65,12 +66,14 @@ public class RicercaNotifichePersonaGiuridicaPATest {
     @And("Si controlla se la notifica prevede il pagamento")
     public void siControllaSeLaNotificaPrevedeIlPagamento() {
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
         boolean sezionePagamentoIsDisplayed = piattaformaNotifichePGPAPage.sezionePagamentoDisplayed();
         if (!sezionePagamentoIsDisplayed) {
             logger.info("La notifica non prevede il pagamento ");
         } else {
             logger.info("La notifica prevede il pagamento");
-            boolean radioBoxPresent = piattaformaNotifichePGPAPage.isRadioBoxPresent();
+
+            boolean radioBoxPresent = accediAPiattaformaNotifichePage.isRadioBoxPresent();
 
             if (radioBoxPresent) {
                 piattaformaNotifichePGPAPage.clickRadioBoxButton();
