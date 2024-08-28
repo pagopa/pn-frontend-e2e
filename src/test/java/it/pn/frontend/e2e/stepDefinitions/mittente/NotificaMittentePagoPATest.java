@@ -106,6 +106,7 @@ public class NotificaMittentePagoPATest {
 
         int codiceRispostaChiamataApi = 0;
         for (NetWorkInfo chiamate : netWorkInfos) {
+            logger.info("Recupero codice risposta della chiamata" + chiamate.getRequestUrl());
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
                 codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
                 break;
@@ -985,6 +986,7 @@ public class NotificaMittentePagoPATest {
         }
     }
 
+    //TODO Eliminare....
     @And("Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo")
     public void nellaPaginaPiattaformaNotificheSiRecuperaLUltimoNumeroProtocollo() {
         String numeroProtocollo = getNumeroProtocollo();
