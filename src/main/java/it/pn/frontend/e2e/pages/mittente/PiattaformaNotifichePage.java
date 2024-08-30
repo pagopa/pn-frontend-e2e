@@ -571,15 +571,17 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro() {
+        numeroNotificheButton = returnElement("id", "rows-per-page");
         this.getWebDriverWait(10)
                 .withMessage("Il pulsante 'righe per pagina' non è presente")
-                .until(ExpectedConditions.visibilityOf(this.numeroNotificheButton));
+                .until(ExpectedConditions.visibilityOf(numeroNotificheButton));
         vaiInFondoAllaPagina();
-        this.numeroNotificheButton.click();
+        numeroNotificheButton.click();
+        numberElement = returnElement("id", "pageSize-50");
         this.getWebDriverWait(10)
                 .withMessage("Il pulsante '50' per assegnare il numero di notifiche per pagina non è presente")
-                .until(ExpectedConditions.visibilityOf(this.numberElement));
-        this.numberElement.click();
+                .until(ExpectedConditions.visibilityOf(numberElement));
+        numberElement.click();
     }
 
     public void clickContinuaDisabled() {
