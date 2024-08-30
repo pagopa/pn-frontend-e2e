@@ -7,7 +7,7 @@ Feature: il mittente fa una ricerca combinata tra cf e data
 
   Scenario: PN-9222 - il mittente fa una ricera sia per cf che per data
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
-    When Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica "personaFisica"
+    When Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica "CSRGGL44L13H501E"
     And Nella pagina Piattaforma Notifiche inserire una data
     And Cliccare sul bottone Filtra
     And Il sistema restituisce notifiche con codice fiscale e data uguale a quelli inserito
