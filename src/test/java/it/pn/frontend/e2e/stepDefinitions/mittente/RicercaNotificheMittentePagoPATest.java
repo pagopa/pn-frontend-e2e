@@ -30,18 +30,18 @@ public class RicercaNotificheMittentePagoPATest {
     private Map<String, Object> datiNotifica = new HashMap<>();
 
     @And("Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica {string}")
-    public void inserireCodiceFiscale(String dpFile) {
+    public void inserireCodiceFiscale(String codiceFiscale) {
         logger.info("Avvio ricerca tramite codice fiscale");
 
         DataPopulation dataPopulation = new DataPopulation();
-        this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        //this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
         DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
-        String cf = destinatarioPASection.ricercaInformazione(personaFisica.get("codiceFiscale").toString().split(","), 0);
+        //String cf = destinatarioPASection.ricercaInformazione(personaFisica.get("codiceFiscale").toString().split(","), 0);
 
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
 
-        piattaformaNotifichePage.insertCodiceFiscale(cf);
+        piattaformaNotifichePage.insertCodiceFiscale(codiceFiscale);
 
     }
 

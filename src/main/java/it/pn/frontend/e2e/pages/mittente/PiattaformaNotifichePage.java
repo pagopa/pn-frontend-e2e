@@ -123,7 +123,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void insertCodiceFiscale(String codiceFiscale) {
         try {
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.cfTextField));
+            WebTool.waitTime(5);
+            cfTextField = returnElement("id", "recipientId");
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(cfTextField));
             this.cfTextField.click();
             this.cfTextField.sendKeys(codiceFiscale);
             this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.cfTextField, "value", codiceFiscale));
@@ -136,12 +138,14 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selectFiltraNotificaButtonMittente() {
+        filtraNotificaButtonMittente = returnElement("id","filter-button");
         getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(filtraNotificaButtonMittente));
         filtraNotificaButtonMittente.click();
         logger.info("Bottone filtra, nella pagina del mittente, cliccato correttamente");
     }
 
     public void selectFiltraNotificaButtonDestinatario() {
+        filtraNotificaButton = returnElement("id","filter-notifications-button");
         getWebDriverWait(10).withMessage("Il filtro non è cliccabile").until(elementToBeClickable(filtraNotificaButton));
         filtraNotificaButton.click();
         logger.info("Bottone filtra, nella pagina notifiche del delegato, cliccato correttamente");
