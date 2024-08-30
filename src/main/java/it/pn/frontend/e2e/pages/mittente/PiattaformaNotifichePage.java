@@ -556,6 +556,7 @@ public class PiattaformaNotifichePage extends BasePage {
             this.js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
         }
         while(index <= numPage){
+            frecciaPaginaSuccessiva = returnElement("id","next");
             frecciaPaginaSuccessiva.click();
             index++;
             WebTool.waitTime(2);
