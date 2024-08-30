@@ -1,7 +1,7 @@
 Feature: il mittente fa una ricerca combinata tra cf e periodo temporale
 
   @TestSuite
-  @TA_MittenteRicercaPerCFePertiodo
+  @TA_MittenteRicercaPerCFePeriodo
   @mittente
   @ricercaNotificheMittente
 
