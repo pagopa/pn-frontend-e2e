@@ -571,6 +571,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro() {
+        WebTool.waitTime(10);
         numeroNotificheButton = returnElement("id", "rows-per-page");
         this.getWebDriverWait(10)
                 .withMessage("Il pulsante 'righe per pagina' non è presente")
