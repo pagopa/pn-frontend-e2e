@@ -89,6 +89,7 @@ public class Hooks {
         chromePrefs.put("download.default_directory", downloadFilepath);
 
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
+        logger.info("headless :"+headless);
         if (this.headless != null && this.headless.equalsIgnoreCase("true")) {
             chromeOptions.addArguments("--no-sandbox");
             chromeOptions.addArguments("headless");
@@ -110,19 +111,25 @@ public class Hooks {
                 Optional.empty()
         ));
 
+        logger.info("chromedriver started_1");
         this.captureHttpRequests();
+        logger.info("chromedriver started_2");
         this.captureHttpResponse();
         logger.info("chromedriver started");
     }
 
     private void captureHttpRequests() {
+        logger.info( Network.requestWillBeSent().getMethod());
         devTools.addListener(
                 Network.requestWillBeSent(),
                 request -> {
                     String url = request.getRequest().getUrl();
+                    logger.info("url..:"+url);
                     if (!cookieConfig.getCookies(url).isEmpty()) {
                         cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
                     }
+                    logger.info("id request..:"+request.getRequestId().toString());
+                    logger.info("request url..:"+request.getRequest().getUrl());
                     requests.put(request.getRequestId().toString(), request);
                 }
         );
@@ -133,6 +140,7 @@ public class Hooks {
                 Network.responseReceived(),
                 response -> {
                     String requestId = response.getRequestId().toString();
+                    logger.info("Info..:"+requestId);
                     if (requests.containsKey(requestId)) {
                         RequestWillBeSent request = requests.get(requestId);
                         Headers headers = request.getRequest().getHeaders();
