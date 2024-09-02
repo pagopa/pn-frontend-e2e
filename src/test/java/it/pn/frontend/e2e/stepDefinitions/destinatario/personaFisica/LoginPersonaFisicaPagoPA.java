@@ -99,12 +99,12 @@ public class LoginPersonaFisicaPagoPA {
         logger.info("cookies start");
         CookiesSection cookiesPage;
 
-        if (!CookieConfig.isCookieEnabled()) {
+       // if (!CookieConfig.isCookieEnabled()) {
             cookiesPage = new CookiesSection(this.driver);
             if (cookiesPage.waitLoadCookiesPage()) {
                 cookiesPage.selezionaAccettaTuttiButton();
             }
-        }
+       // }
         logger.info("cookies end");
 
         ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.driver);
