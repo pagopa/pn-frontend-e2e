@@ -20,6 +20,7 @@ public class BackgroundTest {
     private final WebDriver driver = Hooks.driver;
     private final String nomeFileDatiNotifica = "datiNotifica";
     private final String nomeFilePersonaFisica = "personaFisica";
+
     private final String nomeFilePG = "personaGiuridica";
     private final String nomeFileNuovaDelega = "nuova_delega";
     private final String nomeFileNuovaDelegaPG = "nuovaDelegaPG";
@@ -57,6 +58,7 @@ public class BackgroundTest {
         notificaMittentePagoPATest.nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento(nomeFileDatiNotifica);
         notificaMittentePagoPATest.cliccareSuContinua();
         notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionDestinatario();
+        //TODO MODIFICARE...
         notificaMittentePagoPATest.nellaSectionDestinatarioInserireNomeCognomeECodiceFiscaleDaDestinatario(nomeFilePersonaFisica);
         //notificaMittentePagoPATest.nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDelDestinatario(nomeFilePersonaFisica);
         notificaMittentePagoPATest.nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaFisica("testpagopa2@fail.it");

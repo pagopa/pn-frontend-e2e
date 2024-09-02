@@ -237,7 +237,7 @@ public class NotificaMittentePagoPATest {
 
         destinatarioPASection.waitLoadDestinatarioPASection();
     }
-
+    //TODO GESTIONE BACK
     @And("Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica {string}")
     public void nellaSectionDestinatarioInserireNomeCognomeECodiceFiscaleDaDestinatario(String destinatarioFile) {
         logger.info("Inserimento del nome cognome e codice fiscale dal file personaFisica.yaml");
@@ -252,6 +252,17 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.inserireCodiceFiscaleDestinatario(this.personeFisiche.get("codiceFiscale").toString());
     }
 
+    @And("Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica")
+    public void nellaSectionDestinatarioInserireNomeCognomeECodiceFiscaleDaDestinatario(Map<String, String> personaFisicaMap) {
+        logger.info("Inserimento del nome cognome e codice fiscale personaFisica");
+        destinatarioPASection.selezionarePersonaFisica();
+        destinatarioPASection.inserireNomeDestinatario(personaFisicaMap.get("name"));
+        destinatarioPASection.inserireCognomeDestinatario(personaFisicaMap.get("familyName"));
+        destinatarioPASection.inserireCodiceFiscaleDestinatario(personaFisicaMap.get("codiceFiscale"));
+    }
+
+
+    //TODO GESTIONE BACK
     @And("Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica {string}")
     public void nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDelDestinatario(String personaFisicaFile) {
         logger.info("Inserimento dei dati mancanti nella section destinatario");
@@ -271,6 +282,23 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.inserireProvincia(this.personeFisiche.get("provincia").toString());
         destinatarioPASection.inserireCodicePostale(this.personeFisiche.get("codicepostale").toString());
         destinatarioPASection.inserireStato(this.personeFisiche.get("stato").toString());
+    }
+
+    @And("Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica")
+    public void nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDelDestinatario(Map<String, String> personaFisicaMap) {
+        logger.info("Inserimento dei dati mancanti nella section destinatario");
+
+        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        headerPASection.waitLoadHeaderSection();
+
+        destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
+        destinatarioPASection.inserireIndirizzo(personaFisicaMap.get("indirizzo"));
+        destinatarioPASection.inserireNumeroCivico(personaFisicaMap.get("numeroCivico"));
+        destinatarioPASection.inserireLocalita(personaFisicaMap.get("localita"));
+        destinatarioPASection.inserireComune(personaFisicaMap.get("comune"));
+        destinatarioPASection.inserireProvincia(personaFisicaMap.get("provincia"));
+        destinatarioPASection.inserireCodicePostale(personaFisicaMap.get("codicepostale"));
+        destinatarioPASection.inserireStato(personaFisicaMap.get("stato"));
     }
 
     @And("Nella section Destinatario settare come CAP {string}")
@@ -312,6 +340,26 @@ public class NotificaMittentePagoPATest {
         this.datiNotifica = dataPopulation.readDataPopulation(datiNotificaFile + ".yaml");
 
         allegatiPASection.inserimentoNomeAllegato(this.datiNotifica.get("nomeDocumentoNotifica").toString());
+    }
+
+    @And("Nella section Allegati caricare l'atto e inserire il nome atto")
+    public void nellaSectionAllegatiCaricareLAttoEInserireIlNomeAtto(Map<String, String> datiNotifica) {
+        logger.info("Caricamento dell'allegato notifica.pdf");
+
+        AllegatiPASection allegatiPASection = new AllegatiPASection(this.driver);
+        File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
+        String pathNotificaFile = notificaFile.getAbsolutePath();
+        allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
+
+        if (allegatiPASection.verificaCaricamentoNotificaPdf()) {
+            logger.info("File notifica.pdf caricato correttamente");
+        } else {
+            logger.error("File notifica.pdf non caricato");
+            Assert.fail("File notifica.pdf non caricato");
+        }
+
+
+        allegatiPASection.inserimentoNomeAllegato(datiNotifica.get("nomeDocumentoNotifica"));
     }
 
     @And("Nella section Allegati cliccare sul bottone Invia")
@@ -828,6 +876,7 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.clickSuEsci();
     }
 
+    //TODO BACK...
     @And("Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica {string}")
     public void nellaSectionDestinatarioInserireRagioneSocialeEPartitaIVADallaPersonaGiuridica(String personaGiuridica) {
         logger.info("Si inserisce la ragione sociale e la partita iva della persona giuridica");
@@ -838,6 +887,7 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.insertPartitaIva(this.personaGiuridica.get("codiceFiscale").toString());
     }
 
+    //TODO BACK...
     @And("Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona giuridica {string}")
     public void nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaGiuridica(String personaGiuridica) {
         logger.info("Si inserisce un domicilio digitale della persona giuridica");
@@ -848,6 +898,7 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.insertDomicilioDigitale(this.personaGiuridica.get("emailPec").toString());
     }
 
+    //TODO BACK...
     @And("Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica {string}")
     public void nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDellaPersonaGiuridica(String dpFile) {
         logger.info("Si inseriscono i dati personali della persona giuridica");
@@ -866,6 +917,8 @@ public class NotificaMittentePagoPATest {
 
     }
 
+
+
     @And("Nella section Destinatario inserire i dati errati dalla persona giuridica {string}")
     public void nellaSectionDestinatarioInserireIDatiErratiDallaPersonaGiuridica(String personaGiuridicaErrore) {
         logger.info("Si inseriscono i dati errati per persona giuridica");
@@ -877,6 +930,49 @@ public class NotificaMittentePagoPATest {
         Assert.assertEquals("l'errore  attuale 'Indirizzo PEC non valido' è diverso di :" + destinatarioPASection.getDomicilioDigitaleError(), "Indirizzo PEC non valido", destinatarioPASection.getDomicilioDigitaleError());
 
         destinatarioPASection.insertCodiceFiscaleErrato(personaGiuridicaErrore1.get("codiceFiscale").toString());
+        Assert.assertEquals("l'errore  attuale 'Il valore inserito non è corretto' è diverso di :" + destinatarioPASection.getCodiceFiscaleError(), "Il valore inserito non è corretto", destinatarioPASection.getCodiceFiscaleError());
+
+    }
+
+    @And("Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica")
+    public void nellaSectionDestinatarioInserireRagioneSocialeEPartitaIVADallaPersonaGiuridica(Map<String, String> personaGiuridicaMap) {
+        logger.info("Si inserisce la ragione sociale e la partita iva della persona giuridica");
+        destinatarioPASection.insertRagioneSociale(personaGiuridicaMap.get("ragioneSociale"));
+        destinatarioPASection.insertPartitaIva(personaGiuridicaMap.get("codiceFiscale"));
+    }
+
+    @And("Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona giuridica")
+    public void nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaGiuridica(Map<String, String> personaGiuridicaMap) {
+        logger.info("Si inserisce un domicilio digitale della persona giuridica");
+        destinatarioPASection.checkBoxAggiungiDomicilio();
+        destinatarioPASection.insertDomicilioDigitale(personaGiuridicaMap.get("emailPec"));
+    }
+
+
+    @And("Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica")
+    public void nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDellaPersonaGiuridica(Map<String, String> personaGiuridicaMap) {
+        logger.info("Si inseriscono i dati personali della persona giuridica");
+
+        destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
+        destinatarioPASection.inserireIndirizzo(personaGiuridicaMap.get("indirizzo"));
+        destinatarioPASection.inserireNumeroCivico(personaGiuridicaMap.get("numeroCivico"));
+        destinatarioPASection.inserireLocalita(personaGiuridicaMap.get("localita"));
+        destinatarioPASection.inserireComune(personaGiuridicaMap.get("comune"));
+        destinatarioPASection.inserireProvincia(personaGiuridicaMap.get("provincia"));
+        destinatarioPASection.inserireCodicePostale(personaGiuridicaMap.get("codicepostale"));
+        destinatarioPASection.inserireStato(personaGiuridicaMap.get("stato"));
+    }
+
+
+    @And("Nella section Destinatario inserire i dati errati dalla persona giuridica")
+    public void nellaSectionDestinatarioInserireIDatiErratiDallaPersonaGiuridica(Map<String, String> personaGiuridicaErroreMap) {
+        logger.info("Si inseriscono i dati errati per persona giuridica");
+
+        destinatarioPASection.checkBoxAggiungiDomicilio();
+        destinatarioPASection.insertDomicilioDigitaleErrato(personaGiuridicaErroreMap.get("emailPec"));
+        Assert.assertEquals("l'errore  attuale 'Indirizzo PEC non valido' è diverso di :" + destinatarioPASection.getDomicilioDigitaleError(), "Indirizzo PEC non valido", destinatarioPASection.getDomicilioDigitaleError());
+
+        destinatarioPASection.insertCodiceFiscaleErrato(personaGiuridicaErroreMap.get("codiceFiscale"));
         Assert.assertEquals("l'errore  attuale 'Il valore inserito non è corretto' è diverso di :" + destinatarioPASection.getCodiceFiscaleError(), "Il valore inserito non è corretto", destinatarioPASection.getCodiceFiscaleError());
 
     }
@@ -1489,7 +1585,7 @@ public class NotificaMittentePagoPATest {
      * this was motivated by the need to add siVerificaCheLaNotificaVieneRifiutata
      * that needs to perform the same assessment.
      */
-    protected EsitoNotifica siVerificaEsitoNotifica(String dpFile) {
+    protected EsitoNotifica siVerificaEsitoNotifica() {
         logger.info("si verifica se la notifica è stata accettata o rifiutata");
         final String urlNotificationRequest = WebTool.getApiBaseUrl() + "notifications/sent";
         final String urlRichiestaNotifica = "https://api." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.3/requests/";
@@ -1532,7 +1628,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Si verifica che la notifica viene creata correttamente {string}")
     public void siVerificaCheLaNotificaVieneCreataCorrettamente(String dpFile) {
-        EsitoNotifica esitoNotifica = this.siVerificaEsitoNotifica(dpFile);
+        EsitoNotifica esitoNotifica = this.siVerificaEsitoNotifica();
         if (esitoNotifica.statusNotifica.equals("ACCEPTED")) {
             logger.info("La notifica è stata Accettata");
             String codiceIUN = esitoNotifica.accettazioneRichiestaNotifica.getCodiceIUN();
@@ -1548,10 +1644,10 @@ public class NotificaMittentePagoPATest {
         }
     }
 
-    @And("Si verifica che la notifica e' stata rifiutata {string}")
-    public void siVerificaCheLaNotificaVieneRifiutata(String dpFile) {
-        EsitoNotifica esitoNotifica = this.siVerificaEsitoNotifica(dpFile);
-        if (esitoNotifica.statusNotifica.equals("REFUSED")) {
+    @And("Si verifica che la notifica e' stata rifiutata")
+    public void siVerificaCheLaNotificaVieneRifiutata() {
+        EsitoNotifica esitoNotifica = this.siVerificaEsitoNotifica();
+        if ("REFUSED".equals(esitoNotifica)) {
             logger.info("La notifica è stata Rifiutata");
         } else {
             logger.error("La notifica " + esitoNotifica.notificationRequestId + " è stata accettata: " + esitoNotifica.statusNotifica);

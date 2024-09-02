@@ -18,8 +18,18 @@ Feature: il mittente invia una notifica con 6 destinatario
       | modalitaInvio     | A/R                |
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
-    And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
-    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica"
+    And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica
+      | name          | Gaio Giulio      |
+      | familyName    | Cesare           |
+      | codiceFiscale | CSRGGL44L13H501E |
+    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica
+      | indirizzo     | VIA ROMA |
+      | numeroCivico  | 20       |
+      | localita      | MILANO   |
+      | comune        | MILANO   |
+      | provincia     | MI       |
+      | codicepostale | 20147    |
+      | stato         | ITALIA   |
     And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario inserire i dati delle persone fisiche aggiuntive per <numero destinatari>
     And Nella section Destinatario si cerca di aggiungere il sesto destinatario

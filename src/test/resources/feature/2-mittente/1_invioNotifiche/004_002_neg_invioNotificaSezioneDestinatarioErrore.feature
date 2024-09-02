@@ -20,7 +20,9 @@ Feature: il mittente inserisce i dati  sbagliati fino alla sezione Destinatario
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     And Nella section Destinatario selezionare il radio button persona giuridica
     And Nella section si prova ad cliccare sul tasto continua senza aver inserito nessun dato
-    And Nella section Destinatario inserire i dati errati dalla persona giuridica "personaGiuridicaErrore"
+    And Nella section Destinatario inserire i dati errati dalla persona giuridica
+      | codiceFiscale | CCRMC06A03A433H |
+      | emailPec      | provatest2.spqe |
     And Nella section cliccare sul tasto torna a informazioni preliminari
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     And Logout da portale mittente

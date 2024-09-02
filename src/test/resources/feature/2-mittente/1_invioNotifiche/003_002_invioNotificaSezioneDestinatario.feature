@@ -19,9 +19,19 @@ Feature: il mittente inserisce i dati fino alla sezione Destinatario
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     And Nella section Destinatario selezionare il radio button persona giuridica
-    And Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica "personaGiuridica"
-    And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona giuridica "personaGiuridica"
-    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica"
+    And Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica
+      | ragioneSociale | Convivio Spa |
+      | codiceFiscale  | 27957814470  |
+    And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona giuridica
+      | emailPec | pec@pec.pagopa.it |
+    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica
+      | indirizzo     | VIA ROMA |
+      | numeroCivico  | 20       |
+      | localita      | MILANO   |
+      | comune        | MILANO   |
+      | provincia     | MI       |
+      | codicepostale | 20147    |
+      | stato         | ITALIA   |
     And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario inserire i dati del destinatari persone giuridiche aggiuntivi per <numero destinatari>
     And Cliccare su continua

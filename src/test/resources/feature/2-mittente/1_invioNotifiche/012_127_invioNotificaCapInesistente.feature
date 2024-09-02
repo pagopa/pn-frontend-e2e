@@ -18,15 +18,26 @@ Feature: invio notifica con lo stesso codice fiscale
       | modalitaInvio     | A/R                |
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
-    And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
-    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica"
+    And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica
+      | name          | Gaio Giulio      |
+      | familyName    | Cesare           |
+      | codiceFiscale | CSRGGL44L13H501E |
+    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica
+      | indirizzo     | VIA ROMA |
+      | numeroCivico  | 20       |
+      | localita      | MILANO   |
+      | comune        | MILANO   |
+      | provincia     | MI       |
+      | codicepostale | 20147    |
+      | stato         | ITALIA   |
     And Nella section Destinatario settare come CAP "99444"
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
-    And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
+    And Nella section Allegati caricare l'atto e inserire il nome atto
+      | nomeDocumentoNotifica         | RATA SCADUTA IMU   |
     And Nella section Allegati cliccare sul bottone Invia
     Then Si visualizza correttamente la frase La notifica è stata correttamente creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Si verifica che la notifica e' stata rifiutata "datiNotifica"
+    And Si verifica che la notifica e' stata rifiutata "REFUSED"
     And Logout da portale mittente
