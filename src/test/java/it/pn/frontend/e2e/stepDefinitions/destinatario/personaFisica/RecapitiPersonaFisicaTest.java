@@ -100,7 +100,6 @@ public class RecapitiPersonaFisicaTest {
     private boolean verificaChiamataEmail(String url) {
         for (NetWorkInfo info : netWorkInfos) {
             if (info.getRequestUrl().contains(url) && info.getResponseStatus().equals("200")) {
-                logger.info("URL"+url);
                 logger.info("La chiamata per inviare email é utilizzabile");
                 return true;
             }
