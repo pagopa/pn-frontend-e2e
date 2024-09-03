@@ -27,7 +27,6 @@ import org.slf4j.LoggerFactory;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -191,29 +190,6 @@ public class NotifichePGPagoPATest {
             }
         }
         return bearerToken;
-    }
-
-    public void siRecuperaBearerToken(String dpFile) {
-        logger.info("Si recupera il bearer token");
-        DataPopulation dataPopulation = new DataPopulation();
-        personaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
-        if (!CookieConfig.isCookieEnabled()) {
-            CookiesSection cookiesSection = new CookiesSection(this.driver);
-            if (cookiesSection.waitLoadCookiesPage()) {
-                logger.info("Si accettano i cookies");
-                cookiesSection.selezionaAccettaTuttiButton();
-            }
-        }
-        piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(personaGiuridica.get("ragioneSociale").toString());
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        String bearerToken = getBearerToken();
-        personaGiuridica.put("bearerToken", bearerToken);
-        dataPopulation.writeDataPopulation(dpFile + ".yaml", personaGiuridica);
     }
 
     @And("Nella sezione Dettaglio Notifiche si clicca su l'opzione Indietro")

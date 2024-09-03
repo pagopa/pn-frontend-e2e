@@ -158,7 +158,6 @@ public class DownloadFileMittentePagoPATest {
 
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        DataPopulation dataPopulation = new DataPopulation();
 
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
@@ -237,7 +236,6 @@ public class DownloadFileMittentePagoPATest {
 
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        DataPopulation dataPopulation = new DataPopulation();
 
         String workingDirectory = System.getProperty("user.dir");
         String variabileAmbiente = System.getProperty("environment");
@@ -287,7 +285,6 @@ public class DownloadFileMittentePagoPATest {
 
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        DataPopulation dataPopulation = new DataPopulation();
 
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");

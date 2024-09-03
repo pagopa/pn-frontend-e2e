@@ -12,7 +12,6 @@ import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotific
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
-import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
@@ -130,7 +129,7 @@ public class NotifichePersonaFisicaPagoPATest {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         List<WebElement> dateNotifiche = notifichePFPage.getDateNotifiche();
 
-        if (dateNotifiche.size() != 0) {
+        if (!dateNotifiche.isEmpty()) {
             boolean result = notifichePFPage.controllaNotifiche(dateNotifiche);
             if (result) {
                 logger.info("Le date sono ordinate correttamente");

@@ -78,7 +78,6 @@ public class DownloadFile extends BasePage {
             }
         } else {
             try {
-                String url = this.driver.getCurrentUrl();
                 URL urlPDF = new URL(this.driver.getCurrentUrl());
                 File pdf = new File(fileLoc.getAbsolutePath());
                 FileUtils.copyURLToFile(urlPDF, pdf, 1000, 1000);

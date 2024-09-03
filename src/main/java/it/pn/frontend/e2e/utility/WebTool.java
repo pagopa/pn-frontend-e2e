@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.utility;
 
 import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.enums.AppPortal;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
@@ -19,7 +18,6 @@ import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -28,7 +26,6 @@ import java.util.concurrent.TimeUnit;
 public class WebTool {
     private static final Integer NOTICE_CODE_LENGTH = 18;
     private static final WebDriver driver = Hooks.driver;
-    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
     private final String env = System.getProperty("environment");
 
     @Getter

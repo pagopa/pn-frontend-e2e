@@ -37,9 +37,6 @@ public class DisserviziAppPAPage extends BasePage {
     @FindBy(css = "[data-testid='download-legal-fact']")
     List<WebElement> attestazioniFile;
 
-    @FindBy(xpath = "//span[contains(text(), 'Risolto')]")
-    List<WebElement> stato;
-
     public void waitLoadStatoDellaPiattaformaPage() {
         try {
             By disserviziPageTitle = By.id("Stato della piattaforma-page");

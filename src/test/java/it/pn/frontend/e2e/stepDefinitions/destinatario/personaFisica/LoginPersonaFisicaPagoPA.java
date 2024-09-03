@@ -281,7 +281,6 @@ public class LoginPersonaFisicaPagoPA {
             throw new RuntimeException(e);
         }
 
-        String variabileAmbiente = System.getProperty("environment");
         String urlChiamata = WebTool.getApiBaseUrl() + "notifications/received?";
 
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
@@ -351,7 +350,6 @@ public class LoginPersonaFisicaPagoPA {
             logger.info(netWorkInfo.getRequestUrl());
             logger.info(netWorkInfo.getResponseStatus());
             String urlToFind = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/token-exchange";
-            urlFound = false;
             if (netWorkInfo.getRequestUrl().contains(urlToFind)) {
                 urlFound = true;
                 break;

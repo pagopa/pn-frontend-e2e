@@ -1,43 +1,18 @@
 package it.pn.frontend.e2e.stepDefinitions.mittente;
 
-import com.google.common.base.CharMatcher;
-import com.google.common.base.Splitter;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import it.pn.frontend.e2e.api.mittente.AccettazioneRichiestaNotifica;
 import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.listeners.NetWorkInfo;
-import it.pn.frontend.e2e.model.enums.AppPortal;
-import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
-import it.pn.frontend.e2e.pages.mittente.AreaRiservataPAPage;
 import it.pn.frontend.e2e.pages.mittente.DashboardPage;
-import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
-import it.pn.frontend.e2e.section.CookiesSection;
-import it.pn.frontend.e2e.section.mittente.*;
-import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
-import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
-import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
-import it.pn.frontend.e2e.utility.CookieConfig;
-import it.pn.frontend.e2e.utility.DataPopulation;
-import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
 
-import static org.apache.commons.lang3.StringUtils.isNumeric;
-import static org.apache.commons.lang3.StringUtils.substring;
 
 public class DashboardMittentePagoPATest {
 

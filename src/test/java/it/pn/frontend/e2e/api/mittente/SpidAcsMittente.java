@@ -1,13 +1,8 @@
 package it.pn.frontend.e2e.api.mittente;
 
-import org.apache.hc.client5.http.classic.HttpClient;
-import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
-import org.apache.hc.client5.http.cookie.Cookie;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
-import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
-import org.apache.hc.client5.http.protocol.HttpClientContext;
 import org.apache.hc.core5.http.ClassicHttpRequest;
 import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpHeaders;
@@ -18,7 +13,6 @@ import org.junit.Assert;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class SpidAcsMittente {
@@ -64,14 +58,6 @@ public class SpidAcsMittente {
         }catch (IOException e){
             Assert.fail(e.getMessage());
         }
-    }
-
-    public String getBearerToken() {
-        return bearerToken;
-    }
-
-    public void setBearerToken(String bearerToken) {
-        this.bearerToken = bearerToken;
     }
 
     public void setSpidAcsEndPoint(String spidAcsEndPoint) {

@@ -7,7 +7,6 @@ import it.pn.frontend.e2e.model.radd.CompleteTransaction.CompleteTransactionResp
 import it.pn.frontend.e2e.model.radd.StartTransaction.StartTransactionRequest;
 import it.pn.frontend.e2e.model.radd.StartTransaction.StartTransactionResponse;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
-import it.pn.frontend.e2e.utility.DataPopulation;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;

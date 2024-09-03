@@ -1,13 +1,8 @@
 package it.pn.frontend.e2e.pages.mittente;
 
-import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
-import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -19,21 +14,13 @@ import org.slf4j.LoggerFactory;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class DashboardPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DashboardMittentePagoPA");
-    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
     private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
 
 
@@ -48,9 +35,6 @@ public class DashboardPage extends BasePage {
 
     @FindBy(id = "startDate")
     List<WebElement> dateDa;
-
-    @FindBy(id = "endDate")
-    WebElement dateA;
 
     @FindBy(id = "filter-button")
     List<WebElement> bottoneFiltra;

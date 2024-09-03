@@ -9,7 +9,6 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
-import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
@@ -31,7 +30,6 @@ public class RecapitiPersonaFisicaTest {
     private final DataPopulation dataPopulation = new DataPopulation();
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
-    private final NotificaMittentePagoPATest notificaMittentePagoPATest = new NotificaMittentePagoPATest();
    private final ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti")

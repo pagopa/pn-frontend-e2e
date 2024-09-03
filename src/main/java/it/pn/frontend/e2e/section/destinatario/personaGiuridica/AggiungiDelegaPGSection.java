@@ -25,9 +25,6 @@ public class AggiungiDelegaPGSection extends BasePage {
     @FindBy(xpath = "//button[contains(@data-testid,'createButton')]")
     WebElement inviaLaRichiestaButton;
 
-    @FindBy(id = "breadcrumb-indietro-button")
-    WebElement tornaIndietroButton;
-
     @FindBy(id = "courtesy-page-button")
     WebElement tornaDelegheButton;
 

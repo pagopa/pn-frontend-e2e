@@ -2,7 +2,6 @@ package it.pn.frontend.e2e.pages.mittente;
 
 
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.section.CookiesSection;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;

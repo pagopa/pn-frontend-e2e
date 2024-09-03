@@ -415,7 +415,7 @@ public class NotificaMittentePagoPATest {
             }
             piattaformaNotifichePage.waitLoadRefreshPage();
             String codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
-            if (!codiceIUN.equals("")) {
+            if (!codiceIUN.isEmpty()) {
                 if (!codiceIUN.equals(coidiceIUNOld)) {
                     this.datiNotifica.put("codiceIUN", codiceIUN);
                     dataPopulation.writeDataPopulation("datiNotifica.yaml", this.datiNotifica);
@@ -753,7 +753,7 @@ public class NotificaMittentePagoPATest {
             }
             piattaformaNotifichePage.waitLoadRefreshPage();
             String codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
-            if (!codiceIUN.equals("")) {
+            if (!codiceIUN.isEmpty()) {
                 if (!codiceIUN.equals(codiceIUNOld)) {
                     this.datiNotifica.put("codiceIUN", codiceIUN);
                     dataPopulation.writeDataPopulation("datiNotifica.yaml", this.datiNotifica);
@@ -970,7 +970,7 @@ public class NotificaMittentePagoPATest {
             }
             piattaformaNotifichePage.waitLoadRefreshPage();
             codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
-            if (!codiceIUN.equals("")) {
+            if (!codiceIUN.isEmpty()) {
                 if (!codiceIUN.equals(codiceIUNOld)) {
                     this.datiNotifica.put("codiceIUN", codiceIUN);
                     dataPopulation.writeDataPopulation("datiNotificaPG.yaml", this.datiNotifica);
@@ -979,7 +979,7 @@ public class NotificaMittentePagoPATest {
                 }
             }
         }
-        if (codiceIUN.equals("")) {
+        if (codiceIUN.isEmpty()) {
             logger.error("Notifica non trovata il sistema ha impiegato troppo tempo a rispondere");
             Assert.fail("Notifica non trovata il sistema ha impiegato troppo tempo a rispondere");
         }

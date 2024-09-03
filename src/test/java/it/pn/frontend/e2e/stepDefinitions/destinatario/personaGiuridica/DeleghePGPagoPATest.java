@@ -35,7 +35,6 @@ public class DeleghePGPagoPATest {
     private final AggiungiDelegaPGSection aggiungiDelegaPGSection = new AggiungiDelegaPGSection(this.driver);
     private final DataPopulation dataPopulation = new DataPopulation();
     private Map<String, Object> datiDelega = new HashMap<>();
-    Map<String, Object> datiPersonaFisica = new HashMap<>();
     private final MandateSingleton mandateSingleton = MandateSingleton.getInstance();
 
     private final RestDelegation restDelegation = RestDelegation.getInstance();

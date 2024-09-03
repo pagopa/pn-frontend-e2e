@@ -43,7 +43,7 @@ public class RestContact {
      */
     public void removeDigitalAddressCourtesyEmail() throws RestContactException {
         String url = "https://webapi." + env + ".notifichedigitali.it/address-book/v1/digital-address/courtesy/default/EMAIL";
-        String response = "";
+        String response;
         try {
             response = httpClient.sendHttpDeleteRequest(url, this.headers, String.class);
             logger.info("Risposta ricevuta: " + response);
@@ -61,7 +61,7 @@ public class RestContact {
      */
     public void removeDigitalAddressLegalPec() throws RestContactException {
         String url = "https://webapi." + env + ".notifichedigitali.it/address-book/v1/digital-address/legal/default/PEC";
-        String response = "";
+        String response;
         try {
             response = httpClient.sendHttpDeleteRequest(url, this.headers, String.class);
             logger.info("Risposta ricevuta: " + response);
@@ -83,7 +83,7 @@ public class RestContact {
         String addressType = digitalAddress.getAddressType().toLowerCase();
         String url = "https://webapi." + env + ".notifichedigitali.it/address-book/v1/digital-address/"
                 + addressType + "/" + digitalAddress.getSenderId() + "/" + channelType;
-        String response = "";
+        String response;
         try {
             response = httpClient.sendHttpDeleteRequest(url, this.headers, String.class);
             logger.info("Risposta ricevuta: " + response);
