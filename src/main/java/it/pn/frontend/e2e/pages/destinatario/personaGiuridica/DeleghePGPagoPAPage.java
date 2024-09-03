@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -142,17 +141,6 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void clickSuDelegheCaricoDellImpresa() {
         logger.info("Click sezione deleghe a carico dell impresa");
         this.delegheCaricoImpresaButton.click();
-    }
-
-    public void verificaPresenzaElencoDeleghe() {
-        try {
-            By tableDelegheBy = By.id("notifications-table");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(tableDelegheBy));
-            logger.info("L'elenco delle deleghe si visualizza correttamente");
-        } catch (TimeoutException e) {
-            logger.error("L'elenco delle deleghe non si visualizza correttamente con errore: " + e.getMessage());
-            Assert.fail("L'elenco delle deleghe non si visualizza correttamente con errore: " + e.getMessage());
-        }
     }
 
     public void insertCFDelegante(String codiceFiscale) {

@@ -83,18 +83,6 @@ public class DeleghePage extends BasePage {
         this.revocaButton.click();
     }
 
-    public boolean siVisualizzaUnaDelega() {
-        try {
-            By menuDelega = By.xpath("//tr[contains(@class,'MuiTableRow-root css-g76qb5')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
-            logger.info("Trovato correttamente almeno una delega");
-            return true;
-        } catch (TimeoutException e) {
-            logger.warn("Deleghe NON trovate con errore: " + e.getMessage());
-            return false;
-        }
-    }
-
     public void clickMenuDelegato(String fullName) {
         List<WebElement> tableRows = driver.findElements(By.id("delegatesBodyRowDesktop")); // Take all the rows of the table
         if (!tableRows.isEmpty()) {

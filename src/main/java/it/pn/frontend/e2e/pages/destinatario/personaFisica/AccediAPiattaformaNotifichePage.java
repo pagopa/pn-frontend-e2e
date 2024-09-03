@@ -30,18 +30,6 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     @FindBy(id = "side-item-Stato della piattaforma")
     WebElement buttonEnterIntoDisservizi;
 
-    @FindBy(css = "[data-testid='download-legalfact']")
-    WebElement attestazione;
-
-    @FindBy(id = "breadcrumb-indietro-button")
-    WebElement indietroButton;
-
-    @FindBy(css = "[class='MuiTableBody-root css-1xnox0e']")
-    WebElement sezioneDeiDati;
-
-    @FindBy(css = "[data-testid='paymentInfoBox']")
-    WebElement sezionePagamento;
-
     @FindBy(css = "[role='radiogroup']")
     WebElement radioBox;
 
@@ -74,8 +62,6 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "/html/body/div/div/div/div/input")
     WebElement creditCardNumber;
 
-    @FindBy(xpath = "//td[@id='row-value-4']")
-    WebElement iunCode;
 
     @FindBy(xpath = "//div[@data-testid='pagopa-item']")
     List<WebElement> pagopaItems;

@@ -54,7 +54,7 @@ public class HomePagePG extends BasePage {
             isDisplayed = false; // Elemento non trovato
         }
 
-        Assert.assertTrue("Il side menu deleghe non è visibile", !isDisplayed);
+        Assert.assertFalse("Il side menu deleghe non è visibile", isDisplayed);
 
     }
 
