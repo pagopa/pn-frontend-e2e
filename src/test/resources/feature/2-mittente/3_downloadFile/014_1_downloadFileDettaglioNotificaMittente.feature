@@ -29,7 +29,7 @@ Feature: Mittente scarica tutti i file all'interno di una notifica
       | F24               | 1                |
     When Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica mittente
-    And Si attende che lo stato della notifica diventi "Consegnata"
+    And Si attende completamento notifica "Consegnata"
     And Aspetta 20 secondi
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: notifica digitale")] |
