@@ -41,7 +41,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | avvisoPagoPa      | 1                |
       | F24               | 1                |
     Then Creo in background una notifica per destinatario tramite API REST
-    And Aspetta 10 secondi
+    And Si attende completamento notifica "Depositata"
     And Si seleziona la notifica mittente
     And Aspetta 60 secondi
     And Si visualizza correttamente la timeline relativi a tutti i destinatari
