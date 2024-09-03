@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -140,7 +141,6 @@ public class UtentiPGPage extends BasePage {
     }
 
     public void waitLoadAggiungiUtentePage() {
-        try {
             getWebDriverWait(10).withMessage("il bottone indietro Utenti / Aggiungi nuovo utente della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
             getWebDriverWait(10).withMessage("il titolo della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(titoloAggiungiUtente));
             getWebDriverWait(10).withMessage("il sottotitolo della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(sottotitoloAggiungiUtente));
@@ -152,15 +152,11 @@ public class UtentiPGPage extends BasePage {
             getWebDriverWait(10).withMessage("il combobox seleziona prodotto della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(selectProductDropdown));
             getWebDriverWait(10).withMessage("il bottone continua della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(continueButton));
             logger.info("Si visualizza correttamente aggiungi nuovo utente page");
-        } catch (TimeoutException e) {
-            logger.error("Non si visualizza correttamente aggiungi nuovo utente con errore:" + e.getMessage());
-            Assert.fail("Non si visualizza correttamente aggiungi nuovo utente page con errore:" + e.getMessage());
-        }
     }
 
     public void insertData(String codiceFiscale, String name, String surname, String email) throws InterruptedException {
         codiceFiscaleBox.sendKeys(codiceFiscale);
-        Thread.sleep(2000);
+        WebTool.waitTime(2);
         if (nameBox.getAttribute("value").equalsIgnoreCase(name) && surnameBox.getAttribute("value").equalsIgnoreCase(surname)) {
             logger.info("Il nome e il cognome è generato correttamente");
         } else {
