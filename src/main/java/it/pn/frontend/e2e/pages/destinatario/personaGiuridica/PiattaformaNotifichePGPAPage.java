@@ -118,17 +118,12 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
 
     public void clickNotificheDelegate() {
-        try {
             getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.sideItemNotificheButton));
             sideItemNotificheButton.click();
             By notificheDelegateButton = By.id("side-item-Gaio Giulio Cesare");
             this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(notificheDelegateButton));
             this.js().executeScript("arguments[0].click()", this.element(notificheDelegateButton));
             logger.info("Si clicca correttamente sulla voce notifiche delegate");
-        } catch (TimeoutException e) {
-            logger.error("Non si clicca correttamente sulla voce notifiche delegate con errore:" + e.getMessage());
-            Assert.fail("Non si clicca correttamente sulla voce notifiche delegate con errore" + e.getMessage());
-        }
     }
 
     public void waitLoadSezioneNotificheDelegate(String ragioneSociale) {
