@@ -363,17 +363,12 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickButtonIndietroCloseModale() {
-        try {
             logger.info("Si clicca sul bottone indietro per tornare al tabella deleghe");
             By buttonIndietroPopUpAssegnaGruppo = By.xpath("//button[@data-testid='codeCancelButton']");
             this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(buttonIndietroPopUpAssegnaGruppo));
             WebElement buttonIndietroClick = driver.findElement(buttonIndietroPopUpAssegnaGruppo);
             buttonIndietroClick.click();
             logger.info("Bottone indietro cliccato");
-        } catch (TimeoutException e) {
-            logger.error("Bottone non visualizzato con errore " + e.getMessage());
-            Assert.fail("Bottone non visualizzato con errore: " + e.getMessage());
-        }
     }
 
 
