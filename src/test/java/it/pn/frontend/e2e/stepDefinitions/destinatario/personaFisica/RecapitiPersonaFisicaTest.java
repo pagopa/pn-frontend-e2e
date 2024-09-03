@@ -98,7 +98,6 @@ public class RecapitiPersonaFisicaTest {
     }
 
     private boolean verificaChiamataEmail(String url) {
-        logger.info(netWorkInfos.toString());
         for (NetWorkInfo info : netWorkInfos) {
             if (info.getRequestUrl().contains(url) && info.getResponseStatus().equals("200")) {
                 logger.info("URL"+url);
