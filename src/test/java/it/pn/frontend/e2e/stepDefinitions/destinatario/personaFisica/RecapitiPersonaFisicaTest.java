@@ -88,7 +88,6 @@ public class RecapitiPersonaFisicaTest {
         String url = WebTool.getApiBaseUrl() + "addresses";
         recapitiDestinatarioPage.waitLoadPopUp();
         WebTool.waitTime(3);
-        logger.info("URL "+url);
         if (verificaChiamataEmail(url)) {
             logger.info("La chiamata per inviare l'otp è stata effettuata");
         } else {
