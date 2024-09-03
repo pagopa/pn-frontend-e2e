@@ -24,7 +24,7 @@ public class NotifichePFPage extends BasePage {
     @FindBy(id = "iunMatch")
     WebElement codiceIunTextField;
 
-    @FindBy(id = "filter-button")
+    @FindBy(id = "filter-notifications-button")
     WebElement filtraButton;
 
     @FindBy(id = "startDate")
