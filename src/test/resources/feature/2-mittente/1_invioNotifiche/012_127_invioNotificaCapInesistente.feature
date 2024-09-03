@@ -39,5 +39,5 @@ Feature: invio notifica con lo stesso codice fiscale
     Then Si visualizza correttamente la frase La notifica è stata correttamente creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Si verifica che la notifica e' stata rifiutata "REFUSED"
+    And Si verifica che la notifica e' stata rifiutata
     And Logout da portale mittente
