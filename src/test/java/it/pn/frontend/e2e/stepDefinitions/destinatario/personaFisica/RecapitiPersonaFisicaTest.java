@@ -60,7 +60,6 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si inserisce la PEC {string}")
     public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario(String emailPec ) {
         logger.info("Si inserisce la email PEC");
-       // Map<String, Object> personafisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         recapitiDestinatarioPage.insertEmailPEC(emailPec);
     }
 
