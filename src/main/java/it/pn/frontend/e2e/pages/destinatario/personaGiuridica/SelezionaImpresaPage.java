@@ -20,8 +20,10 @@ public class SelezionaImpresaPage extends BasePage {
     }
 
     public void waitLoadSelezionaImpresaPage() {
-            this.getWebDriverWait(30).withMessage("Il bottone accedi della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOf(this.accediButton));
-            logger.info("Seleziona Impresa Page caricata correttamente");
+        By titlePageBy = By.xpath("//h3[contains(text(),'Seleziona la tua impresa')]");
+        this.getWebDriverWait(30).withMessage("Il titolo della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
+        this.getWebDriverWait(30).withMessage("Il bottone accedi della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOf(this.accediButton));
+        logger.info("Seleziona Impresa Page caricata correttamente");
     }
 
     public void clickAccediButton() {
@@ -29,14 +31,15 @@ public class SelezionaImpresaPage extends BasePage {
         logger.info("click su pulsante accedi");
         this.accediButton.click();
     }
+
     public boolean clickSuImpresa(String ragioneSociale) {
         //insert try catch for handle element not clickable
-        try{
-            By impresaBy = By.xpath("//h6[contains(text(),'"+ragioneSociale+"')]");
-            getWebDriverWait(5).withMessage("l'ente: "+ragioneSociale+" della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.elementToBeClickable(impresaBy));
+        try {
+            By impresaBy = By.xpath("//h6[contains(text(),'" + ragioneSociale + "')]");
+            getWebDriverWait(5).withMessage("l'ente: " + ragioneSociale + " della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.elementToBeClickable(impresaBy));
             element(impresaBy).click();
             logger.info("check su impresa");
-        }catch (ElementClickInterceptedException e){
+        } catch (ElementClickInterceptedException e) {
             logger.info("impresa non cliccabile");
             return false;
         }

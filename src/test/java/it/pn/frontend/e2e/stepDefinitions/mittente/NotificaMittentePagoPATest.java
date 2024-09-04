@@ -1316,7 +1316,7 @@ public class NotificaMittentePagoPATest {
         dettaglioNotificaMittenteSection.checkNumeroFallimentiInvioViaPEC(numeroFallimenti);
     }
 
-    @And("Si attende completamento notifica")
+    @And("Si attende la visualizzazione corretta del dettaglio della notifica")
     public void siAttendeCompletamentoNotifica() {
         siVisualizzaCorrettamenteLaSectionDettaglioNotifica();
         WebTool.waitTime(400);

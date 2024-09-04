@@ -27,7 +27,7 @@ Scenario: [TA-FE INVIO DI UNA NOTIFICA A PERSONA FISICA E ANNULLAMENTO] - Mitten
     | F24               | 1                  |
   Then Creo in background una notifica per destinatario tramite API REST
   And Si seleziona la notifica
-  And Si attende completamento notifica
+    And Si attende la visualizzazione corretta del dettaglio della notifica
   And Si annulla la notifica
   And Si visualizza correttamente la section Dettaglio Notifica annullata
   And Logout da portale mittente
