@@ -24,7 +24,6 @@ Feature: invio notifica con sequence
     Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Depositata"
-    And Si attende completamento notifica
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),"Si è verificato un errore durante la creazione della postalizzazione")] |
       | vediDettagli | true                                                                                         |
