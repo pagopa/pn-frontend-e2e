@@ -1,7 +1,7 @@
 Feature: Utente helpdesk dopo il login effettua il logout
 
   Background: Login utente in helpdesk
-    Given Login helpdesk con utente test "testHelpdesk"
+    Given Login helpdesk con utente test
     And Si visualizza correttamente home Helpdesk
 
   @TestSuite

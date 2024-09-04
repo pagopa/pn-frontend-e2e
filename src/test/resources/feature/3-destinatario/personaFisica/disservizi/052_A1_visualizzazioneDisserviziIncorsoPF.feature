@@ -6,7 +6,7 @@ Feature: Il destinatario persona fisica visualizza i disservizi della piattaform
   @TA_PF_VisualizzaDisservizioInCorso
 
   Scenario: PN-9432 - Il destinatario persona fisica visualizza i disservizi della piattaforma in corso
-    Given Login helpdesk con utente test "testHelpdesk"
+    Given Login helpdesk con utente test
     And Si visualizza correttamente home Helpdesk
     And Click su card monitoraggio piattaforma
     And Si visualizza correttamente home monitoraggio
