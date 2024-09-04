@@ -22,8 +22,8 @@ public enum NotificationValue {
     COD_IUN("codiceIUN","Pagamento rata IMU",false),
 
     //DATA NOTIFICA ERRORE
-    SUBJECT_ERR("oggettoDellaNotifica","IMU",false),
-    CODE_TASS_ERR("oggettoDellaNotifica","Pagamento rata IMU",false),
+    SUBJECT_ERR("oggettoDellaNotifica_err","IMU",false),
+    CODE_TASS_ERR("codiceTassonometrico_err","Pagamento rata IMU",false),
 
     //DELEGATO PF NOTIFICA
     URL_DELEGATO_PF("url_delegato_pf","https://cittadini.dev.notifichedigitali.it/",false),
@@ -59,25 +59,25 @@ public enum NotificationValue {
     API_KEY_DEV("codiceApiKeyDEV","a9f0508d-c344-4347-807f-343bc8210996",false),
 
     //NUOVA DELEGA PF
-    NAME_DELEGA("nome","Lucrezia",false),
-    SURNAME_DELEGA("cognome","Borgia",false),
-    FISCAL_CODE_DELEGA("codiceFiscale","BRGLRZ80D58H501Q",false),
-    ENTE("ente","Comune di Verona",false),
-    CODE_DELEGA("codiceDelega","42420",false),
-    RAG_SOC_DELEGA("ragioneSociale","Lucrezia Borgia",false),
+    NAME_DELEGA("nome_delega_pf","Lucrezia",false),
+    SURNAME_DELEGA("cognome_delega_pf","Borgia",false),
+    FISCAL_CODE_DELEGA("codiceFiscale_delega_pf","BRGLRZ80D58H501Q",false),
+    ENTE_DELEGA_PF("ente_delega_pf","Comune di Verona",false),
+    CODE_DELEGA("codiceDelega_pf","42420",false),
+    RAG_SOC_DELEGA("ragioneSociale_delega_pf","Lucrezia Borgia",false),
 
     //NUOVA DELEGA ERR PF
-    NAME_DELEGA_ERR("nome","Gaio Giulio",false),
-    SURNAME_DELEGA_ERR("cognome","Cesare",false),
-    FISCAL_CODE_DELEGA_ERR("codiceFiscale","CSRGGL44L13H501E",false),
-    ENTE_ERR("ente","Comune di Palermo",false),
-    CODE_DELEGA_ERR("codiceDelega","22611",false),
+    NAME_DELEGA_ERR("nome_delega_err_pf","Gaio Giulio",false),
+    SURNAME_DELEGA_ERR("cognome_delega_err_pf","Cesare",false),
+    FISCAL_CODE_DELEGA_ERR("codiceFiscale_delega_err_pf","CSRGGL44L13H501E",false),
+    ENTE_ERR("ente_delega_err_pf","Comune di Palermo",false),
+    CODE_DELEGA_ERR("codiceDelega_delega_err_pf","22611",false),
 
     //NUOVA DELEGA PG
-    FISCAL_CODE_DELEGA_PG("codiceFiscale","LELPTR04A01C352E",false),
-    ENTE_PG("ente","Comune di Palermo",false),
-    CODE_DELEGA_PG("codiceDelega","27430",false),
-    RAG_SOC_DELEGA_PG("ragioneSociale","Le Epistolae srl",false),
+    FISCAL_CODE_DELEGA_PG("codiceFiscale_delega_pg","LELPTR04A01C352E",false),
+    ENTE_PG("ente_delega_pg","Comune di Palermo",false),
+    CODE_DELEGA_PG("codiceDelega_delega_pg","27430",false),
+    RAG_SOC_DELEGA_PG("ragioneSociale_delega_pg","Le Epistolae srl",false),
 
     //HELP_DESK
     URL_HELP_DESK("url_helpDesk","https://helpdesk.dev.notifichedigitali.it/login",false),
@@ -90,7 +90,7 @@ public enum NotificationValue {
     CFPF_TEST_HELP_DESK("CfPf","CLMCST42R12D969Z",false),
 
     //PERSONA FISICA
-    EMAIL_PF("email","provaemail@test.it",false);
+    EMAIL_PF("email_pf","provaemail@test.it",false);
 
 
     public final String key;
