@@ -18,8 +18,13 @@ Feature: Login pagoPA
   @TestSuite
   @loginFE
   Scenario: Login pagoPA persona fisica
-    Given Login Page persona fisica "personaFisica" viene visualizzata
-    When Login con persona fisica "personaFisica"
+    Given Login Page persona fisica viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
     Then Home page persona fisica viene visualizzata correttamente
     And Logout da portale persona fisica
 

@@ -9,6 +9,7 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
+import it.pn.frontend.e2e.stepDefinitions.common.NotificationValue;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
@@ -188,6 +189,17 @@ public class RecapitiPersonaFisicaTest {
         DataPopulation dataPopulation = new DataPopulation();
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String email = personaFisica.get("mail").toString();
+
+        recapitiDestinatarioPage.insertEmail(email);
+        recapitiDestinatarioPage.clickAvvisamiViaEmail();
+    }
+
+    @And("Si inserisce l'email della persona fisica e si clicca sul bottone avvisami via email")
+    public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPFECliccaSulBottoneAvvisamiViaEmail() {
+        logger.info("Si inserisce la email");
+
+        DataPopulation dataPopulation = new DataPopulation();
+        String email = NotificationValue.getDefaultValue(NotificationValue.EMAIL_PF.key);
 
         recapitiDestinatarioPage.insertEmail(email);
         recapitiDestinatarioPage.clickAvvisamiViaEmail();

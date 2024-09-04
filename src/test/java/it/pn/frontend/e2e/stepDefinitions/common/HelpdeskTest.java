@@ -45,6 +45,7 @@ public class HelpdeskTest {
             default ->
                     Assert.fail("Non è stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
+        logger.info("TESTTTTTTTT2: "+this.datiTestHelpdesk.get("url").toString().replace("dev", variabileAmbiente));
         helpdeskPage.checkForm();
         switch (variabileAmbiente) {
             case "dev" -> {
@@ -64,6 +65,41 @@ public class HelpdeskTest {
         }
         helpdeskPage.clickInviaButton();
     }
+
+
+    @Given("Login helpdesk con utente test")
+    public void loginHelpdeskConUtenteTest() {
+        String variabileAmbiente = System.getProperty("environment");
+        logger.info("TESTTTTTTTT: "+NotificationValue.getDefaultValue(NotificationValue.URL_HELP_DESK.key));
+        String url= NotificationValue.getDefaultValue(NotificationValue.URL_HELP_DESK.key);
+        switch (variabileAmbiente) {
+            case "dev" -> helpdeskPage.changePage(url);
+            case "test", "uat" ->
+                    helpdeskPage.changePage(url.replace("dev", variabileAmbiente));
+            default ->
+                    Assert.fail("Non è stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+        }
+        logger.info("TESTTTTTTTT1: "+url.replace("dev", variabileAmbiente));
+        helpdeskPage.checkForm();
+        switch (variabileAmbiente) {
+            case "dev" -> {
+                helpdeskPage.insertUsername(NotificationValue.getDefaultValue(NotificationValue.USER_DEV_HELP_DESK.key));
+                helpdeskPage.insertPassword(NotificationValue.getDefaultValue(NotificationValue.PWD_DEV_HELP_DESK.key));
+            }
+            case "test" -> {
+                helpdeskPage.insertUsername(NotificationValue.getDefaultValue(NotificationValue.USER_TEST_HELP_DESK.key));
+                helpdeskPage.insertPassword(NotificationValue.getDefaultValue(NotificationValue.PWD_TEST_HELP_DESK.key));
+            }
+            case "uat" -> {
+                helpdeskPage.insertUsername(NotificationValue.getDefaultValue(NotificationValue.USER_UAT_HELP_DESK.key));
+                helpdeskPage.insertPassword(NotificationValue.getDefaultValue(NotificationValue.PWD_UAT_HELP_DESK.key));
+            }
+            default ->
+                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+        }
+        helpdeskPage.clickInviaButton();
+    }
+
 
     @And("Click su card monitoraggio piattaforma")
     public void clickSuCardMonitoraggioPiattaforma() {
@@ -152,10 +188,9 @@ public class HelpdeskTest {
         helpdeskPage.checkRicercaPage();
     }
 
-    @And("viene inserito codice fiscale {string}")
-    public void vieneInseritoCodiceFiscale(String nameFile) {
-        this.datiPersonaFisica = this.dataPopulation.readDataPopulation(nameFile + ".yaml");
-        helpdeskPage.insertCfAndRicercaOnPage(datiPersonaFisica.get("codiceFiscale").toString());
+    @And("viene inserito codice fiscale")
+    public void vieneInseritoCodiceFiscale(Map<String, String> datiPersonaFisica) {
+        helpdeskPage.insertCfAndRicercaOnPage(datiPersonaFisica.get("codiceFiscale"));
     }
 
     @And("viene inserito codice fiscale senza ricerca {string}")

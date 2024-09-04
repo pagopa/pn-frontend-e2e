@@ -43,6 +43,7 @@ public class LoginPGPagoPATest {
     private final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
     private final String RAGIONE_SOCIALE_BALDASSARRE = "Comune di Milano";
     private final String URL_LOGIN_PG = "https://imprese.dev.notifichedigitali.it/";
+    private final String URL_LOGIN_PF = "https://cittadini.dev.notifichedigitali.it/";
 
 
     @Given("Login Page persona giuridica viene visualizzata")
@@ -52,6 +53,18 @@ public class LoginPGPagoPATest {
             case "dev" -> driver.get(URL_LOGIN_PG);
             case "test", "uat" ->
                    driver.get(URL_LOGIN_PG.replace("dev", variabileAmbiente));
+            default ->
+                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+        }
+    }
+
+    @Given("Login Page persona fisica viene visualizzata")
+    public void loginPagePersonaFisicaVieneVisualizzata() {
+        String variabileAmbiente = System.getProperty("environment");
+        switch (variabileAmbiente) {
+            case "dev" -> driver.get(URL_LOGIN_PF);
+            case "test", "uat" ->
+                    driver.get(URL_LOGIN_PF.replace("dev", variabileAmbiente));
             default ->
                     Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
