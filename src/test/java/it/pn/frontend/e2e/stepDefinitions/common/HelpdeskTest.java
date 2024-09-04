@@ -45,7 +45,6 @@ public class HelpdeskTest {
             default ->
                     Assert.fail("Non è stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
-        logger.info("TESTTTTTTTT2: "+this.datiTestHelpdesk.get("url").toString().replace("dev", variabileAmbiente));
         helpdeskPage.checkForm();
         switch (variabileAmbiente) {
             case "dev" -> {
@@ -66,11 +65,9 @@ public class HelpdeskTest {
         helpdeskPage.clickInviaButton();
     }
 
-
     @Given("Login helpdesk con utente test")
     public void loginHelpdeskConUtenteTest() {
         String variabileAmbiente = System.getProperty("environment");
-        logger.info("TESTTTTTTTT: "+NotificationValue.getDefaultValue(NotificationValue.URL_HELP_DESK.key));
         String url= NotificationValue.getDefaultValue(NotificationValue.URL_HELP_DESK.key);
         switch (variabileAmbiente) {
             case "dev" -> helpdeskPage.changePage(url);
@@ -79,7 +76,6 @@ public class HelpdeskTest {
             default ->
                     Assert.fail("Non è stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
-        logger.info("TESTTTTTTTT1: "+url.replace("dev", variabileAmbiente));
         helpdeskPage.checkForm();
         switch (variabileAmbiente) {
             case "dev" -> {

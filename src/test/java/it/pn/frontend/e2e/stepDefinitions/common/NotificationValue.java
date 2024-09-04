@@ -26,34 +26,34 @@ public enum NotificationValue {
     CODE_TASS_ERR("oggettoDellaNotifica","Pagamento rata IMU",false),
 
     //DELEGATO PF NOTIFICA
-    URL_DELEGATO_PF("url","https://cittadini.dev.notifichedigitali.it/",false),
-    USER_DELEGATO_PF("user","lucrezia",false),
-    PWD_DELEGATO_PF("pwd","password123",false),
-    PROVIDER_DELEGATO_PF("provider","spid:test",false),
-    NAME_DELEGATO_PF("name","Lucrezia",false),
-    FAMILY_DELEGATO_PF("familyName","Borgia",false),
-    FISCAL_CODE_DELEGATO_PF("codiceFiscale","BRGLRZ80D58H501Q",false),
-    FISCAL_NUMBER_DELEGATO_PF("fiscalNumber","TINIT-BRGLRZ80D58H501Q",false),
-    STATE_DELEGATO_PF("stato","ITALIA",false),
+    URL_DELEGATO_PF("url_delegato_pf","https://cittadini.dev.notifichedigitali.it/",false),
+    USER_DELEGATO_PF("user_delegato_pf","lucrezia",false),
+    PWD_DELEGATO_PF("pwd_delegato_pf","password123",false),
+    PROVIDER_DELEGATO_PF("provider_delegato_pf","spid:test",false),
+    NAME_DELEGATO_PF("name_delegato_pf","Lucrezia",false),
+    FAMILY_DELEGATO_PF("familyName_delegato_pf","Borgia",false),
+    FISCAL_CODE_DELEGATO_PF("codiceFiscale_delegato_pf","BRGLRZ80D58H501Q",false),
+    FISCAL_NUMBER_DELEGATO_PF("fiscalNumber_delegato_pf","TINIT-BRGLRZ80D58H501Q",false),
+    STATE_DELEGATO_PF("stato_delegato_pf","ITALIA",false),
 
     //DELEGATO PG NOTIFICA
-    URL_DELEGATO_PG("url","https://imprese.dev.notifichedigitali.it/",false),
-    USER_DELEGATO_PG("user","FrancescoPetrarca",false),
-    PWD_DELEGATO_PG("pwd","test",false),
-    PROVIDER_DELEGATO_PG("provider","spid:test",false),
-    RAGIONE_SOC_DELEGATO_PG("ragioneSociale","Le Epistolae srl",false),
-    PEC_DELEGATO_PG("emailPec","DanteAlighieri@paradiso.it",false),
-    FISCAL_CODE_DELEGATO_PG("codiceFiscale","LELPTR04A01C352E",false),
-    FISCAL_NUMBER_DELEGATO_PG("fiscalNumber","TINIT-LELPTR04A01C352E",false),
+    URL_DELEGATO_PG("url_delegato_pg","https://imprese.dev.notifichedigitali.it/",false),
+    USER_DELEGATO_PG("user_delegato_pg","FrancescoPetrarca",false),
+    PWD_DELEGATO_PG("pwd_delegato_pg","test",false),
+    PROVIDER_DELEGATO_PG("provider_delegato_pg","spid:test",false),
+    RAGIONE_SOC_DELEGATO_PG("ragioneSociale_delegato_pg","Le Epistolae srl",false),
+    PEC_DELEGATO_PG("emailPec_delegato_pg","DanteAlighieri@paradiso.it",false),
+    FISCAL_CODE_DELEGATO_PG("codiceFiscale_delegato_pg","LELPTR04A01C352E",false),
+    FISCAL_NUMBER_DELEGATO_PG("fiscalNumber_delegato_pg","TINIT-LELPTR04A01C352E",false),
 
     //MITTENTE
-    URL_MITTENTE("url","https://selfcare.dev.notifichedigitali.it",false),
-    USER_MITTENTE("user","albino63",false),
-    PWD_MITTENTE("pwd","test",false),
-    PROVIDER_MITTENTE("provider","spid:test",false),
-    COMUNE("comune","Verona",false),
-    ENV("ambiente","dev",false),
-    FISCAL_CODE_MITTENTE("codiceFiscale","00189800204",false),
+    URL_MITTENTE("url_mittente","https://selfcare.dev.notifichedigitali.it",false),
+    USER_MITTENTE("user_mittente","albino63",false),
+    PWD_MITTENTE("pwd_mittente","test",false),
+    PROVIDER_MITTENTE("provider_mittente","spid:test",false),
+    COMUNE("comune_mittente","Verona",false),
+    ENV("ambiente_mittente","dev",false),
+    FISCAL_CODE_MITTENTE("codiceFiscale_mittente","00189800204",false),
     COD_AVVISO("codiceAvviso","302047770009990299",false),
     API_KEY_TEST("codiceApiKeyTEST","2b3d47f4-44c1-4b49-b6ef-54dc1c531311",false),
     API_KEY_DEV("codiceApiKeyDEV","a9f0508d-c344-4347-807f-343bc8210996",false),
@@ -80,7 +80,7 @@ public enum NotificationValue {
     RAG_SOC_DELEGA_PG("ragioneSociale","Le Epistolae srl",false),
 
     //HELP_DESK
-    URL_HELP_DESK("url","https://helpdesk.dev.notifichedigitali.it/login",false),
+    URL_HELP_DESK("url_helpDesk","https://helpdesk.dev.notifichedigitali.it/login",false),
     USER_DEV_HELP_DESK("userDev","test@test.com",false),
     PWD_DEV_HELP_DESK("pwdDev","Test_Cognito_1.!",false),
     USER_UAT_HELP_DESK("userUat","admin@uat.pagopa.it",false),
@@ -113,6 +113,7 @@ public enum NotificationValue {
     public static String getDefaultValue(String key) {
         NotificationValue notificationValue =
                 Arrays.stream(NotificationValue.values()).filter(value -> value.key.equals(key)).findFirst().orElse(null);
+        System.out.println(notificationValue.defaultValue);
         return (notificationValue == null ? null : (notificationValue.addCurrentTime? (notificationValue.defaultValue + generateRandomNumber() ) : notificationValue.defaultValue));
         /*
         String number = threadNumber.length() < 2 ? "0"+threadNumber: threadNumber.substring(0, 2);
