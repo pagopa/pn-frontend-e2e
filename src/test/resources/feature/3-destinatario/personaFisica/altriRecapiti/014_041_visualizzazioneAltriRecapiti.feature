@@ -16,7 +16,8 @@ Feature: la persona fisica visualizza correttamente la sezione altri recapiti
     And Nella sezione altri recapiti si clicca sul bottone associa
     And Aspetta 10 secondi
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email 'altri recapiti' tramite request method "personaFisica"
-    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP della email "personaFisica"
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request dell'email "pectest2@pec.it" e viene inserito
+   # And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email 'altri recapiti' tramite request method "personaFisica"
+   # And Nella pagina I Tuoi Recapiti si inserisce il codice OTP della email "personaFisica"
     Then Si visualizzano correttamente tutti gli elementi della sezione altri recapiti
     And Logout da portale persona fisica
