@@ -22,7 +22,6 @@ Feature: invio notifica con sequence
       | codicepostale    | 20147              |
       | stato            | ITALIA             |
     Then Creo in background una notifica per destinatario tramite API REST
-    And Si seleziona la notifica mittente
     And Si attende completamento notifica "Depositata"
     And Si seleziona la notifica mittente
     And Si controlla lo stato timeline in dettaglio notifica

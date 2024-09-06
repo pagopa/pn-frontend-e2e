@@ -19,7 +19,7 @@ public class SelezionaImpresaPage extends BasePage {
         super(driver);
     }
 
-    
+
     public void waitLoadSelezionaImpresaPage() {
         By titlePageBy = By.xpath("//h3[contains(text(),'Seleziona la tua impresa')]");
         this.getWebDriverWait(30).withMessage("Il titolo della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
