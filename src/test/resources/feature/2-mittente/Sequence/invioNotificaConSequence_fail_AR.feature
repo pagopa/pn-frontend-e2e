@@ -22,8 +22,9 @@ Feature: invio notifica con sequence
       | codicepostale    | 20147              |
       | stato            | ITALIA             |
     Then Creo in background una notifica per destinatario tramite API REST
-    And Si attende completamento notifica "Depositata"
     And Si seleziona la notifica mittente
+    And Si attende completamento notifica "Depositata"
+    And Aspetta 400 secondi
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),"La raccomandata A/R") and contains(text(),"è stata stampata ed imbustata")] |
       | vediDettagli | true                                                                                             |
