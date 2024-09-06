@@ -123,7 +123,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             sideItemNotificheButton = returnElement("id","side-item-Notifiche");
             getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.sideItemNotificheButton));
             sideItemNotificheButton.click();
-            By notificheDelegateButton = By.id("side-item-Gaio Giulio Cesare");
+            By notificheDelegateButton = By.id("side-item-Notifiche delegate");
             this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(notificheDelegateButton));
             this.js().executeScript("arguments[0].click()", this.element(notificheDelegateButton));
             logger.info("Si clicca correttamente sulla voce notifiche delegate");

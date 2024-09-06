@@ -240,6 +240,14 @@ public class DeleghePGPagoPATest {
         this.delegatiImpresaSection.controlloEsistenzaDelega(datiDelega.get("ragioneSociale").toString());
     }
 
+    @And("Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega PG")
+    public void nellaPaginaDelegheSezioneDelegheDellImpresaSiCliccaSulMenuDellaDelegaPG( Map<String, String> nuovaDelegaPG) {
+        logger.info("Si clicca sul menu delle delega");
+        this.delegatiImpresaSection.controlloEsistenzaDelega(nuovaDelegaPG.get("ragioneSociale"));
+    }
+
+
+
     @And("Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega")
     public void nellaPaginaDelegheSezioneDelegheDellImpresaSiCliccaSulMenuDellaDelega(Map<String, String> nuovaDelega) {
         logger.info("Si clicca sul menu delle delega");
@@ -271,6 +279,21 @@ public class DeleghePGPagoPATest {
         delegatiImpresaSection.waitLoadDelegatiImpresaPage();
         delegatiImpresaSection.waitLoadingSpinner();
         if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG(this.datiDelega.get("ragioneSociale").toString())) {
+            logger.info("La delega è stata revocata correttamente");
+        } else {
+            logger.error("La delega NON è stata revocata correttamente");
+            Assert.fail("La delega NON è stata revocata correttamente");
+        }
+
+    }
+
+    @And("Nella sezione Deleghe sezione Deleghe dell'impresa si controlla che non sia più presente la delega")
+    public void nellaSezioneDelegheSezioneDelegheDellImpresaSiControllaCheNonSiaPiuPresenteLaDelega(Map<String, String> nuovaDelegaPG) {
+        logger.info("Si controlla che la delega non sia più in elenco");
+
+        delegatiImpresaSection.waitLoadDelegatiImpresaPage();
+        delegatiImpresaSection.waitLoadingSpinner();
+        if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG(nuovaDelegaPG.get("ragioneSociale"))) {
             logger.info("La delega è stata revocata correttamente");
         } else {
             logger.error("La delega NON è stata revocata correttamente");
