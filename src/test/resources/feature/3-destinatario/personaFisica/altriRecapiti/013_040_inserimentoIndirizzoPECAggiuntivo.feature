@@ -13,7 +13,8 @@ Feature: la persona fisica inserisce un indirizzo pec aggiuntivo
     And Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti
    # And Nella sezione altri recapiti si controlla l'esistenza di una PEC "personaFisica"
     And Nella sezione altri recapiti si controlla l'esistenza di una PEC "pectest@pec.it"
-    And Nella sezione altri recapiti si seleziona l'ente "mittente"
+    And Nella sezione altri recapiti si seleziona l'ente
+   # And Nella sezione altri recapiti si seleziona l'ente "mittente"
     And Nella sezione altri recapiti si seleziona il tipo di indirizzo
     And Nella sezione altri recapiti si inserisce la PEC aggiuntiva de persona fisica "pectest2@pec.it"
     And Nella sezione altri recapiti si clicca sul bottone associa

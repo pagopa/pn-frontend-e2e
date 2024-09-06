@@ -43,7 +43,7 @@ Feature: il mittente inserisce tutti i dati di una notifica
     Then Si visualizza correttamente la frase La notifica è stata correttamente creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Si verifica che la notifica viene creata correttamente "datiNotificaPG"
+    And Si verifica che la notifica viene creata correttamente
     And Logout da portale mittente
     Examples:
       | numero destinatari |

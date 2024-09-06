@@ -822,6 +822,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public void clickSuNotifica() {
         String iun = notificationSingleton.getIun(Hooks.scenario);
         logger.info("iun notifica {}", iun);
+        WebTool.waitTime(5);
         By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
         getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOfElementLocated(notification));
         element(notification).click();

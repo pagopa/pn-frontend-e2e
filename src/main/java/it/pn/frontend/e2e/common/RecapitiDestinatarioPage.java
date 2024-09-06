@@ -266,6 +266,8 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickConfermaButton() {
+        WebTool.waitTime(10);
+        confermaButtonPoPUpPec = returnElement("xpath","//div/h2[contains(text(),'Grazie!')]/following-sibling::div//button") ;
         getWebDriverWait(10).withMessage("Il bottone conferma del pop up non é cliccabile").until(ExpectedConditions.elementToBeClickable(confermaButtonPoPUpPec));
         this.confermaButtonPoPUpPec.click();
     }

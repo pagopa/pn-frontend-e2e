@@ -240,6 +240,14 @@ public class DeleghePGPagoPATest {
         this.delegatiImpresaSection.controlloEsistenzaDelega(datiDelega.get("ragioneSociale").toString());
     }
 
+    @And("Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega")
+    public void nellaPaginaDelegheSezioneDelegheDellImpresaSiCliccaSulMenuDellaDelega(Map<String, String> nuovaDelega) {
+        logger.info("Si clicca sul menu delle delega");
+        this.delegatiImpresaSection.controlloEsistenzaDelega(nuovaDelega.get("ragioneSociale"));
+    }
+
+
+
     @And("Nella pagina Deleghe sezione Deleghe dell impresa si sceglie l'opzione mostra codice")
     public void nellaPaginaDelegheSezioneDelegheDellImpresaSiSceglieLOpzioneMostraCodice() {
         logger.info("Si sceglie l'opzione mostra codice");

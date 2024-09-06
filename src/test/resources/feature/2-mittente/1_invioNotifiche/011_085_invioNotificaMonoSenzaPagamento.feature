@@ -40,5 +40,6 @@ Feature: Mittente genera una notifica che non prevede pagamento
     Then Si visualizza correttamente la frase La notifica è stata correttamente creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Si verifica che la notifica viene creata correttamente "datiNotifica"
+    #And Si verifica che la notifica viene creata correttamente "datiNotifica"
+    And Si verifica che la notifica viene creata correttamente
     And Logout da portale mittente

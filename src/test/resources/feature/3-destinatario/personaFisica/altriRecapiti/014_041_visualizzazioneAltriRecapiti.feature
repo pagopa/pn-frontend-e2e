@@ -10,7 +10,8 @@ Feature: la persona fisica visualizza correttamente la sezione altri recapiti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti di PF, si controlla che ci sia già una pec "prova@pec.it"
-    And Nella sezione altri recapiti si seleziona l'ente "mittente"
+    And Nella sezione altri recapiti si seleziona l'ente
+    #And Nella sezione altri recapiti si seleziona l'ente "mittente"
     And Nella sezione altri recapiti si seleziona il tipo di indirizzo scegliendo "PEC"
     And Nella sezione altri recapiti si inserisce la PEC aggiuntiva de persona fisica "test2@pec.com"
     And Nella sezione altri recapiti si clicca sul bottone associa

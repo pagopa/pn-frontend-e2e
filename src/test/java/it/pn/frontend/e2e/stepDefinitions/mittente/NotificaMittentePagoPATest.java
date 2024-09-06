@@ -16,6 +16,7 @@ import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.*;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
+import it.pn.frontend.e2e.stepDefinitions.common.SharedSteps;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
 import it.pn.frontend.e2e.utility.CookieConfig;
@@ -60,6 +61,7 @@ public class NotificaMittentePagoPATest {
     private Map<String, Object> personaFisica = new HashMap<>();
     private Map<String, Object> personaGiuridica = new HashMap<>();
     private Map<String, Object> personeFisiche = new HashMap<>();
+    private SharedSteps sharedSteps = new SharedSteps();
     @Setter
     private String Iun;
     @Setter
@@ -1004,6 +1006,7 @@ public class NotificaMittentePagoPATest {
         destinatarioPASection.clickRadioButtonPersonaGiuridica();
     }
 
+    //TODO Gestire....
     @And("^Nella section Destinatario inserire i dati del destinatari persone giuridiche aggiuntivi per (.*)$")
     public void nellaSectionDestinatarioInserireIDatiDelDestinatariPersoneGiuridicheAggiuntiviPerNumeroDestinatari(String nDestinatari) {
         logger.info("Si cerca di aggiungere" + nDestinatari + " personeGiuridiche");
@@ -1635,6 +1638,7 @@ public class NotificaMittentePagoPATest {
             datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
             if (codiceIUN != null && !codiceIUN.isEmpty()) {
                 datiNotifica.put("codiceIUN", codiceIUN);
+                //TODO condividere lo iun in una classe SharedStep...dove viene richiamato il metodo writeDataPopulation
                 dataPopulation.writeDataPopulation(dpFile + ".yaml", datiNotifica);
                 logger.info("La notifica è stata creata correttamente");
             }
@@ -1642,6 +1646,35 @@ public class NotificaMittentePagoPATest {
             logger.error("La notifica " + esitoNotifica.notificationRequestId + " è stata rifiuta: " + esitoNotifica.accettazioneRichiestaNotifica.getResponseReasonPhrase());
             Assert.fail("La notifica " + esitoNotifica.notificationRequestId + " è stata rifiuta: " + esitoNotifica.accettazioneRichiestaNotifica.getResponseReasonPhrase());
         }
+    }
+
+    @And("Si verifica che la notifica viene creata correttamente")
+    public void siVerificaCheLaNotificaVieneCreataCorrettamente() {
+        EsitoNotifica esitoNotifica = this.siVerificaEsitoNotifica();
+        if (esitoNotifica.statusNotifica.equals("ACCEPTED")) {
+            logger.info("La notifica è stata Accettata");
+            String codiceIUN = esitoNotifica.accettazioneRichiestaNotifica.getCodiceIUN();
+           // datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+            if (codiceIUN != null && !codiceIUN.isEmpty()) {
+                //datiNotifica.put("codiceIUN", codiceIUN);
+                sharedSteps.setIun(codiceIUN);
+                //TODO condividere lo iun in una classe SharedStep...dove viene richiamato il metodo writeDataPopulation
+                //dataPopulation.writeDataPopulation(dpFile + ".yaml", datiNotifica);
+                logger.info("La notifica è stata creata correttamente");
+            }
+        } else {
+            logger.error("La notifica " + esitoNotifica.notificationRequestId + " è stata rifiuta: " + esitoNotifica.accettazioneRichiestaNotifica.getResponseReasonPhrase());
+            Assert.fail("La notifica " + esitoNotifica.notificationRequestId + " è stata rifiuta: " + esitoNotifica.accettazioneRichiestaNotifica.getResponseReasonPhrase());
+        }
+    }
+
+    @And("Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica")
+    public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotifica() {
+        logger.info("Si inserisce il codice IUN");
+        //DataPopulation dataPopulation = new DataPopulation();
+        //this.datiNotifica = dataPopulation.readDataPopulation(dpDatiNotifica + ".yaml");
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.inserimentoCodiceIUN(sharedSteps.getIun());
     }
 
     @And("Si verifica che la notifica e' stata rifiutata")

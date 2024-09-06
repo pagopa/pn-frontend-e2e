@@ -19,7 +19,8 @@ Feature: la persona fisica modifica l'indirizzo Email
     And Nella pagina I Tuoi Recapiti si inserisce la nuova Email del PF "personaFisica" e clicca su salva
     And Si visualizza correttamente il pop-up e si clicca su conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera l'OTP della nuova Email tramite request method "personaFisica"
-    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email "personaFisica"
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request dell'email "pectest@pec.it" e viene inserito
+   # And Nella pagina I Tuoi Recapiti si recupera l'OTP della nuova Email tramite request method "personaFisica"
+   # And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email "personaFisica"
     Then Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata
     And Logout da portale persona fisica

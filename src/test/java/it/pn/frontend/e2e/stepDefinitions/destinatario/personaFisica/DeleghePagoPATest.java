@@ -15,6 +15,7 @@ import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.PopUpRevocaDelegaSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
+import it.pn.frontend.e2e.stepDefinitions.common.SharedSteps;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import lombok.Setter;
@@ -46,7 +47,7 @@ public class DeleghePagoPATest {
     private final MandateSingleton mandateSingleton = MandateSingleton.getInstance();
     @Setter
     private String codiceVerifica;
-
+    private SharedSteps sharedSteps = new SharedSteps();
 
     private final RestDelegation restDelegation = RestDelegation.getInstance();
 
@@ -116,6 +117,16 @@ public class DeleghePagoPATest {
         deleghe.put("codiceDelega", codiceVerifica);
         dataPopulation.writeDataPopulation(dpFile + ".yaml", deleghe);
     }
+
+    @And("Nella sezione Le Tue Deleghe salvare il codice verifica in una variabile")
+    public void nellaSezioneLeTueDelegheSalvareIlCodiceVerificaInSharedSteps() {
+        log.info("Si salva il codice deleghe");
+        String codiceVerifica = this.leTueDelegheSection.salvataggioCodiceVerifica();
+        sharedSteps.setCodiceVerificaDelega(codiceVerifica);
+        deleghe.put("codiceDelega", codiceVerifica);
+    }
+
+
 
     @And("Nella sezione Le Tue Deleghe salvare il codice verifica")
     public void nellaSezioneLeTueDelegheSalvareIlCodiceVerifica() {
@@ -247,6 +258,13 @@ public class DeleghePagoPATest {
         this.leTueDelegheSection.waitPopUpLoad();
         Map<String, Object> destinatari = dataPopulation.readDataPopulation(dpFile + ".yaml");
         this.leTueDelegheSection.inserireCodiceDelega(destinatari.get("codiceDelega").toString());
+    }
+
+    @And("Si inserisce il codice delega nel pop-up")
+    public void siInserisceIlCodiceDelegaNelPopUp() {
+        log.info("Si inserisce il codice per accettare la delega");
+        this.leTueDelegheSection.waitPopUpLoad();
+        this.leTueDelegheSection.inserireCodiceDelega(sharedSteps.getCodiceVerificaDelega());
     }
 
     @And("Si inserisce il codice errato delega nel pop-up {string}")

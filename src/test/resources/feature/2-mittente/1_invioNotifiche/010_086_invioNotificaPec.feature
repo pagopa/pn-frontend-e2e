@@ -41,8 +41,8 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     Then Si visualizza correttamente la frase La notifica è stata correttamente creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Si verifica che la notifica viene creata correttamente "datiNotifica"
-    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica "datiNotifica"
+    And Si verifica che la notifica viene creata correttamente
+    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra
     And Si verifica che la notifica sia nello stato avanzato
     And Cliccare sulla notifica restituita

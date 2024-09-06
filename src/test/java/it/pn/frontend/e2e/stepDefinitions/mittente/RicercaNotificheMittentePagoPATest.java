@@ -7,6 +7,7 @@ import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotific
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DestinatarioPASection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
+import it.pn.frontend.e2e.stepDefinitions.common.SharedSteps;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -28,6 +29,7 @@ public class RicercaNotificheMittentePagoPATest {
     private final WebDriver driver = Hooks.driver;
     private Map<String, Object> personaFisica = new HashMap<>();
     private Map<String, Object> datiNotifica = new HashMap<>();
+    SharedSteps sharedSteps = new SharedSteps();
 
     @And("Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica {string}")
     public void inserireCodiceFiscale(String codiceFiscale) {
@@ -150,6 +152,7 @@ public class RicercaNotificheMittentePagoPATest {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
     }
+
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice IUN della notifica")
     public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConIlCodiceIUNDellaNotifica() {

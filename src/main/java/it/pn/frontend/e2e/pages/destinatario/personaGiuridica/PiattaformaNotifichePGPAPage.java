@@ -119,6 +119,8 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void clickNotificheDelegate() {
         try {
+            WebTool.waitTime(5);
+            sideItemNotificheButton = returnElement("id","side-item-Notifiche");
             getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.sideItemNotificheButton));
             sideItemNotificheButton.click();
             By notificheDelegateButton = By.id("side-item-Gaio Giulio Cesare");

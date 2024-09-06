@@ -593,6 +593,7 @@ public class LoginPersonaFisicaPagoPA {
         this.driver.get(this.urlPersonaFisica.get("urlPortale"));
     }
 
+    //TODO Gestire...
     @When("Login portale persona fisica tramite token exchange {string}")
     public void loginPortalePersonaFisicaTramiteTokenExchange(String dpFile) {
         String variabileAmbiente = System.getProperty("environment");

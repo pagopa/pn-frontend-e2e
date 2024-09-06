@@ -12,13 +12,14 @@ Feature: la persona fisica inserisce un indirizzo Email aggiuntivo
     And Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email diversa
     And Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti
     And Nella sezione altri recapiti si controlla l'esistenza di una email "personaFisica"
-    And Nella sezione altri recapiti si seleziona l'ente "mittente"
+    And Nella sezione altri recapiti si seleziona l'ente
+    #And Nella sezione altri recapiti si seleziona l'ente "mittente"
     And Nella sezione altri recapiti si seleziona il tipo di indirizzo scegliendo "EMAIL"
     And Nella sezione altri recapiti si inserisce la Email aggiuntiva della persona fisica "test2@test.com"
     And Nella sezione altri recapiti si clicca sul bottone associa
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request dell'email "pectest2@pec.it" e viene inserito
     #And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email 'altri recapiti' tramite request method "personaFisica"
-   # And Nella pagina I Tuoi Recapiti si inserisce il codice OTP della email "personaFisica"
+    #And Nella pagina I Tuoi Recapiti si inserisce il codice OTP della email "personaFisica"
     Then Nella sezione altri recapiti si controlla che la Email aggiuntiva sia stata inserita correttamente
     And Logout da portale persona fisica

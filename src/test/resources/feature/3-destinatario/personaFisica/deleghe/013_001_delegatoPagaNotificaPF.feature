@@ -22,13 +22,15 @@ Feature:Il delegato persona giuridica accede ad una delega
       | codiceFiscale | BRGLRZ80D58H501Q  |
       | ente          | Comune di Verona |
     And Nella sezione Le Tue Deleghe verificare che la data sia corretta
-    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "nuova_delega"
+    #And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "nuova_delega"
+    And Nella sezione Le Tue Deleghe salvare il codice verifica in una variabile
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
 
     And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Si sceglie opzione accetta
-    And Si inserisce il codice delega nel pop-up "nuova_delega"
+   # And Si inserisce il codice delega nel pop-up "nuova_delega"
+    And Si inserisce il codice delega nel pop-up
     And Si clicca sul bottone Accetta
     And Si controlla che la delega ha lo stato Attiva
       | firstName | Gaio Giulio |
@@ -56,6 +58,7 @@ Feature:Il delegato persona giuridica accede ad una delega
     And Si seleziona la notifica
     And Cliccare sul bottone Paga
     And Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
+    And Aspetta 10 secondi
     And Si verifica che visualizzato lo stato Pagato
 
     And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard

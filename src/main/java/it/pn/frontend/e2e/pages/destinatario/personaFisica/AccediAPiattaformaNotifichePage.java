@@ -249,6 +249,8 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void cliccaPaga() {
+        WebTool.waitTime(5);
+        pagaAvviso = returnElement("cssselector","[data-testid='pay-button']");
         logger.info("Si clicca su bottone paga");
         pagaAvviso.click();
     }
@@ -340,7 +342,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     public void siVisualizzaStatoPagato() {
         By statoPagamento = By.xpath("//div[@id='status-chip-Pagato']");
-        getWebDriverWait(5).withMessage("Lo stato di pagamento non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoPagamento));
+        getWebDriverWait(10).withMessage("Lo stato di pagamento non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoPagamento));
         logger.info("Lo stato di pagamento è Pagato");
     }
 }

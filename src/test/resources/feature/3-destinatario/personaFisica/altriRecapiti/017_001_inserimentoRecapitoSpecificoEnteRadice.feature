@@ -24,7 +24,8 @@ Feature: la persona fisica inserisce un recapito aggiuntivo da un ente radice
       | Istituto Nazionale           |
       | Mercurio Riscossioni         |
     And Nella sezione altri recapiti si controlla l'esistenza di una PEC "pectest@pec.it"
-    And Nella sezione altri recapiti si seleziona l'ente "mittente"
+    And Nella sezione altri recapiti si seleziona l'ente
+   # And Nella sezione altri recapiti si seleziona l'ente "mittente"
     And Nella sezione altri recapiti si seleziona il tipo di indirizzo
     And Nella sezione altri recapiti si inserisce la PEC aggiuntiva de persona fisica "pectest2@pec.it"
     And Nella sezione altri recapiti si clicca sul bottone associa

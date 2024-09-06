@@ -868,6 +868,13 @@ public class RecapitiPersonaFisicaTest {
 
     }
 
+    @And("Nella sezione altri recapiti si seleziona l'ente")
+    public void nellaSezioneAltriRecapitiSiSelezionaLEnte() {
+        logger.info("Si sceglie l'ente");
+        recapitiDestinatarioPage.insertEnte(NotificationValue.getDefaultValue(NotificationValue.COMUNE.key));
+
+    }
+
     @And("Nella pagina Recapiti si inserisce il numero di telefono {string} e clicca sul bottone avvisami via SMS")
     public void nellaPaginaRecapitiSiInserisceIlNumeroDiTelefono(String numero) {
 
