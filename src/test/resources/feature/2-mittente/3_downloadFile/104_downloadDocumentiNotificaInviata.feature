@@ -15,14 +15,14 @@ Feature: il mittente download attestazione notifica presa in carico
     And Download file attestazione disservizio
     And Si controlla che esista pop up scadenza
     And Nella pagina Piattaforma Notifiche selezionare la voce 'Notifiche'
-    And Nella pagina Piattaforma Notifiche persona fisica inserire un arco temporale
+    And Nella pagina Piattaforma Notifiche inserire un arco temporale
       | annoDa   | 2024 |
       | meseDa   | 3  |
       | giornoDa | 1    |
       | annoA    | 2024 |
       | meseA    | 3   |
       | giornoA  |3    |
-    And Cliccare sul bottone Filtra persona fisica
+    And Cliccare sul bottone Filtra
     And Cliccare sulla notifica restituita
     And Salva codice IUN
     And Logout da portale mittente
