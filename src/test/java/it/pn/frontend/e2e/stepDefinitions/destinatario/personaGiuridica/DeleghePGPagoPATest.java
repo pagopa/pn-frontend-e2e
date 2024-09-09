@@ -478,6 +478,13 @@ public class DeleghePGPagoPATest {
         backgroundTest.accettazioneDelegaSceltaGruppo(false,null);
     }
 
+    @And("Si accetta la delega senza gruppo PF")
+    public void siAccettaLaDelegaSenzaGruppoPF() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+        backgroundTest.accettazioneDelegaSceltaGruppoPF(false,null);
+        WebTool.waitTime(2);
+    }
+
     @And("Si inserisce il codice della delega a carico dell impresa nella modale")
     public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale() {
         String verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()));

@@ -182,6 +182,15 @@ public class BackgroundTest {
         deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
     }
 
+    public void accettazioneDelegaSceltaGruppoPF(boolean withGroup, String gruppo) {
+        deleghePagoPATest.siSceglieOpzioneAccetta();
+        deleghePGPagoPATest.siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale();
+        deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneConfermaCodice();
+        if (withGroup) {
+            deleghePGPagoPATest.siAssegnaUnGruppoAllaDelega(gruppo);
+        }
+    }
+
     public void checkDelegaSceltaGruppoEInserimentoCodiceErrata() {
         deleghePagoPATest.siSceglieOpzioneAccetta();
         deleghePGPagoPATest.siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModaleErrata();

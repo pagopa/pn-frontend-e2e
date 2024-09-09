@@ -16,8 +16,9 @@ Feature: Il delegato visualizza la notifiche del delegante
       | displayName | Lucrezia Borgia  |
       | firstName   | Lucrezia         |
       | lastName    | Borgia           |
-    And Si accetta la delega senza gruppo
-    And Nella Pagina Notifiche destinatario si clicca su notifiche delegate
+    And Si accetta la delega senza gruppo PF
+    And Nella pagina Piattaforma Notifiche selezionare la voce 'Notifiche'
+    And Nella pagina Piattaforma Notifiche persona fisica si clicca sulle notifiche di "gaio giulio cesare"
     And Si controlla la pagina delle notifiche delegati di "Gaio Giulio Cesare"
     And Si clicca sulla notifica del delegante
     And Si controlla il dettaglio della notifica

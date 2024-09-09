@@ -21,7 +21,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     @FindBy(css = "[id='notificationsTable.body.row']")
     WebElement notificheButton;
 
-    @FindBy(id = "menu-item(notifiche)")
+    @FindBy(id = "side-item-Notifiche")
     WebElement notificheMenuButton;
 
     @FindBy(id = "side-item-Recapiti")
