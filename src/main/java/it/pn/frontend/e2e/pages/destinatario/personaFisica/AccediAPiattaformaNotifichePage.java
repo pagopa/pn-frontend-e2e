@@ -250,6 +250,8 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     public void cliccaPaga() {
         logger.info("Si clicca su bottone paga");
+        WebTool.waitTime(5);
+        pagaAvviso = driver.findElement(By.cssSelector("[data-testid='pay-button']"));
         pagaAvviso.click();
     }
 
