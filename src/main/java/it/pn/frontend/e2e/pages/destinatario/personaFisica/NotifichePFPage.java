@@ -96,6 +96,8 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void selectFiltraButton() {
+        WebTool.waitTime(5);
+        filtraButton = driver.findElement(By.id("filter-notifications-button"));
         getWebDriverWait(40).withMessage("Il bottone filtra sulla pagina notifiche non è cliccabile").until(ExpectedConditions.elementToBeClickable(filtraButton));
         filtraButton.click();
     }
