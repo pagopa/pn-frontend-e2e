@@ -16,5 +16,8 @@ Feature: Il delegato persona fisica annulLa l'operazione di rifiuto delega
       | cognome       | Cesare      |
     And Nella pagina Deleghe si sceglie opzione rifiuta
     And Si clicca sul bottone annulla all'interno del pop-up
-    Then Si controlla che la delega è ancora presente "personaFisica"
+    #Then Si controlla che la delega è ancora presente "personaFisica"
+    Then Si controlla che la delega è ancora presente
+      | nome       | Gaio Giulio |
+      | familyName | Cesare      |
     And Logout da portale persona fisica

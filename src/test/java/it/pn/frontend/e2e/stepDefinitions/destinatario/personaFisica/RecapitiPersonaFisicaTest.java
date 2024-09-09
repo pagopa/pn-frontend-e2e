@@ -543,6 +543,21 @@ public class RecapitiPersonaFisicaTest {
 
     }
 
+    @And("Nella pagina I Tuoi Recapiti si inserisce la nuova Email del PF e clicca su salva")
+    public void nellaPaginaITuoiRecapitiSiInserisceLaNuovaEmailDelPFECliccaSulBottoneAvvisamiViaEmail(Map<String, String> datiPF) {
+        logger.info("Si inserisce la nuova Email e si clicca sul bottone avvisami via email");
+
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
+
+        iTuoiRecapitiPage.cancellaTesto();
+
+        String email = datiPF.get("email");
+        iTuoiRecapitiPage.insertEmail(email);
+        iTuoiRecapitiPage.clickSalvaEmail();
+
+    }
+
     @Then("Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata")
     public void nellaPaginaITuoiRecapitiSiControllaCheLaEmailSiaStataModificata() {
         logger.info("Si controlla che la Email sia stata modificata");
@@ -983,6 +998,15 @@ public class RecapitiPersonaFisicaTest {
 
         Map<String, Object> personaFisica = this.dataPopulation.readDataPopulation(dpFile + ".yaml");
         String nuovaEmail = personaFisica.get("mail").toString();
+        if (recapitiDestinatarioPage.verificaNuovaEmailEPEC(nuovaEmail)) {
+            recapitiDestinatarioPage.eliminaNuovaEmail();
+        }
+    }
+
+    @And("Nella sezione altri recapiti si controlla l'esistenza di una email")
+    public void nellaSezioneAltriRecapitiSiControllaLEsistenzaDiUnaEmail(Map<String, String> datiPF) {
+        logger.info("Si controlla l'esistenza di una altra email");
+        String nuovaEmail = datiPF.get("mail");
         if (recapitiDestinatarioPage.verificaNuovaEmailEPEC(nuovaEmail)) {
             recapitiDestinatarioPage.eliminaNuovaEmail();
         }

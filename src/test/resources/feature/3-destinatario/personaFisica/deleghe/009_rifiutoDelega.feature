@@ -23,5 +23,8 @@ Feature: Il delgato persona fisica rifiuta la delega che gli è stata inviata
       | cognome       | Cesare      |
     And Nella pagina Deleghe si sceglie opzione rifiuta
     And Si clicca sul bottone rifiuta all'interno del pop-up
-    And Si controlla che la delega non sia più presente nella lista "personaFisica"
+    #And Si controlla che la delega non sia più presente nella lista "personaFisica"
+    And Si controlla che la delega non sia più presente nella lista
+      | nome       | Gaio Giulio |
+      | familyName | Cesare      |
     And Logout da portale persona fisica

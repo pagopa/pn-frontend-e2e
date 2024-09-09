@@ -11,7 +11,9 @@ Feature: la persona fisica inserisce un indirizzo Email aggiuntivo
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email diversa
     And Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti
-    And Nella sezione altri recapiti si controlla l'esistenza di una email "personaFisica"
+   # And Nella sezione altri recapiti si controlla l'esistenza di una email "personaFisica"
+    And Nella sezione altri recapiti si controlla l'esistenza di una email
+      | email | prova@test.it |
     And Nella sezione altri recapiti si seleziona l'ente
     #And Nella sezione altri recapiti si seleziona l'ente "mittente"
     And Nella sezione altri recapiti si seleziona il tipo di indirizzo scegliendo "EMAIL"

@@ -15,7 +15,8 @@ Feature: la persona fisica inserisce una Email
     And Si inserisce l'email della persona fisica e si clicca sul bottone avvisami via email
     And Si visualizza correttamente il pop-up e si clicca su conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
-    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email "personaFisica"
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request dell'email "pectest@pec.it" e viene inserito
+    #And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
+    #And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email "personaFisica"
     Then Nella pagina I Tuoi Recapiti si controlla che la Email sia presente
     And Logout da portale persona fisica

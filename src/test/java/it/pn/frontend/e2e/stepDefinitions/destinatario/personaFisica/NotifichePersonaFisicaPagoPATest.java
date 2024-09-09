@@ -322,6 +322,16 @@ public class NotifichePersonaFisicaPagoPATest {
         notifichePFPage.waitLoadNotificheDEPageDelegante(nome, cognome);
     }
 
+    @And("Si visualizza correttamente la Pagina Notifiche persona fisica delegante")
+    public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaFisicaDelegante(Map<String, String> datiPFDelegante) {
+        DataPopulation dataPopulation = new DataPopulation();
+        String nome = datiPFDelegante.get("name").toString();
+        String cognome = datiPFDelegante.get("familyName").toString();
+
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.waitLoadNotificheDEPageDelegante(nome, cognome);
+    }
+
     @And("Nella pagina Piattaforma Notifiche PF si recupera un codice IUN valido")
     public void nellaPaginaPiattaformaNotificheSiRecuperaUnCodiceIUNValido() {
         logger.info("Si recupera un codice IUN valido");

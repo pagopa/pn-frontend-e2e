@@ -12,7 +12,10 @@ Feature: Il delegato visualizza il dettaglio di una notifica
     And Nella sezione Deleghe si verifica sia presente una delega accettata
     When Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica
     And Si seleziona il nome del delegante nell elenco
-    And Si visualizza correttamente la Pagina Notifiche persona fisica delegante "personaFisica"
+    #And Si visualizza correttamente la Pagina Notifiche persona fisica delegante "personaFisica"
+    And Si visualizza correttamente la Pagina Notifiche persona fisica delegante
+      | nome       | Gaio Giulio |
+      | familyName | Cesare      |
     And Cliccare sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica persona fisica
     And  Logout da portale persona fisica
