@@ -1,12 +1,15 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.sql.Driver;
 
 public class RicercaNotifichePGPage extends BasePage {
 
@@ -100,6 +103,8 @@ public class RicercaNotifichePGPage extends BasePage {
 
     public void cliccaSuPrimaNotifica(){
         try {
+            WebTool.waitTime(5);
+            primaNotifica = driver.findElement(By.id("notificationsTable.body.row"));
             getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(primaNotifica));
             logger.info("Si clicca sulla prima notifica");
             primaNotifica.click();

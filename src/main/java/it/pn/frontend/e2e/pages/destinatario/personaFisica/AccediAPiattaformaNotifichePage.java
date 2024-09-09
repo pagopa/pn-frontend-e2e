@@ -339,6 +339,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void siVisualizzaStatoPagato() {
+        WebTool.waitTime(10);
         By statoPagamento = By.xpath("//div[@id='status-chip-Pagato']");
         getWebDriverWait(5).withMessage("Lo stato di pagamento non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoPagamento));
         logger.info("Lo stato di pagamento è Pagato");
