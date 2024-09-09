@@ -194,6 +194,17 @@ public class RecapitiPersonaFisicaTest {
         recapitiDestinatarioPage.clickAvvisamiViaEmail();
     }
 
+    @And("Si inserisce l'email della PG e si clicca sul bottone avvisami via email")
+    public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPFECliccaSulBottoneAvvisamiViaEmail(Map<String, String> personaGiuridica) {
+        logger.info("Si inserisce la email");
+
+        DataPopulation dataPopulation = new DataPopulation();
+        String email = personaGiuridica.get("mail");
+
+        recapitiDestinatarioPage.insertEmail(email);
+        recapitiDestinatarioPage.clickAvvisamiViaEmail();
+    }
+
     @And("Si inserisce l'email della persona fisica e si clicca sul bottone avvisami via email")
     public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPFECliccaSulBottoneAvvisamiViaEmail() {
         logger.info("Si inserisce la email");

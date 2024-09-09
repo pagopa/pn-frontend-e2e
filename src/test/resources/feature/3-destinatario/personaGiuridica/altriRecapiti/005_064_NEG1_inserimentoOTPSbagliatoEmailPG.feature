@@ -10,7 +10,9 @@ Feature: la persona giuridica inserisce un OTP email sbagliato
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una email
-    And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
+    #And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
+    And Si inserisce l'email della PG e si clicca sul bottone avvisami via email
+    |email|provaemail@test.it|
     And Si visualizza correttamente il pop-up e si clicca su conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato "15494"
