@@ -15,7 +15,7 @@ Feature: il mittente download attestazione notifica presa in carico
     And Download file attestazione disservizio
     And Si controlla che esista pop up scadenza
     And Nella pagina Piattaforma Notifiche selezionare la voce 'Notifiche'
-    And Nella pagina Piattaforma Notifiche inserire un arco temporale
+    And Nella pagina Piattaforma Notifiche persona fisica inserire un arco temporale
       | annoDa   | 2024 |
       | meseDa   | 3  |
       | giornoDa | 1    |
