@@ -11,9 +11,9 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica scaduta
       | meseDa   | 7  |
       | giornoDa | 1    |
       | annoA    | 2023 |
-      | meseA    | 7   |
-      | giornoA  |22    |
-    And Cliccare sul bottone Filtra persona fisica
+      | meseA    | 6   |
+      | giornoA  |14    |
+    And Cliccare sul bottone Filtra persona giuridica
     And Si visualizzano correttamente le notifiche in elenco paginato
     And Cliccare sulla notifica restituita
     Then Si visualizza correttamente la section Dettaglio Notifica
