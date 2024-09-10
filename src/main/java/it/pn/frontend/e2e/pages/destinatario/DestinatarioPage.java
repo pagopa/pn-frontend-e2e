@@ -191,6 +191,7 @@ public class DestinatarioPage extends BasePage {
                 costiNotifica = "true";
             }
             notificationRequest.setRecipients(notificationBuilder.destinatarioBuilder(datiDestinatario, notificationRequest.getRecipients()));
+            WebTool.waitTime(10);
             notificationRequest.getRecipients().get(destinatariNumber).setPayments(notificationBuilder.paymentsBuilder(Integer.parseInt(datiDestinatario.getOrDefault("avvisoPagoPa", "0")), Integer.parseInt(datiDestinatario.getOrDefault("F24", "0")), costiNotifica));
             destinatariNumber++;
     }

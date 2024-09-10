@@ -103,7 +103,7 @@ public class RicercaNotifichePGPage extends BasePage {
 
     public void cliccaSuPrimaNotifica(){
         try {
-            WebTool.waitTime(5);
+            WebTool.waitTime(10);
             primaNotifica = driver.findElement(By.id("notificationsTable.body.row"));
             getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(primaNotifica));
             logger.info("Si clicca sulla prima notifica");
