@@ -121,6 +121,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             WebTool.waitTime(5);
             getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.sideItemNotificheButton));
             sideItemNotificheButton.click();
+            WebTool.waitTime(10);
             By notificheDelegateButton = By.id("side-item-Notifiche delegate");
             this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(notificheDelegateButton));
             this.js().executeScript("arguments[0].click()", this.element(notificheDelegateButton));
