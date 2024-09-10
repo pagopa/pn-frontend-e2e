@@ -59,7 +59,7 @@ Feature:Il delegato persona giuridica accede ad una delega
     And Si verifica che visualizzato lo stato Pagato
 
     And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
-    And Nella pagina Piattaforma Notifiche persona fisica si clicca sulle notifiche di "gaio giulio cesare"
+    And Nella pagina Piattaforma Notifiche persona fisica si clicca sulle notifiche di "(gaio giulio cesare)"
     And Si seleziona la notifica
     And Si verifica che visualizzato lo stato Pagato
     And Logout da portale persona fisica

@@ -141,6 +141,8 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selectFiltraNotificaButtonDestinatario() {
+        WebTool.waitTime(10);
+        filtraNotificaButton = driver.findElement(By.id("filter-notifications-button"));
         getWebDriverWait(10).withMessage("Il filtro non è cliccabile").until(elementToBeClickable(filtraNotificaButton));
         filtraNotificaButton.click();
         logger.info("Bottone filtra, nella pagina notifiche del delegato, cliccato correttamente");
@@ -809,9 +811,11 @@ public class PiattaformaNotifichePage extends BasePage {
     public void clickSuNotifica() {
         String iun = notificationSingleton.getIun(Hooks.scenario);
         logger.info("iun notifica {}", iun);
-        By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
-        getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOfElementLocated(notification));
-        element(notification).click();
+        //By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
+        WebTool.waitTime(10);
+       WebElement notification = driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]"));
+        getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOf(notification));
+        notification.click();
     }
 
     public void checkStatoNotifica(String stato) {
