@@ -120,6 +120,8 @@ public class GruppiPGPage extends BasePage {
     }
 
     public void checkButtonConfermaAndClick() {
+        WebTool.waitTime(5);
+        buttonConferma = driver.findElement(By.xpath("//button[contains(text(), 'Conferma')]"));
         getWebDriverWait(10).withMessage("Il bottone conferma non è abilitato").until(ExpectedConditions.elementToBeClickable(buttonConferma));
         log.info("Il bottone è abilitato e lo si clicca");
         buttonConferma.click();
@@ -288,6 +290,7 @@ public class GruppiPGPage extends BasePage {
         getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input della descrizione del gruppo").until(ExpectedConditions.visibilityOf(inputDescrizioneGruppo));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente la select per la selezione del prodotto").until(ExpectedConditions.visibilityOf(selectSelezioneProdotto));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente la select per la selezione dei membri").until(ExpectedConditions.visibilityOf(selectSelezioneMembri));
+        buttonConferma = driver.findElement(By.xpath("//button[contains(text(), 'Conferma')]"));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone conferma").until(ExpectedConditions.visibilityOf(buttonConferma));
     }
 
