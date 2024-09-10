@@ -15,7 +15,8 @@ Feature: La persona giuridica inserisce l'email
       |email|provaemail@test.it|
     And Si visualizza correttamente il pop-up e si clicca su conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
-    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email "personaGiuridica"
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request dell'email "pec@pec.pagopa.it" e viene inserito
+    #And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
+   # And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email "personaGiuridica"
     Then Nella pagina I Tuoi Recapiti si controlla che la Email sia presente
     And Logout da portale persona giuridica
