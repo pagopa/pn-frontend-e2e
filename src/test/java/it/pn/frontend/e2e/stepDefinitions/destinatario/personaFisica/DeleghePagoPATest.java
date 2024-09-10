@@ -35,8 +35,6 @@ import java.util.concurrent.TimeUnit;
 public class DeleghePagoPATest {
 
     private final WebDriver driver = Hooks.driver;
-    Map<String, Object> deleghe = new HashMap<>();
-
     private final LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
     private final PopUpRevocaDelegaSection popUpRevocaDelegaSection = new PopUpRevocaDelegaSection(this.driver);
     private final DataPopulation dataPopulation = new DataPopulation();
@@ -44,11 +42,10 @@ public class DeleghePagoPATest {
     private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
     private final DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
     private final MandateSingleton mandateSingleton = MandateSingleton.getInstance();
+    private final RestDelegation restDelegation = RestDelegation.getInstance();
+    Map<String, Object> deleghe = new HashMap<>();
     @Setter
     private String codiceVerifica;
-
-
-    private final RestDelegation restDelegation = RestDelegation.getInstance();
 
     @When("Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe")
     public void waitDelegheButton() {
@@ -236,7 +233,7 @@ public class DeleghePagoPATest {
     }
 
     @And("Si inserisce il codice delega nel pop-up OTP")
-    public void inserisceCodiceOTPDelega(){
+    public void inserisceCodiceOTPDelega() {
         this.leTueDelegheSection.waitPopUpLoad();
         this.leTueDelegheSection.inserireCodiceDelega(codiceVerifica);
     }
@@ -262,10 +259,10 @@ public class DeleghePagoPATest {
 
         String verificationCode = "";
         leTueDelegheSection.waitPopUpLoad();
-        if (data.equalsIgnoreCase("corretto")) {
-            verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()));
-        } else {
+        if (data.equalsIgnoreCase("errato")) {
             verificationCode = "54321";
+        } else {
+            verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()));
         }
         leTueDelegheSection.inserireCodiceDelega(verificationCode);
     }
@@ -299,8 +296,8 @@ public class DeleghePagoPATest {
         String tokenExchange = loginPersonaFisicaPagoPA.getTokenExchangePFFromFile(personaFisica.get("accessoCome"));
         DelegateResponsePF response = restDelegation.addDelegationPF(delegateRequestPF, tokenExchange);
         if (response != null) {
-            mandateSingleton.setScenarioMandateId(Hooks.getScenario(),response.getMandateId());
-            mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()),response.getVerificationCode() );
+            mandateSingleton.setScenarioMandateId(Hooks.getScenario(), response.getMandateId());
+            mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()), response.getVerificationCode());
         }
         driver.navigate().refresh();
     }
