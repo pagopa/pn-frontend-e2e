@@ -114,7 +114,7 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public void eliminaEmailEsistente() {
-        By eliminaMailButton = By.xpath("//p[contains(text(),'Indirizzo e-mail')]/following-sibling::div/div/button[contains(text(),'Elimina')]");
+        By eliminaMailButton = By.xpath("//button[@id='cancelContact-default']");
         getWebDriverWait(10).withMessage("il Bottone elimina e-mail non presente").until(ExpectedConditions.elementToBeClickable(eliminaMailButton));
         this.js().executeScript("arguments[0].click();", this.element(eliminaMailButton));
     }
@@ -155,7 +155,7 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void cancellaTesto() {
         try {
-            By pecInputBy = By.id("email");
+            By pecInputBy = By.id("default_email");
             WebElement pecInput = this.element(pecInputBy);
             this.js().executeScript("arguments[0].click()", pecInput);
             String emailPec = pecInput.getAttribute("value");

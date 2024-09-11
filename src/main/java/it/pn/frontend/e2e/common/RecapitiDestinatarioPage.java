@@ -34,7 +34,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "default_email")
     WebElement inserimentoMailField;
 
-    @FindBy(id = "phone")
+    @FindBy(id = "default_sms")
     WebElement inserimentoPhoneField;
 
     @FindBy(id = "cancelContact-default")
@@ -43,7 +43,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(xpath = "//div/h2[contains(text(),'Grazie!')]/following-sibling::div//button")
     WebElement confermaButtonPoPUpPec;
 
-    @FindBy(xpath = "//p[contains(text(),'Indirizzo e-mail')]/following-sibling::div/div/button[contains(text(),'Modifica')]")
+    @FindBy(xpath = "//button[@id='modifyContact-default']")
     WebElement modificaEmailButton;
 
     @FindBy(id = "sender")
@@ -315,7 +315,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickSuModifica() {
-        By modificaMailButton = By.xpath("//p[contains(text(),'Indirizzo e-mail')]/following-sibling::div/div/button[contains(text(),'Modifica')]");
+        By modificaMailButton = By.xpath("//button[@id='modifyContact-default']");
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(modificaMailButton));
         if (modificaEmailButton.isDisplayed()) {
             this.modificaEmailButton.click();
@@ -505,14 +505,14 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public String getEmailErrorMessage() {
-        By errorBy = By.id("email-helper-text");
+        By errorBy = By.id("default_email-helper-text");
         WebElement errorMessage = driver.findElement(errorBy);
         getWebDriverWait(10).until(ExpectedConditions.visibilityOf(errorMessage));
         return errorMessage.getText();
     }
 
     public String getPecErrorMessage() {
-        By errorBy = By.id("pec-helper-text");
+        By errorBy = By.id("default_pec-helper-text");
         WebElement errorMessage = driver.findElement(errorBy);
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(errorMessage));
         return errorMessage.getText();
