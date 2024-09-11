@@ -1,6 +1,6 @@
 Feature: Mittente invia una notifica digitale al destinatario con indirizzo fornito dalla PA
 
-  @TestSuite
+  @Parallel
   @InvioNotificaADueDestinatariEntrambiNonRaggiungibili
 
   Scenario: PN-9256 [TA-FE INVIO NOTIFICA A DUE DESTINATARI SOLO UNO RAGGIUNGIBILE] - Il mittente invia una notifica a due destinatari , solo uno raggiungibile al primo tentativo

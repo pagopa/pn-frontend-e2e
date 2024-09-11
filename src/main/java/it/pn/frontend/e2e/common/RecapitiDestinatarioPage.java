@@ -108,6 +108,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void confermaButtonClick() {
+        WebTool.waitTime(5);
         getWebDriverWait(10).withMessage("Il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
         this.confermaButton.click();
     }
@@ -164,18 +165,14 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clearOTP() {
-        try {
             By otpInputby = By.xpath("//input[contains(@id,'code-input')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(otpInputby));
             List<WebElement> otpInputs = this.elements(otpInputby);
-            for (WebElement otpInput : otpInputs) {
-                clearWebElementField(otpInput);
+            for (int i = 4; i >= 0; i--) {
+                otpInputs.get(i).sendKeys(Keys.BACK_SPACE);
             }
-            logger.info("I campi di inserimento del codice OTP sono stati svuotati correttamente");
-        } catch (TimeoutException e) {
-            logger.error("Impossibile svuotare i campi di inserimento del codice OTP con errore: " + e.getMessage());
-            Assert.fail("Impossibile svuotare i campi di inserimento del codice OTP con errore: " + e.getMessage());
-        }
+            logger.info("Il codice otp viene cancellato correttamente");
+
     }
 
     public void confermaButtonClickPopUp() {
@@ -193,11 +190,11 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean waitMessaggioErrore() {
         try {
-            By messaggioErroreBy = By.id("error-alert");
-            getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(messaggioErroreBy));
+            WebElement messaggioErroreBy = driver.findElement(By.id("error-alert"));
+            getWebDriverWait(5).until(ExpectedConditions.visibilityOf(messaggioErroreBy));
             logger.info("Il messaggio di errore viene visualizzato correttamente");
             return true;
-        } catch (TimeoutException e) {
+        } catch (TimeoutException | NoSuchElementException e) {
             return false;
         }
     }
@@ -250,7 +247,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             By pecAssociata = By.id("associatedPEC");
             getWebDriverWait(10).withMessage("PEC associata non presente").until(ExpectedConditions.visibilityOfElementLocated(pecAssociata));
             return true;
-        } catch (TimeoutException e) {
+        } catch (NoSuchElementException | TimeoutException e) {
             logger.error("pec associata non trovata" + e.getMessage());
             return false;
         }
@@ -721,12 +718,21 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void checkMessaggioErroreTreTentativiOTPSbagliato() {
         try {
+            WebElement elementErrorAlert = driver.findElement(By.id("error-alert"));
+            String testo = elementErrorAlert.getText().replace("\n", " ");
+
+            if (testo.contains("Hai fatto troppi tentativi Hai inserito troppe volte un codice sbagliato. Per riprovare premi “Annulla”, assicurati che il contatto sia corretto e inserisci il nuovo codice.")) {
+                logger.info("Si visualizza correttamente il messaggio di errore");
+            } else {
+                logger.error("Non si visualizza il messaggio di errore");
+                Assert.fail("Non si visualizza il messaggio di errore");
+            }
             By messageContainer = By.id("error-alert");
             By modalErrorTitle = By.id("codeModalErrorTitle");
             getWebDriverWait(10).withMessage("Titolo di errore della modale non visualizzato").until(ExpectedConditions.visibilityOfElementLocated(modalErrorTitle));
             getWebDriverWait(10).withMessage("Il messaggio di errore non viene visualizzato e il testo non è corretto").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(messageContainer),
-                    ExpectedConditions.attributeContains(messageContainer, "textContent", "Hai fatto troppi tentativiHai inserito troppe volte un codice sbagliato. Per riprovare premi “Annulla”, assicurati che il contatto sia corretto e inserisci il nuovo codice.")
+                    ExpectedConditions.visibilityOfElementLocated(modalErrorTitle)
             ));
         } catch (TimeoutException e) {
             logger.error("Il messaggio di errore non viene visualizzato correttamente con errore: " + e.getMessage());

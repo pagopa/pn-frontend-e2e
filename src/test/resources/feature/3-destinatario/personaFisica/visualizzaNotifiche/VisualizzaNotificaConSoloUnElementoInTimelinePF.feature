@@ -1,6 +1,6 @@
 Feature: PF visualizza il dettaglio di una notifica con solo un elemento in timeline
 
-  @TestSuite
+  @Paralell
   @TA_PFDettaglioNotificheConUnElementoInTimeline
   @PF
   @visualizzazioneNotifichePF
@@ -20,13 +20,13 @@ Feature: PF visualizza il dettaglio di una notifica con solo un elemento in time
       | dettagliComune   | Milano           |
       | provincia        | MI               |
       | stato            | Italia           |
-      | nomeCognome      | Gulio Cesare     |
+      | nomeCognome      | Giulio Cesare     |
       | codiceFiscale    | CSRGGL44L13H501E |
       | tipoDestinatario | PF               |
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 5 secondi
-    And Si seleziona la notifica
-    And Aspetta 200 secondi
+    And Si seleziona la notifica destinatario
+    And Si attende completamento notifica "Consegnata"
     And Si visualizza correttamente la section Dettaglio Notifica
     And controllo link per scaricare zip e scarico file Ricevuta di consegna
     And Aspetta 5 secondi
@@ -51,13 +51,13 @@ Feature: PF visualizza il dettaglio di una notifica con solo un elemento in time
       | dettagliComune   | Milano           |
       | provincia        | MI               |
       | stato            | Italia           |
-      | nomeCognome      | Gulio Cesare     |
+      | nomeCognome      | Giulio Cesare     |
       | codiceFiscale    | CSRGGL44L13H501E |
       | tipoDestinatario | PF               |
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 5 secondi
-    And Si seleziona la notifica
-    And Aspetta 200 secondi
+    And Si seleziona la notifica destinatario
+    And Si attende completamento notifica "Consegnata"
     And Si visualizza correttamente la section Dettaglio Notifica
     And controllo link per scaricare zip e scarico file Ricevuta di consegna
     And Aspetta 5 secondi

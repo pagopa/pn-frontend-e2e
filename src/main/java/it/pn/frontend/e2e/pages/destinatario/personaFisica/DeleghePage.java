@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -43,14 +44,12 @@ public class DeleghePage extends BasePage {
     }
 
     public void clickAggiungiDelegaButton() {
-        try {
-            this.getWebDriverWait(10).withMessage("Il bottone agiungi delega non è visualizzato").until(ExpectedConditions.elementToBeClickable(this.addDelegaButton));
+
+            getWebDriverWait(10).withMessage("Il bottone aggiungi delega non è visualizzato").until(ExpectedConditions.elementToBeClickable(addDelegaButton));
             logger.info("click sul bottone add deleghe");
+            WebTool.waitTime(3);
             this.addDelegaButton.click();
-        } catch (TimeoutException e) {
-            logger.error("Il bottone aggiungi delega non è cliccabile con errore : " + e.getMessage());
-            Assert.fail("Il bottone aggiungi delega non è cliccabile con errore : " + e.getMessage());
-        }
+
     }
 
     public void controlloCreazioneDelega() {
@@ -95,8 +94,8 @@ public class DeleghePage extends BasePage {
         }
     }
 
-    public void clickMenuDelegato(String fullName) {
-        List<WebElement> tableRows = driver.findElements(By.id("delegatesBodyRowDesktop")); // Take all the rows of the table
+    public void clickMenuDelegante(String fullName) {
+        List<WebElement> tableRows = driver.findElements(By.id("notifications-table")); // Take all the rows of the table
         if (!tableRows.isEmpty()) {
             for (WebElement row : tableRows) {
                 WebElement cellName = row.findElement(By.xpath(".//td//p[contains(text(), '" + fullName + "')]")); // Take the cell with the name of the delegate from the row
@@ -107,6 +106,21 @@ public class DeleghePage extends BasePage {
                 logger.info("Cliccato correttamente su menu delega button");
                 return;
             }
+        } else {
+            logger.error("Non è stato trovato nessun delegato con il nome: " + fullName);
+            Assert.fail("Non è stato trovato nessun delegato con il nome: " + fullName);
+        }
+    }
+
+    public void clickMenuDelegato(String fullName) {
+        WebElement tableRows = driver.findElement(By.id("notifications-table")); // Take all the rows of the table
+        if (tableRows.isDisplayed()) {
+                WebElement cellName = tableRows.findElement(By.xpath(".//td//p[contains(text(), '" + fullName + "')]")); // Take the cell with the name of the delegate from the row
+                getWebDriverWait(10).withMessage("Non è stato trovato la riga corrispondente della delega con il nome: " + fullName).until(ExpectedConditions.visibilityOf(cellName));
+                WebElement menuButton = tableRows.findElement(By.xpath(".//button[@data-testid='delegationMenuIcon']")); // take the menu button from the row
+                getWebDriverWait(10).withMessage("Non è stato trovato il menu della delega con il nome: " + fullName).until(ExpectedConditions.visibilityOf(menuButton));
+                menuButton.click();
+                logger.info("Cliccato correttamente su menu delega button");
         } else {
             logger.error("Non è stato trovato nessun delegato con il nome: " + fullName);
             Assert.fail("Non è stato trovato nessun delegato con il nome: " + fullName);
@@ -195,7 +209,9 @@ public class DeleghePage extends BasePage {
 
     public boolean siVisualizzaUnaDelegaConNome(String nome, String cognome) {
         try {
-            By delegaBy = By.xpath("//tr[@id = 'delegatesTable.body.row']//p[contains(text(),'" + nome + " " + cognome + "')]");
+            WebTool.waitTime(5);
+            By delegaBy = By.xpath("//tr[@id = 'delegatesTable.body.row']//p[contains(text(),'"+ nome +" "+ cognome +"')]");
+
             this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(delegaBy));
             logger.info("Si trova una delega");
             return true;
@@ -250,7 +266,8 @@ public class DeleghePage extends BasePage {
     }
 
     public void clickDelegheDelDelegante(String personaFisica) {
-            By menuDelegheDelegante = By.id("side-item-" + personaFisica);
+
+            By menuDelegheDelegante = By.id("menu-item" + personaFisica);
             getWebDriverWait(10).withMessage("Voce del menu laterale non visibile e non cliccabile").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(menuDelegheDelegante),
                     ExpectedConditions.elementToBeClickable(menuDelegheDelegante)

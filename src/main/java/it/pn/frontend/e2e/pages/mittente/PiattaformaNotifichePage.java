@@ -141,6 +141,8 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selectFiltraNotificaButtonDestinatario() {
+        WebTool.waitTime(10);
+        filtraNotificaButton = driver.findElement(By.id("filter-notifications-button"));
         getWebDriverWait(10).withMessage("Il filtro non è cliccabile").until(elementToBeClickable(filtraNotificaButton));
         filtraNotificaButton.click();
         logger.info("Bottone filtra, nella pagina notifiche del delegato, cliccato correttamente");
@@ -364,7 +366,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public int controlloNumeroRisultatiDate() {
-        By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]");
+        By dataListBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[1]");
         attesaCaricamentoPagina();
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(dataListBy));
         logger.info("Date trovate correttamente");
@@ -446,25 +448,25 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public boolean verificaEsistenzaCFNotifiche() {
-        By cfFiealdBy = By.xpath("//td[button/p[contains(@class,'MuiTypography-root MuiTypography-body2')]]");
+        By cfFiealdBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[2]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(cfFiealdBy));
         return !this.elements(cfFiealdBy).isEmpty();
     }
 
     public boolean verificaEsistenzaCodiceIUNNotifiche() {
-        By codiciIUNBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh')]");
+        By codiciIUNBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiciIUNBy));
         return !this.elements(codiciIUNBy).isEmpty();
     }
 
     public boolean verificaEsistenzaGruppoNotifiche() {
-        By gruppiBy = By.xpath("//td[button/div/span[contains(@class,'css-t63gu0')]]");
+        By gruppiBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[5]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(gruppiBy));
         return !this.elements(gruppiBy).isEmpty();
     }
 
     public boolean verificaEsistenzaStatoNotifiche() {
-        By statiBy = By.xpath("//td[button/div/div[contains(@data-testid,'statusChip-')]]");
+        By statiBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[6]");
         this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statiBy));
         return !this.elements(statiBy).isEmpty();
     }
@@ -540,7 +542,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void siCambiaPaginaUtilizzandoUnaFrecetta(Integer numPage) {
-        Integer index= 0;
+        Integer index= 1;
         this.getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile")
                 .until(ExpectedConditions.visibilityOf(this.frecciaPaginaSuccessiva));
         if (!frecciaPaginaSuccessiva.isDisplayed()) {
@@ -613,7 +615,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public List<String> getCodiceIunPresenti() {
-        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh']//button");
+        By notificaCodiceIunBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button");
         List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella : righeTabella) {
@@ -624,7 +626,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public List<String> getCodiceIunPresentiPF() {
-        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-2ebubn']//button");
+        By notificaCodiceIunBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button");
         List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella : righeTabella) {
@@ -639,7 +641,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public List<String> getCodiceIunPersonaGiuridica() {
-        By notificaCodiceIunBy = By.xpath("//td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh' and button/p[contains(text(),'27957814470')]]/following-sibling::td[@class = 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-2ebubn']//button");
+        By notificaCodiceIunBy = By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button");
         List<WebElement> righeTabella = this.elements(notificaCodiceIunBy);
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella : righeTabella) {
@@ -675,7 +677,9 @@ public class PiattaformaNotifichePage extends BasePage {
         List<WebElement> inputElements = preliminaryInformationsForm.findElements(By.tagName("input"));
         for (WebElement inputElement : inputElements) {
             if (inputElement.getAttribute("type").equals("text") && !inputElement.getAttribute("value").isEmpty()) {
-                return false;
+                if (!inputElement.getAttribute("value").equalsIgnoreCase("comune di verona")){
+                    return false;
+                }
             }
             if (inputElement.getAttribute("type").equals("radio") && inputElement.isSelected()) {
                 return false;
@@ -760,8 +764,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public void verificaPresenzaStato(String stato) {
+        WebTool.waitTime(10);
         By statusChip = By.xpath("//div[@data-testid='itemStatus']//span[contains(text(),'" + stato + "')]");
-
           getWebDriverWait(10).withMessage("Lo stato " + stato + " non è presente")
                     .until(ExpectedConditions.visibilityOfElementLocated(statusChip));
             logger.info("Stato {} presente", stato);
@@ -807,9 +811,11 @@ public class PiattaformaNotifichePage extends BasePage {
     public void clickSuNotifica() {
         String iun = notificationSingleton.getIun(Hooks.scenario);
         logger.info("iun notifica {}", iun);
-        By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
-        getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOfElementLocated(notification));
-        element(notification).click();
+        //By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
+        WebTool.waitTime(10);
+       WebElement notification = driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]"));
+        getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOf(notification));
+        notification.click();
     }
 
     public void checkStatoNotifica(String stato) {
@@ -843,9 +849,9 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
-    public void pollingSuStatoNotifica(String statoNotifica) {
+    public void pollingSuStatoNotificaPerCompletamento(String statoNotifica) {
         boolean testSuccess = false;
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 15; i++) {
             try {
                 WebElement chipStatus = driver.findElement(By.id(statoNotifica + "-status" ));
                 if (chipStatus.isDisplayed()) {
@@ -854,7 +860,6 @@ public class PiattaformaNotifichePage extends BasePage {
                     testSuccess = true;
                     break;
                 }
-
             } catch (NoSuchElementException e) {
                 logger.info("Dopo " + i + " tentativi la notifica non è ancora passata allo stato: " + statoNotifica);
             }
@@ -945,8 +950,9 @@ public class PiattaformaNotifichePage extends BasePage {
         if (size.equals("2")) {
             viewMore.get(1).click();
         }
-        By destinatarioPF = By.xpath("//p[contains(text(),'" + destinatari.get("PF") + " è fallito')]");
+        WebTool.waitTime(5);
         By destinatarioPG = By.xpath("//p[contains(text(),'" + destinatari.get("PG") + " è fallito')]");
+        By destinatarioPF = By.xpath("//p[contains(text(),'" + destinatari.get("PF") + " è fallito')]");
 
         if (this.element(destinatarioPF).isDisplayed() && this.element(destinatarioPG).isDisplayed()) {
             logger.info("Entrambi destinatari non raggiungibili al primo tentativo");
@@ -1117,6 +1123,4 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         Assert.assertFalse("Il bottone è visualizzabile", isDisplayed);
     }
-
-
 }

@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.common;
 
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -18,14 +19,15 @@ public class NotificheDestinatarioPage extends BasePage{
     @FindBy(xpath = "//button[contains(text(),'Ricevuta di consegna PEC')]")
     WebElement ricevutaDiConsegnaButton;
 
+
     public NotificheDestinatarioPage(WebDriver driver) {
         super(driver);
     }
 
     public void inserisciCodiceIUN(String codiceIUN) throws InterruptedException {
-        getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(this.codiceIunTextField));
-        Thread.sleep(1000);
-        this.codiceIunTextField.sendKeys(codiceIUN);
+        getWebDriverWait(10).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(this.codiceIunTextField));
+        WebTool.waitTime(1);
+        codiceIunTextField.sendKeys(codiceIUN);
     }
     public boolean verificaCodiceIUN(String codiceIUNInserito) {
         try {

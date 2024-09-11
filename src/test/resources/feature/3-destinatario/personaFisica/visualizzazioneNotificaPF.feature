@@ -12,7 +12,7 @@ Feature:Controllo dati notifica
     And Cliccare sul bottone Filtra del delegato
     And Si clicca la notifica ricercata
     And Si controlla la presenza di codice avviso
-    And Si controlla non sia presente l'avviso PagoPa
+    And Si controlla non sia presente l'allegato PagoPa
     And Logout da portale persona fisica
 
 

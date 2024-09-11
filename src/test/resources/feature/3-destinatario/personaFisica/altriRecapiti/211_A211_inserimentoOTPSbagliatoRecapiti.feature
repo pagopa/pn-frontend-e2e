@@ -5,6 +5,7 @@ Feature:La persona fisica inserisce una OTP sbagliato PEC
   @PF
   @recapitiPF
 
+    #TEST SOLO IN HEADLESS
   Scenario: Recapiti - Messaggio di errore dopo 3 tentativi inserimento OTP
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti

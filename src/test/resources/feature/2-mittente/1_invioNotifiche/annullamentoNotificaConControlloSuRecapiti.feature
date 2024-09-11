@@ -36,6 +36,7 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata e 
     And Si controlla che le ricevute PEC siano scaricabili
     And Logout da portale mittente
 
+
   @TA_annullamentoNotificaMittenteEControlloPEC
   Scenario: [TA-FE MITTENTE CREA E ANNULLA UNA NOTIFICA CON PAGAMENTO] - Mittente invia una notifica a destinatario con PEC impostata e la annulla, si controlla che le ricevute PEC sono scaricabili
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

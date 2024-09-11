@@ -110,7 +110,7 @@ public class NotifichePGPagoPATest {
         deleghePage.waitLoadDeleghePage();
     }
 
-    @And("Nella Pagina Notifiche persona giuridica si clicca su notifiche delegate")
+    @And("Nella Pagina Notifiche destinatario si clicca su notifiche delegate")
     public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSuNotificheDelegate() {
         logger.info("Si clicca correttamente su notifiche delegate");
 
@@ -160,12 +160,8 @@ public class NotifichePGPagoPATest {
         }
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
             dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            String urlFileAttestazioneOppponubile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/" + datiNotifica.get("codiceIUN").toString() + "/legal-facts/");
+            WebTool.waitTime(5);
+            String urlFileAttestazioneOppponubile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/bff/v1/notifications/received/" + datiNotifica.get("codiceIUN").toString() + "/documents/");
             if (headless && urlFileAttestazioneOppponubile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
                 logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
@@ -305,7 +301,17 @@ public class NotifichePGPagoPATest {
     public void siControllaNonSiaPresenteLAvvisoPagoPa() {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
         AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        WebTool.waitTime(5);
         Assert.assertTrue("Avviso PagoPA non sia presente", accediAPiattaformaNotifichePage.piuAvvisiDisplayed());
+        logger.info("Avviso PagoPA è presente");
+    }
+
+    @And("Si controlla non sia presente l'allegato PagoPa")
+    public void siControllaNonSiaPresenteLAllegatoPagoPa() {
+        logger.info("Si controlla la presenza del box per il pagamento della notifica");
+        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        WebTool.waitTime(5);
+        Assert.assertTrue("Avviso PagoPA non sia presente", accediAPiattaformaNotifichePage.allegatoPagoPaDisplayed());
         logger.info("Avviso PagoPA è presente");
     }
 

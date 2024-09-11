@@ -22,7 +22,7 @@ Feature: il mittente download attestazione notifica presa in carico
       | annoA    | 2024 |
       | meseA    | 3   |
       | giornoA  |3    |
-    And Cliccare sul bottone Filtra persona fisica
+    And Cliccare sul bottone Filtra
     And Cliccare sulla notifica restituita
     And Salva codice IUN
     And Logout da portale mittente

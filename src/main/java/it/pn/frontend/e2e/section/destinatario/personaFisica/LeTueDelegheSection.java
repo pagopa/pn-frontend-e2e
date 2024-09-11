@@ -241,6 +241,7 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickAccettaButton() {
+        accettaPopUpButton = driver.findElement(By.id("code-confirm-button"));
         this.accettaPopUpButton.click();
     }
 

@@ -362,16 +362,10 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void siVerificaLaCliccabilitaSuAllegatoInTimeline(String xpath) {
-        try {
+            vaiInFondoAllaPagina();
             By allegatoTimeline = By.xpath(xpath);
-            logger.info(xpath);
             getWebDriverWait(10).until(ExpectedConditions.and(ExpectedConditions.visibilityOfElementLocated(allegatoTimeline), ExpectedConditions.elementToBeClickable(allegatoTimeline)));
             logger.info("allegato timeline trovato con successo e cliccabile");
-        } catch (TimeoutException e) {
-            logger.error("allegato timeline trovato con successo e cliccabile: " + e.getMessage());
-            Assert.fail("allegato timeline trovato con successo e cliccabile: " + e.getMessage());
-        }
-
     }
 
     public void checkInvioADomicilioDiPiattaforma(String domicilioDiPiattaforma) {

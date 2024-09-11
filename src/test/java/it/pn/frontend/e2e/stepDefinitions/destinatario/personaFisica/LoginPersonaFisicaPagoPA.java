@@ -106,15 +106,6 @@ public class LoginPersonaFisicaPagoPA {
             }
         }
         logger.info("cookies end");
-        AccediAPiattaformaNotifichePage accediApiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
-        accediApiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
-        accediApiattaformaNotifichePage.selezionaAccediButton();
-        if (!CookieConfig.isCookieEnabled()) {
-            cookiesPage = new CookiesSection(this.driver);
-            if (cookiesPage.waitLoadCookiesPage()) {
-                cookiesPage.selezionaAccettaTuttiButton();
-            }
-        }
 
         ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.driver);
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
@@ -183,10 +174,6 @@ public class LoginPersonaFisicaPagoPA {
             }
         }
 
-        ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.driver);
-        comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
-        comeVuoiAccederePage.selezionaSpidButton();
-
         ScegliSpidPFPage scegliSpidPFPage = new ScegliSpidPFPage(this.driver);
         scegliSpidPFPage.waitLoadScegliSpidDEPage();
         scegliSpidPFPage.selezionareTestButton();
@@ -207,6 +194,7 @@ public class LoginPersonaFisicaPagoPA {
             Assert.fail("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + datiPF.get("name"));
         }
 
+
         String cognomeUtenteLetto = confermaDatiSpidPFPage.leggiCognomeUtente();
         if (cognomeUtenteLetto.equals(datiPF.get("familyName"))) {
             logger.info("cognome utente letto : " + cognomeUtenteLetto + " uguale a : " + datiPF.get("familyName"));
@@ -222,6 +210,7 @@ public class LoginPersonaFisicaPagoPA {
             logger.error("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
             Assert.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
         }
+
         HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
         confermaDatiSpidPFPage.selezionaConfermaButton();
         headerPFSection.waitUrlToken();

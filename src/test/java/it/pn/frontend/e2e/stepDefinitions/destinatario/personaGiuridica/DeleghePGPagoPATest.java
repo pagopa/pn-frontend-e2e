@@ -472,6 +472,19 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.clickBottoneConfermaDelega();
     }
 
+    @And("Si accetta la delega senza gruppo")
+    public void siAccettaLaDelegaSenzaGruppo() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+        backgroundTest.accettazioneDelegaSceltaGruppo(false,null);
+    }
+
+    @And("Si accetta la delega senza gruppo PF")
+    public void siAccettaLaDelegaSenzaGruppoPF() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+        backgroundTest.accettazioneDelegaSceltaGruppoPF(false,null);
+        WebTool.waitTime(2);
+    }
+
     @And("Si inserisce il codice della delega a carico dell impresa nella modale")
     public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale() {
         String verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()));
@@ -485,10 +498,10 @@ public class DeleghePGPagoPATest {
         backgroundTest.revocaDelegaPG(ragioneSociale);
     }
 
-    @And("Si accetta la delega {string} gruppo {string}")
-    public void siAccettaLaDelegaGruppo(String withGroup, String gruppo) {
+    @And("Si accetta la delega con gruppo {string}")
+    public void siAccettaLaDelegaGruppo(String gruppo) {
         BackgroundTest backgroundTest = new BackgroundTest();
-        backgroundTest.accettazioneDelegaSceltaGruppo(withGroup.equalsIgnoreCase("senza"),gruppo);
+        backgroundTest.accettazioneDelegaSceltaGruppo(true,gruppo);
     }
 
     public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModaleErrata() {
@@ -543,6 +556,7 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.checkAlertWrongDelegationCode();
         deleghePGPagoPAPage.clickButtonIndietroDaAssegnaGruppo();
         deleghePGPagoPAPage.checkTextboxCodiceSonoRosse();
+        deleghePGPagoPAPage.clickButtonIndietroCloseModale();
     }
 
     @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si controlla che ci sia una delega con la ragione sociale inserita {string}")

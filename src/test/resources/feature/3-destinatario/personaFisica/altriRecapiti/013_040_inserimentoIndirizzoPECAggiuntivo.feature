@@ -9,7 +9,7 @@ Feature: la persona fisica inserisce un indirizzo pec aggiuntivo
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
-    And Nella pagina I Tuoi Recapiti di PF, si controlla che ci sia già una pec
+    And Nella pagina I Tuoi Recapiti di PF, si controlla che ci sia già una pec "prova@pec.it"
     And Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti
     And Nella sezione altri recapiti si controlla l'esistenza di una PEC "personaFisica"
     And Nella sezione altri recapiti si seleziona l'ente "mittente"

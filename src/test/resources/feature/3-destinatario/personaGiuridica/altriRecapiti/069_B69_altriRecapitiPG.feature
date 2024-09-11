@@ -26,13 +26,13 @@ Feature: La persona giuridica visualizza tutti gli elementi della sezione altri 
     And Nella sezione altri recapiti si clicca sul bottone annulla di popup
     And Nella sezione altri recapiti si clicca sul bottone associa
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova@pec.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP scaduto
     And Nella sezione altri recapiti si visualizza correttamente il messaggio di errore di popup
     And Nella sezione altri recapiti si clicca sul bottone annulla di popup
     And Nella sezione altri recapiti si clicca sul bottone associa
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova@pec.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Si verifica se popup conferma presente
     Then Si visualizzano correttamente tutti gli elementi della sezione altri recapiti

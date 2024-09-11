@@ -60,7 +60,7 @@ public class RestContact {
      * @throws RestContactException if there is an error during the request
      */
     public void removeDigitalAddressLegalPec() throws RestContactException {
-        String url = "https://webapi." + env + ".notifichedigitali.it/address-book/v1/digital-address/legal/default/PEC";
+        String url = "https://webapi." + env + ".notifichedigitali.it/bff/v1/addresses/LEGAL/default/PEC";
         String response = "";
         try {
             response = httpClient.sendHttpDeleteRequest(url, this.headers, String.class);
@@ -97,7 +97,7 @@ public class RestContact {
     public DigitalAddressResponse getDigitalAddress() throws RestContactException {
         CustomHttpClient<?, DigitalAddressResponse> httpClientDigitalAddress = CustomHttpClient.getInstance();
         httpClientDigitalAddress.setBaseUrlApi("https://webapi." + env + ".notifichedigitali.it");
-        String url = "/address-book/v1/digital-address";
+        String url = "/bff/v1/addresses/LEGAL/default/PEC";
         try {
             DigitalAddressResponse response = httpClientDigitalAddress.sendHttpGetRequest(url, this.headers, DigitalAddressResponse.class);
             logger.info("Risposta ricevuta: " + response);

@@ -3,7 +3,6 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.java.it.Ma;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.model.delegate.DelegatePF;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
@@ -22,6 +21,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -35,8 +35,6 @@ import java.util.concurrent.TimeUnit;
 public class DeleghePagoPATest {
 
     private final WebDriver driver = Hooks.driver;
-    Map<String, Object> deleghe = new HashMap<>();
-
     private final LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
     private final PopUpRevocaDelegaSection popUpRevocaDelegaSection = new PopUpRevocaDelegaSection(this.driver);
     private final DataPopulation dataPopulation = new DataPopulation();
@@ -44,11 +42,10 @@ public class DeleghePagoPATest {
     private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
     private final DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
     private final MandateSingleton mandateSingleton = MandateSingleton.getInstance();
+    private final RestDelegation restDelegation = RestDelegation.getInstance();
+    Map<String, Object> deleghe = new HashMap<>();
     @Setter
     private String codiceVerifica;
-
-
-    private final RestDelegation restDelegation = RestDelegation.getInstance();
 
     @When("Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe")
     public void waitDelegheButton() {
@@ -137,6 +134,13 @@ public class DeleghePagoPATest {
 
     @And("Nella sezione Deleghe si clicca sul menu della delega")
     public void nellaSezioneDelegheSiCliccaSulMenuDellaDelega(Map<String, String> personaFisica) {
+        log.info("Si clicca sul menu della delega");
+        String fullName = personaFisica.get("nome") + " " + personaFisica.get("cognome");
+        deleghePage.clickMenuDelegante(fullName);
+    }
+
+    @And("Nella sezione Deleghe si clicca sul menu dei delegati")
+    public void nellaSezioneDelegheSiCliccaSulMenuDeliDelegati(Map<String, String> personaFisica) {
         log.info("Si clicca sul menu della delega");
         String fullName = personaFisica.get("nome") + " " + personaFisica.get("cognome");
         deleghePage.clickMenuDelegato(fullName);
@@ -229,7 +233,7 @@ public class DeleghePagoPATest {
     }
 
     @And("Si inserisce il codice delega nel pop-up OTP")
-    public void inserisceCodiceOTPDelega(){
+    public void inserisceCodiceOTPDelega() {
         this.leTueDelegheSection.waitPopUpLoad();
         this.leTueDelegheSection.inserireCodiceDelega(codiceVerifica);
     }
@@ -255,10 +259,10 @@ public class DeleghePagoPATest {
 
         String verificationCode = "";
         leTueDelegheSection.waitPopUpLoad();
-        if (data.equalsIgnoreCase("corretto")) {
-            verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()));
-        } else {
+        if (data.equalsIgnoreCase("errato")) {
             verificationCode = "54321";
+        } else {
+            verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()));
         }
         leTueDelegheSection.inserireCodiceDelega(verificationCode);
     }
@@ -292,8 +296,8 @@ public class DeleghePagoPATest {
         String tokenExchange = loginPersonaFisicaPagoPA.getTokenExchangePFFromFile(personaFisica.get("accessoCome"));
         DelegateResponsePF response = restDelegation.addDelegationPF(delegateRequestPF, tokenExchange);
         if (response != null) {
-            mandateSingleton.setScenarioMandateId(Hooks.getScenario(),response.getMandateId());
-            mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()),response.getVerificationCode() );
+            mandateSingleton.setScenarioMandateId(Hooks.getScenario(), response.getMandateId());
+            mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()), response.getVerificationCode());
         }
         driver.navigate().refresh();
     }
@@ -478,7 +482,8 @@ public class DeleghePagoPATest {
         String cognome = personaFisica.get("cognome");
         BackgroundTest backgroundTest = new BackgroundTest();
 
-        if (!this.deleghePage.siVisualizzaUnaDelegaConNome(nome, cognome)) {
+        if (!deleghePage.siVisualizzaUnaDelegaConNome(nome, cognome)) {
+            WebTool.waitTime(5);
             backgroundTest.aggiuntaNuovaDelegaPF();
         }
     }
