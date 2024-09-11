@@ -29,18 +29,17 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | stato     | Italia                |
     And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario inserire i dati del destinatario persona giuridica aggiuntiva
-      | soggettoGiuridico | PG               |
-      | ragioneSociale    | Le Epistolae srl |
-      | codiceFiscale     | LELPTR04A01C352E |
-      | pec               | mail@fail.it     |
-      | indirizzo         | Via Roma         |
-      | civico            | 20               |
-      | localita          | Milano           |
-      | comune            | Milano           |
-      | provincia         | MI               |
-      | cap               | 20147            |
-      | stato             | Italia           |
-    And Aspetta 10 secondi
+      | soggettoGiuridico | PG           |
+      | ragioneSociale    | Convivio Spa |
+      | codiceFiscale     | 27957814470  |
+      | pec               | mail@fail.it |
+      | indirizzo         | Via Roma     |
+      | civico            | 20           |
+      | localita          | Milano       |
+      | comune            | Milano       |
+      | provincia         | MI           |
+      | cap               | 20147        |
+      | stato             | Italia       |
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     Then Nella section Allegati si carica un atto
