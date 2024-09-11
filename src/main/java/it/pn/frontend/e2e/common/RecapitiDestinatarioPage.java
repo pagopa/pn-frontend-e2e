@@ -363,7 +363,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         return pec.getText().equals(pecInserita);
     }
 
-
     public void clickSuEliminaPec() {
         getWebDriverWait(10).withMessage("Il bottone elimina della PEC associata non è cliccabile").until(ExpectedConditions.elementToBeClickable(eliminaPECButton));
         logger.info("click sul pulsante elimina pec");
