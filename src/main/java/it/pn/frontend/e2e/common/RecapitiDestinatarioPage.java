@@ -28,7 +28,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(xpath = "//button[@data-testid='add email']")
     WebElement avvisamiMailButton;
 
-    @FindBy(xpath = "//button[@data-testid='add phone']")
+    @FindBy(xpath = "//button[@data-testid='courtesy-sms-button']")
     WebElement avvisamiSMSButton;
 
     @FindBy(id = "default_email")
