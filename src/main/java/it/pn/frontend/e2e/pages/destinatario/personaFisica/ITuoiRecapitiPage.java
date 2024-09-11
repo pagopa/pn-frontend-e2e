@@ -16,7 +16,7 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(id = "side-item-I tuoi recapiti")
     WebElement iTuoiRecapitiButton;
 
-    @FindBy(id = "phone")
+    @FindBy(id = "default_sms")
     WebElement phoneNumInputField;
 
     @FindBy(xpath = "//button[@data-testid='add phone']")
@@ -70,7 +70,7 @@ public class ITuoiRecapitiPage extends BasePage {
             getWebDriverWait(10).withMessage("il sottotitolo del contatto di cortesia non è presente o non ha il testo corretto").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(courtesyContactSubtitle),
                     ExpectedConditions.textToBe(courtesyContactSubtitle, subtitleText)));
-            By emailTextBox = By.id("email");
+            By emailTextBox = By.id("default_email");
             getWebDriverWait(10).withMessage("il campo email non è presente o non ha il placeholder corretto").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(emailTextBox),
                     ExpectedConditions.attributeToBe(emailTextBox, "placeholder", "Il tuo indirizzo e-mail")
@@ -120,7 +120,7 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public void insertEmail(String emailPEC) {
-        By inserimentoEmailFieldBy = By.id("email");
+        By inserimentoEmailFieldBy = By.id("default_email");
         getWebDriverWait(10).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoEmailFieldBy));
         this.element(inserimentoEmailFieldBy).sendKeys(emailPEC);
     }
@@ -207,7 +207,7 @@ public class ITuoiRecapitiPage extends BasePage {
     public void checkPostModifica() {
         By saveButton = By.id("saveModifyButton-default");
         By cancelButton = By.xpath("//button[contains(text(),'Annulla')]");
-        By emailField = By.id("email");
+        By emailField = By.id("default_email");
         getWebDriverWait(10).withMessage("Non si visualizza il bottone salva e non è cliccabile").until(ExpectedConditions.and(
                 ExpectedConditions.visibilityOfElementLocated(saveButton),
                 ExpectedConditions.elementToBeClickable(saveButton)));

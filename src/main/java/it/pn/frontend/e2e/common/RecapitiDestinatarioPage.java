@@ -31,10 +31,10 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(xpath = "//button[@data-testid='add phone']")
     WebElement avvisamiSMSButton;
 
-    @FindBy(id = "email")
+    @FindBy(id = "default_email")
     WebElement inserimentoMailField;
 
-    @FindBy(id = "phone")
+    @FindBy(id = "default_sms")
     WebElement inserimentoPhoneField;
 
     @FindBy(id = "cancelContact-default")
@@ -73,7 +73,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "courtesyContacts-phone")
     WebElement cellulareAssociato;
 
-    @FindBy(id = "pec")
+    @FindBy(id = "default_pec")
     WebElement pecField;
 
     @FindBy(id = "legalContacts")
@@ -357,7 +357,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public boolean siControllaPECModificata(String pecInserita) {
-        By pecBy = By.xpath("//div[@data-testid = 'legalContacts']//div//p");
+        By pecBy = By.id("default_pec-typography");
         getWebDriverWait(10).withMessage("Non trovata nessuna email PEC inserita").until(ExpectedConditions.visibilityOfElementLocated(pecBy));
         WebElement pec = this.element(pecBy);
         return pec.getText().equals(pecInserita);
