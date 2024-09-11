@@ -222,8 +222,8 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void checkRiquadroPEC() {
         try {
-            By titleSection = By.id("Recapito legale-page");
-            By pecField = By.id("pec");
+            By titleSection = By.xpath("//div[@data-testid='DigitalContactsCardBody']//*/div/div");
+            By pecField = By.id("default_pec");
             By confirmButton = By.id("add-contact");
             By infoBanner = By.xpath("//span[@data-testid='legal-contact-disclaimer']");
             getWebDriverWait(10).withMessage("Non si visualizza il titolo della sezione recapito legale o il contenuto è errato").until(ExpectedConditions.and(
