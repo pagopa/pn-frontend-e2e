@@ -19,7 +19,7 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(id = "default_sms")
     WebElement phoneNumInputField;
 
-    @FindBy(xpath = "//button[@data-testid='add phone']")
+    @FindBy(xpath = "//button[@data-testid='courtesy-sms-button']")
     WebElement avvisamiViaSMSButton;
 
     @FindBy(id = "addressType")
@@ -137,7 +137,7 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public String getPhoneErrorMessage() {
-        By errorBy = By.id("phone-helper-text");
+        By errorBy = By.id("default_sms-helper-text");
         WebElement errorMessage = driver.findElement(errorBy);
         getWebDriverWait(30).until(ExpectedConditions.visibilityOf(errorMessage));
         return errorMessage.getText();
