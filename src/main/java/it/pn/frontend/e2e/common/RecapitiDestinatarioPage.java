@@ -31,7 +31,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(xpath = "//button[@data-testid='add phone']")
     WebElement avvisamiSMSButton;
 
-    @FindBy(id = "email")
+    @FindBy(id = "default_email")
     WebElement inserimentoMailField;
 
     @FindBy(id = "phone")
@@ -67,7 +67,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "buttonAnnulla")
     WebElement buttonAnnullaEliminazioneInPopUp;
 
-    @FindBy(id = "courtesyContacts-email")
+    @FindBy(id = "default_email-typography")
     WebElement emailAssociata;
 
     @FindBy(id = "courtesyContacts-phone")

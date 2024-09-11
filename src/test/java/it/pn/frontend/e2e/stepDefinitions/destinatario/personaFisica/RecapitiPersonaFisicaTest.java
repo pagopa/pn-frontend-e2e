@@ -482,7 +482,7 @@ public class RecapitiPersonaFisicaTest {
 
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
-        String email = personaFisica.get("email").toString();
+        String email = personaFisica.get("mail").toString();
 
         BackgroundTest backgroundTest = new BackgroundTest();
 
