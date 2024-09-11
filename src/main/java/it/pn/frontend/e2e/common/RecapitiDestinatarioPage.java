@@ -52,7 +52,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "addressType")
     WebElement tipoIndirizzoField;
 
-    @FindBy(id = "s_pec")
+    @FindBy(id = "s_value")
     WebElement indirizzoPecField;
 
     @FindBy(id = "addSpecialButton")
@@ -569,7 +569,9 @@ public class RecapitiDestinatarioPage extends BasePage {
         vaiInFondoAllaPagina();
         By altriRecapitiSectionBy = By.xpath("//h5[contains(@id, 'specialContact')]");
         By titleGiaAssociatiBy = By.xpath("//p[contains(text(), 'Già associati')]");
-        WebElement tableGiaAssociati = driver.findElement(By.xpath("//table[@aria-label='Già associati']"));
+
+        WebElement tableGiaAssociati = driver.findElement(By.xpath("//*[@id='root']/div[1]/div/main/div/div[2]/div[2]/div/div/table"));
+        //WebElement tableGiaAssociati = driver.findElement(By.xpath("//table[@aria-label='Già associati']"));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
         getWebDriverWait(10).withMessage("Non si visualizza il titolo della tabella").until(ExpectedConditions.visibilityOfElementLocated(titleGiaAssociatiBy));
         getWebDriverWait(10).withMessage("Non si visualizza la tabella dei recapiti già associati").until(ExpectedConditions.visibilityOf(tableGiaAssociati));
