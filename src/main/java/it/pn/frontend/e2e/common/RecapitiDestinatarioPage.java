@@ -97,7 +97,8 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickSuChiudiPopUp() {
-        By chiudiButtonBy = By.xpath("//button[contains(text(),'Chiudi')]");
+        //By chiudiButtonBy = By.xpath("//button[contains(text(),'Chiudi')]");
+        By chiudiButtonBy = By.xpath("//h2[@id='dialog-title']/following-sibling::div/button[contains(text(),'Annulla')]");
         getWebDriverWait(10).withMessage("Il bottone chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudiButtonBy));
         this.js().executeScript("arguments[0].click()", this.element(chiudiButtonBy));
     }
@@ -265,7 +266,6 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickConfermaButton() {
-        WebTool.waitTime(50);
         getWebDriverWait(10).withMessage("Il bottone conferma del pop up non é cliccabile").until(ExpectedConditions.elementToBeClickable(confermaButtonPoPUpPec));
         this.confermaButtonPoPUpPec.click();
     }
