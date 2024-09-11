@@ -16,7 +16,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "add-contact")
     WebElement confermaButton;
 
-    @FindBy(xpath = "//button[@data-testid='add email']")
+    @FindBy(xpath = "//button[@data-testid='courtesy-email-button']")
     WebElement avvisamiViaEmailButton;
 
     @FindBy(id = "code-confirm-button")
@@ -31,10 +31,10 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(xpath = "//button[@data-testid='add phone']")
     WebElement avvisamiSMSButton;
 
-    @FindBy(id = "default_email")
+    @FindBy(id = "email")
     WebElement inserimentoMailField;
 
-    @FindBy(id = "default_sms")
+    @FindBy(id = "phone")
     WebElement inserimentoPhoneField;
 
     @FindBy(id = "cancelContact-default")
@@ -61,7 +61,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "s_mail")
     WebElement emailField;
 
-    @FindBy(xpath = "//form[@data-testid = 'specialContactForm']//div//button[contains(text(),'Elimina')]")
+    @FindBy(xpath = "//form[@data-testid = 'default_pecContact']//button[contains(text(),'Elimina')]")
     List<WebElement> eliminaButtonList;
 
     @FindBy(id = "buttonAnnulla")
@@ -362,6 +362,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         WebElement pec = this.element(pecBy);
         return pec.getText().equals(pecInserita);
     }
+
 
     public void clickSuEliminaPec() {
         getWebDriverWait(10).withMessage("Il bottone elimina della PEC associata non è cliccabile").until(ExpectedConditions.elementToBeClickable(eliminaPECButton));
