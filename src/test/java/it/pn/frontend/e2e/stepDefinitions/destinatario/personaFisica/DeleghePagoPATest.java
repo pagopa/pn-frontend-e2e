@@ -34,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class DeleghePagoPATest {
 
+
     private final WebDriver driver = Hooks.driver;
     private final LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
     private final PopUpRevocaDelegaSection popUpRevocaDelegaSection = new PopUpRevocaDelegaSection(this.driver);
