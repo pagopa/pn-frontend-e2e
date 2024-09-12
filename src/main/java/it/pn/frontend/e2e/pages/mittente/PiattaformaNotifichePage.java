@@ -217,17 +217,18 @@ public class PiattaformaNotifichePage extends BasePage {
         dataInizioField = driver.findElement(By.id("startDate"));
         dataFineField = driver.findElement(By.id("endDate"));
 
-        this.getWebDriverWait(10)
-                .until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField, this.dataFineField));
-
-        this.dataInizioField.click();
+        getWebDriverWait(10)
+                .until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
+        WebTool.waitTime(20);
+        dataInizioField.click();
         WebTool.waitTime(5);
-        this.dataInizioField.sendKeys(da);
-        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", da));
-        this.dataFineField.click();
+        dataInizioField.sendKeys(da);
+        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
+        WebTool.waitTime(20);
+        dataFineField.click();
         WebTool.waitTime(5);
-        this.dataFineField.sendKeys(a);
-        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataFineField, "value", a));
+        dataFineField.sendKeys(a);
+        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
     }
 
     public int getListDate() {
