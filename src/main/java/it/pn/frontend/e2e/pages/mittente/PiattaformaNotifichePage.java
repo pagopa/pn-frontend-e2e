@@ -217,15 +217,14 @@ public class PiattaformaNotifichePage extends BasePage {
         dataInizioField = driver.findElement(By.id("startDate"));
         dataFineField = driver.findElement(By.id("endDate"));
 
-        getWebDriverWait(10)
-                .until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
-
-        dataInizioField.click();
-        WebTool.waitTime(5);
+        //getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
+        getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(By.id("startDate"))).click();
+       // dataInizioField.click();
         dataInizioField.sendKeys(da);
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
-        dataFineField.click();
-        WebTool.waitTime(5);
+
+        getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(By.id("endDate"))).click();
+       // dataFineField.click();
         dataFineField.sendKeys(a);
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
     }
