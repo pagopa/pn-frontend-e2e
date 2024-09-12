@@ -214,22 +214,17 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void inserimentoArcoTemporale(String da, String a) {
 
-        dataInizioField = driver.findElement(By.xpath(".//*[@id='startDate']"));
-        dataFineField = driver.findElement(By.xpath(".//*[@id='endDate']"));
+        dataInizioField = driver.findElement(By.id("startDate"));
+        dataFineField = driver.findElement(By.id("endDate"));
 
         this.getWebDriverWait(10)
                 .until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField, this.dataFineField));
 
-       // this.dataInizioField.click();
-
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
-        jse.executeScript("arguments[0].click();", dataInizioField);
-
+        this.dataInizioField.click();
         WebTool.waitTime(5);
         this.dataInizioField.sendKeys(da);
         this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", da));
-       // this.dataFineField.click();
-        jse.executeScript("arguments[0].click();", dataFineField);
+        this.dataFineField.click();
         WebTool.waitTime(5);
         this.dataFineField.sendKeys(a);
         this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataFineField, "value", a));
