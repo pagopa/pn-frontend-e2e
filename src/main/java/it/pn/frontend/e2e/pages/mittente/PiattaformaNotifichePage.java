@@ -220,11 +220,16 @@ public class PiattaformaNotifichePage extends BasePage {
         this.getWebDriverWait(10)
                 .until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField, this.dataFineField));
 
-        this.dataInizioField.click();
+       // this.dataInizioField.click();
+
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("arguments[0].click();", dataInizioField);
+
         WebTool.waitTime(5);
         this.dataInizioField.sendKeys(da);
         this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", da));
-        this.dataFineField.click();
+       // this.dataFineField.click();
+        jse.executeScript("arguments[0].click();", dataFineField);
         WebTool.waitTime(5);
         this.dataFineField.sendKeys(a);
         this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataFineField, "value", a));
