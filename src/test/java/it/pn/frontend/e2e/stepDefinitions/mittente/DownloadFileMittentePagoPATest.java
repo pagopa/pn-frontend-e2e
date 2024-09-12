@@ -228,7 +228,7 @@ public class DownloadFileMittentePagoPATest {
     @Then("Si clicca sul documento Attestazione scaduta")
     public void clickDocumentoAttestazioneScaduta() {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        dettaglioNotificaSection.clickLinkAttestazioniOpponibile(0);
+        dettaglioNotificaSection.clickLinkAttestazioniOpponibile(1);
     }
 
     @And("Nella sezione Dettaglio Notifiche si scarica il file AAR")
