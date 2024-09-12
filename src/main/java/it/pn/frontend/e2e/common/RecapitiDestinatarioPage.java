@@ -472,7 +472,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean verificaNuovaEmailEPEC(String nuovaEmail) {
         try {
-            By emailBy = By.xpath("//form[@data-testid = 'specialContactForm']//div//p[contains(text(),'" + nuovaEmail + "')]");
+            By emailBy = By.xpath(" //div[@data-testid = 'DigitalContactsCardBody']//p[contains(text(),'" + nuovaEmail + "')]");
             this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(emailBy));
             return true;
         } catch (TimeoutException e) {
