@@ -58,7 +58,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "addSpecialButton")
     WebElement associaButton;
 
-    @FindBy(id = "s_mail")
+    @FindBy(id = "s_value")
     WebElement emailField;
 
     @FindBy(xpath = "//form[@data-testid = 'default_pecContact']//button[contains(text(),'Elimina')]")
@@ -402,6 +402,8 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void insertEnte(String comune) {
+        WebTool.waitTime(5);
+        enteField = driver.findElement(By.id("sender"));
         this.enteField.sendKeys(comune);
         // wait 2seconds for the list to appear
         try {
@@ -455,7 +457,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void siControllaEmailAggiunta() {
-        By pecAssociataBy = By.xpath("//form[@data-testid='specialContactForm']");
+        By pecAssociataBy = By.xpath("//form[@data-testid='a95dace4-4a47-4149-a814-0e669113ce40_emailContact']");
         this.getWebDriverWait(10).withMessage("La mail non è stata aggiunta correttamente").until(ExpectedConditions.visibilityOfElementLocated(pecAssociataBy));
     }
 
@@ -483,11 +485,13 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void eliminaNuovaEmail() {
         int posizioneElimina = this.eliminaButtonList.size() - 1;
-        this.getWebDriverWait(10).withMessage("Non è stato possibile cliccare sul bottone elimina email").until(ExpectedConditions.elementToBeClickable(this.eliminaButtonList.get(posizioneElimina)));
-        this.js().executeScript("arguments[0].click()", this.eliminaButtonList.get(posizioneElimina));
-        By confermaPopUpBy = By.xpath("//div[@aria-labelledby='dialog-title']//div/button[contains(text(),'Conferma')]");
-        this.getWebDriverWait(10).withMessage("Il bottone del pop-up non è cliccabile").until(ExpectedConditions.elementToBeClickable(confermaPopUpBy));
-        this.element(confermaPopUpBy).click();
+        if( posizioneElimina != -1 ) {
+            this.getWebDriverWait(10).withMessage("Non è stato possibile cliccare sul bottone elimina email").until(ExpectedConditions.elementToBeClickable(this.eliminaButtonList.get(posizioneElimina)));
+            this.js().executeScript("arguments[0].click()", this.eliminaButtonList.get(posizioneElimina));
+            By confermaPopUpBy = By.xpath("//div[@aria-labelledby='dialog-title']//div/button[contains(text(),'Conferma')]");
+            this.getWebDriverWait(10).withMessage("Il bottone del pop-up non è cliccabile").until(ExpectedConditions.elementToBeClickable(confermaPopUpBy));
+            this.element(confermaPopUpBy).click();
+        }
 
     }
 
