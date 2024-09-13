@@ -135,7 +135,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selectFiltraNotificaButtonMittente() {
-        WebTool.waitTime(5);
+        WebTool.waitTime(10);
         filtraNotificaButtonMittente = driver.findElement(By.id("filter-button"));
         getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(filtraNotificaButtonMittente));
         filtraNotificaButtonMittente.click();
@@ -222,12 +222,19 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
 
         dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
-        String argumentsJS ="arguments[0].setAttribute('value', '"+da+"')";
-        this.js().executeScript(argumentsJS, dataInizioField);
-        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
-        String argumentsJS1 ="arguments[0].setAttribute('value', '"+a+"')";
-        this.js().executeScript(argumentsJS1, dataFineField);
-        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
+        dataInizioField.click();
+        dataInizioField.sendKeys(da);
+
+        //String argumentsJS ="arguments[0].setAttribute('value', '"+da+"')";
+        //js().executeScript(argumentsJS, dataInizioField);
+        //getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
+
+        dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
+        dataFineField.click();
+        dataFineField.sendKeys(a);
+       // String argumentsJS1 ="arguments[0].setAttribute('value', '"+a+"')";
+        //js().executeScript(argumentsJS1, dataFineField);
+       // getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
     }
 
     public int getListDate() {
@@ -246,10 +253,10 @@ public class PiattaformaNotifichePage extends BasePage {
             this.getWebDriverWait(30).until(elementToBeClickable(statoNotificaBy));
 
             if (this.element(statoNotificaBy).isDisplayed()) {
-                this.js().executeScript("arguments[0].click()", this.element(statoNotificaBy));
+                js().executeScript("arguments[0].click()", this.element(statoNotificaBy));
             } else {
-                this.js().executeScript("arguments[0].scrollIntoView(true);", this.element(statoNotificaBy));
-                this.js().executeScript("arguments[0].click()", this.element(statoNotificaBy));
+                js().executeScript("arguments[0].scrollIntoView(true);", this.element(statoNotificaBy));
+                js().executeScript("arguments[0].click()", this.element(statoNotificaBy));
             }
             logger.info("Stato notifica selezionato correttamente");
         } catch (TimeoutException e) {
