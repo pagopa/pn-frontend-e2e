@@ -219,12 +219,14 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
 
        // dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
-        dataInizioField =  getWebDriverWait(15).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='startDate']")));
+        getWebDriverWait(15).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='startDate']")));
         //dataInizioField.click();
         //JavascriptExecutor to click element
        // js().executeScript("arguments[0].click();", dataInizioField);
         driver.findElement(By.xpath("//*[@id='startDate']")).click();
-        driver.findElement(By.xpath("//*[@id='startDate']")).sendKeys(da);
+        scrollToElementClickAndInsertText(driver.findElement(By.xpath("//*[@id='startDate']")),a);
+
+        //driver.findElement(By.xpath("//*[@id='startDate']")).sendKeys(da);
 
        // dataInizioField.sendKeys(Keys.ENTER);
         //WebTool.waitTime(10);
@@ -236,10 +238,11 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
 
         //dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
-        dataFineField = getWebDriverWait(15).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='endDate']")));
+        getWebDriverWait(15).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='endDate']")));
         //js().executeScript("arguments[0].click()", dataFineField);
         driver.findElement(By.xpath("//*[@id='endDate']")).click();
-        driver.findElement(By.xpath("//*[@id='endDate']")).sendKeys(a);
+        scrollToElementClickAndInsertText(driver.findElement(By.xpath("//*[@id='endDate']")),a);
+        //driver.findElement(By.xpath("//*[@id='endDate']")).sendKeys(a);
         //dataFineField.click();
         //js().executeScript("arguments[0].click();", dataFineField);
         // js().executeScript("arguments[0].click()", dataFineField);
