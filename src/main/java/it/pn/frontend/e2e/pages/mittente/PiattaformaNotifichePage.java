@@ -218,24 +218,26 @@ public class PiattaformaNotifichePage extends BasePage {
         WebTool.waitTime(10);
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
 
-        dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
+       // dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
+        dataInizioField =  getWebDriverWait(15).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='startDate']")));
         dataInizioField.click();
-        WebTool.waitTime(5);
+
         dataInizioField.sendKeys(da);
         //js().executeScript("arguments[0].click()", dataInizioField);
-        // String argumentsJS =  "arguments[0].setAttribute('value', '" + da + "')";
-        // js().executeScript(argumentsJS, dataInizioField);
+       // String argumentsJS =  "arguments[0].setAttribute('value', '" + da + "')";
+       // js().executeScript(argumentsJS, dataInizioField);
 
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
 
-        dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
+        //dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
+        dataFineField = getWebDriverWait(15).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='endDate']")));
+        //js().executeScript("arguments[0].click()", dataFineField);
         dataFineField.click();
-        WebTool.waitTime(5);
         // js().executeScript("arguments[0].click()", dataFineField);
-        dataFineField.sendKeys(a);
+       dataFineField.sendKeys(a);
         //js().executeScript("arguments[0].click()", dataFineField);
         //String argumentsJS1 = "arguments[0].setAttribute('value', '" + a + "')";
-        // js().executeScript(argumentsJS1, dataFineField);
+        //js().executeScript(argumentsJS1, dataFineField);
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
     }
 
