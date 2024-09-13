@@ -216,29 +216,29 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void inserimentoArcoTemporale(String da, String a) {
         WebTool.waitTime(10);
-        dataInizioField = driver.findElement(By.id("startDate"));
-        dataFineField = driver.findElement(By.id("endDate"));
-
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
 
         dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
-        //dataInizioField.click();
-        js().executeScript("arguments[0].click()", dataInizioField);
+        dataInizioField.click();
+        WebTool.waitTime(5);
         dataInizioField.sendKeys(da);
-        //js().executeScript("document.getElementById('startDate').value='"+da+"'");
-        //String argumentsJS ="arguments[0].setAttribute('value', '"+da+"')";
-        //js().executeScript(argumentsJS, dataInizioField);
+        //js().executeScript("arguments[0].click()", dataInizioField);
+        // String argumentsJS =  "arguments[0].setAttribute('value', '" + da + "')";
+        // js().executeScript(argumentsJS, dataInizioField);
+
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
 
         dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
-        //dataFineField.click();
-        js().executeScript("arguments[0].click()", dataFineField);
+        dataFineField.click();
+        WebTool.waitTime(5);
+        // js().executeScript("arguments[0].click()", dataFineField);
         dataFineField.sendKeys(a);
-        //js().executeScript("document.getElementById('endDate').value='"+a+"'");
-       // String argumentsJS1 ="arguments[0].setAttribute('value', '"+a+"')";
-        //js().executeScript(argumentsJS1, dataFineField);
+        //js().executeScript("arguments[0].click()", dataFineField);
+        //String argumentsJS1 = "arguments[0].setAttribute('value', '" + a + "')";
+        // js().executeScript(argumentsJS1, dataFineField);
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
     }
+
 
     public int getListDate() {
         By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]");
@@ -392,10 +392,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void inserimentoData(String dataInserita) {
         getWebDriverWait(10).withMessage("il campo data non è visibile nella pagina").until(ExpectedConditions.visibilityOf(this.dataInizioField));
-        dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
-        String argumentsJS ="arguments[0].setAttribute('value', '"+dataInserita+"')";
-        this.js().executeScript(argumentsJS, dataInizioField);
-        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", dataInserita));
+        this.dataInizioField.click();
+        this.dataInizioField.sendKeys(dataInserita);
+        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", dataInserita));
     }
 
     public boolean verificaEsistenzaRisultati() {
@@ -559,13 +558,13 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void siCambiaPaginaUtilizzandoUnaFrecetta(Integer numPage) {
-        Integer index= 1;
+        Integer index = 1;
         this.getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile")
                 .until(ExpectedConditions.visibilityOf(this.frecciaPaginaSuccessiva));
         if (!frecciaPaginaSuccessiva.isDisplayed()) {
             this.js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
         }
-        while(index <= numPage){
+        while (index <= numPage) {
             frecciaPaginaSuccessiva.click();
             index++;
             WebTool.waitTime(2);
@@ -694,7 +693,7 @@ public class PiattaformaNotifichePage extends BasePage {
         List<WebElement> inputElements = preliminaryInformationsForm.findElements(By.tagName("input"));
         for (WebElement inputElement : inputElements) {
             if (inputElement.getAttribute("type").equals("text") && !inputElement.getAttribute("value").isEmpty()) {
-                if (!inputElement.getAttribute("value").equalsIgnoreCase("comune di verona")){
+                if (!inputElement.getAttribute("value").equalsIgnoreCase("comune di verona")) {
                     return false;
                 }
             }
@@ -757,11 +756,11 @@ public class PiattaformaNotifichePage extends BasePage {
         String paginaString = "page" + pagina;
         By paginaBy = By.id(paginaString);
 
-            getWebDriverWait(30).withMessage("Il bottone pagina " + pagina + " non è cliccabile")
-                    .until(elementToBeClickable(element(paginaBy)));
-            js().executeScript("arguments[0].scrollIntoView(true);", element(paginaBy));
-            element(paginaBy).click();
-            logger.info("Bottone pagina " + pagina + " cliccato correttamente");
+        getWebDriverWait(30).withMessage("Il bottone pagina " + pagina + " non è cliccabile")
+                .until(elementToBeClickable(element(paginaBy)));
+        js().executeScript("arguments[0].scrollIntoView(true);", element(paginaBy));
+        element(paginaBy).click();
+        logger.info("Bottone pagina " + pagina + " cliccato correttamente");
     }
 
     public void checkPaginaNotificheDelegante(String nomeDelegante) {
@@ -783,9 +782,9 @@ public class PiattaformaNotifichePage extends BasePage {
     public void verificaPresenzaStato(String stato) {
         WebTool.waitTime(10);
         By statusChip = By.xpath("//div[@data-testid='itemStatus']//span[contains(text(),'" + stato + "')]");
-          getWebDriverWait(10).withMessage("Lo stato " + stato + " non è presente")
-                    .until(ExpectedConditions.visibilityOfElementLocated(statusChip));
-            logger.info("Stato {} presente", stato);
+        getWebDriverWait(10).withMessage("Lo stato " + stato + " non è presente")
+                .until(ExpectedConditions.visibilityOfElementLocated(statusChip));
+        logger.info("Stato {} presente", stato);
     }
 
     public void verificaNotificaCreata() {
@@ -824,13 +823,12 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
 
-
     public void clickSuNotifica() {
         String iun = notificationSingleton.getIun(Hooks.scenario);
         logger.info("iun notifica {}", iun);
         //By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
         WebTool.waitTime(10);
-       WebElement notification = driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]"));
+        WebElement notification = driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]"));
         getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOf(notification));
         notification.click();
     }
@@ -838,9 +836,9 @@ public class PiattaformaNotifichePage extends BasePage {
     public void checkStatoNotifica(String stato) {
         driver.navigate().refresh();
         WebTool.waitTime(10);
-            WebElement notificationLine = notificationsTableLines.get(0);
-            WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + stato));
-            getWebDriverWait(10).withMessage("La notifica non ha lo stato " + stato).until(ExpectedConditions.visibilityOf(chipStatus));
+        WebElement notificationLine = notificationsTableLines.get(0);
+        WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + stato));
+        getWebDriverWait(10).withMessage("La notifica non ha lo stato " + stato).until(ExpectedConditions.visibilityOf(chipStatus));
     }
 
     public void selezionaNotificaConStato(String statoNotifica) {
@@ -870,7 +868,7 @@ public class PiattaformaNotifichePage extends BasePage {
         boolean testSuccess = false;
         for (int i = 0; i < 15; i++) {
             try {
-                WebElement chipStatus = driver.findElement(By.id(statoNotifica + "-status" ));
+                WebElement chipStatus = driver.findElement(By.id(statoNotifica + "-status"));
                 if (chipStatus.isDisplayed()) {
                     logger.info("La notifica è passata allo stato " + statoNotifica + " e si procede con il test");
                     driver.navigate().refresh();
@@ -890,18 +888,18 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void clickAnnullaNotificaModale() {
-            By bottoneAnnullaNotificaModale = By.xpath("//button[@data-testid='modalCloseAndProceedBtnId']");
-            getWebDriverWait(20).until(ExpectedConditions.and(
-                    ExpectedConditions.visibilityOfElementLocated(bottoneAnnullaNotificaModale),
-                    ExpectedConditions.elementToBeClickable(bottoneAnnullaNotificaModale)));
-            element(bottoneAnnullaNotificaModale).click();
+        By bottoneAnnullaNotificaModale = By.xpath("//button[@data-testid='modalCloseAndProceedBtnId']");
+        getWebDriverWait(20).until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOfElementLocated(bottoneAnnullaNotificaModale),
+                ExpectedConditions.elementToBeClickable(bottoneAnnullaNotificaModale)));
+        element(bottoneAnnullaNotificaModale).click();
     }
 
 
     public void checkPopUpConfermaAnnullamentoNotifica() {
 
-            By popUpConfermaAnnullamento = By.xpath("//div[@role='alert']/div[text()='La richiesta di annullamento è stata accettata.']");
-            getWebDriverWait(10).withMessage("Pop up NON visualizzato").until(ExpectedConditions.visibilityOfElementLocated(popUpConfermaAnnullamento));
+        By popUpConfermaAnnullamento = By.xpath("//div[@role='alert']/div[text()='La richiesta di annullamento è stata accettata.']");
+        getWebDriverWait(10).withMessage("Pop up NON visualizzato").until(ExpectedConditions.visibilityOfElementLocated(popUpConfermaAnnullamento));
 
     }
 
@@ -996,37 +994,38 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void checkAARScaricabili() {
-            By linkAAR = By.xpath("//button[contains(., 'Avviso di avvenuta ricezione') and @id='document-button']");
-            getWebDriverWait(10).withMessage("Il bottone per il download degli AAR non è visibile e non è disattivato").until(ExpectedConditions.and(
-                    ExpectedConditions.attributeToBe(linkAAR, "disabled", "true"),
-                    ExpectedConditions.visibilityOfElementLocated(linkAAR)
-            ));
+        By linkAAR = By.xpath("//button[contains(., 'Avviso di avvenuta ricezione') and @id='document-button']");
+        getWebDriverWait(10).withMessage("Il bottone per il download degli AAR non è visibile e non è disattivato").until(ExpectedConditions.and(
+                ExpectedConditions.attributeToBe(linkAAR, "disabled", "true"),
+                ExpectedConditions.visibilityOfElementLocated(linkAAR)
+        ));
     }
 
     public void checkAttestazioniOpponibiliATerziScaricabili() {
 
-            By linkAttestazione = By.xpath("//button[contains(text(), 'Attestazione opponibile a terzi') and @data-testid='download-legalfact']");
-            getWebDriverWait(10).withMessage("Il bottone per il download delle attestazioni opponibili a terzi non è visibile e non è disattivato").until(ExpectedConditions.and(
-                    ExpectedConditions.attributeToBe(linkAttestazione, "disabled", "true"),
-                    ExpectedConditions.visibilityOfElementLocated(linkAttestazione)
-            ));
+        By linkAttestazione = By.xpath("//button[contains(text(), 'Attestazione opponibile a terzi') and @data-testid='download-legalfact']");
+        getWebDriverWait(10).withMessage("Il bottone per il download delle attestazioni opponibili a terzi non è visibile e non è disattivato").until(ExpectedConditions.and(
+                ExpectedConditions.attributeToBe(linkAttestazione, "disabled", "true"),
+                ExpectedConditions.visibilityOfElementLocated(linkAttestazione)
+        ));
 
     }
 
     public void checkRicevutePECScaricabili() {
 
-            By linkAccettazionePEC = By.xpath("//button[contains(., 'Ricevuta di accettazione PEC') and @data-testid='download-legalfact']");
-            By linkConsegnaPEC = By.xpath("//button[contains(., 'Ricevuta di consegna PEC') and @data-testid='download-legalfact']");
-            getWebDriverWait(10).withMessage("Il bottone per scaricare la ricevuta di accettazione PEC non è visibile e non è disattivato").until(ExpectedConditions.and(
-                    ExpectedConditions.attributeToBe(linkAccettazionePEC, "disabled", "true"),
-                    ExpectedConditions.visibilityOfElementLocated(linkAccettazionePEC)
-            ));
-            getWebDriverWait(10).withMessage("Il bottone per scaricare la ricevuta di consegna PEC non è visibile e non è disattivato").until(ExpectedConditions.and(
-                    ExpectedConditions.attributeToBe(linkConsegnaPEC, "disabled", "true"),
-                    ExpectedConditions.visibilityOfElementLocated(linkConsegnaPEC)
-            ));
+        By linkAccettazionePEC = By.xpath("//button[contains(., 'Ricevuta di accettazione PEC') and @data-testid='download-legalfact']");
+        By linkConsegnaPEC = By.xpath("//button[contains(., 'Ricevuta di consegna PEC') and @data-testid='download-legalfact']");
+        getWebDriverWait(10).withMessage("Il bottone per scaricare la ricevuta di accettazione PEC non è visibile e non è disattivato").until(ExpectedConditions.and(
+                ExpectedConditions.attributeToBe(linkAccettazionePEC, "disabled", "true"),
+                ExpectedConditions.visibilityOfElementLocated(linkAccettazionePEC)
+        ));
+        getWebDriverWait(10).withMessage("Il bottone per scaricare la ricevuta di consegna PEC non è visibile e non è disattivato").until(ExpectedConditions.and(
+                ExpectedConditions.attributeToBe(linkConsegnaPEC, "disabled", "true"),
+                ExpectedConditions.visibilityOfElementLocated(linkConsegnaPEC)
+        ));
 
     }
+
     public void clickNotificaRicercata() {
         logger.info("Si clicca la notifica ricercata");
         try {
@@ -1120,7 +1119,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void checkClickDownloadRicevutePEC() {
         List<WebElement> ricevutePEC = driver.findElements(By.xpath("//button[contains(@data-testid, 'download-legalfact') and contains(text(), 'PEC')]"));
-        getWebDriverWait(10).withMessage("Le ricevute PEC non sono visibili").until(ExpectedConditions.and(ExpectedConditions.visibilityOfAllElements(ricevutePEC),ExpectedConditions.elementToBeClickable(ricevutePEC.get(0)),ExpectedConditions.elementToBeClickable(ricevutePEC.get(1))));
+        getWebDriverWait(10).withMessage("Le ricevute PEC non sono visibili").until(ExpectedConditions.and(ExpectedConditions.visibilityOfAllElements(ricevutePEC), ExpectedConditions.elementToBeClickable(ricevutePEC.get(0)), ExpectedConditions.elementToBeClickable(ricevutePEC.get(1))));
 
     }
 
