@@ -220,9 +220,15 @@ public class PiattaformaNotifichePage extends BasePage {
 
        // dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
         dataInizioField =  getWebDriverWait(15).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='startDate']")));
-        dataInizioField.click();
+        //dataInizioField.click();
+        //JavascriptExecutor to click element
+       // js().executeScript("arguments[0].click();", dataInizioField);
+        driver.findElement(By.xpath("//*[@id='startDate']")).click();
+        driver.findElement(By.xpath("//*[@id='startDate']")).sendKeys(da);
 
-        dataInizioField.sendKeys(da);
+       // dataInizioField.sendKeys(Keys.ENTER);
+        //WebTool.waitTime(10);
+        //dataInizioField.sendKeys(da);
         //js().executeScript("arguments[0].click()", dataInizioField);
        // String argumentsJS =  "arguments[0].setAttribute('value', '" + da + "')";
        // js().executeScript(argumentsJS, dataInizioField);
@@ -232,9 +238,15 @@ public class PiattaformaNotifichePage extends BasePage {
         //dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
         dataFineField = getWebDriverWait(15).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='endDate']")));
         //js().executeScript("arguments[0].click()", dataFineField);
-        dataFineField.click();
+        driver.findElement(By.xpath("//*[@id='endDate']")).click();
+        driver.findElement(By.xpath("//*[@id='endDate']")).sendKeys(a);
+        //dataFineField.click();
+        //js().executeScript("arguments[0].click();", dataFineField);
         // js().executeScript("arguments[0].click()", dataFineField);
-       dataFineField.sendKeys(a);
+
+        //dataFineField.sendKeys(Keys.ENTER);
+       // WebTool.waitTime(10);
+       // dataFineField.sendKeys(a);
         //js().executeScript("arguments[0].click()", dataFineField);
         //String argumentsJS1 = "arguments[0].setAttribute('value', '" + a + "')";
         //js().executeScript(argumentsJS1, dataFineField);
