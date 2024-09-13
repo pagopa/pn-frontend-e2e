@@ -214,18 +214,16 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void inserimentoArcoTemporale(String da, String a) {
         WebTool.waitTime(10);
-        logger.info("HTML..... "+driver.getPageSource());
         dataInizioField = driver.findElement(By.id("startDate"));
         dataFineField = driver.findElement(By.id("endDate"));
 
-        //getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
-        getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(By.id("startDate"))).click();
-       // dataInizioField.click();
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
+        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dataInizioField));
+        dataInizioField.click();
         dataInizioField.sendKeys(da);
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
-
-        getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(By.id("endDate"))).click();
-       // dataFineField.click();
+        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dataFineField));
+        dataFineField.click();
         dataFineField.sendKeys(a);
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
     }
