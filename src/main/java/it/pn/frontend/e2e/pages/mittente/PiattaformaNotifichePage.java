@@ -222,19 +222,22 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
 
         dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
-        dataInizioField.click();
+        //dataInizioField.click();
+        js().executeScript("arguments[0].click()", dataInizioField);
         dataInizioField.sendKeys(da);
-
+        //js().executeScript("document.getElementById('startDate').value='"+da+"'");
         //String argumentsJS ="arguments[0].setAttribute('value', '"+da+"')";
         //js().executeScript(argumentsJS, dataInizioField);
-        //getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
+        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
 
         dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
-        dataFineField.click();
+        //dataFineField.click();
+        js().executeScript("arguments[0].click()", dataFineField);
         dataFineField.sendKeys(a);
+        //js().executeScript("document.getElementById('endDate').value='"+a+"'");
        // String argumentsJS1 ="arguments[0].setAttribute('value', '"+a+"')";
         //js().executeScript(argumentsJS1, dataFineField);
-       // getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
+        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
     }
 
     public int getListDate() {
