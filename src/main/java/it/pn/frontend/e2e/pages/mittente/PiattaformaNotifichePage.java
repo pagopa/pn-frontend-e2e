@@ -220,6 +220,11 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
         getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dataInizioField));
         dataInizioField.click();
+
+        boolean checkdataInizioField = dataInizioField.isEnabled();
+        if (!checkdataInizioField) {
+            Assert.fail("Il campo non è abilitato alla scrittura");
+        }
         dataInizioField.sendKeys(da);
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
         getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dataFineField));
