@@ -135,6 +135,8 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selectFiltraNotificaButtonMittente() {
+        WebTool.waitTime(5);
+        filtraNotificaButtonMittente = driver.findElement(By.id("filter-button"));
         getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(filtraNotificaButtonMittente));
         filtraNotificaButtonMittente.click();
         logger.info("Bottone filtra, nella pagina del mittente, cliccato correttamente");
@@ -380,9 +382,10 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void inserimentoData(String dataInserita) {
         getWebDriverWait(10).withMessage("il campo data non è visibile nella pagina").until(ExpectedConditions.visibilityOf(this.dataInizioField));
-        this.dataInizioField.click();
-        this.dataInizioField.sendKeys(dataInserita);
-        this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", dataInserita));
+        dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
+        String argumentsJS ="arguments[0].setAttribute('value', '"+dataInserita+"')";
+        this.js().executeScript(argumentsJS, dataInizioField);
+        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", dataInserita));
     }
 
     public boolean verificaEsistenzaRisultati() {
