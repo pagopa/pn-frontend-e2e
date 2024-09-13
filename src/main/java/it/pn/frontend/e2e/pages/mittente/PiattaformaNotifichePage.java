@@ -220,21 +220,9 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
 
         dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
-
         String argumentsJS ="arguments[0].setAttribute('value', '"+da+"')";
         this.js().executeScript(argumentsJS, dataInizioField);
-
-        //dataInizioField.click();
-
-       // boolean checkdataInizioField = dataInizioField.isEnabled();
-       // if (!checkdataInizioField) {
-       //     Assert.fail("Il campo non è abilitato alla scrittura");
-        //}
-       // dataInizioField.sendKeys(da);
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
-        //dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
-        //dataFineField.click();
-        //dataFineField.sendKeys(a);
         String argumentsJS1 ="arguments[0].setAttribute('value', '"+a+"')";
         this.js().executeScript(argumentsJS1, dataFineField);
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
