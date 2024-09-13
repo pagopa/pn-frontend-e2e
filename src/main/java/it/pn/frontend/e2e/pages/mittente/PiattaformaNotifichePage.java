@@ -224,6 +224,7 @@ public class PiattaformaNotifichePage extends BasePage {
         //JavascriptExecutor to click element
        // js().executeScript("arguments[0].click();", dataInizioField);
         driver.findElement(By.xpath("//*[@id='startDate']")).click();
+        WebTool.waitTime(10);
         scrollToElementClickAndInsertText(driver.findElement(By.xpath("//*[@id='startDate']")),a);
 
         //driver.findElement(By.xpath("//*[@id='startDate']")).sendKeys(da);
@@ -241,6 +242,7 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(15).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='endDate']")));
         //js().executeScript("arguments[0].click()", dataFineField);
         driver.findElement(By.xpath("//*[@id='endDate']")).click();
+        WebTool.waitTime(10);
         scrollToElementClickAndInsertText(driver.findElement(By.xpath("//*[@id='endDate']")),da);
         //driver.findElement(By.xpath("//*[@id='endDate']")).sendKeys(a);
         //dataFineField.click();
