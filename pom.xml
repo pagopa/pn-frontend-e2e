@@ -37,26 +37,18 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.24.0</version>
+            <version>4.22.0</version>
         </dependency>
 
 
 
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-devtools-v85 -->
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-devtools-v120 -->
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-devtools-v126
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-devtools-v126 -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-devtools-v126</artifactId>
             <version>4.22.0</version>
-        </dependency>-->
-
-
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-devtools-v128 -->
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-devtools-v128</artifactId>
-            <version>4.24.0</version>
         </dependency>
 
 
