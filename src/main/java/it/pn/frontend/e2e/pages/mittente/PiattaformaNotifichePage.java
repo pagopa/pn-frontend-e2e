@@ -215,46 +215,52 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void inserimentoArcoTemporale(String da, String a) {
-        WebTool.waitTime(10);
+        WebTool.waitTime(15);
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
 
-       // dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
+        dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
         getWebDriverWait(15).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='startDate']")));
-        //dataInizioField.click();
-        //JavascriptExecutor to click element
-       // js().executeScript("arguments[0].click();", dataInizioField);
-        driver.findElement(By.xpath("//*[@id='startDate']")).click();
-        WebTool.waitTime(10);
-        scrollToElementClickAndInsertText(driver.findElement(By.xpath("//*[@id='startDate']")),a);
+        //js().executeScript("arguments[0].click();", dataInizioField);
+        //driver.findElement(By.xpath("//*[@id='startDate']")).click();
+       // WebTool.waitTime(10);
+       // scrollToElementClickAndInsertText(driver.findElement(By.xpath("//*[@id='startDate']")),a);
 
         //driver.findElement(By.xpath("//*[@id='startDate']")).sendKeys(da);
 
-       // dataInizioField.sendKeys(Keys.ENTER);
-        //WebTool.waitTime(10);
-        //dataInizioField.sendKeys(da);
-        //js().executeScript("arguments[0].click()", dataInizioField);
-       // String argumentsJS =  "arguments[0].setAttribute('value', '" + da + "')";
+        dataInizioField.click();
+        WebTool.waitTime(10);
+        logger.info("HTML...PAGE...: "+driver.getPageSource());
+        dataInizioField.sendKeys(da);
+       // js().executeScript("arguments[0].click()", dataInizioField);
+        //String argumentsJS =  "arguments[0].setAttribute('value', '" + da + "')";
        // js().executeScript(argumentsJS, dataInizioField);
+
 
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
 
-        //dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
+        dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
         getWebDriverWait(15).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='endDate']")));
+
+        dataFineField.click();
+        dataFineField.sendKeys(a);
+
+
         //js().executeScript("arguments[0].click()", dataFineField);
-        driver.findElement(By.xpath("//*[@id='endDate']")).click();
-        WebTool.waitTime(10);
-        scrollToElementClickAndInsertText(driver.findElement(By.xpath("//*[@id='endDate']")),da);
+        //driver.findElement(By.xpath("//*[@id='endDate']")).click();
+        //WebTool.waitTime(10);
+       // scrollToElementClickAndInsertText(driver.findElement(By.xpath("//*[@id='endDate']")),da);
         //driver.findElement(By.xpath("//*[@id='endDate']")).sendKeys(a);
-        //dataFineField.click();
+
         //js().executeScript("arguments[0].click();", dataFineField);
         // js().executeScript("arguments[0].click()", dataFineField);
 
-        //dataFineField.sendKeys(Keys.ENTER);
+
        // WebTool.waitTime(10);
        // dataFineField.sendKeys(a);
         //js().executeScript("arguments[0].click()", dataFineField);
-        //String argumentsJS1 = "arguments[0].setAttribute('value', '" + a + "')";
-        //js().executeScript(argumentsJS1, dataFineField);
+       // String argumentsJS1 = "arguments[0].setAttribute('value', '" + a + "')";
+       // js().executeScript(argumentsJS1, dataFineField);
+       // dataFineField.sendKeys(Keys.ENTER);
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
     }
 
@@ -273,7 +279,6 @@ public class PiattaformaNotifichePage extends BasePage {
         try {
             By statoNotificaBy = By.xpath("//li[contains(@data-value,'" + statoInserito + "')]");
             this.getWebDriverWait(30).until(elementToBeClickable(statoNotificaBy));
-
             if (this.element(statoNotificaBy).isDisplayed()) {
                 js().executeScript("arguments[0].click()", this.element(statoNotificaBy));
             } else {
