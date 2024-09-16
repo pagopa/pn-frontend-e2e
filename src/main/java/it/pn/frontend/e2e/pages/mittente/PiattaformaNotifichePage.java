@@ -219,7 +219,7 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
 
         dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
-        getWebDriverWait(15).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='startDate']")));
+        dataInizioField = getWebDriverWait(20).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='startDate']")));
         //js().executeScript("arguments[0].click();", dataInizioField);
         //driver.findElement(By.xpath("//*[@id='startDate']")).click();
        // WebTool.waitTime(10);
@@ -229,7 +229,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         dataInizioField.click();
         WebTool.waitTime(10);
-        logger.info("HTML...PAGE...: "+driver.getPageSource());
+        //logger.info("HTML...PAGE...: "+driver.getPageSource());
         dataInizioField.sendKeys(da);
        // js().executeScript("arguments[0].click()", dataInizioField);
         //String argumentsJS =  "arguments[0].setAttribute('value', '" + da + "')";
@@ -239,7 +239,7 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
 
         dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
-        getWebDriverWait(15).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='endDate']")));
+        dataFineField = getWebDriverWait(20).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='endDate']")));
 
         dataFineField.click();
         dataFineField.sendKeys(a);
