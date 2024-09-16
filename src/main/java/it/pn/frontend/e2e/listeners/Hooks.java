@@ -21,10 +21,10 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.DevToolsException;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v126.network.Network;
-import org.openqa.selenium.devtools.v126.network.model.Headers;
-import org.openqa.selenium.devtools.v126.network.model.RequestWillBeSent;
-import org.openqa.selenium.devtools.v126.network.model.ResourceType;
+import org.openqa.selenium.devtools.v128.network.Network;
+import org.openqa.selenium.devtools.v128.network.model.Headers;
+import org.openqa.selenium.devtools.v128.network.model.RequestWillBeSent;
+import org.openqa.selenium.devtools.v128.network.model.ResourceType;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -312,13 +312,18 @@ public class Hooks {
     public void clearRecapiti() {
         RestContact restContact = RestContact.getInstance();
         DigitalAddressResponse digitalAddress = restContact.getDigitalAddress();
+
+        logger.info("SENDER DIGITAL ADDRESS...."+digitalAddress);
         // Check for legal ones and remove them
         if (digitalAddress != null){
             if (!digitalAddress.getLegal().isEmpty()) {
                 digitalAddress.getLegal().forEach(address -> {
+                    logger.info("SENDER...."+address.getSenderId());
                     if (address.getSenderId().equalsIgnoreCase("default")) {
+                        logger.info("SENDER....111"+address.getSenderId());
                         restContact.removeDigitalAddressLegalPec();
                     } else {
+                        logger.info("SENDER....22"+address.getSenderId());
                         restContact.removeSpecialContact(address);
                     }
                 });
@@ -327,16 +332,19 @@ public class Hooks {
 
         // Check for courtesy ones and remove them
         if (digitalAddress != null){
+            logger.info(" COURTESY...."+digitalAddress);
             if (!digitalAddress.getCourtesy().isEmpty()) {
                 digitalAddress.getCourtesy().forEach(address -> {
+                    logger.info("SENDER....33"+address.getSenderId());
                     if (address.getSenderId().equalsIgnoreCase("default")) {
                         restContact.removeDigitalAddressCourtesyEmail();
+                        logger.info("SENDER....55"+address.getSenderId());
                     } else {
+                        logger.info("SENDER....44"+address.getSenderId());
                         restContact.removeSpecialContact(address);
                     }
                 });
             }
         }
-
     }
 }
