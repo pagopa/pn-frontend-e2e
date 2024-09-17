@@ -6,6 +6,8 @@ import it.pn.frontend.e2e.exceptions.RestContactException;
 import it.pn.frontend.e2e.exceptions.RestDelegationException;
 import it.pn.frontend.e2e.model.address.DigitalAddress;
 import it.pn.frontend.e2e.model.address.DigitalAddressResponse;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,7 +85,7 @@ public class RestContact {
      */
     public void removeSpecialContact(DigitalAddress digitalAddress) throws RestDelegationException {
         String channelType = digitalAddress.getChannelType().toString();
-        String addressType = digitalAddress.getAddressType().toLowerCase();
+        String addressType = digitalAddress.getAddressType().toString();
         String url = "https://webapi." + env + ".notifichedigitali.it/address-book/v1/digital-address/"
                 + addressType + "/" + digitalAddress.getSenderId() + "/" + channelType;
         String response = "";
@@ -119,7 +121,8 @@ public class RestContact {
         httpClientDigitalAddress.setBaseUrlApi("https://webapi." + env + ".notifichedigitali.it");
         String url = "/bff/v1/addresses";
         try {
-            List<DigitalAddress> response = httpClientDigitalAddress.sendHttpGetRequestList(url, this.headers, DigitalAddress.class);
+            List<DigitalAddress> response = httpClientDigitalAddress.sendHttpGetRequestListDigitalAddress(url, this.headers, DigitalAddress.class);
+
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzi digitali ricevuti con successo");
             return response;
@@ -129,6 +132,5 @@ public class RestContact {
         }
         return null;
     }
-
 
 }

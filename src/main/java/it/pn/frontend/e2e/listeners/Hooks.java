@@ -321,69 +321,75 @@ public class Hooks {
         }
     }
 
+    /**
+     * Clear the contacts of PF after the scenario
+     * P.S: This will work only if there are any contacts available
+     *
+     @After(value = "@recapitiPF or @recapitiPG")
+     public void clearRecapiti() {
+     RestContact restContact = RestContact.getInstance();
+     DigitalAddressResponse digitalAddress = restContact.getAllDigitalAddress();
+     // Check for legal ones and remove them
+     if (digitalAddress != null) {
+     if (!digitalAddress.getLegal().isEmpty()) {
+     digitalAddress.getLegal().forEach(address -> {
+     if (address.getSenderId().equalsIgnoreCase("default")) {
+     restContact.removeDigitalAddressLegalPec();
+     } else {
+     restContact.removeSpecialContact(address);
+     }
+     });
+     }
+     }
 
-    @After(value = "@recapitiPF or @recapitiPG")
-    public void clearRecapiti() {
-        RestContact restContact = RestContact.getInstance();
-        DigitalAddressResponse digitalAddress = restContact.getDigitalAddress();
-        // Check for legal ones and remove them
-        if (digitalAddress != null){
-            if (!digitalAddress.getLegal().isEmpty()) {
-                digitalAddress.getLegal().forEach(address -> {
-                    if (address.getSenderId().equalsIgnoreCase("default")) {
-                        restContact.removeDigitalAddressLegalPec();
-                    } else {
-                        restContact.removeSpecialContact(address);
-                    }
-                });
-            }
-        }
+     // Check for courtesy ones and remove them
+     if (digitalAddress != null) {
+     if (!digitalAddress.getCourtesy().isEmpty()) {
+     digitalAddress.getCourtesy().forEach(address -> {
+     if (address.getSenderId().equalsIgnoreCase("default")) {
+     restContact.removeDigitalAddressCourtesyEmail();
+     } else {
+     restContact.removeSpecialContact(address);
+     }
+     });
+     }
+     }
 
-        // Check for courtesy ones and remove them
-        if (digitalAddress != null){
-            if (!digitalAddress.getCourtesy().isEmpty()) {
-                digitalAddress.getCourtesy().forEach(address -> {
-                    if (address.getSenderId().equalsIgnoreCase("default")) {
-                        restContact.removeDigitalAddressCourtesyEmail();
-                    } else {
-                        restContact.removeSpecialContact(address);
-                    }
-                });
-            }
-        }
+     }
 
-    }
+     */
 
     /**
      * Clear the contacts of PF after the scenario
      * P.S: This will work only if there are any contacts available
+     */
 
     @After(value = "@recapitiPF or @recapitiPG")
     public void clearRecapiti() throws IOException {
 
         RestContact restContact = RestContact.getInstance();
         List<DigitalAddress> digitalAddress = restContact.getAllDigitalAddress();
-
         logger.info("SENDER DIGITAL ADDRESS...." + digitalAddress);
         logger.info("SENDER DIGITAL ADDRESS...." + digitalAddress.size());
 
         // Check for legal ones and remove them
         if (digitalAddress != null) {
             digitalAddress.forEach(addressDigital -> {
-                logger.info("SENDER...." + addressDigital.getSenderId());
+                logger.info("SENDER_ID: " + addressDigital.getSenderId());
                 if (addressDigital.getSenderId().equalsIgnoreCase("default")) {
-                    logger.info("SENDER....111" + addressDigital.getSenderId());
-                    if ("PEC".equalsIgnoreCase(addressDigital.getChannelType().name())) {
+
+                    if ("PEC".equalsIgnoreCase(addressDigital.getChannelType())) {
+                        logger.info("Remove Digital Address LegalPec: " + addressDigital.getSenderId());
                         restContact.removeDigitalAddressLegalPec();
                     } else {
+                        logger.info("Remove Digital Address Courtesy Email: " + addressDigital.getSenderId());
                         restContact.removeDigitalAddressCourtesyEmail();
                     }
                 } else {
-                    logger.info("SENDER....22" + addressDigital.getSenderId());
+                    logger.info("Remove Special Contact: " + addressDigital.getSenderId());
                     restContact.removeSpecialContact(addressDigital);
                 }
             });
         }
     }
-     */
 }
