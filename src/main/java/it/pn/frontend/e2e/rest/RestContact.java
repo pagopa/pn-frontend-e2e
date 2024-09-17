@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RestContact {
@@ -28,6 +29,7 @@ public class RestContact {
     }
 
     public RestContact() {
+
         this.httpClient.setBaseUrlApi("https://webapi." + env + ".notifichedigitali.it");
         if (token != null) {
             this.headers.put("Authorization", token);
@@ -100,6 +102,22 @@ public class RestContact {
         String url = "/bff/v1/addresses/LEGAL/default/PEC";
         try {
             DigitalAddressResponse response = httpClientDigitalAddress.sendHttpGetRequest(url, this.headers, DigitalAddressResponse.class);
+            logger.info("Risposta ricevuta: " + response);
+            logger.info("Indirizzi digitali ricevuti con successo");
+            return response;
+        } catch (IOException e) {
+            logger.error("Error during getDigitalAddress", e);
+            logger.warn("Non è stato possibile ricevere gli indirizzi digitali");
+        }
+        return null;
+    }
+
+    public List<DigitalAddressResponse> getAllDigitalAddress() throws RestContactException {
+        CustomHttpClient<?, DigitalAddressResponse> httpClientDigitalAddress = CustomHttpClient.getInstance();
+        httpClientDigitalAddress.setBaseUrlApi("https://webapi." + env + ".notifichedigitali.it");
+        String url = "/bff/v1/addresses";
+        try {
+            List<DigitalAddressResponse> response = httpClientDigitalAddress.sendHttpGetRequestList(url, this.headers, DigitalAddressResponse.class);
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzi digitali ricevuti con successo");
             return response;

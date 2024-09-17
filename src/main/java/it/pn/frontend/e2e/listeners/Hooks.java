@@ -1,5 +1,9 @@
 package it.pn.frontend.e2e.listeners;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.google.gson.Gson;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -12,10 +16,12 @@ import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import lombok.Getter;
 import org.apache.commons.io.FileUtils;
+import org.apache.poi.ss.formula.functions.T;
 import org.junit.Assert;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
@@ -36,6 +42,7 @@ import org.slf4j.MDC;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -46,7 +53,8 @@ public class Hooks {
     private static final Logger logger = LoggerFactory.getLogger("Hooks");
     public static WebDriver driver;
     public DevTools devTools;
-    public Map<String, RequestWillBeSent> requests =  new HashMap<>();;
+    public Map<String, RequestWillBeSent> requests = new HashMap<>();
+    ;
 
     @Getter
     public static String scenario;
@@ -270,7 +278,7 @@ public class Hooks {
     @After("@DeleghePF or @DeleghePG")
     public void clearDelegate() {
         MandateSingleton mandateSingleton = MandateSingleton.getInstance();
-        String mandateId =mandateSingleton.getMandateId(Hooks.getScenario());
+        String mandateId = mandateSingleton.getMandateId(Hooks.getScenario());
         if (mandateId != null) {
             RestDelegation restDelegation = RestDelegation.getInstance();
             restDelegation.revokeDelegation(mandateId);
@@ -309,42 +317,31 @@ public class Hooks {
      * P.S: This will work only if there are any contacts available
      */
     @After(value = "@recapitiPF or @recapitiPG")
-    public void clearRecapiti() {
+    public void clearRecapiti() throws IOException {
         RestContact restContact = RestContact.getInstance();
-        DigitalAddressResponse digitalAddress = restContact.getDigitalAddress();
+        List<DigitalAddressResponse> digitalAddress = restContact.getAllDigitalAddress();
 
-        logger.info("SENDER DIGITAL ADDRESS...."+digitalAddress);
+
+        logger.info("SENDER DIGITAL ADDRESS...." + digitalAddress);
+        logger.info("SENDER DIGITAL ADDRESS...." + digitalAddress.size());
         // Check for legal ones and remove them
-        if (digitalAddress != null){
-            if (!digitalAddress.getLegal().isEmpty()) {
-                digitalAddress.getLegal().forEach(address -> {
-                    logger.info("SENDER...."+address.getSenderId());
-                    if (address.getSenderId().equalsIgnoreCase("default")) {
-                        logger.info("SENDER....111"+address.getSenderId());
+        if (digitalAddress != null) {
+            for (DigitalAddressResponse addressDigital : digitalAddress) {
+
+                logger.info("SENDER...." + addressDigital.getDigitalAddress().getSenderId());
+                if (addressDigital.getDigitalAddress().getSenderId().equalsIgnoreCase("default")) {
+                    logger.info("SENDER....111" + addressDigital.getDigitalAddress().getSenderId());
+                    if ("PEC".equalsIgnoreCase(addressDigital.getDigitalAddress().getChannelType().name())) {
                         restContact.removeDigitalAddressLegalPec();
                     } else {
-                        logger.info("SENDER....22"+address.getSenderId());
-                        restContact.removeSpecialContact(address);
+                        restContact.removeDigitalAddressCourtesyEmail();
                     }
-                });
+                } else {
+                    logger.info("SENDER....22" + addressDigital.getDigitalAddress().getSenderId());
+                    restContact.removeSpecialContact(addressDigital.getDigitalAddress());
+                }
             }
         }
 
-        // Check for courtesy ones and remove them
-        if (digitalAddress != null){
-            logger.info(" COURTESY...."+digitalAddress);
-            if (!digitalAddress.getCourtesy().isEmpty()) {
-                digitalAddress.getCourtesy().forEach(address -> {
-                    logger.info("SENDER....33"+address.getSenderId());
-                    if (address.getSenderId().equalsIgnoreCase("default")) {
-                        restContact.removeDigitalAddressCourtesyEmail();
-                        logger.info("SENDER....55"+address.getSenderId());
-                    } else {
-                        logger.info("SENDER....44"+address.getSenderId());
-                        restContact.removeSpecialContact(address);
-                    }
-                });
-            }
-        }
     }
 }

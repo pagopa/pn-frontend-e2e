@@ -8,6 +8,5 @@ import java.util.List;
 @Data
 @Builder
 public class DigitalAddressResponse {
-    private List<DigitalAddress> legal;
-    private List<DigitalAddress> courtesy;
+    private DigitalAddress digitalAddress;
 }
