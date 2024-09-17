@@ -1,14 +1,21 @@
 package it.pn.frontend.e2e.listeners;
 
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.it.Ma;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import it.pn.frontend.e2e.model.address.DigitalAddress;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
 import it.pn.frontend.e2e.model.address.DigitalAddressResponse;
 import it.pn.frontend.e2e.rest.RestContact;
@@ -39,9 +46,11 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
+import org.w3c.dom.NameList;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Reader;
 import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -312,36 +321,69 @@ public class Hooks {
         }
     }
 
+
+    @After(value = "@recapitiPF or @recapitiPG")
+    public void clearRecapiti() {
+        RestContact restContact = RestContact.getInstance();
+        DigitalAddressResponse digitalAddress = restContact.getDigitalAddress();
+        // Check for legal ones and remove them
+        if (digitalAddress != null){
+            if (!digitalAddress.getLegal().isEmpty()) {
+                digitalAddress.getLegal().forEach(address -> {
+                    if (address.getSenderId().equalsIgnoreCase("default")) {
+                        restContact.removeDigitalAddressLegalPec();
+                    } else {
+                        restContact.removeSpecialContact(address);
+                    }
+                });
+            }
+        }
+
+        // Check for courtesy ones and remove them
+        if (digitalAddress != null){
+            if (!digitalAddress.getCourtesy().isEmpty()) {
+                digitalAddress.getCourtesy().forEach(address -> {
+                    if (address.getSenderId().equalsIgnoreCase("default")) {
+                        restContact.removeDigitalAddressCourtesyEmail();
+                    } else {
+                        restContact.removeSpecialContact(address);
+                    }
+                });
+            }
+        }
+
+    }
+
     /**
      * Clear the contacts of PF after the scenario
      * P.S: This will work only if there are any contacts available
-     */
+
     @After(value = "@recapitiPF or @recapitiPG")
     public void clearRecapiti() throws IOException {
-        RestContact restContact = RestContact.getInstance();
-        List<DigitalAddressResponse> digitalAddress = restContact.getAllDigitalAddress();
 
+        RestContact restContact = RestContact.getInstance();
+        List<DigitalAddress> digitalAddress = restContact.getAllDigitalAddress();
 
         logger.info("SENDER DIGITAL ADDRESS...." + digitalAddress);
         logger.info("SENDER DIGITAL ADDRESS...." + digitalAddress.size());
+
         // Check for legal ones and remove them
         if (digitalAddress != null) {
-            for (DigitalAddressResponse addressDigital : digitalAddress) {
-
-                logger.info("SENDER...." + addressDigital.getDigitalAddress().getSenderId());
-                if (addressDigital.getDigitalAddress().getSenderId().equalsIgnoreCase("default")) {
-                    logger.info("SENDER....111" + addressDigital.getDigitalAddress().getSenderId());
-                    if ("PEC".equalsIgnoreCase(addressDigital.getDigitalAddress().getChannelType().name())) {
+            digitalAddress.forEach(addressDigital -> {
+                logger.info("SENDER...." + addressDigital.getSenderId());
+                if (addressDigital.getSenderId().equalsIgnoreCase("default")) {
+                    logger.info("SENDER....111" + addressDigital.getSenderId());
+                    if ("PEC".equalsIgnoreCase(addressDigital.getChannelType().name())) {
                         restContact.removeDigitalAddressLegalPec();
                     } else {
                         restContact.removeDigitalAddressCourtesyEmail();
                     }
                 } else {
-                    logger.info("SENDER....22" + addressDigital.getDigitalAddress().getSenderId());
-                    restContact.removeSpecialContact(addressDigital.getDigitalAddress());
+                    logger.info("SENDER....22" + addressDigital.getSenderId());
+                    restContact.removeSpecialContact(addressDigital);
                 }
-            }
+            });
         }
-
     }
+     */
 }

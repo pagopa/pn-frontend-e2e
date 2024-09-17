@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.rest;
 
+import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.exceptions.RestContactException;
 import it.pn.frontend.e2e.exceptions.RestDelegationException;
@@ -112,12 +113,13 @@ public class RestContact {
         return null;
     }
 
-    public List<DigitalAddressResponse> getAllDigitalAddress() throws RestContactException {
-        CustomHttpClient<?, DigitalAddressResponse> httpClientDigitalAddress = CustomHttpClient.getInstance();
+
+    public List<DigitalAddress> getAllDigitalAddress() throws RestContactException {
+        CustomHttpClient<?, DigitalAddress> httpClientDigitalAddress = CustomHttpClient.getInstance();
         httpClientDigitalAddress.setBaseUrlApi("https://webapi." + env + ".notifichedigitali.it");
         String url = "/bff/v1/addresses";
         try {
-            List<DigitalAddressResponse> response = httpClientDigitalAddress.sendHttpGetRequestList(url, this.headers, DigitalAddressResponse.class);
+            List<DigitalAddress> response = httpClientDigitalAddress.sendHttpGetRequestList(url, this.headers, DigitalAddress.class);
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzi digitali ricevuti con successo");
             return response;
@@ -127,4 +129,6 @@ public class RestContact {
         }
         return null;
     }
+
+
 }
