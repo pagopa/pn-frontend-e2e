@@ -114,6 +114,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void confermaButtonClick() {
         WebTool.waitTime(5);
+        confermaButton = driver.findElement(By.id("add-contact"));
         getWebDriverWait(10).withMessage("Il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
         this.confermaButton.click();
     }
