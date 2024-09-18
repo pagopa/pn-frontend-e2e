@@ -305,44 +305,6 @@ public class Hooks {
     /**
      * Clear the contacts of PF after the scenario
      * P.S: This will work only if there are any contacts available
-     *
-     @After(value = "@recapitiPF or @recapitiPG")
-     public void clearRecapiti() {
-     RestContact restContact = RestContact.getInstance();
-     DigitalAddressResponse digitalAddress = restContact.getAllDigitalAddress();
-     // Check for legal ones and remove them
-     if (digitalAddress != null) {
-     if (!digitalAddress.getLegal().isEmpty()) {
-     digitalAddress.getLegal().forEach(address -> {
-     if (address.getSenderId().equalsIgnoreCase("default")) {
-     restContact.removeDigitalAddressLegalPec();
-     } else {
-     restContact.removeSpecialContact(address);
-     }
-     });
-     }
-     }
-
-     // Check for courtesy ones and remove them
-     if (digitalAddress != null) {
-     if (!digitalAddress.getCourtesy().isEmpty()) {
-     digitalAddress.getCourtesy().forEach(address -> {
-     if (address.getSenderId().equalsIgnoreCase("default")) {
-     restContact.removeDigitalAddressCourtesyEmail();
-     } else {
-     restContact.removeSpecialContact(address);
-     }
-     });
-     }
-     }
-
-     }
-
-     */
-
-    /**
-     * Clear the contacts of PF after the scenario
-     * P.S: This will work only if there are any contacts available
      */
 
     @After(value = "@recapitiPF or @recapitiPG")
