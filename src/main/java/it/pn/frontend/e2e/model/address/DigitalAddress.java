@@ -1,9 +1,5 @@
 package it.pn.frontend.e2e.model.address;
 
-import it.pn.frontend.e2e.model.enums.AddressTypeEnum;
-import it.pn.frontend.e2e.model.enums.ChannelTypeEnum;
-import it.pn.frontend.e2e.model.enums.DigitalDomicileTypeEnum;
-import it.pn.frontend.e2e.model.enums.IOAllowedValuesEnum;
 import lombok.Builder;
 import lombok.Data;
 
