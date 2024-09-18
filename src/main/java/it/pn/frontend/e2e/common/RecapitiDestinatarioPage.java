@@ -40,7 +40,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "cancelContact-default")
     WebElement eliminaPECButton;
 
-    @FindBy(xpath = "//div/h2[contains(text(),'Grazie!')]/following-sibling::div//button")
+    @FindBy(xpath = "//button[@id='confirmDialog']")
     WebElement confermaButtonPoPUpPec;
 
     @FindBy(xpath = "//button[@id='modifyContact-default']")
@@ -76,7 +76,8 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "default_pec")
     WebElement pecField;
 
-    @FindBy(id = "legalContacts")
+
+    @FindBy(xpath = "//div[@data-testid='legalContacts']")
     WebElement pecEmail;
 
     public RecapitiDestinatarioPage(WebDriver driver) {
@@ -99,11 +100,14 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void clickSuChiudiPopUp() {
         //By chiudiButtonBy = By.xpath("//button[contains(text(),'Chiudi')]");
         By chiudiButtonBy = By.xpath("//h2[@id='dialog-title']/following-sibling::div/button[contains(text(),'Annulla')]");
+
         getWebDriverWait(10).withMessage("Il bottone chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudiButtonBy));
         this.js().executeScript("arguments[0].click()", this.element(chiudiButtonBy));
     }
 
     public void insertEmailPEC(String emailPEC) {
+        WebTool.waitTime(5);
+        pecField = driver.findElement(By.id("default_pec"));
         getWebDriverWait(10).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOf(pecField));
         pecField.sendKeys(emailPEC);
     }
@@ -266,6 +270,8 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickConfermaButton() {
+        logger.info("HTML...."+driver.getPageSource());
+        confermaButtonPoPUpPec = driver.findElement(By.xpath("//button[@id='confirmDialog']"));
         getWebDriverWait(10).withMessage("Il bottone conferma del pop up non é cliccabile").until(ExpectedConditions.elementToBeClickable(confermaButtonPoPUpPec));
         this.confermaButtonPoPUpPec.click();
     }
