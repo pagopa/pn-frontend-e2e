@@ -82,7 +82,7 @@ public class RestContact {
      */
     public void removeSpecialContact(DigitalAddress digitalAddress) throws RestDelegationException {
         String channelType = digitalAddress.getChannelType().toString();
-        String addressType = digitalAddress.getAddressType().toString();
+        String addressType = digitalAddress.getAddressType().toString().toLowerCase();
         String url = "https://webapi." + env + ".notifichedigitali.it/address-book/v1/digital-address/"
                 + addressType + "/" + digitalAddress.getSenderId() + "/" + channelType;
         String response = "";
