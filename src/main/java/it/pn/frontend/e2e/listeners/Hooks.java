@@ -314,11 +314,11 @@ public class Hooks {
 
         RestContact restContact = RestContact.getInstance();
         List<DigitalAddress> digitalAddress = restContact.getAllDigitalAddress();
-        logger.info("SENDER DIGITAL ADDRESS...." + digitalAddress);
-        logger.info("SENDER DIGITAL ADDRESS...." + digitalAddress.size());
-
+        
         // Check for legal ones and remove them
         if (digitalAddress != null) {
+            logger.info("SENDER DIGITAL ADDRESS...." + digitalAddress);
+            logger.info("SENDER DIGITAL ADDRESS...." + digitalAddress.size());
             digitalAddress.forEach(addressDigital -> {
                 logger.info("SENDER_ID: " + addressDigital.getSenderId());
                 if (addressDigital.getSenderId().equalsIgnoreCase("default")) {
