@@ -9,6 +9,7 @@ import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -233,10 +234,16 @@ public class PiattaformaNotifichePage extends BasePage {
         dataInizioField.click();
         WebTool.waitTime(10);
         //logger.info("HTML...PAGE...: "+driver.getPageSource());
-        dataInizioField.sendKeys(Keys.COMMAND);
-        dataInizioField.sendKeys("14");
-        dataInizioField.sendKeys( "09");
-        dataInizioField.sendKeys( "2024");
+
+        Actions action = new Actions(driver);
+        action.keyDown(Keys.CONTROL).sendKeys("da").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
+        WebTool.waitTime(1);
+        dataInizioField.sendKeys(da);
+
+       // dataInizioField.sendKeys(Keys.COMMAND);
+       // dataInizioField.sendKeys("14");
+        // dataInizioField.sendKeys( "09");
+        //dataInizioField.sendKeys( "2024");
        // js().executeScript("arguments[0].click()", dataInizioField);
         //String argumentsJS =  "arguments[0].setAttribute('value', '" + da + "')";
        // js().executeScript(argumentsJS, dataInizioField);
@@ -248,10 +255,15 @@ public class PiattaformaNotifichePage extends BasePage {
         dataFineField = getWebDriverWait(20).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='endDate']")));
 
         dataFineField.click();
-        dataFineField.sendKeys(Keys.COMMAND);
-        dataFineField.sendKeys("19");
-        dataFineField.sendKeys("09");
-        dataFineField.sendKeys("2024");
+        Actions action1 = new Actions(driver);
+        action1.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
+        WebTool.waitTime(1);
+        dataFineField.sendKeys(a);
+
+       // dataFineField.sendKeys(Keys.COMMAND);
+       // dataFineField.sendKeys("19");
+       // dataFineField.sendKeys("09");
+      //  dataFineField.sendKeys("2024");
        // js().executeScript("arguments[0].click()", dataFineField);
         //dataFineField.sendKeys(a);
 
