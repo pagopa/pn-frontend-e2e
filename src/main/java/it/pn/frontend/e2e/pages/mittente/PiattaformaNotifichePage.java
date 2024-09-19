@@ -233,7 +233,7 @@ public class PiattaformaNotifichePage extends BasePage {
         dataInizioField.click();
         WebTool.waitTime(10);
         //logger.info("HTML...PAGE...: "+driver.getPageSource());
-        dataInizioField.sendKeys(Keys.CONTROL);
+        dataInizioField.sendKeys(Keys.COMMAND);
         dataInizioField.sendKeys("14");
         dataInizioField.sendKeys( "09");
         dataInizioField.sendKeys( "2024");
@@ -248,7 +248,7 @@ public class PiattaformaNotifichePage extends BasePage {
         dataFineField = getWebDriverWait(20).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='endDate']")));
 
         dataFineField.click();
-        dataFineField.sendKeys(Keys.CONTROL);
+        dataFineField.sendKeys(Keys.COMMAND);
         dataFineField.sendKeys("19");
         dataFineField.sendKeys("09");
         dataFineField.sendKeys("2024");
