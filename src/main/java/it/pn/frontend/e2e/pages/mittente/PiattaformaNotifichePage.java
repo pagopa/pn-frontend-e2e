@@ -215,6 +215,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void inserimentoArcoTemporale(String da, String a) {
+        logger.info("HTML...PAGE...: "+driver.getPageSource());
         WebTool.waitTime(15);
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
 
