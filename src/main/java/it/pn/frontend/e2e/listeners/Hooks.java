@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.listeners;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import io.cucumber.java.en.And;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import it.pn.frontend.e2e.model.address.DigitalAddress;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
@@ -308,6 +309,7 @@ public class Hooks {
      */
 
     @After(value = "@recapitiPF or @recapitiPG")
+    @And("Rimuovi tutti i recapiti se esistono")
     public void clearRecapiti() throws IOException {
 
         RestContact restContact = RestContact.getInstance();
