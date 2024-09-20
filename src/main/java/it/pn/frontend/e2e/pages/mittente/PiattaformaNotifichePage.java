@@ -255,10 +255,10 @@ public class PiattaformaNotifichePage extends BasePage {
         //action.keyDown(Keys.CONTROL).sendKeys("da").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
         // WebTool.waitTime(1);
 
-        List<WebElement> dataInizioFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
+        List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
 
         // Step 2: Click on the input field to open the calendar pop-up
-        dataInizioFieldList.get(2).click();
+        dataFieldList.get(2).click();
 
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
@@ -269,7 +269,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
 
-      //  logger.info("ENABLE DATA INIZIO-----: "+dataInizioFieldList.size());
+      logger.info("ENABLE DATA INIZIO-----: "+dataFieldList.size());
        // js().executeScript("arguments[0].value='15/09/2024';", dataInizioFieldList.get(2));
 
        // dataInizioField.sendKeys(da);
@@ -303,7 +303,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
         // Step 2: Click on the input field to open the calendar pop-up
-        dataInizioFieldList.get(3).click();
+        dataFieldList.get(3).click();
 
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
