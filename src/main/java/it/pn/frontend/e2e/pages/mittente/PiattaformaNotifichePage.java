@@ -270,6 +270,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
       logger.info("ENABLE DATA INIZIO-----: "+dataFieldList.size());
+      for (int i = 0; i<dataFieldList.size(); i++){
+         logger.info( dataFieldList.get(i).getText());
+      }
        // js().executeScript("arguments[0].value='15/09/2024';", dataInizioFieldList.get(2));
 
        // dataInizioField.sendKeys(da);
@@ -302,6 +305,11 @@ public class PiattaformaNotifichePage extends BasePage {
         //js().executeScript("arguments[0].value='19/09/2024';", dataFineField);
 
         List<WebElement> dataFieldList2 = driver.findElements(By.cssSelector(".MuiInputBase-input"));
+        logger.info("ENABLE DATA FINE-----: "+dataFieldList2.size());
+        logger.info("ENABLE DATA FINE-----: "+dataFieldList2.size());
+        for (int i = 0; i<dataFieldList2.size(); i++){
+            logger.info( dataFieldList2.get(i).getText());
+        }
         // Step 2: Click on the input field to open the calendar pop-up
         dataFieldList2.get(3).click();
 
