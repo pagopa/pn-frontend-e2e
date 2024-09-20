@@ -216,6 +216,9 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void inserimentoArcoTemporale(String da, String a) {
+
+
+
         logger.info("HTML...PAGE...: " + driver.getPageSource());
         WebTool.waitTime(15);
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
@@ -225,13 +228,13 @@ public class PiattaformaNotifichePage extends BasePage {
         //dataInizioField = getWebDriverWait(20).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='startDate']")));
 
         dataInizioField = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='startDate']")));
-        js().executeScript("arguments[0].removeAttribute('readonly')", dataInizioField);
+        //js().executeScript("arguments[0].removeAttribute('readonly')", dataInizioField);
 
-        dataInizioField.click();
+       // dataInizioField.click();
 
         logger.info("ENABLE DATA INIZIO: "+dataInizioField.isEnabled());
-        logger.info("ENABLE DATA FINE: "+dataInizioField.getAttribute("class"));
-        logger.info("ENABLE DATA FINE: "+dataInizioField.getAttribute("readonly"));
+        logger.info("ENABLE DATA INIZIO: "+dataInizioField.getAttribute("class"));
+        logger.info("ENABLE DATA INIZIO: "+dataInizioField.getAttribute("readonly"));
         //driver.findElement(By.xpath("//*[@id='startDate']")).click();
         //dataInizioField = driver.findElement(By.id("startDate"));
         //js().executeScript("arguments[0].value='14/09/2024';", dataInizioField);
@@ -251,7 +254,25 @@ public class PiattaformaNotifichePage extends BasePage {
         // Actions action = new Actions(driver);
         //action.keyDown(Keys.CONTROL).sendKeys("da").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
         // WebTool.waitTime(1);
-        dataInizioField.sendKeys(da);
+
+        List<WebElement> dataInizioFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
+
+        // Step 2: Click on the input field to open the calendar pop-up
+        dataInizioFieldList.get(2).click();
+
+        // Step 3: Wait for the calendar pop-up to appear
+        WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiPickersCalendar-root")));  // Adjust based on your app
+
+        // Step 4: Select a date (e.g., the 15th day of the current month)
+        WebElement dateToSelect = calendar.findElement(By.xpath("//button[contains(@aria-label, 'Choose 15')]"));
+        dateToSelect.click();
+
+
+
+      //  logger.info("ENABLE DATA INIZIO-----: "+dataInizioFieldList.size());
+       // js().executeScript("arguments[0].value='15/09/2024';", dataInizioFieldList.get(2));
+
+       // dataInizioField.sendKeys(da);
 
         // dataInizioField.sendKeys(Keys.COMMAND);
         // dataInizioField.sendKeys("14");
@@ -268,7 +289,7 @@ public class PiattaformaNotifichePage extends BasePage {
         // dataFineField = getWebDriverWait(20).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='endDate']")));
 
         dataFineField = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='endDate']")));
-        js().executeScript("arguments[0].removeAttribute('readonly')", dataFineField);
+        //js().executeScript("arguments[0].removeAttribute('readonly')", dataFineField);
 
 
 
@@ -279,6 +300,19 @@ public class PiattaformaNotifichePage extends BasePage {
         logger.info("ENABLE DATA FINE: "+dataFineField.getAttribute("readonly"));
         //dataFineField = driver.findElement(By.id("endDate"));
         //js().executeScript("arguments[0].value='19/09/2024';", dataFineField);
+
+
+        // Step 2: Click on the input field to open the calendar pop-up
+        dataInizioFieldList.get(2).click();
+
+        // Step 3: Wait for the calendar pop-up to appear
+        WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiPickersCalendar-root")));  // Adjust based on your app
+
+        // Step 4: Select a date (e.g., the 15th day of the current month)
+        WebElement dateToSelect1 = calendar.findElement(By.xpath("//button[contains(@aria-label, 'Choose 19')]"));
+        dateToSelect1.click();
+
+       // js().executeScript("arguments[0].value='19/09/2024';", dataInizioFieldList.get(3));
 
         // dataFineField.click();
         // Actions action1 = new Actions(driver);
@@ -304,8 +338,9 @@ public class PiattaformaNotifichePage extends BasePage {
         // js().executeScript("arguments[0].click()", dataFineField);
 
 
+
         // WebTool.waitTime(10);
-        dataFineField.sendKeys(a);
+        //dataFineField.sendKeys(a);
         //js().executeScript("arguments[0].click()", dataFineField);
         // String argumentsJS1 = "arguments[0].setAttribute('value', '" + a + "')";
         // js().executeScript(argumentsJS1, dataFineField);
