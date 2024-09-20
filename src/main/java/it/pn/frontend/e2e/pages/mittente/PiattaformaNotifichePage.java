@@ -219,7 +219,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
 
-        logger.info("HTML...PAGE...: " + driver.getPageSource());
+        //logger.info("HTML...PAGE...: " + driver.getPageSource());
         WebTool.waitTime(15);
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
 
@@ -232,9 +232,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
        // dataInizioField.click();
 
-        logger.info("ENABLE DATA INIZIO: "+dataInizioField.isEnabled());
-        logger.info("ENABLE DATA INIZIO: "+dataInizioField.getAttribute("class"));
-        logger.info("ENABLE DATA INIZIO: "+dataInizioField.getAttribute("readonly"));
+       // logger.info("ENABLE DATA INIZIO: "+dataInizioField.isEnabled());
+      //  logger.info("ENABLE DATA INIZIO: "+dataInizioField.getAttribute("class"));
+        //logger.info("ENABLE DATA INIZIO: "+dataInizioField.getAttribute("readonly"));
         //driver.findElement(By.xpath("//*[@id='startDate']")).click();
         //dataInizioField = driver.findElement(By.id("startDate"));
         //js().executeScript("arguments[0].value='14/09/2024';", dataInizioField);
@@ -297,19 +297,19 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
         //driver.findElement(By.xpath("//*[@id='endDate']")).click();
-        dataFineField.click();
-        logger.info("ENABLE DATA FINE: "+dataFineField.isEnabled());
-        logger.info("ENABLE DATA FINE: "+dataFineField.getAttribute("class"));
-        logger.info("ENABLE DATA FINE: "+dataFineField.getAttribute("readonly"));
+        //dataFineField.click();
+       // logger.info("ENABLE DATA FINE: "+dataFineField.isEnabled());
+       // logger.info("ENABLE DATA FINE: "+dataFineField.getAttribute("class"));
+      //  logger.info("ENABLE DATA FINE: "+dataFineField.getAttribute("readonly"));
         //dataFineField = driver.findElement(By.id("endDate"));
         //js().executeScript("arguments[0].value='19/09/2024';", dataFineField);
 
         List<WebElement> dataFieldList2 = driver.findElements(By.cssSelector(".MuiInputBase-input"));
         logger.info("ENABLE DATA FINE-----: "+dataFieldList2.size());
-        logger.info("ENABLE DATA FINE-----: "+dataFieldList2.size());
         for (int i = 0; i<dataFieldList2.size(); i++){
             logger.info( dataFieldList2.get(i).getText());
         }
+        WebTool.waitTime(5);
         // Step 2: Click on the input field to open the calendar pop-up
         dataFieldList2.get(3).click();
 
