@@ -216,74 +216,96 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void inserimentoArcoTemporale(String da, String a) {
-        logger.info("HTML...PAGE...: "+driver.getPageSource());
+        logger.info("HTML...PAGE...: " + driver.getPageSource());
         WebTool.waitTime(15);
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
 
 
         dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
-        dataInizioField = getWebDriverWait(20).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='startDate']")));
+        //dataInizioField = getWebDriverWait(20).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='startDate']")));
 
-       // js().executeScript("arguments[0].click();", dataInizioField);
+        dataInizioField = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='startDate']")));
+        js().executeScript("arguments[0].removeAttribute('readonly')", dataInizioField);
+
+        dataInizioField.click();
+
+        logger.info("ENABLE DATA INIZIO: "+dataInizioField.isEnabled());
         //driver.findElement(By.xpath("//*[@id='startDate']")).click();
-       // WebTool.waitTime(10);
-       // scrollToElementClickAndInsertText(driver.findElement(By.xpath("//*[@id='startDate']")),a);
+        //dataInizioField = driver.findElement(By.id("startDate"));
+        //js().executeScript("arguments[0].value='14/09/2024';", dataInizioField);
+
+
+        // js().executeScript("arguments[0].click();", dataInizioField);
+        //driver.findElement(By.xpath("//*[@id='startDate']")).click();
+        // WebTool.waitTime(10);
+        // scrollToElementClickAndInsertText(driver.findElement(By.xpath("//*[@id='startDate']")),a);
 
         //driver.findElement(By.xpath("//*[@id='startDate']")).sendKeys(da);
-       // js().executeScript("arguments[0].click()", dataInizioField);
-        dataInizioField.click();
+        // js().executeScript("arguments[0].click()", dataInizioField);
+        //dataInizioField.click();
         WebTool.waitTime(10);
         //logger.info("HTML...PAGE...: "+driver.getPageSource());
 
-        Actions action = new Actions(driver);
-        action.keyDown(Keys.CONTROL).sendKeys("da").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
-        WebTool.waitTime(1);
+        // Actions action = new Actions(driver);
+        //action.keyDown(Keys.CONTROL).sendKeys("da").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
+        // WebTool.waitTime(1);
         dataInizioField.sendKeys(da);
 
-       // dataInizioField.sendKeys(Keys.COMMAND);
-       // dataInizioField.sendKeys("14");
+        // dataInizioField.sendKeys(Keys.COMMAND);
+        // dataInizioField.sendKeys("14");
         // dataInizioField.sendKeys( "09");
         //dataInizioField.sendKeys( "2024");
-       // js().executeScript("arguments[0].click()", dataInizioField);
+        // js().executeScript("arguments[0].click()", dataInizioField);
         //String argumentsJS =  "arguments[0].setAttribute('value', '" + da + "')";
-       // js().executeScript(argumentsJS, dataInizioField);
+        // js().executeScript(argumentsJS, dataInizioField);
 
 
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
 
         dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
-        dataFineField = getWebDriverWait(20).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='endDate']")));
+        // dataFineField = getWebDriverWait(20).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='endDate']")));
 
+        dataFineField = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='endDate']")));
+        js().executeScript("arguments[0].removeAttribute('readonly')", dataFineField);
+
+
+
+        //driver.findElement(By.xpath("//*[@id='endDate']")).click();
         dataFineField.click();
-        Actions action1 = new Actions(driver);
-        action1.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
-        WebTool.waitTime(1);
-        dataFineField.sendKeys(a);
+        logger.info("ENABLE DATA FINE: "+dataFineField.isEnabled());
+        //dataFineField = driver.findElement(By.id("endDate"));
+        //js().executeScript("arguments[0].value='19/09/2024';", dataFineField);
 
-       // dataFineField.sendKeys(Keys.COMMAND);
-       // dataFineField.sendKeys("19");
-       // dataFineField.sendKeys("09");
-      //  dataFineField.sendKeys("2024");
-       // js().executeScript("arguments[0].click()", dataFineField);
+        // dataFineField.click();
+        // Actions action1 = new Actions(driver);
+        //  action1.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
+        //  WebTool.waitTime(1);
+        // dataFineField.sendKeys(a);
+
+        // dataFineField.sendKeys(Keys.COMMAND);
+        // dataFineField.sendKeys("19");
+        // dataFineField.sendKeys("09");
+        //  dataFineField.sendKeys("2024");
+        // js().executeScript("arguments[0].click()", dataFineField);
         //dataFineField.sendKeys(a);
 
 
         //js().executeScript("arguments[0].click()", dataFineField);
         //driver.findElement(By.xpath("//*[@id='endDate']")).click();
         //WebTool.waitTime(10);
-       // scrollToElementClickAndInsertText(driver.findElement(By.xpath("//*[@id='endDate']")),da);
+        // scrollToElementClickAndInsertText(driver.findElement(By.xpath("//*[@id='endDate']")),da);
         //driver.findElement(By.xpath("//*[@id='endDate']")).sendKeys(a);
 
         //js().executeScript("arguments[0].click();", dataFineField);
         // js().executeScript("arguments[0].click()", dataFineField);
 
 
-       // WebTool.waitTime(10);
-       // dataFineField.sendKeys(a);
+        // WebTool.waitTime(10);
+        dataFineField.sendKeys(a);
         //js().executeScript("arguments[0].click()", dataFineField);
-       // String argumentsJS1 = "arguments[0].setAttribute('value', '" + a + "')";
-       // js().executeScript(argumentsJS1, dataFineField);
-       // dataFineField.sendKeys(Keys.ENTER);
+        // String argumentsJS1 = "arguments[0].setAttribute('value', '" + a + "')";
+        // js().executeScript(argumentsJS1, dataFineField);
+        // dataFineField.sendKeys(Keys.ENTER);
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
     }
 
@@ -964,6 +986,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void visualizzaTimelineTuttiDestinatari(Map<String, String> destinatari) {
         logger.info("Si clicca vedi piu dettagli");
+        WebTool.waitTime(10);
         List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
         //Equals() method utilizzato per String. Per confrontare int variabile dobbiamo usare ==
         String size = Integer.toString(viewMore.size());
@@ -987,6 +1010,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void visualizzaTimeline(String check) {
+        WebTool.waitTime(10);
         List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
         viewMore.get(0).click();
         String size = Integer.toString(viewMore.size());
