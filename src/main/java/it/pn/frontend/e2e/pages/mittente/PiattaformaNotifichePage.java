@@ -285,7 +285,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
 
-        dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
+      //  dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
         // dataFineField = getWebDriverWait(20).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='endDate']")));
 
         dataFineField = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='endDate']")));
@@ -301,9 +301,9 @@ public class PiattaformaNotifichePage extends BasePage {
         //dataFineField = driver.findElement(By.id("endDate"));
         //js().executeScript("arguments[0].value='19/09/2024';", dataFineField);
 
-
+        List<WebElement> dataFieldList2 = driver.findElements(By.cssSelector(".MuiInputBase-input"));
         // Step 2: Click on the input field to open the calendar pop-up
-        dataFieldList.get(3).click();
+        dataFieldList2.get(3).click();
 
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
