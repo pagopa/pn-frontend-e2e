@@ -118,6 +118,7 @@ public class UtentiPGPage extends BasePage {
 
     public void waitLoadUtentiPage() {
         try {
+            WebTool.waitTime(10);
             By utentiPageTitle = By.xpath("//div/h4[contains(text(),'Utenti')]");
             By sottoTitolo = By.xpath("//div/p[contains(text(),'Gestisci gli utenti')]");
             By addUserButton = By.xpath("//button[contains(text(),'Aggiungi utente')]");

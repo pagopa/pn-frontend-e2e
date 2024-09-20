@@ -268,9 +268,11 @@ public class Hooks {
      */
     @After("@DeleghePF or @DeleghePG")
     public void clearDelegate() {
+        logger.info("REVOCA TUTTE LE DELEGHE....");
         MandateSingleton mandateSingleton = MandateSingleton.getInstance();
         String mandateId = mandateSingleton.getMandateId(Hooks.getScenario());
         if (mandateId != null) {
+            logger.info("REVOCA DELEGA: "+mandateId);
             RestDelegation restDelegation = RestDelegation.getInstance();
             restDelegation.revokeDelegation(mandateId);
             logger.info("Delega revocata con successo");
