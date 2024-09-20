@@ -42,6 +42,7 @@ public class DisserviziAppPAPage extends BasePage {
     List<WebElement> stato;
 
     public void waitLoadStatoDellaPiattaformaPage() {
+        WebTool.waitTime(5);
         try {
             By disserviziPageTitle = By.id("Stato della piattaforma-page");
             By disserviziPageSubTitle = By.id("subtitle-page");

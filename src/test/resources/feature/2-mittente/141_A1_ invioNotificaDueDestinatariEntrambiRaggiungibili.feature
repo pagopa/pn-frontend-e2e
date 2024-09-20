@@ -40,7 +40,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | provincia         | MI               |
       | cap               | 20147            |
       | stato             | Italia           |
-    And Aspetta 10 secondi
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     Then Nella section Allegati si carica un atto
