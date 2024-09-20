@@ -38,7 +38,7 @@ public class DestinatarioPage extends BasePage {
     private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
     private final RestNotification restNotification = new RestNotification();
     private static final NotificationBuilder notificationBuilder = new NotificationBuilder();
-    private static int destinatariNumber;
+    private  int destinatariNumber;
     private final WebDriver driver = Hooks.driver;
 
     //Questa classe è utilizzata per metodi in comune tra PF e PG
@@ -137,11 +137,12 @@ public class DestinatarioPage extends BasePage {
             getWebDriverWait(10).withMessage("Ente: " + ente + " non visibile").until(ExpectedConditions.visibilityOfElementLocated(enteRadice));
         }
     }
+
     public void checkBannerAnnullamentoNotifica() {
-            By bannerAnnullamentoNotificaBy = By.xpath("//div[@data-testid='cancelledAlertText']");
-            getWebDriverWait(10).withMessage("Il banner di annullamento della notifica non è presente").until(ExpectedConditions.visibilityOfElementLocated(bannerAnnullamentoNotificaBy));
-            getWebDriverWait(10).withMessage("Il banner di annullamento della notifica presenta la corretta descrizione").until(
-                    ExpectedConditions.attributeToBe(bannerAnnullamentoNotificaBy, "textContent", "Questa notifica è stata annullata dall’ente mittente. Puoi ignorarne il contenuto."));
+        By bannerAnnullamentoNotificaBy = By.xpath("//div[@data-testid='cancelledAlertText']");
+        getWebDriverWait(10).withMessage("Il banner di annullamento della notifica non è presente").until(ExpectedConditions.visibilityOfElementLocated(bannerAnnullamentoNotificaBy));
+        getWebDriverWait(10).withMessage("Il banner di annullamento della notifica presenta la corretta descrizione").until(
+                ExpectedConditions.attributeToBe(bannerAnnullamentoNotificaBy, "textContent", "Questa notifica è stata annullata dall’ente mittente. Puoi ignorarne il contenuto."));
     }
 
     public void checkCreateNewNotification() throws RestNotificationException {
@@ -183,20 +184,22 @@ public class DestinatarioPage extends BasePage {
         Assert.fail("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
     }
 
-    public void aggiuntaDestinatarioANotifica(Map<String, String> datiDestinatario){
-        Assert.assertTrue("Non è possibile aggiungere un ulteriore destinatario",destinatariNumber <= 4);
-            log.info("Si procede con l'inserimento del destinatario nella notifica");
-            String costiNotifica = "false";
-            if (notificationRequest.getNotificationFeePolicy() == NotificationFeePolicyEnum.DELIVERY_MODE) {
-                costiNotifica = "true";
-            }
-            notificationRequest.setRecipients(notificationBuilder.destinatarioBuilder(datiDestinatario, notificationRequest.getRecipients()));
-            WebTool.waitTime(15);
-            notificationRequest.getRecipients().get(destinatariNumber).setPayments(notificationBuilder.paymentsBuilder(Integer.parseInt(datiDestinatario.getOrDefault("avvisoPagoPa", "0")), Integer.parseInt(datiDestinatario.getOrDefault("F24", "0")), costiNotifica));
-            destinatariNumber++;
+    public void aggiuntaDestinatarioANotifica(Map<String, String> datiDestinatario) {
+        Assert.assertTrue("Non è possibile aggiungere un ulteriore destinatario", destinatariNumber <= 4);
+        log.info("Si procede con l'inserimento del destinatario nella notifica");
+        String costiNotifica = "false";
+        if (notificationRequest.getNotificationFeePolicy() == NotificationFeePolicyEnum.DELIVERY_MODE) {
+            costiNotifica = "true";
+        }
+        notificationRequest.setRecipients(notificationBuilder.destinatarioBuilder(datiDestinatario, notificationRequest.getRecipients()));
+        WebTool.waitTime(15);
+        log.info("NUMERO DESTINATARI...: " + notificationRequest.getRecipients().size());
+        log.info("DESTINATARIO...: " + destinatariNumber);
+        notificationRequest.getRecipients().get(destinatariNumber).setPayments(notificationBuilder.paymentsBuilder(Integer.parseInt(datiDestinatario.getOrDefault("avvisoPagoPa", "0")), Integer.parseInt(datiDestinatario.getOrDefault("F24", "0")), costiNotifica));
+        destinatariNumber++;
     }
 
-    public void inizializzazioneDatiNotifica(Map<String, String> datiNotifica){
+    public void inizializzazioneDatiNotifica(Map<String, String> datiNotifica) {
         PhysicalCommunicationTypeEnum modelloNotifica = notificationBuilder.modelloNotifica(datiNotifica.get("modello"));
         NotificationFeePolicyEnum feePolicy = notificationBuilder.notificaFeePolicy(datiNotifica.getOrDefault("costiNotifica", "false"));
         ArrayList<Document> documents = notificationBuilder.preloadDocument(Integer.parseInt(datiNotifica.get("documenti")));
@@ -205,7 +208,7 @@ public class DestinatarioPage extends BasePage {
 
     public void raddFlow(String token, String tipoDestinatario, String codiceFiscale, String operationId) {
         final RestRaddAlternative restRaddAlternative = new RestRaddAlternative(token);
-        restRaddAlternative.startTransactionRaddAlternative(tipoDestinatario,codiceFiscale,operationId);
+        restRaddAlternative.startTransactionRaddAlternative(tipoDestinatario, codiceFiscale, operationId);
         restRaddAlternative.completeTransactionRaddAlternative(operationId);
 
     }

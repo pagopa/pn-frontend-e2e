@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.section.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -349,6 +350,7 @@ public class LeTueDelegheSection extends BasePage {
     }
     public void checkIndicatoreNumerico(){
         try {
+            WebTool.waitTime(10);
             By notificationNumber = By.xpath("//*[@data-testid='notifications']");
             getWebDriverWait(5).withMessage("La notifica con il indicatore non è visibile").until(ExpectedConditions.visibilityOfElementLocated(notificationNumber));
         }catch (RuntimeException e){

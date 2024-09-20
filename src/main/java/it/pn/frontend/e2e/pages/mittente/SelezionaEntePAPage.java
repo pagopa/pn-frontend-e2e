@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -31,6 +32,7 @@ public class SelezionaEntePAPage extends BasePage {
 
     public void waitLoadSelezionaEntePAPage() {
         try {
+            WebTool.waitTime(10);
             By titlePage = By.xpath("//h3[text()='Seleziona il tuo ente']");
             By searchField = By.id("search");
             this.getWebDriverWait(30).withMessage("Titolo 'Seleziona il tuo ente' della pagina non è visualizza").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
