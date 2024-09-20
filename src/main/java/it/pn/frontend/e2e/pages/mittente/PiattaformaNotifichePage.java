@@ -261,7 +261,7 @@ public class PiattaformaNotifichePage extends BasePage {
         dataInizioFieldList.get(2).click();
 
         // Step 3: Wait for the calendar pop-up to appear
-        WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiPickersCalendar-root")));  // Adjust based on your app
+        WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
         // Step 4: Select a date (e.g., the 15th day of the current month)
         WebElement dateToSelect = calendar.findElement(By.xpath("//button[contains(@aria-label, 'Choose 15')]"));
@@ -303,10 +303,10 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
         // Step 2: Click on the input field to open the calendar pop-up
-        dataInizioFieldList.get(2).click();
+        dataInizioFieldList.get(3).click();
 
         // Step 3: Wait for the calendar pop-up to appear
-        WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiPickersCalendar-root")));  // Adjust based on your app
+        WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
         // Step 4: Select a date (e.g., the 15th day of the current month)
         WebElement dateToSelect1 = calendar.findElement(By.xpath("//button[contains(@aria-label, 'Choose 19')]"));
