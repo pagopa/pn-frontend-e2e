@@ -230,6 +230,8 @@ public class PiattaformaNotifichePage extends BasePage {
         dataInizioField.click();
 
         logger.info("ENABLE DATA INIZIO: "+dataInizioField.isEnabled());
+        logger.info("ENABLE DATA FINE: "+dataInizioField.getAttribute("class"));
+        logger.info("ENABLE DATA FINE: "+dataInizioField.getAttribute("readonly"));
         //driver.findElement(By.xpath("//*[@id='startDate']")).click();
         //dataInizioField = driver.findElement(By.id("startDate"));
         //js().executeScript("arguments[0].value='14/09/2024';", dataInizioField);
@@ -273,6 +275,8 @@ public class PiattaformaNotifichePage extends BasePage {
         //driver.findElement(By.xpath("//*[@id='endDate']")).click();
         dataFineField.click();
         logger.info("ENABLE DATA FINE: "+dataFineField.isEnabled());
+        logger.info("ENABLE DATA FINE: "+dataFineField.getAttribute("class"));
+        logger.info("ENABLE DATA FINE: "+dataFineField.getAttribute("readonly"));
         //dataFineField = driver.findElement(By.id("endDate"));
         //js().executeScript("arguments[0].value='19/09/2024';", dataFineField);
 
