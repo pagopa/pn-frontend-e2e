@@ -317,7 +317,7 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
         // Step 4: Select a date (e.g., the 15th day of the current month)
-        WebElement dateToSelect1 = calendar1.findElement(By.xpath("//button[contains(text(), '19')]"));
+        WebElement dateToSelect1 = calendar1.findElement(By.xpath("//button[contains(text(), '20')]"));
         dateToSelect1.click();
 
        // js().executeScript("arguments[0].value='19/09/2024';", dataInizioFieldList.get(3));
