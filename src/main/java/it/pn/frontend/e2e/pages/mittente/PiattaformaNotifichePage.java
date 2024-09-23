@@ -269,7 +269,7 @@ public class PiattaformaNotifichePage extends BasePage {
         DateFormatSymbols DFSymbols = new DateFormatSymbols(new Locale("it", "IT"));
 
         WebElement nextMonth1Button = driver.findElement(By.cssSelector(".MuiPickersCalendarHeader-switchViewButton"));  // Adjust as necessary
-        nextMonth1Button.click();
+        //nextMonth1Button.click();
 
         //WebElement yearsButton = driver.findElement(By.xpath("//*[contains(@class, 'MuiPickersYear-root')]//button[contains(text(), '2024')]"));
         //*[contains(@class, 'MuiPickersYear-yearButton') and button[contains(text(), '2024')]
