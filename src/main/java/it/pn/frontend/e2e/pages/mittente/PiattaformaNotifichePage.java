@@ -285,7 +285,7 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement monthDaToSelect = calendar.findElement(By.xpath("//div[contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+" "+yerarsDa+"')]"));
         while (!monthDaToSelect.isDisplayed()){
             previousMonthButton.click();
-            monthDaToSelect = calendar.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+" "+yerarsDa+"')]"));
+            monthDaToSelect = calendar.findElement(By.xpath("//div[contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+" "+yerarsDa+"')]"));
         }
 
         WebTool.waitTime(5);
@@ -355,7 +355,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         WebElement previousMonthAButton = driver.findElement(By.xpath("//button[@aria-label='Previous month']"));
 
-        WebElement monthAToSelect = calendar1.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+DFSymbols.getMonths()[monthA-1]+" "+yerarsA+"')]"));
+        WebElement monthAToSelect = calendar1.findElement(By.xpath("//div[@contains(text(), '"+DFSymbols.getMonths()[monthA-1]+" "+yerarsA+"')]"));
         while (!monthAToSelect.isDisplayed()){
             previousMonthAButton.click();
             monthAToSelect = calendar1.findElement(By.xpath("//div[contains(text(), '"+DFSymbols.getMonths()[monthA-1]+" "+yerarsA+"')]"));
