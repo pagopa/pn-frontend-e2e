@@ -287,7 +287,8 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
         js().executeScript("arguments[0].setAttribute('aria-selected', 'true')", dateToSelect);
         dateToSelect = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dateToSelect));
-        dateToSelect.click();
+        js().executeScript("arguments[0].click()", dateToSelect);
+        //dateToSelect.click();
 
         logger.info("DATA INIZIO FIELD: "+dataInizioField.getAttribute("value"));
 
@@ -344,7 +345,8 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement dateToSelect1 = calendar1.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayA + "']"));
         js().executeScript("arguments[0].setAttribute('aria-selected', 'true')", dateToSelect1);
         dateToSelect1 = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dateToSelect1));
-        dateToSelect1.click();
+        js().executeScript("arguments[0].click()", dateToSelect1);
+        //dateToSelect1.click();
 
         logger.info("DATA FINE FIELD: "+dataFineField.getAttribute("value"));
 
