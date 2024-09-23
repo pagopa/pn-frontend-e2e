@@ -265,7 +265,8 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
         int monthDa = Integer.parseInt(arraySplitDateDa[1]);
-        WebElement monthDaToSelect = calendar.findElement(By.xpath("//*[@id=':r10:-grid-label' and contains(text(), '"+new DateFormatSymbols().getMonths()[monthDa-1]+"')]]"));
+        WebElement monthDaToSelect = calendar.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+new DateFormatSymbols().getMonths()[monthDa-1]+"')]"));
+        monthDaToSelect.click();
         monthDaToSelect.click();
         // Step 4: Select a date (e.g., the 15th day of the current month)
         WebElement dateToSelect = calendar.findElement(By.xpath("//button[contains(text(), '"+arraySplitDateDa[0]+"')]"));
@@ -287,7 +288,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
 
-      //  dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
+       //  dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
         // dataFineField = getWebDriverWait(20).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='endDate']")));
 
         dataFineField = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='endDate']")));
@@ -316,7 +317,8 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
         int monthA = Integer.parseInt(arraySplitDateDa[1]);
-        WebElement monthAToSelect = calendar.findElement(By.xpath("//*[@id=':r10:-grid-label' and contains(text(), '"+new DateFormatSymbols().getMonths()[monthA-1]+"')]]"));
+        WebElement monthAToSelect = calendar.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+new DateFormatSymbols().getMonths()[monthA-1]+"')]]"));
+        monthAToSelect.click();
         monthAToSelect.click();
 
         // Step 4: Select a date (e.g., the 15th day of the current month)
