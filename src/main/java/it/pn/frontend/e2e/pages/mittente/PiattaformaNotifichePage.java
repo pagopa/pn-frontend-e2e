@@ -514,6 +514,27 @@ public class PiattaformaNotifichePage extends BasePage {
     public void inserimentoData(String dataInserita) {
         getWebDriverWait(10).withMessage("il campo data non è visibile nella pagina").until(ExpectedConditions.visibilityOf(this.dataInizioField));
         this.dataInizioField.click();
+
+        WebTool.waitTime(15);
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
+
+        dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
+
+        WebTool.waitTime(10);
+        String[] arraySplitDateDa = dataInserita.split("/");
+
+        List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
+
+        // Step 2: Click on the input field to open the calendar pop-up
+        dataFieldList.get(2).click();
+
+        // Step 3: Wait for the calendar pop-up to appear
+        WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
+
+        // Step 4: Select a date (e.g., the 15th day of the current month)
+        WebElement dateToSelect = calendar.findElement(By.xpath("//button[contains(text(), '"+arraySplitDateDa[0]+"')]"));
+        dateToSelect.click();
+
         this.dataInizioField.sendKeys(dataInserita);
         this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", dataInserita));
     }
