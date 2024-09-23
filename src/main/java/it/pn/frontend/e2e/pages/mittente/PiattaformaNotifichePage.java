@@ -265,6 +265,7 @@ public class PiattaformaNotifichePage extends BasePage {
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
+        int dayDa = Integer.parseInt(arraySplitDateDa[0]);
         int monthDa = Integer.parseInt(arraySplitDateDa[1]);
         int yerarsDa = Integer.parseInt(arraySplitDateDa[2]);
         DateFormatSymbols DFSymbols = new DateFormatSymbols(new Locale("it", "IT"));
@@ -319,7 +320,7 @@ public class PiattaformaNotifichePage extends BasePage {
         //  monthDaToSelect.click();
         // Step 4: Select a date (e.g., the 15th day of the current month)
         WebTool.waitTime(5);
-        WebElement dateToSelect = calendar.findElement(By.xpath("//button[contains(text(), '" + arraySplitDateDa[0] + "')]"));
+        WebElement dateToSelect = calendar.findElement(By.xpath("//button[contains(text(), '" + dayDa + "')]"));
         dateToSelect.click();
 
 
@@ -362,6 +363,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         String[] arraySplitDateA = a.split("/");
 
+        int dayA = Integer.parseInt(arraySplitDateA[0]);
         int monthA = Integer.parseInt(arraySplitDateA[1]);
         int yerarsA = Integer.parseInt(arraySplitDateA[2]);
 
@@ -411,7 +413,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
         // Step 4: Select a date (e.g., the 15th day of the current month)
-        WebElement dateToSelect1 = calendar1.findElement(By.xpath("//button[contains(text(), '" + arraySplitDateA[0] + "')]"));
+        WebElement dateToSelect1 = calendar1.findElement(By.xpath("//button[contains(text(), '" + dayA + "')]"));
         dateToSelect1.click();
 
         // js().executeScript("arguments[0].value='19/09/2024';", dataInizioFieldList.get(3));
