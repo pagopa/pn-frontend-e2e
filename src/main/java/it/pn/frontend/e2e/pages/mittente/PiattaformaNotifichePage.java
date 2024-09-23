@@ -254,6 +254,7 @@ public class PiattaformaNotifichePage extends BasePage {
         // Actions action = new Actions(driver);
         //action.keyDown(Keys.CONTROL).sendKeys("da").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
         // WebTool.waitTime(1);
+        String[] arraySplitDateDa = da.split("/");
 
         List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
 
@@ -264,7 +265,7 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
         // Step 4: Select a date (e.g., the 15th day of the current month)
-        WebElement dateToSelect = calendar.findElement(By.xpath("//button[contains(text(), '15')]"));
+        WebElement dateToSelect = calendar.findElement(By.xpath("//button[contains(text(), '"+arraySplitDateDa[0]+"')]"));
         dateToSelect.click();
 
 
@@ -309,6 +310,10 @@ public class PiattaformaNotifichePage extends BasePage {
         for (int i = 0; i<dataFieldList2.size(); i++){
             logger.info( dataFieldList2.get(i).getText());
         }
+
+        String[] arraySplitDateA = a.split("/");
+
+
         WebTool.waitTime(5);
         // Step 2: Click on the input field to open the calendar pop-up
         dataFieldList2.get(3).click();
@@ -317,7 +322,7 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
         // Step 4: Select a date (e.g., the 15th day of the current month)
-        WebElement dateToSelect1 = calendar1.findElement(By.xpath("//button[contains(text(), '19')]"));
+        WebElement dateToSelect1 = calendar1.findElement(By.xpath("//button[contains(text(), '"+arraySplitDateA[0]+"')]"));
         dateToSelect1.click();
 
        // js().executeScript("arguments[0].value='19/09/2024';", dataInizioFieldList.get(3));
@@ -353,7 +358,7 @@ public class PiattaformaNotifichePage extends BasePage {
         // String argumentsJS1 = "arguments[0].setAttribute('value', '" + a + "')";
         // js().executeScript(argumentsJS1, dataFineField);
         // dataFineField.sendKeys(Keys.ENTER);
-       // getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
+        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
     }
 
 
