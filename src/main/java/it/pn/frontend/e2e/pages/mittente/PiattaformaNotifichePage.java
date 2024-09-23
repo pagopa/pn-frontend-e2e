@@ -233,8 +233,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
        // dataInizioField.click();
 
-       // logger.info("ENABLE DATA INIZIO: "+dataInizioField.isEnabled());
-      //  logger.info("ENABLE DATA INIZIO: "+dataInizioField.getAttribute("class"));
+        // logger.info("ENABLE DATA INIZIO: "+dataInizioField.isEnabled());
+        // logger.info("ENABLE DATA INIZIO: "+dataInizioField.getAttribute("class"));
         //logger.info("ENABLE DATA INIZIO: "+dataInizioField.getAttribute("readonly"));
         //driver.findElement(By.xpath("//*[@id='startDate']")).click();
         //dataInizioField = driver.findElement(By.id("startDate"));
@@ -266,6 +266,7 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
         int monthDa = Integer.parseInt(arraySplitDateDa[1]);
+        int yerarsDa = Integer.parseInt(arraySplitDateDa[2]);
         DateFormatSymbols DFSymbols = new DateFormatSymbols(new Locale("it", "IT"));
 
         WebElement nextMonth1Button = driver.findElement(By.cssSelector(".MuiPickersCalendarHeader-switchViewButton"));  // Adjust as necessary
@@ -279,15 +280,20 @@ public class PiattaformaNotifichePage extends BasePage {
 
         //div[p[@aria-label and contains(text(), 'Nuova descrizione')]]
 
-
         WebElement previousMonthButton = driver.findElement(By.xpath("//button[@aria-label='Previous month']"));
-        previousMonthButton.click();
+
+        WebElement monthDaToSelect = calendar.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+" "+yerarsDa+"')]"));
+        while (!monthDaToSelect.isDisplayed()){
+            previousMonthButton.click();
+            monthDaToSelect = calendar.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+" "+yerarsDa+"')]"));
+        }
+
         WebTool.waitTime(5);
-      //  WebElement nextMonthButton = driver.findElement(By.xpath("//button[@aria-label='Next month']"));
-      //  nextMonthButton.click();
-      //  logger.info("MESE SELEZIONATO_1" +nextMonthButton.getAttribute("value"));
 
-
+        //WebElement nextMonthButton = driver.findElement(By.xpath("//button[@aria-label='Next month']"));
+        //if (nextMonthButton.isEnabled()) {
+        //    nextMonthButton.click();
+        //}
 
        // WebElement monthDaToSelect = calendar.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+"')]"));
       //  monthDaToSelect.click();
@@ -313,38 +319,50 @@ public class PiattaformaNotifichePage extends BasePage {
 
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
 
-       //  dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
+        // dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
         // dataFineField = getWebDriverWait(20).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='endDate']")));
 
         dataFineField = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='endDate']")));
         //js().executeScript("arguments[0].removeAttribute('readonly')", dataFineField);
 
-
-
         //driver.findElement(By.xpath("//*[@id='endDate']")).click();
         //dataFineField.click();
-       // logger.info("ENABLE DATA FINE: "+dataFineField.isEnabled());
-       // logger.info("ENABLE DATA FINE: "+dataFineField.getAttribute("class"));
-      //  logger.info("ENABLE DATA FINE: "+dataFineField.getAttribute("readonly"));
+        //logger.info("ENABLE DATA FINE: "+dataFineField.isEnabled());
+        //logger.info("ENABLE DATA FINE: "+dataFineField.getAttribute("class"));
+        //logger.info("ENABLE DATA FINE: "+dataFineField.getAttribute("readonly"));
         //dataFineField = driver.findElement(By.id("endDate"));
         //js().executeScript("arguments[0].value='19/09/2024';", dataFineField);
 
-        List<WebElement> dataFieldList2 = driver.findElements(By.cssSelector(".MuiInputBase-input"));
+        //List<WebElement> dataFieldList2 = driver.findElements(By.cssSelector(".MuiInputBase-input"));
 
         String[] arraySplitDateA = a.split("/");
+
+        int monthA = Integer.parseInt(arraySplitDateA[1]);
+        int yerarsA = Integer.parseInt(arraySplitDateA[2]);
 
 
         WebTool.waitTime(5);
         // Step 2: Click on the input field to open the calendar pop-up
-        dataFieldList2.get(3).click();
+        dataFieldList.get(3).click();
 
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
-        int monthA = Integer.parseInt(arraySplitDateA[1]);
+        //int monthA = Integer.parseInt(arraySplitDateA[1]);
       //  WebElement monthAToSelect = calendar.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+DFSymbols.getMonths()[monthA-1]+"')]"));
        // monthAToSelect.click();
      //   monthAToSelect.click();
+
+        WebElement previousMonthAButton = driver.findElement(By.xpath("//button[@aria-label='Previous month']"));
+
+        WebElement monthAToSelect = calendar1.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+DFSymbols.getMonths()[monthA-1]+" "+yerarsA+"')]"));
+        while (!monthAToSelect.isDisplayed()){
+            previousMonthAButton.click();
+            monthAToSelect = calendar1.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+DFSymbols.getMonths()[monthA-1]+" "+yerarsA+"')]"));
+        }
+
+        WebTool.waitTime(5);
+
 
         // Step 4: Select a date (e.g., the 15th day of the current month)
         WebElement dateToSelect1 = calendar1.findElement(By.xpath("//button[contains(text(), '"+arraySplitDateA[0]+"')]"));
