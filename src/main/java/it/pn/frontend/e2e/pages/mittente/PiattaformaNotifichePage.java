@@ -15,6 +15,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -215,9 +216,8 @@ public class PiattaformaNotifichePage extends BasePage {
         return date[0].length() == 2 && date[1].length() == 2 && date[2].length() == 4;
     }
 
+
     public void inserimentoArcoTemporale(String da, String a) {
-
-
 
         //logger.info("HTML...PAGE...: " + driver.getPageSource());
         WebTool.waitTime(15);
@@ -264,16 +264,14 @@ public class PiattaformaNotifichePage extends BasePage {
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
+        int monthDa = Integer.parseInt(arraySplitDateDa[1]);
+        WebElement monthDaToSelect = calendar.findElement(By.xpath("//*[@id=':r10:-grid-label' and contains(text(), '"+new DateFormatSymbols().getMonths()[monthDa-1]+"')]]"));
+        monthDaToSelect.click();
         // Step 4: Select a date (e.g., the 15th day of the current month)
         WebElement dateToSelect = calendar.findElement(By.xpath("//button[contains(text(), '"+arraySplitDateDa[0]+"')]"));
         dateToSelect.click();
 
 
-
-      logger.info("ENABLE DATA INIZIO-----: "+dataFieldList.size());
-      for (int i = 0; i<dataFieldList.size(); i++){
-         logger.info( dataFieldList.get(i).getText());
-      }
        // js().executeScript("arguments[0].value='15/09/2024';", dataInizioFieldList.get(2));
 
        // dataInizioField.sendKeys(da);
@@ -306,10 +304,6 @@ public class PiattaformaNotifichePage extends BasePage {
         //js().executeScript("arguments[0].value='19/09/2024';", dataFineField);
 
         List<WebElement> dataFieldList2 = driver.findElements(By.cssSelector(".MuiInputBase-input"));
-        logger.info("ENABLE DATA FINE-----: "+dataFieldList2.size());
-        for (int i = 0; i<dataFieldList2.size(); i++){
-            logger.info( dataFieldList2.get(i).getText());
-        }
 
         String[] arraySplitDateA = a.split("/");
 
@@ -320,6 +314,10 @@ public class PiattaformaNotifichePage extends BasePage {
 
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
+
+        int monthA = Integer.parseInt(arraySplitDateDa[1]);
+        WebElement monthAToSelect = calendar.findElement(By.xpath("//*[@id=':r10:-grid-label' and contains(text(), '"+new DateFormatSymbols().getMonths()[monthA-1]+"')]]"));
+        monthAToSelect.click();
 
         // Step 4: Select a date (e.g., the 15th day of the current month)
         WebElement dateToSelect1 = calendar1.findElement(By.xpath("//button[contains(text(), '"+arraySplitDateA[0]+"')]"));
@@ -516,7 +514,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         WebTool.waitTime(15);
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
-        
+
         dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
         //dataInizioField = getWebDriverWait(20).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='startDate']")));
 
