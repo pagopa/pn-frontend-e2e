@@ -271,19 +271,19 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement nextMonth1Button = driver.findElement(By.cssSelector(".MuiPickersCalendarHeader-switchViewButton"));  // Adjust as necessary
         nextMonth1Button.click();
 
-        WebElement yearsButton = driver.findElement(By.xpath("//*[contains(@class, 'MuiPickersYear-root')] //button[contains(text(), '2024')]"));
+        //WebElement yearsButton = driver.findElement(By.xpath("//*[contains(@class, 'MuiPickersYear-root')]//button[contains(text(), '2024')]"));
         //*[contains(@class, 'MuiPickersYear-yearButton') and button[contains(text(), '2024')]
-        yearsButton.click();
-        logger.info("ANNO SELEZIONATO" +yearsButton.getText());
+      //  yearsButton.click();
+       // logger.info("ANNO SELEZIONATO" +yearsButton.getText());
 
 
         //div[p[@aria-label and contains(text(), 'Nuova descrizione')]]
 
 
-        WebElement previousMonthButton = driver.findElement(By.xpath("//nav[@aria-label='Previous month']"));
+        WebElement previousMonthButton = driver.findElement(By.xpath("//button[@aria-label='Previous month']"));
         logger.info("MESE SELEZIONATO" +previousMonthButton.getText());
         previousMonthButton.click();
-        WebElement nextMonthButton = driver.findElement(By.xpath("//nav[@aria-label='Next month']"));
+        WebElement nextMonthButton = driver.findElement(By.xpath("//button[@aria-label='Next month']"));
         nextMonthButton.click();
         logger.info("MESE SELEZIONATO_1" +nextMonthButton.getText());
 
