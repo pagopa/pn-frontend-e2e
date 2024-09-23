@@ -267,6 +267,28 @@ public class PiattaformaNotifichePage extends BasePage {
 
         int monthDa = Integer.parseInt(arraySplitDateDa[1]);
         DateFormatSymbols DFSymbols = new DateFormatSymbols(new Locale("it", "IT"));
+
+        WebElement nextMonth1Button = driver.findElement(By.cssSelector(".MuiPickersCalendarHeader-switchViewButton"));  // Adjust as necessary
+        nextMonth1Button.click();
+
+        WebElement yearsButton = driver.findElement(By.xpath("//*[contains(@class, 'MuiPickersYear-root')] //button[contains(text(), '2024')]"));
+        //*[contains(@class, 'MuiPickersYear-yearButton') and button[contains(text(), '2024')]
+        yearsButton.click();
+        logger.info("ANNO SELEZIONATO" +yearsButton.getText());
+
+
+        //div[p[@aria-label and contains(text(), 'Nuova descrizione')]]
+
+
+        WebElement previousMonthButton = driver.findElement(By.xpath("//nav[@aria-label='Previous month']"));
+        logger.info("MESE SELEZIONATO" +previousMonthButton.getText());
+        previousMonthButton.click();
+        WebElement nextMonthButton = driver.findElement(By.xpath("//nav[@aria-label='Next month']"));
+        nextMonthButton.click();
+        logger.info("MESE SELEZIONATO_1" +nextMonthButton.getText());
+
+
+
        // WebElement monthDaToSelect = calendar.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+"')]"));
       //  monthDaToSelect.click();
       //  monthDaToSelect.click();
@@ -318,7 +340,7 @@ public class PiattaformaNotifichePage extends BasePage {
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
-        int monthA = Integer.parseInt(arraySplitDateDa[1]);
+        int monthA = Integer.parseInt(arraySplitDateA[1]);
       //  WebElement monthAToSelect = calendar.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+DFSymbols.getMonths()[monthA-1]+"')]"));
        // monthAToSelect.click();
      //   monthAToSelect.click();
