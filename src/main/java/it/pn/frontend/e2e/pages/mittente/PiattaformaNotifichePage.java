@@ -231,7 +231,7 @@ public class PiattaformaNotifichePage extends BasePage {
         dataInizioField = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='startDate']")));
         //js().executeScript("arguments[0].removeAttribute('readonly')", dataInizioField);
 
-       // dataInizioField.click();
+        // dataInizioField.click();
 
         // logger.info("ENABLE DATA INIZIO: "+dataInizioField.isEnabled());
         // logger.info("ENABLE DATA INIZIO: "+dataInizioField.getAttribute("class"));
@@ -274,22 +274,38 @@ public class PiattaformaNotifichePage extends BasePage {
 
         //WebElement yearsButton = driver.findElement(By.xpath("//*[contains(@class, 'MuiPickersYear-root')]//button[contains(text(), '2024')]"));
         //*[contains(@class, 'MuiPickersYear-yearButton') and button[contains(text(), '2024')]
-      //  yearsButton.click();
-       // logger.info("ANNO SELEZIONATO" +yearsButton.getText());
+        //  yearsButton.click();
+        // logger.info("ANNO SELEZIONATO" +yearsButton.getText());
 
 
         //div[p[@aria-label and contains(text(), 'Nuova descrizione')]]
 
         WebElement previousMonthButton = driver.findElement(By.xpath("//button[@aria-label='Previous month']"));
 
-        WebElement monthDaToSelect = calendar.findElement(By.xpath("//div[contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+" "+yerarsDa+"')]"));
-       int click =0;
-        while (!monthDaToSelect.isDisplayed()){
-            logger.info("DATA DA Num click:.."+click);
-            previousMonthButton.click();
-            click++;
-            monthDaToSelect = calendar.findElement(By.xpath("//div[contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+" "+yerarsDa+"')]"));
+        /**
+         WebElement monthDaToSelect = calendar.findElement(By.xpath("//div[contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+" "+yerarsDa+"')]"));
+         int click =0;
+         while (!monthDaToSelect.isDisplayed()){
+         logger.info("DATA DA Num click:.."+click);
+         previousMonthButton.click();
+         click++;
+         monthDaToSelect = calendar.findElement(By.xpath("//div[contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+" "+yerarsDa+"')]"));
+         }
+         **/
+        int click =0;
+        while (click<36) {
+            try {
+                logger.info("DATA A Num click:.." + click);
+                WebElement monthDaToSelect = calendar.findElement(By.xpath("//div[contains(text(), '" + DFSymbols.getMonths()[monthDa - 1] + " " + yerarsDa + "')]"));
+                if (monthDaToSelect.isDisplayed()) {
+                    break;
+                }
+            } catch (TimeoutException e) {
+                previousMonthButton.click();
+                click ++;
+            }
         }
+
 
         WebTool.waitTime(5);
 
@@ -298,18 +314,18 @@ public class PiattaformaNotifichePage extends BasePage {
         //    nextMonthButton.click();
         //}
 
-       // WebElement monthDaToSelect = calendar.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+"')]"));
-      //  monthDaToSelect.click();
-      //  monthDaToSelect.click();
+        // WebElement monthDaToSelect = calendar.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+"')]"));
+        //  monthDaToSelect.click();
+        //  monthDaToSelect.click();
         // Step 4: Select a date (e.g., the 15th day of the current month)
         WebTool.waitTime(5);
-        WebElement dateToSelect = calendar.findElement(By.xpath("//button[contains(text(), '"+arraySplitDateDa[0]+"')]"));
+        WebElement dateToSelect = calendar.findElement(By.xpath("//button[contains(text(), '" + arraySplitDateDa[0] + "')]"));
         dateToSelect.click();
 
 
-       // js().executeScript("arguments[0].value='15/09/2024';", dataInizioFieldList.get(2));
+        // js().executeScript("arguments[0].value='15/09/2024';", dataInizioFieldList.get(2));
 
-       // dataInizioField.sendKeys(da);
+        // dataInizioField.sendKeys(da);
 
         // dataInizioField.sendKeys(Keys.COMMAND);
         // dataInizioField.sendKeys("14");
@@ -320,12 +336,18 @@ public class PiattaformaNotifichePage extends BasePage {
         // js().executeScript(argumentsJS, dataInizioField);
 
 
-        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
+        getWebDriverWait(3).
+
+                until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
 
         // dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
         // dataFineField = getWebDriverWait(20).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='endDate']")));
 
-        dataFineField = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='endDate']")));
+        dataFineField =
+
+                getWebDriverWait(10).
+
+                        until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='endDate']")));
         //js().executeScript("arguments[0].removeAttribute('readonly')", dataFineField);
 
         //driver.findElement(By.xpath("//*[@id='endDate']")).click();
@@ -346,35 +368,53 @@ public class PiattaformaNotifichePage extends BasePage {
 
         WebTool.waitTime(5);
         // Step 2: Click on the input field to open the calendar pop-up
-        dataFieldList.get(3).click();
+        dataFieldList.get(3).
+
+                click();
 
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
         //int monthA = Integer.parseInt(arraySplitDateA[1]);
-      //  WebElement monthAToSelect = calendar.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+DFSymbols.getMonths()[monthA-1]+"')]"));
-       // monthAToSelect.click();
-     //   monthAToSelect.click();
+        //  WebElement monthAToSelect = calendar.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+DFSymbols.getMonths()[monthA-1]+"')]"));
+        // monthAToSelect.click();
+        //   monthAToSelect.click();
 
         WebElement previousMonthAButton = driver.findElement(By.xpath("//button[@aria-label='Previous month']"));
 
-        WebElement monthAToSelect = calendar1.findElement(By.xpath("//div[contains(text(), '"+DFSymbols.getMonths()[monthA-1]+" "+yerarsA+"')]"));
-        int clickA =0;
-        while (!monthAToSelect.isDisplayed()){
-            logger.info("DATA A Num click:.."+click);
+        /**
+        WebElement monthAToSelect = calendar1.findElement(By.xpath("//div[contains(text(), '" + DFSymbols.getMonths()[monthA - 1] + " " + yerarsA + "')]"));
+        int clickA = 0;
+        while (!monthAToSelect.isDisplayed()) {
+            logger.info("DATA A Num click:.." + click);
             previousMonthAButton.click();
             clickA++;
-            monthAToSelect = calendar1.findElement(By.xpath("//div[contains(text(), '"+DFSymbols.getMonths()[monthA-1]+" "+yerarsA+"')]"));
+            monthAToSelect = calendar1.findElement(By.xpath("//div[contains(text(), '" + DFSymbols.getMonths()[monthA - 1] + " " + yerarsA + "')]"));
+        }
+         **/
+
+        int clickA =0;
+        while (clickA<36) {
+            try {
+                logger.info("DATA A Num click:.." + clickA);
+                WebElement monthAToSelect = calendar1.findElement(By.xpath("//div[contains(text(), '" + DFSymbols.getMonths()[monthA - 1] + " " + yerarsA + "')]"));
+                if (monthAToSelect.isDisplayed()) {
+                    break;
+                }
+            } catch (TimeoutException e) {
+                previousMonthButton.click();
+                click ++;
+            }
         }
 
         WebTool.waitTime(5);
 
 
         // Step 4: Select a date (e.g., the 15th day of the current month)
-        WebElement dateToSelect1 = calendar1.findElement(By.xpath("//button[contains(text(), '"+arraySplitDateA[0]+"')]"));
+        WebElement dateToSelect1 = calendar1.findElement(By.xpath("//button[contains(text(), '" + arraySplitDateA[0] + "')]"));
         dateToSelect1.click();
 
-       // js().executeScript("arguments[0].value='19/09/2024';", dataInizioFieldList.get(3));
+        // js().executeScript("arguments[0].value='19/09/2024';", dataInizioFieldList.get(3));
 
         // dataFineField.click();
         // Actions action1 = new Actions(driver);
@@ -400,14 +440,15 @@ public class PiattaformaNotifichePage extends BasePage {
         // js().executeScript("arguments[0].click()", dataFineField);
 
 
-
         // WebTool.waitTime(10);
         //dataFineField.sendKeys(a);
         //js().executeScript("arguments[0].click()", dataFineField);
         // String argumentsJS1 = "arguments[0].setAttribute('value', '" + a + "')";
         // js().executeScript(argumentsJS1, dataFineField);
         // dataFineField.sendKeys(Keys.ENTER);
-        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
+        getWebDriverWait(3).
+
+                until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
     }
 
 
@@ -588,7 +629,7 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
         // Step 4: Select a date (e.g., the 15th day of the current month)
-        WebElement dateToSelect = calendar.findElement(By.xpath("//button[contains(text(), '"+arraySplitDateDa[0]+"')]"));
+        WebElement dateToSelect = calendar.findElement(By.xpath("//button[contains(text(), '" + arraySplitDateDa[0] + "')]"));
         dateToSelect.click();
 
 
