@@ -267,9 +267,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
         int monthDa = Integer.parseInt(arraySplitDateDa[1]);
         DateFormatSymbols DFSymbols = new DateFormatSymbols(new Locale("it", "IT"));
-        WebElement monthDaToSelect = calendar.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+"')]"));
-        monthDaToSelect.click();
-        monthDaToSelect.click();
+       // WebElement monthDaToSelect = calendar.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+"')]"));
+      //  monthDaToSelect.click();
+      //  monthDaToSelect.click();
         // Step 4: Select a date (e.g., the 15th day of the current month)
         WebElement dateToSelect = calendar.findElement(By.xpath("//button[contains(text(), '"+arraySplitDateDa[0]+"')]"));
         dateToSelect.click();
@@ -319,9 +319,9 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
         int monthA = Integer.parseInt(arraySplitDateDa[1]);
-        WebElement monthAToSelect = calendar.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+DFSymbols.getMonths()[monthA-1]+"')]"));
-        monthAToSelect.click();
-        monthAToSelect.click();
+      //  WebElement monthAToSelect = calendar.findElement(By.xpath("//*[@id=':rh:-grid-label' and contains(text(), '"+DFSymbols.getMonths()[monthA-1]+"')]"));
+       // monthAToSelect.click();
+     //   monthAToSelect.click();
 
         // Step 4: Select a date (e.g., the 15th day of the current month)
         WebElement dateToSelect1 = calendar1.findElement(By.xpath("//button[contains(text(), '"+arraySplitDateA[0]+"')]"));
