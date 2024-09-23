@@ -143,7 +143,8 @@ public class RicercaNotifichePersonaFisicaPATest {
         LocalDate dataInizio = LocalDate.of(date.get("annoDa"), date.get("meseDa"), date.get("giornoDa"));
         String dataDA = notifichePFPage.controlloDateInserite(dataInizio.toString());
         String dataA = notifichePFPage.controlloDateInserite(dataFine.toString());
-        notifichePFPage.inserimentoArcoTemporale(dataDA, dataA);
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.inserimentoArcoTemporale(dataDA, dataA);
     }
 
     @And("Se i risultati sono contenuti in più pagine persona fisica è possibile effettuare il cambio pagina")
