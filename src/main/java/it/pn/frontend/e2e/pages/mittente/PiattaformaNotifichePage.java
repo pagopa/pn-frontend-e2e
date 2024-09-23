@@ -283,8 +283,11 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement previousMonthButton = driver.findElement(By.xpath("//button[@aria-label='Previous month']"));
 
         WebElement monthDaToSelect = calendar.findElement(By.xpath("//div[contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+" "+yerarsDa+"')]"));
+       int click =0;
         while (!monthDaToSelect.isDisplayed()){
+            logger.info("DATA DA Num click:.."+click);
             previousMonthButton.click();
+            click++;
             monthDaToSelect = calendar.findElement(By.xpath("//div[contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+" "+yerarsDa+"')]"));
         }
 
@@ -356,8 +359,11 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement previousMonthAButton = driver.findElement(By.xpath("//button[@aria-label='Previous month']"));
 
         WebElement monthAToSelect = calendar1.findElement(By.xpath("//div[contains(text(), '"+DFSymbols.getMonths()[monthA-1]+" "+yerarsA+"')]"));
+        int clickA =0;
         while (!monthAToSelect.isDisplayed()){
+            logger.info("DATA A Num click:.."+click);
             previousMonthAButton.click();
+            clickA++;
             monthAToSelect = calendar1.findElement(By.xpath("//div[contains(text(), '"+DFSymbols.getMonths()[monthA-1]+" "+yerarsA+"')]"));
         }
 
