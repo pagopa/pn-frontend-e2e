@@ -355,7 +355,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         WebElement previousMonthAButton = driver.findElement(By.xpath("//button[@aria-label='Previous month']"));
 
-        WebElement monthAToSelect = calendar1.findElement(By.xpath("//div[@contains(text(), '"+DFSymbols.getMonths()[monthA-1]+" "+yerarsA+"')]"));
+        WebElement monthAToSelect = calendar1.findElement(By.xpath("//div[contains(text(), '"+DFSymbols.getMonths()[monthA-1]+" "+yerarsA+"')]"));
         while (!monthAToSelect.isDisplayed()){
             previousMonthAButton.click();
             monthAToSelect = calendar1.findElement(By.xpath("//div[contains(text(), '"+DFSymbols.getMonths()[monthA-1]+" "+yerarsA+"')]"));
