@@ -300,7 +300,7 @@ public class PiattaformaNotifichePage extends BasePage {
                 if (monthDaToSelect.isDisplayed()) {
                     break;
                 }
-            } catch (TimeoutException e) {
+            } catch (NoSuchElementException e) {
                 previousMonthButton.click();
                 click ++;
             }
@@ -401,7 +401,7 @@ public class PiattaformaNotifichePage extends BasePage {
                 if (monthAToSelect.isDisplayed()) {
                     break;
                 }
-            } catch (TimeoutException e) {
+            } catch (NoSuchElementException e) {
                 previousMonthButton.click();
                 click ++;
             }
