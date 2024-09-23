@@ -321,6 +321,7 @@ public class PiattaformaNotifichePage extends BasePage {
         // Step 4: Select a date (e.g., the 15th day of the current month)
         WebTool.waitTime(5);
         WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[contains(text(), '" + dayDa + "')]"));
+        dateToSelect = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dateToSelect));
         dateToSelect.click();
 
 
@@ -337,9 +338,7 @@ public class PiattaformaNotifichePage extends BasePage {
         // js().executeScript(argumentsJS, dataInizioField);
 
 
-        getWebDriverWait(3).
-
-                until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
+        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
 
         // dataFineField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
         // dataFineField = getWebDriverWait(20).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='endDate']")));
@@ -414,6 +413,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         // Step 4: Select a date (e.g., the 15th day of the current month)
         WebElement dateToSelect1 = calendar1.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[contains(text(), '" + dayA + "')]"));
+        dateToSelect1 = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dateToSelect1));
         dateToSelect1.click();
 
         // js().executeScript("arguments[0].value='19/09/2024';", dataInizioFieldList.get(3));
