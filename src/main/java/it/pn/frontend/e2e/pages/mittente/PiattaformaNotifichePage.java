@@ -281,11 +281,11 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
         WebElement previousMonthButton = driver.findElement(By.xpath("//button[@aria-label='Previous month']"));
-        logger.info("MESE SELEZIONATO" +previousMonthButton.getText());
         previousMonthButton.click();
-        WebElement nextMonthButton = driver.findElement(By.xpath("//button[@aria-label='Next month']"));
-        nextMonthButton.click();
-        logger.info("MESE SELEZIONATO_1" +nextMonthButton.getText());
+        WebTool.waitTime(5);
+      //  WebElement nextMonthButton = driver.findElement(By.xpath("//button[@aria-label='Next month']"));
+      //  nextMonthButton.click();
+      //  logger.info("MESE SELEZIONATO_1" +nextMonthButton.getAttribute("value"));
 
 
 
@@ -293,6 +293,7 @@ public class PiattaformaNotifichePage extends BasePage {
       //  monthDaToSelect.click();
       //  monthDaToSelect.click();
         // Step 4: Select a date (e.g., the 15th day of the current month)
+        WebTool.waitTime(5);
         WebElement dateToSelect = calendar.findElement(By.xpath("//button[contains(text(), '"+arraySplitDateDa[0]+"')]"));
         dateToSelect.click();
 
