@@ -176,6 +176,7 @@ public class AggiungiDelegaPGSection extends BasePage {
 
     public boolean insertData(String dataInserita) {
         boolean result = true;
+        List<WebElement> dataFieldList = null;
         try {
             getWebDriverWait(10).withMessage("il campo data non è visibile nella pagina").until(ExpectedConditions.visibilityOf(this.dataTermineDelegaInput));
 
@@ -186,7 +187,7 @@ public class AggiungiDelegaPGSection extends BasePage {
             WebTool.waitTime(10);
             String[] arraySplitDateDa = dataInserita.split("/");
 
-            List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
+            dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
             int dayDa = Integer.parseInt(arraySplitDateDa[0]);
 
             // Step 2: Click on the input field to open the calendar pop-up
@@ -202,6 +203,9 @@ public class AggiungiDelegaPGSection extends BasePage {
             this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataTermineDelegaInput, "value", dataInserita));
         } catch (ElementClickInterceptedException e) {
             logger.error("Non è possibile settare una data Fine precedente rispetto alla data Inizio: " + e.getMessage());
+            if(dataFieldList!= null &&   dataFieldList.size()==4) {
+                dataFieldList.get(3).click();
+            }
             result = false;
         }
         return  result;
