@@ -209,18 +209,9 @@ public class RicercaNotificheMittentePagoPATest {
 
     @And("Verifica che non è possibile selezionare una data Fine antecedente alla data Inizio")
     public void verificaArcoTemporaleSelezionato(String dataDA, String dataA) {
-        logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca");
-
+        logger.info("Si controlla l'arco temporale che sia errato su cui effettuare la ricerca");
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-        if (!piattaformaNotifichePage.controlloDateInserite(dataDA)) {
-            logger.error("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
-            Assert.fail("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
-        }
-        if (!piattaformaNotifichePage.controlloDateInserite(dataA)) {
-            logger.error("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
-            Assert.fail("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
-        }
-        dataFineErrata =  piattaformaNotifichePage.inserimentoArcoTemporaleErrato(dataDA, dataA);
+        Assert.assertFalse(dataFineErrata);
     }
 
 

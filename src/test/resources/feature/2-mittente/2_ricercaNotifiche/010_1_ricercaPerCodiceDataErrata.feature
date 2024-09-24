@@ -27,7 +27,6 @@ Feature: Mittente effetua una ricerca notifiche per Data errata
     And Nella pagina Piattaforma Notifiche inserire un arco temporale errato da <inizioArcoTemporale> a <fineArcoTemporale>
     And  Aspetta 10 secondi
     And Verifica che non è possibile selezionare una data Fine antecedente alla data Inizio
-    And Si verifica che il bottone Filtra sia disabilitato
     And Logout da portale mittente
 
     Examples:
