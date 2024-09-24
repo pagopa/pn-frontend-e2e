@@ -355,6 +355,144 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
     }
 
+    public void inserimentoArcoTemporalePFPG(String da, String a) {
+
+        //logger.info("HTML...PAGE...: " + driver.getPageSource());
+        WebTool.waitTime(15);
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
+
+
+        dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
+        //dataInizioField = getWebDriverWait(20).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='startDate']")));
+
+        dataInizioField = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='startDate']")));
+
+        WebTool.waitTime(10);
+
+        String[] arraySplitDateDa = da.split("/");
+
+        List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
+
+        // Step 2: Click on the input field to open the calendar pop-up
+        dataFieldList.get(1).click();
+
+        // Step 3: Wait for the calendar pop-up to appear
+        WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
+
+        int dayDa = Integer.parseInt(arraySplitDateDa[0]);
+        int monthDa = Integer.parseInt(arraySplitDateDa[1]);
+        int yerarsDa = Integer.parseInt(arraySplitDateDa[2]);
+        DateFormatSymbols DFSymbols = new DateFormatSymbols(new Locale("it", "IT"));
+
+        WebElement nextMonth1Button = driver.findElement(By.cssSelector(".MuiPickersCalendarHeader-switchViewButton"));  // Adjust as necessary
+        //nextMonth1Button.click();
+
+        //WebElement yearsButton = driver.findElement(By.xpath("//*[contains(@class, 'MuiPickersYear-root')]//button[contains(text(), '2024')]"));
+        //*[contains(@class, 'MuiPickersYear-yearButton') and button[contains(text(), '2024')]
+        //  yearsButton.click();
+        // logger.info("ANNO SELEZIONATO" +yearsButton.getText());
+
+
+        WebElement previousMonthButton = driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"));
+
+        /**
+         WebElement monthDaToSelect = calendar.findElement(By.xpath("//div[contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+" "+yerarsDa+"')]"));
+         int click =0;
+         while (!monthDaToSelect.isDisplayed()){
+         logger.info("DATA DA Num click:.."+click);
+         previousMonthButton.click();
+         click++;
+         monthDaToSelect = calendar.findElement(By.xpath("//div[contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+" "+yerarsDa+"')]"));
+         }
+         **/
+        int click =0;
+        WebElement monthDaToSelect = null;
+        while (click<36) {
+            try {
+                logger.info("DATA DA Num click:.." + click);
+                monthDaToSelect = calendar.findElement(By.xpath("//div[contains(text(), '" + DFSymbols.getMonths()[monthDa - 1] + " " + yerarsDa + "')]"));
+                if (monthDaToSelect.isDisplayed()) {
+                    break;
+                }
+            } catch (NoSuchElementException e) {
+                previousMonthButton.click();
+                click ++;
+            }
+        }
+
+        // Step 4: Select a date (e.g., the 15th day of the current month)
+        WebTool.waitTime(5);
+        WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
+        dateToSelect = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dateToSelect));
+        //js().executeScript("arguments[0].click()", dateToSelect);
+        dateToSelect.click();
+
+        logger.info("DATA INIZIO FIELD: "+dataInizioField.getAttribute("value"));
+
+        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
+
+        dataFineField = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='endDate']")));
+
+
+        String[] arraySplitDateA = a.split("/");
+
+        int dayA = Integer.parseInt(arraySplitDateA[0]);
+        int monthA = Integer.parseInt(arraySplitDateA[1]);
+        int yerarsA = Integer.parseInt(arraySplitDateA[2]);
+
+
+        WebTool.waitTime(5);
+        // Step 2: Click on the input field to open the calendar pop-up
+        dataFieldList.get(2).click();
+
+        // Step 3: Wait for the calendar pop-up to appear
+        WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
+
+        WebElement previousMonthAButton = driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"));
+
+        /**
+         WebElement monthAToSelect = calendar1.findElement(By.xpath("//div[contains(text(), '" + DFSymbols.getMonths()[monthA - 1] + " " + yerarsA + "')]"));
+         int clickA = 0;
+         while (!monthAToSelect.isDisplayed()) {
+         logger.info("DATA A Num click:.." + click);
+         previousMonthAButton.click();
+         clickA++;
+         monthAToSelect = calendar1.findElement(By.xpath("//div[contains(text(), '" + DFSymbols.getMonths()[monthA - 1] + " " + yerarsA + "')]"));
+         }
+         **/
+
+
+        int clickA =0;
+        WebElement monthAToSelect = null;
+        while (clickA<36) {
+            try {
+                logger.info("DATA A Num click:.." + clickA);
+                monthAToSelect = calendar1.findElement(By.xpath("//div[contains(text(), '" + DFSymbols.getMonths()[monthA - 1] + " " + yerarsA + "')]"));
+                if (monthAToSelect.isDisplayed()) {
+                    break;
+                }
+            } catch (NoSuchElementException e) {
+                previousMonthAButton.click();
+                click ++;
+            }
+        }
+
+        WebTool.waitTime(5);
+
+
+        // Step 4: Select a date (e.g., the 15th day of the current month)
+        // Adjust based on your app
+        WebElement dateToSelect1 = calendar1.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayA + "']"));
+        dateToSelect1 = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dateToSelect1));
+        //js().executeScript("arguments[0].click()", dateToSelect1);
+        dateToSelect1.click();
+
+        logger.info("DATA FINE FIELD: "+dataFineField.getAttribute("value"));
+
+        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
+    }
+
+
 
     public boolean inserimentoArcoTemporaleErrato(String da, String a) {
 
@@ -466,6 +604,8 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         return  result;
     }
+
+
 
 
     public int getListDate() {

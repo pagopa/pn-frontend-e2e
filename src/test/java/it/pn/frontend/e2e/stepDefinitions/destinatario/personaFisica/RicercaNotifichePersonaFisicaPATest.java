@@ -144,7 +144,7 @@ public class RicercaNotifichePersonaFisicaPATest {
         String dataDA = notifichePFPage.controlloDateInserite(dataInizio.toString());
         String dataA = notifichePFPage.controlloDateInserite(dataFine.toString());
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-        piattaformaNotifichePage.inserimentoArcoTemporale(dataDA, dataA);
+        piattaformaNotifichePage.inserimentoArcoTemporalePFPG(dataDA, dataA);
     }
 
     @And("Se i risultati sono contenuti in più pagine persona fisica è possibile effettuare il cambio pagina")
