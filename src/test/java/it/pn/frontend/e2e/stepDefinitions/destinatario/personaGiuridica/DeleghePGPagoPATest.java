@@ -164,7 +164,7 @@ public class DeleghePGPagoPATest {
     public void nellaSezioneLeTueDelegheInserireUnaDataConFormatoErratoEAntecedenteAllaData() {
         logger.info("Si inserisce una data errata e antecedente");
 
-        aggiungiDelegaPGSection.clearInputData();
+       // aggiungiDelegaPGSection.clearInputData();
         dataFineErrata = aggiungiDelegaPGSection.insertDataErrata();
     }
 
