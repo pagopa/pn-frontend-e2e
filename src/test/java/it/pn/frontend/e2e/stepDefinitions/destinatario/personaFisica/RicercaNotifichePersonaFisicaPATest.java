@@ -135,18 +135,6 @@ public class RicercaNotifichePersonaFisicaPATest {
         }
     }
 
-    @And("Nella pagina Piattaforma Notifiche persona fisica inserire un arco temporale")
-    public void nellaPaginaPiattaformaNotificheDestinatarioInserireUnaDataDaDAAA(Map<String, Integer> date) {
-        logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca ");
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
-        LocalDate dataFine = LocalDate.of(date.get("annoA"), date.get("meseA"), date.get("giornoA"));
-        LocalDate dataInizio = LocalDate.of(date.get("annoDa"), date.get("meseDa"), date.get("giornoDa"));
-        String dataDA = notifichePFPage.controlloDateInserite(dataInizio.toString());
-        String dataA = notifichePFPage.controlloDateInserite(dataFine.toString());
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-        piattaformaNotifichePage.inserimentoArcoTemporalePFPG(dataDA, dataA);
-    }
-
     @And("Nella pagina Piattaforma Notifiche mittente inserire un arco temporale")
     public void nellaPaginaPiattaformaNotificheMittenteInserireUnaDataDaDAAA(Map<String, Integer> date) {
         logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca ");
