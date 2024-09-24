@@ -205,7 +205,8 @@ public class AggiungiDelegaPGSection extends BasePage {
         } catch (ElementClickInterceptedException e) {
             logger.error("Non è possibile settare una data Fine precedente rispetto alla data Inizio: " + e.getMessage());
             if(calendar!= null) {
-                WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa+1 + "']"));
+                dayDa = dayDa+1;
+                WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
                 dateToSelect.click();
             }
             result = false;
