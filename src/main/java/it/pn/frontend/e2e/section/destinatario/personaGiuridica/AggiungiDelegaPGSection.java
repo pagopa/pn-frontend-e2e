@@ -176,7 +176,8 @@ public class AggiungiDelegaPGSection extends BasePage {
 
     public boolean insertData(String dataInserita) {
         boolean result = true;
-        List<WebElement> dataFieldList = null;
+        WebElement calendar = null;
+        int dayDa = 0;
         try {
             getWebDriverWait(10).withMessage("il campo data non è visibile nella pagina").until(ExpectedConditions.visibilityOf(this.dataTermineDelegaInput));
 
@@ -187,14 +188,14 @@ public class AggiungiDelegaPGSection extends BasePage {
             WebTool.waitTime(10);
             String[] arraySplitDateDa = dataInserita.split("/");
 
-            dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
-            int dayDa = Integer.parseInt(arraySplitDateDa[0]);
+            List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
+            dayDa = Integer.parseInt(arraySplitDateDa[0]);
 
             // Step 2: Click on the input field to open the calendar pop-up
             dataFieldList.get(3).click();
 
             // Step 3: Wait for the calendar pop-up to appear
-            WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
+            calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
             // Step 4: Select a date (e.g., the 15th day of the current month)
             WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
@@ -203,8 +204,9 @@ public class AggiungiDelegaPGSection extends BasePage {
             this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataTermineDelegaInput, "value", dataInserita));
         } catch (ElementClickInterceptedException e) {
             logger.error("Non è possibile settare una data Fine precedente rispetto alla data Inizio: " + e.getMessage());
-            if(dataFieldList!= null &&   dataFieldList.size()==4) {
-                dataFieldList.get(3).click();
+            if(calendar!= null) {
+                WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa+1 + "']"));
+                dateToSelect.click();
             }
             result = false;
         }
