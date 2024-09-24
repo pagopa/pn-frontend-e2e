@@ -593,16 +593,11 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
 
         dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
-        //dataInizioField = getWebDriverWait(20).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(By.xpath("//*[@id='startDate']")));
 
         dataInizioField = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='startDate']")));
 
         WebTool.waitTime(10);
-        //logger.info("HTML...PAGE...: "+driver.getPageSource());
 
-        // Actions action = new Actions(driver);
-        //action.keyDown(Keys.CONTROL).sendKeys("da").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
-        // WebTool.waitTime(1);
         String[] arraySplitDateDa = dataInserita.split("/");
 
         List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
@@ -618,8 +613,6 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
         dateToSelect.click();
 
-
-        this.dataInizioField.sendKeys(dataInserita);
         this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", dataInserita));
     }
 

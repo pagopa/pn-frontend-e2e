@@ -41,7 +41,8 @@ Feature:Il delegato persona giuridica accede ad una delega
       | codiceFiscale | BRGLRZ80D58H501Q |
       | ente          | Comune di Verona |
     And Nella sezione Le Tue Deleghe inserire una data con formato errato e antecedente alla data
-    And Nella sezione Le Tue Deleghe si visualizza il messaggio di errore data errata
+   # And Nella sezione Le Tue Deleghe si visualizza il messaggio di errore data errata
+    And Verifica che non è possibile selezionare una data Fine antecedente ad oggi
     And Nella sezione Le Tue Deleghe inserire una data
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella sezione Deleghe si visualizza la delega in stato di attesa di conferma

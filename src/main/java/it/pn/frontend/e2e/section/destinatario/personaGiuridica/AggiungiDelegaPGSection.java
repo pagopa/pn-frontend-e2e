@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.section.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -8,9 +9,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 public class AggiungiDelegaPGSection extends BasePage {
 
@@ -57,6 +61,8 @@ public class AggiungiDelegaPGSection extends BasePage {
 
     @FindBy(id = "expirationDate-helper-text")
     WebElement messaggioErroreData;
+
+    private boolean dataFineErrata;
 
     public AggiungiDelegaPGSection(WebDriver driver) {
         super(driver);
@@ -150,17 +156,57 @@ public class AggiungiDelegaPGSection extends BasePage {
     }
 
 
-    public void insertDataErrata() {
+    public boolean insertDataErrata() {
         LocalDate dataDaInserire = LocalDate.now().minusDays(1);
-        dataTermineDelegaInput.sendKeys(dataDaInserire.toString());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedDate = dataDaInserire.format(formatter);
+        return insertData(formattedDate);
     }
+
+
 
     public void insertDataCorretta() {
         LocalDate dataDaInserire = LocalDate.now().plusDays(1);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedDate = dataDaInserire.format(formatter);
-        dataTermineDelegaInput.sendKeys(formattedDate);
+        insertData(formattedDate);
+        // dataTermineDelegaInput.sendKeys(formattedDate);
     }
+
+
+    public boolean insertData(String dataInserita) {
+        boolean result = true;
+        try {
+            getWebDriverWait(10).withMessage("il campo data non è visibile nella pagina").until(ExpectedConditions.visibilityOf(this.dataTermineDelegaInput));
+
+            WebTool.waitTime(15);
+
+            dataTermineDelegaInput = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("expirationDate")));
+
+            WebTool.waitTime(10);
+            String[] arraySplitDateDa = dataInserita.split("/");
+
+            List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
+            int dayDa = Integer.parseInt(arraySplitDateDa[0]);
+
+            // Step 2: Click on the input field to open the calendar pop-up
+            dataFieldList.get(3).click();
+
+            // Step 3: Wait for the calendar pop-up to appear
+            WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
+
+            // Step 4: Select a date (e.g., the 15th day of the current month)
+            WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
+            dateToSelect.click();
+
+            this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataTermineDelegaInput, "value", dataInserita));
+        } catch (ElementClickInterceptedException e) {
+            logger.error("Non è possibile settare una data Fine precedente rispetto alla data Inizio: " + e.getMessage());
+            result = false;
+        }
+        return  result;
+    }
+
 
     public String waitMessaggioErroreData() {
         this.getWebDriverWait(30).withMessage("Il messaggio errore delega non è visibile").until(ExpectedConditions.visibilityOf(this.messaggioErroreData));
