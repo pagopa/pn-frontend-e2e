@@ -286,8 +286,8 @@ public class PiattaformaNotifichePage extends BasePage {
         WebTool.waitTime(5);
         WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
         dateToSelect = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dateToSelect));
-        js().executeScript("arguments[0].click()", dateToSelect);
-        //dateToSelect.click();
+        //js().executeScript("arguments[0].click()", dateToSelect);
+        dateToSelect.click();
 
         logger.info("DATA INIZIO FIELD: "+dataInizioField.getAttribute("value"));
 
@@ -344,8 +344,8 @@ public class PiattaformaNotifichePage extends BasePage {
         // Step 4: Select a date (e.g., the 15th day of the current month)
         WebElement dateToSelect1 = calendar1.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayA + "']"));
         dateToSelect1 = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dateToSelect1));
-        js().executeScript("arguments[0].click()", dateToSelect1);
-        //dateToSelect1.click();
+        //js().executeScript("arguments[0].click()", dateToSelect1);
+        dateToSelect1.click();
 
         logger.info("DATA FINE FIELD: "+dataFineField.getAttribute("value"));
 
