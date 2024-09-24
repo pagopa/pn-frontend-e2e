@@ -1268,6 +1268,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void verificaMittente(String ente) {
+        WebTool.waitTime(2);
         By mittente = By.id("row-value-1");
         getWebDriverWait(10).withMessage("Mittente non trovato").until(ExpectedConditions.and(
                 ExpectedConditions.visibilityOfElementLocated(mittente),
