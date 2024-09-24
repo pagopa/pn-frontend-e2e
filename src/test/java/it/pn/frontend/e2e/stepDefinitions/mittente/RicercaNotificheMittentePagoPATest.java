@@ -208,7 +208,7 @@ public class RicercaNotificheMittentePagoPATest {
     }
 
     @And("Verifica che non è possibile selezionare una data Fine antecedente alla data Inizio")
-    public void verificaArcoTemporaleSelezionato(String dataDA, String dataA) {
+    public void verificaArcoTemporaleSelezionato() {
         logger.info("Si controlla l'arco temporale che sia errato su cui effettuare la ricerca");
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         Assert.assertFalse(dataFineErrata);
