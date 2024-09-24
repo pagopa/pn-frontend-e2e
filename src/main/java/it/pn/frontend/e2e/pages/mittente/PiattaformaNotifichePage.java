@@ -285,7 +285,6 @@ public class PiattaformaNotifichePage extends BasePage {
         // Step 4: Select a date (e.g., the 15th day of the current month)
         WebTool.waitTime(5);
         WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
-        js().executeScript("arguments[0].setAttribute('aria-selected', 'true')", dateToSelect);
         dateToSelect = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dateToSelect));
         js().executeScript("arguments[0].click()", dateToSelect);
         //dateToSelect.click();
@@ -343,7 +342,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
         // Step 4: Select a date (e.g., the 15th day of the current month)
         WebElement dateToSelect1 = calendar1.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayA + "']"));
-        js().executeScript("arguments[0].setAttribute('aria-selected', 'true')", dateToSelect1);
         dateToSelect1 = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dateToSelect1));
         js().executeScript("arguments[0].click()", dateToSelect1);
         //dateToSelect1.click();
@@ -523,6 +521,7 @@ public class PiattaformaNotifichePage extends BasePage {
         String[] arraySplitDateDa = dataInserita.split("/");
 
         List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
+        int dayDa = Integer.parseInt(arraySplitDateDa[0]);
 
         // Step 2: Click on the input field to open the calendar pop-up
         dataFieldList.get(2).click();
@@ -531,7 +530,7 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
         // Step 4: Select a date (e.g., the 15th day of the current month)
-        WebElement dateToSelect = calendar.findElement(By.xpath("//button[contains(text(), '" + arraySplitDateDa[0] + "')]"));
+        WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
         dateToSelect.click();
 
 
