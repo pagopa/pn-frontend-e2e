@@ -256,7 +256,7 @@ public class PiattaformaNotifichePage extends BasePage {
         // logger.info("ANNO SELEZIONATO" +yearsButton.getText());
 
 
-        WebElement previousMonthButton = driver.findElement(By.xpath("//button[@aria-label='Previous month']"));
+        WebElement previousMonthButton = driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"));
 
         /**
          WebElement monthDaToSelect = calendar.findElement(By.xpath("//div[contains(text(), '"+DFSymbols.getMonths()[monthDa-1]+" "+yerarsDa+"')]"));
@@ -323,8 +323,7 @@ public class PiattaformaNotifichePage extends BasePage {
         }
          **/
 
-        previousMonthAButton = driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"));
-        
+
         int clickA =0;
         while (clickA<36) {
             try {
@@ -334,7 +333,7 @@ public class PiattaformaNotifichePage extends BasePage {
                     break;
                 }
             } catch (NoSuchElementException e) {
-                previousMonthButton.click();
+                previousMonthAButton.click();
                 click ++;
             }
         }
