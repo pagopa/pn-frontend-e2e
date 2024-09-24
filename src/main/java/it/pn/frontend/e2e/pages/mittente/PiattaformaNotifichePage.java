@@ -225,7 +225,7 @@ public class PiattaformaNotifichePage extends BasePage {
         dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
         dataInizioField = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='startDate']")));
 
-        WebTool.waitTime(3);
+        WebTool.waitTime(5);
 
         String[] arraySplitDateDa = da.split("/");
 
@@ -321,7 +321,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         dataInizioField = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='startDate']")));
 
-        WebTool.waitTime(3);
+        WebTool.waitTime(5);
 
         String[] arraySplitDateDa = da.split("/");
 
