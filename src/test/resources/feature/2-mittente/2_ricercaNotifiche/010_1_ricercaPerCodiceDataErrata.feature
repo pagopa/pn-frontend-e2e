@@ -2,7 +2,7 @@ Feature: Mittente effetua una ricerca notifiche per Data errata
 
   @TA_MittenteRicercaPerDataErrata
     @mittente
-    @ricercaNotificheMittente
+
 
   Scenario Outline: PN-9323 - Mittente loggato effettua una ricerca per periodo temporale errato
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
