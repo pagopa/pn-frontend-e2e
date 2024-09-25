@@ -118,17 +118,17 @@ public class UtentiPGPage extends BasePage {
 
     public void waitLoadUtentiPage() {
         try {
-            WebTool.waitTime(10);
-            By utentiPageTitle = By.xpath("//div/h4[contains(text(),'Utenti')]");
-            By sottoTitolo = By.xpath("//div/p[contains(text(),'Gestisci gli utenti')]");
-            By addUserButton = By.xpath("//button[contains(text(),'Aggiungi utente')]");
-            By filtraButton = By.xpath("//button[contains(text(),'Filtra')]");
-            By utentiTable = By.id("UsersSearchTableBox");
-            getWebDriverWait(10).withMessage("il titolo Utenti della pagina utenti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(utentiPageTitle));
-            getWebDriverWait(10).withMessage("il sottotitolo della pagina utenti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(sottoTitolo));
-            getWebDriverWait(10).withMessage("il bottone aggiungi utente della pagina utenti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(addUserButton));
-            getWebDriverWait(10).withMessage("il bottone filtra della pagina utenti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(filtraButton));
-            getWebDriverWait(10).withMessage("la tabella della pagina utenti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(utentiTable));
+            WebTool.waitTime(15);
+            WebElement utentiPageTitle = driver.findElement(By.xpath("//div/h4[contains(text(),'Utenti')]"));
+            WebElement sottoTitolo = driver.findElement(By.xpath("//div/p[contains(text(),'Gestisci gli utenti')]"));
+            WebElement addUserButton = driver.findElement(By.xpath("//button[contains(text(),'Aggiungi utente')]"));
+            WebElement filtraButton = driver.findElement(By.xpath("//button[contains(text(),'Filtra')]"));
+            WebElement utentiTable =driver.findElement( By.id("UsersSearchTableBox"));
+            getWebDriverWait(10).withMessage("il titolo Utenti della pagina utenti non è visibile").until(ExpectedConditions.visibilityOf(utentiPageTitle));
+            getWebDriverWait(10).withMessage("il sottotitolo della pagina utenti non è visibile").until(ExpectedConditions.visibilityOf(sottoTitolo));
+            getWebDriverWait(10).withMessage("il bottone aggiungi utente della pagina utenti non è visibile").until(ExpectedConditions.visibilityOf(addUserButton));
+            getWebDriverWait(10).withMessage("il bottone filtra della pagina utenti non è visibile").until(ExpectedConditions.visibilityOf(filtraButton));
+            getWebDriverWait(10).withMessage("la tabella della pagina utenti non è visibile").until(ExpectedConditions.visibilityOf(utentiTable));
             logger.info("Si visualizza correttamente utenti page");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente utenti page con errore:" + e.getMessage());
