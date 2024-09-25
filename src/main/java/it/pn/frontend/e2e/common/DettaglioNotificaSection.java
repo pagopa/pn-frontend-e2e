@@ -67,7 +67,8 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void clickLinkAttestazioniOpponibile(int numeroLinkAttestazioniOpponibile) {
-        WebTool.waitTime(1);
+        WebTool.waitTime(2);
+        attestazioniFile = driver.findElements(By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: ')]"));
         if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
             attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
         } else {
