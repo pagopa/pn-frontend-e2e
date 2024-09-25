@@ -309,31 +309,32 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         element(titolare).sendKeys("Titolare");
         driver.switchTo().defaultContent();
 
-        By continuaBottone = By.xpath("//button[@aria-label='Continua']");
-        getWebDriverWait(5).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(continuaBottone));
-        element(continuaBottone).click();
+        WebElement continuaBottone = driver.findElement(By.xpath("//button[@aria-label='Continua']") );
+        getWebDriverWait(7).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(continuaBottone));
+        continuaBottone.click();
 
         WebTool.waitTime(2);
 
         //Select Nexi
-        By modificaButton = By.xpath("//button[@aria-label='Modifica PSP']");
+        WebElement modificaButton = driver.findElement(By.xpath("//button[@aria-label='Modifica PSP']"));
         getWebDriverWait(5).withMessage("Il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(modificaButton));
-        element(modificaButton).click();
+        modificaButton.click();
 
         WebTool.waitTime(2);
 
-        By nexiButton = By.xpath("//div[contains(text(),'Nexi')]");
-        getWebDriverWait(10).withMessage("Il bottone Nexi non è cliccabile").until(ExpectedConditions.elementToBeClickable(nexiButton));
-        if (elements(nexiButton).size()==2){
-            elements(nexiButton).get(1).click();
+        List<WebElement> nexiButton =  driver.findElements(By.xpath("//div[contains(text(),'Nexi')]"));
+        WebTool.waitTime(10);
+        //getWebDriverWait(10).withMessage("Il bottone Nexi non è cliccabile").until(ExpectedConditions.elementToBeClickable(nexiButton));
+        if (nexiButton.size()==2){
+            nexiButton.get(1).click();
         }else {
-            elements(nexiButton).get(0).click();
+            nexiButton.get(0).click();
         }
         WebTool.waitTime(2);
 
-        By pagaButton = By.xpath("//button[@id='paymentCheckPageButtonPay']");
+        WebElement pagaButton =  driver.findElement(By.xpath("//button[@id='paymentCheckPageButtonPay']"));
         getWebDriverWait(5).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
-        element(pagaButton).click();
+        pagaButton.click();
         WebTool.waitTime(35);
         List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Chiudi')]"));
         getWebDriverWait(10).withMessage("Il bottone Chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudi.get(0)));
