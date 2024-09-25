@@ -99,10 +99,10 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void clickSuChiudiPopUp() {
         //By chiudiButtonBy = By.xpath("//button[contains(text(),'Chiudi')]");
-        By chiudiButtonBy = By.xpath("//h2[@id='dialog-title']/following-sibling::div/button[contains(text(),'Annulla')]");
-
+        WebTool.waitTime(3);
+        WebElement chiudiButtonBy = driver.findElement(By.xpath("//h2[@id='dialog-title']/following-sibling::div/button[contains(text(),'Annulla')]"));
         getWebDriverWait(10).withMessage("Il bottone chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudiButtonBy));
-        this.js().executeScript("arguments[0].click()", this.element(chiudiButtonBy));
+        this.js().executeScript("arguments[0].click()", chiudiButtonBy);
     }
 
     public void insertEmailPEC(String emailPEC) {
