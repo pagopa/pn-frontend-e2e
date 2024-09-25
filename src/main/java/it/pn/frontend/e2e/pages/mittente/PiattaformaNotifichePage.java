@@ -1264,6 +1264,8 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void checkMessaggioErroreConCodice(int code) {
+        WebTool.waitTime(3);
+        erroreMessaggio = driver.findElement(By.id("message"));
         switch (code) {
             case 19 -> {
                 if (erroreMessaggio.getText().contains("inserito troppe volte un nome")) {
