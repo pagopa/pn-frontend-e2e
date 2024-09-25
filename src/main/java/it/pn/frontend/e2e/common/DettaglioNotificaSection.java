@@ -68,7 +68,7 @@ public class DettaglioNotificaSection extends BasePage {
 
     public void clickLinkAttestazioniOpponibile(int numeroLinkAttestazioniOpponibile) {
         WebTool.waitTime(2);
-        attestazioniFile = driver.findElements(By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: ')]"));
+        attestazioniFile = driver.findElements(By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: notifica presa in carico')]"));
         if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
             attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
         } else {
@@ -164,6 +164,7 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void checkMessaggioScadenzaDownload() {
+        WebTool.waitTime(3);
         WebElement checkAvvisoDownloadScaduto = driver.findElement(By.xpath("//div[contains(text(), 'Il documento sarà scaricabile tra pochi minuti')]"));
         getWebDriverWait(10).withMessage("Il pulsante sezione attestazione opponibile non è visibile").until(ExpectedConditions.visibilityOf(checkAvvisoDownloadScaduto));
     }
