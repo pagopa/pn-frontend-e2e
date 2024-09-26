@@ -475,7 +475,7 @@ public class DownloadFileMittentePagoPATest {
     @And("Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta")
     public void nellaPaginaStatoDellaPiattaformaSiCambiaPaginaUtilizzandoUnaFreccetta() {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
-        piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnaFrecetta(6);
+        piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnaFrecetta(7);
     }
 
     @And("Si controlla che esista pop up scadenza")
