@@ -486,6 +486,7 @@ public class PiattaformaNotifichePage extends BasePage {
             attesaCaricamentoPagina();
             getWebDriverWait(30).withMessage("La tabella delle notifiche non è caricata correttamente").until(elementToBeClickable(notificaBy));
 
+            /**
             WebElement buttonRighePagine = driver.findElement(By.id("rows-per-page"));
             getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(buttonRighePagine));
             buttonRighePagine.click();
@@ -497,6 +498,7 @@ public class PiattaformaNotifichePage extends BasePage {
             List<WebElement> notifiche = this.elements(notificaBy);
             logger.info("ELENCO NOTIFICHE : "+notifiche.size());
             Calendar calendar = GregorianCalendar.getInstance();
+            logger.info("CALENDAR: "+calendar);
             int index = calendar.get(Calendar.HOUR_OF_DAY);
             logger.info("index NOTIFICHE : "+index);
 
@@ -506,6 +508,9 @@ public class PiattaformaNotifichePage extends BasePage {
             }else {
                 notifiche.get(0).click();
             }
+             **/
+            List<WebElement> notifiche = this.elements(notificaBy);
+            notifiche.get(0).click();
 
 
         } catch (TimeoutException e) {
