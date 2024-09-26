@@ -493,13 +493,15 @@ public class PiattaformaNotifichePage extends BasePage {
             getWebDriverWait(3).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(pageSize50));
             pageSize50.click();
 
+            notificaBy = By.id("notificationsTable.body.row");
             List<WebElement> notifiche = this.elements(notificaBy);
-
+            logger.info("ELENCO NOTIFICHE : "+notifiche.size());
             Calendar calendar = GregorianCalendar.getInstance();
             int index = calendar.get(Calendar.HOUR_OF_DAY);
+            logger.info("index NOTIFICHE : "+index);
 
             if (notifiche.size()>=index){
-                //TODO inserire ora per la gestione della get
+                logger.info("NOTIFICA SELEZIONATA: "+index);
                 notifiche.get(index).click();
             }else {
                 notifiche.get(0).click();
