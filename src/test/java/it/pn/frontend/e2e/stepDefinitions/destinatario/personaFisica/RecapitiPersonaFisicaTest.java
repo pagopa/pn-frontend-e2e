@@ -795,6 +795,7 @@ public class RecapitiPersonaFisicaTest {
     @And("Nel pop up elimina indirizzo pec si clicca sul bottone conferma")
     public void nelPopUpEliminaIndirizzoPecSiCliccaSulBottoneConferma() {
         logger.info("Si clicca sul bottone conferma");
+        WebTool.waitTime(3);
         if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi PEC")) {
             recapitiDestinatarioPage.clickSuConfermaElimina();
         } else {

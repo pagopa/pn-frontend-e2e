@@ -802,10 +802,12 @@ public class PiattaformaNotifichePage extends BasePage {
                 .withMessage("Il pulsante 'righe per pagina' non è presente")
                 .until(ExpectedConditions.visibilityOf(this.numeroNotificheButton));
         vaiInFondoAllaPagina();
+        WebTool.waitTime(1);
         this.numeroNotificheButton.click();
         this.getWebDriverWait(10)
                 .withMessage("Il pulsante '50' per assegnare il numero di notifiche per pagina non è presente")
                 .until(ExpectedConditions.visibilityOf(this.numberElement));
+        WebTool.waitTime(1);
         this.numberElement.click();
     }
 
