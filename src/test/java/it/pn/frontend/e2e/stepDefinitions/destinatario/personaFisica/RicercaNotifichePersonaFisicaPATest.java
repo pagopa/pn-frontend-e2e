@@ -152,7 +152,7 @@ public class RicercaNotifichePersonaFisicaPATest {
         logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca 120 giorni ");
 
         LocalDate dateNow = LocalDate.now();
-        LocalDate dateA = dateNow.minusDays(151);
+        LocalDate dateA = dateNow.minusDays(150);
 
         LocalDate dateDa = dateA.minusDays(30);
 
