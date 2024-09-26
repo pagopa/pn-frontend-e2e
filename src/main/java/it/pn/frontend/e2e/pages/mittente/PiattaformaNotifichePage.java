@@ -486,7 +486,6 @@ public class PiattaformaNotifichePage extends BasePage {
             attesaCaricamentoPagina();
             getWebDriverWait(30).withMessage("La tabella delle notifiche non è caricata correttamente").until(elementToBeClickable(notificaBy));
 
-            /**
             WebElement buttonRighePagine = driver.findElement(By.id("rows-per-page"));
             getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(buttonRighePagine));
             buttonRighePagine.click();
@@ -494,6 +493,7 @@ public class PiattaformaNotifichePage extends BasePage {
             getWebDriverWait(3).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(pageSize50));
             pageSize50.click();
 
+            WebTool.waitTime(10);
             notificaBy = By.id("notificationsTable.body.row");
             List<WebElement> notifiche = this.elements(notificaBy);
             logger.info("ELENCO NOTIFICHE : "+notifiche.size());
@@ -508,9 +508,9 @@ public class PiattaformaNotifichePage extends BasePage {
             }else {
                 notifiche.get(0).click();
             }
-             **/
-            List<WebElement> notifiche = this.elements(notificaBy);
-            notifiche.get(0).click();
+
+          //  List<WebElement> notifiche = this.elements(notificaBy);
+          //  notifiche.get(0).click();
 
 
         } catch (TimeoutException e) {
