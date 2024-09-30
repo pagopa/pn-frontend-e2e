@@ -480,7 +480,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void checkBoxModelloF24() {
         try {
-            By boxModelloF24 = By.xpath("//div[@data-testid='dialog-content']");
+            By boxModelloF24 = By.xpath("//div[@data-testid='f24only-box']");
             getWebDriverWait(10).withMessage("Non si visualizza il box allegati modelli F24").until(ExpectedConditions.visibilityOfElementLocated(boxModelloF24));
         } catch (TimeoutException e) {
             logger.error("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
