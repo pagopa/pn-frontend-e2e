@@ -5,7 +5,7 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
   @mittente
   @visualizzazioneNotificheMittente
 
-  @CheckNotificaConDocumentiAllegati1
+  @CheckNotificaConDocumentiAllegati
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente visualizza box allegati modelli F24
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
@@ -27,7 +27,7 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
       | F24              | 3                  |
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 5 secondi
-    And Si seleziona la notifica
+    And Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si controlla sia visualizza box allegati modelli F24
     And Logout da portale mittente
