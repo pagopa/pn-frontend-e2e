@@ -8,7 +8,7 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
   @CheckNotificaConDocumentiAllegati
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente visualizza box allegati modelli F24
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
-    And Nella pagina piattaforma notifiche si effettua la ricerca per codice IUN "JDHQ-WTRG-YPTR-202405-G-1"
+    And Nella pagina piattaforma notifiche si effettua la ricerca per codice IUN "ETYM-TMVQ-RKGP-202409-M-1"
     And Si clicca la notifica ricercata
     And Si clicca sul bottone vedi tutti
     And Si controlla sia visualizza box allegati modelli F24
