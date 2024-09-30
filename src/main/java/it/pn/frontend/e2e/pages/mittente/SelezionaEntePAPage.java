@@ -33,9 +33,9 @@ public class SelezionaEntePAPage extends BasePage {
     public void waitLoadSelezionaEntePAPage() {
         try {
             WebTool.waitTime(15);
-            By titlePage = By.xpath("//h3[text()='Seleziona il tuo ente']");
-            By searchField = By.id("search");
-            this.getWebDriverWait(30).withMessage("Titolo 'Seleziona il tuo ente' della pagina non è visualizza").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
+            WebElement titlePage = driver.findElement(By.xpath("//h3[text()='Seleziona il tuo ente']"));
+            WebElement searchField =  driver.findElement(By.id("search"));
+            this.getWebDriverWait(30).withMessage("Titolo 'Seleziona il tuo ente' della pagina non è visualizza").until(ExpectedConditions.visibilityOf(titlePage));
             this.getWebDriverWait(30).withMessage("Il campo cerca non è cliccabile nella pagina Seleziona Ente: ").until(ExpectedConditions.elementToBeClickable(searchField));
             logger.info("Seleziona Utente PA Page caricata");
         } catch (TimeoutException | NoSuchElementException | StaleElementReferenceException e) {
