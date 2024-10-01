@@ -117,6 +117,7 @@ public class ITuoiRecapitiPage extends BasePage {
         By eliminaMailButton = By.xpath("//button[@id='cancelContact-default']");
         getWebDriverWait(10).withMessage("il Bottone elimina e-mail non presente").until(ExpectedConditions.elementToBeClickable(eliminaMailButton));
         this.js().executeScript("arguments[0].click();", this.element(eliminaMailButton));
+        logger.info("Log eliminaEmailEsistente: ");
     }
 
     public void insertEmail(String emailPEC) {

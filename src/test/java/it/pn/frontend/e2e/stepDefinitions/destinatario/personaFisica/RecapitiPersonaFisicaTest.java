@@ -490,6 +490,7 @@ public class RecapitiPersonaFisicaTest {
             backgroundTest.aggiuntaEmailPF();
         } else if (recapitiDestinatarioPage.controlloEmailAssociata(email)) {
             iTuoiRecapitiPage.eliminaEmailEsistente();
+            WebTool.waitTime(3);
             if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
                 recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
             } else {

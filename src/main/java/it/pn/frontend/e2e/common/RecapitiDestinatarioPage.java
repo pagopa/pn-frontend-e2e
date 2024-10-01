@@ -99,6 +99,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void clickSuChiudiPopUp() {
         //By chiudiButtonBy = By.xpath("//button[contains(text(),'Chiudi')]");
+        logger.info("Log clickSuChiudiPopUp");
         WebTool.waitTime(5);
         WebElement chiudiButtonBy = driver.findElement(By.xpath("//h2[@id='dialog-title']/following-sibling::div/button[contains(text(),'Annulla')]"));
         getWebDriverWait(10).withMessage("Il bottone chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudiButtonBy));
@@ -123,6 +124,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         By confermaEliminaButton = By.xpath("//h2[@id='dialog-title']/following-sibling::div/button[contains(text(),'Conferma')]");
         this.getWebDriverWait(10).withMessage("Il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.element(confermaEliminaButton)));
         this.element(confermaEliminaButton).click();
+        logger.info("clickConfermaButtonEliminaPopUp");
     }
 
     public void waitLoadPopUp() {
