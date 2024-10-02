@@ -156,9 +156,7 @@ public class BackgroundTest {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiCliccaSulBottoneConferma();
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaEmailPECTramiteChiamataRequest("prova@pec.it");
-        //recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaPECTramiteChiamataRequest(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP();
-        //recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente();
     }
 
@@ -184,6 +182,15 @@ public class BackgroundTest {
             deleghePGPagoPATest.siAssegnaUnGruppoAllaDelega(gruppo);
         }
         deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
+    }
+
+    public void accettazioneDelegaSceltaGruppoPF(boolean withGroup, String gruppo) {
+        deleghePagoPATest.siSceglieOpzioneAccetta();
+        deleghePGPagoPATest.siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale();
+        deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneConfermaCodice();
+        if (withGroup) {
+            deleghePGPagoPATest.siAssegnaUnGruppoAllaDelega(gruppo);
+        }
     }
 
     public void checkDelegaSceltaGruppoEInserimentoCodiceErrata() {
@@ -216,7 +223,7 @@ public class BackgroundTest {
 
 
     public void aggiungiPECPG() {
-        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario(nomeFilePG);
+        recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario("pec@pec.pagopa.it");
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiCliccaSulBottoneConferma();
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequest(nomeFilePG);
@@ -266,6 +273,7 @@ public class BackgroundTest {
 
     public void siEliminaPecEsistenteEAltriRecapitiAssociati() {
         recapitiDestinatarioPage.clickSuEliminaPec();
+        WebTool.waitTime(3);
         if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi PEC")) {
             recapitiDestinatarioPage.clickSuConfermaElimina();
         } else {

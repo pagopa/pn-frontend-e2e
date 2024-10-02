@@ -61,7 +61,6 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si inserisce la PEC {string}")
     public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario(String emailPec ) {
         logger.info("Si inserisce la email PEC");
-       // Map<String, Object> personafisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         recapitiDestinatarioPage.insertEmailPEC(emailPec);
     }
 
@@ -90,7 +89,6 @@ public class RecapitiPersonaFisicaTest {
         String url = WebTool.getApiBaseUrl() + "addresses";
         recapitiDestinatarioPage.waitLoadPopUp();
         WebTool.waitTime(3);
-        logger.info("URL "+url);
         if (verificaChiamataEmail(url)) {
             logger.info("La chiamata per inviare l'otp è stata effettuata");
         } else {
@@ -100,10 +98,8 @@ public class RecapitiPersonaFisicaTest {
     }
 
     private boolean verificaChiamataEmail(String url) {
-        logger.info(netWorkInfos.toString());
         for (NetWorkInfo info : netWorkInfos) {
             if (info.getRequestUrl().contains(url) && info.getResponseStatus().equals("200")) {
-                logger.info("URL"+url);
                 logger.info("La chiamata per inviare email é utilizzabile");
                 return true;
             }
@@ -510,7 +506,7 @@ public class RecapitiPersonaFisicaTest {
 
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
-        String email = personaFisica.get("email").toString();
+        String email = personaFisica.get("mail").toString();
 
         BackgroundTest backgroundTest = new BackgroundTest();
 
@@ -518,6 +514,7 @@ public class RecapitiPersonaFisicaTest {
             backgroundTest.aggiuntaEmailPF();
         } else if (recapitiDestinatarioPage.controlloEmailAssociata(email)) {
             iTuoiRecapitiPage.eliminaEmailEsistente();
+            WebTool.waitTime(3);
             if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
                 recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
             } else {
@@ -838,6 +835,7 @@ public class RecapitiPersonaFisicaTest {
     @And("Nel pop up elimina indirizzo pec si clicca sul bottone conferma")
     public void nelPopUpEliminaIndirizzoPecSiCliccaSulBottoneConferma() {
         logger.info("Si clicca sul bottone conferma");
+        WebTool.waitTime(3);
         if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi PEC")) {
             recapitiDestinatarioPage.clickSuConfermaElimina();
         } else {
@@ -951,8 +949,8 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.waitLoadPage();
         }
         String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("additionalEmail").toString();
-        WebTool.waitTime(10);
         driver.navigate().refresh();
+        WebTool.waitTime(10);
         if (!recapitiDestinatarioPage.verificaNuovaEmailEPEC(pec)) {
             logger.error("La email PEC non è stata associata correttamente");
             Assert.fail("La email PEC non è stata associata correttamente");

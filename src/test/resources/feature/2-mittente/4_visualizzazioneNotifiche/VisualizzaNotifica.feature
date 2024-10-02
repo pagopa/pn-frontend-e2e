@@ -8,11 +8,29 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
   @CheckNotificaConDocumentiAllegati
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente visualizza box allegati modelli F24
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
-    And Nella pagina piattaforma notifiche si effettua la ricerca per codice IUN "JDHQ-WTRG-YPTR-202405-G-1"
-    And Si clicca la notifica ricercata
-    And Si clicca sul bottone vedi tutti
+    When Si inizializzano i dati per la notifica
+      | modello         | A/R                |
+      | documenti       | 1                  |
+      | oggettoNotifica | Pagamento rata IMU |
+      | costiNotifica   | false              |
+    And Si aggiunge un destinatario alla notifica
+      | at        | Presso     |
+      | indirizzo        | VIA ROMA     |
+      | codicePostale    | 20147        |
+      | comune           | Milano       |
+      | dettagliComune   | Milano       |
+      | provincia        | MI           |
+      | stato            | Italia       |
+      | nomeCognome      | Convivio Spa |
+      | codiceFiscale    | 27957814470  |
+      | tipoDestinatario | PG           |
+      | avvisoPagoPa     | 1            |
+      | F24              | 3            |
+    Then Creo in background una notifica per destinatario tramite API REST
+    And Aspetta 5 secondi
+    And La persona fisica clicca sulla notifica restituita
+    And Si visualizza correttamente la section Dettaglio Notifica
     And Si controlla sia visualizza box allegati modelli F24
-    Then Si clicca sul bottone chiudi box F24
     And Logout da portale mittente
 
   @CheckNotificaConDocumentiAllegati

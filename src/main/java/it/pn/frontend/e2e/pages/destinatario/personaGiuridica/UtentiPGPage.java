@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -117,16 +118,17 @@ public class UtentiPGPage extends BasePage {
 
     public void waitLoadUtentiPage() {
         try {
-            By utentiPageTitle = By.xpath("//div/h4[contains(text(),'Utenti')]");
-            By sottoTitolo = By.xpath("//div/p[contains(text(),'Gestisci gli utenti')]");
-            By addUserButton = By.xpath("//button[contains(text(),'Aggiungi utente')]");
-            By filtraButton = By.xpath("//button[contains(text(),'Filtra')]");
-            By utentiTable = By.id("UsersSearchTableBox");
-            getWebDriverWait(10).withMessage("il titolo Utenti della pagina utenti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(utentiPageTitle));
-            getWebDriverWait(10).withMessage("il sottotitolo della pagina utenti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(sottoTitolo));
-            getWebDriverWait(10).withMessage("il bottone aggiungi utente della pagina utenti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(addUserButton));
-            getWebDriverWait(10).withMessage("il bottone filtra della pagina utenti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(filtraButton));
-            getWebDriverWait(10).withMessage("la tabella della pagina utenti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(utentiTable));
+            WebTool.waitTime(15);
+            WebElement utentiPageTitle = driver.findElement(By.xpath("//div/h4[contains(text(),'Utenti')]"));
+            WebElement sottoTitolo = driver.findElement(By.xpath("//div/p[contains(text(),'Gestisci gli utenti')]"));
+            WebElement addUserButton = driver.findElement(By.xpath("//button[contains(text(),'Aggiungi utente')]"));
+            WebElement filtraButton = driver.findElement(By.xpath("//button[contains(text(),'Filtra')]"));
+            WebElement utentiTable =driver.findElement( By.id("UsersSearchTableBox"));
+            getWebDriverWait(10).withMessage("il titolo Utenti della pagina utenti non è visibile").until(ExpectedConditions.visibilityOf(utentiPageTitle));
+            getWebDriverWait(10).withMessage("il sottotitolo della pagina utenti non è visibile").until(ExpectedConditions.visibilityOf(sottoTitolo));
+            getWebDriverWait(10).withMessage("il bottone aggiungi utente della pagina utenti non è visibile").until(ExpectedConditions.visibilityOf(addUserButton));
+            getWebDriverWait(10).withMessage("il bottone filtra della pagina utenti non è visibile").until(ExpectedConditions.visibilityOf(filtraButton));
+            getWebDriverWait(10).withMessage("la tabella della pagina utenti non è visibile").until(ExpectedConditions.visibilityOf(utentiTable));
             logger.info("Si visualizza correttamente utenti page");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente utenti page con errore:" + e.getMessage());
@@ -140,7 +142,6 @@ public class UtentiPGPage extends BasePage {
     }
 
     public void waitLoadAggiungiUtentePage() {
-        try {
             getWebDriverWait(10).withMessage("il bottone indietro Utenti / Aggiungi nuovo utente della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
             getWebDriverWait(10).withMessage("il titolo della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(titoloAggiungiUtente));
             getWebDriverWait(10).withMessage("il sottotitolo della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(sottotitoloAggiungiUtente));
@@ -152,15 +153,11 @@ public class UtentiPGPage extends BasePage {
             getWebDriverWait(10).withMessage("il combobox seleziona prodotto della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(selectProductDropdown));
             getWebDriverWait(10).withMessage("il bottone continua della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(continueButton));
             logger.info("Si visualizza correttamente aggiungi nuovo utente page");
-        } catch (TimeoutException e) {
-            logger.error("Non si visualizza correttamente aggiungi nuovo utente con errore:" + e.getMessage());
-            Assert.fail("Non si visualizza correttamente aggiungi nuovo utente page con errore:" + e.getMessage());
-        }
     }
 
     public void insertData(String codiceFiscale, String name, String surname, String email) throws InterruptedException {
         codiceFiscaleBox.sendKeys(codiceFiscale);
-        Thread.sleep(2000);
+        WebTool.waitTime(2);
         if (nameBox.getAttribute("value").equalsIgnoreCase(name) && surnameBox.getAttribute("value").equalsIgnoreCase(surname)) {
             logger.info("Il nome e il cognome è generato correttamente");
         } else {

@@ -155,6 +155,7 @@ public class GruppiPGPagoPATest {
     @And("Si {string} il gruppo {string} creato inizialmente")
     public void siIlGruppoCreatoInizialmente(String azioneGruppo, String nomeGruppo) {
         log.info("Si elimina il gruppo {} creato all'inizio del test", nomeGruppo);
+        WebTool.waitTime(3);
         gruppiPGPage.eliminaGruppoDaPaginaIniziale(azioneGruppo, nomeGruppo);
     }
 }

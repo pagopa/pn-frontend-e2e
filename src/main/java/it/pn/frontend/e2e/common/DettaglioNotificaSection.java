@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.utility.NotificationBuilder;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -66,6 +67,8 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void clickLinkAttestazioniOpponibile(int numeroLinkAttestazioniOpponibile) {
+        WebTool.waitTime(2);
+        attestazioniFile = driver.findElements(By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: notifica presa in carico')]"));
         if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
             attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
         } else {
@@ -161,8 +164,8 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void checkMessaggioScadenzaDownload() {
-        By checkAvvisoDownloadScaduto = By.xpath("//div[contains(text(), 'Il documento sarà scaricabile tra pochi minuti')]");
-        getWebDriverWait(10).withMessage("Il pulsante sezione attestazione opponibile non è visibile").until(ExpectedConditions.visibilityOfElementLocated(checkAvvisoDownloadScaduto));
+        WebElement checkAvvisoDownloadScaduto = driver.findElement(By.xpath("//div[contains(text(), 'Il documento sarà scaricabile tra pochi minuti')]"));
+        getWebDriverWait(10).withMessage("Il pulsante sezione attestazione opponibile non è visibile").until(ExpectedConditions.visibilityOf(checkAvvisoDownloadScaduto));
     }
 
     public Map<String, String> recuperoInfoNotificheDestinatario() {

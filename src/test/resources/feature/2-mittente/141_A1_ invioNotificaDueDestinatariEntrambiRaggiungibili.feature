@@ -32,14 +32,14 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | soggettoGiuridico | PG           |
       | ragioneSociale    | Convivio Spa |
       | codiceFiscale     | 27957814470  |
-      | pec               | mail@fail.it |
-      | indirizzo         | Via Roma     |
-      | civico            | 20           |
-      | localita          | Milano       |
-      | comune            | Milano       |
-      | provincia         | MI           |
-      | cap               | 20147        |
-      | stato             | Italia       |
+      | pec               | mail@fail.it     |
+      | indirizzo         | Via Roma         |
+      | civico            | 20               |
+      | localita          | Milano           |
+      | comune            | Milano           |
+      | provincia         | MI               |
+      | cap               | 20147            |
+      | stato             | Italia           |
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     Then Nella section Allegati si carica un atto

@@ -120,7 +120,7 @@ public class RestDelegation {
 
     public List<DelegateResponsePF> getDelegator() {
         try {
-            List<DelegateResponsePF> response = httpClientPF.sendHttpGetRequestList("/mandate/api/v1/mandates-by-delegator", this.headers, DelegateResponsePF.class);
+            List<DelegateResponsePF> response = httpClientPF.sendHttpGetRequestListDelegate("/mandate/api/v1/mandates-by-delegator", this.headers, DelegateResponsePF.class);
             if (response != null) {
                 logger.info(String.valueOf(response));
                 return response;

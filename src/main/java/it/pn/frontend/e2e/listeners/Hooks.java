@@ -1,12 +1,11 @@
 package it.pn.frontend.e2e.listeners;
-
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import io.cucumber.java.it.Ma;
+import io.cucumber.java.en.And;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import it.pn.frontend.e2e.model.address.DigitalAddress;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
-import it.pn.frontend.e2e.model.address.DigitalAddressResponse;
 import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
@@ -33,7 +32,6 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -46,7 +44,8 @@ public class Hooks {
     private static final Logger logger = LoggerFactory.getLogger("Hooks");
     public static WebDriver driver;
     public DevTools devTools;
-    public Map<String, RequestWillBeSent> requests =  new HashMap<>();;
+    public Map<String, RequestWillBeSent> requests = new HashMap<>();
+    ;
 
     @Getter
     public static String scenario;
@@ -271,9 +270,11 @@ public class Hooks {
      */
     @After("@DeleghePF or @DeleghePG")
     public void clearDelegate() {
+        logger.info("REVOCA TUTTE LE DELEGHE....");
         MandateSingleton mandateSingleton = MandateSingleton.getInstance();
-        String mandateId =mandateSingleton.getMandateId(Hooks.getScenario());
+        String mandateId = mandateSingleton.getMandateId(Hooks.getScenario());
         if (mandateId != null) {
+            logger.info("REVOCA DELEGA: "+mandateId);
             RestDelegation restDelegation = RestDelegation.getInstance();
             restDelegation.revokeDelegation(mandateId);
             logger.info("Delega revocata con successo");
@@ -310,35 +311,34 @@ public class Hooks {
      * Clear the contacts of PF after the scenario
      * P.S: This will work only if there are any contacts available
      */
+
     @After(value = "@recapitiPF or @recapitiPG")
-    public void clearRecapiti() {
+    @And("Rimuovi tutti i recapiti se esistono")
+    public void clearRecapiti() throws IOException {
+
         RestContact restContact = RestContact.getInstance();
-        DigitalAddressResponse digitalAddress = restContact.getDigitalAddress();
+        List<DigitalAddress> digitalAddress = restContact.getAllDigitalAddress();
+        
         // Check for legal ones and remove them
-        if (digitalAddress != null){
-            if (!digitalAddress.getLegal().isEmpty()) {
-                digitalAddress.getLegal().forEach(address -> {
-                    if (address.getSenderId().equalsIgnoreCase("default")) {
+        if (digitalAddress != null) {
+            logger.info("SENDER DIGITAL ADDRESS...." + digitalAddress);
+            logger.info("SENDER DIGITAL ADDRESS...." + digitalAddress.size());
+            digitalAddress.forEach(addressDigital -> {
+                logger.info("SENDER_ID: " + addressDigital.getSenderId());
+                if (addressDigital.getSenderId().equalsIgnoreCase("default")) {
+
+                    if ("PEC".equalsIgnoreCase(addressDigital.getChannelType())) {
+                        logger.info("Remove Digital Address LegalPec: " + addressDigital.getSenderId());
                         restContact.removeDigitalAddressLegalPec();
                     } else {
-                        restContact.removeSpecialContact(address);
-                    }
-                });
-            }
-        }
-
-        // Check for courtesy ones and remove them
-        if (digitalAddress != null){
-            if (!digitalAddress.getCourtesy().isEmpty()) {
-                digitalAddress.getCourtesy().forEach(address -> {
-                    if (address.getSenderId().equalsIgnoreCase("default")) {
+                        logger.info("Remove Digital Address Courtesy Email: " + addressDigital.getSenderId());
                         restContact.removeDigitalAddressCourtesyEmail();
-                    } else {
-                        restContact.removeSpecialContact(address);
                     }
-                });
-            }
+                } else {
+                    logger.info("Remove Special Contact: " + addressDigital.getSenderId());
+                    restContact.removeSpecialContact(addressDigital);
+                }
+            });
         }
-
     }
 }

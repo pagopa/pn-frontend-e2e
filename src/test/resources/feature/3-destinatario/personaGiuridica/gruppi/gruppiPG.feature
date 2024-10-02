@@ -9,6 +9,7 @@ Feature: Si eseguono e si controllano tutte le operazioni che possono essere ese
     And Nella pagina gruppi si effettua la login tramite credenziali
       | user | DanteAlighieri |
       | pwd  | test           |
+    And Aspetta 5 secondi
     And Si visualizza correttamente la pagina gruppi
     And Si clicca sul bottone Crea gruppo
     And Si visualizza correttamente la pagina crea gruppo

@@ -280,10 +280,10 @@ public class DeleghePagoPATest {
 
         String verificationCode = "";
         leTueDelegheSection.waitPopUpLoad();
-        if (data.equalsIgnoreCase("corretto")) {
-            verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()));
-        } else {
+        if (data.equalsIgnoreCase("errato")) {
             verificationCode = "54321";
+        } else {
+            verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()));
         }
         leTueDelegheSection.inserireCodiceDelega(verificationCode);
     }
@@ -317,8 +317,8 @@ public class DeleghePagoPATest {
         String tokenExchange = loginPersonaFisicaPagoPA.getTokenExchangePFFromFile(personaFisica.get("accessoCome"));
         DelegateResponsePF response = restDelegation.addDelegationPF(delegateRequestPF, tokenExchange);
         if (response != null) {
-            mandateSingleton.setScenarioMandateId(Hooks.getScenario(),response.getMandateId());
-            mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()),response.getVerificationCode() );
+            mandateSingleton.setScenarioMandateId(Hooks.getScenario(), response.getMandateId());
+            mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()), response.getVerificationCode());
         }
         driver.navigate().refresh();
     }
@@ -369,12 +369,6 @@ public class DeleghePagoPATest {
         log.info("Si controlla che la delega abbia lo stato Attiva");
         this.deleghe = this.dataPopulation.readDataPopulation(dpFile + ".yaml");
         this.leTueDelegheSection.controlloEsistenzaDelega(deleghe.get("name").toString(), deleghe.get("familyName").toString());
-    }
-
-    @And("Si controlla che la delega è ancora presente")
-    public void siControllaCheLaDelegaèAncoraPresente(Map<String, String> personaFisica) {
-        log.info("Si controlla che la delega abbia lo stato Attiva");
-        this.leTueDelegheSection.controlloEsistenzaDelega(personaFisica.get("name"), personaFisica.get("familyName"));
     }
 
     @And("Nella sezione Deleghe si visualizza il titolo")
@@ -494,18 +488,6 @@ public class DeleghePagoPATest {
         this.deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
         deleghePage.waitLoadingSpinner();
         if (!deleghePage.verificaEsistenzaDelega(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString())) {
-            log.info("La delega non è più presente nella lista");
-        } else {
-            log.error("La delega è ancora presente in lista");
-            Assert.fail("La delega è ancora presente in lista");
-        }
-    }
-
-    @And("Si controlla che la delega non sia più presente nella lista")
-    public void siControllaCheLaDelegaNonSiaPiuPresenteNellaLista(Map<String, String> personaFisica) {
-        log.info("Si controlla che la delega non sia più presente nella lista");
-        deleghePage.waitLoadingSpinner();
-        if (!deleghePage.verificaEsistenzaDelega(personaFisica.get("name"), personaFisica.get("familyName"))) {
             log.info("La delega non è più presente nella lista");
         } else {
             log.error("La delega è ancora presente in lista");

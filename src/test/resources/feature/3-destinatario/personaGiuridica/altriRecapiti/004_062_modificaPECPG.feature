@@ -7,6 +7,7 @@ Feature: La persona giuridica modifica l'indirizzo PEC
 
   Scenario: PN-9153 - La persona giuridica modifica l'indirizzo PEC
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Rimuovi tutti i recapiti se esistono
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
     And Nella pagina I Tuoi Recapiti di PG, si controlla che ci sia già una pec "pec@pec.pagopa.it"

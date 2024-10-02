@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.Assert;
@@ -41,6 +42,7 @@ public class DisserviziAppPAPage extends BasePage {
     List<WebElement> stato;
 
     public void waitLoadStatoDellaPiattaformaPage() {
+        WebTool.waitTime(5);
         try {
             By disserviziPageTitle = By.id("Stato della piattaforma-page");
             By disserviziPageSubTitle = By.id("subtitle-page");
@@ -63,6 +65,7 @@ public class DisserviziAppPAPage extends BasePage {
                 getWebDriverWait(3).until(ExpectedConditions.textToBe(disserviziBoxAlert, "Tutti i servizi di SEND sono operativi."));
             }
 
+            disserviziTable = driver.findElement(By.id("notifications-table"));
             getWebDriverWait(10).withMessage("Non si visualizza correttamente l'ultimo aggiornamento della pagina")
                     .until(ExpectedConditions.visibilityOfElementLocated(disserviziLastUpdate));
             getWebDriverWait(10).withMessage("Non si visualizza correttamente la tabella dei disservizi")
@@ -96,6 +99,8 @@ public class DisserviziAppPAPage extends BasePage {
 
     public void waitLoadDisserviziTable() {
         try {
+            WebTool.waitTime(10);
+            disserviziTable = driver.findElement(By.id("notifications-table"));
             getWebDriverWait(10).withMessage("Non si visualizza correttamente la tabella dei disservizi")
                     .until(ExpectedConditions.visibilityOf(disserviziTable));
             // check if the table header is present
@@ -168,6 +173,7 @@ public class DisserviziAppPAPage extends BasePage {
 
     public void checkDisservizioRisolto(String tipoDisservizio) {
         aggiornamentoPagina();
+        disserviziTable = driver.findElement(By.id("notifications-table"));
         List<WebElement> disserviziTableRowsWithTypeOfDisservice = disserviziTable.findElements(By.xpath("//tr[@id='tableDowntimeLog.row' and contains(., '" + tipoDisservizio + "')]"));
         if (!disserviziTableRowsWithTypeOfDisservice.isEmpty()) {
             WebElement primaRiga = disserviziTableRowsWithTypeOfDisservice.get(0);
@@ -251,6 +257,8 @@ public class DisserviziAppPAPage extends BasePage {
                         try {
                             PDFTextStripper pdfTextStripper = new PDFTextStripper();
                             String text = pdfTextStripper.getText(PDDocument.load(file));
+                            logger.info("DATA_POPULATION_A: "+dataPopulation.getDataA());
+                            logger.info("DATA_POPULATION_DA: "+dataPopulation.getDataDa());
                             if (text.contains(dataPopulation.getDataA()) && text.contains(dataPopulation.getDataDa())) {
                                 return true;
                             }

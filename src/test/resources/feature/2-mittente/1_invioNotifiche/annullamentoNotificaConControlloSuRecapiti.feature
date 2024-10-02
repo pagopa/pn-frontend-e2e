@@ -74,6 +74,7 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata e 
   @recapitiPF
   Scenario: [TA-FE MITTENTE CREA E ANNULLA UNA NOTIFICA CON PAGAMENTO] - Mittente invia una notifica a destinatario con PEC impostata e la annulla, si controlla che le ricevute PEC sono scaricabili
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Rimuovi tutti i recapiti se esistono
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una "email di cortesia" e si inserisce "prova@test.it"

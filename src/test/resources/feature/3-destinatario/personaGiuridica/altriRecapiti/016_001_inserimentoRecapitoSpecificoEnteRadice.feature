@@ -7,6 +7,7 @@ Feature: la persona giuridica inserisce un recapito aggiuntivo da un ente radice
 
   Scenario: PN-10430 - La persona giuridica inserisce un recapito aggiuntivo da un ente radice
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Rimuovi tutti i recapiti se esistono
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una pec

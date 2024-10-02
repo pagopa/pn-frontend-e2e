@@ -98,7 +98,8 @@ public class DownloadFile extends BasePage {
 
                 URL url = new URL(urlLink);
                 HttpURLConnection http = (HttpURLConnection) url.openConnection();
-                http.setRequestProperty("Authorization", getBearerSessionToken());
+
+                http.setRequestProperty("Authorization", getBearerSessionToken(".notifichedigitali.it/bff/v1/downtime/history?"));
                 double fileSize = (double) http.getContentLengthLong();
 
                 BufferedInputStream input = new BufferedInputStream(http.getInputStream());
@@ -196,7 +197,7 @@ public class DownloadFile extends BasePage {
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("Content-Type", "application/json");
-            con.setRequestProperty("Authorization", getBearerSessionToken());
+            con.setRequestProperty("Authorization", getBearerSessionToken(".notifichedigitali.it/bff/v1/downtime/history?"));
 
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String inputLine;
@@ -224,6 +225,20 @@ public class DownloadFile extends BasePage {
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
             String variabileAmbiente = System.getProperty("environment");
             String urlChiamata = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery/notifications/received?";
+            if (netWorkInfo.getRequestUrl().contains(urlChiamata)) {
+                bearerToken = netWorkInfo.getAuthorizationBearer();
+            }
+        }
+        return bearerToken;
+    }
+
+    private String getBearerSessionToken(String url) {
+        List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
+        String bearerToken = "";
+        for (NetWorkInfo netWorkInfo : netWorkInfos) {
+            logger.info(bearerToken = netWorkInfo.getAuthorizationBearer());
+            String variabileAmbiente = System.getProperty("environment");
+            String urlChiamata = "https://webapi." + variabileAmbiente + url;
             if (netWorkInfo.getRequestUrl().contains(urlChiamata)) {
                 bearerToken = netWorkInfo.getAuthorizationBearer();
             }

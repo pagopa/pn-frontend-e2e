@@ -24,7 +24,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
       | stato            | ITALIA                             |
     Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica mittente
-    And Si attende che lo stato della notifica diventi "Depositata"
+    And Si attende completamento notifica "Depositata"
     And Logout da portale mittente
     And Login Page persona fisica test viene visualizzata
     And Login con persona fisica

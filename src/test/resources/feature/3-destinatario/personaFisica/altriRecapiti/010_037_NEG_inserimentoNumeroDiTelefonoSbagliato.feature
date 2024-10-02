@@ -6,6 +6,7 @@ Feature: la persona fisica inserisce un numero di telefono errato
   @recapitiPF
   Scenario: PN-9311-B37 - La persona fisica inserisce un numero di telefono errato
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Rimuovi tutti i recapiti se esistono
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono errato "2318773225"

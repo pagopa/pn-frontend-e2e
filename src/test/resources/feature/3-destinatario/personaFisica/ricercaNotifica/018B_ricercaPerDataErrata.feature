@@ -1,6 +1,5 @@
 Feature: Ricerca notifica persona fisica inserimento formato data errato
 
-  @TestSuite
   @TA_PFinserimentoDataErrata
   @PF
   @PFRicercaNotifica

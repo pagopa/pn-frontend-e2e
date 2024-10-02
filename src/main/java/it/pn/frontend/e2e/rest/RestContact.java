@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RestContact {
@@ -28,6 +29,7 @@ public class RestContact {
     }
 
     public RestContact() {
+
         this.httpClient.setBaseUrlApi("https://webapi." + env + ".notifichedigitali.it");
         if (token != null) {
             this.headers.put("Authorization", token);
@@ -80,7 +82,7 @@ public class RestContact {
      */
     public void removeSpecialContact(DigitalAddress digitalAddress) throws RestDelegationException {
         String channelType = digitalAddress.getChannelType().toString();
-        String addressType = digitalAddress.getAddressType().toLowerCase();
+        String addressType = digitalAddress.getAddressType().toString().toLowerCase();
         String url = "https://webapi." + env + ".notifichedigitali.it/address-book/v1/digital-address/"
                 + addressType + "/" + digitalAddress.getSenderId() + "/" + channelType;
         String response = "";
@@ -109,4 +111,24 @@ public class RestContact {
         }
         return null;
     }
+
+
+    public List<DigitalAddress> getAllDigitalAddress() throws RestContactException {
+        CustomHttpClient<?, DigitalAddress> httpClientDigitalAddress = CustomHttpClient.getInstance();
+        httpClientDigitalAddress.setBaseUrlApi("https://webapi." + env + ".notifichedigitali.it");
+        String url = "/bff/v1/addresses";
+
+        try {
+            List<DigitalAddress> response = httpClientDigitalAddress.sendHttpGetRequestListDigitalAddress(url, this.headers, DigitalAddress.class);
+
+            logger.info("Risposta ricevuta: " + response);
+            logger.info("Indirizzi digitali ricevuti con successo");
+            return response;
+        } catch (IOException e) {
+            logger.error("Error during getDigitalAddress", e);
+            logger.warn("Non è stato possibile ricevere gli indirizzi digitali");
+            return null;
+        }
+    }
+
 }

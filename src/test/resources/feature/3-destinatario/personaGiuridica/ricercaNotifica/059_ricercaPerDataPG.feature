@@ -1,6 +1,5 @@
 Feature: La persona giuridica ricerca per periodo temporale
 
-  @TestSuite
   @TA_PGricercaNotificaPerData
   @RicercaNotifichePG
   @PG

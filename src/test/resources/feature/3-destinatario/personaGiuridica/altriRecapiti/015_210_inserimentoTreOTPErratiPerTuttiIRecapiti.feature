@@ -7,6 +7,7 @@ Feature: La persona giuridica inserisce l'OTP errato 3 volte per i campi PEC, em
 
   Scenario: PN - 9709 - La persona giuridica inserisce l'OTP errato 3 volte per i campi PEC, email di cortesia e numero di cellulare
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Rimuovi tutti i recapiti se esistono
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una pec

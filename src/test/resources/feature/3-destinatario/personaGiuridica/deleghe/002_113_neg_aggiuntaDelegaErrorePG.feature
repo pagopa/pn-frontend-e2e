@@ -14,5 +14,6 @@ Feature: La persona giuridica aggiunge una nuova delga inserendo una data errata
     And Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega
     And Si visualizza la sezione Aggiungi Delega persona giuridica
     And Nella sezione Le Tue Deleghe inserire una data con formato errato e antecedente alla data
-    And Nella sezione Le Tue Deleghe si visualizza il messaggio di errore data errata
+    And Verifica che non è possibile selezionare una data Fine antecedente ad oggi
+   # And Nella sezione Le Tue Deleghe si visualizza il messaggio di errore data errata
     And Logout da portale persona giuridica

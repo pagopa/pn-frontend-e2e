@@ -135,15 +135,32 @@ public class RicercaNotifichePersonaFisicaPATest {
         }
     }
 
-    @And("Nella pagina Piattaforma Notifiche persona fisica inserire un arco temporale")
-    public void nellaPaginaPiattaformaNotificheDestinatarioInserireUnaDataDaDAAA(Map<String, Integer> date) {
+    @And("Nella pagina Piattaforma Notifiche mittente inserire un arco temporale")
+    public void nellaPaginaPiattaformaNotificheMittenteInserireUnaDataDaDAAA(Map<String, Integer> date) {
         logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca ");
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         LocalDate dataFine = LocalDate.of(date.get("annoA"), date.get("meseA"), date.get("giornoA"));
         LocalDate dataInizio = LocalDate.of(date.get("annoDa"), date.get("meseDa"), date.get("giornoDa"));
         String dataDA = notifichePFPage.controlloDateInserite(dataInizio.toString());
         String dataA = notifichePFPage.controlloDateInserite(dataFine.toString());
-        notifichePFPage.inserimentoArcoTemporale(dataDA, dataA);
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.inserimentoArcoTemporale(dataDA, dataA);
+    }
+
+    @And("Nella pagina Piattaforma Notifiche mittente inserire un arco temporale di maggiore di 120 giorni")
+    public void nellaPaginaPiattaformaNotificheMittenteInserireUnaDataDaDAAA120Giorni() {
+        logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca 120 giorni ");
+
+        LocalDate dateNow = LocalDate.now();
+        LocalDate dateA = dateNow.minusDays(150);
+
+        LocalDate dateDa = dateA.minusDays(30);
+
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        String dataa = piattaformaNotifichePage.conversioneFormatoDate(dateA.toString());
+        String datada = piattaformaNotifichePage.conversioneFormatoDate(dateA.toString());
+        logger.info("ARCO TEMPORRALE SETTATO: "+dataa +" - "+datada);
+        piattaformaNotifichePage.inserimentoArcoTemporale(dataa, datada);
     }
 
     @And("Se i risultati sono contenuti in più pagine persona fisica è possibile effettuare il cambio pagina")

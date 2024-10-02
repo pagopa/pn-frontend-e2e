@@ -4,6 +4,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
   @recapitiPF
   Scenario: [TA-FE INVIO DI UNA NOTIFICA DIGITALE A DESTINATARIO CON DOMICILIO IMPOSTATO] - Il mittente invia una notifica digitale a destinatario con indirizzo mail di cortesia impostato
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Rimuovi tutti i recapiti se esistono
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una "email di cortesia" e si inserisce "prova@test.it"
@@ -44,6 +45,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
   @recapitiPF
   Scenario: [TA-FE INVIO DI UNA NOTIFICA DIGITALE A DESTINATARIO CON DOMICILIO IMPOSTATO] - Mittente invia una notifica digitale al destinatario con domicilio di piattaforma e attende lo stato consegnata
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Rimuovi tutti i recapiti se esistono
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una "PEC" e si inserisce "prova@test.it"
@@ -85,6 +87,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
   @recapitiPF
   Scenario: [TA-FE INVIO DI UNA NOTIFICA DIGITALE A DESTINATARIO CON DOMICILIO IMPOSTATO] - Mittente invia una notifica digitale al destinatario con KO e invio raccomandata semplice
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Rimuovi tutti i recapiti se esistono
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una "PEC" e si inserisce "prova@fail.it"
@@ -199,6 +202,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
   @recapitiPF
   Scenario: [TA-FE INVIO DI UNA NOTIFICA DIGITALE A DESTINATARIO CON DOMICILIO IMPOSTATO] - Mittente invia una notifica digitale a destinatario, KO invio a domicilio di piattaforma, OK invio a domicilio speciale
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Rimuovi tutti i recapiti se esistono
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una "PEC" e si inserisce "prova@fail.it"
@@ -243,6 +247,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
   @recapitiPF
   Scenario: [TA-FE INVIO DI UNA NOTIFICA DIGITALE A DESTINATARIO CON DOMICILIO IMPOSTATO] - Mittente invia una notifica digitale a destinatario, KO invio sia a domicilio di piattaforma che a domicilio speciale
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Rimuovi tutti i recapiti se esistono
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una "PEC" e si inserisce "prova@fail.it"

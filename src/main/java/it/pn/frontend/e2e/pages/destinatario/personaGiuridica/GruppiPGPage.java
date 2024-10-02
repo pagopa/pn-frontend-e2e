@@ -51,6 +51,7 @@ public class GruppiPGPage extends BasePage {
         js().executeScript("arguments[0].scrollIntoView(true);", gruppiButton);
         getWebDriverWait(10).withMessage("Il bottone gruppi non è visibile").until(ExpectedConditions.visibilityOf(gruppiButton));
         scrollToElementAndClick(gruppiButton);
+        WebTool.waitTime(5);
         WebTool.switchToOtherTab();
     }
 
@@ -122,6 +123,7 @@ public class GruppiPGPage extends BasePage {
     }
 
     public void checkButtonConfermaAndClick() {
+        WebTool.waitTime(5);
         buttonConferma = returnElement("xpath","//button[contains(text(), 'Conferma')]");
         getWebDriverWait(10).withMessage("Il bottone conferma non è abilitato").until(ExpectedConditions.elementToBeClickable(buttonConferma));
         log.info("Il bottone è abilitato e lo si clicca");

@@ -266,7 +266,8 @@ public class DeleghePage extends BasePage {
     }
 
     public void clickDelegheDelDelegante(String personaFisica) {
-            By menuDelegheDelegante = By.id("side-item-" + personaFisica);
+
+            By menuDelegheDelegante = By.id("menu-item" + personaFisica);
             getWebDriverWait(10).withMessage("Voce del menu laterale non visibile e non cliccabile").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(menuDelegheDelegante),
                     ExpectedConditions.elementToBeClickable(menuDelegheDelegante)
