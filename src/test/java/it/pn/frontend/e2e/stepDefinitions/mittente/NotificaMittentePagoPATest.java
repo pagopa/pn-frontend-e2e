@@ -16,6 +16,7 @@ import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.*;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
+import it.pn.frontend.e2e.stepDefinitions.common.NotificationValue;
 import it.pn.frontend.e2e.stepDefinitions.common.SharedSteps;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
@@ -781,7 +782,7 @@ public class NotificaMittentePagoPATest {
 
 
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        this.personeFisiche = dataPopulation.readDataPopulation("personaFisicaPec.yaml");
+        //this.personeFisiche = dataPopulation.readDataPopulation("personaFisicaPec.yaml");
 
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
@@ -797,7 +798,7 @@ public class NotificaMittentePagoPATest {
                         cookiesSection.selezionaAccettaTuttiButton();
                     }
                 }
-                piattaformaNotifichePage.insertCodiceFiscale(this.personeFisiche.get("codiceFiscale").toString());
+                piattaformaNotifichePage.insertCodiceFiscale(NotificationValue.getDefaultValue(NotificationValue.FISCALCODE_PF_PEC.key));
                 piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
                 piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
                 piattaformaNotifichePage.selectFiltraNotificaButtonMittente();

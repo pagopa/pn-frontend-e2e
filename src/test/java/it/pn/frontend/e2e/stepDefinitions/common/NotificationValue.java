@@ -98,10 +98,22 @@ public enum NotificationValue {
     //PERSONA GIURIDICA
     EMAIL_PG("email_pg","provaemail@test.it",false),
     USER_PG("user_pg","DanteAlighieri",false),
-    PWD_PG("pwd_pg","test",false);
+    PWD_PG("pwd_pg","test",false),
 
 
-
+    //PERSONA FISICA PEC
+    EMAIL_PF_PEC("email_pf_pec","testpagopa2@pnpagopa.postecert.local",false),
+    NAME_PF_PEC("name_pf_pec","Galileo",false),
+    FAMILYNAME_PF_PEC("familyName_pf_pec","password123",false),
+    FISCALCODE_PF_PEC("fiscalcode_pf_pec","GLLGLL64B15G702I",false),
+    FISCALNUMBER_PF_PEC("fiscalnumber_pf_pec","TINIT-GLLGLL64B15G702I",false),
+    INDIRIZZO_PF_PEC("indirizzo_pf_pec","VIA ROMA",false),
+    NUMEROCIVICO_PF_PEC("numerocivico_pf_pec","20",false),
+    LOCALITA_PF_PEC("localita_pf_pec","MILANO",false),
+    COMUNE_PF_PEC("comune_pf_pec","MILANO",false),
+    PROVINCIA_PF_PEC("provincia_pf_pec","MI",false),
+    CAP_PF_PEC("cap_pf_pec","20147",false),
+    STATO_PF_PEC("stato_pf_pec","ITALIA",false);
 
     public final String key;
     private final String defaultValue;
