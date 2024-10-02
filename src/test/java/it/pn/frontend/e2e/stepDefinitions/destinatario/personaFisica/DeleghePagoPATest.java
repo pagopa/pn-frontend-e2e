@@ -15,6 +15,7 @@ import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.PopUpRevocaDelegaSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
+import it.pn.frontend.e2e.stepDefinitions.common.NotificationValue;
 import it.pn.frontend.e2e.stepDefinitions.common.SharedSteps;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
@@ -549,9 +550,11 @@ public class DeleghePagoPATest {
     public void siControllaCheNonCiSiaPiuUnaDelega() {
         log.info("Si controlla che non sia più presente una delega");
         WebTool.waitTime(6);
-        this.deleghe = dataPopulation.readDataPopulation("delegatoPF.yaml");
-        String nome = this.deleghe.get("name").toString();
-        String cognome = this.deleghe.get("familyName").toString();
+        //this.deleghe = dataPopulation.readDataPopulation("delegatoPF.yaml");
+        //String nome = NotificationValue.NAME_DELEGATO_PF.name();
+        String nome = NotificationValue.getDefaultValue(NotificationValue.NAME_DELEGATO_PF.key);
+        String cognome = NotificationValue.getDefaultValue(NotificationValue.FAMILY_DELEGATO_PF.key);
+        //String cognome = this.deleghe.get("familyName").toString();
         if (!deleghePage.siVisualizzaUnaDelegaConNome(nome, cognome)) {
             log.info("La delega è stata revocata correttamente");
         } else {

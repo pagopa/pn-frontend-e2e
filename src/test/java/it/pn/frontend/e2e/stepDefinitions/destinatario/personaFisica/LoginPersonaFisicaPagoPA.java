@@ -13,6 +13,7 @@ import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
+import it.pn.frontend.e2e.stepDefinitions.common.NotificationValue;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
@@ -560,14 +561,23 @@ public class LoginPersonaFisicaPagoPA {
     }
 
     @When("Login {string} portale persona fisica tramite request method")
-    public void loginPortaleDelegatoTramiteRequestMethod(String dpFile) {
+    public void loginPortaleDelegatoTramiteRequestMethod(String typeUser) {
         boolean urlWithTokenFound = false;
         int numProvaLogin = 0;
         DataPopulation dataPopulation = new DataPopulation();
-        this.datiDelegato = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        //this.datiDelegato = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        String userDelegato = "";
+        String passwordDelegato = "";
+        if("delegatoPF".equalsIgnoreCase(typeUser)){
+            userDelegato = NotificationValue.getDefaultValue(NotificationValue.USER_DELEGATO_PF.key);
+            passwordDelegato = NotificationValue.getDefaultValue(NotificationValue.PWD_DELEGATO_PF.key);
+        } else if ("personaFisica".equalsIgnoreCase(typeUser)) {
+            userDelegato = NotificationValue.getDefaultValue(NotificationValue.USER_PF.key);
+            passwordDelegato = NotificationValue.getDefaultValue(NotificationValue.PWD_PF.key);
+        }
 
-        String userDelegato = this.datiDelegato.get("user").toString();
-        String passwordDelegato = this.datiDelegato.get("pwd").toString();
+       // String userDelegato = this.datiDelegato.get("user").toString();
+       // String passwordDelegato = this.datiDelegato.get("pwd").toString();
 
         while (numProvaLogin < 10) {
             this.readUrlLoginPersonaFisicaWithToken(userDelegato, passwordDelegato);

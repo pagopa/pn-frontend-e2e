@@ -16,6 +16,7 @@ import it.pn.frontend.e2e.pages.destinatario.personaFisica.ComeVuoiAccederePage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
+import it.pn.frontend.e2e.stepDefinitions.common.NotificationValue;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
@@ -392,13 +393,25 @@ public class LoginPGPagoPATest {
     }
 
     @When("Login portale persona giuridica tramite token exchange {string}")
-    public void loginPortalePersonaGiuridicaTramiteTokenExchange(String dpFile) {
+    public void loginPortalePersonaGiuridicaTramiteTokenExchange(String typeUser) {
         logger.info("Si effettua il login PG tramite token");
 
         String variabileAmbiente = System.getProperty("environment");
         String urlIniziale = "https://imprese." + variabileAmbiente + ".notifichedigitali.it/#selfCareToken=";
         String token;
-        String user = this.dataPopulation.readDataPopulation(dpFile + ".yaml").get("user").toString();
+       // String user = this.dataPopulation.readDataPopulation(dpFile + ".yaml").get("user").toString();
+
+
+
+        String user = "";
+        String passwordDelegato = null;
+        if("personaGiuridica".equalsIgnoreCase(typeUser)){
+            user = NotificationValue.getDefaultValue(NotificationValue.USER_PG.key);
+
+        } else if ("delegatoPG".equalsIgnoreCase(typeUser)) {
+            user = NotificationValue.getDefaultValue(NotificationValue.USER_DELEGATO_PG.key);
+        }
+
         if (user.equalsIgnoreCase("DanteAlighieri")) {
             if (variabileAmbiente.equalsIgnoreCase("test")) {
                 token = this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPGDelegante").toString();

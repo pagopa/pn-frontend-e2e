@@ -36,6 +36,7 @@ public enum NotificationValue {
     FISCAL_NUMBER_DELEGATO_PF("fiscalNumber_delegato_pf","TINIT-BRGLRZ80D58H501Q",false),
     STATE_DELEGATO_PF("stato_delegato_pf","ITALIA",false),
 
+
     //DELEGATO PG NOTIFICA
     URL_DELEGATO_PG("url_delegato_pg","https://imprese.dev.notifichedigitali.it/",false),
     USER_DELEGATO_PG("user_delegato_pg","FrancescoPetrarca",false),
@@ -90,7 +91,16 @@ public enum NotificationValue {
     CFPF_TEST_HELP_DESK("CfPf","CLMCST42R12D969Z",false),
 
     //PERSONA FISICA
-    EMAIL_PF("email_pf","provaemail@test.it",false);
+    EMAIL_PF("email_pf","provaemail@test.it",false),
+    USER_PF("user_pf","cesare",false),
+    PWD_PF("pwd_pf","password123",false),
+
+    //PERSONA GIURIDICA
+    EMAIL_PG("email_pg","provaemail@test.it",false),
+    USER_PG("user_pg","DanteAlighieri",false),
+    PWD_PG("pwd_pg","test",false);
+
+
 
 
     public final String key;
