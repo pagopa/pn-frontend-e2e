@@ -19,7 +19,9 @@ Feature:Il delegato persona giuridica annulLa l'operazione di rifiuto delega
     And Si inserisce il codice della delega a carico dell impresa nella modale
     And Si clicca sul bottone accetta delega dopo aver inserito il codice di verifica
     And Si clicca su conferma in assegnazione gruppo
-    And Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega "personaGiuridica"
+    #And Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega "personaGiuridica"
+    And Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega PG
+      | ragioneSociale         | Convivio Spa
     And Nella sezione Deleghe si clicca sul bottone rifiuta
     And Si clicca sul bottone annulla
     And Si controlla che la delega PG ha lo stato Attiva "Convivio Spa"

@@ -170,6 +170,14 @@ public class NotifichePersonaFisicaPagoPATest {
         notifichePFPage.siSceglieUnaPaginaDiversaConNumeroESiFiltra(datiPg.get("codiceIUN").toString());
     }
 
+    @And("Ci si posiziona su una pagina differente attraverso i numeri e si applica filtro")
+    public void ciSiPosizionaSuUnaPaginaDifferenteAttraversoINumeriESiApplicaFiltroMap(Map<String, String> filtro) {
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        notifichePFPage.siSceglieUnaPaginaDiversaConNumeroESiFiltra(filtro.get("codiceIUN"));
+    }
+
+
+
     @And("Si modifica il numero di notifiche visualizzate scegliendo un valore diverso da quello di default")
     public void siModificaIlNumeroDiNotificheVisualizzateScegliendoUnValoreDiversoDaQuelloDiDefault() {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);

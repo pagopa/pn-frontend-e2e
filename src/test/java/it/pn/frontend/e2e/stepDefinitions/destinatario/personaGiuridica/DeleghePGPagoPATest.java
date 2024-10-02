@@ -241,6 +241,13 @@ public class DeleghePGPagoPATest {
         this.delegatiImpresaSection.clickMenuDelega(datiDelega.get("ragioneSociale").toString());
     }
 
+    @And("Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega PG")
+    public void nellaPaginaDelegheSezioneDelegheAcaricoDellImpresaSiCliccaSulMenuDellaDelegaPG(Map<String, String> nuovaDelegaPG) {
+        logger.info("Si clicca sul menu delle delega");
+
+        this.delegatiImpresaSection.controlloEsistenzaDelega(nuovaDelegaPG.get("ragioneSociale"));
+    }
+
     @And("Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega {string}")
     public void nellaPaginaDelegheSezioneDelegheDellImpresaSiCliccaSulMenuDellaDelega(String dpFile) {
         logger.info("Si clicca sul menu delle delega");
