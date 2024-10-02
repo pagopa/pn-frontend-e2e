@@ -24,11 +24,11 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
       | nomeCognome      | Convivio Spa |
       | codiceFiscale    | 27957814470  |
       | tipoDestinatario | PG           |
-      | avvisoPagoPa     | 2            |
+      | avvisoPagoPa     | 1            |
+      | F24              | 3            |
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 5 secondi
     And La persona fisica clicca sulla notifica restituita
-    And Aspetta 60 secondi
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si controlla sia visualizza box allegati modelli F24
     And Logout da portale mittente

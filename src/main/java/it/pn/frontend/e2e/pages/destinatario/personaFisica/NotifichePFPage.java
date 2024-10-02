@@ -276,7 +276,7 @@ public class NotifichePFPage extends BasePage {
         By notificaBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh')]");
         WebTool.waitTime(2);
         getWebDriverWait(30).withMessage("Non viene visualizzata la prima riga della tabella delle notifiche").until(ExpectedConditions.elementToBeClickable(notificaBy));
-        element(notificaBy).click();
+        elements(notificaBy).get(0).click();
     }
 
     public void waitLoadNotificheDEPageDelegante(String nome, String cognome) {
