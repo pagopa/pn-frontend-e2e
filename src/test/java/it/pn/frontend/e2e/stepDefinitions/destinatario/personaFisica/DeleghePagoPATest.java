@@ -111,12 +111,12 @@ public class DeleghePagoPATest {
     public void nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile(String dpFile) {
         log.info("Si salva il codice deleghe nel file " + dpFile);
 
-        deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
+       // deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
         String codiceVerifica = this.leTueDelegheSection.salvataggioCodiceVerifica();
-        deleghe.put("codiceDelega", codiceVerifica);
-        dataPopulation.writeDataPopulation(dpFile + ".yaml", deleghe);
+        mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()),codiceVerifica);
+       // deleghe.put("codiceDelega", codiceVerifica);
+       // dataPopulation.writeDataPopulation(dpFile + ".yaml", deleghe);
     }
 
     @And("Nella sezione Le Tue Deleghe salvare il codice verifica in una variabile")
@@ -258,7 +258,9 @@ public class DeleghePagoPATest {
         log.info("Si inserisce il codice per accettare la delega");
         this.leTueDelegheSection.waitPopUpLoad();
         Map<String, Object> destinatari = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        this.leTueDelegheSection.inserireCodiceDelega(destinatari.get("codiceDelega").toString());
+        String codiceDelega = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()));
+       // this.leTueDelegheSection.inserireCodiceDelega(destinatari.get("codiceDelega").toString());
+        this.leTueDelegheSection.inserireCodiceDelega(codiceDelega);
     }
 
     @And("Si inserisce il codice delega nel pop-up")

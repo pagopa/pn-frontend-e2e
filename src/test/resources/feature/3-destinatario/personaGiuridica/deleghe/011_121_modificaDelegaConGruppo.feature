@@ -24,4 +24,5 @@ Feature: Il delegato persona giuridica modifica una delega assegnandoli un grupp
     And Si selezione il gruppo della delega
     And Si clicca su conferma in assegnazione gruppo
     And Si controlla che la delega ha cambiato gruppo
+    |ragioneSociale|Convivio Spa|
     And Logout da portale persona giuridica

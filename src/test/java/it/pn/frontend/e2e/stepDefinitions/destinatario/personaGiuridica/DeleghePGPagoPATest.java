@@ -13,6 +13,8 @@ import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.AggiungiDelegaPGSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.DelegatiImpresaSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
+import it.pn.frontend.e2e.stepDefinitions.common.NotificationValue;
+import it.pn.frontend.e2e.stepDefinitions.common.SharedSteps;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePagoPATest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
@@ -42,6 +44,7 @@ public class DeleghePGPagoPATest {
     private final RestDelegation restDelegation = RestDelegation.getInstance();
 
     private LoginPGPagoPATest loginPGPagoPaTest = new LoginPGPagoPATest();
+    private SharedSteps sharedSteps = new SharedSteps();
     private boolean dataFineErrata;
 
     @And("Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa")
@@ -82,14 +85,23 @@ public class DeleghePGPagoPATest {
     public void nellaSezioneLeTueDeleghePersonaGiuridicaInserireIDati(String dpFile) {
         logger.info("Si aggiungono tutti i dati del delegato");
 
-        this.datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
+      //  this.datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
         aggiungiDelegaPGSection.selectPersonaGiuridicaRadioButton();
+        /**
         aggiungiDelegaPGSection.insertRagioneSociale(this.datiDelega.get("ragioneSociale").toString());
         aggiungiDelegaPGSection.inserireCF(this.datiDelega.get("codiceFiscale").toString());
         aggiungiDelegaPGSection.selectSoloEntiSelezionati();
         aggiungiDelegaPGSection.waitLoadAggiungiDelegaPage();
         aggiungiDelegaPGSection.selezionaUnEnte(datiDelega.get("ente").toString());
+         **/
+
+        aggiungiDelegaPGSection.insertRagioneSociale(NotificationValue.getDefaultValue(NotificationValue.RAG_SOC_DELEGA_PG.key));
+        aggiungiDelegaPGSection.inserireCF(NotificationValue.getDefaultValue(NotificationValue.FISCAL_CODE_DELEGA_PG.key));
+        aggiungiDelegaPGSection.selectSoloEntiSelezionati();
+        aggiungiDelegaPGSection.waitLoadAggiungiDelegaPage();
+        aggiungiDelegaPGSection.selezionaUnEnte(NotificationValue.getDefaultValue(NotificationValue.ENTE_PG.key));
+
     }
 
     @And("Nella sezione Aggiungi Delega persona giuridica inserire i dati")
@@ -119,12 +131,15 @@ public class DeleghePGPagoPATest {
     public void nellaSezioneLeTueDeleghePersonaGiuridicaSalvareIlCodiceVerificaAllInternoDelFile(String dpFile) {
         logger.info("Si salva il codice della delega nel file " + dpFile);
 
-        this.datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
+       // this.datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
         String codiceDelega = aggiungiDelegaPGSection.salvataggioCodiceVerifica();
-        this.datiDelega.put("codiceDelega", codiceDelega);
+       // this.datiDelega.put("codiceDelega", codiceDelega);
 
-        dataPopulation.writeDataPopulation(dpFile + ".yaml", this.datiDelega);
+        // dataPopulation.writeDataPopulation(dpFile + ".yaml", this.datiDelega);
+
+        mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()),codiceDelega);
+
     }
 
     @And("Nella sezione Aggiungi Delega persona giuridica click sul bottone Invia richiesta e sul bottone torna alle deleghe")
@@ -427,12 +442,12 @@ public class DeleghePGPagoPATest {
     }
 
     @And("Si controlla che la delega ha cambiato gruppo")
-    public void siControllaCheLaDelegaHaCambiatoStato() {
+    public void siControllaCheLaDelegaHaCambiatoStato( Map<String, String> personagiuridica) {
         logger.info("Si controlla che la delega abbia il gruppo");
 
-        this.datiDelega = dataPopulation.readDataPopulation("personaGiuridica_1.yaml");
+        //this.datiDelega = dataPopulation.readDataPopulation("personaGiuridica_1.yaml");
 
-        if (deleghePGPagoPAPage.verificaPresenzaGruppo(this.datiDelega.get("ragioneSociale").toString())) {
+        if (deleghePGPagoPAPage.verificaPresenzaGruppo(personagiuridica.get("ragioneSociale"))) {
             logger.info("La delega ha un gruppo");
         } else {
             logger.error("La delega NON ha un gruppo");

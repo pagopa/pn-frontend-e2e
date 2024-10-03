@@ -76,7 +76,7 @@ public enum NotificationValue {
 
     //NUOVA DELEGA PG
     FISCAL_CODE_DELEGA_PG("codiceFiscale_delega_pg","LELPTR04A01C352E",false),
-    ENTE_PG("ente_delega_pg","Comune di Palermo",false),
+    ENTE_PG("ente_delega_pg","Comune di Verona",false),
     CODE_DELEGA_PG("codiceDelega_delega_pg","27430",false),
     RAG_SOC_DELEGA_PG("ragioneSociale_delega_pg","Le Epistolae srl",false),
 

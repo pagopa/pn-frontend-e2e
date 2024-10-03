@@ -32,5 +32,7 @@ Feature: persona giuridica aggiunge una delega dall'elenco degli enti radice
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella sezione Deleghe si visualizza la delega in stato di attesa di conferma
     And Si controlla che non sia presente una delega con stesso nome persona giuridica "Le Epistolae srl"
-    And Nella sezione Deleghe sezione Deleghe dell'impresa si controlla che non sia più presente la delega "nuovaDelegaPG"
+    #And Nella sezione Deleghe sezione Deleghe dell'impresa si controlla che non sia più presente la delega "nuovaDelegaPG"
+    And Nella sezione Deleghe sezione Deleghe dell'impresa si controlla che non sia più presente la delega
+      | ragioneSociale | Le Epistolae srl |
     And Logout da portale persona giuridica
