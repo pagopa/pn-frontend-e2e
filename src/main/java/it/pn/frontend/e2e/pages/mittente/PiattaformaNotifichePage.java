@@ -229,20 +229,20 @@ public class PiattaformaNotifichePage extends BasePage {
         String[] arraySplitDateDa = da.split("/");
 
         List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
-        if(dataFieldList!= null && dataFieldList.size()==5){
+        if (dataFieldList != null && dataFieldList.size() == 5) {
             dataFieldList.get(2).click();
-        }else if (dataFieldList!= null && dataFieldList.size()==3){
+        } else if (dataFieldList != null && dataFieldList.size() == 3) {
             dataFieldList.get(1).click();
         }
 
         /**
-        if(dataFieldList==null) {
-            dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
-            logger.info("Esecuzione Locale: "+dataFieldList.size());
-            if(dataFieldList!= null && dataFieldList.size()==2){
-                dataFieldList.get(0).click();
-            }
-        }**/
+         if(dataFieldList==null) {
+         dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
+         logger.info("Esecuzione Locale: "+dataFieldList.size());
+         if(dataFieldList!= null && dataFieldList.size()==2){
+         dataFieldList.get(0).click();
+         }
+         }**/
 
 
         // Step 2: Click on the input field to open the calendar pop-up
@@ -258,9 +258,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
         WebElement previousMonthButton = driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"));
 
-        int click =0;
+        int click = 0;
         WebElement monthDaToSelect = null;
-        while (click<36) {
+        while (click < 36) {
             try {
                 monthDaToSelect = calendar.findElement(By.xpath("//div[contains(text(), '" + DFSymbols.getMonths()[monthDa - 1] + " " + yerarsDa + "')]"));
                 if (monthDaToSelect.isDisplayed()) {
@@ -268,7 +268,7 @@ public class PiattaformaNotifichePage extends BasePage {
                 }
             } catch (NoSuchElementException e) {
                 previousMonthButton.click();
-                click ++;
+                click++;
             }
         }
 
@@ -277,7 +277,7 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
         dateToSelect = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dateToSelect));
         dateToSelect.click();
-        logger.info("DATA INIZIO FIELD: "+dataInizioField.getAttribute("value"));
+        logger.info("DATA INIZIO FIELD: " + dataInizioField.getAttribute("value"));
 
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
 
@@ -292,9 +292,9 @@ public class PiattaformaNotifichePage extends BasePage {
         WebTool.waitTime(3);
         // Step 2: Click on the input field to open the calendar pop-up
 
-        if(dataFieldList!= null && dataFieldList.size()==5){
+        if (dataFieldList != null && dataFieldList.size() == 5) {
             dataFieldList.get(3).click();
-        }else if (dataFieldList!= null && dataFieldList.size()==3){
+        } else if (dataFieldList != null && dataFieldList.size() == 3) {
             dataFieldList.get(2).click();
         }
 
@@ -305,17 +305,17 @@ public class PiattaformaNotifichePage extends BasePage {
 
         WebElement previousMonthAButton = driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"));
 
-        int clickA =0;
+        int clickA = 0;
         WebElement monthAToSelect = null;
-        while (clickA<36) {
+        while (clickA < 36) {
             try {
-                 monthAToSelect = calendar1.findElement(By.xpath("//div[contains(text(), '" + DFSymbols.getMonths()[monthA - 1] + " " + yerarsA + "')]"));
+                monthAToSelect = calendar1.findElement(By.xpath("//div[contains(text(), '" + DFSymbols.getMonths()[monthA - 1] + " " + yerarsA + "')]"));
                 if (monthAToSelect.isDisplayed()) {
                     break;
                 }
             } catch (NoSuchElementException e) {
                 previousMonthAButton.click();
-                click ++;
+                click++;
             }
         }
 
@@ -326,7 +326,7 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement dateToSelect1 = calendar1.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayA + "']"));
         dateToSelect1 = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dateToSelect1));
         dateToSelect1.click();
-        logger.info("DATA FINE FIELD: "+dataFineField.getAttribute("value"));
+        logger.info("DATA FINE FIELD: " + dataFineField.getAttribute("value"));
 
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
     }
@@ -345,7 +345,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         String[] arraySplitDateDa = da.split("/");
 
-       // List<WebElement> dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
+        // List<WebElement> dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
         List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
 
         // Step 2: Click on the input field to open the calendar pop-up
@@ -361,8 +361,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
         WebElement previousMonthButton = driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"));
 
-        int click =0;
-        while (click<36) {
+        int click = 0;
+        while (click < 36) {
             try {
                 WebElement monthDaToSelect = calendar.findElement(By.xpath("//div[contains(text(), '" + DFSymbols.getMonths()[monthDa - 1] + " " + yerarsDa + "')]"));
                 if (monthDaToSelect.isDisplayed()) {
@@ -370,7 +370,7 @@ public class PiattaformaNotifichePage extends BasePage {
                 }
             } catch (NoSuchElementException e) {
                 previousMonthButton.click();
-                click ++;
+                click++;
             }
         }
 
@@ -380,7 +380,7 @@ public class PiattaformaNotifichePage extends BasePage {
         dateToSelect = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dateToSelect));
         dateToSelect.click();
 
-        logger.info("DATA INIZIO FIELD: "+dataInizioField.getAttribute("value"));
+        logger.info("DATA INIZIO FIELD: " + dataInizioField.getAttribute("value"));
 
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
 
@@ -401,38 +401,36 @@ public class PiattaformaNotifichePage extends BasePage {
 
         WebElement previousMonthAButton = driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"));
 
-        try{
-        int clickA =0;
-        while (clickA<36) {
-            try {
-                WebElement monthAToSelect = calendar1.findElement(By.xpath("//div[contains(text(), '" + DFSymbols.getMonths()[monthA - 1] + " " + yerarsA + "')]"));
-                if (monthAToSelect.isDisplayed()) {
-                    break;
+        try {
+            int clickA = 0;
+            while (clickA < 36) {
+                try {
+                    WebElement monthAToSelect = calendar1.findElement(By.xpath("//div[contains(text(), '" + DFSymbols.getMonths()[monthA - 1] + " " + yerarsA + "')]"));
+                    if (monthAToSelect.isDisplayed()) {
+                        break;
+                    }
+                } catch (NoSuchElementException e) {
+                    previousMonthAButton.click();
+                    click++;
                 }
-            } catch (NoSuchElementException e) {
-                previousMonthAButton.click();
-                click ++;
             }
-        }
 
-        WebTool.waitTime(3);
+            WebTool.waitTime(3);
 
-        // Step 4: Select a date (e.g., the 15th day of the current month)
-        WebElement dateToSelect1 = calendar1.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayA + "']"));
-        dateToSelect1 = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dateToSelect1));
-        dateToSelect1.click();
+            // Step 4: Select a date (e.g., the 15th day of the current month)
+            WebElement dateToSelect1 = calendar1.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayA + "']"));
+            dateToSelect1 = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dateToSelect1));
+            dateToSelect1.click();
 
-        logger.info("DATA FINE FIELD: "+dataFineField.getAttribute("value"));
+            logger.info("DATA FINE FIELD: " + dataFineField.getAttribute("value"));
 
-        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
+            getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
         } catch (ElementClickInterceptedException e) {
             logger.error("Non è possibile settare una data Fine precedente rispetto alla data Inizio: " + e.getMessage());
             result = false;
         }
-        return  result;
+        return result;
     }
-
-
 
 
     public int getListDate() {
@@ -496,23 +494,26 @@ public class PiattaformaNotifichePage extends BasePage {
             WebTool.waitTime(10);
             notificaBy = By.id("notificationsTable.body.row");
             List<WebElement> notifiche = this.elements(notificaBy);
-            logger.info("ELENCO NOTIFICHE : "+notifiche.size());
+
             Calendar calendar = GregorianCalendar.getInstance();
-            logger.info("CALENDAR: "+calendar);
+            logger.info("CALENDAR: " + calendar);
             int index = calendar.get(Calendar.HOUR_OF_DAY);
-            logger.info("index NOTIFICHE : "+index);
+            logger.info("index NOTIFICHE : " + index);
 
-            if (notifiche.size()>=index){
-                logger.info("NOTIFICA SELEZIONATA: "+index);
-                notifiche.get(index).click();
+            if (notifiche!= null) {
+                logger.info("ELENCO NOTIFICHE : " + notifiche.size());
+                if (notifiche.size() >= index) {
+                    logger.info("NOTIFICA SELEZIONATA: " + index);
+                    notifiche.get(index).click();
+                } else {
+                    notifiche.get(notifiche.size() - 1).click();
+                }
             }else {
-                notifiche.get(0).click();
+                logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
+                Assert.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
             }
-
-          //  List<WebElement> notifiche = this.elements(notificaBy);
-          //  notifiche.get(0).click();
-
-
+            //  List<WebElement> notifiche = this.elements(notificaBy);
+            //  notifiche.get(0).click();
         } catch (TimeoutException e) {
             logger.error("Notifica non trovata con errore: " + e.getMessage());
             Assert.fail("Notifica non trovata con errore: " + e.getMessage());
