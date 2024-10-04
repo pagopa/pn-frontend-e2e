@@ -386,6 +386,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         By bottoneAnnulaPopup = By.id("code-cancel-button");
         By confermaEliminaButtonBy = By.xpath("//div[@aria-labelledby='dialog-title']//button[contains(text(),'Conferma')]");
         try {
+            buttonAnnullaEliminazioneInPopUp =driver.findElement(By.id("buttonAnnulla"));
             getWebDriverWait(10).withMessage("Non è stato caricato il titolo del modal").until(ExpectedConditions.visibilityOfElementLocated(titlePopUp));
             getWebDriverWait(10).withMessage("Non è stato caricato il sottotitolo del modal").until(ExpectedConditions.visibilityOfElementLocated(subTitlePopUp));
             getWebDriverWait(10).withMessage("Non è stato caricato il bottone annulla del modal").until(ExpectedConditions.visibilityOf(buttonAnnullaEliminazioneInPopUp));
@@ -615,6 +616,8 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void checkButtonAnnullaEliminazioneInPopUp() {
         try {
+            WebTool.waitTime(3);
+            buttonAnnullaEliminazioneInPopUp = driver.findElement(By.id("buttonAnnulla"));
             getWebDriverWait(10).withMessage("pulsante annulla eliminazione non trovato").until(ExpectedConditions.visibilityOf(buttonAnnullaEliminazioneInPopUp));
             logger.info("pulsante annulla eliminazione visibile");
         } catch (TimeoutException e) {
@@ -624,7 +627,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickButtonAnnullaEliminazioneInPopUp() {
-        WebTool.waitTime(5);
+        WebTool.waitTime(7);
         buttonAnnullaEliminazioneInPopUp = driver.findElement(By.id("buttonAnnulla"));
         getWebDriverWait(10).withMessage("Non è stato possibile cliccare sul bottone annulla").until(ExpectedConditions.elementToBeClickable(buttonAnnullaEliminazioneInPopUp));
         buttonAnnullaEliminazioneInPopUp.click();

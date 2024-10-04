@@ -487,13 +487,17 @@ public class RecapitiPersonaFisicaTest {
         BackgroundTest backgroundTest = new BackgroundTest();
 
         if (!recapitiDestinatarioPage.verificaMailAssociata()) {
+            logger.info("verifica mail associata, step 1");
             backgroundTest.aggiuntaEmailPF();
         } else if (recapitiDestinatarioPage.controlloEmailAssociata(email)) {
+            logger.info("verifica mail associata, step 2");
             iTuoiRecapitiPage.eliminaEmailEsistente();
             WebTool.waitTime(3);
             if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
+                logger.info("verifica mail associata, step 3");
                 recapitiDestinatarioPage.clickConfermaButtonEliminaPopUp();
             } else {
+                logger.info("verifica mail associata, step 4");
                 recapitiDestinatarioPage.clickSuChiudiPopUp();
                 recapitiDestinatarioPage.eliminaNuovaEmail();
                 iTuoiRecapitiPage.eliminaEmailEsistente();
