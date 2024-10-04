@@ -1255,9 +1255,6 @@ public class PiattaformaNotifichePage extends BasePage {
         WebTool.waitTime(2);
         WebElement destPG = driver.findElement(By.xpath("//p[contains(text(),'" + destinatari.get("PG") + " è fallito')]"));
 
-        By destinatarioPG = By.xpath("//p[contains(text(),'" + destinatari.get("PG") + " è fallito')]");
-        By destinatarioPF = By.xpath("//p[contains(text(),'" + destinatari.get("PF") + " è fallito')]");
-
         if (destPG.isDisplayed() && destPF.isDisplayed()) {
             logger.info("Entrambi destinatari non raggiungibili al primo tentativo");
         } else {
