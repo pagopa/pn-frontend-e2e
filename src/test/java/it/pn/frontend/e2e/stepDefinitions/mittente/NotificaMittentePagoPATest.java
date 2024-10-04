@@ -612,6 +612,12 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnaFrecetta(numPage);
     }
 
+    @And("Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino all'ultima")
+    public void nellaPaginaStatoDellaPiattaformaSiCambiaPaginaUtilizzandoUnaFreccetta() {
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.selezionaUltimaPaginaUtilizzandoUnaFrecetta();
+    }
+
     @And("Nella pagina Piattaforma Notifiche si cambia pagina utilizzando un numero")
     public void nellaPaginaPiattaformaNotificheSiCambiaPaginaUtilizzandoUnNumero() {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);

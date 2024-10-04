@@ -840,6 +840,18 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
+    public void selezionaUltimaPaginaUtilizzandoUnaFrecetta() {
+        this.getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile")
+                .until(ExpectedConditions.visibilityOf(this.frecciaPaginaSuccessiva));
+        if (!frecciaPaginaSuccessiva.isDisplayed()) {
+            this.js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
+        }
+        while (frecciaPaginaSuccessiva.isEnabled()) {
+            frecciaPaginaSuccessiva.click();
+            WebTool.waitTime(2);
+        }
+    }
+
     public void siCambiaPaginaUtilizzandoUnNumero() {
         if (!pageNumberButton.isDisplayed()) {
             this.js().executeScript("arguments[0].scrollIntoView(true);", pageNumberButton);
