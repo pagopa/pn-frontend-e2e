@@ -1230,21 +1230,30 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
+    public void verificaTentativoSuccessivo(String check) {
+        List<WebElement> findKeyWord = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
+        logger.info("//span[contains(text(),'" + check + "')]");
+        logger.info("findkey "+findKeyWord.size());
+        if (findKeyWord.get(0).isDisplayed()) {
+            logger.info("Si visualizza la timeline correttamente");
+        } else {
+            logger.error("Non si visualizza  la timeline correttamente");
+            Assert.fail("Non si visualizza  la timeline correttamente");
+        }
+    }
+
     public void verificaDestinatariNonRaggiungibili(Map<String, String> destinatari) {
         logger.info("Si clicca vedi piu dettagli");
         List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
-        logger.info("SIZE VIEW MORE....:"+ viewMore.size());
         viewMore.get(0).click();
         String size = Integer.toString(viewMore.size());
         if (size.equals("2")) {
             viewMore.get(1).click();
         }
-        logger.info("HTML....:"+ driver.getPageSource());
         WebTool.waitTime(2);
         WebElement destPF = driver.findElement(By.xpath("//p[contains(text(),'" + destinatari.get("PF") + " è fallito')]"));
         WebTool.waitTime(2);
         WebElement destPG = driver.findElement(By.xpath("//p[contains(text(),'" + destinatari.get("PG") + " è fallito')]"));
-
 
         By destinatarioPG = By.xpath("//p[contains(text(),'" + destinatari.get("PG") + " è fallito')]");
         By destinatarioPF = By.xpath("//p[contains(text(),'" + destinatari.get("PF") + " è fallito')]");

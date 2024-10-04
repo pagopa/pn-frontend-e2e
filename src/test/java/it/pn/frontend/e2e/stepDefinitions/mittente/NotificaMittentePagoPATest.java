@@ -1707,6 +1707,12 @@ public class NotificaMittentePagoPATest {
         logger.info("Il destinatario raggiungibile");
     }
 
+    @And("Si verifica che il destinatario è raggiungibile al tentativo successivo {string}")
+    public void siVerificaCheDestinatarioRaggiungibileTentativoSuccessivo(String message) {
+        piattaformaNotifichePage.verificaTentativoSuccessivo(message);
+        logger.info("Il destinatario raggiungibile al tentativo successivo");
+    }
+
     @And("Si controlla che le ricevute PEC siano scaricabili")
     public void siControllaCheLeRicevutePECSianoScaricabili() {
         logger.info("Si controlla che le ricevute PEC siano scaricabili in locale");
