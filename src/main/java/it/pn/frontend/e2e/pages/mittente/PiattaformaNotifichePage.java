@@ -477,7 +477,7 @@ public class PiattaformaNotifichePage extends BasePage {
         return !status.equalsIgnoreCase("Depositata");
     }
 
-    public void selezionaNotifica() {
+    public void selezionaNotifica120Giorni() {
         waitLoadPage();
         try {
             By notificaBy = By.id("notificationsTable.body.row");
@@ -514,6 +514,31 @@ public class PiattaformaNotifichePage extends BasePage {
             }
             //  List<WebElement> notifiche = this.elements(notificaBy);
             //  notifiche.get(0).click();
+        } catch (TimeoutException e) {
+            logger.error("Notifica non trovata con errore: " + e.getMessage());
+            Assert.fail("Notifica non trovata con errore: " + e.getMessage());
+        }
+    }
+
+    public void selezionaPrimaNotifica() {
+        waitLoadPage();
+        try {
+            By notificaBy = By.id("notificationsTable.body.row");
+            attesaCaricamentoPagina();
+            getWebDriverWait(30).withMessage("La tabella delle notifiche non è caricata correttamente").until(elementToBeClickable(notificaBy));
+
+            WebElement buttonRighePagine = driver.findElement(By.id("rows-per-page"));
+            getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(buttonRighePagine));
+            buttonRighePagine.click();
+            WebElement pageSize50 = driver.findElement(By.id("pageSize-50"));
+            getWebDriverWait(3).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(pageSize50));
+            pageSize50.click();
+
+            WebTool.waitTime(10);
+            notificaBy = By.id("notificationsTable.body.row");
+            List<WebElement> notifiche = this.elements(notificaBy);
+
+            notifiche.get(0).click();
         } catch (TimeoutException e) {
             logger.error("Notifica non trovata con errore: " + e.getMessage());
             Assert.fail("Notifica non trovata con errore: " + e.getMessage());
@@ -1208,16 +1233,23 @@ public class PiattaformaNotifichePage extends BasePage {
     public void verificaDestinatariNonRaggiungibili(Map<String, String> destinatari) {
         logger.info("Si clicca vedi piu dettagli");
         List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
+        logger.info("SIZE VIEW MORE....:"+ viewMore.size());
         viewMore.get(0).click();
         String size = Integer.toString(viewMore.size());
         if (size.equals("2")) {
             viewMore.get(1).click();
         }
-        WebTool.waitTime(5);
+        logger.info("HTML....:"+ driver.getPageSource());
+        WebTool.waitTime(2);
+        WebElement destPF = driver.findElement(By.xpath("//p[contains(text(),'" + destinatari.get("PF") + " è fallito')]"));
+        WebTool.waitTime(2);
+        WebElement destPG = driver.findElement(By.xpath("//p[contains(text(),'" + destinatari.get("PG") + " è fallito')]"));
+
+
         By destinatarioPG = By.xpath("//p[contains(text(),'" + destinatari.get("PG") + " è fallito')]");
         By destinatarioPF = By.xpath("//p[contains(text(),'" + destinatari.get("PF") + " è fallito')]");
 
-        if (this.element(destinatarioPF).isDisplayed() && this.element(destinatarioPG).isDisplayed()) {
+        if (destPG.isDisplayed() && destPF.isDisplayed()) {
             logger.info("Entrambi destinatari non raggiungibili al primo tentativo");
         } else {
             logger.error("Uno dei destinatari viene raggiunto al primo tentativo");
