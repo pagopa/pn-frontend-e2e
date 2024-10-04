@@ -268,7 +268,6 @@ public boolean confrontoFileConDisservizio() {
         // Ottieni l'elenco di tutti i file nella cartella
         File[] files = folder.listFiles();
         // Verifica che la cartella non sia vuota
-
         if (files != null && files.length > 0) {
             logger.info("Verifica cartella non vuota" + files.length);
             // Cerca i file che contengono la stringa specificata nel nome
