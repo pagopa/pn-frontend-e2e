@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePG;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
+import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.AggiungiDelegaPGSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.DelegatiImpresaSection;
@@ -41,6 +42,7 @@ public class DeleghePGPagoPATest {
     private final RestDelegation restDelegation = RestDelegation.getInstance();
 
     private LoginPGPagoPATest loginPGPagoPaTest = new LoginPGPagoPATest();
+    private boolean dataFineErrata;
 
     @And("Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa")
     public void siVisualizzaLaPaginaDeleghe() {
@@ -162,8 +164,15 @@ public class DeleghePGPagoPATest {
     public void nellaSezioneLeTueDelegheInserireUnaDataConFormatoErratoEAntecedenteAllaData() {
         logger.info("Si inserisce una data errata e antecedente");
 
-        aggiungiDelegaPGSection.clearInputData();
-        aggiungiDelegaPGSection.insertDataErrata();
+       // aggiungiDelegaPGSection.clearInputData();
+        dataFineErrata = aggiungiDelegaPGSection.insertDataErrata();
+    }
+
+    @And("Verifica che non è possibile selezionare una data Fine antecedente ad oggi")
+    public void verificaArcoTemporaleSelezionato() {
+        logger.info("Si controlla l'arco temporale che sia errato su cui effettuare la ricerca");
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        Assert.assertFalse(dataFineErrata);
     }
 
     @And("Nella sezione Le Tue Deleghe inserire una data")
@@ -472,6 +481,19 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.clickBottoneConfermaDelega();
     }
 
+    @And("Si accetta la delega senza gruppo")
+    public void siAccettaLaDelegaSenzaGruppo() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+        backgroundTest.accettazioneDelegaSceltaGruppo(false,null);
+    }
+
+    @And("Si accetta la delega senza gruppo PF")
+    public void siAccettaLaDelegaSenzaGruppoPF() {
+        BackgroundTest backgroundTest = new BackgroundTest();
+        backgroundTest.accettazioneDelegaSceltaGruppoPF(false,null);
+        WebTool.waitTime(2);
+    }
+
     @And("Si inserisce il codice della delega a carico dell impresa nella modale")
     public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale() {
         String verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()));
@@ -485,10 +507,10 @@ public class DeleghePGPagoPATest {
         backgroundTest.revocaDelegaPG(ragioneSociale);
     }
 
-    @And("Si accetta la delega {string} gruppo {string}")
-    public void siAccettaLaDelegaGruppo(String withGroup, String gruppo) {
+    @And("Si accetta la delega con gruppo {string}")
+    public void siAccettaLaDelegaGruppo(String gruppo) {
         BackgroundTest backgroundTest = new BackgroundTest();
-        backgroundTest.accettazioneDelegaSceltaGruppo(withGroup.equalsIgnoreCase("senza"),gruppo);
+        backgroundTest.accettazioneDelegaSceltaGruppo(true,gruppo);
     }
 
     public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModaleErrata() {
@@ -543,6 +565,7 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.checkAlertWrongDelegationCode();
         deleghePGPagoPAPage.clickButtonIndietroDaAssegnaGruppo();
         deleghePGPagoPAPage.checkTextboxCodiceSonoRosse();
+        deleghePGPagoPAPage.clickButtonIndietroCloseModale();
     }
 
     @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si controlla che ci sia una delega con la ragione sociale inserita {string}")

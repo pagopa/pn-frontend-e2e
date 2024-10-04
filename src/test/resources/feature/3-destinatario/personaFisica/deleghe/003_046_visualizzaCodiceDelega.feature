@@ -12,7 +12,7 @@ Feature:La persona fisica visualizza il codice  di una delega
     And Nella sezione Deleghe si verifica sia presente una delega
       | nome    | Lucrezia |
       | cognome | Borgia   |
-    And Nella sezione Deleghe si clicca sul menu della delega
+    And Nella sezione Deleghe si clicca sul menu dei delegati
       | nome    | Lucrezia |
       | cognome | Borgia   |
     And Nella sezione Deleghe si sceglie l'opzione mostra codice

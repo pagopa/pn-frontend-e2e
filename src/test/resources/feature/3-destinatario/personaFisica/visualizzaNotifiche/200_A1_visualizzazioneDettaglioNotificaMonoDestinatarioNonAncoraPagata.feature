@@ -1,6 +1,6 @@
 Feature:La persona fisica visualizza le notifiche in elenco
 
-  @TestSuite
+  @Parallel
   @TA_PFVisualizzazioneNotificaNonAncoraPagata
   @PFvisualizzaNotifiche
   @PF
@@ -29,8 +29,7 @@ Feature:La persona fisica visualizza le notifiche in elenco
       | F24               | 1                  |
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 10 secondi
-    And Si visualizzano le notifiche dalla piu recente
-    And Cliccare sulla notifica restituita
+   And Si seleziona la notifica destinatario
     And Si controlla se la sezione pagamento visualizzata correttamente
     And Si controlla che costi di notifica inclusi non presente
     And Cliccare sul bottone Paga

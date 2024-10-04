@@ -228,7 +228,7 @@ public class NotifichePersonaFisicaPagoPATest {
 
             if (radioBoxPresent) {
 
-                accediAPiattaformaNotifichePage.clickRadioBoxButton(accediAPiattaformaNotifichePage.cssBuildRadioButton());
+                accediAPiattaformaNotifichePage.clickRadioBoxButton();
             }
 
             boolean titoloPagamentoIsDisplayed = accediAPiattaformaNotifichePage.titoloDiPagamentoDisplayed();
@@ -282,7 +282,7 @@ public class NotifichePersonaFisicaPagoPATest {
         Map<String, Object> datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String workingDirectory = System.getProperty("user.dir");
         boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
-        File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/personaFisica");
+        File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloads");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }
@@ -296,13 +296,13 @@ public class NotifichePersonaFisicaPagoPATest {
                 logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
                 Assert.fail("Non è stato recuperato url per il download per il link: " + testoLink);
             }
-            File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + i + ".pdf");
+            File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloads/notificaN" + i + ".pdf");
             downloadFile.download(urlFileAttestazioneOppponibile, file, headless);
             if (!headless) {
                 dettaglioNotificaSection.goBack();
             }
         }
-        downloadFile.controlloDownload(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario", numeroLinkAttestazioniOpponibile);
+        downloadFile.controlloDownload(workingDirectory + "/src/test/resources/dataPopulation/downloads", numeroLinkAttestazioniOpponibile);
     }
 
     @And("Si clicca sul opzione Vedi Dettaglio")
@@ -484,6 +484,7 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @And("Cliccare sul bottone Paga")
     public void cliccaBottonePaga(){
+        WebTool.waitTime(5);
         accediAPiattaformaNotifichePage.cliccaPaga();
     }
 

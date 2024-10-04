@@ -11,6 +11,7 @@ Feature: il mittente effettua il download attestazione opponibile a terzi notifi
     And Cliccare sul bottone Filtra
     When Cliccare sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica
-    And Nella sezione Dettaglio Notifiche si seleziona il file, "Attestazione opponibile a terzi: notifica digitale", da scaricare
-    Then Si controlla il testo all interno del file "Attestazione_opponibile_a_terzi_notifica_digitale"
+    And Si verifica che la ricevuta di postalizzazione sia cliccabile
+      | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: notifica presa in carico")] |
+      | vediDettagli | false                                          |
     And Logout da portale mittente

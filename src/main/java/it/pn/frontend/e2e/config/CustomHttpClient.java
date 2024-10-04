@@ -3,6 +3,8 @@ package it.pn.frontend.e2e.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import it.pn.frontend.e2e.model.address.DigitalAddress;
+import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -141,7 +143,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
         }
     }
 
-    public List<ResponseType> sendHttpGetRequestList(String endpoint, Map<String, String> headers, Class<ResponseType> responseType) throws IOException {
+    public List<ResponseType> sendHttpGetRequestListDigitalAddress(String endpoint, Map<String, String> headers, Class<ResponseType> responseType) throws IOException {
         String apiUrl = baseUrlApi + endpoint;
 
         try (CloseableHttpClient client = HttpClients.createDefault()) {
@@ -160,7 +162,42 @@ public class CustomHttpClient<RequestType, ResponseType> {
                 if (response.getCode() == 200 || response.getCode() == 202 || response.getCode() == 201) {
                     entity = response.getEntity();
                     responseString = EntityUtils.toString(entity);
-                    Type listType = new TypeToken<ArrayList<ResponseType>>() {
+                    Type listType = new TypeToken<ArrayList<DigitalAddress>>() {
+                    }.getType();
+                    List<ResponseType> responseObject = gson.fromJson(responseString, listType);
+                    log.info("Response body: " + responseObject);
+                    return responseObject;
+                } else {
+                    entity = response.getEntity();
+                    responseString = EntityUtils.toString(entity);
+                    log.error("Response code: " + response.getCode());
+                    log.error("Response body: " + responseString);
+                    throw new IOException("Error in HTTP request to " + apiUrl + ": " + response.getCode());
+                }
+            });
+        }
+    }
+
+    public List<ResponseType> sendHttpGetRequestListDelegate(String endpoint, Map<String, String> headers, Class<ResponseType> responseType) throws IOException {
+        String apiUrl = baseUrlApi + endpoint;
+
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            this.httpRequest = ClassicRequestBuilder
+                    .get(apiUrl)
+                    .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
+                    .addHeader("x-api-key", this.apiKey)
+                    .build();
+            if (headers != null) {
+                headers.forEach(this.httpRequest::addHeader);
+            }
+            return client.execute(httpRequest, response -> {
+                final HttpEntity entity;
+                final String responseString;
+
+                if (response.getCode() == 200 || response.getCode() == 202 || response.getCode() == 201) {
+                    entity = response.getEntity();
+                    responseString = EntityUtils.toString(entity);
+                    Type listType = new TypeToken<ArrayList<DelegateResponsePF>>() {
                     }.getType();
                     List<ResponseType> responseObject = gson.fromJson(responseString, listType);
                     log.info("Response body: " + responseObject);

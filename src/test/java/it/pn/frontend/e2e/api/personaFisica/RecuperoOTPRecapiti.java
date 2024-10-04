@@ -31,7 +31,7 @@ public class RecuperoOTPRecapiti {
                     .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
                     .build();
             httpClient.execute(httpGet, response -> {
-                logger.info("La request get verso " + url + " ha risposto con codice : " + response.getCode() + "\ne la reason Phrase è " + response.getReasonPhrase());
+                logger.info("La request get verso " + url + " ha risposto con codice : " + response.getCode() + "e la reason Phrase è " + response.getReasonPhrase());
                 if (response.getCode() == 200) {
                     final HttpEntity entity = response.getEntity();
                     setResponseBody(EntityUtils.toString(entity));

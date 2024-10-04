@@ -28,6 +28,7 @@ public class RicercaNotificheMittentePagoPATest {
     private final WebDriver driver = Hooks.driver;
     private Map<String, Object> personaFisica = new HashMap<>();
     private Map<String, Object> datiNotifica = new HashMap<>();
+    private boolean dataFineErrata;
 
     @And("Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica {string}")
     public void inserireCodiceFiscale(String dpFile) {
@@ -188,6 +189,31 @@ public class RicercaNotificheMittentePagoPATest {
         }
         piattaformaNotifichePage.inserimentoArcoTemporale(dataDA, dataA);
     }
+
+
+    @And("^Nella pagina Piattaforma Notifiche inserire un arco temporale errato da (.*) a (.*)$")
+    public void nellaPaginaPiattaformaNotificheInserireUnaDataDaDAAAErrata(String dataDA, String dataA) {
+        logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca");
+
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        if (!piattaformaNotifichePage.controlloDateInserite(dataDA)) {
+            logger.error("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
+            Assert.fail("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
+        }
+        if (!piattaformaNotifichePage.controlloDateInserite(dataA)) {
+            logger.error("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
+            Assert.fail("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
+        }
+        dataFineErrata =  piattaformaNotifichePage.inserimentoArcoTemporaleErrato(dataDA, dataA);
+    }
+
+    @And("Verifica che non è possibile selezionare una data Fine antecedente alla data Inizio")
+    public void verificaArcoTemporaleSelezionato() {
+        logger.info("Si controlla l'arco temporale che sia errato su cui effettuare la ricerca");
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        Assert.assertFalse(dataFineErrata);
+    }
+
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con la data della notifica compresa tra <da> e <a>")
     public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConLaDataDellaNotificaCompresaTraDaEA() {

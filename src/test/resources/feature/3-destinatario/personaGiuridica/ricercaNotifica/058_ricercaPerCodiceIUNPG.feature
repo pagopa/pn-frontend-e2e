@@ -8,9 +8,11 @@ Feature: La persona giuridica ricerca per codice IUN
   Scenario: PN-9149 - La persona giuridica ricerca per codice IUN
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa
-    And Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN da dati notifica "datiNotificaPG"
+    And Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN da dati notifica "UREL-JUHA-UPUA-202405-D-1"
     And Cliccare sul bottone Filtra persona giuridica
-    And Nella pagina Piattaforma Notifiche persona giuridica vengo restituite tutte le notifiche con il codice IUN della notifica "datiNotificaPG"
+    And Nella pagina Piattaforma Notifiche persona giuridica vengo restituite tutte le notifiche con il codice IUN della notifica
+      | iun            | UREL-JUHA-UPUA-202405-D-1 |
+      | ragioneSociale | Convivio Spa              |
     And  Cliccare sul bottone Rimuovi filtri persona giuridica
     And Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN non valido da dati notifica "5252-5252-5252"
     And Cliccare sul bottone Filtra persona giuridica

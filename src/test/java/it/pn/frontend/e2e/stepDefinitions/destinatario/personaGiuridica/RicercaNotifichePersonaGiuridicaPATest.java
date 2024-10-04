@@ -12,7 +12,6 @@ import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RicercaNotifichePG
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
-import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -36,19 +35,16 @@ public class RicercaNotifichePersonaGiuridicaPATest {
     }
 
     @And("Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN da dati notifica {string}")
-    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIUNDaDatiNotifica(String datiNotificaPG) throws InterruptedException {
+    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIUNDaDatiNotifica(String iun) throws InterruptedException {
         logger.info("Si inserisce il codice IUN");
-        DataPopulation dataPopulation = new DataPopulation();
-        this.datiNotificaPG = dataPopulation.readDataPopulation(datiNotificaPG + ".yaml");
-        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
-        notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotificaPG.get("codiceIUN").toString());
+
+        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(driver);
+        notificheDestinatarioPage.inserisciCodiceIUN(iun);
     }
 
     @When("La persona giuridica clicca sulla notifica restituita {string}")
-    public void ilPersonaGiuridicaCliccaSullaNotificaRestituita(String dpFile) {
-        DataPopulation dataPopulation = new DataPopulation();
-        String codiceIUNPG = dataPopulation.readDataPopulation(dpFile + ".yaml").get("codiceIUN").toString();
-        ricercaNotifichePGPage.cliccaNotificaRestituita(codiceIUNPG);
+    public void ilPersonaGiuridicaCliccaSullaNotificaRestituita(String iun) {
+        ricercaNotifichePGPage.cliccaNotificaRestituita(iun);
     }
 
     @And("La persona giuridica clicca sulla prima notifica restituita")

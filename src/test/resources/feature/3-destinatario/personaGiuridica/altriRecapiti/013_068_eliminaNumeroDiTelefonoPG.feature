@@ -6,6 +6,7 @@ Feature: La persona giuridica elimina il numero di cellulare di cortesia
 
   Scenario: PN - 9160 la persona giuridica elimina il numero di telefono
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Rimuovi tutti i recapiti se esistono
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
 

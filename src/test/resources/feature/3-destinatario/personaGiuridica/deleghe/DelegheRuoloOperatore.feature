@@ -28,7 +28,7 @@ Feature:Deleghe lato ruolo operatore
       | companyName | Convivio Spa |
       | displayName | Convivio Spa |
       | person      | false        |
-    And Si accetta la delega "con" gruppo "gruppo-ruolo-operatore"
+    And Si accetta la delega con gruppo "gruppo-ruolo-operatore"
     And Logout da portale persona giuridica
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica

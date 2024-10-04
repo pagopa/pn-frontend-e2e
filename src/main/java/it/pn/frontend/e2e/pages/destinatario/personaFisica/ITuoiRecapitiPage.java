@@ -16,10 +16,10 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(id = "side-item-I tuoi recapiti")
     WebElement iTuoiRecapitiButton;
 
-    @FindBy(id = "phone")
+    @FindBy(id = "default_sms")
     WebElement phoneNumInputField;
 
-    @FindBy(xpath = "//button[@data-testid='add phone']")
+    @FindBy(xpath = "//button[@data-testid='courtesy-sms-button']")
     WebElement avvisamiViaSMSButton;
 
     @FindBy(id = "addressType")
@@ -70,7 +70,7 @@ public class ITuoiRecapitiPage extends BasePage {
             getWebDriverWait(10).withMessage("il sottotitolo del contatto di cortesia non è presente o non ha il testo corretto").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(courtesyContactSubtitle),
                     ExpectedConditions.textToBe(courtesyContactSubtitle, subtitleText)));
-            By emailTextBox = By.id("email");
+            By emailTextBox = By.id("default_email");
             getWebDriverWait(10).withMessage("il campo email non è presente o non ha il placeholder corretto").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(emailTextBox),
                     ExpectedConditions.attributeToBe(emailTextBox, "placeholder", "Il tuo indirizzo e-mail")
@@ -114,13 +114,14 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public void eliminaEmailEsistente() {
-        By eliminaMailButton = By.xpath("//p[contains(text(),'Indirizzo e-mail')]/following-sibling::div/div/button[contains(text(),'Elimina')]");
+        By eliminaMailButton = By.xpath("//button[@id='cancelContact-default']");
         getWebDriverWait(10).withMessage("il Bottone elimina e-mail non presente").until(ExpectedConditions.elementToBeClickable(eliminaMailButton));
         this.js().executeScript("arguments[0].click();", this.element(eliminaMailButton));
+        logger.info("Log eliminaEmailEsistente: " + driver.getPageSource());
     }
 
     public void insertEmail(String emailPEC) {
-        By inserimentoEmailFieldBy = By.id("email");
+        By inserimentoEmailFieldBy = By.id("default_email");
         getWebDriverWait(10).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(inserimentoEmailFieldBy));
         this.element(inserimentoEmailFieldBy).sendKeys(emailPEC);
     }
@@ -137,7 +138,7 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public String getPhoneErrorMessage() {
-        By errorBy = By.id("phone-helper-text");
+        By errorBy = By.id("default_sms-helper-text");
         WebElement errorMessage = driver.findElement(errorBy);
         getWebDriverWait(30).until(ExpectedConditions.visibilityOf(errorMessage));
         return errorMessage.getText();
@@ -155,7 +156,7 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void cancellaTesto() {
         try {
-            By pecInputBy = By.id("email");
+            By pecInputBy = By.id("default_email");
             WebElement pecInput = this.element(pecInputBy);
             this.js().executeScript("arguments[0].click()", pecInput);
             String emailPec = pecInput.getAttribute("value");
@@ -207,7 +208,7 @@ public class ITuoiRecapitiPage extends BasePage {
     public void checkPostModifica() {
         By saveButton = By.id("saveModifyButton-default");
         By cancelButton = By.xpath("//button[contains(text(),'Annulla')]");
-        By emailField = By.id("email");
+        By emailField = By.id("default_email");
         getWebDriverWait(10).withMessage("Non si visualizza il bottone salva e non è cliccabile").until(ExpectedConditions.and(
                 ExpectedConditions.visibilityOfElementLocated(saveButton),
                 ExpectedConditions.elementToBeClickable(saveButton)));
@@ -222,8 +223,8 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void checkRiquadroPEC() {
         try {
-            By titleSection = By.id("Recapito legale-page");
-            By pecField = By.id("pec");
+            By titleSection = By.xpath("//div[@data-testid='DigitalContactsCardBody']//*/div/div");
+            By pecField = By.id("default_pec");
             By confirmButton = By.id("add-contact");
             By infoBanner = By.xpath("//span[@data-testid='legal-contact-disclaimer']");
             getWebDriverWait(10).withMessage("Non si visualizza il titolo della sezione recapito legale o il contenuto è errato").until(ExpectedConditions.and(

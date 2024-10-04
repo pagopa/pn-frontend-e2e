@@ -362,16 +362,10 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void siVerificaLaCliccabilitaSuAllegatoInTimeline(String xpath) {
-        try {
+            vaiInFondoAllaPagina();
             By allegatoTimeline = By.xpath(xpath);
-            logger.info(xpath);
             getWebDriverWait(10).until(ExpectedConditions.and(ExpectedConditions.visibilityOfElementLocated(allegatoTimeline), ExpectedConditions.elementToBeClickable(allegatoTimeline)));
             logger.info("allegato timeline trovato con successo e cliccabile");
-        } catch (TimeoutException e) {
-            logger.error("allegato timeline trovato con successo e cliccabile: " + e.getMessage());
-            Assert.fail("allegato timeline trovato con successo e cliccabile: " + e.getMessage());
-        }
-
     }
 
     public void checkInvioADomicilioDiPiattaforma(String domicilioDiPiattaforma) {
@@ -486,7 +480,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void checkBoxModelloF24() {
         try {
-            By boxModelloF24 = By.xpath("//div[@data-testid='dialog-content']");
+            By boxModelloF24 = By.xpath("//span[contains(text(),'Modelli F24 allegati')]");
             getWebDriverWait(10).withMessage("Non si visualizza il box allegati modelli F24").until(ExpectedConditions.visibilityOfElementLocated(boxModelloF24));
         } catch (TimeoutException e) {
             logger.error("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());

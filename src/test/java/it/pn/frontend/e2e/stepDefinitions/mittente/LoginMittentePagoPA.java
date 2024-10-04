@@ -53,6 +53,9 @@ public class LoginMittentePagoPA {
     public void loginPageMittenteVieneVisualizzata(Map<String,String> datiMittenteTable) {
         logger.info("Si recupera l'ambiente e si visualizza la pagina di login");
         String variabileAmbiente = System.getProperty("environment");
+        DataPopulation dataPopulation = new DataPopulation();
+
+        this.datiMittente = dataPopulation.readDataPopulation("mittente.yaml");
         switch (variabileAmbiente) {
             case "dev" -> this.driver.get(datiMittenteTable.get("url"));
             case "test", "uat" ->
@@ -373,6 +376,9 @@ public class LoginMittentePagoPA {
     public void logoutDaPortaleMittente() {
         logger.info("Si esce dal portale mittente");
 
+        WebTool.waitTime(2);
+
+
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();
@@ -387,11 +393,7 @@ public class LoginMittentePagoPA {
         AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
 
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        WebTool.waitTime(5);
 
 
     }

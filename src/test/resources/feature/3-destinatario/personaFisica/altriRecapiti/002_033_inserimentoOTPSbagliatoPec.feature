@@ -7,6 +7,7 @@ Feature:La persona fisica inserisce una OTP sbagliato PEC
 
   Scenario:La persona fisica loggato inserisce un OTP sbagliato PEC
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Rimuovi tutti i recapiti se esistono
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una pec

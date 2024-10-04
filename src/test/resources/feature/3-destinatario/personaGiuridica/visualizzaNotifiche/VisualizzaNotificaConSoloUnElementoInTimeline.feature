@@ -32,7 +32,7 @@ Feature: PG visualizza il dettaglio di una notifica con solo un elemento in time
     And Logout da portale persona giuridica
 
   @VisualizzaNotificaMonoDestinatarioConUnElementoInTimeline890
-  Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG] - PG  Verifica presenza solo un elemento in timeline contenente la ricevuta di postalizzazione in formato zip - OK_AR_ZIP
+  Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG] - PG  Verifica presenza solo un elemento in timeline contenente la ricevuta di postalizzazione in formato zip - OK_890_ZIP
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
       | modello         | A/R                |

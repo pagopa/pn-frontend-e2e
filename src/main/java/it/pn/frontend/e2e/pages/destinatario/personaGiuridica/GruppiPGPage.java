@@ -49,6 +49,7 @@ public class GruppiPGPage extends BasePage {
         js().executeScript("arguments[0].scrollIntoView(true);", gruppiButton);
         getWebDriverWait(10).withMessage("Il bottone gruppi non è visibile").until(ExpectedConditions.visibilityOf(gruppiButton));
         gruppiButton.click();
+        WebTool.waitTime(5);
         WebTool.switchToOtherTab();
     }
 
@@ -99,7 +100,6 @@ public class GruppiPGPage extends BasePage {
         getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input della descrizione del gruppo").until(ExpectedConditions.visibilityOf(inputDescrizioneGruppo));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente la select per la selezione del prodotto").until(ExpectedConditions.visibilityOf(selectSelezioneProdotto));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente la select per la selezione dei membri").until(ExpectedConditions.visibilityOf(selectSelezioneMembri));
-        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone indietro a fine pagina").until(ExpectedConditions.visibilityOf(buttonIndietro.get(1)));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone conferma").until(ExpectedConditions.visibilityOf(buttonConferma));
     }
 
@@ -121,6 +121,8 @@ public class GruppiPGPage extends BasePage {
     }
 
     public void checkButtonConfermaAndClick() {
+        WebTool.waitTime(5);
+        buttonConferma = driver.findElement(By.xpath("//button[contains(text(), 'Conferma')]"));
         getWebDriverWait(10).withMessage("Il bottone conferma non è abilitato").until(ExpectedConditions.elementToBeClickable(buttonConferma));
         log.info("Il bottone è abilitato e lo si clicca");
         buttonConferma.click();
@@ -128,7 +130,6 @@ public class GruppiPGPage extends BasePage {
 
     public void waitLoadGruppoCreatoPage(String nomeGruppo) {
         By pageTitle = By.xpath("//h4[contains(text(), '" + nomeGruppo + "')]");
-        By buttonIndietro = By.xpath("//button[contains(text(), 'Indietro')]");
         By navigationBar = By.xpath("//nav[@aria-label='breadcrumb']");
         By buttonElimina = By.xpath("//button[contains(text(), 'Elimina')]");
         By buttonModifica = By.xpath("//button[contains(text(), 'Modifica')]");
@@ -139,7 +140,6 @@ public class GruppiPGPage extends BasePage {
         By modificatoGruppo = By.xpath("//div/p[text()='Modificato da - in data']");
         By buttonAggiungiUtente = By.xpath("//button[contains(text(), 'Aggiungi utente')]");
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo della pagina").until(ExpectedConditions.visibilityOfElementLocated(pageTitle));
-        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone indietro").until(ExpectedConditions.visibilityOfElementLocated(buttonIndietro));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente la barra di navigazione").until(ExpectedConditions.visibilityOfElementLocated(navigationBar));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone elimina").until(ExpectedConditions.visibilityOfElementLocated(buttonElimina));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone modifica").until(ExpectedConditions.visibilityOfElementLocated(buttonModifica));
@@ -153,7 +153,6 @@ public class GruppiPGPage extends BasePage {
 
     public void waitLoadGruppoSospesoPage(String nomeGruppo) {
         By pageTitle = By.xpath("//h4[contains(text(), '" + nomeGruppo + "')]");
-        By buttonIndietro = By.xpath("//button[contains(text(), 'Indietro')]");
         By navigationBar = By.xpath("//nav[@aria-label='breadcrumb']");
         By buttonElimina = By.xpath("//button[contains(text(), 'Elimina')]");
         By buttonRiattiva = By.xpath("//button[contains(text(), 'Riattiva')]");
@@ -161,7 +160,6 @@ public class GruppiPGPage extends BasePage {
         By creatoGruppo = By.xpath("//div/p[text()='Creato da - in data']");
         By modificatoGruppo = By.xpath("//div/p[text()='Modificato da - in data']");
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo della pagina").until(ExpectedConditions.visibilityOfElementLocated(pageTitle));
-        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone indietro").until(ExpectedConditions.visibilityOfElementLocated(buttonIndietro));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente la barra di navigazione").until(ExpectedConditions.visibilityOfElementLocated(navigationBar));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone elimina").until(ExpectedConditions.visibilityOfElementLocated(buttonElimina));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone riattiva").until(ExpectedConditions.visibilityOfElementLocated(buttonRiattiva));
@@ -293,7 +291,7 @@ public class GruppiPGPage extends BasePage {
         getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input della descrizione del gruppo").until(ExpectedConditions.visibilityOf(inputDescrizioneGruppo));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente la select per la selezione del prodotto").until(ExpectedConditions.visibilityOf(selectSelezioneProdotto));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente la select per la selezione dei membri").until(ExpectedConditions.visibilityOf(selectSelezioneMembri));
-        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone indietro a fine pagina").until(ExpectedConditions.visibilityOf(buttonIndietro.get(1)));
+        buttonConferma = driver.findElement(By.xpath("//button[contains(text(), 'Conferma')]"));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone conferma").until(ExpectedConditions.visibilityOf(buttonConferma));
     }
 

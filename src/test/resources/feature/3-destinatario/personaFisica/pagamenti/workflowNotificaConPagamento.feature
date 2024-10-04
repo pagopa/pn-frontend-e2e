@@ -12,7 +12,7 @@ Feature:Controllo dati notifica con pagamento
     And Cliccare sul bottone Filtra persona fisica
     And Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN "DETN-WPNP-EPNJ-202405-D-1"
     And Cliccare sulla notifica restituita
-    Then Si visualizza correttamente la section Dettaglio Notifica annullata persona fisica
+    Then Si visualizza correttamente la section Dettaglio Notifica annullata
     And Si controlla che il testo sia nel box pagamento "//div[@data-testid='cancelledAlertPayment']"
     And Logout da portale persona fisica
 

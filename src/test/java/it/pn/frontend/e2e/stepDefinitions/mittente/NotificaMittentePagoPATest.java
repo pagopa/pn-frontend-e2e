@@ -1299,10 +1299,9 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.selezionaNotificaConStato(statoNotifica);
     }
 
-    @And("Si attende che lo stato della notifica diventi {string}")
-    public void siAttendeCheLoStatoDellaNotificaDiventi(String statoNotifica) {
-        logger.info("Si clicca sulla notifica appena creata quando lo stato diventa: {}", statoNotifica);
-        piattaformaNotifichePage.pollingSuStatoNotifica(statoNotifica);
+    @And("Si attende completamento notifica {string}")
+    public void siAttendeCompletamentoNotificaV2(String statoNotifica) {
+        piattaformaNotifichePage.pollingSuStatoNotificaPerCompletamento(statoNotifica);
     }
 
     @Then("Si controlla la comparsa del pop up di conferma annullamento")
@@ -1317,15 +1316,13 @@ public class NotificaMittentePagoPATest {
         dettaglioNotificaMittenteSection.checkNumeroFallimentiInvioViaPEC(numeroFallimenti);
     }
 
-    @And("Si attende completamento notifica")
+    @And("Si attende la visualizzazione corretta del dettaglio della notifica")
     public void siAttendeCompletamentoNotifica() {
         siVisualizzaCorrettamenteLaSectionDettaglioNotifica();
         WebTool.waitTime(400);
         driver.navigate().refresh();
         WebTool.waitTime(3);
     }
-
-    //TODO verificare..............
 
     @And("Si seleziona la notifica")
     public void siSelezionaLaNotifica() {
@@ -1766,6 +1763,7 @@ public class NotificaMittentePagoPATest {
         if (viewDetail.equals("true")){
             dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
         }
+
         dettaglioNotificaMittenteSection.siVerificaLaCliccabilitaSuAllegatoInTimeline(idStato);
     }
 

@@ -18,7 +18,7 @@ Feature: La persona giuridica aggiunge una nuova delega
       | accessoCome    | delegante         |
       | ragioneSociale | Le Epistolae srl  |
       | codiceFiscale  | LELPTR04A01C352E  |
-      | ente           | Comune di Palermo |
+      | ente           | Comune di Verona |
     And Nella sezione Aggiungi Delega persona giuridica verificare che la data sia corretta
     And Nella sezione Aggiungi Delega persona giuridica click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella sezione Delegati dall impresa si visualizza la delega in stato di attesa di conferma

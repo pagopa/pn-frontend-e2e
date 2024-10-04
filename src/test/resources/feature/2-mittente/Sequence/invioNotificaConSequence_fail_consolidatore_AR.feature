@@ -23,8 +23,8 @@ Feature: invio notifica con sequence
       | stato            | ITALIA                     |
     Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica mittente
-    And Si attende che lo stato della notifica diventi "Depositata"
-    And Si attende completamento notifica
+    And Si attende completamento notifica "Depositata"
+    And Aspetta 400 secondi
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),"Si è verificato un errore durante la creazione della postalizzazione")] |
       | vediDettagli | true                                                                                         |
