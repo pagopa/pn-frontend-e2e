@@ -1,6 +1,6 @@
 Feature: Mittente genera una notifica che non prevede pagamento
 
-  @TestSuite
+  @Parallel
   @TA_InvioNotificaMonoPGDomiccilioDigitaleKO
   @mittente
   @invioNotifiche
