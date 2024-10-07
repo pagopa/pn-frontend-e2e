@@ -1,6 +1,6 @@
 Feature: Mittente genera una notifica che non prevede pagamento
 
-  @TestSuite
+  @Parallel
   @TA_InvioNotificaMonoPFNormalizzazioneKOLovelace
   @mittente
   @invioNotifiche
@@ -47,7 +47,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
     And Logout da portale persona fisica
 
-
+  @TestSuite
   @TA_InvioNotificaMonoPFNormalizzazioneKOLovelaceBis
   Scenario: PN-9294 - Mittente genera una notifica mono destinatario a PF - Normalizzazione KO (indirizzo non trovato)
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
