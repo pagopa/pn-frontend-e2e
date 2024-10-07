@@ -368,7 +368,7 @@ public class NotifichePersonaFisicaPagoPATest {
     @And("Si controlla che nel portale del destinatario la notifica sia {string} e si chiude la scheda")
     public void siControllaCheNelPortaleDelDestinatarioLaNotificaSiaESiChiudeLaScheda(String statoNotifica) {
         logger.info("Si controlla che anche nel portale del destinatario la notifica sia in stato " + statoNotifica + " e si chiude la scheda");
-        piattaformaNotifichePage.selezionaNotifica();
+        piattaformaNotifichePage.selezionaPrimaNotifica();
         piattaformaNotifichePage.verificaPresenzaStato(statoNotifica);
         WebTool.closeTab();
     }

@@ -444,7 +444,15 @@ public class NotificaMittentePagoPATest {
         logger.info("Si clicca sulla notifica");
 
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-        piattaformaNotifichePage.selezionaNotifica();
+        piattaformaNotifichePage.selezionaPrimaNotifica();
+    }
+
+    @When("Cliccare sulla notifica  maggiore di 120 giorni")
+    public void cliccareSullaNotificaRestituita120Giorni() {
+        logger.info("Si clicca sulla notifica maggiore di 120 giorni");
+
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.selezionaNotifica120Giorni();
     }
 
     @And("Salva codice IUN")
@@ -602,6 +610,12 @@ public class NotificaMittentePagoPATest {
     public void nellaPaginaStatoDellaPiattaformaSiCambiaPaginaUtilizzandoUnaFreccetta(Integer numPage) {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnaFrecetta(numPage);
+    }
+
+    @And("Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino all'ultima")
+    public void nellaPaginaStatoDellaPiattaformaSiCambiaPaginaUtilizzandoUnaFreccetta() {
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.selezionaUltimaPaginaUtilizzandoUnaFrecetta();
     }
 
     @And("Nella pagina Piattaforma Notifiche si cambia pagina utilizzando un numero")
@@ -1202,7 +1216,7 @@ public class NotificaMittentePagoPATest {
         } else {
             WebTool.switchToPortal(AppPortal.PG);
         }
-        piattaformaNotifichePage.selezionaNotifica();
+        piattaformaNotifichePage.selezionaPrimaNotifica();
         WebTool.waitTime(5);
         WebTool.closeTab();
     }
@@ -1210,7 +1224,7 @@ public class NotificaMittentePagoPATest {
     @Then("In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline {string}")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPFESiVerificaLaTimeline(String messaggio) {
         WebTool.switchToPortal(AppPortal.PF);
-        piattaformaNotifichePage.selezionaNotifica();
+        piattaformaNotifichePage.selezionaPrimaNotifica();
         WebTool.waitTime(5);
         piattaformaNotifichePage.visualizzaTimeline(messaggio);
         WebTool.closeTab();
@@ -1219,7 +1233,7 @@ public class NotificaMittentePagoPATest {
     @Then("In parallelo si effettua l'accesso al portale destinatario persona giuridica e si apre la notifica ricevuta")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPGESiApreLaNotificaRicevuta() {
         WebTool.switchToPortal(AppPortal.PG);
-        piattaformaNotifichePage.selezionaNotifica();
+        piattaformaNotifichePage.selezionaPrimaNotifica();
         WebTool.waitTime(5);
         WebTool.closeTab();
     }
@@ -1227,7 +1241,7 @@ public class NotificaMittentePagoPATest {
     @Then("In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline {string}")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPGESiVerificaLaTimeline(String messagio) {
         WebTool.switchToPortal(AppPortal.PG);
-        piattaformaNotifichePage.selezionaNotifica();
+        piattaformaNotifichePage.selezionaPrimaNotifica();
         WebTool.waitTime(5);
         piattaformaNotifichePage.visualizzaTimeline(messagio);
         WebTool.closeTab();
@@ -1697,6 +1711,12 @@ public class NotificaMittentePagoPATest {
     public void siVerificaCheDestinatarioRaggiungibile(String message) {
         piattaformaNotifichePage.visualizzaTimeline(message);
         logger.info("Il destinatario raggiungibile");
+    }
+
+    @And("Si verifica che il destinatario è raggiungibile al tentativo successivo {string}")
+    public void siVerificaCheDestinatarioRaggiungibileTentativoSuccessivo(String message) {
+        piattaformaNotifichePage.verificaTentativoSuccessivo(message);
+        logger.info("Il destinatario raggiungibile al tentativo successivo");
     }
 
     @And("Si controlla che le ricevute PEC siano scaricabili")
