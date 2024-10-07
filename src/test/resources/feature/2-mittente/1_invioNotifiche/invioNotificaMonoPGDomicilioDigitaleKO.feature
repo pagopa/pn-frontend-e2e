@@ -32,7 +32,17 @@ Feature: Mittente genera una notifica che non prevede pagamento
     And Cliccare su continua
     And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
     And Cliccare sulla notifica restituita
-    And Aspetta 780 secondi
+    And Aspetta 600 secondi
+    And Si clicca sul opzione Vedi Dettaglio
+    Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
+    And Logout da portale mittente
+
+  @TestSuite
+  @TA_InvioNotificaMonoPGDomiccilioDigitaleKOBis
+  Scenario: PN-9292-bis - Mittente genera una notifica mono destinatario a PG con domicilio digitale KO
+    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
+    And Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN "NPEW-ZPLE-NJAZ-202410-N-1"
+    And Si clicca la notifica ricercata
     And Si clicca sul opzione Vedi Dettaglio
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
     And Logout da portale mittente

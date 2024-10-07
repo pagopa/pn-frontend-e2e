@@ -214,6 +214,7 @@ public class LoginPersonaFisicaPagoPA {
         HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
         confermaDatiSpidPFPage.selezionaConfermaButton();
         headerPFSection.waitUrlToken();
+        WebTool.waitTime(2);
     }
 
     @Then("Home page persona fisica viene visualizzata correttamente")
