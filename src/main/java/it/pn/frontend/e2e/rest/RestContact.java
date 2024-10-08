@@ -32,7 +32,6 @@ public class RestContact {
 
         this.httpClient.setBaseUrlApi("https://webapi." + env + ".notifichedigitali.it");
         if (token != null) {
-            logger.info("TOKEN: "+token);
             this.headers.put("Authorization", token);
         } else {
             logger.warn("Auth token non trovato, impossibile fare la richiesta HTTP in background!");
@@ -48,7 +47,6 @@ public class RestContact {
         String url = "https://webapi." + env + ".notifichedigitali.it/address-book/v1/digital-address/courtesy/default/EMAIL";
         String response = "";
         try {
-            logger.info("TOKEN courtesy: "+headers.get("Authorization"));
             response = httpClient.sendHttpDeleteRequest(url, this.headers, String.class);
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzo digitale di cortesia rimosso con successo");
@@ -67,7 +65,6 @@ public class RestContact {
         String url = "https://webapi." + env + ".notifichedigitali.it/bff/v1/addresses/LEGAL/default/PEC";
         String response = "";
         try {
-            logger.info("TOKEN legal: "+headers.get("Authorization"));
             response = httpClient.sendHttpDeleteRequest(url, this.headers, String.class);
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzo digitale di cortesia rimosso con successo");
@@ -90,7 +87,6 @@ public class RestContact {
                 + addressType + "/" + digitalAddress.getSenderId() + "/" + channelType;
         String response = "";
         try {
-            logger.info("TOKEN special: "+headers.get("Authorization"));
             response = httpClient.sendHttpDeleteRequest(url, this.headers, String.class);
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzo digitale di 'altri recapiti' rimosso con successo");
@@ -105,7 +101,6 @@ public class RestContact {
         httpClientDigitalAddress.setBaseUrlApi("https://webapi." + env + ".notifichedigitali.it");
         String url = "/bff/v1/addresses/LEGAL/default/PEC";
         try {
-            logger.info("TOKEN getDigitalAddress: "+headers.get("Authorization"));
             DigitalAddressResponse response = httpClientDigitalAddress.sendHttpGetRequest(url, this.headers, DigitalAddressResponse.class);
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzi digitali ricevuti con successo");
@@ -124,7 +119,6 @@ public class RestContact {
         String url = "/bff/v1/addresses";
 
         try {
-            logger.info("TOKEN getDigitalAddressList: "+headers.get("Authorization"));
             List<DigitalAddress> response = httpClientDigitalAddress.sendHttpGetRequestListDigitalAddress(url, this.headers, DigitalAddress.class);
 
             logger.info("Risposta ricevuta: " + response);
