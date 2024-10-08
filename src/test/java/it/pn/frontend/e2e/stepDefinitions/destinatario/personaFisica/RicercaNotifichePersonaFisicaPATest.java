@@ -162,7 +162,7 @@ public class RicercaNotifichePersonaFisicaPATest {
         String dataa = piattaformaNotifichePage.conversioneFormatoDate(dateA.toString());
         String datada = piattaformaNotifichePage.conversioneFormatoDate(dateDa.toString());
         logger.info("ARCO TEMPORRALE SETTATO: "+dataa +" - "+datada);
-        piattaformaNotifichePage.inserimentoArcoTemporale(dataa, datada);
+        piattaformaNotifichePage.inserimentoArcoTemporale(datada, dataa);
     }
 
     @And("Se i risultati sono contenuti in più pagine persona fisica è possibile effettuare il cambio pagina")
