@@ -79,7 +79,6 @@ public class LoginPersonaFisicaPagoPA {
         // Si effettua il login con token exchange
         String urlLogin = "https://cittadini." + environment + ".notifichedigitali.it/#token=" + token;
         this.driver.get(urlLogin);
-        logger.info("LOGIN: "+urlLogin);
         logger.info("Login effettuato con successo");
         WebTool.waitTime(10);
 
