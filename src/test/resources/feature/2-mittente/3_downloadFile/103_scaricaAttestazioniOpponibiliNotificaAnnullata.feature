@@ -14,5 +14,5 @@ Feature: Mittente visualizza correttamente la notifica in stato Annulato
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: notifica presa in carico")] |
       | vediDettagli | false                                          |
-    Then Si clicca sul documento Attestazione
+    Then Si verifica che il link sul documento Attestazione è cliccabile
     And Logout da portale mittente
