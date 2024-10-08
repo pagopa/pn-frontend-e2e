@@ -484,6 +484,11 @@ public class NotificaMittentePagoPATest {
         dettaglioNotificaMittenteSection.ricercaNotificaConIunSalvato(Iun);
     }
 
+    @And("Mittente ricerca notifica con IUN salvato {string}")
+    public void ricercaNotificaConIunMittente(String iun){
+        dettaglioNotificaMittenteSection.ricercaNotificaConIunSalvato(iun);
+    }
+
     @And("Si visualizza correttamente la section Dettaglio Notifica")
     public void siVisualizzaCorrettamenteLaSectionDettaglioNotifica() {
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
