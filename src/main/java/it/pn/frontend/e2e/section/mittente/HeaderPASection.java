@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -29,7 +29,7 @@ public class HeaderPASection extends BasePage {
             logger.info("Header PA Section caricata");
         } catch (TimeoutException e) {
             logger.error("Il titolo nel Header: 'Sito di PagoPA S.p.A.' non è caricato con errore : " + e.getMessage());
-            Assert.fail("Il titolo nel Header: 'Sito di PagoPA S.p.A.' non è caricato con errore : " + e.getMessage());
+            Assertions.fail("Il titolo nel Header: 'Sito di PagoPA S.p.A.' non è caricato con errore : " + e.getMessage());
         }
     }
 
@@ -40,7 +40,7 @@ public class HeaderPASection extends BasePage {
             esciButton.click();
         } catch (TimeoutException e) {
             logger.error("Il bottone esci non cliccabile con errore: " + e.getMessage());
-            Assert.fail("Il bottone esci non cliccabile con errore: " + e.getMessage());
+            Assertions.fail("Il bottone esci non cliccabile con errore: " + e.getMessage());
         }
 
     }

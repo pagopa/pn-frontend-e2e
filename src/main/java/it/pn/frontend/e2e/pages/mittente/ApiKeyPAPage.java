@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -65,7 +65,7 @@ public class ApiKeyPAPage extends BasePage {
             logger.info("Api Key Page caricata");
         } catch (TimeoutException e) {
             logger.error("Api Key Page NON caricata con errore : " + e.getMessage());
-            Assert.fail("Api Key Page NON caricata con errore : " + e.getMessage());
+            Assertions.fail("Api Key Page NON caricata con errore : " + e.getMessage());
         }
     }
 
@@ -90,7 +90,7 @@ public class ApiKeyPAPage extends BasePage {
             logger.info("Api Key ConfirmationPage caricata");
         } catch (TimeoutException e) {
             logger.error("Il titolo della Api Key ConfirmationPage NON caricata con errore : " + e.getMessage());
-            Assert.fail("Il titolo della Api Key ConfirmationPage NON caricata con errore : " + e.getMessage());
+            Assertions.fail("Il titolo della Api Key ConfirmationPage NON caricata con errore : " + e.getMessage());
         }
     }
 
@@ -107,7 +107,7 @@ public class ApiKeyPAPage extends BasePage {
             logger.info("Api Key ConfirmationPage caricata");
         } catch (TimeoutException e) {
             logger.error("Api Key ConfirmationPage NON caricata con errore : " + e.getMessage());
-            Assert.fail("Api Key ConfirmationPage NON caricata con errore : " + e.getMessage());
+            Assertions.fail("Api Key ConfirmationPage NON caricata con errore : " + e.getMessage());
         }
     }
 
@@ -148,7 +148,7 @@ public class ApiKeyPAPage extends BasePage {
             menuAttivaButton.get(posizioneMenuButton).click();
         } else {
             logger.error("Nessuna Api Key diversa da 'fe-TA-apikey-test' da bloccare");
-            Assert.fail("Nessuna Api Key diversa da 'fe-TA-apikey-test' da bloccare");
+            Assertions.fail("Nessuna Api Key diversa da 'fe-TA-apikey-test' da bloccare");
         }
 
     }
@@ -165,7 +165,7 @@ public class ApiKeyPAPage extends BasePage {
             logger.info("Il popup si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il popup NON si visualizza correttamente con errore:" + e.getMessage());
-            Assert.fail("Il popup NON si visualizza correttamente con errore:" + e.getMessage());
+            Assertions.fail("Il popup NON si visualizza correttamente con errore:" + e.getMessage());
         }
     }
 
@@ -186,7 +186,7 @@ public class ApiKeyPAPage extends BasePage {
             logger.info("La notifica è in stato bloccata");
         } catch (TimeoutException e) {
             logger.error("La notifica è in stato bloccata con errore:" + e.getMessage());
-            Assert.fail("La notifica è in stato bloccata con errore:" + e.getMessage());
+            Assertions.fail("La notifica è in stato bloccata con errore:" + e.getMessage());
         }
     }
 
@@ -202,7 +202,7 @@ public class ApiKeyPAPage extends BasePage {
             logger.info("Si visualizza correttamente il popup attiva");
         } catch (TimeoutException e) {
             logger.error("NON si visualizza correttamente il popup attiva con errore:" + e.getMessage());
-            Assert.fail("NON si visualizza correttamente il popup attiva con errore:" + e.getMessage());
+            Assertions.fail("NON si visualizza correttamente il popup attiva con errore:" + e.getMessage());
         }
     }
 
@@ -213,7 +213,7 @@ public class ApiKeyPAPage extends BasePage {
             logger.info("La notifica è in stato bloccata");
         } catch (TimeoutException e) {
             logger.error("La notifica è in stato bloccata con errore:" + e.getMessage());
-            Assert.fail("La notifica è in stato bloccata con errore:" + e.getMessage());
+            Assertions.fail("La notifica è in stato bloccata con errore:" + e.getMessage());
         }
     }
 
@@ -229,7 +229,7 @@ public class ApiKeyPAPage extends BasePage {
             logger.info("Si visualizza correttamente il popup ruota");
         } catch (TimeoutException e) {
             logger.error("NON si visualizza correttamente il popup ruota con errore:" + e.getMessage());
-            Assert.fail("NON si visualizza correttamente il popup ruota con errore:" + e.getMessage());
+            Assertions.fail("NON si visualizza correttamente il popup ruota con errore:" + e.getMessage());
         }
     }
 
@@ -240,7 +240,7 @@ public class ApiKeyPAPage extends BasePage {
             logger.info("Si visualizza correttamente il popup ruota");
         } catch (TimeoutException e) {
             logger.error("NON si visualizza correttamente il popup ruota con errore:" + e.getMessage());
-            Assert.fail("NON si visualizza correttamente il popup ruota con errore:" + e.getMessage());
+            Assertions.fail("NON si visualizza correttamente il popup ruota con errore:" + e.getMessage());
         }
     }
 
@@ -396,7 +396,7 @@ public class ApiKeyPAPage extends BasePage {
             logger.info("Il messaggio con la data di creazione si vede correttamente");
         } catch (TimeoutException e) {
             logger.error("Il messaggio con la data di creazione NON si vede correttamente con errore: " + e.getMessage());
-            Assert.fail("Il messaggio con la data di creazione NON si vede correttamente con errore: " + e.getMessage());
+            Assertions.fail("Il messaggio con la data di creazione NON si vede correttamente con errore: " + e.getMessage());
         }
     }
 
@@ -424,7 +424,7 @@ public class ApiKeyPAPage extends BasePage {
             logger.info("Il testo è stato cancellato correttamente");
         } catch (TimeoutException e) {
             logger.error("Il testo NON è stato cancellato correttamente" + e.getMessage());
-            Assert.fail("Il testo è NON stato cancellato correttamente" + e.getMessage());
+            Assertions.fail("Il testo è NON stato cancellato correttamente" + e.getMessage());
         }
     }
 
@@ -435,7 +435,7 @@ public class ApiKeyPAPage extends BasePage {
             logger.info("Si visualizza correttamente il messaggio di errore");
         } catch (TimeoutException e) {
             logger.error("NON si visualizza correttamente il messaggio di errore" + e.getMessage());
-            Assert.fail("NON si visualizza correttamente il messaggio di errore" + e.getMessage());
+            Assertions.fail("NON si visualizza correttamente il messaggio di errore" + e.getMessage());
         }
     }
 
@@ -451,7 +451,7 @@ public class ApiKeyPAPage extends BasePage {
             logger.info("Si visualizza correttamente il sotto titolo del pop up");
         } catch (TimeoutException e) {
             logger.error("NON si visualizza correttamente il sotto titolo pop up: " + e.getMessage());
-            Assert.fail("NON si visualizza correttamente il sotto titolo pop up: " + e.getMessage());
+            Assertions.fail("NON si visualizza correttamente il sotto titolo pop up: " + e.getMessage());
         }
     }
 
@@ -474,7 +474,7 @@ public class ApiKeyPAPage extends BasePage {
             logger.info("Si visualizza correttamente il titolo popup Gruppi associati alla API");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente il titolo popup Gruppi associati alla API con errore:" + e.getMessage());
-            Assert.fail("Non si visualizza correttamente il titolo popup Gruppi associati alla API con errore:" + e.getMessage());
+            Assertions.fail("Non si visualizza correttamente il titolo popup Gruppi associati alla API con errore:" + e.getMessage());
         }
     }
 
@@ -494,7 +494,7 @@ public class ApiKeyPAPage extends BasePage {
             return inputFieldApiKey.getAttribute("value");
         } catch (TimeoutException e) {
             logger.error("NON si visualizza correttamente il campo ApiKey con errore:" + e.getMessage());
-            Assert.fail("NON si visualizza correttamente il campo ApiKey con errore:" + e.getMessage());
+            Assertions.fail("NON si visualizza correttamente il campo ApiKey con errore:" + e.getMessage());
             return null;
         } finally {
             this.chiudiPopUpVisualizza();
@@ -511,7 +511,7 @@ public class ApiKeyPAPage extends BasePage {
             logger.info("mouse hover sopra gruppi effetuato correttamente");
         } else {
             logger.error("Non è stato possibile trovare la colonna gruppi della prima riga");
-            Assert.fail("Non è stato possibile trovare la colonna gruppi della prima riga");
+            Assertions.fail("Non è stato possibile trovare la colonna gruppi della prima riga");
         }
     }
 }

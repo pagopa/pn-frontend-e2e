@@ -2,7 +2,7 @@ package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -56,7 +56,7 @@ public class InformazioniPreliminariPASection extends BasePage {
             logger.info("Informazioni preliminari PA Section caricata");
         } catch (TimeoutException e) {
             logger.error("Informazioni preliminari PA Section non caricata. L'elemento NumProtocollo, Ogetto, descrizione o codicetassonometrico non caricato con errore : " + e.getMessage());
-            Assert.fail("Informazioni preliminari PA Section non caricata con errore : " + e.getMessage());
+            Assertions.fail("Informazioni preliminari PA Section non caricata con errore : " + e.getMessage());
         }
     }
 
@@ -103,7 +103,7 @@ public class InformazioniPreliminariPASection extends BasePage {
             element(gruppoBy).click();
         } catch (TimeoutException e) {
             logger.info("gruppo " + gruppo + " NON trovato con errore : " + e.getMessage());
-            Assert.fail("gruppo " + gruppo + " NON trovato con errore : " + e.getMessage());
+            Assertions.fail("gruppo " + gruppo + " NON trovato con errore : " + e.getMessage());
         }
     }
 

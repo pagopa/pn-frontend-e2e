@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -29,10 +29,10 @@ public class ScegliSpidPAPage extends BasePage {
             logger.info("il titolo Scegli Spid PA Page caricata");
         }catch (TimeoutException e){
             logger.error("Titlo della pagina Scegli Spid PA Page non caricato con errore : "+e.getMessage());
-            Assert.fail("Titlo della pagina Scegli Spid PA Page non caricato con errore : "+e.getMessage());
+            Assertions.fail("Titlo della pagina Scegli Spid PA Page non caricato con errore : "+e.getMessage());
         }catch(Exception e){
             logger.error("Scelta spid provider errore generico : "+e.getMessage());
-            Assert.fail("Scelta spid provider errore generico : "+e.getMessage());
+            Assertions.fail("Scelta spid provider errore generico : "+e.getMessage());
         }
     }
 
@@ -44,7 +44,7 @@ public class ScegliSpidPAPage extends BasePage {
             logger.info("click sul bottone TEST effetuato");
         }catch (TimeoutException e){
             logger.error("il bottone TEST non è cliccabile con errore : "+e.getMessage());
-            Assert.fail("il bottone TEST non è cliccabile con errore : "+e.getMessage());
+            Assertions.fail("il bottone TEST non è cliccabile con errore : "+e.getMessage());
         }
     }
 }

@@ -3,7 +3,7 @@ package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.utility.WebTool;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -212,7 +212,7 @@ public class GruppiPGPage extends BasePage {
             }
         } catch (InterruptedException e) {
             log.error("È fallita l'attesa prima della modifica del campo con errore: {}", e.getMessage());
-            Assert.fail("È fallita l'attesa prima della modifica del campo con errore: " + e.getMessage());
+            Assertions.fail("È fallita l'attesa prima della modifica del campo con errore: " + e.getMessage());
         }
     }
 

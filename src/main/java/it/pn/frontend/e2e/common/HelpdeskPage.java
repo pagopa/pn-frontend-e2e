@@ -4,7 +4,7 @@ import it.pn.frontend.e2e.model.enums.Disservice;
 import it.pn.frontend.e2e.model.enums.Status;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -97,7 +97,7 @@ public class HelpdeskPage extends BasePage {
             this.getWebDriverWait(40).withMessage("submit non presente").until(ExpectedConditions.visibilityOf(this.loginButton));
         } catch (TimeoutException e) {
             logger.error("Form non presente errore: " + e.getMessage());
-            Assert.fail("Form non presente errore: " + e.getMessage());
+            Assertions.fail("Form non presente errore: " + e.getMessage());
         }
     }
 
@@ -107,14 +107,14 @@ public class HelpdeskPage extends BasePage {
             logger.info("pagina home carica");
         } catch (TimeoutException e) {
             logger.error("errore caricamento home helpdesk: " + e.getMessage());
-            Assert.fail("errore caricamento home helpdesk: " + e.getMessage());
+            Assertions.fail("errore caricamento home helpdesk: " + e.getMessage());
         }
     }
 
     public void waitLoadServiceTable() {
         if (services.size() < 3) {
             logger.error("I servizi visualizzati sono meno di 3");
-            Assert.fail("I servizi visualizzati sono meno di 3");
+            Assertions.fail("I servizi visualizzati sono meno di 3");
         }
         getWebDriverWait(10).withMessage("Non è visibile la tabella dei disservizi").until(ExpectedConditions.visibilityOfAllElements(services));
     }
@@ -141,7 +141,7 @@ public class HelpdeskPage extends BasePage {
             this.monitoraggioPN.click();
         } catch (TimeoutException e) {
             logger.error("Card monitoraggio non cliccabile: " + e.getMessage());
-            Assert.fail("Card monitoraggio non cliccabile: " + e.getMessage());
+            Assertions.fail("Card monitoraggio non cliccabile: " + e.getMessage());
         }
     }
 
@@ -159,7 +159,7 @@ public class HelpdeskPage extends BasePage {
         WebElement tooltip = this.element(By.xpath(".//div[@role='tooltip']"));
         if (!tooltip.isDisplayed()) {
             logger.error("Non è stato possibile visualizzare il tooltip per il disservizio");
-            Assert.fail("Non è stato possibile visualizzare il tooltip per il disservizio");
+            Assertions.fail("Non è stato possibile visualizzare il tooltip per il disservizio");
         }
         WebElement button = tooltip.findElement(By.id(status.getValue() + "-insert"));
         getWebDriverWait(10).withMessage("Il pulsante: " + status.getValue() + " non è visibile o cliccabile").until(ExpectedConditions.and(
@@ -202,7 +202,7 @@ public class HelpdeskPage extends BasePage {
             return false;
         } catch (TimeoutException e) {
             logger.error("disservizio non creato: " + e.getMessage());
-            Assert.fail("disservizio non creato: " + e.getMessage());
+            Assertions.fail("disservizio non creato: " + e.getMessage());
             return false;
         }
     }
@@ -215,7 +215,7 @@ public class HelpdeskPage extends BasePage {
             this.elements(ricercaButton).get(0).click();
         } catch (TimeoutException e) {
             logger.error("Card ricerca non cliccabile: " + e.getMessage());
-            Assert.fail("Card ricerca non cliccabile: " + e.getMessage());
+            Assertions.fail("Card ricerca non cliccabile: " + e.getMessage());
         }
     }
 
@@ -230,7 +230,7 @@ public class HelpdeskPage extends BasePage {
             this.getWebDriverWait(30).withMessage("button reset filtri non trovato").until(ExpectedConditions.visibilityOfElementLocated(buttonResetFiltri));
         } catch (TimeoutException e) {
             logger.error("home ricerca non caricata correttamente: " + e.getMessage());
-            Assert.fail("home ricerca non caricata correttamente: " + e.getMessage());
+            Assertions.fail("home ricerca non caricata correttamente: " + e.getMessage());
         }
     }
 
@@ -248,7 +248,7 @@ public class HelpdeskPage extends BasePage {
             this.elements(buttonConfermaLogout).get(0).click();
         } catch (TimeoutException e) {
             logger.error("logout non riuscito correttamente: " + e.getMessage());
-            Assert.fail("logout non riuscito correttamente: " + e.getMessage());
+            Assertions.fail("logout non riuscito correttamente: " + e.getMessage());
         }
     }
 
@@ -264,7 +264,7 @@ public class HelpdeskPage extends BasePage {
             buttonRicerca.click();
         } catch (TimeoutException e) {
             logger.error("bottone non cliccabile:" + e.getMessage());
-            Assert.fail("bottone non cliccabile:" + e.getMessage());
+            Assertions.fail("bottone non cliccabile:" + e.getMessage());
 
         }
         try {
@@ -318,7 +318,7 @@ public class HelpdeskPage extends BasePage {
             setCodiceIdentificativoPF(Uid.getText().replace("Codice Univoco: ", ""));
         } catch (TimeoutException e) {
             logger.error("codice univoco non trovato: " + e.getMessage());
-            Assert.fail("codice univoco non trovato: " + e.getMessage());
+            Assertions.fail("codice univoco non trovato: " + e.getMessage());
         }
     }
 
@@ -348,7 +348,7 @@ public class HelpdeskPage extends BasePage {
             this.getWebDriverWait(30).withMessage("input uid non trovato").until(ExpectedConditions.visibilityOfElementLocated(checkUidIsDisplayed));
         } catch (TimeoutException e) {
             logger.error("opzione ottieni cf non trovata: " + e.getMessage());
-            Assert.fail("opzione ottieni cf non trovata: " + e.getMessage());
+            Assertions.fail("opzione ottieni cf non trovata: " + e.getMessage());
         }
     }
 
@@ -393,7 +393,7 @@ public class HelpdeskPage extends BasePage {
             this.getWebDriverWait(15).withMessage("Messaggio di errore non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
         } catch (TimeoutException e) {
             logger.error("Messaggio di errore non trovato: " + e.getMessage());
-            Assert.fail("Messaggio di errore non trovato: " + e.getMessage());
+            Assertions.fail("Messaggio di errore non trovato: " + e.getMessage());
         }
     }
 
@@ -597,7 +597,7 @@ public class HelpdeskPage extends BasePage {
     }
 
     public void checkCampiPuliti() {
-        Assert.assertTrue("I campi non sono puliti", numeroTicketInput.getAttribute("value").isEmpty() && codiceFiscaleInput.getAttribute("value").isEmpty());
+        Assertions.assertTrue(numeroTicketInput.getAttribute("value").isEmpty() && codiceFiscaleInput.getAttribute("value").isEmpty(),"I campi non sono puliti");
         logger.info("I campi sono puliti");
     }
 
@@ -615,7 +615,7 @@ public class HelpdeskPage extends BasePage {
             logger.info("codice fiscale corrispondente");
         } else {
             logger.error("codice fiscale diverso");
-            Assert.fail("dopo ricerca di corrispondenza il codice fiscale risulta differente");
+            Assertions.fail("dopo ricerca di corrispondenza il codice fiscale risulta differente");
         }
     }
 

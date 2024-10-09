@@ -1,11 +1,7 @@
 package it.pn.frontend.e2e.common;
 
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Then;
-import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
-import it.pn.frontend.e2e.utility.NotificationBuilder;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -108,7 +104,7 @@ public class DettaglioNotificaSection extends BasePage {
             logger.info("Tutti gli stati sono stati visualizzati correttamente");
         } else {
             logger.error("Tutti i stati non sono stati visualizzati correttamente");
-            Assert.fail("Tutti i stati non sono stati visualizzati correttamente");
+            Assertions.fail("Tutti i stati non sono stati visualizzati correttamente");
         }
     }
 
@@ -169,7 +165,7 @@ public class DettaglioNotificaSection extends BasePage {
             logger.info("check su avviso pagopa avvenuto con successo");
         } catch (TimeoutException e) {
             logger.error("check su avviso pagopa non avvenuto con successo: " + e.getMessage());
-            Assert.fail("check su avviso pagopa non avvenuto con successo: " + e.getMessage());
+            Assertions.fail("check su avviso pagopa non avvenuto con successo: " + e.getMessage());
         }
     }
 

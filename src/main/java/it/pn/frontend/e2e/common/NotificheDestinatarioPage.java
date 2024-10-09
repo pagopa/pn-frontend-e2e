@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.common;
 
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -37,7 +37,7 @@ public class NotificheDestinatarioPage extends BasePage{
             return true;
         }catch (TimeoutException e){
             logger.error("Il codice IUN"+codiceIUNInserito+" non è stato trovato con errore:"+e.getMessage());
-            Assert.fail("Il codice IUN"+codiceIUNInserito+" non è stato trovato con errore:"+e.getMessage());
+            Assertions.fail("Il codice IUN"+codiceIUNInserito+" non è stato trovato con errore:"+e.getMessage());
         }
         return false;
     }

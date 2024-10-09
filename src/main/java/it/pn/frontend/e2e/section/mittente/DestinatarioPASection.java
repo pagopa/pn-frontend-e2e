@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -104,7 +104,7 @@ public class DestinatarioPASection extends BasePage {
             logger.info("Destinatario PA Section caricata ");
         } catch (TimeoutException e) {
             logger.error("Destinatario PA Section non caricata con errore : " + e.getMessage());
-            Assert.fail("Destinatario PA Section non caricata con errore : " + e.getMessage());
+            Assertions.fail("Destinatario PA Section non caricata con errore : " + e.getMessage());
         }
 
     }
@@ -259,7 +259,7 @@ public class DestinatarioPASection extends BasePage {
             this.scrollToElementClickAndInsertText(listaNomeDestinatariField.get(listaNomeDestinatariField.size() - 1), nomeDestinatario);
         } catch (TimeoutException e) {
             logger.error("Xpath non trovato con errore: " + e.getMessage());
-            Assert.fail("Xpath non trovato con errore: " + e.getMessage());
+            Assertions.fail("Xpath non trovato con errore: " + e.getMessage());
         }
     }
 
@@ -278,7 +278,7 @@ public class DestinatarioPASection extends BasePage {
             logger.info("I messaggi di errore vengono visualizzati correttamente");
         } catch (TimeoutException e) {
             logger.error("Il messaggio di errore non viene visualizzato con errore: " + e.getMessage());
-            Assert.fail("Il messaggio di errore non viene visualizzato con errore: " + e.getMessage());
+            Assertions.fail("Il messaggio di errore non viene visualizzato con errore: " + e.getMessage());
         }
 
     }

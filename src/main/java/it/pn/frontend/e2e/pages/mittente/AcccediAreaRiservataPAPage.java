@@ -2,8 +2,7 @@ package it.pn.frontend.e2e.pages.mittente;
 
 
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.section.CookiesSection;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -28,7 +27,7 @@ public class AcccediAreaRiservataPAPage extends BasePage {
             logger.info("Accedi Area Riservata Page caricata");
         }catch (TimeoutException e){
             logger.error("Il titolo nella pagina  Accedi Area Riservata non è presente con errore : "+e.getMessage());
-            Assert.fail("Il titolo nella pagina  Accedi Area Riservata non è presente con errore : "+e.getMessage());
+            Assertions.fail("Il titolo nella pagina  Accedi Area Riservata non è presente con errore : "+e.getMessage());
         }
     }
 
@@ -41,7 +40,7 @@ public class AcccediAreaRiservataPAPage extends BasePage {
             logger.info("click sul bottone SPID effettuato");
         }catch (TimeoutException e){
             logger.error("Il bottone SPID non è cliccabile con errore : "+e.getMessage());
-            Assert.fail("Il bottone SPID non è cliccabile con errore : "+e.getMessage());
+            Assertions.fail("Il bottone SPID non è cliccabile con errore : "+e.getMessage());
         }
     }
 

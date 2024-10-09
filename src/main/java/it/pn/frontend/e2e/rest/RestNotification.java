@@ -8,7 +8,7 @@ import it.pn.frontend.e2e.model.notification.NewNotificationResponse;
 import it.pn.frontend.e2e.model.documents.PreLoadRequest;
 import it.pn.frontend.e2e.model.documents.PreLoadResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class RestNotification {
         final CustomHttpClient<NewNotificationRequest, NewNotificationResponse> httpClient2 = new CustomHttpClient<>(); // Modifica qui
         try {
             NewNotificationResponse response = httpClient2.sendHttpPostRequest("/delivery/v2.3/requests", null, notification, NewNotificationResponse.class);
-            Assert.assertNotNull("Error during createNewNotification", response);
+            Assertions.assertNotNull( response,"Error during createNewNotification");
             log.info(String.valueOf(response));
             return response;
         } catch (IOException e) {
@@ -58,7 +58,7 @@ public class RestNotification {
             httpClient2.sendHttpUpLoadPutRequest(url, secret, sha256, null);
         } catch (IOException e) {
             log.error("Error during document upload", e);
-            Assert.fail("Error during document upload" + e.getMessage());
+            Assertions.fail("Error during document upload" + e.getMessage());
         }
     }
 
@@ -68,7 +68,7 @@ public class RestNotification {
             httpClient2.sendHttpUpLoadf24PutRequest(url, secret, sha256, null, metaDatiDocument);
         } catch (IOException e) {
             log.error("Error during F24 upload", e);
-            Assert.fail("Error during F24 upload" + e.getMessage());
+            Assertions.fail("Error during F24 upload" + e.getMessage());
         }
     }
 

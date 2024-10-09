@@ -2,7 +2,7 @@ package it.pn.frontend.e2e.section.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -101,7 +101,7 @@ public class LeTueDelegheSection extends BasePage {
             logger.info("Le tue deleghe page caricata");
         } catch (TimeoutException e) {
             logger.error("Le tue deleghe page non caricata con errore :" + e.getMessage());
-            Assert.fail("Le tue deleghe page non caricata con errore :" + e.getMessage());
+            Assertions.fail("Le tue deleghe page non caricata con errore :" + e.getMessage());
         }
     }
 
@@ -193,7 +193,7 @@ public class LeTueDelegheSection extends BasePage {
             logger.info("Il messaggio di errore viene visualizzato");
         } catch (TimeoutException e) {
             logger.error("Il messaggio di errore NON viene visualizzato con errore: " + e.getMessage());
-            Assert.fail("Il messaggio di errore NON viene visualizzato con errore: " + e.getMessage());
+            Assertions.fail("Il messaggio di errore NON viene visualizzato con errore: " + e.getMessage());
         }
     }
 
@@ -208,7 +208,7 @@ public class LeTueDelegheSection extends BasePage {
             logger.info("Il pop-up per accettare la delega visualizzato correttamente");
         } catch (TimeoutException e) {
             logger.error("Il pop-up per accettare la delega NON visualizzato correttamente con errore: " + e.getMessage());
-            Assert.fail("Il pop-up per accettare la delega NON visualizzato correttamente con errore: " + e.getMessage());
+            Assertions.fail("Il pop-up per accettare la delega NON visualizzato correttamente con errore: " + e.getMessage());
         }
     }
 
@@ -259,7 +259,7 @@ public class LeTueDelegheSection extends BasePage {
             logger.info("La delega ha lo stato Attiva");
         } catch (TimeoutException e) {
             logger.error("La delega NON ha lo stato Attiva con errore: " + e.getMessage());
-            Assert.fail("La delega NON ha lo stato Attiva con errore: " + e.getMessage());
+            Assertions.fail("La delega NON ha lo stato Attiva con errore: " + e.getMessage());
         }
     }
 
@@ -278,7 +278,7 @@ public class LeTueDelegheSection extends BasePage {
 //            logger.info("La delega con nome " + nome + "  " + cognome + "è ancora presente");
         } catch (TimeoutException e) {
             logger.error("La delega non è presente con errore: " + e.getMessage());
-            Assert.fail("La delega non è presente con errore: " + e.getMessage());
+            Assertions.fail("La delega non è presente con errore: " + e.getMessage());
         }
     }
 
@@ -355,7 +355,7 @@ public class LeTueDelegheSection extends BasePage {
             getWebDriverWait(5).withMessage("La notifica con il indicatore non è visibile").until(ExpectedConditions.visibilityOfElementLocated(notificationNumber));
         }catch (RuntimeException e){
             logger.error("Il indicatore numerico di notifica non è visibile");
-            Assert.fail("Il indicatore numerico di notifica non è visibile");
+            Assertions.fail("Il indicatore numerico di notifica non è visibile");
         }
     }
 }

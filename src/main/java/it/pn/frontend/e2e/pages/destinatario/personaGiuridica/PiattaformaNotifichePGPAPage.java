@@ -8,7 +8,7 @@ import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
 import net.lingala.zip4j.ZipFile;
 import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -102,7 +102,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             logger.info("La  pagina Piattaforma Notifiche si carica correttamente");
         } catch (TimeoutException e) {
             logger.error("La pagina Piattaforma Notifiche non si carica correttamente con errore: " + e.getMessage());
-            Assert.fail("La pagina Piattaforma Notifiche non si carica correttamente con errore: " + e.getMessage());
+            Assertions.fail("La pagina Piattaforma Notifiche non si carica correttamente con errore: " + e.getMessage());
         }
     }
 
@@ -113,7 +113,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             logger.info("click sul bottone Deleghe effetuato");
         } catch (TimeoutException e) {
             logger.error("il bottone deleghe non è stato trovato " + e.getMessage());
-            Assert.fail("il bottone deleghe non è stato trovato" + e.getMessage());
+            Assertions.fail("il bottone deleghe non è stato trovato" + e.getMessage());
         }
     }
 
@@ -135,7 +135,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             logger.info("Si visualizza correttamente la sezione notifiche delegate");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente la sezione notifiche delegate con errore:" + e.getMessage());
-            Assert.fail("Non si visualizza correttamente la sezione notifiche delegate con errore" + e.getMessage());
+            Assertions.fail("Non si visualizza correttamente la sezione notifiche delegate con errore" + e.getMessage());
         }
     }
 
@@ -212,7 +212,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             getWebDriverWait(10).withMessage("Non si visualizza il box allegati modelli F24").until(ExpectedConditions.visibilityOfElementLocated(boxModelloF24));
         } catch (TimeoutException e) {
             logger.error("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
-            Assert.fail("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
+            Assertions.fail("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
         }
     }
 
@@ -352,14 +352,14 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
                logger.info("Il testo all'interno del file è corretto");
            } else {
                logger.error("Il testo all'interno del file  NON è corretto");
-               Assert.fail("Il testo  all'interno del file  NON è corretto");
+               Assertions.fail("Il testo  all'interno del file  NON è corretto");
            }
        } else if (nomeFile.contains("Avviso di avvenuta ricezione")) {
            if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, "A Simple PDF File")) {
                logger.info("Il testo all'interno del file è corretto");
            } else {
                logger.error("Il testo all'interno del file  NON è corretto");
-               Assert.fail("Il testo  all'interno del file  NON è corretto");
+               Assertions.fail("Il testo  all'interno del file  NON è corretto");
            }
        } else {
            if (nomeFile.equals("Attestazione_opponibile_a_terzi_notifica_presa_in_carico")) {
@@ -367,7 +367,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
                    logger.info("Il nome del mittente all'interno del file è corretto");
                } else {
                    logger.error("Il nome del mittente  all'interno del file  NON è corretto");
-                   Assert.fail("Il nome del mittente  all'interno del file  NON è corretto");
+                   Assertions.fail("Il nome del mittente  all'interno del file  NON è corretto");
                }
            }
 
@@ -375,7 +375,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
                logger.info("Il nome del destinatario all'interno del file è corretto");
            } else {
                logger.error("Il nome del destinatario  all'interno del file  NON è corretto");
-               Assert.fail("Il nome del destinatario  all'interno del file  NON è corretto");
+               Assertions.fail("Il nome del destinatario  all'interno del file  NON è corretto");
            }
        }
    }

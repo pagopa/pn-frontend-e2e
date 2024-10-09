@@ -17,7 +17,7 @@ import it.pn.frontend.e2e.utility.WebTool;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -78,11 +78,11 @@ public class DestinatarioPage extends BasePage {
                 log.info("Almeno un campo data è in stato invalido");
             } else {
                 log.error("Nessuno dei campi data è passato allo stato invalido");
-                Assert.fail("Nessuno dei campi data è passato allo stato invalido");
+                Assertions.fail("Nessuno dei campi data è passato allo stato invalido");
             }
         } catch (TimeoutException e) {
             log.error("Campi data non visualizzati correttamente con errore: " + e.getMessage());
-            Assert.fail("Campi data non visualizzati correttamente con errore: " + e.getMessage());
+            Assertions.fail("Campi data non visualizzati correttamente con errore: " + e.getMessage());
         }
         return invalidBoxDate;
     }
@@ -148,7 +148,7 @@ public class DestinatarioPage extends BasePage {
     public void checkCreateNewNotification() throws RestNotificationException {
         int maxAttempts = 4;
         int attempt = 1;
-        Assert.assertNotNull("Non può essere creata una notifica senza alcun destinatario", notificationRequest.getRecipients());
+        Assertions.assertNotNull(notificationRequest.getRecipients(),"Non può essere creata una notifica senza alcun destinatario");
         while (attempt <= maxAttempts) {
             NewNotificationResponse responseOfCreateNotification = restNotification.newNotificationWithOneRecipientAndDocument(notificationRequest);
 
@@ -158,7 +158,7 @@ public class DestinatarioPage extends BasePage {
                 LinkedTreeMap<String, Object> getNotificationStatus;
                 String notificationStatus;
                 do {
-                    Assert.assertTrue("La notifica risulta ancora in stato WAITING dopo 5 tentativi", maxAttemptsPolling <= 4);
+                    Assertions.assertTrue(maxAttemptsPolling <= 4,"La notifica risulta ancora in stato WAITING dopo 5 tentativi");
                     log.info(responseOfCreateNotification.getNotificationRequestId());
                     getNotificationStatus = restNotification.getNotificationStatus(responseOfCreateNotification.getNotificationRequestId());
                     notificationStatus = getNotificationStatus.get("notificationRequestStatus").toString();
@@ -181,11 +181,11 @@ public class DestinatarioPage extends BasePage {
             }
         }
         log.error("Errore nella creazione della notifica per PF dopo {} tentativi", maxAttempts);
-        Assert.fail("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
+        Assertions.fail("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
     }
 
     public void aggiuntaDestinatarioANotifica(Map<String, String> datiDestinatario) {
-        Assert.assertTrue("Non è possibile aggiungere un ulteriore destinatario", destinatariNumber <= 4);
+        Assertions.assertTrue(destinatariNumber <= 4,"Non è possibile aggiungere un ulteriore destinatario");
         log.info("Si procede con l'inserimento del destinatario nella notifica");
         String costiNotifica = "false";
         if (notificationRequest.getNotificationFeePolicy() == NotificationFeePolicyEnum.DELIVERY_MODE) {

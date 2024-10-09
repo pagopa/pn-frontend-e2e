@@ -11,7 +11,7 @@ import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import lombok.Getter;
 import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -165,7 +165,7 @@ public class Hooks {
         if (this.os.toLowerCase().contains("windows")) {
             WebDriverManager.edgedriver().setup();
         } else {
-            Assert.fail("browser edge non compatibile con il os : " + this.os);
+            Assertions.fail("browser edge non compatibile con il os : " + this.os);
         }
         EdgeOptions edgeOptions = new EdgeOptions();
         edgeOptions.setCapability("ms:inPrivate", true);
@@ -199,7 +199,7 @@ public class Hooks {
 
         String browser = null;
         if (System.getProperty("browser") == null) {
-            Assert.fail("valorizzare la variabile browser");
+            Assertions.fail("valorizzare la variabile browser");
         } else {
             browser = System.getProperty("browser");
         }
@@ -207,7 +207,7 @@ public class Hooks {
             this.headless = System.getProperty("headless");
         }
         if (System.getProperty("environment") == null) {
-            Assert.fail("valorizzare la variabile environment");
+            Assertions.fail("valorizzare la variabile environment");
         }
         switch (browser) {
             case "firefox" -> firefox();
@@ -215,7 +215,7 @@ public class Hooks {
             case "edge" -> edge();
             default -> {
                 logger.error("browser not correct");
-                Assert.fail("browser not correct");
+                Assertions.fail("browser not correct");
             }
         }
         cookieConfig.addCookie();

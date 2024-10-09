@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -54,7 +54,7 @@ public class HomePagePG extends BasePage {
             isDisplayed = false; // Elemento non trovato
         }
 
-        Assert.assertTrue("Il side menu deleghe non è visibile", !isDisplayed);
+        Assertions.assertTrue(!isDisplayed,"Il side menu deleghe non è visibile");
 
     }
 

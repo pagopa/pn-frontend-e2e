@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.section.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -31,7 +31,7 @@ public class HeaderPGSection extends BasePage {
             logger.info("HeaderSectionPG caricata correttamente");
         } catch (TimeoutException e){
             logger.error("HeaderSectionPG non caricata correttamente con errrore: "+e.getMessage());
-            Assert.fail("HeaderSectionPG non caricata correttamente con errrore: "+e.getMessage());
+            Assertions.fail("HeaderSectionPG non caricata correttamente con errrore: "+e.getMessage());
         }
     }
 

@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -29,7 +29,7 @@ public class ComeVuoiAccederePage extends BasePage {
             logger.info("Come Vuoi Accedere Page caricata");
         }catch (TimeoutException e){
             logger.error("Come Vuoi Accedere Page non caricata con errore : "+e.getMessage());
-            Assert.fail("Come Vuoi Accedere Page non caricata con errore : "+e.getMessage());
+            Assertions.fail("Come Vuoi Accedere Page non caricata con errore : "+e.getMessage());
         }
     }
 

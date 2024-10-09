@@ -2,7 +2,7 @@ package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -40,7 +40,7 @@ public class SelezionaEntePAPage extends BasePage {
             logger.info("Seleziona Utente PA Page caricata");
         } catch (TimeoutException | NoSuchElementException | StaleElementReferenceException e) {
             logger.error("Seleziona Utente PA Page non caricata con errore : " + e.getMessage());
-            Assert.fail("Seleziona Utente PA Page non caricata con errore : " + e.getMessage());
+            Assertions.fail("Seleziona Utente PA Page non caricata con errore : " + e.getMessage());
         }
     }
 

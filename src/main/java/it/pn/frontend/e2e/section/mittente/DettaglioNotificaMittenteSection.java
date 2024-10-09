@@ -5,7 +5,7 @@ import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -151,7 +151,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             pdfFile.close();
         } catch (IOException e) {
             logger.error("File non trovato con errore: " + e.getMessage());
-            Assert.fail("File non trovato con errore: " + e.getMessage());
+            Assertions.fail("File non trovato con errore: " + e.getMessage());
         }
         return false;
     }
@@ -178,7 +178,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             pdfFile.close();
         } catch (IOException e) {
             logger.error("File non trovato con errore: " + e.getMessage());
-            Assert.fail("File non trovato con errore: " + e.getMessage());
+            Assertions.fail("File non trovato con errore: " + e.getMessage());
         }
         return false;
     }
@@ -205,7 +205,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             }
         } catch (NoSuchElementException e) {
             logger.error("TA_QA: L'elenco completo degli stati NON presente con errore: " + e.getMessage());
-            Assert.fail("TA_QA: L'elenco completo degli stati NON presentecon errore: " + e.getMessage());
+            Assertions.fail("TA_QA: L'elenco completo degli stati NON presentecon errore: " + e.getMessage());
         }
     }
 
@@ -229,7 +229,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             pdfFile.close();
         } catch (IOException e) {
             logger.error("File non trovato con errore: " + e.getMessage());
-            Assert.fail("File non trovato con errore: " + e.getMessage());
+            Assertions.fail("File non trovato con errore: " + e.getMessage());
         }
         return false;
 
@@ -254,7 +254,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             pdfFile.close();
         } catch (IOException e) {
             logger.error("File non trovato con errore: " + e.getMessage());
-            Assert.fail("File non trovato con errore: " + e.getMessage());
+            Assertions.fail("File non trovato con errore: " + e.getMessage());
         }
         return false;
     }
@@ -296,7 +296,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             }
         } catch (TimeoutException e) {
             logger.error("Non riuscito ad trovare il link con errore: " + e.getMessage());
-            Assert.fail("Non riuscito ad trovare il link con errore: " + e.getMessage());
+            Assertions.fail("Non riuscito ad trovare il link con errore: " + e.getMessage());
         }
     }
 
@@ -307,7 +307,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             logger.info("La pec è in stato invio in corso");
         } catch (TimeoutException e) {
             logger.error("La pec NON è in stato invio in corso con errore: " + e.getMessage());
-            Assert.fail("La pec NON è in stato invio in corso con errore: " + e.getMessage());
+            Assertions.fail("La pec NON è in stato invio in corso con errore: " + e.getMessage());
         }
     }
 
@@ -327,11 +327,11 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             logger.info("L'invio della notifica è fallito questo numero di volte: " + invioPECFallitoList.size());
             if (invioPECFallitoList.size() != numeroFallimenti) {
                 logger.error("L'invio della notifica non è fallito " + numeroFallimenti + " volta/e");
-                Assert.fail("L'invio della notifica non è fallito " + numeroFallimenti + " volta/e");
+                Assertions.fail("L'invio della notifica non è fallito " + numeroFallimenti + " volta/e");
             }
         } catch (TimeoutException e) {
             logger.error("NON è fallito l'invio della notifica: " + e.getMessage());
-            Assert.fail("NON è fallito l'invio della notifica: " + e.getMessage());
+            Assertions.fail("NON è fallito l'invio della notifica: " + e.getMessage());
         }
     }
 
@@ -342,7 +342,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             logger.info("stato timeline checkato con successo avvenuta");
         } catch (TimeoutException e) {
             logger.error("checkato stato timeline non avvenuta con errore: " + e.getMessage());
-            Assert.fail("checkato stato timeline non avvenuta con errore: " + e.getMessage());
+            Assertions.fail("checkato stato timeline non avvenuta con errore: " + e.getMessage());
         }
     }
 
@@ -356,7 +356,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             logger.info("allegato timeline trovato con successo");
         } catch (TimeoutException e) {
             logger.error("allegato timeline trovato non con successo: " + e.getMessage());
-            Assert.fail("allegato timeline trovato non con successo: " + e.getMessage());
+            Assertions.fail("allegato timeline trovato non con successo: " + e.getMessage());
         }
 
     }
@@ -374,7 +374,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             getWebDriverWait(10).withMessage("Non si visualizza l'invio della notifica al domicilio di piattaforma nella timeline").until(ExpectedConditions.visibilityOfElementLocated(invioDomicilioDiPiattaformaBy));
         } catch (TimeoutException e) {
             logger.error("L'invio della notifica al domicilio di piattaforma indicato non viene effettuato con errore: " + e.getMessage());
-            Assert.fail("L'invio della notifica al domicilio di piattaforma indicato non viene effettuato con errore: " + e.getMessage());
+            Assertions.fail("L'invio della notifica al domicilio di piattaforma indicato non viene effettuato con errore: " + e.getMessage());
         }
 
     }
@@ -386,11 +386,11 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             logger.info("L'invio della notifica è fallito questo numero di volte: " + invioPECFallitoList.size());
             if (invioPECFallitoList.size() != numeroFallimenti) {
                 logger.error("L'invio della notifica non è fallito " + numeroFallimenti + " volta/e");
-                Assert.fail("L'invio della notifica non è fallito " + numeroFallimenti + " volta/e");
+                Assertions.fail("L'invio della notifica non è fallito " + numeroFallimenti + " volta/e");
             }
         } catch (TimeoutException e) {
             logger.error("NON è fallito l'invio della notifica: " + e.getMessage());
-            Assert.fail("NON è fallito l'invio della notifica: " + e.getMessage());
+            Assertions.fail("NON è fallito l'invio della notifica: " + e.getMessage());
         }
     }
 
@@ -401,7 +401,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             logger.info("L'invio della notifica avviene via raccomandata semplice");
         } catch (TimeoutException e) {
             logger.error("L'invio della notifica per raccomandata non viene visualizzato: " + e.getMessage());
-            Assert.fail("L'invio della notifica per raccomandata non viene visualizzato: " + e.getMessage());
+            Assertions.fail("L'invio della notifica per raccomandata non viene visualizzato: " + e.getMessage());
         }
     }
 
@@ -411,7 +411,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             getWebDriverWait(10).withMessage("Non si visualizza l'invio della notifica al domicilio speciale nella timeline").until(ExpectedConditions.visibilityOfElementLocated(invioDomicilioSpecialeBy));
         } catch (TimeoutException e) {
             logger.error("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
-            Assert.fail("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
+            Assertions.fail("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
         }
     }
 
@@ -432,7 +432,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             getWebDriverWait(10).withMessage("Non si visualizza l'avviso PagoPA per il pagamento della notifica").until(ExpectedConditions.visibilityOfElementLocated(boxPagamento));
         } catch (TimeoutException e) {
             logger.error("Box per il pagamento della notifica non visualizzato correttamente con errore: " + e.getMessage());
-            Assert.fail("Box per il pagamento della notifica non visualizzato correttamente con errore: " + e.getMessage());
+            Assertions.fail("Box per il pagamento della notifica non visualizzato correttamente con errore: " + e.getMessage());
         }
     }
 
@@ -466,7 +466,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             this.element(avvisoPagoPa).click();
         } catch (TimeoutException e) {
             logger.error("Box per il pagamento della notifica non visualizzato correttamente con errore: " + e.getMessage());
-            Assert.fail("Box per il pagamento della notifica non visualizzato correttamente con errore: " + e.getMessage());
+            Assertions.fail("Box per il pagamento della notifica non visualizzato correttamente con errore: " + e.getMessage());
         }
     }
 
@@ -484,7 +484,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             getWebDriverWait(10).withMessage("Non si visualizza il box allegati modelli F24").until(ExpectedConditions.visibilityOfElementLocated(boxModelloF24));
         } catch (TimeoutException e) {
             logger.error("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
-            Assert.fail("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
+            Assertions.fail("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
         }
     }
 
@@ -501,7 +501,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             getWebDriverWait(10).withMessage("Non si visualizza l'input per la selezione del destinatario").until(ExpectedConditions.visibilityOf(selectMultiDestinatario));
         } catch (TimeoutException e) {
             logger.error("Dettaglio notifica multi destinatario non ancora pagata visualizzata non correttamente con errore: " + e.getMessage());
-            Assert.fail("Dettaglio notifica multi destinatario non ancora pagata visualizzata non correttamente con errore: " + e.getMessage());
+            Assertions.fail("Dettaglio notifica multi destinatario non ancora pagata visualizzata non correttamente con errore: " + e.getMessage());
         }
     }
 
@@ -515,7 +515,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             selectOption.get(0).click();
         } catch (TimeoutException e) {
             logger.error("Non è stato possibile selezionare un destinatario con errore: " + e.getMessage());
-            Assert.fail("Non è stato possibile selezionare un destinatario con errore: " + e.getMessage());
+            Assertions.fail("Non è stato possibile selezionare un destinatario con errore: " + e.getMessage());
         }
     }
 
@@ -525,7 +525,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             getWebDriverWait(10).withMessage("Non si visualizza attestazione opponibile a terzi notifica presa in carico").until(ExpectedConditions.visibilityOfElementLocated(attestazionePresaInCarico));
         } catch (TimeoutException e) {
             logger.error("Attestazione opponibile a terzi notifica presa in carico non visualizzato correttamente con errore: " + e.getMessage());
-            Assert.fail("Attestazione opponibile a terzi notifica presa in carico non visualizzato correttamente con errore: " + e.getMessage());
+            Assertions.fail("Attestazione opponibile a terzi notifica presa in carico non visualizzato correttamente con errore: " + e.getMessage());
         }
     }
 
@@ -556,7 +556,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         }
         if (!testSuccess) {
             logger.error("L'invio del messaggio al contatto di cortesia non è avvenuto");
-            Assert.fail("L'invio del messaggio al contatto di cortesia non è avvenuto");
+            Assertions.fail("L'invio del messaggio al contatto di cortesia non è avvenuto");
         }
     }
 

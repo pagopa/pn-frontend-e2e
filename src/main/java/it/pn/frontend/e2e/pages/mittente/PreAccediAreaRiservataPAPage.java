@@ -2,7 +2,7 @@ package it.pn.frontend.e2e.pages.mittente;
 
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -27,7 +27,7 @@ public class PreAccediAreaRiservataPAPage extends BasePage {
             logger.info("Il titolo della Pre Accedi Area Riservata PA Page è caricato");
         }catch (TimeoutException e){
             logger.error("Il titolo della Pre Accedi Area Riservata PA Page non caricato con errore : "+e.getMessage());
-            Assert.fail("Il titolo della Pre Accedi Area Riservata PA Page non caricato con errore  : "+e.getMessage());
+            Assertions.fail("Il titolo della Pre Accedi Area Riservata PA Page non caricato con errore  : "+e.getMessage());
         }
     }
 

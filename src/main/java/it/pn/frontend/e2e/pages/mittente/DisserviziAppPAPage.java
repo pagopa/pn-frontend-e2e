@@ -5,7 +5,7 @@ import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -78,7 +78,7 @@ public class DisserviziAppPAPage extends BasePage {
             logger.info("Si visualizza correttamente la sezione disservizi");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente la sezione disservizi con errore:" + e.getMessage());
-            Assert.fail("Non si visualizza correttamente la sezione disservizi con errore" + e.getMessage());
+            Assertions.fail("Non si visualizza correttamente la sezione disservizi con errore" + e.getMessage());
         }
     }
 
@@ -94,7 +94,7 @@ public class DisserviziAppPAPage extends BasePage {
             dataPopulation.setDataA(dataFinePrimaRiga);
         } else {
             logger.error("non é stato possibile recuperare i dati dalla tabella dei disservizi");
-            Assert.fail("non é stato possibile recuperare i dati dalla tabella dei disservizi");
+            Assertions.fail("non é stato possibile recuperare i dati dalla tabella dei disservizi");
 
         }
     }
@@ -122,7 +122,7 @@ public class DisserviziAppPAPage extends BasePage {
                 getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElement(tableHeaderTitles.get(4), "Stato"));
             } else {
                 logger.error("Non si visualizza correttamente l'header della tabella dei disservizi");
-                Assert.fail("Non si visualizza correttamente l'header della tabella dei disservizi");
+                Assertions.fail("Non si visualizza correttamente l'header della tabella dei disservizi");
             }
             getWebDriverWait(10).withMessage("Non si visualizza correttamente l'header della tabella dei disservizi")
                     .until(ExpectedConditions.visibilityOf(disserviziTableHeader));
@@ -141,12 +141,12 @@ public class DisserviziAppPAPage extends BasePage {
                 }
             } else {
                 logger.error("Non si visualizzano correttamente le righe della tabella dei disservizi");
-                Assert.fail("Non si visualizzano correttamente le righe della tabella dei disservizi");
+                Assertions.fail("Non si visualizzano correttamente le righe della tabella dei disservizi");
             }
             logger.info("Si visualizza correttamente la tabella dei disservizi");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente la tabella dei disservizi con errore:" + e.getMessage());
-            Assert.fail("Non si visualizza correttamente la tabella dei disservizi con errore" + e.getMessage());
+            Assertions.fail("Non si visualizza correttamente la tabella dei disservizi con errore" + e.getMessage());
         }
     }
 
@@ -169,7 +169,7 @@ public class DisserviziAppPAPage extends BasePage {
             }
         } else {
             logger.error("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
-            Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
+            Assertions.fail("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
         }
     }
 
@@ -185,7 +185,7 @@ public class DisserviziAppPAPage extends BasePage {
                 logger.info("Disservizio risolto trovato");
             } else {
                 logger.error("Non si visualizza un record in elenco relativo ad un disservizio risolto");
-                Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio risolto");
+                Assertions.fail("Non si visualizza un record in elenco relativo ad un disservizio risolto");
             }
         }
     }
@@ -199,7 +199,7 @@ public class DisserviziAppPAPage extends BasePage {
                     continue;
                 } else {
                     logger.error("Non si visualizza un record in elenco relativo ad un disservizio risolto");
-                    Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio risolto");
+                    Assertions.fail("Non si visualizza un record in elenco relativo ad un disservizio risolto");
                 }
                 if (status.getText().contains("/") || status.getText().contains("Oggi") && status.getText().contains(":")) {
                     logger.info("Si visualizza data di fine servizio");
@@ -211,7 +211,7 @@ public class DisserviziAppPAPage extends BasePage {
             }
         } else {
             logger.error("Non si visualizza un record in elenco relativo ad un disservizio disponibile");
-            Assert.fail("Non si visualizza un record in elenco relativo ad un disservizio disponibile");
+            Assertions.fail("Non si visualizza un record in elenco relativo ad un disservizio disponibile");
         }
     }
 
@@ -238,7 +238,7 @@ public class DisserviziAppPAPage extends BasePage {
             logger.info("click effettuato con successo");
         } else {
             logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
-            Assert.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
+            Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
         }
 
 
@@ -286,7 +286,7 @@ public boolean confrontoFileConDisservizio() {
                         //break// Rimuovere il commento se si desidera fermarsi al primo file trovato
                     } catch (IOException e) {
                         logger.error("Errore nel leggere il PDF: " + file.getName(), e);
-                        Assert.fail("Errore nel leggere il PDF: " + file.getName());
+                        Assertions.fail("Errore nel leggere il PDF: " + file.getName());
                     }
                 }
             }

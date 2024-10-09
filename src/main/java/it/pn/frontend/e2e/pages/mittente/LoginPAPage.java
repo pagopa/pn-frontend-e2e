@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -36,7 +36,7 @@ public class LoginPAPage extends BasePage {
             logger.info("Login PA Page caricata");
         }catch (TimeoutException e){
             logger.error("Il titolo della pagina Login PA non caricato con errore : "+e.getMessage());
-            Assert.fail("Il titolo della pagina Login PA non caricato con errore  : "+e.getMessage());
+            Assertions.fail("Il titolo della pagina Login PA non caricato con errore  : "+e.getMessage());
         }
     }
 
@@ -59,7 +59,7 @@ public class LoginPAPage extends BasePage {
             this.inviaButton.click();
         }catch (TimeoutException e){
         logger.error("Il bottone invia nella pagina Login PA non è stato cliccato con errore : "+e.getMessage());
-        Assert.fail("Il bottone invia nella pagina Login PA non è stato cliccato con errore : "+e.getMessage());
+            Assertions.fail("Il bottone invia nella pagina Login PA non è stato cliccato con errore : "+e.getMessage());
         }
     }
 }

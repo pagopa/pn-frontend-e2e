@@ -1,19 +1,10 @@
 package it.pn.frontend.e2e.model.radd.StartTransaction;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.gson.internal.bind.DefaultDateTypeAdapter;
-import io.cucumber.messages.types.Hook;
-import it.pn.frontend.e2e.listeners.Hooks;
 import lombok.Data;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.util.UUID;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)

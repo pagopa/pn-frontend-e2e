@@ -1,6 +1,6 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -24,7 +24,7 @@ public class RecapitiPGPage extends BasePage {
             logger.info("Si visualizza correttamente recapiti page");
         }catch (TimeoutException e){
             logger.error("Non si visualizza correttamente recapiti page con errore:"+e.getMessage());
-            Assert.fail("Non si visualizza correttamente recapiti page con errore:"+e.getMessage());
+            Assertions.fail("Non si visualizza correttamente recapiti page con errore:"+e.getMessage());
         }
     }
 }

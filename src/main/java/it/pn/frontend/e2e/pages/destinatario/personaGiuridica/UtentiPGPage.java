@@ -2,7 +2,7 @@ package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -132,7 +132,7 @@ public class UtentiPGPage extends BasePage {
             logger.info("Si visualizza correttamente utenti page");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente utenti page con errore:" + e.getMessage());
-            Assert.fail("Non si visualizza correttamente utenti page con errore:" + e.getMessage());
+            Assertions.fail("Non si visualizza correttamente utenti page con errore:" + e.getMessage());
         }
     }
 
@@ -162,7 +162,7 @@ public class UtentiPGPage extends BasePage {
             logger.info("Il nome e il cognome è generato correttamente");
         } else {
             logger.error("Il nome e il cognome non è generato correttamente");
-            Assert.fail("Il nome e il cognome non è generato correttamente");
+            Assertions.fail("Il nome e il cognome non è generato correttamente");
         }
         this.js().executeScript("arguments[0].setAttribute('autocomplete', 'off')", emailBox);
         emailBox.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
@@ -237,7 +237,7 @@ public class UtentiPGPage extends BasePage {
             logger.info("Si visualizza correttamente pagina riepilogativa");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente pagina riepilogativa con errore:" + e.getMessage());
-            Assert.fail("Non si visualizza correttamente pagina riepilogativa con errore:" + e.getMessage());
+            Assertions.fail("Non si visualizza correttamente pagina riepilogativa con errore:" + e.getMessage());
         }
     }
 
@@ -254,7 +254,7 @@ public class UtentiPGPage extends BasePage {
             logger.info("il campo email e il campo conferma email sono attivi");
         } else {
             logger.error("il campo email e il campo conferma email sono disattivi");
-            Assert.fail("il campo email e il campo conferma email sono disattivi");
+            Assertions.fail("il campo email e il campo conferma email sono disattivi");
         }
     }
 

@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.section;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -45,7 +45,7 @@ public class CookiesSection extends BasePage {
             actions.moveToElement(this.accettaTuttiButton).click().perform();
         } catch (TimeoutException e) {
             logger.error("Non è cliccabile il bottone accetta tutti i cookies" + e.getMessage());
-            Assert.fail("Non è cliccabile il bottone accetta tutti i cookies" + e.getMessage());
+            Assertions.fail("Non è cliccabile il bottone accetta tutti i cookies" + e.getMessage());
         }
     }
 

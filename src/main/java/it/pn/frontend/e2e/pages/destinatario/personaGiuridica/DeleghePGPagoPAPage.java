@@ -1,8 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -98,7 +97,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             logger.info("Deleghe page si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Deleghe page non si visualizza correttamente con errore: " + e.getMessage());
-            Assert.fail("Deleghe page non si visualizza correttamente con errore: " + e.getMessage());
+            Assertions.fail("Deleghe page non si visualizza correttamente con errore: " + e.getMessage());
         }
     }
 
@@ -109,7 +108,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             logger.info("Bottone delegati dell impresa cliccato");
         } catch (TimeoutException e) {
             logger.error("il bottone delegati imprese non è cliccabile" + e.getMessage());
-            Assert.fail("il bottone delegati imprese non è cliccabile" + e.getMessage());
+            Assertions.fail("il bottone delegati imprese non è cliccabile" + e.getMessage());
         }
 
     }
@@ -151,7 +150,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             logger.info("L'elenco delle deleghe si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("L'elenco delle deleghe non si visualizza correttamente con errore: " + e.getMessage());
-            Assert.fail("L'elenco delle deleghe non si visualizza correttamente con errore: " + e.getMessage());
+            Assertions.fail("L'elenco delle deleghe non si visualizza correttamente con errore: " + e.getMessage());
         }
     }
 
@@ -170,7 +169,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             logger.info("controllo ragione sociale");
         } catch (TimeoutException e) {
             logger.error("ragione sociale non caricata" + e.getMessage());
-            Assert.fail("ragione sociale non caricata" + e.getMessage());
+            Assertions.fail("ragione sociale non caricata" + e.getMessage());
         }
         logger.info("ragione sociale caricata correttamente");
         return this.elements(delegaBy).size() == 1;
@@ -190,7 +189,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             this.logger.info("Si vede correttamente il pop-up di assegnazione gruppo");
         } catch (TimeoutException e) {
             this.logger.error("Non si vede correttamente il pop-up di assegnazione gruppo con errore: " + e.getMessage());
-            Assert.fail("Non si vede correttamente il pop-up di assegnazione gruppo con errore: " + e.getMessage());
+            Assertions.fail("Non si vede correttamente il pop-up di assegnazione gruppo con errore: " + e.getMessage());
         }
     }
 
@@ -239,7 +238,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             logger.info("La delega ha lo stato Attiva");
         } catch (TimeoutException e) {
             logger.error("La delega NON ha lo stato Attiva con errore: " + e.getMessage());
-            Assert.fail("La delega NON ha lo stato Attiva con errore: " + e.getMessage());
+            Assertions.fail("La delega NON ha lo stato Attiva con errore: " + e.getMessage());
         }
     }
 
@@ -266,7 +265,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             this.logger.info("Si visualizza il pop-up rifiuta delega");
         } catch (TimeoutException e) {
             this.logger.error("Non si visualizza il pop-up rifiuta delega con errore: " + e.getMessage());
-            Assert.fail("Non si visualizza il pop-up rifiuta delega con errore: " + e.getMessage());
+            Assertions.fail("Non si visualizza il pop-up rifiuta delega con errore: " + e.getMessage());
         }
     }
 
@@ -276,7 +275,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             this.opzioneModifica.click();
         } catch (TimeoutException e) {
             logger.error(" errore: " + e.getMessage());
-            Assert.fail(" errore: " + e.getMessage());
+            Assertions.fail(" errore: " + e.getMessage());
         }
     }
 
@@ -287,7 +286,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             logger.info("Si visualizza correttamente il pop-up");
         } catch (TimeoutException e) {
             logger.error("NON Si  visualizza  correttamente il pop-up con errore: " + e.getMessage());
-            Assert.fail("NON Si visualizza correttamente il pop-up con errore: " + e.getMessage());
+            Assertions.fail("NON Si visualizza correttamente il pop-up con errore: " + e.getMessage());
         }
     }
 
@@ -344,7 +343,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             logger.info("Alert chiusa");
         } catch (TimeoutException e) {
             logger.error("Alert non visualizzato con errore: " + e.getMessage());
-            Assert.fail("Alert non visualizzato con errore: " + e.getMessage());
+            Assertions.fail("Alert non visualizzato con errore: " + e.getMessage());
         }
     }
 
@@ -358,7 +357,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             logger.info("Bottone indietro cliccato");
         } catch (TimeoutException e) {
             logger.error("Bottone non visualizzato con errore " + e.getMessage());
-            Assert.fail("Bottone non visualizzato con errore: " + e.getMessage());
+            Assertions.fail("Bottone non visualizzato con errore: " + e.getMessage());
         }
     }
 
@@ -390,7 +389,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             logger.info("Textbox di input codice delega invalido");
         } else {
             logger.error("Almeno una textbox di input codice delega non in stato invalido");
-            Assert.fail("Almeno una textbox di input codice delega non in stato invalido");
+            Assertions.fail("Almeno una textbox di input codice delega non in stato invalido");
         }
     }
 
@@ -402,7 +401,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             logger.info("testo di errore gruppo trovato con successo");
         }catch (TimeoutException e){
             logger.error("errore in cattura testo di errore ricerca gruppo per assegnazione con errore:" + e.getMessage());
-            Assert.fail("errore in cattura testo di errore ricerca gruppo per assegnazione con errore:" + e.getMessage());
+            Assertions.fail("errore in cattura testo di errore ricerca gruppo per assegnazione con errore:" + e.getMessage());
         }
 
     }
@@ -436,7 +435,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             getWebDriverWait(10).withMessage("menu non caricato correttamente").until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
         } catch (TimeoutException e) {
             logger.error("tabella deleghe a carico dell impresa non caricata correttamente" + e.getMessage());
-            Assert.fail("tabella deleghe a carico dell impresa non caricata correttamente" + e.getMessage());
+            Assertions.fail("tabella deleghe a carico dell impresa non caricata correttamente" + e.getMessage());
         }
 
     }

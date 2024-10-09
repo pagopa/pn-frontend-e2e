@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -38,7 +38,7 @@ public class ITuoiRecapitiPage extends BasePage {
             this.js().executeScript("arguments[0].click()", this.iTuoiRecapitiButton);
         } catch (TimeoutException e) {
             logger.error("il bottone i tuoi Recapiti non trovato o non è cliccabile: " + e.getMessage());
-            Assert.fail("il bottone i tuoi Recapiti non trovato o non è cliccabile: " + e.getMessage());
+            Assertions.fail("il bottone i tuoi Recapiti non trovato o non è cliccabile: " + e.getMessage());
         }
     }
 
@@ -55,7 +55,7 @@ public class ITuoiRecapitiPage extends BasePage {
             logger.info("La pagina I Tuoi Recapiti si vede correttamente");
         } catch (TimeoutException e) {
             logger.error("La pagina I Tuoi Recapiti NON si vede correttamente con errori:" + e.getMessage());
-            Assert.fail("La pagina I Tuoi Recapiti NON si vede correttamente con errori:" + e.getMessage());
+            Assertions.fail("La pagina I Tuoi Recapiti NON si vede correttamente con errori:" + e.getMessage());
         }
     }
 
@@ -86,7 +86,7 @@ public class ITuoiRecapitiPage extends BasePage {
             logger.info("Il contatto di cortesia si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("il contatto di cortesia non si visualizza correttamente con errori:" + e.getMessage());
-            Assert.fail("il contatto di cortesia non si visualizza correttamente con errori:" + e.getMessage());
+            Assertions.fail("il contatto di cortesia non si visualizza correttamente con errori:" + e.getMessage());
         }
     }
 
@@ -103,7 +103,7 @@ public class ITuoiRecapitiPage extends BasePage {
             logger.info("Il codice otp viene inserito correttamente");
         } catch (TimeoutException e) {
             logger.error("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
-            Assert.fail("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
+            Assertions.fail("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
         }
     }
 
@@ -165,7 +165,7 @@ public class ITuoiRecapitiPage extends BasePage {
             }
         } catch (TimeoutException e) {
             logger.error("Non si riesce ad cancellare il testo della  email :" + e.getMessage());
-            Assert.fail("Non si riesce ad cancellare il testo della  email :" + e.getMessage());
+            Assertions.fail("Non si riesce ad cancellare il testo della  email :" + e.getMessage());
         }
     }
 
@@ -246,7 +246,7 @@ public class ITuoiRecapitiPage extends BasePage {
             logger.info("Il riquadro PEC si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il riquadro PEC NON si visualizza correttamente con errori:" + e.getMessage());
-            Assert.fail("Il riquadro PEC NON si visualizza correttamente con errori:" + e.getMessage());
+            Assertions.fail("Il riquadro PEC NON si visualizza correttamente con errori:" + e.getMessage());
         }
     }
 }

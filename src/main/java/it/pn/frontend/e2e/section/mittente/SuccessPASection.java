@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -30,7 +30,7 @@ public class SuccessPASection extends BasePage {
             logger.info("TA_QA: La notifica è stata creata con successo, PA section caricata correttamente");
         } catch (TimeoutException e) {
             logger.error("TA_QA: Il titolo della Success PA section non caricata con errore: " + e.getMessage());
-            Assert.fail("TA_QA: Il titolo della Success PA section non caricata con errore: " + e.getMessage());
+            Assertions.fail("TA_QA: Il titolo della Success PA section non caricata con errore: " + e.getMessage());
         }
     }
 

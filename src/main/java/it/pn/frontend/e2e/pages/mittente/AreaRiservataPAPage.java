@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -38,7 +38,7 @@ public class AreaRiservataPAPage extends BasePage {
             logger.info("Titolo Panoramica dell'area Riservata PA Page caricato");
         }catch (TimeoutException e){
             logger.error("Titolo 'Panoramica' dell'area Riservata PA Page non caricato con errore : "+e.getMessage());
-            Assert.fail("Titolo 'Panoramica' dell'area Riservata PA Page non caricato con errore : "+e.getMessage());
+            Assertions.fail("Titolo 'Panoramica' dell'area Riservata PA Page non caricato con errore : "+e.getMessage());
         }
     }
 
@@ -65,7 +65,7 @@ public class AreaRiservataPAPage extends BasePage {
             }
         }catch(TimeoutException | NoSuchElementException | ElementClickInterceptedException e){
             logger.error("il bottone piattaforma notifica dev non è presente o non è cliccabile, "+e.getMessage());
-            Assert.fail("il bottone piattaforma notifica dev non è presente o non è cliccabile. "+e.getMessage());
+            Assertions.fail("il bottone piattaforma notifica dev non è presente o non è cliccabile. "+e.getMessage());
         }
     }
     public void selezionaPiattaformaNotificaTest() {
@@ -80,7 +80,7 @@ public class AreaRiservataPAPage extends BasePage {
         }
         }catch(TimeoutException e){
             logger.error("il bottone piattaforma notifica test non è presente o non è cliccabile, "+e.getMessage());
-            Assert.fail("il bottone piattaforma notifica test non è presente o non è cliccabile. "+e.getMessage());
+            Assertions.fail("il bottone piattaforma notifica test non è presente o non è cliccabile. "+e.getMessage());
         }
     }
 
@@ -96,7 +96,7 @@ public class AreaRiservataPAPage extends BasePage {
         }
         }catch(TimeoutException | NoSuchElementException | ElementClickInterceptedException e){
             logger.error("il bottone piattaforma notifica uat non è presente o non è cliccabile, "+e.getMessage());
-            Assert.fail("il bottone piattaforma notifica uat non è presente o non è cliccabile. "+e.getMessage());
+            Assertions.fail("il bottone piattaforma notifica uat non è presente o non è cliccabile. "+e.getMessage());
         }
     }
 

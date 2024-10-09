@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.common;
 
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -142,17 +142,17 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(10).withMessage("La scritta 'Inserisci codice' non viene visualizzata correttamente").until(ExpectedConditions.visibilityOfElementLocated(titleOption));
             getWebDriverWait(10).withMessage("Le input boxes non vengono visualizzate").until(ExpectedConditions.visibilityOfAllElements(inputBoxes));
             if (inputBoxes.size() != 5) {
-                Assert.fail("Il numero di input box non è corretto");
+                Assertions.fail("Il numero di input box non è corretto");
             }
             getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(footerNotReceived));
             boolean checkButton = !confermaButtonPopUp.isEnabled() && annullaButton.isEnabled();
             if (!checkButton) {
-                Assert.fail("i pulsanti all'interno del pop-up non rispettano le condizioni");
+                Assertions.fail("i pulsanti all'interno del pop-up non rispettano le condizioni");
             }
             logger.info("Il pop-up di conferma viene visualizzato correttamente");
         } catch (TimeoutException e) {
             logger.error("Il pop-up di conferma NON viene visualizzato correttamente con errori: " + e.getMessage());
-            Assert.fail("Il pop-up di conferma NON viene visualizzato correttamente con errori:" + e.getMessage());
+            Assertions.fail("Il pop-up di conferma NON viene visualizzato correttamente con errori:" + e.getMessage());
         }
     }
 
@@ -168,7 +168,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             logger.info("Il codice otp viene inserito correttamente");
         } catch (TimeoutException e) {
             logger.error("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
-            Assert.fail("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
+            Assertions.fail("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
         }
     }
 
@@ -213,7 +213,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             this.annullaButton.click();
         } catch (TimeoutException e) {
             logger.error("Il bottone annulla non è cliccabile con errore: " + e.getMessage());
-            Assert.fail("Il bottone annulla non è cliccabile con errore: " + e.getMessage());
+            Assertions.fail("Il bottone annulla non è cliccabile con errore: " + e.getMessage());
         }
     }
 
@@ -285,7 +285,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(pecAssociata));
         } catch (TimeoutException e) {
             logger.error("Pec non associata con errore:" + e.getMessage());
-            Assert.fail("Pec non associata con errore:" + e.getMessage());
+            Assertions.fail("Pec non associata con errore:" + e.getMessage());
         }
     }
 
@@ -344,7 +344,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             this.element(modificaButtonBy).click();
         } catch (TimeoutException e) {
             logger.error("Non si riesce a cliccare o vedere il bottone modifica PEC con errore:" + e.getMessage());
-            Assert.fail("Non si riesce a cliccare o vedere il bottone modifica PEC con errore:" + e.getMessage());
+            Assertions.fail("Non si riesce a cliccare o vedere il bottone modifica PEC con errore:" + e.getMessage());
         }
     }
 
@@ -356,7 +356,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             logger.info("testo email pec cancellata");
         } catch (TimeoutException e) {
             logger.error("Non si riesce a cancellare il testo della  email PEC :" + e.getMessage());
-            Assert.fail("Non si riesce a cancellare il testo della  email PEC :" + e.getMessage());
+            Assertions.fail("Non si riesce a cancellare il testo della  email PEC :" + e.getMessage());
         }
     }
 
@@ -622,7 +622,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             logger.info("pulsante annulla eliminazione visibile");
         } catch (TimeoutException e) {
             logger.error("caricamento pop-up con errore:" + e.getMessage());
-            Assert.fail("caricamento pop-up con errore:" + e.getMessage());
+            Assertions.fail("caricamento pop-up con errore:" + e.getMessage());
         }
     }
 
@@ -638,7 +638,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             logger.info("la mail associata risulta uguale alla precedente");
         } else {
             logger.error("la mail associata é diversa dalla precedentemente salvata");
-            Assert.fail("la mail associata é diversa dalla precedentemente salvata");
+            Assertions.fail("la mail associata é diversa dalla precedentemente salvata");
         }
     }
 
@@ -650,7 +650,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             logger.info("pec modificabile");
         } catch (TimeoutException e) {
             logger.error("pec non modificabile con errore:" + e.getMessage());
-            Assert.fail("pec non modificabile con errore:" + e.getMessage());
+            Assertions.fail("pec non modificabile con errore:" + e.getMessage());
         }
     }
 
@@ -662,7 +662,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             logger.info("pec non modificabile");
         } catch (TimeoutException e) {
             logger.error("pec modificabile con errore:" + e.getMessage());
-            Assert.fail("pec modificabile con errore:" + e.getMessage());
+            Assertions.fail("pec modificabile con errore:" + e.getMessage());
         }
     }
 
@@ -706,7 +706,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             ));
         } catch (TimeoutException e) {
             logger.error("Input numero di cellulare non visualizzato o non vuoto con errore: " + e.getMessage());
-            Assert.fail("Input numero di cellulare non visualizzato o non vuoto con errore: " + e.getMessage());
+            Assertions.fail("Input numero di cellulare non visualizzato o non vuoto con errore: " + e.getMessage());
         }
     }
 
@@ -715,7 +715,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(10).withMessage("Campo email non modificabile").until(ExpectedConditions.visibilityOf(inserimentoMailField));
         } catch (TimeoutException e) {
             logger.error("Campo email non modificabile con errore: " + e.getMessage());
-            Assert.fail("Campo email non modificabile con errore: " + e.getMessage());
+            Assertions.fail("Campo email non modificabile con errore: " + e.getMessage());
         }
     }
 
@@ -733,7 +733,7 @@ public class RecapitiDestinatarioPage extends BasePage {
                     ExpectedConditions.attributeToBe(confermaButtonBy, "disabled", "true")));
         } catch (TimeoutException e) {
             logger.error("Qualche componente del pop up non viene visualizzato con errore: " + e.getMessage());
-            Assert.fail("Qualche componente del pop up non viene visualizzato con errore: " + e.getMessage());
+            Assertions.fail("Qualche componente del pop up non viene visualizzato con errore: " + e.getMessage());
         }
     }
 
@@ -746,7 +746,7 @@ public class RecapitiDestinatarioPage extends BasePage {
                 logger.info("Si visualizza correttamente il messaggio di errore");
             } else {
                 logger.error("Non si visualizza il messaggio di errore");
-                Assert.fail("Non si visualizza il messaggio di errore");
+                Assertions.fail("Non si visualizza il messaggio di errore");
             }
             By messageContainer = By.id("error-alert");
             By modalErrorTitle = By.id("codeModalErrorTitle");
@@ -757,7 +757,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             ));
         } catch (TimeoutException e) {
             logger.error("Il messaggio di errore non viene visualizzato correttamente con errore: " + e.getMessage());
-            Assert.fail("Il messaggio di errore non viene visualizzato correttamente con errore: " + e.getMessage());
+            Assertions.fail("Il messaggio di errore non viene visualizzato correttamente con errore: " + e.getMessage());
         }
     }
 
@@ -831,16 +831,16 @@ public class RecapitiDestinatarioPage extends BasePage {
         String id = "";
         if (check.equalsIgnoreCase("pec")){
             id = "s_pec-helper-text";
-            Assert.assertFalse("la textbox non presenta il bordo rosso",indirizzoPecField.getAttribute("aria-invalid").equalsIgnoreCase("false"));
+            Assertions.assertFalse(indirizzoPecField.getAttribute("aria-invalid").equalsIgnoreCase("false"),"la textbox non presenta il bordo rosso");
         }
         if (check.equalsIgnoreCase("email")){
             id = "s_mail-helper-text";
-            Assert.assertFalse("la textbox non presenta il bordo rosso",emailField.getAttribute("aria-invalid").equalsIgnoreCase("false"));
+            Assertions.assertFalse(emailField.getAttribute("aria-invalid").equalsIgnoreCase("false"),"la textbox non presenta il bordo rosso");
         }
 
         By errorMessage = By.id(id);
         getWebDriverWait(5).withMessage("Il messaggio di errore non è visibile").until(ExpectedConditions.visibilityOfElementLocated(errorMessage));
-        Assert.assertNotNull("lIl bottone Associa è attivo", associaButton.getAttribute("disabled"));
+        Assertions.assertNotNull("lIl bottone Associa è attivo", associaButton.getAttribute("disabled"));
     }
 
     public void clearMailbox(String check){

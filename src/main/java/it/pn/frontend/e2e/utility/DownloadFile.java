@@ -8,7 +8,7 @@ import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -153,7 +153,7 @@ public class DownloadFile extends BasePage {
             }
         } else {
             logger.error("File non scaricato o non completo numberOfFile=" + numberOfFile);
-            Assert.fail("File non scaricato");
+            Assertions.fail("File non scaricato");
         }
     }
 

@@ -1,7 +1,8 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -29,7 +30,7 @@ public class ScegliSpidPGPage extends BasePage {
             logger.info("ScegliSpidPGPage caricata correttamente");
         } catch (TimeoutException e){
             logger.error("ScegliSpidPGPage non caricata correttamente con errore: " +e.getMessage());
-            Assert.fail("ScegliSpidPGPage non caricata correttamente con errore: " +e.getMessage());
+            Assertions.fail("ScegliSpidPGPage non caricata correttamente con errore: " +e.getMessage());
         }
     }
 

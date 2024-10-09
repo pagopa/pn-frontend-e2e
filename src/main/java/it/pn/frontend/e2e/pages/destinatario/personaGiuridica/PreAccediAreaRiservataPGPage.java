@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -29,7 +29,7 @@ public class PreAccediAreaRiservataPGPage extends BasePage {
             logger.info("PreAccediAreaRiservataPGPage caricata corretamente");
         } catch (TimeoutException e ){
             logger.error("PreAccediAreaRiservataPGPage non  caricata corretamente con errore: " +e.getMessage());
-            Assert.fail("PreAccediAreaRiservataPGPage non  caricata corretamente con errore: " +e.getMessage());
+            Assertions.fail("PreAccediAreaRiservataPGPage non  caricata corretamente con errore: " +e.getMessage());
         }
     }
 

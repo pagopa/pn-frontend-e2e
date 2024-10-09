@@ -2,7 +2,7 @@ package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -236,7 +236,7 @@ public class NotifichePFPage extends BasePage {
             logger.info("Si visualizza una pagina differente dalla precedente");
         } else {
             logger.error("Non si visualizza una pagina differente dalla precedente");
-            Assert.fail("Non si visualizza una pagina differente dalla precedente");
+            Assertions.fail("Non si visualizza una pagina differente dalla precedente");
         }
 
     }
@@ -313,7 +313,7 @@ public class NotifichePFPage extends BasePage {
 
     public void firstPageDisplayed() {
         String isPageSelected = paginaPrima.getAttribute("aria-current");
-        Assert.assertTrue(isPageSelected.equalsIgnoreCase("true"));
+        Assertions.assertTrue(isPageSelected.equalsIgnoreCase("true"));
         logger.info("Si visualizza prima pagina");
     }
 

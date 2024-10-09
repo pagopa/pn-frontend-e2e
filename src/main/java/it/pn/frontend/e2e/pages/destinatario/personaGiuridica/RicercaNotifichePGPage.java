@@ -2,7 +2,7 @@ package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -36,7 +36,7 @@ public class RicercaNotifichePGPage extends BasePage {
             this.element(notificheImpresaButton).click();
         } catch (Exception e) {
             logger.error("Non si clicca sulla voce notifiche dell'impresa con errore:" + e.getMessage());
-            Assert.fail("Non si clicca sulla voce notifiche dell'impresa con errore:" + e.getMessage());
+            Assertions.fail("Non si clicca sulla voce notifiche dell'impresa con errore:" + e.getMessage());
         }
     }
 
@@ -47,7 +47,7 @@ public class RicercaNotifichePGPage extends BasePage {
             this.js().executeScript("arguments[0].click()", this.element(notificaBy));
         } catch (TimeoutException e) {
             logger.error("Notifica non trovata con errore: " + e.getMessage());
-            Assert.fail("Notifica non trovata con errore: " + e.getMessage());
+            Assertions.fail("Notifica non trovata con errore: " + e.getMessage());
         } catch (StaleElementReferenceException e) {
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificaBy));
             this.js().executeScript("arguments[0].click()", this.element(notificaBy));
@@ -72,7 +72,7 @@ public class RicercaNotifichePGPage extends BasePage {
             logger.info("La pagina dettaglio notifica si è caricata correttamente");
         } catch (TimeoutException e) {
             logger.error("La pagina dettaglio notifica NON si è caricata correttamente con errore:" + e.getMessage());
-            Assert.fail("La pagina dettaglio notifica NON si è caricata correttamente con errore:" + e.getMessage());
+            Assertions.fail("La pagina dettaglio notifica NON si è caricata correttamente con errore:" + e.getMessage());
         }
     }
 
@@ -97,7 +97,7 @@ public class RicercaNotifichePGPage extends BasePage {
             logger.info("Notifiche PG Page caricata");
         } catch (TimeoutException e) {
             logger.error("Notifiche PG Page non caricata con errore : " + e.getMessage());
-            Assert.fail("Notifiche PG Page non caricata con errore : " + e.getMessage());
+            Assertions.fail("Notifiche PG Page non caricata con errore : " + e.getMessage());
         }
     }
 
@@ -110,7 +110,7 @@ public class RicercaNotifichePGPage extends BasePage {
             primaNotifica.click();
         } catch (Exception e) {
             logger.error("Non si clicca sulla prima notifica con errore:" + e.getMessage());
-            Assert.fail("Non si clicca sulla prima notifica con errore:" + e.getMessage());
+            Assertions.fail("Non si clicca sulla prima notifica con errore:" + e.getMessage());
         }
 
     }

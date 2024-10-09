@@ -13,8 +13,7 @@ import it.pn.frontend.e2e.model.payments.PagoPaPayment;
 import it.pn.frontend.e2e.rest.RestNotification;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Assert;
-
+import org.junit.jupiter.api.Assertions;
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -91,7 +90,7 @@ public class NotificationBuilder {
         List<PreLoadRequest> preLoadRequestList = new ArrayList<>();
         preLoadRequestList.add(preLoadRequest);
         List<PreLoadResponse> response = restNotification.preLoadDocument(preLoadRequestList);
-        Assert.assertNotNull("La chiamata per il preload del documento non è andata a buon fine", response);
+        Assertions.assertNotNull(response,"La chiamata per il preload del documento non è andata a buon fine");
         log.info("PreLoad del documento effettuato con successo");
         if (costiNotifica.equalsIgnoreCase("false")) {
             PagoPaPayment avvisoPagoPa = new PagoPaPayment(WebTool.generateNoticeCodeNumber(), sha256, response.get(0).getKey(), "v1", false);
@@ -123,7 +122,7 @@ public class NotificationBuilder {
         List<PreLoadRequest> preLoadRequestList = new ArrayList<>();
         preLoadRequestList.add(preLoadRequest);
         List<PreLoadResponse> response = restNotification.preLoadDocument(preLoadRequestList);
-        Assert.assertNotNull("La chiamata per il preload dell'F24 non è andata a buon fine", response);
+        Assertions.assertNotNull(response,"La chiamata per il preload dell'F24 non è andata a buon fine");
         log.info("PreLoad dell'F24 effettuato con successo");
         if (costiNotifica.equalsIgnoreCase("false")) {
             F24Payment f24 = new F24Payment(sha256, response.get(0).getKey(), "v1", false);
@@ -152,7 +151,7 @@ public class NotificationBuilder {
         List<String> sha256List = new ArrayList<>();
         listForPreloadPopulation(numeroDocumenti, sha256List, preLoadRequestList);
         List<PreLoadResponse> response = restNotification.preLoadDocument(preLoadRequestList);
-        Assert.assertNotNull("La chiamata per il preload del documento non è andata a buon fine", response);
+        Assertions.assertNotNull(response,"La chiamata per il preload del documento non è andata a buon fine");
         log.info("PreLoad del documento effettuato con successo");
         ArrayList<Document> documents = new ArrayList<>();
         for (int i = 0; i < numeroDocumenti; i++) {
@@ -180,7 +179,7 @@ public class NotificationBuilder {
             return computeSha256(stream);
         } catch (IOException e) {
             log.error("Il preload non è andato a buon fine con errore: {}", e.getMessage());
-            Assert.fail("Il preload non è andato a buon fine con errore: " + e.getMessage());
+            Assertions.fail("Il preload non è andato a buon fine con errore: " + e.getMessage());
             return null;
         }
     }

@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.section.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -53,7 +53,7 @@ public class DelegatiImpresaSection extends BasePage {
             logger.info("Delegati dall'impresa caricata correttamente");
         } catch (TimeoutException e) {
             logger.error("Delegati dall'impresa non caricata correttamente con errore: " + e.getMessage());
-            Assert.fail("Delegati dall'impresa non caricata correttamente con errore: " + e.getMessage());
+            Assertions.fail("Delegati dall'impresa non caricata correttamente con errore: " + e.getMessage());
         }
     }
 
@@ -64,7 +64,7 @@ public class DelegatiImpresaSection extends BasePage {
             this.addDelegheButton.click();
         } catch (TimeoutException e) {
             logger.error("bottone non trovato: " + e.getMessage());
-            Assert.fail("bottone non trovato: " + e.getMessage());
+            Assertions.fail("bottone non trovato: " + e.getMessage());
         }
     }
 
@@ -84,7 +84,7 @@ public class DelegatiImpresaSection extends BasePage {
             logger.info("Si visualizza la delega creata");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente la delega creata:"+e.getMessage());
-            Assert.fail("Non si visualizza correttamente la delega creata:"+e.getMessage());
+            Assertions.fail("Non si visualizza correttamente la delega creata:"+e.getMessage());
         }
     }
 
@@ -114,7 +114,7 @@ public class DelegatiImpresaSection extends BasePage {
             logger.info("cliccato correttamente su menu delega button");
         } catch (TimeoutException e) {
             logger.error("Menu delega button NON trovata con errore: " + e.getMessage());
-            Assert.fail("Menu delega button NON trovata con errore: " + e.getMessage());
+            Assertions.fail("Menu delega button NON trovata con errore: " + e.getMessage());
         }
     }
 
@@ -133,7 +133,7 @@ public class DelegatiImpresaSection extends BasePage {
             this.revocaMenuButton.click();
         } catch (TimeoutException e) {
             logger.error("click sul bottone revoca non riuscito");
-            Assert.fail("click sul bottone revoca non riuscito");
+            Assertions.fail("click sul bottone revoca non riuscito");
         }
 
     }
@@ -146,7 +146,7 @@ public class DelegatiImpresaSection extends BasePage {
             logger.info("Il pop-up revoca si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il pop-up revoca NON si visualizza correttamente con errore: " + e.getMessage());
-            Assert.fail("Il pop-up revoca NON si visualizza correttamente con errore: " + e.getMessage());
+            Assertions.fail("Il pop-up revoca NON si visualizza correttamente con errore: " + e.getMessage());
         }
     }
 
@@ -158,7 +158,7 @@ public class DelegatiImpresaSection extends BasePage {
             driver.navigate().refresh();
         } catch(TimeoutException e){
             logger.error("Bottone revoca non visualizzabile e non cliccabile con errore: " + e.getMessage());
-            Assert.fail("Bottone revoca non visualizzabile e non cliccabile con errore: " + e.getMessage());
+            Assertions.fail("Bottone revoca non visualizzabile e non cliccabile con errore: " + e.getMessage());
         }
     }
 
@@ -189,7 +189,7 @@ public class DelegatiImpresaSection extends BasePage {
         getWebDriverWait(10).withMessage("menu non caricato correttamente").until(ExpectedConditions.visibilityOfElementLocated(menuDelega));
     }catch (TimeoutException e){
             logger.error("tabella delegati dall imprese non caricata correttamente" + e.getMessage());
-            Assert.fail("tabella delegati dall imprese non caricata correttamente" + e.getMessage());
+            Assertions.fail("tabella delegati dall imprese non caricata correttamente" + e.getMessage());
         }
     }
 

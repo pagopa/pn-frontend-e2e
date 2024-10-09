@@ -2,19 +2,16 @@ package it.pn.frontend.e2e.section.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Locale;
 
 public class AggiungiDelegaPGSection extends BasePage {
 
@@ -90,7 +87,7 @@ public class AggiungiDelegaPGSection extends BasePage {
             logger.info("Si visualizza correttamente la sezione Aggiungi una delega");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente la sezione Aggiungi una delega con errore: " + e.getMessage());
-            Assert.fail("Non si visualizza correttamente la sezione Aggiungi una delega con errore: " + e.getMessage());
+            Assertions.fail("Non si visualizza correttamente la sezione Aggiungi una delega con errore: " + e.getMessage());
         }
     }
 

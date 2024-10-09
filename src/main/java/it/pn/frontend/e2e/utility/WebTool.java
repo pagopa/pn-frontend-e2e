@@ -11,7 +11,7 @@ import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
 import lombok.extern.slf4j.Slf4j;
 import lombok.Getter;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
@@ -61,7 +61,7 @@ public class WebTool {
             }
             default -> {
                 log.error("Tipologia di portale non specificato o errato!");
-                Assert.fail("Tipologia di portale non specificato o errato!");
+                Assertions.fail("Tipologia di portale non specificato o errato!");
             }
         }
         CookiesSection cookiesPage = new CookiesSection(driver);

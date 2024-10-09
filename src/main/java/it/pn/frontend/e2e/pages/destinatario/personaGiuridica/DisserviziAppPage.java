@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -30,7 +30,7 @@ public class DisserviziAppPage extends BasePage {
             logger.info("Si visualizza correttamente la sezione disservizi");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente la sezione disservizi con errore:" + e.getMessage());
-            Assert.fail("Non si visualizza correttamente la sezione disservizi con errore" + e.getMessage());
+            Assertions.fail("Non si visualizza correttamente la sezione disservizi con errore" + e.getMessage());
         }
     }
 
@@ -45,7 +45,7 @@ public class DisserviziAppPage extends BasePage {
             this.getWebDriverWait(10).withMessage("ultimo aggiornamento stato piattaforma non presente").until(ExpectedConditions.visibilityOfElementLocated(dateLastCheck));
         } catch (TimeoutException e) {
             logger.error("Dati presenti nella pagina stato della piattaforma non corretti: " + e.getMessage());
-            Assert.fail("Dati presenti nella pagina stato della piattaforma non corretti: " + e.getMessage());
+            Assertions.fail("Dati presenti nella pagina stato della piattaforma non corretti: " + e.getMessage());
         }
     }
 
@@ -66,7 +66,7 @@ public class DisserviziAppPage extends BasePage {
             logger.info("Si visualizza correttamente l'elenco dei disservizi");
         } catch (Exception e) {
             logger.error("NON si visualizza correttamente l'elenco dei disservizi con errore:" + e.getMessage());
-            Assert.fail("NON si visualizza correttamente l'elenco dei disservizi con errore:" + e.getMessage());
+            Assertions.fail("NON si visualizza correttamente l'elenco dei disservizi con errore:" + e.getMessage());
         }
     }
 

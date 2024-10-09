@@ -2,7 +2,7 @@ package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -39,7 +39,7 @@ public class DeleghePage extends BasePage {
             this.logger.info("Il titolo o il bottone aggiungi delega è visibile nella pagina aggiungiDeleghe");
         } catch (TimeoutException e) {
             logger.error("Il titolo o il bottone aggiungi delega non è visibile nella pagina aggiungiDeleghe con errore : " + e.getMessage());
-            Assert.fail("Il titolo o il bottone aggiungi delega non è visibile nella pagina aggiungiDeleghe con errore : " + e.getMessage());
+            Assertions.fail("Il titolo o il bottone aggiungi delega non è visibile nella pagina aggiungiDeleghe con errore : " + e.getMessage());
         }
     }
 
@@ -59,7 +59,7 @@ public class DeleghePage extends BasePage {
             this.logger.info("Si visualizza la delega creata");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza la delega creata");
-            Assert.fail("Non si visualizza la delega creata");
+            Assertions.fail("Non si visualizza la delega creata");
         }
     }
 
@@ -108,7 +108,7 @@ public class DeleghePage extends BasePage {
             }
         } else {
             logger.error("Non è stato trovato nessun delegato con il nome: " + fullName);
-            Assert.fail("Non è stato trovato nessun delegato con il nome: " + fullName);
+            Assertions.fail("Non è stato trovato nessun delegato con il nome: " + fullName);
         }
     }
 
@@ -123,7 +123,7 @@ public class DeleghePage extends BasePage {
                 logger.info("Cliccato correttamente su menu delega button");
         } else {
             logger.error("Non è stato trovato nessun delegato con il nome: " + fullName);
-            Assert.fail("Non è stato trovato nessun delegato con il nome: " + fullName);
+            Assertions.fail("Non è stato trovato nessun delegato con il nome: " + fullName);
         }
     }
 
@@ -139,7 +139,7 @@ public class DeleghePage extends BasePage {
             this.element(closeCodiceButtonBy).click();
         } catch (TimeoutException e) {
             logger.error("Il bottone chiudi viene visualizzato NON correttamente con errore:" + e.getMessage());
-            Assert.fail("Il bottone chiudi viene visualizzato NON correttamente con errore:" + e.getMessage());
+            Assertions.fail("Il bottone chiudi viene visualizzato NON correttamente con errore:" + e.getMessage());
         }
     }
 
@@ -155,7 +155,7 @@ public class DeleghePage extends BasePage {
             this.element(menuDelegheBy).click();
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente il menu della delega con errore:" + e.getMessage());
-            Assert.fail("Non si visualizza correttamente il menu della delega con errore:" + e.getMessage());
+            Assertions.fail("Non si visualizza correttamente il menu della delega con errore:" + e.getMessage());
         }
     }
 
@@ -167,7 +167,7 @@ public class DeleghePage extends BasePage {
             logger.info("Si visualizza il bottone rifiuta");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente il bottone rifiuta con errore: " + e.getMessage());
-            Assert.fail("Non si visualizza correttamente il bottone rifiuta con errore: " + e.getMessage());
+            Assertions.fail("Non si visualizza correttamente il bottone rifiuta con errore: " + e.getMessage());
         }
     }
 
@@ -179,7 +179,7 @@ public class DeleghePage extends BasePage {
             logger.info("Si visualizza il bottone rifiuta nel pop-up");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente il bottone rifiuta pop-up con errore: " + e.getMessage());
-            Assert.fail("Non si visualizza correttamente il bottone rifiuta pop-up errore: " + e.getMessage());
+            Assertions.fail("Non si visualizza correttamente il bottone rifiuta pop-up errore: " + e.getMessage());
         }
     }
 
@@ -191,7 +191,7 @@ public class DeleghePage extends BasePage {
             logger.info("Si visualizza il bottone Annulla nel pop-up");
         } catch (TimeoutException e) {
             logger.error("Non si clicca correttamente sul bottone Annulla pop-up con errore: " + e.getMessage());
-            Assert.fail("Non si clicca correttamente sul bottone Annulla pop-up errore: " + e.getMessage());
+            Assertions.fail("Non si clicca correttamente sul bottone Annulla pop-up errore: " + e.getMessage());
         }
     }
 
@@ -255,7 +255,7 @@ public class DeleghePage extends BasePage {
             }
         }catch (TimeoutException e ){
             logger.error("modale mostra codice non caricata con errore: " + e.getMessage());
-            Assert.fail("modale mostra codice non caricata con errore: " + e.getMessage());
+            Assertions.fail("modale mostra codice non caricata con errore: " + e.getMessage());
         }
     }
     public void clickAnnullaRevoca(){

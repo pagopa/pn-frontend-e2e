@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -44,7 +44,7 @@ public class AllegatiPASection extends BasePage {
             logger.info("Allegati PA Section caricata");
         }catch (TimeoutException e){
             logger.error("Allegati PA Section non caricata con errore: "+e.getMessage());
-            Assert.fail("Allegati PA Section non caricata con errore: "+e.getMessage());
+            Assertions.fail("Allegati PA Section non caricata con errore: "+e.getMessage());
         }
     }
 
@@ -116,7 +116,7 @@ public class AllegatiPASection extends BasePage {
             logger.info("click avvenuto con successo su invio allegati");
         }catch (TimeoutException e) {
             logger.error("click non avvenuto con successo su invio allegati con errore: "+e.getMessage());
-            Assert.fail("click non avvenuto con successo su invio allegati con errore: "+e.getMessage());        }
+            Assertions.fail("click non avvenuto con successo su invio allegati con errore: "+e.getMessage());        }
     }
 
     public boolean verificaMessaggioErrore() {
