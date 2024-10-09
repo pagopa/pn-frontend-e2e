@@ -309,10 +309,10 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         element(titolare).sendKeys("Titolare");
         driver.switchTo().defaultContent();
 
-        WebTool.waitTime(5);
+        WebTool.waitTime(7);
 
-        WebElement continuaBottone = driver.findElement(By.xpath("//button[@aria-label='Continua']") );
-        getWebDriverWait(7).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(continuaBottone));
+        WebElement continuaBottone = driver.findElement(By.id("mui-7"));
+        getWebDriverWait(8).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(continuaBottone));
         continuaBottone.click();
 
         WebTool.waitTime(2);
@@ -344,7 +344,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void siVisualizzaStatoPagato() {
-        WebTool.waitTime(10);
+        WebTool.waitTime(20);
         By statoPagamento = By.xpath("//div[@id='status-chip-Pagato']");
         getWebDriverWait(5).withMessage("Lo stato di pagamento non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoPagamento));
         logger.info("Lo stato di pagamento è Pagato");
