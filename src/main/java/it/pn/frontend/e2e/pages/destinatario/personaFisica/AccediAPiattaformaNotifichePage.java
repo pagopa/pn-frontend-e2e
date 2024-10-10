@@ -332,7 +332,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         }else {
             nexiButton.get(0).click();
         }
-        WebTool.waitTime(2);
+        WebTool.waitTime(5);
 
         WebElement pagaButton =  driver.findElement(By.xpath("//button[@id='paymentCheckPageButtonPay']"));
         getWebDriverWait(5).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
