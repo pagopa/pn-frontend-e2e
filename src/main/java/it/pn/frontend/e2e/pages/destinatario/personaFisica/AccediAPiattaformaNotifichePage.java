@@ -310,7 +310,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         driver.switchTo().defaultContent();
 
         WebTool.waitTime(5);
-        WebElement continuaBottone = driver.findElement(By.xpath("//button[@aria-label='Continua']") );
+        WebElement continuaBottone = driver.findElement(By.xpath("//button[@aria-label='Continue']") );
         getWebDriverWait(8).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(continuaBottone));
         continuaBottone.click();
 
