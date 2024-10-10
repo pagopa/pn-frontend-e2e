@@ -9,7 +9,8 @@ import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RecapitiPGPage;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -191,7 +192,7 @@ public class RecapitiPGPagoPaTest {
     public void nellaSezioneAltriRecapitiSiVisualizzaMessagioDiErrorePopup(){
        if (!recapitiDestinatarioPage.waitErrorMessagePopupOTP()){
            logger.error("Il messaggio di errore OTP popup non è visibile");
-           Assert.fail("Il messaggio di errore OTP popup non è visibile");
+           Assertions.fail("Il messaggio di errore OTP popup non è visibile");
        }
     }
 

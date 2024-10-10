@@ -10,9 +10,11 @@ import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.junit.Assert;
+import org.testng.asserts.Assertion;
+
 import java.io.IOException;
 
 public class SpidLoginMittente {
@@ -46,7 +48,7 @@ public class SpidLoginMittente {
 
             httpclient.execute(httpGet, context, response -> {
                 logger.info(response.getCode() + " " + response.getReasonPhrase());
-                Assert.assertEquals(this.getSpidLoginMittenteEndPoint() + " risponde con : " + response.getCode(), response.getCode(), 200);
+                Assertions.assertEquals(response.getCode(), 200);
                 final HttpEntity entity = response.getEntity();
                 this.responseBody = EntityUtils.toString(entity);
                 this.cookieName = context.getCookieStore().getCookies().get(0).getName();
@@ -58,7 +60,7 @@ public class SpidLoginMittente {
             });
 
         } catch (IOException e) {
-            Assert.fail(e.getMessage());
+            Assertions.fail(e.getMessage());
         }
     }
 

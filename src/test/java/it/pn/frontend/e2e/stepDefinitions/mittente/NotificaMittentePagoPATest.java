@@ -22,7 +22,8 @@ import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import lombok.Setter;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -94,10 +95,10 @@ public class NotificaMittentePagoPATest {
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
             logger.error("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
-            Assert.fail("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
+            Assertions.fail("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
         } else if (codiceRispostaChiamataApi == 0) {
             logger.error("TA_QA: La chiamata, " + urlChiamata + " non trovata");
-            Assert.fail("TA_QA: La chiamata, " + urlChiamata + " non trovata");
+            Assertions.fail("TA_QA: La chiamata, " + urlChiamata + " non trovata");
         }
     }
 
@@ -304,7 +305,7 @@ public class NotificaMittentePagoPATest {
             logger.info("File notifica.pdf caricato correttamente");
         } else {
             logger.error("File notifica.pdf non caricato");
-            Assert.fail("File notifica.pdf non caricato");
+            Assertions.fail("File notifica.pdf non caricato");
         }
 
 
@@ -322,7 +323,7 @@ public class NotificaMittentePagoPATest {
         if (allegatiPASection.verificaMessaggioErrore()) {
             aggiornamentoNumeroProtocolloAllegati();
             logger.error("Si vede il messaggio di dati non corretti");
-            Assert.fail("Si vede il messaggio di dati non corretti");
+            Assertions.fail("Si vede il messaggio di dati non corretti");
         }
     }
 
@@ -353,7 +354,7 @@ public class NotificaMittentePagoPATest {
                 temp = String.valueOf((char) (counter.charAt(0) + 8));
             } else if (counter.equals("Z")) {
                 logger.error(numeroProtocolOld + " oltre questo numero protocollo per la giornata di : " + dataProtocolOld + " non si può andare");
-                Assert.fail(numeroProtocolOld + " oltre questo numero protocollo per la giornata di : " + dataProtocolOld + " non si può andare");
+                Assertions.fail(numeroProtocolOld + " oltre questo numero protocollo per la giornata di : " + dataProtocolOld + " non si può andare");
             } else {
                 temp = String.valueOf((char) (counter.charAt(0) + 1));
             }
@@ -426,7 +427,7 @@ public class NotificaMittentePagoPATest {
         }
 
         logger.error("Il server ha impiegato troppo tempo nel generare la notifica");
-        Assert.fail("Il server ha impiegato troppo tempo nel generare la notifica");
+        Assertions.fail("Il server ha impiegato troppo tempo nel generare la notifica");
 
     }
 
@@ -470,7 +471,7 @@ public class NotificaMittentePagoPATest {
     @And("Si verifica che Api Key sono diversi")
     public void verificaDiversiApiKey(){
         String actualApiKey = dettaglioNotificaMittenteSection.getApiKey();
-        Assert.assertFalse(actualApiKey.equalsIgnoreCase(ApiKey));
+        Assertions.assertFalse(actualApiKey.equalsIgnoreCase(ApiKey));
         logger.info("Api Keys sono diversi");
     }
 
@@ -536,35 +537,35 @@ public class NotificaMittentePagoPATest {
             logger.info("I codici fiscali delle notifiche vengono visualizzati correttamente");
         } else {
             logger.error("I codici fiscali delle notifiche non vengono visualizzati correttamente");
-            Assert.fail("I codici fiscali delle notifiche non vengono visualizzati correttamente");
+            Assertions.fail("I codici fiscali delle notifiche non vengono visualizzati correttamente");
         }
         List<WebElement> listaOggetti = piattaformaNotifichePage.ricercaListaOggetti();
         if (listaOggetti != null && listaOggetti.size() >= 1) {
             logger.info("La lista degli oggetti viene visualizzata correttamente");
         } else {
             logger.error("La lista degli oggetti non viene visualizzata correttamente");
-            Assert.fail("La lista degli oggetti non viene visualizzata correttamente");
+            Assertions.fail("La lista degli oggetti non viene visualizzata correttamente");
         }
 
         if (piattaformaNotifichePage.verificaEsistenzaCodiceIUNNotifiche()) {
             logger.info("La lista dei codici iun viene visualizzata correttamente");
         } else {
             logger.error("La lista dei codici iun non viene visualizzata correttamente");
-            Assert.fail("La lista dei codici iun non viene visualizzata correttamente");
+            Assertions.fail("La lista dei codici iun non viene visualizzata correttamente");
         }
 
         if (piattaformaNotifichePage.verificaEsistenzaGruppoNotifiche()) {
             logger.info("La lista dei gruppi vengono visualizzate correttamente");
         } else {
             logger.error("La lista dei gruppi non vengono visualizzate correttamente");
-            Assert.fail("La lista dei gruppi non vengono visualizzate correttamente");
+            Assertions.fail("La lista dei gruppi non vengono visualizzate correttamente");
         }
 
         if (piattaformaNotifichePage.verificaEsistenzaStatoNotifiche()) {
             logger.info("La lista degli stati viene visualizzata correttamente");
         } else {
             logger.error("La lista degli stati non viene visualizzata correttamente");
-            Assert.fail("La lista degli stati non viene visualizzata correttamente");
+            Assertions.fail("La lista degli stati non viene visualizzata correttamente");
         }
     }
 
@@ -576,7 +577,7 @@ public class NotificaMittentePagoPATest {
             logger.info("Viene visualizzato un solo destinatario");
         } else {
             logger.error("Viene visualizzato più di un destinatario");
-            Assert.fail("Viene visualizzato più di un destinatario");
+            Assertions.fail("Viene visualizzato più di un destinatario");
         }
     }
 
@@ -601,7 +602,7 @@ public class NotificaMittentePagoPATest {
             logger.info("Il numero di notifiche é corretto");
         } else {
             logger.error("Il numero di notifiche non é corretto");
-            Assert.fail("Il numero di notifiche non é corretto");
+            Assertions.fail("Il numero di notifiche non é corretto");
         }
     }
 
@@ -643,7 +644,7 @@ public class NotificaMittentePagoPATest {
             logger.info("Numero righe differente da quello di default");
         } else {
             logger.error("Numero righe uguale da quello di default");
-            Assert.fail("Numero righe uguale da quello di default");
+            Assertions.fail("Numero righe uguale da quello di default");
         }
     }
 
@@ -671,11 +672,11 @@ public class NotificaMittentePagoPATest {
             nPersoneFisicheInt = Integer.parseInt(npersoneFisiche) - 1;
             if (nPersoneFisicheInt > 4 || nPersoneFisicheInt == 0) {
                 logger.error("Devi inserire un nummero da 1 a 5");
-                Assert.fail("Devi inserire un nummero da 1 a 5");
+                Assertions.fail("Devi inserire un nummero da 1 a 5");
             }
         } else {
             logger.error("Formato non accettato. Devi inserire un numero da 1 a 5");
-            Assert.fail("Formato non accettato. Devi inserire un numero da 1 a 5");
+            Assertions.fail("Formato non accettato. Devi inserire un numero da 1 a 5");
         }
 
         destinatarioPASection.inserimentoMultiDestinatario(this.personeFisiche, nPersoneFisicheInt);
@@ -690,7 +691,7 @@ public class NotificaMittentePagoPATest {
             logger.info("Non si riesce ad aggiungere il sesto destinatario");
         } else {
             logger.error("Si riesce ad aggiungere il sesto destinatario");
-            Assert.fail("Si riesce ad aggiungere il sesto destinatario");
+            Assertions.fail("Si riesce ad aggiungere il sesto destinatario");
         }
     }
 
@@ -733,7 +734,7 @@ public class NotificaMittentePagoPATest {
         }
         if (!notificaTrovata) {
             logger.error("La notifica non è stata trovata dopo 1m40s");
-            Assert.fail("La notifica non è stata trovata dopo 1m40s");
+            Assertions.fail("La notifica non è stata trovata dopo 1m40s");
         }
     }
 
@@ -783,7 +784,7 @@ public class NotificaMittentePagoPATest {
         }
 
         logger.error("Il server ha impiegato troppo tempo nel generare la notifica");
-        Assert.fail("Il server ha impiegato troppo tempo nel generare la notifica");
+        Assertions.fail("Il server ha impiegato troppo tempo nel generare la notifica");
 
     }
 
@@ -821,7 +822,7 @@ public class NotificaMittentePagoPATest {
             logger.info("Si visualizza correttamente il messaggio di errore");
         } else {
             logger.error("Non si visualizza correttamente il messaggio di errore");
-            Assert.fail("Non si visualizza correttamente il messaggio di errore");
+            Assertions.fail("Non si visualizza correttamente il messaggio di errore");
         }
     }
 
@@ -892,10 +893,10 @@ public class NotificaMittentePagoPATest {
 
         destinatarioPASection.checkBoxAggiungiDomicilio();
         destinatarioPASection.insertDomicilioDigitaleErrato(personaGiuridicaErrore1.get("emailPec").toString());
-        Assert.assertEquals("l'errore  attuale 'Indirizzo PEC non valido' è diverso di :" + destinatarioPASection.getDomicilioDigitaleError(), "Indirizzo PEC non valido", destinatarioPASection.getDomicilioDigitaleError());
+        Assertions.assertEquals("l'errore  attuale 'Indirizzo PEC non valido' è diverso di :" + destinatarioPASection.getDomicilioDigitaleError(), "Indirizzo PEC non valido", destinatarioPASection.getDomicilioDigitaleError());
 
         destinatarioPASection.insertCodiceFiscaleErrato(personaGiuridicaErrore1.get("codiceFiscale").toString());
-        Assert.assertEquals("l'errore  attuale 'Il valore inserito non è corretto' è diverso di :" + destinatarioPASection.getCodiceFiscaleError(), "Il valore inserito non è corretto", destinatarioPASection.getCodiceFiscaleError());
+        Assertions.assertEquals("l'errore  attuale 'Il valore inserito non è corretto' è diverso di :" + destinatarioPASection.getCodiceFiscaleError(), "Il valore inserito non è corretto", destinatarioPASection.getCodiceFiscaleError());
 
     }
 
@@ -916,7 +917,7 @@ public class NotificaMittentePagoPATest {
             logger.info("Si visualizza correttamente il messaggio di errore: Estensione file non supportata. Riprovare con un altro file.");
         } else {
             logger.error("Non si visualizza correttamente il messaggio di errore: Estensione file non supportata. Riprovare con un altro file.");
-            Assert.fail("Non si visualizza correttamente il messaggio di errore: Estensione file non supportata. Riprovare con un altro file.");
+            Assertions.fail("Non si visualizza correttamente il messaggio di errore: Estensione file non supportata. Riprovare con un altro file.");
         }
     }
 
@@ -936,11 +937,11 @@ public class NotificaMittentePagoPATest {
             nDestinatariInt = Integer.parseInt(nDestinatari) - 1;
             if (nDestinatariInt > 4 || nDestinatariInt == 0) {
                 logger.error("Devi inserire un nummero da 1 a 5");
-                Assert.fail("Devi inserire un nummero da 1 a 5");
+                Assertions.fail("Devi inserire un nummero da 1 a 5");
             }
         } else {
             logger.error("Formato non accettato. Devi inserire un numero da 1 a 5");
-            Assert.fail("Formato non accettato. Devi inserire un numero da 1 a 5");
+            Assertions.fail("Formato non accettato. Devi inserire un numero da 1 a 5");
         }
 
         destinatarioPASection.inserimentoMultiDestinatarioPG(personeGiuridiche, nDestinatariInt);
@@ -1000,7 +1001,7 @@ public class NotificaMittentePagoPATest {
         }
         if (codiceIUN.equals("")) {
             logger.error("Notifica non trovata il sistema ha impiegato troppo tempo a rispondere");
-            Assert.fail("Notifica non trovata il sistema ha impiegato troppo tempo a rispondere");
+            Assertions.fail("Notifica non trovata il sistema ha impiegato troppo tempo a rispondere");
         }
     }
 
@@ -1093,7 +1094,7 @@ public class NotificaMittentePagoPATest {
             logger.info("Il form di inserimento manuale della notifica è vuoto");
         } else {
             logger.error("Il form di inserimento manuale della notifica non è vuoto");
-            Assert.fail("Il form di inserimento manuale della notifica non è vuoto");
+            Assertions.fail("Il form di inserimento manuale della notifica non è vuoto");
         }
     }
 
@@ -1108,7 +1109,7 @@ public class NotificaMittentePagoPATest {
             logger.info("I campi sezione destinatario sono popolati");
         } else {
             logger.error("I campi sezione destinatario non sono popolati");
-            Assert.fail("I campi sezione destinatario non sono popolati");
+            Assertions.fail("I campi sezione destinatario non sono popolati");
         }
     }
 
@@ -1143,7 +1144,7 @@ public class NotificaMittentePagoPATest {
             logger.info("File notifica.pdf caricato correttamente");
         } else {
             logger.error("File notifica.pdf non caricato");
-            Assert.fail("File notifica.pdf non caricato");
+            Assertions.fail("File notifica.pdf non caricato");
         }
         allegatiPASection.inserimentoNomeAllegato(datiNotificaMap.get("descrizione"));
     }
@@ -1160,7 +1161,7 @@ public class NotificaMittentePagoPATest {
             logger.info("File notifica.pdf caricato correttamente");
         } else {
             logger.error("File notifica.pdf non caricato");
-            Assert.fail("File notifica.pdf non caricato");
+            Assertions.fail("File notifica.pdf non caricato");
         }
         allegatiPASection.inserimentoNomeSecondoAllegato(datiNotificaMap.get("descrizione"));
     }
@@ -1177,7 +1178,7 @@ public class NotificaMittentePagoPATest {
             logger.info("File notifica.pdf caricato correttamente");
         } else {
             logger.error("File notifica.pdf non caricato");
-            Assert.fail("File notifica.pdf non caricato");
+            Assertions.fail("File notifica.pdf non caricato");
         }
         allegatiPASection.inserimentoNomeTerzoAllegato(datiNotificaMap.get("descrizione"));
     }
@@ -1267,7 +1268,7 @@ public class NotificaMittentePagoPATest {
                 break;
             default:
                 logger.error("Tipologia di portale non specificato o errato!");
-                Assert.fail("Tipologia di portale non specificato o errato!");
+                Assertions.fail("Tipologia di portale non specificato o errato!");
         }
         WebTool.waitTime(5);
     }
@@ -1435,7 +1436,7 @@ public class NotificaMittentePagoPATest {
     @And("Si controlla non sia presente l'avviso PagoPa mittente")
     public void siControllaNonSiaPresenteLAvvisoPagoPaMittente() {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
-        Assert.assertFalse( "Avviso PagoPA è trovato",dettaglioNotificaMittenteSection.checkAvvisoPagoPaVisibile());
+        Assertions.assertFalse(dettaglioNotificaMittenteSection.checkAvvisoPagoPaVisibile(), "Avviso PagoPA è trovato");
         logger.info("Avviso PagoPA non è trovato");
     }
 
@@ -1515,7 +1516,7 @@ public class NotificaMittentePagoPATest {
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
         if (notificationRequestId == null) {
             logger.error("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è diverso di 202 ");
-            Assert.fail("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è diverso di 202 ");
+            Assertions.fail("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è diverso di 202 ");
         }
         accettazioneRichiestaNotifica.setNotificationRequestId(notificationRequestId);
         accettazioneRichiestaNotifica.setRichiestaNotificaEndPoint(urlRichiestaNotifica);
@@ -1532,7 +1533,7 @@ public class NotificaMittentePagoPATest {
             } else {
                 if (accettazioneRichiestaNotifica.getResponseCode() != 200) {
                     logger.error("la risposta dell'accettazione della notifica " + notificationRequestId + " è: " + accettazioneRichiestaNotifica.getResponseCode());
-                    Assert.fail("la risposta dell'accettazione della notifica " + notificationRequestId + " è: " + accettazioneRichiestaNotifica.getResponseCode());
+                    Assertions.fail("la risposta dell'accettazione della notifica " + notificationRequestId + " è: " + accettazioneRichiestaNotifica.getResponseCode());
                 }
             }
         } while (statusNotifica.equals("WAITING"));
@@ -1553,7 +1554,7 @@ public class NotificaMittentePagoPATest {
             }
         } else {
             logger.error("La notifica " + esitoNotifica.notificationRequestId + " è stata rifiuta: " + esitoNotifica.accettazioneRichiestaNotifica.getResponseReasonPhrase());
-            Assert.fail("La notifica " + esitoNotifica.notificationRequestId + " è stata rifiuta: " + esitoNotifica.accettazioneRichiestaNotifica.getResponseReasonPhrase());
+            Assertions.fail("La notifica " + esitoNotifica.notificationRequestId + " è stata rifiuta: " + esitoNotifica.accettazioneRichiestaNotifica.getResponseReasonPhrase());
         }
     }
 
@@ -1565,7 +1566,7 @@ public class NotificaMittentePagoPATest {
         } else {
             logger.error("La notifica " + esitoNotifica.notificationRequestId + " è stata accettata: " + esitoNotifica.statusNotifica);
             logger.error(esitoNotifica.accettazioneRichiestaNotifica.getResponseBody());
-            Assert.fail("La notifica " + esitoNotifica.notificationRequestId + " è stata accettata: ");
+            Assertions.fail("La notifica " + esitoNotifica.notificationRequestId + " è stata accettata: ");
         }
     }
 
@@ -1648,7 +1649,7 @@ public class NotificaMittentePagoPATest {
         }
         if (!notificaTrovata) {
             logger.error("La notifica non è stata trovata dopo 1m40s");
-            Assert.fail("La notifica non è stata trovata dopo 1m40s");
+            Assertions.fail("La notifica non è stata trovata dopo 1m40s");
         }
     }
 
@@ -1664,14 +1665,14 @@ public class NotificaMittentePagoPATest {
     public void nellaPiattaformaNotificheSiControllaEsistenzaMessaggioErroreCF() {
         logger.info("si controlla che si visualizza il messaggio di errore ‘Inserisci il codice per intero’ ");
 
-        Assert.assertTrue("Nessun errore visualizzato insirendo CF sbagliato", piattaformaNotifichePage.controlloEsistenzaMessagioErroreCF());
+        Assertions.assertTrue(piattaformaNotifichePage.controlloEsistenzaMessagioErroreCF(), "Nessun errore visualizzato insirendo CF sbagliato");
     }
 
     @And("Nella pagina Piattaforma Notifiche si controlla che il bottone Filtra sia attivo")
     public void nellaPaginaPiattaformaNotificheSiControllacheFiltraSiaDisattivo() {
         logger.info("Si controlla che il bottone Filtra sia attivo");
 
-        Assert.assertFalse("il bottone Filtra è disabilitato", piattaformaNotifichePage.verificaBottoneFiltraDisabilitato());
+        Assertions.assertFalse(piattaformaNotifichePage.verificaBottoneFiltraDisabilitato(),"il bottone Filtra è disabilitato");
     }
 
     @And("Nella pagina Piattaforma Notifiche inserire il codice IUN sbagliato {string}")
@@ -1686,7 +1687,7 @@ public class NotificaMittentePagoPATest {
     public void nellaPaginaPiattaformaNotificheSiVisualizzaIlMessaggioDiErroreIUN() {
         logger.info("si controlla esistenza messaggio di errore codice IUN");
 
-        Assert.assertTrue("Nessun errore visualizzato insirendo IUN sbagliato", piattaformaNotifichePage.controlloEsistenzaMessagioErroreIUN());
+        Assertions.assertTrue(piattaformaNotifichePage.controlloEsistenzaMessagioErroreIUN(), "Nessun errore visualizzato insirendo IUN sbagliato");
         logger.info("Messaggio di errore 'Inserisci un codice IUN valido' trovato");
     }
 
@@ -1697,7 +1698,7 @@ public class NotificaMittentePagoPATest {
         if (piattaformaNotifichePage.verificaCampiPreliminariNotificaVuoti()) {
             logger.info("I campi sono vuoti");
         } else {
-            Assert.fail("I campi non sono vuoti");
+            Assertions.fail("I campi non sono vuoti");
         }
     }
 
@@ -1759,7 +1760,7 @@ public class NotificaMittentePagoPATest {
             logger.info("File notifica.pdf caricato correttamente");
         } else {
             logger.error("File notifica.pdf non caricato");
-            Assert.fail("File notifica.pdf non caricato");
+            Assertions.fail("File notifica.pdf non caricato");
         }
         allegatiPASection.inserimentoNomeAllegato(datiNotificaMap.get("nomeDocumentoNotifica"));
         nellaSectionAllegatiCliccareSulBottoneInvia();

@@ -19,7 +19,8 @@ import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.*;
 import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +57,7 @@ public class NotifichePGPagoPATest {
             case "dev" -> homePagePG.clickSendNotificheDigitali(5);
             case "test" -> homePagePG.clickSendNotificheDigitali(6);
             default ->
-                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+                    Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
     }
 
@@ -77,10 +78,10 @@ public class NotifichePGPagoPATest {
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
             logger.error("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
-            Assert.fail("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
+            Assertions.fail("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
         } else if (codiceRispostaChiamataApi == 0) {
             logger.error("TA_QA: La chiamata, " + urlChiamata + " non trovata");
-            Assert.fail("TA_QA: La chiamata, " + urlChiamata + " non trovata");
+            Assertions.fail("TA_QA: La chiamata, " + urlChiamata + " non trovata");
         }
     }
 
@@ -165,7 +166,7 @@ public class NotifichePGPagoPATest {
             if (headless && urlFileAttestazioneOppponubile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
                 logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
-                Assert.fail("Non è stato recuperato url per il download per il link: " + testoLink);
+                Assertions.fail("Non è stato recuperato url per il download per il link: " + testoLink);
             }
             File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + i + ".pdf");
             downloadFile.download(urlFileAttestazioneOppponubile, file, headless);
@@ -244,7 +245,7 @@ public class NotifichePGPagoPATest {
             logger.info("Il modello F24 è trovato");
         } else {
             logger.error("Il modello F24 non è trovato");
-            Assert.fail("Il modello F24 non è trovato");
+            Assertions.fail("Il modello F24 non è trovato");
         }
     }
 
@@ -256,7 +257,7 @@ public class NotifichePGPagoPATest {
             logger.info("Il modello F24 non è trovato");
         } else {
             logger.error("Il modello F24 è trovato");
-            Assert.fail("Il modello F24 è trovato");
+            Assertions.fail("Il modello F24 è trovato");
         }
     }
 
@@ -277,14 +278,14 @@ public class NotifichePGPagoPATest {
             logger.info("Avviso PagoPA è trovato");
         } else {
             logger.error("Avviso PagoPA non è trovato");
-            Assert.fail("Avviso PagoPA non è trovato");
+            Assertions.fail("Avviso PagoPA non è trovato");
         }
     }
 
     @And("Si controlla sia presente piu avvisi PagoPa PG")
     public void siControllaSiaPresentePiuAvvisiPagoPaPG() {
         AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
-        Assert.assertTrue("Avvissi PagoPA non sono trovati", accediAPiattaformaNotifichePage.piuAvvisiDisplayed());
+        Assertions.assertTrue(accediAPiattaformaNotifichePage.piuAvvisiDisplayed(),"Avvissi PagoPA non sono trovati");
         logger.info("Avvissi PagoPA sono trovati");
 
     }
@@ -293,7 +294,7 @@ public class NotifichePGPagoPATest {
     public void siControllaSiaPresenteLAvvisiPagoPaPG() {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
         AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
-        Assert.assertTrue("Avviso PagoPA non è trovato", accediAPiattaformaNotifichePage.piuAvvisiDisplayed());
+        Assertions.assertTrue(accediAPiattaformaNotifichePage.piuAvvisiDisplayed(),"Avviso PagoPA non è trovato");
         logger.info("Avviso PagoPA è trovato");
     }
 
@@ -302,7 +303,7 @@ public class NotifichePGPagoPATest {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
         AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
         WebTool.waitTime(5);
-        Assert.assertTrue("Avviso PagoPA non sia presente", accediAPiattaformaNotifichePage.piuAvvisiDisplayed());
+        Assertions.assertTrue( accediAPiattaformaNotifichePage.piuAvvisiDisplayed(), "Avviso PagoPA non sia presente");
         logger.info("Avviso PagoPA è presente");
     }
 
@@ -311,7 +312,7 @@ public class NotifichePGPagoPATest {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
         AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
         WebTool.waitTime(5);
-        Assert.assertTrue("Avviso PagoPA non sia presente", accediAPiattaformaNotifichePage.allegatoPagoPaDisplayed());
+        Assertions.assertTrue(accediAPiattaformaNotifichePage.allegatoPagoPaDisplayed(),"Avviso PagoPA non sia presente");
         logger.info("Avviso PagoPA è presente");
     }
 
@@ -345,7 +346,7 @@ public class NotifichePGPagoPATest {
             logger.info("Codice avviso è visuallizato corrttamente");
         } else {
             logger.error("Codice avviso non è visuallizato corrttamente");
-            Assert.fail("Codice avviso non è visuallizato corrttamente");
+            Assertions.fail("Codice avviso non è visuallizato corrttamente");
         }
     }
 
@@ -365,7 +366,7 @@ public class NotifichePGPagoPATest {
     public void controlloPresenteDocumento() throws IOException {
         PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
         logger.info("Controllo sia presente documento pdf");
-        Assert.assertTrue("Documento non è trovato", piattaformaNotifichePGPAPage.checkIfPdfExists());
+        Assertions.assertTrue(piattaformaNotifichePGPAPage.checkIfPdfExists(), "Documento non è trovato");
         logger.info("Documento è trovato");
     }
 
@@ -389,7 +390,7 @@ public class NotifichePGPagoPATest {
         final String url = downloadFile.getUrl(WebTool.getApiBaseUrl() + "notifications/received/");
         if (headless && url.isEmpty()) {
             logger.error("Non è stato recuperato url per il download per il link: " + nomeFile);
-            Assert.fail("Non è stato recuperato url per il download per il link: " + nomeFile);
+            Assertions.fail("Non è stato recuperato url per il download per il link: " + nomeFile);
         }
         nomeFile = nomeFile.replace(" ", "_").replace(":", "");
         File file = new File("src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf");
@@ -414,7 +415,7 @@ public class NotifichePGPagoPATest {
             logger.info("Il codice SHA all'interno del file è corretto");
         } else {
             logger.error("Il codice SHA  all'interno del file  NON è corretto");
-            Assert.fail("Il codice SHA  all'interno del file  NON è corretto");
+            Assertions.fail("Il codice SHA  all'interno del file  NON è corretto");
         }
     }
 }

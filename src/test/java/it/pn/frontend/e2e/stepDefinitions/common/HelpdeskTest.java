@@ -11,7 +11,8 @@ import it.pn.frontend.e2e.model.enums.Status;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -43,7 +44,7 @@ public class HelpdeskTest {
             case "test", "uat" ->
                     helpdeskPage.changePage(this.datiTestHelpdesk.get("url").toString().replace("dev", variabileAmbiente));
             default ->
-                    Assert.fail("Non è stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+                    Assertions.fail("Non è stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
         helpdeskPage.checkForm();
         switch (variabileAmbiente) {
@@ -60,7 +61,7 @@ public class HelpdeskTest {
                 helpdeskPage.insertPassword(this.datiTestHelpdesk.get("pwdUat").toString());
             }
             default ->
-                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+                    Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
         helpdeskPage.clickInviaButton();
     }
@@ -239,7 +240,7 @@ public class HelpdeskTest {
     @And("Controllo sia presente documento {string}")
     public void controlloPresenteDocumento(String docName) throws IOException {
         logger.info("Controllo sia presente documento" + docName);
-        Assert.assertTrue ("Documento " + docName + " non è trovato",helpdeskPage.trovaDocumentoConTitolo(docName));
+        Assertions.assertTrue (helpdeskPage.trovaDocumentoConTitolo(docName), "Documento " + docName + " non è trovato");
             logger.info("Documento " + docName + " è trovato");
     }
 

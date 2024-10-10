@@ -17,7 +17,7 @@ import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +45,7 @@ public class LoginMittentePagoPA {
             case "test", "uat" ->
                     this.driver.get(this.datiMittente.get("url").toString().replace("dev", variabileAmbiente));
             default ->
-                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+                    Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
     }
 
@@ -61,7 +61,7 @@ public class LoginMittentePagoPA {
             case "test", "uat" ->
                     this.driver.get(datiMittenteTable.get("url").replace("dev", variabileAmbiente));
             default ->
-                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+                    Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
     }
 
@@ -77,7 +77,7 @@ public class LoginMittentePagoPA {
                     token = dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestMittente").toString();
             default -> {
                 logger.error("Ambiente non valido");
-                Assert.fail("Ambiente non valido o non trovato!");
+                Assertions.fail("Ambiente non valido o non trovato!");
             }
         }
 
@@ -208,7 +208,7 @@ public class LoginMittentePagoPA {
             logger.info("procedura di login from spid provata : " + numProvaLogin);
         } else {
             logger.info("procedura di login from spid provata : " + numProvaLogin);
-            Assert.fail("Codice risposta ricevuto per questo end point: '" + this.urlMittente.get("urlPortale") + "' è : " + this.urlMittente.get("responseCode"));
+            Assertions.fail("Codice risposta ricevuto per questo end point: '" + this.urlMittente.get("urlPortale") + "' è : " + this.urlMittente.get("responseCode"));
         }
 
         this.driver.get(this.urlMittente.get("urlPortale"));
@@ -226,56 +226,56 @@ public class LoginMittentePagoPA {
         spidLoginMittente.setSpidLoginMittenteEndPoint("https://api.uat.selfcare.pagopa.it/spid/v1/login");
         spidLoginMittente.runSpidLoginMittente();
         if (spidLoginMittente.getResponseBody() == null) {
-            Assert.fail(" api spid login risponde con body vuoto");
+            Assertions.fail(" api spid login risponde con body vuoto");
         }
 
         String cookiesNameFromSpidLoginMittente = spidLoginMittente.getCookieName();
         if (cookiesNameFromSpidLoginMittente != null) {
             logger.info("cookiesNameFromSpidLoginMittente : " + cookiesNameFromSpidLoginMittente);
         } else {
-            Assert.fail("cookiesNameFromSpidLoginMittente is null");
+            Assertions.fail("cookiesNameFromSpidLoginMittente is null");
         }
 
         String cookiesValueFromSpidLoginMittente = spidLoginMittente.getCookieValue();
         if (cookiesValueFromSpidLoginMittente != null) {
             logger.info("cookiesValueFromSpidLoginMittente : " + cookiesValueFromSpidLoginMittente);
         } else {
-            Assert.fail("cookiesValueFromSpidLoginMittente is null");
+            Assertions.fail("cookiesValueFromSpidLoginMittente is null");
         }
 
         String cookiesDomainFromSpidLoginMittente = spidLoginMittente.getCookieDomain();
         if (cookiesDomainFromSpidLoginMittente != null) {
             logger.info("cookiesDomainFromSpidLoginMittente : " + cookiesDomainFromSpidLoginMittente);
         } else {
-            Assert.fail("cookiesDomainFromSpidLoginMittente is null");
+            Assertions.fail("cookiesDomainFromSpidLoginMittente is null");
         }
 
         String cookiesPathFromSpidLoginMittente = spidLoginMittente.getCookiePath();
         if (cookiesPathFromSpidLoginMittente != null) {
             logger.info("cookiesPathFromSpidLoginMittente : " + cookiesPathFromSpidLoginMittente);
         } else {
-            Assert.fail("cookiesPathFromSpidLoginMittente is null");
+            Assertions.fail("cookiesPathFromSpidLoginMittente is null");
         }
 
         boolean cookiesHttOnlyFromSpidLoginMittente = spidLoginMittente.getCookieHttpOnly();
         if (cookiesHttOnlyFromSpidLoginMittente) {
             logger.info("cookiesHttOnlyFromSpidLoginMittente : " + cookiesHttOnlyFromSpidLoginMittente);
         } else {
-            Assert.fail("cookiesHttOnlyFromSpidLoginMittente : " + cookiesHttOnlyFromSpidLoginMittente);
+            Assertions.fail("cookiesHttOnlyFromSpidLoginMittente : " + cookiesHttOnlyFromSpidLoginMittente);
         }
 
         String requestKeyFromSpidLoginMittente = spidLoginMittente.getRequestKey();
         if (requestKeyFromSpidLoginMittente != null) {
             logger.info("requestKeyFromSpidLoginMittente : " + requestKeyFromSpidLoginMittente);
         } else {
-            Assert.fail("requestKeyFromSpidLoginMittente is null");
+            Assertions.fail("requestKeyFromSpidLoginMittente is null");
         }
 
         String relayStateFromSpidLoginMittente = spidLoginMittente.getRelayState();
         if (relayStateFromSpidLoginMittente != null) {
             logger.info("relayStateFromSpidLoginMittente : " + relayStateFromSpidLoginMittente);
         } else {
-            Assert.fail("relayStateFromSpidLoginMittente is null");
+            Assertions.fail("relayStateFromSpidLoginMittente is null");
         }
 
         BasicCookieStore cookieStore = new BasicCookieStore();
@@ -296,14 +296,14 @@ public class LoginMittentePagoPA {
         spidTestEnvWestEuropeAzureContainerIoLogin.runSpidTestEnvWestEuropeAzureContainerIoLogin();
 
         if (spidTestEnvWestEuropeAzureContainerIoLogin.getResponseBody() == null) {
-            Assert.fail(" api selc-u-spid-testenv.westeurope.azurecontainer.io/login ha risposto con body vuoto");
+            Assertions.fail(" api selc-u-spid-testenv.westeurope.azurecontainer.io/login ha risposto con body vuoto");
         }
 
         String requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin = spidTestEnvWestEuropeAzureContainerIoLogin.getRequestKeyOutput();
         if (requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin != null) {
             logger.info("requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin : " + requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin);
         } else {
-            Assert.fail("requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin is null");
+            Assertions.fail("requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin is null");
         }
 
         SpidTestEnvWestEuropeAzureContainerIoContinueResponse spidTestEnvWestEuropeAzureContainerIoContinueResponse =
@@ -314,21 +314,21 @@ public class LoginMittentePagoPA {
         spidTestEnvWestEuropeAzureContainerIoContinueResponse.setSpidTestEnvWestEuropeAzureContainerIoContinueResponseEndPoint("https://selc-u-spid-testenv.westeurope.azurecontainer.io/continue-response");
         spidTestEnvWestEuropeAzureContainerIoContinueResponse.runSpidTestEnvWestEuropeAzureContainerIoContinueResponse();
         if (spidTestEnvWestEuropeAzureContainerIoContinueResponse.getResponseBody() == null) {
-            Assert.fail(" api selc-u-spid-testenv.westeurope.azurecontainer.io/continue-response");
+            Assertions.fail(" api selc-u-spid-testenv.westeurope.azurecontainer.io/continue-response");
         }
 
         String samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse = spidTestEnvWestEuropeAzureContainerIoContinueResponse.getSamlResponseOutput();
         if (samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse != null) {
             logger.info("samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse : " + samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse);
         } else {
-            Assert.fail("samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse is null");
+            Assertions.fail("samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse is null");
         }
 
         String relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse = spidTestEnvWestEuropeAzureContainerIoContinueResponse.getRelayStateOutput();
         if (relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse != null) {
             logger.info("relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse : " + relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse);
         } else {
-            Assert.fail("relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse is null");
+            Assertions.fail("relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse is null");
         }
 
         SpidAcsMittente spidAcsMittente = new SpidAcsMittente(
@@ -344,7 +344,7 @@ public class LoginMittentePagoPA {
         if (this.urlMittente.get("urlPortale") != null) {
             logger.info("urlMittente : " + this.urlMittente.get("urlPortale"));
         } else {
-            Assert.fail("urlMittente è null ");
+            Assertions.fail("urlMittente è null ");
         }
     }
 

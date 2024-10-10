@@ -13,7 +13,8 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import net.bytebuddy.asm.Advice;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,7 +113,7 @@ public class RicercaNotifichePersonaFisicaPATest {
             logger.info("Il risultato é coerente con il codice IUN inserito");
         } else {
             logger.error("Il risultato NON é coerente con il codice IUN inserito");
-            Assert.fail("Il risultato NON é coerente con il coodice IUN inserito");
+            Assertions.fail("Il risultato NON é coerente con il coodice IUN inserito");
         }
     }
 
@@ -131,7 +132,7 @@ public class RicercaNotifichePersonaFisicaPATest {
             logger.info("Il risultato é coerente con il codice IUN inserito");
         } else {
             logger.error("Il risultato NON é coerente con il codice IUN inserito");
-            Assert.fail("Il risultato NON é coerente con il coodice IUN inserito");
+            Assertions.fail("Il risultato NON é coerente con il coodice IUN inserito");
         }
     }
 
@@ -205,7 +206,7 @@ public class RicercaNotifichePersonaFisicaPATest {
             logger.info("il messaggio di errore é visualizzato");
         } else {
             logger.error("il messaggio di errore non é visualizzato");
-            Assert.fail("il messaggio di errore non é visualizzato");
+            Assertions.fail("il messaggio di errore non é visualizzato");
         }
 
         boolean isTextBoxInValid = notifichePFPage.isTextBoxInvalid();
@@ -214,7 +215,7 @@ public class RicercaNotifichePersonaFisicaPATest {
             logger.info("IUN text box non é valido");
         } else {
             logger.error("IUN text box non é passato allo stato non valido");
-            Assert.fail("IUN text box non é passato allo stato non valido");
+            Assertions.fail("IUN text box non é passato allo stato non valido");
 
         }
 
@@ -224,7 +225,7 @@ public class RicercaNotifichePersonaFisicaPATest {
             logger.info("Il bottone Filtra é dissativato");
         } else {
             logger.error("Il bottone Filtra é attivo");
-            Assert.fail("Il bottone Filtra é attivo");
+            Assertions.fail("Il bottone Filtra é attivo");
         }
     }
 
@@ -252,7 +253,7 @@ public class RicercaNotifichePersonaFisicaPATest {
             logger.info("Il risultato é coerente con le date inserite");
         } else {
             logger.error("Il risultato NON é coerente con le date inserite");
-            Assert.fail("Il risultato NON é coerente con le date inserite");
+            Assertions.fail("Il risultato NON é coerente con le date inserite");
         }
     }
 

@@ -16,7 +16,8 @@ import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePagoPATest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -111,7 +112,7 @@ public class DeleghePGPagoPATest {
             logger.info("La data di fine delega è corretta");
         } else {
             logger.error("La data di fine delega non è corretta");
-            Assert.fail("La data di fine delega non è corretta");
+            Assertions.fail("La data di fine delega non è corretta");
         }
     }
 
@@ -172,7 +173,7 @@ public class DeleghePGPagoPATest {
     public void verificaArcoTemporaleSelezionato() {
         logger.info("Si controlla l'arco temporale che sia errato su cui effettuare la ricerca");
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-        Assert.assertFalse(dataFineErrata);
+        Assertions.assertFalse(dataFineErrata);
     }
 
     @And("Nella sezione Le Tue Deleghe inserire una data")
@@ -187,7 +188,7 @@ public class DeleghePGPagoPATest {
     public void nellaSezioneLeTueDelegheSiVisualizzaIlMessaggioDiErroreDataErrata() {
         logger.info("Si controlla che si veda il messaggio di errore");
 
-        Assert.assertEquals("il messaggio di errore previsto: Data errata è diverso dell'attuale " + aggiungiDelegaPGSection.waitMessaggioErroreData(), "Data errata", aggiungiDelegaPGSection.waitMessaggioErroreData());
+        Assertions.assertEquals("il messaggio di errore previsto: Data errata è diverso dell'attuale " + aggiungiDelegaPGSection.waitMessaggioErroreData(), "Data errata", aggiungiDelegaPGSection.waitMessaggioErroreData());
         logger.info("il messaggio di errore 'Data errata' è presente");
     }
 
@@ -219,7 +220,7 @@ public class DeleghePGPagoPATest {
             this.logger.info("La delega restituita è corretta");
         } else {
             this.logger.error("La delega restituita NON è corretta");
-            Assert.fail("La delega restituita NON è corretta");
+            Assertions.fail("La delega restituita NON è corretta");
         }
     }
 
@@ -275,7 +276,7 @@ public class DeleghePGPagoPATest {
             logger.info("La delega è stata revocata correttamente");
         } else {
             logger.error("La delega NON è stata revocata correttamente");
-            Assert.fail("La delega NON è stata revocata correttamente");
+            Assertions.fail("La delega NON è stata revocata correttamente");
         }
 
     }
@@ -304,7 +305,7 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.clickBottoneConferma();
         if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
             logger.error("il codice inserito è sbagliato");
-            Assert.fail("il codice inserito è sbagliato");
+            Assertions.fail("il codice inserito è sbagliato");
         }
     }
 
@@ -350,7 +351,7 @@ public class DeleghePGPagoPATest {
             logger.info("La delega è stata rifiutata correttamente");
         } else {
             logger.error("La delega NON è stata rifiutata correttamente");
-            Assert.fail("La delega NON è stata rifiutata correttamente");
+            Assertions.fail("La delega NON è stata rifiutata correttamente");
         }
     }
 
@@ -384,7 +385,7 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.clickBottoneConferma();
         if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
             logger.error("il codice inserito è sbagliato");
-            Assert.fail("il codice inserito è sbagliato");
+            Assertions.fail("il codice inserito è sbagliato");
         }
     }
 
@@ -398,7 +399,7 @@ public class DeleghePGPagoPATest {
             logger.info("La delega ha un gruppo");
         } else {
             logger.error("La delega NON ha un gruppo");
-            Assert.fail("La delega NON ha un gruppo");
+            Assertions.fail("La delega NON ha un gruppo");
         }
     }
 
@@ -422,7 +423,7 @@ public class DeleghePGPagoPATest {
             logger.info("La delega non ha più gruppo");
         } else {
             logger.error("La delega ha ancora il gruppo");
-            Assert.fail("La delega ha ancora il gruppo");
+            Assertions.fail("La delega ha ancora il gruppo");
         }
 
     }
@@ -471,7 +472,7 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.clickBottoneConfermaDelega();
         if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
             logger.error("il codice inserito è sbagliato");
-            Assert.fail("il codice inserito è sbagliato");
+            Assertions.fail("il codice inserito è sbagliato");
         }
     }
 
@@ -574,7 +575,7 @@ public class DeleghePGPagoPATest {
             this.logger.info("La delega restituita è corretta");
         } else {
             this.logger.error("La delega restituita NON è corretta");
-            Assert.fail("La delega restituita NON è corretta");
+            Assertions.fail("La delega restituita NON è corretta");
         }
     }
 

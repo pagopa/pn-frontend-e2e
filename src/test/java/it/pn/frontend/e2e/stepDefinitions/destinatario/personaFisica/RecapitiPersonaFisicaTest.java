@@ -12,7 +12,8 @@ import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -92,7 +93,7 @@ public class RecapitiPersonaFisicaTest {
             logger.info("La chiamata per inviare l'otp è stata effettuata");
         } else {
             logger.error("La chiamata per inviare l'otp NON è stata effettuata");
-            Assert.fail("La chiamata per inviare l'otp NON è stata effettuata");
+            Assertions.fail("La chiamata per inviare l'otp NON è stata effettuata");
         }
     }
 
@@ -135,7 +136,7 @@ public class RecapitiPersonaFisicaTest {
 
         if (!recapitiDestinatarioPage.waitMessaggioErrore()) {
             logger.error("Il messaggio di errore non viene visualizzato");
-            Assert.fail("Il messaggio di errore non viene visualizzato");
+            Assertions.fail("Il messaggio di errore non viene visualizzato");
         }
     }
 
@@ -163,18 +164,18 @@ public class RecapitiPersonaFisicaTest {
     @Then("Si visualizza correttamente il messaggio di pec errata")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioDiPecErrata() {
         String errorMessageRead = recapitiDestinatarioPage.getPecErrorMessage();
-        Assert.assertEquals("messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo PEC non valido", "Indirizzo PEC non valido", errorMessageRead);
+        Assertions.assertEquals("messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo PEC non valido", "Indirizzo PEC non valido", errorMessageRead);
     }
 
     @And("Si controlla che il tasto conferma sia bloccato")
     public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoConfermaSiaBloccato() {
-        Assert.assertTrue("il buttone Conferma non è disabilitato", recapitiDestinatarioPage.verificaBottoneConfermaDisabilitato());
+        Assertions.assertTrue( recapitiDestinatarioPage.verificaBottoneConfermaDisabilitato(),"il buttone Conferma non è disabilitato");
     }
 
     @And("Si controlla che il tasto avvisami via email sia bloccato")
     public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoAvvisamiViaEmailSiaBloccato() {
 
-        Assert.assertTrue("il bottone avvisami via email non è disabilitato", recapitiDestinatarioPage.avvisamiViaEmailIsDisabled());
+        Assertions.assertTrue(recapitiDestinatarioPage.avvisamiViaEmailIsDisabled(),"il bottone avvisami via email non è disabilitato");
     }
 
     @And("Si inserisce l'email della {string} e si clicca sul bottone avvisami via email")
@@ -201,7 +202,7 @@ public class RecapitiPersonaFisicaTest {
     public void siVisualizzaCorrettamenteIlPopUpESiCliccaSuConferma() {
         logger.info("click pop-up conferma email");
 
-        Assert.assertFalse("il popup Conferma email non si visualizza", recapitiDestinatarioPage.verificaPopUpConfermaEmail());
+        Assertions.assertFalse(recapitiDestinatarioPage.verificaPopUpConfermaEmail(), "il popup Conferma email non si visualizza");
         recapitiDestinatarioPage.clickHoCapitoCheckBoxPopup();
         recapitiDestinatarioPage.confermaEmailPopup();
     }
@@ -241,14 +242,14 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioDiNumeroDiTelefonoErrato() {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         String errorMessageRead = iTuoiRecapitiPage.getPhoneErrorMessage();
-        Assert.assertEquals("messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Numero di cellulare non valido", "Numero di cellulare non valido", errorMessageRead);
+        Assertions.assertEquals("messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Numero di cellulare non valido", "Numero di cellulare non valido", errorMessageRead);
 
     }
 
     @And("Nella pagina I Tuoi Recapiti si controlla che il tasto avvisami via sms sia bloccato")
     public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoAvvisamiViaSmsSiaBloccato() {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-        Assert.assertTrue("il bottone avvisami via SMS non è disabilitato", iTuoiRecapitiPage.avvisamiViaSMSIsDisabled());
+        Assertions.assertTrue(iTuoiRecapitiPage.avvisamiViaSMSIsDisabled(), "il bottone avvisami via SMS non è disabilitato");
     }
 
     @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request {string}")
@@ -280,7 +281,7 @@ public class RecapitiPersonaFisicaTest {
                 dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
             } else {
                 logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
-                Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+                Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
             }
         }
     }
@@ -300,7 +301,7 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.confermaButtonClickPopUp();
             if (recapitiDestinatarioPage.waitMessaggioErrore()) {
                 logger.error("Il codice OTP inserito è sbagliato");
-                Assert.fail("Il codice OTP inserito è sbagliato");
+                Assertions.fail("Il codice OTP inserito è sbagliato");
             }
         } else {
             String variabileAmbiente = System.getProperty("environment");
@@ -317,11 +318,11 @@ public class RecapitiPersonaFisicaTest {
                 recapitiDestinatarioPage.confermaButtonClickPopUp();
                 if (recapitiDestinatarioPage.waitMessaggioErrore()) {
                     logger.error("Il codice OTP inserito è sbagliato");
-                    Assert.fail("Il codice OTP inserito è sbagliato");
+                    Assertions.fail("Il codice OTP inserito è sbagliato");
                 }
             } else {
                 logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
-                Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+                Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
             }
         }
     }
@@ -336,7 +337,7 @@ public class RecapitiPersonaFisicaTest {
         recapitiDestinatarioPage.confermaButtonClickPopUp();
         if (recapitiDestinatarioPage.waitMessaggioErrore()) {
             logger.error("Il codice OTP inserito è sbagliato");
-            Assert.fail("Il codice OTP inserito è sbagliato");
+            Assertions.fail("Il codice OTP inserito è sbagliato");
         }
 
     }
@@ -350,7 +351,7 @@ public class RecapitiPersonaFisicaTest {
         recapitiDestinatarioPage.confermaButtonClickPopUp();
         if (recapitiDestinatarioPage.waitMessaggioErrore()) {
             logger.error("Il codice OTP inserito è sbagliato");
-            Assert.fail("Il codice OTP inserito è sbagliato");
+            Assertions.fail("Il codice OTP inserito è sbagliato");
         }
     }
 
@@ -378,7 +379,7 @@ public class RecapitiPersonaFisicaTest {
         driver.navigate().refresh();
             if (!recapitiDestinatarioPage.verificaPecAssociata()) {
                 logger.error("Pec non associata con errore");
-                Assert.fail("Pec non associata con errore");
+                Assertions.fail("Pec non associata con errore");
             }
     }
 
@@ -414,7 +415,7 @@ public class RecapitiPersonaFisicaTest {
                 dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
             } else {
                 logger.error("La chiamata non ha risposto correttamente con codice:" + recuperoOTPRecapiti.getResponseCode());
-                Assert.fail("La chiamata non ha risposto correttamentecon codice:" + recuperoOTPRecapiti.getResponseCode());
+                Assertions.fail("La chiamata non ha risposto correttamentecon codice:" + recuperoOTPRecapiti.getResponseCode());
             }
         }
     }
@@ -451,7 +452,7 @@ public class RecapitiPersonaFisicaTest {
                 dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
             } else {
                 logger.error("La chiamata non ha risposto correttamente con codice:" + recuperoOTPRecapiti.getResponseCode());
-                Assert.fail("La chiamata non ha risposto correttamentecon codice:" + recuperoOTPRecapiti.getResponseCode());
+                Assertions.fail("La chiamata non ha risposto correttamentecon codice:" + recuperoOTPRecapiti.getResponseCode());
             }
         }
     }
@@ -471,7 +472,7 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si controlla che la Email sia stata inserita correttamente");
         if (!recapitiDestinatarioPage.verificaMailAssociata()) {
             logger.error("Email non è stata inserita correttamente");
-            Assert.fail("Email non è stata inserita correttamente");
+            Assertions.fail("Email non è stata inserita correttamente");
         }
     }
 
@@ -574,7 +575,7 @@ public class RecapitiPersonaFisicaTest {
                 dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
             } else {
                 logger.error("La chiamata con url: " + url + " ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
-                Assert.fail("La chiamata  con url: " + url + " ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+                Assertions.fail("La chiamata  con url: " + url + " ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
             }
         }
     }
@@ -618,7 +619,7 @@ public class RecapitiPersonaFisicaTest {
             logger.info("Email è stata eliminata correttamente");
         } else {
             logger.error("Email non è stata eliminata");
-            Assert.fail("Email non è stata eliminata");
+            Assertions.fail("Email non è stata eliminata");
         }
     }
 
@@ -629,7 +630,7 @@ public class RecapitiPersonaFisicaTest {
             logger.info("L'email non è stata eliminata");
         } else {
             logger.error("L'email è stata eliminata");
-            Assert.fail("L'email è stata eliminata");
+            Assertions.fail("L'email è stata eliminata");
         }
     }
 
@@ -681,7 +682,7 @@ public class RecapitiPersonaFisicaTest {
                 logger.info("La PEC è stata modificata");
             } else {
                 logger.error("La pec non è stata modificata");
-                Assert.fail("La pec non è stata modificata");
+                Assertions.fail("La pec non è stata modificata");
             }
         }
     }
@@ -725,7 +726,7 @@ public class RecapitiPersonaFisicaTest {
                 dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
             } else {
                 logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
-                Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+                Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
             }
         }
 
@@ -756,7 +757,7 @@ public class RecapitiPersonaFisicaTest {
                 OTP = recuperoOTPRecapiti.getResponseBody();
             } else {
                 logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
-                Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+                Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
             }
         }
 
@@ -784,7 +785,7 @@ public class RecapitiPersonaFisicaTest {
                 OTP = recuperoOTPRecapiti.getResponseBody();
             } else {
                 logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
-                Assert.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
+                Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
             }
         }
 
@@ -832,7 +833,7 @@ public class RecapitiPersonaFisicaTest {
             logger.info("La PEC è stata eliminata correttamente");
         } else {
             logger.error("La PEC non è stata eliminata");
-            Assert.fail("La PEC non è stata eliminata");
+            Assertions.fail("La PEC non è stata eliminata");
         }
     }
 
@@ -844,7 +845,7 @@ public class RecapitiPersonaFisicaTest {
             logger.info("La PEC non è stata eliminata");
         } else {
             logger.error("La PEC è stata eliminata");
-            Assert.fail("La PEC è stata eliminata");
+            Assertions.fail("La PEC è stata eliminata");
         }
     }
 
@@ -912,7 +913,7 @@ public class RecapitiPersonaFisicaTest {
         WebTool.waitTime(10);
         if (!recapitiDestinatarioPage.verificaNuovaEmailEPEC(pec)) {
             logger.error("La email PEC non è stata associata correttamente");
-            Assert.fail("La email PEC non è stata associata correttamente");
+            Assertions.fail("La email PEC non è stata associata correttamente");
         }
     }
 

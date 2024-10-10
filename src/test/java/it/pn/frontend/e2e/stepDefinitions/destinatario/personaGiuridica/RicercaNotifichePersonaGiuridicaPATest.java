@@ -12,7 +12,8 @@ import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RicercaNotifichePG
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,7 +78,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
                 logger.info("Sezione titolo di pagamento è visualizzato");
             } else {
                 logger.error("Sezione titolo di pagamento non è visualizzato");
-                Assert.fail("Sezione titolo di pagamento non è visualizzato");
+                Assertions.fail("Sezione titolo di pagamento non è visualizzato");
             }
 
             boolean codiceAvvisoIsDisplayed = piattaformaNotifichePGPAPage.codiceAvvisoDisplayed();
@@ -85,7 +86,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
                 logger.info("Sezione codice avviso è visualizzato");
             } else {
                 logger.error("Sezione codice avviso non è visualizzato");
-                Assert.fail("Sezione codice avviso non è visualizzato");
+                Assertions.fail("Sezione codice avviso non è visualizzato");
             }
 
             boolean modelloF24IsDisplayed = piattaformaNotifichePGPAPage.modelloF24Displayed();
@@ -93,7 +94,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
                 logger.info("Sezione scarica modello F24 è visualizzato");
             } else {
                 logger.error("Sezione scarica modello F24 non è visualizzato");
-                Assert.fail("Sezione scarica modello F24 non è visualizzato");
+                Assertions.fail("Sezione scarica modello F24 non è visualizzato");
             }
         }
     }
@@ -122,7 +123,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
             logger.info("Il risultato é coerente con il codice IUN inserito");
         } else {
             logger.error("Gli stati della notifica NON sono uguali a quelli selezionati");
-            Assert.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
+            Assertions.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
         }
     }
 
@@ -151,7 +152,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
             logger.info("Il risultato é coerente con le date inserite");
         } else {
             logger.error("Il risultato NON é coerente con le date inserite");
-            Assert.fail("Il risultato NON é coerente con le date inserite");
+            Assertions.fail("Il risultato NON é coerente con le date inserite");
         }
     }
 
@@ -175,7 +176,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
             logger.info("il messaggio di errore é visualizzato");
         } else {
             logger.error("il messaggio di errore non é visualizzato");
-            Assert.fail("il messaggio di errore non é visualizzato");
+            Assertions.fail("il messaggio di errore non é visualizzato");
         }
 
         boolean isTextBoxInValid = notificheDestinatarioPage.isTextBoxInvalid();
@@ -183,7 +184,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
             logger.info("IUN text box non é valido");
         } else {
             logger.error("IUN text box non é passato allo stato non valido");
-            Assert.fail("IUN text box non é passato allo stato non valido");
+            Assertions.fail("IUN text box non é passato allo stato non valido");
         }
         ricercaNotifichePGPage.clickFiltraButton();
         boolean isErrorMessageStillDisplayed = ricercaNotifichePGPage.isErrorMessageDisplayed();
@@ -191,7 +192,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
             logger.info("Il bottone Filtra é dissativato");
         } else {
             logger.error("Il bottone Filtra é attivo");
-            Assert.fail("Il bottone Filtra é attivo");
+            Assertions.fail("Il bottone Filtra é attivo");
         }
     }
 
@@ -223,7 +224,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
             logger.info("Il bottone Filtra é disattivato");
         } else {
             logger.error("Il bottone Filtra é attivo");
-            Assert.fail("Il bottone Filtra é attivo");
+            Assertions.fail("Il bottone Filtra é attivo");
         }
     }
 }

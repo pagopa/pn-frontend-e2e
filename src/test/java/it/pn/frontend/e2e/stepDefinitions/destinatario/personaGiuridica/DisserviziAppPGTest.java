@@ -7,7 +7,8 @@ import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DisserviziAppPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,7 +71,7 @@ public class DisserviziAppPGTest {
         }
         if (!res) {
             logger.error("dopo aver atteso alcuni secondi il disservizio non è stato ancora creato");
-            Assert.fail("dopo aver atteso alcuni secondi il disservizio non è stato ancora creato");
+            Assertions.fail("dopo aver atteso alcuni secondi il disservizio non è stato ancora creato");
         }
         disserviziAppPage.waitLoadStatoDellaPiattaformaPage();
 

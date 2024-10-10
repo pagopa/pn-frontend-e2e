@@ -16,7 +16,8 @@ import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -65,7 +66,7 @@ public class NotifichePersonaFisicaPagoPATest {
             logger.info("text field codice iun presente");
         } else {
             logger.info("text field codice iun non presente");
-            Assert.fail("text field codice iun non presente");
+            Assertions.fail("text field codice iun non presente");
         }
         try {
             TimeUnit.SECONDS.sleep(5);
@@ -119,7 +120,7 @@ public class NotifichePersonaFisicaPagoPATest {
             logger.info("Si visualizza correttamente l'elenco notifiche");
         } else {
             logger.error("NON visualizza correttamente l'elenco notifiche");
-            Assert.fail("NON visualizza correttamente l'elenco notifiche");
+            Assertions.fail("NON visualizza correttamente l'elenco notifiche");
         }
     }
 
@@ -135,11 +136,11 @@ public class NotifichePersonaFisicaPagoPATest {
                 logger.info("Le date sono ordinate correttamente");
             } else {
                 logger.error("Le date NON sono ordinate correttamente");
-                Assert.fail("Le date NON sono ordinate correttamente");
+                Assertions.fail("Le date NON sono ordinate correttamente");
             }
         } else {
             logger.error("Non sono presenti notifiche con date");
-            Assert.fail("Non sono presenti notifiche con date");
+            Assertions.fail("Non sono presenti notifiche con date");
         }
     }
 
@@ -196,7 +197,7 @@ public class NotifichePersonaFisicaPagoPATest {
             logger.info("Si visualizzano venti notifiche in elenco");
         } else {
             logger.error("NON si visualizzano venti notifiche in elenco");
-            Assert.fail("NON si visualizzano venti notifiche in elenco");
+            Assertions.fail("NON si visualizzano venti notifiche in elenco");
         }
     }
 
@@ -236,7 +237,7 @@ public class NotifichePersonaFisicaPagoPATest {
                 logger.info("Sezione titolo di pagamento è visualizzato");
             } else {
                 logger.error("Sezione titolo di pagamento non è visualizzato");
-                Assert.fail("Sezione titolo di pagamento non è visualizzato");
+                Assertions.fail("Sezione titolo di pagamento non è visualizzato");
             }
 
             boolean codiceAvvisoIsDisplayed = accediAPiattaformaNotifichePage.codiceAvvisoDisplayed();
@@ -244,7 +245,7 @@ public class NotifichePersonaFisicaPagoPATest {
                 logger.info("Sezione codice avviso è visualizzato");
             } else {
                 logger.error("Sezione codice avviso non è visualizzato");
-                Assert.fail("Sezione codice avviso non è visualizzato");
+                Assertions.fail("Sezione codice avviso non è visualizzato");
             }
 
             boolean modelloF24IsDisplayed = accediAPiattaformaNotifichePage.modelloF24Displayed();
@@ -252,7 +253,7 @@ public class NotifichePersonaFisicaPagoPATest {
                 logger.info("Sezione scarica modello F24 è visualizzato");
             } else {
                 logger.error("Sezione scarica modello F24 non è visualizzato");
-                Assert.fail("Sezione scarica modello F24 non è visualizzato");
+                Assertions.fail("Sezione scarica modello F24 non è visualizzato");
             }
 
             boolean scaricaAvvisoDisplayed = accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed();
@@ -260,7 +261,7 @@ public class NotifichePersonaFisicaPagoPATest {
                 logger.info("Sezione scarica avviso è visualizzato");
             } else {
                 logger.error("Sezione scarica avviso non è visualizzato");
-                Assert.fail("Sezione scarica avviso non è visualizzato");
+                Assertions.fail("Sezione scarica avviso non è visualizzato");
             }
 
             boolean pagaAvvisoDisplayed = accediAPiattaformaNotifichePage.pagaAvvisoDisplayed();
@@ -268,7 +269,7 @@ public class NotifichePersonaFisicaPagoPATest {
                 logger.info("Sezione paga avviso è visualizzato");
             } else {
                 logger.error("Sezione paga avviso non è visualizzato");
-                Assert.fail("Sezione paga avviso non è visualizzato");
+                Assertions.fail("Sezione paga avviso non è visualizzato");
             }
         }
     }
@@ -294,7 +295,7 @@ public class NotifichePersonaFisicaPagoPATest {
             if (headless && urlFileAttestazioneOppponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
                 logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
-                Assert.fail("Non è stato recuperato url per il download per il link: " + testoLink);
+                Assertions.fail("Non è stato recuperato url per il download per il link: " + testoLink);
             }
             File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloads/notificaN" + i + ".pdf");
             downloadFile.download(urlFileAttestazioneOppponibile, file, headless);
@@ -401,7 +402,7 @@ public class NotifichePersonaFisicaPagoPATest {
     public void siControllaTestoSiaNelBoxPagamento(String xpath) {
         boolean isPresent = dettaglioNotifica.isFieldDisplayed(By.xpath(xpath));
         if (!isPresent) {
-            Assert.fail("L'elemento non esiste");
+            Assertions.fail("L'elemento non esiste");
         }
     }
 
@@ -411,7 +412,7 @@ public class NotifichePersonaFisicaPagoPATest {
 
         boolean isNotPresent = dettaglioNotifica.isFieldNotDisplayed(xpath);
         if (!isNotPresent) {
-            Assert.fail("L'elemento esiste");
+            Assertions.fail("L'elemento esiste");
         }
     }
 
@@ -478,7 +479,7 @@ public class NotifichePersonaFisicaPagoPATest {
             logger.info("Costi di notifica non inclusi");
         }else {
             logger.error("Costi di notifica inclusi");
-            Assert.fail("Costi di notifica inclusi");
+            Assertions.fail("Costi di notifica inclusi");
         }
     }
 
@@ -503,7 +504,7 @@ public class NotifichePersonaFisicaPagoPATest {
         public void verificaNomeEnteMittente(String nomeEnte){
             DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
             Map<String, String> infoNotifiche = dettaglioNotificaSection.recuperoInfoNotificheDestinatario();
-            Assert.assertTrue(infoNotifiche.get("mittente").equalsIgnoreCase(nomeEnte));
+            Assertions.assertTrue(infoNotifiche.get("mittente").equalsIgnoreCase(nomeEnte));
         }
 }
 

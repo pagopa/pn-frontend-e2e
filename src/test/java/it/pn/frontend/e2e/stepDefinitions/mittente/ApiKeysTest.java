@@ -7,7 +7,8 @@ import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.mittente.ApiKeyPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.GeneraApiKeySection;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -169,35 +170,35 @@ public class ApiKeysTest {
             logger.info("Si visualizza correttamente l'Api Key delle Api Key");
         } else {
             logger.error("NON si visualizza correttamente l'Api Key delle Api Key");
-            Assert.fail("NON si visualizza correttamente l'Api Key delle Api Key");
+            Assertions.fail("NON si visualizza correttamente l'Api Key delle Api Key");
         }
 
         if (apiKeyPAPage.siVisualizzaNomeEDataConTesto()) {
             logger.info("Si visualizza correttamente le date delle Api Key");
         } else {
             logger.error("NON si visualizza correttamente le date delle Api Key");
-            Assert.fail("NON si visualizza correttamente le date delle Api Key");
+            Assertions.fail("NON si visualizza correttamente le date delle Api Key");
         }
 
         if (apiKeyPAPage.siVisualizzaGruppoConTesto()) {
             logger.info("Si visualizza correttamente il gruppo delle Api Key");
         } else {
             logger.error("NON si visualizza correttamente il gruppo delle Api Key");
-            Assert.fail("NON si visualizza correttamente il gruppo delle Api Key");
+            Assertions.fail("NON si visualizza correttamente il gruppo delle Api Key");
         }
 
         if (apiKeyPAPage.siVisualizzaStatoConTesto()) {
             logger.info("Si visualizza correttamente lo stato delle api key");
         } else {
             logger.error("NON si visualizza correttamente lo stato delle api key");
-            Assert.fail("NON si visualizza correttamente lo stato delle api key");
+            Assertions.fail("NON si visualizza correttamente lo stato delle api key");
         }
 
         if (apiKeyPAPage.siVisualizzaMenuApiKey()) {
             logger.info("Si visualizza correttamente il bottone del menu Api Key");
         } else {
             logger.error("NON si visualizza correttamente il bottone del menu Api Key");
-            Assert.fail("NON si visualizza correttamente il bottone del menu Api Key");
+            Assertions.fail("NON si visualizza correttamente il bottone del menu Api Key");
         }
     }
 

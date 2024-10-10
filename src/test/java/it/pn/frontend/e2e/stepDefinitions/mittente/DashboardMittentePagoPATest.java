@@ -22,7 +22,8 @@ import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGP
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -119,7 +120,7 @@ public class DashboardMittentePagoPATest {
 
     @And("Nella pagina Statistiche il bottone Filtra disabilitata")
     public void nellaPaginaStatisticheIlBottoneFiltraDisabilitata() {
-        Assert.assertTrue("il bottone Filtra è disabilitato", piattaformaNotifichePage.verificaBottoneFiltraDisabilitato());
+        Assertions.assertTrue(piattaformaNotifichePage.verificaBottoneFiltraDisabilitato(),"il bottone Filtra è disabilitato");
     }
 
     @And("Nella pagina Statistiche si clicca sul bottone Annulla filtri")

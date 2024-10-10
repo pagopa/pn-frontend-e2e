@@ -8,7 +8,8 @@ import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNot
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,7 +97,7 @@ public class DisserviziAppPATest {
         boolean isCorrect = disserviziAppPAPage.confrontoFileConDisservizio();
         if (!isCorrect) {
             logger.error("i dati del pdf non corrispondono a quelli della tabella");
-            Assert.fail("i dati del pdf non corrispondono a quelli della tabella");
+            Assertions.fail("i dati del pdf non corrispondono a quelli della tabella");
         }
     }
 }

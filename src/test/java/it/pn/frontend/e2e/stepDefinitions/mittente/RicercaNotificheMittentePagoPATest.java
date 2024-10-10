@@ -8,7 +8,8 @@ import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DestinatarioPASection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
 import it.pn.frontend.e2e.utility.DataPopulation;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +68,7 @@ public class RicercaNotificheMittentePagoPATest {
             logger.info("Si visualizza correttamente box di pagamento");
         } else {
             logger.error("Non si visualizza correttamente box di pagamento");
-            Assert.fail("Non si visualizza correttamente box di pagamento");
+            Assertions.fail("Non si visualizza correttamente box di pagamento");
         }
     }
 
@@ -78,7 +79,7 @@ public class RicercaNotificheMittentePagoPATest {
             logger.info("Si visualizza correttamente il messaggio notifica annulata");
         } else {
             logger.error("Non si visualizza correttamente il messaggio notifica annulata");
-            Assert.fail("Non si visualizza correttamente il messaggio notifica annulata");
+            Assertions.fail("Non si visualizza correttamente il messaggio notifica annulata");
         }
 
     }
@@ -93,7 +94,7 @@ public class RicercaNotificheMittentePagoPATest {
             logger.info("Il bottone Filtra è disabilitato");
         } else {
             logger.error("Il bottone Filtra è abilitato");
-            Assert.fail("Il bottone Filtra è abilitato");
+            Assertions.fail("Il bottone Filtra è abilitato");
         }
     }
 
@@ -121,7 +122,7 @@ public class RicercaNotificheMittentePagoPATest {
 
         } else {
             logger.error("Codici fiscali non presenti o non uguali a quello selezionato " + codiceFiscale);
-            Assert.fail("Codici fiscali non presenti o non uguali a quello selezionato " + codiceFiscale);
+            Assertions.fail("Codici fiscali non presenti o non uguali a quello selezionato " + codiceFiscale);
         }
     }
 
@@ -168,7 +169,7 @@ public class RicercaNotificheMittentePagoPATest {
         } else {
 
             logger.error("Notifica con codice IUN: " + codiceIUNInserito + " NON trovata");
-            Assert.fail("Notifica con codice IUN: " + codiceIUNInserito + " NON trovata");
+            Assertions.fail("Notifica con codice IUN: " + codiceIUNInserito + " NON trovata");
 
         }
     }
@@ -181,11 +182,11 @@ public class RicercaNotificheMittentePagoPATest {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         if (!piattaformaNotifichePage.controlloDateInserite(dataDA)) {
             logger.error("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
-            Assert.fail("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
+            Assertions.fail("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
         }
         if (!piattaformaNotifichePage.controlloDateInserite(dataA)) {
             logger.error("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
-            Assert.fail("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
+            Assertions.fail("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
         }
         piattaformaNotifichePage.inserimentoArcoTemporale(dataDA, dataA);
     }
@@ -198,11 +199,11 @@ public class RicercaNotificheMittentePagoPATest {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         if (!piattaformaNotifichePage.controlloDateInserite(dataDA)) {
             logger.error("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
-            Assert.fail("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
+            Assertions.fail("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
         }
         if (!piattaformaNotifichePage.controlloDateInserite(dataA)) {
             logger.error("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
-            Assert.fail("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
+            Assertions.fail("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
         }
         dataFineErrata =  piattaformaNotifichePage.inserimentoArcoTemporaleErrato(dataDA, dataA);
     }
@@ -211,7 +212,7 @@ public class RicercaNotificheMittentePagoPATest {
     public void verificaArcoTemporaleSelezionato() {
         logger.info("Si controlla l'arco temporale che sia errato su cui effettuare la ricerca");
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-        Assert.assertFalse(dataFineErrata);
+        Assertions.assertFalse(dataFineErrata);
     }
 
 
@@ -230,7 +231,7 @@ public class RicercaNotificheMittentePagoPATest {
             logger.info("Sono presenti risultati per il filtro data");
         } else {
             logger.error("Le date delle notifiche NON sono uguali a quelle selezionate");
-            Assert.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
+            Assertions.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
         }
     }
 
@@ -250,7 +251,7 @@ public class RicercaNotificheMittentePagoPATest {
             case "DESTINATARIO IRREPERIBILE" -> statoInserito = "UNREACHABLE";
             default -> {
                 logger.error("Stato notifica inserito non valido");
-                Assert.fail("Stato notifica inserito non valido");
+                Assertions.fail("Stato notifica inserito non valido");
             }
         }
 
@@ -274,7 +275,7 @@ public class RicercaNotificheMittentePagoPATest {
             logger.info("Gli stati della notifica sono uguali a quelli selezionati");
         } else {
             logger.error("Gli stati della notifica NON sono uguali a quelli selezionati");
-            Assert.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
+            Assertions.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
 
         }
 
@@ -334,7 +335,7 @@ public class RicercaNotificheMittentePagoPATest {
 
         } else {
             logger.error("Il codice fiscale della notifica NON è uguale a quello selezionato");
-            Assert.fail("Il codice fiscale notifica NON è uguale a quello selezionato");
+            Assertions.fail("Il codice fiscale notifica NON è uguale a quello selezionato");
         }
 
         int results = piattaformaNotifichePage.controlloNumeroRisultatiDate();
@@ -342,7 +343,7 @@ public class RicercaNotificheMittentePagoPATest {
             logger.info("Sono presenti risultati per il filtro data");
         } else {
             logger.error("Le date delle notifiche NON sono uguali a quelle selezionate");
-            Assert.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
+            Assertions.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
         }
     }
 
@@ -373,7 +374,7 @@ public class RicercaNotificheMittentePagoPATest {
         } else {
 
             logger.error("Gli stati della notifica NON sono uguali a quelli selezionati");
-            Assert.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
+            Assertions.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
         }
 
         int results = piattaformaNotifichePage.controlloNumeroRisultatiDate();
@@ -381,7 +382,7 @@ public class RicercaNotificheMittentePagoPATest {
             logger.info("Sono presenti risultati per il filtro data");
         } else {
             logger.error("Le date delle notifiche NON sono uguali a quelle selezionate");
-            Assert.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
+            Assertions.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
         }
     }
 
@@ -399,7 +400,7 @@ public class RicercaNotificheMittentePagoPATest {
             logger.info("Sono presenti risultati per il filtro data");
         } else {
             logger.error("Le date delle notifiche NON sono uguali a quelle selezionate");
-            Assert.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
+            Assertions.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
         }
         int numeroStatoNotificha = piattaformaNotifichePage.getListStato(statoNotifica);
 
@@ -408,7 +409,7 @@ public class RicercaNotificheMittentePagoPATest {
         } else {
 
             logger.error("Gli stati della notifica NON sono uguali a quelli selezionati");
-            Assert.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
+            Assertions.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
         }
     }
 
@@ -419,7 +420,7 @@ public class RicercaNotificheMittentePagoPATest {
             logger.info("Il filtro non ha nessun risultato");
         } else {
             logger.error("Il filtro ha portate qualche risultato");
-            Assert.fail("Il filtro ha portate qualche risultato");
+            Assertions.fail("Il filtro ha portate qualche risultato");
         }
     }
 
@@ -444,7 +445,7 @@ public class RicercaNotificheMittentePagoPATest {
 
         } else {
             logger.error("Il codice fiscale della notifica NON è uguale a quello selezionato");
-            Assert.fail("Il codice fiscale notifica NON è uguale  a quello selezionato");
+            Assertions.fail("Il codice fiscale notifica NON è uguale  a quello selezionato");
         }
 
         int results = piattaformaNotifichePage.controlloNumeroRisultatiDate();
@@ -452,7 +453,7 @@ public class RicercaNotificheMittentePagoPATest {
             logger.info("Sono presenti risultati per il filtro data");
         } else {
             logger.error("Le date delle notifiche NON sono uguali a quelle selezionate");
-            Assert.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
+            Assertions.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
         }
     }
 
@@ -477,7 +478,7 @@ public class RicercaNotificheMittentePagoPATest {
 
         } else {
             logger.error("Il codice fiscale della notifica NON è uguale  a quello selezionato");
-            Assert.fail("Il codice fiscale notifica NON è uguale  a quello selezionato");
+            Assertions.fail("Il codice fiscale notifica NON è uguale  a quello selezionato");
         }
         int numeroStatoNotificha = piattaformaNotifichePage.getListStato(statoNotifica);
 
@@ -486,7 +487,7 @@ public class RicercaNotificheMittentePagoPATest {
         } else {
 
             logger.error("Gli stati della notifica NON sono uguali a quelli selezionati");
-            Assert.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
+            Assertions.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
         }
     }
 
@@ -505,7 +506,7 @@ public class RicercaNotificheMittentePagoPATest {
             case "DESTINATARIO IRREPERIBILE" -> statoInserito = "UNREACHABLE";
             default -> {
                 logger.error("Stato notifica inserito non valido");
-                Assert.fail("Stato notifica inserito non valido");
+                Assertions.fail("Stato notifica inserito non valido");
             }
         }
         piattaformaNotifichePage.selezionareStatoNotifica(statoInserito);
@@ -524,7 +525,7 @@ public class RicercaNotificheMittentePagoPATest {
             logger.info("Le date inserite sono errate");
         } else {
             logger.error("Le date inserite sono corrette");
-            Assert.fail("Le date inserite sono corrette");
+            Assertions.fail("Le date inserite sono corrette");
         }
     }
 
@@ -535,7 +536,7 @@ public class RicercaNotificheMittentePagoPATest {
             logger.info("Campo stato notifica trovato");
         } else {
             logger.error("Campo stato notifica NON trovato");
-            Assert.fail("Campo stato notifica NON trovato");
+            Assertions.fail("Campo stato notifica NON trovato");
         }
     }
 

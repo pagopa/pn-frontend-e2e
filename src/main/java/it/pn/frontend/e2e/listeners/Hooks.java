@@ -1,8 +1,4 @@
 package it.pn.frontend.e2e.listeners;
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
-import io.cucumber.java.en.And;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import it.pn.frontend.e2e.model.address.DigitalAddress;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
@@ -10,10 +6,10 @@ import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import lombok.Getter;
-import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -32,10 +28,10 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
+import org.testng.annotations.BeforeTest;
+
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -182,11 +178,12 @@ public class Hooks {
         logger.info("edge driver started");
     }
 
-    @Before
-    public void startScenario(Scenario scenario) {
-        logger.info("-------------------------------------------START SCENARIO: " + scenario.getName() + "------------------------------------------------");
-        this.scenario = scenario.getName();
-        Collection<String> tags = scenario.getSourceTagNames();
+    @BeforeEach
+    public void startScenario(TestInfo scenario) {
+        logger.info("-------------------------------------------START SCENARIO: " + scenario.getDisplayName() + "------------------------------------------------");
+        this.scenario = scenario.getDisplayName();
+
+        Collection<String> tags = scenario.getTags();
         for (String tag : tags) {
             if (tag.startsWith("@TA_")) {
                 MDC.put("tag", tag);
@@ -221,8 +218,8 @@ public class Hooks {
         cookieConfig.addCookie();
     }
 
-    @After
-    public void endScenario(Scenario scenario) {
+    @AfterEach
+    public void endScenario(TestInfo scenario) {
 
         System.clearProperty("IUN");
 
@@ -233,7 +230,7 @@ public class Hooks {
             logger.info(netWorkInfo.getResponseStatus());
             logger.info(netWorkInfo.getResponseBody());
         }
-
+/**
         if (scenario.isFailed()) {
             logger.error("scenario go to error : " + scenario.getName());
             try {
@@ -249,6 +246,7 @@ public class Hooks {
                 logger.error(e.getCause().toString());
             }
         }
+ **/
 
         logger.info("quit driver");
         driver.quit();
@@ -259,14 +257,14 @@ public class Hooks {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        logger.info("-------------------------------------------END SCENARIO: " + scenario.getName() + "------------------------------------------------");
+        logger.info("-------------------------------------------END SCENARIO: " + scenario.getDisplayName() + "------------------------------------------------");
     }
 
     /**
      * Clear the delegate of PF after the scenario
      * P.S: This will work only if you invoke the feature step that creates the delegate
      */
-    @After("@DeleghePF or @DeleghePG")
+   // @AfterEach("@DeleghePF or @DeleghePG")
     public void clearDelegate() {
         logger.info("REVOCA TUTTE LE DELEGHE....");
         MandateSingleton mandateSingleton = MandateSingleton.getInstance();
@@ -285,7 +283,7 @@ public class Hooks {
      * Clear directory of file downloaded
      * P.S: This will work only if you invoke the feature step that creates the delegate
      */
-    @After("@File")
+    //@AfterEach("@File")
     public void clearDirectory() {
         String folderPath = System.getProperty("downloadFilePath");
 
@@ -310,8 +308,8 @@ public class Hooks {
      * P.S: This will work only if there are any contacts available
      */
 
-    @After(value = "@recapitiPF or @recapitiPG")
-    @And("Rimuovi tutti i recapiti se esistono")
+    @AfterEach()
+   // @And("Rimuovi tutti i recapiti se esistono")
     public void clearRecapiti() throws IOException {
 
         RestContact restContact = RestContact.getInstance();

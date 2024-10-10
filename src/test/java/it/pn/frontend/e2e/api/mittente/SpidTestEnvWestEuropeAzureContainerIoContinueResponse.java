@@ -12,9 +12,9 @@ import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.junit.Assert;
 
 import java.io.IOException;
 import java.util.List;
@@ -57,7 +57,7 @@ public class SpidTestEnvWestEuropeAzureContainerIoContinueResponse {
                     logger.info(cookie.getPath());
                     logger.info(String.valueOf(cookie.isHttpOnly()));
                 }
-                Assert.assertEquals( this.spidTestEnvWestEuropeAzureContainerIoContinueResponseEndPoint +" risponde con : "+classicHttpResponse.getCode(),classicHttpResponse.getCode(),200);
+                Assertions.assertEquals( classicHttpResponse.getCode(),200);
                 final HttpEntity entity = classicHttpResponse.getEntity();
                 String resultContent = EntityUtils.toString(entity);
                 logger.info(resultContent);

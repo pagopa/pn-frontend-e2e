@@ -12,7 +12,8 @@ import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,7 +90,7 @@ public class DownloadFileMittentePagoPATest {
         if (headless && urlDocumentiAllegati.isEmpty()) {
             String testoLink = dettaglioNotificaMittenteSection.getTextDocumentiAllegati();
             logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
-            Assert.fail("Non è stato recuperato url per il download per il link: " + testoLink);
+            Assertions.fail("Non è stato recuperato url per il download per il link: " + testoLink);
         }
         downloadFile.download(urlDocumentiAllegati, file, headless);
         if (!headless) {
@@ -111,7 +112,7 @@ public class DownloadFileMittentePagoPATest {
             if (headless && urlAvvenutaRicezione.isEmpty()) {
                 String testoLink = dettaglioNotificaMittenteSection.getTextLinkAvvenutaRicezione(i);
                 logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
-                Assert.fail("Non è stato recuperato url per il download per il link: " + testoLink);
+                Assertions.fail("Non è stato recuperato url per il download per il link: " + testoLink);
             }
             file = new File(filepath + count + ".pdf");
             count = count + 1;
@@ -136,7 +137,7 @@ public class DownloadFileMittentePagoPATest {
             if (headless && urlFileAttestazioneOppponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
                 logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
-                Assert.fail("Non è stato recuperato url per il download per il link: " + testoLink);
+                Assertions.fail("Non è stato recuperato url per il download per il link: " + testoLink);
             }
             file = new File(filepath + count + ".pdf");
             count = count + 1;
@@ -191,7 +192,7 @@ public class DownloadFileMittentePagoPATest {
 
         if (headless && urlDocumentiAllegati.isEmpty()) {
             logger.error("Non è stato recuperato l'URL per il download dei documenti Allegati.");
-            Assert.fail("Non è stato recuperato l'URL per il download dei documenti Allegati.");
+            Assertions.fail("Non è stato recuperato l'URL per il download dei documenti Allegati.");
         }
         downloadFile.download(urlDocumentiAllegati, file, headless);
         if (!headless) {
@@ -272,7 +273,7 @@ public class DownloadFileMittentePagoPATest {
             if (urlAvvenutaRicezione.isEmpty()) {
                 String testoLink = dettaglioNotificaMittenteSection.getTextLinkAvvenutaRicezione(i);
                 logger.error("Non è stato recuperato l'URL per il download per il link: " + testoLink);
-                Assert.fail("Non è stato recuperato l'URL per il download per il link: " + testoLink);
+                Assertions.fail("Non è stato recuperato l'URL per il download per il link: " + testoLink);
             }
             File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN" + count + "Avviso_di_avvenuta_ricezione.pdf");
             downloadFile.download(urlAvvenutaRicezione, file, headless);
@@ -324,7 +325,7 @@ public class DownloadFileMittentePagoPATest {
             if (urlFileAttestazioneOpponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
                 logger.error("Non è stato recuperato l'URL per il download per il link: " + testoLink);
-                Assert.fail("Non è stato recuperato l'URL per il download per il link: " + testoLink);
+                Assertions.fail("Non è stato recuperato l'URL per il download per il link: " + testoLink);
             }
             File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN" + count + "Attestazioni_Opponoboli.pdf");
             downloadFile.download(urlFileAttestazioneOpponibile, file, headless);
@@ -354,7 +355,7 @@ public class DownloadFileMittentePagoPATest {
         final String url = downloadFile.getUrl(WebTool.getApiBaseUrl() + "notifications/sent/");
         if (headless && url.isEmpty()) {
             logger.error("Non è stato recuperato url per il download per il link: " + nomeFile);
-            Assert.fail("Non è stato recuperato url per il download per il link: " + nomeFile);
+            Assertions.fail("Non è stato recuperato url per il download per il link: " + nomeFile);
         }
         nomeFile = nomeFile.replace(" ", "_").replace(":", "");
         File file = new File("src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf");
@@ -376,14 +377,14 @@ public class DownloadFileMittentePagoPATest {
                 logger.info("Il testo all'interno del file è corretto");
             } else {
                 logger.error("Il testo all'interno del file  NON è corretto");
-                Assert.fail("Il testo  all'interno del file  NON è corretto");
+                Assertions.fail("Il testo  all'interno del file  NON è corretto");
             }
         } else if (nomeFile.contains("Avviso di avvenuta ricezione")) {
             if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, "A Simple PDF File")) {
                 logger.info("Il testo all'interno del file è corretto");
             } else {
                 logger.error("Il testo all'interno del file  NON è corretto");
-                Assert.fail("Il testo  all'interno del file  NON è corretto");
+                Assertions.fail("Il testo  all'interno del file  NON è corretto");
             }
         } else {
             if (nomeFile.equals("Attestazione_opponibile_a_terzi_notifica_presa_in_carico")) {
@@ -391,7 +392,7 @@ public class DownloadFileMittentePagoPATest {
                     logger.info("Il nome del mittente all'interno del file è corretto");
                 } else {
                     logger.error("Il nome del mittente  all'interno del file  NON è corretto");
-                    Assert.fail("Il nome del mittente  all'interno del file  NON è corretto");
+                    Assertions.fail("Il nome del mittente  all'interno del file  NON è corretto");
                 }
             }
 
@@ -399,28 +400,28 @@ public class DownloadFileMittentePagoPATest {
                 logger.info("Il nome del destinatario all'interno del file è corretto");
             } else {
                 logger.error("Il nome del destinatario  all'interno del file  NON è corretto");
-                Assert.fail("Il nome del destinatario  all'interno del file  NON è corretto");
+                Assertions.fail("Il nome del destinatario  all'interno del file  NON è corretto");
             }
 
             if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, infoNotifiche.get("codiceFiscale"))) {
                 logger.info("Il codiceFiscale del destinatario all'interno del file è corretto");
             } else {
                 logger.error("Il codiceFiscale del destinatario  all'interno del file  NON è corretto");
-                Assert.fail("Il codiceFiscale del destianatario  all'interno del file  NON è corretto");
+                Assertions.fail("Il codiceFiscale del destianatario  all'interno del file  NON è corretto");
             }
 
             if (dettaglioNotificaMittenteSection.controlloTestoFileData(nomeFile, infoNotifiche.get("data"))) {
                 logger.info("La data della notifica all'interno del file è corretta");
             } else {
                 logger.error("La data della notifica all'interno del file  NON è corretta");
-                Assert.fail("La data della notifica  all'interno del file  NON è corretta");
+                Assertions.fail("La data della notifica  all'interno del file  NON è corretta");
             }
 
             if (dettaglioNotificaMittenteSection.controlloTestoFileCodiceIUN(nomeFile, infoNotifiche.get("codiceIUN"))) {
                 logger.info("Il codice IUN della notifica all'interno del file è corretto");
             } else {
                 logger.error("Il codice IUN della notifica all'interno del file  NON è corretto");
-                Assert.fail("Il codice IUN della notifica  all'interno del file  NON è corretto");
+                Assertions.fail("Il codice IUN della notifica  all'interno del file  NON è corretto");
             }
         }
     }

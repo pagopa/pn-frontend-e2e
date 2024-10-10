@@ -5,7 +5,8 @@ import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +69,7 @@ public class RecapitiTest {
             backgroundTest.checkEmailDiCortesiaPerEliminazioneEInserimento(indirizzoMail);
         } else {
             logger.error("Errore nella scrittura del tipo di contatto da controllare e inserire");
-            Assert.fail("Errore nella scrittura del tipo di contatto da controllare e inserire");
+            Assertions.fail("Errore nella scrittura del tipo di contatto da controllare e inserire");
         }
     }
 
@@ -87,7 +88,7 @@ public class RecapitiTest {
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioEmailErrata() {
         String errorMessageRead = recapitiDestinatarioPage.getEmailErrorMessage();
         if (!errorMessageRead.contains("Indirizzo e-mail non valido") && !errorMessageRead.contains("Scrivi massimo 254 caratteri")) {
-            Assert.fail("messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo e-mail non valido o Scrivi massimo 254 caratteri");
+            Assertions.fail("messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo e-mail non valido o Scrivi massimo 254 caratteri");
         }
     }
 
@@ -143,7 +144,7 @@ public class RecapitiTest {
         logger.info("Si controlla che la Email sia stata inserita correttamente");
         if (!recapitiDestinatarioPage.verificaMailAssociata()) {
             logger.error("Email non è stata inserita correttamente");
-            Assert.fail("Email non è stata inserita correttamente");
+            Assertions.fail("Email non è stata inserita correttamente");
         }
     }
 

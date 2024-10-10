@@ -10,7 +10,8 @@ import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import lombok.extern.slf4j.Slf4j;
 
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 
 
@@ -52,7 +53,7 @@ public class NewNotifichePagoPATest {
                     token = dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestRaddista1").toString();
             default -> {
                 log.error("Ambiente non valido");
-                Assert.fail("Ambiente non valido o non trovato!");
+                Assertions.fail("Ambiente non valido o non trovato!");
             }
         }
         String operationId = UUID.randomUUID().toString();

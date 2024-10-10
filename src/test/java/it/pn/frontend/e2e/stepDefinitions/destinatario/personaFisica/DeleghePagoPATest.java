@@ -19,7 +19,8 @@ import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -99,7 +100,7 @@ public class DeleghePagoPATest {
             log.info("La data inserita è corretta");
         } else {
             log.error("La data inserita non è corretta");
-            Assert.fail("La data inserita non è corretta");
+            Assertions.fail("La data inserita non è corretta");
         }
     }
 
@@ -183,7 +184,7 @@ public class DeleghePagoPATest {
         log.info("Si visualizza il messaggio di errore");
         String actualErrorMessage = this.leTueDelegheSection.messaggioDiErrore().toLowerCase();
         String expectedErrorMessage = "errore inserimento delega";
-        Assert.assertEquals("Messeggio di Errore non è uguale a Codice fiscale non valido", expectedErrorMessage, actualErrorMessage);
+        Assertions.assertEquals("Messeggio di Errore non è uguale a Codice fiscale non valido", expectedErrorMessage, actualErrorMessage);
     }
 
     @And("Nella sezione Le Tue Deleghe si visualizza il messaggio di errore delega gia aggiunta")
@@ -309,7 +310,7 @@ public class DeleghePagoPATest {
 
         this.leTueDelegheSection.clickAccettaButton();
         if (this.leTueDelegheSection.verificaEsistenzaErroreCodiceSbagliato()) {
-            Assert.assertEquals("Il codice inserito è sbagliato",
+            Assertions.assertEquals("Il codice inserito è sbagliato",
                     "Il codice è sbagliato", this.leTueDelegheSection.getTextCodiceSbagliato());
         }
     }
@@ -320,7 +321,7 @@ public class DeleghePagoPATest {
             log.info("Il messaggio di codice sbagliato è visualizzata");
         } else {
             log.error("Il messaggio di codice sbagliato non è visualizzata");
-            Assert.fail("Il messaggio di codice sbagliato non è visualizzata");
+            Assertions.fail("Il messaggio di codice sbagliato non è visualizzata");
         }
 
     }
@@ -358,7 +359,7 @@ public class DeleghePagoPATest {
             log.info("Il titolo della sezione Deleghe si visualizza correttamente");
         } else {
             log.error("Il titolo della sezione Deleghe NON si visualizza correttamente");
-            Assert.fail("Il titolo della sezione Deleghe NON si visualizza correttamente");
+            Assertions.fail("Il titolo della sezione Deleghe NON si visualizza correttamente");
         }
     }
 
@@ -368,7 +369,7 @@ public class DeleghePagoPATest {
             log.info("Il sottotitolo della sezione Deleghe si visualizza correttamente");
         } else {
             log.error("Il sottotitolo della sezione Deleghe NON si visualizza correttamente");
-            Assert.fail("Il sottotitolo della sezione Deleghe NON si visualizza correttamente");
+            Assertions.fail("Il sottotitolo della sezione Deleghe NON si visualizza correttamente");
         }
     }
 
@@ -378,7 +379,7 @@ public class DeleghePagoPATest {
             log.info("Il bottone aggiungi delega si visualizza correttamente");
         } else {
             log.error("Il bottone aggiungi delega NON si visualizza correttamente");
-            Assert.fail("Il bottone aggiungi delega NON si visualizza correttamente");
+            Assertions.fail("Il bottone aggiungi delega NON si visualizza correttamente");
         }
     }
 
@@ -393,28 +394,28 @@ public class DeleghePagoPATest {
             log.info("Si visualizza correttamente il nome del delegato");
         } else {
             log.error("NON si visualizza correttamente il nome del delegato");
-            Assert.fail("NON si visualizza correttamente il nome del delegato");
+            Assertions.fail("NON si visualizza correttamente il nome del delegato");
         }
 
         if (this.leTueDelegheSection.siVisualizzaDataInizioDelega()) {
             log.info("Si visualizza correttamente la data di inizio della delega");
         } else {
             log.error("NON si visualizza correttamente la data di inizio della delega");
-            Assert.fail("NON Si visualizza correttamente la data di inizio della delega");
+            Assertions.fail("NON Si visualizza correttamente la data di inizio della delega");
         }
 
         if (this.leTueDelegheSection.siVisualizzaDataFinoDelega()) {
             log.info("Si visualizza correttamente la data di fine delle deleghe");
         } else {
             log.error("NON si visualizza correttamente la data di fine delle deleghe");
-            Assert.fail("NON si visualizza correttamente la data di fine delle deleghe");
+            Assertions.fail("NON si visualizza correttamente la data di fine delle deleghe");
         }
 
         if (this.leTueDelegheSection.siVisualizzaPermessiDelega()) {
             log.info("Si visualizza correttamente il permesso della delega");
         } else {
             log.error("NON si visualizza correttamente il permesso della delega");
-            Assert.fail("NON si visualizza correttamente il permesso della delega");
+            Assertions.fail("NON si visualizza correttamente il permesso della delega");
         }
     }
 
@@ -471,7 +472,7 @@ public class DeleghePagoPATest {
             log.info("La delega non è più presente nella lista");
         } else {
             log.error("La delega è ancora presente in lista");
-            Assert.fail("La delega è ancora presente in lista");
+            Assertions.fail("La delega è ancora presente in lista");
         }
     }
 
@@ -536,7 +537,7 @@ public class DeleghePagoPATest {
             log.info("La delega è stata revocata correttamente");
         } else {
             log.error("La delega è ancora presente in lista");
-            Assert.fail("La delega è ancora presente in lista");
+            Assertions.fail("La delega è ancora presente in lista");
         }
     }
 
