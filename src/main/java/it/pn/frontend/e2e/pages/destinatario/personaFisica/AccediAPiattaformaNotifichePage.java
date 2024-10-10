@@ -315,14 +315,14 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         continuaBottone.click();
 
         WebTool.waitTime(10);
-        
+
         //Select Nexi
         WebElement modificaButton = driver.findElement(By.xpath("//button[@aria-label='Change payment service provider (PSP)']"));
         getWebDriverWait(5).withMessage("Il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(modificaButton));
         modificaButton.click();
 
         WebTool.waitTime(10);
-        List<WebElement> nexiButton =  driver.findElements(By.xpath("//div[contains(text(),'Nexi')]"));
+        List<WebElement> nexiButton =  driver.findElements(By.xpath("//div[contains(text(),'Intesa Sanpaolo S.p.A')]"));
         WebTool.waitTime(10);
         //getWebDriverWait(10).withMessage("Il bottone Nexi non è cliccabile").until(ExpectedConditions.elementToBeClickable(nexiButton));
         if (nexiButton.size()==2){
