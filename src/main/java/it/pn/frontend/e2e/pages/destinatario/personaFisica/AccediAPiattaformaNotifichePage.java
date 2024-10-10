@@ -339,7 +339,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         pagaButton.click();
         WebTool.waitTime(50);
         logger.info("HTML1.."+ driver.getPageSource());
-        List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Chiudi')]"));
+        List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Close')]"));
         getWebDriverWait(10).withMessage("Il bottone Chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudi.get(0)));
         chiudi.get(0).click();
     }
