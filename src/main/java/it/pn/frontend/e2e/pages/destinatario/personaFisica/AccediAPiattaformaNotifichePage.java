@@ -315,15 +315,13 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         continuaBottone.click();
 
         WebTool.waitTime(10);
-
-
+        
         //Select Nexi
         WebElement modificaButton = driver.findElement(By.xpath("//button[@aria-label='Change payment service provider (PSP)']"));
         getWebDriverWait(5).withMessage("Il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(modificaButton));
         modificaButton.click();
 
         WebTool.waitTime(10);
-        logger.info("HTML.."+ driver.getPageSource());
         List<WebElement> nexiButton =  driver.findElements(By.xpath("//div[contains(text(),'Nexi')]"));
         WebTool.waitTime(10);
         //getWebDriverWait(10).withMessage("Il bottone Nexi non è cliccabile").until(ExpectedConditions.elementToBeClickable(nexiButton));
@@ -338,7 +336,6 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(5).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
         pagaButton.click();
         WebTool.waitTime(50);
-        logger.info("HTML1.."+ driver.getPageSource());
         List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Close')]"));
         getWebDriverWait(10).withMessage("Il bottone Chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudi.get(0)));
         chiudi.get(0).click();
