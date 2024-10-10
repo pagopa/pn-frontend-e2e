@@ -314,7 +314,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(8).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(continuaBottone));
         continuaBottone.click();
 
-        WebTool.waitTime(5);
+        WebTool.waitTime(10);
 
         logger.info("HTML.."+ driver.getPageSource());
         //Select Nexi
