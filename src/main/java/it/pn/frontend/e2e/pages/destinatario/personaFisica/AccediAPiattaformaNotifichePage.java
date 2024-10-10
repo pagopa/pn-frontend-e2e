@@ -316,14 +316,14 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
         WebTool.waitTime(10);
 
-        logger.info("HTML.."+ driver.getPageSource());
+
         //Select Nexi
         WebElement modificaButton = driver.findElement(By.xpath("//button[@aria-label='Change card details']"));
         getWebDriverWait(5).withMessage("Il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(modificaButton));
         modificaButton.click();
 
-        WebTool.waitTime(5);
-
+        WebTool.waitTime(10);
+        logger.info("HTML.."+ driver.getPageSource());
         List<WebElement> nexiButton =  driver.findElements(By.xpath("//div[contains(text(),'Nexi')]"));
         WebTool.waitTime(10);
         //getWebDriverWait(10).withMessage("Il bottone Nexi non è cliccabile").until(ExpectedConditions.elementToBeClickable(nexiButton));
