@@ -318,7 +318,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
 
         //Select Nexi
-        WebElement modificaButton = driver.findElement(By.xpath("//button[@aria-label='Change card details']"));
+        WebElement modificaButton = driver.findElement(By.xpath("//button[@aria-label='Change payment service provider (PSP)']"));
         getWebDriverWait(5).withMessage("Il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(modificaButton));
         modificaButton.click();
 
