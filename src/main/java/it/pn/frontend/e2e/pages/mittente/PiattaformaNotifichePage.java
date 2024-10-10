@@ -7,10 +7,9 @@ import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -117,7 +116,7 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("Piattaforma Notifiche Page caricata");
         } catch (TimeoutException e) {
             logger.error("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
-            Assert.fail("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
+            Assertions.fail("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
         }
     }
 
@@ -130,7 +129,7 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("Codice Fiscale inserito correttamente");
         } catch (TimeoutException e) {
             logger.error("Codice Fiscale Non inserito con errore: " + e.getMessage());
-            Assert.fail("Codice Fiscale Non inserito con errore: " + e.getMessage());
+            Assertions.fail("Codice Fiscale Non inserito con errore: " + e.getMessage());
         }
 
     }
@@ -160,7 +159,7 @@ public class PiattaformaNotifichePage extends BasePage {
             return this.elements(cfListBy).size();
         } catch (TimeoutException | NoSuchElementException e) {
             logger.error("Codici fiscali non trovati " + e.getMessage());
-            Assert.fail("Codici fiscali non trovati " + e.getMessage());
+            Assertions.fail("Codici fiscali non trovati " + e.getMessage());
             return 0;
         }
 
@@ -188,7 +187,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void inserimentoCodiceIUN(String codiceIUN) {
-        
+
         WebTool.waitTime(5);
         codiceIUNTextField = driver.findElement(By.id("iunMatch"));
         getWebDriverWait(10).withMessage("Il campo per l'inserimento del codice IUN non è visibile").until(ExpectedConditions.visibilityOf(codiceIUNTextField));
@@ -305,6 +304,8 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
         WebElement previousMonthAButton = driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"));
+
+        previousMonthAButton = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(previousMonthAButton));
 
         int clickA = 0;
         WebElement monthAToSelect = null;
@@ -457,7 +458,7 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("Stato notifica selezionato correttamente");
         } catch (TimeoutException e) {
             logger.error("Stato notifica NON trovata con errore: " + e.getMessage());
-            Assert.fail("Stato notifica NON trovata con errore: " + e.getMessage());
+            Assertions.fail("Stato notifica NON trovata con errore: " + e.getMessage());
         }
     }
 
@@ -501,6 +502,8 @@ public class PiattaformaNotifichePage extends BasePage {
             int index = calendar.get(Calendar.HOUR_OF_DAY);
             logger.info("index NOTIFICHE : " + index);
 
+            logger.info("Scenario " +Hooks.getScenario());
+
             if (notifiche!= null) {
                 logger.info("ELENCO NOTIFICHE : " + notifiche.size());
                 if (notifiche.size() >= index) {
@@ -511,13 +514,13 @@ public class PiattaformaNotifichePage extends BasePage {
                 }
             }else {
                 logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
-                Assert.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
+                Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
             }
             //  List<WebElement> notifiche = this.elements(notificaBy);
             //  notifiche.get(0).click();
         } catch (TimeoutException e) {
             logger.error("Notifica non trovata con errore: " + e.getMessage());
-            Assert.fail("Notifica non trovata con errore: " + e.getMessage());
+            Assertions.fail("Notifica non trovata con errore: " + e.getMessage());
         }
     }
 
@@ -542,7 +545,7 @@ public class PiattaformaNotifichePage extends BasePage {
             notifiche.get(0).click();
         } catch (TimeoutException e) {
             logger.error("Notifica non trovata con errore: " + e.getMessage());
-            Assert.fail("Notifica non trovata con errore: " + e.getMessage());
+            Assertions.fail("Notifica non trovata con errore: " + e.getMessage());
         }
     }
 
@@ -685,7 +688,7 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("Il campo di codice fiscale si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il campo di codice fiscale NON si visualizza correttamente con errore : " + e.getMessage());
-            Assert.fail("Il campo di codice fiscale NON si visualizza correttamente : " + e.getMessage());
+            Assertions.fail("Il campo di codice fiscale NON si visualizza correttamente : " + e.getMessage());
         }
     }
 
@@ -696,7 +699,7 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("Il campo di codice iun si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il campo di codice iun NON si visualizza correttamente con errore : " + e.getMessage());
-            Assert.fail("Il campo di codice iun NON si visualizza correttamente : " + e.getMessage());
+            Assertions.fail("Il campo di codice iun NON si visualizza correttamente : " + e.getMessage());
         }
     }
 
@@ -707,7 +710,7 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("Il campo dello stato si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il campo dello stato NON si visualizza correttamente con errore : " + e.getMessage());
-            Assert.fail("Il campo dello stato NON si visualizza correttamente : " + e.getMessage());
+            Assertions.fail("Il campo dello stato NON si visualizza correttamente : " + e.getMessage());
         }
     }
 
@@ -718,7 +721,7 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("Il campo della data di inizio si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il campo della data di inizio NON si visualizza correttamente con errore : " + e.getMessage());
-            Assert.fail("Il campo della data di inizio NON si visualizza correttamente : " + e.getMessage());
+            Assertions.fail("Il campo della data di inizio NON si visualizza correttamente : " + e.getMessage());
         }
     }
 
@@ -729,7 +732,7 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("Il campo della data di fine si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il campo della data di fine NON si visualizza correttamente con errore : " + e.getMessage());
-            Assert.fail("Il campo della data di fine NON si visualizza correttamente : " + e.getMessage());
+            Assertions.fail("Il campo della data di fine NON si visualizza correttamente : " + e.getMessage());
         }
     }
 
@@ -795,7 +798,7 @@ public class PiattaformaNotifichePage extends BasePage {
                 }
                 if (dataSuccessiva.isBefore(dataPrecedente)) {
                     logger.error("Le date non sono ordinate dal più recente");
-                    Assert.fail("Le date non sono ordinate dal più recente");
+                    Assertions.fail("Le date non sono ordinate dal più recente");
                     return;
                 }
             }
@@ -814,7 +817,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         } catch (TimeoutException e) {
             logger.error("Date NON trovate con errore: " + e.getMessage());
-            Assert.fail("Date NON trovate con errore: " + e.getMessage());
+            Assertions.fail("Date NON trovate con errore: " + e.getMessage());
             return null;
         }
     }
@@ -899,7 +902,7 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("Si visualizza il pop up vuoi uscire");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza il pop up vuoi uscire con errore:" + e.getMessage());
-            Assert.fail("Non si visualizza il pop up vuoi uscire con errore:" + e.getMessage());
+            Assertions.fail("Non si visualizza il pop up vuoi uscire con errore:" + e.getMessage());
         }
     }
 
@@ -994,7 +997,7 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("numero di default delle notifiche visualizzate corretto");
         } else {
             logger.error("numero di default delle notifiche visualizzate non corretto");
-            Assert.fail("numero di default delle notifiche visualizzate non corretto");
+            Assertions.fail("numero di default delle notifiche visualizzate non corretto");
         }
     }
 
@@ -1029,7 +1032,7 @@ public class PiattaformaNotifichePage extends BasePage {
             return true;
         } catch (TimeoutException e) {
             logger.error("Stato notifica NON trovata con errore: " + e.getMessage());
-            Assert.fail("Stato notifica NON trovata con errore: " + e.getMessage());
+            Assertions.fail("Stato notifica NON trovata con errore: " + e.getMessage());
             return false;
         } finally {
             this.element(By.id("menu-status")).click();
@@ -1058,7 +1061,7 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("Pagina notifiche delegante caricata correttamente");
         } catch (TimeoutException e) {
             logger.error("Pagina notifiche delegante non caricata con errore: " + e.getMessage());
-            Assert.fail("Pagina notifiche delegante non caricata con errore: " + e.getMessage());
+            Assertions.fail("Pagina notifiche delegante non caricata con errore: " + e.getMessage());
         }
     }
 
@@ -1083,13 +1086,13 @@ public class PiattaformaNotifichePage extends BasePage {
                 }
             }
         }
-        Assert.assertFalse("NotificationRequestId non trovato, il codice della risposta al url bff/v1/notifications/sent è diverso di 202 ", notificationRequestId.isEmpty());
+        Assertions.assertFalse(notificationRequestId.isEmpty(),"NotificationRequestId non trovato, il codice della risposta al url bff/v1/notifications/sent è diverso di 202 ");
         LinkedTreeMap<String, Object> notificationData;
         String notificationStatus;
         String notificationIUN;
         int maximumRetry = 0;
         do {
-            Assert.assertTrue("La notifica risulta ancora in stato WAITING dopo 5 tentativi", maximumRetry <= 5);
+            Assertions.assertTrue( maximumRetry <= 5,"La notifica risulta ancora in stato WAITING dopo 5 tentativi");
             notificationData = restNotification.getNotificationStatus(notificationRequestId);
             notificationStatus = notificationData.get("notificationRequestStatus").toString();
             if (notificationStatus.equals("ACCEPTED")) {
@@ -1144,7 +1147,7 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         if (!testSuccess) {
             logger.error("La notifica non è passata allo stato " + statoNotifica);
-            Assert.fail("La notifica non è passata allo stato " + statoNotifica);
+            Assertions.fail("La notifica non è passata allo stato " + statoNotifica);
         }
     }
 
@@ -1167,7 +1170,7 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         if (!testSuccess) {
             logger.error("La notifica non è passata allo stato " + statoNotifica);
-            Assert.fail("La notifica non è passata allo stato " + statoNotifica);
+            Assertions.fail("La notifica non è passata allo stato " + statoNotifica);
         }
     }
 
@@ -1218,7 +1221,7 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("Si visualizza  gli eventi relativi a tutti i destinatari");
         } else {
             logger.error("Non si visualizza  gli eventi relativi a tutti i destinatari");
-            Assert.fail("Non si visualizza  gli eventi relativi a tutti i destinatari");
+            Assertions.fail("Non si visualizza  gli eventi relativi a tutti i destinatari");
         }
 
         logger.info("Si visualizza correttamente la timeline relativi a tutti i destinatari");
@@ -1239,7 +1242,7 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("Si visualizza la timeline correttamente");
         } else {
             logger.error("Non si visualizza  la timeline correttamente");
-            Assert.fail("Non si visualizza  la timeline correttamente");
+            Assertions.fail("Non si visualizza  la timeline correttamente");
         }
     }
 
@@ -1251,7 +1254,7 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("Si visualizza la timeline correttamente");
         } else {
             logger.error("Non si visualizza  la timeline correttamente");
-            Assert.fail("Non si visualizza  la timeline correttamente");
+            Assertions.fail("Non si visualizza  la timeline correttamente");
         }
     }
 
@@ -1272,7 +1275,7 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("Entrambi destinatari non raggiungibili al primo tentativo");
         } else {
             logger.error("Uno dei destinatari viene raggiunto al primo tentativo");
-            Assert.fail("Uno dei destinatari viene raggiunto al primo tentativo");
+            Assertions.fail("Uno dei destinatari viene raggiunto al primo tentativo");
         }
     }
 
@@ -1286,7 +1289,7 @@ public class PiattaformaNotifichePage extends BasePage {
             By linkAllegato = By.xpath("//button[contains(., '" + descrizioneAllegato + "') and @id='document-button']");
             getWebDriverWait(10).withMessage("Non esiste il bottone per il download degli allegati, si procede con il test").until(ExpectedConditions.visibilityOfElementLocated(linkAllegato));
             logger.error("Non è corretto che il bottone per il download dell'allegato sia visibile");
-            Assert.fail("Non è corretto che il bottone per il download dell'allegato sia visibile");
+            Assertions.fail("Non è corretto che il bottone per il download dell'allegato sia visibile");
         } catch (TimeoutException e) {
             logger.info("Non è visibile il bottone per il download dell'allegato: " + e.getMessage());
         }
@@ -1334,10 +1337,10 @@ public class PiattaformaNotifichePage extends BasePage {
             element(notitifcaRicercata).click();
         } catch (TimeoutException e) {
             logger.error("Non si riesce a cliccare la notifica ricercata con errore: " + e.getMessage());
-            Assert.fail("Non si riesce a cliccare la notifica ricercata con errore: " + e.getMessage());
+            Assertions.fail("Non si riesce a cliccare la notifica ricercata con errore: " + e.getMessage());
         } catch (InterruptedException e) {
             logger.error("Attesa per rendere cliccabile la notifica interrota con errore: " + e.getMessage());
-            Assert.fail("Attesa per rendere cliccabile la notifica interrota con errore: " + e.getMessage());
+            Assertions.fail("Attesa per rendere cliccabile la notifica interrota con errore: " + e.getMessage());
         }
     }
 
@@ -1350,7 +1353,7 @@ public class PiattaformaNotifichePage extends BasePage {
                     logger.info("Si visualizza correttamente il messaggio di errore");
                 } else {
                     logger.error("Non si visualizza il messaggio di errore");
-                    Assert.fail("Non si visualizza il messaggio di errore");
+                    Assertions.fail("Non si visualizza il messaggio di errore");
                 }
             }
             case 20 -> {
@@ -1358,7 +1361,7 @@ public class PiattaformaNotifichePage extends BasePage {
                     logger.info("Si visualizza correttamente il messaggio di errore");
                 } else {
                     logger.error("Non si visualizza il messaggio di errore");
-                    Assert.fail("Non si visualizza il messaggio di errore");
+                    Assertions.fail("Non si visualizza il messaggio di errore");
                 }
             }
             case 21 -> {
@@ -1366,7 +1369,7 @@ public class PiattaformaNotifichePage extends BasePage {
                     logger.info("Si visualizza correttamente il messaggio di errore");
                 } else {
                     logger.error("Non si visualizza il messaggio di errore");
-                    Assert.fail("Non si visualizza il messaggio di errore");
+                    Assertions.fail("Non si visualizza il messaggio di errore");
                 }
             }
             case 22 -> {
@@ -1374,7 +1377,7 @@ public class PiattaformaNotifichePage extends BasePage {
                     logger.info("Si visualizza correttamente il messaggio di errore");
                 } else {
                     logger.error("Non si visualizza il messaggio di errore");
-                    Assert.fail("Non si visualizza il messaggio di errore");
+                    Assertions.fail("Non si visualizza il messaggio di errore");
                 }
             }
             case 23 -> {
@@ -1382,7 +1385,7 @@ public class PiattaformaNotifichePage extends BasePage {
                     logger.info("Si visualizza correttamente il messaggio di errore");
                 } else {
                     logger.error("Non si visualizza il messaggio di errore");
-                    Assert.fail("Non si visualizza il messaggio di errore");
+                    Assertions.fail("Non si visualizza il messaggio di errore");
                 }
             }
             case 25 -> {
@@ -1390,7 +1393,7 @@ public class PiattaformaNotifichePage extends BasePage {
                     logger.info("Si visualizza correttamente il messaggio di errore");
                 } else {
                     logger.error("Non si visualizza il messaggio di errore");
-                    Assert.fail("Non si visualizza il messaggio di errore");
+                    Assertions.fail("Non si visualizza il messaggio di errore");
                 }
             }
             case 30 -> {
@@ -1398,7 +1401,7 @@ public class PiattaformaNotifichePage extends BasePage {
                     logger.info("Si visualizza correttamente il messaggio di errore");
                 } else {
                     logger.error("Non si visualizza il messaggio di errore");
-                    Assert.fail("Non si visualizza il messaggio di errore");
+                    Assertions.fail("Non si visualizza il messaggio di errore");
                 }
             }
             case 1001 -> {
@@ -1406,7 +1409,7 @@ public class PiattaformaNotifichePage extends BasePage {
                     logger.info("Si visualizza correttamente il messaggio di errore");
                 } else {
                     logger.error("Non si visualizza il messaggio di errore");
-                    Assert.fail("Non si visualizza il messaggio di errore");
+                    Assertions.fail("Non si visualizza il messaggio di errore");
                 }
             }
         }
@@ -1439,6 +1442,6 @@ public class PiattaformaNotifichePage extends BasePage {
         } catch (NoSuchElementException e) {
             isDisplayed = false; // Elemento non trovato
         }
-        Assert.assertFalse("Il bottone è visualizzabile", isDisplayed);
+        Assertions.assertFalse(isDisplayed,"Il bottone è visualizzabile");
     }
 }
