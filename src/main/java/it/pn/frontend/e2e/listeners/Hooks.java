@@ -10,10 +10,10 @@ import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import lombok.Getter;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.TestInfo;
+import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -36,6 +36,8 @@ import org.slf4j.MDC;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -53,6 +55,8 @@ public class Hooks {
     private String headless;
     private final CookieConfig cookieConfig = new CookieConfig();
     private final String os = System.getProperty("os.name");
+
+
 
     protected void firefox() {
         WebDriverManager.firefoxdriver().setup();
@@ -184,6 +188,7 @@ public class Hooks {
 
     @Before
     public void startScenario(Scenario scenario) {
+
         logger.info("-------------------------------------------START SCENARIO: " + scenario.getName() + "------------------------------------------------");
         this.scenario = scenario.getName();
 
@@ -199,6 +204,7 @@ public class Hooks {
         logger.info("user language : " + System.getProperty("user.language"));
 
         String browser = null;
+        logger.info("user language : " + System.getProperty("user.language"));
         if (System.getProperty("browser") == null) {
             Assertions.fail("valorizzare la variabile browser");
         } else {
@@ -234,7 +240,7 @@ public class Hooks {
             logger.info(netWorkInfo.getResponseStatus());
             logger.info(netWorkInfo.getResponseBody());
         }
-/**
+
         if (scenario.isFailed()) {
             logger.error("scenario go to error : " + scenario.getName());
             try {
@@ -250,7 +256,7 @@ public class Hooks {
                 logger.error(e.getCause().toString());
             }
         }
- **/
+
 
         logger.info("quit driver");
         driver.quit();
@@ -268,7 +274,7 @@ public class Hooks {
      * Clear the delegate of PF after the scenario
      * P.S: This will work only if you invoke the feature step that creates the delegate
      */
-   // @AfterEach("@DeleghePF or @DeleghePG")
+   @After("@DeleghePF or @DeleghePG")
     public void clearDelegate() {
         logger.info("REVOCA TUTTE LE DELEGHE....");
         MandateSingleton mandateSingleton = MandateSingleton.getInstance();
@@ -287,7 +293,7 @@ public class Hooks {
      * Clear directory of file downloaded
      * P.S: This will work only if you invoke the feature step that creates the delegate
      */
-    //@AfterEach("@File")
+    @After("@File")
     public void clearDirectory() {
         String folderPath = System.getProperty("downloadFilePath");
 
