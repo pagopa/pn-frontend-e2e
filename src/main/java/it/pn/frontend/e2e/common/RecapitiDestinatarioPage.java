@@ -13,10 +13,10 @@ import java.util.List;
 public class RecapitiDestinatarioPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("RecapitiDestinatarioPage");
 
-    @FindBy(id = "add-contact")
+    @FindBy(id = "code-confirm-button")
     WebElement confermaButton;
 
-    @FindBy(xpath = "//button[@data-testid='courtesy-email-button']")
+    @FindBy(id = "default_email-button")
     WebElement avvisamiViaEmailButton;
 
     @FindBy(id = "code-confirm-button")
@@ -111,13 +111,13 @@ public class RecapitiDestinatarioPage extends BasePage {
         pecField = driver.findElement(By.id("default_pec"));
         getWebDriverWait(10).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOf(pecField));
         pecField.sendKeys(emailPEC);
-    }
+        }
 
     public void confermaButtonClick() {
         WebTool.waitTime(5);
-        confermaButton = driver.findElement(By.id("add-contact"));
-        getWebDriverWait(10).withMessage("Il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
-        this.confermaButton.click();
+        By attivaButton = By.id("default_pec-button");
+        getWebDriverWait(10).withMessage("Il bottone Attiva non è cliccabile").until(ExpectedConditions.elementToBeClickable(element(attivaButton)));
+        element(attivaButton).click();
     }
 
     public void clickConfermaButtonEliminaPopUp() {
@@ -134,7 +134,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             By titleOption = By.xpath("//div[@data-testid='dialog-content']//p[contains(text(), 'Inserisci codice')]");
             List<WebElement> inputBoxes = driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"));
             // The message is different in PG and PF
-            By footerNotReceived = By.xpath("//p[contains(text(), 'Non l’hai ricevuto? Controlla')]");
+            By footerNotReceived = By.xpath("//div[contains(text(), 'Non l’hai ricevuto?')]");
             getWebDriverWait(10).withMessage("Non viene visualizzato correttamente il titolo").until(ExpectedConditions.visibilityOfElementLocated(titleBy));
             getWebDriverWait(10).withMessage("La descrizione non viene visualizzata e il testo non è corretto").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(descriptionBy),
@@ -252,7 +252,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean verificaPecAssociata() {
         try {
-            By pecAssociata = By.id("associatedPEC");
+            By pecAssociata = By.id("default_pec-typography");
             getWebDriverWait(10).withMessage("PEC associata non presente").until(ExpectedConditions.visibilityOfElementLocated(pecAssociata));
             return true;
         } catch (NoSuchElementException | TimeoutException e) {
@@ -543,7 +543,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-    public void clickHoCapitoCheckBoxPopup() {
+   public void clickHoCapitoCheckBoxPopup() {
         By hoCapitoCheckboxBy = By.xpath("//span[contains(text(),'Ho capito')]/preceding-sibling::span/input");
         WebElement hoCapitoCheckBox = this.driver.findElement(hoCapitoCheckboxBy);
         logger.info("click su checkbox ho capito");

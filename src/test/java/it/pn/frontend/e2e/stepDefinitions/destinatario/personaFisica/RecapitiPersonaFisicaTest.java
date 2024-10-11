@@ -202,7 +202,7 @@ public class RecapitiPersonaFisicaTest {
         logger.info("click pop-up conferma email");
 
         Assert.assertFalse("il popup Conferma email non si visualizza", recapitiDestinatarioPage.verificaPopUpConfermaEmail());
-        recapitiDestinatarioPage.clickHoCapitoCheckBoxPopup();
+       // recapitiDestinatarioPage.clickHoCapitoCheckBoxPopup();
         recapitiDestinatarioPage.confermaEmailPopup();
     }
 
@@ -1037,7 +1037,7 @@ public class RecapitiPersonaFisicaTest {
 
     @When("Nella pagina I Tuoi Recapiti si visualizza correttamente il riquadro relativo alla PEC")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlRiquadroRelativoAllaPEC() {
-        logger.info("Si visualizza correttamente il riquadro relativo alla PEC");
+        logger.info("Si controlla se il riquadro relativo alla PEC  visualizzata correttamente");
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.checkRiquadroPEC();
     }
