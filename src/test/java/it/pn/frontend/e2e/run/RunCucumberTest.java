@@ -1,7 +1,8 @@
 package it.pn.frontend.e2e.run;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import org.junit.platform.suite.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import static io.cucumber.junit.platform.engine.Constants.*;
+
 
 /**
 @RunWith(Cucumber.class)
@@ -62,7 +64,7 @@ public class RunCucumberTest {
         return false;
     }
 
-    @BeforeAll
+    @Before
     public static void startTestSuite() {
         if (loadProperties()) {
             logger.info("properties loaded");
@@ -83,7 +85,7 @@ public class RunCucumberTest {
         logger.info("start the test suite = " + testSuite);
     }
 
-    @AfterAll
+    @After
     public static void finishTestSuite() {
         logger.info("finish the test suite = " + testSuite);
     }

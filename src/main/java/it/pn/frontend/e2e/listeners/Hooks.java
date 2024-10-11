@@ -1,4 +1,8 @@
 package it.pn.frontend.e2e.listeners;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
+import io.cucumber.java.en.And;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import it.pn.frontend.e2e.model.address.DigitalAddress;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
@@ -178,12 +182,12 @@ public class Hooks {
         logger.info("edge driver started");
     }
 
-    @BeforeEach
-    public void startScenario(TestInfo scenario) {
-        logger.info("-------------------------------------------START SCENARIO: " + scenario.getDisplayName() + "------------------------------------------------");
-        this.scenario = scenario.getDisplayName();
+    @Before
+    public void startScenario(Scenario scenario) {
+        logger.info("-------------------------------------------START SCENARIO: " + scenario.getName() + "------------------------------------------------");
+        this.scenario = scenario.getName();
 
-        Collection<String> tags = scenario.getTags();
+        Collection<String> tags = scenario.getSourceTagNames();
         for (String tag : tags) {
             if (tag.startsWith("@TA_")) {
                 MDC.put("tag", tag);
@@ -218,8 +222,8 @@ public class Hooks {
         cookieConfig.addCookie();
     }
 
-    @AfterEach
-    public void endScenario(TestInfo scenario) {
+    @After
+    public void endScenario(Scenario scenario) {
 
         System.clearProperty("IUN");
 
@@ -257,7 +261,7 @@ public class Hooks {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        logger.info("-------------------------------------------END SCENARIO: " + scenario.getDisplayName() + "------------------------------------------------");
+        logger.info("-------------------------------------------END SCENARIO: " + scenario.getName() + "------------------------------------------------");
     }
 
     /**
@@ -308,8 +312,8 @@ public class Hooks {
      * P.S: This will work only if there are any contacts available
      */
 
-    @AfterEach()
-   // @And("Rimuovi tutti i recapiti se esistono")
+    @After(value = "@recapitiPF or @recapitiPG")
+    @And("Rimuovi tutti i recapiti se esistono")
     public void clearRecapiti() throws IOException {
 
         RestContact restContact = RestContact.getInstance();
