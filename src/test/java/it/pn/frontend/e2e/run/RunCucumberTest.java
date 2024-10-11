@@ -39,7 +39,6 @@ import static io.cucumber.junit.platform.engine.Constants.*;
         @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "json:target/cucumber-report.json," +
                 "html:target/cucumber-report.html"),
         @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "it/pn/frontend/e2e/listeners ,it/pn/frontend/e2e/stepDefinitions")
-
 })
 
 public class RunCucumberTest {

@@ -1,19 +1,12 @@
 package it.pn.frontend.e2e.stepDefinitions.common;
 
 import io.cucumber.java.After;
-import io.cucumber.java.Before;
 import io.cucumber.java.BeforeAll;
-import io.cucumber.java.Scenario;
-import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.run.RunCucumberTest;
-import org.junit.jupiter.api.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.*;
 import java.util.Properties;
 
-import static it.pn.frontend.e2e.listeners.Hooks.scenario;
 
 public class ConfigFileReader {
 
