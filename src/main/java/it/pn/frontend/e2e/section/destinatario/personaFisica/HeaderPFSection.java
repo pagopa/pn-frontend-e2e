@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.section.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -32,6 +33,7 @@ public class HeaderPFSection extends BasePage {
 
     public void waitLoadHeaderDESection() {
         try {
+            WebTool.waitTime(5);
             titleLabel = driver.findElement(By.xpath("//a[@title='Sito di PagoPA S.p.A.']"));
             buttonProfile = driver.findElement(By.xpath("//button[@aria-label='party-menu-button']"));
             getWebDriverWait(30).withMessage("il titolo del header non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));
