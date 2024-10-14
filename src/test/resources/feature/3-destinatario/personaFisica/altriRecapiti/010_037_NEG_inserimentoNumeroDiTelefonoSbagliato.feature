@@ -4,7 +4,6 @@ Feature: la persona fisica inserisce un numero di telefono errato
   @TA_inserimentoTelefonoErratoPF
   @PF
   @recapitiPF
-   @Alima
 
   Scenario: PN-9311-B37 - La persona fisica inserisce un numero di telefono errato
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

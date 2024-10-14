@@ -1,6 +1,6 @@
 Feature: la persona fisica modifica l'indirizzo Email
 
-  @TestSuite
+  #@TestSuite
   @TA_modificaEmailPF
   @PFz
   @recapitiPF

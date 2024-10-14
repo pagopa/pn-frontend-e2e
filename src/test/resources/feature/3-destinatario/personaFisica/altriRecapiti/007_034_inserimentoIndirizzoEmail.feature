@@ -4,7 +4,6 @@ Feature: la persona fisica inserisce una Email
   @TA_inserimentoEmailPF
   @recapitiPF
   @PF
-    @Alima
 
   Scenario: PN-9308-A34 - la persona fisica inserisce una Email
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

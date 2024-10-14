@@ -4,7 +4,6 @@ Feature: la persona fisica inserisce un OTP email sbagliato
   @TA_inserimentoOTPMailErratoPF
   @PF
   @recapitiPF
-    @Alima
 
   Scenario: PN-9308-E34 - la persona fisica inserisce un OTP email sbagliato
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

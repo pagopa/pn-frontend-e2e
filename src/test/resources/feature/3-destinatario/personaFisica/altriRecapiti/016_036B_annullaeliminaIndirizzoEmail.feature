@@ -4,7 +4,6 @@ Feature: la persona fisica elimina l'indirizzo Email
   @TA_annullaeliminaEmailPF
   @recapitiPF
   @PF
-    @Alima
 
   Scenario: PN-9310-B36 - la persona fisica elimina l'indirizzo Email
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

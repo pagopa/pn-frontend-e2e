@@ -4,7 +4,6 @@ Feature: la persona fisica modifica l'indirizzo pec già presente
   @PF
   @TA_modificaPECPF
   @recapitiPF
-  @Alima
 
   Scenario: PN-9306-D32 - la persona fisica modifica l'indirizzo pec già presente
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

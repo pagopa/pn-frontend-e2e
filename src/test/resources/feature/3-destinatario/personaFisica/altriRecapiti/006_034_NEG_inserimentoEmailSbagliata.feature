@@ -4,7 +4,6 @@ Feature: La persona fisica inserisce una email sbagliata
   @TA_inserimentoEmailErrataPF
   @PF
   @recapitiPF
-    @Alima
 
   Scenario: PN-9308-B34 - La persona fisica inserisce una email sbagliata
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
