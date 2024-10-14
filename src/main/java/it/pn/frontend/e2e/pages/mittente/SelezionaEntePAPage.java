@@ -33,6 +33,7 @@ public class SelezionaEntePAPage extends BasePage {
     public void waitLoadSelezionaEntePAPage() {
         try {
             WebTool.waitTime(20);
+            logger.info("HTML..: "+driver.getPageSource());
             WebElement titlePage = driver.findElement(By.xpath("//h3[text()='Seleziona il tuo ente']"));
             WebElement searchField =  driver.findElement(By.id("search"));
             this.getWebDriverWait(30).withMessage("Titolo 'Seleziona il tuo ente' della pagina non è visualizza").until(ExpectedConditions.visibilityOf(titlePage));
