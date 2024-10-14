@@ -2,7 +2,7 @@ Feature: la persona fisica modifica l'indirizzo Email
 
   #@TestSuite
   @TA_modificaEmailPF
-  @PFz
+  @PF
   @recapitiPF
 
   Scenario: PN-9309 - la persona fisica modifica l'indirizzo Email
