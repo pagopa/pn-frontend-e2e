@@ -19,7 +19,7 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(id = "default_sms")
     WebElement phoneNumInputField;
 
-    @FindBy(xpath = "//button[@data-testid='courtesy-sms-button']")
+    @FindBy(id = "default_sms-button")
     WebElement avvisamiViaSMSButton;
 
     @FindBy(id = "addressType")
@@ -114,10 +114,9 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public void eliminaEmailEsistente() {
-        By eliminaMailButton = By.xpath("//button[@id='cancelContact-default']");
+        By eliminaMailButton = By.xpath("//button[@id='cancelContact-default_email']");
         getWebDriverWait(10).withMessage("il Bottone elimina e-mail non presente").until(ExpectedConditions.elementToBeClickable(eliminaMailButton));
         this.js().executeScript("arguments[0].click();", this.element(eliminaMailButton));
-        logger.info("Log eliminaEmailEsistente: " + driver.getPageSource());
     }
 
     public void insertEmail(String emailPEC) {
@@ -206,7 +205,7 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public void checkPostModifica() {
-        By saveButton = By.id("saveModifyButton-default");
+        By saveButton = By.id("saveContact-default_email");
         By cancelButton = By.xpath("//button[contains(text(),'Annulla')]");
         By emailField = By.id("default_email");
         getWebDriverWait(10).withMessage("Non si visualizza il bottone salva e non è cliccabile").until(ExpectedConditions.and(

@@ -13,8 +13,8 @@ import java.util.List;
 public class RecapitiDestinatarioPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("RecapitiDestinatarioPage");
 
-    @FindBy(id = "code-confirm-button")
-    WebElement confermaButton;
+    @FindBy(id = "default_pec-button")
+    WebElement attivaButton;
 
     @FindBy(id = "default_email-button")
     WebElement avvisamiViaEmailButton;
@@ -43,7 +43,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(xpath = "//button[@id='confirmDialog']")
     WebElement confermaButtonPoPUpPec;
 
-    @FindBy(xpath = "//button[@id='modifyContact-default']")
+    @FindBy(id = "modifyContact-default_email")
     WebElement modificaEmailButton;
 
     @FindBy(id = "sender")
@@ -77,7 +77,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     WebElement pecField;
 
 
-    @FindBy(xpath = "//div[@data-testid='legalContacts']")
+    @FindBy(id = "default_pec-typography")
     WebElement pecEmail;
 
     public RecapitiDestinatarioPage(WebDriver driver) {
@@ -188,7 +188,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(confermaButtonPopUp));
             confermaButtonPopUp.click();
             WebTool.waitTime(5);
-            By confermaButtonPostInserimentoBy = By.xpath("//div[@data-testid='dialog-actions']/button[contains(text(), 'Conferma')]");
+            By confermaButtonPostInserimentoBy = By.id("code-confirm-button");
             if (!driver.findElements(confermaButtonPostInserimentoBy).isEmpty()) {
                 element(confermaButtonPostInserimentoBy).click();
             }
@@ -325,7 +325,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickSuModifica() {
-        By modificaMailButton = By.xpath("//button[@id='modifyContact-default']");
+        By modificaMailButton = By.id("modifyContact-default_email");
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(modificaMailButton));
         if (modificaEmailButton.isDisplayed()) {
             this.modificaEmailButton.click();
@@ -337,7 +337,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void clickSuModificaPEC() {
         try {
-            By modificaButtonBy = By.xpath("//div[@data-testid='legalContacts']//button[@id='modifyContact-default']");
+            By modificaButtonBy = By.id("modifyContact-default_pec");
             this.getWebDriverWait(10).withMessage("Non si riesce a cliccare o vedere il bottone modifica PEC").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(modificaButtonBy),
                     ExpectedConditions.elementToBeClickable(modificaButtonBy)));
@@ -535,8 +535,8 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean verificaBottoneConfermaDisabilitato() {
         try {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.confermaButton));
-            return Boolean.parseBoolean(this.confermaButton.getAttribute("disabled"));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.attivaButton));
+            return Boolean.parseBoolean(this.attivaButton.getAttribute("disabled"));
         } catch (NoSuchElementException | TimeoutException e) {
             logger.error("bottone non disabilitato " + e.getMessage());
             return false;

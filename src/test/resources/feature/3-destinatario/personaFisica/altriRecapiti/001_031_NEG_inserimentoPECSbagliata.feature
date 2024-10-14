@@ -4,6 +4,7 @@ Feature: La persona fisica inserisce una PEC sbagliata
   @TA_inserimentoPECErrataPF
   @recapitiPF
   @PF
+  @Alima
 
   Scenario: PN-9240-B31 - La persona fisica inserisce una PEC sbagliata
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

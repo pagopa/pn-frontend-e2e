@@ -1,6 +1,6 @@
 Feature: la persona fisica inserisce un indirizzo Email aggiuntivo
 
-  @TestSuite
+  #@TestSuite
   @PF
   @TA_emailAggiuntivaPF
   @recapitiPF

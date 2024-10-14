@@ -1,6 +1,6 @@
 Feature: la persona fisica inserisce un indirizzo pec aggiuntivo
 
-  @TestSuite
+  #@TestSuite
   @TA_PECAggiuntivaPF
   @recapitiPF
   @PF

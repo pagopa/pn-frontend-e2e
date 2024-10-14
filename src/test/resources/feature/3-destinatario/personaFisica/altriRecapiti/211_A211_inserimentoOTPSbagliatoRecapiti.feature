@@ -4,6 +4,7 @@ Feature:La persona fisica inserisce una OTP sbagliato PEC
   @TA_inserimentoOTP3Volte
   @PF
   @recapitiPF
+    @Alima
 
     #TEST SOLO IN HEADLESS
   Scenario: Recapiti - Messaggio di errore dopo 3 tentativi inserimento OTP
@@ -20,13 +21,11 @@ Feature:La persona fisica inserisce una OTP sbagliato PEC
     And Cliccare sul bottone Annulla
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una email
     And Si inserisce l'email "email@test.it" e si clicca sul bottone avvisami via email
-    And Si visualizza correttamente il pop-up e si clicca su conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato tre volte "15494"
     And Si visualizza correttamente il messaggio di errore
     And Cliccare sul bottone Annulla
     And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono PF "3409876543" e clicca sul bottone avvisami via SMS
-    And Si visualizza correttamente il pop-up e si clicca su conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato tre volte "15494"
     And Si visualizza correttamente il messaggio di errore

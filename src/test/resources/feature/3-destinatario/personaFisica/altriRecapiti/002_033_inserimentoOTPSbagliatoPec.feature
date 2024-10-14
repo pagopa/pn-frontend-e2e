@@ -4,6 +4,7 @@ Feature:La persona fisica inserisce una OTP sbagliato PEC
   @TA_inserimentoOTPPECErratoPF
   @PF
   @recapitiPF
+    @Alima
 
   Scenario:La persona fisica loggato inserisce un OTP sbagliato PEC
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

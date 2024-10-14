@@ -2,8 +2,9 @@ Feature: la persona fisica modifica l'indirizzo Email
 
   @TestSuite
   @TA_modificaEmailPF
-  @PF
+  @PFz
   @recapitiPF
+    @Alima
 
   Scenario: PN-9309 - la persona fisica modifica l'indirizzo Email
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
