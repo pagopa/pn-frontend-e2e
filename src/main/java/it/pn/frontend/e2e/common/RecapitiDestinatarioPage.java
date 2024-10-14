@@ -37,7 +37,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "default_sms")
     WebElement inserimentoPhoneField;
 
-    @FindBy(id = "cancelContact-default")
+    @FindBy(id = "cancelContact-default_pec")
     WebElement eliminaPECButton;
 
     @FindBy(xpath = "//button[@id='confirmDialog']")
@@ -542,8 +542,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             return false;
         }
     }
-
-   public void clickHoCapitoCheckBoxPopup() {
+    public void clickHoCapitoCheckBoxPopup() {
         By hoCapitoCheckboxBy = By.xpath("//span[contains(text(),'Ho capito')]/preceding-sibling::span/input");
         WebElement hoCapitoCheckBox = this.driver.findElement(hoCapitoCheckboxBy);
         logger.info("click su checkbox ho capito");
@@ -551,7 +550,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void confermaEmailPopup() {
-        By popupConfirmButtonBy = By.id("confirmButton");
+        By popupConfirmButtonBy = By.id("code-confirm-button");
         getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(popupConfirmButtonBy));
         this.driver.findElement(popupConfirmButtonBy).click();
     }
@@ -576,7 +575,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void visualizzazioneSezioneAltriRecapiti() {
-        By altriRecapitiSectionBy = By.id("specialContact");
+        By altriRecapitiSectionBy = By.id("courtesyContactsTitle");
         getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
     }
 
