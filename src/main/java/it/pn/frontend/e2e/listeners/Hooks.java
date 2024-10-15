@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.listeners;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import io.cucumber.java.en.And;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import it.pn.frontend.e2e.model.address.DigitalAddress;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
@@ -208,6 +209,7 @@ public class Hooks {
     }
 
     @After("@DeleghePF or @DeleghePG")
+    @And("Revoca deleghe se esistono")
     public void clearDelegate() {
         logger.info("Revoking all delegations...");
         var mandateId = MandateSingleton.getInstance().getMandateId(Hooks.getScenario());
@@ -237,6 +239,7 @@ public class Hooks {
     }
 
     @After("@recapitiPF or @recapitiPG")
+    @And("Rimuovi tutti i recapiti se esistono")
     public void clearRecapiti() {
         var restContact = RestContact.getInstance();
         var digitalAddresses = restContact.getAllDigitalAddress();
