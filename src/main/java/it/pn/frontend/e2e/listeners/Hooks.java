@@ -209,6 +209,7 @@ public class Hooks {
     }
 
     @After("@DeleghePF or @DeleghePG")
+    @Before("@DeleghePF or @DeleghePG")
     @And("Revoca deleghe se esistono")
     public void clearDelegate() {
         logger.info("Revoking all delegations...");
@@ -239,6 +240,7 @@ public class Hooks {
     }
 
     @After("@recapitiPF or @recapitiPG")
+    @Before("@recapitiPF or @recapitiPG")
     @And("Rimuovi tutti i recapiti se esistono")
     public void clearRecapiti() {
         var restContact = RestContact.getInstance();
