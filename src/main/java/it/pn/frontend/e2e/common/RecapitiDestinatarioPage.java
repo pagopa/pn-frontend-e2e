@@ -13,10 +13,10 @@ import java.util.List;
 public class RecapitiDestinatarioPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("RecapitiDestinatarioPage");
 
-    @FindBy(id = "add-contact")
-    WebElement confermaButton;
+    @FindBy(id = "default_pec-button")
+    WebElement attivaButton;
 
-    @FindBy(xpath = "//button[@data-testid='courtesy-email-button']")
+    @FindBy(id = "default_email-button")
     WebElement avvisamiViaEmailButton;
 
     @FindBy(id = "code-confirm-button")
@@ -37,13 +37,13 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "default_sms")
     WebElement inserimentoPhoneField;
 
-    @FindBy(id = "cancelContact-default")
+    @FindBy(id = "cancelContact-default_pec")
     WebElement eliminaPECButton;
 
     @FindBy(xpath = "//button[@id='confirmDialog']")
     WebElement confermaButtonPoPUpPec;
 
-    @FindBy(xpath = "//button[@id='modifyContact-default']")
+    @FindBy(id = "modifyContact-default_email")
     WebElement modificaEmailButton;
 
     @FindBy(id = "sender")
@@ -77,7 +77,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     WebElement pecField;
 
 
-    @FindBy(xpath = "//div[@data-testid='legalContacts']")
+    @FindBy(id = "default_pec-typography")
     WebElement pecEmail;
 
     public RecapitiDestinatarioPage(WebDriver driver) {
@@ -111,13 +111,13 @@ public class RecapitiDestinatarioPage extends BasePage {
         pecField = driver.findElement(By.id("default_pec"));
         getWebDriverWait(10).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOf(pecField));
         pecField.sendKeys(emailPEC);
-    }
+        }
 
     public void confermaButtonClick() {
         WebTool.waitTime(5);
-        confermaButton = driver.findElement(By.id("add-contact"));
-        getWebDriverWait(10).withMessage("Il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.confermaButton));
-        this.confermaButton.click();
+        By attivaButton = By.id("default_pec-button");
+        getWebDriverWait(10).withMessage("Il bottone Attiva non è cliccabile").until(ExpectedConditions.elementToBeClickable(element(attivaButton)));
+        element(attivaButton).click();
     }
 
     public void clickConfermaButtonEliminaPopUp() {
@@ -134,7 +134,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             By titleOption = By.xpath("//div[@data-testid='dialog-content']//p[contains(text(), 'Inserisci codice')]");
             List<WebElement> inputBoxes = driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"));
             // The message is different in PG and PF
-            By footerNotReceived = By.xpath("//p[contains(text(), 'Non l’hai ricevuto? Controlla')]");
+            By footerNotReceived = By.xpath("//div[contains(text(), 'Non l’hai ricevuto?')]");
             getWebDriverWait(10).withMessage("Non viene visualizzato correttamente il titolo").until(ExpectedConditions.visibilityOfElementLocated(titleBy));
             getWebDriverWait(10).withMessage("La descrizione non viene visualizzata e il testo non è corretto").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(descriptionBy),
@@ -188,7 +188,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(confermaButtonPopUp));
             confermaButtonPopUp.click();
             WebTool.waitTime(5);
-            By confermaButtonPostInserimentoBy = By.xpath("//div[@data-testid='dialog-actions']/button[contains(text(), 'Conferma')]");
+            By confermaButtonPostInserimentoBy = By.id("code-confirm-button");
             if (!driver.findElements(confermaButtonPostInserimentoBy).isEmpty()) {
                 element(confermaButtonPostInserimentoBy).click();
             }
@@ -252,7 +252,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean verificaPecAssociata() {
         try {
-            By pecAssociata = By.id("associatedPEC");
+            By pecAssociata = By.id("default_pec-typography");
             getWebDriverWait(10).withMessage("PEC associata non presente").until(ExpectedConditions.visibilityOfElementLocated(pecAssociata));
             return true;
         } catch (NoSuchElementException | TimeoutException e) {
@@ -325,7 +325,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickSuModifica() {
-        By modificaMailButton = By.xpath("//button[@id='modifyContact-default']");
+        By modificaMailButton = By.id("modifyContact-default_email");
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(modificaMailButton));
         if (modificaEmailButton.isDisplayed()) {
             this.modificaEmailButton.click();
@@ -337,7 +337,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void clickSuModificaPEC() {
         try {
-            By modificaButtonBy = By.xpath("//div[@data-testid='legalContacts']//button[@id='modifyContact-default']");
+            By modificaButtonBy = By.id("modifyContact-default_pec");
             this.getWebDriverWait(10).withMessage("Non si riesce a cliccare o vedere il bottone modifica PEC").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(modificaButtonBy),
                     ExpectedConditions.elementToBeClickable(modificaButtonBy)));
@@ -535,14 +535,13 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean verificaBottoneConfermaDisabilitato() {
         try {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.confermaButton));
-            return Boolean.parseBoolean(this.confermaButton.getAttribute("disabled"));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.attivaButton));
+            return Boolean.parseBoolean(this.attivaButton.getAttribute("disabled"));
         } catch (NoSuchElementException | TimeoutException e) {
             logger.error("bottone non disabilitato " + e.getMessage());
             return false;
         }
     }
-
     public void clickHoCapitoCheckBoxPopup() {
         By hoCapitoCheckboxBy = By.xpath("//span[contains(text(),'Ho capito')]/preceding-sibling::span/input");
         WebElement hoCapitoCheckBox = this.driver.findElement(hoCapitoCheckboxBy);
@@ -551,7 +550,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void confermaEmailPopup() {
-        By popupConfirmButtonBy = By.id("confirmButton");
+        By popupConfirmButtonBy = By.id("code-confirm-button");
         getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(popupConfirmButtonBy));
         this.driver.findElement(popupConfirmButtonBy).click();
     }
@@ -576,7 +575,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void visualizzazioneSezioneAltriRecapiti() {
-        By altriRecapitiSectionBy = By.id("specialContact");
+        By altriRecapitiSectionBy = By.id("courtesyContactsTitle");
         getWebDriverWait(5).withMessage(" Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOfElementLocated(altriRecapitiSectionBy));
     }
 

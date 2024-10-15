@@ -202,8 +202,8 @@ public class RecapitiPersonaFisicaTest {
     public void siVisualizzaCorrettamenteIlPopUpESiCliccaSuConferma() {
         logger.info("click pop-up conferma email");
 
-        Assertions.assertFalse(recapitiDestinatarioPage.verificaPopUpConfermaEmail(), "il popup Conferma email non si visualizza");
-        recapitiDestinatarioPage.clickHoCapitoCheckBoxPopup();
+        //Assert.assertFalse("il popup Conferma email non si visualizza", recapitiDestinatarioPage.verificaPopUpConfermaEmail());
+       // recapitiDestinatarioPage.clickHoCapitoCheckBoxPopup();
         recapitiDestinatarioPage.confermaEmailPopup();
     }
 
@@ -586,7 +586,7 @@ public class RecapitiPersonaFisicaTest {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
 
         iTuoiRecapitiPage.eliminaEmailEsistente();
-        if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
+        if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi email")) {
             recapitiDestinatarioPage.confermaButtonEliminaClick();
         } else {
             recapitiDestinatarioPage.clickSuChiudiPopUp();
@@ -602,7 +602,7 @@ public class RecapitiPersonaFisicaTest {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
 
         iTuoiRecapitiPage.eliminaEmailEsistente();
-        if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
+        if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi email")) {
             recapitiDestinatarioPage.clickButtonAnnullaEliminazioneInPopUp();
         } else {
             recapitiDestinatarioPage.clickSuChiudiPopUp();

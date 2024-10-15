@@ -87,7 +87,7 @@ public class RecapitiTest {
     @Then("Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio email errata")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioEmailErrata() {
         String errorMessageRead = recapitiDestinatarioPage.getEmailErrorMessage();
-        if (!errorMessageRead.contains("Indirizzo e-mail non valido") && !errorMessageRead.contains("Scrivi massimo 254 caratteri")) {
+        if (!errorMessageRead.contains("Indirizzo email non valido") && !errorMessageRead.contains("Scrivi massimo 254 caratteri")) {
             Assertions.fail("messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo e-mail non valido o Scrivi massimo 254 caratteri");
         }
     }
