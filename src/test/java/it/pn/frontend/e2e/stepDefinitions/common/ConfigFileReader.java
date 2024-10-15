@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.stepDefinitions.common;
 
 import io.cucumber.java.After;
 import io.cucumber.java.BeforeAll;
+import org.junit.jupiter.api.AfterAll;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.*;
@@ -53,7 +54,7 @@ public class ConfigFileReader {
         logger.info("start the test suite = " + testSuite);
     }
 
-    @After
+    @AfterAll
     public static void finishTestSuite() {
         logger.info("finish the test suite = " + testSuite);
     }
