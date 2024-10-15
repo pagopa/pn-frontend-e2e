@@ -176,6 +176,7 @@ public class Hooks {
         }
 
         cookieConfig.addCookie();
+
     }
 
     @After
