@@ -163,8 +163,9 @@ public class RecapitiPersonaFisicaTest {
 
     @Then("Si visualizza correttamente il messaggio di pec errata")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioDiPecErrata() {
+        WebTool.waitTime(3);
         String errorMessageRead = recapitiDestinatarioPage.getPecErrorMessage();
-        Assertions.assertEquals("messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo PEC non valido", "Indirizzo PEC non valido", errorMessageRead);
+        Assertions.assertEquals( "Indirizzo PEC non valido", errorMessageRead, "messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo PEC non valido");
     }
 
     @And("Si controlla che il tasto conferma sia bloccato")
