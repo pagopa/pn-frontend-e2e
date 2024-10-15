@@ -28,7 +28,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(xpath = "//button[@data-testid='add email']")
     WebElement avvisamiMailButton;
 
-    @FindBy(xpath = "//button[@data-testid='courtesy-sms-button']")
+    @FindBy(id = "default_sms-button")
     WebElement avvisamiSMSButton;
 
     @FindBy(id = "default_email")
@@ -692,7 +692,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickSuBottoneEmailDiCortesia(String actionButton) {
-        By bottoneActionBy = By.xpath("//form[contains(., 'Indirizzo e-mail')]//button[contains(text(), '" + actionButton + "')]");
+        By bottoneActionBy = By.xpath("//button[contains(text(), '" + actionButton + "')]");
         getWebDriverWait(10).withMessage("Il bottone non è cliccabile").until(ExpectedConditions.visibilityOfElementLocated(bottoneActionBy));
         this.element(bottoneActionBy).click();
     }

@@ -1,9 +1,8 @@
 Feature: la persona giuridica inserisce un recapito aggiuntivo da un ente radice
 
-  @TestSuite
   @TA_inserimentoRecapitoAggiuntivoDaEnteRadicePG
   @PG
-  @recapitiPG
+
 
   Scenario: PN-10430 - La persona giuridica inserisce un recapito aggiuntivo da un ente radice
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

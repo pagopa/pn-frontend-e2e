@@ -1,9 +1,9 @@
 Feature: La persona giuridica visualizza tutti gli elementi della sezione altri recapiti
 
-  @TestSuite
+
   @TA_visualizzazioneSezioneAltriRecapitiPG
   @PG
-  @recapitiPG
+
 
   Scenario: PN-9162 - La persona giuridica visualizza tutti gli elementi della sezione altri recapiti
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
