@@ -1,8 +1,8 @@
 package it.pn.frontend.e2e.listeners;
+
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import io.cucumber.java.en.And;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import it.pn.frontend.e2e.model.address.DigitalAddress;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
@@ -11,19 +11,15 @@ import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import lombok.Getter;
 import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.*;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.DevToolsException;
 import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.v126.network.Network;
-import org.openqa.selenium.devtools.v126.network.model.Headers;
 import org.openqa.selenium.devtools.v126.network.model.RequestWillBeSent;
-import org.openqa.selenium.devtools.v126.network.model.ResourceType;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -33,316 +29,226 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
-
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 public class Hooks {
-    private static final Logger logger = LoggerFactory.getLogger("Hooks");
+    private static final Logger logger = LoggerFactory.getLogger(Hooks.class);
     public static WebDriver driver;
-    public DevTools devTools;
-    public Map<String, RequestWillBeSent> requests = new HashMap<>();
-    ;
-
+    private DevTools devTools;
+    private final Map<String, RequestWillBeSent> requests = new HashMap<>();
     @Getter
     public static String scenario;
-    public static List<NetWorkInfo> netWorkInfos = new ArrayList<>();
+    public static final List<NetWorkInfo> netWorkInfos = new ArrayList<>();
     private String headless;
     private final CookieConfig cookieConfig = new CookieConfig();
     private final String os = System.getProperty("os.name");
 
 
-
-    protected void firefox() {
+    private void setupFirefox() {
         WebDriverManager.firefoxdriver().setup();
-        FirefoxProfile profile = new FirefoxProfile();
-        FirefoxOptions firefoxOptions = new FirefoxOptions();
-        firefoxOptions.setProfile(profile);
+        var firefoxProfile = new FirefoxProfile();
+        var firefoxOptions = new FirefoxOptions();
+        firefoxOptions.setProfile(firefoxProfile);
         firefoxOptions.addArguments("-private");
 
-        if (this.headless != null && this.headless.equalsIgnoreCase("true")) {
-            firefoxOptions.addArguments("--width=1200");
-            firefoxOptions.addArguments("--height=800");
-            firefoxOptions.addArguments("--headless");
+        if (Boolean.parseBoolean(this.headless)) {
+            firefoxOptions.addArguments("--width=1200", "--height=800", "--headless");
         }
         driver = new FirefoxDriver(firefoxOptions);
-        if (this.headless != null && this.headless.equalsIgnoreCase("false")) {
-            driver.manage().window().maximize();
-        }
+        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        logger.info("firefox driver started");
+        logger.info("Firefox driver started");
     }
 
-    protected void chrome() {
+    private void setupChrome() {
         WebDriverManager.chromedriver().setup();
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--lang=it");
-        chromeOptions.addArguments("--incognito");
-        chromeOptions.addArguments("--disable-dev-shm-usage");
-        chromeOptions.addArguments("--remote-allow-origins=*");
-        chromeOptions.addArguments("--enable-clipboard");
-        String downloadFilepath = System.getProperty("downloadFilePath");
-
-        HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
-        chromePrefs.put("download.default_directory", downloadFilepath);
-
+        var chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--lang=it", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard");
+        var downloadFilePath = System.getProperty("downloadFilePath");
+        var chromePrefs = Map.of("download.default_directory", downloadFilePath);
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
-        if (this.headless != null && this.headless.equalsIgnoreCase("true")) {
-            chromeOptions.addArguments("--no-sandbox");
-            chromeOptions.addArguments("headless");
-            chromeOptions.addArguments("window-size=1920,1080");
+
+        if (Boolean.parseBoolean(this.headless)) {
+            chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
         }
 
         driver = new ChromeDriver(chromeOptions);
-        if (this.headless != null && this.headless.equalsIgnoreCase("false")) {
-            driver.manage().window().maximize();
-        }
-
+        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
+        setupDevTools();
+        logger.info("Chrome driver started");
+    }
+
+    private void setupDevTools() {
         devTools = ((HasDevTools) driver).getDevTools();
         devTools.createSession();
-        devTools.send(Network.enable(
-                Optional.empty(),
-                Optional.empty(),
-                Optional.empty()
-        ));
-
-        this.captureHttpRequests();
-        this.captureHttpResponse();
-        logger.info("chromedriver started");
+        devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+        captureHttpRequests();
+        captureHttpResponse();
     }
 
     private void captureHttpRequests() {
-        devTools.addListener(
-                Network.requestWillBeSent(),
-                request -> {
-                    String url = request.getRequest().getUrl();
-                    if (!cookieConfig.getCookies(url).isEmpty()) {
-                        cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
-                    }
-                    requests.put(request.getRequestId().toString(), request);
-                }
-        );
+        devTools.addListener(Network.requestWillBeSent(), request -> {
+            var url = request.getRequest().getUrl();
+            cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
+            requests.put(request.getRequestId().toString(), request);
+        });
     }
 
-    public void captureHttpResponse() {
-        devTools.addListener(
-                Network.responseReceived(),
-                response -> {
-                    String requestId = response.getRequestId().toString();
-                    if (requests.containsKey(requestId)) {
-                        RequestWillBeSent request = requests.get(requestId);
-                        Headers headers = request.getRequest().getHeaders();
-                        if (response.getType().equals(ResourceType.XHR)) {
-                            NetWorkInfo netWorkInfo = new NetWorkInfo();
-                            if (headers.get("Authorization") != null) {
-                                System.setProperty("token", Objects.requireNonNull(headers.get("Authorization")).toString());
-                                netWorkInfo.setAuthorizationBearer(
-                                        (Objects.requireNonNull(headers.get("Authorization"))).toString());
-                            }
-                            netWorkInfo.setRequestId(requestId);
-                            netWorkInfo.setRequestUrl(request.getRequest().getUrl());
-                            netWorkInfo.setRequestMethod(request.getRequest().getMethod());
-                            netWorkInfo.setResponseStatus(response.getResponse().getStatus().toString());
-                            try {
-                                String bodyResponse = devTools.send(Network.getResponseBody(response.getRequestId())).getBody();
-                                netWorkInfo.setResponseBody(bodyResponse);
-                            } catch (DevToolsException ignored) {
-                                // Ignored because the response body is not always available.
-                            }
-                            netWorkInfos.add(netWorkInfo);
-                        }
+    private void captureHttpResponse() {
+        devTools.addListener(Network.responseReceived(), response -> {
+            var requestId = response.getRequestId().toString();
+            if (requests.containsKey(requestId)) {
+                var request = requests.get(requestId);
+                var headers = request.getRequest().getHeaders();
+
+                // Controlla il tipo di risorsa come stringa "XHR"
+                if ("XHR".equals(response.getType().toString())) {
+                    var netWorkInfo = new NetWorkInfo();
+                    if (headers.get("Authorization") != null) {
+                        var authHeader = headers.get("Authorization").toString();
+                        System.setProperty("token", authHeader);
+                        netWorkInfo.setAuthorizationBearer(authHeader);
                     }
-                    requests.remove(requestId);
+                    netWorkInfo.setRequestId(requestId);
+                    netWorkInfo.setRequestUrl(request.getRequest().getUrl());
+                    netWorkInfo.setRequestMethod(request.getRequest().getMethod());
+                    netWorkInfo.setResponseStatus(response.getResponse().getStatus().toString());
+
+                    try {
+                        var bodyResponse = devTools.send(Network.getResponseBody(response.getRequestId())).getBody();
+                        netWorkInfo.setResponseBody(bodyResponse);
+                    } catch (Exception ignored) {
+                        // Ignorato perché non sempre è disponibile il body della risposta
+                    }
+
+                    netWorkInfos.add(netWorkInfo);
                 }
-        );
+            }
+            requests.remove(requestId);
+        });
     }
 
-
-    protected void edge() {
+    private void setupEdge() {
         if (this.os.toLowerCase().contains("windows")) {
             WebDriverManager.edgedriver().setup();
         } else {
-            Assertions.fail("browser edge non compatibile con il os : " + this.os);
+            throw new UnsupportedOperationException("Edge browser is not supported on OS: " + this.os);
         }
-        EdgeOptions edgeOptions = new EdgeOptions();
+        var edgeOptions = new EdgeOptions();
         edgeOptions.setCapability("ms:inPrivate", true);
-        if (this.headless != null && this.headless.equalsIgnoreCase("true")) {
-            edgeOptions.addArguments("window-size=1920,1080");
-            edgeOptions.addArguments("--headless");
+        if (Boolean.parseBoolean(this.headless)) {
+            edgeOptions.addArguments("window-size=1920,1080", "--headless");
         }
         driver = new EdgeDriver(edgeOptions);
-        if (this.headless != null && this.headless.equalsIgnoreCase("false")) {
-            driver.manage().window().maximize();
-        }
-
+        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-        logger.info("edge driver started");
+        logger.info("Edge driver started");
     }
 
     @Before
     public void startScenario(Scenario scenario) {
+        logger.info("----- START SCENARIO: {} -----", scenario.getName());
+        Hooks.scenario = scenario.getName();
 
-        logger.info("-------------------------------------------START SCENARIO: " + scenario.getName() + "------------------------------------------------");
-        this.scenario = scenario.getName();
+        scenario.getSourceTagNames().stream()
+                .filter(tag -> tag.startsWith("@TA_"))
+                .forEach(tag -> {
+                    MDC.put("tag", tag);
+                    MDC.put("team", "TA-QA");
+                });
 
-        Collection<String> tags = scenario.getSourceTagNames();
-        for (String tag : tags) {
-            if (tag.startsWith("@TA_")) {
-                MDC.put("tag", tag);
-                MDC.put("team", "TA-QA");
-            }
-        }
+        var browser = Optional.ofNullable(System.getProperty("browser"))
+                .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
+        this.headless = System.getProperty("headless", "false");
 
-        logger.info("os type : " + this.os);
-        logger.info("user language : " + System.getProperty("user.language"));
-
-        String browser = null;
-        logger.info("user language : " + System.getProperty("user.language"));
-        if (System.getProperty("browser") == null) {
-            Assertions.fail("valorizzare la variabile browser");
-        } else {
-            browser = System.getProperty("browser");
-        }
-        if (System.getProperty("headless") != null) {
-            this.headless = System.getProperty("headless");
-        }
-        if (System.getProperty("environment") == null) {
-            Assertions.fail("valorizzare la variabile environment");
-        }
         switch (browser) {
-            case "firefox" -> firefox();
-            case "chrome" -> chrome();
-            case "edge" -> edge();
-            default -> {
-                logger.error("browser not correct");
-                Assertions.fail("browser not correct");
-            }
+            case "firefox" -> setupFirefox();
+            case "chrome" -> setupChrome();
+            case "edge" -> setupEdge();
+            default -> throw new IllegalArgumentException("Unsupported browser: " + browser);
         }
+
         cookieConfig.addCookie();
     }
 
     @After
-    public void endScenario(Scenario scenario) {
-
+    public void endScenario(Scenario scenario) throws IOException {
         System.clearProperty("IUN");
-
-        for (NetWorkInfo netWorkInfo : netWorkInfos) {
-            logger.info(netWorkInfo.getRequestId());
-            logger.info(netWorkInfo.getRequestUrl());
-            logger.info(netWorkInfo.getRequestMethod());
-            logger.info(netWorkInfo.getResponseStatus());
-            logger.info(netWorkInfo.getResponseBody());
-        }
+        netWorkInfos.forEach(netWorkInfo -> {
+            logger.info("Request ID: {}", netWorkInfo.getRequestId());
+            logger.info("Request URL: {}", netWorkInfo.getRequestUrl());
+            logger.info("Method: {}", netWorkInfo.getRequestMethod());
+            logger.info("Response Status: {}", netWorkInfo.getResponseStatus());
+            logger.info("Response Body: {}", netWorkInfo.getResponseBody());
+        });
 
         if (scenario.isFailed()) {
-            logger.error("scenario go to error : " + scenario.getName());
-            try {
-                File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-                byte[] screenshotByte = FileUtils.readFileToByteArray(screenshot);
-                Date date = Calendar.getInstance().getTime();
-                DateFormat formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
-                String today = formatter.format(date);
-                String testCaseFailed = "logs/" + scenario.getName() + "_" + today + ".png";
-                FileUtils.copyFile(screenshot, new File(testCaseFailed));
-                scenario.attach(screenshotByte, "image/png", scenario.getName());
-            } catch (IOException e) {
-                logger.error(e.getCause().toString());
-            }
+            logger.error("Scenario failed: {}", scenario.getName());
+            var screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            var screenshotBytes = Files.readAllBytes(screenshot.toPath());
+            var formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
+            var timestamp = formatter.format(new Date());
+            var fileName = "logs/" + scenario.getName() + "_" + timestamp + ".png";
+            FileUtils.copyFile(screenshot, new File(fileName));
+            scenario.attach(screenshotBytes, "image/png", scenario.getName());
         }
 
-
-        logger.info("quit driver");
         driver.quit();
         requests.clear();
         netWorkInfos.clear();
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        logger.info("-------------------------------------------END SCENARIO: " + scenario.getName() + "------------------------------------------------");
+        logger.info("----- END SCENARIO: {} -----", scenario.getName());
     }
 
-    /**
-     * Clear the delegate of PF after the scenario
-     * P.S: This will work only if you invoke the feature step that creates the delegate
-     */
-   @After("@DeleghePF or @DeleghePG")
+    @After("@DeleghePF or @DeleghePG")
     public void clearDelegate() {
-        logger.info("REVOCA TUTTE LE DELEGHE....");
-        MandateSingleton mandateSingleton = MandateSingleton.getInstance();
-        String mandateId = mandateSingleton.getMandateId(Hooks.getScenario());
+        logger.info("Revoking all delegations...");
+        var mandateId = MandateSingleton.getInstance().getMandateId(Hooks.getScenario());
         if (mandateId != null) {
-            logger.info("REVOCA DELEGA: "+mandateId);
-            RestDelegation restDelegation = RestDelegation.getInstance();
-            restDelegation.revokeDelegation(mandateId);
-            logger.info("Delega revocata con successo");
+            RestDelegation.getInstance().revokeDelegation(mandateId);
+            logger.info("Delegation revoked: {}", mandateId);
         } else {
-            logger.info("mandateId non trovato");
+            logger.info("Mandate ID not found");
         }
     }
 
-    /**
-     * Clear directory of file downloaded
-     * P.S: This will work only if you invoke the feature step that creates the delegate
-     */
     @After("@File")
     public void clearDirectory() {
-        String folderPath = System.getProperty("downloadFilePath");
-
-        File folder = new File(folderPath);
-
+        var folderPath = System.getProperty("downloadFilePath");
+        var folder = new File(folderPath);
         if (folder.isDirectory()) {
-            File[] files = folder.listFiles();
-            for (File file : files) {
-                if (file.isFile()) {
-                    if (file.delete()) {
-                        System.out.println("File cancellato: " + file.getAbsolutePath());
-                    } else {
-                        System.out.println("Impossibile cancellare il file: " + file.getAbsolutePath());
-                    }
-                }
-            }
+            Arrays.stream(Objects.requireNonNull(folder.listFiles()))
+                    .filter(File::isFile)
+                    .forEach(file -> {
+                        if (file.delete()) {
+                            logger.info("Deleted file: {}", file.getAbsolutePath());
+                        } else {
+                            logger.warn("Failed to delete file: {}", file.getAbsolutePath());
+                        }
+                    });
         }
     }
 
-    /**
-     * Clear the contacts of PF after the scenario
-     * P.S: This will work only if there are any contacts available
-     */
-
-    @After(value = "@recapitiPF or @recapitiPG")
-    @And("Rimuovi tutti i recapiti se esistono")
-    public void clearRecapiti() throws IOException {
-
-        RestContact restContact = RestContact.getInstance();
-        List<DigitalAddress> digitalAddress = restContact.getAllDigitalAddress();
-        
-        // Check for legal ones and remove them
-        if (digitalAddress != null) {
-            logger.info("SENDER DIGITAL ADDRESS...." + digitalAddress);
-            logger.info("SENDER DIGITAL ADDRESS...." + digitalAddress.size());
-            digitalAddress.forEach(addressDigital -> {
-                logger.info("SENDER_ID: " + addressDigital.getSenderId());
-                if (addressDigital.getSenderId().equalsIgnoreCase("default")) {
-
-                    if ("PEC".equalsIgnoreCase(addressDigital.getChannelType())) {
-                        logger.info("Remove Digital Address LegalPec: " + addressDigital.getSenderId());
+    @After("@recapitiPF or @recapitiPG")
+    public void clearRecapiti() {
+        var restContact = RestContact.getInstance();
+        var digitalAddresses = restContact.getAllDigitalAddress();
+        if (digitalAddresses != null && !digitalAddresses.isEmpty()) {
+            digitalAddresses.forEach(address -> {
+                if ("default".equalsIgnoreCase(address.getSenderId())) {
+                    if ("PEC".equalsIgnoreCase(address.getChannelType())) {
                         restContact.removeDigitalAddressLegalPec();
                     } else {
-                        logger.info("Remove Digital Address Courtesy Email: " + addressDigital.getSenderId());
                         restContact.removeDigitalAddressCourtesyEmail();
                     }
                 } else {
-                    logger.info("Remove Special Contact: " + addressDigital.getSenderId());
-                    restContact.removeSpecialContact(addressDigital);
+                    restContact.removeSpecialContact(address);
                 }
             });
         }
