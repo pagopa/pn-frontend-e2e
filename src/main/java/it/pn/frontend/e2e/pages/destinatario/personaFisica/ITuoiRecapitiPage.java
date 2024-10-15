@@ -19,14 +19,14 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(id = "default_sms")
     WebElement phoneNumInputField;
 
-    @FindBy(xpath = "//button[@data-testid='courtesy-sms-button']")
+    @FindBy(id = "default_sms-button")
     WebElement avvisamiViaSMSButton;
 
     @FindBy(id = "addressType")
     WebElement tipoIndirizzoField;
 
-    @FindBy(id = "subtitle-page")
-    List<WebElement> subTitlesSection;
+    @FindBy(xpath = "//*[@id='legalContactsSection']/p")
+    WebElement subTitlesSection;
 
     public ITuoiRecapitiPage(WebDriver driver) {
         super(driver);
@@ -114,10 +114,9 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public void eliminaEmailEsistente() {
-        By eliminaMailButton = By.xpath("//button[@id='cancelContact-default']");
+        By eliminaMailButton = By.xpath("//button[@id='cancelContact-default_email']");
         getWebDriverWait(10).withMessage("il Bottone elimina e-mail non presente").until(ExpectedConditions.elementToBeClickable(eliminaMailButton));
         this.js().executeScript("arguments[0].click();", this.element(eliminaMailButton));
-        logger.info("Log eliminaEmailEsistente: " + driver.getPageSource());
     }
 
     public void insertEmail(String emailPEC) {
@@ -206,7 +205,7 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public void checkPostModifica() {
-        By saveButton = By.id("saveModifyButton-default");
+        By saveButton = By.id("saveContact-default_email");
         By cancelButton = By.xpath("//button[contains(text(),'Annulla')]");
         By emailField = By.id("default_email");
         getWebDriverWait(10).withMessage("Non si visualizza il bottone salva e non è cliccabile").until(ExpectedConditions.and(
@@ -223,26 +222,25 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void checkRiquadroPEC() {
         try {
-            By titleSection = By.xpath("//div[@data-testid='DigitalContactsCardBody']//*/div/div");
+            By titleSection = By.id("legalContactsTitle");
             By pecField = By.id("default_pec");
-            By confirmButton = By.id("add-contact");
-            By infoBanner = By.xpath("//span[@data-testid='legal-contact-disclaimer']");
+            By confirmButton = By.id("default_pec-button");
+            By infoBanner = By.xpath("//p[@data-testid='DigitalContactsCardDescription']");
             getWebDriverWait(10).withMessage("Non si visualizza il titolo della sezione recapito legale o il contenuto è errato").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(titleSection),
-                    ExpectedConditions.attributeToBe(this.element(titleSection), "innerText", "Recapito legale")));
+                    ExpectedConditions.attributeToBe(this.element(titleSection), "innerText", "Recapito a valore legale")));
             getWebDriverWait(10).withMessage("Non si visualizza il sottotitolo della sezione recapito legale o il contenuto è errato").until(ExpectedConditions.and(
-                    ExpectedConditions.visibilityOf(subTitlesSection.get(1)),
-                    ExpectedConditions.attributeToBe(subTitlesSection.get(1), "innerText", "Quando c’è una notifica per te, ti inviamo qui l’avviso di avvenuta ricezione. Accedi a SEND per leggerla e pagare eventuali spese.")));
+                    ExpectedConditions.visibilityOf(subTitlesSection),
+                    ExpectedConditions.attributeToBe(subTitlesSection, "innerText", "È il recapito ufficiale che scegli per ricevere comunicazioni a valore legale dalla PA. Se attivi un recapito a valore legale riceverai le notifiche di SEND solo in digitale, senza più preoccuparti dei documenti cartacei.")));
             getWebDriverWait(10).withMessage("Non si visualizza il campo pec o non è modificabile").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(pecField),
-                    ExpectedConditions.attributeToBe(this.element(pecField), "readonly", ""),
-                    ExpectedConditions.attributeToBe(this.element(pecField), "placeholder", "Il tuo indirizzo PEC")));
+                    ExpectedConditions.attributeToBe(this.element(pecField), "placeholder", "La tua PEC")));
             getWebDriverWait(10).withMessage("Non si visualizza il bottone conferma o non è cliccabile").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(confirmButton),
                     ExpectedConditions.not(ExpectedConditions.elementToBeClickable(confirmButton))));
             getWebDriverWait(10).withMessage("Non si visualizza il banner informativo o il suo contenuto è errato").until(ExpectedConditions.and(
-                    ExpectedConditions.visibilityOfElementLocated(infoBanner),
-                    ExpectedConditions.attributeToBe(this.element(infoBanner), "innerText", "Questo è l’indirizzo principale che verrà utilizzato per inviarti gli avvisi di avvenuta ricezione in via digitale. Inserendolo, non riceverai più raccomandate cartacee.")));
+                    ExpectedConditions.visibilityOf(elements(infoBanner).get(1)),
+                    ExpectedConditions.attributeToBe(this.elements(infoBanner).get(1), "innerText", "Quando un ente invia una comunicazione per te su SEND, ricevi l’avviso ufficiale sulla PEC che hai scelto.")));
             logger.info("Il riquadro PEC si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il riquadro PEC NON si visualizza correttamente con errori:" + e.getMessage());
