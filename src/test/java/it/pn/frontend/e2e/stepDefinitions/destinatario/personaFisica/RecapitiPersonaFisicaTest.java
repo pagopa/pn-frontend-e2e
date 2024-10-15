@@ -243,7 +243,7 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioDiNumeroDiTelefonoErrato() {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         String errorMessageRead = iTuoiRecapitiPage.getPhoneErrorMessage();
-        Assertions.assertEquals("messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Numero di cellulare non valido", "Numero di cellulare non valido", errorMessageRead);
+        Assertions.assertEquals("Numero di cellulare non valido", errorMessageRead, "messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Numero di cellulare non valido");
 
     }
 
