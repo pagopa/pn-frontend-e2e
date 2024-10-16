@@ -311,7 +311,7 @@ public class DeleghePagoPATest {
         this.leTueDelegheSection.clickAccettaButton();
         if (this.leTueDelegheSection.verificaEsistenzaErroreCodiceSbagliato()) {
             Assertions.assertEquals(
-                    "Il codice è sbagliato", this.leTueDelegheSection.getTextCodiceSbagliato()"Il codice inserito è sbagliato");
+                    "Il codice è sbagliato", this.leTueDelegheSection.getTextCodiceSbagliato(),"Il codice inserito è sbagliato");
         }
     }
 
