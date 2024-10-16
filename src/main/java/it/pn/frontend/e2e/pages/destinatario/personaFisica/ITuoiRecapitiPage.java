@@ -239,8 +239,8 @@ public class ITuoiRecapitiPage extends BasePage {
                     ExpectedConditions.visibilityOfElementLocated(confirmButton),
                     ExpectedConditions.not(ExpectedConditions.elementToBeClickable(confirmButton))));
             getWebDriverWait(10).withMessage("Non si visualizza il banner informativo o il suo contenuto è errato").until(ExpectedConditions.and(
-                    ExpectedConditions.visibilityOf(elements(infoBanner).get(1)),
-                    ExpectedConditions.attributeToBe(this.elements(infoBanner).get(1), "innerText", "Quando un ente invia una comunicazione per te su SEND, ricevi l’avviso ufficiale sulla PEC che hai scelto.")));
+                    ExpectedConditions.visibilityOf(elements(infoBanner).get(0)),
+                    ExpectedConditions.attributeToBe(this.elements(infoBanner).get(0), "innerText", "Quando un ente invia una comunicazione per te su SEND, ricevi l’avviso ufficiale sulla PEC che hai scelto.")));
             logger.info("Il riquadro PEC si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il riquadro PEC NON si visualizza correttamente con errori:" + e.getMessage());
