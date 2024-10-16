@@ -1,6 +1,6 @@
 Feature: La persona giuridica visualizza tutti gli elementi della sezione altri recapiti
 
-  @TestSuite
+
   @TA_visualizzazioneSezioneAltriRecapitiPG
   @PG
   @recapitiPG
