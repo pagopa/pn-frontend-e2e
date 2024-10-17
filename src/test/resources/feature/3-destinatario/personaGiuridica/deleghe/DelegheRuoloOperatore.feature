@@ -1,6 +1,6 @@
 Feature:Deleghe lato ruolo operatore
 
-  @TestSuite
+
   @DeleghePG
   @PG
 
