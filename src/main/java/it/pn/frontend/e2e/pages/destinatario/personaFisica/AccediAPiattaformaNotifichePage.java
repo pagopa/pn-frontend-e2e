@@ -316,6 +316,8 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
         WebTool.waitTime(10);
 
+        logger.info("psp pg" + driver.getPageSource());
+
         //Select Nexi
         WebElement modificaButton = driver.findElement(By.xpath("//button[@aria-label='Modifica PSP']"));
         getWebDriverWait(5).withMessage("Il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(modificaButton));
@@ -331,6 +333,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
             nexiButton.get(0).click();
         }
         WebTool.waitTime(5);
+        logger.info("paga pg" + driver.getPageSource());
 
         WebElement pagaButton =  driver.findElement(By.xpath("//button[@id='paymentCheckPageButtonPay']"));
         getWebDriverWait(5).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
