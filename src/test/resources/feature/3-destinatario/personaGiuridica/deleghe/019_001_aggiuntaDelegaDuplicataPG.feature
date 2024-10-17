@@ -3,7 +3,6 @@ Feature:Il delegato persona giuridica accede ad una delega
   @TestSuite
   @DeleghePG
   @PG
-    @Alima
 
 
   @TA_PGdeleganteAggiuntaDelegaDuplicata
