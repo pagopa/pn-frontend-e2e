@@ -16,8 +16,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <cucumber.version>7.8.1</cucumber.version>
         <spring.boot-version>2.7.2</spring.boot-version>
+        <webdriver.version>5.9.1</webdriver.version>
+        <cucumber.version>7.8.1</cucumber.version>
+        <selenium.version>4.22.0</selenium.version>
     </properties>
 
     <dependencies>
@@ -46,7 +48,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.22.0</version>
+            <version>${selenium.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-devtools-v85 -->
@@ -55,25 +57,17 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-devtools-v126</artifactId>
-            <version>4.22.0</version>
+            <version>${selenium.version}</version>
         </dependency>
 
 
         <!--Cucumber-->
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <version>${cucumber.version}</version>
-            <scope>test</scope>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit-platform-engine</artifactId>
             <version>${cucumber.version}</version>
             <scope>test</scope>
-
         </dependency>
         <!--/Cucumber -->
 
@@ -93,7 +87,7 @@
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>5.9.1</version>
+            <version>${webdriver.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
