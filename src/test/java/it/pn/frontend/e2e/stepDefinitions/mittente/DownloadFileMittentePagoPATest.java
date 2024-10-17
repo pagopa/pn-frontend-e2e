@@ -225,6 +225,12 @@ public class DownloadFileMittentePagoPATest {
         driver.navigate().back();
     }
 
+    @Then("Si verifica che il link sul documento Attestazione è cliccabile")
+    public void toBeClickableDocumentoAttestazioneCliccable() {
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        dettaglioNotificaSection.toBeClickableLinkAttestazioniOpponibile(0);
+    }
+
     @Then("Si clicca sul documento Attestazione scaduta")
     public void clickDocumentoAttestazioneScaduta() {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);

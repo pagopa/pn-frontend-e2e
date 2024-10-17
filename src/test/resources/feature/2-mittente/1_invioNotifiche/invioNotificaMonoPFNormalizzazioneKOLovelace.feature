@@ -49,9 +49,9 @@ Feature: Mittente genera una notifica che non prevede pagamento
 
   @TestSuite
   @TA_InvioNotificaMonoPFNormalizzazioneKOLovelaceBis
-  Scenario: PN-9294 - Mittente genera una notifica mono destinatario a PF - Normalizzazione KO (indirizzo non trovato)
+  Scenario: PN-9294-bis - Mittente genera una notifica mono destinatario a PF - Normalizzazione KO (indirizzo non trovato)
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
-    And Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN "RZVD-VGVL-XZLK-202410-X-1"
+    And Mittente ricerca notifica con IUN salvato "RZVD-VGVL-XZLK-202410-X-1"
     And Si clicca la notifica ricercata
     And Si clicca sul opzione Vedi Dettaglio
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"

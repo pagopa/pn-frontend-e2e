@@ -17,7 +17,6 @@ Feature: Mittente visualizza correttamente la notifica in stato Annulato
     And Logout da portale mittente
 
   @TA_DelegvisualizzazioneDettaglioNotifichaAnnullata
-  @DeleghePF
   Scenario: [TA-FE INVIO DI UNA NOTIFICA E ANNULLAMENTO] - Mittente invia una notifica con delegato e la annulla, si verifica che sia visibile anche lato delegato
     Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe

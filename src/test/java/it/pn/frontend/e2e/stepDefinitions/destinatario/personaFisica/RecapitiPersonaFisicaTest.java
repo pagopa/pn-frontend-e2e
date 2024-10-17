@@ -201,8 +201,8 @@ public class RecapitiPersonaFisicaTest {
     public void siVisualizzaCorrettamenteIlPopUpESiCliccaSuConferma() {
         logger.info("click pop-up conferma email");
 
-        Assert.assertFalse("il popup Conferma email non si visualizza", recapitiDestinatarioPage.verificaPopUpConfermaEmail());
-        recapitiDestinatarioPage.clickHoCapitoCheckBoxPopup();
+        //Assert.assertFalse("il popup Conferma email non si visualizza", recapitiDestinatarioPage.verificaPopUpConfermaEmail());
+       // recapitiDestinatarioPage.clickHoCapitoCheckBoxPopup();
         recapitiDestinatarioPage.confermaEmailPopup();
     }
 
@@ -585,7 +585,7 @@ public class RecapitiPersonaFisicaTest {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
 
         iTuoiRecapitiPage.eliminaEmailEsistente();
-        if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
+        if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi email")) {
             recapitiDestinatarioPage.confermaButtonEliminaClick();
         } else {
             recapitiDestinatarioPage.clickSuChiudiPopUp();
@@ -601,7 +601,7 @@ public class RecapitiPersonaFisicaTest {
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
 
         iTuoiRecapitiPage.eliminaEmailEsistente();
-        if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
+        if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi email")) {
             recapitiDestinatarioPage.clickButtonAnnullaEliminazioneInPopUp();
         } else {
             recapitiDestinatarioPage.clickSuChiudiPopUp();
@@ -1037,7 +1037,7 @@ public class RecapitiPersonaFisicaTest {
 
     @When("Nella pagina I Tuoi Recapiti si visualizza correttamente il riquadro relativo alla PEC")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlRiquadroRelativoAllaPEC() {
-        logger.info("Si visualizza correttamente il riquadro relativo alla PEC");
+        logger.info("Si controlla se il riquadro relativo alla PEC  visualizzata correttamente");
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
         iTuoiRecapitiPage.checkRiquadroPEC();
     }

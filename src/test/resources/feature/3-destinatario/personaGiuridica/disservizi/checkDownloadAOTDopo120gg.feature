@@ -3,7 +3,7 @@ Feature: Persona Giuridica prova ad effettuare download AOT scaduti da 120gg
   @TestSuite
   @PG
   @TA_PG_DownloadDisserviziScadutiDa120gg
-
+  @120gg
   Scenario: [TA-FE PG EFFETTUA DOWNLOAD DI AOT SCADUTO DA 120 GG] - PG effettua download di aot scaduto da 120gg
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche selezionare la voce 'stato della piattaforma'

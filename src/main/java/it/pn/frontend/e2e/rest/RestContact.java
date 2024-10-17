@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.model.address.DigitalAddressResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -47,7 +48,8 @@ public class RestContact {
         String url = "https://webapi." + env + ".notifichedigitali.it/address-book/v1/digital-address/courtesy/default/EMAIL";
         String response = "";
         try {
-            response = httpClient.sendHttpDeleteRequest(url, this.headers, String.class);
+            headers.put("Authorization", System.getProperty("token"));
+            response = httpClient.sendHttpDeleteRequest(url, headers, String.class);
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzo digitale di cortesia rimosso con successo");
         } catch (IOException e) {
@@ -65,7 +67,8 @@ public class RestContact {
         String url = "https://webapi." + env + ".notifichedigitali.it/bff/v1/addresses/LEGAL/default/PEC";
         String response = "";
         try {
-            response = httpClient.sendHttpDeleteRequest(url, this.headers, String.class);
+            headers.put("Authorization", System.getProperty("token"));
+            response = httpClient.sendHttpDeleteRequest(url, headers, String.class);
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzo digitale di cortesia rimosso con successo");
         } catch (IOException e) {
@@ -87,7 +90,8 @@ public class RestContact {
                 + addressType + "/" + digitalAddress.getSenderId() + "/" + channelType;
         String response = "";
         try {
-            response = httpClient.sendHttpDeleteRequest(url, this.headers, String.class);
+            headers.put("Authorization", System.getProperty("token"));
+            response = httpClient.sendHttpDeleteRequest(url, headers, String.class);
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzo digitale di 'altri recapiti' rimosso con successo");
         } catch (IOException e) {
@@ -101,7 +105,8 @@ public class RestContact {
         httpClientDigitalAddress.setBaseUrlApi("https://webapi." + env + ".notifichedigitali.it");
         String url = "/bff/v1/addresses/LEGAL/default/PEC";
         try {
-            DigitalAddressResponse response = httpClientDigitalAddress.sendHttpGetRequest(url, this.headers, DigitalAddressResponse.class);
+            headers.put("Authorization", System.getProperty("token"));
+            DigitalAddressResponse response = httpClientDigitalAddress.sendHttpGetRequest(url, headers, DigitalAddressResponse.class);
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzi digitali ricevuti con successo");
             return response;
@@ -119,7 +124,8 @@ public class RestContact {
         String url = "/bff/v1/addresses";
 
         try {
-            List<DigitalAddress> response = httpClientDigitalAddress.sendHttpGetRequestListDigitalAddress(url, this.headers, DigitalAddress.class);
+            headers.put("Authorization", System.getProperty("token"));
+            List<DigitalAddress> response = httpClientDigitalAddress.sendHttpGetRequestListDigitalAddress(url, headers, DigitalAddress.class);
 
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzi digitali ricevuti con successo");
