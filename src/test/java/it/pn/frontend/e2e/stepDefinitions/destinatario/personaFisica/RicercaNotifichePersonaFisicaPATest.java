@@ -162,7 +162,7 @@ public class RicercaNotifichePersonaFisicaPATest {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         String dataa = piattaformaNotifichePage.conversioneFormatoDate(dateA.toString());
         String datada = piattaformaNotifichePage.conversioneFormatoDate(dateDa.toString());
-        logger.info("ARCO TEMPORRALE SETTATO: "+dataa +" - "+datada);
+        logger.info("ARCO TEMPORRALE SETTATO: "+datada +" - "+dataa);
         piattaformaNotifichePage.inserimentoArcoTemporale(datada, dataa);
     }
 

@@ -456,6 +456,14 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.selezionaNotifica120Giorni();
     }
 
+    @When("Cliccare sulla notifica  maggiore di 120 giorni {int}")
+    public void cliccareSullaNotificaRestituita120Giorni(Integer index) {
+        logger.info("Si clicca sulla notifica maggiore di 120 giorni");
+
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        piattaformaNotifichePage.selezionaNotifica120Giorni(index);
+    }
+
     @And("Salva codice IUN")
     public void salvaCodiceIUN(){
         String IUN = dettaglioNotificaMittenteSection.salvaIUN();

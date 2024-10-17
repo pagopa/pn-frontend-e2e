@@ -17,7 +17,7 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica scaduta
       # | giornoA  |27    |
     And Cliccare sul bottone Filtra persona fisica
     Then Vengono visualizzate correttamente le notifiche comprese nell'arco temporale inserito
-    And Cliccare sulla notifica  maggiore di 120 giorni
+    And Cliccare sulla notifica  maggiore di 120 giorni 1
     Then Si visualizza correttamente la section Dettaglio Notifica persona fisica
     And Si clicca sul documento Attestazione scaduta
     And Si controlla che esista pop up scadenza
