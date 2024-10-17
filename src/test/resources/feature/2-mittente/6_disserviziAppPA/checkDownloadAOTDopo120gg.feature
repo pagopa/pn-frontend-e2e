@@ -4,7 +4,7 @@ Feature: Mittente prova ad effettuare download AOT scaduti da 120gg
   @mittente
   @TA_MittenteVisualizzazioneDisservizi
   @TA_PA_DownloadDisserviziScadutiDa120gg
-
+  @120gg
   Scenario: [TA-FE MITTENTE EFFETTUA DOWNLOAD DI AOT SCADUTO DA 120 GG] - mittente effettua download di aot scaduto da 120gg
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche selezionare la voce 'stato della piattaforma'
