@@ -310,16 +310,14 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         driver.switchTo().defaultContent();
 
         WebTool.waitTime(5);
-        WebElement continuaBottone = driver.findElement(By.xpath("//button[@aria-label='Continue']") );
+        WebElement continuaBottone = driver.findElement(By.xpath("//button[@aria-label='Continue']") ); //for local test use //button[@aria-label='Continua']
         getWebDriverWait(8).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(continuaBottone));
         continuaBottone.click();
 
         WebTool.waitTime(10);
 
-        logger.info("psp pg" + driver.getPageSource());
-
         //Select Nexi
-        WebElement modificaButton = driver.findElement(By.xpath("//button[@aria-label='Modifica PSP']"));
+        WebElement modificaButton = driver.findElement(By.xpath("//button[@aria-label='Change payment service provider (PSP)']")); //for local test use //button[@aria-label='Modifica PSP']
         getWebDriverWait(5).withMessage("Il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(modificaButton));
         modificaButton.click();
 
@@ -339,7 +337,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(5).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
         pagaButton.click();
         WebTool.waitTime(50);
-        List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Continue')]"));
+        List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Continue')]")); //for local test use //button[@aria-label='Continua']
         getWebDriverWait(10).withMessage("Il bottone Chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudi.get(0)));
         chiudi.get(0).click();
     }
