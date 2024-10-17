@@ -198,7 +198,10 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickOpzioneAccetta() {
-        this.accettaButton.click();
+        By acceptDelegaButton = By.xpath("//*[@id='accept-button']");
+        element(acceptDelegaButton).click();
+        logger.info("delege pg");
+       // this.accettaButton.click();
     }
 
     public void waitPopUpLoad() {
