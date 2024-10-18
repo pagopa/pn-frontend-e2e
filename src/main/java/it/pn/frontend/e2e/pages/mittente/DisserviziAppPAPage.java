@@ -262,8 +262,13 @@ public class DisserviziAppPAPage extends BasePage {
                 if ((rows + 1) < disserviziTableRows.size()) {
                     logger.info("ROWS SELEZIONATA3: " + (disserviziTableRows.size() - (rows + 1)));
                     riga = disserviziTableRows.get(disserviziTableRows.size() - (rows + 1));
-                } else {
-                    logger.info("ROWS SELEZIONATA4: " + (disserviziTableRows.size() - 1));
+
+                } else if(disserviziTableRows.size() > rows) {
+                    logger.info("ROWS SELEZIONATA4: " + rows);
+                    riga = disserviziTableRows.get(rows);
+                }
+                else {
+                    logger.info("ROWS SELEZIONATA5: " + (disserviziTableRows.size() - 1));
                     riga = disserviziTableRows.get(disserviziTableRows.size() - 1);
                 }
 
