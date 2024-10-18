@@ -254,7 +254,7 @@ public class DisserviziAppPAPage extends BasePage {
             logger.info("ROWS TABLE..." + rows);
             logger.info("ROWS SELEZIONATA: " + index);
             WebElement riga = null;
-            if (disserviziTableRows.size() >= index) {
+            if (disserviziTableRows.size() > index) {
                 logger.info("ROWS SELEZIONATA1: " + index);
                 riga = disserviziTableRows.get(index);
             } else {
