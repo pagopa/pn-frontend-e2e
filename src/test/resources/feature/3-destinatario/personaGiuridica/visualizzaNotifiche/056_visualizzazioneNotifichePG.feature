@@ -6,8 +6,6 @@ Feature: La persona fisica visualizza la sezione notifiche
     #viene inserito il tag deleghe pg per eliminare la delega una volta creata
   @DeleghePG
   @PG
-    @Alima
-
   Scenario: PN-9147 - La persona giuridica visualizza la sezione notifiche
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe

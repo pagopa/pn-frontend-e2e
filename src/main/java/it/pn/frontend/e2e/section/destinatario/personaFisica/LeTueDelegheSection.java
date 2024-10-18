@@ -198,10 +198,9 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickOpzioneAccetta() {
+        WebTool.waitTime(1);
         By acceptDelegaButton = By.xpath("//*[@id='accept-button']");
         element(acceptDelegaButton).click();
-        logger.info("delege pg" + driver.getPageSource());
-       // this.accettaButton.click();
     }
 
     public void waitPopUpLoad() {
