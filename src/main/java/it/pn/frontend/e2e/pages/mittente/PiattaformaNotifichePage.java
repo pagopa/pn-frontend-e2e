@@ -257,6 +257,8 @@ public class PiattaformaNotifichePage extends BasePage {
         int yerarsDa = Integer.parseInt(arraySplitDateDa[2]);
         DateFormatSymbols DFSymbols = new DateFormatSymbols(new Locale("it", "IT"));
 
+        WebTool.waitTime(10);
+        logger.info("HTML1.."+driver.getPageSource());
         WebElement previousMonthButton = driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"));
 
         int click = 0;
