@@ -12,7 +12,7 @@ Feature: Mittente prova ad effettuare download AOT scaduti da 120gg
     And Si visualizza correttamente la tabella dei disservizi
     And Nella pagina stato della piattaforma si cambia il numero elementi visualizzati attraverso il filtro
     And Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino all'ultima
-    And Download file attestazione disservizio 1
+    And Download file attestazione disservizio 0
     And Si controlla che esista pop up scadenza
     And Logout da portale mittente
 
