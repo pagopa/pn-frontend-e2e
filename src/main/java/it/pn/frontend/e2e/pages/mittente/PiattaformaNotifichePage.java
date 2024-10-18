@@ -259,7 +259,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         WebTool.waitTime(10);
         logger.info("HTML1.."+driver.getPageSource());
-        WebElement previousMonthButton = driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"));
+        WebElement previousMonthButton = driver.findElement(By.xpath("//button[@title='Previous month']"));
 
         int click = 0;
         WebElement monthDaToSelect = null;
