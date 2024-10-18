@@ -524,6 +524,58 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
+
+    public void selezionaNotifica120Giorni(int rows) {
+        waitLoadPage();
+        try {
+            By notificaBy = By.id("notificationsTable.body.row");
+            attesaCaricamentoPagina();
+            getWebDriverWait(30).withMessage("La tabella delle notifiche non è caricata correttamente").until(elementToBeClickable(notificaBy));
+
+            WebElement buttonRighePagine = driver.findElement(By.id("rows-per-page"));
+            getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(buttonRighePagine));
+            buttonRighePagine.click();
+            WebElement pageSize50 = driver.findElement(By.id("pageSize-50"));
+            getWebDriverWait(3).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(pageSize50));
+            pageSize50.click();
+
+            WebTool.waitTime(10);
+            notificaBy = By.id("notificationsTable.body.row");
+            List<WebElement> notifiche = this.elements(notificaBy);
+
+            logger.info("Scenario " +Hooks.getScenario());
+
+            Calendar calendar = GregorianCalendar.getInstance();
+            int index = calendar.get(Calendar.HOUR_OF_DAY)+rows;
+            logger.info("HOUR..."+index);
+            logger.info("SIZE ROWS TABLE..."+notifiche.size());
+            logger.info("ROWS TABLE..."+rows);
+            logger.info("ROWS SELEZIONATA: " + index);
+            WebElement riga =null;
+            if (notifiche!= null) {
+                if (notifiche.size() >= index) {
+                    logger.info("ROWS SELEZIONATA1: " + index);
+                    notifiche.get(index).click();
+                } else {
+                    logger.info("ROWS SELEZIONATA2: " + rows);
+                    if((rows+1)<notifiche.size()){
+                        logger.info("ROWS SELEZIONATA3: " + (notifiche.size() - (rows+1)));
+                        notifiche.get(notifiche.size() - (rows+1)).click();;
+                    } else  {
+                        logger.info("ROWS SELEZIONATA4: " + (notifiche.size() - 1));
+                        notifiche.get(notifiche.size() - 1).click();;
+                    }
+                }
+            }else {
+                logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
+                Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
+            }
+        } catch (TimeoutException e) {
+            logger.error("Notifica non trovata con errore: " + e.getMessage());
+            Assertions.fail("Notifica non trovata con errore: " + e.getMessage());
+        }
+    }
+
     public void selezionaPrimaNotifica() {
         waitLoadPage();
         try {
