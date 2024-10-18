@@ -224,9 +224,9 @@ public class DisserviziAppPAPage extends BasePage {
             Calendar calendar = GregorianCalendar.getInstance();
             int index = calendar.get(Calendar.HOUR_OF_DAY);
 
-            logger.info("SIZE ROWS TABLE..."+disserviziTableRows.size());
+            logger.info("SIZE ROWS TABLE..." + disserviziTableRows.size());
             logger.info("ROWS SELEZIONATA: " + index);
-            WebElement riga =null;
+            WebElement riga = null;
             if (disserviziTableRows.size() >= index) {
                 riga = disserviziTableRows.get(index);
             } else {
@@ -240,10 +240,44 @@ public class DisserviziAppPAPage extends BasePage {
             logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
             Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
         }
+    }
 
 
 
-}
+        public void downloadAttestazione(int rows) {
+            List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
+            if (!disserviziTableRows.isEmpty()) {
+                logger.info("tabella caricata e non vuota");
+
+                Calendar calendar = GregorianCalendar.getInstance();
+                int index = calendar.get(Calendar.HOUR_OF_DAY)+rows;
+                logger.info("HOUR..."+index);
+                logger.info("SIZE ROWS TABLE..."+disserviziTableRows.size());
+                logger.info("ROWS TABLE..."+rows);
+                logger.info("ROWS SELEZIONATA: " + index);
+                WebElement riga =null;
+                if (disserviziTableRows.size() >= index) {
+                    logger.info("ROWS SELEZIONATA1: " + index);
+                    riga = disserviziTableRows.get(index);
+                } else {
+                    logger.info("ROWS SELEZIONATA2: " + rows);
+                    if((rows+1)<disserviziTableRows.size()){
+                        logger.info("ROWS SELEZIONATA3: " + (disserviziTableRows.size() - rows+1));
+                        riga = disserviziTableRows.get(disserviziTableRows.size() - (rows+1));
+                    } else  {
+                        logger.info("ROWS SELEZIONATA4: " + (disserviziTableRows.size() - 1));
+                        riga = disserviziTableRows.get(disserviziTableRows.size() - 1);
+                    }
+                }
+
+                WebElement linkDownloadAttestazione = riga.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(0);
+                linkDownloadAttestazione.click();
+                logger.info("click effettuato con successo");
+            } else {
+                logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
+                Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
+            }
+        }
 
 
 public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioniOpponibile) {
