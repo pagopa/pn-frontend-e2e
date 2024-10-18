@@ -224,9 +224,9 @@ public class DisserviziAppPAPage extends BasePage {
             Calendar calendar = GregorianCalendar.getInstance();
             int index = calendar.get(Calendar.HOUR_OF_DAY);
 
-            logger.info("SIZE ROWS TABLE..."+disserviziTableRows.size());
+            logger.info("SIZE ROWS TABLE..." + disserviziTableRows.size());
             logger.info("ROWS SELEZIONATA: " + index);
-            WebElement riga =null;
+            WebElement riga = null;
             if (disserviziTableRows.size() >= index) {
                 riga = disserviziTableRows.get(index);
             } else {
@@ -240,65 +240,97 @@ public class DisserviziAppPAPage extends BasePage {
             logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
             Assert.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
         }
-
-
-
-}
-
-
-
-public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioniOpponibile) {
-    if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
-        attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
-    } else {
-        this.js().executeScript("arguments[0].scrollIntoView(true);", attestazioniFile.get(numeroLinkAttestazioniOpponibile));
-        attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
     }
-}
 
-public boolean confrontoFileConDisservizio() {
-    getDateDisservice();
-    logger.info("date prese con successo dal disserivizio");
-    String folderPath = System.getProperty("downloadFilePath");
-    // Stringa da cercare nel nome del file
-    String searchString = "PN_DOWNTIME_LEGAL_FACTS";
-    // Creazione di un oggetto File che rappresenta la cartella
-    File folder = new File(folderPath);
-    // Controllo che il percorso specificato sia una directory
-    if (folder.isDirectory()) {
-        // Ottieni l'elenco di tutti i file nella cartella
-        File[] files = folder.listFiles();
-        // Verifica che la cartella non sia vuota
-        if (files != null && files.length > 0) {
-            logger.info("Verifica cartella non vuota" + files.length);
-            // Cerca i file che contengono la stringa specificata nel nome
-            for (File file : files) {
-                logger.info("Verifica cartella non vuota" + file.getName());
-                if (file.isFile() && file.getName().contains(searchString)) {
-                    // Puoi eseguire altre operazioni sul file qui
-                    try {
-                        PDFTextStripper pdfTextStripper = new PDFTextStripper();
-                        String text = pdfTextStripper.getText(PDDocument.load(file));
-                        logger.info("DATA_POPULATION_A: " + dataPopulation.getDataA());
-                        logger.info("DATA_POPULATION_DA: " + dataPopulation.getDataDa());
-                        if (text.contains(dataPopulation.getDataA()) && text.contains(dataPopulation.getDataDa())) {
-                            return true;
+    public void downloadAttestazione(int rows) {
+        List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
+        if (!disserviziTableRows.isEmpty()) {
+            logger.info("tabella caricata e non vuota");
+
+            Calendar calendar = GregorianCalendar.getInstance();
+            int index = calendar.get(Calendar.HOUR_OF_DAY) + rows;
+            logger.info("HOUR..." + index);
+            logger.info("SIZE ROWS TABLE..." + disserviziTableRows.size());
+            logger.info("ROWS TABLE..." + rows);
+            logger.info("ROWS SELEZIONATA: " + index);
+            WebElement riga = null;
+            if (disserviziTableRows.size() >= index) {
+                logger.info("ROWS SELEZIONATA1: " + index);
+                riga = disserviziTableRows.get(index);
+            } else {
+                logger.info("ROWS SELEZIONATA2: " + rows);
+                if ((rows + 1) < disserviziTableRows.size()) {
+                    logger.info("ROWS SELEZIONATA3: " + (disserviziTableRows.size() - (rows + 1)));
+                    riga = disserviziTableRows.get(disserviziTableRows.size() - (rows + 1));
+                } else {
+                    logger.info("ROWS SELEZIONATA4: " + (disserviziTableRows.size() - 1));
+                    riga = disserviziTableRows.get(disserviziTableRows.size() - 1);
+                }
+
+            }
+
+            WebElement linkDownloadAttestazione = riga.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(0);
+            linkDownloadAttestazione.click();
+            logger.info("click effettuato con successo");
+        } else {
+            logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
+            Assert.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
+        }
+    }
+
+
+    public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioniOpponibile) {
+        if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
+            attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
+        } else {
+            this.js().executeScript("arguments[0].scrollIntoView(true);", attestazioniFile.get(numeroLinkAttestazioniOpponibile));
+            attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
+        }
+    }
+
+    public boolean confrontoFileConDisservizio() {
+        getDateDisservice();
+        logger.info("date prese con successo dal disserivizio");
+        String folderPath = System.getProperty("downloadFilePath");
+        // Stringa da cercare nel nome del file
+        String searchString = "PN_DOWNTIME_LEGAL_FACTS";
+        // Creazione di un oggetto File che rappresenta la cartella
+        File folder = new File(folderPath);
+        // Controllo che il percorso specificato sia una directory
+        if (folder.isDirectory()) {
+            // Ottieni l'elenco di tutti i file nella cartella
+            File[] files = folder.listFiles();
+            // Verifica che la cartella non sia vuota
+            if (files != null && files.length > 0) {
+                logger.info("Verifica cartella non vuota" + files.length);
+                // Cerca i file che contengono la stringa specificata nel nome
+                for (File file : files) {
+                    logger.info("Verifica cartella non vuota" + file.getName());
+                    if (file.isFile() && file.getName().contains(searchString)) {
+                        // Puoi eseguire altre operazioni sul file qui
+                        try {
+                            PDFTextStripper pdfTextStripper = new PDFTextStripper();
+                            String text = pdfTextStripper.getText(PDDocument.load(file));
+                            logger.info("DATA_POPULATION_A: " + dataPopulation.getDataA());
+                            logger.info("DATA_POPULATION_DA: " + dataPopulation.getDataDa());
+                            if (text.contains(dataPopulation.getDataA()) && text.contains(dataPopulation.getDataDa())) {
+                                return true;
+                            }
+                            //break// Rimuovere il commento se si desidera fermarsi al primo file trovato
+                        } catch (IOException e) {
+                            logger.error("Errore nel leggere il PDF: " + file.getName(), e);
+                            Assert.fail("Errore nel leggere il PDF: " + file.getName());
                         }
-                        //break// Rimuovere il commento se si desidera fermarsi al primo file trovato
-                    } catch (IOException e) {
-                        logger.error("Errore nel leggere il PDF: " + file.getName(), e);
-                        Assert.fail("Errore nel leggere il PDF: " + file.getName());
                     }
                 }
+            } else {
+                System.out.println("La cartella è vuota o non è possibile accedervi.");
             }
         } else {
-            System.out.println("La cartella è vuota o non è possibile accedervi.");
+            System.out.println("Il percorso specificato non è una directory.");
         }
-    } else {
-        System.out.println("Il percorso specificato non è una directory.");
+        return false;
     }
-    return false;
-}
 }
 
 

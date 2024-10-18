@@ -472,6 +472,16 @@ public class DownloadFileMittentePagoPATest {
         WebTool.waitTime(3);
     }
 
+    @And("Download file attestazione disservizio {int}")
+    public void downloadFileAttestazioneDisservizio(int index) {
+        logger.info("si effettua download del disservizio");
+
+        DisserviziAppPAPage disserviziAppPAPage = new DisserviziAppPAPage(driver);
+
+        disserviziAppPAPage.downloadAttestazione(index);
+        WebTool.waitTime(3);
+    }
+
     @And("Nella pagina stato della piattaforma si cambia il numero elementi visualizzati attraverso il filtro")
     public void nellaPaginaStatoDellaPiattaformaSiCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltroNumeroNotifiche() {
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
