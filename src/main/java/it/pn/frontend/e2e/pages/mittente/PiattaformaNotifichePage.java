@@ -247,8 +247,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
         // Step 2: Click on the input field to open the calendar pop-up
         //dataFieldList.get(0).click();
-        WebTool.waitTime(10);
-        logger.info("HTML.."+driver.getPageSource());
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
@@ -257,8 +255,6 @@ public class PiattaformaNotifichePage extends BasePage {
         int yerarsDa = Integer.parseInt(arraySplitDateDa[2]);
         DateFormatSymbols DFSymbols = new DateFormatSymbols(new Locale("it", "IT"));
 
-        WebTool.waitTime(10);
-        logger.info("HTML1.."+driver.getPageSource());
         WebElement previousMonthButton = driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"));
 
         int click = 0;
@@ -274,7 +270,6 @@ public class PiattaformaNotifichePage extends BasePage {
                 click++;
             }
         }
-        logger.info("HTML 333333333");
         // Step 4: Select a date (e.g., the 15th day of the current month)
         WebTool.waitTime(2);
         WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
@@ -305,9 +300,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
-        WebTool.waitTime(10);
-        logger.info("HTML 44444444444444");
-        logger.info("HTML2.."+driver.getPageSource());
         WebElement previousMonthAButton = driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"));
 
         previousMonthAButton = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(previousMonthAButton));
