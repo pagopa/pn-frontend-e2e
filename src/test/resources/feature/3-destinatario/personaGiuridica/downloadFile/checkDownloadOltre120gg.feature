@@ -18,6 +18,6 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica scaduta
     And Si visualizzano correttamente le notifiche in elenco paginato
     And Cliccare sulla notifica  maggiore di 120 giorni
     Then Si visualizza correttamente la section Dettaglio Notifica
-    And Si clicca sul documento Attestazione scaduta 0
+    And Si clicca sul documento Attestazione scaduta
     And Si controlla che esista pop up scadenza
     And Logout da portale persona giuridica

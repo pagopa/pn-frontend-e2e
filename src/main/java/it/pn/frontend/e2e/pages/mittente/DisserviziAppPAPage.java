@@ -245,34 +245,6 @@ public class DisserviziAppPAPage extends BasePage {
 
 }
 
-    public void downloadAttestazione(int rows) {
-        List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
-        if (!disserviziTableRows.isEmpty()) {
-            logger.info("tabella caricata e non vuota");
-
-            Calendar calendar = GregorianCalendar.getInstance();
-            int index = calendar.get(Calendar.HOUR_OF_DAY);
-
-            logger.info("SIZE ROWS TABLE..."+disserviziTableRows.size());
-            logger.info("ROWS SELEZIONATA: " + index);
-            WebElement riga =null;
-            if (disserviziTableRows.size() >= (index+rows)) {
-                riga = disserviziTableRows.get(index+rows);
-            } else {
-                riga = disserviziTableRows.get(rows);
-            }
-
-            WebElement linkDownloadAttestazione = riga.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(0);
-            linkDownloadAttestazione.click();
-            logger.info("click effettuato con successo");
-        } else {
-            logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
-            Assert.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
-        }
-
-
-
-    }
 
 
 public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioniOpponibile) {
