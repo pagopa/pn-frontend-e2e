@@ -200,7 +200,7 @@ public class LeTueDelegheSection extends BasePage {
     public void clickOpzioneAccetta() {
         By acceptDelegaButton = By.xpath("//*[@id='accept-button']");
         element(acceptDelegaButton).click();
-        logger.info("delege pg");
+        logger.info("delege pg" + driver.getPageSource());
        // this.accettaButton.click();
     }
 
