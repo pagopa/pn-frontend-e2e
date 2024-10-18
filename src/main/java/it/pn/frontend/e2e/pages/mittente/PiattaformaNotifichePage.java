@@ -247,7 +247,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
         // Step 2: Click on the input field to open the calendar pop-up
         //dataFieldList.get(0).click();
-
+        WebTool.waitTime(10);
+        logger.info("HTML.."+driver.getPageSource());
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
