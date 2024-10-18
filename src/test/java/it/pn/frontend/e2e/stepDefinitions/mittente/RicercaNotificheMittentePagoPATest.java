@@ -305,7 +305,7 @@ public class RicercaNotificheMittentePagoPATest {
     @And("Nella pagina Piattaforma Notifiche inserire un arco temporale")
     public void nellaPaginaPiattaformaNotificheInserireUnArcoTemporale() {
         LocalDate dateA = LocalDate.now();
-        LocalDate dateDa = dateA.minusDays(5);
+        LocalDate dateDa = dateA.minusDays(35);
 
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         String dataa = piattaformaNotifichePage.conversioneFormatoDate(dateA.toString());

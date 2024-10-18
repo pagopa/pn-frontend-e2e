@@ -117,15 +117,23 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
 
-    public void clickNotificheDelegate() {
+    public void clickNotificheENotificheDelegate() {
             WebTool.waitTime(5);
             getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.sideItemNotificheButton));
             sideItemNotificheButton.click();
             WebTool.waitTime(10);
-            By notificheDelegateButton = By.id("side-item-Notifiche delegate");
+            By notificheDelegateButton = By.id("menu-item(notifiche delegate)");
             this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(notificheDelegateButton));
             this.js().executeScript("arguments[0].click()", this.element(notificheDelegateButton));
             logger.info("Si clicca correttamente sulla voce notifiche delegate");
+    }
+
+    public void clickNotificheDelegate() {
+        WebTool.waitTime(5);
+        By notificheDelegateButton = By.id("menu-item(notifiche delegate)");
+        this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(notificheDelegateButton));
+        this.js().executeScript("arguments[0].click()", this.element(notificheDelegateButton));
+        logger.info("Si clicca correttamente sulla voce notifiche delegate");
     }
 
     public void waitLoadSezioneNotificheDelegate(String ragioneSociale) {

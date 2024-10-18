@@ -71,7 +71,7 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata e 
     And Logout da portale mittente
 
   @TA_annullamentoNotificaMittenteEControlloMailDiCortesia
-  @recapitiPF
+
   Scenario: [TA-FE MITTENTE CREA E ANNULLA UNA NOTIFICA CON PAGAMENTO] - Mittente invia una notifica a destinatario con PEC impostata e la annulla, si controlla che le ricevute PEC sono scaricabili
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

@@ -40,18 +40,9 @@ Feature:Il delegato persona giuridica accede ad una delega
     And Nella sezione Deleghe si verifica sia presente una delega accettata per PG
 
     And PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
-    And Nella Pagina Notifiche destinatario si clicca su notifiche delegate
+    And Nella Pagina Notifiche destinatario si clicca solo su notifiche delegate
     And Si visualizza correttamente la Pagina Notifiche persona giuridica sezione notifiche delegate "Le Epistolae srl"
     And Aspetta 10 secondi
     And Si seleziona la notifica
     And Si verifica che visualizzato lo stato Pagato
     And Logout da portale persona giuridica
-
-
-
-
-    #And Nella Pagina Notifiche destinatario si clicca su notifiche delegate
-    And Aspetta 1 secondi
-   # And La persona giuridica clicca sulla prima notifica restituita
-    #And Si verifica che visualizzato lo stato Pagato
-    #And Logout da portale persona giuridica
