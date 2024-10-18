@@ -306,7 +306,7 @@ public class PiattaformaNotifichePage extends BasePage {
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
-        WebElement previousMonthAButton = driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"));
+        WebElement previousMonthAButton = driver.findElement(By.xpath("//button[@title='Previous month']"));
 
         previousMonthAButton = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(previousMonthAButton));
 
@@ -364,7 +364,7 @@ public class PiattaformaNotifichePage extends BasePage {
         int yerarsDa = Integer.parseInt(arraySplitDateDa[2]);
         DateFormatSymbols DFSymbols = new DateFormatSymbols(new Locale("it", "IT"));
 
-        WebElement previousMonthButton = driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"));
+        WebElement previousMonthButton = driver.findElement(By.xpath("//button[@title='Previous month']"));
 
         int click = 0;
         while (click < 36) {
@@ -404,7 +404,7 @@ public class PiattaformaNotifichePage extends BasePage {
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
-        WebElement previousMonthAButton = driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"));
+        WebElement previousMonthAButton = driver.findElement(By.xpath("//button[@title='Previous month']"));
 
         try {
             int clickA = 0;
