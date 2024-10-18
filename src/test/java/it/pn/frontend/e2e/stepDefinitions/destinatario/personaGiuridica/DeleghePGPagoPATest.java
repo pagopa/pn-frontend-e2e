@@ -463,6 +463,7 @@ public class DeleghePGPagoPATest {
         mandateSingleton.setScenarioMandateId(Hooks.getScenario(),response.getMandateId());
         mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()),response.getVerificationCode());
         driver.navigate().refresh();
+        WebTool.waitTime(2);
     }
 
     @And("Si clicca sul bottone accetta delega dopo aver inserito il codice di verifica")

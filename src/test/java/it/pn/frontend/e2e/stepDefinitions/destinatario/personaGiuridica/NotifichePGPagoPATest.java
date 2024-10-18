@@ -28,7 +28,6 @@ import org.slf4j.LoggerFactory;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -115,9 +114,16 @@ public class NotifichePGPagoPATest {
     public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSuNotificheDelegate() {
         logger.info("Si clicca correttamente su notifiche delegate");
 
-        piattaformaNotifichePGPAPage.clickNotificheDelegate();
+        piattaformaNotifichePGPAPage.clickNotificheENotificheDelegate();
     }
 
+
+    @And("Nella Pagina Notifiche destinatario si clicca solo su notifiche delegate")
+    public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSoloSuNotificheDelegate() {
+        logger.info("Si clicca correttamente su notifiche delegate");
+
+        piattaformaNotifichePGPAPage.clickNotificheDelegate();
+    }
     @And("Nella sezione Deleghe si verifica sia presente una delega accettata per PG")
     public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelegaAccettataPerPG() {
         logger.info("Si controlla che sia presente una delega");
