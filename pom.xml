@@ -68,7 +68,6 @@
             <artifactId>cucumber-junit-platform-engine</artifactId>
             <version>${cucumber.version}</version>
             <scope>test</scope>
-
         </dependency>
         <!--/Cucumber -->
 
@@ -126,7 +125,6 @@
             <artifactId>httpclient5</artifactId>
             <version>5.2.1</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -231,7 +229,6 @@
             <groupId>net.lingala.zip4j</groupId>
             <artifactId>zip4j</artifactId>
             <version>2.11.5</version>
-
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -241,7 +238,6 @@
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
         </dependency>
-
     </dependencies>
 
     <dependencyManagement>
@@ -283,7 +279,6 @@
                                 <groupId>org.projectlombok</groupId>
                                 <artifactId>lombok</artifactId>
                             </exclude>
-
                         </excludes>
                     </configuration>
                 </plugin>
@@ -315,7 +310,6 @@
                         <target>17</target>
                     </configuration>
                 </plugin>
-
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>3.0.2</version>
