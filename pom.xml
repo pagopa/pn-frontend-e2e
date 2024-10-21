@@ -12,12 +12,13 @@
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <spring.boot-version>2.7.2</spring.boot-version>
-        <webdriver.version>5.9.1</webdriver.version>
+        <spring.boot-version>3.3.4</spring.boot-version>
+        <webdriver.version>5.9.2</webdriver.version>
         <cucumber.version>7.8.1</cucumber.version>
         <selenium.version>4.22.0</selenium.version>
     </properties>
