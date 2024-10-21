@@ -275,6 +275,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10).withMessage("Il textbox numero di carta non è visibile").until(ExpectedConditions.visibilityOf(creditCardNumber));
         creditCardNumber.click();
         creditCardNumber.clear();
+        logger.info("Si inserisce numero di CC");
         creditCardNumber.sendKeys("5127390031101597");
         driver.switchTo().defaultContent();
 
