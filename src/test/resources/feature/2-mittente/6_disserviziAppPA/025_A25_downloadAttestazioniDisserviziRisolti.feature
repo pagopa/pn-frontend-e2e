@@ -19,7 +19,7 @@ Feature: Mittente effettua il download delle attestazioni dei disservizi risolti
     Then Si visualizza correttamente la pagina dello 'stato della piattaforma' di mittente
     And Si visualizza correttamente la tabella dei disservizi
     And Si visualizza un record in elenco relativo ad un disservizio risolto "Invio delle notifiche"
-    And Download file attestazione disservizio
+    And Download file attestazione disservizio 1
     And Controllo corrispondenza dati con pdf
     And Logout da portale mittente
 

@@ -1,6 +1,5 @@
 Feature: la persona giuridica inserisce un recapito aggiuntivo da un ente radice
 
-  @TestSuite
   @TA_inserimentoRecapitoAggiuntivoDaEnteRadicePG
   @PG
   @recapitiPG

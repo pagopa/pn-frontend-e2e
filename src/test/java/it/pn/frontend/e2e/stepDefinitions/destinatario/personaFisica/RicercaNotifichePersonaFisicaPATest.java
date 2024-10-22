@@ -151,6 +151,8 @@ public class RicercaNotifichePersonaFisicaPATest {
     public void nellaPaginaPiattaformaNotificheMittenteInserireUnaDataDaDAAA120Giorni() {
         logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca 120 giorni ");
 
+        logger.info("Scenario " +Hooks.getScenario());
+
         LocalDate dateNow = LocalDate.now();
         LocalDate dateA = dateNow.minusDays(150);
 
@@ -158,9 +160,9 @@ public class RicercaNotifichePersonaFisicaPATest {
 
         PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         String dataa = piattaformaNotifichePage.conversioneFormatoDate(dateA.toString());
-        String datada = piattaformaNotifichePage.conversioneFormatoDate(dateA.toString());
+        String datada = piattaformaNotifichePage.conversioneFormatoDate(dateDa.toString());
         logger.info("ARCO TEMPORRALE SETTATO: "+dataa +" - "+datada);
-        piattaformaNotifichePage.inserimentoArcoTemporale(dataa, datada);
+        piattaformaNotifichePage.inserimentoArcoTemporale(datada, dataa);
     }
 
     @And("Se i risultati sono contenuti in più pagine persona fisica è possibile effettuare il cambio pagina")

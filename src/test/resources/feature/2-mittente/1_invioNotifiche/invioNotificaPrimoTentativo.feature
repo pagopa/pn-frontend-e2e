@@ -1,6 +1,6 @@
 Feature: Mittente genera una notifica che non prevede pagamento
 
-@parallel
+  @Parallel
   @TA_InviaNotificaConDestinatarioReperibileAlPrimoInvio
   Scenario: [TA-FE MITTENTE CREA NOTIFICA CON PAGAMENTO] - Mittente invia una notifica a destinatario disponibile al primo invio
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

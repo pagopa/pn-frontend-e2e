@@ -1,6 +1,6 @@
 Feature: PG visualizza il dettaglio di una notifica con documenti allegati
 
-  @TestSuite
+  @Parallel
   @TA_PGDettaglioNotificheConDocumenti
   @PG
   @visualizzazioneNotifichePG
@@ -35,6 +35,21 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si clicca sul modello F24 destinatario numero 1
     Then Si torna alla pagina precedente
     And Logout da portale persona giuridica
+
+  @TestSuite
+  @CheckNotificaConDocumentiAllegatiPGBis
+  Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - bis - PG scarica modello F24
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN da dati notifica "WZAT-VPJY-XAZL-202410-A-1"
+    And Cliccare sul bottone Filtra persona giuridica
+    When La persona giuridica clicca sulla notifica restituita "WZAT-VPJY-XAZL-202410-A-1"
+    And Si visualizza correttamente la section Dettaglio Notifica
+    And Si controlla sia presente l'avviso PagoPa destinatario
+    And Si controlla sia presente il modello F24 destinatario
+    And Si clicca sul modello F24 destinatario numero 1
+    Then Si torna alla pagina precedente
+    And Logout da portale persona giuridica
+
 
   @CheckNotificaConDocumentiAllegatiPG
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - PG scarica l'avviso PagoPa

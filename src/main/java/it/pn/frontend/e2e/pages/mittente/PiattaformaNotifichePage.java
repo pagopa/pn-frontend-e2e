@@ -188,6 +188,9 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void inserimentoCodiceIUN(String codiceIUN) {
+        
+        WebTool.waitTime(5);
+        codiceIUNTextField = driver.findElement(By.id("iunMatch"));
         getWebDriverWait(10).withMessage("Il campo per l'inserimento del codice IUN non è visibile").until(ExpectedConditions.visibilityOf(codiceIUNTextField));
         codiceIUNTextField.click();
         codiceIUNTextField.sendKeys(codiceIUN);
@@ -218,14 +221,12 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void inserimentoArcoTemporale(String da, String a) {
 
-        WebTool.waitTime(15);
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
 
         dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
         dataInizioField = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='startDate']")));
 
-        WebTool.waitTime(5);
-
+        WebTool.waitTime(2);
         String[] arraySplitDateDa = da.split("/");
 
         List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
@@ -273,7 +274,7 @@ public class PiattaformaNotifichePage extends BasePage {
         }
 
         // Step 4: Select a date (e.g., the 15th day of the current month)
-        WebTool.waitTime(3);
+        WebTool.waitTime(2);
         WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
         dateToSelect = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dateToSelect));
         dateToSelect.click();
@@ -289,7 +290,7 @@ public class PiattaformaNotifichePage extends BasePage {
         int monthA = Integer.parseInt(arraySplitDateA[1]);
         int yerarsA = Integer.parseInt(arraySplitDateA[2]);
 
-        WebTool.waitTime(3);
+        WebTool.waitTime(2);
         // Step 2: Click on the input field to open the calendar pop-up
 
         if (dataFieldList != null && dataFieldList.size() == 5) {
@@ -319,7 +320,7 @@ public class PiattaformaNotifichePage extends BasePage {
             }
         }
 
-        WebTool.waitTime(3);
+        WebTool.waitTime(2);
 
         // Step 4: Select a date (e.g., the 15th day of the current month)
         // Adjust based on your app

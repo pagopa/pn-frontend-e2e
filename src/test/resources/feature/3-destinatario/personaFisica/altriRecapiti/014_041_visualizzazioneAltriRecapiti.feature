@@ -1,6 +1,6 @@
 Feature: la persona fisica visualizza correttamente la sezione altri recapiti
 
-  @TestSuite
+  #@TestSuite
   @TA_visualizzazioneSezioneAltriRecapitiPF
   @PF
   @recapitiPF

@@ -310,21 +310,19 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         driver.switchTo().defaultContent();
 
         WebTool.waitTime(5);
-
-        WebElement continuaBottone = driver.findElement(By.xpath("//button[@aria-label='Continua']") );
-        getWebDriverWait(7).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(continuaBottone));
+        WebElement continuaBottone = driver.findElement(By.xpath("//button[@aria-label='Continue']") ); //for local test use //button[@aria-label='Continua']
+        getWebDriverWait(8).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(continuaBottone));
         continuaBottone.click();
 
-        WebTool.waitTime(2);
+        WebTool.waitTime(10);
 
         //Select Nexi
-        WebElement modificaButton = driver.findElement(By.xpath("//button[@aria-label='Modifica PSP']"));
+        WebElement modificaButton = driver.findElement(By.xpath("//button[@aria-label='Change payment service provider (PSP)']")); //for local test use //button[@aria-label='Modifica PSP']
         getWebDriverWait(5).withMessage("Il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(modificaButton));
         modificaButton.click();
 
-        WebTool.waitTime(2);
-
-        List<WebElement> nexiButton =  driver.findElements(By.xpath("//div[contains(text(),'Nexi')]"));
+        WebTool.waitTime(10);
+        List<WebElement> nexiButton =  driver.findElements(By.xpath("//div[contains(text(),'Intesa Sanpaolo S.p.A')]"));
         WebTool.waitTime(10);
         //getWebDriverWait(10).withMessage("Il bottone Nexi non è cliccabile").until(ExpectedConditions.elementToBeClickable(nexiButton));
         if (nexiButton.size()==2){
@@ -332,19 +330,19 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         }else {
             nexiButton.get(0).click();
         }
-        WebTool.waitTime(2);
+        WebTool.waitTime(5);
 
         WebElement pagaButton =  driver.findElement(By.xpath("//button[@id='paymentCheckPageButtonPay']"));
         getWebDriverWait(5).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
         pagaButton.click();
-        WebTool.waitTime(35);
-        List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Chiudi')]"));
+        WebTool.waitTime(50);
+        List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Continue')]")); //for local test use //button[@aria-label='Continua']
         getWebDriverWait(10).withMessage("Il bottone Chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudi.get(0)));
         chiudi.get(0).click();
     }
 
     public void siVisualizzaStatoPagato() {
-        WebTool.waitTime(10);
+        WebTool.waitTime(20);
         By statoPagamento = By.xpath("//div[@id='status-chip-Pagato']");
         getWebDriverWait(5).withMessage("Lo stato di pagamento non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoPagamento));
         logger.info("Lo stato di pagamento è Pagato");

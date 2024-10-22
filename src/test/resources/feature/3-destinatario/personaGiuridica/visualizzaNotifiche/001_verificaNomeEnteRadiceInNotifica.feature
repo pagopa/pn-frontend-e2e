@@ -1,6 +1,6 @@
 Feature: La persona fisica visualizza il nome concatenato dell'ente Radice nel campo mittente della notifica
 
-  @TestSuite
+  @Parallel
   @TA_PGVisualizzaNotifiche
   @verificaNomeEnteRadice
   @DeleghePG
@@ -30,6 +30,19 @@ Feature: La persona fisica visualizza il nome concatenato dell'ente Radice nel c
     And Aspetta 5 secondi
     And Cliccare sulla notifica restituita
     And Aspetta 60 secondi
+    And Si visualizza correttamente la section Dettaglio Notifica
+    Then Si verifica che il mittente sia "Comune di Palermo"
+    And Logout da portale persona giuridica
+
+
+  @TestSuite
+  @verificaNomeEnteRadiceBis
+  Scenario: PN-10431 - bis - La persona giuridica visualizza il campo mittente della notifica con il nome concatenato dell'ente Radice
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    Then Nella Pagina Notifiche persona fisica si visualizza correttamente l elenco delle notifiche
+    And Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN da dati notifica "QPTV-HLXM-LGJE-202410-G-1"
+    And Cliccare sul bottone Filtra persona giuridica
+    When La persona giuridica clicca sulla notifica restituita "QPTV-HLXM-LGJE-202410-G-1"
     And Si visualizza correttamente la section Dettaglio Notifica
     Then Si verifica che il mittente sia "Comune di Palermo"
     And Logout da portale persona giuridica

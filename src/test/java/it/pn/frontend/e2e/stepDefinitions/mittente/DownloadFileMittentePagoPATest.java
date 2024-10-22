@@ -225,6 +225,12 @@ public class DownloadFileMittentePagoPATest {
         driver.navigate().back();
     }
 
+    @Then("Si verifica che il link sul documento Attestazione è cliccabile")
+    public void toBeClickableDocumentoAttestazioneCliccable() {
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        dettaglioNotificaSection.toBeClickableLinkAttestazioniOpponibile(0);
+    }
+
     @Then("Si clicca sul documento Attestazione scaduta")
     public void clickDocumentoAttestazioneScaduta() {
         DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
@@ -463,6 +469,16 @@ public class DownloadFileMittentePagoPATest {
         DisserviziAppPAPage disserviziAppPAPage = new DisserviziAppPAPage(driver);
 
         disserviziAppPAPage.downloadAttestazione();
+        WebTool.waitTime(3);
+    }
+
+    @And("Download file attestazione disservizio {int}")
+    public void downloadFileAttestazioneDisservizio(int index) {
+        logger.info("si effettua download del disservizio");
+
+        DisserviziAppPAPage disserviziAppPAPage = new DisserviziAppPAPage(driver);
+
+        disserviziAppPAPage.downloadAttestazione(index);
         WebTool.waitTime(3);
     }
 
