@@ -7,13 +7,11 @@ Feature:Il delegato persona giuridica accede ad una delega
 
   Scenario: PN-10388 - Il delegato persona fisica paga una notifica
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    And Aspetta 10 secondi
     And Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
     And Si controlla che non sia presente una delega con stesso nome
       | nome    | Lucrezia |
       | cognome | Borgia   |
-    And Aspetta 10 secondi
     And Nella sezione Deleghe click sul bottone aggiungi nuova delega
     And Si visualizza correttamente la pagina nuova delega
     And Nella sezione Le Tue Deleghe inserire i dati
