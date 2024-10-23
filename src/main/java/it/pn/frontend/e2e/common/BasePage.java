@@ -1,20 +1,27 @@
 package it.pn.frontend.e2e.common;
 
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@Component
 public class BasePage {
+
+
     protected WebDriver driver;
 
-    protected int loadComponentWaitTime = Integer.parseInt(System.getProperty("loadComponentWaitTime"));
+   //protected int loadComponentWaitTime = Integer.parseInt(System.getProperty("loadComponentWaitTime"));
+   protected int loadComponentWaitTime;
 
     private static final Logger loggerBase = LoggerFactory.getLogger("BasePage");
 

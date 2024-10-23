@@ -11,7 +11,7 @@ import java.util.Properties;
 
 public class ConfigFileReader {
 
-    private static final String TEST_CONFIG_FILE = "test-config.properties";
+    private static final String TEST_CONFIG_FILE = "config/test-config.properties";
     private static final Properties properties = new Properties();
     private static final Logger logger = LoggerFactory.getLogger("ConfigFileReader");
     private static String testSuite;
@@ -35,6 +35,7 @@ public class ConfigFileReader {
 
     @BeforeAll
     public static void startTestSuite() {
+        /**
         if (loadProperties()) {
             logger.info("properties loaded");
             properties.forEach((property, value) -> {
@@ -45,6 +46,7 @@ public class ConfigFileReader {
                     }
             );
         }
+         **/
         if (System.getProperty("cucumber.filter.tags") != null) {
             testSuite = System.getProperty("cucumber.filter.tags").substring(1);
             logger.info("run test della test suite = " + testSuite);

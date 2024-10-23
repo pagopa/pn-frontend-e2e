@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.utility.WebTool;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -10,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -41,6 +43,9 @@ public class GruppiPGPage extends BasePage {
     @FindBy(xpath = "//button[contains(text(), 'Conferma')]")
     WebElement buttonConferma;
 
+    @Autowired
+    private WebTool webTool;
+
     public GruppiPGPage(WebDriver driver) {
         super(driver);
     }
@@ -49,8 +54,8 @@ public class GruppiPGPage extends BasePage {
         js().executeScript("arguments[0].scrollIntoView(true);", gruppiButton);
         getWebDriverWait(10).withMessage("Il bottone gruppi non è visibile").until(ExpectedConditions.visibilityOf(gruppiButton));
         gruppiButton.click();
-        WebTool.waitTime(5);
-        WebTool.switchToOtherTab();
+        webTool.waitTime(5);
+        webTool.switchToOtherTab();
     }
 
     public void loginGruppi(String nome, String pwd) {

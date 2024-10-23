@@ -7,6 +7,7 @@ import it.pn.frontend.e2e.model.address.DigitalAddress;
 import it.pn.frontend.e2e.model.address.DigitalAddressResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class RestContact {
     private static final Logger logger = LoggerFactory.getLogger("RestContact");
     final CustomHttpClient<?, String> httpClient = CustomHttpClient.getInstance();

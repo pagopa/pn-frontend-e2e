@@ -3,10 +3,12 @@ package it.pn.frontend.e2e.utility;
 import org.openqa.selenium.Cookie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@Component
 public class CookieConfig {
     private static final Logger logger = LoggerFactory.getLogger("CookieConfig");
 

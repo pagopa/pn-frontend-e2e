@@ -4,6 +4,7 @@ import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.documents.Document;
 import it.pn.frontend.e2e.model.notification.NewNotificationRequest;
 import it.pn.frontend.e2e.model.notification.NewNotificationResponse;
@@ -24,6 +25,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +41,10 @@ public class DestinatarioPage extends BasePage {
     private final RestNotification restNotification = new RestNotification();
     private static final NotificationBuilder notificationBuilder = new NotificationBuilder();
     private  int destinatariNumber;
-    private final WebDriver driver = Hooks.driver;
+
+    @Autowired
+    private HooksNew hooks;
+    private final WebDriver driver = hooks.getDriver();
 
     //Questa classe è utilizzata per metodi in comune tra PF e PG
     public DestinatarioPage(WebDriver driver) {
