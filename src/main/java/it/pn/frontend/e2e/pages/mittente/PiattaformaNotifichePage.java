@@ -77,7 +77,7 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(id = "subject-helper-text")
     WebElement errorMessage;
 
-    @FindBy(id = "breadcrumb-indietro-button")
+    @FindBy(id = "breadcrumb-indietro-buttonsss")
     WebElement indietroButton;
 
     @FindBy(id = "button-exit")
