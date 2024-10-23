@@ -97,7 +97,8 @@ public class HooksNew {
         WebDriverManager.chromedriver().setup();
         var chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--lang=it", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard");
-        var downloadFilePath = System.getProperty("downloadFilePath");
+        var downloadFilePath = webDriverConfig.getDownloadFilePath();
+       // var downloadFilePath = System.getProperty("downloadFilePath");
         var chromePrefs = Map.of("download.default_directory", downloadFilePath);
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
 
@@ -194,11 +195,14 @@ public class HooksNew {
                     MDC.put("team", "TA-QA");
                 });
 
-        var browser = Optional.ofNullable(System.getProperty("browser"))
-                .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
-        //this.headless = System.getProperty("headless", "false");
-        webDriverConfig.setHeadless(System.getProperty("headless", "false"));
 
+        var browser = Optional.ofNullable(webDriverConfig.getBrowser())
+                .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
+       // var browser = Optional.ofNullable(System.getProperty("browser"))
+        //        .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
+        //this.headless = System.getProperty("headless", "false");
+       // webDriverConfig.setHeadless(System.getProperty("headless", "false"));
+       // webDriverConfig.setHeadless("false");
         switch (browser) {
             case "firefox" -> setupFirefox();
             case "chrome" -> setupChrome();
@@ -254,7 +258,8 @@ public class HooksNew {
 
     @After("@File")
     public void clearDirectory() {
-        var folderPath = System.getProperty("downloadFilePath");
+        //var folderPath = System.getProperty("downloadFilePath");
+        var folderPath = webDriverConfig.getDownloadFilePath();
         var folder = new File(folderPath);
         if (folder.isDirectory()) {
             Arrays.stream(Objects.requireNonNull(folder.listFiles()))

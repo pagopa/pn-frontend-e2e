@@ -33,14 +33,23 @@ public class WebDriverConfig {
     @Value("${browser}")
     private String browser;
 
+    @Value("${environment}")
+    private String environment;
+
+    @Value("${cookie.config}")
+    private String cookie;
+
     @Value("${headless}")
     @Setter
     private String headless;
 
-    @Value("${selenium.browser.remote}")
-    private String remote;
+    @Value("${downloadFilePath}")
+    private String downloadFilePath;
 
-    @Value("${baseUrl}")
+    @Value("${loadComponentWaitTime}")
+    private String loadComponentWaitTime;
+
+    @Value("${apiBaseUrl}")
     private String baseUrl;
 
 }

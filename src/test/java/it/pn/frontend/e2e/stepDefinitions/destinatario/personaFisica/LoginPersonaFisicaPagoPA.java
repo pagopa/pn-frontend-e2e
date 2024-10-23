@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.api.personaFisica.SpidAcs;
 import it.pn.frontend.e2e.api.personaFisica.SpidDemoLogin;
 import it.pn.frontend.e2e.api.personaFisica.SpidDemoStart;
 import it.pn.frontend.e2e.api.personaFisica.SpidLogin;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
@@ -32,6 +33,9 @@ public class LoginPersonaFisicaPagoPA {
 
     @Autowired
     private HooksNew hooks;
+    @Autowired
+    private WebDriverConfig webDriverConfig;
+
     private Map<String, Object> datiDelegato;
     private static final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
 
@@ -41,7 +45,8 @@ public class LoginPersonaFisicaPagoPA {
     public void loginPageDestinatarioVieneVisualizzata(String datipersonaFisica) {
         DataPopulation dataPopulation = new DataPopulation();
         this.datiPersonaFisica = dataPopulation.readDataPopulation(datipersonaFisica + ".yaml");
-        String variabileAmbiente = System.getProperty("environment");
+       // String variabileAmbiente = System.getProperty("environment");
+        String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
             case "dev" -> this.hooks.getDriver().get(this.datiPersonaFisica.get("url").toString());
             case "test", "uat" ->
@@ -53,7 +58,7 @@ public class LoginPersonaFisicaPagoPA {
 
     @Given("Login Page persona fisica test viene visualizzata")
     public void loginPageDestinatarioVieneVisualizzataConUrl() {
-
+        logger.info("ENVIROMENT...: "+ webDriverConfig.getEnvironment());
         String url = "https://cittadini.test.notifichedigitali.it/";
 
         this.hooks.getDriver().get(url);
@@ -62,7 +67,8 @@ public class LoginPersonaFisicaPagoPA {
     @Given("PF - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
     public void loginMittenteConTokenExchange(String personaFisica) {
         DataPopulation dataPopulation = new DataPopulation();
-        String environment = System.getProperty("environment");
+        //String environment = System.getProperty("environment");
+       String environment = webDriverConfig.getEnvironment();
         String token = "";
         switch (environment) {
             case "dev" -> token = personaFisica.equalsIgnoreCase("delegante") ?
@@ -222,6 +228,7 @@ public class LoginPersonaFisicaPagoPA {
 
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
+        logger.info("ENVIROMENT...: "+ webDriverConfig.getEnvironment());
         CookiesSection cookiesSection;
         if (!CookieConfig.isCookieEnabled()) {
             cookiesSection = new CookiesSection(this.hooks.getDriver());
@@ -273,7 +280,9 @@ public class LoginPersonaFisicaPagoPA {
             throw new RuntimeException(e);
         }
 
-        String variabileAmbiente = System.getProperty("environment");
+       // String variabileAmbiente = System.getProperty("environment");
+        logger.info("ENVIROMENT...: "+ webDriverConfig.getEnvironment());
+
         String urlChiamata = WebTool.getApiBaseUrl() + "notifications/received?";
 
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
@@ -337,7 +346,8 @@ public class LoginPersonaFisicaPagoPA {
     }
 
     private boolean readHttpRequest() {
-        String variabileAmbiente = System.getProperty("environment");
+       // String variabileAmbiente = System.getProperty("environment");
+        String variabileAmbiente = webDriverConfig.getEnvironment();
         boolean urlFound = false;
         for (NetWorkInfo netWorkInfo : hooks.getNetWorkInfos()) {
             logger.info(netWorkInfo.getRequestUrl());
@@ -385,7 +395,8 @@ public class LoginPersonaFisicaPagoPA {
 
     private void readUrlLoginPersonaFisicaWithToken(String user, String pwd) {
         logger.info("spid-login");
-        String variabileAmbiente = System.getProperty("environment");
+       // String variabileAmbiente = System.getProperty("environment");
+        String variabileAmbiente = webDriverConfig.getEnvironment();
 
         SpidLogin spidLogin = new SpidLogin("xx_testenv2", "SpidL2");
         spidLogin.setSpidLoginEndPoint("https://hub-login.spid." + variabileAmbiente + ".notifichedigitali.it/login");
@@ -598,7 +609,8 @@ public class LoginPersonaFisicaPagoPA {
 
     @When("Login portale persona fisica tramite token exchange {string}")
     public void loginPortalePersonaFisicaTramiteTokenExchange(String dpFile) {
-        String variabileAmbiente = System.getProperty("environment");
+       // String variabileAmbiente = System.getProperty("environment");
+        String variabileAmbiente = webDriverConfig.getEnvironment();
         DataPopulation dataPopulation = new DataPopulation();
         String urlIniziale = "https://cittadini." + variabileAmbiente + ".notifichedigitali.it/#token=";
         String user = dataPopulation.readDataPopulation(dpFile + ".yaml").get("user").toString();
@@ -623,7 +635,8 @@ public class LoginPersonaFisicaPagoPA {
 
     public String getTokenExchangePFFromFile(String personaFisica) {
         DataPopulation dataPopulation = new DataPopulation();
-        String environment = System.getProperty("environment");
+        //String environment = System.getProperty("environment");
+        String environment = webDriverConfig.getEnvironment();
         String token = "";
         switch (environment) {
             case "dev" -> token = personaFisica.equalsIgnoreCase("delegante") ?
