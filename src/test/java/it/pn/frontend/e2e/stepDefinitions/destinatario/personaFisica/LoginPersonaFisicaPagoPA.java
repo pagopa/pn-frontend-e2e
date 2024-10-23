@@ -9,6 +9,7 @@ import it.pn.frontend.e2e.api.personaFisica.SpidDemoLogin;
 import it.pn.frontend.e2e.api.personaFisica.SpidDemoStart;
 import it.pn.frontend.e2e.api.personaFisica.SpidLogin;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
 import it.pn.frontend.e2e.section.CookiesSection;
@@ -21,6 +22,7 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Map;
@@ -31,10 +33,16 @@ public class LoginPersonaFisicaPagoPA {
     private static final Logger logger = LoggerFactory.getLogger("LoginPersonaFisicaPagoPA");
     private Map<String, Object> datiPersonaFisica;
     private Map<String, String> urlPersonaFisica;
-    private final WebDriver driver = Hooks.driver;
-    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
+
+    @Autowired
+    private HooksNew hooks;
+
+    private final List<NetWorkInfo> netWorkInfos = HooksNew.netWorkInfos;
+
     private Map<String, Object> datiDelegato;
     private static final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
+
+
 
     @Given("Login Page persona fisica {string} viene visualizzata")
     public void loginPageDestinatarioVieneVisualizzata(String datipersonaFisica) {
@@ -42,9 +50,9 @@ public class LoginPersonaFisicaPagoPA {
         this.datiPersonaFisica = dataPopulation.readDataPopulation(datipersonaFisica + ".yaml");
         String variabileAmbiente = System.getProperty("environment");
         switch (variabileAmbiente) {
-            case "dev" -> this.driver.get(this.datiPersonaFisica.get("url").toString());
+            case "dev" -> this.hooks.getDriver().get(this.datiPersonaFisica.get("url").toString());
             case "test", "uat" ->
-                    this.driver.get(this.datiPersonaFisica.get("url").toString().replace("dev", variabileAmbiente));
+                    this.hooks.getDriver().get(this.datiPersonaFisica.get("url").toString().replace("dev", variabileAmbiente));
             default ->
                     Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
@@ -54,7 +62,9 @@ public class LoginPersonaFisicaPagoPA {
     public void loginPageDestinatarioVieneVisualizzataConUrl() {
 
         String url = "https://cittadini.test.notifichedigitali.it/";
-        this.driver.get(url);
+
+        this.hooks.getDriver().get(url);
+        logger.info("HOOKS_HTML...:" + hooks.getDriver().getPageSource());
     }
 
     @Given("PF - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
@@ -79,14 +89,14 @@ public class LoginPersonaFisicaPagoPA {
 
         // Si effettua il login con token exchange
         String urlLogin = "https://cittadini." + environment + ".notifichedigitali.it/#token=" + token;
-        this.driver.get(urlLogin);
+        this.hooks.getDriver().get(urlLogin);
         logger.info("Login effettuato con successo");
         WebTool.waitTime(10);
 
         // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
-        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
+        HeaderPFSection headerPFSection = new HeaderPFSection(this.hooks.getDriver());
         headerPFSection.waitLoadHeaderDESection();
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.hooks.getDriver());
         notifichePFPage.waitLoadNotificheDEPage();
     }
 
@@ -101,28 +111,28 @@ public class LoginPersonaFisicaPagoPA {
         CookiesSection cookiesPage;
 
         if (!CookieConfig.isCookieEnabled()) {
-            cookiesPage = new CookiesSection(this.driver);
+            cookiesPage = new CookiesSection(this.hooks.getDriver());
             if (cookiesPage.waitLoadCookiesPage()) {
                 cookiesPage.selezionaAccettaTuttiButton();
             }
         }
         logger.info("cookies end");
 
-        ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.driver);
+        ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.hooks.getDriver());
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
         comeVuoiAccederePage.selezionaSpidButton();
 
-        ScegliSpidPFPage scegliSpidPFPage = new ScegliSpidPFPage(this.driver);
+        ScegliSpidPFPage scegliSpidPFPage = new ScegliSpidPFPage(this.hooks.getDriver());
         scegliSpidPFPage.waitLoadScegliSpidDEPage();
         scegliSpidPFPage.selezionareTestButton();
 
-        LoginSpidPFPage loginSpidPFPage = new LoginSpidPFPage(this.driver);
+        LoginSpidPFPage loginSpidPFPage = new LoginSpidPFPage(this.hooks.getDriver());
         loginSpidPFPage.waitLoadLoginSpidDEPage();
         loginSpidPFPage.inserisciUtente(this.datiPersonaFisica.get("user").toString());
         loginSpidPFPage.inserisciPassword(this.datiPersonaFisica.get("pwd").toString());
         loginSpidPFPage.selezionaEntraConSpidButton();
 
-        ConfermaDatiSpidPFPage confermaDatiSpidPFPage = new ConfermaDatiSpidPFPage(this.driver);
+        ConfermaDatiSpidPFPage confermaDatiSpidPFPage = new ConfermaDatiSpidPFPage(this.hooks.getDriver());
         confermaDatiSpidPFPage.waitLoadConfermaDatiSpidDEPage();
         String nomeUtenteLetto = confermaDatiSpidPFPage.leggiNomeUtente();
         if (nomeUtenteLetto.equals(this.datiPersonaFisica.get("name").toString())) {
@@ -147,7 +157,7 @@ public class LoginPersonaFisicaPagoPA {
             logger.error("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + this.datiPersonaFisica.get("fiscalNumber").toString());
             Assertions.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + this.datiPersonaFisica.get("fiscalNumber").toString());
         }
-        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
+        HeaderPFSection headerPFSection = new HeaderPFSection(this.hooks.getDriver());
         confermaDatiSpidPFPage.selezionaConfermaButton();
         headerPFSection.waitUrlToken();
     }
@@ -159,33 +169,33 @@ public class LoginPersonaFisicaPagoPA {
         CookiesSection cookiesPage;
 
         if (!CookieConfig.isCookieEnabled()) {
-            cookiesPage = new CookiesSection(this.driver);
+            cookiesPage = new CookiesSection(this.hooks.getDriver());
             if (cookiesPage.waitLoadCookiesPage()) {
                 cookiesPage.selezionaAccettaTuttiButton();
             }
         }
         logger.info("cookies end");
-        AccediAPiattaformaNotifichePage accediApiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
+        AccediAPiattaformaNotifichePage accediApiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.hooks.getDriver());
         accediApiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
         accediApiattaformaNotifichePage.selezionaAccediButton();
         if (!CookieConfig.isCookieEnabled()) {
-            cookiesPage = new CookiesSection(this.driver);
+            cookiesPage = new CookiesSection(this.hooks.getDriver());
             if (cookiesPage.waitLoadCookiesPage()) {
                 cookiesPage.selezionaAccettaTuttiButton();
             }
         }
 
-        ScegliSpidPFPage scegliSpidPFPage = new ScegliSpidPFPage(this.driver);
+        ScegliSpidPFPage scegliSpidPFPage = new ScegliSpidPFPage(this.hooks.getDriver());
         scegliSpidPFPage.waitLoadScegliSpidDEPage();
         scegliSpidPFPage.selezionareTestButton();
 
-        LoginSpidPFPage loginSpidPFPage = new LoginSpidPFPage(this.driver);
+        LoginSpidPFPage loginSpidPFPage = new LoginSpidPFPage(this.hooks.getDriver());
         loginSpidPFPage.waitLoadLoginSpidDEPage();
         loginSpidPFPage.inserisciUtente(datiPF.get("user"));
         loginSpidPFPage.inserisciPassword(datiPF.get("pwd"));
         loginSpidPFPage.selezionaEntraConSpidButton();
 
-        ConfermaDatiSpidPFPage confermaDatiSpidPFPage = new ConfermaDatiSpidPFPage(this.driver);
+        ConfermaDatiSpidPFPage confermaDatiSpidPFPage = new ConfermaDatiSpidPFPage(this.hooks.getDriver());
         confermaDatiSpidPFPage.waitLoadConfermaDatiSpidDEPage();
         String nomeUtenteLetto = confermaDatiSpidPFPage.leggiNomeUtente();
         if (nomeUtenteLetto.equals(datiPF.get("name"))) {
@@ -212,7 +222,7 @@ public class LoginPersonaFisicaPagoPA {
             Assertions.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
         }
 
-        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
+        HeaderPFSection headerPFSection = new HeaderPFSection(this.hooks.getDriver());
         confermaDatiSpidPFPage.selezionaConfermaButton();
         headerPFSection.waitUrlToken();
         WebTool.waitTime(2);
@@ -221,9 +231,9 @@ public class LoginPersonaFisicaPagoPA {
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
         CookiesSection cookiesSection;
-
+        logger.info("HOOKS_HTML_1...:" + hooks.getDriver().getPageSource());
         if (!CookieConfig.isCookieEnabled()) {
-            cookiesSection = new CookiesSection(this.driver);
+            cookiesSection = new CookiesSection(this.hooks.getDriver());
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -247,17 +257,17 @@ public class LoginPersonaFisicaPagoPA {
         } else {
             logger.warn("Http token persona fisica not found");
         }
-        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
+        HeaderPFSection headerPFSection = new HeaderPFSection(this.hooks.getDriver());
         headerPFSection.waitLoadHeaderDESection();
 
         if (!CookieConfig.isCookieEnabled()) {
-            cookiesSection = new CookiesSection(this.driver);
+            cookiesSection = new CookiesSection(this.hooks.getDriver());
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
 
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        NotifichePFPage notifichePFPage = new NotifichePFPage(this.hooks.getDriver());
         notifichePFPage.waitLoadNotificheDEPage();
         if (notifichePFPage.verificaPresenzaCodiceIunTextField()) {
             logger.info("text field codice iun presente");
@@ -286,9 +296,11 @@ public class LoginPersonaFisicaPagoPA {
     }
 
     private int getCodiceRispostaChiamataApi(String urlChiamata) {
-        logger.info("Recupero codice risposta della chiamata" + urlChiamata);
+        logger.info("Recupero codice risposta della chiamata " + urlChiamata);
         int codiceRispostaChiamataApi = 0;
         for (NetWorkInfo chiamate : netWorkInfos) {
+            logger.info("URL.... " + chiamate.getRequestUrl());
+            logger.info("METHOD.... " + chiamate.getRequestMethod());
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
                 codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
                 break;
@@ -299,16 +311,16 @@ public class LoginPersonaFisicaPagoPA {
 
     @And("Logout da portale persona fisica")
     public void logoutDaPortaleDestinatario() {
-        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
+        HeaderPFSection headerPFSection = new HeaderPFSection(this.hooks.getDriver());
         headerPFSection.waitLoadHeaderDESection();
         headerPFSection.selezionaProfiloUtenteMenu();
         headerPFSection.selezionaVoceEsci();
 
-        ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.driver);
+        ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.hooks.getDriver());
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
 
         if (!CookieConfig.isCookieEnabled()) {
-            CookiesSection cookiesSection = new CookiesSection(this.driver);
+            CookiesSection cookiesSection = new CookiesSection(this.hooks.getDriver());
             if (cookiesSection.waitLoadCookiesPage()) {
                 logger.info("banner dei cookies visualizzato");
                 cookiesSection.selezionaAccettaTuttiButton();
@@ -379,7 +391,7 @@ public class LoginPersonaFisicaPagoPA {
 
         }
 
-        this.driver.get(this.urlPersonaFisica.get("urlPortale"));
+        this.hooks.getDriver().get(this.urlPersonaFisica.get("urlPortale"));
     }
 
     private void readUrlLoginPersonaFisicaWithToken(String user, String pwd) {
@@ -592,7 +604,7 @@ public class LoginPersonaFisicaPagoPA {
             Assertions.fail("Codice risposta ricevuto per questo end point: '" + this.urlPersonaFisica.get("urlPortale") + "' è : " + this.urlPersonaFisica.get("responseCode"));
         }
 
-        this.driver.get(this.urlPersonaFisica.get("urlPortale"));
+        this.hooks.getDriver().get(this.urlPersonaFisica.get("urlPortale"));
     }
 
     @When("Login portale persona fisica tramite token exchange {string}")
@@ -617,7 +629,7 @@ public class LoginPersonaFisicaPagoPA {
             }
         }
         String url = urlIniziale + token;
-        this.driver.get(url);
+        this.hooks.getDriver().get(url);
     }
 
     public String getTokenExchangePFFromFile(String personaFisica) {
