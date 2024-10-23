@@ -23,6 +23,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.util.HashMap;
@@ -42,6 +43,9 @@ public class NotifichePersonaFisicaPagoPATest {
     private final NotifichePFPage notifichePFPage = new NotifichePFPage(driver);
 
     private final DettaglioNotificaSection dettaglioNotifica = new DettaglioNotificaSection(driver);
+    @Autowired
+    private CookieConfig cookieConfig;
+
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche")
     public void nellaPiattaformaDestinatarioCliccareSulBottoneNotifiche() {
         NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
@@ -53,7 +57,7 @@ public class NotifichePersonaFisicaPagoPATest {
         HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
         headerPFSection.waitLoadHeaderDESection();
 
-        if (!CookieConfig.isCookieEnabled()) {
+        if (!cookieConfig.isCookieEnabled()) {
             CookiesSection cookiesSection = new CookiesSection(this.driver);
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();

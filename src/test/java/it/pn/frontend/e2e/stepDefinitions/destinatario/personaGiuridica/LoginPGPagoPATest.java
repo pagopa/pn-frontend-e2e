@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +46,8 @@ public class LoginPGPagoPATest {
     private final String RAGIONE_SOCIALE_BALDASSARRE = "Comune di Milano";
     private final String URL_LOGIN_PG = "https://imprese.dev.notifichedigitali.it/";
 
+    @Autowired
+    private CookieConfig cookieConfig;
 
     @Given("Login Page persona giuridica viene visualizzata")
     public void loginPagePersonaGiuridicaVieneVisualizzata() {
@@ -137,7 +140,7 @@ public class LoginPGPagoPATest {
 
         this.driver.get(this.urlPersonaGiuridica.get("urlPortale"));
 
-        if (!CookieConfig.isCookieEnabled()) {
+        if (!cookieConfig.isCookieEnabled()) {
             CookiesSection cookiesPage = new CookiesSection(this.driver);
             if (cookiesPage.waitLoadCookiesPage()) {
                 cookiesPage.selezionaAccettaTuttiButton();
@@ -292,7 +295,7 @@ public class LoginPGPagoPATest {
 
         CookiesSection cookiesSection;
 
-        if (!CookieConfig.isCookieEnabled()) {
+        if (!cookieConfig.isCookieEnabled()) {
             cookiesSection = new CookiesSection(this.driver);
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
@@ -366,7 +369,7 @@ public class LoginPGPagoPATest {
 
         this.driver.get(this.urlPersonaGiuridica.get("urlPortale"));
 
-        if (!CookieConfig.isCookieEnabled()) {
+        if (!cookieConfig.isCookieEnabled()) {
             CookiesSection cookiesPage = new CookiesSection(this.driver);
             if (cookiesPage.waitLoadCookiesPage()) {
                 cookiesPage.selezionaAccettaTuttiButton();

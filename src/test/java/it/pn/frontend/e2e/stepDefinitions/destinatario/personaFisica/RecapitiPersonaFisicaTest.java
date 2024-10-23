@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.api.personaFisica.RecuperoOTPRecapiti;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
@@ -19,6 +20,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Map;
@@ -28,6 +30,8 @@ public class RecapitiPersonaFisicaTest {
 
     private static final Logger logger = LoggerFactory.getLogger("InserimentoOTPSbagliato");
 
+    @Autowired
+    private WebDriverConfig webDriverConfig;
     public static String OTP;
     private final WebDriver driver = Hooks.driver;
     private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
@@ -86,7 +90,7 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP() {
         logger.info("Si visualizza correttamente il pop-up di inserimento OTP");
-        String url = WebTool.getApiBaseUrl() + "addresses";
+        String url = webDriverConfig.getBaseUrl() + "addresses";
         recapitiDestinatarioPage.waitLoadPopUp();
         WebTool.waitTime(3);
         if (verificaChiamataEmail(url)) {

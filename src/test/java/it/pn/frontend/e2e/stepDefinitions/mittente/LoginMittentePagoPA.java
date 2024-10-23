@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.api.mittente.SpidAcsMittente;
 import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoContinueResponse;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogin;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.mittente.*;
 import it.pn.frontend.e2e.section.CookiesSection;
@@ -21,6 +22,7 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -32,6 +34,12 @@ public class LoginMittentePagoPA {
     private final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
     private Map<String, Object> datiMittente;
     private Map<String, String> urlMittente;
+
+    @Autowired
+    private CookieConfig cookieConfig;
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     @Given("Login Page mittente {string} viene visualizzata")
     public void loginPageMittenteVieneVisualizzata(String datiMittenteFile) {
@@ -68,7 +76,8 @@ public class LoginMittentePagoPA {
     @Given("PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard")
     public void loginMittenteConTokenExchange() {
         DataPopulation dataPopulation = new DataPopulation();
-        String environment = System.getProperty("environment");
+       // String environment = System.getProperty("environment");
+        String environment = webDriverConfig.getEnvironment();
         String token = "";
         switch (environment) {
             case "dev" ->
@@ -106,7 +115,7 @@ public class LoginMittentePagoPA {
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
         if (driver.getCurrentUrl().contains("https://uat.selfcare.pagopa.it/") ||
-                !CookieConfig.isCookieEnabled()) {
+                !cookieConfig.isCookieEnabled()) {
             logger.info("cookies start");
             CookiesSection cookiesPage;
             cookiesPage = new CookiesSection(this.driver);
@@ -151,7 +160,7 @@ public class LoginMittentePagoPA {
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
         if (driver.getCurrentUrl().contains("https://uat.selfcare.pagopa.it/") ||
-                !CookieConfig.isCookieEnabled()) {
+                !cookieConfig.isCookieEnabled()) {
             logger.info("cookies start");
             CookiesSection cookiesPage;
             cookiesPage = new CookiesSection(this.driver);
@@ -383,7 +392,7 @@ public class LoginMittentePagoPA {
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();
 
-        if (!CookieConfig.isCookieEnabled()) {
+        if (!cookieConfig.isCookieEnabled()) {
             CookiesSection cookiesSection = new CookiesSection(this.driver);
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();

@@ -1,6 +1,8 @@
 package it.pn.frontend.e2e.utility;
 
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.enums.AppPortal;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
@@ -14,6 +16,7 @@ import lombok.Getter;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.SimpleDateFormat;
 import java.time.*;
@@ -26,13 +29,20 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class WebTool {
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
+
+    @Autowired
+    private HooksNew hooks;
+
     private static final Integer NOTICE_CODE_LENGTH = 18;
     private static final WebDriver driver = Hooks.driver;
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
-    private final String env = System.getProperty("environment");
+    //private final String env1 = System.getProperty("environment");
 
-    @Getter
-    private static final String apiBaseUrl = System.getProperty("apiBaseUrl");
+    //@Getter
+    //private static final String apiBaseUrl = System.getProperty("apiBaseUrl");
 
     public static String switchToPortal(AppPortal portal) {
         openNewTab();

@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
@@ -24,6 +25,7 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.awt.*;
 import java.io.File;
@@ -45,6 +47,11 @@ public class NotifichePGPagoPATest {
     DeleghePGPagoPAPage deleghePage = new DeleghePGPagoPAPage(this.driver);
     Map<String, Object> personaGiuridica = new HashMap<>();
 
+    @Autowired
+    private CookieConfig cookieConfig;
+    @Autowired
+    private WebDriverConfig webDriverConfig;
+
     @And("Nella Home page persona giuridica si clicca su Send Notifiche Digitali")
     public void clickSendNotificheDigitali() {
         this.logger.info("Si clicca su Send Notifiche Digitali");
@@ -63,7 +70,7 @@ public class NotifichePGPagoPATest {
 
     @And("Si visualizza correttamente la Pagina Notifiche persona giuridica {string}")
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica(String ragioneSociale) {
-        if (!CookieConfig.isCookieEnabled()) {
+        if (!cookieConfig.isCookieEnabled()) {
             CookiesSection cookiesSection = new CookiesSection(this.driver);
             if (cookiesSection.waitLoadCookiesPage()) {
                 logger.info("Si accettano i cookies");
@@ -72,7 +79,7 @@ public class NotifichePGPagoPATest {
         }
         piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(ragioneSociale);
 
-        String urlChiamata = WebTool.getApiBaseUrl() + "notifications/received?";
+        String urlChiamata = webDriverConfig.getBaseUrl() + "notifications/received?";
 
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
@@ -188,7 +195,7 @@ public class NotifichePGPagoPATest {
         List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
         String bearerToken = "";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
-            String urlChiamata = WebTool.getApiBaseUrl() + "notifications/received?";
+            String urlChiamata = webDriverConfig.getBaseUrl() + "notifications/received?";
             if (netWorkInfo.getRequestUrl().contains(urlChiamata)) {
                 bearerToken = netWorkInfo.getAuthorizationBearer();
             }
@@ -201,7 +208,7 @@ public class NotifichePGPagoPATest {
         DataPopulation dataPopulation = new DataPopulation();
         personaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
-        if (!CookieConfig.isCookieEnabled()) {
+        if (!cookieConfig.isCookieEnabled()) {
             CookiesSection cookiesSection = new CookiesSection(this.driver);
             if (cookiesSection.waitLoadCookiesPage()) {
                 logger.info("Si accettano i cookies");
@@ -393,7 +400,7 @@ public class NotifichePGPagoPATest {
         WebTool.waitTime(5);
         DownloadFile downloadFile = new DownloadFile(this.driver);
 
-        final String url = downloadFile.getUrl(WebTool.getApiBaseUrl() + "notifications/received/");
+        final String url = downloadFile.getUrl(webDriverConfig.getBaseUrl() + "notifications/received/");
         if (headless && url.isEmpty()) {
             logger.error("Non è stato recuperato url per il download per il link: " + nomeFile);
             Assertions.fail("Non è stato recuperato url per il download per il link: " + nomeFile);

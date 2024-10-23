@@ -35,6 +35,8 @@ public class LoginPersonaFisicaPagoPA {
     private HooksNew hooks;
     @Autowired
     private WebDriverConfig webDriverConfig;
+    @Autowired
+    private CookieConfig cookieConfig;
 
     private Map<String, Object> datiDelegato;
     private static final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
@@ -108,7 +110,7 @@ public class LoginPersonaFisicaPagoPA {
         logger.info("cookies start");
         CookiesSection cookiesPage;
 
-        if (!CookieConfig.isCookieEnabled()) {
+        if (!cookieConfig.isCookieEnabled()) {
             cookiesPage = new CookiesSection(this.hooks.getDriver());
             if (cookiesPage.waitLoadCookiesPage()) {
                 cookiesPage.selezionaAccettaTuttiButton();
@@ -166,7 +168,7 @@ public class LoginPersonaFisicaPagoPA {
         logger.info("cookies start");
         CookiesSection cookiesPage;
 
-        if (!CookieConfig.isCookieEnabled()) {
+        if (!cookieConfig.isCookieEnabled()) {
             cookiesPage = new CookiesSection(this.hooks.getDriver());
             if (cookiesPage.waitLoadCookiesPage()) {
                 cookiesPage.selezionaAccettaTuttiButton();
@@ -176,7 +178,7 @@ public class LoginPersonaFisicaPagoPA {
         AccediAPiattaformaNotifichePage accediApiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.hooks.getDriver());
         accediApiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
         accediApiattaformaNotifichePage.selezionaAccediButton();
-        if (!CookieConfig.isCookieEnabled()) {
+        if (!cookieConfig.isCookieEnabled()) {
             cookiesPage = new CookiesSection(this.hooks.getDriver());
             if (cookiesPage.waitLoadCookiesPage()) {
                 cookiesPage.selezionaAccettaTuttiButton();
@@ -228,9 +230,9 @@ public class LoginPersonaFisicaPagoPA {
 
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
-        logger.info("ENVIROMENT...: "+ webDriverConfig.getEnvironment());
+
         CookiesSection cookiesSection;
-        if (!CookieConfig.isCookieEnabled()) {
+        if (!cookieConfig.isCookieEnabled()) {
             cookiesSection = new CookiesSection(this.hooks.getDriver());
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
@@ -258,7 +260,7 @@ public class LoginPersonaFisicaPagoPA {
         HeaderPFSection headerPFSection = new HeaderPFSection(this.hooks.getDriver());
         headerPFSection.waitLoadHeaderDESection();
 
-        if (!CookieConfig.isCookieEnabled()) {
+        if (!cookieConfig.isCookieEnabled()) {
             cookiesSection = new CookiesSection(this.hooks.getDriver());
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
@@ -280,10 +282,7 @@ public class LoginPersonaFisicaPagoPA {
             throw new RuntimeException(e);
         }
 
-       // String variabileAmbiente = System.getProperty("environment");
-        logger.info("ENVIROMENT...: "+ webDriverConfig.getEnvironment());
-
-        String urlChiamata = WebTool.getApiBaseUrl() + "notifications/received?";
+        String urlChiamata = webDriverConfig.getBaseUrl() + "notifications/received?";
 
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
@@ -317,7 +316,7 @@ public class LoginPersonaFisicaPagoPA {
         ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.hooks.getDriver());
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
 
-        if (!CookieConfig.isCookieEnabled()) {
+        if (!cookieConfig.isCookieEnabled()) {
             CookiesSection cookiesSection = new CookiesSection(this.hooks.getDriver());
             if (cookiesSection.waitLoadCookiesPage()) {
                 logger.info("banner dei cookies visualizzato");

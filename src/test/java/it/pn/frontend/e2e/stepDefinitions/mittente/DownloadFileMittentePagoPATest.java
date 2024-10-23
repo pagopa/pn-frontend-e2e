@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
@@ -17,6 +18,7 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.util.HashMap;
@@ -30,6 +32,9 @@ public class DownloadFileMittentePagoPATest {
     private final WebDriver driver = Hooks.driver;
     private Map<String, Object> datiNotifica = new HashMap<>();
     private DownloadFile downloadFile;
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
     public void clickNotificaRestituita() {
@@ -83,7 +88,7 @@ public class DownloadFileMittentePagoPATest {
 
         final String filepath = workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN";
 
-        final String urlDocumenti = WebTool.getApiBaseUrl() + "notifications/sent/" + codiceIUN + "/documents/";
+        final String urlDocumenti = webDriverConfig.getBaseUrl() + "notifications/sent/" + codiceIUN + "/documents/";
 
         final String urlDocumentiAllegati = downloadFile.getUrl(urlDocumenti);
         File file = new File(filepath + count + ".pdf");
@@ -107,7 +112,7 @@ public class DownloadFileMittentePagoPATest {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            final String url = WebTool.getApiBaseUrl() + "notifications/sent/" + codiceIUN + "/documents/AAR?documentId=safestorage:";
+            final String url = webDriverConfig.getBaseUrl() + "notifications/sent/" + codiceIUN + "/documents/AAR?documentId=safestorage:";
             final String urlAvvenutaRicezione = downloadFile.getUrl(url);
             if (headless && urlAvvenutaRicezione.isEmpty()) {
                 String testoLink = dettaglioNotificaMittenteSection.getTextLinkAvvenutaRicezione(i);
@@ -133,7 +138,7 @@ public class DownloadFileMittentePagoPATest {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            final String urlFileAttestazioneOppponibile = downloadFile.getUrl(WebTool.getApiBaseUrl());
+            final String urlFileAttestazioneOppponibile = downloadFile.getUrl(webDriverConfig.getBaseUrl());
             if (headless && urlFileAttestazioneOppponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
                 logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
@@ -186,7 +191,7 @@ public class DownloadFileMittentePagoPATest {
         }
 
         final String filepath = workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN";
-        final String urlDocumenti = WebTool.getApiBaseUrl() + "notifications/sent/" + codiceIUN + "/attachments/documents/0";
+        final String urlDocumenti = webDriverConfig.getBaseUrl() + "notifications/sent/" + codiceIUN + "/attachments/documents/0";
         final String urlDocumentiAllegati = downloadFile.getUrl(urlDocumenti);
         File file = new File(filepath + count + "PN_NOTIFICATION_ATTACHMENTS.pdf");
 
@@ -321,7 +326,7 @@ public class DownloadFileMittentePagoPATest {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            final String urlFileAttestazioneOpponibile = downloadFile.getUrl(WebTool.getApiBaseUrl());
+            final String urlFileAttestazioneOpponibile = downloadFile.getUrl(webDriverConfig.getBaseUrl());
             if (urlFileAttestazioneOpponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
                 logger.error("Non è stato recuperato l'URL per il download per il link: " + testoLink);
@@ -352,7 +357,7 @@ public class DownloadFileMittentePagoPATest {
         WebTool.waitTime(5);
         downloadFile = new DownloadFile(this.driver);
 
-        final String url = downloadFile.getUrl(WebTool.getApiBaseUrl() + "notifications/sent/");
+        final String url = downloadFile.getUrl(webDriverConfig.getBaseUrl() + "notifications/sent/");
         if (headless && url.isEmpty()) {
             logger.error("Non è stato recuperato url per il download per il link: " + nomeFile);
             Assertions.fail("Non è stato recuperato url per il download per il link: " + nomeFile);

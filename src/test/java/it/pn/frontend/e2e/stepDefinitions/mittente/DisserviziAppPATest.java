@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +24,9 @@ public class DisserviziAppPATest {
     private final WebDriver driver = Hooks.driver;
     private final AccediAPiattaformaNotifichePage notifichePage = new AccediAPiattaformaNotifichePage(this.driver);
     private final DisserviziAppPAPage disserviziAppPAPage = new DisserviziAppPAPage(this.driver);
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     @When("Nella pagina Piattaforma Notifiche selezionare la voce 'stato della piattaforma'")
     public void nellaPaginaPiattaformaNotificheSelezionareLaVoceStatoDellaPiattaforma() {
@@ -73,7 +78,7 @@ public class DisserviziAppPATest {
         disserviziAppPAPage.clickLinkAttestazioniOpponibileDisservizi(0);
         WebTool.waitTime(5);
         String legalFactId = downloadFile.getLegalFactId();
-        String urlFileAttestazioneOpponibile = WebTool.getApiBaseUrl() + "downtime/legal-facts/" + legalFactId;
+        String urlFileAttestazioneOpponibile = webDriverConfig.getBaseUrl() + "downtime/legal-facts/" + legalFactId;
 
         File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + 0 + ".pdf");
         downloadFile.downloadAttestazioneDisservizi(urlFileAttestazioneOpponibile, file, headless);

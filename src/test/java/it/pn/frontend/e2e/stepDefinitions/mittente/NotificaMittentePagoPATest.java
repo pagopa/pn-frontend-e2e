@@ -6,6 +6,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.api.mittente.AccettazioneRichiestaNotifica;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.enums.AppPortal;
@@ -28,6 +29,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -66,6 +68,11 @@ public class NotificaMittentePagoPATest {
     @Setter
     private String ApiKey;
 
+    @Autowired
+    private CookieConfig cookieConfig;
+    @Autowired
+    private WebDriverConfig webDriverConfig;
+
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
         AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
@@ -91,7 +98,7 @@ public class NotificaMittentePagoPATest {
             throw new RuntimeException(e);
         }
 
-        String urlChiamata = WebTool.getApiBaseUrl() + "notifications/sent?";
+        String urlChiamata = webDriverConfig.getBaseUrl() + "notifications/sent?";
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
             logger.error("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
@@ -120,7 +127,7 @@ public class NotificaMittentePagoPATest {
 
         this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
         WebTool.waitTime(5);
-        String urlNotifiche = WebTool.getApiBaseUrl() + "notifications/";
+        String urlNotifiche = webDriverConfig.getBaseUrl() + "notifications/";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
             if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=10")) {
                 String responseBody = netWorkInfo.getResponseBody();
@@ -433,7 +440,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche accetta i Cookies")
     public void nellaPaginaPiattaformaNotificheAccettaICookies() {
-        if (!CookieConfig.isCookieEnabled()) {
+        if (!cookieConfig.isCookieEnabled()) {
             CookiesSection cookiesSection = new CookiesSection(this.driver);
             cookiesSection.waitLoadCookiesPage();
             cookiesSection.selezionaAccettaTuttiButton();
@@ -769,7 +776,7 @@ public class NotificaMittentePagoPATest {
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
                 piattaformaNotifichePage.aggiornamentoPagina();
-                if (!CookieConfig.isCookieEnabled()) {
+                if (!cookieConfig.isCookieEnabled()) {
                     if (cookiesSection.waitLoadCookiesPage()) {
                         cookiesSection.selezionaAccettaTuttiButton();
                     }
@@ -986,7 +993,7 @@ public class NotificaMittentePagoPATest {
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
                 piattaformaNotifichePage.aggiornamentoPagina();
-                if (!CookieConfig.isCookieEnabled()) {
+                if (!cookieConfig.isCookieEnabled()) {
                     if (cookiesSection.waitLoadCookiesPage()) {
                         cookiesSection.selezionaAccettaTuttiButton();
                     }
@@ -1509,7 +1516,7 @@ public class NotificaMittentePagoPATest {
      */
     protected EsitoNotifica siVerificaEsitoNotifica(String dpFile) {
         logger.info("si verifica se la notifica è stata accettata o rifiutata");
-        final String urlNotificationRequest = WebTool.getApiBaseUrl() + "notifications/sent";
+        final String urlNotificationRequest = webDriverConfig.getBaseUrl() + "notifications/sent";
         final String urlRichiestaNotifica = "https://api." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.3/requests/";
         AccettazioneRichiestaNotifica accettazioneRichiestaNotifica = new AccettazioneRichiestaNotifica();
         String codiceApi;
