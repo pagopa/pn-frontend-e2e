@@ -1,9 +1,6 @@
 package it.pn.frontend.e2e.listeners;
 
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import it.pn.frontend.e2e.model.address.DigitalAddress;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
 import it.pn.frontend.e2e.rest.RestContact;
@@ -11,7 +8,6 @@ import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import lombok.Getter;
 import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -28,14 +24,10 @@ import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.*;
 
 /*
@@ -49,8 +41,7 @@ public class Hooks {
 
     private static final Logger logger = LoggerFactory.getLogger(Hooks.class);
 
-    @Autowired
-    private WebDriver driver;
+
 
     @Autowired
     private CookieConfig cookieConfig;
@@ -75,6 +66,7 @@ public class Hooks {
 
     @Value("${os.name}")
     private String os;
+    public static  WebDriver driver;
 
     public static List<NetWorkInfo> netWorkInfos = new ArrayList<>();
 
@@ -136,7 +128,7 @@ public class Hooks {
         );
     }
 
-    @Before
+    // @Before
     public void startScenario(Scenario scenario) {
         logger.info("-------------------------------------------START SCENARIO: " + scenario.getName() + "------------------------------------------------");
         Hooks.scenario = scenario.getName();
@@ -164,8 +156,17 @@ public class Hooks {
         cookieConfig.addCookie();
     }
 
-    @After
-    public void endScenario(Scenario scenario) {
+
+    //@After
+    public void endScenario(Scenario scenario) throws IOException {
+        System.clearProperty("IUN");
+        netWorkInfos.forEach(netWorkInfo -> {
+            logger.info("Request ID: {}", netWorkInfo.getRequestId());
+            logger.info("Request URL: {}", netWorkInfo.getRequestUrl());
+            logger.info("Method: {}", netWorkInfo.getRequestMethod());
+            logger.info("Response Status: {}", netWorkInfo.getResponseStatus());
+            logger.info("Response Body: {}", netWorkInfo.getResponseBody());
+        });
 
         System.clearProperty("IUN");
 
@@ -199,7 +200,10 @@ public class Hooks {
         netWorkInfos.clear();
     }
 
-    @After("@DeleghePF or @DeleghePG")
+
+    //  @After("@DeleghePF or @DeleghePG")
+    // @Before("@DeleghePF or @DeleghePG")
+    //  @And("Revoca deleghe se esistono")
     public void clearDelegate() {
         logger.info("REVOCA TUTTE LE DELEGHE....");
         MandateSingleton mandateSingleton = MandateSingleton.getInstance();
@@ -213,7 +217,7 @@ public class Hooks {
         }
     }
 
-    @After("@File")
+    //@After("@File")
     public void clearDirectory() {
         File folder = new File(downloadFilePath);
 
@@ -231,12 +235,16 @@ public class Hooks {
         }
     }
 
-    @After("@recapitiPF or @recapitiPG")
-    @And("Rimuovi tutti i recapiti se esistono")
+
+    //   @After("@recapitiPF or @recapitiPG")
+    //   @Before("@recapitiPF or @recapitiPG")
+    //   @And("Rimuovi tutti i recapiti se esistono")
     public void clearRecapiti() throws IOException {
 
+        RestContact restContact = RestContact.getInstance();
         List<DigitalAddress> digitalAddress = restContact.getAllDigitalAddress();
 
+        // Check for legal ones and remove them
         if (digitalAddress != null) {
             logger.info("SENDER DIGITAL ADDRESS...." + digitalAddress);
             logger.info("SENDER DIGITAL ADDRESS...." + digitalAddress.size());

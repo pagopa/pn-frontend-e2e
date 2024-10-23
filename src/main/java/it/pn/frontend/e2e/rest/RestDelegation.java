@@ -8,12 +8,14 @@ import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePG;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class RestDelegation {
     private static final Logger logger = LoggerFactory.getLogger("RestDelegation");
     final CustomHttpClient<DelegateRequestPF, DelegateResponsePF> httpClientPF = CustomHttpClient.getInstance();
