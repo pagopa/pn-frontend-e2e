@@ -8,7 +8,6 @@ import it.pn.frontend.e2e.api.personaFisica.SpidAcs;
 import it.pn.frontend.e2e.api.personaFisica.SpidDemoLogin;
 import it.pn.frontend.e2e.api.personaFisica.SpidDemoStart;
 import it.pn.frontend.e2e.api.personaFisica.SpidLogin;
-import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
@@ -19,12 +18,9 @@ import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -36,9 +32,6 @@ public class LoginPersonaFisicaPagoPA {
 
     @Autowired
     private HooksNew hooks;
-
-    private final List<NetWorkInfo> netWorkInfos = HooksNew.netWorkInfos;
-
     private Map<String, Object> datiDelegato;
     private static final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
 
@@ -64,7 +57,6 @@ public class LoginPersonaFisicaPagoPA {
         String url = "https://cittadini.test.notifichedigitali.it/";
 
         this.hooks.getDriver().get(url);
-        logger.info("HOOKS_HTML...:" + hooks.getDriver().getPageSource());
     }
 
     @Given("PF - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
@@ -231,7 +223,6 @@ public class LoginPersonaFisicaPagoPA {
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
         CookiesSection cookiesSection;
-        logger.info("HOOKS_HTML_1...:" + hooks.getDriver().getPageSource());
         if (!CookieConfig.isCookieEnabled()) {
             cookiesSection = new CookiesSection(this.hooks.getDriver());
             if (cookiesSection.waitLoadCookiesPage()) {
@@ -298,9 +289,7 @@ public class LoginPersonaFisicaPagoPA {
     private int getCodiceRispostaChiamataApi(String urlChiamata) {
         logger.info("Recupero codice risposta della chiamata " + urlChiamata);
         int codiceRispostaChiamataApi = 0;
-        for (NetWorkInfo chiamate : netWorkInfos) {
-            logger.info("URL.... " + chiamate.getRequestUrl());
-            logger.info("METHOD.... " + chiamate.getRequestMethod());
+        for (NetWorkInfo chiamate : hooks.getNetWorkInfos()) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
                 codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
                 break;
@@ -350,7 +339,7 @@ public class LoginPersonaFisicaPagoPA {
     private boolean readHttpRequest() {
         String variabileAmbiente = System.getProperty("environment");
         boolean urlFound = false;
-        for (NetWorkInfo netWorkInfo : netWorkInfos) {
+        for (NetWorkInfo netWorkInfo : hooks.getNetWorkInfos()) {
             logger.info(netWorkInfo.getRequestUrl());
             logger.info(netWorkInfo.getResponseStatus());
             String urlToFind = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/token-exchange";

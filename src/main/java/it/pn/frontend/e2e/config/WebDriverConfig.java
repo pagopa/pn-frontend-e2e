@@ -1,6 +1,8 @@
 package it.pn.frontend.e2e.config;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import lombok.Getter;
+import lombok.Setter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -11,6 +13,8 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+
 /*
 *Modifiche principali:
 Iniezione di WebDriver: Ho rimosso tutte le istanze di new ChromeDriver(), new FirefoxDriver(), ecc., e ho creato un bean in una classe separata (che andremo a configurare subito dopo) che gestisce la creazione del WebDriver.
@@ -21,60 +25,22 @@ Configurazione di un WebDriver come Bean
 *
 *
 * */
+@Getter
 @Configuration
+@PropertySource( value = "file:config/configuration.properties", ignoreResourceNotFound = true )
 public class WebDriverConfig {
 
-    @Value("${test.headless:false}")
-    private boolean headless;
+    @Value("${browser}")
+    private String browser;
 
-    @Value("${os.name}")
-    private String os;
+    @Value("${headless}")
+    @Setter
+    private String headless;
 
-    @Bean
-    public WebDriver webDriver() {
-        String browser = System.getProperty("browser");
-        if (browser == null) {
-            throw new IllegalArgumentException("La variabile browser non è stata impostata");
-        }
+    @Value("${selenium.browser.remote}")
+    private String remote;
 
-        return switch (browser.toLowerCase()) {
-            case "firefox" -> getFirefoxDriver();
-            case "chrome" -> getChromeDriver();
-            case "edge" -> getEdgeDriver();
-            default -> throw new IllegalArgumentException("Browser non supportato: " + browser);
-        };
-    }
+    @Value("${baseUrl}")
+    private String baseUrl;
 
-    private WebDriver getFirefoxDriver() {
-        WebDriverManager.firefoxdriver().setup();
-        FirefoxOptions options = new FirefoxOptions();
-        options.addArguments("-private");
-        if (headless) {
-            options.addArguments("--headless");
-            options.addArguments("--window-size=1920,1080");
-        }
-        return new FirefoxDriver(options);
-    }
-
-    private WebDriver getChromeDriver() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--incognito");
-        if (headless) {
-            options.addArguments("--headless");
-            options.addArguments("--window-size=1920,1080");
-        }
-        return new ChromeDriver(options);
-    }
-
-    private WebDriver getEdgeDriver() {
-        WebDriverManager.edgedriver().setup();
-        EdgeOptions options = new EdgeOptions();
-        options.addArguments("inPrivate");
-        if (headless) {
-            options.addArguments("--headless");
-            options.addArguments("--window-size=1920,1080");
-        }
-        return new EdgeDriver(options);
-    }
 }

@@ -17,6 +17,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
 import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.rest.RestDelegation;
@@ -41,6 +42,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -54,32 +56,25 @@ public class HooksNew {
      */
     private static final Logger logger = LoggerFactory.getLogger(HooksNew.class);
 
-    @Value("${selenium.browser}")
-    private String browser;
-
-    @Value("${selenium.browser.headless}")
-    private String headless;
-
-    @Value("${selenium.browser.remote}")
-    private String remote;
-
-    @Value("${target.application.baseUrl}")
-    private String baseUrl;
 
     @Getter
     public WebDriver driver;
 
     private WebDriverWait wait;
 
-
     private DevTools devTools;
+
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
     @Getter
     public static String scenario;
 
-    public static   final List<NetWorkInfo> netWorkInfos = new ArrayList<>();
+    @Getter
+    private final List<NetWorkInfo> netWorkInfos = new ArrayList<>();
     private final CookieConfig cookieConfig = new CookieConfig();
     private final String os = System.getProperty("os.name");
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
 
     private void setupFirefox() {
@@ -89,7 +84,7 @@ public class HooksNew {
         firefoxOptions.setProfile(firefoxProfile);
         firefoxOptions.addArguments("-private");
 
-        if (Boolean.parseBoolean(headless)) {
+        if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
             firefoxOptions.addArguments("--width=1200", "--height=800", "--headless");
         }
         driver = new FirefoxDriver(firefoxOptions);
@@ -106,7 +101,7 @@ public class HooksNew {
         var chromePrefs = Map.of("download.default_directory", downloadFilePath);
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
 
-        if (Boolean.parseBoolean(this.headless)) {
+        if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
             chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
         }
 
@@ -176,7 +171,7 @@ public class HooksNew {
         }
         var edgeOptions = new EdgeOptions();
         edgeOptions.setCapability("ms:inPrivate", true);
-        if (Boolean.parseBoolean(this.headless)) {
+        if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
             edgeOptions.addArguments("window-size=1920,1080", "--headless");
         }
         driver = new EdgeDriver(edgeOptions);
@@ -190,6 +185,8 @@ public class HooksNew {
         logger.info("----- START SCENARIO: {} -----", scenario.getName());
         Hooks.scenario = scenario.getName();
 
+        logger.info( "LOAD PROPERTIES HEADLESS..:" +webDriverConfig.getHeadless());
+
         scenario.getSourceTagNames().stream()
                 .filter(tag -> tag.startsWith("@TA_"))
                 .forEach(tag -> {
@@ -199,7 +196,8 @@ public class HooksNew {
 
         var browser = Optional.ofNullable(System.getProperty("browser"))
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
-        this.headless = System.getProperty("headless", "false");
+        //this.headless = System.getProperty("headless", "false");
+        webDriverConfig.setHeadless(System.getProperty("headless", "false"));
 
         switch (browser) {
             case "firefox" -> setupFirefox();
