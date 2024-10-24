@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class DataPopulation {
     private static final Logger logger = LoggerFactory.getLogger("DataPopulation");
 

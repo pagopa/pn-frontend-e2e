@@ -67,13 +67,10 @@ public class LoginPGPagoPATest {
 
     private HeaderPGSection headerPGSection;
     private  AccediAreaRiservataPGPage accediAreaRiservataPGPage;
-    private  DataPopulation dataPopulation = new DataPopulation();
 
     private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
     private Map<String, String> urlPersonaGiuridica;
 
-
-    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
     private final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
     private final String RAGIONE_SOCIALE_BALDASSARRE = "Comune di Milano";
     private final String URL_LOGIN_PG = "https://imprese.dev.notifichedigitali.it/";
@@ -85,6 +82,8 @@ public class LoginPGPagoPATest {
     private WebDriverConfig webDriverConfig;
     @Autowired
     private HooksNew hooks;
+    @Autowired
+    private  DataPopulation dataPopulation;
 
 
 
