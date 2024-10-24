@@ -42,9 +42,7 @@ public class LoginPGPagoPATest {
 
     private final Logger logger = LoggerFactory.getLogger(LoginPGPagoPATest.class);
 
-    @Autowired
-    private WebDriver driver;
-
+    /**
     @Autowired
     private HeaderPGSection headerPGSection;
 
@@ -65,16 +63,21 @@ public class LoginPGPagoPATest {
 
     @Value("${url.login.pg}")
     private String URL_LOGIN_PG;
+    **/
+
+    private HeaderPGSection headerPGSection;
+    private  AccediAreaRiservataPGPage accediAreaRiservataPGPage;
+    private  DataPopulation dataPopulation = new DataPopulation();
 
     private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
     private Map<String, String> urlPersonaGiuridica;
 
-    /**
+
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
     private final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
     private final String RAGIONE_SOCIALE_BALDASSARRE = "Comune di Milano";
     private final String URL_LOGIN_PG = "https://imprese.dev.notifichedigitali.it/";
-     **/
+
 
     @Autowired
     private CookieConfig cookieConfig;
@@ -276,10 +279,10 @@ public class LoginPGPagoPATest {
         accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
         accediAreaRiservataPGPage.clickSpidButton();
 
-        ScegliSpidPGPage scegliSpidPGPage = new ScegliSpidPGPage(this.driver);
+        ScegliSpidPGPage scegliSpidPGPage = new ScegliSpidPGPage(hooks.getDriver());
         scegliSpidPGPage.clickTestButton();
 
-        LoginPGPagoPAPage loginPGPagoPAPage = new LoginPGPagoPAPage(this.driver);
+        LoginPGPagoPAPage loginPGPagoPAPage = new LoginPGPagoPAPage(hooks.getDriver());
         loginPGPagoPAPage.waitLoadLoginPGPage();
         loginPGPagoPAPage.insertUsername(datiPG.get("user"));
         loginPGPagoPAPage.insertPassword(datiPG.get("pwd"));
@@ -375,7 +378,7 @@ public class LoginPGPagoPATest {
                     this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPGDelegato").toString();
         }
         String url = urlIniziale + token;
-        this.driver.get(url);
+        this.hooks.getDriver().get(url);
     }
 
     public String getTokenExchangePGFromFile(String personaGiuridica) {
