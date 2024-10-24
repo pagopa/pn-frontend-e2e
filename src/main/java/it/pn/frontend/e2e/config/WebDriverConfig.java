@@ -52,4 +52,14 @@ public class WebDriverConfig {
     @Value("${apiBaseUrl}")
     private String baseUrl;
 
+    @Value("${ragione.sociale.baldassarre}")
+    private String ragioneSocialeBaldassarre;
+
+    @Value("${ url.login.pg.dev}")
+    private String baseUrlPgDev;
+
+    @Value("${ url.login.pg.test}")
+    private String baseUrlPgTest;
+
+
 }

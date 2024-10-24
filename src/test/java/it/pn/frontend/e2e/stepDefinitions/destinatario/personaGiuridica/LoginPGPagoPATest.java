@@ -73,8 +73,8 @@ public class LoginPGPagoPATest {
     private Map<String, String> urlPersonaGiuridica;
 
    // private final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
-    private final String RAGIONE_SOCIALE_BALDASSARRE = "Comune di Milano";
-    private final String URL_LOGIN_PG = "https://imprese.dev.notifichedigitali.it/";
+    //private final String RAGIONE_SOCIALE_BALDASSARRE = "Comune di Milano";
+   // private final String URL_LOGIN_PG = "https://imprese.dev.notifichedigitali.it/";
 
 
     @Autowired
@@ -94,9 +94,9 @@ public class LoginPGPagoPATest {
     public void loginPagePersonaGiuridicaVieneVisualizzata() {
         String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
-            case "dev" -> hooks.getDriver().get(URL_LOGIN_PG);
+            case "dev" -> hooks.getDriver().get(webDriverConfig.getBaseUrlPgDev());
             case "test", "uat" ->
-                    hooks.getDriver().get(URL_LOGIN_PG.replace("dev", variabileAmbiente));
+                    hooks.getDriver().get(webDriverConfig.getBaseUrlPgDev().replace("dev", variabileAmbiente));
             default ->
                     Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
@@ -136,7 +136,7 @@ public class LoginPGPagoPATest {
             Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("personaGiuridica.yaml");
             notifichePGPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
         } else if (personaGiuridica.equalsIgnoreCase("baldassarre")) {
-            notifichePGPage.waitLoadPiattaformaNotificaPage(RAGIONE_SOCIALE_BALDASSARRE);
+            notifichePGPage.waitLoadPiattaformaNotificaPage(webDriverConfig.getRagioneSocialeBaldassarre());
         } else {
             Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("delegatoPG.yaml");
             notifichePGPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
