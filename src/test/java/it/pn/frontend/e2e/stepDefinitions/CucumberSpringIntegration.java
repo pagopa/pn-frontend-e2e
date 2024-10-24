@@ -19,7 +19,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         NetWorkInfo.class,
         WebDriverConfig.class,
         DataPopulation.class,
-        BearerTokenConfig.class
+        BearerTokenConfig.class,
+        DataPopulation.class
+
 })
 @EnableScheduling
 @EnableConfigurationProperties

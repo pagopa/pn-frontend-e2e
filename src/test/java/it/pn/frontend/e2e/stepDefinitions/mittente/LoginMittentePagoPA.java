@@ -8,8 +8,10 @@ import it.pn.frontend.e2e.api.mittente.SpidAcsMittente;
 import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoContinueResponse;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogin;
+import it.pn.frontend.e2e.config.BearerTokenConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.mittente.*;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
@@ -38,18 +40,21 @@ public class LoginMittentePagoPA {
 
     // WebDriver gestito con Spring, inizializzato in modo lazy per ottimizzare le risorse da capire?
     //@Lazy
-    @Autowired
-    private WebDriver driver;
+    //@Autowired
+    //private WebDriver driver;
 
-    @Autowired
-    private DataPopulation dataPopulation;
+   @Autowired
+   private DataPopulation dataPopulation;
 
     // Percorso del file token specificato nelle configurazioni, con valore di default 'tokenLogin.yaml'
-    @Value("${token.login.file:tokenLogin.yaml}")
-    private String FILE_TOKEN_LOGIN;
+   // @Value("${token.login.file:tokenLogin.yaml}")
+   // private String FILE_TOKEN_LOGIN;
 
     private Map<String, Object> datiMittente;
     private Map<String, String> urlMittente;
+
+    @Autowired
+    private HooksNew hooks;
 
     @Autowired
     private CookieConfig cookieConfig;
@@ -57,16 +62,19 @@ public class LoginMittentePagoPA {
     @Autowired
     private WebDriverConfig webDriverConfig;
 
+    @Autowired
+    private BearerTokenConfig bearerTokenConfig;
+
     @Given("Login Page mittente {string} viene visualizzata")
     public void loginPageMittenteVieneVisualizzata(String datiMittenteFile) {
-        logger.info("Si recupera l'ambiente e si visualizza la pagina di login");
+        logger.info("Si recupera l'ambiente e si visualizza la pagina di login 1");
 
         this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
         String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
-            case "dev" -> this.driver.get(this.datiMittente.get("url").toString());
+            case "dev" ->hooks.getDriver().get(this.datiMittente.get("url").toString());
             case "test", "uat" ->
-                    this.driver.get(this.datiMittente.get("url").toString().replace("dev", variabileAmbiente));
+                    hooks.getDriver().get(this.datiMittente.get("url").toString().replace("dev", variabileAmbiente));
             default ->
                     Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
@@ -76,12 +84,11 @@ public class LoginMittentePagoPA {
     public void loginPageMittenteVieneVisualizzata(Map<String,String> datiMittenteTable) {
         logger.info("Si recupera l'ambiente e si visualizza la pagina di login");
         String variabileAmbiente = webDriverConfig.getEnvironment();
-
         this.datiMittente = dataPopulation.readDataPopulation("mittente.yaml");
         switch (variabileAmbiente) {
-            case "dev" -> this.driver.get(datiMittenteTable.get("url"));
+            case "dev" -> hooks.getDriver().get(datiMittenteTable.get("url"));
             case "test", "uat" ->
-                    this.driver.get(datiMittenteTable.get("url").replace("dev", variabileAmbiente));
+                    hooks.getDriver().get(datiMittenteTable.get("url").replace("dev", variabileAmbiente));
             default ->
                     Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
@@ -95,9 +102,9 @@ public class LoginMittentePagoPA {
         String token = "";
         switch (environment) {
             case "dev" ->
-                    token = dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevMittente").toString();
+                    token = bearerTokenConfig.getTokendevMittente();
             case "test" ->
-                    token = dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestMittente").toString();
+                    token = bearerTokenConfig.getTokentestMittente();
             default -> {
                 logger.error("Ambiente non valido");
                 Assertions.fail("Ambiente non valido o non trovato!");
@@ -106,15 +113,15 @@ public class LoginMittentePagoPA {
 
         // Si effettua il login con token exchange
         String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
-        this.driver.get(urlLogin);
+        hooks.getDriver().get(urlLogin);
         logger.info("Login effettuato con successo");
         // Attesa statica di 10 secondi - considerare l'uso di WebDriverWait per migliorare l'efficienza
         WebTool.waitTime(10);
 
         // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.waitLoadHeaderSection();
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
     }
 
@@ -125,16 +132,16 @@ public class LoginMittentePagoPA {
         this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
 
         // Creazione dell'oggetto pagina per la gestione del pre-accesso all'area riservata
-        PreAccediAreaRiservataPAPage preAccediAreaRiservataPAPage = new PreAccediAreaRiservataPAPage(this.driver);
+        PreAccediAreaRiservataPAPage preAccediAreaRiservataPAPage = new PreAccediAreaRiservataPAPage(hooks.getDriver());
         preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
         // Verifica della presenza dell'URL e dei cookie per proseguire con l'accettazione dei cookie
-        if (driver.getCurrentUrl().contains("https://uat.selfcare.pagopa.it/") ||
+        if (hooks.getDriver().getCurrentUrl().contains("https://uat.selfcare.pagopa.it/") ||
                 !cookieConfig.isCookieEnabled()) {
             logger.info("cookies start");
             CookiesSection cookiesPage;
-            cookiesPage = new CookiesSection(this.driver);
+            cookiesPage = new CookiesSection(hooks.getDriver());
             cookiesPage.selezionaAccettaTuttiButton();
             if (cookiesPage.waitLoadCookiesPage()) {
                 cookiesPage.selezionaAccettaTuttiButton();
@@ -142,25 +149,25 @@ public class LoginMittentePagoPA {
             logger.info("cookies end");
         }
 
-        AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);
+        AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(hooks.getDriver());
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
         acccediAreaRiservataPAPage.selezionareSpidButton();
 
-        ScegliSpidPAPage scegliSpidPAPage = new ScegliSpidPAPage(this.driver);
+        ScegliSpidPAPage scegliSpidPAPage = new ScegliSpidPAPage(hooks.getDriver());
 
         scegliSpidPAPage.selezionareTestButton();
 
-        LoginPAPage loginPAPage = new LoginPAPage(this.driver);
+        LoginPAPage loginPAPage = new LoginPAPage(hooks.getDriver());
         loginPAPage.waitLoadLoginPAPage();
         loginPAPage.inserisciUtenete(this.datiMittente.get("user").toString());
         loginPAPage.inserisciPassword(this.datiMittente.get("pwd").toString());
         loginPAPage.selezionaInviaDati();
 
-        AutorizziInvioDatiPAPage autorizziInvioDatiPAPage = new AutorizziInvioDatiPAPage(this.driver);
+        AutorizziInvioDatiPAPage autorizziInvioDatiPAPage = new AutorizziInvioDatiPAPage(hooks.getDriver());
         autorizziInvioDatiPAPage.waitLoadAutorizziInvioDatiPAPage();
         autorizziInvioDatiPAPage.selezionareInvia();
 
-        SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(this.driver);
+        SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(hooks.getDriver());
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
         selezionaEntePAPage.cercaComune(this.datiMittente.get("comune").toString());
         selezionaEntePAPage.selezionareComune(this.datiMittente.get("comune").toString());
@@ -171,15 +178,15 @@ public class LoginMittentePagoPA {
     public void loginConMittente(Map<String,String> datiMittenteFile) {
         logger.info("Si effetua la Login dal portale mittente");
 
-        PreAccediAreaRiservataPAPage preAccediAreaRiservataPAPage = new PreAccediAreaRiservataPAPage(this.driver);
+        PreAccediAreaRiservataPAPage preAccediAreaRiservataPAPage = new PreAccediAreaRiservataPAPage(hooks.getDriver());
         preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
-        if (driver.getCurrentUrl().contains("https://uat.selfcare.pagopa.it/") ||
+        if (hooks.getDriver().getCurrentUrl().contains("https://uat.selfcare.pagopa.it/") ||
                 !cookieConfig.isCookieEnabled()) {
             logger.info("cookies start");
             CookiesSection cookiesPage;
-            cookiesPage = new CookiesSection(this.driver);
+            cookiesPage = new CookiesSection(hooks.getDriver());
             cookiesPage.selezionaAccettaTuttiButton();
             if (cookiesPage.waitLoadCookiesPage()) {
                 cookiesPage.selezionaAccettaTuttiButton();
@@ -187,25 +194,25 @@ public class LoginMittentePagoPA {
             logger.info("cookies end");
         }
 
-        AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);
+        AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(hooks.getDriver());
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
         acccediAreaRiservataPAPage.selezionareSpidButton();
 
-        ScegliSpidPAPage scegliSpidPAPage = new ScegliSpidPAPage(this.driver);
+        ScegliSpidPAPage scegliSpidPAPage = new ScegliSpidPAPage(hooks.getDriver());
 
         scegliSpidPAPage.selezionareTestButton();
 
-        LoginPAPage loginPAPage = new LoginPAPage(this.driver);
+        LoginPAPage loginPAPage = new LoginPAPage(hooks.getDriver());
         loginPAPage.waitLoadLoginPAPage();
         loginPAPage.inserisciUtenete(datiMittenteFile.get("user"));
         loginPAPage.inserisciPassword(datiMittenteFile.get("pwd"));
         loginPAPage.selezionaInviaDati();
 
-        AutorizziInvioDatiPAPage autorizziInvioDatiPAPage = new AutorizziInvioDatiPAPage(this.driver);
+        AutorizziInvioDatiPAPage autorizziInvioDatiPAPage = new AutorizziInvioDatiPAPage(hooks.getDriver());
         autorizziInvioDatiPAPage.waitLoadAutorizziInvioDatiPAPage();
         autorizziInvioDatiPAPage.selezionareInvia();
 
-        SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(this.driver);
+        SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(hooks.getDriver());
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
         selezionaEntePAPage.cercaComune(datiMittenteFile.get("comune"));
         selezionaEntePAPage.selezionareComune(datiMittenteFile.get("comune"));
@@ -236,9 +243,9 @@ public class LoginMittentePagoPA {
             Assertions.fail("Codice risposta ricevuto per questo end point: '" + this.urlMittente.get("urlPortale") + "' è : " + this.urlMittente.get("responseCode"));
         }
 
-        this.driver.get(this.urlMittente.get("urlPortale"));
+        hooks.getDriver().get(this.urlMittente.get("urlPortale"));
 
-        SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(this.driver);
+        SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(hooks.getDriver());
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
         selezionaEntePAPage.cercaComune(this.datiMittente.get("comune").toString());
         selezionaEntePAPage.selezionareComune(this.datiMittente.get("comune").toString());
@@ -378,10 +385,10 @@ public class LoginMittentePagoPA {
     public void homePageMittenteVieneVisualizzataCorrettamente() {
         logger.info("Home page mittente viene visualizzata correttamente");
 
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.waitLoadHeaderSection();
 
-        AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
+        AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(hooks.getDriver());
         areaRiservataPAPage.waitLoadAreaRiservataPAPage();
         if (areaRiservataPAPage.verificaCodiceFiscale(this.datiMittente.get("codiceFiscale").toString())) {
             logger.info("Codice fiscale presente");
@@ -403,18 +410,18 @@ public class LoginMittentePagoPA {
 
         WebTool.waitTime(2);
 
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();
 
         if (!cookieConfig.isCookieEnabled()) {
-            CookiesSection cookiesSection = new CookiesSection(this.driver);
+            CookiesSection cookiesSection = new CookiesSection(hooks.getDriver());
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
 
-        AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);
+        AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(hooks.getDriver());
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
 
         WebTool.waitTime(5);
@@ -429,26 +436,26 @@ public class LoginMittentePagoPA {
         String variabileAmbiente = webDriverConfig.getEnvironment();
         String urlInziale = "https://selfcare." + variabileAmbiente + ".notifichedigitali.it/#selfCareToken=";
         String token;
-        DataPopulation dataPopulation = new DataPopulation();
+
         if (variabileAmbiente.equalsIgnoreCase("test")) {
             token = dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestMittente").toString();
         } else {
             token = dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevMittente").toString();
         }
         String url = urlInziale + token;
-        driver.get(url);
+        hooks.getDriver().get(url);
     }
 
     @And("Si clicca sul bottone test")
     public void clickTestButton() {
-        AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(this.driver);
+        AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(hooks.getDriver());
         acccediAreaRiservataPAPage.clickTestBottone();
     }
 
     @And("Si clicca bottone accetta cookies")
     public void clickAcceptCookies() {
         // Gestione della sezione cookies, accettando i cookie se necessario
-        CookiesSection cookiesPage = new CookiesSection(this.driver);
+        CookiesSection cookiesPage = new CookiesSection(hooks.getDriver());
         if (cookiesPage.waitLoadCookiesPage()) {
             cookiesPage.selezionaAccettaTuttiButton();
         }
@@ -456,7 +463,7 @@ public class LoginMittentePagoPA {
 
     @And("Si clicca sul bottone esci")
     public void siCLiccaSulBottoneEsci() {
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.selezionaEsciButton();
     }
 }

@@ -41,6 +41,7 @@ public class LoginPersonaFisicaPagoPA {
     @Autowired
     private BearerTokenConfig bearerTokenConfig;
 
+    //TODO Parametrizzare
     private Map<String, Object> datiDelegato;
 
 
@@ -48,6 +49,7 @@ public class LoginPersonaFisicaPagoPA {
     @Given("Login Page persona fisica {string} viene visualizzata")
     public void loginPageDestinatarioVieneVisualizzata(String datipersonaFisica) {
         DataPopulation dataPopulation = new DataPopulation();
+        //TODO Parametrizzzare..........
         this.datiPersonaFisica = dataPopulation.readDataPopulation(datipersonaFisica + ".yaml");
        // String variabileAmbiente = System.getProperty("environment");
         String variabileAmbiente = webDriverConfig.getEnvironment();
