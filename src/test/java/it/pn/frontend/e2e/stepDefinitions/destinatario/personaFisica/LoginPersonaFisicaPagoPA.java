@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.api.personaFisica.SpidAcs;
 import it.pn.frontend.e2e.api.personaFisica.SpidDemoLogin;
 import it.pn.frontend.e2e.api.personaFisica.SpidDemoStart;
 import it.pn.frontend.e2e.api.personaFisica.SpidLogin;
+import it.pn.frontend.e2e.config.BearerTokenConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
@@ -37,9 +38,10 @@ public class LoginPersonaFisicaPagoPA {
     private WebDriverConfig webDriverConfig;
     @Autowired
     private CookieConfig cookieConfig;
+    @Autowired
+    private BearerTokenConfig bearerTokenConfig;
 
     private Map<String, Object> datiDelegato;
-    private static final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
 
 
 
@@ -61,6 +63,7 @@ public class LoginPersonaFisicaPagoPA {
     @Given("Login Page persona fisica test viene visualizzata")
     public void loginPageDestinatarioVieneVisualizzataConUrl() {
         logger.info("ENVIROMENT...: "+ webDriverConfig.getEnvironment());
+        //TODO Parametrizzare..
         String url = "https://cittadini.test.notifichedigitali.it/";
 
         this.hooks.getDriver().get(url);
@@ -74,13 +77,13 @@ public class LoginPersonaFisicaPagoPA {
         String token = "";
         switch (environment) {
             case "dev" -> token = personaFisica.equalsIgnoreCase("delegante") ?
-                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPFDelegante").toString()
+                    bearerTokenConfig.getTokendevPFDelegante()
                     :
-                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPFDelegato").toString();
+                    bearerTokenConfig.getTokendevPGDelegato();
             case "test" -> token = personaFisica.equalsIgnoreCase("delegante") ?
-                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPFDelegante").toString()
+                    bearerTokenConfig.getTokentestPFDelegante()
                     :
-                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPFDelegato").toString();
+                    bearerTokenConfig.getTokentestPFDelegato();
             default -> {
                 logger.error("Ambiente non valido");
                 Assertions.fail("Ambiente non valido o non trovato!");
@@ -639,13 +642,13 @@ public class LoginPersonaFisicaPagoPA {
         String token = "";
         switch (environment) {
             case "dev" -> token = personaFisica.equalsIgnoreCase("delegante") ?
-                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPFDelegante").toString()
+                    bearerTokenConfig.getTokendevPFDelegante()
                     :
-                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPFDelegato").toString();
+                    bearerTokenConfig.getTokendevPGDelegato();
             case "test" -> token = personaFisica.equalsIgnoreCase("delegante") ?
-                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPFDelegante").toString()
+                    bearerTokenConfig.getTokentestPFDelegante()
                     :
-                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPFDelegato").toString();
+                    bearerTokenConfig.getTokentestPFDelegato();
             default -> {
                 logger.error("Ambiente non valido");
                 Assertions.fail("Ambiente non valido o non trovato!");
