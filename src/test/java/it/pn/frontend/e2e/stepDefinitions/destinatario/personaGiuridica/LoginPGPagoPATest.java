@@ -29,16 +29,42 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+//@Component inserire in un secondo momenti
 public class LoginPGPagoPATest {
-    private final Logger logger = LoggerFactory.getLogger("LoginPGPagoPATest");
 
+    private final Logger logger = LoggerFactory.getLogger(LoginPGPagoPATest.class);
 
+    @Autowired
+    private WebDriver driver;
+
+    @Autowired
+    private HeaderPGSection headerPGSection;
+
+    @Autowired
+    private AccediAreaRiservataPGPage accediAreaRiservataPGPage;
+
+    @Autowired
+    private DataPopulation dataPopulation;
+
+    @Autowired
+    private List<NetWorkInfo> netWorkInfos;
+
+    @Value("${tokenLogin.file}")
+    private String FILE_TOKEN_LOGIN;
+
+    @Value("${ragioneSociale.baldassarre}")
+    private String RAGIONE_SOCIALE_BALDASSARRE;
+
+    @Value("${url.login.pg}")
+    private String URL_LOGIN_PG;
 
     private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
     private Map<String, String> urlPersonaGiuridica;
@@ -75,47 +101,37 @@ public class LoginPGPagoPATest {
 
     @Given("PG - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
     public void loginMittenteConTokenExchange(String personaGiuridica) {
-        DataPopulation dataPopulation = new DataPopulation();
-
         String environment = webDriverConfig.getEnvironment();
         String token = "";
         switch (environment) {
             case "dev" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
                     dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPGDelegante").toString()
-                    :
-                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPGDelegato").toString();
-            case "test" -> {
-                if(personaGiuridica.equalsIgnoreCase("delegante")){
-                    token = dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPGDelegante").toString();
-                } else if (personaGiuridica.equalsIgnoreCase("baldassarre")) {
-                    token = dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPGBaldassarre").toString();
-                } else{
-                    token = dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPGDelegato").toString();
-                }
-            }
+                    : dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPGDelegato").toString();
+            case "test" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
+                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPGDelegante").toString()
+                    : dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPGDelegato").toString();
             default -> {
                 logger.error("Ambiente non valido");
                 Assertions.fail("Ambiente non valido o non trovato!");
             }
         }
 
-        // Si effettua il login con token exchange
         String urlLogin = "https://imprese." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
         hooks.getDriver().get(urlLogin);
         logger.info("Login effettuato con successo");
+
         WebTool.waitTime(10);
         PiattaformaNotifichePGPAPage notifichePGPage = new PiattaformaNotifichePGPAPage(hooks.getDriver());
 
         headerPGSection = new HeaderPGSection(hooks.getDriver());
         headerPGSection.waitLoadHeaderPGPage();
 
-        // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
         if (personaGiuridica.equalsIgnoreCase("delegante")) {
             Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("personaGiuridica.yaml");
             notifichePGPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
-        } else if(personaGiuridica.equalsIgnoreCase("baldassarre")) {
+        } else if (personaGiuridica.equalsIgnoreCase("baldassarre")) {
             notifichePGPage.waitLoadPiattaformaNotificaPage(RAGIONE_SOCIALE_BALDASSARRE);
-        }else {
+        } else {
             Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("delegatoPG.yaml");
             notifichePGPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
         }
@@ -127,8 +143,10 @@ public class LoginPGPagoPATest {
         String userMittente = this.datiPersonaGiuridica.get("user").toString();
         String pwdMittente = this.datiPersonaGiuridica.get("pwd").toString();
         this.readUrlPortaleMittente(userMittente, pwdMittente);
+
         boolean urlWithTokenFound = false;
         int numProvaLogin = 0;
+
         while (numProvaLogin < 10) {
             this.readUrlPortaleMittente(userMittente, pwdMittente);
             if (this.urlPersonaGiuridica.get("responseCode").equalsIgnoreCase("301")) {
@@ -148,7 +166,6 @@ public class LoginPGPagoPATest {
         } else {
             logger.error("procedura di login from spid provata : " + numProvaLogin);
             Assertions.fail("Codice risposta ricevuto per questo end point: '" + this.urlPersonaGiuridica.get("urlPortale") + "' è : " + this.urlPersonaGiuridica.get("responseCode"));
-
         }
 
         hooks.getDriver().get(this.urlPersonaGiuridica.get("urlPortale"));
@@ -166,62 +183,21 @@ public class LoginPGPagoPATest {
     }
 
     private void readUrlPortaleMittente(String user, String password) {
-
         SpidLoginMittente spidLoginMittente = new SpidLoginMittente("xx_testenv2", "SpidL2");
         spidLoginMittente.setSpidLoginMittenteEndPoint("https://api-pnpg.uat.selfcare.pagopa.it/spid/v1/login");
         spidLoginMittente.runSpidLoginMittente();
+
         if (spidLoginMittente.getResponseBody() == null) {
             Assertions.fail("api spid login risponde con body vuoto");
         }
 
         String cookiesNameFromSpidLoginMittente = spidLoginMittente.getCookieName();
-        if (cookiesNameFromSpidLoginMittente != null) {
-            logger.info("cookiesNameFromSpidLoginMittente : " + cookiesNameFromSpidLoginMittente);
-        } else {
-            Assertions.fail("cookiesNameFromSpidLoginMittente is null");
-        }
-
         String cookiesValueFromSpidLoginMittente = spidLoginMittente.getCookieValue();
-        if (cookiesValueFromSpidLoginMittente != null) {
-            logger.info("cookiesValueFromSpidLoginMittente : " + cookiesValueFromSpidLoginMittente);
-        } else {
-            Assertions.fail("cookiesValueFromSpidLoginMittente is null");
-        }
-
         String cookiesDomainFromSpidLoginMittente = spidLoginMittente.getCookieDomain();
-        if (cookiesDomainFromSpidLoginMittente != null) {
-            logger.info("cookiesDomainFromSpidLoginMittente : " + cookiesDomainFromSpidLoginMittente);
-        } else {
-            Assertions.fail("cookiesDomainFromSpidLoginMittente is null");
-        }
-
         String cookiesPathFromSpidLoginMittente = spidLoginMittente.getCookiePath();
-        if (cookiesPathFromSpidLoginMittente != null) {
-            logger.info("cookiesPathFromSpidLoginMittente : " + cookiesPathFromSpidLoginMittente);
-        } else {
-            Assertions.fail("cookiesPathFromSpidLoginMittente is null");
-        }
-
         boolean cookiesHttOnlyFromSpidLoginMittente = spidLoginMittente.getCookieHttpOnly();
-        if (cookiesHttOnlyFromSpidLoginMittente) {
-            logger.info("cookiesHttOnlyFromSpidLoginMittente : " + cookiesHttOnlyFromSpidLoginMittente);
-        } else {
-            Assertions.fail("cookiesHttOnlyFromSpidLoginMittente : " + cookiesHttOnlyFromSpidLoginMittente);
-        }
-
         String requestKeyFromSpidLoginMittente = spidLoginMittente.getRequestKey();
-        if (requestKeyFromSpidLoginMittente != null) {
-            logger.info("requestKeyFromSpidLoginMittente : " + requestKeyFromSpidLoginMittente);
-        } else {
-            Assertions.fail("requestKeyFromSpidLoginMittente is null");
-        }
-
         String relayStateFromSpidLoginMittente = spidLoginMittente.getRelayState();
-        if (relayStateFromSpidLoginMittente != null) {
-            logger.info("relayStateFromSpidLoginMittente : " + relayStateFromSpidLoginMittente);
-        } else {
-            Assertions.fail("relayStateFromSpidLoginMittente is null");
-        }
 
         BasicCookieStore cookieStore = new BasicCookieStore();
         BasicClientCookie cookie = new BasicClientCookie(cookiesNameFromSpidLoginMittente, cookiesValueFromSpidLoginMittente);
@@ -245,12 +221,6 @@ public class LoginPGPagoPATest {
         }
 
         String requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin = spidTestEnvWestEuropeAzureContainerIoLogin.getRequestKeyOutput();
-        if (requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin != null) {
-            logger.info("requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin : " + requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin);
-        } else {
-            Assertions.fail("requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin is null");
-        }
-
         SpidTestEnvWestEuropeAzureContainerIoContinueResponse spidTestEnvWestEuropeAzureContainerIoContinueResponse =
                 new SpidTestEnvWestEuropeAzureContainerIoContinueResponse(
                         requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin, cookieStore
@@ -258,23 +228,13 @@ public class LoginPGPagoPATest {
 
         spidTestEnvWestEuropeAzureContainerIoContinueResponse.setSpidTestEnvWestEuropeAzureContainerIoContinueResponseEndPoint("https://selc-u-pnpg-spid-testenv.westeurope.azurecontainer.io/continue-response");
         spidTestEnvWestEuropeAzureContainerIoContinueResponse.runSpidTestEnvWestEuropeAzureContainerIoContinueResponse();
+
         if (spidTestEnvWestEuropeAzureContainerIoContinueResponse.getResponseBody() == null) {
             Assertions.fail(" api selc-u-spid-testenv.westeurope.azurecontainer.io/continue-response");
         }
 
         String samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse = spidTestEnvWestEuropeAzureContainerIoContinueResponse.getSamlResponseOutput();
-        if (samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse != null) {
-            logger.info("samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse : " + samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse);
-        } else {
-            Assertions.fail("samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse is null");
-        }
-
         String relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse = spidTestEnvWestEuropeAzureContainerIoContinueResponse.getRelayStateOutput();
-        if (relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse != null) {
-            logger.info("relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse : " + relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse);
-        } else {
-            Assertions.fail("relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse is null");
-        }
 
         SpidAcsMittente spidAcsMittente = new SpidAcsMittente(
                 samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse,
@@ -299,11 +259,10 @@ public class LoginPGPagoPATest {
         headerPGSection.waitLoadHeaderPGPage();
         HomePagePG homePagePG = new HomePagePG(hooks.getDriver());
         homePagePG.waitLoadHomePagePGPage();
-
     }
 
     @When("Login con persona giuridica")
-    public void loginConPersonaGiuridica(Map<String,String> datiPG) {
+    public void loginConPersonaGiuridica(Map<String, String> datiPG) {
         logger.info("La persona guiridica cerca di fare il login");
 
 
@@ -319,10 +278,10 @@ public class LoginPGPagoPATest {
         accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
         accediAreaRiservataPGPage.clickSpidButton();
 
-        ScegliSpidPGPage scegliSpidPGPage = new ScegliSpidPGPage(hooks.getDriver());
+        ScegliSpidPGPage scegliSpidPGPage = new ScegliSpidPGPage(this.driver);
         scegliSpidPGPage.clickTestButton();
 
-        LoginPGPagoPAPage loginPGPagoPAPage = new LoginPGPagoPAPage(hooks.getDriver());
+        LoginPGPagoPAPage loginPGPagoPAPage = new LoginPGPagoPAPage(this.driver);
         loginPGPagoPAPage.waitLoadLoginPGPage();
         loginPGPagoPAPage.insertUsername(datiPG.get("user"));
         loginPGPagoPAPage.insertPassword(datiPG.get("pwd"));
@@ -359,8 +318,10 @@ public class LoginPGPagoPATest {
         String userMittente = this.datiPersonaGiuridica.get("user").toString();
         String pwdMittente = this.datiPersonaGiuridica.get("pwd").toString();
         this.readUrlPortaleMittente(userMittente, pwdMittente);
+
         boolean urlWithTokenFound = false;
         int numProvaLogin = 0;
+
         while (numProvaLogin < 10) {
             this.readUrlPortaleMittente(userMittente, pwdMittente);
             if (this.urlPersonaGiuridica.get("responseCode").equalsIgnoreCase("301")) {
@@ -407,20 +368,16 @@ public class LoginPGPagoPATest {
         String token;
         String user = this.dataPopulation.readDataPopulation(dpFile + ".yaml").get("user").toString();
         if (user.equalsIgnoreCase("DanteAlighieri")) {
-            if (variabileAmbiente.equalsIgnoreCase("test")) {
-                token = this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPGDelegante").toString();
-            } else {
-                token = this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPGDelegante").toString();
-            }
+            token = variabileAmbiente.equalsIgnoreCase("test") ?
+                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPGDelegante").toString() :
+                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPGDelegante").toString();
         } else {
-            if (variabileAmbiente.equalsIgnoreCase("test")) {
-                token = this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPGDelegato").toString();
-            } else {
-                token = this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPGDelegato").toString();
-            }
+            token = variabileAmbiente.equalsIgnoreCase("test") ?
+                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPGDelegato").toString() :
+                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPGDelegato").toString();
         }
         String url = urlIniziale + token;
-        hooks.getDriver().get(url);
+        this.driver.get(url);
     }
 
     public String getTokenExchangePGFromFile(String personaGiuridica) {

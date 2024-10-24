@@ -8,7 +8,6 @@ import it.pn.frontend.e2e.api.mittente.SpidAcsMittente;
 import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoContinueResponse;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogin;
-import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.mittente.*;
 import it.pn.frontend.e2e.section.CookiesSection;
@@ -23,15 +22,31 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-
+//@Component
+//@Scope("prototype")
 public class LoginMittentePagoPA {
     private static final Logger logger = LoggerFactory.getLogger("LoginMittentePagoPA");
-    private final WebDriver driver = Hooks.driver;
-    private final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
+
+    // WebDriver gestito con Spring, inizializzato in modo lazy per ottimizzare le risorse da capire?
+    //@Lazy
+    @Autowired
+    private WebDriver driver;
+
+    @Autowired
+    private DataPopulation dataPopulation;
+
+    // Percorso del file token specificato nelle configurazioni, con valore di default 'tokenLogin.yaml'
+    @Value("${token.login.file:tokenLogin.yaml}")
+    private String FILE_TOKEN_LOGIN;
+
     private Map<String, Object> datiMittente;
     private Map<String, String> urlMittente;
 
@@ -45,7 +60,6 @@ public class LoginMittentePagoPA {
     public void loginPageMittenteVieneVisualizzata(String datiMittenteFile) {
         logger.info("Si recupera l'ambiente e si visualizza la pagina di login");
 
-        DataPopulation dataPopulation = new DataPopulation();
         this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
         String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
@@ -61,7 +75,6 @@ public class LoginMittentePagoPA {
     public void loginPageMittenteVieneVisualizzata(Map<String,String> datiMittenteTable) {
         logger.info("Si recupera l'ambiente e si visualizza la pagina di login");
         String variabileAmbiente = webDriverConfig.getEnvironment();
-        DataPopulation dataPopulation = new DataPopulation();
 
         this.datiMittente = dataPopulation.readDataPopulation("mittente.yaml");
         switch (variabileAmbiente) {
@@ -75,7 +88,7 @@ public class LoginMittentePagoPA {
 
     @Given("PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard")
     public void loginMittenteConTokenExchange() {
-        DataPopulation dataPopulation = new DataPopulation();
+
        // String environment = System.getProperty("environment");
         String environment = webDriverConfig.getEnvironment();
         String token = "";
@@ -94,6 +107,7 @@ public class LoginMittentePagoPA {
         String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
         this.driver.get(urlLogin);
         logger.info("Login effettuato con successo");
+        // Attesa statica di 10 secondi - considerare l'uso di WebDriverWait per migliorare l'efficienza
         WebTool.waitTime(10);
 
         // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
@@ -107,13 +121,14 @@ public class LoginMittentePagoPA {
     public void loginConMittente(String datiMittenteFile) {
         logger.info("Si effetua la Login dal portale mittente");
 
-        DataPopulation dataPopulation = new DataPopulation();
         this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
 
+        // Creazione dell'oggetto pagina per la gestione del pre-accesso all'area riservata
         PreAccediAreaRiservataPAPage preAccediAreaRiservataPAPage = new PreAccediAreaRiservataPAPage(this.driver);
         preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
+        // Verifica della presenza dell'URL e dei cookie per proseguire con l'accettazione dei cookie
         if (driver.getCurrentUrl().contains("https://uat.selfcare.pagopa.it/") ||
                 !cookieConfig.isCookieEnabled()) {
             logger.info("cookies start");
@@ -373,6 +388,7 @@ public class LoginMittentePagoPA {
             logger.info("Codice fiscale non presente o errato");
         }
 
+        // Uso di attesa fissa di 5 secondi - considerare l'uso di WebDriverWait per migliorare la stabilità del test
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
@@ -380,13 +396,11 @@ public class LoginMittentePagoPA {
         }
     }
 
-
     @And("Logout da portale mittente")
     public void logoutDaPortaleMittente() {
         logger.info("Si esce dal portale mittente");
 
         WebTool.waitTime(2);
-
 
         HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
@@ -432,6 +446,7 @@ public class LoginMittentePagoPA {
 
     @And("Si clicca bottone accetta cookies")
     public void clickAcceptCookies() {
+        // Gestione della sezione cookies, accettando i cookie se necessario
         CookiesSection cookiesPage = new CookiesSection(this.driver);
         if (cookiesPage.waitLoadCookiesPage()) {
             cookiesPage.selezionaAccettaTuttiButton();
