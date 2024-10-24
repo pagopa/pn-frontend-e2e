@@ -1517,10 +1517,10 @@ public class NotificaMittentePagoPATest {
     protected EsitoNotifica siVerificaEsitoNotifica(String dpFile) {
         logger.info("si verifica se la notifica è stata accettata o rifiutata");
         final String urlNotificationRequest = webDriverConfig.getBaseUrl() + "notifications/sent";
-        final String urlRichiestaNotifica = "https://api." + variabileAmbiente + ".notifichedigitali.it/delivery/v2.3/requests/";
+        final String urlRichiestaNotifica = "https://api." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/delivery/v2.3/requests/";
         AccettazioneRichiestaNotifica accettazioneRichiestaNotifica = new AccettazioneRichiestaNotifica();
         String codiceApi;
-        if (variabileAmbiente.equals("test")) {
+        if (webDriverConfig.getEnvironment().equals("test")) {
             codiceApi = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";
         } else {
             codiceApi = "a9f0508d-c344-4347-807f-343bc8210996";
