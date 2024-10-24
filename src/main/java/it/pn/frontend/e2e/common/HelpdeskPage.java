@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.common;
 
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.model.enums.Disservice;
 import it.pn.frontend.e2e.model.enums.Status;
 import it.pn.frontend.e2e.utility.WebTool;
@@ -30,6 +31,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import net.lingala.zip4j.ZipFile;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class HelpdeskPage extends BasePage {
@@ -72,6 +74,9 @@ public class HelpdeskPage extends BasePage {
     private String codiceFiscale;
     private String zipPassword;
     private String codiceIdentificativoPF;
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     public HelpdeskPage(WebDriver driver) {
         super(driver);
@@ -410,7 +415,7 @@ public class HelpdeskPage extends BasePage {
     }
 
     public void checkZipLink() throws IOException, AWTException {
-        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
+        boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
         if (!headless) {
             logger.info("controllo esistenza link per scaricare zip");
             By zipLink = By.xpath("//a[contains(text(),'Download')]");

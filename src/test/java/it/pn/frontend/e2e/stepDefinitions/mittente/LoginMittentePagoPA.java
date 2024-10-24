@@ -47,7 +47,7 @@ public class LoginMittentePagoPA {
 
         DataPopulation dataPopulation = new DataPopulation();
         this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
-        String variabileAmbiente = System.getProperty("environment");
+        String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
             case "dev" -> this.driver.get(this.datiMittente.get("url").toString());
             case "test", "uat" ->
@@ -60,7 +60,7 @@ public class LoginMittentePagoPA {
     @Given("Login Page mittente viene visualizzata")
     public void loginPageMittenteVieneVisualizzata(Map<String,String> datiMittenteTable) {
         logger.info("Si recupera l'ambiente e si visualizza la pagina di login");
-        String variabileAmbiente = System.getProperty("environment");
+        String variabileAmbiente = webDriverConfig.getEnvironment();
         DataPopulation dataPopulation = new DataPopulation();
 
         this.datiMittente = dataPopulation.readDataPopulation("mittente.yaml");
@@ -411,7 +411,7 @@ public class LoginMittentePagoPA {
     public void loginConMittenteTramiteTokenExchange() {
         logger.info("Si effettua la login del mittente tramite token");
 
-        String variabileAmbiente = System.getProperty("environment");
+        String variabileAmbiente = webDriverConfig.getEnvironment();
         String urlInziale = "https://selfcare." + variabileAmbiente + ".notifichedigitali.it/#selfCareToken=";
         String token;
         DataPopulation dataPopulation = new DataPopulation();

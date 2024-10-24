@@ -17,6 +17,7 @@ import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,6 +39,9 @@ public class CustomHttpClient<RequestType, ResponseType> {
     @Setter
     @Getter
     private String apiKey;
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     private final CloseableHttpClient httpClient;
     private ClassicHttpRequest httpRequest;
@@ -246,7 +250,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
     }
 
     public String getJwtToken(String TokenExchange) throws IOException {
-        String env = System.getProperty("environment");
+        String env = webDriverConfig.getEnvironment();
         CloseableHttpClient client = HttpClients.createDefault();
         this.httpRequest = ClassicRequestBuilder
                 .post("https://webapi." + env + ".notifichedigitali.it/token-exchange")
@@ -276,7 +280,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
     }
 
     public ResponseType sendHttpDeleteRequest(String endpoint, Map<String, String> headers, Class<ResponseType> responseType) throws IOException {
-        String env = System.getProperty("environment");
+        String env = webDriverConfig.getEnvironment();
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             this.httpRequest = ClassicRequestBuilder
                     .delete(endpoint)

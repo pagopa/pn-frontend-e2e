@@ -7,6 +7,7 @@ import it.pn.frontend.e2e.api.personaFisica.RecuperoOTPRecapiti;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
@@ -32,38 +33,41 @@ public class RecapitiPersonaFisicaTest {
 
     @Autowired
     private WebDriverConfig webDriverConfig;
+    @Autowired
+    private HooksNew hooks;
+
     public static String OTP;
-    private final WebDriver driver = Hooks.driver;
-    private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
+   // private final WebDriver driver = hooks.getDriver();
+    private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(hooks.getDriver());
     private final DataPopulation dataPopulation = new DataPopulation();
-    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
+    // private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
 
     private final NotificaMittentePagoPATest notificaMittentePagoPATest = new NotificaMittentePagoPATest();
-   private final ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+    private final ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti")
     public void nellaPaginaPiattaformaNotifichePersonaFisicaSiCliccaSulBottoneITuoiRecapiti() {
         logger.info("Si cerca di cliccare il bottone I Tuoi Recapiti");
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         iTuoiRecapitiPage.iTuoiRecapitiButtonClick();
     }
 
     @And("Si visualizza correttamente la pagina I Tuoi Recapiti")
     public void siVisualizzaCorrettamenteLaPaginaITuoiRecapiti() {
         logger.info("Si controlla che si visualizza correttamente la pagina I Tuoi Recapiti");
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
     }
 
     @And("Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione 'E-mail o numero di cellulare'")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteLaSezioneEmailONumeroDiCellulare() {
         logger.info("Si controlla che si visualizza correttamente la sezione 'E-mail o numero di cellulare'");
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         iTuoiRecapitiPage.waitLoadCourtesyContacts();
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce la PEC {string}")
-    public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario(String emailPec ) {
+    public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario(String emailPec) {
         logger.info("Si inserisce la email PEC");
         recapitiDestinatarioPage.insertEmailPEC(emailPec);
     }
@@ -102,7 +106,7 @@ public class RecapitiPersonaFisicaTest {
     }
 
     private boolean verificaChiamataEmail(String url) {
-        for (NetWorkInfo info : netWorkInfos) {
+        for (NetWorkInfo info : hooks.getNetWorkInfos()) {
             if (info.getRequestUrl().contains(url) && info.getResponseStatus().equals("200")) {
                 logger.info("La chiamata per inviare email é utilizzabile");
                 return true;
@@ -169,18 +173,18 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioDiPecErrata() {
         WebTool.waitTime(3);
         String errorMessageRead = recapitiDestinatarioPage.getPecErrorMessage();
-        Assertions.assertEquals( "Indirizzo PEC non valido", errorMessageRead, "messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo PEC non valido");
+        Assertions.assertEquals("Indirizzo PEC non valido", errorMessageRead, "messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo PEC non valido");
     }
 
     @And("Si controlla che il tasto conferma sia bloccato")
     public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoConfermaSiaBloccato() {
-        Assertions.assertTrue( recapitiDestinatarioPage.verificaBottoneConfermaDisabilitato(),"il buttone Conferma non è disabilitato");
+        Assertions.assertTrue(recapitiDestinatarioPage.verificaBottoneConfermaDisabilitato(), "il buttone Conferma non è disabilitato");
     }
 
     @And("Si controlla che il tasto avvisami via email sia bloccato")
     public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoAvvisamiViaEmailSiaBloccato() {
 
-        Assertions.assertTrue(recapitiDestinatarioPage.avvisamiViaEmailIsDisabled(),"il bottone avvisami via email non è disabilitato");
+        Assertions.assertTrue(recapitiDestinatarioPage.avvisamiViaEmailIsDisabled(), "il bottone avvisami via email non è disabilitato");
     }
 
     @And("Si inserisce l'email della {string} e si clicca sul bottone avvisami via email")
@@ -208,7 +212,7 @@ public class RecapitiPersonaFisicaTest {
         logger.info("click pop-up conferma email");
 
         //Assert.assertFalse("il popup Conferma email non si visualizza", recapitiDestinatarioPage.verificaPopUpConfermaEmail());
-       // recapitiDestinatarioPage.clickHoCapitoCheckBoxPopup();
+        // recapitiDestinatarioPage.clickHoCapitoCheckBoxPopup();
         recapitiDestinatarioPage.confermaEmailPopup();
     }
 
@@ -221,7 +225,7 @@ public class RecapitiPersonaFisicaTest {
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String phoneNumber = personaFisica.get("telefono").toString();
 
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         iTuoiRecapitiPage.insertTelephoneNumber(phoneNumber);
         iTuoiRecapitiPage.clickAvvisamiViaSMS();
     }
@@ -231,7 +235,7 @@ public class RecapitiPersonaFisicaTest {
 
         logger.info("Si inserisce il numero di telefono PF");
 
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         iTuoiRecapitiPage.insertTelephoneNumber(phoneNumber);
         iTuoiRecapitiPage.clickAvvisamiViaSMS();
 
@@ -239,13 +243,13 @@ public class RecapitiPersonaFisicaTest {
 
     @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono errato {string}")
     public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoErrato(String numeroErrato) {
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         iTuoiRecapitiPage.insertTelephoneNumber(numeroErrato);
     }
 
     @Then("Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio di numero di telefono errato")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioDiNumeroDiTelefonoErrato() {
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         String errorMessageRead = iTuoiRecapitiPage.getPhoneErrorMessage();
         Assertions.assertEquals("Numero di cellulare non valido", errorMessageRead, "messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Numero di cellulare non valido");
 
@@ -253,7 +257,7 @@ public class RecapitiPersonaFisicaTest {
 
     @And("Nella pagina I Tuoi Recapiti si controlla che il tasto avvisami via sms sia bloccato")
     public void nellaPaginaITuoiRecapitiSiControllaCheIlTastoAvvisamiViaSmsSiaBloccato() {
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         Assertions.assertTrue(iTuoiRecapitiPage.avvisamiViaSMSIsDisabled(), "il bottone avvisami via SMS non è disabilitato");
     }
 
@@ -281,7 +285,7 @@ public class RecapitiPersonaFisicaTest {
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
-                logger.info("OTTTPPP"+OTP);
+                logger.info("OTTTPPP" + OTP);
                 personaFisica.put("OTPpec", OTP);
                 dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
             } else {
@@ -295,7 +299,7 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequestDellEmailEVieneInserito(String email) {
 
         RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
 
         String startUrl = "http://localhost:8887/";
         String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + email;
@@ -337,7 +341,7 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si inserisce il codice OTP di verifica");
 
         String otp = dataPopulation.readDataPopulation(dpFile + ".yaml").get("OTPpec").toString();
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         iTuoiRecapitiPage.sendOTP(otp);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
         if (recapitiDestinatarioPage.waitMessaggioErrore()) {
@@ -350,7 +354,7 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si inserisce il codice OTP")
     public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP() {
         logger.info("Si inserisce il codice OTP di verifica");
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         WebTool.waitTime(2);
         iTuoiRecapitiPage.sendOTP(OTP);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
@@ -361,11 +365,11 @@ public class RecapitiPersonaFisicaTest {
     }
 
     @And("Si verifica se popup conferma presente")
-    public void verificaPopupConferma(){
+    public void verificaPopupConferma() {
         if (recapitiDestinatarioPage.siVisualizzaPopUpConferma()) {
             logger.info("Si clicca su conferma nel pop-up");
             recapitiDestinatarioPage.clickConfermaButton();
-            driver.navigate().refresh();
+            hooks.getDriver().navigate().refresh();
         }
     }
 
@@ -381,11 +385,11 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente() {
         logger.info("Si controlla che la pec sia stata inserita correttamente");
         WebTool.waitTime(15);
-        driver.navigate().refresh();
-            if (!recapitiDestinatarioPage.verificaPecAssociata()) {
-                logger.error("Pec non associata con errore");
-                Assertions.fail("Pec non associata con errore");
-            }
+        hooks.getDriver().navigate().refresh();
+        if (!recapitiDestinatarioPage.verificaPecAssociata()) {
+            logger.error("Pec non associata con errore");
+            Assertions.fail("Pec non associata con errore");
+        }
     }
 
     @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method {string}")
@@ -467,7 +471,7 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si inserisce il codice OTP di verifica");
 
         String otp = dataPopulation.readDataPopulation(dpFile + ".yaml").get("OTPmail").toString();
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         iTuoiRecapitiPage.sendOTP(otp);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
     }
@@ -484,7 +488,7 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si controlla che ci sia già una Email")
     public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaEmail() {
         logger.info("Si controlla che che ci sia già una Email");
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
 
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
@@ -518,7 +522,7 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si clicca sul bottone modifica")
     public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneModifica() {
         logger.info("Si clicca sul bottone modifica");
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
         recapitiDestinatarioPage.clickSuModifica();
     }
@@ -527,7 +531,7 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiInserisceLaNuovaEmailDelPFECliccaSulBottoneAvvisamiViaEmail(String dpFile) {
         logger.info("Si inserisce la nuova Email e si clicca sul bottone avvisami via email");
 
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
 
         iTuoiRecapitiPage.cancellaTesto();
@@ -542,7 +546,7 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiControllaCheLaEmailSiaStataModificata() {
         logger.info("Si controlla che la Email sia stata modificata");
 
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         iTuoiRecapitiPage.verificaEmailModificata();
     }
 
@@ -588,7 +592,7 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si clicca sul bottone elimina email e si conferma nel pop up")
     public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneEliminaEmailESiConfermaNelPopUp() {
         logger.info("Si clicca sul bottone elimina email");
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
 
         iTuoiRecapitiPage.eliminaEmailEsistente();
         if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi email")) {
@@ -604,7 +608,7 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si clicca sul bottone elimina email e si annulla nel pop up")
     public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneEliminaEmailESiAnnullaNelPopUp() {
         logger.info("Si clicca sul bottone elimina email");
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
 
         iTuoiRecapitiPage.eliminaEmailEsistente();
         if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi email")) {
@@ -682,7 +686,7 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.visualizzaValidazione();
         } else {
             WebTool.waitTime(5);
-            driver.navigate().refresh();
+            hooks.getDriver().navigate().refresh();
             if (recapitiDestinatarioPage.siControllaPECModificata(pec)) {
                 logger.info("La PEC è stata modificata");
             } else {
@@ -723,7 +727,7 @@ public class RecapitiPersonaFisicaTest {
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
             }
             url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("pec");
-            logger.info("Chiamata verifica PEC :"+ url);
+            logger.info("Chiamata verifica PEC :" + url);
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
@@ -767,6 +771,7 @@ public class RecapitiPersonaFisicaTest {
         }
 
     }
+
     @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email {string} tramite chiamata request")
     public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaEmailTramiteChiamataRequest(String mail) {
         logger.info("Si recupera il codice OTP della nuova email");
@@ -869,7 +874,7 @@ public class RecapitiPersonaFisicaTest {
 
         logger.info("Si inserisce il numero di telefono");
 
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         iTuoiRecapitiPage.insertTelephoneNumber(numero);
         iTuoiRecapitiPage.clickAvvisamiViaSMS();
     }
@@ -914,7 +919,7 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.waitLoadPage();
         }
         String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("additionalEmail").toString();
-        driver.navigate().refresh();
+        hooks.getDriver().navigate().refresh();
         WebTool.waitTime(10);
         if (!recapitiDestinatarioPage.verificaNuovaEmailEPEC(pec)) {
             logger.error("La email PEC non è stata associata correttamente");
@@ -933,7 +938,7 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella sezione altri recapiti si seleziona il tipo di indirizzo scegliendo {string}")
     public void nellaSezioneAltriRecapitiSiSelezionaIlTipoDiIndirizzoScegliendoEmail(String tipoIndirizzo) {
         logger.info("Si seleziona il tipo di indirizzo scegliendo email");
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         if (tipoIndirizzo.equalsIgnoreCase("PEC"))
             iTuoiRecapitiPage.selezionaTipoPec();
         else {
@@ -952,7 +957,7 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si inserisce il codice OTP di verifica");
 
         String otp = dataPopulation.readDataPopulation(dpFile + ".yaml").get("OTPmail").toString();
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         iTuoiRecapitiPage.sendOTP(otp);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
     }
@@ -980,7 +985,7 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si controlla che non ci sia già una email")
     public void nellaPaginaITuoiRecapitiSiControllaCheNonCiSiaGiaUnaEmail() {
         logger.info("Si controlla che non ci sia già una email");
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         if (recapitiDestinatarioPage.verificaMailAssociata()) {
             iTuoiRecapitiPage.eliminaEmailEsistente();
             if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
@@ -1017,7 +1022,7 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaEmailDiversa() {
         logger.info("Si controlla che che ci sia già una Email diversa");
 
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
 
         BackgroundTest backgroundTest = new BackgroundTest();
@@ -1037,14 +1042,14 @@ public class RecapitiPersonaFisicaTest {
     @And("Si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email")
     public void siVisualizzanoCorrettamenteGliElementiPostModifica() {
         logger.info("Si controlla che si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email");
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         iTuoiRecapitiPage.checkPostModifica();
     }
 
     @When("Nella pagina I Tuoi Recapiti si visualizza correttamente il riquadro relativo alla PEC")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlRiquadroRelativoAllaPEC() {
         logger.info("Si visualizza correttamente il riquadro relativo alla PEC");
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         iTuoiRecapitiPage.checkRiquadroPEC();
     }
 
@@ -1056,7 +1061,7 @@ public class RecapitiPersonaFisicaTest {
 
     @And("Si verifica siano presenti recapiti digitali")
     public void siVerificaSianoPresentiRecapitiDigitali(Map<String, String> datiPF) {
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
+        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
 
         String email = datiPF.get("email");
         if (recapitiDestinatarioPage.siVisualizzaPecInserita()) {

@@ -50,7 +50,7 @@ public class NotificaMittentePagoPATest {
     private final DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
     private final DataPopulation dataPopulation = new DataPopulation();
     private final DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-    private final String variabileAmbiente = System.getProperty("environment");
+    private final String variabileAmbiente1 = System.getProperty("environment");
     private final InformazioniPreliminariPASection informazioniPreliminariPASection = new InformazioniPreliminariPASection(this.driver);
     private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
     private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
@@ -76,8 +76,8 @@ public class NotificaMittentePagoPATest {
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
         AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
-        logger.info("Cliccare sul bottone di Piattaforma Notifiche dell'Ambiente " + variabileAmbiente);
-        switch (variabileAmbiente) {
+        logger.info("Cliccare sul bottone di Piattaforma Notifiche dell'Ambiente " + webDriverConfig.getEnvironment());
+        switch (webDriverConfig.getEnvironment()) {
             case "dev" -> areaRiservataPAPage.selezionaPiattaformaNotificaDev();
             case "test" -> areaRiservataPAPage.selezionaPiattaformaNotificaTest();
             case "uat" -> areaRiservataPAPage.selezionaPiattaformaNotificaUat();
@@ -183,7 +183,7 @@ public class NotificaMittentePagoPATest {
         aggiornamentoNumeroProtocollo();
         this.datiNotifica = dataPopulation.readDataPopulation(datiNotificaFile + ".yaml");
         String gruppo = "";
-        switch (variabileAmbiente) {
+        switch (webDriverConfig.getEnvironment()) {
             case "dev" -> gruppo = datiNotifica.get("gruppoDev").toString();
             case "test", "uat" -> gruppo = datiNotifica.get("gruppoTest").toString();
         }

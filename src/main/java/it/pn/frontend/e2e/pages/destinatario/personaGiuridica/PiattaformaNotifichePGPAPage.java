@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.common.HelpdeskPage;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
@@ -14,6 +15,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.net.URL;
@@ -70,6 +72,9 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     @FindBy(xpath = "//button[contains(text(), 'Ricevuta di consegna')]")
     WebElement ricevutaDiConsegnaButton;
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     public PiattaformaNotifichePGPAPage(WebDriver driver) {
         super(driver);
@@ -225,7 +230,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
 
     public void clickRicevutaDiConsegna() throws AWTException, IOException {
-        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
+        boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
         if (!headless) {
             logger.info("controllo esistenza bottone per scaricare zip");
             getWebDriverWait(10).withMessage("Il bottone Ricevuta di consegna non cliccabile").until(ExpectedConditions.elementToBeClickable(ricevutaDiConsegnaButton));

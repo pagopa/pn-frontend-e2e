@@ -1,5 +1,8 @@
 package it.pn.frontend.e2e.model.enums;
 
+import it.pn.frontend.e2e.config.WebDriverConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+
 public enum TokenLogin {
     PF_DELEGATE_TOKEN(
             "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBBS3RoQjlYNS1fNHRWUGxNRmZUTHdWSkt1akxuSEhkODdSUkdtX1VTR0EifQ.eyJuYW1lIjoiR2FpbyBHaXVsaW8iLCJmYW1pbHlfbmFtZSI6IkNlc2FyZSIsInVpZCI6ImEwMWI2MmQ0LWUzZjgtNDhmMy1hNGQ4LWNmNjI4YTM0Yjc0NSIsImZpc2NhbF9udW1iZXIiOiJDU1JHR0w0NEwxM0g1MDFFIiwic3BpZF9sZXZlbCI6Imh0dHBzOi8vd3d3LnNwaWQuZ292Lml0L1NwaWRMMiIsImZyb21fYWEiOmZhbHNlLCJhdWQiOiJjaXR0YWRpbmkuZGV2Lm5vdGlmaWNoZWRpZ2l0YWxpLml0IiwibGV2ZWwiOiJMMiIsImlhdCI6MTY5OTg4NjU3OCwiZXhwIjoyMDE1NDQ5MjAwLCJpc3MiOiJodHRwczovL2h1Yi1sb2dpbi5zcGlkLmRldi5ub3RpZmljaGVkaWdpdGFsaS5pdCIsImp0aSI6Il9iMGI5MGYzNjc2ZTA1MjYxMzAzYyJ9.PaTdY6Hl8RmIJdmobl0ahjawsWdmXrehnWEzRgmQT4Wf7i4Lvz8h_FgXUtt9TB8rZ1t92j2XrqOip1Pa_fSXAUv0Gx4wgb1W4ll74iPs7Mf1sXsZxFQyrd_XwTcvnRYHalAsOizbINNckm-NB0Vo-bRzlgpqSN0dnZ2r9lYSryf5H-B7214mlXvmQu-QD64iyLibdmU8cFim9E5A3hIT9vCGdSGZBsLGkC_oYhmMGLz-N4UeChJid98c37mI4EGpFMwJ7sifDgggCzHbaQBdBKlNPzRIosGZLju6zILzZsEpVkIhYNi5suf5sJeHR56adXKlYIkMWUc8Gdh5g5YskA",
@@ -20,13 +23,16 @@ public enum TokenLogin {
     private final String devToken;
     private final String testToken;
 
+    @Autowired
+    private WebDriverConfig webDriverConfig;
+
     private TokenLogin(String devToken, String testToken) {
         this.devToken = devToken;
         this.testToken = testToken;
     }
 
     public String getToken() {
-        String env = System.getProperty("environment");
+        String env = webDriverConfig.getEnvironment();
         return env.equalsIgnoreCase("dev") ? devToken : testToken;
     }
 }
