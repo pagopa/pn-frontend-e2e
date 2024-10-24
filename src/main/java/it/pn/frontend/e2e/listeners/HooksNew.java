@@ -70,10 +70,11 @@ public class HooksNew {
 
     @Getter
     private final List<NetWorkInfo> netWorkInfos = new ArrayList<>();
-    @Autowired
-    private  CookieConfig cookieConfig;
+
     private final String os = System.getProperty("os.name");
 
+    @Autowired
+    private  CookieConfig cookieConfig;
     @Autowired
     private WebDriverConfig webDriverConfig;
 

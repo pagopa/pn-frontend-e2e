@@ -414,6 +414,7 @@ public class HelpdeskPage extends BasePage {
         this.getWebDriverWait(15).withMessage("Messaggio di errore non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
     }
 
+
     public void checkZipLink() throws IOException, AWTException {
         boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
         if (!headless) {

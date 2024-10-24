@@ -8,6 +8,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.api.mittente.AccettazioneRichiestaNotifica;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.enums.AppPortal;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
@@ -43,7 +44,7 @@ import static org.apache.commons.lang3.StringUtils.substring;
 public class NotificaMittentePagoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittentePagoPATest");
-    private final WebDriver driver = Hooks.driver;
+
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
     private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
     private final AllegatiPASection allegatiPASection = new AllegatiPASection(this.driver);
@@ -72,10 +73,14 @@ public class NotificaMittentePagoPATest {
     private CookieConfig cookieConfig;
     @Autowired
     private WebDriverConfig webDriverConfig;
+    @Autowired
+    private HooksNew hooks;
+
+    private final WebDriver driver = hooks.getDriver();
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
-        AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(this.driver);
+        AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(hooks.getDriver());
         logger.info("Cliccare sul bottone di Piattaforma Notifiche dell'Ambiente " + webDriverConfig.getEnvironment());
         switch (webDriverConfig.getEnvironment()) {
             case "dev" -> areaRiservataPAPage.selezionaPiattaformaNotificaDev();
@@ -88,7 +93,7 @@ public class NotificaMittentePagoPATest {
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche() {
         logger.info("Si visualizza correttamente la pagina Piattaforma Notifiche");
 
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.waitLoadHeaderSection();
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
@@ -172,7 +177,7 @@ public class NotificaMittentePagoPATest {
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionInformazioniPreliminari() {
         logger.info("Verifica visualizzazione section Informazioni preliminari");
 
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.waitLoadHeaderSection();
         informazioniPreliminariPASection.waitLoadInformazioniPreliminariPASection();
     }
@@ -212,7 +217,7 @@ public class NotificaMittentePagoPATest {
     @And("Cliccare su continua")
     public void cliccareSuContinua() {
         logger.info("Cliccare sul bottone continua");
-        InvioNotifichePAPage invioNotifichePAPage = new InvioNotifichePAPage(this.driver);
+        InvioNotifichePAPage invioNotifichePAPage = new InvioNotifichePAPage(hooks.getDriver());
         invioNotifichePAPage.selezionareContinuaButton();
     }
 

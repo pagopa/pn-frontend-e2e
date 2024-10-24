@@ -11,6 +11,7 @@ import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogi
 import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ComeVuoiAccederePage;
@@ -36,12 +37,13 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginPGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("LoginPGPagoPATest");
-    private final WebDriver driver = Hooks.driver;
+
+
+
     private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
     private Map<String, String> urlPersonaGiuridica;
     private final DataPopulation dataPopulation = new DataPopulation();
-    private final HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
-    private final AccediAreaRiservataPGPage accediAreaRiservataPGPage = new AccediAreaRiservataPGPage(this.driver);
+
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
     private final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
     private final String RAGIONE_SOCIALE_BALDASSARRE = "Comune di Milano";
@@ -51,14 +53,21 @@ public class LoginPGPagoPATest {
     private CookieConfig cookieConfig;
     @Autowired
     private WebDriverConfig webDriverConfig;
+    @Autowired
+    private HooksNew hooks;
+
+   // private final WebDriver driver = hooks.getDriver();
+   private  HeaderPGSection headerPGSection ;
+   private  AccediAreaRiservataPGPage accediAreaRiservataPGPage;
+
 
     @Given("Login Page persona giuridica viene visualizzata")
     public void loginPagePersonaGiuridicaVieneVisualizzata() {
         String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
-            case "dev" -> driver.get(URL_LOGIN_PG);
+            case "dev" -> hooks.getDriver().get(URL_LOGIN_PG);
             case "test", "uat" ->
-                   driver.get(URL_LOGIN_PG.replace("dev", variabileAmbiente));
+                    hooks.getDriver().get(URL_LOGIN_PG.replace("dev", variabileAmbiente));
             default ->
                     Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
@@ -92,11 +101,12 @@ public class LoginPGPagoPATest {
 
         // Si effettua il login con token exchange
         String urlLogin = "https://imprese." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
-        this.driver.get(urlLogin);
+        hooks.getDriver().get(urlLogin);
         logger.info("Login effettuato con successo");
         WebTool.waitTime(10);
-        PiattaformaNotifichePGPAPage notifichePGPage = new PiattaformaNotifichePGPAPage(this.driver);
+        PiattaformaNotifichePGPAPage notifichePGPage = new PiattaformaNotifichePGPAPage(hooks.getDriver());
 
+        headerPGSection = new HeaderPGSection(hooks.getDriver());
         headerPGSection.waitLoadHeaderPGPage();
 
         // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
@@ -141,16 +151,16 @@ public class LoginPGPagoPATest {
 
         }
 
-        this.driver.get(this.urlPersonaGiuridica.get("urlPortale"));
+        hooks.getDriver().get(this.urlPersonaGiuridica.get("urlPortale"));
 
         if (!cookieConfig.isCookieEnabled()) {
-            CookiesSection cookiesPage = new CookiesSection(this.driver);
+            CookiesSection cookiesPage = new CookiesSection(hooks.getDriver());
             if (cookiesPage.waitLoadCookiesPage()) {
                 cookiesPage.selezionaAccettaTuttiButton();
             }
         }
 
-        SelezionaImpresaPage impresaPage = new SelezionaImpresaPage(this.driver);
+        SelezionaImpresaPage impresaPage = new SelezionaImpresaPage(hooks.getDriver());
         impresaPage.clickSuImpresa(this.datiPersonaGiuridica.get("ragioneSociale").toString());
         impresaPage.clickAccediButton();
     }
@@ -285,8 +295,9 @@ public class LoginPGPagoPATest {
 
     @Then("Home page persona giuridica viene visualizzata correttamente")
     public void homePagePersonaGiuridicaVieneVisualizzataCorrettamente() {
+        headerPGSection = new HeaderPGSection(hooks.getDriver());
         headerPGSection.waitLoadHeaderPGPage();
-        HomePagePG homePagePG = new HomePagePG(this.driver);
+        HomePagePG homePagePG = new HomePagePG(hooks.getDriver());
         homePagePG.waitLoadHomePagePGPage();
 
     }
@@ -299,29 +310,30 @@ public class LoginPGPagoPATest {
         CookiesSection cookiesSection;
 
         if (!cookieConfig.isCookieEnabled()) {
-            cookiesSection = new CookiesSection(this.driver);
+            cookiesSection = new CookiesSection(hooks.getDriver());
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
+        accediAreaRiservataPGPage = new AccediAreaRiservataPGPage(hooks.getDriver());
         accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
         accediAreaRiservataPGPage.clickSpidButton();
 
-        ScegliSpidPGPage scegliSpidPGPage = new ScegliSpidPGPage(this.driver);
+        ScegliSpidPGPage scegliSpidPGPage = new ScegliSpidPGPage(hooks.getDriver());
         scegliSpidPGPage.clickTestButton();
 
-        LoginPGPagoPAPage loginPGPagoPAPage = new LoginPGPagoPAPage(this.driver);
+        LoginPGPagoPAPage loginPGPagoPAPage = new LoginPGPagoPAPage(hooks.getDriver());
         loginPGPagoPAPage.waitLoadLoginPGPage();
         loginPGPagoPAPage.insertUsername(datiPG.get("user"));
         loginPGPagoPAPage.insertPassword(datiPG.get("pwd"));
         loginPGPagoPAPage.clickInviaButton();
 
 
-        AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage = new AutorizzaInvioDatiPGPage(this.driver);
+        AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage = new AutorizzaInvioDatiPGPage(hooks.getDriver());
         autorizzaInvioDatiPGPage.waitLoadAutorizzaInvioDatiPGPage();
         autorizzaInvioDatiPGPage.clickInviaButton();
 
-        SelezionaImpresaPage selezionaImpresaPage = new SelezionaImpresaPage(this.driver);
+        SelezionaImpresaPage selezionaImpresaPage = new SelezionaImpresaPage(hooks.getDriver());
         selezionaImpresaPage.waitLoadSelezionaImpresaPage();
         if(selezionaImpresaPage.clickSuImpresa(datiPG.get("ragioneSociale"))){
             logger.info("click su impresa");
@@ -331,10 +343,11 @@ public class LoginPGPagoPATest {
 
     @And("Logout da portale persona giuridica")
     public void logoutDaPortalePersonaGiuridica() {
+        headerPGSection = new HeaderPGSection(hooks.getDriver());
         headerPGSection.waitLoadHeaderPGPage();
         headerPGSection.clickEsciButton();
         WebTool.waitTime(5);
-
+        accediAreaRiservataPGPage = new AccediAreaRiservataPGPage(hooks.getDriver());
         accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
 
         WebTool.waitTime(5);
@@ -370,17 +383,17 @@ public class LoginPGPagoPATest {
 
         }
 
-        this.driver.get(this.urlPersonaGiuridica.get("urlPortale"));
+        hooks.getDriver().get(this.urlPersonaGiuridica.get("urlPortale"));
 
         if (!cookieConfig.isCookieEnabled()) {
-            CookiesSection cookiesPage = new CookiesSection(this.driver);
+            CookiesSection cookiesPage = new CookiesSection(hooks.getDriver());
             if (cookiesPage.waitLoadCookiesPage()) {
                 cookiesPage.selezionaAccettaTuttiButton();
             }
         }
 
 
-        SelezionaImpresaPage impresaPage = new SelezionaImpresaPage(this.driver);
+        SelezionaImpresaPage impresaPage = new SelezionaImpresaPage(hooks.getDriver());
         impresaPage.clickSuImpresa(this.datiPersonaGiuridica.get("ragioneSociale").toString());
         impresaPage.clickAccediButton();
     }
@@ -407,7 +420,7 @@ public class LoginPGPagoPATest {
             }
         }
         String url = urlIniziale + token;
-        this.driver.get(url);
+        hooks.getDriver().get(url);
     }
 
     public String getTokenExchangePGFromFile(String personaGiuridica) {
@@ -433,7 +446,7 @@ public class LoginPGPagoPATest {
 
     @And("Si clicca su prodotto {string}")
     public void siCliccaSuProdotto(String xpath) {
-        DestinatarioPage destinatarioPage = new DestinatarioPage(driver);
+        DestinatarioPage destinatarioPage = new DestinatarioPage(hooks.getDriver());
         destinatarioPage.clickProdotto(xpath);
     }
 
