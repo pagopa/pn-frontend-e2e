@@ -50,7 +50,7 @@ public class NotificaMittentePagoPATest {
     private final DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
     private final DataPopulation dataPopulation = new DataPopulation();
     private final DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-    private final String variabileAmbiente1 = System.getProperty("environment");
+    //private final String variabileAmbiente = System.getProperty("environment");
     private final InformazioniPreliminariPASection informazioniPreliminariPASection = new InformazioniPreliminariPASection(this.driver);
     private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
     private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();

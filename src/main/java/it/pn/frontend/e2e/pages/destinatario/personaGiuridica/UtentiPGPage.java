@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
@@ -9,6 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Set;
@@ -70,6 +72,9 @@ public class UtentiPGPage extends BasePage {
     @FindBy(xpath = "//span[contains(text(),'Utenti')]")
     WebElement sezioneUtenti;
 
+    @Autowired
+    private WebDriverConfig webDriverConfig;
+
     public UtentiPGPage(WebDriver driver) {
         super(driver);
     }
@@ -79,7 +84,7 @@ public class UtentiPGPage extends BasePage {
         sezioneUtenti.click();
         //build url
         String companyId = "d0f52c7d-76d5-4520-8971-edffeb5b46d5";
-        String environment = System.getProperty("environment");
+        String environment = webDriverConfig.getEnvironment();
         String utentiUrl = "https://imprese." + environment + ".notifichedigitali.it/dashboard/" + companyId + "/users";
         //switch tab
         String parentWindowHandle = driver.getWindowHandle();

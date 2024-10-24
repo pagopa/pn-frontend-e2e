@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.rest;
 
 import it.pn.frontend.e2e.config.CustomHttpClient;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.exceptions.RestDelegationException;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
@@ -8,6 +9,7 @@ import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePG;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -22,9 +24,12 @@ public class RestDelegation {
     final CustomHttpClient<DelegateRequestPG, DelegateResponsePG> httpClientPG = CustomHttpClient.getInstance();
 
     private static RestDelegation instance;
-    final private String env = System.getProperty("environment");
+    //final private String env = System.getProperty("environment");
     final private String token = System.getProperty("token");
     private Map<String, String> headers = new HashMap<>();
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     public static synchronized RestDelegation getInstance() {
         if (instance == null) {
@@ -34,7 +39,7 @@ public class RestDelegation {
     }
 
     public RestDelegation() {
-        this.httpClientPF.setBaseUrlApi("https://webapi." + env + ".notifichedigitali.it");
+        this.httpClientPF.setBaseUrlApi("https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it");
         if (token != null) {
             this.headers.put("Authorization", token);
         } else {

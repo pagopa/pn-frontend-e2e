@@ -58,7 +58,7 @@ public class NotifichePGPagoPATest {
 
         HomePagePG homePagePG = new HomePagePG(this.driver);
         homePagePG.waitLoadHomePagePGPage();
-        String variabileAmbiente = System.getProperty("environment");
+        String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
             case "dev" -> homePagePG.clickSendNotificheDigitali(5);
             case "test" -> homePagePG.clickSendNotificheDigitali(6);
@@ -168,7 +168,7 @@ public class NotifichePGPagoPATest {
         Map<String, Object> datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/personaGiuridica");
-        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
+        boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }
@@ -394,7 +394,7 @@ public class NotifichePGPagoPATest {
     public void siSelezionanoIlFileDaScaricare(String nomeFile) throws IOException {
         logger.info("Si cerca di scaricare il file " + nomeFile);
 
-        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
+        boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibile(nomeFile);
         WebTool.waitTime(5);

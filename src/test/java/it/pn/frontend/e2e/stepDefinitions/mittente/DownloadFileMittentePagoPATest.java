@@ -63,7 +63,7 @@ public class DownloadFileMittentePagoPATest {
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
         downloadFile = new DownloadFile(this.driver);
-        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
+        boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }
@@ -169,7 +169,7 @@ public class DownloadFileMittentePagoPATest {
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
         DownloadFile downloadFile = new DownloadFile(this.driver);
-        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
+        boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }
@@ -252,7 +252,7 @@ public class DownloadFileMittentePagoPATest {
         DataPopulation dataPopulation = new DataPopulation();
 
         String workingDirectory = System.getProperty("user.dir");
-        String variabileAmbiente = System.getProperty("environment");
+        String variabileAmbiente = webDriverConfig.getEnvironment();
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
         DownloadFile downloadFile = new DownloadFile(this.driver);
         boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
@@ -304,7 +304,7 @@ public class DownloadFileMittentePagoPATest {
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
         DownloadFile downloadFile = new DownloadFile(this.driver);
-        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
+        boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }
@@ -350,7 +350,7 @@ public class DownloadFileMittentePagoPATest {
         logger.info("Si cerca di scaricare il file " + nomeFile);
 
         DataPopulation dataPopulation = new DataPopulation();
-        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
+        boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibile(nomeFile);

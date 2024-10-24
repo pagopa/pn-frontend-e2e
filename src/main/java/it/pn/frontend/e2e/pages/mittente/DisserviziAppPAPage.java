@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -14,6 +15,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +27,8 @@ public class DisserviziAppPAPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("Disservizi PA Page");
 
     private DataPopulation dataPopulation = new DataPopulation();
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     public DisserviziAppPAPage(WebDriver driver) {
         super(driver);
@@ -296,7 +300,7 @@ public class DisserviziAppPAPage extends BasePage {
 public boolean confrontoFileConDisservizio() {
     getDateDisservice();
     logger.info("date prese con successo dal disserivizio");
-    String folderPath = System.getProperty("downloadFilePath");
+    String folderPath = webDriverConfig.getDownloadFilePath();
     // Stringa da cercare nel nome del file
     String searchString = "PN_DOWNTIME_LEGAL_FACTS";
     // Creazione di un oggetto File che rappresenta la cartella

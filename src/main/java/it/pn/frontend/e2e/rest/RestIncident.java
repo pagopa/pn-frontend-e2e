@@ -1,15 +1,19 @@
 package it.pn.frontend.e2e.rest;
 
 import it.pn.frontend.e2e.config.CustomHttpClient;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.model.incidents.IncidentStatusResponse;
 import it.pn.frontend.e2e.model.incidents.NewIncidentRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class RestIncident {
     private static final Logger logger = LoggerFactory.getLogger("RestIncident");
     final CustomHttpClient<NewIncidentRequest, IncidentStatusResponse> httpClientIncident = CustomHttpClient.getInstance();
-    final private String env = System.getProperty("environment");
+    //final private String env = System.getProperty("environment");
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     private static RestIncident instance;
 
@@ -21,6 +25,6 @@ public class RestIncident {
     }
 
     public RestIncident() {
-        this.httpClientIncident.setBaseUrlApi("https://api.bo." + env + ".notifichedigitali.it/");
+        this.httpClientIncident.setBaseUrlApi("https://api.bo." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/");
     }
 }

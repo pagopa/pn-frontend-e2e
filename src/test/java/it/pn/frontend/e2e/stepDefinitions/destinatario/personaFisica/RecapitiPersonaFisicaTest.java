@@ -275,7 +275,7 @@ public class RecapitiPersonaFisicaTest {
             personaFisica.put("OTPpec", OTP);
             dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
         } else {
-            String variabileAmbiente = System.getProperty("environment");
+            String variabileAmbiente = webDriverConfig.getEnvironment();
             if (variabileAmbiente.equalsIgnoreCase("test")) {
                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
             } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
@@ -313,7 +313,7 @@ public class RecapitiPersonaFisicaTest {
                 Assertions.fail("Il codice OTP inserito è sbagliato");
             }
         } else {
-            String variabileAmbiente = System.getProperty("environment");
+            String variabileAmbiente = webDriverConfig.getEnvironment();
             if (variabileAmbiente.equalsIgnoreCase("test")) {
                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
             } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
@@ -410,7 +410,7 @@ public class RecapitiPersonaFisicaTest {
             personaFisica.put("OTPmail", OTP);
             dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
         } else {
-            String variabileAmbiente = System.getProperty("environment");
+            String variabileAmbiente = webDriverConfig.getEnvironment();
             if (variabileAmbiente.equalsIgnoreCase("test")) {
                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
             } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
@@ -447,7 +447,7 @@ public class RecapitiPersonaFisicaTest {
             personaFisica.put("OTPmail", OTP);
             dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
         } else {
-            String variabileAmbiente = System.getProperty("environment");
+            String variabileAmbiente = webDriverConfig.getEnvironment();
             if (variabileAmbiente.equalsIgnoreCase("test")) {
                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
             } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
@@ -570,7 +570,7 @@ public class RecapitiPersonaFisicaTest {
             personaFisica.put("OTPmail", OTP);
             dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
         } else {
-            String variabileAmbiente = System.getProperty("environment");
+            String variabileAmbiente = webDriverConfig.getEnvironment();
             if (variabileAmbiente.equalsIgnoreCase("test")) {
                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
             } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
@@ -720,7 +720,7 @@ public class RecapitiPersonaFisicaTest {
             personaFisica.put("OTPpec", OTP);
             dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
         } else {
-            String variabileAmbiente = System.getProperty("environment");
+            String variabileAmbiente = webDriverConfig.getEnvironment();
             if (variabileAmbiente.equalsIgnoreCase("test")) {
                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
             } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
@@ -754,7 +754,7 @@ public class RecapitiPersonaFisicaTest {
         if (results) {
             OTP = recuperoOTPRecapiti.getResponseBody();
         } else {
-            String variabileAmbiente = System.getProperty("environment");
+            String variabileAmbiente =webDriverConfig.getEnvironment();
             if (variabileAmbiente.equalsIgnoreCase("test")) {
                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
             } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
@@ -783,7 +783,7 @@ public class RecapitiPersonaFisicaTest {
         if (results) {
             OTP = recuperoOTPRecapiti.getResponseBody();
         } else {
-            String variabileAmbiente = System.getProperty("environment");
+            String variabileAmbiente = webDriverConfig.getEnvironment();
             if (variabileAmbiente.equalsIgnoreCase("test")) {
                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
             } else if (variabileAmbiente.equalsIgnoreCase("dev")) {

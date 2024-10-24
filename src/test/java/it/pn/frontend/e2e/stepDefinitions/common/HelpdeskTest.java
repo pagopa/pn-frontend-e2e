@@ -5,6 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.HelpdeskPage;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.model.enums.Disservice;
 import it.pn.frontend.e2e.model.enums.Status;
@@ -17,6 +18,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.awt.*;
 import java.io.IOException;
@@ -35,10 +37,13 @@ public class HelpdeskTest {
     private Map<String, Object> datiTestHelpdesk = new HashMap<>();
     private Map<String, Object> datiPersonaFisica = new HashMap<>();
 
+    @Autowired
+    private WebDriverConfig webDriverConfig;
+
     @Given("Login helpdesk con utente test {string}")
     public void loginHelpdeskConUtenteTest(String nameFile) {
         this.datiTestHelpdesk = this.dataPopulation.readDataPopulation(nameFile + ".yaml");
-        String variabileAmbiente = System.getProperty("environment");
+        String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
             case "dev" -> helpdeskPage.changePage(this.datiTestHelpdesk.get("url").toString());
             case "test", "uat" ->

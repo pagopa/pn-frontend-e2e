@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -11,6 +12,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
 
@@ -38,6 +40,9 @@ public class InformazioniPreliminariPASection extends BasePage {
 
     @FindBy(xpath = "//input[@value='REGISTERED_LETTER_890']")
     WebElement registeredLetter890Button;
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     public InformazioniPreliminariPASection(WebDriver driver) {
         super(driver);
@@ -123,7 +128,7 @@ public class InformazioniPreliminariPASection extends BasePage {
     }
     public void compilazioneInformazioniPreliminari(Map<String,String> datiNotificaMap) {
         String gruppo = "";
-        switch (System.getProperty("environment")) {
+        switch (webDriverConfig.getEnvironment()) {
             case "dev" -> gruppo = datiNotificaMap.get("gruppoDev");
             case "test", "uat" -> gruppo = datiNotificaMap.get("gruppoTest");
         }

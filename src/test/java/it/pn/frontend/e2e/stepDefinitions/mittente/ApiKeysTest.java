@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.mittente.ApiKeyPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,6 +22,9 @@ public class ApiKeysTest {
     private static final Logger logger = LoggerFactory.getLogger("ApiKeysTest");
     private final WebDriver driver = Hooks.driver;
     private final ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     @And("Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu")
     public void nellaPaginaPiattaformaNotificheSelezionareLaVoceApiKeyNelMenu() {
@@ -210,7 +215,7 @@ public class ApiKeysTest {
 
     @And("Nella sezione genera Api Key inserire un gruppo")
     public void nellaSezioneGeneraApiKeyInserireUnGruppo() {
-        String variabileAmbiente = System.getProperty("environment");
+        String variabileAmbiente = webDriverConfig.getEnvironment();
         String gruppo = "";
         String gruppo2 = "";
         switch (variabileAmbiente) {

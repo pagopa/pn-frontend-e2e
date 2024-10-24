@@ -71,7 +71,7 @@ public class DisserviziAppPATest {
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/personaGiuridica");
 
-        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
+        boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }

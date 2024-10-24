@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.pages.mittente;
 
 import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
@@ -14,6 +15,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
@@ -102,6 +104,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
     @FindBy(id = "message")
     WebElement erroreMessaggio;
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
 
     public PiattaformaNotifichePage(WebDriver driver) {
@@ -599,7 +604,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selezionaNotificaIUN(String IUN) {
-        String variabileAmbiente = System.getProperty("environment");
+        String variabileAmbiente = webDriverConfig.getEnvironment();
         driver.navigate().to("https://selfcare." + variabileAmbiente + ".notifichedigitali.it/dashboard/" + IUN + "/dettaglio");
     }
 

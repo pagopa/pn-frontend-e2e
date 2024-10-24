@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.utility;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -31,6 +33,9 @@ Gestione delle eccezioni: Ho migliorato il tracciamento delle eccezioni, fornend
 public class DownloadFile extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DownloadFile");
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     public DownloadFile(WebDriver driver) {
         super(driver);
@@ -164,7 +169,7 @@ public class DownloadFile extends BasePage {
     }
 
     private String getBearerSessionToken() {
-        String environment = System.getProperty("environment");
+        String environment = webDriverConfig.getEnvironment();
         String urlChiamata = "https://webapi." + environment + ".notifichedigitali.it/delivery/notifications/received?";
         return netWorkInfos.stream()
                 .filter(netWorkInfo -> netWorkInfo.getRequestUrl().contains(urlChiamata))
@@ -174,7 +179,7 @@ public class DownloadFile extends BasePage {
     }
 
     private String getBearerSessionToken(String url) {
-        String environment = System.getProperty("environment");
+        String environment = webDriverConfig.getEnvironment();
         String urlChiamata = "https://webapi." + environment + url;
         return netWorkInfos.stream()
                 .filter(netWorkInfo -> netWorkInfo.getRequestUrl().contains(urlChiamata))

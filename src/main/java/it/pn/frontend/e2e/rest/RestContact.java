@@ -1,12 +1,14 @@
 package it.pn.frontend.e2e.rest;
 
 import it.pn.frontend.e2e.config.CustomHttpClient;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.exceptions.RestContactException;
 import it.pn.frontend.e2e.exceptions.RestDelegationException;
 import it.pn.frontend.e2e.model.address.DigitalAddress;
 import it.pn.frontend.e2e.model.address.DigitalAddressResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.awt.*;
@@ -20,9 +22,12 @@ public class RestContact {
     private static final Logger logger = LoggerFactory.getLogger("RestContact");
     final CustomHttpClient<?, String> httpClient = CustomHttpClient.getInstance();
     private static RestContact instance;
-    final private String env = System.getProperty("environment");
+    //final private String env = System.getProperty("environment");
     final private String token = System.getProperty("token");
     private Map<String, String> headers = new HashMap<>();
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     public static synchronized RestContact getInstance() {
         if (instance == null) {
@@ -33,7 +38,7 @@ public class RestContact {
 
     public RestContact() {
 
-        this.httpClient.setBaseUrlApi("https://webapi." + env + ".notifichedigitali.it");
+        this.httpClient.setBaseUrlApi("https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it");
         if (token != null) {
             this.headers.put("Authorization", token);
         } else {
@@ -47,7 +52,7 @@ public class RestContact {
      * @throws RestContactException if there is an error during the request
      */
     public void removeDigitalAddressCourtesyEmail() throws RestContactException {
-        String url = "https://webapi." + env + ".notifichedigitali.it/address-book/v1/digital-address/courtesy/default/EMAIL";
+        String url = "https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/address-book/v1/digital-address/courtesy/default/EMAIL";
         String response = "";
         try {
             headers.put("Authorization", System.getProperty("token"));
@@ -66,7 +71,7 @@ public class RestContact {
      * @throws RestContactException if there is an error during the request
      */
     public void removeDigitalAddressLegalPec() throws RestContactException {
-        String url = "https://webapi." + env + ".notifichedigitali.it/bff/v1/addresses/LEGAL/default/PEC";
+        String url = "https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/bff/v1/addresses/LEGAL/default/PEC";
         String response = "";
         try {
             headers.put("Authorization", System.getProperty("token"));
@@ -88,7 +93,7 @@ public class RestContact {
     public void removeSpecialContact(DigitalAddress digitalAddress) throws RestDelegationException {
         String channelType = digitalAddress.getChannelType().toString();
         String addressType = digitalAddress.getAddressType().toString().toLowerCase();
-        String url = "https://webapi." + env + ".notifichedigitali.it/address-book/v1/digital-address/"
+        String url = "https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/address-book/v1/digital-address/"
                 + addressType + "/" + digitalAddress.getSenderId() + "/" + channelType;
         String response = "";
         try {
@@ -104,7 +109,7 @@ public class RestContact {
 
     public DigitalAddressResponse getDigitalAddress() throws RestContactException {
         CustomHttpClient<?, DigitalAddressResponse> httpClientDigitalAddress = CustomHttpClient.getInstance();
-        httpClientDigitalAddress.setBaseUrlApi("https://webapi." + env + ".notifichedigitali.it");
+        httpClientDigitalAddress.setBaseUrlApi("https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it");
         String url = "/bff/v1/addresses/LEGAL/default/PEC";
         try {
             headers.put("Authorization", System.getProperty("token"));
@@ -122,7 +127,7 @@ public class RestContact {
 
     public List<DigitalAddress> getAllDigitalAddress() throws RestContactException {
         CustomHttpClient<?, DigitalAddress> httpClientDigitalAddress = CustomHttpClient.getInstance();
-        httpClientDigitalAddress.setBaseUrlApi("https://webapi." + env + ".notifichedigitali.it");
+        httpClientDigitalAddress.setBaseUrlApi("https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it");
         String url = "/bff/v1/addresses";
 
         try {

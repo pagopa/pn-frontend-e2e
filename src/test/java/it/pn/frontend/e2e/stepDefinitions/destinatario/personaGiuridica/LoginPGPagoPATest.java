@@ -9,6 +9,7 @@ import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoContinueResponse;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogin;
 import it.pn.frontend.e2e.config.CustomHttpClient;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
@@ -48,10 +49,12 @@ public class LoginPGPagoPATest {
 
     @Autowired
     private CookieConfig cookieConfig;
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     @Given("Login Page persona giuridica viene visualizzata")
     public void loginPagePersonaGiuridicaVieneVisualizzata() {
-        String variabileAmbiente = System.getProperty("environment");
+        String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
             case "dev" -> driver.get(URL_LOGIN_PG);
             case "test", "uat" ->
@@ -65,7 +68,7 @@ public class LoginPGPagoPATest {
     public void loginMittenteConTokenExchange(String personaGiuridica) {
         DataPopulation dataPopulation = new DataPopulation();
 
-        String environment = System.getProperty("environment");
+        String environment = webDriverConfig.getEnvironment();
         String token = "";
         switch (environment) {
             case "dev" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
@@ -386,7 +389,7 @@ public class LoginPGPagoPATest {
     public void loginPortalePersonaGiuridicaTramiteTokenExchange(String dpFile) {
         logger.info("Si effettua il login PG tramite token");
 
-        String variabileAmbiente = System.getProperty("environment");
+        String variabileAmbiente = webDriverConfig.getEnvironment();
         String urlIniziale = "https://imprese." + variabileAmbiente + ".notifichedigitali.it/#selfCareToken=";
         String token;
         String user = this.dataPopulation.readDataPopulation(dpFile + ".yaml").get("user").toString();
@@ -409,7 +412,7 @@ public class LoginPGPagoPATest {
 
     public String getTokenExchangePGFromFile(String personaGiuridica) {
         DataPopulation dataPopulation = new DataPopulation();
-        String environment = System.getProperty("environment");
+        String environment = webDriverConfig.getEnvironment();
         String token = "";
         switch (environment) {
             case "dev" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?

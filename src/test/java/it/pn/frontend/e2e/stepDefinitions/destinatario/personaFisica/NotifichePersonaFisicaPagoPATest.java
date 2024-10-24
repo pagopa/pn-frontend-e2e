@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
@@ -45,6 +46,8 @@ public class NotifichePersonaFisicaPagoPATest {
     private final DettaglioNotificaSection dettaglioNotifica = new DettaglioNotificaSection(driver);
     @Autowired
     private CookieConfig cookieConfig;
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche")
     public void nellaPiattaformaDestinatarioCliccareSulBottoneNotifiche() {
@@ -286,7 +289,7 @@ public class NotifichePersonaFisicaPagoPATest {
         DataPopulation dataPopulation = new DataPopulation();
         Map<String, Object> datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String workingDirectory = System.getProperty("user.dir");
-        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
+        boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloads");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
