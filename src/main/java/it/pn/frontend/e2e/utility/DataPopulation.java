@@ -44,7 +44,6 @@ public class DataPopulation {
         this.objectMapper = new ObjectMapper(new YAMLFactory());
         TypeReference<Map<String, Object>> typeReference = new TypeReference<>() {
         };
-
         Map<String, Object> readValue = new HashMap<>();
         try {
             return objectMapper.readValue(new File("src/test/resources/dataPopulation/" + dpFile), typeReference);
