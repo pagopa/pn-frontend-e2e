@@ -157,7 +157,16 @@ public class WebDriverConfig {
     @Value("${url.helpdesk.test.notifichedigitali}")
     private String urlHelpdeskTestNotifichedigitali;
 
+    @Value("${codice.iun}")
+    private String codiceIun;
 
+    @Value("${codice.iun.n1}")
+    private String codiceIunN1;
 
+    @Value("${codice.iun.n2}")
+    private String codiceIunN2;
+
+    @Value("${codice.iun.n3}")
+    private String codiceIunN3;
 
 }

@@ -38,14 +38,15 @@ public class HelpdeskTest {
 //    private final WebDriver driver = Hooks.driver;
     @Autowired
     private DataPopulation dataPopulation;
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     private HelpdeskPage helpdeskPage = new HelpdeskPage(hooks.getDriver());
 
     private Map<String, Object> datiTestHelpdesk = new HashMap<>();
     private Map<String, Object> datiPersonaFisica = new HashMap<>();
 
-    @Autowired
-    private WebDriverConfig webDriverConfig;
+
 
     @Given("Login helpdesk con utente test {string}")
     public void loginHelpdeskConUtenteTest(String nameFile) {
@@ -175,17 +176,17 @@ public class HelpdeskTest {
     public void vieneInseritoCodiceFiscaleSenzaRicerca(String CF) {
         helpdeskPage.insertCF(CF);
     }
-
+    ///-*-*-**-
     @And("viene inserito codice IUN {string}")
     public void vieneInseritoIun(String iun) {
-        helpdeskPage.insertIunAndRicercaOnPage(iun);
+        String codiceIun = getCodiceIun(iun,"viene inserito codice IUN");
+        helpdeskPage.insertIunAndRicercaOnPage(codiceIun);
     }
-
     @And("viene inserito codice IUN senza ricerca {string}")
     public void vieneInseritoIunSenzaRicerca(String iun) {
-        helpdeskPage.insertIun(iun);
+        String codiceIun = getCodiceIun(iun,"viene inserito codice IUN senza ricerca");
+        helpdeskPage.insertIun(codiceIun);
     }
-
 
     @And("viene inserito numero ticket")
     public void vieneInseritoNumeroTicket() {
@@ -338,5 +339,28 @@ public class HelpdeskTest {
          logger.info("Selezione ottieni log completi");
          helpdeskPage.selectOttieniLogCompleti();
      }
+
+    private String getCodiceIun(String iun, String message) {
+        String codiceIun;
+        switch (iun) {
+            case "IUN0" -> {
+                codiceIun=webDriverConfig.getCodiceIun();
+            }
+            case "IUN1" -> {
+                codiceIun=webDriverConfig.getCodiceIunN1();
+            }
+            case "IUN2" -> {
+                codiceIun=webDriverConfig.getCodiceIunN2();
+            }
+            case "IUN3" -> {
+                codiceIun=webDriverConfig.getCodiceIunN3();
+            }
+            default -> {
+                logger.error(message);
+                throw new RuntimeException(message+" 'ERRATO'");
+            }
+        }
+        return codiceIun;
+    }
 
 }

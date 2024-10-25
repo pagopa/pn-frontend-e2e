@@ -13,7 +13,7 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
     And visualizzazione corretta pagina ricerca ed estrazione dati
     And Selezione ottieni log completi
     And viene inserito numero ticket
-    And viene inserito codice IUN senza ricerca "YRUZ-NYXJ-DAJK-202405-N-1"
+    And viene inserito codice IUN senza ricerca "IUN1"
     And Cliccare sul bottone ricerca
     And controllo messaggio di successo
     And controllo password
