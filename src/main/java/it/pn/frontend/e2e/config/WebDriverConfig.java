@@ -154,6 +154,8 @@ public class WebDriverConfig {
     @Value("${pn.pwdTest.helpdesk}")
     private String pwdTestHelpdesk;
 
+    @Value("${url.mittente}")
+    private String urlMittente;
 
 
 

@@ -70,9 +70,9 @@ public class LoginMittentePagoPA {
         this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
         String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
-            case "dev" ->hooks.getDriver().get(this.datiMittente.get("url").toString());
+            case "dev" ->hooks.getDriver().get(webDriverConfig.getUrlMittente());
             case "test", "uat" ->
-                    hooks.getDriver().get(this.datiMittente.get("url").toString().replace("dev", variabileAmbiente));
+                    hooks.getDriver().get(webDriverConfig.getUrlMittente().replace("dev", variabileAmbiente));
             default ->
                     Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
@@ -84,9 +84,9 @@ public class LoginMittentePagoPA {
         String variabileAmbiente = webDriverConfig.getEnvironment();
         this.datiMittente = dataPopulation.readDataPopulation("mittente.yaml");
         switch (variabileAmbiente) {
-            case "dev" -> hooks.getDriver().get(datiMittenteTable.get("url"));
+            case "dev" -> hooks.getDriver().get(webDriverConfig.getUrlMittente());
             case "test", "uat" ->
-                    hooks.getDriver().get(datiMittenteTable.get("url").replace("dev", variabileAmbiente));
+                    hooks.getDriver().get(webDriverConfig.getUrlMittente().replace("dev", variabileAmbiente));
             default ->
                     Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
