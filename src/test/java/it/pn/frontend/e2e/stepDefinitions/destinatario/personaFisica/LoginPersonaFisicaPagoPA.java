@@ -8,7 +8,6 @@ import it.pn.frontend.e2e.api.personaFisica.SpidAcs;
 import it.pn.frontend.e2e.api.personaFisica.SpidDemoLogin;
 import it.pn.frontend.e2e.api.personaFisica.SpidDemoStart;
 import it.pn.frontend.e2e.api.personaFisica.SpidLogin;
-import it.pn.frontend.e2e.config.BearerTokenConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
@@ -18,7 +17,6 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
-
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,7 +69,7 @@ public class LoginPersonaFisicaPagoPA {
 
     @Given("PF - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
     public void loginMittenteConTokenExchange(String personaFisica) {
-        DataPopulation dataPopulation = new DataPopulation();
+       // DataPopulation dataPopulation = new DataPopulation();
         //String environment = System.getProperty("environment");
        String environment = webDriverConfig.getEnvironment();
         String token = "";
@@ -106,7 +104,7 @@ public class LoginPersonaFisicaPagoPA {
 
     @When("Login con persona fisica {string}")
     public void loginConDestinatario(String datipersonaFisica) {
-        logger.info("user persona fisica : " + this.datiPersonaFisica.get("user").toString());
+        logger.info("user persona fisica : " + webDriverConfig.getUserCesare());
         DataPopulation dataPopulation = new DataPopulation();
         this.datiPersonaFisica = dataPopulation.readDataPopulation(datipersonaFisica + ".yaml");
 
@@ -131,8 +129,8 @@ public class LoginPersonaFisicaPagoPA {
 
         LoginSpidPFPage loginSpidPFPage = new LoginSpidPFPage(this.hooks.getDriver());
         loginSpidPFPage.waitLoadLoginSpidDEPage();
-        loginSpidPFPage.inserisciUtente(this.datiPersonaFisica.get("user").toString());
-        loginSpidPFPage.inserisciPassword(this.datiPersonaFisica.get("pwd").toString());
+        loginSpidPFPage.inserisciUtente(webDriverConfig.getUserCesare());
+        loginSpidPFPage.inserisciPassword(webDriverConfig.getPwdCesare());
         loginSpidPFPage.selezionaEntraConSpidButton();
 
         ConfermaDatiSpidPFPage confermaDatiSpidPFPage = new ConfermaDatiSpidPFPage(this.hooks.getDriver());
@@ -167,7 +165,7 @@ public class LoginPersonaFisicaPagoPA {
 
     @When("Login con persona fisica")
     public void loginConDestinatario(Map<String, String> datiPF) {
-        logger.info("user persona fisica : " + datiPF.get("user"));
+        logger.info("user persona fisica : " + webDriverConfig.getUserCesare());
         logger.info("cookies start");
         CookiesSection cookiesPage;
 
@@ -194,8 +192,8 @@ public class LoginPersonaFisicaPagoPA {
 
         LoginSpidPFPage loginSpidPFPage = new LoginSpidPFPage(this.hooks.getDriver());
         loginSpidPFPage.waitLoadLoginSpidDEPage();
-        loginSpidPFPage.inserisciUtente(datiPF.get("user"));
-        loginSpidPFPage.inserisciPassword(datiPF.get("pwd"));
+        loginSpidPFPage.inserisciUtente(webDriverConfig.getUserCesare());
+        loginSpidPFPage.inserisciPassword(webDriverConfig.getPwdCesare());
         loginSpidPFPage.selezionaEntraConSpidButton();
 
         ConfermaDatiSpidPFPage confermaDatiSpidPFPage = new ConfermaDatiSpidPFPage(this.hooks.getDriver());
@@ -368,8 +366,8 @@ public class LoginPersonaFisicaPagoPA {
     public void loginPortaleDestinatarioTramiteRequestMethod() {
         boolean urlWithTokenFound = false;
         int numProvaLogin = 0;
-        String userPersonaFisica = this.datiPersonaFisica.get("user").toString();
-        String pwdPersonaFisica = this.datiPersonaFisica.get("pwd").toString();
+        String userPersonaFisica = webDriverConfig.getUserCesare();
+        String pwdPersonaFisica = webDriverConfig.getPwdCesare();
         while (numProvaLogin < 10) {
             this.readUrlLoginPersonaFisicaWithToken(userPersonaFisica, pwdPersonaFisica);
             if (this.urlPersonaFisica.get("responseCode").equalsIgnoreCase("301")) {
@@ -579,11 +577,11 @@ public class LoginPersonaFisicaPagoPA {
     public void loginPortaleDelegatoTramiteRequestMethod(String dpFile) {
         boolean urlWithTokenFound = false;
         int numProvaLogin = 0;
-        DataPopulation dataPopulation = new DataPopulation();
-        this.datiDelegato = dataPopulation.readDataPopulation(dpFile + ".yaml");
+       // DataPopulation dataPopulation = new DataPopulation();
+        //this.datiDelegato = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
-        String userDelegato = this.datiDelegato.get("user").toString();
-        String passwordDelegato = this.datiDelegato.get("pwd").toString();
+        String userDelegato = webDriverConfig.getUserCesare();
+        String passwordDelegato = webDriverConfig.getPwdCesare();
 
         while (numProvaLogin < 10) {
             this.readUrlLoginPersonaFisicaWithToken(userDelegato, passwordDelegato);
@@ -611,24 +609,24 @@ public class LoginPersonaFisicaPagoPA {
 
     @When("Login portale persona fisica tramite token exchange {string}")
     public void loginPortalePersonaFisicaTramiteTokenExchange(String dpFile) {
-       // String variabileAmbiente = System.getProperty("environment");
         String variabileAmbiente = webDriverConfig.getEnvironment();
-        DataPopulation dataPopulation = new DataPopulation();
+        //DataPopulation dataPopulation = new DataPopulation();
         String urlIniziale = "https://cittadini." + variabileAmbiente + ".notifichedigitali.it/#token=";
-        String user = dataPopulation.readDataPopulation(dpFile + ".yaml").get("user").toString();
+        //TODO....
+        //String user = dataPopulation.readDataPopulation(dpFile + ".yaml").get("user").toString();
         String token;
-        if (user.equalsIgnoreCase("cesare")) {
+        if (webDriverConfig.getUserCesare().equalsIgnoreCase("cesare")) {
 
             if (variabileAmbiente.equalsIgnoreCase("test")) {
-                token = dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPFDelegante").toString();
+                token = webDriverConfig.getTokentestPFDelegante();
             } else {
-                token = dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPFDelegante").toString();
+                token = token = webDriverConfig.getTokendevPFDelegante();
             }
         } else {
             if (variabileAmbiente.equalsIgnoreCase("test")) {
-                token = dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPFDelegato").toString();
+                token = webDriverConfig.getTokentestPFDelegato();
             } else {
-                token = dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPFDelegato").toString();
+                token = webDriverConfig.getTokendevPFDelegato();
             }
         }
         String url = urlIniziale + token;
@@ -637,7 +635,6 @@ public class LoginPersonaFisicaPagoPA {
 
     public String getTokenExchangePFFromFile(String personaFisica) {
         DataPopulation dataPopulation = new DataPopulation();
-        //String environment = System.getProperty("environment");
         String environment = webDriverConfig.getEnvironment();
         String token = "";
         switch (environment) {

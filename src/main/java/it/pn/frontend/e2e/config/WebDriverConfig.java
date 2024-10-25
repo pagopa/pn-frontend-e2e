@@ -106,6 +106,54 @@ public class WebDriverConfig {
     @Value("${url.selfcare}")
     private String urlSelfCare;
 
+    @Value("${pn.user.cesare}")
+    private String userCesare;
+
+    @Value("${pn.pwd.cesare}")
+    private String pwdCesare;
+
+    @Value("${pn.user.lucrezia}")
+    private String userLucrezia;
+
+    @Value("${pn.pwd.lucrezia}")
+    private String pwdLucrezia;
+
+    @Value("${pn.user.dante}")
+    private String userDante;
+
+    @Value("${pn.pwd.dante}")
+    private String pwdDante;
+
+    @Value("${pn.user.petrarca}")
+    private String userPetrarca;
+
+    @Value("${pn.pwd.petrarca}")
+    private String pwdPetrarca;
+
+    @Value("${pn.user.mittente}")
+    private String userMittente;
+
+    @Value("${pn.pwd.mittente}")
+    private String pwdMittente;
+
+    @Value("${pn.userDev.helpdesk}")
+    private String userDevHelpdesk;
+
+    @Value("${pn.pwdDev.helpdesk}")
+    private String pwdDevHelpdesk;
+
+    @Value("${pn.userUat.helpdesk}")
+    private String userUatHelpdesk;
+
+    @Value("${pn.pwdUat.helpdesk}")
+    private String pwdUatHelpdesk;
+
+    @Value("${pn.userTest.helpdesk}")
+    private String userTestHelpdesk;
+
+    @Value("${pn.pwdTest.helpdesk}")
+    private String pwdTestHelpdesk;
+
 
 
 
