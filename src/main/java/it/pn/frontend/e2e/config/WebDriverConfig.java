@@ -106,6 +106,9 @@ public class WebDriverConfig {
     @Value("${url.selfcare}")
     private String urlSelfCare;
 
+    @Value("${url.helpdesk.test.notifichedigitali}")
+    private String urlHelpdeskTestNotifichedigitali;
+
 
 
 
