@@ -49,7 +49,7 @@ public class LoginPersonaFisicaPagoPA {
     @Given("Login Page persona fisica {string} viene visualizzata")
     public void loginPageDestinatarioVieneVisualizzata(String datipersonaFisica) {
         DataPopulation dataPopulation = new DataPopulation();
-        //TODO Parametrizzzare..........
+        //TODO Parametrizzzare..........eliminare la gestione file yaml..
         this.datiPersonaFisica = dataPopulation.readDataPopulation(datipersonaFisica + ".yaml");
        // String variabileAmbiente = System.getProperty("environment");
         String variabileAmbiente = webDriverConfig.getEnvironment();
@@ -65,8 +65,7 @@ public class LoginPersonaFisicaPagoPA {
     @Given("Login Page persona fisica test viene visualizzata")
     public void loginPageDestinatarioVieneVisualizzataConUrl() {
         logger.info("ENVIROMENT...: "+ webDriverConfig.getEnvironment());
-        //TODO Parametrizzare..
-        String url = "https://cittadini.test.notifichedigitali.it/";
+        String url = webDriverConfig.getBaseUrlPfTest();
 
         this.hooks.getDriver().get(url);
     }

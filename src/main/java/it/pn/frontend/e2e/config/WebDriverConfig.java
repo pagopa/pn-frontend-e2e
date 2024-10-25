@@ -61,5 +61,11 @@ public class WebDriverConfig {
     @Value("${ url.login.pg.test}")
     private String baseUrlPgTest;
 
+    @Value("${ url.login.pf.dev}")
+    private String baseUrlPfDev;
+
+    @Value("${ url.login.pf.test}")
+    private String baseUrlPfTest;
+
 
 }
