@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.section.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.listeners.HooksNew;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -12,17 +11,20 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class HeaderPGSection extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("HeaderPGSection");
+    private static final Logger logger = LoggerFactory.getLogger(HeaderPGSection.class);
 
-    public HeaderPGSection(WebDriver driver) {
+    @Autowired
+    public HeaderPGSection(WebDriver driver) {  // Il costruttore ora usa l'annotazione @Autowired
         super(driver);
     }
 
     @FindBy(xpath = "//button[@title = 'Esci']")
-    WebElement esciButton;
+    private WebElement esciButton;
 
     public void waitLoadHeaderPGPage() {
         try {
@@ -31,14 +33,13 @@ public class HeaderPGSection extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(esciButtonBy));
             logger.info("HeaderSectionPG caricata correttamente");
-        } catch (TimeoutException e){
-            logger.error("HeaderSectionPG non caricata correttamente con errrore: "+e.getMessage());
-            Assertions.fail("HeaderSectionPG non caricata correttamente con errrore: "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("HeaderSectionPG non caricata correttamente con errore: " + e.getMessage());
+            Assertions.fail("HeaderSectionPG non caricata correttamente con errore: " + e.getMessage());
         }
     }
 
     public void clickEsciButton() {
         this.esciButton.click();
     }
-
 }

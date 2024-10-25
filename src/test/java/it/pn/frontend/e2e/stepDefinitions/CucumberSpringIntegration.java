@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.stepDefinitions;
 
 import io.cucumber.spring.CucumberContextConfiguration;
 import it.pn.frontend.e2e.config.BearerTokenConfig;
+import it.pn.frontend.e2e.config.UserPasswordConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.LoggerStartupListener;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
@@ -19,6 +20,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         NetWorkInfo.class,
         WebDriverConfig.class,
         BearerTokenConfig.class,
+        UserPasswordConfig.class,
         DataPopulation.class
 
 })
