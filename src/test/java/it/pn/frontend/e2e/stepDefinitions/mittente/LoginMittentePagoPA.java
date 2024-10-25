@@ -157,8 +157,8 @@ public class LoginMittentePagoPA {
 
         LoginPAPage loginPAPage = new LoginPAPage(hooks.getDriver());
         loginPAPage.waitLoadLoginPAPage();
-        loginPAPage.inserisciUtenete(this.datiMittente.get("user").toString());
-        loginPAPage.inserisciPassword(this.datiMittente.get("pwd").toString());
+        loginPAPage.inserisciUtenete( webDriverConfig.getUserMittente());
+        loginPAPage.inserisciPassword( webDriverConfig.getPwdMittente());
         loginPAPage.selezionaInviaDati();
 
         AutorizziInvioDatiPAPage autorizziInvioDatiPAPage = new AutorizziInvioDatiPAPage(hooks.getDriver());
@@ -180,7 +180,7 @@ public class LoginMittentePagoPA {
         preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
-        if (hooks.getDriver().getCurrentUrl().contains("https://uat.selfcare.pagopa.it/") ||
+        if (hooks.getDriver().getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !cookieConfig.isCookieEnabled()) {
             logger.info("cookies start");
             CookiesSection cookiesPage;
@@ -202,8 +202,8 @@ public class LoginMittentePagoPA {
 
         LoginPAPage loginPAPage = new LoginPAPage(hooks.getDriver());
         loginPAPage.waitLoadLoginPAPage();
-        loginPAPage.inserisciUtenete(datiMittenteFile.get("user"));
-        loginPAPage.inserisciPassword(datiMittenteFile.get("pwd"));
+        loginPAPage.inserisciUtenete(webDriverConfig.getUserMittente());
+        loginPAPage.inserisciPassword( webDriverConfig.getPwdMittente());
         loginPAPage.selezionaInviaDati();
 
         AutorizziInvioDatiPAPage autorizziInvioDatiPAPage = new AutorizziInvioDatiPAPage(hooks.getDriver());
@@ -219,8 +219,8 @@ public class LoginMittentePagoPA {
 
     @When("Login mittente tramite request method")
     public void portaleMittenteIsDisplayed() throws InterruptedException {
-        String userMittente = this.datiMittente.get("user").toString();
-        String pwdMittente = this.datiMittente.get("pwd").toString();
+        String userMittente = webDriverConfig.getUserMittente();
+        String pwdMittente = webDriverConfig.getPwdMittente();
         this.readurlPortaleMittente(userMittente, pwdMittente);
         boolean urlWithTokenFound = false;
         int numProvaLogin = 0;
@@ -436,9 +436,9 @@ public class LoginMittentePagoPA {
         String token;
 
         if (variabileAmbiente.equalsIgnoreCase("test")) {
-            token = dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestMittente").toString();
+            token = webDriverConfig.getTokentestMittente();
         } else {
-            token = dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevMittente").toString();
+            token = webDriverConfig.getTokendevMittente();
         }
         String url = urlInziale + token;
         hooks.getDriver().get(url);
