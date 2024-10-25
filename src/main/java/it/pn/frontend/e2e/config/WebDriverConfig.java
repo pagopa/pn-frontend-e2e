@@ -55,16 +55,16 @@ public class WebDriverConfig {
     @Value("${ragione.sociale.baldassarre}")
     private String ragioneSocialeBaldassarre;
 
-    @Value("${ url.login.pg.dev}")
+    @Value("${url.login.pg.dev}")
     private String baseUrlPgDev;
 
-    @Value("${ url.login.pg.test}")
+    @Value("${url.login.pg.test}")
     private String baseUrlPgTest;
 
-    @Value("${ url.login.pf.dev}")
+    @Value("${url.login.pf.dev}")
     private String baseUrlPfDev;
 
-    @Value("${ url.login.pf.test}")
+    @Value("${url.login.pf.test}")
     private String baseUrlPfTest;
 
 
