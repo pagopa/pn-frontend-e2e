@@ -52,4 +52,109 @@ public class WebDriverConfig {
     @Value("${apiBaseUrl}")
     private String baseUrl;
 
+    @Value("${ragione.sociale.baldassarre}")
+    private String ragioneSocialeBaldassarre;
+
+    @Value("${url.login.pg.dev}")
+    private String baseUrlPgDev;
+
+    @Value("${url.login.pg.test}")
+    private String baseUrlPgTest;
+
+    @Value("${url.login.pf.dev}")
+    private String baseUrlPfDev;
+
+    @Value("${url.login.pf.test}")
+    private String baseUrlPfTest;
+
+    @Value("${pn.bearer-token.tokentestPFDelegante}")
+    private String tokentestPFDelegante;
+
+    @Value("${ pn.bearer-token.tokendevPFDelegante}")
+    private String tokendevPFDelegante;
+
+    @Value("${pn.bearer-token.tokentestPFDelegato}")
+    private String tokentestPFDelegato;
+
+    @Value("${pn.bearer-token.tokendevPFDelegato}")
+    private String tokendevPFDelegato;
+
+    @Value("${pn.bearer-token.tokentestPGDelegante}")
+    private String tokentestPGDelegante;
+
+    @Value("${pn.bearer-token.tokendevPGDelegante}")
+    private String tokendevPGDelegante;
+
+    @Value("${pn.bearer-token.tokentestPGDelegato}")
+    private String tokentestPGDelegato;
+
+    @Value("${pn.bearer-token.tokendevPGDelegato}")
+    private String tokendevPGDelegato;
+
+    @Value("${pn.bearer-token.tokentestMittente}")
+    private String tokentestMittente;
+
+    @Value("${pn.bearer-token.tokendevMittente}")
+    private String tokendevMittente;
+
+    @Value("${pn.bearer-token.tokentestPFColombo}")
+    private String tokentestPFColombo;
+
+    @Value("${pn.bearer-token.tokentestRaddista1}")
+    private String tokentestRaddista1;
+
+    @Value("${url.selfcare}")
+    private String urlSelfCare;
+
+    @Value("${pn.user.cesare}")
+    private String userCesare;
+
+    @Value("${pn.pwd.cesare}")
+    private String pwdCesare;
+
+    @Value("${pn.user.lucrezia}")
+    private String userLucrezia;
+
+    @Value("${pn.pwd.lucrezia}")
+    private String pwdLucrezia;
+
+    @Value("${pn.user.dante}")
+    private String userDante;
+
+    @Value("${pn.pwd.dante}")
+    private String pwdDante;
+
+    @Value("${pn.user.petrarca}")
+    private String userPetrarca;
+
+    @Value("${pn.pwd.petrarca}")
+    private String pwdPetrarca;
+
+    @Value("${pn.user.mittente}")
+    private String userMittente;
+
+    @Value("${pn.pwd.mittente}")
+    private String pwdMittente;
+
+    @Value("${pn.userDev.helpdesk}")
+    private String userDevHelpdesk;
+
+    @Value("${pn.pwdDev.helpdesk}")
+    private String pwdDevHelpdesk;
+
+    @Value("${pn.userUat.helpdesk}")
+    private String userUatHelpdesk;
+
+    @Value("${pn.pwdUat.helpdesk}")
+    private String pwdUatHelpdesk;
+
+    @Value("${pn.userTest.helpdesk}")
+    private String userTestHelpdesk;
+
+    @Value("${pn.pwdTest.helpdesk}")
+    private String pwdTestHelpdesk;
+
+
+
+
 }

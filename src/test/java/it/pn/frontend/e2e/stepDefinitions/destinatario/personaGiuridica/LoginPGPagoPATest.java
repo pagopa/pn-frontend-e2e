@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.api.mittente.SpidAcsMittente;
 import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoContinueResponse;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogin;
+import it.pn.frontend.e2e.config.BearerTokenConfig;
 import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
@@ -55,29 +56,13 @@ public class LoginPGPagoPATest {
     @Autowired
     private List<NetWorkInfo> netWorkInfos;
 
-    @Value("${tokenLogin.file}")
-    private String FILE_TOKEN_LOGIN;
-
-    @Value("${ragioneSociale.baldassarre}")
-    private String RAGIONE_SOCIALE_BALDASSARRE;
-
-    @Value("${url.login.pg}")
-    private String URL_LOGIN_PG;
     **/
 
-    private HeaderPGSection headerPGSection;
+    private  HeaderPGSection headerPGSection;
     private  AccediAreaRiservataPGPage accediAreaRiservataPGPage;
-    private  DataPopulation dataPopulation = new DataPopulation();
 
     private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
     private Map<String, String> urlPersonaGiuridica;
-
-
-    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
-    private final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
-    private final String RAGIONE_SOCIALE_BALDASSARRE = "Comune di Milano";
-    private final String URL_LOGIN_PG = "https://imprese.dev.notifichedigitali.it/";
-
 
     @Autowired
     private CookieConfig cookieConfig;
@@ -86,15 +71,18 @@ public class LoginPGPagoPATest {
     @Autowired
     private HooksNew hooks;
 
+    //TODO da rimuovere anche il discorso dei file yaml..
+    @Autowired
+    private  DataPopulation dataPopulation;
 
 
     @Given("Login Page persona giuridica viene visualizzata")
     public void loginPagePersonaGiuridicaVieneVisualizzata() {
         String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
-            case "dev" -> hooks.getDriver().get(URL_LOGIN_PG);
+            case "dev" -> hooks.getDriver().get(webDriverConfig.getBaseUrlPgDev());
             case "test", "uat" ->
-                    hooks.getDriver().get(URL_LOGIN_PG.replace("dev", variabileAmbiente));
+                    hooks.getDriver().get(webDriverConfig.getBaseUrlPgDev().replace("dev", variabileAmbiente));
             default ->
                     Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
@@ -106,16 +94,19 @@ public class LoginPGPagoPATest {
         String token = "";
         switch (environment) {
             case "dev" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
-                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPGDelegante").toString()
-                    : dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPGDelegato").toString();
+                    webDriverConfig.getTokendevPGDelegante()
+                    :
+                    webDriverConfig.getTokendevPGDelegato();
             case "test" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
-                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPGDelegante").toString()
-                    : dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPGDelegato").toString();
+                    webDriverConfig.getTokentestPGDelegante()
+                    :
+                    webDriverConfig.getTokentestPGDelegato();
             default -> {
                 logger.error("Ambiente non valido");
                 Assertions.fail("Ambiente non valido o non trovato!");
             }
         }
+
 
         String urlLogin = "https://imprese." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
         hooks.getDriver().get(urlLogin);
@@ -131,7 +122,7 @@ public class LoginPGPagoPATest {
             Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("personaGiuridica.yaml");
             notifichePGPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
         } else if (personaGiuridica.equalsIgnoreCase("baldassarre")) {
-            notifichePGPage.waitLoadPiattaformaNotificaPage(RAGIONE_SOCIALE_BALDASSARRE);
+            notifichePGPage.waitLoadPiattaformaNotificaPage(webDriverConfig.getRagioneSocialeBaldassarre());
         } else {
             Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("delegatoPG.yaml");
             notifichePGPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
@@ -140,9 +131,9 @@ public class LoginPGPagoPATest {
 
     @When("Login portale persona giuridica tramite request method")
     public void loginPortalePersonaGiuridicaTramiteRequestMethod() {
-        this.datiPersonaGiuridica = dataPopulation.readDataPopulation("personaGiuridica.yaml");
-        String userMittente = this.datiPersonaGiuridica.get("user").toString();
-        String pwdMittente = this.datiPersonaGiuridica.get("pwd").toString();
+       // this.datiPersonaGiuridica = dataPopulation.readDataPopulation("personaGiuridica.yaml");
+        String userMittente = webDriverConfig.getUserDante();
+        String pwdMittente = webDriverConfig.getPwdDante();
         this.readUrlPortaleMittente(userMittente, pwdMittente);
 
         boolean urlWithTokenFound = false;
@@ -266,7 +257,6 @@ public class LoginPGPagoPATest {
     public void loginConPersonaGiuridica(Map<String, String> datiPG) {
         logger.info("La persona guiridica cerca di fare il login");
 
-
         CookiesSection cookiesSection;
 
         if (!cookieConfig.isCookieEnabled()) {
@@ -284,8 +274,8 @@ public class LoginPGPagoPATest {
 
         LoginPGPagoPAPage loginPGPagoPAPage = new LoginPGPagoPAPage(hooks.getDriver());
         loginPGPagoPAPage.waitLoadLoginPGPage();
-        loginPGPagoPAPage.insertUsername(datiPG.get("user"));
-        loginPGPagoPAPage.insertPassword(datiPG.get("pwd"));
+        loginPGPagoPAPage.insertUsername(webDriverConfig.getUserDante());
+        loginPGPagoPAPage.insertPassword(webDriverConfig.getPwdDante());
         loginPGPagoPAPage.clickInviaButton();
 
 
@@ -316,8 +306,8 @@ public class LoginPGPagoPATest {
     @When("Login {string} portale persona giuridica tramite request method")
     public void loginPortalePersonaGiuridicaTramiteRequestMethod(String dpFile) {
         this.datiPersonaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        String userMittente = this.datiPersonaGiuridica.get("user").toString();
-        String pwdMittente = this.datiPersonaGiuridica.get("pwd").toString();
+        String userMittente = webDriverConfig.getUserDante();
+        String pwdMittente = webDriverConfig.getPwdDante();
         this.readUrlPortaleMittente(userMittente, pwdMittente);
 
         boolean urlWithTokenFound = false;
@@ -367,7 +357,7 @@ public class LoginPGPagoPATest {
         String variabileAmbiente = webDriverConfig.getEnvironment();
         String urlIniziale = "https://imprese." + variabileAmbiente + ".notifichedigitali.it/#selfCareToken=";
         String token;
-        String user = this.dataPopulation.readDataPopulation(dpFile + ".yaml").get("user").toString();
+        String user = webDriverConfig.getUserDante();
         if (user.equalsIgnoreCase("DanteAlighieri")) {
             token = variabileAmbiente.equalsIgnoreCase("test") ?
                     this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPGDelegante").toString() :
@@ -382,18 +372,18 @@ public class LoginPGPagoPATest {
     }
 
     public String getTokenExchangePGFromFile(String personaGiuridica) {
-        DataPopulation dataPopulation = new DataPopulation();
+        //DataPopulation dataPopulation = new DataPopulation();
         String environment = webDriverConfig.getEnvironment();
         String token = "";
         switch (environment) {
             case "dev" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
-                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPGDelegante").toString()
+                    webDriverConfig.getTokendevPGDelegante()
                     :
-                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokendevPGDelegato").toString();
+                    webDriverConfig.getTokendevPGDelegato();
             case "test" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
-                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPGDelegante").toString()
+                    webDriverConfig.getTokentestPGDelegante()
                     :
-                    dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestPGDelegato").toString();
+                    webDriverConfig.getTokentestPGDelegato();
             default -> {
                 logger.error("Ambiente non valido");
                 Assertions.fail("Ambiente non valido o non trovato!");
