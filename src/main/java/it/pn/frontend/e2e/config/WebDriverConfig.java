@@ -67,5 +67,46 @@ public class WebDriverConfig {
     @Value("${url.login.pf.test}")
     private String baseUrlPfTest;
 
+    @Value("${pn.bearer-token.tokentestPFDelegante}")
+    private String tokentestPFDelegante;
+
+    @Value("${ pn.bearer-token.tokendevPFDelegante}")
+    private String tokendevPFDelegante;
+
+    @Value("${pn.bearer-token.tokentestPFDelegato}")
+    private String tokentestPFDelegato;
+
+    @Value("${pn.bearer-token.tokendevPFDelegato}")
+    private String tokendevPFDelegato;
+
+    @Value("${pn.bearer-token.tokentestPGDelegante}")
+    private String tokentestPGDelegante;
+
+    @Value("${pn.bearer-token.tokendevPGDelegante}")
+    private String tokendevPGDelegante;
+
+    @Value("${pn.bearer-token.tokentestPGDelegato}")
+    private String tokentestPGDelegato;
+
+    @Value("${pn.bearer-token.tokendevPGDelegato}")
+    private String tokendevPGDelegato;
+
+    @Value("${pn.bearer-token.tokentestMittente}")
+    private String tokentestMittente;
+
+    @Value("${pn.bearer-token.tokendevMittente}")
+    private String tokendevMittente;
+
+    @Value("${pn.bearer-token.tokentestPFColombo}")
+    private String tokentestPFColombo;
+
+    @Value("${pn.bearer-token.tokentestRaddista1}")
+    private String tokentestRaddista1;
+
+    @Value("${url.selfcare}")
+    private String urlSelfCare;
+
+
+
 
 }

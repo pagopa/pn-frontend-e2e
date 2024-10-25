@@ -38,8 +38,7 @@ public class LoginPersonaFisicaPagoPA {
     private WebDriverConfig webDriverConfig;
     @Autowired
     private CookieConfig cookieConfig;
-    @Autowired
-    private BearerTokenConfig bearerTokenConfig;
+
 
     //TODO Parametrizzare
     private Map<String, Object> datiDelegato;
@@ -78,13 +77,13 @@ public class LoginPersonaFisicaPagoPA {
         String token = "";
         switch (environment) {
             case "dev" -> token = personaFisica.equalsIgnoreCase("delegante") ?
-                    bearerTokenConfig.getTokendevPFDelegante()
+                    webDriverConfig.getTokendevPFDelegante()
                     :
-                    bearerTokenConfig.getTokendevPGDelegato();
+                    webDriverConfig.getTokendevPGDelegato();
             case "test" -> token = personaFisica.equalsIgnoreCase("delegante") ?
-                    bearerTokenConfig.getTokentestPFDelegante()
+                    webDriverConfig.getTokentestPFDelegante()
                     :
-                    bearerTokenConfig.getTokentestPFDelegato();
+                    webDriverConfig.getTokentestPFDelegato();
             default -> {
                 logger.error("Ambiente non valido");
                 Assertions.fail("Ambiente non valido o non trovato!");
@@ -643,13 +642,13 @@ public class LoginPersonaFisicaPagoPA {
         String token = "";
         switch (environment) {
             case "dev" -> token = personaFisica.equalsIgnoreCase("delegante") ?
-                    bearerTokenConfig.getTokendevPFDelegante()
+                    webDriverConfig.getTokendevPFDelegante()
                     :
-                    bearerTokenConfig.getTokendevPGDelegato();
+                    webDriverConfig.getTokendevPGDelegato();
             case "test" -> token = personaFisica.equalsIgnoreCase("delegante") ?
-                    bearerTokenConfig.getTokentestPFDelegante()
+                    webDriverConfig.getTokentestPFDelegante()
                     :
-                    bearerTokenConfig.getTokentestPFDelegato();
+                    webDriverConfig.getTokentestPFDelegato();
             default -> {
                 logger.error("Ambiente non valido");
                 Assertions.fail("Ambiente non valido o non trovato!");

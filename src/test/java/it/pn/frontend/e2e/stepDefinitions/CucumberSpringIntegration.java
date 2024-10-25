@@ -18,7 +18,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         LoggerStartupListener.class,
         NetWorkInfo.class,
         WebDriverConfig.class,
-        DataPopulation.class,
         BearerTokenConfig.class,
         DataPopulation.class
 

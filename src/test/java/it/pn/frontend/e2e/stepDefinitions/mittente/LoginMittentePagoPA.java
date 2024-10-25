@@ -62,8 +62,6 @@ public class LoginMittentePagoPA {
     @Autowired
     private WebDriverConfig webDriverConfig;
 
-    @Autowired
-    private BearerTokenConfig bearerTokenConfig;
 
     @Given("Login Page mittente {string} viene visualizzata")
     public void loginPageMittenteVieneVisualizzata(String datiMittenteFile) {
@@ -102,9 +100,9 @@ public class LoginMittentePagoPA {
         String token = "";
         switch (environment) {
             case "dev" ->
-                    token = bearerTokenConfig.getTokendevMittente();
+                    token = webDriverConfig.getTokendevMittente();
             case "test" ->
-                    token = bearerTokenConfig.getTokentestMittente();
+                    token = webDriverConfig.getTokentestMittente();
             default -> {
                 logger.error("Ambiente non valido");
                 Assertions.fail("Ambiente non valido o non trovato!");
@@ -137,7 +135,7 @@ public class LoginMittentePagoPA {
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
         // Verifica della presenza dell'URL e dei cookie per proseguire con l'accettazione dei cookie
-        if (hooks.getDriver().getCurrentUrl().contains("https://uat.selfcare.pagopa.it/") ||
+        if (hooks.getDriver().getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !cookieConfig.isCookieEnabled()) {
             logger.info("cookies start");
             CookiesSection cookiesPage;

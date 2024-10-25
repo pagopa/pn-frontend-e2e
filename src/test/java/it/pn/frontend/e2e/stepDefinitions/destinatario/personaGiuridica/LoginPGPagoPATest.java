@@ -74,8 +74,7 @@ public class LoginPGPagoPATest {
     //TODO da rimuovere anche il discorso dei file yaml..
     @Autowired
     private  DataPopulation dataPopulation;
-    @Autowired
-    private BearerTokenConfig bearerTokenConfig;
+
 
     @Given("Login Page persona giuridica viene visualizzata")
     public void loginPagePersonaGiuridicaVieneVisualizzata() {
@@ -95,13 +94,13 @@ public class LoginPGPagoPATest {
         String token = "";
         switch (environment) {
             case "dev" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
-                    bearerTokenConfig.getTokendevPGDelegante()
+                    webDriverConfig.getTokendevPGDelegante()
                     :
-                    bearerTokenConfig.getTokendevPGDelegato();
+                    webDriverConfig.getTokendevPGDelegato();
             case "test" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
-                    bearerTokenConfig.getTokentestPGDelegante()
+                    webDriverConfig.getTokentestPGDelegante()
                     :
-                    bearerTokenConfig.getTokentestPGDelegato();
+                    webDriverConfig.getTokentestPGDelegato();
             default -> {
                 logger.error("Ambiente non valido");
                 Assertions.fail("Ambiente non valido o non trovato!");
@@ -379,13 +378,13 @@ public class LoginPGPagoPATest {
         String token = "";
         switch (environment) {
             case "dev" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
-                    bearerTokenConfig.getTokendevPGDelegante()
+                    webDriverConfig.getTokendevPGDelegante()
                     :
-                    bearerTokenConfig.getTokendevPGDelegato();
+                    webDriverConfig.getTokendevPGDelegato();
             case "test" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
-                    bearerTokenConfig.getTokentestPGDelegante()
+                    webDriverConfig.getTokentestPGDelegante()
                     :
-                    bearerTokenConfig.getTokentestPGDelegato();
+                    webDriverConfig.getTokentestPGDelegato();
             default -> {
                 logger.error("Ambiente non valido");
                 Assertions.fail("Ambiente non valido o non trovato!");
