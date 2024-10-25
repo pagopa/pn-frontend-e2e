@@ -58,7 +58,7 @@ public class LoginPGPagoPATest {
 
     **/
 
-    private HeaderPGSection headerPGSection;
+    private  HeaderPGSection headerPGSection;
     private  AccediAreaRiservataPGPage accediAreaRiservataPGPage;
 
     private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
@@ -131,9 +131,9 @@ public class LoginPGPagoPATest {
 
     @When("Login portale persona giuridica tramite request method")
     public void loginPortalePersonaGiuridicaTramiteRequestMethod() {
-        this.datiPersonaGiuridica = dataPopulation.readDataPopulation("personaGiuridica.yaml");
-        String userMittente = this.datiPersonaGiuridica.get("user").toString();
-        String pwdMittente = this.datiPersonaGiuridica.get("pwd").toString();
+       // this.datiPersonaGiuridica = dataPopulation.readDataPopulation("personaGiuridica.yaml");
+        String userMittente = webDriverConfig.getUserDante();
+        String pwdMittente = webDriverConfig.getPwdDante();
         this.readUrlPortaleMittente(userMittente, pwdMittente);
 
         boolean urlWithTokenFound = false;
@@ -257,7 +257,6 @@ public class LoginPGPagoPATest {
     public void loginConPersonaGiuridica(Map<String, String> datiPG) {
         logger.info("La persona guiridica cerca di fare il login");
 
-
         CookiesSection cookiesSection;
 
         if (!cookieConfig.isCookieEnabled()) {
@@ -275,8 +274,8 @@ public class LoginPGPagoPATest {
 
         LoginPGPagoPAPage loginPGPagoPAPage = new LoginPGPagoPAPage(hooks.getDriver());
         loginPGPagoPAPage.waitLoadLoginPGPage();
-        loginPGPagoPAPage.insertUsername(datiPG.get("user"));
-        loginPGPagoPAPage.insertPassword(datiPG.get("pwd"));
+        loginPGPagoPAPage.insertUsername(webDriverConfig.getUserDante());
+        loginPGPagoPAPage.insertPassword(webDriverConfig.getPwdDante());
         loginPGPagoPAPage.clickInviaButton();
 
 
@@ -307,8 +306,8 @@ public class LoginPGPagoPATest {
     @When("Login {string} portale persona giuridica tramite request method")
     public void loginPortalePersonaGiuridicaTramiteRequestMethod(String dpFile) {
         this.datiPersonaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        String userMittente = this.datiPersonaGiuridica.get("user").toString();
-        String pwdMittente = this.datiPersonaGiuridica.get("pwd").toString();
+        String userMittente = webDriverConfig.getUserDante();
+        String pwdMittente = webDriverConfig.getPwdDante();
         this.readUrlPortaleMittente(userMittente, pwdMittente);
 
         boolean urlWithTokenFound = false;
@@ -358,7 +357,7 @@ public class LoginPGPagoPATest {
         String variabileAmbiente = webDriverConfig.getEnvironment();
         String urlIniziale = "https://imprese." + variabileAmbiente + ".notifichedigitali.it/#selfCareToken=";
         String token;
-        String user = this.dataPopulation.readDataPopulation(dpFile + ".yaml").get("user").toString();
+        String user = webDriverConfig.getUserDante();
         if (user.equalsIgnoreCase("DanteAlighieri")) {
             token = variabileAmbiente.equalsIgnoreCase("test") ?
                     this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPGDelegante").toString() :
@@ -373,7 +372,7 @@ public class LoginPGPagoPATest {
     }
 
     public String getTokenExchangePGFromFile(String personaGiuridica) {
-        DataPopulation dataPopulation = new DataPopulation();
+        //DataPopulation dataPopulation = new DataPopulation();
         String environment = webDriverConfig.getEnvironment();
         String token = "";
         switch (environment) {
