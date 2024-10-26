@@ -298,7 +298,7 @@ public class LoginPersonaFisicaPagoPA {
     private int getCodiceRispostaChiamataApi(String urlChiamata) {
         logger.info("Recupero codice risposta della chiamata " + urlChiamata);
         int codiceRispostaChiamataApi = 0;
-        for (NetWorkInfo chiamate : hooks.getNetWorkInfos()) {
+        for (NetWorkInfo chiamate : webDriverConfig.getNetWorkInfos()) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
                 codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
                 break;
@@ -349,7 +349,7 @@ public class LoginPersonaFisicaPagoPA {
        // String variabileAmbiente = System.getProperty("environment");
         String variabileAmbiente = webDriverConfig.getEnvironment();
         boolean urlFound = false;
-        for (NetWorkInfo netWorkInfo : hooks.getNetWorkInfos()) {
+        for (NetWorkInfo netWorkInfo : webDriverConfig.getNetWorkInfos()) {
             logger.info(netWorkInfo.getRequestUrl());
             logger.info(netWorkInfo.getResponseStatus());
             String urlToFind = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/token-exchange";

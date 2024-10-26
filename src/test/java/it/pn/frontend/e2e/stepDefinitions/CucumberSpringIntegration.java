@@ -22,7 +22,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         WebDriverConfig.class,
         BearerTokenConfig.class,
         UserPasswordConfig.class,
-        DataPopulation.class
+        DataPopulation.class,
+        HeaderPGSection.class
 
 })
 @EnableScheduling

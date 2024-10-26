@@ -57,7 +57,7 @@ public class LoginPGPagoPATest {
     private List<NetWorkInfo> netWorkInfos;
 
     **/
-
+    @Autowired
     private  HeaderPGSection headerPGSection;
     private  AccediAreaRiservataPGPage accediAreaRiservataPGPage;
 
@@ -115,7 +115,7 @@ public class LoginPGPagoPATest {
         WebTool.waitTime(10);
         PiattaformaNotifichePGPAPage notifichePGPage = new PiattaformaNotifichePGPAPage(hooks.getDriver());
 
-        headerPGSection = new HeaderPGSection(hooks.getDriver());
+       // headerPGSection = new HeaderPGSection(hooks.getDriver());
         headerPGSection.waitLoadHeaderPGPage();
 
         if (personaGiuridica.equalsIgnoreCase("delegante")) {
@@ -247,7 +247,7 @@ public class LoginPGPagoPATest {
 
     @Then("Home page persona giuridica viene visualizzata correttamente")
     public void homePagePersonaGiuridicaVieneVisualizzataCorrettamente() {
-        headerPGSection = new HeaderPGSection(hooks.getDriver());
+       // headerPGSection = new HeaderPGSection(hooks.getDriver());
         headerPGSection.waitLoadHeaderPGPage();
         HomePagePG homePagePG = new HomePagePG(hooks.getDriver());
         homePagePG.waitLoadHomePagePGPage();
@@ -293,7 +293,7 @@ public class LoginPGPagoPATest {
 
     @And("Logout da portale persona giuridica")
     public void logoutDaPortalePersonaGiuridica() {
-        headerPGSection = new HeaderPGSection(hooks.getDriver());
+       // headerPGSection = new HeaderPGSection(hooks.getDriver());
         headerPGSection.waitLoadHeaderPGPage();
         headerPGSection.clickEsciButton();
         WebTool.waitTime(5);

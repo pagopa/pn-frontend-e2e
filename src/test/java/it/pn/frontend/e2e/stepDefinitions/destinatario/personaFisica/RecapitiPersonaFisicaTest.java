@@ -106,7 +106,7 @@ public class RecapitiPersonaFisicaTest {
     }
 
     private boolean verificaChiamataEmail(String url) {
-        for (NetWorkInfo info : hooks.getNetWorkInfos()) {
+        for (NetWorkInfo info : webDriverConfig.getNetWorkInfos()) {
             if (info.getRequestUrl().contains(url) && info.getResponseStatus().equals("200")) {
                 logger.info("La chiamata per inviare email é utilizzabile");
                 return true;
