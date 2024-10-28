@@ -11,6 +11,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +23,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Component
 public class DettaglioNotificaMittenteSection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
@@ -66,6 +69,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     private int numeriStatiNotifica;
 
+    @Autowired
     public DettaglioNotificaMittenteSection(WebDriver driver) {
         super(driver);
     }

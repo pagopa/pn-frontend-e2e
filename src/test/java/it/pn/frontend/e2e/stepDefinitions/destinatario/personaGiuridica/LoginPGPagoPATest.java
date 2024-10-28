@@ -26,38 +26,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 //@Component inserire in un secondo momenti
+@Primary
 public class LoginPGPagoPATest {
 
     private final Logger logger = LoggerFactory.getLogger(LoginPGPagoPATest.class);
+    private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
+    private Map<String, String> urlPersonaGiuridica;
 
-    /**
-    @Autowired
-    private HeaderPGSection headerPGSection;
-
-    @Autowired
-    private AccediAreaRiservataPGPage accediAreaRiservataPGPage;
-
-    @Autowired
-    private DataPopulation dataPopulation;
-
-    @Autowired
-    private List<NetWorkInfo> netWorkInfos;
-
-    **/
     @Autowired
     private  HeaderPGSection headerPGSection;
     @Autowired
     private  AccediAreaRiservataPGPage accediAreaRiservataPGPage;
-
-    private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
-    private Map<String, String> urlPersonaGiuridica;
-
     @Autowired
     private WebDriverConfig webDriverConfig;
     @Autowired
@@ -66,6 +53,27 @@ public class LoginPGPagoPATest {
     //TODO da rimuovere anche il discorso dei file yaml..
     @Autowired
     private  DataPopulation dataPopulation;
+
+    @Autowired
+    private  SelezionaImpresaPage selezionaImpresaPage;
+
+    @Autowired
+    private  PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
+
+    @Autowired
+    private  HomePagePG homePagePG;
+
+    @Autowired
+    private  ScegliSpidPGPage scegliSpidPGPage;
+
+    @Autowired
+    private  LoginPGPagoPAPage loginPGPagoPAPage;
+
+    @Autowired
+    private  AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage;
+
+    @Autowired
+    private  DestinatarioPage destinatarioPage;
 
 
     @Given("Login Page persona giuridica viene visualizzata")
@@ -105,18 +113,17 @@ public class LoginPGPagoPATest {
         logger.info("Login effettuato con successo");
 
         WebTool.waitTime(10);
-        PiattaformaNotifichePGPAPage notifichePGPage = new PiattaformaNotifichePGPAPage(hooks.getDriver());
 
         headerPGSection.waitLoadHeaderPGPage();
 
         if (personaGiuridica.equalsIgnoreCase("delegante")) {
             Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("personaGiuridica.yaml");
-            notifichePGPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
+            piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
         } else if (personaGiuridica.equalsIgnoreCase("baldassarre")) {
-            notifichePGPage.waitLoadPiattaformaNotificaPage(webDriverConfig.getRagioneSocialeBaldassarre());
+            piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(webDriverConfig.getRagioneSocialeBaldassarre());
         } else {
             Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("delegatoPG.yaml");
-            notifichePGPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
+            piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
         }
     }
 
@@ -160,9 +167,9 @@ public class LoginPGPagoPATest {
             }
         }
 
-        SelezionaImpresaPage impresaPage = new SelezionaImpresaPage(hooks.getDriver());
-        impresaPage.clickSuImpresa(this.datiPersonaGiuridica.get("ragioneSociale").toString());
-        impresaPage.clickAccediButton();
+
+        selezionaImpresaPage.clickSuImpresa(this.datiPersonaGiuridica.get("ragioneSociale").toString());
+        selezionaImpresaPage.clickAccediButton();
     }
 
     private void readUrlPortaleMittente(String user, String password) {
@@ -239,7 +246,6 @@ public class LoginPGPagoPATest {
     @Then("Home page persona giuridica viene visualizzata correttamente")
     public void homePagePersonaGiuridicaVieneVisualizzataCorrettamente() {
         headerPGSection.waitLoadHeaderPGPage();
-        HomePagePG homePagePG = new HomePagePG(hooks.getDriver());
         homePagePG.waitLoadHomePagePGPage();
     }
 
@@ -259,21 +265,17 @@ public class LoginPGPagoPATest {
         accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
         accediAreaRiservataPGPage.clickSpidButton();
 
-        ScegliSpidPGPage scegliSpidPGPage = new ScegliSpidPGPage(hooks.getDriver());
         scegliSpidPGPage.clickTestButton();
 
-        LoginPGPagoPAPage loginPGPagoPAPage = new LoginPGPagoPAPage(hooks.getDriver());
         loginPGPagoPAPage.waitLoadLoginPGPage();
         loginPGPagoPAPage.insertUsername(webDriverConfig.getUserDante());
         loginPGPagoPAPage.insertPassword(webDriverConfig.getPwdDante());
         loginPGPagoPAPage.clickInviaButton();
 
 
-        AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage = new AutorizzaInvioDatiPGPage(hooks.getDriver());
         autorizzaInvioDatiPGPage.waitLoadAutorizzaInvioDatiPGPage();
         autorizzaInvioDatiPGPage.clickInviaButton();
 
-        SelezionaImpresaPage selezionaImpresaPage = new SelezionaImpresaPage(hooks.getDriver());
         selezionaImpresaPage.waitLoadSelezionaImpresaPage();
         if(selezionaImpresaPage.clickSuImpresa(datiPG.get("ragioneSociale"))){
             logger.info("click su impresa");
@@ -333,9 +335,8 @@ public class LoginPGPagoPATest {
         }
 
 
-        SelezionaImpresaPage impresaPage = new SelezionaImpresaPage(hooks.getDriver());
-        impresaPage.clickSuImpresa(this.datiPersonaGiuridica.get("ragioneSociale").toString());
-        impresaPage.clickAccediButton();
+        selezionaImpresaPage.clickSuImpresa(this.datiPersonaGiuridica.get("ragioneSociale").toString());
+        selezionaImpresaPage.clickAccediButton();
     }
 
     @When("Login portale persona giuridica tramite token exchange {string}")
@@ -382,7 +383,6 @@ public class LoginPGPagoPATest {
 
     @And("Si clicca su prodotto {string}")
     public void siCliccaSuProdotto(String xpath) {
-        DestinatarioPage destinatarioPage = new DestinatarioPage(hooks.getDriver());
         destinatarioPage.clickProdotto(xpath);
     }
 

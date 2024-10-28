@@ -7,7 +7,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AutorizziInvioDatiPAPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("AutorizziInvioDatiPAPage");
@@ -15,6 +18,7 @@ public class AutorizziInvioDatiPAPage extends BasePage {
     @FindBy(css = "button[name='confirm']")
     WebElement inviaButton;
 
+    @Autowired
     public AutorizziInvioDatiPAPage(WebDriver driver) {
         super(driver);
     }

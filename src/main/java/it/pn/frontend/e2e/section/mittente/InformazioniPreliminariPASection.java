@@ -13,9 +13,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+@Component
 public class InformazioniPreliminariPASection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("InformazioniPreliminariPASection");
@@ -44,6 +46,7 @@ public class InformazioniPreliminariPASection extends BasePage {
     @Autowired
     private WebDriverConfig webDriverConfig;
 
+    @Autowired
     public InformazioniPreliminariPASection(WebDriver driver) {
         super(driver);
     }

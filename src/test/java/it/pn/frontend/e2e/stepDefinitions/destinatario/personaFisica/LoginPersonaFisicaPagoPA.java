@@ -14,16 +14,20 @@ import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
-import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
+
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+@Primary
 public class LoginPersonaFisicaPagoPA {
 
     private static final Logger logger = LoggerFactory.getLogger("LoginPersonaFisicaPagoPA");
@@ -31,19 +35,37 @@ public class LoginPersonaFisicaPagoPA {
     private Map<String, String> urlPersonaFisica;
 
     @Autowired
+    @Lazy
     private HooksNew hooks;
     @Autowired
+    @Lazy
     private WebDriverConfig webDriverConfig;
-
 
     //TODO Parametrizzare
     private Map<String, Object> datiDelegato;
+    @Autowired
+    private DataPopulation dataPopulation;
 
+    @Autowired
+    private HeaderPFSection headerPFSection;
 
+    @Autowired
+    private NotifichePFPage notifichePFPage;
+
+    @Autowired
+    private ScegliSpidPFPage scegliSpidPFPage;
+
+    @Autowired
+    private LoginSpidPFPage loginSpidPFPage;
+
+    @Autowired
+    private ConfermaDatiSpidPFPage confermaDatiSpidPFPage;
+
+    @Autowired
+    private AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage;
 
     @Given("Login Page persona fisica {string} viene visualizzata")
     public void loginPageDestinatarioVieneVisualizzata(String datipersonaFisica) {
-        DataPopulation dataPopulation = new DataPopulation();
         //TODO Parametrizzzare..........eliminare la gestione file yaml..
         this.datiPersonaFisica = dataPopulation.readDataPopulation(datipersonaFisica + ".yaml");
        // String variabileAmbiente = System.getProperty("environment");
@@ -67,8 +89,6 @@ public class LoginPersonaFisicaPagoPA {
 
     @Given("PF - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
     public void loginMittenteConTokenExchange(String personaFisica) {
-       // DataPopulation dataPopulation = new DataPopulation();
-        //String environment = System.getProperty("environment");
        String environment = webDriverConfig.getEnvironment();
         String token = "";
         switch (environment) {
@@ -93,9 +113,7 @@ public class LoginPersonaFisicaPagoPA {
         WebTool.waitTime(10);
 
         // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
-        HeaderPFSection headerPFSection = new HeaderPFSection(this.hooks.getDriver());
         headerPFSection.waitLoadHeaderDESection();
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.hooks.getDriver());
         notifichePFPage.waitLoadNotificheDEPage();
     }
 
@@ -103,7 +121,6 @@ public class LoginPersonaFisicaPagoPA {
     @When("Login con persona fisica {string}")
     public void loginConDestinatario(String datipersonaFisica) {
         logger.info("user persona fisica : " + webDriverConfig.getUserCesare());
-        DataPopulation dataPopulation = new DataPopulation();
         this.datiPersonaFisica = dataPopulation.readDataPopulation(datipersonaFisica + ".yaml");
 
         logger.info("cookies start");
@@ -121,17 +138,14 @@ public class LoginPersonaFisicaPagoPA {
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
         comeVuoiAccederePage.selezionaSpidButton();
 
-        ScegliSpidPFPage scegliSpidPFPage = new ScegliSpidPFPage(this.hooks.getDriver());
         scegliSpidPFPage.waitLoadScegliSpidDEPage();
         scegliSpidPFPage.selezionareTestButton();
 
-        LoginSpidPFPage loginSpidPFPage = new LoginSpidPFPage(this.hooks.getDriver());
         loginSpidPFPage.waitLoadLoginSpidDEPage();
         loginSpidPFPage.inserisciUtente(webDriverConfig.getUserCesare());
         loginSpidPFPage.inserisciPassword(webDriverConfig.getPwdCesare());
         loginSpidPFPage.selezionaEntraConSpidButton();
 
-        ConfermaDatiSpidPFPage confermaDatiSpidPFPage = new ConfermaDatiSpidPFPage(this.hooks.getDriver());
         confermaDatiSpidPFPage.waitLoadConfermaDatiSpidDEPage();
         String nomeUtenteLetto = confermaDatiSpidPFPage.leggiNomeUtente();
         if (nomeUtenteLetto.equals(this.datiPersonaFisica.get("name").toString())) {
@@ -156,7 +170,6 @@ public class LoginPersonaFisicaPagoPA {
             logger.error("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + this.datiPersonaFisica.get("fiscalNumber").toString());
             Assertions.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + this.datiPersonaFisica.get("fiscalNumber").toString());
         }
-        HeaderPFSection headerPFSection = new HeaderPFSection(this.hooks.getDriver());
         confermaDatiSpidPFPage.selezionaConfermaButton();
         headerPFSection.waitUrlToken();
     }
@@ -174,9 +187,8 @@ public class LoginPersonaFisicaPagoPA {
             }
         }
         logger.info("cookies end");
-        AccediAPiattaformaNotifichePage accediApiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.hooks.getDriver());
-        accediApiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
-        accediApiattaformaNotifichePage.selezionaAccediButton();
+        accediAPiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
+        accediAPiattaformaNotifichePage.selezionaAccediButton();
         if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             cookiesPage = new CookiesSection(this.hooks.getDriver());
             if (cookiesPage.waitLoadCookiesPage()) {
@@ -184,17 +196,14 @@ public class LoginPersonaFisicaPagoPA {
             }
         }
 
-        ScegliSpidPFPage scegliSpidPFPage = new ScegliSpidPFPage(this.hooks.getDriver());
         scegliSpidPFPage.waitLoadScegliSpidDEPage();
         scegliSpidPFPage.selezionareTestButton();
 
-        LoginSpidPFPage loginSpidPFPage = new LoginSpidPFPage(this.hooks.getDriver());
         loginSpidPFPage.waitLoadLoginSpidDEPage();
         loginSpidPFPage.inserisciUtente(webDriverConfig.getUserCesare());
         loginSpidPFPage.inserisciPassword(webDriverConfig.getPwdCesare());
         loginSpidPFPage.selezionaEntraConSpidButton();
 
-        ConfermaDatiSpidPFPage confermaDatiSpidPFPage = new ConfermaDatiSpidPFPage(this.hooks.getDriver());
         confermaDatiSpidPFPage.waitLoadConfermaDatiSpidDEPage();
         String nomeUtenteLetto = confermaDatiSpidPFPage.leggiNomeUtente();
         if (nomeUtenteLetto.equals(datiPF.get("name"))) {
@@ -221,7 +230,6 @@ public class LoginPersonaFisicaPagoPA {
             Assertions.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
         }
 
-        HeaderPFSection headerPFSection = new HeaderPFSection(this.hooks.getDriver());
         confermaDatiSpidPFPage.selezionaConfermaButton();
         headerPFSection.waitUrlToken();
         WebTool.waitTime(2);
@@ -256,7 +264,6 @@ public class LoginPersonaFisicaPagoPA {
         } else {
             logger.warn("Http token persona fisica not found");
         }
-        HeaderPFSection headerPFSection = new HeaderPFSection(this.hooks.getDriver());
         headerPFSection.waitLoadHeaderDESection();
 
         if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
@@ -266,7 +273,6 @@ public class LoginPersonaFisicaPagoPA {
             }
         }
 
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.hooks.getDriver());
         notifichePFPage.waitLoadNotificheDEPage();
         if (notifichePFPage.verificaPresenzaCodiceIunTextField()) {
             logger.info("text field codice iun presente");
@@ -307,7 +313,6 @@ public class LoginPersonaFisicaPagoPA {
 
     @And("Logout da portale persona fisica")
     public void logoutDaPortaleDestinatario() {
-        HeaderPFSection headerPFSection = new HeaderPFSection(this.hooks.getDriver());
         headerPFSection.waitLoadHeaderDESection();
         headerPFSection.selezionaProfiloUtenteMenu();
         headerPFSection.selezionaVoceEsci();

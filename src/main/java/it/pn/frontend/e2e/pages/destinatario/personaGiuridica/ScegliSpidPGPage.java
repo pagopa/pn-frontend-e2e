@@ -11,13 +11,17 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ScegliSpidPGPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("ScegliSpidPGPage");
 
     @FindBy(id = "xx_testenv2")
     WebElement testButton;
 
+    @Autowired
     public ScegliSpidPGPage(WebDriver driver) {
         super(driver);
     }

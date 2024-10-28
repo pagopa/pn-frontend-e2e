@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.context.annotation.Lazy;
@@ -35,6 +36,7 @@ import java.util.concurrent.TimeUnit;
 
 //@Component
 //@Scope("prototype")
+@Primary
 public class LoginMittentePagoPA {
     private static final Logger logger = LoggerFactory.getLogger("LoginMittentePagoPA");
 
@@ -58,6 +60,37 @@ public class LoginMittentePagoPA {
 
     @Autowired
     private WebDriverConfig webDriverConfig;
+
+    @Autowired
+    private CookiesSection cookiesSection;
+
+    @Autowired
+    private AcccediAreaRiservataPAPage acccediAreaRiservataPAPage;
+
+    @Autowired
+    private ScegliSpidPAPage scegliSpidPAPage;
+
+    @Autowired
+    private LoginPAPage loginPAPage;
+
+    @Autowired
+    private HeaderPASection headerPASection;
+
+    @Autowired
+    private PiattaformaNotifichePage piattaformaNotifichePage;
+
+    @Autowired
+    private PreAccediAreaRiservataPAPage preAccediAreaRiservataPAPage;
+
+    @Autowired
+    private AutorizziInvioDatiPAPage autorizziInvioDatiPAPage;
+
+    @Autowired
+    private SelezionaEntePAPage selezionaEntePAPage;
+
+    @Autowired
+    private AreaRiservataPAPage areaRiservataPAPage;
+
 
 
     @Given("Login Page mittente {string} viene visualizzata")
@@ -114,9 +147,7 @@ public class LoginMittentePagoPA {
         WebTool.waitTime(10);
 
         // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
-        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.waitLoadHeaderSection();
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
     }
 
@@ -127,7 +158,6 @@ public class LoginMittentePagoPA {
         this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
 
         // Creazione dell'oggetto pagina per la gestione del pre-accesso all'area riservata
-        PreAccediAreaRiservataPAPage preAccediAreaRiservataPAPage = new PreAccediAreaRiservataPAPage(hooks.getDriver());
         preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
@@ -135,34 +165,27 @@ public class LoginMittentePagoPA {
         if (hooks.getDriver().getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverConfig.getCookieConfig().isCookieEnabled()) {
             logger.info("cookies start");
-            CookiesSection cookiesPage;
-            cookiesPage = new CookiesSection(hooks.getDriver());
-            cookiesPage.selezionaAccettaTuttiButton();
-            if (cookiesPage.waitLoadCookiesPage()) {
-                cookiesPage.selezionaAccettaTuttiButton();
+
+            cookiesSection.selezionaAccettaTuttiButton();
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
             }
             logger.info("cookies end");
         }
 
-        AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(hooks.getDriver());
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
         acccediAreaRiservataPAPage.selezionareSpidButton();
 
-        ScegliSpidPAPage scegliSpidPAPage = new ScegliSpidPAPage(hooks.getDriver());
-
         scegliSpidPAPage.selezionareTestButton();
 
-        LoginPAPage loginPAPage = new LoginPAPage(hooks.getDriver());
         loginPAPage.waitLoadLoginPAPage();
         loginPAPage.inserisciUtenete( webDriverConfig.getUserMittente());
         loginPAPage.inserisciPassword( webDriverConfig.getPwdMittente());
         loginPAPage.selezionaInviaDati();
 
-        AutorizziInvioDatiPAPage autorizziInvioDatiPAPage = new AutorizziInvioDatiPAPage(hooks.getDriver());
         autorizziInvioDatiPAPage.waitLoadAutorizziInvioDatiPAPage();
         autorizziInvioDatiPAPage.selezionareInvia();
 
-        SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(hooks.getDriver());
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
         selezionaEntePAPage.cercaComune(this.datiMittente.get("comune").toString());
         selezionaEntePAPage.selezionareComune(this.datiMittente.get("comune").toString());
@@ -173,41 +196,32 @@ public class LoginMittentePagoPA {
     public void loginConMittente(Map<String,String> datiMittenteFile) {
         logger.info("Si effetua la Login dal portale mittente");
 
-        PreAccediAreaRiservataPAPage preAccediAreaRiservataPAPage = new PreAccediAreaRiservataPAPage(hooks.getDriver());
         preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
         if (hooks.getDriver().getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverConfig.getCookieConfig().isCookieEnabled()) {
             logger.info("cookies start");
-            CookiesSection cookiesPage;
-            cookiesPage = new CookiesSection(hooks.getDriver());
-            cookiesPage.selezionaAccettaTuttiButton();
-            if (cookiesPage.waitLoadCookiesPage()) {
-                cookiesPage.selezionaAccettaTuttiButton();
+            cookiesSection.selezionaAccettaTuttiButton();
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
             }
             logger.info("cookies end");
         }
 
-        AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(hooks.getDriver());
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
         acccediAreaRiservataPAPage.selezionareSpidButton();
 
-        ScegliSpidPAPage scegliSpidPAPage = new ScegliSpidPAPage(hooks.getDriver());
-
         scegliSpidPAPage.selezionareTestButton();
 
-        LoginPAPage loginPAPage = new LoginPAPage(hooks.getDriver());
         loginPAPage.waitLoadLoginPAPage();
         loginPAPage.inserisciUtenete(webDriverConfig.getUserMittente());
         loginPAPage.inserisciPassword( webDriverConfig.getPwdMittente());
         loginPAPage.selezionaInviaDati();
 
-        AutorizziInvioDatiPAPage autorizziInvioDatiPAPage = new AutorizziInvioDatiPAPage(hooks.getDriver());
         autorizziInvioDatiPAPage.waitLoadAutorizziInvioDatiPAPage();
         autorizziInvioDatiPAPage.selezionareInvia();
 
-        SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(hooks.getDriver());
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
         selezionaEntePAPage.cercaComune(datiMittenteFile.get("comune"));
         selezionaEntePAPage.selezionareComune(datiMittenteFile.get("comune"));
@@ -240,7 +254,6 @@ public class LoginMittentePagoPA {
 
         hooks.getDriver().get(this.urlMittente.get("urlPortale"));
 
-        SelezionaEntePAPage selezionaEntePAPage = new SelezionaEntePAPage(hooks.getDriver());
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
         selezionaEntePAPage.cercaComune(this.datiMittente.get("comune").toString());
         selezionaEntePAPage.selezionareComune(this.datiMittente.get("comune").toString());
@@ -380,10 +393,8 @@ public class LoginMittentePagoPA {
     public void homePageMittenteVieneVisualizzataCorrettamente() {
         logger.info("Home page mittente viene visualizzata correttamente");
 
-        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.waitLoadHeaderSection();
 
-        AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(hooks.getDriver());
         areaRiservataPAPage.waitLoadAreaRiservataPAPage();
         if (areaRiservataPAPage.verificaCodiceFiscale(this.datiMittente.get("codiceFiscale").toString())) {
             logger.info("Codice fiscale presente");
@@ -405,18 +416,15 @@ public class LoginMittentePagoPA {
 
         WebTool.waitTime(2);
 
-        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();
 
         if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
-            CookiesSection cookiesSection = new CookiesSection(hooks.getDriver());
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
 
-        AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(hooks.getDriver());
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
 
         WebTool.waitTime(5);
@@ -443,22 +451,19 @@ public class LoginMittentePagoPA {
 
     @And("Si clicca sul bottone test")
     public void clickTestButton() {
-        AcccediAreaRiservataPAPage acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(hooks.getDriver());
         acccediAreaRiservataPAPage.clickTestBottone();
     }
 
     @And("Si clicca bottone accetta cookies")
     public void clickAcceptCookies() {
         // Gestione della sezione cookies, accettando i cookie se necessario
-        CookiesSection cookiesPage = new CookiesSection(hooks.getDriver());
-        if (cookiesPage.waitLoadCookiesPage()) {
-            cookiesPage.selezionaAccettaTuttiButton();
+        if (cookiesSection.waitLoadCookiesPage()) {
+            cookiesSection.selezionaAccettaTuttiButton();
         }
     }
 
     @And("Si clicca sul bottone esci")
     public void siCLiccaSulBottoneEsci() {
-        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.selezionaEsciButton();
     }
 }

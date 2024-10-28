@@ -31,6 +31,7 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -45,16 +46,23 @@ public class NotificaMittentePagoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittentePagoPATest");
 
-    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
-    private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-    private final AllegatiPASection allegatiPASection = new AllegatiPASection(this.driver);
-    private final DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
-    private final DataPopulation dataPopulation = new DataPopulation();
-    private final DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-    //private final String variabileAmbiente = System.getProperty("environment");
-    private final InformazioniPreliminariPASection informazioniPreliminariPASection = new InformazioniPreliminariPASection(this.driver);
+
+    @Autowired
+    private  PiattaformaNotifichePage piattaformaNotifichePage;
+    @Autowired
+    private  AllegatiPASection allegatiPASection;
+    @Autowired
+    private  DestinatarioPASection destinatarioPASection;
+    @Autowired
+    private DataPopulation dataPopulation;
+    @Autowired
+    private DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection;
+    @Autowired
+    private InformazioniPreliminariPASection informazioniPreliminariPASection;
+
     private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
     private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
+
     private final String PF = "persona fisica";
     private final String PG = "persona giuridica";
     private final String PA = "pubblica amministrazione";
@@ -70,17 +78,19 @@ public class NotificaMittentePagoPATest {
     private String ApiKey;
 
     @Autowired
-    private CookieConfig cookieConfig;
+    private CookiesSection cookiesSection;
     @Autowired
     private WebDriverConfig webDriverConfig;
     @Autowired
+    @Lazy
     private HooksNew hooks;
 
-    private final WebDriver driver = hooks.getDriver();
+    @Autowired
+    private AreaRiservataPAPage areaRiservataPAPage;
+
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
-        AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(hooks.getDriver());
         logger.info("Cliccare sul bottone di Piattaforma Notifiche dell'Ambiente " + webDriverConfig.getEnvironment());
         switch (webDriverConfig.getEnvironment()) {
             case "dev" -> areaRiservataPAPage.selezionaPiattaformaNotificaDev();
@@ -118,7 +128,7 @@ public class NotificaMittentePagoPATest {
         logger.info("Recupero codice risposta della chiamata" + urlChiamata);
 
         int codiceRispostaChiamataApi = 0;
-        for (NetWorkInfo chiamate : netWorkInfos) {
+        for (NetWorkInfo chiamate : webDriverConfig.getNetWorkInfos()) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
                 codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
                 break;
@@ -133,7 +143,7 @@ public class NotificaMittentePagoPATest {
         this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
         WebTool.waitTime(5);
         String urlNotifiche = webDriverConfig.getBaseUrl() + "notifications/";
-        for (NetWorkInfo netWorkInfo : netWorkInfos) {
+        for (NetWorkInfo netWorkInfo : webDriverConfig.getNetWorkInfos()) {
             if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=10")) {
                 String responseBody = netWorkInfo.getResponseBody();
                 String[] allNotifiche = responseBody.split("],\"moreResult\":");
@@ -227,7 +237,7 @@ public class NotificaMittentePagoPATest {
 
         try {
             TimeUnit.SECONDS.sleep(quantiSecondi);
-            driver.navigate().refresh();
+            hooks.getDriver().navigate().refresh();
         } catch (Exception exc) {
             logger.error(exc.toString());
             throw new RuntimeException(exc);
@@ -244,7 +254,7 @@ public class NotificaMittentePagoPATest {
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionDestinatario() {
         logger.info("Verifica visualizzazione della section Destinatario");
 
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.waitLoadHeaderSection();
 
         destinatarioPASection.waitLoadDestinatarioPASection();
@@ -268,7 +278,7 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDelDestinatario(String personaFisicaFile) {
         logger.info("Inserimento dei dati mancanti nella section destinatario");
 
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.waitLoadHeaderSection();
 
 
@@ -297,10 +307,10 @@ public class NotificaMittentePagoPATest {
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionAllegati() {
         logger.info("Verifica visualizzazione della section Allegati");
 
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.waitLoadHeaderSection();
 
-        AllegatiPASection allegatiPASection = new AllegatiPASection(this.driver);
+        AllegatiPASection allegatiPASection = new AllegatiPASection(hooks.getDriver());
         allegatiPASection.waitLoadAllegatiPASection();
     }
 
@@ -308,7 +318,7 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionAllegatiCaricareLAttoEInserireIlNomeAtto(String datiNotificaFile) {
         logger.info("Caricamento dell'allegato notifica.pdf");
 
-        AllegatiPASection allegatiPASection = new AllegatiPASection(this.driver);
+        AllegatiPASection allegatiPASection = new AllegatiPASection(hooks.getDriver());
         File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
         String pathNotificaFile = notificaFile.getAbsolutePath();
         allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
@@ -330,7 +340,7 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionAllegatiCliccareSulBottoneInvia() {
         logger.info("Cliccare sul bottone Invia");
 
-        AllegatiPASection allegatiPASection = new AllegatiPASection(this.driver);
+        AllegatiPASection allegatiPASection = new AllegatiPASection(hooks.getDriver());
         allegatiPASection.selectInviaButton();
         if (allegatiPASection.verificaMessaggioErrore()) {
             aggiornamentoNumeroProtocolloAllegati();
@@ -390,10 +400,10 @@ public class NotificaMittentePagoPATest {
     public void siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata() {
         logger.info("Verifica visualizzazione frase: La notifica è stata correttamente creata");
 
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.waitLoadHeaderSection();
 
-        SuccessPASection successPASection = new SuccessPASection(this.driver);
+        SuccessPASection successPASection = new SuccessPASection(hooks.getDriver());
         successPASection.waitLoadSuccessPASection();
 
     }
@@ -402,7 +412,7 @@ public class NotificaMittentePagoPATest {
     public void cliccareSulBottoneVaiAlleNotifiche() {
         logger.info("Si clicca sul bottone 'vai alle notifiche'");
 
-        SuccessPASection successPASection = new SuccessPASection(this.driver);
+        SuccessPASection successPASection = new SuccessPASection(hooks.getDriver());
         successPASection.vaiAlleNotifiche();
     }
 
@@ -445,8 +455,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche accetta i Cookies")
     public void nellaPaginaPiattaformaNotificheAccettaICookies() {
-        if (!cookieConfig.isCookieEnabled()) {
-            CookiesSection cookiesSection = new CookiesSection(this.driver);
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             cookiesSection.waitLoadCookiesPage();
             cookiesSection.selezionaAccettaTuttiButton();
         }
@@ -456,7 +465,7 @@ public class NotificaMittentePagoPATest {
     public void cliccareSullaNotificaRestituita() {
         logger.info("Si clicca sulla notifica");
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.selezionaPrimaNotifica();
     }
 
@@ -464,7 +473,7 @@ public class NotificaMittentePagoPATest {
     public void cliccareSullaNotificaRestituita120Giorni() {
         logger.info("Si clicca sulla notifica maggiore di 120 giorni");
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.selezionaNotifica120Giorni();
     }
 
@@ -472,7 +481,7 @@ public class NotificaMittentePagoPATest {
     public void cliccareSullaNotificaRestituita120Giorni(Integer index) {
         logger.info("Si clicca sulla notifica maggiore di 120 giorni");
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.selezionaNotifica120Giorni(index);
     }
 
@@ -512,7 +521,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Si visualizza correttamente la section Dettaglio Notifica")
     public void siVisualizzaCorrettamenteLaSectionDettaglioNotifica() {
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
+        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(hooks.getDriver());
         dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
     }
 
@@ -530,7 +539,7 @@ public class NotificaMittentePagoPATest {
 
     @Then("Si clicca sul bottone indietro")
     public void siCliccaSulBottoneIndietro() {
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
+        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(hooks.getDriver());
         dettaglioNotificaMittenteSection.clickIndietroButton();
     }
 
@@ -603,13 +612,13 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche si visualizzano le notifiche a partire dalla più recente")
     public void nellaPaginaPiattaformaNotificheSiVisualizzanoLeNotificheAPartireDallaPiuRecente() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.controlloOrdineNotifiche();
     }
 
     @And("Nella pagina Piattaforma Notifiche si scrolla fino alla fine della pagina")
     public void nellaPaginaPiattaformaNotificheSiScrollaFinoAllaFineDellaPagina() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.siScrollaFinoAllaFineDellaPagina();
     }
 
@@ -628,31 +637,26 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche si cambia pagina utilizzando una freccetta")
     public void nellaPaginaPiattaformaNotificheSiCambiaPaginaUtilizzandoUnaFreccetta() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnaFrecetta(1);
     }
 
     @And("Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta {int}")
     public void nellaPaginaStatoDellaPiattaformaSiCambiaPaginaUtilizzandoUnaFreccetta(Integer numPage) {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnaFrecetta(numPage);
     }
 
     @And("Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino all'ultima")
     public void nellaPaginaStatoDellaPiattaformaSiCambiaPaginaUtilizzandoUnaFreccetta() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.selezionaUltimaPaginaUtilizzandoUnaFrecetta();
     }
 
     @And("Nella pagina Piattaforma Notifiche si cambia pagina utilizzando un numero")
     public void nellaPaginaPiattaformaNotificheSiCambiaPaginaUtilizzandoUnNumero() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnNumero();
     }
 
     @Then("Nella pagina Piattaforma Notifiche si cambia il numero elementi visualizzati attraverso il filtro")
     public void nellaPaginaPiattaformaNotificheSiCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltroNumeroNotifiche() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
     }
 
@@ -731,7 +735,6 @@ public class NotificaMittentePagoPATest {
 
     @And("Si verifica che la notifica sia nello stato avanzato")
     public void siVerificaCheLaNotificaSiaNelloStato() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage((this.driver));
 
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         boolean notificaTrovata = false;
@@ -760,7 +763,6 @@ public class NotificaMittentePagoPATest {
 
     @And("Si verifica che l'invio della pec sia in corso")
     public void siVerificaCheLInvioDellaPecSiaInCorso() {
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
         dettaglioNotificaMittenteSection.verificaInvioPECInCorso();
     }
@@ -777,11 +779,10 @@ public class NotificaMittentePagoPATest {
         String dataNotifica = dateFormat.format(date).replace("-", "/");
 
         String codiceIUNOld = this.datiNotifica.get("codiceIUN").toString();
-        CookiesSection cookiesSection = new CookiesSection(this.driver);
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
                 piattaformaNotifichePage.aggiornamentoPagina();
-                if (!cookieConfig.isCookieEnabled()) {
+                if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
                     if (cookiesSection.waitLoadCookiesPage()) {
                         cookiesSection.selezionaAccettaTuttiButton();
                     }
@@ -923,8 +924,6 @@ public class NotificaMittentePagoPATest {
     @And("Nella section Allegati caricare l'atto e inserire il nome atto con estenzione non valida")
     public void nellaSectionAllegatiCaricareLAttoEInserireIlNomeAttoConEstenzioneNonValida() {
         logger.info("Si inserisce un file con estensione sbagliata");
-
-        AllegatiPASection allegatiPASection = new AllegatiPASection(this.driver);
         String pathDocumentiFile = System.getProperty("user.dir") + "/src/test/resources/dataPopulation/fileUpload/semiOfficial1.jpg";
         allegatiPASection.caricareNotificaPdfDalComputer(pathDocumentiFile);
     }
@@ -993,12 +992,11 @@ public class NotificaMittentePagoPATest {
         String codiceFiscale = this.personaFisica.get("codiceFiscale").toString();
 
         String codiceIUNOld = this.datiNotifica.get("codiceIUN").toString();
-        CookiesSection cookiesSection = new CookiesSection(this.driver);
         String codiceIUN = "";
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
                 piattaformaNotifichePage.aggiornamentoPagina();
-                if (!cookieConfig.isCookieEnabled()) {
+                if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
                     if (cookiesSection.waitLoadCookiesPage()) {
                         cookiesSection.selezionaAccettaTuttiButton();
                     }
@@ -1360,7 +1358,7 @@ public class NotificaMittentePagoPATest {
     public void siAttendeCompletamentoNotifica() {
         siVisualizzaCorrettamenteLaSectionDettaglioNotifica();
         WebTool.waitTime(400);
-        driver.navigate().refresh();
+        hooks.getDriver().navigate().refresh();
         WebTool.waitTime(3);
     }
 
@@ -1598,7 +1596,7 @@ public class NotificaMittentePagoPATest {
          * (2) no POST requests with the provided URL were found
          */
         boolean foundRequestWithUndesiredStatus = false;
-        for (NetWorkInfo netWorkInfo : netWorkInfos) {
+        for (NetWorkInfo netWorkInfo : webDriverConfig.getNetWorkInfos()) {
             if (netWorkInfo.getRequestUrl().equals(urlNotificationRequest) && netWorkInfo.getRequestMethod().equals("POST") && netWorkInfo.getResponseStatus().equals("202")) {
                 String values = netWorkInfo.getResponseBody();
                 List<String> results = Splitter.on(CharMatcher.anyOf(",:")).splitToList(values);
@@ -1645,8 +1643,6 @@ public class NotificaMittentePagoPATest {
     @And("Si verifica che la notifica sia nello stato consegnata")
     public void siVerificaCheLaNotificaSiaNelloStatoConsegnata() {
         logger.info("Si verifica che la notifica sia nello stato consegnata");
-
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage((this.driver));
 
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         boolean notificaTrovata = false;
@@ -1754,7 +1750,6 @@ public class NotificaMittentePagoPATest {
     @And("Creazione notifica completa")
     public void creazioneNotificaCompleta(Map<String,String> datiNotificaMap) {
         logger.info("Inserimento dei dati della notifica senza pagamento " );
-        AllegatiPASection allegatiPASection = new AllegatiPASection(driver);
         File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
         datiNotifica = dataPopulation.readDataPopulation(datiNotificaMap.get("nomeFileYaml") + ".yaml");
 

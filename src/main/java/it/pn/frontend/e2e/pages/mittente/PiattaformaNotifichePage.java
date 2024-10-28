@@ -4,6 +4,7 @@ import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.rest.RestNotification;
@@ -16,6 +17,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
@@ -24,10 +27,10 @@ import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
+@Component
 public class PiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("notificaMittentePagoPA");
-    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
     private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
 
     @FindBy(id = "recipientId")
@@ -108,7 +111,7 @@ public class PiattaformaNotifichePage extends BasePage {
     @Autowired
     private WebDriverConfig webDriverConfig;
 
-
+    @Autowired
     public PiattaformaNotifichePage(WebDriver driver) {
         super(driver);
     }
@@ -504,9 +507,9 @@ public class PiattaformaNotifichePage extends BasePage {
             int index = calendar.get(Calendar.HOUR_OF_DAY);
             logger.info("index NOTIFICHE : " + index);
 
-            logger.info("Scenario " +Hooks.getScenario());
+            logger.info("Scenario " + Hooks.getScenario());
 
-            if (notifiche!= null) {
+            if (notifiche != null) {
                 logger.info("ELENCO NOTIFICHE : " + notifiche.size());
                 if (notifiche.size() >= index) {
                     logger.info("NOTIFICA SELEZIONATA: " + index);
@@ -514,7 +517,7 @@ public class PiattaformaNotifichePage extends BasePage {
                 } else {
                     notifiche.get(notifiche.size() - 1).click();
                 }
-            }else {
+            } else {
                 logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
                 Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
             }
@@ -545,30 +548,32 @@ public class PiattaformaNotifichePage extends BasePage {
             notificaBy = By.id("notificationsTable.body.row");
             List<WebElement> notifiche = this.elements(notificaBy);
 
-            logger.info("Scenario " +Hooks.getScenario());
+            logger.info("Scenario " + Hooks.getScenario());
 
             Calendar calendar = GregorianCalendar.getInstance();
-            int index = calendar.get(Calendar.HOUR_OF_DAY)+rows;
-            logger.info("HOUR..."+index);
-            logger.info("SIZE ROWS TABLE..."+notifiche.size());
-            logger.info("ROWS TABLE..."+rows);
+            int index = calendar.get(Calendar.HOUR_OF_DAY) + rows;
+            logger.info("HOUR..." + index);
+            logger.info("SIZE ROWS TABLE..." + notifiche.size());
+            logger.info("ROWS TABLE..." + rows);
             logger.info("ROWS SELEZIONATA: " + index);
-            WebElement riga =null;
-            if (notifiche!= null) {
+            WebElement riga = null;
+            if (notifiche != null) {
                 if (notifiche.size() >= index) {
                     logger.info("ROWS SELEZIONATA1: " + index);
                     notifiche.get(index).click();
                 } else {
                     logger.info("ROWS SELEZIONATA2: " + rows);
-                    if((rows+1)<notifiche.size()){
-                        logger.info("ROWS SELEZIONATA3: " + (notifiche.size() - (rows+1)));
-                        notifiche.get(notifiche.size() - (rows+1)).click();;
-                    } else  {
+                    if ((rows + 1) < notifiche.size()) {
+                        logger.info("ROWS SELEZIONATA3: " + (notifiche.size() - (rows + 1)));
+                        notifiche.get(notifiche.size() - (rows + 1)).click();
+                        ;
+                    } else {
                         logger.info("ROWS SELEZIONATA4: " + (notifiche.size() - 1));
-                        notifiche.get(notifiche.size() - 1).click();;
+                        notifiche.get(notifiche.size() - 1).click();
+                        ;
                     }
                 }
-            }else {
+            } else {
                 logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
                 Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
             }
@@ -1131,7 +1136,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public void verificaNotificaCreata() {
         RestNotification restNotification = new RestNotification();
         String notificationRequestId = "";
-        for (NetWorkInfo netWorkInfo : netWorkInfos) {
+        for (NetWorkInfo netWorkInfo : webDriverConfig.getNetWorkInfos()) {
             if (netWorkInfo.getRequestUrl().contains("bff/v1/notifications/sent") && netWorkInfo.getRequestMethod().equals("POST")) {
                 if (netWorkInfo.getResponseStatus().equals("202") && !netWorkInfo.getResponseBody().isEmpty()) {
                     notificationRequestId = netWorkInfo.getResponseBody().split("\"notificationRequestId\":\"")[1].split("\"")[0];
@@ -1140,13 +1145,13 @@ public class PiattaformaNotifichePage extends BasePage {
                 }
             }
         }
-        Assertions.assertFalse(notificationRequestId.isEmpty(),"NotificationRequestId non trovato, il codice della risposta al url bff/v1/notifications/sent è diverso di 202 ");
+        Assertions.assertFalse(notificationRequestId.isEmpty(), "NotificationRequestId non trovato, il codice della risposta al url bff/v1/notifications/sent è diverso di 202 ");
         LinkedTreeMap<String, Object> notificationData;
         String notificationStatus;
         String notificationIUN;
         int maximumRetry = 0;
         do {
-            Assertions.assertTrue( maximumRetry <= 5,"La notifica risulta ancora in stato WAITING dopo 5 tentativi");
+            Assertions.assertTrue(maximumRetry <= 5, "La notifica risulta ancora in stato WAITING dopo 5 tentativi");
             notificationData = restNotification.getNotificationStatus(notificationRequestId);
             notificationStatus = notificationData.get("notificationRequestStatus").toString();
             if (notificationStatus.equals("ACCEPTED")) {
@@ -1303,7 +1308,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public void verificaTentativoSuccessivo(String check) {
         List<WebElement> findKeyWord = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
         logger.info("//span[contains(text(),'" + check + "')]");
-        logger.info("findkey "+findKeyWord.size());
+        logger.info("findkey " + findKeyWord.size());
         if (findKeyWord.get(0).isDisplayed()) {
             logger.info("Si visualizza la timeline correttamente");
         } else {
@@ -1496,6 +1501,6 @@ public class PiattaformaNotifichePage extends BasePage {
         } catch (NoSuchElementException e) {
             isDisplayed = false; // Elemento non trovato
         }
-        Assertions.assertFalse(isDisplayed,"Il bottone è visualizzabile");
+        Assertions.assertFalse(isDisplayed, "Il bottone è visualizzabile");
     }
 }
