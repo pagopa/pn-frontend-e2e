@@ -8,64 +8,79 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+/*
+* Principali Modifiche
+Spring Boot Integration: La classe è annotata con @Component per essere riconosciuta come bean.
+Iniezione del WebDriver: Il driver viene iniettato tramite @Autowired nel costruttore.
+Logging Ottimizzato: Utilizzo di placeholder {} con SLF4J nei metodi di logging per migliore leggibilità e prestazioni.
+* dubbio su Action per capire come iniettarlo in Spring
+*
+* */
+@Component
 public class ApiKeyPAPage extends BasePage {
-    private static final Logger logger = LoggerFactory.getLogger("ApiKeyPAPage");
+
+    private static final Logger logger = LoggerFactory.getLogger(ApiKeyPAPage.class);
 
     @FindBy(id = "generate-api-key")
-    WebElement generateApiKeyButton;
+    private WebElement generateApiKeyButton;
 
     @FindBy(id = "name")
-    WebElement apiKeyNameInput;
+    private WebElement apiKeyNameInput;
 
     @FindBy(id = "button-view-groups-id")
-    WebElement visualizzaIdGruppo;
+    private WebElement visualizzaIdGruppo;
 
     @FindBy(id = "continue-button")
-    WebElement apiContinuaButton;
+    private WebElement apiContinuaButton;
 
     @FindBy(id = "go-to-api-keys")
-    WebElement tornaApiButton;
+    private WebElement tornaApiButton;
 
     @FindBy(id = "button-block")
-    WebElement blockButton;
+    private WebElement blockButton;
 
     @FindBy(id = "close-modal-button")
-    WebElement annullaButtonNelPopUp;
+    private WebElement annullaButtonNelPopUp;
 
     @FindBy(id = "action-modal-button")
-    WebElement confermaButtonNelPopUp;
+    private WebElement confermaButtonNelPopUp;
 
     @FindBy(xpath = "//li[contains(@data-testid,'buttonEnable')]")
-    WebElement attivaButtonNelMenu;
+    private WebElement attivaButtonNelMenu;
 
     @FindBy(id = "button-rotate")
-    WebElement ruotaButtonNelMenu;
+    private WebElement ruotaButtonNelMenu;
 
     @FindBy(id = "groups")
-    WebElement gruppoInput;
+    private WebElement gruppoInput;
 
     @FindBy(id = "button-view")
-    WebElement visualizzaApiButton;
+    private WebElement visualizzaApiButton;
 
     @FindBy(id = "close-modal-button")
-    WebElement closeButtonPopUpVisualizza;
+    private WebElement closeButtonPopUpVisualizza;
 
+    @Autowired
     public ApiKeyPAPage(WebDriver driver) {
         super(driver);
     }
 
+
     public void waitLoadApikeyPage() {
         try {
             By apiKeyTitle = By.id("API Key-page");
-            this.getWebDriverWait(30).withMessage("il titolo della pagina Apikey non è visibile").until(ExpectedConditions.visibilityOfElementLocated(apiKeyTitle));
-            this.getWebDriverWait(40).withMessage("il bottone genera ApiKey non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.generateApiKeyButton));
+            this.getWebDriverWait(30).withMessage("Il titolo della pagina ApiKey non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(apiKeyTitle));
+            this.getWebDriverWait(40).withMessage("Il bottone genera ApiKey non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(this.generateApiKeyButton));
             logger.info("Api Key Page caricata");
         } catch (TimeoutException e) {
-            logger.error("Api Key Page NON caricata con errore : " + e.getMessage());
-            Assertions.fail("Api Key Page NON caricata con errore : " + e.getMessage());
+            logger.error("Api Key Page NON caricata con errore: {}", e.getMessage());
+            Assertions.fail("Api Key Page NON caricata con errore: " + e.getMessage());
         }
     }
 
@@ -74,23 +89,26 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public void inserireUnNomePerApiKey(String nomeApiKey) {
-        getWebDriverWait(30).withMessage("Il campo Nome Apikey non è visibile").until(ExpectedConditions.visibilityOf(this.apiKeyNameInput));
+        getWebDriverWait(30).withMessage("Il campo Nome Apikey non è visibile")
+                .until(ExpectedConditions.visibilityOf(this.apiKeyNameInput));
         this.apiKeyNameInput.sendKeys(nomeApiKey);
     }
 
     public void clickSulBottoneContinua() {
-        getWebDriverWait(40).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.apiContinuaButton));
+        getWebDriverWait(40).withMessage("Il bottone Continua non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(this.apiContinuaButton));
         this.apiContinuaButton.click();
     }
 
     public void siVisualizzaCorrettamenteConfermaPage() {
         try {
             By confirmationApiPageTitle = By.id("go-to-api-keys");
-            this.getWebDriverWait(30).withMessage("Il titolo della pagina conferma Apikey non è visibile").until(ExpectedConditions.visibilityOfElementLocated(confirmationApiPageTitle));
-            logger.info("Api Key ConfirmationPage caricata");
+            this.getWebDriverWait(30).withMessage("Il titolo della pagina conferma Apikey non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(confirmationApiPageTitle));
+            logger.info("Api Key Confirmation Page caricata");
         } catch (TimeoutException e) {
-            logger.error("Il titolo della Api Key ConfirmationPage NON caricata con errore : " + e.getMessage());
-            Assertions.fail("Il titolo della Api Key ConfirmationPage NON caricata con errore : " + e.getMessage());
+            logger.error("Il titolo della Api Key ConfirmationPage NON caricata con errore: {}", e.getMessage());
+            Assertions.fail("Il titolo della Api Key ConfirmationPage NON caricata con errore: " + e.getMessage());
         }
     }
 
@@ -101,30 +119,31 @@ public class ApiKeyPAPage extends BasePage {
     public void siVisualizzaNuovaApiAttiva(String nomeApiKey) {
         try {
             By statoAttivoField = By.xpath("//div[@data-testid='statusChip-Attiva']");
-            this.getWebDriverWait(30).withMessage("lo stato dell'ApiKey non è Attiva").until(ExpectedConditions.visibilityOfElementLocated(statoAttivoField));
+            this.getWebDriverWait(30).withMessage("lo stato dell'ApiKey non è Attiva")
+                    .until(ExpectedConditions.visibilityOfElementLocated(statoAttivoField));
             By apiNameAttivoField = By.xpath("//p[contains(text(),'" + nomeApiKey + "')]");
-            this.getWebDriverWait(30).withMessage("Il nome del ApiKey attiva non è: " + nomeApiKey).until(ExpectedConditions.visibilityOfElementLocated(apiNameAttivoField));
-            logger.info("Api Key ConfirmationPage caricata");
+            this.getWebDriverWait(30).withMessage("Il nome del ApiKey attiva non è: " + nomeApiKey)
+                    .until(ExpectedConditions.visibilityOfElementLocated(apiNameAttivoField));
+            logger.info("Api Key Confirmation Page caricata");
         } catch (TimeoutException e) {
-            logger.error("Api Key ConfirmationPage NON caricata con errore : " + e.getMessage());
-            Assertions.fail("Api Key ConfirmationPage NON caricata con errore : " + e.getMessage());
+            logger.error("Api Key Confirmation Page NON caricata con errore: {}", e.getMessage());
+            Assertions.fail("Api Key Confirmation Page NON caricata con errore: " + e.getMessage());
         }
     }
 
     public String getNomi(int i) {
         By nomiApiKeyBy = By.xpath("//tbody/tr/td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1kqk1ww')]/div/p");
-        this.getWebDriverWait(30).withMessage("la lista dei nomi ApiKey non è visibile ").until(ExpectedConditions.visibilityOfElementLocated(nomiApiKeyBy));
+        this.getWebDriverWait(30).withMessage("la lista dei nomi ApiKey non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(nomiApiKeyBy));
         List<WebElement> nomiApiKeyList = this.elements(nomiApiKeyBy);
-
         return nomiApiKeyList.get(i).getText();
-
     }
 
     public int getPosizioneMenuButton() {
         By statiApiKeyBy = By.xpath("//div[contains(@id,'status-chip-')]");
-        this.getWebDriverWait(30).withMessage("lista stati ApiKey non trovata").until(ExpectedConditions.visibilityOfElementLocated(statiApiKeyBy));
+        this.getWebDriverWait(30).withMessage("lista stati ApiKey non trovata")
+                .until(ExpectedConditions.visibilityOfElementLocated(statiApiKeyBy));
         List<WebElement> statiApiKeyList = this.elements(statiApiKeyBy);
-
         for (int i = 0; i < statiApiKeyList.size(); i++) {
             if (statiApiKeyList.get(i).getAttribute("id").equalsIgnoreCase("status-chip-Attiva")) {
                 if (!getNomi(i).equalsIgnoreCase("fe-TA-apikey-test")) {
@@ -132,17 +151,14 @@ public class ApiKeyPAPage extends BasePage {
                 }
             }
         }
-
         return -1;
-
     }
 
     public void clickMenuButton() {
-
         By menuAttivaButtonBy = By.xpath("//button[@data-testid='contextMenuButton' and @aria-label='Opzioni su API Key']");
         List<WebElement> menuAttivaButton = this.elements(menuAttivaButtonBy);
-        this.getWebDriverWait(30).withMessage("menu Apikey da Bloccare non trovato").until(ExpectedConditions.visibilityOfElementLocated(menuAttivaButtonBy));
-
+        this.getWebDriverWait(30).withMessage("menu Apikey da Bloccare non trovato")
+                .until(ExpectedConditions.visibilityOfElementLocated(menuAttivaButtonBy));
         int posizioneMenuButton = getPosizioneMenuButton();
         if (posizioneMenuButton >= 0) {
             menuAttivaButton.get(posizioneMenuButton).click();
@@ -150,7 +166,6 @@ public class ApiKeyPAPage extends BasePage {
             logger.error("Nessuna Api Key diversa da 'fe-TA-apikey-test' da bloccare");
             Assertions.fail("Nessuna Api Key diversa da 'fe-TA-apikey-test' da bloccare");
         }
-
     }
 
     public void clickSuBlocca() {

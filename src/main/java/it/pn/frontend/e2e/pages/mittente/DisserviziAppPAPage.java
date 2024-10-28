@@ -7,15 +7,13 @@ import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,29 +21,34 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+@Component
 public class DisserviziAppPAPage extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("Disservizi PA Page");
 
-    private DataPopulation dataPopulation = new DataPopulation();
+    private static final Logger logger = LoggerFactory.getLogger(DisserviziAppPAPage.class);
+
+    @Autowired
+    private DataPopulation dataPopulation;
+
     @Autowired
     private WebDriverConfig webDriverConfig;
 
+    @FindBy(id = "notifications-table")
+    private WebElement disserviziTable;
+
+    @FindBy(xpath = "//tr[@id='tableDowntimeLog.row']//td//div[@data-testid='downtime-status']")
+    private List<WebElement> statusList;
+
+    @FindBy(css = "[data-testid='download-legal-fact']")
+    private List<WebElement> attestazioniFile;
+
+    @FindBy(xpath = "//span[contains(text(), 'Risolto')]")
+    private List<WebElement> stato;
+
+    @Autowired
     public DisserviziAppPAPage(WebDriver driver) {
         super(driver);
     }
 
-    @FindBy(id = "notifications-table")
-    WebElement disserviziTable;
-
-    @FindBy(xpath = "//tr[@id='tableDowntimeLog.row']//td//div[@data-testid='downtime-status']")
-    List<WebElement> statusList;
-
-
-    @FindBy(css = "[data-testid='download-legal-fact']")
-    List<WebElement> attestazioniFile;
-
-    @FindBy(xpath = "//span[contains(text(), 'Risolto')]")
-    List<WebElement> stato;
 
     public void waitLoadStatoDellaPiattaformaPage() {
         WebTool.waitTime(5);
@@ -56,28 +59,22 @@ public class DisserviziAppPAPage extends BasePage {
             By disserviziLastUpdate = By.id("appStatusLastCheck");
             By disserviziTitleOfTable = By.xpath("//h6[contains(text(),'Storico dei disservizi')]");
 
-            getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo della pagina")
-                    .until(ExpectedConditions.visibilityOfElementLocated(disserviziPageTitle));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(disserviziPageTitle));
             getWebDriverWait(3).until(ExpectedConditions.textToBe(disserviziPageTitle, "Stato della piattaforma"));
-            getWebDriverWait(10).withMessage("Non si visualizza correttamente il sottotitolo della pagina")
-                    .until(ExpectedConditions.visibilityOfElementLocated(disserviziPageSubTitle));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(disserviziPageSubTitle));
             getWebDriverWait(3).until(ExpectedConditions.textToBe(disserviziPageSubTitle, "Verifica il funzionamento di SEND, visualizza lo storico dei disservizi e scarica le relative attestazioni opponibili a terzi."));
-            getWebDriverWait(10).withMessage("Non si visualizza correttamente la sezione disservizi")
-                    .until(ExpectedConditions.visibilityOfElementLocated(disserviziBoxAlert));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(disserviziBoxAlert));
 
-            if (this.element(disserviziBoxAlert).getText().contains("C'è un disservizio in corso")) {
-                getWebDriverWait(3).until(ExpectedConditions.textToBe(disserviziBoxAlert, "C'è un disservizio in corso. Per maggiori dettagli, consulta la tabella qui sotto."));
-            } else {
-                getWebDriverWait(3).until(ExpectedConditions.textToBe(disserviziBoxAlert, "Tutti i servizi di SEND sono operativi."));
-            }
+            String boxAlertText = element(disserviziBoxAlert).getText();
+            getWebDriverWait(3).until(ExpectedConditions.textToBe(disserviziBoxAlert, boxAlertText.contains("C'è un disservizio in corso") ?
+                    "C'è un disservizio in corso. Per maggiori dettagli, consulta la tabella qui sotto." :
+                    "Tutti i servizi di SEND sono operativi."
+            ));
 
             disserviziTable = driver.findElement(By.id("notifications-table"));
-            getWebDriverWait(10).withMessage("Non si visualizza correttamente l'ultimo aggiornamento della pagina")
-                    .until(ExpectedConditions.visibilityOfElementLocated(disserviziLastUpdate));
-            getWebDriverWait(10).withMessage("Non si visualizza correttamente la tabella dei disservizi")
-                    .until(ExpectedConditions.visibilityOf(disserviziTable));
-            getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo della tabella dei disservizi")
-                    .until(ExpectedConditions.visibilityOfElementLocated(disserviziTitleOfTable));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(disserviziLastUpdate));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(disserviziTable));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(disserviziTitleOfTable));
 
             logger.info("Si visualizza correttamente la sezione disservizi");
         } catch (TimeoutException e) {
@@ -219,8 +216,56 @@ public class DisserviziAppPAPage extends BasePage {
         }
     }
 
-
+    /*
+    *Spiegazione delle Modifiche:
+Metodo Privato performDownloadAttestazione: La logica comune per trovare e cliccare l'attestazione è stata centralizzata in questo metodo.
+Parametro : Controlla l’indice aggiuntivo richiesto per selezionare una riga specifica in base al metodo chiamante (downloadAttestazione() o downloadAttestazione(int rows)).
+Metodo determineRowElement: Valuta la riga corretta da selezionare in base alla dimensione della tabella e al indexModifier.
+Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informazioni su quale riga viene selezionata e cliccata.
+    *
+    *
+    *
+    * */
     public void downloadAttestazione() {
+        performDownloadAttestazione(0);
+    }
+
+    public void downloadAttestazione(int rows) {
+        performDownloadAttestazione(rows);
+    }
+
+    private void performDownloadAttestazione(int indexModifier) {
+        List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
+        if (disserviziTableRows.isEmpty()) {
+            logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
+            Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
+            return;
+        }
+
+        logger.info("Tabella caricata e non vuota");
+        int index = GregorianCalendar.getInstance().get(Calendar.HOUR_OF_DAY) + indexModifier;
+
+        WebElement riga = determineRowElement(disserviziTableRows, index, indexModifier);
+        WebElement linkDownloadAttestazione = riga.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(0);
+        linkDownloadAttestazione.click();
+        logger.info("Click effettuato con successo");
+    }
+
+    private WebElement determineRowElement(List<WebElement> rows, int index, int indexModifier) {
+        WebElement selectedRow;
+        if (rows.size() > index) {
+            selectedRow = rows.get(index);
+            logger.info("Riga selezionata (index={}): {}", index, selectedRow.getText());
+        } else {
+            int adjustedIndex = rows.size() > indexModifier ? rows.size() - (indexModifier + 1) : rows.size() - 1;
+            selectedRow = rows.get(adjustedIndex);
+            logger.info("Riga selezionata (adjusted index={}): {}", adjustedIndex, selectedRow.getText());
+        }
+        return selectedRow;
+    }
+
+
+   /* public void downloadAttestazione() {
         List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
         if (!disserviziTableRows.isEmpty()) {
             logger.info("tabella caricata e non vuota");
@@ -286,7 +331,7 @@ public class DisserviziAppPAPage extends BasePage {
             Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
         }
     }
-
+ */
 
     public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioniOpponibile) {
         if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
@@ -340,6 +385,8 @@ public boolean confrontoFileConDisservizio() {
     }
     return false;
 }
+
+
 }
 
 
