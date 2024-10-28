@@ -15,18 +15,32 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
+/*
+Modifiche Principali
 
+*Iniezione delle Dipendenze con @Autowired: Abbiamo rimosso la creazione manuale delle istanze e invece abbiamo iniettato le dipendenze WebDriver, WebDriverConfig, AccediAPiattaformaNotifichePage, e DisserviziAppPAPage tramite @Autowired.
+* Integrazione DownloadFile e WebTool: Poiché DownloadFile e WebTool vengono utilizzati internamente senza dipendenze da Spring, non è necessario modificarli; il loro uso rimane invariato.
+* Annotazione @Component: La classe DisserviziAppPATest è stata annotata come componente Spring per consentire l'iniezione automatica delle dipendenze. */
+@Component
 public class DisserviziAppPATest {
-    private static final Logger logger = LoggerFactory.getLogger("DisserviziAppPATest");
-    private final WebDriver driver = Hooks.driver;
-    private final AccediAPiattaformaNotifichePage notifichePage = new AccediAPiattaformaNotifichePage(this.driver);
-    private final DisserviziAppPAPage disserviziAppPAPage = new DisserviziAppPAPage(this.driver);
+
+    private static final Logger logger = LoggerFactory.getLogger(DisserviziAppPATest.class);
 
     @Autowired
     private WebDriverConfig webDriverConfig;
+
+    @Autowired
+    private WebDriver driver;
+
+    @Autowired
+    private AccediAPiattaformaNotifichePage notifichePage;
+
+    @Autowired
+    private DisserviziAppPAPage disserviziAppPAPage;
 
     @When("Nella pagina Piattaforma Notifiche selezionare la voce 'stato della piattaforma'")
     public void nellaPaginaPiattaformaNotificheSelezionareLaVoceStatoDellaPiattaforma() {
