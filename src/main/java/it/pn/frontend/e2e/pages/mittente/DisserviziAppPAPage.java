@@ -342,6 +342,69 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
         }
     }
 
+    public boolean confrontoFileConDisservizio() {
+        getDateDisservice();
+        logger.info("Date acquisite con successo dal disservizio");
+
+        String folderPath = webDriverConfig.getDownloadFilePath();
+        String searchString = "PN_DOWNTIME_LEGAL_FACTS";
+        File folder = new File(folderPath);
+
+        if (!folder.isDirectory()) {
+            logger.warn("Il percorso specificato non è una directory: {}", folderPath);
+            return false;
+        }
+
+        File[] files = folder.listFiles();
+        if (files == null || files.length == 0) {
+            logger.warn("La cartella è vuota o non è accessibile: {}", folderPath);
+            return false;
+        }
+
+        logger.info("Numero di file nella cartella: {}", files.length);
+
+        for (File file : files) {
+            if (file.isFile() && file.getName().contains(searchString)) {
+                logger.info("File trovato: {}", file.getName());
+                if (isDataInFile(file)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean isDataInFile(File file) {
+        try (PDDocument document = PDDocument.load(file)) {
+            PDFTextStripper pdfTextStripper = new PDFTextStripper();
+            String text = pdfTextStripper.getText(document);
+
+            String dataA = dataPopulation.getDataA();
+            String dataDa = dataPopulation.getDataDa();
+
+            logger.info("Verifica delle date nel file: dataA={}, dataDa={}", dataA, dataDa);
+
+            if (text.contains(dataA) && text.contains(dataDa)) {
+                logger.info("Le date specificate sono presenti nel file: {}", file.getName());
+                return true;
+            }
+        } catch (IOException e) {
+            logger.error("Errore nella lettura del PDF: {}", file.getName(), e);
+            Assertions.fail("Errore nella lettura del PDF: " + file.getName());
+        }
+        return false;
+    }
+
+/*
+Miglioramenti e Spiegazioni:
+Separazione del codice: La logica di lettura e confronto nel PDF è stata isolata nel metodo privato isDataInFile, migliorando così la chiarezza del metodo principale.
+Gestione dell'I/O in try-with-resources: La gestione del PDDocument usa try-with-resources per garantire la chiusura automatica del file.
+Logging migliorato: Ogni passaggio significativo è chiaramente loggato, con messaggi più descrittivi.
+Error Handling: Le condizioni di errore sono loggate come warn e non lanciano System.out.println, rendendo i log più professionali e centralizzati.
+
+
+
+
 public boolean confrontoFileConDisservizio() {
     getDateDisservice();
     logger.info("date prese con successo dal disserivizio");
@@ -385,7 +448,7 @@ public boolean confrontoFileConDisservizio() {
     }
     return false;
 }
-
+*/
 
 }
 
