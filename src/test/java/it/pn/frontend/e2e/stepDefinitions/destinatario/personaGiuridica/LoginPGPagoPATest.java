@@ -11,11 +11,8 @@ import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogi
 import it.pn.frontend.e2e.config.BearerTokenConfig;
 import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.config.WebDriverConfig;
-import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
-import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
-import it.pn.frontend.e2e.pages.destinatario.personaFisica.ComeVuoiAccederePage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
@@ -24,17 +21,13 @@ import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
-
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -59,13 +52,12 @@ public class LoginPGPagoPATest {
     **/
     @Autowired
     private  HeaderPGSection headerPGSection;
+    @Autowired
     private  AccediAreaRiservataPGPage accediAreaRiservataPGPage;
 
     private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
     private Map<String, String> urlPersonaGiuridica;
 
-    @Autowired
-    private CookieConfig cookieConfig;
     @Autowired
     private WebDriverConfig webDriverConfig;
     @Autowired
@@ -115,7 +107,6 @@ public class LoginPGPagoPATest {
         WebTool.waitTime(10);
         PiattaformaNotifichePGPAPage notifichePGPage = new PiattaformaNotifichePGPAPage(hooks.getDriver());
 
-       // headerPGSection = new HeaderPGSection(hooks.getDriver());
         headerPGSection.waitLoadHeaderPGPage();
 
         if (personaGiuridica.equalsIgnoreCase("delegante")) {
@@ -162,7 +153,7 @@ public class LoginPGPagoPATest {
 
         hooks.getDriver().get(this.urlPersonaGiuridica.get("urlPortale"));
 
-        if (!cookieConfig.isCookieEnabled()) {
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             CookiesSection cookiesPage = new CookiesSection(hooks.getDriver());
             if (cookiesPage.waitLoadCookiesPage()) {
                 cookiesPage.selezionaAccettaTuttiButton();
@@ -247,7 +238,6 @@ public class LoginPGPagoPATest {
 
     @Then("Home page persona giuridica viene visualizzata correttamente")
     public void homePagePersonaGiuridicaVieneVisualizzataCorrettamente() {
-       // headerPGSection = new HeaderPGSection(hooks.getDriver());
         headerPGSection.waitLoadHeaderPGPage();
         HomePagePG homePagePG = new HomePagePG(hooks.getDriver());
         homePagePG.waitLoadHomePagePGPage();
@@ -259,13 +249,13 @@ public class LoginPGPagoPATest {
 
         CookiesSection cookiesSection;
 
-        if (!cookieConfig.isCookieEnabled()) {
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             cookiesSection = new CookiesSection(hooks.getDriver());
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
-        accediAreaRiservataPGPage = new AccediAreaRiservataPGPage(hooks.getDriver());
+
         accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
         accediAreaRiservataPGPage.clickSpidButton();
 
@@ -293,11 +283,9 @@ public class LoginPGPagoPATest {
 
     @And("Logout da portale persona giuridica")
     public void logoutDaPortalePersonaGiuridica() {
-       // headerPGSection = new HeaderPGSection(hooks.getDriver());
         headerPGSection.waitLoadHeaderPGPage();
         headerPGSection.clickEsciButton();
         WebTool.waitTime(5);
-        accediAreaRiservataPGPage = new AccediAreaRiservataPGPage(hooks.getDriver());
         accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
 
         WebTool.waitTime(5);
@@ -337,7 +325,7 @@ public class LoginPGPagoPATest {
 
         hooks.getDriver().get(this.urlPersonaGiuridica.get("urlPortale"));
 
-        if (!cookieConfig.isCookieEnabled()) {
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             CookiesSection cookiesPage = new CookiesSection(hooks.getDriver());
             if (cookiesPage.waitLoadCookiesPage()) {
                 cookiesPage.selezionaAccettaTuttiButton();

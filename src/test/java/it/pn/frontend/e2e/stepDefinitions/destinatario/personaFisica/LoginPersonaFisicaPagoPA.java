@@ -34,8 +34,6 @@ public class LoginPersonaFisicaPagoPA {
     private HooksNew hooks;
     @Autowired
     private WebDriverConfig webDriverConfig;
-    @Autowired
-    private CookieConfig cookieConfig;
 
 
     //TODO Parametrizzare
@@ -111,7 +109,7 @@ public class LoginPersonaFisicaPagoPA {
         logger.info("cookies start");
         CookiesSection cookiesPage;
 
-        if (!cookieConfig.isCookieEnabled()) {
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             cookiesPage = new CookiesSection(this.hooks.getDriver());
             if (cookiesPage.waitLoadCookiesPage()) {
                 cookiesPage.selezionaAccettaTuttiButton();
@@ -169,7 +167,7 @@ public class LoginPersonaFisicaPagoPA {
         logger.info("cookies start");
         CookiesSection cookiesPage;
 
-        if (!cookieConfig.isCookieEnabled()) {
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             cookiesPage = new CookiesSection(this.hooks.getDriver());
             if (cookiesPage.waitLoadCookiesPage()) {
                 cookiesPage.selezionaAccettaTuttiButton();
@@ -179,7 +177,7 @@ public class LoginPersonaFisicaPagoPA {
         AccediAPiattaformaNotifichePage accediApiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.hooks.getDriver());
         accediApiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
         accediApiattaformaNotifichePage.selezionaAccediButton();
-        if (!cookieConfig.isCookieEnabled()) {
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             cookiesPage = new CookiesSection(this.hooks.getDriver());
             if (cookiesPage.waitLoadCookiesPage()) {
                 cookiesPage.selezionaAccettaTuttiButton();
@@ -233,7 +231,7 @@ public class LoginPersonaFisicaPagoPA {
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
 
         CookiesSection cookiesSection;
-        if (!cookieConfig.isCookieEnabled()) {
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             cookiesSection = new CookiesSection(this.hooks.getDriver());
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
@@ -261,7 +259,7 @@ public class LoginPersonaFisicaPagoPA {
         HeaderPFSection headerPFSection = new HeaderPFSection(this.hooks.getDriver());
         headerPFSection.waitLoadHeaderDESection();
 
-        if (!cookieConfig.isCookieEnabled()) {
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             cookiesSection = new CookiesSection(this.hooks.getDriver());
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
@@ -317,7 +315,7 @@ public class LoginPersonaFisicaPagoPA {
         ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.hooks.getDriver());
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
 
-        if (!cookieConfig.isCookieEnabled()) {
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             CookiesSection cookiesSection = new CookiesSection(this.hooks.getDriver());
             if (cookiesSection.waitLoadCookiesPage()) {
                 logger.info("banner dei cookies visualizzato");

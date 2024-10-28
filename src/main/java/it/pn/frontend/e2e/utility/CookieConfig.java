@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -16,6 +17,7 @@ public class CookieConfig {
     private static final Logger logger = LoggerFactory.getLogger("CookieConfig");
 
     @Autowired
+    @Lazy
     private WebDriverConfig webDriverConfig;
    // private static final String env = System.getProperty("environment");
     private final Map<String, Set<Cookie>> cookieMap;

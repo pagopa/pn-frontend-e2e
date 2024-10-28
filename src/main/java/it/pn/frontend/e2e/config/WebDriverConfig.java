@@ -191,11 +191,12 @@ public class WebDriverConfig {
 
     @Value("${codice.iun.n3}")
     private String codiceIunN3;
+
     @Getter
     public WebDriver driver;
 
     @Autowired
-    @Lazy
+    @Getter
     public CookieConfig cookieConfig;
 
     /**
