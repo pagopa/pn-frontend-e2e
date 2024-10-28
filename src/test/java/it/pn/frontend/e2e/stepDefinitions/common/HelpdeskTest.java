@@ -41,7 +41,8 @@ public class HelpdeskTest {
     @Autowired
     private WebDriverConfig webDriverConfig;
 
-    private HelpdeskPage helpdeskPage = new HelpdeskPage(hooks.getDriver());
+    @Autowired
+    private HelpdeskPage helpdeskPage ;
 
     private Map<String, Object> datiTestHelpdesk = new HashMap<>();
     private Map<String, Object> datiPersonaFisica = new HashMap<>();

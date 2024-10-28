@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.stepDefinitions;
 
 import io.cucumber.spring.CucumberContextConfiguration;
+import it.pn.frontend.e2e.common.HelpdeskPage;
 import it.pn.frontend.e2e.config.BearerTokenConfig;
 import it.pn.frontend.e2e.config.UserPasswordConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
@@ -23,7 +24,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         BearerTokenConfig.class,
         UserPasswordConfig.class,
         DataPopulation.class,
-        HeaderPGSection.class
+        HeaderPGSection.class,
+        HelpdeskPage.class
 
 })
 @EnableScheduling
