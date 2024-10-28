@@ -179,11 +179,12 @@ public class WebDriverConfig {
 
     private DevTools devTools;
 
+
     @Getter
     public WebDriver driver;
 
     @Autowired
-    @Lazy
+    @Getter
     public CookieConfig cookieConfig;
 
     /**

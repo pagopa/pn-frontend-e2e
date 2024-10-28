@@ -10,6 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class AccediAreaRiservataPGPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("AccediAreaRiservataPGPage");
@@ -17,6 +18,7 @@ public class AccediAreaRiservataPGPage extends BasePage {
     @FindBy(id = "spidButton")
     WebElement spidButton;
 
+    @Autowired
     public AccediAreaRiservataPGPage(WebDriver driver) {
         super(driver);
     }
