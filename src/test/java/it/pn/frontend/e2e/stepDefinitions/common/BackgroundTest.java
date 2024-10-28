@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.stepDefinitions.common;
 
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePagoPATest;
@@ -11,32 +12,46 @@ import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class BackgroundTest {
 
-    private final WebDriver driver = Hooks.driver;
+//    private final WebDriver driver = Hooks.driver;
+    @Autowired
+    private HooksNew hooks;
     private final String nomeFileDatiNotifica = "datiNotifica";
     private final String nomeFilePersonaFisica = "personaFisica";
     private final String nomeFilePG = "personaGiuridica";
     private final String nomeFileNuovaDelega = "nuova_delega";
     private final String nomeFileNuovaDelegaPG = "nuovaDelegaPG";
     private final String mittente = "mittente";
+
     private final DeleghePagoPATest deleghePagoPATest = new DeleghePagoPATest();
 
-    private final RecapitiPersonaFisicaTest recapitiPersonaFisicaTest = new RecapitiPersonaFisicaTest();
-    private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
-    private final LoginPersonaFisicaPagoPA personaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
+    @Autowired
+    private  RecapitiPersonaFisicaTest recapitiPersonaFisicaTest;
+    @Autowired
+    private LoginPGPagoPATest loginPGPagoPATest;
+    @Autowired
+    private LoginPersonaFisicaPagoPA personaFisicaPagoPA;
+
     private final DeleghePGPagoPATest deleghePGPagoPATest = new DeleghePGPagoPATest();
+
     private final DisserviziAppPGTest disserviziAppPGTest = new DisserviziAppPGTest();
+
     private final HelpdeskTest helpdeskTest = new HelpdeskTest();
+
     private final NotifichePGPagoPATest notifichePGPagoPATest = new NotifichePGPagoPATest();
+
     private final RecapitiTest recapitiTest = new RecapitiTest();
     private final Map<String, String> datiPersonaFisica;
-    private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(driver);
-    private final ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
+    @Autowired
+    private  RecapitiDestinatarioPage recapitiDestinatarioPage ;
+    @Autowired
+    private  ITuoiRecapitiPage iTuoiRecapitiPage;
 
     public BackgroundTest() {
         datiPersonaFisica = new HashMap<>();
@@ -338,21 +353,21 @@ public class BackgroundTest {
     }
 
     public void siFiltraLaTabellaDelleNotifichePerIUNDestinatario(String iun) {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
         piattaformaNotifichePage.clickSuNotifica();
     }
 
     public void siFiltraLaTabellaDelleNotificheDelDestinatarioPerIUN(String iun) {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
         piattaformaNotifichePage.clickSuNotifica();
     }
 
     public void siFiltraLaTabellaDelleNotifichePerIUNMittente(String iun) {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
         WebTool.waitTime(1);

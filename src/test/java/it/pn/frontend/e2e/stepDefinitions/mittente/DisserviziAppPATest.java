@@ -25,7 +25,7 @@ Modifiche Principali
 *Iniezione delle Dipendenze con @Autowired: Abbiamo rimosso la creazione manuale delle istanze e invece abbiamo iniettato le dipendenze WebDriver, WebDriverConfig, AccediAPiattaformaNotifichePage, e DisserviziAppPAPage tramite @Autowired.
 * Integrazione DownloadFile e WebTool: Poiché DownloadFile e WebTool vengono utilizzati internamente senza dipendenze da Spring, non è necessario modificarli; il loro uso rimane invariato.
 * Annotazione @Component: La classe DisserviziAppPATest è stata annotata come componente Spring per consentire l'iniezione automatica delle dipendenze. */
-@Component
+//@Component
 public class DisserviziAppPATest {
 
     private static final Logger logger = LoggerFactory.getLogger(DisserviziAppPATest.class);

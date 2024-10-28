@@ -16,6 +16,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
@@ -23,7 +24,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-
+@Component
 public class PiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("notificaMittentePagoPA");
@@ -108,7 +109,7 @@ public class PiattaformaNotifichePage extends BasePage {
     @Autowired
     private WebDriverConfig webDriverConfig;
 
-
+    @Autowired
     public PiattaformaNotifichePage(WebDriver driver) {
         super(driver);
     }
