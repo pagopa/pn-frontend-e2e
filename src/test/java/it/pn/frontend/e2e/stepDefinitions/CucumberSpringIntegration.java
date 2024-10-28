@@ -26,7 +26,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         UserPasswordConfig.class,
         DataPopulation.class,
         HeaderPGSection.class,
-        HelpdeskPage.class
+        HelpdeskPage.class,
         HeaderPGSection.class,
         AccediAreaRiservataPGPage.class
 
