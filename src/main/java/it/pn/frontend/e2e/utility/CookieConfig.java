@@ -20,7 +20,6 @@ public class CookieConfig {
    // private static final String env = System.getProperty("environment");
     private final Map<String, Set<Cookie>> cookieMap;
 
-    @Autowired
     public CookieConfig() {
         this.cookieMap = new HashMap<>();
     }
