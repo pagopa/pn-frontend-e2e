@@ -58,7 +58,7 @@ public class SelezionaEntePAPage extends BasePage {
 
     public void selezionaAccedi() {
         Actions actions = new Actions(driver);
-        getWebDriverWait(60).withMessage("il buttone Eccedi non è cliccabile")
+        getWebDriverWait(60).withMessage("il buttone Accedi non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(this.accediButton));
         actions.moveToElement(this.accediButton).click().perform();
     }
