@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions;
 import io.cucumber.spring.CucumberContextConfiguration;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.common.HelpdeskPage;
+import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.config.BearerTokenConfig;
 import it.pn.frontend.e2e.config.UserPasswordConfig;
@@ -18,8 +19,13 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.AccediAreaRiservataPGPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
+import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
+import it.pn.frontend.e2e.section.destinatario.personaFisica.PopUpRevocaDelegaSection;
+import it.pn.frontend.e2e.section.destinatario.personaGiuridica.AggiungiDelegaPGSection;
+import it.pn.frontend.e2e.section.destinatario.personaGiuridica.DelegatiImpresaSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.section.mittente.*;
+import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
@@ -82,7 +88,15 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         HelpdeskPage.class,
         RecapitiDestinatarioPage.class,
         ITuoiRecapitiPage.class,
-        LoginPGPagoPATest.class
+        LoginPGPagoPATest.class,
+        DeleghePGPagoPAPage.class,
+        DelegatiImpresaSection.class,
+        AggiungiDelegaPGSection.class,
+        LeTueDelegheSection.class,
+        PopUpRevocaDelegaSection.class,
+        DeleghePage.class,
+        NotificheDestinatarioPage.class,
+        BackgroundTest.class
 
 })
 @EnableScheduling

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class RecapitiTest {
 
@@ -17,10 +18,13 @@ public class RecapitiTest {
     private final String emailDiCortesia = "email di cortesia";
     private final String ELIMINA = "Elimina";
     private final Logger logger = LoggerFactory.getLogger("RecapitiTest");
-    private final WebDriver driver = Hooks.driver;
     public static String OTP;
-    private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
-    private final ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+    @Autowired
+    private  RecapitiDestinatarioPage recapitiDestinatarioPage ;
+    @Autowired
+    private ITuoiRecapitiPage iTuoiRecapitiPage ;
+    @Autowired
+    private BackgroundTest backgroundTest;
 
     @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono {string} e si clicca sul bottone avvisami via SMS")
     public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoESiCliccaSulBottoneAvvisamiViaSMS(String cellulare) {
@@ -62,7 +66,6 @@ public class RecapitiTest {
     @And("Nella pagina I Tuoi Recapiti si controlla che non ci sia già una {string} e si inserisce {string}")
     public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaPECESiInserisce(String tipoContatto, String indirizzoMail) {
         logger.info("Si controlla che non ci sia già una " + tipoContatto + " e se ne inserisce una");
-        BackgroundTest backgroundTest = new BackgroundTest();
         if (PEC.equalsIgnoreCase(tipoContatto)){
             backgroundTest.checkPECEsistentePerEliminazioneEInserimento(indirizzoMail);
         } else if (emailDiCortesia.equalsIgnoreCase(tipoContatto)){
@@ -168,7 +171,6 @@ public class RecapitiTest {
     @And("Si inserisce il codice OTP errato {string} per tre volte e si controlla il messaggio di errore")
     public void siInserisceIlCodiceOTPErratoPerTreVolteESiControllaIlMessaggioDiErrore(String OTP) {
         logger.info("Si inserisce un codice OTP errato per 3 volte e si controlla il messaggio di errore");
-        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.inserimentoOTPErratoTreVolteEControlloMessaggio(OTP);
     }
 

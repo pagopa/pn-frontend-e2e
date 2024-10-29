@@ -49,8 +49,8 @@ public class HelpdeskTest {
     @Autowired
     private HelpdeskPage helpdeskPage ;
 
-//    @Autowired
-//    private BackgroundTest backgroundTest;
+    @Autowired
+    private BackgroundTest backgroundTest;
 
     private Map<String, Object> datiTestHelpdesk = new HashMap<>();
     private Map<String, Object> datiPersonaFisica = new HashMap<>();
@@ -128,7 +128,6 @@ public class HelpdeskTest {
 
     @And("Si annulla un disservizio in corso")
     public void annullamentoDisservizio() {
-        BackgroundTest backgroundTest = new BackgroundTest();
         logger.info("Torno sulla scheda di helpdesk");
         String sendHandle = hooks.getDriver().getWindowHandle();
         Set<String> windowHandles = hooks.getDriver().getWindowHandles();
@@ -328,13 +327,11 @@ public class HelpdeskTest {
 
     @Given("Creazione disservizio su portale helpdesk")
     public void creazioneDisservizioSuPortaleHelpdesk() {
-        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.creazioneDisservizio();
     }
 
     @And("Risoluzione disservizio su portale helpdesk")
     public void risoluzioneDisservizioSuPortaleHelpdesk() {
-        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.risoluzioneDisservizio();
     }
 

@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.delegate.DelegatePF;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
@@ -23,6 +24,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -36,13 +41,27 @@ import java.util.concurrent.TimeUnit;
 public class DeleghePagoPATest {
 
 
-    private final WebDriver driver = Hooks.driver;
-    private final LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-    private final PopUpRevocaDelegaSection popUpRevocaDelegaSection = new PopUpRevocaDelegaSection(this.driver);
-    private final DataPopulation dataPopulation = new DataPopulation();
-    private final DeleghePage deleghePage = new DeleghePage(this.driver);
-    private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
-    private final DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
+    @Autowired
+    @Lazy
+    private HooksNew hooks;
+    @Autowired
+    private LeTueDelegheSection leTueDelegheSection;
+    @Autowired
+    private PopUpRevocaDelegaSection popUpRevocaDelegaSection;
+    @Autowired
+    private DataPopulation dataPopulation;
+    @Autowired
+    private DeleghePage deleghePage;
+    @Autowired
+    private LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA;
+    @Autowired
+    private DestinatarioPage destinatarioPage;
+    @Autowired
+    private NotifichePFPage notifichePFPage;
+    @Autowired
+    @Lazy
+    private BackgroundTest backgroundTest;
+
     private final MandateSingleton mandateSingleton = MandateSingleton.getInstance();
     private final RestDelegation restDelegation = RestDelegation.getInstance();
     Map<String, Object> deleghe = new HashMap<>();
@@ -52,7 +71,7 @@ public class DeleghePagoPATest {
     @When("Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe")
     public void waitDelegheButton() {
         log.info("Si clicca sul bottone deleghe");
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+//        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.waitESelectDelegheButton();
     }
 
@@ -200,7 +219,6 @@ public class DeleghePagoPATest {
         String nome = datiPersonaFisica.get("nome");
         String cognome = datiPersonaFisica.get("cognome");
 
-        BackgroundTest backgroundTest = new BackgroundTest();
         deleghePage.vaiInFondoAllaPagina();
         boolean esistenzaDelega = deleghePage.siVisualizzaUnaDelegaConNomeDelegato(nome, cognome);
         String stato = "";
@@ -301,7 +319,7 @@ public class DeleghePagoPATest {
             mandateSingleton.setScenarioMandateId(Hooks.getScenario(), response.getMandateId());
             mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()), response.getVerificationCode());
         }
-        driver.navigate().refresh();
+        hooks.getDriver().navigate().refresh();
     }
 
     @And("Si clicca sul bottone Accetta")
@@ -482,7 +500,6 @@ public class DeleghePagoPATest {
 
         String nome = personaFisica.get("nome");
         String cognome = personaFisica.get("cognome");
-        BackgroundTest backgroundTest = new BackgroundTest();
 
         if (!deleghePage.siVisualizzaUnaDelegaConNome(nome, cognome)) {
             WebTool.waitTime(5);
@@ -494,8 +511,6 @@ public class DeleghePagoPATest {
     public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelegaAccettata() {
         log.info("Si controlla che ci sia una delega accettata");
         this.deleghe = this.dataPopulation.readDataPopulation("personaFisica.yaml");
-        BackgroundTest backgroundTest = new BackgroundTest();
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         if (!this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString())) {
             backgroundTest.loginPF("personaFisica");
             backgroundTest.aggiuntaNuovaDelegaPF();
@@ -515,7 +530,6 @@ public class DeleghePagoPATest {
 
         String nome = personaFisica.get("nome");
         String cognome = personaFisica.get("cognome");
-        BackgroundTest backgroundTest = new BackgroundTest();
         deleghePage.vaiInFondoAllaPagina();
         boolean esistenzaDelega = this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(nome, cognome);
         if (!esistenzaDelega) {

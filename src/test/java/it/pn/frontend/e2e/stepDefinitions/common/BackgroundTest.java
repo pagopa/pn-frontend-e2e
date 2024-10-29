@@ -13,14 +13,19 @@ import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class BackgroundTest {
 
 //    private final WebDriver driver = Hooks.driver;
     @Autowired
+    @Lazy
     private HooksNew hooks;
     private final String nomeFileDatiNotifica = "datiNotifica";
     private final String nomeFilePersonaFisica = "personaFisica";
@@ -29,30 +34,38 @@ public class BackgroundTest {
     private final String nomeFileNuovaDelegaPG = "nuovaDelegaPG";
     private final String mittente = "mittente";
 
-    private final DeleghePagoPATest deleghePagoPATest = new DeleghePagoPATest();
-
     @Autowired
+    @Lazy
+    private DeleghePagoPATest deleghePagoPATest;
+    @Autowired
+    @Lazy
     private  RecapitiPersonaFisicaTest recapitiPersonaFisicaTest;
     @Autowired
     private LoginPGPagoPATest loginPGPagoPATest;
     @Autowired
     private LoginPersonaFisicaPagoPA personaFisicaPagoPA;
-
-    private final DeleghePGPagoPATest deleghePGPagoPATest = new DeleghePGPagoPATest();
     @Autowired
+    @Lazy
+    private DeleghePGPagoPATest deleghePGPagoPATest;
+    @Autowired
+    @Lazy
     private  DisserviziAppPGTest disserviziAppPGTest ;
 
     private final HelpdeskTest helpdeskTest = new HelpdeskTest();
 
-    private final NotifichePGPagoPATest notifichePGPagoPATest = new NotifichePGPagoPATest();
-
-    private final RecapitiTest recapitiTest = new RecapitiTest();
+    @Autowired
+    @Lazy
+    private NotifichePGPagoPATest notifichePGPagoPATest;
+    @Autowired
+    @Lazy
+    private RecapitiTest recapitiTest;
     private final Map<String, String> datiPersonaFisica;
     @Autowired
     private  RecapitiDestinatarioPage recapitiDestinatarioPage ;
     @Autowired
     private  ITuoiRecapitiPage iTuoiRecapitiPage;
 
+    @Autowired
     public BackgroundTest() {
         datiPersonaFisica = new HashMap<>();
         datiPersonaFisica.put("nome", "Lucrezia");

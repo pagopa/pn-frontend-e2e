@@ -10,9 +10,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class DeleghePage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DeleghePage");
@@ -32,7 +34,7 @@ public class DeleghePage extends BasePage {
     @FindBy(id = "dialog-close-button")
     WebElement annullaButton;
 
-
+    @Autowired
     public DeleghePage(WebDriver driver) {
         super(driver);
     }
