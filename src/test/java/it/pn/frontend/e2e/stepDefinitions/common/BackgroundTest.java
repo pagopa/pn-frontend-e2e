@@ -50,8 +50,10 @@ public class BackgroundTest {
     @Autowired
     @Lazy
     private  DisserviziAppPGTest disserviziAppPGTest ;
-
-    private final HelpdeskTest helpdeskTest = new HelpdeskTest();
+    @Autowired
+    @Lazy
+    private  HelpdeskTest helpdeskTest;
+//    private final HelpdeskTest helpdeskTest = new HelpdeskTest();
 
     @Autowired
     @Lazy

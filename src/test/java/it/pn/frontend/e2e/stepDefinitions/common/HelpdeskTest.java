@@ -39,23 +39,17 @@ public class HelpdeskTest {
     @Autowired
     @Lazy
     private HooksNew hooks;
-//    private final WebDriver driver = Hooks.driver;
     @Autowired
     private DataPopulation dataPopulation;
     @Autowired
     @Lazy
     private WebDriverConfig webDriverConfig;
-
     @Autowired
     private HelpdeskPage helpdeskPage ;
-
     @Autowired
     private BackgroundTest backgroundTest;
-
     private Map<String, Object> datiTestHelpdesk = new HashMap<>();
     private Map<String, Object> datiPersonaFisica = new HashMap<>();
-
-
 
     @Given("Login helpdesk con utente test {string}")
     public void loginHelpdeskConUtenteTest(String nameFile) {
