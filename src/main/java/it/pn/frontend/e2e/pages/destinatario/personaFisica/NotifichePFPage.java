@@ -8,10 +8,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Component
 public class NotifichePFPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("NotifichePFPage");
 
@@ -66,6 +69,7 @@ public class NotifichePFPage extends BasePage {
     @FindBy(xpath = "//button[@data-testid='download-pagoPA-notice-button']")
     WebElement buttonDownloadAvvisoPagoPA;
 
+    @Autowired
     public NotifichePFPage(WebDriver driver) {
         super(driver);
     }

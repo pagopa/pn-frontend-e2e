@@ -9,9 +9,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class SelezionaEntePAPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("SelezionaEntePAPage");
@@ -25,7 +28,7 @@ public class SelezionaEntePAPage extends BasePage {
     @FindBy(id = "search")
     WebElement comuneSearchField;
 
-
+    @Autowired
     public SelezionaEntePAPage(WebDriver driver) {
         super(driver);
     }
@@ -58,9 +61,10 @@ public class SelezionaEntePAPage extends BasePage {
 
     public void selezionaAccedi() {
         Actions actions = new Actions(driver);
+        accediButton = driver.findElement(By.xpath("//button[text()='Accedi']"));
         getWebDriverWait(60).withMessage("il buttone Accedi non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(this.accediButton));
-        actions.moveToElement(this.accediButton).click().perform();
+                .until(ExpectedConditions.elementToBeClickable(accediButton));
+        actions.moveToElement(accediButton).click().perform();
     }
 
     public void cercaComune(String comune) {

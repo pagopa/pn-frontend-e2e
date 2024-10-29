@@ -16,6 +16,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,13 +25,18 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+@Component
 public class DisserviziAppPAPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("Disservizi PA Page");
 
-    private DataPopulation dataPopulation = new DataPopulation();
-    @Autowired
-    private WebDriverConfig webDriverConfig;
+    @Value("${downloadFilePath}")
+    private String downloadFilePath;
 
+
+    @Autowired
+    private DataPopulation dataPopulation;
+
+    @Autowired
     public DisserviziAppPAPage(WebDriver driver) {
         super(driver);
     }
@@ -300,7 +307,7 @@ public class DisserviziAppPAPage extends BasePage {
 public boolean confrontoFileConDisservizio() {
     getDateDisservice();
     logger.info("date prese con successo dal disserivizio");
-    String folderPath = webDriverConfig.getDownloadFilePath();
+    String folderPath = downloadFilePath;
     // Stringa da cercare nel nome del file
     String searchString = "PN_DOWNTIME_LEGAL_FACTS";
     // Creazione di un oggetto File che rappresenta la cartella

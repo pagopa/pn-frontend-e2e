@@ -6,11 +6,11 @@ Feature: Login pagoPA
 
   Scenario: Login pagoPA mittente
     Given Login Page mittente viene visualizzata
-      | url | https://selfcare.dev.notifichedigitali.it |
+      | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente
-      | user   | ggiorgi |
+      | user   | albino63 |
       | pwd    | test    |
-      | comune | Viggiu  |
+      | comune | Verona  |
     Then Home page mittente viene visualizzata correttamente
     And Logout da portale mittente
 

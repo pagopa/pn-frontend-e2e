@@ -31,6 +31,8 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -41,6 +43,7 @@ import java.util.concurrent.TimeUnit;
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 import static org.apache.commons.lang3.StringUtils.substring;
 
+@Primary
 public class NotificaMittentePagoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittentePagoPATest");
@@ -78,17 +81,19 @@ public class NotificaMittentePagoPATest {
     private String ApiKey;
 
     @Autowired
-    private CookieConfig cookieConfig;
+    private CookiesSection cookiesSection;
     @Autowired
     private WebDriverConfig webDriverConfig;
     @Autowired
+    @Lazy
     private HooksNew hooks;
 
-//    private final WebDriver driver = hooks.getDriver();
+    @Autowired
+    private AreaRiservataPAPage areaRiservataPAPage;
+
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
-        AreaRiservataPAPage areaRiservataPAPage = new AreaRiservataPAPage(hooks.getDriver());
         logger.info("Cliccare sul bottone di Piattaforma Notifiche dell'Ambiente " + webDriverConfig.getEnvironment());
         switch (webDriverConfig.getEnvironment()) {
             case "dev" -> areaRiservataPAPage.selezionaPiattaformaNotificaDev();
@@ -453,8 +458,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche accetta i Cookies")
     public void nellaPaginaPiattaformaNotificheAccettaICookies() {
-        if (!cookieConfig.isCookieEnabled()) {
-            CookiesSection cookiesSection = new CookiesSection(hooks.getDriver());
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             cookiesSection.waitLoadCookiesPage();
             cookiesSection.selezionaAccettaTuttiButton();
         }
@@ -636,31 +640,26 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche si cambia pagina utilizzando una freccetta")
     public void nellaPaginaPiattaformaNotificheSiCambiaPaginaUtilizzandoUnaFreccetta() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnaFrecetta(1);
     }
 
     @And("Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta {int}")
     public void nellaPaginaStatoDellaPiattaformaSiCambiaPaginaUtilizzandoUnaFreccetta(Integer numPage) {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnaFrecetta(numPage);
     }
 
     @And("Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino all'ultima")
     public void nellaPaginaStatoDellaPiattaformaSiCambiaPaginaUtilizzandoUnaFreccetta() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.selezionaUltimaPaginaUtilizzandoUnaFrecetta();
     }
 
     @And("Nella pagina Piattaforma Notifiche si cambia pagina utilizzando un numero")
     public void nellaPaginaPiattaformaNotificheSiCambiaPaginaUtilizzandoUnNumero() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnNumero();
     }
 
     @Then("Nella pagina Piattaforma Notifiche si cambia il numero elementi visualizzati attraverso il filtro")
     public void nellaPaginaPiattaformaNotificheSiCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltroNumeroNotifiche() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
     }
 
@@ -739,7 +738,6 @@ public class NotificaMittentePagoPATest {
 
     @And("Si verifica che la notifica sia nello stato avanzato")
     public void siVerificaCheLaNotificaSiaNelloStato() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage((hooks.getDriver()));
 
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         boolean notificaTrovata = false;
@@ -768,7 +766,6 @@ public class NotificaMittentePagoPATest {
 
     @And("Si verifica che l'invio della pec sia in corso")
     public void siVerificaCheLInvioDellaPecSiaInCorso() {
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(hooks.getDriver());
         dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
         dettaglioNotificaMittenteSection.verificaInvioPECInCorso();
     }
@@ -785,11 +782,10 @@ public class NotificaMittentePagoPATest {
         String dataNotifica = dateFormat.format(date).replace("-", "/");
 
         String codiceIUNOld = this.datiNotifica.get("codiceIUN").toString();
-        CookiesSection cookiesSection = new CookiesSection(hooks.getDriver());
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
                 piattaformaNotifichePage.aggiornamentoPagina();
-                if (!cookieConfig.isCookieEnabled()) {
+                if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
                     if (cookiesSection.waitLoadCookiesPage()) {
                         cookiesSection.selezionaAccettaTuttiButton();
                     }
@@ -931,8 +927,6 @@ public class NotificaMittentePagoPATest {
     @And("Nella section Allegati caricare l'atto e inserire il nome atto con estenzione non valida")
     public void nellaSectionAllegatiCaricareLAttoEInserireIlNomeAttoConEstenzioneNonValida() {
         logger.info("Si inserisce un file con estensione sbagliata");
-
-        AllegatiPASection allegatiPASection = new AllegatiPASection(hooks.getDriver());
         String pathDocumentiFile = System.getProperty("user.dir") + "/src/test/resources/dataPopulation/fileUpload/semiOfficial1.jpg";
         allegatiPASection.caricareNotificaPdfDalComputer(pathDocumentiFile);
     }
@@ -1001,12 +995,11 @@ public class NotificaMittentePagoPATest {
         String codiceFiscale = this.personaFisica.get("codiceFiscale").toString();
 
         String codiceIUNOld = this.datiNotifica.get("codiceIUN").toString();
-        CookiesSection cookiesSection = new CookiesSection(hooks.getDriver());
         String codiceIUN = "";
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
                 piattaformaNotifichePage.aggiornamentoPagina();
-                if (!cookieConfig.isCookieEnabled()) {
+                if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
                     if (cookiesSection.waitLoadCookiesPage()) {
                         cookiesSection.selezionaAccettaTuttiButton();
                     }
@@ -1654,8 +1647,6 @@ public class NotificaMittentePagoPATest {
     public void siVerificaCheLaNotificaSiaNelloStatoConsegnata() {
         logger.info("Si verifica che la notifica sia nello stato consegnata");
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage((hooks.getDriver()));
-
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         boolean notificaTrovata = false;
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
@@ -1762,7 +1753,6 @@ public class NotificaMittentePagoPATest {
     @And("Creazione notifica completa")
     public void creazioneNotificaCompleta(Map<String,String> datiNotificaMap) {
         logger.info("Inserimento dei dati della notifica senza pagamento " );
-        AllegatiPASection allegatiPASection = new AllegatiPASection(hooks.getDriver());
         File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
         datiNotifica = dataPopulation.readDataPopulation(datiNotificaMap.get("nomeFileYaml") + ".yaml");
 

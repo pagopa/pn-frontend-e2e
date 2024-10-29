@@ -13,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -30,6 +31,7 @@ Gestione delle eccezioni: Ho migliorato il tracciamento delle eccezioni, fornend
 *
 * */
 
+@Component
 public class DownloadFile extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DownloadFile");
@@ -37,6 +39,7 @@ public class DownloadFile extends BasePage {
     @Autowired
     private WebDriverConfig webDriverConfig;
 
+    @Autowired
     public DownloadFile(WebDriver driver) {
         super(driver);
     }

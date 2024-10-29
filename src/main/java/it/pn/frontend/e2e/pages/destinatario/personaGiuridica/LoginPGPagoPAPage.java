@@ -10,7 +10,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class LoginPGPagoPAPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("LoginPGPagoPAPage");
@@ -24,6 +27,7 @@ public class LoginPGPagoPAPage extends BasePage {
     @FindBy(xpath = "//button[@name = 'confirm']")
     WebElement inviaButton;
 
+    @Autowired
     public LoginPGPagoPAPage(WebDriver driver) {
         super(driver);
     }

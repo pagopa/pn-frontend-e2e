@@ -10,6 +10,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.Map;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
+@Component
 public class DettaglioNotificaSection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
 
@@ -38,6 +41,7 @@ public class DettaglioNotificaSection extends BasePage {
     @FindBy(id = "breadcrumb-indietro-button")
     WebElement indietroButton;
 
+    @Autowired
     public DettaglioNotificaSection(WebDriver driver) {
         super(driver);
     }

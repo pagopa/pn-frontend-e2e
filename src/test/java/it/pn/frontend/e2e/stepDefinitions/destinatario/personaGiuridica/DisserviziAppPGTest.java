@@ -2,30 +2,42 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
-import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DisserviziAppPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.WebTool;
-
+import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Set;
 
+
 public class DisserviziAppPGTest {
-    private final WebDriver driver = Hooks.driver;
 
     private final Logger logger = LoggerFactory.getLogger("DisserviziAppPGTest");
 
-    private final DisserviziAppPage disserviziAppPage = new DisserviziAppPage(this.driver);
+    @Setter
+    private WebDriver driver;
+    @Autowired
+    private  DisserviziAppPage disserviziAppPage;
+    @Autowired
+    private  PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
+
+
+    @Autowired
+    public DisserviziAppPGTest(WebDriver driver) {
+        this.driver = driver;
+    }
 
 
     @Given("Nella dashboard persona giuridica clicca su disservizi app")
     public void nellaDashboardPersonaGiuridicaCliccaSuDisserviziApp() {
-        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+
         logger.info("click sul bottone disservisi nel menu laterale");
         piattaformaNotifichePGPAPage.clickOnButtonEnterIntoDisservizi();
     }
@@ -76,4 +88,6 @@ public class DisserviziAppPGTest {
         disserviziAppPage.waitLoadStatoDellaPiattaformaPage();
 
     }
+
+
 }

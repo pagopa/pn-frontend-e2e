@@ -10,7 +10,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ConfermaDatiSpidPFPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("ConfermaDatiSpidPFPage");
@@ -27,7 +30,7 @@ public class ConfermaDatiSpidPFPage extends BasePage {
     @FindBy(css = "input[value='Conferma']")
     WebElement confermaButton;
 
-
+    @Autowired
     public ConfermaDatiSpidPFPage(WebDriver driver) {
         super(driver);
     }

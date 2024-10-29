@@ -10,7 +10,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class LoginSpidPFPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("LoginSpidPFPage");
@@ -24,7 +27,7 @@ public class LoginSpidPFPage extends BasePage {
     @FindBy(xpath = "//button[contains(@class,'button-spid')]")
     WebElement entraConSpidButton;
 
-
+    @Autowired
     public LoginSpidPFPage(WebDriver driver) {
         super(driver);
     }

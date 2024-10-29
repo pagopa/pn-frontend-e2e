@@ -10,7 +10,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ScegliSpidPFPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("ScegliSpidPFPage");
@@ -18,6 +21,7 @@ public class ScegliSpidPFPage extends BasePage {
     @FindBy(id = "spid-select-xx_testenv2")
     WebElement testButton;
 
+    @Autowired
     public ScegliSpidPFPage(WebDriver driver) {
         super(driver);
     }

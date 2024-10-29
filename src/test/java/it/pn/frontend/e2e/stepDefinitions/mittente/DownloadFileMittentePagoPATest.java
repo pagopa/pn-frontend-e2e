@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
@@ -29,26 +30,39 @@ import java.util.concurrent.TimeUnit;
 
 public class DownloadFileMittentePagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("DownloadFileMittentePagoPATest");
-    private final WebDriver driver = Hooks.driver;
     private Map<String, Object> datiNotifica = new HashMap<>();
-    private DownloadFile downloadFile;
+
 
     @Autowired
+    private DataPopulation dataPopulation;
+    @Autowired
+    private DownloadFile downloadFile;
+    @Autowired
+    private HooksNew hooks;
+    @Autowired
+    private DisserviziAppPAPage disserviziAppPAPage;
+    @Autowired
     private WebDriverConfig webDriverConfig;
+    @Autowired
+    private PiattaformaNotifichePage piattaformaNotifichePage;
+    @Autowired
+    private DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection;
+    @Autowired
+    private DettaglioNotificaSection dettaglioNotificaSection;
+
+
+
 
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
     public void clickNotificaRestituita() {
         logger.info("Si clicca sulla notifica restituita");
         logger.info("GENERATED IUN: {}", System.getProperty("IUN"));
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.selezionaNotificaIUN(System.getProperty("IUN"));
     }
 
     @And("Si visualizza correttamente la sezione Dettaglio Notifica")
     public void siVisualizzaCorrettamenteLaSezioneDettaglioNotifica() {
         logger.info("Viene caricato correttamente la sezione Dettaglio Notifica");
-
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
     }
 
@@ -56,13 +70,9 @@ public class DownloadFileMittentePagoPATest {
     public void downloadECheckFile() {
         logger.info("Si scaricano tutti i file all'interno della notifica");
 
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        DataPopulation dataPopulation = new DataPopulation();
-
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
-        downloadFile = new DownloadFile(this.driver);
+
         boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
@@ -162,13 +172,8 @@ public class DownloadFileMittentePagoPATest {
     public void downloadDocumentiAllegati() {
         logger.info("Si scaricano solo i documenti Allegati all'interno della notifica");
 
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        DataPopulation dataPopulation = new DataPopulation();
-
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
-        DownloadFile downloadFile = new DownloadFile(this.driver);
         boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
@@ -212,34 +217,29 @@ public class DownloadFileMittentePagoPATest {
 
     @Then("Si clicca sul documento allegato")
     public void clickDocumentoAllegato() {
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         dettaglioNotificaMittenteSection.clickLinkDocumentiAllegati();
-        driver.navigate().back();
+        hooks.getDriver().navigate().back();
     }
 
     @Then("Si clicca sul documento AAR")
     public void clickDocumentoAAR() {
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         dettaglioNotificaMittenteSection.clickLinkAvvenutaRicezione(0);
-        driver.navigate().back();
+        hooks.getDriver().navigate().back();
     }
 
     @Then("Si clicca sul documento Attestazione")
     public void clickDocumentoAttestazione() {
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         dettaglioNotificaSection.clickLinkAttestazioniOpponibile(0);
-        driver.navigate().back();
+        hooks.getDriver().navigate().back();
     }
 
     @Then("Si verifica che il link sul documento Attestazione è cliccabile")
     public void toBeClickableDocumentoAttestazioneCliccable() {
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         dettaglioNotificaSection.toBeClickableLinkAttestazioniOpponibile(0);
     }
 
     @Then("Si clicca sul documento Attestazione scaduta")
     public void clickDocumentoAttestazioneScaduta() {
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         dettaglioNotificaSection.clickLinkAttestazioniOpponibile(0);
     }
 
@@ -247,15 +247,10 @@ public class DownloadFileMittentePagoPATest {
     public void downloadFileAAR() {
         logger.info("Si scaricano solo i file AAR all'interno della notifica");
 
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        DataPopulation dataPopulation = new DataPopulation();
-
         String workingDirectory = System.getProperty("user.dir");
         String variabileAmbiente = webDriverConfig.getEnvironment();
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
-        DownloadFile downloadFile = new DownloadFile(this.driver);
-        boolean headless = System.getProperty("headless").equalsIgnoreCase("true");
+        boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }
@@ -297,13 +292,9 @@ public class DownloadFileMittentePagoPATest {
     public void downloadAttestazioniOpponibili() {
         logger.info("Si scaricano solo i file per attestazioni opponibili all'interno della notifica");
 
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        DataPopulation dataPopulation = new DataPopulation();
-
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
-        DownloadFile downloadFile = new DownloadFile(this.driver);
+
         boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
@@ -348,14 +339,10 @@ public class DownloadFileMittentePagoPATest {
     @And("Nella sezione Dettaglio Notifiche si seleziona il file, {string}, da scaricare")
     public void siSelezionanoIlFileDaScaricare(String nomeFile) {
         logger.info("Si cerca di scaricare il file " + nomeFile);
-
-        DataPopulation dataPopulation = new DataPopulation();
         boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibile(nomeFile);
         WebTool.waitTime(5);
-        downloadFile = new DownloadFile(this.driver);
 
         final String url = downloadFile.getUrl(webDriverConfig.getBaseUrl() + "notifications/sent/");
         if (headless && url.isEmpty()) {
@@ -374,8 +361,6 @@ public class DownloadFileMittentePagoPATest {
     @Then("Si controlla il testo all interno del file {string}")
     public void siControllaIlTestoAlSuoInterno(String nomeFile) {
         logger.info("Si controlla che il testo al suo interno si corretto");
-
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         Map<String, String> infoNotifiche = dettaglioNotificaMittenteSection.recuperoInfoNotifiche();
         if (nomeFile.contains("PN_NOTIFICATION_ATTACHMENTS")) {
             if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, "A Simple PDF File")) {
@@ -435,7 +420,6 @@ public class DownloadFileMittentePagoPATest {
     public void nellaPaginaPiattaformaNotificheSiRecuperaUnCodiceIUN() {
         logger.info("Nella pagina Piattaforma Notifiche si recupera un codice IUN");
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         piattaformaNotifichePage.waitLoadingSpinner();
@@ -455,8 +439,6 @@ public class DownloadFileMittentePagoPATest {
     @And("Nella pagina Piattaforma Notifiche si verifica l'esistenza della notifica con il codice IUN")
     public void nellaPaginaPiattaformaNotificheSiVerificaLEsistenzaDellaNotificaConIlCodiceIUN() {
         logger.info("Si verifica l'esistenza della notifica con il codice IUN");
-
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         BackgroundTest backgroundTest = new BackgroundTest();
         DataPopulation dataPopulation = new DataPopulation();
 
@@ -472,8 +454,6 @@ public class DownloadFileMittentePagoPATest {
     public void downloadFileAttestazioneDisservizio() {
         logger.info("si effettua download del disservizio");
 
-        DisserviziAppPAPage disserviziAppPAPage = new DisserviziAppPAPage(driver);
-
         disserviziAppPAPage.downloadAttestazione();
         WebTool.waitTime(3);
     }
@@ -482,28 +462,22 @@ public class DownloadFileMittentePagoPATest {
     public void downloadFileAttestazioneDisservizio(Integer index) {
         logger.info("si effettua download del disservizio");
 
-        DisserviziAppPAPage disserviziAppPAPage = new DisserviziAppPAPage(driver);
-
         disserviziAppPAPage.downloadAttestazione(index);
         WebTool.waitTime(3);
     }
 
     @And("Nella pagina stato della piattaforma si cambia il numero elementi visualizzati attraverso il filtro")
     public void nellaPaginaStatoDellaPiattaformaSiCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltroNumeroNotifiche() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
     }
 
     @And("Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta")
     public void nellaPaginaStatoDellaPiattaformaSiCambiaPaginaUtilizzandoUnaFreccetta() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnaFrecetta(8);
     }
 
     @And("Si controlla che esista pop up scadenza")
     public void siControllaCheEsistaPopUpScadenza() {
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(driver);
-
         dettaglioNotificaSection.checkMessaggioScadenzaDownload();
     }
 

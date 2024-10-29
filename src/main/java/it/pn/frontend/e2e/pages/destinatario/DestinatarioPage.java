@@ -26,12 +26,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Slf4j
+@Component
 public class DestinatarioPage extends BasePage {
 
     @Getter
@@ -42,11 +44,9 @@ public class DestinatarioPage extends BasePage {
     private static final NotificationBuilder notificationBuilder = new NotificationBuilder();
     private  int destinatariNumber;
 
-    @Autowired
-    private HooksNew hooks;
-    private final WebDriver driver = hooks.getDriver();
 
     //Questa classe è utilizzata per metodi in comune tra PF e PG
+    @Autowired
     public DestinatarioPage(WebDriver driver) {
         super(driver);
     }

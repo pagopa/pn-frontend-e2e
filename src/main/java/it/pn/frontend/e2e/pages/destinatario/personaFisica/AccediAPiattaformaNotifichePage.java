@@ -7,9 +7,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class AccediAPiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("AccediAPiattaformaNotifichePage");
@@ -77,18 +80,18 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     List<WebElement> pagopaAllegatoItems;
 
 
-
+    @Autowired
     public AccediAPiattaformaNotifichePage(WebDriver driver) {
         super(driver);
     }
 
     public void waitLoadAccediAPiattaformaNotifichePage() {
 
-            By titleLabel = By.id("login-mode-page-title");
-            By loginBy = By.id("spidButton");
-            getWebDriverWait(30).withMessage("Il titolo della pagina accedi a piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
-            getWebDriverWait(30).withMessage("Il bottone login della pagina accedi a piattaforma notifiche non è visibile e cliccabile").until(ExpectedConditions.and(ExpectedConditions.visibilityOfElementLocated(loginBy),ExpectedConditions.elementToBeClickable(loginBy)));
-            logger.info("Accedi A Piattaforma Notifiche Page caricata");
+        By titleLabel = By.id("login-mode-page-title");
+        By loginBy = By.id("spidButton");
+        getWebDriverWait(30).withMessage("Il titolo della pagina accedi a piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
+        getWebDriverWait(30).withMessage("Il bottone login della pagina accedi a piattaforma notifiche non è visibile e cliccabile").until(ExpectedConditions.and(ExpectedConditions.visibilityOfElementLocated(loginBy), ExpectedConditions.elementToBeClickable(loginBy)));
+        logger.info("Accedi A Piattaforma Notifiche Page caricata");
 
     }
 
@@ -193,7 +196,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     //TODO Verificare....
     public boolean piuAvvisiDisplayed() {
-        if (pagopaItems.isEmpty()){
+        if (pagopaItems.isEmpty()) {
             logger.info("Avvisi pagoPa sono trovati");
             return true;
         }
@@ -201,7 +204,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         if (pagopaItems.size() < 2) {
             logger.info("Avvisi pagoPa non sono trovati");
             return false;
-        }else {
+        } else {
             logger.info("Avvisi pagoPa sono trovati");
             return true;
         }
@@ -211,7 +214,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         if (pagopaAllegatoItems.isEmpty()) {
             logger.info("Allegati pagoPa non sono trovati");
             return true;
-        }else {
+        } else {
             return false;
         }
     }
@@ -310,7 +313,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         driver.switchTo().defaultContent();
 
         WebTool.waitTime(5);
-        WebElement continuaBottone = driver.findElement(By.xpath("//button[@aria-label='Continue']") ); //for local test use //button[@aria-label='Continua']
+        WebElement continuaBottone = driver.findElement(By.xpath("//button[@aria-label='Continue']")); //for local test use //button[@aria-label='Continua']
         getWebDriverWait(8).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(continuaBottone));
         continuaBottone.click();
 
@@ -322,17 +325,17 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         modificaButton.click();
 
         WebTool.waitTime(10);
-        List<WebElement> nexiButton =  driver.findElements(By.xpath("//div[contains(text(),'Intesa Sanpaolo S.p.A')]"));
+        List<WebElement> nexiButton = driver.findElements(By.xpath("//div[contains(text(),'Intesa Sanpaolo S.p.A')]"));
         WebTool.waitTime(10);
         //getWebDriverWait(10).withMessage("Il bottone Nexi non è cliccabile").until(ExpectedConditions.elementToBeClickable(nexiButton));
-        if (nexiButton.size()==2){
+        if (nexiButton.size() == 2) {
             nexiButton.get(1).click();
-        }else {
+        } else {
             nexiButton.get(0).click();
         }
         WebTool.waitTime(5);
 
-        WebElement pagaButton =  driver.findElement(By.xpath("//button[@id='paymentCheckPageButtonPay']"));
+        WebElement pagaButton = driver.findElement(By.xpath("//button[@id='paymentCheckPageButtonPay']"));
         getWebDriverWait(5).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
         pagaButton.click();
         WebTool.waitTime(50);
