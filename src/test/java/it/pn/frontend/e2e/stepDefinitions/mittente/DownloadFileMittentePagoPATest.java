@@ -29,8 +29,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-
+@Component
 public class DownloadFileMittentePagoPATest {
+
     private static final Logger logger = LoggerFactory.getLogger("DownloadFileMittentePagoPATest");
     private Map<String, Object> datiNotifica = new HashMap<>();
 
@@ -95,6 +96,7 @@ public class DownloadFileMittentePagoPATest {
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }
+
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         int count = 1;
 
@@ -106,13 +108,9 @@ public class DownloadFileMittentePagoPATest {
         } else {
             codiceIUN = dettaglioNotificaMittenteSection.getInfoNotifica(4);
         }
-        dettaglioNotificaMittenteSection.clickLinkDocumentiAllegati();
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
 
+        dettaglioNotificaMittenteSection.clickLinkDocumentiAllegati();
+        WebTool.waitTime(5);
 
         final String filepath = workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN";
 
@@ -120,27 +118,26 @@ public class DownloadFileMittentePagoPATest {
 
         final String urlDocumentiAllegati = downloadFile.getUrl(urlDocumenti);
         File file = new File(filepath + count + ".pdf");
+
         if (headless && urlDocumentiAllegati.isEmpty()) {
             String testoLink = dettaglioNotificaMittenteSection.getTextDocumentiAllegati();
             logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
             Assertions.fail("Non è stato recuperato url per il download per il link: " + testoLink);
         }
+
         downloadFile.download(urlDocumentiAllegati, file, headless);
         if (!headless) {
             dettaglioNotificaSection.goBack();
         }
+
         dettaglioNotificaSection.waitLoadDettaglioNotificaDESection();
-        count = count + 1;
+        count++;
 
         int numeroLinkAvvenutaRicezione = dettaglioNotificaMittenteSection.getLinkAvvenutaRicezione();
         for (int i = 1; i < numeroLinkAvvenutaRicezione; i++) {
             dettaglioNotificaMittenteSection.clickLinkAvvenutaRicezione(i);
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            final String url = baseUrl + "notifications/sent/" + codiceIUN + "/documents/AAR?documentId=safestorage:";
+            WebTool.waitTime(5);
+            final String url = webDriverConfig.getBaseUrl() + "notifications/sent/" + codiceIUN + "/documents/AAR?documentId=safestorage:";
             final String urlAvvenutaRicezione = downloadFile.getUrl(url);
             if (headless && urlAvvenutaRicezione.isEmpty()) {
                 String testoLink = dettaglioNotificaMittenteSection.getTextLinkAvvenutaRicezione(i);
@@ -148,8 +145,6 @@ public class DownloadFileMittentePagoPATest {
                 Assertions.fail("Non è stato recuperato url per il download per il link: " + testoLink);
             }
             file = new File(filepath + count + ".pdf");
-            count = count + 1;
-
             downloadFile.download(urlAvvenutaRicezione, file, headless);
             if (!headless) {
                 dettaglioNotificaSection.goBack();
@@ -161,34 +156,38 @@ public class DownloadFileMittentePagoPATest {
 
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
             dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            final String urlFileAttestazioneOppponibile = downloadFile.getUrl(baseUrl);
-            if (headless && urlFileAttestazioneOppponibile.isEmpty()) {
+            WebTool.waitTime(5);
+            final String urlFileAttestazioneOpponibile = downloadFile.getUrl(webDriverConfig.getBaseUrl());
+            if (headless && urlFileAttestazioneOpponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
                 logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
                 Assertions.fail("Non è stato recuperato url per il download per il link: " + testoLink);
             }
             file = new File(filepath + count + ".pdf");
-            count = count + 1;
-            downloadFile.download(urlFileAttestazioneOppponibile, file, headless);
+            downloadFile.download(urlFileAttestazioneOpponibile, file, headless);
             if (!headless) {
                 dettaglioNotificaSection.goBack();
             }
             dettaglioNotificaSection.waitLoadDettaglioNotificaDESection();
+            count++;
         }
-        count = count - 1;
         final String pathOfDownloadedFile = workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente";
-        downloadFile.controlloDownload(pathOfDownloadedFile, count);
+        downloadFile.controlloDownload(pathOfDownloadedFile, count - 1);
+    }
 
+    @And("Si visualizza correttamente la tabella dei disservizi")
+    public void siVisualizzaCorrettamenteLaTabellaDeiDisservizi() {
+        logger.info("Si visualizza correttamente la tabella dei disservizi");
+        DisserviziAppPAPage disserviziAppPAPage = new DisserviziAppPAPage(driver);
+        disserviziAppPAPage.waitLoadDisserviziTable();
     }
 
     @And("Nella sezione Dettaglio Notifiche si scarica il documento allegato")
     public void downloadDocumentiAllegati() {
         logger.info("Si scaricano solo i documenti Allegati all'interno della notifica");
+
+        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(driver);
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(driver);
 
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
@@ -207,11 +206,7 @@ public class DownloadFileMittentePagoPATest {
             codiceIUN = dettaglioNotificaMittenteSection.getInfoNotifica(4);
         }
         dettaglioNotificaMittenteSection.clickLinkDocumentiAllegati();
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        WebTool.waitTime(5);
 
         final String filepath = workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN";
         final String urlDocumenti = baseUrl + "notifications/sent/" + codiceIUN + "/attachments/documents/0";
@@ -227,8 +222,6 @@ public class DownloadFileMittentePagoPATest {
             dettaglioNotificaMittenteSection.goBack();
         }
         dettaglioNotificaSection.waitLoadDettaglioNotificaDESection();
-        count++;
-
         final String pathOfDownloadedFile = workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente";
         downloadFile.controlloDownload(pathOfDownloadedFile, count);
     }
@@ -264,6 +257,11 @@ public class DownloadFileMittentePagoPATest {
     @And("Nella sezione Dettaglio Notifiche si scarica il file AAR")
     public void downloadFileAAR() {
         logger.info("Si scaricano solo i file AAR all'interno della notifica");
+
+        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        DataPopulation dataPopulation = new DataPopulation();
+
 
         String workingDirectory = System.getProperty("user.dir");
         String variabileAmbiente = environment;
@@ -309,6 +307,10 @@ public class DownloadFileMittentePagoPATest {
     @And("Nella sezione Dettaglio Notifiche si scarica il file Attestazioni Opponibili")
     public void downloadAttestazioniOpponibili() {
         logger.info("Si scaricano solo i file per attestazioni opponibili all'interno della notifica");
+
+        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
+        DataPopulation dataPopulation = new DataPopulation();
 
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");

@@ -2,8 +2,6 @@ package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
-import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
@@ -14,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -22,12 +21,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+
+@Component // Rende la classe un bean Spring per l'iniezione in altre classi
 public class DashboardPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DashboardMittentePagoPA");
-    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
-    private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
 
+    @Autowired
+    private NotificationSingleton notificationSingleton;
 
     @FindBy(id = "menu-item(statistiche)")
     WebElement sezioneStatistiche;
@@ -83,7 +84,7 @@ public class DashboardPage extends BasePage {
     @Autowired
     private WebDriverConfig webDriverConfig;
 
-
+    @Autowired
     public DashboardPage(WebDriver driver) {
         super(driver);
     }
@@ -123,57 +124,55 @@ public class DashboardPage extends BasePage {
     }
 
     public void checkVisualizzaGraficoTempoMedioInviiDigitali() {
-        getWebDriverWait(10).withMessage("Il grafico Errori tecnici per tipologia non visibile").until(ExpectedConditions.visibilityOf(graficoErroriTecnici));
-        logger.info("Si visualizza il grafico Errori tecnici per tipologia");
-    }
-
-    public void checkVisualizzaGraficoErroriTecnici(){
         getWebDriverWait(10).withMessage("Il grafico Tempo medio degli invii digitali non visibile").until(ExpectedConditions.visibilityOf(graficoTempoMedioInviiDigitali));
         logger.info("Si visualizza il grafico Tempo medio degli invii digitali");
     }
 
-    public void checkVisualizzaGraficoInviatePerStato(){
+    public void checkVisualizzaGraficoErroriTecnici() {
+        getWebDriverWait(10).withMessage("Il grafico Errori tecnici non visibile").until(ExpectedConditions.visibilityOf(graficoErroriTecnici));
+        logger.info("Si visualizza il grafico Errori tecnici");
+    }
+
+    public void checkVisualizzaGraficoInviatePerStato() {
         getWebDriverWait(10).withMessage("la sezione Notifiche inviate per stato non visibile").until(ExpectedConditions.visibilityOf(sezioneNotificheInviatePerStato));
         logger.info("Si visualizza la sezione Notifiche inviate per stato e grafico");
     }
 
-    public void checkVisualizzaGraficoConsegnatePerModalitaInvio(){
+    public void checkVisualizzaGraficoConsegnatePerModalitaInvio() {
         getWebDriverWait(10).withMessage("la sezione Notifiche consegnate per modalità di invio non visibile").until(ExpectedConditions.visibilityOf(sezioneNotificheConsegnatePerModalitaInvio));
         logger.info("Si visualizza la sezione Notifiche consegnate per modalità di invio e grafico");
     }
 
-   public void insertDataErrata(){
-       getWebDriverWait(10).withMessage("Il filtro di data non visibile").until(ExpectedConditions.visibilityOf(dateDa.get(0)));
-       logger.info("Si inserisce una data errata");
-       dateDa.get(0).click();
-       Actions action = new Actions(driver);
-       action.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
-       WebTool.waitTime(1);
-       dateDa.get(0).sendKeys("01/01/1111");
+    public void insertDataErrata() {
+        getWebDriverWait(10).withMessage("Il filtro di data non visibile").until(ExpectedConditions.visibilityOf(dateDa.get(0)));
+        logger.info("Si inserisce una data errata");
+        dateDa.get(0).click();
+        new Actions(driver)
+                .keyDown(Keys.CONTROL)
+                .sendKeys("a")
+                .keyUp(Keys.CONTROL)
+                .sendKeys(Keys.BACK_SPACE)
+                .perform();
+        WebTool.waitTime(1);
+        dateDa.get(0).sendKeys("01/01/1111");
     }
 
-    public void insertDataErrataNotificheDigitali(){
-        getWebDriverWait(10).withMessage("Il filtro di data non visibile").until(ExpectedConditions.visibilityOf(dateDa.get(1)));
-        logger.info("Si inserisce una data errata");
-        dateDa.get(1).click();
-        Actions action = new Actions(driver);
-        action.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
-        WebTool.waitTime(1);
-        dateDa.get(1).sendKeys("01/01/1111");
-    }
-    public void insertDataCorretta(){
+    public void insertDataCorretta() {
         getWebDriverWait(10).withMessage("Il filtro di data non visibile").until(ExpectedConditions.visibilityOf(dateDa.get(0)));
         logger.info("Si inserisce una data corretta");
         dateDa.get(0).click();
-        Actions action = new Actions(driver);
-        action.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
+        new Actions(driver)
+                .keyDown(Keys.CONTROL)
+                .sendKeys("a")
+                .keyUp(Keys.CONTROL)
+                .sendKeys(Keys.BACK_SPACE)
+                .perform();
         LocalDate dataDaInserire = LocalDate.now().minusDays(90);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedDate = dataDaInserire.format(formatter);
         WebTool.waitTime(1);
         dateDa.get(0).sendKeys(formattedDate);
     }
-
     public void insertDataCorrettaNotificheDigitali(){
         getWebDriverWait(10).withMessage("Il filtro di data non visibile").until(ExpectedConditions.visibilityOf(dateDa.get(1)));
         logger.info("Si inserisce una data corretta");
