@@ -20,6 +20,8 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
 
 import java.awt.*;
 import java.io.IOException;
@@ -30,15 +32,18 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+@Primary
 public class HelpdeskTest {
     private final Logger logger = LoggerFactory.getLogger("HelpdeskAppTest");
 
     @Autowired
+    @Lazy
     private HooksNew hooks;
 //    private final WebDriver driver = Hooks.driver;
     @Autowired
     private DataPopulation dataPopulation;
     @Autowired
+    @Lazy
     private WebDriverConfig webDriverConfig;
 
     @Autowired

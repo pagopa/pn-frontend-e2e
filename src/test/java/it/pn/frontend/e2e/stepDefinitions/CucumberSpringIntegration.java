@@ -21,6 +21,7 @@ import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.section.mittente.*;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 import it.pn.frontend.e2e.section.mittente.AllegatiPASection;
 import it.pn.frontend.e2e.section.mittente.DestinatarioPASection;
@@ -81,6 +82,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         HelpdeskPage.class,
         RecapitiDestinatarioPage.class,
         ITuoiRecapitiPage.class,
+        LoginPGPagoPATest.class
 
 })
 @EnableScheduling

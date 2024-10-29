@@ -48,6 +48,7 @@ public class LoginPGPagoPATest {
     @Autowired
     private WebDriverConfig webDriverConfig;
     @Autowired
+    @Lazy
     private HooksNew hooks;
 
     //TODO da rimuovere anche il discorso dei file yaml..
