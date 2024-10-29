@@ -20,7 +20,6 @@ import java.util.UUID;
 @Slf4j
 public class RestRaddAlternative {
 
-    NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
     private final Map<String, String> headers = new HashMap<>();
     private final String token;
   //  private final String env = System.getProperty("environment");
@@ -28,6 +27,9 @@ public class RestRaddAlternative {
 
     @Autowired
     private WebDriverConfig webDriverConfig;
+
+    @Autowired
+    private NotificationSingleton notificationSingleton;
 
     public RestRaddAlternative(String token) {
         this.token = token;

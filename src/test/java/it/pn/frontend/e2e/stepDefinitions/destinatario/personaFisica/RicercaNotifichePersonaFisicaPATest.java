@@ -29,13 +29,15 @@ import java.util.Map;
 public class RicercaNotifichePersonaFisicaPATest {
     private static final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaFisicaTest");
 
-    private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
     private Map<String, Object> datiNotifica = new HashMap<>();
     private Map<String, Object> datiNotificaNonValidoPF;
 
     @Autowired
     @Lazy
     private HooksNew hooks;
+
+    @Autowired
+    private NotificationSingleton notificationSingleton;
 
     @Autowired
     private PiattaformaNotifichePage piattaformaNotifichePage;

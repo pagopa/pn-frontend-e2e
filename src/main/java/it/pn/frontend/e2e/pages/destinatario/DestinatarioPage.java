@@ -39,7 +39,6 @@ public class DestinatarioPage extends BasePage {
     @Getter
     @Setter
     private NewNotificationRequest notificationRequest;
-    private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
     private final RestNotification restNotification = new RestNotification();
     private static final NotificationBuilder notificationBuilder = new NotificationBuilder();
     private  int destinatariNumber;
@@ -50,6 +49,9 @@ public class DestinatarioPage extends BasePage {
     public DestinatarioPage(WebDriver driver) {
         super(driver);
     }
+
+    @Autowired
+    private NotificationSingleton notificationSingleton;
 
     @FindBy(id = "startDate")
     WebElement dataInizioField;

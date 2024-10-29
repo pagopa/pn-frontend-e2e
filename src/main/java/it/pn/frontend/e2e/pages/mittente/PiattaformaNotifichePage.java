@@ -31,7 +31,6 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClick
 public class PiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("notificaMittentePagoPA");
-    private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
 
     @FindBy(id = "recipientId")
     WebElement cfTextField;
@@ -110,6 +109,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
     @Autowired
     private WebDriverConfig webDriverConfig;
+    @Autowired
+    private NotificationSingleton notificationSingleton;
 
     @Autowired
     public PiattaformaNotifichePage(WebDriver driver) {

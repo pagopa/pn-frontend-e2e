@@ -66,7 +66,6 @@ public class NotificaMittentePagoPATest {
     private final String PF = "persona fisica";
     private final String PG = "persona giuridica";
     private final String PA = "pubblica amministrazione";
-    private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
     private Map<String, Object> datiNotifica = new HashMap<>();
     private Map<String, String> datiNotificaMap = new HashMap<>();
     private Map<String, Object> personaFisica = new HashMap<>();
@@ -77,6 +76,9 @@ public class NotificaMittentePagoPATest {
     @Setter
     private String ApiKey;
 
+
+    @Autowired
+    private NotificationSingleton notificationSingleton;
     @Autowired
     private CookiesSection cookiesSection;
     @Autowired
