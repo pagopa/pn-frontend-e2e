@@ -1,6 +1,8 @@
 package it.pn.frontend.e2e.model.singleton;
 
 
+import org.springframework.stereotype.Component;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 

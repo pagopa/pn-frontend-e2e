@@ -4,22 +4,31 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.mittente.DashboardPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
 
 import java.awt.*;
 
+@Primary
 public class DashboardMittentePagoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("DashboardMittentePagoPATest");
-    private final WebDriver driver = Hooks.driver;
-    DashboardPage dashboardPage = new DashboardPage(this.driver);
-    PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+
+    @Autowired
+    @Lazy
+    private HooksNew hooks;
+
+    @Autowired
+    private  DashboardPage dashboardPage;
+    @Autowired
+    private  PiattaformaNotifichePage piattaformaNotifichePage;
 
 
     @When("Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche")

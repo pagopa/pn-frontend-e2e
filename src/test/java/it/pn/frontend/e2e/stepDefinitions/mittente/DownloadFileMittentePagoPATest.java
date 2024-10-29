@@ -22,6 +22,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.util.HashMap;
@@ -29,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-@Component
+@Primary
 public class DownloadFileMittentePagoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("DownloadFileMittentePagoPATest");
@@ -173,12 +175,6 @@ public class DownloadFileMittentePagoPATest {
         downloadFile.controlloDownload(pathOfDownloadedFile, count - 1);
     }
 
-    @And("Si visualizza correttamente la tabella dei disservizi")
-    public void siVisualizzaCorrettamenteLaTabellaDeiDisservizi() {
-        logger.info("Si visualizza correttamente la tabella dei disservizi");
-        DisserviziAppPAPage disserviziAppPAPage = new DisserviziAppPAPage(hooks.getDriver());
-        disserviziAppPAPage.waitLoadDisserviziTable();
-    }
 
     @And("Nella sezione Dettaglio Notifiche si scarica il documento allegato")
     public void downloadDocumentiAllegati() {

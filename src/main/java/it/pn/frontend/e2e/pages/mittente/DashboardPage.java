@@ -157,7 +157,16 @@ public class DashboardPage extends BasePage {
         dateDa.get(0).sendKeys("01/01/1111");
     }
 
-    public void insertDataCorretta() {
+    public void insertDataErrataNotificheDigitali(){
+        getWebDriverWait(10).withMessage("Il filtro di data non visibile").until(ExpectedConditions.visibilityOf(dateDa.get(1)));
+        logger.info("Si inserisce una data errata");
+        dateDa.get(1).click();
+        Actions action = new Actions(driver);
+        action.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
+        WebTool.waitTime(1);
+        dateDa.get(1).sendKeys("01/01/1111");
+    }
+    public void insertDataCorretta(){
         getWebDriverWait(10).withMessage("Il filtro di data non visibile").until(ExpectedConditions.visibilityOf(dateDa.get(0)));
         logger.info("Si inserisce una data corretta");
         dateDa.get(0).click();
