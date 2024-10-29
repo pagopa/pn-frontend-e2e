@@ -74,9 +74,6 @@ public class LoginPGPagoPATest {
     private  DestinatarioPage destinatarioPage;
 
     @Autowired
-    private  CookieConfig cookieConfig;
-
-    @Autowired
     private  CookiesSection cookiesSection;
 
 
@@ -164,7 +161,7 @@ public class LoginPGPagoPATest {
 
         hooks.getDriver().get(this.urlPersonaGiuridica.get("urlPortale"));
 
-        if (!cookieConfig.isCookieEnabled()) {
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -256,8 +253,7 @@ public class LoginPGPagoPATest {
     public void loginConPersonaGiuridica(Map<String, String> datiPG) {
         logger.info("La persona guiridica cerca di fare il login");
 
-
-        if (!cookieConfig.isCookieEnabled()) {
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -328,7 +324,7 @@ public class LoginPGPagoPATest {
 
         hooks.getDriver().get(this.urlPersonaGiuridica.get("urlPortale"));
 
-        if (!cookieConfig.isCookieEnabled()) {
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }

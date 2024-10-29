@@ -7,9 +7,7 @@ import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DisserviziAppPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.WebTool;
-import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,6 @@ public class DisserviziAppPGTest {
     @Autowired
     @Lazy
     private HooksNew hooks;
-
     @Autowired
     private  DisserviziAppPage disserviziAppPage;
     @Autowired

@@ -69,7 +69,8 @@ public class LoginPersonaFisicaPagoPA {
     private CookiesSection cookiesSection;
 
     @Autowired
-    private CookieConfig cookieConfig;
+    private ComeVuoiAccederePage comeVuoiAccederePage;
+
 
 
     @Given("Login Page persona fisica {string} viene visualizzata")
@@ -133,14 +134,13 @@ public class LoginPersonaFisicaPagoPA {
 
         logger.info("cookies start");
 
-        if (!cookieConfig.isCookieEnabled()) {
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
         logger.info("cookies end");
 
-        ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.hooks.getDriver());
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
         comeVuoiAccederePage.selezionaSpidButton();
 
@@ -185,7 +185,7 @@ public class LoginPersonaFisicaPagoPA {
         logger.info("user persona fisica : " + webDriverConfig.getUserCesare());
         logger.info("cookies start");
 
-        if (!cookieConfig.isCookieEnabled()) {
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -193,7 +193,7 @@ public class LoginPersonaFisicaPagoPA {
         logger.info("cookies end");
         accediAPiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
         accediAPiattaformaNotifichePage.selezionaAccediButton();
-        if (!cookieConfig.isCookieEnabled()) {
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -241,7 +241,7 @@ public class LoginPersonaFisicaPagoPA {
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
 
-        if (!cookieConfig.isCookieEnabled()) {
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -267,7 +267,7 @@ public class LoginPersonaFisicaPagoPA {
         }
         headerPFSection.waitLoadHeaderDESection();
 
-        if (!cookieConfig.isCookieEnabled()) {
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -317,10 +317,9 @@ public class LoginPersonaFisicaPagoPA {
         headerPFSection.selezionaProfiloUtenteMenu();
         headerPFSection.selezionaVoceEsci();
 
-        ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.hooks.getDriver());
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
 
-        if (!cookieConfig.isCookieEnabled()) {
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 logger.info("banner dei cookies visualizzato");
                 cookiesSection.selezionaAccettaTuttiButton();

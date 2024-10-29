@@ -72,7 +72,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         AcccediAreaRiservataPAPage.class,
         DettaglioNotificaSection.class,
         NotificheDestinatarioPage.class,
-        HelpdeskPage.class
+        HelpdeskPage.class,
+        ComeVuoiAccederePage.class
 
 
 })

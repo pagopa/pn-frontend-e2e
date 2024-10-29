@@ -57,9 +57,6 @@ public class LoginMittentePagoPA {
     private CookiesSection cookiesSection;
 
     @Autowired
-    private CookieConfig cookieConfig;
-
-    @Autowired
     private AcccediAreaRiservataPAPage acccediAreaRiservataPAPage;
 
     @Autowired
@@ -158,7 +155,7 @@ public class LoginMittentePagoPA {
 
         // Verifica della presenza dell'URL e dei cookie per proseguire con l'accettazione dei cookie
         if (hooks.getDriver().getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
-                !cookieConfig.isCookieEnabled()) {
+                !webDriverConfig.getCookieConfig().isCookieEnabled()) {
             logger.info("cookies start");
 
             cookiesSection.selezionaAccettaTuttiButton();
@@ -195,7 +192,7 @@ public class LoginMittentePagoPA {
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
         if (hooks.getDriver().getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
-                !cookieConfig.isCookieEnabled()) {
+                !webDriverConfig.getCookieConfig().isCookieEnabled()) {
             logger.info("cookies start");
             cookiesSection.selezionaAccettaTuttiButton();
             if (cookiesSection.waitLoadCookiesPage()) {
@@ -414,7 +411,7 @@ public class LoginMittentePagoPA {
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();
 
-        if (!cookieConfig.isCookieEnabled()) {
+        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }

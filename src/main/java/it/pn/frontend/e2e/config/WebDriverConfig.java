@@ -184,7 +184,6 @@ public class WebDriverConfig {
     public WebDriver driver;
 
     @Autowired
-    @Getter
     public CookieConfig cookieConfig;
 
     /**
