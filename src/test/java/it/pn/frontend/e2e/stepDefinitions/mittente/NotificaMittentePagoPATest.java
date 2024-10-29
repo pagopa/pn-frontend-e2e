@@ -90,6 +90,10 @@ public class NotificaMittentePagoPATest {
     @Autowired
     private AreaRiservataPAPage areaRiservataPAPage;
 
+    @Autowired
+    private HeaderPASection headerPASection;
+
+
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
@@ -104,8 +108,6 @@ public class NotificaMittentePagoPATest {
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche")
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche() {
         logger.info("Si visualizza correttamente la pagina Piattaforma Notifiche");
-
-        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.waitLoadHeaderSection();
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
@@ -189,7 +191,6 @@ public class NotificaMittentePagoPATest {
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionInformazioniPreliminari() {
         logger.info("Verifica visualizzazione section Informazioni preliminari");
 
-        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.waitLoadHeaderSection();
         informazioniPreliminariPASection.waitLoadInformazioniPreliminariPASection();
     }
@@ -256,7 +257,6 @@ public class NotificaMittentePagoPATest {
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionDestinatario() {
         logger.info("Verifica visualizzazione della section Destinatario");
 
-        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.waitLoadHeaderSection();
 
         destinatarioPASection.waitLoadDestinatarioPASection();
@@ -280,12 +280,9 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDelDestinatario(String personaFisicaFile) {
         logger.info("Inserimento dei dati mancanti nella section destinatario");
 
-        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.waitLoadHeaderSection();
 
-
         this.personeFisiche = dataPopulation.readDataPopulation(personaFisicaFile + ".yaml");
-
 
         destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
         destinatarioPASection.inserireIndirizzo(this.personeFisiche.get("indirizzo").toString());
@@ -309,10 +306,7 @@ public class NotificaMittentePagoPATest {
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionAllegati() {
         logger.info("Verifica visualizzazione della section Allegati");
 
-        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.waitLoadHeaderSection();
-
-        AllegatiPASection allegatiPASection = new AllegatiPASection(hooks.getDriver());
         allegatiPASection.waitLoadAllegatiPASection();
     }
 
@@ -320,7 +314,6 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionAllegatiCaricareLAttoEInserireIlNomeAtto(String datiNotificaFile) {
         logger.info("Caricamento dell'allegato notifica.pdf");
 
-        AllegatiPASection allegatiPASection = new AllegatiPASection(hooks.getDriver());
         File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
         String pathNotificaFile = notificaFile.getAbsolutePath();
         allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
@@ -342,7 +335,6 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionAllegatiCliccareSulBottoneInvia() {
         logger.info("Cliccare sul bottone Invia");
 
-        AllegatiPASection allegatiPASection = new AllegatiPASection(hooks.getDriver());
         allegatiPASection.selectInviaButton();
         if (allegatiPASection.verificaMessaggioErrore()) {
             aggiornamentoNumeroProtocolloAllegati();
@@ -402,7 +394,6 @@ public class NotificaMittentePagoPATest {
     public void siVisualizzaCorrettamenteLaFraseLaNotificaEStataCorrettamenteCreata() {
         logger.info("Verifica visualizzazione frase: La notifica è stata correttamente creata");
 
-        HeaderPASection headerPASection = new HeaderPASection(hooks.getDriver());
         headerPASection.waitLoadHeaderSection();
 
         SuccessPASection successPASection = new SuccessPASection(hooks.getDriver());

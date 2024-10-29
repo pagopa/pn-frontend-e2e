@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
@@ -25,6 +26,8 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
 
 import java.io.File;
 import java.util.HashMap;
@@ -32,42 +35,59 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+@Primary
 public class NotifichePersonaFisicaPagoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("NotifichePersonaFisicaTest");
-    private final WebDriver driver = Hooks.driver;
-    private Map<String, Object> personaFisica = new HashMap<>();
-    private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
-    private final DataPopulation dataPopulation = new DataPopulation();
-    private final DestinatarioPage destinatarioPage = new DestinatarioPage(driver);
-    private final AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
-    private final NotifichePFPage notifichePFPage = new NotifichePFPage(driver);
 
-    private final DettaglioNotificaSection dettaglioNotifica = new DettaglioNotificaSection(driver);
+    private Map<String, Object> personaFisica = new HashMap<>();
+
+    @Autowired
+    @Lazy
+    private HooksNew hooks;
+
     @Autowired
     private CookieConfig cookieConfig;
     @Autowired
     private WebDriverConfig webDriverConfig;
+    @Autowired
+    private NotifichePFPage notifichePFPage;
+    @Autowired
+    private AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage;
+    @Autowired
+    private DettaglioNotificaSection dettaglioNotifica;
+    @Autowired
+    private DestinatarioPage destinatarioPage;
+    @Autowired
+    private DataPopulation dataPopulation;
+    @Autowired
+    private PiattaformaNotifichePage piattaformaNotifichePage;
+    @Autowired
+    private CookiesSection cookiesSection;
+    @Autowired
+    private HeaderPFSection headerPFSection;
+
+    @Autowired
+    private DownloadFile downloadFile;
+
+    @Autowired
+    private DettaglioNotificaSection dettaglioNotificaSection;
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche")
     public void nellaPiattaformaDestinatarioCliccareSulBottoneNotifiche() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.clickNotificheButton();
     }
 
     @Then("pagina Piattaforma  Notifiche persona fisica viene visualizzata correttamente")
     public void paginaPiattaformaNotificheDestinatarioVieneVisualizzataCorrettamente() {
-        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
         headerPFSection.waitLoadHeaderDESection();
 
         if (!cookieConfig.isCookieEnabled()) {
-            CookiesSection cookiesSection = new CookiesSection(this.driver);
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
 
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.waitLoadNotificheDEPage();
         if (notifichePFPage.verificaPresenzaCodiceIunTextField()) {
             logger.info("text field codice iun presente");
@@ -84,43 +104,36 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @And("Si visualizza correttamente la Pagina Notifiche persona fisica")
     public void siVisualizzaCorrettamenteLaPaginaNotificheDestinatario() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.siVisualizzaPaginaNotifichePersonaFisica();
     }
 
     @And("Nella Pagina Notifiche persona fisica si visualizzano correttamente i filtri di ricerca")
     public void nellaPaginaNotificheDestinatarioSiVisualizzanoCorrettamenteIFiltriDiRicerca() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.siVisualizzanoFiltriRicerca();
     }
 
     @And("Nella Pagina Notifiche persona fisica si visualizza correttamente l elenco delle notifiche")
     public void nellaPaginaNotificheDestinatarioSiVisualizzaCorrettamenteLElencoDelleNotifiche() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.siVisualizzaElencoNotifiche();
     }
 
     @And("Si visualizza l elenco delle notifiche relative al delegante")
     public void siVisualizzaLElencoDelleNotificheRelativeAlDelegante() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.siVisualizzaElencoNotifiche();
     }
 
     @And("Si visualizza l elenco delle notifiche dell impresa")
     public void siVisualizzaLElencoDelleNotificheDellImpresa() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.siVisualizzaElencoNotifiche();
     }
 
     @And("Si seleziona il nome del delegante nell elenco")
     public void siSelezionaIlNomeDelDeleganteNellElenco() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.clickNomeDelegante();
     }
 
     @Then("Si visualizzano correttamente le notifiche in elenco paginato")
     public void siVisualizzanoCorrettamenteLeNotificheInElencoPaginato() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         int numeroRigheNotifiche = notifichePFPage.siVisualizzaNotifichePresenti();
 
         if (numeroRigheNotifiche != 0) {
@@ -133,8 +146,7 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @And("Si visualizzano le notifiche dalla piu recente")
     public void siVisualizzanoLeNotificheDallaPiuRecente() {
-        driver.navigate().refresh();
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
+        hooks.getDriver().navigate().refresh();
         List<WebElement> dateNotifiche = notifichePFPage.getDateNotifiche();
 
         if (dateNotifiche.size() != 0) {
@@ -153,19 +165,16 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @And("Si aggiorna la paginazione utilizzando le frecce")
     public void siAggiornaLaPaginazioneUtilizzandoLeFrecce() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.clickPaginaSuccessiva();
     }
 
     @And("Si visualizza correttamente una pagina diversa dalla precedente")
     public void siVisualizzaCorrettamenteUnaPaginaDiversaDallaPrecedente() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.waitLoadPaginaDifferente();
     }
 
     @And("Si visualizza correttamente la prossima pagina")
     public void siVisualizzaCorrettamenteLaSecondaPagina() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.waitLoadSecondaPagina();
     }
 
@@ -173,26 +182,22 @@ public class NotifichePersonaFisicaPagoPATest {
     public void ciSiPosizionaSuUnaPaginaDifferenteAttraversoINumeriESiApplicaFiltro(String dpFile) {
         DataPopulation dataPopulation = new DataPopulation();
         Map<String, Object> datiPg = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
 
         notifichePFPage.siSceglieUnaPaginaDiversaConNumeroESiFiltra(datiPg.get("codiceIUN").toString());
     }
 
     @And("Si modifica il numero di notifiche visualizzate scegliendo un valore diverso da quello di default")
     public void siModificaIlNumeroDiNotificheVisualizzateScegliendoUnValoreDiversoDaQuelloDiDefault() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.modificaNumeroNotifichePagina();
     }
 
     @And("Ci si posiziona su una pagina differente da quella di default e si aumenta il numero di modifiche visualizzate")
     public void ciSiPosizionaSuUnaPaginaDifferenteDaQuellaDiDefaultESiAumentaIlNumeroDiModificheVisualizzate() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.numeroDiversoPagine();
     }
 
     @And("Si visualizza un numero di pagine visualizzate uguale a quello selezionato")
     public void siVisualizzaUnNumeroDiPagineVisualizzateUgualeAQuelloSelezionato() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         try {
             TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
@@ -211,20 +216,16 @@ public class NotifichePersonaFisicaPagoPATest {
     @When("La persona fisica clicca sulla notifica restituita")
     public void ilDestinatarioCliccaSullaNotificaRestituita() {
         logger.info("Si clicca sulla notifica");
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.selezionaNotifica();
     }
 
     @And("Si visualizza correttamente la section Dettaglio Notifica persona fisica")
     public void siVisualizzaCorrettamenteLaSectionDettaglioNotificaDestinatario() {
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         dettaglioNotificaSection.waitLoadDettaglioNotificaDESection();
     }
 
     @And("Si controlla sezione Pagamento se notifica prevede il pagamento")
     public void siControllaSezionePagamentoSeNotificaPrevedeIlPagamento() {
-
-        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
 
         boolean sezionePagamentoIsDisplayed = accediAPiattaformaNotifichePage.sezionePagamentoDisplayed();
 
@@ -283,10 +284,7 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @Then("Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto {string}")
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaDestinatarioESiControllaCheIlDownloadSiaAvvenuto(String dpFile) {
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponibili();
-        DownloadFile downloadFile = new DownloadFile(this.driver);
-        DataPopulation dataPopulation = new DataPopulation();
         Map<String, Object> datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String workingDirectory = System.getProperty("user.dir");
         boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
@@ -315,7 +313,6 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @And("Si clicca sul opzione Vedi Dettaglio")
     public void siCliccaSulOpzioneVediDettaglio() {
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(driver);
         dettaglioNotificaSection.selezioneVediDettaglioButton();
     }
 
@@ -326,7 +323,6 @@ public class NotifichePersonaFisicaPagoPATest {
         String nome = personaFisicaDelgante.get("name").toString();
         String cognome = personaFisicaDelgante.get("familyName").toString();
 
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.waitLoadNotificheDEPageDelegante(nome, cognome);
     }
 
@@ -432,7 +428,6 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @Then("Si visualizza correttamente la section Dettaglio Notifica annullata")
     public void siVisualizzaCorrettamenteLaSectionDettaglioNotificaAnnullata() {
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
         dettaglioNotificaSection.waitLoadDettaglioNotificaAnnullataDESection();
     }
 
@@ -468,7 +463,7 @@ public class NotifichePersonaFisicaPagoPATest {
     @And("Si torna alla pagina precedente")
     public void siTornaAllaPaginaPrecedente() {
         logger.info("Si torna alla pagina precedente");
-        driver.navigate().back();
+        hooks.getDriver().navigate().back();
     }
 
     @And("Si controlla non sia presente il bottone paga")
@@ -509,7 +504,6 @@ public class NotifichePersonaFisicaPagoPATest {
 
         @And("Verifica nome ente mittente {string}")
         public void verificaNomeEnteMittente(String nomeEnte){
-            DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
             Map<String, String> infoNotifiche = dettaglioNotificaSection.recuperoInfoNotificheDestinatario();
             Assertions.assertTrue(infoNotifiche.get("mittente").equalsIgnoreCase(nomeEnte));
         }
