@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -42,6 +43,7 @@ import java.util.concurrent.TimeUnit;
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 import static org.apache.commons.lang3.StringUtils.substring;
 
+@Primary
 public class NotificaMittentePagoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittentePagoPATest");

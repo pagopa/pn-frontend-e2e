@@ -61,9 +61,10 @@ public class SelezionaEntePAPage extends BasePage {
 
     public void selezionaAccedi() {
         Actions actions = new Actions(driver);
+        accediButton = driver.findElement(By.xpath("//button[text()='Accedi']"));
         getWebDriverWait(60).withMessage("il buttone Accedi non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(this.accediButton));
-        actions.moveToElement(this.accediButton).click().perform();
+                .until(ExpectedConditions.elementToBeClickable(accediButton));
+        actions.moveToElement(accediButton).click().perform();
     }
 
     public void cercaComune(String comune) {

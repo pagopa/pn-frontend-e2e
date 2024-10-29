@@ -16,7 +16,6 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.section.mittente.*;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
-import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.DisserviziAppPGTest;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
@@ -44,7 +43,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         DisserviziAppPAPage.class,
         PiattaformaNotifichePage.class,
         DettaglioNotificaMittenteSection.class,
-        DettaglioNotificaSection.class,
         AllegatiPASection.class,
         DestinatarioPASection.class,
         InformazioniPreliminariPASection.class,
@@ -69,7 +67,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         PreAccediAreaRiservataPAPage.class,
         AutorizziInvioDatiPAPage.class,
         SelezionaEntePAPage.class,
-        AcccediAreaRiservataPAPage.class
+        AcccediAreaRiservataPAPage.class,
+        DettaglioNotificaSection.class
 
 
 })
