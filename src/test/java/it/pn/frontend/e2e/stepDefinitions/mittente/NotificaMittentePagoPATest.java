@@ -47,18 +47,7 @@ public class NotificaMittentePagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittentePagoPATest");
 
 
-    @Autowired
-    private  PiattaformaNotifichePage piattaformaNotifichePage;
-    @Autowired
-    private  AllegatiPASection allegatiPASection;
-    @Autowired
-    private  DestinatarioPASection destinatarioPASection;
-    @Autowired
-    private DataPopulation dataPopulation;
-    @Autowired
-    private DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection;
-    @Autowired
-    private InformazioniPreliminariPASection informazioniPreliminariPASection;
+
 
     private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
     private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
@@ -92,6 +81,22 @@ public class NotificaMittentePagoPATest {
 
     @Autowired
     private HeaderPASection headerPASection;
+
+    @Autowired
+    private SuccessPASection successPASection;
+
+    @Autowired
+    private  PiattaformaNotifichePage piattaformaNotifichePage;
+    @Autowired
+    private  AllegatiPASection allegatiPASection;
+    @Autowired
+    private  DestinatarioPASection destinatarioPASection;
+    @Autowired
+    private DataPopulation dataPopulation;
+    @Autowired
+    private DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection;
+    @Autowired
+    private InformazioniPreliminariPASection informazioniPreliminariPASection;
 
 
 
@@ -265,11 +270,7 @@ public class NotificaMittentePagoPATest {
     @And("Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica {string}")
     public void nellaSectionDestinatarioInserireNomeCognomeECodiceFiscaleDaDestinatario(String destinatarioFile) {
         logger.info("Inserimento del nome cognome e codice fiscale dal file personaFisica.yaml");
-
-
         this.personeFisiche = dataPopulation.readDataPopulation(destinatarioFile + ".yaml");
-
-
         destinatarioPASection.selezionarePersonaFisica();
         destinatarioPASection.inserireNomeDestinatario(this.personeFisiche.get("name").toString());
         destinatarioPASection.inserireCognomeDestinatario(this.personeFisiche.get("familyName").toString());
@@ -396,7 +397,6 @@ public class NotificaMittentePagoPATest {
 
         headerPASection.waitLoadHeaderSection();
 
-        SuccessPASection successPASection = new SuccessPASection(hooks.getDriver());
         successPASection.waitLoadSuccessPASection();
 
     }
@@ -405,7 +405,6 @@ public class NotificaMittentePagoPATest {
     public void cliccareSulBottoneVaiAlleNotifiche() {
         logger.info("Si clicca sul bottone 'vai alle notifiche'");
 
-        SuccessPASection successPASection = new SuccessPASection(hooks.getDriver());
         successPASection.vaiAlleNotifiche();
     }
 
@@ -457,24 +456,18 @@ public class NotificaMittentePagoPATest {
     @When("Cliccare sulla notifica restituita")
     public void cliccareSullaNotificaRestituita() {
         logger.info("Si clicca sulla notifica");
-
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.selezionaPrimaNotifica();
     }
 
     @When("Cliccare sulla notifica  maggiore di 120 giorni")
     public void cliccareSullaNotificaRestituita120Giorni() {
         logger.info("Si clicca sulla notifica maggiore di 120 giorni");
-
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.selezionaNotifica120Giorni();
     }
 
     @When("Cliccare sulla notifica  maggiore di 120 giorni {int}")
     public void cliccareSullaNotificaRestituita120Giorni(Integer index) {
         logger.info("Si clicca sulla notifica maggiore di 120 giorni");
-
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.selezionaNotifica120Giorni(index);
     }
 
@@ -532,7 +525,6 @@ public class NotificaMittentePagoPATest {
 
     @Then("Si clicca sul bottone indietro")
     public void siCliccaSulBottoneIndietro() {
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(hooks.getDriver());
         dettaglioNotificaMittenteSection.clickIndietroButton();
     }
 
@@ -605,13 +597,11 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche si visualizzano le notifiche a partire dalla più recente")
     public void nellaPaginaPiattaformaNotificheSiVisualizzanoLeNotificheAPartireDallaPiuRecente() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.controlloOrdineNotifiche();
     }
 
     @And("Nella pagina Piattaforma Notifiche si scrolla fino alla fine della pagina")
     public void nellaPaginaPiattaformaNotificheSiScrollaFinoAllaFineDellaPagina() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(hooks.getDriver());
         piattaformaNotifichePage.siScrollaFinoAllaFineDellaPagina();
     }
 
@@ -763,7 +753,6 @@ public class NotificaMittentePagoPATest {
     @And("Verifica dello stato della notifica inviata tramite pec come {string}")
     public void verificaDelloStatoDellaNotificaInviataTramitePecCome(String statoNotifica) {
 
-
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         this.personeFisiche = dataPopulation.readDataPopulation("personaFisicaPec.yaml");
 
@@ -886,7 +875,6 @@ public class NotificaMittentePagoPATest {
         logger.info("Si inseriscono i dati personali della persona giuridica");
 
         this.personaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
 
         destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
         destinatarioPASection.inserireIndirizzo(this.personaGiuridica.get("indirizzo").toString());

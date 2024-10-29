@@ -76,7 +76,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         HelpdeskPage.class,
         ComeVuoiAccederePage.class,
         DashboardPage.class,
-        NotificationSingleton.class
+        NotificationSingleton.class,
+        SuccessPASection.class
 
 
 })
