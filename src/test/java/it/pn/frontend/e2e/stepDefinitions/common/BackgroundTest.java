@@ -33,6 +33,7 @@ public class BackgroundTest {
     private final String nomeFileNuovaDelega = "nuova_delega";
     private final String nomeFileNuovaDelegaPG = "nuovaDelegaPG";
     private final String mittente = "mittente";
+    private final Map<String, String> datiPersonaFisica;
 
     @Autowired
     @Lazy
@@ -61,11 +62,12 @@ public class BackgroundTest {
     @Autowired
     @Lazy
     private RecapitiTest recapitiTest;
-    private final Map<String, String> datiPersonaFisica;
     @Autowired
     private  RecapitiDestinatarioPage recapitiDestinatarioPage ;
     @Autowired
     private  ITuoiRecapitiPage iTuoiRecapitiPage;
+    @Autowired
+    private  PiattaformaNotifichePage piattaformaNotifichePage;
 
     @Autowired
     public BackgroundTest() {
@@ -368,21 +370,18 @@ public class BackgroundTest {
     }
 
     public void siFiltraLaTabellaDelleNotifichePerIUNDestinatario(String iun) {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
         piattaformaNotifichePage.clickSuNotifica();
     }
 
     public void siFiltraLaTabellaDelleNotificheDelDestinatarioPerIUN(String iun) {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
         piattaformaNotifichePage.clickSuNotifica();
     }
 
     public void siFiltraLaTabellaDelleNotifichePerIUNMittente(String iun) {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
         WebTool.waitTime(1);
