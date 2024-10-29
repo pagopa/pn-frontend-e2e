@@ -11,6 +11,7 @@ import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +31,8 @@ public class BackgroundTest {
     private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
     private final LoginPersonaFisicaPagoPA personaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
     private final DeleghePGPagoPATest deleghePGPagoPATest = new DeleghePGPagoPATest();
-    private final DisserviziAppPGTest disserviziAppPGTest = new DisserviziAppPGTest();
+    @Autowired
+    private  DisserviziAppPGTest disserviziAppPGTest;
     private final HelpdeskTest helpdeskTest = new HelpdeskTest();
     private final NotifichePGPagoPATest notifichePGPagoPATest = new NotifichePGPagoPATest();
     private final RecapitiTest recapitiTest = new RecapitiTest();
