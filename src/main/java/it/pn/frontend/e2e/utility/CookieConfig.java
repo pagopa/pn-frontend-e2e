@@ -5,6 +5,7 @@ import org.openqa.selenium.Cookie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -16,12 +17,18 @@ import java.util.*;
 public class CookieConfig {
     private static final Logger logger = LoggerFactory.getLogger("CookieConfig");
 
-    @Autowired
-    @Lazy
-    private WebDriverConfig webDriverConfig;
+   // @Autowired
+   // @Lazy
+   // private WebDriverConfig webDriverConfig;
    // private static final String env = System.getProperty("environment");
     private final Map<String, Set<Cookie>> cookieMap;
+    @Value("${environment}")
+    private String environment;
 
+    @Value("${cookie.config}")
+    private String cookie;
+
+    @Autowired
     public CookieConfig() {
         this.cookieMap = new HashMap<>();
     }
@@ -31,8 +38,8 @@ public class CookieConfig {
     public boolean isCookieEnabled() {
         //String isCookieEnabled = System.getProperty("cookie.config");
         logger.info("COOOKIE....: ");
-        logger.info("COOOKIE....: "+ webDriverConfig.getCookie());
-        String isCookieEnabled = webDriverConfig.getCookie();
+        logger.info("COOOKIE....: "+ cookie);
+        String isCookieEnabled = cookie;
         if (isCookieEnabled == null || isCookieEnabled.equals("false")) {
             logger.info("Cookies are disabled");
             return false;
@@ -45,7 +52,7 @@ public class CookieConfig {
         // Check if the cookie property is enabled
         if (isCookieEnabled()) {
             // Based on the environment, the cookie is added to the map
-            String env = webDriverConfig.getEnvironment();
+            String env = environment;
             switch (env) {
                 case "test":
                     this.setUpCookieTest();

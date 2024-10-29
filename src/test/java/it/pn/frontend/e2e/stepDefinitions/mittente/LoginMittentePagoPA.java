@@ -8,9 +8,7 @@ import it.pn.frontend.e2e.api.mittente.SpidAcsMittente;
 import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoContinueResponse;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogin;
-import it.pn.frontend.e2e.config.BearerTokenConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
-import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.mittente.*;
 import it.pn.frontend.e2e.section.CookiesSection;
@@ -21,16 +19,10 @@ import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-import org.springframework.context.annotation.Lazy;
-
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -63,6 +55,9 @@ public class LoginMittentePagoPA {
 
     @Autowired
     private CookiesSection cookiesSection;
+
+    @Autowired
+    private CookieConfig cookieConfig;
 
     @Autowired
     private AcccediAreaRiservataPAPage acccediAreaRiservataPAPage;
@@ -163,7 +158,7 @@ public class LoginMittentePagoPA {
 
         // Verifica della presenza dell'URL e dei cookie per proseguire con l'accettazione dei cookie
         if (hooks.getDriver().getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
-                !webDriverConfig.getCookieConfig().isCookieEnabled()) {
+                !cookieConfig.isCookieEnabled()) {
             logger.info("cookies start");
 
             cookiesSection.selezionaAccettaTuttiButton();
@@ -179,8 +174,8 @@ public class LoginMittentePagoPA {
         scegliSpidPAPage.selezionareTestButton();
 
         loginPAPage.waitLoadLoginPAPage();
-        loginPAPage.inserisciUtenete( webDriverConfig.getUserMittente());
-        loginPAPage.inserisciPassword( webDriverConfig.getPwdMittente());
+        loginPAPage.inserisciUtenete(webDriverConfig.getUserMittente());
+        loginPAPage.inserisciPassword(webDriverConfig.getPwdMittente());
         loginPAPage.selezionaInviaDati();
 
         autorizziInvioDatiPAPage.waitLoadAutorizziInvioDatiPAPage();
@@ -200,7 +195,7 @@ public class LoginMittentePagoPA {
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
         if (hooks.getDriver().getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
-                !webDriverConfig.getCookieConfig().isCookieEnabled()) {
+                !cookieConfig.isCookieEnabled()) {
             logger.info("cookies start");
             cookiesSection.selezionaAccettaTuttiButton();
             if (cookiesSection.waitLoadCookiesPage()) {
@@ -419,7 +414,7 @@ public class LoginMittentePagoPA {
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();
 
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
+        if (!cookieConfig.isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }

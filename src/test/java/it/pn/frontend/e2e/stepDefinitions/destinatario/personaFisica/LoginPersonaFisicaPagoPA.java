@@ -14,6 +14,7 @@ import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
+import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
@@ -63,6 +64,13 @@ public class LoginPersonaFisicaPagoPA {
 
     @Autowired
     private AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage;
+
+    @Autowired
+    private CookiesSection cookiesSection;
+
+    @Autowired
+    private CookieConfig cookieConfig;
+
 
     @Given("Login Page persona fisica {string} viene visualizzata")
     public void loginPageDestinatarioVieneVisualizzata(String datipersonaFisica) {
@@ -124,12 +132,10 @@ public class LoginPersonaFisicaPagoPA {
         this.datiPersonaFisica = dataPopulation.readDataPopulation(datipersonaFisica + ".yaml");
 
         logger.info("cookies start");
-        CookiesSection cookiesPage;
 
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
-            cookiesPage = new CookiesSection(this.hooks.getDriver());
-            if (cookiesPage.waitLoadCookiesPage()) {
-                cookiesPage.selezionaAccettaTuttiButton();
+        if (!cookieConfig.isCookieEnabled()) {
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
             }
         }
         logger.info("cookies end");
@@ -178,21 +184,18 @@ public class LoginPersonaFisicaPagoPA {
     public void loginConDestinatario(Map<String, String> datiPF) {
         logger.info("user persona fisica : " + webDriverConfig.getUserCesare());
         logger.info("cookies start");
-        CookiesSection cookiesPage;
 
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
-            cookiesPage = new CookiesSection(this.hooks.getDriver());
-            if (cookiesPage.waitLoadCookiesPage()) {
-                cookiesPage.selezionaAccettaTuttiButton();
+        if (!cookieConfig.isCookieEnabled()) {
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
             }
         }
         logger.info("cookies end");
         accediAPiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
         accediAPiattaformaNotifichePage.selezionaAccediButton();
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
-            cookiesPage = new CookiesSection(this.hooks.getDriver());
-            if (cookiesPage.waitLoadCookiesPage()) {
-                cookiesPage.selezionaAccettaTuttiButton();
+        if (!cookieConfig.isCookieEnabled()) {
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
             }
         }
 
@@ -238,9 +241,7 @@ public class LoginPersonaFisicaPagoPA {
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
 
-        CookiesSection cookiesSection;
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
-            cookiesSection = new CookiesSection(this.hooks.getDriver());
+        if (!cookieConfig.isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -266,8 +267,7 @@ public class LoginPersonaFisicaPagoPA {
         }
         headerPFSection.waitLoadHeaderDESection();
 
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
-            cookiesSection = new CookiesSection(this.hooks.getDriver());
+        if (!cookieConfig.isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -320,8 +320,7 @@ public class LoginPersonaFisicaPagoPA {
         ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(this.hooks.getDriver());
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
 
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
-            CookiesSection cookiesSection = new CookiesSection(this.hooks.getDriver());
+        if (!cookieConfig.isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 logger.info("banner dei cookies visualizzato");
                 cookiesSection.selezionaAccettaTuttiButton();

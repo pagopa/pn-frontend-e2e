@@ -8,8 +8,6 @@ import it.pn.frontend.e2e.api.mittente.SpidAcsMittente;
 import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoContinueResponse;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogin;
-import it.pn.frontend.e2e.config.BearerTokenConfig;
-import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
@@ -27,8 +25,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -46,8 +42,10 @@ public class LoginPGPagoPATest {
     @Autowired
     private  AccediAreaRiservataPGPage accediAreaRiservataPGPage;
     @Autowired
+    @Lazy
     private WebDriverConfig webDriverConfig;
     @Autowired
+    @Lazy
     private HooksNew hooks;
 
     //TODO da rimuovere anche il discorso dei file yaml..
@@ -74,6 +72,12 @@ public class LoginPGPagoPATest {
 
     @Autowired
     private  DestinatarioPage destinatarioPage;
+
+    @Autowired
+    private  CookieConfig cookieConfig;
+
+    @Autowired
+    private  CookiesSection cookiesSection;
 
 
     @Given("Login Page persona giuridica viene visualizzata")
@@ -160,10 +164,9 @@ public class LoginPGPagoPATest {
 
         hooks.getDriver().get(this.urlPersonaGiuridica.get("urlPortale"));
 
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
-            CookiesSection cookiesPage = new CookiesSection(hooks.getDriver());
-            if (cookiesPage.waitLoadCookiesPage()) {
-                cookiesPage.selezionaAccettaTuttiButton();
+        if (!cookieConfig.isCookieEnabled()) {
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
             }
         }
 
@@ -253,10 +256,8 @@ public class LoginPGPagoPATest {
     public void loginConPersonaGiuridica(Map<String, String> datiPG) {
         logger.info("La persona guiridica cerca di fare il login");
 
-        CookiesSection cookiesSection;
 
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
-            cookiesSection = new CookiesSection(hooks.getDriver());
+        if (!cookieConfig.isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -327,10 +328,9 @@ public class LoginPGPagoPATest {
 
         hooks.getDriver().get(this.urlPersonaGiuridica.get("urlPortale"));
 
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
-            CookiesSection cookiesPage = new CookiesSection(hooks.getDriver());
-            if (cookiesPage.waitLoadCookiesPage()) {
-                cookiesPage.selezionaAccettaTuttiButton();
+        if (!cookieConfig.isCookieEnabled()) {
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
             }
         }
 
