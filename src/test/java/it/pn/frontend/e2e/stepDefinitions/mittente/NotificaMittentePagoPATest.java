@@ -46,12 +46,6 @@ public class NotificaMittentePagoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittentePagoPATest");
 
-
-
-
-    private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
-    private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
-
     private final String PF = "persona fisica";
     private final String PG = "persona giuridica";
     private final String PA = "pubblica amministrazione";
@@ -97,8 +91,10 @@ public class NotificaMittentePagoPATest {
     private DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection;
     @Autowired
     private InformazioniPreliminariPASection informazioniPreliminariPASection;
-
-
+    @Autowired
+    private LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA;
+    @Autowired
+    private  LoginPGPagoPATest loginPGPagoPATest;
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {

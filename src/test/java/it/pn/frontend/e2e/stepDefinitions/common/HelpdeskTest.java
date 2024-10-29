@@ -35,21 +35,21 @@ import java.util.concurrent.TimeUnit;
 @Primary
 public class HelpdeskTest {
     private final Logger logger = LoggerFactory.getLogger("HelpdeskAppTest");
-    private Map<String, Object> datiTestHelpdesk = new HashMap<>();
-    private Map<String, Object> datiPersonaFisica = new HashMap<>();
-
-    @Autowired
-    private WebDriverConfig webDriverConfig;
-
-    @Autowired
-    private HelpdeskPage helpdeskPage;
-
-    @Autowired
-    private  DataPopulation dataPopulation;
 
     @Autowired
     @Lazy
     private HooksNew hooks;
+    @Autowired
+    private DataPopulation dataPopulation;
+    @Autowired
+    @Lazy
+    private WebDriverConfig webDriverConfig;
+    @Autowired
+    private HelpdeskPage helpdeskPage ;
+    @Autowired
+    private BackgroundTest backgroundTest;
+    private Map<String, Object> datiTestHelpdesk = new HashMap<>();
+    private Map<String, Object> datiPersonaFisica = new HashMap<>();
 
     @Given("Login helpdesk con utente test {string}")
     public void loginHelpdeskConUtenteTest(String nameFile) {
@@ -122,13 +122,12 @@ public class HelpdeskTest {
 
     @And("Si annulla un disservizio in corso")
     public void annullamentoDisservizio() {
-        BackgroundTest backgroundTest = new BackgroundTest();
         logger.info("Torno sulla scheda di helpdesk");
         String sendHandle = hooks.getDriver().getWindowHandle();
         Set<String> windowHandles = hooks.getDriver().getWindowHandles();
         for (String handle : windowHandles) {
             if (!handle.equals(sendHandle)) {
-                this.hooks.getDriver().switchTo().window(handle);
+                hooks.getDriver().switchTo().window(handle);
                 break;
             }
         }
@@ -153,7 +152,7 @@ public class HelpdeskTest {
         logger.info("Torno sulla piattaforma send per il logout");
         for (String handle : windowHandles) {
             if (handle.equals(sendHandle)) {
-                this.hooks.getDriver().switchTo().window(handle);
+                hooks.getDriver().switchTo().window(handle);
                 break;
             }
         }
@@ -179,17 +178,17 @@ public class HelpdeskTest {
     public void vieneInseritoCodiceFiscaleSenzaRicerca(String CF) {
         helpdeskPage.insertCF(CF);
     }
-
+    ///-*-*-**-
     @And("viene inserito codice IUN {string}")
     public void vieneInseritoIun(String iun) {
-        helpdeskPage.insertIunAndRicercaOnPage(iun);
+        String codiceIun = getCodiceIun(iun,"viene inserito codice IUN");
+        helpdeskPage.insertIunAndRicercaOnPage(codiceIun);
     }
-
     @And("viene inserito codice IUN senza ricerca {string}")
     public void vieneInseritoIunSenzaRicerca(String iun) {
-        helpdeskPage.insertIun(iun);
+        String codiceIun = getCodiceIun(iun,"viene inserito codice IUN senza ricerca");
+        helpdeskPage.insertIun(codiceIun);
     }
-
 
     @And("viene inserito numero ticket")
     public void vieneInseritoNumeroTicket() {
@@ -316,19 +315,17 @@ public class HelpdeskTest {
         ArrayList<String> tabs = new ArrayList<>(hooks.getDriver().getWindowHandles());
         hooks.getDriver().switchTo().window(tabs.get(tabs.size() - 1));
         logger.info("Nella nuova finestra aperta si va sulla pagina di login di helpdesk");
-        hooks.getDriver().get("https://helpdesk.test.notifichedigitali.it/login");
+        hooks.getDriver().get(webDriverConfig.getUrlHelpdeskTestNotifichedigitali());
         helpdeskPage.loginHelpdeskNuovaScheda(login);
     }
 
     @Given("Creazione disservizio su portale helpdesk")
     public void creazioneDisservizioSuPortaleHelpdesk() {
-        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.creazioneDisservizio();
     }
 
     @And("Risoluzione disservizio su portale helpdesk")
     public void risoluzioneDisservizioSuPortaleHelpdesk() {
-        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.risoluzioneDisservizio();
     }
 
@@ -342,5 +339,28 @@ public class HelpdeskTest {
          logger.info("Selezione ottieni log completi");
          helpdeskPage.selectOttieniLogCompleti();
      }
+
+    private String getCodiceIun(String iun, String message) {
+        String codiceIun;
+        switch (iun) {
+            case "IUN0" -> {
+                codiceIun=webDriverConfig.getCodiceIun();
+            }
+            case "IUN1" -> {
+                codiceIun=webDriverConfig.getCodiceIunN1();
+            }
+            case "IUN2" -> {
+                codiceIun=webDriverConfig.getCodiceIunN2();
+            }
+            case "IUN3" -> {
+                codiceIun=webDriverConfig.getCodiceIunN3();
+            }
+            default -> {
+                logger.error(message);
+                throw new RuntimeException(message+" 'ERRATO'");
+            }
+        }
+        return codiceIun;
+    }
 
 }

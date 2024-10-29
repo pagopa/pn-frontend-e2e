@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.delegate.DelegatePG;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePG;
@@ -21,6 +22,8 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -30,19 +33,34 @@ import java.util.Map;
 
 public class DeleghePGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("DeleghePGPagoPATest");
-    private final WebDriver driver = Hooks.driver;
-    private final DeleghePGPagoPAPage deleghePGPagoPAPage = new DeleghePGPagoPAPage(this.driver);
-    private final DeleghePagoPATest deleghePagoPATest = new DeleghePagoPATest();
-    private final DelegatiImpresaSection delegatiImpresaSection = new DelegatiImpresaSection(this.driver);
-    private final AggiungiDelegaPGSection aggiungiDelegaPGSection = new AggiungiDelegaPGSection(this.driver);
-    private final DataPopulation dataPopulation = new DataPopulation();
+    @Autowired
+    @Lazy
+    private HooksNew hooks;
+    @Autowired
+    private DeleghePGPagoPAPage deleghePGPagoPAPage;
+    @Autowired
+    private DeleghePagoPATest deleghePagoPATest;
+    @Autowired
+    private DelegatiImpresaSection delegatiImpresaSection;
+    @Autowired
+    private AggiungiDelegaPGSection aggiungiDelegaPGSection;
+    @Autowired
+    private DataPopulation dataPopulation;
+    @Autowired
+    private LoginPGPagoPATest loginPGPagoPaTest;
+    @Autowired
+    private PiattaformaNotifichePage piattaformaNotifichePage;
+    @Autowired
+    @Lazy
+    private BackgroundTest backgroundTest;
+
     private Map<String, Object> datiDelega = new HashMap<>();
     Map<String, Object> datiPersonaFisica = new HashMap<>();
-    private final MandateSingleton mandateSingleton = MandateSingleton.getInstance();
 
+    private final MandateSingleton mandateSingleton = MandateSingleton.getInstance();
     private final RestDelegation restDelegation = RestDelegation.getInstance();
 
-    private LoginPGPagoPATest loginPGPagoPaTest = new LoginPGPagoPATest();
+
     private boolean dataFineErrata;
 
     @And("Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa")
@@ -172,7 +190,7 @@ public class DeleghePGPagoPATest {
     @And("Verifica che non è possibile selezionare una data Fine antecedente ad oggi")
     public void verificaArcoTemporaleSelezionato() {
         logger.info("Si controlla l'arco temporale che sia errato su cui effettuare la ricerca");
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
+//        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         Assertions.assertFalse(dataFineErrata);
     }
 
@@ -227,7 +245,7 @@ public class DeleghePGPagoPATest {
     @And("Nella pagina Deleghe sezione Deleghe dell impresa  si verifica sia presente una delega")
     public void nellaPaginaDelegheSezioneDelegheDellImpresaSiVerificaSiaPresenteUnaDelega() {
         logger.info("Si controlla che ci sia almeno una delega");
-        BackgroundTest backgroundTest = new BackgroundTest();
+//        BackgroundTest backgroundTest = new BackgroundTest();
 
         if (!this.delegatiImpresaSection.siVisualizzaUnaDelega()) {
             backgroundTest.aggiuntaNuovaDelegaDellImpresaPG();
@@ -462,7 +480,7 @@ public class DeleghePGPagoPATest {
         DelegateResponsePG response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
         mandateSingleton.setScenarioMandateId(Hooks.getScenario(),response.getMandateId());
         mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()),response.getVerificationCode());
-        driver.navigate().refresh();
+        hooks.getDriver().navigate().refresh();
         WebTool.waitTime(2);
     }
 
@@ -485,13 +503,13 @@ public class DeleghePGPagoPATest {
 
     @And("Si accetta la delega senza gruppo")
     public void siAccettaLaDelegaSenzaGruppo() {
-        BackgroundTest backgroundTest = new BackgroundTest();
+//        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.accettazioneDelegaSceltaGruppo(false,null);
     }
 
     @And("Si accetta la delega senza gruppo PF")
     public void siAccettaLaDelegaSenzaGruppoPF() {
-        BackgroundTest backgroundTest = new BackgroundTest();
+//        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.accettazioneDelegaSceltaGruppoPF(false,null);
         WebTool.waitTime(2);
     }
@@ -505,13 +523,13 @@ public class DeleghePGPagoPATest {
 
     @And("Si ripristina lo stato iniziale delle deleghe dall impresa {string}")
     public void siRipristinaLoStatoInizialeDelleDelegheDallImpresa(String ragioneSociale) {
-        BackgroundTest backgroundTest = new BackgroundTest();
+//        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.revocaDelegaPG(ragioneSociale);
     }
 
     @And("Si accetta la delega con gruppo {string}")
     public void siAccettaLaDelegaGruppo(String gruppo) {
-        BackgroundTest backgroundTest = new BackgroundTest();
+//        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.accettazioneDelegaSceltaGruppo(true,gruppo);
     }
 
@@ -527,7 +545,7 @@ public class DeleghePGPagoPATest {
 
     @And("Si emula accettazione della delega con gruppo con errore")
     public void siEmulaAccettazioneDellaDelegaConGruppoConErrore() {
-        BackgroundTest backgroundTest = new BackgroundTest();
+//        BackgroundTest backgroundTest = new BackgroundTest();
 
         backgroundTest.checkDelegaSceltaGruppoEInserimentoCodiceErrata();
     }
@@ -547,7 +565,7 @@ public class DeleghePGPagoPATest {
     @And("Non si inserisce il codice OTP e l invito della delega non è più presente")
     public void nonSiInserisceIlCodiceOTPELInvitoDellaDelegaNonèPiùPresente() {
         WebTool.waitTime(61 * 15);
-        driver.navigate().refresh();
+        hooks.getDriver().navigate().refresh();
         deleghePGPagoPAPage.waitLoadDeleghePage();
     }
 

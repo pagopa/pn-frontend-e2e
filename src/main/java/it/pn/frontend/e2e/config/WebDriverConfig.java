@@ -169,6 +169,11 @@ public class WebDriverConfig {
 
     @Value("${url.mittente}")
     private String urlMittente;
+    @Value("${url.helpdesk.test.notifichedigitali}")
+    private String urlHelpdeskTestNotifichedigitali;
+
+    @Value("${codice.iun}")
+    private String codiceIun;
 
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
 
@@ -178,7 +183,14 @@ public class WebDriverConfig {
     private final String os = System.getProperty("os.name");
 
     private DevTools devTools;
+    @Value("${codice.iun.n1}")
+    private String codiceIunN1;
 
+    @Value("${codice.iun.n2}")
+    private String codiceIunN2;
+
+    @Value("${codice.iun.n3}")
+    private String codiceIunN3;
 
     @Getter
     public WebDriver driver;

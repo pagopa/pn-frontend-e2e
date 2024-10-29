@@ -22,6 +22,7 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.List;
 import java.util.Map;
@@ -34,10 +35,13 @@ public class RecapitiPersonaFisicaTest {
     @Autowired
     private WebDriverConfig webDriverConfig;
     @Autowired
+    @Lazy
     private HooksNew hooks;
+    @Autowired
+    @Lazy
+    private BackgroundTest backgroundTest;
 
     public static String OTP;
-   // private final WebDriver driver = hooks.getDriver();
     private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(hooks.getDriver());
     private final DataPopulation dataPopulation = new DataPopulation();
     // private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
@@ -494,8 +498,6 @@ public class RecapitiPersonaFisicaTest {
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
         String email = personaFisica.get("mail").toString();
 
-        BackgroundTest backgroundTest = new BackgroundTest();
-
         if (!recapitiDestinatarioPage.verificaMailAssociata()) {
             logger.info("verifica mail associata, step 1");
             backgroundTest.aggiuntaEmailPF();
@@ -655,7 +657,6 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiDiPfSiControllaCheCiSiaGiaUnaPec(String pec) {
         logger.info("Si controlla la presenza di una pec");
         //String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("emailPec").toString();
-        BackgroundTest backgroundTest = new BackgroundTest();
         if (!recapitiDestinatarioPage.siVisualizzaPecInserita()) {
             backgroundTest.aggiungiPECPF();
         } else if (!recapitiDestinatarioPage.siControllaPECModificata(pec)) {
@@ -965,7 +966,6 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si controlla che non ci sia già una pec")
     public void nellaPaginaITuoiRecapitiSiControllaCheNonCiSiaGiaUnaPec() {
         logger.info("Si controlla che non ci sia una pec");
-        BackgroundTest backgroundTest = new BackgroundTest();
         if (recapitiDestinatarioPage.verificaPecAssociata()) {
             backgroundTest.siEliminaPecEsistenteEAltriRecapitiAssociati();
         }
@@ -1012,7 +1012,6 @@ public class RecapitiPersonaFisicaTest {
     @And("si verifica esistenza due pec")
     public void siVerificaEsistenzaDuePEC() {
         if (!recapitiDestinatarioPage.siVisualizzaPecInserita()) {
-            BackgroundTest backgroundTest = new BackgroundTest();
             backgroundTest.aggiungiNuovaPECPF();
             backgroundTest.aggiungiPecSezioneGiaAssociati();
         }
@@ -1024,8 +1023,6 @@ public class RecapitiPersonaFisicaTest {
 
         ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(hooks.getDriver());
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
-
-        BackgroundTest backgroundTest = new BackgroundTest();
 
         if (!recapitiDestinatarioPage.verificaMailAssociata()) {
             backgroundTest.aggiuntaEmailPF();

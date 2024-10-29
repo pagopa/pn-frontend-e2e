@@ -7,7 +7,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PopUpRevocaDelegaSection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("RevocaDelegaSection");
 
@@ -16,7 +19,7 @@ public class PopUpRevocaDelegaSection extends BasePage {
 
     @FindBy(id = "dialog-action-button")
     WebElement revocaDialogAction;
-
+    @Autowired
     public PopUpRevocaDelegaSection(WebDriver driver) {
         super(driver);
     }
