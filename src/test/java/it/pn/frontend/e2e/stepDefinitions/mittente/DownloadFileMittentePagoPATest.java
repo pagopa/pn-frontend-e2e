@@ -70,8 +70,6 @@ public class DownloadFileMittentePagoPATest {
     private DettaglioNotificaSection dettaglioNotificaSection;
 
 
-
-
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
     public void clickNotificaRestituita() {
         logger.info("Si clicca sulla notifica restituita");
@@ -137,7 +135,7 @@ public class DownloadFileMittentePagoPATest {
         for (int i = 1; i < numeroLinkAvvenutaRicezione; i++) {
             dettaglioNotificaMittenteSection.clickLinkAvvenutaRicezione(i);
             WebTool.waitTime(5);
-            final String url = webDriverConfig.getBaseUrl() + "notifications/sent/" + codiceIUN + "/documents/AAR?documentId=safestorage:";
+            final String url = baseUrl + "notifications/sent/" + codiceIUN + "/documents/AAR?documentId=safestorage:";
             final String urlAvvenutaRicezione = downloadFile.getUrl(url);
             if (headless && urlAvvenutaRicezione.isEmpty()) {
                 String testoLink = dettaglioNotificaMittenteSection.getTextLinkAvvenutaRicezione(i);
@@ -157,7 +155,7 @@ public class DownloadFileMittentePagoPATest {
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
             dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
             WebTool.waitTime(5);
-            final String urlFileAttestazioneOpponibile = downloadFile.getUrl(webDriverConfig.getBaseUrl());
+            final String urlFileAttestazioneOpponibile = downloadFile.getUrl(baseUrl);
             if (headless && urlFileAttestazioneOpponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
                 logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
@@ -178,7 +176,7 @@ public class DownloadFileMittentePagoPATest {
     @And("Si visualizza correttamente la tabella dei disservizi")
     public void siVisualizzaCorrettamenteLaTabellaDeiDisservizi() {
         logger.info("Si visualizza correttamente la tabella dei disservizi");
-        DisserviziAppPAPage disserviziAppPAPage = new DisserviziAppPAPage(driver);
+        DisserviziAppPAPage disserviziAppPAPage = new DisserviziAppPAPage(hooks.getDriver());
         disserviziAppPAPage.waitLoadDisserviziTable();
     }
 
@@ -186,8 +184,8 @@ public class DownloadFileMittentePagoPATest {
     public void downloadDocumentiAllegati() {
         logger.info("Si scaricano solo i documenti Allegati all'interno della notifica");
 
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(driver);
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(driver);
+        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(hooks.getDriver());
+        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(hooks.getDriver());
 
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
@@ -258,11 +256,6 @@ public class DownloadFileMittentePagoPATest {
     public void downloadFileAAR() {
         logger.info("Si scaricano solo i file AAR all'interno della notifica");
 
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        DataPopulation dataPopulation = new DataPopulation();
-
-
         String workingDirectory = System.getProperty("user.dir");
         String variabileAmbiente = environment;
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
@@ -307,10 +300,6 @@ public class DownloadFileMittentePagoPATest {
     @And("Nella sezione Dettaglio Notifiche si scarica il file Attestazioni Opponibili")
     public void downloadAttestazioniOpponibili() {
         logger.info("Si scaricano solo i file per attestazioni opponibili all'interno della notifica");
-
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-        DataPopulation dataPopulation = new DataPopulation();
 
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
