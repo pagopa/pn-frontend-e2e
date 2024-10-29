@@ -77,18 +77,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         AutorizziInvioDatiPAPage.class,
         SelezionaEntePAPage.class,
         AcccediAreaRiservataPAPage.class,
-        DettaglioNotificaSection.class
-
+        DettaglioNotificaSection.class,
         HelpdeskPage.class,
-        HeaderPGSection.class,
-        AccediAreaRiservataPGPage.class,
         RecapitiDestinatarioPage.class,
         ITuoiRecapitiPage.class,
-        PiattaformaNotifichePage.class,
-        AllegatiPASection.class,
-        DestinatarioPASection.class,
-        DettaglioNotificaMittenteSection.class,
-        InformazioniPreliminariPASection.class
 
 })
 @EnableScheduling
