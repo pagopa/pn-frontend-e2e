@@ -13,26 +13,25 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
 
 import java.util.Set;
 
-
+@Primary
 public class DisserviziAppPGTest {
 
     private final Logger logger = LoggerFactory.getLogger("DisserviziAppPGTest");
 
-    @Setter
-    private WebDriver driver;
+    @Autowired
+    @Lazy
+    private HooksNew hooks;
+
     @Autowired
     private  DisserviziAppPage disserviziAppPage;
     @Autowired
     private  PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
 
-
-    @Autowired
-    public DisserviziAppPGTest(WebDriver driver) {
-        this.driver = driver;
-    }
 
 
     @Given("Nella dashboard persona giuridica clicca su disservizi app")
@@ -63,11 +62,11 @@ public class DisserviziAppPGTest {
     public void siVerificaAvvenutoDisservizioInPaginaStatoPiattaforma() {
         BackgroundTest backgroundTest = new BackgroundTest();
         logger.info("Torno sulla scheda della piattaforma send");
-        String helpdeskHandle = driver.getWindowHandle();
-        Set<String> windowHandles = driver.getWindowHandles();
+        String helpdeskHandle = hooks.getDriver().getWindowHandle();
+        Set<String> windowHandles = hooks.getDriver().getWindowHandles();
         for (String handle : windowHandles) {
             if (!handle.equals(helpdeskHandle)) {
-                this.driver.switchTo().window(handle);
+                this.hooks.getDriver().switchTo().window(handle);
                 break;
             }
         }

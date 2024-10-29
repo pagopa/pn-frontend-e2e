@@ -31,8 +31,7 @@ public class BackgroundTest {
     private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
     private final LoginPersonaFisicaPagoPA personaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
     private final DeleghePGPagoPATest deleghePGPagoPATest = new DeleghePGPagoPATest();
-    @Autowired
-    private  DisserviziAppPGTest disserviziAppPGTest;
+    private final  DisserviziAppPGTest disserviziAppPGTest = new DisserviziAppPGTest();
     private final HelpdeskTest helpdeskTest = new HelpdeskTest();
     private final NotifichePGPagoPATest notifichePGPagoPATest = new NotifichePGPagoPATest();
     private final RecapitiTest recapitiTest = new RecapitiTest();
