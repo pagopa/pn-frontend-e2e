@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
@@ -18,6 +19,8 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -25,20 +28,31 @@ import java.util.Map;
 
 public class RicercaNotifichePersonaFisicaPATest {
     private static final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaFisicaTest");
-    private final WebDriver driver = Hooks.driver;
+
     private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
-    private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-    private final DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
     private Map<String, Object> datiNotifica = new HashMap<>();
     private Map<String, Object> datiNotificaNonValidoPF;
+
+    @Autowired
+    @Lazy
+    private HooksNew hooks;
+
+    @Autowired
+    private PiattaformaNotifichePage piattaformaNotifichePage;
+    @Autowired
+    private DestinatarioPage destinatarioPage;
+    @Autowired
+    private HeaderPFSection headerPFSection;
+    @Autowired
+    private NotifichePFPage notifichePFPage;
+
+    @Autowired
+    private NotificheDestinatarioPage notificheDestinatarioPage;
 
     @When("Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica")
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheDestinatario() {
         logger.info("Verifica visualizzazione piattaforma notifiche persona fisica");
-        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
         headerPFSection.waitLoadHeaderDESection();
-
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.waitLoadNotificheDEPage();
     }
 
@@ -46,28 +60,28 @@ public class RicercaNotifichePersonaFisicaPATest {
     public void collegarsiLink(int code) {
         switch (code) {
             case 19 -> {
-                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=19");
+                this.hooks.getDriver().get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=19");
             }
             case 20 -> {
-                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=20");
+                this.hooks.getDriver().get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=20");
             }
             case 21 -> {
-                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=21");
+                this.hooks.getDriver().get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=21");
             }
             case 22 -> {
-                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=22");
+                this.hooks.getDriver().get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=22");
             }
             case 23 -> {
-                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=23");
+                this.hooks.getDriver().get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=23");
             }
             case 25 -> {
-                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=25");
+                this.hooks.getDriver().get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=25");
             }
             case 30 -> {
-                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=30");
+                this.hooks.getDriver().get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=30");
             }
             case 1001 -> {
-                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=1001");
+                this.hooks.getDriver().get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=1001");
             }
         }
     }
@@ -80,34 +94,26 @@ public class RicercaNotifichePersonaFisicaPATest {
     @And("Nella pagina Piattaforma Notifiche persona fisica inserire il codice IUN {string}")
     public void nellaPaginaPiattaformaNotificheDestinatarioInserireIlCodiceIUN(String IUN) throws InterruptedException {
         logger.info("Si inserisce il codice IUN");
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.waitLoadPage();
-
-        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
         notificheDestinatarioPage.inserisciCodiceIUN(IUN);
     }
 
     @And("Cliccare sul bottone Filtra persona fisica")
     public void cliccareSulBottoneFiltra() {
         logger.info("Si clicca sul tasto filtra");
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.selectFiltraButton();
     }
 
     @Then("Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN della notifica {string}")
     public void nellaPaginaPiattaformaNotificheDestinatarioVengoRestituiteTutteLeNotificheConIlCodiceIUNDellaNotifica(String dpDatiNotifica) {
         logger.info("Si verificano i risultati restituiti");
-        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
         headerPFSection.waitLoadHeaderDESection();
-
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.waitLoadNotificheDEPage();
 
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation(dpDatiNotifica + ".yaml");
         String codiceIUNInserito = datiNotifica.get("codiceIUN").toString();
 
-        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
         boolean result = notificheDestinatarioPage.verificaCodiceIUN(codiceIUNInserito);
         if (result) {
             logger.info("Il risultato é coerente con il codice IUN inserito");
@@ -120,13 +126,9 @@ public class RicercaNotifichePersonaFisicaPATest {
     @Then("Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN {string}")
     public void nellaPaginaPiattaformaNotificheDestinatarioVengoRestituiteTutteLeNotificheConIlCodiceIUN(String IUN) {
         logger.info("Si verificano i risultati restituiti");
-        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
         headerPFSection.waitLoadHeaderDESection();
-
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.waitLoadNotificheDEPage();
 
-        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
         boolean result = notificheDestinatarioPage.verificaCodiceIUN(IUN);
         if (result) {
             logger.info("Il risultato é coerente con il codice IUN inserito");
@@ -139,12 +141,10 @@ public class RicercaNotifichePersonaFisicaPATest {
     @And("Nella pagina Piattaforma Notifiche mittente inserire un arco temporale")
     public void nellaPaginaPiattaformaNotificheMittenteInserireUnaDataDaDAAA(Map<String, Integer> date) {
         logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca ");
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         LocalDate dataFine = LocalDate.of(date.get("annoA"), date.get("meseA"), date.get("giornoA"));
         LocalDate dataInizio = LocalDate.of(date.get("annoDa"), date.get("meseDa"), date.get("giornoDa"));
         String dataDA = notifichePFPage.controlloDateInserite(dataInizio.toString());
         String dataA = notifichePFPage.controlloDateInserite(dataFine.toString());
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.inserimentoArcoTemporale(dataDA, dataA);
     }
 
@@ -159,7 +159,6 @@ public class RicercaNotifichePersonaFisicaPATest {
 
         LocalDate dateDa = dateA.minusDays(30);
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         String dataa = piattaformaNotifichePage.conversioneFormatoDate(dateA.toString());
         String datada = piattaformaNotifichePage.conversioneFormatoDate(dateDa.toString());
         logger.info("ARCO TEMPORRALE SETTATO: "+datada +" - "+dataa);
@@ -169,10 +168,8 @@ public class RicercaNotifichePersonaFisicaPATest {
     @And("Se i risultati sono contenuti in più pagine persona fisica è possibile effettuare il cambio pagina")
     public void seIRisultatiSonoContenutiInPiuPagineDestinatarioEPossibileEffettuareIlCambioPagina() {
         logger.info("Se i risultati sono contenuti in più pagine è possibile effettuare il cambio pagina");
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         if (piattaformaNotifichePage.verificaEsistenzaEPassaggioPagina()) {
             logger.info("Bottone pagina 2 trovato e cliccato");
-            HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
             headerPFSection.waitLoadHeaderDESection();
             notifichePFPage.waitLoadNotificheDEPage();
         } else {
@@ -182,7 +179,6 @@ public class RicercaNotifichePersonaFisicaPATest {
 
     @And("Cliccare sul bottone Rimuovi filtri persona fisica")
     public void cliccareSulBottoneRimuoviFiltriPersonaFisica() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.clickRimuoviFiltriButton();
     }
 
@@ -191,14 +187,11 @@ public class RicercaNotifichePersonaFisicaPATest {
         logger.info("Si inserisce il codice IUN non valido");
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotificaNonValidoPF = dataPopulation.readDataPopulation(datiNotificaNonValidoPF + ".yaml");
-        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
         notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotificaNonValidoPF.get("codiceIUN").toString());
     }
 
     @Then("Nella pagina Piattaforma Notifiche persona fisica viene visualizzato un messaggio in rosso di errore sotto il campo errato e il rettangolo diventa rosso e il tasto Filtra è disattivo")
     public void NellaPaginaPiattaformaNotifichePersonaFisicaVieneVisualizzatoUnMessaggioInRossoDiErroreSottoIlCampoErratoEIlRettangoloDiventaRossoEIlTastoFiltraEDisattivo() {
-
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
 
         boolean isErrorMessageDisplayed = notifichePFPage.isErrorMessageDisplayed();
 
@@ -237,16 +230,13 @@ public class RicercaNotifichePersonaFisicaPATest {
 
     @And("Si verifica che visualizza la prima pagina")
     public void siVerificaCheVisualizzaLaPrimaPagina() {
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.firstPageDisplayed();
     }
 
     @Then("Vengono visualizzate correttamente le notifiche comprese nell'arco temporale inserito")
     public void vengonoVisualizzateCorrettamenteLeNotificheCompreseNellArcoTemporaleInserito() {
-        HeaderPFSection headerPFSection = new HeaderPFSection(this.driver);
         headerPFSection.waitLoadHeaderDESection();
 
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.waitLoadNotificheDEPage();
         boolean result = notifichePFPage.getListData();
         if (result) {
@@ -266,7 +256,6 @@ public class RicercaNotifichePersonaFisicaPATest {
     @And("Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN {string}")
     public void nellaPaginaPiattaformaNotificheDestinatarioSiEffettuaLaRicercaPerCodiceIUN(String codiceIUN) {
         logger.info("Si cerca una notifica tramite IUN: " + codiceIUN);
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
         piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
     }

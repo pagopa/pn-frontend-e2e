@@ -7,6 +7,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.HelpdeskPage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.enums.Disservice;
 import it.pn.frontend.e2e.model.enums.Status;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
@@ -19,6 +20,8 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
 
 import java.awt.*;
 import java.io.IOException;
@@ -29,16 +32,24 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+@Primary
 public class HelpdeskTest {
-    private final WebDriver driver = Hooks.driver;
-    private final DataPopulation dataPopulation = new DataPopulation();
     private final Logger logger = LoggerFactory.getLogger("HelpdeskAppTest");
-    private HelpdeskPage helpdeskPage = new HelpdeskPage(this.driver);
     private Map<String, Object> datiTestHelpdesk = new HashMap<>();
     private Map<String, Object> datiPersonaFisica = new HashMap<>();
 
     @Autowired
     private WebDriverConfig webDriverConfig;
+
+    @Autowired
+    private HelpdeskPage helpdeskPage;
+
+    @Autowired
+    private  DataPopulation dataPopulation;
+
+    @Autowired
+    @Lazy
+    private HooksNew hooks;
 
     @Given("Login helpdesk con utente test {string}")
     public void loginHelpdeskConUtenteTest(String nameFile) {
@@ -113,11 +124,11 @@ public class HelpdeskTest {
     public void annullamentoDisservizio() {
         BackgroundTest backgroundTest = new BackgroundTest();
         logger.info("Torno sulla scheda di helpdesk");
-        String sendHandle = driver.getWindowHandle();
-        Set<String> windowHandles = driver.getWindowHandles();
+        String sendHandle = hooks.getDriver().getWindowHandle();
+        Set<String> windowHandles = hooks.getDriver().getWindowHandles();
         for (String handle : windowHandles) {
             if (!handle.equals(sendHandle)) {
-                this.driver.switchTo().window(handle);
+                this.hooks.getDriver().switchTo().window(handle);
                 break;
             }
         }
@@ -142,7 +153,7 @@ public class HelpdeskTest {
         logger.info("Torno sulla piattaforma send per il logout");
         for (String handle : windowHandles) {
             if (handle.equals(sendHandle)) {
-                this.driver.switchTo().window(handle);
+                this.hooks.getDriver().switchTo().window(handle);
                 break;
             }
         }
@@ -299,13 +310,13 @@ public class HelpdeskTest {
     @Given("Login helpdesk in nuova scheda")
     public void loginHelpdeskInNuovaScheda(Map<String, String> login) {
         logger.info("Si apre una nuova finestra");
-        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) hooks.getDriver();
         javascriptExecutor.executeScript("window.open();");
         logger.info("Si seleziona la nuova finestra aperta");
-        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(tabs.size() - 1));
+        ArrayList<String> tabs = new ArrayList<>(hooks.getDriver().getWindowHandles());
+        hooks.getDriver().switchTo().window(tabs.get(tabs.size() - 1));
         logger.info("Nella nuova finestra aperta si va sulla pagina di login di helpdesk");
-        driver.get("https://helpdesk.test.notifichedigitali.it/login");
+        hooks.getDriver().get("https://helpdesk.test.notifichedigitali.it/login");
         helpdeskPage.loginHelpdeskNuovaScheda(login);
     }
 

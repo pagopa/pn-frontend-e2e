@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DestinatarioPASection;
@@ -13,6 +14,8 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -26,10 +29,25 @@ public class RicercaNotificheMittentePagoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittenteTest");
 
-    private final WebDriver driver = Hooks.driver;
+
     private Map<String, Object> personaFisica = new HashMap<>();
     private Map<String, Object> datiNotifica = new HashMap<>();
     private boolean dataFineErrata;
+
+    @Autowired
+    @Lazy
+    private HooksNew hooks;
+    @Autowired
+    private  DestinatarioPASection destinatarioPASection;
+
+    @Autowired
+    private  PiattaformaNotifichePage piattaformaNotifichePage;
+
+    @Autowired
+    private  PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
+
+    @Autowired
+    private  HeaderPASection headerPASection;
 
     @And("Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica {string}")
     public void inserireCodiceFiscale(String dpFile) {
@@ -38,10 +56,7 @@ public class RicercaNotificheMittentePagoPATest {
         DataPopulation dataPopulation = new DataPopulation();
         this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
-        DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
         String cf = destinatarioPASection.ricercaInformazione(personaFisica.get("codiceFiscale").toString().split(","), 0);
-
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
 
         piattaformaNotifichePage.insertCodiceFiscale(cf);
 
@@ -50,20 +65,17 @@ public class RicercaNotificheMittentePagoPATest {
     @And("Cliccare sul bottone Filtra")
     public void cliccareSulBottoneFiltra() {
         logger.info("Si clicca sul tasto filtra");
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
     }
 
     @And("Si verifica che non ci sono notifiche disponibili")
     public void siVerificaCheNonCiSonoNotifiche() {
         logger.info("Si verifica che non ci sono notifiche disponibili con i fitri applicati");
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.verificaNotificheNonDisponibili();
     }
 
     @And("Si visualizza correttamente box di pagamento")
     public void siVisualizzaBoxPagamento() {
-        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
         if (piattaformaNotifichePGPAPage.sezionePagamentoDisplayed()) {
             logger.info("Si visualizza correttamente box di pagamento");
         } else {
@@ -74,7 +86,6 @@ public class RicercaNotificheMittentePagoPATest {
 
     @And("Si visualizza correttamente il messaggio notifica annullata")
     public void siVisulizzaIlMessagioAnnullato() {
-        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
         if (piattaformaNotifichePGPAPage.messaggioNotificaAnnullataDisplayed()) {
             logger.info("Si visualizza correttamente il messaggio notifica annulata");
         } else {
@@ -89,7 +100,6 @@ public class RicercaNotificheMittentePagoPATest {
     public void siVerificaCheIlBottoneFiltraSiaDisabilitato() {
         logger.info("Si verifica che il bottone Filtra sia disabilitato");
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         if (piattaformaNotifichePage.isFiltraButtonDisabled()) {
             logger.info("Il bottone Filtra è disabilitato");
         } else {
@@ -102,7 +112,6 @@ public class RicercaNotificheMittentePagoPATest {
     public void cliccareSulBottoneFiltraDelDelegato() {
         logger.info("Si clicca sul tasto filtra del delegante sotto notifiche");
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
     }
 
@@ -110,10 +119,8 @@ public class RicercaNotificheMittentePagoPATest {
     public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConIlCodiceFiscaleDelDestinatario(String codiceFiscale) {
         logger.info("Si verifica i risultati restituiti");
 
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         int listaCF = piattaformaNotifichePage.getListaCf(codiceFiscale);
 
@@ -130,12 +137,9 @@ public class RicercaNotificheMittentePagoPATest {
     public void nellaPaginaPiattaformaNotificheIRisultatiSonoContenutiInUnaOPiuPagine() {
         logger.info("Se i risultati sono contenuti in più pagine è possibile effettuare il cambio pagina");
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-
         if (piattaformaNotifichePage.verificaEsistenzaEPassaggioPagina()) {
             logger.info("Bottone pagina 2 trovato e cliccato");
 
-            HeaderPASection headerPASection = new HeaderPASection(this.driver);
             headerPASection.waitLoadHeaderSection();
             piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
@@ -149,18 +153,14 @@ public class RicercaNotificheMittentePagoPATest {
         logger.info("Si inserisce il codice IUN");
         DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation(dpDatiNotifica + ".yaml");
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
     }
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice IUN della notifica")
     public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConIlCodiceIUNDellaNotifica() {
         logger.info("Si verifica i risultati restituiti");
-
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         String codiceIUNInserito = piattaformaNotifichePage.getCodiceIunInserito();
         boolean result = piattaformaNotifichePage.verificaCodiceIUN(codiceIUNInserito);
@@ -179,7 +179,6 @@ public class RicercaNotificheMittentePagoPATest {
     public void nellaPaginaPiattaformaNotificheInserireUnaDataDaDAAA(String dataDA, String dataA) {
         logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca");
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         if (!piattaformaNotifichePage.controlloDateInserite(dataDA)) {
             logger.error("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
             Assertions.fail("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
@@ -196,7 +195,6 @@ public class RicercaNotificheMittentePagoPATest {
     public void nellaPaginaPiattaformaNotificheInserireUnaDataDaDAAAErrata(String dataDA, String dataA) {
         logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca");
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         if (!piattaformaNotifichePage.controlloDateInserite(dataDA)) {
             logger.error("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
             Assertions.fail("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
@@ -211,7 +209,6 @@ public class RicercaNotificheMittentePagoPATest {
     @And("Verifica che non è possibile selezionare una data Fine antecedente alla data Inizio")
     public void verificaArcoTemporaleSelezionato() {
         logger.info("Si controlla l'arco temporale che sia errato su cui effettuare la ricerca");
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         Assertions.assertFalse(dataFineErrata);
     }
 
@@ -220,10 +217,8 @@ public class RicercaNotificheMittentePagoPATest {
     public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConLaDataDellaNotificaCompresaTraDaEA() {
         logger.info("Si verifica che le date restituite siano comprese nell'arco temporale");
 
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
         int results = piattaformaNotifichePage.getListDate();
@@ -255,7 +250,6 @@ public class RicercaNotificheMittentePagoPATest {
             }
         }
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.selezionareStatoNotifica(statoInserito);
 
     }
@@ -264,10 +258,7 @@ public class RicercaNotificheMittentePagoPATest {
     public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConLoStatoDellaNotificaStato(String statoNotifica) {
         logger.info("Si controllano che gli stati delle notifiche siano uguali a quello selezionato");
 
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
-
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
 
         int numeroStatoNotifica = piattaformaNotifichePage.getListStato(statoNotifica.substring(1));
 
@@ -285,8 +276,6 @@ public class RicercaNotificheMittentePagoPATest {
     public void nellaPaginaPiattaformaNotificheInserireLaDataInvioNotifica() {
         logger.info("Inserimento data invio notifica");
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
         String dataNotifica = dateFormat.format(date).replace("-", "/");
@@ -298,7 +287,6 @@ public class RicercaNotificheMittentePagoPATest {
     public void nellaPaginaPiattaformaNotificheSelezionareLoStatoNotifica() {
         logger.info("Si seleziona lo stato notifica Depositata");
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
     }
 
@@ -308,7 +296,6 @@ public class RicercaNotificheMittentePagoPATest {
         LocalDate dateA = LocalDate.now();
         LocalDate dateDa = dateA.minusDays(35);
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         String dataa = piattaformaNotifichePage.conversioneFormatoDate(dateA.toString());
         String datada = piattaformaNotifichePage.conversioneFormatoDate(dateDa.toString());
         piattaformaNotifichePage.inserimentoArcoTemporale(datada, dataa);
@@ -317,11 +304,9 @@ public class RicercaNotificheMittentePagoPATest {
     @And("Il sistema restituisce notifiche con codice fiscale e arco temporale uguale a quelli inserito")
     public void ilSistemaRestituisceNotificheConCodiceFiscaleEArcoTemporaleUgualeAQuelliInserito() {
         logger.info("Si verifica i risultati restituiti");
-
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
+;
         headerPASection.waitLoadHeaderSection();
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
         DataPopulation dataPopulation = new DataPopulation();
@@ -351,7 +336,6 @@ public class RicercaNotificheMittentePagoPATest {
     public void nellaPaginaPiattaformaNotificheInserireUnaData() {
         LocalDate data = LocalDate.now();
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         String dataInserita = piattaformaNotifichePage.conversioneFormatoDate(data.toString());
         piattaformaNotifichePage.inserimentoData(dataInserita);
     }
@@ -361,10 +345,8 @@ public class RicercaNotificheMittentePagoPATest {
     public void ilSistemaRestituisceNotificheConDataEStatoUgualeAQuelliInseritoStato(String statoNotifica) {
         logger.info("Si verifica i risultati restituiti");
 
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
         int numeroStatoNotificha = piattaformaNotifichePage.getListStato(statoNotifica);
@@ -390,10 +372,7 @@ public class RicercaNotificheMittentePagoPATest {
     public void ilSistemaRestituisceNotificheConArcoTemporaleEStatoUgualeAQuelliInseritoStato(String statoNotifica) {
         logger.info("Si verifica i risultati restituiti");
 
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
-
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         int results = piattaformaNotifichePage.controlloNumeroRisultatiDate();
         if (results >= 1) {
@@ -415,7 +394,6 @@ public class RicercaNotificheMittentePagoPATest {
 
     @And("Il sistema non restituisce notifiche")
     public void ilSistemaNonRestituisceNotifiche() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         if (piattaformaNotifichePage.verificaEsistenzaRisultati()) {
             logger.info("Il filtro non ha nessun risultato");
         } else {
@@ -428,10 +406,8 @@ public class RicercaNotificheMittentePagoPATest {
     public void ilSistemaRestituisceNotificheConCodiceFiscaleEDataUgualeAQuelliInserito() {
         logger.info("Si verifica i risultati restituiti");
 
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
         DataPopulation dataPopulation = new DataPopulation();
@@ -461,10 +437,8 @@ public class RicercaNotificheMittentePagoPATest {
     public void ilSistemaRestituisceNotificheConCodiceFiscaleEStatoUgualeAQuelliInseritoStato(String statoNotifica) {
         logger.info("Si verifica i risultati restituiti");
 
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
         DataPopulation dataPopulation = new DataPopulation();
@@ -493,7 +467,6 @@ public class RicercaNotificheMittentePagoPATest {
 
     @And("Nella pagina piattaforma Notifiche selezionare lo stato notifica {string}")
     public void nellaPaginaPiattaformaNotificheSelezionareLoStatoNotifica(String statoInserito) {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
 
         switch (statoInserito.toUpperCase()) {
             case "TUTI GLI STATI" -> statoInserito = "All";
@@ -514,13 +487,11 @@ public class RicercaNotificheMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica {string} con allegato")
     public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotificaConAllegato(String codiceIUN) {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
     }
 
     @And("Si verifica che i campi della ricerca delle date siano errate")
     public void siVerificaCheICampiDellaRicercaDelleDateSianoErrate() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         if (piattaformaNotifichePage.controlloDateErrate()) {
             logger.info("Le date inserite sono errate");
         } else {
@@ -531,7 +502,6 @@ public class RicercaNotificheMittentePagoPATest {
 
     @Then("Nella pagina piattaforma Notifiche è presente un campo di ricerca con un menu a tendina per selezionare lo stato della notifica")
     public void nellaPaginaPiattaformaNotificheÈPresenteUnCampoDiRicercaConUnMenuATendinaPerSelezionareLoStatoDellaNotifica() {
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         if (piattaformaNotifichePage.controlloEsistenzaStato()) {
             logger.info("Campo stato notifica trovato");
         } else {
@@ -543,7 +513,6 @@ public class RicercaNotificheMittentePagoPATest {
     @And("Nella pagina piattaforma notifiche si effettua la ricerca per codice IUN {string}")
     public void nellaPaginaPiattformaNotificheSiEffettuaLaRicercaPerCodiceIUN(String codiceIUN) {
         logger.info("Si cerca una notifica tramite IUN: {}", codiceIUN);
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
         piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
     }
@@ -552,14 +521,12 @@ public class RicercaNotificheMittentePagoPATest {
     @And("Si clicca la notifica ricercata")
     public void siCliccaLaNotificaRicercata() {
         logger.info("Se presente si clicca la notifica ricercata");
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.clickNotificaRicercata();
     }
 
     @And("Si clicca sul bottone vedi tutti")
     public void siCliccaVediTutti() {
         logger.info("Si clicca sul bottone vedi tutti");
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         piattaformaNotifichePage.clickVediTutti();
     }
 }

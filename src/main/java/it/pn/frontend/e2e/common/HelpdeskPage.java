@@ -32,8 +32,9 @@ import java.util.stream.Stream;
 
 import net.lingala.zip4j.ZipFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class HelpdeskPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("Helpdesk Page");
@@ -78,6 +79,7 @@ public class HelpdeskPage extends BasePage {
     @Autowired
     private WebDriverConfig webDriverConfig;
 
+    @Autowired
     public HelpdeskPage(WebDriver driver) {
         super(driver);
     }

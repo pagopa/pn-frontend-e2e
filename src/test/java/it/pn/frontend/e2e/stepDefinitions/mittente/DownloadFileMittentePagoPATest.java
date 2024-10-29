@@ -15,11 +15,13 @@ import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
 
+import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.util.HashMap;
@@ -32,6 +34,24 @@ public class DownloadFileMittentePagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("DownloadFileMittentePagoPATest");
     private Map<String, Object> datiNotifica = new HashMap<>();
 
+    @Value("${environment}")
+    private String environment;
+
+    @Value("${cookie.config}")
+    private String cookie;
+
+    @Value("${headless}")
+    private String headlessParam;
+
+    @Value("${downloadFilePath}")
+    private String downloadFilePath;
+
+    @Value("${loadComponentWaitTime}")
+    private String loadComponentWaitTime;
+
+    @Value("${apiBaseUrl}")
+    private String baseUrl;
+
 
     @Autowired
     private DataPopulation dataPopulation;
@@ -41,8 +61,6 @@ public class DownloadFileMittentePagoPATest {
     private HooksNew hooks;
     @Autowired
     private DisserviziAppPAPage disserviziAppPAPage;
-    @Autowired
-    private WebDriverConfig webDriverConfig;
     @Autowired
     private PiattaformaNotifichePage piattaformaNotifichePage;
     @Autowired
@@ -73,7 +91,7 @@ public class DownloadFileMittentePagoPATest {
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
 
-        boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
+        boolean headless = headlessParam.equalsIgnoreCase("true");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }
@@ -98,7 +116,7 @@ public class DownloadFileMittentePagoPATest {
 
         final String filepath = workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN";
 
-        final String urlDocumenti = webDriverConfig.getBaseUrl() + "notifications/sent/" + codiceIUN + "/documents/";
+        final String urlDocumenti = baseUrl + "notifications/sent/" + codiceIUN + "/documents/";
 
         final String urlDocumentiAllegati = downloadFile.getUrl(urlDocumenti);
         File file = new File(filepath + count + ".pdf");
@@ -122,7 +140,7 @@ public class DownloadFileMittentePagoPATest {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            final String url = webDriverConfig.getBaseUrl() + "notifications/sent/" + codiceIUN + "/documents/AAR?documentId=safestorage:";
+            final String url = baseUrl + "notifications/sent/" + codiceIUN + "/documents/AAR?documentId=safestorage:";
             final String urlAvvenutaRicezione = downloadFile.getUrl(url);
             if (headless && urlAvvenutaRicezione.isEmpty()) {
                 String testoLink = dettaglioNotificaMittenteSection.getTextLinkAvvenutaRicezione(i);
@@ -148,7 +166,7 @@ public class DownloadFileMittentePagoPATest {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            final String urlFileAttestazioneOppponibile = downloadFile.getUrl(webDriverConfig.getBaseUrl());
+            final String urlFileAttestazioneOppponibile = downloadFile.getUrl(baseUrl);
             if (headless && urlFileAttestazioneOppponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
                 logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
@@ -174,7 +192,7 @@ public class DownloadFileMittentePagoPATest {
 
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
-        boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
+        boolean headless = headlessParam.equalsIgnoreCase("true");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }
@@ -196,7 +214,7 @@ public class DownloadFileMittentePagoPATest {
         }
 
         final String filepath = workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN";
-        final String urlDocumenti = webDriverConfig.getBaseUrl() + "notifications/sent/" + codiceIUN + "/attachments/documents/0";
+        final String urlDocumenti = baseUrl + "notifications/sent/" + codiceIUN + "/attachments/documents/0";
         final String urlDocumentiAllegati = downloadFile.getUrl(urlDocumenti);
         File file = new File(filepath + count + "PN_NOTIFICATION_ATTACHMENTS.pdf");
 
@@ -248,9 +266,9 @@ public class DownloadFileMittentePagoPATest {
         logger.info("Si scaricano solo i file AAR all'interno della notifica");
 
         String workingDirectory = System.getProperty("user.dir");
-        String variabileAmbiente = webDriverConfig.getEnvironment();
+        String variabileAmbiente = environment;
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
-        boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
+        boolean headless = headlessParam.equalsIgnoreCase("true");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }
@@ -295,7 +313,7 @@ public class DownloadFileMittentePagoPATest {
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
 
-        boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
+        boolean headless = headlessParam.equalsIgnoreCase("true");
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }
@@ -317,7 +335,7 @@ public class DownloadFileMittentePagoPATest {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            final String urlFileAttestazioneOpponibile = downloadFile.getUrl(webDriverConfig.getBaseUrl());
+            final String urlFileAttestazioneOpponibile = downloadFile.getUrl(baseUrl);
             if (urlFileAttestazioneOpponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
                 logger.error("Non è stato recuperato l'URL per il download per il link: " + testoLink);
@@ -339,12 +357,12 @@ public class DownloadFileMittentePagoPATest {
     @And("Nella sezione Dettaglio Notifiche si seleziona il file, {string}, da scaricare")
     public void siSelezionanoIlFileDaScaricare(String nomeFile) {
         logger.info("Si cerca di scaricare il file " + nomeFile);
-        boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
+        boolean headless = headlessParam.equalsIgnoreCase("true");
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibile(nomeFile);
         WebTool.waitTime(5);
 
-        final String url = downloadFile.getUrl(webDriverConfig.getBaseUrl() + "notifications/sent/");
+        final String url = downloadFile.getUrl(baseUrl + "notifications/sent/");
         if (headless && url.isEmpty()) {
             logger.error("Non è stato recuperato url per il download per il link: " + nomeFile);
             Assertions.fail("Non è stato recuperato url per il download per il link: " + nomeFile);
