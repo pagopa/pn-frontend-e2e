@@ -195,4 +195,35 @@ public class DestinatarioPage extends BasePage {
         restRaddAlternative.completeTransactionRaddAlternative(operationId);
 
     }
+    public void clickTuttiGliEnti() {
+        By tuttiGliEnti = By.id("tutti-gli-enti-selezionati");
+        getWebDriverWait(10).withMessage("Il radio button 'tutti gli enti selezionati' non è visibile").until(ExpectedConditions.visibilityOfElementLocated(tuttiGliEnti));
+        element(tuttiGliEnti).click();
+    }
+
+    public void clickSoloEntiSelezionati() {
+        By soloEntiSelezionati = By.id("enti-selezionati");
+        getWebDriverWait(10).withMessage("Il radio button 'solo enti selezionati' non è visibile").until(ExpectedConditions.visibilityOfElementLocated(soloEntiSelezionati));
+        element(soloEntiSelezionati).click();
+    }
+
+    public void clickListaEnti() {
+        By listaEnti = By.id("enti");
+        getWebDriverWait(10).withMessage("Il menù a tendina degli enti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(listaEnti));
+        element(listaEnti).click();
+    }
+
+    public void controlloEntiRadice(List<String> enti) {
+        for (String ente : enti) {
+            By enteRadice = By.xpath("//li//p[contains(text(),'" + ente + "')]");
+            getWebDriverWait(10).withMessage("Ente: " + ente + " non visibile").until(ExpectedConditions.visibilityOfElementLocated(enteRadice));
+        }
+    }
+
+    public void checkBannerAnnullamentoNotifica() {
+        By bannerAnnullamentoNotificaBy = By.xpath("//div[@data-testid='cancelledAlertText']");
+        getWebDriverWait(10).withMessage("Il banner di annullamento della notifica non è presente").until(ExpectedConditions.visibilityOfElementLocated(bannerAnnullamentoNotificaBy));
+        getWebDriverWait(10).withMessage("Il banner di annullamento della notifica presenta la corretta descrizione").until(
+                ExpectedConditions.attributeToBe(bannerAnnullamentoNotificaBy, "textContent", "Questa notifica è stata annullata dall’ente mittente. Puoi ignorarne il contenuto."));
+    }
 }

@@ -72,6 +72,8 @@ public class HooksNew {
     private final List<NetWorkInfo> netWorkInfos = new ArrayList<>();
 
     private final String os = System.getProperty("os.name");
+    @Autowired
+    MandateSingleton mandateSingleton ;
 
     @Autowired
     private  CookieConfig cookieConfig;
@@ -250,7 +252,7 @@ public class HooksNew {
     @And("Revoca deleghe se esistono")
     public void clearDelegate() {
         logger.info("Revoking all delegations...");
-        var mandateId = MandateSingleton.getInstance().getMandateId(Hooks.getScenario());
+        var mandateId = mandateSingleton.getMandateId(Hooks.getScenario());
         if (mandateId != null) {
             RestDelegation.getInstance().revokeDelegation(mandateId);
             logger.info("Delegation revoked: {}", mandateId);

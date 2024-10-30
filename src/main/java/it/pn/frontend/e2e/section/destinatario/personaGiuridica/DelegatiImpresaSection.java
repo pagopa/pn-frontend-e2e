@@ -10,9 +10,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public class DelegatiImpresaSection extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DelegatiImpresaSection");

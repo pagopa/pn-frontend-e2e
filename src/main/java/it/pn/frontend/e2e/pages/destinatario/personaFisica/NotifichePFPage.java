@@ -8,66 +8,74 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Component
 public class NotifichePFPage extends BasePage {
-    private static final Logger logger = LoggerFactory.getLogger("NotifichePFPage");
+    private static final Logger logger = LoggerFactory.getLogger(NotifichePFPage.class);
+
+    @Autowired
+    private WebDriver driver;
 
     @FindBy(id = "Le tue notifiche-page")
-    WebElement titleLabel;
+    private WebElement titleLabel;
 
     @FindBy(id = "notifications-table")
-    WebElement tableNotifiche;
+    private WebElement tableNotifiche;
 
     @FindBy(id = "iunMatch")
-    WebElement codiceIunTextField;
+    private WebElement codiceIunTextField;
 
     @FindBy(id = "filter-notifications-button")
-    WebElement filtraButton;
+    private WebElement filtraButton;
 
     @FindBy(id = "startDate")
-    WebElement dataInizioField;
+    private WebElement dataInizioField;
 
     @FindBy(id = "endDate")
-    WebElement dataFineField;
+    private WebElement dataFineField;
 
     @FindBy(id = "side-item-Notifiche")
-    WebElement notificheDeButton;
+    private WebElement notificheDeButton;
 
     @FindBy(id = "side-item-Gaio Giulio Cesare")
-    WebElement nomeDeleganteButton;
+    private WebElement nomeDeleganteButton;
 
     @FindBy(id = "next")
-    WebElement paginaSuccessivaButton;
+    private WebElement paginaSuccessivaButton;
 
     @FindBy(id = "page3")
-    WebElement numeroPaginaTreButton;
+    private WebElement numeroPaginaTreButton;
 
     @FindBy(id = "page2")
-    WebElement paginaSeconda;
+    private WebElement paginaSeconda;
 
     @FindBy(id = "page1")
-    WebElement paginaPrima;
+    private WebElement paginaPrima;
 
     @FindBy(id = "rows-per-page")
-    WebElement numeroPagineButton;
+    private WebElement numeroPagineButton;
 
     @FindBy(id = "iunMatch-helper-text")
-    WebElement notValidIunMessage;
+    private WebElement notValidIunMessage;
 
     @FindBy(css = "[data-testid='cancelButton']")
-    WebElement rimuoviFiltriButton;
+    private WebElement rimuoviFiltriButton;
 
     @FindBy(xpath = "//button[@data-testid='download-f24-button']")
-    WebElement buttonDownloadF24;
+    private WebElement buttonDownloadF24;
 
     @FindBy(xpath = "//button[@data-testid='download-pagoPA-notice-button']")
-    WebElement buttonDownloadAvvisoPagoPA;
+    private WebElement buttonDownloadAvvisoPagoPA;
 
+    @Autowired
     public NotifichePFPage(WebDriver driver) {
         super(driver);
+        this.driver = driver;
     }
 
     public void waitLoadNotificheDEPage() {

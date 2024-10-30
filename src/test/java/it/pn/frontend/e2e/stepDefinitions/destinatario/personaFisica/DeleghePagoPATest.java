@@ -23,6 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -33,26 +35,50 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
+@Component
 public class DeleghePagoPATest {
 
+    @Autowired
+    private WebDriver driver;
+    @Autowired
+    private NotifichePFPage notifichePFPage;
+    @Autowired
+    private LeTueDelegheSection leTueDelegheSection;
 
-    private final WebDriver driver = Hooks.driver;
-    private final LeTueDelegheSection leTueDelegheSection = new LeTueDelegheSection(this.driver);
-    private final PopUpRevocaDelegaSection popUpRevocaDelegaSection = new PopUpRevocaDelegaSection(this.driver);
-    private final DataPopulation dataPopulation = new DataPopulation();
-    private final DeleghePage deleghePage = new DeleghePage(this.driver);
-    private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
-    private final DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
-    private final MandateSingleton mandateSingleton = MandateSingleton.getInstance();
-    private final RestDelegation restDelegation = RestDelegation.getInstance();
-    Map<String, Object> deleghe = new HashMap<>();
+    @Autowired
+    private PopUpRevocaDelegaSection popUpRevocaDelegaSection;
+
+    @Autowired
+    private DataPopulation dataPopulation;
+
+    @Autowired
+    private DeleghePage deleghePage;
+
+    @Autowired
+    private LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA;
+
+    @Autowired
+    private DestinatarioPage destinatarioPage;
+
+    @Autowired
+    private MandateSingleton mandateSingleton;
+
+    @Autowired
+    private RestDelegation restDelegation;
+
+    @Autowired
+    private  BackgroundTest backgroundTest;
+
+
+    private Map<String, Object> deleghe = new HashMap<>();
+
     @Setter
     private String codiceVerifica;
+
 
     @When("Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe")
     public void waitDelegheButton() {
         log.info("Si clicca sul bottone deleghe");
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.waitESelectDelegheButton();
     }
 
@@ -200,7 +226,6 @@ public class DeleghePagoPATest {
         String nome = datiPersonaFisica.get("nome");
         String cognome = datiPersonaFisica.get("cognome");
 
-        BackgroundTest backgroundTest = new BackgroundTest();
         deleghePage.vaiInFondoAllaPagina();
         boolean esistenzaDelega = deleghePage.siVisualizzaUnaDelegaConNomeDelegato(nome, cognome);
         String stato = "";
@@ -482,7 +507,6 @@ public class DeleghePagoPATest {
 
         String nome = personaFisica.get("nome");
         String cognome = personaFisica.get("cognome");
-        BackgroundTest backgroundTest = new BackgroundTest();
 
         if (!deleghePage.siVisualizzaUnaDelegaConNome(nome, cognome)) {
             WebTool.waitTime(5);
@@ -494,8 +518,6 @@ public class DeleghePagoPATest {
     public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelegaAccettata() {
         log.info("Si controlla che ci sia una delega accettata");
         this.deleghe = this.dataPopulation.readDataPopulation("personaFisica.yaml");
-        BackgroundTest backgroundTest = new BackgroundTest();
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         if (!this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString())) {
             backgroundTest.loginPF("personaFisica");
             backgroundTest.aggiuntaNuovaDelegaPF();
@@ -515,7 +537,6 @@ public class DeleghePagoPATest {
 
         String nome = personaFisica.get("nome");
         String cognome = personaFisica.get("cognome");
-        BackgroundTest backgroundTest = new BackgroundTest();
         deleghePage.vaiInFondoAllaPagina();
         boolean esistenzaDelega = this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(nome, cognome);
         if (!esistenzaDelega) {

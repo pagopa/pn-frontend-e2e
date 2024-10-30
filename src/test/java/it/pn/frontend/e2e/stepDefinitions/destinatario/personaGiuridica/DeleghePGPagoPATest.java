@@ -28,21 +28,51 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@Component
 public class DeleghePGPagoPATest {
-    private final Logger logger = LoggerFactory.getLogger("DeleghePGPagoPATest");
-    private final WebDriver driver = Hooks.driver;
-    private final DeleghePGPagoPAPage deleghePGPagoPAPage = new DeleghePGPagoPAPage(this.driver);
-    private final DeleghePagoPATest deleghePagoPATest = new DeleghePagoPATest();
-    private final DelegatiImpresaSection delegatiImpresaSection = new DelegatiImpresaSection(this.driver);
-    private final AggiungiDelegaPGSection aggiungiDelegaPGSection = new AggiungiDelegaPGSection(this.driver);
-    private final DataPopulation dataPopulation = new DataPopulation();
+
+    private static final Logger logger = LoggerFactory.getLogger(DeleghePGPagoPATest.class);
+
+    @Autowired
+    private WebDriver driver;
+
+    @Autowired
+    private DeleghePGPagoPAPage deleghePGPagoPAPage;
+
+    @Autowired
+    private DeleghePagoPATest deleghePagoPATest;
+
+    @Autowired
+    private DelegatiImpresaSection delegatiImpresaSection;
+
+    @Autowired
+    private AggiungiDelegaPGSection aggiungiDelegaPGSection;
+
+    @Autowired
+    private DataPopulation dataPopulation;
+
+    @Autowired
+    private MandateSingleton mandateSingleton;
+
+    @Autowired
+    private RestDelegation restDelegation;
+
+    @Autowired
+    private LoginPGPagoPATest loginPGPagoPaTest;
+    @Autowired
+    private BackgroundTest backgroundTest;
+
     private Map<String, Object> datiDelega = new HashMap<>();
-    Map<String, Object> datiPersonaFisica = new HashMap<>();
-    private final MandateSingleton mandateSingleton = MandateSingleton.getInstance();
-
-    private final RestDelegation restDelegation = RestDelegation.getInstance();
-
-    private LoginPGPagoPATest loginPGPagoPaTest = new LoginPGPagoPATest();
+    private Map<String, Object> datiPersonaFisica = new HashMap<>();
     private boolean dataFineErrata;
 
     @And("Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa")
@@ -227,7 +257,6 @@ public class DeleghePGPagoPATest {
     @And("Nella pagina Deleghe sezione Deleghe dell impresa  si verifica sia presente una delega")
     public void nellaPaginaDelegheSezioneDelegheDellImpresaSiVerificaSiaPresenteUnaDelega() {
         logger.info("Si controlla che ci sia almeno una delega");
-        BackgroundTest backgroundTest = new BackgroundTest();
 
         if (!this.delegatiImpresaSection.siVisualizzaUnaDelega()) {
             backgroundTest.aggiuntaNuovaDelegaDellImpresaPG();
@@ -485,13 +514,11 @@ public class DeleghePGPagoPATest {
 
     @And("Si accetta la delega senza gruppo")
     public void siAccettaLaDelegaSenzaGruppo() {
-        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.accettazioneDelegaSceltaGruppo(false,null);
     }
 
     @And("Si accetta la delega senza gruppo PF")
     public void siAccettaLaDelegaSenzaGruppoPF() {
-        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.accettazioneDelegaSceltaGruppoPF(false,null);
         WebTool.waitTime(2);
     }
@@ -505,13 +532,11 @@ public class DeleghePGPagoPATest {
 
     @And("Si ripristina lo stato iniziale delle deleghe dall impresa {string}")
     public void siRipristinaLoStatoInizialeDelleDelegheDallImpresa(String ragioneSociale) {
-        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.revocaDelegaPG(ragioneSociale);
     }
 
     @And("Si accetta la delega con gruppo {string}")
     public void siAccettaLaDelegaGruppo(String gruppo) {
-        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.accettazioneDelegaSceltaGruppo(true,gruppo);
     }
 
@@ -527,7 +552,6 @@ public class DeleghePGPagoPATest {
 
     @And("Si emula accettazione della delega con gruppo con errore")
     public void siEmulaAccettazioneDellaDelegaConGruppoConErrore() {
-        BackgroundTest backgroundTest = new BackgroundTest();
 
         backgroundTest.checkDelegaSceltaGruppoEInserimentoCodiceErrata();
     }
