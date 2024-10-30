@@ -68,6 +68,8 @@ public class BackgroundTest {
     private  ITuoiRecapitiPage iTuoiRecapitiPage;
     @Autowired
     private  PiattaformaNotifichePage piattaformaNotifichePage;
+    @Autowired
+    NotificaMittentePagoPATest notificaMittentePagoPATest;
 
     @Autowired
     public BackgroundTest() {
@@ -81,7 +83,7 @@ public class BackgroundTest {
 
 
     public void invioNotificaErrorePec() {
-        NotificaMittentePagoPATest notificaMittentePagoPATest = new NotificaMittentePagoPATest();
+//        NotificaMittentePagoPATest notificaMittentePagoPATest = new NotificaMittentePagoPATest();
 
         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheSiRecuperaLUltimoNumeroProtocollo();
         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica();
