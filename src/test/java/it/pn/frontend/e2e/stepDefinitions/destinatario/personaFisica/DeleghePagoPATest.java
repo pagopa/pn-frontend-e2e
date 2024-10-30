@@ -71,7 +71,6 @@ public class DeleghePagoPATest {
     @When("Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe")
     public void waitDelegheButton() {
         log.info("Si clicca sul bottone deleghe");
-//        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         notifichePFPage.waitESelectDelegheButton();
     }
 
@@ -99,7 +98,6 @@ public class DeleghePagoPATest {
         String codiceFiscale = personaFisica.get("codiceFiscale");
         String ente = personaFisica.get("ente");
 
-
         leTueDelegheSection.selectPersonaFisicaRadioButton();
 
         leTueDelegheSection.insertNomeCognome(nome, cognome);
@@ -114,7 +112,6 @@ public class DeleghePagoPATest {
     public void nellaSezioneLeTueDelegheVerificareCheLaDataSiaCorretta() {
         log.info("Si controlla che la data visualizzata sia corretta");
 
-
         if (this.leTueDelegheSection.verificareCheLaDataSiaCorretta()) {
             log.info("La data inserita è corretta");
         } else {
@@ -128,7 +125,6 @@ public class DeleghePagoPATest {
         log.info("Si salva il codice deleghe nel file " + dpFile);
 
         deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
 
         String codiceVerifica = this.leTueDelegheSection.salvataggioCodiceVerifica();
         deleghe.put("codiceDelega", codiceVerifica);
@@ -176,14 +172,12 @@ public class DeleghePagoPATest {
     @Then("Si clicca sul bottone chiudi")
     public void siCliccaSulBottoneChiudi() {
         log.info("Si clicca sul bottone chiudi");
-
         deleghePage.siCliccaSulBottoneChiudi();
     }
 
     @And("Nella sezione Deleghe si sceglie l'opzione revoca")
     public void nellaSezioneDelegheSiSceglieLOpzioneRevoca() {
         log.info("Si clicca sulla opzione revoca delega");
-
         deleghePage.clickOpzioneRevoca();
     }
 

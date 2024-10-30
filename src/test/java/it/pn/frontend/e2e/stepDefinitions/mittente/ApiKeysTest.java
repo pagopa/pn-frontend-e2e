@@ -9,7 +9,10 @@ import it.pn.frontend.e2e.pages.mittente.ApiKeyPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.GeneraApiKeySection;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
+import org.modelmapper.internal.util.Assert;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +25,10 @@ public class ApiKeysTest {
     private static final Logger logger = LoggerFactory.getLogger("ApiKeysTest");
     private final WebDriver driver = Hooks.driver;
     private final ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+
+    @Getter
+    @Setter
+    public static String ApiKey;
 
     @Autowired
     private WebDriverConfig webDriverConfig;
@@ -288,5 +295,18 @@ public class ApiKeysTest {
     public void nellaPaginaApiKeyPosizionareIlCursuoreSopraIlNumeroGruppi() {
         apiKeyPAPage.mouseHoverGroups();
         apiKeyPAPage.waitLoadMessaggioData();
+    }
+
+    @And("Si copia e salva API key generata")
+    public void siCopiaESalvaApiKeyGenearta(){
+        logger.info("Si copia e salva API key generata");
+        ApiKey = apiKeyPAPage.copiaApiKeyESalva();
+    }
+
+    @And("Si clicca visualizza codice e verifica che il valore dell'apikey copiato sia uguale")
+    public void siVerificaValoreApiKeyUguale(){
+        logger.info("Verifica che il valore dell'apikey copiato sia uguale a quello visualizzato in elenco");
+        String apiKeyDaElenco =  apiKeyPAPage.visualizzaApiKeyInElenco();
+       Assertions.assertTrue(ApiKey.equalsIgnoreCase(apiKeyDaElenco));
     }
 }

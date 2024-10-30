@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 
 import it.pn.frontend.e2e.utility.DataPopulation;
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 
 import java.util.Map;
@@ -22,13 +24,17 @@ import java.util.UUID;
 
 @Slf4j
 public class NewNotifichePagoPATest {
-    private final WebDriver driver = Hooks.driver;
     private final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
 
-    @Autowired
-    private WebDriverConfig webDriverConfig;
+    @Value("${environment}")
+    private String environmentParam;
 
-    DestinatarioPage destinatarioPage = new DestinatarioPage(driver);
+    @Autowired
+    private DestinatarioPage destinatarioPage;
+
+    @Autowired
+    private DataPopulation dataPopulation;
+
 
     @Then("Creo in background una notifica per destinatario tramite API REST")
     public void creoUnaNotificaPerDestinatarioTramiteAPIREST(){
@@ -47,8 +53,7 @@ public class NewNotifichePagoPATest {
 
     @And("Si completa percorso RADD")
     public void siCompletaPercorsoRADD(Map<String,String> datiDestinatario) {
-        DataPopulation dataPopulation = new DataPopulation();
-        String environment = webDriverConfig.getEnvironment();
+        String environment = environmentParam;
         String token = "";
         switch (environment) {
             case "dev" -> {

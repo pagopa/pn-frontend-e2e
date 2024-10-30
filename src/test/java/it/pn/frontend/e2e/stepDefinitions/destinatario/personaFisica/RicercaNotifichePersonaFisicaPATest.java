@@ -35,10 +35,8 @@ public class RicercaNotifichePersonaFisicaPATest {
     @Autowired
     @Lazy
     private HooksNew hooks;
-
     @Autowired
     private NotificationSingleton notificationSingleton;
-
     @Autowired
     private PiattaformaNotifichePage piattaformaNotifichePage;
     @Autowired
@@ -47,7 +45,6 @@ public class RicercaNotifichePersonaFisicaPATest {
     private HeaderPFSection headerPFSection;
     @Autowired
     private NotifichePFPage notifichePFPage;
-
     @Autowired
     private NotificheDestinatarioPage notificheDestinatarioPage;
 
