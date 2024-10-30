@@ -15,6 +15,8 @@ Feature: Mittente genera Api Key con gruppo
     And Nella sezione genera Api Key inserire un gruppo
     And Nella sezione genera Api Key cliccare bottone continua
     And Si visualizza correttamente la pagina di conferma
+    And Si copia e salva API key generata
     And Nella pagina di conferma cliccare sul bottone Torna a API key
     Then Si visualizza correttamente l api key "testAutomationFE" nell elenco in stato attivo
+    Then Si clicca visualizza codice e verifica che il valore dell'apikey copiato sia uguale
     And Logout da portale mittente

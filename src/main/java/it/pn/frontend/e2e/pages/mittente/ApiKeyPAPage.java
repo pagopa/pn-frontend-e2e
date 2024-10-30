@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -528,5 +529,21 @@ public class ApiKeyPAPage extends BasePage {
             logger.error("Non è stato possibile trovare la colonna gruppi della prima riga");
             Assertions.fail("Non è stato possibile trovare la colonna gruppi della prima riga");
         }
+    }
+
+    public String copiaApiKeyESalva(){
+        By apiKeyField = By.id("apiKeyId");
+        return element(apiKeyField).getAttribute("value");
+    }
+
+    public String visualizzaApiKeyInElenco(){
+        By contextMenu = By.xpath("//button[@data-testid='contextMenuButton']");
+        elements(contextMenu).get(0).click();
+        WebTool.waitTime(1);
+        By visualizzaCodiceButton = By.xpath("//li[@data-testid='buttonView']");
+        element(visualizzaCodiceButton).click();
+        WebTool.waitTime(1);
+        By apiKeyDaElenco = By.xpath("//input[@aria-invalid='false']");
+        return element(apiKeyDaElenco).getAttribute("value");
     }
 }
