@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-//@Component inserire in un secondo momenti
+@Component
 public class LoginPGPagoPATest {
 
     private final Logger logger = LoggerFactory.getLogger(LoginPGPagoPATest.class);

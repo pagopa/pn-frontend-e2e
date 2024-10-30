@@ -10,25 +10,36 @@ import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-
+/*
+* Modifiche principali:
+Autowired NotificationSingleton e WebDriverConfig: Ho integrato i componenti tramite annotazione @Autowired per sfruttare la gestione delle dipendenze di Spring Boot, eliminando la necessità di istanziare manualmente queste classi.
+Component: Aggiunta dell’annotazione @Component per rendere la classe gestibile da Spring Boot.*/
+@Component
 public class PiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("notificaMittentePagoPA");
+
+    @Autowired
+    private NotificationSingleton notificationSingleton;
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
+
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
-    private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
 
     @FindBy(id = "recipientId")
     WebElement cfTextField;
@@ -104,10 +115,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
     @FindBy(id = "message")
     WebElement erroreMessaggio;
-
-    @Autowired
-    private WebDriverConfig webDriverConfig;
-
 
     public PiattaformaNotifichePage(WebDriver driver) {
         super(driver);

@@ -8,56 +8,68 @@ import it.pn.frontend.e2e.model.radd.CompleteTransaction.CompleteTransactionResp
 import it.pn.frontend.e2e.model.radd.StartTransaction.StartTransactionRequest;
 import it.pn.frontend.e2e.model.radd.StartTransaction.StartTransactionResponse;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
-import it.pn.frontend.e2e.utility.DataPopulation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+/*
+ *Dettagli delle modifiche
+Iniezione di NotificationSingleton e WebDriverConfig con @Autowired: Elimina la necessità di gestire manualmente le istanze, rendendo la classe più gestibile e scalabile.
+
+Logging degli errori: Per un'analisi degli errori migliorata, è stato aggiunto il logging dettagliato per gestire le eccezioni durante le richieste HTTP.
+
+Refactoring del costruttore: La variabile token è ora impostata tramite il costruttore e mantenuta come final per garantire che venga impostata solo una volta all'inizializzazione.
+ *
+ */
 
 @Slf4j
+@Component
 public class RestRaddAlternative {
 
-    NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
-    private final Map<String, String> headers = new HashMap<>();
-    private final String token;
-  //  private final String env = System.getProperty("environment");
-    private final String uid = UUID.randomUUID().toString();
+    @Autowired
+    private NotificationSingleton notificationSingleton;
 
     @Autowired
     private WebDriverConfig webDriverConfig;
+
+    private final Map<String, String> headers = new HashMap<>();
+    private final String uid = UUID.randomUUID().toString();
+    private final String token;
 
     public RestRaddAlternative(String token) {
         this.token = token;
     }
 
     public StartTransactionResponse startTransactionRaddAlternative(String tipoDestinatario, String codiceFiscale, String operationId) {
-        final CustomHttpClient<StartTransactionRequest, StartTransactionResponse> httpClientStart = new CustomHttpClient<>();
-        httpClientStart.setBaseUrlApi("https://api.radd."+ webDriverConfig.getEnvironment() + ".notifichedigitali.it");
-        final StartTransactionRequest startTransactionRequest = new StartTransactionRequest(codiceFiscale,tipoDestinatario, notificationSingleton.getIun(Hooks.getScenario()),operationId);
+        CustomHttpClient<StartTransactionRequest, StartTransactionResponse> httpClientStart = new CustomHttpClient<>();
+        httpClientStart.setBaseUrlApi("https://api.radd." + webDriverConfig.getEnvironment() + ".notifichedigitali.it");
+        StartTransactionRequest startTransactionRequest = new StartTransactionRequest(codiceFiscale, tipoDestinatario, notificationSingleton.getIun(Hooks.getScenario()), operationId);
+
+        headers.put("Authorization", this.token);
+        headers.put("uid", uid);
 
         try {
-            headers.put("Authorization", this.token);
-            headers.put("uid", uid);
-            StartTransactionResponse response = httpClientStart.sendHttpPostRequest("/radd-net/api/v1/act/transaction/start", headers, startTransactionRequest, StartTransactionResponse.class);
-            return response;
+            return httpClientStart.sendHttpPostRequest("/radd-net/api/v1/act/transaction/start", headers, startTransactionRequest, StartTransactionResponse.class);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            log.error("Errore nella richiesta di Start Transaction RADD", e);
+            throw new RuntimeException("Errore nella richiesta di Start Transaction RADD", e);
         }
     }
 
     public CompleteTransactionResponse completeTransactionRaddAlternative(String operationId) {
-        final CustomHttpClient<CompleteTransactionRequest, CompleteTransactionResponse> httpClientComplete = new CustomHttpClient<>();
-        final CompleteTransactionRequest completeTransactionRequest = new CompleteTransactionRequest(operationId);
+        CustomHttpClient<CompleteTransactionRequest, CompleteTransactionResponse> httpClientComplete = new CustomHttpClient<>();
+        CompleteTransactionRequest completeTransactionRequest = new CompleteTransactionRequest(operationId);
+        httpClientComplete.setBaseUrlApi("https://api.radd." + webDriverConfig.getEnvironment() + ".notifichedigitali.it");
 
-        httpClientComplete.setBaseUrlApi("https://api.radd."+ webDriverConfig.getEnvironment() + ".notifichedigitali.it");
         try {
-            CompleteTransactionResponse response = httpClientComplete.sendHttpPostRequest("/radd-net/api/v1/act/transaction/complete", headers, completeTransactionRequest, CompleteTransactionResponse.class);
-            return response;
+            return httpClientComplete.sendHttpPostRequest("/radd-net/api/v1/act/transaction/complete", headers, completeTransactionRequest, CompleteTransactionResponse.class);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            log.error("Errore nella richiesta di Complete Transaction RADD", e);
+            throw new RuntimeException("Errore nella richiesta di Complete Transaction RADD", e);
         }
     }
 }

@@ -23,6 +23,7 @@ import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGP
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
+import lombok.Getter;
 import lombok.Setter;
 
 import org.junit.jupiter.api.Assertions;
@@ -31,6 +32,8 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -41,42 +44,79 @@ import java.util.concurrent.TimeUnit;
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 import static org.apache.commons.lang3.StringUtils.substring;
 
+@Component
 public class NotificaMittentePagoPATest {
 
-    private static final Logger logger = LoggerFactory.getLogger("NotificaMittentePagoPATest");
+    private static final Logger logger = LoggerFactory.getLogger(NotificaMittentePagoPATest.class);
 
+    // Spring Managed Components
+    @Autowired
+    @Lazy
+    private PiattaformaNotifichePage piattaformaNotifichePage;
+
+    @Autowired
+    @Lazy
+    private AllegatiPASection allegatiPASection;
+
+    @Autowired
+    private DestinatarioPASection destinatarioPASection;
+
+    @Autowired
+    private DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection;
+
+    @Autowired
+    private InformazioniPreliminariPASection informazioniPreliminariPASection;
+
+    @Autowired
+    private LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA;
+
+    @Autowired
+    private LoginPGPagoPATest loginPGPagoPATest;
+
+    @Autowired
+    private NotificationSingleton notificationSingleton;
+
+    @Autowired
+    private DataPopulation dataPopulation;
+
+    @Autowired
+    private CookieConfig cookieConfig;
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
+
+    @Autowired
+    private BackgroundTest backgroundTest;
+
+    @Autowired
+    private HooksNew hooks;
+
+    private final WebDriver driver;
+
+    @Getter @Setter
+    private String Iun;
+
+    @Getter @Setter
+    private String ApiKey;
+
+    // Constants
     private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
-    private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-    private final AllegatiPASection allegatiPASection = new AllegatiPASection(this.driver);
-    private final DestinatarioPASection destinatarioPASection = new DestinatarioPASection(this.driver);
-    private final DataPopulation dataPopulation = new DataPopulation();
-    private final DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
-    //private final String variabileAmbiente = System.getProperty("environment");
-    private final InformazioniPreliminariPASection informazioniPreliminariPASection = new InformazioniPreliminariPASection(this.driver);
-    private final LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
-    private final LoginPGPagoPATest loginPGPagoPATest = new LoginPGPagoPATest();
     private final String PF = "persona fisica";
     private final String PG = "persona giuridica";
     private final String PA = "pubblica amministrazione";
-    private final NotificationSingleton notificationSingleton = NotificationSingleton.getInstance();
+
+    // Maps to hold notification data
     private Map<String, Object> datiNotifica = new HashMap<>();
     private Map<String, String> datiNotificaMap = new HashMap<>();
     private Map<String, Object> personaFisica = new HashMap<>();
     private Map<String, Object> personaGiuridica = new HashMap<>();
     private Map<String, Object> personeFisiche = new HashMap<>();
-    @Setter
-    private String Iun;
-    @Setter
-    private String ApiKey;
 
+    // Iniettare il driver tramite constructor injection
     @Autowired
-    private CookieConfig cookieConfig;
-    @Autowired
-    private WebDriverConfig webDriverConfig;
-    @Autowired
-    private HooksNew hooks;
-
-    private final WebDriver driver = hooks.getDriver();
+    public NotificaMittentePagoPATest(HooksNew hooks) {
+        this.driver = hooks.getDriver();
+    }
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
@@ -1366,7 +1406,6 @@ public class NotificaMittentePagoPATest {
 
     @And("Si seleziona la notifica")
     public void siSelezionaLaNotifica() {
-        BackgroundTest backgroundTest = new BackgroundTest();
         String iun = notificationSingleton.getIun(Hooks.scenario);
         backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNDestinatario(iun);
     }
@@ -1374,7 +1413,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Si seleziona la notifica mittente")
     public void siSelezionaLaNotificaMittente() {
-        BackgroundTest backgroundTest = new BackgroundTest();
+
         String iun = notificationSingleton.getIun(Hooks.scenario);
         backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNMittente(iun);
     }
