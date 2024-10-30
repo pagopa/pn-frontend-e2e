@@ -149,7 +149,6 @@ public class DeleghePGPagoPATest {
     @And("Nella sezione Aggiungi Delega persona giuridica click sul bottone Invia richiesta e sul bottone torna alle deleghe")
     public void nellaSezioneLeTueDeleghePersonaGiuridicaclickSulBottoneInviaRichiestaESulBottoneTornaAlleDeleghe() {
         logger.info("Si clicca sul bottone invia richiesta");
-
         aggiungiDelegaPGSection.clickSulBottoneInviaRichiesta();
     }
 
@@ -190,7 +189,6 @@ public class DeleghePGPagoPATest {
     @And("Verifica che non è possibile selezionare una data Fine antecedente ad oggi")
     public void verificaArcoTemporaleSelezionato() {
         logger.info("Si controlla l'arco temporale che sia errato su cui effettuare la ricerca");
-//        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         Assertions.assertFalse(dataFineErrata);
     }
 
@@ -213,7 +211,6 @@ public class DeleghePGPagoPATest {
     @And("Nella pagina Deleghe si clicca su Deleghe a carico dell impresa")
     public void nellaPaginaDelegheSiCliccaSuDelegheACaricoDellImpresa() {
         logger.info("Si clicca sul tab Deleghe a carico dell'impresa");
-
         deleghePGPagoPAPage.clickSuDelegheCaricoDellImpresa();
     }
 
@@ -226,9 +223,7 @@ public class DeleghePGPagoPATest {
     @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si clicca su bottone Filtra")
     public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiCliccaSuBottoneFiltra() {
         logger.info("Si clicca filtra button");
-
         this.deleghePGPagoPAPage.clickFiltraButton();
-
     }
 
     @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si controlla che venga restituita la delega con il codice fiscale inserito {string}")
@@ -245,8 +240,6 @@ public class DeleghePGPagoPATest {
     @And("Nella pagina Deleghe sezione Deleghe dell impresa  si verifica sia presente una delega")
     public void nellaPaginaDelegheSezioneDelegheDellImpresaSiVerificaSiaPresenteUnaDelega() {
         logger.info("Si controlla che ci sia almeno una delega");
-//        BackgroundTest backgroundTest = new BackgroundTest();
-
         if (!this.delegatiImpresaSection.siVisualizzaUnaDelega()) {
             backgroundTest.aggiuntaNuovaDelegaDellImpresaPG();
         }
@@ -255,7 +248,6 @@ public class DeleghePGPagoPATest {
     @And("Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega {string}")
     public void nellaPaginaDelegheSezioneDelegheAcaricoDellImpresaSiCliccaSulMenuDellaDelega(String dpFile) {
         logger.info("Si clicca sul menu delle delega");
-
         this.datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
         this.delegatiImpresaSection.clickMenuDelega(datiDelega.get("ragioneSociale").toString());
     }
@@ -278,7 +270,6 @@ public class DeleghePGPagoPATest {
     @And("Nella sezione Deleghe persona giuridica si sceglie l'opzione revoca")
     public void nellaSezioneDeleghePersonaGiuridicaSiSceglieLOpzioneRevoca() {
         logger.info("Si clicca sull'opzione revoca del menu");
-
         delegatiImpresaSection.clickRevocaMenuButtonPG();
     }
 
@@ -319,7 +310,6 @@ public class DeleghePGPagoPATest {
     @And("Si clicca sul bottone conferma gruppo")
     public void siCliccaSulBottoneConfermaGruppo() {
         logger.info("Si seleziona il bottone conferma");
-
         deleghePGPagoPAPage.clickBottoneConferma();
         if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
             logger.error("il codice inserito è sbagliato");
@@ -337,7 +327,6 @@ public class DeleghePGPagoPATest {
     @And("Si clicca sul bottone conferma gruppo errato")
     public void siCliccaSulBottoneConfermaGruppoErrato() {
         logger.info("Si seleziona il bottone conferma");
-
         deleghePGPagoPAPage.clickBottoneConferma();
         deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato();
     }
@@ -345,14 +334,12 @@ public class DeleghePGPagoPATest {
     @And("Nella sezione Deleghe si clicca sul bottone rifiuta")
     public void nellaSezioneDelegheSiCliccaSulBottoneRifiuta() {
         logger.info("Si clicca su l'opzione rifiuta");
-
         deleghePGPagoPAPage.clickOpzioneRifiuta();
     }
 
     @And("Si clicca sul bottone rifiuta delega")
     public void siCliccaSulBottoneRifiutaDelega() {
         logger.info("Si clicca su bottone rifiuta del pop-up");
-
         deleghePGPagoPAPage.waitLoadPopUpRevoca();
         deleghePGPagoPAPage.clickBottoneRifiuta();
     }
@@ -497,19 +484,16 @@ public class DeleghePGPagoPATest {
 
     public void siCliccaSulBottoneAccettaDelega() {
         logger.info("Si clicca su conferma del pop-up");
-
         deleghePGPagoPAPage.clickBottoneConfermaDelega();
     }
 
     @And("Si accetta la delega senza gruppo")
     public void siAccettaLaDelegaSenzaGruppo() {
-//        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.accettazioneDelegaSceltaGruppo(false,null);
     }
 
     @And("Si accetta la delega senza gruppo PF")
     public void siAccettaLaDelegaSenzaGruppoPF() {
-//        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.accettazioneDelegaSceltaGruppoPF(false,null);
         WebTool.waitTime(2);
     }
@@ -523,13 +507,11 @@ public class DeleghePGPagoPATest {
 
     @And("Si ripristina lo stato iniziale delle deleghe dall impresa {string}")
     public void siRipristinaLoStatoInizialeDelleDelegheDallImpresa(String ragioneSociale) {
-//        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.revocaDelegaPG(ragioneSociale);
     }
 
     @And("Si accetta la delega con gruppo {string}")
     public void siAccettaLaDelegaGruppo(String gruppo) {
-//        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.accettazioneDelegaSceltaGruppo(true,gruppo);
     }
 
@@ -545,8 +527,6 @@ public class DeleghePGPagoPATest {
 
     @And("Si emula accettazione della delega con gruppo con errore")
     public void siEmulaAccettazioneDellaDelegaConGruppoConErrore() {
-//        BackgroundTest backgroundTest = new BackgroundTest();
-
         backgroundTest.checkDelegaSceltaGruppoEInserimentoCodiceErrata();
     }
 
@@ -621,7 +601,6 @@ public class DeleghePGPagoPATest {
     @And("Nella sezione Delegati dall impresa si visualizza correttamente una delega in stato di attesa di conferma {string}")
     public void nellaSezioneDelegatiDallImpresaSiVisualizzaCorrettamenteUnaDelegaInStatoDiAttesaConferma(String ragioneSociale) {
         logger.info("Si controlla che la delega sia in stato attesa di conferma");
-
         delegatiImpresaSection.waitLoadDelegatiImpresaPage();
         delegatiImpresaSection.controlloEsistenzaDelega(ragioneSociale);
     }
