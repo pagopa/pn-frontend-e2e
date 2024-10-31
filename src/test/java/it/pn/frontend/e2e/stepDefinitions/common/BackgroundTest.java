@@ -54,8 +54,6 @@ public class BackgroundTest {
     @Autowired
     @Lazy
     private  HelpdeskTest helpdeskTest;
-//    private final HelpdeskTest helpdeskTest = new HelpdeskTest();
-
     @Autowired
     @Lazy
     private NotifichePGPagoPATest notifichePGPagoPATest;
@@ -83,8 +81,6 @@ public class BackgroundTest {
 
 
     public void invioNotificaErrorePec() {
-//        NotificaMittentePagoPATest notificaMittentePagoPATest = new NotificaMittentePagoPATest();
-
         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheSiRecuperaLUltimoNumeroProtocollo();
         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica();
         notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionInformazioniPreliminari();
