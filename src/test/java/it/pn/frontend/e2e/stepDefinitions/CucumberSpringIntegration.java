@@ -10,11 +10,13 @@ import it.pn.frontend.e2e.config.UserPasswordConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.LoggerStartupListener;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
+import it.pn.frontend.e2e.model.singleton.MandateSingleton;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.pages.mittente.*;
+import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
@@ -37,6 +39,7 @@ import it.pn.frontend.e2e.section.mittente.InformazioniPreliminariPASection;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
+import it.pn.frontend.e2e.utility.NotificationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -96,13 +99,15 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         PopUpRevocaDelegaSection.class,
         DeleghePage.class,
         NotificheDestinatarioPage.class,
-        BackgroundTest.class,
         HelpdeskPage.class,
         ComeVuoiAccederePage.class,
         DashboardPage.class,
         NotificationSingleton.class,
         SuccessPASection.class,
-        LoginPersonaFisicaPagoPA.class
+        LoginPersonaFisicaPagoPA.class,
+        RestNotification.class,
+        NotificationBuilder.class,
+        MandateSingleton.class
 
 })
 @EnableScheduling

@@ -83,9 +83,7 @@ public class HooksNew {
                     MDC.put("team", "TA-QA");
                 });
 
-
         driver =  webDriverConfig.webDriver();
-
     }
 
     @After

@@ -38,7 +38,6 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
-@Component
 public class DeleghePagoPATest {
 
 

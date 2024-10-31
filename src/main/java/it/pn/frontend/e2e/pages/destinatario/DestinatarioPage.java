@@ -23,6 +23,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class DestinatarioPage extends BasePage {
     private NotificationBuilder notificationBuilder;
 
     @Autowired
+    @Lazy
     private HooksNew hooks;
 
     private int destinatariNumber;

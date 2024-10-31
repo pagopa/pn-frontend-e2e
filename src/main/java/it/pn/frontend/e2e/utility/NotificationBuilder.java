@@ -14,6 +14,8 @@ import it.pn.frontend.e2e.rest.RestNotification;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
+import org.springframework.stereotype.Component;
+
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -23,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
+@Component
 public class NotificationBuilder {
     public static final String APPLICATION_PDF = "application/pdf";
     public static final String APPLICATION_JSON = "application/json";

@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.stepDefinitions.common;
 
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
-import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
@@ -11,22 +10,14 @@ import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.RecapitiPer
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
-
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
+
 public class BackgroundTest {
 
-//    private final WebDriver driver = Hooks.driver;
-    @Autowired
-    @Lazy
-    private HooksNew hooks;
     private final String nomeFileDatiNotifica = "datiNotifica";
     private final String nomeFilePersonaFisica = "personaFisica";
     private final String nomeFilePG = "personaGiuridica";
@@ -35,6 +26,9 @@ public class BackgroundTest {
     private final String mittente = "mittente";
     private final Map<String, String> datiPersonaFisica;
 
+    @Autowired
+    @Lazy
+    private HooksNew hooks;
     @Autowired
     @Lazy
     private DeleghePagoPATest deleghePagoPATest;
@@ -54,8 +48,6 @@ public class BackgroundTest {
     @Autowired
     @Lazy
     private  HelpdeskTest helpdeskTest;
-//    private final HelpdeskTest helpdeskTest = new HelpdeskTest();
-
     @Autowired
     @Lazy
     private NotifichePGPagoPATest notifichePGPagoPATest;
@@ -69,7 +61,7 @@ public class BackgroundTest {
     @Autowired
     private  PiattaformaNotifichePage piattaformaNotifichePage;
     @Autowired
-    NotificaMittentePagoPATest notificaMittentePagoPATest;
+    private NotificaMittentePagoPATest notificaMittentePagoPATest;
 
     @Autowired
     public BackgroundTest() {

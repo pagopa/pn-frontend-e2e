@@ -31,7 +31,7 @@ Component: Aggiunta annotazione @Component per permettere l’iniezione automati
 Uso di var per Tipi Locali: Refactoring con var per variabili locali ove il tipo è ovvio, semplificando la lettura.
 *
 * */
-@Component
+
 public class RicercaNotifichePersonaFisicaPATest {
     private static final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaFisicaTest");
     private Map<String, Object> datiNotifica = new HashMap<>();

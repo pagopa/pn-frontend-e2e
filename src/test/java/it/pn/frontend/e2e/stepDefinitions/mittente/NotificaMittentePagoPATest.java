@@ -7,7 +7,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.api.mittente.AccettazioneRichiestaNotifica;
 import it.pn.frontend.e2e.config.WebDriverConfig;
-import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.enums.AppPortal;
@@ -47,7 +46,7 @@ import static org.apache.commons.lang3.StringUtils.substring;
 public class NotificaMittentePagoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittentePagoPATest");
-    private final WebDriver driver;
+
     private final String PF = "persona fisica";
     private final String PG = "persona giuridica";
     private final String PA = "pubblica amministrazione";
@@ -99,13 +98,9 @@ public class NotificaMittentePagoPATest {
     @Autowired
     private  LoginPGPagoPATest loginPGPagoPATest;
     @Autowired
+    @Lazy
     private BackgroundTest backgroundTest;
 
-    // Iniettare il driver tramite constructor injection
-    @Autowired
-    public NotificaMittentePagoPATest(HooksNew hooks) {
-        this.driver = hooks.getDriver();
-    }
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
@@ -1352,15 +1347,14 @@ public class NotificaMittentePagoPATest {
 
     @And("Si seleziona la notifica")
     public void siSelezionaLaNotifica() {
-        String iun = notificationSingleton.getIun(Hooks.scenario);
+        String iun = notificationSingleton.getIun(HooksNew.scenario);
         backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNDestinatario(iun);
     }
 
 
     @And("Si seleziona la notifica mittente")
     public void siSelezionaLaNotificaMittente() {
-
-        String iun = notificationSingleton.getIun(Hooks.scenario);
+        String iun = notificationSingleton.getIun(HooksNew.scenario);
         backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNMittente(iun);
     }
 
