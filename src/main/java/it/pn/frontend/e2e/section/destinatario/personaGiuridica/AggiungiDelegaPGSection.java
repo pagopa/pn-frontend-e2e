@@ -65,7 +65,6 @@ public class AggiungiDelegaPGSection extends BasePage {
 
     private boolean dataFineErrata;
 
-    @Autowired
     public AggiungiDelegaPGSection(WebDriver driver) {
         super(driver);
     }

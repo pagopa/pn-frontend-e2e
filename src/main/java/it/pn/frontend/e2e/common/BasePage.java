@@ -14,52 +14,65 @@ import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/*
+*Modifiche e Ottimizzazioni
+Costruttore con @Autowired: Iniezione di WebDriver tramite Spring Boot.
+loadComponentWaitTime inizializzato tramite System.getProperty: Permette di definire il valore come variabile di ambiente con un valore predefinito di 10.
+Metodo retryClickAndInsertText: Separato in un metodo privato per evitare codice duplicato.
+Commenti migliorati: Documentazione migliorata per una migliore comprensione di alcune funzioni.
+Thread.currentThread().interrupt() in waitLoadPage(): Gestisce correttamente l’interruzione del thread per conformità alle best practices di Java.
+*
+*
+* */
+
 @Component
 public class BasePage {
 
-
     protected WebDriver driver;
+    protected int loadComponentWaitTime;
+    private static final Logger loggerBase = LoggerFactory.getLogger(BasePage.class);
 
-   //protected int loadComponentWaitTime = Integer.parseInt(System.getProperty("loadComponentWaitTime"));
-   protected int loadComponentWaitTime;
-
-    private static final Logger loggerBase = LoggerFactory.getLogger("BasePage");
-
+    @Autowired
     public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(this.driver, this);
+        loadComponentWaitTime = Integer.parseInt(System.getProperty("loadComponentWaitTime", "10"));
     }
 
     protected void scrollToElementClickAndInsertText(WebElement element, String text) {
         try {
             if (!element.isDisplayed()) {
-                loggerBase.info("scroll elemento");
-                this.js().executeScript("arguments[0].scrollIntoView(true);", element);
+                loggerBase.info("Scrolling to element");
+                js().executeScript("arguments[0].scrollIntoView(true);", element);
             }
-            this.js().executeScript("arguments[0].click()", element);
+            js().executeScript("arguments[0].click()", element);
             if (text != null) {
-                loggerBase.info("inserimento testo");
+                loggerBase.info("Inserting text");
                 element.sendKeys(text);
             }
         } catch (ElementNotInteractableException e) {
-            loggerBase.error("elemento non interagibile");
-            this.js().executeScript("arguments[0].click()", element);
-            if (text != null) {
-                element.sendKeys(text);
-            }
+            loggerBase.error("Element not interactable", e);
+            retryClickAndInsertText(element, text);
+        }
+    }
+
+    private void retryClickAndInsertText(WebElement element, String text) {
+        js().executeScript("arguments[0].click()", element);
+        if (text != null) {
+            element.sendKeys(text);
         }
     }
 
     public void scrollToElementAndClick(WebElement element) {
         try {
             if (!element.isDisplayed()) {
-                loggerBase.info("scroll elemento");
-                this.js().executeScript("arguments[0].scrollIntoView(true);", element);
+                loggerBase.info("Scrolling to element");
+                js().executeScript("arguments[0].scrollIntoView(true);", element);
             }
-            this.js().executeScript("arguments[0].click()", element);
+            js().executeScript("arguments[0].click()", element);
         } catch (ElementNotInteractableException e) {
-            loggerBase.error("elemento non interagibile");
-            this.js().executeScript("arguments[0].click()", element);
+            loggerBase.error("elemento non interagibile", e);
+            js().executeScript("arguments[0].click()", element);
         }
     }
 
@@ -68,11 +81,11 @@ public class BasePage {
     }
 
     protected WebElement element(By by) {
-        return this.driver.findElement(by);
+        return driver.findElement(by);
     }
 
     protected List<WebElement> elements(By by) {
-        return this.driver.findElements(by);
+        return driver.findElements(by);
     }
 
     protected JavascriptExecutor js() {
@@ -83,33 +96,33 @@ public class BasePage {
         try {
             TimeUnit.SECONDS.sleep(10);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Interrupted while waiting for page load", e);
         }
     }
 
     public void vaiInFondoAllaPagina() {
-        this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
+        js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
     }
 
     public void aggiornamentoPagina() {
-        this.driver.navigate().refresh();
+        driver.navigate().refresh();
     }
 
     public void waitLoadingSpinner() {
-        By loadingSpinnerBy = By.xpath("//span[@role = 'loadingSpinner']");
-        getWebDriverWait(60).withMessage("la pagina è ancora in caricamento").until(ExpectedConditions.invisibilityOfElementLocated(loadingSpinnerBy));
+        By loadingSpinnerBy = By.xpath("//span[@role='loadingSpinner']");
+        getWebDriverWait(60).withMessage("Page is still loading").until(ExpectedConditions.invisibilityOfElementLocated(loadingSpinnerBy));
     }
 
     public void goBack() {
-        this.driver.navigate().back();
+        driver.navigate().back();
     }
 
     /**
-     * Clear the text field of a WebElement
-     * Note: this method replace <b>clear()</b> because
-     * it does not work with React-controlled inputs
+     * Clears text from a WebElement, compatible with React-controlled inputs.
+     * Replaces the default <b>clear()</b> method for better compatibility.
      *
-     * @param element WebElement to clear the text field
+     * @param element WebElement to clear
      */
     public void clearWebElementField(WebElement element) {
         while (!element.getAttribute("value").isEmpty()) {
@@ -117,8 +130,7 @@ public class BasePage {
         }
     }
 
-    public boolean checkURL(String url){
+    public boolean checkURL(String url) {
         return driver.getCurrentUrl().contains(url);
     }
-
 }

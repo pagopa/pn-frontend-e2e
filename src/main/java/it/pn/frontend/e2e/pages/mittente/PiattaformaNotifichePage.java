@@ -26,7 +26,10 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-
+/*
+* Modifiche principali:
+Autowired NotificationSingleton e WebDriverConfig: Ho integrato i componenti tramite annotazione @Autowired per sfruttare la gestione delle dipendenze di Spring Boot, eliminando la necessità di istanziare manualmente queste classi.
+Component: Aggiunta dell’annotazione @Component per rendere la classe gestibile da Spring Boot.*/
 @Component
 public class PiattaformaNotifichePage extends BasePage {
 

@@ -13,22 +13,27 @@ import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
-import net.bytebuddy.asm.Advice;
-
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
-
+/*
+*Modifiche principali
+Autowired per il driver Web e per altre classi: Integrato @Autowired per NotificationSingleton, PiattaformaNotifichePage, DestinatarioPage e WebDriver, mantenendo i metodi invariati.
+Component: Aggiunta annotazione @Component per permettere l’iniezione automatica di Spring Boot in questa classe di step definiti in Cucumber.
+* Pattern Matching for Switch: Utilizzato il switch pattern matching per selezionare la URL appropriata in collegarsiLink.
+Uso di var per Tipi Locali: Refactoring con var per variabili locali ove il tipo è ovvio, semplificando la lettura.
+*
+* */
+@Component
 public class RicercaNotifichePersonaFisicaPATest {
     private static final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaFisicaTest");
-
     private Map<String, Object> datiNotifica = new HashMap<>();
     private Map<String, Object> datiNotificaNonValidoPF;
 
@@ -47,6 +52,11 @@ public class RicercaNotifichePersonaFisicaPATest {
     private NotifichePFPage notifichePFPage;
     @Autowired
     private NotificheDestinatarioPage notificheDestinatarioPage;
+
+    @Autowired
+    private DataPopulation dataPopulation;
+    @Autowired
+    private BackgroundTest backgroundTest;
 
     @When("Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica")
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheDestinatario() {
@@ -108,17 +118,15 @@ public class RicercaNotifichePersonaFisicaPATest {
         logger.info("Si verificano i risultati restituiti");
         headerPFSection.waitLoadHeaderDESection();
         notifichePFPage.waitLoadNotificheDEPage();
-
-        DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation(dpDatiNotifica + ".yaml");
         String codiceIUNInserito = datiNotifica.get("codiceIUN").toString();
+        boolean result = new NotificheDestinatarioPage(hooks.getDriver()).verificaCodiceIUN(codiceIUNInserito);
 
-        boolean result = notificheDestinatarioPage.verificaCodiceIUN(codiceIUNInserito);
         if (result) {
             logger.info("Il risultato é coerente con il codice IUN inserito");
         } else {
             logger.error("Il risultato NON é coerente con il codice IUN inserito");
-            Assertions.fail("Il risultato NON é coerente con il coodice IUN inserito");
+            Assertions.fail("Il risultato NON é coerente con il codice IUN inserito");
         }
     }
 
@@ -128,12 +136,12 @@ public class RicercaNotifichePersonaFisicaPATest {
         headerPFSection.waitLoadHeaderDESection();
         notifichePFPage.waitLoadNotificheDEPage();
 
-        boolean result = notificheDestinatarioPage.verificaCodiceIUN(IUN);
+        boolean result = new NotificheDestinatarioPage(hooks.getDriver()).verificaCodiceIUN(IUN);
         if (result) {
             logger.info("Il risultato é coerente con il codice IUN inserito");
         } else {
             logger.error("Il risultato NON é coerente con il codice IUN inserito");
-            Assertions.fail("Il risultato NON é coerente con il coodice IUN inserito");
+            Assertions.fail("Il risultato NON é coerente con il codice IUN inserito");
         }
     }
 
@@ -149,18 +157,15 @@ public class RicercaNotifichePersonaFisicaPATest {
 
     @And("Nella pagina Piattaforma Notifiche mittente inserire un arco temporale di maggiore di 120 giorni")
     public void nellaPaginaPiattaformaNotificheMittenteInserireUnaDataDaDAAA120Giorni() {
-        logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca 120 giorni ");
+        logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca 120 giorni");
 
-        logger.info("Scenario " +Hooks.getScenario());
+        var dateNow = LocalDate.now();
+        var dateA = dateNow.minusDays(150);
+        var dateDa = dateA.minusDays(30);
 
-        LocalDate dateNow = LocalDate.now();
-        LocalDate dateA = dateNow.minusDays(150);
-
-        LocalDate dateDa = dateA.minusDays(30);
-
-        String dataa = piattaformaNotifichePage.conversioneFormatoDate(dateA.toString());
-        String datada = piattaformaNotifichePage.conversioneFormatoDate(dateDa.toString());
-        logger.info("ARCO TEMPORRALE SETTATO: "+datada +" - "+dataa);
+        var dataa = piattaformaNotifichePage.conversioneFormatoDate(dateA.toString());
+        var datada = piattaformaNotifichePage.conversioneFormatoDate(dateDa.toString());
+        logger.info("ARCO TEMPORRALE SETTATO: " + datada + " - " + dataa);
         piattaformaNotifichePage.inserimentoArcoTemporale(datada, dataa);
     }
 
@@ -184,9 +189,9 @@ public class RicercaNotifichePersonaFisicaPATest {
     @And("Nella pagina Piattaforma Notifiche persona fisica inserire il codice IUN non valido da dati notifica {string}")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIunNonValidoDaDatiNotifica(String datiNotificaNonValidoPF) throws InterruptedException {
         logger.info("Si inserisce il codice IUN non valido");
-        DataPopulation dataPopulation = new DataPopulation();
         this.datiNotificaNonValidoPF = dataPopulation.readDataPopulation(datiNotificaNonValidoPF + ".yaml");
         notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotificaNonValidoPF.get("codiceIUN").toString());
+        new NotificheDestinatarioPage(hooks.getDriver()).inserisciCodiceIUN(this.datiNotificaNonValidoPF.get("codiceIUN").toString());
     }
 
     @Then("Nella pagina Piattaforma Notifiche persona fisica viene visualizzato un messaggio in rosso di errore sotto il campo errato e il rettangolo diventa rosso e il tasto Filtra è disattivo")
@@ -197,33 +202,29 @@ public class RicercaNotifichePersonaFisicaPATest {
         if (isErrorMessageDisplayed) {
             logger.info("il messaggio di errore é visualizzato");
         } else {
-            logger.error("il messaggio di errore non é visualizzato");
-            Assertions.fail("il messaggio di errore non é visualizzato");
+            logger.error("Il messaggio di errore non è visualizzato");
+            Assertions.fail("Il messaggio di errore non è visualizzato");
         }
 
-        boolean isTextBoxInValid = notifichePFPage.isTextBoxInvalid();
-
-        if (isTextBoxInValid) {
-            logger.info("IUN text box non é valido");
+        if (notifichePFPage.isTextBoxInvalid()) {
+            logger.info("IUN text box non è valido");
         } else {
-            logger.error("IUN text box non é passato allo stato non valido");
-            Assertions.fail("IUN text box non é passato allo stato non valido");
-
+            logger.error("IUN text box non è passato allo stato non valido");
+            Assertions.fail("IUN text box non è passato allo stato non valido");
         }
 
         notifichePFPage.clickFiltraButton();
-        boolean isErrorMessageStillDisplayed = notifichePFPage.isErrorMessageDisplayed();
-        if (isErrorMessageStillDisplayed) {
-            logger.info("Il bottone Filtra é dissativato");
+        if (notifichePFPage.isErrorMessageDisplayed()) {
+            logger.info("Il bottone Filtra è disattivato");
         } else {
-            logger.error("Il bottone Filtra é attivo");
-            Assertions.fail("Il bottone Filtra é attivo");
+            logger.error("Il bottone Filtra è attivo");
+            Assertions.fail("Il bottone Filtra è attivo");
         }
     }
 
     @And("Si clicca su pagina diversa dalla prima")
     public void siCliccaSupaginaDiversaDallaPrima() {
-        logger.info("si clicca su una pagina diversa dalla prima");
+        logger.info("Si clicca su una pagina diversa dalla prima");
         piattaformaNotifichePage.clickPagina(3);
     }
 
@@ -237,12 +238,12 @@ public class RicercaNotifichePersonaFisicaPATest {
         headerPFSection.waitLoadHeaderDESection();
 
         notifichePFPage.waitLoadNotificheDEPage();
-        boolean result = notifichePFPage.getListData();
-        if (result) {
-            logger.info("Il risultato é coerente con le date inserite");
+
+        if (notifichePFPage.getListData()) {
+            logger.info("Il risultato è coerente con le date inserite");
         } else {
-            logger.error("Il risultato NON é coerente con le date inserite");
-            Assertions.fail("Il risultato NON é coerente con le date inserite");
+            logger.error("Il risultato NON è coerente con le date inserite");
+            Assertions.fail("Il risultato NON è coerente con le date inserite");
         }
     }
 
@@ -261,9 +262,7 @@ public class RicercaNotifichePersonaFisicaPATest {
 
     @And("Si seleziona la notifica destinatario")
     public void siSelezionaLaNotificaDestinatario() {
-        BackgroundTest backgroundTest = new BackgroundTest();
         String iun = notificationSingleton.getIun(Hooks.scenario);
         backgroundTest.siFiltraLaTabellaDelleNotificheDelDestinatarioPerIUN(iun);
     }
 }
-

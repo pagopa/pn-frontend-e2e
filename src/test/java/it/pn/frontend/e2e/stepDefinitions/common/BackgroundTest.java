@@ -83,7 +83,6 @@ public class BackgroundTest {
 
 
     public void invioNotificaErrorePec() {
-//        NotificaMittentePagoPATest notificaMittentePagoPATest = new NotificaMittentePagoPATest();
 
         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheSiRecuperaLUltimoNumeroProtocollo();
         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica();

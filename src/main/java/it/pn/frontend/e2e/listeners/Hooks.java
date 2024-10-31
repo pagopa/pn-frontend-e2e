@@ -48,6 +48,8 @@ public class Hooks {
 
     @Autowired
     private RestDelegation restDelegation;
+    @Autowired
+    private  MandateSingleton mandateSingleton;
 
     @Autowired
     private RestContact restContact;
@@ -206,7 +208,6 @@ public class Hooks {
     //  @And("Revoca deleghe se esistono")
     public void clearDelegate() {
         logger.info("REVOCA TUTTE LE DELEGHE....");
-        MandateSingleton mandateSingleton = MandateSingleton.getInstance();
         String mandateId = mandateSingleton.getMandateId(Hooks.getScenario());
         if (mandateId != null) {
             logger.info("REVOCA DELEGA: " + mandateId);

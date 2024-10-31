@@ -38,6 +38,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
+@Component
 public class DeleghePagoPATest {
 
 
@@ -62,8 +63,12 @@ public class DeleghePagoPATest {
     @Lazy
     private BackgroundTest backgroundTest;
 
-    private final MandateSingleton mandateSingleton = MandateSingleton.getInstance();
-    private final RestDelegation restDelegation = RestDelegation.getInstance();
+    @Autowired
+    private MandateSingleton mandateSingleton;
+
+    @Autowired
+    private RestDelegation restDelegation;
+
     Map<String, Object> deleghe = new HashMap<>();
     @Setter
     private String codiceVerifica;

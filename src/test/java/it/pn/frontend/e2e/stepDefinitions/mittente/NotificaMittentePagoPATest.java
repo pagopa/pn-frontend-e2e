@@ -22,9 +22,11 @@ import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPerson
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
+import lombok.Getter;
 import lombok.Setter;
 
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +47,7 @@ import static org.apache.commons.lang3.StringUtils.substring;
 public class NotificaMittentePagoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittentePagoPATest");
-
+    private final WebDriver driver;
     private final String PF = "persona fisica";
     private final String PG = "persona giuridica";
     private final String PA = "pubblica amministrazione";
@@ -54,9 +56,9 @@ public class NotificaMittentePagoPATest {
     private Map<String, Object> personaFisica = new HashMap<>();
     private Map<String, Object> personaGiuridica = new HashMap<>();
     private Map<String, Object> personeFisiche = new HashMap<>();
-    @Setter
+    @Getter @Setter
     private String Iun;
-    @Setter
+    @Getter  @Setter
     private String ApiKey;
 
 
@@ -66,6 +68,7 @@ public class NotificaMittentePagoPATest {
     private CookiesSection cookiesSection;
     @Autowired
     private WebDriverConfig webDriverConfig;
+    // Iniettare il driver tramite constructor injection
     @Autowired
     @Lazy
     private HooksNew hooks;
@@ -95,6 +98,14 @@ public class NotificaMittentePagoPATest {
     private LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA;
     @Autowired
     private  LoginPGPagoPATest loginPGPagoPATest;
+    @Autowired
+    private BackgroundTest backgroundTest;
+
+    // Iniettare il driver tramite constructor injection
+    @Autowired
+    public NotificaMittentePagoPATest(HooksNew hooks) {
+        this.driver = hooks.getDriver();
+    }
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
     public void nellaHomePageMittenteCliccareSuGestisciDiPiattaforma() {
@@ -1341,7 +1352,6 @@ public class NotificaMittentePagoPATest {
 
     @And("Si seleziona la notifica")
     public void siSelezionaLaNotifica() {
-        BackgroundTest backgroundTest = new BackgroundTest();
         String iun = notificationSingleton.getIun(Hooks.scenario);
         backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNDestinatario(iun);
     }
@@ -1349,7 +1359,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Si seleziona la notifica mittente")
     public void siSelezionaLaNotificaMittente() {
-        BackgroundTest backgroundTest = new BackgroundTest();
+
         String iun = notificationSingleton.getIun(Hooks.scenario);
         backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNMittente(iun);
     }

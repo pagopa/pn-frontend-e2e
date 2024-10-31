@@ -31,6 +31,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@Component
 public class DeleghePGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("DeleghePGPagoPATest");
     @Autowired
@@ -55,11 +65,12 @@ public class DeleghePGPagoPATest {
     private BackgroundTest backgroundTest;
 
     private Map<String, Object> datiDelega = new HashMap<>();
-    Map<String, Object> datiPersonaFisica = new HashMap<>();
+    private Map<String, Object> datiPersonaFisica = new HashMap<>();
+    @Autowired
+    private MandateSingleton mandateSingleton;
 
-    private final MandateSingleton mandateSingleton = MandateSingleton.getInstance();
-    private final RestDelegation restDelegation = RestDelegation.getInstance();
-
+    @Autowired
+    private RestDelegation restDelegation;
 
     private boolean dataFineErrata;
 
