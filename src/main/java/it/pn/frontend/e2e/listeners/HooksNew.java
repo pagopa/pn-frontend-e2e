@@ -74,7 +74,8 @@ public class HooksNew {
     private final String os = System.getProperty("os.name");
     @Autowired
     MandateSingleton mandateSingleton ;
-
+    @Autowired
+    private RestContact restContact;
     @Autowired
     private  CookieConfig cookieConfig;
     @Autowired
@@ -283,7 +284,6 @@ public class HooksNew {
     @Before("@recapitiPF or @recapitiPG")
     @And("Rimuovi tutti i recapiti se esistono")
     public void clearRecapiti() {
-        var restContact = RestContact.getInstance();
         var digitalAddresses = restContact.getAllDigitalAddress();
         if (digitalAddresses != null && !digitalAddresses.isEmpty()) {
             digitalAddresses.forEach(address -> {
