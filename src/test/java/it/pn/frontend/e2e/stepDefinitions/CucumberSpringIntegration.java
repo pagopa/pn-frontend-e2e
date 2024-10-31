@@ -101,7 +101,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         ComeVuoiAccederePage.class,
         DashboardPage.class,
         NotificationSingleton.class,
-        SuccessPASection.class
+        SuccessPASection.class,
+        LoginPersonaFisicaPagoPA.class
 
 })
 @EnableScheduling

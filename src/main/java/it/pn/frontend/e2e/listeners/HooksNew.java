@@ -71,7 +71,7 @@ public class HooksNew {
     @Before
     public void startScenario(Scenario scenario) {
         logger.info("----- START SCENARIO: {} -----", scenario.getName());
-        Hooks.scenario = scenario.getName();
+        HooksNew.scenario = scenario.getName();
 
         scenario.getSourceTagNames().stream()
                 .filter(tag -> tag.startsWith("@TA_"))
