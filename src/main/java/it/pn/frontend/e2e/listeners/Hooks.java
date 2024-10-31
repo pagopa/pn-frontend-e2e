@@ -50,9 +50,9 @@ public class Hooks {
     private RestDelegation restDelegation;
     @Autowired
     private  MandateSingleton mandateSingleton;
-
     @Autowired
     private RestContact restContact;
+
 
     private DevTools devTools;
     private Map<String, RequestWillBeSent> requests = new HashMap<>();
@@ -242,7 +242,6 @@ public class Hooks {
     //   @And("Rimuovi tutti i recapiti se esistono")
     public void clearRecapiti() throws IOException {
 
-        RestContact restContact = RestContact.getInstance();
         List<DigitalAddress> digitalAddress = restContact.getAllDigitalAddress();
 
         // Check for legal ones and remove them
