@@ -128,7 +128,6 @@ public class HooksNew {
     }
 
     @After("@DeleghePF or @DeleghePG")
-    @Before("@DeleghePF or @DeleghePG")
     @And("Revoca deleghe se esistono")
     public void clearDelegate() {
         logger.info("Revoking all delegations...");
@@ -143,7 +142,6 @@ public class HooksNew {
 
     @After("@File")
     public void clearDirectory() {
-        //var folderPath = System.getProperty("downloadFilePath");
         var folderPath = webDriverConfig.getDownloadFilePath();
         var folder = new File(folderPath);
         if (folder.isDirectory()) {
@@ -160,7 +158,6 @@ public class HooksNew {
     }
 
     @After("@recapitiPF or @recapitiPG")
-    @Before("@recapitiPF or @recapitiPG")
     @And("Rimuovi tutti i recapiti se esistono")
     public void clearRecapiti() {
         var digitalAddresses = restContact.getAllDigitalAddress();
