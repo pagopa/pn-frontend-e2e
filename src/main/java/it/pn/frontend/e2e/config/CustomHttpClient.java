@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import io.cucumber.java.Before;
 import it.pn.frontend.e2e.model.address.DigitalAddress;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
 import lombok.Getter;
@@ -18,6 +19,12 @@ import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,9 +36,14 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
+@Configuration
 public class CustomHttpClient<RequestType, ResponseType> {
-    private static CustomHttpClient<?, ?> instance;
+
+    private static CustomHttpClient<?, ?> instance ;
     private final Gson gson = new Gson();
+    @Value("${environment}")
+    private String environment;
+
     @Setter
     @Getter
     private String baseUrlApi;
@@ -40,32 +52,34 @@ public class CustomHttpClient<RequestType, ResponseType> {
     @Getter
     private String apiKey;
 
-    @Autowired
-    private WebDriverConfig webDriverConfig;
-
-    private final CloseableHttpClient httpClient;
+    private CloseableHttpClient httpClient;
     private ClassicHttpRequest httpRequest;
 
+
     public CustomHttpClient() {
+        System.out.println("CIAO.......");
         this.baseUrlApi = "https://api.test.notifichedigitali.it";
         this.httpClient = HttpClients.createDefault();
         this.apiKey = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";
     }
 
     public CustomHttpClient(String baseUrlApi, String apiKeyTest) {
+        System.out.println("CIAO1.......");
+
         this.baseUrlApi = baseUrlApi;
         this.httpClient = HttpClients.createDefault();
         this.apiKey = apiKeyTest;
     }
 
     public CustomHttpClient(String apiKeyTest) {
+        System.out.println("CIAO2.......");
         this.baseUrlApi =  "https://api.test.notifichedigitali.it";
         this.httpClient = HttpClients.createDefault();
         this.apiKey = apiKeyTest;
     }
 
 
-    public static <R, S> CustomHttpClient<R, S> getInstance() {
+    public static  <R, S> CustomHttpClient<R, S> getInstance() {
         if (instance == null) {
             synchronized (CustomHttpClient.class) {
                 if (instance == null) {
@@ -76,7 +90,8 @@ public class CustomHttpClient<RequestType, ResponseType> {
         return (CustomHttpClient<R, S>) instance;
     }
 
-    public static <R, S> CustomHttpClient<R, S> getInstanceWithApiKey(String apiKey) {
+
+    public static  <R, S> CustomHttpClient<R, S> getInstanceWithApiKey(String apiKey) {
         if (instance == null) {
             synchronized (CustomHttpClient.class) {
                 if (instance == null) {
@@ -250,7 +265,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
     }
 
     public String getJwtToken(String TokenExchange) throws IOException {
-        String env = webDriverConfig.getEnvironment();
+        String env = environment;
         CloseableHttpClient client = HttpClients.createDefault();
         this.httpRequest = ClassicRequestBuilder
                 .post("https://webapi." + env + ".notifichedigitali.it/token-exchange")
@@ -280,7 +295,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
     }
 
     public ResponseType sendHttpDeleteRequest(String endpoint, Map<String, String> headers, Class<ResponseType> responseType) throws IOException {
-        String env = webDriverConfig.getEnvironment();
+        String env = environment;
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             this.httpRequest = ClassicRequestBuilder
                     .delete(endpoint)

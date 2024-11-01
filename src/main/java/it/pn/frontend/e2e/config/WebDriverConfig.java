@@ -205,6 +205,7 @@ public class WebDriverConfig {
 
 
     @Bean
+    @Primary
     public WebDriver webDriver() {
 
         var browser = Optional.ofNullable(getBrowser())

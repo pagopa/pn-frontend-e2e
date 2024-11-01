@@ -9,7 +9,10 @@ import it.pn.frontend.e2e.model.address.DigitalAddressResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -27,19 +30,22 @@ public class RestContact {
 
     private static final Logger logger = LoggerFactory.getLogger(RestContact.class);
 
-    @Autowired
-    private CustomHttpClient<?, String> httpClient;
 
-    @Autowired
-    private WebDriverConfig webDriverConfig;
+    @Value("${environment}")
+    private String environment;
 
     private final Map<String, String> headers = new HashMap<>();
 
     // Carica il token all'avvio della classe
+
+    private final CustomHttpClient<?, String> customHttpClient;
+
+
     @Autowired
-    public RestContact(WebDriverConfig webDriverConfig) {
-        this.webDriverConfig = webDriverConfig;
-        this.httpClient.setBaseUrlApi("https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it");
+    public RestContact(CustomHttpClient<?, String> customHttpClient) {
+        this.customHttpClient = customHttpClient;
+
+        customHttpClient.setBaseUrlApi("https://webapi." + environment + ".notifichedigitali.it");
 
         String token = System.getProperty("token");
         if (token != null) {
@@ -53,10 +59,10 @@ public class RestContact {
      * Rimuove l'indirizzo email di cortesia predefinito.
      */
     public void removeDigitalAddressCourtesyEmail() throws RestContactException {
-        String url = "https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/address-book/v1/digital-address/courtesy/default/EMAIL";
+        String url = "https://webapi." + environment + ".notifichedigitali.it/address-book/v1/digital-address/courtesy/default/EMAIL";
         try {
             headers.put("Authorization", System.getProperty("token"));
-            String response = httpClient.sendHttpDeleteRequest(url, headers, String.class);
+            String response = customHttpClient.sendHttpDeleteRequest(url, headers, String.class);
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzo digitale di cortesia rimosso con successo");
         } catch (IOException e) {
@@ -69,10 +75,10 @@ public class RestContact {
      * Rimuove l'indirizzo PEC legale predefinito.
      */
     public void removeDigitalAddressLegalPec() throws RestContactException {
-        String url = "https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/bff/v1/addresses/LEGAL/default/PEC";
+        String url = "https://webapi." + environment + ".notifichedigitali.it/bff/v1/addresses/LEGAL/default/PEC";
         try {
             headers.put("Authorization", System.getProperty("token"));
-            String response = httpClient.sendHttpDeleteRequest(url, headers, String.class);
+            String response = customHttpClient.sendHttpDeleteRequest(url, headers, String.class);
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzo PEC legale rimosso con successo");
         } catch (IOException e) {
@@ -87,12 +93,12 @@ public class RestContact {
     public void removeSpecialContact(DigitalAddress digitalAddress) throws RestDelegationException {
         String channelType = digitalAddress.getChannelType().toString();
         String addressType = digitalAddress.getAddressType().toString().toLowerCase();
-        String url = "https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/address-book/v1/digital-address/"
+        String url = "https://webapi." +environment + ".notifichedigitali.it/address-book/v1/digital-address/"
                 + addressType + "/" + digitalAddress.getSenderId() + "/" + channelType;
 
         try {
             headers.put("Authorization", System.getProperty("token"));
-            String response = httpClient.sendHttpDeleteRequest(url, headers, String.class);
+            String response = customHttpClient.sendHttpDeleteRequest(url, headers, String.class);
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzo digitale di 'altri recapiti' rimosso con successo");
         } catch (IOException e) {
@@ -106,7 +112,7 @@ public class RestContact {
      */
     public DigitalAddressResponse getDigitalAddress() throws RestContactException {
         CustomHttpClient<?, DigitalAddressResponse> httpClientDigitalAddress = CustomHttpClient.getInstance();
-        httpClientDigitalAddress.setBaseUrlApi("https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it");
+        httpClientDigitalAddress.setBaseUrlApi("https://webapi." + environment + ".notifichedigitali.it");
         String url = "/bff/v1/addresses/LEGAL/default/PEC";
 
         try {
@@ -126,7 +132,7 @@ public class RestContact {
      */
     public List<DigitalAddress> getAllDigitalAddress() throws RestContactException {
         CustomHttpClient<?, DigitalAddress> httpClientDigitalAddress = CustomHttpClient.getInstance();
-        httpClientDigitalAddress.setBaseUrlApi("https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it");
+        httpClientDigitalAddress.setBaseUrlApi("https://webapi." + environment + ".notifichedigitali.it");
         String url = "/bff/v1/addresses";
 
         try {

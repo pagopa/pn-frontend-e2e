@@ -6,6 +6,7 @@ import it.pn.frontend.e2e.common.HelpdeskPage;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.config.BearerTokenConfig;
+import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.config.UserPasswordConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.LoggerStartupListener;
@@ -16,6 +17,7 @@ import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.pages.mittente.*;
+import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
@@ -103,7 +105,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         LoginPersonaFisicaPagoPA.class,
         RestNotification.class,
         NotificationBuilder.class,
-        MandateSingleton.class
+        MandateSingleton.class,
+        RestContact.class,
+        CustomHttpClient.class
 
 })
 @EnableScheduling
