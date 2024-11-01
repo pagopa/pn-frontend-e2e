@@ -43,6 +43,7 @@ public class RestContact {
 
     @Autowired
     public RestContact(CustomHttpClient<?, String> customHttpClient) {
+        logger.info("TOKEN... "+System.getProperty("token"));
         this.customHttpClient = customHttpClient;
 
         customHttpClient.setBaseUrlApi("https://webapi." + environment + ".notifichedigitali.it");
@@ -83,7 +84,8 @@ public class RestContact {
             logger.info("Indirizzo PEC legale rimosso con successo");
         } catch (IOException e) {
             logger.error("Error during removeDigitalAdressLegalPec: {}", e.getMessage());
-            throw new RestContactException("Non è stato possibile rimuovere l'indirizzo PEC legale", e);
+            logger.error("Non è stato possibile rimuovere l'indirizzo PEC legale", e);
+            //throw new RestContactException("Non è stato possibile rimuovere l'indirizzo PEC legale", e);
         }
     }
 
@@ -111,11 +113,13 @@ public class RestContact {
      * Ottiene l'indirizzo digitale di default.
      */
     public DigitalAddressResponse getDigitalAddress() throws RestContactException {
+        logger.info("TOKEN..."+System.getProperty("token"));
         CustomHttpClient<?, DigitalAddressResponse> httpClientDigitalAddress = CustomHttpClient.getInstance();
         httpClientDigitalAddress.setBaseUrlApi("https://webapi." + environment + ".notifichedigitali.it");
         String url = "/bff/v1/addresses/LEGAL/default/PEC";
 
         try {
+            logger.info("TOKEN..."+System.getProperty("token"));
             headers.put("Authorization", System.getProperty("token"));
             DigitalAddressResponse response = httpClientDigitalAddress.sendHttpGetRequest(url, headers, DigitalAddressResponse.class);
             logger.info("Risposta ricevuta: {}", response);

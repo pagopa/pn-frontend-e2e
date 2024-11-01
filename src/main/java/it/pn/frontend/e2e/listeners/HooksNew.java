@@ -157,7 +157,6 @@ public class HooksNew {
         }
     }
 
-    @After("@recapitiPF or @recapitiPG")
     @And("Rimuovi tutti i recapiti se esistono")
     public void clearRecapiti() {
         var digitalAddresses = restContact.getAllDigitalAddress();
