@@ -47,6 +47,7 @@ public class HelpdeskTest {
     @Autowired
     private HelpdeskPage helpdeskPage ;
     @Autowired
+    @Lazy
     private BackgroundTest backgroundTest;
     private Map<String, Object> datiTestHelpdesk = new HashMap<>();
     private Map<String, Object> datiPersonaFisica = new HashMap<>();
