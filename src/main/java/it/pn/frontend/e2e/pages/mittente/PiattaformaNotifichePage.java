@@ -114,6 +114,8 @@ public class PiattaformaNotifichePage extends BasePage {
     private WebDriverConfig webDriverConfig;
     @Autowired
     private NotificationSingleton notificationSingleton;
+    @Autowired
+    RestNotification restNotification;
 
     @Autowired
     public PiattaformaNotifichePage(WebDriver driver) {
@@ -1138,7 +1140,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void verificaNotificaCreata() {
-        RestNotification restNotification = new RestNotification();
+//        RestNotification restNotification = new RestNotification();
         String notificationRequestId = "";
         for (NetWorkInfo netWorkInfo : webDriverConfig.getNetWorkInfos()) {
             if (netWorkInfo.getRequestUrl().contains("bff/v1/notifications/sent") && netWorkInfo.getRequestMethod().equals("POST")) {

@@ -14,6 +14,7 @@ import it.pn.frontend.e2e.rest.RestNotification;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -29,7 +30,8 @@ import java.util.Map;
 public class NotificationBuilder {
     public static final String APPLICATION_PDF = "application/pdf";
     public static final String APPLICATION_JSON = "application/json";
-    private final RestNotification restNotification = new RestNotification();
+    @Autowired
+    private RestNotification restNotification;
     @Getter
     private String sha;
 

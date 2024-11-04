@@ -14,10 +14,13 @@ import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
 
+@Component
 public class AccettazioneRichiestaNotifica {
     private static final Logger logger = LoggerFactory.getLogger("AccettazioneRichiestaNotifica");
 
@@ -32,6 +35,10 @@ public class AccettazioneRichiestaNotifica {
     private String responseReasonPhrase;
 
     private int responseCode;
+
+    @Autowired
+    public AccettazioneRichiestaNotifica() {
+    }
 
     public boolean runGetRichiestaNotifica() {
         try {

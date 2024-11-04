@@ -98,6 +98,10 @@ public class NotificaMittentePagoPATest {
     @Autowired
     @Lazy
     private BackgroundTest backgroundTest;
+    @Autowired
+    InvioNotifichePAPage invioNotifichePAPage;
+    @Autowired
+    AccettazioneRichiestaNotifica accettazioneRichiestaNotifica;
 
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
@@ -195,7 +199,6 @@ public class NotificaMittentePagoPATest {
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari")
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionInformazioniPreliminari() {
         logger.info("Verifica visualizzazione section Informazioni preliminari");
-
         headerPASection.waitLoadHeaderSection();
         informazioniPreliminariPASection.waitLoadInformazioniPreliminariPASection();
     }
@@ -235,7 +238,7 @@ public class NotificaMittentePagoPATest {
     @And("Cliccare su continua")
     public void cliccareSuContinua() {
         logger.info("Cliccare sul bottone continua");
-        InvioNotifichePAPage invioNotifichePAPage = new InvioNotifichePAPage(hooks.getDriver());
+//        InvioNotifichePAPage invioNotifichePAPage = new InvioNotifichePAPage(hooks.getDriver());
         invioNotifichePAPage.selezionareContinuaButton();
     }
 
@@ -349,7 +352,7 @@ public class NotificaMittentePagoPATest {
 
         String nomeFile = "datiNotifica.yaml";
         String numeroProtocolloKey = "numeroProtocollo";
-        DataPopulation dataPopulation = new DataPopulation();
+//        DataPopulation dataPopulation = new DataPopulation();
         String numeroProtocolOld = dataPopulation.readDataPopulation(nomeFile).get(numeroProtocolloKey).toString();
         String dataProtocolOld = substring(numeroProtocolOld, 10, 18);
         String counter = substring(numeroProtocolOld, 19);
@@ -507,7 +510,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Si visualizza correttamente la section Dettaglio Notifica")
     public void siVisualizzaCorrettamenteLaSectionDettaglioNotifica() {
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(hooks.getDriver());
+//        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(hooks.getDriver());
         dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
     }
 
@@ -805,7 +808,6 @@ public class NotificaMittentePagoPATest {
     @And("Nella section si prova ad cliccare sul tasto continua senza aver inserito nessun dato")
     public void nellaSectionInformazioniPreliminariSiProvaAdCliccareSulTastoContinuaSenzaAverInseritoNessunDato() {
         logger.info("Si clicca sul tasto continua senza aver inserito nessun dato");
-
         piattaformaNotifichePage.clickContinuaDisabled();
     }
 
@@ -832,7 +834,6 @@ public class NotificaMittentePagoPATest {
     @And("Nella section cliccare sul tasto indietro")
     public void nellaSectionInformazioniPreliminariCliccareSulTastoIndietro() {
         logger.info("Si clicca sul tasto indietro");
-
         piattaformaNotifichePage.clickIndietroButton();
     }
 
@@ -1500,7 +1501,7 @@ public class NotificaMittentePagoPATest {
         logger.info("si verifica se la notifica è stata accettata o rifiutata");
         final String urlNotificationRequest = webDriverConfig.getBaseUrl() + "notifications/sent";
         final String urlRichiestaNotifica = "https://api." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/delivery/v2.3/requests/";
-        AccettazioneRichiestaNotifica accettazioneRichiestaNotifica = new AccettazioneRichiestaNotifica();
+//        AccettazioneRichiestaNotifica accettazioneRichiestaNotifica = new AccettazioneRichiestaNotifica();
         String codiceApi;
         if (webDriverConfig.getEnvironment().equals("test")) {
             codiceApi = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";
