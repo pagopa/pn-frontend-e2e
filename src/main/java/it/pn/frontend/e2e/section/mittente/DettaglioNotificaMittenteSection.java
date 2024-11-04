@@ -68,6 +68,8 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     WebElement apiKeyField;
 
     private int numeriStatiNotifica;
+    @Autowired
+    PiattaformaNotifichePage piattaformaNotifichePage;
 
     @Autowired
     public DettaglioNotificaMittenteSection(WebDriver driver) {
@@ -592,7 +594,6 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void ricercaNotificaConIunSalvato(String iun){
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
     }

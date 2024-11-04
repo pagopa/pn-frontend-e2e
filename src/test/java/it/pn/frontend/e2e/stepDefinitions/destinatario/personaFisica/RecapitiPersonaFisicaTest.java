@@ -40,6 +40,8 @@ public class RecapitiPersonaFisicaTest {
     private DataPopulation dataPopulation;
     @Autowired
     private ITuoiRecapitiPage iTuoiRecapitiPage;
+    @Autowired
+    private RecuperoOTPRecapiti recuperoOTPRecapiti;
 
     public static String OTP;
 
@@ -183,7 +185,7 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPFECliccaSulBottoneAvvisamiViaEmail(String dpFile) {
         logger.info("Si inserisce la email");
 
-        DataPopulation dataPopulation = new DataPopulation();
+//        DataPopulation dataPopulation = new DataPopulation();
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String email = personaFisica.get("mail").toString();
 
@@ -211,7 +213,7 @@ public class RecapitiPersonaFisicaTest {
 
         logger.info("Si inserisce il numero di telefono PF");
 
-        DataPopulation dataPopulation = new DataPopulation();
+//        DataPopulation dataPopulation = new DataPopulation();
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String phoneNumber = personaFisica.get("telefono").toString();
 
@@ -248,7 +250,6 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequest(String dpFile) {
 
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
 
         String startUrl = "http://localhost:8887/";
         String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("emailPec");
@@ -280,8 +281,6 @@ public class RecapitiPersonaFisicaTest {
 
     @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request dell'email {string} e viene inserito")
     public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequestDellEmailEVieneInserito(String email) {
-
-        RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
 
         String startUrl = "http://localhost:8887/";
         String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + email;
@@ -375,7 +374,6 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method {string}")
     public void nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaEmailTramiteRequestMethod(String dpFile) {
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
         try {
             TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
@@ -412,7 +410,6 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della Email 'altri recapiti' tramite request method {string}")
     public void nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaEmailAltriRecapitiTramiteRequestMethod(String dpFile) {
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
         try {
             TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
@@ -525,7 +522,6 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della nuova Email tramite request method {string}")
     public void nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaNuovaEmailTramiteRequestMethod(String dpFile) {
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
 
         try {
             TimeUnit.SECONDS.sleep(3);
@@ -677,7 +673,6 @@ public class RecapitiPersonaFisicaTest {
 
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String pec = personaFisica.get("pec").toString();
-        RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
 
         String startUrl = "http://localhost:8887/";
         String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + pec;
@@ -713,7 +708,6 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si recupera il codice OTP della nuova pec");
 
         String pec = emailPec;
-        RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
 
         String startUrl = "http://localhost:8887/";
         String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + pec;
@@ -742,7 +736,6 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email {string} tramite chiamata request")
     public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaEmailTramiteChiamataRequest(String mail) {
         logger.info("Si recupera il codice OTP della nuova email");
-        RecuperoOTPRecapiti recuperoOTPRecapiti = new RecuperoOTPRecapiti();
 
         String startUrl = "http://localhost:8887/";
         String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + mail;

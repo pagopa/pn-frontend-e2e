@@ -180,7 +180,6 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @And("Ci si posiziona su una pagina differente attraverso i numeri e si applica filtro {string}")
     public void ciSiPosizionaSuUnaPaginaDifferenteAttraversoINumeriESiApplicaFiltro(String dpFile) {
-        DataPopulation dataPopulation = new DataPopulation();
         Map<String, Object> datiPg = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
         notifichePFPage.siSceglieUnaPaginaDiversaConNumeroESiFiltra(datiPg.get("codiceIUN").toString());
@@ -318,7 +317,6 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @And("Si visualizza correttamente la Pagina Notifiche persona fisica delegante {string}")
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaFisicaDelegante(String dpFile) {
-        DataPopulation dataPopulation = new DataPopulation();
         Map<String, Object> personaFisicaDelgante = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String nome = personaFisicaDelgante.get("name").toString();
         String cognome = personaFisicaDelgante.get("familyName").toString();

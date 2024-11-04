@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -70,6 +71,9 @@ public class DownloadFileMittentePagoPATest {
     private DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection;
     @Autowired
     private DettaglioNotificaSection dettaglioNotificaSection;
+    @Autowired
+    @Lazy
+    BackgroundTest backgroundTest;
 
 
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
@@ -179,9 +183,6 @@ public class DownloadFileMittentePagoPATest {
     @And("Nella sezione Dettaglio Notifiche si scarica il documento allegato")
     public void downloadDocumentiAllegati() {
         logger.info("Si scaricano solo i documenti Allegati all'interno della notifica");
-
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(hooks.getDriver());
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(hooks.getDriver());
 
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
@@ -429,7 +430,6 @@ public class DownloadFileMittentePagoPATest {
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         piattaformaNotifichePage.waitLoadingSpinner();
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPersonaGiuridica();
-        DataPopulation dataPopulation = new DataPopulation();
 
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotificaPG.yaml");
         String codiceIun = this.datiNotifica.get("codiceIUN").toString();
@@ -444,8 +444,6 @@ public class DownloadFileMittentePagoPATest {
     @And("Nella pagina Piattaforma Notifiche si verifica l'esistenza della notifica con il codice IUN")
     public void nellaPaginaPiattaformaNotificheSiVerificaLEsistenzaDellaNotificaConIlCodiceIUN() {
         logger.info("Si verifica l'esistenza della notifica con il codice IUN");
-        BackgroundTest backgroundTest = new BackgroundTest();
-        DataPopulation dataPopulation = new DataPopulation();
 
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresenti();
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");

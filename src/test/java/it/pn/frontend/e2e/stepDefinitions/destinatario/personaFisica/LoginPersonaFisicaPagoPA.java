@@ -576,7 +576,6 @@ public class LoginPersonaFisicaPagoPA {
     public void loginPortaleDelegatoTramiteRequestMethod(String dpFile) {
         boolean urlWithTokenFound = false;
         int numProvaLogin = 0;
-       // DataPopulation dataPopulation = new DataPopulation();
         //this.datiDelegato = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
         String userDelegato = webDriverConfig.getUserCesare();
@@ -609,7 +608,6 @@ public class LoginPersonaFisicaPagoPA {
     @When("Login portale persona fisica tramite token exchange {string}")
     public void loginPortalePersonaFisicaTramiteTokenExchange(String dpFile) {
         String variabileAmbiente = webDriverConfig.getEnvironment();
-        //DataPopulation dataPopulation = new DataPopulation();
         String urlIniziale = "https://cittadini." + variabileAmbiente + ".notifichedigitali.it/#token=";
         //TODO....
         //String user = dataPopulation.readDataPopulation(dpFile + ".yaml").get("user").toString();

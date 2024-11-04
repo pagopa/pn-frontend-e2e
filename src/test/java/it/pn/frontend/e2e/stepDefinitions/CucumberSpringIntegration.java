@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.stepDefinitions;
 
 import io.cucumber.spring.CucumberContextConfiguration;
 import it.pn.frontend.e2e.api.mittente.AccettazioneRichiestaNotifica;
+import it.pn.frontend.e2e.api.personaFisica.RecuperoOTPRecapiti;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.common.HelpdeskPage;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
@@ -31,6 +32,7 @@ import it.pn.frontend.e2e.section.destinatario.personaGiuridica.AggiungiDelegaPG
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.DelegatiImpresaSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.section.mittente.*;
+import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
@@ -112,7 +114,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         CustomHttpClient.class,
         InvioNotifichePAPage.class,
         BasicCookieStore.class,
-        AccettazioneRichiestaNotifica.class
+        AccettazioneRichiestaNotifica.class,
+        RecuperoOTPRecapiti.class,
+        BackgroundTest.class,
+        GeneraApiKeySection.class
 
 })
 @EnableScheduling

@@ -48,12 +48,13 @@ public class RicercaNotificheMittentePagoPATest {
 
     @Autowired
     private  HeaderPASection headerPASection;
+    @Autowired
+    DataPopulation dataPopulation;
 
     @And("Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica {string}")
     public void inserireCodiceFiscale(String dpFile) {
         logger.info("Avvio ricerca tramite codice fiscale");
 
-        DataPopulation dataPopulation = new DataPopulation();
         this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
         String cf = destinatarioPASection.ricercaInformazione(personaFisica.get("codiceFiscale").toString().split(","), 0);

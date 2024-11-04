@@ -352,7 +352,6 @@ public class NotificaMittentePagoPATest {
 
         String nomeFile = "datiNotifica.yaml";
         String numeroProtocolloKey = "numeroProtocollo";
-//        DataPopulation dataPopulation = new DataPopulation();
         String numeroProtocolOld = dataPopulation.readDataPopulation(nomeFile).get(numeroProtocolloKey).toString();
         String dataProtocolOld = substring(numeroProtocolOld, 10, 18);
         String counter = substring(numeroProtocolOld, 19);
@@ -510,7 +509,6 @@ public class NotificaMittentePagoPATest {
 
     @And("Si visualizza correttamente la section Dettaglio Notifica")
     public void siVisualizzaCorrettamenteLaSectionDettaglioNotifica() {
-//        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(hooks.getDriver());
         dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
     }
 
@@ -1501,7 +1499,6 @@ public class NotificaMittentePagoPATest {
         logger.info("si verifica se la notifica è stata accettata o rifiutata");
         final String urlNotificationRequest = webDriverConfig.getBaseUrl() + "notifications/sent";
         final String urlRichiestaNotifica = "https://api." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/delivery/v2.3/requests/";
-//        AccettazioneRichiestaNotifica accettazioneRichiestaNotifica = new AccettazioneRichiestaNotifica();
         String codiceApi;
         if (webDriverConfig.getEnvironment().equals("test")) {
             codiceApi = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";

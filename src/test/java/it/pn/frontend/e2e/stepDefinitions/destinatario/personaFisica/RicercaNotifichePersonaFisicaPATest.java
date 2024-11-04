@@ -58,6 +58,7 @@ public class RicercaNotifichePersonaFisicaPATest {
     @Autowired
     private BackgroundTest backgroundTest;
 
+
     @When("Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica")
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheDestinatario() {
         logger.info("Verifica visualizzazione piattaforma notifiche persona fisica");
@@ -120,7 +121,7 @@ public class RicercaNotifichePersonaFisicaPATest {
         notifichePFPage.waitLoadNotificheDEPage();
         this.datiNotifica = dataPopulation.readDataPopulation(dpDatiNotifica + ".yaml");
         String codiceIUNInserito = datiNotifica.get("codiceIUN").toString();
-        boolean result = new NotificheDestinatarioPage(hooks.getDriver()).verificaCodiceIUN(codiceIUNInserito);
+        boolean result = notificheDestinatarioPage.verificaCodiceIUN(codiceIUNInserito);
 
         if (result) {
             logger.info("Il risultato é coerente con il codice IUN inserito");
@@ -136,7 +137,7 @@ public class RicercaNotifichePersonaFisicaPATest {
         headerPFSection.waitLoadHeaderDESection();
         notifichePFPage.waitLoadNotificheDEPage();
 
-        boolean result = new NotificheDestinatarioPage(hooks.getDriver()).verificaCodiceIUN(IUN);
+        boolean result = notificheDestinatarioPage.verificaCodiceIUN(IUN);
         if (result) {
             logger.info("Il risultato é coerente con il codice IUN inserito");
         } else {
@@ -191,7 +192,7 @@ public class RicercaNotifichePersonaFisicaPATest {
         logger.info("Si inserisce il codice IUN non valido");
         this.datiNotificaNonValidoPF = dataPopulation.readDataPopulation(datiNotificaNonValidoPF + ".yaml");
         notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotificaNonValidoPF.get("codiceIUN").toString());
-        new NotificheDestinatarioPage(hooks.getDriver()).inserisciCodiceIUN(this.datiNotificaNonValidoPF.get("codiceIUN").toString());
+        notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotificaNonValidoPF.get("codiceIUN").toString());
     }
 
     @Then("Nella pagina Piattaforma Notifiche persona fisica viene visualizzato un messaggio in rosso di errore sotto il campo errato e il rettangolo diventa rosso e il tasto Filtra è disattivo")
