@@ -57,14 +57,14 @@ public class CustomHttpClient<RequestType, ResponseType> {
 
 
     public CustomHttpClient() {
-        System.out.println("CIAO.......");
+        System.out.println("CustomHttpClient.......");
         this.baseUrlApi = "https://api.test.notifichedigitali.it";
         this.httpClient = HttpClients.createDefault();
         this.apiKey = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";
     }
 
     public CustomHttpClient(String baseUrlApi, String apiKeyTest) {
-        System.out.println("CIAO1.......");
+        System.out.println("CustomHttpClient1.......");
 
         this.baseUrlApi = baseUrlApi;
         this.httpClient = HttpClients.createDefault();
@@ -72,7 +72,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
     }
 
     public CustomHttpClient(String apiKeyTest) {
-        System.out.println("CIAO2.......");
+        System.out.println("CustomHttpClient2.......");
         this.baseUrlApi =  "https://api.test.notifichedigitali.it";
         this.httpClient = HttpClients.createDefault();
         this.apiKey = apiKeyTest;
