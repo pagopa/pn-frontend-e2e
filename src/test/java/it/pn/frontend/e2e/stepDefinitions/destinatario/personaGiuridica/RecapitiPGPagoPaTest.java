@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RecapitiPGPage;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
@@ -14,14 +15,24 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Map;
 
 public class RecapitiPGPagoPaTest {
     private final Logger logger = LoggerFactory.getLogger("RecapitiPGPagoPaTest");
-    private final WebDriver driver = Hooks.driver;
-    DataPopulation dataPopulation = new DataPopulation();
-    private final RecapitiPGPage recapitiPGPage = new RecapitiPGPage(this.driver);
-    private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
+
+    @Autowired
+    private HooksNew hooks;
+    @Autowired
+    private  DataPopulation dataPopulation;
+    @Autowired
+    private RecapitiPGPage recapitiPGPage;
+    @Autowired
+    private RecapitiDestinatarioPage recapitiDestinatarioPage;
+    @Autowired
+    private ITuoiRecapitiPage iTuoiRecapitiPage;
+
 
     @And("Si visualizza correttamente la pagina Recapiti persona giuridica")
     public void siVisualizzaRecapitiPagePersonaGiuridica(){
@@ -75,7 +86,7 @@ public class RecapitiPGPagoPaTest {
     public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapiti() {
         logger.info("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti");
         WebTool.waitTime(10);
-        this.driver.navigate().refresh();
+        this.hooks.getDriver().navigate().refresh();
         recapitiDestinatarioPage.visualizzazioneCampiSezioneAltriRecapiti();
     }
 
@@ -94,8 +105,6 @@ public class RecapitiPGPagoPaTest {
 
     @And("Si clicca su elimina email")
     public void siCliccaSuEliminaEmail() {
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-
         iTuoiRecapitiPage.eliminaEmailEsistente();
     }
 

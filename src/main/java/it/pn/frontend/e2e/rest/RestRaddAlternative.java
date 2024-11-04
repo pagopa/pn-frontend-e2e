@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.rest;
 import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.radd.CompleteTransaction.CompleteTransactionRequest;
 import it.pn.frontend.e2e.model.radd.CompleteTransaction.CompleteTransactionResponse;
 import it.pn.frontend.e2e.model.radd.StartTransaction.StartTransactionRequest;
@@ -48,7 +49,7 @@ public class RestRaddAlternative {
     public StartTransactionResponse startTransactionRaddAlternative(String tipoDestinatario, String codiceFiscale, String operationId) {
         CustomHttpClient<StartTransactionRequest, StartTransactionResponse> httpClientStart = new CustomHttpClient<>();
         httpClientStart.setBaseUrlApi("https://api.radd." + webDriverConfig.getEnvironment() + ".notifichedigitali.it");
-        StartTransactionRequest startTransactionRequest = new StartTransactionRequest(codiceFiscale, tipoDestinatario, notificationSingleton.getIun(Hooks.getScenario()), operationId);
+        StartTransactionRequest startTransactionRequest = new StartTransactionRequest(codiceFiscale, tipoDestinatario, notificationSingleton.getIun(HooksNew.getScenario()), operationId);
 
         headers.put("Authorization", this.token);
         headers.put("uid", uid);

@@ -3,7 +3,6 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.delegate.DelegatePF;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
@@ -280,7 +279,7 @@ public class DeleghePagoPATest {
         if (data.equalsIgnoreCase("errato")) {
             verificationCode = "54321";
         } else {
-            verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()));
+            verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(HooksNew.getScenario()));
         }
         leTueDelegheSection.inserireCodiceDelega(verificationCode);
     }
@@ -314,8 +313,8 @@ public class DeleghePagoPATest {
         String tokenExchange = loginPersonaFisicaPagoPA.getTokenExchangePFFromFile(personaFisica.get("accessoCome"));
         DelegateResponsePF response = restDelegation.addDelegationPF(delegateRequestPF, tokenExchange);
         if (response != null) {
-            mandateSingleton.setScenarioMandateId(Hooks.getScenario(), response.getMandateId());
-            mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()), response.getVerificationCode());
+            mandateSingleton.setScenarioMandateId(HooksNew.getScenario(), response.getMandateId());
+            mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(HooksNew.getScenario()), response.getVerificationCode());
         }
         hooks.getDriver().navigate().refresh();
     }

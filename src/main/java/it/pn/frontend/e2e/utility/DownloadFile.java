@@ -20,7 +20,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Optional;
 
-import static it.pn.frontend.e2e.listeners.Hooks.netWorkInfos;
 /*
 Principali Miglioramenti:
 try-with-resources: Per la gestione automatica delle risorse come BufferedInputStream e BufferedOutputStream.
@@ -122,7 +121,7 @@ public class DownloadFile extends BasePage {
     }
 
     public String getUrl(String urlChiamata) {
-        String url = netWorkInfos.stream()
+        String url = webDriverConfig.getNetWorkInfos().stream()
                 .filter(netWorkInfo -> netWorkInfo.getRequestUrl().contains(urlChiamata) &&
                         netWorkInfo.getRequestMethod().equals("GET") &&
                         netWorkInfo.getResponseStatus().equals("200"))
@@ -174,7 +173,7 @@ public class DownloadFile extends BasePage {
     private String getBearerSessionToken() {
         String environment = webDriverConfig.getEnvironment();
         String urlChiamata = "https://webapi." + environment + ".notifichedigitali.it/delivery/notifications/received?";
-        return netWorkInfos.stream()
+        return webDriverConfig.getNetWorkInfos().stream()
                 .filter(netWorkInfo -> netWorkInfo.getRequestUrl().contains(urlChiamata))
                 .map(NetWorkInfo::getAuthorizationBearer)
                 .findFirst()
@@ -184,7 +183,7 @@ public class DownloadFile extends BasePage {
     private String getBearerSessionToken(String url) {
         String environment = webDriverConfig.getEnvironment();
         String urlChiamata = "https://webapi." + environment + url;
-        return netWorkInfos.stream()
+        return webDriverConfig.getNetWorkInfos().stream()
                 .filter(netWorkInfo -> netWorkInfo.getRequestUrl().contains(urlChiamata))
                 .map(NetWorkInfo::getAuthorizationBearer)
                 .findFirst()

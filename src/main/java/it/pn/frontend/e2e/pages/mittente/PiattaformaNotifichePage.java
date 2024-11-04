@@ -513,7 +513,7 @@ public class PiattaformaNotifichePage extends BasePage {
             int index = calendar.get(Calendar.HOUR_OF_DAY);
             logger.info("index NOTIFICHE : " + index);
 
-            logger.info("Scenario " + Hooks.getScenario());
+            logger.info("Scenario " + HooksNew.getScenario());
 
             if (notifiche != null) {
                 logger.info("ELENCO NOTIFICHE : " + notifiche.size());
@@ -554,7 +554,7 @@ public class PiattaformaNotifichePage extends BasePage {
             notificaBy = By.id("notificationsTable.body.row");
             List<WebElement> notifiche = this.elements(notificaBy);
 
-            logger.info("Scenario " + Hooks.getScenario());
+            logger.info("Scenario " + HooksNew.getScenario());
 
             Calendar calendar = GregorianCalendar.getInstance();
             int index = calendar.get(Calendar.HOUR_OF_DAY) + rows;
@@ -1162,7 +1162,7 @@ public class PiattaformaNotifichePage extends BasePage {
             notificationStatus = notificationData.get("notificationRequestStatus").toString();
             if (notificationStatus.equals("ACCEPTED")) {
                 notificationIUN = notificationData.get("iun").toString();
-                notificationSingleton.setScenarioIun(Hooks.getScenario(), notificationIUN);
+                notificationSingleton.setScenarioIun(HooksNew.getScenario(), notificationIUN);
                 return;
             } else {
                 WebTool.waitTime(90);

@@ -4,7 +4,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
-import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
@@ -262,7 +261,7 @@ public class RicercaNotifichePersonaFisicaPATest {
 
     @And("Si seleziona la notifica destinatario")
     public void siSelezionaLaNotificaDestinatario() {
-        String iun = notificationSingleton.getIun(Hooks.scenario);
+        String iun = notificationSingleton.getIun(HooksNew.getScenario());
         backgroundTest.siFiltraLaTabellaDelleNotificheDelDestinatarioPerIUN(iun);
     }
 }

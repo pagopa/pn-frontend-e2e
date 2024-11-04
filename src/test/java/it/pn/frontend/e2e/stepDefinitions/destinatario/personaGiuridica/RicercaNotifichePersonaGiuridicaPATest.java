@@ -4,7 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
-import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
@@ -17,16 +17,34 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.Map;
 
 public class RicercaNotifichePersonaGiuridicaPATest {
     private final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaGiuridicaPATest");
-    private final WebDriver driver = Hooks.driver;
-    private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-    RicercaNotifichePGPage ricercaNotifichePGPage = new RicercaNotifichePGPage(this.driver);
-    DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
+
+    @Autowired
+    private HooksNew hooks;
+
+    @Autowired
+    private PiattaformaNotifichePage piattaformaNotifichePage;
+    @Autowired
+    private RicercaNotifichePGPage ricercaNotifichePGPage;
+    @Autowired
+    private DestinatarioPage destinatarioPage;
+    @Autowired
+    private NotificheDestinatarioPage notificheDestinatarioPage;
+    @Autowired
+    private PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
+    @Autowired
+    private HeaderPASection headerPASection;
+    @Autowired
+    private HeaderPGSection headerPGSection;
+    @Autowired
+    private NotifichePFPage notifichePFPage;
+
     private Map<String, Object> datiNotificaPG;
 
     @When("Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa")
@@ -38,8 +56,6 @@ public class RicercaNotifichePersonaGiuridicaPATest {
     @And("Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN da dati notifica {string}")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIUNDaDatiNotifica(String iun) throws InterruptedException {
         logger.info("Si inserisce il codice IUN");
-
-        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(driver);
         notificheDestinatarioPage.inserisciCodiceIUN(iun);
     }
 
@@ -50,7 +66,6 @@ public class RicercaNotifichePersonaGiuridicaPATest {
 
     @And("La persona giuridica clicca sulla prima notifica restituita")
     public void laPersonaGiuridicaCliccaSullaPrimaNotificaRestituita() {
-        RicercaNotifichePGPage ricercaNotifichePGPage = new RicercaNotifichePGPage(this.driver);
         ricercaNotifichePGPage.cliccaSuPrimaNotifica();
     }
 
@@ -61,7 +76,6 @@ public class RicercaNotifichePersonaGiuridicaPATest {
 
     @And("Si controlla se la notifica prevede il pagamento")
     public void siControllaSeLaNotificaPrevedeIlPagamento() {
-        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
         boolean sezionePagamentoIsDisplayed = piattaformaNotifichePGPAPage.sezionePagamentoDisplayed();
         if (!sezionePagamentoIsDisplayed) {
             logger.info("La notifica non prevede il pagamento ");
@@ -110,14 +124,8 @@ public class RicercaNotifichePersonaGiuridicaPATest {
 
         String iun = datiPG.get("iun");
         String ragioneSociale = datiPG.get("ragioneSociale");
-
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
-
-        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
         piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(ragioneSociale);
-
-        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(driver);
         boolean result = notificheDestinatarioPage.verificaCodiceIUN(iun);
         if (result) {
             logger.info("Il risultato é coerente con il codice IUN inserito");
@@ -132,7 +140,6 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         LocalDate dateA = LocalDate.now();
         LocalDate dateDa = dateA.minusDays(5);
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         String dataa = piattaformaNotifichePage.conversioneFormatoDate(dateA.toString());
         String datada = piattaformaNotifichePage.conversioneFormatoDate(dateDa.toString());
         piattaformaNotifichePage.inserimentoArcoTemporale(datada, dataa);
@@ -140,13 +147,8 @@ public class RicercaNotifichePersonaGiuridicaPATest {
 
     @And("Nella pagina Piattaforma Notifiche persona giuridica vengo restituite tutte le notifiche con la data della notifica compresa con le date precedentemente inserite")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaVengoRestituiteTutteLeNotificheConLaDataDellaNotificaCompresaConLeDatePrecedentementeInserite() {
-        HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
         headerPGSection.waitLoadHeaderPGPage();
-
-        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
         piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage("Convivio Spa");
-
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         boolean result = notifichePFPage.getListData();
         if (result) {
             logger.info("Il risultato é coerente con le date inserite");
@@ -164,13 +166,11 @@ public class RicercaNotifichePersonaGiuridicaPATest {
     @And("Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN non valido da dati notifica {string}")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIunNonValidoDaDatiNotifica(String datiNotificaNonValidoPG) throws InterruptedException {
         logger.info("Si inserisce il codice IUN non valido");
-        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
         notificheDestinatarioPage.inserisciCodiceIUN(datiNotificaNonValidoPG);
     }
 
     @Then("Viene visualizzato un messaggio in rosso di errore sotto il campo errato e il rettangolo diventa rosso e il tasto Filtra è disattivo")
     public void vieneVisualizzatoUnMessaggioInRossoDiErroreSottoIlCampoErratoEIlRettangoloDiventaRossoEIlTastoFiltraEDisattivo() {
-        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
         boolean isErrorMessageDisplayed = ricercaNotifichePGPage.isErrorMessageDisplayed();
         if (isErrorMessageDisplayed) {
             logger.info("il messaggio di errore é visualizzato");
@@ -201,7 +201,6 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         logger.info("Se i risultati sono contenuti in più pagine è possibile effettuare il cambio pagina");
         if (piattaformaNotifichePage.verificaEsistenzaEPassaggioPagina()) {
             logger.info("Bottone pagina 2 trovato e cliccato");
-            HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
             headerPGSection.waitLoadHeaderPGPage();
             ricercaNotifichePGPage.waitLoadNotifichePGPage();
         } else {

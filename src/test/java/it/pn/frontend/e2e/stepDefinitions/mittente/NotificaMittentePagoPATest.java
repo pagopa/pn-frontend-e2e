@@ -1353,7 +1353,10 @@ public class NotificaMittentePagoPATest {
 
     @And("Si seleziona la notifica mittente")
     public void siSelezionaLaNotificaMittente() {
+        logger.info("ATTENZIONE.........");
         String iun = notificationSingleton.getIun(HooksNew.scenario);
+        logger.info("SCENARIO..."+HooksNew.scenario);
+        logger.info("SCENARIO..."+iun);
         backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNMittente(iun);
     }
 

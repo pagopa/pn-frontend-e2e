@@ -476,8 +476,8 @@ public class DeleghePGPagoPATest {
                 .build();
         String tokenExchange = loginPGPagoPaTest.getTokenExchangePGFromFile(personaGiuridica.get("accessoCome"));
         DelegateResponsePG response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
-        mandateSingleton.setScenarioMandateId(Hooks.getScenario(),response.getMandateId());
-        mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()),response.getVerificationCode());
+        mandateSingleton.setScenarioMandateId(HooksNew.getScenario(),response.getMandateId());
+        mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(HooksNew.getScenario()),response.getVerificationCode());
         hooks.getDriver().navigate().refresh();
         WebTool.waitTime(2);
     }
@@ -511,7 +511,7 @@ public class DeleghePGPagoPATest {
 
     @And("Si inserisce il codice della delega a carico dell impresa nella modale")
     public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale() {
-        String verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()));
+        String verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(HooksNew.getScenario()));
         logger.info(verificationCode);
         deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI(verificationCode);
     }
@@ -593,7 +593,7 @@ public class DeleghePGPagoPATest {
     public void siRevocaDelegaComeDelegantConApi() {
 
         loginPGPagoPaTest.getTokenExchangePGFromFile("delegante");
-        String mandateId = mandateSingleton.getMandateId(Hooks.getScenario());
+        String mandateId = mandateSingleton.getMandateId(HooksNew.getScenario());
         restDelegation.revokeDelegation(mandateId);
 
     }

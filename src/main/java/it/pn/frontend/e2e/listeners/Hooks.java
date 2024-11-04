@@ -208,7 +208,7 @@ public class Hooks {
     //  @And("Revoca deleghe se esistono")
     public void clearDelegate() {
         logger.info("REVOCA TUTTE LE DELEGHE....");
-        String mandateId = mandateSingleton.getMandateId(Hooks.getScenario());
+        String mandateId = mandateSingleton.getMandateId(HooksNew.getScenario());
         if (mandateId != null) {
             logger.info("REVOCA DELEGA: " + mandateId);
             restDelegation.revokeDelegation(mandateId);

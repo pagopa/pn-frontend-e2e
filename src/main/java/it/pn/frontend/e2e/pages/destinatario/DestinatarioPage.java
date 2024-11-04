@@ -150,8 +150,8 @@ public class DestinatarioPage extends BasePage {
                         maxAttemptsPolling++;
                     } else {
                         log.info("Notifica per destinatario creata con successo");
-                        notificationSingleton.setScenarioIun(Hooks.getScenario(), WebTool.decodeNotificationRequestId(responseOfCreateNotification.getNotificationRequestId()));
-                        log.info("Il codice IUN della notifica creata è il seguente: {}", notificationSingleton.getIun(Hooks.getScenario()));
+                        notificationSingleton.setScenarioIun(HooksNew.getScenario(), WebTool.decodeNotificationRequestId(responseOfCreateNotification.getNotificationRequestId()));
+                        log.info("Il codice IUN della notifica creata è il seguente: {}", notificationSingleton.getIun(HooksNew.getScenario()));
                         driver.navigate().refresh();
                         return;
                     }

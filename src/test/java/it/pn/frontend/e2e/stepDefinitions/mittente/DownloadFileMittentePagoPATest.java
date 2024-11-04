@@ -4,8 +4,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
-import it.pn.frontend.e2e.config.WebDriverConfig;
-import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
@@ -14,10 +12,7 @@ import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
-
-import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,9 +174,6 @@ public class DownloadFileMittentePagoPATest {
     @And("Nella sezione Dettaglio Notifiche si scarica il documento allegato")
     public void downloadDocumentiAllegati() {
         logger.info("Si scaricano solo i documenti Allegati all'interno della notifica");
-
-        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(hooks.getDriver());
-        DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(hooks.getDriver());
 
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente");
