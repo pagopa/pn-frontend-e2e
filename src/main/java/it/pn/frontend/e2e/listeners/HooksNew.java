@@ -80,6 +80,8 @@ public class HooksNew {
     private  CookieConfig cookieConfig;
     @Autowired
     private WebDriverConfig webDriverConfig;
+    @Autowired
+    RestDelegation restDelegation ;
 
 
 
@@ -255,7 +257,7 @@ public class HooksNew {
         logger.info("Revoking all delegations...");
         var mandateId = mandateSingleton.getMandateId(Hooks.getScenario());
         if (mandateId != null) {
-            RestDelegation.getInstance().revokeDelegation(mandateId);
+            restDelegation.revokeDelegation(mandateId);
             logger.info("Delegation revoked: {}", mandateId);
         } else {
             logger.info("Mandate ID not found");
