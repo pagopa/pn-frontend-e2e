@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 public class RecapitiTest {
 
@@ -24,6 +25,7 @@ public class RecapitiTest {
     @Autowired
     private ITuoiRecapitiPage iTuoiRecapitiPage ;
     @Autowired
+    @Lazy
     private BackgroundTest backgroundTest;
 
     @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono {string} e si clicca sul bottone avvisami via SMS")

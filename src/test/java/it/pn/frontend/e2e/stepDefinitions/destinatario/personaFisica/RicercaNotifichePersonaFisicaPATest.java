@@ -55,6 +55,7 @@ public class RicercaNotifichePersonaFisicaPATest {
     @Autowired
     private DataPopulation dataPopulation;
     @Autowired
+    @Lazy
     private BackgroundTest backgroundTest;
 
     @When("Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica")

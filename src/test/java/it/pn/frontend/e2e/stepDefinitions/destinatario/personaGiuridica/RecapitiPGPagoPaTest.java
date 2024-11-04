@@ -16,6 +16,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.Map;
 
@@ -32,6 +33,9 @@ public class RecapitiPGPagoPaTest {
     private RecapitiDestinatarioPage recapitiDestinatarioPage;
     @Autowired
     private ITuoiRecapitiPage iTuoiRecapitiPage;
+    @Autowired
+    @Lazy
+    private BackgroundTest backgroundTest;
 
 
     @And("Si visualizza correttamente la pagina Recapiti persona giuridica")
@@ -94,7 +98,6 @@ public class RecapitiPGPagoPaTest {
     public void nellaPaginaITuoiRecapitiDiPgSiControllaCheCiSiaGiaUnaPec() {
         logger.info("Si controlla la presenza di una pec");
         String pec = dataPopulation.readDataPopulation("personaGiuridica.yaml").get("emailPec").toString();
-        BackgroundTest backgroundTest = new BackgroundTest();
         if (!recapitiDestinatarioPage.siVisualizzaPecInserita()) {
             backgroundTest.aggiungiPECPG();
         } else if (!recapitiDestinatarioPage.siControllaPECModificata(pec)) {
@@ -128,7 +131,6 @@ public class RecapitiPGPagoPaTest {
 
     @And("Nella sezione altri recapiti si inserisce un recapito")
     public void nellaSezioneAltriRecapitiSiInserisceUnRecapito(){
-        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.aggiungiPecSezioneGiaAssociati();
     }
 

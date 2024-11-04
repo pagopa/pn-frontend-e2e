@@ -28,7 +28,9 @@ public class DisserviziAppPGTest {
     private  DisserviziAppPage disserviziAppPage;
     @Autowired
     private  PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
-
+    @Autowired
+    @Lazy
+    private BackgroundTest backgroundTest;
 
 
     @Given("Nella dashboard persona giuridica clicca su disservizi app")
@@ -57,7 +59,6 @@ public class DisserviziAppPGTest {
 
     @And("Si verifica avvenuto disservizio in pagina stato piattaforma")
     public void siVerificaAvvenutoDisservizioInPaginaStatoPiattaforma() {
-        BackgroundTest backgroundTest = new BackgroundTest();
         logger.info("Torno sulla scheda della piattaforma send");
         String helpdeskHandle = hooks.getDriver().getWindowHandle();
         Set<String> windowHandles = hooks.getDriver().getWindowHandles();

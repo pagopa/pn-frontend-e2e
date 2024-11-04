@@ -79,6 +79,7 @@ public class NotifichePGPagoPATest {
     @Autowired
     private DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection;
     @Autowired
+    @Lazy
     private BackgroundTest backgroundTest;
 
 

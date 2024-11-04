@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -65,6 +66,9 @@ public class DownloadFileMittentePagoPATest {
     private DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection;
     @Autowired
     private DettaglioNotificaSection dettaglioNotificaSection;
+    @Autowired
+    @Lazy
+    private BackgroundTest backgroundTest;
 
 
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
@@ -436,8 +440,6 @@ public class DownloadFileMittentePagoPATest {
     @And("Nella pagina Piattaforma Notifiche si verifica l'esistenza della notifica con il codice IUN")
     public void nellaPaginaPiattaformaNotificheSiVerificaLEsistenzaDellaNotificaConIlCodiceIUN() {
         logger.info("Si verifica l'esistenza della notifica con il codice IUN");
-        BackgroundTest backgroundTest = new BackgroundTest();
-        DataPopulation dataPopulation = new DataPopulation();
 
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresenti();
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
