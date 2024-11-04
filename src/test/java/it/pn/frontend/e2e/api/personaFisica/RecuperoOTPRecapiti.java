@@ -10,10 +10,13 @@ import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 @Data
+@Component
 public class RecuperoOTPRecapiti {
 
     private static final Logger logger = LoggerFactory.getLogger("RecuperoOTPRecapiti");
@@ -22,6 +25,10 @@ public class RecuperoOTPRecapiti {
     private String digitalAddress;
     private String responseBody;
     private int responseCode;
+
+    @Autowired
+    public RecuperoOTPRecapiti() {
+    }
 
     public boolean runRecuperoOTPRecapiti(String url) {
         try {

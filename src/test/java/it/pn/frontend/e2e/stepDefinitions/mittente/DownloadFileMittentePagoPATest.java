@@ -425,7 +425,6 @@ public class DownloadFileMittentePagoPATest {
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         piattaformaNotifichePage.waitLoadingSpinner();
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPersonaGiuridica();
-        DataPopulation dataPopulation = new DataPopulation();
 
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotificaPG.yaml");
         String codiceIun = this.datiNotifica.get("codiceIUN").toString();

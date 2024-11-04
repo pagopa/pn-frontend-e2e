@@ -17,6 +17,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.concurrent.TimeUnit;
 
@@ -29,17 +30,15 @@ public class ApiKeysTest {
     public static String ApiKey;
 
     @Autowired
-    private HooksNew hooksNew;
-
-    @Autowired
-    private ApiKeyPAPage apiKeyPAPage;
+    @Lazy
+    HooksNew hooks;
 
     @Autowired
     private WebDriverConfig webDriverConfig;
-
     @Autowired
     private PiattaformaNotifichePage piattaformaNotifichePage;
-
+    @Autowired
+    private ApiKeyPAPage apiKeyPAPage;
     @Autowired
     private GeneraApiKeySection generaApiKeySection;
 
