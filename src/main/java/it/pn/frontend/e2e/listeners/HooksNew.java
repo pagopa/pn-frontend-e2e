@@ -82,7 +82,8 @@ public class HooksNew {
     private RestContact restContact;
     @Autowired
     private  CookieConfig cookieConfig;
-
+    @Autowired
+    RestDelegation restDelegation ;
 
     @Before
     public void startScenario(Scenario scenario) {
@@ -133,7 +134,7 @@ public class HooksNew {
         logger.info("Revoking all delegations...");
         var mandateId = mandateSingleton.getMandateId(HooksNew.getScenario());
         if (mandateId != null) {
-            RestDelegation.getInstance().revokeDelegation(mandateId);
+            restDelegation.revokeDelegation(mandateId);
             logger.info("Delegation revoked: {}", mandateId);
         } else {
             logger.info("Mandate ID not found");
