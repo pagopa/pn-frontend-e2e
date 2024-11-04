@@ -36,8 +36,10 @@ public class BackgroundTest {
     @Lazy
     private  RecapitiPersonaFisicaTest recapitiPersonaFisicaTest;
     @Autowired
+    @Lazy
     private LoginPGPagoPATest loginPGPagoPATest;
     @Autowired
+    @Lazy
     private LoginPersonaFisicaPagoPA personaFisicaPagoPA;
     @Autowired
     @Lazy
@@ -55,10 +57,13 @@ public class BackgroundTest {
     @Lazy
     private RecapitiTest recapitiTest;
     @Autowired
+    @Lazy
     private  RecapitiDestinatarioPage recapitiDestinatarioPage ;
     @Autowired
+    @Lazy
     private  ITuoiRecapitiPage iTuoiRecapitiPage;
     @Autowired
+    @Lazy
     private  PiattaformaNotifichePage piattaformaNotifichePage;
     @Autowired
     private NotificaMittentePagoPATest notificaMittentePagoPATest;

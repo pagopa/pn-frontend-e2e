@@ -115,7 +115,7 @@ public class PiattaformaNotifichePage extends BasePage {
     @Autowired
     private NotificationSingleton notificationSingleton;
     @Autowired
-    RestNotification restNotification;
+    private RestNotification restNotification;
 
     @Autowired
     public PiattaformaNotifichePage(WebDriver driver) {
@@ -125,7 +125,9 @@ public class PiattaformaNotifichePage extends BasePage {
     public void waitLoadPiattaformaNotifichePAPage() {
         try {
             By notificheTitle = By.id("Notifiche-page");
-            this.getWebDriverWait(10).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf(this.inviaNuovaNotificaButton));
+            WebTool.waitTime(10);
+            inviaNuovaNotificaButton = driver.findElement(By.id("new-notification-btn"));
+            this.getWebDriverWait(10).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf(inviaNuovaNotificaButton));
             this.getWebDriverWait(10).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOfElementLocated(notificheTitle));
             logger.info("Piattaforma Notifiche Page caricata");
         } catch (TimeoutException e) {
