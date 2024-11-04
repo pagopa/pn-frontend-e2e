@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.mittente.ApiKeyPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.GeneraApiKeySection;
@@ -23,21 +24,29 @@ import java.util.concurrent.TimeUnit;
 public class ApiKeysTest {
 
     private static final Logger logger = LoggerFactory.getLogger("ApiKeysTest");
-    private final WebDriver driver = Hooks.driver;
-    private final ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
 
     @Getter
     @Setter
     public static String ApiKey;
 
     @Autowired
+    private HooksNew hooksNew;
+
+    @Autowired
+    private ApiKeyPAPage apiKeyPAPage;
+
+    @Autowired
     private WebDriverConfig webDriverConfig;
+
+    @Autowired
+    private PiattaformaNotifichePage piattaformaNotifichePage;
+
+    @Autowired
+    private GeneraApiKeySection generaApiKeySection;
 
     @And("Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu")
     public void nellaPaginaPiattaformaNotificheSelezionareLaVoceApiKeyNelMenu() {
         logger.info("Si cerca di cliccare sulla voce ApiKeys");
-
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         try {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
@@ -50,16 +59,12 @@ public class ApiKeysTest {
     @And("Si visualizza correttamente la pagina Api Key")
     public void siVisualizzaCorrettamenteLaPaginaApiKey() {
         logger.info("Si visualizza correttamente la pagina Api Key");
-
-        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
         apiKeyPAPage.waitLoadApikeyPage();
     }
 
     @When("Nella pagina Api Key si clicca sul bottone genera Api Key")
     public void nellaPaginaApiKeySiCliccaSulBottoneGeneraApiKey() {
         logger.info("Si clicca sul bottone genera ApiKey");
-
-        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
         apiKeyPAPage.waitLoadPage();
         apiKeyPAPage.clickSulBottoneGeneraApiKey();
     }
@@ -67,8 +72,6 @@ public class ApiKeysTest {
     @Then("Si visualizza correttamente la sezione genera Api key")
     public void siVisualizzaCorrettamenteLaSezioneGeneraApiKey() {
         logger.info("Si visualizza correttamente la sezione genera Api Key");
-
-        GeneraApiKeySection generaApiKeySection = new GeneraApiKeySection(this.driver);
         generaApiKeySection.waitLoadGeneraApiKey();
     }
 
@@ -104,8 +107,6 @@ public class ApiKeysTest {
     @Then("Si visualizza correttamente l api key {string} nell elenco in stato attivo")
     public void siVisualizzaCorrettamenteLApiKeyNellElencoInStatoAttivo(String nomeApiKey) {
         logger.info("Si controlla che sia stato creata l'api key");
-
-        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
         apiKeyPAPage.waitLoadApikeyPage();
         apiKeyPAPage.siVisualizzaNuovaApiAttiva(nomeApiKey);
     }

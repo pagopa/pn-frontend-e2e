@@ -107,7 +107,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         NotificationBuilder.class,
         MandateSingleton.class,
         RestContact.class,
-        CustomHttpClient.class
+        CustomHttpClient.class,
+        GeneraApiKeySection.class
 
 })
 @EnableScheduling
