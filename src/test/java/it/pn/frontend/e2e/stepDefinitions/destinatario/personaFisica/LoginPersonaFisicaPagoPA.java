@@ -633,7 +633,6 @@ public class LoginPersonaFisicaPagoPA {
     }
 
     public String getTokenExchangePFFromFile(String personaFisica) {
-        DataPopulation dataPopulation = new DataPopulation();
         String environment = webDriverConfig.getEnvironment();
         String token = "";
         switch (environment) {

@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.stepDefinitions;
 
 import io.cucumber.spring.CucumberContextConfiguration;
+import it.pn.frontend.e2e.api.mittente.AccettazioneRichiestaNotifica;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.common.HelpdeskPage;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
@@ -38,6 +39,7 @@ import it.pn.frontend.e2e.section.mittente.DestinatarioPASection;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.section.mittente.InformazioniPreliminariPASection;
 import it.pn.frontend.e2e.utility.*;
+import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -107,7 +109,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         NotificationBuilder.class,
         MandateSingleton.class,
         RestContact.class,
-        CustomHttpClient.class
+        CustomHttpClient.class,
+        InvioNotifichePAPage.class,
+        BasicCookieStore.class,
+        AccettazioneRichiestaNotifica.class
 
 })
 @EnableScheduling
