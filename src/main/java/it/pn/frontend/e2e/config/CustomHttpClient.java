@@ -18,6 +18,7 @@ import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Component
 @Slf4j
 public class CustomHttpClient<RequestType, ResponseType> {
     private static CustomHttpClient<?, ?> instance;
@@ -65,16 +67,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
     }
 
 
-    public static <R, S> CustomHttpClient<R, S> getInstance() {
-        if (instance == null) {
-            synchronized (CustomHttpClient.class) {
-                if (instance == null) {
-                    instance = new CustomHttpClient<>();
-                }
-            }
-        }
-        return (CustomHttpClient<R, S>) instance;
-    }
+
 
     public static <R, S> CustomHttpClient<R, S> getInstanceWithApiKey(String apiKey) {
         if (instance == null) {

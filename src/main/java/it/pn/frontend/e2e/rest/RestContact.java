@@ -32,7 +32,8 @@ public class RestContact {
 
     @Autowired
     private WebDriverConfig webDriverConfig;
-
+    @Autowired
+    private CustomHttpClient customHttpClient;
     private final Map<String, String> headers = new HashMap<>();
 
     // Carica il token all'avvio della classe
@@ -105,7 +106,7 @@ public class RestContact {
      * Ottiene l'indirizzo digitale di default.
      */
     public DigitalAddressResponse getDigitalAddress() throws RestContactException {
-        CustomHttpClient<?, DigitalAddressResponse> httpClientDigitalAddress = CustomHttpClient.getInstance();
+        CustomHttpClient<?, DigitalAddressResponse> httpClientDigitalAddress = customHttpClient;
         httpClientDigitalAddress.setBaseUrlApi("https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it");
         String url = "/bff/v1/addresses/LEGAL/default/PEC";
 
@@ -125,7 +126,7 @@ public class RestContact {
      * Ottiene tutti gli indirizzi digitali.
      */
     public List<DigitalAddress> getAllDigitalAddress() throws RestContactException {
-        CustomHttpClient<?, DigitalAddress> httpClientDigitalAddress = CustomHttpClient.getInstance();
+        CustomHttpClient<?, DigitalAddress> httpClientDigitalAddress = customHttpClient;
         httpClientDigitalAddress.setBaseUrlApi("https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it");
         String url = "/bff/v1/addresses";
 
