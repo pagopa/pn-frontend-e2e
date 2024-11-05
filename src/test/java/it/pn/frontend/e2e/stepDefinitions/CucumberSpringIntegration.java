@@ -20,6 +20,7 @@ import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.pages.mittente.*;
 import it.pn.frontend.e2e.rest.RestContact;
+import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
@@ -117,7 +118,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         AccettazioneRichiestaNotifica.class,
         RecuperoOTPRecapiti.class,
         BackgroundTest.class,
-        GeneraApiKeySection.class
+        GeneraApiKeySection.class,
 
 })
 @EnableScheduling
