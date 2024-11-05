@@ -238,7 +238,6 @@ public class NotificaMittentePagoPATest {
     @And("Cliccare su continua")
     public void cliccareSuContinua() {
         logger.info("Cliccare sul bottone continua");
-//        InvioNotifichePAPage invioNotifichePAPage = new InvioNotifichePAPage(hooks.getDriver());
         invioNotifichePAPage.selezionareContinuaButton();
     }
 

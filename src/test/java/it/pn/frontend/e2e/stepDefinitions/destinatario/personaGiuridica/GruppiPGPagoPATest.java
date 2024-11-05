@@ -4,18 +4,25 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.GruppiPGPage;
 import it.pn.frontend.e2e.utility.WebTool;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.Map;
 
 @Slf4j
 public class GruppiPGPagoPATest {
 
-    private final WebDriver driver = Hooks.driver;
-    private final GruppiPGPage gruppiPGPage = new GruppiPGPage(this.driver);
+//    private final WebDriver driver = Hooks.driver;
+    @Autowired
+    @Lazy
+    private HooksNew hooks;
+    @Autowired
+    private  GruppiPGPage gruppiPGPage ;
 
     @When("Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone Gruppi")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaSiCliccaSulBottoneGruppi() {

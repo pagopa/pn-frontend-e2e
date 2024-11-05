@@ -11,16 +11,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Set;
 
-
+@Component
 public class UtentiPGPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("UtentiPGPage");
-    private final AccediAreaRiservataPGPage accediAreaRiservataPGPage = new AccediAreaRiservataPGPage(this.driver);
+
     private final Actions actions = new Actions(this.driver);
+
     @FindBy(xpath = "//button[contains(text(),'Aggiungi utente')]")
     WebElement addUserButton;
     @FindBy(xpath = "//button[contains(text(),'Indietro')]")
@@ -74,7 +76,16 @@ public class UtentiPGPage extends BasePage {
 
     @Autowired
     private WebDriverConfig webDriverConfig;
+    @Autowired
+    private ScegliSpidPGPage scegliSpidPGPage ;
+    @Autowired
+    private AccediAreaRiservataPGPage accediAreaRiservataPGPage;
+    @Autowired
+    private LoginPGPagoPAPage loginPGPagoPAPage;
+    @Autowired
+    private AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage;
 
+    @Autowired
     public UtentiPGPage(WebDriver driver) {
         super(driver);
     }
@@ -107,16 +118,16 @@ public class UtentiPGPage extends BasePage {
         accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
         accediAreaRiservataPGPage.clickSpidButton();
 
-        ScegliSpidPGPage scegliSpidPGPage = new ScegliSpidPGPage(this.driver);
+
         scegliSpidPGPage.clickTestButton();
 
-        LoginPGPagoPAPage loginPGPagoPAPage = new LoginPGPagoPAPage(this.driver);
+
         loginPGPagoPAPage.waitLoadLoginPGPage();
         loginPGPagoPAPage.insertUsername(nome);
         loginPGPagoPAPage.insertPassword(pwd);
         loginPGPagoPAPage.clickInviaButton();
 
-        AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage = new AutorizzaInvioDatiPGPage(this.driver);
+
         autorizzaInvioDatiPGPage.waitLoadAutorizzaInvioDatiPGPage();
         autorizzaInvioDatiPGPage.clickInviaButton();
     }

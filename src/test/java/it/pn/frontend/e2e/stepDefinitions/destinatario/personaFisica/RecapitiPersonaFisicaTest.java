@@ -185,7 +185,6 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPFECliccaSulBottoneAvvisamiViaEmail(String dpFile) {
         logger.info("Si inserisce la email");
 
-//        DataPopulation dataPopulation = new DataPopulation();
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String email = personaFisica.get("mail").toString();
 
@@ -213,7 +212,6 @@ public class RecapitiPersonaFisicaTest {
 
         logger.info("Si inserisce il numero di telefono PF");
 
-//        DataPopulation dataPopulation = new DataPopulation();
         Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String phoneNumber = personaFisica.get("telefono").toString();
 

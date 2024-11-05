@@ -5,20 +5,28 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.UtentiPGPage;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.Map;
 
 public class UtentiPGPagoPATest {
     private final Logger logger = LoggerFactory.getLogger("UtentiPGPagoPATest");
-    private final WebDriver driver = Hooks.driver;
-    private final UtentiPGPage utentiPGPage = new UtentiPGPage(this.driver);
-    private final HomePagePG homePagePG = new HomePagePG(this.driver);
+    //private final WebDriver driver = Hooks.driver;
+    @Autowired
+    @Lazy
+    private HooksNew hooks;
+    @Autowired
+    private UtentiPGPage utentiPGPage;
+    @Autowired
+    private HomePagePG homePagePG ;
 
     @And("Si visualizza correttamente la pagina utenti")
     public void siVisualizzaCorrettamenteLaPAginaUtenti() {

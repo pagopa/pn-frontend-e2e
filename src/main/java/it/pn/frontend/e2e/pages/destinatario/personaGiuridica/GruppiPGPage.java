@@ -12,6 +12,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -20,9 +21,9 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
+@Component
 public class GruppiPGPage extends BasePage {
 
-    private final AccediAreaRiservataPGPage accediAreaRiservataPGPage = new AccediAreaRiservataPGPage(driver);
     private final Actions actions = new Actions(driver);
 
     @FindBy(id = "side-item-Gruppi")
@@ -45,7 +46,16 @@ public class GruppiPGPage extends BasePage {
 
     @Autowired
     private WebTool webTool;
+    @Autowired
+    private AccediAreaRiservataPGPage accediAreaRiservataPGPage;
+    @Autowired
+    private ScegliSpidPGPage scegliSpidPGPage ;
+    @Autowired
+    private LoginPGPagoPAPage loginPGPagoPAPage;
+    @Autowired
+    private AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage ;
 
+    @Autowired
     public GruppiPGPage(WebDriver driver) {
         super(driver);
     }
@@ -61,14 +71,14 @@ public class GruppiPGPage extends BasePage {
     public void loginGruppi(String nome, String pwd) {
         accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
         accediAreaRiservataPGPage.clickSpidButton();
-        ScegliSpidPGPage scegliSpidPGPage = new ScegliSpidPGPage(driver);
+
         scegliSpidPGPage.clickTestButton();
-        LoginPGPagoPAPage loginPGPagoPAPage = new LoginPGPagoPAPage(driver);
+
         loginPGPagoPAPage.waitLoadLoginPGPage();
         loginPGPagoPAPage.insertUsername(nome);
         loginPGPagoPAPage.insertPassword(pwd);
         loginPGPagoPAPage.clickInviaButton();
-        AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage = new AutorizzaInvioDatiPGPage(driver);
+
         autorizzaInvioDatiPGPage.waitLoadAutorizzaInvioDatiPGPage();
         autorizzaInvioDatiPGPage.clickInviaButton();
     }

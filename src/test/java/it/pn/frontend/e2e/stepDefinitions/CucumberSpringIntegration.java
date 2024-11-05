@@ -119,6 +119,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         RecuperoOTPRecapiti.class,
         BackgroundTest.class,
         GeneraApiKeySection.class,
+        UtentiPGPage.class,
+        GruppiPGPage.class
 
 })
 @EnableScheduling
