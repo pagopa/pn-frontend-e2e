@@ -152,14 +152,14 @@ public class DeleghePagoPATest {
 
     @And("Nella sezione Deleghe si clicca sul menu della delega")
     public void nellaSezioneDelegheSiCliccaSulMenuDellaDelega(Map<String, String> personaFisica) {
-        log.info("Si clicca sul menu della delega");
+        log.info("Nella sezione Deleghe si clicca sul menu della delega");
         String fullName = personaFisica.get("nome") + " " + personaFisica.get("cognome");
         deleghePage.clickMenuDelegante(fullName);
     }
 
     @And("Nella sezione Deleghe si clicca sul menu dei delegati")
     public void nellaSezioneDelegheSiCliccaSulMenuDeliDelegati(Map<String, String> personaFisica) {
-        log.info("Si clicca sul menu della delega");
+        log.info("Nella sezione Deleghe si clicca sul menu dei delegati");
         String fullName = personaFisica.get("nome") + " " + personaFisica.get("cognome");
         deleghePage.clickMenuDelegato(fullName);
     }
@@ -209,7 +209,7 @@ public class DeleghePagoPATest {
 
     @And("Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico")
     public void siVerificaSiaPresenteUnaDelegaNellaSezioneDelegheATuoCarico(Map<String, String> datiPersonaFisica) {
-        log.info("Si controlla che ci sia almeno una delega");
+        log.info("Si verifica sia presente una delega nella sezione Deleghe a Tuo Carico");
 
         String nome = datiPersonaFisica.get("nome");
         String cognome = datiPersonaFisica.get("cognome");
@@ -270,7 +270,7 @@ public class DeleghePagoPATest {
 
     @And("Si inserisce il codice delega nel pop-up OTP {string}")
     public void siInserisceIlCodiceDelegaNelPopUpOTP(String data) {
-        log.info("Si inserisce il codice per accettare la delega");
+        log.info("Si inserisce il codice delega nel pop-up OTP");
 
         String verificationCode = "";
         leTueDelegheSection.waitPopUpLoad();

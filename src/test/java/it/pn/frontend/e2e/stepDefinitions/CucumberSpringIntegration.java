@@ -126,7 +126,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         RestDelegation.class,
         WebTool.class,
         UtentiPGPage.class,
-        GruppiPGPage.class
+        GruppiPGPage.class,
+        ApiKeyPAPage.class
 
 })
 @EnableScheduling
