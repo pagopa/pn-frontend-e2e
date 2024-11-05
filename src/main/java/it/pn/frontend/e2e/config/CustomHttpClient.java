@@ -52,7 +52,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
     @Getter
     private String apiKey;
 
-    private CloseableHttpClient httpClient;
+    private final CloseableHttpClient httpClient;
     private ClassicHttpRequest httpRequest;
 
 
@@ -73,6 +73,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
 
     public CustomHttpClient(CustomHttpClient<?, ?> customHttpClient) {
         System.out.println("CustomHttpClient2.......");
+        instance = customHttpClient;
         this.baseUrlApi = "https://api.test.notifichedigitali.it";
         this.httpClient = HttpClients.createDefault();
         this.apiKey = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";

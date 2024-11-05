@@ -124,10 +124,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         BackgroundTest.class,
         GeneraApiKeySection.class,
         RestDelegation.class,
-        DelegateRequestPF.class,
-        DelegateRequestPG.class,
-        DelegateResponsePF.class,
-        DelegateResponsePG.class,
         WebTool.class,
         UtentiPGPage.class,
         GruppiPGPage.class

@@ -30,19 +30,21 @@ public class RestDelegation {
 
     private static final Logger logger = LoggerFactory.getLogger(RestDelegation.class);
 
-    @Autowired
-    private CustomHttpClient<DelegateRequestPF, DelegateResponsePF> httpClientPF;
-
-    @Autowired
-    private CustomHttpClient<DelegateRequestPG, DelegateResponsePG> httpClientPG;
 
     @Value("${environment}")
     private String environment;
 
     private final Map<String, String> headers = new HashMap<>();
 
+    private final CustomHttpClient<DelegateRequestPF, DelegateResponsePF> httpClientPF;
+    private final CustomHttpClient<DelegateRequestPG, DelegateResponsePG> httpClientPG;
+
+
+
     @Autowired
-    public RestDelegation() {
+    public RestDelegation(CustomHttpClient<DelegateRequestPF, DelegateResponsePF> httpClientPF, CustomHttpClient<DelegateRequestPG, DelegateResponsePG> httpClientPG) {
+        this.httpClientPF = httpClientPF;
+        this.httpClientPG = httpClientPG;
         initializeHeaders();
         setupHttpClients();
     }

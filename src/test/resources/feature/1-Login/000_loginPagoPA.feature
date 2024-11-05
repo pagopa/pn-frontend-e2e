@@ -3,7 +3,6 @@ Feature: Login pagoPA
   @TA_loginMittente
   @TestSuite
   @loginFE
-
   Scenario: Login pagoPA mittente
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
