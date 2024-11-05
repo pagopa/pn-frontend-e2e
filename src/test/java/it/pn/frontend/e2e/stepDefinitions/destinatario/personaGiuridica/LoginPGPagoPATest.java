@@ -361,7 +361,6 @@ public class LoginPGPagoPATest {
     }
 
     public String getTokenExchangePGFromFile(String personaGiuridica) {
-        //DataPopulation dataPopulation = new DataPopulation();
         String environment = webDriverConfig.getEnvironment();
         String token = "";
         switch (environment) {

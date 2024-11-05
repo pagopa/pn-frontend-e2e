@@ -1146,7 +1146,6 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void verificaNotificaCreata() {
-//        RestNotification restNotification = new RestNotification();
         String notificationRequestId = "";
         for (NetWorkInfo netWorkInfo : webDriverConfig.getNetWorkInfos()) {
             if (netWorkInfo.getRequestUrl().contains("bff/v1/notifications/sent") && netWorkInfo.getRequestMethod().equals("POST")) {

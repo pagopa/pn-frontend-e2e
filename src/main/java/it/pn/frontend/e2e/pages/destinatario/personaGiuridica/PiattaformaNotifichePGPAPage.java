@@ -79,6 +79,14 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     @Autowired
     private WebDriverConfig webDriverConfig;
     @Autowired
+    private DownloadFile downloadFile;
+    @Autowired
+    private DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection;
+    @Autowired
+    private HelpdeskPage helpdeskPage ;
+    @Autowired
+    private DettaglioNotificaSection dettaglioNotificaSection ;
+    @Autowired
     @Lazy
     private  WebTool webTool;
 
@@ -273,8 +281,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             // Generate a unique filename for the downloaded ZIP file
             String fileName = "downloaded_" + System.currentTimeMillis() + ".zip";
 
-            DownloadFile downloadFile = new DownloadFile(this.driver);
-            DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
             String codiceIUN;
             webTool.waitTime(1);
             codiceIUN = dettaglioNotificaMittenteSection.getInfoNotifica(3);
@@ -344,7 +350,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         String zipDirectoryPath = workingDirectory + "/src/test/resources/dataPopulation/zip";
         String extractDirectoryPath = zipDirectoryPath + "/extract";
 
-        HelpdeskPage helpdeskPage = new HelpdeskPage(this.driver);
         // Find the latest ZIP file
         File latestZipFile = helpdeskPage.findLatestZipFile(zipDirectoryPath);
         if (latestZipFile == null) {
@@ -364,8 +369,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
 
    public void controllaTesto(String nomeFile) {
-       DettaglioNotificaSection dettaglioNotificaSection = new DettaglioNotificaSection(this.driver);
-       DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
+
        Map<String, String> infoNotifiche = dettaglioNotificaSection.recuperoInfoNotificheDestinatario();
        if (nomeFile.contains("PN_NOTIFICATION_ATTACHMENTS")) {
            if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, "A Simple PDF File")) {

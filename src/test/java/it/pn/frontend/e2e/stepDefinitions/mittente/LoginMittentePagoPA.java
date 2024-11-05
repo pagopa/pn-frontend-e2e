@@ -316,7 +316,6 @@ public class LoginMittentePagoPA {
             Assertions.fail("relayStateFromSpidLoginMittente is null");
         }
 
-//        BasicCookieStore cookieStore = new BasicCookieStore();
         BasicClientCookie cookie = new BasicClientCookie(cookiesNameFromSpidLoginMittente, cookiesValueFromSpidLoginMittente);
         cookie.setDomain(cookiesDomainFromSpidLoginMittente);
         cookie.setPath(cookiesPathFromSpidLoginMittente);
