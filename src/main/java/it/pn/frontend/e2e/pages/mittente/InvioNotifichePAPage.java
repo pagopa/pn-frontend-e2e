@@ -8,12 +8,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
 public class InvioNotifichePAPage extends BasePage {
     @FindBy(id = "step-submit")
     WebElement continuaButton;
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
     @Autowired
     public InvioNotifichePAPage(WebDriver driver) {
@@ -21,7 +25,7 @@ public class InvioNotifichePAPage extends BasePage {
     }
 
     public void selezionareContinuaButton() {
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         continuaButton = driver.findElement(By.id("step-submit"));
         getWebDriverWait(10).withMessage("Il bottone continua nella pagina invio notifica PA non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.continuaButton));
         scrollToElementAndClick(this.continuaButton);

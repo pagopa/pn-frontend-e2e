@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -63,6 +64,10 @@ public class AggiungiDelegaPGSection extends BasePage {
     @FindBy(id = "expirationDate-helper-text")
     WebElement messaggioErroreData;
 
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
+
     private boolean dataFineErrata;
 
     public AggiungiDelegaPGSection(WebDriver driver) {
@@ -100,7 +105,7 @@ public class AggiungiDelegaPGSection extends BasePage {
         this.getWebDriverWait(10).withMessage("Bottone invia la richiesta non visualizzato").until(ExpectedConditions.elementToBeClickable(this.inviaLaRichiestaButton));
         logger.info("click invia richiesta");
         this.inviaLaRichiestaButton.click();
-        WebTool.waitTime(3);
+        webTool.waitTime(3);
         this.getWebDriverWait(10).withMessage("Bottone torna alle deleghe non visualizzato").until(ExpectedConditions.elementToBeClickable(this.tornaDelegheButton));
         this.tornaDelegheButton.click();
         logger.info("click torna alle deleghe");
@@ -183,11 +188,11 @@ public class AggiungiDelegaPGSection extends BasePage {
         try {
             getWebDriverWait(10).withMessage("il campo data non è visibile nella pagina").until(ExpectedConditions.visibilityOf(this.dataTermineDelegaInput));
 
-            WebTool.waitTime(15);
+            webTool.waitTime(15);
 
             dataTermineDelegaInput = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("expirationDate")));
 
-            WebTool.waitTime(10);
+            webTool.waitTime(10);
             String[] arraySplitDateDa = dataInserita.split("/");
 
             List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));

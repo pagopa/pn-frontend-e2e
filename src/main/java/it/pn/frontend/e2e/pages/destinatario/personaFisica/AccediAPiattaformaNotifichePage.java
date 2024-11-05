@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -78,6 +79,10 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div/main/div/div/div[1]/div[3]/div[4]/div/button[2]")
     List<WebElement> pagopaAllegatoItems;
+
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
 
     @Autowired
@@ -252,7 +257,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     public void cliccaPaga() {
         logger.info("Si clicca su bottone paga");
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         pagaAvviso = driver.findElement(By.cssSelector("[data-testid='pay-button']"));
         pagaAvviso.click();
     }
@@ -268,13 +273,13 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     public void checkoutPagamento() throws InterruptedException {
         logger.info("Si procede con il pagamento");
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         element(By.cssSelector("[data-qaid='CP']")).click();
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         // frame of the card number
         WebElement iframeCardNumber = driver.findElement(By.xpath("//iframe[@id='frame_CARD_NUMBER']"));
         driver.switchTo().frame(iframeCardNumber);
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         getWebDriverWait(10).withMessage("Il textbox numero di carta non è visibile").until(ExpectedConditions.visibilityOf(creditCardNumber));
         creditCardNumber.click();
         creditCardNumber.clear();
@@ -312,40 +317,40 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         element(titolare).sendKeys("Titolare");
         driver.switchTo().defaultContent();
 
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         WebElement continuaBottone = driver.findElement(By.xpath("//button[@aria-label='Continue']")); //for local test use //button[@aria-label='Continua']
         getWebDriverWait(8).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(continuaBottone));
         continuaBottone.click();
 
-        WebTool.waitTime(10);
+        webTool.waitTime(10);
 
         //Select Nexi
         WebElement modificaButton = driver.findElement(By.xpath("//button[@aria-label='Change payment service provider (PSP)']")); //for local test use //button[@aria-label='Modifica PSP']
         getWebDriverWait(5).withMessage("Il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(modificaButton));
         modificaButton.click();
 
-        WebTool.waitTime(10);
+        webTool.waitTime(10);
         List<WebElement> nexiButton = driver.findElements(By.xpath("//div[contains(text(),'Intesa Sanpaolo S.p.A')]"));
-        WebTool.waitTime(10);
+        webTool.waitTime(10);
         //getWebDriverWait(10).withMessage("Il bottone Nexi non è cliccabile").until(ExpectedConditions.elementToBeClickable(nexiButton));
         if (nexiButton.size() == 2) {
             nexiButton.get(1).click();
         } else {
             nexiButton.get(0).click();
         }
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
 
         WebElement pagaButton = driver.findElement(By.xpath("//button[@id='paymentCheckPageButtonPay']"));
         getWebDriverWait(5).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
         pagaButton.click();
-        WebTool.waitTime(50);
+        webTool.waitTime(50);
         List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Continue')]")); //for local test use //button[@aria-label='Continua']
         getWebDriverWait(10).withMessage("Il bottone Chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudi.get(0)));
         chiudi.get(0).click();
     }
 
     public void siVisualizzaStatoPagato() {
-        WebTool.waitTime(20);
+        webTool.waitTime(20);
         By statoPagamento = By.xpath("//div[@id='status-chip-Pagato']");
         getWebDriverWait(5).withMessage("Lo stato di pagamento non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoPagamento));
         logger.info("Lo stato di pagamento è Pagato");

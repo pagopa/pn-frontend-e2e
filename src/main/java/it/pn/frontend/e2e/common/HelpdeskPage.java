@@ -32,6 +32,7 @@ import java.util.stream.Stream;
 
 import net.lingala.zip4j.ZipFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -78,6 +79,9 @@ public class HelpdeskPage extends BasePage {
 
     @Autowired
     private WebDriverConfig webDriverConfig;
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
     @Autowired
     public HelpdeskPage(WebDriver driver) {
@@ -298,7 +302,7 @@ public class HelpdeskPage extends BasePage {
 
         this.getWebDriverWait(30).withMessage("bottone per la ricerca non trovato").until(ExpectedConditions.elementToBeClickable(buttonRicerca));
         buttonRicerca.click();
-        WebTool.waitTime(3);
+        webTool.waitTime(3);
     }
 
     public void insertIun(String iun) {
@@ -649,7 +653,7 @@ public class HelpdeskPage extends BasePage {
 
 
     public void inserimentoArcoTemporale() {
-        WebTool.waitTime(60);
+        webTool.waitTime(60);
 
         logger.info(driver.getPageSource());
         By calendarButton = By.xpath("//div[@data-testid='data-range-picker']//div//div//button");
@@ -657,7 +661,7 @@ public class HelpdeskPage extends BasePage {
         element(calendarButton).click();
         By previousMonth = By.xpath("//button[@aria-label='Previous month']");
         element(previousMonth).click();
-        WebTool.waitTime(1);
+        webTool.waitTime(1);
         By dateEleven = By.xpath("//button[contains(text(),'11')]");
         element(dateEleven).click();
     }

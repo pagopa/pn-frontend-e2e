@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -42,6 +43,10 @@ public class DettaglioNotificaSection extends BasePage {
     WebElement indietroButton;
 
     @Autowired
+    @Lazy
+    private  WebTool webTool;
+
+    @Autowired
     public DettaglioNotificaSection(WebDriver driver) {
         super(driver);
     }
@@ -69,7 +74,7 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void clickLinkAttestazioniOpponibile(int numeroLinkAttestazioniOpponibile) {
-        WebTool.waitTime(2);
+        webTool.waitTime(2);
         attestazioniFile = driver.findElements(By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: notifica presa in carico')]"));
         if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
             attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
@@ -79,7 +84,7 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void toBeClickableLinkAttestazioniOpponibile(int numeroLinkAttestazioniOpponibile) {
-        WebTool.waitTime(2);
+        webTool.waitTime(2);
         attestazioniFile = driver.findElements(By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: notifica presa in carico')]"));
         if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
             getWebDriverWait(10).withMessage("Il link non è cliccabile").until(elementToBeClickable(attestazioniFile.get(numeroLinkAttestazioniOpponibile)));

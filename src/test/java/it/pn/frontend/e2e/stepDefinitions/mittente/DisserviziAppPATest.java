@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +41,9 @@ public class DisserviziAppPATest {
 
     @Autowired
     private DownloadFile downloadFile;
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
     @When("Nella pagina Piattaforma Notifiche selezionare la voce 'stato della piattaforma'")
     public void nellaPaginaPiattaformaNotificheSelezionareLaVoceStatoDellaPiattaforma() {
@@ -89,7 +93,7 @@ public class DisserviziAppPATest {
             pathCartella.mkdirs();
         }
         disserviziAppPAPage.clickLinkAttestazioniOpponibileDisservizi(0);
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         String legalFactId = downloadFile.getLegalFactId();
         String urlFileAttestazioneOpponibile = baseUrl + "downtime/legal-facts/" + legalFactId;
 

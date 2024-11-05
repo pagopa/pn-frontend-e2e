@@ -12,6 +12,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
+@Component
 public class GruppiPGPage extends BasePage {
 
     private final AccediAreaRiservataPGPage accediAreaRiservataPGPage = new AccediAreaRiservataPGPage(driver);
@@ -46,6 +48,7 @@ public class GruppiPGPage extends BasePage {
     @Autowired
     private WebTool webTool;
 
+    @Autowired
     public GruppiPGPage(WebDriver driver) {
         super(driver);
     }
@@ -126,7 +129,7 @@ public class GruppiPGPage extends BasePage {
     }
 
     public void checkButtonConfermaAndClick() {
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         buttonConferma = driver.findElement(By.xpath("//button[contains(text(), 'Conferma')]"));
         getWebDriverWait(10).withMessage("Il bottone conferma non è abilitato").until(ExpectedConditions.elementToBeClickable(buttonConferma));
         log.info("Il bottone è abilitato e lo si clicca");

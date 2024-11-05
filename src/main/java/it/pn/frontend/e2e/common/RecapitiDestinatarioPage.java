@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -84,6 +85,10 @@ public class RecapitiDestinatarioPage extends BasePage {
     WebElement pecEmail;
 
     @Autowired
+    @Lazy
+    private  WebTool webTool;
+
+    @Autowired
     public RecapitiDestinatarioPage(WebDriver driver) {
         super(driver);
     }
@@ -104,21 +109,21 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void clickSuChiudiPopUp() {
         //By chiudiButtonBy = By.xpath("//button[contains(text(),'Chiudi')]");
         logger.info("Log clickSuChiudiPopUp");
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         WebElement chiudiButtonBy = driver.findElement(By.xpath("//h2[@id='dialog-title']/following-sibling::div/button[contains(text(),'Annulla')]"));
         getWebDriverWait(10).withMessage("Il bottone chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(chiudiButtonBy));
         this.js().executeScript("arguments[0].click()", chiudiButtonBy);
     }
 
     public void insertEmailPEC(String emailPEC) {
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         pecField = driver.findElement(By.id("default_pec"));
         getWebDriverWait(10).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOf(pecField));
         pecField.sendKeys(emailPEC);
         }
 
     public void confermaButtonClick() {
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         By attivaButton = By.id("default_pec-button");
         getWebDriverWait(10).withMessage("Il bottone Attiva non è cliccabile").until(ExpectedConditions.elementToBeClickable(element(attivaButton)));
         element(attivaButton).click();
@@ -191,7 +196,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
             getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(confermaButtonPopUp));
             confermaButtonPopUp.click();
-            WebTool.waitTime(5);
+        webTool.waitTime(5);
             By confermaButtonPostInserimentoBy = By.id("code-confirm-button");
             if (!driver.findElements(confermaButtonPostInserimentoBy).isEmpty()) {
                 element(confermaButtonPostInserimentoBy).click();
@@ -416,7 +421,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void insertEnte(String comune) {
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         enteField = driver.findElement(By.id("sender"));
         this.enteField.sendKeys(comune);
         // wait 2seconds for the list to appear
@@ -619,7 +624,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void checkButtonAnnullaEliminazioneInPopUp() {
         try {
-            WebTool.waitTime(3);
+            webTool.waitTime(3);
             buttonAnnullaEliminazioneInPopUp = driver.findElement(By.id("buttonAnnulla"));
             getWebDriverWait(10).withMessage("pulsante annulla eliminazione non trovato").until(ExpectedConditions.visibilityOf(buttonAnnullaEliminazioneInPopUp));
             logger.info("pulsante annulla eliminazione visibile");
@@ -630,7 +635,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickButtonAnnullaEliminazioneInPopUp() {
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         buttonAnnullaEliminazioneInPopUp = driver.findElement(By.id("buttonAnnulla"));
         getWebDriverWait(10).withMessage("Non è stato possibile cliccare sul bottone annulla").until(ExpectedConditions.elementToBeClickable(buttonAnnullaEliminazioneInPopUp));
         buttonAnnullaEliminazioneInPopUp.click();
@@ -802,7 +807,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void selezionaTipoEmail() {
         this.tipoIndirizzoField.click();
-        WebTool.waitTime(2);
+        webTool.waitTime(2);
         By opzioneEmail = By.id("EMAIL");
         getWebDriverWait(10)
                 .withMessage("Non è visibile l'opzione indirizzo email")
@@ -812,7 +817,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void selezionaTipoPec() {
         tipoIndirizzoField.click();
-        WebTool.waitTime(2);
+        webTool.waitTime(2);
         By opzionePEC = By.id("PEC");
         getWebDriverWait(10)
                 .withMessage("Non è visibile l'opzione indirizzo PEC")
@@ -822,7 +827,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void selezionaTipoCelulare() {
         this.tipoIndirizzoField.click();
-        WebTool.waitTime(2);
+        webTool.waitTime(2);
         By opzioneCelulare = By.id("Celulare");
         getWebDriverWait(10)
                 .withMessage("Non è visibile l'opzione celulare")

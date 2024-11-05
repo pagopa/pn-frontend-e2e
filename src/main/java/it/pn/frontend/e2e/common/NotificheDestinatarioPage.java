@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -23,13 +24,17 @@ public class NotificheDestinatarioPage extends BasePage{
     WebElement ricevutaDiConsegnaButton;
 
     @Autowired
+    @Lazy
+    private  WebTool webTool;
+
+    @Autowired
     public NotificheDestinatarioPage(WebDriver driver) {
         super(driver);
     }
 
     public void inserisciCodiceIUN(String codiceIUN) throws InterruptedException {
         getWebDriverWait(10).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(this.codiceIunTextField));
-        WebTool.waitTime(1);
+        webTool.waitTime(1);
         codiceIunTextField.sendKeys(codiceIUN);
     }
     public boolean verificaCodiceIUN(String codiceIUNInserito) {

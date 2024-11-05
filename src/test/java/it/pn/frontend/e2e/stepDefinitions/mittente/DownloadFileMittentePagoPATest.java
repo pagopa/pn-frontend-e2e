@@ -69,6 +69,9 @@ public class DownloadFileMittentePagoPATest {
     @Autowired
     @Lazy
     private BackgroundTest backgroundTest;
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
 
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
@@ -109,7 +112,7 @@ public class DownloadFileMittentePagoPATest {
         }
 
         dettaglioNotificaMittenteSection.clickLinkDocumentiAllegati();
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
 
         final String filepath = workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN";
 
@@ -135,7 +138,7 @@ public class DownloadFileMittentePagoPATest {
         int numeroLinkAvvenutaRicezione = dettaglioNotificaMittenteSection.getLinkAvvenutaRicezione();
         for (int i = 1; i < numeroLinkAvvenutaRicezione; i++) {
             dettaglioNotificaMittenteSection.clickLinkAvvenutaRicezione(i);
-            WebTool.waitTime(5);
+            webTool.waitTime(5);
             final String url = baseUrl + "notifications/sent/" + codiceIUN + "/documents/AAR?documentId=safestorage:";
             final String urlAvvenutaRicezione = downloadFile.getUrl(url);
             if (headless && urlAvvenutaRicezione.isEmpty()) {
@@ -155,7 +158,7 @@ public class DownloadFileMittentePagoPATest {
 
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
             dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
-            WebTool.waitTime(5);
+            webTool.waitTime(5);
             final String urlFileAttestazioneOpponibile = downloadFile.getUrl(baseUrl);
             if (headless && urlFileAttestazioneOpponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
@@ -196,7 +199,7 @@ public class DownloadFileMittentePagoPATest {
             codiceIUN = dettaglioNotificaMittenteSection.getInfoNotifica(4);
         }
         dettaglioNotificaMittenteSection.clickLinkDocumentiAllegati();
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
 
         final String filepath = workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN";
         final String urlDocumenti = baseUrl + "notifications/sent/" + codiceIUN + "/attachments/documents/0";
@@ -268,7 +271,7 @@ public class DownloadFileMittentePagoPATest {
         int numeroLinkAvvenutaRicezione = dettaglioNotificaMittenteSection.getLinkAvvenutaRicezione();
         for (int i = 1; i < numeroLinkAvvenutaRicezione; i++) {
             dettaglioNotificaMittenteSection.clickLinkAvvenutaRicezione(i);
-            WebTool.waitTime(5);
+            webTool.waitTime(5);
             final String url = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/delivery-push/" + codiceIUN + "/document/AAR?documentId=safestorage:";
             final String urlAvvenutaRicezione = downloadFile.getUrl(url);
             if (urlAvvenutaRicezione.isEmpty()) {
@@ -343,7 +346,7 @@ public class DownloadFileMittentePagoPATest {
         boolean headless = headlessParam.equalsIgnoreCase("true");
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibile(nomeFile);
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
 
         final String url = downloadFile.getUrl(baseUrl + "notifications/sent/");
         if (headless && url.isEmpty()) {
@@ -453,7 +456,7 @@ public class DownloadFileMittentePagoPATest {
         logger.info("si effettua download del disservizio");
 
         disserviziAppPAPage.downloadAttestazione();
-        WebTool.waitTime(3);
+        webTool.waitTime(3);
     }
 
     @And("Download file attestazione disservizio {int}")
@@ -461,7 +464,7 @@ public class DownloadFileMittentePagoPATest {
         logger.info("si effettua download del disservizio");
 
         disserviziAppPAPage.downloadAttestazione(index);
-        WebTool.waitTime(3);
+        webTool.waitTime(3);
     }
 
     @And("Nella pagina stato della piattaforma si cambia il numero elementi visualizzati attraverso il filtro")

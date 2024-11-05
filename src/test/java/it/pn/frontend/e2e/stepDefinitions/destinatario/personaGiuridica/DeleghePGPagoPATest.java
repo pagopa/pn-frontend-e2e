@@ -71,6 +71,9 @@ public class DeleghePGPagoPATest {
 
     @Autowired
     private RestDelegation restDelegation;
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
     private boolean dataFineErrata;
 
@@ -479,7 +482,7 @@ public class DeleghePGPagoPATest {
         mandateSingleton.setScenarioMandateId(HooksNew.getScenario(),response.getMandateId());
         mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(HooksNew.getScenario()),response.getVerificationCode());
         hooks.getDriver().navigate().refresh();
-        WebTool.waitTime(2);
+        webTool.waitTime(2);
     }
 
     @And("Si clicca sul bottone accetta delega dopo aver inserito il codice di verifica")
@@ -506,7 +509,7 @@ public class DeleghePGPagoPATest {
     @And("Si accetta la delega senza gruppo PF")
     public void siAccettaLaDelegaSenzaGruppoPF() {
         backgroundTest.accettazioneDelegaSceltaGruppoPF(false,null);
-        WebTool.waitTime(2);
+        webTool.waitTime(2);
     }
 
     @And("Si inserisce il codice della delega a carico dell impresa nella modale")
@@ -555,7 +558,7 @@ public class DeleghePGPagoPATest {
 
     @And("Non si inserisce il codice OTP e l invito della delega non è più presente")
     public void nonSiInserisceIlCodiceOTPELInvitoDellaDelegaNonèPiùPresente() {
-        WebTool.waitTime(61 * 15);
+        webTool.waitTime(61 * 15);
         hooks.getDriver().navigate().refresh();
         deleghePGPagoPAPage.waitLoadDeleghePage();
     }

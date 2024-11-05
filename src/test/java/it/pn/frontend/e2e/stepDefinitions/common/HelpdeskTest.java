@@ -49,6 +49,11 @@ public class HelpdeskTest {
     @Autowired
     @Lazy
     private BackgroundTest backgroundTest;
+
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
+
     private Map<String, Object> datiTestHelpdesk = new HashMap<>();
     private Map<String, Object> datiPersonaFisica = new HashMap<>();
 
@@ -100,19 +105,19 @@ public class HelpdeskTest {
 
     @And("Si crea il disservizio")
     public void siCreaIlDisservizio() {
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         if (!helpdeskPage.checkIsCreatedDisservizio()) {
             helpdeskPage.handleDisservizio(Disservice.CREAZIONE_NOTIFICHE, Status.KO);
-            WebTool.waitTime(5);
+            webTool.waitTime(5);
         }
     }
 
     @And("Si risolve il disservizio")
     public void siRisolveIlDisservizio() {
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         if (helpdeskPage.checkIsCreatedDisservizio()) {
             helpdeskPage.handleDisservizio(Disservice.CREAZIONE_NOTIFICHE,Status.OK);
-            WebTool.waitTime(5);
+            webTool.waitTime(5);
         }
     }
 

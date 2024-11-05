@@ -58,7 +58,9 @@ public class NotificaMittentePagoPATest {
     @Getter  @Setter
     private String ApiKey;
 
-
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
     @Autowired
     private NotificationSingleton notificationSingleton;
     @Autowired
@@ -102,6 +104,8 @@ public class NotificaMittentePagoPATest {
     InvioNotifichePAPage invioNotifichePAPage;
     @Autowired
     AccettazioneRichiestaNotifica accettazioneRichiestaNotifica;
+
+
 
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
@@ -154,7 +158,7 @@ public class NotificaMittentePagoPATest {
         logger.info("Si recupera l'ultimo numero protocollo utilizzato");
 
         this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         String urlNotifiche = webDriverConfig.getBaseUrl() + "notifications/";
         for (NetWorkInfo netWorkInfo : webDriverConfig.getNetWorkInfos()) {
             if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=10")) {
@@ -1216,39 +1220,39 @@ public class NotificaMittentePagoPATest {
     @Then("In parallelo si effettua l'accesso al portale destinatario {string} e si apre la notifica ricevuta")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioESiApreLaNotificaRicevuta(String destinatario) {
         if (PF.equalsIgnoreCase(destinatario)) {
-            WebTool.switchToPortal(AppPortal.PF);
+            webTool.switchToPortal(AppPortal.PF);
         } else {
-            WebTool.switchToPortal(AppPortal.PG);
+            webTool.switchToPortal(AppPortal.PG);
         }
         piattaformaNotifichePage.selezionaPrimaNotifica();
-        WebTool.waitTime(5);
-        WebTool.closeTab();
+        webTool.waitTime(5);
+        webTool.closeTab();
     }
 
     @Then("In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline {string}")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPFESiVerificaLaTimeline(String messaggio) {
-        WebTool.switchToPortal(AppPortal.PF);
+        webTool.switchToPortal(AppPortal.PF);
         piattaformaNotifichePage.selezionaPrimaNotifica();
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         piattaformaNotifichePage.visualizzaTimeline(messaggio);
-        WebTool.closeTab();
+        webTool.closeTab();
     }
 
     @Then("In parallelo si effettua l'accesso al portale destinatario persona giuridica e si apre la notifica ricevuta")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPGESiApreLaNotificaRicevuta() {
-        WebTool.switchToPortal(AppPortal.PG);
+        webTool.switchToPortal(AppPortal.PG);
         piattaformaNotifichePage.selezionaPrimaNotifica();
-        WebTool.waitTime(5);
-        WebTool.closeTab();
+        webTool.waitTime(5);
+        webTool.closeTab();
     }
 
     @Then("In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline {string}")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPGESiVerificaLaTimeline(String messagio) {
-        WebTool.switchToPortal(AppPortal.PG);
+        webTool.switchToPortal(AppPortal.PG);
         piattaformaNotifichePage.selezionaPrimaNotifica();
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         piattaformaNotifichePage.visualizzaTimeline(messagio);
-        WebTool.closeTab();
+        webTool.closeTab();
     }
 
     @Then("In parallelo si effettua l'accesso al portale di {string}")
@@ -1256,19 +1260,19 @@ public class NotificaMittentePagoPATest {
         portal = portal.toLowerCase();
         switch (portal) {
             case PF:
-                WebTool.switchToPortal(AppPortal.PF);
+                webTool.switchToPortal(AppPortal.PF);
                 break;
             case PG:
-                WebTool.switchToPortal(AppPortal.PG);
+                webTool.switchToPortal(AppPortal.PG);
                 break;
             case PA:
-                WebTool.switchToPortal(AppPortal.PA);
+                webTool.switchToPortal(AppPortal.PA);
                 break;
             default:
                 logger.error("Tipologia di portale non specificato o errato!");
                 Assertions.fail("Tipologia di portale non specificato o errato!");
         }
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
     }
 
     @And("Nella timeline della notifica si visualizza l'invio del messaggio di cortesia")
@@ -1287,9 +1291,9 @@ public class NotificaMittentePagoPATest {
     public void siAnnullaLaNotifica() {
         logger.info("Si clicca sul pusante annulla notifica");
         piattaformaNotifichePage.clickBottoneAnnullaNotifica();
-        WebTool.waitTime(3);
+        webTool.waitTime(3);
         piattaformaNotifichePage.clickAnnullaNotificaModale();
-        WebTool.waitTime(3);
+        webTool.waitTime(3);
     }
 
     @And("Il bottone annulla notifica non è visualizzabile nella descrizione della notifica")
@@ -1308,7 +1312,7 @@ public class NotificaMittentePagoPATest {
     public void siCliccaIlBottoneIndietroNellaDescrizioneDellaNotifica() {
         logger.info("Si clicca sul bottone indietro della pagina della descrizione della notifica");
         dettaglioNotificaMittenteSection.clickIndietroButton();
-        WebTool.waitTime(10);
+        webTool.waitTime(10);
     }
 
     @And("Si attende che lo stato della notifica sia {string}")
@@ -1337,9 +1341,9 @@ public class NotificaMittentePagoPATest {
     @And("Si attende la visualizzazione corretta del dettaglio della notifica")
     public void siAttendeCompletamentoNotifica() {
         siVisualizzaCorrettamenteLaSectionDettaglioNotifica();
-        WebTool.waitTime(400);
+        webTool.waitTime(400);
         hooks.getDriver().navigate().refresh();
-        WebTool.waitTime(3);
+        webTool.waitTime(3);
     }
 
     @And("Si seleziona la notifica")
@@ -1510,7 +1514,7 @@ public class NotificaMittentePagoPATest {
         }
         accettazioneRichiestaNotifica.setxApikey(codiceApi);
         String statusNotifica = "WAITING";
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
         if (notificationRequestId == null) {
             logger.error("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è diverso di 202 ");
@@ -1768,7 +1772,7 @@ public class NotificaMittentePagoPATest {
         String idStato = datiDettaglioNotifica.get("xpathStato");
         String viewDetail = datiDettaglioNotifica.get("vediDettagli");
         siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso();
-        WebTool.waitTime(2);
+        webTool.waitTime(2);
         if (viewDetail.equals("true")){
             dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
         }
@@ -1780,7 +1784,7 @@ public class NotificaMittentePagoPATest {
         String idStato = datiDettaglioNotifica.get("xpathStato");
         String viewDetail = datiDettaglioNotifica.get("vediDettagli");
         siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso();
-        WebTool.waitTime(2);
+        webTool.waitTime(2);
         if (viewDetail.equals("true")){
             dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
         }

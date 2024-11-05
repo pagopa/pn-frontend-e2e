@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -38,13 +39,17 @@ public class SelezionaEntePAPage extends BasePage {
     private WebElement comuneSearchField;
 
     @Autowired
+    @Lazy
+    private  WebTool webTool;
+
+    @Autowired
     public SelezionaEntePAPage(WebDriver driver) {
         super(driver);
     }
 
     public void waitLoadSelezionaEntePAPage() {
         try {
-            WebTool.waitTime(20);
+            webTool.waitTime(20);
             WebElement titlePage = driver.findElement(By.xpath("//h3[text()='Seleziona il tuo ente']"));
             WebElement searchField = driver.findElement(By.id("search"));
             getWebDriverWait(30)

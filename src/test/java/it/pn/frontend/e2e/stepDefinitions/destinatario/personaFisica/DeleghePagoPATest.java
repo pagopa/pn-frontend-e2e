@@ -61,6 +61,10 @@ public class DeleghePagoPATest {
     @Autowired
     private RestDelegation restDelegation;
 
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
+
     Map<String, Object> deleghe = new HashMap<>();
     @Setter
     private String codiceVerifica;
@@ -493,7 +497,7 @@ public class DeleghePagoPATest {
         String cognome = personaFisica.get("cognome");
 
         if (!deleghePage.siVisualizzaUnaDelegaConNome(nome, cognome)) {
-            WebTool.waitTime(5);
+            webTool.waitTime(5);
             backgroundTest.aggiuntaNuovaDelegaPF();
         }
     }
@@ -534,7 +538,7 @@ public class DeleghePagoPATest {
     @Then("Si controlla che non ci sia più una delega")
     public void siControllaCheNonCiSiaPiuUnaDelega() {
         log.info("Si controlla che non sia più presente una delega");
-        WebTool.waitTime(6);
+        webTool.waitTime(6);
         this.deleghe = dataPopulation.readDataPopulation("delegatoPF.yaml");
         String nome = this.deleghe.get("name").toString();
         String cognome = this.deleghe.get("familyName").toString();

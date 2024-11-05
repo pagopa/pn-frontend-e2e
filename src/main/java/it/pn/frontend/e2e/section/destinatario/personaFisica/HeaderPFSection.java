@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -31,13 +32,17 @@ public class HeaderPFSection extends BasePage {
     List<WebElement> menuProfileItems;
 
     @Autowired
+    @Lazy
+    private  WebTool webTool;
+
+    @Autowired
     public HeaderPFSection(WebDriver driver) {
         super(driver);
     }
 
     public void waitLoadHeaderDESection() {
         try {
-            WebTool.waitTime(15);
+            webTool.waitTime(15);
             titleLabel = driver.findElement(By.xpath("//a[@title='Sito di PagoPA S.p.A.']"));
             buttonProfile = driver.findElement(By.xpath("//button[@aria-label='party-menu-button']"));
             getWebDriverWait(30).withMessage("il titolo del header non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));

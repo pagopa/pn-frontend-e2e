@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -71,6 +72,9 @@ public class NotifichePFPage extends BasePage {
 
     @FindBy(xpath = "//button[@data-testid='download-pagoPA-notice-button']")
     private WebElement buttonDownloadAvvisoPagoPA;
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
     @Autowired
     public NotifichePFPage(WebDriver driver) {
@@ -104,7 +108,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void selectFiltraButton() {
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         filtraButton = driver.findElement(By.id("filter-notifications-button"));
         getWebDriverWait(40).withMessage("Il bottone filtra sulla pagina notifiche non è cliccabile").until(ExpectedConditions.elementToBeClickable(filtraButton));
         filtraButton.click();
@@ -255,7 +259,7 @@ public class NotifichePFPage extends BasePage {
         codiceIunTextField.click();
         codiceIunTextField.sendKeys(iun);
         clickFiltraButton();
-        WebTool.waitTime(2);
+        webTool.waitTime(2);
         clickRimuoviFiltriButton();
     }
 
@@ -282,7 +286,7 @@ public class NotifichePFPage extends BasePage {
 
     public void selezionaNotifica() {
         By notificaBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh')]");
-        WebTool.waitTime(2);
+        webTool.waitTime(2);
         getWebDriverWait(30).withMessage("Non viene visualizzata la prima riga della tabella delle notifiche").until(ExpectedConditions.elementToBeClickable(notificaBy));
         elements(notificaBy).get(0).click();
     }

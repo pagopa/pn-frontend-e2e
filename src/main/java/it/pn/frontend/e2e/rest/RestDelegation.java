@@ -10,6 +10,7 @@ import it.pn.frontend.e2e.model.delegate.DelegateResponsePG;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -35,14 +36,13 @@ public class RestDelegation {
     @Autowired
     private CustomHttpClient<DelegateRequestPG, DelegateResponsePG> httpClientPG;
 
-    @Autowired
-    private WebDriverConfig webDriverConfig;
+    @Value("${environment}")
+    private String environment;
 
     private final Map<String, String> headers = new HashMap<>();
 
     @Autowired
-    public RestDelegation(WebDriverConfig webDriverConfig) {
-        this.webDriverConfig = webDriverConfig;
+    public RestDelegation() {
         initializeHeaders();
         setupHttpClients();
     }
@@ -57,7 +57,7 @@ public class RestDelegation {
     }
 
     private void setupHttpClients() {
-        String baseUrl = "https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it";
+        String baseUrl = "https://webapi." + environment + ".notifichedigitali.it";
         httpClientPF.setBaseUrlApi(baseUrl);
         httpClientPG.setBaseUrlApi(baseUrl);
     }

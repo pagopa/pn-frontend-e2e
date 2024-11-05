@@ -81,6 +81,9 @@ public class NotifichePGPagoPATest {
     @Autowired
     @Lazy
     private BackgroundTest backgroundTest;
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
 
 
@@ -205,7 +208,7 @@ public class NotifichePGPagoPATest {
         }
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
             dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
-            WebTool.waitTime(5);
+            webTool.waitTime(5);
             String urlFileAttestazioneOppponubile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/bff/v1/notifications/received/" + datiNotifica.get("codiceIUN").toString() + "/documents/");
             if (headless && urlFileAttestazioneOppponubile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
@@ -346,7 +349,7 @@ public class NotifichePGPagoPATest {
     public void siControllaNonSiaPresenteLAvvisoPagoPa() {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
 //        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         Assertions.assertTrue( accediAPiattaformaNotifichePage.piuAvvisiDisplayed(), "Avviso PagoPA non sia presente");
         logger.info("Avviso PagoPA è presente");
     }
@@ -355,7 +358,7 @@ public class NotifichePGPagoPATest {
     public void siControllaNonSiaPresenteLAllegatoPagoPa() {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
 //        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         Assertions.assertTrue(accediAPiattaformaNotifichePage.allegatoPagoPaDisplayed(),"Avviso PagoPA non sia presente");
         logger.info("Avviso PagoPA è presente");
     }
@@ -428,7 +431,7 @@ public class NotifichePGPagoPATest {
         boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
 //        DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
         dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibile(nomeFile);
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
 //        DownloadFile downloadFile = new DownloadFile(this.driver);
 
         final String url = downloadFile.getUrl(webDriverConfig.getBaseUrl() + "notifications/received/");

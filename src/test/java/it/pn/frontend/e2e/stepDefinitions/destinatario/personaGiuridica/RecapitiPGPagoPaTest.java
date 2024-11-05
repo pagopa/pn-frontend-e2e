@@ -36,6 +36,9 @@ public class RecapitiPGPagoPaTest {
     @Autowired
     @Lazy
     private BackgroundTest backgroundTest;
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
 
     @And("Si visualizza correttamente la pagina Recapiti persona giuridica")
@@ -89,7 +92,7 @@ public class RecapitiPGPagoPaTest {
     @Then("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti")
     public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapiti() {
         logger.info("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti");
-        WebTool.waitTime(10);
+        webTool.waitTime(10);
         this.hooks.getDriver().navigate().refresh();
         recapitiDestinatarioPage.visualizzazioneCampiSezioneAltriRecapiti();
     }

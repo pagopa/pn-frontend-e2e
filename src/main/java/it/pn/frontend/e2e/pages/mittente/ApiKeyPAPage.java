@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -64,6 +65,10 @@ public class ApiKeyPAPage extends BasePage {
 
     @FindBy(id = "close-modal-button")
     private WebElement closeButtonPopUpVisualizza;
+
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
     @Autowired
     public ApiKeyPAPage(WebDriver driver) {
@@ -539,10 +544,10 @@ public class ApiKeyPAPage extends BasePage {
     public String visualizzaApiKeyInElenco(){
         By contextMenu = By.xpath("//button[@data-testid='contextMenuButton']");
         elements(contextMenu).get(0).click();
-        WebTool.waitTime(1);
+        webTool.waitTime(1);
         By visualizzaCodiceButton = By.xpath("//li[@data-testid='buttonView']");
         element(visualizzaCodiceButton).click();
-        WebTool.waitTime(1);
+        webTool.waitTime(1);
         By apiKeyDaElenco = By.xpath("//input[@aria-invalid='false']");
         return element(apiKeyDaElenco).getAttribute("value");
     }

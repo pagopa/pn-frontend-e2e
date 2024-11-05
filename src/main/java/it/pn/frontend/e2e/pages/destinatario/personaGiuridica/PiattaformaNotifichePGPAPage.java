@@ -16,6 +16,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -77,6 +78,9 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     @Autowired
     private WebDriverConfig webDriverConfig;
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
     @Autowired
     public PiattaformaNotifichePGPAPage(WebDriver driver) {
@@ -126,10 +130,10 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
 
     public void clickNotificheENotificheDelegate() {
-            WebTool.waitTime(5);
+            webTool.waitTime(5);
             getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.sideItemNotificheButton));
             sideItemNotificheButton.click();
-            WebTool.waitTime(10);
+        webTool.waitTime(10);
             By notificheDelegateButton = By.id("menu-item(notifiche delegate)");
             this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(notificheDelegateButton));
             this.js().executeScript("arguments[0].click()", this.element(notificheDelegateButton));
@@ -137,7 +141,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
 
     public void clickNotificheDelegate() {
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         By notificheDelegateButton = By.id("menu-item(notifiche delegate)");
         this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(notificheDelegateButton));
         this.js().executeScript("arguments[0].click()", this.element(notificheDelegateButton));
@@ -217,7 +221,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     public void clickModelloF24Numero(int numOfF24) {
         List<WebElement> f24 = driver.findElements(By.xpath("//button[@data-testid='download-f24-button']"));
         logger.info("F24 trovato:" + f24.size());
-        WebTool.waitTime(3);
+        webTool.waitTime(3);
         getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(f24.get(numOfF24 - 1)));
         f24.get(numOfF24 - 1).click();
     }
@@ -272,12 +276,12 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             DownloadFile downloadFile = new DownloadFile(this.driver);
             DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(this.driver);
             String codiceIUN;
-            WebTool.waitTime(1);
+            webTool.waitTime(1);
             codiceIUN = dettaglioNotificaMittenteSection.getInfoNotifica(3);
 
             File file = new File(downloadDirectory, fileName);
             ricevutaDiConsegnaButton.click();
-            WebTool.waitTime(1);
+            webTool.waitTime(1);
             final String urlFileRicevuta = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/bff/v1/notifications/received/" + codiceIUN + "/documents/");
             FileUtils.copyURLToFile(new URL(urlFileRicevuta), file, 1000, 1000);
             logger.info("ZIP file downloaded successfully.");

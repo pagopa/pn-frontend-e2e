@@ -8,14 +8,19 @@ import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.GruppiPGPage;
 import it.pn.frontend.e2e.utility.WebTool;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.Map;
 
 @Slf4j
 public class GruppiPGPagoPATest {
 
-    private final WebDriver driver = Hooks.driver;
-    private final GruppiPGPage gruppiPGPage = new GruppiPGPage(this.driver);
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
+    @Autowired
+    private  GruppiPGPage gruppiPGPage;
 
     @When("Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone Gruppi")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaSiCliccaSulBottoneGruppi() {
@@ -155,7 +160,7 @@ public class GruppiPGPagoPATest {
     @And("Si {string} il gruppo {string} creato inizialmente")
     public void siIlGruppoCreatoInizialmente(String azioneGruppo, String nomeGruppo) {
         log.info("Si elimina il gruppo {} creato all'inizio del test", nomeGruppo);
-        WebTool.waitTime(3);
+        webTool.waitTime(3);
         gruppiPGPage.eliminaGruppoDaPaginaIniziale(azioneGruppo, nomeGruppo);
     }
 }

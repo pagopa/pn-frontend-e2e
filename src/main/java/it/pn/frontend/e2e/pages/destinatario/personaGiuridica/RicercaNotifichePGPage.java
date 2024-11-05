@@ -8,6 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 import java.sql.Driver;
 
@@ -27,6 +29,10 @@ public class RicercaNotifichePGPage extends BasePage {
     WebElement nonValidIunMessage;
     @FindBy(id = "notificationsTable.body.row")
     WebElement primaNotifica;
+
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
     public void clickNotificheImpresa() {
         try {
@@ -103,7 +109,7 @@ public class RicercaNotifichePGPage extends BasePage {
 
     public void cliccaSuPrimaNotifica(){
         try {
-            WebTool.waitTime(10);
+            webTool.waitTime(10);
             primaNotifica = driver.findElement(By.id("notificationsTable.body.row"));
             getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(primaNotifica));
             logger.info("Si clicca sulla prima notifica");

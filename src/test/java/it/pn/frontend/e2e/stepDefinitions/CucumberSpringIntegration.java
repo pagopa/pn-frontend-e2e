@@ -13,6 +13,10 @@ import it.pn.frontend.e2e.config.UserPasswordConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.LoggerStartupListener;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
+import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
+import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
+import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
+import it.pn.frontend.e2e.model.delegate.DelegateResponsePG;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
@@ -119,6 +123,14 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         RecuperoOTPRecapiti.class,
         BackgroundTest.class,
         GeneraApiKeySection.class,
+        RestDelegation.class,
+        DelegateRequestPF.class,
+        DelegateRequestPG.class,
+        DelegateResponsePF.class,
+        DelegateResponsePG.class,
+        WebTool.class,
+        UtentiPGPage.class,
+        GruppiPGPage.class
 
 })
 @EnableScheduling

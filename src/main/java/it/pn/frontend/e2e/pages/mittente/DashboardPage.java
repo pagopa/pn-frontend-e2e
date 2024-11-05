@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.awt.*;
@@ -83,6 +84,9 @@ public class DashboardPage extends BasePage {
 
     @Autowired
     private WebDriverConfig webDriverConfig;
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
     @Autowired
     public DashboardPage(WebDriver driver) {
@@ -153,7 +157,7 @@ public class DashboardPage extends BasePage {
                 .keyUp(Keys.CONTROL)
                 .sendKeys(Keys.BACK_SPACE)
                 .perform();
-        WebTool.waitTime(1);
+        webTool.waitTime(1);
         dateDa.get(0).sendKeys("01/01/1111");
     }
 
@@ -163,7 +167,7 @@ public class DashboardPage extends BasePage {
         dateDa.get(1).click();
         Actions action = new Actions(driver);
         action.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
-        WebTool.waitTime(1);
+        webTool.waitTime(1);
         dateDa.get(1).sendKeys("01/01/1111");
     }
     public void insertDataCorretta(){
@@ -179,7 +183,7 @@ public class DashboardPage extends BasePage {
         LocalDate dataDaInserire = LocalDate.now().minusDays(90);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedDate = dataDaInserire.format(formatter);
-        WebTool.waitTime(1);
+        webTool.waitTime(1);
         dateDa.get(0).sendKeys(formattedDate);
     }
     public void insertDataCorrettaNotificheDigitali(){
@@ -191,7 +195,7 @@ public class DashboardPage extends BasePage {
         LocalDate dataDaInserire = LocalDate.now().minusDays(90);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedDate = dataDaInserire.format(formatter);
-        WebTool.waitTime(1);
+        webTool.waitTime(1);
         dateDa.get(1).sendKeys(formattedDate);
     }
 
@@ -242,14 +246,14 @@ public class DashboardPage extends BasePage {
     public void cambiaTipoGrafico(){
         getWebDriverWait(10).withMessage("Il tipo di grafico Aggregato non visibile").until(ExpectedConditions.visibilityOf(tipoAggregato.get(0)));
         tipoAggregato.get(0).click();
-        WebTool.waitTime(1);
+        webTool.waitTime(1);
         tipoAndamentale.get(0).click();
     }
 
     public void cambiaTipoGraficoPerModalitaInvio(){
         getWebDriverWait(10).withMessage("Il tipo di grafico Aggregato non visibile").until(ExpectedConditions.visibilityOf(tipoAggregato.get(0)));
         tipoAggregato.get(1).click();
-        WebTool.waitTime(1);
+        webTool.waitTime(1);
         tipoAndamentale.get(0).click();
     }
 
@@ -305,7 +309,7 @@ public class DashboardPage extends BasePage {
 
             logger.info("Si clicca sul bottone Esporta JPEG");
             esportaJpegBottone.click();
-            WebTool.waitTime(2);
+            webTool.waitTime(2);
             File downloadedFile = new File(downloadDirectory + fileName);
             Assertions.assertTrue(downloadedFile.exists());
             logger.info("JPEG file downloaded successfully.");

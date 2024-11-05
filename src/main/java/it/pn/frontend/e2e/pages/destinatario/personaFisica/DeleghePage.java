@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -35,6 +36,10 @@ public class DeleghePage extends BasePage {
     WebElement annullaButton;
 
     @Autowired
+    @Lazy
+    private  WebTool webTool;
+
+    @Autowired
     public DeleghePage(WebDriver driver) {
         super(driver);
     }
@@ -54,7 +59,7 @@ public class DeleghePage extends BasePage {
 
             getWebDriverWait(10).withMessage("Il bottone aggiungi delega non è visualizzato").until(ExpectedConditions.elementToBeClickable(addDelegaButton));
             logger.info("click sul bottone add deleghe");
-            WebTool.waitTime(3);
+            webTool.waitTime(3);
             this.addDelegaButton.click();
 
     }
@@ -216,7 +221,7 @@ public class DeleghePage extends BasePage {
 
     public boolean siVisualizzaUnaDelegaConNome(String nome, String cognome) {
         try {
-            WebTool.waitTime(5);
+            webTool.waitTime(5);
             By delegaBy = By.xpath("//tr[@id = 'delegatesTable.body.row']//p[contains(text(),'"+ nome +" "+ cognome +"')]");
 
             this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(delegaBy));

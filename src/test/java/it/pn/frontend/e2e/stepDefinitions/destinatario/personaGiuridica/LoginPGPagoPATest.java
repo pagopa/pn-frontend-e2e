@@ -76,6 +76,10 @@ public class LoginPGPagoPATest {
     @Autowired
     private  CookiesSection cookiesSection;
 
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
+
 
     @Given("Login Page persona giuridica viene visualizzata")
     public void loginPagePersonaGiuridicaVieneVisualizzata() {
@@ -113,7 +117,7 @@ public class LoginPGPagoPATest {
         hooks.getDriver().get(urlLogin);
         logger.info("Login effettuato con successo");
 
-        WebTool.waitTime(10);
+        webTool.waitTime(10);
 
         headerPGSection.waitLoadHeaderPGPage();
 
@@ -284,10 +288,10 @@ public class LoginPGPagoPATest {
     public void logoutDaPortalePersonaGiuridica() {
         headerPGSection.waitLoadHeaderPGPage();
         headerPGSection.clickEsciButton();
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
 
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
     }
 
     @When("Login {string} portale persona giuridica tramite request method")

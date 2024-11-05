@@ -70,6 +70,9 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @Autowired
     private DettaglioNotificaSection dettaglioNotificaSection;
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche")
     public void nellaPiattaformaDestinatarioCliccareSulBottoneNotifiche() {
@@ -291,7 +294,7 @@ public class NotifichePersonaFisicaPagoPATest {
         }
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
             dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
-            WebTool.waitTime(5);
+            webTool.waitTime(5);
             String urlFileAttestazioneOppponibile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/" + datiNotifica.get("codiceIUN").toString() + "/legal-facts/");
 
             if (headless && urlFileAttestazioneOppponibile.isEmpty()) {
@@ -370,7 +373,7 @@ public class NotifichePersonaFisicaPagoPATest {
         logger.info("Si controlla che anche nel portale del destinatario la notifica sia in stato " + statoNotifica + " e si chiude la scheda");
         piattaformaNotifichePage.selezionaPrimaNotifica();
         piattaformaNotifichePage.verificaPresenzaStato(statoNotifica);
-        WebTool.closeTab();
+        webTool.closeTab();
     }
 
     @And("Si verifica che gli allegati denominati {string} non sono scaricabili")
@@ -483,7 +486,7 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @And("Cliccare sul bottone Paga")
     public void cliccaBottonePaga(){
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         accediAPiattaformaNotifichePage.cliccaPaga();
     }
 

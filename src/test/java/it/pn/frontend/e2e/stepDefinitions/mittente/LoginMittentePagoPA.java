@@ -13,7 +13,6 @@ import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.mittente.*;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
-import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
@@ -22,6 +21,7 @@ import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -39,6 +39,9 @@ public class LoginMittentePagoPA {
 
    @Autowired
    private DataPopulation dataPopulation;
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
     // Percorso del file token specificato nelle configurazioni, con valore di default 'tokenLogin.yaml'
    // @Value("${token.login.file:tokenLogin.yaml}")
@@ -84,6 +87,7 @@ public class LoginMittentePagoPA {
     private AreaRiservataPAPage areaRiservataPAPage;
     @Autowired
     BasicCookieStore cookieStore;
+
 
 
 
@@ -138,7 +142,7 @@ public class LoginMittentePagoPA {
         hooks.getDriver().get(urlLogin);
         logger.info("Login effettuato con successo");
         // Attesa statica di 10 secondi - considerare l'uso di WebDriverWait per migliorare l'efficienza
-        WebTool.waitTime(10);
+        webTool.waitTime(10);
 
         // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
         headerPASection.waitLoadHeaderSection();
@@ -408,7 +412,7 @@ public class LoginMittentePagoPA {
     public void logoutDaPortaleMittente() {
         logger.info("Si esce dal portale mittente");
 
-        WebTool.waitTime(2);
+        webTool.waitTime(2);
 
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();
@@ -421,7 +425,7 @@ public class LoginMittentePagoPA {
 
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
 
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
 
 
     }

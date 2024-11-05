@@ -39,6 +39,9 @@ public class LoginPersonaFisicaPagoPA {
     @Autowired
     @Lazy
     private WebDriverConfig webDriverConfig;
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
     //TODO Parametrizzare
     private Map<String, Object> datiDelegato;
@@ -117,7 +120,7 @@ public class LoginPersonaFisicaPagoPA {
         String urlLogin = "https://cittadini." + environment + ".notifichedigitali.it/#token=" + token;
         this.hooks.getDriver().get(urlLogin);
         logger.info("Login effettuato con successo");
-        WebTool.waitTime(10);
+        webTool.waitTime(10);
 
         // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
         headerPFSection.waitLoadHeaderDESection();
@@ -233,7 +236,7 @@ public class LoginPersonaFisicaPagoPA {
 
         confermaDatiSpidPFPage.selezionaConfermaButton();
         headerPFSection.waitUrlToken();
-        WebTool.waitTime(2);
+        webTool.waitTime(2);
     }
 
     @Then("Home page persona fisica viene visualizzata correttamente")

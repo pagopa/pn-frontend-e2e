@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -88,6 +89,10 @@ public class LeTueDelegheSection extends BasePage {
     // find all row with data-testid="delegatorsTable.body.row"
     @FindBy(xpath = "//tr[@data-testid='delegatorsTable.body.row']")
     List<WebElement> delegatorsTableRows;
+
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
     @Autowired
     public LeTueDelegheSection(WebDriver driver) {
@@ -201,7 +206,7 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickOpzioneAccetta() {
-        WebTool.waitTime(1);
+        webTool.waitTime(1);
         By acceptDelegaButton = By.xpath("//*[@id='accept-button']");
         element(acceptDelegaButton).click();
     }
@@ -355,7 +360,7 @@ public class LeTueDelegheSection extends BasePage {
     }
     public void checkIndicatoreNumerico(){
         try {
-            WebTool.waitTime(10);
+            webTool.waitTime(10);
             By notificationNumber = By.xpath("//*[@data-testid='notifications']");
             getWebDriverWait(5).withMessage("La notifica con il indicatore non è visibile").until(ExpectedConditions.visibilityOfElementLocated(notificationNumber));
         }catch (RuntimeException e){

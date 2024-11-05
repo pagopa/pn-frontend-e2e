@@ -68,6 +68,10 @@ public class DestinatarioPage extends BasePage {
     @FindBy(id = "notificationsTable.body.row")
     List<WebElement> listaNotificheDelegante;
 
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
+
     public void inserimentoDataErrato() {
         String data = "01/01/1111";
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField));
@@ -145,7 +149,7 @@ public class DestinatarioPage extends BasePage {
                     getNotificationStatus = restNotification.getNotificationStatus(responseOfCreateNotification.getNotificationRequestId());
                     notificationStatus = getNotificationStatus.get("notificationRequestStatus").toString();
                     if (!notificationStatus.equals("ACCEPTED")) {
-                        WebTool.waitTime(90);
+                        webTool.waitTime(90);
                         log.info("Tentativo n. " + maxAttemptsPolling + " - Stato notifica: " + notificationStatus);
                         maxAttemptsPolling++;
                     } else {

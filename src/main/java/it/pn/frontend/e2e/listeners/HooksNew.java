@@ -128,7 +128,7 @@ public class HooksNew {
         logger.info("----- END SCENARIO: {} -----", scenario.getName());
     }
 
-    @After("@DeleghePF or @DeleghePG")
+
     @And("Revoca deleghe se esistono")
     public void clearDelegate() {
         logger.info("Revoking all delegations...");

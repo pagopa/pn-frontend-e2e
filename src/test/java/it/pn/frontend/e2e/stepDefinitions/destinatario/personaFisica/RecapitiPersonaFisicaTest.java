@@ -43,6 +43,10 @@ public class RecapitiPersonaFisicaTest {
     @Autowired
     private RecuperoOTPRecapiti recuperoOTPRecapiti;
 
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
+
     public static String OTP;
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti")
@@ -84,7 +88,7 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si clicca sul bottone conferma")
     public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneConferma() {
         logger.info("Si cerca di cliccare sul bottone conferma");
-        WebTool.waitTime(10);
+        webTool.waitTime(10);
         recapitiDestinatarioPage.confermaButtonClick();
     }
 
@@ -93,7 +97,7 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si visualizza correttamente il pop-up di inserimento OTP");
         String url = webDriverConfig.getBaseUrl() + "addresses";
         recapitiDestinatarioPage.waitLoadPopUp();
-        WebTool.waitTime(3);
+        webTool.waitTime(3);
         if (verificaChiamataEmail(url)) {
             logger.info("La chiamata per inviare l'otp è stata effettuata");
         } else {
@@ -126,13 +130,13 @@ public class RecapitiPersonaFisicaTest {
         while (attempts < 3) {
             recapitiDestinatarioPage.sendOTP(otp);
             recapitiDestinatarioPage.confermaButtonClickPopUp();
-            WebTool.waitTime(2);
+            webTool.waitTime(2);
             recapitiDestinatarioPage.clearOTP();
             attempts++;
         }
         recapitiDestinatarioPage.sendOTP(otp);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
-        WebTool.waitTime(2);
+        webTool.waitTime(2);
     }
 
     @And("Si visualizza correttamente il messaggio di errore")
@@ -166,7 +170,7 @@ public class RecapitiPersonaFisicaTest {
 
     @Then("Si visualizza correttamente il messaggio di pec errata")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioDiPecErrata() {
-        WebTool.waitTime(3);
+        webTool.waitTime(3);
         String errorMessageRead = recapitiDestinatarioPage.getPecErrorMessage();
         Assertions.assertEquals("Indirizzo PEC non valido", errorMessageRead, "messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo PEC non valido");
     }
@@ -334,7 +338,7 @@ public class RecapitiPersonaFisicaTest {
     @And("Nella pagina I Tuoi Recapiti si inserisce il codice OTP")
     public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP() {
         logger.info("Si inserisce il codice OTP di verifica");
-        WebTool.waitTime(2);
+        webTool.waitTime(2);
         iTuoiRecapitiPage.sendOTP(OTP);
         recapitiDestinatarioPage.confermaButtonClickPopUp();
         if (recapitiDestinatarioPage.waitMessaggioErrore()) {
@@ -363,7 +367,7 @@ public class RecapitiPersonaFisicaTest {
     @Then("Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente() {
         logger.info("Si controlla che la pec sia stata inserita correttamente");
-        WebTool.waitTime(15);
+        webTool.waitTime(15);
         hooks.getDriver().navigate().refresh();
         if (!recapitiDestinatarioPage.verificaPecAssociata()) {
             logger.error("Pec non associata con errore");
@@ -475,7 +479,7 @@ public class RecapitiPersonaFisicaTest {
         } else if (recapitiDestinatarioPage.controlloEmailAssociata(email)) {
             logger.info("verifica mail associata, step 2");
             iTuoiRecapitiPage.eliminaEmailEsistente();
-            WebTool.waitTime(3);
+            webTool.waitTime(3);
             if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi e-mail")) {
                 logger.info("verifica mail associata, step 3");
 
@@ -648,7 +652,7 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.clickConfermaButton();
             recapitiDestinatarioPage.visualizzaValidazione();
         } else {
-            WebTool.waitTime(5);
+            webTool.waitTime(5);
             hooks.getDriver().navigate().refresh();
             if (recapitiDestinatarioPage.siControllaPECModificata(pec)) {
                 logger.info("La PEC è stata modificata");
@@ -772,7 +776,7 @@ public class RecapitiPersonaFisicaTest {
     @And("Nel pop up elimina indirizzo pec si clicca sul bottone conferma")
     public void nelPopUpEliminaIndirizzoPecSiCliccaSulBottoneConferma() {
         logger.info("Si clicca sul bottone conferma");
-        WebTool.waitTime(3);
+        webTool.waitTime(3);
         if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi PEC")) {
             recapitiDestinatarioPage.clickSuConfermaElimina();
         } else {
@@ -873,7 +877,7 @@ public class RecapitiPersonaFisicaTest {
         }
         String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("additionalEmail").toString();
         hooks.getDriver().navigate().refresh();
-        WebTool.waitTime(10);
+        webTool.waitTime(10);
         if (!recapitiDestinatarioPage.verificaNuovaEmailEPEC(pec)) {
             logger.error("La email PEC non è stata associata correttamente");
             Assertions.fail("La email PEC non è stata associata correttamente");

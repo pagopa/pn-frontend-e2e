@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -70,6 +71,10 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     private int numeriStatiNotifica;
     @Autowired
     PiattaformaNotifichePage piattaformaNotifichePage;
+
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
     @Autowired
     public DettaglioNotificaMittenteSection(WebDriver driver) {
@@ -557,7 +562,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
             } catch (NoSuchElementException e) {
                 logger.info("Dopo " + (i + 1) + " tentativi l'invio del messaggio al contatto di cortesia non è avvenuto");
             }
-            WebTool.waitTime(15);
+            webTool.waitTime(15);
             driver.navigate().refresh();
         }
         if (!testSuccess) {
@@ -582,13 +587,13 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
         this.getWebDriverWait(30).withMessage("bottone per la ricerca non trovato").until(ExpectedConditions.elementToBeClickable(buttonRicerca));
         buttonRicerca.click();
-        WebTool.waitTime(3);
+        webTool.waitTime(3);
     }
 
     public void sceglieEnte(String nomeEnte){
         logger.info("Si sceglie ente: " + nomeEnte);
         enteButton.click();
-        WebTool.waitTime(1);
+        webTool.waitTime(1);
         By ente = By.xpath("//h6[contains(text(), '" + nomeEnte + "')]");
         element(ente).click();
     }

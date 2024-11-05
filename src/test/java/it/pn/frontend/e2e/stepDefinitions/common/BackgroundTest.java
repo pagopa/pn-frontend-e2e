@@ -67,6 +67,9 @@ public class BackgroundTest {
     private  PiattaformaNotifichePage piattaformaNotifichePage;
     @Autowired
     private NotificaMittentePagoPATest notificaMittentePagoPATest;
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
     @Autowired
     public BackgroundTest() {
@@ -301,7 +304,7 @@ public class BackgroundTest {
 
     public void siEliminaPecEsistenteEAltriRecapitiAssociati() {
         recapitiDestinatarioPage.clickSuEliminaPec();
-        WebTool.waitTime(3);
+        webTool.waitTime(3);
         if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi PEC")) {
             recapitiDestinatarioPage.clickSuConfermaElimina();
         } else {
@@ -336,7 +339,7 @@ public class BackgroundTest {
             }
             siInserisceUnaPECConCampoInputVisibile(emailPEC);
         }
-        WebTool.waitTime(10);
+        webTool.waitTime(10);
     }
 
     public void checkEmailDiCortesiaPerEliminazioneEInserimento(String emailDiCortesia) {
@@ -355,7 +358,7 @@ public class BackgroundTest {
             }
             aggiuntaEmailDiCortesia(emailDiCortesia);
         }
-        WebTool.waitTime(10);
+        webTool.waitTime(10);
     }
 
     public void inserimentoOTPErratoTreVolteEControlloMessaggio(String OTP) {
@@ -382,7 +385,7 @@ public class BackgroundTest {
     public void siFiltraLaTabellaDelleNotifichePerIUNMittente(String iun) {
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
-        WebTool.waitTime(1);
+        webTool.waitTime(1);
         piattaformaNotifichePage.clickSuNotifica();
     }
 }

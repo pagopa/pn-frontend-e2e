@@ -11,11 +11,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Set;
 
-
+@Component
 public class UtentiPGPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("UtentiPGPage");
@@ -74,7 +76,11 @@ public class UtentiPGPage extends BasePage {
 
     @Autowired
     private WebDriverConfig webDriverConfig;
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
+    @Autowired
     public UtentiPGPage(WebDriver driver) {
         super(driver);
     }
@@ -123,7 +129,7 @@ public class UtentiPGPage extends BasePage {
 
     public void waitLoadUtentiPage() {
         try {
-            WebTool.waitTime(15);
+            webTool.waitTime(15);
             WebElement utentiPageTitle = driver.findElement(By.xpath("//div/h4[contains(text(),'Utenti')]"));
             WebElement sottoTitolo = driver.findElement(By.xpath("//div/p[contains(text(),'Gestisci gli utenti')]"));
             WebElement addUserButton = driver.findElement(By.xpath("//button[contains(text(),'Aggiungi utente')]"));
@@ -162,7 +168,7 @@ public class UtentiPGPage extends BasePage {
 
     public void insertData(String codiceFiscale, String name, String surname, String email) throws InterruptedException {
         codiceFiscaleBox.sendKeys(codiceFiscale);
-        WebTool.waitTime(2);
+        webTool.waitTime(2);
         if (nameBox.getAttribute("value").equalsIgnoreCase(name) && surnameBox.getAttribute("value").equalsIgnoreCase(surname)) {
             logger.info("Il nome e il cognome è generato correttamente");
         } else {

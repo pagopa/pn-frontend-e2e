@@ -31,6 +31,9 @@ public class DisserviziAppPGTest {
     @Autowired
     @Lazy
     private BackgroundTest backgroundTest;
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
 
     @Given("Nella dashboard persona giuridica clicca su disservizi app")
@@ -71,7 +74,7 @@ public class DisserviziAppPGTest {
         backgroundTest.getStatoDellaPiattaformaPage();
         boolean res = false;
         for (int i = 0; i < 2; i++) {
-            WebTool.waitTime(30);
+            webTool.waitTime(30);
             disserviziAppPage.aggiornamentoPagina();
             if (disserviziAppPage.checkDisservizioInCorso()) {
                 res = true;

@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -45,6 +46,10 @@ public class InformazioniPreliminariPASection extends BasePage {
 
     @Autowired
     private WebDriverConfig webDriverConfig;
+
+    @Autowired
+    @Lazy
+    private  WebTool webTool;
 
     @Autowired
     public InformazioniPreliminariPASection(WebDriver driver) {
@@ -138,7 +143,7 @@ public class InformazioniPreliminariPASection extends BasePage {
         insertNumeroDiProtocollo(WebTool.generatePaProtocolNumber());
         insertOggettoNotifica(datiNotificaMap.get("oggettoDellaNotifica"));
         insertDescrizione(datiNotificaMap.get("descrizione"));
-        WebTool.waitTime(2);
+        webTool.waitTime(2);
         insertGruppo(gruppo);
         insertCodiceTassonometrico(datiNotificaMap.get("codiceTassonometrico"));
         if (datiNotificaMap.get("modello").equals("AR")){

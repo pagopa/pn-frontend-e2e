@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -47,13 +48,17 @@ public class DisserviziAppPAPage extends BasePage {
     private List<WebElement> stato;
 
     @Autowired
+    @Lazy
+    private  WebTool webTool;
+
+    @Autowired
     public DisserviziAppPAPage(WebDriver driver) {
         super(driver);
     }
 
 
     public void waitLoadStatoDellaPiattaformaPage() {
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         try {
             By disserviziPageTitle = By.id("Stato della piattaforma-page");
             By disserviziPageSubTitle = By.id("subtitle-page");
@@ -104,7 +109,7 @@ public class DisserviziAppPAPage extends BasePage {
 
     public void waitLoadDisserviziTable() {
         try {
-            WebTool.waitTime(10);
+            webTool.waitTime(10);
             disserviziTable = driver.findElement(By.id("notifications-table"));
             getWebDriverWait(10).withMessage("Non si visualizza correttamente la tabella dei disservizi")
                     .until(ExpectedConditions.visibilityOf(disserviziTable));

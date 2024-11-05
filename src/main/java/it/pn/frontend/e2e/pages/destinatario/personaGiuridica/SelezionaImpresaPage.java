@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,13 +20,17 @@ public class SelezionaImpresaPage extends BasePage {
     WebElement accediButton;
 
     @Autowired
+    @Lazy
+    private  WebTool webTool;
+
+    @Autowired
     public SelezionaImpresaPage(WebDriver driver) {
         super(driver);
     }
 
 
     public void waitLoadSelezionaImpresaPage() {
-        WebTool.waitTime(10);
+        webTool.waitTime(10);
         By titlePageBy = By.xpath("//h3[contains(text(),'Seleziona la tua impresa')]");
         this.getWebDriverWait(30).withMessage("Il titolo della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
         this.getWebDriverWait(30).withMessage("Il bottone accedi della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOf(this.accediButton));
