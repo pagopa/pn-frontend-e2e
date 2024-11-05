@@ -9,6 +9,7 @@ import it.pn.frontend.e2e.model.documents.PreLoadRequest;
 import it.pn.frontend.e2e.model.documents.PreLoadResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -20,7 +21,8 @@ import java.util.List;
 public class RestNotification {
     public RestNotification() {
     }
-
+    @Autowired
+    private CustomHttpClient customHttpClient;
     /**
      * Create a new notification with one recipient and one document
      *
@@ -55,7 +57,7 @@ public class RestNotification {
     }
 
     public void uploadDocument(String url, String secret, String sha256) throws RestNotificationException {
-        final CustomHttpClient<?, ?> httpClient2 = CustomHttpClient.getInstance();
+        final CustomHttpClient<?, ?> httpClient2 = customHttpClient;
         try {
             httpClient2.sendHttpUpLoadPutRequest(url, secret, sha256, null);
         } catch (IOException e) {
@@ -65,7 +67,7 @@ public class RestNotification {
     }
 
     public void uploadDocumentF24(String url, String secret, String sha256, File metaDatiDocument) throws RestNotificationException {
-        final CustomHttpClient<?, ?> httpClient2 = CustomHttpClient.getInstance();
+        final CustomHttpClient<?, ?> httpClient2 = customHttpClient;
         try {
             httpClient2.sendHttpUpLoadf24PutRequest(url, secret, sha256, null, metaDatiDocument);
         } catch (IOException e) {
@@ -75,7 +77,7 @@ public class RestNotification {
     }
 
     public LinkedTreeMap<String, Object> getNotificationStatus(String notificationRequestId) {
-        final CustomHttpClient<Object, Object> httpClient2 = CustomHttpClient.getInstance();  // Modifica qui
+        final CustomHttpClient<Object, Object> httpClient2 = customHttpClient;  // Modifica qui
         httpClient2.setBaseUrlApi("https://api.test.notifichedigitali.it");
         try {
             Object response = httpClient2.sendHttpGetRequest("/delivery/v2.3/requests?notificationRequestId=" + notificationRequestId, null, Object.class);

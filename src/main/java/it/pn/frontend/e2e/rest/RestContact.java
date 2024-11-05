@@ -113,7 +113,6 @@ public class RestContact {
      * Ottiene l'indirizzo digitale di default.
      */
     public DigitalAddressResponse getDigitalAddress() throws RestContactException {
-        logger.info("TOKEN..."+System.getProperty("token"));
         CustomHttpClient<?, DigitalAddressResponse> httpClientDigitalAddress = CustomHttpClient.getInstance();
         httpClientDigitalAddress.setBaseUrlApi("https://webapi." + environment + ".notifichedigitali.it");
         String url = "/bff/v1/addresses/LEGAL/default/PEC";
