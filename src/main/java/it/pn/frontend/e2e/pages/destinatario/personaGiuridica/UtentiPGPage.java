@@ -84,7 +84,6 @@ public class UtentiPGPage extends BasePage {
     private LoginPGPagoPAPage loginPGPagoPAPage;
     @Autowired
     private AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage;
-
     @Autowired
     public UtentiPGPage(WebDriver driver) {
         super(driver);
