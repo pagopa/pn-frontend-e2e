@@ -27,9 +27,10 @@ import java.util.List;
 public class DisserviziAppPAPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("Disservizi PA Page");
 
-    @Value("${downloadFilePath}")
-    private String downloadFilePath;
-
+   // @Value("${downloadFilePath}")
+   // private String downloadFilePath;
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     @Autowired
     private DataPopulation dataPopulation;
@@ -352,7 +353,8 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
 public boolean confrontoFileConDisservizio() {
     getDateDisservice();
     logger.info("date prese con successo dal disserivizio");
-    String folderPath = downloadFilePath;
+    String folderPath = webDriverConfig.getDownloadFilePath();
+    logger.info("DOWNLOAD FOLDER "+folderPath);
     // Stringa da cercare nel nome del file
     String searchString = "PN_DOWNTIME_LEGAL_FACTS";
     // Creazione di un oggetto File che rappresenta la cartella

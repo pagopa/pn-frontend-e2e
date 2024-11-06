@@ -483,8 +483,10 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public void clickVisualizzaIdApiKey() {
+        webTool.waitTime(5);
+        visualizzaIdGruppo = driver.findElement(By.id("button-view-groups-id"));
         this.getWebDriverWait(30).withMessage("Il bottone visualizza Id api key non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(this.visualizzaIdGruppo));
+                .until(ExpectedConditions.elementToBeClickable(visualizzaIdGruppo));
         this.visualizzaIdGruppo.click();
     }
 
