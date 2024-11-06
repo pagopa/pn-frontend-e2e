@@ -45,7 +45,6 @@ public class HeaderPASection extends BasePage {
 
     public void selezionaEsciButton() {
         try {
-            logger.info("HTML....."+driver.getPageSource());
             esciButton = driver.findElement(By.xpath("//button[contains(text(),'Esci')]"));
             getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(esciButton));
             //this.js().executeScript("arguments[0].scrollIntoView(true);", this.esciButton);

@@ -18,4 +18,5 @@ Feature: Mittente genera Api Key senza gruppo
     And Nella pagina di conferma cliccare sul bottone Torna a API key
     And Si visualizza correttamente l api key "testAutomationFE" nell elenco in stato attivo
     Then Si clicca visualizza codice e verifica che il valore dell'apikey copiato sia uguale
+    And Nella pop up cliccare sul tasto chiudi
     And Logout da portale mittente
