@@ -36,13 +36,13 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@Configuration
+@Component
 public class CustomHttpClient<RequestType, ResponseType> {
 
     private static CustomHttpClient<?, ?> instance ;
     private final Gson gson = new Gson();
-    @Value("${environment}")
-    private String environment;
+    @Autowired
+    private WebDriverConfig  webDriverConfig;
 
     @Setter
     @Getter
@@ -86,7 +86,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
         this.apiKey = apiKeyTest;
     }
 
-
+/**
     public static  <R, S> CustomHttpClient<R, S> getInstance() {
         if (instance == null) {
             synchronized (CustomHttpClient.class) {
@@ -97,7 +97,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
         }
         return (CustomHttpClient<R, S>) instance;
     }
-
+**/
 
     public static  <R, S> CustomHttpClient<R, S> getInstanceWithApiKey(String apiKey) {
         if (instance == null) {
@@ -273,7 +273,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
     }
 
     public String getJwtToken(String TokenExchange) throws IOException {
-        String env = environment;
+        String env = webDriverConfig.getEnvironment();
         CloseableHttpClient client = HttpClients.createDefault();
         this.httpRequest = ClassicRequestBuilder
                 .post("https://webapi." + env + ".notifichedigitali.it/token-exchange")
@@ -303,7 +303,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
     }
 
     public ResponseType sendHttpDeleteRequest(String endpoint, Map<String, String> headers, Class<ResponseType> responseType) throws IOException {
-        String env = environment;
+        String env = webDriverConfig.getEnvironment();
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             this.httpRequest = ClassicRequestBuilder
                     .delete(endpoint)

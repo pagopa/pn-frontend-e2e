@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -11,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,6 +22,10 @@ public class HeaderPASection extends BasePage {
 
     @FindBy(xpath = "//button[contains(text(),'Esci')]")
     WebElement esciButton;
+
+    @Autowired
+    @Lazy
+    private WebTool webTool;
 
     @Autowired
     public HeaderPASection(WebDriver driver) {
@@ -39,6 +45,8 @@ public class HeaderPASection extends BasePage {
 
     public void selezionaEsciButton() {
         try {
+            logger.info("HTML....."+driver.getPageSource());
+            esciButton = driver.findElement(By.xpath("//button[contains(text(),'Esci')]"));
             getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(esciButton));
             //this.js().executeScript("arguments[0].scrollIntoView(true);", this.esciButton);
             esciButton.click();
