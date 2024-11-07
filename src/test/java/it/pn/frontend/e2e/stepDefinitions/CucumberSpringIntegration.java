@@ -7,16 +7,10 @@ import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.common.HelpdeskPage;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
-import it.pn.frontend.e2e.config.BearerTokenConfig;
-import it.pn.frontend.e2e.config.CustomHttpClient;
-import it.pn.frontend.e2e.config.UserPasswordConfig;
-import it.pn.frontend.e2e.config.WebDriverConfig;
+import it.pn.frontend.e2e.config.*;
 import it.pn.frontend.e2e.listeners.LoggerStartupListener;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
-import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
-import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
-import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
-import it.pn.frontend.e2e.model.delegate.DelegateResponsePG;
+import it.pn.frontend.e2e.model.delegate.*;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
@@ -127,7 +121,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         WebTool.class,
         UtentiPGPage.class,
         GruppiPGPage.class,
-        ApiKeyPAPage.class
+        ApiKeyPAPage.class,
+        DataPopulationConfig.class
 
 })
 @EnableScheduling

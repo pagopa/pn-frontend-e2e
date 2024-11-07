@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.delegate.DelegatePF;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
@@ -64,6 +65,10 @@ public class DeleghePagoPATest {
     @Autowired
     @Lazy
     private  WebTool webTool;
+
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
+
 
     Map<String, Object> deleghe = new HashMap<>();
     @Setter
@@ -293,21 +298,35 @@ public class DeleghePagoPATest {
      *                      | fiscalCode | Codice fiscale |
      *                      | person | true (se persona fisica o impresa) |
      */
+
     @When("Creo in background una delega per persona fisica")
     public void creaInBackgroundUnaDelegaPerPersonaFisica(Map<String, String> personaFisica) {
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        DelegatePF delegatePF = dataPopulationConfig.getDelegatePF();
+        delegatePF.setFiscalCode(personaFisica.get("fiscalCode"));
+        delegatePF.setDisplayName(personaFisica.get("displayName"));
+        delegatePF.setFirstName(personaFisica.get("firstName"));
+        delegatePF.setLastName(personaFisica.get("lastName"));
+        delegatePF.setPerson(Boolean.parseBoolean(personaFisica.get("person")));
+        /**
         DelegatePF delegatePF = DelegatePF.builder()
-                .displayName(personaFisica.get("displayName"))
-                .firstName(personaFisica.get("firstName"))
-                .lastName(personaFisica.get("lastName"))
-                .fiscalCode(personaFisica.get("fiscalCode"))
-                .person(Boolean.parseBoolean(personaFisica.get("person"))).build();
+         .displayName(personaFisica.get("displayName"))
+         .firstName(personaFisica.get("firstName"))
+         .lastName(personaFisica.get("lastName"))
+         .fiscalCode(personaFisica.get("fiscalCode"))
+         .person(Boolean.parseBoolean(personaFisica.get("person"))).build();
+         **/
+
+        DelegateRequestPF delegateRequestPF = dataPopulationConfig.getDelegateRequestPF();
+        delegateRequestPF.setDelegate(delegatePF);
+/**
         DelegateRequestPF delegateRequestPF = DelegateRequestPF.builder()
                 .dateto(date)
                 .delegate(delegatePF)
                 .visibilityIds(new ArrayList<String>())
                 .verificationCode("12345")
                 .build();
+ **/
         String tokenExchange = loginPersonaFisicaPagoPA.getTokenExchangePFFromFile(personaFisica.get("accessoCome"));
         DelegateResponsePF response = restDelegation.addDelegationPF(delegateRequestPF, tokenExchange);
         if (response != null) {
@@ -315,6 +334,16 @@ public class DeleghePagoPATest {
             mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(HooksNew.getScenario()), response.getVerificationCode());
         }
         hooks.getDriver().navigate().refresh();
+    }
+
+
+
+    @When("Creo in background una delega per persona fisica 1")
+    public void creaInBackgroundUnaDelegaPerPersonaFisica1() {
+
+        log.info("PERSONA "+dataPopulationConfig.getDelegatePF().getDisplayName());
+        log.info("PERSONA "+dataPopulationConfig.getDelegatePF().getFiscalCode());
+        log.info("DelegateRequestPF "+dataPopulationConfig.getDelegateRequestPF().getVerificationCode());
     }
 
     @And("Si clicca sul bottone Accetta")
@@ -539,9 +568,9 @@ public class DeleghePagoPATest {
     public void siControllaCheNonCiSiaPiuUnaDelega() {
         log.info("Si controlla che non sia più presente una delega");
         webTool.waitTime(6);
-        this.deleghe = dataPopulation.readDataPopulation("delegatoPF.yaml");
-        String nome = this.deleghe.get("name").toString();
-        String cognome = this.deleghe.get("familyName").toString();
+        //this.deleghe = dataPopulation.readDataPopulation("delegatoPF.yaml")
+        String nome = dataPopulationConfig.getDelegatePF().getFirstName();
+        String cognome = dataPopulationConfig.getDelegatePF().getLastName();
         if (!deleghePage.siVisualizzaUnaDelegaConNome(nome, cognome)) {
             log.info("La delega è stata revocata correttamente");
         } else {

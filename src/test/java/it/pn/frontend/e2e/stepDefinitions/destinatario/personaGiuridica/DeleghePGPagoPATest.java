@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.delegate.DelegatePG;
@@ -74,6 +75,9 @@ public class DeleghePGPagoPATest {
     @Autowired
     @Lazy
     private  WebTool webTool;
+
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
 
     private boolean dataFineErrata;
 
@@ -465,18 +469,32 @@ public class DeleghePGPagoPATest {
     public void creoInBackgroundUnaDelegaPerPersonaGiuridica(Map<String, String> personaGiuridica) {
         logger.info("Si controlla che ci sia una delega");
         String dateto = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        DelegatePG delegatePG = DelegatePG.builder()
+
+        DelegatePG delegatePG = dataPopulationConfig.getDelegatePG();
+        delegatePG.setCompanyName(personaGiuridica.get("companyName"));
+        delegatePG.setFiscalCode(personaGiuridica.get("fiscalCode"));
+        delegatePG.setDisplayName(personaGiuridica.get("displayName"));
+        delegatePG.setPerson(Boolean.parseBoolean(personaGiuridica.get("person")));
+
+         /**
+         DelegatePG delegatePG = DelegatePG.builder()
                 .companyName(personaGiuridica.get("companyName"))
                 .displayName(personaGiuridica.get("displayName"))
                 .fiscalCode(personaGiuridica.get("fiscalCode"))
                 .person(Boolean.parseBoolean(personaGiuridica.get("person")))
                 .build();
+
         DelegateRequestPG delegateRequestPG = DelegateRequestPG.builder()
                 .dateto(dateto)
                 .delegate(delegatePG)
                 .visibilityIds(new ArrayList<>())
                 .verificationCode("12345")
                 .build();
+        **/
+        DelegateRequestPG delegateRequestPG = dataPopulationConfig.getDelegateRequestPG();
+        delegateRequestPG.setDelegate(delegatePG);
+
+
         String tokenExchange = loginPGPagoPaTest.getTokenExchangePGFromFile(personaGiuridica.get("accessoCome"));
         DelegateResponsePG response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
         mandateSingleton.setScenarioMandateId(HooksNew.getScenario(),response.getMandateId());
