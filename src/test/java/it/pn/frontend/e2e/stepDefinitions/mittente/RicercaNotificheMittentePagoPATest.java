@@ -155,7 +155,6 @@ public class RicercaNotificheMittentePagoPATest {
     @And("Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica {string}")
     public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotifica(String dpDatiNotifica) {
         logger.info("Si inserisce il codice IUN");
-        DataPopulation dataPopulation = new DataPopulation();
         this.datiNotifica = dataPopulation.readDataPopulation(dpDatiNotifica + ".yaml");
         piattaformaNotifichePage.inserimentoCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
     }
