@@ -1,6 +1,5 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
-
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -11,14 +10,31 @@ import it.pn.frontend.e2e.utility.WebTool;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
-
+/*
+*Modifiche apportate
+Annotazione @Component: Aggiunta all’inizio della classe UtentiPGPagoPATest per renderla un componente gestito da Spring.
+Iniezione delle Dipendenze: Le dipendenze sono iniettate tramite il costruttore della classe usando @Autowired per Hooks, UtentiPGPage, e HomePagePG.
+*
+* */
+@Component
 public class UtentiPGPagoPATest {
+
     private final Logger logger = LoggerFactory.getLogger("UtentiPGPagoPATest");
-    private final WebDriver driver = Hooks.driver;
-    private final UtentiPGPage utentiPGPage = new UtentiPGPage(this.driver);
-    private final HomePagePG homePagePG = new HomePagePG(this.driver);
+
+    private final WebDriver driver;
+    private final UtentiPGPage utentiPGPage;
+    private final HomePagePG homePagePG;
+
+    @Autowired
+    public UtentiPGPagoPATest(Hooks hooks, UtentiPGPage utentiPGPage, HomePagePG homePagePG) {
+        this.driver = hooks.driver;
+        this.utentiPGPage = utentiPGPage;
+        this.homePagePG = homePagePG;
+    }
 
     @And("Si visualizza correttamente la pagina utenti")
     public void siVisualizzaCorrettamenteLaPAginaUtenti() {
