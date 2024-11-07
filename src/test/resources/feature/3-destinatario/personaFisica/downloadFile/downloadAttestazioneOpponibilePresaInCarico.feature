@@ -39,7 +39,7 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
   @TA_PFDownloadAttestazioneOpponibilePresaInCaricoEVerificaEnte
   Scenario: PN-10428 - Persona fisica scarica Attestazione opponibile a terzi: notifica presa in carico
     Given Login Page mittente viene visualizzata
-      | url | https://selfcare.dev.notifichedigitali.it |
+      | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente
       | user   | albino63 |
       | pwd    | test    |
@@ -84,7 +84,7 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
   @TA_PFVerificaEnteNelDettaglioNotifica
   Scenario: PN-10427 - Persona fisica verifica concatenazione nome ente Radice e ente Figlio in dettaglio notifica
     Given Login Page mittente viene visualizzata
-      | url | https://selfcare.dev.notifichedigitali.it |
+      | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente
       | user   | albino63 |
       | pwd    | test    |
