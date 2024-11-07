@@ -294,7 +294,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(20).withMessage("Il textbox scadenza non è visibile").until(ExpectedConditions.visibilityOfElementLocated(scadenza));
         element(scadenza).click();
         element(scadenza).clear();
-        element(scadenza).sendKeys("10/24");
+        element(scadenza).sendKeys("10/25");
         driver.switchTo().defaultContent();
 
         //frame of the security code
