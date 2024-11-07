@@ -8,9 +8,9 @@ Feature: Ente figlio e Ente radice
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.dev.notifichedigitali.it |
     When Login con mittente
-      | user   | ggiorgi |
+      | user   | albino63 |
       | pwd    | test    |
-      | comune | Viggiu  |
+      | comune | Verona  |
     And Si clicca sul bottone test
     And Si clicca bottone accetta cookies
     And Cliccare sulla notifica restituita
@@ -26,9 +26,9 @@ Feature: Ente figlio e Ente radice
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.dev.notifichedigitali.it |
     When Login con mittente
-      | user   | ggiorgi |
+      | user   | albino63 |
       | pwd    | test    |
-      | comune | Viggiu  |
+      | comune | Verona  |
     And Si clicca sul bottone test
     And Si clicca bottone accetta cookies
     And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"
@@ -45,9 +45,9 @@ Feature: Ente figlio e Ente radice
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.dev.notifichedigitali.it |
     When Login con mittente
-      | user   | ggiorgi |
+      | user   | albino63 |
       | pwd    | test    |
-      | comune | Viggiu  |
+      | comune | Verona  |
     And Si clicca sul bottone test
     And Si clicca bottone accetta cookies
     And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"
@@ -74,9 +74,9 @@ Feature: Ente figlio e Ente radice
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.dev.notifichedigitali.it |
     When Login con mittente
-      | user   | ggiorgi |
+      | user   | albino63 |
       | pwd    | test    |
-      | comune | Viggiu  |
+      | comune | Verona  |
     And Si clicca sul bottone test
     And Si clicca bottone accetta cookies
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
@@ -104,9 +104,9 @@ Feature: Ente figlio e Ente radice
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.dev.notifichedigitali.it |
     When Login con mittente
-      | user   | ggiorgi |
+      | user   | albino63 |
       | pwd    | test    |
-      | comune | Viggiu  |
+      | comune | Verona  |
     And Si clicca sul bottone test
     And Si clicca bottone accetta cookies
     And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"

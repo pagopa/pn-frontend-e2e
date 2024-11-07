@@ -9,9 +9,9 @@ Feature: persona giuridica scarica attestazione opponibile
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.dev.notifichedigitali.it |
     When Login con mittente
-      | user   | ggiorgi |
+      | user   | albino63 |
       | pwd    | test    |
-      | comune | Viggiu  |
+      | comune | Verona  |
     And Si clicca sul bottone test
     And Si clicca bottone accetta cookies
     Then Home page mittente viene visualizzata correttamente
