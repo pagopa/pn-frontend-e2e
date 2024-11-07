@@ -652,6 +652,8 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void verificaPecModificabile() {
         try {
+            webTool.waitTime(5);
+            pecField = driver.findElement(By.id("default_pec"));
             getWebDriverWait(10).until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOf(pecField),
                     ExpectedConditions.attributeToBe(pecField, "readonly", "")));
