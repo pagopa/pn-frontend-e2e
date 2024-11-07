@@ -1,9 +1,7 @@
 package it.pn.frontend.e2e.utility;
 
 import it.pn.frontend.e2e.config.WebDriverConfig;
-import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
-import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.enums.AppPortal;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
@@ -12,19 +10,15 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
 import lombok.extern.slf4j.Slf4j;
-import lombok.Getter;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
