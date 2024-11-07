@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.stepDefinitions.common;
 
+import it.pn.frontend.e2e.model.recipients.PersonaFisica;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,5 +10,6 @@ public class SharedSteps {
 
     String iun;
     String codiceVerificaDelega;
+    PersonaFisica personaFisica;
 
 }
