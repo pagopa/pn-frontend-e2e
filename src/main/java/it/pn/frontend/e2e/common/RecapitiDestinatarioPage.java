@@ -413,6 +413,8 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public boolean siControllaEliminazionePEC() {
+        webTool.waitTime(3);
+        pecField = driver.findElement(By.id("default_pec"));
         return pecField.isDisplayed();
     }
 
