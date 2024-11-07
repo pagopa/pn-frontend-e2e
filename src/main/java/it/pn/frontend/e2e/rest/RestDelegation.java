@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -31,8 +32,8 @@ public class RestDelegation {
     private static final Logger logger = LoggerFactory.getLogger(RestDelegation.class);
 
 
-    @Value("${environment}")
-    private String environment;
+
+   private WebDriverConfig webDriverConfig;
 
     private final Map<String, String> headers = new HashMap<>();
 
@@ -42,9 +43,10 @@ public class RestDelegation {
 
 
     @Autowired
-    public RestDelegation(CustomHttpClient<DelegateRequestPF, DelegateResponsePF> httpClientPF, CustomHttpClient<DelegateRequestPG, DelegateResponsePG> httpClientPG) {
+    public RestDelegation( WebDriverConfig webDriverConfig, CustomHttpClient<DelegateRequestPF, DelegateResponsePF> httpClientPF, CustomHttpClient<DelegateRequestPG, DelegateResponsePG> httpClientPG) {
         this.httpClientPF = httpClientPF;
         this.httpClientPG = httpClientPG;
+        this.webDriverConfig = webDriverConfig;
         initializeHeaders();
         setupHttpClients();
     }
@@ -59,7 +61,7 @@ public class RestDelegation {
     }
 
     private void setupHttpClients() {
-        String baseUrl = "https://webapi." + environment + ".notifichedigitali.it";
+        String baseUrl = "https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it";
         httpClientPF.setBaseUrlApi(baseUrl);
         httpClientPG.setBaseUrlApi(baseUrl);
     }
