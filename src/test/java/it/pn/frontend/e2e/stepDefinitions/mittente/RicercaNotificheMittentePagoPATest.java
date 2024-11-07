@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
@@ -48,6 +49,8 @@ public class RicercaNotificheMittentePagoPATest {
 
     @Autowired
     private  HeaderPASection headerPASection;
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
     @Autowired
     DataPopulation dataPopulation;
 
@@ -310,10 +313,10 @@ public class RicercaNotificheMittentePagoPATest {
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
-        DataPopulation dataPopulation = new DataPopulation();
-        this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
+       // DataPopulation dataPopulation = new DataPopulation();
+       // this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
-        String cfInserito = this.personaFisica.get("codiceFiscale").toString();
+        String cfInserito = dataPopulationConfig.getPersonaFisica().getCodiceFiscale();
         int listaCF = piattaformaNotifichePage.getListaCf(cfInserito);
 
         if (listaCF >= 1) {
@@ -411,10 +414,10 @@ public class RicercaNotificheMittentePagoPATest {
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
-        DataPopulation dataPopulation = new DataPopulation();
-        this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
+        //DataPopulation dataPopulation = new DataPopulation();
+        //this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
-        String cfInserito = this.personaFisica.get("codiceFiscale").toString();
+        String cfInserito = dataPopulationConfig.getPersonaFisica().getCodiceFiscale();
         int listaCF = piattaformaNotifichePage.getListaCf(cfInserito);
 
         if (listaCF >= 1) {
@@ -442,10 +445,10 @@ public class RicercaNotificheMittentePagoPATest {
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
-        DataPopulation dataPopulation = new DataPopulation();
-        this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
+        //DataPopulation dataPopulation = new DataPopulation();
+        //this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
-        String cfInserito = this.personaFisica.get("codiceFiscale").toString();
+        String cfInserito = dataPopulationConfig.getPersonaFisica().getCodiceFiscale();
         int listaCF = piattaformaNotifichePage.getListaCf(cfInserito);
 
         if (listaCF >= 1) {

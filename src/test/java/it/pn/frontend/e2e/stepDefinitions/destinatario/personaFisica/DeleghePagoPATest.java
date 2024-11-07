@@ -534,8 +534,8 @@ public class DeleghePagoPATest {
     @And("Nella sezione Deleghe si verifica sia presente una delega accettata")
     public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelegaAccettata() {
         log.info("Si controlla che ci sia una delega accettata");
-        this.deleghe = this.dataPopulation.readDataPopulation("personaFisica.yaml");
-        if (!this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString())) {
+        //this.deleghe = this.dataPopulation.readDataPopulation("personaFisica.yaml")
+        if (!this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(dataPopulationConfig.getPersonaFisica().getName(), dataPopulationConfig.getPersonaFisica().getFamilyName())) {
             backgroundTest.loginPF("personaFisica");
             backgroundTest.aggiuntaNuovaDelegaPF();
             backgroundTest.logoutPF();

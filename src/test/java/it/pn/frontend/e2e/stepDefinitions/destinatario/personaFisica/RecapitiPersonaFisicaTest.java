@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.api.personaFisica.RecuperoOTPRecapiti;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
@@ -42,6 +43,8 @@ public class RecapitiPersonaFisicaTest {
     private ITuoiRecapitiPage iTuoiRecapitiPage;
     @Autowired
     private RecuperoOTPRecapiti recuperoOTPRecapiti;
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
 
     @Autowired
     @Lazy
@@ -468,8 +471,8 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si controlla che che ci sia già una Email");
 
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
-        Map<String, Object> personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
-        String email = personaFisica.get("mail").toString();
+       // Map<String, Object> personaFisica1 = dataPopulation.readDataPopulation("personaFisica.yaml");
+        String email = dataPopulationConfig.getPersonaFisica().getMail();
 
         if (!recapitiDestinatarioPage.verificaMailAssociata()) {
             logger.info("verifica mail associata, step 1");
@@ -850,6 +853,7 @@ public class RecapitiPersonaFisicaTest {
 
     @And("Nella sezione altri recapiti si inserisce la PEC aggiuntiva de persona fisica {string}")
     public void nellaSezioneAltriRecapitiSiInserisceLaPECAggiuntivaDePersonaFisica(String email) {
+        //TODO gestire......
         recapitiDestinatarioPage.insertPECAggiuntiva(email);
         Map<String, Object> dataPersonaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
         dataPersonaFisica.put("additionalEmail", email);
@@ -884,6 +888,8 @@ public class RecapitiPersonaFisicaTest {
 
     @And("Nella sezione altri recapiti si inserisce la Email aggiuntiva della persona fisica {string}")
     public void nellaSezioneAltriRecapitiSiInserisceLaEmailAggiuntivaDellaPersonaFisica(String email) {
+
+        //TODO gestire....
         recapitiDestinatarioPage.insertEmailAggiuntiva(email);
         Map<String, Object> dataPersonaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
         dataPersonaFisica.put("additionalEmail", email);

@@ -6,6 +6,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.api.mittente.AccettazioneRichiestaNotifica;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
@@ -104,6 +105,9 @@ public class NotificaMittentePagoPATest {
     InvioNotifichePAPage invioNotifichePAPage;
     @Autowired
     AccettazioneRichiestaNotifica accettazioneRichiestaNotifica;
+
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
 
 
 
@@ -276,11 +280,11 @@ public class NotificaMittentePagoPATest {
     @And("Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica {string}")
     public void nellaSectionDestinatarioInserireNomeCognomeECodiceFiscaleDaDestinatario(String destinatarioFile) {
         logger.info("Inserimento del nome cognome e codice fiscale dal file personaFisica.yaml");
-        this.personeFisiche = dataPopulation.readDataPopulation(destinatarioFile + ".yaml");
+       // this.personeFisiche = dataPopulation.readDataPopulation(destinatarioFile + ".yaml");
         destinatarioPASection.selezionarePersonaFisica();
-        destinatarioPASection.inserireNomeDestinatario(this.personeFisiche.get("name").toString());
-        destinatarioPASection.inserireCognomeDestinatario(this.personeFisiche.get("familyName").toString());
-        destinatarioPASection.inserireCodiceFiscaleDestinatario(this.personeFisiche.get("codiceFiscale").toString());
+        destinatarioPASection.inserireNomeDestinatario(dataPopulationConfig.getPersonaFisica().getName());
+        destinatarioPASection.inserireCognomeDestinatario(dataPopulationConfig.getPersonaFisica().getFamilyName());
+        destinatarioPASection.inserireCodiceFiscaleDestinatario(dataPopulationConfig.getPersonaFisica().getCodiceFiscale());
     }
 
     @And("Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica {string}")
@@ -418,7 +422,7 @@ public class NotificaMittentePagoPATest {
         logger.info("Verifica dello stato della notifica come 'Depositata'");
 
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
+       // this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
@@ -428,7 +432,7 @@ public class NotificaMittentePagoPATest {
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
                 piattaformaNotifichePage.aggiornamentoPagina();
-                piattaformaNotifichePage.insertCodiceFiscale(this.personaFisica.get("codiceFiscale").toString());
+                piattaformaNotifichePage.insertCodiceFiscale(dataPopulationConfig.getPersonaFisica().getCodiceFiscale());
                 piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
                 piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
                 piattaformaNotifichePage.selectFiltraNotificaButtonMittente();

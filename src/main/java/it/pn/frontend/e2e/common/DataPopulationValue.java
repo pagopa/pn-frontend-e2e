@@ -4,6 +4,7 @@ package it.pn.frontend.e2e.common;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Arrays;
 import java.util.List;
@@ -96,6 +97,23 @@ public enum DataPopulationValue {
     EMAIL_PF("email_pf","provaemail@test.it",false),
     USER_PF("user_pf","cesare",false),
     PWD_PF("pwd_pf","password123",false),
+    EMAIL_PEC_ERR_PF("email_pec_err_pf","testpagopa2@fail.it",false),
+    EMAIL_PEC_ERR_1_PF("email_pec_err_1_pf","testpagopa2@@pnpagopa.postecert.local",false),
+    TELEFONO_PF("telefono_pf","3409876543",false),
+    NAME_PF("name_pf","Gaio Giulio",false),
+    FAMILY_NAME_PF("family_name_pf","Cesare",false),
+    CODICE_FISCALE_PF("codiceFiscale_pf","CSRGGL44L13H501E",false),
+    FISCAL_NUMBER_PF("fiscal_number_pf","TINIT-CSRGGL44L13H501E",false),
+    INDIRIZZO_PF("indirizzo_pf","VIA ROMA",false),
+    CIVICO_PF("numeroCivico_pf","20",false),
+    LOCALITA_PF("localita_pf","MILANO",false),
+    COMUNE_PF("comune_pf","MILANO",false),
+    PROVINCIA_PF("provincia_pf","MI",false),
+    CAP_PF("codicepostale_pf","20147",false),
+    STATO_PF("stato_pf","ITALIA",false),
+    OTP_PEC_PF("OTPpec_pf","45903",false),
+    OTP_MAIL_PF("OTPmail_pf","10377",false),
+
 
     //PERSONA GIURIDICA
     EMAIL_PG("email_pg","provaemail@test.it",false),
