@@ -363,7 +363,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         // Log extracted files
         Files.walk(Paths.get(extractDirectoryPath)).forEach(path -> {
             if (Files.isRegularFile(path)) {
-                System.out.println("Found file: " + path.toString());
+                logger.info("Found file: " + path.toString());
             }
         });
     }

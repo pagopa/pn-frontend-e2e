@@ -523,7 +523,7 @@ public class HelpdeskPage extends BasePage {
         // Log extracted files
         Files.walk(Paths.get(extractDirectoryPath)).forEach(path -> {
             if (Files.isRegularFile(path)) {
-                System.out.println("Found file: " + path.toString());
+                logger.info("Found file: " + path.toString());
             }
         });
     }
@@ -556,7 +556,7 @@ public class HelpdeskPage extends BasePage {
 
         deleteFilesInDirectory(extractDirectoryPath, null);
 
-        System.out.println("Cleanup completed successfully.");
+        logger.info("Cleanup completed successfully.");
     }
 
     private void deleteAllZipFiles(String directoryPath) throws IOException {
@@ -565,10 +565,10 @@ public class HelpdeskPage extends BasePage {
                     .forEach(file -> {
                         try {
                             Files.deleteIfExists(file);
-                            System.out.println("Deleted ZIP file: " + file.getFileName());
+                            logger.info("Deleted ZIP file: " + file.getFileName());
                         } catch (IOException e) {
-                            System.err.println("Failed to delete ZIP file: " + file.getFileName());
-                            e.printStackTrace();
+                            logger.error("Failed to delete ZIP file: " + file.getFileName()+e.getMessage());
+
                         }
                     });
         }
@@ -593,7 +593,7 @@ public class HelpdeskPage extends BasePage {
                 if (Files.isRegularFile(entry)) {
                     if (extension == null || entry.toString().endsWith(extension)) {
                         Files.delete(entry);
-                        System.out.println("Deleted file: " + entry.toString());
+                        logger.info("Deleted file: " + entry.toString());
                     }
                 }
             }

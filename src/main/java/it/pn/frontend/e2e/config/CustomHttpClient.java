@@ -18,6 +18,8 @@ import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -34,7 +36,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 @Slf4j
 @Component
@@ -55,17 +56,18 @@ public class CustomHttpClient<RequestType, ResponseType> {
 
     private final CloseableHttpClient httpClient;
     private ClassicHttpRequest httpRequest;
+    private final Logger logger = LoggerFactory.getLogger("Custom Http Client");
 
 
     public CustomHttpClient() {
-        System.out.println("CustomHttpClient.......");
+        logger.info("CustomHttpClient.......");
         this.baseUrlApi = "https://api.test.notifichedigitali.it";
         this.httpClient = HttpClients.createDefault();
         this.apiKey = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";
     }
 
     public CustomHttpClient(String baseUrlApi, String apiKeyTest) {
-        System.out.println("CustomHttpClient1.......");
+        logger.info("CustomHttpClient1.......");
 
         this.baseUrlApi = baseUrlApi;
         this.httpClient = HttpClients.createDefault();
@@ -73,7 +75,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
     }
 
     public CustomHttpClient(CustomHttpClient<?, ?> customHttpClient) {
-        System.out.println("CustomHttpClient2.......");
+        logger.info("CustomHttpClient2.......");
         instance = customHttpClient;
         this.baseUrlApi = "https://api.test.notifichedigitali.it";
         this.httpClient = HttpClients.createDefault();
@@ -81,7 +83,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
     }
 
     public CustomHttpClient(String apiKeyTest) {
-        System.out.println("CustomHttpClient2.......");
+        logger.info("CustomHttpClient2.......");
         this.baseUrlApi =  "https://api.test.notifichedigitali.it";
         this.httpClient = HttpClients.createDefault();
         this.apiKey = apiKeyTest;

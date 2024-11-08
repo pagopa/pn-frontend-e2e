@@ -387,10 +387,10 @@ public boolean confrontoFileConDisservizio() {
                 }
             }
         } else {
-            System.out.println("La cartella è vuota o non è possibile accedervi.");
+            logger.info("La cartella è vuota o non è possibile accedervi.");
         }
     } else {
-        System.out.println("Il percorso specificato non è una directory.");
+        logger.info("Il percorso specificato non è una directory.");
     }
     return false;
 }
