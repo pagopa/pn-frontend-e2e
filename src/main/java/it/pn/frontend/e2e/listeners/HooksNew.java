@@ -130,6 +130,7 @@ public class HooksNew {
 
 
     @And("Revoca deleghe se esistono")
+    @After("@DeleghePF or @DeleghePG")
     public void clearDelegate() {
         logger.info("Revoking all delegations...");
         var mandateId = mandateSingleton.getMandateId(HooksNew.getScenario());

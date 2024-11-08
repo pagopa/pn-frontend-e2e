@@ -129,6 +129,8 @@ public class LeTueDelegheSection extends BasePage {
         this.getWebDriverWait(10).withMessage("Invia richiesta button non è cliccabile o non trovato").until(ExpectedConditions.elementToBeClickable(this.inviaLaRichiestaButton));
         logger.info("click su invia richiesta");
         this.inviaLaRichiestaButton.click();
+        webTool.waitTime(5);
+        tornaDelegheButton = driver.findElement(By.id("courtesy-page-button"));
         this.getWebDriverWait(10).withMessage("Torna deleghe button non è cliccabile o non è trovato").until(ExpectedConditions.elementToBeClickable(this.tornaDelegheButton));
         this.tornaDelegheButton.click();
     }
