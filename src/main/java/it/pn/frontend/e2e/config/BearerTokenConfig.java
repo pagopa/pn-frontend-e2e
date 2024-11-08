@@ -18,7 +18,7 @@ Configurazione di un WebDriver come Bean
 * */
 @Getter
 @Configuration
-@PropertySource( value = "file:config/bearer-token-test.properties", ignoreResourceNotFound = true )
+@PropertySource( value = "file:config/bearer-token-${environment}.properties", ignoreResourceNotFound = true )
 public class BearerTokenConfig {
 
 
