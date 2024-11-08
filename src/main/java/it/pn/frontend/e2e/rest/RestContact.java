@@ -33,7 +33,6 @@ public class RestContact {
     private final Map<String, String> headers = new HashMap<>();
 
     // Carica il token all'avvio della classe
-    @Autowired
     private WebDriverConfig  webDriverConfig;
 
    @Autowired
@@ -45,7 +44,7 @@ public class RestContact {
     public RestContact(WebDriverConfig webDriverConfig, CustomHttpClient<?, String> httpClient) {
         this.httpClient = httpClient;
         this.webDriverConfig = webDriverConfig;
-        this.httpClient.setBaseUrlApi("https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it");
+        this.httpClient.setBaseUrlApi("https://webapi." + this.webDriverConfig.getEnvironment() + ".notifichedigitali.it");
 
         String token = System.getProperty("token");
         if (token != null) {

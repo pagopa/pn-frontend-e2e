@@ -34,6 +34,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @Slf4j
 @Component
@@ -98,7 +99,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
         return (CustomHttpClient<R, S>) instance;
     }
 **/
-
+/**
     public static  <R, S> CustomHttpClient<R, S> getInstanceWithApiKey(String apiKey) {
         if (instance == null) {
             synchronized (CustomHttpClient.class) {
@@ -109,10 +110,9 @@ public class CustomHttpClient<RequestType, ResponseType> {
         }
         return (CustomHttpClient<R, S>) instance;
     }
-
+**/
     public ResponseType sendHttpPostRequest(String endpoint, Map<String, String> headers, RequestType requestObject, Class<ResponseType> responseType) throws IOException {
         String apiUrl = baseUrlApi + endpoint;
-
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             ObjectMapper objectMapper = new ObjectMapper();
             String jsonBody = objectMapper.writeValueAsString(requestObject);
