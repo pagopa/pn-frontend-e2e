@@ -364,6 +364,8 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         Files.walk(Paths.get(extractDirectoryPath)).forEach(path -> {
             if (Files.isRegularFile(path)) {
                 logger.info("Found file: " + path.toString());
+
+
             }
         });
     }
