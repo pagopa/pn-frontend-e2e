@@ -57,6 +57,15 @@ public class HelpdeskTest {
     private Map<String, Object> datiTestHelpdesk = new HashMap<>();
     private Map<String, Object> datiPersonaFisica = new HashMap<>();
 
+    private final WebDriver driver;
+
+    @Autowired
+    @Lazy
+    public HelpdeskTest(WebDriver driver) {
+        this.driver = driver;
+    }
+
+
     @Given("Login helpdesk con utente test {string}")
     public void loginHelpdeskConUtenteTest(String nameFile) {
         this.datiTestHelpdesk = this.dataPopulation.readDataPopulation(nameFile + ".yaml");
@@ -129,11 +138,11 @@ public class HelpdeskTest {
     @And("Si annulla un disservizio in corso")
     public void annullamentoDisservizio() {
         logger.info("Torno sulla scheda di helpdesk");
-        String sendHandle = hooks.getDriver().getWindowHandle();
-        Set<String> windowHandles = hooks.getDriver().getWindowHandles();
+        String sendHandle = driver.getWindowHandle();
+        Set<String> windowHandles = driver.getWindowHandles();
         for (String handle : windowHandles) {
             if (!handle.equals(sendHandle)) {
-                hooks.getDriver().switchTo().window(handle);
+                driver.switchTo().window(handle);
                 break;
             }
         }
@@ -158,7 +167,7 @@ public class HelpdeskTest {
         logger.info("Torno sulla piattaforma send per il logout");
         for (String handle : windowHandles) {
             if (handle.equals(sendHandle)) {
-                hooks.getDriver().switchTo().window(handle);
+                driver.switchTo().window(handle);
                 break;
             }
         }
@@ -315,13 +324,13 @@ public class HelpdeskTest {
     @Given("Login helpdesk in nuova scheda")
     public void loginHelpdeskInNuovaScheda(Map<String, String> login) {
         logger.info("Si apre una nuova finestra");
-        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) hooks.getDriver();
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
         javascriptExecutor.executeScript("window.open();");
         logger.info("Si seleziona la nuova finestra aperta");
-        ArrayList<String> tabs = new ArrayList<>(hooks.getDriver().getWindowHandles());
-        hooks.getDriver().switchTo().window(tabs.get(tabs.size() - 1));
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(tabs.size() - 1));
         logger.info("Nella nuova finestra aperta si va sulla pagina di login di helpdesk");
-        hooks.getDriver().get(webDriverConfig.getUrlHelpdeskTestNotifichedigitali());
+        driver.get(webDriverConfig.getUrlHelpdeskTestNotifichedigitali());
         helpdeskPage.loginHelpdeskNuovaScheda(login);
     }
 

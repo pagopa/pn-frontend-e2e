@@ -84,9 +84,7 @@ public class HelpdeskPage extends BasePage {
     private  WebTool webTool;
 
     @Autowired
-    public HelpdeskPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     private static void pressTabKey(Robot robot, int times) {
         for (int i = 0; i < times; i++) {

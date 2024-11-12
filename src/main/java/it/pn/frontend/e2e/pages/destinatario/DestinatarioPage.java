@@ -55,9 +55,7 @@ public class DestinatarioPage extends BasePage {
 
     //Questa classe è utilizzata per metodi in comune tra PF e PG
     @Autowired
-    public DestinatarioPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     @FindBy(id = "startDate")
     WebElement dataInizioField;

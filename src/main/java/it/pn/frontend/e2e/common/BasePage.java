@@ -1,6 +1,5 @@
 package it.pn.frontend.e2e.common;
 
-import it.pn.frontend.e2e.config.WebDriverConfig;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -28,14 +27,14 @@ Thread.currentThread().interrupt() in waitLoadPage(): Gestisce correttamente lâ€
 @Component
 public class BasePage {
 
+    @Autowired
     protected WebDriver driver;
     protected int loadComponentWaitTime;
     private static final Logger loggerBase = LoggerFactory.getLogger(BasePage.class);
 
-    @Autowired
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(this.driver, this);
+
+    public BasePage() {
+        PageFactory.initElements(driver, this);
         loadComponentWaitTime = Integer.parseInt(System.getProperty("loadComponentWaitTime", "10"));
     }
 

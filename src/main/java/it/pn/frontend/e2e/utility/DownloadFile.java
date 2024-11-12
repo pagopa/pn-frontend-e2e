@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.utility;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.common.WebDriveBean;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import org.apache.commons.io.FileUtils;
@@ -13,6 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -37,11 +39,12 @@ public class DownloadFile extends BasePage {
 
     @Autowired
     private WebDriverConfig webDriverConfig;
+    @Autowired
+    @Lazy
+    private WebDriveBean webDriveBean;
 
     @Autowired
-    public DownloadFile(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void download(String urlLink, File fileLoc, boolean headless) {
         if (headless) {
@@ -121,7 +124,7 @@ public class DownloadFile extends BasePage {
     }
 
     public String getUrl(String urlChiamata) {
-        String url = webDriverConfig.getNetWorkInfos().stream()
+        String url = webDriveBean.getNetWorkInfos().stream()
                 .filter(netWorkInfo -> netWorkInfo.getRequestUrl().contains(urlChiamata) &&
                         netWorkInfo.getRequestMethod().equals("GET") &&
                         netWorkInfo.getResponseStatus().equals("200"))
@@ -173,7 +176,7 @@ public class DownloadFile extends BasePage {
     private String getBearerSessionToken() {
         String environment = webDriverConfig.getEnvironment();
         String urlChiamata = "https://webapi." + environment + ".notifichedigitali.it/delivery/notifications/received?";
-        return webDriverConfig.getNetWorkInfos().stream()
+        return webDriveBean.getNetWorkInfos().stream()
                 .filter(netWorkInfo -> netWorkInfo.getRequestUrl().contains(urlChiamata))
                 .map(NetWorkInfo::getAuthorizationBearer)
                 .findFirst()
@@ -183,7 +186,7 @@ public class DownloadFile extends BasePage {
     private String getBearerSessionToken(String url) {
         String environment = webDriverConfig.getEnvironment();
         String urlChiamata = "https://webapi." + environment + url;
-        return webDriverConfig.getNetWorkInfos().stream()
+        return webDriveBean.getNetWorkInfos().stream()
                 .filter(netWorkInfo -> netWorkInfo.getRequestUrl().contains(urlChiamata))
                 .map(NetWorkInfo::getAuthorizationBearer)
                 .findFirst()

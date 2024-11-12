@@ -28,9 +28,7 @@ public class LoginPAPage extends BasePage {
     WebElement inviaButton;
 
     @Autowired
-    public LoginPAPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadLoginPAPage(){
         try{

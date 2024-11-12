@@ -91,9 +91,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     private  WebTool webTool;
 
     @Autowired
-    public PiattaformaNotifichePGPAPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     private static void pressTabKey(Robot robot, int times) {
         for (int i = 0; i < times; i++) {

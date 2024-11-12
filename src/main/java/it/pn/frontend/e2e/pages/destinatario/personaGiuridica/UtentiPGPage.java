@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.utility.WebTool;
+import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -21,8 +22,6 @@ import java.util.Set;
 public class UtentiPGPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("UtentiPGPage");
-
-    private final Actions actions = new Actions(this.driver);
 
     @FindBy(xpath = "//button[contains(text(),'Aggiungi utente')]")
     WebElement addUserButton;
@@ -90,9 +89,11 @@ public class UtentiPGPage extends BasePage {
     private  WebTool webTool;
 
 
-    @Autowired
-    public UtentiPGPage(WebDriver driver) {
-        super(driver);
+    private Actions actions;
+
+    @PostConstruct
+    public void initGruppoPage() {
+        this. actions = new Actions(driver);
     }
 
     public void clickSezioneUtenti() {

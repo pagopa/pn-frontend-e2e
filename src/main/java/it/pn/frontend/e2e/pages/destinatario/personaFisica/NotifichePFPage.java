@@ -19,8 +19,6 @@ import java.util.List;
 public class NotifichePFPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(NotifichePFPage.class);
 
-    @Autowired
-    private WebDriver driver;
 
     @FindBy(id = "Le tue notifiche-page")
     private WebElement titleLabel;
@@ -77,10 +75,7 @@ public class NotifichePFPage extends BasePage {
     private  WebTool webTool;
 
     @Autowired
-    public NotifichePFPage(WebDriver driver) {
-        super(driver);
-        this.driver = driver;
-    }
+    private WebDriver driver;
 
     public void waitLoadNotificheDEPage() {
         getWebDriverWait(10).withMessage("Notifiche DE Page non caricata correttamente: il titolo non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));

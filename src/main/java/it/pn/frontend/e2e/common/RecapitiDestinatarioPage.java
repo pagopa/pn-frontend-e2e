@@ -89,9 +89,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     private  WebTool webTool;
 
     @Autowired
-    public RecapitiDestinatarioPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void eliminaPecEsistente() {
         clickSuEliminaPec();

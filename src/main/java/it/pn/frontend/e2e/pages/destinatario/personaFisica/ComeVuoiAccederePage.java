@@ -22,9 +22,7 @@ public class ComeVuoiAccederePage extends BasePage {
     WebElement spidButton;
 
     @Autowired
-    public ComeVuoiAccederePage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadComeVuoiAccederePage(){
         try{

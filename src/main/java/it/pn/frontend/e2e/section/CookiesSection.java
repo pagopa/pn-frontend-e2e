@@ -24,13 +24,9 @@ public class CookiesSection extends BasePage {
     @FindBy(xpath = "//button[@aria-label='Chiudi']")
     WebElement chiudiPagamentoPopupButton;
 
-    @Autowired
-    public CookiesSection(WebDriver driver) {
-        super(driver);
-    }
-
     public boolean waitLoadCookiesPage() {
         try {
+            logger.info("DRIVERWAIT...."+driver.getPageSource());
             By scopriDiPiuLink = By.id("onetrust-banner-sdk");
             this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(scopriDiPiuLink));
             logger.info("Cookies Page caricata");

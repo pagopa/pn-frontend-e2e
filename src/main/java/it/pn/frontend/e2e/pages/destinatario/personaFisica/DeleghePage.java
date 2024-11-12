@@ -40,9 +40,7 @@ public class DeleghePage extends BasePage {
     private  WebTool webTool;
 
     @Autowired
-    public DeleghePage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitDeleghePage() {
         try {

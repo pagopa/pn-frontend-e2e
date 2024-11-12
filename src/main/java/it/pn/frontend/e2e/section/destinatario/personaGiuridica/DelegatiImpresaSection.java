@@ -46,9 +46,7 @@ public class DelegatiImpresaSection extends BasePage {
     WebElement tabelleDelleDelegheDellImpresa;
 
     @Autowired
-    public DelegatiImpresaSection(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadDelegatiImpresaPage() {
         try {

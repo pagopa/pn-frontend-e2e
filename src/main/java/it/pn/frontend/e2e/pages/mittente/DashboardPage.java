@@ -89,9 +89,7 @@ public class DashboardPage extends BasePage {
     private  WebTool webTool;
 
     @Autowired
-    public DashboardPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadDashboardPAPage() {
         By statisticheTitle = By.id("Statistiche-page");

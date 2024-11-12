@@ -1,8 +1,8 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.utility.WebTool;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -24,7 +24,7 @@ import java.util.Map;
 @Component
 public class GruppiPGPage extends BasePage {
 
-    private final Actions actions = new Actions(driver);
+
 
     @FindBy(id = "side-item-Gruppi")
     WebElement gruppiButton;
@@ -55,11 +55,12 @@ public class GruppiPGPage extends BasePage {
     @Autowired
     private AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage ;
 
-    @Autowired
-    public GruppiPGPage(WebDriver driver) {
-        super(driver);
-    }
+    private Actions actions;
 
+    @PostConstruct
+    public void initGruppoPage() {
+        this. actions = new Actions(driver);
+    }
     public void clickGruppiButton() {
         js().executeScript("arguments[0].scrollIntoView(true);", gruppiButton);
         getWebDriverWait(10).withMessage("Il bottone gruppi non è visibile").until(ExpectedConditions.visibilityOf(gruppiButton));

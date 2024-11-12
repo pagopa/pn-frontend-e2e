@@ -74,6 +74,14 @@ public class NotifichePersonaFisicaPagoPATest {
     @Lazy
     private  WebTool webTool;
 
+    private final WebDriver driver;
+
+    @Autowired
+    @Lazy
+    public NotifichePersonaFisicaPagoPATest(WebDriver driver) {
+        this.driver = driver;
+    }
+
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche")
     public void nellaPiattaformaDestinatarioCliccareSulBottoneNotifiche() {
         notifichePFPage.clickNotificheButton();
@@ -147,7 +155,7 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @And("Si visualizzano le notifiche dalla piu recente")
     public void siVisualizzanoLeNotificheDallaPiuRecente() {
-        hooks.getDriver().navigate().refresh();
+        driver.navigate().refresh();
         List<WebElement> dateNotifiche = notifichePFPage.getDateNotifiche();
 
         if (dateNotifiche.size() != 0) {
@@ -462,7 +470,7 @@ public class NotifichePersonaFisicaPagoPATest {
     @And("Si torna alla pagina precedente")
     public void siTornaAllaPaginaPrecedente() {
         logger.info("Si torna alla pagina precedente");
-        hooks.getDriver().navigate().back();
+        driver.navigate().back();
     }
 
     @And("Si controlla non sia presente il bottone paga")

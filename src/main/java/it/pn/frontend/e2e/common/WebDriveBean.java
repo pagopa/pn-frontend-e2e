@@ -1,0 +1,208 @@
+package it.pn.frontend.e2e.common;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import it.pn.frontend.e2e.config.WebDriverConfig;
+import it.pn.frontend.e2e.listeners.NetWorkInfo;
+import it.pn.frontend.e2e.utility.CookieConfig;
+import lombok.Getter;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.devtools.DevTools;
+import org.openqa.selenium.devtools.HasDevTools;
+import org.openqa.selenium.devtools.v126.network.Network;
+import org.openqa.selenium.devtools.v126.network.model.RequestWillBeSent;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.*;
+import org.springframework.stereotype.Component;
+
+import java.time.Duration;
+import java.util.*;
+
+@Configuration
+@Getter
+public class WebDriveBean {
+
+    /**
+     * Logger
+     */
+    private static final Logger logger = LoggerFactory.getLogger(WebDriveBean.class);
+
+    private final Map<String, RequestWillBeSent> requests = new HashMap<>();
+
+    private WebDriver driver;
+
+    @Autowired
+    @Lazy
+    private WebDriverConfig webDriverConfig;
+
+    @Autowired
+    public CookieConfig cookieConfig;
+
+    @Getter
+    private final List<NetWorkInfo> netWorkInfos = new ArrayList<>();
+
+    private final String os = System.getProperty("os.name");
+
+    private DevTools devTools;
+
+
+    //@ConditionalOnProperty( name = , havingValue = "prova", matchIfMissing = true)
+
+    @Bean
+    @Primary
+    @ConditionalOnProperty( name = "browser" , havingValue = "chrome", matchIfMissing = true)
+    public WebDriver webDriver() {
+
+        var browser = Optional.ofNullable(webDriverConfig.getBrowser())
+                .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
+        WebDriverManager.chromedriver().setup();
+        var chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--lang=it", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard");
+        var downloadFilePath = webDriverConfig.getDownloadFilePath();
+        // var downloadFilePath = System.getProperty("downloadFilePath");
+        var chromePrefs = Map.of("download.default_directory", downloadFilePath);
+        chromeOptions.setExperimentalOption("prefs", chromePrefs);
+
+        if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
+            chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
+        }
+
+        driver = new ChromeDriver(chromeOptions);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+        setupDevTools();
+        logger.info("Chrome driver started");
+
+        cookieConfig.addCookie();
+
+        return driver;
+    }
+
+
+    @Bean
+    @Primary
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    @ConditionalOnProperty( name = "browser" , havingValue = "edge")
+    public WebDriver webDriverEdge() {
+
+        var browser = Optional.ofNullable(webDriverConfig.getBrowser())
+                .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
+        if (this.os.toLowerCase().contains("windows")) {
+            WebDriverManager.edgedriver().setup();
+        } else {
+            throw new UnsupportedOperationException("Edge browser is not supported on OS: " + this.os);
+        }
+        var edgeOptions = new EdgeOptions();
+        edgeOptions.setCapability("ms:inPrivate", true);
+        if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
+            edgeOptions.addArguments("window-size=1920,1080", "--headless");
+        }
+        driver = new EdgeDriver(edgeOptions);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        logger.info("Edge driver started");
+
+        cookieConfig.addCookie();
+
+        return driver;
+    }
+
+    @Bean
+    @Primary
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    @ConditionalOnProperty( name = "browser" , havingValue = "prova")
+    public WebDriver webDriverFirefox() {
+
+        var browser = Optional.ofNullable(webDriverConfig.getBrowser())
+                .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
+        WebDriverManager.firefoxdriver().setup();
+        var firefoxProfile = new FirefoxProfile();
+        var firefoxOptions = new FirefoxOptions();
+        firefoxOptions.setProfile(firefoxProfile);
+        firefoxOptions.addArguments("-private");
+
+        if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
+            firefoxOptions.addArguments("--width=1200", "--height=800", "--headless");
+        }
+        driver = new FirefoxDriver(firefoxOptions);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        logger.info("Firefox driver started");
+
+        cookieConfig.addCookie();
+
+        return driver;
+    }
+
+
+
+    private void setupDevTools() {
+        devTools = ((HasDevTools) driver).getDevTools();
+        devTools.createSession();
+        devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+        captureHttpRequests();
+        captureHttpResponse();
+    }
+
+    private void captureHttpRequests() {
+        devTools.addListener(Network.requestWillBeSent(), request -> {
+            var url = request.getRequest().getUrl();
+            cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
+            requests.put(request.getRequestId().toString(), request);
+        });
+    }
+
+    private void captureHttpResponse() {
+        devTools.addListener(Network.responseReceived(), response -> {
+            var requestId = response.getRequestId().toString();
+            if (requests.containsKey(requestId)) {
+                var request = requests.get(requestId);
+                var headers = request.getRequest().getHeaders();
+
+                // Controlla il tipo di risorsa come stringa "XHR"
+                if ("XHR".equals(response.getType().toString())) {
+                    var netWorkInfo = new NetWorkInfo();
+                    if (headers.get("Authorization") != null) {
+                        var authHeader = headers.get("Authorization").toString();
+                        System.setProperty("token", authHeader);
+                        netWorkInfo.setAuthorizationBearer(authHeader);
+                    }
+                    netWorkInfo.setRequestId(requestId);
+                    netWorkInfo.setRequestUrl(request.getRequest().getUrl());
+                    netWorkInfo.setRequestMethod(request.getRequest().getMethod());
+                    netWorkInfo.setResponseStatus(response.getResponse().getStatus().toString());
+
+                    try {
+                        var bodyResponse = devTools.send(Network.getResponseBody(response.getRequestId())).getBody();
+                        netWorkInfo.setResponseBody(bodyResponse);
+                    } catch (Exception ignored) {
+                        // Ignorato perché non sempre è disponibile il body della risposta
+                    }
+                    logger.info("NET_INFO: " + netWorkInfo.getRequestUrl());
+                    netWorkInfos.add(netWorkInfo);
+                }
+            }
+            requests.remove(requestId);
+        });
+    }
+
+    public void clearRequest() {
+        requests.clear();
+    }
+
+    public void clearNetWorkInfos() {
+        netWorkInfos.clear();
+    }
+}

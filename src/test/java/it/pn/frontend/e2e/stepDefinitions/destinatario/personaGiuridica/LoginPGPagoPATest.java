@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.api.mittente.SpidAcsMittente;
 import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoContinueResponse;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogin;
+import it.pn.frontend.e2e.common.WebDriveBean;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
@@ -20,6 +21,7 @@ import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,14 +82,25 @@ public class LoginPGPagoPATest {
     @Lazy
     private  WebTool webTool;
 
+    private final WebDriver driver;
+    @Autowired
+    @Lazy
+    private WebDriveBean webDriveBean;
+
+    @Autowired
+    @Lazy
+    public LoginPGPagoPATest(WebDriver driver) {
+        this.driver = driver;
+    }
+
 
     @Given("Login Page persona giuridica viene visualizzata")
     public void loginPagePersonaGiuridicaVieneVisualizzata() {
         String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
-            case "dev" -> hooks.getDriver().get(webDriverConfig.getBaseUrlPgDev());
+            case "dev" -> driver.get(webDriverConfig.getBaseUrlPgDev());
             case "test", "uat" ->
-                    hooks.getDriver().get(webDriverConfig.getBaseUrlPgDev().replace("dev", variabileAmbiente));
+                    driver.get(webDriverConfig.getBaseUrlPgDev().replace("dev", variabileAmbiente));
             default ->
                     Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
@@ -114,7 +127,7 @@ public class LoginPGPagoPATest {
 
 
         String urlLogin = "https://imprese." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
-        hooks.getDriver().get(urlLogin);
+        driver.get(urlLogin);
         logger.info("Login effettuato con successo");
 
         webTool.waitTime(10);
@@ -163,9 +176,9 @@ public class LoginPGPagoPATest {
             Assertions.fail("Codice risposta ricevuto per questo end point: '" + this.urlPersonaGiuridica.get("urlPortale") + "' è : " + this.urlPersonaGiuridica.get("responseCode"));
         }
 
-        hooks.getDriver().get(this.urlPersonaGiuridica.get("urlPortale"));
+        driver.get(this.urlPersonaGiuridica.get("urlPortale"));
 
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
+        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -257,7 +270,7 @@ public class LoginPGPagoPATest {
     public void loginConPersonaGiuridica(Map<String, String> datiPG) {
         logger.info("La persona guiridica cerca di fare il login");
 
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
+        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -326,9 +339,9 @@ public class LoginPGPagoPATest {
 
         }
 
-        hooks.getDriver().get(this.urlPersonaGiuridica.get("urlPortale"));
+        driver.get(this.urlPersonaGiuridica.get("urlPortale"));
 
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
+        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -357,7 +370,7 @@ public class LoginPGPagoPATest {
                     this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPGDelegato").toString();
         }
         String url = urlIniziale + token;
-        this.hooks.getDriver().get(url);
+        driver.get(url);
     }
 
     public String getTokenExchangePGFromFile(String personaGiuridica) {

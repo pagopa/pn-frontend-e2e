@@ -24,9 +24,7 @@ public class DisserviziAppPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("Disservizi Page");
 
     @Autowired
-    public DisserviziAppPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadStatoDellaPiattaformaPage() {
         try {

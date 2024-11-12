@@ -83,9 +83,7 @@ public class DestinatarioPASection extends BasePage {
     WebElement checkDomicilioDigitale;
 
     @Autowired
-    public DestinatarioPASection(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public String ricercaInformazione(String[] dati, int posizioneDestinatario) {
         String datoDestianario = dati[posizioneDestinatario];

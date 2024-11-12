@@ -20,9 +20,7 @@ public class HeaderPGSection extends BasePage {
 
 
     @Autowired
-    public HeaderPGSection(WebDriver driver) {  // Il costruttore ora usa l'annotazione @Autowired
-        super(driver);
-    }
+    private WebDriver driver;
 
     @FindBy(xpath = "//button[@title = 'Esci']")
     private WebElement esciButton;

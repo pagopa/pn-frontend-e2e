@@ -28,9 +28,7 @@ public class LoginSpidPFPage extends BasePage {
     WebElement entraConSpidButton;
 
     @Autowired
-    public LoginSpidPFPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadLoginSpidDEPage(){
         try{

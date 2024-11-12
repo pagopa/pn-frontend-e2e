@@ -17,9 +17,8 @@ public class RicercaNotifichePGPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("RicercaNotifichePGPage");
 
-    public RicercaNotifichePGPage(WebDriver driver) {
-        super(driver);
-    }
+    @Autowired
+    private WebDriver driver;
 
     @FindBy(id = "filter-notifications-button")
     WebElement filtraButton;

@@ -47,9 +47,7 @@ public class DettaglioNotificaSection extends BasePage {
     private  WebTool webTool;
 
     @Autowired
-    public DettaglioNotificaSection(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadDettaglioNotificaDESection() {
             // This check is due to the fact that the page is different if the user is logged in as a selfcare user

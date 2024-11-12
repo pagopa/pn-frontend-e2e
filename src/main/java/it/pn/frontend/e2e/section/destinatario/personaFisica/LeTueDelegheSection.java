@@ -95,9 +95,7 @@ public class LeTueDelegheSection extends BasePage {
     private  WebTool webTool;
 
     @Autowired
-    public LeTueDelegheSection(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitNuovaDelegaSection() {
         try {

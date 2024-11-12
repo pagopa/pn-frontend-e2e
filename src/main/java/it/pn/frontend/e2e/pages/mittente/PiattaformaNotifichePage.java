@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.pages.mittente;
 
 import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.common.WebDriveBean;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
@@ -114,6 +115,9 @@ public class PiattaformaNotifichePage extends BasePage {
     @Autowired
     private WebDriverConfig webDriverConfig;
     @Autowired
+    @Lazy
+    private WebDriveBean webDriveBean;
+    @Autowired
     private NotificationSingleton notificationSingleton;
     @Autowired
     private RestNotification restNotification;
@@ -122,9 +126,7 @@ public class PiattaformaNotifichePage extends BasePage {
     private  WebTool webTool;
 
     @Autowired
-    public PiattaformaNotifichePage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadPiattaformaNotifichePAPage() {
         try {
@@ -1147,7 +1149,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void verificaNotificaCreata() {
         String notificationRequestId = "";
-        for (NetWorkInfo netWorkInfo : webDriverConfig.getNetWorkInfos()) {
+        for (NetWorkInfo netWorkInfo : webDriveBean.getNetWorkInfos()) {
             if (netWorkInfo.getRequestUrl().contains("bff/v1/notifications/sent") && netWorkInfo.getRequestMethod().equals("POST")) {
                 if (netWorkInfo.getResponseStatus().equals("202") && !netWorkInfo.getResponseBody().isEmpty()) {
                     notificationRequestId = netWorkInfo.getResponseBody().split("\"notificationRequestId\":\"")[1].split("\"")[0];

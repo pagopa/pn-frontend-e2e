@@ -36,9 +36,7 @@ public class HeaderPFSection extends BasePage {
     private  WebTool webTool;
 
     @Autowired
-    public HeaderPFSection(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadHeaderDESection() {
         try {

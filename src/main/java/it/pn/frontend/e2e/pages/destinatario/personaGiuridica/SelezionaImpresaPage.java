@@ -24,10 +24,7 @@ public class SelezionaImpresaPage extends BasePage {
     private  WebTool webTool;
 
     @Autowired
-    public SelezionaImpresaPage(WebDriver driver) {
-        super(driver);
-    }
-
+    private WebDriver driver;
 
     public void waitLoadSelezionaImpresaPage() {
         webTool.waitTime(10);

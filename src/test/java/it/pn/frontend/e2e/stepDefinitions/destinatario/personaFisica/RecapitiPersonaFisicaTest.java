@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.api.personaFisica.RecuperoOTPRecapiti;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
+import it.pn.frontend.e2e.common.WebDriveBean;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
@@ -13,6 +14,7 @@ import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +49,19 @@ public class RecapitiPersonaFisicaTest {
     @Lazy
     private  WebTool webTool;
 
+    @Autowired
+    @Lazy
+    private WebDriveBean webDriveBean;
+
     public static String OTP;
+
+    private final WebDriver driver;
+
+    @Autowired
+    @Lazy
+    public RecapitiPersonaFisicaTest(WebDriver driver) {
+        this.driver = driver;
+    }
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti")
     public void nellaPaginaPiattaformaNotifichePersonaFisicaSiCliccaSulBottoneITuoiRecapiti() {
@@ -107,7 +121,7 @@ public class RecapitiPersonaFisicaTest {
     }
 
     private boolean verificaChiamataEmail(String url) {
-        for (NetWorkInfo info : webDriverConfig.getNetWorkInfos()) {
+        for (NetWorkInfo info : webDriveBean.getNetWorkInfos()) {
             if (info.getRequestUrl().contains(url) && info.getResponseStatus().equals("200")) {
                 logger.info("La chiamata per inviare email é utilizzabile");
                 return true;
@@ -350,7 +364,7 @@ public class RecapitiPersonaFisicaTest {
         if (recapitiDestinatarioPage.siVisualizzaPopUpConferma()) {
             logger.info("Si clicca su conferma nel pop-up");
             recapitiDestinatarioPage.clickConfermaButton();
-            hooks.getDriver().navigate().refresh();
+            driver.navigate().refresh();
         }
     }
 
@@ -366,7 +380,7 @@ public class RecapitiPersonaFisicaTest {
     public void nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente() {
         logger.info("Si controlla che la pec sia stata inserita correttamente");
         webTool.waitTime(15);
-        hooks.getDriver().navigate().refresh();
+        driver.navigate().refresh();
         if (!recapitiDestinatarioPage.verificaPecAssociata()) {
             logger.error("Pec non associata con errore");
             Assertions.fail("Pec non associata con errore");
@@ -651,7 +665,7 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.visualizzaValidazione();
         } else {
             webTool.waitTime(5);
-            hooks.getDriver().navigate().refresh();
+            driver.navigate().refresh();
             if (recapitiDestinatarioPage.siControllaPECModificata(pec)) {
                 logger.info("La PEC è stata modificata");
             } else {
@@ -874,7 +888,7 @@ public class RecapitiPersonaFisicaTest {
             recapitiDestinatarioPage.waitLoadPage();
         }
         String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("additionalEmail").toString();
-        hooks.getDriver().navigate().refresh();
+        driver.navigate().refresh();
         webTool.waitTime(10);
         if (!recapitiDestinatarioPage.verificaNuovaEmailEPEC(pec)) {
             logger.error("La email PEC non è stata associata correttamente");

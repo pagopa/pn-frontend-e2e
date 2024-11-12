@@ -20,9 +20,7 @@ public class InvioNotifichePAPage extends BasePage {
     private  WebTool webTool;
 
     @Autowired
-    public InvioNotifichePAPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void selezionareContinuaButton() {
         webTool.waitTime(5);

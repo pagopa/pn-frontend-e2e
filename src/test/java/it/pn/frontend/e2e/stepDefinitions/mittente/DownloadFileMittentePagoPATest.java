@@ -13,6 +13,7 @@ import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,14 @@ public class DownloadFileMittentePagoPATest {
     @Autowired
     @Lazy
     private  WebTool webTool;
+
+    private final WebDriver driver;
+
+    @Autowired
+    @Lazy
+    public DownloadFileMittentePagoPATest(WebDriver driver) {
+        this.driver = driver;
+    }
 
 
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
@@ -222,19 +231,19 @@ public class DownloadFileMittentePagoPATest {
     @Then("Si clicca sul documento allegato")
     public void clickDocumentoAllegato() {
         dettaglioNotificaMittenteSection.clickLinkDocumentiAllegati();
-        hooks.getDriver().navigate().back();
+        driver.navigate().back();
     }
 
     @Then("Si clicca sul documento AAR")
     public void clickDocumentoAAR() {
         dettaglioNotificaMittenteSection.clickLinkAvvenutaRicezione(0);
-        hooks.getDriver().navigate().back();
+        driver.navigate().back();
     }
 
     @Then("Si clicca sul documento Attestazione")
     public void clickDocumentoAttestazione() {
         dettaglioNotificaSection.clickLinkAttestazioniOpponibile(0);
-        hooks.getDriver().navigate().back();
+        driver.navigate().back();
     }
 
     @Then("Si verifica che il link sul documento Attestazione è cliccabile")

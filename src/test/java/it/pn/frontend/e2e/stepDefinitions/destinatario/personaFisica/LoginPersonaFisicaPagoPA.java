@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.api.personaFisica.SpidAcs;
 import it.pn.frontend.e2e.api.personaFisica.SpidDemoLogin;
 import it.pn.frontend.e2e.api.personaFisica.SpidDemoStart;
 import it.pn.frontend.e2e.api.personaFisica.SpidLogin;
+import it.pn.frontend.e2e.common.WebDriveBean;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
@@ -17,6 +18,7 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +39,8 @@ public class LoginPersonaFisicaPagoPA {
     @Lazy
     private HooksNew hooks;
     @Autowired
-    @Lazy
     private WebDriverConfig webDriverConfig;
     @Autowired
-    @Lazy
     private  WebTool webTool;
 
     //TODO Parametrizzare
@@ -72,7 +72,11 @@ public class LoginPersonaFisicaPagoPA {
     @Autowired
     private ComeVuoiAccederePage comeVuoiAccederePage;
 
+    @Autowired
+    private WebDriver driver;
 
+    @Autowired
+    private WebDriveBean webDriveBean;
 
     @Given("Login Page persona fisica {string} viene visualizzata")
     public void loginPageDestinatarioVieneVisualizzata(String datipersonaFisica) {
@@ -81,9 +85,9 @@ public class LoginPersonaFisicaPagoPA {
        // String variabileAmbiente = System.getProperty("environment");
         String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
-            case "dev" -> this.hooks.getDriver().get(this.datiPersonaFisica.get("url").toString());
+            case "dev" -> driver.get(this.datiPersonaFisica.get("url").toString());
             case "test", "uat" ->
-                    this.hooks.getDriver().get(this.datiPersonaFisica.get("url").toString().replace("dev", variabileAmbiente));
+                    driver.get(this.datiPersonaFisica.get("url").toString().replace("dev", variabileAmbiente));
             default ->
                     Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
@@ -94,7 +98,9 @@ public class LoginPersonaFisicaPagoPA {
         logger.info("ENVIROMENT...: "+ webDriverConfig.getEnvironment());
         String url = webDriverConfig.getBaseUrlPfTest();
 
-        this.hooks.getDriver().get(url);
+
+        driver.get(url);
+        logger.info("DRIVER....1" +driver.getPageSource());
     }
 
     @Given("PF - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
@@ -118,7 +124,7 @@ public class LoginPersonaFisicaPagoPA {
 
         // Si effettua il login con token exchange
         String urlLogin = "https://cittadini." + environment + ".notifichedigitali.it/#token=" + token;
-        this.hooks.getDriver().get(urlLogin);
+        driver.get(urlLogin);
         logger.info("Login effettuato con successo");
         webTool.waitTime(10);
 
@@ -135,7 +141,7 @@ public class LoginPersonaFisicaPagoPA {
 
         logger.info("cookies start");
 
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
+        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -186,15 +192,17 @@ public class LoginPersonaFisicaPagoPA {
         logger.info("user persona fisica : " + webDriverConfig.getUserCesare());
         logger.info("cookies start");
 
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
+        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
+                logger.info("DRIVER2...."+driver.getPageSource());
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
         logger.info("cookies end");
+        logger.info("HTML3...."+driver.getPageSource());
         accediAPiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
         accediAPiattaformaNotifichePage.selezionaAccediButton();
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
+        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -242,7 +250,7 @@ public class LoginPersonaFisicaPagoPA {
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
 
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
+        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -268,7 +276,7 @@ public class LoginPersonaFisicaPagoPA {
         }
         headerPFSection.waitLoadHeaderDESection();
 
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
+        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -303,7 +311,7 @@ public class LoginPersonaFisicaPagoPA {
     private int getCodiceRispostaChiamataApi(String urlChiamata) {
         logger.info("Recupero codice risposta della chiamata " + urlChiamata);
         int codiceRispostaChiamataApi = 0;
-        for (NetWorkInfo chiamate : webDriverConfig.getNetWorkInfos()) {
+        for (NetWorkInfo chiamate : webDriveBean.getNetWorkInfos()) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
                 codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
                 break;
@@ -320,7 +328,7 @@ public class LoginPersonaFisicaPagoPA {
 
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
 
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
+        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 logger.info("banner dei cookies visualizzato");
                 cookiesSection.selezionaAccettaTuttiButton();
@@ -351,7 +359,7 @@ public class LoginPersonaFisicaPagoPA {
        // String variabileAmbiente = System.getProperty("environment");
         String variabileAmbiente = webDriverConfig.getEnvironment();
         boolean urlFound = false;
-        for (NetWorkInfo netWorkInfo : webDriverConfig.getNetWorkInfos()) {
+        for (NetWorkInfo netWorkInfo : webDriveBean.getNetWorkInfos()) {
             logger.info(netWorkInfo.getRequestUrl());
             logger.info(netWorkInfo.getResponseStatus());
             String urlToFind = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/token-exchange";
@@ -392,7 +400,7 @@ public class LoginPersonaFisicaPagoPA {
 
         }
 
-        this.hooks.getDriver().get(this.urlPersonaFisica.get("urlPortale"));
+        driver.get(this.urlPersonaFisica.get("urlPortale"));
     }
 
     private void readUrlLoginPersonaFisicaWithToken(String user, String pwd) {
@@ -605,7 +613,7 @@ public class LoginPersonaFisicaPagoPA {
             Assertions.fail("Codice risposta ricevuto per questo end point: '" + this.urlPersonaFisica.get("urlPortale") + "' è : " + this.urlPersonaFisica.get("responseCode"));
         }
 
-        this.hooks.getDriver().get(this.urlPersonaFisica.get("urlPortale"));
+        driver.get(this.urlPersonaFisica.get("urlPortale"));
     }
 
     @When("Login portale persona fisica tramite token exchange {string}")
@@ -630,7 +638,7 @@ public class LoginPersonaFisicaPagoPA {
             }
         }
         String url = urlIniziale + token;
-        this.hooks.getDriver().get(url);
+        driver.get(url);
     }
 
     public String getTokenExchangePFFromFile(String personaFisica) {

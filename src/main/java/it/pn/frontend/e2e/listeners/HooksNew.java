@@ -17,13 +17,19 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
+import it.pn.frontend.e2e.common.WebDriveBean;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
 import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
+import jakarta.annotation.PreDestroy;
 import lombok.Getter;
 import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -43,23 +49,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
-
-
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class HooksNew {
 
     /**
      * Logger
      */
     private static final Logger logger = LoggerFactory.getLogger(HooksNew.class);
-
-
-    @Getter
-    public WebDriver driver;
 
     private WebDriverWait wait;
 
@@ -71,6 +71,10 @@ public class HooksNew {
 
     @Autowired
     private WebDriverConfig webDriverConfig;
+    @Autowired
+    @Lazy
+    private WebDriveBean webDriveBean;
+
 
     @Getter
     private final List<NetWorkInfo> netWorkInfos = new ArrayList<>();
@@ -85,6 +89,20 @@ public class HooksNew {
     @Autowired
     RestDelegation restDelegation ;
 
+    @Autowired
+    private  WebDriver driver;
+
+    /**
+    @Autowired
+    public HooksNew(WebDriver driver) {
+        logger.info("----- START DRIVER: {} -----CIAO");
+        logger.info("HTML_1...."+driver.getPageSource());
+        this.driver = driver;
+    }
+
+     **/
+
+
     @Before
     public void startScenario(Scenario scenario) {
         logger.info("----- START SCENARIO: {} -----", scenario.getName());
@@ -97,13 +115,17 @@ public class HooksNew {
                     MDC.put("team", "TA-QA");
                 });
 
-        driver =  webDriverConfig.webDriver();
+        logger.info("HTML_2...."+driver.getPageSource());
+
     }
+
+
+
 
     @After
     public void endScenario(Scenario scenario) throws IOException {
         System.clearProperty("IUN");
-        webDriverConfig.getNetWorkInfos().forEach(netWorkInfo -> {
+        webDriveBean.getNetWorkInfos().forEach(netWorkInfo -> {
             logger.info("Request ID: {}", netWorkInfo.getRequestId());
             logger.info("Request URL: {}", netWorkInfo.getRequestUrl());
             logger.info("Method: {}", netWorkInfo.getRequestMethod());
@@ -121,11 +143,16 @@ public class HooksNew {
             FileUtils.copyFile(screenshot, new File(fileName));
             scenario.attach(screenshotBytes, "image/png", scenario.getName());
         }
-
         driver.quit();
-        webDriverConfig.clearRequest();
-        webDriverConfig.clearNetWorkInfos();
+        webDriveBean.clearRequest();
+        webDriveBean.clearNetWorkInfos();
         logger.info("----- END SCENARIO: {} -----", scenario.getName());
+    }
+
+
+    public void closeWebDriver() {
+        logger.info("###STOP FROM THE LIFECYCLE###");
+
     }
 
 

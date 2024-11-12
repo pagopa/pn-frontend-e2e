@@ -28,9 +28,7 @@ public class HeaderPASection extends BasePage {
     private WebTool webTool;
 
     @Autowired
-    public HeaderPASection(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadHeaderSection() {
         try {

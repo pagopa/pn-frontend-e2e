@@ -21,6 +21,7 @@ import it.pn.frontend.e2e.utility.WebTool;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import java.time.LocalDate;
@@ -66,6 +67,14 @@ public class DeleghePagoPATest {
     Map<String, Object> deleghe = new HashMap<>();
     @Setter
     private String codiceVerifica;
+
+    private final WebDriver driver;
+
+    @Autowired
+    @Lazy
+    public DeleghePagoPATest(WebDriver driver) {
+        this.driver = driver;
+    }
 
     @When("Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe")
     public void waitDelegheButton() {
@@ -312,7 +321,7 @@ public class DeleghePagoPATest {
             mandateSingleton.setScenarioMandateId(HooksNew.getScenario(), response.getMandateId());
             mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(HooksNew.getScenario()), response.getVerificationCode());
         }
-        hooks.getDriver().navigate().refresh();
+        driver.navigate().refresh();
     }
 
     @And("Si clicca sul bottone Accetta")

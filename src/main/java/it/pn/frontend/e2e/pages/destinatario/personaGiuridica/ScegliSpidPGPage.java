@@ -22,9 +22,7 @@ public class ScegliSpidPGPage extends BasePage {
     WebElement testButton;
 
     @Autowired
-    public ScegliSpidPGPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadScegliSpidPGPage() {
         try {

@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
+import it.pn.frontend.e2e.common.WebDriveBean;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
@@ -86,6 +87,19 @@ public class NotifichePGPagoPATest {
     private  WebTool webTool;
 
 
+    @Autowired
+    @Lazy
+    private WebDriveBean webDriveBean;
+
+    private final WebDriver driver;
+
+    @Autowired
+    @Lazy
+    public NotifichePGPagoPATest(WebDriver driver) {
+        this.driver = driver;
+    }
+
+
 
     @And("Nella Home page persona giuridica si clicca su Send Notifiche Digitali")
     public void clickSendNotificheDigitali() {
@@ -128,7 +142,7 @@ public class NotifichePGPagoPATest {
         logger.info("Recupero codice risposta della chiamata" + urlChiamata);
 
         int codiceRispostaChiamataApi = 0;
-        for (NetWorkInfo chiamate : webDriverConfig.getNetWorkInfos()) {
+        for (NetWorkInfo chiamate : webDriveBean.getNetWorkInfos()) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
                 codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
                 break;
@@ -176,7 +190,7 @@ public class NotifichePGPagoPATest {
         } else if (this.leTueDelegheSection.controlloPresenzaBottoneAccetta()) {
             backgroundTest.accettazioneDelegaPG();
         }
-        this.hooks.getDriver().navigate().refresh();
+        driver.navigate().refresh();
     }
 
     @And("Si visualizza correttamente la Pagina Notifiche persona giuridica sezione notifiche delegate {string}")
@@ -221,7 +235,7 @@ public class NotifichePGPagoPATest {
 
 
     private String getBearerToken() {
-        List<NetWorkInfo> netWorkInfos = webDriverConfig.getNetWorkInfos();
+        List<NetWorkInfo> netWorkInfos = webDriveBean.getNetWorkInfos();
         String bearerToken = "";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
             String urlChiamata = webDriverConfig.getBaseUrl() + "notifications/received?";

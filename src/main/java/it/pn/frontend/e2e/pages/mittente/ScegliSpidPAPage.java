@@ -27,9 +27,7 @@ public class ScegliSpidPAPage extends BasePage {
     WebElement testButton;
 
     @Autowired
-    public ScegliSpidPAPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadScegliSpidPAPage() {
         try {

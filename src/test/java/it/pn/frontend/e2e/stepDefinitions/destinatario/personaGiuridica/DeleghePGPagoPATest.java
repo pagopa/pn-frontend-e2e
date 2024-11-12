@@ -77,6 +77,15 @@ public class DeleghePGPagoPATest {
 
     private boolean dataFineErrata;
 
+    private final WebDriver driver;
+
+    @Autowired
+    @Lazy
+    public DeleghePGPagoPATest(WebDriver driver) {
+        this.driver = driver;
+    }
+
+
     @And("Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa")
     public void siVisualizzaLaPaginaDeleghe() {
         logger.info("Si controlla che si visualizza la pagina Deleghe");
@@ -481,7 +490,7 @@ public class DeleghePGPagoPATest {
         DelegateResponsePG response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
         mandateSingleton.setScenarioMandateId(HooksNew.getScenario(),response.getMandateId());
         mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(HooksNew.getScenario()),response.getVerificationCode());
-        hooks.getDriver().navigate().refresh();
+        driver.navigate().refresh();
         webTool.waitTime(2);
     }
 
@@ -559,7 +568,7 @@ public class DeleghePGPagoPATest {
     @And("Non si inserisce il codice OTP e l invito della delega non è più presente")
     public void nonSiInserisceIlCodiceOTPELInvitoDellaDelegaNonèPiùPresente() {
         webTool.waitTime(61 * 15);
-        hooks.getDriver().navigate().refresh();
+        driver.navigate().refresh();
         deleghePGPagoPAPage.waitLoadDeleghePage();
     }
 

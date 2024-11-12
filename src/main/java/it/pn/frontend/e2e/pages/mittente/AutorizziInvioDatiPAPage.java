@@ -19,9 +19,7 @@ public class AutorizziInvioDatiPAPage extends BasePage {
     private WebElement inviaButton;
 
     @Autowired
-    public AutorizziInvioDatiPAPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadAutorizziInvioDatiPAPage() {
         try {

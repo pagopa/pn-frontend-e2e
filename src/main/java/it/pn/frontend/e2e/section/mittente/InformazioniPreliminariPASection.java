@@ -52,9 +52,7 @@ public class InformazioniPreliminariPASection extends BasePage {
     private  WebTool webTool;
 
     @Autowired
-    public InformazioniPreliminariPASection(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadInformazioniPreliminariPASection() {
         try {

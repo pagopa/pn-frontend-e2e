@@ -21,9 +21,7 @@ public class AccediAreaRiservataPGPage extends BasePage {
     WebElement spidButton;
 
     @Autowired
-    public AccediAreaRiservataPGPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadAccediAreaRiservataPGPage() {
         try {

@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotific
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,15 @@ public class DisserviziAppPGTest {
     @Autowired
     @Lazy
     private  WebTool webTool;
+
+    private final WebDriver driver;
+
+    @Autowired
+    @Lazy
+    public DisserviziAppPGTest(WebDriver driver) {
+        this.driver = driver;
+    }
+
 
 
     @Given("Nella dashboard persona giuridica clicca su disservizi app")
@@ -63,11 +73,11 @@ public class DisserviziAppPGTest {
     @And("Si verifica avvenuto disservizio in pagina stato piattaforma")
     public void siVerificaAvvenutoDisservizioInPaginaStatoPiattaforma() {
         logger.info("Torno sulla scheda della piattaforma send");
-        String helpdeskHandle = hooks.getDriver().getWindowHandle();
-        Set<String> windowHandles = hooks.getDriver().getWindowHandles();
+        String helpdeskHandle =driver.getWindowHandle();
+        Set<String> windowHandles = driver.getWindowHandles();
         for (String handle : windowHandles) {
             if (!handle.equals(helpdeskHandle)) {
-                this.hooks.getDriver().switchTo().window(handle);
+                driver.switchTo().window(handle);
                 break;
             }
         }

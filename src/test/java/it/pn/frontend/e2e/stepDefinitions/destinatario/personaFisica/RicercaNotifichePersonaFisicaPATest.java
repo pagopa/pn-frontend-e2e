@@ -13,6 +13,7 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,13 @@ public class RicercaNotifichePersonaFisicaPATest {
     @Lazy
     private BackgroundTest backgroundTest;
 
+    private final WebDriver driver;
+
+    @Autowired
+    @Lazy
+    public RicercaNotifichePersonaFisicaPATest(WebDriver driver) {
+        this.driver = driver;
+    }
 
     @When("Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica")
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheDestinatario() {
@@ -70,28 +78,28 @@ public class RicercaNotifichePersonaFisicaPATest {
     public void collegarsiLink(int code) {
         switch (code) {
             case 19 -> {
-                this.hooks.getDriver().get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=19");
+                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=19");
             }
             case 20 -> {
-                this.hooks.getDriver().get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=20");
+                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=20");
             }
             case 21 -> {
-                this.hooks.getDriver().get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=21");
+                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=21");
             }
             case 22 -> {
-                this.hooks.getDriver().get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=22");
+                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=22");
             }
             case 23 -> {
-                this.hooks.getDriver().get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=23");
+                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=23");
             }
             case 25 -> {
-                this.hooks.getDriver().get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=25");
+                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=25");
             }
             case 30 -> {
-                this.hooks.getDriver().get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=30");
+                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=30");
             }
             case 1001 -> {
-                this.hooks.getDriver().get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=1001");
+                this.driver.get("https://cittadini.test.notifichedigitali.it/auth/login/error?errorCode=1001");
             }
         }
     }

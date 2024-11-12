@@ -27,9 +27,7 @@ public class AcccediAreaRiservataPAPage extends BasePage {
     WebElement testButton;
 
     @Autowired
-    public AcccediAreaRiservataPAPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadLoginPageMittente(){
         try{

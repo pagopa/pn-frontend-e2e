@@ -71,9 +71,7 @@ public class ApiKeyPAPage extends BasePage {
     private  WebTool webTool;
 
     @Autowired
-    public ApiKeyPAPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
 
     public void waitLoadApikeyPage() {

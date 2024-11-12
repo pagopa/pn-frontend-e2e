@@ -86,9 +86,9 @@ public class DeleghePGPagoPAPage extends BasePage {
     WebElement errorCodeInPopUp;
 
     @Autowired
-    public DeleghePGPagoPAPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
+
+
 
     public void waitLoadDeleghePage() {
         try {

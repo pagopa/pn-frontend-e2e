@@ -20,9 +20,7 @@ public class PopUpRevocaDelegaSection extends BasePage {
     @FindBy(id = "dialog-action-button")
     WebElement revocaDialogAction;
     @Autowired
-    public PopUpRevocaDelegaSection(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadPopUpRevocaDelegaSection(){
             this.getWebDriverWait(10).withMessage("la sezione revoca delega non è caricata").until(ExpectedConditions.visibilityOf(this.title));

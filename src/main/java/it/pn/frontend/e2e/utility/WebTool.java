@@ -12,6 +12,7 @@ import it.pn.frontend.e2e.section.mittente.HeaderPASection;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -51,26 +52,33 @@ public class WebTool {
 
     //@Getter
     //private static final String apiBaseUrl = System.getProperty("apiBaseUrl");
+    private final WebDriver driver;
+
+    @Autowired
+    @Lazy
+    public WebTool(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public  String switchToPortal(AppPortal portal) {
         openNewTab();
         switch (portal) {
             case PA -> {
-                hooks.getDriver().get(portal.url);
+                driver.get(portal.url);
                 headerPASection.waitLoadHeaderSection();
                 piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
             }
             case PF -> {
-                hooks.getDriver().get(portal.url);
+                driver.get(portal.url);
                 headerPFSection.waitLoadHeaderDESection();
                 notifichePFPage.waitLoadNotificheDEPage();
             }
             case PG -> {
-                hooks.getDriver().get(portal.url);
+                driver.get(portal.url);
                 headerPGSection.waitLoadHeaderPGPage();
             }
             case HELPDESK -> {
-                hooks.getDriver().get(portal.url);
+                driver.get(portal.url);
             }
             default -> {
                 log.error("Tipologia di portale non specificato o errato!");
@@ -81,28 +89,28 @@ public class WebTool {
         if (cookiesSection.waitLoadCookiesPage()) {
             cookiesSection.selezionaAccettaTuttiButton();
         }
-        return hooks.getDriver().getWindowHandle();
+        return driver.getWindowHandle();
     }
 
     public  void openNewTab() {
-        ((JavascriptExecutor) hooks.getDriver()).executeScript("window.open()");
-        String newTab = hooks.getDriver().getWindowHandles().stream().reduce((first, second) -> second).orElse(null);
-        hooks.getDriver().switchTo().window(newTab);
+        ((JavascriptExecutor) driver).executeScript("window.open()");
+        String newTab = driver.getWindowHandles().stream().reduce((first, second) -> second).orElse(null);
+        driver.switchTo().window(newTab);
     }
 
     public  void closeTab() {
         log.info("Si chiude la scheda corrente");
-        hooks.getDriver().close();
-        String newTab =  hooks.getDriver().getWindowHandles().stream().reduce((first, second) -> second).orElse(null);
-        hooks.getDriver().switchTo().window(newTab);
+        driver.close();
+        String newTab = driver.getWindowHandles().stream().reduce((first, second) -> second).orElse(null);
+        driver.switchTo().window(newTab);
     }
 
     public  void switchToOtherTab(){
-        String parentWindowHandle =  hooks.getDriver().getWindowHandle();
-        Set<String> windowHandles =  hooks.getDriver().getWindowHandles();
+        String parentWindowHandle =  driver.getWindowHandle();
+        Set<String> windowHandles =  driver.getWindowHandles();
         for (String handle : windowHandles) {
             if (!handle.equals(parentWindowHandle)) {
-                hooks.getDriver().switchTo().window(handle);
+                driver.switchTo().window(handle);
                 break;
             }
         }

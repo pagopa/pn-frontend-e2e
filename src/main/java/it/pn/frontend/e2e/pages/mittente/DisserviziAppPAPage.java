@@ -53,9 +53,7 @@ public class DisserviziAppPAPage extends BasePage {
     private  WebTool webTool;
 
     @Autowired
-    public DisserviziAppPAPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
 
     public void waitLoadStatoDellaPiattaformaPage() {

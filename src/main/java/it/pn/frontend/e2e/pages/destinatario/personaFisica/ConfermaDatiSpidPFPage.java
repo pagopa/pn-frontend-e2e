@@ -31,9 +31,7 @@ public class ConfermaDatiSpidPFPage extends BasePage {
     WebElement confermaButton;
 
     @Autowired
-    public ConfermaDatiSpidPFPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadConfermaDatiSpidDEPage(){
         try{

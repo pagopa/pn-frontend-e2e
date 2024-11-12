@@ -43,9 +43,7 @@ public class SelezionaEntePAPage extends BasePage {
     private  WebTool webTool;
 
     @Autowired
-    public SelezionaEntePAPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadSelezionaEntePAPage() {
         try {

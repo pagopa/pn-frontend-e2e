@@ -6,6 +6,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.api.mittente.AccettazioneRichiestaNotifica;
+import it.pn.frontend.e2e.common.WebDriveBean;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
@@ -24,6 +25,7 @@ import it.pn.frontend.e2e.utility.WebTool;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -104,8 +106,18 @@ public class NotificaMittentePagoPATest {
     InvioNotifichePAPage invioNotifichePAPage;
     @Autowired
     AccettazioneRichiestaNotifica accettazioneRichiestaNotifica;
+    @Autowired
+    @Lazy
+    private WebDriveBean webDriveBean;
 
 
+    private final WebDriver driver;
+
+    @Autowired
+    @Lazy
+    public NotificaMittentePagoPATest(WebDriver driver) {
+        this.driver = driver;
+    }
 
 
     @When("Nella Home page mittente cliccare sul bottone Gestisci di Piattaforma Notifiche")
@@ -145,7 +157,7 @@ public class NotificaMittentePagoPATest {
         logger.info("Recupero codice risposta della chiamata" + urlChiamata);
 
         int codiceRispostaChiamataApi = 0;
-        for (NetWorkInfo chiamate : webDriverConfig.getNetWorkInfos()) {
+        for (NetWorkInfo chiamate : webDriveBean.getNetWorkInfos()) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
                 codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
                 break;
@@ -160,7 +172,7 @@ public class NotificaMittentePagoPATest {
         this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
         webTool.waitTime(5);
         String urlNotifiche = webDriverConfig.getBaseUrl() + "notifications/";
-        for (NetWorkInfo netWorkInfo : webDriverConfig.getNetWorkInfos()) {
+        for (NetWorkInfo netWorkInfo : webDriveBean.getNetWorkInfos()) {
             if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=10")) {
                 String responseBody = netWorkInfo.getResponseBody();
                 String[] allNotifiche = responseBody.split("],\"moreResult\":");
@@ -251,7 +263,7 @@ public class NotificaMittentePagoPATest {
 
         try {
             TimeUnit.SECONDS.sleep(quantiSecondi);
-            hooks.getDriver().navigate().refresh();
+            driver.navigate().refresh();
         } catch (Exception exc) {
             logger.error(exc.toString());
             throw new RuntimeException(exc);
@@ -452,7 +464,7 @@ public class NotificaMittentePagoPATest {
 
     @And("Nella pagina Piattaforma Notifiche accetta i Cookies")
     public void nellaPaginaPiattaformaNotificheAccettaICookies() {
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
+        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
             cookiesSection.waitLoadCookiesPage();
             cookiesSection.selezionaAccettaTuttiButton();
         }
@@ -768,7 +780,7 @@ public class NotificaMittentePagoPATest {
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
                 piattaformaNotifichePage.aggiornamentoPagina();
-                if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
+                if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
                     if (cookiesSection.waitLoadCookiesPage()) {
                         cookiesSection.selezionaAccettaTuttiButton();
                     }
@@ -979,7 +991,7 @@ public class NotificaMittentePagoPATest {
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
                 piattaformaNotifichePage.aggiornamentoPagina();
-                if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
+                if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
                     if (cookiesSection.waitLoadCookiesPage()) {
                         cookiesSection.selezionaAccettaTuttiButton();
                     }
@@ -1341,7 +1353,7 @@ public class NotificaMittentePagoPATest {
     public void siAttendeCompletamentoNotifica() {
         siVisualizzaCorrettamenteLaSectionDettaglioNotifica();
         webTool.waitTime(400);
-        hooks.getDriver().navigate().refresh();
+        driver.navigate().refresh();
         webTool.waitTime(3);
     }
 
@@ -1579,7 +1591,7 @@ public class NotificaMittentePagoPATest {
          * (2) no POST requests with the provided URL were found
          */
         boolean foundRequestWithUndesiredStatus = false;
-        for (NetWorkInfo netWorkInfo : webDriverConfig.getNetWorkInfos()) {
+        for (NetWorkInfo netWorkInfo : webDriveBean.getNetWorkInfos()) {
             if (netWorkInfo.getRequestUrl().equals(urlNotificationRequest) && netWorkInfo.getRequestMethod().equals("POST") && netWorkInfo.getResponseStatus().equals("202")) {
                 String values = netWorkInfo.getResponseBody();
                 List<String> results = Splitter.on(CharMatcher.anyOf(",:")).splitToList(values);

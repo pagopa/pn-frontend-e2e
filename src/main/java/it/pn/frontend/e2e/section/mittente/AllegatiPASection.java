@@ -36,9 +36,7 @@ public class AllegatiPASection extends BasePage {
     WebElement inviaButton;
 
     @Autowired
-    public AllegatiPASection(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadAllegatiPASection() {
         try{

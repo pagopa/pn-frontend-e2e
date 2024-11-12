@@ -85,13 +85,9 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     private  WebTool webTool;
 
 
-    @Autowired
-    public AccediAPiattaformaNotifichePage(WebDriver driver) {
-        super(driver);
-    }
-
     public void waitLoadAccediAPiattaformaNotifichePage() {
 
+        logger.info("HTML..."+driver.getPageSource());
         By titleLabel = By.id("login-mode-page-title");
         By loginBy = By.id("spidButton");
         getWebDriverWait(30).withMessage("Il titolo della pagina accedi a piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));

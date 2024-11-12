@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.api.mittente.SpidAcsMittente;
 import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoContinueResponse;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogin;
+import it.pn.frontend.e2e.common.WebDriveBean;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.mittente.*;
@@ -18,6 +19,7 @@ import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +90,17 @@ public class LoginMittentePagoPA {
     @Autowired
     BasicCookieStore cookieStore;
 
+    @Autowired
+    @Lazy
+    private WebDriveBean webDriveBean;
 
+    private final WebDriver driver;
+
+    @Autowired
+    @Lazy
+    public LoginMittentePagoPA(WebDriver driver) {
+        this.driver = driver;
+    }
 
 
     @Given("Login Page mittente {string} viene visualizzata")
@@ -98,9 +110,9 @@ public class LoginMittentePagoPA {
         this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
         String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
-            case "dev" ->hooks.getDriver().get(webDriverConfig.getUrlMittente());
+            case "dev" ->driver.get(webDriverConfig.getUrlMittente());
             case "test", "uat" ->
-                    hooks.getDriver().get(webDriverConfig.getUrlMittente().replace("dev", variabileAmbiente));
+                    driver.get(webDriverConfig.getUrlMittente().replace("dev", variabileAmbiente));
             default ->
                     Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
@@ -112,9 +124,9 @@ public class LoginMittentePagoPA {
         String variabileAmbiente = webDriverConfig.getEnvironment();
         this.datiMittente = dataPopulation.readDataPopulation("mittente.yaml");
         switch (variabileAmbiente) {
-            case "dev" -> hooks.getDriver().get(webDriverConfig.getUrlMittente());
+            case "dev" -> driver.get(webDriverConfig.getUrlMittente());
             case "test", "uat" ->
-                    hooks.getDriver().get(webDriverConfig.getUrlMittente().replace("dev", variabileAmbiente));
+                    driver.get(webDriverConfig.getUrlMittente().replace("dev", variabileAmbiente));
             default ->
                     Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
@@ -139,7 +151,7 @@ public class LoginMittentePagoPA {
 
         // Si effettua il login con token exchange
         String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
-        hooks.getDriver().get(urlLogin);
+        driver.get(urlLogin);
         logger.info("Login effettuato con successo");
         // Attesa statica di 10 secondi - considerare l'uso di WebDriverWait per migliorare l'efficienza
         webTool.waitTime(10);
@@ -160,8 +172,8 @@ public class LoginMittentePagoPA {
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
         // Verifica della presenza dell'URL e dei cookie per proseguire con l'accettazione dei cookie
-        if (hooks.getDriver().getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
-                !webDriverConfig.getCookieConfig().isCookieEnabled()) {
+        if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
+                !webDriveBean.getCookieConfig().isCookieEnabled()) {
             logger.info("cookies start");
 
             cookiesSection.selezionaAccettaTuttiButton();
@@ -197,8 +209,8 @@ public class LoginMittentePagoPA {
         preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
-        if (hooks.getDriver().getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
-                !webDriverConfig.getCookieConfig().isCookieEnabled()) {
+        if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
+                !webDriveBean.getCookieConfig().isCookieEnabled()) {
             logger.info("cookies start");
             cookiesSection.selezionaAccettaTuttiButton();
             if (cookiesSection.waitLoadCookiesPage()) {
@@ -250,7 +262,7 @@ public class LoginMittentePagoPA {
             Assertions.fail("Codice risposta ricevuto per questo end point: '" + this.urlMittente.get("urlPortale") + "' è : " + this.urlMittente.get("responseCode"));
         }
 
-        hooks.getDriver().get(this.urlMittente.get("urlPortale"));
+        driver.get(this.urlMittente.get("urlPortale"));
 
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
         selezionaEntePAPage.cercaComune(this.datiMittente.get("comune").toString());
@@ -416,7 +428,7 @@ public class LoginMittentePagoPA {
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();
 
-        if (!webDriverConfig.getCookieConfig().isCookieEnabled()) {
+        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -443,7 +455,7 @@ public class LoginMittentePagoPA {
             token = webDriverConfig.getTokendevMittente();
         }
         String url = urlInziale + token;
-        hooks.getDriver().get(url);
+        driver.get(url);
     }
 
     @And("Si clicca sul bottone test")

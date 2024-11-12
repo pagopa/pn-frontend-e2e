@@ -24,9 +24,7 @@ public class SuccessPASection extends BasePage {
     WebElement successCheckBy;
 
     @Autowired
-    public SuccessPASection(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadSuccessPASection() {
         try {

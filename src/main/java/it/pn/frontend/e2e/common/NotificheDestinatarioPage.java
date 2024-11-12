@@ -28,9 +28,7 @@ public class NotificheDestinatarioPage extends BasePage{
     private  WebTool webTool;
 
     @Autowired
-    public NotificheDestinatarioPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void inserisciCodiceIUN(String codiceIUN) throws InterruptedException {
         getWebDriverWait(10).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(this.codiceIunTextField));

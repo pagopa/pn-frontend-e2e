@@ -31,9 +31,7 @@ public class ITuoiRecapitiPage extends BasePage {
     WebElement subTitlesSection;
 
     @Autowired
-    public ITuoiRecapitiPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void iTuoiRecapitiButtonClick() {
         try {

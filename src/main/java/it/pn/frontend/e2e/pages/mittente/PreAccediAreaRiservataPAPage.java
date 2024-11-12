@@ -20,9 +20,7 @@ public class PreAccediAreaRiservataPAPage extends BasePage {
     WebElement procediAlLoginButton;
 
     @Autowired
-    public PreAccediAreaRiservataPAPage(WebDriver driver) {
-        super(driver);
-    }
+    private WebDriver driver;
 
     public void waitLoadPreAccediAreaRiservataPAPage(){
         try{

@@ -3,10 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions;
 import io.cucumber.spring.CucumberContextConfiguration;
 import it.pn.frontend.e2e.api.mittente.AccettazioneRichiestaNotifica;
 import it.pn.frontend.e2e.api.personaFisica.RecuperoOTPRecapiti;
-import it.pn.frontend.e2e.common.DettaglioNotificaSection;
-import it.pn.frontend.e2e.common.HelpdeskPage;
-import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
-import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
+import it.pn.frontend.e2e.common.*;
 import it.pn.frontend.e2e.config.BearerTokenConfig;
 import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.config.UserPasswordConfig;
@@ -50,6 +47,7 @@ import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.stereotype.Component;
 
 
 @CucumberContextConfiguration
@@ -127,7 +125,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         WebTool.class,
         UtentiPGPage.class,
         GruppiPGPage.class,
-        ApiKeyPAPage.class
+        ApiKeyPAPage.class,
+        WebDriveBean.class
 
 })
 @EnableScheduling
