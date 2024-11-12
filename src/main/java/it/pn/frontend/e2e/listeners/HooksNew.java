@@ -53,7 +53,6 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class HooksNew {
 
     /**
@@ -89,10 +88,9 @@ public class HooksNew {
     @Autowired
     RestDelegation restDelegation ;
 
-    @Autowired
-    private  WebDriver driver;
 
-    /**
+    private final  WebDriver driver;
+
     @Autowired
     public HooksNew(WebDriver driver) {
         logger.info("----- START DRIVER: {} -----CIAO");
@@ -100,7 +98,7 @@ public class HooksNew {
         this.driver = driver;
     }
 
-     **/
+
 
 
     @Before
@@ -113,6 +111,7 @@ public class HooksNew {
                 .forEach(tag -> {
                     MDC.put("tag", tag);
                     MDC.put("team", "TA-QA");
+
                 });
 
         logger.info("HTML_2...."+driver.getPageSource());

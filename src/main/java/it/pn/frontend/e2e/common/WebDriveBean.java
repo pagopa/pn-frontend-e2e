@@ -61,6 +61,7 @@ public class WebDriveBean {
 
     @Bean
     @Primary
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     @ConditionalOnProperty( name = "browser" , havingValue = "chrome", matchIfMissing = true)
     public WebDriver webDriver() {
 

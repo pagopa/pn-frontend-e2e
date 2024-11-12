@@ -28,13 +28,13 @@ Thread.currentThread().interrupt() in waitLoadPage(): Gestisce correttamente lâ€
 public class BasePage {
 
     @Autowired
-    protected WebDriver driver;
+    protected WebDriveBean driverBeann;
     protected int loadComponentWaitTime;
     private static final Logger loggerBase = LoggerFactory.getLogger(BasePage.class);
 
 
     public BasePage() {
-        PageFactory.initElements(driver, this);
+        PageFactory.initElements(driverBeann.getDriver(), this);
         loadComponentWaitTime = Integer.parseInt(System.getProperty("loadComponentWaitTime", "10"));
     }
 
@@ -76,19 +76,19 @@ public class BasePage {
     }
 
     protected WebDriverWait getWebDriverWait(long timeout) {
-        return new WebDriverWait(this.driver, Duration.ofSeconds(timeout), Duration.ofMillis(500));
+        return new WebDriverWait(driverBeann.getDriver(), Duration.ofSeconds(timeout), Duration.ofMillis(500));
     }
 
     protected WebElement element(By by) {
-        return driver.findElement(by);
+        return driverBeann.getDriver().findElement(by);
     }
 
     protected List<WebElement> elements(By by) {
-        return driver.findElements(by);
+        return driverBeann.getDriver().findElements(by);
     }
 
     protected JavascriptExecutor js() {
-        return (JavascriptExecutor) driver;
+        return (JavascriptExecutor) driverBeann.getDriver();
     }
 
     public void waitLoadPage() {
@@ -105,7 +105,7 @@ public class BasePage {
     }
 
     public void aggiornamentoPagina() {
-        driver.navigate().refresh();
+        driverBeann.getDriver().navigate().refresh();
     }
 
     public void waitLoadingSpinner() {
@@ -114,7 +114,7 @@ public class BasePage {
     }
 
     public void goBack() {
-        driver.navigate().back();
+        driverBeann.getDriver().navigate().back();
     }
 
     /**
@@ -130,6 +130,6 @@ public class BasePage {
     }
 
     public boolean checkURL(String url) {
-        return driver.getCurrentUrl().contains(url);
+        return driverBeann.getDriver().getCurrentUrl().contains(url);
     }
 }
