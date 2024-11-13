@@ -13,14 +13,9 @@ import java.util.Random;
 
 public enum DataPopulationValue {
 
-    //DATA NOTIFICA
-    SUBJECT("numeroProtocollo","TA-FFSMRC-20240606-5985",true),
-    DESCRIPTION("oggettoDellaNotifica","Pagamento rata IMU",false),
-    GROUP_TEST("gruppoTest","test-TA-FE-TEST",false),
-    GROUP_DEV("gruppoDev","GruppoTest",false),
-    CODE_TASS("codiceTassonometrico","123456A",false),
-    NAME_DOC_NOTIF("nomeDocumentoNotifica","RATA SCADUTA IMU",false),
-    COD_IUN("codiceIUN","Pagamento rata IMU",false),
+    //DATA NOTIFICA PG
+    OGGETTO_DELLA_NOTIFICA("oggettoDellaNotifica","Pagamento rata IMU",true),
+    CODICE_IUN("codiceIUN","EGNM-DPAR-VTLR-202401-T-1",false),
 
     //DATA NOTIFICA ERRORE
     SUBJECT_ERR("oggettoDellaNotifica_err","IMU",false),
@@ -119,8 +114,28 @@ public enum DataPopulationValue {
     EMAIL_PG("email_pg","provaemail@test.it",false),
     USER_PG("user_pg","DanteAlighieri",false),
     PWD_PG("pwd_pg","test",false),
-
-
+    PROVIDER_PG("provider_pg","spid:test",false),
+    /* DA CONTINUARE email: "provaemail@test.it"
+    mail: "prova@test.it"
+    emailPec: "pec@pec.pagopa.it"
+    pecErrore: "testpagopa2@@pnpagopa.postecert.local"
+    pec: "prova@pec.it"
+    ragioneSociale: "Convivio Spa"
+    codiceFiscale: "27957814470"
+    fiscalNumber: "TINIT-27957814470"
+    indirizzo: "VIA ROMA"
+    numeroCivico: "20"
+    localita: "MILANO"
+    comune: "MILANO"
+    provincia: "MI"
+    codicepostale: "20147"
+    stato: "ITALIA"
+    codiceIUN: "NZQX-DHLD-LAMU-202308-J-1"
+    cellulare: "333456789"
+    bearerToken: "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImU0ZjJhYTIyLTE5MDctNDIyNC1iYWViLTExYzZiY2RkZDNkYSJ9.eyJpYXQiOjE3MDczMDIwMzgsImV4cCI6MTkwMDIyMzkxNywidWlkIjoiZTQ5MGYwMmUtOTQyOS00YjM4LWJiMTEtZGRiOGE1NjFmYjYyIiwiaXNzIjoiaHR0cHM6Ly93ZWJhcGkudGVzdC5ub3RpZmljaGVkaWdpdGFsaS5pdCIsImF1ZCI6IndlYmFwaS50ZXN0Lm5vdGlmaWNoZWRpZ2l0YWxpLml0IiwianRpIjoiMmVlYmY5ZTMtYTBkYS00NTEzLTkxMWQtNjMyMjBjODE2NTIyIiwib3JnYW5pemF0aW9uIjp7ImlkIjoiZDBmNTJjN2QtNzZkNS00NTIwLTg5NzEtZWRmZmViNWI0NmQ1Iiwicm9sZSI6InBnLWFkbWluIiwiZmlzY2FsX2NvZGUiOiIyNzk1NzgxNDQ3MCJ9fQ.n9ohCtZlbMXqD95Ini_-dDFRtG5Udc7a8CXz8dvqAs3Wn_FG-dfMi79LN25PULkYjv6LaygpGPELNg1dDmyg9HY4uaqdkwQGeoseZIA3V3jjMzeeWM1K7lTFxhhsPjanl2z4jgqkFLIbhrD_qg0UeKDun_oa5_W6Kk3miTh6wC7XgT19jPJWI68P5e8J8c7M2y4IzKrTG8da1hT_g41o9JUR2SC7zxKhMwf-FzGGb41ct90rTLP-9ngxjF4VvoOOJTL6g0pb0qs-Wep0vS-U_zM-H4qjEvScGCX136FKwZP75Er-M_hDGZeamqIg-bIOA9mASgtyIxVy1gLPXEGsPw"
+    OTPpec: "83583"
+    OTPmail: "38630"
+*/
     //PERSONA FISICA PEC
     EMAIL_PF_PEC("email_pf_pec","testpagopa2@pnpagopa.postecert.local",false),
     NAME_PF_PEC("name_pf_pec","Galileo",false),
@@ -134,6 +149,9 @@ public enum DataPopulationValue {
     PROVINCIA_PF_PEC("provincia_pf_pec","MI",false),
     CAP_PF_PEC("cap_pf_pec","20147",false),
     STATO_PF_PEC("stato_pf_pec","ITALIA",false);
+
+
+
 
     public final String key;
     private final String defaultValue;
