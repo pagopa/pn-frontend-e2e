@@ -8,8 +8,8 @@ Feature: Login pagoPA
       | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente
       | user   | albino63 |
-      | pwd    | test    |
-      | comune | Verona  |
+      | pwd    | test     |
+      | comune | Verona   |
     Then Home page mittente viene visualizzata correttamente
     And Logout da portale mittente
 
@@ -25,39 +25,9 @@ Feature: Login pagoPA
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
 
-  #Then Home page persona fisica viene visualizzata correttamente
-   # And Logout da portale persona fisica
-
-  @TA_loginpersonaFisica
-  @TestSuite
-  @loginFE
-  Scenario: Login pagoPA persona fisica 1
-    Given Login Page persona fisica test viene visualizzata
-    When Login con persona fisica
-      | user         | cesare                 |
-      | pwd          | password123            |
-      | name         | Gaio Giulio            |
-      | familyName   | Cesare                 |
-      | fiscalNumber | TINIT-CSRGGL44L13H501E |
-
-  #Then Home page persona fisica viene visualizzata correttamente
-  #And Logout da portale persona fisica
-
-  @TA_loginpersonaFisica
-  @TestSuite
-  @loginFE
-  Scenario: Login pagoPA persona fisica 2
-    Given Login Page persona fisica test viene visualizzata
-    When Login con persona fisica
-      | user         | cesare                 |
-      | pwd          | password123            |
-      | name         | Gaio Giulio            |
-      | familyName   | Cesare                 |
-      | fiscalNumber | TINIT-CSRGGL44L13H501E |
-
-  #Then Home page persona fisica viene visualizzata correttamente
-  #And Logout da portale persona fisica
-
+    Then Home page persona fisica viene visualizzata correttamente
+    And Logout da portale persona fisica
+    
   @TA_loginpersonaGiuridica
   @TestSuite
   @loginFE
