@@ -23,7 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
-@Component // Rende la classe un bean Spring per l'iniezione in altre classi
+// Rende la classe un bean Spring per l'iniezione in altre classi
 public class DashboardPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DashboardMittentePagoPA");

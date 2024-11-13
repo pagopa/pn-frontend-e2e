@@ -29,21 +29,21 @@ public class RicercaNotifichePersonaGiuridicaPATest {
 
     private HooksNew hooks;
 
-    @Autowired
+
     private PiattaformaNotifichePage piattaformaNotifichePage;
-    @Autowired
+
     private RicercaNotifichePGPage ricercaNotifichePGPage;
-    @Autowired
+
     private DestinatarioPage destinatarioPage;
-    @Autowired
+
     private NotificheDestinatarioPage notificheDestinatarioPage;
-    @Autowired
+
     private PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
-    @Autowired
+
     private HeaderPASection headerPASection;
-    @Autowired
+
     private HeaderPGSection headerPGSection;
-    @Autowired
+
     private NotifichePFPage notifichePFPage;
 
     private Map<String, Object> datiNotificaPG;

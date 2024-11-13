@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class HeaderPGSection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger(HeaderPGSection.class);

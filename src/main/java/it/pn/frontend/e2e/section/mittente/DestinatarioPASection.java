@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Map;
 
-@Component
+
 public class DestinatarioPASection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DestinatarioPASection");

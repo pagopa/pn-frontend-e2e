@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+
 public class HeaderPFSection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("HeaderPFSection");
@@ -34,7 +34,9 @@ public class HeaderPFSection extends BasePage {
 
     private  WebTool webTool;
 
-
+    public HeaderPFSection(WebDriver driver) {
+        this.driver = driver;
+    }
 
 
     public void waitLoadHeaderDESection() {

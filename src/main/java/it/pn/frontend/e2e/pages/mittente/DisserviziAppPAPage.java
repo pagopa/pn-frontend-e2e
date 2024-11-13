@@ -23,7 +23,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-@Component
+
 public class DisserviziAppPAPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("Disservizi PA Page");
 

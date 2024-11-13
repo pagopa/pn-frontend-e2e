@@ -17,7 +17,7 @@ Annotazione @Component: Aggiunta per registrare la classe come bean Spring, rend
 Logging migliorato: La sintassi dei log logger.error  è stata modificata per sfruttare il placeholder {} di SLF4J, migliorando la leggibilità.*/
 
 
-@Component
+
 public class AcccediAreaRiservataPAPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("AccediAreaRiservataPAPage");
     @FindBy(id = "spidButton")

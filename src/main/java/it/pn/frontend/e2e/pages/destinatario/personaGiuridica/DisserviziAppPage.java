@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+
 public class DisserviziAppPage extends BasePage {
 
     @FindBy(id = "Stato della piattaforma-page")

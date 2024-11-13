@@ -20,9 +20,11 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 
 import java.time.Duration;
 import java.util.*;
@@ -57,11 +59,8 @@ public class WebDriverManager {
     private DevTools devTools;
 
 
-    public  static  WebDriver getDriver() {
-        if (driverThreadLocal.get() == null) {
-            driverThreadLocal.set(driver);
-        }
-        return driverThreadLocal.get();
+    public  WebDriver getDriver() {
+        return chromeDriver();
     }
 
 
@@ -73,7 +72,9 @@ public class WebDriverManager {
         }
     }
 
+
     @WebdriverScopeBean
+    // @Scope(BeanDefinition.SCOPE_PROTOTYPE)
     @ConditionalOnProperty( name = "browser" , havingValue = "chrome", matchIfMissing = true)
     public  WebDriver chromeDriver() {
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())

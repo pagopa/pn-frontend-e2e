@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@Component
 public class GruppiPGPage extends BasePage {
 
 
@@ -46,13 +45,13 @@ public class GruppiPGPage extends BasePage {
 
     @Autowired
     private WebTool webTool;
-    @Autowired
+
     private AccediAreaRiservataPGPage accediAreaRiservataPGPage;
-    @Autowired
+
     private ScegliSpidPGPage scegliSpidPGPage ;
-    @Autowired
+
     private LoginPGPagoPAPage loginPGPagoPAPage;
-    @Autowired
+
     private AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage ;
 
 

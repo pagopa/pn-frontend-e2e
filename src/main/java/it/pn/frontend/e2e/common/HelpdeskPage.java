@@ -35,7 +35,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class HelpdeskPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("Helpdesk Page");

@@ -34,13 +34,13 @@ public class DisserviziAppPATest extends BasePage {
     @Value("${apiBaseUrl}")
     private String baseUrl;
 
-    @Autowired
+
     private AccediAPiattaformaNotifichePage notifichePage;
 
-    @Autowired
+
     private DisserviziAppPAPage disserviziAppPAPage;
 
-    @Autowired
+
     private DownloadFile downloadFile;
     @Autowired
     @Lazy

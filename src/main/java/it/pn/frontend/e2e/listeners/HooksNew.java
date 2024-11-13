@@ -92,7 +92,7 @@ public class HooksNew extends BasePage {
     @Before
     public void startScenario(Scenario scenario) {
         logger.info("----- START SCENARIO: {} -----", scenario.getName());
-        driver = WebDriverManager.getDriver();
+       // driver = webDriveBean.getDriver();
 
         HooksNew.scenario = scenario.getName();
         scenario.getSourceTagNames().stream()
@@ -127,25 +127,28 @@ public class HooksNew extends BasePage {
             FileUtils.copyFile(screenshot, new File(fileName));
             scenario.attach(screenshotBytes, "image/png", scenario.getName());
         }
+        driver.quit();
         webDriveBean.clearRequest();
         webDriveBean.clearNetWorkInfos();
         logger.info("----- END SCENARIO: {} -----", scenario.getName());
     }
 
+    /**
     @AfterEach
     public void closeWebDriver() {
         logger.info("###STOP FROM THE LIFECYCLE###");
         driver.quit();
         //WebDriverManager.quitDriver();
+
     }
-/**
     @PreDestroy
     public void cleanup() {
         if (driver != null) {
+            driver.close();
             driver.quit();
         }
-    }
- **/
+    }**/
+
 
 
     @And("Revoca deleghe se esistono")

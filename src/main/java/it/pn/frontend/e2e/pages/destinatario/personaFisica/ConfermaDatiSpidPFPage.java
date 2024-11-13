@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
 public class ConfermaDatiSpidPFPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("ConfermaDatiSpidPFPage");
@@ -31,6 +30,9 @@ public class ConfermaDatiSpidPFPage extends BasePage {
     @FindBy(css = "input[value='Conferma']")
     WebElement confermaButton;
 
+    public ConfermaDatiSpidPFPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void waitLoadConfermaDatiSpidDEPage(){
         try{

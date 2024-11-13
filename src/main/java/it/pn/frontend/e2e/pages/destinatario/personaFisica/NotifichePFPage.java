@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.List;
 
-@Component
+
 public class NotifichePFPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(NotifichePFPage.class);
 

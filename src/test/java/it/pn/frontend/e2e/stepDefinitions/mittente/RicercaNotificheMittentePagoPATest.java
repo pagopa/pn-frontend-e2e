@@ -34,16 +34,16 @@ public class RicercaNotificheMittentePagoPATest {
     private Map<String, Object> datiNotifica = new HashMap<>();
     private boolean dataFineErrata;
 
-    @Autowired
+
     private  DestinatarioPASection destinatarioPASection;
 
-    @Autowired
+
     private  PiattaformaNotifichePage piattaformaNotifichePage;
 
-    @Autowired
+
     private  PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
 
-    @Autowired
+
     private  HeaderPASection headerPASection;
     @Autowired
     DataPopulation dataPopulation;

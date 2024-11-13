@@ -32,7 +32,7 @@ Gestione delle eccezioni: Ho migliorato il tracciamento delle eccezioni, fornend
 *
 * */
 
-@Component
+
 public class DownloadFile extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DownloadFile");

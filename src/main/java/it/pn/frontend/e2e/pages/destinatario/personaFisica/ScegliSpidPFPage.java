@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class ScegliSpidPFPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("ScegliSpidPFPage");
@@ -22,7 +22,9 @@ public class ScegliSpidPFPage extends BasePage {
     @FindBy(id = "spid-select-xx_testenv2")
     WebElement testButton;
 
-
+    public ScegliSpidPFPage(WebDriver driver) {
+        this.driver = driver;
+    }
     public void waitLoadScegliSpidDEPage(){
         try{
             By titlePage = By.id("spid-select");

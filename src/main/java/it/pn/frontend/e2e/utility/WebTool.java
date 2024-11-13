@@ -35,17 +35,17 @@ public class WebTool {
     @Autowired
     @Lazy
     private  HooksNew hooks;
-    @Autowired
+
     private HeaderPASection headerPASection;
-    @Autowired
+
     private HeaderPFSection headerPFSection;
-    @Autowired
+
     private HeaderPGSection headerPGSection;
-    @Autowired
+
     private NotifichePFPage notifichePFPage;
-    @Autowired
+
     private PiattaformaNotifichePage piattaformaNotifichePage;
-    @Autowired
+
     private CookiesSection cookiesSection;
 
     private static final Integer NOTICE_CODE_LENGTH = 18;

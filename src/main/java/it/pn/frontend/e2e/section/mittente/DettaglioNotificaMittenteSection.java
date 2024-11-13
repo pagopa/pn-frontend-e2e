@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Component
+
 public class DettaglioNotificaMittenteSection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
@@ -71,7 +71,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     WebElement apiKeyField;
 
     private int numeriStatiNotifica;
-    @Autowired
+
     PiattaformaNotifichePage piattaformaNotifichePage;
 
     @Autowired

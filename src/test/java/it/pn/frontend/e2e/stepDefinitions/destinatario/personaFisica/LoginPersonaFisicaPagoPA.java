@@ -31,7 +31,7 @@ import org.springframework.context.annotation.Primary;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-@Primary
+
 public class LoginPersonaFisicaPagoPA extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("LoginPersonaFisicaPagoPA");
@@ -49,23 +49,23 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
     private Map<String, Object> datiDelegato;
     @Autowired
     private DataPopulation dataPopulation;
-    @Autowired
-    private HeaderPFSection headerPFSection;
-    @Autowired
-    private NotifichePFPage notifichePFPage;
-    @Autowired
-    private ScegliSpidPFPage scegliSpidPFPage;
-    @Autowired
-    private LoginSpidPFPage loginSpidPFPage;
-    @Autowired
-    private ConfermaDatiSpidPFPage confermaDatiSpidPFPage;
-    @Autowired
-    private AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage;
-    @Autowired
-    private CookiesSection cookiesSection;
 
-    @Autowired
-    private ComeVuoiAccederePage comeVuoiAccederePage;
+    private HeaderPFSection headerPFSection ;
+
+    private NotifichePFPage notifichePFPage = new NotifichePFPage();
+
+    private ScegliSpidPFPage scegliSpidPFPage ;
+
+    private LoginSpidPFPage loginSpidPFPage;
+
+    private ConfermaDatiSpidPFPage confermaDatiSpidPFPage ;
+
+    private AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage;
+
+    private CookiesSection cookiesSection ;
+
+
+    private ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage();
 
     @Autowired
     private WebDriverManager webDriveBean;
@@ -194,25 +194,29 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
             }
         }
         logger.info("cookies end");
-
+        logger.info(driver.getPageSource());
+        accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
         accediAPiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
+        logger.info("cookies end 11");
         accediAPiattaformaNotifichePage.selezionaAccediButton();
         if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
+            cookiesSection = new CookiesSection(driver);
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
         logger.info("cookies end");
-
+        scegliSpidPFPage = new ScegliSpidPFPage(driver);
         scegliSpidPFPage.waitLoadScegliSpidDEPage();
         scegliSpidPFPage.selezionareTestButton();
 
+        loginSpidPFPage = new LoginSpidPFPage(driver);
         loginSpidPFPage.waitLoadLoginSpidDEPage();
         loginSpidPFPage.inserisciUtente(webDriverConfig.getUserCesare());
         loginSpidPFPage.inserisciPassword(webDriverConfig.getPwdCesare());
         loginSpidPFPage.selezionaEntraConSpidButton();
 
-
+        confermaDatiSpidPFPage = new ConfermaDatiSpidPFPage(driver);
         confermaDatiSpidPFPage.waitLoadConfermaDatiSpidDEPage();
         String nomeUtenteLetto = confermaDatiSpidPFPage.leggiNomeUtente();
         if (nomeUtenteLetto.equals(datiPF.get("name"))) {
@@ -239,9 +243,9 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
             Assertions.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
         }
 
-
+        confermaDatiSpidPFPage = new ConfermaDatiSpidPFPage(driver);
         confermaDatiSpidPFPage.selezionaConfermaButton();
-
+        headerPFSection = new HeaderPFSection(driver);
         headerPFSection.waitUrlToken();
         webTool.waitTime(2);
     }

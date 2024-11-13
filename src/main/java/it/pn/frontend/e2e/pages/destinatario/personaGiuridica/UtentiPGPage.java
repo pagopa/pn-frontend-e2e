@@ -76,13 +76,13 @@ public class UtentiPGPage extends BasePage {
 
     @Autowired
     private WebDriverConfig webDriverConfig;
-    @Autowired
+
     private ScegliSpidPGPage scegliSpidPGPage ;
-    @Autowired
+
     private AccediAreaRiservataPGPage accediAreaRiservataPGPage;
-    @Autowired
+
     private LoginPGPagoPAPage loginPGPagoPAPage;
-    @Autowired
+
     private AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage;
     @Autowired
     @Lazy

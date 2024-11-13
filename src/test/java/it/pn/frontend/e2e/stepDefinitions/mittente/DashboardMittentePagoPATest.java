@@ -24,9 +24,9 @@ public class DashboardMittentePagoPATest {
 
     private HooksNew hooks;
 
-    @Autowired
+
     private  DashboardPage dashboardPage;
-    @Autowired
+
     private  PiattaformaNotifichePage piattaformaNotifichePage;
 
 

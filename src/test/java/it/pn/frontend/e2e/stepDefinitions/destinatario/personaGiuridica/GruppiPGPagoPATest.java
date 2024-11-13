@@ -20,7 +20,7 @@ public class GruppiPGPagoPATest extends BasePage {
     @Autowired
     @Lazy
     private  WebTool webTool;
-    @Autowired
+
     private  GruppiPGPage gruppiPGPage;
 
     @When("Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone Gruppi")

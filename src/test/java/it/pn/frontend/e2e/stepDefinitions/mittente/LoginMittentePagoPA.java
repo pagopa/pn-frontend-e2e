@@ -57,37 +57,37 @@ public class LoginMittentePagoPA {
     @Autowired
     private HooksNew hooks;
 
-    @Autowired
+
     private WebDriverConfig webDriverConfig;
 
-    @Autowired
+
     private CookiesSection cookiesSection;
 
-    @Autowired
+
     private AcccediAreaRiservataPAPage acccediAreaRiservataPAPage;
 
-    @Autowired
+
     private ScegliSpidPAPage scegliSpidPAPage;
 
-    @Autowired
+
     private LoginPAPage loginPAPage;
 
-    @Autowired
+
     private HeaderPASection headerPASection;
 
-    @Autowired
+
     private PiattaformaNotifichePage piattaformaNotifichePage;
 
-    @Autowired
+
     private PreAccediAreaRiservataPAPage preAccediAreaRiservataPAPage;
 
-    @Autowired
+
     private AutorizziInvioDatiPAPage autorizziInvioDatiPAPage;
 
-    @Autowired
+
     private SelezionaEntePAPage selezionaEntePAPage;
 
-    @Autowired
+
     private AreaRiservataPAPage areaRiservataPAPage;
     @Autowired
     BasicCookieStore cookieStore;

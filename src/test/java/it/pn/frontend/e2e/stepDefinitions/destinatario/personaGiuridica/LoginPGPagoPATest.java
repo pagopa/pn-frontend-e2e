@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.api.mittente.SpidAcsMittente;
 import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoContinueResponse;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogin;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.WebDriveBean;
 import it.pn.frontend.e2e.config.DriverConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
@@ -34,8 +35,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 //@Component inserire in un secondo momenti
-@Primary
-public class LoginPGPagoPATest {
+
+public class LoginPGPagoPATest extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger(LoginPGPagoPATest.class);
     private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
@@ -84,15 +85,12 @@ public class LoginPGPagoPATest {
     @Lazy
     private  WebTool webTool;
 
-    private final WebDriver driver;
+
     @Autowired
     @Lazy
     private WebDriverManager webDriveBean;
 
 
-    public LoginPGPagoPATest(WebDriver driver) {
-        this.driver = driver;
-    }
 
 
     @Given("Login Page persona giuridica viene visualizzata")

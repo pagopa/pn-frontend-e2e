@@ -18,7 +18,7 @@ Annotazione @Component: Marca la classe come un componente gestito da Spring, pe
 Costruttore con @Autowired: Permette a Spring di iniettare automaticamente WebDriver.
 Logging migliorato: Utilizza il logger.error con {} per un’output più leggibile e facile da mantenere.
 * */
-@Component
+
 public class ScegliSpidPAPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("ScegliSpidPAPage");

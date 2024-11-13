@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+
 public class HomePagePG extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("HomePagePG");

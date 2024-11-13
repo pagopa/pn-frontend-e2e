@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-@Component
+
 public class InformazioniPreliminariPASection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("InformazioniPreliminariPASection");

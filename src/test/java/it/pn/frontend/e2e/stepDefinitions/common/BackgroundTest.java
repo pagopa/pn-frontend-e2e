@@ -28,42 +28,31 @@ public class BackgroundTest {
 
 
     private HooksNew hooks;
-    @Autowired
-    @Lazy
+
     private DeleghePagoPATest deleghePagoPATest;
-    @Autowired
-    @Lazy
+
     private  RecapitiPersonaFisicaTest recapitiPersonaFisicaTest;
-    @Autowired
-    @Lazy
+
     private LoginPGPagoPATest loginPGPagoPATest;
 
     private LoginPersonaFisicaPagoPA personaFisicaPagoPA;
-    @Autowired
-    @Lazy
+
     private DeleghePGPagoPATest deleghePGPagoPATest;
-    @Autowired
-    @Lazy
+
     private  DisserviziAppPGTest disserviziAppPGTest ;
-    @Autowired
-    @Lazy
+
     private  HelpdeskTest helpdeskTest;
-    @Autowired
-    @Lazy
+
     private NotifichePGPagoPATest notifichePGPagoPATest;
-    @Autowired
-    @Lazy
+
     private RecapitiTest recapitiTest;
-    @Autowired
-    @Lazy
+
     private  RecapitiDestinatarioPage recapitiDestinatarioPage ;
-    @Autowired
-    @Lazy
+
     private  ITuoiRecapitiPage iTuoiRecapitiPage;
-    @Autowired
-    @Lazy
+
     private  PiattaformaNotifichePage piattaformaNotifichePage;
-    @Autowired
+
     private NotificaMittentePagoPATest notificaMittentePagoPATest;
     @Autowired
     @Lazy

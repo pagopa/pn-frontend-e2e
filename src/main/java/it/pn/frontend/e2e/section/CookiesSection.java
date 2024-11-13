@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class CookiesSection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("CookiesPage");
 
@@ -26,7 +26,9 @@ public class CookiesSection extends BasePage {
     @FindBy(xpath = "//button[@aria-label='Chiudi']")
     WebElement chiudiPagamentoPopupButton;
 
-
+    public CookiesSection(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public boolean waitLoadCookiesPage() {
         try {

@@ -20,7 +20,7 @@ import java.util.Map;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
-@Component
+
 public class DettaglioNotificaSection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
 

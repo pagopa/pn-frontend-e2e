@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+
 public class AccediAPiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("AccediAPiattaformaNotifichePage");
@@ -89,9 +89,12 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     @Lazy
     private WebDriverConfig webDriverConfig;
 
-
+    public AccediAPiattaformaNotifichePage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void waitLoadAccediAPiattaformaNotifichePage() {
+        logger.info("HTML...."+driver.getPageSource());
         By titleLabel = By.id("login-mode-page-title");
         By loginBy = By.id("spidButton");
         getWebDriverWait(30).withMessage("Il titolo della pagina accedi a piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));

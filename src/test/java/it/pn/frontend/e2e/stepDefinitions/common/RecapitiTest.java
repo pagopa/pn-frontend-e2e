@@ -21,12 +21,11 @@ public class RecapitiTest extends BasePage {
     private final String ELIMINA = "Elimina";
     private final Logger logger = LoggerFactory.getLogger("RecapitiTest");
     public static String OTP;
-    @Autowired
+
     private  RecapitiDestinatarioPage recapitiDestinatarioPage ;
-    @Autowired
+
     private ITuoiRecapitiPage iTuoiRecapitiPage ;
-    @Autowired
-    @Lazy
+
     private BackgroundTest backgroundTest;
 
     @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono {string} e si clicca sul bottone avvisami via SMS")

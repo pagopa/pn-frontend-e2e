@@ -32,7 +32,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClick
 * Modifiche principali:
 Autowired NotificationSingleton e WebDriverConfig: Ho integrato i componenti tramite annotazione @Autowired per sfruttare la gestione delle dipendenze di Spring Boot, eliminando la necessità di istanziare manualmente queste classi.
 Component: Aggiunta dell’annotazione @Component per rendere la classe gestibile da Spring Boot.*/
-@Component
+
 public class PiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("notificaMittentePagoPA");

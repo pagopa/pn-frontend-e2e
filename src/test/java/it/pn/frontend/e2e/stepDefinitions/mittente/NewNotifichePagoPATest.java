@@ -22,10 +22,10 @@ public class NewNotifichePagoPATest extends BasePage {
     @Value("${environment}")
     private String environmentParam;
 
-    @Autowired
+
     private DestinatarioPage destinatarioPage;
 
-    @Autowired
+
     private DataPopulation dataPopulation;
 
 

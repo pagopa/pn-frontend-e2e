@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-@Component
+
 public class PiattaformaNotifichePGPAPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("PiattaformaNotifichePGPAPage");
 
@@ -80,13 +80,13 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     @Autowired
     private WebDriverConfig webDriverConfig;
-    @Autowired
+
     private DownloadFile downloadFile;
-    @Autowired
+
     private DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection;
-    @Autowired
+
     private HelpdeskPage helpdeskPage ;
-    @Autowired
+
     private DettaglioNotificaSection dettaglioNotificaSection ;
     @Autowired
     @Lazy

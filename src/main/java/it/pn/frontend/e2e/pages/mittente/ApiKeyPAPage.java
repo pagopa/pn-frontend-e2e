@@ -22,7 +22,7 @@ Logging Ottimizzato: Utilizzo di placeholder {} con SLF4J nei metodi di logging 
 * dubbio su Action per capire come iniettarlo in Spring
 *
 * */
-@Component
+
 public class ApiKeyPAPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger(ApiKeyPAPage.class);

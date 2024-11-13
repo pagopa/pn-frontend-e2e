@@ -34,11 +34,11 @@ public class ApiKeysTest {
 
     @Autowired
     private WebDriverConfig webDriverConfig;
-    @Autowired
+
     private PiattaformaNotifichePage piattaformaNotifichePage;
-    @Autowired
+
     private ApiKeyPAPage apiKeyPAPage;
-    @Autowired
+
     private GeneraApiKeySection generaApiKeySection;
 
     @And("Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu")

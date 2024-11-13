@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class LoginSpidPFPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("LoginSpidPFPage");
@@ -28,7 +28,9 @@ public class LoginSpidPFPage extends BasePage {
     @FindBy(xpath = "//button[contains(@class,'button-spid')]")
     WebElement entraConSpidButton;
 
-
+    public LoginSpidPFPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void waitLoadLoginSpidDEPage(){
         try{

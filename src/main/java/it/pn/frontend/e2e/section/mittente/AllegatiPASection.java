@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-@Component
+
 public class AllegatiPASection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("AllegatiSection");

@@ -24,7 +24,6 @@ Refactoring per Gestione delle Eccezioni: La gestione delle eccezioni è mantenu
 *
 *
 * */
-@Component
 public class SelezionaEntePAPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger(SelezionaEntePAPage.class);

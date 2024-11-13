@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+
 public class DelegatiImpresaSection extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DelegatiImpresaSection");

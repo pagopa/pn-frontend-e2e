@@ -45,7 +45,7 @@ import java.util.concurrent.TimeUnit;
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 import static org.apache.commons.lang3.StringUtils.substring;
 
-@Primary
+
 public class NotificaMittentePagoPATest  extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittentePagoPATest");
@@ -68,8 +68,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
     private  WebTool webTool;
     @Autowired
     private NotificationSingleton notificationSingleton;
-    @Autowired
-    private CookiesSection cookiesSection;
+
+    private CookiesSection cookiesSection ;
+
     @Autowired
     private WebDriverConfig webDriverConfig;
     // Iniettare il driver tramite constructor injection
@@ -77,38 +78,33 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @Lazy
     private HooksNew hooks;
 
-    @Autowired
     private AreaRiservataPAPage areaRiservataPAPage;
 
-    @Autowired
-    private HeaderPASection headerPASection;
+    private HeaderPASection headerPASection ;
 
-    @Autowired
     private SuccessPASection successPASection;
 
-    @Autowired
-    private  PiattaformaNotifichePage piattaformaNotifichePage;
-    @Autowired
-    private  AllegatiPASection allegatiPASection;
-    @Autowired
+    private  PiattaformaNotifichePage piattaformaNotifichePage ;
+
+    private  AllegatiPASection allegatiPASection ;
+
     private  DestinatarioPASection destinatarioPASection;
     @Autowired
     private DataPopulation dataPopulation;
-    @Autowired
+
     private DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection;
-    @Autowired
+
     private InformazioniPreliminariPASection informazioniPreliminariPASection;
-    @Autowired
+
     private LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA;
-    @Autowired
-    private  LoginPGPagoPATest loginPGPagoPATest;
-    @Autowired
-    @Lazy
+
+    private  LoginPGPagoPATest loginPGPagoPATest ;
+
     private BackgroundTest backgroundTest;
-    @Autowired
-    InvioNotifichePAPage invioNotifichePAPage;
-    @Autowired
-    AccettazioneRichiestaNotifica accettazioneRichiestaNotifica;
+
+    private InvioNotifichePAPage invioNotifichePAPage;
+
+    private AccettazioneRichiestaNotifica accettazioneRichiestaNotifica;
     @Autowired
     @Lazy
     private WebDriverManager webDriveBean;

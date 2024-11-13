@@ -15,7 +15,7 @@ import java.util.List;
 *Iniezione Spring: La classe è ora annotata con @Component per permettere a Spring Boot di gestirla come un bean, e il costruttore AreaRiservataPAPage riceve WebDriver tramite iniezione automatica.
 Gestione WebElement: Gli elementi WebElement definiti con @FindBy vengono iniettati automaticamente grazie a Spring e Selenium, senza ulteriori istanze di driver nella classe.
 * */
-@Component
+
 public class AreaRiservataPAPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("AreaRiservataPAPage");
