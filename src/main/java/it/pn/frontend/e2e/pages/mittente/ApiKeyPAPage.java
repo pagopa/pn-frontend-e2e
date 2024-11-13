@@ -27,6 +27,9 @@ public class ApiKeyPAPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger(ApiKeyPAPage.class);
 
+
+
+
     @FindBy(id = "generate-api-key")
     private WebElement generateApiKeyButton;
 
@@ -69,9 +72,6 @@ public class ApiKeyPAPage extends BasePage {
     @Autowired
     @Lazy
     private  WebTool webTool;
-
-    @Autowired
-    private WebDriver driver;
 
 
     public void waitLoadApikeyPage() {

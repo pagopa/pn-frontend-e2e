@@ -29,6 +29,8 @@ public class SelezionaEntePAPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger(SelezionaEntePAPage.class);
 
+
+
     @FindBy(xpath = "//div[@role='button']//h6")
     private List<WebElement> comuneButton;
 
@@ -42,8 +44,7 @@ public class SelezionaEntePAPage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-    @Autowired
-    private WebDriver driver;
+
 
     public void waitLoadSelezionaEntePAPage() {
         try {

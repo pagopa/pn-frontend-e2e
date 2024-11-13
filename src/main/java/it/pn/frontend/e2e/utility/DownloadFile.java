@@ -43,8 +43,6 @@ public class DownloadFile extends BasePage {
     @Lazy
     private WebDriveBean webDriveBean;
 
-    @Autowired
-    private WebDriver driver;
 
     public void download(String urlLink, File fileLoc, boolean headless) {
         if (headless) {

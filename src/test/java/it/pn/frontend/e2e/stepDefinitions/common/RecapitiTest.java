@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.stepDefinitions.common;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
@@ -13,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
-public class RecapitiTest {
+public class RecapitiTest extends BasePage {
 
     private final String PEC = "PEC";
     private final String emailDiCortesia = "email di cortesia";

@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.delegate.DelegatePF;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
@@ -64,17 +65,14 @@ public class DeleghePagoPATest {
     @Lazy
     private  WebTool webTool;
 
+    @Autowired
+    private WebDriver  driver;
+
     Map<String, Object> deleghe = new HashMap<>();
     @Setter
     private String codiceVerifica;
 
-    private final WebDriver driver;
 
-    @Autowired
-    @Lazy
-    public DeleghePagoPATest(WebDriver driver) {
-        this.driver = driver;
-    }
 
     @When("Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe")
     public void waitDelegheButton() {

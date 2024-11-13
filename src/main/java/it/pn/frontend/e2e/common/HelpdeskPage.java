@@ -39,6 +39,9 @@ import org.springframework.stereotype.Component;
 public class HelpdeskPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("Helpdesk Page");
+
+
+
     @FindBy(id = "buttonLogin")
     WebElement loginButton;
     @FindBy(id = "Email")
@@ -83,8 +86,7 @@ public class HelpdeskPage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-    @Autowired
-    private WebDriver driver;
+
 
     private static void pressTabKey(Robot robot, int times) {
         for (int i = 0; i < times; i++) {
@@ -653,7 +655,6 @@ public class HelpdeskPage extends BasePage {
     public void inserimentoArcoTemporale() {
         webTool.waitTime(60);
 
-        logger.info(driver.getPageSource());
         By calendarButton = By.xpath("//div[@data-testid='data-range-picker']//div//div//button");
         getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(calendarButton));
         element(calendarButton).click();

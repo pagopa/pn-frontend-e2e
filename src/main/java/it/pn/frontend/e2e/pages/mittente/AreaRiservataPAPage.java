@@ -20,6 +20,9 @@ public class AreaRiservataPAPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("AreaRiservataPAPage");
 
+
+
+
     @FindBy(xpath = "//p[contains(@class,'MuiTypography-root MuiTypography-body1 ShowDots')]")
     private List<WebElement> infoLabel;
 
@@ -31,8 +34,8 @@ public class AreaRiservataPAPage extends BasePage {
 
     @FindBy(id = "forward_prod-pn")
     private WebElement piattaformaNotificaUatGestisciButton;
-    @Autowired
-    private WebDriver driver;
+
+
 
     public void waitLoadAreaRiservataPAPage() {
         try {

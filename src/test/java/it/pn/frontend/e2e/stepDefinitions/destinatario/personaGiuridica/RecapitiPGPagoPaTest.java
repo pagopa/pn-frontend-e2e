@@ -42,8 +42,7 @@ public class RecapitiPGPagoPaTest {
 
     private final WebDriver driver;
 
-    @Autowired
-    @Lazy
+
     public RecapitiPGPagoPaTest(WebDriver driver) {
         this.driver = driver;
     }

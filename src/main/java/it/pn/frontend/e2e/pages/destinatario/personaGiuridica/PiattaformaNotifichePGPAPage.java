@@ -36,6 +36,8 @@ import java.util.stream.Stream;
 public class PiattaformaNotifichePGPAPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("PiattaformaNotifichePGPAPage");
 
+
+
     @FindBy(id = "side-item-Deleghe")
     WebElement delegheSideMenu;
 
@@ -90,8 +92,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-    @Autowired
-    private WebDriver driver;
+
 
     private static void pressTabKey(Robot robot, int times) {
         for (int i = 0; i < times; i++) {

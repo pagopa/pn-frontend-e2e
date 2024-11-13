@@ -61,8 +61,7 @@ public class RicercaNotifichePersonaFisicaPATest {
 
     private final WebDriver driver;
 
-    @Autowired
-    @Lazy
+
     public RicercaNotifichePersonaFisicaPATest(WebDriver driver) {
         this.driver = driver;
     }

@@ -17,6 +17,8 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DeleghePGPagoPAPage");
 
+
+
     @FindBy(id = "tab-1")
     WebElement delegatiImpresaButton;
 
@@ -84,10 +86,6 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     @FindBy(id = "error-alert")
     WebElement errorCodeInPopUp;
-
-    @Autowired
-    private WebDriver driver;
-
 
 
     public void waitLoadDeleghePage() {

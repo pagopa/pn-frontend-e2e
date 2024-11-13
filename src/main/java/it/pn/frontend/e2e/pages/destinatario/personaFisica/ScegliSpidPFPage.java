@@ -18,16 +18,15 @@ public class ScegliSpidPFPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("ScegliSpidPFPage");
 
+
     @FindBy(id = "spid-select-xx_testenv2")
     WebElement testButton;
 
-    @Autowired
-    private WebDriver driver;
 
     public void waitLoadScegliSpidDEPage(){
         try{
             By titlePage = By.id("spid-select");
-            this.getWebDriverWait(30).withMessage("Il titolo scegli Spid PF non trovato").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
+            getWebDriverWait(30).withMessage("Il titolo scegli Spid PF non trovato").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
             logger.info("Scegli Spid DE Page caricata");
         }catch (TimeoutException e){
             logger.error("Scegli Spid DE Page non caricata con errore : "+e.getMessage());
@@ -36,8 +35,9 @@ public class ScegliSpidPFPage extends BasePage {
     }
 
     public void selezionareTestButton(){
+        testButton = driver.findElement(By.id("spid-select-xx_testenv2"));
         getWebDriverWait(60).withMessage("il bottone Test dello spid non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.testButton));
-        this.testButton.click();
+        testButton.click();
     }
 
 

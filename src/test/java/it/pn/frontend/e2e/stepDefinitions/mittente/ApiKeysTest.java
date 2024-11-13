@@ -29,9 +29,8 @@ public class ApiKeysTest {
     @Setter
     public static String ApiKey;
 
-    @Autowired
-    @Lazy
-    HooksNew hooks;
+
+    private HooksNew hooks;
 
     @Autowired
     private WebDriverConfig webDriverConfig;

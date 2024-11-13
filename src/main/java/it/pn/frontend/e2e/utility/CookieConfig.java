@@ -16,7 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Component
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class CookieConfig {
     private static final Logger logger = LoggerFactory.getLogger("CookieConfig");
 
@@ -36,10 +35,8 @@ public class CookieConfig {
 
 
     public boolean isCookieEnabled() {
-        //String isCookieEnabled = System.getProperty("cookie.config");
-        logger.info("COOOKIE....: ");
         logger.info("COOOKIE....: "+ cookie);
-        logger.info("COOOKIE....11: "+ environment);
+        logger.info("COOOKIE....ENVIROMENT: "+ environment);
         String isCookieEnabled = cookie;
         if (isCookieEnabled == null || isCookieEnabled.equals("false")) {
             logger.info("Cookies are disabled");

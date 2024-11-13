@@ -8,8 +8,11 @@ import it.pn.frontend.e2e.api.personaFisica.SpidAcs;
 import it.pn.frontend.e2e.api.personaFisica.SpidDemoLogin;
 import it.pn.frontend.e2e.api.personaFisica.SpidDemoStart;
 import it.pn.frontend.e2e.api.personaFisica.SpidLogin;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.WebDriveBean;
+import it.pn.frontend.e2e.config.DriverConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
+import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
@@ -29,43 +32,35 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Primary
-public class LoginPersonaFisicaPagoPA {
+public class LoginPersonaFisicaPagoPA extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("LoginPersonaFisicaPagoPA");
     private Map<String, Object> datiPersonaFisica;
     private Map<String, String> urlPersonaFisica;
 
+
     @Autowired
     @Lazy
-    private HooksNew hooks;
-    @Autowired
     private WebDriverConfig webDriverConfig;
-    @Autowired
+
     private  WebTool webTool;
 
     //TODO Parametrizzare
     private Map<String, Object> datiDelegato;
     @Autowired
     private DataPopulation dataPopulation;
-
     @Autowired
     private HeaderPFSection headerPFSection;
-
     @Autowired
     private NotifichePFPage notifichePFPage;
-
     @Autowired
     private ScegliSpidPFPage scegliSpidPFPage;
-
     @Autowired
     private LoginSpidPFPage loginSpidPFPage;
-
     @Autowired
     private ConfermaDatiSpidPFPage confermaDatiSpidPFPage;
-
     @Autowired
     private AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage;
-
     @Autowired
     private CookiesSection cookiesSection;
 
@@ -73,10 +68,14 @@ public class LoginPersonaFisicaPagoPA {
     private ComeVuoiAccederePage comeVuoiAccederePage;
 
     @Autowired
-    private WebDriver driver;
+    private WebDriverManager webDriveBean;
 
-    @Autowired
-    private WebDriveBean webDriveBean;
+
+
+    public LoginPersonaFisicaPagoPA() {
+        logger.info("INIT COSTRUTTORE...: ");
+        webTool = new WebTool(driver);
+    }
 
     @Given("Login Page persona fisica {string} viene visualizzata")
     public void loginPageDestinatarioVieneVisualizzata(String datipersonaFisica) {
@@ -97,10 +96,7 @@ public class LoginPersonaFisicaPagoPA {
     public void loginPageDestinatarioVieneVisualizzataConUrl() {
         logger.info("ENVIROMENT...: "+ webDriverConfig.getEnvironment());
         String url = webDriverConfig.getBaseUrlPfTest();
-
-
         driver.get(url);
-        logger.info("DRIVER....1" +driver.getPageSource());
     }
 
     @Given("PF - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
@@ -194,12 +190,11 @@ public class LoginPersonaFisicaPagoPA {
 
         if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
-                logger.info("DRIVER2...."+driver.getPageSource());
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
         logger.info("cookies end");
-        logger.info("HTML3...."+driver.getPageSource());
+
         accediAPiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
         accediAPiattaformaNotifichePage.selezionaAccediButton();
         if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
@@ -207,6 +202,7 @@ public class LoginPersonaFisicaPagoPA {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
+        logger.info("cookies end");
 
         scegliSpidPFPage.waitLoadScegliSpidDEPage();
         scegliSpidPFPage.selezionareTestButton();
@@ -215,6 +211,7 @@ public class LoginPersonaFisicaPagoPA {
         loginSpidPFPage.inserisciUtente(webDriverConfig.getUserCesare());
         loginSpidPFPage.inserisciPassword(webDriverConfig.getPwdCesare());
         loginSpidPFPage.selezionaEntraConSpidButton();
+
 
         confermaDatiSpidPFPage.waitLoadConfermaDatiSpidDEPage();
         String nomeUtenteLetto = confermaDatiSpidPFPage.leggiNomeUtente();
@@ -242,14 +239,15 @@ public class LoginPersonaFisicaPagoPA {
             Assertions.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
         }
 
+
         confermaDatiSpidPFPage.selezionaConfermaButton();
+
         headerPFSection.waitUrlToken();
         webTool.waitTime(2);
     }
 
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
-
         if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
@@ -274,6 +272,7 @@ public class LoginPersonaFisicaPagoPA {
         } else {
             logger.warn("Http token persona fisica not found");
         }
+
         headerPFSection.waitLoadHeaderDESection();
 
         if (!webDriveBean.getCookieConfig().isCookieEnabled()) {

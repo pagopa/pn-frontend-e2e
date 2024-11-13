@@ -23,8 +23,7 @@ public class SelezionaImpresaPage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-    @Autowired
-    private WebDriver driver;
+
 
     public void waitLoadSelezionaImpresaPage() {
         webTool.waitTime(10);

@@ -21,8 +21,7 @@ public class ScegliSpidPGPage extends BasePage {
     @FindBy(id = "xx_testenv2")
     WebElement testButton;
 
-    @Autowired
-    private WebDriver driver;
+
 
     public void waitLoadScegliSpidPGPage() {
         try {

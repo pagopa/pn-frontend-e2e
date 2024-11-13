@@ -1,7 +1,7 @@
-package it.pn.frontend.e2e.common;
+package it.pn.frontend.e2e.config;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import it.pn.frontend.e2e.config.WebDriverConfig;
+import it.pn.frontend.e2e.common.WebDriveBean;
+import it.pn.frontend.e2e.common.WebdriverScopeBean;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import lombok.Getter;
@@ -20,28 +20,27 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext;
-import org.springframework.context.annotation.*;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 
 import java.time.Duration;
 import java.util.*;
 
-
-public class WebDriveBean {
+@Configuration
+@Getter
+public class WebDriverManager {
 
     /**
      * Logger
      */
-    private static final Logger logger = LoggerFactory.getLogger(WebDriveBean.class);
+    private static final Logger logger = LoggerFactory.getLogger(WebDriverManager.class);
+
+    private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
 
-    private WebDriver driver;
+    private static WebDriver driver;
 
     @Autowired
     @Lazy
@@ -58,16 +57,28 @@ public class WebDriveBean {
     private DevTools devTools;
 
 
+    public  static  WebDriver getDriver() {
+        if (driverThreadLocal.get() == null) {
+            driverThreadLocal.set(driver);
+        }
+        return driverThreadLocal.get();
+    }
 
-   // @Bean("driver")
-  //  @ConditionalOnMissingBean
- //   @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-   // @ConditionalOnProperty( name = "browser" , havingValue = "chrome", matchIfMissing = true)
-    public WebDriver webDriverChrome() {
 
+    public static void quitDriver() {
+        WebDriver driver = driverThreadLocal.get();
+        if (driver != null) {
+            driver.quit();
+            driverThreadLocal.remove();
+        }
+    }
+
+    @WebdriverScopeBean
+    @ConditionalOnProperty( name = "browser" , havingValue = "chrome", matchIfMissing = true)
+    public  WebDriver chromeDriver() {
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
-        WebDriverManager.chromedriver().setup();
+        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
         var chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--lang=it", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard");
         var downloadFilePath = webDriverConfig.getDownloadFilePath();
@@ -84,21 +95,21 @@ public class WebDriveBean {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         setupDevTools();
-        logger.info("Chrome driver started");
+        logger.info("Chrome driver started - WebDriverManager");
 
         cookieConfig.addCookie();
 
         return driver;
     }
 
-
-
+    @WebdriverScopeBean
+    @ConditionalOnProperty( name = "browser" , havingValue = "edge")
     public WebDriver webDriverEdge() {
 
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
         if (this.os.toLowerCase().contains("windows")) {
-            WebDriverManager.edgedriver().setup();
+            io.github.bonigarcia.wdm.WebDriverManager.edgedriver().setup();
         } else {
             throw new UnsupportedOperationException("Edge browser is not supported on OS: " + this.os);
         }
@@ -117,12 +128,13 @@ public class WebDriveBean {
         return driver;
     }
 
-
+    @WebdriverScopeBean
+    @ConditionalOnProperty( name = "browser" , havingValue = "firefox")
     public WebDriver webDriverFirefox() {
 
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
-        WebDriverManager.firefoxdriver().setup();
+        io.github.bonigarcia.wdm.WebDriverManager.firefoxdriver().setup();
         var firefoxProfile = new FirefoxProfile();
         var firefoxOptions = new FirefoxOptions();
         firefoxOptions.setProfile(firefoxProfile);
@@ -200,6 +212,7 @@ public class WebDriveBean {
     public void clearNetWorkInfos() {
         netWorkInfos.clear();
     }
+
 
 
 }

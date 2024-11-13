@@ -79,8 +79,7 @@ public class DeleghePGPagoPATest {
 
     private final WebDriver driver;
 
-    @Autowired
-    @Lazy
+
     public DeleghePGPagoPATest(WebDriver driver) {
         this.driver = driver;
     }

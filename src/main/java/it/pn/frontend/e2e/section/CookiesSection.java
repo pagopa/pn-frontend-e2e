@@ -18,15 +18,18 @@ import org.springframework.stereotype.Component;
 public class CookiesSection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("CookiesPage");
 
+
+
     @FindBy(id = "onetrust-accept-btn-handler")
     WebElement accettaTuttiButton;
 
     @FindBy(xpath = "//button[@aria-label='Chiudi']")
     WebElement chiudiPagamentoPopupButton;
 
+
+
     public boolean waitLoadCookiesPage() {
         try {
-            logger.info("DRIVERWAIT...."+driver.getPageSource());
             By scopriDiPiuLink = By.id("onetrust-banner-sdk");
             this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(scopriDiPiuLink));
             logger.info("Cookies Page caricata");

@@ -29,6 +29,8 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
 
+
+
     @FindBy(id = "more-less-timeline-step")
     List<WebElement> vediDettagliButton;
 
@@ -76,8 +78,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-    @Autowired
-    private WebDriver driver;
+
 
     public void waitLoadDettaglioNotificaSection() {
             By titleDettaglioNotificaField = By.id("title-of-page");

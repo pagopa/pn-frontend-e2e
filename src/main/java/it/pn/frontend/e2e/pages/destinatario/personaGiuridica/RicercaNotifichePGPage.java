@@ -17,8 +17,7 @@ public class RicercaNotifichePGPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("RicercaNotifichePGPage");
 
-    @Autowired
-    private WebDriver driver;
+
 
     @FindBy(id = "filter-notifications-button")
     WebElement filtraButton;
@@ -32,6 +31,8 @@ public class RicercaNotifichePGPage extends BasePage {
     @Autowired
     @Lazy
     private  WebTool webTool;
+
+
 
     public void clickNotificheImpresa() {
         try {

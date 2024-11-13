@@ -20,8 +20,8 @@ public class AccediAreaRiservataPGPage extends BasePage {
     @FindBy(id = "spidButton")
     WebElement spidButton;
 
-    @Autowired
-    private WebDriver driver;
+
+
 
     public void waitLoadAccediAreaRiservataPGPage() {
         try {

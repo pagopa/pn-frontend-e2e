@@ -23,9 +23,9 @@ public class UtentiPGPagoPATest {
     @Autowired
     @Lazy
     private  WebTool webTool;
-    @Autowired
+
     private  UtentiPGPage utentiPGPage;
-    @Autowired
+
     private  HomePagePG homePagePG;
 
     @And("Si visualizza correttamente la pagina utenti")

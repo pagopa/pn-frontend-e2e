@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
@@ -24,7 +25,7 @@ import java.io.IOException;
 * Integrazione DownloadFile e WebTool: Poiché DownloadFile e WebTool vengono utilizzati internamente senza dipendenze da Spring, non è necessario modificarli; il loro uso rimane invariato.
 * Annotazione @Component: La classe DisserviziAppPATest è stata annotata come componente Spring per consentire l'iniezione automatica delle dipendenze. */
 //@Component
-public class DisserviziAppPATest {
+public class DisserviziAppPATest extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger(DisserviziAppPATest.class);
 

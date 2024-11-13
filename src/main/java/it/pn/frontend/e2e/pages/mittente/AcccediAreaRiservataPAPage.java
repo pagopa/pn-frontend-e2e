@@ -26,8 +26,7 @@ public class AcccediAreaRiservataPAPage extends BasePage {
     @FindBy (id = "forward_prod-pn-test")
     WebElement testButton;
 
-    @Autowired
-    private WebDriver driver;
+
 
     public void waitLoadLoginPageMittente(){
         try{

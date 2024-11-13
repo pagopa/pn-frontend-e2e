@@ -35,9 +35,6 @@ public class RicercaNotificheMittentePagoPATest {
     private boolean dataFineErrata;
 
     @Autowired
-    @Lazy
-    private HooksNew hooks;
-    @Autowired
     private  DestinatarioPASection destinatarioPASection;
 
     @Autowired

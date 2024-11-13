@@ -38,8 +38,7 @@ public class DisserviziAppPGTest {
 
     private final WebDriver driver;
 
-    @Autowired
-    @Lazy
+
     public DisserviziAppPGTest(WebDriver driver) {
         this.driver = driver;
     }

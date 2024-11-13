@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.utility;
 
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.enums.AppPortal;
@@ -48,16 +49,11 @@ public class WebTool {
     private CookiesSection cookiesSection;
 
     private static final Integer NOTICE_CODE_LENGTH = 18;
-    //private final String env1 = System.getProperty("environment");
 
-    //@Getter
-    //private static final String apiBaseUrl = System.getProperty("apiBaseUrl");
-    private final WebDriver driver;
+    private WebDriver driver;
 
-    @Autowired
-    @Lazy
     public WebTool(WebDriver driver) {
-        this.driver = driver;
+       this.driver = driver;
     }
 
     public  String switchToPortal(AppPortal portal) {

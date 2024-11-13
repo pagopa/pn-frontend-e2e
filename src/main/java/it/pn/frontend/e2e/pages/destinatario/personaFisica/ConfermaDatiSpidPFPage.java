@@ -18,6 +18,7 @@ public class ConfermaDatiSpidPFPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("ConfermaDatiSpidPFPage");
 
+
     @FindBy(xpath = "//li[contains(text(),'name')]/strong")
     WebElement nomeUtenteLabel;
 
@@ -30,8 +31,6 @@ public class ConfermaDatiSpidPFPage extends BasePage {
     @FindBy(css = "input[value='Conferma']")
     WebElement confermaButton;
 
-    @Autowired
-    private WebDriver driver;
 
     public void waitLoadConfermaDatiSpidDEPage(){
         try{
@@ -48,22 +47,26 @@ public class ConfermaDatiSpidPFPage extends BasePage {
     }
 
     public String leggiNomeUtente(){
-        getWebDriverWait(30).withMessage("nome utente non è visibile").until(ExpectedConditions.visibilityOf(this.nomeUtenteLabel));
-        return this.nomeUtenteLabel.getText();
+        nomeUtenteLabel = driver.findElement(By.xpath("//li[contains(text(),'name')]/strong"));
+        getWebDriverWait(30).withMessage("nome utente non è visibile").until(ExpectedConditions.visibilityOf(nomeUtenteLabel));
+        return nomeUtenteLabel.getText();
     }
 
     public String leggiCognomeUtente(){
-        getWebDriverWait(30).withMessage("cognome utente non è visibile").until(ExpectedConditions.visibilityOf(this.cognomeUtenteLabel));
-        return this.cognomeUtenteLabel.getText();
+        cognomeUtenteLabel = driver.findElement(By.xpath("//li[contains(text(),'familyName')]/strong"));
+        getWebDriverWait(30).withMessage("cognome utente non è visibile").until(ExpectedConditions.visibilityOf(cognomeUtenteLabel));
+        return cognomeUtenteLabel.getText();
     }
 
     public String leggiNumeroFiscale(){
-        getWebDriverWait(30).withMessage("codice fiscale utente non è visibile").until(ExpectedConditions.visibilityOf(this.cognomeUtenteLabel));
-        return this.fiscalNumberLabel.getText();
+        fiscalNumberLabel = driver.findElement(By.xpath("//li[contains(text(),'fiscalNumber')]/strong"));
+        getWebDriverWait(30).withMessage("codice fiscale utente non è visibile").until(ExpectedConditions.visibilityOf(fiscalNumberLabel));
+        return fiscalNumberLabel.getText();
     }
 
     public void selezionaConfermaButton(){
-        this.getWebDriverWait(30).withMessage("conferma dati spid button non è cliccabile").until(ExpectedConditions.elementToBeClickable(confermaButton));
-        this.confermaButton.click();
+        confermaButton = driver.findElement(By.cssSelector("input[value='Conferma']"));
+        getWebDriverWait(30).withMessage("conferma dati spid button non è cliccabile").until(ExpectedConditions.elementToBeClickable(confermaButton));
+        confermaButton.click();
     }
 }

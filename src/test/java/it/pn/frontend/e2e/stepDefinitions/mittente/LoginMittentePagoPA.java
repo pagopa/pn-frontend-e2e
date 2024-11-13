@@ -9,7 +9,9 @@ import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoContinueResponse;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogin;
 import it.pn.frontend.e2e.common.WebDriveBean;
+import it.pn.frontend.e2e.config.DriverConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
+import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.mittente.*;
 import it.pn.frontend.e2e.section.CookiesSection;
@@ -92,12 +94,11 @@ public class LoginMittentePagoPA {
 
     @Autowired
     @Lazy
-    private WebDriveBean webDriveBean;
+    private WebDriverManager webDriveBean;
 
     private final WebDriver driver;
 
-    @Autowired
-    @Lazy
+
     public LoginMittentePagoPA(WebDriver driver) {
         this.driver = driver;
     }

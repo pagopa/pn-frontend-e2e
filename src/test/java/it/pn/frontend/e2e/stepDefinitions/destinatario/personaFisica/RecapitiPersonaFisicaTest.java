@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.api.personaFisica.RecuperoOTPRecapiti;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.common.WebDriveBean;
 import it.pn.frontend.e2e.config.WebDriverConfig;
@@ -53,15 +54,12 @@ public class RecapitiPersonaFisicaTest {
     @Lazy
     private WebDriveBean webDriveBean;
 
+    @Autowired
+    private WebDriver  driver;
+
     public static String OTP;
 
-    private final WebDriver driver;
 
-    @Autowired
-    @Lazy
-    public RecapitiPersonaFisicaTest(WebDriver driver) {
-        this.driver = driver;
-    }
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti")
     public void nellaPaginaPiattaformaNotifichePersonaFisicaSiCliccaSulBottoneITuoiRecapiti() {

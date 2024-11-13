@@ -31,12 +31,11 @@ public class HeaderPFSection extends BasePage {
     @FindBy(xpath = "//ul[@role='menu']//li")
     List<WebElement> menuProfileItems;
 
-    @Autowired
-    @Lazy
+
     private  WebTool webTool;
 
-    @Autowired
-    private WebDriver driver;
+
+
 
     public void waitLoadHeaderDESection() {
         try {

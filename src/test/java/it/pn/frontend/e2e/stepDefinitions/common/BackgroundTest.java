@@ -26,8 +26,7 @@ public class BackgroundTest {
     private final String mittente = "mittente";
     private final Map<String, String> datiPersonaFisica;
 
-    @Autowired
-    @Lazy
+
     private HooksNew hooks;
     @Autowired
     @Lazy
@@ -38,8 +37,7 @@ public class BackgroundTest {
     @Autowired
     @Lazy
     private LoginPGPagoPATest loginPGPagoPATest;
-    @Autowired
-    @Lazy
+
     private LoginPersonaFisicaPagoPA personaFisicaPagoPA;
     @Autowired
     @Lazy

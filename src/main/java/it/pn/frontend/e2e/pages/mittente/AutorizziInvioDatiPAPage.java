@@ -18,8 +18,6 @@ public class AutorizziInvioDatiPAPage extends BasePage {
     @FindBy(css = "button[name='confirm']")
     private WebElement inviaButton;
 
-    @Autowired
-    private WebDriver driver;
 
     public void waitLoadAutorizziInvioDatiPAPage() {
         try {

@@ -88,13 +88,14 @@ public class UtentiPGPage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
+    private WebDriver driver;
 
-    private Actions actions;
 
-    @PostConstruct
-    public void initGruppoPage() {
-        this. actions = new Actions(driver);
-    }
+
+    private final Actions actions = new Actions(driver);
+
+
+
 
     public void clickSezioneUtenti() {
         getWebDriverWait(10).withMessage("La sezione Utenti non è cliccabile").until(ExpectedConditions.elementToBeClickable(sezioneUtenti));

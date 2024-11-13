@@ -20,6 +20,8 @@ public class NotifichePFPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(NotifichePFPage.class);
 
 
+
+
     @FindBy(id = "Le tue notifiche-page")
     private WebElement titleLabel;
 
@@ -74,8 +76,6 @@ public class NotifichePFPage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-    @Autowired
-    private WebDriver driver;
 
     public void waitLoadNotificheDEPage() {
         getWebDriverWait(10).withMessage("Notifiche DE Page non caricata correttamente: il titolo non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));

@@ -1,5 +1,8 @@
 package it.pn.frontend.e2e.common;
 
+import it.pn.frontend.e2e.config.WebDriverConfig;
+import it.pn.frontend.e2e.config.WebDriverThreadLocal;
+import jakarta.annotation.PostConstruct;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -7,6 +10,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Lookup;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -24,19 +30,31 @@ Thread.currentThread().interrupt() in waitLoadPage(): Gestisce correttamente lâ€
 *
 * */
 
-@Component
+
 public class BasePage {
 
-    @Autowired
-    protected WebDriveBean driverBeann;
+   // protected WebDriver driver;
     protected int loadComponentWaitTime;
     private static final Logger loggerBase = LoggerFactory.getLogger(BasePage.class);
 
+    @Autowired
+    public WebDriver driver;
 
-    public BasePage() {
-        PageFactory.initElements(driverBeann.getDriver(), this);
+
+    @PostConstruct
+    private void init() {
+        PageFactory.initElements(this.driver, this);
         loadComponentWaitTime = Integer.parseInt(System.getProperty("loadComponentWaitTime", "10"));
     }
+
+    /**
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(this.driver, this);
+        loadComponentWaitTime = Integer.parseInt(System.getProperty("loadComponentWaitTime", "10"));
+    }
+
+     **/
 
     protected void scrollToElementClickAndInsertText(WebElement element, String text) {
         try {
@@ -76,19 +94,19 @@ public class BasePage {
     }
 
     protected WebDriverWait getWebDriverWait(long timeout) {
-        return new WebDriverWait(driverBeann.getDriver(), Duration.ofSeconds(timeout), Duration.ofMillis(500));
+        return new WebDriverWait(this.driver, Duration.ofSeconds(timeout), Duration.ofMillis(500));
     }
 
     protected WebElement element(By by) {
-        return driverBeann.getDriver().findElement(by);
+        return driver.findElement(by);
     }
 
     protected List<WebElement> elements(By by) {
-        return driverBeann.getDriver().findElements(by);
+        return driver.findElements(by);
     }
 
     protected JavascriptExecutor js() {
-        return (JavascriptExecutor) driverBeann.getDriver();
+        return (JavascriptExecutor) driver;
     }
 
     public void waitLoadPage() {
@@ -105,7 +123,7 @@ public class BasePage {
     }
 
     public void aggiornamentoPagina() {
-        driverBeann.getDriver().navigate().refresh();
+        driver.navigate().refresh();
     }
 
     public void waitLoadingSpinner() {
@@ -114,7 +132,7 @@ public class BasePage {
     }
 
     public void goBack() {
-        driverBeann.getDriver().navigate().back();
+        driver.navigate().back();
     }
 
     /**
@@ -130,6 +148,6 @@ public class BasePage {
     }
 
     public boolean checkURL(String url) {
-        return driverBeann.getDriver().getCurrentUrl().contains(url);
+        return driver.getCurrentUrl().contains(url);
     }
 }

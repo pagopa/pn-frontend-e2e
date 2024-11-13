@@ -17,6 +17,8 @@ import java.util.List;
 public class RecapitiDestinatarioPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("RecapitiDestinatarioPage");
 
+
+
     @FindBy(id = "default_pec-button")
     WebElement attivaButton;
 
@@ -88,8 +90,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-    @Autowired
-    private WebDriver driver;
+
 
     public void eliminaPecEsistente() {
         clickSuEliminaPec();
@@ -280,7 +281,6 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickConfermaButton() {
-        //logger.info("HTML...."+driver.getPageSource());
         confermaButtonPoPUpPec = driver.findElement(By.xpath("//button[@id='confirmDialog']"));
         getWebDriverWait(10).withMessage("Il bottone conferma del pop up non é cliccabile").until(ExpectedConditions.elementToBeClickable(confermaButtonPoPUpPec));
         this.confermaButtonPoPUpPec.click();

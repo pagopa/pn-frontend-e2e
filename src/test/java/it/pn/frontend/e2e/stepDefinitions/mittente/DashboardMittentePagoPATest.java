@@ -21,8 +21,7 @@ public class DashboardMittentePagoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("DashboardMittentePagoPATest");
 
-    @Autowired
-    @Lazy
+
     private HooksNew hooks;
 
     @Autowired

@@ -20,6 +20,7 @@ public class DelegatiImpresaSection extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DelegatiImpresaSection");
 
+
     @FindBy(id = "show-code-button")
     WebElement mostraCodiceOption;
 
@@ -45,8 +46,7 @@ public class DelegatiImpresaSection extends BasePage {
     @FindBy(id = "notifications-table")
     WebElement tabelleDelleDelegheDellImpresa;
 
-    @Autowired
-    private WebDriver driver;
+
 
     public void waitLoadDelegatiImpresaPage() {
         try {

@@ -14,8 +14,8 @@ public class RecapitiPGPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("RecapitiPGPage");
 
-    @Autowired
-    private WebDriver driver;
+
+
 
     public void waitLoadRecapitiPage() {
         try {

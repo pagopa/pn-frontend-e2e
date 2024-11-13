@@ -27,6 +27,8 @@ import java.util.List;
 public class DisserviziAppPAPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("Disservizi PA Page");
 
+
+
    // @Value("${downloadFilePath}")
    // private String downloadFilePath;
     @Autowired
@@ -52,8 +54,6 @@ public class DisserviziAppPAPage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-    @Autowired
-    private WebDriver driver;
 
 
     public void waitLoadStatoDellaPiattaformaPage() {

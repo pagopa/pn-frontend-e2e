@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.HelpdeskPage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
@@ -33,7 +34,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @Primary
-public class HelpdeskTest {
+public class HelpdeskTest extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("HelpdeskAppTest");
 
     @Autowired
@@ -54,16 +55,14 @@ public class HelpdeskTest {
     @Lazy
     private  WebTool webTool;
 
+
+    @Autowired
+    private WebDriver  driver;
+
     private Map<String, Object> datiTestHelpdesk = new HashMap<>();
     private Map<String, Object> datiPersonaFisica = new HashMap<>();
 
-    private final WebDriver driver;
 
-    @Autowired
-    @Lazy
-    public HelpdeskTest(WebDriver driver) {
-        this.driver = driver;
-    }
 
 
     @Given("Login helpdesk con utente test {string}")

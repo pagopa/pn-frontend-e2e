@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +16,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Slf4j
-public class NewNotifichePagoPATest {
+public class NewNotifichePagoPATest extends BasePage {
     private final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
 
     @Value("${environment}")

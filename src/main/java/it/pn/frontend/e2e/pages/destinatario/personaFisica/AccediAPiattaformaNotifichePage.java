@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -84,10 +85,13 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
+    @Autowired
+    @Lazy
+    private WebDriverConfig webDriverConfig;
+
+
 
     public void waitLoadAccediAPiattaformaNotifichePage() {
-
-        logger.info("HTML..."+driver.getPageSource());
         By titleLabel = By.id("login-mode-page-title");
         By loginBy = By.id("spidButton");
         getWebDriverWait(30).withMessage("Il titolo della pagina accedi a piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
@@ -97,6 +101,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void selezionaAccediButton() {
+        accediButton = driver.findElement(By.id("spidButton"));
         js().executeScript("arguments[0].click()", accediButton);
     }
 

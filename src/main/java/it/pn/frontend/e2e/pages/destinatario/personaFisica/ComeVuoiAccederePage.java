@@ -21,8 +21,6 @@ public class ComeVuoiAccederePage extends BasePage {
     @FindBy(id = "spidButton")
     WebElement spidButton;
 
-    @Autowired
-    private WebDriver driver;
 
     public void waitLoadComeVuoiAccederePage(){
         try{

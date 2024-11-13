@@ -76,8 +76,7 @@ public class DownloadFileMittentePagoPATest {
 
     private final WebDriver driver;
 
-    @Autowired
-    @Lazy
+
     public DownloadFileMittentePagoPATest(WebDriver driver) {
         this.driver = driver;
     }

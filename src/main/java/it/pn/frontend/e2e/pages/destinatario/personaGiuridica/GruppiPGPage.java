@@ -55,12 +55,11 @@ public class GruppiPGPage extends BasePage {
     @Autowired
     private AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage ;
 
-    private Actions actions;
 
-    @PostConstruct
-    public void initGruppoPage() {
-        this. actions = new Actions(driver);
-    }
+
+
+    private Actions actions ;
+
     public void clickGruppiButton() {
         js().executeScript("arguments[0].scrollIntoView(true);", gruppiButton);
         getWebDriverWait(10).withMessage("Il bottone gruppi non è visibile").until(ExpectedConditions.visibilityOf(gruppiButton));
@@ -133,6 +132,7 @@ public class GruppiPGPage extends BasePage {
         log.info("Click sul membro Dante Alighieri");
         By checkBoxDanteAlighieri = By.xpath("//li[@data-value='Dante']/span");
         element(checkBoxDanteAlighieri).click();
+        actions = new Actions(driver);
         actions.moveToElement(selectSelezioneMembri).click().perform();
     }
 

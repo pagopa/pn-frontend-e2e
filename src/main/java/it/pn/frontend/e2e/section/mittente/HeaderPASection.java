@@ -27,8 +27,7 @@ public class HeaderPASection extends BasePage {
     @Lazy
     private WebTool webTool;
 
-    @Autowired
-    private WebDriver driver;
+
 
     public void waitLoadHeaderSection() {
         try {

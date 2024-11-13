@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.GruppiPGPage;
 import it.pn.frontend.e2e.utility.WebTool;
@@ -14,7 +15,7 @@ import org.springframework.context.annotation.Lazy;
 import java.util.Map;
 
 @Slf4j
-public class GruppiPGPagoPATest {
+public class GruppiPGPagoPATest extends BasePage {
 
     @Autowired
     @Lazy

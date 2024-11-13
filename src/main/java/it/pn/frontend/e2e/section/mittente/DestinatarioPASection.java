@@ -18,6 +18,8 @@ public class DestinatarioPASection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DestinatarioPASection");
 
+
+
     @FindBy(css = "input[value='PF']")
     WebElement personaFisicaCheckBox;
 
@@ -82,8 +84,7 @@ public class DestinatarioPASection extends BasePage {
     @FindBy(id = "add-digital-domicile")
     WebElement checkDomicilioDigitale;
 
-    @Autowired
-    private WebDriver driver;
+
 
     public String ricercaInformazione(String[] dati, int posizioneDestinatario) {
         String datoDestianario = dati[posizioneDestinatario];

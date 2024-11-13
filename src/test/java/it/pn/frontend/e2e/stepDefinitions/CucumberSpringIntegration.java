@@ -4,10 +4,7 @@ import io.cucumber.spring.CucumberContextConfiguration;
 import it.pn.frontend.e2e.api.mittente.AccettazioneRichiestaNotifica;
 import it.pn.frontend.e2e.api.personaFisica.RecuperoOTPRecapiti;
 import it.pn.frontend.e2e.common.*;
-import it.pn.frontend.e2e.config.BearerTokenConfig;
-import it.pn.frontend.e2e.config.CustomHttpClient;
-import it.pn.frontend.e2e.config.UserPasswordConfig;
-import it.pn.frontend.e2e.config.WebDriverConfig;
+import it.pn.frontend.e2e.config.*;
 import it.pn.frontend.e2e.listeners.LoggerStartupListener;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
@@ -123,10 +120,10 @@ import org.springframework.stereotype.Component;
         GeneraApiKeySection.class,
         RestDelegation.class,
         WebTool.class,
-        UtentiPGPage.class,
         GruppiPGPage.class,
         ApiKeyPAPage.class,
-        WebDriveBean.class
+        WebdriverScopeConfig.class,
+        WebDriverManager.class
 
 })
 @EnableScheduling

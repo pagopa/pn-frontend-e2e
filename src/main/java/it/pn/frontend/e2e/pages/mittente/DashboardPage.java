@@ -28,6 +28,8 @@ public class DashboardPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DashboardMittentePagoPA");
 
+
+
     @Autowired
     private NotificationSingleton notificationSingleton;
 
@@ -88,8 +90,6 @@ public class DashboardPage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-    @Autowired
-    private WebDriver driver;
 
     public void waitLoadDashboardPAPage() {
         By statisticheTitle = By.id("Statistiche-page");

@@ -23,6 +23,8 @@ public class LeTueDelegheSection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("LeTueDelegheSection");
 
+
+
     @FindBy(xpath = "//input[@value='PF']")
     WebElement personaFisicaRadioButton;
 
@@ -94,8 +96,6 @@ public class LeTueDelegheSection extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-    @Autowired
-    private WebDriver driver;
 
     public void waitNuovaDelegaSection() {
         try {

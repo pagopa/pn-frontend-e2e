@@ -16,8 +16,7 @@ public class GeneraApiKeySection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("GeneraApiKeySection");
 
-    @Autowired
-    private WebDriver driver;
+
 
 
     public void waitLoadGeneraApiKey() {

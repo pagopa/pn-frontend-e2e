@@ -37,6 +37,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("notificaMittentePagoPA");
 
+
+
     @FindBy(id = "recipientId")
     WebElement cfTextField;
 
@@ -125,8 +127,7 @@ public class PiattaformaNotifichePage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-    @Autowired
-    private WebDriver driver;
+
 
     public void waitLoadPiattaformaNotifichePAPage() {
         try {

@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
@@ -38,11 +39,16 @@ public class NotifichePersonaFisicaPagoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("NotifichePersonaFisicaTest");
 
+
+
     private Map<String, Object> personaFisica = new HashMap<>();
 
     @Autowired
     @Lazy
     private HooksNew hooks;
+
+    @Autowired
+    private WebDriver  driver;
 
     @Autowired
     private CookieConfig cookieConfig;
@@ -74,13 +80,7 @@ public class NotifichePersonaFisicaPagoPATest {
     @Lazy
     private  WebTool webTool;
 
-    private final WebDriver driver;
 
-    @Autowired
-    @Lazy
-    public NotifichePersonaFisicaPagoPATest(WebDriver driver) {
-        this.driver = driver;
-    }
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche")
     public void nellaPiattaformaDestinatarioCliccareSulBottoneNotifiche() {

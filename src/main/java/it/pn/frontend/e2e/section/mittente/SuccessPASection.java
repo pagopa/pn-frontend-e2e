@@ -23,8 +23,6 @@ public class SuccessPASection extends BasePage {
     @FindBy(id = "title-sync-feedback")
     WebElement successCheckBy;
 
-    @Autowired
-    private WebDriver driver;
 
     public void waitLoadSuccessPASection() {
         try {

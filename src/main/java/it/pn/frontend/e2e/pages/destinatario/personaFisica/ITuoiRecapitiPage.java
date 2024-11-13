@@ -30,8 +30,6 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(xpath = "//*[@id='legalContactsSection']/p")
     WebElement subTitlesSection;
 
-    @Autowired
-    private WebDriver driver;
 
     public void iTuoiRecapitiButtonClick() {
         try {

@@ -93,8 +93,7 @@ public class NotifichePGPagoPATest {
 
     private final WebDriver driver;
 
-    @Autowired
-    @Lazy
+
     public NotifichePGPagoPATest(WebDriver driver) {
         this.driver = driver;
     }

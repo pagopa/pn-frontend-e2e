@@ -34,6 +34,8 @@ import java.util.Map;
 @Component
 public class DestinatarioPage extends BasePage {
 
+
+
     @Getter
     @Setter
     private NewNotificationRequest notificationRequest;
@@ -47,15 +49,12 @@ public class DestinatarioPage extends BasePage {
     @Autowired
     private NotificationBuilder notificationBuilder;
 
-    @Autowired
-    @Lazy
+
     private HooksNew hooks;
 
     private int destinatariNumber;
 
-    //Questa classe è utilizzata per metodi in comune tra PF e PG
-    @Autowired
-    private WebDriver driver;
+
 
     @FindBy(id = "startDate")
     WebElement dataInizioField;

@@ -20,6 +20,8 @@ import java.util.List;
 @Component
 public class AggiungiDelegaPGSection extends BasePage {
 
+
+
     private final Logger logger = LoggerFactory.getLogger("AggiungiDelegaPGSection");
 
     @FindBy(id = "select-pg")
@@ -70,8 +72,7 @@ public class AggiungiDelegaPGSection extends BasePage {
 
     private boolean dataFineErrata;
 
-    @Autowired
-    private WebDriver driver;
+
 
     public void waitLoadAggiungiDelegaPage() {
         try {

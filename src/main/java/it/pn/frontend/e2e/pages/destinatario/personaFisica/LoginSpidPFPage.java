@@ -18,6 +18,7 @@ public class LoginSpidPFPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("LoginSpidPFPage");
 
+
     @FindBy(id = "username")
     WebElement userNameTextField;
 
@@ -27,8 +28,7 @@ public class LoginSpidPFPage extends BasePage {
     @FindBy(xpath = "//button[contains(@class,'button-spid')]")
     WebElement entraConSpidButton;
 
-    @Autowired
-    private WebDriver driver;
+
 
     public void waitLoadLoginSpidDEPage(){
         try{
@@ -42,17 +42,20 @@ public class LoginSpidPFPage extends BasePage {
     }
 
     public void inserisciUtente(String user){
+        userNameTextField = driver.findElement(By.id("username"));
         getWebDriverWait(30).withMessage("L'input userName non è visibile").until(ExpectedConditions.visibilityOf(userNameTextField));
-        this.userNameTextField.sendKeys(user);
+        userNameTextField.sendKeys(user);
     }
 
     public void inserisciPassword(String pwd){
+        pwdTextFiled = driver.findElement(By.id("password"));
         getWebDriverWait(30).withMessage("L'input password non è visibile").until(ExpectedConditions.visibilityOf(pwdTextFiled));
-        this.pwdTextFiled.sendKeys(pwd);
+        pwdTextFiled.sendKeys(pwd);
     }
 
     public void selezionaEntraConSpidButton(){
+        entraConSpidButton = driver.findElement(By.xpath("//button[contains(@class,'button-spid')]"));
         getWebDriverWait(30).withMessage("Il bottone entra con spid non è cliccabile").until(ExpectedConditions.elementToBeClickable(entraConSpidButton));
-        this.entraConSpidButton.click();
+        entraConSpidButton.click();
     }
 }

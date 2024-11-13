@@ -17,8 +17,11 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.WebDriveBean;
+import it.pn.frontend.e2e.config.DriverConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
+import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
 import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.rest.RestDelegation;
@@ -26,10 +29,7 @@ import it.pn.frontend.e2e.utility.CookieConfig;
 import jakarta.annotation.PreDestroy;
 import lombok.Getter;
 import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -53,7 +53,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 
-public class HooksNew {
+public class HooksNew extends BasePage {
 
     /**
      * Logger
@@ -70,9 +70,9 @@ public class HooksNew {
 
     @Autowired
     private WebDriverConfig webDriverConfig;
+
     @Autowired
-    @Lazy
-    private WebDriveBean webDriveBean;
+    private WebDriverManager webDriveBean;
 
 
     @Getter
@@ -86,36 +86,21 @@ public class HooksNew {
     @Autowired
     private  CookieConfig cookieConfig;
     @Autowired
-    RestDelegation restDelegation ;
-
-
-    private final  WebDriver driver;
-
-    @Autowired
-    public HooksNew(WebDriver driver) {
-        logger.info("----- START DRIVER: {} -----CIAO");
-        logger.info("HTML_1...."+driver.getPageSource());
-        this.driver = driver;
-    }
-
-
+    private RestDelegation restDelegation ;
 
 
     @Before
     public void startScenario(Scenario scenario) {
         logger.info("----- START SCENARIO: {} -----", scenario.getName());
-        HooksNew.scenario = scenario.getName();
+        driver = WebDriverManager.getDriver();
 
+        HooksNew.scenario = scenario.getName();
         scenario.getSourceTagNames().stream()
                 .filter(tag -> tag.startsWith("@TA_"))
                 .forEach(tag -> {
                     MDC.put("tag", tag);
                     MDC.put("team", "TA-QA");
-
                 });
-
-        logger.info("HTML_2...."+driver.getPageSource());
-
     }
 
 
@@ -142,17 +127,25 @@ public class HooksNew {
             FileUtils.copyFile(screenshot, new File(fileName));
             scenario.attach(screenshotBytes, "image/png", scenario.getName());
         }
-        driver.quit();
         webDriveBean.clearRequest();
         webDriveBean.clearNetWorkInfos();
         logger.info("----- END SCENARIO: {} -----", scenario.getName());
     }
 
-
+    @AfterEach
     public void closeWebDriver() {
         logger.info("###STOP FROM THE LIFECYCLE###");
-
+        driver.quit();
+        //WebDriverManager.quitDriver();
     }
+/**
+    @PreDestroy
+    public void cleanup() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+ **/
 
 
     @And("Revoca deleghe se esistono")

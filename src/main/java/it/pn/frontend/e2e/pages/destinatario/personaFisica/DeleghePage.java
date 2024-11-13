@@ -20,6 +20,8 @@ public class DeleghePage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DeleghePage");
 
+
+
     @Autowired
     private WebDriverConfig webDriverConfig;
 
@@ -39,8 +41,7 @@ public class DeleghePage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-    @Autowired
-    private WebDriver driver;
+
 
     public void waitDeleghePage() {
         try {

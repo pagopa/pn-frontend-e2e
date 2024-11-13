@@ -19,8 +19,7 @@ public class HeaderPGSection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(HeaderPGSection.class);
 
 
-    @Autowired
-    private WebDriver driver;
+
 
     @FindBy(xpath = "//button[@title = 'Esci']")
     private WebElement esciButton;

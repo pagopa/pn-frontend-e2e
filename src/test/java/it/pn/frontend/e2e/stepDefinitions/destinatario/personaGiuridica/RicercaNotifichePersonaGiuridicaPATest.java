@@ -25,7 +25,8 @@ import java.util.Map;
 public class RicercaNotifichePersonaGiuridicaPATest {
     private final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaGiuridicaPATest");
 
-    @Autowired
+
+
     private HooksNew hooks;
 
     @Autowired

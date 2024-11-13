@@ -17,8 +17,6 @@ public class HomePagePG extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("HomePagePG");
 
-    @Autowired
-    private WebDriver driver;
 
 
 

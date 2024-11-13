@@ -24,6 +24,8 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClick
 public class DettaglioNotificaSection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
 
+
+
     @FindBy(xpath = "//button[contains(text(),'Attestazione opponibile a terzi: ')]")
     List<WebElement> attestazioniFile;
 
@@ -46,8 +48,6 @@ public class DettaglioNotificaSection extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-    @Autowired
-    private WebDriver driver;
 
     public void waitLoadDettaglioNotificaDESection() {
             // This check is due to the fact that the page is different if the user is logged in as a selfcare user
