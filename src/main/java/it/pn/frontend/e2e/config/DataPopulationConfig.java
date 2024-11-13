@@ -5,6 +5,7 @@ import it.pn.frontend.e2e.model.delegate.DelegatePF;
 import it.pn.frontend.e2e.model.delegate.DelegatePG;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
+import it.pn.frontend.e2e.model.recipients.Mittente;
 import it.pn.frontend.e2e.model.recipients.PersonaFisica;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +25,7 @@ import java.util.Properties;
 
 @Getter
 @Configuration
-@PropertySource( value = "file:config/data-population.properties", ignoreResourceNotFound = true )
+@PropertySource(value = "file:config/data-population.properties", ignoreResourceNotFound = true)
 public class DataPopulationConfig {
 
     //DATI DELEGATO PF
@@ -79,6 +80,7 @@ public class DataPopulationConfig {
 
     //---------------------------------------------------
 
+
     @Getter
     @Setter
     private DelegatePF delegatePF;
@@ -94,12 +96,14 @@ public class DataPopulationConfig {
     @Getter
     @Setter
     private PersonaFisica personaFisica;
-
+    @Getter
+    @Setter
+    private Mittente mittente;
 
 
     //BEAN DELEGA PF
     @Bean
-    public DelegatePF delegatePF(){
+    public DelegatePF delegatePF() {
         delegatePF = new DelegatePF();
         delegatePF.setPerson(true);
         delegatePF.setDisplayName(displayName);
@@ -109,7 +113,7 @@ public class DataPopulationConfig {
 
     //BEAN REQUEST DELEGA PF
     @Bean
-    public DelegateRequestPF delegateRequestPF(){
+    public DelegateRequestPF delegateRequestPF() {
         delegateRequestPF = new DelegateRequestPF();
         delegateRequestPF.setDateto(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         delegateRequestPF.setDelegate(delegatePF);
@@ -121,7 +125,7 @@ public class DataPopulationConfig {
 
     //BEAN DELEGA PG
     @Bean
-    public DelegatePG delegatePG(){
+    public DelegatePG delegatePG() {
         delegatePG = new DelegatePG();
         delegatePG.setPerson(false);
         delegatePG.setDisplayName(displayNamePG);
@@ -133,7 +137,7 @@ public class DataPopulationConfig {
 
     //BEAN REQUEST DELEGA PG
     @Bean
-    public DelegateRequestPG delegateRequestPG(){
+    public DelegateRequestPG delegateRequestPG() {
         delegateRequestPG = new DelegateRequestPG();
         delegateRequestPG.setDateto(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         delegateRequestPG.setDelegate(delegatePG);
@@ -145,7 +149,7 @@ public class DataPopulationConfig {
 
     //BEAN PERSONA FISICA
     @Bean
-    public PersonaFisica personafisica(){
+    public PersonaFisica personafisica() {
         personaFisica = new PersonaFisica();
         personaFisica.setName(name);
         personaFisica.setFamilyName(familyName);
@@ -156,7 +160,7 @@ public class DataPopulationConfig {
         personaFisica.setAdditionalEmail(additionalEmail);
         personaFisica.setEmailPec(emailPec);
         personaFisica.setPec(pec);
-        personaFisica.setFiscalNumber(fiscalNumber);
+        personaFisica.setFiscalNumber(fiscalNumberPersonaFisica);
         personaFisica.setEmailPecErrore(emailPecErrore);
         personaFisica.setPecErrore(pecErrore);
         personaFisica.setStato(stato);
@@ -169,14 +173,28 @@ public class DataPopulationConfig {
         personaFisica.setCodicepostale(codicepostale);
         personaFisica.setOTPpec(OTPpec);
         personaFisica.setOTPmail(OTPmail);
-
-        return  new PersonaFisica();
+        return personaFisica;
+//        return  new PersonaFisica(); //????????????????????
     }
 
 
+    //BEAN MITTENTE
+    @Bean
+    public Mittente mittente() {
+        mittente = new Mittente();
+        mittente.setUrl(DataPopulationValue.getDefaultValue(DataPopulationValue.URL_MITTENTE.key));
+        mittente.setUser(DataPopulationValue.getDefaultValue(DataPopulationValue.USER_MITTENTE.key));
+        mittente.setPwd(DataPopulationValue.getDefaultValue(DataPopulationValue.PWD_MITTENTE.key));
+        mittente.setProvider(DataPopulationValue.getDefaultValue(DataPopulationValue.PROVIDER_MITTENTE.key));
+        mittente.setComune(DataPopulationValue.getDefaultValue(DataPopulationValue.COMUNE.key));
+        mittente.setAmbiente(DataPopulationValue.getDefaultValue(DataPopulationValue.ENV.key));
+        mittente.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_CODE_MITTENTE.key));
+        mittente.setCodiceAvviso(DataPopulationValue.getDefaultValue(DataPopulationValue.COD_AVVISO.key));
+        mittente.setCodiceApiKeyTEST(DataPopulationValue.getDefaultValue(DataPopulationValue.API_KEY_TEST.key));
+        mittente.setCodiceApiKeyDEV(DataPopulationValue.getDefaultValue(DataPopulationValue.API_KEY_DEV.key));
 
-
-
+        return mittente;
+    }
 
 
 }
