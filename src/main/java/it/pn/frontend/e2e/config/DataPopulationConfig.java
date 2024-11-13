@@ -5,6 +5,7 @@ import it.pn.frontend.e2e.model.delegate.DelegatePF;
 import it.pn.frontend.e2e.model.delegate.DelegatePG;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
+import it.pn.frontend.e2e.model.recipients.DatiNotificaPg;
 import it.pn.frontend.e2e.model.recipients.PersonaFisica;
 import lombok.Getter;
 import lombok.Setter;
@@ -78,7 +79,9 @@ public class DataPopulationConfig {
     private String OTPmail = DataPopulationValue.getDefaultValue(DataPopulationValue.OTP_MAIL_PF.key);
 
     //---------------------------------------------------
-
+    @Getter
+    @Setter
+    private DatiNotificaPg datiNotificaPg;
     @Getter
     @Setter
     private DelegatePF delegatePF;
@@ -96,6 +99,14 @@ public class DataPopulationConfig {
     private PersonaFisica personaFisica;
 
 
+    //BEAN DATI NOTIFICA PG
+    @Bean
+    public DatiNotificaPg datiNotificaPg(){
+        datiNotificaPg = new DatiNotificaPg();
+        datiNotificaPg.setOggettoDellaNotifica(DataPopulationValue.getDefaultValue(DataPopulationValue.OGGETTO_DELLA_NOTIFICA.key));
+        datiNotificaPg.setCodiceIUN(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_IUN.key));
+        return datiNotificaPg;
+    }
 
     //BEAN DELEGA PF
     @Bean

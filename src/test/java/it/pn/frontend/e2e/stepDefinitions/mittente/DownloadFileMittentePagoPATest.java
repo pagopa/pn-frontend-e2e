@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
@@ -31,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 public class DownloadFileMittentePagoPATest {
 
     private static final Logger logger = LoggerFactory.getLogger("DownloadFileMittentePagoPATest");
-    private Map<String, Object> datiNotifica = new HashMap<>();
+
 
     @Value("${environment}")
     private String environment;
@@ -72,6 +73,8 @@ public class DownloadFileMittentePagoPATest {
     @Autowired
     @Lazy
     private  WebTool webTool;
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
 
 
     @When("Nella pagina Piattaforma Notifiche si clicca sulla notifica restituita")
@@ -99,7 +102,7 @@ public class DownloadFileMittentePagoPATest {
             pathCartella.mkdirs();
         }
 
-        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        //this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         int count = 1;
 
         dettaglioNotificaMittenteSection.waitLoadingSpinner();
@@ -344,7 +347,7 @@ public class DownloadFileMittentePagoPATest {
     public void siSelezionanoIlFileDaScaricare(String nomeFile) {
         logger.info("Si cerca di scaricare il file " + nomeFile);
         boolean headless = headlessParam.equalsIgnoreCase("true");
-        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+       // this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibile(nomeFile);
         webTool.waitTime(5);
 
@@ -429,8 +432,8 @@ public class DownloadFileMittentePagoPATest {
         piattaformaNotifichePage.waitLoadingSpinner();
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPersonaGiuridica();
 
-        this.datiNotifica = dataPopulation.readDataPopulation("datiNotificaPG.yaml");
-        String codiceIun = this.datiNotifica.get("codiceIUN").toString();
+       //this.datiNotifica = dataPopulation.readDataPopulation("datiNotificaPG.yaml");
+        String codiceIun = dataPopulationConfig.getDatiNotificaPg().getCodiceIUN();
         if (codiciIun.contains(codiceIun)) {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
         } else {
