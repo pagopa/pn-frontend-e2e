@@ -120,6 +120,7 @@ public class DataPopulationConfig {
         personaFisica.setProvincia(DataPopulationValue.getDefaultValue(DataPopulationValue.PROVINCIA_PF_PEC.key));
         personaFisica.setCodicepostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CAP_PF_PEC.key));
         return personaFisicaPec;
+
     }
     //BEAN DATI NOTIFICA PG
     @Bean
