@@ -216,6 +216,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     //TODO Verificare....
     public boolean piuAvvisiDisplayed() {
+        pagopaItems = driver.findElements(By.xpath("//div[@data-testid='pagopa-item']"));
         if (pagopaItems.isEmpty()) {
             logger.info("Avvisi pagoPa sono trovati");
             return true;
@@ -231,6 +232,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public boolean allegatoPagoPaDisplayed() {
+        pagopaAllegatoItems = driver.findElements(By.xpath("//*[@id=\\\"root\\\"]/div[1]/div/main/div/div/div[1]/div[3]/div[4]/div/button[2]\""));
         if (pagopaAllegatoItems.isEmpty()) {
             logger.info("Allegati pagoPa non sono trovati");
             return true;
@@ -240,19 +242,27 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void clickAvvisoPagoPADestinatario() {
+        scaricaAvviso = driver.findElement(By.cssSelector("[data-testid='download-pagoPA-notice-button']"));
         getWebDriverWait(30).withMessage("Il sezione scarica avviso non è cliccabile").until(ExpectedConditions.elementToBeClickable(scaricaAvviso));
         scaricaAvviso.click();
     }
 
     public boolean pagaAvvisoDisplayed() {
+        pagaAvviso = driver.findElement(By.cssSelector("[data-testid='pay-button']"));
         return getWebDriverWait(30).withMessage("Il sezione paga avviso non è visibile").until(ExpectedConditions.visibilityOf(pagaAvviso)).isDisplayed();
     }
 
     public void checkButtonPagaIsDisplayed() {
+        pagaAvviso = driver.findElement(By.cssSelector("[data-testid='pay-button']"));
         getWebDriverWait(10).withMessage("Il bottone per il pagamento della notifica è visibile").until(ExpectedConditions.invisibilityOf(pagaAvviso));
     }
 
     public void siVisualizzaSezionePagamento() {
+        codiceAvviso = driver.findElement(By.xpath("//span[contains(text(),'Codice avviso')]"));
+        scadenzaAvviso = driver.findElement(By.xpath("//span[contains(text(),'Scade il')]"));
+        paymentAmount = driver.findElement(By.cssSelector("[data-testid='payment-amount']"));
+        scaricaAvviso = driver.findElement(By.cssSelector("[data-testid='download-pagoPA-notice-button']"));
+
         getWebDriverWait(10).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvviso));
         getWebDriverWait(10).withMessage("Il sezione data di scadenza avviso non è visibile").until(ExpectedConditions.visibilityOf(scadenzaAvviso));
         getWebDriverWait(10).withMessage("Il sezione importo di avviso non è visibile").until(ExpectedConditions.visibilityOf(paymentAmount));
@@ -262,6 +272,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     public boolean siControllaCostiDiNotifica() {
         try {
+            costiNotifica = driver.findElement(By.cssSelector("[data-testid='apply-costs-caption']"));
             getWebDriverWait(10).withMessage("Costi di notifica inclusi").until(ExpectedConditions.visibilityOf(costiNotifica));
             return true;
         } catch (RuntimeException e) {
@@ -278,23 +289,24 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void inserireDatiPagamento(String email) {
-        By emailPagamento = By.id("email");
-        By confermaEmailPagamento = By.id("confirmEmail");
-        By continuaPagamento = By.id("paymentEmailPageButtonContinue");
-        element(emailPagamento).sendKeys(email);
-        element(confermaEmailPagamento).sendKeys(email);
-        element(continuaPagamento).click();
+        WebElement emailPagamento = driver.findElement(By.id("email"));
+        WebElement confermaEmailPagamento = driver.findElement(By.id("confirmEmail"));
+        WebElement continuaPagamento = driver.findElement(By.id("paymentEmailPageButtonContinue"));
+        emailPagamento.sendKeys(email);
+        confermaEmailPagamento.sendKeys(email);
+        continuaPagamento.click();
     }
 
     public void checkoutPagamento() throws InterruptedException {
         logger.info("Si procede con il pagamento");
         webTool.waitTime(5);
-        element(By.cssSelector("[data-qaid='CP']")).click();
+        driver.findElement(By.cssSelector("[data-qaid='CP']")).click();
         webTool.waitTime(5);
         // frame of the card number
         WebElement iframeCardNumber = driver.findElement(By.xpath("//iframe[@id='frame_CARD_NUMBER']"));
         driver.switchTo().frame(iframeCardNumber);
         webTool.waitTime(5);
+        creditCardNumber.findElement(By.xpath("/html/body/div/div/div/div/input"));
         getWebDriverWait(10).withMessage("Il textbox numero di carta non è visibile").until(ExpectedConditions.visibilityOf(creditCardNumber));
         creditCardNumber.click();
         creditCardNumber.clear();
@@ -305,31 +317,31 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         //frame of the expiry date
         WebElement iframeExpiry = driver.findElement(By.xpath("//iframe[@id='frame_EXPIRATION_DATE']"));
         driver.switchTo().frame(iframeExpiry);
-        By scadenza = By.xpath("//input[@id='EXPIRATION_DATE']");
-        getWebDriverWait(20).withMessage("Il textbox scadenza non è visibile").until(ExpectedConditions.visibilityOfElementLocated(scadenza));
-        element(scadenza).click();
-        element(scadenza).clear();
-        element(scadenza).sendKeys("10/24");
+        WebElement scadenza = driver.findElement(By.xpath("//input[@id='EXPIRATION_DATE']"));
+        getWebDriverWait(20).withMessage("Il textbox scadenza non è visibile").until(ExpectedConditions.visibilityOf(scadenza));
+        scadenza.click();
+        scadenza.clear();
+        scadenza.sendKeys("10/24");
         driver.switchTo().defaultContent();
 
         //frame of the security code
         WebElement iframeSecurityCode = driver.findElement(By.xpath("//iframe[@id='frame_SECURITY_CODE']"));
         driver.switchTo().frame(iframeSecurityCode);
-        By codice = By.xpath("//input[@id='SECURITY_CODE']");
-        getWebDriverWait(10).withMessage("Il textbox codice di sicurezza non è visibile").until(ExpectedConditions.visibilityOfElementLocated(codice));
-        element(codice).click();
-        element(codice).clear();
-        element(codice).sendKeys("015");
+        WebElement codice = driver.findElement(By.xpath("//input[@id='SECURITY_CODE']"));
+        getWebDriverWait(10).withMessage("Il textbox codice di sicurezza non è visibile").until(ExpectedConditions.visibilityOf(codice));
+        codice.click();
+        codice.clear();
+        codice.sendKeys("015");
         driver.switchTo().defaultContent();
 
         //frame of the cardholder name
         WebElement iframeTitolare = driver.findElement(By.xpath("//iframe[@id='frame_CARDHOLDER_NAME']"));
         driver.switchTo().frame(iframeTitolare);
-        By titolare = By.xpath("//input[@id='CARDHOLDER_NAME']");
-        getWebDriverWait(10).withMessage("Il textbox titolare non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titolare));
-        element(titolare).click();
-        element(titolare).clear();
-        element(titolare).sendKeys("Titolare");
+        WebElement titolare = driver.findElement(By.xpath("//input[@id='CARDHOLDER_NAME']"));
+        getWebDriverWait(10).withMessage("Il textbox titolare non è visibile").until(ExpectedConditions.visibilityOf(titolare));
+        titolare.click();
+        titolare.clear();
+        titolare.sendKeys("Titolare");
         driver.switchTo().defaultContent();
 
         webTool.waitTime(5);
@@ -366,8 +378,8 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     public void siVisualizzaStatoPagato() {
         webTool.waitTime(20);
-        By statoPagamento = By.xpath("//div[@id='status-chip-Pagato']");
-        getWebDriverWait(5).withMessage("Lo stato di pagamento non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoPagamento));
+        WebElement statoPagamento = driver.findElement(By.xpath("//div[@id='status-chip-Pagato']"));
+        getWebDriverWait(5).withMessage("Lo stato di pagamento non è visibile").until(ExpectedConditions.visibilityOf(statoPagamento));
         logger.info("Lo stato di pagamento è Pagato");
     }
 }
