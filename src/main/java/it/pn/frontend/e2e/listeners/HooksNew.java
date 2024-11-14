@@ -125,31 +125,10 @@ public class HooksNew {
         }
 
         WebDriverFactory.quitDriver();
-        //driver.quit();
-        logger.info("--Remove request--- END SCENARIO: {} -----", scenario.getName());
         webDriveManager.clearRequest();
-        logger.info("--Remove NetworkInfo--- END SCENARIO: {} -----", scenario.getName());
         webDriveManager.clearNetWorkInfos();
         logger.info("----- END SCENARIO: {} -----", scenario.getName());
     }
-
-
-    /**
-    @AfterEach
-    public void closeWebDriver() {
-        logger.info("###STOP FROM THE LIFECYCLE###");
-        driver.quit();
-        //WebDriverManager.quitDriver();
-
-    }
-
-    @PreDestroy
-    public void cleanup() {
-        if (driver != null) {
-            driver.close();
-            driver.quit();
-        }
-    }  **/
 
 
 

@@ -85,9 +85,6 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-    @Autowired
-    @Lazy
-    private WebDriverConfig webDriverConfig;
 
     public AccediAPiattaformaNotifichePage(WebDriver driver) {
         this.driver = driver;
@@ -110,35 +107,42 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
 
     public void clickRecapitiButton() {
+        recapitiButton = driver.findElement(By.id("side-item-Recapiti"));
         getWebDriverWait(30).withMessage("Il bottone recapiti non è visibile").until(ExpectedConditions.visibilityOf(recapitiButton));
         js().executeScript("arguments[0].click()", recapitiButton);
     }
 
     public void clickNotificheButton() {
+        notificheButton = driver.findElement(By.cssSelector("[id='notificationsTable.body.row']"));
         getWebDriverWait(30).withMessage("Il bottone notifiche non è visibile").until(ExpectedConditions.visibilityOf(notificheButton));
         notificheButton.click();
     }
 
     public void clickAttestazionePersalvare() {
+        attestazione = driver.findElement(By.cssSelector("[data-testid='download-legalfact']"));
         getWebDriverWait(30).withMessage("L'attestazione non è visibile").until(ExpectedConditions.visibilityOf(attestazione));
         js().executeScript("arguments[0].click()", attestazione);
     }
 
     public boolean isBackButtonDisplayed() {
+        indietroButton = driver.findElement(By.id("breadcrumb-indietro-button"));
         return getWebDriverWait(30).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton)).isDisplayed();
     }
 
     public void clickIndietroButton() {
+        indietroButton = driver.findElement(By.id("breadcrumb-indietro-button"));
         getWebDriverWait(30).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
         js().executeScript("arguments[0].click()", indietroButton);
     }
 
     public boolean sezioneDeiDatiDisplayed() {
+        sezioneDeiDati = driver.findElement(By.cssSelector("[class='MuiTableBody-root css-1xnox0e']"));
         return getWebDriverWait(30).withMessage("Il sezione dei dati non è visibile").until(ExpectedConditions.visibilityOf(sezioneDeiDati)).isDisplayed();
     }
 
     public boolean sezionePagamentoDisplayed() {
         try {
+            sezioneDeiDati = driver.findElement(By.cssSelector("[data-testid='paymentInfoBox']"));
             return getWebDriverWait(30).withMessage("Il sezione pagamento non è visibile").until(ExpectedConditions.visibilityOf(sezionePagamento)).isDisplayed();
 
         } catch (NoSuchElementException | TimeoutException e) {
@@ -151,6 +155,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     public boolean isRadioBoxPresent() {
         try {
+            radioBox = driver.findElement(By.cssSelector("[role='radiogroup']"));
             return getWebDriverWait(30).withMessage("Il radio box non è visibile").until(ExpectedConditions.visibilityOf(radioBox)).isDisplayed();
 
         } catch (NoSuchElementException | TimeoutException e) {
@@ -167,22 +172,26 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void clickStatoDellaPiattaforma() {
+        buttonEnterIntoDisservizi = driver.findElement(By.id("side-item-Stato della piattaforma"));
         getWebDriverWait(10).withMessage("Il bottone stato della piattaforma non è visibile").until(ExpectedConditions.visibilityOf(buttonEnterIntoDisservizi));
         buttonEnterIntoDisservizi.click();
     }
 
     public void clickNotifiche() {
-        getWebDriverWait(10).withMessage("Il bottone stato della piattaforma non è visibile").until(ExpectedConditions.visibilityOf(buttonEnterIntoDisservizi));
+        notificheMenuButton = driver.findElement(By.id("side-item-Notifiche"));
+        getWebDriverWait(10).withMessage("Il bottone stato della piattaforma non è visibile").until(ExpectedConditions.visibilityOf(notificheMenuButton));
         notificheMenuButton.click();
     }
 
     public boolean titoloDiPagamentoDisplayed() {
-        By titoloPagamento = By.xpath("//span[contains(text(),'Pagamento di Test')]");
-        return getWebDriverWait(30).withMessage("Il sezione titolo pagamento non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titoloPagamento)).isDisplayed();
+        WebElement titoloPagamento = driver.findElement(By.xpath("//span[contains(text(),'Pagamento di Test')]"));
+        getWebDriverWait(30).withMessage("Il sezione titolo pagamento non è visibile").until(ExpectedConditions.visibilityOf(titoloPagamento)).isDisplayed();
+        return true;
     }
 
     public boolean codiceAvvisoDisplayed() {
         try {
+            codiceAvviso = driver.findElement(By.xpath("//span[contains(text(),'Codice avviso')]"));
             getWebDriverWait(5).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvviso)).isDisplayed();
             return true;
         } catch (RuntimeException e) {
@@ -191,11 +200,13 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public boolean modelloF24Displayed() {
+        modelloF24 = driver.findElement(By.cssSelector("[data-testid='download-f24-button']"));
         return getWebDriverWait(5).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
     }
 
     public boolean scaricaAvvisoDisplayed() {
         try {
+            scaricaAvviso = driver.findElement(By.cssSelector("[data-testid='download-pagoPA-notice-button']"));
             getWebDriverWait(5).withMessage("Il sezione scarica avviso non è visibile").until(ExpectedConditions.visibilityOf(scaricaAvviso)).isDisplayed();
             return true;
         } catch (RuntimeException e) {

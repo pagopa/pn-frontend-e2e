@@ -1,7 +1,5 @@
 package it.pn.frontend.e2e.common;
 
-import it.pn.frontend.e2e.config.WebDriverConfig;
-import it.pn.frontend.e2e.config.WebDriverThreadLocal;
 import jakarta.annotation.PostConstruct;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
@@ -10,13 +8,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Lookup;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;

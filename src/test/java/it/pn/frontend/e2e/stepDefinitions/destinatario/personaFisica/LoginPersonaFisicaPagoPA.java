@@ -93,7 +93,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
 
     @Given("Login Page persona fisica test viene visualizzata")
     public void loginPageDestinatarioVieneVisualizzataConUrl() {
-        logger.info("ENVIROMENT...: "+ webDriverConfig.getEnvironment());
         String url = webDriverConfig.getBaseUrlPfTest();
         driver.get(url);
     }
@@ -196,15 +195,15 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
 
         accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
         accediAPiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
-        logger.info("cookies end 11");
+
         accediAPiattaformaNotifichePage.selezionaAccediButton();
-        logger.info("cookies end 12");
+
         if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
-        logger.info("cookies end");
+
         scegliSpidPFPage = new ScegliSpidPFPage(driver);
         scegliSpidPFPage.waitLoadScegliSpidDEPage();
         scegliSpidPFPage.selezionareTestButton();
