@@ -40,7 +40,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
 
 
     @Autowired
-    @Lazy
     private WebDriverConfig webDriverConfig;
 
     private  WebTool webTool;
@@ -243,7 +242,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
             Assertions.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
         }
 
-        confermaDatiSpidPFPage = new ConfermaDatiSpidPFPage(driver);
         confermaDatiSpidPFPage.selezionaConfermaButton();
         headerPFSection = new HeaderPFSection(driver);
         headerPFSection.waitUrlToken();

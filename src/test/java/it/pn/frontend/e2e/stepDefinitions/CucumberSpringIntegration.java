@@ -7,6 +7,7 @@ import it.pn.frontend.e2e.common.*;
 import it.pn.frontend.e2e.config.*;
 import it.pn.frontend.e2e.listeners.LoggerStartupListener;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
+import it.pn.frontend.e2e.listeners.WebDriverFactory;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
@@ -123,7 +124,8 @@ import org.springframework.stereotype.Component;
         // GruppiPGPage.class,
         //ApiKeyPAPage.class,
         WebdriverScopeConfig.class,
-        WebDriverManager.class
+        WebDriverManager.class,
+        WebDriverFactory.class
 
 
 })

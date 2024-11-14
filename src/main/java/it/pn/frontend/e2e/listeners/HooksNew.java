@@ -14,6 +14,7 @@ import java.time.Duration;
 import java.util.*;
 
 import io.cucumber.java.After;
+import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
@@ -53,7 +54,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 
-public class HooksNew extends BasePage {
+public class HooksNew {
 
     /**
      * Logger
@@ -67,33 +68,28 @@ public class HooksNew extends BasePage {
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
     @Getter
     public static String scenario;
-
-    @Autowired
-    private WebDriverConfig webDriverConfig;
-
-    @Autowired
-    private WebDriverManager webDriveBean;
-
-
     @Getter
     private final List<NetWorkInfo> netWorkInfos = new ArrayList<>();
 
     private final String os = System.getProperty("os.name");
     @Autowired
-    MandateSingleton mandateSingleton ;
+    private MandateSingleton mandateSingleton ;
     @Autowired
     private RestContact restContact;
     @Autowired
     private  CookieConfig cookieConfig;
     @Autowired
     private RestDelegation restDelegation ;
+    @Autowired
+    private WebDriverManager webDriveManager;
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
-
+    private WebDriver driver;
     @Before
     public void startScenario(Scenario scenario) {
         logger.info("----- START SCENARIO: {} -----", scenario.getName());
-       // driver = webDriveBean.getDriver();
-
+        driver =  WebDriverFactory.getDriverThreadLocal().get();
         HooksNew.scenario = scenario.getName();
         scenario.getSourceTagNames().stream()
                 .filter(tag -> tag.startsWith("@TA_"))
@@ -109,7 +105,7 @@ public class HooksNew extends BasePage {
     @After
     public void endScenario(Scenario scenario) throws IOException {
         System.clearProperty("IUN");
-        webDriveBean.getNetWorkInfos().forEach(netWorkInfo -> {
+        webDriveManager.getNetWorkInfos().forEach(netWorkInfo -> {
             logger.info("Request ID: {}", netWorkInfo.getRequestId());
             logger.info("Request URL: {}", netWorkInfo.getRequestUrl());
             logger.info("Method: {}", netWorkInfo.getRequestMethod());
@@ -128,11 +124,15 @@ public class HooksNew extends BasePage {
             scenario.attach(screenshotBytes, "image/png", scenario.getName());
         }
 
-        driver.quit();
-        webDriveBean.clearRequest();
-        webDriveBean.clearNetWorkInfos();
+        WebDriverFactory.quitDriver();
+        //driver.quit();
+        logger.info("--Remove request--- END SCENARIO: {} -----", scenario.getName());
+        webDriveManager.clearRequest();
+        logger.info("--Remove NetworkInfo--- END SCENARIO: {} -----", scenario.getName());
+        webDriveManager.clearNetWorkInfos();
         logger.info("----- END SCENARIO: {} -----", scenario.getName());
     }
+
 
     /**
     @AfterEach

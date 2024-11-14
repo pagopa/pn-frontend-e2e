@@ -26,7 +26,9 @@ public class AcccediAreaRiservataPAPage extends BasePage {
     @FindBy (id = "forward_prod-pn-test")
     WebElement testButton;
 
-
+    public AcccediAreaRiservataPAPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void waitLoadLoginPageMittente(){
         try{
@@ -42,7 +44,8 @@ public class AcccediAreaRiservataPAPage extends BasePage {
     public void selezionareSpidButton(){
         logger.info("Si seleziona il bottone Spid");
         try {
-            this.getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(spidButton));
+            spidButton = driver.findElement(By.id("spidButton"));
+            getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(spidButton));
 
             spidButton.click();
             logger.info("click sul bottone SPID effettuato");

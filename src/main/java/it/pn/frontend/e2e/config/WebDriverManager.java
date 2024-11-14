@@ -1,8 +1,10 @@
 package it.pn.frontend.e2e.config;
 
+import io.cucumber.java.sl.In;
 import it.pn.frontend.e2e.common.WebDriveBean;
 import it.pn.frontend.e2e.common.WebdriverScopeBean;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
+import it.pn.frontend.e2e.listeners.WebDriverFactory;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
@@ -24,6 +26,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 
 import java.time.Duration;
@@ -38,11 +41,9 @@ public class WebDriverManager {
      */
     private static final Logger logger = LoggerFactory.getLogger(WebDriverManager.class);
 
-    private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
-
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
 
-    private static WebDriver driver;
+    private WebDriver driver;
 
     @Autowired
     @Lazy
@@ -58,11 +59,16 @@ public class WebDriverManager {
 
     private DevTools devTools;
 
+    /**
+    private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
-    public  WebDriver getDriver() {
-        return chromeDriver();
+
+    public static WebDriver getDriver() {
+        if (driverThreadLocal.get() == null) {
+            driverThreadLocal.set(new ChromeDriver());
+        }
+        return driverThreadLocal.get();
     }
-
 
     public static void quitDriver() {
         WebDriver driver = driverThreadLocal.get();
@@ -70,13 +76,16 @@ public class WebDriverManager {
             driver.quit();
             driverThreadLocal.remove();
         }
-    }
+    }**/
 
 
     @WebdriverScopeBean
+    @Primary
     @Scope(BeanDefinition.SCOPE_PROTOTYPE)
     @ConditionalOnProperty( name = "browser" , havingValue = "chrome", matchIfMissing = true)
     public  WebDriver chromeDriver() {
+
+        logger.info("NUOVO BEAN......."+ Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
         io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
@@ -91,10 +100,7 @@ public class WebDriverManager {
             chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
         }
 
-        driver = new ChromeDriver(chromeOptions);
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
+        driver =WebDriverFactory.getDriver(chromeOptions,null,null);
         setupDevTools();
         logger.info("Chrome driver started - WebDriverManager");
 
@@ -119,9 +125,10 @@ public class WebDriverManager {
         if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
             edgeOptions.addArguments("window-size=1920,1080", "--headless");
         }
-        driver = new EdgeDriver(edgeOptions);
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+
+        driver =WebDriverFactory.getDriver(null,edgeOptions,null);
+
+
         logger.info("Edge driver started");
 
         cookieConfig.addCookie();
@@ -144,10 +151,8 @@ public class WebDriverManager {
         if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
             firefoxOptions.addArguments("--width=1200", "--height=800", "--headless");
         }
-        driver = new FirefoxDriver(firefoxOptions);
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        logger.info("Firefox driver started");
+
+        driver =WebDriverFactory.getDriver(null,null,firefoxOptions);
 
         cookieConfig.addCookie();
 

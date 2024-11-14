@@ -28,7 +28,7 @@ public class ComeVuoiAccederePage extends BasePage {
     public void waitLoadComeVuoiAccederePage(){
         try{
             WebElement titoloLabel = driver.findElement(By.id("login-mode-page-title"));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(titoloLabel));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(titoloLabel));
             logger.info("Come Vuoi Accedere Page caricata");
         }catch (TimeoutException e){
             logger.error("Come Vuoi Accedere Page non caricata con errore : "+e.getMessage());
