@@ -5,9 +5,7 @@ import it.pn.frontend.e2e.model.delegate.DelegatePF;
 import it.pn.frontend.e2e.model.delegate.DelegatePG;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
-import it.pn.frontend.e2e.model.recipients.Mittente;
-import it.pn.frontend.e2e.model.recipients.DatiNotificaPg;
-import it.pn.frontend.e2e.model.recipients.PersonaFisica;
+import it.pn.frontend.e2e.model.recipients.*;
 import it.pn.frontend.e2e.model.recipients.PersonaFisicaPec;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,19 +29,14 @@ import java.util.Properties;
 public class DataPopulationConfig {
 
     //DATI DELEGATO PF
-    private String displayName = DataPopulationValue.getDefaultValue(DataPopulationValue.FAMILY_DELEGATO_PF.key);
     private String firstName = DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_DELEGATO_PF.key);
-    private String fiscalCode = DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_CODE_DELEGATO_PF.key);
     private String lastName = DataPopulationValue.getDefaultValue(DataPopulationValue.FAMILY_DELEGATO_PF.key);
     private String fiscalNumber = DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_NUMBER_DELEGATO_PF.key);
-    private String verificationCode = DataPopulationValue.getDefaultValue(DataPopulationValue.VERIFICATION_CODE_DELEGATO_PF.key);
 
     //---------------------------------------------------
 
     //DATI DELEGATO PG
-    private String companyName = DataPopulationValue.getDefaultValue(DataPopulationValue.RAGIONE_SOC_DELEGATO_PG.key);
-    private String displayNamePG = DataPopulationValue.getDefaultValue(DataPopulationValue.RAGIONE_SOC_DELEGATO_PG.key);
-    private String fiscalCodePG = DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_CODE_DELEGATO_PG.key);
+
     private String fiscalNumberPG = DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_NUMBER_DELEGATO_PG.key);
 
     @Value("${delegato.pg.emailPecPG}")
@@ -63,24 +56,24 @@ public class DataPopulationConfig {
     @Value("${persona.fisica.additionalEmail}")
     private String additionalEmail;
 
-    private String emailPecErrore = DataPopulationValue.getDefaultValue(DataPopulationValue.EMAIL_PEC_ERR_PF.key);
-    private String pecErrore = DataPopulationValue.getDefaultValue(DataPopulationValue.EMAIL_PEC_ERR_1_PF.key);
-    private String telefono = DataPopulationValue.getDefaultValue(DataPopulationValue.TELEFONO_PF.key);
-    private String name = DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_PF.key);
-    private String familyName = DataPopulationValue.getDefaultValue(DataPopulationValue.FAMILY_NAME_PF.key);
-    private String codiceFiscale = DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_PF.key);
-    private String fiscalNumberPersonaFisica = DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_NUMBER_PF.key);
-    private String indirizzo = DataPopulationValue.getDefaultValue(DataPopulationValue.INDIRIZZO_PF.key);
-    private String numeroCivico = DataPopulationValue.getDefaultValue(DataPopulationValue.CIVICO_PF.key);
-    private String localita = DataPopulationValue.getDefaultValue(DataPopulationValue.LOCALITA_PF.key);
-    private String comune = DataPopulationValue.getDefaultValue(DataPopulationValue.COMUNE_PF.key);
-    private String provincia = DataPopulationValue.getDefaultValue(DataPopulationValue.PROVINCIA_PF.key);
-    private String codicepostale = DataPopulationValue.getDefaultValue(DataPopulationValue.CAP_PF.key);
-    private String stato = DataPopulationValue.getDefaultValue(DataPopulationValue.STATO_PF.key);
-    private String OTPpec = DataPopulationValue.getDefaultValue(DataPopulationValue.OTP_PEC_PF.key);
-    private String OTPmail = DataPopulationValue.getDefaultValue(DataPopulationValue.OTP_MAIL_PF.key);
+    //---------------------------------------------------
+
+    //DATI PERSONA GIURIDICA
+    @Value("${persona.giuridica.email}")
+    private String emailPg;
+    @Value("${persona.giuridica.mail}")
+    private String mailPg;
+    @Value("${persona.giuridica.emailPec}")
+    private String emailPecPg;
+    @Value("${persona.giuridica.pec}")
+    private String pecPg;
 
     //---------------------------------------------------
+    //DATI PERSONA GIURIDICA 1
+    @Value("${persona.giuridica_1.emailPec}")
+    private String emailPecPg1;
+
+
     @Getter
     @Setter
     private PersonaFisicaPec personaFisicaPec;
@@ -106,6 +99,16 @@ public class DataPopulationConfig {
     @Getter
     @Setter
     private Mittente mittente;
+    @Getter
+    @Setter
+    private NuovaDelegaPg nuovaDelegaPg;
+    @Getter
+    @Setter
+    private PersonaGiuridica personaGiuridica;
+    @Getter
+    @Setter
+    private PersonaGiuridica1 personaGiuridica1;
+
 
     //BEAN DATI NOTIFICA PG
     @Bean
@@ -123,7 +126,7 @@ public class DataPopulationConfig {
         personaFisica.setLocalita(DataPopulationValue.getDefaultValue(DataPopulationValue.LOCALITA_PF_PEC.key));
         personaFisica.setComune(DataPopulationValue.getDefaultValue(DataPopulationValue.COMUNE_PF_PEC.key));
         personaFisica.setProvincia(DataPopulationValue.getDefaultValue(DataPopulationValue.PROVINCIA_PF_PEC.key));
-        personaFisica.setCodicepostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CAP_PF_PEC.key));
+        personaFisica.setCodicePostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CAP_PF_PEC.key));
         return personaFisicaPec;
 
     }
@@ -141,8 +144,8 @@ public class DataPopulationConfig {
     public DelegatePF delegatePF() {
         delegatePF = new DelegatePF();
         delegatePF.setPerson(true);
-        delegatePF.setDisplayName(displayName);
-        delegatePF.setFiscalCode(fiscalCode);
+        delegatePF.setDisplayName(DataPopulationValue.getDefaultValue(DataPopulationValue.FAMILY_DELEGATO_PF.key));
+        delegatePF.setFiscalCode(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_CODE_DELEGATO_PF.key));
         return delegatePF;
     }
 
@@ -153,7 +156,7 @@ public class DataPopulationConfig {
         delegateRequestPF.setDateto(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         delegateRequestPF.setDelegate(delegatePF);
         delegateRequestPF.setVisibilityIds(new ArrayList<String>());
-        delegateRequestPF.setVerificationCode(verificationCode);
+        delegateRequestPF.setVerificationCode(DataPopulationValue.getDefaultValue(DataPopulationValue.VERIFICATION_CODE_DELEGATO_PF.key));
 
         return delegateRequestPF;
     }
@@ -163,9 +166,9 @@ public class DataPopulationConfig {
     public DelegatePG delegatePG() {
         delegatePG = new DelegatePG();
         delegatePG.setPerson(false);
-        delegatePG.setDisplayName(displayNamePG);
-        delegatePG.setCompanyName(companyName);
-        delegatePG.setFiscalCode(fiscalCodePG);
+        delegatePG.setDisplayName(DataPopulationValue.getDefaultValue(DataPopulationValue.RAGIONE_SOC_DELEGATO_PG.key));
+        delegatePG.setCompanyName(DataPopulationValue.getDefaultValue(DataPopulationValue.RAGIONE_SOC_DELEGATO_PG.key));
+        delegatePG.setFiscalCode(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_CODE_DELEGATO_PG.key));
 
         return delegatePG;
     }
@@ -177,7 +180,7 @@ public class DataPopulationConfig {
         delegateRequestPG.setDateto(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         delegateRequestPG.setDelegate(delegatePG);
         delegateRequestPG.setVisibilityIds(new ArrayList<String>());
-        delegateRequestPG.setVerificationCode(verificationCode);
+        delegateRequestPG.setVerificationCode(DataPopulationValue.getDefaultValue(DataPopulationValue.VERIFICATION_CODE_DELEGATO_PF.key));
 
         return delegateRequestPG;
     }
@@ -186,30 +189,30 @@ public class DataPopulationConfig {
     @Bean
     public PersonaFisica personafisica() {
         personaFisica = new PersonaFisica();
-        personaFisica.setName(name);
-        personaFisica.setFamilyName(familyName);
-        personaFisica.setCodiceFiscale(codiceFiscale);
-        personaFisica.setTelefono(telefono);
+        personaFisica.setName(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_PF.key));
+        personaFisica.setFamilyName(DataPopulationValue.getDefaultValue(DataPopulationValue.FAMILY_NAME_PF.key));
+        personaFisica.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_PF.key));
+        personaFisica.setTelefono(DataPopulationValue.getDefaultValue(DataPopulationValue.TELEFONO_PF.key));
 
         personaFisica.setEmail(email);
         personaFisica.setAdditionalEmail(additionalEmail);
         personaFisica.setEmailPec(emailPec);
         personaFisica.setPec(pec);
-        personaFisica.setFiscalNumber(fiscalNumberPersonaFisica);
-        personaFisica.setEmailPecErrore(emailPecErrore);
-        personaFisica.setPecErrore(pecErrore);
-        personaFisica.setStato(stato);
+        personaFisica.setFiscalNumber(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_NUMBER_PF.key));
+        personaFisica.setEmailPecErrore(DataPopulationValue.getDefaultValue(DataPopulationValue.EMAIL_PEC_ERR_PF.key));
+        personaFisica.setPecErrore(DataPopulationValue.getDefaultValue(DataPopulationValue.EMAIL_PEC_ERR_1_PF.key));
+        personaFisica.setStato(DataPopulationValue.getDefaultValue(DataPopulationValue.STATO_PF.key));
 
-        personaFisica.setIndirizzo(indirizzo);
-        personaFisica.setNumeroCivico(numeroCivico);
-        personaFisica.setLocalita(localita);
-        personaFisica.setComune(comune);
-        personaFisica.setProvincia(provincia);
-        personaFisica.setCodicepostale(codicepostale);
-        personaFisica.setOTPpec(OTPpec);
-        personaFisica.setOTPmail(OTPmail);
+        personaFisica.setIndirizzo(DataPopulationValue.getDefaultValue(DataPopulationValue.INDIRIZZO_PF.key));
+        personaFisica.setNumeroCivico(DataPopulationValue.getDefaultValue(DataPopulationValue.CIVICO_PF.key));
+        personaFisica.setLocalita(DataPopulationValue.getDefaultValue(DataPopulationValue.LOCALITA_PF.key));
+        personaFisica.setComune(DataPopulationValue.getDefaultValue(DataPopulationValue.COMUNE_PF.key));
+        personaFisica.setProvincia(DataPopulationValue.getDefaultValue(DataPopulationValue.PROVINCIA_PF.key));
+        personaFisica.setCodicePostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CAP_PF.key));
+        personaFisica.setOTPPec(DataPopulationValue.getDefaultValue(DataPopulationValue.OTP_PEC_PF.key));
+        personaFisica.setOTPMail(DataPopulationValue.getDefaultValue(DataPopulationValue.OTP_MAIL_PF.key));
         return personaFisica;
-//        return  new PersonaFisica(); //????????????????????
+
     }
 
 
@@ -230,6 +233,71 @@ public class DataPopulationConfig {
 
         return mittente;
     }
+
+    @Bean
+    public NuovaDelegaPg nuovaDelegaPg(){
+        nuovaDelegaPg = new NuovaDelegaPg();
+        nuovaDelegaPg.setRagioneSociale(DataPopulationValue.getDefaultValue(DataPopulationValue.RAGIONE_SOC_NUOVA_DELEGA_PG.key));
+        nuovaDelegaPg.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_NUOVA_DELEGA_PG.key));
+        nuovaDelegaPg.setEnte(DataPopulationValue.getDefaultValue(DataPopulationValue.ENTE_DELEGA_NUOVA_DELEGA_PG.key));
+        nuovaDelegaPg.setCodiceDelega(DataPopulationValue.getDefaultValue(DataPopulationValue.CODE_DELEGA_NUOVA_DELEGA_PG.key));
+        return nuovaDelegaPg;
+    }
+
+    @Bean
+    public PersonaGiuridica personaGiuridica(){
+//        email, mail,emailPec, pec
+
+        personaGiuridica = new PersonaGiuridica();
+        personaGiuridica.setEmail(emailPg);
+        personaGiuridica.setMail(mailPg);
+        personaGiuridica.setEmailPec(emailPecPg);
+        personaGiuridica.setPec(pecPg);
+        personaGiuridica.setPecErrore(DataPopulationValue.getDefaultValue(DataPopulationValue.PEC_ERRORE_PG.key));
+        personaGiuridica.setRagioneSociale(DataPopulationValue.getDefaultValue(DataPopulationValue.RAGIONE_SOCIALE_PG.key));
+        personaGiuridica.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_PG.key));
+        personaGiuridica.setFiscalNumber(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_NUMBER_PG.key));
+        personaGiuridica.setIndirizzo(DataPopulationValue.getDefaultValue(DataPopulationValue.INDIRIZZO_PG.key));
+        personaGiuridica.setNumeroCivico(DataPopulationValue.getDefaultValue(DataPopulationValue.NUMERO_CIVICO_PG.key));
+        personaGiuridica.setLocalita(DataPopulationValue.getDefaultValue(DataPopulationValue.LOCALITA_PG.key));
+        personaGiuridica.setComune(DataPopulationValue.getDefaultValue(DataPopulationValue.COMUNE_PG.key));
+        personaGiuridica.setProvincia(DataPopulationValue.getDefaultValue(DataPopulationValue.PROVINCIA_PG.key));
+        personaGiuridica.setCodicePostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_POSTALE_PG.key));
+        personaGiuridica.setStato(DataPopulationValue.getDefaultValue(DataPopulationValue.STATO_PG.key));
+        personaGiuridica.setCodiceIUN(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_IUN_PG.key));
+        personaGiuridica.setCellulare(DataPopulationValue.getDefaultValue(DataPopulationValue.CELLULARE_PG.key));
+        personaGiuridica.setBearerToken(DataPopulationValue.getDefaultValue(DataPopulationValue.BEARER_TOKEN_PG.key));
+        personaGiuridica.setOTPPec(DataPopulationValue.getDefaultValue(DataPopulationValue.OTP_PEC_PG.key));
+        personaGiuridica.setOTPMail(DataPopulationValue.getDefaultValue(DataPopulationValue.OTP_MAIL_PG.key));
+
+        return personaGiuridica;
+
+    }
+
+    @Bean
+    public PersonaGiuridica1 personaGiuridica1(){
+
+        personaGiuridica1 = new PersonaGiuridica1();
+
+        personaGiuridica1.setEmailPec(emailPecPg1);
+        personaGiuridica1.setRagioneSociale(DataPopulationValue.getDefaultValue(DataPopulationValue.RAGIONE_SOCIALE_PG_1.key));
+        personaGiuridica1.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_PG_1.key));
+        personaGiuridica1.setFiscalNumber(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_NUMBER_PG_1.key));
+        personaGiuridica1.setIndirizzo(DataPopulationValue.getDefaultValue(DataPopulationValue.INDIRIZZO_PG_1.key));
+        personaGiuridica1.setNumeroCivico(DataPopulationValue.getDefaultValue(DataPopulationValue.NUMERO_CIVICO_PG_1.key));
+        personaGiuridica1.setLocalita(DataPopulationValue.getDefaultValue(DataPopulationValue.LOCALITA_PG_1.key));
+        personaGiuridica1.setComune(DataPopulationValue.getDefaultValue(DataPopulationValue.COMUNE_PG_1.key));
+        personaGiuridica1.setProvincia(DataPopulationValue.getDefaultValue(DataPopulationValue.PROVINCIA_PG_1.key));
+        personaGiuridica1.setCodicePostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_POSTALE_PG_1.key));
+        personaGiuridica1.setStato(DataPopulationValue.getDefaultValue(DataPopulationValue.STATO_PG_1.key));
+        personaGiuridica.setCodiceIUN(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_IUN_PG_1.key));
+
+        return personaGiuridica1;
+
+    }
+
+
+
 
 
 }

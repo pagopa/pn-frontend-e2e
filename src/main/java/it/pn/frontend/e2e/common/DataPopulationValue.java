@@ -73,10 +73,10 @@ public enum DataPopulationValue {
     CODE_DELEGA_ERR("codiceDelega_delega_err_pf","22611",false),
 
     //NUOVA DELEGA PG
-    FISCAL_CODE_DELEGA_PG("codiceFiscale_delega_pg","LELPTR04A01C352E",false),
-    ENTE_PG("ente_delega_pg","Comune di Verona",false),
-    CODE_DELEGA_PG("codiceDelega_delega_pg","27430",false),
-    RAG_SOC_DELEGA_PG("ragioneSociale_delega_pg","Le Epistolae srl",false),
+    RAGIONE_SOC_NUOVA_DELEGA_PG("ragionesociale_nuova_delega_pg","Le Epistolae srl",false),
+    CODICE_FISCALE_NUOVA_DELEGA_PG("codicefiscale_nuova_delega_pg","LELPTR04A01C352E",false),
+    ENTE_DELEGA_NUOVA_DELEGA_PG("ente_nuova_delega_pg","Comune di Verona",false),
+    CODE_DELEGA_NUOVA_DELEGA_PG("codicedelega_nuova_delega_pg","10166",false),
 
     //HELP_DESK
     URL_HELP_DESK("url_helpDesk","https://helpdesk.dev.notifichedigitali.it/login",false),
@@ -111,31 +111,48 @@ public enum DataPopulationValue {
 
 
     //PERSONA GIURIDICA
-    EMAIL_PG("email_pg","provaemail@test.it",false),
     USER_PG("user_pg","DanteAlighieri",false),
     PWD_PG("pwd_pg","test",false),
     PROVIDER_PG("provider_pg","spid:test",false),
-    /* DA CONTINUARE email: "provaemail@test.it"
-    mail: "prova@test.it"
-    emailPec: "pec@pec.pagopa.it"
-    pecErrore: "testpagopa2@@pnpagopa.postecert.local"
-    pec: "prova@pec.it"
-    ragioneSociale: "Convivio Spa"
-    codiceFiscale: "27957814470"
-    fiscalNumber: "TINIT-27957814470"
-    indirizzo: "VIA ROMA"
-    numeroCivico: "20"
-    localita: "MILANO"
-    comune: "MILANO"
-    provincia: "MI"
-    codicepostale: "20147"
-    stato: "ITALIA"
-    codiceIUN: "NZQX-DHLD-LAMU-202308-J-1"
-    cellulare: "333456789"
-    bearerToken: "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImU0ZjJhYTIyLTE5MDctNDIyNC1iYWViLTExYzZiY2RkZDNkYSJ9.eyJpYXQiOjE3MDczMDIwMzgsImV4cCI6MTkwMDIyMzkxNywidWlkIjoiZTQ5MGYwMmUtOTQyOS00YjM4LWJiMTEtZGRiOGE1NjFmYjYyIiwiaXNzIjoiaHR0cHM6Ly93ZWJhcGkudGVzdC5ub3RpZmljaGVkaWdpdGFsaS5pdCIsImF1ZCI6IndlYmFwaS50ZXN0Lm5vdGlmaWNoZWRpZ2l0YWxpLml0IiwianRpIjoiMmVlYmY5ZTMtYTBkYS00NTEzLTkxMWQtNjMyMjBjODE2NTIyIiwib3JnYW5pemF0aW9uIjp7ImlkIjoiZDBmNTJjN2QtNzZkNS00NTIwLTg5NzEtZWRmZmViNWI0NmQ1Iiwicm9sZSI6InBnLWFkbWluIiwiZmlzY2FsX2NvZGUiOiIyNzk1NzgxNDQ3MCJ9fQ.n9ohCtZlbMXqD95Ini_-dDFRtG5Udc7a8CXz8dvqAs3Wn_FG-dfMi79LN25PULkYjv6LaygpGPELNg1dDmyg9HY4uaqdkwQGeoseZIA3V3jjMzeeWM1K7lTFxhhsPjanl2z4jgqkFLIbhrD_qg0UeKDun_oa5_W6Kk3miTh6wC7XgT19jPJWI68P5e8J8c7M2y4IzKrTG8da1hT_g41o9JUR2SC7zxKhMwf-FzGGb41ct90rTLP-9ngxjF4VvoOOJTL6g0pb0qs-Wep0vS-U_zM-H4qjEvScGCX136FKwZP75Er-M_hDGZeamqIg-bIOA9mASgtyIxVy1gLPXEGsPw"
-    OTPpec: "83583"
-    OTPmail: "38630"
-*/
+    EMAIL_PG("email_pg","provaemail@test.it",false),
+    MAIL_PG("mail_pg","prova@test.it",false),
+    EMAIL_PEC_PG("email_pec_pg", "pec@pec.pagopa.it",false),
+    PEC_ERRORE_PG("pec_errore_pg","testpagopa2@@pnpagopa.postecert.local",false),
+    PEC_PG("pec_pg", "prova@pec.it",false),
+    RAGIONE_SOCIALE_PG("ragione_sociale_pg", "Convivio Spa",false),
+    CODICE_FISCALE_PG("codice_fiscale_pg", "27957814470",false),
+    FISCAL_NUMBER_PG("fiscal_number_pg", "TINIT-27957814470",false),
+    INDIRIZZO_PG ("indirizzo_pg","VIA ROMA",false),
+    NUMERO_CIVICO_PG ("numero_civico_pg","20",false),
+    LOCALITA_PG ("localita_pg","MILANO",false),
+    COMUNE_PG ("comune_pg","MILANO",false),
+    PROVINCIA_PG("provincia_pg", "MI",false),
+    CODICE_POSTALE_PG ("codice_postale_pg","20147",false),
+    STATO_PG ("stato_pg","ITALIA",false),
+    CODICE_IUN_PG("codice_iun_pg", "NZQX-DHLD-LAMU-202308-J-1",false),
+    CELLULARE_PG("cellulare_pg", "333456789",false),
+    BEARER_TOKEN_PG ("bearer_token_pg","Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImU0ZjJhYTIyLTE5MDctNDIyNC1iYWViLTExYzZiY2RkZDNkYSJ9.eyJpYXQiOjE3MDczMDIwMzgsImV4cCI6MTkwMDIyMzkxNywidWlkIjoiZTQ5MGYwMmUtOTQyOS00YjM4LWJiMTEtZGRiOGE1NjFmYjYyIiwiaXNzIjoiaHR0cHM6Ly93ZWJhcGkudGVzdC5ub3RpZmljaGVkaWdpdGFsaS5pdCIsImF1ZCI6IndlYmFwaS50ZXN0Lm5vdGlmaWNoZWRpZ2l0YWxpLml0IiwianRpIjoiMmVlYmY5ZTMtYTBkYS00NTEzLTkxMWQtNjMyMjBjODE2NTIyIiwib3JnYW5pemF0aW9uIjp7ImlkIjoiZDBmNTJjN2QtNzZkNS00NTIwLTg5NzEtZWRmZmViNWI0NmQ1Iiwicm9sZSI6InBnLWFkbWluIiwiZmlzY2FsX2NvZGUiOiIyNzk1NzgxNDQ3MCJ9fQ.n9ohCtZlbMXqD95Ini_-dDFRtG5Udc7a8CXz8dvqAs3Wn_FG-dfMi79LN25PULkYjv6LaygpGPELNg1dDmyg9HY4uaqdkwQGeoseZIA3V3jjMzeeWM1K7lTFxhhsPjanl2z4jgqkFLIbhrD_qg0UeKDun_oa5_W6Kk3miTh6wC7XgT19jPJWI68P5e8J8c7M2y4IzKrTG8da1hT_g41o9JUR2SC7zxKhMwf-FzGGb41ct90rTLP-9ngxjF4VvoOOJTL6g0pb0qs-Wep0vS-U_zM-H4qjEvScGCX136FKwZP75Er-M_hDGZeamqIg-bIOA9mASgtyIxVy1gLPXEGsPw",false),
+    OTP_PEC_PG ("otp_pec_pg","83583",false),
+    OTP_MAIL_PG("otp_mail_pg", "38630",false),
+
+    //PERSONA GIURIDICA 1
+    USER_PG_1("user_pg_1", "DanteAlighieri",false),
+    PWD_PG_1("pwd_pg_1" ,"test",false),
+    PROVIDER_PG_1("provider_pg_1", "spid:test",false),
+    EMAIL_PEC_PG_1("email_pec_pg_1", "DanteAlighieri@paradiso.it",false),
+    RAGIONE_SOCIALE_PG_1("ragione_sociale_pg_1", "Convivio Spa",false),
+    CODICE_FISCALE_PG_1("codice_fiscale_pg_1", "27957814470",false),
+    FISCAL_NUMBER_PG_1("fiscal_number_pg_1", "TINIT-12666810299",false),
+    INDIRIZZO_PG_1("indirizzo_pg_1", "VIA ROMA",false),
+    NUMERO_CIVICO_PG_1("numero_civico_pg_1", "20",false),
+    LOCALITA_PG_1("localita_pg_1", "MILANO",false),
+    COMUNE_PG_1("comune_pg_1","MILANO",false),
+    PROVINCIA_PG_1("provincia_pg_1", "MI",false),
+    CODICE_POSTALE_PG_1("codice_postale_pg_1", "20147",false),
+    STATO_PG_1("stato_pg_1", "ITALIA",false),
+    CODICE_IUN_PG_1("codice_iun_pg_1", "NZQX-DHLD-LAMU-202308-J-1",false),
+
+
     //PERSONA FISICA PEC
     EMAIL_PF_PEC("email_pf_pec","testpagopa2@pnpagopa.postecert.local",false),
     NAME_PF_PEC("name_pf_pec","Galileo",false),
@@ -148,13 +165,16 @@ public enum DataPopulationValue {
     COMUNE_PF_PEC("comune_pf_pec","MILANO",false),
     PROVINCIA_PF_PEC("provincia_pf_pec","MI",false),
     CAP_PF_PEC("cap_pf_pec","20147",false),
-    STATO_PF_PEC("stato_pf_pec","ITALIA",false);
+    STATO_PF_PEC("stato_pf_pec","ITALIA",false),
 
 
 
 
 
 
+
+
+    ;
 
 
     public final String key;

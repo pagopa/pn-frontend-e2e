@@ -971,7 +971,7 @@ public class NotificaMittentePagoPATest {
     public void verificaDelloStatoDellaNotificaPersonaGiuridicaComeDepositata(String statoNotifica) {
         logger.info("Verifica dello stato della notifica come 'Depositata'");
 
-        this.datiNotifica = dataPopulation.readDataPopulation("datiNotificaPG.yaml");
+        this.datiNotifica = dataPopulation.readDataPopulation("datiNotificaPG_Fatto.yaml");
         this.personaFisica = dataPopulation.readDataPopulation("personaGiuridica.yaml");
 
         Date date = Calendar.getInstance().getTime();
@@ -999,7 +999,7 @@ public class NotificaMittentePagoPATest {
             if (!codiceIUN.equals("")) {
                 if (!codiceIUN.equals(codiceIUNOld)) {
                     this.datiNotifica.put("codiceIUN", codiceIUN);
-                    dataPopulation.writeDataPopulation("datiNotificaPG.yaml", this.datiNotifica);
+                    dataPopulation.writeDataPopulation("datiNotificaPG_Fatto.yaml", this.datiNotifica);
                     logger.info("Stato notifica uguale a Depositata e codice IUN aggiornato correttamente");
                     break;
                 }

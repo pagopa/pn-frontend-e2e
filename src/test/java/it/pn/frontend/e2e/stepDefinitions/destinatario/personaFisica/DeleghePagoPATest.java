@@ -21,6 +21,8 @@ import it.pn.frontend.e2e.utility.WebTool;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import java.time.LocalDate;
@@ -33,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class DeleghePagoPATest {
-
+    private final Logger logger = LoggerFactory.getLogger("DeleghePagoPATest");
 
     @Autowired
     @Lazy
@@ -259,11 +261,14 @@ public class DeleghePagoPATest {
     }
 
     @And("Si inserisce il codice delega nel pop-up {string}")
-    public void siInserisceIlCodiceDelegaNelPopUp(String dpFile) {
+    public void siInserisceIlCodiceDelegaNelPopUp(String nomeConfig) {
+        //TODO è richiamtao in divese parti del codice il nomeFile passatogli sono : nomeFileNuovaDelegaPG, nomeFileNuovaDelega, personaFisica,
+        // nuova_delega,nuova_delega
+
         log.info("Si inserisce il codice per accettare la delega");
         this.leTueDelegheSection.waitPopUpLoad();
-        Map<String, Object> destinatari = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        this.leTueDelegheSection.inserireCodiceDelega(destinatari.get("codiceDelega").toString());
+//        Map<String, Object> destinatari = dataPopulation.readDataPopulation(dpFile + ".yaml")
+        this.leTueDelegheSection.inserireCodiceDelega(getCodiceDelega(nomeConfig));
     }
 
     @And("Si inserisce il codice errato delega nel pop-up {string}")
@@ -625,5 +630,29 @@ public class DeleghePagoPATest {
     public void nellaPaginaPiattaformaNotifichePersonaFisicaSiCliccaSulleNotificheDi(String personaFisica) {
         log.info("Nella pagina Piattaforma Notifiche della persona fisica nel menu laterale si clicca sulla voce notifiche di " + personaFisica);
         deleghePage.clickDelegheDelDelegante(personaFisica);
+    }
+
+    private String getCodiceDelega(String nomeConfig) {
+        String codiceDelega;
+
+        switch (nomeConfig) {
+            case "nuovaDelegaPG" -> {
+                codiceDelega=dataPopulationConfig.getNuovaDelegaPg().getCodiceDelega();
+            }
+            case "nuova_delega" -> {
+                //TODO Da modificare dopo la creazione di nuova delega
+                codiceDelega= "";//dataPopulationConfig.getgetNuovaDelega().getRagioneSociale();
+            }
+            case "personaFisica" -> {
+                //TODO Non viene Utilizzato
+                codiceDelega= "";
+            }
+
+            default -> {
+                logger.error("Nessun nome corrisponde");
+                throw new RuntimeException("ERRORE Nessun nome corrisponde");
+            }
+        }
+        return codiceDelega;
     }
 }

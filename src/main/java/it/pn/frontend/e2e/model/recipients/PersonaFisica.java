@@ -20,10 +20,10 @@ public class PersonaFisica {
     private String localita;
     private String comune;
     private String provincia;
-    private String codicepostale;
+    private String codicePostale;
     private String stato;
-    private String OTPpec;
-    private String OTPmail;
+    private String OTPPec;
+    private String OTPMail;
     private String additionalEmail;
 
 }
