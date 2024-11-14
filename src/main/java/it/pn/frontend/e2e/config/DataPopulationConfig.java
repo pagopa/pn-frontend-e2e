@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
 import it.pn.frontend.e2e.model.recipients.Mittente;
 import it.pn.frontend.e2e.model.recipients.DatiNotificaPg;
 import it.pn.frontend.e2e.model.recipients.PersonaFisica;
+import it.pn.frontend.e2e.model.recipients.PersonaFisicaPec;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +83,9 @@ public class DataPopulationConfig {
     //---------------------------------------------------
     @Getter
     @Setter
+    private PersonaFisicaPec personaFisicaPec;
+    @Getter
+    @Setter
     private DatiNotificaPg datiNotificaPg;
 
     @Getter
@@ -103,6 +107,26 @@ public class DataPopulationConfig {
     @Setter
     private Mittente mittente;
 
+    //BEAN DATI NOTIFICA PG
+    @Bean
+    public PersonaFisicaPec personaFisicaPec(){
+        personaFisicaPec = new PersonaFisicaPec();
+        personaFisicaPec.setName(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_PF_PEC.key));
+        personaFisicaPec.setFamilyName(DataPopulationValue.getDefaultValue(DataPopulationValue.FAMILYNAME_PF_PEC.key));
+        personaFisica.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCALCODE_PF_PEC.key));
+        personaFisica.setEmailPec(DataPopulationValue.getDefaultValue(DataPopulationValue.EMAIL_PF_PEC.key));
+        personaFisica.setFiscalNumber(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCALNUMBER_PF_PEC.key));
+        personaFisica.setStato(DataPopulationValue.getDefaultValue(DataPopulationValue.STATO_PF_PEC.key));
+
+        personaFisica.setIndirizzo(DataPopulationValue.getDefaultValue(DataPopulationValue.INDIRIZZO_PF_PEC.key));
+        personaFisica.setNumeroCivico(DataPopulationValue.getDefaultValue(DataPopulationValue.NUMEROCIVICO_PF_PEC.key));
+        personaFisica.setLocalita(DataPopulationValue.getDefaultValue(DataPopulationValue.LOCALITA_PF_PEC.key));
+        personaFisica.setComune(DataPopulationValue.getDefaultValue(DataPopulationValue.COMUNE_PF_PEC.key));
+        personaFisica.setProvincia(DataPopulationValue.getDefaultValue(DataPopulationValue.PROVINCIA_PF_PEC.key));
+        personaFisica.setCodicepostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CAP_PF_PEC.key));
+        return personaFisicaPec;
+
+    }
     //BEAN DATI NOTIFICA PG
     @Bean
     public DatiNotificaPg datiNotificaPg(){

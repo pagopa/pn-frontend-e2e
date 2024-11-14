@@ -4,7 +4,6 @@ package it.pn.frontend.e2e.common;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +15,7 @@ public enum DataPopulationValue {
     //DATA NOTIFICA PG
     OGGETTO_DELLA_NOTIFICA("oggettoDellaNotifica","Pagamento rata IMU",true),
     CODICE_IUN("codiceIUN","EGNM-DPAR-VTLR-202401-T-1",false),
+
 
     //DATA NOTIFICA ERRORE
     SUBJECT_ERR("oggettoDellaNotifica_err","IMU",false),
@@ -149,6 +149,10 @@ public enum DataPopulationValue {
     PROVINCIA_PF_PEC("provincia_pf_pec","MI",false),
     CAP_PF_PEC("cap_pf_pec","20147",false),
     STATO_PF_PEC("stato_pf_pec","ITALIA",false);
+
+
+
+
 
 
 

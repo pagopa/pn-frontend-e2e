@@ -177,6 +177,7 @@ public class NotificaMittentePagoPATest {
                                 String[] rigaNumeroProtocollo = campoNotifica.split(":\"");
                                 return rigaNumeroProtocollo[1];
                             }
+
                         }
                     }
                 }
@@ -762,7 +763,7 @@ public class NotificaMittentePagoPATest {
     public void verificaDelloStatoDellaNotificaInviataTramitePecCome(String statoNotifica) {
 
         this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        this.personeFisiche = dataPopulation.readDataPopulation("personaFisicaPec.yaml");
+       // this.personeFisiche = dataPopulation.readDataPopulation("personaFisicaPec.yaml");
 
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
@@ -777,7 +778,7 @@ public class NotificaMittentePagoPATest {
                         cookiesSection.selezionaAccettaTuttiButton();
                     }
                 }
-                piattaformaNotifichePage.insertCodiceFiscale(this.personeFisiche.get("codiceFiscale").toString());
+                piattaformaNotifichePage.insertCodiceFiscale(dataPopulationConfig.personaFisicaPec().getComune());
                 piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
                 piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
                 piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
