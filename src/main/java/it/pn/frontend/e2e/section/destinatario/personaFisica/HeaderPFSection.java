@@ -32,12 +32,12 @@ public class HeaderPFSection extends BasePage {
     List<WebElement> menuProfileItems;
 
 
-    private  WebTool webTool;
 
     public HeaderPFSection(WebDriver driver) {
         this.driver = driver;
     }
 
+    private  WebTool webTool = new WebTool(driver);
 
     public void waitLoadHeaderDESection() {
         try {
@@ -60,7 +60,8 @@ public class HeaderPFSection extends BasePage {
     }
 
     public void selezionaVoceEsci() {
-        WebElement esciVoce = this.menuProfileItems.get(1);
+        menuProfileItems = driver.findElements(By.xpath("//ul[@role='menu']//li"));
+        WebElement esciVoce = menuProfileItems.get(1);
         getWebDriverWait(30).withMessage("la voce esci non è visibile").until(ExpectedConditions.visibilityOf(esciVoce));
         logger.info("click su voce esci");
         esciVoce.click();

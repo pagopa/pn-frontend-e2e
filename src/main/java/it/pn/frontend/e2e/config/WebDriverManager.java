@@ -74,7 +74,7 @@ public class WebDriverManager {
 
 
     @WebdriverScopeBean
-    // @Scope(BeanDefinition.SCOPE_PROTOTYPE)
+    @Scope(BeanDefinition.SCOPE_PROTOTYPE)
     @ConditionalOnProperty( name = "browser" , havingValue = "chrome", matchIfMissing = true)
     public  WebDriver chromeDriver() {
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())

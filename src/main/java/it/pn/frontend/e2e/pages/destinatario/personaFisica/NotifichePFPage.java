@@ -20,8 +20,6 @@ public class NotifichePFPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(NotifichePFPage.class);
 
 
-
-
     @FindBy(id = "Le tue notifiche-page")
     private WebElement titleLabel;
 
@@ -72,12 +70,18 @@ public class NotifichePFPage extends BasePage {
 
     @FindBy(xpath = "//button[@data-testid='download-pagoPA-notice-button']")
     private WebElement buttonDownloadAvvisoPagoPA;
-    @Autowired
-    @Lazy
-    private  WebTool webTool;
 
+
+
+    public NotifichePFPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    private  WebTool webTool = new WebTool(driver);
 
     public void waitLoadNotificheDEPage() {
+        titleLabel = driver.findElement(By.id("Le tue notifiche-page"));
+        tableNotifiche = driver.findElement(By.id("notifications-table"));
         getWebDriverWait(10).withMessage("Notifiche DE Page non caricata correttamente: il titolo non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));
         getWebDriverWait(10).withMessage("Notifiche DE Page non caricata correttamente: la tabella delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(tableNotifiche));
         logger.info("Notifiche DE Page caricata");
@@ -85,6 +89,7 @@ public class NotifichePFPage extends BasePage {
 
     public boolean verificaPresenzaCodiceIunTextField() {
         try {
+            codiceIunTextField = driver.findElement(By.id("iunMatch"));
             getWebDriverWait(30).withMessage("Il campo codice iun non è visibile").until(ExpectedConditions.visibilityOf(codiceIunTextField));
             return codiceIunTextField.isDisplayed();
         } catch (NoSuchElementException e) {

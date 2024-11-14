@@ -127,6 +127,7 @@ public class HooksNew extends BasePage {
             FileUtils.copyFile(screenshot, new File(fileName));
             scenario.attach(screenshotBytes, "image/png", scenario.getName());
         }
+
         driver.quit();
         webDriveBean.clearRequest();
         webDriveBean.clearNetWorkInfos();
@@ -141,13 +142,14 @@ public class HooksNew extends BasePage {
         //WebDriverManager.quitDriver();
 
     }
+
     @PreDestroy
     public void cleanup() {
         if (driver != null) {
             driver.close();
             driver.quit();
         }
-    }**/
+    }  **/
 
 
 

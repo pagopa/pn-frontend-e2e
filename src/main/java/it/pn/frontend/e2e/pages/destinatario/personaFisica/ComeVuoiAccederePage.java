@@ -21,11 +21,14 @@ public class ComeVuoiAccederePage extends BasePage {
     @FindBy(id = "spidButton")
     WebElement spidButton;
 
+    public ComeVuoiAccederePage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void waitLoadComeVuoiAccederePage(){
         try{
-            By titoloLabel = By.id("login-mode-page-title");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titoloLabel));
+            WebElement titoloLabel = driver.findElement(By.id("login-mode-page-title"));
+            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(titoloLabel));
             logger.info("Come Vuoi Accedere Page caricata");
         }catch (TimeoutException e){
             logger.error("Come Vuoi Accedere Page non caricata con errore : "+e.getMessage());
@@ -34,12 +37,14 @@ public class ComeVuoiAccederePage extends BasePage {
     }
 
     public void selezionaSpidButton(){
-        getWebDriverWait(60).withMessage("Il bottone SPID non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.spidButton));
+        spidButton = driver.findElement(By.id("spidButton"));
+        getWebDriverWait(60).withMessage("Il bottone SPID non è cliccabile").until(ExpectedConditions.elementToBeClickable(spidButton));
         this.spidButton.click();
     }
 
     public boolean verificaPresenzaSpidButton(){
-        this.getWebDriverWait(60).withMessage("spid button non è visibile").until(ExpectedConditions.elementToBeClickable(this.spidButton));
+        spidButton = driver.findElement(By.id("spidButton"));
+        this.getWebDriverWait(60).withMessage("spid button non è visibile").until(ExpectedConditions.elementToBeClickable(spidButton));
         return  this.spidButton.isDisplayed();
     }
 }

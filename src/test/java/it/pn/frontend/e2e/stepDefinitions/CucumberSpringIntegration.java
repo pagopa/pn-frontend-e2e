@@ -125,6 +125,7 @@ import org.springframework.stereotype.Component;
         WebdriverScopeConfig.class,
         WebDriverManager.class
 
+
 })
 @EnableScheduling
 @EnableConfigurationProperties

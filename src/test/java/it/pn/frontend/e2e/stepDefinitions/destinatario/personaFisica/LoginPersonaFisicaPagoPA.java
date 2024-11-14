@@ -52,7 +52,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
 
     private HeaderPFSection headerPFSection ;
 
-    private NotifichePFPage notifichePFPage = new NotifichePFPage();
+    private NotifichePFPage notifichePFPage = new NotifichePFPage(driver);
 
     private ScegliSpidPFPage scegliSpidPFPage ;
 
@@ -65,7 +65,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
     private CookiesSection cookiesSection ;
 
 
-    private ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage();
+    private ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(driver);
 
     @Autowired
     private WebDriverManager webDriveBean;
@@ -187,20 +187,20 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
     public void loginConDestinatario(Map<String, String> datiPF) {
         logger.info("user persona fisica : " + webDriverConfig.getUserCesare());
         logger.info("cookies start");
-
+        cookiesSection = new CookiesSection(driver);
         if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
         logger.info("cookies end");
-        logger.info(driver.getPageSource());
+
         accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
         accediAPiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
         logger.info("cookies end 11");
         accediAPiattaformaNotifichePage.selezionaAccediButton();
+        logger.info("cookies end 12");
         if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
-            cookiesSection = new CookiesSection(driver);
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -253,6 +253,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
         if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
+            cookiesSection = new CookiesSection(driver);
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -276,15 +277,16 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
         } else {
             logger.warn("Http token persona fisica not found");
         }
-
+        headerPFSection = new HeaderPFSection(driver);
         headerPFSection.waitLoadHeaderDESection();
 
         if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
+            cookiesSection = new CookiesSection(driver);
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
-
+        notifichePFPage = new NotifichePFPage(driver);
         notifichePFPage.waitLoadNotificheDEPage();
         if (notifichePFPage.verificaPresenzaCodiceIunTextField()) {
             logger.info("text field codice iun presente");
@@ -325,13 +327,15 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
 
     @And("Logout da portale persona fisica")
     public void logoutDaPortaleDestinatario() {
+        headerPFSection = new HeaderPFSection(driver);
         headerPFSection.waitLoadHeaderDESection();
         headerPFSection.selezionaProfiloUtenteMenu();
         headerPFSection.selezionaVoceEsci();
-
+        comeVuoiAccederePage = new ComeVuoiAccederePage(driver);
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
 
         if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
+            cookiesSection = new CookiesSection(driver);
             if (cookiesSection.waitLoadCookiesPage()) {
                 logger.info("banner dei cookies visualizzato");
                 cookiesSection.selezionaAccettaTuttiButton();
