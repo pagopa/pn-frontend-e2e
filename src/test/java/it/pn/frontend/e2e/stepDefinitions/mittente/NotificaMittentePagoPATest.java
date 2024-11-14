@@ -177,6 +177,7 @@ public class NotificaMittentePagoPATest {
                                 String[] rigaNumeroProtocollo = campoNotifica.split(":\"");
                                 return rigaNumeroProtocollo[1];
                             }
+
                         }
                     }
                 }
