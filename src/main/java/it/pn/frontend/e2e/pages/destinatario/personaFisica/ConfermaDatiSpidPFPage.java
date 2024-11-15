@@ -36,10 +36,10 @@ public class ConfermaDatiSpidPFPage extends BasePage {
 
     public void waitLoadConfermaDatiSpidDEPage(){
         try{
-            By spidLogo = By.id("idp-logo");
-            By alertBox = By.xpath("//h3[@class='alert-heading']");
-            this.getWebDriverWait(30).withMessage("spid logo non visibile").until(ExpectedConditions.visibilityOfElementLocated(spidLogo));
-            this.getWebDriverWait(30).withMessage("alert box non è visibile").until(ExpectedConditions.visibilityOfElementLocated(alertBox));
+            WebElement spidLogo = driver.findElement(By.id("idp-logo"));
+            WebElement alertBox = driver.findElement(By.xpath("//h3[@class='alert-heading']"));
+            this.getWebDriverWait(30).withMessage("spid logo non visibile").until(ExpectedConditions.visibilityOf(spidLogo));
+            this.getWebDriverWait(30).withMessage("alert box non è visibile").until(ExpectedConditions.visibilityOf(alertBox));
             logger.info("Conferma Dati Spid DE Page caricata");
         }catch (TimeoutException e){
             logger.error("Conferma Dati Spid DE Page non caricata con errore : "+e.getMessage());

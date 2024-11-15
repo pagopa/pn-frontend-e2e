@@ -34,8 +34,8 @@ public class LoginSpidPFPage extends BasePage {
 
     public void waitLoadLoginSpidDEPage(){
         try{
-            By spidLogo = By.id("idp-logo");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(spidLogo));
+            WebElement spidLogo = driver.findElement(By.id("idp-logo"));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(spidLogo));
             logger.info("Login Spid DE Page caricata");
         }catch (TimeoutException e){
             logger.error("Login Spid DE Page non caricata con errore : "+e.getMessage());

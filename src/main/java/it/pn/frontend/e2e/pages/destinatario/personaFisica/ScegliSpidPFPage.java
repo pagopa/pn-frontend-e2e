@@ -27,8 +27,8 @@ public class ScegliSpidPFPage extends BasePage {
     }
     public void waitLoadScegliSpidDEPage(){
         try{
-            By titlePage = By.id("spid-select");
-            getWebDriverWait(30).withMessage("Il titolo scegli Spid PF non trovato").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
+            WebElement titlePage = driver.findElement(By.id("spid-select"));
+            getWebDriverWait(30).withMessage("Il titolo scegli Spid PF non trovato").until(ExpectedConditions.visibilityOf(titlePage));
             logger.info("Scegli Spid DE Page caricata");
         }catch (TimeoutException e){
             logger.error("Scegli Spid DE Page non caricata con errore : "+e.getMessage());
