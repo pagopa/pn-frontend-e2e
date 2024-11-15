@@ -54,10 +54,13 @@ public class GruppiPGPage extends BasePage {
 
     private AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage ;
 
-
-
-
     private Actions actions ;
+
+    public GruppiPGPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+
 
     public void clickGruppiButton() {
         js().executeScript("arguments[0].scrollIntoView(true);", gruppiButton);

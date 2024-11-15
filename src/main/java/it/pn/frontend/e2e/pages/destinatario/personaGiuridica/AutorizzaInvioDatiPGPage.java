@@ -22,6 +22,10 @@ public class AutorizzaInvioDatiPGPage extends BasePage {
     @FindBy(xpath = "//button[@name = 'confirm']")
     WebElement inviaButton;
 
+    public AutorizzaInvioDatiPGPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
     public void waitLoadAutorizzaInvioDatiPGPage() {
         try {
             By titlePageBy = By.xpath("//h1[contains(text(),'Autorizzi')]");

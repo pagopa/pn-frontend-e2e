@@ -24,6 +24,10 @@ public class HeaderPGSection extends BasePage {
     @FindBy(xpath = "//button[@title = 'Esci']")
     private WebElement esciButton;
 
+    public HeaderPGSection(WebDriver driver) {
+        this.driver = driver;
+    }
+
     public void waitLoadHeaderPGPage() {
         try {
             By titlePageBy = By.xpath("//a[@title = 'Sito di PagoPA S.p.A.']");

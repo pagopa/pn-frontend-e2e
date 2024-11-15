@@ -35,7 +35,9 @@ public class AreaRiservataPAPage extends BasePage {
     @FindBy(id = "forward_prod-pn")
     private WebElement piattaformaNotificaUatGestisciButton;
 
-
+    public AreaRiservataPAPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void waitLoadAreaRiservataPAPage() {
         try {

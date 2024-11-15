@@ -19,7 +19,9 @@ public class InvioNotifichePAPage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-
+    public InvioNotifichePAPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void selezionareContinuaButton() {
         webTool.waitTime(5);

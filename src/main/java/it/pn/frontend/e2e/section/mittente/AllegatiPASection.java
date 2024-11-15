@@ -35,7 +35,9 @@ public class AllegatiPASection extends BasePage {
     @FindBy(id = "step-submit")
     WebElement inviaButton;
 
-
+    public AllegatiPASection(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void waitLoadAllegatiPASection() {
         try{

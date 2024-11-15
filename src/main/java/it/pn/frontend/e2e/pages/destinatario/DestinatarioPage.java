@@ -68,6 +68,10 @@ public class DestinatarioPage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
+    public DestinatarioPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
     public void inserimentoDataErrato() {
         String data = "01/01/1111";
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField));

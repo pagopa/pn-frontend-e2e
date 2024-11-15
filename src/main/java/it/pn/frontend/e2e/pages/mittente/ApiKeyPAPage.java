@@ -73,6 +73,9 @@ public class ApiKeyPAPage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
+    public ApiKeyPAPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void waitLoadApikeyPage() {
         try {

@@ -1,22 +1,17 @@
 package it.pn.frontend.e2e.config;
 
-import io.cucumber.java.sl.In;
-import it.pn.frontend.e2e.common.WebDriveBean;
 import it.pn.frontend.e2e.common.WebdriverScopeBean;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.listeners.WebDriverFactory;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.v126.network.Network;
 import org.openqa.selenium.devtools.v126.network.model.RequestWillBeSent;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.slf4j.Logger;
@@ -81,7 +76,8 @@ public class WebDriverManager {
             chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
         }
 
-        driver =WebDriverFactory.getDriver(chromeOptions,null,null);
+        driver = WebDriverFactory.getDriver(chromeOptions,null,null);
+
         setupDevTools();
         logger.info("Chrome driver started - WebDriverManager");
 

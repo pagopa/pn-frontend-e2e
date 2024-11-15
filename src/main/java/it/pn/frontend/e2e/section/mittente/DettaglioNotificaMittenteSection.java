@@ -72,13 +72,15 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     private int numeriStatiNotifica;
 
-    PiattaformaNotifichePage piattaformaNotifichePage;
+    private PiattaformaNotifichePage piattaformaNotifichePage;
 
     @Autowired
     @Lazy
     private  WebTool webTool;
 
-
+    public DettaglioNotificaMittenteSection(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void waitLoadDettaglioNotificaSection() {
             By titleDettaglioNotificaField = By.id("title-of-page");

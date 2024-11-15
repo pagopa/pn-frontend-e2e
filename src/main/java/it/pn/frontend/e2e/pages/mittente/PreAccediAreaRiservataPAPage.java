@@ -19,7 +19,9 @@ public class PreAccediAreaRiservataPAPage extends BasePage {
     @FindBy(id = "login-button")
     WebElement procediAlLoginButton;
 
-
+    public PreAccediAreaRiservataPAPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void waitLoadPreAccediAreaRiservataPAPage(){
         try{

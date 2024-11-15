@@ -27,7 +27,9 @@ public class LoginPGPagoPAPage extends BasePage {
     @FindBy(xpath = "//button[@name = 'confirm']")
     WebElement inviaButton;
 
-
+    public LoginPGPagoPAPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void waitLoadLoginPGPage() {
         try {

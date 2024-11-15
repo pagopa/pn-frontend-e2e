@@ -46,7 +46,9 @@ public class DelegatiImpresaSection extends BasePage {
     @FindBy(id = "notifications-table")
     WebElement tabelleDelleDelegheDellImpresa;
 
-
+    public DelegatiImpresaSection(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void waitLoadDelegatiImpresaPage() {
         try {

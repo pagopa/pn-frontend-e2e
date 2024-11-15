@@ -84,7 +84,9 @@ public class DestinatarioPASection extends BasePage {
     @FindBy(id = "add-digital-domicile")
     WebElement checkDomicilioDigitale;
 
-
+    public DestinatarioPASection(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public String ricercaInformazione(String[] dati, int posizioneDestinatario) {
         String datoDestianario = dati[posizioneDestinatario];

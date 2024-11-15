@@ -92,7 +92,9 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-
+    public PiattaformaNotifichePGPAPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     private static void pressTabKey(Robot robot, int times) {
         for (int i = 0; i < times; i++) {

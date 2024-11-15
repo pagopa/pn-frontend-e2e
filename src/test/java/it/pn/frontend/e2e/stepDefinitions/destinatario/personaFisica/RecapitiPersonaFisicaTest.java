@@ -4,10 +4,9 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.api.personaFisica.RecuperoOTPRecapiti;
-import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
-import it.pn.frontend.e2e.common.WebDriveBean;
 import it.pn.frontend.e2e.config.WebDriverConfig;
+import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
@@ -52,7 +51,7 @@ public class RecapitiPersonaFisicaTest {
 
     @Autowired
     @Lazy
-    private WebDriveBean webDriveBean;
+    private WebDriverManager webDriveBean;
 
     @Autowired
     private WebDriver  driver;

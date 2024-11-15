@@ -3,20 +3,17 @@ package it.pn.frontend.e2e.utility;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.common.WebDriveBean;
 import it.pn.frontend.e2e.config.WebDriverConfig;
+import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
-
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -41,7 +38,7 @@ public class DownloadFile extends BasePage {
     private WebDriverConfig webDriverConfig;
     @Autowired
     @Lazy
-    private WebDriveBean webDriveBean;
+    private WebDriverManager webDriveBean;
 
 
     public void download(String urlLink, File fileLoc, boolean headless) {

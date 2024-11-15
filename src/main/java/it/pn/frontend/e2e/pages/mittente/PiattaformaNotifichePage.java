@@ -2,8 +2,8 @@ package it.pn.frontend.e2e.pages.mittente;
 
 import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.common.WebDriveBean;
 import it.pn.frontend.e2e.config.WebDriverConfig;
+import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
@@ -118,7 +118,7 @@ public class PiattaformaNotifichePage extends BasePage {
     private WebDriverConfig webDriverConfig;
     @Autowired
     @Lazy
-    private WebDriveBean webDriveBean;
+    private WebDriverManager webDriveBean;
     @Autowired
     private NotificationSingleton notificationSingleton;
     @Autowired
@@ -128,6 +128,9 @@ public class PiattaformaNotifichePage extends BasePage {
     private  WebTool webTool;
 
 
+    public PiattaformaNotifichePage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void waitLoadPiattaformaNotifichePAPage() {
         try {

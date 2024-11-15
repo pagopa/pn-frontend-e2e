@@ -32,7 +32,9 @@ public class RicercaNotifichePGPage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-
+    public RicercaNotifichePGPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void clickNotificheImpresa() {
         try {

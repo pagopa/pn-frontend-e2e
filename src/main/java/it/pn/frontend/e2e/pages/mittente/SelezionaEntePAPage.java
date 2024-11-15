@@ -43,7 +43,9 @@ public class SelezionaEntePAPage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-
+    public SelezionaEntePAPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void waitLoadSelezionaEntePAPage() {
         try {

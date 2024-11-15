@@ -96,6 +96,10 @@ public class LeTueDelegheSection extends BasePage {
     @Lazy
     private  WebTool webTool;
 
+    public LeTueDelegheSection(WebDriver driver) {
+        this.driver = driver;
+    }
+
 
     public void waitNuovaDelegaSection() {
         try {

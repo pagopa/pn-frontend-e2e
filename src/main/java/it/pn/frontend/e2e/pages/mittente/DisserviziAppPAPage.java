@@ -54,7 +54,9 @@ public class DisserviziAppPAPage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-
+    public DisserviziAppPAPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void waitLoadStatoDellaPiattaformaPage() {
         webTool.waitTime(5);

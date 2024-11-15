@@ -9,11 +9,8 @@ import it.pn.frontend.e2e.api.personaFisica.SpidDemoLogin;
 import it.pn.frontend.e2e.api.personaFisica.SpidDemoStart;
 import it.pn.frontend.e2e.api.personaFisica.SpidLogin;
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.common.WebDriveBean;
-import it.pn.frontend.e2e.config.DriverConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
-import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
 import it.pn.frontend.e2e.section.CookiesSection;
@@ -21,12 +18,9 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Primary;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -51,7 +45,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
 
     private HeaderPFSection headerPFSection ;
 
-    private NotifichePFPage notifichePFPage = new NotifichePFPage(driver);
+    private NotifichePFPage notifichePFPage;
 
     private ScegliSpidPFPage scegliSpidPFPage ;
 
@@ -64,7 +58,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
     private CookiesSection cookiesSection ;
 
 
-    private ComeVuoiAccederePage comeVuoiAccederePage = new ComeVuoiAccederePage(driver);
+    private ComeVuoiAccederePage comeVuoiAccederePage;
 
     @Autowired
     private WebDriverManager webDriveBean;
@@ -123,7 +117,9 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
         webTool.waitTime(10);
 
         // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
+        headerPFSection = new HeaderPFSection(driver);
         headerPFSection.waitLoadHeaderDESection();
+        notifichePFPage = new NotifichePFPage(driver);
         notifichePFPage.waitLoadNotificheDEPage();
     }
 
@@ -141,7 +137,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
             }
         }
         logger.info("cookies end");
-
+        comeVuoiAccederePage = new ComeVuoiAccederePage(driver);
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
         comeVuoiAccederePage.selezionaSpidButton();
 

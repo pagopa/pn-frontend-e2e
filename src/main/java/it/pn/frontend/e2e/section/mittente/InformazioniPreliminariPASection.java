@@ -51,7 +51,9 @@ public class InformazioniPreliminariPASection extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-
+    public InformazioniPreliminariPASection(WebDriver driver) {
+        this.driver = driver;
+    }
 
 
     public void waitLoadInformazioniPreliminariPASection() {

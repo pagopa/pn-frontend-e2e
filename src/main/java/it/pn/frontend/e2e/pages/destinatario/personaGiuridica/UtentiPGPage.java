@@ -94,7 +94,9 @@ public class UtentiPGPage extends BasePage {
 
     private final Actions actions = new Actions(driver);
 
-
+    public UtentiPGPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
 
     public void clickSezioneUtenti() {

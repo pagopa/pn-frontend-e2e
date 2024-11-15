@@ -5,9 +5,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
-import it.pn.frontend.e2e.common.WebDriveBean;
 import it.pn.frontend.e2e.config.WebDriverConfig;
-import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
@@ -89,7 +88,7 @@ public class NotifichePGPagoPATest {
 
     @Autowired
     @Lazy
-    private WebDriveBean webDriveBean;
+    private WebDriverManager webDriveBean;
 
     private final WebDriver driver;
 

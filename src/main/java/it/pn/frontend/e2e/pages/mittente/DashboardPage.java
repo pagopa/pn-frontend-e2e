@@ -91,6 +91,10 @@ public class DashboardPage extends BasePage {
     private  WebTool webTool;
 
 
+    public DashboardPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
     public void waitLoadDashboardPAPage() {
         By statisticheTitle = By.id("Statistiche-page");
         getWebDriverWait(10).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statisticheTitle));

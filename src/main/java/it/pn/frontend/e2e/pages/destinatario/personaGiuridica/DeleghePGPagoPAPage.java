@@ -88,6 +88,10 @@ public class DeleghePGPagoPAPage extends BasePage {
     WebElement errorCodeInPopUp;
 
 
+    public DeleghePGPagoPAPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
     public void waitLoadDeleghePage() {
         try {
             By titlePage = By.id("Deleghe-page");

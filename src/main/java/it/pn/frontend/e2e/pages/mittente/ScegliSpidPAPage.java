@@ -26,7 +26,9 @@ public class ScegliSpidPAPage extends BasePage {
     @FindBy(id = "xx_testenv2")
     WebElement testButton;
 
-
+    public ScegliSpidPAPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
 
     public void waitLoadScegliSpidPAPage() {

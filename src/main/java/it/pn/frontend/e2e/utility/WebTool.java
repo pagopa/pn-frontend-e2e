@@ -1,6 +1,5 @@
 package it.pn.frontend.e2e.utility;
 
-import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.enums.AppPortal;

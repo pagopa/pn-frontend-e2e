@@ -1,58 +1,36 @@
 package it.pn.frontend.e2e.listeners;
 
 
-import static java.lang.Boolean.TRUE;
 import static org.springframework.util.ObjectUtils.isEmpty;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.*;
 
 import io.cucumber.java.After;
-import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
-import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.common.WebDriveBean;
-import it.pn.frontend.e2e.config.DriverConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
 import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
-import jakarta.annotation.PreDestroy;
 import lombok.Getter;
 import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.*;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v126.network.Network;
 import org.openqa.selenium.devtools.v126.network.model.RequestWillBeSent;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
 
 public class HooksNew {
 

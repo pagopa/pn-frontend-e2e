@@ -29,6 +29,9 @@ public class LoginPAPage extends BasePage {
     @FindBy(xpath = "//button[contains(text(),'Invia')]")
     WebElement inviaButton;
 
+    public LoginPAPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void waitLoadLoginPAPage(){
         try{

@@ -23,7 +23,9 @@ public class HomePagePG extends BasePage {
     @FindBy(xpath = "//button[@class = 'MuiButtonBase-root MuiFab-root MuiFab-circular MuiFab-sizeSmall MuiFab-primary css-ngdrb8']")
     List<WebElement> notificheDigitaliCardList;
 
-
+    public HomePagePG(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void waitLoadHomePagePGPage() {
 

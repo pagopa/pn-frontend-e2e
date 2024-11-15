@@ -41,7 +41,9 @@ public class DeleghePage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-
+    public DeleghePage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void waitDeleghePage() {
         try {
