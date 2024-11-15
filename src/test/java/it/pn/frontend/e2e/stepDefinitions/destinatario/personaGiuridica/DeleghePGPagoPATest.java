@@ -269,7 +269,6 @@ public class DeleghePGPagoPATest {
     public void nellaPaginaDelegheSezioneDelegheDellImpresaSiCliccaSulMenuDellaDelega(String nameConfig) {
         logger.info("Si clicca sul menu delle delega");
 //        this.datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        //TODO MANCA RAGIONE SOCIALE NUOVA DELEGA
         this.delegatiImpresaSection.controlloEsistenzaDelega(getRagioneSociale(nameConfig));
     }
 
@@ -639,8 +638,7 @@ public class DeleghePGPagoPATest {
                 ragioneSociale=dataPopulationConfig.getNuovaDelegaPg().getRagioneSociale();
             }
             case "nuova_delega" -> {
-                //TODO Da modificare dopo la creazione di nuova delega
-                ragioneSociale= "";//dataPopulationConfig.getgetNuovaDelega().getRagioneSociale();
+                ragioneSociale= dataPopulationConfig.getNuovaDelega().getRagioneSociale();
             }
 
             default -> {

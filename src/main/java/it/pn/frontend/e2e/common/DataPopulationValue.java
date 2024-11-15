@@ -57,15 +57,15 @@ public enum DataPopulationValue {
     API_KEY_TEST("codiceApiKeyTEST","2b3d47f4-44c1-4b49-b6ef-54dc1c531311",false),
     API_KEY_DEV("codiceApiKeyDEV","a9f0508d-c344-4347-807f-343bc8210996",false),
 
-    //NUOVA DELEGA PF
+    //NUOVA DELEGA
     NAME_DELEGA("nome_delega_pf","Lucrezia",false),
     SURNAME_DELEGA("cognome_delega_pf","Borgia",false),
     FISCAL_CODE_DELEGA("codiceFiscale_delega_pf","BRGLRZ80D58H501Q",false),
-    ENTE_DELEGA_PF("ente_delega_pf","Comune di Verona",false),
-    CODE_DELEGA("codiceDelega_pf","42420",false),
+    ENTE_DELEGA("ente_delega_pf","Comune di Verona",false),
+    CODE_DELEGA("codiceDelega_pf","29693",false),
     RAG_SOC_DELEGA("ragioneSociale_delega_pf","Lucrezia Borgia",false),
 
-    //NUOVA DELEGA ERR PF
+    //NUOVA DELEGA ERR
     NAME_DELEGA_ERR("nome_delega_err_pf","Gaio Giulio",false),
     SURNAME_DELEGA_ERR("cognome_delega_err_pf","Cesare",false),
     FISCAL_CODE_DELEGA_ERR("codiceFiscale_delega_err_pf","CSRGGL44L13H501E",false),

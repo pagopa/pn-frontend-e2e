@@ -78,7 +78,6 @@ public class DataPopulationConfig {
     @Getter
     @Setter
     private DatiNotificaPg datiNotificaPg;
-
     @Getter
     @Setter
     private DelegatePF delegatePF;
@@ -109,6 +108,12 @@ public class DataPopulationConfig {
     @Getter
     @Setter
     private PersonaGiuridicaErrore personaGiuridicaErrore;
+    @Getter
+    @Setter
+    private NuovaDelega nuovaDelega;
+    @Getter
+    @Setter
+    private NuovaDelegaErrore nuovaDelegaErrore;
 
 
     //BEAN DATI NOTIFICA PG
@@ -237,17 +242,18 @@ public class DataPopulationConfig {
 
     @Bean
     public NuovaDelegaPg nuovaDelegaPg(){
+
         nuovaDelegaPg = new NuovaDelegaPg();
         nuovaDelegaPg.setRagioneSociale(DataPopulationValue.getDefaultValue(DataPopulationValue.RAGIONE_SOC_NUOVA_DELEGA_PG.key));
         nuovaDelegaPg.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_NUOVA_DELEGA_PG.key));
         nuovaDelegaPg.setEnte(DataPopulationValue.getDefaultValue(DataPopulationValue.ENTE_DELEGA_NUOVA_DELEGA_PG.key));
         nuovaDelegaPg.setCodiceDelega(DataPopulationValue.getDefaultValue(DataPopulationValue.CODE_DELEGA_NUOVA_DELEGA_PG.key));
         return nuovaDelegaPg;
+
     }
 
     @Bean
     public PersonaGiuridica personaGiuridica(){
-//        email, mail,emailPec, pec
 
         personaGiuridica = new PersonaGiuridica();
         personaGiuridica.setEmail(emailPg);
@@ -270,7 +276,6 @@ public class DataPopulationConfig {
         personaGiuridica.setBearerToken(DataPopulationValue.getDefaultValue(DataPopulationValue.BEARER_TOKEN_PG.key));
         personaGiuridica.setOTPPec(DataPopulationValue.getDefaultValue(DataPopulationValue.OTP_PEC_PG.key));
         personaGiuridica.setOTPMail(DataPopulationValue.getDefaultValue(DataPopulationValue.OTP_MAIL_PG.key));
-
         return personaGiuridica;
 
     }
@@ -279,7 +284,6 @@ public class DataPopulationConfig {
     public PersonaGiuridica1 personaGiuridica1(){
 
         personaGiuridica1 = new PersonaGiuridica1();
-
         personaGiuridica1.setEmailPec(emailPecPg1);
         personaGiuridica1.setRagioneSociale(DataPopulationValue.getDefaultValue(DataPopulationValue.RAGIONE_SOCIALE_PG_1.key));
         personaGiuridica1.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_PG_1.key));
@@ -292,7 +296,6 @@ public class DataPopulationConfig {
         personaGiuridica1.setCodicePostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_POSTALE_PG_1.key));
         personaGiuridica1.setStato(DataPopulationValue.getDefaultValue(DataPopulationValue.STATO_PG_1.key));
         personaGiuridica.setCodiceIUN(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_IUN_PG_1.key));
-
         return personaGiuridica1;
 
     }
@@ -306,6 +309,35 @@ public class DataPopulationConfig {
         return personaGiuridicaErrore;
 
     }
+
+    @Bean
+    public NuovaDelega nuovaDelega(){
+
+        nuovaDelega = new NuovaDelega();
+        nuovaDelega.setNome(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_DELEGA.key));
+        nuovaDelega.setCognome(DataPopulationValue.getDefaultValue(DataPopulationValue.SURNAME_DELEGA.key));
+        nuovaDelega.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_CODE_DELEGA.key));
+        nuovaDelega.setEnte(DataPopulationValue.getDefaultValue(DataPopulationValue.ENTE_DELEGA.key));
+        nuovaDelega.setCodiceDelega(DataPopulationValue.getDefaultValue(DataPopulationValue.CODE_DELEGA.key));
+        nuovaDelega.setRagioneSociale(DataPopulationValue.getDefaultValue(DataPopulationValue.RAG_SOC_DELEGA.key));
+        return nuovaDelega;
+
+    }
+
+    @Bean
+    public NuovaDelegaErrore nuovaDelegaErrore(){
+
+        nuovaDelegaErrore = new NuovaDelegaErrore();
+        nuovaDelega.setNome(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_DELEGA_ERR.key));
+        nuovaDelega.setCognome(DataPopulationValue.getDefaultValue(DataPopulationValue.SURNAME_DELEGA_ERR.key));
+        nuovaDelega.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_CODE_DELEGA_ERR.key));
+        nuovaDelega.setEnte(DataPopulationValue.getDefaultValue(DataPopulationValue.ENTE_ERR.key));
+        nuovaDelega.setCodiceDelega(DataPopulationValue.getDefaultValue(DataPopulationValue.CODE_DELEGA_ERR.key));
+        return nuovaDelegaErrore;
+
+    }
+
+
 
 
 

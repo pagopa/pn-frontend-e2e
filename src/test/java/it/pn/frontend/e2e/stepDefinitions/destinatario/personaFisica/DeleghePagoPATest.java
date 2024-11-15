@@ -16,6 +16,7 @@ import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.PopUpRevocaDelegaSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
+import it.pn.frontend.e2e.stepDefinitions.common.SharedSteps;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import lombok.Setter;
@@ -128,15 +129,19 @@ public class DeleghePagoPATest {
         }
     }
 
-    @And("Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file {string}")
-    public void nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile(String dpFile) {
-        log.info("Si salva il codice deleghe nel file " + dpFile);
-
-        deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
+    @And("Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file")
+    public void nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile() {
+        log.info("Si salva il codice deleghe nel file SharedSteps -> NuovaDelega" );
+        //NUOVA DELEGA
+//        deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
         String codiceVerifica = this.leTueDelegheSection.salvataggioCodiceVerifica();
-        deleghe.put("codiceDelega", codiceVerifica);
-        dataPopulation.writeDataPopulation(dpFile + ".yaml", deleghe);
+//        deleghe.put("codiceDelega", codiceVerifica);
+//        dataPopulation.writeDataPopulation(dpFile + ".yaml", deleghe);
+        SharedSteps sharedSteps = new SharedSteps();
+        sharedSteps.getNuovaDelega().setCodiceDelega(codiceVerifica);
+
+
     }
 
     @And("Nella sezione Le Tue Deleghe salvare il codice verifica")
@@ -262,8 +267,14 @@ public class DeleghePagoPATest {
 
     @And("Si inserisce il codice delega nel pop-up {string}")
     public void siInserisceIlCodiceDelegaNelPopUp(String nomeConfig) {
-        //TODO è richiamtao in divese parti del codice il nomeFile passatogli sono : nomeFileNuovaDelegaPG, nomeFileNuovaDelega, personaFisica,
-        // nuova_delega,nuova_delega
+        //TODO è richiamtao in divese parti del codice il nomeFile passatogli sono:
+        // nomeFileNuovaDelegaPG, nomeFileNuovaDelega, personaFisica, nuova_delega, nuova_delega
+
+        //personafisica non dovrebbe essere usata
+
+        //nuova_delega deve leggere da
+        // SharedSteps sharedSteps = new SharedSteps();
+        //sharedSteps.getNuovaDelegaPg().setCodiceDelega(codiceDelega);
 
         log.info("Si inserisce il codice per accettare la delega");
         this.leTueDelegheSection.waitPopUpLoad();
@@ -641,7 +652,7 @@ public class DeleghePagoPATest {
             }
             case "nuova_delega" -> {
                 //TODO Da modificare dopo la creazione di nuova delega
-                codiceDelega= "";//dataPopulationConfig.getgetNuovaDelega().getRagioneSociale();
+                codiceDelega= "";
             }
             case "personaFisica" -> {
                 //TODO Non viene Utilizzato

@@ -22,7 +22,7 @@ Feature: Il delegato visualizza la notifiche del delegante
       | codiceFiscale | BRGLRZ80D58H501Q  |
       | ente          | Comune di Verona |
     And Nella sezione Le Tue Deleghe verificare che la data sia corretta
-    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "nuova_delega"
+    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
 
     And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard

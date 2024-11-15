@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.stepDefinitions.common;
 
+import it.pn.frontend.e2e.model.recipients.NuovaDelega;
 import it.pn.frontend.e2e.model.recipients.NuovaDelegaPg;
 import it.pn.frontend.e2e.model.recipients.PersonaFisica;
 import lombok.Getter;
@@ -13,5 +14,6 @@ public class SharedSteps {
     String codiceVerificaDelega;
     PersonaFisica personaFisica;
     NuovaDelegaPg nuovaDelegaPg;
+    NuovaDelega nuovaDelega;
 
 }
