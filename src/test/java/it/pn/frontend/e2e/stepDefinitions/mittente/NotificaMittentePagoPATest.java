@@ -894,17 +894,15 @@ public class NotificaMittentePagoPATest {
 
     }
 
-    @And("Nella section Destinatario inserire i dati errati dalla persona giuridica {string}")
-    public void nellaSectionDestinatarioInserireIDatiErratiDallaPersonaGiuridica(String personaGiuridicaErrore) {
+    @And("Nella section Destinatario inserire i dati errati dalla persona giuridica")
+    public void nellaSectionDestinatarioInserireIDatiErratiDallaPersonaGiuridica() {
         logger.info("Si inseriscono i dati errati per persona giuridica");
 
-        Map<String, Object> personaGiuridicaErrore1 = dataPopulation.readDataPopulation(personaGiuridicaErrore + ".yaml");
-
         destinatarioPASection.checkBoxAggiungiDomicilio();
-        destinatarioPASection.insertDomicilioDigitaleErrato(personaGiuridicaErrore1.get("emailPec").toString());
+        destinatarioPASection.insertDomicilioDigitaleErrato(dataPopulationConfig.getPersonaGiuridicaErrore().getEmailPec());
         Assertions.assertEquals( "Indirizzo PEC non valido", destinatarioPASection.getDomicilioDigitaleError(),"l'errore  attuale 'Indirizzo PEC non valido' è diverso di :" + destinatarioPASection.getDomicilioDigitaleError());
 
-        destinatarioPASection.insertCodiceFiscaleErrato(personaGiuridicaErrore1.get("codiceFiscale").toString());
+        destinatarioPASection.insertCodiceFiscaleErrato(dataPopulationConfig.getPersonaGiuridicaErrore().getCodiceFiscale());
         Assertions.assertEquals( "Il valore inserito non è corretto", destinatarioPASection.getCodiceFiscaleError(),"l'errore  attuale 'Il valore inserito non è corretto' è diverso di :" + destinatarioPASection.getCodiceFiscaleError());
 
     }

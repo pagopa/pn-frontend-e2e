@@ -106,6 +106,9 @@ public class DataPopulationConfig {
     @Getter
     @Setter
     private PersonaGiuridica1 personaGiuridica1;
+    @Getter
+    @Setter
+    private PersonaGiuridicaErrore personaGiuridicaErrore;
 
 
     //BEAN DATI NOTIFICA PG
@@ -291,6 +294,16 @@ public class DataPopulationConfig {
         personaGiuridica.setCodiceIUN(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_IUN_PG_1.key));
 
         return personaGiuridica1;
+
+    }
+
+    @Bean
+    public PersonaGiuridicaErrore personaGiuridicaErrore(){
+
+        personaGiuridicaErrore = new PersonaGiuridicaErrore();
+        personaGiuridica1.setEmailPec(DataPopulationValue.getDefaultValue(DataPopulationValue.EMAIL_PEC_PG_ERRORE.key));
+        personaGiuridica1.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_PG_ERRORE.key));
+        return personaGiuridicaErrore;
 
     }
 

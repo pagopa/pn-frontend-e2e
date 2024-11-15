@@ -152,6 +152,10 @@ public enum DataPopulationValue {
     STATO_PG_1("stato_pg_1", "ITALIA",false),
     CODICE_IUN_PG_1("codice_iun_pg_1", "NZQX-DHLD-LAMU-202308-J-1",false),
 
+    //PERSONA GIURIDICA ERRORE
+    CODICE_FISCALE_PG_ERRORE("codice_fiscale_pg_errore", "CCRMC06A03A433H",false),
+    EMAIL_PEC_PG_ERRORE("email_pec_pg_errore", "provatest2.spqe",false),
+
 
     //PERSONA FISICA PEC
     EMAIL_PF_PEC("email_pf_pec","testpagopa2@pnpagopa.postecert.local",false),
