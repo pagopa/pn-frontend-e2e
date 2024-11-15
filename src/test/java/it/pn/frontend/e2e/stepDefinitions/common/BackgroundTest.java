@@ -10,6 +10,7 @@ import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.RecapitiPer
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 import it.pn.frontend.e2e.utility.WebTool;
+import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import java.util.HashMap;
@@ -57,6 +58,7 @@ public class BackgroundTest {
     @Autowired
     @Lazy
     private  WebTool webTool;
+
 
     @Autowired
     public BackgroundTest() {

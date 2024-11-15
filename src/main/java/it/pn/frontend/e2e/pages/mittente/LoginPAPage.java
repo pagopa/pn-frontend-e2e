@@ -18,8 +18,6 @@ public class LoginPAPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("LoginPAPage");
 
-
-
     @FindBy(id = "username")
     WebElement userTextEdit;
 

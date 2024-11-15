@@ -17,16 +17,21 @@ import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
+import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 
-public class LoginPersonaFisicaPagoPA extends BasePage {
+public class LoginPersonaFisicaPagoPA extends BasePage{
 
     private static final Logger logger = LoggerFactory.getLogger("LoginPersonaFisicaPagoPA");
     private Map<String, Object> datiPersonaFisica;
@@ -57,17 +62,24 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
 
     private CookiesSection cookiesSection ;
 
-
     private ComeVuoiAccederePage comeVuoiAccederePage;
 
     @Autowired
-    private WebDriverManager webDriveBean;
+    private WebDriverManager webDriverManager;
 
 
-
-    public LoginPersonaFisicaPagoPA() {
-        logger.info("INIT COSTRUTTORE...: ");
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
         webTool = new WebTool(driver);
+        headerPFSection = new HeaderPFSection(driver);
+        notifichePFPage = new NotifichePFPage(driver);
+        scegliSpidPFPage = new ScegliSpidPFPage(driver);
+        loginSpidPFPage = new LoginSpidPFPage(driver);
+        confermaDatiSpidPFPage = new ConfermaDatiSpidPFPage(driver);
+        accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
+        comeVuoiAccederePage = new ComeVuoiAccederePage(driver);
+        cookiesSection = new CookiesSection(driver);
     }
 
     @Given("Login Page persona fisica {string} viene visualizzata")
@@ -117,9 +129,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
         webTool.waitTime(10);
 
         // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
-        headerPFSection = new HeaderPFSection(driver);
         headerPFSection.waitLoadHeaderDESection();
-        notifichePFPage = new NotifichePFPage(driver);
         notifichePFPage.waitLoadNotificheDEPage();
     }
 
@@ -131,13 +141,13 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
 
         logger.info("cookies start");
 
-        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
+        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
         logger.info("cookies end");
-        comeVuoiAccederePage = new ComeVuoiAccederePage(driver);
+
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
         comeVuoiAccederePage.selezionaSpidButton();
 
@@ -181,36 +191,32 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
     public void loginConDestinatario(Map<String, String> datiPF) {
         logger.info("user persona fisica : " + webDriverConfig.getUserCesare());
         logger.info("cookies start");
-        cookiesSection = new CookiesSection(driver);
-        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
+
+        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
         logger.info("cookies end");
 
-        accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
         accediAPiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
 
         accediAPiattaformaNotifichePage.selezionaAccediButton();
 
-        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
+        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
 
-        scegliSpidPFPage = new ScegliSpidPFPage(driver);
         scegliSpidPFPage.waitLoadScegliSpidDEPage();
         scegliSpidPFPage.selezionareTestButton();
 
-        loginSpidPFPage = new LoginSpidPFPage(driver);
         loginSpidPFPage.waitLoadLoginSpidDEPage();
         loginSpidPFPage.inserisciUtente(webDriverConfig.getUserCesare());
         loginSpidPFPage.inserisciPassword(webDriverConfig.getPwdCesare());
         loginSpidPFPage.selezionaEntraConSpidButton();
 
-        confermaDatiSpidPFPage = new ConfermaDatiSpidPFPage(driver);
         confermaDatiSpidPFPage.waitLoadConfermaDatiSpidDEPage();
         String nomeUtenteLetto = confermaDatiSpidPFPage.leggiNomeUtente();
         if (nomeUtenteLetto.equals(datiPF.get("name"))) {
@@ -219,7 +225,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
             logger.error("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + datiPF.get("name"));
             Assertions.fail("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + datiPF.get("name"));
         }
-
 
         String cognomeUtenteLetto = confermaDatiSpidPFPage.leggiCognomeUtente();
         if (cognomeUtenteLetto.equals(datiPF.get("familyName"))) {
@@ -238,14 +243,13 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
         }
 
         confermaDatiSpidPFPage.selezionaConfermaButton();
-        headerPFSection = new HeaderPFSection(driver);
         headerPFSection.waitUrlToken();
         webTool.waitTime(2);
     }
 
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
-        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
+        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             cookiesSection = new CookiesSection(driver);
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
@@ -270,16 +274,14 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
         } else {
             logger.warn("Http token persona fisica not found");
         }
-        headerPFSection = new HeaderPFSection(driver);
+
         headerPFSection.waitLoadHeaderDESection();
 
-        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
-            cookiesSection = new CookiesSection(driver);
+        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
-        notifichePFPage = new NotifichePFPage(driver);
         notifichePFPage.waitLoadNotificheDEPage();
         if (notifichePFPage.verificaPresenzaCodiceIunTextField()) {
             logger.info("text field codice iun presente");
@@ -309,7 +311,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
     private int getCodiceRispostaChiamataApi(String urlChiamata) {
         logger.info("Recupero codice risposta della chiamata " + urlChiamata);
         int codiceRispostaChiamataApi = 0;
-        for (NetWorkInfo chiamate : webDriveBean.getNetWorkInfos()) {
+        for (NetWorkInfo chiamate : webDriverManager.getNetWorkInfos()) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
                 codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
                 break;
@@ -320,15 +322,12 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
 
     @And("Logout da portale persona fisica")
     public void logoutDaPortaleDestinatario() {
-        headerPFSection = new HeaderPFSection(driver);
         headerPFSection.waitLoadHeaderDESection();
         headerPFSection.selezionaProfiloUtenteMenu();
         headerPFSection.selezionaVoceEsci();
-        comeVuoiAccederePage = new ComeVuoiAccederePage(driver);
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
 
-        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
-            cookiesSection = new CookiesSection(driver);
+        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 logger.info("banner dei cookies visualizzato");
                 cookiesSection.selezionaAccettaTuttiButton();
@@ -359,7 +358,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
        // String variabileAmbiente = System.getProperty("environment");
         String variabileAmbiente = webDriverConfig.getEnvironment();
         boolean urlFound = false;
-        for (NetWorkInfo netWorkInfo : webDriveBean.getNetWorkInfos()) {
+        for (NetWorkInfo netWorkInfo : webDriverManager.getNetWorkInfos()) {
             logger.info(netWorkInfo.getRequestUrl());
             logger.info(netWorkInfo.getResponseStatus());
             String urlToFind = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/token-exchange";
@@ -405,7 +404,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage {
 
     private void readUrlLoginPersonaFisicaWithToken(String user, String pwd) {
         logger.info("spid-login");
-       // String variabileAmbiente = System.getProperty("environment");
         String variabileAmbiente = webDriverConfig.getEnvironment();
 
         SpidLogin spidLogin = new SpidLogin("xx_testenv2", "SpidL2");

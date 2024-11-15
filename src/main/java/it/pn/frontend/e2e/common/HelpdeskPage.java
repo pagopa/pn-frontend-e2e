@@ -86,7 +86,9 @@ public class HelpdeskPage extends BasePage {
     @Lazy
     private  WebTool webTool;
 
-
+    public HelpdeskPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     private static void pressTabKey(Robot robot, int times) {
         for (int i = 0; i < times; i++) {

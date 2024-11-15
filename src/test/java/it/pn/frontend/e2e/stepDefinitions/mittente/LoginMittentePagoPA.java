@@ -52,10 +52,10 @@ public class LoginMittentePagoPA {
     private Map<String, Object> datiMittente;
     private Map<String, String> urlMittente;
 
+
+
     @Autowired
-    private HooksNew hooks;
-
-
+    @Lazy
     private WebDriverConfig webDriverConfig;
 
 
@@ -87,6 +87,7 @@ public class LoginMittentePagoPA {
 
 
     private AreaRiservataPAPage areaRiservataPAPage;
+
     @Autowired
     BasicCookieStore cookieStore;
 
@@ -96,9 +97,20 @@ public class LoginMittentePagoPA {
 
     private final WebDriver driver;
 
-
+   @Autowired
     public LoginMittentePagoPA(WebDriver driver) {
         this.driver = driver;
+        areaRiservataPAPage = new AreaRiservataPAPage(driver);
+        selezionaEntePAPage = new SelezionaEntePAPage(driver);
+        autorizziInvioDatiPAPage = new AutorizziInvioDatiPAPage(driver);
+        preAccediAreaRiservataPAPage = new PreAccediAreaRiservataPAPage(driver);
+        piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        headerPASection = new HeaderPASection(driver);
+        loginPAPage = new LoginPAPage(driver);
+        scegliSpidPAPage = new ScegliSpidPAPage(driver);
+        acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(driver);
+        cookiesSection = new CookiesSection(driver);
+
     }
 
 

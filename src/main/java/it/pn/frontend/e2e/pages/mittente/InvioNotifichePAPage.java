@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 public class InvioNotifichePAPage extends BasePage {
     @FindBy(id = "step-submit")
     WebElement continuaButton;
+
     @Autowired
     @Lazy
     private  WebTool webTool;

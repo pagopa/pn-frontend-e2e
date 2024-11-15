@@ -45,8 +45,9 @@ public class HelpdeskTest extends BasePage {
     @Autowired
     @Lazy
     private WebDriverConfig webDriverConfig;
-    @Autowired
+
     private HelpdeskPage helpdeskPage ;
+
     @Autowired
     @Lazy
     private BackgroundTest backgroundTest;
@@ -69,6 +70,7 @@ public class HelpdeskTest extends BasePage {
     public void loginHelpdeskConUtenteTest(String nameFile) {
         this.datiTestHelpdesk = this.dataPopulation.readDataPopulation(nameFile + ".yaml");
         String variabileAmbiente = webDriverConfig.getEnvironment();
+        helpdeskPage = new HelpdeskPage(driver);
         switch (variabileAmbiente) {
             case "dev" -> helpdeskPage.changePage(this.datiTestHelpdesk.get("url").toString());
             case "test", "uat" ->
@@ -98,6 +100,7 @@ public class HelpdeskTest extends BasePage {
 
     @And("Click su card monitoraggio piattaforma")
     public void clickSuCardMonitoraggioPiattaforma() {
+        helpdeskPage = new HelpdeskPage(driver);
         helpdeskPage.clickMonitoraggio();
     }
 
