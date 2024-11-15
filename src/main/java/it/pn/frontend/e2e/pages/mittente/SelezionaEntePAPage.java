@@ -39,12 +39,12 @@ public class SelezionaEntePAPage extends BasePage {
     @FindBy(id = "search")
     private WebElement comuneSearchField;
 
-    @Autowired
-    @Lazy
+
     private  WebTool webTool;
 
     public SelezionaEntePAPage(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void waitLoadSelezionaEntePAPage() {
@@ -89,6 +89,7 @@ public class SelezionaEntePAPage extends BasePage {
     }
 
     public void cercaComune(String comune) {
+        comuneSearchField = driver.findElement(By.id("search"));
         getWebDriverWait(30)
                 .withMessage("Il campo Comune non è visibile nella pagina seleziona un Ente")
                 .until(ExpectedConditions.visibilityOf(comuneSearchField));

@@ -25,8 +25,8 @@ public class PreAccediAreaRiservataPAPage extends BasePage {
 
     public void waitLoadPreAccediAreaRiservataPAPage(){
         try{
-            By titleLabel = By.id("login-page-title");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
+            WebElement titleLabel = driver.findElement(By.id("login-page-title"));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(titleLabel));
             logger.info("Il titolo della Pre Accedi Area Riservata PA Page è caricato");
         }catch (TimeoutException e){
             logger.error("Il titolo della Pre Accedi Area Riservata PA Page non caricato con errore : "+e.getMessage());
@@ -37,8 +37,9 @@ public class PreAccediAreaRiservataPAPage extends BasePage {
     public void selezionaProcediAlLoginButton(){
         logger.info("Si clicca sul bottone procedi al login");
         try {
+            procediAlLoginButton = driver.findElement(By.id("login-button"));
             getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(procediAlLoginButton));
-            this.js().executeScript("arguments[0].click()", this.procediAlLoginButton);
+            js().executeScript("arguments[0].click()", procediAlLoginButton);
             logger.info("click sul bottone procedi alla login effetuato");
         }catch (TimeoutException e){
             logger.error("il bottone procedi alla login non è cliccabile");
