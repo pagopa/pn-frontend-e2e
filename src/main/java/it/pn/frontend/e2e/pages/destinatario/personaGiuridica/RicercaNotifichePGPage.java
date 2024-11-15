@@ -38,10 +38,10 @@ public class RicercaNotifichePGPage extends BasePage {
 
     public void clickNotificheImpresa() {
         try {
-            By notificheImpresaButton = By.xpath("//div[@data-testid=\"sideMenuItem-Notifiche dell'impresa\"]");
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(notificheImpresaButton));
+            WebElement notificheImpresaButton = driver.findElement(By.xpath("//div[@data-testid=\"sideMenuItem-Notifiche dell'impresa\"]"));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(notificheImpresaButton));
             logger.info("Si clicca sulla voce notifiche dell'impresa");
-            this.element(notificheImpresaButton).click();
+            notificheImpresaButton.click();
         } catch (Exception e) {
             logger.error("Non si clicca sulla voce notifiche dell'impresa con errore:" + e.getMessage());
             Assertions.fail("Non si clicca sulla voce notifiche dell'impresa con errore:" + e.getMessage());
@@ -49,34 +49,34 @@ public class RicercaNotifichePGPage extends BasePage {
     }
 
     public void cliccaNotificaRestituita(String codiceIun) {
-        By notificaBy = By.xpath("//button[contains(text(),'" + codiceIun + "')]");
+        WebElement notificaBy = driver.findElement(By.xpath("//button[contains(text(),'" + codiceIun + "')]"));
         try {
-            this.getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(notificaBy));
-            this.js().executeScript("arguments[0].click()", this.element(notificaBy));
+            getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(notificaBy));
+            js().executeScript("arguments[0].click()", notificaBy);
         } catch (TimeoutException e) {
             logger.error("Notifica non trovata con errore: " + e.getMessage());
             Assertions.fail("Notifica non trovata con errore: " + e.getMessage());
         } catch (StaleElementReferenceException e) {
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificaBy));
-            this.js().executeScript("arguments[0].click()", this.element(notificaBy));
+            this.js().executeScript("arguments[0].click()", notificaBy);
         }
     }
 
     public void waitLoadDettaglioNotificaPGDelegato() {
         try {
-            By statoNotificaBy = By.id("notification-state");
-            By indietroButtonBy = By.id("breadcrumb-indietro-button");
-            By informazioniBy = By.id("notification-detail-table");
-            By allegatiSection = By.id("notification-detail-document-attached");
-            By bannerRecapiti = By.id("side-item-Recapiti");
-            By attestazioneOpponibile = By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: ')]");
+            WebElement statoNotificaBy = driver.findElement(By.id("notification-state"));
+            WebElement indietroButtonBy = driver.findElement(By.id("breadcrumb-indietro-button"));
+            WebElement informazioniBy = driver.findElement(By.id("notification-detail-table"));
+            WebElement allegatiSection = driver.findElement(By.id("notification-detail-document-attached"));
+            WebElement bannerRecapiti = driver.findElement(By.id("side-item-Recapiti"));
+            WebElement attestazioneOpponibile = driver.findElement(By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: ')]"));
 
-            getWebDriverWait(10).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
-            getWebDriverWait(10).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOfElementLocated(indietroButtonBy));
-            getWebDriverWait(10).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
-            getWebDriverWait(10).withMessage("Lo stato della notifica non non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
-            getWebDriverWait(10).withMessage("Il banner Recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(bannerRecapiti));
-            getWebDriverWait(10).withMessage("La sezione attestazione opponibili non è visibile").until(ExpectedConditions.visibilityOfElementLocated(attestazioneOpponibile));
+            getWebDriverWait(10).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOf(informazioniBy));
+            getWebDriverWait(10).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButtonBy));
+            getWebDriverWait(10).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOf(allegatiSection));
+            getWebDriverWait(10).withMessage("Lo stato della notifica non non è visibile").until(ExpectedConditions.visibilityOf(statoNotificaBy));
+            getWebDriverWait(10).withMessage("Il banner Recapiti non è visibile").until(ExpectedConditions.visibilityOf(bannerRecapiti));
+            getWebDriverWait(10).withMessage("La sezione attestazione opponibili non è visibile").until(ExpectedConditions.visibilityOf(attestazioneOpponibile));
             logger.info("La pagina dettaglio notifica si è caricata correttamente");
         } catch (TimeoutException e) {
             logger.error("La pagina dettaglio notifica NON si è caricata correttamente con errore:" + e.getMessage());
@@ -85,23 +85,26 @@ public class RicercaNotifichePGPage extends BasePage {
     }
 
     public void clickFiltraButton() {
+        filtraButton = driver.findElement(By.id("filter-notifications-button"));
         getWebDriverWait(30).withMessage("Il bottone filtra nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.filtraButton));
-        this.filtraButton.click();
+        filtraButton.click();
     }
 
     public void clickRimuoviFiltriButton() {
+        rimuoviFiltriButton = driver.findElement(By.cssSelector("[data-testid='cancelButton']"));
         getWebDriverWait(30).withMessage("Il bottone rimuovi filtri nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.rimuoviFiltriButton));
-        this.rimuoviFiltriButton.click();
+        rimuoviFiltriButton.click();
     }
 
     public boolean isErrorMessageDisplayed() {
+        nonValidIunMessage = driver.findElement(By.id("iunMatch-helper-text"));
         return getWebDriverWait(30).withMessage("Il messagio di errore non e visibile").until(ExpectedConditions.visibilityOf(nonValidIunMessage)).isDisplayed();
     }
 
     public void waitLoadNotifichePGPage() {
         try {
-            By tableNotifiche = By.id("notifications-table");
-            this.getWebDriverWait(40).withMessage("La tabella delle Notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(tableNotifiche));
+            WebElement tableNotifiche = driver.findElement(By.id("notifications-table"));
+            this.getWebDriverWait(40).withMessage("La tabella delle Notifiche non è visibile").until(ExpectedConditions.visibilityOf(tableNotifiche));
             logger.info("Notifiche PG Page caricata");
         } catch (TimeoutException e) {
             logger.error("Notifiche PG Page non caricata con errore : " + e.getMessage());

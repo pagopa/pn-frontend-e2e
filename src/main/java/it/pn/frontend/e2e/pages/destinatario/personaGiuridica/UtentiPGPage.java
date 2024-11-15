@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Set;
 
-@Component
 public class UtentiPGPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("UtentiPGPage");

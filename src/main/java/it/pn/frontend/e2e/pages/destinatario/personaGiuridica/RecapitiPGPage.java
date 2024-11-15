@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.LoggerFactory;
@@ -21,8 +22,8 @@ public class RecapitiPGPage extends BasePage {
 
     public void waitLoadRecapitiPage() {
         try {
-            By racapitiPageTitle = By.id("Recapiti-page");
-            getWebDriverWait(10).withMessage("il titolo Recapiti della pagina recapiti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(racapitiPageTitle));
+            WebElement racapitiPageTitle = driver.findElement(By.id("Recapiti-page"));
+            getWebDriverWait(10).withMessage("il titolo Recapiti della pagina recapiti non è visibile").until(ExpectedConditions.visibilityOf(racapitiPageTitle));
             logger.info("Si visualizza correttamente recapiti page");
         }catch (TimeoutException e){
             logger.error("Non si visualizza correttamente recapiti page con errore:"+e.getMessage());
