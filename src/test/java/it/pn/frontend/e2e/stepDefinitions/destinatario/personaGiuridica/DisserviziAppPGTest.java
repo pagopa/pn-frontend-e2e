@@ -2,11 +2,16 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.listeners.HooksNew;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DisserviziAppPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
+import it.pn.frontend.e2e.section.destinatario.personaGiuridica.AggiungiDelegaPGSection;
+import it.pn.frontend.e2e.section.destinatario.personaGiuridica.DelegatiImpresaSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.WebTool;
+import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -18,31 +23,27 @@ import org.springframework.context.annotation.Primary;
 import java.util.Set;
 
 @Primary
-public class DisserviziAppPGTest {
+public class DisserviziAppPGTest extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DisserviziAppPGTest");
 
-    @Autowired
-    @Lazy
-    private HooksNew hooks;
-    @Autowired
     private  DisserviziAppPage disserviziAppPage;
-    @Autowired
+
     private  PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
+
     @Autowired
     @Lazy
     private BackgroundTest backgroundTest;
-    @Autowired
-    @Lazy
+
     private  WebTool webTool;
 
-    private final WebDriver driver;
-
-
-    public DisserviziAppPGTest(WebDriver driver) {
-        this.driver = driver;
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
+        disserviziAppPage = new DisserviziAppPage(driver);
+        piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
     }
-
 
 
     @Given("Nella dashboard persona giuridica clicca su disservizi app")

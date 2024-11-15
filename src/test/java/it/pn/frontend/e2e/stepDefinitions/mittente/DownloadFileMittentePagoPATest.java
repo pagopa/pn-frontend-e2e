@@ -3,8 +3,8 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
-import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
@@ -12,15 +12,14 @@ import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
+import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.util.HashMap;
@@ -29,7 +28,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Primary
-public class DownloadFileMittentePagoPATest {
+public class DownloadFileMittentePagoPATest extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DownloadFileMittentePagoPATest");
     private Map<String, Object> datiNotifica = new HashMap<>();
@@ -55,30 +54,32 @@ public class DownloadFileMittentePagoPATest {
 
     @Autowired
     private DataPopulation dataPopulation;
-    @Autowired
+
     private DownloadFile downloadFile;
-    @Autowired
-    private HooksNew hooks;
-    @Autowired
+
     private DisserviziAppPAPage disserviziAppPAPage;
-    @Autowired
+
     private PiattaformaNotifichePage piattaformaNotifichePage;
-    @Autowired
+
     private DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection;
-    @Autowired
+
     private DettaglioNotificaSection dettaglioNotificaSection;
+
     @Autowired
     @Lazy
     private BackgroundTest backgroundTest;
-    @Autowired
-    @Lazy
+
     private  WebTool webTool;
 
-    private final WebDriver driver;
-
-
-    public DownloadFileMittentePagoPATest(WebDriver driver) {
-        this.driver = driver;
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
+        downloadFile = new DownloadFile(driver);
+        disserviziAppPAPage = new DisserviziAppPAPage(driver);
+        piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(driver);
+        dettaglioNotificaSection = new DettaglioNotificaSection(driver);
     }
 
 

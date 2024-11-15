@@ -8,6 +8,7 @@ import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,6 @@ public class RecuperoOTPRecapiti {
     private String responseBody;
     private int responseCode;
 
-    @Autowired
-    public RecuperoOTPRecapiti() {
-    }
 
     public boolean runRecuperoOTPRecapiti(String url) {
         try {

@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica;
 
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
@@ -19,38 +18,44 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.PopUpRevocaDelegaSe
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
+import jakarta.annotation.PostConstruct;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
-public class DeleghePagoPATest {
+public class DeleghePagoPATest extends BasePage{
+
+    private static final Logger logger = LoggerFactory.getLogger("DeleghePagoPATest");
 
 
-    @Autowired
-    @Lazy
-    private HooksNew hooks;
-    @Autowired
-    private LeTueDelegheSection leTueDelegheSection;
-    @Autowired
-    private PopUpRevocaDelegaSection popUpRevocaDelegaSection;
     @Autowired
     private DataPopulation dataPopulation;
-    @Autowired
+
+    private LeTueDelegheSection leTueDelegheSection;
+
+    private PopUpRevocaDelegaSection popUpRevocaDelegaSection;
+
     private DeleghePage deleghePage;
-    @Autowired
+
     private LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA;
-    @Autowired
+
     private DestinatarioPage destinatarioPage;
-    @Autowired
+
     private NotifichePFPage notifichePFPage;
+
     @Autowired
     @Lazy
     private BackgroundTest backgroundTest;
@@ -61,17 +66,25 @@ public class DeleghePagoPATest {
     @Autowired
     private RestDelegation restDelegation;
 
-    @Autowired
-    @Lazy
     private  WebTool webTool;
 
-    @Autowired
-    private WebDriver  driver;
-
-    Map<String, Object> deleghe = new HashMap<>();
+    private Map<String, Object> deleghe = new HashMap<>();
     @Setter
     private String codiceVerifica;
 
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
+        leTueDelegheSection = new LeTueDelegheSection(driver);
+        popUpRevocaDelegaSection = new PopUpRevocaDelegaSection(driver);
+        deleghePage = new DeleghePage(driver);
+        deleghePage = new DeleghePage(driver);
+        destinatarioPage = new DestinatarioPage(driver);
+        notifichePFPage = new NotifichePFPage(driver);
+
+        loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
+    }
 
 
     @When("Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe")

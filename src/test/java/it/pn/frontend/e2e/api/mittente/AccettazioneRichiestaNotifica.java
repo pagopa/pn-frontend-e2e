@@ -36,9 +36,6 @@ public class AccettazioneRichiestaNotifica {
 
     private int responseCode;
 
-    @Autowired
-    public AccettazioneRichiestaNotifica() {
-    }
 
     public boolean runGetRichiestaNotifica() {
         try {

@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
@@ -12,13 +13,12 @@ import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -32,25 +32,18 @@ Uso di var per Tipi Locali: Refactoring con var per variabili locali ove il tipo
 *
 * */
 
-public class RicercaNotifichePersonaFisicaPATest {
+public class RicercaNotifichePersonaFisicaPATest extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaFisicaTest");
     private Map<String, Object> datiNotifica = new HashMap<>();
     private Map<String, Object> datiNotificaNonValidoPF;
 
     @Autowired
-    @Lazy
-    private HooksNew hooks;
-    @Autowired
     private NotificationSingleton notificationSingleton;
-    @Autowired
+
     private PiattaformaNotifichePage piattaformaNotifichePage;
-    @Autowired
     private DestinatarioPage destinatarioPage;
-    @Autowired
     private HeaderPFSection headerPFSection;
-    @Autowired
     private NotifichePFPage notifichePFPage;
-    @Autowired
     private NotificheDestinatarioPage notificheDestinatarioPage;
 
     @Autowired
@@ -59,11 +52,15 @@ public class RicercaNotifichePersonaFisicaPATest {
     @Lazy
     private BackgroundTest backgroundTest;
 
-    private final WebDriver driver;
 
-
-    public RicercaNotifichePersonaFisicaPATest(WebDriver driver) {
-        this.driver = driver;
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        destinatarioPage = new DestinatarioPage(driver);
+        headerPFSection = new HeaderPFSection(driver);
+        notifichePFPage = new NotifichePFPage(driver);
+        notificheDestinatarioPage = new NotificheDestinatarioPage(driver);
     }
 
     @When("Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica")

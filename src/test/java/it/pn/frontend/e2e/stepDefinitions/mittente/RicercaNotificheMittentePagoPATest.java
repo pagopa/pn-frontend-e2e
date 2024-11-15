@@ -2,20 +2,17 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.listeners.HooksNew;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DestinatarioPASection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
 import it.pn.frontend.e2e.utility.DataPopulation;
-
+import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -25,28 +22,32 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RicercaNotificheMittentePagoPATest {
+public class RicercaNotificheMittentePagoPATest extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittenteTest");
-
 
     private Map<String, Object> personaFisica = new HashMap<>();
     private Map<String, Object> datiNotifica = new HashMap<>();
     private boolean dataFineErrata;
 
-
     private  DestinatarioPASection destinatarioPASection;
-
 
     private  PiattaformaNotifichePage piattaformaNotifichePage;
 
-
     private  PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
-
 
     private  HeaderPASection headerPASection;
     @Autowired
     DataPopulation dataPopulation;
+
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
+        piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        headerPASection = new HeaderPASection(driver);
+        destinatarioPASection = new DestinatarioPASection(driver);
+    }
 
     @And("Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica {string}")
     public void inserireCodiceFiscale(String dpFile) {

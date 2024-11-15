@@ -31,13 +31,13 @@ public class HeaderPFSection extends BasePage {
     @FindBy(xpath = "//ul[@role='menu']//li")
     List<WebElement> menuProfileItems;
 
-
+    private  WebTool webTool;
 
     public HeaderPFSection(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
-    private  WebTool webTool = new WebTool(driver);
 
     public void waitLoadHeaderDESection() {
         try {

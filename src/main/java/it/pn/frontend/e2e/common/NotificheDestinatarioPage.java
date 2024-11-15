@@ -23,10 +23,12 @@ public class NotificheDestinatarioPage extends BasePage{
     @FindBy(xpath = "//button[contains(text(),'Ricevuta di consegna PEC')]")
     WebElement ricevutaDiConsegnaButton;
 
-    @Autowired
-    @Lazy
     private  WebTool webTool;
 
+    public NotificheDestinatarioPage(WebDriver driver) {
+        this.driver = driver;
+        webTool = new WebTool(driver);
+    }
 
     public void inserisciCodiceIUN(String codiceIUN) throws InterruptedException {
         getWebDriverWait(10).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(this.codiceIunTextField));

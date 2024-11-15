@@ -1,8 +1,5 @@
 package it.pn.frontend.e2e.listeners;
-
-import io.github.bonigarcia.wdm.WebDriverManager;
-import it.pn.frontend.e2e.config.WebDriverConfig;
-import it.pn.frontend.e2e.utility.CookieConfig;
+/**
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,14 +10,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 
 import java.time.Duration;
-import java.util.Map;
-import java.util.Optional;
-@Configuration
+
 public class WebDriverFactory {
     private static final Logger logger = LoggerFactory.getLogger("WebDriverFactory");
 
@@ -66,3 +58,5 @@ public class WebDriverFactory {
         }
     }
 }
+
+ **/

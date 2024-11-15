@@ -72,12 +72,12 @@ public class NotifichePFPage extends BasePage {
     private WebElement buttonDownloadAvvisoPagoPA;
 
 
+    private  WebTool webTool;
 
     public NotifichePFPage(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
-
-    private  WebTool webTool = new WebTool(driver);
 
     public void waitLoadNotificheDEPage() {
         titleLabel = driver.findElement(By.id("Le tue notifiche-page"));

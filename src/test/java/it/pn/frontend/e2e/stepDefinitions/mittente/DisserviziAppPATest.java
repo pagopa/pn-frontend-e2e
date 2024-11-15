@@ -4,18 +4,15 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
-import lombok.Setter;
+import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Lazy;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,14 +34,20 @@ public class DisserviziAppPATest extends BasePage {
 
     private AccediAPiattaformaNotifichePage notifichePage;
 
-
     private DisserviziAppPAPage disserviziAppPAPage;
 
-
     private DownloadFile downloadFile;
-    @Autowired
-    @Lazy
+
     private  WebTool webTool;
+
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
+        downloadFile = new DownloadFile(driver);
+        disserviziAppPAPage = new DisserviziAppPAPage(driver);
+        notifichePage = new AccediAPiattaformaNotifichePage(driver);
+    }
 
     @When("Nella pagina Piattaforma Notifiche selezionare la voce 'stato della piattaforma'")
     public void nellaPaginaPiattaformaNotificheSelezionareLaVoceStatoDellaPiattaforma() {

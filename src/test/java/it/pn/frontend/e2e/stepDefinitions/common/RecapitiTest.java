@@ -4,29 +4,35 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
-import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
-
+import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 
 public class RecapitiTest extends BasePage {
+
+
+    private final Logger logger = LoggerFactory.getLogger("RecapitiTest");
 
     private final String PEC = "PEC";
     private final String emailDiCortesia = "email di cortesia";
     private final String ELIMINA = "Elimina";
-    private final Logger logger = LoggerFactory.getLogger("RecapitiTest");
+
     public static String OTP;
 
-    private  RecapitiDestinatarioPage recapitiDestinatarioPage ;
+    private  RecapitiDestinatarioPage recapitiDestinatarioPage;
 
-    private ITuoiRecapitiPage iTuoiRecapitiPage ;
+    private ITuoiRecapitiPage iTuoiRecapitiPage;
 
     private BackgroundTest backgroundTest;
+
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        recapitiDestinatarioPage = new RecapitiDestinatarioPage(driver);
+        iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
+    }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono {string} e si clicca sul bottone avvisami via SMS")
     public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoESiCliccaSulBottoneAvvisamiViaSMS(String cellulare) {

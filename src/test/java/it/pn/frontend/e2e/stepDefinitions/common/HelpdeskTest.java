@@ -7,14 +7,12 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.HelpdeskPage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
-import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.enums.Disservice;
 import it.pn.frontend.e2e.model.enums.Status;
-import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
-
+import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -26,7 +24,6 @@ import org.springframework.context.annotation.Primary;
 
 import java.awt.*;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,9 +34,6 @@ import java.util.concurrent.TimeUnit;
 public class HelpdeskTest extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("HelpdeskAppTest");
 
-    @Autowired
-    @Lazy
-    private HooksNew hooks;
     @Autowired
     private DataPopulation dataPopulation;
     @Autowired
@@ -52,18 +46,18 @@ public class HelpdeskTest extends BasePage {
     @Lazy
     private BackgroundTest backgroundTest;
 
-    @Autowired
-    @Lazy
     private  WebTool webTool;
 
-
-    @Autowired
-    private WebDriver  driver;
 
     private Map<String, Object> datiTestHelpdesk = new HashMap<>();
     private Map<String, Object> datiPersonaFisica = new HashMap<>();
 
-
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
+        helpdeskPage = new HelpdeskPage(driver);
+    }
 
 
     @Given("Login helpdesk con utente test {string}")

@@ -64,10 +64,11 @@ public class HooksNew {
     private WebDriverConfig webDriverConfig;
 
     private WebDriver driver;
+
     @Before
     public void startScenario(Scenario scenario) {
         logger.info("----- START SCENARIO: {} -----", scenario.getName());
-        driver =  WebDriverFactory.getDriverThreadLocal().get();
+        driver =  WebDriverManager.getDriverThreadLocal().get();
         HooksNew.scenario = scenario.getName();
         scenario.getSourceTagNames().stream()
                 .filter(tag -> tag.startsWith("@TA_"))
@@ -102,7 +103,7 @@ public class HooksNew {
             scenario.attach(screenshotBytes, "image/png", scenario.getName());
         }
 
-        WebDriverFactory.quitDriver();
+        WebDriverManager.quitDriver();
         webDriveManager.clearRequest();
         webDriveManager.clearNetWorkInfos();
         logger.info("----- END SCENARIO: {} -----", scenario.getName());

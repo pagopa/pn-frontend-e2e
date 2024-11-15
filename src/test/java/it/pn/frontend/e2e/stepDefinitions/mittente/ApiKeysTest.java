@@ -3,34 +3,28 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
-import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.mittente.ApiKeyPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.GeneraApiKeySection;
-
+import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
-import org.modelmapper.internal.util.Assert;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 
 import java.util.concurrent.TimeUnit;
 
-public class ApiKeysTest {
+public class ApiKeysTest  extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("ApiKeysTest");
 
     @Getter
     @Setter
     public static String ApiKey;
-
-
-    private HooksNew hooks;
 
     @Autowired
     private WebDriverConfig webDriverConfig;
@@ -40,6 +34,14 @@ public class ApiKeysTest {
     private ApiKeyPAPage apiKeyPAPage;
 
     private GeneraApiKeySection generaApiKeySection;
+
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        apiKeyPAPage = new ApiKeyPAPage(driver);
+        generaApiKeySection = new GeneraApiKeySection(driver);
+    }
 
     @And("Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu")
     public void nellaPaginaPiattaformaNotificheSelezionareLaVoceApiKeyNelMenu() {

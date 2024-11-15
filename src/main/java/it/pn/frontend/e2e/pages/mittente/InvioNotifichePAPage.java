@@ -16,12 +16,12 @@ public class InvioNotifichePAPage extends BasePage {
     @FindBy(id = "step-submit")
     WebElement continuaButton;
 
-    @Autowired
-    @Lazy
+
     private  WebTool webTool;
 
     public InvioNotifichePAPage(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void selezionareContinuaButton() {

@@ -2,15 +2,20 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.delegate.DelegatePG;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePG;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
+import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
+import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.rest.RestDelegation;
+import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.AggiungiDelegaPGSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.DelegatiImpresaSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
@@ -18,6 +23,7 @@ import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePago
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 
+import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -41,25 +47,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class DeleghePGPagoPATest {
+public class DeleghePGPagoPATest extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("DeleghePGPagoPATest");
-    @Autowired
-    @Lazy
-    private HooksNew hooks;
-    @Autowired
-    private DeleghePGPagoPAPage deleghePGPagoPAPage;
+
     @Autowired
     private DeleghePagoPATest deleghePagoPATest;
-    @Autowired
+
+    private DeleghePGPagoPAPage deleghePGPagoPAPage;
+
     private DelegatiImpresaSection delegatiImpresaSection;
-    @Autowired
+
     private AggiungiDelegaPGSection aggiungiDelegaPGSection;
+
     @Autowired
     private DataPopulation dataPopulation;
+
     @Autowired
     private LoginPGPagoPATest loginPGPagoPaTest;
-    @Autowired
-    private PiattaformaNotifichePage piattaformaNotifichePage;
+
     @Autowired
     @Lazy
     private BackgroundTest backgroundTest;
@@ -71,17 +76,19 @@ public class DeleghePGPagoPATest {
 
     @Autowired
     private RestDelegation restDelegation;
-    @Autowired
-    @Lazy
+
     private  WebTool webTool;
 
     private boolean dataFineErrata;
 
-    private final WebDriver driver;
 
-
-    public DeleghePGPagoPATest(WebDriver driver) {
-        this.driver = driver;
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
+        deleghePGPagoPAPage = new DeleghePGPagoPAPage(driver);
+        delegatiImpresaSection = new DelegatiImpresaSection(driver);
+        aggiungiDelegaPGSection = new AggiungiDelegaPGSection(driver);
     }
 
 

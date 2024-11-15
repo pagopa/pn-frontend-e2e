@@ -6,7 +6,6 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.config.WebDriverConfig;
-import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
@@ -17,15 +16,13 @@ import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
-
+import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;
 
 import java.io.File;
@@ -35,50 +32,55 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Primary
-public class NotifichePersonaFisicaPagoPATest {
+public class NotifichePersonaFisicaPagoPATest extends BasePage{
 
     private static final Logger logger = LoggerFactory.getLogger("NotifichePersonaFisicaTest");
 
-
-
     private Map<String, Object> personaFisica = new HashMap<>();
-
-    @Autowired
-    @Lazy
-    private HooksNew hooks;
-
-    @Autowired
-    private WebDriver  driver;
 
     @Autowired
     private CookieConfig cookieConfig;
     @Autowired
     private WebDriverConfig webDriverConfig;
-    @Autowired
-    private NotifichePFPage notifichePFPage;
-    @Autowired
-    private AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage;
-    @Autowired
-    private DettaglioNotificaSection dettaglioNotifica;
-    @Autowired
-    private DestinatarioPage destinatarioPage;
+
     @Autowired
     private DataPopulation dataPopulation;
-    @Autowired
+
     private PiattaformaNotifichePage piattaformaNotifichePage;
-    @Autowired
+
     private CookiesSection cookiesSection;
-    @Autowired
+
     private HeaderPFSection headerPFSection;
 
-    @Autowired
     private DownloadFile downloadFile;
 
-    @Autowired
     private DettaglioNotificaSection dettaglioNotificaSection;
-    @Autowired
-    @Lazy
+
+    private NotifichePFPage notifichePFPage;
+
+    private AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage;
+
+    private DettaglioNotificaSection dettaglioNotifica;
+
+    private DestinatarioPage destinatarioPage;
+
     private  WebTool webTool;
+
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
+        destinatarioPage = new DestinatarioPage(driver);
+        notifichePFPage = new NotifichePFPage(driver);
+        piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        cookiesSection = new CookiesSection(driver);
+        headerPFSection = new HeaderPFSection(driver);
+        downloadFile = new DownloadFile(driver);
+        dettaglioNotificaSection = new DettaglioNotificaSection(driver);
+        accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
+        dettaglioNotifica = new DettaglioNotificaSection(driver);
+
+    }
 
 
 

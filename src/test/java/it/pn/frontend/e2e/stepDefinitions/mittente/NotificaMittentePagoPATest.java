@@ -23,6 +23,7 @@ import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPerson
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
+import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
@@ -59,20 +60,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @Getter  @Setter
     private String ApiKey;
 
-    @Autowired
-    @Lazy
     private  WebTool webTool;
-    @Autowired
-    private NotificationSingleton notificationSingleton;
 
     private CookiesSection cookiesSection ;
-
-    @Autowired
-    private WebDriverConfig webDriverConfig;
-    // Iniettare il driver tramite constructor injection
-    @Autowired
-    @Lazy
-    private HooksNew hooks;
 
     private AreaRiservataPAPage areaRiservataPAPage;
 
@@ -85,25 +75,50 @@ public class NotificaMittentePagoPATest  extends BasePage {
     private  AllegatiPASection allegatiPASection ;
 
     private  DestinatarioPASection destinatarioPASection;
-    @Autowired
-    private DataPopulation dataPopulation;
 
     private DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection;
 
     private InformazioniPreliminariPASection informazioniPreliminariPASection;
 
-    private LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA;
-
-    private  LoginPGPagoPATest loginPGPagoPATest ;
+    private InvioNotifichePAPage invioNotifichePAPage;
 
     private BackgroundTest backgroundTest;
 
-    private InvioNotifichePAPage invioNotifichePAPage;
-
+    @Autowired
     private AccettazioneRichiestaNotifica accettazioneRichiestaNotifica;
+
+    @Autowired
+    private NotificationSingleton notificationSingleton;
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
+
+    @Autowired
+    private DataPopulation dataPopulation;
     @Autowired
     @Lazy
     private WebDriverManager webDriveBean;
+
+    @Autowired
+    private  LoginPGPagoPATest loginPGPagoPATest ;
+
+    @Autowired
+    private  LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA;
+
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        cookiesSection = new CookiesSection(driver);
+        areaRiservataPAPage = new AreaRiservataPAPage(driver);
+        headerPASection = new HeaderPASection(driver);
+        successPASection = new SuccessPASection(driver);
+        piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        allegatiPASection = new AllegatiPASection(driver);
+        destinatarioPASection = new DestinatarioPASection(driver);
+        dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(driver);
+        informazioniPreliminariPASection = new InformazioniPreliminariPASection(driver);
+        invioNotifichePAPage = new InvioNotifichePAPage(driver);
+    }
 
 
 

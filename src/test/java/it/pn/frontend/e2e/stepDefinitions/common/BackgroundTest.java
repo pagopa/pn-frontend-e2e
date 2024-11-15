@@ -1,18 +1,20 @@
 package it.pn.frontend.e2e.stepDefinitions.common;
 
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
-import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.RecapitiPersonaFisicaTest;
-import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.*;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.DeleghePGPagoPATest;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.DisserviziAppPGTest;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
+import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.NotifichePGPagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,33 +29,44 @@ public class BackgroundTest {
     private final String mittente = "mittente";
     private final Map<String, String> datiPersonaFisica;
 
-
-    private HooksNew hooks;
-
+    @Autowired
+    @Lazy
     private DeleghePagoPATest deleghePagoPATest;
-
+    @Autowired
+    @Lazy
     private  RecapitiPersonaFisicaTest recapitiPersonaFisicaTest;
-
+    @Autowired
+    @Lazy
     private LoginPGPagoPATest loginPGPagoPATest;
-
+    @Autowired
+    @Lazy
     private LoginPersonaFisicaPagoPA personaFisicaPagoPA;
-
+    @Autowired
+    @Lazy
     private DeleghePGPagoPATest deleghePGPagoPATest;
-
+    @Autowired
+    @Lazy
     private  DisserviziAppPGTest disserviziAppPGTest ;
-
+    @Autowired
+    @Lazy
     private  HelpdeskTest helpdeskTest;
-
+    @Autowired
+    @Lazy
     private NotifichePGPagoPATest notifichePGPagoPATest;
-
+    @Autowired
+    @Lazy
     private RecapitiTest recapitiTest;
-
+    @Autowired
+    @Lazy
     private  RecapitiDestinatarioPage recapitiDestinatarioPage ;
-
+    @Autowired
+    @Lazy
     private  ITuoiRecapitiPage iTuoiRecapitiPage;
-
+    @Autowired
+    @Lazy
     private  PiattaformaNotifichePage piattaformaNotifichePage;
-
+    @Autowired
+    @Lazy
     private NotificaMittentePagoPATest notificaMittentePagoPATest;
     @Autowired
     @Lazy

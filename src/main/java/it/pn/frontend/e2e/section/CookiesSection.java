@@ -11,8 +11,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 
 public class CookiesSection extends BasePage {
@@ -56,7 +54,8 @@ public class CookiesSection extends BasePage {
     }
 
     public void chiudiPagamentoPopup() {
-            this.getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(this.chiudiPagamentoPopupButton));
+           chiudiPagamentoPopupButton = driver.findElement(By.xpath("//button[@aria-label='Chiudi']"));
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(chiudiPagamentoPopupButton));
             logger.info("Si seleziona chiudi i cookies");
             Actions actions = new Actions(driver);
             actions.moveToElement(this.chiudiPagamentoPopupButton).click().perform();

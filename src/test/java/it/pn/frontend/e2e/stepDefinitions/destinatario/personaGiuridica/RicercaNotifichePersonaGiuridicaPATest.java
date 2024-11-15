@@ -3,16 +3,22 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
+import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
+import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RecapitiPGPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RicercaNotifichePGPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
 
+import it.pn.frontend.e2e.utility.WebTool;
+import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -22,13 +28,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDate;
 import java.util.Map;
 
-public class RicercaNotifichePersonaGiuridicaPATest {
+public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaGiuridicaPATest");
-
-
-
-    private HooksNew hooks;
-
 
     private PiattaformaNotifichePage piattaformaNotifichePage;
 
@@ -47,6 +48,21 @@ public class RicercaNotifichePersonaGiuridicaPATest {
     private NotifichePFPage notifichePFPage;
 
     private Map<String, Object> datiNotificaPG;
+
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        notifichePFPage = new NotifichePFPage(driver);
+        headerPGSection = new HeaderPGSection(driver);
+        headerPASection = new HeaderPASection(driver);
+        piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
+        notificheDestinatarioPage = new NotificheDestinatarioPage(driver);
+        destinatarioPage = new DestinatarioPage(driver);
+        ricercaNotifichePGPage = new RicercaNotifichePGPage(driver);
+        piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+
+    }
+
 
     @When("Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa")
     public void cliccareSuNotificheDellImpresa() {

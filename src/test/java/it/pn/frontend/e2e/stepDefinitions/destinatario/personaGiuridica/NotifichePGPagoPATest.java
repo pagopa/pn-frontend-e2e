@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
@@ -12,6 +13,7 @@ import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.GruppiPGPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
@@ -20,6 +22,7 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.*;
+import jakarta.annotation.PostConstruct;
 import org.apache.commons.io.FileUtils;
 
 import org.junit.jupiter.api.Assertions;
@@ -38,63 +41,71 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class NotifichePGPagoPATest {
+public class NotifichePGPagoPATest extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("NotifichePGPagoPATest");
-
-    @Autowired
-    @Lazy
-    private HooksNew hooks;
-    @Autowired
-    private LeTueDelegheSection leTueDelegheSection;
-    @Autowired
-    private PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
-    @Autowired
-    private  PiattaformaNotifichePage piattaformaNotifichePage;
-    @Autowired
-    private DestinatarioPage destinatarioPage ;
-//    List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
-    @Autowired
-    private DeleghePGPagoPAPage deleghePage;
 
     Map<String, Object> personaGiuridica = new HashMap<>();
 
     @Autowired
     private CookieConfig cookieConfig;
+
     @Autowired
     private WebDriverConfig webDriverConfig;
-    @Autowired
+
+    private LeTueDelegheSection leTueDelegheSection;
+
+    private PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
+
+    private  PiattaformaNotifichePage piattaformaNotifichePage;
+
+    private DestinatarioPage destinatarioPage ;
+
+    private DeleghePGPagoPAPage deleghePage;
+
     private  HomePagePG homePagePG;
-    @Autowired
+
     private DettaglioNotificaSection dettaglioNotificaSection;
-    @Autowired
+
     private CookiesSection cookiesSection;
-    @Autowired
+
     private DownloadFile downloadFile;
-    @Autowired
-    private DataPopulation dataPopulation;
-    @Autowired
+
     private AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage;
-    @Autowired
+
     private NotificheDestinatarioPage notificheDestinatarioPage;
-    @Autowired
+
     private DettaglioNotificaMittenteSection dettaglioNotificaMittenteSection;
+
     @Autowired
     @Lazy
     private BackgroundTest backgroundTest;
-    @Autowired
-    @Lazy
+
     private  WebTool webTool;
 
+    @Autowired
+    private DataPopulation dataPopulation;
 
     @Autowired
     @Lazy
-    private WebDriverManager webDriveBean;
+    private WebDriverManager webDriverManager;
 
-    private final WebDriver driver;
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
+        leTueDelegheSection = new LeTueDelegheSection(driver);
+        piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
+        piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        destinatarioPage = new DestinatarioPage(driver);
+        deleghePage = new DeleghePGPagoPAPage(driver);
+        homePagePG = new HomePagePG(driver);
+        dettaglioNotificaSection = new DettaglioNotificaSection(driver);
+        cookiesSection = new CookiesSection(driver);
+        downloadFile = new DownloadFile(driver);
+        accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
+        notificheDestinatarioPage = new NotificheDestinatarioPage(driver);
+        dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(driver);
 
-
-    public NotifichePGPagoPATest(WebDriver driver) {
-        this.driver = driver;
     }
 
 
@@ -140,7 +151,7 @@ public class NotifichePGPagoPATest {
         logger.info("Recupero codice risposta della chiamata" + urlChiamata);
 
         int codiceRispostaChiamataApi = 0;
-        for (NetWorkInfo chiamate : webDriveBean.getNetWorkInfos()) {
+        for (NetWorkInfo chiamate : webDriverManager.getNetWorkInfos()) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
                 codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
                 break;
@@ -233,7 +244,7 @@ public class NotifichePGPagoPATest {
 
 
     private String getBearerToken() {
-        List<NetWorkInfo> netWorkInfos = webDriveBean.getNetWorkInfos();
+        List<NetWorkInfo> netWorkInfos = webDriverManager.getNetWorkInfos();
         String bearerToken = "";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
             String urlChiamata = webDriverConfig.getBaseUrl() + "notifications/received?";

@@ -18,6 +18,7 @@ import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
+import jakarta.annotation.PostConstruct;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
 import org.junit.jupiter.api.Assertions;
@@ -38,55 +39,58 @@ public class LoginPGPagoPATest extends BasePage {
     private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
     private Map<String, String> urlPersonaGiuridica;
 
-    @Autowired
-    private  HeaderPGSection headerPGSection;
-    @Autowired
-    private  AccediAreaRiservataPGPage accediAreaRiservataPGPage;
+
     @Autowired
     @Lazy
     private WebDriverConfig webDriverConfig;
-    @Autowired
-    @Lazy
-    private HooksNew hooks;
 
     //TODO da rimuovere anche il discorso dei file yaml..
     @Autowired
     private  DataPopulation dataPopulation;
 
-    @Autowired
+
+    private  HeaderPGSection headerPGSection;
+
+    private  AccediAreaRiservataPGPage accediAreaRiservataPGPage;
+
     private  SelezionaImpresaPage selezionaImpresaPage;
 
-    @Autowired
     private  PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
 
-    @Autowired
     private  HomePagePG homePagePG;
 
-    @Autowired
     private  ScegliSpidPGPage scegliSpidPGPage;
 
-    @Autowired
     private  LoginPGPagoPAPage loginPGPagoPAPage;
 
-    @Autowired
     private  AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage;
 
-    @Autowired
     private  DestinatarioPage destinatarioPage;
 
-    @Autowired
     private  CookiesSection cookiesSection;
 
-    @Autowired
-    @Lazy
     private  WebTool webTool;
 
 
     @Autowired
     @Lazy
-    private WebDriverManager webDriveBean;
+    private WebDriverManager webDriverManager;
 
+    @PostConstruct
+    public void init(){
+        webTool = new WebTool(driver);
+        headerPGSection = new HeaderPGSection(driver);
+        accediAreaRiservataPGPage = new AccediAreaRiservataPGPage(driver);
+        selezionaImpresaPage = new SelezionaImpresaPage(driver);
+        piattaformaNotifichePGPAPage  = new PiattaformaNotifichePGPAPage(driver);
+        homePagePG = new HomePagePG(driver);
+        scegliSpidPGPage = new ScegliSpidPGPage(driver);
+        loginPGPagoPAPage = new LoginPGPagoPAPage(driver);
+        autorizzaInvioDatiPGPage = new AutorizzaInvioDatiPGPage(driver);
+        destinatarioPage = new DestinatarioPage(driver);
+        cookiesSection = new CookiesSection(driver);
 
+    }
 
 
     @Given("Login Page persona giuridica viene visualizzata")
@@ -173,7 +177,7 @@ public class LoginPGPagoPATest extends BasePage {
 
         driver.get(this.urlPersonaGiuridica.get("urlPortale"));
 
-        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
+        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -265,7 +269,7 @@ public class LoginPGPagoPATest extends BasePage {
     public void loginConPersonaGiuridica(Map<String, String> datiPG) {
         logger.info("La persona guiridica cerca di fare il login");
 
-        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
+        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -336,7 +340,7 @@ public class LoginPGPagoPATest extends BasePage {
 
         driver.get(this.urlPersonaGiuridica.get("urlPortale"));
 
-        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
+        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }

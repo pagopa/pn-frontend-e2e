@@ -22,8 +22,8 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClick
 
 
 public class DettaglioNotificaSection extends BasePage {
-    private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
 
+    private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
 
 
     @FindBy(xpath = "//button[contains(text(),'Attestazione opponibile a terzi: ')]")
@@ -44,9 +44,13 @@ public class DettaglioNotificaSection extends BasePage {
     @FindBy(id = "breadcrumb-indietro-button")
     WebElement indietroButton;
 
-    @Autowired
-    @Lazy
+
     private  WebTool webTool;
+
+    public DettaglioNotificaSection(WebDriver driver) {
+        this.driver = driver;
+        webTool = new WebTool(driver);
+    }
 
 
     public void waitLoadDettaglioNotificaDESection() {

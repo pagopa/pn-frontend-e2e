@@ -4,29 +4,33 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.listeners.HooksNew;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.UtentiPGPage;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.openqa.selenium.WebDriver;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 
 import java.util.Map;
 
-public class UtentiPGPagoPATest {
+public class UtentiPGPagoPATest extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("UtentiPGPagoPATest");
 
-    @Autowired
-    @Lazy
+
     private  WebTool webTool;
 
     private  UtentiPGPage utentiPGPage;
 
     private  HomePagePG homePagePG;
+
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
+        utentiPGPage = new UtentiPGPage(driver);
+        homePagePG = new HomePagePG(driver);
+    }
 
     @And("Si visualizza correttamente la pagina utenti")
     public void siVisualizzaCorrettamenteLaPAginaUtenti() {

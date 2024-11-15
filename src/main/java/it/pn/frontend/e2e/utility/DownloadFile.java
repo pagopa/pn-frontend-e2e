@@ -10,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,9 @@ public class DownloadFile extends BasePage {
     @Lazy
     private WebDriverManager webDriveBean;
 
+    public DownloadFile(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void download(String urlLink, File fileLoc, boolean headless) {
         if (headless) {

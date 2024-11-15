@@ -4,17 +4,17 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.api.personaFisica.RecuperoOTPRecapiti;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
-import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
+import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class RecapitiPersonaFisicaTest {
+public class RecapitiPersonaFisicaTest extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("InserimentoOTPSbagliato");
 
@@ -32,33 +32,34 @@ public class RecapitiPersonaFisicaTest {
     private WebDriverConfig webDriverConfig;
     @Autowired
     @Lazy
-    private HooksNew hooks;
-    @Autowired
-    @Lazy
     private BackgroundTest backgroundTest;
-    @Autowired
-    private RecapitiDestinatarioPage recapitiDestinatarioPage ;
-    @Autowired
-    private DataPopulation dataPopulation;
-    @Autowired
-    private ITuoiRecapitiPage iTuoiRecapitiPage;
-    @Autowired
-    private RecuperoOTPRecapiti recuperoOTPRecapiti;
 
     @Autowired
-    @Lazy
+    private RecuperoOTPRecapiti recuperoOTPRecapiti;
+    @Autowired
+    private DataPopulation dataPopulation;
+
+    private ITuoiRecapitiPage iTuoiRecapitiPage;
+
+    private RecapitiDestinatarioPage recapitiDestinatarioPage ;
+
+
     private  WebTool webTool;
 
     @Autowired
     @Lazy
-    private WebDriverManager webDriveBean;
+    private WebDriverManager webDriverManager;
 
-    @Autowired
-    private WebDriver  driver;
 
     public static String OTP;
 
-
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
+        iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
+        recapitiDestinatarioPage = new RecapitiDestinatarioPage(driver);
+    }
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti")
     public void nellaPaginaPiattaformaNotifichePersonaFisicaSiCliccaSulBottoneITuoiRecapiti() {
@@ -118,7 +119,7 @@ public class RecapitiPersonaFisicaTest {
     }
 
     private boolean verificaChiamataEmail(String url) {
-        for (NetWorkInfo info : webDriveBean.getNetWorkInfos()) {
+        for (NetWorkInfo info : webDriverManager.getNetWorkInfos()) {
             if (info.getRequestUrl().contains(url) && info.getResponseStatus().equals("200")) {
                 logger.info("La chiamata per inviare email é utilizzabile");
                 return true;

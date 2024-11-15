@@ -2,16 +2,18 @@ package it.pn.frontend.e2e.config;
 
 import it.pn.frontend.e2e.common.WebdriverScopeBean;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
-import it.pn.frontend.e2e.listeners.WebDriverFactory;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.v126.network.Network;
 import org.openqa.selenium.devtools.v126.network.model.RequestWillBeSent;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.slf4j.Logger;
@@ -35,6 +37,9 @@ public class WebDriverManager {
      * Logger
      */
     private static final Logger logger = LoggerFactory.getLogger(WebDriverManager.class);
+
+    @Getter
+    private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
 
@@ -60,7 +65,11 @@ public class WebDriverManager {
     @Scope(BeanDefinition.SCOPE_PROTOTYPE)
     @ConditionalOnProperty( name = "browser" , havingValue = "chrome", matchIfMissing = true)
     public  WebDriver chromeDriver() {
-
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         logger.info("NUOVO BEAN......."+ Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
@@ -76,7 +85,7 @@ public class WebDriverManager {
             chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
         }
 
-        driver = WebDriverFactory.getDriver(chromeOptions,null,null);
+        driver = getDriver(chromeOptions,null,null);
 
         setupDevTools();
         logger.info("Chrome driver started - WebDriverManager");
@@ -103,10 +112,7 @@ public class WebDriverManager {
             edgeOptions.addArguments("window-size=1920,1080", "--headless");
         }
 
-        driver =WebDriverFactory.getDriver(null,edgeOptions,null);
-
-
-        logger.info("Edge driver started");
+        driver = getDriver(null,edgeOptions,null);
 
         cookieConfig.addCookie();
 
@@ -129,7 +135,7 @@ public class WebDriverManager {
             firefoxOptions.addArguments("--width=1200", "--height=800", "--headless");
         }
 
-        driver =WebDriverFactory.getDriver(null,null,firefoxOptions);
+        driver = getDriver(null,null,firefoxOptions);
 
         cookieConfig.addCookie();
 
@@ -194,6 +200,47 @@ public class WebDriverManager {
 
     public void clearNetWorkInfos() {
         netWorkInfos.clear();
+    }
+
+
+    public static WebDriver getDriver(ChromeOptions chromeOptions, EdgeOptions edgeOptions, FirefoxOptions firefoxOptions ) {
+        if (driverThreadLocal.get() == null) {
+
+            if (chromeOptions!= null){
+                ChromeDriver driver = new ChromeDriver(chromeOptions);
+                driver.manage().window().maximize();
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+                driverThreadLocal.set(driver);
+                logger.info("Chrome driver started");
+            } else if (edgeOptions != null) {
+                EdgeDriver driver = new EdgeDriver(edgeOptions);
+                driver.manage().window().maximize();
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+                logger.info("Edge driver started");
+
+                driverThreadLocal.set(driver);
+            } else if (firefoxOptions != null) {
+                FirefoxDriver driver = new FirefoxDriver(firefoxOptions);
+                driver.manage().window().maximize();
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+                logger.info("Firefox driver started");
+
+                driverThreadLocal.set(driver);
+            }
+        }
+        logger.info("Start WebDriverManager..."+driverThreadLocal.get());
+        return driverThreadLocal.get();
+    }
+
+
+
+    public static void quitDriver() {
+        logger.info("Quit WebDriverManager..."+driverThreadLocal.get());
+        WebDriver driver = driverThreadLocal.get();
+        if (driver != null) {
+            driver.quit();
+            driverThreadLocal.remove();
+        }
     }
 
 

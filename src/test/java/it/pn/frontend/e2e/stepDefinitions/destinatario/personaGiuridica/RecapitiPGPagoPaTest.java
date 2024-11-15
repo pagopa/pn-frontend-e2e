@@ -2,15 +2,29 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.common.DettaglioNotificaSection;
+import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
+import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
+import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RecapitiPGPage;
+import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
+import it.pn.frontend.e2e.section.CookiesSection;
+import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
+import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
 
+import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -20,31 +34,32 @@ import org.springframework.context.annotation.Lazy;
 
 import java.util.Map;
 
-public class RecapitiPGPagoPaTest {
+public class RecapitiPGPagoPaTest extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("RecapitiPGPagoPaTest");
 
-    @Autowired
-    private HooksNew hooks;
+
     @Autowired
     private  DataPopulation dataPopulation;
-    @Autowired
+
     private RecapitiPGPage recapitiPGPage;
-    @Autowired
+
     private RecapitiDestinatarioPage recapitiDestinatarioPage;
-    @Autowired
+
     private ITuoiRecapitiPage iTuoiRecapitiPage;
+
     @Autowired
     @Lazy
     private BackgroundTest backgroundTest;
-    @Autowired
-    @Lazy
+
     private  WebTool webTool;
 
-    private final WebDriver driver;
-
-
-    public RecapitiPGPagoPaTest(WebDriver driver) {
-        this.driver = driver;
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
+        recapitiPGPage = new RecapitiPGPage(driver);
+        recapitiDestinatarioPage = new RecapitiDestinatarioPage(driver);
+        iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
     }
 
 

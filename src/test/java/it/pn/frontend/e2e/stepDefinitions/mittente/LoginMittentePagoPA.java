@@ -8,83 +8,59 @@ import it.pn.frontend.e2e.api.mittente.SpidAcsMittente;
 import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoContinueResponse;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogin;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
-import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.mittente.*;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
+import jakarta.annotation.PostConstruct;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Primary;
+
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-//@Component
-//@Scope("prototype")
-@Primary
-public class LoginMittentePagoPA {
-    private static final Logger logger = LoggerFactory.getLogger("LoginMittentePagoPA");
 
-    // WebDriver gestito con Spring, inizializzato in modo lazy per ottimizzare le risorse da capire?
-    //@Lazy
-    //@Autowired
-    //private WebDriver driver;
+public class LoginMittentePagoPA extends BasePage {
+    private static final Logger logger = LoggerFactory.getLogger("LoginMittentePagoPA");
 
    @Autowired
    private DataPopulation dataPopulation;
-    @Autowired
-    @Lazy
-    private  WebTool webTool;
 
-    // Percorso del file token specificato nelle configurazioni, con valore di default 'tokenLogin.yaml'
-   // @Value("${token.login.file:tokenLogin.yaml}")
-   // private String FILE_TOKEN_LOGIN;
+    private  WebTool webTool;
 
     private Map<String, Object> datiMittente;
     private Map<String, String> urlMittente;
-
-
 
     @Autowired
     @Lazy
     private WebDriverConfig webDriverConfig;
 
-
     private CookiesSection cookiesSection;
-
 
     private AcccediAreaRiservataPAPage acccediAreaRiservataPAPage;
 
-
     private ScegliSpidPAPage scegliSpidPAPage;
-
 
     private LoginPAPage loginPAPage;
 
-
     private HeaderPASection headerPASection;
-
 
     private PiattaformaNotifichePage piattaformaNotifichePage;
 
-
     private PreAccediAreaRiservataPAPage preAccediAreaRiservataPAPage;
-
 
     private AutorizziInvioDatiPAPage autorizziInvioDatiPAPage;
 
-
     private SelezionaEntePAPage selezionaEntePAPage;
-
 
     private AreaRiservataPAPage areaRiservataPAPage;
 
@@ -93,13 +69,13 @@ public class LoginMittentePagoPA {
 
     @Autowired
     @Lazy
-    private WebDriverManager webDriveBean;
+    private WebDriverManager webDriverManager;
 
-    private final WebDriver driver;
 
-   @Autowired
-    public LoginMittentePagoPA(WebDriver driver) {
-        this.driver = driver;
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
         areaRiservataPAPage = new AreaRiservataPAPage(driver);
         selezionaEntePAPage = new SelezionaEntePAPage(driver);
         autorizziInvioDatiPAPage = new AutorizziInvioDatiPAPage(driver);
@@ -110,7 +86,6 @@ public class LoginMittentePagoPA {
         scegliSpidPAPage = new ScegliSpidPAPage(driver);
         acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(driver);
         cookiesSection = new CookiesSection(driver);
-
     }
 
 
@@ -184,7 +159,7 @@ public class LoginMittentePagoPA {
 
         // Verifica della presenza dell'URL e dei cookie per proseguire con l'accettazione dei cookie
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
-                !webDriveBean.getCookieConfig().isCookieEnabled()) {
+                !webDriverManager.getCookieConfig().isCookieEnabled()) {
             logger.info("cookies start");
 
             cookiesSection.selezionaAccettaTuttiButton();
@@ -221,7 +196,7 @@ public class LoginMittentePagoPA {
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
-                !webDriveBean.getCookieConfig().isCookieEnabled()) {
+                !webDriverManager.getCookieConfig().isCookieEnabled()) {
             logger.info("cookies start");
             cookiesSection.selezionaAccettaTuttiButton();
             if (cookiesSection.waitLoadCookiesPage()) {
@@ -439,7 +414,7 @@ public class LoginMittentePagoPA {
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();
 
-        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
+        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
