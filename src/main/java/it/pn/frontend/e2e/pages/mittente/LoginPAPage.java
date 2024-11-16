@@ -33,8 +33,8 @@ public class LoginPAPage extends BasePage {
 
     public void waitLoadLoginPAPage(){
         try{
-            By titlePage = By.cssSelector("h1.u-text-r-xl.u-margin-bottom-l");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
+            WebElement titlePage = driver.findElement(By.cssSelector("h1.u-text-r-xl.u-margin-bottom-l"));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(titlePage));
             logger.info("Login PA Page caricata");
         }catch (TimeoutException e){
             logger.error("Il titolo della pagina Login PA non caricato con errore : "+e.getMessage());
@@ -44,21 +44,24 @@ public class LoginPAPage extends BasePage {
 
     public void inserisciUtenete(String user){
         logger.info("Si inserisci il nome utente");
-        this.getWebDriverWait(30).withMessage("Il campo user non è presente").until(ExpectedConditions.visibilityOf(this.userTextEdit));
-        this.userTextEdit.sendKeys(user);
+        userTextEdit = driver.findElement(By.id("username"));
+        getWebDriverWait(30).withMessage("Il campo user non è presente").until(ExpectedConditions.visibilityOf(userTextEdit));
+        userTextEdit.sendKeys(user);
     }
 
     public void inserisciPassword(String pwd){
         logger.info("Si inserisce la password dell'utente");
-        this.getWebDriverWait(30).withMessage("Il campo password non è presente").until(ExpectedConditions.visibilityOf(this.pwdTextEdit));
-        this.pwdTextEdit.sendKeys(pwd);
+        pwdTextEdit = driver.findElement(By.id("password"));
+        getWebDriverWait(30).withMessage("Il campo password non è presente").until(ExpectedConditions.visibilityOf(this.pwdTextEdit));
+        pwdTextEdit.sendKeys(pwd);
     }
 
     public void selezionaInviaDati(){
         logger.info("Si selezione il bottone invia");
         try {
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.inviaButton));
-            this.inviaButton.click();
+            inviaButton = driver.findElement(By.xpath("//button[contains(text(),'Invia')]"));
+            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(inviaButton));
+            inviaButton.click();
         }catch (TimeoutException e){
         logger.error("Il bottone invia nella pagina Login PA non è stato cliccato con errore : "+e.getMessage());
             Assertions.fail("Il bottone invia nella pagina Login PA non è stato cliccato con errore : "+e.getMessage());
