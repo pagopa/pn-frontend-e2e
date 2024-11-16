@@ -94,6 +94,10 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     public PiattaformaNotifichePGPAPage(WebDriver driver) {
         this.driver = driver;
         webTool = new WebTool(driver);
+        downloadFile = new DownloadFile(driver);
+        dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(driver);
+        helpdeskPage = new HelpdeskPage(driver);
+        dettaglioNotificaSection = new DettaglioNotificaSection(driver);
     }
 
     private static void pressTabKey(Robot robot, int times) {
