@@ -48,12 +48,7 @@ public class DestinatarioPage extends BasePage {
     @Autowired
     private NotificationBuilder notificationBuilder;
 
-
-    private HooksNew hooks;
-
     private int destinatariNumber;
-
-
 
     @FindBy(id = "startDate")
     WebElement dataInizioField;
@@ -64,31 +59,34 @@ public class DestinatarioPage extends BasePage {
     @FindBy(id = "notificationsTable.body.row")
     List<WebElement> listaNotificheDelegante;
 
-    @Autowired
-    @Lazy
+
     private  WebTool webTool;
 
     public DestinatarioPage(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void inserimentoDataErrato() {
+        dataInizioField = driver.findElement(By.id("startDate"));
         String data = "01/01/1111";
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField));
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField));
         dataInizioField.click();
         dataInizioField.sendKeys(data);
-        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataInizioField, "value", data));
-
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(this.dataFineField));
+        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", data));
+        dataFineField = driver.findElement(By.id("endDate"));
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataFineField));
         dataFineField.click();
         dataFineField.sendKeys(data);
-        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.dataFineField, "value", data));
+        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", data));
     }
 
     public boolean isDateBoxInvalid() {
         String isTextboxInvalid = "true";
         boolean invalidBoxDate = true;
         try {
+            dataInizioField = driver.findElement(By.id("startDate"));
+            dataFineField = driver.findElement(By.id("endDate"));
             getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField, this.dataFineField));
             String ariaInvalidInizio = dataInizioField.getAttribute("aria-invalid");
             String ariaInvalidFine = dataFineField.getAttribute("aria-invalid");
@@ -107,14 +105,14 @@ public class DestinatarioPage extends BasePage {
 
     public void clickButtonNotificheDelegateOnSideMenu(String nomeDelegante) {
         log.info("verifica bottone notifiche nel layout");
-
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.sideItemNotificheButton));
+        sideItemNotificheButton = driver.findElement(By.id("side-item-Notifiche"));
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(sideItemNotificheButton));
         sideItemNotificheButton.click();
 
         String id = "side-item-" + nomeDelegante;
-        By buttonNotificheOnSideMenu = By.id(id);
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(buttonNotificheOnSideMenu));
-        this.js().executeScript("arguments[0].click()", this.element(buttonNotificheOnSideMenu));
+        WebElement buttonNotificheOnSideMenu = driver.findElement(By.id(id));
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(buttonNotificheOnSideMenu));
+        this.js().executeScript("arguments[0].click()", buttonNotificheOnSideMenu);
     }
 
     public void clickSulDettaglioNotificaDelegante() {
@@ -125,9 +123,9 @@ public class DestinatarioPage extends BasePage {
     }
 
     public void clickProdotto(String xpath) {
-        By prodottoDestinatario = By.xpath(xpath);
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(prodottoDestinatario));
-        element(prodottoDestinatario).click();
+        WebElement prodottoDestinatario = driver.findElement(By.xpath(xpath));
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(prodottoDestinatario));
+        prodottoDestinatario.click();
     }
 
     public void checkCreateNewNotification() throws RestNotificationException {
@@ -200,33 +198,33 @@ public class DestinatarioPage extends BasePage {
 
     }
     public void clickTuttiGliEnti() {
-        By tuttiGliEnti = By.id("tutti-gli-enti-selezionati");
-        getWebDriverWait(10).withMessage("Il radio button 'tutti gli enti selezionati' non è visibile").until(ExpectedConditions.visibilityOfElementLocated(tuttiGliEnti));
-        element(tuttiGliEnti).click();
+        WebElement tuttiGliEnti = driver.findElement(By.id("tutti-gli-enti-selezionati"));
+        getWebDriverWait(10).withMessage("Il radio button 'tutti gli enti selezionati' non è visibile").until(ExpectedConditions.visibilityOf(tuttiGliEnti));
+        tuttiGliEnti.click();
     }
 
     public void clickSoloEntiSelezionati() {
-        By soloEntiSelezionati = By.id("enti-selezionati");
-        getWebDriverWait(10).withMessage("Il radio button 'solo enti selezionati' non è visibile").until(ExpectedConditions.visibilityOfElementLocated(soloEntiSelezionati));
-        element(soloEntiSelezionati).click();
+        WebElement soloEntiSelezionati = driver.findElement(By.id("enti-selezionati"));
+        getWebDriverWait(10).withMessage("Il radio button 'solo enti selezionati' non è visibile").until(ExpectedConditions.visibilityOf(soloEntiSelezionati));
+        soloEntiSelezionati.click();
     }
 
     public void clickListaEnti() {
-        By listaEnti = By.id("enti");
-        getWebDriverWait(10).withMessage("Il menù a tendina degli enti non è visibile").until(ExpectedConditions.visibilityOfElementLocated(listaEnti));
-        element(listaEnti).click();
+        WebElement listaEnti = driver.findElement(By.id("enti"));
+        getWebDriverWait(10).withMessage("Il menù a tendina degli enti non è visibile").until(ExpectedConditions.visibilityOf(listaEnti));
+        listaEnti.click();
     }
 
     public void controlloEntiRadice(List<String> enti) {
         for (String ente : enti) {
-            By enteRadice = By.xpath("//li//p[contains(text(),'" + ente + "')]");
-            getWebDriverWait(10).withMessage("Ente: " + ente + " non visibile").until(ExpectedConditions.visibilityOfElementLocated(enteRadice));
+            WebElement enteRadice = driver.findElement(By.xpath("//li//p[contains(text(),'" + ente + "')]"));
+            getWebDriverWait(10).withMessage("Ente: " + ente + " non visibile").until(ExpectedConditions.visibilityOf(enteRadice));
         }
     }
 
     public void checkBannerAnnullamentoNotifica() {
-        By bannerAnnullamentoNotificaBy = By.xpath("//div[@data-testid='cancelledAlertText']");
-        getWebDriverWait(10).withMessage("Il banner di annullamento della notifica non è presente").until(ExpectedConditions.visibilityOfElementLocated(bannerAnnullamentoNotificaBy));
+        WebElement bannerAnnullamentoNotificaBy = driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']"));
+        getWebDriverWait(10).withMessage("Il banner di annullamento della notifica non è presente").until(ExpectedConditions.visibilityOf(bannerAnnullamentoNotificaBy));
         getWebDriverWait(10).withMessage("Il banner di annullamento della notifica presenta la corretta descrizione").until(
                 ExpectedConditions.attributeToBe(bannerAnnullamentoNotificaBy, "textContent", "Questa notifica è stata annullata dall’ente mittente. Puoi ignorarne il contenuto."));
     }
