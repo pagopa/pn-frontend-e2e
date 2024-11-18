@@ -24,8 +24,8 @@ public class AutorizziInvioDatiPAPage extends BasePage {
 
     public void waitLoadAutorizziInvioDatiPAPage() {
         try {
-            By titlePage = By.cssSelector("h1.u-text-r-xl.u-margin-bottom-l");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
+            WebElement titlePage = driver.findElement(By.cssSelector("h1.u-text-r-xl.u-margin-bottom-l"));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(titlePage));
             logger.info("Autorizzi Invio Dati PA Page caricata");
         } catch (TimeoutException | NoSuchElementException e) {
             logger.error("Il titolo di Autorizzi Invio Dati PA Page non è caricato con errore: " + e.getMessage());
@@ -36,6 +36,7 @@ public class AutorizziInvioDatiPAPage extends BasePage {
     public void selezionareInvia() {
         logger.info("Click button Invia");
         try {
+            inviaButton = driver.findElement(By.cssSelector("button[name='confirm']"));
             getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(inviaButton));
             inviaButton.click();
         } catch (TimeoutException e) {

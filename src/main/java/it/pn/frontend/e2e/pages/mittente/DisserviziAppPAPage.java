@@ -28,15 +28,11 @@ public class DisserviziAppPAPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("Disservizi PA Page");
 
 
-
-   // @Value("${downloadFilePath}")
-   // private String downloadFilePath;
     @Autowired
     private WebDriverConfig webDriverConfig;
 
     @Autowired
     private DataPopulation dataPopulation;
-
 
     @FindBy(id = "notifications-table")
     private WebElement disserviziTable;
@@ -50,39 +46,38 @@ public class DisserviziAppPAPage extends BasePage {
     @FindBy(xpath = "//span[contains(text(), 'Risolto')]")
     private List<WebElement> stato;
 
-    @Autowired
-    @Lazy
     private  WebTool webTool;
 
     public DisserviziAppPAPage(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void waitLoadStatoDellaPiattaformaPage() {
         webTool.waitTime(5);
         try {
-            By disserviziPageTitle = By.id("Stato della piattaforma-page");
-            By disserviziPageSubTitle = By.id("subtitle-page");
-            By disserviziBoxAlert = By.id("appStatusBar");
-            By disserviziLastUpdate = By.id("appStatusLastCheck");
-            By disserviziTitleOfTable = By.xpath("//h6[contains(text(),'Storico dei disservizi')]");
+            WebElement disserviziPageTitle = driver.findElement(By.id("Stato della piattaforma-page"));
+            WebElement disserviziPageSubTitle = driver.findElement(By.id("subtitle-page"));
+            WebElement disserviziBoxAlert = driver.findElement(By.id("appStatusBar"));
+            WebElement disserviziLastUpdate = driver.findElement(By.id("appStatusLastCheck"));
+            WebElement disserviziTitleOfTable = driver.findElement(By.xpath("//h6[c)ontains(text(),'Storico dei disservizi')]"));
 
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(disserviziPageTitle));
-            getWebDriverWait(3).until(ExpectedConditions.textToBe(disserviziPageTitle, "Stato della piattaforma"));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(disserviziPageSubTitle));
-            getWebDriverWait(3).until(ExpectedConditions.textToBe(disserviziPageSubTitle, "Verifica il funzionamento di SEND, visualizza lo storico dei disservizi e scarica le relative attestazioni opponibili a terzi."));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(disserviziBoxAlert));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(disserviziPageTitle));
+            getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElementValue(disserviziPageTitle, "Stato della piattaforma"));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(disserviziPageSubTitle));
+            getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElementValue(disserviziPageSubTitle, "Verifica il funzionamento di SEND, visualizza lo storico dei disservizi e scarica le relative attestazioni opponibili a terzi."));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(disserviziBoxAlert));
 
-            String boxAlertText = element(disserviziBoxAlert).getText();
-            getWebDriverWait(3).until(ExpectedConditions.textToBe(disserviziBoxAlert, boxAlertText.contains("C'è un disservizio in corso") ?
+            String boxAlertText = disserviziBoxAlert.getText();
+            getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElementValue(disserviziBoxAlert, boxAlertText.contains("C'è un disservizio in corso") ?
                     "C'è un disservizio in corso. Per maggiori dettagli, consulta la tabella qui sotto." :
                     "Tutti i servizi di SEND sono operativi."
             ));
 
             disserviziTable = driver.findElement(By.id("notifications-table"));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(disserviziLastUpdate));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(disserviziLastUpdate));
             getWebDriverWait(10).until(ExpectedConditions.visibilityOf(disserviziTable));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(disserviziTitleOfTable));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(disserviziTitleOfTable));
 
             logger.info("Si visualizza correttamente la sezione disservizi");
         } catch (TimeoutException e) {

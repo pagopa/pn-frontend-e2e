@@ -20,9 +20,6 @@ public class AreaRiservataPAPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("AreaRiservataPAPage");
 
-
-
-
     @FindBy(xpath = "//p[contains(@class,'MuiTypography-root MuiTypography-body1 ShowDots')]")
     private List<WebElement> infoLabel;
 
@@ -41,8 +38,8 @@ public class AreaRiservataPAPage extends BasePage {
 
     public void waitLoadAreaRiservataPAPage() {
         try {
-            By panoramicaLabel = By.cssSelector(".MuiTypography-root.MuiTypography-h4");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(panoramicaLabel));
+            WebElement panoramicaLabel = driver.findElement(By.cssSelector(".MuiTypography-root.MuiTypography-h4"));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(panoramicaLabel));
             logger.info("Titolo Panoramica dell'area Riservata PA Page caricato");
         } catch (TimeoutException e) {
             logger.error("Titolo 'Panoramica' dell'area Riservata PA Page non caricato con errore: " + e.getMessage());
@@ -52,6 +49,7 @@ public class AreaRiservataPAPage extends BasePage {
 
     public boolean verificaCodiceFiscale(String codiceFiscale) {
         boolean codiceFiscaleFound = false;
+        infoLabel = driver.findElements(By.xpath("//p[contains(@class,'MuiTypography-root MuiTypography-body1 ShowDots')]"));
         for (WebElement element : infoLabel) {
             logger.info("Info ente presente nella pagina Area Riservata: " + element.getText());
             if (element.getText().equals(codiceFiscale)) {
@@ -64,6 +62,7 @@ public class AreaRiservataPAPage extends BasePage {
 
     public void selezionaPiattaformaNotificaDev() {
         try {
+            piattaformaNotificaDevGestisciButton = driver.findElement(By.id("forward_prod-pn-dev"));
             getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(piattaformaNotificaDevGestisciButton));
             if (piattaformaNotificaDevGestisciButton.isDisplayed()) {
                 piattaformaNotificaDevGestisciButton.click();
@@ -79,6 +78,7 @@ public class AreaRiservataPAPage extends BasePage {
 
     public void selezionaPiattaformaNotificaTest() {
         try {
+            piattaformaNotificaTestGestisciButton = driver.findElement(By.id("forward_prod-pn-test"));
             getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(piattaformaNotificaTestGestisciButton));
             if (piattaformaNotificaTestGestisciButton.isDisplayed()) {
                 piattaformaNotificaTestGestisciButton.click();
@@ -94,6 +94,7 @@ public class AreaRiservataPAPage extends BasePage {
 
     public void selezionaPiattaformaNotificaUat() {
         try {
+            piattaformaNotificaUatGestisciButton = driver.findElement(By.id("forward_prod-pn"));
             getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(piattaformaNotificaUatGestisciButton));
             if (piattaformaNotificaUatGestisciButton.isDisplayed()) {
                 piattaformaNotificaUatGestisciButton.click();
