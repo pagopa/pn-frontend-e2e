@@ -220,14 +220,19 @@ public enum DataPopulationValue {
     CAP_PF_PEC("cap_pf_pec","20147",false),
     STATO_PF_PEC("stato_pf_pec","ITALIA",false),
 
-    //DATA NOTIFICA
-    NUMERO_PROTOCOLLO_DN("numeroProtocollo","TA-FFSMRC-20241104-3015",false),
-    OGGETTO_DELLA_NOTIFICA_DN("oggettoDellaNotifica","IMU",false),
-    CODE_TASS_DN("codiceTassonometrico_err","123456",false),
+    //DATI NOTIFICA
+    NUMERO_PROTOCOLLO_DN("numero_protocollo_dn","TA-FFSMRC-20241104-3015",false),
+    OGGETTO_DELLA_NOTIFICA_DN("oggetto_della_notifica_dn","IMU",false),
+    DESCRIZIONE_DN("descrizione_dn","PAGAMENTO RATA IMU",false),
+    GRUPPO_TEST_DN("gruppo_test_dn","test-TA-FE-TEST",false),
+    GRUPPO_DEV_DN("gruppo_dev_dn","GruppoTest",false),
+    CODICE_TASSONOMETRICO_DN("codice_tassonometrico_dn","123456A",false),
+    NOME_DOCUMENTO_NOTIFICA_DN("nome_documento_notifica_dn","RATA SCADUTA IMU",false),
+    CODICE_IUN_DN("codice_iun_dn","RATA SCADUTA IMU",false),
 
-    //DATA NOTIFICA ERRORE
-    OGGETTO_DELLA_NOTIFICA_ERRORE("oggettoDellaNotifica_err","IMU",false),
-    CODE_TASS_ERRORE("codiceTassonometrico_err","123456",false),
+    //DATI NOTIFICA ERRORE
+    OGGETTO_DELLA_NOTIFICA_ERRORE("oggetto_della_notifica_err","IMU",false),
+    CODICE_TASSONOMETRICO_ERRORE("codiceTassonometrico_err","123456",false),
 
 
 

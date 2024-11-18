@@ -3,7 +3,7 @@ package it.pn.frontend.e2e.model.recipients;
 import lombok.Data;
 
 @Data
-public class DataNotifica {
+public class DatiNotifica {
     private String numeroProtocollo;
     private String oggettoDellaNotifica;
     private String descrizione;

@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
@@ -73,6 +74,9 @@ public class NotifichePersonaFisicaPagoPATest {
     @Autowired
     @Lazy
     private  WebTool webTool;
+
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
 
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche")
     public void nellaPiattaformaDestinatarioCliccareSulBottoneNotifiche() {
@@ -330,14 +334,15 @@ public class NotifichePersonaFisicaPagoPATest {
         logger.info("Si recupera un codice IUN valido");
 
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresentiPF();
-       personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        String codiceIun = personaFisica.get("codiceIUN").toString();
+//        personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        String codiceIun = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
         if (codiciIun.contains(codiceIun)) {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
         } else {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiciIun.get(0));
-            personaFisica.put("codiceIUN", codiciIun.get(0));
-            dataPopulation.writeDataPopulation("datiNotifica.yaml",personaFisica);
+//            personaFisica.put("codiceIUN", codiciIun.get(0));
+//            dataPopulation.writeDataPopulation("datiNotifica.yaml",personaFisica);
+            dataPopulationConfig.getDatiNotifica().setCodiceIUN(codiciIun.get(0));
         }
     }
 

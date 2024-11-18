@@ -447,8 +447,9 @@ public class DownloadFileMittentePagoPATest {
         logger.info("Si verifica l'esistenza della notifica con il codice IUN");
 
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresenti();
-        Map<String, Object> personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        String codiceIun = personaFisica.get("codiceIUN").toString();
+//        Map<String, Object> personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+//        String codiceIun = personaFisica.get("codiceIUN").toString();
+        String codiceIun = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
         if (!codiciIun.contains(codiceIun)) {
             backgroundTest.invioNotificaErrorePec();
         }

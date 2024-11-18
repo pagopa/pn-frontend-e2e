@@ -116,6 +116,12 @@ public class DataPopulationConfig {
     @Getter
     @Setter
     private NuovaDelegaErrore nuovaDelegaErrore;
+    @Getter
+    @Setter
+    private DatiNotifica datiNotifica;
+    @Getter
+    @Setter
+    private DatiNotificaErrore datiNotificaErrore;
 
 
 
@@ -404,7 +410,29 @@ public class DataPopulationConfig {
 
     }
 
+    @Bean
+    public DatiNotifica datiNotifica(){
+        datiNotifica = new DatiNotifica();
+        datiNotifica.setNumeroProtocollo(DataPopulationValue.getDefaultValue(DataPopulationValue.NUMERO_PROTOCOLLO_DN.key));
+        datiNotifica.setOggettoDellaNotifica(DataPopulationValue.getDefaultValue(DataPopulationValue.OGGETTO_DELLA_NOTIFICA_DN.key));
+        datiNotifica.setDescrizione(DataPopulationValue.getDefaultValue(DataPopulationValue.DESCRIZIONE_DN.key));
+        datiNotifica.setGruppoTest(DataPopulationValue.getDefaultValue(DataPopulationValue.GRUPPO_TEST_DN.key));
+        datiNotifica.setGruppoDev(DataPopulationValue.getDefaultValue(DataPopulationValue.GRUPPO_DEV_DN.key));
+        datiNotifica.setCodiceTassonometrico(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_TASSONOMETRICO_DN.key));
+        datiNotifica.setNomeDocumentoNotifica(DataPopulationValue.getDefaultValue(DataPopulationValue.NOME_DOCUMENTO_NOTIFICA_DN.key));
+        datiNotifica.setCodiceIUN(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_IUN_DN.key));
+        return datiNotifica;
 
+    }
+
+    @Bean
+    public DatiNotificaErrore datiNotificaErrore(){
+        datiNotificaErrore = new DatiNotificaErrore();
+        datiNotificaErrore.setOggettoDellaNotifica(DataPopulationValue.getDefaultValue(DataPopulationValue.OGGETTO_DELLA_NOTIFICA_ERRORE.key));
+        datiNotificaErrore.setOggettoDellaNotifica(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_TASSONOMETRICO_ERRORE.key));
+        return datiNotificaErrore;
+
+    }
 
 
 
