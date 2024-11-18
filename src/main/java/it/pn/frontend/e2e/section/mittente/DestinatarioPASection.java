@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.model.recipients.PersoneFisiche;
+import it.pn.frontend.e2e.model.recipients.PersoneGiuridiche;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -288,7 +289,7 @@ public class DestinatarioPASection extends BasePage {
 
     }
 
-    public void inserimentoMultiDestinatarioPG(Map<String, Object> personeGiuridiche, int nDestinatari) {
+    public void inserimentoMultiDestinatarioPG(PersoneGiuridiche personeGiuridiche, int nDestinatari) {
         for (int i = 0; i < nDestinatari; i++) {
             inserimentoInformazioniPreliminariPG(personeGiuridiche, i);
             inserimentoInformazioniAggiuntivePG(personeGiuridiche, i);
@@ -297,20 +298,20 @@ public class DestinatarioPASection extends BasePage {
             }
         }
     }
-    public void inserimentoInformazioniAggiuntivePG(Map<String, Object> destinatari, int i) {
-        String indirizzoDestinatario = ricercaInformazione(destinatari.get("indirizzo").toString().split(","), i);
-        inserireInfoMultiDestinatario("//label[contains(@id,'address-label')]/following-sibling::div/input", indirizzoDestinatario);
-        String nCivicoDestinatario = ricercaInformazione(destinatari.get("numeroCivico").toString().split(","), i);
-        inserireInfoMultiDestinatario("//input[contains(@id,'houseNumber')]", nCivicoDestinatario);
-        String localitaDestinatario = ricercaInformazione(destinatari.get("localita").toString().split(","), i);
-        inserireInfoMultiDestinatario("//label[contains(@id,'municipalityDetails-label')]/following-sibling::div/input", localitaDestinatario);
-        String comuneDestinatario = ricercaInformazione(destinatari.get("comune").toString().split(","), i);
-        inserireInfoMultiDestinatario("//label[contains(@id,'municipality-label')]/following-sibling::div/input", comuneDestinatario);
-        String provinciaDestinatario = ricercaInformazione(destinatari.get("provincia").toString().split(","), i);
-        inserireInfoMultiDestinatario("//input[contains(@id,'province')]", provinciaDestinatario);
-        String codicePostale = ricercaInformazione(destinatari.get("codicepostale").toString().split(","), i);
-        inserireInfoMultiDestinatario("//input[contains(@id,'zip')]", codicePostale);
-        inserireInfoMultiDestinatario("//input[contains(@id,'foreignState')]", destinatari.get("stato").toString());
+    public void inserimentoInformazioniAggiuntivePG(PersoneGiuridiche personeGiuridiche, int i) {
+        //String indirizzoDestinatario = ricercaInformazione(destinatari.get("indirizzo").toString().split(","), i);
+        inserireInfoMultiDestinatario("//label[contains(@id,'address-label')]/following-sibling::div/input", personeGiuridiche.getPersone().get(i).getIndirizzo());
+       // String nCivicoDestinatario = ricercaInformazione(destinatari.get("numeroCivico").toString().split(","), i);
+        inserireInfoMultiDestinatario("//input[contains(@id,'houseNumber')]", personeGiuridiche.getPersone().get(i).getNumeroCivico());
+      //  String localitaDestinatario = ricercaInformazione(destinatari.get("localita").toString().split(","), i);
+        inserireInfoMultiDestinatario("//label[contains(@id,'municipalityDetails-label')]/following-sibling::div/input", personeGiuridiche.getPersone().get(i).getLocalita());
+       // String comuneDestinatario = ricercaInformazione(destinatari.get("comune").toString().split(","), i);
+        inserireInfoMultiDestinatario("//label[contains(@id,'municipality-label')]/following-sibling::div/input", personeGiuridiche.getPersone().get(i).getComune());
+       // String provinciaDestinatario = ricercaInformazione(destinatari.get("provincia").toString().split(","), i);
+        inserireInfoMultiDestinatario("//input[contains(@id,'province')]", personeGiuridiche.getPersone().get(i).getProvincia());
+       // String codicePostale = ricercaInformazione(destinatari.get("codicepostale").toString().split(","), i);
+        inserireInfoMultiDestinatario("//input[contains(@id,'zip')]", personeGiuridiche.getPersone().get(i).getCodicePostale());
+        inserireInfoMultiDestinatario("//input[contains(@id,'foreignState')]", personeGiuridiche.getPersone().get(i).getStato());
     }
 
     public void inserimentoDestinatarioPGAggiuntivo(Map<String, String> destinatario) {
@@ -348,13 +349,13 @@ public class DestinatarioPASection extends BasePage {
         element(secondCountry).sendKeys(destinatario.get("stato"));
     }
 
-    private void inserimentoInformazioniPreliminariPG(Map<String, Object> personeGiuridiche, int i) {
+    private void inserimentoInformazioniPreliminariPG(PersoneGiuridiche personeGiuridiche, int i) {
         clickRadioButtonPersonaGiuridica(i + 1);
-        String nomeDestinatario = ricercaInformazione(personeGiuridiche.get("name").toString().split(","), i);
-        inserireInfoMultiDestinatario("//input[contains(@id,'firstName')]", nomeDestinatario);
-        String cfDestinatario = ricercaInformazione(personeGiuridiche.get("codiceFiscale").toString().split(","), i);
-        cfDestinatario = cfDestinatario.replace(" ", "");
-        inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]", cfDestinatario);
+        //String nomeDestinatario = personeGiuridiche.getPersone().get(i).getName();
+        inserireInfoMultiDestinatario("//input[contains(@id,'firstName')]", personeGiuridiche.getPersone().get(i).getName());
+       // String cfDestinatario = personeGiuridiche.getPersone().get(i).getCodiceFiscale();
+      //  cfDestinatario = cfDestinatario.replace(" ", "");
+        inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]", personeGiuridiche.getPersone().get(i).getCodiceFiscale());
         selezionaAggiungiUnIndirizzoFisicoMulti(i + 1);
     }
 

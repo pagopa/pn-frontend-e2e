@@ -65,6 +65,56 @@ public enum DataPopulationValue {
     CAP_PF_4("codicepostale_pf_4","10024",false),
     STATO_PF_4("stato_pf_4","ITALIA",false),
 
+    //PERSONA GIURIDICA 1
+
+    NAME_PG_1("name_pg_1","LucioAnneoSeneca",false),
+    CF_PG_1("codiceFiscale_pg_1","20517490320",false),
+    FISCAL_NUM_PG_1("fiscal_number_pg_1","TINIT-DRCGNN12A46A326K",false),
+    INDI_PG_1("indirizzo_pg_1","VIA VERDI",false),
+    CIV_PG_1("numeroCivico_pg_1","10",false),
+    LOCA_PG_1("localita_pg_1","MILANO",false),
+    COM_PG_1("comune_pg_1","MILANO",false),
+    PR_PG_1("provincia_pg_1","MI",false),
+    CAP_PG_1("codicepostale_pg_1","20122",false),
+    ST_PG_1("stato_pg_1","ITALIA",false),
+
+    //PERSONA GIURIDICA 2
+
+    NAME_PG_2("name_pg_2","Ada",false),
+    CODICE_FISCALE_PG_2("codiceFiscale_pg_2","LVLDAA85T50G702B",false),
+    FISCAL_NUMBER_PG_2("fiscal_number_pg_2","TINIT-LVLDAA85T50G702B",false),
+    INDIRIZZO_PG_2("indirizzo_pg_2","VIA TORINO",false),
+    CIVICO_PG_2("numeroCivico_pg_2","15",false),
+    LOCALITA_PG_2("localita_pg_2","CINISELLO BALSAMO",false),
+    COMUNE_PG_2("comune_pg_2","CINISELLO BALSAMO",false),
+    PROVINCIA_PG_2("provincia_pg_2","MI",false),
+    CAP_PG_2("codicepostale_pg_2","20092",false),
+    STATO_PG_2("stato_pg_2","ITALIA",false),
+
+    //PERSONA GIURIDICA 3
+    NAME_PG_3("name_pg_3","Marco",false),
+    CODICE_FISCALE_PG_3("codiceFiscale_pg_3","PLOMRC01P30L736Y",false),
+    FISCAL_NUMBER_PG_3("fiscal_number_pg_3","TINIT-PLOMRC01P30L736Y",false),
+    INDIRIZZO_PG_3("indirizzo_pg_3","VIA MEDA",false),
+    CIVICO_PG_3("numeroCivico_pg_3","9",false),
+    LOCALITA_PG_3("localita_pg_3","SEREGNO",false),
+    COMUNE_PG_3("comune_pg_3","SEREGNO",false),
+    PROVINCIA_PG_3("provincia_pg_3","MB",false),
+    CAP_PG_3("codicepostale_pg_3","20831",false),
+    STATO_PG_3("stato_pg_3","ITALIA",false),
+
+
+    //PERSONA GIURIDICA 4
+    NAME_PG_4("name_pg_4","Cleopatra Tea",false),
+    CODICE_FISCALE_PG_4("codiceFiscale_pg_4","FLPCPT69A65Z336P",false),
+    FISCAL_NUMBER_PG_4("fiscal_number_pg_4","TINIT-FLPCPT69A65Z336P",false),
+    INDIRIZZO_PG_4("indirizzo_pg_4","VIA EUROPA",false),
+    CIVICO_PG_4("numeroCivico_pg_4","6",false),
+    LOCALITA_PG_4("localita_pg_4","TORINO",false),
+    COMUNE_PG_4("comune_pg_4","TORINO",false),
+    PROVINCIA_PG_4("provincia_pg_4","TO",false),
+    CAP_PG_4("codicepostale_pg_4","10024",false),
+    STATO_PG_4("stato_pg_4","ITALIA",false),
 
     //DATA NOTIFICA PG
     OGGETTO_DELLA_NOTIFICA("oggettoDellaNotifica","Pagamento rata IMU",true),

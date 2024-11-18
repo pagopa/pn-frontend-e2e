@@ -73,6 +73,9 @@ public class DataPopulationConfig {
 
     @Getter
     @Setter
+    private PersoneGiuridiche personeGiuridiche;
+    @Getter
+    @Setter
     private PersoneFisiche personeFisiche;
     @Getter
     @Setter
@@ -123,10 +126,67 @@ public class DataPopulationConfig {
     @Setter
     private DatiNotificaErrore datiNotificaErrore;
 
+    @Bean
+    public PersoneGiuridiche personeGiuridiche() {
+        personeGiuridiche = new PersoneGiuridiche();
+        PersonaGiuridica persona1 = new PersonaGiuridica();
 
+        persona1.setName(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_PG_1.key));
+        persona1.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CF_PG_1.key));
+        persona1.setFiscalNumber(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_NUM_PG_1.key));
+        persona1.setIndirizzo(DataPopulationValue.getDefaultValue(DataPopulationValue.INDI_PG_1.key));
+        persona1.setNumeroCivico(DataPopulationValue.getDefaultValue(DataPopulationValue.CIV_PG_1.key));
+        persona1.setLocalita(DataPopulationValue.getDefaultValue(DataPopulationValue.LOCA_PG_1.key));
+        persona1.setComune(DataPopulationValue.getDefaultValue(DataPopulationValue.COM_PG_1.key));
+        persona1.setProvincia(DataPopulationValue.getDefaultValue(DataPopulationValue.PR_PG_1.key));
+        persona1.setCodicePostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CAP_PG_1.key));
+        persona1.setStato(DataPopulationValue.getDefaultValue(DataPopulationValue.ST_PG_1.key));
+        personeGiuridiche.aggiungiPersona(persona1);
+
+        PersonaGiuridica persona2 = new PersonaGiuridica();
+        persona2.setName(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_PG_2.key));
+        persona2.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_PG_2.key));
+        persona2.setFiscalNumber(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_NUMBER_PG_2.key));
+        persona2.setIndirizzo(DataPopulationValue.getDefaultValue(DataPopulationValue.INDIRIZZO_PG_2.key));
+        persona2.setNumeroCivico(DataPopulationValue.getDefaultValue(DataPopulationValue.CIVICO_PG_2.key));
+        persona2.setLocalita(DataPopulationValue.getDefaultValue(DataPopulationValue.LOCALITA_PG_2.key));
+        persona2.setComune(DataPopulationValue.getDefaultValue(DataPopulationValue.COMUNE_PG_2.key));
+        persona2.setProvincia(DataPopulationValue.getDefaultValue(DataPopulationValue.PROVINCIA_PG_2.key));
+        persona2.setCodicePostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CAP_PG_2.key));
+        persona2.setStato(DataPopulationValue.getDefaultValue(DataPopulationValue.STATO_PG_2.key));
+        personeGiuridiche.aggiungiPersona(persona2);
+
+        PersonaGiuridica persona3 = new PersonaGiuridica();
+        persona3.setName(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_PG_3.key));
+        persona3.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_PG_3.key));
+        persona3.setFiscalNumber(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_NUMBER_PG_3.key));
+        persona3.setIndirizzo(DataPopulationValue.getDefaultValue(DataPopulationValue.INDIRIZZO_PG_3.key));
+        persona3.setNumeroCivico(DataPopulationValue.getDefaultValue(DataPopulationValue.CIVICO_PG_3.key));
+        persona3.setLocalita(DataPopulationValue.getDefaultValue(DataPopulationValue.LOCALITA_PG_3.key));
+        persona3.setComune(DataPopulationValue.getDefaultValue(DataPopulationValue.COMUNE_PG_3.key));
+        persona3.setProvincia(DataPopulationValue.getDefaultValue(DataPopulationValue.PROVINCIA_PG_3.key));
+        persona3.setCodicePostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CAP_PG_3.key));
+        persona3.setStato(DataPopulationValue.getDefaultValue(DataPopulationValue.STATO_PG_3.key));
+        personeGiuridiche.aggiungiPersona(persona3);
+
+        PersonaGiuridica persona4 = new PersonaGiuridica();
+        persona4.setName(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_PG_4.key));
+        persona4.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_PG_4.key));
+        persona4.setFiscalNumber(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_NUMBER_PG_4.key));
+        persona4.setIndirizzo(DataPopulationValue.getDefaultValue(DataPopulationValue.INDIRIZZO_PG_4.key));
+        persona4.setNumeroCivico(DataPopulationValue.getDefaultValue(DataPopulationValue.CIVICO_PG_4.key));
+        persona4.setLocalita(DataPopulationValue.getDefaultValue(DataPopulationValue.LOCALITA_PG_4.key));
+        persona4.setComune(DataPopulationValue.getDefaultValue(DataPopulationValue.COMUNE_PG_4.key));
+        persona4.setProvincia(DataPopulationValue.getDefaultValue(DataPopulationValue.PROVINCIA_PG_4.key));
+        persona4.setCodicePostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CAP_PG_4.key));
+        persona4.setStato(DataPopulationValue.getDefaultValue(DataPopulationValue.STATO_PG_4.key));
+        personeGiuridiche.aggiungiPersona(persona4);
+
+        return personeGiuridiche;
+    }
 
     @Bean
-    public PersoneFisiche creaPersoneFisiche() {
+    public PersoneFisiche personeFisiche() {
         personeFisiche = new PersoneFisiche();
         PersonaFisica persona1 = new PersonaFisica();
 
