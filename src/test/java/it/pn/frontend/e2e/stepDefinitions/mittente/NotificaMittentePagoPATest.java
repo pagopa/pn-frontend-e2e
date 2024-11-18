@@ -12,6 +12,7 @@ import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.enums.AppPortal;
 import it.pn.frontend.e2e.model.recipients.PersoneFisiche;
+import it.pn.frontend.e2e.model.recipients.PersoneGiuridiche;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.mittente.AreaRiservataPAPage;
 import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
@@ -938,7 +939,8 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionDestinatarioInserireIDatiDelDestinatariPersoneGiuridicheAggiuntiviPerNumeroDestinatari(String nDestinatari) {
         logger.info("Si cerca di aggiungere" + nDestinatari + " personeGiuridiche");
 
-        Map<String, Object> personeGiuridiche = dataPopulation.readDataPopulation("personeGiuridiche.yaml");
+        //Map<String, Object> personeGiuridiche = dataPopulation.readDataPopulation("personeGiuridiche.yaml");
+        PersoneGiuridiche personeGiuridiche= dataPopulationConfig.personeGiuridiche();
         int nDestinatariInt = 1;
         if (isNumeric(nDestinatari)) {
             nDestinatariInt = Integer.parseInt(nDestinatari) - 1;
