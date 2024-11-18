@@ -54,9 +54,10 @@ public class HeaderPFSection extends BasePage {
     }
 
     public void selezionaProfiloUtenteMenu() {
-        this.js().executeScript("arguments[0].scrollIntoView(true);", this.buttonProfile);
+        buttonProfile = driver.findElement(By.xpath("//button[@aria-label='party-menu-button']"));
+        js().executeScript("arguments[0].scrollIntoView(true);", buttonProfile);
         logger.info("click sul profilo utente");
-        this.buttonProfile.click();
+        buttonProfile.click();
     }
 
     public void selezionaVoceEsci() {
