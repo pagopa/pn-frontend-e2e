@@ -2,13 +2,14 @@ package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,6 @@ import java.util.Map;
 public class DestinatarioPASection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DestinatarioPASection");
-
 
 
     @FindBy(css = "input[value='PF']")
@@ -62,7 +62,6 @@ public class DestinatarioPASection extends BasePage {
     @FindBy(xpath = "//button[contains(@data-testid,'DeleteRecipientIcon')]")
     List<WebElement> rimuoviDestinatarioButtons;
 
-
     @FindBy(xpath = "//label[@data-testid='showDigitalDomicile0']")
     WebElement checkBoxAggiungiDomicilioDigitale;
 
@@ -104,8 +103,8 @@ public class DestinatarioPASection extends BasePage {
 
     public void waitLoadDestinatarioPASection() {
         try {
-            By titleDestinatarioFieald = By.id("title-heading-section");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titleDestinatarioFieald));
+            WebElement titleDestinatarioFieald = driver.findElement(By.id("title-heading-section"));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(titleDestinatarioFieald));
             logger.info("Destinatario PA Section caricata ");
         } catch (TimeoutException e) {
             logger.error("Destinatario PA Section non caricata con errore : " + e.getMessage());
@@ -116,27 +115,33 @@ public class DestinatarioPASection extends BasePage {
 
     public void selezionarePersonaFisica() {
         logger.info("selezione pf su checkbox");
-        this.personaFisicaCheckBox.click();
+        personaFisicaCheckBox = driver.findElement(By.cssSelector("input[value='PF']"));
+        personaFisicaCheckBox.click();
     }
 
 
     public void inserireNomeDestinatario(String nomeDestinatario) {
         logger.info("inserimento nome destinatario");
-        this.scrollToElementClickAndInsertText(this.nomeDestinatarioTextField, nomeDestinatario);
+        nomeDestinatarioTextField = driver.findElement(By.id("recipients[0].firstName"));
+        scrollToElementClickAndInsertText(nomeDestinatarioTextField, nomeDestinatario);
     }
 
     public void inserireCognomeDestinatario(String cognomeDestinatario) {
         logger.info("inserimento cognome destinatario");
-        this.scrollToElementClickAndInsertText(this.cognomeDestinatarioTextField, cognomeDestinatario);
+        cognomeDestinatarioTextField = driver.findElement(By.id("recipients[0].lastName"));
+        scrollToElementClickAndInsertText(cognomeDestinatarioTextField, cognomeDestinatario);
     }
 
     public void inserireCodiceFiscaleDestinatario(String codiceFiscale) {
         logger.info("inserimento codice fiscale destinatario");
-        this.scrollToElementClickAndInsertText(this.codiceFiscaleDestinatarioTextField, codiceFiscale);
+        codiceFiscaleDestinatarioTextField = driver.findElement(By.id("recipients[0].taxId"));
+        scrollToElementClickAndInsertText(codiceFiscaleDestinatarioTextField, codiceFiscale);
     }
 
     public boolean checkCampiDestinatarioPopolati() {
-
+        nomeDestinatarioTextField = driver.findElement(By.id("recipients[0].firstName"));
+        cognomeDestinatarioTextField = driver.findElement(By.id("recipients[0].lastName"));
+        codiceFiscaleDestinatarioTextField = driver.findElement(By.id("recipients[0].taxId"));
         if (!nomeDestinatarioTextField.getAttribute("value").isEmpty() &&
                 !cognomeDestinatarioTextField.getAttribute("value").isEmpty() &&
                 !codiceFiscaleDestinatarioTextField.getAttribute("value").isEmpty()
@@ -152,63 +157,75 @@ public class DestinatarioPASection extends BasePage {
 
     public void selezionaAggiungiUnIndirizzoFisico() {
         logger.info("click su scelta indirizzo fisico");
+        aggiungiUnIndirizzoFisicoCheckBox = driver.findElement(By.id("//div[@data-testid='recipients[0].physicalAddressCheckbox']"));
         aggiungiUnIndirizzoFisicoCheckBox.click();
     }
 
     public void selezionaAggiungiUnIndirizzoDigitale() {
         logger.info("click su scelta indirizzo digitale");
+        checkDomicilioDigitale = driver.findElement(By.id("add-digital-domicile"));
         checkDomicilioDigitale.click();
     }
 
     public void inserireIndirizzo(String indirizzo) {
         logger.info("inserimento indirizzo fisico");
-        this.scrollToElementClickAndInsertText(this.indirizzoTextField, indirizzo);
+        indirizzoTextField = driver.findElement(By.id("recipients[0].address"));
+        scrollToElementClickAndInsertText(indirizzoTextField, indirizzo);
     }
 
     public void inserireNumeroCivico(String numeroCivico) {
         logger.info("inserimento numero civico");
-        this.scrollToElementClickAndInsertText(this.numeroCivicoTextField, numeroCivico);
+        numeroCivicoTextField = driver.findElement(By.id("recipients[0].houseNumber"));
+        scrollToElementClickAndInsertText(numeroCivicoTextField, numeroCivico);
     }
 
     public void inserireLocalita(String localita) {
         logger.info("inserimento localitá");
-        this.scrollToElementClickAndInsertText(this.localitaTextField, localita);
+        localitaTextField = driver.findElement(By.id( "recipients[0].municipalityDetails"));
+        scrollToElementClickAndInsertText(localitaTextField, localita);
     }
 
     public void inserireComune(String comune) {
         logger.info("inserimento comune");
-        this.scrollToElementClickAndInsertText(this.comuneTextField, comune);
+        comuneTextField = driver.findElement(By.id("recipients[0].municipality"));
+        scrollToElementClickAndInsertText(comuneTextField, comune);
     }
 
     public void inserireProvincia(String provincia) {
         logger.info("inserimento provincia");
-        this.scrollToElementClickAndInsertText(this.provinciaTextField, provincia);
+        provinciaTextField = driver.findElement(By.id("recipients[0].province"));
+        scrollToElementClickAndInsertText(provinciaTextField, provincia);
     }
 
     public void inserireCodicePostale(String codicePostale) {
         logger.info("inserimento codice postale");
+        codicePostaleTextField = driver.findElement(By.id("recipients[0].zip"));
         this.scrollToElementClickAndInsertText(this.codicePostaleTextField, codicePostale);
     }
 
     public void cambiareCodicePostale(String codicePostale) {
         logger.info("cambio codice postale");
-        clearWebElementField(this.codicePostaleTextField);
+        codicePostaleTextField = driver.findElement(By.id("recipients[0].zip"));
+        clearWebElementField(codicePostaleTextField);
         codicePostaleTextField.sendKeys(codicePostale);
     }
 
     public void inserireStato(String stato) {
         logger.info("inserimento stato");
-        this.scrollToElementClickAndInsertText(this.statoTextField, stato);
+        statoTextField = driver.findElement(By.id("recipients[0].foreignState"));
+        scrollToElementClickAndInsertText(statoTextField, stato);
     }
 
     public void selezionareAggiungiDestinatarioButton() {
         logger.info("scelta aggiungi destinatario");
-        this.aggiungiDestinatarioButton.click();
+        aggiungiDestinatarioButton = driver.findElement(By.id("add-recipient"));
+        aggiungiDestinatarioButton.click();
     }
 
     public void selezionareRimuoviDestinatarioButton() {
         logger.info("click su rimuovi destinatario");
-        this.rimuoviDestinatarioButtons.get(1).click();
+        rimuoviDestinatarioButtons = driver.findElements(By.xpath("//button[contains(@data-testid,'DeleteRecipientIcon')]"));
+        rimuoviDestinatarioButtons.get(1).click();
     }
 
     public void inserimentoMultiDestinatario(Map<String, Object> destinatari, int nDestinatari) {
@@ -250,18 +267,16 @@ public class DestinatarioPASection extends BasePage {
     }
 
     private void selezionaAggiungiUnIndirizzoFisicoMulti(int i) {
-        By aggiungiIndirizzoBy = By.xpath("//label[@data-testid='showPhysicalAddress" + i + "']");
-        this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(aggiungiIndirizzoBy));
-        List<WebElement> aggiungiIndirizzoButton = this.elements(aggiungiIndirizzoBy);
-        this.scrollToElementClickAndInsertText(aggiungiIndirizzoButton.get(aggiungiIndirizzoButton.size() - 1), null);
+        List<WebElement> aggiungiIndirizzoBy = driver.findElements(By.xpath("//label[@data-testid='showPhysicalAddress" + i + "']"));
+        getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(aggiungiIndirizzoBy));
+        scrollToElementClickAndInsertText(aggiungiIndirizzoBy.get(aggiungiIndirizzoBy.size() - 1), null);
     }
 
     private void inserireInfoMultiDestinatario(String xpath, String nomeDestinatario) {
         try {
-            By nomeDestinatarioBy = By.xpath(xpath);
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(nomeDestinatarioBy));
-            List<WebElement> listaNomeDestinatariField = this.elements(nomeDestinatarioBy);
-            this.scrollToElementClickAndInsertText(listaNomeDestinatariField.get(listaNomeDestinatariField.size() - 1), nomeDestinatario);
+            List<WebElement> nomeDestinatarioBy = driver.findElements(By.xpath(xpath));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(nomeDestinatarioBy));
+            scrollToElementClickAndInsertText(nomeDestinatarioBy.get(nomeDestinatarioBy.size() - 1), nomeDestinatario);
         } catch (TimeoutException e) {
             logger.error("Xpath non trovato con errore: " + e.getMessage());
             Assertions.fail("Xpath non trovato con errore: " + e.getMessage());
@@ -270,16 +285,16 @@ public class DestinatarioPASection extends BasePage {
 
     public boolean inserireIlSestoDestinatario() {
         this.js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
-        By aggiungereDestinatarioButtonBy = By.xpath("//button[contains(@data-testid,'add-recipient')]");
-        return this.elements(aggiungereDestinatarioButtonBy).isEmpty();
+        List<WebElement> aggiungereDestinatarioButtonBy = driver.findElements(By.xpath("//button[contains(@data-testid,'add-recipient')]"));
+        return aggiungereDestinatarioButtonBy.isEmpty();
     }
 
     public void waitMessaggioErrore() {
         try {
-            By errorMessagePrimoDestinatario = By.xpath("//p[@id='recipients[0].taxId-helper-text']");
-            By errorMessageSecondoDestinatario = By.xpath("//p[@id='recipients[1].taxId-helper-text']");
-            getWebDriverWait(10).withMessage("Non si visualizza il messaggio di errore del primo destinatario").until(ExpectedConditions.visibilityOfElementLocated(errorMessagePrimoDestinatario));
-            getWebDriverWait(10).withMessage("Non si visualizza il messaggio di errore del secondo destinatario").until(ExpectedConditions.visibilityOfElementLocated(errorMessageSecondoDestinatario));
+            WebElement errorMessagePrimoDestinatario = driver.findElement(By.xpath("//p[@id='recipients[0].taxId-helper-text']"));
+            WebElement errorMessageSecondoDestinatario = driver.findElement(By.xpath("//p[@id='recipients[1].taxId-helper-text']"));
+            getWebDriverWait(10).withMessage("Non si visualizza il messaggio di errore del primo destinatario").until(ExpectedConditions.visibilityOf(errorMessagePrimoDestinatario));
+            getWebDriverWait(10).withMessage("Non si visualizza il messaggio di errore del secondo destinatario").until(ExpectedConditions.visibilityOf(errorMessageSecondoDestinatario));
             logger.info("I messaggi di errore vengono visualizzati correttamente");
         } catch (TimeoutException e) {
             logger.error("Il messaggio di errore non viene visualizzato con errore: " + e.getMessage());
@@ -302,35 +317,35 @@ public class DestinatarioPASection extends BasePage {
 
         String soggettoGiuridico = destinatario.get("soggettoGiuridico");
         if (soggettoGiuridico.equals("PG")) {
-            By secondPGButton = By.xpath("//input[@name='recipients[1].recipientType' and @value ='PG']");
-            element(secondPGButton).click();
+            WebElement secondPGButton = driver.findElement(By.xpath("//input[@name='recipients[1].recipientType' and @value ='PG']"));
+            secondPGButton.click();
         } else {
             throw new IllegalStateException("soggettoGiuridico non è PG");
         }
-        By ragioneSociale = By.id("recipients[1].firstName");
-        element(ragioneSociale).sendKeys(destinatario.get("ragioneSociale"));
-        By secondCodiceFiscale = By.id("recipients[1].taxId");
-        element(secondCodiceFiscale).sendKeys(destinatario.get("codiceFiscale"));
-        By addSecondPec = By.xpath("//*[@data-testid='recipients[1].digitalDomicileCheckbox']");
-        element(addSecondPec).click();
-        By secondPecField = By.id("recipients[1].digitalDomicile");
-        element(secondPecField).sendKeys(destinatario.get("pec"));
-        By addSecondAddress = By.xpath("//label[@data-testid='showPhysicalAddress1']");
-        element(addSecondAddress).click();
-        By secondAddress = By.id("recipients[1].address");
-        element(secondAddress).sendKeys(destinatario.get("indirizzo"));
-        By secondNumber = By.id("recipients[1].houseNumber");
-        element(secondNumber).sendKeys(destinatario.get("civico"));
-        By secondMunicipalityDetails = By.id("recipients[1].municipalityDetails");
-        element(secondMunicipalityDetails).sendKeys(destinatario.get("localita"));
-        By secondMunicipality = By.id("recipients[1].municipality");
-        element(secondMunicipality).sendKeys(destinatario.get("comune"));
-        By secondProvince = By.id("recipients[1].province");
-        element(secondProvince).sendKeys(destinatario.get("provincia"));
-        By secondZip = By.id("recipients[1].zip");
-        element(secondZip).sendKeys(destinatario.get("cap"));
-        By secondCountry = By.id("recipients[1].foreignState");
-        element(secondCountry).sendKeys(destinatario.get("stato"));
+        WebElement ragioneSociale = driver.findElement(By.id("recipients[1].firstName"));
+        ragioneSociale.sendKeys(destinatario.get("ragioneSociale"));
+        WebElement secondCodiceFiscale = driver.findElement(By.id("recipients[1].taxId"));
+        secondCodiceFiscale.sendKeys(destinatario.get("codiceFiscale"));
+        WebElement addSecondPec = driver.findElement(By.xpath("//*[@data-testid='recipients[1].digitalDomicileCheckbox']"));
+        addSecondPec.click();
+        WebElement secondPecField = driver.findElement(By.id("recipients[1].digitalDomicile"));
+        secondPecField.sendKeys(destinatario.get("pec"));
+        WebElement addSecondAddress = driver.findElement(By.xpath("//label[@data-testid='showPhysicalAddress1']"));
+        addSecondAddress.click();
+        WebElement secondAddress = driver.findElement(By.id("recipients[1].address"));
+        secondAddress.sendKeys(destinatario.get("indirizzo"));
+        WebElement secondNumber = driver.findElement(By.id("recipients[1].houseNumber"));
+        secondNumber.sendKeys(destinatario.get("civico"));
+        WebElement secondMunicipalityDetails = driver.findElement(By.id("recipients[1].municipalityDetails"));
+        secondMunicipalityDetails.sendKeys(destinatario.get("localita"));
+        WebElement secondMunicipality = driver.findElement(By.id("recipients[1].municipality"));
+        secondMunicipality.sendKeys(destinatario.get("comune"));
+        WebElement secondProvince = driver.findElement(By.id("recipients[1].province"));
+        secondProvince.sendKeys(destinatario.get("provincia"));
+        WebElement secondZip = driver.findElement(By.id("recipients[1].zip"));
+        secondZip.sendKeys(destinatario.get("cap"));
+        WebElement secondCountry = driver.findElement(By.id("recipients[1].foreignState"));
+        secondCountry.sendKeys(destinatario.get("stato"));
     }
 
     private void inserimentoInformazioniPreliminariPG(Map<String, Object> personeGiuridiche, int i) {
@@ -344,61 +359,69 @@ public class DestinatarioPASection extends BasePage {
     }
 
     private void clickRadioButtonPersonaGiuridica(int posizione) {
-        By radioButtonPgBy = By.xpath("//input[@name='recipients[" + posizione + "].recipientType' and @value ='PG']");
-        this.element(radioButtonPgBy).click();
+        WebElement radioButtonPgBy = driver.findElement(By.xpath("//input[@name='recipients[" + posizione + "].recipientType' and @value ='PG']"));
+        radioButtonPgBy.click();
     }
 
     public void checkBoxAggiungiDomicilio() {
-        this.checkBoxAggiungiDomicilioDigitale.click();
+        checkBoxAggiungiDomicilioDigitale = driver.findElement(By.xpath("//label[@data-testid='showDigitalDomicile0']"));
+        checkBoxAggiungiDomicilioDigitale.click();
     }
 
     public void insertDomicilioDigitale(String emailPec) {
-        this.domicilioDigitaleTextField.sendKeys(emailPec);
+        domicilioDigitaleTextField = driver.findElement(By.xpath("//input[@id='recipients[0].digitalDomicile']"));
+        domicilioDigitaleTextField.sendKeys(emailPec);
     }
 
     public void insertDomicilioDigitaleErrato(String emailPec) {
-        this.domicilioDigitaleTextField.sendKeys(emailPec);
+        domicilioDigitaleTextField = driver.findElement(By.xpath("//input[@id='recipients[0].digitalDomicile']"));
+        domicilioDigitaleTextField.sendKeys(emailPec);
     }
 
     public void insertRagioneSociale(String ragioneSociale) {
-        this.ragioneSocialeTextField.sendKeys(ragioneSociale);
+        ragioneSocialeTextField = driver.findElement(By.xpath("//input[@id='recipients[0].firstName']"));
+        ragioneSocialeTextField.sendKeys(ragioneSociale);
     }
 
     public void insertPartitaIva(String codiceFiscale) {
-        this.partitaIvaTextField.sendKeys(codiceFiscale);
+        partitaIvaTextField = driver.findElement(By.id("recipients[0].taxId"));
+        partitaIvaTextField.sendKeys(codiceFiscale);
     }
 
     public void clickSuTornaInformazioniPreliminari() {
-        this.informazioniPreliminariButton.click();
+        informazioniPreliminariButton = driver.findElement(By.xpath("//button[@data-testid='previous-step']"));
+        informazioniPreliminariButton.click();
     }
 
     public void clickRadioButtonPersonaGiuridica() {
+        personaGiuridicaRadioButton = driver.findElement(By.xpath("//input[@value='PG']"));
         personaGiuridicaRadioButton.click();
     }
 
     public void insertCodiceFiscaleErrato(String codiceFiscale) {
         logger.info("TA_QA: si inserisci codice fiscale errato");
-        By valoreErratoBy = By.id("recipients[0].taxId");
-        getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(valoreErratoBy));
-        this.driver.findElement(valoreErratoBy).sendKeys(codiceFiscale);
+        WebElement valoreErratoBy = driver.findElement(By.id("recipients[0].taxId"));
+        getWebDriverWait(30).until(ExpectedConditions.visibilityOf(valoreErratoBy));
+        valoreErratoBy.sendKeys(codiceFiscale);
     }
 
     public String getCodiceFiscaleError() {
         logger.info("TA_QA: si legge il messagio di errore del Codice fiscale");
-        By valoreCFErratoBy = By.id("recipients[0].taxId-helper-text");
-        getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(valoreCFErratoBy));
-        return driver.findElement(valoreCFErratoBy).getText();
+        WebElement valoreCFErratoBy = driver.findElement(By.id("recipients[0].taxId-helper-text"));
+        getWebDriverWait(30).until(ExpectedConditions.visibilityOf(valoreCFErratoBy));
+        return valoreCFErratoBy.getText();
     }
 
     public String getDomicilioDigitaleError() {
         logger.info("TA_QA: si legge il messagio di errore del digital domicile");
-        By valoreErratoBy = By.id("recipients[0].digitalDomicile-helper-text");
-        getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(valoreErratoBy));
-        return this.driver.findElement(valoreErratoBy).getText();
+        WebElement valoreErratoBy = driver.findElement(By.id("recipients[0].digitalDomicile-helper-text"));
+        getWebDriverWait(30).until(ExpectedConditions.visibilityOf(valoreErratoBy));
+        return valoreErratoBy.getText();
     }
 
     public boolean verificaNumeroDestinatari() {
         logger.info("TA_QA: si verifica il numero dei destinatari");
+        rimuoviDestinatarioButtons = driver.findElements(By.id("//button[contains(@data-testid,'DeleteRecipientIcon')]"));
         return this.rimuoviDestinatarioButtons.isEmpty();
     }
 
@@ -429,31 +452,27 @@ public class DestinatarioPASection extends BasePage {
 
     public void selezionarePersonaFisicaMultiDestinatario(int numeroDestinatario) {
         logger.info("selezione pf su checkbox del destinatario numero: " + (numeroDestinatario + 1));
-        By personaFisicaCheckBox = By.xpath("//label[@id='recipient-pf' and @data-testid='recipientType" + numeroDestinatario + "']/span");
-        List<WebElement> personaFisicaCheckBoxElement = driver.findElements(personaFisicaCheckBox);
-        this.js().executeScript("arguments[0].scrollIntoView(true);", personaFisicaCheckBoxElement.get(0));
-        getWebDriverWait(10).withMessage("Checkbox di persona fisica non visibile del destinatario numero " + (numeroDestinatario + 1)).until(ExpectedConditions.visibilityOf(personaFisicaCheckBoxElement.get(0)));
-        personaFisicaCheckBoxElement.get(0).click();
+        List<WebElement> personaFisicaCheckBox = driver.findElements(By.xpath("//label[@id='recipient-pf' and @data-testid='recipientType" + numeroDestinatario + "']/span"));
+        js().executeScript("arguments[0].scrollIntoView(true);", personaFisicaCheckBox.get(0));
+        getWebDriverWait(10).withMessage("Checkbox di persona fisica non visibile del destinatario numero " + (numeroDestinatario + 1)).until(ExpectedConditions.visibilityOf(personaFisicaCheckBox.get(0)));
+        personaFisicaCheckBox.get(0).click();
     }
 
     public void inserireNomeMultiDestinatario(int numeroDestinatario, String nomeDestinatario) {
         logger.info("inserimento nome del destinatario numero " + (numeroDestinatario + 1));
-        By nomeDestinatarioTextFieldBy = By.id("recipients[" + numeroDestinatario + "].firstName");
-        WebElement nomeDestinatarioTextField = driver.findElement(nomeDestinatarioTextFieldBy);
-        this.scrollToElementClickAndInsertText(nomeDestinatarioTextField, nomeDestinatario);
+        WebElement nomeDestinatarioTextFieldBy = driver.findElement(By.id("recipients[" + numeroDestinatario + "].firstName"));
+        scrollToElementClickAndInsertText(nomeDestinatarioTextFieldBy, nomeDestinatario);
     }
 
     public void inserireCognomeMultiDestinatario(int numeroDestinatario, String nomeDestinatario) {
         logger.info("inserimento cognome del destinatario numero " + (numeroDestinatario + 1));
-        By cognomeDestinatarioTextFieldBy = By.id("recipients[" + numeroDestinatario + "].lastName");
-        WebElement cognomeDestinatarioTextField = driver.findElement(cognomeDestinatarioTextFieldBy);
-        this.scrollToElementClickAndInsertText(cognomeDestinatarioTextField, nomeDestinatario);
+        WebElement cognomeDestinatarioTextFieldBy = driver.findElement(By.id("recipients[" + numeroDestinatario + "].lastName"));
+        scrollToElementClickAndInsertText(cognomeDestinatarioTextFieldBy, nomeDestinatario);
     }
 
     public void inserireCodiceFiscaleMultiDestinatario(int numeroDestinatario, String codiceFiscale) {
         logger.info("inserimento codice fiscale del destinatario numero " + (numeroDestinatario + 1));
-        By codiceFiscaleDestinatarioTextFieldBy = By.id("recipients[" + numeroDestinatario + "].taxId");
-        WebElement codiceFiscaleDestinatarioTextField = driver.findElement(codiceFiscaleDestinatarioTextFieldBy);
-        this.scrollToElementClickAndInsertText(codiceFiscaleDestinatarioTextField, codiceFiscale);
+        WebElement codiceFiscaleDestinatarioTextFieldBy = driver.findElement(By.id("recipients[" + numeroDestinatario + "].taxId"));
+        scrollToElementClickAndInsertText(codiceFiscaleDestinatarioTextFieldBy, codiceFiscale);
     }
 }

@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,8 +10,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 
 public class SuccessPASection extends BasePage {
@@ -30,6 +29,7 @@ public class SuccessPASection extends BasePage {
 
     public void waitLoadSuccessPASection() {
         try {
+            successCheckBy = driver.findElement(By.id("title-sync-feedback"));
             getWebDriverWait(20).until(ExpectedConditions.visibilityOf(successCheckBy));
             logger.info("TA_QA: La notifica è stata creata con successo, PA section caricata correttamente");
         } catch (TimeoutException e) {
@@ -40,6 +40,7 @@ public class SuccessPASection extends BasePage {
 
     public void vaiAlleNotifiche() {
         logger.info("click pulsante vai alle notifiche");
+        successButton = driver.findElement(By.id("go-to-notifications"));
         successButton.click();
     }
 }

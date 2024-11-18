@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +24,8 @@ public class GeneraApiKeySection extends BasePage {
 
     public void waitLoadGeneraApiKey() {
         try{
-            By generaApiPageTitle = By.id("Genera una API Key-page");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(generaApiPageTitle));
+            WebElement generaApiPageTitle = driver.findElement(By.id("Genera una API Key-page"));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(generaApiPageTitle));
             logger.info("Api Key caricata");
         }catch (TimeoutException e){
             logger.error("Genera Api Key NON caricata con errore : "+e.getMessage());

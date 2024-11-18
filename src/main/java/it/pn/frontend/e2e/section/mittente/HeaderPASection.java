@@ -11,9 +11,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 
 
 public class HeaderPASection extends BasePage {
@@ -23,18 +20,17 @@ public class HeaderPASection extends BasePage {
     @FindBy(xpath = "//button[contains(text(),'Esci')]")
     WebElement esciButton;
 
-    @Autowired
-    @Lazy
     private WebTool webTool;
 
     public HeaderPASection(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void waitLoadHeaderSection() {
         try {
-            By titleLabel = By.cssSelector("a[title='Sito di PagoPA S.p.A.']");
-            this.getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(titleLabel));
+            WebElement titleLabel = driver.findElement(By.cssSelector("a[title='Sito di PagoPA S.p.A.']"));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(titleLabel));
             logger.info("Header PA Section caricata");
         } catch (TimeoutException e) {
             logger.error("Il titolo nel Header: 'Sito di PagoPA S.p.A.' non è caricato con errore : " + e.getMessage());
@@ -46,12 +42,10 @@ public class HeaderPASection extends BasePage {
         try {
             esciButton = driver.findElement(By.xpath("//button[contains(text(),'Esci')]"));
             getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(esciButton));
-            //this.js().executeScript("arguments[0].scrollIntoView(true);", this.esciButton);
             esciButton.click();
         } catch (TimeoutException e) {
             logger.error("Il bottone esci non cliccabile con errore: " + e.getMessage());
             Assertions.fail("Il bottone esci non cliccabile con errore: " + e.getMessage());
         }
-
     }
 }
