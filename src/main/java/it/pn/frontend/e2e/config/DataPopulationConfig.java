@@ -71,7 +71,9 @@ public class DataPopulationConfig {
     @Value("${persona.giuridica_1.emailPec}")
     private String emailPecPg1;
 
-
+    @Getter
+    @Setter
+    private PersoneFisiche personeFisiche;
     @Getter
     @Setter
     private PersonaFisicaPec personaFisicaPec;
@@ -116,23 +118,88 @@ public class DataPopulationConfig {
     private NuovaDelegaErrore nuovaDelegaErrore;
 
 
+
+    @Bean
+    public PersoneFisiche creaPersoneFisiche() {
+        personeFisiche = new PersoneFisiche();
+        PersonaFisica persona1 = new PersonaFisica();
+
+        persona1.setName(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_PF_1.key));
+        persona1.setFamilyName(DataPopulationValue.getDefaultValue(DataPopulationValue.FAMILY_NAME_PF_1.key));
+        persona1.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_PF_1.key));
+        persona1.setFiscalNumber(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_NUMBER_PF_1.key));
+        persona1.setIndirizzo(DataPopulationValue.getDefaultValue(DataPopulationValue.INDIRIZZO_PF_1.key));
+        persona1.setNumeroCivico(DataPopulationValue.getDefaultValue(DataPopulationValue.CIVICO_PF_1.key));
+        persona1.setLocalita(DataPopulationValue.getDefaultValue(DataPopulationValue.LOCALITA_PF_1.key));
+        persona1.setComune(DataPopulationValue.getDefaultValue(DataPopulationValue.COMUNE_PF_1.key));
+        persona1.setProvincia(DataPopulationValue.getDefaultValue(DataPopulationValue.PROVINCIA_PF_1.key));
+        persona1.setCodicePostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CAP_PF_1.key));
+        persona1.setStato(DataPopulationValue.getDefaultValue(DataPopulationValue.STATO_PF_1.key));
+        personeFisiche.aggiungiPersona(persona1);
+
+        PersonaFisica persona2 = new PersonaFisica();
+        persona2.setName(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_PF_2.key));
+        persona2.setFamilyName(DataPopulationValue.getDefaultValue(DataPopulationValue.FAMILY_NAME_PF_2.key));
+        persona2.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_PF_2.key));
+        persona2.setFiscalNumber(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_NUMBER_PF_2.key));
+        persona2.setIndirizzo(DataPopulationValue.getDefaultValue(DataPopulationValue.INDIRIZZO_PF_2.key));
+        persona2.setNumeroCivico(DataPopulationValue.getDefaultValue(DataPopulationValue.CIVICO_PF_2.key));
+        persona2.setLocalita(DataPopulationValue.getDefaultValue(DataPopulationValue.LOCALITA_PF_2.key));
+        persona2.setComune(DataPopulationValue.getDefaultValue(DataPopulationValue.COMUNE_PF_2.key));
+        persona2.setProvincia(DataPopulationValue.getDefaultValue(DataPopulationValue.PROVINCIA_PF_2.key));
+        persona2.setCodicePostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CAP_PF_2.key));
+        persona2.setStato(DataPopulationValue.getDefaultValue(DataPopulationValue.STATO_PF_2.key));
+        personeFisiche.aggiungiPersona(persona2);
+
+        PersonaFisica persona3 = new PersonaFisica();
+        persona3.setName(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_PF_3.key));
+        persona3.setFamilyName(DataPopulationValue.getDefaultValue(DataPopulationValue.FAMILY_NAME_PF_3.key));
+        persona3.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_PF_3.key));
+        persona3.setFiscalNumber(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_NUMBER_PF_3.key));
+        persona3.setIndirizzo(DataPopulationValue.getDefaultValue(DataPopulationValue.INDIRIZZO_PF_3.key));
+        persona3.setNumeroCivico(DataPopulationValue.getDefaultValue(DataPopulationValue.CIVICO_PF_3.key));
+        persona3.setLocalita(DataPopulationValue.getDefaultValue(DataPopulationValue.LOCALITA_PF_3.key));
+        persona3.setComune(DataPopulationValue.getDefaultValue(DataPopulationValue.COMUNE_PF_3.key));
+        persona3.setProvincia(DataPopulationValue.getDefaultValue(DataPopulationValue.PROVINCIA_PF_3.key));
+        persona3.setCodicePostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CAP_PF_3.key));
+        persona3.setStato(DataPopulationValue.getDefaultValue(DataPopulationValue.STATO_PF_3.key));
+        personeFisiche.aggiungiPersona(persona3);
+
+        PersonaFisica persona4 = new PersonaFisica();
+        persona4.setName(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_PF_4.key));
+        persona4.setFamilyName(DataPopulationValue.getDefaultValue(DataPopulationValue.FAMILY_NAME_PF_4.key));
+        persona4.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_PF_4.key));
+        persona4.setFiscalNumber(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_NUMBER_PF_4.key));
+        persona4.setIndirizzo(DataPopulationValue.getDefaultValue(DataPopulationValue.INDIRIZZO_PF_4.key));
+        persona4.setNumeroCivico(DataPopulationValue.getDefaultValue(DataPopulationValue.CIVICO_PF_4.key));
+        persona4.setLocalita(DataPopulationValue.getDefaultValue(DataPopulationValue.LOCALITA_PF_4.key));
+        persona4.setComune(DataPopulationValue.getDefaultValue(DataPopulationValue.COMUNE_PF_4.key));
+        persona4.setProvincia(DataPopulationValue.getDefaultValue(DataPopulationValue.PROVINCIA_PF_4.key));
+        persona4.setCodicePostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CAP_PF_4.key));
+        persona4.setStato(DataPopulationValue.getDefaultValue(DataPopulationValue.STATO_PF_4.key));
+        personeFisiche.aggiungiPersona(persona4);
+
+        return personeFisiche;
+    }
+
+
     //BEAN DATI NOTIFICA PG
     @Bean
     public PersonaFisicaPec personaFisicaPec(){
         personaFisicaPec = new PersonaFisicaPec();
         personaFisicaPec.setName(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_PF_PEC.key));
         personaFisicaPec.setFamilyName(DataPopulationValue.getDefaultValue(DataPopulationValue.FAMILYNAME_PF_PEC.key));
-        personaFisica.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCALCODE_PF_PEC.key));
-        personaFisica.setEmailPec(DataPopulationValue.getDefaultValue(DataPopulationValue.EMAIL_PF_PEC.key));
-        personaFisica.setFiscalNumber(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCALNUMBER_PF_PEC.key));
-        personaFisica.setStato(DataPopulationValue.getDefaultValue(DataPopulationValue.STATO_PF_PEC.key));
+        personaFisicaPec.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCALCODE_PF_PEC.key));
+        personaFisicaPec.setEmailPec(DataPopulationValue.getDefaultValue(DataPopulationValue.EMAIL_PF_PEC.key));
+        personaFisicaPec.setFiscalNumber(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCALNUMBER_PF_PEC.key));
+        personaFisicaPec.setStato(DataPopulationValue.getDefaultValue(DataPopulationValue.STATO_PF_PEC.key));
 
-        personaFisica.setIndirizzo(DataPopulationValue.getDefaultValue(DataPopulationValue.INDIRIZZO_PF_PEC.key));
-        personaFisica.setNumeroCivico(DataPopulationValue.getDefaultValue(DataPopulationValue.NUMEROCIVICO_PF_PEC.key));
-        personaFisica.setLocalita(DataPopulationValue.getDefaultValue(DataPopulationValue.LOCALITA_PF_PEC.key));
-        personaFisica.setComune(DataPopulationValue.getDefaultValue(DataPopulationValue.COMUNE_PF_PEC.key));
-        personaFisica.setProvincia(DataPopulationValue.getDefaultValue(DataPopulationValue.PROVINCIA_PF_PEC.key));
-        personaFisica.setCodicePostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CAP_PF_PEC.key));
+        personaFisicaPec.setIndirizzo(DataPopulationValue.getDefaultValue(DataPopulationValue.INDIRIZZO_PF_PEC.key));
+        personaFisicaPec.setNumeroCivico(DataPopulationValue.getDefaultValue(DataPopulationValue.NUMEROCIVICO_PF_PEC.key));
+        personaFisicaPec.setLocalita(DataPopulationValue.getDefaultValue(DataPopulationValue.LOCALITA_PF_PEC.key));
+        personaFisicaPec.setComune(DataPopulationValue.getDefaultValue(DataPopulationValue.COMUNE_PF_PEC.key));
+        personaFisicaPec.setProvincia(DataPopulationValue.getDefaultValue(DataPopulationValue.PROVINCIA_PF_PEC.key));
+        personaFisicaPec.setCodicePostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CAP_PF_PEC.key));
         return personaFisicaPec;
 
     }

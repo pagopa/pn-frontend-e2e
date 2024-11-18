@@ -136,11 +136,10 @@ public class DeleghePagoPATest {
 //        deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
         String codiceVerifica = this.leTueDelegheSection.salvataggioCodiceVerifica();
+
 //        deleghe.put("codiceDelega", codiceVerifica);
 //        dataPopulation.writeDataPopulation(dpFile + ".yaml", deleghe);
-        SharedSteps sharedSteps = new SharedSteps();
-        sharedSteps.getNuovaDelega().setCodiceDelega(codiceVerifica);
-
+        dataPopulationConfig.getNuovaDelega().setCodiceDelega(codiceVerifica);
 
     }
 
@@ -268,13 +267,7 @@ public class DeleghePagoPATest {
     @And("Si inserisce il codice delega nel pop-up {string}")
     public void siInserisceIlCodiceDelegaNelPopUp(String nomeConfig) {
         //TODO è richiamtao in divese parti del codice il nomeFile passatogli sono:
-        // nomeFileNuovaDelegaPG, nomeFileNuovaDelega, personaFisica, nuova_delega, nuova_delega
-
-        //personafisica non dovrebbe essere usata
-
-        //nuova_delega deve leggere da
-        // SharedSteps sharedSteps = new SharedSteps();
-        //sharedSteps.getNuovaDelegaPg().setCodiceDelega(codiceDelega);
+        // nomeFileNuovaDelegaPG -> nuovaDelegaPG, nomeFileNuovaDelega -> nuova_delega, personaFisica, nuova_delega, nuova_delega
 
         log.info("Si inserisce il codice per accettare la delega");
         this.leTueDelegheSection.waitPopUpLoad();
@@ -645,14 +638,14 @@ public class DeleghePagoPATest {
 
     private String getCodiceDelega(String nomeConfig) {
         String codiceDelega;
-
+//        nomeFileNuovaDelegaPG -> nuovaDelegaPG, nomeFileNuovaDelega -> nuova_delega, personaFisica, nuova_delega, nuova_delega
         switch (nomeConfig) {
             case "nuovaDelegaPG" -> {
                 codiceDelega=dataPopulationConfig.getNuovaDelegaPg().getCodiceDelega();
             }
             case "nuova_delega" -> {
-                //TODO Da modificare dopo la creazione di nuova delega
-                codiceDelega= "";
+                codiceDelega= dataPopulationConfig.getNuovaDelega().getCodiceDelega();
+                log.info("Codice Delega: "+codiceDelega);
             }
             case "personaFisica" -> {
                 //TODO Non viene Utilizzato

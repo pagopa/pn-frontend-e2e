@@ -11,6 +11,7 @@ import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.enums.AppPortal;
+import it.pn.frontend.e2e.model.recipients.PersoneFisiche;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.mittente.AreaRiservataPAPage;
 import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
@@ -681,8 +682,8 @@ public class NotificaMittentePagoPATest {
     @And("^Nella section Destinatario inserire i dati delle persone fisiche aggiuntive per (.*)$")
     public void nellaSectionDestinatarioInserireIDatiDelDestinatariAggiuntiviPerNumeroDestinatari(String npersoneFisiche) {
         logger.info("Si cerca di aggiungere" + npersoneFisiche + " persone Fisiche");
-
-        this.personeFisiche = dataPopulation.readDataPopulation("personeFisiche.yaml");
+        PersoneFisiche personeFisiche=dataPopulationConfig.getPersoneFisiche();
+//        this.personeFisiche = dataPopulation.readDataPopulation("personeFisiche.yaml");
         int nPersoneFisicheInt = 1;
         if (isNumeric(npersoneFisiche)) {
             nPersoneFisicheInt = Integer.parseInt(npersoneFisiche) - 1;
@@ -695,7 +696,7 @@ public class NotificaMittentePagoPATest {
             Assertions.fail("Formato non accettato. Devi inserire un numero da 1 a 5");
         }
 
-        destinatarioPASection.inserimentoMultiDestinatario(this.personeFisiche, nPersoneFisicheInt);
+        destinatarioPASection.inserimentoMultiDestinatario(personeFisiche, nPersoneFisicheInt);
     }
 
     @And("Nella section Destinatario si cerca di aggiungere il sesto destinatario")
@@ -715,8 +716,9 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionDestinatarioSiInserisceLoStessoDestinatarioDiPrima(String dpFile) {
         logger.info("Si inserisce lo stesso destinatario di prima");
 
-        this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        destinatarioPASection.inserimentoMultiDestinatario(personaFisica, 1);
+//        this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        PersoneFisiche personeFisiche=dataPopulationConfig.getPersoneFisiche();
+        destinatarioPASection.inserimentoMultiDestinatario(personeFisiche, 1);
     }
 
     @Then("Si visualizza correttamente l errore di stesso codice fiscale")

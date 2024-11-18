@@ -15,7 +15,7 @@ public class PersonaFisicaPec {
     private String localita;
     private String comune;
     private String provincia;
-    private String codicepostale;
+    private String codicePostale;
     private String stato;
 
 

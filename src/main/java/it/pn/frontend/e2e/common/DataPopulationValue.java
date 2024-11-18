@@ -12,14 +12,63 @@ import java.util.Random;
 
 public enum DataPopulationValue {
 
+    NAME_PF_1("name_pf_1","Giovanna",false),
+    FAMILY_NAME_PF_1("family_name_pf_1","D'arco",false),
+    CODICE_FISCALE_PF_1("codiceFiscale_pf_1","DRCGNN12A46A326K",false),
+    FISCAL_NUMBER_PF_1("fiscal_number_pf_1","TINIT-DRCGNN12A46A326K",false),
+    INDIRIZZO_PF_1("indirizzo_pf_1","VIA VERDI",false),
+    CIVICO_PF_1("numeroCivico_pf_1","10",false),
+    LOCALITA_PF_1("localita_pf_1","MILANO",false),
+    COMUNE_PF_1("comune_pf_1","MILANO",false),
+    PROVINCIA_PF_1("provincia_pf_1","MI",false),
+    CAP_PF_1("codicepostale_pf_1","20122",false),
+    STATO_PF_1("stato_pf_1","ITALIA",false),
+
+//PERSONA FISICA 2
+
+    NAME_PF_2("name_pf_2","Ada",false),
+    FAMILY_NAME_PF_2("family_name_pf_2","Lovelace",false),
+    CODICE_FISCALE_PF_2("codiceFiscale_pf_2","LVLDAA85T50G702B",false),
+    FISCAL_NUMBER_PF_2("fiscal_number_pf_2","TINIT-LVLDAA85T50G702B",false),
+    INDIRIZZO_PF_2("indirizzo_pf_2","VIA TORINO",false),
+    CIVICO_PF_2("numeroCivico_pf_2","15",false),
+    LOCALITA_PF_2("localita_pf_2","CINISELLO BALSAMO",false),
+    COMUNE_PF_2("comune_pf_2","CINISELLO BALSAMO",false),
+    PROVINCIA_PF_2("provincia_pf_2","MI",false),
+    CAP_PF_2("codicepostale_pf_2","20092",false),
+    STATO_PF_2("stato_pf_2","ITALIA",false),
+
+    //PERSONA FISICA 3
+    NAME_PF_3("name_pf_3","Lucrezia",false),
+    FAMILY_NAME_PF_3("family_name_pf_3","Borgia",false),
+    CODICE_FISCALE_PF_3("codiceFiscale_pf_3","BRGLRZ80D58H501Q",false),
+    FISCAL_NUMBER_PF_3("fiscal_number_pf_3","TINIT-BRGLRZ80D58H501Q",false),
+    INDIRIZZO_PF_3("indirizzo_pf_3","VIA MEDA",false),
+    CIVICO_PF_3("numeroCivico_pf_3","9",false),
+    LOCALITA_PF_3("localita_pf_3","SEREGNO",false),
+    COMUNE_PF_3("comune_pf_3","SEREGNO",false),
+    PROVINCIA_PF_3("provincia_pf_3","MB",false),
+    CAP_PF_3("codicepostale_pf_3","20831",false),
+    STATO_PF_3("stato_pf_3","ITALIA",false),
+
+
+    //PERSONA FISICA 4
+    NAME_PF_4("name_pf_4","Cleopatra Tea",false),
+    FAMILY_NAME_PF_4("family_name_pf_4","Filopatore",false),
+    CODICE_FISCALE_PF_4("codiceFiscale_pf_4","FLPCPT69A65Z336P",false),
+    FISCAL_NUMBER_PF_4("fiscal_number_pf_4","TINIT-FLPCPT69A65Z336P",false),
+    INDIRIZZO_PF_4("indirizzo_pf_4","VIA EUROPA",false),
+    CIVICO_PF_4("numeroCivico_pf_4","6",false),
+    LOCALITA_PF_4("localita_pf_4","TORINO",false),
+    COMUNE_PF_4("comune_pf_4","TORINO",false),
+    PROVINCIA_PF_4("provincia_pf_4","TO",false),
+    CAP_PF_4("codicepostale_pf_4","10024",false),
+    STATO_PF_4("stato_pf_4","ITALIA",false),
+
+
     //DATA NOTIFICA PG
     OGGETTO_DELLA_NOTIFICA("oggettoDellaNotifica","Pagamento rata IMU",true),
     CODICE_IUN("codiceIUN","EGNM-DPAR-VTLR-202401-T-1",false),
-
-
-    //DATA NOTIFICA ERRORE
-    SUBJECT_ERR("oggettoDellaNotifica_err","IMU",false),
-    CODE_TASS_ERR("codiceTassonometrico_err","Pagamento rata IMU",false),
 
     //DELEGATO PF NOTIFICA
     URL_DELEGATO_PF("url_delegato_pf","https://cittadini.dev.notifichedigitali.it/",false),
@@ -171,8 +220,14 @@ public enum DataPopulationValue {
     CAP_PF_PEC("cap_pf_pec","20147",false),
     STATO_PF_PEC("stato_pf_pec","ITALIA",false),
 
+    //DATA NOTIFICA
+    NUMERO_PROTOCOLLO_DN("numeroProtocollo","TA-FFSMRC-20241104-3015",false),
+    OGGETTO_DELLA_NOTIFICA_DN("oggettoDellaNotifica","IMU",false),
+    CODE_TASS_DN("codiceTassonometrico_err","123456",false),
 
-
+    //DATA NOTIFICA ERRORE
+    OGGETTO_DELLA_NOTIFICA_ERRORE("oggettoDellaNotifica_err","IMU",false),
+    CODE_TASS_ERRORE("codiceTassonometrico_err","123456",false),
 
 
 
