@@ -32,7 +32,6 @@ public class HelperClass {
     public static void setUpDriver() {
 
         if (helperClass == null) {
-
             helperClass = new HelperClass();
         }
     }
@@ -43,7 +42,6 @@ public class HelperClass {
             driver.close();
             driver.quit();
         }
-
         helperClass = null;
     }
 

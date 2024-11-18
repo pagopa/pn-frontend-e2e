@@ -58,6 +58,6 @@ public class CookiesSection extends BasePage {
             getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(chiudiPagamentoPopupButton));
             logger.info("Si seleziona chiudi i cookies");
             Actions actions = new Actions(driver);
-            actions.moveToElement(this.chiudiPagamentoPopupButton).click().perform();
+            actions.moveToElement(chiudiPagamentoPopupButton).click().perform();
     }
 }
