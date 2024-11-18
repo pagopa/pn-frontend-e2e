@@ -10,15 +10,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 
 public class HeaderPGSection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger(HeaderPGSection.class);
-
-
 
 
     @FindBy(xpath = "//button[@title = 'Esci']")
@@ -30,10 +26,10 @@ public class HeaderPGSection extends BasePage {
 
     public void waitLoadHeaderPGPage() {
         try {
-            By titlePageBy = By.xpath("//a[@title = 'Sito di PagoPA S.p.A.']");
-            By esciButtonBy = By.xpath("//button[@title = 'Esci']");
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(esciButtonBy));
+            WebElement titlePageBy = driver.findElement(By.xpath("//a[@title = 'Sito di PagoPA S.p.A.']"));
+            WebElement esciButtonBy = driver.findElement(By.xpath("//button[@title = 'Esci']"));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(titlePageBy));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(esciButtonBy));
             logger.info("HeaderSectionPG caricata correttamente");
         } catch (TimeoutException e) {
             logger.error("HeaderSectionPG non caricata correttamente con errore: " + e.getMessage());
@@ -42,6 +38,7 @@ public class HeaderPGSection extends BasePage {
     }
 
     public void clickEsciButton() {
-        this.esciButton.click();
+        esciButton = driver.findElement(By.xpath("//button[@title = 'Esci']"));
+        esciButton.click();
     }
 }
