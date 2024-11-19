@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 public class LoginPGPagoPATest {
 
     private final Logger logger = LoggerFactory.getLogger(LoginPGPagoPATest.class);
-    private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
+//    private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
     private Map<String, String> urlPersonaGiuridica;
 
     @Autowired
@@ -137,6 +137,8 @@ public class LoginPGPagoPATest {
 
     @When("Login portale persona giuridica tramite request method")
     public void loginPortalePersonaGiuridicaTramiteRequestMethod() {
+        //TODO ATTUALMENTE NON VIENE UTILIZZATA
+        //personaGiuridica
        // this.datiPersonaGiuridica = dataPopulation.readDataPopulation("personaGiuridica.yaml");
         String userMittente = webDriverConfig.getUserDante();
         String pwdMittente = webDriverConfig.getPwdDante();
@@ -175,7 +177,7 @@ public class LoginPGPagoPATest {
         }
 
 
-        selezionaImpresaPage.clickSuImpresa(this.datiPersonaGiuridica.get("ragioneSociale").toString());
+        selezionaImpresaPage.clickSuImpresa(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
         selezionaImpresaPage.clickAccediButton();
     }
 
@@ -299,7 +301,9 @@ public class LoginPGPagoPATest {
 
     @When("Login {string} portale persona giuridica tramite request method")
     public void loginPortalePersonaGiuridicaTramiteRequestMethod(String dpFile) {
-        this.datiPersonaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        //TODO ATTUALMENTE NON VIENE UTILIZZATA
+        //personaGiuridica
+//        this.datiPersonaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String userMittente = webDriverConfig.getUserDante();
         String pwdMittente = webDriverConfig.getPwdDante();
         this.readUrlPortaleMittente(userMittente, pwdMittente);
@@ -338,7 +342,7 @@ public class LoginPGPagoPATest {
         }
 
 
-        selezionaImpresaPage.clickSuImpresa(this.datiPersonaGiuridica.get("ragioneSociale").toString());
+        selezionaImpresaPage.clickSuImpresa(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
         selezionaImpresaPage.clickAccediButton();
     }
 

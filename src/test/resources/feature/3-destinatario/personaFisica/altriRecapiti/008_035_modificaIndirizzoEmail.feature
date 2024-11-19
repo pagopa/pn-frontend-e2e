@@ -17,10 +17,10 @@ Feature: la persona fisica modifica l'indirizzo Email
     Then Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio email errata
     And Nella pagina I Tuoi Recapiti si inserisce un email maggiore di 255 caratteri
     Then Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio email errata
-    And Nella pagina I Tuoi Recapiti si inserisce la nuova Email del PF "personaFisica" e clicca su salva
+    And Nella pagina I Tuoi Recapiti si inserisce la nuova Email del PF e clicca su salva
     And Si visualizza correttamente il pop-up e si clicca su conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera l'OTP della nuova Email tramite request method "personaFisica"
-    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email "personaFisica"
+    And Nella pagina I Tuoi Recapiti si recupera l'OTP della nuova Email tramite request method
+    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
     Then Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata
     And Logout da portale persona fisica

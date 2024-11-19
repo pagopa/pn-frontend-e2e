@@ -53,9 +53,9 @@ public class NotificaMittentePagoPATest {
     private final String PA = "pubblica amministrazione";
     private Map<String, Object> datiNotifica_1 = new HashMap<>();
     private Map<String, String> datiNotificaMap = new HashMap<>();
-    private Map<String, Object> personaFisica = new HashMap<>();
-    private Map<String, Object> personaGiuridica = new HashMap<>();
-    private Map<String, Object> personeFisiche = new HashMap<>();
+//    private Map<String, Object> personaFisica = new HashMap<>();
+//    private Map<String, Object> personaGiuridica = new HashMap<>();
+//    private Map<String, Object> personeFisiche = new HashMap<>();
     @Getter @Setter
     private String Iun;
     @Getter  @Setter
@@ -214,15 +214,15 @@ public class NotificaMittentePagoPATest {
         informazioniPreliminariPASection.waitLoadInformazioniPreliminariPASection();
     }
 
-    @And("Nella section Informazioni preliminari inserire i dati della notifica {string} senza pagamento")
-    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento(String datiNotificaFile) {
-        logger.info("Inserimento dei dati della notifica senza pagamento dal file " + datiNotificaFile + ".yaml");
+    @And("Nella section Informazioni preliminari inserire i dati della notifica senza pagamento")
+    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento() {
+        logger.info("Inserimento dei dati della notifica senza pagamento" );
+        //datiNotifica
         aggiornamentoNumeroProtocollo();
-//        this.datiNotifica = dataPopulation.readDataPopulation(datiNotificaFile + ".yaml");
         String gruppo = "";
         switch (webDriverConfig.getEnvironment()) {
-//            case "dev" -> gruppo = datiNotifica.get("gruppoDev").toString();
-//            case "test", "uat" -> gruppo = datiNotifica.get("gruppoTest").toString();
+            // case "dev" -> gruppo = datiNotifica.get("gruppoDev").toString();
+            // case "test", "uat" -> gruppo = datiNotifica.get("gruppoTest").toString();
             case "dev" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoDev();
             case "test", "uat" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoTest();
         }
@@ -297,20 +297,15 @@ public class NotificaMittentePagoPATest {
     @And("Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica {string}")
     public void nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDelDestinatario(String personaFisicaFile) {
         logger.info("Inserimento dei dati mancanti nella section destinatario");
-
         headerPASection.waitLoadHeaderSection();
-
-        this.personeFisiche = dataPopulation.readDataPopulation(personaFisicaFile + ".yaml");
+        //personaFisicaPec
+        //personaFisica
 
         destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
-        destinatarioPASection.inserireIndirizzo(this.personeFisiche.get("indirizzo").toString());
-        destinatarioPASection.inserireNumeroCivico(this.personeFisiche.get("numeroCivico").toString());
-        destinatarioPASection.inserireLocalita(this.personeFisiche.get("localita").toString());
-        destinatarioPASection.inserireComune(this.personeFisiche.get("comune").toString());
-        destinatarioPASection.inserireProvincia(this.personeFisiche.get("provincia").toString());
-        destinatarioPASection.inserireCodicePostale(this.personeFisiche.get("codicepostale").toString());
-        destinatarioPASection.inserireStato(this.personeFisiche.get("stato").toString());
+        populateDestinatarioPASection(personaFisicaFile);
     }
+
+
 
     @And("Nella section Destinatario settare come CAP {string}")
     public void nellaSectionDestinatarioSettareComeCAP(String cap) {
@@ -868,40 +863,40 @@ public class NotificaMittentePagoPATest {
         piattaformaNotifichePage.clickSuEsci();
     }
 
-    @And("Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica {string}")
-    public void nellaSectionDestinatarioInserireRagioneSocialeEPartitaIVADallaPersonaGiuridica(String personaGiuridica) {
+    @And("Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica")
+    public void nellaSectionDestinatarioInserireRagioneSocialeEPartitaIVADallaPersonaGiuridica() {
         logger.info("Si inserisce la ragione sociale e la partita iva della persona giuridica");
+        //personaGiuridica
+//        this.personaGiuridica = dataPopulation.readDataPopulation(personaGiuridica + ".yaml");
 
-        this.personaGiuridica = dataPopulation.readDataPopulation(personaGiuridica + ".yaml");
-
-        destinatarioPASection.insertRagioneSociale(this.personaGiuridica.get("ragioneSociale").toString());
-        destinatarioPASection.insertPartitaIva(this.personaGiuridica.get("codiceFiscale").toString());
+        destinatarioPASection.insertRagioneSociale(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
+        destinatarioPASection.insertPartitaIva(dataPopulationConfig.getPersonaGiuridica().getCodiceFiscale());
     }
 
-    @And("Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona giuridica {string}")
-    public void nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaGiuridica(String personaGiuridica) {
+    @And("Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona giuridica")
+    public void nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaGiuridica() {
         logger.info("Si inserisce un domicilio digitale della persona giuridica");
-
-        this.personaGiuridica = dataPopulation.readDataPopulation(personaGiuridica + ".yaml");
+        //personaGiuridica
+//        this.personaGiuridica = dataPopulation.readDataPopulation(personaGiuridica + ".yaml");
 
         destinatarioPASection.checkBoxAggiungiDomicilio();
-        destinatarioPASection.insertDomicilioDigitale(this.personaGiuridica.get("emailPec").toString());
+        destinatarioPASection.insertDomicilioDigitale(dataPopulationConfig.getPersonaGiuridica().getEmailPec());
     }
 
-    @And("Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica {string}")
-    public void nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDellaPersonaGiuridica(String dpFile) {
+    @And("Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica")
+    public void nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDellaPersonaGiuridica() {
         logger.info("Si inseriscono i dati personali della persona giuridica");
-
-        this.personaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        //personaGiuridica
+//        this.personaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
         destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
-        destinatarioPASection.inserireIndirizzo(this.personaGiuridica.get("indirizzo").toString());
-        destinatarioPASection.inserireNumeroCivico(this.personaGiuridica.get("numeroCivico").toString());
-        destinatarioPASection.inserireLocalita(this.personaGiuridica.get("localita").toString());
-        destinatarioPASection.inserireComune(this.personaGiuridica.get("comune").toString());
-        destinatarioPASection.inserireProvincia(this.personaGiuridica.get("provincia").toString());
-        destinatarioPASection.inserireCodicePostale(this.personaGiuridica.get("codicepostale").toString());
-        destinatarioPASection.inserireStato(this.personaGiuridica.get("stato").toString());
+        destinatarioPASection.inserireIndirizzo(dataPopulationConfig.getPersonaGiuridica().getIndirizzo());
+        destinatarioPASection.inserireNumeroCivico(dataPopulationConfig.getPersonaGiuridica().getNumeroCivico());
+        destinatarioPASection.inserireLocalita(dataPopulationConfig.getPersonaGiuridica().getLocalita());
+        destinatarioPASection.inserireComune(dataPopulationConfig.getPersonaGiuridica().getComune());
+        destinatarioPASection.inserireProvincia(dataPopulationConfig.getPersonaGiuridica().getProvincia());
+        destinatarioPASection.inserireCodicePostale(dataPopulationConfig.getPersonaGiuridica().getCodicePostale());
+        destinatarioPASection.inserireStato(dataPopulationConfig.getPersonaGiuridica().getStato());
 
     }
 
@@ -980,14 +975,14 @@ public class NotificaMittentePagoPATest {
     @And("Verifica dello stato della notifica persona giuridica come depositata {string}")
     public void verificaDelloStatoDellaNotificaPersonaGiuridicaComeDepositata(String statoNotifica) {
         logger.info("Verifica dello stato della notifica come 'Depositata'");
-
+        //TODO ATTUALMENTE non utilizzata
 //        this.datiNotifica = dataPopulation.readDataPopulation("datiNotificaPG.yaml");
-        this.personaFisica = dataPopulation.readDataPopulation("personaGiuridica.yaml");
+//        this.personaFisica = dataPopulation.readDataPopulation("personaGiuridica.yaml");
 
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
         String dataNotifica = dateFormat.format(date).replace("-", "/");
-        String codiceFiscale = this.personaFisica.get("codiceFiscale").toString();
+        String codiceFiscale = dataPopulationConfig.getPersonaFisica().getCodiceFiscale();
 
         String codiceIUNOld = dataPopulationConfig.getDatiNotificaPg().getCodiceIUN();
         String codiceIUN = "";
@@ -1615,14 +1610,13 @@ public class NotificaMittentePagoPATest {
         return null;
     }
 
-    @And("Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica {string}")
-    public void nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaFisica(String dpFile) {
+    @And("Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica")
+    public void nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaFisica() {
         logger.info("Si inserisce un domicilio digitale della persona giuridica");
-
-        this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
+        //"personaFisica"
+//        this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         destinatarioPASection.checkBoxAggiungiDomicilio();
-        destinatarioPASection.insertDomicilioDigitale(this.personaFisica.get("emailPecErrore").toString());
+        destinatarioPASection.insertDomicilioDigitale(dataPopulationConfig.getPersonaFisica().getEmailPecErrore());
     }
 
     @And("Nella pagina Piattaforma Notifiche si recupera un codice IUN valido")
@@ -1861,6 +1855,29 @@ public class NotificaMittentePagoPATest {
             }
         }
 
+
+
+    }
+
+    private void populateDestinatarioPASection(String persona) {
+        if(persona.equalsIgnoreCase("personaFisicaPec")){
+            destinatarioPASection.inserireIndirizzo(dataPopulationConfig.getPersonaFisicaPec().getIndirizzo());
+            destinatarioPASection.inserireNumeroCivico(dataPopulationConfig.getPersonaFisicaPec().getNumeroCivico());
+            destinatarioPASection.inserireLocalita(dataPopulationConfig.getPersonaFisicaPec().getLocalita());
+            destinatarioPASection.inserireComune(dataPopulationConfig.getPersonaFisicaPec().getComune());
+            destinatarioPASection.inserireProvincia(dataPopulationConfig.getPersonaFisicaPec().getProvincia());
+            destinatarioPASection.inserireCodicePostale(dataPopulationConfig.getPersonaFisicaPec().getCodicePostale());
+            destinatarioPASection.inserireStato(dataPopulationConfig.getPersonaFisicaPec().getStato());
+        }
+        else {
+            destinatarioPASection.inserireIndirizzo(dataPopulationConfig.getPersonaFisica().getIndirizzo());
+            destinatarioPASection.inserireNumeroCivico(dataPopulationConfig.getPersonaFisica().getNumeroCivico());
+            destinatarioPASection.inserireLocalita(dataPopulationConfig.getPersonaFisica().getLocalita());
+            destinatarioPASection.inserireComune(dataPopulationConfig.getPersonaFisica().getComune());
+            destinatarioPASection.inserireProvincia(dataPopulationConfig.getPersonaFisica().getProvincia());
+            destinatarioPASection.inserireCodicePostale(dataPopulationConfig.getPersonaFisica().getCodicePostale());
+            destinatarioPASection.inserireStato(dataPopulationConfig.getPersonaFisica().getStato());
+        }
     }
 
 

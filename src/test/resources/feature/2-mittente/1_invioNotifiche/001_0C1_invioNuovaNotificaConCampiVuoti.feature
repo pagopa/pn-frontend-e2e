@@ -9,7 +9,7 @@ Feature: Il mittente inserisce i dati di una nuova notifica, dopo l'inserzione d
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
-    And Nella section Informazioni preliminari inserire i dati della notifica "datiNotifica" senza pagamento
+    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
     And Nella section cliccare sul tasto indietro
     And Nella section si visualizza il popup vuoi uscire
     And Nella section cliccare sul tasto esci

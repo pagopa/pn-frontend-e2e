@@ -76,7 +76,7 @@ public class LoginPersonaFisicaPagoPA {
 
     @Given("Login Page persona fisica {string} viene visualizzata")
     public void loginPageDestinatarioVieneVisualizzata(String datipersonaFisica) {
-        //TODO Parametrizzzare..........eliminare la gestione file yaml..
+        //TODO Parametrizzzare..........eliminare la gestione file yaml.. ATTUAMENTE NON UTILIZZATO
         this.datiPersonaFisica = dataPopulation.readDataPopulation(datipersonaFisica + ".yaml");
        // String variabileAmbiente = System.getProperty("environment");
         String variabileAmbiente = webDriverConfig.getEnvironment();
@@ -130,6 +130,7 @@ public class LoginPersonaFisicaPagoPA {
 
     @When("Login con persona fisica {string}")
     public void loginConDestinatario(String datipersonaFisica) {
+        //TODO ATTUALMENTE NON UTILIZZATO
         logger.info("user persona fisica : " + webDriverConfig.getUserCesare());
         this.datiPersonaFisica = dataPopulation.readDataPopulation(datipersonaFisica + ".yaml");
 

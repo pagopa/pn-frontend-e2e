@@ -31,8 +31,8 @@ public class RicercaNotificheMittentePagoPATest {
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittenteTest");
 
 
-    private Map<String, Object> personaFisica = new HashMap<>();
-    private Map<String, Object> datiNotifica = new HashMap<>();
+//    private Map<String, Object> personaFisica = new HashMap<>();
+//    private Map<String, Object> datiNotifica = new HashMap<>();
     private boolean dataFineErrata;
 
     @Autowired
@@ -54,14 +54,13 @@ public class RicercaNotificheMittentePagoPATest {
     @Autowired
     DataPopulation dataPopulation;
 
-    @And("Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica {string}")
-    public void inserireCodiceFiscale(String dpFile) {
+    @And("Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica")
+    public void inserireCodiceFiscale() {
         logger.info("Avvio ricerca tramite codice fiscale");
-
-        this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
-        String cf = destinatarioPASection.ricercaInformazione(personaFisica.get("codiceFiscale").toString().split(","), 0);
-
+        //personaFisica
+//        this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+//        String cf = destinatarioPASection.ricercaInformazione(personaFisica.get("codiceFiscale").toString().split(","), 0);
+        String cf = destinatarioPASection.ricercaInformazione(dataPopulationConfig.getPersonaFisica().getCodiceFiscale().split(","), 0);
         piattaformaNotifichePage.insertCodiceFiscale(cf);
 
     }
@@ -152,11 +151,13 @@ public class RicercaNotificheMittentePagoPATest {
         }
     }
 
-    @And("Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica {string}")
-    public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotifica(String dpDatiNotifica) {
+    @And("Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica")
+    public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotifica() {
         logger.info("Si inserisce il codice IUN");
-        this.datiNotifica = dataPopulation.readDataPopulation(dpDatiNotifica + ".yaml");
-        piattaformaNotifichePage.inserimentoCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
+        //"datiNotifica"
+//        this.datiNotifica = dataPopulation.readDataPopulation(dpDatiNotifica + ".yaml");
+//        piattaformaNotifichePage.inserimentoCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
+        piattaformaNotifichePage.inserimentoCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
     }
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice IUN della notifica")

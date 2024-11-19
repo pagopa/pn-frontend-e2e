@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
@@ -39,6 +40,8 @@ public class RecapitiPGPagoPaTest {
     @Autowired
     @Lazy
     private  WebTool webTool;
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
 
 
     @And("Si visualizza correttamente la pagina Recapiti persona giuridica")
@@ -48,12 +51,12 @@ public class RecapitiPGPagoPaTest {
         recapitiPGPage.waitLoadRecapitiPage();
     }
 
-    @And("Nella pagina Recapiti si inserisce la PEC del persona giuridica {string}")
-    public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelPersonaGiuridica(String personaGiuridica) {
+    @And("Nella pagina Recapiti si inserisce la PEC del persona giuridica")
+    public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelPersonaGiuridica() {
         logger.info("Si cerca di inserire la email pec");
-
-        Map<String, Object> datiPG = dataPopulation.readDataPopulation(personaGiuridica+".yaml");
-        recapitiDestinatarioPage.insertEmailPEC(datiPG.get("emailPec").toString());
+        //TODO ATTUALMENTE NON VIENE UTILIZZATA
+//        Map<String, Object> datiPG = dataPopulation.readDataPopulation(personaGiuridica+".yaml");
+        recapitiDestinatarioPage.insertEmailPEC(dataPopulationConfig.getPersonaGiuridica().getEmailPec());
     }
 
 
@@ -71,21 +74,21 @@ public class RecapitiPGPagoPaTest {
         recapitiDestinatarioPage.getPecErrorMessage();
     }
 
-    @And("Nella pagina I Tuoi Recapiti si inserisce l'email del PG {string} e clicca sul bottone avvisami via email")
-    public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPGECliccaSulBottoneAvvisamiViaEmail(String personaGiuridica) {
+    @And("Nella pagina I Tuoi Recapiti si inserisce l'email del PG e clicca sul bottone avvisami via email")
+    public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPGECliccaSulBottoneAvvisamiViaEmail() {
         logger.info("Si inserisce l'email del PG e si clicca sul bottone avvisami via email");
-
-        Map<String, Object> datiPG = dataPopulation.readDataPopulation(personaGiuridica+".yaml");
-        recapitiDestinatarioPage.insertEmail(datiPG.get("emailPec").toString());
+        //TODO ATTUALMENTE NON VIENE UTILIZZATA
+//        Map<String, Object> datiPG = dataPopulation.readDataPopulation(personaGiuridica+".yaml");
+        recapitiDestinatarioPage.insertEmail(dataPopulationConfig.getPersonaGiuridica().getEmailPec());
         recapitiDestinatarioPage.clickAvvisami();
     }
 
-    @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono del PG {string} e clicca sul bottone avvisami via SMS")
-    public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoDelPGECliccaSulBottoneAvvisamiViaSMS(String personaGiuridica) {
+    @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono del PG e clicca sul bottone avvisami via SMS")
+    public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoDelPGECliccaSulBottoneAvvisamiViaSMS() {
         logger.info("Si inserisce l'email del PG e clicca sul bottone avvisami via numero telefonico");
-
-        Map<String, Object> datiPG = dataPopulation.readDataPopulation(personaGiuridica+".yaml");
-        recapitiDestinatarioPage.insertPhone(datiPG.get("cellulare").toString());
+        //personaGiuridica
+//        Map<String, Object> datiPG = dataPopulation.readDataPopulation(personaGiuridica+".yaml");
+        recapitiDestinatarioPage.insertPhone(dataPopulationConfig.getPersonaGiuridica().getCellulare());
         recapitiDestinatarioPage.clickAvvisamiSMS();
     }
 

@@ -24,7 +24,7 @@ public enum DataPopulationValue {
     CAP_PF_1("codicepostale_pf_1","20122",false),
     STATO_PF_1("stato_pf_1","ITALIA",false),
 
-//PERSONA FISICA 2
+    //PERSONA FISICA 2
 
     NAME_PF_2("name_pf_2","Ada",false),
     FAMILY_NAME_PF_2("family_name_pf_2","Lovelace",false),
@@ -133,7 +133,6 @@ public enum DataPopulationValue {
     STATE_DELEGATO_PF("stato_delegato_pf","ITALIA",false),
     VERIFICATION_CODE_DELEGATO_PF("verification_code_delegato_pf","12345",false),
 
-
     //DELEGATO PG NOTIFICA
     URL_DELEGATO_PG("url_delegato_pg","https://imprese.dev.notifichedigitali.it/",false),
     USER_DELEGATO_PG("user_delegato_pg","FrancescoPetrarca",false),
@@ -208,7 +207,6 @@ public enum DataPopulationValue {
     OTP_PEC_PF("OTPpec_pf","45903",false),
     OTP_MAIL_PF("OTPmail_pf","10377",false),
 
-
     //PERSONA GIURIDICA
     USER_PG("user_pg","DanteAlighieri",false),
     PWD_PG("pwd_pg","test",false),
@@ -255,7 +253,6 @@ public enum DataPopulationValue {
     CODICE_FISCALE_PG_ERRORE("codice_fiscale_pg_errore", "CCRMC06A03A433H",false),
     EMAIL_PEC_PG_ERRORE("email_pec_pg_errore", "provatest2.spqe",false),
 
-
     //PERSONA FISICA PEC
     EMAIL_PF_PEC("email_pf_pec","testpagopa2@pnpagopa.postecert.local",false),
     NAME_PF_PEC("name_pf_pec","Galileo",false),
@@ -284,6 +281,15 @@ public enum DataPopulationValue {
     OGGETTO_DELLA_NOTIFICA_ERRORE("oggetto_della_notifica_err","IMU",false),
     CODICE_TASSONOMETRICO_ERRORE("codiceTassonometrico_err","123456",false),
 
+    //TEST HELPDESK
+    URL_TH( "url_th","https://helpdesk.dev.notifichedigitali.it/login",false),
+    USER_DEV_TH( "userdev_th","test@test.com",false),
+    PWD_DEV_TH( "pwd_dev_th","Test_Cognito_1.!",false),
+    USER_UAT_TH( "user_uat_th","admin@uat.pagopa.it",false),
+    PWD_UAT_TH( "pwd_uat_th","Admin-uatcognito1",false),
+    USER_TEST_TH ( "user_test_th","admin@test.pagopa.it",false),
+    PWD_TEST_TH( "pwd_test_th","Admin-testcognito1",false),
+    CFPF_TH ( "cfpf_th","CLMCST42R12D969Z",false),
 
 
 

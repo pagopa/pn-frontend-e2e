@@ -125,6 +125,9 @@ public class DataPopulationConfig {
     @Getter
     @Setter
     private DatiNotificaErrore datiNotificaErrore;
+    @Getter
+    @Setter
+    private TestHelpdesk testHelpdesk ;
 
     @Bean
     public PersoneGiuridiche personeGiuridiche() {
@@ -495,6 +498,19 @@ public class DataPopulationConfig {
     }
 
 
+    @Bean
+    public TestHelpdesk testHelpdesk(){
+        testHelpdesk = new TestHelpdesk();
+        testHelpdesk.setUrl(DataPopulationValue.getDefaultValue(DataPopulationValue.URL_TH.key));
+        testHelpdesk.setUserDev(DataPopulationValue.getDefaultValue(DataPopulationValue.USER_DEV_TH.key));
+        testHelpdesk.setPwdDev(DataPopulationValue.getDefaultValue(DataPopulationValue.PWD_DEV_TH.key));
+        testHelpdesk.setUserUat(DataPopulationValue.getDefaultValue(DataPopulationValue.USER_UAT_TH.key));
+        testHelpdesk.setPwdUat(DataPopulationValue.getDefaultValue(DataPopulationValue.PWD_UAT_TH.key));
+        testHelpdesk.setUserTest(DataPopulationValue.getDefaultValue(DataPopulationValue.USER_TEST_TH.key));
+        testHelpdesk.setPwdTest(DataPopulationValue.getDefaultValue(DataPopulationValue.PWD_TEST_TH.key));
+        testHelpdesk.setCfPf(DataPopulationValue.getDefaultValue(DataPopulationValue.CFPF_TH.key));
+        return testHelpdesk;
+    }
 
 
 

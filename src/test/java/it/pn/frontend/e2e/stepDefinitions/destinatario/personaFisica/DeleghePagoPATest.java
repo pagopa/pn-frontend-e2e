@@ -73,7 +73,7 @@ public class DeleghePagoPATest {
     private DataPopulationConfig dataPopulationConfig;
 
 
-    Map<String, Object> deleghe = new HashMap<>();
+//    Map<String, Object> deleghe = new HashMap<>();
     @Setter
     private String codiceVerifica;
 
@@ -386,8 +386,9 @@ public class DeleghePagoPATest {
     @And("Si controlla che la delega ha lo stato Attiva {string}")
     public void siControllaCheLaDelegaHaLoStatoAttiva(String dpFile) {
         log.info("Si controlla che la delega abbia lo stato Attiva");
-        deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        leTueDelegheSection.controlloStatoAttiva(deleghe.get("name").toString(), deleghe.get("familyName").toString());
+//        deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
+//        leTueDelegheSection.controlloStatoAttiva(deleghe.get("name").toString(), deleghe.get("familyName").toString());
+        leTueDelegheSection.controlloStatoAttiva(dataPopulationConfig.getPersonaFisica().getName(), dataPopulationConfig.getPersonaFisica().getFamilyName());
     }
 
     @And("Si controlla che la delega ha lo stato Attiva")
@@ -396,11 +397,15 @@ public class DeleghePagoPATest {
         leTueDelegheSection.controlloStatoAttiva(data.get("firstName"), data.get("lastName"));
     }
 
-    @And("Si controlla che la delega è ancora presente {string}")
-    public void siControllaCheLaDelegaèAncoraPresente(String dpFile) {
+    @And("Si controlla che la delega è ancora presente")
+    public void siControllaCheLaDelegaèAncoraPresente() {
         log.info("Si controlla che la delega abbia lo stato Attiva");
-        this.deleghe = this.dataPopulation.readDataPopulation(dpFile + ".yaml");
-        this.leTueDelegheSection.controlloEsistenzaDelega(deleghe.get("name").toString(), deleghe.get("familyName").toString());
+        //personaFisica
+//        this.deleghe = this.dataPopulation.readDataPopulation(dpFile + ".yaml");
+//        this.leTueDelegheSection.controlloEsistenzaDelega(deleghe.get("name").toString(), deleghe.get("familyName").toString());
+        this.leTueDelegheSection.controlloEsistenzaDelega(dataPopulationConfig.getPersonaFisica().getName(), dataPopulationConfig.getPersonaFisica().getFamilyName());
+
+
     }
 
     @And("Nella sezione Deleghe si visualizza il titolo")
@@ -517,9 +522,11 @@ public class DeleghePagoPATest {
     @And("Si controlla che la delega non sia più presente nella lista {string}")
     public void siControllaCheLaDelegaNonSiaPiuPresenteNellaLista(String dpFile) {
         log.info("Si controlla che la delega non sia più presente nella lista");
-        this.deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        //personaFisica
+//        this.deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
         deleghePage.waitLoadingSpinner();
-        if (!deleghePage.verificaEsistenzaDelega(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString())) {
+//        if (!deleghePage.verificaEsistenzaDelega(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString())) {
+        if (!deleghePage.verificaEsistenzaDelega(dataPopulationConfig.getPersonaFisica().getName(), dataPopulationConfig.getPersonaFisica().getFamilyName())) {
             log.info("La delega non è più presente nella lista");
         } else {
             log.error("La delega è ancora presente in lista");

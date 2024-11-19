@@ -5,6 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.HelpdeskPage;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
@@ -53,9 +54,11 @@ public class HelpdeskTest {
     @Autowired
     @Lazy
     private  WebTool webTool;
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
 
     private Map<String, Object> datiTestHelpdesk = new HashMap<>();
-    private Map<String, Object> datiPersonaFisica = new HashMap<>();
+//    private Map<String, Object> datiPersonaFisica = new HashMap<>();
 
     @Given("Login helpdesk con utente test {string}")
     public void loginHelpdeskConUtenteTest(String nameFile) {
@@ -174,10 +177,12 @@ public class HelpdeskTest {
         helpdeskPage.checkRicercaPage();
     }
 
-    @And("viene inserito codice fiscale {string}")
-    public void vieneInseritoCodiceFiscale(String nameFile) {
-        this.datiPersonaFisica = this.dataPopulation.readDataPopulation(nameFile + ".yaml");
-        helpdeskPage.insertCfAndRicercaOnPage(datiPersonaFisica.get("codiceFiscale").toString());
+    @And("viene inserito codice fiscale")
+    public void vieneInseritoCodiceFiscale() {
+        //personaFisica
+//        this.datiPersonaFisica = this.dataPopulation.readDataPopulation(nameFile + ".yaml");
+//        helpdeskPage.insertCfAndRicercaOnPage(datiPersonaFisica.get("codiceFiscale").toString());
+        helpdeskPage.insertCfAndRicercaOnPage(dataPopulationConfig.getPersonaFisica().getCodiceFiscale());
     }
 
     @And("viene inserito codice fiscale senza ricerca {string}")
