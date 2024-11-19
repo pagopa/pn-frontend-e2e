@@ -67,15 +67,15 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     @PostConstruct
     public void init(){
         logger.info("INIT TEST...: ");
-        webTool = new WebTool(this.driver);
-        headerPFSection = new HeaderPFSection(this.driver);
-        notifichePFPage = new NotifichePFPage(this.driver);
-        scegliSpidPFPage = new ScegliSpidPFPage(this.driver);
-        loginSpidPFPage = new LoginSpidPFPage(this.driver);
-        confermaDatiSpidPFPage = new ConfermaDatiSpidPFPage(this.driver);
-        accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
-        comeVuoiAccederePage = new ComeVuoiAccederePage(this.driver);
-        cookiesSection = new CookiesSection(this.driver);
+        webTool = new WebTool(driver);
+        headerPFSection = new HeaderPFSection(driver);
+        notifichePFPage = new NotifichePFPage(driver);
+        scegliSpidPFPage = new ScegliSpidPFPage(driver);
+        loginSpidPFPage = new LoginSpidPFPage(driver);
+        confermaDatiSpidPFPage = new ConfermaDatiSpidPFPage(driver);
+        accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
+        comeVuoiAccederePage = new ComeVuoiAccederePage(driver);
+        cookiesSection = new CookiesSection(driver);
     }
 
     @Given("Login Page persona fisica {string} viene visualizzata")
@@ -245,7 +245,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
 
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
-        logger.info("HTML..."+driver.getPageSource());
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
