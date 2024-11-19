@@ -67,7 +67,7 @@ public class HooksNew {
 
     @Before
     public void startScenario(Scenario scenario) {
-        logger.info("----- START SCENARIO1111: {} -----", scenario.getName());
+        logger.info("----- START SCENARIO: {} -----", scenario.getName());
         driver =  WebDriverManager.getDriverThreadLocal().get();
         HooksNew.scenario = scenario.getName();
         scenario.getSourceTagNames().stream()
