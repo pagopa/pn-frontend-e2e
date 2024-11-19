@@ -241,10 +241,12 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         confermaDatiSpidPFPage.selezionaConfermaButton();
         headerPFSection.waitUrlToken();
         webTool.waitTime(2);
+        logger.info("HTML..."+driver.getPageSource());
     }
 
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
+        logger.info("HTML1..."+driver.getPageSource());
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             cookiesSection = new CookiesSection(driver);
             if (cookiesSection.waitLoadCookiesPage()) {
