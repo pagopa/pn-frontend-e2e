@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.common;
 
+import it.pn.frontend.e2e.config.WebDriverManager;
 import jakarta.annotation.PostConstruct;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
@@ -29,12 +30,20 @@ public class BasePage {
     protected int loadComponentWaitTime;
     private static final Logger loggerBase = LoggerFactory.getLogger(BasePage.class);
 
-    @Autowired
     public WebDriver driver;
+
+    @Autowired
+    public WebDriverManager webDriverManager;
+
+    protected WebDriver driver() {
+        driver =  webDriverManager.getDriver();
+        return driver;
+    }
 
 
     @PostConstruct
     private void init() {
+        driver();
         PageFactory.initElements(this.driver, this);
         loadComponentWaitTime = Integer.parseInt(System.getProperty("loadComponentWaitTime", "10"));
     }
