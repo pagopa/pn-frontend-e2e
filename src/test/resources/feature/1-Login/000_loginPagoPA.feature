@@ -25,7 +25,7 @@ Feature: Login pagoPA
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
    Then Home page persona fisica viene visualizzata correttamente
-#And Logout da portale persona fisica
+   And Logout da portale persona fisica
 
   @TA_loginpersonaFisica_2
   @TestSuite
@@ -38,7 +38,8 @@ Feature: Login pagoPA
       | name         | Gaio Giulio            |
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
-
+    Then Home page persona fisica viene visualizzata correttamente
+    And Logout da portale persona fisica
 
   @TA_loginpersonaFisica_2
   @TestSuite
@@ -51,7 +52,8 @@ Feature: Login pagoPA
       | name         | Gaio Giulio            |
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
-
+    Then Home page persona fisica viene visualizzata correttamente
+    And Logout da portale persona fisica
 
 
   @TA_loginpersonaFisica_2
@@ -65,7 +67,8 @@ Feature: Login pagoPA
       | name         | Gaio Giulio            |
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
-
+    Then Home page persona fisica viene visualizzata correttamente
+    And Logout da portale persona fisica
 
   @TA_loginpersonaFisica_2
   @TestSuite
@@ -78,7 +81,8 @@ Feature: Login pagoPA
       | name         | Gaio Giulio            |
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
-
+    Then Home page persona fisica viene visualizzata correttamente
+    And Logout da portale persona fisica
 
 
   @TA_loginpersonaGiuridica
