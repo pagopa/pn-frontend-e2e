@@ -208,6 +208,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         scegliSpidPFPage.waitLoadScegliSpidDEPage();
         scegliSpidPFPage.selezionareTestButton();
 
+        logger.info("HTML00..."+driver.getPageSource());
         loginSpidPFPage.waitLoadLoginSpidDEPage();
         loginSpidPFPage.inserisciUtente(webDriverConfig.getUserCesare());
         loginSpidPFPage.inserisciPassword(webDriverConfig.getPwdCesare());
@@ -238,6 +239,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
             Assertions.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
         }
 
+        logger.info("HTML55..."+driver.getPageSource());
         confermaDatiSpidPFPage.selezionaConfermaButton();
         headerPFSection.waitUrlToken();
         webTool.waitTime(2);
