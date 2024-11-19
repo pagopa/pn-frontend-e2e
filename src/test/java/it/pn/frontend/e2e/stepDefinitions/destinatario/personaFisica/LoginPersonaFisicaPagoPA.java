@@ -271,7 +271,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         }
 
         logger.info("ATTNEDIAMO CIAOOO SEC...");
-        headerPFSection = new HeaderPFSection(this.driver);
+        headerPFSection = new HeaderPFSection(driver);
         headerPFSection.waitLoadHeaderDESection();
         logger.info("ATTNEDIAMO CIAOOO111 SEC...");
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
