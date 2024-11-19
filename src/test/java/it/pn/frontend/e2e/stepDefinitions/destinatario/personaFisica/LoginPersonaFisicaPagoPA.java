@@ -245,6 +245,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
 
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
+        logger.info("HTML..."+driver.getPageSource());
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
