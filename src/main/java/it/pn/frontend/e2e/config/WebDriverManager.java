@@ -78,7 +78,7 @@ public class WebDriverManager {
         chromeOptions.addArguments("--lang=it", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard");
         var downloadFilePath = webDriverConfig.getDownloadFilePath();
         // var downloadFilePath = System.getProperty("downloadFilePath");
-        var chromePrefs = Map.of("download.default_directory", downloadFilePath);
+        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "translate_whitelists", Map.of(),"translate", Map.of("enabled", false));
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
 
         if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {

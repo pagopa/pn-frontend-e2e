@@ -248,7 +248,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
         logger.info("HTML1..."+driver.getPageSource());
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
-            cookiesSection = new CookiesSection(driver);
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
@@ -274,7 +273,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         }
 
         logger.info("ATTNEDIAMO CIAOOO SEC...");
-        headerPFSection = new HeaderPFSection(driver);
         headerPFSection.waitLoadHeaderDESection();
         logger.info("ATTNEDIAMO CIAOOO111 SEC...");
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
@@ -284,7 +282,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
             }
         }
         logger.info("ATTNEDIAMO CIAOOO222 SEC...");
-        notifichePFPage = new NotifichePFPage(driver);
         notifichePFPage.waitLoadNotificheDEPage();
         logger.info("ATTNEDIAMO CIAOOO33 SEC...");
         if (notifichePFPage.verificaPresenzaCodiceIunTextField()) {
