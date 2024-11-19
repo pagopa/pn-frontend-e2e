@@ -270,14 +270,18 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
             logger.warn("Http token persona fisica not found");
         }
 
+        logger.info("ATTNEDIAMO CIAOOO SEC...");
+        headerPFSection = new HeaderPFSection(this.driver);
         headerPFSection.waitLoadHeaderDESection();
-
+        logger.info("ATTNEDIAMO CIAOOO111 SEC...");
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
+        logger.info("ATTNEDIAMO CIAOOO222 SEC...");
         notifichePFPage.waitLoadNotificheDEPage();
+        logger.info("ATTNEDIAMO CIAOOO33 SEC...");
         if (notifichePFPage.verificaPresenzaCodiceIunTextField()) {
             logger.info("text field codice iun presente");
         } else {
