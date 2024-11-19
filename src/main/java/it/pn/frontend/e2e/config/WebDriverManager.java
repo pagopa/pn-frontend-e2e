@@ -78,7 +78,7 @@ public class WebDriverManager {
         chromeOptions.addArguments("--lang=it", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard");
         var downloadFilePath = webDriverConfig.getDownloadFilePath();
         // var downloadFilePath = System.getProperty("downloadFilePath");
-        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "translate_whitelists", Map.of(),"translate", Map.of("enabled", false));
+        var chromePrefs = Map.of("download.default_directory", downloadFilePath);
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
 
         if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
@@ -96,6 +96,7 @@ public class WebDriverManager {
     }
 
     @WebdriverScopeBean
+    @Scope(BeanDefinition.SCOPE_PROTOTYPE)
     @ConditionalOnProperty( name = "browser" , havingValue = "edge")
     public WebDriver webDriverEdge() {
 
@@ -120,6 +121,7 @@ public class WebDriverManager {
     }
 
     @WebdriverScopeBean
+    @Scope(BeanDefinition.SCOPE_PROTOTYPE)
     @ConditionalOnProperty( name = "browser" , havingValue = "firefox")
     public WebDriver webDriverFirefox() {
 
