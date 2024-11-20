@@ -47,6 +47,7 @@ public class HeaderPFSection extends BasePage {
     public void waitLoadHeaderDESection() {
         try {
             webTool.waitTime(10);
+            logger.info("HTML...."+ driver.getPageSource());
            // titleLabel = driver.findElement(By.xpath("//a[@title='Sito di PagoPA S.p.A.']"));
             titleLabel = driver.findElement(By.xpath("//a[@title='PagoPA S.p.A. website']"));
             buttonProfile = driver.findElement(By.xpath("//button[@aria-label='party-menu-button']"));
