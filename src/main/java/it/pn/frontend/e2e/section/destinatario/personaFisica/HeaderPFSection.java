@@ -22,6 +22,11 @@ public class HeaderPFSection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("HeaderPFSection");
 
+    /**
+    @FindBy(xpath = "//a[@title='Sito di PagoPA S.p.A.']")
+    WebElement titleLabel;
+     **/
+
     @FindBy(xpath = "//a[@title='PagoPA S.p.A. website']")
     WebElement titleLabel;
 
@@ -41,8 +46,7 @@ public class HeaderPFSection extends BasePage {
 
     public void waitLoadHeaderDESection() {
         try {
-            logger.info("ATTNEDIAMO 15 SEC...");
-            webTool.waitTime(20);
+           // titleLabel = driver.findElement(By.xpath("//a[@title='Sito di PagoPA S.p.A.']"));
             titleLabel = driver.findElement(By.xpath("//a[@title='PagoPA S.p.A. website']"));
             buttonProfile = driver.findElement(By.xpath("//button[@aria-label='party-menu-button']"));
             getWebDriverWait(30).withMessage("il titolo del header non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));

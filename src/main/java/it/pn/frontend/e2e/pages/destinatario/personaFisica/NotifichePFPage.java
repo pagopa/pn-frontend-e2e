@@ -19,6 +19,10 @@ import java.util.List;
 public class NotifichePFPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(NotifichePFPage.class);
 
+/**
+    @FindBy(id = "Le tue notifiche-page")
+    private WebElement titleLabel;
+ **/
 
     @FindBy(id = "Your notifications-page")
     private WebElement titleLabel;
@@ -80,6 +84,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void waitLoadNotificheDEPage() {
+       // titleLabel = driver.findElement(By.id("Le tue notifiche-page"));
         titleLabel = driver.findElement(By.id("Your notifications-page"));
         tableNotifiche = driver.findElement(By.id("notifications-table"));
         getWebDriverWait(10).withMessage("Notifiche DE Page non caricata correttamente: il titolo non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));

@@ -75,14 +75,7 @@ public class WebDriverManager {
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
         io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
         var chromeOptions = new ChromeOptions();
-       // chromeOptions.addArguments("--lang=it", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard");
-
-        chromeOptions.addArguments("--lang=it"); // Set language to Italian
-        chromeOptions.addArguments("--incognito"); // Run in headless mode
-        chromeOptions.addArguments("--disable-dev-shm-usage");
-        chromeOptions.addArguments("--remote-allow-origins=*");
-        chromeOptions.addArguments("--enable-clipboard");
-
+        chromeOptions.addArguments("--lang=it", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard");
 
         var downloadFilePath = webDriverConfig.getDownloadFilePath();
         // var downloadFilePath = System.getProperty("downloadFilePath");
