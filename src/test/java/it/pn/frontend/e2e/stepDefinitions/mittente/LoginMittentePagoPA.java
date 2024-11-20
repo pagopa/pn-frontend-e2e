@@ -98,7 +98,6 @@ public class LoginMittentePagoPA {
     public void loginPageMittenteVieneVisualizzata(String datiMittenteFile) {
         logger.info("Si recupera l'ambiente e si visualizza la pagina di login 1");
 
-//        this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
         String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
             case "dev" ->hooks.getDriver().get(webDriverConfig.getUrlMittente());
@@ -155,8 +154,6 @@ public class LoginMittentePagoPA {
     @When("Login con mittente {string}")
     public void loginConMittente(String datiMittenteFile) {
         logger.info("Si effetua la Login dal portale mittente");
-
-//        this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
 
         // Creazione dell'oggetto pagina per la gestione del pre-accesso all'area riservata
         preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();

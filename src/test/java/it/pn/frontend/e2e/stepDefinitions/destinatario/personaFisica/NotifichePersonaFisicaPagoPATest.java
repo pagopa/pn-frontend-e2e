@@ -183,11 +183,10 @@ public class NotifichePersonaFisicaPagoPATest {
         notifichePFPage.waitLoadSecondaPagina();
     }
 
-    @And("Ci si posiziona su una pagina differente attraverso i numeri e si applica filtro {string}")
-    public void ciSiPosizionaSuUnaPaginaDifferenteAttraversoINumeriESiApplicaFiltro(String dpFile) {
-        Map<String, Object> datiPg = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
-        notifichePFPage.siSceglieUnaPaginaDiversaConNumeroESiFiltra(datiPg.get("codiceIUN").toString());
+    @And("Ci si posiziona su una pagina differente attraverso i numeri e si applica filtro")
+    public void ciSiPosizionaSuUnaPaginaDifferenteAttraversoINumeriESiApplicaFiltro() {
+        //personaGiuridica
+        notifichePFPage.siSceglieUnaPaginaDiversaConNumeroESiFiltra(dataPopulationConfig.getPersonaGiuridica().getCodiceIUN());
     }
 
     @And("Si modifica il numero di notifiche visualizzate scegliendo un valore diverso da quello di default")
@@ -288,8 +287,8 @@ public class NotifichePersonaFisicaPagoPATest {
 
     @Then("Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto {string}")
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaDestinatarioESiControllaCheIlDownloadSiaAvvenuto(String dpFile) {
+        //TODO ATTUALMENTE NON UTILIZZATO
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponibili();
-        Map<String, Object> datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String workingDirectory = System.getProperty("user.dir");
         boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloads");
@@ -299,7 +298,8 @@ public class NotifichePersonaFisicaPagoPATest {
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
             dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
             webTool.waitTime(5);
-            String urlFileAttestazioneOppponibile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/" + datiNotifica.get("codiceIUN").toString() + "/legal-facts/");
+//            String urlFileAttestazioneOppponibile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/" + datiNotifica.get("codiceIUN").toString() + "/legal-facts/");
+            String urlFileAttestazioneOppponibile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/" + dataPopulationConfig.getDatiNotifica().getCodiceIUN() + "/legal-facts/");
 
             if (headless && urlFileAttestazioneOppponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
@@ -323,7 +323,6 @@ public class NotifichePersonaFisicaPagoPATest {
     @And("Si visualizza correttamente la Pagina Notifiche persona fisica delegante")
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaFisicaDelegante() {
         //personaFisica
-//        Map<String, Object> personaFisicaDelgante = dataPopulation.readDataPopulation(dpFile + ".yaml");
 //        String nome = personaFisicaDelgante.get("name").toString();
 //        String cognome = personaFisicaDelgante.get("familyName").toString();
 

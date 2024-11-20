@@ -58,7 +58,6 @@ public class RicercaNotificheMittentePagoPATest {
     public void inserireCodiceFiscale() {
         logger.info("Avvio ricerca tramite codice fiscale");
         //personaFisica
-//        this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
 //        String cf = destinatarioPASection.ricercaInformazione(personaFisica.get("codiceFiscale").toString().split(","), 0);
         String cf = destinatarioPASection.ricercaInformazione(dataPopulationConfig.getPersonaFisica().getCodiceFiscale().split(","), 0);
         piattaformaNotifichePage.insertCodiceFiscale(cf);
@@ -155,7 +154,6 @@ public class RicercaNotificheMittentePagoPATest {
     public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotifica() {
         logger.info("Si inserisce il codice IUN");
         //"datiNotifica"
-//        this.datiNotifica = dataPopulation.readDataPopulation(dpDatiNotifica + ".yaml");
 //        piattaformaNotifichePage.inserimentoCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
         piattaformaNotifichePage.inserimentoCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
     }

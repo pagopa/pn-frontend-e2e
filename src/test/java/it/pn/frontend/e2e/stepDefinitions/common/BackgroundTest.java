@@ -276,7 +276,7 @@ public class BackgroundTest {
     }
 
     public void creazioneDisservizio() {
-        helpdeskTest.loginHelpdeskConUtenteTest("testHelpdesk");
+        helpdeskTest.loginHelpdeskConUtenteTest();
         helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
         helpdeskTest.clickSuCardMonitoraggioPiattaforma();
         helpdeskTest.siVisualizzaCorrettamenteHomeMonitoraggio();
@@ -285,7 +285,7 @@ public class BackgroundTest {
     }
 
     public void risoluzioneDisservizio() {
-        helpdeskTest.loginHelpdeskConUtenteTest("testHelpdesk");
+        helpdeskTest.loginHelpdeskConUtenteTest();
         helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
         helpdeskTest.clickSuCardMonitoraggioPiattaforma();
         helpdeskTest.siVisualizzaCorrettamenteHomeMonitoraggio();

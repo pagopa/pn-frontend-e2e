@@ -287,7 +287,6 @@ public class NotificaMittentePagoPATest {
     @And("Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica {string}")
     public void nellaSectionDestinatarioInserireNomeCognomeECodiceFiscaleDaDestinatario(String destinatarioFile) {
         logger.info("Inserimento del nome cognome e codice fiscale dal file personaFisica.yaml");
-       // this.personeFisiche = dataPopulation.readDataPopulation(destinatarioFile + ".yaml");
         destinatarioPASection.selezionarePersonaFisica();
         destinatarioPASection.inserireNomeDestinatario(dataPopulationConfig.getPersonaFisica().getName());
         destinatarioPASection.inserireCognomeDestinatario(dataPopulationConfig.getPersonaFisica().getFamilyName());
@@ -337,9 +336,6 @@ public class NotificaMittentePagoPATest {
             logger.error("File notifica.pdf non caricato");
             Assertions.fail("File notifica.pdf non caricato");
         }
-
-
-//        this.datiNotifica = dataPopulation.readDataPopulation(datiNotificaFile + ".yaml");
 
         allegatiPASection.inserimentoNomeAllegato(dataPopulationConfig.getDatiNotifica().getNomeDocumentoNotifica());
     }
@@ -718,8 +714,6 @@ public class NotificaMittentePagoPATest {
     @And("Nella section Destinatario si inserisce lo stesso destinatario di prima {string}")
     public void nellaSectionDestinatarioSiInserisceLoStessoDestinatarioDiPrima(String dpFile) {
         logger.info("Si inserisce lo stesso destinatario di prima");
-
-//        this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         PersoneFisiche personeFisiche=dataPopulationConfig.getPersoneFisiche();
         destinatarioPASection.inserimentoMultiDestinatario(personeFisiche, 1);
     }
@@ -810,8 +804,6 @@ public class NotificaMittentePagoPATest {
     public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotificaPec(String dpDatiiNotifica) {
         logger.info("Si inserisce il codice IUN");
 
-//        this.datiNotifica = dataPopulation.readDataPopulation(dpDatiiNotifica + ".yaml");
-
         piattaformaNotifichePage.aggiornamentoPagina();
         piattaformaNotifichePage.waitLoadRefreshPage();
         piattaformaNotifichePage.inserimentoCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
@@ -826,8 +818,6 @@ public class NotificaMittentePagoPATest {
     @And("Nella section Informazioni preliminari inserire i dati della notifica sbagliati senza pagamento")
     public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSbagliatiSenzaPagamento() {
         logger.info("Si inserisce l'oggetto della notifica errato");
-
-//        Map<String, Object> datiNotificaErrore1 = dataPopulation.readDataPopulation(datiNotificaErrore + ".yaml");
         piattaformaNotifichePage.inserimentoOggettoNotificaErrato(dataPopulationConfig.getDatiNotificaErrore().getOggettoDellaNotifica());
     }
 
@@ -867,8 +857,6 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionDestinatarioInserireRagioneSocialeEPartitaIVADallaPersonaGiuridica() {
         logger.info("Si inserisce la ragione sociale e la partita iva della persona giuridica");
         //personaGiuridica
-//        this.personaGiuridica = dataPopulation.readDataPopulation(personaGiuridica + ".yaml");
-
         destinatarioPASection.insertRagioneSociale(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
         destinatarioPASection.insertPartitaIva(dataPopulationConfig.getPersonaGiuridica().getCodiceFiscale());
     }
@@ -877,8 +865,6 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaGiuridica() {
         logger.info("Si inserisce un domicilio digitale della persona giuridica");
         //personaGiuridica
-//        this.personaGiuridica = dataPopulation.readDataPopulation(personaGiuridica + ".yaml");
-
         destinatarioPASection.checkBoxAggiungiDomicilio();
         destinatarioPASection.insertDomicilioDigitale(dataPopulationConfig.getPersonaGiuridica().getEmailPec());
     }
@@ -887,7 +873,6 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDellaPersonaGiuridica() {
         logger.info("Si inseriscono i dati personali della persona giuridica");
         //personaGiuridica
-//        this.personaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
         destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
         destinatarioPASection.inserireIndirizzo(dataPopulationConfig.getPersonaGiuridica().getIndirizzo());
@@ -1555,14 +1540,14 @@ public class NotificaMittentePagoPATest {
 
     @And("Si verifica che la notifica viene creata correttamente {string}")
     public void siVerificaCheLaNotificaVieneCreataCorrettamente(String dpFile) {
+        //datiNotifica
+        //datiNotificaPG
         EsitoNotifica esitoNotifica = this.siVerificaEsitoNotifica(dpFile);
         if (esitoNotifica.statusNotifica.equals("ACCEPTED")) {
             logger.info("La notifica è stata Accettata");
             String codiceIUN = esitoNotifica.accettazioneRichiestaNotifica.getCodiceIUN();
-//            datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
             if (codiceIUN != null && !codiceIUN.isEmpty()) {
-//                datiNotifica.put("codiceIUN", codiceIUN);
-//                dataPopulation.writeDataPopulation(dpFile + ".yaml", datiNotifica);
+
                 setCodiceIUN(dpFile,codiceIUN);
                 logger.info("La notifica è stata creata correttamente");
             }
@@ -1614,7 +1599,6 @@ public class NotificaMittentePagoPATest {
     public void nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaFisica() {
         logger.info("Si inserisce un domicilio digitale della persona giuridica");
         //"personaFisica"
-//        this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         destinatarioPASection.checkBoxAggiungiDomicilio();
         destinatarioPASection.insertDomicilioDigitale(dataPopulationConfig.getPersonaFisica().getEmailPecErrore());
     }
@@ -1748,10 +1732,7 @@ public class NotificaMittentePagoPATest {
     public void creazioneNotificaCompleta(Map<String,String> datiNotificaMap) {
         logger.info("Inserimento dei dati della notifica senza pagamento " );
         File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
-//        datiNotifica = dataPopulation.readDataPopulation(datiNotificaMap.get("nomeFileYaml") + ".yaml");
-
         aggiornamentoNumeroProtocollo();
-
 
         //Sezione preliminare
         informazioniPreliminariPASection.compilazioneInformazioniPreliminari(datiNotificaMap);
@@ -1838,7 +1819,9 @@ public class NotificaMittentePagoPATest {
 
 
     private void setCodiceIUN(String dpFile,String codiceIUN) {
-//        datiNotifica,datiNotificaPG
+        //datiNotifica,datiNotificaPG
+        //datiNotifica.put("codiceIUN", codiceIUN);
+        //dataPopulation.writeDataPopulation(dpFile + ".yaml", datiNotifica);
         switch (dpFile) {
             case "datiNotifica" -> {
                 dataPopulationConfig.getDatiNotifica().setCodiceIUN(codiceIUN);

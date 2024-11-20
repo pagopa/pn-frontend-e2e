@@ -55,7 +55,6 @@ public class RecapitiPGPagoPaTest {
     public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelPersonaGiuridica() {
         logger.info("Si cerca di inserire la email pec");
         //TODO ATTUALMENTE NON VIENE UTILIZZATA
-//        Map<String, Object> datiPG = dataPopulation.readDataPopulation(personaGiuridica+".yaml");
         recapitiDestinatarioPage.insertEmailPEC(dataPopulationConfig.getPersonaGiuridica().getEmailPec());
     }
 
@@ -78,7 +77,6 @@ public class RecapitiPGPagoPaTest {
     public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPGECliccaSulBottoneAvvisamiViaEmail() {
         logger.info("Si inserisce l'email del PG e si clicca sul bottone avvisami via email");
         //TODO ATTUALMENTE NON VIENE UTILIZZATA
-//        Map<String, Object> datiPG = dataPopulation.readDataPopulation(personaGiuridica+".yaml");
         recapitiDestinatarioPage.insertEmail(dataPopulationConfig.getPersonaGiuridica().getEmailPec());
         recapitiDestinatarioPage.clickAvvisami();
     }
@@ -87,7 +85,6 @@ public class RecapitiPGPagoPaTest {
     public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoDelPGECliccaSulBottoneAvvisamiViaSMS() {
         logger.info("Si inserisce l'email del PG e clicca sul bottone avvisami via numero telefonico");
         //personaGiuridica
-//        Map<String, Object> datiPG = dataPopulation.readDataPopulation(personaGiuridica+".yaml");
         recapitiDestinatarioPage.insertPhone(dataPopulationConfig.getPersonaGiuridica().getCellulare());
         recapitiDestinatarioPage.clickAvvisamiSMS();
     }

@@ -107,8 +107,6 @@ public class DeleghePGPagoPATest {
     public void nellaSezioneLeTueDeleghePersonaGiuridicaInserireIDati() {
         logger.info("Si aggiungono tutti i dati del delegato");
 
-//        this.datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
         aggiungiDelegaPGSection.selectPersonaGiuridicaRadioButton();
         aggiungiDelegaPGSection.insertRagioneSociale(dataPopulationConfig.getNuovaDelegaPg().getRagioneSociale());
         aggiungiDelegaPGSection.inserireCF(dataPopulationConfig.getNuovaDelegaPg().getCodiceFiscale());
@@ -141,20 +139,14 @@ public class DeleghePGPagoPATest {
         }
     }
 
-    @And("Nella sezione Aggiungi Delega persona giuridica salvare il codice verifica all'interno del file {string}")
+    @And("Nella sezione Aggiungi Delega persona giuridica salvare il codice verifica all'interno del file")
     public void nellaSezioneLeTueDeleghePersonaGiuridicaSalvareIlCodiceVerificaAllInternoDelFile() {
         logger.info("Si salva il codice della delega nell' Oggetto nuovaDelegaPG  " );
 
-//        this.datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
         String codiceDelega = aggiungiDelegaPGSection.salvataggioCodiceVerifica();
-
-        //TODO da capire
-        SharedSteps sharedSteps = new SharedSteps();
-        sharedSteps.getNuovaDelegaPg().setCodiceDelega(codiceDelega);
-        //TODO cosa serve scrivere sul file yaml
 //        this.datiDelega.put("codiceDelega", codiceDelega);
 //        dataPopulation.writeDataPopulation(dpFile + ".yaml", this.datiDelega);
+        dataPopulationConfig.getNuovaDelegaPg().setCodiceDelega(codiceDelega);
 
     }
 
@@ -261,14 +253,12 @@ public class DeleghePGPagoPATest {
     public void nellaPaginaDelegheSezioneDelegheAcaricoDellImpresaSiCliccaSulMenuDellaDelega() {
         logger.info("Si clicca sul menu delle delega");
         //TODO PERSONA GIURIDICA
-//        this.datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
         this.delegatiImpresaSection.clickMenuDelega(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
     }
 
     @And("Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega {string}")
     public void nellaPaginaDelegheSezioneDelegheDellImpresaSiCliccaSulMenuDellaDelega(String nameConfig) {
         logger.info("Si clicca sul menu delle delega");
-//        this.datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
         this.delegatiImpresaSection.controlloEsistenzaDelega(getRagioneSociale(nameConfig));
     }
 
@@ -290,7 +280,6 @@ public class DeleghePGPagoPATest {
     public void nellaSezioneDelegheSezioneDelegheDellImpresaSiControllaCheNonSiaPiuPresenteLaDelega() {
         logger.info("Si controlla che la delega non sia più in elenco");
 
-//        this.datiDelega = this.dataPopulation.readDataPopulation(dpFile + ".yaml");
         delegatiImpresaSection.waitLoadDelegatiImpresaPage();
         delegatiImpresaSection.waitLoadingSpinner();
         if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG(dataPopulationConfig.getNuovaDelegaPg().getRagioneSociale())) {

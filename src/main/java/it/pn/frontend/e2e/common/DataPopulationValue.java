@@ -187,6 +187,7 @@ public enum DataPopulationValue {
     CFPF_TEST_HELP_DESK("CfPf","CLMCST42R12D969Z",false),
 
     //PERSONA FISICA
+    URL_PF("url_pf","https://cittadini.dev.notifichedigitali.it/",false),
     EMAIL_PF("email_pf","provaemail@test.it",false),
     USER_PF("user_pf","cesare",false),
     PWD_PF("pwd_pf","password123",false),
@@ -280,16 +281,6 @@ public enum DataPopulationValue {
     //DATI NOTIFICA ERRORE
     OGGETTO_DELLA_NOTIFICA_ERRORE("oggetto_della_notifica_err","IMU",false),
     CODICE_TASSONOMETRICO_ERRORE("codiceTassonometrico_err","123456",false),
-
-    //TEST HELPDESK
-    URL_TH( "url_th","https://helpdesk.dev.notifichedigitali.it/login",false),
-    USER_DEV_TH( "userdev_th","test@test.com",false),
-    PWD_DEV_TH( "pwd_dev_th","Test_Cognito_1.!",false),
-    USER_UAT_TH( "user_uat_th","admin@uat.pagopa.it",false),
-    PWD_UAT_TH( "pwd_uat_th","Admin-uatcognito1",false),
-    USER_TEST_TH ( "user_test_th","admin@test.pagopa.it",false),
-    PWD_TEST_TH( "pwd_test_th","Admin-testcognito1",false),
-    CFPF_TH ( "cfpf_th","CLMCST42R12D969Z",false),
 
 
 

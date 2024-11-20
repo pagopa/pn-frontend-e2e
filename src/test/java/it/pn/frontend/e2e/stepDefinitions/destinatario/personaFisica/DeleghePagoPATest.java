@@ -133,8 +133,6 @@ public class DeleghePagoPATest {
     public void nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile() {
         log.info("Si salva il codice deleghe nel file SharedSteps -> NuovaDelega" );
         //NUOVA DELEGA
-//        deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
         String codiceVerifica = this.leTueDelegheSection.salvataggioCodiceVerifica();
 
 //        deleghe.put("codiceDelega", codiceVerifica);
@@ -271,7 +269,6 @@ public class DeleghePagoPATest {
 
         log.info("Si inserisce il codice per accettare la delega");
         this.leTueDelegheSection.waitPopUpLoad();
-//        Map<String, Object> destinatari = dataPopulation.readDataPopulation(dpFile + ".yaml")
         this.leTueDelegheSection.inserireCodiceDelega(getCodiceDelega(nomeConfig));
     }
 
@@ -386,7 +383,6 @@ public class DeleghePagoPATest {
     @And("Si controlla che la delega ha lo stato Attiva {string}")
     public void siControllaCheLaDelegaHaLoStatoAttiva(String dpFile) {
         log.info("Si controlla che la delega abbia lo stato Attiva");
-//        deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
 //        leTueDelegheSection.controlloStatoAttiva(deleghe.get("name").toString(), deleghe.get("familyName").toString());
         leTueDelegheSection.controlloStatoAttiva(dataPopulationConfig.getPersonaFisica().getName(), dataPopulationConfig.getPersonaFisica().getFamilyName());
     }
@@ -401,7 +397,6 @@ public class DeleghePagoPATest {
     public void siControllaCheLaDelegaèAncoraPresente() {
         log.info("Si controlla che la delega abbia lo stato Attiva");
         //personaFisica
-//        this.deleghe = this.dataPopulation.readDataPopulation(dpFile + ".yaml");
 //        this.leTueDelegheSection.controlloEsistenzaDelega(deleghe.get("name").toString(), deleghe.get("familyName").toString());
         this.leTueDelegheSection.controlloEsistenzaDelega(dataPopulationConfig.getPersonaFisica().getName(), dataPopulationConfig.getPersonaFisica().getFamilyName());
 
@@ -523,7 +518,6 @@ public class DeleghePagoPATest {
     public void siControllaCheLaDelegaNonSiaPiuPresenteNellaLista(String dpFile) {
         log.info("Si controlla che la delega non sia più presente nella lista");
         //personaFisica
-//        this.deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
         deleghePage.waitLoadingSpinner();
 //        if (!deleghePage.verificaEsistenzaDelega(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString())) {
         if (!deleghePage.verificaEsistenzaDelega(dataPopulationConfig.getPersonaFisica().getName(), dataPopulationConfig.getPersonaFisica().getFamilyName())) {

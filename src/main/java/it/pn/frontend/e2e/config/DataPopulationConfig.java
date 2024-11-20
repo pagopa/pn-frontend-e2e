@@ -9,17 +9,14 @@ import it.pn.frontend.e2e.model.recipients.*;
 import it.pn.frontend.e2e.model.recipients.PersonaFisicaPec;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Properties;
 
 @Getter
 @Configuration
@@ -127,7 +124,7 @@ public class DataPopulationConfig {
     private DatiNotificaErrore datiNotificaErrore;
     @Getter
     @Setter
-    private TestHelpdesk testHelpdesk ;
+    private Helpdesk helpdesk;
 
     @Bean
     public PersoneGiuridiche personeGiuridiche() {
@@ -331,6 +328,7 @@ public class DataPopulationConfig {
     @Bean
     public PersonaFisica personafisica() {
         personaFisica = new PersonaFisica();
+        personaFisica.setUrl(DataPopulationValue.getDefaultValue(DataPopulationValue.URL_PF.key));
         personaFisica.setName(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_PF.key));
         personaFisica.setFamilyName(DataPopulationValue.getDefaultValue(DataPopulationValue.FAMILY_NAME_PF.key));
         personaFisica.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_PF.key));
@@ -499,17 +497,17 @@ public class DataPopulationConfig {
 
 
     @Bean
-    public TestHelpdesk testHelpdesk(){
-        testHelpdesk = new TestHelpdesk();
-        testHelpdesk.setUrl(DataPopulationValue.getDefaultValue(DataPopulationValue.URL_TH.key));
-        testHelpdesk.setUserDev(DataPopulationValue.getDefaultValue(DataPopulationValue.USER_DEV_TH.key));
-        testHelpdesk.setPwdDev(DataPopulationValue.getDefaultValue(DataPopulationValue.PWD_DEV_TH.key));
-        testHelpdesk.setUserUat(DataPopulationValue.getDefaultValue(DataPopulationValue.USER_UAT_TH.key));
-        testHelpdesk.setPwdUat(DataPopulationValue.getDefaultValue(DataPopulationValue.PWD_UAT_TH.key));
-        testHelpdesk.setUserTest(DataPopulationValue.getDefaultValue(DataPopulationValue.USER_TEST_TH.key));
-        testHelpdesk.setPwdTest(DataPopulationValue.getDefaultValue(DataPopulationValue.PWD_TEST_TH.key));
-        testHelpdesk.setCfPf(DataPopulationValue.getDefaultValue(DataPopulationValue.CFPF_TH.key));
-        return testHelpdesk;
+    public Helpdesk testHelpdesk(){
+        helpdesk = new Helpdesk();
+        helpdesk.setUrl(DataPopulationValue.getDefaultValue(DataPopulationValue.URL_HELP_DESK.key));
+        helpdesk.setUserDev(DataPopulationValue.getDefaultValue(DataPopulationValue.USER_DEV_HELP_DESK.key));
+        helpdesk.setPwdDev(DataPopulationValue.getDefaultValue(DataPopulationValue.PWD_DEV_HELP_DESK.key));
+        helpdesk.setUserUat(DataPopulationValue.getDefaultValue(DataPopulationValue.USER_UAT_HELP_DESK.key));
+        helpdesk.setPwdUat(DataPopulationValue.getDefaultValue(DataPopulationValue.PWD_UAT_HELP_DESK.key));
+        helpdesk.setUserTest(DataPopulationValue.getDefaultValue(DataPopulationValue.USER_TEST_HELP_DESK.key));
+        helpdesk.setPwdTest(DataPopulationValue.getDefaultValue(DataPopulationValue.PWD_TEST_HELP_DESK.key));
+        helpdesk.setCfPf(DataPopulationValue.getDefaultValue(DataPopulationValue.CFPF_TEST_HELP_DESK.key));
+        return helpdesk;
     }
 
 

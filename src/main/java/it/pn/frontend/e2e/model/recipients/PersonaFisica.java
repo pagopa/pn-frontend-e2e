@@ -4,8 +4,9 @@ import lombok.Data;
 
 @Data
 public class PersonaFisica {
-    private String  email;
-    private String  mail;
+    private String url;
+    private String email;
+    private String mail;
     private String emailPec;
     private String emailPecErrore;
     private String pec;

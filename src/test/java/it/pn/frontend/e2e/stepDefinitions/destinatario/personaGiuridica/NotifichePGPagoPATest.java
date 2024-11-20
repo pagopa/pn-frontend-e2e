@@ -197,7 +197,6 @@ public class NotifichePGPagoPATest {
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaPersonaGiuridicaESiControllaCheIlDownloadSiaAvvenuto() {
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponibili();
         //TODO ATTUALMENTE NON VIENE UTILIZZATA
-//        Map<String, Object> datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/personaGiuridica");
         boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
@@ -239,7 +238,7 @@ public class NotifichePGPagoPATest {
         logger.info("Si recupera il bearer token");
         //TODO ATTUALMENTE NON VIENE UTILIZZATA
         //personaGiuridica
-        //personaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        //personaGiuridica
 
         if (!cookieConfig.isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {

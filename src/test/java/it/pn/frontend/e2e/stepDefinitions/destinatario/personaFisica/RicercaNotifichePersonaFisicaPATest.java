@@ -123,7 +123,6 @@ public class RicercaNotifichePersonaFisicaPATest {
         //TODO ATTUALMENTE NON VIENE UTILIZZATA
         headerPFSection.waitLoadHeaderDESection();
         notifichePFPage.waitLoadNotificheDEPage();
-//        this.datiNotifica = dataPopulation.readDataPopulation(dpDatiNotifica + ".yaml");
         String codiceIUNInserito = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
         boolean result = notificheDestinatarioPage.verificaCodiceIUN(codiceIUNInserito);
 
@@ -195,7 +194,6 @@ public class RicercaNotifichePersonaFisicaPATest {
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIunNonValidoDaDatiNotifica(String datiNotificaNonValidoPF) throws InterruptedException {
         //TODO ATTUALMENTE NON VIENE UTILIZZATA
         logger.info("Si inserisce il codice IUN non valido");
-//        this.datiNotificaNonValidoPF = dataPopulation.readDataPopulation(datiNotificaNonValidoPF + ".yaml");
         notificheDestinatarioPage.inserisciCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
         //DOPPIO INSERIMENTO ????
         notificheDestinatarioPage.inserisciCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());

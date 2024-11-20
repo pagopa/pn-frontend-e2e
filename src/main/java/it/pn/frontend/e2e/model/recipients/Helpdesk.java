@@ -3,7 +3,7 @@ package it.pn.frontend.e2e.model.recipients;
 import lombok.Data;
 
 @Data
-public class TestHelpdesk {
+public class Helpdesk {
     private String url;
     private String userDev;
     private String pwdDev;

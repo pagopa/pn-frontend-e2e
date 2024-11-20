@@ -303,7 +303,6 @@ public class LoginPGPagoPATest {
     public void loginPortalePersonaGiuridicaTramiteRequestMethod(String dpFile) {
         //TODO ATTUALMENTE NON VIENE UTILIZZATA
         //personaGiuridica
-//        this.datiPersonaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String userMittente = webDriverConfig.getUserDante();
         String pwdMittente = webDriverConfig.getPwdDante();
         this.readUrlPortaleMittente(userMittente, pwdMittente);
