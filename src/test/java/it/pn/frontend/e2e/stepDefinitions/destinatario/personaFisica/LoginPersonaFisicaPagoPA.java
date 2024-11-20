@@ -245,6 +245,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
 
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
+        logger.info("HTML..."+driver.getPageSource());
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
@@ -269,10 +270,9 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         } else {
             logger.warn("Http token persona fisica not found");
         }
-
+        webTool.waitTime(5);
         headerPFSection.waitLoadHeaderDESection();
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
-            cookiesSection = new CookiesSection(driver);
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
