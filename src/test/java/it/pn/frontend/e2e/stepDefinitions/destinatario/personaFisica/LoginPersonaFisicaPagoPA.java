@@ -245,7 +245,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
 
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
-        logger.info("HTML..."+driver.getPageSource());
+       
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
@@ -277,7 +277,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
-
+        webTool.waitTime(5);
         notifichePFPage.waitLoadNotificheDEPage();
 
         if (notifichePFPage.verificaPresenzaCodiceIunTextField()) {
