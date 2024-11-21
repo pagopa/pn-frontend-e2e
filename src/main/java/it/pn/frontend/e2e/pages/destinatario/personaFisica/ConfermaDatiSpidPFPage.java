@@ -67,6 +67,7 @@ public class ConfermaDatiSpidPFPage extends BasePage {
     }
 
     public void selezionaConfermaButton(){
+        logger.info("HTML11...."+driver.getPageSource());
         confermaButton = driver.findElement(By.cssSelector("input[value='Conferma']"));
         getWebDriverWait(30).withMessage("conferma dati spid button non è cliccabile").until(ExpectedConditions.elementToBeClickable(confermaButton));
         confermaButton.click();

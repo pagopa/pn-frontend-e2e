@@ -22,13 +22,15 @@ public class HeaderPFSection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("HeaderPFSection");
 
-    /**
+
     @FindBy(xpath = "//a[@title='Sito di PagoPA S.p.A.']")
     WebElement titleLabel;
-     **/
 
+
+/**
     @FindBy(xpath = "//a[@title='PagoPA S.p.A. website']")
     WebElement titleLabel;
+ **/
 
     @FindBy(xpath = "//button[@aria-label='party-menu-button']")
     WebElement buttonProfile;
@@ -46,8 +48,7 @@ public class HeaderPFSection extends BasePage {
 
     public void waitLoadHeaderDESection() {
         try {
-            webTool.waitTime(20);
-            logger.info("HTML...."+ driver.getPageSource());
+            webTool.waitTime(15);
            // titleLabel = driver.findElement(By.xpath("//a[@title='Sito di PagoPA S.p.A.']"));
             titleLabel = driver.findElement(By.xpath("//a[@title='PagoPA S.p.A. website']"));
             buttonProfile = driver.findElement(By.xpath("//button[@aria-label='party-menu-button']"));

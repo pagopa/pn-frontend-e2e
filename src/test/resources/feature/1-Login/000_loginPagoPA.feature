@@ -59,7 +59,7 @@ Feature: Login pagoPA
     And Logout da portale persona fisica
 
 
-  @TA_loginpersonaFisica_3
+  @TA_loginpersonaFisica_2
   @TestSuite
   @loginFE
   Scenario: Login pagoPA persona fisica 3
@@ -74,7 +74,7 @@ Feature: Login pagoPA
     Then Home page persona fisica viene visualizzata correttamente
     And Logout da portale persona fisica
 
-  @TA_loginpersonaFisica_3
+  @TA_loginpersonaFisica_2
   @TestSuite
   @loginFE
   Scenario: Login pagoPA persona fisica 4

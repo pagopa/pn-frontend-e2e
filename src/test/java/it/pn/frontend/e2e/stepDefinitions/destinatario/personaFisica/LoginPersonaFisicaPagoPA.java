@@ -239,7 +239,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         }
 
         confermaDatiSpidPFPage.selezionaConfermaButton();
-        webTool.waitTime(10);
         headerPFSection.waitUrlToken();
         webTool.waitTime(2);
     }
@@ -252,7 +251,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
-        webTool.waitTime(5);
+
         boolean httpRequestToken = false;
         for (int index = 0; index < 30; index++) {
 
