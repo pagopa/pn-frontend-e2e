@@ -76,7 +76,7 @@ public class HooksNew {
 
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
-            FileUtils.copyFile(screenshot, new File("C:/screenshot.png"));
+            FileUtils.copyFile(screenshot, new File("screenshot.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
