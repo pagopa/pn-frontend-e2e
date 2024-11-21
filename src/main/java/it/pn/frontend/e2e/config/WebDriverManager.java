@@ -63,14 +63,14 @@ public class WebDriverManager {
     @WebdriverScopeBean
     @Primary
     @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-    @ConditionalOnProperty( name = "browser" , havingValue = "chrome", matchIfMissing = true)
-    public  WebDriver chromeDriver() {
+    @ConditionalOnProperty(name = "browser", havingValue = "chrome", matchIfMissing = true)
+    public WebDriver chromeDriver() {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        logger.info("NUOVO BEAN......."+ Math.random());
+        logger.info("NUOVO BEAN......." + Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
         io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
@@ -86,9 +86,12 @@ public class WebDriverManager {
             chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
         }
 
-        driver = getDriver(chromeOptions,null,null);
+        driver = getDriver(chromeOptions, null, null);
+
+       // driver.manage().deleteAllCookies();
 
         setupDevTools();
+
         logger.info("Chrome driver started - WebDriverManager");
 
         cookieConfig.addCookie();
@@ -98,7 +101,7 @@ public class WebDriverManager {
 
     @WebdriverScopeBean
     @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-    @ConditionalOnProperty( name = "browser" , havingValue = "edge")
+    @ConditionalOnProperty(name = "browser", havingValue = "edge")
     public WebDriver webDriverEdge() {
 
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
@@ -114,7 +117,7 @@ public class WebDriverManager {
             edgeOptions.addArguments("window-size=1920,1080", "--headless");
         }
 
-        driver = getDriver(null,edgeOptions,null);
+        driver = getDriver(null, edgeOptions, null);
 
         cookieConfig.addCookie();
 
@@ -123,7 +126,7 @@ public class WebDriverManager {
 
     @WebdriverScopeBean
     @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-    @ConditionalOnProperty( name = "browser" , havingValue = "firefox")
+    @ConditionalOnProperty(name = "browser", havingValue = "firefox")
     public WebDriver webDriverFirefox() {
 
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
@@ -138,13 +141,12 @@ public class WebDriverManager {
             firefoxOptions.addArguments("--width=1200", "--height=800", "--headless");
         }
 
-        driver = getDriver(null,null,firefoxOptions);
+        driver = getDriver(null, null, firefoxOptions);
 
         cookieConfig.addCookie();
 
         return driver;
     }
-
 
 
     private void setupDevTools() {
@@ -157,9 +159,19 @@ public class WebDriverManager {
 
     private void captureHttpRequests() {
         devTools.addListener(Network.requestWillBeSent(), request -> {
-            var url = request.getRequest().getUrl();
-            cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
-            requests.put(request.getRequestId().toString(), request);
+            try {
+                // Safely access the request properties
+                if (request != null && request.getRequest() != null) {
+                    var url = request.getRequest().getUrl();
+                    cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
+                    requests.put(request.getRequestId().toString(), request);
+                    logger.info("Request URL: " + request.getRequest().getUrl());
+                } else {
+                    logger.info("Received a null event or request object.");
+                }
+            } catch (Exception e) {
+                logger.error("Error processing the request: " + e.getMessage());
+            }
         });
     }
 
@@ -206,10 +218,10 @@ public class WebDriverManager {
     }
 
 
-    public static WebDriver getDriver(ChromeOptions chromeOptions, EdgeOptions edgeOptions, FirefoxOptions firefoxOptions ) {
+    public static WebDriver getDriver(ChromeOptions chromeOptions, EdgeOptions edgeOptions, FirefoxOptions firefoxOptions) {
         if (driverThreadLocal.get() == null) {
 
-            if (chromeOptions!= null){
+            if (chromeOptions != null) {
                 ChromeDriver driver = new ChromeDriver(chromeOptions);
                 driver.manage().window().maximize();
                 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -231,21 +243,19 @@ public class WebDriverManager {
                 driverThreadLocal.set(driver);
             }
         }
-        logger.info("Start WebDriverManager..."+driverThreadLocal.get());
+        logger.info("Start WebDriverManager..." + driverThreadLocal.get());
         return driverThreadLocal.get();
     }
 
 
-
     public static void quitDriver() {
-        logger.info("Quit WebDriverManager..."+driverThreadLocal.get());
+        logger.info("Quit WebDriverManager..." + driverThreadLocal.get());
         WebDriver driver = driverThreadLocal.get();
         if (driver != null) {
             driver.quit();
             driverThreadLocal.remove();
         }
     }
-
 
 
 }
