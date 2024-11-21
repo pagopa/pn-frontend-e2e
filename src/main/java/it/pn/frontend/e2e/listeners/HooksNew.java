@@ -21,6 +21,7 @@ import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import lombok.Getter;
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -69,6 +70,17 @@ public class HooksNew {
     public void startScenario(Scenario scenario) {
         logger.info("----- START SCENARIO: {} -----", scenario.getName());
         driver =  WebDriverManager.getDriverThreadLocal().get();
+
+        String language = (String) ((JavascriptExecutor) driver).executeScript("return navigator.language");
+        logger.info("Lingua corrente: " + language);
+
+        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        try {
+            FileUtils.copyFile(screenshot, new File("C:/screenshot.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         HooksNew.scenario = scenario.getName();
         scenario.getSourceTagNames().stream()
                 .filter(tag -> tag.startsWith("@TA_"))
