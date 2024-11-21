@@ -19,13 +19,14 @@ import java.util.List;
 public class NotifichePFPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(NotifichePFPage.class);
 
-/**
+
     @FindBy(id = "Le tue notifiche-page")
     private WebElement titleLabel;
- **/
 
-    @FindBy(id = "Your notifications-page")
-    private WebElement titleLabel;
+    /**
+     * @FindBy(id = "Your notifications-page")
+     * private WebElement titleLabel;
+     **/
 
     @FindBy(id = "notifications-table")
     private WebElement tableNotifiche;
@@ -76,7 +77,7 @@ public class NotifichePFPage extends BasePage {
     private WebElement buttonDownloadAvvisoPagoPA;
 
 
-    private  WebTool webTool;
+    private WebTool webTool;
 
     public NotifichePFPage(WebDriver driver) {
         this.driver = driver;
@@ -84,9 +85,8 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void waitLoadNotificheDEPage() {
-       // titleLabel = driver.findElement(By.id("Le tue notifiche-page"));
-        webTool.waitTime(10);
-        titleLabel = driver.findElement(By.id("Your notifications-page"));
+        titleLabel = driver.findElement(By.id("Le tue notifiche-page"));
+        //titleLabel = driver.findElement(By.id("Your notifications-page"));
         tableNotifiche = driver.findElement(By.id("notifications-table"));
         getWebDriverWait(10).withMessage("Notifiche DE Page non caricata correttamente: il titolo non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));
         getWebDriverWait(10).withMessage("Notifiche DE Page non caricata correttamente: la tabella delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(tableNotifiche));
@@ -159,7 +159,7 @@ public class NotifichePFPage extends BasePage {
     public void siVisualizzaPaginaNotifichePersonaFisica() {
         WebElement bannerRecapiti = driver.findElement(By.cssSelector("[data-testid='menu-item(i tuoi recapiti)']"));
         WebElement filtriDiRicerca = driver.findElement(By.cssSelector("[data-testid='filter-form']"));
-        WebElement elencoNotifiche =driver.findElement( By.id("notificationsTable.body.row"));
+        WebElement elencoNotifiche = driver.findElement(By.id("notificationsTable.body.row"));
         getWebDriverWait(30).withMessage("Il titolo della pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));
         getWebDriverWait(30).withMessage("Il bottone 'i tuoi recapiti' della sidebar non è visibile").until(ExpectedConditions.visibilityOf(bannerRecapiti));
         getWebDriverWait(30).withMessage("La sezione filtri per le notifiche non è visualizzabile").until(ExpectedConditions.visibilityOf(filtriDiRicerca));
