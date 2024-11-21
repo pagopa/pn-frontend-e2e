@@ -238,7 +238,9 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
             Assertions.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
         }
 
+        logger.info("HTML....00"+driver.getPageSource());
         confermaDatiSpidPFPage.selezionaConfermaButton();
+        webTool.waitTime(10);
         headerPFSection.waitUrlToken();
         webTool.waitTime(2);
     }
