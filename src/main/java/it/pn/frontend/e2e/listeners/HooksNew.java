@@ -71,8 +71,9 @@ public class HooksNew {
         logger.info("----- START SCENARIO: {} -----", scenario.getName());
         driver =  WebDriverManager.getDriverThreadLocal().get();
 
-        String language = (String) ((JavascriptExecutor) driver).executeScript("return navigator.language");
-        logger.info("Lingua corrente: " + language);
+        /**
+       String language = (String) ((JavascriptExecutor) driver).executeScript("return navigator.language");
+       logger.info("Lingua corrente: " + language);
 
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
@@ -80,6 +81,7 @@ public class HooksNew {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+         **/
 
         HooksNew.scenario = scenario.getName();
         scenario.getSourceTagNames().stream()
