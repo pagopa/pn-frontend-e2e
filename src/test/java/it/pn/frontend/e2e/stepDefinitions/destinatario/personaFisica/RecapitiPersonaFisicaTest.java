@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 
 public class RecapitiPersonaFisicaTest {
 
-    private static final Logger logger = LoggerFactory.getLogger("InserimentoOTPSbagliato");
+    private static final Logger logger = LoggerFactory.getLogger("RecapitiPersonaFisicaTest");
 
     @Autowired
     private WebDriverConfig webDriverConfig;
@@ -100,7 +100,7 @@ public class RecapitiPersonaFisicaTest {
         logger.info("Si visualizza correttamente il pop-up di inserimento OTP");
         String url = webDriverConfig.getBaseUrl() + "addresses";
         recapitiDestinatarioPage.waitLoadPopUp();
-        webTool.waitTime(3);
+        webTool.waitTime(10);
         if (verificaChiamataEmail(url)) {
             logger.info("La chiamata per inviare l'otp è stata effettuata");
         } else {

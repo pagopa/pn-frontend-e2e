@@ -7,12 +7,15 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class RecapitiPGPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("RecapitiPGPage");
 
+    @Autowired
     public RecapitiPGPage(WebDriver driver) {
         super(driver);
     }

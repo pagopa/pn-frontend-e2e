@@ -122,7 +122,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         UtentiPGPage.class,
         GruppiPGPage.class,
         ApiKeyPAPage.class,
-        DataPopulationConfig.class
+        DataPopulationConfig.class,
+        RecapitiPGPage.class
 
 })
 @EnableScheduling
