@@ -31,12 +31,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-@Primary
+
 public class HelpdeskTest extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("HelpdeskAppTest");
 
-    @Autowired
-    private DataPopulation dataPopulation;
+
     @Autowired
     @Lazy
     private WebDriverConfig webDriverConfig;
@@ -54,8 +53,6 @@ public class HelpdeskTest extends BasePage {
 //    private Map<String, Object> datiTestHelpdesk = new HashMap<>();
 //    private Map<String, Object> datiPersonaFisica = new HashMap<>();
 
-    private Map<String, Object> datiTestHelpdesk = new HashMap<>();
-    private Map<String, Object> datiPersonaFisica = new HashMap<>();
 
     @PostConstruct
     public void init(){
@@ -66,8 +63,7 @@ public class HelpdeskTest extends BasePage {
 
 
     @Given("Login helpdesk con utente test {string}")
-    public void loginHelpdeskConUtenteTest(String nameFile) {
-        this.datiTestHelpdesk = this.dataPopulation.readDataPopulation(nameFile + ".yaml");
+    public void loginHelpdeskConUtenteTest() {
         String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
             case "dev" -> helpdeskPage.changePage(dataPopulationConfig.getHelpdesk().getUrl());
