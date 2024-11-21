@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.api.mittente.SpidAcsMittente;
 import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoContinueResponse;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogin;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
@@ -37,7 +38,11 @@ public class LoginMittentePagoPA extends BasePage {
 
     private  WebTool webTool;
 
-    private Map<String, Object> datiMittente;
+    // Percorso del file token specificato nelle configurazioni, con valore di default 'tokenLogin.yaml'
+   // @Value("${token.login.file:tokenLogin.yaml}")
+   // private String FILE_TOKEN_LOGIN;
+
+//    private Map<String, Object> datiMittente1;
     private Map<String, String> urlMittente;
 
     @Autowired
@@ -68,6 +73,9 @@ public class LoginMittentePagoPA extends BasePage {
     BasicCookieStore cookieStore;
 
     @Autowired
+    private DataPopulationConfig dataPopulationConfig;
+
+    @Autowired
     @Lazy
     private WebDriverManager webDriverManager;
 
@@ -93,7 +101,6 @@ public class LoginMittentePagoPA extends BasePage {
     public void loginPageMittenteVieneVisualizzata(String datiMittenteFile) {
         logger.info("Si recupera l'ambiente e si visualizza la pagina di login 1");
 
-        this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
         String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
             case "dev" ->driver.get(webDriverConfig.getUrlMittente());
@@ -108,7 +115,7 @@ public class LoginMittentePagoPA extends BasePage {
     public void loginPageMittenteVieneVisualizzata(Map<String,String> datiMittenteTable) {
         logger.info("Si recupera l'ambiente e si visualizza la pagina di login");
         String variabileAmbiente = webDriverConfig.getEnvironment();
-        this.datiMittente = dataPopulation.readDataPopulation("mittente.yaml");
+//        this.datiMittente = dataPopulation.readDataPopulation("mittente.yaml");
         switch (variabileAmbiente) {
             case "dev" -> driver.get(webDriverConfig.getUrlMittente());
             case "test", "uat" ->
@@ -151,8 +158,6 @@ public class LoginMittentePagoPA extends BasePage {
     public void loginConMittente(String datiMittenteFile) {
         logger.info("Si effetua la Login dal portale mittente");
 
-        this.datiMittente = dataPopulation.readDataPopulation(datiMittenteFile + ".yaml");
-
         // Creazione dell'oggetto pagina per la gestione del pre-accesso all'area riservata
         preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
@@ -183,8 +188,8 @@ public class LoginMittentePagoPA extends BasePage {
         autorizziInvioDatiPAPage.selezionareInvia();
 
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
-        selezionaEntePAPage.cercaComune(this.datiMittente.get("comune").toString());
-        selezionaEntePAPage.selezionareComune(this.datiMittente.get("comune").toString());
+        selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComune());
+        selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComune());
         selezionaEntePAPage.selezionaAccedi();
     }
 
@@ -219,8 +224,8 @@ public class LoginMittentePagoPA extends BasePage {
         autorizziInvioDatiPAPage.selezionareInvia();
 
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
-        selezionaEntePAPage.cercaComune(datiMittenteFile.get("comune"));
-        selezionaEntePAPage.selezionareComune(datiMittenteFile.get("comune"));
+        selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComune());
+        selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComune());
         selezionaEntePAPage.selezionaAccedi();
     }
 
@@ -251,8 +256,8 @@ public class LoginMittentePagoPA extends BasePage {
         driver.get(this.urlMittente.get("urlPortale"));
 
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
-        selezionaEntePAPage.cercaComune(this.datiMittente.get("comune").toString());
-        selezionaEntePAPage.selezionareComune(this.datiMittente.get("comune").toString());
+        selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComune());
+        selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComune());
         selezionaEntePAPage.selezionaAccedi();
     }
 
@@ -391,7 +396,7 @@ public class LoginMittentePagoPA extends BasePage {
         headerPASection.waitLoadHeaderSection();
 
         areaRiservataPAPage.waitLoadAreaRiservataPAPage();
-        if (areaRiservataPAPage.verificaCodiceFiscale(this.datiMittente.get("codiceFiscale").toString())) {
+        if (areaRiservataPAPage.verificaCodiceFiscale(dataPopulationConfig.getMittente().getCodiceFiscale())) {
             logger.info("Codice fiscale presente");
         } else {
             logger.info("Codice fiscale non presente o errato");

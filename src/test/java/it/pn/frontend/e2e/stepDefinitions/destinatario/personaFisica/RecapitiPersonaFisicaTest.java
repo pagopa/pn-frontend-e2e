@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.api.personaFisica.RecuperoOTPRecapiti;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
@@ -26,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 
 public class RecapitiPersonaFisicaTest extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("InserimentoOTPSbagliato");
+    private static final Logger logger = LoggerFactory.getLogger("RecapitiPersonaFisicaTest");
 
     @Autowired
     private WebDriverConfig webDriverConfig;
@@ -43,6 +44,8 @@ public class RecapitiPersonaFisicaTest extends BasePage {
 
     private RecapitiDestinatarioPage recapitiDestinatarioPage ;
 
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
 
     private  WebTool webTool;
 
@@ -109,7 +112,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         logger.info("Si visualizza correttamente il pop-up di inserimento OTP");
         String url = webDriverConfig.getBaseUrl() + "addresses";
         recapitiDestinatarioPage.waitLoadPopUp();
-        webTool.waitTime(3);
+        webTool.waitTime(10);
         if (verificaChiamataEmail(url)) {
             logger.info("La chiamata per inviare l'otp è stata effettuata");
         } else {
@@ -198,13 +201,18 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     }
 
     @And("Si inserisce l'email della {string} e si clicca sul bottone avvisami via email")
-    public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPFECliccaSulBottoneAvvisamiViaEmail(String dpFile) {
+    public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPFECliccaSulBottoneAvvisamiViaEmail(String persona) {
         logger.info("Si inserisce la email");
+        //personaFisica
+        //personaGiuridica
+//        String email = personaFisica.get("mail").toString();
+        if(persona.equalsIgnoreCase("personaGiuridica")){
+            recapitiDestinatarioPage.insertEmail(dataPopulationConfig.getPersonaGiuridica().getMail());
+        }
+        else {
+            recapitiDestinatarioPage.insertEmail(dataPopulationConfig.getPersonaFisica().getMail());
+        }
 
-        Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        String email = personaFisica.get("mail").toString();
-
-        recapitiDestinatarioPage.insertEmail(email);
         recapitiDestinatarioPage.clickAvvisamiViaEmail();
     }
 
@@ -223,14 +231,11 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         recapitiDestinatarioPage.confermaEmailPopup();
     }
 
-    @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono del PF {string} e clicca sul bottone avvisami via SMS")
-    public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoDelPF(String dpFile) {
-
+    @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono del PF e clicca sul bottone avvisami via SMS")
+    public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoDelPF() {
+        //personaFisica
         logger.info("Si inserisce il numero di telefono PF");
-
-        Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        String phoneNumber = personaFisica.get("telefono").toString();
-
+        String phoneNumber = dataPopulationConfig.getPersonaFisica().getTelefono();
         iTuoiRecapitiPage.insertTelephoneNumber(phoneNumber);
         iTuoiRecapitiPage.clickAvvisamiViaSMS();
     }
@@ -261,17 +266,25 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     }
 
     @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request {string}")
-    public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequest(String dpFile) {
-
-        Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
+    public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequest(String persona) {
+        //personaFisica
+        //personaGiuridica
+        boolean results = false;
         String startUrl = "http://localhost:8887/";
-        String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("emailPec");
-        boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+        if(persona.equalsIgnoreCase("personaGiuridica")) {
+            recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getEmailPec());
+        }else {
+            recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getEmailPec());
+        }
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
-            personaFisica.put("OTPpec", OTP);
-            dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+//            personaFisica.put("OTPpec", OTP);
+//            dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+            if(persona.equalsIgnoreCase("personaGiuridica")) {
+                dataPopulationConfig.getPersonaGiuridica().setOTPPec(OTP);
+            }else {
+                dataPopulationConfig.getPersonaFisica().setOTPPec(OTP);
+            }
         } else {
             String variabileAmbiente = webDriverConfig.getEnvironment();
             if (variabileAmbiente.equalsIgnoreCase("test")) {
@@ -279,13 +292,23 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
             }
-            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("emailPec");
-            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+//            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("emailPec");
+//            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+            if(persona.equalsIgnoreCase("personaGiuridica")) {
+                recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getEmailPec());
+            }else {
+                recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getEmailPec());
+            }
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
                 logger.info("OTTTPPP" + OTP);
-                personaFisica.put("OTPpec", OTP);
-                dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+//                personaFisica.put("OTPpec", OTP);
+//                dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+                if(persona.equalsIgnoreCase("personaGiuridica")) {
+                    dataPopulationConfig.getPersonaGiuridica().setOTPPec(OTP);
+                }else {
+                    dataPopulationConfig.getPersonaFisica().setOTPPec(OTP);
+                }
             } else {
                 logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
                 Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
@@ -332,11 +355,17 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce il codice OTP {string}")
-    public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP(String dpFile) {
+    public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP(String persona) {
+        //personaFisica
+        //personaGiuridica
         logger.info("Si inserisce il codice OTP di verifica");
 
-        String otp = dataPopulation.readDataPopulation(dpFile + ".yaml").get("OTPpec").toString();
-        iTuoiRecapitiPage.sendOTP(otp);
+        if(persona.equalsIgnoreCase("personaGiuridica")){
+            iTuoiRecapitiPage.sendOTP(dataPopulationConfig.getPersonaGiuridica().getOTPPec());
+        }
+        else {
+            iTuoiRecapitiPage.sendOTP(dataPopulationConfig.getPersonaFisica().getOTPPec());
+        }
         recapitiDestinatarioPage.confermaButtonClickPopUp();
         if (recapitiDestinatarioPage.waitMessaggioErrore()) {
             logger.error("Il codice OTP inserito è sbagliato");
@@ -386,21 +415,32 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     }
 
     @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method {string}")
-    public void nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaEmailTramiteRequestMethod(String dpFile) {
-        Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+    public void nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaEmailTramiteRequestMethod(String persona) {
+        //personaFisica
+        //personaGiuridica
         try {
             TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
+        boolean results = false;
         String startUrl = "http://localhost:8887/";
-        String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("mail");
-        boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+        if(persona.equalsIgnoreCase("personaGiuridica")) {
+            recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getMail());
+        }else {
+            recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getMail());
+        }
+
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
-            personaFisica.put("OTPmail", OTP);
-            dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+            //            personaFisica.put("OTPmail", OTP);
+//            dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+            if(persona.equalsIgnoreCase("personaGiuridica")) {
+                dataPopulationConfig.getPersonaGiuridica().setOTPMail(OTP);
+            }else {
+                 dataPopulationConfig.getPersonaFisica().setOTPMail(OTP);
+            }
+
         } else {
             String variabileAmbiente = webDriverConfig.getEnvironment();
             if (variabileAmbiente.equalsIgnoreCase("test")) {
@@ -408,12 +448,22 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
             }
-            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("mail");
-            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+//            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("mail");
+//            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
+            if(persona.equalsIgnoreCase("personaGiuridica")) {
+                recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getMail());
+            }else {
+                recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getMail());
+            }
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
-                personaFisica.put("OTPmail", OTP);
-                dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+//                personaFisica.put("OTPmail", OTP);
+//                dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+                if(persona.equalsIgnoreCase("personaGiuridica")) {
+                    dataPopulationConfig.getPersonaGiuridica().setOTPMail(OTP);
+                }else {
+                    dataPopulationConfig.getPersonaFisica().setOTPMail(OTP);
+                }
             } else {
                 logger.error("La chiamata non ha risposto correttamente con codice:" + recuperoOTPRecapiti.getResponseCode());
                 Assertions.fail("La chiamata non ha risposto correttamentecon codice:" + recuperoOTPRecapiti.getResponseCode());
@@ -421,9 +471,9 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         }
     }
 
-    @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della Email 'altri recapiti' tramite request method {string}")
-    public void nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaEmailAltriRecapitiTramiteRequestMethod(String dpFile) {
-        Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+    @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della Email 'altri recapiti' tramite request method")
+    public void nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaEmailAltriRecapitiTramiteRequestMethod() {
+        // "personaFisica"
         try {
             TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
@@ -431,12 +481,13 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         }
 
         String startUrl = "http://localhost:8887/";
-        String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("additionalEmail");
+        String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getAdditionalEmail();
         boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
-            personaFisica.put("OTPmail", OTP);
-            dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+//            personaFisica.put("OTPmail", OTP);
+//            dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+            dataPopulationConfig.getPersonaFisica().setOTPMail(OTP);
         } else {
             String variabileAmbiente = webDriverConfig.getEnvironment();
             if (variabileAmbiente.equalsIgnoreCase("test")) {
@@ -444,12 +495,13 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
             }
-            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("additionalEmail");
+            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getAdditionalEmail();;
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
-                personaFisica.put("OTPmail", OTP);
-                dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+//                personaFisica.put("OTPmail", OTP);
+//                dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+                dataPopulationConfig.getPersonaFisica().setOTPMail(OTP);
             } else {
                 logger.error("La chiamata non ha risposto correttamente con codice:" + recuperoOTPRecapiti.getResponseCode());
                 Assertions.fail("La chiamata non ha risposto correttamentecon codice:" + recuperoOTPRecapiti.getResponseCode());
@@ -457,12 +509,11 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         }
     }
 
-    @And("Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email {string}")
-    public void nellaPaginaITuoiRecapitiSiInserisceLOTPRicevutoViaEmail(String dpFile) {
+    @And("Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email")
+    public void nellaPaginaITuoiRecapitiSiInserisceLOTPRicevutoViaEmail() {
         logger.info("Si inserisce il codice OTP di verifica");
-
-        String otp = dataPopulation.readDataPopulation(dpFile + ".yaml").get("OTPmail").toString();
-        iTuoiRecapitiPage.sendOTP(otp);
+        //personaFisica
+        iTuoiRecapitiPage.sendOTP(dataPopulationConfig.getPersonaFisica().getOTPMail());
         recapitiDestinatarioPage.confermaButtonClickPopUp();
     }
 
@@ -480,8 +531,8 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         logger.info("Si controlla che che ci sia già una Email");
 
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
-        Map<String, Object> personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
-        String email = personaFisica.get("mail").toString();
+       // Map<String, Object> personaFisica1 = dataPopulation.readDataPopulation("personaFisica.yaml");
+        String email = dataPopulationConfig.getPersonaFisica().getMail();
 
         if (!recapitiDestinatarioPage.verificaMailAssociata()) {
             logger.info("verifica mail associata, step 1");
@@ -513,16 +564,13 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         recapitiDestinatarioPage.clickSuModifica();
     }
 
-    @And("Nella pagina I Tuoi Recapiti si inserisce la nuova Email del PF {string} e clicca su salva")
-    public void nellaPaginaITuoiRecapitiSiInserisceLaNuovaEmailDelPFECliccaSulBottoneAvvisamiViaEmail(String dpFile) {
+    @And("Nella pagina I Tuoi Recapiti si inserisce la nuova Email del PF e clicca su salva")
+    public void nellaPaginaITuoiRecapitiSiInserisceLaNuovaEmailDelPFECliccaSulBottoneAvvisamiViaEmail() {
         logger.info("Si inserisce la nuova Email e si clicca sul bottone avvisami via email");
-
+        //"personaFisica"
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
-
         iTuoiRecapitiPage.cancellaTesto();
-
-        String email = dataPopulation.readDataPopulation(dpFile + ".yaml").get("email").toString();
-        iTuoiRecapitiPage.insertEmail(email);
+        iTuoiRecapitiPage.insertEmail(dataPopulationConfig.getPersonaFisica().getEmail());
         iTuoiRecapitiPage.clickSalvaEmail();
 
     }
@@ -533,10 +581,9 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         iTuoiRecapitiPage.verificaEmailModificata();
     }
 
-    @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della nuova Email tramite request method {string}")
-    public void nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaNuovaEmailTramiteRequestMethod(String dpFile) {
-        Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
+    @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della nuova Email tramite request method")
+    public void nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaNuovaEmailTramiteRequestMethod() {
+        //personaFisica
         try {
             TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
@@ -545,12 +592,13 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         }
 
         String startUrl = "http://localhost:8887/";
-        String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("email");
+        String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getEmail();
         boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
-            personaFisica.put("OTPmail", OTP);
-            dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+//            personaFisica.put("OTPmail", OTP);
+//            dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+            dataPopulationConfig.getPersonaFisica().setOTPMail(OTP);
         } else {
             String variabileAmbiente = webDriverConfig.getEnvironment();
             if (variabileAmbiente.equalsIgnoreCase("test")) {
@@ -558,12 +606,13 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
             }
-            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("email");
+            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getEmail();
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
-                personaFisica.put("OTPmail", OTP);
-                dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+//                personaFisica.put("OTPmail", OTP);
+//                dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+                dataPopulationConfig.getPersonaFisica().setOTPMail(OTP);
             } else {
                 logger.error("La chiamata con url: " + url + " ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
                 Assertions.fail("La chiamata  con url: " + url + " ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
@@ -681,20 +730,20 @@ public class RecapitiPersonaFisicaTest extends BasePage {
 
     }
 
-    @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request {string}")
-    public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaPECTramiteChiamataRequest(String dpFile) {
+    @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request")
+    public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaPECTramiteChiamataRequest() {
         logger.info("Si recupera il codice OTP della nuova pec");
-
-        Map<String, Object> personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        String pec = personaFisica.get("pec").toString();
+        //personaFisica
+        String pec = dataPopulationConfig.getPersonaFisica().getPec();
 
         String startUrl = "http://localhost:8887/";
         String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + pec;
         boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
-            personaFisica.put("OTPpec", OTP);
-            dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+//            personaFisica.put("OTPpec", OTP);
+//            dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+            dataPopulationConfig.getPersonaFisica().setOTPPec(OTP);
         } else {
             String variabileAmbiente = webDriverConfig.getEnvironment();
             if (variabileAmbiente.equalsIgnoreCase("test")) {
@@ -702,13 +751,14 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
             }
-            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("pec");
+            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getPec();
             logger.info("Chiamata verifica PEC :" + url);
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
-                personaFisica.put("OTPpec", OTP);
-                dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+//                personaFisica.put("OTPpec", OTP);
+//                dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
+                dataPopulationConfig.getPersonaFisica().setOTPPec(OTP);
             } else {
                 logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
                 Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
@@ -833,11 +883,11 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         }
     }
 
-    @And("Nella sezione altri recapiti si seleziona l'ente {string}")
-    public void nellaSezioneAltriRecapitiSiSelezionaLEnte(String dpFile) {
+    @And("Nella sezione altri recapiti si seleziona l'ente")
+    public void nellaSezioneAltriRecapitiSiSelezionaLEnte() {
         logger.info("Si sceglie l'ente");
-        Map<String, Object> mittente = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        recapitiDestinatarioPage.insertEnte(mittente.get("comune").toString());
+        //mittente
+        recapitiDestinatarioPage.insertEnte(dataPopulationConfig.getMittente().getComune());
     }
 
     @And("Nella pagina Recapiti si inserisce il numero di telefono {string} e clicca sul bottone avvisami via SMS")
@@ -862,6 +912,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
 
     @And("Nella sezione altri recapiti si inserisce la PEC aggiuntiva de persona fisica {string}")
     public void nellaSezioneAltriRecapitiSiInserisceLaPECAggiuntivaDePersonaFisica(String email) {
+        //TODO gestire......
         recapitiDestinatarioPage.insertPECAggiuntiva(email);
         Map<String, Object> dataPersonaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
         dataPersonaFisica.put("additionalEmail", email);
@@ -896,6 +947,8 @@ public class RecapitiPersonaFisicaTest extends BasePage {
 
     @And("Nella sezione altri recapiti si inserisce la Email aggiuntiva della persona fisica {string}")
     public void nellaSezioneAltriRecapitiSiInserisceLaEmailAggiuntivaDellaPersonaFisica(String email) {
+
+        //TODO gestire....
         recapitiDestinatarioPage.insertEmailAggiuntiva(email);
         Map<String, Object> dataPersonaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
         dataPersonaFisica.put("additionalEmail", email);
@@ -918,12 +971,11 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         recapitiDestinatarioPage.siControllaEmailAggiunta();
     }
 
-    @And("Nella pagina I Tuoi Recapiti si inserisce il codice OTP della email {string}")
-    public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTPDellaEmail(String dpFile) {
+    @And("Nella pagina I Tuoi Recapiti si inserisce il codice OTP della email")
+    public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTPDellaEmail() {
         logger.info("Si inserisce il codice OTP di verifica");
-
-        String otp = dataPopulation.readDataPopulation(dpFile + ".yaml").get("OTPmail").toString();
-        iTuoiRecapitiPage.sendOTP(otp);
+        //personaFisica
+        iTuoiRecapitiPage.sendOTP(dataPopulationConfig.getPersonaFisica().getOTPMail());
         recapitiDestinatarioPage.confermaButtonClickPopUp();
     }
 
@@ -935,12 +987,11 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         }
     }
 
-    @And("Nella sezione altri recapiti si controlla l'esistenza di una email {string}")
-    public void nellaSezioneAltriRecapitiSiControllaLEsistenzaDiUnaEmail(String dpFile) {
+    @And("Nella sezione altri recapiti si controlla l'esistenza di una email")
+    public void nellaSezioneAltriRecapitiSiControllaLEsistenzaDiUnaEmail() {
         logger.info("Si controlla l'esistenza di una altra email");
-
-        Map<String, Object> personaFisica = this.dataPopulation.readDataPopulation(dpFile + ".yaml");
-        String nuovaEmail = personaFisica.get("mail").toString();
+        //"personaFisica"
+        String nuovaEmail =dataPopulationConfig.getPersonaFisica().getMail();
         if (recapitiDestinatarioPage.verificaNuovaEmailEPEC(nuovaEmail)) {
             recapitiDestinatarioPage.eliminaNuovaEmail();
         }
@@ -963,11 +1014,11 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         }
     }
 
-    @And("Nella sezione altri recapiti si controlla l'esistenza di una PEC {string}")
-    public void nellaSezioneAltriRecapitiSiControllaLEsistenzaDiUnaPEC(String dpFile) {
+    @And("Nella sezione altri recapiti si controlla l'esistenza di una PEC")
+    public void nellaSezioneAltriRecapitiSiControllaLEsistenzaDiUnaPEC() {
         logger.info("Si controlla esistenza di una PEC aggiuntiva");
-        String pec = dataPopulation.readDataPopulation(dpFile + ".yaml").get("emailPec").toString();
-        if (recapitiDestinatarioPage.verificaNuovaEmailEPEC(pec)) {
+        //personaFisica
+        if (recapitiDestinatarioPage.verificaNuovaEmailEPEC(dataPopulationConfig.getPersonaFisica().getEmailPec())) {
             recapitiDestinatarioPage.eliminaNuovaPec();
         }
     }

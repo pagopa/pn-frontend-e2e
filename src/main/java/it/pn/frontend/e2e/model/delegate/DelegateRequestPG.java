@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Data
-@Builder
 public class DelegateRequestPG {
     private String dateto;
     private DelegatePG delegate;

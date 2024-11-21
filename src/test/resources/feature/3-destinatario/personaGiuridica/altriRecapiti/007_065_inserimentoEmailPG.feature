@@ -14,6 +14,6 @@ Feature: La persona giuridica inserisce l'email
     And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
-    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email "personaGiuridica"
+    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
     Then Nella pagina I Tuoi Recapiti si controlla che la Email sia presente
     And Logout da portale persona giuridica

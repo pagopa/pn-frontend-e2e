@@ -3,6 +3,9 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
+import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DestinatarioPASection;
@@ -26,8 +29,8 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittenteTest");
 
-    private Map<String, Object> personaFisica = new HashMap<>();
-    private Map<String, Object> datiNotifica = new HashMap<>();
+//    private Map<String, Object> personaFisica = new HashMap<>();
+//    private Map<String, Object> datiNotifica = new HashMap<>();
     private boolean dataFineErrata;
 
     private  DestinatarioPASection destinatarioPASection;
@@ -38,7 +41,8 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
 
     private  HeaderPASection headerPASection;
     @Autowired
-    DataPopulation dataPopulation;
+    private DataPopulationConfig dataPopulationConfig;
+
 
     @PostConstruct
     public void init(){
@@ -52,11 +56,9 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica {string}")
     public void inserireCodiceFiscale(String dpFile) {
         logger.info("Avvio ricerca tramite codice fiscale");
-
-        this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
-        String cf = destinatarioPASection.ricercaInformazione(personaFisica.get("codiceFiscale").toString().split(","), 0);
-
+        //personaFisica
+//        String cf = destinatarioPASection.ricercaInformazione(personaFisica.get("codiceFiscale").toString().split(","), 0);
+        String cf = destinatarioPASection.ricercaInformazione(dataPopulationConfig.getPersonaFisica().getCodiceFiscale().split(","), 0);
         piattaformaNotifichePage.insertCodiceFiscale(cf);
 
     }
@@ -147,11 +149,12 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         }
     }
 
-    @And("Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica {string}")
-    public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotifica(String dpDatiNotifica) {
+    @And("Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica")
+    public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotifica() {
         logger.info("Si inserisce il codice IUN");
-        this.datiNotifica = dataPopulation.readDataPopulation(dpDatiNotifica + ".yaml");
-        piattaformaNotifichePage.inserimentoCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
+        //"datiNotifica"
+//        piattaformaNotifichePage.inserimentoCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
+        piattaformaNotifichePage.inserimentoCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
     }
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice IUN della notifica")
@@ -307,9 +310,10 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
-        this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
+       // DataPopulation dataPopulation = new DataPopulation();
+       // this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
-        String cfInserito = this.personaFisica.get("codiceFiscale").toString();
+        String cfInserito = dataPopulationConfig.getPersonaFisica().getCodiceFiscale();
         int listaCF = piattaformaNotifichePage.getListaCf(cfInserito);
 
         if (listaCF >= 1) {
@@ -407,10 +411,10 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
-        DataPopulation dataPopulation = new DataPopulation();
-        this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
+        //DataPopulation dataPopulation = new DataPopulation();
+        //this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
-        String cfInserito = this.personaFisica.get("codiceFiscale").toString();
+        String cfInserito = dataPopulationConfig.getPersonaFisica().getCodiceFiscale();
         int listaCF = piattaformaNotifichePage.getListaCf(cfInserito);
 
         if (listaCF >= 1) {
@@ -438,10 +442,10 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
-        DataPopulation dataPopulation = new DataPopulation();
-        this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
+        //DataPopulation dataPopulation = new DataPopulation();
+        //this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
-        String cfInserito = this.personaFisica.get("codiceFiscale").toString();
+        String cfInserito = dataPopulationConfig.getPersonaFisica().getCodiceFiscale();
         int listaCF = piattaformaNotifichePage.getListaCf(cfInserito);
 
         if (listaCF >= 1) {

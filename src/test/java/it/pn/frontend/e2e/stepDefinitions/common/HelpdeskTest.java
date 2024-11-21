@@ -6,6 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.HelpdeskPage;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.enums.Disservice;
@@ -47,7 +48,11 @@ public class HelpdeskTest extends BasePage {
     private BackgroundTest backgroundTest;
 
     private  WebTool webTool;
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
 
+//    private Map<String, Object> datiTestHelpdesk = new HashMap<>();
+//    private Map<String, Object> datiPersonaFisica = new HashMap<>();
 
     private Map<String, Object> datiTestHelpdesk = new HashMap<>();
     private Map<String, Object> datiPersonaFisica = new HashMap<>();
@@ -64,27 +69,26 @@ public class HelpdeskTest extends BasePage {
     public void loginHelpdeskConUtenteTest(String nameFile) {
         this.datiTestHelpdesk = this.dataPopulation.readDataPopulation(nameFile + ".yaml");
         String variabileAmbiente = webDriverConfig.getEnvironment();
-        helpdeskPage = new HelpdeskPage(driver);
         switch (variabileAmbiente) {
-            case "dev" -> helpdeskPage.changePage(this.datiTestHelpdesk.get("url").toString());
+            case "dev" -> helpdeskPage.changePage(dataPopulationConfig.getHelpdesk().getUrl());
             case "test", "uat" ->
-                    helpdeskPage.changePage(this.datiTestHelpdesk.get("url").toString().replace("dev", variabileAmbiente));
+                    helpdeskPage.changePage(dataPopulationConfig.getHelpdesk().getUrl().replace("dev", variabileAmbiente));
             default ->
                     Assertions.fail("Non è stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
         helpdeskPage.checkForm();
         switch (variabileAmbiente) {
             case "dev" -> {
-                helpdeskPage.insertUsername(this.datiTestHelpdesk.get("userDev").toString());
-                helpdeskPage.insertPassword(this.datiTestHelpdesk.get("pwdDev").toString());
+                helpdeskPage.insertUsername(dataPopulationConfig.getHelpdesk().getUserDev());
+                helpdeskPage.insertPassword(dataPopulationConfig.getHelpdesk().getPwdDev());
             }
             case "test" -> {
-                helpdeskPage.insertUsername(this.datiTestHelpdesk.get("userTest").toString());
-                helpdeskPage.insertPassword(this.datiTestHelpdesk.get("pwdTest").toString());
+                helpdeskPage.insertUsername(dataPopulationConfig.getHelpdesk().getUserTest());
+                helpdeskPage.insertPassword(dataPopulationConfig.getHelpdesk().getPwdTest());
             }
             case "uat" -> {
-                helpdeskPage.insertUsername(this.datiTestHelpdesk.get("userUat").toString());
-                helpdeskPage.insertPassword(this.datiTestHelpdesk.get("pwdUat").toString());
+                helpdeskPage.insertUsername(dataPopulationConfig.getHelpdesk().getUserUat());
+                helpdeskPage.insertPassword(dataPopulationConfig.getHelpdesk().getPwdUat());
             }
             default ->
                     Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
@@ -94,7 +98,6 @@ public class HelpdeskTest extends BasePage {
 
     @And("Click su card monitoraggio piattaforma")
     public void clickSuCardMonitoraggioPiattaforma() {
-        helpdeskPage = new HelpdeskPage(driver);
         helpdeskPage.clickMonitoraggio();
     }
 
@@ -179,10 +182,11 @@ public class HelpdeskTest extends BasePage {
         helpdeskPage.checkRicercaPage();
     }
 
-    @And("viene inserito codice fiscale {string}")
-    public void vieneInseritoCodiceFiscale(String nameFile) {
-        this.datiPersonaFisica = this.dataPopulation.readDataPopulation(nameFile + ".yaml");
-        helpdeskPage.insertCfAndRicercaOnPage(datiPersonaFisica.get("codiceFiscale").toString());
+    @And("viene inserito codice fiscale")
+    public void vieneInseritoCodiceFiscale() {
+        //personaFisica
+//        helpdeskPage.insertCfAndRicercaOnPage(datiPersonaFisica.get("codiceFiscale").toString());
+        helpdeskPage.insertCfAndRicercaOnPage(dataPopulationConfig.getPersonaFisica().getCodiceFiscale());
     }
 
     @And("viene inserito codice fiscale senza ricerca {string}")

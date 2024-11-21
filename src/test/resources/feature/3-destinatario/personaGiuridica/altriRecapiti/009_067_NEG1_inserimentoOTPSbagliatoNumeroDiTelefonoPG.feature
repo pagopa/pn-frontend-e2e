@@ -10,7 +10,7 @@ Feature: la persona giuridica inserisce l'OTP numero di telefono  errato
     And Rimuovi tutti i recapiti se esistono
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina Recapiti persona giuridica
-    And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono del PG "personaGiuridica" e clicca sul bottone avvisami via SMS
+    And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono del PG e clicca sul bottone avvisami via SMS
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato "15494"
     And Nella pagina I Tuoi Recapiti clicca sul bottone conferma

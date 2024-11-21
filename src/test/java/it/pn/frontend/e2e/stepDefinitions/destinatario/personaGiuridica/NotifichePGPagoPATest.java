@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.HooksNew;
@@ -62,6 +63,9 @@ public class NotifichePGPagoPATest extends BasePage {
 
     private DeleghePGPagoPAPage deleghePage;
 
+//    Map<String, Object> personaGiuridica = new HashMap<>();
+
+    @Autowired
     private  HomePagePG homePagePG;
 
     private DettaglioNotificaSection dettaglioNotificaSection;
@@ -83,10 +87,7 @@ public class NotifichePGPagoPATest extends BasePage {
     private  WebTool webTool;
 
     @Autowired
-    private DataPopulation dataPopulation;
-
-    @Autowired
-    @Lazy
+    private DataPopulationConfig dataPopulationConfig;
     private WebDriverManager webDriverManager;
 
     @PostConstruct
@@ -214,10 +215,10 @@ public class NotifichePGPagoPATest extends BasePage {
         piattaformaNotifichePGPAPage.clickRecapitiButton();
     }
 
-    @Then("Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona giuridica, e si controlla che il download sia avvenuto {string}")
-    public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaPersonaGiuridicaESiControllaCheIlDownloadSiaAvvenuto(String dpFile) {
+    @Then("Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona giuridica, e si controlla che il download sia avvenuto")
+    public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaPersonaGiuridicaESiControllaCheIlDownloadSiaAvvenuto() {
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponibili();
-        Map<String, Object> datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        //TODO ATTUALMENTE NON VIENE UTILIZZATA
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/personaGiuridica");
         boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
@@ -227,7 +228,7 @@ public class NotifichePGPagoPATest extends BasePage {
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
             dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
             webTool.waitTime(5);
-            String urlFileAttestazioneOppponubile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/bff/v1/notifications/received/" + datiNotifica.get("codiceIUN").toString() + "/documents/");
+            String urlFileAttestazioneOppponubile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/bff/v1/notifications/received/" +dataPopulationConfig.getDatiNotifica().getCodiceIUN() + "/documents/");
             if (headless && urlFileAttestazioneOppponubile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
                 logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
@@ -257,7 +258,9 @@ public class NotifichePGPagoPATest extends BasePage {
 
     public void siRecuperaBearerToken(String dpFile) {
         logger.info("Si recupera il bearer token");
-        personaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        //TODO ATTUALMENTE NON VIENE UTILIZZATA
+        //personaGiuridica
+        //personaGiuridica
 
         if (!cookieConfig.isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
@@ -265,15 +268,16 @@ public class NotifichePGPagoPATest extends BasePage {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
-        piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(personaGiuridica.get("ragioneSociale").toString());
+        piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         String bearerToken = getBearerToken();
-        personaGiuridica.put("bearerToken", bearerToken);
-        dataPopulation.writeDataPopulation(dpFile + ".yaml", personaGiuridica);
+//        personaGiuridica.put("bearerToken", bearerToken);
+//        dataPopulation.writeDataPopulation(dpFile + ".yaml", personaGiuridica);
+        dataPopulationConfig.getPersonaGiuridica().setBearerToken(bearerToken);
     }
 
     @And("Nella sezione Dettaglio Notifiche si clicca su l'opzione Indietro")

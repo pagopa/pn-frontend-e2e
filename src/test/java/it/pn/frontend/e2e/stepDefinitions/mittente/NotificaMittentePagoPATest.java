@@ -7,11 +7,14 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.api.mittente.AccettazioneRichiestaNotifica;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.enums.AppPortal;
+import it.pn.frontend.e2e.model.recipients.PersoneFisiche;
+import it.pn.frontend.e2e.model.recipients.PersoneGiuridiche;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.mittente.AreaRiservataPAPage;
 import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
@@ -50,11 +53,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
     private final String PF = "persona fisica";
     private final String PG = "persona giuridica";
     private final String PA = "pubblica amministrazione";
-    private Map<String, Object> datiNotifica = new HashMap<>();
+    private Map<String, Object> datiNotifica_1 = new HashMap<>();
     private Map<String, String> datiNotificaMap = new HashMap<>();
-    private Map<String, Object> personaFisica = new HashMap<>();
-    private Map<String, Object> personaGiuridica = new HashMap<>();
-    private Map<String, Object> personeFisiche = new HashMap<>();
+//    private Map<String, Object> personaFisica = new HashMap<>();
+//    private Map<String, Object> personaGiuridica = new HashMap<>();
+//    private Map<String, Object> personeFisiche = new HashMap<>();
     @Getter @Setter
     private String Iun;
     @Getter  @Setter
@@ -104,6 +107,10 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @Autowired
     private  LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA;
+
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
+
 
     @PostConstruct
     public void init(){
@@ -187,6 +194,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
                                 String[] rigaNumeroProtocollo = campoNotifica.split(":\"");
                                 return rigaNumeroProtocollo[1];
                             }
+
                         }
                     }
                 }
@@ -221,35 +229,39 @@ public class NotificaMittentePagoPATest  extends BasePage {
         informazioniPreliminariPASection.waitLoadInformazioniPreliminariPASection();
     }
 
-    @And("Nella section Informazioni preliminari inserire i dati della notifica {string} senza pagamento")
-    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento(String datiNotificaFile) {
-        logger.info("Inserimento dei dati della notifica senza pagamento dal file " + datiNotificaFile + ".yaml");
+    @And("Nella section Informazioni preliminari inserire i dati della notifica senza pagamento")
+    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento() {
+        logger.info("Inserimento dei dati della notifica senza pagamento" );
+        //datiNotifica
         aggiornamentoNumeroProtocollo();
-        this.datiNotifica = dataPopulation.readDataPopulation(datiNotificaFile + ".yaml");
         String gruppo = "";
         switch (webDriverConfig.getEnvironment()) {
-            case "dev" -> gruppo = datiNotifica.get("gruppoDev").toString();
-            case "test", "uat" -> gruppo = datiNotifica.get("gruppoTest").toString();
+            // case "dev" -> gruppo = datiNotifica.get("gruppoDev").toString();
+            // case "test", "uat" -> gruppo = datiNotifica.get("gruppoTest").toString();
+            case "dev" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoDev();
+            case "test", "uat" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoTest();
         }
-        informazioniPreliminariPASection.insertOggettoNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString());
-        informazioniPreliminariPASection.insertDescrizione(this.datiNotifica.get("descrizione").toString());
-        informazioniPreliminariPASection.insertNumeroDiProtocollo(this.datiNotifica.get("numeroProtocollo").toString());
+        informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
+        informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione());
+        informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
         informazioniPreliminariPASection.insertGruppo(gruppo);
-        informazioniPreliminariPASection.insertCodiceTassonometrico(this.datiNotifica.get("codiceTassonometrico").toString());
+        informazioniPreliminariPASection.insertCodiceTassonometrico(dataPopulationConfig.getDatiNotifica().getCodiceTassonometrico());
         informazioniPreliminariPASection.selectRaccomandataAR();
     }
 
 
     private void aggiornamentoNumeroProtocollo() {
         logger.info("Aggiornamento del numero protocollo");
-        Map<String, Object> allDatataPopulation = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        String numeroProtocolOld = allDatataPopulation.get("numeroProtocollo").toString();
+//        Map<String, Object> allDatataPopulation = dataPopulation.readDataPopulation("datiNotifica.yaml");
+//        String numeroProtocolOld = allDatataPopulation.get("numeroProtocollo").toString();
+        String numeroProtocolOld = dataPopulationConfig.getDatiNotifica().getNumeroProtocollo();
         String numeroProtocolNew;
         do {
             numeroProtocolNew = WebTool.generatePaProtocolNumber();
         } while (numeroProtocolOld.equals(numeroProtocolNew));
-        allDatataPopulation.put("numeroProtocollo", numeroProtocolNew);
-        dataPopulation.writeDataPopulation("datiNotifica.yaml", allDatataPopulation);
+//        allDatataPopulation.put("numeroProtocollo", numeroProtocolNew);
+//        dataPopulation.writeDataPopulation("datiNotifica.yaml", allDatataPopulation);
+        dataPopulationConfig.getDatiNotifica().setNumeroProtocollo(numeroProtocolNew);
 
     }
 
@@ -290,30 +302,24 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica {string}")
     public void nellaSectionDestinatarioInserireNomeCognomeECodiceFiscaleDaDestinatario(String destinatarioFile) {
         logger.info("Inserimento del nome cognome e codice fiscale dal file personaFisica.yaml");
-        this.personeFisiche = dataPopulation.readDataPopulation(destinatarioFile + ".yaml");
         destinatarioPASection.selezionarePersonaFisica();
-        destinatarioPASection.inserireNomeDestinatario(this.personeFisiche.get("name").toString());
-        destinatarioPASection.inserireCognomeDestinatario(this.personeFisiche.get("familyName").toString());
-        destinatarioPASection.inserireCodiceFiscaleDestinatario(this.personeFisiche.get("codiceFiscale").toString());
+        destinatarioPASection.inserireNomeDestinatario(dataPopulationConfig.getPersonaFisica().getName());
+        destinatarioPASection.inserireCognomeDestinatario(dataPopulationConfig.getPersonaFisica().getFamilyName());
+        destinatarioPASection.inserireCodiceFiscaleDestinatario(dataPopulationConfig.getPersonaFisica().getCodiceFiscale());
     }
 
     @And("Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica {string}")
     public void nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDelDestinatario(String personaFisicaFile) {
         logger.info("Inserimento dei dati mancanti nella section destinatario");
-
         headerPASection.waitLoadHeaderSection();
-
-        this.personeFisiche = dataPopulation.readDataPopulation(personaFisicaFile + ".yaml");
+        //personaFisicaPec
+        //personaFisica
 
         destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
-        destinatarioPASection.inserireIndirizzo(this.personeFisiche.get("indirizzo").toString());
-        destinatarioPASection.inserireNumeroCivico(this.personeFisiche.get("numeroCivico").toString());
-        destinatarioPASection.inserireLocalita(this.personeFisiche.get("localita").toString());
-        destinatarioPASection.inserireComune(this.personeFisiche.get("comune").toString());
-        destinatarioPASection.inserireProvincia(this.personeFisiche.get("provincia").toString());
-        destinatarioPASection.inserireCodicePostale(this.personeFisiche.get("codicepostale").toString());
-        destinatarioPASection.inserireStato(this.personeFisiche.get("stato").toString());
+        populateDestinatarioPASection(personaFisicaFile);
     }
+
+
 
     @And("Nella section Destinatario settare come CAP {string}")
     public void nellaSectionDestinatarioSettareComeCAP(String cap) {
@@ -346,10 +352,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
             Assertions.fail("File notifica.pdf non caricato");
         }
 
-
-        this.datiNotifica = dataPopulation.readDataPopulation(datiNotificaFile + ".yaml");
-
-        allegatiPASection.inserimentoNomeAllegato(this.datiNotifica.get("nomeDocumentoNotifica").toString());
+        allegatiPASection.inserimentoNomeAllegato(dataPopulationConfig.getDatiNotifica().getNomeDocumentoNotifica());
     }
 
     @And("Nella section Allegati cliccare sul bottone Invia")
@@ -367,9 +370,10 @@ public class NotificaMittentePagoPATest  extends BasePage {
     private void aggiornamentoNumeroProtocolloAllegati() {
         logger.info("Aggiornamento del numero protocollo");
 
-        String nomeFile = "datiNotifica.yaml";
+//        String nomeFile = "datiNotifica.yaml";
         String numeroProtocolloKey = "numeroProtocollo";
-        String numeroProtocolOld = dataPopulation.readDataPopulation(nomeFile).get(numeroProtocolloKey).toString();
+//        String numeroProtocolOld = dataPopulation.readDataPopulation(nomeFile).get(numeroProtocolloKey).toString();
+        String numeroProtocolOld = dataPopulationConfig.getDatiNotifica().getNumeroProtocollo();
         String dataProtocolOld = substring(numeroProtocolOld, 10, 18);
         String counter = substring(numeroProtocolOld, 19);
 
@@ -404,9 +408,10 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
         logger.info("numero Protocollo generato : " + numeroProtocol);
 
-        Map<String, Object> allDatataPopulation = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        allDatataPopulation.put("numeroProtocollo", numeroProtocol);
-        dataPopulation.writeDataPopulation("datiNotifica.yaml", allDatataPopulation);
+//        Map<String, Object> allDatataPopulation = dataPopulation.readDataPopulation("datiNotifica.yaml");
+//        allDatataPopulation.put("numeroProtocollo", numeroProtocol);
+//        dataPopulation.writeDataPopulation("datiNotifica.yaml", allDatataPopulation);
+        dataPopulationConfig.getDatiNotifica().setNumeroProtocollo(numeroProtocol);
 
     }
 
@@ -431,28 +436,29 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void verificaDelloStatoDellaNotificaComeDepositata(String statoNotifica) {
         logger.info("Verifica dello stato della notifica come 'Depositata'");
 
-        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
+//        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+       // this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
         String dataNotifica = dateFormat.format(date).replace("-", "/");
 
-        String coidiceIUNOld = this.datiNotifica.get("codiceIUN").toString();
+        String coidiceIUNOld = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
                 piattaformaNotifichePage.aggiornamentoPagina();
-                piattaformaNotifichePage.insertCodiceFiscale(this.personaFisica.get("codiceFiscale").toString());
+                piattaformaNotifichePage.insertCodiceFiscale(dataPopulationConfig.getPersonaFisica().getCodiceFiscale());
                 piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
                 piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
                 piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
             }
             piattaformaNotifichePage.waitLoadRefreshPage();
-            String codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
+            String codiceIUN = piattaformaNotifichePage.ricercaNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica(), statoNotifica);
             if (!codiceIUN.equals("")) {
                 if (!codiceIUN.equals(coidiceIUNOld)) {
-                    this.datiNotifica.put("codiceIUN", codiceIUN);
-                    dataPopulation.writeDataPopulation("datiNotifica.yaml", this.datiNotifica);
+//                    this.datiNotifica.put("codiceIUN", codiceIUN);
+//                    dataPopulation.writeDataPopulation("datiNotifica.yaml", this.datiNotifica);
+                    dataPopulationConfig.getDatiNotifica().setCodiceIUN(codiceIUN);
                     logger.info("Stato notifica uguale a Depositata e codice IUN aggiornato correttamente");
                     return;
                 }
@@ -690,8 +696,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("^Nella section Destinatario inserire i dati delle persone fisiche aggiuntive per (.*)$")
     public void nellaSectionDestinatarioInserireIDatiDelDestinatariAggiuntiviPerNumeroDestinatari(String npersoneFisiche) {
         logger.info("Si cerca di aggiungere" + npersoneFisiche + " persone Fisiche");
-
-        this.personeFisiche = dataPopulation.readDataPopulation("personeFisiche.yaml");
+        PersoneFisiche personeFisiche=dataPopulationConfig.getPersoneFisiche();
+//        this.personeFisiche = dataPopulation.readDataPopulation("personeFisiche.yaml");
         int nPersoneFisicheInt = 1;
         if (isNumeric(npersoneFisiche)) {
             nPersoneFisicheInt = Integer.parseInt(npersoneFisiche) - 1;
@@ -704,7 +710,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
             Assertions.fail("Formato non accettato. Devi inserire un numero da 1 a 5");
         }
 
-        destinatarioPASection.inserimentoMultiDestinatario(this.personeFisiche, nPersoneFisicheInt);
+        destinatarioPASection.inserimentoMultiDestinatario(personeFisiche, nPersoneFisicheInt);
     }
 
     @And("Nella section Destinatario si cerca di aggiungere il sesto destinatario")
@@ -723,9 +729,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Nella section Destinatario si inserisce lo stesso destinatario di prima {string}")
     public void nellaSectionDestinatarioSiInserisceLoStessoDestinatarioDiPrima(String dpFile) {
         logger.info("Si inserisce lo stesso destinatario di prima");
-
-        this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        destinatarioPASection.inserimentoMultiDestinatario(personaFisica, 1);
+        PersoneFisiche personeFisiche=dataPopulationConfig.getPersoneFisiche();
+        destinatarioPASection.inserimentoMultiDestinatario(personeFisiche, 1);
     }
 
     @Then("Si visualizza correttamente l errore di stesso codice fiscale")
@@ -737,7 +742,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Si verifica che la notifica sia nello stato avanzato")
     public void siVerificaCheLaNotificaSiaNelloStato() {
 
-        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+//        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         boolean notificaTrovata = false;
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         for (int i = 0; i < 10; i++) {
@@ -749,7 +754,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
             if (!piattaformaNotifichePage.IsAnAdvancedStatus()) {
                 piattaformaNotifichePage.aggiornamentoPagina();
                 piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
-                piattaformaNotifichePage.inserimentoCodiceIUN(datiNotifica.get("codiceIUN").toString());
+                piattaformaNotifichePage.inserimentoCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
                 piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
             } else {
                 notificaTrovata = true;
@@ -771,14 +776,14 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Verifica dello stato della notifica inviata tramite pec come {string}")
     public void verificaDelloStatoDellaNotificaInviataTramitePecCome(String statoNotifica) {
 
-        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        this.personeFisiche = dataPopulation.readDataPopulation("personaFisicaPec.yaml");
+//        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+       // this.personeFisiche = dataPopulation.readDataPopulation("personaFisicaPec.yaml");
 
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
         String dataNotifica = dateFormat.format(date).replace("-", "/");
 
-        String codiceIUNOld = this.datiNotifica.get("codiceIUN").toString();
+        String codiceIUNOld = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
                 piattaformaNotifichePage.aggiornamentoPagina();
@@ -787,17 +792,18 @@ public class NotificaMittentePagoPATest  extends BasePage {
                         cookiesSection.selezionaAccettaTuttiButton();
                     }
                 }
-                piattaformaNotifichePage.insertCodiceFiscale(this.personeFisiche.get("codiceFiscale").toString());
+                piattaformaNotifichePage.insertCodiceFiscale(dataPopulationConfig.personaFisicaPec().getComune());
                 piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
                 piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
                 piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
             }
             piattaformaNotifichePage.waitLoadRefreshPage();
-            String codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
+            String codiceIUN = piattaformaNotifichePage.ricercaNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica(), statoNotifica);
             if (!codiceIUN.equals("")) {
                 if (!codiceIUN.equals(codiceIUNOld)) {
-                    this.datiNotifica.put("codiceIUN", codiceIUN);
-                    dataPopulation.writeDataPopulation("datiNotifica.yaml", this.datiNotifica);
+//                    this.datiNotifica.put("codiceIUN", codiceIUN);
+//                    dataPopulation.writeDataPopulation("datiNotifica.yaml", this.datiNotifica);
+                    dataPopulationConfig.getDatiNotifica().setCodiceIUN(codiceIUN);
                     logger.info("Stato notifica uguale a Depositata e codice IUN aggiornato correttamente");
                     return;
                 }
@@ -813,11 +819,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotificaPec(String dpDatiiNotifica) {
         logger.info("Si inserisce il codice IUN");
 
-        this.datiNotifica = dataPopulation.readDataPopulation(dpDatiiNotifica + ".yaml");
-
         piattaformaNotifichePage.aggiornamentoPagina();
         piattaformaNotifichePage.waitLoadRefreshPage();
-        piattaformaNotifichePage.inserimentoCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
+        piattaformaNotifichePage.inserimentoCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
     }
 
     @And("Nella section si prova ad cliccare sul tasto continua senza aver inserito nessun dato")
@@ -826,12 +830,10 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.clickContinuaDisabled();
     }
 
-    @And("Nella section Informazioni preliminari inserire i dati della notifica sbagliati {string} senza pagamento")
-    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSbagliatiSenzaPagamento(String datiNotificaErrore) {
+    @And("Nella section Informazioni preliminari inserire i dati della notifica sbagliati senza pagamento")
+    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSbagliatiSenzaPagamento() {
         logger.info("Si inserisce l'oggetto della notifica errato");
-
-        Map<String, Object> datiNotificaErrore1 = dataPopulation.readDataPopulation(datiNotificaErrore + ".yaml");
-        piattaformaNotifichePage.inserimentoOggettoNotificaErrato(datiNotificaErrore1.get("oggettoDellaNotifica").toString());
+        piattaformaNotifichePage.inserimentoOggettoNotificaErrato(dataPopulationConfig.getDatiNotificaErrore().getOggettoDellaNotifica());
     }
 
     @And("Nella section Informazioni preliminari si visualizza un messaggio di errore")
@@ -866,54 +868,47 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.clickSuEsci();
     }
 
-    @And("Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica {string}")
-    public void nellaSectionDestinatarioInserireRagioneSocialeEPartitaIVADallaPersonaGiuridica(String personaGiuridica) {
+    @And("Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica")
+    public void nellaSectionDestinatarioInserireRagioneSocialeEPartitaIVADallaPersonaGiuridica() {
         logger.info("Si inserisce la ragione sociale e la partita iva della persona giuridica");
-
-        this.personaGiuridica = dataPopulation.readDataPopulation(personaGiuridica + ".yaml");
-
-        destinatarioPASection.insertRagioneSociale(this.personaGiuridica.get("ragioneSociale").toString());
-        destinatarioPASection.insertPartitaIva(this.personaGiuridica.get("codiceFiscale").toString());
+        //personaGiuridica
+        destinatarioPASection.insertRagioneSociale(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
+        destinatarioPASection.insertPartitaIva(dataPopulationConfig.getPersonaGiuridica().getCodiceFiscale());
     }
 
-    @And("Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona giuridica {string}")
-    public void nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaGiuridica(String personaGiuridica) {
+    @And("Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona giuridica")
+    public void nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaGiuridica() {
         logger.info("Si inserisce un domicilio digitale della persona giuridica");
-
-        this.personaGiuridica = dataPopulation.readDataPopulation(personaGiuridica + ".yaml");
-
+        //personaGiuridica
         destinatarioPASection.checkBoxAggiungiDomicilio();
-        destinatarioPASection.insertDomicilioDigitale(this.personaGiuridica.get("emailPec").toString());
+        destinatarioPASection.insertDomicilioDigitale(dataPopulationConfig.getPersonaGiuridica().getEmailPec());
     }
 
-    @And("Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica {string}")
-    public void nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDellaPersonaGiuridica(String dpFile) {
+    @And("Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica")
+    public void nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDellaPersonaGiuridica() {
         logger.info("Si inseriscono i dati personali della persona giuridica");
-
-        this.personaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        //personaGiuridica
 
         destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
-        destinatarioPASection.inserireIndirizzo(this.personaGiuridica.get("indirizzo").toString());
-        destinatarioPASection.inserireNumeroCivico(this.personaGiuridica.get("numeroCivico").toString());
-        destinatarioPASection.inserireLocalita(this.personaGiuridica.get("localita").toString());
-        destinatarioPASection.inserireComune(this.personaGiuridica.get("comune").toString());
-        destinatarioPASection.inserireProvincia(this.personaGiuridica.get("provincia").toString());
-        destinatarioPASection.inserireCodicePostale(this.personaGiuridica.get("codicepostale").toString());
-        destinatarioPASection.inserireStato(this.personaGiuridica.get("stato").toString());
+        destinatarioPASection.inserireIndirizzo(dataPopulationConfig.getPersonaGiuridica().getIndirizzo());
+        destinatarioPASection.inserireNumeroCivico(dataPopulationConfig.getPersonaGiuridica().getNumeroCivico());
+        destinatarioPASection.inserireLocalita(dataPopulationConfig.getPersonaGiuridica().getLocalita());
+        destinatarioPASection.inserireComune(dataPopulationConfig.getPersonaGiuridica().getComune());
+        destinatarioPASection.inserireProvincia(dataPopulationConfig.getPersonaGiuridica().getProvincia());
+        destinatarioPASection.inserireCodicePostale(dataPopulationConfig.getPersonaGiuridica().getCodicePostale());
+        destinatarioPASection.inserireStato(dataPopulationConfig.getPersonaGiuridica().getStato());
 
     }
 
-    @And("Nella section Destinatario inserire i dati errati dalla persona giuridica {string}")
-    public void nellaSectionDestinatarioInserireIDatiErratiDallaPersonaGiuridica(String personaGiuridicaErrore) {
+    @And("Nella section Destinatario inserire i dati errati dalla persona giuridica")
+    public void nellaSectionDestinatarioInserireIDatiErratiDallaPersonaGiuridica() {
         logger.info("Si inseriscono i dati errati per persona giuridica");
 
-        Map<String, Object> personaGiuridicaErrore1 = dataPopulation.readDataPopulation(personaGiuridicaErrore + ".yaml");
-
         destinatarioPASection.checkBoxAggiungiDomicilio();
-        destinatarioPASection.insertDomicilioDigitaleErrato(personaGiuridicaErrore1.get("emailPec").toString());
+        destinatarioPASection.insertDomicilioDigitaleErrato(dataPopulationConfig.getPersonaGiuridicaErrore().getEmailPec());
         Assertions.assertEquals( "Indirizzo PEC non valido", destinatarioPASection.getDomicilioDigitaleError(),"l'errore  attuale 'Indirizzo PEC non valido' è diverso di :" + destinatarioPASection.getDomicilioDigitaleError());
 
-        destinatarioPASection.insertCodiceFiscaleErrato(personaGiuridicaErrore1.get("codiceFiscale").toString());
+        destinatarioPASection.insertCodiceFiscaleErrato(dataPopulationConfig.getPersonaGiuridicaErrore().getCodiceFiscale());
         Assertions.assertEquals( "Il valore inserito non è corretto", destinatarioPASection.getCodiceFiscaleError(),"l'errore  attuale 'Il valore inserito non è corretto' è diverso di :" + destinatarioPASection.getCodiceFiscaleError());
 
     }
@@ -947,7 +942,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void nellaSectionDestinatarioInserireIDatiDelDestinatariPersoneGiuridicheAggiuntiviPerNumeroDestinatari(String nDestinatari) {
         logger.info("Si cerca di aggiungere" + nDestinatari + " personeGiuridiche");
 
-        Map<String, Object> personeGiuridiche = dataPopulation.readDataPopulation("personeGiuridiche.yaml");
+        //Map<String, Object> personeGiuridiche = dataPopulation.readDataPopulation("personeGiuridiche.yaml");
+        PersoneGiuridiche personeGiuridiche= dataPopulationConfig.personeGiuridiche();
         int nDestinatariInt = 1;
         if (isNumeric(nDestinatari)) {
             nDestinatariInt = Integer.parseInt(nDestinatari) - 1;
@@ -979,16 +975,16 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Verifica dello stato della notifica persona giuridica come depositata {string}")
     public void verificaDelloStatoDellaNotificaPersonaGiuridicaComeDepositata(String statoNotifica) {
         logger.info("Verifica dello stato della notifica come 'Depositata'");
-
-        this.datiNotifica = dataPopulation.readDataPopulation("datiNotificaPG.yaml");
-        this.personaFisica = dataPopulation.readDataPopulation("personaGiuridica.yaml");
+        //TODO ATTUALMENTE non utilizzata
+//        this.datiNotifica = dataPopulation.readDataPopulation("datiNotificaPG.yaml");
+//        this.personaFisica = dataPopulation.readDataPopulation("personaGiuridica.yaml");
 
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
         String dataNotifica = dateFormat.format(date).replace("-", "/");
-        String codiceFiscale = this.personaFisica.get("codiceFiscale").toString();
+        String codiceFiscale = dataPopulationConfig.getPersonaFisica().getCodiceFiscale();
 
-        String codiceIUNOld = this.datiNotifica.get("codiceIUN").toString();
+        String codiceIUNOld = dataPopulationConfig.getDatiNotificaPg().getCodiceIUN();
         String codiceIUN = "";
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
@@ -1004,11 +1000,12 @@ public class NotificaMittentePagoPATest  extends BasePage {
                 piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
             }
             piattaformaNotifichePage.waitLoadRefreshPage();
-            codiceIUN = piattaformaNotifichePage.ricercaNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString(), statoNotifica);
+            codiceIUN = piattaformaNotifichePage.ricercaNotifica(dataPopulationConfig.getDatiNotificaPg().getOggettoDellaNotifica(), statoNotifica);
             if (!codiceIUN.equals("")) {
                 if (!codiceIUN.equals(codiceIUNOld)) {
-                    this.datiNotifica.put("codiceIUN", codiceIUN);
-                    dataPopulation.writeDataPopulation("datiNotificaPG.yaml", this.datiNotifica);
+//                    this.datiNotifica.put("codiceIUN", codiceIUN);
+//                    dataPopulation.writeDataPopulation("datiNotificaPG.yaml", this.datiNotifica);
+                    dataPopulationConfig.getDatiNotificaPg().setCodiceIUN(codiceIUN);
                     logger.info("Stato notifica uguale a Depositata e codice IUN aggiornato correttamente");
                     break;
                 }
@@ -1024,9 +1021,10 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void nellaPaginaPiattaformaNotificheSiRecuperaLUltimoNumeroProtocollo() {
         String numeroProtocollo = getNumeroProtocollo();
         if (numeroProtocollo != null) {
-            this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-            this.datiNotifica.put("numeroProtocollo", numeroProtocollo);
-            dataPopulation.writeDataPopulation("datiNotifica.yaml", this.datiNotifica);
+//            this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+//            this.datiNotifica.put("numeroProtocollo", numeroProtocollo);
+//            dataPopulation.writeDataPopulation("datiNotifica.yaml", this.datiNotifica);
+            dataPopulationConfig.getDatiNotifica().setNumeroProtocollo(numeroProtocollo);
         }
     }
 
@@ -1557,14 +1555,15 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Si verifica che la notifica viene creata correttamente {string}")
     public void siVerificaCheLaNotificaVieneCreataCorrettamente(String dpFile) {
+        //datiNotifica
+        //datiNotificaPG
         EsitoNotifica esitoNotifica = this.siVerificaEsitoNotifica(dpFile);
         if (esitoNotifica.statusNotifica.equals("ACCEPTED")) {
             logger.info("La notifica è stata Accettata");
             String codiceIUN = esitoNotifica.accettazioneRichiestaNotifica.getCodiceIUN();
-            datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
             if (codiceIUN != null && !codiceIUN.isEmpty()) {
-                datiNotifica.put("codiceIUN", codiceIUN);
-                dataPopulation.writeDataPopulation(dpFile + ".yaml", datiNotifica);
+
+                setCodiceIUN(dpFile,codiceIUN);
                 logger.info("La notifica è stata creata correttamente");
             }
         } else {
@@ -1611,14 +1610,12 @@ public class NotificaMittentePagoPATest  extends BasePage {
         return null;
     }
 
-    @And("Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica {string}")
-    public void nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaFisica(String dpFile) {
+    @And("Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica")
+    public void nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaFisica() {
         logger.info("Si inserisce un domicilio digitale della persona giuridica");
-
-        this.personaFisica = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
+        //"personaFisica"
         destinatarioPASection.checkBoxAggiungiDomicilio();
-        destinatarioPASection.insertDomicilioDigitale(this.personaFisica.get("emailPecErrore").toString());
+        destinatarioPASection.insertDomicilioDigitale(dataPopulationConfig.getPersonaFisica().getEmailPecErrore());
     }
 
     @And("Nella pagina Piattaforma Notifiche si recupera un codice IUN valido")
@@ -1626,14 +1623,16 @@ public class NotificaMittentePagoPATest  extends BasePage {
         logger.info("Si recupera un codice IUN valido");
 
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresenti();
-        this.personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        String codiceIun = this.personaFisica.get("codiceIUN").toString();
+//        this.personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+//        String codiceIun = this.personaFisica.get("codiceIUN").toString();
+        String codiceIun = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
         if (codiciIun.contains(codiceIun)) {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
         } else {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiciIun.get(0));
-            this.personaFisica.put("codiceIUN", codiciIun.get(0));
-            dataPopulation.writeDataPopulation("datiNotifica.yaml", this.personaFisica);
+//            this.personaFisica.put("codiceIUN", codiciIun.get(0));
+//            dataPopulation.writeDataPopulation("datiNotifica.yaml", this.personaFisica);
+            dataPopulationConfig.getDatiNotifica().setCodiceIUN( codiciIun.get(0));
         }
     }
 
@@ -1641,7 +1640,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void siVerificaCheLaNotificaSiaNelloStatoConsegnata() {
         logger.info("Si verifica che la notifica sia nello stato consegnata");
 
-        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+//        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         boolean notificaTrovata = false;
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         for (int i = 0; i < 10; i++) {
@@ -1653,7 +1652,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
             if (piattaformaNotifichePage.getListStato("Depositata") != 0 && piattaformaNotifichePage.getListStato("Invio in corso") != 0) {
                 piattaformaNotifichePage.aggiornamentoPagina();
                 piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
-                piattaformaNotifichePage.inserimentoCodiceIUN(datiNotifica.get("codiceIUN").toString());
+                piattaformaNotifichePage.inserimentoCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
                 piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
             } else {
                 notificaTrovata = true;
@@ -1748,10 +1747,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void creazioneNotificaCompleta(Map<String,String> datiNotificaMap) {
         logger.info("Inserimento dei dati della notifica senza pagamento " );
         File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
-        datiNotifica = dataPopulation.readDataPopulation(datiNotificaMap.get("nomeFileYaml") + ".yaml");
-
         aggiornamentoNumeroProtocollo();
-
 
         //Sezione preliminare
         informazioniPreliminariPASection.compilazioneInformazioniPreliminari(datiNotificaMap);
@@ -1833,6 +1829,52 @@ public class NotificaMittentePagoPATest  extends BasePage {
             this.statusNotifica = statusNotifica;
             this.accettazioneRichiestaNotifica = accettazioneRichiestaNotifica;
             this.notificationRequestId = notificationRequestId;
+        }
+    }
+
+
+    private void setCodiceIUN(String dpFile,String codiceIUN) {
+        //datiNotifica,datiNotificaPG
+        //datiNotifica.put("codiceIUN", codiceIUN);
+        //dataPopulation.writeDataPopulation(dpFile + ".yaml", datiNotifica);
+        switch (dpFile) {
+            case "datiNotifica" -> {
+                dataPopulationConfig.getDatiNotifica().setCodiceIUN(codiceIUN);
+                logger.info("datiNotifica codiceIUN: "+codiceIUN);
+            }
+            case "datiNotificaPG" -> {
+                dataPopulationConfig.getDatiNotificaPg().setCodiceIUN(codiceIUN);
+                logger.info("datiNotificaPG codiceIUN: "+codiceIUN);
+            }
+
+            default -> {
+                logger.error("Nessun codice IUN corrisponde");
+                throw new RuntimeException("ERRORE Nessun codice IUN corrisponde");
+            }
+        }
+
+
+
+    }
+
+    private void populateDestinatarioPASection(String persona) {
+        if(persona.equalsIgnoreCase("personaFisicaPec")){
+            destinatarioPASection.inserireIndirizzo(dataPopulationConfig.getPersonaFisicaPec().getIndirizzo());
+            destinatarioPASection.inserireNumeroCivico(dataPopulationConfig.getPersonaFisicaPec().getNumeroCivico());
+            destinatarioPASection.inserireLocalita(dataPopulationConfig.getPersonaFisicaPec().getLocalita());
+            destinatarioPASection.inserireComune(dataPopulationConfig.getPersonaFisicaPec().getComune());
+            destinatarioPASection.inserireProvincia(dataPopulationConfig.getPersonaFisicaPec().getProvincia());
+            destinatarioPASection.inserireCodicePostale(dataPopulationConfig.getPersonaFisicaPec().getCodicePostale());
+            destinatarioPASection.inserireStato(dataPopulationConfig.getPersonaFisicaPec().getStato());
+        }
+        else {
+            destinatarioPASection.inserireIndirizzo(dataPopulationConfig.getPersonaFisica().getIndirizzo());
+            destinatarioPASection.inserireNumeroCivico(dataPopulationConfig.getPersonaFisica().getNumeroCivico());
+            destinatarioPASection.inserireLocalita(dataPopulationConfig.getPersonaFisica().getLocalita());
+            destinatarioPASection.inserireComune(dataPopulationConfig.getPersonaFisica().getComune());
+            destinatarioPASection.inserireProvincia(dataPopulationConfig.getPersonaFisica().getProvincia());
+            destinatarioPASection.inserireCodicePostale(dataPopulationConfig.getPersonaFisica().getCodicePostale());
+            destinatarioPASection.inserireStato(dataPopulationConfig.getPersonaFisica().getStato());
         }
     }
 

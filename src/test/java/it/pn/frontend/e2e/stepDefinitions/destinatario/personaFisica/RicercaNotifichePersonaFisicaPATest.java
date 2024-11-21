@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
@@ -34,8 +35,8 @@ Uso di var per Tipi Locali: Refactoring con var per variabili locali ove il tipo
 
 public class RicercaNotifichePersonaFisicaPATest extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaFisicaTest");
-    private Map<String, Object> datiNotifica = new HashMap<>();
-    private Map<String, Object> datiNotificaNonValidoPF;
+//    private Map<String, Object> datiNotifica = new HashMap<>();
+//    private Map<String, Object> datiNotificaNonValidoPF;
 
     @Autowired
     private NotificationSingleton notificationSingleton;
@@ -51,6 +52,8 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
     @Autowired
     @Lazy
     private BackgroundTest backgroundTest;
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
 
 
     @PostConstruct
@@ -121,10 +124,10 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
     @Then("Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN della notifica {string}")
     public void nellaPaginaPiattaformaNotificheDestinatarioVengoRestituiteTutteLeNotificheConIlCodiceIUNDellaNotifica(String dpDatiNotifica) {
         logger.info("Si verificano i risultati restituiti");
+        //TODO ATTUALMENTE NON VIENE UTILIZZATA
         headerPFSection.waitLoadHeaderDESection();
         notifichePFPage.waitLoadNotificheDEPage();
-        this.datiNotifica = dataPopulation.readDataPopulation(dpDatiNotifica + ".yaml");
-        String codiceIUNInserito = datiNotifica.get("codiceIUN").toString();
+        String codiceIUNInserito = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
         boolean result = notificheDestinatarioPage.verificaCodiceIUN(codiceIUNInserito);
 
         if (result) {
@@ -193,10 +196,11 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
 
     @And("Nella pagina Piattaforma Notifiche persona fisica inserire il codice IUN non valido da dati notifica {string}")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIunNonValidoDaDatiNotifica(String datiNotificaNonValidoPF) throws InterruptedException {
+        //TODO ATTUALMENTE NON VIENE UTILIZZATA
         logger.info("Si inserisce il codice IUN non valido");
-        this.datiNotificaNonValidoPF = dataPopulation.readDataPopulation(datiNotificaNonValidoPF + ".yaml");
-        notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotificaNonValidoPF.get("codiceIUN").toString());
-        notificheDestinatarioPage.inserisciCodiceIUN(this.datiNotificaNonValidoPF.get("codiceIUN").toString());
+        notificheDestinatarioPage.inserisciCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
+        //DOPPIO INSERIMENTO ????
+        notificheDestinatarioPage.inserisciCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
     }
 
     @Then("Nella pagina Piattaforma Notifiche persona fisica viene visualizzato un messaggio in rosso di errore sotto il campo errato e il rettangolo diventa rosso e il tasto Filtra è disattivo")

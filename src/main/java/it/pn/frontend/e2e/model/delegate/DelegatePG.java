@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 public class DelegatePG {
     private String displayName;
     private String companyName;

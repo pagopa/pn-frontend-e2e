@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.delegate.DelegatePF;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
@@ -16,6 +17,7 @@ import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.PopUpRevocaDelegaSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
+import it.pn.frontend.e2e.stepDefinitions.common.SharedSteps;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
@@ -26,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -69,6 +70,11 @@ public class DeleghePagoPATest extends BasePage{
     private  WebTool webTool;
 
     private Map<String, Object> deleghe = new HashMap<>();
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
+
+
+//    Map<String, Object> deleghe = new HashMap<>();
     @Setter
     private String codiceVerifica;
 
@@ -139,15 +145,16 @@ public class DeleghePagoPATest extends BasePage{
         }
     }
 
-    @And("Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file {string}")
-    public void nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile(String dpFile) {
-        log.info("Si salva il codice deleghe nel file " + dpFile);
-
-        deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
+    @And("Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file")
+    public void nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile() {
+        log.info("Si salva il codice deleghe nel file SharedSteps -> NuovaDelega" );
+        //NUOVA DELEGA
         String codiceVerifica = this.leTueDelegheSection.salvataggioCodiceVerifica();
-        deleghe.put("codiceDelega", codiceVerifica);
-        dataPopulation.writeDataPopulation(dpFile + ".yaml", deleghe);
+
+//        deleghe.put("codiceDelega", codiceVerifica);
+//        dataPopulation.writeDataPopulation(dpFile + ".yaml", deleghe);
+        dataPopulationConfig.getNuovaDelega().setCodiceDelega(codiceVerifica);
+
     }
 
     @And("Nella sezione Le Tue Deleghe salvare il codice verifica")
@@ -272,11 +279,13 @@ public class DeleghePagoPATest extends BasePage{
     }
 
     @And("Si inserisce il codice delega nel pop-up {string}")
-    public void siInserisceIlCodiceDelegaNelPopUp(String dpFile) {
+    public void siInserisceIlCodiceDelegaNelPopUp(String nomeConfig) {
+        //TODO è richiamtao in divese parti del codice il nomeFile passatogli sono:
+        // nomeFileNuovaDelegaPG -> nuovaDelegaPG, nomeFileNuovaDelega -> nuova_delega, personaFisica, nuova_delega, nuova_delega
+
         log.info("Si inserisce il codice per accettare la delega");
         this.leTueDelegheSection.waitPopUpLoad();
-        Map<String, Object> destinatari = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        this.leTueDelegheSection.inserireCodiceDelega(destinatari.get("codiceDelega").toString());
+        this.leTueDelegheSection.inserireCodiceDelega(getCodiceDelega(nomeConfig));
     }
 
     @And("Si inserisce il codice errato delega nel pop-up {string}")
@@ -311,21 +320,35 @@ public class DeleghePagoPATest extends BasePage{
      *                      | fiscalCode | Codice fiscale |
      *                      | person | true (se persona fisica o impresa) |
      */
+
     @When("Creo in background una delega per persona fisica")
     public void creaInBackgroundUnaDelegaPerPersonaFisica(Map<String, String> personaFisica) {
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        DelegatePF delegatePF = dataPopulationConfig.getDelegatePF();
+        delegatePF.setFiscalCode(personaFisica.get("fiscalCode"));
+        delegatePF.setDisplayName(personaFisica.get("displayName"));
+        delegatePF.setFirstName(personaFisica.get("firstName"));
+        delegatePF.setLastName(personaFisica.get("lastName"));
+        delegatePF.setPerson(Boolean.parseBoolean(personaFisica.get("person")));
+        /**
         DelegatePF delegatePF = DelegatePF.builder()
-                .displayName(personaFisica.get("displayName"))
-                .firstName(personaFisica.get("firstName"))
-                .lastName(personaFisica.get("lastName"))
-                .fiscalCode(personaFisica.get("fiscalCode"))
-                .person(Boolean.parseBoolean(personaFisica.get("person"))).build();
+         .displayName(personaFisica.get("displayName"))
+         .firstName(personaFisica.get("firstName"))
+         .lastName(personaFisica.get("lastName"))
+         .fiscalCode(personaFisica.get("fiscalCode"))
+         .person(Boolean.parseBoolean(personaFisica.get("person"))).build();
+         **/
+
+        DelegateRequestPF delegateRequestPF = dataPopulationConfig.getDelegateRequestPF();
+        delegateRequestPF.setDelegate(delegatePF);
+/**
         DelegateRequestPF delegateRequestPF = DelegateRequestPF.builder()
                 .dateto(date)
                 .delegate(delegatePF)
                 .visibilityIds(new ArrayList<String>())
                 .verificationCode("12345")
                 .build();
+ **/
         String tokenExchange = loginPersonaFisicaPagoPA.getTokenExchangePFFromFile(personaFisica.get("accessoCome"));
         DelegateResponsePF response = restDelegation.addDelegationPF(delegateRequestPF, tokenExchange);
         if (response != null) {
@@ -333,6 +356,16 @@ public class DeleghePagoPATest extends BasePage{
             mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(HooksNew.getScenario()), response.getVerificationCode());
         }
         driver.navigate().refresh();
+    }
+
+
+
+    @When("Creo in background una delega per persona fisica 1")
+    public void creaInBackgroundUnaDelegaPerPersonaFisica1() {
+
+        log.info("PERSONA "+dataPopulationConfig.getDelegatePF().getDisplayName());
+        log.info("PERSONA "+dataPopulationConfig.getDelegatePF().getFiscalCode());
+        log.info("DelegateRequestPF "+dataPopulationConfig.getDelegateRequestPF().getVerificationCode());
     }
 
     @And("Si clicca sul bottone Accetta")
@@ -366,8 +399,8 @@ public class DeleghePagoPATest extends BasePage{
     @And("Si controlla che la delega ha lo stato Attiva {string}")
     public void siControllaCheLaDelegaHaLoStatoAttiva(String dpFile) {
         log.info("Si controlla che la delega abbia lo stato Attiva");
-        deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        leTueDelegheSection.controlloStatoAttiva(deleghe.get("name").toString(), deleghe.get("familyName").toString());
+//        leTueDelegheSection.controlloStatoAttiva(deleghe.get("name").toString(), deleghe.get("familyName").toString());
+        leTueDelegheSection.controlloStatoAttiva(dataPopulationConfig.getPersonaFisica().getName(), dataPopulationConfig.getPersonaFisica().getFamilyName());
     }
 
     @And("Si controlla che la delega ha lo stato Attiva")
@@ -376,11 +409,14 @@ public class DeleghePagoPATest extends BasePage{
         leTueDelegheSection.controlloStatoAttiva(data.get("firstName"), data.get("lastName"));
     }
 
-    @And("Si controlla che la delega è ancora presente {string}")
-    public void siControllaCheLaDelegaèAncoraPresente(String dpFile) {
+    @And("Si controlla che la delega è ancora presente")
+    public void siControllaCheLaDelegaèAncoraPresente() {
         log.info("Si controlla che la delega abbia lo stato Attiva");
-        this.deleghe = this.dataPopulation.readDataPopulation(dpFile + ".yaml");
-        this.leTueDelegheSection.controlloEsistenzaDelega(deleghe.get("name").toString(), deleghe.get("familyName").toString());
+        //personaFisica
+//        this.leTueDelegheSection.controlloEsistenzaDelega(deleghe.get("name").toString(), deleghe.get("familyName").toString());
+        this.leTueDelegheSection.controlloEsistenzaDelega(dataPopulationConfig.getPersonaFisica().getName(), dataPopulationConfig.getPersonaFisica().getFamilyName());
+
+
     }
 
     @And("Nella sezione Deleghe si visualizza il titolo")
@@ -497,9 +533,10 @@ public class DeleghePagoPATest extends BasePage{
     @And("Si controlla che la delega non sia più presente nella lista {string}")
     public void siControllaCheLaDelegaNonSiaPiuPresenteNellaLista(String dpFile) {
         log.info("Si controlla che la delega non sia più presente nella lista");
-        this.deleghe = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        //personaFisica
         deleghePage.waitLoadingSpinner();
-        if (!deleghePage.verificaEsistenzaDelega(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString())) {
+//        if (!deleghePage.verificaEsistenzaDelega(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString())) {
+        if (!deleghePage.verificaEsistenzaDelega(dataPopulationConfig.getPersonaFisica().getName(), dataPopulationConfig.getPersonaFisica().getFamilyName())) {
             log.info("La delega non è più presente nella lista");
         } else {
             log.error("La delega è ancora presente in lista");
@@ -523,8 +560,8 @@ public class DeleghePagoPATest extends BasePage{
     @And("Nella sezione Deleghe si verifica sia presente una delega accettata")
     public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelegaAccettata() {
         log.info("Si controlla che ci sia una delega accettata");
-        this.deleghe = this.dataPopulation.readDataPopulation("personaFisica.yaml");
-        if (!this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString())) {
+        //this.deleghe = this.dataPopulation.readDataPopulation("personaFisica.yaml")
+        if (!this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(dataPopulationConfig.getPersonaFisica().getName(), dataPopulationConfig.getPersonaFisica().getFamilyName())) {
             backgroundTest.loginPF("personaFisica");
             backgroundTest.aggiuntaNuovaDelegaPF();
             backgroundTest.logoutPF();
@@ -557,9 +594,9 @@ public class DeleghePagoPATest extends BasePage{
     public void siControllaCheNonCiSiaPiuUnaDelega() {
         log.info("Si controlla che non sia più presente una delega");
         webTool.waitTime(6);
-        this.deleghe = dataPopulation.readDataPopulation("delegatoPF.yaml");
-        String nome = this.deleghe.get("name").toString();
-        String cognome = this.deleghe.get("familyName").toString();
+        //this.deleghe = dataPopulation.readDataPopulation("delegatoPF.yaml")
+        String nome = dataPopulationConfig.getDelegatePF().getFirstName();
+        String cognome = dataPopulationConfig.getDelegatePF().getLastName();
         if (!deleghePage.siVisualizzaUnaDelegaConNome(nome, cognome)) {
             log.info("La delega è stata revocata correttamente");
         } else {
@@ -616,4 +653,27 @@ public class DeleghePagoPATest extends BasePage{
         deleghePage.clickDelegheDelDelegante(personaFisica);
     }
 
+    private String getCodiceDelega(String nomeConfig) {
+        String codiceDelega;
+//        nomeFileNuovaDelegaPG -> nuovaDelegaPG, nomeFileNuovaDelega -> nuova_delega, personaFisica, nuova_delega, nuova_delega
+        switch (nomeConfig) {
+            case "nuovaDelegaPG" -> {
+                codiceDelega=dataPopulationConfig.getNuovaDelegaPg().getCodiceDelega();
+            }
+            case "nuova_delega" -> {
+                codiceDelega= dataPopulationConfig.getNuovaDelega().getCodiceDelega();
+                log.info("Codice Delega: "+codiceDelega);
+            }
+            case "personaFisica" -> {
+                //TODO Non viene Utilizzato
+                codiceDelega= "";
+            }
+
+            default -> {
+                logger.error("Nessun nome corrisponde");
+                throw new RuntimeException("ERRORE Nessun nome corrisponde");
+            }
+        }
+        return codiceDelega;
+    }
 }

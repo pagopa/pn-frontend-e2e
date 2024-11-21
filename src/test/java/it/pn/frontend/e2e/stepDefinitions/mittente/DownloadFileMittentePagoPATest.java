@@ -5,6 +5,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
@@ -31,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 public class DownloadFileMittentePagoPATest extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DownloadFileMittentePagoPATest");
-    private Map<String, Object> datiNotifica = new HashMap<>();
+
 
     @Value("${environment}")
     private String environment;
@@ -70,6 +72,8 @@ public class DownloadFileMittentePagoPATest extends BasePage {
     private BackgroundTest backgroundTest;
 
     private  WebTool webTool;
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
 
     @PostConstruct
     public void init(){
@@ -108,7 +112,7 @@ public class DownloadFileMittentePagoPATest extends BasePage {
             pathCartella.mkdirs();
         }
 
-        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        //this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         int count = 1;
 
         dettaglioNotificaMittenteSection.waitLoadingSpinner();
@@ -353,7 +357,7 @@ public class DownloadFileMittentePagoPATest extends BasePage {
     public void siSelezionanoIlFileDaScaricare(String nomeFile) {
         logger.info("Si cerca di scaricare il file " + nomeFile);
         boolean headless = headlessParam.equalsIgnoreCase("true");
-        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+       // this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibile(nomeFile);
         webTool.waitTime(5);
 
@@ -438,8 +442,8 @@ public class DownloadFileMittentePagoPATest extends BasePage {
         piattaformaNotifichePage.waitLoadingSpinner();
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPersonaGiuridica();
 
-        this.datiNotifica = dataPopulation.readDataPopulation("datiNotificaPG.yaml");
-        String codiceIun = this.datiNotifica.get("codiceIUN").toString();
+       //this.datiNotifica = dataPopulation.readDataPopulation("datiNotificaPG.yaml");
+        String codiceIun = dataPopulationConfig.getDatiNotificaPg().getCodiceIUN();
         if (codiciIun.contains(codiceIun)) {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
         } else {
@@ -453,8 +457,9 @@ public class DownloadFileMittentePagoPATest extends BasePage {
         logger.info("Si verifica l'esistenza della notifica con il codice IUN");
 
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresenti();
-        Map<String, Object> personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        String codiceIun = personaFisica.get("codiceIUN").toString();
+//        Map<String, Object> personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+//        String codiceIun = personaFisica.get("codiceIUN").toString();
+        String codiceIun = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
         if (!codiciIun.contains(codiceIun)) {
             backgroundTest.invioNotificaErrorePec();
         }

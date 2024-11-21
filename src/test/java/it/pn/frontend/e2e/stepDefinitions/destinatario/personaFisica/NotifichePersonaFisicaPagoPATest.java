@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
@@ -65,6 +66,9 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
     private DestinatarioPage destinatarioPage;
 
     private  WebTool webTool;
+
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
 
     @PostConstruct
     public void init(){
@@ -189,11 +193,10 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
         notifichePFPage.waitLoadSecondaPagina();
     }
 
-    @And("Ci si posiziona su una pagina differente attraverso i numeri e si applica filtro {string}")
-    public void ciSiPosizionaSuUnaPaginaDifferenteAttraversoINumeriESiApplicaFiltro(String dpFile) {
-        Map<String, Object> datiPg = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
-        notifichePFPage.siSceglieUnaPaginaDiversaConNumeroESiFiltra(datiPg.get("codiceIUN").toString());
+    @And("Ci si posiziona su una pagina differente attraverso i numeri e si applica filtro")
+    public void ciSiPosizionaSuUnaPaginaDifferenteAttraversoINumeriESiApplicaFiltro() {
+        //personaGiuridica
+        notifichePFPage.siSceglieUnaPaginaDiversaConNumeroESiFiltra(dataPopulationConfig.getPersonaGiuridica().getCodiceIUN());
     }
 
     @And("Si modifica il numero di notifiche visualizzate scegliendo un valore diverso da quello di default")
@@ -294,8 +297,8 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
 
     @Then("Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona fisica, e si controlla che il download sia avvenuto {string}")
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaDestinatarioESiControllaCheIlDownloadSiaAvvenuto(String dpFile) {
+        //TODO ATTUALMENTE NON UTILIZZATO
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponibili();
-        Map<String, Object> datiNotifica = dataPopulation.readDataPopulation(dpFile + ".yaml");
         String workingDirectory = System.getProperty("user.dir");
         boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloads");
@@ -305,7 +308,8 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
             dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
             webTool.waitTime(5);
-            String urlFileAttestazioneOppponibile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/" + datiNotifica.get("codiceIUN").toString() + "/legal-facts/");
+//            String urlFileAttestazioneOppponibile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/" + datiNotifica.get("codiceIUN").toString() + "/legal-facts/");
+            String urlFileAttestazioneOppponibile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/delivery-push/" + dataPopulationConfig.getDatiNotifica().getCodiceIUN() + "/legal-facts/");
 
             if (headless && urlFileAttestazioneOppponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
@@ -326,13 +330,13 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
         dettaglioNotificaSection.selezioneVediDettaglioButton();
     }
 
-    @And("Si visualizza correttamente la Pagina Notifiche persona fisica delegante {string}")
-    public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaFisicaDelegante(String dpFile) {
-        Map<String, Object> personaFisicaDelgante = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        String nome = personaFisicaDelgante.get("name").toString();
-        String cognome = personaFisicaDelgante.get("familyName").toString();
+    @And("Si visualizza correttamente la Pagina Notifiche persona fisica delegante")
+    public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaFisicaDelegante() {
+        //personaFisica
+//        String nome = personaFisicaDelgante.get("name").toString();
+//        String cognome = personaFisicaDelgante.get("familyName").toString();
 
-        notifichePFPage.waitLoadNotificheDEPageDelegante(nome, cognome);
+        notifichePFPage.waitLoadNotificheDEPageDelegante(dataPopulationConfig.getPersonaFisica().getName(),dataPopulationConfig.getPersonaFisica().getFamilyName());
     }
 
     @And("Nella pagina Piattaforma Notifiche PF si recupera un codice IUN valido")
@@ -340,14 +344,15 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
         logger.info("Si recupera un codice IUN valido");
 
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresentiPF();
-       personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-        String codiceIun = personaFisica.get("codiceIUN").toString();
+//        personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
+        String codiceIun = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
         if (codiciIun.contains(codiceIun)) {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
         } else {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiciIun.get(0));
-            personaFisica.put("codiceIUN", codiciIun.get(0));
-            dataPopulation.writeDataPopulation("datiNotifica.yaml",personaFisica);
+//            personaFisica.put("codiceIUN", codiciIun.get(0));
+//            dataPopulation.writeDataPopulation("datiNotifica.yaml",personaFisica);
+            dataPopulationConfig.getDatiNotifica().setCodiceIUN(codiciIun.get(0));
         }
     }
 

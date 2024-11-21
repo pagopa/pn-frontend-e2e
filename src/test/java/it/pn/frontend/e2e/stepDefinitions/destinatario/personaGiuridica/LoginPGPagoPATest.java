@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.api.mittente.SpidAcsMittente;
 import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoContinueResponse;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogin;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
@@ -36,7 +37,7 @@ import java.util.concurrent.TimeUnit;
 public class LoginPGPagoPATest extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger(LoginPGPagoPATest.class);
-    private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
+//    private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
     private Map<String, String> urlPersonaGiuridica;
 
 
@@ -71,7 +72,8 @@ public class LoginPGPagoPATest extends BasePage {
 
     private  WebTool webTool;
 
-
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
     @Autowired
     @Lazy
     private WebDriverManager webDriverManager;
@@ -139,13 +141,15 @@ public class LoginPGPagoPATest extends BasePage {
         } else if (personaGiuridica.equalsIgnoreCase("baldassarre")) {
             piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(webDriverConfig.getRagioneSocialeBaldassarre());
         } else {
-            Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("delegatoPG.yaml");
-            piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
+            //Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("delegatoPG.yaml")
+            piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(dataPopulationConfig.getDelegatePG().getCompanyName());
         }
     }
 
     @When("Login portale persona giuridica tramite request method")
     public void loginPortalePersonaGiuridicaTramiteRequestMethod() {
+        //TODO ATTUALMENTE NON VIENE UTILIZZATA
+        //personaGiuridica
        // this.datiPersonaGiuridica = dataPopulation.readDataPopulation("personaGiuridica.yaml");
         String userMittente = webDriverConfig.getUserDante();
         String pwdMittente = webDriverConfig.getPwdDante();
@@ -184,7 +188,7 @@ public class LoginPGPagoPATest extends BasePage {
         }
 
 
-        selezionaImpresaPage.clickSuImpresa(this.datiPersonaGiuridica.get("ragioneSociale").toString());
+        selezionaImpresaPage.clickSuImpresa(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
         selezionaImpresaPage.clickAccediButton();
     }
 
@@ -308,7 +312,8 @@ public class LoginPGPagoPATest extends BasePage {
 
     @When("Login {string} portale persona giuridica tramite request method")
     public void loginPortalePersonaGiuridicaTramiteRequestMethod(String dpFile) {
-        this.datiPersonaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
+        //TODO ATTUALMENTE NON VIENE UTILIZZATA
+        //personaGiuridica
         String userMittente = webDriverConfig.getUserDante();
         String pwdMittente = webDriverConfig.getPwdDante();
         this.readUrlPortaleMittente(userMittente, pwdMittente);
@@ -347,7 +352,7 @@ public class LoginPGPagoPATest extends BasePage {
         }
 
 
-        selezionaImpresaPage.clickSuImpresa(this.datiPersonaGiuridica.get("ragioneSociale").toString());
+        selezionaImpresaPage.clickSuImpresa(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
         selezionaImpresaPage.clickAccediButton();
     }
 
