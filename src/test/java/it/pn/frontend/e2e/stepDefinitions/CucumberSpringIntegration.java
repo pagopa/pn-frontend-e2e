@@ -60,7 +60,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         RestDelegation.class,
         WebTool.class,
         WebdriverScopeConfig.class,
-        WebDriverManager.class
+        WebDriverManager.class,
+        DataPopulationConfig.class
 
 })
 @EnableScheduling
