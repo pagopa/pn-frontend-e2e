@@ -30,8 +30,9 @@ public class CookiesSection extends BasePage {
 
     public boolean waitLoadCookiesPage() {
         try {
+
             WebElement scopriDiPiuLink = driver.findElement(By.id("onetrust-banner-sdk"));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(scopriDiPiuLink));
+            getWebDriverWait(15).until(ExpectedConditions.visibilityOfAllElements(scopriDiPiuLink));
             logger.info("Cookies Page caricata");
             return true;
         } catch (TimeoutException e) {
