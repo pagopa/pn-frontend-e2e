@@ -729,7 +729,7 @@ public class PiattaformaNotifichePage extends BasePage {
         dataFineField = driver.findElement(By.id("endDate"));
 
 
-        getWebDriverWait(10).withMessage("il campo data non è visibile nella pagina").until(ExpectedConditions.visibilityOf(dataInizioField))
+        getWebDriverWait(10).withMessage("il campo data non è visibile nella pagina").until(ExpectedConditions.visibilityOf(dataInizioField));
 
         webTool.waitTime(15);
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
