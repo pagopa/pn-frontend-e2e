@@ -135,8 +135,8 @@ public class PiattaformaNotifichePage extends BasePage {
             WebElement notificheTitle = driver.findElement(By.id("Notifiche-page"));
             webTool.waitTime(10);
             inviaNuovaNotificaButton = driver.findElement(By.id("new-notification-btn"));
-            this.getWebDriverWait(10).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf(inviaNuovaNotificaButton));
-            this.getWebDriverWait(10).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOf(notificheTitle));
+            getWebDriverWait(10).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf(inviaNuovaNotificaButton));
+            getWebDriverWait(10).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOf(notificheTitle));
             logger.info("Piattaforma Notifiche Page caricata");
         } catch (TimeoutException e) {
             logger.error("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
@@ -146,10 +146,11 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void insertCodiceFiscale(String codiceFiscale) {
         try {
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(this.cfTextField));
-            this.cfTextField.click();
-            this.cfTextField.sendKeys(codiceFiscale);
-            this.getWebDriverWait(3).until(ExpectedConditions.attributeToBe(this.cfTextField, "value", codiceFiscale));
+            cfTextField = driver.findElement(By.xpath("recipientId"));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(cfTextField));
+            cfTextField.click();
+            cfTextField.sendKeys(codiceFiscale);
+            getWebDriverWait(3).until(ExpectedConditions.attributeToBe(cfTextField, "value", codiceFiscale));
             logger.info("Codice Fiscale inserito correttamente");
         } catch (TimeoutException e) {
             logger.error("Codice Fiscale Non inserito con errore: " + e.getMessage());
@@ -637,8 +638,9 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selectInviaUnaNuovaNotificaButton() {
-        this.getWebDriverWait(10).withMessage("Il bottone invia notifica non è cliccabile").until(elementToBeClickable(inviaNuovaNotificaButton));
-        this.inviaNuovaNotificaButton.click();
+        inviaNuovaNotificaButton = driver.findElement(By.id("new-notification-btn"));
+        getWebDriverWait(10).withMessage("Il bottone invia notifica non è cliccabile").until(elementToBeClickable(inviaNuovaNotificaButton));
+        inviaNuovaNotificaButton.click();
     }
 
 
@@ -684,8 +686,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public List<WebElement> ricercaListaOggetti() {
         try {
-            List<WebElement> listaOggettiBy = driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1sdct2p')]"));
-            return listaOggettiBy;
+            return driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1sdct2p')]"));
         } catch (TimeoutException e) {
             logger.info("lista oggetti ancora non presenti");
             return null;
@@ -694,8 +695,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public List<WebElement> ricercaListaStati() {
         try {
-            List<WebElement> listaOggettiBy = driver.findElements(By.xpath("//span[contains(@class,'MuiChip-label MuiChip-labelMedium css-11cvqrr')]"));
-            return listaOggettiBy;
+            return driver.findElements(By.xpath("//span[contains(@class,'MuiChip-label MuiChip-labelMedium css-11cvqrr')]"));
         } catch (TimeoutException e) {
             logger.info("lista stati ancora non presenti");
             return null;
@@ -703,8 +703,9 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selezionareLaVoceApiKey() {
+        apiKeyButton = driver.findElement(By.id("side-item-API Key"));
         getWebDriverWait(30).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(apiKeyButton));
-        this.js().executeScript("arguments[0].click()",apiKeyButton);
+        js().executeScript("arguments[0].click()",apiKeyButton);
     }
 
 
@@ -723,7 +724,12 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void inserimentoData(String dataInserita) {
-        getWebDriverWait(10).withMessage("il campo data non è visibile nella pagina").until(ExpectedConditions.visibilityOf(this.dataInizioField));
+
+        dataInizioField = driver.findElement(By.id("startDate"));
+        dataFineField = driver.findElement(By.id("endDate"));
+
+
+        getWebDriverWait(10).withMessage("il campo data non è visibile nella pagina").until(ExpectedConditions.visibilityOf(dataInizioField))
 
         webTool.waitTime(15);
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
@@ -777,7 +783,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public void siVisualizzaCorrettamenteIlCodiceIUNField() {
         try {
             WebElement codiceIUNField = driver.findElement(By.id("iunMatch"));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(codiceIUNField));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(codiceIUNField));
             logger.info("Il campo di codice iun si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il campo di codice iun NON si visualizza correttamente con errore : " + e.getMessage());
@@ -788,7 +794,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public void siVisualizzaCorrettamenteLoStatoField() {
         try {
             WebElement statoField = driver.findElement(By.id("status"));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(statoField));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(statoField));
             logger.info("Il campo dello stato si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il campo dello stato NON si visualizza correttamente con errore : " + e.getMessage());
@@ -799,7 +805,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public void siVisualizzaCorrettamenteLaDataInzioField() {
         try {
             WebElement dataDaField = driver.findElement(By.id("startDate"));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(dataDaField));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(dataDaField));
             logger.info("Il campo della data di inizio si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il campo della data di inizio NON si visualizza correttamente con errore : " + e.getMessage());
@@ -810,7 +816,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public void siVisualizzaCorrettamenteLaDataFineField() {
         try {
             WebElement dataAField = driver.findElement(By.id("endDate"));
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(dataAField));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(dataAField));
             logger.info("Il campo della data di fine si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il campo della data di fine NON si visualizza correttamente con errore : " + e.getMessage());
@@ -909,7 +915,7 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(30).withMessage("il bottone che indica il numero delle notifiche non è visibile")
                 .until(ExpectedConditions.visibilityOf(numeroNotificheButton));
         if (!numeroNotificheButton.isDisplayed()) {
-            this.js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
+            js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
         }
     }
 
@@ -1014,8 +1020,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public List<String> getCodiceIunPresenti() {
-        List<WebElement> notificaCodiceIunBy = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button"));
-        List<WebElement> righeTabella = notificaCodiceIunBy;
+        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button"));
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella : righeTabella) {
             String codiceIun = rigaTabella.getText();
@@ -1025,8 +1030,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public List<String> getCodiceIunPresentiPF() {
-        List<WebElement> notificaCodiceIunBy = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button"));
-        List<WebElement> righeTabella = notificaCodiceIunBy;
+        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button"));
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella : righeTabella) {
             String codiceIun = rigaTabella.getText();
@@ -1040,8 +1044,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public List<String> getCodiceIunPersonaGiuridica() {
-        List<WebElement> notificaCodiceIunBy = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button"));
-        List<WebElement> righeTabella = notificaCodiceIunBy;
+        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button"));
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella : righeTabella) {
             String codiceIun = rigaTabella.getText();
