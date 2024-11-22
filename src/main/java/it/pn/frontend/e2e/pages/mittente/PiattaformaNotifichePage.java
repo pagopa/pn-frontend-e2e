@@ -132,8 +132,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void waitLoadPiattaformaNotifichePAPage() {
         try {
-            WebElement notificheTitle = driver.findElement(By.id("Notifiche-page"));
             webTool.waitTime(10);
+            WebElement notificheTitle = driver.findElement(By.id("Notifiche-page"));
             inviaNuovaNotificaButton = driver.findElement(By.id("new-notification-btn"));
             getWebDriverWait(10).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf(inviaNuovaNotificaButton));
             getWebDriverWait(10).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOf(notificheTitle));
@@ -569,8 +569,7 @@ public class PiattaformaNotifichePage extends BasePage {
             pageSize50.click();
 
             webTool.waitTime(10);
-            notificaBy = driver.findElements(By.id("notificationsTable.body.row"));
-            List<WebElement> notifiche = notificaBy;
+            List<WebElement> notifiche = driver.findElements(By.id("notificationsTable.body.row"));
 
             logger.info("Scenario " + HooksNew.getScenario());
 
@@ -622,8 +621,7 @@ public class PiattaformaNotifichePage extends BasePage {
             pageSize50.click();
 
             webTool.waitTime(10);
-            notificaBy = driver.findElements(By.id("notificationsTable.body.row"));
-            List<WebElement> notifiche = notificaBy;
+            List<WebElement> notifiche =  driver.findElements(By.id("notificationsTable.body.row"));
 
             notifiche.get(0).click();
         } catch (TimeoutException e) {
@@ -656,8 +654,7 @@ public class PiattaformaNotifichePage extends BasePage {
         logger.info("la posizione della notifica è uguale: " + posizioneNotifica);
         if (posizioneNotifica != -1) {
 
-            List<WebElement> listaCodiceIUNBy = driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh')]"));
-            List<WebElement> codiciIUNList = listaCodiceIUNBy;
+            List<WebElement> codiciIUNList = driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh')]"));
             codiceIUN = codiciIUNList.get(posizioneNotifica).getText();
         }
         return codiceIUN;
@@ -959,7 +956,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro() {
         numeroNotificheButton = driver.findElement(By.id("rows-per-page"));
-        this.getWebDriverWait(10)
+        getWebDriverWait(10)
                 .withMessage("Il pulsante 'righe per pagina' non è presente")
                 .until(ExpectedConditions.visibilityOf(numeroNotificheButton));
         vaiInFondoAllaPagina();
@@ -968,7 +965,7 @@ public class PiattaformaNotifichePage extends BasePage {
         numberElement = driver.findElement(By.id("pageSize-50"));
         getWebDriverWait(10)
                 .withMessage("Il pulsante '50' per assegnare il numero di notifiche per pagina non è presente")
-                .until(ExpectedConditions.visibilityOf(this.numberElement));
+                .until(ExpectedConditions.visibilityOf(numberElement));
         webTool.waitTime(1);
         numberElement.click();
     }
@@ -1015,7 +1012,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean estensioneSbagliataErrore() {
         estenzioneSbagliataMessage = driver.findElement(By.id("file-upload-error"));
-        return this.estenzioneSbagliataMessage.isDisplayed();
+        return estenzioneSbagliataMessage.isDisplayed();
     }
 
 
