@@ -63,6 +63,7 @@ public class SelezionaEntePAPage extends BasePage {
     }
 
     public void selezionareComune(String comune) {
+        comuneButton = driver.findElements(By.xpath("//div[@role='button']//h6"));
         comuneButton.stream()
                 .filter(element -> element.getText().contains(comune))
                 .findFirst()
