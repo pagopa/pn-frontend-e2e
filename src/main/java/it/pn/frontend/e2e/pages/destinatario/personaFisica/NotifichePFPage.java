@@ -86,6 +86,7 @@ public class NotifichePFPage extends BasePage {
 
     public void waitLoadNotificheDEPage() {
         titleLabel = driver.findElement(By.id("Le tue notifiche-page"));
+        webTool.waitTime(10);
         //titleLabel = driver.findElement(By.id("Your notifications-page"));
         tableNotifiche = driver.findElement(By.id("notifications-table"));
         getWebDriverWait(10).withMessage("Notifiche DE Page non caricata correttamente: il titolo non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));
