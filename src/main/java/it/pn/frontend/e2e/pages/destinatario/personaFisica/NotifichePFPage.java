@@ -23,11 +23,6 @@ public class NotifichePFPage extends BasePage {
     @FindBy(id = "Le tue notifiche-page")
     private WebElement titleLabel;
 
-    /**
-     * @FindBy(id = "Your notifications-page")
-     * private WebElement titleLabel;
-     **/
-
     @FindBy(id = "notifications-table")
     private WebElement tableNotifiche;
 
@@ -85,9 +80,8 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void waitLoadNotificheDEPage() {
-        titleLabel = driver.findElement(By.id("Le tue notifiche-page"));
         webTool.waitTime(10);
-        //titleLabel = driver.findElement(By.id("Your notifications-page"));
+        titleLabel = driver.findElement(By.id("Le tue notifiche-page"));
         tableNotifiche = driver.findElement(By.id("notifications-table"));
         getWebDriverWait(10).withMessage("Notifiche DE Page non caricata correttamente: il titolo non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));
         getWebDriverWait(10).withMessage("Notifiche DE Page non caricata correttamente: la tabella delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(tableNotifiche));

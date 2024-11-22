@@ -72,8 +72,8 @@ public class HooksNew {
         driver =  WebDriverManager.getDriverThreadLocal().get();
 
         /**
-       String language = (String) ((JavascriptExecutor) driver).executeScript("return navigator.language");
-       logger.info("Lingua corrente: " + language);
+        String language = (String) ((JavascriptExecutor) driver).executeScript("return navigator.language");
+        logger.info("Lingua corrente: " + language);
 
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
