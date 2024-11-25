@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Component
-public class WebTool extends BasePage {
+public class WebTool {
 
     @Autowired
     @Lazy
