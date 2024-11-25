@@ -105,7 +105,6 @@ public class NotifichePGPagoPATest extends BasePage {
         accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
         notificheDestinatarioPage = new NotificheDestinatarioPage(driver);
         dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(driver);
-
     }
 
 
