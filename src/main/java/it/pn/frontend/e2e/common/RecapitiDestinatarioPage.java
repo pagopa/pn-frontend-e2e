@@ -334,6 +334,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         try {
 //            WebElement pecInseritaBy = driver.findElement(By.xpath("//p[contains(text(),'PEC associata')]"));
 //            getWebDriverWait(5).until(ExpectedConditions.visibilityOf(pecInseritaBy));
+
             getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'PEC associata')]")));
             return true;
         } catch (TimeoutException e) {
@@ -687,10 +688,10 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void verificaPecNonModificabile() {
         try {
-            pecField = driver.findElement(By.id("default_pec"));
+//            pecField = driver.findElement(By.id("default_pec"));
             getWebDriverWait(10).until(ExpectedConditions.and(
-                    ExpectedConditions.invisibilityOf(pecField),
-                    ExpectedConditions.visibilityOf(pecEmail)));
+                    ExpectedConditions.visibilityOfElementLocated(By.id("default_pec")),
+                    ExpectedConditions.visibilityOfElementLocated(By.id("default_pec-typography"))));
             logger.info("pec non modificabile");
         } catch (TimeoutException e) {
             logger.error("pec modificabile con errore:" + e.getMessage());

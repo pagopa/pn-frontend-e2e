@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 
 public class RecapitiPersonaFisicaTest extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("InserimentoOTPSbagliato");
+    private static final Logger logger = LoggerFactory.getLogger("RecapitiPersonaFisicaTest");
 
     @Autowired
     private WebDriverConfig webDriverConfig;
