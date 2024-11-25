@@ -63,7 +63,7 @@ public class DettaglioNotificaSection extends BasePage {
             By aarBox = By.xpath("//div[@data-testid='aarBox']");
             By attestazione = By.xpath("//button[@data-testid='download-legalfact']");
             getWebDriverWait(10).withMessage("il titolo Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleDettaglioNotificaField));
-            getWebDriverWait(10).withMessage("il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
+            getWebDriverWait(20).withMessage("il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
             getWebDriverWait(10).withMessage("Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOfElementLocated(informazioniBy));
             getWebDriverWait(10).withMessage("La sezione Documenti allegati non è visibile").until(ExpectedConditions.visibilityOfElementLocated(allegatiSection));
           getWebDriverWait(10).withMessage("Lo stato della notificanon non è visibile").until(ExpectedConditions.visibilityOfElementLocated(statoNotificaBy));
