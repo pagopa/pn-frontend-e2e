@@ -46,7 +46,8 @@ public class SelezionaEntePAPage extends BasePage {
 
     public void waitLoadSelezionaEntePAPage() {
         try {
-            webTool.waitTime(25);
+            webTool.waitTime(30);
+            logger.info("HTML..."+driver.getPageSource());
             WebElement titlePage   = driver.findElement(By.xpath("//h3[text()='Seleziona il tuo ente']"));
             WebElement searchField = driver.findElement(By.id("search"));
             getWebDriverWait(30)
