@@ -43,7 +43,7 @@ public class GruppiPGPage extends BasePage {
     @FindBy(xpath = "//button[contains(text(), 'Conferma')]")
     WebElement buttonConferma;
 
-    @Autowired
+
     private WebTool webTool;
 
     private AccediAreaRiservataPGPage accediAreaRiservataPGPage;
@@ -58,6 +58,7 @@ public class GruppiPGPage extends BasePage {
 
     public GruppiPGPage(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
 

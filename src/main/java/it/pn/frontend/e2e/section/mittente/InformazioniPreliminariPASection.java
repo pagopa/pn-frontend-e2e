@@ -47,12 +47,11 @@ public class InformazioniPreliminariPASection extends BasePage {
     @Autowired
     private WebDriverConfig webDriverConfig;
 
-    @Autowired
-    @Lazy
     private  WebTool webTool;
 
     public InformazioniPreliminariPASection(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
 
