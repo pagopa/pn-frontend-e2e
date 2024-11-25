@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -30,8 +31,12 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(xpath = "//*[@id='legalContactsSection']/p")
     WebElement subTitlesSection;
 
+    private WebTool webTool;
+
     public ITuoiRecapitiPage(WebDriver driver) {
+
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void iTuoiRecapitiButtonClick() {
