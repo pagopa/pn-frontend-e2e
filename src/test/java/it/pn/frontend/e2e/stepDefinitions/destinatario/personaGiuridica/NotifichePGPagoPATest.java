@@ -65,7 +65,6 @@ public class NotifichePGPagoPATest extends BasePage {
 
 //    Map<String, Object> personaGiuridica = new HashMap<>();
 
-    @Autowired
     private  HomePagePG homePagePG;
 
     private DettaglioNotificaSection dettaglioNotificaSection;
