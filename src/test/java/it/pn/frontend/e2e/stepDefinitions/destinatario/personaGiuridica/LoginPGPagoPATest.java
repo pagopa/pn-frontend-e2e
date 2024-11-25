@@ -42,7 +42,6 @@ public class LoginPGPagoPATest extends BasePage {
 
 
     @Autowired
-    @Lazy
     private WebDriverConfig webDriverConfig;
 
     //TODO da rimuovere anche il discorso dei file yaml..
@@ -101,7 +100,7 @@ public class LoginPGPagoPATest extends BasePage {
         switch (variabileAmbiente) {
             case "dev" -> driver.get(webDriverConfig.getBaseUrlPgDev());
             case "test", "uat" ->
-                    driver.get(webDriverConfig.getBaseUrlPgDev().replace("dev", variabileAmbiente));
+                    driver.get(webDriverConfig.getBaseUrlPgTest().replace("dev", variabileAmbiente));
             default ->
                     Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
@@ -287,10 +286,13 @@ public class LoginPGPagoPATest extends BasePage {
         loginPGPagoPAPage.waitLoadLoginPGPage();
         loginPGPagoPAPage.insertUsername(webDriverConfig.getUserDante());
         loginPGPagoPAPage.insertPassword(webDriverConfig.getPwdDante());
+
         loginPGPagoPAPage.clickInviaButton();
 
-
+        webTool.waitTime(5);
         autorizzaInvioDatiPGPage.waitLoadAutorizzaInvioDatiPGPage();
+        logger.info("HTML..."+ driver.getPageSource());
+        webTool.waitTime(2);
         autorizzaInvioDatiPGPage.clickInviaButton();
 
         selezionaImpresaPage.waitLoadSelezionaImpresaPage();

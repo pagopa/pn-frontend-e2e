@@ -50,16 +50,19 @@ public class LoginPGPagoPAPage extends BasePage {
     }
 
     public void insertUsername(String user) {
+        usernameField = driver.findElement(By.id("username"));
         usernameField.sendKeys(user);
     }
 
 
     public void insertPassword(String pwd) {
+        passwordField = driver.findElement(By.id("password"));
         passwordField.sendKeys(pwd);
     }
 
 
     public void clickInviaButton() {
+        inviaButton = driver.findElement(By.xpath("//button[@name = 'confirm']"));
         inviaButton.click();
     }
 }

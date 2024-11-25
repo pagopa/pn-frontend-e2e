@@ -103,7 +103,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     private WebDriverManager webDriveBean;
 
     @Autowired
-    private  LoginPGPagoPATest loginPGPagoPATest ;
+    private  LoginPGPagoPATest loginPGPagoPATest;
 
     @Autowired
     private  LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA;
