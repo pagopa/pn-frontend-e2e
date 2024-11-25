@@ -128,6 +128,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public PiattaformaNotifichePage(WebDriver driver) {
         this.driver = driver;
         webTool = new WebTool(driver);
+
     }
 
     public void waitLoadPiattaformaNotifichePAPage() {
@@ -1074,6 +1075,8 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public boolean verificaCampiPreliminariNotificaVuoti() {
+        webTool.waitTime(10);
+        preliminaryInformationsForm = driver.findElement(By.xpath("//form[contains(@data-testid,'preliminaryInformationsForm')]"));
         List<WebElement> inputElements = preliminaryInformationsForm.findElements(By.tagName("input"));
         for (WebElement inputElement : inputElements) {
             if (inputElement.getAttribute("type").equals("text") && !inputElement.getAttribute("value").isEmpty()) {
@@ -1081,7 +1084,7 @@ public class PiattaformaNotifichePage extends BasePage {
                     return false;
                 }
             }
-            if (inputElement.getAttribute("type").equals("radio") && inputElement.isSelected()) {
+            if (inputElement.getAttribute("type").equals("radio") && inputElement.isSelected() && !inputElement.getAttribute("value").equalsIgnoreCase("it")) {
                 return false;
             }
         }

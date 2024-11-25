@@ -332,8 +332,10 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean siVisualizzaPecInserita() {
         try {
-            WebElement pecInseritaBy = driver.findElement(By.xpath("//p[contains(text(),'PEC associata')]"));
-            getWebDriverWait(5).until(ExpectedConditions.visibilityOf(pecInseritaBy));
+//            WebElement pecInseritaBy = driver.findElement(By.xpath("//p[contains(text(),'PEC associata')]"));
+//            getWebDriverWait(5).until(ExpectedConditions.visibilityOf(pecInseritaBy));
+
+            getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'PEC associata')]")));
             return true;
         } catch (TimeoutException e) {
             logger.error("Pec inserita non presente con errore:" + e.getMessage());
@@ -686,10 +688,13 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void verificaPecNonModificabile() {
         try {
-            pecField = driver.findElement(By.id("default_pec"));
+//            pecField = driver.findElement(By.id("default_pec"));
+            webTool.waitTime(10);
             getWebDriverWait(10).until(ExpectedConditions.and(
-                    ExpectedConditions.invisibilityOf(pecField),
-                    ExpectedConditions.visibilityOf(pecEmail)));
+                    ExpectedConditions.visibilityOfElementLocated(By.id("default_pec")),
+                    ExpectedConditions.visibilityOfElementLocated(By.id("default_pec-typography"))));
+//            ExpectedConditions.invisibilityOf(pecField),
+//                    ExpectedConditions.visibilityOf(pecEmail)));
             logger.info("pec non modificabile");
         } catch (TimeoutException e) {
             logger.error("pec modificabile con errore:" + e.getMessage());

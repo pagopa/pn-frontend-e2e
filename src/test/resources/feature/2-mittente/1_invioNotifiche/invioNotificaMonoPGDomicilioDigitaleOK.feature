@@ -1,6 +1,6 @@
 Feature: Mittente genera una notifica che non prevede pagamento
 
-  @paralell
+  @Parallel
   @TA_InvioNotificaMonoPGDomicilioDigitaleOK
   @mittente
   @invioNotifiche
