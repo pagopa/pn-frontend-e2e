@@ -38,8 +38,8 @@ public class AreaRiservataPAPage extends BasePage {
 
     public void waitLoadAreaRiservataPAPage() {
         try {
-            WebElement panoramicaLabel = driver.findElement(By.cssSelector(".MuiTypography-root.MuiTypography-h4"));
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(panoramicaLabel));
+            By panoramicaLabel = By.cssSelector(".MuiTypography-root.MuiTypography-h4");
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(panoramicaLabel));
             logger.info("Titolo Panoramica dell'area Riservata PA Page caricato");
         } catch (TimeoutException e) {
             logger.error("Titolo 'Panoramica' dell'area Riservata PA Page non caricato con errore: " + e.getMessage());

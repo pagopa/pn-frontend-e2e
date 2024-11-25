@@ -395,7 +395,7 @@ public class LoginMittentePagoPA extends BasePage {
         logger.info("Home page mittente viene visualizzata correttamente");
 
         headerPASection.waitLoadHeaderSection();
-
+        webTool.waitTime(10);
         areaRiservataPAPage.waitLoadAreaRiservataPAPage();
         if (areaRiservataPAPage.verificaCodiceFiscale(dataPopulationConfig.getMittente().getCodiceFiscale())) {
             logger.info("Codice fiscale presente");
