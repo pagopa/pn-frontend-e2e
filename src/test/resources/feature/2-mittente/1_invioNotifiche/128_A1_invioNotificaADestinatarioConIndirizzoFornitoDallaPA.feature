@@ -1,6 +1,6 @@
 Feature: Mittente invia una notifica digitale al destinatario con indirizzo fornito dalla PA
 
-  @paralell
+  @Parallel
   @TA_invioNotificaConIndirizzoFornitoDallaPA
   @mittente
   @invioNotifiche
