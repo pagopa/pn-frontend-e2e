@@ -223,6 +223,7 @@ public class LoginMittentePagoPA extends BasePage {
         autorizziInvioDatiPAPage.waitLoadAutorizziInvioDatiPAPage();
         autorizziInvioDatiPAPage.selezionareInvia();
 
+        webTool.waitTime(10);
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
         selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComune());
         selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComune());

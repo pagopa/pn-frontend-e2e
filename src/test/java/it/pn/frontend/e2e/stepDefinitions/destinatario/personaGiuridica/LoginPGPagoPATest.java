@@ -291,8 +291,6 @@ public class LoginPGPagoPATest extends BasePage {
 
         webTool.waitTime(5);
         autorizzaInvioDatiPGPage.waitLoadAutorizzaInvioDatiPGPage();
-        logger.info("HTML..."+ driver.getPageSource());
-        webTool.waitTime(2);
         autorizzaInvioDatiPGPage.clickInviaButton();
 
         selezionaImpresaPage.waitLoadSelezionaImpresaPage();

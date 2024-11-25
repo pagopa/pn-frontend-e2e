@@ -28,9 +28,10 @@ public class AutorizzaInvioDatiPGPage extends BasePage {
 
     public void waitLoadAutorizzaInvioDatiPGPage() {
         try {
+            inviaButton = driver.findElement(By.xpath("//button[@name = 'confirm']"));
             WebElement titlePageBy = driver.findElement(By.xpath("//h1[contains(text(),'Autorizzi')]"));
             getWebDriverWait(30).withMessage("Il titolo della pagina autorizzi invio dati PG non è visibile").until(ExpectedConditions.visibilityOf(titlePageBy));
-            getWebDriverWait(30).withMessage("Il bottone invia nella pagina autorizzi invio dati PG non è visibile").until(ExpectedConditions.elementToBeClickable(this.inviaButton));
+            getWebDriverWait(30).withMessage("Il bottone invia nella pagina autorizzi invio dati PG non è visibile").until(ExpectedConditions.elementToBeClickable(inviaButton));
             logger.info("AutorizzaInviaDatiPGPage caricata correttamente");
         } catch (TimeoutException e){
             logger.error("AutorizzaInviaDatiPGPage non caricata correttamente con errore: "+e.getMessage());
