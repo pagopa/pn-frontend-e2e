@@ -53,6 +53,12 @@ public class WebTool {
 
     public WebTool(WebDriver driver) {
        this.driver = driver;
+        headerPASection = new HeaderPASection(driver);
+        piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        headerPFSection = new HeaderPFSection(driver);
+        notifichePFPage = new NotifichePFPage(driver);
+        headerPGSection = new HeaderPGSection(driver);
+        cookiesSection = new CookiesSection(driver);
     }
 
     public  String switchToPortal(AppPortal portal) {

@@ -36,12 +36,12 @@ public class DeleghePage extends BasePage {
     @FindBy(id = "dialog-close-button")
     WebElement annullaButton;
 
-    @Autowired
-    @Lazy
+
     private WebTool webTool;
 
     public DeleghePage(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void waitDeleghePage() {
