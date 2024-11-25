@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.utility;
 
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.enums.AppPortal;
@@ -26,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Component
-public class WebTool {
+public class WebTool extends BasePage {
 
     @Autowired
     @Lazy
@@ -53,12 +54,6 @@ public class WebTool {
 
     public WebTool(WebDriver driver) {
        this.driver = driver;
-        headerPASection = new HeaderPASection(driver);
-        piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
-        headerPFSection = new HeaderPFSection(driver);
-        notifichePFPage = new NotifichePFPage(driver);
-        headerPGSection = new HeaderPGSection(driver);
-        cookiesSection = new CookiesSection(driver);
     }
 
     public  String switchToPortal(AppPortal portal) {
@@ -66,16 +61,21 @@ public class WebTool {
         switch (portal) {
             case PA -> {
                 driver.get(portal.url);
+                headerPASection = new HeaderPASection(driver);
                 headerPASection.waitLoadHeaderSection();
+                piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
                 piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
             }
             case PF -> {
                 driver.get(portal.url);
+                headerPFSection = new HeaderPFSection(driver);
                 headerPFSection.waitLoadHeaderDESection();
+                notifichePFPage = new NotifichePFPage(driver);
                 notifichePFPage.waitLoadNotificheDEPage();
             }
             case PG -> {
                 driver.get(portal.url);
+                headerPGSection = new HeaderPGSection(driver);
                 headerPGSection.waitLoadHeaderPGPage();
             }
             case HELPDESK -> {
@@ -86,7 +86,7 @@ public class WebTool {
                 Assertions.fail("Tipologia di portale non specificato o errato!");
             }
         }
-
+        cookiesSection = new CookiesSection(driver);
         if (cookiesSection.waitLoadCookiesPage()) {
             cookiesSection.selezionaAccettaTuttiButton();
         }
