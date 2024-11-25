@@ -27,6 +27,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -225,17 +226,17 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento(String datiNotificaFile) {
         logger.info("Inserimento dei dati della notifica senza pagamento dal file " + datiNotificaFile + ".yaml");
         aggiornamentoNumeroProtocollo();
-        this.datiNotifica = dataPopulation.readDataPopulation(datiNotificaFile + ".yaml");
+        datiNotifica = dataPopulation.readDataPopulation(datiNotificaFile + ".yaml");
         String gruppo = "";
         switch (webDriverConfig.getEnvironment()) {
             case "dev" -> gruppo = datiNotifica.get("gruppoDev").toString();
             case "test", "uat" -> gruppo = datiNotifica.get("gruppoTest").toString();
         }
-        informazioniPreliminariPASection.insertOggettoNotifica(this.datiNotifica.get("oggettoDellaNotifica").toString());
-        informazioniPreliminariPASection.insertDescrizione(this.datiNotifica.get("descrizione").toString());
-        informazioniPreliminariPASection.insertNumeroDiProtocollo(this.datiNotifica.get("numeroProtocollo").toString());
+        informazioniPreliminariPASection.insertOggettoNotifica(datiNotifica.get("oggettoDellaNotifica").toString());
+        informazioniPreliminariPASection.insertDescrizione(datiNotifica.get("descrizione").toString());
+        informazioniPreliminariPASection.insertNumeroDiProtocollo(datiNotifica.get("numeroProtocollo").toString());
         informazioniPreliminariPASection.insertGruppo(gruppo);
-        informazioniPreliminariPASection.insertCodiceTassonometrico(this.datiNotifica.get("codiceTassonometrico").toString());
+        informazioniPreliminariPASection.insertCodiceTassonometrico(datiNotifica.get("codiceTassonometrico").toString());
         informazioniPreliminariPASection.selectRaccomandataAR();
     }
 
@@ -1707,7 +1708,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @Then("Nella section si visualizza correttamente i campi vuoti")
     public void nellaSectionSiVisualizzaCorrettamenteICampiVuoti() {
         logger.info("Si verifica che i campi sono vuoti");
-
         if (piattaformaNotifichePage.verificaCampiPreliminariNotificaVuoti()) {
             logger.info("I campi sono vuoti");
         } else {

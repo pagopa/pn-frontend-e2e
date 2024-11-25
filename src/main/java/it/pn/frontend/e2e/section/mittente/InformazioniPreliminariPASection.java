@@ -133,7 +133,7 @@ public class InformazioniPreliminariPASection extends BasePage {
 
     public void insertCodiceTassonometrico(String codiceTassonometrico) {
         logger.info("inserimento codice tassonometrico");
-        codiceTassonometricoTextField = driver.findElement(By.id("group"));
+        codiceTassonometricoTextField = driver.findElement(By.id("taxonomyCode"));
         scrollToElementClickAndInsertText(codiceTassonometricoTextField, codiceTassonometrico);
     }
 
