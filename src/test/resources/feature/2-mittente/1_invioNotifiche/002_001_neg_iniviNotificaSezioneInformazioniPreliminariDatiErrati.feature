@@ -2,7 +2,7 @@ Feature: Il mittente inserisce i dati non coretti nella sezione informazioni pre
 
   @TA_inserimentoDatiErratiInfoPreliminari
   @TestSuite
-  @mittente
+  @mittente_x
   @invioNotifiche
 
   Scenario:Il mittente inserisce i dati non corretti nella sezione informazioni preliminari
