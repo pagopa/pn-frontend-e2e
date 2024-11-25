@@ -53,13 +53,6 @@ public class WebTool {
 
     public WebTool(WebDriver driver) {
        this.driver = driver;
-       //TODO DA VERIFICARE
-//        headerPASection = new HeaderPASection(driver);
-//        piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
-//        headerPFSection = new HeaderPFSection(driver);
-//        notifichePFPage = new NotifichePFPage(driver);
-//        headerPGSection = new HeaderPGSection(driver);
-//        cookiesSection = new CookiesSection(driver);
     }
 
     public  String switchToPortal(AppPortal portal) {
@@ -67,16 +60,21 @@ public class WebTool {
         switch (portal) {
             case PA -> {
                 driver.get(portal.url);
+                headerPASection = new HeaderPASection(driver);
                 headerPASection.waitLoadHeaderSection();
+                piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
                 piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
             }
             case PF -> {
                 driver.get(portal.url);
+                headerPFSection = new HeaderPFSection(driver);
                 headerPFSection.waitLoadHeaderDESection();
+                notifichePFPage = new NotifichePFPage(driver);
                 notifichePFPage.waitLoadNotificheDEPage();
             }
             case PG -> {
                 driver.get(portal.url);
+                headerPGSection = new HeaderPGSection(driver);
                 headerPGSection.waitLoadHeaderPGPage();
             }
             case HELPDESK -> {
@@ -87,7 +85,7 @@ public class WebTool {
                 Assertions.fail("Tipologia di portale non specificato o errato!");
             }
         }
-
+        cookiesSection = new CookiesSection(driver);
         if (cookiesSection.waitLoadCookiesPage()) {
             cookiesSection.selezionaAccettaTuttiButton();
         }
