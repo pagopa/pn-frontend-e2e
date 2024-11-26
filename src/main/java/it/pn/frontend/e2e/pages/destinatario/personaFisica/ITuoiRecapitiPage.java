@@ -53,11 +53,10 @@ public class ITuoiRecapitiPage extends BasePage {
     public void waitLoadITuoiRecapitiPage() {
         try {
             WebElement titlePageByOne = driver.findElement(By.xpath("//h4[contains(@id,'Recapiti-page')]"));
-            WebElement titlePageByTwo = driver.findElement(By.xpath("//h4[contains(@id,'I tuoi recapiti-page')]"));
+           // WebElement titlePageByTwo = driver.findElement(By.xpath("//h4[contains(@id,'I tuoi recapiti-page')]"));
             WebElement subTitlePageBy = driver.findElement(By.id("subtitle-page"));
             getWebDriverWait(10).until(ExpectedConditions.or(
-                    ExpectedConditions.visibilityOf(titlePageByOne),
-                    ExpectedConditions.visibilityOf(titlePageByTwo)
+                    ExpectedConditions.visibilityOf(titlePageByOne)
             ));
             getWebDriverWait(10).until(ExpectedConditions.visibilityOf(subTitlePageBy));
             logger.info("La pagina I Tuoi Recapiti si vede correttamente");
@@ -236,6 +235,7 @@ public class ITuoiRecapitiPage extends BasePage {
             WebElement titleSection = driver.findElement(By.id("legalContactsTitle"));
             WebElement pecField = driver.findElement(By.id("default_pec"));
             WebElement confirmButton = driver.findElement(By.id("default_pec-button"));
+            subTitlesSection = driver.findElement(By.xpath("//*[@id='legalContactsSection']/p"));
             List<WebElement> infoBanner = driver.findElements(By.xpath("//p[@data-testid='DigitalContactsCardDescription']"));
             getWebDriverWait(10).withMessage("Non si visualizza il titolo della sezione recapito legale o il contenuto è errato").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOf(titleSection),
@@ -251,7 +251,7 @@ public class ITuoiRecapitiPage extends BasePage {
                     ExpectedConditions.not(ExpectedConditions.elementToBeClickable(confirmButton))));
             getWebDriverWait(10).withMessage("Non si visualizza il banner informativo o il suo contenuto è errato").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOf(infoBanner.get(0)),
-                    ExpectedConditions.attributeToBe(infoBanner.get(0), "innerText", "Quando un ente invia una comunicazione per te su SEND, ricevi l’avviso ufficiale sulla PEC che hai scelto.")));
+                    ExpectedConditions.attributeToBe(infoBanner.get(1), "innerText", "Quando un ente invia una comunicazione per te su SEND, ricevi l’avviso ufficiale sulla PEC che hai scelto.")));
             logger.info("Il riquadro PEC si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il riquadro PEC NON si visualizza correttamente con errori:" + e.getMessage());

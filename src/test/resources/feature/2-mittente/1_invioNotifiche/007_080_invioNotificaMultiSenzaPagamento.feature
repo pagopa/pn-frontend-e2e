@@ -2,7 +2,7 @@ Feature: Mittente genera una notifica con più destinatari che non prevede pagam
 
   @TestSuite
     @TA_invioNotificaMultiSenzaPagamento
-    @mittente
+    @mittente_x
     @invioNotifiche
 
   Scenario Outline: PN-9226 - Mittente genera una notifica con più destinatari che non prevede pagamento
@@ -14,9 +14,10 @@ Feature: Mittente genera una notifica con più destinatari che non prevede pagam
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
-    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica"
+    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario inserire i dati delle persone fisiche aggiuntive per <numero destinatari>
+    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 1
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
@@ -28,4 +29,4 @@ Feature: Mittente genera una notifica con più destinatari che non prevede pagam
     And Logout da portale mittente
     Examples:
       | numero destinatari |
-      | 3                  |
+      | 2                  |

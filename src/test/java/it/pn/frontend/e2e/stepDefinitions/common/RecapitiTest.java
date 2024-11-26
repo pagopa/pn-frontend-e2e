@@ -9,6 +9,8 @@ import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 public class RecapitiTest extends BasePage {
 
@@ -21,10 +23,12 @@ public class RecapitiTest extends BasePage {
 
     public static String OTP;
 
-    private  RecapitiDestinatarioPage recapitiDestinatarioPage;
+    private RecapitiDestinatarioPage recapitiDestinatarioPage;
 
     private ITuoiRecapitiPage iTuoiRecapitiPage;
 
+    @Autowired
+    @Lazy
     private BackgroundTest backgroundTest;
 
     @PostConstruct
@@ -32,6 +36,8 @@ public class RecapitiTest extends BasePage {
         logger.info("INIT TEST...: ");
         recapitiDestinatarioPage = new RecapitiDestinatarioPage(driver);
         iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
+        backgroundTest.setRecapitiTest(this);
+
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono {string} e si clicca sul bottone avvisami via SMS")
