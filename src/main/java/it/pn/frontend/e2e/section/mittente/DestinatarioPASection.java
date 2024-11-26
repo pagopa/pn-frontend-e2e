@@ -236,10 +236,10 @@ public class DestinatarioPASection extends BasePage {
     public void inserimentoMultiDestinatario(Map<String, Object> destinatari, int nDestinatari) {
         for (int i = 0; i < nDestinatari; i++) {
             inserimentoInformazioniPreliminari(destinatari, i);
-            inserimentoInformazioniAggiuntive(destinatari, i);
-            if (i != nDestinatari - 1) {
-                selezionareAggiungiDestinatarioButton();
-            }
+            //inserimentoInformazioniAggiuntive(destinatari, i);
+           // if (i != nDestinatari - 1) {
+              //  selezionareAggiungiDestinatarioButton();
+           // }
         }
     }
 
@@ -252,7 +252,7 @@ public class DestinatarioPASection extends BasePage {
         String cfDestinatario = ricercaInformazione(destinatari.get("codiceFiscale").toString().split(","), i);
         cfDestinatario = cfDestinatario.replace(" ", "");
         inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]", cfDestinatario);
-        selezionaAggiungiUnIndirizzoFisicoMulti(i + 1);
+        //selezionaAggiungiUnIndirizzoFisicoMulti(i + 1);
     }
 
     public void inserimentoInformazioniAggiuntive(Map<String, Object> destinatari, int i) {
