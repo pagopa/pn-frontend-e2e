@@ -48,7 +48,7 @@ Feature: Login pagoPA
   @TestSuite
   @loginFE_x
   @mittente_x
-  Scenario: Login pagoPA persona fisica
+  Scenario: Login pagoPA persona fisica 1
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
       | user         | cesare                 |
@@ -61,7 +61,7 @@ Feature: Login pagoPA
   @TestSuite
   @loginFE_x
   @mittente_x
-  Scenario: Login pagoPA persona fisica
+  Scenario: Login pagoPA persona fisica 2
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
       | user         | cesare                 |
@@ -74,7 +74,7 @@ Feature: Login pagoPA
   @TestSuite
   @loginFE_x
   @mittente_x
-  Scenario: Login pagoPA persona fisica
+  Scenario: Login pagoPA persona fisica 3
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
       | user         | cesare                 |
@@ -87,21 +87,7 @@ Feature: Login pagoPA
   @TestSuite
   @loginFE_x
   @mittente_x
-  Scenario: Login pagoPA persona fisica
-    Given Login Page persona fisica test viene visualizzata
-    When Login con persona fisica
-      | user         | cesare                 |
-      | pwd          | password123            |
-      | name         | Gaio Giulio            |
-      | familyName   | Cesare                 |
-      | fiscalNumber | TINIT-CSRGGL44L13H501E |
-
-
-  @TA_loginpersonaFisica
-  @TestSuite
-  @loginFE_x
-  @mittente_x
-  Scenario: Login pagoPA persona fisica
+  Scenario: Login pagoPA persona fisica 4
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
       | user         | cesare                 |
@@ -115,7 +101,7 @@ Feature: Login pagoPA
   @TestSuite
   @loginFE_x
   @mittente_x
-  Scenario: Login pagoPA persona fisica
+  Scenario: Login pagoPA persona fisica 5
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
       | user         | cesare                 |
@@ -125,12 +111,11 @@ Feature: Login pagoPA
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
 
 
-
   @TA_loginpersonaFisica
   @TestSuite
   @loginFE_x
   @mittente_x
-  Scenario: Login pagoPA persona fisica
+  Scenario: Login pagoPA persona fisica 6
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
       | user         | cesare                 |
@@ -145,35 +130,7 @@ Feature: Login pagoPA
   @TestSuite
   @loginFE_x
   @mittente_x
-  Scenario: Login pagoPA persona fisica
-    Given Login Page persona fisica test viene visualizzata
-    When Login con persona fisica
-      | user         | cesare                 |
-      | pwd          | password123            |
-      | name         | Gaio Giulio            |
-      | familyName   | Cesare                 |
-      | fiscalNumber | TINIT-CSRGGL44L13H501E |
-
-
-  @TA_loginpersonaFisica
-  @TestSuite
-  @loginFE_x
-  @mittente_x
-  Scenario: Login pagoPA persona fisica
-    Given Login Page persona fisica test viene visualizzata
-    When Login con persona fisica
-      | user         | cesare                 |
-      | pwd          | password123            |
-      | name         | Gaio Giulio            |
-      | familyName   | Cesare                 |
-      | fiscalNumber | TINIT-CSRGGL44L13H501E |
-
-
-  @TA_loginpersonaFisica
-  @TestSuite
-  @loginFE_x
-  @mittente_x
-  Scenario: Login pagoPA persona fisica
+  Scenario: Login pagoPA persona fisica 7
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
       | user         | cesare                 |
@@ -188,7 +145,7 @@ Feature: Login pagoPA
   @TestSuite
   @loginFE_x
   @mittente_x
-  Scenario: Login pagoPA persona fisica
+  Scenario: Login pagoPA persona fisica 8
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
       | user         | cesare                 |
@@ -202,7 +159,7 @@ Feature: Login pagoPA
   @TestSuite
   @loginFE_x
   @mittente_x
-  Scenario: Login pagoPA persona fisica
+  Scenario: Login pagoPA persona fisica 9
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
       | user         | cesare                 |
@@ -216,22 +173,7 @@ Feature: Login pagoPA
   @TestSuite
   @loginFE_x
   @mittente_x
-  Scenario: Login pagoPA persona fisica
-    Given Login Page persona fisica test viene visualizzata
-    When Login con persona fisica
-      | user         | cesare                 |
-      | pwd          | password123            |
-      | name         | Gaio Giulio            |
-      | familyName   | Cesare                 |
-      | fiscalNumber | TINIT-CSRGGL44L13H501E |
-
-
-
-  @TA_loginpersonaFisica
-  @TestSuite
-  @loginFE_x
-  @mittente_x
-  Scenario: Login pagoPA persona fisica
+  Scenario: Login pagoPA persona fisica 10
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
       | user         | cesare                 |
@@ -246,7 +188,35 @@ Feature: Login pagoPA
   @TestSuite
   @loginFE_x
   @mittente_x
-  Scenario: Login pagoPA persona fisica
+  Scenario: Login pagoPA persona fisica 11
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica 12
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica 13
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
       | user         | cesare                 |
@@ -261,7 +231,7 @@ Feature: Login pagoPA
   @TestSuite
   @loginFE_x
   @mittente_x
-  Scenario: Login pagoPA persona fisica
+  Scenario: Login pagoPA persona fisica 14
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
       | user         | cesare                 |
@@ -276,7 +246,37 @@ Feature: Login pagoPA
   @TestSuite
   @loginFE_x
   @mittente_x
-  Scenario: Login pagoPA persona fisica
+  Scenario: Login pagoPA persona fisica 15
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica 16
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica 17
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
       | user         | cesare                 |
@@ -292,7 +292,7 @@ Feature: Login pagoPA
   @TestSuite
   @loginFE_x
   @mittente_x
-  Scenario: Login pagoPA persona fisica
+  Scenario: Login pagoPA persona fisica 18
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
       | user         | cesare                 |
