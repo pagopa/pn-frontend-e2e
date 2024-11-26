@@ -59,7 +59,7 @@ public class DettaglioNotificaSection extends BasePage {
         WebElement statoNotificaBy = driver.findElement(By.id("notification-state"));
         WebElement informazioniBy = driver.findElement(By.id("notification-detail-table"));
         WebElement allegatiSection = driver.findElement(By.id("notification-detail-document-attached"));
-        WebElement aarDownload = driver.findElement(By.xpath("//div[@data-testid='aarDownload']"));
+        WebElement aarDownload = driver.findElement(By.xpath("//div[@data-testid='notificationDetailDocuments']"));
         WebElement aarBox = driver.findElement(By.xpath("//div[@data-testid='aarBox']"));
         WebElement attestazione = driver.findElement(By.xpath("//button[@data-testid='download-legalfact']"));
         indietroButton = driver.findElement(By.id("breadcrumb-indietro-button"));
@@ -153,7 +153,7 @@ public class DettaglioNotificaSection extends BasePage {
         WebElement indietroButtonBy = driver.findElement(By.id("breadcrumb-indietro-button"));
         WebElement informazioniBy = driver.findElement(By.id("notification-detail-table"));
         WebElement allegatiSection = driver.findElement(By.id("notification-detail-document-attached"));
-        WebElement aarDownload = driver.findElement(By.xpath("//div[@data-testid='aarDownload']"));
+        WebElement aarDownload = driver.findElement(By.xpath("//div[@data-testid='notificationDetailDocuments']"));
         WebElement aarBox = driver.findElement(By.xpath("//div[@data-testid='aarBox']"));
         WebElement attestazione = driver.findElement(By.xpath("//button[@data-testid='download-legalfact']"));
         WebElement copyNotificaAnnullataDestinatario = driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']"));
