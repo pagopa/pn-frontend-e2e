@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -83,8 +84,11 @@ public class DestinatarioPASection extends BasePage {
     @FindBy(id = "add-digital-domicile")
     WebElement checkDomicilioDigitale;
 
+    private WebTool webTool;
+
     public DestinatarioPASection(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public String ricercaInformazione(String[] dati, int posizioneDestinatario) {
@@ -364,6 +368,7 @@ public class DestinatarioPASection extends BasePage {
     }
 
     public void checkBoxAggiungiDomicilio() {
+        webTool.waitTime(10);
         checkBoxAggiungiDomicilioDigitale = driver.findElement(By.xpath("//label[@data-testid='showDigitalDomicile0']"));
         checkBoxAggiungiDomicilioDigitale.click();
     }

@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 
 public class DettaglioNotificaMittenteSection extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
+    private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaMittenteSection");
 
 
     @FindBy(id = "more-less-timeline-step")
