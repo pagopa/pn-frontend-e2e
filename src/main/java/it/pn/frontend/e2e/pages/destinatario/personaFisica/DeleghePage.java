@@ -231,7 +231,7 @@ public class DeleghePage extends BasePage {
             getWebDriverWait(10).until(ExpectedConditions.visibilityOf(delegaBy));
             logger.info("Si trova una delega");
             return true;
-        } catch (TimeoutException e) {
+        } catch (TimeoutException | NoSuchElementException e) {
             logger.warn("Non si trova una delega con il nome " + nome + " " + cognome);
             return false;
         }
