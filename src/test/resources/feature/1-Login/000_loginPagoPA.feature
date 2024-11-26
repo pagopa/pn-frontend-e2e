@@ -3,6 +3,7 @@ Feature: Login pagoPA
   @TA_loginMittente
   @TestSuite
   @loginFE
+  @mittente_x
   Scenario: Login pagoPA mittente
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
@@ -16,6 +17,7 @@ Feature: Login pagoPA
   @TA_loginpersonaFisica
   @TestSuite
   @loginFE
+  @mittente_x
   Scenario: Login pagoPA persona fisica
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -31,6 +33,7 @@ Feature: Login pagoPA
   @TA_loginpersonaGiuridica
   @TestSuite
   @loginFE
+  @mittente_x
   Scenario: PN-9146 - Login pagoPA persona giuridica
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
