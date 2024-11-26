@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -30,12 +31,16 @@ public class ConfermaDatiSpidPFPage extends BasePage {
     @FindBy(css = "input[value='Conferma']")
     WebElement confermaButton;
 
+    private WebTool webTool;
+
     public ConfermaDatiSpidPFPage(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void waitLoadConfermaDatiSpidDEPage(){
         try{
+            webTool.waitTime(5);
             WebElement spidLogo = driver.findElement(By.id("idp-logo"));
             WebElement alertBox = driver.findElement(By.xpath("//h3[@class='alert-heading']"));
             this.getWebDriverWait(30).withMessage("spid logo non visibile").until(ExpectedConditions.visibilityOf(spidLogo));
