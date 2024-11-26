@@ -116,6 +116,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @PostConstruct
     public void init(){
         logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
         cookiesSection = new CookiesSection(driver);
         areaRiservataPAPage = new AreaRiservataPAPage(driver);
         headerPASection = new HeaderPASection(driver);
