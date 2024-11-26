@@ -312,6 +312,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void verificaInvioPECInCorso() {
         try {
+            webTool.waitTime(10);
             WebElement invioPec = driver.findElement(By.xpath("//div/span[contains(text(),'Invio via PEC')]/following-sibling::div//p[contains(text(),'È in corso l')]"));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(invioPec));
             logger.info("La pec è in stato invio in corso");

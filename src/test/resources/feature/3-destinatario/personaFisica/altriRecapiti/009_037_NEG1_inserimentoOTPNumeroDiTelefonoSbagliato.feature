@@ -4,7 +4,7 @@ Feature: la persona fisica inserisce l'OTP numero di telefono  errato
   @TA_inserimentoOTPTelefonoErrato
   @PF
   @recapitiPF
-
+@mittente_x
   Scenario: PN-9311-C37 - la persona fisica inserisce l'OTP numero di telefono errato
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono
