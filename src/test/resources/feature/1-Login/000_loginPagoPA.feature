@@ -42,3 +42,261 @@ Feature: Login pagoPA
       | ragioneSociale | Convivio Spa   |
     Then Home page persona giuridica viene visualizzata correttamente
     And Logout da portale persona giuridica
+
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+
+
+
+  @TA_loginpersonaFisica
+  @TestSuite
+  @loginFE_x
+  @mittente_x
+  Scenario: Login pagoPA persona fisica
+    Given Login Page persona fisica test viene visualizzata
+    When Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
