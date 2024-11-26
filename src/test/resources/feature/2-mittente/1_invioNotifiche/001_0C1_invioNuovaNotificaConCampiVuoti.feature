@@ -2,7 +2,7 @@ Feature: Il mittente inserisce i dati di una nuova notifica, dopo l'inserzione d
 
   @TA_inviaNuovaNotificaConCampiVuoti
   @TestSuite
-  @mittente
+  @mittente_x
   @invioNotifiche
 
   Scenario: PN-8895 - Il mittente inserisce i dati non corretti nella sezione informazioni preliminari

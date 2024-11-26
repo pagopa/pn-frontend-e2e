@@ -307,14 +307,14 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
         this.personeFisiche = dataPopulation.readDataPopulation(personaFisicaFile + ".yaml");
 
-        destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
-        destinatarioPASection.inserireIndirizzo(this.personeFisiche.get("indirizzo").toString());
-        destinatarioPASection.inserireNumeroCivico(this.personeFisiche.get("numeroCivico").toString());
-        destinatarioPASection.inserireLocalita(this.personeFisiche.get("localita").toString());
-        destinatarioPASection.inserireComune(this.personeFisiche.get("comune").toString());
-        destinatarioPASection.inserireProvincia(this.personeFisiche.get("provincia").toString());
-        destinatarioPASection.inserireCodicePostale(this.personeFisiche.get("codicepostale").toString());
-        destinatarioPASection.inserireStato(this.personeFisiche.get("stato").toString());
+        //estinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
+        destinatarioPASection.inserireIndirizzo(this.personeFisiche.get("indirizzo").toString(),0);
+        destinatarioPASection.inserireNumeroCivico(this.personeFisiche.get("numeroCivico").toString(),0);
+        destinatarioPASection.inserireLocalita(this.personeFisiche.get("localita").toString(),0);
+        destinatarioPASection.inserireComune(this.personeFisiche.get("comune").toString(),0);
+        destinatarioPASection.inserireProvincia(this.personeFisiche.get("provincia").toString(),0);
+        destinatarioPASection.inserireCodicePostale(this.personeFisiche.get("codicepostale").toString(),0);
+        destinatarioPASection.inserireStato(this.personeFisiche.get("stato").toString(),0);
     }
 
     @And("Nella section Destinatario settare come CAP {string}")
@@ -322,7 +322,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         // this assumes that previously the test scenario enforces the destinatarioPASection to appear,
         // e.g. through siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionDestinatario
 
-        destinatarioPASection.cambiareCodicePostale(cap);
+        destinatarioPASection.cambiareCodicePostale(cap,0);
     }
 
     @And("Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati")
@@ -888,20 +888,20 @@ public class NotificaMittentePagoPATest  extends BasePage {
         destinatarioPASection.insertDomicilioDigitale(this.personaGiuridica.get("emailPec").toString());
     }
 
-    @And("Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica {string}")
-    public void nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDellaPersonaGiuridica(String dpFile) {
+    @And("Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica {string} destinatario {int}")
+    public void nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDellaPersonaGiuridica(String dpFile, int recipientIndex) {
         logger.info("Si inseriscono i dati personali della persona giuridica");
 
         this.personaGiuridica = dataPopulation.readDataPopulation(dpFile + ".yaml");
 
-        destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
-        destinatarioPASection.inserireIndirizzo(this.personaGiuridica.get("indirizzo").toString());
-        destinatarioPASection.inserireNumeroCivico(this.personaGiuridica.get("numeroCivico").toString());
-        destinatarioPASection.inserireLocalita(this.personaGiuridica.get("localita").toString());
-        destinatarioPASection.inserireComune(this.personaGiuridica.get("comune").toString());
-        destinatarioPASection.inserireProvincia(this.personaGiuridica.get("provincia").toString());
-        destinatarioPASection.inserireCodicePostale(this.personaGiuridica.get("codicepostale").toString());
-        destinatarioPASection.inserireStato(this.personaGiuridica.get("stato").toString());
+        //destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
+        destinatarioPASection.inserireIndirizzo(this.personaGiuridica.get("indirizzo").toString(),recipientIndex);
+        destinatarioPASection.inserireNumeroCivico(this.personaGiuridica.get("numeroCivico").toString(),recipientIndex);
+        destinatarioPASection.inserireLocalita(this.personaGiuridica.get("localita").toString(),recipientIndex);
+        destinatarioPASection.inserireComune(this.personaGiuridica.get("comune").toString(),recipientIndex);
+        destinatarioPASection.inserireProvincia(this.personaGiuridica.get("provincia").toString(),recipientIndex);
+        destinatarioPASection.inserireCodicePostale(this.personaGiuridica.get("codicepostale").toString(),recipientIndex);
+        //destinatarioPASection.inserireStato(this.personaGiuridica.get("stato").toString(),recipientIndex);
 
     }
 
@@ -947,7 +947,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("^Nella section Destinatario inserire i dati del destinatari persone giuridiche aggiuntivi per (.*)$")
     public void nellaSectionDestinatarioInserireIDatiDelDestinatariPersoneGiuridicheAggiuntiviPerNumeroDestinatari(String nDestinatari) {
-        logger.info("Si cerca di aggiungere" + nDestinatari + " personeGiuridiche");
+        logger.info("Si cerca di aggiungere " + nDestinatari + " personeGiuridiche");
 
         Map<String, Object> personeGiuridiche = dataPopulation.readDataPopulation("personeGiuridiche.yaml");
         int nDestinatariInt = 1;
@@ -1134,19 +1134,19 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void nellaSectionDestinitarioSiCliccaSuESiInserisconoIDati(String tipoIndirizzo, Map<String, String> indirizzo) {
         logger.info("Si clicca su " + tipoIndirizzo + " e si inseriscono i dati");
         if (tipoIndirizzo.contains("Aggiungi un indirizzo fisico")) {
-            destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
+            //destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
         } else {
             destinatarioPASection.checkBoxAggiungiDomicilio();
             destinatarioPASection.insertDomicilioDigitale(indirizzo.get("digitalAddress"));
             return;
         }
-        destinatarioPASection.inserireIndirizzo(indirizzo.get("indirizzo"));
-        destinatarioPASection.inserireNumeroCivico(indirizzo.get("civico"));
-        destinatarioPASection.inserireLocalita(indirizzo.get("localita"));
-        destinatarioPASection.inserireComune(indirizzo.get("comune"));
-        destinatarioPASection.inserireProvincia(indirizzo.get("provincia"));
-        destinatarioPASection.inserireCodicePostale(indirizzo.get("cap"));
-        destinatarioPASection.inserireStato(indirizzo.get("stato"));
+        destinatarioPASection.inserireIndirizzo(indirizzo.get("indirizzo"),0);
+        destinatarioPASection.inserireNumeroCivico(indirizzo.get("civico"),0);
+        destinatarioPASection.inserireLocalita(indirizzo.get("localita"),0);
+        destinatarioPASection.inserireComune(indirizzo.get("comune"),0);
+        destinatarioPASection.inserireProvincia(indirizzo.get("provincia"),0);
+        destinatarioPASection.inserireCodicePostale(indirizzo.get("cap"),0);
+        destinatarioPASection.inserireStato(indirizzo.get("stato"),0);
     }
 
     @Then("Nella section Allegati si carica un atto")

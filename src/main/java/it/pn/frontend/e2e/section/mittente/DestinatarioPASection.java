@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.section.mittente;
 
+import io.cucumber.java.en.And;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
@@ -171,52 +172,52 @@ public class DestinatarioPASection extends BasePage {
         checkDomicilioDigitale.click();
     }
 
-    public void inserireIndirizzo(String indirizzo) {
-        logger.info("inserimento indirizzo fisico");
-        indirizzoTextField = driver.findElement(By.id("recipients[0].address"));
+    public void inserireIndirizzo(String indirizzo, int i) {
+        logger.info("inserimento indirizzo fisico destinatario " +i);
+        indirizzoTextField = driver.findElement(By.id("recipients["+i+"].address"));
         scrollToElementClickAndInsertText(indirizzoTextField, indirizzo);
     }
 
-    public void inserireNumeroCivico(String numeroCivico) {
-        logger.info("inserimento numero civico");
-        numeroCivicoTextField = driver.findElement(By.id("recipients[0].houseNumber"));
+    public void inserireNumeroCivico(String numeroCivico, int i) {
+        logger.info("inserimento numero civico destinatario " +i);
+        numeroCivicoTextField = driver.findElement(By.id("recipients["+i+"].houseNumber"));
         scrollToElementClickAndInsertText(numeroCivicoTextField, numeroCivico);
     }
 
-    public void inserireLocalita(String localita) {
-        logger.info("inserimento localitá");
-        localitaTextField = driver.findElement(By.id( "recipients[0].municipalityDetails"));
+    public void inserireLocalita(String localita, int i) {
+        logger.info("inserimento localitá destinatario " +i);
+        localitaTextField = driver.findElement(By.id( "recipients["+i+"].municipalityDetails"));
         scrollToElementClickAndInsertText(localitaTextField, localita);
     }
 
-    public void inserireComune(String comune) {
-        logger.info("inserimento comune");
-        comuneTextField = driver.findElement(By.id("recipients[0].municipality"));
+    public void inserireComune(String comune, int i) {
+        logger.info("inserimento comune destinatario " +i);
+        comuneTextField = driver.findElement(By.id("recipients["+i+"].municipality"));
         scrollToElementClickAndInsertText(comuneTextField, comune);
     }
 
-    public void inserireProvincia(String provincia) {
-        logger.info("inserimento provincia");
-        provinciaTextField = driver.findElement(By.id("recipients[0].province"));
+    public void inserireProvincia(String provincia, int i) {
+        logger.info("inserimento provincia destinatario " +i);
+        provinciaTextField = driver.findElement(By.id("recipients["+i+"].province"));
         scrollToElementClickAndInsertText(provinciaTextField, provincia);
     }
 
-    public void inserireCodicePostale(String codicePostale) {
-        logger.info("inserimento codice postale");
-        codicePostaleTextField = driver.findElement(By.id("recipients[0].zip"));
+    public void inserireCodicePostale(String codicePostale, int i) {
+        logger.info("inserimento codice postale destinatario " +i);
+        codicePostaleTextField = driver.findElement(By.id("recipients["+i+"].zip"));
         this.scrollToElementClickAndInsertText(this.codicePostaleTextField, codicePostale);
     }
 
-    public void cambiareCodicePostale(String codicePostale) {
-        logger.info("cambio codice postale");
-        codicePostaleTextField = driver.findElement(By.id("recipients[0].zip"));
+    public void cambiareCodicePostale(String codicePostale, int i) {
+        logger.info("cambio codice postale destinatario " +i);
+        codicePostaleTextField = driver.findElement(By.id("recipients["+i+"].zip"));
         clearWebElementField(codicePostaleTextField);
         codicePostaleTextField.sendKeys(codicePostale);
     }
 
-    public void inserireStato(String stato) {
-        logger.info("inserimento stato");
-        statoTextField = driver.findElement(By.id("recipients[0].foreignState"));
+    public void inserireStato(String stato, int i) {
+        logger.info("inserimento stato destinatario " +i);
+        statoTextField = driver.findElement(By.id("recipients["+i+"].foreignState"));
         scrollToElementClickAndInsertText(statoTextField, stato);
     }
 
@@ -310,12 +311,14 @@ public class DestinatarioPASection extends BasePage {
     public void inserimentoMultiDestinatarioPG(Map<String, Object> personeGiuridiche, int nDestinatari) {
         for (int i = 0; i < nDestinatari; i++) {
             inserimentoInformazioniPreliminariPG(personeGiuridiche, i);
-            inserimentoInformazioniAggiuntive(personeGiuridiche, i);
-            if (i != nDestinatari - 1) {
-                selezionareAggiungiDestinatarioButton();
-            }
+            //inserimentoInformazioniAggiuntive(personeGiuridiche, i);
+         //   if (i != nDestinatari - 1) {
+        //        selezionareAggiungiDestinatarioButton();
+         //   }
         }
     }
+
+
 
     public void inserimentoDestinatarioPGAggiuntivo(Map<String, String> destinatario) {
 
@@ -359,7 +362,7 @@ public class DestinatarioPASection extends BasePage {
         String cfDestinatario = ricercaInformazione(personeGiuridiche.get("codiceFiscale").toString().split(","), i);
         cfDestinatario = cfDestinatario.replace(" ", "");
         inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]", cfDestinatario);
-        selezionaAggiungiUnIndirizzoFisicoMulti(i + 1);
+       // selezionaAggiungiUnIndirizzoFisicoMulti(i + 1);
     }
 
     private void clickRadioButtonPersonaGiuridica(int posizione) {
@@ -368,9 +371,11 @@ public class DestinatarioPASection extends BasePage {
     }
 
     public void checkBoxAggiungiDomicilio() {
-        webTool.waitTime(10);
-        checkBoxAggiungiDomicilioDigitale = driver.findElement(By.xpath("//label[@data-testid='showDigitalDomicile0']"));
-        checkBoxAggiungiDomicilioDigitale.click();
+        webTool.waitTime(3);
+        checkBoxAggiungiDomicilioDigitale = driver.findElement(By.xpath("//label[@id='recipients[0].digitalDomicile-label']"));
+        //checkBoxAggiungiDomicilioDigitale.click();
+        getWebDriverWait(10).withMessage("Il bottone chiudi non è cliccabile").until(ExpectedConditions.visibilityOf(checkBoxAggiungiDomicilioDigitale));
+
     }
 
     public void insertDomicilioDigitale(String emailPec) {
@@ -445,13 +450,13 @@ public class DestinatarioPASection extends BasePage {
             selezionaAggiungiUnIndirizzoDigitale();
             insertDomicilioDigitale(datiNotificaMap.get("pec"));
         }
-        selezionaAggiungiUnIndirizzoFisico();
-        inserireIndirizzo(datiNotificaMap.get("indirizzo"));
-        inserireNumeroCivico(datiNotificaMap.get("numeroCivico"));
-        inserireComune(datiNotificaMap.get("comune"));
-        inserireProvincia(datiNotificaMap.get("provincia"));
-        inserireCodicePostale(datiNotificaMap.get("codicepostale"));
-        inserireStato(datiNotificaMap.get("stato"));
+       // selezionaAggiungiUnIndirizzoFisico();
+        inserireIndirizzo(datiNotificaMap.get("indirizzo"),0);
+        inserireNumeroCivico(datiNotificaMap.get("numeroCivico"),0);
+        inserireComune(datiNotificaMap.get("comune"),0);
+        inserireProvincia(datiNotificaMap.get("provincia"),0);
+        inserireCodicePostale(datiNotificaMap.get("codicepostale"),0);
+        inserireStato(datiNotificaMap.get("stato"),0);
         vaiInFondoAllaPagina();
     }
 

@@ -1,8 +1,8 @@
 Feature: il mittente inserisce i dati fino alla sezione Destinatario
 
-    @TA_inserimentoDatiFinoDestinatario
+  @TA_inserimentoDatiFinoDestinatario
     @TestSuite
-    @mittente
+    @mittente_x
     @invioNotifiche
 
   Scenario Outline: PN-9136 - il mittente inserisce i dati fino alla sezione Destinatario
@@ -15,9 +15,10 @@ Feature: il mittente inserisce i dati fino alla sezione Destinatario
     And Nella section Destinatario selezionare il radio button persona giuridica
     And Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica "personaGiuridica"
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona giuridica "personaGiuridica"
-    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica"
+    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario inserire i dati del destinatari persone giuridiche aggiuntivi per <numero destinatari>
+    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica" destinatario 1
     And Cliccare su continua
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Logout da portale mittente
