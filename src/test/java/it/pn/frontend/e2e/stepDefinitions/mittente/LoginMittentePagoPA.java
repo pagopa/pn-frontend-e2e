@@ -421,11 +421,8 @@ public class LoginMittentePagoPA extends BasePage {
             }
         }
 
-        acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
-
         webTool.waitTime(5);
-
-
+        acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
     }
 
     @When("Login con mittente tramite token exchange")

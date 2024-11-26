@@ -637,6 +637,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selectInviaUnaNuovaNotificaButton() {
+        webTool.waitTime(5);
         inviaNuovaNotificaButton = driver.findElement(By.id("new-notification-btn"));
         getWebDriverWait(10).withMessage("Il bottone invia notifica non è cliccabile").until(elementToBeClickable(inviaNuovaNotificaButton));
         inviaNuovaNotificaButton.click();

@@ -22,7 +22,7 @@ public class AllegatiPASection extends BasePage {
     @FindBy(css = "div[data-testid='fileInput'] > input[accept='application/pdf']")
     WebElement selezionaloDalTuoComputerInput;
 
-    @FindBy(id = "file-upload-hash-code")
+    @FindBy(id = ":r18:")
     WebElement hashCodeTextField;
 
     @FindBy(id = "documents.0.name")
@@ -65,8 +65,10 @@ public class AllegatiPASection extends BasePage {
     }
 
     public void checkCodiceHash(){
-        WebElement codiceHash = driver.findElement(By.id("file-upload-hash-code"));
-        getWebDriverWait(5).withMessage("Il codice hash non è visibile").until(ExpectedConditions.visibilityOf(codiceHash));
+        WebElement copiaHash = driver.findElement(By.xpath("//button[@aria-label='Copia']"));
+        getWebDriverWait(5).withMessage("Il codice hash non è visibile").until(ExpectedConditions.visibilityOf(copiaHash));
+       // WebElement codiceHash = driver.findElement(By.id(":r18:"));
+       // getWebDriverWait(5).withMessage("Il codice hash non è visibile").until(ExpectedConditions.visibilityOf(codiceHash));
     }
 
     public void clickAggiungiNuovoDocumento(){
@@ -81,10 +83,11 @@ public class AllegatiPASection extends BasePage {
     }
 
     public boolean verificaCaricamentoNotificaPdf() {
-        hashCodeTextField = driver.findElement(By.id("file-upload-hash-code"));
-        getWebDriverWait(30).until(ExpectedConditions.visibilityOf(hashCodeTextField));
+       // hashCodeTextField = driver.findElement(By.id(":r18:"));
+        WebElement copiaHash = driver.findElement(By.xpath("//button[@aria-label='Copia']"));
+        getWebDriverWait(30).until(ExpectedConditions.visibilityOf(copiaHash));
         logger.info("check caricamento notifica pdf");
-        return hashCodeTextField.isDisplayed();
+        return copiaHash.isDisplayed();
     }
 
     public void inserimentoNomeAllegato(String nomeAtto) {
