@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -30,8 +31,12 @@ public class ITuoiRecapitiPage extends BasePage {
     @FindBy(xpath = "//*[@id='legalContactsSection']/p")
     WebElement subTitlesSection;
 
+    private WebTool webTool;
+
     public ITuoiRecapitiPage(WebDriver driver) {
+
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void iTuoiRecapitiButtonClick() {
@@ -230,6 +235,7 @@ public class ITuoiRecapitiPage extends BasePage {
             WebElement titleSection = driver.findElement(By.id("legalContactsTitle"));
             WebElement pecField = driver.findElement(By.id("default_pec"));
             WebElement confirmButton = driver.findElement(By.id("default_pec-button"));
+            subTitlesSection = driver.findElement(By.xpath("//*[@id='legalContactsSection']/p"));
             List<WebElement> infoBanner = driver.findElements(By.xpath("//p[@data-testid='DigitalContactsCardDescription']"));
             getWebDriverWait(10).withMessage("Non si visualizza il titolo della sezione recapito legale o il contenuto è errato").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOf(titleSection),
@@ -245,7 +251,7 @@ public class ITuoiRecapitiPage extends BasePage {
                     ExpectedConditions.not(ExpectedConditions.elementToBeClickable(confirmButton))));
             getWebDriverWait(10).withMessage("Non si visualizza il banner informativo o il suo contenuto è errato").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOf(infoBanner.get(0)),
-                    ExpectedConditions.attributeToBe(infoBanner.get(0), "innerText", "Quando un ente invia una comunicazione per te su SEND, ricevi l’avviso ufficiale sulla PEC che hai scelto.")));
+                    ExpectedConditions.attributeToBe(infoBanner.get(1), "innerText", "Quando un ente invia una comunicazione per te su SEND, ricevi l’avviso ufficiale sulla PEC che hai scelto.")));
             logger.info("Il riquadro PEC si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il riquadro PEC NON si visualizza correttamente con errori:" + e.getMessage());
