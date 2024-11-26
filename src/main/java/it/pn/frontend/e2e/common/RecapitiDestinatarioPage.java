@@ -403,7 +403,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public String waitLoadPopUpElimina() {
         WebElement titlePopUp = driver.findElement(By.id("dialog-title"));
         WebElement subTitlePopUp = driver.findElement(By.id("dialog-description"));
-        WebElement bottoneAnnulaPopup = driver.findElement(By.id("code-cancel-button"));
+//        WebElement bottoneAnnulaPopup = driver.findElement(By.id("code-cancel-button"));
         WebElement confermaEliminaButtonBy = driver.findElement(By.xpath("//div[@aria-labelledby='dialog-title']//button[contains(text(),'Conferma')]"));
         try {
             buttonAnnullaEliminazioneInPopUp = driver.findElement(By.id("buttonAnnulla"));
