@@ -48,11 +48,10 @@ public class ITuoiRecapitiPage extends BasePage {
     public void waitLoadITuoiRecapitiPage() {
         try {
             WebElement titlePageByOne = driver.findElement(By.xpath("//h4[contains(@id,'Recapiti-page')]"));
-            WebElement titlePageByTwo = driver.findElement(By.xpath("//h4[contains(@id,'I tuoi recapiti-page')]"));
+           // WebElement titlePageByTwo = driver.findElement(By.xpath("//h4[contains(@id,'I tuoi recapiti-page')]"));
             WebElement subTitlePageBy = driver.findElement(By.id("subtitle-page"));
             getWebDriverWait(10).until(ExpectedConditions.or(
-                    ExpectedConditions.visibilityOf(titlePageByOne),
-                    ExpectedConditions.visibilityOf(titlePageByTwo)
+                    ExpectedConditions.visibilityOf(titlePageByOne)
             ));
             getWebDriverWait(10).until(ExpectedConditions.visibilityOf(subTitlePageBy));
             logger.info("La pagina I Tuoi Recapiti si vede correttamente");
