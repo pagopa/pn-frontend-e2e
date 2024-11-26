@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.stepDefinitions.common;
 
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
@@ -12,6 +13,9 @@ import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGP
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.NotifichePGPagoPATest;
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 import it.pn.frontend.e2e.utility.WebTool;
+import jakarta.annotation.PostConstruct;
+import lombok.Setter;
+import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
@@ -19,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class BackgroundTest {
+public class BackgroundTest  extends BasePage {
 
     private final String nomeFileDatiNotifica = "datiNotifica";
     private final String nomeFilePersonaFisica = "personaFisica";
@@ -31,49 +35,52 @@ public class BackgroundTest {
 
     @Autowired
     @Lazy
+    @Setter
     private DeleghePagoPATest deleghePagoPATest;
     @Autowired
     @Lazy
+    @Setter
     private  RecapitiPersonaFisicaTest recapitiPersonaFisicaTest;
     @Autowired
     @Lazy
+    @Setter
     private LoginPGPagoPATest loginPGPagoPATest;
     @Autowired
     @Lazy
+    @Setter
     private LoginPersonaFisicaPagoPA personaFisicaPagoPA;
     @Autowired
     @Lazy
+    @Setter
     private DeleghePGPagoPATest deleghePGPagoPATest;
     @Autowired
     @Lazy
+    @Setter
     private  DisserviziAppPGTest disserviziAppPGTest ;
     @Autowired
     @Lazy
+    @Setter
     private  HelpdeskTest helpdeskTest;
     @Autowired
     @Lazy
+    @Setter
     private NotifichePGPagoPATest notifichePGPagoPATest;
     @Autowired
     @Lazy
+    @Setter
     private RecapitiTest recapitiTest;
+
     @Autowired
     @Lazy
-    private  RecapitiDestinatarioPage recapitiDestinatarioPage ;
-    @Autowired
-    @Lazy
-    private  ITuoiRecapitiPage iTuoiRecapitiPage;
-    @Autowired
-    @Lazy
-    private  PiattaformaNotifichePage piattaformaNotifichePage;
-    @Autowired
-    @Lazy
+    @Setter
     private NotificaMittentePagoPATest notificaMittentePagoPATest;
-    @Autowired
-    @Lazy
+
+    private  RecapitiDestinatarioPage recapitiDestinatarioPage ;
+    private  ITuoiRecapitiPage iTuoiRecapitiPage;
+    private  PiattaformaNotifichePage piattaformaNotifichePage;
+
     private  WebTool webTool;
 
-
-    @Autowired
     public BackgroundTest() {
         datiPersonaFisica = new HashMap<>();
         datiPersonaFisica.put("nome", "Lucrezia");
@@ -82,6 +89,16 @@ public class BackgroundTest {
         datiPersonaFisica.put("ente", "Comune di Verona");
         datiPersonaFisica.put("ragioneSociale", "Lucrezia Borgia");
     }
+
+
+    @PostConstruct
+    public void init(){
+        webTool = new WebTool(driver);
+        recapitiDestinatarioPage = new RecapitiDestinatarioPage(driver);
+        iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
+        piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+    }
+
 
 
     public void invioNotificaErrorePec() {
