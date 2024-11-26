@@ -2,7 +2,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
 
   @TestSuite
   @TA_InvioNotificaMonoSenzaPagamento
-  @mittente
+  @mittente_x
   @invioNotifiche
 
   Scenario: PN-9645 - Mittente genera una notifica senza pagamento
