@@ -50,6 +50,7 @@ public class DeleghePagoPATest extends BasePage{
 
     private DeleghePage deleghePage;
 
+    @Autowired
     private LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA;
 
     private DestinatarioPage destinatarioPage;
@@ -82,8 +83,6 @@ public class DeleghePagoPATest extends BasePage{
         deleghePage = new DeleghePage(driver);
         destinatarioPage = new DestinatarioPage(driver);
         notifichePFPage = new NotifichePFPage(driver);
-
-        loginPersonaFisicaPagoPA = new LoginPersonaFisicaPagoPA();
     }
 
 
