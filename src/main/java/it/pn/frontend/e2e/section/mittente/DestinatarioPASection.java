@@ -295,6 +295,44 @@ public class DestinatarioPASection extends BasePage {
  **/
     }
 
+    public void inserimentoInformazioniAggiuntive(PersoneGiuridiche destinatari, int i) {
+
+        logger.info("Si inseriscono i dati personali della persona giuridica");
+
+        // String indirizzoDestinatario = ricercaInformazione(destinatari.get("indirizzo").toString().split(","), i);
+        this.inserireInfoMultiDestinatario("//label[contains(@id,'address-label')]/following-sibling::div/input", destinatari.getPersone().get(i).getIndirizzo());
+        // String nCivicoDestinatario = ricercaInformazione(destinatari.get("numeroCivico").toString().split(","), i);
+        this.inserireInfoMultiDestinatario("//input[contains(@id,'houseNumber')]", destinatari.getPersone().get(i).getNumeroCivico());
+        // String localitaDestinatario = ricercaInformazione(destinatari.get("localita").toString().split(","), i);
+        this.inserireInfoMultiDestinatario("//label[contains(@id,'municipalityDetails-label')]/following-sibling::div/input", destinatari.getPersone().get(i). getLocalita());
+        // String comuneDestinatario = ricercaInformazione(destinatari.get("comune").toString().split(","), i);
+        this.inserireInfoMultiDestinatario("//label[contains(@id,'municipality-label')]/following-sibling::div/input", destinatari.getPersone().get(i).getComune());
+        //   String provinciaDestinatario = ricercaInformazione(destinatari.get("provincia").toString().split(","), i);
+        this. inserireInfoMultiDestinatario("//input[contains(@id,'province')]", destinatari.getPersone().get(i).getProvincia());
+        //  String codicePostale = ricercaInformazione(destinatari.get("codicepostale").toString().split(","), i);
+        this.inserireInfoMultiDestinatario("//input[contains(@id,'zip')]", destinatari.getPersone().get(i).getNumeroCivico());
+        //this.inserireInfoMultiDestinatario("//input[contains(@id,'foreignState')]", destinatari.getPersone().get(i).getStato());
+
+
+
+/**
+ String indirizzoDestinatario = ricercaInformazione(destinatari.get("indirizzo").toString().split(","), i);
+ inserireInfoMultiDestinatario("//label[contains(@id,'address-label')]/following-sibling::div/input", indirizzoDestinatario);
+ String nCivicoDestinatario = ricercaInformazione(destinatari.get("numeroCivico").toString().split(","), i);
+ inserireInfoMultiDestinatario("//input[contains(@id,'houseNumber')]", nCivicoDestinatario);
+ String localitaDestinatario = ricercaInformazione(destinatari.get("localita").toString().split(","), i);
+ inserireInfoMultiDestinatario("//label[contains(@id,'municipalityDetails-label')]/following-sibling::div/input", localitaDestinatario);
+ String comuneDestinatario = ricercaInformazione(destinatari.get("comune").toString().split(","), i);
+ inserireInfoMultiDestinatario("//label[contains(@id,'municipality-label')]/following-sibling::div/input", comuneDestinatario);
+ String provinciaDestinatario = ricercaInformazione(destinatari.get("provincia").toString().split(","), i);
+ inserireInfoMultiDestinatario("//input[contains(@id,'province')]", provinciaDestinatario);
+ String codicePostale = ricercaInformazione(destinatari.get("codicepostale").toString().split(","), i);
+ inserireInfoMultiDestinatario("//input[contains(@id,'zip')]", codicePostale);
+ inserireInfoMultiDestinatario("//input[contains(@id,'foreignState')]", destinatari.get("stato").toString());
+ **/
+    }
+
+
     private void selezionaAggiungiUnIndirizzoFisicoMulti(int i) {
         List<WebElement> aggiungiIndirizzoBy = driver.findElements(By.xpath("//label[@data-testid='showPhysicalAddress" + i + "']"));
         getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(aggiungiIndirizzoBy));
@@ -386,7 +424,7 @@ public class DestinatarioPASection extends BasePage {
        // String cfDestinatario = personeGiuridiche.getPersone().get(i).getCodiceFiscale();
       //  cfDestinatario = cfDestinatario.replace(" ", "");
         inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]", personeGiuridiche.getPersone().get(i).getCodiceFiscale());
-        selezionaAggiungiUnIndirizzoFisicoMulti(i + 1);
+       // selezionaAggiungiUnIndirizzoFisicoMulti(i + 1);
     }
 
     private void clickRadioButtonPersonaGiuridica(int posizione) {
