@@ -93,7 +93,6 @@ public class HelpdeskTest extends BasePage {
 
     @And("Click su card monitoraggio piattaforma")
     public void clickSuCardMonitoraggioPiattaforma() {
-        helpdeskPage = new HelpdeskPage(driver);
         helpdeskPage.clickMonitoraggio();
     }
 
@@ -253,12 +252,14 @@ public class HelpdeskTest extends BasePage {
 
     @Then("controllo link per scaricare zip e scarico file")
     public void controlloLinkPerScaricareZip() throws IOException, AWTException {
+        helpdeskPage.setHeadlessParam(webDriverConfig.getHeadless());
         helpdeskPage.checkZipLink();
     }
 
     @And("Inserisco la password ed estraggo il file zip")
     public void inseriscoPasswordEdEstraggoZip() throws IOException {
         logger.info("Inserisco la password ed estraggo il file zip");
+        helpdeskPage.setHeadlessParam(webDriverConfig.getHeadless());
         helpdeskPage.extractZip();
     }
 

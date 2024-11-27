@@ -4,6 +4,8 @@ import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.model.enums.Disservice;
 import it.pn.frontend.e2e.model.enums.Status;
 import it.pn.frontend.e2e.utility.WebTool;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -32,6 +34,7 @@ import java.util.stream.Stream;
 
 import net.lingala.zip4j.ZipFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
@@ -75,12 +78,14 @@ public class HelpdeskPage extends BasePage {
     List<WebElement> serviceDates;
     @FindBy(xpath = ".//button[@role='menuitem']")
     List<WebElement> serviceStatusButtons;
+
     private String codiceFiscale;
     private String zipPassword;
     private String codiceIdentificativoPF;
 
-    @Autowired
-    private WebDriverConfig webDriverConfig;
+    @Setter
+    @Getter
+    private String headlessParam;
 
     private WebTool webTool;
 
@@ -88,6 +93,7 @@ public class HelpdeskPage extends BasePage {
         this.driver = driver;
         webTool = new WebTool(driver);
     }
+
 
     private static void pressTabKey(Robot robot, int times) {
         for (int i = 0; i < times; i++) {
@@ -452,7 +458,8 @@ public class HelpdeskPage extends BasePage {
 
 
     public void checkZipLink() throws IOException, AWTException {
-        boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
+        logger.info("controllo esistenza link per scaricare zipoooooooooo "+headlessParam);
+        boolean headless = headlessParam.equalsIgnoreCase("true");
         if (!headless) {
             logger.info("controllo esistenza link per scaricare zip");
             By zipLink = By.xpath("//a[contains(text(),'Download')]");
@@ -570,9 +577,10 @@ public class HelpdeskPage extends BasePage {
 
     public void checkPassword() {
         logger.info("controllo esistenza password");
-        By messaggio = By.xpath("//p[contains(text(),'Password:')]");
-        getWebDriverWait(10).withMessage("Password non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
-        String password = this.element(messaggio).getText().split(": ")[1];
+        webTool.waitTime(5);
+        WebElement messaggio = driver.findElement(By.xpath("//p[contains(text(),'Password:')]"));
+        getWebDriverWait(10).withMessage("Password non trovato").until(ExpectedConditions.visibilityOf(messaggio));
+        String password = messaggio.getText().split(": ")[1];
         setPassword(password);
     }
 
@@ -633,9 +641,9 @@ public class HelpdeskPage extends BasePage {
     }
 
     public void clickResettaFiltri() {
-        By bottoneReset = By.xpath("//button[@id='resetFilter']");
+        WebElement bottoneReset = driver.findElement(By.xpath("//button[@id='resetFilter']"));
         getWebDriverWait(5).withMessage("Il bottone resetta non è cliccabile").until(ExpectedConditions.elementToBeClickable(bottoneReset));
-        element(bottoneReset).click();
+        bottoneReset.click();
     }
 
     public void checkCampiPuliti() {
@@ -695,13 +703,13 @@ public class HelpdeskPage extends BasePage {
     public void inserimentoArcoTemporale() {
         webTool.waitTime(60);
 
-        By calendarButton = By.xpath("//div[@data-testid='data-range-picker']//div//div//button");
-        getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(calendarButton));
-        element(calendarButton).click();
-        By previousMonth = By.xpath("//button[@aria-label='Previous month']");
-        element(previousMonth).click();
+        WebElement calendarButton = driver.findElement(By.xpath("//div[@data-testid='data-range-picker']//div//div//button"));
+        getWebDriverWait(20).until(ExpectedConditions.visibilityOf(calendarButton));
+        calendarButton.click();
+        WebElement previousMonth = driver.findElement(By.xpath("//button[@aria-label='Previous month']"));
+        previousMonth.click();
         webTool.waitTime(1);
-        By dateEleven = By.xpath("//button[contains(text(),'11')]");
-        element(dateEleven).click();
+        WebElement dateEleven = driver.findElement(By.xpath("//button[contains(text(),'11')]"));
+        dateEleven.click();
     }
 }
