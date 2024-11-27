@@ -46,8 +46,8 @@ Feature: Login pagoPA
 
   @TA_loginpersonaFisica
   @TestSuite
-  @loginFE_x
-  @mittente_x
+  @loginFE_x1
+  @mittente
   Scenario: Login pagoPA persona fisica 1
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -59,8 +59,8 @@ Feature: Login pagoPA
 
   @TA_loginpersonaFisica
   @TestSuite
-  @loginFE_x
-  @mittente_x
+  @loginFE_x1
+  @mittente
   Scenario: Login pagoPA persona fisica 2
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -72,8 +72,8 @@ Feature: Login pagoPA
 
   @TA_loginpersonaFisica
   @TestSuite
-  @loginFE_x
-  @mittente_x
+  @loginFE_x1
+  @mittente
   Scenario: Login pagoPA persona fisica 3
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -85,8 +85,8 @@ Feature: Login pagoPA
 
   @TA_loginpersonaFisica
   @TestSuite
-  @loginFE_x
-  @mittente_x
+  @loginFE_x1
+  @mittente
   Scenario: Login pagoPA persona fisica 4
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -100,7 +100,7 @@ Feature: Login pagoPA
   @TA_loginpersonaFisica
   @TestSuite
   @loginFE_x
-  @mittente_x
+  @mittente
   Scenario: Login pagoPA persona fisica 5
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -114,7 +114,7 @@ Feature: Login pagoPA
   @TA_loginpersonaFisica
   @TestSuite
   @loginFE_x
-  @mittente_x
+  @mittente
   Scenario: Login pagoPA persona fisica 6
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -129,7 +129,7 @@ Feature: Login pagoPA
   @TA_loginpersonaFisica
   @TestSuite
   @loginFE_x
-  @mittente_x
+  @mittente
   Scenario: Login pagoPA persona fisica 7
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -144,7 +144,7 @@ Feature: Login pagoPA
   @TA_loginpersonaFisica
   @TestSuite
   @loginFE_x
-  @mittente_x
+  @mittente
   Scenario: Login pagoPA persona fisica 8
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -158,7 +158,7 @@ Feature: Login pagoPA
   @TA_loginpersonaFisica
   @TestSuite
   @loginFE_x
-  @mittente_x
+  @mittente
   Scenario: Login pagoPA persona fisica 9
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -172,7 +172,7 @@ Feature: Login pagoPA
   @TA_loginpersonaFisica
   @TestSuite
   @loginFE_x
-  @mittente_x
+  @mittente
   Scenario: Login pagoPA persona fisica 10
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -187,7 +187,7 @@ Feature: Login pagoPA
   @TA_loginpersonaFisica
   @TestSuite
   @loginFE_x
-  @mittente_x
+  @mittente
   Scenario: Login pagoPA persona fisica 11
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -201,7 +201,7 @@ Feature: Login pagoPA
   @TA_loginpersonaFisica
   @TestSuite
   @loginFE_x
-  @mittente_x
+  @mittente
   Scenario: Login pagoPA persona fisica 12
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -215,7 +215,7 @@ Feature: Login pagoPA
   @TA_loginpersonaFisica
   @TestSuite
   @loginFE_x
-  @mittente_x
+  @mittente
   Scenario: Login pagoPA persona fisica 13
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -230,7 +230,7 @@ Feature: Login pagoPA
   @TA_loginpersonaFisica
   @TestSuite
   @loginFE_x
-  @mittente_x
+  @mittente
   Scenario: Login pagoPA persona fisica 14
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -245,7 +245,7 @@ Feature: Login pagoPA
   @TA_loginpersonaFisica
   @TestSuite
   @loginFE_x
-  @mittente_x
+  @mittente
   Scenario: Login pagoPA persona fisica 15
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -260,7 +260,7 @@ Feature: Login pagoPA
   @TA_loginpersonaFisica
   @TestSuite
   @loginFE_x
-  @mittente_x
+  @mittente
   Scenario: Login pagoPA persona fisica 16
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -275,7 +275,7 @@ Feature: Login pagoPA
   @TA_loginpersonaFisica
   @TestSuite
   @loginFE_x
-  @mittente_x
+  @mittente
   Scenario: Login pagoPA persona fisica 17
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -291,7 +291,7 @@ Feature: Login pagoPA
   @TA_loginpersonaFisica
   @TestSuite
   @loginFE_x
-  @mittente_x
+  @mittente
   Scenario: Login pagoPA persona fisica 18
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
