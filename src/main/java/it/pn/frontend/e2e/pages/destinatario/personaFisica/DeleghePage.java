@@ -167,7 +167,7 @@ public class DeleghePage extends BasePage {
         try {
             webTool.waitTime(5);
             WebElement menuDelegheBy = driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']"));
-            getWebDriverWait(Integer.parseInt(webDriverConfig.getLoadComponentWaitTime())).until(ExpectedConditions.visibilityOf(menuDelegheBy));
+            getWebDriverWait(120).until(ExpectedConditions.visibilityOf(menuDelegheBy));
             logger.info("Si clicca correttamente il menu della delega");
             menuDelegheBy.click();
         } catch (TimeoutException e) {
