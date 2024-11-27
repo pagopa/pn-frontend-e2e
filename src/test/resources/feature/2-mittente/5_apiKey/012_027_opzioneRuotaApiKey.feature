@@ -2,7 +2,7 @@ Feature: Mittente seleziona l'opzione ruota api Key
 
   @TestSuite
   @TA_MittenteRuotaApiKey
-  @mittente
+  @mittente_x
   @ApikeyMittente
 
   Scenario: PN-9235 - Mittente seleziona l'opzione ruota Api Key
