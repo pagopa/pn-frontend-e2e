@@ -2,7 +2,7 @@ Feature: il mittente effettua il download attestazione opponibile a terzi notifi
 
   @TestSuite
   @TA_MittenteDownloadAttestazioneNotificaDigitale
-  @mittente
+  @mittente_x
   @DownloadFileMittente
 
   Scenario: PN-9926 - il mittente effettua il download attestazione opponibile a terzi notifica digitale
