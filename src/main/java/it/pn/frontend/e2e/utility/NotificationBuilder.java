@@ -30,10 +30,16 @@ import java.util.Map;
 public class NotificationBuilder {
     public static final String APPLICATION_PDF = "application/pdf";
     public static final String APPLICATION_JSON = "application/json";
-    @Autowired
-    private RestNotification restNotification;
+
+//    @Autowired
+    private final RestNotification restNotification;
     @Getter
     private String sha;
+
+    @Autowired
+    public NotificationBuilder(RestNotification restNotification) {
+        this.restNotification = restNotification;
+    }
 
     public PhysicalCommunicationTypeEnum modelloNotifica(String modello) {
         return PhysicalCommunicationTypeEnum.fromString(modello);

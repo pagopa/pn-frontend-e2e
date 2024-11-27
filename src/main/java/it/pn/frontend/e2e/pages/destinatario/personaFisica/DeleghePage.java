@@ -90,8 +90,18 @@ public class DeleghePage extends BasePage {
         WebElement menuDelega = driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']"));
         getWebDriverWait(10).withMessage("Menù opzioni delega non visualizzato").until(ExpectedConditions.visibilityOf(menuDelega));
         js().executeScript("arguments[0].click()", menuDelega);
+        webTool.waitTime(20);
+//        logger.info("*-*-*-*- INIZIO  waitLoadRecapitiPage *-*-*-*-*-**-");
+//        logger.info(driver.getPageSource());
+//        logger.info("*-*-*-*-* FINE waitLoadRecapitiPage-*-*-*-*-**-");
+//        webTool.waitTime(100);
+//        WebElement delegation-menu-icon= "delegation-menu-icon-d9a488b3-233f-4f68-877e-55b245b5f6c5";
+//                                            delegation-menu-icon-d9a488b3-233f-4f68-877e-55b245b5f6c5
+//        revocaButton = driver.findElement(By.id("revoke-delegation-button"));
+//        getWebDriverWait(10).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(revocaButton));
+
+        getWebDriverWait(10).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
         revocaButton = driver.findElement(By.id("revoke-delegation-button"));
-        getWebDriverWait(10).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(revocaButton));
         revocaButton.click();
     }
 
