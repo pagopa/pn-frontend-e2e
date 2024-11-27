@@ -2,7 +2,7 @@ Feature: Mittente visualizza correttamente la pagina Api Key
 
   @TestSuite
   @TA_MittenteVisualizzazioneApiKey
-  @mittente
+  @mittente_x
   @ApikeyMittente
 
   Scenario: PN-9228 - Mittente visualizza correttamente la pagina Api Key

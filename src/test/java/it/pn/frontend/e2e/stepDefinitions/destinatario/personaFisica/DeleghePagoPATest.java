@@ -461,8 +461,8 @@ public class DeleghePagoPATest extends BasePage{
         if (deleghePage.cercaEsistenzaDelega(nome, cognome)) {
             log.info("Delega con lo stesso nome trovata");
             deleghePage.clickRevocaButtonOnMenu(nome, cognome);
-            this.popUpRevocaDelegaSection.waitLoadPopUpRevocaDelegaSection();
-            this.popUpRevocaDelegaSection.clickRevocaLaDelega();
+            popUpRevocaDelegaSection.waitLoadPopUpRevocaDelegaSection();
+            popUpRevocaDelegaSection.clickRevocaLaDelega();
         } else {
             log.info("Delega con lo stesso nome NON trovata");
         }
