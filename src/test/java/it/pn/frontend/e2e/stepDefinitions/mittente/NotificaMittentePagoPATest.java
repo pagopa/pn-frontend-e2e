@@ -701,13 +701,13 @@ public class NotificaMittentePagoPATest  extends BasePage {
         int nPersoneFisicheInt = 1;
         if (isNumeric(npersoneFisiche)) {
             nPersoneFisicheInt = Integer.parseInt(npersoneFisiche) - 1;
-            if (nPersoneFisicheInt > 4 || nPersoneFisicheInt == 0) {
-                logger.error("Devi inserire un nummero da 1 a 5");
-                Assertions.fail("Devi inserire un nummero da 1 a 5");
+            if (nPersoneFisicheInt > 5 || nPersoneFisicheInt == 0) {
+                logger.error("Devi inserire un nummero da 1 a 6");
+                Assertions.fail("Devi inserire un nummero da 1 a 6");
             }
         } else {
-            logger.error("Formato non accettato. Devi inserire un numero da 1 a 5");
-            Assertions.fail("Formato non accettato. Devi inserire un numero da 1 a 5");
+            logger.error("Formato non accettato. Devi inserire un numero da 1 a 6");
+            Assertions.fail("Formato non accettato. Devi inserire un numero da 1 a 6");
         }
 
         destinatarioPASection.inserimentoMultiDestinatario(personeFisiche, nPersoneFisicheInt);
@@ -957,13 +957,13 @@ public class NotificaMittentePagoPATest  extends BasePage {
         int nDestinatariInt = 1;
         if (isNumeric(nDestinatari)) {
             nDestinatariInt = Integer.parseInt(nDestinatari) - 1;
-            if (nDestinatariInt > 4 || nDestinatariInt == 0) {
-                logger.error("Devi inserire un nummero da 1 a 5");
-                Assertions.fail("Devi inserire un nummero da 1 a 5");
+            if (nDestinatariInt > 5 || nDestinatariInt == 0) {
+                logger.error("Devi inserire un nummero da 1 a 6");
+                Assertions.fail("Devi inserire un nummero da 1 a 6");
             }
         } else {
-            logger.error("Formato non accettato. Devi inserire un numero da 1 a 5");
-            Assertions.fail("Formato non accettato. Devi inserire un numero da 1 a 5");
+            logger.error("Formato non accettato. Devi inserire un numero da 1 a 6");
+            Assertions.fail("Formato non accettato. Devi inserire un numero da 1 a 6");
         }
 
         destinatarioPASection.inserimentoMultiDestinatarioPG(personeGiuridiche, nDestinatariInt);

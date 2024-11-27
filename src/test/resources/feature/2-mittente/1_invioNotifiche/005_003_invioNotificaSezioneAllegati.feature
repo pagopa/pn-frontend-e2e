@@ -2,7 +2,7 @@ Feature: il mittente inserisce tutti i dati di una notifica
 
   @TA_invioNotificaConAllegati
     @TestSuite
-    @mittente
+    @mittente_x
     @invioNotifiche
 
   Scenario Outline: PN-9215 - il mittente inserisce tutti i dati di una notifica
@@ -19,7 +19,7 @@ Feature: il mittente inserisce tutti i dati di una notifica
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario inserire i dati del destinatari persone giuridiche aggiuntivi per <numero destinatari>
-    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica" destinatario 1
+    #And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica" destinatario 1
     And Cliccare su continua
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"

@@ -102,6 +102,7 @@ public class DestinatarioPASection extends BasePage {
         if (posizioneDestinatario > 0) {
             datoDestianario = datoDestianario.substring(1);
         }
+        datoDestianario = datoDestianario.replace("]", "");
         return datoDestianario;
     }
 
@@ -252,7 +253,7 @@ public class DestinatarioPASection extends BasePage {
         String cfDestinatario = ricercaInformazione(destinatari.get("codiceFiscale").toString().split(","), i);
         cfDestinatario = cfDestinatario.replace(" ", "");
         inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]", cfDestinatario);
-        //selezionaAggiungiUnIndirizzoFisicoMulti(i + 1);
+       // selezionaAggiungiUnIndirizzoFisicoMulti(i + 1);
     }
 
     public void inserimentoInformazioniAggiuntive(Map<String, Object> destinatari, int i) {
@@ -332,7 +333,7 @@ public class DestinatarioPASection extends BasePage {
     public void inserimentoMultiDestinatarioPG(Map<String, Object> personeGiuridiche, int nDestinatari) {
         for (int i = 0; i < nDestinatari; i++) {
             inserimentoInformazioniPreliminariPG(personeGiuridiche, i);
-            inserimentoInformazioniAggiuntive(personeGiuridiche, i);
+            inserimentoInformazioniAggiuntive(personeGiuridiche, i+1);
             if (i != nDestinatari - 1) {
                 selezionareAggiungiDestinatarioButton();
            }
