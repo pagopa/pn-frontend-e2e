@@ -13,6 +13,7 @@ import it.pn.frontend.e2e.model.notification.NewNotificationResponse;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.rest.RestRaddAlternative;
+import it.pn.frontend.e2e.utility.BeanProvider;
 import it.pn.frontend.e2e.utility.NotificationBuilder;
 import it.pn.frontend.e2e.utility.WebTool;
 import lombok.Getter;
@@ -45,8 +46,8 @@ public class DestinatarioPage extends BasePage {
     @Autowired
     private RestNotification restNotification;
 
-    @Autowired
-    @Lazy
+//    @Autowired
+//    @Lazy
     private NotificationBuilder notificationBuilder;
 
     private int destinatariNumber;
@@ -66,6 +67,7 @@ public class DestinatarioPage extends BasePage {
     public DestinatarioPage(WebDriver driver) {
         this.driver = driver;
         webTool = new WebTool(driver);
+        this.notificationBuilder = BeanProvider.getBean(NotificationBuilder.class);
     }
 
     public void inserimentoDataErrato() {
