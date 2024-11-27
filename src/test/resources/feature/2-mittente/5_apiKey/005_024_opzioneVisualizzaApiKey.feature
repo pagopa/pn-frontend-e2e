@@ -2,7 +2,7 @@ Feature: Mittente seleziona l'opzione visualizza api Key
 
   @TestSuite
   @TA_MittenteOpzioneVisualizzaApiKey
-  @mittente
+  @mittente_x
   @ApikeyMittente
 
   Scenario: PN-9232 - Mittente seleziona l'opzione visualizza api Key
