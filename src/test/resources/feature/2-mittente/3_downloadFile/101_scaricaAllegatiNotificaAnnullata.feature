@@ -2,7 +2,7 @@ Feature: Mittente visualizza correttamente la notifica in stato Annulato
 
   @TestSuite
   @TA_MittenteScaricaAllegatoDellaNotificaAnnullata
-  @mittente
+  @mittente_x
   @visualizzazioneNotificheMittente
 
   Scenario: PN-10244 - Mittente scarica documento allegato della notifica annullata
