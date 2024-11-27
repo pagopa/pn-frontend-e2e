@@ -367,8 +367,7 @@ public class LeTueDelegheSection extends BasePage {
 
     public boolean verificaEsistenzaErroreCodiceSbagliato() {
         try {
-            WebElement esistenzaBy = driver.findElement(By.id("codeModalErrorTitle"));
-            getWebDriverWait(20).until(ExpectedConditions.visibilityOf(esistenzaBy));
+            getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(By.id("codeModalErrorTitle")));
             logger.info("Errore codice sbagliato trovato");
             return true;
         } catch (TimeoutException e) {

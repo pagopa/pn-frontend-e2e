@@ -46,6 +46,7 @@ public class DestinatarioPage extends BasePage {
     private RestNotification restNotification;
 
     @Autowired
+    @Lazy
     private NotificationBuilder notificationBuilder;
 
     private int destinatariNumber;
