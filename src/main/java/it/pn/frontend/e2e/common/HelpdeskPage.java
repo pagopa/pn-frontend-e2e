@@ -1,11 +1,11 @@
 package it.pn.frontend.e2e.common;
 
-import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.model.enums.Disservice;
 import it.pn.frontend.e2e.model.enums.Status;
 import it.pn.frontend.e2e.utility.WebTool;
 import lombok.Getter;
 import lombok.Setter;
+import net.lingala.zip4j.ZipFile;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -31,12 +31,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
-
-import net.lingala.zip4j.ZipFile;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 
 
 public class HelpdeskPage extends BasePage {
@@ -458,7 +452,7 @@ public class HelpdeskPage extends BasePage {
 
 
     public void checkZipLink() throws IOException, AWTException {
-        logger.info("controllo esistenza link per scaricare zipoooooooooo "+headlessParam);
+   
         boolean headless = headlessParam.equalsIgnoreCase("true");
         if (!headless) {
             logger.info("controllo esistenza link per scaricare zip");
