@@ -87,12 +87,9 @@ public class DestinatarioPASection extends BasePage {
 
     private WebTool webTool;
 
-    private  DestinatarioPASection destinatarioPASection;
-
     public DestinatarioPASection(WebDriver driver) {
         this.driver = driver;
         webTool = new WebTool(driver);
-        destinatarioPASection = new DestinatarioPASection(driver);
     }
 
     public String ricercaInformazione(String[] dati, int posizioneDestinatario) {
@@ -239,7 +236,7 @@ public class DestinatarioPASection extends BasePage {
     public void inserimentoMultiDestinatario(Map<String, Object> destinatari, int nDestinatari) {
         for (int i = 0; i < nDestinatari; i++) {
             inserimentoInformazioniPreliminari(destinatari, i);
-            inserimentoInformazioniAggiuntive(destinatari, i);
+            inserimentoInformazioniAggiuntive(destinatari, i+1);
            if (i != nDestinatari - 1) {
                 selezionareAggiungiDestinatarioButton();
             }
@@ -264,17 +261,17 @@ public class DestinatarioPASection extends BasePage {
 
         //destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
         String indirizzoDestinatario = ricercaInformazione(destinatari.get("indirizzo").toString().split(","), i);
-        destinatarioPASection.inserireIndirizzo(indirizzoDestinatario,i);
+        this.inserireIndirizzo(indirizzoDestinatario,i);
         String nCivicoDestinatario = ricercaInformazione(destinatari.get("numeroCivico").toString().split(","), i);
-        destinatarioPASection.inserireNumeroCivico(nCivicoDestinatario,i);
+        this.inserireNumeroCivico(nCivicoDestinatario,i);
         String localitaDestinatario = ricercaInformazione(destinatari.get("localita").toString().split(","), i);
-        destinatarioPASection.inserireLocalita(localitaDestinatario,i);
+        this.inserireLocalita(localitaDestinatario,i);
         String comuneDestinatario = ricercaInformazione(destinatari.get("comune").toString().split(","), i);
-        destinatarioPASection.inserireComune(comuneDestinatario,i);
+        this.inserireComune(comuneDestinatario,i);
         String provinciaDestinatario = ricercaInformazione(destinatari.get("provincia").toString().split(","), i);
-        destinatarioPASection.inserireProvincia(provinciaDestinatario,i);
+        this.inserireProvincia(provinciaDestinatario,i);
         String codicePostale = ricercaInformazione(destinatari.get("codicepostale").toString().split(","), i);
-        destinatarioPASection.inserireCodicePostale(codicePostale,i);
+        this.inserireCodicePostale(codicePostale,i);
 
 
 

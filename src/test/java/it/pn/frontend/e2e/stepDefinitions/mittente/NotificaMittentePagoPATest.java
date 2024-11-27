@@ -106,6 +106,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @Autowired
     private  LoginPersonaFisicaPagoPA loginPersonaFisicaPagoPA;
 
+
     @PostConstruct
     public void init(){
         logger.info("INIT TEST...: ");
