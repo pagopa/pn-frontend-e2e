@@ -121,6 +121,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(driver);
         informazioniPreliminariPASection = new InformazioniPreliminariPASection(driver);
         invioNotifichePAPage = new InvioNotifichePAPage(driver);
+        backgroundTest = new BackgroundTest();
     }
 
 
