@@ -147,7 +147,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void insertCodiceFiscale(String codiceFiscale) {
         try {
-            cfTextField = driver.findElement(By.xpath("recipientId"));
+            cfTextField = driver.findElement(By.id("recipientId"));
             getWebDriverWait(10).until(ExpectedConditions.visibilityOf(cfTextField));
             cfTextField.click();
             cfTextField.sendKeys(codiceFiscale);
@@ -214,7 +214,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void inserimentoCodiceIUN(String codiceIUN) {
-
+        logger.info("Si inserisce il codice IUN...."  +codiceIUN);
         webTool.waitTime(5);
         codiceIUNTextField = driver.findElement(By.id("iunMatch"));
         getWebDriverWait(10).withMessage("Il campo per l'inserimento del codice IUN non è visibile").until(ExpectedConditions.visibilityOf(codiceIUNTextField));
