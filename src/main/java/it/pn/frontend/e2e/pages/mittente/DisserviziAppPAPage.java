@@ -54,13 +54,13 @@ public class DisserviziAppPAPage extends BasePage {
     }
 
     public void waitLoadStatoDellaPiattaformaPage() {
-        webTool.waitTime(5);
+        webTool.waitTime(10);
         try {
             WebElement disserviziPageTitle = driver.findElement(By.id("Stato della piattaforma-page"));
             WebElement disserviziPageSubTitle = driver.findElement(By.id("subtitle-page"));
             WebElement disserviziBoxAlert = driver.findElement(By.id("appStatusBar"));
             WebElement disserviziLastUpdate = driver.findElement(By.id("appStatusLastCheck"));
-            WebElement disserviziTitleOfTable = driver.findElement(By.xpath("//h6[c)ontains(text(),'Storico dei disservizi')]"));
+            WebElement disserviziTitleOfTable = driver.findElement(By.xpath("//h6[contains(text(),'Storico dei disservizi')]"));
 
             getWebDriverWait(10).until(ExpectedConditions.visibilityOf(disserviziPageTitle));
             getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElementValue(disserviziPageTitle, "Stato della piattaforma"));
