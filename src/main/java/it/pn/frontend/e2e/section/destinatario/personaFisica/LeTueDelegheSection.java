@@ -274,8 +274,8 @@ public class LeTueDelegheSection extends BasePage {
 
     public void controlloStatoAttiva(String nome, String cognome) {
         try {
-            WebElement statoAttivaBy = driver.findElement(By.xpath("//table[@id='notifications-table']//td[.//div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//div/div[@id='chip-status-success']"));
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(statoAttivaBy));
+//            WebElement statoAttivaBy = driver.findElement(By.xpath("//table[@id='notifications-table']//td[.//div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//div/div[@id='chip-status-success']"));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='notifications-table']//td[.//div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//div/div[@id='chip-status-success']")));
             logger.info("La delega ha lo stato Attiva");
         } catch (TimeoutException e) {
             logger.error("La delega NON ha lo stato Attiva con errore: " + e.getMessage());
@@ -355,8 +355,9 @@ public class LeTueDelegheSection extends BasePage {
 
     public boolean controlloPresenzaBottoneAccetta() {
         try {
-            accettaButton = driver.findElement(By.id("accept-button"));
-            getWebDriverWait(30).withMessage("accetta button non visibile").until(ExpectedConditions.visibilityOf(accettaButton));
+//            accettaButton = driver.findElement(By.id("accept-button"));
+//            getWebDriverWait(30).withMessage("accetta button non visibile").until(ExpectedConditions.visibilityOf(accettaButton));
+            getWebDriverWait(30).withMessage("accetta button non visibile").until(ExpectedConditions.visibilityOfElementLocated(By.id("accept-button")));
             logger.info("Si visualizza il bottone accetta");
             return true;
         } catch (TimeoutException e) {
