@@ -40,10 +40,10 @@ public class DestinatarioPage extends BasePage {
     @Setter
     private NewNotificationRequest notificationRequest;
 
-    @Autowired
+//    @Autowired
     private NotificationSingleton notificationSingleton;
 
-    @Autowired
+//    @Autowired
     private RestNotification restNotification;
 
 //    @Autowired
@@ -67,7 +67,9 @@ public class DestinatarioPage extends BasePage {
     public DestinatarioPage(WebDriver driver) {
         this.driver = driver;
         webTool = new WebTool(driver);
-        //this.notificationBuilder = BeanProvider.getBean(NotificationBuilder.class);
+        this.restNotification= new RestNotification();
+        this.notificationSingleton = new NotificationSingleton();
+        this.notificationBuilder = new NotificationBuilder(restNotification);
     }
 
     public void inserimentoDataErrato() {

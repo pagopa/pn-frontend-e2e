@@ -7,6 +7,7 @@ import it.pn.frontend.e2e.model.notification.NewNotificationRequest;
 import it.pn.frontend.e2e.model.notification.NewNotificationResponse;
 import it.pn.frontend.e2e.model.documents.PreLoadRequest;
 import it.pn.frontend.e2e.model.documents.PreLoadResponse;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,15 @@ import java.util.List;
 @Slf4j
 @Component
 public class RestNotification {
+
+//    @Autowired
+
+    private  CustomHttpClient customHttpClient;
+
+//    @Autowired
     public RestNotification() {
     }
-    @Autowired
-    private CustomHttpClient customHttpClient;
+
     /**
      * Create a new notification with one recipient and one document
      *
@@ -57,7 +63,7 @@ public class RestNotification {
     }
 
     public void uploadDocument(String url, String secret, String sha256) throws RestNotificationException {
-        final CustomHttpClient<?, ?> httpClient2 = customHttpClient;
+        final CustomHttpClient<?, ?> httpClient2 = new CustomHttpClient<>();//customHttpClient;
         try {
             httpClient2.sendHttpUpLoadPutRequest(url, secret, sha256, null);
         } catch (IOException e) {
@@ -67,7 +73,7 @@ public class RestNotification {
     }
 
     public void uploadDocumentF24(String url, String secret, String sha256, File metaDatiDocument) throws RestNotificationException {
-        final CustomHttpClient<?, ?> httpClient2 = customHttpClient;
+        final CustomHttpClient<?, ?> httpClient2 = new CustomHttpClient<>();//customHttpClient;
         try {
             httpClient2.sendHttpUpLoadf24PutRequest(url, secret, sha256, null, metaDatiDocument);
         } catch (IOException e) {
@@ -77,7 +83,7 @@ public class RestNotification {
     }
 
     public LinkedTreeMap<String, Object> getNotificationStatus(String notificationRequestId) {
-        final CustomHttpClient<Object, Object> httpClient2 = customHttpClient;  // Modifica qui
+        final CustomHttpClient<Object, Object> httpClient2 = new CustomHttpClient<>();//customHttpClient;  // Modifica qui
         httpClient2.setBaseUrlApi("https://api.test.notifichedigitali.it");
         try {
             Object response = httpClient2.sendHttpGetRequest("/delivery/v2.3/requests?notificationRequestId=" + notificationRequestId, null, Object.class);
