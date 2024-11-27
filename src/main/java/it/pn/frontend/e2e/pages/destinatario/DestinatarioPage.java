@@ -67,7 +67,7 @@ public class DestinatarioPage extends BasePage {
     public DestinatarioPage(WebDriver driver) {
         this.driver = driver;
         webTool = new WebTool(driver);
-        this.notificationBuilder = BeanProvider.getBean(NotificationBuilder.class);
+        //this.notificationBuilder = BeanProvider.getBean(NotificationBuilder.class);
     }
 
     public void inserimentoDataErrato() {
