@@ -191,8 +191,10 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickInviaRichiesta() {
+        inviaLaRichiestaButton = driver.findElement(By.id("create-button"));
         getWebDriverWait(30).withMessage("il bottone invia richiesta non è cliccabile").until(ExpectedConditions.elementToBeClickable(inviaLaRichiestaButton));
         logger.info("click pulsante invia richiesta");
+
         inviaLaRichiestaButton.click();
     }
 
