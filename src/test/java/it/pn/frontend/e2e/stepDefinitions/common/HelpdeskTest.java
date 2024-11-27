@@ -30,14 +30,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-@Primary
+
 public class HelpdeskTest extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("HelpdeskAppTest");
 
     @Autowired
     private DataPopulation dataPopulation;
     @Autowired
-    @Lazy
     private WebDriverConfig webDriverConfig;
 
     private HelpdeskPage helpdeskPage ;
