@@ -133,9 +133,9 @@ public class NotifichePFPage extends BasePage {
     }
 
     public boolean getListData() {
-        List<WebElement> dataListBy = driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"));
-        getWebDriverWait(40).withMessage("La colonna Data nella pagina notifiche non è visibile").until(ExpectedConditions.visibilityOfAllElements(dataListBy));
-        return dataListBy.isEmpty();
+        By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]");
+        getWebDriverWait(40).withMessage("La colonna Data nella pagina notifiche non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(dataListBy));
+        return elements(dataListBy).isEmpty();
     }
 
     public void clickNotificheButton() {

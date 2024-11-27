@@ -172,6 +172,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void clickStatoDellaPiattaforma() {
+        webTool.waitTime(10);
         buttonEnterIntoDisservizi = driver.findElement(By.id("side-item-Stato della piattaforma"));
         getWebDriverWait(10).withMessage("Il bottone stato della piattaforma non è visibile").until(ExpectedConditions.visibilityOf(buttonEnterIntoDisservizi));
         buttonEnterIntoDisservizi.click();

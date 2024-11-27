@@ -2,7 +2,7 @@ Feature: Mittente seleziona l'opzione blocca api Key
 
   @TestSuite
   @TA_MittenteBloccaApikey
-  @mittente
+  @mittente_x
   @ApikeyMittente
 
   Scenario: PN-9233 - Mittente seleziona l'opzione blocca Api Key

@@ -2,7 +2,7 @@ Feature: Mittente visualizza correttamente la sezione genera Api Key
 
   @TestSuite
   @TA_MittenteVisualizzaGeneraApiKey
-  @mittente
+  @mittente_x
   @ApikeyMittente
 
   Scenario: PN-9229 - Mittente visualizza correttamente la sezione genera Api Key

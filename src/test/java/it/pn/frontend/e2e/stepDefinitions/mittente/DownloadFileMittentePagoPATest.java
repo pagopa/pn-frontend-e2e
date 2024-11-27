@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-@Primary
+
 public class DownloadFileMittentePagoPATest extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DownloadFileMittentePagoPATest");

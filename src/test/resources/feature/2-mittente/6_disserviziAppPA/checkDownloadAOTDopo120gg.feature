@@ -1,7 +1,7 @@
 Feature: Mittente prova ad effettuare download AOT scaduti da 120gg
 
   @TestSuite
-  @mittente
+  @mittente_x
   @TA_MittenteVisualizzazioneDisservizi
   @TA_PA_DownloadDisserviziScadutiDa120gg
   @120gg

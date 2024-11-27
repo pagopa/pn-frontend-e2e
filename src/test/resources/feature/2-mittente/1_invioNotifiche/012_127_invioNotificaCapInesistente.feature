@@ -2,7 +2,7 @@ Feature: invio notifica con lo stesso codice fiscale
 
   @TestSuite
   @TA_invioNotificaCapInesistente
-  @mittente
+  @mittente_x
   @invioNotifiche
 
   Scenario: PN-9646 - il mittente invia la notifica con CAP inesistente
@@ -13,7 +13,7 @@ Feature: invio notifica con lo stesso codice fiscale
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
-    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica"
+    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario settare come CAP "99444"
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati

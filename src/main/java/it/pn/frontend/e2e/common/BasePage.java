@@ -123,6 +123,8 @@ public class BasePage {
         getWebDriverWait(60).withMessage("Page is still loading").until(ExpectedConditions.invisibilityOfElementLocated(loadingSpinnerBy));
     }
 
+
+
     public void goBack() {
         driver.navigate().back();
     }

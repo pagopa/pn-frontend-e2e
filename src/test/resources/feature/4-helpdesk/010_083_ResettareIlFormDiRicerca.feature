@@ -6,8 +6,7 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
 
   @TestSuite
   @ResettareFormDiRicerca
-
-
+  @mittente_x
   Scenario: PN-9614 - Resettare il form di ricerca
     When Nella Home di helpdesk utente clicca su sezione ricerca ed estrazione dati
     And visualizzazione corretta pagina ricerca ed estrazione dati

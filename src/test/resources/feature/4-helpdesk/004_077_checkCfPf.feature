@@ -6,8 +6,7 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
 
   @TestSuite
   @test77
-
-
+  @mittente_x
   Scenario: PN-9605 - Visualizzazione corretta pagina sezione ricerca ed estrazione dati in helpdesk
     When Nella Home di helpdesk utente clicca su sezione ricerca ed estrazione dati
     And visualizzazione corretta pagina ricerca ed estrazione dati

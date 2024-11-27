@@ -2,7 +2,7 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
 
   @TestSuite
   @TA_MittenteDettaglioNotificheConDocumenti
-  @mittente
+  @mittente_x
   @visualizzazioneNotificheMittente
 
   @CheckNotificaConDocumentiAllegati

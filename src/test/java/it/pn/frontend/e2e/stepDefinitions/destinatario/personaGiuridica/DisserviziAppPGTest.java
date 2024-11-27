@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Primary;
 
 import java.util.Set;
 
-@Primary
+
 public class DisserviziAppPGTest extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DisserviziAppPGTest");

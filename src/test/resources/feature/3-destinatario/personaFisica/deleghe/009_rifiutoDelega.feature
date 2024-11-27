@@ -4,7 +4,7 @@ Feature: Il delgato persona fisica rifiuta la delega che gli è stata inviata
   @TA_PFrifiutoDelega
   @DeleghePF
   @PF
-
+@mittente_x
   Scenario: PN-9414 - Il delegato persona fisica rifiuta la delega che gli è stata inviata
     Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe

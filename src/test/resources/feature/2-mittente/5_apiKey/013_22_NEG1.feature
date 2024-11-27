@@ -2,7 +2,7 @@ Feature: Mittente genera Api Key senza inserire il nome dell api key
 
   @TestSuite
   @TA_MittenteGeneraApiKeySenzaNome
-  @mittente
+  @mittente_x
   @ApikeyMittente1
 
   Scenario: PN-9235 - Mittente genera Api Key senza inserire il nome dell api key

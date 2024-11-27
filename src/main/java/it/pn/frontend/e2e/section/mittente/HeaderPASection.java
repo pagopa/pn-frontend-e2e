@@ -29,7 +29,7 @@ public class HeaderPASection extends BasePage {
 
     public void waitLoadHeaderSection() {
         try {
-            webTool.waitTime(15);
+            webTool.waitTime(10);
             WebElement titleLabel = driver.findElement(By.xpath("//a[@title='Sito di PagoPA S.p.A.']"));
             getWebDriverWait(10).until(ExpectedConditions.visibilityOf(titleLabel));
             logger.info("Header PA Section caricata");
