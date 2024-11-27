@@ -87,9 +87,12 @@ public class DestinatarioPASection extends BasePage {
 
     private WebTool webTool;
 
+    private  DestinatarioPASection destinatarioPASection;
+
     public DestinatarioPASection(WebDriver driver) {
         this.driver = driver;
         webTool = new WebTool(driver);
+        destinatarioPASection = new DestinatarioPASection(driver);
     }
 
     public String ricercaInformazione(String[] dati, int posizioneDestinatario) {
@@ -236,10 +239,10 @@ public class DestinatarioPASection extends BasePage {
     public void inserimentoMultiDestinatario(Map<String, Object> destinatari, int nDestinatari) {
         for (int i = 0; i < nDestinatari; i++) {
             inserimentoInformazioniPreliminari(destinatari, i);
-            //inserimentoInformazioniAggiuntive(destinatari, i);
-           // if (i != nDestinatari - 1) {
-              //  selezionareAggiungiDestinatarioButton();
-           // }
+            inserimentoInformazioniAggiuntive(destinatari, i);
+           if (i != nDestinatari - 1) {
+                selezionareAggiungiDestinatarioButton();
+            }
         }
     }
 
@@ -256,6 +259,26 @@ public class DestinatarioPASection extends BasePage {
     }
 
     public void inserimentoInformazioniAggiuntive(Map<String, Object> destinatari, int i) {
+
+        logger.info("Si inseriscono i dati personali della persona giuridica");
+
+        //destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
+        String indirizzoDestinatario = ricercaInformazione(destinatari.get("indirizzo").toString().split(","), i);
+        destinatarioPASection.inserireIndirizzo(indirizzoDestinatario,i);
+        String nCivicoDestinatario = ricercaInformazione(destinatari.get("numeroCivico").toString().split(","), i);
+        destinatarioPASection.inserireNumeroCivico(nCivicoDestinatario,i);
+        String localitaDestinatario = ricercaInformazione(destinatari.get("localita").toString().split(","), i);
+        destinatarioPASection.inserireLocalita(localitaDestinatario,i);
+        String comuneDestinatario = ricercaInformazione(destinatari.get("comune").toString().split(","), i);
+        destinatarioPASection.inserireComune(comuneDestinatario,i);
+        String provinciaDestinatario = ricercaInformazione(destinatari.get("provincia").toString().split(","), i);
+        destinatarioPASection.inserireProvincia(provinciaDestinatario,i);
+        String codicePostale = ricercaInformazione(destinatari.get("codicepostale").toString().split(","), i);
+        destinatarioPASection.inserireCodicePostale(codicePostale,i);
+
+
+
+/**
         String indirizzoDestinatario = ricercaInformazione(destinatari.get("indirizzo").toString().split(","), i);
         inserireInfoMultiDestinatario("//label[contains(@id,'address-label')]/following-sibling::div/input", indirizzoDestinatario);
         String nCivicoDestinatario = ricercaInformazione(destinatari.get("numeroCivico").toString().split(","), i);
@@ -269,6 +292,7 @@ public class DestinatarioPASection extends BasePage {
         String codicePostale = ricercaInformazione(destinatari.get("codicepostale").toString().split(","), i);
         inserireInfoMultiDestinatario("//input[contains(@id,'zip')]", codicePostale);
         inserireInfoMultiDestinatario("//input[contains(@id,'foreignState')]", destinatari.get("stato").toString());
+ **/
     }
 
     private void selezionaAggiungiUnIndirizzoFisicoMulti(int i) {
@@ -311,10 +335,10 @@ public class DestinatarioPASection extends BasePage {
     public void inserimentoMultiDestinatarioPG(Map<String, Object> personeGiuridiche, int nDestinatari) {
         for (int i = 0; i < nDestinatari; i++) {
             inserimentoInformazioniPreliminariPG(personeGiuridiche, i);
-            //inserimentoInformazioniAggiuntive(personeGiuridiche, i);
-         //   if (i != nDestinatari - 1) {
-        //        selezionareAggiungiDestinatarioButton();
-         //   }
+            inserimentoInformazioniAggiuntive(personeGiuridiche, i);
+            if (i != nDestinatari - 1) {
+                selezionareAggiungiDestinatarioButton();
+           }
         }
     }
 
