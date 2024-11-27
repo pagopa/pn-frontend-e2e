@@ -2,7 +2,7 @@ Feature: il mittente download attestazione notifica presa in carico
 
   @TestSuite
   @TA_MittenteDownloadAttestazionePresaInCarico
-  @mittente
+  @mittente_x
   @DownloadFileMittente
 
   Scenario: PN-9925 - il mittente scarica il file Attestazione opponibile a terzi: notifica presa in carico
