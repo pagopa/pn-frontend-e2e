@@ -314,8 +314,8 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public boolean verificaPresenzaGruppo(String ragioneSociale) {
         try {
-            WebElement gruppoBy = driver.findElement(By.xpath("//tr[contains(td/div/p, '" + ragioneSociale + "')]//span[contains(text(),'Test gruppi')]"));
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(gruppoBy));
+//            WebElement gruppoBy = driver.findElement(By.xpath("//tr[contains(td/div/p, '" + ragioneSociale + "')]//span[contains(text(),'Test gruppi')]"));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tr[contains(td/div/p, '" + ragioneSociale + "')]//span[contains(text(),'Test gruppi')]")));
             return true;
         } catch (TimeoutException e) {
             logger.info("gruppo non presente");
