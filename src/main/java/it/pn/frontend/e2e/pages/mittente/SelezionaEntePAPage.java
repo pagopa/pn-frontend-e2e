@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 /*
 *Modifiche e Ottimizzazioni
-Annotazione @Component: Integrazione della classe in Spring Boot per il dependency injection.
 Miglioramento Logging: Utilizzo di placeholder ({}) in logger per gestire i messaggi in modo più efficiente.
 Stream API in selezionareComune: Sostituisce il ciclo for con uno stream, semplificando il controllo della presenza e selezione del comune.
 Verifica .ifPresentOrElse: Aggiunta di un messaggio di log per i casi in cui il comune non viene trovato.
@@ -33,11 +32,6 @@ public class SelezionaEntePAPage extends BasePage {
     @FindBy(xpath = "//button[text()='Accedi']")
     private WebElement accediButton;
 
-    @FindBy(xpath = "//h3[text()='Seleziona il tuo ente']")
-    private WebElement titlePage;
-    @FindBy(xpath = "search")
-    private WebElement searchField;
-
     @FindBy(id = "search")
     private WebElement comuneSearchField;
 
@@ -52,16 +46,16 @@ public class SelezionaEntePAPage extends BasePage {
     public void waitLoadSelezionaEntePAPage() {
         try {
             webTool.waitTime(30);
-            titlePage   = driver.findElement(By.xpath("//h3[text()='Seleziona il tuo ente']"));
-            searchField = driver.findElement(By.id("search"));
+          //  WebElement titlePage   = driver.findElement(By.xpath("//h3[text()='Seleziona il tuo ente']"));
+          //  WebElement searchField = driver.findElement(By.id("search"));
 
             driver.findElements(By.xpath("//div[@role='button']//h6"));
             getWebDriverWait(30)
                     .withMessage("Titolo 'Seleziona il tuo ente' della pagina non è visibile")
-                    .until(ExpectedConditions.visibilityOf(titlePage));
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[text()='Seleziona il tuo ente']")));
             getWebDriverWait(30)
                     .withMessage("Il campo cerca non è cliccabile nella pagina Seleziona Ente")
-                    .until(ExpectedConditions.elementToBeClickable(searchField));
+                    .until(ExpectedConditions.elementToBeClickable(By.id("search")));
             logger.info("Seleziona Utente PA Page caricata");
         } catch (TimeoutException | NoSuchElementException | StaleElementReferenceException e) {
             logger.error("Seleziona Utente PA Page non caricata con errore: {}", e.getMessage());
