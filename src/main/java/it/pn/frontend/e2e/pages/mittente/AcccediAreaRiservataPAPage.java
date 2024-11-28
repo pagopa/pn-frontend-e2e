@@ -56,6 +56,7 @@ public class AcccediAreaRiservataPAPage extends BasePage {
     }
 
     public void clickTestBottone(){
+        testButton = driver.findElement(By.id("forward_prod-pn-test"));
         getWebDriverWait(5).until(ExpectedConditions.and(ExpectedConditions.visibilityOf(testButton), ExpectedConditions.elementToBeClickable(testButton)));
         testButton.click();
     }
