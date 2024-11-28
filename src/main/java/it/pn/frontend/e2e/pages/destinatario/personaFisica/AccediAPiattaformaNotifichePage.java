@@ -232,7 +232,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public boolean allegatoPagoPaDisplayed() {
-        pagopaAllegatoItems = driver.findElements(By.xpath("//*[@id=\\\"root\\\"]/div[1]/div/main/div/div/div[1]/div[3]/div[4]/div/button[2]\""));
+        pagopaAllegatoItems = driver.findElements(By.xpath("//*[@id=\"root\"]/div[1]/div/main/div/div/div[1]/div[3]/div[4]/div/button[2]"));
         if (pagopaAllegatoItems.isEmpty()) {
             logger.info("Allegati pagoPa non sono trovati");
             return true;
