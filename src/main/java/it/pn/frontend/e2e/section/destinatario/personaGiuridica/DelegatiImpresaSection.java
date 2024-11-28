@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.section.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -46,8 +47,12 @@ public class DelegatiImpresaSection extends BasePage {
     @FindBy(id = "notifications-table")
     WebElement tabelleDelleDelegheDellImpresa;
 
+    private WebTool webTool;
+
     public DelegatiImpresaSection(WebDriver driver) {
+
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void waitLoadDelegatiImpresaPage() {
@@ -178,7 +183,7 @@ public class DelegatiImpresaSection extends BasePage {
     //analizzare metodo ridontante con quello di riga 106
     public void clickRevocaButton() {
         logger.info("Click su revoca delega");
-        revocaMenuButton = driver.findElement(By.id("revoke-delegation-button"));
+        revocaButton = driver.findElement(By.id("dialog-action-button"));
         revocaButton.click();
     }
 

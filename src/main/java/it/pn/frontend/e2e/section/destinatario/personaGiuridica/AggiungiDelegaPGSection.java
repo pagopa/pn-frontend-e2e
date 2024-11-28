@@ -80,13 +80,14 @@ public class AggiungiDelegaPGSection extends BasePage {
         try {
             WebElement titlePageBy = driver.findElement(By.id("Aggiungi una delega-page"));
             personaGiuridicaButton = driver.findElement(By.id("select-pg"));
-            nomeInput = driver.findElement(By.id("nome"));
-            cognomeInput = driver.findElement(By.id("cognome"));
+//            nomeInput = driver.findElement(By.id("nome"));
+//            cognomeInput = driver.findElement(By.id("cognome"));
             codiceFiscaleInput = driver.findElement(By.id("codiceFiscale"));
 
             getWebDriverWait(10).withMessage("Il titolo della pagina aggiungi delegha non è caricato").until(ExpectedConditions.visibilityOf(titlePageBy));
             getWebDriverWait(10).withMessage("Il bottone persona giuridica non è visibile").until(ExpectedConditions.visibilityOf(personaGiuridicaButton));
-            getWebDriverWait(10).withMessage("Il campo nome persona fisica non è visibile").until(ExpectedConditions.or(ExpectedConditions.visibilityOfAllElements(nomeInput, cognomeInput), ExpectedConditions.visibilityOf(ragioneSocialeInput)));
+//            getWebDriverWait(10).withMessage("Il campo nome persona fisica non è visibile").until(ExpectedConditions.or(ExpectedConditions.visibilityOfAllElements(driver.findElement(By.id("nome")), driver.findElement(By.id("cognome"))), ExpectedConditions.visibilityOf(ragioneSocialeInput)));
+            getWebDriverWait(10).withMessage("Il campo nome persona fisica non è visibile").until(ExpectedConditions.or(ExpectedConditions.visibilityOfAllElementsLocatedBy((By.id("nome"))),ExpectedConditions.visibilityOfElementLocated(By.id("ragioneSociale"))));
             getWebDriverWait(10).withMessage("il campo codice fiscale non è visibile").until(ExpectedConditions.visibilityOf(codiceFiscaleInput));
             WebElement radioButtonTuttiEnti = driver.findElement(By.id("tutti-gli-enti-selezionati"));
             getWebDriverWait(10).withMessage("Il radio button tutti gli enti non è visibile").until(ExpectedConditions.visibilityOf(radioButtonTuttiEnti));
@@ -116,9 +117,9 @@ public class AggiungiDelegaPGSection extends BasePage {
         getWebDriverWait(10).withMessage("Bottone invia la richiesta non visualizzato").until(ExpectedConditions.elementToBeClickable(inviaLaRichiestaButton));
         logger.info("click invia richiesta");
         inviaLaRichiestaButton.click();
-        webTool.waitTime(3);
+        webTool.waitTime(15);
+        getWebDriverWait(10).withMessage("Bottone torna alle deleghe non visualizzato").until(ExpectedConditions.elementToBeClickable((By.xpath("courtesy-page-button"))));
         tornaDelegheButton = driver.findElement(By.xpath("courtesy-page-button"));
-        getWebDriverWait(10).withMessage("Bottone torna alle deleghe non visualizzato").until(ExpectedConditions.elementToBeClickable(tornaDelegheButton));
         tornaDelegheButton.click();
         logger.info("click torna alle deleghe");
     }
@@ -146,7 +147,7 @@ public class AggiungiDelegaPGSection extends BasePage {
 
     public void inserireCF(String cf) {
         logger.info("inserimento cf");
-        codiceFiscaleInput = driver.findElement(By.xpath("codiceFiscale"));
+        codiceFiscaleInput = driver.findElement(By.id("codiceFiscale"));
         codiceFiscaleInput.sendKeys(cf);
     }
 

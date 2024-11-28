@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -86,19 +87,19 @@ public class DeleghePGPagoPAPage extends BasePage {
     @FindBy(id = "error-alert")
     WebElement errorCodeInPopUp;
 
+    private WebTool webTool;
 
     public DeleghePGPagoPAPage(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void waitLoadDeleghePage() {
         try {
-            delegheCaricoImpresaButton = driver.findElement(By.id("tab-2"));
-            tabellaVuotaDelegheACaricoDellImpresa = driver.findElement(By.id("//div[@data-testid='delegationsOfTheCompany']"));
-            WebElement titlePage = driver.findElement(By.id("Deleghe-page"));
-            getWebDriverWait(10).withMessage("il titolo della pagina deleghe PG non è visibile").until(ExpectedConditions.visibilityOf(titlePage));
-            getWebDriverWait(10).withMessage("Il bottone deleghe a carico dell'impresa non è visibile").until(ExpectedConditions.visibilityOf(delegheCaricoImpresaButton));
-            getWebDriverWait(10).withMessage("la tabella delle deleghe a carico dell impresa non é caricabile").until(ExpectedConditions.visibilityOf(tabellaVuotaDelegheACaricoDellImpresa));
+            getWebDriverWait(10).withMessage("il titolo della pagina deleghe PG non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Deleghe-page"))));
+            getWebDriverWait(10).withMessage("Il bottone deleghe a carico dell'impresa non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("tab-2"))));
+//            getWebDriverWait(10).withMessage("la tabella delle deleghe a carico dell impresa non é caricabile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("//div[@data-testid='delegationsOfTheCompany']"))));
+            getWebDriverWait(10).withMessage("la tabella delle deleghe a carico dell impresa non é caricabile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='delegationsOfTheCompany']"))));
             logger.info("Deleghe page si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Deleghe page non si visualizza correttamente con errore: " + e.getMessage());
@@ -120,11 +121,10 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public boolean cercaEsistenzaDelegaPG(String ragioneSociale) {
-        WebElement delegaExist = driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]"));
         try {
-            getWebDriverWait(30).withMessage("delega non trovata").until(ExpectedConditions.visibilityOf(delegaExist));
+            getWebDriverWait(30).withMessage("delega non trovata").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]"))));
             return true;
-        } catch (TimeoutException e) {
+        } catch (TimeoutException | NoSuchElementException  e) {
             return false;
         }
 
@@ -139,6 +139,8 @@ public class DeleghePGPagoPAPage extends BasePage {
                 menuButton = delegato.findElement(By.tagName("button"));
                 getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(menuButton));
                 menuButton.click();
+                webTool.waitTime(20);
+                getWebDriverWait(10).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
                 revocaMenuButton = driver.findElement(By.id("revoke-delegation-button"));
                 getWebDriverWait(10).until(ExpectedConditions.visibilityOf(revocaMenuButton));
                 revocaMenuButton.click();
