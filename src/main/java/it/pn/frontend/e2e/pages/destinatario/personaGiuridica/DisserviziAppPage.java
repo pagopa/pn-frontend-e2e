@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -23,12 +24,16 @@ public class DisserviziAppPage extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("Disservizi Page");
 
+    private WebTool webTool;
+
     public DisserviziAppPage(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void waitLoadStatoDellaPiattaformaPage() {
         try {
+            webTool.waitTime(10);
             titlePage = driver.findElement(By.id("Stato della piattaforma-page"));
             getWebDriverWait(10).withMessage("Titolo della pagina non presente").until(ExpectedConditions.visibilityOf(titlePage));
             logger.info("Si visualizza correttamente la sezione disservizi");
@@ -57,15 +62,15 @@ public class DisserviziAppPage extends BasePage {
         try {
             WebElement elementoDellaListaBy = driver.findElement(By.id("tableDowntimeLog.row"));
             this.getWebDriverWait(30).withMessage("tabella non trovata").until(ExpectedConditions.visibilityOf(elementoDellaListaBy));
-            WebElement nomeColonnaDataInizioBy =  driver.findElement(By.xpath("//th[contains(text(),'Data di inizio')]"));
+            WebElement nomeColonnaDataInizioBy = driver.findElement(By.xpath("//th[contains(text(),'Data di inizio')]"));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(nomeColonnaDataInizioBy));
-            WebElement nomeColonnaDataFineBy =  driver.findElement(By.xpath("//th[contains(text(),'Data di fine')]"));
+            WebElement nomeColonnaDataFineBy = driver.findElement(By.xpath("//th[contains(text(),'Data di fine')]"));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(nomeColonnaDataFineBy));
-            WebElement nomeColonnaServizioBy =  driver.findElement(By.xpath("//th[contains(text(),'Servizio coinvolto')]"));
+            WebElement nomeColonnaServizioBy = driver.findElement(By.xpath("//th[contains(text(),'Servizio coinvolto')]"));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(nomeColonnaServizioBy));
-            WebElement nomeColonnaAttestazioniBy =  driver.findElement(By.xpath("//th[contains(text(),'Attestazioni opponibili a terzi')]"));
+            WebElement nomeColonnaAttestazioniBy = driver.findElement(By.xpath("//th[contains(text(),'Attestazioni opponibili a terzi')]"));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(nomeColonnaAttestazioniBy));
-            WebElement nomeColonnaStatoBy =  driver.findElement(By.xpath("//th[contains(text(),'Stato')]"));
+            WebElement nomeColonnaStatoBy = driver.findElement(By.xpath("//th[contains(text(),'Stato')]"));
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(nomeColonnaStatoBy));
             logger.info("Si visualizza correttamente l'elenco dei disservizi");
         } catch (Exception e) {

@@ -4,7 +4,7 @@ Feature:La persona fisica visualizza le notifiche in elenco
   @TA_PFNumeroNotificheVisualizzati
   @PFvisualizzaNotifiche
   @PF
-
+  @mittente_x
   Scenario:PN-9209-B27 - La persona fisica modificare il numero di elementi visualizzati per pagina
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica
