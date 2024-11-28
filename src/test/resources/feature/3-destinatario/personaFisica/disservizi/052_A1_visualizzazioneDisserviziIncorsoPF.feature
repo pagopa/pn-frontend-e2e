@@ -4,6 +4,7 @@ Feature: Il destinatario persona fisica visualizza i disservizi della piattaform
   @PF
   @disserviziPF
   @TA_PF_VisualizzaDisservizioInCorso
+    @mittente_x
 
   Scenario: PN-9432 - Il destinatario persona fisica visualizza i disservizi della piattaforma in corso
     Given Login helpdesk con utente test "testHelpdesk"
