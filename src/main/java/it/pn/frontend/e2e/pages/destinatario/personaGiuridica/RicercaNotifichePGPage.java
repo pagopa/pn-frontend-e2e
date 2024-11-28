@@ -34,6 +34,7 @@ public class RicercaNotifichePGPage extends BasePage {
 
     public RicercaNotifichePGPage(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void clickNotificheImpresa() {
