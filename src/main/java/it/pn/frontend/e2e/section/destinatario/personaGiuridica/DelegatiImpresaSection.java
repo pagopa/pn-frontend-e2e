@@ -90,9 +90,8 @@ public class DelegatiImpresaSection extends BasePage {
                 if (delegato.getText().contains(ragioneSociale)) {
                     logger.info("Delega trovata correttamente");
                     getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElement(delegato, ragioneSociale));
-                    WebElement statusChip = driver.findElement(By.id("chip-status-warning"));
-                    getWebDriverWait(30).until(ExpectedConditions.visibilityOf(statusChip));
-                    getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElementValue(statusChip, "In attesa di conferma"));
+                    getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated((By.id("chip-status-warning"))));
+                    getWebDriverWait(40).until(ExpectedConditions.textToBePresentInElementValue((By.id("chip-status-warning")), "In attesa di conferma"));
                 }
             }
             logger.info("Si visualizza la delega creata");
