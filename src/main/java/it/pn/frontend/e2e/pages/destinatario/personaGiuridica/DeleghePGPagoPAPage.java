@@ -403,8 +403,8 @@ public class DeleghePGPagoPAPage extends BasePage {
         boolean isInvalid = true;
         for (int i = 0; i < 5; i++) {
             String xpathBy = "code-input-" + i;
+            getWebDriverWait(10).withMessage("Textbox di input codice delega non visualizzata").until(ExpectedConditions.visibilityOf(driver.findElement(By.id(xpathBy))));
             WebElement codiceDelegaInput = driver.findElement(By.id(xpathBy));
-            getWebDriverWait(10).withMessage("Textbox di input codice delega non visualizzata").until(ExpectedConditions.visibilityOf(codiceDelegaInput));
             String stateInput = codiceDelegaInput.getAttribute("aria-invalid");
             if (!textboxIsInvalid.equals(stateInput)) {
                 isInvalid = false;
