@@ -339,10 +339,11 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
  */
 
     public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioniOpponibile) {
+        attestazioniFile = driver.findElements(By.cssSelector("[data-testid='download-legal-fact']"));
         if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
             attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
         } else {
-            this.js().executeScript("arguments[0].scrollIntoView(true);", attestazioniFile.get(numeroLinkAttestazioniOpponibile));
+            js().executeScript("arguments[0].scrollIntoView(true);", attestazioniFile.get(numeroLinkAttestazioniOpponibile));
             attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
         }
     }
