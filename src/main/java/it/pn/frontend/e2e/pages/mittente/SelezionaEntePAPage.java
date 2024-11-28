@@ -33,6 +33,11 @@ public class SelezionaEntePAPage extends BasePage {
     @FindBy(xpath = "//button[text()='Accedi']")
     private WebElement accediButton;
 
+    @FindBy(xpath = "//h3[text()='Seleziona il tuo ente']")
+    private WebElement titlePage;
+    @FindBy(xpath = "search")
+    private WebElement searchField;
+
     @FindBy(id = "search")
     private WebElement comuneSearchField;
 
@@ -47,11 +52,13 @@ public class SelezionaEntePAPage extends BasePage {
     public void waitLoadSelezionaEntePAPage() {
         try {
             webTool.waitTime(30);
-            By titlePage   = By.xpath("//h3[text()='Seleziona il tuo ente']");
-            By searchField = By.id("search");
+            titlePage   = driver.findElement(By.xpath("//h3[text()='Seleziona il tuo ente']"));
+            searchField = driver.findElement(By.id("search"));
+
+            driver.findElements(By.xpath("//div[@role='button']//h6"));
             getWebDriverWait(30)
                     .withMessage("Titolo 'Seleziona il tuo ente' della pagina non è visibile")
-                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(titlePage));
+                    .until(ExpectedConditions.visibilityOf(titlePage));
             getWebDriverWait(30)
                     .withMessage("Il campo cerca non è cliccabile nella pagina Seleziona Ente")
                     .until(ExpectedConditions.elementToBeClickable(searchField));
