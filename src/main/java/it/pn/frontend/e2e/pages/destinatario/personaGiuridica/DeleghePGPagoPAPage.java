@@ -239,8 +239,8 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public boolean verificaEsistenzaErroreCodiceSbagliato() {
         try {
-            alertPopUp = driver.findElement(By.id("alert-api-status"));
-            getWebDriverWait(5).withMessage("Alert non visualizzato correttamente").until(ExpectedConditions.visibilityOf(alertPopUp));
+//            alertPopUp = driver.findElement(By.id("alert-api-status"));
+            getWebDriverWait(5).withMessage("Alert non visualizzato correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("alert-api-status"))));
             logger.info("Errore codice sbagliato trovato");
             return true;
         } catch (TimeoutException e) {
@@ -365,7 +365,8 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void checkAlertWrongDelegationCode() {
         try {
             WebElement alertCloseButtonBy = driver.findElement(By.xpath("//button[@aria-label='Close']"));
-            getWebDriverWait(5).withMessage("Alert non visualizzato correttamente").until(ExpectedConditions.visibilityOf(alertPopUp));
+//            driver.findElement(By.id("alert-api-status"));
+            getWebDriverWait(5).withMessage("Alert non visualizzato correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("alert-api-status"))));
             logger.info("Alert visualizzato correttamente in pagina");
             alertCloseButtonBy.click();
             logger.info("Alert chiusa");
