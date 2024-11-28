@@ -417,7 +417,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void checkErroreInSelezioneGruppo() {
-        gruppoField.sendKeys("Errore Test");
+        driver.findElement(By.id("input-group")).sendKeys("Errore Test");
         WebElement gruppoNonTrovato = driver.findElement(By.xpath("//div[contains(text(),'Nessun gruppo trovato')]"));
         try {
             getWebDriverWait(10).withMessage("testo di errore non trovato").until(ExpectedConditions.visibilityOf(gruppoNonTrovato));
