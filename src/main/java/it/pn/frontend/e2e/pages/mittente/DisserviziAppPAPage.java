@@ -156,6 +156,7 @@ public class DisserviziAppPAPage extends BasePage {
 
     public void checkDisserviziInCorso() {
         aggiornamentoPagina();
+        statusList = driver.findElements(By.xpath("//tr[@id='tableDowntimeLog.row']//td//div[@data-testid='downtime-status']"));
         if (!statusList.isEmpty()) {
             for (WebElement status : statusList) {
                 if (status.getText().contains("In corso")) {
@@ -196,6 +197,7 @@ public class DisserviziAppPAPage extends BasePage {
 
     public void checkDisserviziDisponibili() {
         aggiornamentoPagina();
+        statusList = driver.findElements(By.xpath("//tr[@id='tableDowntimeLog.row']//td//div[@data-testid='downtime-status']"));
         if (!statusList.isEmpty()) {
             for (WebElement status : statusList) {
                 if (status.getText().contains("Risolto")) {

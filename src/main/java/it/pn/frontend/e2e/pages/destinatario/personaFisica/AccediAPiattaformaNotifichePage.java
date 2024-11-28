@@ -83,7 +83,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
 
     private  WebTool webTool;
-    
+
     public AccediAPiattaformaNotifichePage(WebDriver driver) {
         this.driver = driver;
         webTool = new WebTool(driver);
