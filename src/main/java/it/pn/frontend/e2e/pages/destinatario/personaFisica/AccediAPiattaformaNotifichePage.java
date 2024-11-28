@@ -345,12 +345,10 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         driver.switchTo().defaultContent();
 
         webTool.waitTime(5);
+        getWebDriverWait(10).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='Continue']")));
         WebElement continuaBottone = driver.findElement(By.xpath("//button[@aria-label='Continue']")); //for local test use //button[@aria-label='Continua']
-        getWebDriverWait(8).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(continuaBottone));
         continuaBottone.click();
-
         webTool.waitTime(10);
-
         //Select Nexi
         WebElement modificaButton = driver.findElement(By.xpath("//button[@aria-label='Change payment service provider (PSP)']")); //for local test use //button[@aria-label='Modifica PSP']
         getWebDriverWait(5).withMessage("Il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(modificaButton));
