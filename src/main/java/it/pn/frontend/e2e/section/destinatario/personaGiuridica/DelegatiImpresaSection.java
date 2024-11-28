@@ -89,9 +89,10 @@ public class DelegatiImpresaSection extends BasePage {
             for (WebElement delegato : nomeDelegato) {
                 if (delegato.getText().contains(ragioneSociale)) {
                     logger.info("Delega trovata correttamente");
+                    logger.info("Delega trovata correttamente" +ragioneSociale);
                     getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElement(delegato, ragioneSociale));
-                    getWebDriverWait(40).until(ExpectedConditions.visibilityOfElementLocated((By.id("chip-status-warning"))));
-                    getWebDriverWait(40).until(ExpectedConditions.textToBePresentInElementValue((By.id("chip-status-warning")), "In attesa di conferma"));
+                    getWebDriverWait(40).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("chip-status-warning"))));
+                    getWebDriverWait(40).until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.id("chip-status-warning")), "In attesa di conferma"));
                 }
             }
             logger.info("Si visualizza la delega creata");
@@ -132,8 +133,8 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void clickMostraCodice() {
         menuDelegaButton = driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']"));
-        mostraCodiceOption = driver.findElement(By.id("show-code-button"));
         menuDelegaButton.click();
+        mostraCodiceOption = driver.findElement(By.id("show-code-button"));
         mostraCodiceOption.click();
     }
 

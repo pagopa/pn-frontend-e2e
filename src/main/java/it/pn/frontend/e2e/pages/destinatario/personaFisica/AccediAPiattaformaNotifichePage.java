@@ -248,16 +248,15 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public boolean pagaAvvisoDisplayed() {
-        pagaAvviso = driver.findElement(By.cssSelector("[data-testid='pay-button']"));
-        return getWebDriverWait(30).withMessage("Il sezione paga avviso non è visibile").until(ExpectedConditions.visibilityOf(pagaAvviso)).isDisplayed();
+        return getWebDriverWait(30).withMessage("Il sezione paga avviso non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='pay-button']")))).isDisplayed();
     }
 
     public void checkButtonPagaIsDisplayed() {
-        pagaAvviso = driver.findElement(By.cssSelector("[data-testid='pay-button']"));
-        getWebDriverWait(10).withMessage("Il bottone per il pagamento della notifica è visibile").until(ExpectedConditions.invisibilityOf(pagaAvviso));
+        getWebDriverWait(10).withMessage("Il bottone per il pagamento della notifica è visibile").until(ExpectedConditions.invisibilityOf(pagaAvviso = driver.findElement(By.cssSelector("[data-testid='pay-button']"))));
     }
 
     public void siVisualizzaSezionePagamento() {
+        webTool.waitTime(10);
         codiceAvviso = driver.findElement(By.xpath("//span[contains(text(),'Codice avviso')]"));
         scadenzaAvviso = driver.findElement(By.xpath("//span[contains(text(),'Scade il')]"));
         paymentAmount = driver.findElement(By.cssSelector("[data-testid='payment-amount']"));
