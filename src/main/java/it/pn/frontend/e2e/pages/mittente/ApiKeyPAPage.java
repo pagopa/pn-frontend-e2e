@@ -471,6 +471,7 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public void chiudiPopUpVisualizza() {
+        webTool.waitTime(30);
         closeButtonPopUpVisualizza = driver.findElement(By.id("close-modal-button"));
         getWebDriverWait(30).withMessage("il Bottone chiudere pop up non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(closeButtonPopUpVisualizza));
@@ -478,11 +479,11 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public void clickVisualizzaIdApiKey() {
-        webTool.waitTime(5);
         visualizzaIdGruppo = driver.findElement(By.id("button-view-groups-id"));
         getWebDriverWait(30).withMessage("Il bottone visualizza Id api key non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(visualizzaIdGruppo));
+                .until(ExpectedConditions.elementToBeClickable(By.id("button-view-groups-id")));
         visualizzaIdGruppo.click();
+        getWebDriverWait(5).withMessage("L'email di cortesia non è presente").until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-typography")));
     }
 
     public void popUpGruppiAssociati() {
@@ -539,6 +540,7 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public String visualizzaApiKeyInElenco() {
+        webTool.waitTime(5);
         List<WebElement> contextMenu = driver.findElements(By.xpath("//button[@data-testid='contextMenuButton']"));
         contextMenu.get(0).click();
         webTool.waitTime(1);

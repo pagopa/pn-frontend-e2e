@@ -4,6 +4,8 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.config.WebDriverConfig;
+import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import it.pn.frontend.e2e.utility.DownloadFile;
@@ -12,7 +14,9 @@ import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +35,12 @@ public class DisserviziAppPATest extends BasePage {
     @Value("${apiBaseUrl}")
     private String baseUrl;
 
+    @Autowired
+    private WebDriverConfig webDriverConfig;
+
+    @Autowired
+    @Lazy
+    private WebDriverManager webDriveBean;
 
     private AccediAPiattaformaNotifichePage notifichePage;
 
@@ -93,6 +103,8 @@ public class DisserviziAppPATest extends BasePage {
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/personaGiuridica");
 
         boolean headless = headlessLoc.equalsIgnoreCase("true");
+        downloadFile.setEnvironment(webDriverConfig.getEnvironment());
+        downloadFile.setNetWorkInfos(webDriveBean.getNetWorkInfos());
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }

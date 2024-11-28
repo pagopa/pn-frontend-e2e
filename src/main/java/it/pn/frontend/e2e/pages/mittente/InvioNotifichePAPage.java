@@ -28,9 +28,10 @@ public class InvioNotifichePAPage extends BasePage {
     }
 
     public void selezionareContinuaButton() {
-        webTool.waitTime(10);
+        webTool.waitTime(5);
+        //continuaButton = driver.findElement(By.id("step-submit"));
+        getWebDriverWait(10).withMessage("Il bottone continua nella pagina invio notifica PA non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
         continuaButton = driver.findElement(By.id("step-submit"));
-        getWebDriverWait(10).withMessage("Il bottone continua nella pagina invio notifica PA non è cliccabile").until(ExpectedConditions.elementToBeClickable(continuaButton));
-        scrollToElementAndClick(continuaButton);
+        scrollToElementAndClick(this.continuaButton);
     }
 }

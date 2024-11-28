@@ -2,7 +2,7 @@ Feature: Mittente genera Api Key con gruppo
 
   @TestSuite
   @TA_MittenteGeneraApiKeyConGruppo
-  @mittente
+  @mittente_x
   @ApikeyMittente
 
   Scenario: PN-9231 - Mittente genera Api Key con gruppo

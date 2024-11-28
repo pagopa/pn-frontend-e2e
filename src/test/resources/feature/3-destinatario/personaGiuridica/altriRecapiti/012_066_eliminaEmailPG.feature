@@ -4,7 +4,7 @@ Feature: La persona giuridica elimina l'indirizzo email
   @TA_eliminaEmailPG
   @PG
   @recapitiPG
-
+  @mittente_x
   Scenario: PN-9157 - La persona giuridica elimina l'indirizzo email
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

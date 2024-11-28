@@ -4,7 +4,7 @@ Feature:La persona giuridica visualizza il codice di una delega
   @TA_PGvisualizzaCodiceDelega
   @DeleghePG
   @PG
-
+  @mittente_x
   Scenario: PN-9168 - La persona giuridica visualizza il codice di una delega
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe

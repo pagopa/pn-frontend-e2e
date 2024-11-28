@@ -81,13 +81,12 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div/main/div/div/div[1]/div[3]/div[4]/div/button[2]")
     List<WebElement> pagopaAllegatoItems;
 
-    @Autowired
-    @Lazy
-    private  WebTool webTool;
 
+    private  WebTool webTool;
 
     public AccediAPiattaformaNotifichePage(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void waitLoadAccediAPiattaformaNotifichePage() {
@@ -233,7 +232,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public boolean allegatoPagoPaDisplayed() {
-        pagopaAllegatoItems = driver.findElements(By.xpath("//*[@id=\\\"root\\\"]/div[1]/div/main/div/div/div[1]/div[3]/div[4]/div/button[2]\""));
+        pagopaAllegatoItems = driver.findElements(By.xpath("//*[@id=\"root\"]/div[1]/div/main/div/div/div[1]/div[3]/div[4]/div/button[2]"));
         if (pagopaAllegatoItems.isEmpty()) {
             logger.info("Allegati pagoPa non sono trovati");
             return true;
@@ -249,16 +248,15 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public boolean pagaAvvisoDisplayed() {
-        pagaAvviso = driver.findElement(By.cssSelector("[data-testid='pay-button']"));
-        return getWebDriverWait(30).withMessage("Il sezione paga avviso non è visibile").until(ExpectedConditions.visibilityOf(pagaAvviso)).isDisplayed();
+        return getWebDriverWait(30).withMessage("Il sezione paga avviso non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='pay-button']")))).isDisplayed();
     }
 
     public void checkButtonPagaIsDisplayed() {
-        pagaAvviso = driver.findElement(By.cssSelector("[data-testid='pay-button']"));
-        getWebDriverWait(10).withMessage("Il bottone per il pagamento della notifica è visibile").until(ExpectedConditions.invisibilityOf(pagaAvviso));
+        getWebDriverWait(10).withMessage("Il bottone per il pagamento della notifica è visibile").until(ExpectedConditions.invisibilityOf(pagaAvviso = driver.findElement(By.cssSelector("[data-testid='pay-button']"))));
     }
 
     public void siVisualizzaSezionePagamento() {
+        webTool.waitTime(10);
         codiceAvviso = driver.findElement(By.xpath("//span[contains(text(),'Codice avviso')]"));
         scadenzaAvviso = driver.findElement(By.xpath("//span[contains(text(),'Scade il')]"));
         paymentAmount = driver.findElement(By.cssSelector("[data-testid='payment-amount']"));
@@ -307,7 +305,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         WebElement iframeCardNumber = driver.findElement(By.xpath("//iframe[@id='frame_CARD_NUMBER']"));
         driver.switchTo().frame(iframeCardNumber);
         webTool.waitTime(5);
-        creditCardNumber.findElement(By.xpath("/html/body/div/div/div/div/input"));
+        creditCardNumber = driver.findElement(By.xpath("/html/body/div/div/div/div/input"));
         getWebDriverWait(10).withMessage("Il textbox numero di carta non è visibile").until(ExpectedConditions.visibilityOf(creditCardNumber));
         creditCardNumber.click();
         creditCardNumber.clear();
@@ -346,12 +344,10 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         driver.switchTo().defaultContent();
 
         webTool.waitTime(5);
+        getWebDriverWait(10).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='Continue']")));
         WebElement continuaBottone = driver.findElement(By.xpath("//button[@aria-label='Continue']")); //for local test use //button[@aria-label='Continua']
-        getWebDriverWait(8).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(continuaBottone));
         continuaBottone.click();
-
         webTool.waitTime(10);
-
         //Select Nexi
         WebElement modificaButton = driver.findElement(By.xpath("//button[@aria-label='Change payment service provider (PSP)']")); //for local test use //button[@aria-label='Modifica PSP']
         getWebDriverWait(5).withMessage("Il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(modificaButton));

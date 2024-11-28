@@ -4,7 +4,7 @@ Feature: La persona fisica visualizza la sezione notifiche
   @TA_VerificaMessaggioErroreErrorCode
   @PFvisualizzaNotifiche
   @PF
-
+@mittente_x
 
   @TA_VerificaMessaggioErroreErrorCode19
   Scenario:PN-10537 - La persona fisica visualizza la sezione notifiche

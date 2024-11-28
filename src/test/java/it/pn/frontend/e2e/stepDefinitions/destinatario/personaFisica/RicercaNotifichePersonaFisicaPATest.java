@@ -15,6 +15,7 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import jakarta.annotation.PostConstruct;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -272,6 +273,9 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
     @And("Si seleziona la notifica destinatario")
     public void siSelezionaLaNotificaDestinatario() {
         String iun = notificationSingleton.getIun(HooksNew.getScenario());
+        if(StringUtils.isEmpty(iun)){
+            throw new IllegalArgumentException("Il valore di codiceIUN è nullo");
+        }
         backgroundTest.siFiltraLaTabellaDelleNotificheDelDestinatarioPerIUN(iun);
     }
 }

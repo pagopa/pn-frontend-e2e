@@ -3,7 +3,7 @@ Feature:Pagamento notifica
   @TestSuite
   @PF
   @PagamentoNotificaPF
-
+  @mittente_x
   @notificaPagataESuccessivamenteAnnullata
   Scenario:[NOTIFICA-PAGAMENTO NOTIFICA AVVISO PAGOPA] Verifica testo rimborso su notifica pagata e successivamente annullata
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

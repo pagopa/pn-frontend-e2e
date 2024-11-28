@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.section.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -46,8 +47,12 @@ public class DelegatiImpresaSection extends BasePage {
     @FindBy(id = "notifications-table")
     WebElement tabelleDelleDelegheDellImpresa;
 
+    private WebTool webTool;
+
     public DelegatiImpresaSection(WebDriver driver) {
+
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void waitLoadDelegatiImpresaPage() {
@@ -84,10 +89,10 @@ public class DelegatiImpresaSection extends BasePage {
             for (WebElement delegato : nomeDelegato) {
                 if (delegato.getText().contains(ragioneSociale)) {
                     logger.info("Delega trovata correttamente");
+                    logger.info("Delega trovata correttamente" +ragioneSociale);
                     getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElement(delegato, ragioneSociale));
-                    WebElement statusChip = driver.findElement(By.id("chip-status-warning"));
-                    getWebDriverWait(30).until(ExpectedConditions.visibilityOf(statusChip));
-                    getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElementValue(statusChip, "In attesa di conferma"));
+                    getWebDriverWait(40).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("chip-status-warning"))));
+                    getWebDriverWait(40).until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.id("chip-status-warning")), "In attesa di conferma"));
                 }
             }
             logger.info("Si visualizza la delega creata");
@@ -128,8 +133,8 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void clickMostraCodice() {
         menuDelegaButton = driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']"));
-        mostraCodiceOption = driver.findElement(By.id("show-code-button"));
         menuDelegaButton.click();
+        mostraCodiceOption = driver.findElement(By.id("show-code-button"));
         mostraCodiceOption.click();
     }
 
@@ -178,7 +183,7 @@ public class DelegatiImpresaSection extends BasePage {
     //analizzare metodo ridontante con quello di riga 106
     public void clickRevocaButton() {
         logger.info("Click su revoca delega");
-        revocaMenuButton = driver.findElement(By.id("revoke-delegation-button"));
+        revocaButton = driver.findElement(By.id("dialog-action-button"));
         revocaButton.click();
     }
 

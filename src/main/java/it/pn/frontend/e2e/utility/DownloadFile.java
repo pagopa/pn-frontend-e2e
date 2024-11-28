@@ -6,6 +6,8 @@ import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,6 +20,8 @@ import org.springframework.context.annotation.Lazy;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /*
@@ -40,8 +44,16 @@ public class DownloadFile extends BasePage {
     @Autowired
     @Lazy
     private WebDriverManager webDriveBean;
+    @Setter
+    @Getter
+    private String environment;
+    @Setter
+    @Getter
+    private List<NetWorkInfo> netWorkInfos = new ArrayList<>();
+
 
     public DownloadFile(WebDriver driver) {
+
         this.driver = driver;
     }
 
@@ -123,7 +135,11 @@ public class DownloadFile extends BasePage {
     }
 
     public String getUrl(String urlChiamata) {
-        String url = webDriveBean.getNetWorkInfos().stream()
+        if (webDriveBean != null){
+            netWorkInfos = webDriveBean.getNetWorkInfos();
+        }
+
+        String url = netWorkInfos.stream()
                 .filter(netWorkInfo -> netWorkInfo.getRequestUrl().contains(urlChiamata) &&
                         netWorkInfo.getRequestMethod().equals("GET") &&
                         netWorkInfo.getResponseStatus().equals("200"))
@@ -173,9 +189,14 @@ public class DownloadFile extends BasePage {
     }
 
     private String getBearerSessionToken() {
-        String environment = webDriverConfig.getEnvironment();
+        if (webDriverConfig != null){
+            environment = webDriverConfig.getEnvironment();
+        }
+        if (webDriveBean != null){
+            netWorkInfos = webDriveBean.getNetWorkInfos();
+        }
         String urlChiamata = "https://webapi." + environment + ".notifichedigitali.it/delivery/notifications/received?";
-        return webDriveBean.getNetWorkInfos().stream()
+        return netWorkInfos.stream()
                 .filter(netWorkInfo -> netWorkInfo.getRequestUrl().contains(urlChiamata))
                 .map(NetWorkInfo::getAuthorizationBearer)
                 .findFirst()
@@ -183,9 +204,14 @@ public class DownloadFile extends BasePage {
     }
 
     private String getBearerSessionToken(String url) {
-        String environment = webDriverConfig.getEnvironment();
+        if (webDriverConfig != null){
+            environment = webDriverConfig.getEnvironment();
+        }
+        if (webDriveBean != null){
+            netWorkInfos = webDriveBean.getNetWorkInfos();
+        }
         String urlChiamata = "https://webapi." + environment + url;
-        return webDriveBean.getNetWorkInfos().stream()
+        return netWorkInfos.stream()
                 .filter(netWorkInfo -> netWorkInfo.getRequestUrl().contains(urlChiamata))
                 .map(NetWorkInfo::getAuthorizationBearer)
                 .findFirst()
