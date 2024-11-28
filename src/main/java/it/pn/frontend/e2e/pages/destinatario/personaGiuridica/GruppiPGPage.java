@@ -24,22 +24,21 @@ import java.util.Map;
 public class GruppiPGPage extends BasePage {
 
 
-
     @FindBy(id = "side-item-Gruppi")
     WebElement gruppiButton;
-    
+
     @FindBy(id = "name")
     WebElement inputNomeGruppo;
-    
+
     @FindBy(id = "description")
     WebElement inputDescrizioneGruppo;
-    
+
     @FindBy(id = "product-select")
     WebElement selectSelezioneProdotto;
-    
+
     @FindBy(id = "members-select")
     WebElement selectSelezioneMembri;
-    
+
     @FindBy(xpath = "//button[contains(text(), 'Conferma')]")
     WebElement buttonConferma;
 
@@ -48,19 +47,22 @@ public class GruppiPGPage extends BasePage {
 
     private AccediAreaRiservataPGPage accediAreaRiservataPGPage;
 
-    private ScegliSpidPGPage scegliSpidPGPage ;
+    private ScegliSpidPGPage scegliSpidPGPage;
 
     private LoginPGPagoPAPage loginPGPagoPAPage;
 
-    private AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage ;
+    private AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage;
 
-    private Actions actions ;
+    private Actions actions;
 
     public GruppiPGPage(WebDriver driver) {
         this.driver = driver;
         webTool = new WebTool(driver);
+        accediAreaRiservataPGPage = new AccediAreaRiservataPGPage(driver);
+        scegliSpidPGPage = new ScegliSpidPGPage(driver);
+        loginPGPagoPAPage = new LoginPGPagoPAPage(driver);
+        autorizzaInvioDatiPGPage = new AutorizzaInvioDatiPGPage(driver);
     }
-
 
 
     public void clickGruppiButton() {
@@ -96,6 +98,7 @@ public class GruppiPGPage extends BasePage {
         getWebDriverWait(30).withMessage("Non si visualizza correttamente il sottotitolo della pagina").until(ExpectedConditions.visibilityOf(pageSubtitle));
         getWebDriverWait(30).withMessage("Non si visualizza correttamente il bottone crea gruppo").until(ExpectedConditions.visibilityOf(buttonCreaGruppo));
         getWebDriverWait(30).withMessage("Non si visualizza correttamente la lista della tabella").until(ExpectedConditions.visibilityOf(tableList));
+
     }
 
     public void clickButtonCreaGruppo() {
@@ -107,10 +110,17 @@ public class GruppiPGPage extends BasePage {
     }
 
     public void waitLoadCreaGruppoPage() {
+
         WebElement pageTitle = driver.findElement(By.xpath("//h4[contains(text(), 'Crea un nuovo gruppo')]"));
         List<WebElement> buttonIndietro = driver.findElements(By.xpath("//button[contains(text(), 'Indietro')]"));
         WebElement navigationBar = driver.findElement(By.xpath("//nav[@aria-label='breadcrumb']"));
         WebElement pageSubTitle = driver.findElement(By.xpath("//p[contains(text(), 'Inserisci il nome, la descrizione del gruppo e gli utenti che vuoi associarvi.')]"));
+        webTool.waitTime(10);
+        inputNomeGruppo = driver.findElement(By.id("name"));
+        inputDescrizioneGruppo = driver.findElement(By.id("description"));
+        selectSelezioneProdotto = driver.findElement(By.id("product-select"));
+        selectSelezioneMembri = driver.findElement(By.id("members-select"));
+        buttonConferma = driver.findElement(By.xpath("//button[contains(text(), 'Conferma')]"));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo della pagina").until(ExpectedConditions.visibilityOf(pageTitle));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone indietro ad inizio pagina").until(ExpectedConditions.visibilityOf(buttonIndietro.get(0)));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente la barra di navigazione").until(ExpectedConditions.visibilityOf(navigationBar));
@@ -144,7 +154,7 @@ public class GruppiPGPage extends BasePage {
     }
 
     public void checkButtonConfermaAndClick() {
-        webTool.waitTime(5);
+        webTool.waitTime(10);
         buttonConferma = driver.findElement(By.xpath("//button[contains(text(), 'Conferma')]"));
         getWebDriverWait(10).withMessage("Il bottone conferma non è abilitato").until(ExpectedConditions.elementToBeClickable(buttonConferma));
         log.info("Il bottone è abilitato e lo si clicca");
@@ -201,18 +211,21 @@ public class GruppiPGPage extends BasePage {
     }
 
     public void clickBottonePaginaDettaglioGruppo(String azioneSuGruppi) {
+        webTool.waitTime(10);
         WebElement actionButtonDettaglioGruppo = driver.findElement(By.xpath("//button[contains(text(), '" + azioneSuGruppi + "')]"));
         getWebDriverWait(10).withMessage("Il bottone " + azioneSuGruppi + " non è cliccabile").until(ExpectedConditions.elementToBeClickable(actionButtonDettaglioGruppo));
         actionButtonDettaglioGruppo.click();
     }
 
     public void clickBottonePopUpPaginaDettaglioGruppo(String azioneSuGruppi) {
+        webTool.waitTime(10);
         List<WebElement> actionButtonDettaglioGruppoList = driver.findElements(By.xpath("//button[contains(text(), '" + azioneSuGruppi + "')]"));
         getWebDriverWait(10).withMessage("Il bottone " + azioneSuGruppi + " non è cliccabile").until(ExpectedConditions.elementToBeClickable(actionButtonDettaglioGruppoList.get(1)));
         actionButtonDettaglioGruppoList.get(1).click();
     }
 
     public void checkCampiModificabili() {
+        webTool.waitTime(10);
         WebElement inputSelectProdotti = driver.findElement(By.xpath("//input[@value='SEND - Notifiche Digitali']"));
         inputNomeGruppo = driver.findElement(By.id("name"));
         inputDescrizioneGruppo = driver.findElement(By.id("description"));
@@ -304,6 +317,7 @@ public class GruppiPGPage extends BasePage {
     }
 
     public void waitLoadDuplicazionePage() {
+
         WebElement pageTitle = driver.findElement(By.xpath("//h4[contains(text(), 'Duplica gruppo')]"));
         List<WebElement> buttonIndietro = driver.findElements(By.xpath("//button[contains(text(), 'Indietro')]"));
         WebElement navigationBar = driver.findElement(By.xpath("//nav[@aria-label='breadcrumb']"));
@@ -312,10 +326,15 @@ public class GruppiPGPage extends BasePage {
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone indietro ad inizio pagina").until(ExpectedConditions.visibilityOf(buttonIndietro.get(0)));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente la barra di navigazione").until(ExpectedConditions.visibilityOf(navigationBar));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il sottotitolo della pagina").until(ExpectedConditions.visibilityOf(pageSubTitle));
+        inputNomeGruppo = driver.findElement(By.id("name"));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input del nome del gruppo e il value è errato").until(ExpectedConditions.and(
                 ExpectedConditions.visibilityOf(inputNomeGruppo),
                 ExpectedConditions.attributeContains(inputNomeGruppo, "value", "Copia di Gruppo Test")
         ));
+
+        inputDescrizioneGruppo = driver.findElement(By.id("description"));
+        selectSelezioneMembri = driver.findElement(By.id("members-select"));
+        selectSelezioneProdotto = driver.findElement(By.id("product-select"));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente l'input della descrizione del gruppo").until(ExpectedConditions.visibilityOf(inputDescrizioneGruppo));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente la select per la selezione del prodotto").until(ExpectedConditions.visibilityOf(selectSelezioneProdotto));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente la select per la selezione dei membri").until(ExpectedConditions.visibilityOf(selectSelezioneMembri));
@@ -325,7 +344,7 @@ public class GruppiPGPage extends BasePage {
 
     public void checkPopUpEliminazioneGruppo() {
         WebElement popUpTitle = driver.findElement(By.xpath("//p[contains(text(), 'Elimina gruppo')]"));
-        WebElement popUpSubtitle = driver.findElement(By.xpath("//p[contains(text(), 'Vuoi eliminare il gruppo ')]"));
+        WebElement popUpSubtitle = driver.findElement(By.xpath("//p[contains(text(), 'Vuoi eliminare il gruppo')]"));
         WebElement buttonAnnulla = driver.findElement(By.xpath("//button[contains(text(), 'Annulla')]"));
         WebElement buttonElimina = driver.findElement(By.xpath("//button[contains(text(), 'Elimina')]"));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo del pop up").until(ExpectedConditions.visibilityOf(popUpTitle));

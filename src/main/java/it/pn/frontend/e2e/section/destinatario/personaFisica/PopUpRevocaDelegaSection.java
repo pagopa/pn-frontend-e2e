@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.section.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,8 +20,11 @@ public class PopUpRevocaDelegaSection extends BasePage {
     @FindBy(id = "dialog-action-button")
     WebElement revocaDialogAction;
 
+    private WebTool webTool;
+
     public PopUpRevocaDelegaSection(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void waitLoadPopUpRevocaDelegaSection() {
@@ -31,6 +35,7 @@ public class PopUpRevocaDelegaSection extends BasePage {
     }
 
     public void clickRevocaLaDelega() {
+        webTool.waitTime(20);
         revocaDialogAction = driver.findElement(By.id("dialog-action-button"));
         getWebDriverWait(10).withMessage("Non è possibile cliccare il bottone").until(ExpectedConditions.elementToBeClickable(revocaDialogAction));
         logger.info("click revoca delega");
