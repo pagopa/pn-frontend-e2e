@@ -3,7 +3,7 @@ Feature: Ricerca notifica persona fisica inserimento formato data errato
   @TA_PFinserimentoDataErrata
   @PF
   @PFRicercaNotifica
-
+  @mittente_x
   Scenario: PN-9224-B29 - La persona fisica inserisce una data con formato errato
     Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica

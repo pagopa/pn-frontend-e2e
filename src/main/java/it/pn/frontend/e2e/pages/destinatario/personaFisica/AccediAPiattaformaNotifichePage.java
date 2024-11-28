@@ -81,13 +81,12 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div/main/div/div/div[1]/div[3]/div[4]/div/button[2]")
     List<WebElement> pagopaAllegatoItems;
 
-    @Autowired
-    @Lazy
+
     private  WebTool webTool;
-
-
+    
     public AccediAPiattaformaNotifichePage(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void waitLoadAccediAPiattaformaNotifichePage() {

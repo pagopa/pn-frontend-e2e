@@ -2,7 +2,7 @@ Feature: Mittente genera Api Key senza gruppo
 
   @TestSuite
   @TA_MittenteGeneraApiKeySenzaGruppo
-  @mittente
+  @mittente_x
   @ApikeyMittente
 
   Scenario: PN-9230 - Mittente genera Api Key senza gruppo
