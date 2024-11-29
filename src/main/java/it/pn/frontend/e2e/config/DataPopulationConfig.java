@@ -439,7 +439,7 @@ public class DataPopulationConfig {
     public PersonaGiuridicaErrore personaGiuridicaErrore(){
 
         personaGiuridicaErrore = new PersonaGiuridicaErrore();
-        personaGiuridica1.setEmailPec(DataPopulationValue.getDefaultValue(DataPopulationValue.EMAIL_PEC_PG_ERRORE.key));
+        personaGiuridica1.setEmailPecErrore(DataPopulationValue.getDefaultValue(DataPopulationValue.EMAIL_PEC_PG_ERRORE.key));
         personaGiuridica1.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_PG_ERRORE.key));
         return personaGiuridicaErrore;
 

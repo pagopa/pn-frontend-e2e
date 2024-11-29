@@ -5,6 +5,7 @@ import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.model.recipients.PersoneFisiche;
 import it.pn.frontend.e2e.model.recipients.PersoneGiuridiche;
 import it.pn.frontend.e2e.utility.WebTool;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -263,17 +264,17 @@ public class DestinatarioPASection extends BasePage {
         logger.info("Si inseriscono i dati personali della persona giuridica");
 
         // String indirizzoDestinatario = ricercaInformazione(destinatari.get("indirizzo").toString().split(","), i);
-        this.inserireInfoMultiDestinatario("//label[contains(@id,'address-label')]/following-sibling::div/input", destinatari.getPersone().get(i).getIndirizzo());
+        inserireInfoMultiDestinatario("//label[contains(@id,'address-label')]/following-sibling::div/input", destinatari.getPersone().get(i).getIndirizzo());
         // String nCivicoDestinatario = ricercaInformazione(destinatari.get("numeroCivico").toString().split(","), i);
-        this.inserireInfoMultiDestinatario("//input[contains(@id,'houseNumber')]", destinatari.getPersone().get(i).getNumeroCivico());
+        inserireInfoMultiDestinatario("//input[contains(@id,'houseNumber')]", destinatari.getPersone().get(i).getNumeroCivico());
         // String localitaDestinatario = ricercaInformazione(destinatari.get("localita").toString().split(","), i);
-        this.inserireInfoMultiDestinatario("//label[contains(@id,'municipalityDetails-label')]/following-sibling::div/input", destinatari.getPersone().get(i). getLocalita());
+        inserireInfoMultiDestinatario("//label[contains(@id,'municipalityDetails-label')]/following-sibling::div/input", destinatari.getPersone().get(i). getLocalita());
         // String comuneDestinatario = ricercaInformazione(destinatari.get("comune").toString().split(","), i);
-        this.inserireInfoMultiDestinatario("//label[contains(@id,'municipality-label')]/following-sibling::div/input", destinatari.getPersone().get(i).getComune());
+        inserireInfoMultiDestinatario("//label[contains(@id,'municipality-label')]/following-sibling::div/input", destinatari.getPersone().get(i).getComune());
         //   String provinciaDestinatario = ricercaInformazione(destinatari.get("provincia").toString().split(","), i);
-        this. inserireInfoMultiDestinatario("//input[contains(@id,'province')]", destinatari.getPersone().get(i).getProvincia());
+        inserireInfoMultiDestinatario("//input[contains(@id,'province')]", destinatari.getPersone().get(i).getProvincia());
         //  String codicePostale = ricercaInformazione(destinatari.get("codicepostale").toString().split(","), i);
-        this.inserireInfoMultiDestinatario("//input[contains(@id,'zip')]", destinatari.getPersone().get(i).getNumeroCivico());
+        inserireInfoMultiDestinatario("//input[contains(@id,'zip')]", destinatari.getPersone().get(i).getNumeroCivico());
         //this.inserireInfoMultiDestinatario("//input[contains(@id,'foreignState')]", destinatari.getPersone().get(i).getStato());
 
 
@@ -446,6 +447,9 @@ public class DestinatarioPASection extends BasePage {
     }
 
     public void insertDomicilioDigitaleErrato(String emailPec) {
+        if(StringUtils.isEmpty(emailPec)){
+            throw new IllegalArgumentException("L'emailPec è vuoto");
+        }
         domicilioDigitaleTextField = driver.findElement(By.xpath("//input[@id='recipients[0].digitalDomicile']"));
         domicilioDigitaleTextField.sendKeys(emailPec);
     }
