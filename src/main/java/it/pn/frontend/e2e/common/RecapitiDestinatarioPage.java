@@ -316,8 +316,8 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean verificaNumeroDiCellulareAssociato() {
         try {
-            cellulareAssociato = driver.findElement(By.id("courtesyContacts-phone"));
-            getWebDriverWait(5).withMessage("Il numero di cellulare associato non è presente").until(ExpectedConditions.visibilityOf(cellulareAssociato));
+           // cellulareAssociato = driver.findElement(By.id("courtesyContacts-phone"));
+            getWebDriverWait(5).withMessage("Il numero di cellulare associato non è presente").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("courtesyContacts-phone")));
             return true;
         } catch (TimeoutException e) {
             logger.info("Nessun numero di cellulare di cortesia impostato");
@@ -356,6 +356,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void clickSuModificaPEC() {
         try {
+            webTool.waitTime(10);
             WebElement modificaButtonBy = driver.findElement(By.id("modifyContact-default_pec"));
             getWebDriverWait(10).withMessage("Non si riesce a cliccare o vedere il bottone modifica PEC").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOf(modificaButtonBy),
@@ -663,6 +664,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void checkEmailPrecedentementeSalvata(String email) {
+        webTool.waitTime(10);
         emailAssociata = driver.findElement(By.id("default_email-typography"));
         if (emailAssociata.getText().equalsIgnoreCase(email)) {
             logger.info("la mail associata risulta uguale alla precedente");
@@ -674,7 +676,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void verificaPecModificabile() {
         try {
-            webTool.waitTime(5);
+            webTool.waitTime(10);
             pecField = driver.findElement(By.id("default_pec"));
             getWebDriverWait(10).until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOf(pecField),
