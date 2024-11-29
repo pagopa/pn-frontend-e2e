@@ -304,7 +304,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         // frame of the card number
         WebElement iframeCardNumber = driver.findElement(By.xpath("//iframe[@id='frame_CARD_NUMBER']"));
         driver.switchTo().frame(iframeCardNumber);
-        webTool.waitTime(5);
+        webTool.waitTime(10);
         creditCardNumber = driver.findElement(By.xpath("/html/body/div/div/div/div/input"));
         getWebDriverWait(10).withMessage("Il textbox numero di carta non è visibile").until(ExpectedConditions.visibilityOf(creditCardNumber));
         creditCardNumber.click();
@@ -316,6 +316,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         //frame of the expiry date
         WebElement iframeExpiry = driver.findElement(By.xpath("//iframe[@id='frame_EXPIRATION_DATE']"));
         driver.switchTo().frame(iframeExpiry);
+        webTool.waitTime(20);
         WebElement scadenza = driver.findElement(By.xpath("//input[@id='EXPIRATION_DATE']"));
         getWebDriverWait(20).withMessage("Il textbox scadenza non è visibile").until(ExpectedConditions.visibilityOf(scadenza));
         scadenza.click();
@@ -326,6 +327,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         //frame of the security code
         WebElement iframeSecurityCode = driver.findElement(By.xpath("//iframe[@id='frame_SECURITY_CODE']"));
         driver.switchTo().frame(iframeSecurityCode);
+        webTool.waitTime(10);
         WebElement codice = driver.findElement(By.xpath("//input[@id='SECURITY_CODE']"));
         getWebDriverWait(10).withMessage("Il textbox codice di sicurezza non è visibile").until(ExpectedConditions.visibilityOf(codice));
         codice.click();
@@ -336,6 +338,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         //frame of the cardholder name
         WebElement iframeTitolare = driver.findElement(By.xpath("//iframe[@id='frame_CARDHOLDER_NAME']"));
         driver.switchTo().frame(iframeTitolare);
+        webTool.waitTime(10);
         WebElement titolare = driver.findElement(By.xpath("//input[@id='CARDHOLDER_NAME']"));
         getWebDriverWait(10).withMessage("Il textbox titolare non è visibile").until(ExpectedConditions.visibilityOf(titolare));
         titolare.click();
@@ -349,6 +352,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         continuaBottone.click();
         webTool.waitTime(10);
         //Select Nexi
+        webTool.waitTime(10);
         WebElement modificaButton = driver.findElement(By.xpath("//button[@aria-label='Change payment service provider (PSP)']")); //for local test use //button[@aria-label='Modifica PSP']
         getWebDriverWait(5).withMessage("Il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(modificaButton));
         modificaButton.click();
