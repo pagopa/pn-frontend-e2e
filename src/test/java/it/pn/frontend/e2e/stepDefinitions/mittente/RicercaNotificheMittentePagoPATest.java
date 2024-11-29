@@ -53,11 +53,10 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         destinatarioPASection = new DestinatarioPASection(driver);
     }
 
-    @And("Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica {string}")
-    public void inserireCodiceFiscale(String dpFile) {
+    @And("Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica")
+    public void inserireCodiceFiscale() {
         logger.info("Avvio ricerca tramite codice fiscale");
         //personaFisica
-//        String cf = destinatarioPASection.ricercaInformazione(personaFisica.get("codiceFiscale").toString().split(","), 0);
         String cf = destinatarioPASection.ricercaInformazione(dataPopulationConfig.getPersonaFisica().getCodiceFiscale().split(","), 0);
         piattaformaNotifichePage.insertCodiceFiscale(cf);
 

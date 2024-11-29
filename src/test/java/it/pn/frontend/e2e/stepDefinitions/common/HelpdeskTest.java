@@ -61,7 +61,7 @@ public class HelpdeskTest extends BasePage {
     }
 
 
-    @Given("Login helpdesk con utente test {string}")
+    @Given("Login helpdesk con utente test")
     public void loginHelpdeskConUtenteTest() {
         String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {

@@ -12,3 +12,4 @@ Feature: Mittente effetua una ricerca notifiche per CF
     Then Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice fiscale del destinatario "CSRGGL44L13H501E"
     And Nella pagina Piattaforma Notifiche i risultati sono contenuti in una o più pagine
     And Logout da portale mittente
+
