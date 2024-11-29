@@ -104,8 +104,8 @@ public class DelegatiImpresaSection extends BasePage {
 
     public boolean siVisualizzaUnaDelega() {
         try {
-            WebElement menuDelega = driver.findElement(By.xpath("//tr[contains(@class,'MuiTableRow-root css-g76qb5')]"));
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(menuDelega));
+           // WebElement menuDelega = driver.findElement(By.xpath("//tr[contains(@class,'MuiTableRow-root css-g76qb5')]"));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//tr[contains(@class,'MuiTableRow-root css-g76qb5')]")));
             logger.info("Trovato correttamente almeno una delega");
             return true;
         } catch (TimeoutException e) {
@@ -116,13 +116,13 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void clickMenuDelega(String ragioneSociale) {
         try {
-            WebElement menuDelega = driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']"));
-            getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(menuDelega));
-            if (menuDelega.isDisplayed()) {
-                this.js().executeScript("arguments[0].click()", menuDelega);
+           // WebElement menuDelega = driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']"));
+            getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
+            if (element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")).isDisplayed()) {
+                js().executeScript("arguments[0].click()", By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']"));
             } else {
-                this.js().executeScript("arguments[0].scrollIntoView(true);", menuDelega);
-                this.js().executeScript("arguments[0].click()", menuDelega);
+                js().executeScript("arguments[0].scrollIntoView(true);", By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']"));
+                js().executeScript("arguments[0].click()", By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']"));
             }
             logger.info("cliccato correttamente su menu delega button");
         } catch (TimeoutException e) {

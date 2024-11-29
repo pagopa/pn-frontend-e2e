@@ -114,12 +114,6 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(id = "message")
     WebElement erroreMessaggio;
 
-    @Autowired
-    private WebDriverConfig webDriverConfig;
-    @Autowired
-    @Lazy
-    private WebDriverManager webDriverManager;
-
     @Getter
     @Setter
     private List<NetWorkInfo> netWorkInfos = new ArrayList<>();
@@ -138,6 +132,16 @@ public class PiattaformaNotifichePage extends BasePage {
     private NotificationSingleton notificationSingletonParam;
 
     private  WebTool webTool;
+    @Setter
+    @Getter
+    private String environment;
+
+    @Autowired
+    @Lazy
+    private WebDriverManager webDriverManager;
+    @Autowired
+    private WebDriverConfig webDriverConfig;
+
 
 
     public PiattaformaNotifichePage(WebDriver driver) {
@@ -646,8 +650,11 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selezionaNotificaIUN(String IUN) {
-        String variabileAmbiente = webDriverConfig.getEnvironment();
-        driver.navigate().to("https://selfcare." + variabileAmbiente + ".notifichedigitali.it/dashboard/" + IUN + "/dettaglio");
+        if (webDriverConfig!= null){
+            environment = webDriverConfig.getEnvironment();
+        }
+
+        driver.navigate().to("https://selfcare." + environment + ".notifichedigitali.it/dashboard/" + IUN + "/dettaglio");
     }
 
     public void selectInviaUnaNuovaNotificaButton() {

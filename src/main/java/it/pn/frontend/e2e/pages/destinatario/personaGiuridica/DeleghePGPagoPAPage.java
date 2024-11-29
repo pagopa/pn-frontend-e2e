@@ -122,7 +122,7 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public boolean cercaEsistenzaDelegaPG(String ragioneSociale) {
         try {
-            getWebDriverWait(30).withMessage("delega non trovata").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]"))));
+            getWebDriverWait(30).withMessage("delega non trovata").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]")));
             return true;
         } catch (TimeoutException | NoSuchElementException  e) {
             return false;

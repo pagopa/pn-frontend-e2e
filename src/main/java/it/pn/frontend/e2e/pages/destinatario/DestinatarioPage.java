@@ -35,19 +35,20 @@ import java.util.Map;
 public class DestinatarioPage extends BasePage {
 
 
-
     @Getter
     @Setter
     private NewNotificationRequest notificationRequest;
 
-//    @Autowired
+    @Getter
+    @Setter
     private NotificationSingleton notificationSingleton;
 
-//    @Autowired
+    @Getter
+    @Setter
     private RestNotification restNotification;
 
-//    @Autowired
-//    @Lazy
+    @Getter
+    @Setter
     private NotificationBuilder notificationBuilder;
 
     private int destinatariNumber;
@@ -62,14 +63,14 @@ public class DestinatarioPage extends BasePage {
     List<WebElement> listaNotificheDelegante;
 
 
-    private  WebTool webTool;
+    private WebTool webTool;
 
     public DestinatarioPage(WebDriver driver) {
         this.driver = driver;
         webTool = new WebTool(driver);
-        this.restNotification= new RestNotification();
-        this.notificationSingleton = new NotificationSingleton();
-        this.notificationBuilder = new NotificationBuilder(restNotification);
+        restNotification = new RestNotification();
+        notificationSingleton = new NotificationSingleton();
+        notificationBuilder = new NotificationBuilder(restNotification);
     }
 
     public void inserimentoDataErrato() {
@@ -90,9 +91,10 @@ public class DestinatarioPage extends BasePage {
         String isTextboxInvalid = "true";
         boolean invalidBoxDate = true;
         try {
+            webTool.waitTime(10);
             dataInizioField = driver.findElement(By.id("startDate"));
             dataFineField = driver.findElement(By.id("endDate"));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(this.dataInizioField, this.dataFineField));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
             String ariaInvalidInizio = dataInizioField.getAttribute("aria-invalid");
             String ariaInvalidFine = dataFineField.getAttribute("aria-invalid");
             if (isTextboxInvalid.equals(ariaInvalidInizio) || isTextboxInvalid.equals(ariaInvalidFine)) {
@@ -110,6 +112,7 @@ public class DestinatarioPage extends BasePage {
 
     public void clickButtonNotificheDelegateOnSideMenu(String nomeDelegante) {
         log.info("verifica bottone notifiche nel layout");
+        webTool.waitTime(10);
         sideItemNotificheButton = driver.findElement(By.id("side-item-Notifiche"));
         getWebDriverWait(10).until(ExpectedConditions.visibilityOf(sideItemNotificheButton));
         sideItemNotificheButton.click();
@@ -202,6 +205,7 @@ public class DestinatarioPage extends BasePage {
         restRaddAlternative.completeTransactionRaddAlternative(operationId);
 
     }
+
     public void clickTuttiGliEnti() {
         WebElement tuttiGliEnti = driver.findElement(By.id("tutti-gli-enti-selezionati"));
         getWebDriverWait(10).withMessage("Il radio button 'tutti gli enti selezionati' non è visibile").until(ExpectedConditions.visibilityOf(tuttiGliEnti));

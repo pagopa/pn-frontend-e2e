@@ -88,9 +88,9 @@ public class DeleghePage extends BasePage {
     }
 
     public void clickRevocaButtonOnMenu(String nome, String cognome) {
-        WebElement menuDelega = driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']"));
-        getWebDriverWait(10).withMessage("Menù opzioni delega non visualizzato").until(ExpectedConditions.visibilityOf(menuDelega));
-        js().executeScript("arguments[0].click()", menuDelega);
+       // WebElement menuDelega = driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']"));
+        getWebDriverWait(10).withMessage("Menù opzioni delega non visualizzato").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
+        js().executeScript("arguments[0].click()", element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
         webTool.waitTime(20);
         getWebDriverWait(10).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
         revocaButton = driver.findElement(By.id("revoke-delegation-button"));
@@ -167,10 +167,10 @@ public class DeleghePage extends BasePage {
     public void clickMenuPerRifiuto(String nome, String cognome) {
         try {
             webTool.waitTime(5);
-            WebElement menuDelegheBy = driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']"));
-            getWebDriverWait(120).until(ExpectedConditions.visibilityOf(menuDelegheBy));
+           // WebElement menuDelegheBy = driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']"));
+            getWebDriverWait(120).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
             logger.info("Si clicca correttamente il menu della delega");
-            menuDelegheBy.click();
+            element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")).click();
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente il menu della delega con errore:" + e.getMessage());
             Assertions.fail("Non si visualizza correttamente il menu della delega con errore:" + e.getMessage());
