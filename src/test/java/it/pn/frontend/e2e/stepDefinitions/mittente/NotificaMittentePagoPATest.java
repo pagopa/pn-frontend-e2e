@@ -895,7 +895,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         logger.info("Si inseriscono i dati personali della persona giuridica");
         //personaGiuridica
 
-        destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
+        //destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
         destinatarioPASection.inserireIndirizzo(dataPopulationConfig.getPersonaGiuridica().getIndirizzo(),recipientIndex);
         destinatarioPASection.inserireNumeroCivico(dataPopulationConfig.getPersonaGiuridica().getNumeroCivico(),recipientIndex);
         destinatarioPASection.inserireLocalita(dataPopulationConfig.getPersonaGiuridica().getLocalita(),recipientIndex);
