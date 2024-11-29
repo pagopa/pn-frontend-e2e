@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.section.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -20,12 +21,16 @@ public class HeaderPGSection extends BasePage {
     @FindBy(xpath = "//button[@title = 'Esci']")
     private WebElement esciButton;
 
+    private WebTool webTool;
+
     public HeaderPGSection(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void waitLoadHeaderPGPage() {
         try {
+            webTool.waitTime(30);
             WebElement titlePageBy = driver.findElement(By.xpath("//a[@title = 'Sito di PagoPA S.p.A.']"));
             WebElement esciButtonBy = driver.findElement(By.xpath("//button[@title = 'Esci']"));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(titlePageBy));

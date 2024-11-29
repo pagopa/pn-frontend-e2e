@@ -148,6 +148,7 @@ public class DettaglioNotificaSection extends BasePage {
 
     public void waitLoadDettaglioNotificaAnnullataDESection() {
 
+        webTool.waitTime(15);
         WebElement titleDettaglioNotificaField = driver.findElement(By.id("title-of-page"));
         WebElement statoNotificaBy = driver.findElement(By.id("notification-state"));
         WebElement indietroButtonBy = driver.findElement(By.id("breadcrumb-indietro-button"));

@@ -152,6 +152,8 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void siVisualizzaPaginaNotifichePersonaFisica() {
+        webTool.waitTime(30);
+        titleLabel =  driver.findElement(By.id("Le tue notifiche-page"));
         WebElement bannerRecapiti = driver.findElement(By.cssSelector("[data-testid='menu-item(i tuoi recapiti)']"));
         WebElement filtriDiRicerca = driver.findElement(By.cssSelector("[data-testid='filter-form']"));
         WebElement elencoNotifiche = driver.findElement(By.id("notificationsTable.body.row"));
