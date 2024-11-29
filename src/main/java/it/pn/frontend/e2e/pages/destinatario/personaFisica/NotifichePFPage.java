@@ -242,8 +242,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void waitLoadPaginaDifferente() {
-        WebElement paginaSuccessivaBy = driver.findElement(By.id("page1"));
-        getWebDriverWait(30).withMessage("La prima pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(paginaSuccessivaBy));
+        getWebDriverWait(30).withMessage("La prima pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("page1")));
         logger.info("Si visualizza una pagina differente dalla precedente");
     }
 
@@ -264,6 +263,7 @@ public class NotifichePFPage extends BasePage {
 
         getWebDriverWait(30).withMessage("la terza pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(numeroPaginaTreButton));
         js().executeScript("arguments[0].click()", numeroPaginaTreButton);
+
         codiceIunTextField = driver.findElement(By.id("iunMatch"));
         codiceIunTextField.click();
         codiceIunTextField.sendKeys(iun);
