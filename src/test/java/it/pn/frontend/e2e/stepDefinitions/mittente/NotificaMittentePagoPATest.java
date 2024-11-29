@@ -1151,7 +1151,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         destinatarioPASection.inserireComune(indirizzo.get("comune"),0);
         destinatarioPASection.inserireProvincia(indirizzo.get("provincia"),0);
         destinatarioPASection.inserireCodicePostale(indirizzo.get("cap"),0);
-        destinatarioPASection.inserireStato(indirizzo.get("stato"),0);
+        //destinatarioPASection.inserireStato(indirizzo.get("stato"),0);
     }
 
     @Then("Nella section Allegati si carica un atto")
@@ -1234,6 +1234,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Si verifica che la notifica è stata creata correttamente")
     public void siVerificaCheLaNotificaEStataCreataCorrettamente() {
         logger.info("Si verifica che la notifica sia stata creata correttamente filtrandolo per il numero di protocollo");
+        piattaformaNotifichePage.setNetWorkInfos(webDriveBean.getNetWorkInfos());
         piattaformaNotifichePage.verificaNotificaCreata();
     }
 

@@ -9,6 +9,8 @@ import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.utility.WebTool;
+import lombok.Getter;
+import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.*;
@@ -117,6 +119,11 @@ public class PiattaformaNotifichePage extends BasePage {
     @Autowired
     @Lazy
     private WebDriverManager webDriverManager;
+
+    @Getter
+    @Setter
+    private List<NetWorkInfo> netWorkInfos = new ArrayList<>();
+
     @Autowired
     private NotificationSingleton notificationSingleton;
     @Autowired
@@ -1183,7 +1190,12 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void verificaNotificaCreata() {
         String notificationRequestId = "";
-        for (NetWorkInfo netWorkInfo : webDriverManager.getNetWorkInfos()) {
+
+        if (webDriverManager != null){
+            netWorkInfos = webDriverManager.getNetWorkInfos();
+        }
+
+        for (NetWorkInfo netWorkInfo : netWorkInfos) {
             if (netWorkInfo.getRequestUrl().contains("bff/v1/notifications/sent") && netWorkInfo.getRequestMethod().equals("POST")) {
                 if (netWorkInfo.getResponseStatus().equals("202") && !netWorkInfo.getResponseBody().isEmpty()) {
                     notificationRequestId = netWorkInfo.getResponseBody().split("\"notificationRequestId\":\"")[1].split("\"")[0];
