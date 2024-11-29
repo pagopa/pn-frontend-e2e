@@ -104,8 +104,8 @@ public class DelegatiImpresaSection extends BasePage {
 
     public boolean siVisualizzaUnaDelega() {
         try {
-            WebElement menuDelega = driver.findElement(By.xpath("//tr[contains(@class,'MuiTableRow-root css-g76qb5')]"));
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(menuDelega));
+           // WebElement menuDelega = driver.findElement(By.xpath("//tr[contains(@class,'MuiTableRow-root css-g76qb5')]"));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//tr[contains(@class,'MuiTableRow-root css-g76qb5')]")));
             logger.info("Trovato correttamente almeno una delega");
             return true;
         } catch (TimeoutException e) {

@@ -118,8 +118,8 @@ public class AggiungiDelegaPGSection extends BasePage {
         logger.info("click invia richiesta");
         inviaLaRichiestaButton.click();
         webTool.waitTime(15);
-        getWebDriverWait(10).withMessage("Bottone torna alle deleghe non visualizzato").until(ExpectedConditions.elementToBeClickable((By.xpath("courtesy-page-button"))));
-        tornaDelegheButton = driver.findElement(By.xpath("courtesy-page-button"));
+        getWebDriverWait(10).withMessage("Bottone torna alle deleghe non visualizzato").until(ExpectedConditions.elementToBeClickable((By.id("courtesy-page-button"))));
+        tornaDelegheButton = driver.findElement(By.id("courtesy-page-button"));
         tornaDelegheButton.click();
         logger.info("click torna alle deleghe");
     }
