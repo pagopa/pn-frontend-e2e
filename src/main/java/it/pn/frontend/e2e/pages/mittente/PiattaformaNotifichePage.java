@@ -330,10 +330,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".MuiDateCalendar-root"))));  // Adjust based on your app
+
+        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']")));
         WebElement previousMonthAButton = driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"));
-
-        previousMonthAButton = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(previousMonthAButton));
-
         int clickA = 0;
         WebElement monthAToSelect = null;
         while (clickA < 36) {
