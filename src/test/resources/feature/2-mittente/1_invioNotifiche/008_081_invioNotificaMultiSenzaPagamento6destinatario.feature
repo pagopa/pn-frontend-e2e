@@ -9,7 +9,7 @@ Feature: il mittente invia una notifica con 6 destinatario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
-    And Nella section Informazioni preliminari inserire i dati della notifica  senza pagamento
+    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
