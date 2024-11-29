@@ -19,6 +19,7 @@ import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.mittente.AreaRiservataPAPage;
 import it.pn.frontend.e2e.pages.mittente.InvioNotifichePAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
+import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.*;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
@@ -111,6 +112,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
+
+    @Autowired
+    private RestNotification restNotification;
 
 
     @PostConstruct
@@ -1232,6 +1236,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void siVerificaCheLaNotificaEStataCreataCorrettamente() {
         logger.info("Si verifica che la notifica sia stata creata correttamente filtrandolo per il numero di protocollo");
         piattaformaNotifichePage.setNetWorkInfos(webDriveBean.getNetWorkInfos());
+        piattaformaNotifichePage.setRestNotificationParam(restNotification);
+        piattaformaNotifichePage.setNotificationSingletonParam(notificationSingleton);
         piattaformaNotifichePage.verificaNotificaCreata();
     }
 
