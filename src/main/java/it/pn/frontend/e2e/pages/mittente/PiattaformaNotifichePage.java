@@ -1123,7 +1123,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public boolean controlloEsistenzaStato() {
-        statoNotificaField = driver.findElement(By.xpath("status"));
+        statoNotificaField = driver.findElement(By.id("status"));
         statoNotificaField.click();
         try {
             List<WebElement> statiNotifica = driver.findElements(By.xpath("//li[@data-value]"));
