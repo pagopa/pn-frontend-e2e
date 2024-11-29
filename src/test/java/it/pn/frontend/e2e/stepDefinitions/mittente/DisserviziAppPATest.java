@@ -131,7 +131,7 @@ public class DisserviziAppPATest extends BasePage {
     @And("Controllo corrispondenza dati con pdf")
     public void controlloCorrispondenzaDatiConPdf() {
         logger.info("check dati con pdf e disservizio");
-
+        disserviziAppPAPage.setFolderPath(webDriverConfig.getDownloadFilePath());
         boolean isCorrect = disserviziAppPAPage.confrontoFileConDisservizio();
         if (!isCorrect) {
             logger.error("i dati del pdf non corrispondono a quelli della tabella");

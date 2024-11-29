@@ -4,6 +4,8 @@ import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.jupiter.api.Assertions;
@@ -31,6 +33,10 @@ public class DisserviziAppPAPage extends BasePage {
     @Autowired
     private WebDriverConfig webDriverConfig;
 
+    @Getter
+    @Setter
+    private String folderPath;
+
     @Autowired
     private DataPopulation dataPopulation;
 
@@ -54,30 +60,23 @@ public class DisserviziAppPAPage extends BasePage {
     }
 
     public void waitLoadStatoDellaPiattaformaPage() {
-        webTool.waitTime(10);
         try {
-            WebElement disserviziPageTitle = driver.findElement(By.id("Stato della piattaforma-page"));
-            WebElement disserviziPageSubTitle = driver.findElement(By.id("subtitle-page"));
-            WebElement disserviziBoxAlert = driver.findElement(By.id("appStatusBar"));
-            WebElement disserviziLastUpdate = driver.findElement(By.id("appStatusLastCheck"));
-            WebElement disserviziTitleOfTable = driver.findElement(By.xpath("//h6[contains(text(),'Storico dei disservizi')]"));
 
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(disserviziPageTitle));
-            getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElementValue(disserviziPageTitle, "Stato della piattaforma"));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(disserviziPageSubTitle));
-            getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElementValue(disserviziPageSubTitle, "Verifica il funzionamento di SEND, visualizza lo storico dei disservizi e scarica le relative attestazioni opponibili a terzi."));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(disserviziBoxAlert));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("Stato della piattaforma-page")));
+            getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElementLocated(By.id("Stato della piattaforma-page"), "Stato della piattaforma"));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("subtitle-page")));
+            getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElementLocated(By.id("subtitle-page"), "Verifica il funzionamento di SEND, visualizza lo storico dei disservizi e scarica le relative attestazioni opponibili a terzi."));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("appStatusBar")));
 
-            String boxAlertText = disserviziBoxAlert.getText();
-            getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElementValue(disserviziBoxAlert, boxAlertText.contains("C'è un disservizio in corso") ?
+            String boxAlertText = element(By.id("appStatusBar")).getText();
+            getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElementLocated(By.id("appStatusBar"), boxAlertText.contains("C'è un disservizio in corso") ?
                     "C'è un disservizio in corso. Per maggiori dettagli, consulta la tabella qui sotto." :
                     "Tutti i servizi di SEND sono operativi."
             ));
 
-            disserviziTable = driver.findElement(By.id("notifications-table"));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(disserviziLastUpdate));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(disserviziTable));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(disserviziTitleOfTable));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("appStatusLastCheck")));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("notifications-table")));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//h6[contains(text(),'Storico dei disservizi')]")));
 
             logger.info("Si visualizza correttamente la sezione disservizi");
         } catch (TimeoutException e) {
@@ -87,6 +86,9 @@ public class DisserviziAppPAPage extends BasePage {
     }
 
     public void getDateDisservice() {
+        driver.navigate().back();
+        webTool.waitTime(5);
+        disserviziTable = driver.findElement(By.id("notifications-table"));
         List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
 
         if (!disserviziTableRows.isEmpty()) {
@@ -94,6 +96,9 @@ public class DisserviziAppPAPage extends BasePage {
             String dataInizioPrimaRiga = primaRiga.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//p[contains(text(), 'ore')]")).get(0).getText();
             String dataFinePrimaRiga = primaRiga.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//p[contains(text(), 'ore')]")).get(1).getText();
 
+            if (dataPopulation== null){
+                dataPopulation = new DataPopulation();
+            }
             dataPopulation.setDataDa(dataInizioPrimaRiga);
             dataPopulation.setDataA(dataFinePrimaRiga);
         } else {
@@ -240,6 +245,7 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
     }
 
     private void performDownloadAttestazione(int indexModifier) {
+        disserviziTable = driver.findElement(By.id("notifications-table"));
         List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
         if (disserviziTableRows.isEmpty()) {
             logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
@@ -351,7 +357,10 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
 public boolean confrontoFileConDisservizio() {
     getDateDisservice();
     logger.info("date prese con successo dal disserivizio");
-    String folderPath = webDriverConfig.getDownloadFilePath();
+
+    if (webDriverConfig != null) {
+        folderPath = webDriverConfig.getDownloadFilePath();
+    }
     logger.info("DOWNLOAD FOLDER "+folderPath);
     // Stringa da cercare nel nome del file
     String searchString = "PN_DOWNTIME_LEGAL_FACTS";

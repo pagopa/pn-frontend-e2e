@@ -463,7 +463,6 @@ public class DownloadFileMittentePagoPATest extends BasePage {
     @And("Download file attestazione disservizio")
     public void downloadFileAttestazioneDisservizio() {
         logger.info("si effettua download del disservizio");
-
         disserviziAppPAPage.downloadAttestazione();
         webTool.waitTime(3);
     }
@@ -471,7 +470,6 @@ public class DownloadFileMittentePagoPATest extends BasePage {
     @And("Download file attestazione disservizio {int}")
     public void downloadFileAttestazioneDisservizio(Integer index) {
         logger.info("si effettua download del disservizio");
-
         disserviziAppPAPage.downloadAttestazione(index);
         webTool.waitTime(3);
     }
