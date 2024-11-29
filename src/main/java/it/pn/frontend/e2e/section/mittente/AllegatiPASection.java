@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -35,8 +36,12 @@ public class AllegatiPASection extends BasePage {
     @FindBy(id = "step-submit")
     WebElement inviaButton;
 
+    private WebTool webTool;
+
     public AllegatiPASection(WebDriver driver) {
+
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void waitLoadAllegatiPASection() {
@@ -51,6 +56,8 @@ public class AllegatiPASection extends BasePage {
     }
 
     public void caricareNotificaPdfDalComputer(String pathNotificaFile) {
+        webTool.waitTime(20);
+
         selezionaloDalTuoComputerInput = driver.findElement(By.cssSelector("div[data-testid='fileInput'] > input[accept='application/pdf']"));
         if(!selezionaloDalTuoComputerInput.isDisplayed()){
             js().executeScript("arguments[0].scrollIntoView(true)", selezionaloDalTuoComputerInput);
@@ -74,7 +81,8 @@ public class AllegatiPASection extends BasePage {
     public void clickAggiungiNuovoDocumento(){
         WebElement addNewDocuments = driver.findElement(By.xpath("//*[@data-testId='add-another-doc']"));
         getWebDriverWait(5).withMessage("Il bottone aggiungi nuovo documento non è cliccabile").until(ExpectedConditions.elementToBeClickable(addNewDocuments));
-        addNewDocuments.click();
+      //  addNewDocuments.click();
+        js().executeScript("arguments[0].click()", addNewDocuments);
     }
 
     public void eliminaAtto(){
