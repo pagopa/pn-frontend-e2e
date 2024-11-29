@@ -155,7 +155,7 @@ public class NotifichePFPage extends BasePage {
         WebElement bannerRecapiti = driver.findElement(By.cssSelector("[data-testid='menu-item(i tuoi recapiti)']"));
         WebElement filtriDiRicerca = driver.findElement(By.cssSelector("[data-testid='filter-form']"));
         WebElement elencoNotifiche = driver.findElement(By.id("notificationsTable.body.row"));
-        getWebDriverWait(30).withMessage("Il titolo della pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));
+        getWebDriverWait(30).withMessage("Il titolo della pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(By.id("Le tue notifiche-page")));
         getWebDriverWait(30).withMessage("Il bottone 'i tuoi recapiti' della sidebar non è visibile").until(ExpectedConditions.visibilityOf(bannerRecapiti));
         getWebDriverWait(30).withMessage("La sezione filtri per le notifiche non è visualizzabile").until(ExpectedConditions.visibilityOf(filtriDiRicerca));
         getWebDriverWait(30).withMessage("La tabella delle notifiche non viene visualizzata correttamente").until(ExpectedConditions.visibilityOf(elencoNotifiche));
