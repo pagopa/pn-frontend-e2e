@@ -14,6 +14,7 @@ import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.Notifich
 import it.pn.frontend.e2e.stepDefinitions.mittente.NotificaMittentePagoPATest;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
 import lombok.Setter;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,8 @@ public class BackgroundTest  extends BasePage {
 
     private  RecapitiDestinatarioPage recapitiDestinatarioPage ;
     private  ITuoiRecapitiPage iTuoiRecapitiPage;
+    @Setter
+    @Getter
     private  PiattaformaNotifichePage piattaformaNotifichePage;
 
     private  WebTool webTool;

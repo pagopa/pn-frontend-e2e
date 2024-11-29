@@ -4,9 +4,14 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.model.notification.NewNotificationRequest;
+import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
+import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
@@ -32,6 +37,15 @@ public class NewNotifichePagoPATest extends BasePage {
 
     private DestinatarioPage destinatarioPage;
 
+    @Autowired
+    private NewNotificationRequest notificationRequest;
+
+    @Autowired
+    private NotificationSingleton notificationSingleton;
+
+    @Autowired
+    private RestNotification restNotification;
+
 
     @PostConstruct
     public void init(){
@@ -42,6 +56,8 @@ public class NewNotifichePagoPATest extends BasePage {
 
     @Then("Creo in background una notifica per destinatario tramite API REST")
     public void creoUnaNotificaPerDestinatarioTramiteAPIREST(){
+        destinatarioPage.setNotificationSingleton(notificationSingleton);
+        destinatarioPage.setRestNotification(restNotification);
         destinatarioPage.checkCreateNewNotification();
     }
 
