@@ -65,6 +65,19 @@ public enum DataPopulationValue {
     CAP_PF_4("codicepostale_pf_4","10024",false),
     STATO_PF_4("stato_pf_4","ITALIA",false),
 
+    NAME_PF_5("name_pf_5","Giovanna",false),
+    FAMILY_NAME_PF_5("family_name_pf_5","D'arco",false),
+    CODICE_FISCALE_PF_5("codiceFiscale_pf_5","DRCGNN12A46A326K",false),
+    FISCAL_NUMBER_PF_5("fiscal_number_pf_5","TINIT-DRCGNN12A46A326K",false),
+    INDIRIZZO_PF_5("indirizzo_pf_5","VIA VERDI",false),
+    CIVICO_PF_5("numeroCivico_pf_5","10",false),
+    LOCALITA_PF_5("localita_pf_5","MILANO",false),
+    COMUNE_PF_5("comune_pf_5","MILANO",false),
+    PROVINCIA_PF_5("provincia_pf_5","MI",false),
+    CAP_PF_5("codicepostale_pf_5","20122",false),
+    STATO_PF_5("stato_pf_5","ITALIA",false),
+
+
     //PERSONA GIURIDICA 1
 
     NAME_PG_1("name_pg_1","LucioAnneoSeneca",false),

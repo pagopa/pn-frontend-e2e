@@ -245,6 +245,21 @@ public class DataPopulationConfig {
         persona4.setStato(DataPopulationValue.getDefaultValue(DataPopulationValue.STATO_PF_4.key));
         personeFisiche.aggiungiPersona(persona4);
 
+
+        PersonaFisica persona5 = new PersonaFisica();
+        persona5.setName(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_PF_5.key));
+        persona5.setFamilyName(DataPopulationValue.getDefaultValue(DataPopulationValue.FAMILY_NAME_PF_5.key));
+        persona5.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_PF_5.key));
+        persona5.setFiscalNumber(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_NUMBER_PF_5.key));
+        persona5.setIndirizzo(DataPopulationValue.getDefaultValue(DataPopulationValue.INDIRIZZO_PF_5.key));
+        persona5.setNumeroCivico(DataPopulationValue.getDefaultValue(DataPopulationValue.CIVICO_PF_5.key));
+        persona5.setLocalita(DataPopulationValue.getDefaultValue(DataPopulationValue.LOCALITA_PF_5.key));
+        persona5.setComune(DataPopulationValue.getDefaultValue(DataPopulationValue.COMUNE_PF_5.key));
+        persona5.setProvincia(DataPopulationValue.getDefaultValue(DataPopulationValue.PROVINCIA_PF_5.key));
+        persona5.setCodicePostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CAP_PF_5.key));
+        persona5.setStato(DataPopulationValue.getDefaultValue(DataPopulationValue.STATO_PF_5.key));
+        personeFisiche.aggiungiPersona(persona5);
+
         return personeFisiche;
     }
 
