@@ -911,7 +911,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
         logger.info("Si inseriscono i dati errati per persona giuridica");
 
         destinatarioPASection.checkBoxAggiungiDomicilio();
-//        logger.info("*-*-*-*-*-*{}", dataPopulationConfig.getPersonaFisica().getEmailPecErrore());
         destinatarioPASection.insertDomicilioDigitaleErrato(dataPopulationConfig.getPersonaGiuridicaErrore().getEmailPecErrore());
         Assertions.assertEquals( "Indirizzo PEC non valido", destinatarioPASection.getDomicilioDigitaleError(),"l'errore  attuale 'Indirizzo PEC non valido' è diverso di :" + destinatarioPASection.getDomicilioDigitaleError());
 

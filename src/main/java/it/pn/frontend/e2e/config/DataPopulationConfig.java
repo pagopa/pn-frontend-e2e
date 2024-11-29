@@ -430,7 +430,7 @@ public class DataPopulationConfig {
         personaGiuridica1.setProvincia(DataPopulationValue.getDefaultValue(DataPopulationValue.PROVINCIA_PG_1.key));
         personaGiuridica1.setCodicePostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_POSTALE_PG_1.key));
         personaGiuridica1.setStato(DataPopulationValue.getDefaultValue(DataPopulationValue.STATO_PG_1.key));
-        personaGiuridica.setCodiceIUN(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_IUN_PG_1.key));
+        personaGiuridica1.setCodiceIUN(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_IUN_PG_1.key));
         return personaGiuridica1;
 
     }
@@ -439,8 +439,8 @@ public class DataPopulationConfig {
     public PersonaGiuridicaErrore personaGiuridicaErrore(){
 
         personaGiuridicaErrore = new PersonaGiuridicaErrore();
-        personaGiuridica1.setEmailPecErrore(DataPopulationValue.getDefaultValue(DataPopulationValue.EMAIL_PEC_PG_ERRORE.key));
-        personaGiuridica1.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_PG_ERRORE.key));
+        personaGiuridicaErrore.setEmailPecErrore(DataPopulationValue.getDefaultValue(DataPopulationValue.EMAIL_PEC_PG_ERRORE.key));
+        personaGiuridicaErrore.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_FISCALE_PG_ERRORE.key));
         return personaGiuridicaErrore;
 
     }
