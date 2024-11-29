@@ -165,7 +165,7 @@ public class DestinatarioPASection extends BasePage {
 
     public void selezionaAggiungiUnIndirizzoFisico() {
         logger.info("click su scelta indirizzo fisico");
-        aggiungiUnIndirizzoFisicoCheckBox = driver.findElement(By.id("//div[@data-testid='recipients[0].physicalAddressCheckbox']"));
+        aggiungiUnIndirizzoFisicoCheckBox = driver.findElement(By.xpath("//div[@data-testid='recipients[0].physicalAddressCheckbox']"));
         aggiungiUnIndirizzoFisicoCheckBox.click();
     }
 
