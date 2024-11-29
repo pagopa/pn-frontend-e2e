@@ -129,6 +129,14 @@ public class PiattaformaNotifichePage extends BasePage {
     @Autowired
     private RestNotification restNotification;
 
+    @Setter
+    @Getter
+    private RestNotification restNotificationParam;
+
+    @Setter
+    @Getter
+    private NotificationSingleton notificationSingletonParam;
+
     private  WebTool webTool;
 
 
@@ -1211,11 +1219,20 @@ public class PiattaformaNotifichePage extends BasePage {
         int maximumRetry = 0;
         do {
             Assertions.assertTrue(maximumRetry <= 5, "La notifica risulta ancora in stato WAITING dopo 5 tentativi");
-            notificationData = restNotification.getNotificationStatus(notificationRequestId);
+
+            if (restNotification!= null){
+                restNotificationParam = restNotification;
+            }
+
+            if (notificationSingleton!= null){
+                notificationSingletonParam = notificationSingleton;
+            }
+
+            notificationData = restNotificationParam.getNotificationStatus(notificationRequestId);
             notificationStatus = notificationData.get("notificationRequestStatus").toString();
             if (notificationStatus.equals("ACCEPTED")) {
                 notificationIUN = notificationData.get("iun").toString();
-                notificationSingleton.setScenarioIun(HooksNew.getScenario(), notificationIUN);
+                notificationSingletonParam.setScenarioIun(HooksNew.getScenario(), notificationIUN);
                 return;
             } else {
                 webTool.waitTime(90);
