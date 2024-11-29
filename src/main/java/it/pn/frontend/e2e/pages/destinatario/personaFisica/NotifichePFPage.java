@@ -237,6 +237,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void clickPaginaSuccessiva() {
+        paginaSuccessivaButton = driver.findElement(By.id("next"));
         paginaSuccessivaButton.click();
     }
 
