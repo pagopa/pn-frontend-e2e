@@ -1039,6 +1039,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public String getCodiceIunInserito() {
+        codiceIUNTextField = driver.findElement(By.id("iunMatch"));
         return codiceIUNTextField.getText();
     }
 
