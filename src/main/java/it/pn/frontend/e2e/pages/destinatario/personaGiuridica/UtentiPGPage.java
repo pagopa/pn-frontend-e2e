@@ -4,6 +4,8 @@ import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
+import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -86,6 +88,10 @@ public class UtentiPGPage extends BasePage {
 
     private WebTool webTool;
 
+    @Getter
+    @Setter
+    private String environment;
+
 
     private final Actions actions = new Actions(driver);
 
@@ -105,7 +111,10 @@ public class UtentiPGPage extends BasePage {
         sezioneUtenti.click();
         //build url
         String companyId = "d0f52c7d-76d5-4520-8971-edffeb5b46d5";
-        String environment = webDriverConfig.getEnvironment();
+        if (webDriverConfig != null){
+            environment = webDriverConfig.getEnvironment();
+        }
+
         String utentiUrl = "https://imprese." + environment + ".notifichedigitali.it/dashboard/" + companyId + "/users";
         //switch tab
         String parentWindowHandle = driver.getWindowHandle();

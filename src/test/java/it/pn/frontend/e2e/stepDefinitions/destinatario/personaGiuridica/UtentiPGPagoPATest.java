@@ -5,12 +5,14 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.UtentiPGPage;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
 
@@ -23,6 +25,9 @@ public class UtentiPGPagoPATest extends BasePage {
     private  UtentiPGPage utentiPGPage;
 
     private  HomePagePG homePagePG;
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     @PostConstruct
     public void init(){
@@ -130,11 +135,13 @@ public class UtentiPGPagoPATest extends BasePage {
 
     @When("Nella Pagina Notifiche persona giuridica si clicca su utenti")
     public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSuUtenti() {
+        utentiPGPage.setEnvironment(webDriverConfig.getEnvironment());
         utentiPGPage.clickSezioneUtenti();
     }
 
     @And("Nella Pagina riepilogativa si clicca su utenti")
     public void nellaPaginaRiepilogativaSiCliccaSuUtenti() {
+
         utentiPGPage.clickSezioneUtentiDaRiepilogo();
     }
 
