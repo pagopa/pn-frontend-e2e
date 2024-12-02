@@ -423,13 +423,15 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        boolean results = false;
         String startUrl = "http://localhost:8887/";
-        if(persona.equalsIgnoreCase("personaGiuridica")) {
-            recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getMail());
-        }else {
-            recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getMail());
-        }
+
+        boolean results = this.pippo(startUrl,false,persona);
+
+//        if(persona.equalsIgnoreCase("personaGiuridica")) {
+//            results =recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getMail());
+//        }else {
+//            results =recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getMail());
+//        }
 
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
@@ -450,11 +452,12 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             }
 //            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("mail");
 //            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
-            if(persona.equalsIgnoreCase("personaGiuridica")) {
-                recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getMail());
-            }else {
-                recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getMail());
-            }
+//            if(persona.equalsIgnoreCase("personaGiuridica")) {
+//                results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getMail());
+//            }else {
+//                results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getMail());
+//            }
+            results=this.pippo(startUrl,results,persona);
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
 //                personaFisica.put("OTPmail", OTP);
@@ -469,6 +472,16 @@ public class RecapitiPersonaFisicaTest extends BasePage {
                 Assertions.fail("La chiamata non ha risposto correttamentecon codice:" + recuperoOTPRecapiti.getResponseCode());
             }
         }
+    }
+
+    private boolean pippo(String startUrl, boolean results, String persona){
+
+        if(persona.equalsIgnoreCase("personaGiuridica")) {
+            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getMail());
+        }else {
+            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getMail());
+        }
+        return results;
     }
 
     @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della Email 'altri recapiti' tramite request method")
