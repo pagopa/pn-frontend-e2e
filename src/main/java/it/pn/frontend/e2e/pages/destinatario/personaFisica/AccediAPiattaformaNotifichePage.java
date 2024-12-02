@@ -252,7 +252,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void checkButtonPagaIsDisplayed() {
-        getWebDriverWait(10).withMessage("Il bottone per il pagamento della notifica è visibile").until(ExpectedConditions.invisibilityOf(pagaAvviso = driver.findElement(By.cssSelector("[data-testid='pay-button']"))));
+        getWebDriverWait(10).withMessage("Il bottone per il pagamento della notifica è visibile").until(ExpectedConditions.invisibilityOf(driver.findElement(By.cssSelector("[data-testid='pay-button']"))));
     }
 
     public void siVisualizzaSezionePagamento() {
