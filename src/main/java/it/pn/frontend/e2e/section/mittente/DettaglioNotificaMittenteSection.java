@@ -75,6 +75,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     public DettaglioNotificaMittenteSection(WebDriver driver) {
         this.driver = driver;
         webTool = new WebTool(driver);
+        piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
     }
 
     public void waitLoadDettaglioNotificaSection() {
