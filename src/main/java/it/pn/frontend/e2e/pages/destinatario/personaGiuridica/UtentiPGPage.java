@@ -94,7 +94,6 @@ public class UtentiPGPage extends BasePage {
     private String environment;
 
 
-    private final Actions actions = new Actions(driver);
 
     public UtentiPGPage(WebDriver driver) {
         this.driver = driver;
@@ -107,6 +106,7 @@ public class UtentiPGPage extends BasePage {
 
 
     public void clickSezioneUtenti() {
+        webTool.waitTime(10);
         sezioneUtenti = driver.findElement(By.xpath("//span[contains(text(),'Utenti')]"));
         getWebDriverWait(10).withMessage("La sezione Utenti non è cliccabile").until(ExpectedConditions.elementToBeClickable(sezioneUtenti));
         sezioneUtenti.click();
@@ -223,11 +223,13 @@ public class UtentiPGPage extends BasePage {
     public void selectProduct(String product) {
         selectProductDropdown = driver.findElement(By.id("select-label-products"));
         getWebDriverWait(10).withMessage("il combobox seleziona il prodotto non è cliccabile").until(ExpectedConditions.visibilityOf(selectProductDropdown));
+        Actions actions = new Actions(driver);
         actions.moveToElement(selectProductDropdown).click().perform();
         WebElement productButton = driver.findElement(By.xpath("//li[contains(text(),'" + product + "')]"));
         getWebDriverWait(10).withMessage("il prodotto" + product + "non è cliccabile").until(ExpectedConditions.elementToBeClickable(productButton));
         productButton.click();
         logger.info("Ruolo :" + product);
+        adminRadioButton = driver.findElement(By.xpath("//p[contains(text(),'Amministratore')]"));
         getWebDriverWait(10).withMessage("il radioBottone Amministratore della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(adminRadioButton));
     }
 
@@ -239,7 +241,10 @@ public class UtentiPGPage extends BasePage {
             logger.info("il bottone Continua è attivo");
         }
         logger.info("Si clicca sul bottone Continua");
+        Actions actions = new Actions(driver);
         actions.moveToElement(continueButton).click().perform();
+        webTool.waitTime(10);
+        confirmPopup = driver.findElement(By.xpath("//p[contains(text(),'Vuoi assegnare a')]"));
         getWebDriverWait(10).withMessage("il popup assegna ruolo non è visualizzata").until(ExpectedConditions.visibilityOf(confirmPopup));
     }
 
@@ -252,18 +257,20 @@ public class UtentiPGPage extends BasePage {
 
     public void clickContinueAndAssign() {
         continueButton = driver.findElement(By.xpath("//button[contains(text(),'Continua')]"));
-        assegnaButton = driver.findElement(By.xpath("//button[contains(text(),'Assegna')]"));
         getWebDriverWait(10).withMessage("il bottone continua non è visibile o cliccabile").until(ExpectedConditions.and(
                 ExpectedConditions.visibilityOf(continueButton),
                 ExpectedConditions.elementToBeClickable(continueButton)
         ));
         continueButton.click();
+        webTool.waitTime(10);
+        assegnaButton = driver.findElement(By.xpath("//button[contains(text(),'Assegna')]"));
         getWebDriverWait(10).withMessage("il bottone assegna non è visibile").until(ExpectedConditions.visibilityOf(assegnaButton));
         assegnaButton.click();
     }
 
     public void waitSuccessMessage() {
         try {
+            webTool.waitTime(10);
             successMessage = driver.findElement(By.xpath("//p[contains(text(),'Utente aggiunto correttamente')]"));
             if (successMessage.isDisplayed()) {
                 logger.info("Si visualizza correttamente messaggio di successo");

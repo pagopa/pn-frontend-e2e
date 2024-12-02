@@ -23,9 +23,9 @@ public class UtentiPGPagoPATest extends BasePage {
 
     private  WebTool webTool;
 
-    private  UtentiPGPage utentiPGPage;
-
     private  HomePagePG homePagePG;
+
+    private UtentiPGPage utentiPGPage;
 
     @Autowired
     @Lazy
@@ -35,9 +35,9 @@ public class UtentiPGPagoPATest extends BasePage {
     public void init(){
         logger.info("INIT TEST...: ");
         webTool = new WebTool(driver);
-        utentiPGPage = new UtentiPGPage(driver);
-        utentiPGPage.setEnvironment(webDriverConfig.getEnvironment());
         homePagePG = new HomePagePG(driver);
+        utentiPGPage = new UtentiPGPage(driver);
+
 
     }
 
@@ -139,6 +139,7 @@ public class UtentiPGPagoPATest extends BasePage {
 
     @When("Nella Pagina Notifiche persona giuridica si clicca su utenti")
     public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSuUtenti() {
+        logger.info("HTML...."+webDriverConfig.getEnvironment());
         utentiPGPage.setEnvironment(webDriverConfig.getEnvironment());
         utentiPGPage.clickSezioneUtenti();
     }
