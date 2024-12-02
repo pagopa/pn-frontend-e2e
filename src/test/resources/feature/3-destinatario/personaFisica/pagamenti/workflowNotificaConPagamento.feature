@@ -3,7 +3,6 @@ Feature:Controllo dati notifica con pagamento
   @TestSuite
   @PF
   @NotificaConPagamentoPF
-  @mittente_x
   @ControlloNotificaConPagamentoPF
   Scenario:[NOTIFICA-ANNULLATA CON PAGAMENTO AFFETTUATO] Verifica testo rimborso su notifica pagata e successivamente annullata
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

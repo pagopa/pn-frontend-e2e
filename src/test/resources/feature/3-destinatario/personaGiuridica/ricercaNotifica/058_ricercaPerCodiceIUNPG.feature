@@ -4,7 +4,7 @@ Feature: La persona giuridica ricerca per codice IUN
   @TA_PGricercaNotificaPerIUN
   @RicercaNotifichePG
   @PG
-@mittente_x
+
   Scenario: PN-9149 - La persona giuridica ricerca per codice IUN
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa

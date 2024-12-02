@@ -4,7 +4,7 @@ Feature:Controllo dati notifica con pagamento
   @PG
   @NotificaConPagamentoPG
 
-  @mittente_x
+
   @ControlloNotificaConPagamentoPG
   Scenario:[NOTIFICA-ANNULLATA CON PAGAMENTO AFFETTUATO] Verifica testo rimborso su notifica pagata e successivamente annullata
     Given PG - Si effettua la login tramite token exchange come 'delegante', e viene visualizzata la dashboard

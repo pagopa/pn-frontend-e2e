@@ -4,7 +4,7 @@ Feature: La persona giuridica inserisce l'email
   @TA_inserimentoEmailPG
   @PG
   @recapitiPG
-  @mittente_x
+
   Scenario: PN-9155 - La persona giuridica inserisce l'email
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

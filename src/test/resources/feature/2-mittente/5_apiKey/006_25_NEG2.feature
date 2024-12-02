@@ -2,7 +2,6 @@ Feature: Mittente seleziona CTA annulla in blocca api Key
 
   @TestSuite
   @TA_MittenteAannullaBloccaApiKey
-  @mittente_x
   @ApikeyMittente
 
   Scenario: PN-9233 - Mittente seleziona CTA annulla in blocca api Key

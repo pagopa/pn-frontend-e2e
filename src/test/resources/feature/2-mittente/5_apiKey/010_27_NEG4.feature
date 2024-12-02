@@ -2,7 +2,6 @@ Feature: Mittente seleziona CTA annulla in ruota api Key
 
   @TestSuite
   @TA_MittenteAnnullaRuotazioneApiKey
-  @mittente_x
   @ApikeyMittente
 
   Scenario: PN-9648 - Mittente seleziona CTA annulla in ruota api Key

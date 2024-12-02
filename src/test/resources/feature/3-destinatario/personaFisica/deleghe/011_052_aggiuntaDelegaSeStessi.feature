@@ -4,7 +4,7 @@ Feature:La persona fisica aggiunge una delega a se stessi
   @TA_PFaggiuntaDelegaSeStesso
   @DeleghePF
   @PF
-@mittente_x
+
   Scenario:PN-9420 - La persona fisica aggiunge una delega a se stessi
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe

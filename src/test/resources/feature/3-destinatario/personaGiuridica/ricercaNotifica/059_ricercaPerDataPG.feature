@@ -3,7 +3,7 @@ Feature: La persona giuridica ricerca per periodo temporale
   @TA_PGricercaNotificaPerData
   @RicercaNotifichePG
   @PG
-  @mittente_x
+
   Scenario: PN-9150 - La persona giuridica ricerca per periodo temporale
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa

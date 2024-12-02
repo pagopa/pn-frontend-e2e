@@ -2,7 +2,6 @@ Feature: il mittente effettua il download attestazione opponibile a terzi avvenu
 
   @TestSuite
   @TA_MittenteDownloadAttestazioneAvvenutaSuccesso
-  @mittente_x
   @DownloadFileMittente
 
   Scenario: PN-9647 - il mittente effettua il download attestazione opponibile a terzi avvenuto successo
