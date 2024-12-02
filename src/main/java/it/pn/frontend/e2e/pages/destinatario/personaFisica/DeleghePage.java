@@ -241,11 +241,11 @@ public class DeleghePage extends BasePage {
 
     public boolean siVisualizzaUnaDelegaConNomeDelegato(String nome, String cognome) {
         try {
-            WebElement delegaBy = driver.findElement(By.xpath("//table[@id='notifications-table']//p[contains(text(),'" + nome + " " + cognome + "')]"));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(delegaBy));
+//            WebElement delegaBy = driver.findElement(By.xpath("//table[@id='notifications-table']//p[contains(text(),'" + nome + " " + cognome + "')]"));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='notifications-table']//p[contains(text(),'" + nome + " " + cognome + "')]")));
             logger.info("Si trova una delega");
             return true;
-        } catch (TimeoutException e) {
+        } catch (TimeoutException | NoSuchElementException e) {
             logger.warn("Non si trova una delega con il nome " + nome + " " + cognome);
             return false;
         }
