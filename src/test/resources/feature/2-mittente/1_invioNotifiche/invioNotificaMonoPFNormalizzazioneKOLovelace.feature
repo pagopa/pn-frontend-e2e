@@ -37,7 +37,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
     And Logout da portale mittente
     And Login Page persona fisica test viene visualizzata
-    And Login con persona fisica
+    And Login con persona fisicainput
       | user         | ada                    |
       | pwd          | password123            |
       | name         | Ada                    |
@@ -57,7 +57,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
     And Logout da portale mittente
     And Login Page persona fisica test viene visualizzata
-    And Login con persona fisica
+    And Login con persona fisica input
       | user         | ada                    |
       | pwd          | password123            |
       | name         | Ada                    |
