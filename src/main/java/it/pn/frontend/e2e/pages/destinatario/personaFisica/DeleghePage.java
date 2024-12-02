@@ -166,7 +166,7 @@ public class DeleghePage extends BasePage {
 
     public void clickMenuPerRifiuto(String nome, String cognome) {
         try {
-            webTool.waitTime(5);
+            webTool.waitTime(10);
            // WebElement menuDelegheBy = driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']"));
             getWebDriverWait(120).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
             logger.info("Si clicca correttamente il menu della delega");
