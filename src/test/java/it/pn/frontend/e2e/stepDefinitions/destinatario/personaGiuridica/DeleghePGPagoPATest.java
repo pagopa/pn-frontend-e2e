@@ -269,7 +269,7 @@ public class DeleghePGPagoPATest extends BasePage {
     public void nellaPaginaDelegheSezioneDelegheAcaricoDellImpresaSiCliccaSulMenuDellaDelega() {
         logger.info("Si clicca sul menu delle delega");
         //TODO PERSONA GIURIDICA
-        this.delegatiImpresaSection.clickMenuDelega(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
+        delegatiImpresaSection.clickMenuDelega(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
     }
 
     @And("Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega {string}")
