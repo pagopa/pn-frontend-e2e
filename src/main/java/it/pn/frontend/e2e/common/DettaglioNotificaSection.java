@@ -158,7 +158,7 @@ public class DettaglioNotificaSection extends BasePage {
         WebElement aarBox = driver.findElement(By.xpath("//div[@data-testid='aarBox']"));
         WebElement attestazione = driver.findElement(By.xpath("//button[@data-testid='download-legalfact']"));
         WebElement copyNotificaAnnullataDestinatario = driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']"));
-        WebElement copyNotificaAnnullataMittente = driver.findElement(By.xpath("//div[@data-testid='alert']"));
+       // WebElement copyNotificaAnnullataMittente = driver.findElement(By.xpath("//div[@data-testid='alert']"));
         WebElement chipAnnullataInTimeline = driver.findElement(By.id("Annullata-status"));
 
         getWebDriverWait(10).withMessage("il titolo Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOf(titleDettaglioNotificaField));
@@ -171,7 +171,7 @@ public class DettaglioNotificaSection extends BasePage {
                 ExpectedConditions.visibilityOf(aarDownload),
                 ExpectedConditions.visibilityOf(aarBox)));
         getWebDriverWait(10).withMessage("Il pulsante sezione attestazione opponibile non è visibile").until(ExpectedConditions.visibilityOf(attestazione));
-        getWebDriverWait(10).withMessage("Il copy di notifica annullata non è visibile").until(ExpectedConditions.or(ExpectedConditions.visibilityOf(copyNotificaAnnullataDestinatario), ExpectedConditions.visibilityOf(copyNotificaAnnullataMittente)));
+        getWebDriverWait(10).withMessage("Il copy di notifica annullata non è visibile").until(ExpectedConditions.or(ExpectedConditions.visibilityOf(copyNotificaAnnullataDestinatario), ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@data-testid='alert']"))));
         getWebDriverWait(10).withMessage("La chip di notifica annullata non è visibile").until(ExpectedConditions.visibilityOf(chipAnnullataInTimeline));
         logger.info("Dettaglio Notifica Annullata Section caricata");
     }
