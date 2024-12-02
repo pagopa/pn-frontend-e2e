@@ -13,6 +13,7 @@ import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.Map;
 
@@ -27,6 +28,7 @@ public class UtentiPGPagoPATest extends BasePage {
     private  HomePagePG homePagePG;
 
     @Autowired
+    @Lazy
     private WebDriverConfig webDriverConfig;
 
     @PostConstruct
@@ -34,7 +36,9 @@ public class UtentiPGPagoPATest extends BasePage {
         logger.info("INIT TEST...: ");
         webTool = new WebTool(driver);
         utentiPGPage = new UtentiPGPage(driver);
+        utentiPGPage.setEnvironment(webDriverConfig.getEnvironment());
         homePagePG = new HomePagePG(driver);
+
     }
 
     @And("Si visualizza correttamente la pagina utenti")

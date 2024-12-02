@@ -76,6 +76,7 @@ public class UtentiPGPage extends BasePage {
     WebElement sezioneUtenti;
 
     @Autowired
+    @Lazy
     private WebDriverConfig webDriverConfig;
 
     private ScegliSpidPGPage scegliSpidPGPage;
