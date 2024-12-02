@@ -483,7 +483,14 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
     @And("Si controlla non sia presente il bottone paga")
     public void siControllaNonSiaPresenteIlBottonePaga() {
         logger.info("Si controlla che il bottone per il pagamento non sia visibile all'interno del dettaglio della notifica");
-        accediAPiattaformaNotifichePage.checkButtonPagaIsDisplayed();
+
+        if (accediAPiattaformaNotifichePage.checkButtonPagaIsDisplayed()) {
+            logger.error("Il bottone per il pagamento è visibile all'interno del dettaglio della notifica");
+            Assertions.fail("Il bottone per il pagamento è visibile all'interno del dettaglio della notifica");
+        } else {
+            logger.error("Il bottone per il pagamento non è visibile all'interno del dettaglio della notifica");
+        }
+
     }
 
     @And("Si controlla se la sezione pagamento visualizzata correttamente")

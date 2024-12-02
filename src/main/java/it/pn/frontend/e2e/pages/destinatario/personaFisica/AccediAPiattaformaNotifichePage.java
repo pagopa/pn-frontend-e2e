@@ -251,9 +251,13 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         return getWebDriverWait(30).withMessage("Il sezione paga avviso non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='pay-button']")))).isDisplayed();
     }
 
-    public void checkButtonPagaIsDisplayed() {
-        webTool.waitTime(15);
-        getWebDriverWait(10).withMessage("Il bottone per il pagamento della notifica è visibile").until(ExpectedConditions.invisibilityOf(driver.findElement(By.cssSelector("[data-testid='pay-button']"))));
+    public boolean checkButtonPagaIsDisplayed() {
+        try {
+            return getWebDriverWait(10).withMessage("Il bottone per il pagamento della notifica è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='pay-button']")))).isDisplayed();
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.warn("Il messaggio notifica annullata non è visibile");
+            return false;
+        }
     }
 
     public void siVisualizzaSezionePagamento() {
