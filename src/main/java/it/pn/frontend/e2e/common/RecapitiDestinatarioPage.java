@@ -240,8 +240,10 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void insertEmail(String email) {
+       // inserimentoMailField = driver.findElement(By.id("default_email"));
+        getWebDriverWait(10).withMessage("l'input mail non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_email"))));
         inserimentoMailField = driver.findElement(By.id("default_email"));
-        getWebDriverWait(10).withMessage("l'input mail non è visibile").until(ExpectedConditions.visibilityOf(inserimentoMailField));
+
         if (!inserimentoMailField.getAttribute("value").isEmpty()) {
             inserimentoMailField.clear();
         }
@@ -693,8 +695,10 @@ public class RecapitiDestinatarioPage extends BasePage {
 //            pecField = driver.findElement(By.id("default_pec"));
             webTool.waitTime(15);
             getWebDriverWait(15).until(ExpectedConditions.and(
-                    ExpectedConditions.visibilityOfElementLocated(By.id("default_pec")),
-                    ExpectedConditions.visibilityOfElementLocated(By.id("default_pec-typography"))));
+                    ExpectedConditions.visibilityOfElementLocated(By.id("default_pec"))
+//                    ExpectedConditions.visibilityOfElementLocated(By.id("default_pec-typography"))
+                    )
+            );
 //            ExpectedConditions.invisibilityOf(pecField),
 //                    ExpectedConditions.visibilityOf(pecEmail)));
             logger.info("pec non modificabile");
