@@ -270,7 +270,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         //personaFisica
         //personaGiuridica
         String startUrl = "http://localhost:8887/";
-        boolean results = changeStartUrl(startUrl, false, persona);
+        boolean results = changeStartUrlPec(startUrl, false, persona);
         //TODO OGGETTO DI PARAMETRIZZAZIONE
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
@@ -286,7 +286,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
             }
-            results = changeStartUrl(startUrl, results, persona);
+            results = changeStartUrlPec(startUrl, results, persona);
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
                 logger.info("OTTTPPP" + OTP);
@@ -1073,6 +1073,16 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getMail());
         }else {
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getMail());
+        }
+        return results;
+    }
+
+    private boolean changeStartUrlPec(String startUrl, boolean results, String persona){
+
+        if(persona.equalsIgnoreCase("personaGiuridica")) {
+            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getEmailPec());
+        }else {
+            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getEmailPec());
         }
         return results;
     }
