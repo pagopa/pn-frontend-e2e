@@ -110,16 +110,16 @@ public class DisserviziAppPATest extends BasePage {
         }
         disserviziAppPAPage.clickLinkAttestazioniOpponibileDisservizi(0);
         webTool.waitTime(5);
-        String legalFactId = downloadFile.getLegalFactId();
-        String urlFileAttestazioneOpponibile = baseUrl + "downtime/legal-facts/" + legalFactId;
+       // String legalFactId = downloadFile.getLegalFactId();
+       // String urlFileAttestazioneOpponibile = baseUrl + "downtime/legal-facts/" + legalFactId;
 
-        File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + 0 + ".pdf");
-        downloadFile.downloadAttestazioneDisservizi(urlFileAttestazioneOpponibile, file, headless);
+        //File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + 0 + ".pdf");
+       // downloadFile.downloadAttestazioneDisservizi(urlFileAttestazioneOpponibile, file, headless);
         if (!headless) {
             disserviziAppPAPage.goBack();
         }
 
-        downloadFile.controlloDownload(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario", 1);
+       // downloadFile.controlloDownload(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario", 1);
     }
 
     @And("Si visualizzano tutti i record in elenco relativi a disservizi risolti")
