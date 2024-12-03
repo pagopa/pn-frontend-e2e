@@ -43,9 +43,27 @@ Feature: Login pagoPA
     Then Home page persona giuridica viene visualizzata correttamente
     And Logout da portale persona giuridica
 
+
+
   @TA_loginpersonaGiuridica
   @TestSuite
   @loginFE_1
+  Scenario: PN-9146 - Login pagoPA persona giuridica 1
+    Given Login Page persona giuridica viene visualizzata
+
+
+
+  @TA_loginpersonaGiuridica
+  @TestSuite
+  @loginFE_1
+  Scenario: PN-9146 - Login pagoPA persona giuridica 3
+    Given Login Page persona giuridica viene visualizzata
+
+
+  @TA_loginpersonaGiuridica
+  @TestSuite
+  @loginFE_1
+    @deleghe1
   Scenario: PN-9146 - Login pagoPA persona giuridica 4
     Given Login Page persona giuridica viene visualizzata
 
@@ -53,11 +71,7 @@ Feature: Login pagoPA
   @TA_loginpersonaGiuridica
   @TestSuite
   @loginFE_1
+  @deleghe1
   Scenario: PN-9146 - Login pagoPA persona giuridica 5
     Given Login Page persona giuridica viene visualizzata
 
-  @TA_loginpersonaGiuridica
-  @TestSuite
-  @loginFE_1
-  Scenario: PN-9146 - Login pagoPA persona giuridica 6
-    Given Login Page persona giuridica viene visualizzata
