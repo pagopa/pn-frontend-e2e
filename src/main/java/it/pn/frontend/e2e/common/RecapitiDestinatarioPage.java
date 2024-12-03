@@ -692,16 +692,9 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void verificaPecNonModificabile() {
         try {
-//            pecField = driver.findElement(By.id("default_pec"));
-            webTool.waitTime(15);
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.id("default_pec")));
-//            getWebDriverWait(15).until(ExpectedConditions.and(
-//                    ExpectedConditions.visibilityOfElementLocated(By.id("default_pec"))
-//                    ExpectedConditions.visibilityOfElementLocated(By.id("default_pec-typography"))
-//                    )
-//            );
-//            ExpectedConditions.invisibilityOf(pecField),
-//                    ExpectedConditions.visibilityOf(pecEmail)));
+            getWebDriverWait(10).until(ExpectedConditions.and(
+                    ExpectedConditions.invisibilityOfElementLocated(By.id("default_pec")),
+                    ExpectedConditions.visibilityOfElementLocated(By.id("default_pec-typography"))));
             logger.info("pec non modificabile");
         } catch (TimeoutException e) {
             logger.error("pec modificabile con errore:" + e.getMessage());
