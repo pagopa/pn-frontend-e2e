@@ -116,7 +116,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @Autowired
     private RestNotification restNotification;
 
-
+ 
     @PostConstruct
     public void init(){
         logger.info("INIT TEST...: ");
@@ -1375,9 +1375,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void siSelezionaLaNotifica() {
         piattaformaNotifichePage.setNotificationSingletonParam(notificationSingleton);
         backgroundTest.setPiattaformaNotifichePage(piattaformaNotifichePage);
-        String iun = notificationSingleton.getIun(HooksNew.scenario);
+       // String iun = notificationSingleton.getIun(HooksNew.scenario);
         logger.info("IUN............."+ backgroundTest.getPiattaformaNotifichePage().getNotificationSingletonParam().getIun(HooksNew.scenario));
-        iun = backgroundTest.getPiattaformaNotifichePage().getNotificationSingletonParam().getIun(HooksNew.scenario);
+        String iun = backgroundTest.getPiattaformaNotifichePage().getNotificationSingletonParam().getIun(HooksNew.scenario);
         backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNDestinatario(iun);
     }
 
