@@ -313,8 +313,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void verificaInvioPECInCorso() {
         try {
-            webTool.waitTime(10);
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div/span[contains(text(),'Invio via PEC')]/following-sibling::div//p[contains(text(),'È in corso l')]")));
+            getWebDriverWait(40).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div/span[contains(text(),'Invio via PEC')]/following-sibling::div//p[contains(text(),'È in corso l')]"))));
             logger.info("La pec è in stato invio in corso");
         } catch (TimeoutException e) {
             logger.error("La pec NON è in stato invio in corso con errore: " + e.getMessage());
