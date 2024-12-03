@@ -269,17 +269,11 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequest(String persona) {
         //personaFisica
         //personaGiuridica
-        boolean results = false;
         String startUrl = "http://localhost:8887/";
-        if(persona.equalsIgnoreCase("personaGiuridica")) {
-            recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getEmailPec());
-        }else {
-            recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getEmailPec());
-        }
+        boolean results = changeStartUrl(startUrl, false, persona);
+        //TODO OGGETTO DI PARAMETRIZZAZIONE
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
-//            personaFisica.put("OTPpec", OTP);
-//            dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
             if(persona.equalsIgnoreCase("personaGiuridica")) {
                 dataPopulationConfig.getPersonaGiuridica().setOTPPec(OTP);
             }else {
@@ -292,18 +286,10 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
             }
-//            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + personaFisica.get("emailPec");
-//            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
-            if(persona.equalsIgnoreCase("personaGiuridica")) {
-                recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getEmailPec());
-            }else {
-                recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getEmailPec());
-            }
+            results = changeStartUrl(startUrl, results, persona);
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
                 logger.info("OTTTPPP" + OTP);
-//                personaFisica.put("OTPpec", OTP);
-//                dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
                 if(persona.equalsIgnoreCase("personaGiuridica")) {
                     dataPopulationConfig.getPersonaGiuridica().setOTPPec(OTP);
                 }else {
