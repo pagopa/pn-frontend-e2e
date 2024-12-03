@@ -207,6 +207,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         //personaGiuridica
 //        String email = personaFisica.get("mail").toString();
         if(persona.equalsIgnoreCase("personaGiuridica")){
+            logger.info("MAIL.................."+dataPopulationConfig.getPersonaGiuridica().getMail());
             recapitiDestinatarioPage.insertEmail(dataPopulationConfig.getPersonaGiuridica().getMail());
         }
         else {
@@ -415,6 +416,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         //TODO OGGETTO DI PARAMETRIZZAZIONE
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
+            logger.info("OTP........"+OTP);
             if (persona.equalsIgnoreCase("personaGiuridica")) {
                 dataPopulationConfig.getPersonaGiuridica().setOTPMail(OTP);
             } else {
@@ -487,6 +489,14 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         logger.info("Si inserisce il codice OTP di verifica");
         //personaFisica
         iTuoiRecapitiPage.sendOTP(dataPopulationConfig.getPersonaFisica().getOTPMail());
+        recapitiDestinatarioPage.confermaButtonClickPopUp();
+    }
+
+    @And("Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email")
+    public void nellaPaginaPGITuoiRecapitiSiInserisceLOTPRicevutoViaEmail() {
+        logger.info("Si inserisce il codice OTP di verifica per la Persona Giuridica");
+        //personaFisica
+        iTuoiRecapitiPage.sendOTP(dataPopulationConfig.getPersonaGiuridica().getOTPMail());
         recapitiDestinatarioPage.confermaButtonClickPopUp();
     }
 
@@ -1070,6 +1080,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     private boolean changeStartUrl(String startUrl, boolean results, String persona){
 
         if(persona.equalsIgnoreCase("personaGiuridica")) {
+            logger.info("MAIL111.................."+dataPopulationConfig.getPersonaGiuridica().getMail());
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getMail());
         }else {
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getMail());

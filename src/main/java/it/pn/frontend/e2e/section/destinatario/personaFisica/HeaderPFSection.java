@@ -63,7 +63,7 @@ public class HeaderPFSection extends BasePage {
     }
 
     public void selezionaVoceEsci() {
-        webTool.waitTime(30);
+        webTool.waitTime(35);
         menuProfileItems = driver.findElements(By.xpath("//ul[@role='menu']//li"));
         WebElement esciVoce = menuProfileItems.get(1);
         getWebDriverWait(30).withMessage("la voce esci non è visibile").until(ExpectedConditions.visibilityOf(esciVoce));
