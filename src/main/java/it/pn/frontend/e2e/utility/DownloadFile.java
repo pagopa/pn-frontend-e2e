@@ -167,7 +167,7 @@ public class DownloadFile extends BasePage {
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("Content-Type", "application/json");
-            con.setRequestProperty("Authorization", getBearerSessionToken(".notifichedigitali.it/bff/v1/downtime/history?"));
+            con.setRequestProperty("Authorization", getBearerSessionToken("https://webapi.test.notifichedigitali.it/bff/v1/downtime/history?"));
 
             try (var in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
                 StringBuilder response = new StringBuilder();
