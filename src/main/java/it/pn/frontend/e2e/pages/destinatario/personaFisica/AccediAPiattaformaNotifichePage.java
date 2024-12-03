@@ -326,7 +326,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(20).withMessage("Il textbox scadenza non è visibile").until(ExpectedConditions.visibilityOf(scadenza));
         scadenza.click();
         scadenza.clear();
-        scadenza.sendKeys("10/24");
+        scadenza.sendKeys("10/25");
         driver.switchTo().defaultContent();
 
         //frame of the security code
@@ -352,7 +352,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         driver.switchTo().defaultContent();
 
         webTool.waitTime(5);
-        getWebDriverWait(10).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='Continue']")));
+        getWebDriverWait(15).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='Continue']")));
         WebElement continuaBottone = driver.findElement(By.xpath("//button[@aria-label='Continue']")); //for local test use //button[@aria-label='Continua']
         continuaBottone.click();
         webTool.waitTime(10);
