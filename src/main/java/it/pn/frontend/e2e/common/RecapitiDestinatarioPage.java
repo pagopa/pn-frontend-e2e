@@ -679,10 +679,10 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void verificaPecModificabile() {
         try {
             webTool.waitTime(10);
-            pecField = driver.findElement(By.id("default_pec"));
+
             getWebDriverWait(10).until(ExpectedConditions.and(
-                    ExpectedConditions.visibilityOf(pecField),
-                    ExpectedConditions.attributeToBe(pecField, "readonly", "")));
+                    ExpectedConditions.visibilityOfElementLocated(By.id("default_pec")),
+                    ExpectedConditions.attributeToBe(By.id("default_pec"), "readonly", "")));
             logger.info("pec modificabile");
         } catch (TimeoutException e) {
             logger.error("pec non modificabile con errore:" + e.getMessage());
