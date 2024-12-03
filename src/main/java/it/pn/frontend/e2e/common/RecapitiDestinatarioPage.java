@@ -240,8 +240,10 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void insertEmail(String email) {
+       // inserimentoMailField = driver.findElement(By.id("default_email"));
+        getWebDriverWait(10).withMessage("l'input mail non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_email"))));
         inserimentoMailField = driver.findElement(By.id("default_email"));
-        getWebDriverWait(10).withMessage("l'input mail non è visibile").until(ExpectedConditions.visibilityOf(inserimentoMailField));
+
         if (!inserimentoMailField.getAttribute("value").isEmpty()) {
             inserimentoMailField.clear();
         }
