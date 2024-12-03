@@ -1883,6 +1883,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
             destinatarioPASection.inserireComune(dataPopulationConfig.getPersonaFisicaPec().getComune(),recIndex);
             destinatarioPASection.inserireProvincia(dataPopulationConfig.getPersonaFisicaPec().getProvincia(),recIndex);
             destinatarioPASection.inserireCodicePostale(dataPopulationConfig.getPersonaFisicaPec().getCodicePostale(),recIndex);
+            destinatarioPASection.insertDomicilioDigitale(dataPopulationConfig.getPersonaFisicaPec().getEmailPec());
            // destinatarioPASection.inserireStato(dataPopulationConfig.getPersonaFisicaPec().getStato(),recIndex);
         }
         else {
