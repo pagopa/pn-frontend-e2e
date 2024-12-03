@@ -396,8 +396,8 @@ public class DestinatarioPASection extends BasePage {
         ragioneSociale.sendKeys(destinatario.get("ragioneSociale"));
         WebElement secondCodiceFiscale = driver.findElement(By.id("recipients[1].taxId"));
         secondCodiceFiscale.sendKeys(destinatario.get("codiceFiscale"));
-        WebElement addSecondPec = driver.findElement(By.xpath("//*[@data-testid='recipients[1].digitalDomicileCheckbox']"));
-        addSecondPec.click();
+//        WebElement addSecondPec = driver.findElement(By.xpath("//*[@data-testid='recipients[1].digitalDomicileCheckbox']"));
+//        addSecondPec.click();
         WebElement secondPecField = driver.findElement(By.id("recipients[1].digitalDomicile"));
         secondPecField.sendKeys(destinatario.get("pec"));
         WebElement addSecondAddress = driver.findElement(By.xpath("//label[@data-testid='showPhysicalAddress1']"));
