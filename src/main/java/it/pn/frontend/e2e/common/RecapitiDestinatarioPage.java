@@ -207,8 +207,8 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean waitMessaggioErrore() {
         try {
-            WebElement messaggioErroreBy = driver.findElement(By.id("error-alert"));
-            getWebDriverWait(5).until(ExpectedConditions.visibilityOf(messaggioErroreBy));
+            webTool.waitTime(5);
+            getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(By.id("error-alert")));
             logger.info("Il messaggio di errore viene visualizzato correttamente");
             return true;
         } catch (TimeoutException | NoSuchElementException e) {
