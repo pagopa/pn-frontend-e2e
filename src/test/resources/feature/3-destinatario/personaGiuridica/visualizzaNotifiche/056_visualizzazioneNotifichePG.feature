@@ -2,7 +2,7 @@ Feature: La persona fisica visualizza la sezione notifiche
 
   @TestSuite
   @TA_PGVisualizzaNotifiche
-  @VisualizzazioneNotifichePG
+  @VisualizzazioneNotifichePG_1
     #viene inserito il tag deleghe pg per eliminare la delega una volta creata
   @DeleghePG
   @PG
