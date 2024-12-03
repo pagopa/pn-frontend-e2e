@@ -41,6 +41,9 @@ public class WebDriverManager {
     @Getter
     private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
+    @Getter
+    private static ThreadLocal<DevTools> devToolsThread = new ThreadLocal<>();
+
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
 
     private WebDriver driver;
@@ -58,6 +61,7 @@ public class WebDriverManager {
     private final String os = System.getProperty("os.name");
 
     private DevTools devTools;
+
 
 
     @WebdriverScopeBean
@@ -151,8 +155,9 @@ public class WebDriverManager {
 
 
     private void setupDevTools() {
-        devTools = ((HasDevTools) driver).getDevTools();
-        devTools.createSession();
+        devTools = WebDriverManager.getDevTools();
+       // devTools = ((HasDevTools) driver).getDevTools();
+       // devTools.createSession();
         devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
         captureHttpRequests();
         captureHttpResponse();
@@ -219,6 +224,12 @@ public class WebDriverManager {
     }
 
 
+    public static DevTools getDevTools() {
+        logger.info("DEV_TOOLS...."+devToolsThread.get().toString());
+        return devToolsThread.get();
+    }
+
+
     public static WebDriver getDriver(ChromeOptions chromeOptions, EdgeOptions edgeOptions, FirefoxOptions firefoxOptions) {
         if (driverThreadLocal.get() == null) {
 
@@ -227,6 +238,12 @@ public class WebDriverManager {
                 driver.manage().window().maximize();
                 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
                 driverThreadLocal.set(driver);
+
+                DevTools devTools = ((ChromeDriver) driver).getDevTools();
+                devTools.createSession();
+                devToolsThread.set(devTools);
+
+
                 logger.info("Chrome driver started");
             } else if (edgeOptions != null) {
                 EdgeDriver driver = new EdgeDriver(edgeOptions);
@@ -255,6 +272,7 @@ public class WebDriverManager {
         if (driver != null) {
             driver.quit();
             driverThreadLocal.remove();
+            devToolsThread.remove();
         }
     }
 
