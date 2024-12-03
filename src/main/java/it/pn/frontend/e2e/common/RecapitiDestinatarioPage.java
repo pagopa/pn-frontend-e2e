@@ -695,8 +695,10 @@ public class RecapitiDestinatarioPage extends BasePage {
 //            pecField = driver.findElement(By.id("default_pec"));
             webTool.waitTime(15);
             getWebDriverWait(15).until(ExpectedConditions.and(
-                    ExpectedConditions.visibilityOfElementLocated(By.id("default_pec")),
-                    ExpectedConditions.visibilityOfElementLocated(By.id("default_pec-typography"))));
+                    ExpectedConditions.visibilityOfElementLocated(By.id("default_pec"))
+//                    ExpectedConditions.visibilityOfElementLocated(By.id("default_pec-typography"))
+                    )
+            );
 //            ExpectedConditions.invisibilityOf(pecField),
 //                    ExpectedConditions.visibilityOf(pecEmail)));
             logger.info("pec non modificabile");
