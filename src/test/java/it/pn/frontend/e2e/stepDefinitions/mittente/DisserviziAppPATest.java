@@ -110,7 +110,8 @@ public class DisserviziAppPATest extends BasePage {
         }
         disserviziAppPAPage.clickLinkAttestazioniOpponibileDisservizi(0);
         webTool.waitTime(5);
-       // String legalFactId = downloadFile.getLegalFactId();
+        //TODO rivedere...
+        //String legalFactId = downloadFile.getLegalFactId();
        // String urlFileAttestazioneOpponibile = baseUrl + "downtime/legal-facts/" + legalFactId;
 
         //File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + 0 + ".pdf");
