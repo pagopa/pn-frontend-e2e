@@ -2,7 +2,6 @@ Feature:il mittente cambia visualizzazione della pagina
 
   @TestSuite
   @TA_MittentePaginazioneNotifiche
-  @mittente_x
   @visualizzazioneNotificheMittente
 
   Scenario: PN-9223 - il mittente cambia visualizzazione della pagina

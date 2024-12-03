@@ -4,7 +4,7 @@ Feature: La persona giuridica inserisce una PEC
   @TA_inserimentoPECPG
   @PG
   @recapitiPG
-  @mittente_x
+
   Scenario: PN-9152 - La persona giuridica inserisce una PEC
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

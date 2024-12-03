@@ -4,7 +4,7 @@ Feature:Controllo dati notifica
   @TA_PFvisualizzaNotifiche
   @PFvisualizzaNotifiche
   @PF
-  @mittente_x
+
   @CheckNotificaConDocumentiAllegatiPF1
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA] - PF visualizza Notifica mono destinatario non ancora pagata solo con avviso PagoPa e assenza del PDF relativo al bollettino
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

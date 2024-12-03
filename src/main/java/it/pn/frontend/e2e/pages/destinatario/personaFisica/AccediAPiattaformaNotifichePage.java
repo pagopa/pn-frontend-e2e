@@ -251,8 +251,13 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         return getWebDriverWait(30).withMessage("Il sezione paga avviso non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='pay-button']")))).isDisplayed();
     }
 
-    public void checkButtonPagaIsDisplayed() {
-        getWebDriverWait(10).withMessage("Il bottone per il pagamento della notifica è visibile").until(ExpectedConditions.invisibilityOf(pagaAvviso = driver.findElement(By.cssSelector("[data-testid='pay-button']"))));
+    public boolean checkButtonPagaIsDisplayed() {
+        try {
+            return getWebDriverWait(10).withMessage("Il bottone per il pagamento della notifica è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='pay-button']")))).isDisplayed();
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.warn("Il messaggio notifica annullata non è visibile");
+            return false;
+        }
     }
 
     public void siVisualizzaSezionePagamento() {
@@ -321,7 +326,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(20).withMessage("Il textbox scadenza non è visibile").until(ExpectedConditions.visibilityOf(scadenza));
         scadenza.click();
         scadenza.clear();
-        scadenza.sendKeys("10/24");
+        scadenza.sendKeys("10/25");
         driver.switchTo().defaultContent();
 
         //frame of the security code
@@ -345,16 +350,14 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         titolare.clear();
         titolare.sendKeys("Titolare");
         driver.switchTo().defaultContent();
-
-        webTool.waitTime(5);
-        getWebDriverWait(10).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='Continue']")));
-        WebElement continuaBottone = driver.findElement(By.xpath("//button[@aria-label='Continue']")); //for local test use //button[@aria-label='Continua']
+        getWebDriverWait(15).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("mui-4")));
+        WebElement continuaBottone = driver.findElement(By.id("mui-4")); //for local test use //button[@aria-label='Continua']
         continuaBottone.click();
         webTool.waitTime(10);
         //Select Nexi
         webTool.waitTime(10);
+        getWebDriverWait(10).withMessage("Il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='Change payment service provider (PSP)']")));
         WebElement modificaButton = driver.findElement(By.xpath("//button[@aria-label='Change payment service provider (PSP)']")); //for local test use //button[@aria-label='Modifica PSP']
-        getWebDriverWait(5).withMessage("Il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(modificaButton));
         modificaButton.click();
 
         webTool.waitTime(10);

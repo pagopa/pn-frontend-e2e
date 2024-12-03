@@ -1252,7 +1252,10 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public void clickSuNotifica() {
-        String iun = notificationSingleton.getIun(HooksNew.scenario);
+        if (notificationSingleton!= null){
+            notificationSingletonParam = notificationSingleton;
+        }
+        String iun = notificationSingletonParam.getIun(HooksNew.scenario);
         logger.info("iun notifica {}", iun);
         //By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
         webTool.waitTime(10);

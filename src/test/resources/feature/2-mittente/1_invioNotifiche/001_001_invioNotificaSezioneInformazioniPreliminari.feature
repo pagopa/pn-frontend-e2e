@@ -2,7 +2,6 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
 
   @TA_inserimentoDatiInfoPreliminari
   @TestSuite
-  @mittente_x
   @invioNotifiche
 
   Scenario: PN-9127 - Il mittente inserisce i dati nella sezione informazioni preliminari

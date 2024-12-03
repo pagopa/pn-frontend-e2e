@@ -1,7 +1,6 @@
 Feature: Mittente effettua il download delle attestazioni dei disservizi risolti
 
   @TestSuite
-  @mittente_x
   @TA_MittenteDownloadDisservizioRisolto
   @File
     #per il funzionamento corretto del test su aws, il parametro di configurazione headless deve essere settato a true

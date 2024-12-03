@@ -4,7 +4,7 @@ Feature: Mittente effetua una ricerca notifiche con diversi filtri
   @mittente
   @ricercaNotificheMittente
   @TestSuite
-  @mittente_x
+
   Scenario: PN-9326 - Verifica messaggio di nessuna notifica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche inserire il codice fiscale sbagliato "TYRMLK90T20Z253O"

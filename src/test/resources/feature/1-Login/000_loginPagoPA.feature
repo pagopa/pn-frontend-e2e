@@ -3,7 +3,7 @@ Feature: Login pagoPA
   @TA_loginMittente
   @TestSuite
   @loginFE
-  @mittente_x
+
   Scenario: Login pagoPA mittente
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
@@ -17,7 +17,7 @@ Feature: Login pagoPA
   @TA_loginpersonaFisica
   @TestSuite
   @loginFE
-  @mittente_x
+
   Scenario: Login pagoPA persona fisica
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -32,25 +32,16 @@ Feature: Login pagoPA
 
   @TA_loginpersonaGiuridica
   @TestSuite
-  @loginFE_1
-  @deleghe1
-  Scenario: PN-9146 - Login pagoPA persona giuridica 1
-    Given Login Page persona giuridica viene visualizzata
+  @loginFE
 
-
-  @TA_loginpersonaGiuridica
-  @TestSuite
-  @loginFE_1
-  @deleghe1
-  Scenario: PN-9146 - Login pagoPA persona giuridica 2
+  Scenario: PN-9146 - Login pagoPA persona giuridica
     Given Login Page persona giuridica viene visualizzata
-
-  @TA_loginpersonaGiuridica
-  @TestSuite
-  @loginFE_1
-  @deleghe1
-  Scenario: PN-9146 - Login pagoPA persona giuridica 3
-    Given Login Page persona giuridica viene visualizzata
+    When Login con persona giuridica
+      | user           | DanteAlighieri |
+      | pwd            | test           |
+      | ragioneSociale | Convivio Spa   |
+    Then Home page persona giuridica viene visualizzata correttamente
+    And Logout da portale persona giuridica
 
   @TA_loginpersonaGiuridica
   @TestSuite

@@ -3,7 +3,6 @@ Feature: Mittente seleziona l'opzione attiva api Key
   @TestSuite
 
   @TA_MittenteAttivaApiKey
-  @mittente_x
   @ApikeyMittente
 
   Scenario: PN-9234 - Mittente seleziona l'opzione attiva Api Key

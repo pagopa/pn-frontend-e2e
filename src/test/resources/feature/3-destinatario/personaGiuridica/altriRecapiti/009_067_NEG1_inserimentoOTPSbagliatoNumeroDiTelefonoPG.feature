@@ -4,7 +4,7 @@ Feature: la persona giuridica inserisce l'OTP numero di telefono  errato
   @PG
   @TA_inserimentoOTPErratoCellularePG
   @recapitiPG
-  @mittente_x
+
   Scenario: PN-9158-A66 - La persona giuridica inserisce l'OTP numero di telefono errato
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

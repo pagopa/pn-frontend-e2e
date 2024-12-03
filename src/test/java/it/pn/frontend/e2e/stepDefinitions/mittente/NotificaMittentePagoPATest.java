@@ -116,7 +116,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @Autowired
     private RestNotification restNotification;
 
-
+ 
     @PostConstruct
     public void init(){
         logger.info("INIT TEST...: ");
@@ -1069,6 +1069,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         informazioniPreliminariPASection.insertDescrizione(datiNotifica.get("descrizione"));
         informazioniPreliminariPASection.insertNumeroDiProtocollo(numeroDiProtocollo);
         informazioniPreliminariPASection.insertCodiceTassonometrico(datiNotifica.get("codiceTassonomico"));
+        informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
         if (datiNotifica.get("modalitaInvio").equals("A/R")) {
             informazioniPreliminariPASection.selectRaccomandataAR();
         } else {
@@ -1374,9 +1375,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void siSelezionaLaNotifica() {
         piattaformaNotifichePage.setNotificationSingletonParam(notificationSingleton);
         backgroundTest.setPiattaformaNotifichePage(piattaformaNotifichePage);
-        String iun = notificationSingleton.getIun(HooksNew.scenario);
+       // String iun = notificationSingleton.getIun(HooksNew.scenario);
         logger.info("IUN............."+ backgroundTest.getPiattaformaNotifichePage().getNotificationSingletonParam().getIun(HooksNew.scenario));
-        iun = backgroundTest.getPiattaformaNotifichePage().getNotificationSingletonParam().getIun(HooksNew.scenario);
+        String iun = backgroundTest.getPiattaformaNotifichePage().getNotificationSingletonParam().getIun(HooksNew.scenario);
         backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNDestinatario(iun);
     }
 
@@ -1882,6 +1883,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
             destinatarioPASection.inserireComune(dataPopulationConfig.getPersonaFisicaPec().getComune(),recIndex);
             destinatarioPASection.inserireProvincia(dataPopulationConfig.getPersonaFisicaPec().getProvincia(),recIndex);
             destinatarioPASection.inserireCodicePostale(dataPopulationConfig.getPersonaFisicaPec().getCodicePostale(),recIndex);
+            destinatarioPASection.insertDomicilioDigitale(dataPopulationConfig.getPersonaFisicaPec().getEmailPec());
            // destinatarioPASection.inserireStato(dataPopulationConfig.getPersonaFisicaPec().getStato(),recIndex);
         }
         else {

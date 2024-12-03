@@ -207,8 +207,8 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean waitMessaggioErrore() {
         try {
-            WebElement messaggioErroreBy = driver.findElement(By.id("error-alert"));
-            getWebDriverWait(5).until(ExpectedConditions.visibilityOf(messaggioErroreBy));
+            webTool.waitTime(5);
+            getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(By.id("error-alert")));
             logger.info("Il messaggio di errore viene visualizzato correttamente");
             return true;
         } catch (TimeoutException | NoSuchElementException e) {
@@ -240,8 +240,10 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void insertEmail(String email) {
+       // inserimentoMailField = driver.findElement(By.id("default_email"));
+        getWebDriverWait(10).withMessage("l'input mail non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_email"))));
         inserimentoMailField = driver.findElement(By.id("default_email"));
-        getWebDriverWait(10).withMessage("l'input mail non è visibile").until(ExpectedConditions.visibilityOf(inserimentoMailField));
+
         if (!inserimentoMailField.getAttribute("value").isEmpty()) {
             inserimentoMailField.clear();
         }
@@ -304,11 +306,11 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean verificaMailAssociata() {
         try {
-            //emailAssociata = driver.findElement(By.id("default_email-typography"));
-            //getWebDriverWait(5).withMessage("L'email di cortesia non è presente").until(ExpectedConditions.visibilityOf(emailAssociata));
-            getWebDriverWait(5).withMessage("L'email di cortesia non è presente").until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-typography")));
+            getWebDriverWait(10).withMessage("L'email di cortesia non è presente").until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-typography")));
+            // WebElement emailAssociata = driver.findElement(By.id("default_email-typography"));
+            //getWebDriverWait(10).withMessage("L'email di cortesia non è presente").until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-typography")));
             return true;
-        } catch (TimeoutException e) {
+        } catch (NoSuchElementException | TimeoutException e) {
             logger.info("Nessuna email di cortesia impostata");
             return false;
         }
@@ -677,10 +679,10 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void verificaPecModificabile() {
         try {
             webTool.waitTime(10);
-            pecField = driver.findElement(By.id("default_pec"));
+
             getWebDriverWait(10).until(ExpectedConditions.and(
-                    ExpectedConditions.visibilityOf(pecField),
-                    ExpectedConditions.attributeToBe(pecField, "readonly", "")));
+                    ExpectedConditions.visibilityOfElementLocated(By.id("default_pec")),
+                    ExpectedConditions.attributeToBe(By.id("default_pec"), "readonly", "")));
             logger.info("pec modificabile");
         } catch (TimeoutException e) {
             logger.error("pec non modificabile con errore:" + e.getMessage());
@@ -690,13 +692,11 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void verificaPecNonModificabile() {
         try {
-//            pecField = driver.findElement(By.id("default_pec"));
             webTool.waitTime(10);
+
             getWebDriverWait(10).until(ExpectedConditions.and(
-                    ExpectedConditions.visibilityOfElementLocated(By.id("default_pec")),
+                    ExpectedConditions.invisibilityOfElementLocated(By.id("default_pec")),
                     ExpectedConditions.visibilityOfElementLocated(By.id("default_pec-typography"))));
-//            ExpectedConditions.invisibilityOf(pecField),
-//                    ExpectedConditions.visibilityOf(pecEmail)));
             logger.info("pec non modificabile");
         } catch (TimeoutException e) {
             logger.error("pec modificabile con errore:" + e.getMessage());

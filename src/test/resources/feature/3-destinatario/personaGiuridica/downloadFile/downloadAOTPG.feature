@@ -4,7 +4,6 @@ Feature: persona giuridica scarica attestazione opponibile
   @TA_PG_DownloadFileAOTPresaInCarico
   @DownloadFilePG
   @PG
-  @mittente_x
   Scenario: PN-10432 - Persona giuridica scarica Attestazione opponibile a terzi: notifica presa in carico
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
@@ -22,6 +21,7 @@ Feature: persona giuridica scarica attestazione opponibile
       | descrizione       | PAGAMENTO RATA IMU |
       | codiceTassonomico | 123456A            |
       | modalitaInvio     | A/R                |
+      | gruppo            | test-TA-FE-TEST    |
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     Then Nella section Destinatario si inseriscono i dati del destinatario

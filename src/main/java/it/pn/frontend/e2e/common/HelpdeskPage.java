@@ -669,6 +669,7 @@ public class HelpdeskPage extends BasePage {
     }
 
     public void loginHelpdeskNuovaScheda(Map<String, String> login) {
+        webTool.waitTime(10);
         emailInput = driver.findElement(By.id("Email"));
         passwordInput = driver.findElement(By.id("Password"));
         loginButton = driver.findElement(By.id("buttonLogin"));

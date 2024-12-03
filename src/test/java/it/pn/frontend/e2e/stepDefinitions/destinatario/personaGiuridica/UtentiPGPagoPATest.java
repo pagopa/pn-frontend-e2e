@@ -13,6 +13,7 @@ import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.Map;
 
@@ -22,19 +23,22 @@ public class UtentiPGPagoPATest extends BasePage {
 
     private  WebTool webTool;
 
-    private  UtentiPGPage utentiPGPage;
-
     private  HomePagePG homePagePG;
 
+    private UtentiPGPage utentiPGPage;
+
     @Autowired
+    @Lazy
     private WebDriverConfig webDriverConfig;
 
     @PostConstruct
     public void init(){
         logger.info("INIT TEST...: ");
         webTool = new WebTool(driver);
-        utentiPGPage = new UtentiPGPage(driver);
         homePagePG = new HomePagePG(driver);
+        utentiPGPage = new UtentiPGPage(driver);
+
+
     }
 
     @And("Si visualizza correttamente la pagina utenti")
@@ -135,6 +139,7 @@ public class UtentiPGPagoPATest extends BasePage {
 
     @When("Nella Pagina Notifiche persona giuridica si clicca su utenti")
     public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSuUtenti() {
+        logger.info("HTML...."+webDriverConfig.getEnvironment());
         utentiPGPage.setEnvironment(webDriverConfig.getEnvironment());
         utentiPGPage.clickSezioneUtenti();
     }

@@ -2,7 +2,6 @@ Feature: Mittente visualizza correttamente la notifica in stato Annulato
 
   @TestSuite
   @TA_MittentevisualizzazioneDettaglioNotifichaAnnullataConPagamento
-  @mittente_x
   @visualizzazioneNotificheMittente
 
   Scenario: PN-10247 - Mittente visualizza correttamente la notifica in stato Annullato con Pagamento

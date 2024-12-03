@@ -4,7 +4,7 @@ Feature: Mittente effetua una ricerca notifiche per Data
   @TA_MittenteRicercaPerData
   @mittente
   @ricercaNotificheMittente
-  @mittente_x
+
   Scenario: PN-9220 - Mittente loggato effettua una ricerca per periodo temporale
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche inserire un arco temporale

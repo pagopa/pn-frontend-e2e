@@ -102,6 +102,7 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public void clickSulBottoneContinua() {
+        webTool.waitTime(40);
         apiContinuaButton = driver.findElement(By.id("continue-button"));
         getWebDriverWait(40).withMessage("Il bottone Continua non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(apiContinuaButton));

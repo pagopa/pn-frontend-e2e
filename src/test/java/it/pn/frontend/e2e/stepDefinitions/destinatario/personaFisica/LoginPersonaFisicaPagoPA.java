@@ -245,6 +245,68 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         webTool.waitTime(2);
     }
 
+
+    @When("Login con persona fisica input")
+    public void loginConDestinatarioInput(Map<String, String> datiPF) {
+        logger.info("user persona fisica : " + datiPF.get("user"));
+        logger.info("cookies start");
+
+        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
+            }
+        }
+        logger.info("cookies end");
+
+        accediAPiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
+
+        accediAPiattaformaNotifichePage.selezionaAccediButton();
+
+        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
+            }
+        }
+
+        scegliSpidPFPage.waitLoadScegliSpidDEPage();
+        scegliSpidPFPage.selezionareTestButton();
+
+        loginSpidPFPage.waitLoadLoginSpidDEPage();
+        loginSpidPFPage.inserisciUtente(datiPF.get("user"));
+        loginSpidPFPage.inserisciPassword(datiPF.get("user"));
+        loginSpidPFPage.selezionaEntraConSpidButton();
+
+        confermaDatiSpidPFPage.waitLoadConfermaDatiSpidDEPage();
+        String nomeUtenteLetto = confermaDatiSpidPFPage.leggiNomeUtente();
+        if (nomeUtenteLetto.equals(datiPF.get("name"))) {
+            logger.info("nome utente letto : " + nomeUtenteLetto + " uguale a : " + datiPF.get("name"));
+        } else {
+            logger.error("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + datiPF.get("name"));
+            Assertions.fail("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + datiPF.get("name"));
+        }
+
+        String cognomeUtenteLetto = confermaDatiSpidPFPage.leggiCognomeUtente();
+        if (cognomeUtenteLetto.equals(datiPF.get("familyName"))) {
+            logger.info("cognome utente letto : " + cognomeUtenteLetto + " uguale a : " + datiPF.get("familyName"));
+        } else {
+            logger.error("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + datiPF.get("familyName"));
+            Assertions.fail("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + datiPF.get("familyName"));
+        }
+
+        String numeroFiscaleLetto = confermaDatiSpidPFPage.leggiNumeroFiscale();
+        if (numeroFiscaleLetto.equals(datiPF.get("fiscalNumber"))) {
+            logger.info("numero fiscale letto : " + numeroFiscaleLetto + " uguale a : " + datiPF.get("fiscalNumber"));
+        } else {
+            logger.error("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
+            Assertions.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
+        }
+
+        confermaDatiSpidPFPage.selezionaConfermaButton();
+        headerPFSection.waitUrlToken();
+        webTool.waitTime(2);
+    }
+
+
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {
 
