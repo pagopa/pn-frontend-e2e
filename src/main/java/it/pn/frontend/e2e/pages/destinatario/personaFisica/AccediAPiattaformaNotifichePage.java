@@ -350,9 +350,6 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         titolare.clear();
         titolare.sendKeys("Titolare");
         driver.switchTo().defaultContent();
-
-//        getWebDriverWait(15).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='Continue']")));
-//        WebElement continuaBottone = driver.findElement(By.xpath("//button[@aria-label='Continue']")); //for local test use //button[@aria-label='Continua']
         getWebDriverWait(15).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("mui-4")));
         WebElement continuaBottone = driver.findElement(By.id("mui-4")); //for local test use //button[@aria-label='Continua']
         continuaBottone.click();
