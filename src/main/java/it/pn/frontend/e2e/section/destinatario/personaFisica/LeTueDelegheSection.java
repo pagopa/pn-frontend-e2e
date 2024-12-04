@@ -3,10 +3,7 @@ package it.pn.frontend.e2e.section.destinatario.personaFisica;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -217,8 +214,15 @@ public class LeTueDelegheSection extends BasePage {
 
     public void clickOpzioneAccetta() {
         webTool.waitTime(3);
-        By acceptDelegaButton = By.xpath("//*[@id='accept-button']");
-        element(acceptDelegaButton).click();
+        try{
+            By acceptDelegaButton = By.xpath("//*[@id='accept-button']");
+            element(acceptDelegaButton).click();
+        }catch (NoSuchElementException | TimeoutException e){
+            WebElement acceptDelegaButton = driver.findElement(By.xpath("//*[@id='accept-button']"));
+            acceptDelegaButton.click();
+            logger.error("Conferma Dati Spid DE Page non caricata con errore : "+e.getMessage());
+            Assertions.fail("Conferma Dati Spid DE Page non caricata con errore : "+e.getMessage());
+        }
     }
 
     public void waitPopUpLoad() {
