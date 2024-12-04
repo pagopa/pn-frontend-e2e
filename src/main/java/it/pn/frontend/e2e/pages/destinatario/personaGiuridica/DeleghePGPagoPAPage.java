@@ -445,6 +445,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void checkTabellaDelegheACaricoDellImpresa() {
+        webTool.waitTime(5);
         WebElement menuDelega = driver.findElement(By.xpath("//table[@id='notifications-table']//following-sibling::td//button[@data-testid='delegationMenuIcon']"));
         WebElement colonnaNome = driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Nome')]"));
         WebElement colonnaInizioDelega = driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Inizio delega')]"));
@@ -452,6 +453,7 @@ public class DeleghePGPagoPAPage extends BasePage {
         WebElement colonnaPermessi = driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Permessi')]"));
         WebElement colonnaGruppi = driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Gruppi')]"));
         WebElement colonnaStato = driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Stato')]"));
+        tabelleDelleDelegheACaricoDellImpresa = driver.findElement(By.id("notifications-table"));
         try {
             getWebDriverWait(10).withMessage("tabella deleghe dell impresa non caricata correttamente").until(ExpectedConditions.visibilityOf(tabelleDelleDelegheACaricoDellImpresa));
             getWebDriverWait(10).withMessage("colonna nome non caricata correttamente").until(ExpectedConditions.visibilityOf(colonnaNome));
