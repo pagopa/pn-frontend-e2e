@@ -166,11 +166,11 @@ public class DeleghePage extends BasePage {
 
     public void clickMenuPerRifiuto(String nome, String cognome) {
         try {
-            webTool.waitTime(20);
-           // WebElement menuDelegheBy = driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']"));
-            getWebDriverWait(120).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
+            getWebDriverWait(140)
+             .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
             logger.info("Si clicca correttamente il menu della delega");
-            element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")).click();
+            By menuDelegheBy = By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']");
+            element(menuDelegheBy).click();
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente il menu della delega con errore:" + e.getMessage());
             Assertions.fail("Non si visualizza correttamente il menu della delega con errore:" + e.getMessage());

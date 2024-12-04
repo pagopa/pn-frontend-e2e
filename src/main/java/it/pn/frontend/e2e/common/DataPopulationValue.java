@@ -288,8 +288,8 @@ public enum DataPopulationValue {
     DESCRIZIONE_DN("descrizione_dn","PAGAMENTO RATA IMU",false),
     GRUPPO_TEST_DN("gruppo_test_dn","test-TA-FE-TEST",false),
     GRUPPO_DEV_DN("gruppo_dev_dn","GruppoTest",false),
-//    CODICE_TASSONOMETRICO_DN("codice_tassonometrico_dn","123456A",false),
-    CODICE_TASSONOMETRICO_DN("codice_tassonometrico_dn","100105P",false),
+    CODICE_TASSONOMETRICO_DN("codice_tassonometrico_dn","123456A",false),
+//    CODICE_TASSONOMETRICO_DN("codice_tassonometrico_dn","100105P",false),
     NOME_DOCUMENTO_NOTIFICA_DN("nome_documento_notifica_dn","RATA SCADUTA IMU",false),
     CODICE_IUN_DN("codice_iun_dn","notifica multi destinatario con020",false),
 

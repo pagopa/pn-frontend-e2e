@@ -221,10 +221,10 @@ public class PiattaformaNotifichePage extends BasePage {
     public boolean verificaEsistenzaEPassaggioPagina() {
         js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
         try {
-            secondPage = driver.findElement(By.id("page2"));
-            getWebDriverWait(10).withMessage("Il bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOf(secondPage));
+           // secondPage = driver.findElement(By.id("page2"));
+            getWebDriverWait(10).withMessage("Il bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("page2"))));
             logger.info("Bottone pagina 2 trovato");
-            secondPage.click();
+            driver.findElement(By.id("page2")).click();
             return true;
         } catch (TimeoutException e) {
             logger.error("bottone pagina 2 non trovata con errore: " + e.getMessage());
@@ -600,7 +600,7 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("ROWS SELEZIONATA: " + index);
             WebElement riga = null;
             if (notifiche != null) {
-                if (notifiche.size() >= index) {
+                if (notifiche.size() > index) {
                     logger.info("ROWS SELEZIONATA1: " + index);
                     notifiche.get(index).click();
                 } else {
@@ -958,13 +958,13 @@ public class PiattaformaNotifichePage extends BasePage {
     public void selezionaUltimaPaginaUtilizzandoUnaFrecetta() {
         frecciaPaginaSuccessiva = driver.findElement(By.id("next"));
         getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile")
-                .until(ExpectedConditions.visibilityOf(frecciaPaginaSuccessiva));
-        if (!frecciaPaginaSuccessiva.isDisplayed()) {
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("next")));
+        if (!element(By.id("next")).isDisplayed()) {
             numeroNotificheButton = driver.findElement(By.id("rows-per-page"));
             js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
         }
-        while (frecciaPaginaSuccessiva.isEnabled()) {
-            frecciaPaginaSuccessiva.click();
+        while (element(By.id("next")).isEnabled()) {
+            element(By.id("next")).click();
             webTool.waitTime(2);
         }
     }
