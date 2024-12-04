@@ -133,9 +133,10 @@ public class NotifichePFPage extends BasePage {
     }
 
     public boolean getListData() {
-        By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]");
-        getWebDriverWait(40).withMessage("La colonna Data nella pagina notifiche non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(dataListBy));
-        return elements(dataListBy).isEmpty();
+        logger.info("TABELLA RISULTATI....."+driver.getPageSource());
+        //By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]");
+        getWebDriverWait(40).withMessage("La colonna Data nella pagina notifiche non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]")));
+        return elements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]")).isEmpty();
     }
 
     public void clickNotificheButton() {
