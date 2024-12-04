@@ -221,11 +221,10 @@ public class PiattaformaNotifichePage extends BasePage {
     public boolean verificaEsistenzaEPassaggioPagina() {
         js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
         try {
-            logger.info("HTML000000000...."+driver.getPageSource());
            // secondPage = driver.findElement(By.id("page2"));
-            getWebDriverWait(10).withMessage("Il bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("page2")));
+            getWebDriverWait(10).withMessage("Il bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("page2"))));
             logger.info("Bottone pagina 2 trovato");
-            element(By.id("page2")).click();
+            driver.findElement(By.id("page2")).click();
             return true;
         } catch (TimeoutException e) {
             logger.error("bottone pagina 2 non trovata con errore: " + e.getMessage());
