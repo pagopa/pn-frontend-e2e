@@ -190,8 +190,8 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void checkMessaggioScadenzaDownload() {
-        WebElement checkAvvisoDownloadScaduto = driver.findElement(By.xpath("//div[contains(text(), 'Il documento sarà scaricabile tra pochi minuti')]"));
-        getWebDriverWait(10).withMessage("Il pulsante sezione attestazione opponibile non è visibile").until(ExpectedConditions.visibilityOf(checkAvvisoDownloadScaduto));
+       // WebElement checkAvvisoDownloadScaduto = driver.findElement(By.xpath("//div[contains(text(), 'Il documento sarà scaricabile tra pochi minuti')]"));
+        getWebDriverWait(10).withMessage("Il pulsante sezione attestazione opponibile non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(text(), 'Il documento sarà scaricabile tra pochi minuti')]"))));
     }
 
     public Map<String, String> recuperoInfoNotificheDestinatario() {

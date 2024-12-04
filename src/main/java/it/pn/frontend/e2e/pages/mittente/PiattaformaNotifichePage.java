@@ -958,13 +958,13 @@ public class PiattaformaNotifichePage extends BasePage {
     public void selezionaUltimaPaginaUtilizzandoUnaFrecetta() {
         frecciaPaginaSuccessiva = driver.findElement(By.id("next"));
         getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile")
-                .until(ExpectedConditions.visibilityOf(frecciaPaginaSuccessiva));
-        if (!frecciaPaginaSuccessiva.isDisplayed()) {
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("next")));
+        if (!element(By.id("next")).isDisplayed()) {
             numeroNotificheButton = driver.findElement(By.id("rows-per-page"));
             js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
         }
-        while (frecciaPaginaSuccessiva.isEnabled()) {
-            frecciaPaginaSuccessiva.click();
+        while (element(By.id("next")).isEnabled()) {
+            element(By.id("next")).click();
             webTool.waitTime(2);
         }
     }
