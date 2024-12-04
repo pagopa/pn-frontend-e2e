@@ -600,7 +600,7 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("ROWS SELEZIONATA: " + index);
             WebElement riga = null;
             if (notifiche != null) {
-                if (notifiche.size() >= index) {
+                if (notifiche.size() > index) {
                     logger.info("ROWS SELEZIONATA1: " + index);
                     notifiche.get(index).click();
                 } else {
