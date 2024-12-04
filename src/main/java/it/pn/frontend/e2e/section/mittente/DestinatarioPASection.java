@@ -400,8 +400,8 @@ public class DestinatarioPASection extends BasePage {
 //        addSecondPec.click();
         WebElement secondPecField = driver.findElement(By.id("recipients[1].digitalDomicile"));
         secondPecField.sendKeys(destinatario.get("pec"));
-        WebElement addSecondAddress = driver.findElement(By.xpath("//label[@data-testid='showPhysicalAddress1']"));
-        addSecondAddress.click();
+//        WebElement addSecondAddress = driver.findElement(By.xpath("//label[@data-testid='showPhysicalAddress1']"));
+//        addSecondAddress.click();
         WebElement secondAddress = driver.findElement(By.id("recipients[1].address"));
         secondAddress.sendKeys(destinatario.get("indirizzo"));
         WebElement secondNumber = driver.findElement(By.id("recipients[1].houseNumber"));
