@@ -348,13 +348,12 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public boolean siVisualizzaUnaDelegaPG() {
         try {
-            webTool.waitTime(10);
-            WebElement menuDelegati = driver.findElement(By.id("tab-1"));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(menuDelegati));
-            menuDelegati.click();
-            webTool.waitTime(10);
-            WebElement menuDelega = driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']"));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(menuDelega));
+            //WebElement menuDelegati = driver.findElement(By.id("tab-1"));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("tab-1")));
+            element(By.id("tab-1")).click();
+            //webTool.waitTime(10);
+           // WebElement menuDelega = driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']"));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//button[@data-testid='delegationMenuIcon']")));
             logger.info("Trovato correttamente almeno una delega");
             return true;
         } catch (TimeoutException e) {
