@@ -4,7 +4,7 @@ Feature:La persona giuridica fa una ricerca per gruppo delle deleghe
   @TA_PGricercaDeleghePerGruppo
   @DeleghePG
   @PG
-  @mittente_x1
+
 
 
   Scenario: PN-9167 - La persona giuridica fa una ricerca per gruppo delle deleghe

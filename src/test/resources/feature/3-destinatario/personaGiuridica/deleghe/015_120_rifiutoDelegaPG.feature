@@ -4,7 +4,7 @@ Feature:Il delegato persona giuridica rifiuta la delega
   @TA_PGrifiutoDelega
   @DeleghePG
   @PG
-  @mittente_x1
+
 
   Scenario: PN-9172 - Il delegato persona giuridica rifiuta la delega
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
