@@ -44,34 +44,52 @@ Feature: Login pagoPA
     And Logout da portale persona giuridica
 
 
-
   @TA_loginpersonaGiuridica
   @TestSuite
   @loginFE_1
+  @loginFE
   Scenario: PN-9146 - Login pagoPA persona giuridica 1 parallel
     Given Login Page persona giuridica viene visualizzata
-
+    When Login con persona giuridica
+      | user           | DanteAlighieri |
+      | pwd            | test           |
+      | ragioneSociale | Convivio Spa   |
 
 
   @TA_loginpersonaGiuridica
   @TestSuite
   @loginFE_1
+  @loginFE
   Scenario: PN-9146 - Login pagoPA persona giuridica 3 parallel
     Given Login Page persona giuridica viene visualizzata
-
-
-  @TA_loginpersonaGiuridica
-  @TestSuite
-  @loginFE_1
-    @deleghe1
-  Scenario: PN-9146 - Login pagoPA persona giuridica 4 seq
-    Given Login Page persona giuridica viene visualizzata
+    When Login con persona giuridica
+      | user           | DanteAlighieri |
+      | pwd            | test           |
+      | ragioneSociale | Convivio Spa   |
 
 
   @TA_loginpersonaGiuridica
   @TestSuite
   @loginFE_1
   @deleghe1
+  @loginFE
+  Scenario: PN-9146 - Login pagoPA persona giuridica 4 seq
+    Given Login Page persona giuridica viene visualizzata
+    When Login con persona giuridica
+      | user           | DanteAlighieri |
+      | pwd            | test           |
+      | ragioneSociale | Convivio Spa   |
+
+
+  @TA_loginpersonaGiuridica
+  @TestSuite
+  @loginFE_1
+  @deleghe1
+  @loginFE
   Scenario: PN-9146 - Login pagoPA persona giuridica 5 seq
     Given Login Page persona giuridica viene visualizzata
+    When Login con persona giuridica
+      | user           | DanteAlighieri |
+      | pwd            | test           |
+      | ragioneSociale | Convivio Spa   |
 
