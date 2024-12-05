@@ -5,6 +5,7 @@ Feature: il mittente inserisce tutti i dati di una notifica senza allegati
   @mittente
   @invioNotifiche
 
+
   Scenario: PN-9642 - il mittente inserisce tutti i dati di una notifica senza allegati
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica

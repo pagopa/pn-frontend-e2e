@@ -2,6 +2,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
   @TestSuite
   @InvioNotificaADueDestinatariEntrambiRaggiungibili
+
   Scenario: PN-9257 [TA-FE INVIO NOTIFICA A DUE DESTINATARI ENTRAMBI NON RAGGIUNGIBILI] - Il mittente invia una notifica a due destinatari , entrambi non raggiungibili al primo tentativo
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono
@@ -17,7 +18,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | oggettoNotifica   | Pagamento rata IMU |
       | descrizione       | PAGAMENTO RATA IMU |
       | gruppo            | test-TA-FE-TEST    |
-      | codiceTassonomico | 123456A            |
+      | codiceTassonomico | 100105P            |
       | modalitaInvio     | A/R                |
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario

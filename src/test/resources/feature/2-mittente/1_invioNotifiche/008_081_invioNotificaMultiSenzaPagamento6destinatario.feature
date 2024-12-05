@@ -4,6 +4,7 @@ Feature: il mittente invia una notifica con 6 destinatario
     @TA_invioNotifica6DestinatariSenzaPagamento
     @invioNotifiche
 
+
   Scenario Outline: PN-9227 - il mittente invia una notifica con 6 destinatario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica

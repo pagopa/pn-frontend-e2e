@@ -190,8 +190,10 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void checkMessaggioScadenzaDownload() {
-       // WebElement checkAvvisoDownloadScaduto = driver.findElement(By.xpath("//div[contains(text(), 'Il documento sarà scaricabile tra pochi minuti')]"));
-        getWebDriverWait(10).withMessage("Il pulsante sezione attestazione opponibile non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(text(), 'Il documento sarà scaricabile tra pochi minuti')]"))));
+        //TODO Modificato il messaggio "Il documento sarà scaricabile tra pochi minuti"
+        webTool.waitTime(1);
+        WebElement checkAvvisoDownloadScaduto = driver.findElement(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]"));
+        getWebDriverWait(10).withMessage("In messaggio Al momento non è possibile scaricare il documento non è visibile").until(ExpectedConditions.visibilityOfAllElements(checkAvvisoDownloadScaduto));
     }
 
     public Map<String, String> recuperoInfoNotificheDestinatario() {

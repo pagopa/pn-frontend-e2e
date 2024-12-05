@@ -102,7 +102,6 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public void clickSulBottoneContinua() {
-        webTool.waitTime(40);
         apiContinuaButton = driver.findElement(By.id("continue-button"));
         getWebDriverWait(40).withMessage("Il bottone Continua non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(apiContinuaButton));
@@ -472,7 +471,6 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public void chiudiPopUpVisualizza() {
-        webTool.waitTime(30);
         closeButtonPopUpVisualizza = driver.findElement(By.id("close-modal-button"));
         getWebDriverWait(30).withMessage("il Bottone chiudere pop up non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(closeButtonPopUpVisualizza));
@@ -480,11 +478,11 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public void clickVisualizzaIdApiKey() {
-        visualizzaIdGruppo = driver.findElement(By.id("button-view-groups-id"));
-        getWebDriverWait(30).withMessage("Il bottone visualizza Id api key non è cliccabile")
+       // visualizzaIdGruppo = driver.findElement(By.id("button-view-groups-id"));
+        getWebDriverWait(20).withMessage("Il bottone visualizza Id api key non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("button-view-groups-id")));
-        visualizzaIdGruppo.click();
-        getWebDriverWait(5).withMessage("L'email di cortesia non è presente").until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-typography")));
+        element(By.id("button-view-groups-id")).click();
+        getWebDriverWait(10).withMessage("L'email di cortesia non è presente").until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-typography")));
     }
 
     public void popUpGruppiAssociati() {
