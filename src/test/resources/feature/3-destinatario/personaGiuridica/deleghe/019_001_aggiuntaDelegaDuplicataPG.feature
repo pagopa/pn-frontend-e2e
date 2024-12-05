@@ -3,6 +3,7 @@ Feature:Il delegato persona giuridica accede ad una delega
   @TestSuite
   @DeleghePG
   @PG
+  @mittente_x1
 
 
   @TA_PGdeleganteAggiuntaDelegaDuplicata
