@@ -3,7 +3,7 @@ Feature: Mittente genera una notifica con più destinatari che non prevede pagam
   @TestSuite
     @TA_invioNotificaMultiSenzaPagamento
     @invioNotifiche
-    @mittente_x1
+
 
   Scenario Outline: PN-9226 - Mittente genera una notifica con più destinatari che non prevede pagamento
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
