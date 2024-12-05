@@ -1,10 +1,8 @@
 Feature: La persona giuridica visualizza gli utenti
 
-  @TestSuite
   @TA_PGUtenti
-  @VisualizzaUtentiPG
   @PG
-  @mittente_x1
+  @parallel
 
   Scenario: PN-9178 - La persona giuridica visualizza la sezione utenti
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

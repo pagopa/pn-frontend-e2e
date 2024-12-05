@@ -202,9 +202,9 @@ public class NotifichePFPage extends BasePage {
     }
 
     public int siVisualizzaNotifichePresenti() {
-        List<WebElement> rigaDelegaBy = driver.findElements(By.id("notificationsTable.body.row"));
-        getWebDriverWait(30).withMessage("Nessuna notifica presente nella tabella notifiche").until(ExpectedConditions.visibilityOfAllElements(rigaDelegaBy));
-        return rigaDelegaBy.size();
+       // List<WebElement> rigaDelegaBy = driver.findElements(By.id("notificationsTable.body.row"));
+        getWebDriverWait(30).withMessage("Nessuna notifica presente nella tabella notifiche").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.id("notificationsTable.body.row"))));
+        return driver.findElements(By.id("notificationsTable.body.row")).size();
     }
 
     public List<WebElement> getDateNotifiche() {
