@@ -48,7 +48,7 @@ Feature: Login pagoPA
   @TA_loginpersonaGiuridica
   @TestSuite
   @loginFE_1
-  Scenario: PN-9146 - Login pagoPA persona giuridica 1
+  Scenario: PN-9146 - Login pagoPA persona giuridica 1 parallel
     Given Login Page persona giuridica viene visualizzata
 
 
@@ -56,7 +56,7 @@ Feature: Login pagoPA
   @TA_loginpersonaGiuridica
   @TestSuite
   @loginFE_1
-  Scenario: PN-9146 - Login pagoPA persona giuridica 3
+  Scenario: PN-9146 - Login pagoPA persona giuridica 3 parallel
     Given Login Page persona giuridica viene visualizzata
 
 
@@ -64,7 +64,7 @@ Feature: Login pagoPA
   @TestSuite
   @loginFE_1
     @deleghe1
-  Scenario: PN-9146 - Login pagoPA persona giuridica 4
+  Scenario: PN-9146 - Login pagoPA persona giuridica 4 seq
     Given Login Page persona giuridica viene visualizzata
 
 
@@ -72,6 +72,6 @@ Feature: Login pagoPA
   @TestSuite
   @loginFE_1
   @deleghe1
-  Scenario: PN-9146 - Login pagoPA persona giuridica 5
+  Scenario: PN-9146 - Login pagoPA persona giuridica 5 seq
     Given Login Page persona giuridica viene visualizzata
 
