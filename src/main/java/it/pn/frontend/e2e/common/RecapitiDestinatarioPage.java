@@ -305,10 +305,9 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public boolean verificaMailAssociata() {
+
         try {
-            getWebDriverWait(10).withMessage("L'email di cortesia non è presente").until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-typography")));
-            // WebElement emailAssociata = driver.findElement(By.id("default_email-typography"));
-            //getWebDriverWait(10).withMessage("L'email di cortesia non è presente").until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-typography")));
+            getWebDriverWait(15).withMessage("L'email di cortesia non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_email-typography"))));
             return true;
         } catch (NoSuchElementException | TimeoutException e) {
             logger.info("Nessuna email di cortesia impostata");
@@ -319,7 +318,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public boolean verificaNumeroDiCellulareAssociato() {
         try {
            // cellulareAssociato = driver.findElement(By.id("courtesyContacts-phone"));
-            getWebDriverWait(5).withMessage("Il numero di cellulare associato non è presente").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("courtesyContacts-phone")));
+            getWebDriverWait(15).withMessage("Il numero di cellulare associato non è presente").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("courtesyContacts-phone")));
             return true;
         } catch (TimeoutException e) {
             logger.info("Nessun numero di cellulare di cortesia impostato");
