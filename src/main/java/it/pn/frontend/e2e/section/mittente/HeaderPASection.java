@@ -29,8 +29,7 @@ public class HeaderPASection extends BasePage {
 
     public void waitLoadHeaderSection() {
         try {
-            webTool.waitTime(10);
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@title='Sito di PagoPA S.p.A.']")));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@title='Sito di PagoPA S.p.A.']")));
             logger.info("Header PA Section caricata");
         } catch (TimeoutException e) {
             logger.error("Il titolo nel Header: 'Sito di PagoPA S.p.A.' non è caricato con errore : " + e.getMessage());

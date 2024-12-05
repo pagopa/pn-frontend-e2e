@@ -963,10 +963,12 @@ public class PiattaformaNotifichePage extends BasePage {
             numeroNotificheButton = driver.findElement(By.id("rows-per-page"));
             js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
         }
+        int i = 0;
         while (element(By.id("next")).isEnabled()) {
             element(By.id("next")).click();
             webTool.waitTime(2);
         }
+
     }
 
     public void siCambiaPaginaUtilizzandoUnNumero() {

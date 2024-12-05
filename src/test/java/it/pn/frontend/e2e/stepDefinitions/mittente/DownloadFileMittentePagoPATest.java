@@ -476,7 +476,6 @@ public class DownloadFileMittentePagoPATest extends BasePage {
     public void downloadFileAttestazioneDisservizio(Integer index) {
         logger.info("si effettua download del disservizio");
         disserviziAppPAPage.downloadAttestazione(index);
-        webTool.waitTime(3);
     }
 
     @And("Nella pagina stato della piattaforma si cambia il numero elementi visualizzati attraverso il filtro")
