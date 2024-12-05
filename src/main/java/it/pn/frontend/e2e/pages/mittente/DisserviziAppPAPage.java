@@ -249,20 +249,24 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
             return;
         }
 
+
+
         logger.info("Tabella caricata e non vuota");
         int index = GregorianCalendar.getInstance().get(Calendar.HOUR_OF_DAY) + indexModifier;
 
+        int randomNumber = (int) (Math.random() * (disserviziTableRows.size()-1)) + 1;
+
         WebElement riga = determineRowElement(disserviziTableRows, index, indexModifier);
-        WebElement linkDownloadAttestazione = riga.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(0);
+        WebElement linkDownloadAttestazione = riga.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(randomNumber);
         linkDownloadAttestazione.click();
         logger.info("Click effettuato con successo");
     }
 
-    private WebElement determineRowElement(List<WebElement> rows, int index, int indexModifier) {
+    private WebElement determineRowElement(List<WebElement> rows, int randomNumber, int indexModifier) {
         WebElement selectedRow;
-        if (rows.size() > index) {
-            selectedRow = rows.get(index);
-            logger.info("Riga selezionata (index={}): {}", index, selectedRow.getText());
+        if (rows.size() > randomNumber) {
+            selectedRow = rows.get(randomNumber);
+            logger.info("Riga selezionata (index={}): {}", randomNumber, selectedRow.getText());
         } else {
             int adjustedIndex = rows.size() > indexModifier ? rows.size() - (indexModifier + 1) : rows.size() - 1;
             selectedRow = rows.get(adjustedIndex);
