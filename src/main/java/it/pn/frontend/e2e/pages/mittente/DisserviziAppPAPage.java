@@ -255,7 +255,7 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
         int index = GregorianCalendar.getInstance().get(Calendar.HOUR_OF_DAY) + indexModifier;
 
         int randomNumber = (int) (Math.random() * (disserviziTableRows.size()-1)) + 1;
-
+        logger.info("DOCUMENTO SELEZIONATO...."+randomNumber);
         WebElement riga = determineRowElement(disserviziTableRows, index, indexModifier);
         WebElement linkDownloadAttestazione = riga.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(randomNumber);
         linkDownloadAttestazione.click();
