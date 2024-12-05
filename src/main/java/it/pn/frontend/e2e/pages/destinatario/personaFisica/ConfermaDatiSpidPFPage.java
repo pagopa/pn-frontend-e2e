@@ -57,7 +57,7 @@ public class ConfermaDatiSpidPFPage extends BasePage {
        // webTool.waitTime(30);
         //nomeUtenteLabel = driver.findElement(By.xpath("//li[contains(text(),'name')]/strong"));
         getWebDriverWait(30).withMessage("nome utente non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//li[contains(text(),'name')]/strong")));
-        return nomeUtenteLabel.getText();
+        return element(By.xpath("//li[contains(text(),'name')]/strong")).getText();
     }
 
     public String leggiCognomeUtente(){
