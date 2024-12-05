@@ -19,7 +19,7 @@ Feature: persona giuridica scarica attestazione opponibile
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica senza gruppo
       | oggettoNotifica   | Pagamento RATA IMU |
       | descrizione       | PAGAMENTO RATA IMU |
-      | codiceTassonomico | 123456A            |
+      | codiceTassonomico | 100105P            |
       | modalitaInvio     | A/R                |
       | gruppo            | test-TA-FE-TEST    |
     And Cliccare su continua

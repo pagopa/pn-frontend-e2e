@@ -18,7 +18,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | oggettoNotifica   | Pagamento rata IMU |
       | descrizione       | PAGAMENTO RATA IMU |
       | gruppo            | test-TA-FE-TEST    |
-      | codiceTassonomico | 123456A            |
+      | codiceTassonomico | 100105P            |
       | modalitaInvio     | A/R                |
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
