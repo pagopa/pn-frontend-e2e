@@ -4,6 +4,7 @@ Feature: Il delegato persona giuridica modifica una delega non assegnandoli un g
   @TA_PGmodificaDelegaSenzaGruppo
   @DeleghePG
   @PG
+  @mittente_x1
 
   Scenario: PN-9173 - Il delegato persona giuridica modifica una delega non assegnandoli un gruppo
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
