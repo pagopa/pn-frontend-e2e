@@ -4,6 +4,7 @@ Feature: Mittente seleziona l'opzione visualizza ID gruppo
   @TA_MittenteVisualizzaIDGroup
   @mittente
   @ApikeyMittente
+  @mittente_x1
 
   Scenario: PN-9236 - Mittente seleziona l'opzione visualizza ID gruppo
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
