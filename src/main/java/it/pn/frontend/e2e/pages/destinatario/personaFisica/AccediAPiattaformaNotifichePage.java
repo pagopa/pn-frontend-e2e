@@ -315,7 +315,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         creditCardNumber.click();
         creditCardNumber.clear();
         logger.info("Si inserisce numero di CC");
-        creditCardNumber.sendKeys("5127390031101597");
+        creditCardNumber.sendKeys("5255000010002856");
         driver.switchTo().defaultContent();
 
         //frame of the expiry date
@@ -326,7 +326,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(20).withMessage("Il textbox scadenza non è visibile").until(ExpectedConditions.visibilityOf(scadenza));
         scadenza.click();
         scadenza.clear();
-        scadenza.sendKeys("10/25");
+        scadenza.sendKeys("12/30");
         driver.switchTo().defaultContent();
 
         //frame of the security code
