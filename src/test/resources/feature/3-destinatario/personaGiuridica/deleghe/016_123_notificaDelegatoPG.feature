@@ -2,7 +2,7 @@ Feature:Il delegato persona giuridica accede ad una delega
 
   @Parallel
   @TA_PGdelegatoAccedeNotifica
-  @DeleghePG_1
+  @DeleghePG
   @PG
 
   Scenario: PN-9177 - Il delegato persona giuridica accede ad una notifica

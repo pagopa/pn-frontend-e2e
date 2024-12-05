@@ -1,7 +1,7 @@
 Feature:Deleghe lato ruolo operatore
 
   # Eliminated TestSuite tag until fix. Convivio spa is not visible for the user GabrieleDAnnunzio
-  @DeleghePG_1
+  @DeleghePG
   @PG
 
   @TA_PGRuoloOperatoreControlloAssenzaDeleghe
