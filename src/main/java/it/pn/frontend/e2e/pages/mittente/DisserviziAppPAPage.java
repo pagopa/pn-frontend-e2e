@@ -257,7 +257,7 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
         int randomNumber = (int) (Math.random() * (disserviziTableRows.size()-1)) + 1;
         logger.info("DOCUMENTO SELEZIONATO...."+randomNumber);
         WebElement riga = determineRowElement(disserviziTableRows, index, indexModifier);
-        WebElement linkDownloadAttestazione = riga.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(randomNumber);
+        WebElement linkDownloadAttestazione = riga.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(0);
         linkDownloadAttestazione.click();
         logger.info("Click effettuato con successo");
     }
