@@ -299,10 +299,10 @@ public class UtentiPGPage extends BasePage {
 
     public void clickModifyButton() {
 
-        getWebDriverWait(10).withMessage("il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Modifica')]")));
-        modificaButton = driver.findElement( By.xpath("//button[contains(text(),'Modifica')]"));
+        getWebDriverWait(10).withMessage("il bottone modifica non è cliccabile clickModifyButton").until(ExpectedConditions.elementToBeClickable(driver.findElement( By.xpath("//button[contains(text(),'Modifica')]"))));
+//        modificaButton = driver.findElement( By.xpath("//button[contains(text(),'Modifica')]"));
         logger.info("Si clicca sul bottone modifica");
-        modificaButton.click();
+        driver.findElement( By.xpath("//button[contains(text(),'Modifica')]")).click();
     }
 
     public void checkEmailBoxActive() {
