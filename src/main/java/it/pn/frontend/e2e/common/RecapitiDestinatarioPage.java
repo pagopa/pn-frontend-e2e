@@ -268,8 +268,8 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean verificaPecAssociata() {
         try {
-            WebElement pecAssociata = driver.findElement(By.id("default_pec-typography"));
-            getWebDriverWait(10).withMessage("PEC associata non presente").until(ExpectedConditions.visibilityOf(pecAssociata));
+
+            getWebDriverWait(10).withMessage("PEC associata non presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec-typography"))));
             return true;
         } catch (NoSuchElementException | TimeoutException e) {
             logger.error("pec associata non trovata" + e.getMessage());
