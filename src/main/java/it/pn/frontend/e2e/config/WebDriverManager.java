@@ -178,6 +178,8 @@ public class WebDriverManager {
 
                     loadCookies(url,driver);
 
+                    driver.navigate().refresh();
+
                     requests.put(request.getRequestId().toString(), request);
                     logger.info("Request URL: " + request.getRequest().getUrl());
                 } else {

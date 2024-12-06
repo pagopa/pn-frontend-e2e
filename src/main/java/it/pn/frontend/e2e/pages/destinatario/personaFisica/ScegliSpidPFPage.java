@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -22,8 +23,11 @@ public class ScegliSpidPFPage extends BasePage {
     @FindBy(id = "spid-select-xx_testenv2")
     WebElement testButton;
 
+    private WebTool webTool;
+
     public ScegliSpidPFPage(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
     public void waitLoadScegliSpidDEPage(){
         try{
@@ -37,9 +41,9 @@ public class ScegliSpidPFPage extends BasePage {
     }
 
     public void selezionareTestButton(){
-       // testButton = driver.findElement(By.id("spid-select-xx_testenv2"));
-        getWebDriverWait(60).withMessage("il bottone Test dello spid non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("spid-select-xx_testenv2")));
-        element(By.id("spid-select-xx_testenv2")).click();
+        //testButton = driver.findElement(By.id("spid-select-xx_testenv2"));
+        getWebDriverWait(60).withMessage("il bottone Test dello spid non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spid-select-xx_testenv2"))));
+        driver.findElement(By.id("spid-select-xx_testenv2")).click();
     }
 
 
