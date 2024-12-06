@@ -42,7 +42,7 @@ public class WebDriverManager {
     private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
     @Getter
-    private static ThreadLocal<DevTools> devToolsThread = new ThreadLocal<>();
+    private static final ThreadLocal<DevTools> devToolsThread = new ThreadLocal<>();
 
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
 
