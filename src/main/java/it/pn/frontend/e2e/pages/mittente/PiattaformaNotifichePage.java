@@ -152,7 +152,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void waitLoadPiattaformaNotifichePAPage() {
         try {
-            webTool.waitTime(10);
+            webTool.waitTime(20);
             WebElement notificheTitle = driver.findElement(By.id("Notifiche-page"));
             inviaNuovaNotificaButton = driver.findElement(By.id("new-notification-btn"));
             getWebDriverWait(10).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf(inviaNuovaNotificaButton));
