@@ -4,11 +4,11 @@ import it.pn.frontend.e2e.common.WebdriverScopeBean;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import lombok.Getter;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.v126.network.Network;
 import org.openqa.selenium.devtools.v126.network.model.RequestWillBeSent;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -28,6 +28,9 @@ import org.springframework.context.annotation.Scope;
 
 import java.time.Duration;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Configuration
 @Getter
@@ -275,6 +278,34 @@ public class WebDriverManager {
                 devToolsThread.remove();
             }
         }
+    }
+
+//TODO Rivedere....
+    public boolean waitForApiCall(String apiEndpoint, Duration timeout) {
+        CountDownLatch latch = new CountDownLatch(1);
+
+        // Listener per le richieste inviate
+        AtomicBoolean requestCaptured = new AtomicBoolean(false);
+        devTools.addListener(Network.requestWillBeSent(), request -> {
+            if (request.getRequest().getUrl().contains(apiEndpoint)) {
+                System.out.println("API request captured: " + request.getRequest().getUrl());
+                requestCaptured.set(true);
+                latch.countDown(); // Segnala che la richiesta è stata trovata
+            }
+        });
+
+        try {
+            // Aspetta che il latch venga rilasciato o scada il timeout
+            boolean completed = latch.await(timeout.toSeconds(), TimeUnit.SECONDS);
+            if (!completed) {
+                throw new TimeoutException("Timeout waiting for API call: " + apiEndpoint);
+            }
+        } catch (InterruptedException | TimeoutException e) {
+            System.err.println("Error: " + e.getMessage());
+            return false;
+        }
+
+        return requestCaptured.get();
     }
 
 

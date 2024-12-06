@@ -41,6 +41,7 @@ import org.springframework.context.annotation.Lazy;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -159,6 +160,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
         }
 
         String urlChiamata = webDriverConfig.getBaseUrl() + "notifications/sent?";
+//TODO rivedere.....
+        // Aspetta che la chiamata API venga intercettata entro 10 secondi
+        boolean apiFound = webDriveBean.waitForApiCall(urlChiamata, Duration.ofSeconds(10));
+        Assertions.assertTrue(apiFound, "API call was not captured within the timeout period");
+
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
             logger.error("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
