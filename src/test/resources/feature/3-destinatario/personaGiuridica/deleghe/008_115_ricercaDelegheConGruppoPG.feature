@@ -5,6 +5,7 @@ Feature:La persona giuridica fa una ricerca per gruppo delle deleghe
   @DeleghePG
   @PG
   @DeleghePGPF
+  @deleghe1
 
 
 
