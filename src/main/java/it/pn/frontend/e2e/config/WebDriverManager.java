@@ -96,8 +96,6 @@ public class WebDriverManager {
 
         driver = getDriver(chromeOptions, null, null);
 
-        // driver.manage().deleteAllCookies();
-
         setupDevTools();
 
         logger.info("Chrome driver started - WebDriverManager");
@@ -173,9 +171,7 @@ public class WebDriverManager {
                 if (request != null && request.getRequest() != null) {
                     var url = request.getRequest().getUrl();
 
-                    //cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
-                    saveCookies(url,driver);
-                    loadCookies(url,driver);
+                    cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
 
                     requests.put(request.getRequestId().toString(), request);
                     logger.info("Request URL: " + request.getRequest().getUrl());
