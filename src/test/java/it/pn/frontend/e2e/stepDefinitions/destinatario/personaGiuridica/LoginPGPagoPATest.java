@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 //@Component inserire in un secondo momenti
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
+//
 public class LoginPGPagoPATest extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger(LoginPGPagoPATest.class);
