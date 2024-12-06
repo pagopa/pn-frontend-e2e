@@ -4,6 +4,8 @@
   @TA_modificaEmailPG
   @PG
   @recapitiPG
+  @mittente_x1
+  @addressBook1
 
   Scenario: PN - 9156 la persona giuridica modifica l'email di cortesia
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

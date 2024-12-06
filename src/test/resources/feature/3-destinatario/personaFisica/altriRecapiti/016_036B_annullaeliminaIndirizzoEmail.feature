@@ -4,6 +4,8 @@ Feature: la persona fisica elimina l'indirizzo Email
   @TA_annullaeliminaEmailPF
   @recapitiPF
   @PF
+  @mittente_x1
+  @addressBook1
 
 
   Scenario: PN-9310-B36 - la persona fisica elimina l'indirizzo Email

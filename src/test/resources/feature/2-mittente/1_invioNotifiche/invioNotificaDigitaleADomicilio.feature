@@ -1,7 +1,7 @@
 Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio impostati ogni volta
 
   @invioNotificaDigitaleADomicilioImpostato
-
+  @addressBook1
   Scenario: [TA-FE INVIO DI UNA NOTIFICA DIGITALE A DESTINATARIO CON DOMICILIO IMPOSTATO] - Il mittente invia una notifica digitale a destinatario con indirizzo mail di cortesia impostato
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono
