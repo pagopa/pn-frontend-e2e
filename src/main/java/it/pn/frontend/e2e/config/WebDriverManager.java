@@ -4,6 +4,7 @@ import it.pn.frontend.e2e.common.WebdriverScopeBean;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import lombok.Getter;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -28,6 +29,7 @@ import org.springframework.context.annotation.Scope;
 
 import java.time.Duration;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -170,7 +172,12 @@ public class WebDriverManager {
                 // Safely access the request properties
                 if (request != null && request.getRequest() != null) {
                     var url = request.getRequest().getUrl();
-                    cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
+
+                    //cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
+                    saveCookies(url,driver);
+
+                    loadCookies(url,driver);
+
                     requests.put(request.getRequestId().toString(), request);
                     logger.info("Request URL: " + request.getRequest().getUrl());
                 } else {
@@ -240,7 +247,7 @@ public class WebDriverManager {
                 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
                 driverThreadLocal.set(driver);
 
-               DevTools devTools = ((ChromeDriver) driver).getDevTools();
+                DevTools devTools = ((ChromeDriver) driver).getDevTools();
                 devTools.createSession();
                 devToolsThread.set(devTools);
 
@@ -280,7 +287,7 @@ public class WebDriverManager {
         }
     }
 
-//TODO Rivedere....
+    //TODO Rivedere....
     public boolean waitForApiCall(String apiEndpoint, Duration timeout) {
         CountDownLatch latch = new CountDownLatch(1);
 
@@ -306,6 +313,21 @@ public class WebDriverManager {
         }
 
         return requestCaptured.get();
+    }
+
+    private static Map<Long, Set<Cookie>> cookieStore = new ConcurrentHashMap<>();
+
+    public void saveCookies(String url, WebDriver driver) {
+       // cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
+        Set<Cookie> cookies = cookieConfig.getCookies(url);
+        cookieStore.put(Thread.currentThread().getId(), cookies);
+    }
+
+    public void loadCookies(String url, WebDriver driver) {
+        Set<Cookie> cookies = cookieStore.get(Thread.currentThread().getId());
+        if (cookies != null) {
+            cookies.forEach(cookie -> driver.manage().addCookie(cookie));
+        }
     }
 
 
