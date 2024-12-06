@@ -175,10 +175,7 @@ public class WebDriverManager {
 
                     //cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
                     saveCookies(url,driver);
-
                     loadCookies(url,driver);
-
-                    driver.navigate().refresh();
 
                     requests.put(request.getRequestId().toString(), request);
                     logger.info("Request URL: " + request.getRequest().getUrl());
