@@ -273,7 +273,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
 
         loginSpidPFPage.waitLoadLoginSpidDEPage();
         loginSpidPFPage.inserisciUtente(datiPF.get("user"));
-        loginSpidPFPage.inserisciPassword(datiPF.get("user"));
+        loginSpidPFPage.inserisciPassword(datiPF.get("pwd"));
         loginSpidPFPage.selezionaEntraConSpidButton();
 
         confermaDatiSpidPFPage.waitLoadConfermaDatiSpidDEPage();
