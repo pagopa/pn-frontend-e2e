@@ -26,14 +26,16 @@ import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 //@Component inserire in un secondo momenti
-
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class LoginPGPagoPATest extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger(LoginPGPagoPATest.class);
