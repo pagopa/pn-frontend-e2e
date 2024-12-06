@@ -49,8 +49,9 @@ public class NotificheDestinatarioPage extends BasePage{
     }
 
     public boolean isTextBoxInvalid(){
-        getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(codiceIunTextField));
-        String ariaInvalid = codiceIunTextField.getAttribute("aria-invalid");
+        getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
+
+        String ariaInvalid = driver.findElement(By.id("iunMatch")).getAttribute("aria-invalid");
         final String isTextboxInvalid = "true";
         return isTextboxInvalid.equals(ariaInvalid);
     }
