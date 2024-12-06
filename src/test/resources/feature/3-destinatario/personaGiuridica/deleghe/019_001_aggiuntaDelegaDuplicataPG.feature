@@ -5,7 +5,7 @@ Feature:Il delegato persona giuridica accede ad una delega
   @PG
 
   @mittente_x2
-
+  @DeleghePGPF
   @TA_PGdeleganteAggiuntaDelegaDuplicata
   Scenario: [DELEGANTE PG AMMINISTRATORE] - Il delegante aggiunta delega duplicata PG
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
