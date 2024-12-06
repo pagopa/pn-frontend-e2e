@@ -3,7 +3,6 @@ Feature: Login pagoPA
   @TA_loginMittente
   @TestSuite
   @loginFE
-
   Scenario: Login pagoPA mittente
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
@@ -17,7 +16,6 @@ Feature: Login pagoPA
   @TA_loginpersonaFisica
   @TestSuite
   @loginFE
-
   Scenario: Login pagoPA persona fisica
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -33,7 +31,6 @@ Feature: Login pagoPA
   @TA_loginpersonaGiuridica
   @TestSuite
   @loginFE
-
   Scenario: PN-9146 - Login pagoPA persona giuridica
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
@@ -42,54 +39,4 @@ Feature: Login pagoPA
       | ragioneSociale | Convivio Spa   |
     Then Home page persona giuridica viene visualizzata correttamente
     And Logout da portale persona giuridica
-
-
-  @TA_loginpersonaGiuridica
-  @TestSuite
-  @loginFE_1
-  @loginFE
-  Scenario: PN-9146 - Login pagoPA persona giuridica 1 parallel
-    Given Login Page persona giuridica viene visualizzata
-    When Login con persona giuridica
-      | user           | DanteAlighieri |
-      | pwd            | test           |
-      | ragioneSociale | Convivio Spa   |
-
-
-  @TA_loginpersonaGiuridica
-  @TestSuite
-  @loginFE_1
-  @loginFE
-  Scenario: PN-9146 - Login pagoPA persona giuridica 3 parallel
-    Given Login Page persona giuridica viene visualizzata
-    When Login con persona giuridica
-      | user           | DanteAlighieri |
-      | pwd            | test           |
-      | ragioneSociale | Convivio Spa   |
-
-
-  @TA_loginpersonaGiuridica
-  @TestSuite
-  @loginFE_1
-  @deleghe1
-  @loginFE
-  Scenario: PN-9146 - Login pagoPA persona giuridica 4 seq
-    Given Login Page persona giuridica viene visualizzata
-    When Login con persona giuridica
-      | user           | DanteAlighieri |
-      | pwd            | test           |
-      | ragioneSociale | Convivio Spa   |
-
-
-  @TA_loginpersonaGiuridica
-  @TestSuite
-  @loginFE_1
-  @deleghe1
-  @loginFE
-  Scenario: PN-9146 - Login pagoPA persona giuridica 5 seq
-    Given Login Page persona giuridica viene visualizzata
-    When Login con persona giuridica
-      | user           | DanteAlighieri |
-      | pwd            | test           |
-      | ragioneSociale | Convivio Spa   |
 
