@@ -4,6 +4,7 @@ Feature: La persona giuridica annulla l'operazione di revoca una delega
     @TA_PGAnnullaRevocaDelega
     @DeleghePG
     @PG
+  @deleghe1
 
   Scenario: PN-9169-A115 - La persona giuridica annulla l'operazione di revoca una delega
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
