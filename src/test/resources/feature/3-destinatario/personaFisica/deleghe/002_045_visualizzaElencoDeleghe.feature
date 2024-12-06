@@ -4,6 +4,7 @@ Feature:La persona fisica visualizza la sezione aggiungi una nuova delega
   @TA_PFvisualizzaElencoCampiAggiungiDelega
   @DeleghePF
   @PF
+  @deleghe1
 
   Scenario:PN-9399 - La persona fisica visualizza la sezione aggiungi una nuova delega
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

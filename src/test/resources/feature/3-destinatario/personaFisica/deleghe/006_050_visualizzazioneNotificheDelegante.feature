@@ -3,6 +3,7 @@ Feature: Il delegato visualizza la notifiche del delegante
   @TestSuite
   @TA_PFvisualizzaNotificheDelegante
   @DeleghePF
+  @deleghe1
   @PF
 
   Scenario: PN-9419 - Il delegato visualizza la notifiche del delegante
