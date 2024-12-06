@@ -4,6 +4,7 @@ Feature: persona fisica aggiunge una delega allo stesso delegato
   @TA_PFaggiuntaDelegaGiaPresente
   @DeleghePF
   @PF
+  @deleghe1
 
   Scenario:PN-9431 - La persona fisica aggiunge una delega allo stesso delegato
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

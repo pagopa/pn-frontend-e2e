@@ -4,6 +4,7 @@ Feature: Il delegato visualizza il dettaglio di una notifica
   @TA_PFdelegatovisualizzaDettaglioNotifica
   @DeleghePF
   @PF
+  @deleghe1
 
   Scenario:PN-9417 - Accesso alla sezione notifiche da parte delegato
     Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
