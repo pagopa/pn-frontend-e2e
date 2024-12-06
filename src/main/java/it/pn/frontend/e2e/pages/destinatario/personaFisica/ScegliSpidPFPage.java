@@ -37,9 +37,9 @@ public class ScegliSpidPFPage extends BasePage {
     }
 
     public void selezionareTestButton(){
-        testButton = driver.findElement(By.id("spid-select-xx_testenv2"));
-        getWebDriverWait(60).withMessage("il bottone Test dello spid non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.testButton));
-        testButton.click();
+       // testButton = driver.findElement(By.id("spid-select-xx_testenv2"));
+        getWebDriverWait(60).withMessage("il bottone Test dello spid non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("spid-select-xx_testenv2")));
+        element(By.id("spid-select-xx_testenv2")).click();
     }
 
 

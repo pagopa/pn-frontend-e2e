@@ -4,6 +4,9 @@ Feature: la persona fisica elimina l'indirizzo pec
   @PF
   @TA_eliminaPECPF
   @recapitiPF
+  @mittente_x1
+  @addressBook1
+
 
   Scenario: PN-9307-A33 - La persona fisica elimina l'indirizzo pec
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

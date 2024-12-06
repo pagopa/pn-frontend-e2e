@@ -4,6 +4,8 @@ Feature: la persona giuridica inserisce un OTP email sbagliato
   @PG
   @TA_inserimentoOTPErratoEmailPG
   @recapitiPG
+  @mittente_x1
+  @addressBook1
 
   Scenario: PN-9155-D63 - La persona giuridica inserisce un OTP email sbagliato
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

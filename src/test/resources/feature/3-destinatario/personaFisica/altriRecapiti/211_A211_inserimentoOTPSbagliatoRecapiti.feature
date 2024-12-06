@@ -4,6 +4,8 @@ Feature:La persona fisica inserisce una OTP sbagliato PEC
   @TA_inserimentoOTP3Volte
   @PF
   @recapitiPF
+  @mittente_x1
+  @addressBook1
 
     #TEST SOLO IN HEADLESS
   Scenario: Recapiti - Messaggio di errore dopo 3 tentativi inserimento OTP
