@@ -4,6 +4,7 @@ Feature:Il delegato persona giuridica accetta la delega assegnandoli un gruppo
   @TA_PGaccettaDelegaConGruppo
   @DeleghePG
   @PG
+  @DeleghePGPF
 
 
   Scenario: PN-9170-A116 - Il delegato persona giuridica accetta la delega assegnandoli un gruppo

@@ -4,6 +4,7 @@ Feature: il delegato accetta la delega
   @TA_PFaccettaDelega
   @DeleghePF
   @PF
+  @DeleghePGPF
 
   Scenario: PN-9411 - il delegato accetta la delega
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

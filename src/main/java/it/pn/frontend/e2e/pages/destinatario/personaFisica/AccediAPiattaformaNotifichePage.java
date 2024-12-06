@@ -315,7 +315,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         creditCardNumber.click();
         creditCardNumber.clear();
         logger.info("Si inserisce numero di CC");
-        creditCardNumber.sendKeys("5127390031101597");
+        creditCardNumber.sendKeys("5255000010002856");
         driver.switchTo().defaultContent();
 
         //frame of the expiry date
@@ -326,7 +326,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(20).withMessage("Il textbox scadenza non è visibile").until(ExpectedConditions.visibilityOf(scadenza));
         scadenza.click();
         scadenza.clear();
-        scadenza.sendKeys("10/25");
+        scadenza.sendKeys("12/30");
         driver.switchTo().defaultContent();
 
         //frame of the security code
@@ -365,7 +365,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         WebElement pagaButton = driver.findElement(By.xpath("//button[@id='paymentCheckPageButtonPay']"));
         getWebDriverWait(5).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
         pagaButton.click();
-        webTool.waitTime(5);
+        webTool.waitTime(10);
 //        List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Continue')]")); //for local test use //button[@aria-label='Continua']
         getWebDriverWait(50).withMessage("Il bottone Chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Continua')]"))));
         driver.findElement(By.xpath("//button[contains(text(),'Continua')]")).click();//for local test use //button[@aria-label='Continua']

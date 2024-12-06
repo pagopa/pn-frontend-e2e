@@ -31,10 +31,9 @@ public class NotificheDestinatarioPage extends BasePage{
     }
 
     public void inserisciCodiceIUN(String codiceIUN) throws InterruptedException {
-        codiceIunTextField = driver.findElement(By.id("iunMatch"));
-        getWebDriverWait(10).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(codiceIunTextField));
+        getWebDriverWait(10).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
         webTool.waitTime(1);
-        codiceIunTextField.sendKeys(codiceIUN);
+        driver.findElement(By.id("iunMatch")).sendKeys(codiceIUN);
     }
     public boolean verificaCodiceIUN(String codiceIUNInserito) {
         try {
@@ -50,8 +49,9 @@ public class NotificheDestinatarioPage extends BasePage{
     }
 
     public boolean isTextBoxInvalid(){
-        getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(codiceIunTextField));
-        String ariaInvalid = codiceIunTextField.getAttribute("aria-invalid");
+        getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
+
+        String ariaInvalid = driver.findElement(By.id("iunMatch")).getAttribute("aria-invalid");
         final String isTextboxInvalid = "true";
         return isTextboxInvalid.equals(ariaInvalid);
     }
