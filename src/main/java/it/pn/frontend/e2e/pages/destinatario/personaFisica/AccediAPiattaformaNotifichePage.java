@@ -90,8 +90,8 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void waitLoadAccediAPiattaformaNotifichePage() {
-      //  WebElement titleLabel = driver.findElement(By.id("login-mode-page-title"));
-      //  WebElement loginBy = driver.findElement(By.id("spidButton"));
+        WebElement titleLabel = driver.findElement(By.id("login-mode-page-title"));
+        WebElement loginBy = driver.findElement(By.id("spidButton"));
 
         getWebDriverWait(30).withMessage("Il titolo della pagina accedi a piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("login-mode-page-title")));
         getWebDriverWait(30).withMessage("Il bottone login della pagina accedi a piattaforma notifiche non è visibile e cliccabile").until(ExpectedConditions.and(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("spidButton")), ExpectedConditions.elementToBeClickable(By.id("spidButton"))));
