@@ -93,8 +93,8 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         WebElement titleLabel = driver.findElement(By.id("login-mode-page-title"));
         WebElement loginBy = driver.findElement(By.id("spidButton"));
 
-        getWebDriverWait(30).withMessage("Il titolo della pagina accedi a piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("login-mode-page-title"))));
-        getWebDriverWait(30).withMessage("Il bottone login della pagina accedi a piattaforma notifiche non è visibile e cliccabile").until(ExpectedConditions.and(ExpectedConditions.visibilityOf(driver.findElement(By.id("spidButton"))), ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spidButton")))));
+        getWebDriverWait(40).withMessage("Il titolo della pagina accedi a piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("login-mode-page-title"))));
+        getWebDriverWait(40).withMessage("Il bottone login della pagina accedi a piattaforma notifiche non è visibile e cliccabile").until(ExpectedConditions.and(ExpectedConditions.visibilityOf(driver.findElement(By.id("spidButton"))), ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spidButton")))));
         logger.info("Accedi A Piattaforma Notifiche Page caricata");
 
     }

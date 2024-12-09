@@ -30,8 +30,8 @@ public class AccediAreaRiservataPGPage extends BasePage {
 
            // spidButton = driver.findElement(By.id("spidButton"));
             By titleBy = By.xpath("//h3[contains(text(),'Come vuoi accedere?')]");
-            getWebDriverWait(30).withMessage("il titolo della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleBy));
-            getWebDriverWait(30).withMessage("Lo spid Button della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spidButton"))));
+            getWebDriverWait(35).withMessage("il titolo della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleBy));
+            getWebDriverWait(35).withMessage("Lo spid Button della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spidButton"))));
             logger.info("Accedi Area Riservata Page caricata correttamente");
         } catch (TimeoutException e ){
             logger.error("Accedi Area Riservata Page non caricata correttamente con errore: "+e.getMessage());
