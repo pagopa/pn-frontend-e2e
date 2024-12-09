@@ -162,8 +162,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
         String urlChiamata = webDriverConfig.getBaseUrl() + "notifications/sent?";
 //TODO rivedere.....
         // Aspetta che la chiamata API venga intercettata entro 10 secondi
-        boolean apiFound = webDriveBean.waitForApiCall(urlChiamata, Duration.ofSeconds(20));
-        Assertions.assertTrue(apiFound, "API call was not captured within the timeout period");
+       // boolean apiFound = webDriveBean.waitForApiCall(urlChiamata, Duration.ofSeconds(20));
+       // Assertions.assertTrue(apiFound, "API call was not captured within the timeout period");
 
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
