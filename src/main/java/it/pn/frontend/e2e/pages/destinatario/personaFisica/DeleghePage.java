@@ -166,10 +166,13 @@ public class DeleghePage extends BasePage {
 
     public void clickMenuPerRifiuto(String nome, String cognome) {
         try {
-            getWebDriverWait(140)
-             .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
+            webTool.waitTime(20);
+            getWebDriverWait(100)
+             .until(ExpectedConditions.visibilityOfElementLocated(
+                     By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
             logger.info("Si clicca correttamente il menu della delega");
-            By menuDelegheBy = By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']");
+            By menuDelegheBy =
+                     By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']");
             element(menuDelegheBy).click();
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente il menu della delega con errore:" + e.getMessage());
