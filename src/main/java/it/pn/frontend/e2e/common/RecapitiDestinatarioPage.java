@@ -307,11 +307,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public boolean verificaMailAssociata() {
 
         try {
-            logger.info("*-*-*-*- INIZIO  verificaMailAssociata *-*-*-*-*-**-");
-            logger.info(driver.getPageSource());
-            logger.info("*-*-*-*-* FINE verificaMailAssociata-*-*-*-*-**-");
-            webTool.waitTime(10000);
-            getWebDriverWait(15).withMessage("L'email di cortesia non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_email-typography"))));
+            getWebDriverWait(20).withMessage("L'email di cortesia non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_email-typography"))));
             return true;
         } catch (NoSuchElementException | TimeoutException e) {
             logger.info("Nessuna email di cortesia impostata");
