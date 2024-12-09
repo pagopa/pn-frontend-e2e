@@ -28,7 +28,7 @@ public class SelezionaImpresaPage extends BasePage {
     }
 
     public void waitLoadSelezionaImpresaPage() {
-        webTool.waitTime(10);
+        webTool.waitTime(30);
         accediButton = driver.findElement(By.xpath("//button[contains(text(),'Accedi')]"));
         WebElement titlePageBy = driver.findElement(By.xpath("//h3[contains(text(),'Seleziona la tua impresa')]"));
         getWebDriverWait(30).withMessage("Il titolo della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOf(titlePageBy));
@@ -37,6 +37,7 @@ public class SelezionaImpresaPage extends BasePage {
     }
 
     public void clickAccediButton() {
+        webTool.waitTime(30);
         accediButton = driver.findElement(By.xpath("//button[contains(text(),'Accedi')]"));
         getWebDriverWait(30).withMessage("Il bottone accedi della pagina Seleziona la tua impresa non è cliccabile").until(ExpectedConditions.elementToBeClickable(accediButton));
         logger.info("click su pulsante accedi");

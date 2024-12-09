@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
+import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.v126.network.Network;
 import org.openqa.selenium.devtools.v126.network.model.RequestWillBeSent;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -74,7 +75,7 @@ public class WebDriverManager {
     @ConditionalOnProperty(name = "browser", havingValue = "chrome", matchIfMissing = true)
     public WebDriver chromeDriver() {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -83,12 +84,13 @@ public class WebDriverManager {
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
         io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
         var chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--lang=it", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation", "--disable-extensions", "--disable-gpu");
+        chromeOptions.addArguments("--lang=it", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
 
         var downloadFilePath = webDriverConfig.getDownloadFilePath();
         // var downloadFilePath = System.getProperty("downloadFilePath");
-        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "it,it-IT");
+        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "it,it-IT") ;
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
+        chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + Thread.currentThread().getId());
 
         if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
             chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
@@ -156,9 +158,9 @@ public class WebDriverManager {
 
 
     private void setupDevTools() {
-        devTools = WebDriverManager.getDevTools();
-        // devTools = ((HasDevTools) driver).getDevTools();
-        // devTools.createSession();
+       // devTools = WebDriverManager.getDevTools();
+        devTools = ((HasDevTools) driver).getDevTools();
+        devTools.createSession();
         devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
         captureHttpRequests();
         captureHttpResponse();
@@ -180,12 +182,6 @@ public class WebDriverManager {
                 logger.error("Error processing the request: " + e.getMessage());
             }
         });
-        // Aspetta per vedere tutte le richieste di rete
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private void captureHttpResponse() {
@@ -246,9 +242,9 @@ public class WebDriverManager {
                 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
                 driverThreadLocal.set(driver);
 
-               DevTools devTools = ((ChromeDriver) driver).getDevTools();
-                devTools.createSession();
-                devToolsThread.set(devTools);
+               // DevTools devTools = ((ChromeDriver) driver).getDevTools();
+               // devTools.createSession();
+                //devToolsThread.set(devTools);
 
                 logger.info("Chrome driver started");
             } else if (edgeOptions != null) {
@@ -274,15 +270,15 @@ public class WebDriverManager {
 
     public static void quitDriver() {
         logger.info("Quit WebDriverManager..." + driverThreadLocal.get());
-        logger.info("Quit DevTools..." + devToolsThread.get());
+        //logger.info("Quit DevTools..." + devToolsThread.get());
         WebDriver driver = driverThreadLocal.get();
-        DevTools devTools = devToolsThread.get();
+       // DevTools devTools = devToolsThread.get();
         if (driver != null) {
             driver.quit();
             driverThreadLocal.remove();
-            if (devTools != null) {
-                devToolsThread.remove();
-            }
+          //  if (devTools != null) {
+            //    devToolsThread.remove();
+         //   }
         }
     }
 

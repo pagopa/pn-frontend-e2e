@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -20,13 +21,17 @@ public class AccediAreaRiservataPGPage extends BasePage {
     @FindBy(id = "spidButton")
     WebElement spidButton;
 
+    private WebTool webTool;
+
     public AccediAreaRiservataPGPage(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
 
     public void waitLoadAccediAreaRiservataPGPage() {
         try {
+            webTool.waitTime(30);
             spidButton = driver.findElement(By.id("spidButton"));
             By titleBy = By.xpath("//h3[contains(text(),'Come vuoi accedere?')]");
             getWebDriverWait(30).withMessage("il titolo della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleBy));
