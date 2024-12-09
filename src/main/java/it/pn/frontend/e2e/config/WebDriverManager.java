@@ -182,12 +182,6 @@ public class WebDriverManager {
                 logger.error("Error processing the request: " + e.getMessage());
             }
         });
-        // Aspetta per vedere tutte le richieste di rete
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private void captureHttpResponse() {
