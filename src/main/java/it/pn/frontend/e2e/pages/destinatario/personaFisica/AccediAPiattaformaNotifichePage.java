@@ -365,10 +365,10 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         WebElement pagaButton = driver.findElement(By.xpath("//button[@id='paymentCheckPageButtonPay']"));
         getWebDriverWait(5).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
         pagaButton.click();
-        webTool.waitTime(10);
-//        List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Continue')]")); //for local test use //button[@aria-label='Continua']
-        getWebDriverWait(50).withMessage("Il bottone Chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Continua')]"))));
-        driver.findElement(By.xpath("//button[contains(text(),'Continua')]")).click();//for local test use //button[@aria-label='Continua']
+//        List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Continue')]")); //for local test use //button[@aria-label='Continua'];
+        webTool.waitTime(50);//necessaria
+        getWebDriverWait(50).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Continu')]"))));
+        driver.findElement(By.xpath("//button[contains(text(),'Continu')]")).click();//for local test use //button[@aria-label='Continua']
     }
 
     public void siVisualizzaStatoPagato() {
