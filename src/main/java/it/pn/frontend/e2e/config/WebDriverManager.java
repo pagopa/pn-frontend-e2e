@@ -170,9 +170,7 @@ public class WebDriverManager {
                 // Safely access the request properties
                 if (request != null && request.getRequest() != null) {
                     var url = request.getRequest().getUrl();
-
                     cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
-
                     requests.put(request.getRequestId().toString(), request);
                     logger.info("Request URL: " + request.getRequest().getUrl());
                 } else {
@@ -248,7 +246,7 @@ public class WebDriverManager {
                 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
                 driverThreadLocal.set(driver);
 
-                DevTools devTools = ((ChromeDriver) driver).getDevTools();
+               DevTools devTools = ((ChromeDriver) driver).getDevTools();
                 devTools.createSession();
                 devToolsThread.set(devTools);
 
@@ -288,7 +286,7 @@ public class WebDriverManager {
         }
     }
 
-    //TODO Rivedere....
+//TODO Rivedere....
     public boolean waitForApiCall(String apiEndpoint, Duration timeout) {
         CountDownLatch latch = new CountDownLatch(1);
 
