@@ -1242,7 +1242,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Si verifica che la notifica è stata creata correttamente")
     public void siVerificaCheLaNotificaEStataCreataCorrettamente() {
         logger.info("Si verifica che la notifica sia stata creata correttamente filtrandolo per il numero di protocollo");
-        piattaformaNotifichePage.setNetWorkInfos(webDriveBean.getNetWorkInfos());
+        piattaformaNotifichePage.setNetWorkInfos(WebDriverManager.getNetworkInfosThread().get());
         piattaformaNotifichePage.setRestNotificationParam(restNotification);
         piattaformaNotifichePage.setNotificationSingletonParam(notificationSingleton);
         piattaformaNotifichePage.verificaNotificaCreata();

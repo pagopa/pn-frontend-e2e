@@ -1207,13 +1207,9 @@ public class PiattaformaNotifichePage extends BasePage {
     public void verificaNotificaCreata() {
         String notificationRequestId = "";
 
-        /**
         if (webDriverManager != null){
             netWorkInfos = webDriverManager.getNetWorkInfos();
         }
-         **/
-
-        netWorkInfos = WebDriverManager.getNetworkInfosThread().get();
 
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
             if (netWorkInfo.getRequestUrl().contains("bff/v1/notifications/sent") && netWorkInfo.getRequestMethod().equals("POST")) {
