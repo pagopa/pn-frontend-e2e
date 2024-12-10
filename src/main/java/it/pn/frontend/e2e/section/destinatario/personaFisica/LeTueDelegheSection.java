@@ -131,10 +131,8 @@ public class LeTueDelegheSection extends BasePage {
         getWebDriverWait(10).withMessage("Invia richiesta button non è cliccabile o non trovato").until(ExpectedConditions.elementToBeClickable(inviaLaRichiestaButton));
         logger.info("click su invia richiesta");
         inviaLaRichiestaButton.click();
-        webTool.waitTime(5);
-        tornaDelegheButton = driver.findElement(By.id("courtesy-page-button"));
-        getWebDriverWait(10).withMessage("Torna deleghe button non è cliccabile o non è trovato").until(ExpectedConditions.elementToBeClickable(tornaDelegheButton));
-        tornaDelegheButton.click();
+        getWebDriverWait(30).withMessage("Torna deleghe button non è cliccabile o non è trovato").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("courtesy-page-button"))));
+        driver.findElement(By.id("courtesy-page-button")).click();
     }
 
     public boolean verificareCheLaDataSiaCorretta() {
@@ -213,8 +211,9 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickOpzioneAccetta() {
-        webTool.waitTime(3);
+//        webTool.waitTime(3);
         try{
+            getWebDriverWait(10).withMessage("Il bottone clickOpzioneAccetta").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//*[@id='accept-button']"))));
             By acceptDelegaButton = By.xpath("//*[@id='accept-button']");
             element(acceptDelegaButton).click();
         }catch (NoSuchElementException | TimeoutException e){

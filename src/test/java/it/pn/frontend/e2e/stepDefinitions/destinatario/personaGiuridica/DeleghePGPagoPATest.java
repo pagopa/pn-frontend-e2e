@@ -364,10 +364,7 @@ public class DeleghePGPagoPATest extends BasePage {
     @And("Si controlla che la delega non si più presente in elenco")
     public void siControllaCheLaDelegaNonSiPiuPresenteInElenco() {
         logger.info("Si controlla che la delega sia stata rifiutata");
-//        this.datiDelega = this.dataPopulation.readDataPopulation("personaGiuridica.yaml");
-
         deleghePGPagoPAPage.aggiornamentoPagina();
-
         if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG( dataPopulationConfig.getPersonaGiuridica().getRagioneSociale())) {
             logger.info("La delega è stata rifiutata correttamente");
         } else {
@@ -464,6 +461,11 @@ public class DeleghePGPagoPATest extends BasePage {
 
     @And("Creo in background una delega per persona giuridica")
     public void creoInBackgroundUnaDelegaPerPersonaGiuridica(Map<String, String> personaGiuridica) {
+
+        //logica elimina delega
+        logger.info("Verifico se esiste una delega");
+        delegatiImpresaSection.verificaRemoveMenuDelega(personaGiuridica.get("displayName"));
+
         logger.info("Si controlla che ci sia una delega");
         String dateto = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
