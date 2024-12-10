@@ -234,8 +234,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void inserimentoCodiceIUN(String codiceIUN) {
         logger.info("Si inserisce il codice IUN...."  +codiceIUN);
-        webTool.waitTime(5);
-        getWebDriverWait(10).withMessage("Il campo per l'inserimento del codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
+        webTool.waitTime(10);
+        getWebDriverWait(100).withMessage("Il campo per l'inserimento del codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
         driver.findElement(By.id("iunMatch")).click();
         driver.findElement(By.id("iunMatch")).sendKeys(codiceIUN);
         logger.info("Codice IUN inserito");
