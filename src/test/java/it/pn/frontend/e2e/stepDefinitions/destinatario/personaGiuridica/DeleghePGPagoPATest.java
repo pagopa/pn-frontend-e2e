@@ -467,8 +467,7 @@ public class DeleghePGPagoPATest extends BasePage {
 
         //logica elimina delega
         logger.info("Verifico se esiste una delega");
-        delegatiImpresaSection.clickMenuDelega(personaGiuridica.get("displayName"));
-        delegatiImpresaSection.esistenzaRevocaButton();
+        delegatiImpresaSection.verificaRemoveMenuDelega(personaGiuridica.get("displayName"));
 
         logger.info("Si controlla che ci sia una delega");
         String dateto = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
