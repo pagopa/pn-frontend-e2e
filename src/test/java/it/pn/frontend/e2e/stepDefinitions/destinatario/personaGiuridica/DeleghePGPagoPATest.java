@@ -464,6 +464,12 @@ public class DeleghePGPagoPATest extends BasePage {
 
     @And("Creo in background una delega per persona giuridica")
     public void creoInBackgroundUnaDelegaPerPersonaGiuridica(Map<String, String> personaGiuridica) {
+
+        //logica elimina delega
+        logger.info("Verifico se esiste una delega");
+        delegatiImpresaSection.clickMenuDelega(personaGiuridica.get("displayName"));
+        delegatiImpresaSection.esistenzaRevocaButton();
+
         logger.info("Si controlla che ci sia una delega");
         String dateto = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
