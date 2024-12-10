@@ -4,7 +4,7 @@ Feature: invio notifica con lo stesso codice fiscale
   @TA_invioNotificaCapInesistente
   @invioNotifiche
 
-
+  @loginFE
   Scenario: PN-9646 - il mittente invia la notifica con CAP inesistente
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
