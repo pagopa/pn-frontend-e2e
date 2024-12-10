@@ -4,7 +4,7 @@ Feature:Il delegato persona giuridica accede ad una delega
   @TA_PFdelegatoPagaNotifica
   @DeleghePF
   @PF
-  @DeleghePGPF
+  @DeleghePGPF_1
   @deleghe1
 
   Scenario: PN-10388 - Il delegato persona fisica paga una notifica
