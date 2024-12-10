@@ -50,6 +50,9 @@ public class WebDriverManager {
     @Getter
     private static final ThreadLocal<DevTools> devToolsThread = new ThreadLocal<>();
 
+    @Getter
+    private static final ThreadLocal<List<NetWorkInfo>> networkInfosThread = ThreadLocal.withInitial(ArrayList::new);
+
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
 
     private WebDriver driver;
@@ -62,7 +65,7 @@ public class WebDriverManager {
     public CookieConfig cookieConfig;
 
     @Getter
-    private final List<NetWorkInfo> netWorkInfos = new ArrayList<>();
+    private List<NetWorkInfo> netWorkInfos = new ArrayList<>();
 
     private final String os = System.getProperty("os.name");
 
@@ -75,7 +78,7 @@ public class WebDriverManager {
     @ConditionalOnProperty(name = "browser", havingValue = "chrome", matchIfMissing = true)
     public WebDriver chromeDriver() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -150,7 +153,11 @@ public class WebDriverManager {
         }
 
         driver = getDriver(null, null, firefoxOptions);
-
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         cookieConfig.addCookie();
 
         return driver;
@@ -158,15 +165,15 @@ public class WebDriverManager {
 
 
     private void setupDevTools() {
-        devTools = WebDriverManager.getDevTools();
         //devTools = ((HasDevTools) driver).getDevTools();
         //devTools.createSession();
-        devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+       // devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
         captureHttpRequests();
         captureHttpResponse();
     }
 
     private void captureHttpRequests() {
+        devTools = devToolsThread.get();
         devTools.addListener(Network.requestWillBeSent(), request -> {
             try {
                 // Safely access the request properties
@@ -182,9 +189,21 @@ public class WebDriverManager {
                 logger.error("Error processing the request: " + e.getMessage());
             }
         });
+
+        // Aspetta per vedere tutte le richieste di rete
+      /**
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+**/
+
     }
 
     private void captureHttpResponse() {
+        devTools = devToolsThread.get();
+        netWorkInfos = networkInfosThread.get();
         devTools.addListener(Network.responseReceived(), response -> {
             var requestId = response.getRequestId().toString();
             if (requests.containsKey(requestId)) {
@@ -211,7 +230,9 @@ public class WebDriverManager {
                         // Ignorato perché non sempre è disponibile il body della risposta
                     }
                     logger.info("NET_INFO: " + netWorkInfo.getRequestUrl());
+
                     netWorkInfos.add(netWorkInfo);
+                    networkInfosThread.set(netWorkInfos);
                 }
             }
             requests.remove(requestId);
@@ -223,7 +244,7 @@ public class WebDriverManager {
     }
 
     public void clearNetWorkInfos() {
-        netWorkInfos.clear();
+        networkInfosThread.get().clear();
     }
 
 
@@ -242,9 +263,11 @@ public class WebDriverManager {
                 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
                 driverThreadLocal.set(driver);
 
-               DevTools devTools = ((ChromeDriver) driver).getDevTools();
-               devTools.createSession();
-               devToolsThread.set(devTools);
+                DevTools devTools = ((ChromeDriver) driver).getDevTools();
+                //devTools = getDevTools();
+                devTools.createSession();
+                devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+                devToolsThread.set(devTools);
 
                 logger.info("Chrome driver started");
             } else if (edgeOptions != null) {

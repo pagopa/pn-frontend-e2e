@@ -80,11 +80,10 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void waitLoadNotificheDEPage() {
-        webTool.waitTime(10);
         titleLabel = driver.findElement(By.id("Le tue notifiche-page"));
         tableNotifiche = driver.findElement(By.id("notifications-table"));
-        getWebDriverWait(10).withMessage("Notifiche DE Page non caricata correttamente: il titolo non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));
-        getWebDriverWait(10).withMessage("Notifiche DE Page non caricata correttamente: la tabella delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(tableNotifiche));
+        getWebDriverWait(25).withMessage("Notifiche DE Page non caricata correttamente: il titolo non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Le tue notifiche-page"))));
+        getWebDriverWait(25).withMessage("Notifiche DE Page non caricata correttamente: la tabella delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
         logger.info("Notifiche DE Page caricata");
     }
 
@@ -304,12 +303,13 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void waitLoadNotificheDEPageDelegante(String nome, String cognome) {
+      //  webTool.waitTime(40);
         titleLabel = driver.findElement(By.id("Le notifiche di " + nome + " " + cognome + "-page"));
         tableNotifiche = driver.findElement(By.id("notifications-table"));
         getWebDriverWait(40).withMessage("Il titolo della pagina notifiche delegante non è visibile")
-                .until(ExpectedConditions.visibilityOf(titleLabel));
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Le notifiche di " + nome + " " + cognome + "-page"))));
         getWebDriverWait(40).withMessage("La tabella notifiche nella pagina notifiche delegante non è visibile")
-                .until(ExpectedConditions.visibilityOf(tableNotifiche));
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
         logger.info("Notifiche DE Page caricata");
     }
 
