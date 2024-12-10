@@ -4,7 +4,7 @@ Feature: Mittente effettua il download delle attestazioni dei disservizi risolti
   @TA_MittenteDownloadDisservizioRisolto
   @File
     #per il funzionamento corretto del test su aws, il parametro di configurazione headless deve essere settato a true
-
+  @loginFE
   Scenario: PN-9238 - Mittente effettua il download delle attestazioni dei disservizi risolti
     Given Creazione disservizio su portale helpdesk
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

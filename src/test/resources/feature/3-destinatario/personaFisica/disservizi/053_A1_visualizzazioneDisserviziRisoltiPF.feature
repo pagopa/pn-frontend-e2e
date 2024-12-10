@@ -4,7 +4,7 @@ Feature: Il destinatario persona fisica visualizza i disservizi della piattaform
   @PF
   @disserviziPF
   @TA_PF_VisualizzaDisserviziRisolti
-
+  @loginFE
   Scenario: PN-9433 - Il destinatario persona fisica visualizza i disservizi della piattaforma risolti
     Given Login helpdesk con utente test
     And Si visualizza correttamente home Helpdesk

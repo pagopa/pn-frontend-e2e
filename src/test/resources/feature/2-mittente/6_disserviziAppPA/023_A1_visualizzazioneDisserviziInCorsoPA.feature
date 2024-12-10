@@ -3,6 +3,7 @@ Feature: Mittente visualizza i disservizi della applicazione in corso
   @TestSuite
   @TA_MittenteVisualizzazioneDisservizi
   @TA_PA_VisualizzaDisservizioInCorso
+  @loginFE
   Scenario: PN-9237 - Mittente visualizza i disservizi della applicazione in corso
     Given Creazione disservizio su portale helpdesk
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

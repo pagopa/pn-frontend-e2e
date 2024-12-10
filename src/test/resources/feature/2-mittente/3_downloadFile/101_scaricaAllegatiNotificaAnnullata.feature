@@ -3,7 +3,7 @@ Feature: Mittente visualizza correttamente la notifica in stato Annulato
   @TestSuite
   @TA_MittenteScaricaAllegatoDellaNotificaAnnullata
   @visualizzazioneNotificheMittente
-
+  @loginFE
   Scenario: PN-10244 - Mittente scarica documento allegato della notifica annullata
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica inserire il codice IUN "QEQJ-VYZQ-ULDE-202408-H-1"
