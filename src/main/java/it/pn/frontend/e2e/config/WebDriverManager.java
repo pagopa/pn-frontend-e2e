@@ -78,7 +78,7 @@ public class WebDriverManager {
     @ConditionalOnProperty(name = "browser", havingValue = "chrome", matchIfMissing = true)
     public WebDriver chromeDriver() {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(2500);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -94,6 +94,9 @@ public class WebDriverManager {
         var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "it,it-IT") ;
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
         chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + Thread.currentThread().getId());
+
+        chromeOptions.addArguments("--disk-cache-size=0");
+        chromeOptions.addArguments("--disable-cache");
 
         if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
             chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
@@ -260,7 +263,9 @@ public class WebDriverManager {
             if (chromeOptions != null) {
                 ChromeDriver driver = new ChromeDriver(chromeOptions);
                 driver.manage().window().maximize();
-                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+                driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
+
                 driverThreadLocal.set(driver);
 
                 DevTools devTools = ((ChromeDriver) driver).getDevTools();
