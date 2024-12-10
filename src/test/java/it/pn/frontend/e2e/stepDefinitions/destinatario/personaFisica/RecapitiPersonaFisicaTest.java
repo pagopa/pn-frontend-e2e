@@ -312,6 +312,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
             iTuoiRecapitiPage.sendOTP(OTP);
+            webTool.waitTime(10);
             recapitiDestinatarioPage.confermaButtonClickPopUp();
             if (recapitiDestinatarioPage.waitMessaggioErrore()) {
                 logger.error("Il codice OTP inserito è sbagliato");
@@ -329,6 +330,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
                 iTuoiRecapitiPage.sendOTP(OTP);
+                webTool.waitTime(10);
                 recapitiDestinatarioPage.confermaButtonClickPopUp();
                 if (recapitiDestinatarioPage.waitMessaggioErrore()) {
                     logger.error("Il codice OTP inserito è sbagliato");
