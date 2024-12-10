@@ -91,7 +91,7 @@ public class WebDriverManager {
 
         var downloadFilePath = webDriverConfig.getDownloadFilePath();
         // var downloadFilePath = System.getProperty("downloadFilePath");
-        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "it,it-IT") ;
+        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "it,it-IT");
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
         chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + Thread.currentThread().getId());
 
@@ -109,6 +109,7 @@ public class WebDriverManager {
         logger.info("Chrome driver started - WebDriverManager");
 
         cookieConfig.addCookie();
+
 
         return driver;
     }
@@ -170,7 +171,7 @@ public class WebDriverManager {
     private void setupDevTools() {
         //devTools = ((HasDevTools) driver).getDevTools();
         //devTools.createSession();
-       // devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+        // devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
         captureHttpRequests();
         captureHttpResponse();
     }
@@ -182,7 +183,8 @@ public class WebDriverManager {
                 // Safely access the request properties
                 if (request != null && request.getRequest() != null) {
                     var url = request.getRequest().getUrl();
-                    cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
+
+                    CookieConfig.getThreadLocalCookies().get().forEach(cookie -> driver.manage().addCookie(cookie));
                     requests.put(request.getRequestId().toString(), request);
                     logger.info("Request URL: " + request.getRequest().getUrl());
                 } else {
@@ -194,13 +196,13 @@ public class WebDriverManager {
         });
 
         // Aspetta per vedere tutte le richieste di rete
-      /**
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-**/
+        /**
+         try {
+         Thread.sleep(5000);
+         } catch (InterruptedException e) {
+         throw new RuntimeException(e);
+         }
+         **/
 
     }
 
@@ -300,17 +302,21 @@ public class WebDriverManager {
         logger.info("Quit WebDriverManager..." + driverThreadLocal.get());
         logger.info("Quit DevTools..." + devToolsThread.get());
         WebDriver driver = driverThreadLocal.get();
-       DevTools devTools = devToolsThread.get();
+        DevTools devTools = devToolsThread.get();
+        Set<Cookie> cookies = CookieConfig.getThreadLocalCookies().get();
         if (driver != null) {
             driver.quit();
             driverThreadLocal.remove();
-          if (devTools != null) {
-              devToolsThread.remove();
-          }
+            if (devTools != null) {
+                devToolsThread.remove();
+            }
+            if (cookies != null) {
+                CookieConfig.getThreadLocalCookies().remove();
+            }
         }
     }
 
-//TODO Rivedere....
+    //TODO Rivedere....
     public boolean waitForApiCall(String apiEndpoint, Duration timeout) {
         CountDownLatch latch = new CountDownLatch(1);
 
@@ -341,7 +347,7 @@ public class WebDriverManager {
     private static Map<Long, Set<Cookie>> cookieStore = new ConcurrentHashMap<>();
 
     public void saveCookies(String url, WebDriver driver) {
-       // cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
+        // cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
         Set<Cookie> cookies = cookieConfig.getCookies(url);
         cookieStore.put(Thread.currentThread().getId(), cookies);
     }

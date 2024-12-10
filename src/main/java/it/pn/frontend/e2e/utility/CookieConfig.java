@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.utility;
 
 import it.pn.frontend.e2e.config.WebDriverConfig;
+import lombok.Getter;
 import org.openqa.selenium.Cookie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,9 @@ public class CookieConfig {
 
     @Value("${cookie.config}")
     private String cookie;
+
+    @Getter
+    private static final ThreadLocal<Set<Cookie>> threadLocalCookies = ThreadLocal.withInitial(HashSet::new);
 
 
     @Autowired
@@ -85,6 +89,7 @@ public class CookieConfig {
                 new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "cittadini.dev.notifichedigitali.it", "/", null, false),
                 new Cookie("OptanonConsent", optanonConsentValue, "cittadini.dev.notifichedigitali.it", "/", null, false)
         )));
+
     }
 
     // Set up cookie for test environment
@@ -106,6 +111,7 @@ public class CookieConfig {
                 new Cookie("OptanonAlertBoxClosed", OptanonAlertBoxClosedValue, "cittadini.test.notifichedigitali.it", "/", null, false),
                 new Cookie("OptanonConsent", optanonConsentValue, "cittadini.test.notifichedigitali.it", "/", null, false)
         )));
+
     }
 
     private String getCurrentDateFormatted() {
@@ -124,6 +130,7 @@ public class CookieConfig {
 
     public Set<Cookie> getCookies(String url) {
         if (cookieMap.get(url) != null) {
+            threadLocalCookies.set(cookieMap.get(url));
             return cookieMap.get(url);
         }
         return new HashSet<>();
