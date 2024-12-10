@@ -364,10 +364,7 @@ public class DeleghePGPagoPATest extends BasePage {
     @And("Si controlla che la delega non si più presente in elenco")
     public void siControllaCheLaDelegaNonSiPiuPresenteInElenco() {
         logger.info("Si controlla che la delega sia stata rifiutata");
-//        this.datiDelega = this.dataPopulation.readDataPopulation("personaGiuridica.yaml");
-
         deleghePGPagoPAPage.aggiornamentoPagina();
-
         if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG( dataPopulationConfig.getPersonaGiuridica().getRagioneSociale())) {
             logger.info("La delega è stata rifiutata correttamente");
         } else {

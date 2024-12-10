@@ -211,8 +211,9 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickOpzioneAccetta() {
-        webTool.waitTime(3);
+//        webTool.waitTime(3);
         try{
+            getWebDriverWait(10).withMessage("Il bottone clickOpzioneAccetta").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//*[@id='accept-button']"))));
             By acceptDelegaButton = By.xpath("//*[@id='accept-button']");
             element(acceptDelegaButton).click();
         }catch (NoSuchElementException | TimeoutException e){
