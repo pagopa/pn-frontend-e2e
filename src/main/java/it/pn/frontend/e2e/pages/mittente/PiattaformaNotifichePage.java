@@ -1185,8 +1185,8 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement titlePage = driver.findElement(By.id(idNotificationTitlePage));
         notificationsTable = driver.findElement(By.id("notifications-table"));
         try {
-            getWebDriverWait(10).withMessage("il titolo della pagina non é caricato").until(ExpectedConditions.visibilityOf(titlePage));
-            getWebDriverWait(20).withMessage("tabella notifiche non caricata").until(ExpectedConditions.visibilityOf(notificationsTable));
+            getWebDriverWait(20).withMessage("il titolo della pagina non é caricato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id(idNotificationTitlePage))));
+            getWebDriverWait(25).withMessage("tabella notifiche non caricata").until(ExpectedConditions.visibilityOf( driver.findElement(By.id("notifications-table"))));
 
             logger.info("Pagina notifiche delegante caricata correttamente");
         } catch (TimeoutException e) {
@@ -1262,7 +1262,7 @@ public class PiattaformaNotifichePage extends BasePage {
         //By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
         webTool.waitTime(10);
         WebElement notification = driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]"));
-        getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOf(notification));
+        getWebDriverWait(30).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]"))));
         notification.click();
     }
 

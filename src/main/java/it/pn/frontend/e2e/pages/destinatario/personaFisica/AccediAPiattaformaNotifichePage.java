@@ -100,6 +100,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void selezionaAccediButton() {
+        webTool.waitTime(10);
         accediButton = driver.findElement(By.id("spidButton"));
         js().executeScript("arguments[0].click()", accediButton);
     }

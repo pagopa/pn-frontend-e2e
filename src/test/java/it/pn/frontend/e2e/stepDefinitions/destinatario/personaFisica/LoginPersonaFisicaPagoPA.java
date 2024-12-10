@@ -341,7 +341,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
-        webTool.waitTime(5);
+        webTool.waitTime(15);
         notifichePFPage.waitLoadNotificheDEPage();
 
         if (notifichePFPage.verificaPresenzaCodiceIunTextField()) {
