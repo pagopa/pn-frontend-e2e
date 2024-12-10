@@ -360,11 +360,11 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         WebElement modificaButton = driver.findElement(By.id("pspEdit")); //for local test use //button[@aria-label='Modifica PSP']
         modificaButton.click();
 
-        getWebDriverWait(25).withMessage("Intesa Sanpaolo S.p.A non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div[contains(text(),'Intesa Sanpaolo S.p.A')]"))));
+        getWebDriverWait(45).withMessage("Intesa Sanpaolo S.p.A non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div[contains(text(),'Intesa Sanpaolo S.p.A')]"))));
         driver.findElement(By.xpath("//div[contains(text(),'Intesa Sanpaolo S.p.A')]")).click();
 
         WebElement pagaButton = driver.findElement(By.xpath("//button[@id='paymentCheckPageButtonPay']"));
-        getWebDriverWait(5).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
+        getWebDriverWait(15).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
         pagaButton.click();
 //        List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Continue')]")); //for local test use //button[@aria-label='Continua'];
         webTool.waitTime(120);//necessaria

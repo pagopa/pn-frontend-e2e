@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.section.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.utility.WebTool;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -129,16 +130,31 @@ public class DelegatiImpresaSection extends BasePage {
         }
     }
 
-    public void verificaRemoveMenuDelega(String displayName) {
+    public void verificaRemoveMenuDelega(String displayName,String delegheCarico) {
         logger.info("DisplayName: " + displayName);
         try {
             if (driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + displayName + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")).isDisplayed()) {
                 logger.info("Esiste il duplicato: " + displayName);
                 js().executeScript("arguments[0].click()", element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + displayName + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
-                getWebDriverWait(30).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
-                revocaButton = driver.findElement(By.id("revoke-delegation-button"));
-                revocaButton.click();
-                driver.navigate().refresh();
+
+                if(StringUtils.isEmpty(delegheCarico)){
+                    getWebDriverWait(30).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+                    revocaButton = driver.findElement(By.id("revoke-delegation-button"));
+                    revocaButton.click();
+                    driver.navigate().refresh();
+                }
+
+                else{
+                    // Bottone rifiuta
+                    getWebDriverWait(30).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("reject-delegation-button")));
+                    driver.findElement(By.id("reject-delegation-button")).click();
+
+                    //Rifiuta la Delega pop-up
+                    getWebDriverWait(30).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
+                    driver.findElement(By.id("dialog-action-button")).click();
+
+                }
+
                 logger.info("Rimosso il duplicato: " + displayName);
             }
         } catch (NoSuchElementException e) {

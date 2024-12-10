@@ -26,6 +26,7 @@ import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 
 import jakarta.annotation.PostConstruct;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -464,7 +465,8 @@ public class DeleghePGPagoPATest extends BasePage {
 
         //logica elimina delega
         logger.info("Verifico se esiste una delega");
-        delegatiImpresaSection.verificaRemoveMenuDelega(personaGiuridica.get("displayName"));
+        logger.info("DelegheCarico: "+  personaGiuridica.get("DelegheCarico"));
+        delegatiImpresaSection.verificaRemoveMenuDelega(personaGiuridica.get("displayName"), StringUtils.isEmpty(personaGiuridica.get("DelegheCarico")) ? null : personaGiuridica.get("DelegheCarico"));
 
         logger.info("Si controlla che ci sia una delega");
         String dateto = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));

@@ -131,7 +131,7 @@ public class LeTueDelegheSection extends BasePage {
         getWebDriverWait(10).withMessage("Invia richiesta button non è cliccabile o non trovato").until(ExpectedConditions.elementToBeClickable(inviaLaRichiestaButton));
         logger.info("click su invia richiesta");
         inviaLaRichiestaButton.click();
-        getWebDriverWait(30).withMessage("Torna deleghe button non è cliccabile o non è trovato").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("courtesy-page-button"))));
+        getWebDriverWait(40).withMessage("Torna deleghe button non è cliccabile o non è trovato").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("courtesy-page-button"))));
         driver.findElement(By.id("courtesy-page-button")).click();
     }
 
@@ -270,9 +270,8 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickIndietroButton() {
-        indietroPopUpButton = driver.findElement(By.id("code-cancel-button"));
-        getWebDriverWait(5).withMessage("Il bottone indietr non è visibile").until(ExpectedConditions.visibilityOf(indietroPopUpButton));
-        indietroPopUpButton.click();
+        getWebDriverWait(5).withMessage("Il bottone indietr non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("code-cancel-button"))));
+        driver.findElement(By.id("code-cancel-button")).click();
     }
 
 

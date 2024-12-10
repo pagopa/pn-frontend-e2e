@@ -4,7 +4,7 @@ Feature:Il delegato persona giuridica rifiuta la delega
   @TA_PGrifiutoDelega
   @DeleghePG
   @PG
-  @DeleghePGPF_1
+  @DeleghePGPF_11
   @deleghe1
 
   Scenario: PN-9172 - Il delegato persona giuridica rifiuta la delega
@@ -17,6 +17,7 @@ Feature:Il delegato persona giuridica rifiuta la delega
       | companyName | Convivio Spa |
       | displayName | Convivio Spa |
       | person      | false        |
+      | DelegheCarico | true        |
     And Si accetta la delega senza gruppo
     And Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega
     And Nella sezione Deleghe si clicca sul bottone rifiuta
