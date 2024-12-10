@@ -3,6 +3,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
   @TestSuite
   @DashboardMittenti
   @MittenteVisualizzaDashboardStatistiche
+  @loginFE
   Scenario: PN-12036 - Dashboard mittenti - Visualizzazione statistiche relative a una determinata PA
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche

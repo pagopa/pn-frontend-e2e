@@ -3,7 +3,7 @@ Feature: Mittente visualizza il dettaglio di una notifica
   @TestSuite
   @TA_MittenteDettaglioNotifiche
   @visualizzazioneNotificheMittente
-
+  @loginFE
   Scenario: PN-9225 - Mittente visualizza dettaglio notifica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Cliccare sulla notifica restituita
