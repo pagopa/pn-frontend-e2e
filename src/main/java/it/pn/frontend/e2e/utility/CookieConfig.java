@@ -130,7 +130,7 @@ public class CookieConfig {
 
     public Set<Cookie> getCookies(String url) {
         if (cookieMap.get(url) != null) {
-            threadLocalCookies.set(cookieMap.get(url));
+           // threadLocalCookies.set(cookieMap.get(url));
             return cookieMap.get(url);
         }
         return new HashSet<>();

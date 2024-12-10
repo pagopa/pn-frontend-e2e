@@ -183,8 +183,7 @@ public class WebDriverManager {
                 // Safely access the request properties
                 if (request != null && request.getRequest() != null) {
                     var url = request.getRequest().getUrl();
-
-                    CookieConfig.getThreadLocalCookies().get().forEach(cookie -> driver.manage().addCookie(cookie));
+                    cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
                     requests.put(request.getRequestId().toString(), request);
                     logger.info("Request URL: " + request.getRequest().getUrl());
                 } else {
@@ -310,9 +309,11 @@ public class WebDriverManager {
             if (devTools != null) {
                 devToolsThread.remove();
             }
+            /**
             if (cookies != null) {
                 CookieConfig.getThreadLocalCookies().remove();
             }
+             **/
         }
     }
 

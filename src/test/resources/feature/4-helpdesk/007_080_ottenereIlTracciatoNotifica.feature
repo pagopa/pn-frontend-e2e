@@ -6,7 +6,7 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
 
   @TestSuite
   @OttenereTracciatoNonAnonimizzataDiNotifica
-
+  @loginFE
   Scenario: PN-9608 - Ottenere  il tracciato non anonimizzata di una notifica dato il suo IUN
     When Nella Home di helpdesk utente clicca su sezione ricerca ed estrazione dati
     And visualizzazione corretta pagina ricerca ed estrazione dati
