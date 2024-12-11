@@ -78,7 +78,7 @@ public class WebDriverManager {
     @ConditionalOnProperty(name = "browser", havingValue = "chrome", matchIfMissing = true)
     public WebDriver chromeDriver() {
         try {
-            Thread.sleep(2500);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -95,6 +95,8 @@ public class WebDriverManager {
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
         chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + Thread.currentThread().getId());
 
+        chromeOptions.addArguments("--disable-extensions");
+        chromeOptions.addArguments("--disable-dev-shm-usage");
         chromeOptions.addArguments("--disk-cache-size=0");
         chromeOptions.addArguments("--disable-cache");
 
