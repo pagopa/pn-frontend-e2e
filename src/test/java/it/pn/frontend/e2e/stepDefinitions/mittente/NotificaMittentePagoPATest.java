@@ -179,7 +179,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         logger.info("Recupero codice risposta della chiamata" + urlChiamata);
 
         int codiceRispostaChiamataApi = 0;
-        for (NetWorkInfo chiamate : webDriveBean.getNetWorkInfos()) {
+        for (NetWorkInfo chiamate : WebDriverManager.getNetworkInfosThread().get()) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
                 codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
                 break;
