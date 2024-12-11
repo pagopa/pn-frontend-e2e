@@ -131,7 +131,7 @@ public class LeTueDelegheSection extends BasePage {
         getWebDriverWait(10).withMessage("Invia richiesta button non è cliccabile o non trovato").until(ExpectedConditions.elementToBeClickable(inviaLaRichiestaButton));
         logger.info("click su invia richiesta");
         inviaLaRichiestaButton.click();
-        getWebDriverWait(30).withMessage("Torna deleghe button non è cliccabile o non è trovato").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("courtesy-page-button"))));
+        getWebDriverWait(40).withMessage("Torna deleghe button non è cliccabile o non è trovato").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("courtesy-page-button"))));
         driver.findElement(By.id("courtesy-page-button")).click();
     }
 
@@ -212,14 +212,15 @@ public class LeTueDelegheSection extends BasePage {
 
     public void clickOpzioneAccetta() {
         webTool.waitTime(3);
-        try{
+        try {
+            getWebDriverWait(20).withMessage("Il bottone clickOpzioneAccetta blocco try").until(ExpectedConditions.elementToBeClickable((By.xpath("//*[@id='accept-button']"))));
             By acceptDelegaButton = By.xpath("//*[@id='accept-button']");
             element(acceptDelegaButton).click();
-        }catch (NoSuchElementException | TimeoutException e){
-            WebElement acceptDelegaButton = driver.findElement(By.xpath("//*[@id='accept-button']"));
-            acceptDelegaButton.click();
-            logger.error("Conferma Dati Spid DE Page non caricata con errore : "+e.getMessage());
-            Assertions.fail("Conferma Dati Spid DE Page non caricata con errore : "+e.getMessage());
+        } catch (NoSuchElementException | TimeoutException e) {
+            getWebDriverWait(20).withMessage("Il bottone clickOpzioneAccetta blocco catch").until(ExpectedConditions.elementToBeClickable((By.xpath("//*[@id='accept-button']"))));
+            driver.findElement(By.xpath("//*[@id='accept-button']")).click();
+            logger.error("Conferma Dati Spid DE Page non caricata con errore : " + e.getMessage());
+            Assertions.fail("Conferma Dati Spid DE Page non caricata con errore : " + e.getMessage());
         }
     }
 
@@ -269,9 +270,8 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickIndietroButton() {
-        indietroPopUpButton = driver.findElement(By.id("code-cancel-button"));
-        getWebDriverWait(5).withMessage("Il bottone indietr non è visibile").until(ExpectedConditions.visibilityOf(indietroPopUpButton));
-        indietroPopUpButton.click();
+        getWebDriverWait(5).withMessage("Il bottone indietr non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("code-cancel-button"))));
+        driver.findElement(By.id("code-cancel-button")).click();
     }
 
 
@@ -358,8 +358,6 @@ public class LeTueDelegheSection extends BasePage {
 
     public boolean controlloPresenzaBottoneAccetta() {
         try {
-//            accettaButton = driver.findElement(By.id("accept-button"));
-//            getWebDriverWait(30).withMessage("accetta button non visibile").until(ExpectedConditions.visibilityOf(accettaButton));
             getWebDriverWait(30).withMessage("accetta button non visibile").until(ExpectedConditions.visibilityOfElementLocated(By.id("accept-button")));
             logger.info("Si visualizza il bottone accetta");
             return true;

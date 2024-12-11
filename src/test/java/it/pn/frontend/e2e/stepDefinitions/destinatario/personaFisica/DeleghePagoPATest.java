@@ -16,6 +16,7 @@ import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.PopUpRevocaDelegaSection;
+import it.pn.frontend.e2e.section.destinatario.personaGiuridica.DelegatiImpresaSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.stepDefinitions.common.SharedSteps;
 import it.pn.frontend.e2e.utility.DataPopulation;
@@ -23,6 +24,7 @@ import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,6 +60,8 @@ public class DeleghePagoPATest extends BasePage{
 
     private NotifichePFPage notifichePFPage;
 
+    private DelegatiImpresaSection delegatiImpresaSection;
+
     @Autowired
     @Lazy
     private BackgroundTest backgroundTest;
@@ -89,6 +93,7 @@ public class DeleghePagoPATest extends BasePage{
         deleghePage = new DeleghePage(driver);
         destinatarioPage = new DestinatarioPage(driver);
         notifichePFPage = new NotifichePFPage(driver);
+        delegatiImpresaSection = new DelegatiImpresaSection(driver);
     }
 
 
@@ -322,6 +327,14 @@ public class DeleghePagoPATest extends BasePage{
 
     @When("Creo in background una delega per persona fisica")
     public void creaInBackgroundUnaDelegaPerPersonaFisica(Map<String, String> personaFisica) {
+
+        //logica elimina delega
+        logger.info("Verifico se esiste una delega");
+        delegatiImpresaSection.verificaRemoveMenuDelega(personaFisica.get("displayName"), StringUtils.isEmpty(personaFisica.get("DelegheCarico")) ? null : personaFisica.get("DelegheCarico"));
+
+        logger.info("Si controlla che ci sia una delega");
+
+
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         DelegatePF delegatePF = dataPopulationConfig.getDelegatePF();
         delegatePF.setFiscalCode(personaFisica.get("fiscalCode"));

@@ -4,7 +4,7 @@ Feature:La persona giuridica visualizza le deleghe
   @TA_PGricercaDelegheSenzaGruppo
   @DeleghePG
   @PG
-  @DeleghePGPF
+  @DeleghePGPF_1
   @deleghe1
 
   Scenario: PN-9166-B112 - La persona giuridica fa una ricerca delle deleghe

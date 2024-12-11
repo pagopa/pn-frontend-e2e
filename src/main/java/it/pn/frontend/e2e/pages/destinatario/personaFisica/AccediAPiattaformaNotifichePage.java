@@ -1,17 +1,12 @@
 package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 
 
@@ -90,9 +85,6 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void waitLoadAccediAPiattaformaNotifichePage() {
-        WebElement titleLabel = driver.findElement(By.id("login-mode-page-title"));
-        WebElement loginBy = driver.findElement(By.id("spidButton"));
-
         getWebDriverWait(40).withMessage("Il titolo della pagina accedi a piattaforma notifiche non è visibile").until(ExpectedConditions.visibilityOfAllElements(driver.findElement(By.id("login-mode-page-title"))));
         getWebDriverWait(40).withMessage("Il bottone login della pagina accedi a piattaforma notifiche non è visibile e cliccabile").until(ExpectedConditions.and(ExpectedConditions.visibilityOfAllElements(driver.findElement(By.id("spidButton"))), ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spidButton")))));
         logger.info("Accedi A Piattaforma Notifiche Page caricata");
@@ -359,12 +351,12 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(40).withMessage("Il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("pspEdit"))));////for local test use //button[@aria-label='Modifica PSP']
         WebElement modificaButton = driver.findElement(By.id("pspEdit")); //for local test use //button[@aria-label='Modifica PSP']
         modificaButton.click();
-
-        getWebDriverWait(15).withMessage("Intesa Sanpaolo S.p.A non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div[contains(text(),'Intesa Sanpaolo S.p.A')]"))));
+        webTool.waitTime(10);
+        getWebDriverWait(45).withMessage("Intesa Sanpaolo S.p.A non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div[contains(text(),'Intesa Sanpaolo S.p.A')]"))));
         driver.findElement(By.xpath("//div[contains(text(),'Intesa Sanpaolo S.p.A')]")).click();
 
         WebElement pagaButton = driver.findElement(By.xpath("//button[@id='paymentCheckPageButtonPay']"));
-        getWebDriverWait(5).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
+        getWebDriverWait(15).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
         pagaButton.click();
 //        List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Continue')]")); //for local test use //button[@aria-label='Continua'];
         webTool.waitTime(120);//necessaria

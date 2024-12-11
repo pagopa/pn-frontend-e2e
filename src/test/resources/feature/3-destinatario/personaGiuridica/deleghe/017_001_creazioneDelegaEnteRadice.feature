@@ -4,6 +4,7 @@ Feature: persona giuridica aggiunge una delega dall'elenco degli enti radice
   @TA_PGaggiuntaDelegaEnteRadice
   @DeleghePG
   @PG
+  @DeleghePGPF_1
   @deleghe1
 
   Scenario:PN-10429 - La persona giuridica aggiunge una delega dall'elenco enti radice
