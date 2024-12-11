@@ -6,7 +6,6 @@ Feature:Il delegato persona giuridica accetta la delega non assegnandoli un grup
   @PG
   @DeleghePGPF
   @deleghe1
-  @loginFE
   Scenario: PN-9171 - Il delegato persona giuridica accetta la delega non assegnandoli un gruppo
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
