@@ -162,6 +162,7 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public void clickMenuButton() {
+        webTool.waitTime(30);
         List<WebElement> menuAttivaButtonBy = driver.findElements(By.xpath("//button[@data-testid='contextMenuButton' and @aria-label='Opzioni su API Key']"));
         getWebDriverWait(30).withMessage("menu Apikey da Bloccare non trovato")
                 .until(ExpectedConditions.visibilityOfAllElements(menuAttivaButtonBy));
@@ -322,6 +323,7 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public void clickSulBottoneBloccatoMaiRuotato(int posizione) {
+        webTool.waitTime(20);
         List<WebElement> menuAttivaButtonBy = driver.findElements(By.xpath("//td[div/div/div/div[@role='button' and @data-testid='statusChip-Bloccata']]/following-sibling::td//button[@type='button' and @data-testid='contextMenuButton' and @aria-label='Opzioni su API Key']"));
         getWebDriverWait(20).withMessage("la lista attiva bottone non trovata").until(ExpectedConditions.visibilityOfAllElements(menuAttivaButtonBy));
 
@@ -389,6 +391,7 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public boolean siVisualizzaMenuApiKey() {
+        webTool.waitTime(30);
         List<WebElement> menuButtonBy = driver.findElements(By.xpath("//td[div/div/div/div[@role='button']]/following-sibling::td//button[@type='button' and @data-testid='contextMenuButton' and @aria-label='Opzioni su API Key']"));
         getWebDriverWait(30).withMessage("il bottone menu del apikey non trovato").until(ExpectedConditions.visibilityOfAllElements(menuButtonBy));
         return !menuButtonBy.isEmpty();
@@ -480,9 +483,8 @@ public class ApiKeyPAPage extends BasePage {
     public void clickVisualizzaIdApiKey() {
        // visualizzaIdGruppo = driver.findElement(By.id("button-view-groups-id"));
         getWebDriverWait(20).withMessage("Il bottone visualizza Id api key non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(By.id("button-view-groups-id")));
-        element(By.id("button-view-groups-id")).click();
-        getWebDriverWait(10).withMessage("L'email di cortesia non è presente").until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-typography")));
+                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("button-view-groups-id"))));
+        driver.findElement(By.id("button-view-groups-id")).click();
     }
 
     public void popUpGruppiAssociati() {

@@ -95,10 +95,10 @@ public class WebDriverManager {
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
         chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + Thread.currentThread().getId());
 
-        chromeOptions.addArguments("--disable-extensions");
-        chromeOptions.addArguments("--disable-dev-shm-usage");
-        chromeOptions.addArguments("--disk-cache-size=0");
-        chromeOptions.addArguments("--disable-cache");
+       // chromeOptions.addArguments("--disable-extensions");
+       // chromeOptions.addArguments("--disable-dev-shm-usage");
+       // chromeOptions.addArguments("--disk-cache-size=0");
+        //chromeOptions.addArguments("--disable-cache");
 
         if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
             chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
