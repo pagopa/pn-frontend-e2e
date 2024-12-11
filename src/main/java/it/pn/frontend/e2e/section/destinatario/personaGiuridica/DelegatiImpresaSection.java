@@ -162,6 +162,28 @@ public class DelegatiImpresaSection extends BasePage {
         }
     }
 
+    public void verificaRemoveMenuDelega() {
+        try {
+            if (driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']")).isDisplayed()) {
+                logger.info("Esiste il duplicato: ");
+                js().executeScript("arguments[0].click()", element(By.xpath("//button[@data-testid='delegationMenuIcon']")));
+
+                // Bottone rifiuta revoke-delegation-button
+                getWebDriverWait(30).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+                driver.findElement(By.id("revoke-delegation-button")).click();
+                // Bottone rifiuta revoke-delegation-button
+                getWebDriverWait(30).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
+                driver.findElement(By.id("dialog-action-button")).click();
+                driver.navigate().refresh();
+
+
+                logger.info("Rimosso il duplicato: ");
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println("L'elemento non esiste. Continuo l'esecuzione.");
+        }
+    }
+
     public void clickMostraCodice() {
         menuDelegaButton = driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']"));
         menuDelegaButton.click();

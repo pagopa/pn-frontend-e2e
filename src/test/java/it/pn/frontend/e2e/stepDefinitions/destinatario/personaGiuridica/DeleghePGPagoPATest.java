@@ -109,7 +109,7 @@ public class DeleghePGPagoPATest extends BasePage {
     @And("Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega")
     public void nellaSezioneDelegatiDellImpresaClickSulBottoneAggiungiNuovaDelega() {
         logger.info("Nella sezione Deleghe dell'impresa si clicca su aggiungi una nuova delega");
-
+        delegatiImpresaSection.verificaRemoveMenuDelega();
         delegatiImpresaSection.clickAggiungiDelegaButton();
     }
 

@@ -358,8 +358,6 @@ public class LeTueDelegheSection extends BasePage {
 
     public boolean controlloPresenzaBottoneAccetta() {
         try {
-//            accettaButton = driver.findElement(By.id("accept-button"));
-//            getWebDriverWait(30).withMessage("accetta button non visibile").until(ExpectedConditions.visibilityOf(accettaButton));
             getWebDriverWait(30).withMessage("accetta button non visibile").until(ExpectedConditions.visibilityOfElementLocated(By.id("accept-button")));
             logger.info("Si visualizza il bottone accetta");
             return true;
