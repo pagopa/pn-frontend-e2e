@@ -211,16 +211,16 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickOpzioneAccetta() {
-//        webTool.waitTime(3);
-        try{
-            getWebDriverWait(10).withMessage("Il bottone clickOpzioneAccetta").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//*[@id='accept-button']"))));
+        webTool.waitTime(3);
+        try {
+            getWebDriverWait(20).withMessage("Il bottone clickOpzioneAccetta blocco try").until(ExpectedConditions.elementToBeClickable((By.xpath("//*[@id='accept-button']"))));
             By acceptDelegaButton = By.xpath("//*[@id='accept-button']");
             element(acceptDelegaButton).click();
-        }catch (NoSuchElementException | TimeoutException e){
-            WebElement acceptDelegaButton = driver.findElement(By.xpath("//*[@id='accept-button']"));
-            acceptDelegaButton.click();
-            logger.error("Conferma Dati Spid DE Page non caricata con errore : "+e.getMessage());
-            Assertions.fail("Conferma Dati Spid DE Page non caricata con errore : "+e.getMessage());
+        } catch (NoSuchElementException | TimeoutException e) {
+            getWebDriverWait(20).withMessage("Il bottone clickOpzioneAccetta blocco catch").until(ExpectedConditions.elementToBeClickable((By.xpath("//*[@id='accept-button']"))));
+            driver.findElement(By.xpath("//*[@id='accept-button']")).click();
+            logger.error("Conferma Dati Spid DE Page non caricata con errore : " + e.getMessage());
+            Assertions.fail("Conferma Dati Spid DE Page non caricata con errore : " + e.getMessage());
         }
     }
 
