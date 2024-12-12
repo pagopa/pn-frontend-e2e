@@ -238,7 +238,7 @@ public class WebDriverManager {
 
                     netWorkInfos.add(netWorkInfo);
                 }
-               // networkInfosThread.set(netWorkInfos);
+                networkInfosThread.set(netWorkInfos);
             }
             requests.remove(requestId);
         });
