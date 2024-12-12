@@ -238,8 +238,8 @@ public class WebDriverManager {
                     logger.info("NET_INFO: " + netWorkInfo.getRequestUrl());
 
                     netWorkInfos.add(netWorkInfo);
-                    networkInfosThread.set(netWorkInfos);
                 }
+                networkInfosThread.set(netWorkInfos);
             }
             requests.remove(requestId);
         });

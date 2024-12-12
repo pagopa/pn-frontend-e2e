@@ -1621,6 +1621,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
         for (NetWorkInfo netWorkInfo : WebDriverManager.getNetworkInfosThread().get()) {
             if (netWorkInfo.getRequestUrl().equals(urlNotificationRequest) && netWorkInfo.getRequestMethod().equals("POST") && netWorkInfo.getResponseStatus().equals("202")) {
                 String values = netWorkInfo.getResponseBody();
+                logger.info("BODY......."+values);
+                logger.info("BODY......."+netWorkInfo.getRequestUrl());
                 List<String> results = Splitter.on(CharMatcher.anyOf(",:")).splitToList(values);
                 String result = results.get(1);
                 return result.substring(1, result.length() - 1);
