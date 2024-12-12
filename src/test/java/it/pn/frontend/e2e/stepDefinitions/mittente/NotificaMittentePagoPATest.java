@@ -1619,6 +1619,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
          */
         boolean foundRequestWithUndesiredStatus = false;
         for (NetWorkInfo netWorkInfo : WebDriverManager.getNetworkInfosThread().get()) {
+            logger.info("BODY URL......."+netWorkInfo.getRequestUrl());
+            logger.info("BODY......."+ netWorkInfo.getResponseBody());
             if (netWorkInfo.getRequestUrl().equals(urlNotificationRequest) && netWorkInfo.getRequestMethod().equals("POST") && netWorkInfo.getResponseStatus().equals("202")) {
                 String values = netWorkInfo.getResponseBody();
                 logger.info("BODY......."+values);
