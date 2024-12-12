@@ -13,6 +13,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
+import it.pn.frontend.e2e.config.NetworkInfoManager;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
@@ -52,13 +53,13 @@ public class HooksNew {
 
     private final String os = System.getProperty("os.name");
     @Autowired
-    private MandateSingleton mandateSingleton ;
+    private MandateSingleton mandateSingleton;
     @Autowired
     private RestContact restContact;
     @Autowired
-    private  CookieConfig cookieConfig;
+    private CookieConfig cookieConfig;
     @Autowired
-    private RestDelegation restDelegation ;
+    private RestDelegation restDelegation;
     @Autowired
     private WebDriverManager webDriveManager;
     @Autowired
@@ -74,18 +75,18 @@ public class HooksNew {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        driver =  WebDriverManager.getDriverThreadLocal().get();
+        driver = WebDriverManager.getDriverThreadLocal().get();
 
         /**
-        String language = (String) ((JavascriptExecutor) driver).executeScript("return navigator.language");
-        logger.info("Lingua corrente: " + language);
+         String language = (String) ((JavascriptExecutor) driver).executeScript("return navigator.language");
+         logger.info("Lingua corrente: " + language);
 
-        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        try {
-            FileUtils.copyFile(screenshot, new File("screenshot.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+         try {
+         FileUtils.copyFile(screenshot, new File("screenshot.png"));
+         } catch (IOException e) {
+         throw new RuntimeException(e);
+         }
          **/
 
         HooksNew.scenario = scenario.getName();
@@ -97,13 +98,63 @@ public class HooksNew {
                 });
     }
 
-
-
-
     @After
     public void endScenario(Scenario scenario) throws IOException {
         System.clearProperty("IUN");
-        webDriveManager.getNetWorkInfos().forEach(netWorkInfo -> {
+        try {
+            webDriveManager.getNetWorkInfos().forEach(netWorkInfo -> {
+                logger.info("Request ID: {}", netWorkInfo.getRequestId());
+                logger.info("Request URL: {}", netWorkInfo.getRequestUrl());
+                logger.info("Method: {}", netWorkInfo.getRequestMethod());
+                logger.info("Response Status: {}", netWorkInfo.getResponseStatus());
+                logger.info("Response Body: {}", netWorkInfo.getResponseBody());
+            });
+
+            if (scenario.isFailed()) {
+                try {
+                    logger.error("Scenario failed: {}", scenario.getName());
+                    var screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+                    var screenshotBytes = Files.readAllBytes(screenshot.toPath());
+                    var formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
+                    var timestamp = formatter.format(new Date());
+                    var fileName = "logs/" + scenario.getName() + "_" + timestamp + ".png";
+                    FileUtils.copyFile(screenshot, new File(fileName));
+                    scenario.attach(screenshotBytes, "image/png", scenario.getName());
+                } catch (IOException e) {
+                    logger.error("Failed to take screenshot: {}", e.getMessage());
+                }
+            }
+        } finally {
+            try {
+                webDriveManager.quitDriver();
+            } catch (Exception e) {
+                logger.error("Error while quitting driver: {}", e.getMessage());
+            }
+            try {
+                webDriveManager.clearRequest();
+                webDriveManager.clearNetWorkInfos();
+            } catch (Exception e) {
+                logger.error("Error while clearing network infos: {}", e.getMessage());
+            }
+            logger.info("----- END SCENARIO: {} -----", scenario.getName());
+        }
+    }
+
+
+
+
+
+
+
+/**
+    @After
+    public void endScenario(Scenario scenario) throws IOException {
+
+
+
+
+        System.clearProperty("IUN");
+        NetworkInfoManager.getNetworkInfo().forEach(netWorkInfo -> {
             logger.info("Request ID: {}", netWorkInfo.getRequestId());
             logger.info("Request URL: {}", netWorkInfo.getRequestUrl());
             logger.info("Method: {}", netWorkInfo.getRequestMethod());
@@ -122,13 +173,22 @@ public class HooksNew {
             scenario.attach(screenshotBytes, "image/png", scenario.getName());
         }
 
-        WebDriverManager.quitDriver();
-        webDriveManager.clearRequest();
-        webDriveManager.clearNetWorkInfos();
+        try {
+            webDriveManager.quitDriver();
+        } catch (Exception e) {
+            logger.error("Error while quitting driver: {}", e.getMessage());
+        }
+        try {
+            webDriveManager.clearRequest();
+            webDriveManager.clearNetWorkInfos();
+        } catch (Exception e) {
+            logger.error("Error while clearing network infos: {}", e.getMessage());
+        }
+
+
         logger.info("----- END SCENARIO: {} -----", scenario.getName());
     }
-
-
+**/
 
     @And("Revoca deleghe se esistono")
     @After("@DeleghePF or @DeleghePG")

@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.pages.mittente;
 
 import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.config.NetworkInfoManager;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.HooksNew;
@@ -114,6 +115,7 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(id = "message")
     WebElement erroreMessaggio;
 
+    //TODO........
     @Getter
     @Setter
     private List<NetWorkInfo> netWorkInfos = new ArrayList<>();
@@ -1205,11 +1207,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void verificaNotificaCreata() {
         String notificationRequestId = "";
-
-        if (webDriverManager != null){
-            netWorkInfos = WebDriverManager.getNetworkInfosThread().get();
-        }
-
+            netWorkInfos = webDriverManager.getNetWorkInfos();
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
             if (netWorkInfo.getRequestUrl().contains("bff/v1/notifications/sent") && netWorkInfo.getRequestMethod().equals("POST")) {
                 if (netWorkInfo.getResponseStatus().equals("202") && !netWorkInfo.getResponseBody().isEmpty()) {

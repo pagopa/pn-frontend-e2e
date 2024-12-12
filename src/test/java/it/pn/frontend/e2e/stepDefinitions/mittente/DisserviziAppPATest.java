@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.config.NetworkInfoManager;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
@@ -104,7 +105,7 @@ public class DisserviziAppPATest extends BasePage {
 
         boolean headless = headlessLoc.equalsIgnoreCase("true");
         downloadFile.setEnvironment(webDriverConfig.getEnvironment());
-        downloadFile.setNetWorkInfos(WebDriverManager.getNetworkInfosThread().get());
+        downloadFile.setNetWorkInfos(webDriveBean.getNetWorkInfos());
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }

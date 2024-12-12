@@ -8,6 +8,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.api.mittente.AccettazioneRichiestaNotifica;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
+import it.pn.frontend.e2e.config.NetworkInfoManager;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.HooksNew;
@@ -179,7 +180,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         logger.info("Recupero codice risposta della chiamata" + urlChiamata);
 
         int codiceRispostaChiamataApi = 0;
-        for (NetWorkInfo chiamate : WebDriverManager.getNetworkInfosThread().get()) {
+        for (NetWorkInfo chiamate : webDriveBean.getNetWorkInfos()) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
                 codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
                 break;
@@ -194,7 +195,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
         webTool.waitTime(5);
         String urlNotifiche = webDriverConfig.getBaseUrl() + "notifications/";
-        for (NetWorkInfo netWorkInfo : WebDriverManager.getNetworkInfosThread().get()) {
+        for (NetWorkInfo netWorkInfo : webDriveBean.getNetWorkInfos()) {
             if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=10")) {
                 String responseBody = netWorkInfo.getResponseBody();
                 String[] allNotifiche = responseBody.split("],\"moreResult\":");
@@ -1242,7 +1243,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Si verifica che la notifica è stata creata correttamente")
     public void siVerificaCheLaNotificaEStataCreataCorrettamente() {
         logger.info("Si verifica che la notifica sia stata creata correttamente filtrandolo per il numero di protocollo");
-        piattaformaNotifichePage.setNetWorkInfos(WebDriverManager.getNetworkInfosThread().get());
+        piattaformaNotifichePage.setNetWorkInfos(webDriveBean.getNetWorkInfos());
         piattaformaNotifichePage.setRestNotificationParam(restNotification);
         piattaformaNotifichePage.setNotificationSingletonParam(notificationSingleton);
         piattaformaNotifichePage.verificaNotificaCreata();
@@ -1617,7 +1618,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
          * (2) no POST requests with the provided URL were found
          */
         boolean foundRequestWithUndesiredStatus = false;
-        for (NetWorkInfo netWorkInfo : WebDriverManager.getNetworkInfosThread().get()) {
+        for (NetWorkInfo netWorkInfo : webDriveBean.getNetWorkInfos()) {
             if (netWorkInfo.getRequestUrl().equals(urlNotificationRequest) && netWorkInfo.getRequestMethod().equals("POST") && netWorkInfo.getResponseStatus().equals("202")) {
                 String values = netWorkInfo.getResponseBody();
                 List<String> results = Splitter.on(CharMatcher.anyOf(",:")).splitToList(values);

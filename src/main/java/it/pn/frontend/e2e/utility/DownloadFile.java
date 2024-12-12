@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.utility;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.config.NetworkInfoManager;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
@@ -135,9 +136,9 @@ public class DownloadFile extends BasePage {
     }
 
     public String getUrl(String urlChiamata) {
-        if (webDriveBean != null){
+
             netWorkInfos = webDriveBean.getNetWorkInfos();
-        }
+
 
         String url = netWorkInfos.stream()
                 .filter(netWorkInfo -> netWorkInfo.getRequestUrl().contains(urlChiamata) &&
@@ -192,9 +193,9 @@ public class DownloadFile extends BasePage {
         if (webDriverConfig != null){
             environment = webDriverConfig.getEnvironment();
         }
-        if (webDriveBean != null){
-            netWorkInfos = webDriveBean.getNetWorkInfos();
-        }
+
+            netWorkInfos = NetworkInfoManager.getNetworkInfo();
+
         String urlChiamata = "https://webapi." + environment + ".notifichedigitali.it/delivery/notifications/received?";
         return netWorkInfos.stream()
                 .filter(netWorkInfo -> netWorkInfo.getRequestUrl().contains(urlChiamata))
@@ -207,9 +208,9 @@ public class DownloadFile extends BasePage {
         if (webDriverConfig != null){
             environment = webDriverConfig.getEnvironment();
         }
-        if (webDriveBean != null){
-            netWorkInfos = webDriveBean.getNetWorkInfos();
-        }
+
+            netWorkInfos = NetworkInfoManager.getNetworkInfo();
+
         String urlChiamata = "https://webapi." + environment + url;
         return netWorkInfos.stream()
                 .filter(netWorkInfo -> netWorkInfo.getRequestUrl().contains(urlChiamata))

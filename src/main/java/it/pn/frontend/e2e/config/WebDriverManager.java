@@ -95,10 +95,10 @@ public class WebDriverManager {
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
         chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + Thread.currentThread().getId());
 
-       // chromeOptions.addArguments("--disable-extensions");
-       // chromeOptions.addArguments("--disable-dev-shm-usage");
-       // chromeOptions.addArguments("--disk-cache-size=0");
-        //chromeOptions.addArguments("--disable-cache");
+        chromeOptions.addArguments("--disable-extensions");
+        chromeOptions.addArguments("--disable-dev-shm-usage");
+        chromeOptions.addArguments("--disk-cache-size=0");
+        chromeOptions.addArguments("--disable-cache");
 
         if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
             chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
@@ -299,7 +299,7 @@ public class WebDriverManager {
     }
 
 
-    public static void quitDriver() {
+    public void quitDriver() {
         logger.info("Quit WebDriverManager..." + driverThreadLocal.get());
         logger.info("Quit DevTools..." + devToolsThread.get());
         WebDriver driver = driverThreadLocal.get();
@@ -312,9 +312,9 @@ public class WebDriverManager {
                 devToolsThread.remove();
             }
             /**
-            if (cookies != null) {
-                CookieConfig.getThreadLocalCookies().remove();
-            }
+             if (cookies != null) {
+             CookieConfig.getThreadLocalCookies().remove();
+             }
              **/
         }
     }

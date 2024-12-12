@@ -7,6 +7,7 @@ import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
+import it.pn.frontend.e2e.config.NetworkInfoManager;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.HooksNew;
@@ -243,7 +244,7 @@ public class NotifichePGPagoPATest extends BasePage {
 
 
     private String getBearerToken() {
-        List<NetWorkInfo> netWorkInfos = WebDriverManager.getNetworkInfosThread().get();
+        List<NetWorkInfo> netWorkInfos = webDriverManager.getNetWorkInfos();
         String bearerToken = "";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
             String urlChiamata = webDriverConfig.getBaseUrl() + "notifications/received?";
