@@ -249,8 +249,7 @@ public class WebDriverManager {
     }
 
     public void clearNetWorkInfos() {
-        networkInfosThread.get().clear();
-        networkInfosThread.remove();
+        NetworkInfoManager.clearNetworkInfos();
     }
 
 
