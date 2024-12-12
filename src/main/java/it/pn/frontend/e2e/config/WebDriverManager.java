@@ -208,7 +208,7 @@ public class WebDriverManager {
     }
 
     private void captureHttpResponse() {
-        netWorkInfos = networkInfosThread.get();
+        netWorkInfos = NetworkInfoManager.getNetworkInfo();
         devTools.addListener(Network.responseReceived(), response -> {
             var requestId = response.getRequestId().toString();
             if (requests.containsKey(requestId)) {
@@ -235,10 +235,10 @@ public class WebDriverManager {
                         // Ignorato perché non sempre è disponibile il body della risposta
                     }
                     logger.info("NET_INFO: " + netWorkInfo.getRequestUrl());
-
-                    netWorkInfos.add(netWorkInfo);
+                    NetworkInfoManager.addNetworkInfo(netWorkInfo);
+                    //netWorkInfos.add(netWorkInfo);
                 }
-                networkInfosThread.set(netWorkInfos);
+                //networkInfosThread.set(netWorkInfos);
             }
             requests.remove(requestId);
         });

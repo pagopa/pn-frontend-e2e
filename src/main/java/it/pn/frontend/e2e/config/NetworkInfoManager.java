@@ -6,13 +6,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NetworkInfoManager {
-    private static ThreadLocal<List<NetWorkInfo>> networkInfo = ThreadLocal.withInitial(ArrayList::new);
+
+
+
+    private static final ThreadLocal<List<NetWorkInfo>> networkInfoThread = ThreadLocal.withInitial(ArrayList::new);
 
     public static List<NetWorkInfo> getNetworkInfo() {
-        return networkInfo.get();
+        return networkInfoThread.get();
     }
 
-    public static void clearNetworkInfo() {
-        networkInfo.remove();
+    public static void addNetworkInfo(NetWorkInfo info) {
+        networkInfoThread.get().add(info);
     }
+
+    public static void clearNetworkInfos() {
+        networkInfoThread.remove();
+    }
+
 }
