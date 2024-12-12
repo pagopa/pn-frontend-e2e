@@ -249,8 +249,6 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
             return;
         }
 
-
-
         logger.info("Tabella caricata e non vuota");
         int index = GregorianCalendar.getInstance().get(Calendar.HOUR_OF_DAY) + indexModifier;
 

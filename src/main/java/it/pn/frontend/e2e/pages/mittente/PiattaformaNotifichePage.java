@@ -1207,7 +1207,7 @@ public class PiattaformaNotifichePage extends BasePage {
         String notificationRequestId = "";
 
         if (webDriverManager != null){
-            netWorkInfos = webDriverManager.getNetWorkInfos();
+            netWorkInfos = WebDriverManager.getNetworkInfosThread().get();
         }
 
         for (NetWorkInfo netWorkInfo : netWorkInfos) {

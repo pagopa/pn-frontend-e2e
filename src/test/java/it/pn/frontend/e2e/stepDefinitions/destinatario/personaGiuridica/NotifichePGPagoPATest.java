@@ -243,7 +243,7 @@ public class NotifichePGPagoPATest extends BasePage {
 
 
     private String getBearerToken() {
-        List<NetWorkInfo> netWorkInfos = webDriverManager.getNetWorkInfos();
+        List<NetWorkInfo> netWorkInfos = WebDriverManager.getNetworkInfosThread().get();
         String bearerToken = "";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
             String urlChiamata = webDriverConfig.getBaseUrl() + "notifications/received?";

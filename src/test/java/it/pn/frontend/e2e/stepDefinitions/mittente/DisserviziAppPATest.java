@@ -104,7 +104,7 @@ public class DisserviziAppPATest extends BasePage {
 
         boolean headless = headlessLoc.equalsIgnoreCase("true");
         downloadFile.setEnvironment(webDriverConfig.getEnvironment());
-        downloadFile.setNetWorkInfos(webDriveBean.getNetWorkInfos());
+        downloadFile.setNetWorkInfos(WebDriverManager.getNetworkInfosThread().get());
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }
