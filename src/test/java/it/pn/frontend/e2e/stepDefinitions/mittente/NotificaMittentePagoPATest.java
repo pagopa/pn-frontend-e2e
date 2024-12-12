@@ -1618,7 +1618,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
          * (2) no POST requests with the provided URL were found
          */
         boolean foundRequestWithUndesiredStatus = false;
-        for (NetWorkInfo netWorkInfo : webDriveBean.getNetWorkInfos()) {
+        for (NetWorkInfo netWorkInfo : WebDriverManager.getNetworkInfosThread().get()) {
             if (netWorkInfo.getRequestUrl().equals(urlNotificationRequest) && netWorkInfo.getRequestMethod().equals("POST") && netWorkInfo.getResponseStatus().equals("202")) {
                 String values = netWorkInfo.getResponseBody();
                 List<String> results = Splitter.on(CharMatcher.anyOf(",:")).splitToList(values);
