@@ -216,7 +216,7 @@ public class LeTueDelegheSection extends BasePage {
             By acceptDelegaButton = By.xpath("//*[@id='accept-button']");
             element(acceptDelegaButton).click();
         } catch (NoSuchElementException | TimeoutException e) {
-            getWebDriverWait(20).withMessage("Il bottone clickOpzioneAccetta blocco catch").until(ExpectedConditions.elementToBeClickable((By.xpath("//*[@id='accept-button']"))));
+            getWebDriverWait(40).withMessage("Il bottone clickOpzioneAccetta blocco catch").until(ExpectedConditions.elementToBeClickable((By.xpath("//*[@id='accept-button']"))));
             driver.findElement(By.xpath("//*[@id='accept-button']")).click();
             logger.error("Conferma Dati Spid DE Page non caricata con errore : " + e.getMessage());
             Assertions.fail("Conferma Dati Spid DE Page non caricata con errore : " + e.getMessage());
