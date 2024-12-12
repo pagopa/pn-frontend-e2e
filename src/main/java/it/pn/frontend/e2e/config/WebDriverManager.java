@@ -208,7 +208,6 @@ public class WebDriverManager {
     }
 
     private void captureHttpResponse() {
-        devTools = devToolsThread.get();
         netWorkInfos = networkInfosThread.get();
         devTools.addListener(Network.responseReceived(), response -> {
             var requestId = response.getRequestId().toString();
@@ -239,7 +238,7 @@ public class WebDriverManager {
 
                     netWorkInfos.add(netWorkInfo);
                 }
-                networkInfosThread.set(netWorkInfos);
+               // networkInfosThread.set(netWorkInfos);
             }
             requests.remove(requestId);
         });
