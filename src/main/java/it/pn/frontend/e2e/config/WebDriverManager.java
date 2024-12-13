@@ -10,7 +10,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.v126.network.Network;
 import org.openqa.selenium.devtools.v126.network.model.RequestWillBeSent;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -248,18 +247,12 @@ public class WebDriverManager {
         requests.clear();
     }
 
-    public void clearNetWorkInfos() {
-        NetworkInfoManager.clearNetworkInfos();
-    }
 
-
-    public static synchronized DevTools getDevTools() {
-        DevTools devTools = ((ChromeDriver) driverThreadLocal.get()).getDevTools();
-        devTools.createSession();
-        devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
-        devToolsThread.set(devTools);
+    public static void getDevTools() {
+        devToolsThread.set(((ChromeDriver) driverThreadLocal.get()).getDevTools());
+        devToolsThread.get().createSession();
+        devToolsThread.get().send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
         logger.info("DEV_TOOLS...." + devToolsThread.get().toString());
-        return devTools;
     }
 
 
