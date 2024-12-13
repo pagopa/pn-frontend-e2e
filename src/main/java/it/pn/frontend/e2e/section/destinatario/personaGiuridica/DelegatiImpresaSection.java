@@ -7,9 +7,11 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
 import java.util.List;
 
 
@@ -87,7 +89,7 @@ public class DelegatiImpresaSection extends BasePage {
             for (WebElement delegato : nomeDelegato) {
                 if (delegato.getText().contains(ragioneSociale)) {
                     logger.info("Delega trovata correttamente");
-                    logger.info("Delega trovata correttamente" +ragioneSociale);
+                    logger.info("Delega trovata correttamente" + ragioneSociale);
                     getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElement(delegato, ragioneSociale));
                     getWebDriverWait(40).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("chip-status-warning"))));
                     getWebDriverWait(40).until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.id("chip-status-warning")), "In attesa di conferma"));
@@ -102,7 +104,7 @@ public class DelegatiImpresaSection extends BasePage {
 
     public boolean siVisualizzaUnaDelega() {
         try {
-           // WebElement menuDelega = driver.findElement(By.xpath("//tr[contains(@class,'MuiTableRow-root css-g76qb5')]"));
+            // WebElement menuDelega = driver.findElement(By.xpath("//tr[contains(@class,'MuiTableRow-root css-g76qb5')]"));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//tr[contains(@class,'MuiTableRow-root css-g76qb5')]")));
             logger.info("Trovato correttamente almeno una delega");
             return true;
@@ -114,7 +116,7 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void clickMenuDelega(String ragioneSociale) {
         try {
-           //WebElement menuDelega = driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']"));
+            //WebElement menuDelega = driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']"));
             getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']"))));
             if (element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")).isDisplayed()) {
                 js().executeScript("arguments[0].click()", element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
@@ -129,23 +131,21 @@ public class DelegatiImpresaSection extends BasePage {
         }
     }
 
-    public void verificaRemoveMenuDelega(String displayName,String delegheCarico) {
+    public void verificaRemoveMenuDelega(String displayName, String delegheCarico) {
         logger.info("DisplayName: " + displayName);
         try {
             if (driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + displayName + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")).isDisplayed()) {
                 logger.info("Esiste il duplicato: " + displayName);
                 js().executeScript("arguments[0].click()", element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + displayName + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
 
-                if(StringUtils.isEmpty(delegheCarico)){
+                if (StringUtils.isEmpty(delegheCarico)) {
                     getWebDriverWait(30).withMessage("bottone rifiuta delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("reject-delegation-button")));
                     driver.findElement(By.id("reject-delegation-button")).click();
                     //Rifiuta la Delega pop-up
-                    getWebDriverWait(30).withMessage("bottone rifiuta delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
+                    getWebDriverWait(30).withMessage("bottone rifiuta delega non cliccabile pop-up").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
                     driver.findElement(By.id("dialog-action-button")).click();
 
-                }
-
-                else{
+                } else {
                     logger.info("DelegheCarico != null");
                     // Bottone rifiuta revoke-delegation-button
                     getWebDriverWait(30).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
@@ -165,23 +165,26 @@ public class DelegatiImpresaSection extends BasePage {
     public void verificaRemoveMenuDelega() {
         try {
             if (driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']")).isDisplayed()) {
-                logger.info("Esiste il duplicato: ");
-                js().executeScript("arguments[0].click()", element(By.xpath("//button[@data-testid='delegationMenuIcon']")));
-
-                // Bottone rifiuta revoke-delegation-button
-                getWebDriverWait(30).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
-                driver.findElement(By.id("revoke-delegation-button")).click();
-                // Bottone rifiuta revoke-delegation-button
-                getWebDriverWait(30).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
-                driver.findElement(By.id("dialog-action-button")).click();
+                logger.info("Esiste il duplicato");
+                WebElement menuIcon = driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']"));
+                js().executeScript("arguments[0].click();", menuIcon);
+                WebElement revokeButton = getWebDriverWait(40).withMessage("Bottone revoca delega non cliccabile")
+                        .until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+                revokeButton.click();
+                WebElement dialogButton = getWebDriverWait(40).withMessage("Bottone dialog-action-button non cliccabile")
+                        .until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
+                dialogButton.click();
                 driver.navigate().refresh();
-
-
-                logger.info("Rimosso il duplicato: ");
+                logger.info("Rimosso il duplicato");
             }
         } catch (NoSuchElementException e) {
-            System.out.println("L'elemento non esiste. Continuo l'esecuzione.");
+            logger.info("L'elemento non esiste. Continuo l'esecuzione.");
+        } catch (TimeoutException e) {
+            logger.warn("Timeout raggiunto durante l'attesa di un elemento: " + e.getMessage());
+        } catch (StaleElementReferenceException e) {
+            logger.error("Elemento non valido o DOM modificato: " + e.getMessage());
         }
+
     }
 
     public void clickMostraCodice() {

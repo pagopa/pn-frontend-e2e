@@ -18,7 +18,6 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection
 import it.pn.frontend.e2e.section.destinatario.personaFisica.PopUpRevocaDelegaSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.DelegatiImpresaSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
-import it.pn.frontend.e2e.stepDefinitions.common.SharedSteps;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
@@ -32,7 +31,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -113,7 +111,7 @@ public class DeleghePagoPATest extends BasePage{
     @And("Nella sezione Deleghe click sul bottone aggiungi nuova delega")
     public void nellaSezioneDelegheClickSulBottoneAggiungiNuovaDelega() {
         log.info("Click sul bottone aggiungi nuova delega");
-
+        delegatiImpresaSection.verificaRemoveMenuDelega();
         deleghePage.clickAggiungiDelegaButton();
     }
 
@@ -157,6 +155,7 @@ public class DeleghePagoPATest extends BasePage{
 
 //        deleghe.put("codiceDelega", codiceVerifica);
 //        dataPopulation.writeDataPopulation(dpFile + ".yaml", deleghe);
+        logger.info("CodiceVerifica Creazione delega: " + codiceVerifica);
         dataPopulationConfig.getNuovaDelega().setCodiceDelega(codiceVerifica);
 
     }
@@ -574,12 +573,14 @@ public class DeleghePagoPATest extends BasePage{
         log.info("Si controlla che ci sia una delega accettata");
         //this.deleghe = this.dataPopulation.readDataPopulation("personaFisica.yaml")
         if (!this.deleghePage.siVisualizzaUnaDelegaConNomeDelegato(dataPopulationConfig.getPersonaFisica().getName(), dataPopulationConfig.getPersonaFisica().getFamilyName())) {
+            logger.info("accettazioneDelegaPF richiamata dentro IF");
             backgroundTest.loginPF("personaFisica");
             backgroundTest.aggiuntaNuovaDelegaPF();
             backgroundTest.logoutPF();
             backgroundTest.loginPF("delegatoPF");
             backgroundTest.accettazioneDelegaPF();
         } else if (this.leTueDelegheSection.controlloPresenzaBottoneAccetta()) {
+            logger.info("accettazioneDelegaPF richiamata dentro ELSE IF");
             backgroundTest.accettazioneDelegaPF();
         }
         notifichePFPage.clickNotificheButton();
@@ -670,6 +671,7 @@ public class DeleghePagoPATest extends BasePage{
 //        nomeFileNuovaDelegaPG -> nuovaDelegaPG, nomeFileNuovaDelega -> nuova_delega, personaFisica, nuova_delega, nuova_delega
         switch (nomeConfig) {
             case "nuovaDelegaPG" -> {
+                logger.info("nuovaDelegaPG codice verifica: "+dataPopulationConfig.getNuovaDelegaPg().getCodiceDelega());
                 codiceDelega=dataPopulationConfig.getNuovaDelegaPg().getCodiceDelega();
             }
             case "nuova_delega" -> {

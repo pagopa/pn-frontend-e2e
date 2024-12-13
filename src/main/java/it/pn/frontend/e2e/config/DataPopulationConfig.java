@@ -478,11 +478,11 @@ public class DataPopulationConfig {
     public NuovaDelegaErrore nuovaDelegaErrore(){
 
         nuovaDelegaErrore = new NuovaDelegaErrore();
-        nuovaDelega.setNome(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_DELEGA_ERR.key));
-        nuovaDelega.setCognome(DataPopulationValue.getDefaultValue(DataPopulationValue.SURNAME_DELEGA_ERR.key));
-        nuovaDelega.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_CODE_DELEGA_ERR.key));
-        nuovaDelega.setEnte(DataPopulationValue.getDefaultValue(DataPopulationValue.ENTE_ERR.key));
-        nuovaDelega.setCodiceDelega(DataPopulationValue.getDefaultValue(DataPopulationValue.CODE_DELEGA_ERR.key));
+        nuovaDelegaErrore.setNome(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_DELEGA_ERR.key));
+        nuovaDelegaErrore.setCognome(DataPopulationValue.getDefaultValue(DataPopulationValue.SURNAME_DELEGA_ERR.key));
+        nuovaDelegaErrore.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_CODE_DELEGA_ERR.key));
+        nuovaDelegaErrore.setEnte(DataPopulationValue.getDefaultValue(DataPopulationValue.ENTE_ERR.key));
+        nuovaDelegaErrore.setCodiceDelega(DataPopulationValue.getDefaultValue(DataPopulationValue.CODE_DELEGA_ERR.key));
         return nuovaDelegaErrore;
 
     }
