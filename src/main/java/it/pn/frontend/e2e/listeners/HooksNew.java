@@ -75,7 +75,7 @@ public class HooksNew {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        WebDriverManager.getDriverThreadLocal().get();
+        // WebDriverManager.getDriverThreadLocal().get();
 
         /**
          String language = (String) ((JavascriptExecutor) driver).executeScript("return navigator.language");
@@ -101,60 +101,8 @@ public class HooksNew {
     @After
     public void endScenario(Scenario scenario) throws IOException {
         System.clearProperty("IUN");
-        try {
-            NetworkInfoManager.getNetworkInfo().forEach(netWorkInfo -> {
-                logger.info("Request ID: {}", netWorkInfo.getRequestId());
-                logger.info("Request URL: {}", netWorkInfo.getRequestUrl());
-                logger.info("Method: {}", netWorkInfo.getRequestMethod());
-                logger.info("Response Status: {}", netWorkInfo.getResponseStatus());
-                logger.info("Response Body: {}", netWorkInfo.getResponseBody());
-            });
 
-            if (scenario.isFailed()) {
-                try {
-                    logger.error("Scenario failed: {}", scenario.getName());
-                    var screenshot = ((TakesScreenshot) WebDriverManager.getDriverThreadLocal().get()).getScreenshotAs(OutputType.FILE);
-                    var screenshotBytes = Files.readAllBytes(screenshot.toPath());
-                    var formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
-                    var timestamp = formatter.format(new Date());
-                    var fileName = "logs/" + scenario.getName() + "_" + timestamp + ".png";
-                    FileUtils.copyFile(screenshot, new File(fileName));
-                    scenario.attach(screenshotBytes, "image/png", scenario.getName());
-                } catch (IOException e) {
-                    logger.error("Failed to take screenshot: {}", e.getMessage());
-                }
-            }
-        } finally {
-            try {
-                webDriveManager.quitDriver();
-            } catch (Exception e) {
-                logger.error("Error while quitting driver: {}", e.getMessage());
-            }
-            try {
-                webDriveManager.clearRequest();
-                NetworkInfoManager.clearNetworkInfos();
-            } catch (Exception e) {
-                logger.error("Error while clearing network infos: {}", e.getMessage());
-            }
-            logger.info("----- END SCENARIO: {} -----", scenario.getName());
-        }
-    }
-
-
-
-
-
-
-
-/**
-    @After
-    public void endScenario(Scenario scenario) throws IOException {
-
-
-
-
-        System.clearProperty("IUN");
-        NetworkInfoManager.getNetworkInfo().forEach(netWorkInfo -> {
+        WebDriverManager.getNetworkInfosThread().get().forEach(netWorkInfo -> {
             logger.info("Request ID: {}", netWorkInfo.getRequestId());
             logger.info("Request URL: {}", netWorkInfo.getRequestUrl());
             logger.info("Method: {}", netWorkInfo.getRequestMethod());
@@ -163,14 +111,18 @@ public class HooksNew {
         });
 
         if (scenario.isFailed()) {
-            logger.error("Scenario failed: {}", scenario.getName());
-            var screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            var screenshotBytes = Files.readAllBytes(screenshot.toPath());
-            var formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
-            var timestamp = formatter.format(new Date());
-            var fileName = "logs/" + scenario.getName() + "_" + timestamp + ".png";
-            FileUtils.copyFile(screenshot, new File(fileName));
-            scenario.attach(screenshotBytes, "image/png", scenario.getName());
+            try {
+                logger.error("Scenario failed: {}", scenario.getName());
+                var screenshot = ((TakesScreenshot) WebDriverManager.getDriverThreadLocal().get()).getScreenshotAs(OutputType.FILE);
+                var screenshotBytes = Files.readAllBytes(screenshot.toPath());
+                var formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
+                var timestamp = formatter.format(new Date());
+                var fileName = "logs/" + scenario.getName() + "_" + timestamp + ".png";
+                FileUtils.copyFile(screenshot, new File(fileName));
+                scenario.attach(screenshotBytes, "image/png", scenario.getName());
+            } catch (IOException e) {
+                logger.error("Failed to take screenshot: {}", e.getMessage());
+            }
         }
 
         try {
@@ -180,15 +132,56 @@ public class HooksNew {
         }
         try {
             webDriveManager.clearRequest();
-            webDriveManager.clearNetWorkInfos();
+            webDriveManager.clearNetworkInfos();
         } catch (Exception e) {
             logger.error("Error while clearing network infos: {}", e.getMessage());
         }
-
-
         logger.info("----- END SCENARIO: {} -----", scenario.getName());
     }
-**/
+
+
+    /**
+     * @After public void endScenario(Scenario scenario) throws IOException {
+     * <p>
+     * <p>
+     * <p>
+     * <p>
+     * System.clearProperty("IUN");
+     * NetworkInfoManager.getNetworkInfo().forEach(netWorkInfo -> {
+     * logger.info("Request ID: {}", netWorkInfo.getRequestId());
+     * logger.info("Request URL: {}", netWorkInfo.getRequestUrl());
+     * logger.info("Method: {}", netWorkInfo.getRequestMethod());
+     * logger.info("Response Status: {}", netWorkInfo.getResponseStatus());
+     * logger.info("Response Body: {}", netWorkInfo.getResponseBody());
+     * });
+     * <p>
+     * if (scenario.isFailed()) {
+     * logger.error("Scenario failed: {}", scenario.getName());
+     * var screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+     * var screenshotBytes = Files.readAllBytes(screenshot.toPath());
+     * var formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
+     * var timestamp = formatter.format(new Date());
+     * var fileName = "logs/" + scenario.getName() + "_" + timestamp + ".png";
+     * FileUtils.copyFile(screenshot, new File(fileName));
+     * scenario.attach(screenshotBytes, "image/png", scenario.getName());
+     * }
+     * <p>
+     * try {
+     * webDriveManager.quitDriver();
+     * } catch (Exception e) {
+     * logger.error("Error while quitting driver: {}", e.getMessage());
+     * }
+     * try {
+     * webDriveManager.clearRequest();
+     * webDriveManager.clearNetWorkInfos();
+     * } catch (Exception e) {
+     * logger.error("Error while clearing network infos: {}", e.getMessage());
+     * }
+     * <p>
+     * <p>
+     * logger.info("----- END SCENARIO: {} -----", scenario.getName());
+     * }
+     **/
 
     @And("Revoca deleghe se esistono")
     @After("@DeleghePF or @DeleghePG")

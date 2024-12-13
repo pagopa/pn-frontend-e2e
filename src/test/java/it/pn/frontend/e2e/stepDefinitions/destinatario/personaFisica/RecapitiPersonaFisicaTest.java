@@ -123,7 +123,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     }
 
     private boolean verificaChiamataEmail(String url) {
-        for (NetWorkInfo info : NetworkInfoManager.getNetworkInfo()) {
+        for (NetWorkInfo info : WebDriverManager.getNetworkInfosThread().get()) {
             if (info.getRequestUrl().contains(url) && info.getResponseStatus().equals("200")) {
                 logger.info("La chiamata per inviare email é utilizzabile");
                 return true;

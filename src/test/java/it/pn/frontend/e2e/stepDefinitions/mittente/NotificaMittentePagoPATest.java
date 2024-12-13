@@ -178,9 +178,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     private int getCodiceRispostaChiamataApi(String urlChiamata) {
         logger.info("Recupero codice risposta della chiamata" + urlChiamata);
+        logger.info("Recupero AAAAA codice risposta della chiamata NetworkInfoManager " +  WebDriverManager.getNetworkInfosThread().get());
+        logger.info("Recupero AAAAA codice risposta della chiamata NetworkInfoManager " +  WebDriverManager.getNetworkInfosThread().get().size());
 
         int codiceRispostaChiamataApi = 0;
-        for (NetWorkInfo chiamate : NetworkInfoManager.getNetworkInfo()) {
+        for (NetWorkInfo chiamate : WebDriverManager.getNetworkInfosThread().get()) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
                 codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
                 break;
@@ -195,7 +197,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
         webTool.waitTime(5);
         String urlNotifiche = webDriverConfig.getBaseUrl() + "notifications/";
-        for (NetWorkInfo netWorkInfo : NetworkInfoManager.getNetworkInfo()) {
+        for (NetWorkInfo netWorkInfo : WebDriverManager.getNetworkInfosThread().get()) {
             if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=10")) {
                 String responseBody = netWorkInfo.getResponseBody();
                 String[] allNotifiche = responseBody.split("],\"moreResult\":");
@@ -1243,7 +1245,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Si verifica che la notifica è stata creata correttamente")
     public void siVerificaCheLaNotificaEStataCreataCorrettamente() {
         logger.info("Si verifica che la notifica sia stata creata correttamente filtrandolo per il numero di protocollo");
-        piattaformaNotifichePage.setNetWorkInfos(NetworkInfoManager.getNetworkInfo());
+        piattaformaNotifichePage.setNetWorkInfos(WebDriverManager.getNetworkInfosThread().get());
         piattaformaNotifichePage.setRestNotificationParam(restNotification);
         piattaformaNotifichePage.setNotificationSingletonParam(notificationSingleton);
         piattaformaNotifichePage.verificaNotificaCreata();
@@ -1618,9 +1620,10 @@ public class NotificaMittentePagoPATest  extends BasePage {
          * (2) no POST requests with the provided URL were found
          */
         boolean foundRequestWithUndesiredStatus = false;
-        for (NetWorkInfo netWorkInfo : NetworkInfoManager.getNetworkInfo()) {
+        for (NetWorkInfo netWorkInfo : WebDriverManager.getNetworkInfosThread().get()) {
             logger.info("BODY URL......."+netWorkInfo.getRequestUrl());
-            logger.info("BODY......."+ netWorkInfo.getResponseBody());
+            logger.info("BODY METHOD......."+ netWorkInfo.getRequestMethod());
+            logger.info("BODY STATUS......."+ netWorkInfo.getResponseStatus());
             if (netWorkInfo.getRequestUrl().equals(urlNotificationRequest) && netWorkInfo.getRequestMethod().equals("POST") && netWorkInfo.getResponseStatus().equals("202")) {
                 String values = netWorkInfo.getResponseBody();
                 logger.info("BODY......."+values);
