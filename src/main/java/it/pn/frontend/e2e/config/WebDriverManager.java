@@ -55,7 +55,7 @@ public class WebDriverManager {
 
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
 
-    private WebDriver driver;
+    private WebDriver driver1;
 
     @Autowired
     @Lazy
@@ -104,16 +104,16 @@ public class WebDriverManager {
             chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
         }
 
-        driver = getDriver(chromeOptions, null, null);
+        //getDriver(chromeOptions, null, null);
 
-        setupDevTools();
+        setupDevTools(getDriver(chromeOptions, null, null));
 
         logger.info("Chrome driver started - WebDriverManager");
 
         cookieConfig.addCookie();
 
 
-        return driver;
+        return driverThreadLocal.get();
     }
 
     @WebdriverScopeBean
@@ -134,11 +134,11 @@ public class WebDriverManager {
             edgeOptions.addArguments("window-size=1920,1080", "--headless");
         }
 
-        driver = getDriver(null, edgeOptions, null);
+        getDriver(null, edgeOptions, null);
 
         cookieConfig.addCookie();
 
-        return driver;
+        return driverThreadLocal.get();
     }
 
     @WebdriverScopeBean
@@ -158,7 +158,7 @@ public class WebDriverManager {
             firefoxOptions.addArguments("--width=1200", "--height=800", "--headless");
         }
 
-        driver = getDriver(null, null, firefoxOptions);
+        getDriver(null, null, firefoxOptions);
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -166,20 +166,20 @@ public class WebDriverManager {
         }
         cookieConfig.addCookie();
 
-        return driver;
+        return driverThreadLocal.get();
     }
 
 
 
-    private void setupDevTools() {
+    private void setupDevTools(WebDriver driver) {
         //devTools = ((HasDevTools) driver).getDevTools();
         //devTools.createSession();
         // devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
-        captureHttpRequests();
+        captureHttpRequests(driver);
         captureHttpResponse();
     }
 
-    private void captureHttpRequests() {
+    private void captureHttpRequests(WebDriver driver) {
         //devTools = devToolsThread.get();
         devToolsThread.get().addListener(Network.requestWillBeSent(), request -> {
             try {
