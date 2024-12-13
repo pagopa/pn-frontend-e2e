@@ -1182,7 +1182,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public void checkPaginaNotificheDelegante(String nomeDelegante) {
         String idNotificationTitlePage = "Le notifiche di " + nomeDelegante + "-page";
         WebElement titlePage = driver.findElement(By.id(idNotificationTitlePage));
-        notificationsTable = driver.findElement(By.id("notifications-table"));
+//        notificationsTable = driver.findElement(By.id("notifications-table"));
         try {
             getWebDriverWait(20).withMessage("il titolo della pagina non é caricato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id(idNotificationTitlePage))));
             getWebDriverWait(25).withMessage("tabella notifiche non caricata").until(ExpectedConditions.visibilityOf( driver.findElement(By.id("notifications-table"))));
