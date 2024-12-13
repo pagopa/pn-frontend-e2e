@@ -65,7 +65,7 @@ public class HooksNew {
     @Autowired
     private WebDriverConfig webDriverConfig;
 
-    private WebDriver driver;
+    private WebDriver driver1;
 
     @Before
     public void startScenario(Scenario scenario) {
@@ -75,7 +75,7 @@ public class HooksNew {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        driver = WebDriverManager.getDriverThreadLocal().get();
+        WebDriverManager.getDriverThreadLocal().get();
 
         /**
          String language = (String) ((JavascriptExecutor) driver).executeScript("return navigator.language");
@@ -113,7 +113,7 @@ public class HooksNew {
             if (scenario.isFailed()) {
                 try {
                     logger.error("Scenario failed: {}", scenario.getName());
-                    var screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+                    var screenshot = ((TakesScreenshot) WebDriverManager.getDriverThreadLocal().get()).getScreenshotAs(OutputType.FILE);
                     var screenshotBytes = Files.readAllBytes(screenshot.toPath());
                     var formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
                     var timestamp = formatter.format(new Date());
