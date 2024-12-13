@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -643,11 +644,20 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     }
 
     @When("Login {string} portale persona fisica tramite request method")
-    public void loginPortaleDelegatoTramiteRequestMethod(String dpFile) {
+    public void loginPortaleDelegatoTramiteRequestMethod(String nomeFileLogin) {
         boolean urlWithTokenFound = false;
         int numProvaLogin = 0;
-        String userDelegato = webDriverConfig.getUserCesare();
-        String passwordDelegato = webDriverConfig.getPwdCesare();
+
+        String userDelegato = "";
+        String passwordDelegato= "";;
+         if (nomeFileLogin .equalsIgnoreCase("delegatoPF")) {
+             userDelegato = webDriverConfig.getUserLucrezia();
+             passwordDelegato = webDriverConfig.getPwdLucrezia();
+         }
+        else{
+             userDelegato = webDriverConfig.getUserCesare();
+             passwordDelegato = webDriverConfig.getPwdCesare();
+        }
 
         while (numProvaLogin < 10) {
             this.readUrlLoginPersonaFisicaWithToken(userDelegato, passwordDelegato);
