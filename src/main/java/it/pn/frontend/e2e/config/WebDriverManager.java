@@ -170,6 +170,7 @@ public class WebDriverManager {
     }
 
 
+
     private void setupDevTools() {
         //devTools = ((HasDevTools) driver).getDevTools();
         //devTools.createSession();
@@ -252,9 +253,13 @@ public class WebDriverManager {
     }
 
 
-    public static DevTools getDevTools() {
+    public static synchronized DevTools getDevTools() {
+        DevTools devTools = ((ChromeDriver) driverThreadLocal.get()).getDevTools();
+        devTools.createSession();
+        devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+        devToolsThread.set(devTools);
         logger.info("DEV_TOOLS...." + devToolsThread.get().toString());
-        return devToolsThread.get();
+        return devTools;
     }
 
 
@@ -269,11 +274,12 @@ public class WebDriverManager {
 
                 driverThreadLocal.set(driver);
 
-                DevTools devTools = ((ChromeDriver) driver).getDevTools();
-                //devTools = getDevTools();
-                devTools.createSession();
-                devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
-                devToolsThread.set(devTools);
+                //DevTools devTools = ((ChromeDriver) driver).getDevTools();
+                //DevTools devTools = getDevTools();
+                getDevTools();
+                //devTools.createSession();
+                //devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+                //devToolsThread.set(devTools);
 
                 logger.info("Chrome driver started");
             } else if (edgeOptions != null) {
