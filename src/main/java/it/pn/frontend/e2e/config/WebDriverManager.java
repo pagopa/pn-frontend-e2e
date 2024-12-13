@@ -50,8 +50,8 @@ public class WebDriverManager {
     @Getter
     private static final ThreadLocal<DevTools> devToolsThread = new ThreadLocal<>();
 
-    @Getter
-    private static final ThreadLocal<List<NetWorkInfo>> networkInfosThread = ThreadLocal.withInitial(ArrayList::new);
+   // @Getter
+   // private static final ThreadLocal<List<NetWorkInfo>> networkInfosThread = ThreadLocal.withInitial(ArrayList::new);
 
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
 
@@ -64,12 +64,12 @@ public class WebDriverManager {
     @Autowired
     public CookieConfig cookieConfig;
 
-    @Getter
-    private List<NetWorkInfo> netWorkInfos = new ArrayList<>();
+   // @Getter
+    //private List<NetWorkInfo> netWorkInfos = new ArrayList<>();
 
     private final String os = System.getProperty("os.name");
 
-    private DevTools devTools;
+    //private DevTools devTools;
 
 
     @WebdriverScopeBean
@@ -179,8 +179,8 @@ public class WebDriverManager {
     }
 
     private void captureHttpRequests() {
-        devTools = devToolsThread.get();
-        devTools.addListener(Network.requestWillBeSent(), request -> {
+        //devTools = devToolsThread.get();
+        devToolsThread.get().addListener(Network.requestWillBeSent(), request -> {
             try {
                 // Safely access the request properties
                 if (request != null && request.getRequest() != null) {
@@ -208,8 +208,7 @@ public class WebDriverManager {
     }
 
     private void captureHttpResponse() {
-        netWorkInfos = NetworkInfoManager.getNetworkInfo();
-        devTools.addListener(Network.responseReceived(), response -> {
+        devToolsThread.get().addListener(Network.responseReceived(), response -> {
             var requestId = response.getRequestId().toString();
             if (requests.containsKey(requestId)) {
                 var request = requests.get(requestId);
@@ -229,7 +228,7 @@ public class WebDriverManager {
                     netWorkInfo.setResponseStatus(response.getResponse().getStatus().toString());
 
                     try {
-                        var bodyResponse = devTools.send(Network.getResponseBody(response.getRequestId())).getBody();
+                        var bodyResponse = devToolsThread.get().send(Network.getResponseBody(response.getRequestId())).getBody();
                         netWorkInfo.setResponseBody(bodyResponse);
                     } catch (Exception ignored) {
                         // Ignorato perché non sempre è disponibile il body della risposta
@@ -324,7 +323,7 @@ public class WebDriverManager {
 
         // Listener per le richieste inviate
         AtomicBoolean requestCaptured = new AtomicBoolean(false);
-        devTools.addListener(Network.requestWillBeSent(), request -> {
+        devToolsThread.get().addListener(Network.requestWillBeSent(), request -> {
             if (request.getRequest().getUrl().contains(apiEndpoint)) {
                 System.out.println("API request captured: " + request.getRequest().getUrl());
                 requestCaptured.set(true);

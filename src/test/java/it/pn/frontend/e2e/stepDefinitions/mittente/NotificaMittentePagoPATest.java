@@ -195,7 +195,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
         webTool.waitTime(5);
         String urlNotifiche = webDriverConfig.getBaseUrl() + "notifications/";
-        for (NetWorkInfo netWorkInfo : webDriveBean.getNetWorkInfos()) {
+        for (NetWorkInfo netWorkInfo : NetworkInfoManager.getNetworkInfo()) {
             if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=10")) {
                 String responseBody = netWorkInfo.getResponseBody();
                 String[] allNotifiche = responseBody.split("],\"moreResult\":");
@@ -1243,7 +1243,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Si verifica che la notifica è stata creata correttamente")
     public void siVerificaCheLaNotificaEStataCreataCorrettamente() {
         logger.info("Si verifica che la notifica sia stata creata correttamente filtrandolo per il numero di protocollo");
-        piattaformaNotifichePage.setNetWorkInfos(webDriveBean.getNetWorkInfos());
+        piattaformaNotifichePage.setNetWorkInfos(NetworkInfoManager.getNetworkInfo());
         piattaformaNotifichePage.setRestNotificationParam(restNotification);
         piattaformaNotifichePage.setNotificationSingletonParam(notificationSingleton);
         piattaformaNotifichePage.verificaNotificaCreata();

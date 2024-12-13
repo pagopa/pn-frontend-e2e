@@ -137,10 +137,10 @@ public class DownloadFile extends BasePage {
 
     public String getUrl(String urlChiamata) {
 
-            netWorkInfos = webDriveBean.getNetWorkInfos();
+           // netWorkInfos = NetworkInfoManager.getNetworkInfo();
 
 
-        String url = netWorkInfos.stream()
+        String url = NetworkInfoManager.getNetworkInfo().stream()
                 .filter(netWorkInfo -> netWorkInfo.getRequestUrl().contains(urlChiamata) &&
                         netWorkInfo.getRequestMethod().equals("GET") &&
                         netWorkInfo.getResponseStatus().equals("200"))
@@ -194,10 +194,10 @@ public class DownloadFile extends BasePage {
             environment = webDriverConfig.getEnvironment();
         }
 
-            netWorkInfos = NetworkInfoManager.getNetworkInfo();
+           // netWorkInfos = NetworkInfoManager.getNetworkInfo();
 
         String urlChiamata = "https://webapi." + environment + ".notifichedigitali.it/delivery/notifications/received?";
-        return netWorkInfos.stream()
+        return NetworkInfoManager.getNetworkInfo().stream()
                 .filter(netWorkInfo -> netWorkInfo.getRequestUrl().contains(urlChiamata))
                 .map(NetWorkInfo::getAuthorizationBearer)
                 .findFirst()
@@ -209,10 +209,10 @@ public class DownloadFile extends BasePage {
             environment = webDriverConfig.getEnvironment();
         }
 
-            netWorkInfos = NetworkInfoManager.getNetworkInfo();
+           // netWorkInfos = NetworkInfoManager.getNetworkInfo();
 
         String urlChiamata = "https://webapi." + environment + url;
-        return netWorkInfos.stream()
+        return NetworkInfoManager.getNetworkInfo().stream()
                 .filter(netWorkInfo -> netWorkInfo.getRequestUrl().contains(urlChiamata))
                 .map(NetWorkInfo::getAuthorizationBearer)
                 .findFirst()
