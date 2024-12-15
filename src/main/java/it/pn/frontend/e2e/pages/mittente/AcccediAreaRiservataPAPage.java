@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.pages.mittente;
 
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -26,8 +27,11 @@ public class AcccediAreaRiservataPAPage extends BasePage {
     @FindBy (id = "forward_prod-pn-test")
     WebElement testButton;
 
+    private WebTool webTool;
+
     public AcccediAreaRiservataPAPage(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void waitLoadLoginPageMittente(){
@@ -44,6 +48,7 @@ public class AcccediAreaRiservataPAPage extends BasePage {
     public void selezionareSpidButton(){
         logger.info("Si seleziona il bottone Spid");
         try {
+            webTool.waitTime(5);
             spidButton = driver.findElement(By.id("spidButton"));
             getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(spidButton));
 

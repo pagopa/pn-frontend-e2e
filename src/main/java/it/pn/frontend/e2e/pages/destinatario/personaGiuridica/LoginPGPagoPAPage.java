@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -27,8 +28,11 @@ public class LoginPGPagoPAPage extends BasePage {
     @FindBy(xpath = "//button[@name = 'confirm']")
     WebElement inviaButton;
 
+    private WebTool webTool;
+
     public LoginPGPagoPAPage(WebDriver driver) {
         this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void waitLoadLoginPGPage() {
@@ -41,7 +45,7 @@ public class LoginPGPagoPAPage extends BasePage {
             getWebDriverWait(30).withMessage("il titolo della pagina Login PG non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h1[contains(text(),'Login')]"))));
             getWebDriverWait(30).withMessage("Il campo username della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("username"))));
             getWebDriverWait(30).withMessage("Il campo password della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("password"))));
-            getWebDriverWait(30).withMessage("Il bottone invia della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@name = 'confirm']"))));
+            getWebDriverWait(35).withMessage("Il bottone invia della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@name = 'confirm']"))));
             logger.info("LoginPGPage caricata correttamente");
         } catch (TimeoutException e){
             logger.error("LoginPGPage non caricata correttamente con errore :" +e.getMessage());
@@ -62,6 +66,7 @@ public class LoginPGPagoPAPage extends BasePage {
 
 
     public void clickInviaButton() {
+        webTool.waitTime(5);
         inviaButton = driver.findElement(By.xpath("//button[@name = 'confirm']"));
         inviaButton.click();
     }
