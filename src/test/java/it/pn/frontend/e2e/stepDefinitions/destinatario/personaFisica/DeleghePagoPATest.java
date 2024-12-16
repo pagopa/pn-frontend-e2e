@@ -114,6 +114,11 @@ public class DeleghePagoPATest extends BasePage{
         delegatiImpresaSection.verificaRemoveMenuDelega();
         deleghePage.clickAggiungiDelegaButton();
     }
+    @And("Nella sezione Deleghe click sul bottone aggiungi nuova delega PF")
+    public void nellaSezioneDelegheClickSulBottoneAggiungiNuovaDelegaPF() {
+        log.info("Click sul bottone aggiungi nuova delega");
+        deleghePage.clickAggiungiDelegaButton();
+    }
 
 
     @And("Nella sezione Le Tue Deleghe inserire i dati")
@@ -124,6 +129,7 @@ public class DeleghePagoPATest extends BasePage{
         String cognome = personaFisica.get("cognome");
         String codiceFiscale = personaFisica.get("codiceFiscale");
         String ente = personaFisica.get("ente");
+        logger.info("*-*-*-*-*-* ente: "+ente);
 
         leTueDelegheSection.selectPersonaFisicaRadioButton();
 
@@ -232,6 +238,7 @@ public class DeleghePagoPATest extends BasePage{
     @And("Nella sezione Le Tue Deleghe si visualizza il messaggio di errore delega gia aggiunta")
     public void nellaSezioneLeTueDelegheSiVisualizzaIlMessaggioDiErroreDelegaGiaAggiunta() {
         log.info("Si visualizza il messaggio di errore delega gia aggiunta");
+
         this.leTueDelegheSection.messaggioDiErroreDelegaPresente();
     }
 
@@ -410,7 +417,6 @@ public class DeleghePagoPATest extends BasePage{
     @And("Si controlla che la delega ha lo stato Attiva {string}")
     public void siControllaCheLaDelegaHaLoStatoAttiva(String dpFile) {
         log.info("Si controlla che la delega abbia lo stato Attiva");
-//        leTueDelegheSection.controlloStatoAttiva(deleghe.get("name").toString(), deleghe.get("familyName").toString());
         leTueDelegheSection.controlloStatoAttiva(dataPopulationConfig.getPersonaFisica().getName(), dataPopulationConfig.getPersonaFisica().getFamilyName());
     }
 
@@ -424,7 +430,6 @@ public class DeleghePagoPATest extends BasePage{
     public void siControllaCheLaDelegaèAncoraPresente() {
         log.info("Si controlla che la delega abbia lo stato Attiva");
         //personaFisica
-//        this.leTueDelegheSection.controlloEsistenzaDelega(deleghe.get("name").toString(), deleghe.get("familyName").toString());
         this.leTueDelegheSection.controlloEsistenzaDelega(dataPopulationConfig.getPersonaFisica().getName(), dataPopulationConfig.getPersonaFisica().getFamilyName());
 
 
