@@ -7,11 +7,9 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.Duration;
 import java.util.List;
 
 
@@ -134,25 +132,36 @@ public class DelegatiImpresaSection extends BasePage {
     public void verificaRemoveMenuDelega(String displayName, String delegheCarico) {
         logger.info("DisplayName: " + displayName);
         try {
+
             if (driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + displayName + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")).isDisplayed()) {
                 logger.info("Esiste il duplicato: " + displayName);
                 js().executeScript("arguments[0].click()", element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + displayName + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
 
                 if (StringUtils.isEmpty(delegheCarico)) {
-                    getWebDriverWait(30).withMessage("bottone rifiuta delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("reject-delegation-button")));
-                    driver.findElement(By.id("reject-delegation-button")).click();
-                    //Rifiuta la Delega pop-up
-                    getWebDriverWait(30).withMessage("bottone rifiuta delega non cliccabile pop-up").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
-                    driver.findElement(By.id("dialog-action-button")).click();
+                    logger.info("Deleghe Carico e null");
+
+                    boolean isVisible = isVisibleAttesa();
+                    if(isVisible){
+                        //bottone remove
+                        getWebDriverWait(30).withMessage("bottone revoca delega  con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+                        driver.findElement(By.id("revoke-delegation-button")).click();
+                        getWebDriverWait(30).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile pop-up").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
+                        driver.findElement(By.id("dialog-action-button")).click();
+                    }
+
+                    else {
+                        getWebDriverWait(30).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("reject-delegation-button")));
+                        driver.findElement(By.id("reject-delegation-button")).click();
+                        //Rifiuta la Delega pop-up
+                        getWebDriverWait(30).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile pop-up").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
+                        driver.findElement(By.id("dialog-action-button")).click();
+                    }
 
                 } else {
                     logger.info("DelegheCarico != null");
-                    // Bottone rifiuta revoke-delegation-button
                     getWebDriverWait(30).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
                     driver.findElement(By.id("revoke-delegation-button")).click();
                     driver.navigate().refresh();
-
-
                 }
 
                 logger.info("Rimosso il duplicato: " + displayName);
@@ -161,6 +170,7 @@ public class DelegatiImpresaSection extends BasePage {
             System.out.println("L'elemento non esiste. Continuo l'esecuzione.");
         }
     }
+
 
     public void verificaRemoveMenuDelega() {
         try {
@@ -268,6 +278,17 @@ public class DelegatiImpresaSection extends BasePage {
             logger.error("tabella delegati dall imprese non caricata correttamente" + e.getMessage());
             Assertions.fail("tabella delegati dall imprese non caricata correttamente" + e.getMessage());
         }
+    }
+
+
+    private boolean isVisibleAttesa() {
+        boolean isVisible;
+        try {
+            isVisible = driver.findElement(By.xpath("//span[contains(text(), 'attesa')]")).isDisplayed();
+        } catch (NoSuchElementException e) {
+            isVisible = false; // L'elemento non esiste
+        }
+        return isVisible;
     }
 
 }
