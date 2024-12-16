@@ -4,7 +4,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
   @TA_InvioNotificaMonoSenzaPagamento
   @mittente
   @invioNotifiche
-  @loginFE_5
+  @loginFE_8
   Scenario: PN-9645 - Mittente genera una notifica senza pagamento
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo

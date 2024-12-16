@@ -55,7 +55,7 @@ public class WebDriverManager {
 
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
 
-    private WebDriver driver;
+    private WebDriver driver1;
 
     @Autowired
     @Lazy
@@ -69,7 +69,7 @@ public class WebDriverManager {
 
     private final String os = System.getProperty("os.name");
 
-    private DevTools devTools;
+    private DevTools devTools1;
 
 
     @WebdriverScopeBean
@@ -99,7 +99,7 @@ public class WebDriverManager {
             chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
         }
 
-        driver = getDriver(chromeOptions, null, null);
+        WebDriver driver = getDriver(chromeOptions, null, null);
 
         setupDevTools();
 
@@ -128,7 +128,7 @@ public class WebDriverManager {
             edgeOptions.addArguments("window-size=1920,1080", "--headless");
         }
 
-        driver = getDriver(null, edgeOptions, null);
+        WebDriver driver = getDriver(null, edgeOptions, null);
 
         cookieConfig.addCookie();
 
@@ -152,7 +152,7 @@ public class WebDriverManager {
             firefoxOptions.addArguments("--width=1200", "--height=800", "--headless");
         }
 
-        driver = getDriver(null, null, firefoxOptions);
+        WebDriver driver = getDriver(null, null, firefoxOptions);
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -173,7 +173,8 @@ public class WebDriverManager {
     }
 
     private void captureHttpRequests() {
-        devTools = devToolsThread.get();
+        DevTools devTools = devToolsThread.get();
+        WebDriver driver = driverThreadLocal.get();
         devTools.addListener(Network.requestWillBeSent(), request -> {
             try {
                 // Safely access the request properties
@@ -189,7 +190,7 @@ public class WebDriverManager {
                 logger.error("Error processing the request: " + e.getMessage());
             }
         });
-
+        devToolsThread.set(devTools);
         // Aspetta per vedere tutte le richieste di rete
         /**
          try {
@@ -202,7 +203,7 @@ public class WebDriverManager {
     }
 
     private void captureHttpResponse() {
-        devTools = devToolsThread.get();
+        DevTools devTools = devToolsThread.get();
         netWorkInfos = networkInfosThread.get();
         devTools.addListener(Network.responseReceived(), response -> {
             var requestId = response.getRequestId().toString();
@@ -232,18 +233,20 @@ public class WebDriverManager {
                     logger.info("NET_INFO: " + netWorkInfo.getRequestUrl());
 
                     netWorkInfos.add(netWorkInfo);
-                    networkInfosThread.set(netWorkInfos);
+
                 }
             }
             requests.remove(requestId);
         });
+        networkInfosThread.set(netWorkInfos);
+        devToolsThread.set(devTools);
     }
 
-    public void clearRequest() {
+    public  void clearRequest() {
         requests.clear();
     }
 
-    public void clearNetWorkInfos() {
+    public static void clearNetWorkInfos() {
         networkInfosThread.get().clear();
     }
 
@@ -261,12 +264,14 @@ public class WebDriverManager {
                 ChromeDriver driver = new ChromeDriver(chromeOptions);
                 driver.manage().window().maximize();
                 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-                driverThreadLocal.set(driver);
+
 
                 DevTools devTools = ((ChromeDriver) driver).getDevTools();
+                //devTools = getDevTools();
                 devTools.createSession();
                 devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
                 devToolsThread.set(devTools);
+                driverThreadLocal.set(driver);
 
                 logger.info("Chrome driver started");
             } else if (edgeOptions != null) {
@@ -290,7 +295,7 @@ public class WebDriverManager {
     }
 
 
-    public void quitDriver() {
+    public static void quitDriver() {
         logger.info("Quit WebDriverManager..." + driverThreadLocal.get());
         logger.info("Quit DevTools..." + devToolsThread.get());
         WebDriver driver = driverThreadLocal.get();
@@ -304,6 +309,7 @@ public class WebDriverManager {
         }
     }
 
+    /**
     //TODO Rivedere....
     public boolean waitForApiCall(String apiEndpoint, Duration timeout) {
         CountDownLatch latch = new CountDownLatch(1);
@@ -346,6 +352,6 @@ public class WebDriverManager {
             cookies.forEach(cookie -> driver.manage().addCookie(cookie));
         }
     }
-
+**/
 
 }

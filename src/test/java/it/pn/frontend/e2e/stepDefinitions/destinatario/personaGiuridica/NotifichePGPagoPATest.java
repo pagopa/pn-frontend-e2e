@@ -151,7 +151,7 @@ public class NotifichePGPagoPATest extends BasePage {
         logger.info("Recupero codice risposta della chiamata" + urlChiamata);
 
         int codiceRispostaChiamataApi = 0;
-        for (NetWorkInfo chiamate : WebDriverManager.getNetworkInfosThread().get()) {
+        for (NetWorkInfo chiamate : webDriverManager.getNetWorkInfos()) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
                 codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
                 break;
@@ -244,7 +244,7 @@ public class NotifichePGPagoPATest extends BasePage {
 
 
     private String getBearerToken() {
-        List<NetWorkInfo> netWorkInfos = WebDriverManager.getNetworkInfosThread().get();
+        List<NetWorkInfo> netWorkInfos = webDriverManager.getNetWorkInfos();
         String bearerToken = "";
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
             String urlChiamata = webDriverConfig.getBaseUrl() + "notifications/received?";

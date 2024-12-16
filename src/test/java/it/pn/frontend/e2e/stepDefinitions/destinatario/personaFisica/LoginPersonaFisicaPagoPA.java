@@ -374,10 +374,10 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     private int getCodiceRispostaChiamataApi(String urlChiamata) {
         logger.info("Recupero codice risposta della chiamata " + urlChiamata);
         int codiceRispostaChiamataApi = 0;
-        logger.info("Recupero codice risposta della chiamata NetworkInfoManager " +  WebDriverManager.getNetworkInfosThread().get());
-        logger.info("Recupero codice risposta della chiamata NetworkInfoManager " +WebDriverManager.getNetworkInfosThread().get().size());
+        logger.info("Recupero codice risposta della chiamata NetworkInfoManager " + webDriverManager.getNetWorkInfos());
+        logger.info("Recupero codice risposta della chiamata NetworkInfoManager " + webDriverManager.getNetWorkInfos().size());
 
-        for (NetWorkInfo chiamate :  WebDriverManager.getNetworkInfosThread().get()) {
+        for (NetWorkInfo chiamate :  webDriverManager.getNetWorkInfos()) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
                 codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
                 break;
@@ -424,7 +424,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
        // String variabileAmbiente = System.getProperty("environment");
         String variabileAmbiente = webDriverConfig.getEnvironment();
         boolean urlFound = false;
-        for (NetWorkInfo netWorkInfo : WebDriverManager.getNetworkInfosThread().get()) {
+        for (NetWorkInfo netWorkInfo : webDriverManager.getNetWorkInfos()) {
             logger.info(netWorkInfo.getRequestUrl());
             logger.info(netWorkInfo.getResponseStatus());
             String urlToFind = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/token-exchange";

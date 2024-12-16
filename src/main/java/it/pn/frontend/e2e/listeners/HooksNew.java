@@ -88,7 +88,7 @@ public class HooksNew {
     public void endScenario(Scenario scenario) throws IOException {
         System.clearProperty("IUN");
 
-        WebDriverManager.getNetworkInfosThread().get().forEach(netWorkInfo -> {
+        webDriveManager.getNetWorkInfos().forEach(netWorkInfo -> {
             logger.info("Request ID: {}", netWorkInfo.getRequestId());
             logger.info("Request URL: {}", netWorkInfo.getRequestUrl());
             logger.info("Method: {}", netWorkInfo.getRequestMethod());
@@ -112,13 +112,13 @@ public class HooksNew {
         }
 
         try {
-            webDriveManager.quitDriver();
+            WebDriverManager.quitDriver();
         } catch (Exception e) {
             logger.error("Error while quitting driver: {}", e.getMessage());
         }
         try {
             webDriveManager.clearRequest();
-            webDriveManager.clearNetWorkInfos();
+            WebDriverManager.clearNetWorkInfos();
         } catch (Exception e) {
             logger.error("Error while clearing network infos: {}", e.getMessage());
         }
