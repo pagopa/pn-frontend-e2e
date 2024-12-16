@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
+import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.v126.network.Network;
 import org.openqa.selenium.devtools.v126.network.model.RequestWillBeSent;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -28,6 +29,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
@@ -49,13 +51,11 @@ public class WebDriverManager {
     @Getter
     private static final ThreadLocal<DevTools> devToolsThread = new ThreadLocal<>();
 
-
     @Getter
     private static final ThreadLocal<List<NetWorkInfo>> networkInfosThread = ThreadLocal.withInitial(ArrayList::new);
 
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
 
-    private WebDriver driver1;
 
     @Autowired
     @Lazy
@@ -69,17 +69,9 @@ public class WebDriverManager {
 
     private final String os = System.getProperty("os.name");
 
-    //private DevTools devTools;
+    private DevTools devTools;
 
-
-    public static void addNetworkInfo(NetWorkInfo info) {
-        networkInfosThread.get().add(info);
-    }
-
-    public static void clearNetworkInfos() {
-        logger.info("clearNetworkInfos...." + networkInfosThread.get().toString());
-        networkInfosThread.get().clear();
-    }
+    private WebDriver driver;
 
 
     @WebdriverScopeBean
@@ -87,8 +79,9 @@ public class WebDriverManager {
     @Scope(BeanDefinition.SCOPE_PROTOTYPE)
     @ConditionalOnProperty(name = "browser", havingValue = "chrome", matchIfMissing = true)
     public WebDriver chromeDriver() {
+
         try {
-            Thread.sleep(1500);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -99,25 +92,27 @@ public class WebDriverManager {
         io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
 
         var downloadFilePath = webDriverConfig.getDownloadFilePath();
-        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "it,it-IT");
+        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "it,it-IT") ;
 
         var chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--lang=it", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
 
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
-        chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + Thread.currentThread().getId());
-        chromeOptions.addArguments("--disable-extensions");
-        chromeOptions.addArguments("--disable-dev-shm-usage");
-        chromeOptions.addArguments("--disk-cache-size=0");
-        chromeOptions.addArguments("--disable-cache");
+       // chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + Thread.currentThread().getId());
 
         if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
             chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
         }
 
+        driver = getDriver(chromeOptions, null, null);
+
+        setupDevTools();
+
         logger.info("Chrome driver started - WebDriverManager");
 
-        return getDriver(chromeOptions, null, null);
+        cookieConfig.addCookie();
+
+        return driver;
     }
 
     @WebdriverScopeBean
@@ -138,11 +133,11 @@ public class WebDriverManager {
             edgeOptions.addArguments("window-size=1920,1080", "--headless");
         }
 
-        getDriver(null, edgeOptions, null);
+        driver = getDriver(null, edgeOptions, null);
 
         cookieConfig.addCookie();
 
-        return driverThreadLocal.get();
+        return driver;
     }
 
     @WebdriverScopeBean
@@ -162,7 +157,7 @@ public class WebDriverManager {
             firefoxOptions.addArguments("--width=1200", "--height=800", "--headless");
         }
 
-        getDriver(null, null, firefoxOptions);
+        driver = getDriver(null, null, firefoxOptions);
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -170,35 +165,35 @@ public class WebDriverManager {
         }
         cookieConfig.addCookie();
 
-        return driverThreadLocal.get();
+        return driver;
     }
 
 
     private void setupDevTools() {
-        //devTools = ((HasDevTools) driver).getDevTools();
-        //devTools.createSession();
-        // devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
         captureHttpRequests();
         captureHttpResponse();
     }
 
     private void captureHttpRequests() {
-        //devTools = devToolsThread.get();
-        logger.info("DEV_TOOLS11111...." + driverThreadLocal.get().toString());
-        WebDriver driver = driverThreadLocal.get();
-        DevTools devTools = devToolsThread.get();
-        cookieConfig.addCookie();
-        devTools.addListener(Network.requestWillBeSent(), request -> {
+        devTools = devToolsThread.get();
+
+        devToolsThread.get().addListener(Network.requestWillBeSent(), request -> {
             try {
                 // Safely access the request properties
                 if (request != null && request.getRequest() != null) {
                     var url = request.getRequest().getUrl();
-
-                    logger.info("Driver: " + driver);
-                    logger.info("Cookies: " + cookieConfig.getCookies(url));
-                    cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
-
+                    cookieConfig.getCookies(url).forEach(cookie -> driverThreadLocal.get().manage().addCookie(cookie));
                     requests.put(request.getRequestId().toString(), request);
+/**
+                    NetWorkInfo netWorkInfo = new NetWorkInfo();
+
+                    netWorkInfo.setRequestUrl(request.getRequest().getUrl());
+                    netWorkInfo.setRequestMethod(request.getRequest().getMethod());
+                    synchronized (WebDriverManager.getNetworkInfosThread()) {
+                        WebDriverManager.getNetworkInfosThread().get().add(netWorkInfo);
+                    }
+ **/
+
                     logger.info("Request URL: " + request.getRequest().getUrl());
                 } else {
                     logger.info("Received a null event or request object.");
@@ -209,20 +204,21 @@ public class WebDriverManager {
         });
 
         // Aspetta per vedere tutte le richieste di rete
+
          try {
-         Thread.sleep(5000);
+         Thread.sleep(10000);
          } catch (InterruptedException e) {
          throw new RuntimeException(e);
          }
-        driverThreadLocal.set(driver);
-        devToolsThread.set(devTools);
+
 
     }
 
     private void captureHttpResponse() {
-       // netWorkInfos = new ArrayList<>();
-        DevTools devTools = devToolsThread.get();
-        devTools.addListener(Network.responseReceived(), response -> {
+        devTools = devToolsThread.get();
+        netWorkInfos = new ArrayList<>();
+
+        devToolsThread.get().addListener(Network.responseReceived(), response -> {
             var requestId = response.getRequestId().toString();
             if (requests.containsKey(requestId)) {
                 var request = requests.get(requestId);
@@ -242,69 +238,43 @@ public class WebDriverManager {
                     netWorkInfo.setResponseStatus(response.getResponse().getStatus().toString());
 
                     try {
-                        var bodyResponse = devTools.send(Network.getResponseBody(response.getRequestId())).getBody();
+                        var bodyResponse = devToolsThread.get().send(Network.getResponseBody(response.getRequestId())).getBody();
                         netWorkInfo.setResponseBody(bodyResponse);
                     } catch (Exception ignored) {
                         // Ignorato perché non sempre è disponibile il body della risposta
                     }
                     logger.info("NET_INFO: " + netWorkInfo.getRequestUrl());
-                    //NetworkInfoManager.addNetworkInfo(netWorkInfo);
-                    WebDriverManager.addNetworkInfo(netWorkInfo);
-                    //getNetworkInfosThread().get().add(netWorkInfo);
-                }
 
+                    netWorkInfos.add(netWorkInfo);
+                }
             }
             requests.remove(requestId);
         });
-        devToolsThread.set(devTools);
-        //networkInfosThread.set(netWorkInfos);
-        logger.info("Recupero codice risposta della chiamata NetworkInfoManager Ciaoooo " + getNetworkInfosThread().get());
-    }
-
-    public static Set<Cookie> getCookies() {
-        return getDriverThreadLocal().get().manage().getCookies();
-    }
-
-    public static void clearCookies() {
-        driverThreadLocal.get().manage().deleteAllCookies();
-        logger.info("All cookies cleared for this session.");
+       networkInfosThread.set(netWorkInfos);
     }
 
     public void clearRequest() {
         requests.clear();
-        logger.info("Cleared requests.");
+    }
+
+    public void clearNetWorkInfos() {
+        networkInfosThread.get().clear();
     }
 
 
-    public void getDevTools() {
-        ChromeDriver driver = (ChromeDriver) driverThreadLocal.get();
-        DevTools devTools = driver.getDevTools();
-        devTools.createSession();
-        devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
-        devToolsThread.set(devTools);
-        captureHttpRequests();
-        captureHttpResponse();
-        logger.info("WEBDRIVER...." + driverThreadLocal.get().toString());
-        logger.info("DEV_TOOLS...." + devToolsThread.get().toString());
-    }
-
-
-    public WebDriver getDriver(ChromeOptions chromeOptions, EdgeOptions edgeOptions, FirefoxOptions firefoxOptions) {
+    public static WebDriver getDriver(ChromeOptions chromeOptions, EdgeOptions edgeOptions, FirefoxOptions firefoxOptions) {
         if (driverThreadLocal.get() == null) {
 
             if (chromeOptions != null) {
                 ChromeDriver driver = new ChromeDriver(chromeOptions);
                 driver.manage().window().maximize();
                 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-                driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
-
                 driverThreadLocal.set(driver);
-                //DevTools devTools = ((ChromeDriver) driver).getDevTools();
-                //DevTools devTools = getDevTools();
-                getDevTools();
-                //devTools.createSession();
-                //devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
-                //devToolsThread.set(devTools);
+
+                DevTools devTools = ((ChromeDriver) driver).getDevTools();
+                devTools.createSession();
+                devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+                devToolsThread.set(devTools);
 
                 logger.info("Chrome driver started");
             } else if (edgeOptions != null) {
@@ -327,16 +297,13 @@ public class WebDriverManager {
         return driverThreadLocal.get();
     }
 
+
     public void quitDriver() {
         logger.info("Quit WebDriverManager..." + driverThreadLocal.get());
         logger.info("Quit DevTools..." + devToolsThread.get());
-        logger.info("Quit NetworkInfo..." + networkInfosThread.get());
         WebDriver driver = driverThreadLocal.get();
         DevTools devTools = devToolsThread.get();
-
         if (driver != null) {
-            clearNetworkInfos();
-            clearCookies();
             driver.quit();
             driverThreadLocal.remove();
             if (devTools != null) {
@@ -344,14 +311,14 @@ public class WebDriverManager {
             }
         }
     }
-
+/**
     //TODO Rivedere....
     public boolean waitForApiCall(String apiEndpoint, Duration timeout) {
         CountDownLatch latch = new CountDownLatch(1);
 
         // Listener per le richieste inviate
         AtomicBoolean requestCaptured = new AtomicBoolean(false);
-        devToolsThread.get().addListener(Network.requestWillBeSent(), request -> {
+        devTools.addListener(Network.requestWillBeSent(), request -> {
             if (request.getRequest().getUrl().contains(apiEndpoint)) {
                 System.out.println("API request captured: " + request.getRequest().getUrl());
                 requestCaptured.set(true);
@@ -373,7 +340,43 @@ public class WebDriverManager {
         return requestCaptured.get();
     }
 
-    /**
+**/
+
+
+    public boolean waitForApiCall(String apiEndpoint, Duration timeout) {
+        Instant endTime = Instant.now().plus(timeout);
+
+        // Continua a verificare fino al raggiungimento del timeout
+        while (Instant.now().isBefore(endTime)) {
+            // Recupera le informazioni sulle chiamate di rete registrate
+            List<NetWorkInfo> networkInfos = WebDriverManager.getNetworkInfosThread().get();
+
+            // Cerca un match per l'endpoint desiderato
+            synchronized (networkInfos) {
+                boolean apiCallDetected = networkInfos.stream()
+                        .anyMatch(info -> info.getRequestUrl().contains(apiEndpoint) &&  info.getRequestMethod().contains("POST") &&  info.getResponseStatus().contains("202"));
+                if (apiCallDetected) {
+                    return true;
+                }
+            }
+
+            // Aspetta brevemente prima di riprovare
+            try {
+                Thread.sleep(100); // Puoi regolare questo valore per evitare polling troppo aggressivo
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new RuntimeException("Thread interrupted while waiting for API call", e);
+            }
+        }
+
+        // Timeout raggiunto senza trovare l'API
+        return false;
+    }
+
+
+
+
+
     private static Map<Long, Set<Cookie>> cookieStore = new ConcurrentHashMap<>();
 
     public void saveCookies(String url, WebDriver driver) {
@@ -388,7 +391,6 @@ public class WebDriverManager {
             cookies.forEach(cookie -> driver.manage().addCookie(cookie));
         }
     }
-     **/
 
 
 }
