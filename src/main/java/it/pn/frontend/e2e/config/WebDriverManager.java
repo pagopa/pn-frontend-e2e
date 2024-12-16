@@ -176,23 +176,15 @@ public class WebDriverManager {
 
     private void captureHttpRequests() {
         devTools = devToolsThread.get();
-
+        driver = driverThreadLocal.get();
         devToolsThread.get().addListener(Network.requestWillBeSent(), request -> {
             try {
                 // Safely access the request properties
                 if (request != null && request.getRequest() != null) {
                     var url = request.getRequest().getUrl();
-                    cookieConfig.getCookies(url).forEach(cookie -> driverThreadLocal.get().manage().addCookie(cookie));
+                    cookieConfig.getCookies(url).forEach(cookie ->driver.manage().addCookie(cookie));
                     requests.put(request.getRequestId().toString(), request);
-/**
-                    NetWorkInfo netWorkInfo = new NetWorkInfo();
 
-                    netWorkInfo.setRequestUrl(request.getRequest().getUrl());
-                    netWorkInfo.setRequestMethod(request.getRequest().getMethod());
-                    synchronized (WebDriverManager.getNetworkInfosThread()) {
-                        WebDriverManager.getNetworkInfosThread().get().add(netWorkInfo);
-                    }
- **/
 
                     logger.info("Request URL: " + request.getRequest().getUrl());
                 } else {
@@ -202,8 +194,6 @@ public class WebDriverManager {
                 logger.error("Error processing the request: " + e.getMessage());
             }
         });
-
-        // Aspetta per vedere tutte le richieste di rete
 
          try {
          Thread.sleep(10000);
