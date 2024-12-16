@@ -13,7 +13,7 @@ Feature: Login pagoPA
     Then Home page mittente viene visualizzata correttamente
     And Logout da portale mittente
 
-  @TA_loginpersonaFisica
+  @TA_loginpersonaFisica_x
   @TestSuite
   @loginFE_5
   Scenario: Login pagoPA persona fisica

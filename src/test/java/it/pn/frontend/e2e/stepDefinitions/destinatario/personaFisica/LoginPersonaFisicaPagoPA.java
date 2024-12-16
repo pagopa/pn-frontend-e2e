@@ -374,10 +374,10 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     private int getCodiceRispostaChiamataApi(String urlChiamata) {
         logger.info("Recupero codice risposta della chiamata " + urlChiamata);
         int codiceRispostaChiamataApi = 0;
-        logger.info("Recupero codice risposta della chiamata NetworkInfoManager " +  WebDriverManager.getNetworkInfosThread());
-        logger.info("Recupero codice risposta della chiamata NetworkInfoManager " +  WebDriverManager.getNetworkInfosThread().get().size());
+        logger.info("Recupero codice risposta della chiamata NetworkInfoManager " +  WebDriverManager.getNetworkInfosThread().get());
+        logger.info("Recupero codice risposta della chiamata NetworkInfoManager " +WebDriverManager.getNetworkInfosThread().get().size());
 
-        for (NetWorkInfo chiamate : WebDriverManager.getNetworkInfosThread().get()) {
+        for (NetWorkInfo chiamate :  WebDriverManager.getNetworkInfosThread().get()) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
                 codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
                 break;

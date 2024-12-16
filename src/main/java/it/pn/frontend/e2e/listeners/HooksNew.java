@@ -48,8 +48,6 @@ public class HooksNew {
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
     @Getter
     public static String scenario;
-    @Getter
-    private final List<NetWorkInfo> netWorkInfos = new ArrayList<>();
 
     private final String os = System.getProperty("os.name");
     @Autowired
@@ -65,29 +63,17 @@ public class HooksNew {
     @Autowired
     private WebDriverConfig webDriverConfig;
 
-    private WebDriver driver1;
+    private WebDriver driver;
 
     @Before
     public void startScenario(Scenario scenario) {
         logger.info("----- START SCENARIO: {} -----", scenario.getName());
         try {
-            Thread.sleep(2500);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         // WebDriverManager.getDriverThreadLocal().get();
-
-        /**
-         String language = (String) ((JavascriptExecutor) driver).executeScript("return navigator.language");
-         logger.info("Lingua corrente: " + language);
-
-         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-         try {
-         FileUtils.copyFile(screenshot, new File("screenshot.png"));
-         } catch (IOException e) {
-         throw new RuntimeException(e);
-         }
-         **/
 
         HooksNew.scenario = scenario.getName();
         scenario.getSourceTagNames().stream()
@@ -132,7 +118,7 @@ public class HooksNew {
         }
         try {
             webDriveManager.clearRequest();
-            webDriveManager.clearNetworkInfos();
+            webDriveManager.clearNetWorkInfos();
         } catch (Exception e) {
             logger.error("Error while clearing network infos: {}", e.getMessage());
         }
