@@ -178,11 +178,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     private int getCodiceRispostaChiamataApi(String urlChiamata) {
         logger.info("Recupero codice risposta della chiamata" + urlChiamata);
-        logger.info("Recupero AAAAA codice risposta della chiamata NetworkInfoManager " +  WebDriverManager.getNetworkInfosThread().get());
-        logger.info("Recupero AAAAA codice risposta della chiamata NetworkInfoManager " +  WebDriverManager.getNetworkInfosThread().get().size());
+        logger.info("Recupero AAAAA codice risposta della chiamata NetworkInfoManager " +  webDriveBean.getNetWorkInfos());
+        logger.info("Recupero AAAAA codice risposta della chiamata NetworkInfoManager " +  webDriveBean.getNetWorkInfos().size());
 
         int codiceRispostaChiamataApi = 0;
-        for (NetWorkInfo chiamate : WebDriverManager.getNetworkInfosThread().get()) {
+        for (NetWorkInfo chiamate : webDriveBean.getNetWorkInfos()) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
                 codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
                 break;
@@ -197,7 +197,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
         webTool.waitTime(5);
         String urlNotifiche = webDriverConfig.getBaseUrl() + "notifications/";
-        for (NetWorkInfo netWorkInfo : WebDriverManager.getNetworkInfosThread().get()) {
+        for (NetWorkInfo netWorkInfo : webDriveBean.getNetWorkInfos()) {
             if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=10")) {
                 String responseBody = netWorkInfo.getResponseBody();
                 String[] allNotifiche = responseBody.split("],\"moreResult\":");
@@ -1245,7 +1245,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Si verifica che la notifica è stata creata correttamente")
     public void siVerificaCheLaNotificaEStataCreataCorrettamente() {
         logger.info("Si verifica che la notifica sia stata creata correttamente filtrandolo per il numero di protocollo");
-        piattaformaNotifichePage.setNetWorkInfos(WebDriverManager.getNetworkInfosThread().get());
+        piattaformaNotifichePage.setNetWorkInfos(webDriveBean.getNetWorkInfos());
         piattaformaNotifichePage.setRestNotificationParam(restNotification);
         piattaformaNotifichePage.setNotificationSingletonParam(notificationSingleton);
         piattaformaNotifichePage.verificaNotificaCreata();
@@ -1619,8 +1619,20 @@ public class NotificaMittentePagoPATest  extends BasePage {
          * (1) a POST request with the provided URL was found, but the status is not 202
          * (2) no POST requests with the provided URL were found
          */
+
+/**
+        boolean isApiCalled = webDriveBean.waitForApiCall(urlNotificationRequest, Duration.ofSeconds(50));
+
+        if (isApiCalled) {
+            logger.info("L'API è stata chiamata!");
+        } else {
+            logger.info("Timeout: l'API non è stata chiamata.");
+        }
+**/
+
+
         boolean foundRequestWithUndesiredStatus = false;
-        for (NetWorkInfo netWorkInfo : WebDriverManager.getNetworkInfosThread().get()) {
+        for (NetWorkInfo netWorkInfo : webDriveBean.getNetWorkInfos()) {
             logger.info("BODY URL......."+netWorkInfo.getRequestUrl());
             logger.info("BODY METHOD......."+ netWorkInfo.getRequestMethod());
             logger.info("BODY STATUS......."+ netWorkInfo.getResponseStatus());
