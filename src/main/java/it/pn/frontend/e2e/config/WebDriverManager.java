@@ -29,7 +29,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
@@ -56,6 +55,7 @@ public class WebDriverManager {
 
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
 
+    private WebDriver driver;
 
     @Autowired
     @Lazy
@@ -71,34 +71,29 @@ public class WebDriverManager {
 
     private DevTools devTools;
 
-    private WebDriver driver;
-
 
     @WebdriverScopeBean
     @Primary
     @Scope(BeanDefinition.SCOPE_PROTOTYPE)
     @ConditionalOnProperty(name = "browser", havingValue = "chrome", matchIfMissing = true)
     public WebDriver chromeDriver() {
-
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
         logger.info("NUOVO BEAN......." + Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
         io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
-
-        var downloadFilePath = webDriverConfig.getDownloadFilePath();
-        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "it,it-IT") ;
-
         var chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--lang=it", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
 
+        var downloadFilePath = webDriverConfig.getDownloadFilePath();
+        // var downloadFilePath = System.getProperty("downloadFilePath");
+        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "it,it-IT") ;
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
-       // chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + Thread.currentThread().getId());
+        chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + Thread.currentThread().getId());
 
         if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
             chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
@@ -170,22 +165,22 @@ public class WebDriverManager {
 
 
     private void setupDevTools() {
+        //devTools = ((HasDevTools) driver).getDevTools();
+        //devTools.createSession();
+        // devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
         captureHttpRequests();
         captureHttpResponse();
     }
 
     private void captureHttpRequests() {
         devTools = devToolsThread.get();
-        driver = driverThreadLocal.get();
-        devToolsThread.get().addListener(Network.requestWillBeSent(), request -> {
+        devTools.addListener(Network.requestWillBeSent(), request -> {
             try {
                 // Safely access the request properties
                 if (request != null && request.getRequest() != null) {
                     var url = request.getRequest().getUrl();
-                    cookieConfig.getCookies(url).forEach(cookie ->driver.manage().addCookie(cookie));
+                    cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
                     requests.put(request.getRequestId().toString(), request);
-
-
                     logger.info("Request URL: " + request.getRequest().getUrl());
                 } else {
                     logger.info("Received a null event or request object.");
@@ -195,20 +190,21 @@ public class WebDriverManager {
             }
         });
 
+        // Aspetta per vedere tutte le richieste di rete
+        /**
          try {
-         Thread.sleep(10000);
+         Thread.sleep(5000);
          } catch (InterruptedException e) {
          throw new RuntimeException(e);
          }
-
+         **/
 
     }
 
     private void captureHttpResponse() {
         devTools = devToolsThread.get();
-        netWorkInfos = new ArrayList<>();
-
-        devToolsThread.get().addListener(Network.responseReceived(), response -> {
+        netWorkInfos = networkInfosThread.get();
+        devTools.addListener(Network.responseReceived(), response -> {
             var requestId = response.getRequestId().toString();
             if (requests.containsKey(requestId)) {
                 var request = requests.get(requestId);
@@ -228,7 +224,7 @@ public class WebDriverManager {
                     netWorkInfo.setResponseStatus(response.getResponse().getStatus().toString());
 
                     try {
-                        var bodyResponse = devToolsThread.get().send(Network.getResponseBody(response.getRequestId())).getBody();
+                        var bodyResponse = devTools.send(Network.getResponseBody(response.getRequestId())).getBody();
                         netWorkInfo.setResponseBody(bodyResponse);
                     } catch (Exception ignored) {
                         // Ignorato perché non sempre è disponibile il body della risposta
@@ -236,11 +232,11 @@ public class WebDriverManager {
                     logger.info("NET_INFO: " + netWorkInfo.getRequestUrl());
 
                     netWorkInfos.add(netWorkInfo);
+                    networkInfosThread.set(netWorkInfos);
                 }
             }
             requests.remove(requestId);
         });
-       networkInfosThread.set(netWorkInfos);
     }
 
     public void clearRequest() {
@@ -249,6 +245,12 @@ public class WebDriverManager {
 
     public void clearNetWorkInfos() {
         networkInfosThread.get().clear();
+    }
+
+
+    public static DevTools getDevTools() {
+        logger.info("DEV_TOOLS...." + devToolsThread.get().toString());
+        return devToolsThread.get();
     }
 
 
@@ -301,7 +303,7 @@ public class WebDriverManager {
             }
         }
     }
-/**
+
     //TODO Rivedere....
     public boolean waitForApiCall(String apiEndpoint, Duration timeout) {
         CountDownLatch latch = new CountDownLatch(1);
@@ -329,43 +331,6 @@ public class WebDriverManager {
 
         return requestCaptured.get();
     }
-
-**/
-
-
-    public boolean waitForApiCall(String apiEndpoint, Duration timeout) {
-        Instant endTime = Instant.now().plus(timeout);
-
-        // Continua a verificare fino al raggiungimento del timeout
-        while (Instant.now().isBefore(endTime)) {
-            // Recupera le informazioni sulle chiamate di rete registrate
-            List<NetWorkInfo> networkInfos = WebDriverManager.getNetworkInfosThread().get();
-
-            // Cerca un match per l'endpoint desiderato
-            synchronized (networkInfos) {
-                boolean apiCallDetected = networkInfos.stream()
-                        .anyMatch(info -> info.getRequestUrl().contains(apiEndpoint) &&  info.getRequestMethod().contains("POST") &&  info.getResponseStatus().contains("202"));
-                if (apiCallDetected) {
-                    return true;
-                }
-            }
-
-            // Aspetta brevemente prima di riprovare
-            try {
-                Thread.sleep(100); // Puoi regolare questo valore per evitare polling troppo aggressivo
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                throw new RuntimeException("Thread interrupted while waiting for API call", e);
-            }
-        }
-
-        // Timeout raggiunto senza trovare l'API
-        return false;
-    }
-
-
-
-
 
     private static Map<Long, Set<Cookie>> cookieStore = new ConcurrentHashMap<>();
 
