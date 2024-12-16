@@ -6,7 +6,7 @@ Feature: la persona fisica inserisce un numero di telefono errato
   @recapitiPF
   @mittente_x1
   @addressBook1
-
+  @loginFE
   Scenario: PN-9311-B37 - La persona fisica inserisce un numero di telefono errato
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

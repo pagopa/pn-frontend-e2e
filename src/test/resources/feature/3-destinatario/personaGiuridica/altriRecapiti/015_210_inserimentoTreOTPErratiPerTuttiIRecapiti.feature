@@ -6,7 +6,7 @@ Feature: La persona giuridica inserisce l'OTP errato 3 volte per i campi PEC, em
   @recapitiPG
   @mittente_x1
   @addressBook1
-
+  @loginFE
   Scenario: PN - 9709 - La persona giuridica inserisce l'OTP errato 3 volte per i campi PEC, email di cortesia e numero di cellulare
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

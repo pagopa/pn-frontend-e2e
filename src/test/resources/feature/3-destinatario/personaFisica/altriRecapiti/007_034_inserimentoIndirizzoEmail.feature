@@ -6,6 +6,7 @@ Feature: la persona fisica inserisce una Email
   @PF
   @mittente_x1
   @addressBook1
+  @loginFE
   Scenario: PN-9308-A34 - la persona fisica inserisce una Email
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

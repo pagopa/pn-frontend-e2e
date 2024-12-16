@@ -6,7 +6,7 @@ Feature: la persona giuridica inserisce un numero di telefono errato
   @recapitiPG
   @mittente_x1
   @addressBook1
-
+  @loginFE
   Scenario: PN-9158-B66 - La persona giuridica inserisce un numero di telefono errato
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono
