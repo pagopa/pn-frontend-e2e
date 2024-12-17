@@ -263,8 +263,10 @@ public class WebDriverManager {
             if (chromeOptions != null) {
                 ChromeDriver driver = new ChromeDriver(chromeOptions);
                 driver.manage().window().maximize();
-                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+                driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
+                driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
 
                 DevTools devTools = ((ChromeDriver) driver).getDevTools();
                 //devTools = getDevTools();
