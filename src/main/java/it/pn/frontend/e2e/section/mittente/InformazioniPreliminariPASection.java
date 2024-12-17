@@ -80,8 +80,8 @@ public class InformazioniPreliminariPASection extends BasePage {
     }
 
     public void insertNumeroDiProtocollo(String numeroProtocollo) {
+        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("paProtocolNumber"))));
         WebElement numeroProtocolloTextBy = driver.findElement(By.id("paProtocolNumber"));
-        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(numeroProtocolloTextBy));
         logger.info("inserimento testo in numero protocollo");
         scrollToElementClickAndInsertText(numeroProtocolloTextBy, numeroProtocollo);
     }
@@ -89,7 +89,6 @@ public class InformazioniPreliminariPASection extends BasePage {
     public boolean checkFormInfoPreliminari(){
         oggettoNotificaTextField = driver.findElement(By.id("subject"));
         descrizioneTextField = driver.findElement(By.id("abstract"));
-
         if (oggettoNotificaTextField.getAttribute("value").isEmpty() && descrizioneTextField.getAttribute("value").isEmpty()) {
          logger.info("Il form di inserimento manuale della notifica è vuoto");
          return true;

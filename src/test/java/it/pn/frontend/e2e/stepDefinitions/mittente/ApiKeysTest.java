@@ -24,7 +24,7 @@ public class ApiKeysTest  extends BasePage {
 
     @Getter
     @Setter
-    public static String ApiKey;
+    public  String ApiKey;
 
     @Autowired
     private WebDriverConfig webDriverConfig;
