@@ -4,7 +4,7 @@ Feature: Il delegato persona fisica annulLa l'operazione di rifiuto delega
   @TA_PFannullaRifiutoDelega
   @DeleghePF
   @PF
-  @DeleghePGPF
+  @DeleghePFPG
   @deleghe1
 
   Scenario: PN-9414-NEG - Il delegato persona fisica annulla l'operazione di rifiuto delega

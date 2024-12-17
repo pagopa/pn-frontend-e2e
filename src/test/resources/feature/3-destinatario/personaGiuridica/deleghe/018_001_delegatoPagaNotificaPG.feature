@@ -4,7 +4,7 @@ Feature:Il delegato persona giuridica accede ad una delega
   @TA_PGdelegatoPagaNotifica
   @DeleghePG
   @PG
-  @deleghe1
+  @deleghe2
   @DeleghePGPF_11
 
 

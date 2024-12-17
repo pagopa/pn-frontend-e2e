@@ -102,6 +102,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @Autowired
     private DataPopulation dataPopulation;
+
     @Autowired
     @Lazy
     private WebDriverManager webDriveBean;

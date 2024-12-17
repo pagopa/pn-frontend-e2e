@@ -2,9 +2,7 @@ package it.pn.frontend.e2e.pages.mittente;
 
 import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.config.NetworkInfoManager;
 import it.pn.frontend.e2e.config.WebDriverConfig;
-import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
@@ -20,7 +18,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
@@ -115,7 +112,6 @@ public class PiattaformaNotifichePage extends BasePage {
     @FindBy(id = "message")
     WebElement erroreMessaggio;
 
-    //TODO........
     @Getter
     @Setter
     private List<NetWorkInfo> netWorkInfos = new ArrayList<>();
@@ -124,23 +120,18 @@ public class PiattaformaNotifichePage extends BasePage {
     private NotificationSingleton notificationSingleton;
     @Autowired
     private RestNotification restNotification;
-
     @Setter
     @Getter
     private RestNotification restNotificationParam;
-
     @Setter
     @Getter
     private NotificationSingleton notificationSingletonParam;
-
-    private  WebTool webTool;
     @Setter
     @Getter
     private String environment;
 
-    @Autowired
-    @Lazy
-    private WebDriverManager webDriverManager;
+    private  WebTool webTool;
+
     @Autowired
     private WebDriverConfig webDriverConfig;
 
@@ -1207,7 +1198,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void verificaNotificaCreata() {
         String notificationRequestId = "";
-        netWorkInfos = webDriverManager.getNetWorkInfos();
+        netWorkInfos = getNetWorkInfos();
         for (NetWorkInfo netWorkInfo : netWorkInfos) {
             if (netWorkInfo.getRequestUrl().contains("bff/v1/notifications/sent") && netWorkInfo.getRequestMethod().equals("POST")) {
                 if (netWorkInfo.getResponseStatus().equals("202") && !netWorkInfo.getResponseBody().isEmpty()) {
