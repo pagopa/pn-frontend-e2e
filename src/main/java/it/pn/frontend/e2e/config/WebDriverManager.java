@@ -315,6 +315,7 @@ public class WebDriverManager {
 
 
     //TODO Rivedere....
+    /**
     public boolean waitForApiCall(String apiEndpoint, Duration timeout) {
         CountDownLatch latch = new CountDownLatch(1);
         // Listener per le richieste inviate
@@ -340,7 +341,7 @@ public class WebDriverManager {
 
         return requestCaptured.get();
     }
-    /**
+
     private static Map<Long, Set<Cookie>> cookieStore = new ConcurrentHashMap<>();
 
     public void saveCookies(String url, WebDriver driver) {
