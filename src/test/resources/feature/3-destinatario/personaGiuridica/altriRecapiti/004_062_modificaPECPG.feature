@@ -5,7 +5,7 @@ Feature: La persona giuridica modifica l'indirizzo PEC
   @PG
   @recapitiPG
   @mittente_x1
-  @addressBook1
+  @addressBook2
   @loginFE
   Scenario: PN-9153 - La persona giuridica modifica l'indirizzo PEC
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
