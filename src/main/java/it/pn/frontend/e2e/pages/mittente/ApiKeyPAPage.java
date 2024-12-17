@@ -76,12 +76,12 @@ public class ApiKeyPAPage extends BasePage {
 
     public void waitLoadApikeyPage() {
         try {
-            WebElement apiKeyTitle = driver.findElement(By.id("API Key-page"));
+          //  WebElement apiKeyTitle = driver.findElement(By.id("API Key-page"));
             getWebDriverWait(30).withMessage("Il titolo della pagina ApiKey non è visibile")
-                    .until(ExpectedConditions.visibilityOf(apiKeyTitle));
-            generateApiKeyButton = driver.findElement(By.id("generate-api-key"));
+                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("API Key-page"))));
+           // generateApiKeyButton = driver.findElement(By.id("generate-api-key"));
             getWebDriverWait(40).withMessage("Il bottone genera ApiKey non è cliccabile")
-                    .until(ExpectedConditions.elementToBeClickable(generateApiKeyButton));
+                    .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("generate-api-key"))));
             logger.info("Api Key Page caricata");
         } catch (TimeoutException e) {
             logger.error("Api Key Page NON caricata con errore: {}", e.getMessage());
@@ -95,16 +95,17 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public void inserireUnNomePerApiKey(String nomeApiKey) {
-        apiKeyNameInput = driver.findElement(By.id("name"));
+
         getWebDriverWait(30).withMessage("Il campo Nome Apikey non è visibile")
-                .until(ExpectedConditions.visibilityOf(apiKeyNameInput));
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("name"))));
+        apiKeyNameInput = driver.findElement(By.id("name"));
         apiKeyNameInput.sendKeys(nomeApiKey);
     }
 
     public void clickSulBottoneContinua() {
-        apiContinuaButton = driver.findElement(By.id("continue-button"));
         getWebDriverWait(40).withMessage("Il bottone Continua non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(apiContinuaButton));
+                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("continue-button"))));
+        apiContinuaButton = driver.findElement(By.id("continue-button"));
         apiContinuaButton.click();
     }
 
