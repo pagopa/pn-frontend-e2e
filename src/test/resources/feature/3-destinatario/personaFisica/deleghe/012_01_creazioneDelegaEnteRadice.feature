@@ -5,7 +5,7 @@ Feature: persona fisica aggiunge una delega dall'elenco degli enti radice
   @DeleghePF
   @PF
   @deleghe1
-  @DeleghePGPF_11
+  @DeleghePFPG
 
   Scenario:PN-10425 - La persona fisica aggiunge una delega dall'elenco enti radice
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
