@@ -311,14 +311,15 @@ public class WebDriverManager {
         }
     }
 
-    /**
+
+
+
     //TODO Rivedere....
     public boolean waitForApiCall(String apiEndpoint, Duration timeout) {
         CountDownLatch latch = new CountDownLatch(1);
-
         // Listener per le richieste inviate
         AtomicBoolean requestCaptured = new AtomicBoolean(false);
-        devTools.addListener(Network.requestWillBeSent(), request -> {
+        devToolsThread.get().addListener(Network.requestWillBeSent(), request -> {
             if (request.getRequest().getUrl().contains(apiEndpoint)) {
                 System.out.println("API request captured: " + request.getRequest().getUrl());
                 requestCaptured.set(true);
@@ -339,7 +340,7 @@ public class WebDriverManager {
 
         return requestCaptured.get();
     }
-
+    /**
     private static Map<Long, Set<Cookie>> cookieStore = new ConcurrentHashMap<>();
 
     public void saveCookies(String url, WebDriver driver) {
