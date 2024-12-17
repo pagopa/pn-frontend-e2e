@@ -1198,8 +1198,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void verificaNotificaCreata() {
         String notificationRequestId = "";
-        netWorkInfos = getNetWorkInfos();
-        for (NetWorkInfo netWorkInfo : netWorkInfos) {
+        //netWorkInfos = getNetWorkInfos();
+        for (NetWorkInfo netWorkInfo : getNetWorkInfos()) {
             if (netWorkInfo.getRequestUrl().contains("bff/v1/notifications/sent") && netWorkInfo.getRequestMethod().equals("POST")) {
                 if (netWorkInfo.getResponseStatus().equals("202") && !netWorkInfo.getResponseBody().isEmpty()) {
                     notificationRequestId = netWorkInfo.getResponseBody().split("\"notificationRequestId\":\"")[1].split("\"")[0];
