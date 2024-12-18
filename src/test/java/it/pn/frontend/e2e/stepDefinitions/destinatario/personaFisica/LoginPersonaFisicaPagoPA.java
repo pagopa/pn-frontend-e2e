@@ -424,7 +424,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
        // String variabileAmbiente = System.getProperty("environment");
         String variabileAmbiente = webDriverConfig.getEnvironment();
         boolean urlFound = false;
-        for (NetWorkInfo netWorkInfo : webDriverManager.getNetworkInfosThread().get()) {
+        for (NetWorkInfo netWorkInfo : webDriverManager.getNetworkInfo()) {
             logger.info(netWorkInfo.getRequestUrl());
             logger.info(netWorkInfo.getResponseStatus());
             String urlToFind = "https://webapi." + variabileAmbiente + ".notifichedigitali.it/token-exchange";

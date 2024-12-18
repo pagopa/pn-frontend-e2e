@@ -1247,6 +1247,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void siVerificaCheLaNotificaEStataCreataCorrettamente() {
         logger.info("Si verifica che la notifica sia stata creata correttamente filtrandolo per il numero di protocollo");
         piattaformaNotifichePage.setNetWorkInfos(webDriverManager.getNetworkInfosThread().get());
+        piattaformaNotifichePage.setWebDriverManager(webDriverManager);
         piattaformaNotifichePage.setRestNotificationParam(restNotification);
         piattaformaNotifichePage.setNotificationSingletonParam(notificationSingleton);
         piattaformaNotifichePage.verificaNotificaCreata();
@@ -1633,7 +1634,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
 
         boolean foundRequestWithUndesiredStatus = false;
-        for (NetWorkInfo netWorkInfo : webDriverManager.getNetworkInfosThread().get()) {
+        for (NetWorkInfo netWorkInfo : webDriverManager.getNetworkInfo()) {
             logger.info("BODY URL......."+netWorkInfo.getRequestUrl());
             logger.info("BODY METHOD......."+ netWorkInfo.getRequestMethod());
             logger.info("BODY STATUS......."+ netWorkInfo.getResponseStatus());

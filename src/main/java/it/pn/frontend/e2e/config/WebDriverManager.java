@@ -56,7 +56,7 @@ public class WebDriverManager {
 
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
 
-    private WebDriver driver1;
+    //private WebDriver driver1;
 
     @Autowired
     @Lazy
@@ -65,12 +65,12 @@ public class WebDriverManager {
     @Autowired
     public CookieConfig cookieConfig;
 
-    @Getter
-    private List<NetWorkInfo> netWorkInfos = new ArrayList<>();
+   // @Getter
+    //private List<NetWorkInfo> netWorkInfos = new ArrayList<>();
 
     private final String os = System.getProperty("os.name");
 
-    private DevTools devTools1;
+    //private DevTools devTools1;
 
     public  List<NetWorkInfo> getNetworkInfo() {
         return networkInfosThread.get();
@@ -105,7 +105,7 @@ public class WebDriverManager {
             chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
         }
 
-        WebDriver driver = getDriver(chromeOptions, null, null);
+        getDriver(chromeOptions, null, null);
 
         setupDevTools();
 
@@ -113,8 +113,7 @@ public class WebDriverManager {
 
         cookieConfig.addCookie();
 
-
-        return driver;
+        return driverThreadLocal.get();
     }
 
     @WebdriverScopeBean
@@ -184,12 +183,17 @@ public class WebDriverManager {
         WebDriver driver = driverThreadLocal.get();
         devTools.addListener(Network.requestWillBeSent(), request -> {
             try {
-                // Safely access the request properties
+
+
                 if (request != null && request.getRequest() != null) {
                     var url = request.getRequest().getUrl();
                     cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
                     requests.put(request.getRequestId().toString(), request);
                     logger.info("Request URL: " + request.getRequest().getUrl());
+                    // Safely access the request properties
+                    String threadId = Thread.currentThread().getName();
+                    logger.info("Thread: " + threadId + " - URL: " + request.getRequest().getUrl());
+
                 } else {
                     logger.info("Received a null event or request object.");
                 }
@@ -197,22 +201,21 @@ public class WebDriverManager {
                 logger.error("Error processing the request: " + e.getMessage());
             }
         });
-        devToolsThread.set(devTools);
-        driverThreadLocal.set(driver);
-        // Aspetta per vedere tutte le richieste di rete
 
+        // Aspetta per vedere tutte le richieste di rete
          try {
          Thread.sleep(5000);
          } catch (InterruptedException e) {
          throw new RuntimeException(e);
          }
-
+        devToolsThread.set(devTools);
+        driverThreadLocal.set(driver);
 
     }
 
     private void captureHttpResponse() {
         DevTools devTools = devToolsThread.get();
-        netWorkInfos = networkInfosThread.get();
+        List<NetWorkInfo> netWorkInfos = networkInfosThread.get();
         devTools.addListener(Network.responseReceived(), response -> {
             var requestId = response.getRequestId().toString();
             if (requests.containsKey(requestId)) {
@@ -241,13 +244,12 @@ public class WebDriverManager {
                     logger.info("NET_INFO: " + netWorkInfo.getRequestUrl());
 
                     netWorkInfos.add(netWorkInfo);
-                    networkInfosThread.set(netWorkInfos);
 
                 }
             }
             requests.remove(requestId);
         });
-
+        networkInfosThread.set(netWorkInfos);
         devToolsThread.set(devTools);
     }
 
@@ -260,11 +262,6 @@ public class WebDriverManager {
         networkInfosThread.remove();
     }
 
-
-    public  DevTools getDevTools() {
-        logger.info("DEV_TOOLS...." + getDevToolsThread().get().toString());
-        return getDevToolsThread().get();
-    }
 
 
     public  WebDriver getDriver(ChromeOptions chromeOptions, EdgeOptions edgeOptions, FirefoxOptions firefoxOptions) {

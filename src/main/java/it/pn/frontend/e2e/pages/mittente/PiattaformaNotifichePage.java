@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.pages.mittente;
 import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
+import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
@@ -134,6 +135,10 @@ public class PiattaformaNotifichePage extends BasePage {
 
     @Autowired
     private WebDriverConfig webDriverConfig;
+
+    @Getter
+    @Setter
+    private WebDriverManager webDriverManager;
 
 
 
@@ -1199,7 +1204,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public void verificaNotificaCreata() {
         String notificationRequestId = "";
         //netWorkInfos = getNetWorkInfos();
-        for (NetWorkInfo netWorkInfo : netWorkInfos) {
+        for (NetWorkInfo netWorkInfo :  webDriverManager.getNetworkInfo()) {
             if (netWorkInfo.getRequestUrl().contains("bff/v1/notifications/sent") && netWorkInfo.getRequestMethod().equals("POST")) {
                 if (netWorkInfo.getResponseStatus().equals("202") && !netWorkInfo.getResponseBody().isEmpty()) {
                     notificationRequestId = netWorkInfo.getResponseBody().split("\"notificationRequestId\":\"")[1].split("\"")[0];
