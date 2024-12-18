@@ -56,8 +56,6 @@ public class WebDriverManager {
 
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
 
-    //private WebDriver driver1;
-
     @Autowired
     @Lazy
     private WebDriverConfig webDriverConfig;
@@ -65,12 +63,9 @@ public class WebDriverManager {
     @Autowired
     public CookieConfig cookieConfig;
 
-   // @Getter
-    //private List<NetWorkInfo> netWorkInfos = new ArrayList<>();
-
     private final String os = System.getProperty("os.name");
 
-    //private DevTools devTools1;
+
 
     public  List<NetWorkInfo> getNetworkInfo() {
         return networkInfosThread.get();
@@ -171,9 +166,6 @@ public class WebDriverManager {
 
 
     private void setupDevTools() {
-        //devTools = ((HasDevTools) driver).getDevTools();
-        //devTools.createSession();
-        // devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
         captureHttpRequests();
         captureHttpResponse();
     }
@@ -183,8 +175,6 @@ public class WebDriverManager {
         WebDriver driver = driverThreadLocal.get();
         devTools.addListener(Network.requestWillBeSent(), request -> {
             try {
-
-
                 if (request != null && request.getRequest() != null) {
                     var url = request.getRequest().getUrl();
                     cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));

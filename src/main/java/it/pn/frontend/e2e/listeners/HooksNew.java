@@ -43,8 +43,6 @@ public class HooksNew {
 
     private WebDriverWait wait;
 
-    private DevTools devTools;
-
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
     @Getter
     public static String scenario;
@@ -63,8 +61,6 @@ public class HooksNew {
     @Autowired
     private WebDriverConfig webDriverConfig;
 
-
-    private WebDriver driver;
 
     @Before
     public void startScenario(Scenario scenario) {
