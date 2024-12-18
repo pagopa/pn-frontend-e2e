@@ -105,7 +105,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @Autowired
     @Lazy
-    private WebDriverManager webDriveBean;
+    private WebDriverManager webDriverManager;
 
     @Autowired
     private  LoginPGPagoPATest loginPGPagoPATest;
@@ -179,11 +179,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     private int getCodiceRispostaChiamataApi(String urlChiamata) {
         logger.info("Recupero codice risposta della chiamata" + urlChiamata);
-        logger.info("Recupero AAAAA codice risposta della chiamata NetworkInfoManager " +  webDriveBean.getNetWorkInfos());
-        logger.info("Recupero AAAAA codice risposta della chiamata NetworkInfoManager " +  webDriveBean.getNetWorkInfos().size());
+        logger.info("Recupero AAAAA codice risposta della chiamata NetworkInfoManager " +  webDriverManager.getNetworkInfosThread().get());
+        logger.info("Recupero AAAAA codice risposta della chiamata NetworkInfoManager " +  webDriverManager.getNetworkInfosThread().get().size());
 
         int codiceRispostaChiamataApi = 0;
-        for (NetWorkInfo chiamate : webDriveBean.getNetWorkInfos()) {
+        for (NetWorkInfo chiamate : webDriverManager.getNetworkInfosThread().get()) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
                 codiceRispostaChiamataApi = Integer.parseInt(chiamate.getResponseStatus());
                 break;
@@ -198,7 +198,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
         webTool.waitTime(5);
         String urlNotifiche = webDriverConfig.getBaseUrl() + "notifications/";
-        for (NetWorkInfo netWorkInfo : webDriveBean.getNetWorkInfos()) {
+        for (NetWorkInfo netWorkInfo : webDriverManager.getNetworkInfosThread().get()) {
             if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=10")) {
                 String responseBody = netWorkInfo.getResponseBody();
                 String[] allNotifiche = responseBody.split("],\"moreResult\":");
@@ -492,7 +492,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Nella pagina Piattaforma Notifiche accetta i Cookies")
     public void nellaPaginaPiattaformaNotificheAccettaICookies() {
-        if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
+        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             cookiesSection.waitLoadCookiesPage();
             cookiesSection.selezionaAccettaTuttiButton();
         }
@@ -807,7 +807,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
                 piattaformaNotifichePage.aggiornamentoPagina();
-                if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
+                if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
                     if (cookiesSection.waitLoadCookiesPage()) {
                         cookiesSection.selezionaAccettaTuttiButton();
                     }
@@ -1009,7 +1009,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         for (int i = 0; i < 12; i++) {
             if (i >= 1) {
                 piattaformaNotifichePage.aggiornamentoPagina();
-                if (!webDriveBean.getCookieConfig().isCookieEnabled()) {
+                if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
                     if (cookiesSection.waitLoadCookiesPage()) {
                         cookiesSection.selezionaAccettaTuttiButton();
                     }
@@ -1246,7 +1246,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Si verifica che la notifica è stata creata correttamente")
     public void siVerificaCheLaNotificaEStataCreataCorrettamente() {
         logger.info("Si verifica che la notifica sia stata creata correttamente filtrandolo per il numero di protocollo");
-        piattaformaNotifichePage.setNetWorkInfos(webDriveBean.getNetWorkInfos());
+        piattaformaNotifichePage.setNetWorkInfos(webDriverManager.getNetworkInfosThread().get());
         piattaformaNotifichePage.setRestNotificationParam(restNotification);
         piattaformaNotifichePage.setNotificationSingletonParam(notificationSingleton);
         piattaformaNotifichePage.verificaNotificaCreata();
@@ -1554,7 +1554,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         }
         accettazioneRichiestaNotifica.setxApikey(codiceApi);
         String statusNotifica = "WAITING";
-        webTool.waitTime(5);
+        webTool.waitTime(10);
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
         if (notificationRequestId == null) {
             logger.error("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è diverso di 202 ");
@@ -1586,7 +1586,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void siVerificaCheLaNotificaVieneCreataCorrettamente(String dpFile) {
         //datiNotifica
         //datiNotificaPG
-        EsitoNotifica esitoNotifica = this.siVerificaEsitoNotifica(dpFile);
+        EsitoNotifica esitoNotifica = siVerificaEsitoNotifica(dpFile);
         if (esitoNotifica.statusNotifica.equals("ACCEPTED")) {
             logger.info("La notifica è stata Accettata");
             String codiceIUN = esitoNotifica.accettazioneRichiestaNotifica.getCodiceIUN();
@@ -1603,7 +1603,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Si verifica che la notifica e' stata rifiutata {string}")
     public void siVerificaCheLaNotificaVieneRifiutata(String dpFile) {
-        EsitoNotifica esitoNotifica = this.siVerificaEsitoNotifica(dpFile);
+        EsitoNotifica esitoNotifica = siVerificaEsitoNotifica(dpFile);
         if (esitoNotifica.statusNotifica.equals("REFUSED")) {
             logger.info("La notifica è stata Rifiutata");
         } else {
@@ -1633,7 +1633,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
 
         boolean foundRequestWithUndesiredStatus = false;
-        for (NetWorkInfo netWorkInfo : webDriveBean.getNetWorkInfos()) {
+        for (NetWorkInfo netWorkInfo : webDriverManager.getNetworkInfosThread().get()) {
             logger.info("BODY URL......."+netWorkInfo.getRequestUrl());
             logger.info("BODY METHOD......."+ netWorkInfo.getRequestMethod());
             logger.info("BODY STATUS......."+ netWorkInfo.getResponseStatus());

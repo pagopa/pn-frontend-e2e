@@ -4,6 +4,7 @@ import it.pn.frontend.e2e.common.WebdriverScopeBean;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import lombok.Getter;
+import lombok.Setter;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -45,13 +46,13 @@ public class WebDriverManager {
     private static final Logger logger = LoggerFactory.getLogger(WebDriverManager.class);
 
     @Getter
-    private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
+    private  final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
     @Getter
-    private static final ThreadLocal<DevTools> devToolsThread = new ThreadLocal<>();
+    private  final ThreadLocal<DevTools> devToolsThread = new ThreadLocal<>();
 
     @Getter
-    private static final ThreadLocal<List<NetWorkInfo>> networkInfosThread = ThreadLocal.withInitial(ArrayList::new);
+    private final ThreadLocal<List<NetWorkInfo>> networkInfosThread = ThreadLocal.withInitial(ArrayList::new);
 
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
 
@@ -71,6 +72,10 @@ public class WebDriverManager {
 
     private DevTools devTools1;
 
+    public  List<NetWorkInfo> getNetworkInfo() {
+        return networkInfosThread.get();
+    }
+
 
     @WebdriverScopeBean
     @Primary
@@ -78,10 +83,11 @@ public class WebDriverManager {
     @ConditionalOnProperty(name = "browser", havingValue = "chrome", matchIfMissing = true)
     public WebDriver chromeDriver() {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
         logger.info("NUOVO BEAN......." + Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
@@ -106,6 +112,7 @@ public class WebDriverManager {
         logger.info("Chrome driver started - WebDriverManager");
 
         cookieConfig.addCookie();
+
 
         return driver;
     }
@@ -191,14 +198,15 @@ public class WebDriverManager {
             }
         });
         devToolsThread.set(devTools);
+        driverThreadLocal.set(driver);
         // Aspetta per vedere tutte le richieste di rete
-        /**
+
          try {
          Thread.sleep(5000);
          } catch (InterruptedException e) {
          throw new RuntimeException(e);
          }
-         **/
+
 
     }
 
@@ -233,12 +241,13 @@ public class WebDriverManager {
                     logger.info("NET_INFO: " + netWorkInfo.getRequestUrl());
 
                     netWorkInfos.add(netWorkInfo);
+                    networkInfosThread.set(netWorkInfos);
 
                 }
             }
             requests.remove(requestId);
         });
-        networkInfosThread.set(netWorkInfos);
+
         devToolsThread.set(devTools);
     }
 
@@ -246,18 +255,19 @@ public class WebDriverManager {
         requests.clear();
     }
 
-    public static void clearNetWorkInfos() {
+    public void clearNetWorkInfos() {
         networkInfosThread.get().clear();
+        networkInfosThread.remove();
     }
 
 
-    public static DevTools getDevTools() {
-        logger.info("DEV_TOOLS...." + devToolsThread.get().toString());
-        return devToolsThread.get();
+    public  DevTools getDevTools() {
+        logger.info("DEV_TOOLS...." + getDevToolsThread().get().toString());
+        return getDevToolsThread().get();
     }
 
 
-    public static WebDriver getDriver(ChromeOptions chromeOptions, EdgeOptions edgeOptions, FirefoxOptions firefoxOptions) {
+    public  WebDriver getDriver(ChromeOptions chromeOptions, EdgeOptions edgeOptions, FirefoxOptions firefoxOptions) {
         if (driverThreadLocal.get() == null) {
 
             if (chromeOptions != null) {
@@ -292,15 +302,15 @@ public class WebDriverManager {
                 driverThreadLocal.set(driver);
             }
         }
-        logger.info("Start WebDriverManager..." + driverThreadLocal.get());
-        return driverThreadLocal.get();
+        logger.info("Start WebDriverManager..." +  driverThreadLocal.get());
+        return  driverThreadLocal.get();
     }
 
 
-    public static void quitDriver() {
-        logger.info("Quit WebDriverManager..." + driverThreadLocal.get());
+    public  void quitDriver() {
+        logger.info("Quit WebDriverManager..." +  driverThreadLocal.get());
         logger.info("Quit DevTools..." + devToolsThread.get());
-        WebDriver driver = driverThreadLocal.get();
+        WebDriver driver =  driverThreadLocal.get();
         DevTools devTools = devToolsThread.get();
         if (driver != null) {
             driver.quit();
