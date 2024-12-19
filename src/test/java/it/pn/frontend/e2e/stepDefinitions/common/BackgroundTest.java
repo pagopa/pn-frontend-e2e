@@ -18,12 +18,14 @@ import lombok.Getter;
 import lombok.Setter;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 
 import java.util.HashMap;
 import java.util.Map;
 
-
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class BackgroundTest  extends BasePage {
 
     private final String nomeFileDatiNotifica = "datiNotifica";
