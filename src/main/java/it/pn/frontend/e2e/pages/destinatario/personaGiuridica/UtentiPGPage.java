@@ -251,7 +251,7 @@ public class UtentiPGPage extends BasePage {
     public void clickRejectPopup() {
         cancelButton = driver.findElement(By.xpath("//button[contains(text(),'Annulla')]"));
         getWebDriverWait(10).withMessage("il bottone annula non è visibile").until(ExpectedConditions.visibilityOf(cancelButton));
-        logger.info("Si clicca sul bottone Annula");
+        logger.info("Si clicca sul bottone Annulla");
         cancelButton.click();
     }
 
@@ -299,7 +299,7 @@ public class UtentiPGPage extends BasePage {
 
     public void clickModifyButton() {
 
-        getWebDriverWait(10).withMessage("il bottone modifica non è cliccabile clickModifyButton").until(ExpectedConditions.elementToBeClickable(driver.findElement( By.xpath("//button[contains(text(),'Modifica')]"))));
+        getWebDriverWait(15).withMessage("il bottone modifica non è cliccabile clickModifyButton").until(ExpectedConditions.elementToBeClickable(driver.findElement( By.xpath("//button[contains(text(),'Modifica')]"))));
 //        modificaButton = driver.findElement( By.xpath("//button[contains(text(),'Modifica')]"));
         logger.info("Si clicca sul bottone modifica");
         driver.findElement( By.xpath("//button[contains(text(),'Modifica')]")).click();
@@ -353,7 +353,7 @@ public class UtentiPGPage extends BasePage {
 
     public void checkRemoveUserPopup() {
         removeUserPopup  = driver.findElement(By.xpath( "//p[contains(text(),'Elimina Utente')]"));
-        getWebDriverWait(10).withMessage("il popup elimina utente non è visibile").until(ExpectedConditions.visibilityOf(removeUserPopup));
+        getWebDriverWait(10).withMessage("il popup elimina utente non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath( "//p[contains(text(),'Elimina Utente')]"))));
         logger.info("il popup elimina utente è visualizzata correttamente");
     }
 
@@ -375,4 +375,5 @@ public class UtentiPGPage extends BasePage {
         getWebDriverWait(10).withMessage("l'utente apena creato non è visibile").until(ExpectedConditions.visibilityOf(findUserByName));
         findUserByName.click();
     }
+
 }

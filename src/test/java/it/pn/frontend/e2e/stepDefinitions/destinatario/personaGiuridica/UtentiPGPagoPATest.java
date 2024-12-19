@@ -10,6 +10,11 @@ import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.UtentiPGPage;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
+import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,9 +142,22 @@ public class UtentiPGPagoPATest extends BasePage {
         utentiPGPage.getUserDetailsPage(name);
     }
 
+    @And("Si rimuove utente se esiste {string}")
+    public void siRimuoveUtenteAppenaCreato(String nameUtente) {
+        try{
+            String name = nameUtente.toLowerCase();
+            utentiPGPage.getUserDetailsPage(name);
+            utentiPGPage.clickRemoveButton();
+            utentiPGPage.checkRemoveUserPopup();
+            siCliccaSulBottoneRimuoviDellPopup();
+            logger.info("Utente Presente e quindi rimosso");
+        }catch (NoSuchElementException | TimeoutException e){
+            logger.error("Utente non Presente : "+e.getMessage());
+        }
+    }
+
     @When("Nella Pagina Notifiche persona giuridica si clicca su utenti")
     public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSuUtenti() {
-        logger.info("HTML...."+webDriverConfig.getEnvironment());
         utentiPGPage.setEnvironment(webDriverConfig.getEnvironment());
         utentiPGPage.clickSezioneUtenti();
     }

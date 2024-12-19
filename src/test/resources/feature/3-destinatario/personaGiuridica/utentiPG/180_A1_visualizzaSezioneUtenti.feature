@@ -1,11 +1,11 @@
 Feature: La persona giuridica visualizza gli utenti
 
   @TestSuite
-  @TA_PGUtenti
+  @TA_PGUtenti_1
   @VisualizzaUtentiPG
   @PG
   @loginFE
-
+  @addressBook2
   Scenario: PN-9178 - La persona giuridica visualizza la sezione utenti
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella Pagina Notifiche persona giuridica si clicca su utenti
@@ -13,6 +13,8 @@ Feature: La persona giuridica visualizza gli utenti
       | user | DanteAlighieri |
       | pwd  | test           |
     And Si visualizza correttamente la pagina utenti
+    And Si rimuove utente se esiste "Ada"
+
     And Si clicca sul bottone aggiungi utente
     And Si visualizza correttamente la pagina aggiungi nuovo utente
     And Si inserisce i dati personali
