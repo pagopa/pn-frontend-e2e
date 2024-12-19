@@ -193,8 +193,9 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void confermaButtonClickPopUp() {
+
+        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("code-confirm-button"))));
         confermaButtonPopUp = driver.findElement(By.id("code-confirm-button"));
-        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(confermaButtonPopUp));
         confermaButtonPopUp.click();
         webTool.waitTime(5);
         List<WebElement> confermaButtonPostInserimentoBy = driver.findElements(By.id("code-confirm-button"));
