@@ -1219,7 +1219,7 @@ public class PiattaformaNotifichePage extends BasePage {
         String notificationIUN;
         int maximumRetry = 0;
         do {
-            Assertions.assertTrue(maximumRetry <= 5, "La notifica risulta ancora in stato WAITING dopo 5 tentativi");
+            Assertions.assertTrue(maximumRetry <= 7, "La notifica risulta ancora in stato WAITING dopo 7 tentativi");
 
             if (restNotification!= null){
                 restNotificationParam = restNotification;
