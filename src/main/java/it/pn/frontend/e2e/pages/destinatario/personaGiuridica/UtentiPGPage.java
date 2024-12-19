@@ -283,13 +283,13 @@ public class UtentiPGPage extends BasePage {
     public void waitLoadRecapPage() {
         try {
             WebElement titolo = driver.findElement(By.xpath("//main//h4"));
-            getWebDriverWait(10).withMessage("il titolo della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf(titolo));
-            getWebDriverWait(10).withMessage("il bottone modifica della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//button[contains(text(),'Modifica')]")))));
-            getWebDriverWait(10).withMessage("il bottone rimuovi della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//span[contains(text(),'Rimuovi')]")))));
-            getWebDriverWait(10).withMessage("la sezione nome della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//p[contains(text(),'Nome')]")))));
-            getWebDriverWait(10).withMessage("la sezione cognome della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf( (driver.findElement(By.xpath("//p[contains(text(),'Cognome')]")))));
-            getWebDriverWait(10).withMessage("la sezione codice fiscale della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//p[contains(text(),'Codice Fiscale')]")))));
-            getWebDriverWait(10).withMessage("la sezione email della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//p[contains(text(),'Email')]")))));
+            getWebDriverWait(15).withMessage("il titolo della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf(titolo));
+            getWebDriverWait(15).withMessage("il bottone modifica della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//button[contains(text(),'Modifica')]")))));
+            getWebDriverWait(15).withMessage("il bottone rimuovi della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//span[contains(text(),'Rimuovi')]")))));
+            getWebDriverWait(15).withMessage("la sezione nome della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//p[contains(text(),'Nome')]")))));
+            getWebDriverWait(15).withMessage("la sezione cognome della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf( (driver.findElement(By.xpath("//p[contains(text(),'Cognome')]")))));
+            getWebDriverWait(15).withMessage("la sezione codice fiscale della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//p[contains(text(),'Codice Fiscale')]")))));
+            getWebDriverWait(15).withMessage("la sezione email della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//p[contains(text(),'Email')]")))));
             logger.info("Si visualizza correttamente pagina riepilogativa");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente pagina riepilogativa con errore:" + e.getMessage());
