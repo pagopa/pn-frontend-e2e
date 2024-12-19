@@ -15,12 +15,15 @@ import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
 
 @Component
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class AccettazioneRichiestaNotifica {
     private static final Logger logger = LoggerFactory.getLogger("AccettazioneRichiestaNotifica");
 
@@ -44,7 +47,7 @@ public class AccettazioneRichiestaNotifica {
                     .get(this.getRichiestaNotificaEndPoint())
                     .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
                     .addHeader("x-api-key", getxApikey())
-                    .addParameter("notificationRequestId", this.notificationRequestId)
+                    .addParameter("notificationRequestId", notificationRequestId)
                     .build();
             httpclient.execute(httpGet, response -> {
                 logger.info(response.getCode() + " " + response.getReasonPhrase());
