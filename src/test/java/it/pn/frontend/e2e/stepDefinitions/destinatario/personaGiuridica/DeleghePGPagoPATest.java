@@ -161,8 +161,6 @@ public class DeleghePGPagoPATest extends BasePage {
         logger.info("Si salva il codice della delega nell' Oggetto nuovaDelegaPG  " );
 
         String codiceDelega = aggiungiDelegaPGSection.salvataggioCodiceVerifica();
-//        this.datiDelega.put("codiceDelega", codiceDelega);
-//        dataPopulation.writeDataPopulation(dpFile + ".yaml", this.datiDelega);
         dataPopulationConfig.getNuovaDelegaPg().setCodiceDelega(codiceDelega);
 
     }

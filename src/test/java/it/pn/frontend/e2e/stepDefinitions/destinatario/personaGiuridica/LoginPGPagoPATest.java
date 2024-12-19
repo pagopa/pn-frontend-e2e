@@ -354,22 +354,36 @@ public class LoginPGPagoPATest extends BasePage {
     }
 
     @When("Login portale persona giuridica tramite token exchange {string}")
-    public void loginPortalePersonaGiuridicaTramiteTokenExchange(String dpFile) {
+    public void loginPortalePersonaGiuridicaTramiteTokenExchange(String nomeFileLogin) {
         logger.info("Si effettua il login PG tramite token");
 
         String variabileAmbiente = webDriverConfig.getEnvironment();
         String urlIniziale = "https://imprese." + variabileAmbiente + ".notifichedigitali.it/#selfCareToken=";
         String token;
-        String user = webDriverConfig.getUserDante();
-        if (user.equalsIgnoreCase("DanteAlighieri")) {
+        if (nomeFileLogin.equalsIgnoreCase("delegatoPG")) {
             token = variabileAmbiente.equalsIgnoreCase("test") ?
-                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPGDelegante").toString() :
-                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPGDelegante").toString();
-        } else {
-            token = variabileAmbiente.equalsIgnoreCase("test") ?
-                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPGDelegato").toString() :
-                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPGDelegato").toString();
+                    webDriverConfig.getTokentestPGDelegato():
+                    webDriverConfig.getTokendevPGDelegato();
         }
+        else  {
+            token = variabileAmbiente.equalsIgnoreCase("test") ?
+                    webDriverConfig.getTokentestPGDelegante():
+                    webDriverConfig.getTokendevPGDelegante();
+        }
+
+
+
+
+//        String user = webDriverConfig.getUserDante();
+//        if (user.equalsIgnoreCase("DanteAlighieri")) {
+//            token = variabileAmbiente.equalsIgnoreCase("test") ?
+//                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPGDelegante").toString() :
+//                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPGDelegante").toString();
+//        } else {
+////            token = variabileAmbiente.equalsIgnoreCase("test") ?
+////                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPGDelegato").toString() :
+////                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPGDelegato").toString();
+//        }
         String url = urlIniziale + token;
         driver.get(url);
     }
