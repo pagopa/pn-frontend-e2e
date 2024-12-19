@@ -8,8 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -349,11 +347,8 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public boolean siVisualizzaUnaDelegaPG() {
         try {
-            //WebElement menuDelegati = driver.findElement(By.id("tab-1"));
             getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("tab-1")));
             element(By.id("tab-1")).click();
-            //webTool.waitTime(10);
-           // WebElement menuDelega = driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']"));
             getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//button[@data-testid='delegationMenuIcon']")));
             logger.info("Trovato correttamente almeno una delega");
             return true;

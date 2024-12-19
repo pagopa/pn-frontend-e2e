@@ -676,12 +676,12 @@ public class DeleghePagoPATest extends BasePage{
 //        nomeFileNuovaDelegaPG -> nuovaDelegaPG, nomeFileNuovaDelega -> nuova_delega, personaFisica, nuova_delega, nuova_delega
         switch (nomeConfig) {
             case "nuovaDelegaPG" -> {
-                logger.info("nuovaDelegaPG codice verifica: "+dataPopulationConfig.getNuovaDelegaPg().getCodiceDelega());
+                logger.info("Codice nuovaDelegaPG: "+dataPopulationConfig.getNuovaDelegaPg().getCodiceDelega());
                 codiceDelega=dataPopulationConfig.getNuovaDelegaPg().getCodiceDelega();
             }
             case "nuova_delega" -> {
                 codiceDelega= dataPopulationConfig.getNuovaDelega().getCodiceDelega();
-                log.info("Codice Delega: "+codiceDelega);
+                log.info("Codice nuova_delega: "+codiceDelega);
             }
             case "personaFisica" -> {
                 //TODO Non viene Utilizzato

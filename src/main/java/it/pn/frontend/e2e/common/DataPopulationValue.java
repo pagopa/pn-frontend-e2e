@@ -190,7 +190,6 @@ public enum DataPopulationValue {
     CODE_DELEGA_NUOVA_DELEGA_PG("codicedelega_nuova_delega_pg","10166",false),
 
     //HELP_DESK
-    //TODO DA CANCELLARE
     URL_HELP_DESK("url_helpDesk","https://helpdesk.dev.notifichedigitali.it/login",false),
     USER_DEV_HELP_DESK("userDev","test@test.com",false),
     PWD_DEV_HELP_DESK("pwdDev","Test_Cognito_1.!",false),
