@@ -4,8 +4,8 @@ Feature: Il delegato persona giuridica modifica una delega assegnandoli un grupp
   @TA_PGmodificaDelegaConGruppo
   @DeleghePG
   @PG
-  @DeleghePGPF
-  @deleghe1
+  @DeleghePFPG
+  @deleghe2
 
   Scenario: PN-9173 - Il delegato persona giuridica modifica una delega assegnandoli un gruppo
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

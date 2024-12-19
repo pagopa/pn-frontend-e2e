@@ -5,8 +5,8 @@ Feature: La persona giuridica inserisce una OTP sbagliato PEC
   @recapitiPG
   @TA_inserimentoOTPErratoPG
   @mittente_x1
-  @addressBook1
-  @loginFE
+  @addressBook2
+  @recapitiPFPG
   Scenario: PN-9152-D60 - La persona giuridica loggato inserisce un OTP sbagliato PEC
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

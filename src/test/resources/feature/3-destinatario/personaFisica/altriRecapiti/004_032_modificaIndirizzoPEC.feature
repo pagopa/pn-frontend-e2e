@@ -6,7 +6,7 @@ Feature: la persona fisica modifica l'indirizzo pec già presente
   @recapitiPF
   @mittente_x1
   @addressBook1
-  @loginFE
+  @recapitiPFPG
   Scenario: PN-9306-D32 - la persona fisica modifica l'indirizzo pec già presente
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

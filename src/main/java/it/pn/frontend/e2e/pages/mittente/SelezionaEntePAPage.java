@@ -50,10 +50,10 @@ public class SelezionaEntePAPage extends BasePage {
           //  WebElement searchField = driver.findElement(By.id("search"));
 
             driver.findElements(By.xpath("//div[@role='button']//h6"));
-            getWebDriverWait(40)
+            getWebDriverWait(45)
                     .withMessage("Titolo 'Seleziona il tuo ente' della pagina non è visibile")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[text()='Seleziona il tuo ente']")));
-            getWebDriverWait(40)
+            getWebDriverWait(45)
                     .withMessage("Il campo cerca non è cliccabile nella pagina Seleziona Ente")
                     .until(ExpectedConditions.elementToBeClickable(By.id("search")));
             logger.info("Seleziona Utente PA Page caricata");

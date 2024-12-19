@@ -4,10 +4,8 @@ Feature:Il delegato persona giuridica accede ad una delega
   @TA_PGdelegatoPagaNotifica
   @DeleghePG
   @PG
-  @deleghe1
-  @DeleghePGPF_11
-
-
+  @deleghe2
+  @DeleghePFPG
 
   Scenario: PN-10389 - Il delegato persona giuridica paga una notifica
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

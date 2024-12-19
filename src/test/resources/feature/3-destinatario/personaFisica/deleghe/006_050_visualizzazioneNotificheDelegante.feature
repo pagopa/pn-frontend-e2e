@@ -5,7 +5,7 @@ Feature: Il delegato visualizza la notifiche del delegante
   @DeleghePF
   @deleghe1
   @PF
-
+  @DeleghePFPG
   Scenario: PN-9419 - Il delegato visualizza la notifiche del delegante
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Aspetta 10 secondi

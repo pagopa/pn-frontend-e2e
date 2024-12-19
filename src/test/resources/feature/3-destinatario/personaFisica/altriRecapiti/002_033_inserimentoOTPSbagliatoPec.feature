@@ -6,7 +6,7 @@ Feature:La persona fisica inserisce una OTP sbagliato PEC
   @recapitiPF
   @mittente_x1
   @addressBook1
-  @loginFE
+  @recapitiPFPG
   Scenario:La persona fisica loggato inserisce un OTP sbagliato PEC
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

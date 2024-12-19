@@ -4,7 +4,7 @@ Feature: il mittente inserisce tutti i dati di una notifica
     @TestSuite
     @invioNotifiche
 
-    @loginFE
+    @loginFE_8
   Scenario Outline: PN-9215 - il mittente inserisce tutti i dati di una notifica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo

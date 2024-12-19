@@ -43,8 +43,6 @@ public class HooksNew {
 
     private WebDriverWait wait;
 
-    private DevTools devTools;
-
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
     @Getter
     public static String scenario;
@@ -63,13 +61,12 @@ public class HooksNew {
     @Autowired
     private WebDriverConfig webDriverConfig;
 
-    private WebDriver driver;
 
     @Before
     public void startScenario(Scenario scenario) {
         logger.info("----- START SCENARIO: {} -----", scenario.getName());
         try {
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -88,7 +85,7 @@ public class HooksNew {
     public void endScenario(Scenario scenario) throws IOException {
         System.clearProperty("IUN");
 
-        webDriveManager.getNetWorkInfos().forEach(netWorkInfo -> {
+        webDriveManager.getNetworkInfosThread().get().forEach(netWorkInfo -> {
             logger.info("Request ID: {}", netWorkInfo.getRequestId());
             logger.info("Request URL: {}", netWorkInfo.getRequestUrl());
             logger.info("Method: {}", netWorkInfo.getRequestMethod());
@@ -99,7 +96,7 @@ public class HooksNew {
         if (scenario.isFailed()) {
             try {
                 logger.error("Scenario failed: {}", scenario.getName());
-                var screenshot = ((TakesScreenshot) WebDriverManager.getDriverThreadLocal().get()).getScreenshotAs(OutputType.FILE);
+                var screenshot = ((TakesScreenshot) webDriveManager.getDriverThreadLocal().get()).getScreenshotAs(OutputType.FILE);
                 var screenshotBytes = Files.readAllBytes(screenshot.toPath());
                 var formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
                 var timestamp = formatter.format(new Date());
@@ -112,13 +109,13 @@ public class HooksNew {
         }
 
         try {
-            WebDriverManager.quitDriver();
+            webDriveManager.quitDriver();
         } catch (Exception e) {
             logger.error("Error while quitting driver: {}", e.getMessage());
         }
         try {
             webDriveManager.clearRequest();
-            WebDriverManager.clearNetWorkInfos();
+            webDriveManager.clearNetWorkInfos();
         } catch (Exception e) {
             logger.error("Error while clearing network infos: {}", e.getMessage());
         }
@@ -169,9 +166,20 @@ public class HooksNew {
      * }
      **/
 
-    @And("Revoca deleghe se esistono")
-    @After("@DeleghePF or @DeleghePG")
-    public void clearDelegate() {
+    @After("@DeleghePF")
+    public void clearDelegatePF() {
+        logger.info("Revoking all delegations...");
+        var mandateId = mandateSingleton.getMandateId(HooksNew.getScenario());
+        if (mandateId != null) {
+            restDelegation.revokeDelegation(mandateId);
+            logger.info("Delegation revoked: {}", mandateId);
+        } else {
+            logger.info("Mandate ID not found");
+        }
+    }
+
+    @After("@DeleghePG")
+    public void clearDelegatePG() {
         logger.info("Revoking all delegations...");
         var mandateId = mandateSingleton.getMandateId(HooksNew.getScenario());
         if (mandateId != null) {
