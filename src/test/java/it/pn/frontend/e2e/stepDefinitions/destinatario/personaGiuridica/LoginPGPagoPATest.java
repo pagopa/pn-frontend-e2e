@@ -12,7 +12,6 @@ import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
-import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.section.CookiesSection;
@@ -26,11 +25,8 @@ import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -46,7 +42,6 @@ public class LoginPGPagoPATest extends BasePage {
     @Autowired
     private WebDriverConfig webDriverConfig;
 
-    //TODO da rimuovere anche il discorso dei file yaml..
     @Autowired
     private  DataPopulation dataPopulation;
 
@@ -137,8 +132,8 @@ public class LoginPGPagoPATest extends BasePage {
         headerPGSection.waitLoadHeaderPGPage();
 
         if (personaGiuridica.equalsIgnoreCase("delegante")) {
-            Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("personaGiuridica.yaml");
-            piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(personaGiuridicaFile.get("ragioneSociale").toString());
+//            Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("personaGiuridica.yaml");
+            piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
         } else if (personaGiuridica.equalsIgnoreCase("baldassarre")) {
             piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(webDriverConfig.getRagioneSocialeBaldassarre());
         } else {
