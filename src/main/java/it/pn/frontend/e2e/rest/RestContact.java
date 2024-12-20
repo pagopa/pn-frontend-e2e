@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,7 @@ Miglioramento gestione eccezioni: Le eccezioni sono lanciate per indicare fallim
 Ottimizzazione dei metodi HTTP: I metodi HTTP GET e DELETE sono organizzati per fornire un output chiaro e gestibile, inclusi i log delle risposte.
 * */
 @Component
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class RestContact {
 
     private static final Logger logger = LoggerFactory.getLogger(RestContact.class);

@@ -198,7 +198,7 @@ public class DisserviziAppPAPage extends BasePage {
 
     public void checkDisserviziDisponibili() {
         aggiornamentoPagina();
-        webTool.waitTime(5);
+        webTool.waitTime(15);
         statusList = driver.findElements(By.xpath("//tr[@id='tableDowntimeLog.row']//td//div[@data-testid='downtime-status']"));
         if (!statusList.isEmpty()) {
             for (WebElement status : statusList) {

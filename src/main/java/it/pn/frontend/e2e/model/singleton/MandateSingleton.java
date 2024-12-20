@@ -1,5 +1,7 @@
 package it.pn.frontend.e2e.model.singleton;
 
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -12,6 +14,7 @@ Costruttore privato rimosso: Non è necessario bloccare il costruttore dato che 
 * */
 
 @Component
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class MandateSingleton {
 
     private final Map<String, String> scenarioMandateId = new ConcurrentHashMap<>();

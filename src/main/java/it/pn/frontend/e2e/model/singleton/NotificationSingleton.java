@@ -1,5 +1,7 @@
 package it.pn.frontend.e2e.model.singleton;
 
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import org.springframework.stereotype.Component;
@@ -13,6 +15,7 @@ Rimozione del Metodo getInstance: Non è più necessario gestire manualmente l�
 Documentazione: Ho aggiunto i JavaDoc ai metodi setScenarioIun e getIun per migliorare la comprensibilità.
 * */
 @Component
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class NotificationSingleton {
 
     private final Map<String, String> scenarioIun = new ConcurrentHashMap<>();
