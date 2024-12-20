@@ -11,7 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -27,6 +29,7 @@ Metodi ottimizzati: Tutti i metodi sono stati aggiornati per seguire la configur
 *
 * */
 @Component
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class RestDelegation {
 
     private static final Logger logger = LoggerFactory.getLogger(RestDelegation.class);
