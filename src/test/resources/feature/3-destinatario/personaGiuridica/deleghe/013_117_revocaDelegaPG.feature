@@ -4,7 +4,7 @@ Feature:La persona giuridica revoca una delega
     @TA_PGrevocaNuovaDelega
     @DeleghePG
     @PG
-    @deleghe2
+    @deleghe1
     @DeleghePFPG
   Scenario:PN-9169 - La persona giuridica revoca una delega
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

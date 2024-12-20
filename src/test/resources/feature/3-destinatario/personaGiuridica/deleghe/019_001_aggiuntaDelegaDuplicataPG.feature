@@ -4,7 +4,7 @@ Feature:Il delegato persona giuridica accede ad una delega
   @DeleghePG
   @PG
   @DeleghePFPG
-  @deleghe2
+  @deleghe1
   @TA_PGdeleganteAggiuntaDelegaDuplicata
 
   Scenario: [DELEGANTE PG AMMINISTRATORE] - Il delegante aggiunta delega duplicata PG

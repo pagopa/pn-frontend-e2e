@@ -5,7 +5,7 @@ Feature: la persona giuridica inserisce una email errata
   @TA_inserimentoEmailErrataPG
   @recapitiPG
   @mittente_x1
-  @addressBook2
+  @addressBook1
   @recapitiPFPG
   Scenario: PN-9155-B63 - La persona giuridica inserisce una email errata
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
