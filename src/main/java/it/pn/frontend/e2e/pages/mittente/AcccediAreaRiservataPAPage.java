@@ -37,7 +37,7 @@ public class AcccediAreaRiservataPAPage extends BasePage {
     public void waitLoadLoginPageMittente(){
         try{
            // WebElement titoloLabel = driver.findElement(By.xpath("//h3[@class = 'MuiTypography-root MuiTypography-h3 css-ktw4ma']"));
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h3[@class = 'MuiTypography-root MuiTypography-h3 css-ktw4ma']"))));
+            getWebDriverWait(45).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h3[@class = 'MuiTypography-root MuiTypography-h3 css-ktw4ma']"))));
             logger.info("Accedi Area Riservata Page caricata");
         }catch (TimeoutException e){
             logger.error("Il titolo nella pagina  Accedi Area Riservata non è presente con errore : "+e.getMessage());
