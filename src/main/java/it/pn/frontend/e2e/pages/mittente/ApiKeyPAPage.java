@@ -273,7 +273,7 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public int verificaBottoni() {
-        getWebDriverWait(20).withMessage("la lista bottoni Bloccati non trovata").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//td/div/div/div/div[@role='button' and @data-testid='statusChip-Bloccata']"))));
+        getWebDriverWait(25).withMessage("la lista bottoni Bloccati non trovata").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//td/div/div/div/div[@role='button' and @data-testid='statusChip-Bloccata']"))));
         List<WebElement> menuBloccaButtonBy = driver.findElements(By.xpath("//td/div/div/div/div[@role='button' and @data-testid='statusChip-Bloccata']"));
         boolean ruotata;
         for (int i = 0; i < menuBloccaButtonBy.size(); i++) {

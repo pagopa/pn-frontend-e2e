@@ -5,6 +5,7 @@ Feature: Mittente seleziona CTA annulla in attiva api Key
   @mittente
   @ApikeyMittente
   @loginFE_72
+  @platformDependent
   Scenario: PN-9234 - Mittente seleziona CTA annulla in attiva api Key
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
