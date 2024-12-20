@@ -5,7 +5,7 @@ Feature:La persona giuridica visualizza le deleghe
   @DeleghePG
   @PG
   @DeleghePFPG
-  @deleghe1
+  @deleghe2
 
   Scenario: PN-9166-B112 - La persona giuridica fa una ricerca delle deleghe
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

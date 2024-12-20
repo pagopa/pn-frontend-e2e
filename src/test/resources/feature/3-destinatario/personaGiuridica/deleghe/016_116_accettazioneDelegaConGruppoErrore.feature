@@ -5,7 +5,7 @@ Feature:Il delegato persona giuridica accetta la delega assegnandoli un gruppo
   @DeleghePG
   @PG
   @DeleghePFPG
-  @deleghe1
+  @deleghe2
 
   Scenario: PN-9170-B116 - Il delegato persona giuridica accetta la delega assegnandoli un gruppo
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
