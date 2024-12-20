@@ -117,14 +117,14 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void waitLoadPiattaformaNotificaPage(String ragioneSociale) {
         try {
-            WebElement titlePageBy = driver.findElement(By.id("Notifiche di " + ragioneSociale + "-page"));
-            WebElement codiceIunTextFieldBy = driver.findElement(By.id("iunMatch"));
-            WebElement dataInizioFieldBy = driver.findElement(By.id("startDate"));
-            WebElement dataFineFieldBy = driver.findElement(By.id("endDate"));
-            getWebDriverWait(this.loadComponentWaitTime).withMessage("Il titolo della pagina Notifiche PG non è visibile").until(ExpectedConditions.visibilityOf(titlePageBy));
-            getWebDriverWait(40).withMessage("Il campo codice iun della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(codiceIunTextFieldBy));
-            getWebDriverWait(40).withMessage("Il campo data inizio della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(dataInizioFieldBy));
-            getWebDriverWait(40).withMessage("Il campo data fine della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(dataFineFieldBy));
+           // WebElement titlePageBy = driver.findElement(By.id("Notifiche di " + ragioneSociale + "-page"));
+           // WebElement codiceIunTextFieldBy = driver.findElement(By.id("iunMatch"));
+           // WebElement dataInizioFieldBy = driver.findElement(By.id("startDate"));
+           // WebElement dataFineFieldBy = driver.findElement(By.id("endDate"));
+            getWebDriverWait(loadComponentWaitTime).withMessage("Il titolo della pagina Notifiche PG non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Notifiche di " + ragioneSociale + "-page"))));
+            getWebDriverWait(40).withMessage("Il campo codice iun della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("iunMatch"))));
+            getWebDriverWait(40).withMessage("Il campo data inizio della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("startDate"))));
+            getWebDriverWait(40).withMessage("Il campo data fine della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("endDate"))));
             logger.info("La  pagina Piattaforma Notifiche si carica correttamente");
         } catch (TimeoutException e) {
             logger.error("La pagina Piattaforma Notifiche non si carica correttamente con errore: " + e.getMessage());
