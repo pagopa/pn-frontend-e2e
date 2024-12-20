@@ -7,7 +7,6 @@ import it.pn.frontend.e2e.api.personaFisica.RecuperoOTPRecapiti;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
-import it.pn.frontend.e2e.config.NetworkInfoManager;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;

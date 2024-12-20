@@ -10,7 +10,6 @@ import it.pn.frontend.e2e.api.personaFisica.SpidDemoStart;
 import it.pn.frontend.e2e.api.personaFisica.SpidLogin;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
-import it.pn.frontend.e2e.config.NetworkInfoManager;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
@@ -24,7 +23,6 @@ import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;

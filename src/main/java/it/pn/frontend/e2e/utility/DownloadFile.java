@@ -3,7 +3,6 @@ package it.pn.frontend.e2e.utility;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.config.NetworkInfoManager;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
