@@ -395,12 +395,13 @@ public class DeleghePGPagoPATest extends BasePage {
         deleghePGPagoPAPage.clickGruppoField("Test gruppi");
     }
 
+    //TODO Verificare----
     @And("Si clicca su conferma in assegnazione gruppo")
     public void siCliccaSuConfermaInAssegnazioneGruppo() {
         logger.info("Si clicca su conferma del pop-up");
 
         deleghePGPagoPAPage.clickBottoneConferma();
-        if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
+        if (deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
             logger.error("il codice inserito è sbagliato");
             Assertions.fail("il codice inserito è sbagliato");
         }
