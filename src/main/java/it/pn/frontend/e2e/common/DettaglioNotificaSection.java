@@ -193,7 +193,7 @@ public class DettaglioNotificaSection extends BasePage {
         //TODO Modificato il messaggio "Il documento sarà scaricabile tra pochi minuti"
        // webTool.waitTime(1);
        // WebElement checkAvvisoDownloadScaduto = driver.findElement(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]"));
-        getWebDriverWait(10).withMessage("In messaggio Al momento non è possibile scaricare il documento non è visibile").until(ExpectedConditions.visibilityOfAllElements(driver.findElement(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]"))));
+        getWebDriverWait(15).withMessage("In messaggio Al momento non è possibile scaricare il documento non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]")));
     }
 
     public Map<String, String> recuperoInfoNotificheDestinatario() {
