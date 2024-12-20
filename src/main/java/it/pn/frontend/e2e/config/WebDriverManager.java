@@ -78,7 +78,7 @@ public class WebDriverManager {
     @ConditionalOnProperty(name = "browser", havingValue = "chrome", matchIfMissing = true)
     public WebDriver chromeDriver() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -87,11 +87,11 @@ public class WebDriverManager {
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
         io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
+
         var chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--lang=it", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
 
         var downloadFilePath = webDriverConfig.getDownloadFilePath();
-        // var downloadFilePath = System.getProperty("downloadFilePath");
         var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "it,it-IT") ;
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
         chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + Thread.currentThread().getId());
@@ -307,52 +307,5 @@ public class WebDriverManager {
             }
         }
     }
-
-
-
-
-    //TODO Rivedere....
-    /**
-    public boolean waitForApiCall(String apiEndpoint, Duration timeout) {
-        CountDownLatch latch = new CountDownLatch(1);
-        // Listener per le richieste inviate
-        AtomicBoolean requestCaptured = new AtomicBoolean(false);
-        devToolsThread.get().addListener(Network.requestWillBeSent(), request -> {
-            if (request.getRequest().getUrl().contains(apiEndpoint)) {
-                System.out.println("API request captured: " + request.getRequest().getUrl());
-                requestCaptured.set(true);
-                latch.countDown(); // Segnala che la richiesta è stata trovata
-            }
-        });
-
-        try {
-            // Aspetta che il latch venga rilasciato o scada il timeout
-            boolean completed = latch.await(timeout.toSeconds(), TimeUnit.SECONDS);
-            if (!completed) {
-                throw new TimeoutException("Timeout waiting for API call: " + apiEndpoint);
-            }
-        } catch (InterruptedException | TimeoutException e) {
-            System.err.println("Error: " + e.getMessage());
-            return false;
-        }
-
-        return requestCaptured.get();
-    }
-
-    private static Map<Long, Set<Cookie>> cookieStore = new ConcurrentHashMap<>();
-
-    public void saveCookies(String url, WebDriver driver) {
-        // cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
-        Set<Cookie> cookies = cookieConfig.getCookies(url);
-        cookieStore.put(Thread.currentThread().getId(), cookies);
-    }
-
-    public void loadCookies(String url, WebDriver driver) {
-        Set<Cookie> cookies = cookieStore.get(Thread.currentThread().getId());
-        if (cookies != null) {
-            cookies.forEach(cookie -> driver.manage().addCookie(cookie));
-        }
-    }
-**/
 
 }
