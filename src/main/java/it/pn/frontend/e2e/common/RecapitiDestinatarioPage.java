@@ -664,8 +664,9 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void clickButtonAnnullaEliminazioneInPopUp() {
        // webTool.waitTime(5);
-      //  buttonAnnullaEliminazioneInPopUp = driver.findElement(By.id("buttonAnnulla"));
+      //
         getWebDriverWait(10).withMessage("Non è stato possibile cliccare sul bottone annulla").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("buttonAnnulla"))));
+        buttonAnnullaEliminazioneInPopUp = driver.findElement(By.id("buttonAnnulla"));
         buttonAnnullaEliminazioneInPopUp.click();
     }
 
