@@ -549,14 +549,20 @@ public class PiattaformaNotifichePage extends BasePage {
 
             logger.info("Scenario " + HooksNew.getScenario());
 
+            int randomNumber = (int) (Math.random() * (notifiche.size()-1)) + 1;
+
             if (notifiche != null) {
                 logger.info("ELENCO NOTIFICHE : " + notifiche.size());
+                logger.info("NOTIFICA SELEZIONATA: " + randomNumber);
+                notifiche.get(randomNumber).click();
+                /**
                 if (notifiche.size() >= index) {
                     logger.info("NOTIFICA SELEZIONATA: " + index);
                     notifiche.get(index).click();
                 } else {
                     notifiche.get(notifiche.size() - 1).click();
                 }
+                 **/
             } else {
                 logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
                 Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
