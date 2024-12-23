@@ -362,6 +362,8 @@ public class PiattaformaNotifichePage extends BasePage {
                     click++;
                 }
             }
+
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(calendar1.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayA + "']"))));
         } catch (ElementClickInterceptedException e) {
             logger.info("Previous month non cliccabile");
         }
@@ -371,7 +373,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         // Step 4: Select a date (e.g., the 15th day of the current month)
         // Adjust based on your app
-        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(calendar1.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayA + "']"))));
+
         WebElement dateToSelect1 = calendar1.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayA + "']"));
         dateToSelect1.click();
         logger.info("DATA FINE FIELD: " + dataFineField.getAttribute("value"));
