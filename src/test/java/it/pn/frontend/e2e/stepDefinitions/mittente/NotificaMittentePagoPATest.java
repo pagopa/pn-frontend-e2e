@@ -315,7 +315,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica {string}")
     public void nellaSectionDestinatarioInserireNomeCognomeECodiceFiscaleDaDestinatario(String destinatarioFile) {
-        logger.info("Inserimento del nome cognome e codice fiscale dal file personaFisica.yaml");
+        logger.info("Inserimento del nome cognome e codice fiscale ");
         destinatarioPASection.selezionarePersonaFisica();
         destinatarioPASection.inserireNomeDestinatario(dataPopulationConfig.getPersonaFisica().getName());
         destinatarioPASection.inserireCognomeDestinatario(dataPopulationConfig.getPersonaFisica().getFamilyName());
