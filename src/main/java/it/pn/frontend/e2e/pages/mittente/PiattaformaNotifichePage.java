@@ -568,10 +568,10 @@ public class PiattaformaNotifichePage extends BasePage {
                 Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
             }
             //  List<WebElement> notifiche = this.elements(notificaBy);
-            //  notifiche.get(0).click();
         } catch (TimeoutException e) {
             logger.error("Notifica non trovata con errore: " + e.getMessage());
             Assertions.fail("Notifica non trovata con errore: " + e.getMessage());
+            //  notifiche.get(0).click();
         }
     }
 
