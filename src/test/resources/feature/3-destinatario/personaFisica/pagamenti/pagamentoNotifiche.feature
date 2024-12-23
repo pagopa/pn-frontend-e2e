@@ -4,7 +4,7 @@ Feature:Pagamento notifica
   @PF
   @PagamentoNotificaPF
   @notificaPagataESuccessivamenteAnnullata
-  @loginFE_8
+  @loginFE_100
   Scenario:[NOTIFICA-PAGAMENTO NOTIFICA AVVISO PAGOPA] Verifica testo rimborso su notifica pagata e successivamente annullata
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
@@ -28,7 +28,7 @@ Feature:Pagamento notifica
       | avvisoPagoPa      | 1                  |
       | F24               | 1                  |
     Then Creo in background una notifica per destinatario tramite API REST
-    And Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca
+    When Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca
     And Si seleziona la notifica
 
   @PagamentoNotificaMonoPFConPiuAvvisiEF24

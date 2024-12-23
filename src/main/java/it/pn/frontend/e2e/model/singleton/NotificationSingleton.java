@@ -15,7 +15,6 @@ Rimozione del Metodo getInstance: Non è più necessario gestire manualmente l�
 Documentazione: Ho aggiunto i JavaDoc ai metodi setScenarioIun e getIun per migliorare la comprensibilità.
 * */
 @Component
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class NotificationSingleton {
 
     private final Map<String, String> scenarioIun = new ConcurrentHashMap<>();
