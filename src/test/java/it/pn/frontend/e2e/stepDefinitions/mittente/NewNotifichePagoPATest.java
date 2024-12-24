@@ -53,13 +53,14 @@ public class NewNotifichePagoPATest extends BasePage {
     public void init(){
         logger.info("INIT TEST...: ");
         destinatarioPage = new DestinatarioPage(driver);
+        destinatarioPage.setNotificationRequest(notificationRequest);
+        destinatarioPage.setNotificationSingleton(notificationSingleton);
+        destinatarioPage.setRestNotification(restNotification);
     }
 
 
     @Then("Creo in background una notifica per destinatario tramite API REST")
     public void creoUnaNotificaPerDestinatarioTramiteAPIREST(){
-        destinatarioPage.setNotificationSingleton(notificationSingleton);
-        destinatarioPage.setRestNotification(restNotification);
         destinatarioPage.checkCreateNewNotification();
     }
 

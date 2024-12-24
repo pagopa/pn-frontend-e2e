@@ -160,7 +160,7 @@ public class DelegatiImpresaSection extends BasePage {
 
                 } else {
                     logger.info("DelegheCarico != null");
-                    getWebDriverWait(30).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+                    getWebDriverWait(40).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable( driver.findElement(By.id("revoke-delegation-button"))));
                     driver.findElement(By.id("revoke-delegation-button")).click();
                     driver.navigate().refresh();
                 }
