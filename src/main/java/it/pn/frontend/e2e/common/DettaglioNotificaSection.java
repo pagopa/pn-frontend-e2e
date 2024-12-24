@@ -77,17 +77,19 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void clickLinkAttestazioniOpponibile(int numeroLinkAttestazioniOpponibile) {
-        webTool.waitTime(2);
+        webTool.waitTime(20);
         attestazioniFile = driver.findElements(By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: notifica presa in carico')]"));
         if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
+            getWebDriverWait(10).withMessage("Il link non è cliccabile").until(elementToBeClickable(attestazioniFile.get(numeroLinkAttestazioniOpponibile)));
             attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
         } else {
             scrollToElementAndClick(attestazioniFile.get(numeroLinkAttestazioniOpponibile));
         }
+
     }
 
     public void toBeClickableLinkAttestazioniOpponibile(int numeroLinkAttestazioniOpponibile) {
-        webTool.waitTime(2);
+        webTool.waitTime(20);
         attestazioniFile = driver.findElements(By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: notifica presa in carico')]"));
         if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
             getWebDriverWait(10).withMessage("Il link non è cliccabile").until(elementToBeClickable(attestazioniFile.get(numeroLinkAttestazioniOpponibile)));
@@ -193,7 +195,7 @@ public class DettaglioNotificaSection extends BasePage {
         //TODO Modificato il messaggio "Il documento sarà scaricabile tra pochi minuti"
         // webTool.waitTime(1);
         // WebElement checkAvvisoDownloadScaduto = driver.findElement(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]"));
-        getWebDriverWait(15).withMessage("In messaggio Al momento non è possibile scaricare il documento non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]")));
+        getWebDriverWait(20).withMessage("In messaggio Al momento non è possibile scaricare il documento non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]")));
     }
 
     public Map<String, String> recuperoInfoNotificheDestinatario() {

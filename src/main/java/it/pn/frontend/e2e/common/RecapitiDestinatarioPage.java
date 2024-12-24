@@ -367,7 +367,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void cancellaTesto() {
         try {
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec"))));
+            getWebDriverWait(20).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec"))));
             pecField = driver.findElement(By.id("default_pec"));
             js().executeScript("arguments[0].click()", pecField);
             clearWebElementField(pecField);
@@ -385,14 +385,14 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public boolean siControllaPECModificata(String pecInserita) {
-        getWebDriverWait(10).withMessage("Non trovata nessuna email PEC inserita").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec-typography"))));
+        getWebDriverWait(20).withMessage("Non trovata nessuna email PEC inserita").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec-typography"))));
         WebElement pecBy = driver.findElement(By.id("default_pec-typography"));
         return pecBy.getText().equals(pecInserita);
     }
 
 
     public void clickSuEliminaPec() {
-        getWebDriverWait(10).withMessage("Il bottone elimina della PEC associata non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("cancelContact-default_pec"))));
+        getWebDriverWait(20).withMessage("Il bottone elimina della PEC associata non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("cancelContact-default_pec"))));
         eliminaPECButton = driver.findElement(By.id("cancelContact-default_pec"));
         logger.info("click sul pulsante elimina pec");
         eliminaPECButton.click();
@@ -439,11 +439,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         enteField = driver.findElement(By.id("sender"));
         enteField.sendKeys(comune);
         // wait 2seconds for the list to appear
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            logger.error("errore" + e.getMessage());
-        }
+        webTool.waitTime(5);
         enteField.sendKeys(Keys.ARROW_DOWN);
         enteField.sendKeys(Keys.ENTER);
         // verify if the first option is the one we want by checking the value

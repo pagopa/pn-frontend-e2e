@@ -9,6 +9,7 @@ import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.delegate.DelegatePG;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
+import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePG;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
@@ -496,11 +497,29 @@ public class DeleghePGPagoPATest extends BasePage {
 
 
         String tokenExchange = loginPGPagoPaTest.getTokenExchangePGFromFile(personaGiuridica.get("accessoCome"));
-        DelegateResponsePG response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
-        mandateSingleton.setScenarioMandateId(HooksNew.getScenario(),response.getMandateId());
-        mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(HooksNew.getScenario()),response.getVerificationCode());
-        driver.navigate().refresh();
-        webTool.waitTime(2);
+        int attempt = 0;
+        int maxAttempts = 7;
+        DelegateResponsePG response = null;
+        while (attempt <= maxAttempts) {
+            response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
+
+            if (response!= null && response.getVerificationCode()!= null && !response.getVerificationCode().isEmpty()) {
+                logger.info("Inizio controllo notifica fino a stato accettata");
+                mandateSingleton.setScenarioMandateId(HooksNew.getScenario(), response.getMandateId());
+                mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(HooksNew.getScenario()), response.getVerificationCode());
+                driver.navigate().refresh();
+                return;
+            }
+            else {
+                logger.warn("Tentativo #{} di attesa risposta. Riprovo...", attempt);
+                webTool.waitTime(3);
+                attempt++;
+            }
+        }
+        logger.error("Errore nella response DelegateResponsePG per PF dopo {} tentativi", maxAttempts);
+        Assertions.fail("Errore nella response DelegateResponsePF per PF dopo " + maxAttempts + " tentativi");
+        webTool.waitTime(3);
+
     }
 
     @And("Si clicca sul bottone accetta delega dopo aver inserito il codice di verifica")

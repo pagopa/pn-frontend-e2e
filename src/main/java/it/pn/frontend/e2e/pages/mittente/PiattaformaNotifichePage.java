@@ -259,7 +259,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
 
-    public void inserimentoArcoTemporale(String da, String a) {
+    public void inserimentoArcoTemporale(String da, String a, boolean previousMonthAButtonEndDateClick) {
 
         dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("startDate"))));
         dataInizioField = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[@id='startDate']"))));
@@ -278,16 +278,6 @@ public class PiattaformaNotifichePage extends BasePage {
         } else if (dataFieldList != null && dataFieldList.size() == 3) {
             dataFieldList.get(1).click();
         }
-
-        /**
-         if(dataFieldList==null) {
-         dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
-         logger.info("Esecuzione Locale: "+dataFieldList.size());
-         if(dataFieldList!= null && dataFieldList.size()==2){
-         dataFieldList.get(0).click();
-         }
-         }**/
-
 
         // Step 2: Click on the input field to open the calendar pop-up
         //dataFieldList.get(0).click();
@@ -344,30 +334,34 @@ public class PiattaformaNotifichePage extends BasePage {
 
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar1 = getWebDriverWait(20).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".MuiDateCalendar-root"))));  // Adjust based on your app
-        
-        WebElement previousMonthAButton = null;
-        try {
-            getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"))));
-            previousMonthAButton = driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"));
-            int clickA = 0;
-            WebElement monthAToSelect = null;
-            while (clickA < 36) {
-                try {
-                    monthAToSelect = calendar1.findElement(By.xpath("//div[contains(text(), '" + DFSymbols.getMonths()[monthA - 1] + " " + yerarsA + "')]"));
-                    if (monthAToSelect.isDisplayed()) {
-                        break;
+
+        if (previousMonthAButtonEndDateClick) {
+            WebElement previousMonthAButton = null;
+            try {
+                getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"))));
+                previousMonthAButton = driver.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//button[@title='Previous month']"));
+                int clickA = 0;
+                WebElement monthAToSelect = null;
+                while (clickA < 36) {
+                    try {
+                        monthAToSelect = calendar1.findElement(By.xpath("//div[contains(text(), '" + DFSymbols.getMonths()[monthA - 1] + " " + yerarsA + "')]"));
+                        if (monthAToSelect.isDisplayed()) {
+                            break;
+                        }
+                    } catch (NoSuchElementException e) {
+                        previousMonthAButton.click();
+                        click++;
                     }
-                } catch (NoSuchElementException e) {
-                    previousMonthAButton.click();
-                    click++;
                 }
+
+
+                getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(calendar1.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayA + "']"))));
+            } catch (ElementClickInterceptedException e) {
+                logger.info("Previous month non cliccabile");
             }
-
+        }else {
             getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(calendar1.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayA + "']"))));
-        } catch (ElementClickInterceptedException e) {
-            logger.info("Previous month non cliccabile");
         }
-
 
         webTool.waitTime(2);
 

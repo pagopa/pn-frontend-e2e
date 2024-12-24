@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica;
 
+import com.google.gson.internal.LinkedTreeMap;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -9,6 +10,7 @@ import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.delegate.DelegatePF;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
+import it.pn.frontend.e2e.model.notification.NewNotificationResponse;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.DeleghePage;
@@ -29,6 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -37,7 +40,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
-public class DeleghePagoPATest extends BasePage{
+public class DeleghePagoPATest extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DeleghePagoPATest");
 
@@ -70,19 +73,19 @@ public class DeleghePagoPATest extends BasePage{
     @Autowired
     private RestDelegation restDelegation;
 
-    private  WebTool webTool;
+    private WebTool webTool;
 
     private Map<String, Object> deleghe = new HashMap<>();
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
 
 
-//    Map<String, Object> deleghe = new HashMap<>();
+    //    Map<String, Object> deleghe = new HashMap<>();
     @Setter
     private String codiceVerifica;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         logger.info("INIT TEST...: ");
         webTool = new WebTool(driver);
         leTueDelegheSection = new LeTueDelegheSection(driver);
@@ -114,6 +117,7 @@ public class DeleghePagoPATest extends BasePage{
         delegatiImpresaSection.verificaRemoveMenuDelega();
         deleghePage.clickAggiungiDelegaButton();
     }
+
     @And("Nella sezione Deleghe click sul bottone aggiungi nuova delega PF")
     public void nellaSezioneDelegheClickSulBottoneAggiungiNuovaDelegaPF() {
         log.info("Click sul bottone aggiungi nuova delega");
@@ -129,7 +133,7 @@ public class DeleghePagoPATest extends BasePage{
         String cognome = personaFisica.get("cognome");
         String codiceFiscale = personaFisica.get("codiceFiscale");
         String ente = personaFisica.get("ente");
-        logger.info("*-*-*-*-*-* ente: "+ente);
+        logger.info("*-*-*-*-*-* ente: " + ente);
 
         leTueDelegheSection.selectPersonaFisicaRadioButton();
 
@@ -155,7 +159,7 @@ public class DeleghePagoPATest extends BasePage{
 
     @And("Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file")
     public void nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile() {
-        log.info("Si salva il codice deleghe nel file SharedSteps -> NuovaDelega" );
+        log.info("Si salva il codice deleghe nel file SharedSteps -> NuovaDelega");
         //NUOVA DELEGA
         String codiceVerifica = leTueDelegheSection.salvataggioCodiceVerifica();
 
@@ -256,7 +260,7 @@ public class DeleghePagoPATest extends BasePage{
         }
         String PF = "personaFisica";
         if (!esistenzaDelega) {
-           // backgroundTest = new BackgroundTest();
+            // backgroundTest = new BackgroundTest();
             backgroundTest.loginPF(PF);
             backgroundTest.aggiuntaNuovaDelegaPF();
             backgroundTest.logoutPF();
@@ -269,7 +273,7 @@ public class DeleghePagoPATest extends BasePage{
             siCliccaSulBottoneRifiutaAllInternoDelPopUp();
             siControllaCheLaDelegaNonSiaPiuPresenteNellaLista(PF);
 
-           // backgroundTest = new BackgroundTest();
+            // backgroundTest = new BackgroundTest();
             backgroundTest.loginPF(PF);
             backgroundTest.aggiuntaNuovaDelegaPF();
             backgroundTest.logoutPF();
@@ -333,7 +337,7 @@ public class DeleghePagoPATest extends BasePage{
      */
 
     @When("Creo in background una delega per persona fisica")
-    public void creaInBackgroundUnaDelegaPerPersonaFisica(Map<String, String> personaFisica) {
+    public void creaInBackgroundUnaDelegaPerPersonaFisica(Map<String, String> personaFisica){
 
         //logica elimina delega
         logger.info("Verifico se esiste una delega");
@@ -350,7 +354,7 @@ public class DeleghePagoPATest extends BasePage{
         delegatePF.setLastName(personaFisica.get("lastName"));
         delegatePF.setPerson(Boolean.parseBoolean(personaFisica.get("person")));
         /**
-        DelegatePF delegatePF = DelegatePF.builder()
+         DelegatePF delegatePF = DelegatePF.builder()
          .displayName(personaFisica.get("displayName"))
          .firstName(personaFisica.get("firstName"))
          .lastName(personaFisica.get("lastName"))
@@ -361,30 +365,49 @@ public class DeleghePagoPATest extends BasePage{
         DelegateRequestPF delegateRequestPF = dataPopulationConfig.getDelegateRequestPF();
         delegateRequestPF.setDelegate(delegatePF);
 /**
-        DelegateRequestPF delegateRequestPF = DelegateRequestPF.builder()
-                .dateto(date)
-                .delegate(delegatePF)
-                .visibilityIds(new ArrayList<String>())
-                .verificationCode("12345")
-                .build();
+ DelegateRequestPF delegateRequestPF = DelegateRequestPF.builder()
+ .dateto(date)
+ .delegate(delegatePF)
+ .visibilityIds(new ArrayList<String>())
+ .verificationCode("12345")
+ .build();
  **/
-        String tokenExchange = loginPersonaFisicaPagoPA.getTokenExchangePFFromFile(personaFisica.get("accessoCome"));
-        DelegateResponsePF response = restDelegation.addDelegationPF(delegateRequestPF, tokenExchange);
-        if (response != null) {
-            mandateSingleton.setScenarioMandateId(HooksNew.getScenario(), response.getMandateId());
-            mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(HooksNew.getScenario()), response.getVerificationCode());
-        }
-        driver.navigate().refresh();
-    }
 
+
+        String tokenExchange = loginPersonaFisicaPagoPA.getTokenExchangePFFromFile(personaFisica.get("accessoCome"));
+        int attempt = 0;
+        int maxAttempts = 7;
+        DelegateResponsePF response = null;
+        while (attempt <= maxAttempts) {
+
+            response = restDelegation.addDelegationPF(delegateRequestPF, tokenExchange);
+
+            if (response!= null && response.getVerificationCode()!= null && !response.getVerificationCode().isEmpty()) {
+                log.info("Inizio controllo notifica fino a stato accettata");
+
+                mandateSingleton.setScenarioMandateId(HooksNew.getScenario(), response.getMandateId());
+                mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(HooksNew.getScenario()), response.getVerificationCode());
+                driver.navigate().refresh();
+                return;
+            }
+            else {
+                log.warn("Tentativo #{} di attesa risposta. Riprovo...", attempt);
+                webTool.waitTime(3);
+                attempt++;
+            }
+        }
+        log.error("Errore nella response DelegateResponsePF per PF dopo {} tentativi", maxAttempts);
+        Assertions.fail("Errore nella response DelegateResponsePF per PF dopo " + maxAttempts + " tentativi");
+        webTool.waitTime(3);
+    }
 
 
     @When("Creo in background una delega per persona fisica 1")
     public void creaInBackgroundUnaDelegaPerPersonaFisica1() {
 
-        log.info("PERSONA "+dataPopulationConfig.getDelegatePF().getDisplayName());
-        log.info("PERSONA "+dataPopulationConfig.getDelegatePF().getFiscalCode());
-        log.info("DelegateRequestPF "+dataPopulationConfig.getDelegateRequestPF().getVerificationCode());
+        log.info("PERSONA " + dataPopulationConfig.getDelegatePF().getDisplayName());
+        log.info("PERSONA " + dataPopulationConfig.getDelegatePF().getFiscalCode());
+        log.info("DelegateRequestPF " + dataPopulationConfig.getDelegateRequestPF().getVerificationCode());
     }
 
     @And("Si clicca sul bottone Accetta")
@@ -394,7 +417,7 @@ public class DeleghePagoPATest extends BasePage{
         leTueDelegheSection.clickAccettaButton();
         if (leTueDelegheSection.verificaEsistenzaErroreCodiceSbagliato()) {
             Assertions.assertEquals(
-                    "Il codice è sbagliato", leTueDelegheSection.getTextCodiceSbagliato(),"Il codice inserito è sbagliato");
+                    "Il codice è sbagliato", leTueDelegheSection.getTextCodiceSbagliato(), "Il codice inserito è sbagliato");
         }
     }
 
@@ -677,16 +700,16 @@ public class DeleghePagoPATest extends BasePage{
 //        nomeFileNuovaDelegaPG -> nuovaDelegaPG, nomeFileNuovaDelega -> nuova_delega, personaFisica, nuova_delega, nuova_delega
         switch (nomeConfig) {
             case "nuovaDelegaPG" -> {
-                logger.info("Codice nuovaDelegaPG: "+dataPopulationConfig.getNuovaDelegaPg().getCodiceDelega());
-                codiceDelega=dataPopulationConfig.getNuovaDelegaPg().getCodiceDelega();
+                logger.info("Codice nuovaDelegaPG: " + dataPopulationConfig.getNuovaDelegaPg().getCodiceDelega());
+                codiceDelega = dataPopulationConfig.getNuovaDelegaPg().getCodiceDelega();
             }
             case "nuova_delega" -> {
-                codiceDelega= dataPopulationConfig.getNuovaDelega().getCodiceDelega();
-                log.info("Codice nuova_delega: "+codiceDelega);
+                codiceDelega = dataPopulationConfig.getNuovaDelega().getCodiceDelega();
+                log.info("Codice nuova_delega: " + codiceDelega);
             }
             case "personaFisica" -> {
                 //TODO Non viene Utilizzato
-                codiceDelega= "";
+                codiceDelega = "";
             }
 
             default -> {

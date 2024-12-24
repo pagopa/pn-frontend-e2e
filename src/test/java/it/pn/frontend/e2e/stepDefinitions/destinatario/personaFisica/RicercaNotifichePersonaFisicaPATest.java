@@ -161,7 +161,7 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
         LocalDate dataInizio = LocalDate.of(date.get("annoDa"), date.get("meseDa"), date.get("giornoDa"));
         String dataDA = notifichePFPage.controlloDateInserite(dataInizio.toString());
         String dataA = notifichePFPage.controlloDateInserite(dataFine.toString());
-        piattaformaNotifichePage.inserimentoArcoTemporale(dataDA, dataA);
+        piattaformaNotifichePage.inserimentoArcoTemporale(dataDA, dataA, true);
     }
 
     @And("Nella pagina Piattaforma Notifiche mittente inserire un arco temporale di maggiore di 120 giorni")
@@ -175,7 +175,7 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
         var dataa = piattaformaNotifichePage.conversioneFormatoDate(dateA.toString());
         var datada = piattaformaNotifichePage.conversioneFormatoDate(dateDa.toString());
         logger.info("ARCO TEMPORRALE SETTATO: " + datada + " - " + dataa);
-        piattaformaNotifichePage.inserimentoArcoTemporale(datada, dataa);
+        piattaformaNotifichePage.inserimentoArcoTemporale(datada, dataa,true);
     }
 
     @And("Se i risultati sono contenuti in più pagine persona fisica è possibile effettuare il cambio pagina")

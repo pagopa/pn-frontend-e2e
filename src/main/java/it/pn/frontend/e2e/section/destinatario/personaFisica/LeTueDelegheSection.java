@@ -127,12 +127,13 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickSulBottoneInviaRichiesta() {
+
+        getWebDriverWait(10).withMessage("Invia richiesta button non è cliccabile o non trovato").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("create-button"))));
         inviaLaRichiestaButton = driver.findElement(By.id("create-button"));
-        getWebDriverWait(10).withMessage("Invia richiesta button non è cliccabile o non trovato").until(ExpectedConditions.elementToBeClickable(inviaLaRichiestaButton));
         logger.info("click su invia richiesta");
         inviaLaRichiestaButton.click();
-        getWebDriverWait(40).withMessage("Torna deleghe button non è cliccabile o non è trovato").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("courtesy-page-button"))));
-        driver.findElement(By.id("courtesy-page-button")).click();
+        getWebDriverWait(40).withMessage("Torna deleghe button non è cliccabile o non è trovato").until(ExpectedConditions.elementToBeClickable(By.id("courtesy-page-button")));
+        element(By.id("courtesy-page-button")).click();
     }
 
     public boolean verificareCheLaDataSiaCorretta() {
@@ -202,7 +203,7 @@ public class LeTueDelegheSection extends BasePage {
 
     public void messaggioDiErroreDelegaPresente() {
         try {
-            getWebDriverWait(45).until(ExpectedConditions.visibilityOf(driver.findElement((By.xpath("//div[contains(text(),'Delega già presente')]")))));
+            getWebDriverWait(50).until(ExpectedConditions.visibilityOfAllElementsLocatedBy((By.xpath("//div[contains(text(),'Delega già presente')]"))));
             logger.info("Il messaggio di errore viene visualizzato");
         } catch (TimeoutException e) {
             logger.error("Il messaggio di errore NON viene visualizzato con errore: " + e.getMessage());

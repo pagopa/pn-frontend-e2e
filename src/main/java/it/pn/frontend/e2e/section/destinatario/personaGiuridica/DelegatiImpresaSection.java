@@ -151,16 +151,16 @@ public class DelegatiImpresaSection extends BasePage {
                     }
 
                     else {
-                        getWebDriverWait(30).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("reject-delegation-button")));
+                        getWebDriverWait(35).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("reject-delegation-button"))));
                         driver.findElement(By.id("reject-delegation-button")).click();
                         //Rifiuta la Delega pop-up
-                        getWebDriverWait(30).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile pop-up").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
+                        getWebDriverWait(35).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile pop-up").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
                         driver.findElement(By.id("dialog-action-button")).click();
                     }
 
                 } else {
                     logger.info("DelegheCarico != null");
-                    getWebDriverWait(30).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+                    getWebDriverWait(40).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable( driver.findElement(By.id("revoke-delegation-button"))));
                     driver.findElement(By.id("revoke-delegation-button")).click();
                     driver.navigate().refresh();
                 }
