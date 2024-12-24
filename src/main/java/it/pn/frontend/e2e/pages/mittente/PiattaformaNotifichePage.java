@@ -1263,9 +1263,9 @@ public class PiattaformaNotifichePage extends BasePage {
         String iun = notificationSingletonParam.getIun(HooksNew.scenario);
         logger.info("iun notifica {}", iun);
         //By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
-        getWebDriverWait(35).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]"))));
-        WebElement notification = driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]"));
-        notification.click();
+        getWebDriverWait(35).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]")));
+        By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
+        element(notification).click();
     }
 
     public void checkStatoNotifica(String stato) {
