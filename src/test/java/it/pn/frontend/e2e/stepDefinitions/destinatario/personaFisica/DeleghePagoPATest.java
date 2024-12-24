@@ -379,9 +379,10 @@ public class DeleghePagoPATest extends BasePage {
         int maxAttempts = 7;
         DelegateResponsePF response = null;
         while (attempt <= maxAttempts) {
+
             response = restDelegation.addDelegationPF(delegateRequestPF, tokenExchange);
 
-            if (!response.getVerificationCode().isEmpty()) {
+            if (response!= null && response.getVerificationCode()!= null && !response.getVerificationCode().isEmpty()) {
                 log.info("Inizio controllo notifica fino a stato accettata");
 
                 mandateSingleton.setScenarioMandateId(HooksNew.getScenario(), response.getMandateId());
