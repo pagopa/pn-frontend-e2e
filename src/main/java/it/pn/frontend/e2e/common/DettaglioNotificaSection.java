@@ -77,7 +77,7 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void clickLinkAttestazioniOpponibile(int numeroLinkAttestazioniOpponibile) {
-        webTool.waitTime(2);
+        webTool.waitTime(10);
         attestazioniFile = driver.findElements(By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: notifica presa in carico')]"));
         if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
             attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
@@ -87,7 +87,7 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void toBeClickableLinkAttestazioniOpponibile(int numeroLinkAttestazioniOpponibile) {
-        webTool.waitTime(2);
+        webTool.waitTime(10);
         attestazioniFile = driver.findElements(By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: notifica presa in carico')]"));
         if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
             getWebDriverWait(10).withMessage("Il link non è cliccabile").until(elementToBeClickable(attestazioniFile.get(numeroLinkAttestazioniOpponibile)));
