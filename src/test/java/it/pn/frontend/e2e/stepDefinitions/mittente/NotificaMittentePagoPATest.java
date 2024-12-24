@@ -465,7 +465,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
             if (i >= 1) {
                 piattaformaNotifichePage.aggiornamentoPagina();
                 piattaformaNotifichePage.insertCodiceFiscale(dataPopulationConfig.getPersonaFisica().getCodiceFiscale());
-                piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
+                piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica,true);
                 piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
                 piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
             }
@@ -810,7 +810,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
                     }
                 }
                 piattaformaNotifichePage.insertCodiceFiscale(dataPopulationConfig.personaFisicaPec().getComune());
-                piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
+                piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica, true);
                 piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
                 piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
             }
@@ -1012,7 +1012,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
                     }
                 }
                 piattaformaNotifichePage.insertCodiceFiscale(codiceFiscale);
-                piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
+                piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica,true);
                 piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
                 piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
             }

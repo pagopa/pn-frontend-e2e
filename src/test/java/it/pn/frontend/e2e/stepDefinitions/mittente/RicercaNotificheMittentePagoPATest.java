@@ -187,7 +187,7 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
             logger.error("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
             Assertions.fail("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
         }
-        piattaformaNotifichePage.inserimentoArcoTemporale(dataDA, dataA);
+        piattaformaNotifichePage.inserimentoArcoTemporale(dataDA, dataA, true);
     }
 
 
@@ -280,7 +280,7 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
         String dataNotifica = dateFormat.format(date).replace("-", "/");
 
-        piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica);
+        piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica,true);
     }
 
     @And("Nella pagina piattaforma Notifiche selezionare lo stato notifica Depositata")
@@ -298,7 +298,7 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
 
         String dataa = piattaformaNotifichePage.conversioneFormatoDate(dateA.toString());
         String datada = piattaformaNotifichePage.conversioneFormatoDate(dateDa.toString());
-        piattaformaNotifichePage.inserimentoArcoTemporale(datada, dataa);
+        piattaformaNotifichePage.inserimentoArcoTemporale(datada, dataa,true);
     }
 
     @And("Il sistema restituisce notifiche con codice fiscale e arco temporale uguale a quelli inserito")

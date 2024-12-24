@@ -159,7 +159,7 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
 
         String dataa = piattaformaNotifichePage.conversioneFormatoDate(dateA.toString());
         String datada = piattaformaNotifichePage.conversioneFormatoDate(dateDa.toString());
-        piattaformaNotifichePage.inserimentoArcoTemporale(datada, dataa);
+        piattaformaNotifichePage.inserimentoArcoTemporale(datada, dataa, false);
     }
 
     @And("Nella pagina Piattaforma Notifiche persona giuridica vengo restituite tutte le notifiche con la data della notifica compresa con le date precedentemente inserite")
