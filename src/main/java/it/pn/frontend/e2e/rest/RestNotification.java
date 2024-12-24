@@ -11,6 +11,8 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -19,6 +21,7 @@ import java.util.List;
 
 @Slf4j
 @Component
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class RestNotification {
 
 //    @Autowired

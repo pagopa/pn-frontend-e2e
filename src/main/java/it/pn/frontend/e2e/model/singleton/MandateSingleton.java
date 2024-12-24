@@ -14,7 +14,6 @@ Costruttore privato rimosso: Non è necessario bloccare il costruttore dato che 
 * */
 
 @Component
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class MandateSingleton {
 
     private final Map<String, String> scenarioMandateId = new ConcurrentHashMap<>();

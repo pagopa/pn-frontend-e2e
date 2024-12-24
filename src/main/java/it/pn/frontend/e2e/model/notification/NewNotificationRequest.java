@@ -5,11 +5,14 @@ import it.pn.frontend.e2e.model.documents.Document;
 import it.pn.frontend.e2e.model.enums.NotificationFeePolicyEnum;
 import it.pn.frontend.e2e.model.enums.PhysicalCommunicationTypeEnum;
 import lombok.Data;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
 
 import java.util.ArrayList;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class NewNotificationRequest {
     private String paProtocolNumber;
     private String subject;

@@ -137,12 +137,13 @@ public class DestinatarioPage extends BasePage {
     }
 
     public void checkCreateNewNotification() throws RestNotificationException {
-        int maxAttempts = 4;
+        int maxAttempts = 7;
         int attempt = 1;
         Assertions.assertNotNull(notificationRequest.getRecipients(), "Non può essere creata una notifica senza alcun destinatario");
 
         while (attempt <= maxAttempts) {
             NewNotificationResponse responseOfCreateNotification = restNotification.newNotificationWithOneRecipientAndDocument(notificationRequest);
+            log.info("NEW_NOTFIC_REQUEST_ID: "+responseOfCreateNotification.getNotificationRequestId());
 
             if (responseOfCreateNotification != null) {
                 log.info("Inizio controllo notifica fino a stato accettata");
