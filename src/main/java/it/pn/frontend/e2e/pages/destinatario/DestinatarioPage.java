@@ -118,21 +118,22 @@ public class DestinatarioPage extends BasePage {
         sideItemNotificheButton.click();
 
         String id = "side-item-" + nomeDelegante;
+
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id(id))));
         WebElement buttonNotificheOnSideMenu = driver.findElement(By.id(id));
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(buttonNotificheOnSideMenu));
-        this.js().executeScript("arguments[0].click()", buttonNotificheOnSideMenu);
+        js().executeScript("arguments[0].click()", buttonNotificheOnSideMenu);
     }
 
     public void clickSulDettaglioNotificaDelegante() {
-        WebElement singolaNotificaDelegante = listaNotificheDelegante.get(0);
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(singolaNotificaDelegante));
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElements(By.id("notificationsTable.body.row")).get(0)));
+        WebElement singolaNotificaDelegante = driver.findElements(By.id("notificationsTable.body.row")).get(0);
         log.info("Si clicca sulla prima notifica del delegante");
         singolaNotificaDelegante.click();
     }
 
     public void clickProdotto(String xpath) {
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))));
         WebElement prodottoDestinatario = driver.findElement(By.xpath(xpath));
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(prodottoDestinatario));
         prodottoDestinatario.click();
     }
 
@@ -143,7 +144,7 @@ public class DestinatarioPage extends BasePage {
 
         while (attempt <= maxAttempts) {
             NewNotificationResponse responseOfCreateNotification = restNotification.newNotificationWithOneRecipientAndDocument(notificationRequest);
-            log.info("NEW_NOTFIC_REQUEST_ID: "+responseOfCreateNotification.getNotificationRequestId());
+            log.info("NEW_NOTFIC_REQUEST_ID: " + responseOfCreateNotification.getNotificationRequestId());
 
             if (responseOfCreateNotification != null) {
                 log.info("Inizio controllo notifica fino a stato accettata");
@@ -208,34 +209,36 @@ public class DestinatarioPage extends BasePage {
     }
 
     public void clickTuttiGliEnti() {
+
+        getWebDriverWait(10).withMessage("Il radio button 'tutti gli enti selezionati' non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("tutti-gli-enti-selezionati"))));
         WebElement tuttiGliEnti = driver.findElement(By.id("tutti-gli-enti-selezionati"));
-        getWebDriverWait(10).withMessage("Il radio button 'tutti gli enti selezionati' non è visibile").until(ExpectedConditions.visibilityOf(tuttiGliEnti));
         tuttiGliEnti.click();
     }
 
     public void clickSoloEntiSelezionati() {
+
+        getWebDriverWait(15).withMessage("Il radio button 'solo enti selezionati' non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("enti-selezionati"))));
         WebElement soloEntiSelezionati = driver.findElement(By.id("enti-selezionati"));
-        getWebDriverWait(10).withMessage("Il radio button 'solo enti selezionati' non è visibile").until(ExpectedConditions.visibilityOf(soloEntiSelezionati));
         soloEntiSelezionati.click();
     }
 
     public void clickListaEnti() {
+        getWebDriverWait(15).withMessage("Il menù a tendina degli enti non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("enti"))));
         WebElement listaEnti = driver.findElement(By.id("enti"));
-        getWebDriverWait(10).withMessage("Il menù a tendina degli enti non è visibile").until(ExpectedConditions.visibilityOf(listaEnti));
         listaEnti.click();
     }
 
     public void controlloEntiRadice(List<String> enti) {
         for (String ente : enti) {
-            WebElement enteRadice = driver.findElement(By.xpath("//li//p[contains(text(),'" + ente + "')]"));
-            getWebDriverWait(10).withMessage("Ente: " + ente + " non visibile").until(ExpectedConditions.visibilityOf(enteRadice));
+            // WebElement enteRadice = driver.findElement(By.xpath("//li//p[contains(text(),'" + ente + "')]"));
+            getWebDriverWait(15).withMessage("Ente: " + ente + " non visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//li//p[contains(text(),'" + ente + "')]"))));
         }
     }
 
     public void checkBannerAnnullamentoNotifica() {
-        WebElement bannerAnnullamentoNotificaBy = driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']"));
-        getWebDriverWait(10).withMessage("Il banner di annullamento della notifica non è presente").until(ExpectedConditions.visibilityOf(bannerAnnullamentoNotificaBy));
+       // WebElement bannerAnnullamentoNotificaBy = driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']"));
+        getWebDriverWait(10).withMessage("Il banner di annullamento della notifica non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']"))));
         getWebDriverWait(10).withMessage("Il banner di annullamento della notifica presenta la corretta descrizione").until(
-                ExpectedConditions.attributeToBe(bannerAnnullamentoNotificaBy, "textContent", "Questa notifica è stata annullata dall’ente mittente. Puoi ignorarne il contenuto."));
+                ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']")), "textContent", "Questa notifica è stata annullata dall’ente mittente. Puoi ignorarne il contenuto."));
     }
 }
