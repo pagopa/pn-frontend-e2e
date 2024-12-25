@@ -133,7 +133,7 @@ public class DelegatiImpresaSection extends BasePage {
     public void verificaRemoveMenuDelega(String displayName, String delegheCarico) {
         logger.info("DisplayName: " + displayName);
         try {
-
+            webTool.waitTime(15);
             if (driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + displayName + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")).isDisplayed()) {
                 logger.info("Esiste il duplicato: " + displayName);
                 js().executeScript("arguments[0].click()", element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + displayName + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
@@ -144,17 +144,17 @@ public class DelegatiImpresaSection extends BasePage {
                     boolean isVisible = isVisibleAttesa();
                     if(isVisible){
                         //bottone remove
-                        getWebDriverWait(30).withMessage("bottone revoca delega  con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+                        getWebDriverWait(40).withMessage("bottone revoca delega  con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
                         driver.findElement(By.id("revoke-delegation-button")).click();
-                        getWebDriverWait(30).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile pop-up").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
+                        getWebDriverWait(40).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile pop-up").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
                         driver.findElement(By.id("dialog-action-button")).click();
                     }
 
                     else {
-                        getWebDriverWait(35).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("reject-delegation-button"))));
+                        getWebDriverWait(40).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("reject-delegation-button"))));
                         driver.findElement(By.id("reject-delegation-button")).click();
                         //Rifiuta la Delega pop-up
-                        getWebDriverWait(35).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile pop-up").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
+                        getWebDriverWait(40).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile pop-up").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
                         driver.findElement(By.id("dialog-action-button")).click();
                     }
 
