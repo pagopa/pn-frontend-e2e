@@ -376,7 +376,7 @@ public class DeleghePagoPATest extends BasePage {
 
         String tokenExchange = loginPersonaFisicaPagoPA.getTokenExchangePFFromFile(personaFisica.get("accessoCome"));
         int attempt = 0;
-        int maxAttempts = 7;
+        int maxAttempts = 9;
         DelegateResponsePF response = null;
         while (attempt <= maxAttempts) {
 

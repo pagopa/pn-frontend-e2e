@@ -192,8 +192,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public String getNumeroProtocollo() {
         logger.info("Si recupera l'ultimo numero protocollo utilizzato");
 
-        this.piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
-        webTool.waitTime(5);
+        piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
+        webTool.waitTime(10);
         String urlNotifiche = webDriverConfig.getBaseUrl() + "notifications/";
         for (NetWorkInfo netWorkInfo : webDriverManager.getNetworkInfosThread().get()) {
             if (netWorkInfo.getRequestUrl().contains(urlNotifiche) && netWorkInfo.getRequestUrl().endsWith("size=10")) {

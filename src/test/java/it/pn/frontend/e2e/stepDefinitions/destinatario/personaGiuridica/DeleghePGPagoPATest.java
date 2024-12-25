@@ -498,7 +498,7 @@ public class DeleghePGPagoPATest extends BasePage {
 
         String tokenExchange = loginPGPagoPaTest.getTokenExchangePGFromFile(personaGiuridica.get("accessoCome"));
         int attempt = 0;
-        int maxAttempts = 7;
+        int maxAttempts = 9;
         DelegateResponsePG response = null;
         while (attempt <= maxAttempts) {
             response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);

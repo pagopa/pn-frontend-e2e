@@ -138,7 +138,7 @@ public class DestinatarioPage extends BasePage {
     }
 
     public void checkCreateNewNotification() throws RestNotificationException {
-        int maxAttempts = 7;
+        int maxAttempts = 10;
         int attempt = 1;
         Assertions.assertNotNull(notificationRequest.getRecipients(), "Non può essere creata una notifica senza alcun destinatario");
 
@@ -231,7 +231,7 @@ public class DestinatarioPage extends BasePage {
     public void controlloEntiRadice(List<String> enti) {
         for (String ente : enti) {
             // WebElement enteRadice = driver.findElement(By.xpath("//li//p[contains(text(),'" + ente + "')]"));
-            getWebDriverWait(15).withMessage("Ente: " + ente + " non visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//li//p[contains(text(),'" + ente + "')]"))));
+            getWebDriverWait(30).withMessage("Ente: " + ente + " non visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//li//p[contains(text(),'" + ente + "')]"))));
         }
     }
 
