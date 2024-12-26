@@ -55,10 +55,10 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void waitLoadDelegatiImpresaPage() {
         try {
+            getWebDriverWait(10).withMessage("il titolo della sezione delegati dall'impresa non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("tab-1"))));
+            getWebDriverWait(10).withMessage("il bottone aggiungi delega non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("add-deleghe"))));
             titlePageBy = driver.findElement(By.id("tab-1"));
             addDelegheButton = driver.findElement(By.id("add-deleghe"));
-            getWebDriverWait(10).withMessage("il titolo della sezione delegati dall'impresa non è visibile").until(ExpectedConditions.visibilityOf(titlePageBy));
-            getWebDriverWait(10).withMessage("il bottone aggiungi delega non è visibile").until(ExpectedConditions.visibilityOf(addDelegheButton));
             logger.info("Delegati dall'impresa caricata correttamente");
         } catch (TimeoutException e) {
             logger.error("Delegati dall'impresa non caricata correttamente con errore: " + e.getMessage());
@@ -68,7 +68,7 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void clickAggiungiDelegaButton() {
         try {
-            getWebDriverWait(10).withMessage("bottone aggiunta deleghe non caricato").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("add-deleghe"))));
+            getWebDriverWait(15).withMessage("bottone aggiunta deleghe non caricato").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("add-deleghe"))));
             addDelegheButton = driver.findElement(By.id("add-deleghe"));
             logger.info("click sul bottone aggiunta delega");
             addDelegheButton.click();

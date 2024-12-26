@@ -53,38 +53,29 @@ public class NewNotifichePagoPATest extends BasePage {
     public void init(){
         logger.info("INIT TEST...: ");
         destinatarioPage = new DestinatarioPage(driver);
+        destinatarioPage.setNotificationSingleton(notificationSingleton);
+        destinatarioPage.setRestNotification(restNotification);
+        destinatarioPage.setNotificationRequest(notificationRequest);
     }
 
 
     @Then("Creo in background una notifica per destinatario tramite API REST")
     public void creoUnaNotificaPerDestinatarioTramiteAPIREST(){
-        destinatarioPage.setNotificationSingleton(notificationSingleton);
-        destinatarioPage.setRestNotification(restNotification);
-        destinatarioPage.setNotificationRequest(notificationRequest);
         destinatarioPage.checkCreateNewNotification();
     }
 
     @And("Si aggiunge un destinatario alla notifica")
     public void siAggiungeUnDestinatarioAllaNotifica(Map<String, String> datiDestinatario) {
-        destinatarioPage.setNotificationSingleton(notificationSingleton);
-        destinatarioPage.setRestNotification(restNotification);
-        destinatarioPage.setNotificationRequest(notificationRequest);
         destinatarioPage.aggiuntaDestinatarioANotifica(datiDestinatario);
     }
 
     @When("Si inizializzano i dati per la notifica")
     public void siInizializzanoIDatiPerLaNotifica(Map<String, String> datiNotifica) {
-        destinatarioPage.setNotificationSingleton(notificationSingleton);
-        destinatarioPage.setRestNotification(restNotification);
-        destinatarioPage.setNotificationRequest(notificationRequest);
         destinatarioPage.inizializzazioneDatiNotifica(datiNotifica);
     }
 
     @And("Si completa percorso RADD")
     public void siCompletaPercorsoRADD(Map<String,String> datiDestinatario) {
-        destinatarioPage.setNotificationSingleton(notificationSingleton);
-        destinatarioPage.setRestNotification(restNotification);
-        destinatarioPage.setNotificationRequest(notificationRequest);
         String environment = environmentParam;
         String token = "";
         switch (environment) {
