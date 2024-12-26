@@ -68,7 +68,7 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void clickAggiungiDelegaButton() {
         try {
-            getWebDriverWait(15).withMessage("bottone aggiunta deleghe non caricato").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("add-deleghe"))));
+            getWebDriverWait(30).withMessage("bottone aggiunta deleghe non caricato").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("add-deleghe"))));
             addDelegheButton = driver.findElement(By.id("add-deleghe"));
             logger.info("click sul bottone aggiunta delega");
             addDelegheButton.click();

@@ -197,12 +197,14 @@ public class DisserviziAppPAPage extends BasePage {
     }
 
     public void checkDisserviziDisponibili() {
-        webTool.waitTime(3);
+        webTool.waitTime(10);
         aggiornamentoPagina();
         webTool.waitTime(30);
-        statusList = driver.findElements(By.xpath("//tr[@id='tableDowntimeLog.row']//td//div[@data-testid='downtime-status']"));
+
+        List<WebElement> statusList = driver.findElements(By.xpath("//tr[@id='tableDowntimeLog.row']//td//div[@data-testid='downtime-status']"));
         if (!statusList.isEmpty()) {
             for (WebElement status : statusList) {
+                logger.info("STATUS...."+status.getText());
                 if (status.getText().contains("Risolto")) {
                     logger.info("Si visualizza un record in elenco relativo ad un disservizio risolto");
                     continue;

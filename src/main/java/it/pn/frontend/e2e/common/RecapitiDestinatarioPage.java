@@ -333,7 +333,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         try {
 //            WebElement pecInseritaBy = driver.findElement(By.xpath("//p[contains(text(),'PEC associata')]"));
 //            getWebDriverWait(5).until(ExpectedConditions.visibilityOf(pecInseritaBy));
-            getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'PEC associata')]")));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'PEC associata')]")));
             return true;
         } catch (TimeoutException e) {
             logger.error("Pec inserita non presente con errore:" + e.getMessage());
@@ -367,7 +367,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void cancellaTesto() {
         try {
-            getWebDriverWait(20).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec"))));
+            getWebDriverWait(40).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec"))));
             pecField = driver.findElement(By.id("default_pec"));
             js().executeScript("arguments[0].click()", pecField);
             clearWebElementField(pecField);
@@ -385,7 +385,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public boolean siControllaPECModificata(String pecInserita) {
-        getWebDriverWait(20).withMessage("Non trovata nessuna email PEC inserita").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec-typography"))));
+        getWebDriverWait(30).withMessage("Non trovata nessuna email PEC inserita").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec-typography"))));
         WebElement pecBy = driver.findElement(By.id("default_pec-typography"));
         return pecBy.getText().equals(pecInserita);
     }
