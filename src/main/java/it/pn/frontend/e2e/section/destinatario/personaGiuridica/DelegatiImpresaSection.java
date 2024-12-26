@@ -68,8 +68,8 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void clickAggiungiDelegaButton() {
         try {
-            getWebDriverWait(30).withMessage("bottone aggiunta deleghe non caricato").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("add-deleghe"))));
-            addDelegheButton = driver.findElement(By.id("add-deleghe"));
+            getWebDriverWait(40).withMessage("bottone aggiunta deleghe non caricato").until(ExpectedConditions.elementToBeClickable(By.id("add-deleghe")));
+            addDelegheButton = element(By.id("add-deleghe"));
             logger.info("click sul bottone aggiunta delega");
             addDelegheButton.click();
         } catch (TimeoutException e) {
