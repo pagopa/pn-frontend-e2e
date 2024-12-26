@@ -68,8 +68,6 @@ public class DestinatarioPage extends BasePage {
     public DestinatarioPage(WebDriver driver) {
         this.driver = driver;
         webTool = new WebTool(driver);
-        restNotification = new RestNotification();
-        notificationSingleton = new NotificationSingleton();
         notificationBuilder = new NotificationBuilder(restNotification);
     }
 
