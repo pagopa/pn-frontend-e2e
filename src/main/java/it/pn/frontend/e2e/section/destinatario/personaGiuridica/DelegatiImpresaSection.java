@@ -133,8 +133,8 @@ public class DelegatiImpresaSection extends BasePage {
     public void verificaRemoveMenuDelega(String displayName, String delegheCarico) {
         logger.info("DisplayName: " + displayName);
         try {
-            webTool.waitTime(15);
-            if (driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + displayName + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")).isDisplayed()) {
+            webTool.waitTime(30);
+            if (element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + displayName + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")).isDisplayed()) {
                 logger.info("Esiste il duplicato: " + displayName);
                 js().executeScript("arguments[0].click()", element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + displayName + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
 
@@ -145,23 +145,23 @@ public class DelegatiImpresaSection extends BasePage {
                     if(isVisible){
                         //bottone remove
                         getWebDriverWait(40).withMessage("bottone revoca delega  con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
-                        driver.findElement(By.id("revoke-delegation-button")).click();
+                        element(By.id("revoke-delegation-button")).click();
                         getWebDriverWait(40).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile pop-up").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
-                        driver.findElement(By.id("dialog-action-button")).click();
+                        element(By.id("dialog-action-button")).click();
                     }
 
                     else {
-                        getWebDriverWait(40).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("reject-delegation-button"))));
-                        driver.findElement(By.id("reject-delegation-button")).click();
+                        getWebDriverWait(40).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable((By.id("reject-delegation-button"))));
+                        element(By.id("reject-delegation-button")).click();
                         //Rifiuta la Delega pop-up
                         getWebDriverWait(40).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile pop-up").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
-                        driver.findElement(By.id("dialog-action-button")).click();
+                        element(By.id("dialog-action-button")).click();
                     }
 
                 } else {
                     logger.info("DelegheCarico != null");
-                    getWebDriverWait(40).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable( driver.findElement(By.id("revoke-delegation-button"))));
-                    driver.findElement(By.id("revoke-delegation-button")).click();
+                    getWebDriverWait(40).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+                    element(By.id("revoke-delegation-button")).click();
                     driver.navigate().refresh();
                 }
 
@@ -175,6 +175,7 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void verificaRemoveMenuDelega() {
         try {
+            webTool.waitTime(10);
             if (driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']")).isDisplayed()) {
                 logger.info("Esiste il duplicato");
                 WebElement menuIcon = driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']"));

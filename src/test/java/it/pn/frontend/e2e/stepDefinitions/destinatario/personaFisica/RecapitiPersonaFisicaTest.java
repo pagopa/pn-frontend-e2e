@@ -54,7 +54,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     private WebDriverManager webDriverManager;
 
 
-    public static String OTP;
+    public String OTP;
 
     @PostConstruct
     public void init(){
