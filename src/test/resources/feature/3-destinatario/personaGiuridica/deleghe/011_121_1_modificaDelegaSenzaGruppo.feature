@@ -4,7 +4,7 @@ Feature: Il delegato persona giuridica modifica una delega non assegnandoli un g
   @TA_PGmodificaDelegaSenzaGruppo
   @DeleghePG
   @PG
-  @DeleghePFPG
+  @DeleghePFPG1
   @deleghe2
 
   Scenario: PN-9173 - Il delegato persona giuridica modifica una delega non assegnandoli un gruppo
