@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Scope;
 import java.util.HashMap;
 import java.util.Map;
 
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
+//@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class BackgroundTest  extends BasePage {
 
     private final String nomeFileDatiNotifica = "datiNotifica";
