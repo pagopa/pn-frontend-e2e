@@ -115,8 +115,8 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void insertEmailPEC(String emailPEC) {
-        getWebDriverWait(10).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfElementLocated(By.id("default_pec")));
-        WebElement pecField = driver.findElement(By.id("default_pec"));
+        getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("default_pec")));
+        WebElement pecField = element(By.id("default_pec"));
         pecField.sendKeys(emailPEC);
     }
 
@@ -367,8 +367,8 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void cancellaTesto() {
         try {
-            getWebDriverWait(20).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec"))));
-            pecField = driver.findElement(By.id("default_pec"));
+            getWebDriverWait(20).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("default_pec")));
+            pecField = element(By.id("default_pec"));
             js().executeScript("arguments[0].click()", pecField);
             clearWebElementField(pecField);
             logger.info("testo email pec cancellata");

@@ -28,7 +28,6 @@ Miglioramento gestione eccezioni: Le eccezioni sono lanciate per indicare fallim
 Ottimizzazione dei metodi HTTP: I metodi HTTP GET e DELETE sono organizzati per fornire un output chiaro e gestibile, inclusi i log delle risposte.
 * */
 @Component
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class RestContact {
 
     private static final Logger logger = LoggerFactory.getLogger(RestContact.class);
