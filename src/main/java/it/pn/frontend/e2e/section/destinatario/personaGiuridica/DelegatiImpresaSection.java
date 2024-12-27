@@ -168,7 +168,7 @@ public class DelegatiImpresaSection extends BasePage {
                 logger.info("Rimosso il duplicato: " + displayName);
             }
         } catch (NoSuchElementException e) {
-            System.out.println("L'elemento non esiste. Continuo l'esecuzione.");
+            logger.info("L'elemento non esiste. Continuo l'esecuzione.");
         }
     }
 
