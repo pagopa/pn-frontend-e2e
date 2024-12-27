@@ -142,9 +142,9 @@ public class DelegatiImpresaSection extends BasePage {
                     logger.info("Deleghe Carico e null");
 
                     boolean isVisible = isVisibleAttesa();
-                    if(isVisible){
+                    if(!isVisible){
                         //bottone remove
-                        getWebDriverWait(30).withMessage("bottone revoca delega  con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+                        getWebDriverWait(30).withMessage("bottone revoca delega  con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("revoke-delegation-button"))));
                         driver.findElement(By.id("revoke-delegation-button")).click();
                         getWebDriverWait(30).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile pop-up").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
                         driver.findElement(By.id("dialog-action-button")).click();

@@ -77,7 +77,6 @@ public class BackgroundTest  extends BasePage {
     @Lazy
     @Setter
     private NotificaMittentePagoPATest notificaMittentePagoPATest;
-
     private  RecapitiDestinatarioPage recapitiDestinatarioPage ;
     private  ITuoiRecapitiPage iTuoiRecapitiPage;
     @Setter

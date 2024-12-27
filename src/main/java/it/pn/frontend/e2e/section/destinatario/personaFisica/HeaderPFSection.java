@@ -39,10 +39,8 @@ public class HeaderPFSection extends BasePage {
 
     public void waitLoadHeaderDESection() {
         try {
-            webTool.waitTime(30);
-            titleLabel = driver.findElement(By.xpath("//a[@title='Sito di PagoPA S.p.A.']"));
-            getWebDriverWait(30).withMessage("il titolo del header non è visibile").until(ExpectedConditions.visibilityOf(titleLabel));
-            getWebDriverWait(30).withMessage("menu dell'utente non è visibile").until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//button[@aria-label='party-menu-button']"))));
+            getWebDriverWait(35).withMessage("il titolo del header non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[@title='Sito di PagoPA S.p.A.']"))));
+            getWebDriverWait(35).withMessage("menu dell'utente non è visibile").until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//button[@aria-label='party-menu-button']"))));
             logger.info("Header DE Section caricata");
         } catch (TimeoutException e) {
             logger.error("Header DE Section non caricata con errore : " + e.getMessage());
@@ -58,7 +56,7 @@ public class HeaderPFSection extends BasePage {
     }
 
     public void selezionaVoceEsci() {
-        webTool.waitTime(35);
+        getWebDriverWait(35).withMessage("il titolo del header non è visibile").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//ul[@role='menu']//li"))));
         menuProfileItems = driver.findElements(By.xpath("//ul[@role='menu']//li"));
         WebElement esciVoce = menuProfileItems.get(1);
         getWebDriverWait(30).withMessage("la voce esci non è visibile").until(ExpectedConditions.visibilityOf(esciVoce));

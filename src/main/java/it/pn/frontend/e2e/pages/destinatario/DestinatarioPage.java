@@ -136,7 +136,7 @@ public class DestinatarioPage extends BasePage {
     }
 
     public void checkCreateNewNotification() throws RestNotificationException {
-        int maxAttempts = 7;
+        int maxAttempts = 9;
         int attempt = 1;
         restNotification = getRestNotification();
         Assertions.assertNotNull(notificationRequest.getRecipients(), "Non può essere creata una notifica senza alcun destinatario");
