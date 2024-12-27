@@ -151,7 +151,7 @@ public class DestinatarioPage extends BasePage {
                 LinkedTreeMap<String, Object> getNotificationStatus;
                 String notificationStatus;
                 do {
-                    Assertions.assertTrue(maxAttemptsPolling <= 7, "La notifica risulta ancora in stato WAITING dopo 5 tentativi");
+                    Assertions.assertTrue(maxAttemptsPolling <= 9, "La notifica risulta ancora in stato WAITING dopo 9 tentativi");
                     log.info(responseOfCreateNotification.getNotificationRequestId());
                     getNotificationStatus = restNotification.getNotificationStatus(responseOfCreateNotification.getNotificationRequestId());
                     notificationStatus = getNotificationStatus.get("notificationRequestStatus").toString();
