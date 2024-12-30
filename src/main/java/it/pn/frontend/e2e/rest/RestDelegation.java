@@ -29,7 +29,6 @@ Metodi ottimizzati: Tutti i metodi sono stati aggiornati per seguire la configur
 *
 * */
 @Component
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class RestDelegation {
 
     private static final Logger logger = LoggerFactory.getLogger(RestDelegation.class);

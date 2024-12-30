@@ -132,12 +132,18 @@ public class LoginPGPagoPATest extends BasePage {
         headerPGSection.waitLoadHeaderPGPage();
 
         if (personaGiuridica.equalsIgnoreCase("delegante")) {
+            logger.info("DELEGANTE: "+dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
 //            Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("personaGiuridica.yaml");
+            piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
             piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
         } else if (personaGiuridica.equalsIgnoreCase("baldassarre")) {
+            logger.info("BALDASSARRE: "+webDriverConfig.getRagioneSocialeBaldassarre());
+            piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
             piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(webDriverConfig.getRagioneSocialeBaldassarre());
         } else {
+            logger.info("DELEGATO: "+dataPopulationConfig.getDelegatePG().getCompanyName());
             //Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("delegatoPG.yaml")
+            piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
             piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(dataPopulationConfig.getDelegatePG().getCompanyName());
         }
     }

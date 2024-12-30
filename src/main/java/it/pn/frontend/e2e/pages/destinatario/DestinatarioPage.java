@@ -68,10 +68,8 @@ public class DestinatarioPage extends BasePage {
     public DestinatarioPage(WebDriver driver) {
         this.driver = driver;
         webTool = new WebTool(driver);
-        restNotification = new RestNotification();
-        notificationSingleton = new NotificationSingleton();
-        notificationBuilder = new NotificationBuilder(restNotification);
     }
+
 
     public void inserimentoDataErrato() {
         dataInizioField = driver.findElement(By.id("startDate"));
@@ -138,21 +136,22 @@ public class DestinatarioPage extends BasePage {
     }
 
     public void checkCreateNewNotification() throws RestNotificationException {
-        int maxAttempts = 7;
+        int maxAttempts = 9;
         int attempt = 1;
+        restNotification = getRestNotification();
         Assertions.assertNotNull(notificationRequest.getRecipients(), "Non può essere creata una notifica senza alcun destinatario");
 
         while (attempt <= maxAttempts) {
             NewNotificationResponse responseOfCreateNotification = restNotification.newNotificationWithOneRecipientAndDocument(notificationRequest);
             log.info("NEW_NOTFIC_REQUEST_ID: " + responseOfCreateNotification.getNotificationRequestId());
-
+            notificationSingleton = getNotificationSingleton();
             if (responseOfCreateNotification != null) {
                 log.info("Inizio controllo notifica fino a stato accettata");
                 int maxAttemptsPolling = 0;
                 LinkedTreeMap<String, Object> getNotificationStatus;
                 String notificationStatus;
                 do {
-                    Assertions.assertTrue(maxAttemptsPolling <= 7, "La notifica risulta ancora in stato WAITING dopo 5 tentativi");
+                    Assertions.assertTrue(maxAttemptsPolling <= 9, "La notifica risulta ancora in stato WAITING dopo 9 tentativi");
                     log.info(responseOfCreateNotification.getNotificationRequestId());
                     getNotificationStatus = restNotification.getNotificationStatus(responseOfCreateNotification.getNotificationRequestId());
                     notificationStatus = getNotificationStatus.get("notificationRequestStatus").toString();
@@ -179,6 +178,7 @@ public class DestinatarioPage extends BasePage {
     }
 
     public void aggiuntaDestinatarioANotifica(Map<String, String> datiDestinatario) {
+        notificationBuilder = new NotificationBuilder(getRestNotification());
         Assertions.assertTrue(destinatariNumber <= 4, "Non è possibile aggiungere un ulteriore destinatario");
         log.info("Si procede con l'inserimento del destinatario nella notifica");
         String costiNotifica = notificationRequest.getNotificationFeePolicy() == NotificationFeePolicyEnum.DELIVERY_MODE ? "true" : "false";
@@ -195,6 +195,7 @@ public class DestinatarioPage extends BasePage {
     }
 
     public void inizializzazioneDatiNotifica(Map<String, String> datiNotifica) {
+        notificationBuilder = new NotificationBuilder(getRestNotification());
         PhysicalCommunicationTypeEnum modelloNotifica = notificationBuilder.modelloNotifica(datiNotifica.get("modello"));
         NotificationFeePolicyEnum feePolicy = notificationBuilder.notificaFeePolicy(datiNotifica.getOrDefault("costiNotifica", "false"));
         ArrayList<Document> documents = notificationBuilder.preloadDocument(Integer.parseInt(datiNotifica.get("documenti")));

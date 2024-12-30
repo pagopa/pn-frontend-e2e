@@ -144,7 +144,7 @@ public class DelegatiImpresaSection extends BasePage {
                     boolean isVisible = isVisibleAttesa();
                     if(isVisible){
                         //bottone remove
-                        getWebDriverWait(30).withMessage("bottone revoca delega  con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+                        getWebDriverWait(30).withMessage("bottone revoca delega  con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("revoke-delegation-button"))));
                         driver.findElement(By.id("revoke-delegation-button")).click();
                         getWebDriverWait(30).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile pop-up").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
                         driver.findElement(By.id("dialog-action-button")).click();
@@ -160,7 +160,7 @@ public class DelegatiImpresaSection extends BasePage {
 
                 } else {
                     logger.info("DelegheCarico != null");
-                    getWebDriverWait(40).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable( driver.findElement(By.id("revoke-delegation-button"))));
+                    getWebDriverWait(40).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("revoke-delegation-button"))));
                     driver.findElement(By.id("revoke-delegation-button")).click();
                     driver.navigate().refresh();
                 }
@@ -168,7 +168,7 @@ public class DelegatiImpresaSection extends BasePage {
                 logger.info("Rimosso il duplicato: " + displayName);
             }
         } catch (NoSuchElementException e) {
-            System.out.println("L'elemento non esiste. Continuo l'esecuzione.");
+            logger.info("L'elemento non esiste. Continuo l'esecuzione.");
         }
     }
 

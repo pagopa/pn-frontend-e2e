@@ -162,7 +162,24 @@ public class HooksNew {
      * }
      **/
 
+    /**
+    @And("Revoca deleghe se esistono")
+    @After("@DeleghePF or @DeleghePG")
+    public void clearDelegate() {
+        logger.info("Revoking all delegations...");
+        var mandateId = mandateSingleton.getMandateId(HooksNew.getScenario());
+        if (mandateId != null) {
+            restDelegation.revokeDelegation(mandateId);
+            logger.info("Delegation revoked: {}", mandateId);
+        } else {
+            logger.info("Mandate ID not found");
+        }
+    }
+     **/
+
+
     @After("@DeleghePF")
+    @And("Revoca deleghe PF se esistono")
     public void clearDelegatePF() {
         logger.info("Revoking all delegations...");
         var mandateId = mandateSingleton.getMandateId(HooksNew.getScenario());
@@ -175,6 +192,7 @@ public class HooksNew {
     }
 
     @After("@DeleghePG")
+    @And("Revoca deleghe PG se esistono")
     public void clearDelegatePG() {
         logger.info("Revoking all delegations...");
         var mandateId = mandateSingleton.getMandateId(HooksNew.getScenario());
@@ -185,6 +203,7 @@ public class HooksNew {
             logger.info("Mandate ID not found");
         }
     }
+
 
     @After("@File")
     public void clearDirectory() {

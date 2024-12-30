@@ -13,6 +13,7 @@ import it.pn.frontend.e2e.model.payments.PagoPaPayment;
 import it.pn.frontend.e2e.rest.RestNotification;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.support.PageFactory;
@@ -34,12 +35,15 @@ public class NotificationBuilder {
     public static final String APPLICATION_JSON = "application/json";
 
 //    @Autowired
-    private final RestNotification restNotification;
+    @Getter
+    @Setter
+    private  RestNotification restNotification;
     @Getter
     private String sha;
 
     @Autowired
     public NotificationBuilder(RestNotification restNotification) {
+
         this.restNotification= restNotification;
     }
 

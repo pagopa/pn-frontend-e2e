@@ -115,11 +115,6 @@ public class PiattaformaNotifichePage extends BasePage {
     @Getter
     @Setter
     private List<NetWorkInfo> netWorkInfos = new ArrayList<>();
-
-    @Autowired
-    private NotificationSingleton notificationSingleton;
-    @Autowired
-    private RestNotification restNotification;
     @Setter
     @Getter
     private RestNotification restNotificationParam;
@@ -1231,19 +1226,11 @@ public class PiattaformaNotifichePage extends BasePage {
         do {
             Assertions.assertTrue(maximumRetry <= 8, "La notifica risulta ancora in stato WAITING dopo 8 tentativi");
 
-            if (restNotification != null) {
-                restNotificationParam = restNotification;
-            }
-
-            if (notificationSingleton != null) {
-                notificationSingletonParam = notificationSingleton;
-            }
-
-            notificationData = restNotificationParam.getNotificationStatus(notificationRequestId);
+            notificationData = getRestNotificationParam().getNotificationStatus(notificationRequestId);
             notificationStatus = notificationData.get("notificationRequestStatus").toString();
             if (notificationStatus.equals("ACCEPTED")) {
                 notificationIUN = notificationData.get("iun").toString();
-                notificationSingletonParam.setScenarioIun(HooksNew.getScenario(), notificationIUN);
+                getNotificationSingletonParam().setScenarioIun(HooksNew.getScenario(), notificationIUN);
                 return;
             } else {
                 webTool.waitTime(90);
@@ -1257,10 +1244,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public void clickSuNotifica() {
-        if (notificationSingleton != null) {
-            notificationSingletonParam = notificationSingleton;
-        }
-        String iun = notificationSingletonParam.getIun(HooksNew.scenario);
+
+        String iun = getNotificationSingletonParam().getIun(HooksNew.scenario);
         logger.info("iun notifica {}", iun);
         //By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
         getWebDriverWait(35).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]"))));

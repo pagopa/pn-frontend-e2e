@@ -21,7 +21,7 @@ public class RecapitiTest extends BasePage {
     private final String emailDiCortesia = "email di cortesia";
     private final String ELIMINA = "Elimina";
 
-    public static String OTP;
+    public  String OTP;
 
     private RecapitiDestinatarioPage recapitiDestinatarioPage;
 
