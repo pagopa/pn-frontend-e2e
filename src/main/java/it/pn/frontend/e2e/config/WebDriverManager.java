@@ -224,8 +224,12 @@ public class WebDriverManager {
                     netWorkInfo.setRequestUrl(request.getRequest().getUrl());
                     netWorkInfo.setRequestMethod(request.getRequest().getMethod());
                     netWorkInfo.setResponseStatus(response.getResponse().getStatus().toString());
-
                     try {
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                         var bodyResponse = devTools.send(Network.getResponseBody(response.getRequestId())).getBody();
                         netWorkInfo.setResponseBody(bodyResponse);
                     } catch (Exception ignored) {
