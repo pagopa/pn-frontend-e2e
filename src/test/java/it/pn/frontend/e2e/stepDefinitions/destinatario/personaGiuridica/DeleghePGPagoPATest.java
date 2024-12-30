@@ -473,7 +473,7 @@ public class DeleghePGPagoPATest extends BasePage {
         logger.info("Si controlla che ci sia una delega");
         String dateto = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-        DelegatePG delegatePG = dataPopulationConfig.getDelegatePG();
+        DelegatePG delegatePG = new DelegatePG();
         delegatePG.setCompanyName(personaGiuridica.get("companyName"));
         delegatePG.setFiscalCode(personaGiuridica.get("fiscalCode"));
         delegatePG.setDisplayName(personaGiuridica.get("displayName"));

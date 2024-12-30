@@ -149,6 +149,7 @@ public class GruppiPGPage extends BasePage {
         selectSelezioneMembri = driver.findElement(By.id("members-select"));
         selectSelezioneMembri.click();
         log.info("Click sul membro Dante Alighieri");
+        webTool.waitTime(10);
         WebElement checkBoxDanteAlighieri = driver.findElement(By.xpath("//li[@data-value='Dante']/span"));
         checkBoxDanteAlighieri.click();
         actions = new Actions(driver);

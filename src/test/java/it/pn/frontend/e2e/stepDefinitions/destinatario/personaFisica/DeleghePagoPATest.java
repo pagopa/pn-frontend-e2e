@@ -350,7 +350,7 @@ public class DeleghePagoPATest extends BasePage {
 
 
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        DelegatePF delegatePF = dataPopulationConfig.getDelegatePF();
+        DelegatePF delegatePF = new DelegatePF();
         delegatePF.setFiscalCode(personaFisica.get("fiscalCode"));
         delegatePF.setDisplayName(personaFisica.get("displayName"));
         delegatePF.setFirstName(personaFisica.get("firstName"));

@@ -217,7 +217,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void annullaButtonClick() {
         try {
-            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("code-cancel-button"))));
+            getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("code-cancel-button"))));
             annullaButton = driver.findElement(By.id("code-cancel-button"));
             annullaButton.click();
         } catch (TimeoutException e) {
