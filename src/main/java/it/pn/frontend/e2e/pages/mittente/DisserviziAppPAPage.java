@@ -106,10 +106,11 @@ public class DisserviziAppPAPage extends BasePage {
 
     public void waitLoadDisserviziTable() {
         try {
-            webTool.waitTime(30);
+           webTool.waitTime(30);
+
+            getWebDriverWait(40).withMessage("Non si visualizza correttamente la tabella dei disservizi")
+                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
             disserviziTable = driver.findElement(By.id("notifications-table"));
-            getWebDriverWait(10).withMessage("Non si visualizza correttamente la tabella dei disservizi")
-                    .until(ExpectedConditions.visibilityOf(disserviziTable));
             // check if the table header is present
             WebElement disserviziTableHeader = disserviziTable.findElement(By.xpath("//thead[@role='rowgroup']"));
             getWebDriverWait(10).withMessage("Non si visualizza correttamente l'header della tabella dei disservizi")
@@ -157,6 +158,7 @@ public class DisserviziAppPAPage extends BasePage {
 
     public void checkDisserviziInCorso() {
         aggiornamentoPagina();
+        webTool.waitTime(15);
         statusList = driver.findElements(By.xpath("//tr[@id='tableDowntimeLog.row']//td//div[@data-testid='downtime-status']"));
         if (!statusList.isEmpty()) {
             for (WebElement status : statusList) {
@@ -181,6 +183,7 @@ public class DisserviziAppPAPage extends BasePage {
 
     public void checkDisservizioRisolto(String tipoDisservizio) {
         aggiornamentoPagina();
+        webTool.waitTime(15);
         disserviziTable = driver.findElement(By.id("notifications-table"));
         List<WebElement> disserviziTableRowsWithTypeOfDisservice = disserviziTable.findElements(By.xpath("//tr[@id='tableDowntimeLog.row' and contains(., '" + tipoDisservizio + "')]"));
         if (!disserviziTableRowsWithTypeOfDisservice.isEmpty()) {
@@ -199,7 +202,7 @@ public class DisserviziAppPAPage extends BasePage {
     public void checkDisserviziDisponibili() {
         aggiornamentoPagina();
         webTool.waitTime(15);
-        statusList = driver.findElements(By.xpath("//tr[@id='tableDowntimeLog.row']//td//div[@data-testid='downtime-status']"));
+        statusList = elements(By.xpath("//tr[@id='tableDowntimeLog.row']//td//div[@data-testid='downtime-status']"));
         if (!statusList.isEmpty()) {
             for (WebElement status : statusList) {
                 if (status.getText().contains("Risolto")) {
@@ -242,6 +245,7 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
     }
 
     private void performDownloadAttestazione(int indexModifier) {
+        webTool.waitTime(3);
         disserviziTable = driver.findElement(By.id("notifications-table"));
         List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
         if (disserviziTableRows.isEmpty()) {

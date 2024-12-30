@@ -81,17 +81,17 @@ public class SelezionaEntePAPage extends BasePage {
 
     public void selezionaAccedi() {
         Actions actions = new Actions(driver);
-        accediButton = driver.findElement(By.xpath("//button[text()='Accedi']"));
         getWebDriverWait(60).withMessage("il buttone Accedi non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(accediButton));
+                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[text()='Accedi']"))));
+        accediButton = driver.findElement(By.xpath("//button[text()='Accedi']"));
         actions.moveToElement(accediButton).click().perform();
     }
 
     public void cercaComune(String comune) {
-        comuneSearchField = driver.findElement(By.id("search"));
         getWebDriverWait(30)
                 .withMessage("Il campo Comune non è visibile nella pagina seleziona un Ente")
-                .until(ExpectedConditions.visibilityOf(comuneSearchField));
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("search"))));
+        comuneSearchField = driver.findElement(By.id("search"));
         comuneSearchField.sendKeys(comune);
     }
 }

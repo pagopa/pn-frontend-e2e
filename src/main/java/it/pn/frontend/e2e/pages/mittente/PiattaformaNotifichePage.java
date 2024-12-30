@@ -147,11 +147,11 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void waitLoadPiattaformaNotifichePAPage() {
         try {
-            webTool.waitTime(20);
-            WebElement notificheTitle = driver.findElement(By.id("Notifiche-page"));
-            inviaNuovaNotificaButton = driver.findElement(By.id("new-notification-btn"));
-            getWebDriverWait(10).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf(inviaNuovaNotificaButton));
-            getWebDriverWait(10).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOf(notificheTitle));
+           // webTool.waitTime(20);
+           // WebElement notificheTitle = driver.findElement(By.id("Notifiche-page"));
+           // inviaNuovaNotificaButton = driver.findElement(By.id("new-notification-btn"));
+            getWebDriverWait(20).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf( driver.findElement(By.id("new-notification-btn"))));
+            getWebDriverWait(20).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Notifiche-page"))));
             logger.info("Piattaforma Notifiche Page caricata");
         } catch (TimeoutException e) {
             logger.error("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
@@ -161,8 +161,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void insertCodiceFiscale(String codiceFiscale) {
         try {
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("recipientId"))));
             cfTextField = driver.findElement(By.id("recipientId"));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(cfTextField));
             cfTextField.click();
             cfTextField.sendKeys(codiceFiscale);
             getWebDriverWait(3).until(ExpectedConditions.attributeToBe(cfTextField, "value", codiceFiscale));
@@ -175,26 +175,24 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selectFiltraNotificaButtonMittente() {
-        webTool.waitTime(10);
+        getWebDriverWait(20).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable( driver.findElement(By.id("filter-button"))));
         filtraNotificaButtonMittente = driver.findElement(By.id("filter-button"));
-        getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(filtraNotificaButtonMittente));
         filtraNotificaButtonMittente.click();
         logger.info("Bottone filtra, nella pagina del mittente, cliccato correttamente");
     }
 
     public void selectFiltraNotificaButtonDestinatario() {
-        webTool.waitTime(10);
+        getWebDriverWait(20).withMessage("Il filtro non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("filter-notifications-button"))));
         filtraNotificaButton = driver.findElement(By.id("filter-notifications-button"));
-        getWebDriverWait(10).withMessage("Il filtro non è cliccabile").until(elementToBeClickable(filtraNotificaButton));
         filtraNotificaButton.click();
         logger.info("Bottone filtra, nella pagina notifiche del delegato, cliccato correttamente");
     }
 
     public int getListaCf(String cfInserito) {
         try {
-            List<WebElement> cfListBy = driver.findElements(By.xpath("//p[contains(text(),'" + cfInserito + "')]"));
             attesaCaricamentoPagina();
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(cfListBy));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//p[contains(text(),'" + cfInserito + "')]"))));
+            List<WebElement> cfListBy = driver.findElements(By.xpath("//p[contains(text(),'" + cfInserito + "')]"));
             logger.info("Codici fiscali trovati correttamente");
             return cfListBy.size();
         } catch (TimeoutException | NoSuchElementException e) {
@@ -243,9 +241,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
     private WebElement getCodiceIUN(String codiceIUNInserito) {
         try {
-            WebElement codiceIUNBy = driver.findElement(By.xpath("//button[contains(text(),'" + codiceIUNInserito + "')]"));
             getWebDriverWait(30).withMessage("Il codice IUN: " + codiceIUNInserito + " non è presente")
-                    .until(ExpectedConditions.visibilityOf(codiceIUNBy));
+                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(text(),'" + codiceIUNInserito + "')]"))));
+            WebElement codiceIUNBy = driver.findElement(By.xpath("//button[contains(text(),'" + codiceIUNInserito + "')]"));
             return codiceIUNBy;
         } catch (TimeoutException e) {
             return null;
@@ -639,15 +637,16 @@ public class PiattaformaNotifichePage extends BasePage {
     public void selezionaPrimaNotifica() {
         waitLoadPage();
         try {
-            List<WebElement> notificaBy = driver.findElements(By.id("notificationsTable.body.row"));
+            //List<WebElement> notificaBy = driver.findElements(By.id("notificationsTable.body.row"));
             attesaCaricamentoPagina();
-            getWebDriverWait(30).withMessage("La tabella delle notifiche non è caricata correttamente").until(visibilityOfAllElements(notificaBy));
+            getWebDriverWait(30).withMessage("La tabella delle notifiche non è caricata correttamente").until(visibilityOfAllElements(driver.findElements(By.id("notificationsTable.body.row"))));
 
+            getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("rows-per-page"))));
             WebElement buttonRighePagine = driver.findElement(By.id("rows-per-page"));
-            getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(buttonRighePagine));
             buttonRighePagine.click();
+
+            getWebDriverWait(3).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("pageSize-50"))));
             WebElement pageSize50 = driver.findElement(By.id("pageSize-50"));
-            getWebDriverWait(3).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(pageSize50));
             pageSize50.click();
 
             webTool.waitTime(10);
@@ -733,8 +732,8 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selezionareLaVoceApiKey() {
+        getWebDriverWait(30).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("side-item-API Key"))));
         apiKeyButton = driver.findElement(By.id("side-item-API Key"));
-        getWebDriverWait(30).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(apiKeyButton));
         js().executeScript("arguments[0].click()", apiKeyButton);
     }
 

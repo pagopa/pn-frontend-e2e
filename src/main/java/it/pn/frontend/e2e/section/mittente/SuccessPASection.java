@@ -34,7 +34,7 @@ public class SuccessPASection extends BasePage {
 
     public void waitLoadSuccessPASection() {
         try {
-//            successCheckBy = driver.findElement(By.id("title-sync-feedback"));
+//          successCheckBy = driver.findElement(By.id("title-sync-feedback"));
             getWebDriverWait(50).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("title-sync-feedback"))));
             logger.info("TA_QA: La notifica è stata creata con successo, PA section caricata correttamente");
         } catch (TimeoutException e) {

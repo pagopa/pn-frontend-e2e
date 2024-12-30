@@ -115,7 +115,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void insertEmailPEC(String emailPEC) {
-        getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("default_pec")));
+        getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec"))));
         WebElement pecField = element(By.id("default_pec"));
         pecField.sendKeys(emailPEC);
     }

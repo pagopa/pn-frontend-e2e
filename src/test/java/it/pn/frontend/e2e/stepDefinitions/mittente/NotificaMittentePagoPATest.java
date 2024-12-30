@@ -1251,6 +1251,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.setWebDriverManager(webDriverManager);
         piattaformaNotifichePage.setRestNotificationParam(restNotification);
         piattaformaNotifichePage.setNotificationSingletonParam(notificationSingleton);
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.verificaNotificaCreata();
     }
 

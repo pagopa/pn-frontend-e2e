@@ -79,8 +79,8 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void waitLoadDettaglioNotificaSection() {
-        WebElement titleDettaglioNotificaField = driver.findElement(By.id("title-of-page"));
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(titleDettaglioNotificaField));
+       // WebElement titleDettaglioNotificaField = driver.findElement(By.id("title-of-page"));
+        getWebDriverWait(20).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("title-of-page"))));
         logger.info("Dettaglio Notifica Section caricata");
     }
 
@@ -129,8 +129,8 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     private boolean controlloCodice() {
         try {
-            WebElement codiceIUNBy = driver.findElement(By.xpath("//td[contains(text(),'Codice IUN')]"));
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(codiceIUNBy));
+          //  WebElement codiceIUNBy = driver.findElement(By.xpath("//td[contains(text(),'Codice IUN')]"));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//td[contains(text(),'Codice IUN')]"))));
             logger.info("codice iun presente");
             return true;
         } catch (TimeoutException e) {
@@ -192,12 +192,12 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void clickVediPiuDettaglio() {
-        vediDettagliButton = driver.findElements(By.id("more-less-timeline-step"));
-        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(vediDettagliButton.get(0)));
+        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElements(By.id("more-less-timeline-step")).get(0)));
         logger.info("click su vedi dettagli");
+        vediDettagliButton = driver.findElements(By.id("more-less-timeline-step"));
         vediDettagliButton.get(0).click();
         try {
-            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(vediDettagliButton.get(1)));
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElements(By.id("more-less-timeline-step")).get(1)));
             vediDettagliButton.get(1).click();
         } catch (Exception e) {
             logger.info("ulteriore vedi dettaglio non presente");
@@ -206,8 +206,8 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void siVisualizzaPercorsoNotifica() {
         try {
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//div[contains(@data-testid,'itemStatus')]"))));
             List<WebElement> newPercorsoNotificaBy = driver.findElements(By.xpath("//div[contains(@data-testid,'itemStatus')]"));
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(newPercorsoNotificaBy));
             if (newPercorsoNotificaBy.size() > numeriStatiNotifica) {
                 logger.info("TA_QA: L'elenco completo degli stati presente");
             }
@@ -348,8 +348,8 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void checkStatoTimeline(String statoTimeline) {
         try {
-            WebElement stato = driver.findElement(By.xpath(statoTimeline));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(stato));
+           // WebElement stato = driver.findElement(By.xpath(statoTimeline));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(statoTimeline))));
             logger.info("stato timeline checkato con successo avvenuta");
         } catch (TimeoutException e) {
             logger.error("checkato stato timeline non avvenuta con errore: " + e.getMessage());
@@ -359,8 +359,8 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void siCliccaSuAllegatoInTimeline(String xpath) {
         try {
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath(xpath))));
             WebElement allegatoTimeline = driver.findElement(By.xpath(xpath));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(allegatoTimeline));
             allegatoTimeline.click();
             checkURL("pn-safestorage");
             driver.navigate().back();
@@ -374,15 +374,15 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void siVerificaLaCliccabilitaSuAllegatoInTimeline(String xpath) {
         vaiInFondoAllaPagina();
-        WebElement allegatoTimeline = driver.findElement(By.xpath(xpath));
-        getWebDriverWait(10).until(ExpectedConditions.and(ExpectedConditions.visibilityOf(allegatoTimeline), ExpectedConditions.elementToBeClickable(allegatoTimeline)));
+        //WebElement allegatoTimeline = driver.findElement(By.xpath(xpath));
+        getWebDriverWait(10).until(ExpectedConditions.and(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))), ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(xpath)))));
         logger.info("allegato timeline trovato con successo e cliccabile");
     }
 
     public void checkInvioADomicilioDiPiattaforma(String domicilioDiPiattaforma) {
         try {
-            WebElement invioDomicilioDiPiattaformaBy = driver.findElement(By.xpath("//div[contains(span/text(), 'Invio via PEC riuscito') and (//div[contains(p/text(), '" + domicilioDiPiattaforma + "')])]"));
-            getWebDriverWait(10).withMessage("Non si visualizza l'invio della notifica al domicilio di piattaforma nella timeline").until(ExpectedConditions.visibilityOf(invioDomicilioDiPiattaformaBy));
+            //WebElement invioDomicilioDiPiattaformaBy = driver.findElement(By.xpath("//div[contains(span/text(), 'Invio via PEC riuscito') and (//div[contains(p/text(), '" + domicilioDiPiattaforma + "')])]"));
+            getWebDriverWait(10).withMessage("Non si visualizza l'invio della notifica al domicilio di piattaforma nella timeline").until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//div[contains(span/text(), 'Invio via PEC riuscito') and (//div[contains(p/text(), '" + domicilioDiPiattaforma + "')])]"))));
         } catch (TimeoutException e) {
             logger.error("L'invio della notifica al domicilio di piattaforma indicato non viene effettuato con errore: " + e.getMessage());
             Assertions.fail("L'invio della notifica al domicilio di piattaforma indicato non viene effettuato con errore: " + e.getMessage());
@@ -406,8 +406,8 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void checkInvioRaccomandataSemplice() {
         try {
-            WebElement invioRaccomandataSemplice = driver.findElement(By.xpath("//span[text()='Invio via raccomandata semplice']"));
-            getWebDriverWait(10).withMessage("Non si visualizza l'invio della raccomandata nella timeline della notifica").until(ExpectedConditions.visibilityOf(invioRaccomandataSemplice));
+           // WebElement invioRaccomandataSemplice = driver.findElement(By.xpath("//span[text()='Invio via raccomandata semplice']"));
+            getWebDriverWait(10).withMessage("Non si visualizza l'invio della raccomandata nella timeline della notifica").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//span[text()='Invio via raccomandata semplice']"))));
             logger.info("L'invio della notifica avviene via raccomandata semplice");
         } catch (TimeoutException e) {
             logger.error("L'invio della notifica per raccomandata non viene visualizzato: " + e.getMessage());
@@ -417,8 +417,8 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void checkTentatoInvioADomicilioSpeciale(String domicilioSpeciale) {
         try {
-            WebElement invioDomicilioSpecialeBy = driver.findElement(By.xpath("//div[contains(span/text(), 'Invio via PEC fallito') and (//div[contains(p/text(), '" + domicilioSpeciale + "')])]"));
-            getWebDriverWait(10).withMessage("Non si visualizza l'invio della notifica al domicilio speciale nella timeline").until(ExpectedConditions.visibilityOf(invioDomicilioSpecialeBy));
+          //  WebElement invioDomicilioSpecialeBy = driver.findElement(By.xpath("//div[contains(span/text(), 'Invio via PEC fallito') and (//div[contains(p/text(), '" + domicilioSpeciale + "')])]"));
+            getWebDriverWait(10).withMessage("Non si visualizza l'invio della notifica al domicilio speciale nella timeline").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(span/text(), 'Invio via PEC fallito') and (//div[contains(p/text(), '" + domicilioSpeciale + "')])]"))));
         } catch (TimeoutException e) {
             logger.error("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
             Assertions.fail("L'invio della notifica al domicilio speciale indicato non viene effettuato con errore: " + e.getMessage());
@@ -426,21 +426,21 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void checkStepInvioNotificaViaPEC(String emailPEC) {
-        WebElement invioViaPECBy = driver.findElement(By.xpath("//div[contains(span/text(), 'Invio via PEC') and (//div[contains(p/text(), '" + emailPEC + "')])]"));
-        WebElement invioPresoInCaricoBy = driver.findElement(By.xpath("//div[contains(span/text(), 'Invio via PEC preso in carico') and (//div[contains(p/text(), '" + emailPEC + "')])]"));
-        WebElement invioRiuscitoBy = driver.findElement(By.xpath("//div[contains(span/text(), 'Invio via PEC riuscito') and (//div[contains(p/text(), '" + emailPEC + "')])]"));
-        getWebDriverWait(10).withMessage("Non si visualizza il tentativo di invio della notifica al domicilio generale").until(ExpectedConditions.visibilityOf(invioViaPECBy));
-        getWebDriverWait(10).withMessage("Non si visualizza la presa in carico dell'invio della notifica al domicilio generale").until(ExpectedConditions.visibilityOf(invioPresoInCaricoBy));
-        getWebDriverWait(10).withMessage("Non si visualizza la riuscita dell'invio della notifica al domicilio generale").until(ExpectedConditions.visibilityOf(invioRiuscitoBy));
+       // WebElement invioViaPECBy = driver.findElement(By.xpath("//div[contains(span/text(), 'Invio via PEC') and (//div[contains(p/text(), '" + emailPEC + "')])]"));
+       // WebElement invioPresoInCaricoBy = driver.findElement(By.xpath("//div[contains(span/text(), 'Invio via PEC preso in carico') and (//div[contains(p/text(), '" + emailPEC + "')])]"));
+       // WebElement invioRiuscitoBy = driver.findElement(By.xpath("//div[contains(span/text(), 'Invio via PEC riuscito') and (//div[contains(p/text(), '" + emailPEC + "')])]"));
+        getWebDriverWait(10).withMessage("Non si visualizza il tentativo di invio della notifica al domicilio generale").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(span/text(), 'Invio via PEC') and (//div[contains(p/text(), '" + emailPEC + "')])]"))));
+        getWebDriverWait(10).withMessage("Non si visualizza la presa in carico dell'invio della notifica al domicilio generale").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(span/text(), 'Invio via PEC preso in carico') and (//div[contains(p/text(), '" + emailPEC + "')])]"))));
+        getWebDriverWait(10).withMessage("Non si visualizza la riuscita dell'invio della notifica al domicilio generale").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(span/text(), 'Invio via PEC riuscito') and (//div[contains(p/text(), '" + emailPEC + "')])]"))));
     }
 
     public void checkAvvisoPagoPa() {
         try {
-            WebElement boxPagamento = driver.findElement(By.xpath("//div[@data-testid='payment-item']"));
+            //WebElement boxPagamento = driver.findElement(By.xpath("//div[@data-testid='payment-item']"));
+            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='paymentInfoBox']"))));
             containerPaymentBox = driver.findElement(By.xpath("//div[@data-testid='paymentInfoBox']"));
             js().executeScript("arguments[0].scrollIntoView(true)", containerPaymentBox);
-            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(containerPaymentBox));
-            getWebDriverWait(10).withMessage("Non si visualizza l'avviso PagoPA per il pagamento della notifica").until(ExpectedConditions.visibilityOf(boxPagamento));
+            getWebDriverWait(10).withMessage("Non si visualizza l'avviso PagoPA per il pagamento della notifica").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='payment-item']"))));
         } catch (TimeoutException e) {
             logger.error("Box per il pagamento della notifica non visualizzato correttamente con errore: " + e.getMessage());
             Assertions.fail("Box per il pagamento della notifica non visualizzato correttamente con errore: " + e.getMessage());
@@ -449,11 +449,11 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public boolean checkAvvisoPagoPaVisibile() {
         try {
-            WebElement avvisoButton = driver.findElement(By.xpath("//button[contains(text(),'Avviso pagoPA')]"));
+            //WebElement avvisoButton = driver.findElement(By.xpath("//button[contains(text(),'Avviso pagoPA')]"));
+            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='paymentInfoBox']"))));
             containerPaymentBox = driver.findElement(By.xpath("//div[@data-testid='paymentInfoBox']"));
             js().executeScript("arguments[0].scrollIntoView(true)", containerPaymentBox);
-            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(containerPaymentBox));
-            getWebDriverWait(10).withMessage("Non si visualizza l'avviso PagoPA per il pagamento della notifica").until(ExpectedConditions.visibilityOf(avvisoButton));
+            getWebDriverWait(10).withMessage("Non si visualizza l'avviso PagoPA per il pagamento della notifica").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(text(),'Avviso pagoPA')]"))));
             return true;
         } catch (TimeoutException e) {
             logger.error("Non si visualizza l'avviso PagoPA per il pagamento della notifica");
@@ -463,8 +463,8 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public boolean checkCodiceAvvisoVisibile() {
         try {
-            codiceAvvisoMittente = driver.findElement(By.xpath("//span[contains(text(),'Codice Avviso')]"));
-            getWebDriverWait(5).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvvisoMittente)).isDisplayed();
+           // codiceAvvisoMittente = driver.findElement(By.xpath("//span[contains(text(),'Codice Avviso')]"));
+            getWebDriverWait(5).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//span[contains(text(),'Codice Avviso')]")))).isDisplayed();
             return true;
         } catch (RuntimeException e) {
             return false;
@@ -473,11 +473,11 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void clickAvvisoPagoPa() {
         try {
-            WebElement avvisoPagoPa = driver.findElement(By.xpath("//button[contains(text(),'Avviso pagoPA')]"));
+            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='paymentInfoBox']"))));
             containerPaymentBox = driver.findElement(By.xpath("//div[@data-testid='paymentInfoBox']"));
             js().executeScript("arguments[0].scrollIntoView(true)", containerPaymentBox);
-            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(containerPaymentBox));
-            getWebDriverWait(10).withMessage("Non si visualizza l'avviso PagoPA per il pagamento della notifica").until(ExpectedConditions.visibilityOf(avvisoPagoPa));
+            getWebDriverWait(10).withMessage("Non si visualizza l'avviso PagoPA per il pagamento della notifica").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(text(),'Avviso pagoPA')]"))));
+            WebElement avvisoPagoPa = driver.findElement(By.xpath("//button[contains(text(),'Avviso pagoPA')]"));
             avvisoPagoPa.click();
         } catch (TimeoutException e) {
             logger.error("Box per il pagamento della notifica non visualizzato correttamente con errore: " + e.getMessage());
@@ -486,18 +486,18 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void checkModelloF24() {
-        WebElement modelloF24 = driver.findElement(By.xpath("//span[@data-testid='f24']"));
+       // WebElement modelloF24 = driver.findElement(By.xpath("//span[@data-testid='f24']"));
+        getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='paymentInfoBox']"))));
         containerPaymentBox = driver.findElement(By.xpath("//div[@data-testid='paymentInfoBox']"));
         js().executeScript("arguments[0].scrollIntoView(true)", containerPaymentBox);
-        getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(containerPaymentBox));
-        getWebDriverWait(10).withMessage("Non si visualizza il contenitore del modello F24").until(ExpectedConditions.visibilityOf(modelloF24));
+        getWebDriverWait(10).withMessage("Non si visualizza il contenitore del modello F24").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//span[@data-testid='f24']"))));
 
     }
 
     public void checkBoxModelloF24() {
         try {
-            WebElement boxModelloF24 = driver.findElement(By.xpath("//span[contains(text(),'Modelli F24 allegati')]"));
-            getWebDriverWait(10).withMessage("Non si visualizza il box allegati modelli F24").until(ExpectedConditions.visibilityOf(boxModelloF24));
+          //  WebElement boxModelloF24 = driver.findElement(By.xpath("//span[contains(text(),'Modelli F24 allegati')]"));
+            getWebDriverWait(10).withMessage("Non si visualizza il box allegati modelli F24").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//span[contains(text(),'Modelli F24 allegati')]"))));
         } catch (TimeoutException e) {
             logger.error("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
             Assertions.fail("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
@@ -505,18 +505,18 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void siCliccaSulBottoneChiudi() {
+        getWebDriverWait(10).withMessage("Il bottone chiudi non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='close-dialog']"))));
         WebElement chiudiBoxF24 = driver.findElement(By.xpath("//button[@data-testid='close-dialog']"));
-        getWebDriverWait(10).withMessage("Il bottone chiudi non cliccabile").until(ExpectedConditions.elementToBeClickable(chiudiBoxF24));
         chiudiBoxF24.click();
     }
 
     public void checkBoxPagamentoMultiDestinatario() {
         try {
+            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='paymentInfoBox']"))));
             containerPaymentBox = driver.findElement(By.xpath("//div[@data-testid='paymentInfoBox']"));
             js().executeScript("arguments[0].scrollIntoView(true)", containerPaymentBox);
-            getWebDriverWait(10).withMessage("Non si visualizza il contenitore dei pagamenti").until(ExpectedConditions.visibilityOf(containerPaymentBox));
+            getWebDriverWait(10).withMessage("Non si visualizza l'input per la selezione del destinatario").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("recipients-select"))));
             selectMultiDestinatario = driver.findElement(By.id("recipients-select"));
-            getWebDriverWait(10).withMessage("Non si visualizza l'input per la selezione del destinatario").until(ExpectedConditions.visibilityOf(selectMultiDestinatario));
         } catch (TimeoutException e) {
             logger.error("Dettaglio notifica multi destinatario non ancora pagata visualizzata non correttamente con errore: " + e.getMessage());
             Assertions.fail("Dettaglio notifica multi destinatario non ancora pagata visualizzata non correttamente con errore: " + e.getMessage());
@@ -525,12 +525,12 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void clickMultiDestinatario() {
         try {
+            getWebDriverWait(10).withMessage("L'input per la selezione del destinatario non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("recipients-select"))));
             selectMultiDestinatario = driver.findElement(By.id("recipients-select"));
             js().executeScript("arguments[0].scrollIntoView(true)", selectMultiDestinatario);
-            getWebDriverWait(10).withMessage("L'input per la selezione del destinatario non è cliccabile").until(ExpectedConditions.elementToBeClickable(selectMultiDestinatario));
             selectMultiDestinatario.click();
+            getWebDriverWait(10).withMessage("Non si visualizza la lista delle opzioni destinatario").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//li[@role='option']"))));
             List<WebElement> selectOption = driver.findElements(By.xpath("//li[@role='option']"));
-            getWebDriverWait(10).withMessage("Non si visualizza la lista delle opzioni destinatario").until(ExpectedConditions.visibilityOfAllElements(selectOption));
             selectOption.get(0).click();
         } catch (TimeoutException e) {
             logger.error("Non è stato possibile selezionare un destinatario con errore: " + e.getMessage());
@@ -540,8 +540,8 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void checkAttestazionePresaInCarico() {
         try {
-            WebElement attestazionePresaInCarico = driver.findElement(By.xpath("//button[contains(text(),'presa in carico')]"));
-            getWebDriverWait(10).withMessage("Non si visualizza attestazione opponibile a terzi notifica presa in carico").until(ExpectedConditions.visibilityOf(attestazionePresaInCarico));
+            //WebElement attestazionePresaInCarico = driver.findElement(By.xpath("//button[contains(text(),'presa in carico')]"));
+            getWebDriverWait(10).withMessage("Non si visualizza attestazione opponibile a terzi notifica presa in carico").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(text(),'presa in carico')]"))));
         } catch (TimeoutException e) {
             logger.error("Attestazione opponibile a terzi notifica presa in carico non visualizzato correttamente con errore: " + e.getMessage());
             Assertions.fail("Attestazione opponibile a terzi notifica presa in carico non visualizzato correttamente con errore: " + e.getMessage());
@@ -549,8 +549,8 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void checkAlertRADD() {
-        WebElement alertRADD = driver.findElement(By.xpath("//div[@data-testid='raddAlert']"));
-        getWebDriverWait(10).withMessage("Non si visualizza l'alert radd").until(ExpectedConditions.visibilityOf(alertRADD));
+        //WebElement alertRADD = driver.findElement(By.xpath("//div[@data-testid='raddAlert']"));
+        getWebDriverWait(10).withMessage("Non si visualizza l'alert radd").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='raddAlert']"))));
     }
 
     public void checkInvioMessaggioDiCortesia() {
@@ -597,8 +597,8 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         iunInput.sendKeys(iun);
         logger.info("clicco sul bottone di ricerca");
 
+        getWebDriverWait(30).withMessage("bottone per la ricerca non trovato").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("ricerca"))));
         buttonRicerca = driver.findElement(By.id("ricerca"));
-        getWebDriverWait(30).withMessage("bottone per la ricerca non trovato").until(ExpectedConditions.elementToBeClickable(buttonRicerca));
         buttonRicerca.click();
         webTool.waitTime(3);
     }
