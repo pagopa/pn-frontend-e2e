@@ -277,6 +277,7 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
         if(StringUtils.isEmpty(iun)){
             throw new IllegalArgumentException("Il valore di codiceIUN è nullo");
         }
+        backgroundTest.setHooksNew(hooksNew);
         backgroundTest.siFiltraLaTabellaDelleNotificheDelDestinatarioPerIUN(iun);
     }
 }

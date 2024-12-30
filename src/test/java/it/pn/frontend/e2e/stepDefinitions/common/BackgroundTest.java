@@ -84,7 +84,8 @@ public class BackgroundTest  extends BasePage {
     @Getter
     private  PiattaformaNotifichePage piattaformaNotifichePage;
 
-    @Autowired
+    @Setter
+    @Getter
     private HooksNew hooksNew;
 
     private  WebTool webTool;
