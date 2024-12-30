@@ -508,6 +508,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @When("Cliccare sulla notifica  maggiore di 120 giorni")
     public void cliccareSullaNotificaRestituita120Giorni() {
         logger.info("Si clicca sulla notifica maggiore di 120 giorni");
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.selezionaNotifica120Giorni();
     }
 
