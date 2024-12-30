@@ -79,6 +79,9 @@ public class DeleghePagoPATest extends BasePage {
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
 
+    @Autowired
+    private HooksNew hooksNew;
+
 
     //    Map<String, Object> deleghe = new HashMap<>();
     @Setter
@@ -319,7 +322,7 @@ public class DeleghePagoPATest extends BasePage {
         if (data.equalsIgnoreCase("errato")) {
             verificationCode = "54321";
         } else {
-            verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(HooksNew.getScenario()));
+            verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(hooksNew.getScenario()));
         }
         leTueDelegheSection.inserireCodiceDelega(verificationCode);
     }
@@ -385,8 +388,8 @@ public class DeleghePagoPATest extends BasePage {
             if (response!= null && response.getVerificationCode()!= null && !response.getVerificationCode().isEmpty()) {
                 log.info("Inizio controllo notifica fino a stato accettata");
 
-                mandateSingleton.setScenarioMandateId(HooksNew.getScenario(), response.getMandateId());
-                mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(HooksNew.getScenario()), response.getVerificationCode());
+                mandateSingleton.setScenarioMandateId(hooksNew.getScenario(), response.getMandateId());
+                mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(hooksNew.getScenario()), response.getVerificationCode());
                 driver.navigate().refresh();
                 return;
             }

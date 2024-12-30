@@ -466,6 +466,6 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public void checkErroreInInserimentoCodice() {
         //errorCodeInPopUp = driver.findElement(By.id("error-alert"));
-        getWebDriverWait(10).withMessage("errore in inserimento codice errato non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("error-alert"))));
+        getWebDriverWait(20).withMessage("errore in inserimento codice errato non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("error-alert"))));
     }
 }

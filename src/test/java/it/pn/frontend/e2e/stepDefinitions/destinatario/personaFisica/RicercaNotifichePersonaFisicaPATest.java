@@ -55,7 +55,8 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
     private BackgroundTest backgroundTest;
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
-
+    @Autowired
+    private HooksNew hooksNew;
 
     @PostConstruct
     public void init(){
@@ -272,7 +273,7 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
 
     @And("Si seleziona la notifica destinatario")
     public void siSelezionaLaNotificaDestinatario() {
-        String iun = notificationSingleton.getIun(HooksNew.getScenario());
+        String iun = notificationSingleton.getIun(hooksNew.getScenario());
         if(StringUtils.isEmpty(iun)){
             throw new IllegalArgumentException("Il valore di codiceIUN è nullo");
         }

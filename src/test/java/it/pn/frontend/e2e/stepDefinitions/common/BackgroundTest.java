@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.stepDefinitions.common;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePagoPATest;
@@ -82,6 +83,9 @@ public class BackgroundTest  extends BasePage {
     @Setter
     @Getter
     private  PiattaformaNotifichePage piattaformaNotifichePage;
+
+    @Autowired
+    private HooksNew hooksNew;
 
     private  WebTool webTool;
 
@@ -396,12 +400,14 @@ public class BackgroundTest  extends BasePage {
     public void siFiltraLaTabellaDelleNotifichePerIUNDestinatario(String iun) {
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.clickSuNotifica();
     }
 
     public void siFiltraLaTabellaDelleNotificheDelDestinatarioPerIUN(String iun) {
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.clickSuNotifica();
     }
 
@@ -409,6 +415,7 @@ public class BackgroundTest  extends BasePage {
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
         webTool.waitTime(1);
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.clickSuNotifica();
     }
 }

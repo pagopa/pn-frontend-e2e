@@ -134,6 +134,10 @@ public class PiattaformaNotifichePage extends BasePage {
     @Setter
     private WebDriverManager webDriverManager;
 
+    @Getter
+    @Setter
+    private HooksNew hooksNew;
+
 
     public PiattaformaNotifichePage(WebDriver driver) {
         this.driver = driver;
@@ -544,7 +548,7 @@ public class PiattaformaNotifichePage extends BasePage {
             int index = calendar.get(Calendar.HOUR_OF_DAY);
             logger.info("index NOTIFICHE : " + index);
 
-            logger.info("Scenario " + HooksNew.getScenario());
+            logger.info("Scenario " + hooksNew.getScenario());
 
             int randomNumber = (int) (Math.random() * (notifiche.size() - 1)) + 1;
 
@@ -592,7 +596,7 @@ public class PiattaformaNotifichePage extends BasePage {
             webTool.waitTime(10);
             List<WebElement> notifiche = driver.findElements(By.id("notificationsTable.body.row"));
 
-            logger.info("Scenario " + HooksNew.getScenario());
+            logger.info("Scenario " + hooksNew.getScenario());
 
             Calendar calendar = GregorianCalendar.getInstance();
             int index = calendar.get(Calendar.HOUR_OF_DAY) + rows;
@@ -1230,7 +1234,7 @@ public class PiattaformaNotifichePage extends BasePage {
             notificationStatus = notificationData.get("notificationRequestStatus").toString();
             if (notificationStatus.equals("ACCEPTED")) {
                 notificationIUN = notificationData.get("iun").toString();
-                getNotificationSingletonParam().setScenarioIun(HooksNew.getScenario(), notificationIUN);
+                getNotificationSingletonParam().setScenarioIun(hooksNew.getScenario(), notificationIUN);
                 return;
             } else {
                 webTool.waitTime(90);
@@ -1245,7 +1249,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void clickSuNotifica() {
 
-        String iun = getNotificationSingletonParam().getIun(HooksNew.scenario);
+        String iun = getNotificationSingletonParam().getIun(hooksNew.scenario);
         logger.info("iun notifica {}", iun);
         //By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
         getWebDriverWait(35).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]"))));

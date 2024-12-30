@@ -20,6 +20,7 @@ import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.rest.RestDelegation;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -29,7 +30,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
 
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class HooksNew {
 
     /**
@@ -41,7 +45,8 @@ public class HooksNew {
 
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
     @Getter
-    public static String scenario;
+    @Setter
+    public  String scenario;
 
     private final String os = System.getProperty("os.name");
     @Autowired
@@ -68,7 +73,7 @@ public class HooksNew {
         }
         // WebDriverManager.getDriverThreadLocal().get();
 
-        HooksNew.scenario = scenario.getName();
+        setScenario(scenario.getName());
         scenario.getSourceTagNames().stream()
                 .filter(tag -> tag.startsWith("@TA_"))
                 .forEach(tag -> {
@@ -182,7 +187,7 @@ public class HooksNew {
     @And("Revoca deleghe PF se esistono")
     public void clearDelegatePF() {
         logger.info("Revoking all delegations...");
-        var mandateId = mandateSingleton.getMandateId(HooksNew.getScenario());
+        var mandateId = mandateSingleton.getMandateId(getScenario());
         if (mandateId != null) {
             restDelegation.revokeDelegation(mandateId);
             logger.info("Delegation revoked: {}", mandateId);
@@ -195,7 +200,7 @@ public class HooksNew {
     @And("Revoca deleghe PG se esistono")
     public void clearDelegatePG() {
         logger.info("Revoking all delegations...");
-        var mandateId = mandateSingleton.getMandateId(HooksNew.getScenario());
+        var mandateId = mandateSingleton.getMandateId(getScenario());
         if (mandateId != null) {
             restDelegation.revokeDelegation(mandateId);
             logger.info("Delegation revoked: {}", mandateId);

@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.notification.NewNotificationRequest;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
@@ -47,6 +48,8 @@ public class NewNotifichePagoPATest extends BasePage {
 
     @Autowired
     private RestNotification restNotification;
+    @Autowired
+    private HooksNew hooksNew;
 
 
     @PostConstruct
@@ -61,6 +64,7 @@ public class NewNotifichePagoPATest extends BasePage {
 
     @Then("Creo in background una notifica per destinatario tramite API REST")
     public void creoUnaNotificaPerDestinatarioTramiteAPIREST(){
+        destinatarioPage.setHooksNew(hooksNew);
         destinatarioPage.checkCreateNewNotification();
     }
 
