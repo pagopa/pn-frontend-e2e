@@ -106,11 +106,11 @@ public class DisserviziAppPAPage extends BasePage {
 
     public void waitLoadDisserviziTable() {
         try {
-           webTool.waitTime(30);
+          // webTool.waitTime(30);
 
             getWebDriverWait(40).withMessage("Non si visualizza correttamente la tabella dei disservizi")
-                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
-            disserviziTable = driver.findElement(By.id("notifications-table"));
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy((By.id("notifications-table"))));
+            disserviziTable = element(By.id("notifications-table"));
             // check if the table header is present
             WebElement disserviziTableHeader = disserviziTable.findElement(By.xpath("//thead[@role='rowgroup']"));
             getWebDriverWait(10).withMessage("Non si visualizza correttamente l'header della tabella dei disservizi")
