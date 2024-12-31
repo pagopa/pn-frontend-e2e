@@ -164,15 +164,14 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void clickStatoDellaPiattaforma() {
-        webTool.waitTime(10);
+        getWebDriverWait(20).withMessage("Il bottone stato della piattaforma non è visibile").until(ExpectedConditions.visibilityOf( driver.findElement(By.id("side-item-Stato della piattaforma"))));
         buttonEnterIntoDisservizi = driver.findElement(By.id("side-item-Stato della piattaforma"));
-        getWebDriverWait(10).withMessage("Il bottone stato della piattaforma non è visibile").until(ExpectedConditions.visibilityOf(buttonEnterIntoDisservizi));
         buttonEnterIntoDisservizi.click();
     }
 
     public void clickNotifiche() {
+        getWebDriverWait(10).withMessage("Il bottone stato della piattaforma non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("side-item-Notifiche"))));
         notificheMenuButton = driver.findElement(By.id("side-item-Notifiche"));
-        getWebDriverWait(10).withMessage("Il bottone stato della piattaforma non è visibile").until(ExpectedConditions.visibilityOf(notificheMenuButton));
         notificheMenuButton.click();
     }
 
@@ -184,8 +183,8 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     public boolean codiceAvvisoDisplayed() {
         try {
-            codiceAvviso = driver.findElement(By.xpath("//span[contains(text(),'Codice avviso')]"));
-            getWebDriverWait(5).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvviso)).isDisplayed();
+           // codiceAvviso = driver.findElement(By.xpath("//span[contains(text(),'Codice avviso')]"));
+            getWebDriverWait(5).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//span[contains(text(),'Codice avviso')]")))).isDisplayed();
             return true;
         } catch (RuntimeException e) {
             return false;
@@ -193,14 +192,14 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public boolean modelloF24Displayed() {
-        modelloF24 = driver.findElement(By.cssSelector("[data-testid='download-f24-button']"));
-        return getWebDriverWait(5).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
+       // modelloF24 = driver.findElement(By.cssSelector("[data-testid='download-f24-button']"));
+        return getWebDriverWait(5).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='download-f24-button']")))).isDisplayed();
     }
 
     public boolean scaricaAvvisoDisplayed() {
         try {
-            scaricaAvviso = driver.findElement(By.cssSelector("[data-testid='download-pagoPA-notice-button']"));
-            getWebDriverWait(5).withMessage("Il sezione scarica avviso non è visibile").until(ExpectedConditions.visibilityOf(scaricaAvviso)).isDisplayed();
+           // scaricaAvviso = driver.findElement(By.cssSelector("[data-testid='download-pagoPA-notice-button']"));
+            getWebDriverWait(5).withMessage("Il sezione scarica avviso non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='download-pagoPA-notice-button']")))).isDisplayed();
             return true;
         } catch (RuntimeException e) {
             return false;
@@ -235,8 +234,8 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void clickAvvisoPagoPADestinatario() {
+        getWebDriverWait(30).withMessage("Il sezione scarica avviso non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.cssSelector("[data-testid='download-pagoPA-notice-button']"))));
         scaricaAvviso = driver.findElement(By.cssSelector("[data-testid='download-pagoPA-notice-button']"));
-        getWebDriverWait(30).withMessage("Il sezione scarica avviso non è cliccabile").until(ExpectedConditions.elementToBeClickable(scaricaAvviso));
         scaricaAvviso.click();
     }
 
@@ -269,8 +268,9 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     public boolean siControllaCostiDiNotifica() {
         try {
+          //  costiNotifica = driver.findElement(By.cssSelector("[data-testid='apply-costs-caption']"));
+            getWebDriverWait(10).withMessage("Costi di notifica inclusi").until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='apply-costs-caption']"))));
             costiNotifica = driver.findElement(By.cssSelector("[data-testid='apply-costs-caption']"));
-            getWebDriverWait(10).withMessage("Costi di notifica inclusi").until(ExpectedConditions.visibilityOf(costiNotifica));
             return true;
         } catch (RuntimeException e) {
             logger.info("Costi di notifica non inclusi");

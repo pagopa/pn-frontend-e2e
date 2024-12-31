@@ -40,6 +40,9 @@ public class RestRaddAlternative {
     private NotificationSingleton notificationSingleton;
 
     @Autowired
+    private HooksNew hooksNew;
+
+    @Autowired
     private WebDriverConfig webDriverConfig;
 
     public RestRaddAlternative(String token) {
@@ -49,7 +52,7 @@ public class RestRaddAlternative {
     public StartTransactionResponse startTransactionRaddAlternative(String tipoDestinatario, String codiceFiscale, String operationId) {
         CustomHttpClient<StartTransactionRequest, StartTransactionResponse> httpClientStart = new CustomHttpClient<>();
         httpClientStart.setBaseUrlApi("https://api.radd." + webDriverConfig.getEnvironment() + ".notifichedigitali.it");
-        StartTransactionRequest startTransactionRequest = new StartTransactionRequest(codiceFiscale, tipoDestinatario, notificationSingleton.getIun(HooksNew.getScenario()), operationId);
+        StartTransactionRequest startTransactionRequest = new StartTransactionRequest(codiceFiscale, tipoDestinatario, notificationSingleton.getIun(hooksNew.getScenario()), operationId);
 
         headers.put("Authorization", this.token);
         headers.put("uid", uid);

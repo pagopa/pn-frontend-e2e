@@ -48,10 +48,8 @@ public class AcccediAreaRiservataPAPage extends BasePage {
     public void selezionareSpidButton(){
         logger.info("Si seleziona il bottone Spid");
         try {
-            webTool.waitTime(5);
+            getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spidButton"))));
             spidButton = driver.findElement(By.id("spidButton"));
-            getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(spidButton));
-
             spidButton.click();
             logger.info("click sul bottone SPID effettuato");
         }catch (TimeoutException e){
@@ -61,8 +59,8 @@ public class AcccediAreaRiservataPAPage extends BasePage {
     }
 
     public void clickTestBottone(){
+        getWebDriverWait(5).until(ExpectedConditions.and(ExpectedConditions.visibilityOf(driver.findElement(By.id("forward_prod-pn-test"))), ExpectedConditions.elementToBeClickable(driver.findElement(By.id("forward_prod-pn-test")))));
         testButton = driver.findElement(By.id("forward_prod-pn-test"));
-        getWebDriverWait(5).until(ExpectedConditions.and(ExpectedConditions.visibilityOf(testButton), ExpectedConditions.elementToBeClickable(testButton)));
         testButton.click();
     }
 }

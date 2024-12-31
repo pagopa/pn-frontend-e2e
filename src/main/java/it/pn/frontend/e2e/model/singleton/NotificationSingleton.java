@@ -25,8 +25,7 @@ public class NotificationSingleton {
      * @param scenarioName nome dello scenario
      * @param iun identificatore unico della notifica
      */
-    public void setScenarioIun(String scenarioName, String iun) {
-        scenarioIun.put(scenarioName, iun);
+    public void setScenarioIun(String scenarioName, String iun) {scenarioIun.put(scenarioName, iun);
     }
 
     /**

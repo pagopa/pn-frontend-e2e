@@ -76,6 +76,8 @@ public class DeleghePGPagoPATest extends BasePage {
 
     private boolean dataFineErrata;
 
+    @Autowired
+    private HooksNew hooksNew;
 
     @PostConstruct
     public void init(){
@@ -471,7 +473,7 @@ public class DeleghePGPagoPATest extends BasePage {
         logger.info("Si controlla che ci sia una delega");
         String dateto = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-        DelegatePG delegatePG = dataPopulationConfig.getDelegatePG();
+        DelegatePG delegatePG = new DelegatePG();
         delegatePG.setCompanyName(personaGiuridica.get("companyName"));
         delegatePG.setFiscalCode(personaGiuridica.get("fiscalCode"));
         delegatePG.setDisplayName(personaGiuridica.get("displayName"));
@@ -505,8 +507,8 @@ public class DeleghePGPagoPATest extends BasePage {
 
             if (response!= null && response.getVerificationCode()!= null && !response.getVerificationCode().isEmpty()) {
                 logger.info("Inizio controllo notifica fino a stato accettata");
-                mandateSingleton.setScenarioMandateId(HooksNew.getScenario(), response.getMandateId());
-                mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(HooksNew.getScenario()), response.getVerificationCode());
+                mandateSingleton.setScenarioMandateId(hooksNew.getScenario(), response.getMandateId());
+                mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(hooksNew.getScenario()), response.getVerificationCode());
                 driver.navigate().refresh();
                 return;
             }
@@ -551,7 +553,7 @@ public class DeleghePGPagoPATest extends BasePage {
 
     @And("Si inserisce il codice della delega a carico dell impresa nella modale")
     public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale() {
-        String verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(HooksNew.getScenario()));
+        String verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(hooksNew.getScenario()));
         logger.info(verificationCode);
         deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI(verificationCode);
     }
@@ -633,7 +635,7 @@ public class DeleghePGPagoPATest extends BasePage {
     public void siRevocaDelegaComeDelegantConApi() {
 
         loginPGPagoPaTest.getTokenExchangePGFromFile("delegante");
-        String mandateId = mandateSingleton.getMandateId(HooksNew.getScenario());
+        String mandateId = mandateSingleton.getMandateId(hooksNew.getScenario());
         restDelegation.revokeDelegation(mandateId);
 
     }

@@ -62,6 +62,10 @@ public class DestinatarioPage extends BasePage {
     @FindBy(id = "notificationsTable.body.row")
     List<WebElement> listaNotificheDelegante;
 
+    @Getter
+    @Setter
+    private HooksNew hooksNew;
+
 
     private WebTool webTool;
 
@@ -161,8 +165,8 @@ public class DestinatarioPage extends BasePage {
                         maxAttemptsPolling++;
                     } else {
                         log.info("Notifica per destinatario creata con successo");
-                        notificationSingleton.setScenarioIun(HooksNew.getScenario(), WebTool.decodeNotificationRequestId(responseOfCreateNotification.getNotificationRequestId()));
-                        log.info("Il codice IUN della notifica creata è il seguente: {}", notificationSingleton.getIun(HooksNew.getScenario()));
+                        notificationSingleton.setScenarioIun(hooksNew.getScenario(), WebTool.decodeNotificationRequestId(responseOfCreateNotification.getNotificationRequestId()));
+                        log.info("Il codice IUN della notifica creata è il seguente: {}", notificationSingleton.getIun(hooksNew.getScenario()));
                         driver.navigate().refresh();
                         return;
                     }

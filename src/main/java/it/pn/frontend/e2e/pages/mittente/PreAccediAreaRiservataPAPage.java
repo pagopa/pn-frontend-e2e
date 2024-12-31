@@ -37,8 +37,8 @@ public class PreAccediAreaRiservataPAPage extends BasePage {
     public void selezionaProcediAlLoginButton(){
         logger.info("Si clicca sul bottone procedi al login");
         try {
-            procediAlLoginButton = driver.findElement(By.id("login-button"));
             getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("login-button"))));
+            procediAlLoginButton = driver.findElement(By.id("login-button"));
             js().executeScript("arguments[0].click()", driver.findElement(By.id("login-button")));
             logger.info("click sul bottone procedi alla login effetuato");
         }catch (TimeoutException e){

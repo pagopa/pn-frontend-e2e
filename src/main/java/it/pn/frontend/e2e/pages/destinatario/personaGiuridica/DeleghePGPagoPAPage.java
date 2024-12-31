@@ -360,8 +360,8 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public void checkAlertWrongDelegationCode() {
         try {
-            WebElement alertCloseButtonBy = driver.findElement(By.xpath("//button[@aria-label='Close']"));
             getWebDriverWait(5).withMessage("Alert non visualizzato correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("alert-api-status"))));
+            WebElement alertCloseButtonBy = driver.findElement(By.xpath("//button[@aria-label='Close']"));
             logger.info("Alert visualizzato correttamente in pagina");
             alertCloseButtonBy.click();
             logger.info("Alert chiusa");
@@ -398,8 +398,8 @@ public class DeleghePGPagoPAPage extends BasePage {
         boolean isInvalid = true;
         for (int i = 0; i < 5; i++) {
             String xpathBy = "code-input-" + i;
-            getWebDriverWait(10).withMessage("Textbox di input codice delega non visualizzata").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id(xpathBy)));
-            String stateInput =driver.findElement(By.id(xpathBy)).getAttribute("aria-invalid");
+            getWebDriverWait(15).withMessage("Textbox di input codice delega non visualizzata").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id(xpathBy)));
+            String stateInput = element(By.id(xpathBy)).getAttribute("aria-invalid");
             if (!(textboxIsInvalid.equals(stateInput))) {
                 isInvalid = false;
             }
@@ -466,6 +466,6 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public void checkErroreInInserimentoCodice() {
         //errorCodeInPopUp = driver.findElement(By.id("error-alert"));
-        getWebDriverWait(10).withMessage("errore in inserimento codice errato non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("error-alert"))));
+        getWebDriverWait(20).withMessage("errore in inserimento codice errato non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("error-alert"))));
     }
 }

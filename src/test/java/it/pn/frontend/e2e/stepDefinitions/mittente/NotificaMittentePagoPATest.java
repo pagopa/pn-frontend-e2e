@@ -64,6 +64,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @Getter  @Setter
     private String ApiKey;
 
+    @Autowired
+    private HooksNew hooksNew;
+
     private  WebTool webTool;
 
     private CookiesSection cookiesSection ;
@@ -505,6 +508,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @When("Cliccare sulla notifica  maggiore di 120 giorni")
     public void cliccareSullaNotificaRestituita120Giorni() {
         logger.info("Si clicca sulla notifica maggiore di 120 giorni");
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.selezionaNotifica120Giorni();
     }
 
@@ -1248,6 +1252,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.setWebDriverManager(webDriverManager);
         piattaformaNotifichePage.setRestNotificationParam(restNotification);
         piattaformaNotifichePage.setNotificationSingletonParam(notificationSingleton);
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.verificaNotificaCreata();
     }
 
@@ -1384,9 +1389,10 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void siSelezionaLaNotifica() {
         piattaformaNotifichePage.setNotificationSingletonParam(notificationSingleton);
         backgroundTest.setPiattaformaNotifichePage(piattaformaNotifichePage);
+        backgroundTest.setHooksNew(hooksNew);
        // String iun = notificationSingleton.getIun(HooksNew.scenario);
-        logger.info("IUN............."+ backgroundTest.getPiattaformaNotifichePage().getNotificationSingletonParam().getIun(HooksNew.scenario));
-        String iun = backgroundTest.getPiattaformaNotifichePage().getNotificationSingletonParam().getIun(HooksNew.scenario);
+        logger.info("IUN............."+ backgroundTest.getPiattaformaNotifichePage().getNotificationSingletonParam().getIun(hooksNew.getScenario()));
+        String iun = backgroundTest.getPiattaformaNotifichePage().getNotificationSingletonParam().getIun(hooksNew.getScenario());
         backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNDestinatario(iun);
     }
 
@@ -1394,10 +1400,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Si seleziona la notifica mittente")
     public void siSelezionaLaNotificaMittente() {
         logger.info("ATTENZIONE.........");
-        String iun = notificationSingleton.getIun(HooksNew.scenario);
-        logger.info("SCENARIO..."+HooksNew.scenario);
+        String iun = notificationSingleton.getIun(hooksNew.getScenario());
+        logger.info("SCENARIO..."+hooksNew.getScenario());
         logger.info("SCENARIO..."+iun);
         backgroundTest.setPiattaformaNotifichePage(piattaformaNotifichePage);
+        backgroundTest.setHooksNew(hooksNew);
         backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNMittente(iun);
     }
 

@@ -115,7 +115,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void insertEmailPEC(String emailPEC) {
-        getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("default_pec")));
+        getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec"))));
         WebElement pecField = element(By.id("default_pec"));
         pecField.sendKeys(emailPEC);
     }
@@ -217,7 +217,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void annullaButtonClick() {
         try {
-            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("code-cancel-button"))));
+            getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("code-cancel-button"))));
             annullaButton = driver.findElement(By.id("code-cancel-button"));
             annullaButton.click();
         } catch (TimeoutException e) {
