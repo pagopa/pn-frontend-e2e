@@ -106,7 +106,7 @@ public class DisserviziAppPAPage extends BasePage {
 
     public void waitLoadDisserviziTable() {
         try {
-          // webTool.waitTime(30);
+           webTool.waitTime(20);
 
             getWebDriverWait(40).withMessage("Non si visualizza correttamente la tabella dei disservizi")
                     .until(ExpectedConditions.visibilityOfAllElementsLocatedBy((By.id("notifications-table"))));

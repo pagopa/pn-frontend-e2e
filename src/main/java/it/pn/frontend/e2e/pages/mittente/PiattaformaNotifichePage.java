@@ -506,8 +506,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public int getListStato(String statoNotifica) {
         try {
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//span[contains(text(),'" + statoNotifica + "')]"))));
-            List<WebElement> statoNotificaBy = driver.findElements(By.xpath("//span[contains(text(),'" + statoNotifica + "')]"));
+            getWebDriverWait(60).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//span[contains(text(),'" + statoNotifica + "')]")));
+            List<WebElement> statoNotificaBy = elements(By.xpath("//span[contains(text(),'" + statoNotifica + "')]"));
             return statoNotificaBy.size();
         } catch (TimeoutException e) {
             return 0;

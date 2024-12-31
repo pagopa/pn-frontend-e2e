@@ -65,6 +65,7 @@ public class RicercaNotifichePGPage extends BasePage {
 
     public void waitLoadDettaglioNotificaPGDelegato() {
         try {
+            webTool.waitTime(10);
             WebElement statoNotificaBy = driver.findElement(By.id("notification-state"));
             WebElement indietroButtonBy = driver.findElement(By.id("breadcrumb-indietro-button"));
             WebElement informazioniBy = driver.findElement(By.id("notification-detail-table"));
@@ -87,25 +88,26 @@ public class RicercaNotifichePGPage extends BasePage {
 
     public void clickFiltraButton() {
         filtraButton = driver.findElement(By.id("filter-notifications-button"));
-        getWebDriverWait(30).withMessage("Il bottone filtra nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.filtraButton));
+        getWebDriverWait(30).withMessage("Il bottone filtra nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(filtraButton));
         filtraButton.click();
     }
 
     public void clickRimuoviFiltriButton() {
         rimuoviFiltriButton = driver.findElement(By.cssSelector("[data-testid='cancelButton']"));
-        getWebDriverWait(30).withMessage("Il bottone rimuovi filtri nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.rimuoviFiltriButton));
+        getWebDriverWait(30).withMessage("Il bottone rimuovi filtri nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(rimuoviFiltriButton));
         rimuoviFiltriButton.click();
     }
 
     public boolean isErrorMessageDisplayed() {
         nonValidIunMessage = driver.findElement(By.id("iunMatch-helper-text"));
-        return getWebDriverWait(30).withMessage("Il messagio di errore non e visibile").until(ExpectedConditions.visibilityOf(nonValidIunMessage)).isDisplayed();
+        return getWebDriverWait(30).withMessage("Il messagio di errore non e visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch-helper-text")))).isDisplayed();
     }
 
     public void waitLoadNotifichePGPage() {
         try {
-            WebElement tableNotifiche = driver.findElement(By.id("notifications-table"));
-            this.getWebDriverWait(40).withMessage("La tabella delle Notifiche non è visibile").until(ExpectedConditions.visibilityOf(tableNotifiche));
+           // WebElement tableNotifiche = driver.findElement(By.id("notifications-table"));
+            webTool.waitTime(10);
+            getWebDriverWait(40).withMessage("La tabella delle Notifiche non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
             logger.info("Notifiche PG Page caricata");
         } catch (TimeoutException e) {
             logger.error("Notifiche PG Page non caricata con errore : " + e.getMessage());

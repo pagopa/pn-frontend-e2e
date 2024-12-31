@@ -78,7 +78,7 @@ public class DelegatiImpresaSection extends BasePage {
         }
     }
 
-    public void controlloEsistenzaDelega(String ragioneSociale) {
+    public boolean controlloEsistenzaDelega(String ragioneSociale) {
         try {
          //   tabelleDelleDelegheDellImpresa = driver.findElement(By.id("notifications-table"));
          //   nomeDelegato = driver.findElements(By.id("delegatesBodyRowDesktop"));
@@ -95,11 +95,16 @@ public class DelegatiImpresaSection extends BasePage {
                 }
             }
             logger.info("Si visualizza la delega creata");
+            return true;
         } catch (TimeoutException e) {
             logger.error("Non si visualizza correttamente la delega creata:" + e.getMessage());
             Assertions.fail("Non si visualizza correttamente la delega creata:" + e.getMessage());
         }
+        return false;
     }
+
+
+
 
     public boolean siVisualizzaUnaDelega() {
         try {

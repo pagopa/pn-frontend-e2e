@@ -203,7 +203,8 @@ public class LeTueDelegheSection extends BasePage {
 
     public void messaggioDiErroreDelegaPresente() {
         try {
-            getWebDriverWait(55).until(ExpectedConditions.visibilityOfAllElementsLocatedBy((By.xpath("//div[contains(text(),'Delega già presente')]"))));
+            webTool.waitTime(5);
+            getWebDriverWait(5).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(text(),'Delega già presente')]"))));
             logger.info("Il messaggio di errore viene visualizzato");
         } catch (TimeoutException e) {
             logger.error("Il messaggio di errore NON viene visualizzato con errore: " + e.getMessage());

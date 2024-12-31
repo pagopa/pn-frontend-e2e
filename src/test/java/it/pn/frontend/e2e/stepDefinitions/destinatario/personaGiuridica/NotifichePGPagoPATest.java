@@ -195,6 +195,19 @@ public class NotifichePGPagoPATest extends BasePage {
         } else if (leTueDelegheSection.controlloPresenzaBottoneAccetta()) {
             backgroundTest.accettazioneDelegaPG();
         }
+
+        driver.navigate().refresh();
+    }
+
+    @And("Nella sezione Deleghe si crea una delega accettata per PG")
+    public void nellaSezioneDelegheSiVerificaSiaCreUnaDelegaAccettataPerPG() {
+        logger.info("Si controlla che sia presente una delega accettata");
+            backgroundTest.loginPGDeleghe("personaGiuridica");
+            backgroundTest.aggiuntaNuovaDelegaDellImpresaPG();
+            backgroundTest.logoutPG();
+            backgroundTest.loginPGDeleghe("delegatoPG");
+            backgroundTest.accettazioneDelegaPG();
+
         driver.navigate().refresh();
     }
 
