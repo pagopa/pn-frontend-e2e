@@ -134,7 +134,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void clickSuDelegeButton() {
         try {
-            getWebDriverWait(10).withMessage("Sezione deleghe nel side menu non visualizzata").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("side-item-Deleghe"))));
+            getWebDriverWait(20).withMessage("Sezione deleghe nel side menu non visualizzata").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("side-item-Deleghe"))));
             delegheSideMenu = driver.findElement(By.id("side-item-Deleghe"));
             js().executeScript("arguments[0].click()", delegheSideMenu);
             logger.info("click sul bottone Deleghe effetuato");

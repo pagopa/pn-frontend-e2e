@@ -115,6 +115,12 @@ public class DeleghePGPagoPATest extends BasePage {
         delegatiImpresaSection.verificaRemoveMenuDelega();
         delegatiImpresaSection.clickAggiungiDelegaButton();
     }
+    @And("Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega senza revocare quella esistente")
+    public void nellaSezioneDelegatiDellImpresaClickSulBottoneAggiungiNuovaDelegaNoRevoca() {
+        logger.info("Nella sezione Deleghe dell'impresa si clicca su aggiungi una nuova delega  senza revocare quella esistente");
+        //delegatiImpresaSection.verificaRemoveMenuDelega();
+        delegatiImpresaSection.clickAggiungiDelegaButton();
+    }
 
     @And("Si visualizza la sezione Aggiungi Delega persona giuridica")
     public void siVisualizzaLaSezioneLeTueDeleghePersonaGiuridica() {
@@ -656,6 +662,17 @@ public class DeleghePGPagoPATest extends BasePage {
         logger.info("Si controlla che la delega sia in stato attesa di conferma");
         delegatiImpresaSection.waitLoadDelegatiImpresaPage();
         delegatiImpresaSection.controlloEsistenzaDelega(ragioneSociale);
+    }
+
+    @And("Nella sezione Delegati dall impresa si visualizza correttamente una delega in stato di attesa di conferma {string} e si revoca")
+    public void nellaSezioneDelegatiDallImpresaSiVisualizzaCorrettamenteUnaDelegaInStatoDiAttesaConfermaRevoca(String ragioneSociale) {
+        logger.info("Si controlla che la delega sia in stato attesa di conferma e si revoca");
+       delegatiImpresaSection.waitLoadDelegatiImpresaPage();
+        if(delegatiImpresaSection.controlloEsistenzaDelega(ragioneSociale)) {
+            deleghePGPagoPAPage.clickRevocaMenuButtonPG(ragioneSociale);
+            delegatiImpresaSection.waitPopUpRevoca(ragioneSociale);
+            delegatiImpresaSection.clickRevocaButton();
+        }
     }
 
 
