@@ -286,6 +286,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void inserireDatiPagamento(String email) {
+        webTool.waitTime(5);
         WebElement emailPagamento = driver.findElement(By.id("email"));
         WebElement confermaEmailPagamento = driver.findElement(By.id("confirmEmail"));
         WebElement continuaPagamento = driver.findElement(By.id("paymentEmailPageButtonContinue"));
@@ -365,7 +366,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void siVisualizzaStatoPagato() {
-        getWebDriverWait(30).withMessage("Lo stato di pagamento non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@id='status-chip-Pagato']"))));
+        getWebDriverWait(60).withMessage("Lo stato di pagamento non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@id='status-chip-Pagato']"))));
         logger.info("Lo stato di pagamento è Pagato");
     }
 }
