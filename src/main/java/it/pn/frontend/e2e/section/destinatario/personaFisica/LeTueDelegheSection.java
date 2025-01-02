@@ -169,20 +169,22 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void selezionaUnEnte(String ente) {
+        getWebDriverWait(10).withMessage("input ente non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("enti"))));
         enteElementInput = driver.findElement(By.id("enti"));
-        getWebDriverWait(10).withMessage("input ente non è visibile").until(ExpectedConditions.visibilityOf(enteElementInput));
         logger.info("inserimento dati ente");
         enteElementInput.click();
         enteElementInput.sendKeys(ente);
 
         // select menu;
+
+        getWebDriverWait(10).withMessage("il menu della selezione ente non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@role='presentation']"))));
         WebElement menuEntiOptionBy = driver.findElement(By.xpath("//div[@role='presentation']"));
-        getWebDriverWait(10).withMessage("il menu della selezione ente non è visibile").until(ExpectedConditions.visibilityOf(menuEntiOptionBy));
         js().executeScript("arguments[0].click()", menuEntiOptionBy);
 
         //click on option 0
+
+        getWebDriverWait(10).withMessage("L'ente " + ente + " non è cliccabile o non è presente").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("enti-option-0"))));
         WebElement comuneOptionBy = driver.findElement(By.id("enti-option-0"));
-        getWebDriverWait(10).withMessage("L'ente " + ente + " non è cliccabile o non è presente").until(ExpectedConditions.elementToBeClickable(comuneOptionBy));
         js().executeScript("arguments[0].click()", comuneOptionBy);
     }
 
