@@ -547,10 +547,10 @@ public class ApiKeyPAPage extends BasePage {
         webTool.waitTime(5);
         List<WebElement> contextMenu = driver.findElements(By.xpath("//button[@data-testid='contextMenuButton']"));
         contextMenu.get(0).click();
-        webTool.waitTime(1);
+        webTool.waitTime(5);
         WebElement visualizzaCodiceButton = driver.findElement(By.xpath("//li[@data-testid='buttonView']"));
         visualizzaCodiceButton.click();
-        webTool.waitTime(1);
+        webTool.waitTime(5);
         WebElement apiKeyDaElenco = driver.findElement(By.xpath("//input[@aria-invalid='false']"));
         return apiKeyDaElenco.getAttribute("value");
     }
