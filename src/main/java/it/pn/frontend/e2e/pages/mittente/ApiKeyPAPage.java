@@ -501,8 +501,7 @@ public class ApiKeyPAPage extends BasePage {
 
     public String copiaApiKey() {
         try {
-
-            getWebDriverWait(10).withMessage("il bottone copia api key non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//button[@data-testid='copyToClipboardGroupsId']")).get(0)));
+            getWebDriverWait(15).withMessage("il bottone copia api key non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//button[@data-testid='copyToClipboardGroupsId']")).get(0)));
             List<WebElement> apiKeys = driver.findElements(By.xpath("//button[@data-testid='copyToClipboardGroupsId']"));
             apiKeys.get(0).click();
              /* We can't check if there is the green "CheckIcon" element because webdriver doesn't refresh the elements reloaded
@@ -524,6 +523,7 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public void mouseHoverGroups() {
+        webTool.waitTime(3);
         List<WebElement> rows = driver.findElements(By.xpath("//tr[@data-testid='tableApiKeys.body.row']"));
         if (!rows.isEmpty()) {
             List<WebElement> cells = rows.get(0).findElements(By.xpath("//td"));
