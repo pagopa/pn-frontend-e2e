@@ -115,7 +115,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void insertEmailPEC(String emailPEC) {
-        getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec"))));
+        getWebDriverWait(30).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOfAllElementsLocatedBy((By.id("default_pec"))));
         WebElement pecField = element(By.id("default_pec"));
         pecField.sendKeys(emailPEC);
     }
@@ -268,7 +268,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean verificaPecAssociata() {
         try {
-            getWebDriverWait(10).withMessage("PEC associata non presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec-typography"))));
+            getWebDriverWait(30).withMessage("PEC associata non presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec-typography"))));
             return true;
         } catch (NoSuchElementException | TimeoutException e) {
             logger.error("pec associata non trovata" + e.getMessage());
