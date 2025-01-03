@@ -361,8 +361,8 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void clickScaricaAvvisoPagoPAButton() {
-        getWebDriverWait(10).withMessage("Il bottone per scaricare l'avviso PagoPA non è visibile").until(ExpectedConditions.visibilityOf(buttonDownloadAvvisoPagoPA));
-        getWebDriverWait(10).withMessage("Il bottone per scaricare l'avviso PagoPA non è cliccabile").until(ExpectedConditions.elementToBeClickable(buttonDownloadAvvisoPagoPA));
+        getWebDriverWait(10).withMessage("Il bottone per scaricare l'avviso PagoPA non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='download-pagoPA-notice-button']"))));
+        getWebDriverWait(10).withMessage("Il bottone per scaricare l'avviso PagoPA non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='download-pagoPA-notice-button']"))));
         buttonDownloadAvvisoPagoPA = driver.findElement(By.xpath("//button[@data-testid='download-pagoPA-notice-button']"));
         scrollToElementAndClick(buttonDownloadAvvisoPagoPA);
     }
