@@ -15,6 +15,8 @@ import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
+import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,8 +55,9 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     @Lazy
     private WebDriverManager webDriverManager;
 
-
-    public static String OTP;
+    @Getter
+    @Setter
+    private  String OTP;
 
     @PostConstruct
     public void init(){
@@ -367,7 +370,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTP() {
         logger.info("Si inserisce il codice OTP di verifica");
         webTool.waitTime(2);
-        iTuoiRecapitiPage.sendOTP(OTP);
+        iTuoiRecapitiPage.sendOTP(getOTP());
         recapitiDestinatarioPage.confermaButtonClickPopUp();
         if (recapitiDestinatarioPage.waitMessaggioErrore()) {
             logger.error("Il codice OTP inserito è sbagliato");
@@ -388,15 +391,15 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTPScaduto() throws InterruptedException {
         logger.info("Si inserisce il codice OTP di verifica");
         Thread.sleep(910000);
-        iTuoiRecapitiPage.sendOTP(OTP);
+        iTuoiRecapitiPage.sendOTP(getOTP());
         recapitiDestinatarioPage.confermaButtonClickPopUp();
     }
 
     @Then("Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente")
     public void nellaPaginaITuoiRecapitiSiControllaCheLaPecSiaStataInseritaCorrettamente() {
         logger.info("Si controlla che la pec sia stata inserita correttamente");
-        webTool.waitTime(15);
-        driver.navigate().refresh();
+        webTool.waitTime(20);
+        aggiornamentoPagina();
         if (!recapitiDestinatarioPage.verificaPecAssociata()) {
             logger.error("Pec non associata con errore");
             Assertions.fail("Pec non associata con errore");
@@ -418,6 +421,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         //TODO OGGETTO DI PARAMETRIZZAZIONE
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
+            setOTP(OTP);
             logger.info("OTP........"+OTP);
             if (persona.equalsIgnoreCase("personaGiuridica")) {
                 dataPopulationConfig.getPersonaGiuridica().setOTPMail(OTP);
@@ -435,6 +439,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             results = changeStartUrl(startUrl, results, persona);
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
+                setOTP(OTP);
                 if (persona.equalsIgnoreCase("personaGiuridica")) {
                     dataPopulationConfig.getPersonaGiuridica().setOTPMail(OTP);
                 } else {
@@ -462,6 +467,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
+            setOTP(OTP);
 //            personaFisica.put("OTPmail", OTP);
 //            dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
             dataPopulationConfig.getPersonaFisica().setOTPMail(OTP);
@@ -476,6 +482,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
+                setOTP(OTP);
 //                personaFisica.put("OTPmail", OTP);
 //                dataPopulation.writeDataPopulation(dpFile + ".yaml", personaFisica);
                 dataPopulationConfig.getPersonaFisica().setOTPMail(OTP);
@@ -762,7 +769,8 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + pec;
         boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
         if (results) {
-            OTP = recuperoOTPRecapiti.getResponseBody();
+           String  OTP = recuperoOTPRecapiti.getResponseBody();
+           setOTP(OTP);
         } else {
             String variabileAmbiente =webDriverConfig.getEnvironment();
             if (variabileAmbiente.equalsIgnoreCase("test")) {
@@ -773,7 +781,8 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + emailPec;
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
             if (results) {
-                OTP = recuperoOTPRecapiti.getResponseBody();
+                String  OTP = recuperoOTPRecapiti.getResponseBody();
+                setOTP(OTP);
             } else {
                 logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
                 Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
@@ -790,7 +799,8 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + mail;
         boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
         if (results) {
-            OTP = recuperoOTPRecapiti.getResponseBody();
+            String OTP = recuperoOTPRecapiti.getResponseBody();
+            setOTP(OTP);
         } else {
             String variabileAmbiente = webDriverConfig.getEnvironment();
             if (variabileAmbiente.equalsIgnoreCase("test")) {
@@ -801,14 +811,15 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + mail;
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
             if (results) {
-                OTP = recuperoOTPRecapiti.getResponseBody();
+                String OTP = recuperoOTPRecapiti.getResponseBody();
+                setOTP(OTP);
             } else {
                 logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
                 Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
             }
         }
 
-        logger.info("OTP Ricuperato:" + OTP);
+        logger.info("OTP Ricuperato:" + getOTP());
 
     }
 
