@@ -368,8 +368,8 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void cancellaTesto() {
         try {
-            getWebDriverWait(20).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("default_pec")));
-            pecField = element(By.id("default_pec"));
+            pecField = driver.findElement(By.id("default_pec"));
+            getWebDriverWait(20).until(ExpectedConditions.visibilityOf(pecField));
             js().executeScript("arguments[0].click()", pecField);
             clearWebElementField(pecField);
             logger.info("testo email pec cancellata");

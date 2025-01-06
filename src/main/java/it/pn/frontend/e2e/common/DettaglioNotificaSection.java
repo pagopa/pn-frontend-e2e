@@ -209,7 +209,7 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public String getInfoNotifica(int i) {
-
+        webTool.waitTime(3);
         infoNotifiche = driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11dv4ll')]"));
         return infoNotifiche.get(i).getText();
     }

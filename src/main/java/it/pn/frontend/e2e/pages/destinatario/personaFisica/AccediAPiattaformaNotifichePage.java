@@ -183,8 +183,9 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     public boolean codiceAvvisoDisplayed() {
         try {
-           // codiceAvviso = driver.findElement(By.xpath("//span[contains(text(),'Codice avviso')]"));
-            getWebDriverWait(5).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//span[contains(text(),'Codice avviso')]")))).isDisplayed();
+            webTool.waitTime(5);
+            codiceAvviso = driver.findElement(By.xpath("//span[contains(text(),'Codice avviso')]"));
+            getWebDriverWait(5).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvviso)).isDisplayed();
             return true;
         } catch (RuntimeException e) {
             return false;
@@ -192,8 +193,9 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public boolean modelloF24Displayed() {
-       // modelloF24 = driver.findElement(By.cssSelector("[data-testid='download-f24-button']"));
-        return getWebDriverWait(5).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='download-f24-button']")))).isDisplayed();
+        webTool.waitTime(5);
+        modelloF24 = driver.findElement(By.cssSelector("[data-testid='download-f24-button']"));
+        return getWebDriverWait(5).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(modelloF24)).isDisplayed();
     }
 
     public boolean scaricaAvvisoDisplayed() {
@@ -280,7 +282,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     public void cliccaPaga() {
         logger.info("Si clicca su bottone paga");
-        webTool.waitTime(5);
+        webTool.waitTime(15);
         pagaAvviso = driver.findElement(By.cssSelector("[data-testid='pay-button']"));
         pagaAvviso.click();
     }

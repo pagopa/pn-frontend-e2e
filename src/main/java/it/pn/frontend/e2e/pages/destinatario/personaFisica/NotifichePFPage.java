@@ -81,6 +81,7 @@ public class NotifichePFPage extends BasePage {
 
     public void waitLoadNotificheDEPage() {
         getWebDriverWait(60).withMessage("Notifiche DE Page non caricata correttamente: il titolo non è visibile").until(ExpectedConditions.visibilityOfElementLocated(By.id("Le tue notifiche-page")));
+        webTool.waitTime(5);
         getWebDriverWait(80).withMessage("Notifiche DE Page non caricata correttamente: la tabella delle notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(By.id("notifications-table")));
         logger.info("Notifiche DE Page caricata");
     }
@@ -132,8 +133,8 @@ public class NotifichePFPage extends BasePage {
 
     public boolean getListData() {
         //By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]");
-        getWebDriverWait(60).withMessage("La colonna Data nella pagina notifiche non è visibile").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"))));
-        return !driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]")).isEmpty();
+        getWebDriverWait(60).withMessage("La colonna Data nella pagina notifiche non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]")));
+        return !elements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]")).isEmpty();
     }
 
     public void clickNotificheButton() {
@@ -308,7 +309,7 @@ public class NotifichePFPage extends BasePage {
         titleLabel = driver.findElement(By.id("Le notifiche di " + nome + " " + cognome + "-page"));
         getWebDriverWait(40).withMessage("La tabella notifiche nella pagina notifiche delegante non è visibile")
                 .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
-        tableNotifiche = driver.findElement(By.id("notifications-table"));
+        //tableNotifiche = driver.findElement(By.id("notifications-table"));
         logger.info("Notifiche DE Page caricata");
     }
 
@@ -346,9 +347,10 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void clickScaricaF24Button() {
-        getWebDriverWait(15).withMessage("Il bottone per scaricare l'F24 non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='download-f24-button']"))));
-        getWebDriverWait(15).withMessage("Il bottone per scaricare l'F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='download-f24-button']"))));
+        webTool.waitTime(5);
         buttonDownloadF24 = driver.findElement(By.xpath("//button[@data-testid='download-f24-button']"));
+        getWebDriverWait(20).withMessage("Il bottone per scaricare l'F24 non è visibile").until(ExpectedConditions.visibilityOf(buttonDownloadF24));
+        getWebDriverWait(20).withMessage("Il bottone per scaricare l'F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(buttonDownloadF24));
         scrollToElementAndClick(buttonDownloadF24);
     }
 
@@ -361,9 +363,10 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void clickScaricaAvvisoPagoPAButton() {
-        getWebDriverWait(10).withMessage("Il bottone per scaricare l'avviso PagoPA non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='download-pagoPA-notice-button']"))));
-        getWebDriverWait(10).withMessage("Il bottone per scaricare l'avviso PagoPA non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='download-pagoPA-notice-button']"))));
+        webTool.waitTime(5);
         buttonDownloadAvvisoPagoPA = driver.findElement(By.xpath("//button[@data-testid='download-pagoPA-notice-button']"));
+        getWebDriverWait(10).withMessage("Il bottone per scaricare l'avviso PagoPA non è visibile").until(ExpectedConditions.visibilityOf(buttonDownloadAvvisoPagoPA));
+        getWebDriverWait(10).withMessage("Il bottone per scaricare l'avviso PagoPA non è cliccabile").until(ExpectedConditions.elementToBeClickable(buttonDownloadAvvisoPagoPA));
         scrollToElementAndClick(buttonDownloadAvvisoPagoPA);
     }
 }
