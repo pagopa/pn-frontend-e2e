@@ -193,7 +193,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void confermaButtonClickPopUp() {
 
-        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("code-confirm-button"))));
+        getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("code-confirm-button"))));
         confermaButtonPopUp = driver.findElement(By.id("code-confirm-button"));
         confermaButtonPopUp.click();
         webTool.waitTime(5);
@@ -268,7 +268,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean verificaPecAssociata() {
         try {
-            getWebDriverWait(30).withMessage("PEC associata non presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec-typography"))));
+            getWebDriverWait(40).withMessage("PEC associata non presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec-typography"))));
             return true;
         } catch (NoSuchElementException | TimeoutException e) {
             logger.error("pec associata non trovata" + e.getMessage());
@@ -368,7 +368,8 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void cancellaTesto() {
         try {
-            pecField = driver.findElement(By.id("default_pec"));
+            webTool.waitTime(10);
+            WebElement pecField = driver.findElement(By.id("default_pec"));
             getWebDriverWait(20).until(ExpectedConditions.visibilityOf(pecField));
             js().executeScript("arguments[0].click()", pecField);
             clearWebElementField(pecField);
