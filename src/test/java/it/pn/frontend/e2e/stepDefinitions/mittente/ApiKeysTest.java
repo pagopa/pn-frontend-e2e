@@ -24,7 +24,7 @@ public class ApiKeysTest  extends BasePage {
 
     @Getter
     @Setter
-    public  String ApiKey;
+    private  String ApiKey;
 
     @Autowired
     private WebDriverConfig webDriverConfig;
@@ -300,13 +300,13 @@ public class ApiKeysTest  extends BasePage {
     @And("Si copia e salva API key generata")
     public void siCopiaESalvaApiKeyGenearta(){
         logger.info("Si copia e salva API key generata");
-        ApiKey = apiKeyPAPage.copiaApiKeyESalva();
+        setApiKey(apiKeyPAPage.copiaApiKeyESalva());
     }
 
     @And("Si clicca visualizza codice e verifica che il valore dell'apikey copiato sia uguale")
     public void siVerificaValoreApiKeyUguale(){
         logger.info("Verifica che il valore dell'apikey copiato sia uguale a quello visualizzato in elenco");
         String apiKeyDaElenco =  apiKeyPAPage.visualizzaApiKeyInElenco();
-       Assertions.assertTrue(ApiKey.equalsIgnoreCase(apiKeyDaElenco));
+       Assertions.assertTrue(getApiKey().equalsIgnoreCase(apiKeyDaElenco));
     }
 }
