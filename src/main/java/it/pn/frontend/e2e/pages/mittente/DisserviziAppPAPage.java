@@ -245,8 +245,8 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
     }
 
     private void performDownloadAttestazione(int indexModifier) {
-        webTool.waitTime(3);
-        WebElement disserviziTable = driver.findElement(By.id("notifications-table"));
+        webTool.waitTime(5);
+        WebElement disserviziTable = element(By.id("notifications-table"));
         List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
         if (disserviziTableRows.isEmpty()) {
             logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
