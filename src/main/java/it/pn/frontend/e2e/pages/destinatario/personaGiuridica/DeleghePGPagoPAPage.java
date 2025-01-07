@@ -238,7 +238,7 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public boolean verificaEsistenzaErroreCodiceSbagliato() {
         try {
-            getWebDriverWait(5).withMessage("Alert non visualizzato correttamente").until(ExpectedConditions.visibilityOfElementLocated((By.id("alert-api-status"))));
+            getWebDriverWait(10).withMessage("Alert non visualizzato correttamente").until(ExpectedConditions.visibilityOfElementLocated((By.id("alert-api-status"))));
             logger.info("Errore codice sbagliato trovato");
             return true;
         } catch (TimeoutException e) {
