@@ -192,7 +192,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void confermaButtonClickPopUp() {
-
+        webTool.waitTime(3);
         getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("code-confirm-button"))));
         confermaButtonPopUp = driver.findElement(By.id("code-confirm-button"));
         confermaButtonPopUp.click();
