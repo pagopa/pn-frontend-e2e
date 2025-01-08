@@ -490,8 +490,8 @@ public class DownloadFileMittentePagoPATest extends BasePage {
 
     @And("Si controlla che esista pop up scadenza")
     public void siControllaCheEsistaPopUpScadenza() {
-        DettaglioNotificaSection dettaglioNotificaSectionParam = new DettaglioNotificaSection(driver);
-        dettaglioNotificaSectionParam.checkMessaggioScadenzaDownload();
+        //DettaglioNotificaSection dettaglioNotificaSectionParam = new DettaglioNotificaSection(driver);
+        dettaglioNotificaSection.checkMessaggioScadenzaDownload();
     }
 
 
