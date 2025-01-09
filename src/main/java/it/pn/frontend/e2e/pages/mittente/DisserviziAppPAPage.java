@@ -272,13 +272,6 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
         logger.info("Click effettuato con successo");
     }
 
-    @And("Si controlla che esista pop up scadenza disservizi")
-    public void siControllaCheEsistaPopUpScadenzaDisservizi() {
-        //TODO Modificato il messaggio "Il documento sarà scaricabile tra pochi minuti"
-        //webTool.waitTime(1);
-        WebElement checkAvvisoDownloadScaduto = driver.findElement(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]"));
-        getWebDriverWait(10).withMessage("In messaggio Al momento non è possibile scaricare il documento non è visibile").until(ExpectedConditions.visibilityOf(checkAvvisoDownloadScaduto));
-    }
 
     private WebElement determineRowElement(List<WebElement> rows, int randomNumber, int indexModifier) {
         WebElement selectedRow;
