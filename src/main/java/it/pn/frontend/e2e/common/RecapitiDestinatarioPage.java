@@ -325,7 +325,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public boolean verificaMailField() {
-        webTool.waitTime(5);
+        webTool.waitTime(10);
         inserimentoMailField = driver.findElement(By.id("default_email"));
         return inserimentoMailField.isDisplayed();
     }
