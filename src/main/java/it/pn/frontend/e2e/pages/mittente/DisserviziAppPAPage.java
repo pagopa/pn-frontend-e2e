@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class DisserviziAppPAPage extends BasePage {
@@ -260,13 +261,16 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
         logger.info("Tabella caricata e non vuota");
         int index = GregorianCalendar.getInstance().get(Calendar.HOUR_OF_DAY) + indexModifier;
 
-        int randomNumber = (int) (Math.random() * (disserviziTableRows.size()-1)) + 1;
+       // int randomNumber = (int) (Math.random() * (disserviziTableRows.size()-1)) + 1;
+        int randomNumber = ThreadLocalRandom.current().nextInt(0, disserviziTableRows.size() - 1);
+        /**
         if (indexModifier == 0){
             randomNumber = 0;
         }
+         **/
 
         logger.info("DOCUMENTO SELEZIONATO...."+randomNumber);
-        WebElement riga = determineRowElement(disserviziTableRows, index, indexModifier);
+      //  WebElement riga = determineRowElement(disserviziTableRows, index, indexModifier);
         WebElement linkDownloadAttestazione = driver.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(randomNumber);
         linkDownloadAttestazione.click();
         logger.info("Click effettuato con successo");
