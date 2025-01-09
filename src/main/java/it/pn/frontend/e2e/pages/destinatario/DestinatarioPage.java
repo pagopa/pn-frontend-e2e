@@ -147,9 +147,9 @@ public class DestinatarioPage extends BasePage {
 
         while (attempt <= maxAttempts) {
             NewNotificationResponse responseOfCreateNotification = restNotification.newNotificationWithOneRecipientAndDocument(notificationRequest);
-            log.info("NEW_NOTFIC_REQUEST_ID: " + responseOfCreateNotification.getNotificationRequestId());
             notificationSingleton = getNotificationSingleton();
             if (responseOfCreateNotification != null) {
+                log.info("NEW_NOTFIC_REQUEST_ID: " + responseOfCreateNotification.getNotificationRequestId());
                 log.info("Inizio controllo notifica fino a stato accettata");
                 int maxAttemptsPolling = 0;
                 LinkedTreeMap<String, Object> getNotificationStatus;
