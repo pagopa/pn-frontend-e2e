@@ -208,8 +208,7 @@ public class NotifichePFPage extends BasePage {
 
     public List<WebElement> getDateNotifiche() {
         getWebDriverWait(30).withMessage("la data della notifica non è visibile").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"))));
-        List<WebElement> dataCellBy = driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"));
-        return dataCellBy;
+        return driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"));
     }
 
     public boolean controllaNotifiche(List<WebElement> dateNotifiche) {
