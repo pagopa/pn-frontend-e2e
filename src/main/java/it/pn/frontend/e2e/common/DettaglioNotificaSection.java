@@ -85,7 +85,6 @@ public class DettaglioNotificaSection extends BasePage {
         } else {
             scrollToElementAndClick(attestazioniFile.get(numeroLinkAttestazioniOpponibile));
         }
-
     }
 
     public void toBeClickableLinkAttestazioniOpponibile(int numeroLinkAttestazioniOpponibile) {
