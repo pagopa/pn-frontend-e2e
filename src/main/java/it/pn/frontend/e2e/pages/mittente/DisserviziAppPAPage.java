@@ -1,6 +1,8 @@
 package it.pn.frontend.e2e.pages.mittente;
 
+import io.cucumber.java.en.And;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
@@ -268,6 +270,14 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
         WebElement linkDownloadAttestazione = driver.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(randomNumber);
         linkDownloadAttestazione.click();
         logger.info("Click effettuato con successo");
+    }
+
+    @And("Si controlla che esista pop up scadenza disservizi")
+    public void siControllaCheEsistaPopUpScadenza() {
+        //TODO Modificato il messaggio "Il documento sarà scaricabile tra pochi minuti"
+        //webTool.waitTime(1);
+        WebElement checkAvvisoDownloadScaduto = driver.findElement(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]"));
+        getWebDriverWait(10).withMessage("In messaggio Al momento non è possibile scaricare il documento non è visibile").until(ExpectedConditions.visibilityOf(checkAvvisoDownloadScaduto));
     }
 
     private WebElement determineRowElement(List<WebElement> rows, int randomNumber, int indexModifier) {
