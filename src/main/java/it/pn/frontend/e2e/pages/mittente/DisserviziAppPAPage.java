@@ -417,6 +417,13 @@ public boolean confrontoFileConDisservizio() {
     return false;
 }
 
+    public void checkMessaggioScadenzaDownload() {
+        //TODO Modificato il messaggio "Il documento sarà scaricabile tra pochi minuti"
+        webTool.waitTime(2);
+        WebElement checkAvvisoDownloadScaduto = driver.findElement(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]"));
+        getWebDriverWait(10).withMessage("In messaggio Al momento non è possibile scaricare il documento non è visibile").until(ExpectedConditions.visibilityOf(checkAvvisoDownloadScaduto));
+    }
+
 }
 
 

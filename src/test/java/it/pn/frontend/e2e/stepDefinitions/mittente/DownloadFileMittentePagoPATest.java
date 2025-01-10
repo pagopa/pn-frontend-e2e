@@ -492,5 +492,10 @@ public class DownloadFileMittentePagoPATest extends BasePage {
         dettaglioNotificaSection.checkMessaggioScadenzaDownload();
     }
 
+    @And("Si controlla che esista pop up scadenza disservizi")
+    public void siControllaCheEsistaPopUpScadenzaDisservizi() {
+        disserviziAppPAPage.checkMessaggioScadenzaDownload();
+    }
+
 
 }
