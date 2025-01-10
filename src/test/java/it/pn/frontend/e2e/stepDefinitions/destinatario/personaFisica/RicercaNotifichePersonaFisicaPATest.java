@@ -170,7 +170,7 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
         logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca 120 giorni");
 
         var dateNow = LocalDate.now();
-        var dateA = dateNow.minusDays(210);
+        var dateA = dateNow.minusDays(300);
         var dateDa = dateA.minusDays(30);
 
         var dataa = piattaformaNotifichePage.conversioneFormatoDate(dateA.toString());
