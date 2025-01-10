@@ -972,8 +972,12 @@ public class PiattaformaNotifichePage extends BasePage {
         int i = 0;
         while (element(By.id("next")).isEnabled()) {
             element(By.id("next")).click();
-            if (driver.findElement(By.id("page15")).isDisplayed()){
-                break;
+            try {
+                if (element(By.id("page15")).isDisplayed()){
+                    break;
+                }
+            } catch (NoSuchElementException e) {
+                logger.error("page15 non visualizzato");
             }
             webTool.waitTime(2);
         }
