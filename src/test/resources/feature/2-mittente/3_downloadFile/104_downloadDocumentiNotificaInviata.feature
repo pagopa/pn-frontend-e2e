@@ -12,7 +12,8 @@ Feature: il mittente download attestazione notifica presa in carico
     Then Si visualizza correttamente la pagina dello 'stato della piattaforma' di mittente
     And Si visualizza correttamente la tabella dei disservizi
     And Nella pagina stato della piattaforma si cambia il numero elementi visualizzati attraverso il filtro
-    And Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino all'ultima
+    #And Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino all'ultima
+    And Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino alla pagina 15
     And Download file attestazione disservizio
     And Si controlla che esista pop up scadenza disservizi
     And Nella pagina Piattaforma Notifiche selezionare la voce 'Notifiche'

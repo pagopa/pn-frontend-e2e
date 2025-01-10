@@ -984,6 +984,32 @@ public class PiattaformaNotifichePage extends BasePage {
 
     }
 
+    public void selezionaFrecettaFinoaPagina(int pagina) {
+        String paginaString = "page" + pagina;
+        getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("next")));
+        frecciaPaginaSuccessiva = driver.findElement(By.id("next"));
+        if (!element(By.id("next")).isDisplayed()) {
+            numeroNotificheButton = driver.findElement(By.id("rows-per-page"));
+            js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
+        }
+        int i = 0;
+        while (element(By.id("next")).isEnabled()) {
+            element(By.id("next")).click();
+            webTool.waitTime(2);
+            try {
+                if (element(By.id("paginaString")).isDisplayed()){
+                    break;
+                }
+            } catch (NoSuchElementException e) {
+                logger.error(paginaString +" non visualizzata");
+            }
+        }
+
+    }
+
+
+
     public void siCambiaPaginaUtilizzandoUnNumero() {
         pageNumberButton = driver.findElement(By.id("page3"));
         if (!pageNumberButton.isDisplayed()) {
