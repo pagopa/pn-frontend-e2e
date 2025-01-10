@@ -80,6 +80,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void waitLoadNotificheDEPage() {
+        logger.info("HTML......:"+driver.getPageSource());
         getWebDriverWait(60).withMessage("Notifiche DE Page non caricata correttamente: il titolo non è visibile").until(ExpectedConditions.visibilityOfElementLocated(By.id("Le tue notifiche-page")));
         getWebDriverWait(80).withMessage("Notifiche DE Page non caricata correttamente: la tabella delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
         logger.info("Notifiche DE Page caricata");
@@ -207,8 +208,7 @@ public class NotifichePFPage extends BasePage {
 
     public List<WebElement> getDateNotifiche() {
         getWebDriverWait(30).withMessage("la data della notifica non è visibile").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"))));
-        List<WebElement> dataCellBy = driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"));
-        return dataCellBy;
+        return driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"));
     }
 
     public boolean controllaNotifiche(List<WebElement> dateNotifiche) {

@@ -129,6 +129,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         headerPASection = new HeaderPASection(driver);
         successPASection = new SuccessPASection(driver);
         piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         allegatiPASection = new AllegatiPASection(driver);
         destinatarioPASection = new DestinatarioPASection(driver);
         dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(driver);
@@ -153,7 +154,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotifiche() {
         logger.info("Si visualizza correttamente la pagina Piattaforma Notifiche");
         headerPASection.waitLoadHeaderSection();
-
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         try {
             TimeUnit.SECONDS.sleep(5);
@@ -194,7 +195,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     public String getNumeroProtocollo() {
         logger.info("Si recupera l'ultimo numero protocollo utilizzato");
-
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro();
         webTool.waitTime(5);
         String urlNotifiche = webDriverConfig.getBaseUrl() + "notifications/";
@@ -224,6 +225,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica")
     public void nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica() {
         logger.info("Selezione bottone invia una nuova notifica");
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.selectInviaUnaNuovaNotificaButton();
         piattaformaNotifichePage.waitLoadingSpinner();
     }
@@ -305,6 +307,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Si visualizza correttamente la timeline relativi a tutti i destinatari")
     public void siVisualizzaCorrettamenteLaTimelineRelativiATuttiIDestinatari(Map<String, String> destinatari) {
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.visualizzaTimelineTuttiDestinatari(destinatari);
     }
 
@@ -473,6 +476,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
                 piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
                 piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
             }
+            piattaformaNotifichePage.setHooksNew(hooksNew);
             piattaformaNotifichePage.waitLoadRefreshPage();
             String codiceIUN = piattaformaNotifichePage.ricercaNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica(), statoNotifica);
             if (!codiceIUN.equals("")) {
@@ -502,6 +506,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @When("Cliccare sulla notifica restituita")
     public void cliccareSullaNotificaRestituita() {
         logger.info("Si clicca sulla notifica");
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.selezionaPrimaNotifica();
     }
 
@@ -515,6 +520,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @When("Cliccare sulla notifica  maggiore di 120 giorni {int}")
     public void cliccareSullaNotificaRestituita120Giorni(Integer index) {
         logger.info("Si clicca sulla notifica maggiore di 120 giorni");
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.selezionaNotifica120Giorni(index);
     }
 
@@ -576,6 +582,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Nella pagina Piattaforma Notifiche visualizzano correttamente i filtri di ricerca")
     public void nellaPaginaPiattaformaNotificheVisualizzanoCorrettamenteIFiltriDiRicerca() {
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.siVisualizzaCorrettamenteIlCFField();
         piattaformaNotifichePage.siVisualizzaCorrettamenteIlCodiceIUNField();
         piattaformaNotifichePage.siVisualizzaCorrettamenteLoStatoField();
@@ -586,7 +593,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @Then("Nella pagina Piattaforma Notifiche si visualizza correttamente l'elenco delle notifiche")
     public void nellaPaginaPiattaformaNotificheSiVisualizzaCorrettamenteLElencoDelleNotifiche() {
         logger.info("Si visualizza l'elenco delle notifiche");
-
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         int nDateNotifiche = piattaformaNotifichePage.controlloNumeroRisultatiDate();
         if (nDateNotifiche >= 1) {
             logger.info("Le date delle notifiche vengono visualizzate correttamente");
@@ -643,18 +650,20 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Nella pagina Piattaforma Notifiche si visualizzano le notifiche a partire dalla più recente")
     public void nellaPaginaPiattaformaNotificheSiVisualizzanoLeNotificheAPartireDallaPiuRecente() {
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.controlloOrdineNotifiche();
     }
 
     @And("Nella pagina Piattaforma Notifiche si scrolla fino alla fine della pagina")
     public void nellaPaginaPiattaformaNotificheSiScrollaFinoAllaFineDellaPagina() {
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.siScrollaFinoAllaFineDellaPagina();
     }
 
     @And("Nella pagina Piattaforma Notifiche si controlla che vengano visualizzate dieci notifiche")
     public void nellaPaginaPiattaformaNotificheSiControllaCheVenganoVisualizzateNotifiche() {
         logger.info("si controlla che vengono visualizzate dieci notifiche");
-
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         String nNotificheInviate = piattaformaNotifichePage.numeroNotifiche();
         if (nNotificheInviate.equals("10")) {
             logger.info("Il numero di notifiche é corretto");
@@ -666,21 +675,33 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Nella pagina Piattaforma Notifiche si cambia pagina utilizzando una freccetta")
     public void nellaPaginaPiattaformaNotificheSiCambiaPaginaUtilizzandoUnaFreccetta() {
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnaFrecetta(1);
     }
 
     @And("Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta {int}")
     public void nellaPaginaStatoDellaPiattaformaSiCambiaPaginaUtilizzandoUnaFreccetta(Integer numPage) {
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnaFrecetta(numPage);
     }
 
     @And("Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino all'ultima")
     public void nellaPaginaStatoDellaPiattaformaSiCambiaPaginaUtilizzandoUnaFreccetta() {
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.selezionaUltimaPaginaUtilizzandoUnaFrecetta();
     }
 
+    @And("Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino alla pagina {int}")
+    public void nellaPaginaStatoDellaPiattaformaSiCambiaPaginaUtilizzandoUnaFreccettaFinoPagina(Integer pagina) {
+        piattaformaNotifichePage.setHooksNew(hooksNew);
+        piattaformaNotifichePage.selezionaFrecettaFinoaPagina(pagina);
+    }
+
+
+
     @And("Nella pagina Piattaforma Notifiche si cambia pagina utilizzando un numero")
     public void nellaPaginaPiattaformaNotificheSiCambiaPaginaUtilizzandoUnNumero() {
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.siCambiaPaginaUtilizzandoUnNumero();
     }
 
@@ -691,6 +712,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Nella pagina Piattaforma Notifiche si controlla che vengano visualizzate tutte notifiche")
     public void nellaPaginaPiattaformaNotificheSiControllaCheVenganoVisualizzateTutteNotifiche() {
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.waitLoadPage();
         int numeroRighe = piattaformaNotifichePage.getNRighe();
         if (numeroRighe > 10) {
@@ -766,6 +788,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
 //        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         boolean notificaTrovata = false;
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         for (int i = 0; i < 10; i++) {
             try {

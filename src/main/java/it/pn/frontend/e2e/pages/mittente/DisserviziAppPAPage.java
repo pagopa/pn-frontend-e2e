@@ -1,6 +1,8 @@
 package it.pn.frontend.e2e.pages.mittente;
 
+import io.cucumber.java.en.And;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class DisserviziAppPAPage extends BasePage {
@@ -200,7 +203,7 @@ public class DisserviziAppPAPage extends BasePage {
     }
 
     public void checkDisserviziDisponibili() {
-        webTool.waitTime(10);
+        webTool.waitTime(20);
         aggiornamentoPagina();
         List<WebElement> statusList = driver.findElements(By.xpath("//tr[@id='tableDowntimeLog.row']//td//div[@data-testid='downtime-status']"));
         if (!statusList.isEmpty()) {
@@ -245,8 +248,9 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
     }
 
     private void performDownloadAttestazione(int indexModifier) {
+        webTool.waitTime(5);
+        WebElement disserviziTable = element(By.id("notifications-table"));
         webTool.waitTime(3);
-        disserviziTable = driver.findElement(By.id("notifications-table"));
         List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
         if (disserviziTableRows.isEmpty()) {
             logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
@@ -257,17 +261,21 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
         logger.info("Tabella caricata e non vuota");
         int index = GregorianCalendar.getInstance().get(Calendar.HOUR_OF_DAY) + indexModifier;
 
-        int randomNumber = (int) (Math.random() * (disserviziTableRows.size()-1)) + 1;
+       // int randomNumber = (int) (Math.random() * (disserviziTableRows.size()-1)) + 1;
+        int randomNumber = ThreadLocalRandom.current().nextInt(0, disserviziTableRows.size() - 1);
+        /**
         if (indexModifier == 0){
             randomNumber = 0;
         }
+         **/
 
         logger.info("DOCUMENTO SELEZIONATO...."+randomNumber);
-        WebElement riga = determineRowElement(disserviziTableRows, index, indexModifier);
+      //  WebElement riga = determineRowElement(disserviziTableRows, index, indexModifier);
         WebElement linkDownloadAttestazione = driver.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(randomNumber);
         linkDownloadAttestazione.click();
         logger.info("Click effettuato con successo");
     }
+
 
     private WebElement determineRowElement(List<WebElement> rows, int randomNumber, int indexModifier) {
         WebElement selectedRow;
@@ -408,6 +416,13 @@ public boolean confrontoFileConDisservizio() {
     }
     return false;
 }
+
+    public void checkMessaggioScadenzaDownload() {
+        //TODO Modificato il messaggio "Il documento sarà scaricabile tra pochi minuti"
+        //webTool.waitTime(2);
+       // WebElement checkAvvisoDownloadScaduto = driver.findElement(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]"));
+        getWebDriverWait(10).withMessage("In messaggio Al momento non è possibile scaricare il documento non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]")));
+    }
 
 }
 

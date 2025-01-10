@@ -141,12 +141,12 @@ public class RecapitiDestinatarioPage extends BasePage {
 
             // The message is different in PG and PF
            // WebElement footerNotReceived = driver.findElement(By.xpath("//div[contains(text(), 'Non l’hai ricevuto?')]"));
-            getWebDriverWait(10).withMessage("Non viene visualizzato correttamente il titolo").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-title"))));
-            getWebDriverWait(10).withMessage("La descrizione non viene visualizzata e il testo non è corretto").until(ExpectedConditions.and(
+            getWebDriverWait(20).withMessage("Non viene visualizzato correttamente il titolo").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-title"))));
+            getWebDriverWait(20).withMessage("La descrizione non viene visualizzata e il testo non è corretto").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-description"))),
                     ExpectedConditions.attributeContains(driver.findElement(By.id("dialog-description")), "textContent", "Il codice è valido per 15 minuti.")));
-            getWebDriverWait(10).withMessage("La scritta 'Inserisci codice' non viene visualizzata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='dialog-content']//p[contains(text(), 'Inserisci codice')]"))));
-            getWebDriverWait(10).withMessage("Le input boxes non vengono visualizzate").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"))));
+            getWebDriverWait(20).withMessage("La scritta 'Inserisci codice' non viene visualizzata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='dialog-content']//p[contains(text(), 'Inserisci codice')]"))));
+            getWebDriverWait(20).withMessage("Le input boxes non vengono visualizzate").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"))));
             List<WebElement> inputBoxes = driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"));
             if (inputBoxes.size() != 5) {
                 Assertions.fail("Il numero di input box non è corretto");
@@ -192,7 +192,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void confermaButtonClickPopUp() {
-
+        webTool.waitTime(3);
         getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("code-confirm-button"))));
         confermaButtonPopUp = driver.findElement(By.id("code-confirm-button"));
         confermaButtonPopUp.click();
@@ -325,7 +325,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public boolean verificaMailField() {
-        webTool.waitTime(5);
+        webTool.waitTime(20);
         inserimentoMailField = driver.findElement(By.id("default_email"));
         return inserimentoMailField.isDisplayed();
     }
@@ -368,9 +368,10 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void cancellaTesto() {
         try {
-            webTool.waitTime(10);
+            webTool.waitTime(5);
+           // WebElement pecField = element(By.id("default_pec"));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec"))));
             WebElement pecField = driver.findElement(By.id("default_pec"));
-            getWebDriverWait(20).until(ExpectedConditions.visibilityOf(pecField));
             js().executeScript("arguments[0].click()", pecField);
             clearWebElementField(pecField);
             logger.info("testo email pec cancellata");

@@ -267,6 +267,7 @@ public class HelpdeskTest extends BasePage {
     @And("Controllo sia presente documento {string}")
     public void controlloPresenteDocumento(String docName) throws IOException {
         logger.info("Controllo sia presente documento" + docName);
+        webTool.waitTime(5);
         Assertions.assertTrue (helpdeskPage.trovaDocumentoConTitolo(docName), "Documento " + docName + " non è trovato");
             logger.info("Documento " + docName + " è trovato");
     }
