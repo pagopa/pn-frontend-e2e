@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
@@ -527,7 +528,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
             attesaCaricamentoPagina();
             getWebDriverWait(30).withMessage("La tabella delle notifiche non è caricata correttamente").until(visibilityOfAllElements(driver.findElements(By.id("notificationsTable.body.row"))));
-            List<WebElement> notificaBy = driver.findElements(By.id("notificationsTable.body.row"));
+
 
             getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("rows-per-page"))));
             WebElement buttonRighePagine = driver.findElement(By.id("rows-per-page"));
@@ -538,8 +539,8 @@ public class PiattaformaNotifichePage extends BasePage {
             pageSize50.click();
 
             webTool.waitTime(10);
-            notificaBy = driver.findElements(By.id("notificationsTable.body.row"));
-            List<WebElement> notifiche = notificaBy;
+           // notificaBy = driver.findElements(By.id("notificationsTable.body.row"));
+            List<WebElement> notifiche = driver.findElements(By.id("notificationsTable.body.row"));
 
             Calendar calendar = GregorianCalendar.getInstance();
             logger.info("CALENDAR: " + calendar);
@@ -548,9 +549,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
             logger.info("Scenario " + hooksNew.getScenario());
 
-            int randomNumber = (int) (Math.random() * (notifiche.size() - 1)) + 1;
-
             if (notifiche != null) {
+               // int randomNumber = (int) (Math.random() * (notifiche.size() - 1)) + 1;
+                int randomNumber = ThreadLocalRandom.current().nextInt(0, notifiche.size() - 1);
                 logger.info("ELENCO NOTIFICHE : " + notifiche.size());
                 logger.info("NOTIFICA SELEZIONATA: " + randomNumber);
                 notifiche.get(randomNumber).click();
@@ -581,7 +582,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
             attesaCaricamentoPagina();
             getWebDriverWait(30).withMessage("La tabella delle notifiche non è caricata correttamente").until(visibilityOfAllElements(driver.findElements(By.id("notificationsTable.body.row"))));
-            List<WebElement> notificaBy = driver.findElements(By.id("notificationsTable.body.row"));
 
             getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("rows-per-page"))));
             WebElement buttonRighePagine = driver.findElement(By.id("rows-per-page"));
@@ -596,16 +596,18 @@ public class PiattaformaNotifichePage extends BasePage {
 
             logger.info("Scenario " + hooksNew.getScenario());
 
-            Calendar calendar = GregorianCalendar.getInstance();
-            int index = calendar.get(Calendar.HOUR_OF_DAY) + rows;
-            logger.info("HOUR..." + index);
-            logger.info("SIZE ROWS TABLE..." + notifiche.size());
-            logger.info("ROWS TABLE..." + rows);
-            logger.info("ROWS SELEZIONATA: " + index);
-            WebElement riga = null;
-            int randomNumber = (int) (Math.random() * (notifiche.size() - 1)) + 1;
-
             if (notifiche != null) {
+
+               // int randomNumber = (int) (Math.random() * (notifiche.size() - 1)) + 1;
+
+                int randomNumber = ThreadLocalRandom.current().nextInt(0, notifiche.size() - 1);
+
+                Calendar calendar = GregorianCalendar.getInstance();
+                int index = calendar.get(Calendar.HOUR_OF_DAY) + rows;
+                logger.info("HOUR..." + index);
+                logger.info("SIZE ROWS TABLE..." + notifiche.size());
+                logger.info("ROWS TABLE..." + randomNumber);
+                logger.info("ROWS SELEZIONATA: " + randomNumber);
 
                 notifiche.get(randomNumber).click();
                 /**
@@ -971,9 +973,42 @@ public class PiattaformaNotifichePage extends BasePage {
         while (element(By.id("next")).isEnabled()) {
             element(By.id("next")).click();
             webTool.waitTime(2);
+            try {
+                if (element(By.id("page15")).isDisplayed()){
+                    break;
+                }
+            } catch (NoSuchElementException e) {
+                logger.error("page15 non visualizzato");
+            }
         }
 
     }
+
+    public void selezionaFrecettaFinoaPagina(int pagina) {
+        String paginaString = "page" + pagina;
+        getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("next")));
+        frecciaPaginaSuccessiva = driver.findElement(By.id("next"));
+        if (!element(By.id("next")).isDisplayed()) {
+            numeroNotificheButton = driver.findElement(By.id("rows-per-page"));
+            js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
+        }
+        int i = 0;
+        while (element(By.id("next")).isEnabled()) {
+            element(By.id("next")).click();
+            webTool.waitTime(2);
+            try {
+                if (element(By.id("paginaString")).isDisplayed()){
+                    break;
+                }
+            } catch (NoSuchElementException e) {
+                logger.error(paginaString +" non visualizzata");
+            }
+        }
+
+    }
+
+
 
     public void siCambiaPaginaUtilizzandoUnNumero() {
         pageNumberButton = driver.findElement(By.id("page3"));

@@ -469,7 +469,6 @@ public class DownloadFileMittentePagoPATest extends BasePage {
     public void downloadFileAttestazioneDisservizio() {
         logger.info("si effettua download del disservizio");
         disserviziAppPAPage.downloadAttestazione();
-        webTool.waitTime(3);
     }
 
     @And("Download file attestazione disservizio {int}")
@@ -491,6 +490,11 @@ public class DownloadFileMittentePagoPATest extends BasePage {
     @And("Si controlla che esista pop up scadenza")
     public void siControllaCheEsistaPopUpScadenza() {
         dettaglioNotificaSection.checkMessaggioScadenzaDownload();
+    }
+
+    @And("Si controlla che esista pop up scadenza disservizi")
+    public void siControllaCheEsistaPopUpScadenzaDisservizi() {
+        disserviziAppPAPage.checkMessaggioScadenzaDownload();
     }
 
 

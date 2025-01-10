@@ -78,19 +78,18 @@ public class DettaglioNotificaSection extends BasePage {
 
     public void clickLinkAttestazioniOpponibile(int numeroLinkAttestazioniOpponibile) {
         webTool.waitTime(20);
-        attestazioniFile = driver.findElements(By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: notifica presa in carico')]"));
+        List<WebElement> attestazioniFile = driver.findElements(By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: notifica presa in carico')]"));
         if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
             getWebDriverWait(10).withMessage("Il link non è cliccabile").until(elementToBeClickable(attestazioniFile.get(numeroLinkAttestazioniOpponibile)));
             attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
         } else {
             scrollToElementAndClick(attestazioniFile.get(numeroLinkAttestazioniOpponibile));
         }
-
     }
 
     public void toBeClickableLinkAttestazioniOpponibile(int numeroLinkAttestazioniOpponibile) {
         webTool.waitTime(20);
-        attestazioniFile = driver.findElements(By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: notifica presa in carico')]"));
+        List<WebElement> attestazioniFile = driver.findElements(By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: notifica presa in carico')]"));
         if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
             getWebDriverWait(10).withMessage("Il link non è cliccabile").until(elementToBeClickable(attestazioniFile.get(numeroLinkAttestazioniOpponibile)));
         }
@@ -106,7 +105,7 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public int getLinkAttestazioniOpponibili() {
-        attestazioniFile = driver.findElements(By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: ')]"));
+        List<WebElement> attestazioniFile = driver.findElements(By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: ')]"));
         return attestazioniFile.size();
     }
 
@@ -129,7 +128,7 @@ public class DettaglioNotificaSection extends BasePage {
 
     public String getTextLinkAttestazioniOpponibili(int i) {
 
-        attestazioniFile = driver.findElements(By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: ')]"));
+        List<WebElement> attestazioniFile = driver.findElements(By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: ')]"));
         return attestazioniFile.get(i).getText();
     }
 
@@ -192,8 +191,8 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void checkMessaggioScadenzaDownload() {
-        //TODO Modificato il messaggio "Il documento sarà scaricabile tra pochi minuti"
-         webTool.waitTime(1);
+         //TODO Modificato il messaggio "Il documento sarà scaricabile tra pochi minuti"
+         webTool.waitTime(2);
          WebElement checkAvvisoDownloadScaduto = driver.findElement(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]"));
          getWebDriverWait(10).withMessage("In messaggio Al momento non è possibile scaricare il documento non è visibile").until(ExpectedConditions.visibilityOf(checkAvvisoDownloadScaduto));
     }
