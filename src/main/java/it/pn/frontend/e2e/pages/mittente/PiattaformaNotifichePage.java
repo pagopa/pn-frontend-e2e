@@ -972,6 +972,7 @@ public class PiattaformaNotifichePage extends BasePage {
         int i = 0;
         while (element(By.id("next")).isEnabled()) {
             element(By.id("next")).click();
+            webTool.waitTime(2);
             try {
                 if (element(By.id("page15")).isDisplayed()){
                     break;
@@ -979,7 +980,6 @@ public class PiattaformaNotifichePage extends BasePage {
             } catch (NoSuchElementException e) {
                 logger.error("page15 non visualizzato");
             }
-            webTool.waitTime(2);
         }
 
     }
