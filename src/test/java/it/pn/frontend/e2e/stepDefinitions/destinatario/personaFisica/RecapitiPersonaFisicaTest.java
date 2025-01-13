@@ -422,7 +422,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
             setOTP(OTP);
-            logger.info("OTP........"+OTP);
+            logger.info("RECUPERO OTP........"+OTP);
             if (persona.equalsIgnoreCase("personaGiuridica")) {
                 dataPopulationConfig.getPersonaGiuridica().setOTPMail(OTP);
             } else {
