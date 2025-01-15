@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.pages.mittente.ApiKeyPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.GeneraApiKeySection;
+import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,12 +36,15 @@ public class ApiKeysTest  extends BasePage {
 
     private GeneraApiKeySection generaApiKeySection;
 
+    private WebTool webTool;
+
     @PostConstruct
     public void init(){
         logger.info("INIT TEST...: ");
         piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         apiKeyPAPage = new ApiKeyPAPage(driver);
         generaApiKeySection = new GeneraApiKeySection(driver);
+        webTool = new WebTool(driver);
     }
 
     @And("Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu")
