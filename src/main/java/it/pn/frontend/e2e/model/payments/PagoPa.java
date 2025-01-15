@@ -17,6 +17,8 @@ public class PagoPa {
 
     private Attachment attachment;
 
+    long epochMillis = System.currentTimeMillis();
+
    private  static String randomNoticeCode(){
     Random random = new Random();
     StringBuilder sb =  new StringBuilder("30210");
@@ -28,7 +30,8 @@ public class PagoPa {
 
 
     public PagoPa(){
-        this.noticeCode = randomNoticeCode();
+
+        this.noticeCode = String.format("30202%13d", epochMillis );
         this.creditorTaxId = "77777777777";
         this.applyCost = false;
         this.attachment = new Attachment();

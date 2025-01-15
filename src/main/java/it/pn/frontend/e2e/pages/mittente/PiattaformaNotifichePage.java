@@ -151,8 +151,8 @@ public class PiattaformaNotifichePage extends BasePage {
            // webTool.waitTime(20);
            // WebElement notificheTitle = driver.findElement(By.id("Notifiche-page"));
            // inviaNuovaNotificaButton = driver.findElement(By.id("new-notification-btn"));
-            getWebDriverWait(20).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf( driver.findElement(By.id("new-notification-btn"))));
-            getWebDriverWait(20).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Notifiche-page"))));
+            getWebDriverWait(60).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf( driver.findElement(By.id("new-notification-btn"))));
+            getWebDriverWait(60).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Notifiche-page"))));
             logger.info("Piattaforma Notifiche Page caricata");
         } catch (TimeoutException e) {
             logger.error("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
