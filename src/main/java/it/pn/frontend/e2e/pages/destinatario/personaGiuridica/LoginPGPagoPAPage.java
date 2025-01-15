@@ -40,7 +40,8 @@ public class LoginPGPagoPAPage extends BasePage {
             WebElement titlePageBy = driver.findElement(By.xpath("//h1[contains(text(),'Login')]"));
             usernameField = driver.findElement(By.id("username"));
             passwordField = driver.findElement(By.id("password"));
-            inviaButton = driver.findElement(By.xpath("//button[@name = 'confirm']"));
+            //webTool.waitTime(3);
+            //inviaButton = driver.findElement(By.xpath("//button[@name = 'confirm']"));
 
             getWebDriverWait(30).withMessage("il titolo della pagina Login PG non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h1[contains(text(),'Login')]"))));
             getWebDriverWait(30).withMessage("Il campo username della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("username"))));

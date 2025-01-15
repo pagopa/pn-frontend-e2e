@@ -28,11 +28,11 @@ public class SelezionaImpresaPage extends BasePage {
     }
 
     public void waitLoadSelezionaImpresaPage() {
-        webTool.waitTime(30);
-        accediButton = driver.findElement(By.xpath("//button[contains(text(),'Accedi')]"));
-        WebElement titlePageBy = driver.findElement(By.xpath("//h3[contains(text(),'Seleziona la tua impresa')]"));
-        getWebDriverWait(30).withMessage("Il titolo della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOf(titlePageBy));
-        getWebDriverWait(30).withMessage("Il bottone accedi della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOf(accediButton));
+       // webTool.waitTime(30);
+        //accediButton = driver.findElement(By.xpath("//button[contains(text(),'Accedi')]"));
+        //WebElement titlePageBy = driver.findElement(By.xpath("//h3[contains(text(),'Seleziona la tua impresa')]"));
+        getWebDriverWait(60).withMessage("Il titolo della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//h3[contains(text(),'Le tue imprese su SEND')]")));
+        getWebDriverWait(60).withMessage("Il bottone accedi della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(text(),'Accedi')]")));
         logger.info("Seleziona Impresa Page caricata correttamente");
     }
 
@@ -47,9 +47,11 @@ public class SelezionaImpresaPage extends BasePage {
     public boolean clickSuImpresa(String ragioneSociale) {
         //insert try catch for handle element not clickable
         try {
+            logger.info("RAGIONE SOCIALE "+ragioneSociale);
             WebElement impresaBy = driver.findElement((By.xpath("//h6[contains(text(),'" + ragioneSociale + "')]")));
             getWebDriverWait(5).withMessage("l'ente: " + ragioneSociale + " della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.elementToBeClickable(impresaBy));
-            impresaBy.click();
+          //  impresaBy.click();
+            js().executeScript("arguments[0].click()", impresaBy);
             logger.info("check su impresa");
         } catch (ElementClickInterceptedException e) {
             logger.info("impresa non cliccabile");

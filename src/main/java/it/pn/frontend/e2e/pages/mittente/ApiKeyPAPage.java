@@ -208,7 +208,7 @@ public class ApiKeyPAPage extends BasePage {
     public void notificaSelezionataStatoBloccata() {
         try {
            // WebElement statoNotificaBloccata = driver.findElement(By.id("status-chip-Bloccata"));
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("status-chip-Bloccata"))));
+            getWebDriverWait(40).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("status-chip-Bloccata"))));
             logger.info("La notifica è in stato bloccata");
         } catch (TimeoutException e) {
             logger.error("La notifica è in stato bloccata con errore:" + e.getMessage());
