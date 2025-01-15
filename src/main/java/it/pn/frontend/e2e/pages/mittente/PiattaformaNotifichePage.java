@@ -551,7 +551,13 @@ public class PiattaformaNotifichePage extends BasePage {
 
             if (notifiche != null) {
                // int randomNumber = (int) (Math.random() * (notifiche.size() - 1)) + 1;
-                int randomNumber = ThreadLocalRandom.current().nextInt(0, notifiche.size() - 1);
+
+                // int randomNumber = (int) (Math.random() * (disserviziTableRows.size()-1)) + 1;
+                int randomNumber = 0;
+                if (notifiche.size()>1){
+                    randomNumber = ThreadLocalRandom.current().nextInt(0, notifiche.size() - 1);;
+                }
+
                 logger.info("ELENCO NOTIFICHE : " + notifiche.size());
                 logger.info("NOTIFICA SELEZIONATA: " + randomNumber);
                 notifiche.get(randomNumber).click();
@@ -600,7 +606,10 @@ public class PiattaformaNotifichePage extends BasePage {
 
                // int randomNumber = (int) (Math.random() * (notifiche.size() - 1)) + 1;
 
-                int randomNumber = ThreadLocalRandom.current().nextInt(0, notifiche.size() - 1);
+                int randomNumber = 0;
+                if (notifiche.size()>1){
+                    randomNumber = ThreadLocalRandom.current().nextInt(0, notifiche.size() - 1);;
+                }
 
                 Calendar calendar = GregorianCalendar.getInstance();
                 int index = calendar.get(Calendar.HOUR_OF_DAY) + rows;

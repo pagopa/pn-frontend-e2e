@@ -262,7 +262,11 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
         int index = GregorianCalendar.getInstance().get(Calendar.HOUR_OF_DAY) + indexModifier;
 
        // int randomNumber = (int) (Math.random() * (disserviziTableRows.size()-1)) + 1;
-        int randomNumber = ThreadLocalRandom.current().nextInt(0, disserviziTableRows.size() - 1);
+        int randomNumber = 0;
+        if (disserviziTableRows.size()>1){
+            randomNumber = ThreadLocalRandom.current().nextInt(0, disserviziTableRows.size() - 1);
+        }
+
         /**
         if (indexModifier == 0){
             randomNumber = 0;
