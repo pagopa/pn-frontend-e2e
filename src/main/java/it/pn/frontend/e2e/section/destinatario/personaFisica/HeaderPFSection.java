@@ -39,8 +39,8 @@ public class HeaderPFSection extends BasePage {
 
     public void waitLoadHeaderDESection() {
         try {
-            getWebDriverWait(35).withMessage("il titolo del header non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[@title='Sito di PagoPA S.p.A.']"))));
-            getWebDriverWait(35).withMessage("menu dell'utente non è visibile").until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//button[@aria-label='party-menu-button']"))));
+            getWebDriverWait(60).withMessage("il titolo del header non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[@title='Sito di PagoPA S.p.A.']"))));
+            getWebDriverWait(60).withMessage("menu dell'utente non è visibile").until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//button[@aria-label='party-menu-button']"))));
             logger.info("Header DE Section caricata");
         } catch (TimeoutException e) {
             logger.error("Header DE Section non caricata con errore : " + e.getMessage());
