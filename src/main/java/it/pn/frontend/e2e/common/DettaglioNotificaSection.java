@@ -25,7 +25,6 @@ public class DettaglioNotificaSection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
 
-
     @FindBy(xpath = "//button[contains(text(),'Attestazione opponibile a terzi: ')]")
     List<WebElement> attestazioniFile;
 
