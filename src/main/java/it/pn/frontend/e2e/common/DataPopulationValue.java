@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
+import java.security.SecureRandom;
 
 public enum DataPopulationValue {
 
@@ -334,7 +334,7 @@ public enum DataPopulationValue {
         String threadNumber = (Thread.currentThread().getId()+"");
         String numberOfThread = threadNumber.length() < 2 ? "0"+threadNumber: threadNumber.substring(0, 2);
         String timeNano = System.nanoTime()+"";
-        String randomClassePagamento = new Random().nextInt(14)+"";
+        String randomClassePagamento = new SecureRandom().nextInt(14)+"";
         randomClassePagamento = randomClassePagamento.length() < 2 ? "0"+randomClassePagamento : randomClassePagamento;
         String finalNumber = "" + String.format("302" +randomClassePagamento + numberOfThread + timeNano.substring(0, timeNano.length()-4));
         // String finalNumber = "" + String.format("30210" +randomClassePagamento + numberOfThread + timeNano.substring(0, timeNano.length()-6));
@@ -342,7 +342,7 @@ public enum DataPopulationValue {
             finalNumber = finalNumber.substring(0,NOTICE_CODE_LENGTH);
         }else{
             int remainingLength = NOTICE_CODE_LENGTH - finalNumber.length();
-            String paddingString = String.valueOf(new Random().nextInt(9)).repeat(remainingLength);
+            String paddingString = String.valueOf(new SecureRandom().nextInt(9)).repeat(remainingLength);
             finalNumber = finalNumber + paddingString;
         }
         return finalNumber;
