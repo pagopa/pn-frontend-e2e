@@ -2,12 +2,11 @@ Feature: La persona fisica visualizza la sezione notifiche
 
   @TestSuite
   @TA_PGVisualizzaNotifiche
-  @VisualizzazioneNotifichePG_1
+  @VisualizzazioneNotifichePG
     #viene inserito il tag deleghe pg per eliminare la delega una volta creata
   @DeleghePG
   @PG
   @deleghe2
-  @loginFE
   Scenario: PN-9147 - La persona giuridica visualizza la sezione notifiche
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe

@@ -4,7 +4,6 @@ Feature: la persona fisica inserisce l'OTP numero di telefono  errato
   @TA_inserimentoOTPTelefonoErrato
   @PF
   @recapitiPF
-  @mittente_x1
   @addressBook1
   @recapitiPFPG
   Scenario: PN-9311-C37 - la persona fisica inserisce l'OTP numero di telefono errato

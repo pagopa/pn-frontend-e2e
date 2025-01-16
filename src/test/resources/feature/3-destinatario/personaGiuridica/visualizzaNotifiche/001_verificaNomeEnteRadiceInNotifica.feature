@@ -3,9 +3,9 @@ Feature: La persona fisica visualizza il nome concatenato dell'ente Radice nel c
   @Parallel
   @TA_PGVisualizzaNotifiche
   @verificaNomeEnteRadice
-  @DeleghePG_1
+  @DeleghePG
   @PG
-  @deleghe1
+
   Scenario: PN-10431 - La persona giuridica visualizza il campo mittente della notifica con il nome concatenato dell'ente Radice
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     Then Nella Pagina Notifiche persona fisica si visualizza correttamente l elenco delle notifiche
