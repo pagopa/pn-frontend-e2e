@@ -11,9 +11,10 @@ Feature: il mittente download attestazione notifica presa in carico
     Then Si visualizza correttamente la pagina dello 'stato della piattaforma' di mittente
     And Si visualizza correttamente la tabella dei disservizi
     And Nella pagina stato della piattaforma si cambia il numero elementi visualizzati attraverso il filtro
-    And Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino all'ultima
-    And Download file attestazione disservizio 4
-    And Si controlla che esista pop up scadenza
+    #And Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino all'ultima
+    And Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino alla pagina 15
+    And Download file attestazione disservizio
+    And Si controlla che esista pop up scadenza disservizi
     And Nella pagina Piattaforma Notifiche selezionare la voce 'Notifiche'
     And Nella pagina Piattaforma Notifiche mittente inserire un arco temporale di maggiore di 120 giorni
     #And Nella pagina Piattaforma Notifiche mittente inserire un arco temporale
@@ -27,7 +28,7 @@ Feature: il mittente download attestazione notifica presa in carico
     And Cliccare sulla notifica restituita
     And Salva codice IUN
     And Logout da portale mittente
-    And Login helpdesk con utente test "testHelpdesk"
+    And Login helpdesk con utente test
     And Si visualizza correttamente home Helpdesk
     When Nella Home di helpdesk utente clicca su sezione ricerca ed estrazione dati
     And visualizzazione corretta pagina ricerca ed estrazione dati

@@ -4,7 +4,8 @@ Feature: persona fisica aggiunge una delega allo stesso delegato
   @TA_PFaggiuntaDelegaGiaPresente
   @DeleghePF
   @PF
-
+  @deleghe1
+  @DeleghePFPG
   Scenario:PN-9431 - La persona fisica aggiunge una delega allo stesso delegato
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
@@ -12,7 +13,7 @@ Feature: persona fisica aggiunge una delega allo stesso delegato
     And Nella sezione Deleghe si verifica sia presente una delega
       | nome    | Lucrezia |
       | cognome | Borgia   |
-    And Nella sezione Deleghe click sul bottone aggiungi nuova delega
+    And Nella sezione Deleghe click sul bottone aggiungi nuova delega PF
     And Si visualizza correttamente la pagina nuova delega
     And Nella sezione Le Tue Deleghe inserire i dati
       | nome          | Lucrezia            |

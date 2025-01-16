@@ -1,7 +1,8 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -10,6 +11,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 
 public class ScegliSpidPGPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("ScegliSpidPGPage");
@@ -18,23 +22,25 @@ public class ScegliSpidPGPage extends BasePage {
     WebElement testButton;
 
     public ScegliSpidPGPage(WebDriver driver) {
-        super(driver);
+        this.driver = driver;
     }
 
     public void waitLoadScegliSpidPGPage() {
         try {
-            By titlePageBy = By.xpath("//div[contains(text(),'Scegli il tuo SPID')]");
-            this.getWebDriverWait(30).withMessage("Il titolo della pagina Scegli il tuo SPID non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            this.getWebDriverWait(30).withMessage("Il bottone test della pagina Scegli il tuo SPID non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.testButton));
+            WebElement titlePageBy = driver.findElement(By.xpath("//div[contains(text(),'Scegli il tuo SPID')]"));
+            testButton = driver.findElement(By.id("xx_testenv2"));
+            getWebDriverWait(30).withMessage("Il titolo della pagina Scegli il tuo SPID non è visibile").until(ExpectedConditions.visibilityOf(titlePageBy));
+            getWebDriverWait(30).withMessage("Il bottone test della pagina Scegli il tuo SPID non è cliccabile").until(ExpectedConditions.elementToBeClickable(testButton));
             logger.info("ScegliSpidPGPage caricata correttamente");
         } catch (TimeoutException e){
             logger.error("ScegliSpidPGPage non caricata correttamente con errore: " +e.getMessage());
-            Assert.fail("ScegliSpidPGPage non caricata correttamente con errore: " +e.getMessage());
+            Assertions.fail("ScegliSpidPGPage non caricata correttamente con errore: " +e.getMessage());
         }
     }
 
     public void clickTestButton() {
-        getWebDriverWait(60).withMessage("Il bottone TEST non è cliccabile nella login").until(ExpectedConditions.elementToBeClickable(this.testButton));
-        this.testButton.click();
+        testButton = driver.findElement(By.id("xx_testenv2"));
+        getWebDriverWait(60).withMessage("Il bottone TEST non è cliccabile nella login").until(ExpectedConditions.elementToBeClickable(testButton));
+        testButton.click();
     }
 }

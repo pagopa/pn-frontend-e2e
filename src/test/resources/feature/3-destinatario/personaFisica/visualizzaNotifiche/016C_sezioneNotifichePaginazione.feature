@@ -4,7 +4,7 @@ Feature:La persona fisica visualizza le notifiche in elenco
   @TA_PFPaginazioneConFiltro
   @PFvisualizzaNotifiche
   @PF
-
+  @loginFE_200
   Scenario:PN-9209-C27 - La persona fisica posizionarsi su una pagina diversa e poi applica un filtro di ricerca
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica

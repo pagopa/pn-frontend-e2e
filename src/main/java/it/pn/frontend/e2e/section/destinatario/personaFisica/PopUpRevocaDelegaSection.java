@@ -1,12 +1,15 @@
 package it.pn.frontend.e2e.section.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.utility.WebTool;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 public class PopUpRevocaDelegaSection extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("RevocaDelegaSection");
@@ -17,17 +20,24 @@ public class PopUpRevocaDelegaSection extends BasePage {
     @FindBy(id = "dialog-action-button")
     WebElement revocaDialogAction;
 
+    private WebTool webTool;
+
     public PopUpRevocaDelegaSection(WebDriver driver) {
-        super(driver);
+        this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
-    public void waitLoadPopUpRevocaDelegaSection(){
-            this.getWebDriverWait(10).withMessage("la sezione revoca delega non è caricata").until(ExpectedConditions.visibilityOf(this.title));
-            this.getWebDriverWait(10).withMessage("Il bottone Revoca la delega sul pop up non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.revocaDialogAction));
+    public void waitLoadPopUpRevocaDelegaSection() {
+        title = driver.findElement(By.id("confirmation-dialog-delegations"));
+        revocaDialogAction = driver.findElement(By.id("dialog-action-button"));
+        getWebDriverWait(10).withMessage("la sezione revoca delega non è caricata").until(ExpectedConditions.visibilityOf(title));
+        getWebDriverWait(10).withMessage("Il bottone Revoca la delega sul pop up non è cliccabile").until(ExpectedConditions.elementToBeClickable(revocaDialogAction));
     }
 
     public void clickRevocaLaDelega() {
-        this.getWebDriverWait(10).withMessage("Non è possibile cliccare il bottone").until(ExpectedConditions.elementToBeClickable(this.revocaDialogAction));
+        webTool.waitTime(20);
+        revocaDialogAction = driver.findElement(By.id("dialog-action-button"));
+        getWebDriverWait(10).withMessage("Non è possibile cliccare il bottone").until(ExpectedConditions.elementToBeClickable(revocaDialogAction));
         logger.info("click revoca delega");
         this.revocaDialogAction.click();
     }

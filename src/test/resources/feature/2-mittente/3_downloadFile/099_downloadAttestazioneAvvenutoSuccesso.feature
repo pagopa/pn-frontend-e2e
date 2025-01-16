@@ -2,12 +2,11 @@ Feature: il mittente effettua il download attestazione opponibile a terzi avvenu
 
   @TestSuite
   @TA_MittenteDownloadAttestazioneAvvenutaSuccesso
-  @mittente
   @DownloadFileMittente
-
+  @loginFE
   Scenario: PN-9647 - il mittente effettua il download attestazione opponibile a terzi avvenuto successo
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
-    And Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica "personaFisica"
+    And Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica
     And Nella pagina piattaforma Notifiche selezionare lo stato notifica "Avvenuto accesso"
     And Cliccare sul bottone Filtra
     When Cliccare sulla notifica restituita

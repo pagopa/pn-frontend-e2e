@@ -1,52 +1,58 @@
 package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
+/*
+*Iniezione Spring: La classe è ora annotata con @Component per permettere a Spring Boot di gestirla come un bean, e il costruttore AreaRiservataPAPage riceve WebDriver tramite iniezione automatica.
+Gestione WebElement: Gli elementi WebElement definiti con @FindBy vengono iniettati automaticamente grazie a Spring e Selenium, senza ulteriori istanze di driver nella classe.
+* */
 
 public class AreaRiservataPAPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("AreaRiservataPAPage");
 
     @FindBy(xpath = "//p[contains(@class,'MuiTypography-root MuiTypography-body1 ShowDots')]")
-    List<WebElement> infoLabel;
+    private List<WebElement> infoLabel;
 
     @FindBy(id = "forward_prod-pn-dev")
-    WebElement piattaformaNotificaDevGestisciButton;
+    private WebElement piattaformaNotificaDevGestisciButton;
 
     @FindBy(id = "forward_prod-pn-test")
-    WebElement piattaformaNotificaTestGestisciButton;
+    private WebElement piattaformaNotificaTestGestisciButton;
 
     @FindBy(id = "forward_prod-pn")
-    WebElement piattaformaNotificaUatGestisciButton;
-
+    private WebElement piattaformaNotificaUatGestisciButton;
 
     public AreaRiservataPAPage(WebDriver driver) {
-        super(driver);
+        this.driver = driver;
     }
 
-    public void waitLoadAreaRiservataPAPage(){
-        try{
+    public void waitLoadAreaRiservataPAPage() {
+        try {
             By panoramicaLabel = By.cssSelector(".MuiTypography-root.MuiTypography-h4");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(panoramicaLabel));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(panoramicaLabel));
             logger.info("Titolo Panoramica dell'area Riservata PA Page caricato");
-        }catch (TimeoutException e){
-            logger.error("Titolo 'Panoramica' dell'area Riservata PA Page non caricato con errore : "+e.getMessage());
-            Assert.fail("Titolo 'Panoramica' dell'area Riservata PA Page non caricato con errore : "+e.getMessage());
+        } catch (TimeoutException e) {
+            logger.error("Titolo 'Panoramica' dell'area Riservata PA Page non caricato con errore: " + e.getMessage());
+            Assertions.fail("Titolo 'Panoramica' dell'area Riservata PA Page non caricato con errore: " + e.getMessage());
         }
     }
 
-    public boolean verificaCodiceFiscale(String codiceFiscale){
+    public boolean verificaCodiceFiscale(String codiceFiscale) {
         boolean codiceFiscaleFound = false;
-        for(WebElement element : infoLabel){
-            logger.info("Info ente presente nella pagina Aria Riservata: "+element.getText());
-            if(element.getText().equals(codiceFiscale)){
+        infoLabel = driver.findElements(By.xpath("//p[contains(@class,'MuiTypography-root MuiTypography-body1 ShowDots')]"));
+        for (WebElement element : infoLabel) {
+            logger.info("Info ente presente nella pagina Area Riservata: " + element.getText());
+            if (element.getText().equals(codiceFiscale)) {
                 codiceFiscaleFound = true;
                 break;
             }
@@ -54,49 +60,51 @@ public class AreaRiservataPAPage extends BasePage {
         return codiceFiscaleFound;
     }
 
-    public void selezionaPiattaformaNotificaDev(){
+    public void selezionaPiattaformaNotificaDev() {
         try {
+            piattaformaNotificaDevGestisciButton = driver.findElement(By.id("forward_prod-pn-dev"));
             getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(piattaformaNotificaDevGestisciButton));
-            if (this.piattaformaNotificaDevGestisciButton.isDisplayed()) {
-                this.piattaformaNotificaDevGestisciButton.click();
+            if (piattaformaNotificaDevGestisciButton.isDisplayed()) {
+                piattaformaNotificaDevGestisciButton.click();
             } else {
-                this.js().executeScript("arguments[0].scrollIntoView(true);", this.piattaformaNotificaDevGestisciButton);
-                this.piattaformaNotificaDevGestisciButton.click();
+                js().executeScript("arguments[0].scrollIntoView(true);", piattaformaNotificaDevGestisciButton);
+                piattaformaNotificaDevGestisciButton.click();
             }
-        }catch(TimeoutException | NoSuchElementException | ElementClickInterceptedException e){
-            logger.error("il bottone piattaforma notifica dev non è presente o non è cliccabile, "+e.getMessage());
-            Assert.fail("il bottone piattaforma notifica dev non è presente o non è cliccabile. "+e.getMessage());
+        } catch (TimeoutException | NoSuchElementException | ElementClickInterceptedException e) {
+            logger.error("Il bottone piattaforma notifica dev non è presente o non è cliccabile: " + e.getMessage());
+            Assertions.fail("Il bottone piattaforma notifica dev non è presente o non è cliccabile: " + e.getMessage());
         }
     }
-    public void selezionaPiattaformaNotificaTest() {
-        try{
-        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(piattaformaNotificaTestGestisciButton));
 
-        if(this.piattaformaNotificaTestGestisciButton.isDisplayed()){
-            this.piattaformaNotificaTestGestisciButton.click();
-        }else{
-            this.js().executeScript("arguments[0].scrollIntoView(true);",this.piattaformaNotificaDevGestisciButton);
-            this.piattaformaNotificaTestGestisciButton.click();
-        }
-        }catch(TimeoutException e){
-            logger.error("il bottone piattaforma notifica test non è presente o non è cliccabile, "+e.getMessage());
-            Assert.fail("il bottone piattaforma notifica test non è presente o non è cliccabile. "+e.getMessage());
+    public void selezionaPiattaformaNotificaTest() {
+        try {
+            piattaformaNotificaTestGestisciButton = driver.findElement(By.id("forward_prod-pn-test"));
+            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(piattaformaNotificaTestGestisciButton));
+            if (piattaformaNotificaTestGestisciButton.isDisplayed()) {
+                piattaformaNotificaTestGestisciButton.click();
+            } else {
+                js().executeScript("arguments[0].scrollIntoView(true);", piattaformaNotificaTestGestisciButton);
+                piattaformaNotificaTestGestisciButton.click();
+            }
+        } catch (TimeoutException | NoSuchElementException | ElementClickInterceptedException e) {
+            logger.error("Il bottone piattaforma notifica test non è presente o non è cliccabile: " + e.getMessage());
+            Assertions.fail("Il bottone piattaforma notifica test non è presente o non è cliccabile: " + e.getMessage());
         }
     }
 
     public void selezionaPiattaformaNotificaUat() {
-        try{
-        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(piattaformaNotificaUatGestisciButton));
-
-        if(this.piattaformaNotificaUatGestisciButton.isDisplayed()){
-            this.piattaformaNotificaUatGestisciButton.click();
-        }else{
-            this.js().executeScript("arguments[0].scrollIntoView(true);",this.piattaformaNotificaDevGestisciButton);
-            this.piattaformaNotificaUatGestisciButton.click();
-        }
-        }catch(TimeoutException | NoSuchElementException | ElementClickInterceptedException e){
-            logger.error("il bottone piattaforma notifica uat non è presente o non è cliccabile, "+e.getMessage());
-            Assert.fail("il bottone piattaforma notifica uat non è presente o non è cliccabile. "+e.getMessage());
+        try {
+            piattaformaNotificaUatGestisciButton = driver.findElement(By.id("forward_prod-pn"));
+            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(piattaformaNotificaUatGestisciButton));
+            if (piattaformaNotificaUatGestisciButton.isDisplayed()) {
+                piattaformaNotificaUatGestisciButton.click();
+            } else {
+                js().executeScript("arguments[0].scrollIntoView(true);", piattaformaNotificaUatGestisciButton);
+                piattaformaNotificaUatGestisciButton.click();
+            }
+        } catch (TimeoutException | NoSuchElementException | ElementClickInterceptedException e) {
+            logger.error("Il bottone piattaforma notifica uat non è presente o non è cliccabile: " + e.getMessage());
+            Assertions.fail("Il bottone piattaforma notifica uat non è presente o non è cliccabile: " + e.getMessage());
         }
     }
 

@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -18,23 +18,24 @@ public class PreAccediAreaRiservataPGPage extends BasePage {
     WebElement accediButton;
 
     public PreAccediAreaRiservataPGPage(WebDriver driver) {
-        super(driver);
+        this.driver = driver;
     }
 
     public void waitLoadPreAccediPage() {
         try {
-            By titlePage = By.id("login-page-title");
-            this.getWebDriverWait(30).withMessage("Il titolo della pagina PreAccediAreaRiservataPGPage non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePage));
-            this.getWebDriverWait(30).withMessage("Il bottone accedi della pagina PreAccediAreaRiservataPGPage non è visibile").until(ExpectedConditions.visibilityOf(accediButton));
+           // WebElement titlePage = driver.findElement(By.id("login-page-title"));
+            getWebDriverWait(30).withMessage("Il titolo della pagina PreAccediAreaRiservataPGPage non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("login-page-title"))));
+            getWebDriverWait(30).withMessage("Il bottone accedi della pagina PreAccediAreaRiservataPGPage non è visibile").until(ExpectedConditions.visibilityOf(accediButton));
             logger.info("PreAccediAreaRiservataPGPage caricata corretamente");
         } catch (TimeoutException e ){
             logger.error("PreAccediAreaRiservataPGPage non  caricata corretamente con errore: " +e.getMessage());
-            Assert.fail("PreAccediAreaRiservataPGPage non  caricata corretamente con errore: " +e.getMessage());
+            Assertions.fail("PreAccediAreaRiservataPGPage non  caricata corretamente con errore: " +e.getMessage());
         }
     }
 
     public void clickAccediButton() {
-        this.getWebDriverWait(30).withMessage("Il bottone accedi della pagina PreAccediAreaRiservataPGPage non è cliccabile").until(ExpectedConditions.elementToBeClickable(accediButton));
-        this.accediButton.click();
+        accediButton = driver.findElement(By.id("login-button"));
+        getWebDriverWait(30).withMessage("Il bottone accedi della pagina PreAccediAreaRiservataPGPage non è cliccabile").until(ExpectedConditions.elementToBeClickable(accediButton));
+        accediButton.click();
     }
 }

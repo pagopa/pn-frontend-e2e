@@ -4,7 +4,9 @@ Feature: la persona fisica inserisce una Email
   @TA_inserimentoEmailPF
   @recapitiPF
   @PF
-
+  @mittente_x1
+  @addressBook1
+  @recapitiPFPG
   Scenario: PN-9308-A34 - la persona fisica inserisce una Email
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono
@@ -14,6 +16,6 @@ Feature: la persona fisica inserisce una Email
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
-    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email "personaFisica"
+    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
     Then Nella pagina I Tuoi Recapiti si controlla che la Email sia presente
     And Logout da portale persona fisica

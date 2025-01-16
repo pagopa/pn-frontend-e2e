@@ -5,7 +5,7 @@ Feature: Mittente effetua una ricerca notifiche per CF sbagliato
   @TestSuite
   @mittente
   @ricercaNotificheMittente
-
+  @loginFE
   Scenario: PN-9321 - Mittente loggato effettua una ricerca per CF sbagliato
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche inserire il codice fiscale sbagliato "QWERTY123"

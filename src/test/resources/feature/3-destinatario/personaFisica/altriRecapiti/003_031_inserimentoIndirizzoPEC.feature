@@ -4,7 +4,9 @@ Feature: la persona fisica inserisce una email pec
   @TA_inserimentoPECPF
   @PF
   @recapitiPF
-
+  @mittente_x1
+  @addressBook1
+  @recapitiPFPG
   Scenario: PN-9240-A31 - La persona fisica inserisce una email pec
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

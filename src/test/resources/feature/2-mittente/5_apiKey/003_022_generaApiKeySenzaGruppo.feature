@@ -2,9 +2,8 @@ Feature: Mittente genera Api Key senza gruppo
 
   @TestSuite
   @TA_MittenteGeneraApiKeySenzaGruppo
-  @mittente
   @ApikeyMittente
-
+  @loginFE_72
   Scenario: PN-9230 - Mittente genera Api Key senza gruppo
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
@@ -14,6 +13,9 @@ Feature: Mittente genera Api Key senza gruppo
     And Nella sezione genera Api Key inserire il nome "testAutomationFE" per l Api Key
     And Nella sezione genera Api Key cliccare bottone continua
     And Si visualizza correttamente la pagina di conferma
+    And Si copia e salva API key generata
     And Nella pagina di conferma cliccare sul bottone Torna a API key
-    Then Si visualizza correttamente l api key "testAutomationFE" nell elenco in stato attivo
+    And Si visualizza correttamente l api key "testAutomationFE" nell elenco in stato attivo
+    Then Si clicca visualizza codice e verifica che il valore dell'apikey copiato sia uguale
+    And Nella pop up cliccare sul tasto chiudi
     And Logout da portale mittente

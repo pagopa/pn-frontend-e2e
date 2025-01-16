@@ -3,28 +3,49 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.pages.mittente.ApiKeyPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.GeneraApiKeySection;
-import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
+import jakarta.annotation.PostConstruct;
+import lombok.Getter;
+import lombok.Setter;
+import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.concurrent.TimeUnit;
 
-public class ApiKeysTest {
+public class ApiKeysTest  extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("ApiKeysTest");
-    private final WebDriver driver = Hooks.driver;
-    private final ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
+
+    @Getter
+    @Setter
+    private  String ApiKey;
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
+
+    private PiattaformaNotifichePage piattaformaNotifichePage;
+
+    private ApiKeyPAPage apiKeyPAPage;
+
+    private GeneraApiKeySection generaApiKeySection;
+
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+        apiKeyPAPage = new ApiKeyPAPage(driver);
+        generaApiKeySection = new GeneraApiKeySection(driver);
+    }
 
     @And("Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu")
     public void nellaPaginaPiattaformaNotificheSelezionareLaVoceApiKeyNelMenu() {
         logger.info("Si cerca di cliccare sulla voce ApiKeys");
-
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         try {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
@@ -37,16 +58,12 @@ public class ApiKeysTest {
     @And("Si visualizza correttamente la pagina Api Key")
     public void siVisualizzaCorrettamenteLaPaginaApiKey() {
         logger.info("Si visualizza correttamente la pagina Api Key");
-
-        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
         apiKeyPAPage.waitLoadApikeyPage();
     }
 
     @When("Nella pagina Api Key si clicca sul bottone genera Api Key")
     public void nellaPaginaApiKeySiCliccaSulBottoneGeneraApiKey() {
         logger.info("Si clicca sul bottone genera ApiKey");
-
-        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
         apiKeyPAPage.waitLoadPage();
         apiKeyPAPage.clickSulBottoneGeneraApiKey();
     }
@@ -54,8 +71,6 @@ public class ApiKeysTest {
     @Then("Si visualizza correttamente la sezione genera Api key")
     public void siVisualizzaCorrettamenteLaSezioneGeneraApiKey() {
         logger.info("Si visualizza correttamente la sezione genera Api Key");
-
-        GeneraApiKeySection generaApiKeySection = new GeneraApiKeySection(this.driver);
         generaApiKeySection.waitLoadGeneraApiKey();
     }
 
@@ -91,8 +106,6 @@ public class ApiKeysTest {
     @Then("Si visualizza correttamente l api key {string} nell elenco in stato attivo")
     public void siVisualizzaCorrettamenteLApiKeyNellElencoInStatoAttivo(String nomeApiKey) {
         logger.info("Si controlla che sia stato creata l'api key");
-
-        ApiKeyPAPage apiKeyPAPage = new ApiKeyPAPage(this.driver);
         apiKeyPAPage.waitLoadApikeyPage();
         apiKeyPAPage.siVisualizzaNuovaApiAttiva(nomeApiKey);
     }
@@ -169,35 +182,35 @@ public class ApiKeysTest {
             logger.info("Si visualizza correttamente l'Api Key delle Api Key");
         } else {
             logger.error("NON si visualizza correttamente l'Api Key delle Api Key");
-            Assert.fail("NON si visualizza correttamente l'Api Key delle Api Key");
+            Assertions.fail("NON si visualizza correttamente l'Api Key delle Api Key");
         }
 
         if (apiKeyPAPage.siVisualizzaNomeEDataConTesto()) {
             logger.info("Si visualizza correttamente le date delle Api Key");
         } else {
             logger.error("NON si visualizza correttamente le date delle Api Key");
-            Assert.fail("NON si visualizza correttamente le date delle Api Key");
+            Assertions.fail("NON si visualizza correttamente le date delle Api Key");
         }
 
         if (apiKeyPAPage.siVisualizzaGruppoConTesto()) {
             logger.info("Si visualizza correttamente il gruppo delle Api Key");
         } else {
             logger.error("NON si visualizza correttamente il gruppo delle Api Key");
-            Assert.fail("NON si visualizza correttamente il gruppo delle Api Key");
+            Assertions.fail("NON si visualizza correttamente il gruppo delle Api Key");
         }
 
         if (apiKeyPAPage.siVisualizzaStatoConTesto()) {
             logger.info("Si visualizza correttamente lo stato delle api key");
         } else {
             logger.error("NON si visualizza correttamente lo stato delle api key");
-            Assert.fail("NON si visualizza correttamente lo stato delle api key");
+            Assertions.fail("NON si visualizza correttamente lo stato delle api key");
         }
 
         if (apiKeyPAPage.siVisualizzaMenuApiKey()) {
             logger.info("Si visualizza correttamente il bottone del menu Api Key");
         } else {
             logger.error("NON si visualizza correttamente il bottone del menu Api Key");
-            Assert.fail("NON si visualizza correttamente il bottone del menu Api Key");
+            Assertions.fail("NON si visualizza correttamente il bottone del menu Api Key");
         }
     }
 
@@ -209,7 +222,7 @@ public class ApiKeysTest {
 
     @And("Nella sezione genera Api Key inserire un gruppo")
     public void nellaSezioneGeneraApiKeyInserireUnGruppo() {
-        String variabileAmbiente = System.getProperty("environment");
+        String variabileAmbiente = webDriverConfig.getEnvironment();
         String gruppo = "";
         String gruppo2 = "";
         switch (variabileAmbiente) {
@@ -282,5 +295,18 @@ public class ApiKeysTest {
     public void nellaPaginaApiKeyPosizionareIlCursuoreSopraIlNumeroGruppi() {
         apiKeyPAPage.mouseHoverGroups();
         apiKeyPAPage.waitLoadMessaggioData();
+    }
+
+    @And("Si copia e salva API key generata")
+    public void siCopiaESalvaApiKeyGenearta(){
+        logger.info("Si copia e salva API key generata");
+        setApiKey(apiKeyPAPage.copiaApiKeyESalva());
+    }
+
+    @And("Si clicca visualizza codice e verifica che il valore dell'apikey copiato sia uguale")
+    public void siVerificaValoreApiKeyUguale(){
+        logger.info("Verifica che il valore dell'apikey copiato sia uguale a quello visualizzato in elenco");
+        String apiKeyDaElenco =  apiKeyPAPage.visualizzaApiKeyInElenco();
+       Assertions.assertTrue(getApiKey().equalsIgnoreCase(apiKeyDaElenco));
     }
 }

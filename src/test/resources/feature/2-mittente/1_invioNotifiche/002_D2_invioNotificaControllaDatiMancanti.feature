@@ -2,6 +2,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
   @TestSuite
   @InvioNotificaControllaDatiMancanti
+  @loginFE_8
   Scenario: PN-9316-Check dati mancanti
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
@@ -10,7 +11,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | oggettoNotifica   | Pagamento rata IMU |
       | descrizione       | PAGAMENTO RATA IMU |
       | gruppo            | test-TA-FE-TEST    |
-      | codiceTassonomico | 123456A            |
+      | codiceTassonomico | 100105P            |
       | modalitaInvio     | A/R                |
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
@@ -32,7 +33,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | oggettoNotifica   | Pagamento rata IMU |
       | descrizione       | PAGAMENTO RATA IMU |
       | gruppo            | test-TA-FE-TEST    |
-      | codiceTassonomico | 123456A            |
+      | codiceTassonomico | 100105P            |
       | modalitaInvio     | A/R                |
     And Cliccare su continua
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario

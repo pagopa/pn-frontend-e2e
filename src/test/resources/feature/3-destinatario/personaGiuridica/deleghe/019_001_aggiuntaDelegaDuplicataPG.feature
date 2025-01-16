@@ -3,19 +3,23 @@ Feature:Il delegato persona giuridica accede ad una delega
   @TestSuite
   @DeleghePG
   @PG
-
-
+  @DeleghePFPG1
+  @deleghe2
   @TA_PGdeleganteAggiuntaDelegaDuplicata
+
   Scenario: [DELEGANTE PG AMMINISTRATORE] - Il delegante aggiunta delega duplicata PG
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe
-    And Nella sezione Deleghe si verifica sia presente una delega accettata per PG
-    And Logout da portale persona giuridica
+    And Nella pagina Deleghe si clicca su Delegati dall impresa
+    And Si controlla che non sia presente una delega con stesso nome persona giuridica "Le Epistolae srl"
+    And Nella sezione Deleghe si crea una delega accettata per PG
+
     And PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella pagina Deleghe si clicca su Delegati dall impresa
-    And Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega
+    And Aspetta 5 secondi
+    And Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega senza revocare quella esistente
     And Si visualizza la sezione Aggiungi Delega persona giuridica
     And Nella sezione Aggiungi Delega persona giuridica inserire i dati
       | accessoCome    | delegante         |

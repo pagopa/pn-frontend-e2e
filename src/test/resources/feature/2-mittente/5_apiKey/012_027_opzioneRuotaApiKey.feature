@@ -2,9 +2,8 @@ Feature: Mittente seleziona l'opzione ruota api Key
 
   @TestSuite
   @TA_MittenteRuotaApiKey
-  @mittente
   @ApikeyMittente
-
+  @loginFE_72
   Scenario: PN-9235 - Mittente seleziona l'opzione ruota Api Key
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu

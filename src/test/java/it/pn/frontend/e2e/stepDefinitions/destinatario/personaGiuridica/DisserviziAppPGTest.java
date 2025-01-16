@@ -2,29 +2,53 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
-import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.listeners.HooksNew;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DisserviziAppPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
+import it.pn.frontend.e2e.section.destinatario.personaGiuridica.AggiungiDelegaPGSection;
+import it.pn.frontend.e2e.section.destinatario.personaGiuridica.DelegatiImpresaSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+import jakarta.annotation.PostConstruct;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
 
 import java.util.Set;
 
-public class DisserviziAppPGTest {
-    private final WebDriver driver = Hooks.driver;
+
+public class DisserviziAppPGTest extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger("DisserviziAppPGTest");
 
-    private final DisserviziAppPage disserviziAppPage = new DisserviziAppPage(this.driver);
+    private  DisserviziAppPage disserviziAppPage;
+
+    private  PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
+
+    @Autowired
+    @Lazy
+    private BackgroundTest backgroundTest;
+
+    private  WebTool webTool;
+
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
+        disserviziAppPage = new DisserviziAppPage(driver);
+        piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
+    }
 
 
     @Given("Nella dashboard persona giuridica clicca su disservizi app")
     public void nellaDashboardPersonaGiuridicaCliccaSuDisserviziApp() {
-        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
+
         logger.info("click sul bottone disservisi nel menu laterale");
         piattaformaNotifichePGPAPage.clickOnButtonEnterIntoDisservizi();
     }
@@ -48,20 +72,19 @@ public class DisserviziAppPGTest {
 
     @And("Si verifica avvenuto disservizio in pagina stato piattaforma")
     public void siVerificaAvvenutoDisservizioInPaginaStatoPiattaforma() {
-        BackgroundTest backgroundTest = new BackgroundTest();
         logger.info("Torno sulla scheda della piattaforma send");
-        String helpdeskHandle = driver.getWindowHandle();
+        String helpdeskHandle =driver.getWindowHandle();
         Set<String> windowHandles = driver.getWindowHandles();
         for (String handle : windowHandles) {
             if (!handle.equals(helpdeskHandle)) {
-                this.driver.switchTo().window(handle);
+                driver.switchTo().window(handle);
                 break;
             }
         }
         backgroundTest.getStatoDellaPiattaformaPage();
         boolean res = false;
         for (int i = 0; i < 2; i++) {
-            WebTool.waitTime(30);
+            webTool.waitTime(30);
             disserviziAppPage.aggiornamentoPagina();
             if (disserviziAppPage.checkDisservizioInCorso()) {
                 res = true;
@@ -70,9 +93,11 @@ public class DisserviziAppPGTest {
         }
         if (!res) {
             logger.error("dopo aver atteso alcuni secondi il disservizio non è stato ancora creato");
-            Assert.fail("dopo aver atteso alcuni secondi il disservizio non è stato ancora creato");
+            Assertions.fail("dopo aver atteso alcuni secondi il disservizio non è stato ancora creato");
         }
         disserviziAppPage.waitLoadStatoDellaPiattaformaPage();
 
     }
+
+
 }

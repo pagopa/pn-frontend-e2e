@@ -4,6 +4,8 @@ Feature: Il delegato persona fisica annulLa l'operazione di rifiuto delega
   @TA_PFannullaRifiutoDelega
   @DeleghePF
   @PF
+  @DeleghePFPG
+  @deleghe1
 
   Scenario: PN-9414-NEG - Il delegato persona fisica annulla l'operazione di rifiuto delega
     Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
@@ -16,5 +18,5 @@ Feature: Il delegato persona fisica annulLa l'operazione di rifiuto delega
       | cognome       | Cesare      |
     And Nella pagina Deleghe si sceglie opzione rifiuta
     And Si clicca sul bottone annulla all'interno del pop-up
-    Then Si controlla che la delega è ancora presente "personaFisica"
+    Then Si controlla che la delega è ancora presente
     And Logout da portale persona fisica

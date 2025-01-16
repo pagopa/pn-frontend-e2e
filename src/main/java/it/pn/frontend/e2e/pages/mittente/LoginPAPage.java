@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -26,40 +26,43 @@ public class LoginPAPage extends BasePage {
     WebElement inviaButton;
 
     public LoginPAPage(WebDriver driver) {
-        super(driver);
+        this.driver = driver;
     }
 
     public void waitLoadLoginPAPage(){
         try{
-            By titlePage = By.cssSelector("h1.u-text-r-xl.u-margin-bottom-l");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(titlePage));
+            //WebElement titlePage = driver.findElement(By.cssSelector("h1.u-text-r-xl.u-margin-bottom-l"));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("h1.u-text-r-xl.u-margin-bottom-l"))));
             logger.info("Login PA Page caricata");
         }catch (TimeoutException e){
             logger.error("Il titolo della pagina Login PA non caricato con errore : "+e.getMessage());
-            Assert.fail("Il titolo della pagina Login PA non caricato con errore  : "+e.getMessage());
+            Assertions.fail("Il titolo della pagina Login PA non caricato con errore  : "+e.getMessage());
         }
     }
 
     public void inserisciUtenete(String user){
         logger.info("Si inserisci il nome utente");
-        this.getWebDriverWait(30).withMessage("Il campo user non è presente").until(ExpectedConditions.visibilityOf(this.userTextEdit));
-        this.userTextEdit.sendKeys(user);
+        getWebDriverWait(30).withMessage("Il campo user non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("username"))));
+        userTextEdit = driver.findElement(By.id("username"));
+        userTextEdit.sendKeys(user);
     }
 
     public void inserisciPassword(String pwd){
         logger.info("Si inserisce la password dell'utente");
-        this.getWebDriverWait(30).withMessage("Il campo password non è presente").until(ExpectedConditions.visibilityOf(this.pwdTextEdit));
-        this.pwdTextEdit.sendKeys(pwd);
+        getWebDriverWait(30).withMessage("Il campo password non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("password"))));
+        pwdTextEdit = driver.findElement(By.id("password"));
+        pwdTextEdit.sendKeys(pwd);
     }
 
     public void selezionaInviaDati(){
         logger.info("Si selezione il bottone invia");
         try {
-            this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(this.inviaButton));
-            this.inviaButton.click();
+            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Invia')]"))));
+            inviaButton = driver.findElement(By.xpath("//button[contains(text(),'Invia')]"));
+            inviaButton.click();
         }catch (TimeoutException e){
         logger.error("Il bottone invia nella pagina Login PA non è stato cliccato con errore : "+e.getMessage());
-        Assert.fail("Il bottone invia nella pagina Login PA non è stato cliccato con errore : "+e.getMessage());
+            Assertions.fail("Il bottone invia nella pagina Login PA non è stato cliccato con errore : "+e.getMessage());
         }
     }
 }

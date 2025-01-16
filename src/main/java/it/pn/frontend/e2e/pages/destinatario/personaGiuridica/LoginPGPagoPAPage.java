@@ -1,7 +1,8 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import it.pn.frontend.e2e.utility.WebTool;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -10,6 +11,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 
 public class LoginPGPagoPAPage extends BasePage {
 
@@ -24,35 +28,47 @@ public class LoginPGPagoPAPage extends BasePage {
     @FindBy(xpath = "//button[@name = 'confirm']")
     WebElement inviaButton;
 
+    private WebTool webTool;
+
     public LoginPGPagoPAPage(WebDriver driver) {
-        super(driver);
+        this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void waitLoadLoginPGPage() {
         try {
-            By titlePageBy = By.xpath("//h1[contains(text(),'Login')]");
-            this.getWebDriverWait(30).withMessage("il titolo della pagina Login PG non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titlePageBy));
-            this.getWebDriverWait(30).withMessage("Il campo username della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.usernameField));
-            this.getWebDriverWait(30).withMessage("Il campo password della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.passwordField));
-            this.getWebDriverWait(30).withMessage("Il bottone invia della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(this.inviaButton));
+            WebElement titlePageBy = driver.findElement(By.xpath("//h1[contains(text(),'Login')]"));
+            usernameField = driver.findElement(By.id("username"));
+            passwordField = driver.findElement(By.id("password"));
+            //webTool.waitTime(3);
+            //inviaButton = driver.findElement(By.xpath("//button[@name = 'confirm']"));
+
+            getWebDriverWait(30).withMessage("il titolo della pagina Login PG non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h1[contains(text(),'Login')]"))));
+            getWebDriverWait(30).withMessage("Il campo username della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("username"))));
+            getWebDriverWait(30).withMessage("Il campo password della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("password"))));
+            getWebDriverWait(35).withMessage("Il bottone invia della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@name = 'confirm']"))));
             logger.info("LoginPGPage caricata correttamente");
         } catch (TimeoutException e){
             logger.error("LoginPGPage non caricata correttamente con errore :" +e.getMessage());
-            Assert.fail("LoginPGPage non caricata correttamente con errore :" +e.getMessage());
+            Assertions.fail("LoginPGPage non caricata correttamente con errore :" +e.getMessage());
         }
     }
 
     public void insertUsername(String user) {
-        this.usernameField.sendKeys(user);
+        usernameField = driver.findElement(By.id("username"));
+        usernameField.sendKeys(user);
     }
 
 
     public void insertPassword(String pwd) {
-        this.passwordField.sendKeys(pwd);
+        passwordField = driver.findElement(By.id("password"));
+        passwordField.sendKeys(pwd);
     }
 
 
     public void clickInviaButton() {
-        this.inviaButton.click();
+        webTool.waitTime(5);
+        inviaButton = driver.findElement(By.xpath("//button[@name = 'confirm']"));
+        inviaButton.click();
     }
 }

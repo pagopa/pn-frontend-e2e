@@ -9,9 +9,10 @@ import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.junit.Assert;
+
 
 
 public class SpidLogin {
@@ -37,14 +38,14 @@ public class SpidLogin {
                     .build();
             this.responseBody = httpclient.execute(httpGet, response -> {
                 logger.info(response.getCode() + " " + response.getReasonPhrase());
-                Assert.assertEquals(this.getSpidLoginEndPoint()+" risponde con : "+response.getCode(), response.getCode(),200);
+                Assertions.assertEquals(response.getCode(),200);
                 final HttpEntity entity = response.getEntity();
                 String resultContent = EntityUtils.toString(entity);
                 logger.info(resultContent);
                 return resultContent;
             });
         } catch (IOException e) {
-            Assert.fail(e.getMessage());
+            Assertions.fail(e.getMessage());
         }
     }
 

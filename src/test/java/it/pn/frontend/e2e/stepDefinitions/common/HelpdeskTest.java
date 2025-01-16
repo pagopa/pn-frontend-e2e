@@ -4,63 +4,89 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.HelpdeskPage;
-import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
+import it.pn.frontend.e2e.config.WebDriverConfig;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.enums.Disservice;
 import it.pn.frontend.e2e.model.enums.Status;
-import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+import jakarta.annotation.PostConstruct;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
 
 import java.awt.*;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-public class HelpdeskTest {
-    private final WebDriver driver = Hooks.driver;
-    private final DataPopulation dataPopulation = new DataPopulation();
-    private final Logger logger = LoggerFactory.getLogger("HelpdeskAppTest");
-    private HelpdeskPage helpdeskPage = new HelpdeskPage(this.driver);
-    private Map<String, Object> datiTestHelpdesk = new HashMap<>();
-    private Map<String, Object> datiPersonaFisica = new HashMap<>();
 
-    @Given("Login helpdesk con utente test {string}")
-    public void loginHelpdeskConUtenteTest(String nameFile) {
-        this.datiTestHelpdesk = this.dataPopulation.readDataPopulation(nameFile + ".yaml");
-        String variabileAmbiente = System.getProperty("environment");
+public class HelpdeskTest extends BasePage {
+    private final Logger logger = LoggerFactory.getLogger("HelpdeskAppTest");
+
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
+
+    private HelpdeskPage helpdeskPage ;
+
+    @Autowired
+    @Lazy
+    private BackgroundTest backgroundTest;
+
+    private  WebTool webTool;
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
+
+//    private Map<String, Object> datiTestHelpdesk = new HashMap<>();
+//    private Map<String, Object> datiPersonaFisica = new HashMap<>();
+
+
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
+        helpdeskPage = new HelpdeskPage(driver);
+    }
+
+
+    @Given("Login helpdesk con utente test")
+    public void loginHelpdeskConUtenteTest() {
+        String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
-            case "dev" -> helpdeskPage.changePage(this.datiTestHelpdesk.get("url").toString());
+            case "dev" -> helpdeskPage.changePage(dataPopulationConfig.getHelpdesk().getUrl());
             case "test", "uat" ->
-                    helpdeskPage.changePage(this.datiTestHelpdesk.get("url").toString().replace("dev", variabileAmbiente));
+                    helpdeskPage.changePage(dataPopulationConfig.getHelpdesk().getUrl().replace("dev", variabileAmbiente));
             default ->
-                    Assert.fail("Non è stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+                    Assertions.fail("Non è stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
         helpdeskPage.checkForm();
         switch (variabileAmbiente) {
             case "dev" -> {
-                helpdeskPage.insertUsername(this.datiTestHelpdesk.get("userDev").toString());
-                helpdeskPage.insertPassword(this.datiTestHelpdesk.get("pwdDev").toString());
+                helpdeskPage.insertUsername(dataPopulationConfig.getHelpdesk().getUserDev());
+                helpdeskPage.insertPassword(dataPopulationConfig.getHelpdesk().getPwdDev());
             }
             case "test" -> {
-                helpdeskPage.insertUsername(this.datiTestHelpdesk.get("userTest").toString());
-                helpdeskPage.insertPassword(this.datiTestHelpdesk.get("pwdTest").toString());
+                helpdeskPage.insertUsername(dataPopulationConfig.getHelpdesk().getUserTest());
+                helpdeskPage.insertPassword(dataPopulationConfig.getHelpdesk().getPwdTest());
             }
             case "uat" -> {
-                helpdeskPage.insertUsername(this.datiTestHelpdesk.get("userUat").toString());
-                helpdeskPage.insertPassword(this.datiTestHelpdesk.get("pwdUat").toString());
+                helpdeskPage.insertUsername(dataPopulationConfig.getHelpdesk().getUserUat());
+                helpdeskPage.insertPassword(dataPopulationConfig.getHelpdesk().getPwdUat());
             }
             default ->
-                    Assert.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+                    Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
         helpdeskPage.clickInviaButton();
     }
@@ -82,19 +108,19 @@ public class HelpdeskTest {
 
     @And("Si crea il disservizio")
     public void siCreaIlDisservizio() {
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         if (!helpdeskPage.checkIsCreatedDisservizio()) {
             helpdeskPage.handleDisservizio(Disservice.CREAZIONE_NOTIFICHE, Status.KO);
-            WebTool.waitTime(5);
+            webTool.waitTime(5);
         }
     }
 
     @And("Si risolve il disservizio")
     public void siRisolveIlDisservizio() {
-        WebTool.waitTime(5);
+        webTool.waitTime(5);
         if (helpdeskPage.checkIsCreatedDisservizio()) {
             helpdeskPage.handleDisservizio(Disservice.CREAZIONE_NOTIFICHE,Status.OK);
-            WebTool.waitTime(5);
+            webTool.waitTime(5);
         }
     }
 
@@ -105,13 +131,12 @@ public class HelpdeskTest {
 
     @And("Si annulla un disservizio in corso")
     public void annullamentoDisservizio() {
-        BackgroundTest backgroundTest = new BackgroundTest();
         logger.info("Torno sulla scheda di helpdesk");
         String sendHandle = driver.getWindowHandle();
         Set<String> windowHandles = driver.getWindowHandles();
         for (String handle : windowHandles) {
             if (!handle.equals(sendHandle)) {
-                this.driver.switchTo().window(handle);
+                driver.switchTo().window(handle);
                 break;
             }
         }
@@ -136,7 +161,7 @@ public class HelpdeskTest {
         logger.info("Torno sulla piattaforma send per il logout");
         for (String handle : windowHandles) {
             if (handle.equals(sendHandle)) {
-                this.driver.switchTo().window(handle);
+                driver.switchTo().window(handle);
                 break;
             }
         }
@@ -152,27 +177,28 @@ public class HelpdeskTest {
         helpdeskPage.checkRicercaPage();
     }
 
-    @And("viene inserito codice fiscale {string}")
-    public void vieneInseritoCodiceFiscale(String nameFile) {
-        this.datiPersonaFisica = this.dataPopulation.readDataPopulation(nameFile + ".yaml");
-        helpdeskPage.insertCfAndRicercaOnPage(datiPersonaFisica.get("codiceFiscale").toString());
+    @And("viene inserito codice fiscale")
+    public void vieneInseritoCodiceFiscale() {
+        //personaFisica
+//        helpdeskPage.insertCfAndRicercaOnPage(datiPersonaFisica.get("codiceFiscale").toString());
+        helpdeskPage.insertCfAndRicercaOnPage(dataPopulationConfig.getPersonaFisica().getCodiceFiscale());
     }
 
     @And("viene inserito codice fiscale senza ricerca {string}")
     public void vieneInseritoCodiceFiscaleSenzaRicerca(String CF) {
         helpdeskPage.insertCF(CF);
     }
-
+    ///-*-*-**-
     @And("viene inserito codice IUN {string}")
     public void vieneInseritoIun(String iun) {
-        helpdeskPage.insertIunAndRicercaOnPage(iun);
+        String codiceIun = getCodiceIun(iun,"viene inserito codice IUN");
+        helpdeskPage.insertIunAndRicercaOnPage(codiceIun);
     }
-
     @And("viene inserito codice IUN senza ricerca {string}")
     public void vieneInseritoIunSenzaRicerca(String iun) {
-        helpdeskPage.insertIun(iun);
+        String codiceIun = getCodiceIun(iun,"viene inserito codice IUN senza ricerca");
+        helpdeskPage.insertIun(codiceIun);
     }
-
 
     @And("viene inserito numero ticket")
     public void vieneInseritoNumeroTicket() {
@@ -227,19 +253,22 @@ public class HelpdeskTest {
 
     @Then("controllo link per scaricare zip e scarico file")
     public void controlloLinkPerScaricareZip() throws IOException, AWTException {
+        helpdeskPage.setHeadlessParam(webDriverConfig.getHeadless());
         helpdeskPage.checkZipLink();
     }
 
     @And("Inserisco la password ed estraggo il file zip")
     public void inseriscoPasswordEdEstraggoZip() throws IOException {
         logger.info("Inserisco la password ed estraggo il file zip");
+        helpdeskPage.setHeadlessParam(webDriverConfig.getHeadless());
         helpdeskPage.extractZip();
     }
 
     @And("Controllo sia presente documento {string}")
     public void controlloPresenteDocumento(String docName) throws IOException {
         logger.info("Controllo sia presente documento" + docName);
-        Assert.assertTrue ("Documento " + docName + " non è trovato",helpdeskPage.trovaDocumentoConTitolo(docName));
+        webTool.waitTime(5);
+        Assertions.assertTrue (helpdeskPage.trovaDocumentoConTitolo(docName), "Documento " + docName + " non è trovato");
             logger.info("Documento " + docName + " è trovato");
     }
 
@@ -299,19 +328,17 @@ public class HelpdeskTest {
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(tabs.size() - 1));
         logger.info("Nella nuova finestra aperta si va sulla pagina di login di helpdesk");
-        driver.get("https://helpdesk.test.notifichedigitali.it/login");
+        driver.get(webDriverConfig.getUrlHelpdeskTestNotifichedigitali());
         helpdeskPage.loginHelpdeskNuovaScheda(login);
     }
 
     @Given("Creazione disservizio su portale helpdesk")
     public void creazioneDisservizioSuPortaleHelpdesk() {
-        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.creazioneDisservizio();
     }
 
     @And("Risoluzione disservizio su portale helpdesk")
     public void risoluzioneDisservizioSuPortaleHelpdesk() {
-        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.risoluzioneDisservizio();
     }
 
@@ -325,5 +352,28 @@ public class HelpdeskTest {
          logger.info("Selezione ottieni log completi");
          helpdeskPage.selectOttieniLogCompleti();
      }
+
+    private String getCodiceIun(String iun, String message) {
+        String codiceIun;
+        switch (iun) {
+            case "IUN0" -> {
+                codiceIun=webDriverConfig.getCodiceIun();
+            }
+            case "IUN1" -> {
+                codiceIun=webDriverConfig.getCodiceIunN1();
+            }
+            case "IUN2" -> {
+                codiceIun=webDriverConfig.getCodiceIunN2();
+            }
+            case "IUN3" -> {
+                codiceIun=webDriverConfig.getCodiceIunN3();
+            }
+            default -> {
+                logger.error(message);
+                throw new RuntimeException(message+" 'ERRATO'");
+            }
+        }
+        return codiceIun;
+    }
 
 }

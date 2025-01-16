@@ -2,25 +2,69 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.common.DettaglioNotificaSection;
+import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.listeners.HooksNew;
+import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
+import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RecapitiPGPage;
+import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
+import it.pn.frontend.e2e.section.CookiesSection;
+import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
+import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+
+import jakarta.annotation.PostConstruct;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+
 import java.util.Map;
 
-public class RecapitiPGPagoPaTest {
+public class RecapitiPGPagoPaTest extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("RecapitiPGPagoPaTest");
-    private final WebDriver driver = Hooks.driver;
-    DataPopulation dataPopulation = new DataPopulation();
-    private final RecapitiPGPage recapitiPGPage = new RecapitiPGPage(this.driver);
-    private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
+
+
+    @Autowired
+    private  DataPopulation dataPopulation;
+
+    private RecapitiPGPage recapitiPGPage;
+
+    private RecapitiDestinatarioPage recapitiDestinatarioPage;
+
+    private ITuoiRecapitiPage iTuoiRecapitiPage;
+
+    @Autowired
+    @Lazy
+    private BackgroundTest backgroundTest;
+
+    private  WebTool webTool;
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
+
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
+        recapitiPGPage = new RecapitiPGPage(driver);
+        recapitiDestinatarioPage = new RecapitiDestinatarioPage(driver);
+        iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
+    }
+
 
     @And("Si visualizza correttamente la pagina Recapiti persona giuridica")
     public void siVisualizzaRecapitiPagePersonaGiuridica(){
@@ -29,12 +73,11 @@ public class RecapitiPGPagoPaTest {
         recapitiPGPage.waitLoadRecapitiPage();
     }
 
-    @And("Nella pagina Recapiti si inserisce la PEC del persona giuridica {string}")
-    public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelPersonaGiuridica(String personaGiuridica) {
+    @And("Nella pagina Recapiti si inserisce la PEC del persona giuridica")
+    public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelPersonaGiuridica() {
         logger.info("Si cerca di inserire la email pec");
-
-        Map<String, Object> datiPG = dataPopulation.readDataPopulation(personaGiuridica+".yaml");
-        recapitiDestinatarioPage.insertEmailPEC(datiPG.get("emailPec").toString());
+        //TODO ATTUALMENTE NON VIENE UTILIZZATA
+        recapitiDestinatarioPage.insertEmailPEC(dataPopulationConfig.getPersonaGiuridica().getEmailPec());
     }
 
 
@@ -52,29 +95,27 @@ public class RecapitiPGPagoPaTest {
         recapitiDestinatarioPage.getPecErrorMessage();
     }
 
-    @And("Nella pagina I Tuoi Recapiti si inserisce l'email del PG {string} e clicca sul bottone avvisami via email")
-    public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPGECliccaSulBottoneAvvisamiViaEmail(String personaGiuridica) {
+    @And("Nella pagina I Tuoi Recapiti si inserisce l'email del PG e clicca sul bottone avvisami via email")
+    public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPGECliccaSulBottoneAvvisamiViaEmail() {
         logger.info("Si inserisce l'email del PG e si clicca sul bottone avvisami via email");
-
-        Map<String, Object> datiPG = dataPopulation.readDataPopulation(personaGiuridica+".yaml");
-        recapitiDestinatarioPage.insertEmail(datiPG.get("emailPec").toString());
+        //TODO ATTUALMENTE NON VIENE UTILIZZATA
+        recapitiDestinatarioPage.insertEmail(dataPopulationConfig.getPersonaGiuridica().getEmailPec());
         recapitiDestinatarioPage.clickAvvisami();
     }
 
-    @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono del PG {string} e clicca sul bottone avvisami via SMS")
-    public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoDelPGECliccaSulBottoneAvvisamiViaSMS(String personaGiuridica) {
+    @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono del PG e clicca sul bottone avvisami via SMS")
+    public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoDelPGECliccaSulBottoneAvvisamiViaSMS() {
         logger.info("Si inserisce l'email del PG e clicca sul bottone avvisami via numero telefonico");
-
-        Map<String, Object> datiPG = dataPopulation.readDataPopulation(personaGiuridica+".yaml");
-        recapitiDestinatarioPage.insertPhone(datiPG.get("cellulare").toString());
+        //personaGiuridica
+        recapitiDestinatarioPage.insertPhone(dataPopulationConfig.getPersonaGiuridica().getCellulare());
         recapitiDestinatarioPage.clickAvvisamiSMS();
     }
 
     @Then("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti")
     public void siVisualizzanoCorrettamenteTuttiGliElementiDellaSezioneAltriRecapiti() {
         logger.info("Si visualizzano correttamente tutti gli elementi della sezione altri recapiti");
-        WebTool.waitTime(10);
-        this.driver.navigate().refresh();
+        webTool.waitTime(10);
+        driver.navigate().refresh();
         recapitiDestinatarioPage.visualizzazioneCampiSezioneAltriRecapiti();
     }
 
@@ -82,7 +123,6 @@ public class RecapitiPGPagoPaTest {
     public void nellaPaginaITuoiRecapitiDiPgSiControllaCheCiSiaGiaUnaPec() {
         logger.info("Si controlla la presenza di una pec");
         String pec = dataPopulation.readDataPopulation("personaGiuridica.yaml").get("emailPec").toString();
-        BackgroundTest backgroundTest = new BackgroundTest();
         if (!recapitiDestinatarioPage.siVisualizzaPecInserita()) {
             backgroundTest.aggiungiPECPG();
         } else if (!recapitiDestinatarioPage.siControllaPECModificata(pec)) {
@@ -93,8 +133,6 @@ public class RecapitiPGPagoPaTest {
 
     @And("Si clicca su elimina email")
     public void siCliccaSuEliminaEmail() {
-        ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
-
         iTuoiRecapitiPage.eliminaEmailEsistente();
     }
 
@@ -118,7 +156,6 @@ public class RecapitiPGPagoPaTest {
 
     @And("Nella sezione altri recapiti si inserisce un recapito")
     public void nellaSezioneAltriRecapitiSiInserisceUnRecapito(){
-        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.aggiungiPecSezioneGiaAssociati();
     }
 
@@ -191,7 +228,7 @@ public class RecapitiPGPagoPaTest {
     public void nellaSezioneAltriRecapitiSiVisualizzaMessagioDiErrorePopup(){
        if (!recapitiDestinatarioPage.waitErrorMessagePopupOTP()){
            logger.error("Il messaggio di errore OTP popup non è visibile");
-           Assert.fail("Il messaggio di errore OTP popup non è visibile");
+           Assertions.fail("Il messaggio di errore OTP popup non è visibile");
        }
     }
 

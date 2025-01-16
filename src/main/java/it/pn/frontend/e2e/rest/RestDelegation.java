@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.rest;
 
 import it.pn.frontend.e2e.config.CustomHttpClient;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.exceptions.RestDelegationException;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
@@ -8,125 +9,159 @@ import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePG;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+/*
+*Modifiche principali:
+Iniezione delle dipendenze: Utilizza @Autowired per l’iniezione automatica di CustomHttpClient e WebDriverConfig, eliminando l'uso di un getInstance() statico.
+Costruttore: Il costruttore viene utilizzato per impostare l'URL base e l'intestazione Authorization per tutte le richieste.
+Miglioramento gestione errori: Log di errore e gestione delle eccezioni tramite RestDelegationException per comunicare i fallimenti specifici nei metodi.
+Metodi ottimizzati: Tutti i metodi sono stati aggiornati per seguire la configurazione dell’intestazione e l’uso di CustomHttpClient.
+*
+* */
+@Component
 public class RestDelegation {
-    private static final Logger logger = LoggerFactory.getLogger("RestDelegation");
-    final CustomHttpClient<DelegateRequestPF, DelegateResponsePF> httpClientPF = CustomHttpClient.getInstance();
-    final CustomHttpClient<DelegateRequestPG, DelegateResponsePG> httpClientPG = CustomHttpClient.getInstance();
 
-    private static RestDelegation instance;
-    final private String env = System.getProperty("environment");
-    final private String token = System.getProperty("token");
-    private Map<String, String> headers = new HashMap<>();
+    private static final Logger logger = LoggerFactory.getLogger(RestDelegation.class);
 
-    public static synchronized RestDelegation getInstance() {
-        if (instance == null) {
-            instance = new RestDelegation();
-        }
-        return instance;
+
+
+   private WebDriverConfig webDriverConfig;
+
+    private final Map<String, String> headers = new HashMap<>();
+
+    private final CustomHttpClient<DelegateRequestPF, DelegateResponsePF> httpClientPF;
+    private final CustomHttpClient<DelegateRequestPG, DelegateResponsePG> httpClientPG;
+
+
+
+    @Autowired
+    public RestDelegation( WebDriverConfig webDriverConfig, CustomHttpClient<DelegateRequestPF, DelegateResponsePF> httpClientPF, CustomHttpClient<DelegateRequestPG, DelegateResponsePG> httpClientPG) {
+        this.httpClientPF = httpClientPF;
+        this.httpClientPG = httpClientPG;
+        this.webDriverConfig = webDriverConfig;
+        initializeHeaders();
+        setupHttpClients();
     }
 
-    public RestDelegation() {
-        this.httpClientPF.setBaseUrlApi("https://webapi." + env + ".notifichedigitali.it");
+    private void initializeHeaders() {
+        String token = System.getProperty("token");
         if (token != null) {
-            this.headers.put("Authorization", token);
+            headers.put("Authorization", token);
         } else {
             logger.warn("Auth token non trovato, impossibile fare la richiesta HTTP in background!");
         }
     }
 
+    private void setupHttpClients() {
+        String baseUrl = "https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it";
+        httpClientPF.setBaseUrlApi(baseUrl);
+        httpClientPG.setBaseUrlApi(baseUrl);
+    }
+
     /**
-     * Add a new PF delegation
+     * Aggiunge una nuova delega PF.
      *
-     * @param delegateRequestPF DelegateRequest object with all the data
-     * @return DelegateResponse object with the response
-     * @throws RestDelegationException if there is an error during the request
+     * @param delegateRequestPF DelegateRequest con i dati della delega
+     * @param tokenExchange     token per l'exchange JWT
+     * @return DelegateResponse con la risposta
+     * @throws RestDelegationException in caso di errore nella richiesta
      */
     public DelegateResponsePF addDelegationPF(DelegateRequestPF delegateRequestPF, String tokenExchange) throws RestDelegationException {
         try {
             String jwtToken = httpClientPF.getJwtToken(tokenExchange);
-            this.headers.put("Authorization", "Bearer " + jwtToken);
-            DelegateResponsePF response = httpClientPF.sendHttpPostRequest("/mandate/api/v1/mandate", this.headers, delegateRequestPF, DelegateResponsePF.class);
+            headers.put("Authorization", "Bearer " + jwtToken);
+            DelegateResponsePF response = httpClientPF.sendHttpPostRequest("/mandate/api/v1/mandate", headers, delegateRequestPF, DelegateResponsePF.class);
             if (response != null) {
-                logger.info(String.valueOf(response));
+                logger.info("Response: {}", response);
                 return response;
             }
         } catch (IOException e) {
-            logger.error("Error during addDelegationPF", e);
+            logger.error("Errore durante addDelegationPF", e);
+            throw new RestDelegationException("Errore durante la richiesta di delega PF", e);
         }
         return null;
     }
 
     /**
-     * Add a new PG delegation
+     * Aggiunge una nuova delega PG.
      *
-     * @param delegateRequest DelegateRequest object with all the data
-     * @return DelegateResponse object with the response
-     * @throws RestDelegationException if there is an error during the request
+     * @param delegateRequest DelegateRequest con i dati della delega
+     * @param tokenExchange   token per l'exchange JWT
+     * @return DelegateResponse con la risposta
+     * @throws RestDelegationException in caso di errore nella richiesta
      */
     public DelegateResponsePG addDelegationPG(DelegateRequestPG delegateRequest, String tokenExchange) throws RestDelegationException {
         try {
             String jwtToken = httpClientPG.getJwtToken(tokenExchange);
-            this.headers.put("Authorization", "Bearer " + jwtToken);
-            DelegateResponsePG response = httpClientPG.sendHttpPostRequest("/mandate/api/v1/mandate", this.headers, delegateRequest, DelegateResponsePG.class);
+            headers.put("Authorization", "Bearer " + jwtToken);
+            DelegateResponsePG response = httpClientPG.sendHttpPostRequest("/mandate/api/v1/mandate", headers, delegateRequest, DelegateResponsePG.class);
             if (response != null) {
-                logger.info(String.valueOf(response));
+                logger.info("Response: {}", response);
                 return response;
             }
         } catch (IOException e) {
-            logger.error("Error during addDelegationPG", e);
+            logger.error("Errore durante addDelegationPG", e);
+            throw new RestDelegationException("Errore durante la richiesta di delega PG", e);
         }
         return null;
     }
 
     /**
-     * Revoke a PF delegation
-     * <br>
-     * <b>Keep in mind this method works only for the annotation @After into Hooks.java, because there isn't a jwt token set
-     * if you don't invoke an "addDelegation"</b>
+     * Revoca una delega.
      *
-     * @param mandateId String with the mandateId
-     * @throws RestDelegationException if there is an error during the request
+     * @param mandateId ID della delega da revocare
+     * @throws RestDelegationException in caso di errore nella richiesta
      */
     public void revokeDelegation(String mandateId) throws RestDelegationException {
         try {
-            httpClientPF.sendHttpPatchRequest("/mandate/api/v1/mandate/" + mandateId + "/revoke", this.headers);
+            httpClientPF.sendHttpPatchRequest("/mandate/api/v1/mandate/" + mandateId + "/revoke", headers);
+            logger.info("Delega {} revocata con successo", mandateId);
         } catch (IOException e) {
-            logger.error("Error during revokeDelegation", e);
+            logger.error("Errore durante revokeDelegation", e);
+            throw new RestDelegationException("Errore durante la revoca della delega", e);
         }
     }
 
     /**
-     * Reject a delegation
-     * <br>
-     * <b>Keep in mind this method works only for the annotation @After into Hooks.java, because there isn't a jwt token set
-     * if you don't invoke an "addDelegation"</b>
+     * Rifiuta una delega.
      *
-     * @param mandateId String with the mandateId
-     * @throws RestDelegationException if there is an error during the request
+     * @param mandateId ID della delega da rifiutare
+     * @throws RestDelegationException in caso di errore nella richiesta
      */
     public void rejectDelegation(String mandateId) throws RestDelegationException {
         try {
-            httpClientPG.sendHttpPatchRequest("/mandate/api/v1/mandate/" + mandateId + "/reject", this.headers);
+            httpClientPG.sendHttpPatchRequest("/mandate/api/v1/mandate/" + mandateId + "/reject", headers);
+            logger.info("Delega {} rifiutata con successo", mandateId);
         } catch (IOException e) {
-            logger.error("Error during rejectDelegation", e);
+            logger.error("Errore durante rejectDelegation", e);
+            throw new RestDelegationException("Errore durante il rifiuto della delega", e);
         }
     }
 
+    /**
+     * Ottiene le deleghe per il delegante corrente.
+     *
+     * @return lista di `DelegateResponsePF` con le deleghe
+     */
     public List<DelegateResponsePF> getDelegator() {
         try {
-            List<DelegateResponsePF> response = httpClientPF.sendHttpGetRequestListDelegate("/mandate/api/v1/mandates-by-delegator", this.headers, DelegateResponsePF.class);
+            List<DelegateResponsePF> response = httpClientPF.sendHttpGetRequestListDelegate("/mandate/api/v1/mandates-by-delegator", headers, DelegateResponsePF.class);
             if (response != null) {
-                logger.info(String.valueOf(response));
+                logger.info("Response: {}", response);
                 return response;
             }
         } catch (IOException e) {
-            logger.error("Error during getDelegator", e);
+            logger.error("Errore durante getDelegator", e);
         }
         return null;
     }

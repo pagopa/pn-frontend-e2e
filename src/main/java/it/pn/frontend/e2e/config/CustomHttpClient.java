@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import io.cucumber.java.Before;
 import it.pn.frontend.e2e.model.address.DigitalAddress;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
 import lombok.Getter;
@@ -17,6 +18,13 @@ import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,11 +34,17 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @Slf4j
+@Component
 public class CustomHttpClient<RequestType, ResponseType> {
-    private static CustomHttpClient<?, ?> instance;
+
+    private static CustomHttpClient<?, ?> instance ;
     private final Gson gson = new Gson();
+    @Autowired
+    private WebDriverConfig  webDriverConfig;
+
     @Setter
     @Getter
     private String baseUrlApi;
@@ -42,26 +56,39 @@ public class CustomHttpClient<RequestType, ResponseType> {
     private final CloseableHttpClient httpClient;
     private ClassicHttpRequest httpRequest;
 
+
     public CustomHttpClient() {
+        System.out.println("CustomHttpClient.......");
         this.baseUrlApi = "https://api.test.notifichedigitali.it";
         this.httpClient = HttpClients.createDefault();
         this.apiKey = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";
     }
 
     public CustomHttpClient(String baseUrlApi, String apiKeyTest) {
+        System.out.println("CustomHttpClient1.......");
+
         this.baseUrlApi = baseUrlApi;
         this.httpClient = HttpClients.createDefault();
         this.apiKey = apiKeyTest;
     }
 
+    public CustomHttpClient(CustomHttpClient<?, ?> customHttpClient) {
+        System.out.println("CustomHttpClient2.......");
+        instance = customHttpClient;
+        this.baseUrlApi = "https://api.test.notifichedigitali.it";
+        this.httpClient = HttpClients.createDefault();
+        this.apiKey = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";
+    }
+
     public CustomHttpClient(String apiKeyTest) {
+        System.out.println("CustomHttpClient2.......");
         this.baseUrlApi =  "https://api.test.notifichedigitali.it";
         this.httpClient = HttpClients.createDefault();
         this.apiKey = apiKeyTest;
     }
 
-
-    public static <R, S> CustomHttpClient<R, S> getInstance() {
+/**
+    public static  <R, S> CustomHttpClient<R, S> getInstance() {
         if (instance == null) {
             synchronized (CustomHttpClient.class) {
                 if (instance == null) {
@@ -71,8 +98,9 @@ public class CustomHttpClient<RequestType, ResponseType> {
         }
         return (CustomHttpClient<R, S>) instance;
     }
-
-    public static <R, S> CustomHttpClient<R, S> getInstanceWithApiKey(String apiKey) {
+**/
+/**
+    public static  <R, S> CustomHttpClient<R, S> getInstanceWithApiKey(String apiKey) {
         if (instance == null) {
             synchronized (CustomHttpClient.class) {
                 if (instance == null) {
@@ -82,10 +110,9 @@ public class CustomHttpClient<RequestType, ResponseType> {
         }
         return (CustomHttpClient<R, S>) instance;
     }
-
+**/
     public ResponseType sendHttpPostRequest(String endpoint, Map<String, String> headers, RequestType requestObject, Class<ResponseType> responseType) throws IOException {
         String apiUrl = baseUrlApi + endpoint;
-
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             ObjectMapper objectMapper = new ObjectMapper();
             String jsonBody = objectMapper.writeValueAsString(requestObject);
@@ -246,7 +273,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
     }
 
     public String getJwtToken(String TokenExchange) throws IOException {
-        String env = System.getProperty("environment");
+        String env = webDriverConfig.getEnvironment();
         CloseableHttpClient client = HttpClients.createDefault();
         this.httpRequest = ClassicRequestBuilder
                 .post("https://webapi." + env + ".notifichedigitali.it/token-exchange")
@@ -276,7 +303,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
     }
 
     public ResponseType sendHttpDeleteRequest(String endpoint, Map<String, String> headers, Class<ResponseType> responseType) throws IOException {
-        String env = System.getProperty("environment");
+        String env = webDriverConfig.getEnvironment();
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             this.httpRequest = ClassicRequestBuilder
                     .delete(endpoint)

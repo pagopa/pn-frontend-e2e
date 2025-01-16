@@ -11,13 +11,19 @@ import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
 
+@Component
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class AccettazioneRichiestaNotifica {
     private static final Logger logger = LoggerFactory.getLogger("AccettazioneRichiestaNotifica");
 
@@ -33,6 +39,7 @@ public class AccettazioneRichiestaNotifica {
 
     private int responseCode;
 
+
     public boolean runGetRichiestaNotifica() {
         try {
             CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -40,7 +47,7 @@ public class AccettazioneRichiestaNotifica {
                     .get(this.getRichiestaNotificaEndPoint())
                     .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
                     .addHeader("x-api-key", getxApikey())
-                    .addParameter("notificationRequestId", this.notificationRequestId)
+                    .addParameter("notificationRequestId", notificationRequestId)
                     .build();
             httpclient.execute(httpGet, response -> {
                 logger.info(response.getCode() + " " + response.getReasonPhrase());
@@ -56,7 +63,7 @@ public class AccettazioneRichiestaNotifica {
 
             });
         } catch (IOException e) {
-            Assert.fail(e.getMessage());
+            Assertions.fail(e.getMessage());
         }
         return this.responseBody != null;
     }

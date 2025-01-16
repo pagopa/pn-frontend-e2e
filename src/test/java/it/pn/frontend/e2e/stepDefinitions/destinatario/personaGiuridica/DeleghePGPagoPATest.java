@@ -2,47 +2,92 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.delegate.DelegatePG;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
+import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePG;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
+import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
+import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.rest.RestDelegation;
+import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.AggiungiDelegaPGSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.DelegatiImpresaSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
+import it.pn.frontend.e2e.stepDefinitions.common.SharedSteps;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.DeleghePagoPATest;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
+
+import jakarta.annotation.PostConstruct;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
-public class DeleghePGPagoPATest {
+
+public class DeleghePGPagoPATest extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("DeleghePGPagoPATest");
-    private final WebDriver driver = Hooks.driver;
-    private final DeleghePGPagoPAPage deleghePGPagoPAPage = new DeleghePGPagoPAPage(this.driver);
-    private final DeleghePagoPATest deleghePagoPATest = new DeleghePagoPATest();
-    private final DelegatiImpresaSection delegatiImpresaSection = new DelegatiImpresaSection(this.driver);
-    private final AggiungiDelegaPGSection aggiungiDelegaPGSection = new AggiungiDelegaPGSection(this.driver);
-    private final DataPopulation dataPopulation = new DataPopulation();
-    private Map<String, Object> datiDelega = new HashMap<>();
-    Map<String, Object> datiPersonaFisica = new HashMap<>();
-    private final MandateSingleton mandateSingleton = MandateSingleton.getInstance();
 
-    private final RestDelegation restDelegation = RestDelegation.getInstance();
+    @Autowired
+    private DeleghePagoPATest deleghePagoPATest;
 
-    private LoginPGPagoPATest loginPGPagoPaTest = new LoginPGPagoPATest();
+    private DeleghePGPagoPAPage deleghePGPagoPAPage;
+
+    private DelegatiImpresaSection delegatiImpresaSection;
+
+    private AggiungiDelegaPGSection aggiungiDelegaPGSection;
+
+    @Autowired
+    private DataPopulation dataPopulation;
+
+    @Autowired
+    private LoginPGPagoPATest loginPGPagoPaTest;
+
+    @Autowired
+    @Lazy
+    private BackgroundTest backgroundTest;
+
+//    private Map<String, Object> datiDelega_1 = new HashMap<>();
+//    private Map<String, Object> datiPersonaFisica = new HashMap<>();
+    @Autowired
+    private MandateSingleton mandateSingleton;
+
+    @Autowired
+    private RestDelegation restDelegation;
+
+    private  WebTool webTool;
+
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
+
     private boolean dataFineErrata;
+
+    @Autowired
+    private HooksNew hooksNew;
+
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
+        deleghePGPagoPAPage = new DeleghePGPagoPAPage(driver);
+        delegatiImpresaSection = new DelegatiImpresaSection(driver);
+        aggiungiDelegaPGSection = new AggiungiDelegaPGSection(driver);
+    }
+
 
     @And("Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa")
     public void siVisualizzaLaPaginaDeleghe() {
@@ -67,7 +112,13 @@ public class DeleghePGPagoPATest {
     @And("Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega")
     public void nellaSezioneDelegatiDellImpresaClickSulBottoneAggiungiNuovaDelega() {
         logger.info("Nella sezione Deleghe dell'impresa si clicca su aggiungi una nuova delega");
-
+        delegatiImpresaSection.verificaRemoveMenuDelega();
+        delegatiImpresaSection.clickAggiungiDelegaButton();
+    }
+    @And("Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega senza revocare quella esistente")
+    public void nellaSezioneDelegatiDellImpresaClickSulBottoneAggiungiNuovaDelegaNoRevoca() {
+        logger.info("Nella sezione Deleghe dell'impresa si clicca su aggiungi una nuova delega  senza revocare quella esistente");
+        //delegatiImpresaSection.verificaRemoveMenuDelega();
         delegatiImpresaSection.clickAggiungiDelegaButton();
     }
 
@@ -79,19 +130,18 @@ public class DeleghePGPagoPATest {
     }
 
     @And("Nella sezione Aggiungi Delega persona giuridica inserire i dati {string}")
-    public void nellaSezioneLeTueDeleghePersonaGiuridicaInserireIDati(String dpFile) {
+    public void nellaSezioneLeTueDeleghePersonaGiuridicaInserireIDati() {
         logger.info("Si aggiungono tutti i dati del delegato");
 
-        this.datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
-
         aggiungiDelegaPGSection.selectPersonaGiuridicaRadioButton();
-        aggiungiDelegaPGSection.insertRagioneSociale(this.datiDelega.get("ragioneSociale").toString());
-        aggiungiDelegaPGSection.inserireCF(this.datiDelega.get("codiceFiscale").toString());
+        aggiungiDelegaPGSection.insertRagioneSociale(dataPopulationConfig.getNuovaDelegaPg().getRagioneSociale());
+        aggiungiDelegaPGSection.inserireCF(dataPopulationConfig.getNuovaDelegaPg().getCodiceFiscale());
         aggiungiDelegaPGSection.selectSoloEntiSelezionati();
         aggiungiDelegaPGSection.waitLoadAggiungiDelegaPage();
-        aggiungiDelegaPGSection.selezionaUnEnte(datiDelega.get("ente").toString());
+        aggiungiDelegaPGSection.selezionaUnEnte(dataPopulationConfig.getNuovaDelegaPg().getEnte());
     }
 
+    //Non toccare parametri passatogli direttamente dalla classe .feature
     @And("Nella sezione Aggiungi Delega persona giuridica inserire i dati")
     public void nellaSezioneLeTueDeleghePersonaGiuridicaInserireIDati(Map<String, String> personaGiuridica) {
         logger.info("Si aggiungono tutti i dati del delegato");
@@ -111,26 +161,22 @@ public class DeleghePGPagoPATest {
             logger.info("La data di fine delega è corretta");
         } else {
             logger.error("La data di fine delega non è corretta");
-            Assert.fail("La data di fine delega non è corretta");
+            Assertions.fail("La data di fine delega non è corretta");
         }
     }
 
-    @And("Nella sezione Aggiungi Delega persona giuridica salvare il codice verifica all'interno del file {string}")
-    public void nellaSezioneLeTueDeleghePersonaGiuridicaSalvareIlCodiceVerificaAllInternoDelFile(String dpFile) {
-        logger.info("Si salva il codice della delega nel file " + dpFile);
-
-        this.datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
+    @And("Nella sezione Aggiungi Delega persona giuridica salvare il codice verifica all'interno del file")
+    public void nellaSezioneLeTueDeleghePersonaGiuridicaSalvareIlCodiceVerificaAllInternoDelFile() {
+        logger.info("Si salva il codice della delega nell' Oggetto nuovaDelegaPG  " );
 
         String codiceDelega = aggiungiDelegaPGSection.salvataggioCodiceVerifica();
-        this.datiDelega.put("codiceDelega", codiceDelega);
+        dataPopulationConfig.getNuovaDelegaPg().setCodiceDelega(codiceDelega);
 
-        dataPopulation.writeDataPopulation(dpFile + ".yaml", this.datiDelega);
     }
 
     @And("Nella sezione Aggiungi Delega persona giuridica click sul bottone Invia richiesta e sul bottone torna alle deleghe")
     public void nellaSezioneLeTueDeleghePersonaGiuridicaclickSulBottoneInviaRichiestaESulBottoneTornaAlleDeleghe() {
         logger.info("Si clicca sul bottone invia richiesta");
-
         aggiungiDelegaPGSection.clickSulBottoneInviaRichiesta();
     }
 
@@ -138,11 +184,11 @@ public class DeleghePGPagoPATest {
     public void nellaSezioneDelegatiDallImpresaSiVisualizzaLaDelegaInStatoDiAttesaDiConferma() {
         logger.info("Si controlla che la delega sia in stato attesa di conferma");
 
-        this.datiDelega = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml");
+//        this.datiDelega = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml");
 
         delegatiImpresaSection.waitLoadDelegatiImpresaPage();
-        delegatiImpresaSection.controlloEsistenzaDelega(this.datiDelega.get("ragioneSociale").toString());
-        delegatiImpresaSection.clickMenuDelega(this.datiDelega.get("ragioneSociale").toString());
+        delegatiImpresaSection.controlloEsistenzaDelega(dataPopulationConfig.getNuovaDelegaPg().getRagioneSociale());
+        delegatiImpresaSection.clickMenuDelega(dataPopulationConfig.getNuovaDelegaPg().getRagioneSociale());
         delegatiImpresaSection.esistenzaRevocaButton();
     }
 
@@ -171,8 +217,7 @@ public class DeleghePGPagoPATest {
     @And("Verifica che non è possibile selezionare una data Fine antecedente ad oggi")
     public void verificaArcoTemporaleSelezionato() {
         logger.info("Si controlla l'arco temporale che sia errato su cui effettuare la ricerca");
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-        Assert.assertFalse(dataFineErrata);
+        Assertions.assertFalse(dataFineErrata);
     }
 
     @And("Nella sezione Le Tue Deleghe inserire una data")
@@ -187,14 +232,13 @@ public class DeleghePGPagoPATest {
     public void nellaSezioneLeTueDelegheSiVisualizzaIlMessaggioDiErroreDataErrata() {
         logger.info("Si controlla che si veda il messaggio di errore");
 
-        Assert.assertEquals("il messaggio di errore previsto: Data errata è diverso dell'attuale " + aggiungiDelegaPGSection.waitMessaggioErroreData(), "Data errata", aggiungiDelegaPGSection.waitMessaggioErroreData());
+        Assertions.assertEquals( "Data errata", aggiungiDelegaPGSection.waitMessaggioErroreData(), "il messaggio di errore previsto: Data errata è diverso dell'attuale " + aggiungiDelegaPGSection.waitMessaggioErroreData());
         logger.info("il messaggio di errore 'Data errata' è presente");
     }
 
     @And("Nella pagina Deleghe si clicca su Deleghe a carico dell impresa")
     public void nellaPaginaDelegheSiCliccaSuDelegheACaricoDellImpresa() {
         logger.info("Si clicca sul tab Deleghe a carico dell'impresa");
-
         deleghePGPagoPAPage.clickSuDelegheCaricoDellImpresa();
     }
 
@@ -207,9 +251,7 @@ public class DeleghePGPagoPATest {
     @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si clicca su bottone Filtra")
     public void nellaPaginaDelegheSezioneDelegheACaricoDellImpresaSiCliccaSuBottoneFiltra() {
         logger.info("Si clicca filtra button");
-
         this.deleghePGPagoPAPage.clickFiltraButton();
-
     }
 
     @And("Nella pagina Deleghe sezione Deleghe a Carico dell impresa si controlla che venga restituita la delega con il codice fiscale inserito {string}")
@@ -219,34 +261,29 @@ public class DeleghePGPagoPATest {
             this.logger.info("La delega restituita è corretta");
         } else {
             this.logger.error("La delega restituita NON è corretta");
-            Assert.fail("La delega restituita NON è corretta");
+            Assertions.fail("La delega restituita NON è corretta");
         }
     }
 
     @And("Nella pagina Deleghe sezione Deleghe dell impresa  si verifica sia presente una delega")
     public void nellaPaginaDelegheSezioneDelegheDellImpresaSiVerificaSiaPresenteUnaDelega() {
         logger.info("Si controlla che ci sia almeno una delega");
-        BackgroundTest backgroundTest = new BackgroundTest();
-
         if (!this.delegatiImpresaSection.siVisualizzaUnaDelega()) {
             backgroundTest.aggiuntaNuovaDelegaDellImpresaPG();
         }
     }
 
-    @And("Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega {string}")
-    public void nellaPaginaDelegheSezioneDelegheAcaricoDellImpresaSiCliccaSulMenuDellaDelega(String dpFile) {
+    @And("Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega")
+    public void nellaPaginaDelegheSezioneDelegheAcaricoDellImpresaSiCliccaSulMenuDellaDelega() {
         logger.info("Si clicca sul menu delle delega");
-
-        this.datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        this.delegatiImpresaSection.clickMenuDelega(datiDelega.get("ragioneSociale").toString());
+        //TODO PERSONA GIURIDICA
+        delegatiImpresaSection.clickMenuDelega(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
     }
 
     @And("Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega {string}")
-    public void nellaPaginaDelegheSezioneDelegheDellImpresaSiCliccaSulMenuDellaDelega(String dpFile) {
+    public void nellaPaginaDelegheSezioneDelegheDellImpresaSiCliccaSulMenuDellaDelega(String nameConfig) {
         logger.info("Si clicca sul menu delle delega");
-
-        this.datiDelega = dataPopulation.readDataPopulation(dpFile + ".yaml");
-        this.delegatiImpresaSection.controlloEsistenzaDelega(datiDelega.get("ragioneSociale").toString());
+        this.delegatiImpresaSection.controlloEsistenzaDelega(getRagioneSociale(nameConfig));
     }
 
     @And("Nella pagina Deleghe sezione Deleghe dell impresa si sceglie l'opzione mostra codice")
@@ -259,23 +296,21 @@ public class DeleghePGPagoPATest {
     @And("Nella sezione Deleghe persona giuridica si sceglie l'opzione revoca")
     public void nellaSezioneDeleghePersonaGiuridicaSiSceglieLOpzioneRevoca() {
         logger.info("Si clicca sull'opzione revoca del menu");
-
         delegatiImpresaSection.clickRevocaMenuButtonPG();
     }
 
 
-    @And("Nella sezione Deleghe sezione Deleghe dell'impresa si controlla che non sia più presente la delega {string}")
-    public void nellaSezioneDelegheSezioneDelegheDellImpresaSiControllaCheNonSiaPiuPresenteLaDelega(String dpFile) {
+    @And("Nella sezione Deleghe sezione Deleghe dell'impresa si controlla che non sia più presente la delega")
+    public void nellaSezioneDelegheSezioneDelegheDellImpresaSiControllaCheNonSiaPiuPresenteLaDelega() {
         logger.info("Si controlla che la delega non sia più in elenco");
 
-        this.datiDelega = this.dataPopulation.readDataPopulation(dpFile + ".yaml");
         delegatiImpresaSection.waitLoadDelegatiImpresaPage();
         delegatiImpresaSection.waitLoadingSpinner();
-        if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG(this.datiDelega.get("ragioneSociale").toString())) {
+        if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG(dataPopulationConfig.getNuovaDelegaPg().getRagioneSociale())) {
             logger.info("La delega è stata revocata correttamente");
         } else {
             logger.error("La delega NON è stata revocata correttamente");
-            Assert.fail("La delega NON è stata revocata correttamente");
+            Assertions.fail("La delega NON è stata revocata correttamente");
         }
 
     }
@@ -300,11 +335,10 @@ public class DeleghePGPagoPATest {
     @And("Si clicca sul bottone conferma gruppo")
     public void siCliccaSulBottoneConfermaGruppo() {
         logger.info("Si seleziona il bottone conferma");
-
         deleghePGPagoPAPage.clickBottoneConferma();
-        if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
+        if (deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
             logger.error("il codice inserito è sbagliato");
-            Assert.fail("il codice inserito è sbagliato");
+            Assertions.fail("il codice inserito è sbagliato");
         }
     }
 
@@ -318,7 +352,6 @@ public class DeleghePGPagoPATest {
     @And("Si clicca sul bottone conferma gruppo errato")
     public void siCliccaSulBottoneConfermaGruppoErrato() {
         logger.info("Si seleziona il bottone conferma");
-
         deleghePGPagoPAPage.clickBottoneConferma();
         deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato();
     }
@@ -326,14 +359,12 @@ public class DeleghePGPagoPATest {
     @And("Nella sezione Deleghe si clicca sul bottone rifiuta")
     public void nellaSezioneDelegheSiCliccaSulBottoneRifiuta() {
         logger.info("Si clicca su l'opzione rifiuta");
-
         deleghePGPagoPAPage.clickOpzioneRifiuta();
     }
 
     @And("Si clicca sul bottone rifiuta delega")
     public void siCliccaSulBottoneRifiutaDelega() {
         logger.info("Si clicca su bottone rifiuta del pop-up");
-
         deleghePGPagoPAPage.waitLoadPopUpRevoca();
         deleghePGPagoPAPage.clickBottoneRifiuta();
     }
@@ -341,16 +372,12 @@ public class DeleghePGPagoPATest {
     @And("Si controlla che la delega non si più presente in elenco")
     public void siControllaCheLaDelegaNonSiPiuPresenteInElenco() {
         logger.info("Si controlla che la delega sia stata rifiutata");
-
-        this.datiDelega = this.dataPopulation.readDataPopulation("personaGiuridica.yaml");
-
         deleghePGPagoPAPage.aggiornamentoPagina();
-
-        if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG(this.datiDelega.get("ragioneSociale").toString())) {
+        if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG( dataPopulationConfig.getPersonaGiuridica().getRagioneSociale())) {
             logger.info("La delega è stata rifiutata correttamente");
         } else {
             logger.error("La delega NON è stata rifiutata correttamente");
-            Assert.fail("La delega NON è stata rifiutata correttamente");
+            Assertions.fail("La delega NON è stata rifiutata correttamente");
         }
     }
 
@@ -377,28 +404,29 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.clickGruppoField("Test gruppi");
     }
 
+    //TODO Verificare----
     @And("Si clicca su conferma in assegnazione gruppo")
     public void siCliccaSuConfermaInAssegnazioneGruppo() {
         logger.info("Si clicca su conferma del pop-up");
 
         deleghePGPagoPAPage.clickBottoneConferma();
-        if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
+        if (deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
             logger.error("il codice inserito è sbagliato");
-            Assert.fail("il codice inserito è sbagliato");
+            Assertions.fail("il codice inserito è sbagliato");
         }
     }
 
     @And("Si controlla che la delega ha cambiato gruppo")
     public void siControllaCheLaDelegaHaCambiatoStato() {
         logger.info("Si controlla che la delega abbia il gruppo");
+        // TODO personaGiuridica_1
+//        this.datiDelega = dataPopulation.readDataPopulation("personaGiuridica_1.yaml");
 
-        this.datiDelega = dataPopulation.readDataPopulation("personaGiuridica_1.yaml");
-
-        if (deleghePGPagoPAPage.verificaPresenzaGruppo(this.datiDelega.get("ragioneSociale").toString())) {
+        if (deleghePGPagoPAPage.verificaPresenzaGruppo(dataPopulationConfig.getPersonaGiuridica1().getRagioneSociale())) {
             logger.info("La delega ha un gruppo");
         } else {
             logger.error("La delega NON ha un gruppo");
-            Assert.fail("La delega NON ha un gruppo");
+            Assertions.fail("La delega NON ha un gruppo");
         }
     }
 
@@ -413,16 +441,15 @@ public class DeleghePGPagoPATest {
     @And("Si controlla che la delega non abbia più il gruppo")
     public void siControllaCheLaDelegaNonAbbiaPiuIlGruppo() {
         logger.info("Si verifica che non abbia più il gruppo");
-
-        this.datiDelega = dataPopulation.readDataPopulation("personaGiuridica.yaml");
+        // TODO personaGiuridica
+//        this.datiDelega = dataPopulation.readDataPopulation("personaGiuridica.yaml");
 
         deleghePGPagoPAPage.waitLoadDeleghePage();
-
-        if (!deleghePGPagoPAPage.verificaPresenzaGruppo(this.datiDelega.get("ragioneSociale").toString())) {
+        if (!deleghePGPagoPAPage.verificaPresenzaGruppo(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale())) {
             logger.info("La delega non ha più gruppo");
         } else {
             logger.error("La delega ha ancora il gruppo");
-            Assert.fail("La delega ha ancora il gruppo");
+            Assertions.fail("La delega ha ancora il gruppo");
         }
 
     }
@@ -443,26 +470,64 @@ public class DeleghePGPagoPATest {
 
     @And("Creo in background una delega per persona giuridica")
     public void creoInBackgroundUnaDelegaPerPersonaGiuridica(Map<String, String> personaGiuridica) {
+
+        //logica elimina delega
+        logger.info("Verifico se esiste una delega");
+        logger.info("DelegheCarico: "+  personaGiuridica.get("DelegheCarico"));
+        delegatiImpresaSection.verificaRemoveMenuDelega(personaGiuridica.get("displayName"), StringUtils.isEmpty(personaGiuridica.get("DelegheCarico")) ? null : personaGiuridica.get("DelegheCarico"));
+
         logger.info("Si controlla che ci sia una delega");
         String dateto = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        DelegatePG delegatePG = DelegatePG.builder()
+
+        DelegatePG delegatePG = new DelegatePG();
+        delegatePG.setCompanyName(personaGiuridica.get("companyName"));
+        delegatePG.setFiscalCode(personaGiuridica.get("fiscalCode"));
+        delegatePG.setDisplayName(personaGiuridica.get("displayName"));
+        delegatePG.setPerson(Boolean.parseBoolean(personaGiuridica.get("person")));
+
+         /**
+         DelegatePG delegatePG = DelegatePG.builder()
                 .companyName(personaGiuridica.get("companyName"))
                 .displayName(personaGiuridica.get("displayName"))
                 .fiscalCode(personaGiuridica.get("fiscalCode"))
                 .person(Boolean.parseBoolean(personaGiuridica.get("person")))
                 .build();
+
         DelegateRequestPG delegateRequestPG = DelegateRequestPG.builder()
                 .dateto(dateto)
                 .delegate(delegatePG)
                 .visibilityIds(new ArrayList<>())
                 .verificationCode("12345")
                 .build();
+        **/
+        DelegateRequestPG delegateRequestPG = dataPopulationConfig.getDelegateRequestPG();
+        delegateRequestPG.setDelegate(delegatePG);
+
+
         String tokenExchange = loginPGPagoPaTest.getTokenExchangePGFromFile(personaGiuridica.get("accessoCome"));
-        DelegateResponsePG response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
-        mandateSingleton.setScenarioMandateId(Hooks.getScenario(),response.getMandateId());
-        mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()),response.getVerificationCode());
-        driver.navigate().refresh();
-        WebTool.waitTime(2);
+        int attempt = 0;
+        int maxAttempts = 7;
+        DelegateResponsePG response = null;
+        while (attempt <= maxAttempts) {
+            response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
+
+            if (response!= null && response.getVerificationCode()!= null && !response.getVerificationCode().isEmpty()) {
+                logger.info("Inizio controllo notifica fino a stato accettata");
+                mandateSingleton.setScenarioMandateId(hooksNew.getScenario(), response.getMandateId());
+                mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(hooksNew.getScenario()), response.getVerificationCode());
+                driver.navigate().refresh();
+                return;
+            }
+            else {
+                logger.warn("Tentativo #{} di attesa risposta. Riprovo...", attempt);
+                webTool.waitTime(3);
+                attempt++;
+            }
+        }
+        logger.error("Errore nella response DelegateResponsePG per PF dopo {} tentativi", maxAttempts);
+        Assertions.fail("Errore nella response DelegateResponsePF per PF dopo " + maxAttempts + " tentativi");
+        webTool.waitTime(3);
+
     }
 
     @And("Si clicca sul bottone accetta delega dopo aver inserito il codice di verifica")
@@ -472,45 +537,40 @@ public class DeleghePGPagoPATest {
         deleghePGPagoPAPage.clickBottoneConfermaDelega();
         if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
             logger.error("il codice inserito è sbagliato");
-            Assert.fail("il codice inserito è sbagliato");
+            Assertions.fail("il codice inserito è sbagliato");
         }
     }
 
     public void siCliccaSulBottoneAccettaDelega() {
         logger.info("Si clicca su conferma del pop-up");
-
         deleghePGPagoPAPage.clickBottoneConfermaDelega();
     }
 
     @And("Si accetta la delega senza gruppo")
     public void siAccettaLaDelegaSenzaGruppo() {
-        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.accettazioneDelegaSceltaGruppo(false,null);
     }
 
     @And("Si accetta la delega senza gruppo PF")
     public void siAccettaLaDelegaSenzaGruppoPF() {
-        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.accettazioneDelegaSceltaGruppoPF(false,null);
-        WebTool.waitTime(2);
+        webTool.waitTime(2);
     }
 
     @And("Si inserisce il codice della delega a carico dell impresa nella modale")
     public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale() {
-        String verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(Hooks.getScenario()));
+        String verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(hooksNew.getScenario()));
         logger.info(verificationCode);
         deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI(verificationCode);
     }
 
     @And("Si ripristina lo stato iniziale delle deleghe dall impresa {string}")
     public void siRipristinaLoStatoInizialeDelleDelegheDallImpresa(String ragioneSociale) {
-        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.revocaDelegaPG(ragioneSociale);
     }
 
     @And("Si accetta la delega con gruppo {string}")
     public void siAccettaLaDelegaGruppo(String gruppo) {
-        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.accettazioneDelegaSceltaGruppo(true,gruppo);
     }
 
@@ -526,8 +586,6 @@ public class DeleghePGPagoPATest {
 
     @And("Si emula accettazione della delega con gruppo con errore")
     public void siEmulaAccettazioneDellaDelegaConGruppoConErrore() {
-        BackgroundTest backgroundTest = new BackgroundTest();
-
         backgroundTest.checkDelegaSceltaGruppoEInserimentoCodiceErrata();
     }
 
@@ -545,7 +603,7 @@ public class DeleghePGPagoPATest {
 
     @And("Non si inserisce il codice OTP e l invito della delega non è più presente")
     public void nonSiInserisceIlCodiceOTPELInvitoDellaDelegaNonèPiùPresente() {
-        WebTool.waitTime(61 * 15);
+        webTool.waitTime(61 * 15);
         driver.navigate().refresh();
         deleghePGPagoPAPage.waitLoadDeleghePage();
     }
@@ -575,7 +633,7 @@ public class DeleghePGPagoPATest {
             this.logger.info("La delega restituita è corretta");
         } else {
             this.logger.error("La delega restituita NON è corretta");
-            Assert.fail("La delega restituita NON è corretta");
+            Assertions.fail("La delega restituita NON è corretta");
         }
     }
 
@@ -583,7 +641,7 @@ public class DeleghePGPagoPATest {
     public void siRevocaDelegaComeDelegantConApi() {
 
         loginPGPagoPaTest.getTokenExchangePGFromFile("delegante");
-        String mandateId = mandateSingleton.getMandateId(Hooks.getScenario());
+        String mandateId = mandateSingleton.getMandateId(hooksNew.getScenario());
         restDelegation.revokeDelegation(mandateId);
 
     }
@@ -602,8 +660,38 @@ public class DeleghePGPagoPATest {
     @And("Nella sezione Delegati dall impresa si visualizza correttamente una delega in stato di attesa di conferma {string}")
     public void nellaSezioneDelegatiDallImpresaSiVisualizzaCorrettamenteUnaDelegaInStatoDiAttesaConferma(String ragioneSociale) {
         logger.info("Si controlla che la delega sia in stato attesa di conferma");
-
         delegatiImpresaSection.waitLoadDelegatiImpresaPage();
         delegatiImpresaSection.controlloEsistenzaDelega(ragioneSociale);
+    }
+
+    @And("Nella sezione Delegati dall impresa si visualizza correttamente una delega in stato di attesa di conferma {string} e si revoca")
+    public void nellaSezioneDelegatiDallImpresaSiVisualizzaCorrettamenteUnaDelegaInStatoDiAttesaConfermaRevoca(String ragioneSociale) {
+        logger.info("Si controlla che la delega sia in stato attesa di conferma e si revoca");
+       delegatiImpresaSection.waitLoadDelegatiImpresaPage();
+        if(delegatiImpresaSection.controlloEsistenzaDelega(ragioneSociale)) {
+            deleghePGPagoPAPage.clickRevocaMenuButtonPG(ragioneSociale);
+            delegatiImpresaSection.waitPopUpRevoca(ragioneSociale);
+            delegatiImpresaSection.clickRevocaButton();
+        }
+    }
+
+
+
+    private String getRagioneSociale(String nomeConfig) {
+        String ragioneSociale;
+        switch (nomeConfig) {
+            case "nuovaDelegaPG" -> {
+                ragioneSociale=dataPopulationConfig.getNuovaDelegaPg().getRagioneSociale();
+            }
+            case "nuova_delega" -> {
+                ragioneSociale= dataPopulationConfig.getNuovaDelega().getRagioneSociale();
+            }
+
+            default -> {
+                logger.error("Nessun nome corrisponde");
+                throw new RuntimeException("ERRORE Nessun nome corrisponde");
+            }
+        }
+        return ragioneSociale;
     }
 }

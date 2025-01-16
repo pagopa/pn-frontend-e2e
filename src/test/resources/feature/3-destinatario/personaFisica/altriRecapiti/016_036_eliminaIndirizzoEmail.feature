@@ -4,7 +4,9 @@ Feature: la persona fisica elimina l'indirizzo Email
   @TA_eliminaEmailPF
   @recapitiPF
   @PF
-
+  @mittente_x1
+  @addressBook1
+  @recapitiPFPG
   Scenario: PN-9310-A36 - la persona fisica elimina l'indirizzo Email
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

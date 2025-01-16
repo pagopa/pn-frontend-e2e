@@ -27,7 +27,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
     And Si attende completamento notifica "Depositata"
     And Logout da portale mittente
     And Login Page persona fisica test viene visualizzata
-    And Login con persona fisica
+    And Login con persona fisica input
       | user         | franco                 |
       | pwd          | password123            |
       | name         | Franco                 |

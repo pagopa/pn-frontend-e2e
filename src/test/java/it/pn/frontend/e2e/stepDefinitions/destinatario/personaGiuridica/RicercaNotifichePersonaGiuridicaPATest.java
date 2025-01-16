@@ -3,30 +3,66 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
-import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
+import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RecapitiPGPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RicercaNotifichePGPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
-import org.junit.Assert;
+
+import it.pn.frontend.e2e.utility.WebTool;
+import jakarta.annotation.PostConstruct;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.Map;
 
-public class RicercaNotifichePersonaGiuridicaPATest {
+public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaGiuridicaPATest");
-    private final WebDriver driver = Hooks.driver;
-    private final PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
-    RicercaNotifichePGPage ricercaNotifichePGPage = new RicercaNotifichePGPage(this.driver);
-    DestinatarioPage destinatarioPage = new DestinatarioPage(this.driver);
+
+    private PiattaformaNotifichePage piattaformaNotifichePage;
+
+    private RicercaNotifichePGPage ricercaNotifichePGPage;
+
+    private DestinatarioPage destinatarioPage;
+
+    private NotificheDestinatarioPage notificheDestinatarioPage;
+
+    private PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
+
+    private HeaderPASection headerPASection;
+
+    private HeaderPGSection headerPGSection;
+
+    private NotifichePFPage notifichePFPage;
+
     private Map<String, Object> datiNotificaPG;
+
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        notifichePFPage = new NotifichePFPage(driver);
+        headerPGSection = new HeaderPGSection(driver);
+        headerPASection = new HeaderPASection(driver);
+        piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
+        notificheDestinatarioPage = new NotificheDestinatarioPage(driver);
+        destinatarioPage = new DestinatarioPage(driver);
+        ricercaNotifichePGPage = new RicercaNotifichePGPage(driver);
+        piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+
+    }
+
 
     @When("Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa")
     public void cliccareSuNotificheDellImpresa() {
@@ -37,8 +73,6 @@ public class RicercaNotifichePersonaGiuridicaPATest {
     @And("Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN da dati notifica {string}")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIUNDaDatiNotifica(String iun) throws InterruptedException {
         logger.info("Si inserisce il codice IUN");
-
-        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(driver);
         notificheDestinatarioPage.inserisciCodiceIUN(iun);
     }
 
@@ -49,7 +83,6 @@ public class RicercaNotifichePersonaGiuridicaPATest {
 
     @And("La persona giuridica clicca sulla prima notifica restituita")
     public void laPersonaGiuridicaCliccaSullaPrimaNotificaRestituita() {
-        RicercaNotifichePGPage ricercaNotifichePGPage = new RicercaNotifichePGPage(this.driver);
         ricercaNotifichePGPage.cliccaSuPrimaNotifica();
     }
 
@@ -60,7 +93,6 @@ public class RicercaNotifichePersonaGiuridicaPATest {
 
     @And("Si controlla se la notifica prevede il pagamento")
     public void siControllaSeLaNotificaPrevedeIlPagamento() {
-        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
         boolean sezionePagamentoIsDisplayed = piattaformaNotifichePGPAPage.sezionePagamentoDisplayed();
         if (!sezionePagamentoIsDisplayed) {
             logger.info("La notifica non prevede il pagamento ");
@@ -77,7 +109,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
                 logger.info("Sezione titolo di pagamento è visualizzato");
             } else {
                 logger.error("Sezione titolo di pagamento non è visualizzato");
-                Assert.fail("Sezione titolo di pagamento non è visualizzato");
+                Assertions.fail("Sezione titolo di pagamento non è visualizzato");
             }
 
             boolean codiceAvvisoIsDisplayed = piattaformaNotifichePGPAPage.codiceAvvisoDisplayed();
@@ -85,7 +117,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
                 logger.info("Sezione codice avviso è visualizzato");
             } else {
                 logger.error("Sezione codice avviso non è visualizzato");
-                Assert.fail("Sezione codice avviso non è visualizzato");
+                Assertions.fail("Sezione codice avviso non è visualizzato");
             }
 
             boolean modelloF24IsDisplayed = piattaformaNotifichePGPAPage.modelloF24Displayed();
@@ -93,7 +125,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
                 logger.info("Sezione scarica modello F24 è visualizzato");
             } else {
                 logger.error("Sezione scarica modello F24 non è visualizzato");
-                Assert.fail("Sezione scarica modello F24 non è visualizzato");
+                Assertions.fail("Sezione scarica modello F24 non è visualizzato");
             }
         }
     }
@@ -109,20 +141,14 @@ public class RicercaNotifichePersonaGiuridicaPATest {
 
         String iun = datiPG.get("iun");
         String ragioneSociale = datiPG.get("ragioneSociale");
-
-        HeaderPASection headerPASection = new HeaderPASection(this.driver);
         headerPASection.waitLoadHeaderSection();
-
-        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
         piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(ragioneSociale);
-
-        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(driver);
         boolean result = notificheDestinatarioPage.verificaCodiceIUN(iun);
         if (result) {
             logger.info("Il risultato é coerente con il codice IUN inserito");
         } else {
             logger.error("Gli stati della notifica NON sono uguali a quelli selezionati");
-            Assert.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
+            Assertions.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
         }
     }
 
@@ -131,27 +157,21 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         LocalDate dateA = LocalDate.now();
         LocalDate dateDa = dateA.minusDays(5);
 
-        PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(this.driver);
         String dataa = piattaformaNotifichePage.conversioneFormatoDate(dateA.toString());
         String datada = piattaformaNotifichePage.conversioneFormatoDate(dateDa.toString());
-        piattaformaNotifichePage.inserimentoArcoTemporale(datada, dataa);
+        piattaformaNotifichePage.inserimentoArcoTemporale(datada, dataa, false);
     }
 
     @And("Nella pagina Piattaforma Notifiche persona giuridica vengo restituite tutte le notifiche con la data della notifica compresa con le date precedentemente inserite")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaVengoRestituiteTutteLeNotificheConLaDataDellaNotificaCompresaConLeDatePrecedentementeInserite() {
-        HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
         headerPGSection.waitLoadHeaderPGPage();
-
-        PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(this.driver);
         piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage("Convivio Spa");
-
-        NotifichePFPage notifichePFPage = new NotifichePFPage(this.driver);
         boolean result = notifichePFPage.getListData();
         if (result) {
             logger.info("Il risultato é coerente con le date inserite");
         } else {
             logger.error("Il risultato NON é coerente con le date inserite");
-            Assert.fail("Il risultato NON é coerente con le date inserite");
+            Assertions.fail("Il risultato NON é coerente con le date inserite");
         }
     }
 
@@ -163,19 +183,17 @@ public class RicercaNotifichePersonaGiuridicaPATest {
     @And("Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN non valido da dati notifica {string}")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIunNonValidoDaDatiNotifica(String datiNotificaNonValidoPG) throws InterruptedException {
         logger.info("Si inserisce il codice IUN non valido");
-        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
         notificheDestinatarioPage.inserisciCodiceIUN(datiNotificaNonValidoPG);
     }
 
     @Then("Viene visualizzato un messaggio in rosso di errore sotto il campo errato e il rettangolo diventa rosso e il tasto Filtra è disattivo")
     public void vieneVisualizzatoUnMessaggioInRossoDiErroreSottoIlCampoErratoEIlRettangoloDiventaRossoEIlTastoFiltraEDisattivo() {
-        NotificheDestinatarioPage notificheDestinatarioPage = new NotificheDestinatarioPage(this.driver);
         boolean isErrorMessageDisplayed = ricercaNotifichePGPage.isErrorMessageDisplayed();
         if (isErrorMessageDisplayed) {
             logger.info("il messaggio di errore é visualizzato");
         } else {
             logger.error("il messaggio di errore non é visualizzato");
-            Assert.fail("il messaggio di errore non é visualizzato");
+            Assertions.fail("il messaggio di errore non é visualizzato");
         }
 
         boolean isTextBoxInValid = notificheDestinatarioPage.isTextBoxInvalid();
@@ -183,7 +201,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
             logger.info("IUN text box non é valido");
         } else {
             logger.error("IUN text box non é passato allo stato non valido");
-            Assert.fail("IUN text box non é passato allo stato non valido");
+            Assertions.fail("IUN text box non é passato allo stato non valido");
         }
         ricercaNotifichePGPage.clickFiltraButton();
         boolean isErrorMessageStillDisplayed = ricercaNotifichePGPage.isErrorMessageDisplayed();
@@ -191,7 +209,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
             logger.info("Il bottone Filtra é dissativato");
         } else {
             logger.error("Il bottone Filtra é attivo");
-            Assert.fail("Il bottone Filtra é attivo");
+            Assertions.fail("Il bottone Filtra é attivo");
         }
     }
 
@@ -200,7 +218,6 @@ public class RicercaNotifichePersonaGiuridicaPATest {
         logger.info("Se i risultati sono contenuti in più pagine è possibile effettuare il cambio pagina");
         if (piattaformaNotifichePage.verificaEsistenzaEPassaggioPagina()) {
             logger.info("Bottone pagina 2 trovato e cliccato");
-            HeaderPGSection headerPGSection = new HeaderPGSection(this.driver);
             headerPGSection.waitLoadHeaderPGPage();
             ricercaNotifichePGPage.waitLoadNotifichePGPage();
         } else {
@@ -223,7 +240,7 @@ public class RicercaNotifichePersonaGiuridicaPATest {
             logger.info("Il bottone Filtra é disattivato");
         } else {
             logger.error("Il bottone Filtra é attivo");
-            Assert.fail("Il bottone Filtra é attivo");
+            Assertions.fail("Il bottone Filtra é attivo");
         }
     }
 }

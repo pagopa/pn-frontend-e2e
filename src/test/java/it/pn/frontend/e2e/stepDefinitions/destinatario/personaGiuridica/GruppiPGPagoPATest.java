@@ -3,19 +3,37 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.listeners.Hooks;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DisserviziAppPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.GruppiPGPage;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.utility.WebTool;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.Map;
 
 @Slf4j
-public class GruppiPGPagoPATest {
+public class GruppiPGPagoPATest extends BasePage {
 
-    private final WebDriver driver = Hooks.driver;
-    private final GruppiPGPage gruppiPGPage = new GruppiPGPage(this.driver);
+    private final Logger logger = LoggerFactory.getLogger("GruppiPGPagoPATest");
+
+    private  WebTool webTool;
+
+    private  GruppiPGPage gruppiPGPage;
+
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
+        gruppiPGPage = new GruppiPGPage(driver);
+    }
 
     @When("Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone Gruppi")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaSiCliccaSulBottoneGruppi() {
@@ -155,7 +173,7 @@ public class GruppiPGPagoPATest {
     @And("Si {string} il gruppo {string} creato inizialmente")
     public void siIlGruppoCreatoInizialmente(String azioneGruppo, String nomeGruppo) {
         log.info("Si elimina il gruppo {} creato all'inizio del test", nomeGruppo);
-        WebTool.waitTime(3);
+        webTool.waitTime(3);
         gruppiPGPage.eliminaGruppoDaPaginaIniziale(azioneGruppo, nomeGruppo);
     }
 }

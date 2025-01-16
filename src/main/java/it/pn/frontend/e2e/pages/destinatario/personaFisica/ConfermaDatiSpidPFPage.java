@@ -1,7 +1,8 @@
 package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import it.pn.frontend.e2e.utility.WebTool;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -10,10 +11,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 public class ConfermaDatiSpidPFPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("ConfermaDatiSpidPFPage");
+
 
     @FindBy(xpath = "//li[contains(text(),'name')]/strong")
     WebElement nomeUtenteLabel;
@@ -27,42 +31,52 @@ public class ConfermaDatiSpidPFPage extends BasePage {
     @FindBy(css = "input[value='Conferma']")
     WebElement confermaButton;
 
+    private WebTool webTool;
 
     public ConfermaDatiSpidPFPage(WebDriver driver) {
-        super(driver);
+        this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void waitLoadConfermaDatiSpidDEPage(){
         try{
-            By spidLogo = By.id("idp-logo");
-            By alertBox = By.xpath("//h3[@class='alert-heading']");
-            this.getWebDriverWait(30).withMessage("spid logo non visibile").until(ExpectedConditions.visibilityOfElementLocated(spidLogo));
-            this.getWebDriverWait(30).withMessage("alert box non è visibile").until(ExpectedConditions.visibilityOfElementLocated(alertBox));
+            webTool.waitTime(5);
+            WebElement spidLogo = driver.findElement(By.id("idp-logo"));
+            WebElement alertBox = driver.findElement(By.xpath("//h3[@class='alert-heading']"));
+            this.getWebDriverWait(30).withMessage("spid logo non visibile").until(ExpectedConditions.visibilityOf(spidLogo));
+            this.getWebDriverWait(30).withMessage("alert box non è visibile").until(ExpectedConditions.visibilityOf(alertBox));
             logger.info("Conferma Dati Spid DE Page caricata");
         }catch (TimeoutException e){
             logger.error("Conferma Dati Spid DE Page non caricata con errore : "+e.getMessage());
-            Assert.fail("Conferma Dati Spid DE Page non caricata con errore : "+e.getMessage());
+            Assertions.fail("Conferma Dati Spid DE Page non caricata con errore : "+e.getMessage());
 
         }
     }
 
     public String leggiNomeUtente(){
-        getWebDriverWait(30).withMessage("nome utente non è visibile").until(ExpectedConditions.visibilityOf(this.nomeUtenteLabel));
-        return this.nomeUtenteLabel.getText();
+       // webTool.waitTime(30);
+        //nomeUtenteLabel = driver.findElement(By.xpath("//li[contains(text(),'name')]/strong"));
+        getWebDriverWait(30).withMessage("nome utente non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//li[contains(text(),'name')]/strong")));
+        return element(By.xpath("//li[contains(text(),'name')]/strong")).getText();
     }
 
     public String leggiCognomeUtente(){
-        getWebDriverWait(30).withMessage("cognome utente non è visibile").until(ExpectedConditions.visibilityOf(this.cognomeUtenteLabel));
-        return this.cognomeUtenteLabel.getText();
+        //webTool.waitTime(40);
+       // cognomeUtenteLabel = driver.findElement(By.xpath("//li[contains(text(),'familyName')]/strong"));
+        getWebDriverWait(30).withMessage("cognome utente non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//li[contains(text(),'familyName')]/strong")));
+        return element(By.xpath("//li[contains(text(),'familyName')]/strong")).getText();
     }
 
     public String leggiNumeroFiscale(){
-        getWebDriverWait(30).withMessage("codice fiscale utente non è visibile").until(ExpectedConditions.visibilityOf(this.cognomeUtenteLabel));
-        return this.fiscalNumberLabel.getText();
+       // webTool.waitTime(40);
+        //fiscalNumberLabel = driver.findElement(By.xpath("//li[contains(text(),'fiscalNumber')]/strong"));
+        getWebDriverWait(30).withMessage("codice fiscale utente non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//li[contains(text(),'fiscalNumber')]/strong")));
+        return element(By.xpath("//li[contains(text(),'fiscalNumber')]/strong")).getText();
     }
 
     public void selezionaConfermaButton(){
-        this.getWebDriverWait(30).withMessage("conferma dati spid button non è cliccabile").until(ExpectedConditions.elementToBeClickable(confermaButton));
-        this.confermaButton.click();
+       // confermaButton = driver.findElement(By.cssSelector("input[value='Conferma']"));
+        getWebDriverWait(30).withMessage("conferma dati spid button non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.cssSelector("input[value='Conferma']")));
+        element(By.cssSelector("input[value='Conferma']")).click();
     }
 }

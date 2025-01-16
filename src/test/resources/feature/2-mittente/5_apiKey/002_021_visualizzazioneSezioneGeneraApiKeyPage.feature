@@ -2,9 +2,8 @@ Feature: Mittente visualizza correttamente la sezione genera Api Key
 
   @TestSuite
   @TA_MittenteVisualizzaGeneraApiKey
-  @mittente
   @ApikeyMittente
-
+  @loginFE_72
   Scenario: PN-9229 - Mittente visualizza correttamente la sezione genera Api Key
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu

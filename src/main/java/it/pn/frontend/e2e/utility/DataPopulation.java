@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import lombok.Setter;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +17,7 @@ import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class DataPopulation {
     private static final Logger logger = LoggerFactory.getLogger("DataPopulation");
 
@@ -49,7 +52,7 @@ public class DataPopulation {
             return objectMapper.readValue(new File("src/test/resources/dataPopulation/" + dpFile), typeReference);
         } catch (IOException e) {
             logger.error(e.getMessage());
-            Assert.fail(e.getMessage());
+            Assertions.fail(e.getMessage());
         }
         return readValue;
     }
@@ -60,7 +63,7 @@ public class DataPopulation {
             this.objectMapper.writeValue(new File("src/test/resources/dataPopulation/" + dpFile), dp);
         } catch (IOException e) {
             logger.error(e.getMessage());
-            Assert.fail(e.getMessage());
+            Assertions.fail(e.getMessage());
         }
     }
 }

@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.common;
 
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -10,6 +10,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+
 
 public class NotificheDestinatarioPage extends BasePage{
     private static final Logger logger = LoggerFactory.getLogger("NotificheDestinatarioPage");
@@ -19,15 +23,17 @@ public class NotificheDestinatarioPage extends BasePage{
     @FindBy(xpath = "//button[contains(text(),'Ricevuta di consegna PEC')]")
     WebElement ricevutaDiConsegnaButton;
 
+    private  WebTool webTool;
 
     public NotificheDestinatarioPage(WebDriver driver) {
-        super(driver);
+        this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void inserisciCodiceIUN(String codiceIUN) throws InterruptedException {
-        getWebDriverWait(10).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(this.codiceIunTextField));
-        WebTool.waitTime(1);
-        codiceIunTextField.sendKeys(codiceIUN);
+        getWebDriverWait(10).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
+        webTool.waitTime(1);
+        driver.findElement(By.id("iunMatch")).sendKeys(codiceIUN);
     }
     public boolean verificaCodiceIUN(String codiceIUNInserito) {
         try {
@@ -37,20 +43,23 @@ public class NotificheDestinatarioPage extends BasePage{
             return true;
         }catch (TimeoutException e){
             logger.error("Il codice IUN"+codiceIUNInserito+" non è stato trovato con errore:"+e.getMessage());
-            Assert.fail("Il codice IUN"+codiceIUNInserito+" non è stato trovato con errore:"+e.getMessage());
+            Assertions.fail("Il codice IUN"+codiceIUNInserito+" non è stato trovato con errore:"+e.getMessage());
         }
         return false;
     }
 
     public boolean isTextBoxInvalid(){
-        getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(codiceIunTextField));
-        String ariaInvalid = codiceIunTextField.getAttribute("aria-invalid");
+        getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
+
+        String ariaInvalid = driver.findElement(By.id("iunMatch")).getAttribute("aria-invalid");
         final String isTextboxInvalid = "true";
         return isTextboxInvalid.equals(ariaInvalid);
     }
 
     public void checkRicevutaConsegnaCliccabile() {
         logger.info("controllo esistenza bottone per scaricare zip");
+        webTool.waitTime(10);
+        ricevutaDiConsegnaButton = driver.findElement(By.xpath("//button[contains(text(),'Ricevuta di consegna PEC')]"));
         getWebDriverWait(10).withMessage("Il bottone Ricevuta di consegna non cliccabile").until(ExpectedConditions.elementToBeClickable(ricevutaDiConsegnaButton));
         logger.info("Il bottone Ricevuta di consegna non cliccabile");
     }

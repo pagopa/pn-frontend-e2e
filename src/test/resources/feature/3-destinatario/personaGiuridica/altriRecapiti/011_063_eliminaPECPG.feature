@@ -4,7 +4,9 @@ Feature: La persona giuridica elimina l'indirizzo PEC
   @TA_eliminaPECPG
   @PG
   @recapitiPG
-
+  @mittente_x1
+  @addressBook2
+  @recapitiPFPG
   Scenario: PN-9154 - La persona giuridica elimina l'indirizzo PEC
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

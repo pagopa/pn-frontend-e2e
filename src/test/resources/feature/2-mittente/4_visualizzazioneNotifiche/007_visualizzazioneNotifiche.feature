@@ -2,8 +2,8 @@ Feature: Mittente visualizza correttamente la pagina notifiche
 
   @TestSuite
   @TA_MittentevisualizzazioneNotifiche
-  @mittente
 
+  @loginFE
   @visualizzazioneNotificheMittente
   Scenario: [TA-FE VISUALIZZAZIONE NOTIFICA] - Mittente visualizza correttamente la pagina notifiche
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

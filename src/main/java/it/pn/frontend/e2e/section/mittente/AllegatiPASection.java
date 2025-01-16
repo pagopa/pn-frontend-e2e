@@ -1,7 +1,8 @@
 package it.pn.frontend.e2e.section.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.Assert;
+import it.pn.frontend.e2e.utility.WebTool;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -10,6 +11,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -20,7 +23,7 @@ public class AllegatiPASection extends BasePage {
     @FindBy(css = "div[data-testid='fileInput'] > input[accept='application/pdf']")
     WebElement selezionaloDalTuoComputerInput;
 
-    @FindBy(id = "file-upload-hash-code")
+    @FindBy(id = ":r18:")
     WebElement hashCodeTextField;
 
     @FindBy(id = "documents.0.name")
@@ -33,43 +36,53 @@ public class AllegatiPASection extends BasePage {
     @FindBy(id = "step-submit")
     WebElement inviaButton;
 
+    private WebTool webTool;
+
     public AllegatiPASection(WebDriver driver) {
-        super(driver);
+
+        this.driver = driver;
+        webTool = new WebTool(driver);
     }
 
     public void waitLoadAllegatiPASection() {
         try{
-            By allegatiTitleField = By.xpath("//h3[contains(text(),'Allegati')]");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(allegatiTitleField));
+            WebElement allegatiTitleField = driver.findElement(By.xpath("//h3[contains(text(),'Documenti allegati')]"));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(allegatiTitleField));
             logger.info("Allegati PA Section caricata");
         }catch (TimeoutException e){
             logger.error("Allegati PA Section non caricata con errore: "+e.getMessage());
-            Assert.fail("Allegati PA Section non caricata con errore: "+e.getMessage());
+            Assertions.fail("Allegati PA Section non caricata con errore: "+e.getMessage());
         }
     }
 
     public void caricareNotificaPdfDalComputer(String pathNotificaFile) {
-        if(!this.selezionaloDalTuoComputerInput.isDisplayed()){
-            this.js().executeScript("arguments[0].scrollIntoView(true)", this.selezionaloDalTuoComputerInput);
-            this.selezionaloDalTuoComputerInput.sendKeys(pathNotificaFile);
+        webTool.waitTime(20);
+
+        selezionaloDalTuoComputerInput = driver.findElement(By.cssSelector("div[data-testid='fileInput'] > input[accept='application/pdf']"));
+        if(!selezionaloDalTuoComputerInput.isDisplayed()){
+            js().executeScript("arguments[0].scrollIntoView(true)", selezionaloDalTuoComputerInput);
+            selezionaloDalTuoComputerInput.sendKeys(pathNotificaFile);
         }else{
-            this.selezionaloDalTuoComputerInput.sendKeys(pathNotificaFile);
+            selezionaloDalTuoComputerInput.sendKeys(pathNotificaFile);
         }
     }
     public void messagioDiErroreDoc(){
-        By errorMessageDoc = By.id("file-upload-error");
-        getWebDriverWait(5).withMessage("Il messagio di formato errato non è visibile").until(ExpectedConditions.visibilityOfElementLocated(errorMessageDoc));
+        WebElement errorMessageDoc = driver.findElement(By.id("file-upload-error"));
+        getWebDriverWait(5).withMessage("Il messagio di formato errato non è visibile").until(ExpectedConditions.visibilityOf(errorMessageDoc));
     }
 
     public void checkCodiceHash(){
-        By codiceHash = By.id("file-upload-hash-code");
-        getWebDriverWait(5).withMessage("Il codice hash non è visibile").until(ExpectedConditions.visibilityOfElementLocated(codiceHash));
+        WebElement copiaHash = driver.findElement(By.xpath("//button[@aria-label='Copia']"));
+        getWebDriverWait(5).withMessage("Il codice hash non è visibile").until(ExpectedConditions.visibilityOf(copiaHash));
+       // WebElement codiceHash = driver.findElement(By.id(":r18:"));
+       // getWebDriverWait(5).withMessage("Il codice hash non è visibile").until(ExpectedConditions.visibilityOf(codiceHash));
     }
 
     public void clickAggiungiNuovoDocumento(){
-        By addNewDocuments = By.xpath("//*[@data-testId='add-another-doc']");
+        WebElement addNewDocuments = driver.findElement(By.xpath("//*[@data-testId='add-another-doc']"));
         getWebDriverWait(5).withMessage("Il bottone aggiungi nuovo documento non è cliccabile").until(ExpectedConditions.elementToBeClickable(addNewDocuments));
-        this.element(addNewDocuments).click();
+      //  addNewDocuments.click();
+        js().executeScript("arguments[0].click()", addNewDocuments);
     }
 
     public void eliminaAtto(){
@@ -78,51 +91,57 @@ public class AllegatiPASection extends BasePage {
     }
 
     public boolean verificaCaricamentoNotificaPdf() {
-        getWebDriverWait(30).until(ExpectedConditions.visibilityOf(this.hashCodeTextField));
+       // hashCodeTextField = driver.findElement(By.id(":r18:"));
+        WebElement copiaHash = driver.findElement(By.xpath("//button[@aria-label='Copia']"));
+        getWebDriverWait(30).until(ExpectedConditions.visibilityOf(copiaHash));
         logger.info("check caricamento notifica pdf");
-        return this.hashCodeTextField.isDisplayed();
+        return copiaHash.isDisplayed();
     }
 
     public void inserimentoNomeAllegato(String nomeAtto) {
-        if (!this.nomeAttoTextField.isDisplayed()) {
-            this.js().executeScript("arguments[0].scrollIntoView(true)", this.nomeAttoTextField);
+        nomeAttoTextField = driver.findElement(By.id("documents.0.name"));
+        if (!nomeAttoTextField.isDisplayed()) {
+            js().executeScript("arguments[0].scrollIntoView(true)", nomeAttoTextField);
         }
         logger.info("inserimento nome allegato");
         this.nomeAttoTextField.click();
         this.nomeAttoTextField.sendKeys(nomeAtto);
     }
     public void inserimentoNomeSecondoAllegato(String nomeAtto) {
-        if (!this.nomeSecondoAttoTextField.isDisplayed()) {
-            this.js().executeScript("arguments[0].scrollIntoView(true)", this.nomeSecondoAttoTextField);
+        nomeSecondoAttoTextField = driver.findElement(By.id("documents.1.name"));
+        if (!nomeSecondoAttoTextField.isDisplayed()) {
+            js().executeScript("arguments[0].scrollIntoView(true)", nomeSecondoAttoTextField);
         }
         logger.info("inserimento nome allegato");
         this.nomeSecondoAttoTextField.click();
         this.nomeSecondoAttoTextField.sendKeys(nomeAtto);
     }
     public void inserimentoNomeTerzoAllegato(String nomeAtto) {
-        if (!this.nomeTerzoAttoTextField.isDisplayed()) {
-            this.js().executeScript("arguments[0].scrollIntoView(true)", this.nomeTerzoAttoTextField);
+        nomeTerzoAttoTextField = driver.findElement(By.id("documents.2.name"));
+        if (!nomeTerzoAttoTextField.isDisplayed()) {
+            js().executeScript("arguments[0].scrollIntoView(true)", nomeTerzoAttoTextField);
         }
         logger.info("inserimento nome allegato");
-        this.nomeTerzoAttoTextField.click();
-        this.nomeTerzoAttoTextField.sendKeys(nomeAtto);
+        nomeTerzoAttoTextField.click();
+        nomeTerzoAttoTextField.sendKeys(nomeAtto);
     }
 
     public void selectInviaButton() {
 
         try {
+            inviaButton = driver.findElement(By.id("step-submit"));
             getWebDriverWait(10).until(ExpectedConditions.and(ExpectedConditions.elementToBeClickable(inviaButton),ExpectedConditions.visibilityOf(inviaButton)));
             inviaButton.click();
             logger.info("click avvenuto con successo su invio allegati");
         }catch (TimeoutException e) {
             logger.error("click non avvenuto con successo su invio allegati con errore: "+e.getMessage());
-            Assert.fail("click non avvenuto con successo su invio allegati con errore: "+e.getMessage());        }
+            Assertions.fail("click non avvenuto con successo su invio allegati con errore: "+e.getMessage());        }
     }
 
     public boolean verificaMessaggioErrore() {
         try {
-            By messageErrorBy = By.id("alert-1");
-            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(messageErrorBy));
+            WebElement messageErrorBy = driver.findElement(By.id("alert-1"));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(messageErrorBy));
             logger.info("messaggio di errore presente");
             return true;
         }catch (TimeoutException e) {

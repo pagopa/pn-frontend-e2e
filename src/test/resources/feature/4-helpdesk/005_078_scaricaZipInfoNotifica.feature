@@ -1,18 +1,17 @@
 Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
 
   Background: Login utente in helpdesk
-    Given Login helpdesk con utente test "testHelpdesk"
+    Given Login helpdesk con utente test
     And Si visualizza correttamente home Helpdesk
 
   @TestSuite
   @OttenereInfoCompletaDiNotifica
-
-
+  @loginFE
   Scenario: PN-9606 - Ottenere le informazioni complete di una notifica
     When Nella Home di helpdesk utente clicca su sezione ricerca ed estrazione dati
     And visualizzazione corretta pagina ricerca ed estrazione dati
     And Selezione ottieni notifica
-    And viene inserito codice IUN "YRUZ-NYXJ-DAJK-202405-N-1"
+    And viene inserito codice IUN "IUN1"
     And controllo messaggio di successo
     And controllo password
     And controllo link per scaricare zip e scarico file
@@ -22,7 +21,7 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
     And Si elimina file estratto
     And Si clicca sul bottone resetta filtri
     And  Selezione ottieni notifica
-    And viene inserito codice IUN "YRUZ-NYXJ-DAJK-202405-N-2"
+    And viene inserito codice IUN "IUN2"
     And controllo messaggio di successo
     And controllo password
     And controllo link per scaricare zip e scarico file

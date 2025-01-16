@@ -2,24 +2,43 @@ package it.pn.frontend.e2e.stepDefinitions.common;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
-import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
-import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
+import jakarta.annotation.PostConstruct;
+import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
-public class RecapitiTest {
+public class RecapitiTest extends BasePage {
+
+
+    private final Logger logger = LoggerFactory.getLogger("RecapitiTest");
 
     private final String PEC = "PEC";
     private final String emailDiCortesia = "email di cortesia";
     private final String ELIMINA = "Elimina";
-    private final Logger logger = LoggerFactory.getLogger("RecapitiTest");
-    private final WebDriver driver = Hooks.driver;
-    public static String OTP;
-    private final RecapitiDestinatarioPage recapitiDestinatarioPage = new RecapitiDestinatarioPage(this.driver);
-    private final ITuoiRecapitiPage iTuoiRecapitiPage = new ITuoiRecapitiPage(this.driver);
+
+    public  String OTP;
+
+    private RecapitiDestinatarioPage recapitiDestinatarioPage;
+
+    private ITuoiRecapitiPage iTuoiRecapitiPage;
+
+    @Autowired
+    @Lazy
+    private BackgroundTest backgroundTest;
+
+    @PostConstruct
+    public void init(){
+        logger.info("INIT TEST...: ");
+        recapitiDestinatarioPage = new RecapitiDestinatarioPage(driver);
+        iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
+        backgroundTest.setRecapitiTest(this);
+
+    }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono {string} e si clicca sul bottone avvisami via SMS")
     public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoESiCliccaSulBottoneAvvisamiViaSMS(String cellulare) {
@@ -61,14 +80,13 @@ public class RecapitiTest {
     @And("Nella pagina I Tuoi Recapiti si controlla che non ci sia già una {string} e si inserisce {string}")
     public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaPECESiInserisce(String tipoContatto, String indirizzoMail) {
         logger.info("Si controlla che non ci sia già una " + tipoContatto + " e se ne inserisce una");
-        BackgroundTest backgroundTest = new BackgroundTest();
         if (PEC.equalsIgnoreCase(tipoContatto)){
             backgroundTest.checkPECEsistentePerEliminazioneEInserimento(indirizzoMail);
         } else if (emailDiCortesia.equalsIgnoreCase(tipoContatto)){
             backgroundTest.checkEmailDiCortesiaPerEliminazioneEInserimento(indirizzoMail);
         } else {
             logger.error("Errore nella scrittura del tipo di contatto da controllare e inserire");
-            Assert.fail("Errore nella scrittura del tipo di contatto da controllare e inserire");
+            Assertions.fail("Errore nella scrittura del tipo di contatto da controllare e inserire");
         }
     }
 
@@ -87,7 +105,7 @@ public class RecapitiTest {
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioEmailErrata() {
         String errorMessageRead = recapitiDestinatarioPage.getEmailErrorMessage();
         if (!errorMessageRead.contains("Indirizzo email non valido") && !errorMessageRead.contains("Scrivi massimo 254 caratteri")) {
-            Assert.fail("messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo e-mail non valido o Scrivi massimo 254 caratteri");
+            Assertions.fail("messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo e-mail non valido o Scrivi massimo 254 caratteri");
         }
     }
 
@@ -143,7 +161,7 @@ public class RecapitiTest {
         logger.info("Si controlla che la Email sia stata inserita correttamente");
         if (!recapitiDestinatarioPage.verificaMailAssociata()) {
             logger.error("Email non è stata inserita correttamente");
-            Assert.fail("Email non è stata inserita correttamente");
+            Assertions.fail("Email non è stata inserita correttamente");
         }
     }
 
@@ -167,7 +185,6 @@ public class RecapitiTest {
     @And("Si inserisce il codice OTP errato {string} per tre volte e si controlla il messaggio di errore")
     public void siInserisceIlCodiceOTPErratoPerTreVolteESiControllaIlMessaggioDiErrore(String OTP) {
         logger.info("Si inserisce un codice OTP errato per 3 volte e si controlla il messaggio di errore");
-        BackgroundTest backgroundTest = new BackgroundTest();
         backgroundTest.inserimentoOTPErratoTreVolteEControlloMessaggio(OTP);
     }
 

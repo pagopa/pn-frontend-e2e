@@ -16,3 +16,6 @@ Feature: Mittente visualizza correttamente la notifica in stato Annulato
       | vediDettagli | false                                          |
     Then Si verifica che il link sul documento Attestazione è cliccabile
     And Logout da portale mittente
+
+
+

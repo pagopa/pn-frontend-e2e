@@ -6,11 +6,11 @@ Feature: Ente figlio e Ente radice
   @verificaAssenzaNotificheEnteRadice
   Scenario: PN-10413 - Ente Figlio - Verifica assenza notifiche ente radice
     Given Login Page mittente viene visualizzata
-      | url | https://selfcare.dev.notifichedigitali.it |
+      | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente
-      | user   | ggiorgi |
+      | user   | albino63 |
       | pwd    | test    |
-      | comune | Viggiu  |
+      | comune | Verona  |
     And Si clicca sul bottone test
     And Si clicca bottone accetta cookies
     And Cliccare sulla notifica restituita
@@ -24,11 +24,11 @@ Feature: Ente figlio e Ente radice
   @verificaAssenzaNotificheEnteFiglio
   Scenario: PN-10411 - Ente Radice - Verifica assenza notifiche ente figlio
     Given Login Page mittente viene visualizzata
-      | url | https://selfcare.dev.notifichedigitali.it |
+      | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente
-      | user   | ggiorgi |
+      | user   | albino63 |
       | pwd    | test    |
-      | comune | Viggiu  |
+      | comune | Verona  |
     And Si clicca sul bottone test
     And Si clicca bottone accetta cookies
     And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"
@@ -43,11 +43,11 @@ Feature: Ente figlio e Ente radice
   @verificaAssenzaApikeyEnteFiglio
   Scenario: PN-10412 - Ente Radice - Verifica assenza apikey ente figlio
     Given Login Page mittente viene visualizzata
-      | url | https://selfcare.dev.notifichedigitali.it |
+      | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente
-      | user   | ggiorgi |
+      | user   | albino63 |
       | pwd    | test    |
-      | comune | Viggiu  |
+      | comune | Verona  |
     And Si clicca sul bottone test
     And Si clicca bottone accetta cookies
     And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"
@@ -72,11 +72,11 @@ Feature: Ente figlio e Ente radice
   @verificaAssenzaApikeyEnteRadice
   Scenario: PN-10414 - Ente Figlio - Verifica assenza apikey ente radice
     Given Login Page mittente viene visualizzata
-      | url | https://selfcare.dev.notifichedigitali.it |
+      | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente
-      | user   | ggiorgi |
+      | user   | albino63 |
       | pwd    | test    |
-      | comune | Viggiu  |
+      | comune | Verona  |
     And Si clicca sul bottone test
     And Si clicca bottone accetta cookies
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
@@ -102,11 +102,11 @@ Feature: Ente figlio e Ente radice
   @test5
   Scenario: PN-10419 - Ente Figlio - Verifica presenza notifiche da parte del delegato
     Given Login Page mittente viene visualizzata
-      | url | https://selfcare.dev.notifichedigitali.it |
+      | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente
-      | user   | ggiorgi |
+      | user   | albino63 |
       | pwd    | test    |
-      | comune | Viggiu  |
+      | comune | Verona  |
     And Si clicca sul bottone test
     And Si clicca bottone accetta cookies
     And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"

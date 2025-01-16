@@ -4,16 +4,16 @@ Feature:Il delegato persona giuridica accede ad una delega
   @TA_PFdelegatoPagaNotifica
   @DeleghePF
   @PF
-
+  @DeleghePFPG
+  @deleghe1
+    @loginFE_100
   Scenario: PN-10388 - Il delegato persona fisica paga una notifica
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    And Aspetta 10 secondi
     And Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
     And Si controlla che non sia presente una delega con stesso nome
       | nome    | Lucrezia |
       | cognome | Borgia   |
-    And Aspetta 10 secondi
     And Nella sezione Deleghe click sul bottone aggiungi nuova delega
     And Si visualizza correttamente la pagina nuova delega
     And Nella sezione Le Tue Deleghe inserire i dati
@@ -22,7 +22,7 @@ Feature:Il delegato persona giuridica accede ad una delega
       | codiceFiscale | BRGLRZ80D58H501Q  |
       | ente          | Comune di Verona |
     And Nella sezione Le Tue Deleghe verificare che la data sia corretta
-    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "nuova_delega"
+    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
 
     And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard

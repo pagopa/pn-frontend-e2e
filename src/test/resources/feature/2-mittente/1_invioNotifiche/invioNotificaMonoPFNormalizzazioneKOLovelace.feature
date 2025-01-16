@@ -37,7 +37,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
     And Logout da portale mittente
     And Login Page persona fisica test viene visualizzata
-    And Login con persona fisica
+    And Login con persona fisicainput
       | user         | ada                    |
       | pwd          | password123            |
       | name         | Ada                    |
@@ -49,15 +49,17 @@ Feature: Mittente genera una notifica che non prevede pagamento
 
   @TestSuite
   @TA_InvioNotificaMonoPFNormalizzazioneKOLovelaceBis
+  @DeleghePGPF
+  @deleghe1
   Scenario: PN-9294-bis - Mittente genera una notifica mono destinatario a PF - Normalizzazione KO (indirizzo non trovato)
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
-    And Mittente ricerca notifica con IUN salvato "RZVD-VGVL-XZLK-202410-X-1"
+    And Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN "RZVD-VGVL-XZLK-202410-X-1"
     And Si clicca la notifica ricercata
     And Si clicca sul opzione Vedi Dettaglio
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
     And Logout da portale mittente
     And Login Page persona fisica test viene visualizzata
-    And Login con persona fisica
+    And Login con persona fisica input
       | user         | ada                    |
       | pwd          | password123            |
       | name         | Ada                    |

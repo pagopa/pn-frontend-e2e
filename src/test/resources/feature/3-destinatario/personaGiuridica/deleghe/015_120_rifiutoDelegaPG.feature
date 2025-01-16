@@ -4,7 +4,8 @@ Feature:Il delegato persona giuridica rifiuta la delega
   @TA_PGrifiutoDelega
   @DeleghePG
   @PG
-
+  @deleghe2
+  @DeleghePFPG
   Scenario: PN-9172 - Il delegato persona giuridica rifiuta la delega
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
@@ -15,8 +16,9 @@ Feature:Il delegato persona giuridica rifiuta la delega
       | companyName | Convivio Spa |
       | displayName | Convivio Spa |
       | person      | false        |
+      | DelegheCarico | true        |
     And Si accetta la delega senza gruppo
-    And Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega "personaGiuridica"
+    And Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega
     And Nella sezione Deleghe si clicca sul bottone rifiuta
     And Si clicca sul bottone rifiuta delega
     And Si controlla che la delega non si più presente in elenco

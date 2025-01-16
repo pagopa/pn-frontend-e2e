@@ -3,7 +3,7 @@ Feature: la persona giuridica inserisce un recapito aggiuntivo da un ente radice
   @TA_inserimentoRecapitoAggiuntivoDaEnteRadicePG
   @PG
   @recapitiPG
-
+  @addressBook2
   Scenario: PN-10430 - La persona giuridica inserisce un recapito aggiuntivo da un ente radice
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono
@@ -28,13 +28,13 @@ Feature: la persona giuridica inserisce un recapito aggiuntivo da un ente radice
       | Comune di Vibo Valentia      |
       | Istituto Nazionale           |
       | Mercurio Riscossioni         |
-    And Nella sezione altri recapiti si controlla l'esistenza di una PEC "personaFisica"
-    And Nella sezione altri recapiti si seleziona l'ente "mittente"
+    And Nella sezione altri recapiti si controlla l'esistenza di una PEC
+    And Nella sezione altri recapiti si seleziona l'ente
     And Nella sezione altri recapiti si seleziona il tipo di indirizzo
     And Nella sezione altri recapiti si inserisce la PEC aggiuntiva de persona fisica "pectest2@pec.it"
     And Nella sezione altri recapiti si clicca sul bottone associa
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email 'altri recapiti' tramite request method "personaFisica"
-    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP della email "personaFisica"
+    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email 'altri recapiti' tramite request method
+    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP della email
     Then Nella sezione altri recapiti si controlla che la pec aggiuntiva sia stata inserita correttamente
     And Logout da portale persona giuridica

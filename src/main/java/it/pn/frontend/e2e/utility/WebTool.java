@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.utility;
 
-import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.listeners.NetWorkInfo;
+import it.pn.frontend.e2e.config.WebDriverConfig;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.enums.AppPortal;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
@@ -10,50 +10,71 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
 import lombok.extern.slf4j.Slf4j;
-import lombok.Getter;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
+@Component
 public class WebTool {
+
+    @Autowired
+    @Lazy
+    private WebDriverConfig webDriverConfig;
+    @Autowired
+    @Lazy
+    private  HooksNew hooks;
+
+    private HeaderPASection headerPASection;
+
+    private HeaderPFSection headerPFSection;
+
+    private HeaderPGSection headerPGSection;
+
+    private NotifichePFPage notifichePFPage;
+
+    private PiattaformaNotifichePage piattaformaNotifichePage;
+
+    private CookiesSection cookiesSection;
+
     private static final Integer NOTICE_CODE_LENGTH = 18;
-    private static final WebDriver driver = Hooks.driver;
-    private final List<NetWorkInfo> netWorkInfos = Hooks.netWorkInfos;
-    private final String env = System.getProperty("environment");
 
-    @Getter
-    private static final String apiBaseUrl = System.getProperty("apiBaseUrl");
+    private WebDriver driver;
 
-    public static String switchToPortal(AppPortal portal) {
+    public WebTool(WebDriver driver) {
+       this.driver = driver;
+    }
+
+    public  String switchToPortal(AppPortal portal) {
         openNewTab();
         switch (portal) {
             case PA -> {
                 driver.get(portal.url);
-                HeaderPASection headerPASection = new HeaderPASection(driver);
+                headerPASection = new HeaderPASection(driver);
                 headerPASection.waitLoadHeaderSection();
-                PiattaformaNotifichePage piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
+                piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
                 piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
             }
             case PF -> {
                 driver.get(portal.url);
-                HeaderPFSection headerPFSection = new HeaderPFSection(driver);
+                headerPFSection = new HeaderPFSection(driver);
                 headerPFSection.waitLoadHeaderDESection();
-                NotifichePFPage notifichePFPage = new NotifichePFPage(driver);
+                notifichePFPage = new NotifichePFPage(driver);
                 notifichePFPage.waitLoadNotificheDEPage();
             }
             case PG -> {
                 driver.get(portal.url);
-                HeaderPGSection headerPGSection = new HeaderPGSection(driver);
+                headerPGSection = new HeaderPGSection(driver);
                 headerPGSection.waitLoadHeaderPGPage();
             }
             case HELPDESK -> {
@@ -61,32 +82,32 @@ public class WebTool {
             }
             default -> {
                 log.error("Tipologia di portale non specificato o errato!");
-                Assert.fail("Tipologia di portale non specificato o errato!");
+                Assertions.fail("Tipologia di portale non specificato o errato!");
             }
         }
-        CookiesSection cookiesPage = new CookiesSection(driver);
-        if (cookiesPage.waitLoadCookiesPage()) {
-            cookiesPage.selezionaAccettaTuttiButton();
+        cookiesSection = new CookiesSection(driver);
+        if (cookiesSection.waitLoadCookiesPage()) {
+            cookiesSection.selezionaAccettaTuttiButton();
         }
         return driver.getWindowHandle();
     }
 
-    public static void openNewTab() {
+    public  void openNewTab() {
         ((JavascriptExecutor) driver).executeScript("window.open()");
         String newTab = driver.getWindowHandles().stream().reduce((first, second) -> second).orElse(null);
         driver.switchTo().window(newTab);
     }
 
-    public static void closeTab() {
+    public  void closeTab() {
         log.info("Si chiude la scheda corrente");
         driver.close();
         String newTab = driver.getWindowHandles().stream().reduce((first, second) -> second).orElse(null);
         driver.switchTo().window(newTab);
     }
 
-    public static void switchToOtherTab(){
-        String parentWindowHandle = driver.getWindowHandle();
-        Set<String> windowHandles = driver.getWindowHandles();
+    public  void switchToOtherTab(){
+        String parentWindowHandle =  driver.getWindowHandle();
+        Set<String> windowHandles =  driver.getWindowHandles();
         for (String handle : windowHandles) {
             if (!handle.equals(parentWindowHandle)) {
                 driver.switchTo().window(handle);
@@ -134,7 +155,7 @@ public class WebTool {
      *
      * @param seconds the number of seconds to wait
      */
-    public static void waitTime(int seconds) {
+    public  void waitTime(int seconds) {
         try {
             int minutes;
             int remainingSeconds;
