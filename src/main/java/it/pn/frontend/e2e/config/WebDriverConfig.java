@@ -88,6 +88,12 @@ public class WebDriverConfig {
     @Value("${pn.bearer-token.tokendevMittente}")
     private String tokendevMittente;
 
+    @Value("${pn.bearer-token.tokentestMittenteViggiu}")
+    private String tokentestMittenteViggiu;
+
+    @Value("${pn.bearer-token.tokendevMittenteViggiu}")
+    private String tokendevMittenteViggiu;
+
     @Value("${pn.bearer-token.tokentestPFColombo}")
     private String tokentestPFColombo;
 
@@ -126,6 +132,12 @@ public class WebDriverConfig {
 
     @Value("${pn.pwd.mittente}")
     private String pwdMittente;
+
+    @Value("${pn.user.mittenteViggiu}")
+    private String userMittenteViggiu;
+
+    @Value("${pn.pwd.mittenteViggiu}")
+    private String pwdMittenteViggiu;
 
     @Value("${pn.userDev.helpdesk}")
     private String userDevHelpdesk;
