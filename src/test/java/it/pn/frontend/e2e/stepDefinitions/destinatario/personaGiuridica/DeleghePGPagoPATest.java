@@ -560,7 +560,7 @@ public class DeleghePGPagoPATest extends BasePage {
     @And("Si inserisce il codice della delega a carico dell impresa nella modale")
     public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale() {
         String verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(hooksNew.getScenario()));
-        logger.info(verificationCode);
+        logger.info("Verification_Code_Modale: "+verificationCode);
         deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI(verificationCode);
     }
 

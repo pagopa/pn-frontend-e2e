@@ -154,6 +154,35 @@ public class LoginMittentePagoPA extends BasePage {
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
     }
 
+    @Given("PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard Comune di {string}")
+    public void loginMittenteConTokenExchangeComuneDi(String comune) {
+        //TODO Il parametro comune potrebbe servire in futuro se esiste il token exchange
+        String environment = webDriverConfig.getEnvironment();
+        String token = "";
+        switch (environment) {
+            case "dev" ->
+                    token = webDriverConfig.getTokendevMittenteViggiu();
+            case "test" ->
+                    token = webDriverConfig.getTokentestMittenteViggiu();
+            default -> {
+                logger.error("Ambiente non valido");
+                Assertions.fail("Ambiente non valido o non trovato!");
+            }
+        }
+
+        // Si effettua il login con token exchange
+        String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
+        logger.info("*-*-*-* urlLogin: "+urlLogin);
+        driver.get(urlLogin);
+        logger.info("Login effettuato con successo");
+        // Attesa statica di 10 secondi - considerare l'uso di WebDriverWait per migliorare l'efficienza
+        webTool.waitTime(10);
+
+        // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
+        headerPASection.waitLoadHeaderSection();
+        piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
+    }
+
     @When("Login con mittente {string}")
     public void loginConMittente(String datiMittenteFile) {
         logger.info("Si effetua la Login dal portale mittente");
@@ -229,6 +258,57 @@ public class LoginMittentePagoPA extends BasePage {
         selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComune());
         selezionaEntePAPage.selezionaAccedi();
     }
+
+
+    @When("Login con mittente Comune di {string}")
+    public void loginConMittenteComuneDi(String comune) {
+        logger.info("Si effetua la Login dal portale mittente");
+
+        preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
+        preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
+
+        if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
+                !webDriverManager.getCookieConfig().isCookieEnabled()) {
+            logger.info("cookies start");
+            cookiesSection.selezionaAccettaTuttiButton();
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
+            }
+            logger.info("cookies end");
+        }
+
+        acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
+        acccediAreaRiservataPAPage.selezionareSpidButton();
+
+        scegliSpidPAPage.selezionareTestButton();
+
+        loginPAPage.waitLoadLoginPAPage();
+        if(comune.equalsIgnoreCase("Viggiu")){
+            loginPAPage.inserisciUtenete(webDriverConfig.getUserMittenteViggiu());
+            loginPAPage.inserisciPassword(webDriverConfig.getPwdMittenteViggiu());
+        }
+        else {
+            loginPAPage.inserisciUtenete(webDriverConfig.getUserMittente());
+            loginPAPage.inserisciPassword(webDriverConfig.getPwdMittente());
+        }
+        loginPAPage.selezionaInviaDati();
+
+        autorizziInvioDatiPAPage.waitLoadAutorizziInvioDatiPAPage();
+        autorizziInvioDatiPAPage.selezionareInvia();
+
+        webTool.waitTime(10);
+        selezionaEntePAPage.waitLoadSelezionaEntePAPage();
+        if(comune.equalsIgnoreCase("Viggiu")){
+            selezionaEntePAPage.cercaComune("Viggiu");
+            selezionaEntePAPage.selezionareComune("Viggiu");
+        }
+        else {
+            selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComune());
+            selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComune());
+        }
+        selezionaEntePAPage.selezionaAccedi();
+    }
+
 
     @When("Login mittente tramite request method")
     public void portaleMittenteIsDisplayed() throws InterruptedException {
@@ -464,4 +544,7 @@ public class LoginMittentePagoPA extends BasePage {
     public void siCLiccaSulBottoneEsci() {
         headerPASection.selezionaEsciButton();
     }
+
+
+
 }

@@ -31,7 +31,9 @@ import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -268,6 +270,36 @@ public class NotificaMittentePagoPATest  extends BasePage {
         informazioniPreliminariPASection.insertCodiceTassonometrico(dataPopulationConfig.getDatiNotifica().getCodiceTassonometrico());
         informazioniPreliminariPASection.selectRaccomandataAR();
     }
+    @And("Nella section Informazioni preliminari inserire i dati della notifica senza pagamento senza gruppo")
+    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamentoSenzaGruppo() {
+        logger.info("Inserimento dei dati della notifica senza pagamento" );
+        //datiNotifica
+        aggiornamentoNumeroProtocollo();
+        String gruppo = "";
+        switch (webDriverConfig.getEnvironment()) {
+            // case "dev" -> gruppo = datiNotifica.get("gruppoDev").toString();
+            // case "test", "uat" -> gruppo = datiNotifica.get("gruppoTest").toString();
+            case "dev" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoDev();
+            case "test", "uat" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoTest();
+        }
+        informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
+        informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione());
+        informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
+        informazioniPreliminariPASection.insertCodiceTassonometrico(dataPopulationConfig.getDatiNotifica().getCodiceTassonometrico());
+        informazioniPreliminariPASection.selectRaccomandataAR();
+    }
+
+    @And("Nella section Informazioni preliminari inserire i dati della notifica senza pagamento con nuovi codiceTassonomici {string}")
+    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamentoConNuoviCodiceTassonomici(String codiceTassonomico) {
+        logger.info("Inserimento dei dati della notifica senza pagamento" );
+        //datiNotifica
+        aggiornamentoNumeroProtocollo();
+        informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
+        informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione());
+        informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
+        informazioniPreliminariPASection.insertCodiceTassonometrico(codiceTassonomico);
+        informazioniPreliminariPASection.selectRaccomandataAR();
+    }
 
 
     private void aggiornamentoNumeroProtocollo() {
@@ -395,7 +427,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         logger.info("Aggiornamento del numero protocollo");
 
 //        String nomeFile = "datiNotifica.yaml";
-        String numeroProtocolloKey = "numeroProtocollo";
+        String numeroPotocolloKey = "numeroProtocollo";
 //        String numeroProtocolOld = dataPopulation.readDataPopulation(nomeFile).get(numeroProtocolloKey).toString();
         String numeroProtocolOld = dataPopulationConfig.getDatiNotifica().getNumeroProtocollo();
         String dataProtocolOld = substring(numeroProtocolOld, 10, 18);
@@ -1891,6 +1923,66 @@ public class NotificaMittentePagoPATest  extends BasePage {
         dettaglioNotificaMittenteSection.sceglieEnte(nomeEnte);
     }
 
+
+    @And("Selezionare da impostazione lingua la lingua {string}")
+    public void selezionareDaImpostazioneLinguaLaLingua(String lingua) {
+        selezioneImpostazioneLingua();
+        if(lingua.equalsIgnoreCase("Italiano")) {
+            WebElement radioIt = driver.findElement(By.xpath("//input[@value='it']"));
+            radioIt.click();
+        }else {
+            selezioneItalianoAltralingua();
+            if (lingua.equalsIgnoreCase("Francese")) {
+                WebElement selezionaLingua = driver.findElement(By.xpath("//div[@id='additionalLang']"));
+                selezionaLingua.click();
+
+
+                WebElement gruppoLingua = driver.findElement(By.xpath("//li[contains(text(),'" + lingua + "')]"));
+                getWebDriverWait(40).until(ExpectedConditions.visibilityOf(gruppoLingua));
+                logger.info("gruppo " + gruppoLingua + " trovato con successo");
+                gruppoLingua.click();
+
+            }
+        }
+
+        webTool.waitTime(3);
+        //chiusura della schermata tramite la X
+        WebElement closeIcon = driver.findElement(By.xpath("//button[@aria-label='close']"));
+        closeIcon.click();
+        webTool.waitTime(3);
+    }
+
+    private void selezioneItalianoAltralingua() {
+        WebElement radioOther = driver.findElement(By.xpath("//input[@value='other']"));
+        radioOther.click();
+    }
+
+    @And("verifica lingua selezionata {string}")
+    public void verificaLinguaSelezionata(String lingua) {
+
+        if (lingua.equalsIgnoreCase("Italiano")) {
+            WebElement radioIt = driver.findElement(By.xpath("//input[@value='it']"));
+            Assertions.assertTrue(  radioIt.isSelected(), "La lingua selezionata non è quella "+lingua);
+        }
+        else {
+            WebElement radioOther = driver.findElement(By.xpath("//input[@value='other']"));
+            Assertions.assertTrue(  radioOther.isSelected(), "La lingua selezionata non è quella "+lingua);
+        }
+    }
+
+    @And("selezione impostazione lingua")
+    public void selezioneImpostazioneLingua() {
+        WebElement impostazioneLingua = driver.findElement(By.xpath("//button[@data-testid='settingsLangBtn']"));
+        impostazioneLingua.click();
+    }
+
+    @And("Verifica Pop-up {string}")
+    public void VerificaPopUp(String verifica) {
+        Assertions.assertEquals(driver.findElement(By.id("alert-api-status")).getText(), verifica);
+        webTool.waitTime(5);
+    }
+
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */
@@ -1952,6 +2044,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
            // destinatarioPASection.inserireStato(dataPopulationConfig.getPersonaFisica().getStato(),recIndex);
         }
     }
+
 
 
 }
