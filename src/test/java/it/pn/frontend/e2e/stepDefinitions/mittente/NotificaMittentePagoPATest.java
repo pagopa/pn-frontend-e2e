@@ -2017,6 +2017,28 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     }
 
+    @And("Refresh pagina")
+    public void refreshPagina() {
+        driver.navigate().refresh();
+    }
+
+    @And("verifica campi vuoti")
+    public void verificaCampiVuoti() {
+
+        String oggettoNotifica = driver.findElement(By.id("subject")).getAttribute("value");
+        String descrizione = driver.findElement(By.id("abstract")).getAttribute("value");
+        String numeroProtocollo = driver.findElement(By.id("paProtocolNumber")).getAttribute("value");
+        String codiceTassonomico = driver.findElement(By.id("taxonomyCode")).getAttribute("value");
+        WebElement  raccomandata = driver.findElement(By.xpath("//input[@value='AR_REGISTERED_LETTER']"));
+
+        // Asserzioni
+        Assertions.assertTrue(oggettoNotifica.isEmpty(), "Il campo Oggetto Notifica non è vuoto");
+        Assertions.assertTrue(descrizione.isEmpty(), "Il campo Descrizione non è vuoto");
+        Assertions.assertTrue(numeroProtocollo.isEmpty(), "Il campo Numero Protocollo non è vuoto");
+        Assertions.assertTrue(codiceTassonomico.isEmpty(), "Il campo Codice Tassonomico non è vuoto");
+        Assertions.assertFalse(raccomandata.isSelected(), "Il campo Raccomandata non è vuoto");
+
+    }
 
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.

@@ -1,10 +1,9 @@
 Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano
 
 #  @TestSuite
-  @TA_bilinguismoVerificaPresenzaBannerAllegareDocumentiBilingue_QA5379
+  @TA_bilinguismoRefreshPaginaItalianoTedesco_QA5378
 
-  Scenario: PN-QA5379 - Verifica presenza banner che ricorda all’utente della PA di allegare i documenti bilingue
-#    Pre Condizione Aver effettuato l’accesso al portale SEND e aver scelto allo step 1 di inviare una notifica bilingue
+  Scenario: PN-QA5378 - PA invia notifica manuale bilingue: Italiano e Tedesco
 
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
@@ -13,20 +12,22 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 
-    And Selezionare da impostazione lingua "Francese"
+#    And Selezionare da impostazione lingua "Italiano"
 #    And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
-    And verifica lingua selezionata "Francese"
+    And Selezionare da impostazione lingua "Tedesco"
 
-    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento senza gruppo con lingua "Francese"
+    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento senza gruppo con lingua "Tedesco"
     And Cliccare su continua
 
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica
-    And Cliccare su continua
-    And Verifica Banner "Hai scelto di inviare la notifica in più lingue"
+    And Refresh pagina
+    And verifica lingua selezionata "Italiano"
+    And verifica campi vuoti
+
 
 

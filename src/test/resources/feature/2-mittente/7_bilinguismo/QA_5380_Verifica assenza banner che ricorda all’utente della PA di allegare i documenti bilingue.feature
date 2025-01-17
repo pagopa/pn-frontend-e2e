@@ -1,7 +1,7 @@
 Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano
 
 #  @TestSuite
-  @TA_VerificaAssenzaBannerAllegareDocumentiBilingue
+  @TA_bilinguismoVerificaAssenzaBannerAllegareDocumentiBilingue_QA5380
 
   Scenario: PN-QA5380 - Verifica assenza banner che ricorda all’utente della PA di allegare i documenti bilingue
 #    Pre Condizione Aver effettuato l’accesso al portale SEND e aver scelto allo step 1 di inviare una notifica in Italiano
