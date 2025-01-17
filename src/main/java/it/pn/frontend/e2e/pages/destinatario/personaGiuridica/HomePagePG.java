@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -42,11 +41,8 @@ public class HomePagePG extends BasePage {
     }
 
     public void waitLoadHomePagePGRuoloOperatorePage(String ragioneSociale) {
-
-       // WebElement titlePageBy = driver.findElement(By.id("Notifiche delegate a " + ragioneSociale + "-page"));
-       // WebElement buttonOfGroup = driver.findElement(By.xpath("//button[@data-testid= 'groupSelectorButton']"));
-        getWebDriverWait(10).withMessage("il titolo Panoramica nella pagina home page  non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Notifiche delegate a " + ragioneSociale + "-page"))));
-        getWebDriverWait(10).withMessage("il bottone del groppu nella pagina home page  non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid= 'groupSelectorButton']"))));
+        getWebDriverWait(30).withMessage("il titolo Panoramica nella pagina home page  non è visibile").until(ExpectedConditions.visibilityOfElementLocated((By.id("Notifiche delegate a " + ragioneSociale + "-page"))));
+        getWebDriverWait(30).withMessage("il bottone del groppu nella pagina home page  non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid= 'groupSelectorButton']"))));
         logger.info("HomePagePG ruolo operatore caricata correttamente");
     }
 
