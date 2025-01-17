@@ -299,8 +299,8 @@ public class LoginMittentePagoPA extends BasePage {
         webTool.waitTime(10);
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
         if(comune.equalsIgnoreCase("Viggiu")){
-            selezionaEntePAPage.cercaComune("Viggiu");
-            selezionaEntePAPage.selezionareComune("Viggiu");
+            selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComuneViggiu());
+            selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComuneViggiu());
         }
         else {
             selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComune());
@@ -546,5 +546,24 @@ public class LoginMittentePagoPA extends BasePage {
     }
 
 
+    @And("Logout e Login con Comune di {string}")
+    public void logoutELoginConComuneDi(String comune) {
+        logger.info("Si esce dal portale mittente");
+        webTool.waitTime(2);
 
+        headerPASection.waitLoadHeaderSection();
+        headerPASection.selezionaEsciButton();
+        webTool.waitTime(2);
+
+        if(comune.equalsIgnoreCase("Viggiu")){
+            logger.info("Entro come comune di "+comune);
+            selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComuneViggiu());
+            selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComuneViggiu());
+        }
+        else {
+            selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComune());
+            selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComune());
+        }
+        selezionaEntePAPage.selezionaAccedi();
+    }
 }

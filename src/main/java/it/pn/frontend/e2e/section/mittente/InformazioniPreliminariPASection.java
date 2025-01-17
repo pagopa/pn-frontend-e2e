@@ -98,6 +98,18 @@ public class InformazioniPreliminariPASection extends BasePage {
         }
     }
 
+    public void insertOggettoNotificaLinguaStraniera(String oggettoDellaNotifica) {
+        logger.info("inserimento oggetto notifica");
+        oggettoNotificaTextField = driver.findElement(By.id("additionalSubject"));
+        scrollToElementClickAndInsertText(oggettoNotificaTextField, oggettoDellaNotifica);
+    }
+
+    public void insertDescrizioneLinguaStraniera(String descrizione) {
+        logger.info("inserimento descrizione");
+        descrizioneTextField = driver.findElement(By.id("additionalAbstract"));
+        scrollToElementClickAndInsertText(descrizioneTextField, descrizione);
+    }
+
     public void insertOggettoNotifica(String oggettoDellaNotifica) {
         logger.info("inserimento oggetto notifica");
         oggettoNotificaTextField = driver.findElement(By.id("subject"));

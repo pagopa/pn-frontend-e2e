@@ -30,6 +30,7 @@ import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -270,18 +271,29 @@ public class NotificaMittentePagoPATest  extends BasePage {
         informazioniPreliminariPASection.insertCodiceTassonometrico(dataPopulationConfig.getDatiNotifica().getCodiceTassonometrico());
         informazioniPreliminariPASection.selectRaccomandataAR();
     }
-    @And("Nella section Informazioni preliminari inserire i dati della notifica senza pagamento senza gruppo")
-    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamentoSenzaGruppo() {
+    @And("Nella section Informazioni preliminari inserire i dati della notifica senza pagamento senza gruppo con lingua {string}")
+    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamentoSenzaGruppoConLingua(String lingua) {
         logger.info("Inserimento dei dati della notifica senza pagamento" );
         //datiNotifica
         aggiornamentoNumeroProtocollo();
-        String gruppo = "";
-        switch (webDriverConfig.getEnvironment()) {
-            // case "dev" -> gruppo = datiNotifica.get("gruppoDev").toString();
-            // case "test", "uat" -> gruppo = datiNotifica.get("gruppoTest").toString();
-            case "dev" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoDev();
-            case "test", "uat" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoTest();
+
+        // Compilo i campi se ho scelto una lingua diverso dall'Italiano
+        switch (lingua.toLowerCase()) {
+            case "francese" -> {
+                informazioniPreliminariPASection.insertOggettoNotificaLinguaStraniera(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotificaFr());
+                informazioniPreliminariPASection.insertDescrizioneLinguaStraniera(dataPopulationConfig.getDatiNotifica().getDescrizioneFr());
+            }
+            case "tedesca" -> {
+                informazioniPreliminariPASection.insertOggettoNotificaLinguaStraniera(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotificaDe());
+                informazioniPreliminariPASection.insertDescrizioneLinguaStraniera(dataPopulationConfig.getDatiNotifica().getDescrizioneDe());
+            }
+            case "slovena" -> {
+                informazioniPreliminariPASection.insertOggettoNotificaLinguaStraniera(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotificaSl());
+                informazioniPreliminariPASection.insertDescrizioneLinguaStraniera(dataPopulationConfig.getDatiNotifica().getDescrizioneSl());
+            }
+            default -> logger.warn("Lingua non riconosciuta: " + lingua);
         }
+
         informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
         informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione());
         informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
@@ -1924,25 +1936,17 @@ public class NotificaMittentePagoPATest  extends BasePage {
     }
 
 
-    @And("Selezionare da impostazione lingua la lingua {string}")
-    public void selezionareDaImpostazioneLinguaLaLingua(String lingua) {
+    @And("Selezionare da impostazione lingua {string}")
+    public void selezionareDaImpostazioneLingua(String lingua) {
         selezioneImpostazioneLingua();
-        if(lingua.equalsIgnoreCase("Italiano")) {
+        if (lingua.equalsIgnoreCase("Italiano")) {
             WebElement radioIt = driver.findElement(By.xpath("//input[@value='it']"));
             radioIt.click();
-        }else {
+        } else {
+            logger.info("Lingua: "+lingua);
             selezioneItalianoAltralingua();
-            if (lingua.equalsIgnoreCase("Francese")) {
-                WebElement selezionaLingua = driver.findElement(By.xpath("//div[@id='additionalLang']"));
-                selezionaLingua.click();
-
-
-                WebElement gruppoLingua = driver.findElement(By.xpath("//li[contains(text(),'" + lingua + "')]"));
-                getWebDriverWait(40).until(ExpectedConditions.visibilityOf(gruppoLingua));
-                logger.info("gruppo " + gruppoLingua + " trovato con successo");
-                gruppoLingua.click();
-
-            }
+            webTool.waitTime(3);
+            selezioneLingua(lingua);
         }
 
         webTool.waitTime(3);
@@ -1950,6 +1954,16 @@ public class NotificaMittentePagoPATest  extends BasePage {
         WebElement closeIcon = driver.findElement(By.xpath("//button[@aria-label='close']"));
         closeIcon.click();
         webTool.waitTime(3);
+    }
+
+    private void selezioneLingua(String lingua) {
+        WebElement selezionaLingua = driver.findElement(By.xpath("//div[@id='additionalLang']"));
+        selezionaLingua.click();
+
+        WebElement gruppoLingua = driver.findElement(By.xpath("//li[contains(text(),'" + lingua + "')]"));
+        getWebDriverWait(40).until(ExpectedConditions.visibilityOf(gruppoLingua));
+        logger.info("gruppo " + gruppoLingua + " trovato con successo");
+        gruppoLingua.click();
     }
 
     private void selezioneItalianoAltralingua() {
@@ -1962,11 +1976,13 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
         if (lingua.equalsIgnoreCase("Italiano")) {
             WebElement radioIt = driver.findElement(By.xpath("//input[@value='it']"));
-            Assertions.assertTrue(  radioIt.isSelected(), "La lingua selezionata non è quella "+lingua);
-        }
-        else {
+            Assertions.assertTrue(radioIt.isSelected(), "La lingua selezionata non è quella " + lingua);
+        } else {
             WebElement radioOther = driver.findElement(By.xpath("//input[@value='other']"));
-            Assertions.assertTrue(  radioOther.isSelected(), "La lingua selezionata non è quella "+lingua);
+            Assertions.assertTrue(radioOther.isSelected(), "La lingua selezionata non è quella " + lingua);
+            //verifica che la label ci sia scritto la lingua scelta
+            Assertions.assertEquals(driver.findElement(By.xpath("//div[@id='additionalLang']")).getText(), lingua);
+            webTool.waitTime(5);
         }
     }
 
@@ -1980,6 +1996,25 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void VerificaPopUp(String verifica) {
         Assertions.assertEquals(driver.findElement(By.id("alert-api-status")).getText(), verifica);
         webTool.waitTime(5);
+    }
+
+    @And("Verifica Banner {string}")
+    public void verificaBanner(String banner) {
+
+        String xPathBanner = "//div[@data-testid='bannerAdditionalLanguages']//div[@class='MuiAlert-message css-cysxvc']";
+
+       if (StringUtils.isEmpty(banner)){
+           //assenza di banner
+           boolean nonPresente = getWebDriverWait(10).withMessage("Non si visualizza correttamente il Banner dilinguismo").until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(xPathBanner)));
+           logger.info("Non Presente:" +nonPresente);
+           Assertions.assertTrue(nonPresente, "Banner Bilinguismo presente");
+       }
+       else {
+           WebElement messaggioBanner = getWebDriverWait(10).withMessage("Non si visualizza correttamente il Banner dilinguismo").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xPathBanner))));
+           String testoMessaggioBanner = messaggioBanner.getText();
+           Assertions.assertTrue(testoMessaggioBanner.contains(banner), "Banner bilinguismo non contiene il testo atteso!");
+       }
+
     }
 
 

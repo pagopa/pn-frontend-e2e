@@ -303,9 +303,9 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
             Calendar calendar = GregorianCalendar.getInstance();
             int index = calendar.get(Calendar.HOUR_OF_DAY);
 
-            logger.info("SIZE ROWS TABLE..."+disserviziTableRows.size());
+            logger.info("SIZE ROWS TABLE..." + disserviziTableRows.size());
             logger.info("ROWS SELEZIONATA: " + index);
-            WebElement riga =null;
+            WebElement riga = null;
             if (disserviziTableRows.size() >= index) {
                 riga = disserviziTableRows.get(index);
             } else {
