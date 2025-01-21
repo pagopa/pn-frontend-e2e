@@ -31,10 +31,6 @@ import org.springframework.context.annotation.Scope;
 
 import java.time.Duration;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 @Configuration
 @Getter
@@ -75,7 +71,7 @@ public class WebDriverManager {
     @WebdriverScopeBean
     @Primary
     @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-    @ConditionalOnProperty(name = "browser", havingValue = "chrome", matchIfMissing = true)
+    @ConditionalOnProperty(name = "browser.languages", havingValue = "IT", matchIfMissing = true)
     public WebDriver chromeDriver() {
         try {
             Thread.sleep(3000);
@@ -113,7 +109,7 @@ public class WebDriverManager {
 
     @WebdriverScopeBean
     @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-    @ConditionalOnProperty(name = "browser", havingValue = "chromeeng", matchIfMissing = true)
+    @ConditionalOnProperty(name = "browser.languages", havingValue = "EN")
     public WebDriver chromeEngDriver() {
         try {
             Thread.sleep(3000);
