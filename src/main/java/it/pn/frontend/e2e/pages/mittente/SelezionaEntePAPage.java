@@ -50,9 +50,18 @@ public class SelezionaEntePAPage extends BasePage {
           //  WebElement searchField = driver.findElement(By.id("search"));
 
             driver.findElements(By.xpath("//div[@role='button']//h6"));
+
+            // *-*-*-*-* Sostituito per il Bilingusmo
             getWebDriverWait(60)
-                    .withMessage("Titolo 'Seleziona il tuo ente' della pagina non è visibile")
-                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[text()='Seleziona il tuo ente']")));
+                    .withMessage("Nessuno dei titoli attesi è visibile")
+                    .until(ExpectedConditions.or(
+                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[text()='Seleziona il tuo ente']")),
+                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[text()='Select your institution']")),
+                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[text()='Sélectionnez votre organisme']")),
+                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[text()='Wähle deine Körperschaft']")),
+                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[text()='Izberite svojo organizacijo']"))
+                    ));
+            // *-*-*-*-*
             getWebDriverWait(60)
                     .withMessage("Il campo cerca non è cliccabile nella pagina Seleziona Ente")
                     .until(ExpectedConditions.elementToBeClickable(By.id("search")));
@@ -82,8 +91,8 @@ public class SelezionaEntePAPage extends BasePage {
     public void selezionaAccedi() {
         Actions actions = new Actions(driver);
         getWebDriverWait(60).withMessage("il buttone Accedi non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[text()='Accedi']"))));
-        accediButton = driver.findElement(By.xpath("//button[text()='Accedi']"));
+                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[text()='Accedi' or text()='Login' or text()='Se connecter' or text()='Anmelden' or text()='Prijavite se']"))));
+        accediButton = driver.findElement(By.xpath("//button[text()='Accedi' or text()='Login' or text()='Se connecter' or text()='Anmelden' or text()='Prijavite se']"));
         actions.moveToElement(accediButton).click().perform();
     }
 

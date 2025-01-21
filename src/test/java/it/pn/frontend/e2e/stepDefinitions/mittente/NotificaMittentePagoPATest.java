@@ -45,6 +45,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.TimeoutException;
 
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 import static org.apache.commons.lang3.StringUtils.substring;
@@ -1940,7 +1941,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void selezionareDaImpostazioneLingua(String lingua) {
         selezioneImpostazioneLingua();
         if (lingua.equalsIgnoreCase("Italiano")) {
-            WebElement radioIt = driver.findElement(By.xpath("//input[@value='it']"));
+            WebElement radioIt = driver.findElement(By.cssSelector("input[name='lang'][value='it']"));
             radioIt.click();
         } else {
             logger.info("Lingua: "+lingua);
@@ -2037,6 +2038,51 @@ public class NotificaMittentePagoPATest  extends BasePage {
         Assertions.assertTrue(numeroProtocollo.isEmpty(), "Il campo Numero Protocollo non è vuoto");
         Assertions.assertTrue(codiceTassonomico.isEmpty(), "Il campo Codice Tassonomico non è vuoto");
         Assertions.assertFalse(raccomandata.isSelected(), "Il campo Raccomandata non è vuoto");
+
+    }
+
+    @And("Verifica footer lingua {string}")
+    public void verificaFooterLingua(String lingua) {
+
+        WebElement linguaElement = driver.findElement(By.cssSelector("button[aria-label='lingua'] span.MuiTypography-root"));
+        Assertions.assertEquals(linguaElement.getText(),lingua,"La Lingua presente nel footer è diversa da: "+lingua);
+    }
+
+    @And("Verifica click footer privacy o Termini Condizione {string}")
+    public void verificaClickFooterPrivacyOrTerminiCondizione(String privacy) {
+        try {
+            WebElement informativaPrivacyOrTerminiCondizioneLink = getWebDriverWait(10).withMessage("Link '"+privacy+"' non trovato o non visibile.").until(ExpectedConditions.visibilityOfElementLocated(By.linkText(privacy)));
+            informativaPrivacyOrTerminiCondizioneLink.click();
+            webTool.waitTime(1);
+        } catch (TimeoutException e) {
+            System.out.println("Link Informativa Privacy  o Termini e Condizione non trovato o non visibile.");
+        }
+    }
+
+    @And("Verifica traduzione testo {string}")
+    public void verificaTraduzioneTesto(String testo) {
+        Assertions.assertTrue(isTextPresent(testo), "Il testo '"+testo+"' non è presente!");
+        logger.info("Verifica traduzione testo: "+testo);
+    }
+
+    private boolean isTextPresent(String testo) {
+        return !driver.findElements(By.xpath("//*[contains(text(),'" + testo + "')]")).isEmpty();
+    }
+
+    @And("Torna indietro")
+    public void tornaIndietro() {
+        super.goBack();
+    }
+
+    @And("Cambia lingua footer {string}")
+    public void cambiaLinguaFooter(String lingua) {
+        WebElement menuLingua = getWebDriverWait(10).withMessage("Seleziona: '" + lingua + "' non trovato").until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//button[@aria-label='lingua']")));
+        menuLingua.click();
+        WebElement opzioneLingua = getWebDriverWait(10).withMessage("Scelta Lingua: '" + lingua + "' non trovato").until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//li[contains(text(),'" + lingua + "')]")));
+        opzioneLingua.click();
+
 
     }
 

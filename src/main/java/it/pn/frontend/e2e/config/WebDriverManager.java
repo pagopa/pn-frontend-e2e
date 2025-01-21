@@ -113,6 +113,44 @@ public class WebDriverManager {
 
     @WebdriverScopeBean
     @Scope(BeanDefinition.SCOPE_PROTOTYPE)
+    @ConditionalOnProperty(name = "browser", havingValue = "chromeeng", matchIfMissing = true)
+    public WebDriver chromeEngDriver() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        logger.info("NUOVO BEAN EN......." + Math.random());
+        var browser = Optional.ofNullable(webDriverConfig.getBrowser())
+                .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
+        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
+
+        var chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--lang=en-US", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
+
+        var downloadFilePath = webDriverConfig.getDownloadFilePath();
+        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "en,en-US") ;
+        chromeOptions.setExperimentalOption("prefs", chromePrefs);
+        chromeOptions.addArguments("--user-data-dir=/path/to/unique/profileenglish" + Thread.currentThread().getId());
+
+        if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
+            chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
+        }
+
+        getDriver(chromeOptions, null, null);
+
+        setupDevTools();
+
+        logger.info("Chrome driver started - WebDriverManager");
+
+        cookieConfig.addCookie();
+
+        return driverThreadLocal.get();
+    }
+
+    @WebdriverScopeBean
+    @Scope(BeanDefinition.SCOPE_PROTOTYPE)
     @ConditionalOnProperty(name = "browser", havingValue = "edge")
     public WebDriver webDriverEdge() {
 
