@@ -2086,6 +2086,98 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     }
 
+    @And("Entro dentro la prima notifica")
+    public void entroDentroLaPrimaNotifica() {
+        WebElement firstRowButton = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("(//tr[@class='MuiTableRow-root css-g76qb5'])[1]//td[3]//button"))));
+        firstRowButton.click();
+    }
+
+    @When("Seleziona voce menu laterale {string}")
+    public void selezionaVoceMenuLaterale(String testo) {
+        WebElement element = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='" + testo + "']")));
+        element.click();
+    }
+
+    @When("Click Genera Api Key")
+    public void clickGeneraApiKey() {
+        WebElement generateApiKeyButton = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("generate-api-key")));
+        generateApiKeyButton.click();
+
+    }
+
+    @And("Inserisci nome Api Key")
+    public void inserisciNomeApiKey() {
+        logger.info("Inserisco elemento");
+        webTool.waitTime(2);
+
+        WebElement nameInputField = getWebDriverWait(30).withMessage("Il Nome Api Key non è presente")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='name']")));
+        nameInputField.sendKeys("Name-" + UUID.randomUUID());
+        webTool.waitTime(2);
+        WebElement buttonContinua = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("continue-button")));
+        buttonContinua.click();
+        logger.info("buttonContinua.click()");
+
+    }
+
+    @And("Torna a Api Key")
+    public void tornaApiKey() {
+        logger.info("Premere il pulsante tornaApiKey");
+        WebElement buttontornaApiKey = getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(By.id("go-to-api-keys")));
+        buttontornaApiKey.click();
+
+    }
+
+    @And("Premere tre puntini")
+    public void premereTrePuntini() {
+        logger.info("premereTrePuntini");
+        WebElement moreVertIconButton = getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(
+                "//tr[@aria-rowindex='1']//button[@data-testid='contextMenuButton']"))));
+        moreVertIconButton.click();
+    }
+
+    @And("Seleziona Ruota")
+    public void selezionaRuota() {
+        logger.info("selezionaRuota");
+        WebElement buttontornaApiKey = getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(By.id("button-rotate")));
+        buttontornaApiKey.click();
+    }
+
+    @And("Click Ruota")
+    public void clickRuota() {
+        logger.info("clickRuota");
+        WebElement clickRuota = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
+        clickRuota.click();
+    }
+
+    @And("Seleziona Blocca")
+    public void selezionaBlocca() {
+        logger.info("selezionaBlocca");
+        WebElement buttontornaApiKey = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("button-block")));
+        buttontornaApiKey.click();
+    }
+
+    @And("Click Blocca")
+    public void clickBlocca() {
+        logger.info("clickBlocca");
+        WebElement clickBlocca = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
+        clickBlocca.click();
+    }
+
+    @And("Seleziona Elimina")
+    public void selezionaElimina() {
+        logger.info("selezionaElimina");
+        WebElement clickElimina = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("button-delete")));
+        clickElimina.click();
+    }
+
+    @And("Click Delete")
+    public void clickDelete() {
+        logger.info("clickDelete");
+        WebElement clickDelete = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
+        clickDelete.click();
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */

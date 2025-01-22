@@ -65,7 +65,7 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
     And Verifica traduzione testo "Identifizierung und Zugriff auf die Plattform durch einen Benutzer"
 
 
-    And Cambia lingua footer "Slowenisch"
+    Then Cambia lingua footer "Slowenisch"
     And Verifica click footer privacy o Termini Condizione "Obvestilo o varovanju zasebnosti"
     And Verifica traduzione testo "Informacije o obdelavi osebnih podatkov"
     And Verifica traduzione testo "Upravljavec podatkov"

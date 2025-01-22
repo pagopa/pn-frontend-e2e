@@ -26,7 +26,7 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica
-    And Refresh pagina
+    Then Refresh pagina
     And verifica lingua selezionata "Italiano"
     And verifica campi vuoti
 

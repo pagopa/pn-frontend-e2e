@@ -109,6 +109,121 @@ public class WebDriverManager {
 
     @WebdriverScopeBean
     @Scope(BeanDefinition.SCOPE_PROTOTYPE)
+    @ConditionalOnProperty(name = "browser.languages", havingValue = "DE")
+    public WebDriver chromeDEDriver() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        logger.info("NUOVO BEAN DE......." + Math.random());
+        var browser = Optional.ofNullable(webDriverConfig.getBrowser())
+                .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
+        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
+
+        var chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--lang=de-DE", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
+
+        var downloadFilePath = webDriverConfig.getDownloadFilePath();
+        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "de,de-DE") ;
+        chromeOptions.setExperimentalOption("prefs", chromePrefs);
+        chromeOptions.addArguments("--user-data-dir=/path/to/unique/profiletedesc" + Thread.currentThread().getId());
+
+        if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
+            chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
+        }
+
+        getDriver(chromeOptions, null, null);
+
+        setupDevTools();
+
+        logger.info("Chrome driver started - WebDriverManager");
+
+        cookieConfig.addCookie();
+
+        return driverThreadLocal.get();
+    }
+
+    @WebdriverScopeBean
+    @Scope(BeanDefinition.SCOPE_PROTOTYPE)
+    @ConditionalOnProperty(name = "browser.languages", havingValue = "FR")
+    public WebDriver chromeFRDriver() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        logger.info("NUOVO BEAN FR......." + Math.random());
+        var browser = Optional.ofNullable(webDriverConfig.getBrowser())
+                .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
+        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
+
+        var chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--lang=fr-FR", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
+
+        var downloadFilePath = webDriverConfig.getDownloadFilePath();
+        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "fr,fr-FR") ;
+        chromeOptions.setExperimentalOption("prefs", chromePrefs);
+        chromeOptions.addArguments("--user-data-dir=/path/to/unique/profilefranc" + Thread.currentThread().getId());
+
+        if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
+            chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
+        }
+
+        getDriver(chromeOptions, null, null);
+
+        setupDevTools();
+
+        logger.info("Chrome driver started - WebDriverManager");
+
+        cookieConfig.addCookie();
+
+        return driverThreadLocal.get();
+    }
+
+    @WebdriverScopeBean
+    @Scope(BeanDefinition.SCOPE_PROTOTYPE)
+    @ConditionalOnProperty(name = "browser.languages", havingValue = "SL")
+    public WebDriver chromeSLDriver() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        logger.info("NUOVO BEAN SL......." + Math.random());
+        var browser = Optional.ofNullable(webDriverConfig.getBrowser())
+                .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
+        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
+
+        var chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--lang=sl", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
+
+        var downloadFilePath = webDriverConfig.getDownloadFilePath();
+        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "sl,sl") ;
+        chromeOptions.setExperimentalOption("prefs", chromePrefs);
+        chromeOptions.addArguments("--user-data-dir=/path/to/unique/profileslov" + Thread.currentThread().getId());
+
+        if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
+            chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
+        }
+
+        getDriver(chromeOptions, null, null);
+
+        setupDevTools();
+
+        logger.info("Chrome driver started - WebDriverManager");
+
+        cookieConfig.addCookie();
+
+        return driverThreadLocal.get();
+    }
+
+
+    @WebdriverScopeBean
+    @Scope(BeanDefinition.SCOPE_PROTOTYPE)
     @ConditionalOnProperty(name = "browser.languages", havingValue = "EN")
     public WebDriver chromeEngDriver() {
         try {
