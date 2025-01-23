@@ -1,9 +1,10 @@
-Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano
+Feature: PN-QA5370 - PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano Tedesco
 
-#  @TestSuite
-  @TA_bilinguismoItalianoFrancese_QA5368
+  @TestSuite
+  @TA_bilinguismoItalianoFrancese_QA5370
+  @bilinguismo
 
-  Scenario: PN-QA5367 - PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano Francese
+  Scenario: PN-QA5370 - PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano Tedesco
 #    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard Comune di "Viggiu"
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
@@ -12,11 +13,11 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 
-    And Selezionare da impostazione lingua "Francese"
+    And Selezionare da impostazione lingua "Tedesco"
 #    And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
-    And verifica lingua selezionata "Francese"
+    And verifica lingua selezionata "Tedesco"
 
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento senza gruppo con lingua "Francese"
     And Cliccare su continua
@@ -37,7 +38,7 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
     And selezione impostazione lingua
-    And verifica lingua selezionata "Francese"
+    And verifica lingua selezionata "Tedesco"
 
 
 

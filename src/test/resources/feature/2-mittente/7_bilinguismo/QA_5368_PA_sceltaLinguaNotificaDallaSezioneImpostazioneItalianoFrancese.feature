@@ -1,30 +1,25 @@
-Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano
+Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano Francese
 
-#  @TestSuite
-  @TA_bilinguismoLinguaDifferenteDalleImpostazioni_ItalianoTedesco_QA5374
+  @TestSuite
+  @TA_bilinguismoItalianoFrancese_QA5368
+  @bilinguismo
 
-  Scenario: PN-QA5372 - PA invia notifica in lingua differente da quella scelte nelle impostazioni - Italiano Tedesco
-#    Pre Condizione Aver settato nelle impostazioni Italiano
+  Scenario: PN-QA5367 - PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano Francese
+#    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard Comune di "Viggiu"
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente Comune di "Viggiu"
     And Si clicca sul bottone test
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
-    And Selezionare da impostazione lingua "Italiano"
 
-    And Logout e Login con Comune di "Viggiu"
-    And Si clicca sul bottone test
-    And Si clicca bottone accetta cookies
-    And Home page mittente viene visualizzata correttamente
-
-
-    And Selezionare da impostazione lingua "Tedesco"
+    And Selezionare da impostazione lingua "Francese"
 #    And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
-    And verifica lingua selezionata "Tedesco"
-    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento senza gruppo con lingua "Tedesco"
+    And verifica lingua selezionata "Francese"
+
+    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento senza gruppo con lingua "Francese"
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
@@ -37,11 +32,13 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
     Then Si visualizza correttamente la frase La notifica è stata correttamente creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-
-
-
-
-
+##    And Si verifica che la notifica viene creata correttamente "datiNotifica"
+    And Logout e Login con Comune di "Viggiu"
+    And Si clicca sul bottone test
+    And Si clicca bottone accetta cookies
+    And Home page mittente viene visualizzata correttamente
+    And selezione impostazione lingua
+    And verifica lingua selezionata "Francese"
 
 
 

@@ -1,7 +1,8 @@
-Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano
+Feature: PA invia notifica manuale bilingue: Italiano e Francese
 
-#  @TestSuite
+  @TestSuite
   @TA_bilinguismoRefreshPaginaItalianoFrancese_QA5376
+  @bilinguismo
 
   Scenario: PN-QA5376 - PA invia notifica manuale bilingue: Italiano e Francese
 

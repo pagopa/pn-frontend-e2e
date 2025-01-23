@@ -1,10 +1,11 @@
-Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano
+Feature: PA Verifica contenuti Privacy e ToS in Francese
 
-#  @TestSuite
-  @TA_bilinguismoVerificaContenutiPrivacyToSInInglese_QA5382
-  @TA_English
+  @TestSuite
+  @TA_bilinguismoVerificaContenutiPrivacyToSInFrancese_QA5384
+  @TA_Francese
+  @bilinguismo
 
-  Scenario: PN-QA5382 - Verifica contenuti Privacy e ToS in Inglese
+  Scenario: PN-QA5384 - PA - Verifica contenuti Privacy e ToS in Francese
 
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
@@ -13,7 +14,20 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
     And Si clicca sul bottone test
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
-    And Verifica footer lingua "English"
+
+    And Verifica footer lingua "Français"
+    And Verifica click footer privacy o Termini Condizione "Charte de confidentialité"
+    And Verifica traduzione testo "Déclaration sur le traitement des données à caractère personnel"
+    And Verifica traduzione testo "Responsable du traitement"
+    And Verifica traduzione testo "Délégué Protection Données"
+    And Verifica traduzione testo "Catégories de données et finalités"
+    And Verifica click footer privacy o Termini Condizione "Conditions générales"
+    And Verifica traduzione testo "Conditions générales d’utilisation"
+    And Verifica traduzione testo "Description du Service"
+    And Verifica traduzione testo "Adhésion à la Plateforme par l’AP Émettrice et résiliation"
+    And Verifica traduzione testo "Identification et accès à la Plateforme par un Utilisateur"
+
+    And Cambia lingua footer "Anglais"
     And Verifica click footer privacy o Termini Condizione "Privacy Policy"
     And Verifica traduzione testo "Privacy Notice"
     And Verifica traduzione testo "Data Controller"
@@ -37,19 +51,7 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
     And Verifica traduzione testo "Članstvo v platformi s strani pošiljatelja JU in odstop"
     And Verifica traduzione testo "Identifikacija in dostop uporabnika do platforme"
 
-    And Cambia lingua footer "Francosko"
-    And Verifica click footer privacy o Termini Condizione "Charte de confidentialité"
-    And Verifica traduzione testo "Déclaration sur le traitement des données à caractère personnel"
-    And Verifica traduzione testo "Responsable du traitement"
-    And Verifica traduzione testo "Délégué Protection Données"
-    And Verifica traduzione testo "Catégories de données et finalités"
-    And Verifica click footer privacy o Termini Condizione "Conditions générales"
-    And Verifica traduzione testo "Conditions générales d’utilisation"
-    And Verifica traduzione testo "Description du Service"
-    And Verifica traduzione testo "Adhésion à la Plateforme par l’AP Émettrice et résiliation"
-    And Verifica traduzione testo "Identification et accès à la Plateforme par un Utilisateur"
-
-    And Cambia lingua footer "Allemand"
+    And Cambia lingua footer "Nemško"
     And Verifica click footer privacy o Termini Condizione "Datenschutzerklärung"
     And Verifica traduzione testo "Datenschutzerklärung"
     And Verifica traduzione testo "Verantwortlicher der Verarbeitung"
@@ -78,14 +80,14 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
     And Verifica traduzione testo "Identificazione e accesso alla Piattaforma da parte di un Utente"
     And Verifica traduzione testo "Verifica della qualifica di legale rappresentante della PA Mittente e ruoli degli Utenti"
 
-    Then Cambia lingua footer "Inglese"
-    And Verifica click footer privacy o Termini Condizione "Privacy Policy"
-    And Verifica traduzione testo "Privacy Notice"
-    And Verifica traduzione testo "Data Controller"
-    And Verifica traduzione testo "Data Protection Officer"
-    And Verifica traduzione testo "Data categories and purposes"
-    And Verifica click footer privacy o Termini Condizione "Terms and Conditions"
-    And Verifica traduzione testo "Terms and conditions of use"
-    And Verifica traduzione testo "Description of the service"
-    And Verifica traduzione testo "Registering with the Platform by the sending PA and withdrawal"
-    And Verifica traduzione testo "Identification and login to the Platform by a User"
+    Then Cambia lingua footer "Francese"
+    And Verifica click footer privacy o Termini Condizione "Charte de confidentialité"
+    And Verifica traduzione testo "Déclaration sur le traitement des données à caractère personnel"
+    And Verifica traduzione testo "Responsable du traitement"
+    And Verifica traduzione testo "Délégué Protection Données"
+    And Verifica traduzione testo "Catégories de données et finalités"
+    And Verifica click footer privacy o Termini Condizione "Conditions générales"
+    And Verifica traduzione testo "Conditions générales d’utilisation"
+    And Verifica traduzione testo "Description du Service"
+    And Verifica traduzione testo "Adhésion à la Plateforme par l’AP Émettrice et résiliation"
+    And Verifica traduzione testo "Identification et accès à la Plateforme par un Utilisateur"

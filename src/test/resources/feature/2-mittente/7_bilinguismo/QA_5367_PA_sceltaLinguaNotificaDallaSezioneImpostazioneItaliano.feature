@@ -1,6 +1,6 @@
 Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano
 
-#  @TestSuite
+  @TestSuite
   @TA_bilinguismoItaliano_QA5367
   @bilinguismo
 

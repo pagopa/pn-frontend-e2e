@@ -2178,6 +2178,12 @@ public class NotificaMittentePagoPATest  extends BasePage {
         clickDelete.click();
     }
 
+    @And("Attendi secondi {string}")
+    public void attendiSecondi(String secondi) {
+        webTool.waitTime(Integer.parseInt(secondi));
+        logger.info("Attesa secondi: "+secondi);
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */

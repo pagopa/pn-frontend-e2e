@@ -1,9 +1,10 @@
-Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano
+Feature: PA invia notifica manuale in Italiano
 
-#  @TestSuite
-  @TA_bilinguismoRefreshPaginaItalianoTedesco_QA5378
+  @TestSuite
+  @TA_bilinguismoRefreshPaginaItaliano_QA5375
+  @bilinguismo
 
-  Scenario: PN-QA5378 - PA invia notifica manuale bilingue: Italiano e Tedesco
+  Scenario: PN-QA5375 - PA invia notifica manuale in Italiano
 
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
@@ -16,9 +17,9 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
 #    And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
-    And Selezionare da impostazione lingua "Tedesco"
+    And Selezionare da impostazione lingua "Italiano"
 
-    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento senza gruppo con lingua "Tedesco"
+    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento senza gruppo con lingua "Italiano"
     And Cliccare su continua
 
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario

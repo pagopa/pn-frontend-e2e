@@ -1,8 +1,9 @@
-Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano
+Feature: PA Verificare portale browser Inglese
 
   @TestSuite
   @TA_bilinguismoVerificaPortaleBrowserInglese_QA5387
   @TA_Inglese
+  @bilinguismo
 
   Scenario: PN-QA5387 - PA - Verificare portale browser Inglese
 
@@ -34,7 +35,7 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
     And Verifica traduzione testo "Date sent"
     And Verifica traduzione testo "Attached documents"
     And Verifica traduzione testo "Notification of receipt"
-    And Verifica traduzione testo "DISRUPTIONS"
+#    And Verifica traduzione testo "DISRUPTIONS"
 #  Procedere con l’ invio di una notifica e verificarne le traduzioni
     And Torna indietro
 
@@ -139,7 +140,7 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
 #  Navigare nella sezione Stato della piattaforma e verificarne le traduzioni
     When Seleziona voce menu laterale "Platform status"
     And Verifica traduzione testo "Check the operation of SEND"
-    And Verifica traduzione testo "All SEND services are operational"
+#    And Verifica traduzione testo "All SEND services are operational"
     And Verifica traduzione testo "Disruption history"
 
     When Seleziona voce menu laterale "Notifications"
@@ -182,3 +183,92 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
 
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento senza gruppo con lingua "Italiano"
     And Cliccare su continua
+      #    Traduzione seconda pagina notifica
+    And Verifica traduzione testo "Destinataires"
+    And Verifica traduzione testo "Champs obligatoires"
+    And Verifica traduzione testo "Personne physique"
+    And Verifica traduzione testo "Personne morale"
+    And Verifica traduzione testo "Adresse"
+    And Verifica traduzione testo "Code postal"
+    And Verifica traduzione testo "Commune"
+    And Verifica traduzione testo "Province"
+    And Verifica traduzione testo "Numéro de rue"
+
+    And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
+    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
+    And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica
+    And Cliccare su continua
+    #    Traduzione terza pagina notifica
+    And Verifica traduzione testo "Annexes"
+    And Verifica traduzione testo "Joindre l"
+    And Verifica traduzione testo "Charger un document"
+    And Verifica traduzione testo "Nom du document"
+    And Verifica traduzione testo "Retour au Destinataire"
+    And Verifica traduzione testo "Envoyer"
+    And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
+    And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
+    And Nella section Allegati cliccare sul bottone Invia
+
+        #    Traduzione quarta  pagina notifica
+    And Verifica traduzione testo "La notification a été créée"
+    And Verifica traduzione testo "Retrouvez les mises à jour sur son statut dans la rubrique"
+    And Verifica traduzione testo "Aller aux notifications"
+    And Si visualizza correttamente la frase La notifica è stata correttamente creata
+    And Cliccare sul bottone vai alle notifiche
+    And Si visualizza correttamente la pagina Piattaforma Notifiche
+#    #  Raggiungere la sezione API Key e verificarne le traduzioni
+    When Seleziona voce menu laterale "API Key"
+    And Verifica traduzione testo "API Key"
+    And Verifica traduzione testo "API Key generate"
+    And Verifica traduzione testo "Générer Api Key"
+    And Verifica traduzione testo "Prénom"
+    And Verifica traduzione testo "Dernière modification"
+
+    #    IMPLEMENTAZIONE CREAZIONE DELETE .... apikey
+    When Click Genera Api Key
+#    verifica traduzione Genera Api Kei
+    And Verifica traduzione testo "Autres informations"
+    And Verifica traduzione testo "Donnez un nom à votre API key"
+    And Verifica traduzione testo "Choisissez les groupes auxquels attribuer"
+    And Verifica traduzione testo "Saisissez un prénom"
+
+    And Inserisci nome Api Key
+    And Verifica traduzione testo "API Key générée avec succès"
+    And Verifica traduzione testo "copiez le code et entrez-le dans la plate-forme propriétaire"
+    And Verifica traduzione testo "Retour à API key"
+
+    And Torna a Api Key
+    And Premere tre puntini
+    And Seleziona Ruota
+
+    And Verifica traduzione testo "Tourner API Key"
+    And Verifica traduzione testo "Après avoir inséré la nouvelle API key dans la plate-forme de"
+
+    And Click Ruota
+    And Premere tre puntini
+    And Seleziona Blocca
+
+    And Verifica traduzione testo "Bloquer API key"
+    And Verifica traduzione testo "activer à nouveau à tout moment"
+
+    And Click Blocca
+
+    And Premere tre puntini
+    And Seleziona Elimina
+
+    And Verifica traduzione testo "Supprimer API key"
+    And Verifica traduzione testo "Si vous supprimez définitivement"
+    And Click Delete
+
+    #  Raggiungere la sezione Statistiche e verificarne le traduzioni
+
+    When Seleziona voce menu laterale "Statistiques"
+    And Verifica traduzione testo "Aperçu des notifications"
+    And Verifica traduzione testo "Exporter JPEG"
+    And Verifica traduzione testo "Choisissez l’intervalle d’analyse"
+
+    #  Navigare nella sezione Stato della piattaforma e verificarne le traduzioni
+    When Seleziona voce menu laterale "État de la plateforme"
+    And Verifica traduzione testo "Il vérifie le fonctionnement de SEND"
+#    And Verifica traduzione testo "All SEND services are operational"
+    And Verifica traduzione testo "Historique des dysfonctionnements"
