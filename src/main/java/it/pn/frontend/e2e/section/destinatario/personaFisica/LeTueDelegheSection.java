@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 
 public class LeTueDelegheSection extends BasePage {
@@ -194,6 +195,7 @@ public class LeTueDelegheSection extends BasePage {
         logger.info("click pulsante invia richiesta");
 
         inviaLaRichiestaButton.click();
+        logger.info("click pulsante dopo");
     }
 
     public String messaggioDiErrore() {
@@ -391,6 +393,25 @@ public class LeTueDelegheSection extends BasePage {
             logger.error("Il indicatore numerico di notifica non è visibile");
             Assertions.fail("Il indicatore numerico di notifica non è visibile");
         }
+    }
+
+    public void inserisciCredenzialiDelegato(Map<String, String> destinatario) {
+        logger.info("Inserire le credenziali");
+        logger.info("selezione pf su checkbox");
+//        WebElement personaFisicaCheckBox = getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(By.id("select-pf-radio")));
+//        personaFisicaCheckBox.click();
+        logger.info("Inserisco Nome Cognome CF");
+
+        WebElement nomeField = getWebDriverWait(20).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("nome"))));
+        nomeField.clear(); // Opzionale: per pulire il campo prima di inserire il valore
+        nomeField.sendKeys(destinatario.get("nome"));
+        WebElement cognomeField = getWebDriverWait(20).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("cognome"))));
+        cognomeField.clear(); // Opzionale: per pulire il campo prima di inserire il valore
+        cognomeField.sendKeys(destinatario.get("cognome"));
+        WebElement codiceFiscaleField = getWebDriverWait(20).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("codiceFiscale"))));
+        codiceFiscaleField.clear(); // Opzionale: per pulire il campo prima di inserire il valore
+        codiceFiscaleField.sendKeys(destinatario.get("codiceFiscale"));
+
     }
 }
 

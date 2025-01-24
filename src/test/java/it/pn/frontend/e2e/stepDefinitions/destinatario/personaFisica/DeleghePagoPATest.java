@@ -722,4 +722,10 @@ public class DeleghePagoPATest extends BasePage {
         }
         return codiceDelega;
     }
+
+    @And("Inserisci credenziali Delegato")
+    public void inserisciCredenzialiDelegato(Map<String, String> destinatario) {
+        logger.info("Inserisci credenziali Delegato");
+        leTueDelegheSection.inserisciCredenzialiDelegato(destinatario);
+    }
 }

@@ -551,4 +551,9 @@ public class DestinatarioPASection extends BasePage {
         WebElement codiceFiscaleDestinatarioTextFieldBy = driver.findElement(By.id("recipients[" + numeroDestinatario + "].taxId"));
         scrollToElementClickAndInsertText(codiceFiscaleDestinatarioTextFieldBy, codiceFiscale);
     }
+
+    public void clickTornaAlleDeleghe() {
+        WebElement generateApiKeyButton = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("courtesy-page-button")));
+        generateApiKeyButton.click();
+    }
 }

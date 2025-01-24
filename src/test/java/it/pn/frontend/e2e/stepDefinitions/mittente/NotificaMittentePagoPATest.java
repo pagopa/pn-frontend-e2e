@@ -1939,83 +1939,36 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Selezionare da impostazione lingua {string}")
     public void selezionareDaImpostazioneLingua(String lingua) {
-        selezioneImpostazioneLingua();
-        if (lingua.equalsIgnoreCase("Italiano")) {
-            WebElement radioIt = driver.findElement(By.cssSelector("input[name='lang'][value='it']"));
-            radioIt.click();
-        } else {
-            logger.info("Lingua: "+lingua);
-            selezioneItalianoAltralingua();
-            webTool.waitTime(3);
-            selezioneLingua(lingua);
-        }
+        piattaformaNotifichePage.selezionareDaImpostazioneLingua(lingua);
 
-        webTool.waitTime(3);
-        //chiusura della schermata tramite la X
-        WebElement closeIcon = driver.findElement(By.xpath("//button[@aria-label='close']"));
-        closeIcon.click();
-        webTool.waitTime(3);
     }
 
     private void selezioneLingua(String lingua) {
-        WebElement selezionaLingua = driver.findElement(By.xpath("//div[@id='additionalLang']"));
-        selezionaLingua.click();
-
-        WebElement gruppoLingua = driver.findElement(By.xpath("//li[contains(text(),'" + lingua + "')]"));
-        getWebDriverWait(40).until(ExpectedConditions.visibilityOf(gruppoLingua));
-        logger.info("gruppo " + gruppoLingua + " trovato con successo");
-        gruppoLingua.click();
+        piattaformaNotifichePage.selezioneLingua(lingua);
     }
 
     private void selezioneItalianoAltralingua() {
-        WebElement radioOther = driver.findElement(By.xpath("//input[@value='other']"));
-        radioOther.click();
+        piattaformaNotifichePage.selezioneItalianoAltralingua();
     }
 
     @And("verifica lingua selezionata {string}")
     public void verificaLinguaSelezionata(String lingua) {
-
-        if (lingua.equalsIgnoreCase("Italiano")) {
-            WebElement radioIt = driver.findElement(By.xpath("//input[@value='it']"));
-            Assertions.assertTrue(radioIt.isSelected(), "La lingua selezionata non è quella " + lingua);
-        } else {
-            WebElement radioOther = driver.findElement(By.xpath("//input[@value='other']"));
-            Assertions.assertTrue(radioOther.isSelected(), "La lingua selezionata non è quella " + lingua);
-            //verifica che la label ci sia scritto la lingua scelta
-            Assertions.assertEquals(driver.findElement(By.xpath("//div[@id='additionalLang']")).getText(), lingua);
-            webTool.waitTime(5);
-        }
+        piattaformaNotifichePage.verificaLinguaSelezionata(lingua);
     }
 
     @And("selezione impostazione lingua")
     public void selezioneImpostazioneLingua() {
-        WebElement impostazioneLingua = driver.findElement(By.xpath("//button[@data-testid='settingsLangBtn']"));
-        impostazioneLingua.click();
+        piattaformaNotifichePage.selezioneImpostazioneLingua();
     }
 
     @And("Verifica Pop-up {string}")
-    public void VerificaPopUp(String verifica) {
-        Assertions.assertEquals(driver.findElement(By.id("alert-api-status")).getText(), verifica);
-        webTool.waitTime(5);
+    public void verificaPopUp(String verifica) {
+        piattaformaNotifichePage.verificaPopUp(verifica);
     }
 
     @And("Verifica Banner {string}")
     public void verificaBanner(String banner) {
-
-        String xPathBanner = "//div[@data-testid='bannerAdditionalLanguages']//div[@class='MuiAlert-message css-cysxvc']";
-
-       if (StringUtils.isEmpty(banner)){
-           //assenza di banner
-           boolean nonPresente = getWebDriverWait(10).withMessage("Non si visualizza correttamente il Banner dilinguismo").until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(xPathBanner)));
-           logger.info("Non Presente:" +nonPresente);
-           Assertions.assertTrue(nonPresente, "Banner Bilinguismo presente");
-       }
-       else {
-           WebElement messaggioBanner = getWebDriverWait(10).withMessage("Non si visualizza correttamente il Banner dilinguismo").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xPathBanner))));
-           String testoMessaggioBanner = messaggioBanner.getText();
-           Assertions.assertTrue(testoMessaggioBanner.contains(banner), "Banner bilinguismo non contiene il testo atteso!");
-       }
-
+        piattaformaNotifichePage.verificaBanner(banner);
     }
 
     @And("Refresh pagina")
@@ -2025,38 +1978,17 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("verifica campi vuoti")
     public void verificaCampiVuoti() {
-
-        String oggettoNotifica = driver.findElement(By.id("subject")).getAttribute("value");
-        String descrizione = driver.findElement(By.id("abstract")).getAttribute("value");
-        String numeroProtocollo = driver.findElement(By.id("paProtocolNumber")).getAttribute("value");
-        String codiceTassonomico = driver.findElement(By.id("taxonomyCode")).getAttribute("value");
-        WebElement  raccomandata = driver.findElement(By.xpath("//input[@value='AR_REGISTERED_LETTER']"));
-
-        // Asserzioni
-        Assertions.assertTrue(oggettoNotifica.isEmpty(), "Il campo Oggetto Notifica non è vuoto");
-        Assertions.assertTrue(descrizione.isEmpty(), "Il campo Descrizione non è vuoto");
-        Assertions.assertTrue(numeroProtocollo.isEmpty(), "Il campo Numero Protocollo non è vuoto");
-        Assertions.assertTrue(codiceTassonomico.isEmpty(), "Il campo Codice Tassonomico non è vuoto");
-        Assertions.assertFalse(raccomandata.isSelected(), "Il campo Raccomandata non è vuoto");
-
+        piattaformaNotifichePage.verificaCampiVuoti();
     }
 
     @And("Verifica footer lingua {string}")
     public void verificaFooterLingua(String lingua) {
-
-        WebElement linguaElement = driver.findElement(By.cssSelector("button[aria-label='lingua'] span.MuiTypography-root"));
-        Assertions.assertEquals(linguaElement.getText(),lingua,"La Lingua presente nel footer è diversa da: "+lingua);
+        piattaformaNotifichePage.verificaFooterLingua(lingua);
     }
 
     @And("Verifica click footer privacy o Termini Condizione {string}")
     public void verificaClickFooterPrivacyOrTerminiCondizione(String privacy) {
-        try {
-            WebElement informativaPrivacyOrTerminiCondizioneLink = getWebDriverWait(10).withMessage("Link '"+privacy+"' non trovato o non visibile.").until(ExpectedConditions.visibilityOfElementLocated(By.linkText(privacy)));
-            informativaPrivacyOrTerminiCondizioneLink.click();
-            webTool.waitTime(1);
-        } catch (TimeoutException e) {
-            System.out.println("Link Informativa Privacy  o Termini e Condizione non trovato o non visibile.");
-        }
+        piattaformaNotifichePage.verificaClickFooterPrivacyOrTerminiCondizione(privacy);
     }
 
     @And("Verifica traduzione testo {string}")
@@ -2066,7 +1998,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     }
 
     private boolean isTextPresent(String testo) {
-        return !driver.findElements(By.xpath("//*[contains(text(),'" + testo + "')]")).isEmpty();
+       return piattaformaNotifichePage.isTextPresent(testo);
     }
 
     @And("Torna indietro")
@@ -2076,112 +2008,88 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Cambia lingua footer {string}")
     public void cambiaLinguaFooter(String lingua) {
-        WebElement menuLingua = getWebDriverWait(10).withMessage("Seleziona: '" + lingua + "' non trovato").until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[@aria-label='lingua']")));
-        menuLingua.click();
-        WebElement opzioneLingua = getWebDriverWait(10).withMessage("Scelta Lingua: '" + lingua + "' non trovato").until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//li[contains(text(),'" + lingua + "')]")));
-        opzioneLingua.click();
-
-
+        piattaformaNotifichePage.cambiaLinguaFooter(lingua);
     }
 
     @And("Entro dentro la prima notifica")
     public void entroDentroLaPrimaNotifica() {
-        WebElement firstRowButton = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("(//tr[@class='MuiTableRow-root css-g76qb5'])[1]//td[3]//button"))));
-        firstRowButton.click();
+        piattaformaNotifichePage.entroDentroLaPrimaNotifica();
     }
 
     @When("Seleziona voce menu laterale {string}")
     public void selezionaVoceMenuLaterale(String testo) {
-        WebElement element = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='" + testo + "']")));
-        element.click();
+        piattaformaNotifichePage.selezionaVoceMenuLaterale(testo);
     }
 
     @When("Click Genera Api Key")
     public void clickGeneraApiKey() {
-        WebElement generateApiKeyButton = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("generate-api-key")));
-        generateApiKeyButton.click();
-
+        piattaformaNotifichePage.clickGeneraApiKey();
     }
 
     @And("Inserisci nome Api Key")
     public void inserisciNomeApiKey() {
         logger.info("Inserisco elemento");
         webTool.waitTime(2);
-
-        WebElement nameInputField = getWebDriverWait(30).withMessage("Il Nome Api Key non è presente")
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='name']")));
-        nameInputField.sendKeys("Name-" + UUID.randomUUID());
-        webTool.waitTime(2);
-        WebElement buttonContinua = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("continue-button")));
-        buttonContinua.click();
-        logger.info("buttonContinua.click()");
-
+        piattaformaNotifichePage.inserisciNomeApiKey();
     }
 
     @And("Torna a Api Key")
     public void tornaApiKey() {
         logger.info("Premere il pulsante tornaApiKey");
-        WebElement buttontornaApiKey = getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(By.id("go-to-api-keys")));
-        buttontornaApiKey.click();
-
+        piattaformaNotifichePage.tornaApiKey();
     }
 
     @And("Premere tre puntini")
     public void premereTrePuntini() {
         logger.info("premereTrePuntini");
-        WebElement moreVertIconButton = getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(
-                "//tr[@aria-rowindex='1']//button[@data-testid='contextMenuButton']"))));
-        moreVertIconButton.click();
+        piattaformaNotifichePage.premereTrePuntini();
     }
 
     @And("Seleziona Ruota")
     public void selezionaRuota() {
         logger.info("selezionaRuota");
-        WebElement buttontornaApiKey = getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(By.id("button-rotate")));
-        buttontornaApiKey.click();
+        piattaformaNotifichePage.selezionaRuota();
     }
 
     @And("Click Ruota")
     public void clickRuota() {
         logger.info("clickRuota");
-        WebElement clickRuota = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
-        clickRuota.click();
+        piattaformaNotifichePage.clickRuota();
     }
 
     @And("Seleziona Blocca")
     public void selezionaBlocca() {
         logger.info("selezionaBlocca");
-        WebElement buttontornaApiKey = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("button-block")));
-        buttontornaApiKey.click();
+        piattaformaNotifichePage.selezionaBlocca();
     }
 
     @And("Click Blocca")
     public void clickBlocca() {
         logger.info("clickBlocca");
-        WebElement clickBlocca = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
-        clickBlocca.click();
+        piattaformaNotifichePage.clickBlocca();
     }
 
     @And("Seleziona Elimina")
     public void selezionaElimina() {
         logger.info("selezionaElimina");
-        WebElement clickElimina = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("button-delete")));
-        clickElimina.click();
+        piattaformaNotifichePage.selezionaElimina();
     }
 
     @And("Click Delete")
     public void clickDelete() {
         logger.info("clickDelete");
-        WebElement clickDelete = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
-        clickDelete.click();
+        piattaformaNotifichePage.clickDelete();
     }
 
     @And("Attendi secondi {string}")
     public void attendiSecondi(String secondi) {
         webTool.waitTime(Integer.parseInt(secondi));
         logger.info("Attesa secondi: "+secondi);
+    }
+
+    @When("Click torna alle deleghe")
+    public void clickTornaAlleDeleghe() {
+        destinatarioPASection.clickTornaAlleDeleghe();
     }
 
     /**
