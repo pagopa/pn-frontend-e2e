@@ -20,6 +20,7 @@ Feature: PG - Verifica portale browser Italiano
 
     And Verifica traduzione testo "Notifiche di Convivio Spa"
     And Verifica traduzione testo "Leggi le notifiche di Convivio Spa. Puoi filtrarle per Codice IUN e data di invio"
+
     And Entro dentro la prima notifica
     And Verifica traduzione testo "Mittente"
     And Verifica traduzione testo "Documenti allegati"
