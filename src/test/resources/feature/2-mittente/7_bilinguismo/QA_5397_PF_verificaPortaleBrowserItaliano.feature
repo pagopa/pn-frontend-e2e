@@ -57,7 +57,7 @@ Feature: PF Verificare portale browser Italiano
     And Verifica traduzione testo "Codice Fiscale"
     And Verifica traduzione testo "Condividi questo codice con la persona delegata: dovrà inserirlo"
 
-    And Inserisci credenziali Delegato
+    And Inserisci credenziali Delegante
       | soggettoGiuridico       | PF               |
       | nome                    | Lucrezia         |
       | cognome                 | Borgia           |
@@ -125,7 +125,7 @@ Feature: PF Verificare portale browser Italiano
     And Verifica traduzione testo "Tax code"
     And Verifica traduzione testo "Share this code with the authorized representative: they will have to enter it when accepting the delegation"
 
-    And Inserisci credenziali Delegato
+    And Inserisci credenziali Delegante
       | soggettoGiuridico       | PF               |
       | nome                    | Lucrezia         |
       | cognome                 | Borgia           |

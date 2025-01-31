@@ -165,6 +165,7 @@ public class AggiungiDelegaPGSection extends BasePage {
 
         enteElementInput.click();
         enteElementInput.sendKeys(ente);
+        logger.info("Inserito ente: "+ente);
 
         // select menu;
         WebElement menuEntiOptionBy = driver.findElement(By.xpath("//div[@role='presentation']"));

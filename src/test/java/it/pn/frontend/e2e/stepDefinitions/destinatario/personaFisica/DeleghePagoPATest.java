@@ -1,6 +1,5 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica;
 
-import com.google.gson.internal.LinkedTreeMap;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -10,7 +9,6 @@ import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.delegate.DelegatePF;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
-import it.pn.frontend.e2e.model.notification.NewNotificationResponse;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.DeleghePage;
@@ -723,8 +721,8 @@ public class DeleghePagoPATest extends BasePage {
         return codiceDelega;
     }
 
-    @And("Inserisci credenziali Delegato")
-    public void inserisciCredenzialiDelegato(Map<String, String> destinatario) {
+    @And("Inserisci credenziali Delegante")
+    public void inserisciCredenzialiDelegante(Map<String, String> destinatario) {
         logger.info("Inserisci credenziali Delegato");
         leTueDelegheSection.inserisciCredenzialiDelegato(destinatario);
     }

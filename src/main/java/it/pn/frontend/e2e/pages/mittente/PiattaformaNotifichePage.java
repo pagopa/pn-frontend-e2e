@@ -1697,7 +1697,8 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selezionaVoceMenuLaterale(String testo) {
-        WebElement element = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='" + testo + "']")));
+//        WebElement element = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='" + testo + "']")));
+        WebElement element = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'" + testo + "')]")));
         element.click();
     }
 
@@ -1716,7 +1717,11 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public boolean isTextPresent(String testo) {
-        return !driver.findElements(By.xpath("//*[contains(text(),'" + testo + "')]")).isEmpty();
+        try {
+            return getWebDriverWait(20).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'" + testo + "')]"))) != null;
+        } catch (Exception e) {
+            return false; // Testo non trovato entro il timeout
+        }
     }
 
     public void verificaClickFooterPrivacyOrTerminiCondizione(String privacy) {
@@ -1821,4 +1826,5 @@ public class PiattaformaNotifichePage extends BasePage {
         closeIcon.click();
         webTool.waitTime(3);
     }
+
 }

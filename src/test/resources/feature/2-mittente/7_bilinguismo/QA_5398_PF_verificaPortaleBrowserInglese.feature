@@ -124,7 +124,7 @@ Feature: PF Verificare portale browser Inglese
     And Verifica traduzione testo "Code fiscal"
     And Verifica traduzione testo "Partagez ce code avec la personne mandatée"
 
-    And Inserisci credenziali Delegato
+    And Inserisci credenziali Delegante
       | soggettoGiuridico       | PF               |
       | nome                    | Lucrezia         |
       | cognome                 | Borgia           |

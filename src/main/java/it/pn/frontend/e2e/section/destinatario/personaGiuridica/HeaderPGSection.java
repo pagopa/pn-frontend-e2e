@@ -33,7 +33,7 @@ public class HeaderPGSection extends BasePage {
            // webTool.waitTime(30);
            // WebElement titlePageBy = driver.findElement(By.xpath("//a[@title = 'Sito di PagoPA S.p.A.']"));
            // WebElement esciButtonBy = driver.findElement(By.xpath("//button[@title = 'Esci']"));
-            getWebDriverWait(60).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[@title = 'Sito di PagoPA S.p.A.']"))));
+            getWebDriverWait(60).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[contains(@title, 'PagoPA S.p.A.')]"))));
             getWebDriverWait(60).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@title = 'Esci']"))));
             logger.info("HeaderSectionPG caricata correttamente");
         } catch (TimeoutException e) {

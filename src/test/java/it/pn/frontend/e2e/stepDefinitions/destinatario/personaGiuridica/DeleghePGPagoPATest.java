@@ -675,6 +675,15 @@ public class DeleghePGPagoPATest extends BasePage {
         }
     }
 
+    @And("Nella sezione Deleghe dell impresa Aggiungi Persona Giuridica")
+    public void nellaSezioneDelegheDellImpresaAggiungiPersonaGiuridica() {
+        logger.info("Si aggiungono dati del delegato");
+        aggiungiDelegaPGSection.selectPersonaGiuridicaRadioButton();
+        aggiungiDelegaPGSection.insertRagioneSociale(dataPopulationConfig.getNuovaDelegaPg().getRagioneSociale());
+        aggiungiDelegaPGSection.inserireCF(dataPopulationConfig.getNuovaDelegaPg().getCodiceFiscale());
+    }
+
+
 
 
     private String getRagioneSociale(String nomeConfig) {
