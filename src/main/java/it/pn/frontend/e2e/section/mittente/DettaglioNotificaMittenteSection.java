@@ -616,4 +616,18 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
     }
+
+    public void selezionaServizioNotificheDigitale() {
+        WebElement button = getWebDriverWait(30).withMessage("Servizio Notifiche Digitali non trovato").until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//p[contains(text(),'Servizio Notifiche Digitali')]")
+        ));
+        button.click();
+    }
+
+    public void clickLaTuaImpresa(String testo) {
+        WebElement button = getWebDriverWait(30).withMessage("click La Tua Impresa non trovato").until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//li[contains(text(),'"+testo+"')]")
+        ));
+        button.click();
+    }
 }

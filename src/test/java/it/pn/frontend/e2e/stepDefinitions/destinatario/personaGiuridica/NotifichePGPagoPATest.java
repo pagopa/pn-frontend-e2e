@@ -476,4 +476,15 @@ public class NotifichePGPagoPATest extends BasePage {
             Assertions.fail("Il codice SHA  all'interno del file  NON è corretto");
         }
     }
+
+    @When("Seleziona servizio Notifiche Digitale")
+    public void selezionaServizioNotificheDigitale() {
+        dettaglioNotificaMittenteSection.selezionaServizioNotificheDigitale();
+
+    }
+
+    @And("Click La tua Impresa {string}")
+    public void clickLaTuaImpresa(String testo) {
+        dettaglioNotificaMittenteSection.clickLaTuaImpresa(testo);
+    }
 }
