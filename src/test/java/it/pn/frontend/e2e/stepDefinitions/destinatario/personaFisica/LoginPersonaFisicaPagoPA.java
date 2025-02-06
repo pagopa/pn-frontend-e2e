@@ -14,6 +14,7 @@ import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
+import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
@@ -59,6 +60,8 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
 
     private CookiesSection cookiesSection ;
 
+    private PiattaformaNotifichePage piattaformaNotifichePage;
+
     private ComeVuoiAccederePage comeVuoiAccederePage;
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
@@ -79,6 +82,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(driver);
         comeVuoiAccederePage = new ComeVuoiAccederePage(driver);
         cookiesSection = new CookiesSection(driver);
+        piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
     }
 
     @Given("Login Page persona fisica {string} viene visualizzata")
@@ -727,5 +731,68 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
             }
         }
         return token;
+    }
+
+    @When("Login con persona fisica scelta lingua")
+    public void loginConPersonaFisicaSceltaLingua(Map<String, String> datiPF) {
+
+        logger.info("user persona fisica : " + webDriverConfig.getUserCesare());
+        logger.info("cookies start");
+
+        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
+            }
+        }
+        logger.info("cookies end");
+
+        accediAPiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
+        piattaformaNotifichePage.cambiaLinguaFooter(datiPF.get("lingua"));
+
+        accediAPiattaformaNotifichePage.selezionaAccediButton();
+
+        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
+            }
+        }
+
+        scegliSpidPFPage.waitLoadScegliSpidDEPage();
+        scegliSpidPFPage.selezionareTestButton();
+
+        loginSpidPFPage.waitLoadLoginSpidDEPage();
+        loginSpidPFPage.inserisciUtente(webDriverConfig.getUserCesare());
+        loginSpidPFPage.inserisciPassword(webDriverConfig.getPwdCesare());
+        loginSpidPFPage.selezionaEntraConSpidButton();
+
+        confermaDatiSpidPFPage.waitLoadConfermaDatiSpidDEPage();
+        String nomeUtenteLetto = confermaDatiSpidPFPage.leggiNomeUtente();
+        if (nomeUtenteLetto.equals(datiPF.get("name"))) {
+            logger.info("nome utente letto : " + nomeUtenteLetto + " uguale a : " + datiPF.get("name"));
+        } else {
+            logger.error("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + datiPF.get("name"));
+            Assertions.fail("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + datiPF.get("name"));
+        }
+
+        String cognomeUtenteLetto = confermaDatiSpidPFPage.leggiCognomeUtente();
+        if (cognomeUtenteLetto.equals(datiPF.get("familyName"))) {
+            logger.info("cognome utente letto : " + cognomeUtenteLetto + " uguale a : " + datiPF.get("familyName"));
+        } else {
+            logger.error("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + datiPF.get("familyName"));
+            Assertions.fail("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + datiPF.get("familyName"));
+        }
+
+        String numeroFiscaleLetto = confermaDatiSpidPFPage.leggiNumeroFiscale();
+        if (numeroFiscaleLetto.equals(datiPF.get("fiscalNumber"))) {
+            logger.info("numero fiscale letto : " + numeroFiscaleLetto + " uguale a : " + datiPF.get("fiscalNumber"));
+        } else {
+            logger.error("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
+            Assertions.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
+        }
+
+        confermaDatiSpidPFPage.selezionaConfermaButton();
+        headerPFSection.waitUrlToken();
+        webTool.waitTime(2);
+
     }
 }
