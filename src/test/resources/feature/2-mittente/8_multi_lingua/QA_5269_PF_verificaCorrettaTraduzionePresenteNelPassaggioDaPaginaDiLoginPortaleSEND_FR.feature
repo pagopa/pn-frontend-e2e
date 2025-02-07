@@ -40,5 +40,5 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
     And Verifica traduzione testo "Procurations à votre charge"
     And Verifica traduzione testo "Ajouter une procuration"
 #  Navigare nella sezione Stato della piattaforma e verificarne le traduzioni
-    When Seleziona voce menu laterale "État de la plateforme"
+    Then Seleziona voce menu laterale "État de la plateforme"
     And Verifica traduzione testo "historique des dysfonctionnements et télécharge les attestations correspondantes opposables à des tiers"

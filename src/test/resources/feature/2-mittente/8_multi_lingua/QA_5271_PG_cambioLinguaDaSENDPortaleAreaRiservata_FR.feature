@@ -1,81 +1,24 @@
 Feature: PG - Cambio Lingua da SEND a portale Area Riservata - FR
 
   @TestSuite
-  @TA_multiLinguaTedesco_QA5271
+  @TA_multiLinguaFrancese_QA5271
   @bilinguismo
 
   Scenario: PN-QA5271 - PG - Cambio Lingua da SEND a portale Area Riservata - FR
 
-    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    Given Login Page persona giuridica viene visualizzata
+    When Login con persona giuridica
+      | user           | DanteAlighieri |
+      | pwd            | test           |
+      | ragioneSociale | Convivio Spa   |
+    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+#   Cambio lingua
     And Cambia lingua footer "Francese"
-    When Seleziona servizio Notifiche Digitale
+    Then Seleziona servizio Notifiche Digitale
     And Click La tua Impresa "Votre entreprise"
-    And Attendi secondi "10"
-
-#    And Verifica traduzione testo "Übersicht"
-#    And Verifica traduzione testo "Zeige die Datenübersicht an und lies die Zustellungen von"
-#    And Verifica traduzione testo "Digitale Zustellungen"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#                                                      #    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard Comune di "Viggiu"
-#    Given Login Page mittente viene visualizzata
-#      | url | https://selfcare.test.notifichedigitali.it |
-#    When Login con mittente Comune di "Viggiu"
-#    And Si clicca sul bottone test
-#    And Si clicca bottone accetta cookies
-#    And Home page mittente viene visualizzata correttamente
-#
-#    And Selezionare da impostazione lingua "Italiano"
-##    And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
-#    When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
-#    And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
-#    And verifica lingua selezionata "Italiano"
-#    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento senza gruppo con lingua "Italiana"
-#    And Cliccare su continua
-#    And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
-#    And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
-#    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
-#    And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica
-#    And Cliccare su continua
-#    And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
-#    And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
-#    And Nella section Allegati cliccare sul bottone Invia
-#    Then Si visualizza correttamente la frase La notifica è stata correttamente creata
-#    And Cliccare sul bottone vai alle notifiche
-#    And Si visualizza correttamente la pagina Piattaforma Notifiche
-##    And Si verifica che la notifica viene creata correttamente "datiNotifica"
-#    And Logout e Login con Comune di "Viggiu"
-#    And Si clicca sul bottone test
-#    And Si clicca bottone accetta cookies
-#    And Home page mittente viene visualizzata correttamente
-#    And selezione impostazione lingua
-#    And verifica lingua selezionata "Italiano"
-
-
-
+    And Verifica traduzione testo "Consulter le résumé des données et lire les notifications de Convivio Spa"
+    And Verifica traduzione testo "Notifications numériques"
+    And Verifica traduzione testo "Utilisateurs"
 
 
 

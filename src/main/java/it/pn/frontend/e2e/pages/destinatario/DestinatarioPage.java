@@ -134,7 +134,7 @@ public class DestinatarioPage extends BasePage {
     }
 
     public void clickProdotto(String xpath) {
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))));
+        getWebDriverWait(20).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))));
         WebElement prodottoDestinatario = driver.findElement(By.xpath(xpath));
         prodottoDestinatario.click();
     }

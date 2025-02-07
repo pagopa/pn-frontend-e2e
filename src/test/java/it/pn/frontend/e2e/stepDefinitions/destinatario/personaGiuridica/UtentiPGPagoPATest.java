@@ -156,10 +156,10 @@ public class UtentiPGPagoPATest extends BasePage {
         }
     }
 
-    @When("Nella Pagina Notifiche persona giuridica si clicca su utenti")
-    public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSuUtenti() {
+    @When("Nella Pagina Notifiche persona giuridica si clicca su utenti {string}")
+    public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSuUtenti(String testo) {
         utentiPGPage.setEnvironment(webDriverConfig.getEnvironment());
-        utentiPGPage.clickSezioneUtenti();
+        utentiPGPage.clickSezioneUtenti(testo);
     }
 
     @And("Nella Pagina riepilogativa si clicca su utenti")

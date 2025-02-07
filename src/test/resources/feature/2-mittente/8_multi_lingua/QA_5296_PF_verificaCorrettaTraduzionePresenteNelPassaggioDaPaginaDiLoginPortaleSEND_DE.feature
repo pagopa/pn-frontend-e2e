@@ -31,5 +31,5 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
     And Verifica traduzione testo "Deine Vollmachten"
     And Verifica traduzione testo "Eine Vollmacht hinzufügen"
   #  Navigare nella sezione Stato della piattaforma e verificarne le traduzioni
-    When Seleziona voce menu laterale "Plattformstatus"
+    Then Seleziona voce menu laterale "Plattformstatus"
     And Verifica traduzione testo "Überprüft die Funktionsweise von SEND, zeigt den Verlauf der Fehlfunktionen an und lädt die entsprechenden Bescheinigungen herunter, die gegenüber Dritten angefochten werden können."

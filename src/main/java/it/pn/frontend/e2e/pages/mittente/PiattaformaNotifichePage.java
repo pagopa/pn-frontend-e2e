@@ -1697,13 +1697,12 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selezionaVoceMenuLaterale(String testo) {
-//        WebElement element = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='" + testo + "']")));
         WebElement element = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'" + testo + "')]")));
         element.click();
     }
 
     public void entroDentroLaPrimaNotifica() {
-        WebElement firstRowButton = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("(//tr[@class='MuiTableRow-root css-g76qb5'])[1]//td[3]//button"))));
+        WebElement firstRowButton = getWebDriverWait(10).withMessage("Prima notifica non trovata").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("(//tr[@class='MuiTableRow-root css-g76qb5'])[1]//td[3]//button"))));
         firstRowButton.click();
     }
 

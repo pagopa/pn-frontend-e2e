@@ -40,5 +40,5 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
     And Verifica traduzione testo "Add a delegate"
 
   #  Navigare nella sezione Stato della piattaforma e verificarne le traduzioni
-    When Seleziona voce menu laterale "Platform status"
+    Then Seleziona voce menu laterale "Platform status"
     And Verifica traduzione testo "Check the operation of SEND, view the history of disruptions and download the related certificates enforceable against third parties"

@@ -14,7 +14,7 @@ Feature: PG - Verifica corretta traduzione nella pagina di Area Riservata - DE
       | ragioneSociale | Convivio Spa   |
       | lingua         | DE        |
 #    verificare che la sezione Panoramica sia scritta in lingua Tedesca
-    And Verifica traduzione testo "Übersicht"
+    Then Verifica traduzione testo "Übersicht"
     And Verifica traduzione testo "Zeige die Datenübersicht an und lies die Zustellungen von"
     And Verifica traduzione testo "Digitale Zustellungen"
 

@@ -420,4 +420,5 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             }
         }
     }
+
 }

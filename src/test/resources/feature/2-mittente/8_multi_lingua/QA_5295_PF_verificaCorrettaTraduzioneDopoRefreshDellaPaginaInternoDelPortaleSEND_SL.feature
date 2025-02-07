@@ -14,7 +14,7 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
       | lingua       | Sloveno |
-    And Refresh pagina
+    Then Refresh pagina
     And Verifica traduzione testo "Vaši kontaktni podatki"
     And Verifica traduzione testo "Pooblastila"
     And Verifica traduzione testo "Stanje platforme"

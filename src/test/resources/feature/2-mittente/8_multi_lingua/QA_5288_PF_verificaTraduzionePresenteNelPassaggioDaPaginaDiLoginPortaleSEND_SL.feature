@@ -39,5 +39,5 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
     And Verifica traduzione testo "Dodajte prenos pooblastila"
 
   #  Navigare nella sezione Stato della piattaforma e verificarne le traduzioni
-    When Seleziona voce menu laterale "Stanje platforme"
+    Then Seleziona voce menu laterale "Stanje platforme"
     And Verifica traduzione testo "Preverite delovanje SEND, oglejte si zgodovino motenj in prenesite povezana potrdila, ki so izvršljiva proti tretjim osebam. Vsako potrdilo potrjuje motnjo"
