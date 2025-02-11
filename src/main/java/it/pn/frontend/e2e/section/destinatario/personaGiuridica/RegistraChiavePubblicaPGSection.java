@@ -118,4 +118,24 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
         }
     }
 
+    public void verificaMessaggioNomeDiErrore(String testo) {
+        WebElement errorMessage = getWebDriverWait(15).withMessage("Il messaggio di errone del campo nome: "+testo+" non presente")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("name-helper-text")));
+        Assertions.assertTrue(errorMessage.getText().contains(testo),
+                "Il messaggio di errore del campo Nome non contiene il testo corretto: "+testo);
+
+    }
+
+    public void verificaMessaggioPublicKeyDiErrore(String testo) {
+        WebElement errorMessage = getWebDriverWait(15).withMessage("Il messaggio di errone del campo PublicKey: "+testo+" non presente")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("publicKey-helper-text")));
+        Assertions.assertTrue(errorMessage.getText().contains(testo),
+                "Il messaggio di errore del campo PublicKey non contiene il testo corretto: "+testo);
+    }
+
+    public void verificaTastoRegistraDisabilitato() {
+        boolean bottoneRegistraNonPresente = getWebDriverWait(25).withMessage("Bottone registra non presente")
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("step-submit")))).isEnabled();
+        Assertions.assertFalse(bottoneRegistraNonPresente, "Il bottone 'Registra' non è disabilitato");
+    }
 }

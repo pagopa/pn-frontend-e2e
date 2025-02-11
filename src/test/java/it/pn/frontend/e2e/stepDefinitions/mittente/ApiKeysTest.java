@@ -288,7 +288,7 @@ public class ApiKeysTest  extends BasePage {
     public void siCopiaCorrettamenteLaApiKeyCliccandoSulBottoneDiCopia() {
         logger.info("Si clicca copia sul tasto 'copy-clipboard' per copiare la Api Key");
         String apikeyCopied = apiKeyPAPage.copiaApiKey();
-        logger.info("La Api Key copiata è: " + apikeyCopied);
+        logger.info("La Api Key copiata è: {}", apikeyCopied);
     }
 
     @Then("Nella pagina Api Key posizionare il cursuore sopra il numero gruppi")
@@ -308,5 +308,10 @@ public class ApiKeysTest  extends BasePage {
         logger.info("Verifica che il valore dell'apikey copiato sia uguale a quello visualizzato in elenco");
         String apiKeyDaElenco =  apiKeyPAPage.visualizzaApiKeyInElenco();
        Assertions.assertTrue(getApiKey().equalsIgnoreCase(apiKeyDaElenco));
+    }
+
+    @And("Pulisci ambiente public keys")
+    public void pulisciAmbientePublicKeys() {
+        apiKeyPAPage.pulisciAmbientePublickeys();
     }
 }

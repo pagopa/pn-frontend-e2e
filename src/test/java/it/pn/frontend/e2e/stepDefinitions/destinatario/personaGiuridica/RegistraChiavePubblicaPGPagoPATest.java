@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.text.MessageFormat;
+import java.util.random.RandomGenerator;
 import java.util.Map;
 
 public class RegistraChiavePubblicaPGPagoPATest extends BasePage {
@@ -71,4 +71,34 @@ public class RegistraChiavePubblicaPGPagoPATest extends BasePage {
         logger.info("Il campo Issuer copiato è: {}", copiedValue);
     }
 
+    @And("Nella sezione Registra chiave pubblica si inseriscono i dati della chiave pubblica con numero di caratteri superiori")
+    public void nellaSezioneRegistraChiavePubblicaSiInserisconoIDatiDellaChiavePubblicaConNumeroDiCaratteriSuperiori() {
+        logger.info("Nella sezione Registra chiave pubblica inserire un numero di caratteri maggiori 254 per il nome 500 per la publicKey");
+        registraChiavePubblicaPGSection.insertNome(generateRandomString(260));
+        registraChiavePubblicaPGSection.insertPublicKey(generateRandomString(501));
+    }
+    public  String generateRandomString(int length) {
+        final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        final RandomGenerator randomGenerator = RandomGenerator.getDefault();
+        return randomGenerator.ints(length, 0, CHARACTERS.length())
+                .mapToObj(CHARACTERS::charAt)
+                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                .toString();
+    }
+
+    @And("Verifica messaggio Nome di errore {string}")
+    public void verificaMessaggioNomeDiErrore(String testo) {
+        registraChiavePubblicaPGSection.verificaMessaggioNomeDiErrore(testo);
+    }
+
+    @And("Verifica messaggio PublicKey di errore {string}")
+    public void verificaMessaggioPublicKeyDiErrore(String testo) {
+        registraChiavePubblicaPGSection.verificaMessaggioPublicKeyDiErrore(testo);
+    }
+
+    @And("Verifica tasto registra disabilitato")
+    public void verificaTastoRegistraDisabilitato() {
+        webTool.waitTime(1);
+        registraChiavePubblicaPGSection.verificaTastoRegistraDisabilitato();
+    }
 }
