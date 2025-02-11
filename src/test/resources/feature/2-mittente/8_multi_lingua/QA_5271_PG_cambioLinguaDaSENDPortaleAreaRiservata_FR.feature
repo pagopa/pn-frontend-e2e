@@ -2,7 +2,7 @@ Feature: PG - Cambio Lingua da SEND a portale Area Riservata - FR
 
   @TestSuite
   @TA_multiLinguaFrancese_QA5271
-  @bilinguismo
+  @multiLingua
 
   Scenario: PN-QA5271 - PG - Cambio Lingua da SEND a portale Area Riservata - FR
 

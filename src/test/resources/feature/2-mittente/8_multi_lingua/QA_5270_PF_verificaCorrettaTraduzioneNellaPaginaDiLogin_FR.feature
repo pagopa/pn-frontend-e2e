@@ -2,7 +2,7 @@ Feature: PF - Verifica corretta traduzione nella pagina di Login - FR
 
   @TestSuite
   @TA_multiLinguaFrancese_QA5270
-  @bilinguismo
+  @multiLingua
 
   Scenario: PN-QA5270 - PF - Verifica corretta traduzione nella pagina di Login - FR
 

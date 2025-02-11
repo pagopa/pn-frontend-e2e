@@ -2,7 +2,7 @@ Feature: PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine d
 
   @TestSuite
   @TA_multiLinguaInglese_QA5277
-  @bilinguismo
+  @multiLingua
 
   Scenario: PN-QA5277 - PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine di Utenti e Gruppi - EN
 

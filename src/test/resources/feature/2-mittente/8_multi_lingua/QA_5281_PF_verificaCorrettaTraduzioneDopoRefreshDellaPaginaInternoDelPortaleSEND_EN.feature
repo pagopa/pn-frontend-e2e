@@ -2,7 +2,7 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
 
   @TestSuite
   @TA_multiLinguaInglese_QA5281
-  @bilinguismo
+  @multiLingua
 
   Scenario: PN-QA5281 - PF - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND - EN
 

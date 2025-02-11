@@ -2,7 +2,7 @@ Feature: PG - Verifica corretta traduzione nella pagina di Area Riservata - DE
 
   @TestSuite
   @TA_multiLinguaTedesco_QA5267
-  @bilinguismo
+  @multiLingua
 
   Scenario: PN-QA5267 - PG - Verifica corretta traduzione nella pagina di Area Riservata - DE
 

@@ -1,10 +1,10 @@
-Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
+Feature: PG - Cambio Lingua da Area Riservata a portale SEND - FR
 
   @TestSuite
-  @TA_multiLinguaInglese_QA5275
+  @TA_multiLinguaFrancese_QA5287
   @multiLingua
 
-  Scenario: PN-QA5275 - PG - Cambio Lingua da Area Riservata a portale SEND - EN
+  Scenario: PN-QA5287 - PG - Cambio Lingua da Area Riservata a portale SEND - FR
 
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
@@ -12,29 +12,31 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
       | pwd            | test           |
       | ragioneSociale | Convivio Spa   |
     #   Cambio lingua
-    And Cambia lingua footer "Inglese"
+    And Cambia lingua footer "Francese"
     And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+ ##  Verificare traduzione della sezione HP notifiche
     When Seleziona voce menu laterale "Notifications"
-    And Verifica traduzione testo "Delegations of authority"
-    And Verifica traduzione testo "Contact details"
-##  Verificare traduzione della sezione HP notifiche
-    When Seleziona voce menu laterale "Notifications"
-    And Seleziona voce menu laterale "Company notifications"
-    And Verifica traduzione testo "Notifications of"
-    And Verifica traduzione testo "You can filter them by IUN Code and send date"
-    #  Raggiungere la sezione Notifiche delegate e verificarne la traduzione
-    When Seleziona voce menu laterale "Delegated notifications"
-    And Verifica traduzione testo "Read the notifications delegated"
-  ##  Raggingere gestire una delega e verificarne la traduzione
-    When Seleziona voce menu laterale "Delegations of authority"
-    And Verifica traduzione testo "Here you can manage the company"
-    And Verifica traduzione testo "Authorities held by the company"
-##    Selezionare Stato della Piattaforma
-    When Seleziona voce menu laterale "Platform status"
-    And Verifica traduzione testo "view service disruption history and download the attestations"
-    And Verifica traduzione testo "Disruption history"
+    And Seleziona voce menu laterale "Notifications de l"
+
+    And Verifica traduzione testo "Notifications de"
+    And Verifica traduzione testo "Lire les notifications de Convivio Spa"
+    And Entro dentro la prima notifica
+    And Verifica traduzione testo "Expéditeur"
+    And Verifica traduzione testo "Destinataire"
+    And Verifica traduzione testo "Pièces jointes"
+##  Raggiungere la sezione Notifiche delegate e verificarne la traduzione
+    When Seleziona voce menu laterale "Notifications mandatées"
+    And Verifica traduzione testo "Lire les notifications mandatées à Convivio Spa"
+##  Aggiungere e gestire una delega e verificarne la traduzione
+    When Seleziona voce menu laterale "Procurations"
+    And Verifica traduzione testo "Ici, vous pouvez gérer les mandataires de l"
+    And Verifica traduzione testo "Procurations à la charge de l"
+#    Selezionare Stato della Piattaforma
+    When Seleziona voce menu laterale "État de la plateforme"
+    And Verifica traduzione testo "Il vérifie le fonctionnement de SEND, affiche l"
+    And Verifica traduzione testo "Historique des dysfonctionnements"
 #-*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*-
-    When Cambia lingua footer "German"
+    When Cambia lingua footer "Allemand"
     And Seleziona voce menu laterale "Bescheide"
     And Verifica traduzione testo "Vollmachten"
     And Verifica traduzione testo "Anschriften"
@@ -51,31 +53,32 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
     And Verifica traduzione testo "Überprüft die Funktionsweise von SEND"
     And Verifica traduzione testo "Fehlerhistorie"
 #-*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*-
-    And Cambia lingua footer "Englisch"
-    And Cambia lingua footer "French"
+    And Cambia lingua footer "Französisch"
+    And Cambia lingua footer "Anglais"
     When Seleziona voce menu laterale "Notifications"
-    And Verifica traduzione testo "Procurations"
-    And Verifica traduzione testo "Coordonnées"
-    And Verifica traduzione testo "Utilisateurs"
- ##  Verificare traduzione della sezione HP notifiche
+    And Verifica traduzione testo "Delegations of authority"
+    And Verifica traduzione testo "Contact details"
+##  Verificare traduzione della sezione HP notifiche
+    And Attendi secondi "1"
     When Seleziona voce menu laterale "Notifications"
-    And Seleziona voce menu laterale "Notifications de l"
-    And Verifica traduzione testo "Notifications de"
-#    And Verifica traduzione testo "Lire les notifications de Convivio Spa"
-##  Raggiungere la sezione Notifiche delegate e verificarne la traduzione
-    When Seleziona voce menu laterale "Notifications mandatées"
-    And Verifica traduzione testo "Lire les notifications mandatées à Convivio Spa"
-##  Raggiungere la sezione Recapiti e verificarne la traduzione
-    When Seleziona voce menu laterale "Coordonnées"
-    And Verifica traduzione testo "Ici, vous pouvez indiquer et modifier les coordonnées numériques auxquelles Convivio Spa"
-#    Selezionare Stato della Piattaforma
-    When Seleziona voce menu laterale "État de la plateforme"
-    And Verifica traduzione testo "Il vérifie le fonctionnement de SEND, affiche l"
-    And Verifica traduzione testo "Historique des dysfonctionnements"
+    And Seleziona voce menu laterale "Company notifications"
+    And Verifica traduzione testo "Notifications of"
+    And Verifica traduzione testo "You can filter them by IUN Code and send date"
+    #  Raggiungere la sezione Notifiche delegate e verificarne la traduzione
+    When Seleziona voce menu laterale "Delegated notifications"
+    And Verifica traduzione testo "Read the notifications delegated"
+  ##  Raggingere gestire una delega e verificarne la traduzione
+    When Seleziona voce menu laterale "Delegations of authority"
+    And Verifica traduzione testo "Here you can manage the company"
+    And Verifica traduzione testo "Authorities held by the company"
+##    Selezionare Stato della Piattaforma
+    When Seleziona voce menu laterale "Platform status"
+    And Verifica traduzione testo "view service disruption history and download the attestations"
+    And Verifica traduzione testo "Disruption history"
 
     #-*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*-
-    And Cambia lingua footer "Anglais"
-    And Cambia lingua footer "Slovenian"
+    And Cambia lingua footer "French"
+    And Cambia lingua footer "Slovène"
     And Seleziona voce menu laterale "Obvestila"
     And Verifica traduzione testo "Prenosi pooblastil"
     And Verifica traduzione testo "Kontaktni podatki"

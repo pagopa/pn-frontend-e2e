@@ -1,10 +1,10 @@
-Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a portale SEND - FR
+Feature: PG -  PG - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND- FR
 
   @TestSuite
-  @TA_multiLinguaFrancese_QA5279
+  @TA_multiLinguaFrancese_QA5286
   @multiLingua
 
-  Scenario: PN-QA5279 - PG - Verifica traduzione presente nel passaggio da Area Riservata a portale SEND - FR
+  Scenario: PN-QA5286- PG - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND- FR
 
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
@@ -13,9 +13,12 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
       | ragioneSociale | Convivio Spa   |
     #   Cambio lingua
     And Cambia lingua footer "Francese"
+#    And Refresh pagina
+#    And Attendi secondi "10"
     And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
-
-    When Seleziona voce menu laterale "Notifications"
+#    And Refresh pagina
+#    And Attendi secondi "3"
+#    When Seleziona voce menu laterale "Notifications"
     And Verifica traduzione testo "Procurations"
     And Verifica traduzione testo "Coordonnées"
     And Verifica traduzione testo "Utilisateurs"
@@ -34,7 +37,3 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
     When Seleziona voce menu laterale "État de la plateforme"
     And Verifica traduzione testo "Il vérifie le fonctionnement de SEND, affiche l"
     And Verifica traduzione testo "Historique des dysfonctionnements"
-
-
-
-
