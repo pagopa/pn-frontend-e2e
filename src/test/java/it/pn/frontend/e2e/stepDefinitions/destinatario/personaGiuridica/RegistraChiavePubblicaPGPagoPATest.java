@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
@@ -97,5 +96,15 @@ public class RegistraChiavePubblicaPGPagoPATest extends BasePage {
     public void verificaTastoRegistraDisabilitato() {
         webTool.waitTime(1);
         registraChiavePubblicaPGSection.verificaTastoRegistraDisabilitato();
+    }
+
+    @And("Cliccare sui tre puntini con stato {string}")
+    public void cliccareSuiTrePuntiniConStato(String testo) {
+        registraChiavePubblicaPGSection.cliccareSuiTrePuntiniConStato(testo);
+    }
+
+    @And("Verifica stato {string}")
+    public void verificaStato(String stato) {
+        registraChiavePubblicaPGSection.verificaStato(stato);
     }
 }

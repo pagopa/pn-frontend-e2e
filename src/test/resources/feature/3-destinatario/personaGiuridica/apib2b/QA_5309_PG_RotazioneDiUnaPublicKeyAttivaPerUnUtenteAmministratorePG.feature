@@ -12,8 +12,17 @@ Scenario:PN-QA-5309  PG - Rotazione di una public key attiva per un utente Ammin
     | nome        | Chiave- |
   And Cliccare su registra
   And Si visualizza correttamente la sezione Ottieni Parametri
-  And Si copia correttamente il campo KID cliccando sul bottone di copia
-  And Si copia correttamente il campo Issuer cliccando sul bottone di copia
   And Cliccare su registra
+  And Cliccare sui tre puntini con stato "Attiva"
+  And Nella pagina Api Key si clicca sulla voce ruota del menu Api Key
+  And Nella pop up cliccare sul tasto conferma
+  And Nella sezione Registra chiave pubblica si inseriscono i dati della chiave pubblica
+    | nome        | Chiave- |
+  And Cliccare su registra
+  And Verifica Pop-up Integrazione Api "con successo"
+  And Cliccare su registra
+  And Verifica stato "Attiva"
+  And Verifica stato "Ruotata"
+
 
 

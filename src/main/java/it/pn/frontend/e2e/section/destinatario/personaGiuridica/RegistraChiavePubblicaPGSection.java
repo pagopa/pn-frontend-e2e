@@ -69,8 +69,7 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
 
     public void selezionareRegistraButton() {
         webTool.waitTime(5);
-        getWebDriverWait(10).withMessage("Il bottone Registra nella pagina Registra chiave pubblica non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
-        registraButton = driver.findElement(By.id("step-submit"));
+        registraButton = getWebDriverWait(10).withMessage("Il bottone Registra nella pagina Registra chiave pubblica non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
         scrollToElementAndClick(registraButton);
     }
 
@@ -142,5 +141,16 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
         boolean bottoneRegistraNonPresente = getWebDriverWait(25).withMessage("Bottone registra non presente")
                 .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("step-submit")))).isEnabled();
         Assertions.assertFalse(bottoneRegistraNonPresente, "Il bottone 'Registra' non è disabilitato");
+    }
+
+    public void cliccareSuiTrePuntiniConStato(String testo) {
+        WebElement menuButton = getWebDriverWait(10).withMessage("Il tasto Tre Puntini NON VISIBILE con stato: "+testo)
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@data-testid='publicKeysTableDesktop']//tr[.//span[contains(text(), '"+testo+"')]]//button[@data-testid='contextMenuButton']")) );
+        menuButton.click();
+    }
+
+    public void verificaStato(String stato) {
+        getWebDriverWait(10).withMessage("NON VISIBILE con stato: "+stato)
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@data-testid='publicKeysTableDesktop']//tr[.//span[contains(text(), '"+stato+"')]]//button[@data-testid='contextMenuButton']")) );
     }
 }

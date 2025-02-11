@@ -314,4 +314,10 @@ public class ApiKeysTest  extends BasePage {
     public void pulisciAmbientePublicKeys() {
         apiKeyPAPage.pulisciAmbientePublickeys();
     }
+
+    @And("Verifica Pop-up Integrazione Api {string}")
+    public void verificaPopUpIntegrazioneApi(String testo) {
+        apiKeyPAPage.verificaPopUpIntegrazioneApi(testo);
+    }
+
 }
