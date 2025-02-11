@@ -535,7 +535,7 @@ public class ApiKeyPAPage extends BasePage {
                     if (statoValue.equalsIgnoreCase("Attiva")) {
                         logger.info("Stato Attiva.");
                         clickTrePuntiniPublicKeys();
-                        clickBloccaIntegrazioneApi();
+                        clickSuBlocca();
                         WebElement clickBlocca = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
                         clickBlocca.click();
                         logger.info("Tasto Blocca cliccato su stato Attiva.");
@@ -578,19 +578,10 @@ public class ApiKeyPAPage extends BasePage {
         }
     }
 
-
-
-
     public void clickTrePuntiniPublicKeys() {
         WebElement clickTrePuntiniPublicKeys = getWebDriverWait(40).withMessage("Il Tre Puntini NON VISIBILE")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@data-testid='publicKeysTableDesktop']//tr[1]//button[@data-testid='contextMenuButton']")));
         clickTrePuntiniPublicKeys.click();
-    }
-
-    public void clickBloccaIntegrazioneApi() {
-        WebElement button = getWebDriverWait(40).withMessage("Il tasto Blocca NON VISIBILE")
-                .until(ExpectedConditions.elementToBeClickable(By.id("button-block")));
-        button.click();
     }
 
     public void clickEliminaIntegrazioneApi() {

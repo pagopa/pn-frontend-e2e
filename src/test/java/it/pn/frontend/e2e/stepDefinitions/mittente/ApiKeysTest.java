@@ -320,4 +320,8 @@ public class ApiKeysTest  extends BasePage {
         apiKeyPAPage.verificaPopUpIntegrazioneApi(testo);
     }
 
+    @And("Nella pagina Api Key si clicca sulla voce Elimina del menu Api Key")
+    public void nellaPaginaApiKeySiCliccaSullaVoceEliminaDelMenuApiKey() {
+        apiKeyPAPage.clickEliminaIntegrazioneApi();
+    }
 }
