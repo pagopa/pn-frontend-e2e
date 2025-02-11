@@ -1,8 +1,9 @@
-Feature:Il delegato persona giuridica accede ad una delega
+Feature: Utente Amministratore Persona Giuridica censisce una chiave pubblica per la Persona Giuridica
 
   @TA_PG_CreazioneChiavePubblica_QA_5305
-  @TestSuite
+  @IntegrazioneAPIB2B
   @PG
+  @TestSuite
 
   Scenario: QA-5305 [DELEGANTE PG AMMINISTRATORE] - Amministratore PG censisce una chiave pubblica per la Persona Giuridica
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

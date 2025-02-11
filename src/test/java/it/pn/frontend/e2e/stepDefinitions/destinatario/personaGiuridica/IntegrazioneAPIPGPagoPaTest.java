@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
@@ -72,4 +73,17 @@ public class IntegrazioneAPIPGPagoPaTest extends BasePage {
             Assertions.fail("Il bottone Genera chiave pubblica è ancora visibile dopo aver creato una chiave pubblica");
         }
     }
+
+    @And("C'è almeno una chiave pubblica censita nella tabella delle chiavi pubbliche sulla pagina Integrazione API")
+    public void verificaPresenzaChiavePubblicheCensite() {
+        logger.info("C'è almeno una chiave pubblica censita nella tabella delle chiavi pubbliche sulla pagina Integrazione API");
+        integrazioneAPIPGPage.verificaPresenzaChiavePubblicheCensite();
+    }
+
+    @Then("Si verifica che la tabella delle chiavi pubbliche sia presente")
+    public void verificaTabellaChiavePubbliche() {
+        logger.info("Si verifica che la tabella delle chiavi pubbliche sia presente");
+        integrazioneAPIPGPage.verificaTabellaChiaviPubbliche();
+    }
+
 }
