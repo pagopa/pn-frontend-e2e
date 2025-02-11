@@ -44,7 +44,6 @@ public class IntegrazioneAPIPGPage extends BasePage {
         WebElement generaChiavePubblicaButton = getWebDriverWait(10).withMessage("Bottone Genera chiave pubblica non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("generate-public-key"))));
         generaChiavePubblicaButton.click();
-
     }
 
     public void checkConfermaCreazioneChiavePubblica() {
