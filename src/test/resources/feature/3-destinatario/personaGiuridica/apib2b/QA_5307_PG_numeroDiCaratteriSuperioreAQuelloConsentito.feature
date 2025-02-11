@@ -10,7 +10,7 @@ Scenario:PN-QA-5307  PG - Utente Amministratore Persona Giuridica prova a censir
   And Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave pubblica
   And Nella pagina Integrazione API si clicca sul bottone Genera chiave pubblica
   And Nella sezione Registra chiave pubblica si inseriscono i dati della chiave pubblica con numero di caratteri superiori
-  And Verifica messaggio Nome di errore "Scrivi massimo 254 caratteri"
+  Then Verifica messaggio Nome di errore "Scrivi massimo 254 caratteri"
   And Verifica messaggio PublicKey di errore "Scrivi massimo 500 caratteri"
   And Verifica tasto registra disabilitato
 

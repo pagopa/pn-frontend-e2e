@@ -13,6 +13,7 @@ import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class RegistraChiavePubblicaPGSection extends BasePage {
 
@@ -40,7 +41,6 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
             getWebDriverWait(10).withMessage("Il titolo della pagina Registra chiave pubblica non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Registra chiave pubblica-page"))));
             logger.info("La pagina Registra chiave pubblica si carica correttamente");
         } catch (TimeoutException e) {
-            logger.error("La pagina Registra chiave pubblica non si carica correttamente con errore: {}", e.getMessage());
             Assertions.fail(MessageFormat.format("La pagina Registra chiave pubblica non si carica correttamente con errore: {0}", e.getMessage()));
         }
     }
@@ -57,7 +57,13 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
     public void insertPublicKey(String publicKey) {
         logger.info("inserimento chiave pubblica");
         inputPublicKey = driver.findElement(By.id("publicKey"));
-        String encodedPublicKey = new String(java.util.Base64.getEncoder().withoutPadding().encode(publicKey.getBytes()));
+        inputPublicKey.sendKeys(publicKey);
+    }
+
+    public void insertPublicKey() {
+        logger.info("inserimento chiave pubblica");
+        inputPublicKey = driver.findElement(By.id("publicKey"));
+        String encodedPublicKey = UUID.randomUUID().toString();
         inputPublicKey.sendKeys(encodedPublicKey);
     }
 

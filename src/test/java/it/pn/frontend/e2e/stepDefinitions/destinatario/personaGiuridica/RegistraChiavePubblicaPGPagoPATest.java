@@ -38,12 +38,9 @@ public class RegistraChiavePubblicaPGPagoPATest extends BasePage {
     @And("Nella sezione Registra chiave pubblica si inseriscono i dati della chiave pubblica")
     public void nellaSezioneRegistraUnaChiavePubblicaInserireIDati(Map<String, String> chiave) {
         logger.info("Nella sezione Registra chiave pubblica inserire i dati");
-
         String nome = chiave.get("nome");
-        String publicKey = chiave.get("publicKey");
-
         registraChiavePubblicaPGSection.insertNome(nome);
-        registraChiavePubblicaPGSection.insertPublicKey(publicKey);
+        registraChiavePubblicaPGSection.insertPublicKey();
     }
 
     @And("Cliccare su registra")
