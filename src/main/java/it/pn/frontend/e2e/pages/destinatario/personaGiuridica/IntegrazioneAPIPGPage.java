@@ -33,7 +33,7 @@ public class IntegrazioneAPIPGPage extends BasePage {
 
     public boolean generaChiavePubblicaDisplayed() {
         try {
-            return getWebDriverWait(5).withMessage("Il bottone Genera chiave pubblica non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='generatePublicKey']")))).isDisplayed();
+            return getWebDriverWait(5).withMessage("Il bottone Genera chiave pubblica non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("generate-public-key")))).isDisplayed();
         } catch (NoSuchElementException | TimeoutException e) {
             logger.warn("Il bottone Genera chiave pubblica non è visibile");
             return false;
@@ -41,8 +41,8 @@ public class IntegrazioneAPIPGPage extends BasePage {
     }
 
     public void clickBottoneGeneraChiavePubblica() {
+        getWebDriverWait(10).withMessage("Bottone Genera chiave pubblica non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("generate-public-key"))));
         WebElement generaChiavePubblicaButton = driver.findElement(By.id("generate-public-key"));
-        getWebDriverWait(10).withMessage("Bottone Genera chiave pubblica non è cliccabile").until(ExpectedConditions.elementToBeClickable(generaChiavePubblicaButton));
         generaChiavePubblicaButton.click();
     }
 

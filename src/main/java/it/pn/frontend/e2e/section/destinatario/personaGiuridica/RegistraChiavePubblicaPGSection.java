@@ -47,19 +47,18 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
 
     public void insertNome(String nome) {
         inputNome = driver.findElement(By.id("name"));
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yy");
         String dateFormat = df.format(new Date());
-        logger.info("pulizia dati precompilati");
-        inputNome.clear();
         logger.info("inserimento nome");
         nome = nome + dateFormat;
-        inputNome.sendKeys(nome);
+        inputNome.sendKeys(Keys.chord(Keys.CONTROL, "a"), nome);
     }
 
     public void insertPublicKey(String publicKey) {
         logger.info("inserimento chiave pubblica");
         inputPublicKey = driver.findElement(By.id("publicKey"));
-        inputPublicKey.sendKeys(publicKey);
+        String encodedPublicKey = new String(java.util.Base64.getEncoder().withoutPadding().encode(publicKey.getBytes()));
+        inputPublicKey.sendKeys(encodedPublicKey);
     }
 
     public void selezionareRegistraButton() {
@@ -79,7 +78,7 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
             getWebDriverWait(15).withMessage("il bottone Fine della sezione Ottieni parametri non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.id("step-submit")))));
             logger.info("Si visualizza correttamente la sezione Ottieni parametri");
         } catch (TimeoutException e) {
-            logger.error("Non si visualizza correttamente la sezione Ottieni parametri con errore:" + e.getMessage());
+            logger.error("Non si visualizza correttamente la sezione Ottieni parametri con errore:{}", e.getMessage());
             Assertions.fail("Non si visualizza correttamente la sezione Ottieni parametri con errore:" + e.getMessage());
         }
     }
