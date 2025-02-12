@@ -86,16 +86,15 @@ public class IntegrazioneAPIPGPage extends BasePage {
                 getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElement(tableHeaderTitles.get(1), "Valore"));
                 getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElement(tableHeaderTitles.get(2), "Scadenza"));
                 getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElement(tableHeaderTitles.get(3), "Stato"));
-                getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElement(tableHeaderTitles.get(4), ""));
+                // controllo su quarta colonna con menu cliccabile
+                getWebDriverWait(3).until(ExpectedConditions.and(ExpectedConditions.textToBePresentInElement(tableHeaderTitles.get(4), ""), ExpectedConditions.elementToBeClickable(tableHeaderTitles.get(4))));
             } else {
-                logger.error("Non si visualizza correttamente l'header della tabella delle chiavi pubbliche");
                 Assertions.fail("Non si visualizza correttamente l'header della tabella delle chiavi pubbliche");
             }
             getWebDriverWait(10).withMessage("Non si visualizza correttamente l'header della tabella delle chiavi pubbliche")
                     .until(ExpectedConditions.visibilityOf(chiaviPubblicheTableHeader));
             logger.info("Si visualizza correttamente la tabella delle chiavi pubbliche");
         } catch (TimeoutException e) {
-            logger.error("Non si visualizza correttamente la tabella delle chiavi pubbliche con errore:" + e.getMessage());
             Assertions.fail("Non si visualizza correttamente la tabella delle chiavi pubbliche con errore" + e.getMessage());
         }
     }
