@@ -31,7 +31,6 @@ public class IntegrazioneAPIPGPage extends BasePage {
             getWebDriverWait(10).withMessage("Il titolo della pagina Notifiche PG non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Integrazione API-page"))));
             logger.info("La pagina Piattaforma Integrazione API si carica correttamente");
         } catch (TimeoutException e) {
-            logger.error("La pagina Integrazione API non si carica correttamente con errore: {}", e.getMessage());
             Assertions.fail(MessageFormat.format("La pagina Integrazione API non si carica correttamente con errore: {0}", e.getMessage()));
         }
     }
@@ -97,6 +96,18 @@ public class IntegrazioneAPIPGPage extends BasePage {
         } catch (TimeoutException e) {
             Assertions.fail("Non si visualizza correttamente la tabella delle chiavi pubbliche con errore" + e.getMessage());
         }
+    }
+
+    public String visualizzaCopiaPublicKey() {
+        webTool.waitTime(7);
+        WebElement visualizzaCodiceButton = driver.findElement(By.xpath("//li[@data-testid='buttonView']"));
+        visualizzaCodiceButton.click();
+        webTool.waitTime(7);
+        getWebDriverWait(15).withMessage("il bottone copia del campo Chiave Personale non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']")).get(0)));
+        List<WebElement> formFields = driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']"));
+        formFields.get(0).click();
+        WebElement publicKey = driver.findElement(By.xpath("//input[@aria-invalid='false']"));
+        return publicKey.getAttribute("value");
     }
 
 }
