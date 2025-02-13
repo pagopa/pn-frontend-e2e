@@ -144,6 +144,7 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
     }
 
     public void cliccareSuiTrePuntiniConStato(String testo) {
+        logger.info("cliccareSuiTrePuntiniConStato: {}",testo);
         WebElement menuButton = getWebDriverWait(10).withMessage("Il tasto Tre Puntini NON VISIBILE con stato: "+testo)
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@data-testid='publicKeysTableDesktop']//tr[.//span[contains(text(), '"+testo+"')]]//button[@data-testid='contextMenuButton']")) );
         menuButton.click();

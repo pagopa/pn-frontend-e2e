@@ -1,7 +1,10 @@
 package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
+import it.pn.frontend.e2e.section.destinatario.personaGiuridica.RegistraChiavePubblicaPGSection;
 import it.pn.frontend.e2e.utility.WebTool;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -11,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Map;
 /*
 * Principali Modifiche
 Spring Boot Integration: La classe è annotata con @Component per essere riconosciuta come bean.
@@ -65,10 +69,12 @@ public class ApiKeyPAPage extends BasePage {
 
 
     private WebTool webTool;
+   private RegistraChiavePubblicaPGSection registraChiavePubblicaPGSection;
 
     public ApiKeyPAPage(WebDriver driver) {
         this.driver = driver;
         webTool = new WebTool(driver);
+        registraChiavePubblicaPGSection = new RegistraChiavePubblicaPGSection(driver);
     }
 
     public void waitLoadApikeyPage() {
@@ -427,8 +433,7 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public void clickSuVisualizza() {
-        getWebDriverWait(10).withMessage("Il Bottone visualizza non è cliccabile").until(ExpectedConditions.elementToBeClickable( driver.findElement(By.id("button-view"))));
-        visualizzaApiButton = driver.findElement(By.id("button-view"));
+        visualizzaApiButton = getWebDriverWait(10).withMessage("Il Bottone visualizza non è cliccabile").until(ExpectedConditions.elementToBeClickable( driver.findElement(By.id("button-view"))));
         visualizzaApiButton.click();
     }
 
@@ -535,30 +540,43 @@ public class ApiKeyPAPage extends BasePage {
                     if (statoValue.equalsIgnoreCase("Attiva")) {
                         logger.info("Stato Attiva.");
                         clickTrePuntiniPublicKeys();
-                        clickSuBlocca();
-                        WebElement clickBlocca = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
-                        clickBlocca.click();
-                        logger.info("Tasto Blocca cliccato su stato Attiva.");
-                        driver.navigate().refresh();
-                        webTool.waitTime(5);
-                        logger.info("Stato Bloccata");
-                        clickTrePuntiniPublicKeys();
-                        clickEliminaIntegrazioneApi();
-                        WebElement clickDelete = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
-                        clickDelete.click();
-                        logger.info("Tasto Elimina cliccato su stato Bloccata.");
-                        driver.navigate().refresh();
-                        webTool.waitTime(3);
-                        logger.info("Stato Bloccata");
-                        clickTrePuntiniPublicKeys();
-                        clickEliminaIntegrazioneApi();
-                        WebElement clickDeleteRuota = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
-                        clickDeleteRuota.click();
-                        logger.info("Tasto Elimina cliccato su stato Bloccata.");
-                        driver.navigate().refresh();
-                        webTool.waitTime(3);
-                        break;
 
+                        if(verificaEsisteSoloRuotaVisualizzaCodice()){
+                            logger.info("Presente Stato attiva solo  con  Ruota e Visualizza Codice");
+                            aggiornamentoPagina();
+                            webTool.waitTime(5);
+                            logger.info("CHIUDI");
+                            registraChiavePubblicaPGSection.cliccareSuiTrePuntiniConStato("Bloccata");
+                            logger.info(" Dopo cliccareSuiTrePuntiniConStato");
+                            clickEliminaIntegrazioneApi();
+                            WebElement clickDelete = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
+                            clickDelete.click();
+                            clickTrePuntiniPublicKeys();
+                        }
+
+                            clickSuBlocca();
+                            WebElement clickBlocca = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
+                            clickBlocca.click();
+                            logger.info("Tasto Blocca cliccato su stato Attiva.");
+                            driver.navigate().refresh();
+                            webTool.waitTime(5);
+                            logger.info("Stato Bloccata");
+                            clickTrePuntiniPublicKeys();
+                            clickEliminaIntegrazioneApi();
+                            WebElement clickDelete = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
+                            clickDelete.click();
+                            logger.info("Tasto Elimina cliccato su stato Bloccata.");
+                            driver.navigate().refresh();
+                            webTool.waitTime(3);
+                            logger.info("Stato Bloccata");
+                            clickTrePuntiniPublicKeys();
+                            clickEliminaIntegrazioneApi();
+                            WebElement clickDeleteRuota = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
+                            clickDeleteRuota.click();
+                            logger.info("Tasto Elimina cliccato su stato Bloccata.");
+                            driver.navigate().refresh();
+                            webTool.waitTime(3);
+                            break;
 
                     } else if (statoValue.equalsIgnoreCase("Ruotata") || statoValue.equalsIgnoreCase("Bloccata")) {
                         clickTrePuntiniPublicKeys();
@@ -585,6 +603,7 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public void clickEliminaIntegrazioneApi() {
+        logger.info("clickEliminaIntegrazioneApi");
         WebElement button = getWebDriverWait(40).withMessage("Il tasto Elimina NON VISIBILE")
                 .until(ExpectedConditions.elementToBeClickable(By.id("button-delete")));
         button.click();
@@ -597,5 +616,52 @@ public class ApiKeyPAPage extends BasePage {
                 "Il testo dell'alert non contiene la stringa attesa , ma visualizza:" + driver.findElement(By.xpath("//div[@class='MuiAlert-message css-cysxvc']")).getText()
         );
         webTool.waitTime(5);
+    }
+
+    public void nellaSezioneIntegrazioneAPINonSiVisualizzaAlcunaChiave(String testo) {
+        getWebDriverWait(40).withMessage("Il testo '"+testo+"' NON VISIBILE").until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//div[@data-testid='emptyState']//p[contains(text(), '"+testo+"')]")
+                )
+        );
+    }
+
+    public void verificaTrePuntiniMostraDiPiu(Map<String, String> chiave) {
+        if(StringUtils.isNotBlank(chiave.get("ruota"))){
+            getWebDriverWait(40).withMessage("Il tasto: '"+chiave.get("ruota")+"' NON VISIBILE").until(
+                    ExpectedConditions.visibilityOfElementLocated(By.id("button-rotate"))
+            );
+        }
+
+        if(StringUtils.isNotBlank(chiave.get("blocca"))){
+            getWebDriverWait(40).withMessage("Il tasto: '"+chiave.get("blocca")+"' NON VISIBILE").until(
+                    ExpectedConditions.visibilityOfElementLocated(By.id("button-block"))
+            );
+        }
+        if(StringUtils.isNotBlank(chiave.get("view"))){
+            getWebDriverWait(40).withMessage("Il tasto: '"+chiave.get("view")+"' NON VISIBILE").until(
+                    ExpectedConditions.visibilityOfElementLocated(By.id("button-view"))
+            );
+        }
+        if(StringUtils.isNotBlank(chiave.get("delete"))){
+            getWebDriverWait(40).withMessage("Il tasto: '"+chiave.get("view")+"' NON VISIBILE").until(
+                    ExpectedConditions.visibilityOfElementLocated(By.id("button-delete"))
+            );
+        }
+    }
+
+    private boolean verificaEsisteSoloRuotaVisualizzaCodice() {
+        List<WebElement> menuItems = driver.findElements(By.xpath("//ul[@role='menu']/li"));
+        // Controlla che ci siano esattamente 2 elementi
+        if (menuItems.size() != 2) {
+            return false;
+        }
+        // Verifica che gli id siano "button-rotate" e "button-view"
+        boolean hasRotate = menuItems.stream()
+                .anyMatch(item -> "button-rotate".equals(item.getAttribute("id")));
+        boolean hasViewCode = menuItems.stream()
+                .anyMatch(item -> "button-view".equals(item.getAttribute("id")));
+
+        return hasRotate && hasViewCode;
     }
 }

@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class ApiKeysTest  extends BasePage {
@@ -132,6 +133,7 @@ public class ApiKeysTest  extends BasePage {
 
     @And("Nella pop up cliccare sul tasto conferma")
     public void nellaPopUpCliccareSulTastoConferma() {
+        logger.info("Nella pop up cliccare sul tasto conferma");
         apiKeyPAPage.clickSuConfermaNelPopUp();
     }
 
@@ -317,11 +319,27 @@ public class ApiKeysTest  extends BasePage {
 
     @And("Verifica Pop-up Integrazione Api {string}")
     public void verificaPopUpIntegrazioneApi(String testo) {
+        logger.info("Verifica Pop-up Integrazione Api");
         apiKeyPAPage.verificaPopUpIntegrazioneApi(testo);
     }
 
     @And("Nella pagina Api Key si clicca sulla voce Elimina del menu Api Key")
     public void nellaPaginaApiKeySiCliccaSullaVoceEliminaDelMenuApiKey() {
         apiKeyPAPage.clickEliminaIntegrazioneApi();
+    }
+
+    @And("Nella sezione Integrazione API non si visualizza alcuna chiave {string}")
+    public void nellaSezioneIntegrazioneAPINonSiVisualizzaAlcunaChiave(String testo) {
+        apiKeyPAPage.nellaSezioneIntegrazioneAPINonSiVisualizzaAlcunaChiave(testo);
+    }
+
+    @Then("verifica tre puntini mostra di piu")
+    public void verificaTrePuntiniMostraDiPiu(Map<String, String> chiave) {
+        apiKeyPAPage.verificaTrePuntiniMostraDiPiu( chiave);
+    }
+
+    @And("Aggiornamento Pagina")
+    public void aggiornamentoPagina() {
+        apiKeyPAPage.aggiornamentoPagina();
     }
 }

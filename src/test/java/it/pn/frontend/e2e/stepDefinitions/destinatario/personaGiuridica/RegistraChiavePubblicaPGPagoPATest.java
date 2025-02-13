@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class RegistraChiavePubblicaPGPagoPATest extends BasePage {
 
-    private final Logger logger = LoggerFactory.getLogger("NotifichePGPagoPATest");
+    private final Logger logger = LoggerFactory.getLogger("RegistraChiavePubblicaPGPagoPATest");
     private RegistraChiavePubblicaPGSection registraChiavePubblicaPGSection;
 
     @Autowired
