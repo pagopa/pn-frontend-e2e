@@ -154,4 +154,9 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
         getWebDriverWait(10).withMessage("NON VISIBILE con stato: "+stato)
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@data-testid='publicKeysTableDesktop']//tr[.//span[contains(text(), '"+stato+"')]]//button[@data-testid='contextMenuButton']")) );
     }
+
+    public void verificaStatoChiavePersonale(String stato) {
+        getWebDriverWait(10).withMessage("NON VISIBILE con stato: "+stato)
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@data-testid='publicKeysBodyRowDesktop']//tr[.//span[contains(text(), '"+stato+"')]]//button[@data-testid='contextMenuButton']")) );
+    }
 }

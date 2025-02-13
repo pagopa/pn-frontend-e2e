@@ -342,4 +342,14 @@ public class ApiKeysTest  extends BasePage {
     public void aggiornamentoPagina() {
         apiKeyPAPage.aggiornamentoPagina();
     }
+
+    @And("Click su tasto Genera Chiave Personale")
+    public void clickSuTastoGeneraChiavePersonale() {
+        apiKeyPAPage.clickSuTastoGeneraChiavePersonale();
+    }
+
+    @And("Verifica testo nel pop-up {string}")
+    public void verificaTestoNelPopUp(String testo) {
+        apiKeyPAPage.verificaTestoNelPopUp(testo);
+    }
 }

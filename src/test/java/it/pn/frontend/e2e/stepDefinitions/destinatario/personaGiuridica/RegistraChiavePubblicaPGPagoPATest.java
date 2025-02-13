@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
@@ -106,5 +107,10 @@ public class RegistraChiavePubblicaPGPagoPATest extends BasePage {
     @And("Verifica stato {string}")
     public void verificaStato(String stato) {
         registraChiavePubblicaPGSection.verificaStato(stato);
+    }
+
+    @Then("Verifica stato Chiave Personale {string}")
+    public void verificaStatoChiavePersonale(String stato) {
+        registraChiavePubblicaPGSection.verificaStatoChiavePersonale(stato);
     }
 }

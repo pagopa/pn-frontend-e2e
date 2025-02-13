@@ -1,8 +1,8 @@
-Feature: PG - Blocco di una public key per un utente Amministratore Persona Giuridica con già una public key bloccata
+Feature: PG - Rotazione di una public key per un utente Amministratore Persona Giuridica con già una public key ruotata
 @TestSuite
-@TA_PG_BloccoPublicKeyBloccata_QA_5314
+@TA_PG_RuotaPublicKeyRuotata_QA_5315
 
-Scenario:PN-QA-5314  PG - Blocco di una public key per un utente Amministratore Persona Giuridica con già una public key bloccata
+Scenario:PN-QA-5315  PG - Rotazione di una public key per un utente Amministratore Persona Giuridica con già una public key ruotata
   Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
   When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
   And Pulisci ambiente public keys
@@ -14,10 +14,8 @@ Scenario:PN-QA-5314  PG - Blocco di una public key per un utente Amministratore 
   And Si visualizza correttamente la sezione Ottieni Parametri
   And Cliccare su registra
   And Cliccare sui tre puntini con stato "Attiva"
-  And Nella pagina Api Key si clicca sulla voce blocca del menu Api Key
+  And Nella pagina Api Key si clicca sulla voce ruota del menu Api Key
   And Nella pop up cliccare sul tasto conferma
-  When Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave pubblica
-  And Nella pagina Integrazione API si clicca sul bottone Genera chiave pubblica
   And Nella sezione Registra chiave pubblica si inseriscono i dati della chiave pubblica
     | nome        | Chiave- |
   And Cliccare su registra
@@ -25,8 +23,9 @@ Scenario:PN-QA-5314  PG - Blocco di una public key per un utente Amministratore 
   And Cliccare su registra
   And Cliccare sui tre puntini con stato "Attiva"
   Then verifica tre puntini mostra di piu
-    | ruota        | Ruota |
+    | blocca        | Blocca |
     | view         | Visualizza codice |
+
 
 
 

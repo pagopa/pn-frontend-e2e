@@ -448,9 +448,8 @@ public class ApiKeyPAPage extends BasePage {
 
     public void chiudiPopUpVisualizza() {
 
-        getWebDriverWait(30).withMessage("il Bottone chiudere pop up non è cliccabile")
+        closeButtonPopUpVisualizza = getWebDriverWait(30).withMessage("il Bottone chiudere pop up non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("close-modal-button"))));
-        closeButtonPopUpVisualizza = driver.findElement(By.id("close-modal-button"));
         closeButtonPopUpVisualizza.click();
     }
 
@@ -545,44 +544,58 @@ public class ApiKeyPAPage extends BasePage {
                             logger.info("Presente Stato attiva solo  con  Ruota e Visualizza Codice");
                             aggiornamentoPagina();
                             webTool.waitTime(5);
-                            logger.info("CHIUDI");
                             registraChiavePubblicaPGSection.cliccareSuiTrePuntiniConStato("Bloccata");
-                            logger.info(" Dopo cliccareSuiTrePuntiniConStato");
                             clickEliminaIntegrazioneApi();
-                            WebElement clickDelete = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
-                            clickDelete.click();
+                            clickSuConfermaNelPopUp();
                             clickTrePuntiniPublicKeys();
                         }
+                        else if(verificaEsisteSoloBloccaVisualizzaCodice()){
+                            logger.info("Presente Stato attiva solo  con  Blocca e Visualizza Codice");
+                            aggiornamentoPagina();
+                            webTool.waitTime(5);
+                            registraChiavePubblicaPGSection.cliccareSuiTrePuntiniConStato("Ruotata");
+                            clickEliminaIntegrazioneApi();
+                            clickSuConfermaNelPopUp();
+                            clickTrePuntiniPublicKeys();
+                        } else if (verificaEsisteSoloVisualizzaCodice()) {
+                            logger.info("Presente Stato attiva solo Visualizza Codice");
+                            aggiornamentoPagina();
+                            webTool.waitTime(5);
+                            registraChiavePubblicaPGSection.cliccareSuiTrePuntiniConStato("Bloccata");
+                            clickEliminaIntegrazioneApi();
+                            clickSuConfermaNelPopUp();
+                            registraChiavePubblicaPGSection.cliccareSuiTrePuntiniConStato("Ruotata");
+                            clickEliminaIntegrazioneApi();
+                            clickSuConfermaNelPopUp();
+                            clickTrePuntiniPublicKeys();
 
-                            clickSuBlocca();
-                            WebElement clickBlocca = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
-                            clickBlocca.click();
+                        }
+
+                        clickSuBlocca();
+                        clickSuConfermaNelPopUp();
                             logger.info("Tasto Blocca cliccato su stato Attiva.");
-                            driver.navigate().refresh();
+                            aggiornamentoPagina();
                             webTool.waitTime(5);
                             logger.info("Stato Bloccata");
                             clickTrePuntiniPublicKeys();
                             clickEliminaIntegrazioneApi();
-                            WebElement clickDelete = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
-                            clickDelete.click();
+                        clickSuConfermaNelPopUp();
                             logger.info("Tasto Elimina cliccato su stato Bloccata.");
-                            driver.navigate().refresh();
+                            aggiornamentoPagina();
                             webTool.waitTime(3);
                             logger.info("Stato Bloccata");
                             clickTrePuntiniPublicKeys();
                             clickEliminaIntegrazioneApi();
-                            WebElement clickDeleteRuota = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
-                            clickDeleteRuota.click();
+                        clickSuConfermaNelPopUp();
                             logger.info("Tasto Elimina cliccato su stato Bloccata.");
-                            driver.navigate().refresh();
+                            aggiornamentoPagina();
                             webTool.waitTime(3);
                             break;
 
                     } else if (statoValue.equalsIgnoreCase("Ruotata") || statoValue.equalsIgnoreCase("Bloccata")) {
                         clickTrePuntiniPublicKeys();
                         clickEliminaIntegrazioneApi();
-                        WebElement clickDelete = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
-                        clickDelete.click();
+                        clickSuConfermaNelPopUp();
                         logger.info("Tasto Elimina cliccato su stato Ruotata o Bloccata.");
                         driver.navigate().refresh();
                         webTool.waitTime(3);
@@ -609,6 +622,12 @@ public class ApiKeyPAPage extends BasePage {
         button.click();
     }
 
+    public void clickSuTastoGeneraChiavePersonale() {
+        WebElement button = getWebDriverWait(40).withMessage("Il tasto Genera Chiave Personale NON VISIBILE")
+                .until(ExpectedConditions.elementToBeClickable(By.id("generate-virtual-key")));
+        button.click();
+    }
+
     public void verificaPopUpIntegrazioneApi(String test) {
         logger.info("POP up Verifico");
         Assertions.assertTrue(
@@ -625,6 +644,8 @@ public class ApiKeyPAPage extends BasePage {
                 )
         );
     }
+
+
 
     public void verificaTrePuntiniMostraDiPiu(Map<String, String> chiave) {
         if(StringUtils.isNotBlank(chiave.get("ruota"))){
@@ -663,5 +684,37 @@ public class ApiKeyPAPage extends BasePage {
                 .anyMatch(item -> "button-view".equals(item.getAttribute("id")));
 
         return hasRotate && hasViewCode;
+    }
+    private boolean verificaEsisteSoloBloccaVisualizzaCodice() {
+        List<WebElement> menuItems = driver.findElements(By.xpath("//ul[@role='menu']/li"));
+        // Controlla che ci siano esattamente 2 elementi
+        if (menuItems.size() != 2) {
+            return false;
+        }
+        // Verifica che gli id siano "button-rotate" e "button-view"
+        boolean hasRotate = menuItems.stream()
+                .anyMatch(item -> "button-block".equals(item.getAttribute("id")));
+        boolean hasViewCode = menuItems.stream()
+                .anyMatch(item -> "button-view".equals(item.getAttribute("id")));
+
+        return hasRotate && hasViewCode;
+    }
+
+    private boolean verificaEsisteSoloVisualizzaCodice() {
+        List<WebElement> menuItems = driver.findElements(By.xpath("//ul[@role='menu']/li"));
+        // Controlla che ci siano esattamente 2 elementi
+        if (menuItems.size() != 1) {
+            return false;
+        }
+        // Verifica che gli id siano "button-view"
+        return menuItems.stream()
+                .anyMatch(item -> "button-view".equals(item.getAttribute("id")));
+    }
+
+
+    public void verificaTestoNelPopUp(String testo) {
+
+        getWebDriverWait(40).withMessage("Il tasto: '"+testo+"' NON VISIBILE nel pop-up")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), '" + testo + "')]")));
     }
 }

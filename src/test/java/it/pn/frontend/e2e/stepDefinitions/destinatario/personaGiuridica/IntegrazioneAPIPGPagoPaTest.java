@@ -86,4 +86,8 @@ public class IntegrazioneAPIPGPagoPaTest extends BasePage {
         integrazioneAPIPGPage.verificaTabellaChiaviPubbliche();
     }
 
+    @And("Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale")
+    public void nellaPaginaIntegrazioneAPISiControllaSiaPresenteIlBottoneGeneraChiavePersonale() {
+        integrazioneAPIPGPage.nellaPaginaIntegrazioneAPISiControllaSiaPresenteIlBottoneGeneraChiavePersonale();
+    }
 }
