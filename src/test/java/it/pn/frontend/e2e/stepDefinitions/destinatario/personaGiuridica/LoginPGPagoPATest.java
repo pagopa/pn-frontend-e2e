@@ -35,7 +35,6 @@ import java.util.concurrent.TimeUnit;
 public class LoginPGPagoPATest extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger(LoginPGPagoPATest.class);
-//    private Map<String, Object> datiPersonaGiuridica = new HashMap<>();
     private Map<String, String> urlPersonaGiuridica;
 
 
@@ -132,16 +131,15 @@ public class LoginPGPagoPATest extends BasePage {
         headerPGSection.waitLoadHeaderPGPage();
 
         if (personaGiuridica.equalsIgnoreCase("delegante")) {
-            logger.info("DELEGANTE: "+dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
-//            Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("personaGiuridica.yaml");
+            logger.info("DELEGANTE: {}", dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
             piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
             piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
         } else if (personaGiuridica.equalsIgnoreCase("baldassarre")) {
-            logger.info("BALDASSARRE: "+webDriverConfig.getRagioneSocialeBaldassarre());
+            logger.info("BALDASSARRE: {} ", webDriverConfig.getRagioneSocialeBaldassarre());
             piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
             piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(webDriverConfig.getRagioneSocialeBaldassarre());
         } else {
-            logger.info("DELEGATO: "+dataPopulationConfig.getDelegatePG().getCompanyName());
+            logger.info("DELEGATO: {}", dataPopulationConfig.getDelegatePG().getCompanyName());
             //Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("delegatoPG.yaml")
             piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
             piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(dataPopulationConfig.getDelegatePG().getCompanyName());
@@ -175,9 +173,8 @@ public class LoginPGPagoPATest extends BasePage {
         }
 
         if (urlWithTokenFound) {
-            logger.info("procedura di login from spid provata : " + numProvaLogin);
+            logger.info("procedura di login from spid provata : {}", numProvaLogin);
         } else {
-            logger.error("procedura di login from spid provata : " + numProvaLogin);
             Assertions.fail("Codice risposta ricevuto per questo end point: '" + this.urlPersonaGiuridica.get("urlPortale") + "' è : " + this.urlPersonaGiuridica.get("responseCode"));
         }
 
@@ -259,7 +256,7 @@ public class LoginPGPagoPATest extends BasePage {
         this.urlPersonaGiuridica = spidAcsMittente.getSpidAcsMittenteResponse();
 
         if (this.urlPersonaGiuridica.get("urlPortale") != null) {
-            logger.info("urlPersonaGiuridica : " + this.urlPersonaGiuridica.get("urlPortale"));
+            logger.info("urlPersonaGiuridica : {}", this.urlPersonaGiuridica.get("urlPortale"));
         } else {
             Assertions.fail("urlPersonaGiuridica è null ");
         }
@@ -288,7 +285,9 @@ public class LoginPGPagoPATest extends BasePage {
 
         loginPGPagoPAPage.waitLoadLoginPGPage();
 
-        if(datiPG.get("user").equalsIgnoreCase("GabrieleDAnnunzio")){
+        if(datiPG.get("user").equalsIgnoreCase("GabrieleDAnnunzio") || datiPG.get("user").equalsIgnoreCase("GiuseppeUngaretti")
+                || datiPG.get("user").equalsIgnoreCase("n.lotti")
+        ){
             loginPGPagoPAPage.insertUsername(datiPG.get("user"));
             loginPGPagoPAPage.insertPassword(datiPG.get("pwd"));
         }
@@ -346,9 +345,9 @@ public class LoginPGPagoPATest extends BasePage {
         }
 
         if (urlWithTokenFound) {
-            logger.info("procedura di login from spid provata : " + numProvaLogin);
+            logger.info("procedura di login from spid provata : {}", numProvaLogin);
         } else {
-            logger.error("procedura di login from spid provata : " + numProvaLogin);
+            logger.error("procedura di login from spid provata : {}", numProvaLogin);
             Assertions.fail("Codice risposta ricevuto per questo end point: '" + this.urlPersonaGiuridica.get("urlPortale") + "' è : " + this.urlPersonaGiuridica.get("responseCode"));
 
         }
@@ -384,19 +383,6 @@ public class LoginPGPagoPATest extends BasePage {
                     webDriverConfig.getTokendevPGDelegante();
         }
 
-
-
-
-//        String user = webDriverConfig.getUserDante();
-//        if (user.equalsIgnoreCase("DanteAlighieri")) {
-//            token = variabileAmbiente.equalsIgnoreCase("test") ?
-//                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPGDelegante").toString() :
-//                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPGDelegante").toString();
-//        } else {
-////            token = variabileAmbiente.equalsIgnoreCase("test") ?
-////                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPGDelegato").toString() :
-////                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPGDelegato").toString();
-//        }
         String url = urlIniziale + token;
         driver.get(url);
     }
