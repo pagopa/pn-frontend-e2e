@@ -11,7 +11,7 @@ Feature: Utente Amministratore Persona Giuridica censisce una chiave pubblica pe
     And Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave pubblica
     And Nella pagina Integrazione API si clicca sul bottone Genera chiave pubblica
     And Nella sezione Registra chiave pubblica si inseriscono i dati della chiave pubblica
-    | nome        | Chiave- |
+      | nome        | Chiave- |
     And Cliccare su registra
     And Si visualizza correttamente la sezione Ottieni Parametri
     And Si copia correttamente il campo KID cliccando sul bottone di copia

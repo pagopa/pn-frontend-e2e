@@ -9,6 +9,8 @@ import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.IntegrazioneAPIPGPage;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
+import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +34,10 @@ public class IntegrazioneAPIPGPagoPaTest extends BasePage {
     private WebDriverManager webDriverManager;
 
     private WebTool webTool;
+
+    @Getter
+    @Setter
+    private  String PublicKey;
 
     @PostConstruct
     public void init(){
@@ -84,6 +90,13 @@ public class IntegrazioneAPIPGPagoPaTest extends BasePage {
     public void verificaTabellaChiavePubbliche() {
         logger.info("Si verifica che la tabella delle chiavi pubbliche sia presente");
         integrazioneAPIPGPage.verificaTabellaChiaviPubbliche();
+    }
+
+    @And("Si clicca visualizza codice e si copia il valore della chiave pubblica")
+    public void siVerificaValorePublicKeyUguale(){
+        logger.info("Si verifica che il valore della chiave pubblica copiata sia uguale a quello visualizzato in elenco");
+        String publicKeydaElenco =  integrazioneAPIPGPage.visualizzaCopiaPublicKey();
+        logger.info("Il campo Public Key copiato è: {}", publicKeydaElenco);
     }
 
     @And("Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale")
