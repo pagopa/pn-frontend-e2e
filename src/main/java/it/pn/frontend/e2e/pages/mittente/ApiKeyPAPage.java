@@ -721,6 +721,29 @@ public class ApiKeyPAPage extends BasePage {
 
                     if (statoValue.equalsIgnoreCase("Attiva")) {
                         clickTrePuntiniVirtualKeys();
+
+                        if (verificaEsisteSoloRuotaVisualizzaCodice()) {
+                            logger.info("Presente Virtual Key Stato attiva solo  con  Ruota e Visualizza Codice");
+                            aggiornamentoPagina();
+                            webTool.waitTime(5);
+                            registraChiavePubblicaPGSection.cliccareSuiTrePuntiniVirtualKeyConStato("Bloccata");
+                            clickEliminaIntegrazioneApi();
+                            clickSuConfermaNelPopUp();
+                            clickTrePuntiniVirtualKeys();
+                        }
+                        else if (verificaEsisteSoloVisualizzaCodice()) {
+                            logger.info("Presente Stato attiva solo Visualizza Codice");
+                            aggiornamentoPagina();
+                            webTool.waitTime(5);
+                            registraChiavePubblicaPGSection.cliccareSuiTrePuntiniVirtualKeyConStato("Bloccata");
+                            clickEliminaIntegrazioneApi();
+                            clickSuConfermaNelPopUp();
+                            registraChiavePubblicaPGSection.cliccareSuiTrePuntiniVirtualKeyConStato("Ruotata");
+                            clickEliminaIntegrazioneApi();
+                            clickSuConfermaNelPopUp();
+                            clickTrePuntiniVirtualKeys();
+
+                        }
                         clickSuBlocca();
                         clickSuConfermaNelPopUp();
                         logger.info("Tasto Blocca cliccato su stato Attiva.");
@@ -766,4 +789,7 @@ public class ApiKeyPAPage extends BasePage {
         clickTrePuntiniVirtualKeys.click();
     }
 
+    public void chiudiBrowser() {
+        driver.quit();
+    }
 }

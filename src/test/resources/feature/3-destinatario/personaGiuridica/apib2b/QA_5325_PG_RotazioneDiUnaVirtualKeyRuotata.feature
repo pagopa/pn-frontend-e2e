@@ -1,8 +1,8 @@
-Feature: PG - Utente Amministratore Persona Giuridica censisce una virtual key
+Feature: PG - Rotazione di una virtual key per un utente Amministratore Persona Giuridica con già una virtual key ruotata
 @TestSuite
-@TA_PG_PersonaGiuridicaCensisceUnaVirtualkey_QA_5318
+@TA_PG_RotazioneDiUnaVirtualKeyRuotata_QA_5325
 
-Scenario:PN-QA-5318  PG - Utente Amministratore Persona Giuridica censisce una virtual key
+Scenario:PN-QA-5325  PG - Rotazione di una virtual key per un utente Amministratore Persona Giuridica con già una virtual key ruotata
   Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
   When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
   And Pulisci ambiente public keys
@@ -15,17 +15,25 @@ Scenario:PN-QA-5318  PG - Utente Amministratore Persona Giuridica censisce una v
   And Si visualizza correttamente la sezione Ottieni Parametri
   And Cliccare su registra
 
-  And Pulisci ambiente virtual keys
+ And Pulisci ambiente virtual keys
+# Inserire una chiave Attiva
   When Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale
   And Click su tasto Genera Chiave Personale
-  And Verifica testo nel pop-up "La tua chiave personale"
-  And Verifica testo nel pop-up "Puoi usarla per autenticarti in piattaforma e integrare SEND"
-  And Verifica testo nel pop-up "Ok, ho capito"
   And Nel pop up visualizza cliccare sul tasto chiudi
-#  verifica stati
+  And Verifica stato Chiave Personale "Attiva"
+
+
+  And Cliccare sui tre puntini Virtual key con stato "Attiva"
+  And Nella pagina Api Key si clicca sulla voce ruota del menu Api Key
+  And Nella pop up cliccare sul tasto conferma
+
   Then Verifica stato Chiave Personale "Attiva"
+  And Verifica stato Chiave Personale "Ruotata"
 
-
+  And Cliccare sui tre puntini Virtual key con stato "Attiva"
+  And verifica tre puntini mostra di piu
+    | blocca       | Blocca |
+    | view         | Visualizza codice |
 
 
 

@@ -357,4 +357,9 @@ public class ApiKeysTest  extends BasePage {
     public void pulisciAmbienteVirtualKeys() {
         apiKeyPAPage.pulisciAmbienteVirtualKeys();
     }
+
+    @And("Chiudi browser")
+    public void chiudiBrowser() {
+        apiKeyPAPage.chiudiBrowser();
+    }
 }

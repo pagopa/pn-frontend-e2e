@@ -94,7 +94,7 @@ public class IntegrazioneAPIPGPage extends BasePage {
     }
 
     public void nellaPaginaIntegrazioneAPISiControllaSiaPresenteIlBottoneGeneraChiavePersonale() {
-        getWebDriverWait(10).withMessage("Il tasto Genera chiave personale Non presente").until(ExpectedConditions.visibilityOfElementLocated(By.id("generate-virtual-key")));
+        getWebDriverWait(20).withMessage("Il tasto Genera chiave personale Non presente").until(ExpectedConditions.visibilityOfElementLocated(By.id("generate-virtual-key")));
     }
 
     public String tabellaChiaviPubblicheCopiaValorePublicKey() {

@@ -46,4 +46,9 @@ public class HeaderPGSection extends BasePage {
         esciButton = driver.findElement(By.xpath("//button[@title = 'Esci']"));
         esciButton.click();
     }
+
+    public void clickEsciButtonPopUp() {
+        WebElement esciButton = driver.findElement(By.xpath("//button[@type='button' and contains(@class, 'MuiButton-containedPrimary')]"));
+        esciButton.click();
+    }
 }
