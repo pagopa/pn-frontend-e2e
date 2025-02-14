@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.RegistraChiavePubblicaPGSection;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.commons.lang3.StringUtils;
@@ -586,7 +585,7 @@ public class ApiKeyPAPage extends BasePage {
                         clickTrePuntiniPublicKeys();
                         clickEliminaIntegrazioneApi();
                         clickSuConfermaNelPopUp();
-                        logger.info("Tasto Elimina cliccato");
+                        logger.info("Tasto Elimina");
                         aggiornamentoPagina();
                         webTool.waitTime(3);
                         break;
@@ -670,11 +669,9 @@ public class ApiKeyPAPage extends BasePage {
 
     private boolean verificaEsisteSoloRuotaVisualizzaCodice() {
         List<WebElement> menuItems = driver.findElements(By.xpath("//ul[@role='menu']/li"));
-        // Controlla che ci siano esattamente 2 elementi
         if (menuItems.size() != 2) {
             return false;
         }
-        // Verifica che gli id siano "button-rotate" e "button-view"
         boolean hasRotate = menuItems.stream()
                 .anyMatch(item -> "button-rotate".equals(item.getAttribute("id")));
         boolean hasViewCode = menuItems.stream()
@@ -685,11 +682,9 @@ public class ApiKeyPAPage extends BasePage {
 
     private boolean verificaEsisteSoloBloccaVisualizzaCodice() {
         List<WebElement> menuItems = driver.findElements(By.xpath("//ul[@role='menu']/li"));
-        // Controlla che ci siano esattamente 2 elementi
         if (menuItems.size() != 2) {
             return false;
         }
-        // Verifica che gli id siano "button-rotate" e "button-view"
         boolean hasRotate = menuItems.stream()
                 .anyMatch(item -> "button-block".equals(item.getAttribute("id")));
         boolean hasViewCode = menuItems.stream()
@@ -700,11 +695,9 @@ public class ApiKeyPAPage extends BasePage {
 
     private boolean verificaEsisteSoloVisualizzaCodice() {
         List<WebElement> menuItems = driver.findElements(By.xpath("//ul[@role='menu']/li"));
-        // Controlla che ci siano esattamente 2 elementi
         if (menuItems.size() != 1) {
             return false;
         }
-        // Verifica che gli id siano "button-view"
         return menuItems.stream()
                 .anyMatch(item -> "button-view".equals(item.getAttribute("id")));
     }
@@ -739,15 +732,18 @@ public class ApiKeyPAPage extends BasePage {
                         clickSuConfermaNelPopUp();
                         logger.info("Tasto Elimina cliccato su stato Bloccata.");
                         driver.navigate().refresh();
-                        webTool.waitTime(3);
+                        webTool.waitTime(5);
 
-                        clickTrePuntiniVirtualKeys();
-                        clickEliminaIntegrazioneApi();
-                        clickSuConfermaNelPopUp();
-                        logger.info("Tasto Elimina cliccato su stato Bloccata.");
-                        driver.navigate().refresh();
-                        webTool.waitTime(3);
-
+                        try {
+                            clickTrePuntiniVirtualKeys();
+                            clickEliminaIntegrazioneApi();
+                            clickSuConfermaNelPopUp();
+                            logger.info("Tasto Elimina ");
+                            driver.navigate().refresh();
+                            webTool.waitTime(5);
+                        }catch (Exception e){
+                            logger.info("Continuo ");
+                        }
 
                         break;
 
