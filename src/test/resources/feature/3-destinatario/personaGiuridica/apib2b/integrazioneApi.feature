@@ -19,7 +19,11 @@ Feature: Visualizzazione sezione Integrazione API
   Scenario: QA-5308 [DELEGANTE PG AMMINISTRATORE] - Visualizzazione e copia dei codici per un utente Amministratore PG con Public Key attiva
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
+    And C'è almeno una chiave pubblica censita nella tabella delle chiavi pubbliche sulla pagina Integrazione API
     And Cliccare sui tre puntini con stato "Attiva"
-    Then Si clicca visualizza codice e si copia il valore della chiave pubblica
+    Then Si clicca Visualizza codice
+    And Da Visualizza codice si copia correttamente il campo Chiave Personale cliccando sul bottone di copia
+    And Da Visualizza codice si copia correttamente il campo KID cliccando sul bottone di copia
+    And Da Visualizza codice si copia correttamente il campo Issuer cliccando sul bottone di copia
     And Nella pop up cliccare sul tasto chiudi
     And Logout da portale mittente

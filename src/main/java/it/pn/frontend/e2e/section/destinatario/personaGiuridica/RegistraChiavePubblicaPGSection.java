@@ -88,7 +88,7 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
         }
     }
 
-    public String copiaKIDRegistraChiavePubblica() {
+    public String ottieniParametriCopiaKIDRegistraChiavePubblica() {
         try {
             webTool.waitTime(5);
             String copyButtonXPath = "//button[@type='button' and @role='button']";
@@ -105,7 +105,7 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
         }
     }
 
-    public String copiaIssuerRegistraChiavePubblica() {
+    public String ottieniParametriCopiaIssuerRegistraChiavePubblica() {
         try {
             webTool.waitTime(5);
             String copyButtonXPath = "//button[@type='button' and @role='button']";

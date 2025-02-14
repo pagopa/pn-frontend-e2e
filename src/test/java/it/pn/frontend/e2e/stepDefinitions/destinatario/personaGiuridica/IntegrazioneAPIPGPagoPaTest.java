@@ -35,10 +35,6 @@ public class IntegrazioneAPIPGPagoPaTest extends BasePage {
 
     private WebTool webTool;
 
-    @Getter
-    @Setter
-    private  String PublicKey;
-
     @PostConstruct
     public void init(){
         logger.info("INIT TEST...: ");
@@ -92,15 +88,34 @@ public class IntegrazioneAPIPGPagoPaTest extends BasePage {
         integrazioneAPIPGPage.verificaTabellaChiaviPubbliche();
     }
 
-    @And("Si clicca visualizza codice e si copia il valore della chiave pubblica")
-    public void siVerificaValorePublicKeyUguale(){
+    @And("Si clicca Visualizza codice")
+    public void clickVisualizzaCodice(){
         logger.info("Si verifica che il valore della chiave pubblica copiata sia uguale a quello visualizzato in elenco");
-        String publicKeydaElenco =  integrazioneAPIPGPage.visualizzaCopiaPublicKey();
-        logger.info("Il campo Public Key copiato è: {}", publicKeydaElenco);
+        integrazioneAPIPGPage.clickVisualizzaCodice();
+    }
+
+    @And("Da Visualizza codice si copia correttamente il campo Chiave Personale cliccando sul bottone di copia")
+    public void visualizzaCodicesiCopiaCorrettamenteIlCampoChiavePersonaleCliccandoSulBottoneDiCopia() {
+        logger.info("Si clicca copia sul tasto 'Chiave Personale' per copiare il campo Chiave Personale");
+        String copiedValue = integrazioneAPIPGPage.copiaPublicKey();
+        logger.info("Il campo Public Key copiato è: {}", copiedValue);
     }
 
     @And("Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale")
     public void nellaPaginaIntegrazioneAPISiControllaSiaPresenteIlBottoneGeneraChiavePersonale() {
         integrazioneAPIPGPage.nellaPaginaIntegrazioneAPISiControllaSiaPresenteIlBottoneGeneraChiavePersonale();
+    }
+    @And("Da Visualizza codice si copia correttamente il campo KID cliccando sul bottone di copia")
+    public void visualizzaCodiceSiCopiaCorrettamenteIlCampoKIDCliccandoSulBottoneDiCopia() {
+        logger.info("Si clicca copia sul tasto 'KID' per copiare il campo KID");
+        String copiedValue = integrazioneAPIPGPage.copiaKID();
+        logger.info("Il campo KID copiato è: {}", copiedValue);
+    }
+
+    @And("Da Visualizza codice si copia correttamente il campo Issuer cliccando sul bottone di copia")
+    public void visualizzaCodiceSiCopiaCorrettamenteIlCampoIssuerCliccandoSulBottoneDiCopia() {
+        logger.info("Si clicca copia sul tasto 'Issuer' per copiare il campo Issuer");
+        String copiedValue = integrazioneAPIPGPage.copiaIssuer();
+        logger.info("Il campo Issuer copiato è: {}", copiedValue);
     }
 }

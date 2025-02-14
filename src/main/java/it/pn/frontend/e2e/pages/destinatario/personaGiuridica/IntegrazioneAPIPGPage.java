@@ -101,16 +101,36 @@ public class IntegrazioneAPIPGPage extends BasePage {
     public void nellaPaginaIntegrazioneAPISiControllaSiaPresenteIlBottoneGeneraChiavePersonale() {
         getWebDriverWait(10).withMessage("Il tasto Genera chiave personale Non presente").until(ExpectedConditions.visibilityOfElementLocated(By.id("generate-virtual-key")));
     }
-    public String visualizzaCopiaPublicKey() {
+    public void clickVisualizzaCodice () {
         webTool.waitTime(7);
         WebElement visualizzaCodiceButton = driver.findElement(By.xpath("//li[@data-testid='buttonView']"));
         visualizzaCodiceButton.click();
-        webTool.waitTime(7);
-        getWebDriverWait(15).withMessage("il bottone copia del campo Chiave Personale non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']")).get(0)));
-        List<WebElement> formFields = driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']"));
-        formFields.get(0).click();
-        WebElement publicKey = driver.findElement(By.xpath("//input[@aria-invalid='false']"));
-        return publicKey.getAttribute("value");
     }
 
+    public String copiaPublicKey () {
+        webTool.waitTime(7);
+        getWebDriverWait(15).withMessage("il bottone Copia del campo Chiave Personale non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']")).get(0)));
+        List<WebElement> formFields = driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']"));
+        formFields.get(0).click();
+        List<WebElement> inputFields = driver.findElements(By.xpath("//input[@aria-invalid='false']"));
+        return inputFields.get(0).getAttribute("value");
+    }
+
+    public String copiaKID () {
+        webTool.waitTime(7);
+        getWebDriverWait(15).withMessage("il bottone Copia del campo KID non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']")).get(1)));
+        List<WebElement> formFields = driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']"));
+        formFields.get(1).click();
+        List<WebElement> inputFields = driver.findElements(By.xpath("//input[@aria-invalid='false']"));
+        return inputFields.get(1).getAttribute("value");
+    }
+
+    public String copiaIssuer () {
+        webTool.waitTime(7);
+        getWebDriverWait(15).withMessage("il bottone Copia del campo Issuer non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']")).get(2)));
+        List<WebElement> formFields = driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']"));
+        formFields.get(2).click();
+        List<WebElement> inputFields = driver.findElements(By.xpath("//input[@aria-invalid='false']"));
+        return inputFields.get(2).getAttribute("value");
+    }
 }

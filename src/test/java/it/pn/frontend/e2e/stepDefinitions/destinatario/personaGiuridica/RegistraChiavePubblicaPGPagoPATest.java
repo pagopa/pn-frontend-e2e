@@ -54,17 +54,17 @@ public class RegistraChiavePubblicaPGPagoPATest extends BasePage {
         registraChiavePubblicaPGSection.waitLoadOttieniParametriSection();
     }
 
-    @And("Si copia correttamente il campo KID cliccando sul bottone di copia")
-    public void siCopiaCorrettamenteIlCampoKIDCliccandoSulBottoneDiCopia() {
+    @And("Su Ottieni Parametri si copia correttamente il campo KID cliccando sul bottone di copia")
+    public void ottieniParametriSiCopiaCorrettamenteIlCampoKIDCliccandoSulBottoneDiCopia() {
         logger.info("Si clicca copia sul tasto 'KID' per copiare il campo Kid");
-        String copiedValue = registraChiavePubblicaPGSection.copiaKIDRegistraChiavePubblica();
+        String copiedValue = registraChiavePubblicaPGSection.ottieniParametriCopiaKIDRegistraChiavePubblica();
         logger.info("Il campo KID copiato è: {}", copiedValue);
     }
 
-    @And("Si copia correttamente il campo Issuer cliccando sul bottone di copia")
-    public void siCopiaCorrettamenteIlCampoIssuerCliccandoSulBottoneDiCopia() {
+    @And("Su Ottieni Parametri si copia correttamente il campo Issuer cliccando sul bottone di copia")
+    public void ottieniParametriSiCopiaCorrettamenteIlCampoIssuerCliccandoSulBottoneDiCopia() {
         logger.info("Si clicca copia sul tasto 'Issuer' per copiare il campo Issuer");
-        String copiedValue = registraChiavePubblicaPGSection.copiaIssuerRegistraChiavePubblica();
+        String copiedValue = registraChiavePubblicaPGSection.ottieniParametriCopiaIssuerRegistraChiavePubblica();
         logger.info("Il campo Issuer copiato è: {}", copiedValue);
     }
 
