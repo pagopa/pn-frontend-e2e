@@ -160,52 +160,12 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@data-testid='virtualKeysTableDesktop']//tr[.//span[contains(text(), '"+stato+"')]]//button[@data-testid='contextMenuButton']")) );
     }
 
-    public void pulisciAmbienteVirtualKeys() {
-        try {
-            WebElement table = getWebDriverWait(40).withMessage("Il Tabella Integrazione Api VirtualKeys  NON VISIBILE").until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@data-testid='virtualKeysTableDesktop']")));
-            List<WebElement> rows = table.findElements(By.xpath(".//tr"));
-            for (WebElement row : rows) {
-                List<WebElement> cells = row.findElements(By.xpath(".//td"));
 
-                // Assicurati che ci siano abbastanza celle
-                if (!cells.isEmpty()) {
-                    String statoValue = cells.get(3).getText();
-
-                    if (statoValue.equalsIgnoreCase("Attiva")) {
-//                        clickTrePuntiniVirtualKeys("");
-//                        clickBloccaIntegrazioneApi();
-                        WebElement clickBlocca = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
-                        clickBlocca.click();
-                        logger.info("Tasto Blocca cliccato su stato Attiva.");
-                        driver.navigate().refresh();
-                        webTool.waitTime(5);
-
-//                        clickTrePuntiniVirtualKeys("");
-//                        clickEliminaIntegrazioneApi();
-                        WebElement clickDelete = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
-                        clickDelete.click();
-                        logger.info("Tasto Elimina cliccato su stato Bloccata.");
-                        driver.navigate().refresh();
-                        webTool.waitTime(3);
-
-
-
-                    } else if (statoValue.equalsIgnoreCase("Ruotata") || statoValue.equalsIgnoreCase("Bloccata")) {
-//                        clickTrePuntiniVirtualKeys("");
-//                        clickEliminaIntegrazioneApi();
-                        WebElement clickDelete = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
-                        clickDelete.click();
-                        logger.info("Tasto Elimina cliccato su stato Ruotata o Bloccata.");
-                        driver.navigate().refresh();
-                        webTool.waitTime(3);
-
-                    }
-                }
-            }
-        } catch (TimeoutException e) {
-            // Se la tabella NON è visibile, proseguo comunque l'esecuzione
-            System.out.println("Tabella NON visibile. Proseguo comunque.");
-        }
-
+    public void cliccareSuiTrePuntiniVirtualKeyConStato(String stato) {
+        logger.info("cliccareSuiTrePuntiniConStato: {}",stato);
+        WebElement menuButton = getWebDriverWait(10).withMessage("Il tasto Tre Puntini NON VISIBILE con stato: "+stato)
+                .until(ExpectedConditions.
+                        elementToBeClickable(By.xpath("//table[@data-testid='virtualKeysTableDesktop']//tr[.//span[contains(text(), '"+stato+"')]]//button[@data-testid='contextMenuButton']")) );
+        menuButton.click();
     }
 }

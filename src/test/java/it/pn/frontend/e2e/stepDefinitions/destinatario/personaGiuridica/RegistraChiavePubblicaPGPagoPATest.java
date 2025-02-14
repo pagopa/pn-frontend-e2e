@@ -114,8 +114,8 @@ public class RegistraChiavePubblicaPGPagoPATest extends BasePage {
         registraChiavePubblicaPGSection.verificaStatoChiavePersonale(stato);
     }
 
-    @And("Pulisci ambiente virtual keys")
-    public void pulisciAmbienteVirtualKeys() {
-        registraChiavePubblicaPGSection.pulisciAmbienteVirtualKeys();
+    @And("Cliccare sui tre puntini Virtual key con stato {string}")
+    public void cliccareSuiTrePuntiniVirtualKeyConStato(String stato) {
+        registraChiavePubblicaPGSection.cliccareSuiTrePuntiniVirtualKeyConStato(stato);
     }
 }

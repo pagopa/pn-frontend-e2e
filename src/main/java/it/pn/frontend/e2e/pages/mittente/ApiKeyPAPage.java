@@ -540,7 +540,7 @@ public class ApiKeyPAPage extends BasePage {
                         logger.info("Stato Attiva.");
                         clickTrePuntiniPublicKeys();
 
-                        if(verificaEsisteSoloRuotaVisualizzaCodice()){
+                        if (verificaEsisteSoloRuotaVisualizzaCodice()) {
                             logger.info("Presente Stato attiva solo  con  Ruota e Visualizza Codice");
                             aggiornamentoPagina();
                             webTool.waitTime(5);
@@ -548,8 +548,7 @@ public class ApiKeyPAPage extends BasePage {
                             clickEliminaIntegrazioneApi();
                             clickSuConfermaNelPopUp();
                             clickTrePuntiniPublicKeys();
-                        }
-                        else if(verificaEsisteSoloBloccaVisualizzaCodice()){
+                        } else if (verificaEsisteSoloBloccaVisualizzaCodice()) {
                             logger.info("Presente Stato attiva solo  con  Blocca e Visualizza Codice");
                             aggiornamentoPagina();
                             webTool.waitTime(5);
@@ -573,24 +572,24 @@ public class ApiKeyPAPage extends BasePage {
 
                         clickSuBlocca();
                         clickSuConfermaNelPopUp();
-                            logger.info("Tasto Blocca cliccato su stato Attiva.");
-                            aggiornamentoPagina();
-                            webTool.waitTime(5);
-                            logger.info("Stato Bloccata");
-                            clickTrePuntiniPublicKeys();
-                            clickEliminaIntegrazioneApi();
+                        logger.info("Tasto Blocca cliccato su stato Attiva.");
+                        aggiornamentoPagina();
+                        webTool.waitTime(5);
+                        logger.info("Stato Bloccata");
+                        clickTrePuntiniPublicKeys();
+                        clickEliminaIntegrazioneApi();
                         clickSuConfermaNelPopUp();
-                            logger.info("Tasto Elimina cliccato su stato Bloccata.");
-                            aggiornamentoPagina();
-                            webTool.waitTime(3);
-                            logger.info("Stato Bloccata");
-                            clickTrePuntiniPublicKeys();
-                            clickEliminaIntegrazioneApi();
+                        logger.info("Tasto Elimina cliccato su stato Bloccata.");
+                        aggiornamentoPagina();
+                        webTool.waitTime(3);
+                        logger.info("Stato Bloccata");
+                        clickTrePuntiniPublicKeys();
+                        clickEliminaIntegrazioneApi();
                         clickSuConfermaNelPopUp();
-                            logger.info("Tasto Elimina cliccato su stato Bloccata.");
-                            aggiornamentoPagina();
-                            webTool.waitTime(3);
-                            break;
+                        logger.info("Tasto Elimina cliccato");
+                        aggiornamentoPagina();
+                        webTool.waitTime(3);
+                        break;
 
                     } else if (statoValue.equalsIgnoreCase("Ruotata") || statoValue.equalsIgnoreCase("Bloccata")) {
                         clickTrePuntiniPublicKeys();
@@ -645,8 +644,6 @@ public class ApiKeyPAPage extends BasePage {
         );
     }
 
-
-
     public void verificaTrePuntiniMostraDiPiu(Map<String, String> chiave) {
         if(StringUtils.isNotBlank(chiave.get("ruota"))){
             getWebDriverWait(40).withMessage("Il tasto: '"+chiave.get("ruota")+"' NON VISIBILE").until(
@@ -685,6 +682,7 @@ public class ApiKeyPAPage extends BasePage {
 
         return hasRotate && hasViewCode;
     }
+
     private boolean verificaEsisteSoloBloccaVisualizzaCodice() {
         List<WebElement> menuItems = driver.findElements(By.xpath("//ul[@role='menu']/li"));
         // Controlla che ci siano esattamente 2 elementi
@@ -711,10 +709,69 @@ public class ApiKeyPAPage extends BasePage {
                 .anyMatch(item -> "button-view".equals(item.getAttribute("id")));
     }
 
-
     public void verificaTestoNelPopUp(String testo) {
 
         getWebDriverWait(40).withMessage("Il tasto: '"+testo+"' NON VISIBILE nel pop-up")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), '" + testo + "')]")));
     }
+
+    public void pulisciAmbienteVirtualKeys() {
+        try {
+            WebElement table = getWebDriverWait(40).withMessage("Il Tabella Integrazione Api VirtualKeys  NON VISIBILE").until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@data-testid='virtualKeysTableDesktop']")));
+            List<WebElement> rows = table.findElements(By.xpath(".//tr"));
+            for (WebElement row : rows) {
+                List<WebElement> cells = row.findElements(By.xpath(".//td"));
+
+                // Assicurati che ci siano abbastanza celle
+                if (!cells.isEmpty()) {
+                    String statoValue = cells.get(3).getText();
+
+                    if (statoValue.equalsIgnoreCase("Attiva")) {
+                        clickTrePuntiniVirtualKeys();
+                        clickSuBlocca();
+                        clickSuConfermaNelPopUp();
+                        logger.info("Tasto Blocca cliccato su stato Attiva.");
+                        aggiornamentoPagina();
+                        webTool.waitTime(5);
+
+                        clickTrePuntiniVirtualKeys();
+                        clickEliminaIntegrazioneApi();
+                        clickSuConfermaNelPopUp();
+                        logger.info("Tasto Elimina cliccato su stato Bloccata.");
+                        driver.navigate().refresh();
+                        webTool.waitTime(3);
+
+                        clickTrePuntiniVirtualKeys();
+                        clickEliminaIntegrazioneApi();
+                        clickSuConfermaNelPopUp();
+                        logger.info("Tasto Elimina cliccato su stato Bloccata.");
+                        driver.navigate().refresh();
+                        webTool.waitTime(3);
+
+
+                        break;
+
+
+                    } else if (statoValue.equalsIgnoreCase("Ruotata") || statoValue.equalsIgnoreCase("Bloccata")) {
+                        clickTrePuntiniVirtualKeys();
+                        clickEliminaIntegrazioneApi();
+                        clickSuConfermaNelPopUp();
+                        logger.info("Tasto Elimina cliccato su stato Ruotata o Bloccata.");
+                        driver.navigate().refresh();
+                        webTool.waitTime(3);
+
+                    }
+                }
+            }
+        } catch (TimeoutException e) {
+            // Se la tabella NON è visibile, proseguo comunque l'esecuzione
+            logger.info("Tabella NON visibile. Proseguo comunque.");
+        }
+
+    }
+    public void clickTrePuntiniVirtualKeys() {
+        WebElement threeDotsButtonSecondRow = driver.findElement(By.xpath("//table[@data-testid='virtualKeysTableDesktop']//tr[1]//button[@data-testid='contextMenuButton']"));
+        threeDotsButtonSecondRow.click();
+    }
+
 }

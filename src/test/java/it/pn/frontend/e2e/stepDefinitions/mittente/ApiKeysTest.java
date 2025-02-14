@@ -352,4 +352,9 @@ public class ApiKeysTest  extends BasePage {
     public void verificaTestoNelPopUp(String testo) {
         apiKeyPAPage.verificaTestoNelPopUp(testo);
     }
+
+    @And("Pulisci ambiente virtual keys")
+    public void pulisciAmbienteVirtualKeys() {
+        apiKeyPAPage.pulisciAmbienteVirtualKeys();
+    }
 }
