@@ -733,7 +733,6 @@ public class ApiKeyPAPage extends BasePage {
                         logger.info("Tasto Elimina cliccato su stato Bloccata.");
                         driver.navigate().refresh();
                         webTool.waitTime(5);
-
                         try {
                             clickTrePuntiniVirtualKeys();
                             clickEliminaIntegrazioneApi();
@@ -744,10 +743,7 @@ public class ApiKeyPAPage extends BasePage {
                         }catch (Exception e){
                             logger.info("Continuo ");
                         }
-
                         break;
-
-
                     } else if (statoValue.equalsIgnoreCase("Ruotata") || statoValue.equalsIgnoreCase("Bloccata")) {
                         clickTrePuntiniVirtualKeys();
                         clickEliminaIntegrazioneApi();
@@ -763,11 +759,11 @@ public class ApiKeyPAPage extends BasePage {
             // Se la tabella NON è visibile, proseguo comunque l'esecuzione
             logger.info("Tabella NON visibile. Proseguo comunque.");
         }
-
     }
     public void clickTrePuntiniVirtualKeys() {
-        WebElement threeDotsButtonSecondRow = driver.findElement(By.xpath("//table[@data-testid='virtualKeysTableDesktop']//tr[1]//button[@data-testid='contextMenuButton']"));
-        threeDotsButtonSecondRow.click();
+        WebElement clickTrePuntiniVirtualKeys = getWebDriverWait(40).withMessage("Il Tre Puntini Virtual  NON VISIBILE")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@data-testid='virtualKeysTableDesktop']//tr[1]//button[@data-testid='contextMenuButton']")));
+        clickTrePuntiniVirtualKeys.click();
     }
 
 }
