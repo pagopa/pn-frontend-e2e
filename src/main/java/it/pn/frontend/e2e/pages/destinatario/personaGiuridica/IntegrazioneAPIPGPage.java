@@ -101,13 +101,29 @@ public class IntegrazioneAPIPGPage extends BasePage {
     public void nellaPaginaIntegrazioneAPISiControllaSiaPresenteIlBottoneGeneraChiavePersonale() {
         getWebDriverWait(10).withMessage("Il tasto Genera chiave personale Non presente").until(ExpectedConditions.visibilityOfElementLocated(By.id("generate-virtual-key")));
     }
+
+    public void clickRuota () {
+        webTool.waitTime(7);
+        WebElement ruotaButton = driver.findElement(By.xpath("//li[@data-testid='buttonRotate']"));
+        ruotaButton.click();
+    }
+
     public void clickVisualizzaCodice () {
         webTool.waitTime(7);
         WebElement visualizzaCodiceButton = driver.findElement(By.xpath("//li[@data-testid='buttonView']"));
         visualizzaCodiceButton.click();
     }
 
-    public String copiaPublicKey () {
+    public String tabellaChiaviPubblicheCopiaValorePublicKey() {
+        webTool.waitTime(7);
+        getWebDriverWait(15).withMessage("il bottone Copia del campo Chiave Personale non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//table[@data-testid='publicKeysTableDesktop']//..//button[@data-testid='copyToClipboard']"))));
+        WebElement copyButton = driver.findElement(By.xpath("//table[@data-testid='publicKeysTableDesktop']//..//button[@data-testid='copyToClipboard']"));
+        copyButton.click();
+        List<WebElement> inputFields = driver.findElements(By.xpath("//table[@data-testid='publicKeysTableDesktop']//tr//..//p"));
+        return inputFields.get(1).getText();
+    }
+
+    public String visualizzaCodiceCopiaPublicKey() {
         webTool.waitTime(7);
         getWebDriverWait(15).withMessage("il bottone Copia del campo Chiave Personale non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']")).get(0)));
         List<WebElement> formFields = driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']"));
@@ -116,7 +132,7 @@ public class IntegrazioneAPIPGPage extends BasePage {
         return inputFields.get(0).getAttribute("value");
     }
 
-    public String copiaKID () {
+    public String visualizzaCodiceCopiaKID() {
         webTool.waitTime(7);
         getWebDriverWait(15).withMessage("il bottone Copia del campo KID non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']")).get(1)));
         List<WebElement> formFields = driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']"));
@@ -125,7 +141,7 @@ public class IntegrazioneAPIPGPage extends BasePage {
         return inputFields.get(1).getAttribute("value");
     }
 
-    public String copiaIssuer () {
+    public String visualizzaCodiceCopiaIssuer() {
         webTool.waitTime(7);
         getWebDriverWait(15).withMessage("il bottone Copia del campo Issuer non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']")).get(2)));
         List<WebElement> formFields = driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']"));
@@ -133,4 +149,5 @@ public class IntegrazioneAPIPGPage extends BasePage {
         List<WebElement> inputFields = driver.findElements(By.xpath("//input[@aria-invalid='false']"));
         return inputFields.get(2).getAttribute("value");
     }
+
 }

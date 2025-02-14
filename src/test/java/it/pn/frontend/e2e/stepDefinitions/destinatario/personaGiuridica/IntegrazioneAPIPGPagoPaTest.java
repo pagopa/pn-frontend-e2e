@@ -7,6 +7,7 @@ import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.IntegrazioneAPIPGPage;
+import it.pn.frontend.e2e.section.destinatario.personaGiuridica.RegistraChiavePubblicaPGSection;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
@@ -35,11 +36,18 @@ public class IntegrazioneAPIPGPagoPaTest extends BasePage {
 
     private WebTool webTool;
 
+    @Setter
+    @Getter
+    private String publicKey;
+
+    private RegistraChiavePubblicaPGSection registraChiavePubblicaPGSection;
+
     @PostConstruct
     public void init(){
         logger.info("INIT TEST...: ");
         webTool = new WebTool(driver);
         integrazioneAPIPGPage = new IntegrazioneAPIPGPage(driver);
+        registraChiavePubblicaPGSection = new RegistraChiavePubblicaPGSection(driver);
     }
 
     @And("Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave pubblica")
@@ -88,16 +96,22 @@ public class IntegrazioneAPIPGPagoPaTest extends BasePage {
         integrazioneAPIPGPage.verificaTabellaChiaviPubbliche();
     }
 
+    @And("Si clicca Ruota")
+    public void clickRuota(){
+        logger.info("Si clicca Ruota");
+        integrazioneAPIPGPage.clickRuota();
+    }
+
     @And("Si clicca Visualizza codice")
     public void clickVisualizzaCodice(){
-        logger.info("Si verifica che il valore della chiave pubblica copiata sia uguale a quello visualizzato in elenco");
+        logger.info("Si clicca Visualizza codice");
         integrazioneAPIPGPage.clickVisualizzaCodice();
     }
 
     @And("Da Visualizza codice si copia correttamente il campo Chiave Personale cliccando sul bottone di copia")
     public void visualizzaCodicesiCopiaCorrettamenteIlCampoChiavePersonaleCliccandoSulBottoneDiCopia() {
         logger.info("Si clicca copia sul tasto 'Chiave Personale' per copiare il campo Chiave Personale");
-        String copiedValue = integrazioneAPIPGPage.copiaPublicKey();
+        String copiedValue = integrazioneAPIPGPage.visualizzaCodiceCopiaPublicKey();
         logger.info("Il campo Public Key copiato è: {}", copiedValue);
     }
 
@@ -108,14 +122,31 @@ public class IntegrazioneAPIPGPagoPaTest extends BasePage {
     @And("Da Visualizza codice si copia correttamente il campo KID cliccando sul bottone di copia")
     public void visualizzaCodiceSiCopiaCorrettamenteIlCampoKIDCliccandoSulBottoneDiCopia() {
         logger.info("Si clicca copia sul tasto 'KID' per copiare il campo KID");
-        String copiedValue = integrazioneAPIPGPage.copiaKID();
+        String copiedValue = integrazioneAPIPGPage.visualizzaCodiceCopiaKID();
         logger.info("Il campo KID copiato è: {}", copiedValue);
     }
 
     @And("Da Visualizza codice si copia correttamente il campo Issuer cliccando sul bottone di copia")
     public void visualizzaCodiceSiCopiaCorrettamenteIlCampoIssuerCliccandoSulBottoneDiCopia() {
         logger.info("Si clicca copia sul tasto 'Issuer' per copiare il campo Issuer");
-        String copiedValue = integrazioneAPIPGPage.copiaIssuer();
+        String copiedValue = integrazioneAPIPGPage.visualizzaCodiceCopiaIssuer();
         logger.info("Il campo Issuer copiato è: {}", copiedValue);
+    }
+
+    @And("Si copia il valore della chiave pubblica dalla tabella delle chiavi pubbliche")
+    public void copiaValorePublicKeyDaTabellaChiavePubbliche () {
+        logger.info("Si copia il valore della chiave pubblica dalla tabella delle chiavi pubbliche");
+        String copiedValue = integrazioneAPIPGPage.tabellaChiaviPubblicheCopiaValorePublicKey();
+        logger.info("Il campo Valore della chiave pubblica copiata è: {}", copiedValue);
+        setPublicKey(copiedValue);
+    }
+
+    @And("Nella sezione Registra chiave pubblica si inseriscono i dati della chiave pubblica con public key della chiave ruotata dalla tabella delle chiavi pubbliche")
+    public void nellaSezioneRegistraUnaChiavePubblicaInserireIDatiConValorePublicKeyRuotata(Map<String, String> chiave) {
+        logger.info("Nella sezione Registra chiave pubblica inserire i dati con valore della public key ruotata");
+        registraChiavePubblicaPGSection.waitLoadRegistraChiavePubblicaPGPage();
+        String nome = chiave.get("nome");
+        registraChiavePubblicaPGSection.insertNome(nome);
+        registraChiavePubblicaPGSection.insertPublicKey(getPublicKey());
     }
 }
