@@ -27,7 +27,6 @@ public class IntegrazioneAPIPGPage extends BasePage {
 
     public void waitLoadIntegrazioneAPIPage() {
         try {
-            webTool.waitTime(5);
             getWebDriverWait(10).withMessage("Il titolo della pagina Notifiche PG non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Integrazione API-page"))));
             logger.info("La pagina Piattaforma Integrazione API si carica correttamente");
         } catch (TimeoutException e) {
@@ -51,7 +50,6 @@ public class IntegrazioneAPIPGPage extends BasePage {
     }
 
     public void checkConfermaCreazioneChiavePubblica() {
-        webTool.waitTime(5);
         getWebDriverWait(10).withMessage("Il label Stato per la chiave pubblica non è su 'Attiva' o non è visibile")
                 .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(@data-testid,'statusChip-Attiva')]"))));
         //TO DO: Attiva se si conferma che il pop up deve essere nella pagina Integrazione API (ora è su Registra Chiave Pubblica -> Controlla i parametri)
@@ -59,15 +57,12 @@ public class IntegrazioneAPIPGPage extends BasePage {
     }
 
     public void verificaPresenzaChiavePubblicheCensite() {
-        webTool.waitTime(5);
         getWebDriverWait(10).withMessage("Non ci sono chiavi pubbliche censite sulla pagina Integrazione API")
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy((By.xpath("//table[@data-testid='publicKeysTableDesktop']"))));
     }
 
     public void verificaTabellaChiaviPubbliche () {
         try {
-            webTool.waitTime(5);
-
             getWebDriverWait(10).withMessage("Non si visualizza correttamente la tabella delle chiavi pubbliche censite sulla pagina Integrazione API")
                     .until(ExpectedConditions.visibilityOfAllElementsLocatedBy((By.xpath("//table[@data-testid='publicKeysTableDesktop']"))));
             chiaviPubblicheTable = element(By.xpath("//table[@data-testid='publicKeysTableDesktop']"));
@@ -102,20 +97,7 @@ public class IntegrazioneAPIPGPage extends BasePage {
         getWebDriverWait(10).withMessage("Il tasto Genera chiave personale Non presente").until(ExpectedConditions.visibilityOfElementLocated(By.id("generate-virtual-key")));
     }
 
-    public void clickRuota () {
-        webTool.waitTime(7);
-        WebElement ruotaButton = driver.findElement(By.xpath("//li[@data-testid='buttonRotate']"));
-        ruotaButton.click();
-    }
-
-    public void clickVisualizzaCodice () {
-        webTool.waitTime(7);
-        WebElement visualizzaCodiceButton = driver.findElement(By.xpath("//li[@data-testid='buttonView']"));
-        visualizzaCodiceButton.click();
-    }
-
     public String tabellaChiaviPubblicheCopiaValorePublicKey() {
-        webTool.waitTime(7);
         getWebDriverWait(15).withMessage("il bottone Copia del campo Chiave Personale non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//table[@data-testid='publicKeysTableDesktop']//..//button[@data-testid='copyToClipboard']"))));
         WebElement copyButton = driver.findElement(By.xpath("//table[@data-testid='publicKeysTableDesktop']//..//button[@data-testid='copyToClipboard']"));
         copyButton.click();
@@ -124,7 +106,6 @@ public class IntegrazioneAPIPGPage extends BasePage {
     }
 
     public String visualizzaCodiceCopiaPublicKey() {
-        webTool.waitTime(7);
         getWebDriverWait(15).withMessage("il bottone Copia del campo Chiave Personale non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']")).get(0)));
         List<WebElement> formFields = driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']"));
         formFields.get(0).click();
@@ -133,7 +114,6 @@ public class IntegrazioneAPIPGPage extends BasePage {
     }
 
     public String visualizzaCodiceCopiaKID() {
-        webTool.waitTime(7);
         getWebDriverWait(15).withMessage("il bottone Copia del campo KID non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']")).get(1)));
         List<WebElement> formFields = driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']"));
         formFields.get(1).click();
@@ -142,7 +122,6 @@ public class IntegrazioneAPIPGPage extends BasePage {
     }
 
     public String visualizzaCodiceCopiaIssuer() {
-        webTool.waitTime(7);
         getWebDriverWait(15).withMessage("il bottone Copia del campo Issuer non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']")).get(2)));
         List<WebElement> formFields = driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']"));
         formFields.get(2).click();

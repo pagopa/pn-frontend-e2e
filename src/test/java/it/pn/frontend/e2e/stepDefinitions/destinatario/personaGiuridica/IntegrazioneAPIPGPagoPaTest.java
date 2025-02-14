@@ -96,18 +96,6 @@ public class IntegrazioneAPIPGPagoPaTest extends BasePage {
         integrazioneAPIPGPage.verificaTabellaChiaviPubbliche();
     }
 
-    @And("Si clicca Ruota")
-    public void clickRuota(){
-        logger.info("Si clicca Ruota");
-        integrazioneAPIPGPage.clickRuota();
-    }
-
-    @And("Si clicca Visualizza codice")
-    public void clickVisualizzaCodice(){
-        logger.info("Si clicca Visualizza codice");
-        integrazioneAPIPGPage.clickVisualizzaCodice();
-    }
-
     @And("Da Visualizza codice si copia correttamente il campo Chiave Personale cliccando sul bottone di copia")
     public void visualizzaCodicesiCopiaCorrettamenteIlCampoChiavePersonaleCliccandoSulBottoneDiCopia() {
         logger.info("Si clicca copia sul tasto 'Chiave Personale' per copiare il campo Chiave Personale");

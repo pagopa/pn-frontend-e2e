@@ -37,7 +37,6 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
 
     public void waitLoadRegistraChiavePubblicaPGPage() {
         try {
-            webTool.waitTime(5);
             getWebDriverWait(10).withMessage("Il titolo della pagina Registra chiave pubblica non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Registra chiave pubblica-page"))));
             logger.info("La pagina Registra chiave pubblica si carica correttamente");
         } catch (TimeoutException e) {
@@ -68,14 +67,12 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
     }
 
     public void selezionareRegistraButton() {
-        webTool.waitTime(5);
         registraButton = getWebDriverWait(10).withMessage("Il bottone Registra nella pagina Registra chiave pubblica non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
         scrollToElementAndClick(registraButton);
     }
 
     public void waitLoadOttieniParametriSection() {
         try {
-            webTool.waitTime(5);
             WebElement titolo = driver.findElement(By.xpath("//p[contains(@data-testid,'title')]"));
             getWebDriverWait(15).withMessage("il titolo della sezione Ottieni parametri non è visibile").until(ExpectedConditions.visibilityOf(titolo));
             getWebDriverWait(15).withMessage("il bottone Kid della sezione Ottieni parametri non è cliccabile").until(ExpectedConditions.visibilityOf((driver.findElement(By.id("kid")))));
@@ -90,7 +87,6 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
 
     public String ottieniParametriCopiaKIDRegistraChiavePubblica() {
         try {
-            webTool.waitTime(5);
             String copyButtonXPath = "//button[@type='button' and @role='button']";
             getWebDriverWait(15).withMessage("il bottone copia del campo KID non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath(copyButtonXPath)).get(0)));
             List<WebElement> formFields = driver.findElements(By.xpath(copyButtonXPath));
@@ -107,7 +103,6 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
 
     public String ottieniParametriCopiaIssuerRegistraChiavePubblica() {
         try {
-            webTool.waitTime(5);
             String copyButtonXPath = "//button[@type='button' and @role='button']";
             getWebDriverWait(15).withMessage("il bottone copia del campo Issuer non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath(copyButtonXPath)).get(1)));
             List<WebElement> formFields = driver.findElements(By.xpath(copyButtonXPath));
