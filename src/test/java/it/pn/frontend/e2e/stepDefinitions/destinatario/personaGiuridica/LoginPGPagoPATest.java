@@ -412,4 +412,9 @@ public class LoginPGPagoPATest extends BasePage {
         destinatarioPage.clickProdotto(xpath);
     }
 
+    @And("Logout da portale persona giuridica delegante")
+    public void logoutDaPortalePersonaGiuridicaDelegante() {
+        headerPGSection.clickEsciButton();
+        headerPGSection.clickEsciButtonPopUp();
+    }
 }

@@ -525,7 +525,8 @@ public class ApiKeyPAPage extends BasePage {
     public void pulisciAmbientePublickeys() {
         logger.info("Prima della tabella");
         try {
-            WebElement table = getWebDriverWait(40).withMessage("Il Tabella Integrazione Api Publickeys  NON VISIBILE").until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@data-testid='publicKeysTableDesktop']")));
+            WebElement table = getWebDriverWait(40).withMessage("Il Tabella Integrazione Api Publickeys  NON VISIBILE")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@data-testid='publicKeysTableDesktop']")));
             List<WebElement> rows = table.findElements(By.xpath(".//tr"));
             logger.info("Tabella RIGHE: {}", rows.size());
             for (WebElement row : rows) {
@@ -541,24 +542,21 @@ public class ApiKeyPAPage extends BasePage {
 
                         if (verificaEsisteSoloRuotaVisualizzaCodice()) {
                             logger.info("Presente Stato attiva solo  con  Ruota e Visualizza Codice");
-                            aggiornamentoPagina();
-                            webTool.waitTime(5);
+                            aggiornaPaginaWaitTime(5);
                             registraChiavePubblicaPGSection.cliccareSuiTrePuntiniConStato("Bloccata");
                             clickEliminaIntegrazioneApi();
                             clickSuConfermaNelPopUp();
                             clickTrePuntiniPublicKeys();
                         } else if (verificaEsisteSoloBloccaVisualizzaCodice()) {
                             logger.info("Presente Stato attiva solo  con  Blocca e Visualizza Codice");
-                            aggiornamentoPagina();
-                            webTool.waitTime(5);
+                            aggiornaPaginaWaitTime(5);
                             registraChiavePubblicaPGSection.cliccareSuiTrePuntiniConStato("Ruotata");
                             clickEliminaIntegrazioneApi();
                             clickSuConfermaNelPopUp();
                             clickTrePuntiniPublicKeys();
                         } else if (verificaEsisteSoloVisualizzaCodice()) {
                             logger.info("Presente Stato attiva solo Visualizza Codice");
-                            aggiornamentoPagina();
-                            webTool.waitTime(5);
+                            aggiornaPaginaWaitTime(5);
                             registraChiavePubblicaPGSection.cliccareSuiTrePuntiniConStato("Bloccata");
                             clickEliminaIntegrazioneApi();
                             clickSuConfermaNelPopUp();
@@ -566,28 +564,23 @@ public class ApiKeyPAPage extends BasePage {
                             clickEliminaIntegrazioneApi();
                             clickSuConfermaNelPopUp();
                             clickTrePuntiniPublicKeys();
-
                         }
-
                         clickSuBlocca();
                         clickSuConfermaNelPopUp();
                         logger.info("Tasto Blocca cliccato su stato Attiva.");
-                        aggiornamentoPagina();
-                        webTool.waitTime(5);
+                        aggiornaPaginaWaitTime(5);
                         logger.info("Stato Bloccata");
                         clickTrePuntiniPublicKeys();
                         clickEliminaIntegrazioneApi();
                         clickSuConfermaNelPopUp();
                         logger.info("Tasto Elimina cliccato su stato Bloccata.");
-                        aggiornamentoPagina();
-                        webTool.waitTime(3);
+                        aggiornaPaginaWaitTime(3);
                         logger.info("Stato Bloccata");
                         clickTrePuntiniPublicKeys();
                         clickEliminaIntegrazioneApi();
                         clickSuConfermaNelPopUp();
                         logger.info("Tasto Elimina");
-                        aggiornamentoPagina();
-                        webTool.waitTime(3);
+                        aggiornaPaginaWaitTime(3);
                         break;
 
                     } else if (statoValue.equalsIgnoreCase("Ruotata") || statoValue.equalsIgnoreCase("Bloccata")) {
@@ -723,57 +716,28 @@ public class ApiKeyPAPage extends BasePage {
                         clickTrePuntiniVirtualKeys();
 
                         if (verificaEsisteSoloRuotaVisualizzaCodice()) {
-                            logger.info("Presente Virtual Key Stato attiva solo  con  Ruota e Visualizza Codice");
-                            aggiornamentoPagina();
-                            webTool.waitTime(5);
-                            registraChiavePubblicaPGSection.cliccareSuiTrePuntiniVirtualKeyConStato("Bloccata");
-                            clickEliminaIntegrazioneApi();
-                            clickSuConfermaNelPopUp();
-                            clickTrePuntiniVirtualKeys();
+                            eliminaPassaggioStatoAttivaBloccataVirtualKeys();
                         }
                         else if (verificaEsisteSoloVisualizzaCodice()) {
-                            logger.info("Presente Stato attiva solo Visualizza Codice");
-                            aggiornamentoPagina();
-                            webTool.waitTime(5);
-                            registraChiavePubblicaPGSection.cliccareSuiTrePuntiniVirtualKeyConStato("Bloccata");
-                            clickEliminaIntegrazioneApi();
-                            clickSuConfermaNelPopUp();
-                            registraChiavePubblicaPGSection.cliccareSuiTrePuntiniVirtualKeyConStato("Ruotata");
-                            clickEliminaIntegrazioneApi();
-                            clickSuConfermaNelPopUp();
-                            clickTrePuntiniVirtualKeys();
-
+                            eliminaPassaggioStatoAttivaBloccataRuotataVirtualKeys();
                         }
                         clickSuBlocca();
                         clickSuConfermaNelPopUp();
                         logger.info("Tasto Blocca cliccato su stato Attiva.");
-                        aggiornamentoPagina();
-                        webTool.waitTime(5);
-
+                        aggiornaPaginaWaitTime(5);
                         clickTrePuntiniVirtualKeys();
                         clickEliminaIntegrazioneApi();
                         clickSuConfermaNelPopUp();
                         logger.info("Tasto Elimina cliccato su stato Bloccata.");
-                        driver.navigate().refresh();
-                        webTool.waitTime(5);
-                        try {
-                            clickTrePuntiniVirtualKeys();
-                            clickEliminaIntegrazioneApi();
-                            clickSuConfermaNelPopUp();
-                            logger.info("Tasto Elimina ");
-                            driver.navigate().refresh();
-                            webTool.waitTime(5);
-                        }catch (Exception e){
-                            logger.info("Continuo ");
-                        }
+                        aggiornaPaginaWaitTime(5);
+                        eliminaUltimoPassaggio();
                         break;
                     } else if (statoValue.equalsIgnoreCase("Ruotata") || statoValue.equalsIgnoreCase("Bloccata")) {
                         clickTrePuntiniVirtualKeys();
-                        clickEliminaIntegrazioneApi();
+                        aggiornamentoPagina();
                         clickSuConfermaNelPopUp();
                         logger.info("Tasto Elimina cliccato su stato Ruotata o Bloccata.");
-                        driver.navigate().refresh();
-                        webTool.waitTime(3);
+                        aggiornaPaginaWaitTime(5);
 
                     }
                 }
@@ -783,6 +747,46 @@ public class ApiKeyPAPage extends BasePage {
             logger.info("Tabella NON visibile. Proseguo comunque.");
         }
     }
+
+    private void aggiornaPaginaWaitTime(int seconds) {
+        aggiornamentoPagina();
+        webTool.waitTime(seconds);
+    }
+
+    private void eliminaUltimoPassaggio() {
+        try {
+            clickTrePuntiniVirtualKeys();
+            clickEliminaIntegrazioneApi();
+            clickSuConfermaNelPopUp();
+            logger.info("Tasto Elimina ");
+            driver.navigate().refresh();
+            webTool.waitTime(5);
+        }catch (Exception e){
+            logger.info("Continuo ");
+        }
+    }
+
+    private void eliminaPassaggioStatoAttivaBloccataRuotataVirtualKeys() {
+        logger.info("Presente Stato attiva solo Visualizza Codice");
+        aggiornaPaginaWaitTime(5);
+        registraChiavePubblicaPGSection.cliccareSuiTrePuntiniVirtualKeyConStato("Bloccata");
+        clickEliminaIntegrazioneApi();
+        clickSuConfermaNelPopUp();
+        registraChiavePubblicaPGSection.cliccareSuiTrePuntiniVirtualKeyConStato("Ruotata");
+        clickEliminaIntegrazioneApi();
+        clickSuConfermaNelPopUp();
+        clickTrePuntiniVirtualKeys();
+    }
+
+    private void eliminaPassaggioStatoAttivaBloccataVirtualKeys() {
+        logger.info("Presente Virtual Key Stato attiva solo  con  Ruota e Visualizza Codice");
+        aggiornaPaginaWaitTime(5);
+        registraChiavePubblicaPGSection.cliccareSuiTrePuntiniVirtualKeyConStato("Bloccata");
+        clickEliminaIntegrazioneApi();
+        clickSuConfermaNelPopUp();
+        clickTrePuntiniVirtualKeys();
+    }
+
     public void clickTrePuntiniVirtualKeys() {
         WebElement clickTrePuntiniVirtualKeys = getWebDriverWait(40).withMessage("Il Tre Puntini Virtual  NON VISIBILE")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@data-testid='virtualKeysTableDesktop']//tr[1]//button[@data-testid='contextMenuButton']")));

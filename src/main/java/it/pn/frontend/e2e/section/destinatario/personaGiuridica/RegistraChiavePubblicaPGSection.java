@@ -67,7 +67,8 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
     }
 
     public void selezionareRegistraButton() {
-        registraButton = getWebDriverWait(10).withMessage("Il bottone Registra nella pagina Registra chiave pubblica non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
+        registraButton = getWebDriverWait(10).withMessage("Il bottone Registra nella pagina Registra chiave pubblica non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
         scrollToElementAndClick(registraButton);
     }
 
@@ -151,7 +152,7 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
     }
 
     public void verificaStatoChiavePersonale(String stato) {
-        getWebDriverWait(10).withMessage("NON VISIBILE con stato: "+stato)
+        getWebDriverWait(20).withMessage("NON VISIBILE con stato: "+stato)
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@data-testid='virtualKeysTableDesktop']//tr[.//span[contains(text(), '"+stato+"')]]//button[@data-testid='contextMenuButton']")) );
     }
 
