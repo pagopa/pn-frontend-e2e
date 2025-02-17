@@ -93,8 +93,13 @@ public class IntegrazioneAPIPGPage extends BasePage {
         }
     }
 
-    public void nellaPaginaIntegrazioneAPISiControllaSiaPresenteIlBottoneGeneraChiavePersonale() {
-        getWebDriverWait(20).withMessage("Il tasto Genera chiave personale Non presente").until(ExpectedConditions.visibilityOfElementLocated(By.id("generate-virtual-key")));
+    public boolean nellaPaginaIntegrazioneAPISiControllaSiaPresenteIlBottoneGeneraChiavePersonale() {
+        try {
+            return getWebDriverWait(20).withMessage("Il tasto Genera chiave personale Non presente").until(ExpectedConditions.visibilityOfElementLocated(By.id("generate-virtual-key"))).isDisplayed();
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.warn("Il bottone Genera chiave personale non è visibile");
+            return false;
+        }
     }
 
     public String tabellaChiaviPubblicheCopiaValorePublicKey() {

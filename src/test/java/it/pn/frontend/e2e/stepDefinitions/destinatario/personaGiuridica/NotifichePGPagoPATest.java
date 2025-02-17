@@ -492,4 +492,10 @@ public class NotifichePGPagoPATest extends BasePage {
             Assertions.fail("Il codice SHA  all'interno del file  NON è corretto");
         }
     }
+
+    @And("Nella pagina Integrazione API si controlla che NON sia presente il bottone Genera chiave personale")
+    public void nellaPaginaIntegrazioneAPISiControllaCheNONSiaPresenteIlBottoneGeneraChiavePersonale() {
+        if (integrazioneAPIPGPage.nellaPaginaIntegrazioneAPISiControllaSiaPresenteIlBottoneGeneraChiavePersonale())
+            Assertions.fail("Il bottone Genera chiave personale è Presente");
+    }
 }

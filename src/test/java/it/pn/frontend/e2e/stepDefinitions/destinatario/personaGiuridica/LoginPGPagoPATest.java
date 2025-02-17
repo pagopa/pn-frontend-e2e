@@ -286,7 +286,7 @@ public class LoginPGPagoPATest extends BasePage {
         loginPGPagoPAPage.waitLoadLoginPGPage();
 
         if(datiPG.get("user").equalsIgnoreCase("GabrieleDAnnunzio") || datiPG.get("user").equalsIgnoreCase("GiuseppeUngaretti")
-                || datiPG.get("user").equalsIgnoreCase("n.lotti")
+                || datiPG.get("user").equalsIgnoreCase("n.lotti") || datiPG.get("user").equalsIgnoreCase("m.montessori")
         ){
             loginPGPagoPAPage.insertUsername(datiPG.get("user"));
             loginPGPagoPAPage.insertPassword(datiPG.get("pwd"));
