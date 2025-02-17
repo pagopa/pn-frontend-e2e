@@ -328,9 +328,42 @@ public class ApiKeysTest  extends BasePage {
         apiKeyPAPage.clickEliminaIntegrazioneApi();
     }
 
+    @And("Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave pubblica")
+    public void siControllaSiaPresenteIlBottoneGeneraChiavePubblica() {
+        logger.info("Si controlla sia presente bottone Genera chiave pubblica");
+        if (apiKeyPAPage.generaChiavePubblicaDisplayed()) {
+            logger.info("Il bottone Genera chiave pubblica è trovato");
+        } else {
+            logger.error("Il bottone Genera chiave pubblica non è trovato");
+            Assertions.fail("Il bottone Genera chiave pubblica non è trovato");
+        }
+    }
+
+    @And("Nella pagina Integrazione API si controlla che non sia presente il bottone Genera chiave pubblica")
+    public void siControllaCheNonSiaPresenteIlBottoneGeneraChiavePubblica() {
+        logger.info("Si controlla che non sia presente bottone Genera chiave pubblica");
+        if (!apiKeyPAPage.generaChiavePubblicaDisplayed()) {
+            Assertions.assertFalse(apiKeyPAPage.generaChiavePubblicaDisplayed(), "Il bottone Genera chiave pubblica non è visibile");
+        } else {
+            Assertions.fail("Il bottone Genera chiave pubblica è visibile");
+        }
+    }
+
+    @And("Nella pagina Integrazione API si clicca sul bottone Genera chiave pubblica")
+    public void siCliccaIlBottoneGeneraChiavePubblica() {
+        logger.info("Si clicca sul bottone Genera chiave pubblica");
+        apiKeyPAPage.clickBottoneGeneraChiavePubblica();
+    }
+
     @And("Nella sezione Integrazione API non si visualizza alcuna chiave {string}")
     public void nellaSezioneIntegrazioneAPINonSiVisualizzaAlcunaChiave(String testo) {
         apiKeyPAPage.nellaSezioneIntegrazioneAPINonSiVisualizzaAlcunaChiave(testo);
+    }
+
+    @And("Nella pagina Integrazione API si visualizza il messaggio di alert {string}")
+    public void nellaSezioneIntegrazioneAPISiVisualizzaAlert(String testo) {
+        logger.info("Nella pagina Integrazione API si verifica che sia visualizzato il messaggio di alert {}", testo);
+        apiKeyPAPage.nellaSezioneIntegrazioneAPISiVisualizzaAlert(testo);
     }
 
     @Then("verifica tre puntini mostra di piu")

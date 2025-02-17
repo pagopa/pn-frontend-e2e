@@ -489,6 +489,21 @@ public class ApiKeyPAPage extends BasePage {
         }
     }
 
+    public boolean generaChiavePubblicaDisplayed() {
+        try {
+            return getWebDriverWait(5).withMessage("Il bottone Genera chiave pubblica non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("generate-public-key")))).isDisplayed();
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.warn("Il bottone Genera chiave pubblica non è visibile");
+            return false;
+        }
+    }
+
+    public void clickBottoneGeneraChiavePubblica() {
+        WebElement generaChiavePubblicaButton = getWebDriverWait(10).withMessage("Bottone Genera chiave pubblica non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("generate-public-key"))));
+        generaChiavePubblicaButton.click();
+    }
+
     public void mouseHoverGroups() {
         webTool.waitTime(3);
         List<WebElement> rows = driver.findElements(By.xpath("//tr[@data-testid='tableApiKeys.body.row']"));
@@ -632,6 +647,14 @@ public class ApiKeyPAPage extends BasePage {
         getWebDriverWait(40).withMessage("Il testo '"+testo+"' NON VISIBILE").until(
                 ExpectedConditions.visibilityOfElementLocated(
                         By.xpath("//div[@data-testid='emptyState']//p[contains(text(), '"+testo+"')]")
+                )
+        );
+    }
+
+    public void nellaSezioneIntegrazioneAPISiVisualizzaAlert(String testo) {
+        getWebDriverWait(40).withMessage("Il testo '"+testo+"' NON VISIBILE").until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//div[@role='alert']//p[contains(text(), '"+testo+"')]")
                 )
         );
     }
@@ -796,4 +819,5 @@ public class ApiKeyPAPage extends BasePage {
     public void chiudiBrowser() {
         driver.quit();
     }
+
 }
