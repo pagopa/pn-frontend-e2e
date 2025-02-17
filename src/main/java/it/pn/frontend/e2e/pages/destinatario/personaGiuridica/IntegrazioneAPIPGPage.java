@@ -34,21 +34,6 @@ public class IntegrazioneAPIPGPage extends BasePage {
         }
     }
 
-    public boolean generaChiavePubblicaDisplayed() {
-        try {
-            return getWebDriverWait(5).withMessage("Il bottone Genera chiave pubblica non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("generate-public-key")))).isDisplayed();
-        } catch (NoSuchElementException | TimeoutException e) {
-            logger.warn("Il bottone Genera chiave pubblica non è visibile");
-            return false;
-        }
-    }
-
-    public void clickBottoneGeneraChiavePubblica() {
-        WebElement generaChiavePubblicaButton = getWebDriverWait(10).withMessage("Bottone Genera chiave pubblica non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("generate-public-key"))));
-        generaChiavePubblicaButton.click();
-    }
-
     public void checkConfermaCreazioneChiavePubblica() {
         getWebDriverWait(10).withMessage("Il label Stato per la chiave pubblica non è su 'Attiva' o non è visibile")
                 .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(@data-testid,'statusChip-Attiva')]"))));

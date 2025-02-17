@@ -50,38 +50,10 @@ public class IntegrazioneAPIPGPagoPaTest extends BasePage {
         registraChiavePubblicaPGSection = new RegistraChiavePubblicaPGSection(driver);
     }
 
-    @And("Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave pubblica")
-    public void siControllaSiaPresenteIlBottoneGeneraChiavePubblica() {
-        logger.info("Si controlla sia presente bottone Genera chiave pubblica");
-        if (integrazioneAPIPGPage.generaChiavePubblicaDisplayed()) {
-            logger.info("Il bottone Genera chiave pubblica è trovato");
-        } else {
-            logger.error("Il bottone Genera chiave pubblica non è trovato");
-            Assertions.fail("Il bottone Genera chiave pubblica non è trovato");
-        }
-    }
-
-    @And("Nella pagina Integrazione API si clicca sul bottone Genera chiave pubblica")
-    public void siCliccaIlBottoneGeneraChiavePubblica() {
-        logger.info("Si clicca sul bottone Genera chiave pubblica");
-        integrazioneAPIPGPage.clickBottoneGeneraChiavePubblica();
-    }
-
     @And("Si controlla la comparsa del label di stato 'Attiva' e del pop up di conferma per la creazione della chiave pubblica")
     public void checkConfermaCreazioneChiavePubblica() {
         logger.info("Si controlla la comparsa del label di stato 'Attiva' e del pop up di conferma per la creazione della chiave pubblica");
         integrazioneAPIPGPage.checkConfermaCreazioneChiavePubblica();
-    }
-
-    @And("Si controlla che il pulsante Genera chiave pubblica non sia più presente nella pagina Integrazione API")
-    public void siControllaCheIlPulsanteGeneraChiavePubblicaNonSiaPiuPresente() {
-        logger.info("Si controlla che pulsante Genera chiave pubblica non sia più presente nella pagina Integrazione API");
-        if (!integrazioneAPIPGPage.generaChiavePubblicaDisplayed()) {
-            logger.info("Il bottone Genera chiave pubblica non è più visibile dopo aver creato una chiave pubblica");
-        } else {
-            logger.error("Il bottone Genera chiave pubblica è ancora visibile dopo aver creato una chiave pubblica");
-            Assertions.fail("Il bottone Genera chiave pubblica è ancora visibile dopo aver creato una chiave pubblica");
-        }
     }
 
     @And("C'è almeno una chiave pubblica censita nella tabella delle chiavi pubbliche sulla pagina Integrazione API")

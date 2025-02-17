@@ -18,5 +18,5 @@ Feature: Utente Amministratore Persona Giuridica censisce una chiave pubblica pe
     And Su Ottieni Parametri si copia correttamente il campo Issuer cliccando sul bottone di copia
     And Cliccare su registra
     Then Si controlla la comparsa del label di stato 'Attiva' e del pop up di conferma per la creazione della chiave pubblica
-    And Si controlla che il pulsante Genera chiave pubblica non sia più presente nella pagina Integrazione API
+    And Nella pagina Integrazione API si controlla che non sia presente il bottone Genera chiave pubblica
     And Logout da portale persona giuridica
