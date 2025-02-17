@@ -1,9 +1,9 @@
-Feature: PG - Utente della PG con ruolo di operatore censisce una virtual key
+Feature: PG - Utente della PG con ruolo di amministratore di gruppo censisce una virtual key
 
   @TestSuite
-  @TA_PG_OperatoreCensisceVirtualKey_QA_5327
+  @TA_PG_AmministratoreDiGruppoCensisceVirtualKey_QA_5329
 
-  Scenario:PN-QA-5327  PG - Utente della PG con ruolo di operatore censisce una virtual key
+  Scenario:PN-QA-5329  PG - Utente della PG con ruolo di amministratore di gruppo censisce una virtual key
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
       | user           | DanteAlighieri |
@@ -23,11 +23,11 @@ Feature: PG - Utente della PG con ruolo di operatore censisce una virtual key
     And Cliccare su registra
     And Aggiornamento Pagina
     And Logout da portale persona giuridica delegante
-#  Entro come operatore
-    And Aggiornamento Pagina
 
+#  Entro come Amm. Gruppo PG Vita Nova Sas
+    And Aggiornamento Pagina
     And Login con persona giuridica
-      | user           | n.lotti       |
+      | user           | m.montessori  |
       | pwd            | test          |
       | ragioneSociale | Vita Nova Sas |
     And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
@@ -47,7 +47,7 @@ Feature: PG - Utente della PG con ruolo di operatore censisce una virtual key
       | ruota  | Ruota             |
       | blocca | Blocca            |
       | view   | Visualizza codice |
-
+    And Nella pagina Integrazione API si controlla che NON sia presente il bottone Genera chiave personale
 
 
 

@@ -147,13 +147,19 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
     }
 
     public void verificaStato(String stato) {
-        getWebDriverWait(10).withMessage("NON VISIBILE con stato: "+stato)
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@data-testid='publicKeysTableDesktop']//tr[.//span[contains(text(), '"+stato+"')]]//button[@data-testid='contextMenuButton']")) );
+        getWebDriverWait(10).withMessage("NON VISIBILE con stato: " + stato)
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@data-testid='publicKeysTableDesktop']//tr[.//span[contains(text(), '" + stato + "')]]//button[@data-testid='contextMenuButton']")));
     }
 
-    public void verificaStatoChiavePersonale(String stato) {
-        getWebDriverWait(20).withMessage("NON VISIBILE con stato: "+stato)
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@data-testid='virtualKeysTableDesktop']//tr[.//span[contains(text(), '"+stato+"')]]//button[@data-testid='contextMenuButton']")) );
+    public boolean verificaStatoChiavePersonale(String stato) {
+        try {
+           return getWebDriverWait(20).withMessage("NON VISIBILE con stato: " + stato)
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@data-testid='virtualKeysTableDesktop']//tr[.//span[contains(text(), '" + stato + "')]]//button[@data-testid='contextMenuButton']")))
+                    .isDisplayed();
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.warn("Il bottone Genera chiave personale non è visibile");
+            return false;
+        }
     }
 
 

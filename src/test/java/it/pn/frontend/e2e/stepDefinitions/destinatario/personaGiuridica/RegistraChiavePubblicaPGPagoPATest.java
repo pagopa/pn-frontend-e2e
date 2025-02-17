@@ -8,6 +8,7 @@ import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.RegistraChiavePubblicaPGSection;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
+import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,11 +112,23 @@ public class RegistraChiavePubblicaPGPagoPATest extends BasePage {
 
     @Then("Verifica stato Chiave Personale {string}")
     public void verificaStatoChiavePersonale(String stato) {
-        registraChiavePubblicaPGSection.verificaStatoChiavePersonale(stato);
+        Assertions.assertTrue(
+                registraChiavePubblicaPGSection.verificaStatoChiavePersonale(stato),
+                "Non presente lo stato: " + stato + " inerente a una Chiave Personale"
+        );
     }
 
     @And("Cliccare sui tre puntini Virtual key con stato {string}")
     public void cliccareSuiTrePuntiniVirtualKeyConStato(String stato) {
         registraChiavePubblicaPGSection.cliccareSuiTrePuntiniVirtualKeyConStato(stato);
+    }
+
+    @And("Verifica Assenza stato Chiave Personale {string}")
+    public void verificaAssenzaStatoChiavePersonale(String stato) {
+        logger.info(" registraChiavePubblicaPGSection.verificaStatoChiavePersonale(stato): {}", registraChiavePubblicaPGSection.verificaStatoChiavePersonale(stato));
+        Assertions.assertFalse(
+                registraChiavePubblicaPGSection.verificaStatoChiavePersonale(stato),
+                "Errore presente lo stato: " + stato + " inerente a una Chiave Personale"
+        );
     }
 }

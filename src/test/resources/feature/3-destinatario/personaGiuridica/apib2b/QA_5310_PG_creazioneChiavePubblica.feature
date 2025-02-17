@@ -14,6 +14,6 @@ Feature: Utente Amministratore Persona Giuridica censisce una chiave pubblica pe
     And Nella pagina Api Key si clicca sulla voce ruota del menu Api Key
     And Nella pop up cliccare sul tasto conferma
     And Nella sezione Registra chiave pubblica si inseriscono i dati della chiave pubblica con public key della chiave ruotata dalla tabella delle chiavi pubbliche
-      | nome        | Chiave- |
+      | nome | Chiave- |
     Then Verifica messaggio PublicKey di errore "Questo valore è già stato inserito in precedenza. Inserisci una chiave diversa."
     And Verifica tasto registra disabilitato
