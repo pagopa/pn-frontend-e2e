@@ -373,8 +373,8 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public boolean siVisualizzaMenuApiKey() {
-        getWebDriverWait(30).withMessage("il bottone menu del apikey non trovato").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//td[div/div/div/div[@role='button']]/following-sibling::td//button[@type='button' and @data-testid='contextMenuButton' and @aria-label='Opzioni su API Key']"))));
-        List<WebElement> menuButtonBy = driver.findElements(By.xpath("//td[div/div/div/div[@role='button']]/following-sibling::td//button[@type='button' and @data-testid='contextMenuButton' and @aria-label='Opzioni su API Key']"));
+        getWebDriverWait(30).withMessage("il bottone menu del apikey non trovato").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//table[@data-testid='virtualKeysTableDesktop']//tr[1]//button[@data-testid='contextMenuButton']"))));
+        List<WebElement> menuButtonBy = driver.findElements(By.xpath("//table[@data-testid='virtualKeysTableDesktop']//tr[1]//button[@data-testid='contextMenuButton']"));
         return !menuButtonBy.isEmpty();
     }
 
