@@ -103,9 +103,9 @@ public class IntegrazioneAPIPGPagoPaTest extends BasePage {
         setPublicKey(copiedValue);
     }
 
-    @And("Nella sezione Registra chiave pubblica si inseriscono i dati della chiave pubblica con public key della chiave ruotata dalla tabella delle chiavi pubbliche")
-    public void nellaSezioneRegistraUnaChiavePubblicaInserireIDatiConValorePublicKeyRuotata(Map<String, String> chiave) {
-        logger.info("Nella sezione Registra chiave pubblica inserire i dati con valore della public key ruotata");
+    @And("Nella sezione Registra chiave pubblica si inseriscono i dati della chiave pubblica con public key della chiave precedentemente copiata dalla tabella delle chiavi pubbliche")
+    public void nellaSezioneRegistraUnaChiavePubblicaInserireIDatiConValorePublicKeyCopiata(Map<String, String> chiave) {
+        logger.info("Nella sezione Registra chiave pubblica inserire i dati con valore della public key precedentemente copiata");
         registraChiavePubblicaPGSection.waitLoadRegistraChiavePubblicaPGPage();
         String nome = chiave.get("nome");
         registraChiavePubblicaPGSection.insertNome(nome);
