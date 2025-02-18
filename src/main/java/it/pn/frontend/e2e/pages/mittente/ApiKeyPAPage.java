@@ -603,8 +603,7 @@ public class ApiKeyPAPage extends BasePage {
                         clickEliminaIntegrazioneApi();
                         clickSuConfermaNelPopUp();
                         logger.info("Tasto Elimina cliccato su stato Ruotata o Bloccata.");
-                        driver.navigate().refresh();
-                        webTool.waitTime(3);
+                        aggiornaPaginaWaitTime(3);
 
                     }
                 }
@@ -757,8 +756,9 @@ public class ApiKeyPAPage extends BasePage {
                         break;
                     } else if (statoValue.equalsIgnoreCase("Ruotata") || statoValue.equalsIgnoreCase("Bloccata")) {
                         clickTrePuntiniVirtualKeys();
-                        aggiornamentoPagina();
+                        clickEliminaIntegrazioneApi();
                         clickSuConfermaNelPopUp();
+                        aggiornamentoPagina();
                         logger.info("Tasto Elimina cliccato su stato Ruotata o Bloccata.");
                         aggiornaPaginaWaitTime(5);
 

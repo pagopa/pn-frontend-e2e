@@ -77,7 +77,6 @@ public class IntegrazioneAPIPGPagoPaTest extends BasePage {
 
     @And("Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale")
     public void nellaPaginaIntegrazioneAPISiControllaSiaPresenteIlBottoneGeneraChiavePersonale() {
-//        if (!integrazioneAPIPGPage.nellaPaginaIntegrazioneAPISiControllaSiaPresenteIlBottoneGeneraChiavePersonale())
             Assertions.assertTrue(
                     integrazioneAPIPGPage.nellaPaginaIntegrazioneAPISiControllaSiaPresenteIlBottoneGeneraChiavePersonale(),
                     "Il bottone Genera chiave personale non è trovato");
