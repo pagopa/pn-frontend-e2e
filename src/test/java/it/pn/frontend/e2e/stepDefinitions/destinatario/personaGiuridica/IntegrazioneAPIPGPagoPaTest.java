@@ -71,8 +71,8 @@ public class IntegrazioneAPIPGPagoPaTest extends BasePage {
     @And("Da Visualizza codice si copia correttamente il campo Chiave Personale cliccando sul bottone di copia")
     public void visualizzaCodicesiCopiaCorrettamenteIlCampoChiavePersonaleCliccandoSulBottoneDiCopia() {
         logger.info("Si clicca copia sul tasto 'Chiave Personale' per copiare il campo Chiave Personale");
-        String copiedValue = integrazioneAPIPGPage.visualizzaCodiceCopiaPublicKey();
-        logger.info("Il campo Public Key copiato è: {}", copiedValue);
+        String copiedValue = integrazioneAPIPGPage.visualizzaCodiceCopiaChiavePersonale();
+        logger.info("Il campo Chiave Personale copiato è: {}", copiedValue);
     }
 
     @And("Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale")

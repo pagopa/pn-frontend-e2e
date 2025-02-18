@@ -95,7 +95,7 @@ public class IntegrazioneAPIPGPage extends BasePage {
         return inputFields.get(1).getText();
     }
 
-    public String visualizzaCodiceCopiaPublicKey() {
+    public String visualizzaCodiceCopiaChiavePersonale() {
         getWebDriverWait(15).withMessage("il bottone Copia del campo Chiave Personale non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']")).get(0)));
         List<WebElement> formFields = driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']"));
         formFields.get(0).click();
