@@ -695,17 +695,18 @@ public class ApiKeyPAPage extends BasePage {
         return hasRotate && hasViewCode;
     }
 
+
     private boolean verificaEsisteSoloBloccaVisualizzaCodice() {
         List<WebElement> menuItems = driver.findElements(By.xpath("//ul[@role='menu']/li"));
         if (menuItems.size() != 2) {
             return false;
         }
-        boolean hasRotate = menuItems.stream()
+        boolean hasBlock = menuItems.stream()
                 .anyMatch(item -> "button-block".equals(item.getAttribute("id")));
         boolean hasViewCode = menuItems.stream()
                 .anyMatch(item -> "button-view".equals(item.getAttribute("id")));
 
-        return hasRotate && hasViewCode;
+        return hasBlock && hasViewCode;
     }
 
     private boolean verificaEsisteSoloVisualizzaCodice() {
@@ -725,80 +726,47 @@ public class ApiKeyPAPage extends BasePage {
 
     public void pulisciAmbienteVirtualKeys() {
         try {
-            WebElement table = getWebDriverWait(40).withMessage("Il Tabella Integrazione Api VirtualKeys  NON VISIBILE").until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@data-testid='virtualKeysTableDesktop']")));
+            WebElement table = getWebDriverWait(40).withMessage("Il Tabella Integrazione Api VirtualKeys  NON VISIBILE")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@data-testid='virtualKeysTableDesktop']")));
             List<WebElement> rows = table.findElements(By.xpath(".//tr"));
-            for (WebElement row : rows) {
-                List<WebElement> cells = row.findElements(By.xpath(".//td"));
+            int i = 0;
 
+            while (i < rows.size()) {
+                WebElement row = rows.get(i);
+                List<WebElement> cells = row.findElements(By.xpath(".//td"));
                 // Assicurati che ci siano abbastanza celle
                 if (!cells.isEmpty()) {
                     String statoValue = cells.get(3).getText();
-
                     if (statoValue.equalsIgnoreCase("Attiva")) {
                         clickTrePuntiniVirtualKeys();
-
-                        if (verificaEsisteSoloRuotaVisualizzaCodice()) {
-                            eliminaPassaggioStatoAttivaBloccataVirtualKeys();
-                        }
-                        else if (verificaEsisteSoloVisualizzaCodice()) {
-                            eliminaPassaggioStatoAttivaBloccataRuotataVirtualKeys();
-                        }
                         clickSuBlocca();
                         clickSuConfermaNelPopUp();
-                        logger.info("Tasto Blocca cliccato su stato Attiva.");
                         aggiornaPaginaWaitTime(5);
-                        clickTrePuntiniVirtualKeys();
-                        clickEliminaIntegrazioneApi();
-                        clickSuConfermaNelPopUp();
-                        logger.info("Tasto Elimina cliccato su stato Bloccata.");
-                        aggiornaPaginaWaitTime(5);
-                        eliminaUltimoPassaggio();
-                        break;
                     } else if (statoValue.equalsIgnoreCase("Ruotata") || statoValue.equalsIgnoreCase("Bloccata")) {
                         clickTrePuntiniVirtualKeys();
                         clickEliminaIntegrazioneApi();
                         clickSuConfermaNelPopUp();
-                        aggiornamentoPagina();
-                        logger.info("Tasto Elimina cliccato su stato Ruotata o Bloccata.");
                         aggiornaPaginaWaitTime(5);
-
+                    }
+                    if (getWebDriverWait(40).withMessage("Il Tabella Integrazione Api VirtualKeys  NON VISIBILE")
+                            .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@data-testid='virtualKeysTableDesktop']"))).isDisplayed()) {
+                        table = getWebDriverWait(40).withMessage("Il Tabella Integrazione Api VirtualKeys  NON VISIBILE")
+                                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@data-testid='virtualKeysTableDesktop']")));
+                        rows = table.findElements(By.xpath(".//tr"));
+                        i = 0;
                     }
                 }
-            }
+                i++;
+            }//for
         } catch (TimeoutException e) {
-            // Se la tabella NON è visibile, proseguo comunque l'esecuzione
             logger.info("Tabella NON visibile. Proseguo comunque.");
         }
     }
 
+
     private void aggiornaPaginaWaitTime(int seconds) {
         aggiornamentoPagina();
         webTool.waitTime(seconds);
-    }
-
-    private void eliminaUltimoPassaggio() {
-        try {
-            clickTrePuntiniVirtualKeys();
-            clickEliminaIntegrazioneApi();
-            clickSuConfermaNelPopUp();
-            logger.info("Tasto Elimina ");
-            driver.navigate().refresh();
-            webTool.waitTime(5);
-        }catch (Exception e){
-            logger.info("Continuo ");
-        }
-    }
-
-    private void eliminaPassaggioStatoAttivaBloccataRuotataVirtualKeys() {
-        logger.info("Presente Stato attiva solo Visualizza Codice");
-        aggiornaPaginaWaitTime(5);
-        registraChiavePubblicaPGSection.cliccareSuiTrePuntiniVirtualKeyConStato("Bloccata");
-        clickEliminaIntegrazioneApi();
-        clickSuConfermaNelPopUp();
-        registraChiavePubblicaPGSection.cliccareSuiTrePuntiniVirtualKeyConStato("Ruotata");
-        clickEliminaIntegrazioneApi();
-        clickSuConfermaNelPopUp();
-        clickTrePuntiniVirtualKeys();
     }
 
     private void eliminaPassaggioStatoAttivaBloccataVirtualKeys() {
