@@ -674,7 +674,14 @@ public void pulisciAmbientePublickeys() {
                 if (!cells.isEmpty()) {
                     String statoValue = cells.get(3).getText();
 
-                    if (statoValue.equalsIgnoreCase("Attiva")) {
+                    if(!registraChiavePubblicaPGSection.verificaStatoChiavePersonale("Attiva")){
+                        registraChiavePubblicaPGSection.cliccareSuiTrePuntiniVirtualKeyConStato("Bloccata");
+                        clickEliminaIntegrazioneApi();
+                        clickSuConfermaNelPopUp();
+                        aggiornaPaginaWaitTime(5);
+                    }
+
+                    if (statoValue.equalsIgnoreCase("Attiva") ) {
                         clickTrePuntiniVirtualKeys();
                         clickSuBlocca();
                         clickSuConfermaNelPopUp();
