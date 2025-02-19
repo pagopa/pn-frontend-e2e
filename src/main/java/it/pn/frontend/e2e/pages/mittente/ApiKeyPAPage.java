@@ -9,11 +9,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
 /*
 * Principali Modifiche
 Spring Boot Integration: La classe è annotata con @Component per essere riconosciuta come bean.
@@ -554,4 +554,181 @@ public class ApiKeyPAPage extends BasePage {
         WebElement apiKeyDaElenco = driver.findElement(By.xpath("//input[@aria-invalid='false']"));
         return apiKeyDaElenco.getAttribute("value");
     }
+
+    public void clickRegistraChiavePubblica() {
+        WebElement button = getWebDriverWait(40).withMessage("Il tasto Registra chiave pubblica NON VISIBILE").until(ExpectedConditions.elementToBeClickable(By.id("generate-public-key")));
+        button.click();
+    }
+
+    public void inserisciValoreDellaChiave(String stato) {
+        String uniqueKey = UUID.randomUUID().toString();
+        WebElement publicKeyField = getWebDriverWait(40).withMessage("Il campo di input publicKey NON VISIBILE").until(ExpectedConditions.elementToBeClickable(By.id("publicKey")));
+        publicKeyField.sendKeys(stato+"-"+uniqueKey);
+    }
+
+    public void clickRegistraOrFine() {
+        WebElement button = getWebDriverWait(40).withMessage("Il tasto Registra").until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
+        button.click();
+    }
+
+    public void verificaPopUpIntegrazioneApi(String test) {
+//        Assertions.assertEquals(driver.findElement(By.id("alert-api-status")).getText(), test);
+
+        logger.info("POP up Verifico");
+
+        Assertions.assertTrue(
+                driver.findElement(By.xpath("//div[@class='MuiAlert-message css-cysxvc']")).getText().toLowerCase().contains(test.toLowerCase()),
+                "Il testo dell'alert non contiene la stringa attesa , ma visualizza:"+driver.findElement(By.xpath("//div[@class='MuiAlert-message css-cysxvc']")).getText()
+        );
+
+        webTool.waitTime(5);
+    }
+
+    public void clickGeneraChiavePersonale() {
+        WebElement button = getWebDriverWait(40).withMessage("Il tasto Genera chiave personale NON VISIBILE").until(ExpectedConditions.elementToBeClickable(By.id("generate-virtual-key")));
+        button.click();
+
+    }
+
+    public void clickOkHoCapito() {
+        WebElement button = getWebDriverWait(40).withMessage("Il tasto Genera chiave personale NON VISIBILE").until(ExpectedConditions.elementToBeClickable(By.id("close-modal-button")));
+        button.click();
+    }
+
+    public void clickTrePuntiniPublicKeys(String stato) {
+//        WebElement clickTrePuntiniPublicKeys = driver.findElement(By.xpath("//table[@data-testid='publicKeysTableDesktop']//tr[1]//button[@data-testid='contextMenuButton']"));
+        WebElement clickTrePuntiniPublicKeys = getWebDriverWait(40).withMessage("Il Tre Puntini NON VISIBILE").until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@data-testid='publicKeysTableDesktop']//tr[1]//button[@data-testid='contextMenuButton']")));
+        clickTrePuntiniPublicKeys.click();
+    }
+
+
+    public void clickRuotaIntegrazioneApi() {
+        WebElement button = getWebDriverWait(40).withMessage("Il tasto Ruota NON VISIBILE").until(ExpectedConditions.elementToBeClickable(By.id("button-rotate")));
+        button.click();
+    }
+
+    public void clickBloccaIntegrazioneApi() {
+        WebElement button = getWebDriverWait(40).withMessage("Il tasto Blocca NON VISIBILE").until(ExpectedConditions.elementToBeClickable(By.id("button-block")));
+        button.click();
+    }
+
+    public void clickEliminaIntegrazioneApi() {
+        WebElement button = getWebDriverWait(40).withMessage("Il tasto Elimina NON VISIBILE").until(ExpectedConditions.elementToBeClickable(By.id("button-delete")));
+        button.click();
+    }
+
+    public void clickTrePuntiniVirtualKeys(String stato) {
+        WebElement threeDotsButtonSecondRow = driver.findElement(By.xpath("//table[@data-testid='virtualKeysTableDesktop']//tr[1]//button[@data-testid='contextMenuButton']"));
+        threeDotsButtonSecondRow.click();
+    }
+
+    public void pulisciAmbientePublickeys() {
+        logger.info("Prima della tabella");
+        try {
+            WebElement table = getWebDriverWait(40).withMessage("Il Tabella Integrazione Api Publickeys  NON VISIBILE").until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@data-testid='publicKeysTableDesktop']")));
+            List<WebElement> rows = table.findElements(By.xpath(".//tr"));
+            logger.info("Tabella RIGHE: " + rows.size());
+            for (WebElement row : rows) {
+                List<WebElement> cells = row.findElements(By.xpath(".//td"));
+
+                // Assicurati che ci siano abbastanza celle
+                if (!cells.isEmpty()) {
+                    String statoValue = cells.get(3).getText();
+
+                    if (statoValue.equalsIgnoreCase("Attiva")) {
+                        logger.info("Stato Attiva.");
+                        clickTrePuntiniPublicKeys("");
+                        clickBloccaIntegrazioneApi();
+                        WebElement clickBlocca = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
+                        clickBlocca.click();
+                        logger.info("Tasto Blocca cliccato su stato Attiva.");
+                        driver.navigate().refresh();
+                        webTool.waitTime(5);
+                        logger.info("Stato Bloccata");
+                        clickTrePuntiniPublicKeys("");
+                        clickEliminaIntegrazioneApi();
+                        WebElement clickDelete = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
+                        clickDelete.click();
+                        logger.info("Tasto Elimina cliccato su stato Bloccata.");
+                        driver.navigate().refresh();
+                        webTool.waitTime(3);
+                        logger.info("Stato Bloccata");
+                        clickTrePuntiniPublicKeys("");
+                        clickEliminaIntegrazioneApi();
+                        WebElement clickDeleteRuota = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
+                        clickDeleteRuota.click();
+                        logger.info("Tasto Elimina cliccato su stato Bloccata.");
+                        driver.navigate().refresh();
+                        webTool.waitTime(3);
+                        break;
+
+
+                    } else if (statoValue.equalsIgnoreCase("Ruotata") || statoValue.equalsIgnoreCase("Bloccata")) {
+                        clickTrePuntiniPublicKeys("");
+                        clickEliminaIntegrazioneApi();
+                        WebElement clickDelete = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
+                        clickDelete.click();
+                        logger.info("Tasto Elimina cliccato su stato Ruotata o Bloccata.");
+                        driver.navigate().refresh();
+                        webTool.waitTime(3);
+
+                    }
+                }
+            }
+        } catch (TimeoutException e) {
+            // Se la tabella NON è visibile, proseguo comunque l'esecuzione
+            System.out.println("Tabella NON visibile. Proseguo comunque.");
+        }
+
+    }
+
+    public void pulisciAmbienteVirtualKeys() {
+        try {
+        WebElement table = getWebDriverWait(40).withMessage("Il Tabella Integrazione Api VirtualKeys  NON VISIBILE").until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@data-testid='virtualKeysTableDesktop']")));
+        List<WebElement> rows = table.findElements(By.xpath(".//tr"));
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.xpath(".//td"));
+
+            // Assicurati che ci siano abbastanza celle
+            if (!cells.isEmpty()) {
+                String statoValue = cells.get(3).getText();
+
+                if (statoValue.equalsIgnoreCase("Attiva")) {
+                    clickTrePuntiniVirtualKeys("");
+                    clickBloccaIntegrazioneApi();
+                    WebElement clickBlocca = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
+                    clickBlocca.click();
+                    logger.info("Tasto Blocca cliccato su stato Attiva.");
+                    driver.navigate().refresh();
+                    webTool.waitTime(5);
+
+                    clickTrePuntiniVirtualKeys("");
+                    clickEliminaIntegrazioneApi();
+                    WebElement clickDelete = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
+                    clickDelete.click();
+                    logger.info("Tasto Elimina cliccato su stato Bloccata.");
+                    driver.navigate().refresh();
+                    webTool.waitTime(3);
+
+
+
+                } else if (statoValue.equalsIgnoreCase("Ruotata") || statoValue.equalsIgnoreCase("Bloccata")) {
+                    clickTrePuntiniVirtualKeys("");
+                    clickEliminaIntegrazioneApi();
+                    WebElement clickDelete = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
+                    clickDelete.click();
+                    logger.info("Tasto Elimina cliccato su stato Ruotata o Bloccata.");
+                    driver.navigate().refresh();
+                    webTool.waitTime(3);
+
+                }
+            }
+        }
+        } catch (TimeoutException e) {
+            // Se la tabella NON è visibile, proseguo comunque l'esecuzione
+            System.out.println("Tabella NON visibile. Proseguo comunque.");
+        }
+
+    }
+
 }

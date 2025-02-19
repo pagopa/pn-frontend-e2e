@@ -1,15 +1,14 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.model.webViewMultiLanguage.ButtonLanguage;
+import it.pn.frontend.e2e.model.webViewMultiLanguage.WaitLoadSelezionaImpresaLanguage;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 
 
 public class SelezionaImpresaPage extends BasePage {
@@ -60,4 +59,49 @@ public class SelezionaImpresaPage extends BasePage {
         return true;
     }
 
+
+
+    public void clickAccediButton(String lingua, ButtonLanguage buttonLanguage) {
+        String xpath = getAccediButtonXpath(lingua, buttonLanguage);
+        getWebDriverWait(30).
+                until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(xpath)))).
+                click();
+    }
+
+    private String getAccediButtonXpath(String lingua, ButtonLanguage buttonLanguage) {
+        switch (lingua.toUpperCase()) { // Converte tutto in maiuscolo
+            case "EN":
+                return "//button[contains(text(),'" + buttonLanguage.getClickAccediButtonEn() + "')]";
+            case "FR":
+                return "//button[contains(text(),'" + buttonLanguage.getClickAccediButtonFr() + "')]";
+            case "DE":
+                return"//button[contains(text(),'" + buttonLanguage.getClickAccediButtonDe() + "')]";
+            case "SL":
+                return"//button[contains(text(),'" + buttonLanguage.getClickAccediButtonSl() + "')]";
+            default:
+                return"//button[contains(text(),'" + buttonLanguage.getClickAccediButtonIt() + "')]";
+        }
+    }
+
+    public void waitLoadSelezionaImpresaPage(String lingua, WaitLoadSelezionaImpresaLanguage waitLoadSelezionaImpresaLanguage) {
+        String xpath = getWaitLoadSelezionaImpresaPageXpath(lingua, waitLoadSelezionaImpresaLanguage);
+        getWebDriverWait(30).
+                until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(xpath)))).
+                click();
+    }
+
+    private String getWaitLoadSelezionaImpresaPageXpath(String lingua, WaitLoadSelezionaImpresaLanguage waitLoadSelezionaImpresaLanguage) {
+        switch (lingua.toUpperCase()) { // Converte tutto in maiuscolo
+            case "EN":
+                return "//h3[contains(text(),'" + waitLoadSelezionaImpresaLanguage.getWaitLoadSelezionaImpresaPageEn() + "')]";
+            case "FR":
+                return "//h3[contains(text(),'" + waitLoadSelezionaImpresaLanguage.getWaitLoadSelezionaImpresaPageFr() + "')]";
+            case "DE":
+                return"//h3[contains(text(),'" + waitLoadSelezionaImpresaLanguage.getWaitLoadSelezionaImpresaPageDe() + "')]";
+            case "SL":
+                return"//h3[contains(text(),'" + waitLoadSelezionaImpresaLanguage.getWaitLoadSelezionaImpresaPageSl() + "')]";
+            default:
+                return"//h3[contains(text(),'" + waitLoadSelezionaImpresaLanguage.getWaitLoadSelezionaImpresaPageIt() + "')]";
+        }
+    }
 }

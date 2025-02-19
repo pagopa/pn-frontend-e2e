@@ -46,7 +46,7 @@ public class AllegatiPASection extends BasePage {
 
     public void waitLoadAllegatiPASection() {
         try{
-            WebElement allegatiTitleField = driver.findElement(By.xpath("//h3[contains(text(),'Documenti allegati')]"));
+            WebElement allegatiTitleField = driver.findElement(By.xpath("//h3[contains(text(),'Documenti allegati') or contains(text(),'Attachments') or contains(text(),'Annexes') or contains(text(),'Anhänge') or contains(text(),'Priloge')]"));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(allegatiTitleField));
             logger.info("Allegati PA Section caricata");
         }catch (TimeoutException e){
@@ -92,7 +92,7 @@ public class AllegatiPASection extends BasePage {
 
     public boolean verificaCaricamentoNotificaPdf() {
        // hashCodeTextField = driver.findElement(By.id(":r18:"));
-        WebElement copiaHash = driver.findElement(By.xpath("//button[@aria-label='Copia']"));
+        WebElement copiaHash = driver.findElement(By.xpath("//button[@aria-label='Copia' or @aria-label='Copy' or @aria-label='Copie' or @aria-label='Kopieren']"));
         getWebDriverWait(30).until(ExpectedConditions.visibilityOf(copiaHash));
         logger.info("check caricamento notifica pdf");
         return copiaHash.isDisplayed();

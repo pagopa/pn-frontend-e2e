@@ -11,6 +11,7 @@ import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.utility.WebTool;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.*;
@@ -152,7 +153,20 @@ public class PiattaformaNotifichePage extends BasePage {
            // WebElement notificheTitle = driver.findElement(By.id("Notifiche-page"));
            // inviaNuovaNotificaButton = driver.findElement(By.id("new-notification-btn"));
             getWebDriverWait(60).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf( driver.findElement(By.id("new-notification-btn"))));
-            getWebDriverWait(60).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Notifiche-page"))));
+//            getWebDriverWait(60).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Notifiche-page"))));
+
+            getWebDriverWait(60)
+                    .withMessage("Il titolo non è visibile")
+                    .until(ExpectedConditions.or(
+                            ExpectedConditions.visibilityOfElementLocated(By.id("Notifiche-page")),
+                            ExpectedConditions.visibilityOfElementLocated(By.id("Notifications-page")),
+                            ExpectedConditions.visibilityOfElementLocated(By.id("Zustellungen-page")),
+                            ExpectedConditions.visibilityOfElementLocated(By.id("Obvestila-page"))
+                    ));
+
+
+
+
             logger.info("Piattaforma Notifiche Page caricata");
         } catch (TimeoutException e) {
             logger.error("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
@@ -1625,4 +1639,191 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         Assertions.assertFalse(isDisplayed, "Il bottone è visualizzabile");
     }
+
+    public void clickDelete() {
+        WebElement clickDelete = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
+        clickDelete.click();
+    }
+
+    public void selezionaElimina() {
+        WebElement clickElimina = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("button-delete")));
+        clickElimina.click();
+    }
+
+    public void clickBlocca() {
+        WebElement clickBlocca = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
+        clickBlocca.click();
+    }
+
+    public void selezionaBlocca() {
+        WebElement buttontornaApiKey = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("button-block")));
+        buttontornaApiKey.click();
+    }
+
+    public void clickRuota() {
+        WebElement clickRuota = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
+        clickRuota.click();
+    }
+
+    public void selezionaRuota() {
+        WebElement buttontornaApiKey = getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(By.id("button-rotate")));
+        buttontornaApiKey.click();
+    }
+
+    public void premereTrePuntini() {
+        WebElement moreVertIconButton = getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(
+                "//tr[@aria-rowindex='1']//button[@data-testid='contextMenuButton']"))));
+        moreVertIconButton.click();
+    }
+
+    public void tornaApiKey() {
+        WebElement buttontornaApiKey = getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(By.id("go-to-api-keys")));
+        buttontornaApiKey.click();
+    }
+
+    public void inserisciNomeApiKey() {
+        WebElement nameInputField = getWebDriverWait(30).withMessage("Il Nome Api Key non è presente")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='name']")));
+        nameInputField.sendKeys("Name-" + UUID.randomUUID());
+        webTool.waitTime(2);
+        WebElement buttonContinua = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("continue-button")));
+        buttonContinua.click();
+        logger.info("buttonContinua.click()");
+    }
+
+    public void clickGeneraApiKey() {
+        WebElement generateApiKeyButton = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("generate-api-key")));
+        generateApiKeyButton.click();
+    }
+
+    public void selezionaVoceMenuLaterale(String testo) {
+        WebElement element = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'" + testo + "')]")));
+        element.click();
+    }
+
+    public void entroDentroLaPrimaNotifica() {
+        WebElement firstRowButton = getWebDriverWait(10).withMessage("Prima notifica non trovata").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("(//tr[@class='MuiTableRow-root css-g76qb5'])[1]//td[3]//button"))));
+        firstRowButton.click();
+    }
+
+    public void cambiaLinguaFooter(String lingua) {
+        WebElement menuLingua = getWebDriverWait(10).withMessage("Seleziona: '" + lingua + "' non trovato").until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//button[@aria-label='lingua']")));
+        menuLingua.click();
+        WebElement opzioneLingua = getWebDriverWait(10).withMessage("Scelta Lingua: '" + lingua + "' non trovato").until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//li[contains(text(),'" + lingua + "')]")));
+        opzioneLingua.click();
+    }
+
+    public boolean isTextPresent(String testo) {
+        try {
+            return getWebDriverWait(20).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'" + testo + "')]"))) != null;
+        } catch (Exception e) {
+            return false; // Testo non trovato entro il timeout
+        }
+    }
+
+    public void verificaClickFooterPrivacyOrTerminiCondizione(String privacy) {
+        try {
+            WebElement informativaPrivacyOrTerminiCondizioneLink = getWebDriverWait(10).withMessage("Link '"+privacy+"' non trovato o non visibile.").until(ExpectedConditions.visibilityOfElementLocated(By.linkText(privacy)));
+            informativaPrivacyOrTerminiCondizioneLink.click();
+            webTool.waitTime(1);
+        } catch (TimeoutException e) {
+            System.out.println("Link Informativa Privacy  o Termini e Condizione non trovato o non visibile.");
+        }
+    }
+
+    public void verificaFooterLingua(String lingua) {
+        WebElement linguaElement = driver.findElement(By.cssSelector("button[aria-label='lingua'] span.MuiTypography-root"));
+        Assertions.assertEquals(linguaElement.getText(),lingua,"La Lingua presente nel footer è diversa da: "+lingua);
+    }
+
+    public void verificaCampiVuoti() {
+        String oggettoNotifica = driver.findElement(By.id("subject")).getAttribute("value");
+        String descrizione = driver.findElement(By.id("abstract")).getAttribute("value");
+        String numeroProtocollo = driver.findElement(By.id("paProtocolNumber")).getAttribute("value");
+        String codiceTassonomico = driver.findElement(By.id("taxonomyCode")).getAttribute("value");
+        WebElement  raccomandata = driver.findElement(By.xpath("//input[@value='AR_REGISTERED_LETTER']"));
+
+        // Asserzioni
+        Assertions.assertTrue(oggettoNotifica.isEmpty(), "Il campo Oggetto Notifica non è vuoto");
+        Assertions.assertTrue(descrizione.isEmpty(), "Il campo Descrizione non è vuoto");
+        Assertions.assertTrue(numeroProtocollo.isEmpty(), "Il campo Numero Protocollo non è vuoto");
+        Assertions.assertTrue(codiceTassonomico.isEmpty(), "Il campo Codice Tassonomico non è vuoto");
+        Assertions.assertFalse(raccomandata.isSelected(), "Il campo Raccomandata non è vuoto");
+    }
+
+    public void verificaBanner(String banner) {
+        String xPathBanner = "//div[@data-testid='bannerAdditionalLanguages']//div[@class='MuiAlert-message css-cysxvc']";
+
+        if (StringUtils.isEmpty(banner)){
+            //assenza di banner
+            boolean nonPresente = getWebDriverWait(10).withMessage("Non si visualizza correttamente il Banner dilinguismo").until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(xPathBanner)));
+            logger.info("Non Presente:" +nonPresente);
+            Assertions.assertTrue(nonPresente, "Banner Bilinguismo presente");
+        }
+        else {
+            WebElement messaggioBanner = getWebDriverWait(10).withMessage("Non si visualizza correttamente il Banner dilinguismo").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xPathBanner))));
+            String testoMessaggioBanner = messaggioBanner.getText();
+            Assertions.assertTrue(testoMessaggioBanner.contains(banner), "Banner bilinguismo non contiene il testo atteso!");
+        }
+    }
+
+    public void verificaPopUp(String verifica) {
+        Assertions.assertEquals(driver.findElement(By.id("alert-api-status")).getText(), verifica);
+        webTool.waitTime(5);
+    }
+
+    public void selezioneImpostazioneLingua() {
+        WebElement impostazioneLingua = driver.findElement(By.xpath("//button[@data-testid='settingsLangBtn']"));
+        impostazioneLingua.click();
+    }
+
+    public void verificaLinguaSelezionata(String lingua) {
+        if (lingua.equalsIgnoreCase("Italiano")) {
+            WebElement radioIt = driver.findElement(By.xpath("//input[@value='it']"));
+            Assertions.assertTrue(radioIt.isSelected(), "La lingua selezionata non è quella " + lingua);
+        } else {
+            WebElement radioOther = driver.findElement(By.xpath("//input[@value='other']"));
+            Assertions.assertTrue(radioOther.isSelected(), "La lingua selezionata non è quella " + lingua);
+            //verifica che la label ci sia scritto la lingua scelta
+            Assertions.assertEquals(driver.findElement(By.xpath("//div[@id='additionalLang']")).getText(), lingua);
+            webTool.waitTime(5);
+        }
+    }
+
+    public void selezioneItalianoAltralingua() {
+        WebElement radioOther = driver.findElement(By.xpath("//input[@value='other']"));
+        radioOther.click();
+    }
+
+    public void selezioneLingua(String lingua) {
+        WebElement selezionaLingua = driver.findElement(By.xpath("//div[@id='additionalLang']"));
+        selezionaLingua.click();
+
+        WebElement gruppoLingua = driver.findElement(By.xpath("//li[contains(text(),'" + lingua + "')]"));
+        getWebDriverWait(40).until(ExpectedConditions.visibilityOf(gruppoLingua));
+        logger.info("gruppo " + gruppoLingua + " trovato con successo");
+        gruppoLingua.click();
+    }
+
+    public void selezionareDaImpostazioneLingua(String lingua) {
+        selezioneImpostazioneLingua();
+        if (lingua.equalsIgnoreCase("Italiano")) {
+            WebElement radioIt = driver.findElement(By.cssSelector("input[name='lang'][value='it']"));
+            radioIt.click();
+        } else {
+            logger.info("Lingua: "+lingua);
+            selezioneItalianoAltralingua();
+            webTool.waitTime(3);
+            selezioneLingua(lingua);
+        }
+
+        webTool.waitTime(3);
+        //chiusura della schermata tramite la X
+        WebElement closeIcon = driver.findElement(By.xpath("//button[@aria-label='close']"));
+        closeIcon.click();
+        webTool.waitTime(3);
+    }
+
 }

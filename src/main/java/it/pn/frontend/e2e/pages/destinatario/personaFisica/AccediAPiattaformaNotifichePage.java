@@ -99,6 +99,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
 
     public void clickRecapitiButton() {
+        recapitiButton = driver.findElement(By.id("side-item-Recapiti"));
         getWebDriverWait(30).withMessage("Il bottone recapiti non è visibile").until(ExpectedConditions.visibilityOf(recapitiButton));
         js().executeScript("arguments[0].click()", recapitiButton);
     }

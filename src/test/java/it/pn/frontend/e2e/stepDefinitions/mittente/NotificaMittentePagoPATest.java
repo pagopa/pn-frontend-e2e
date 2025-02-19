@@ -30,8 +30,11 @@ import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +45,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.TimeoutException;
 
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 import static org.apache.commons.lang3.StringUtils.substring;
@@ -268,6 +272,47 @@ public class NotificaMittentePagoPATest  extends BasePage {
         informazioniPreliminariPASection.insertCodiceTassonometrico(dataPopulationConfig.getDatiNotifica().getCodiceTassonometrico());
         informazioniPreliminariPASection.selectRaccomandataAR();
     }
+    @And("Nella section Informazioni preliminari inserire i dati della notifica senza pagamento senza gruppo con lingua {string}")
+    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamentoSenzaGruppoConLingua(String lingua) {
+        logger.info("Inserimento dei dati della notifica senza pagamento" );
+        //datiNotifica
+        aggiornamentoNumeroProtocollo();
+
+        // Compilo i campi se ho scelto una lingua diverso dall'Italiano
+        switch (lingua.toLowerCase()) {
+            case "francese" -> {
+                informazioniPreliminariPASection.insertOggettoNotificaLinguaStraniera(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotificaFr());
+                informazioniPreliminariPASection.insertDescrizioneLinguaStraniera(dataPopulationConfig.getDatiNotifica().getDescrizioneFr());
+            }
+            case "tedesca" -> {
+                informazioniPreliminariPASection.insertOggettoNotificaLinguaStraniera(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotificaDe());
+                informazioniPreliminariPASection.insertDescrizioneLinguaStraniera(dataPopulationConfig.getDatiNotifica().getDescrizioneDe());
+            }
+            case "slovena" -> {
+                informazioniPreliminariPASection.insertOggettoNotificaLinguaStraniera(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotificaSl());
+                informazioniPreliminariPASection.insertDescrizioneLinguaStraniera(dataPopulationConfig.getDatiNotifica().getDescrizioneSl());
+            }
+            default -> logger.warn("Lingua non riconosciuta: " + lingua);
+        }
+
+        informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
+        informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione());
+        informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
+        informazioniPreliminariPASection.insertCodiceTassonometrico(dataPopulationConfig.getDatiNotifica().getCodiceTassonometrico());
+        informazioniPreliminariPASection.selectRaccomandataAR();
+    }
+
+    @And("Nella section Informazioni preliminari inserire i dati della notifica senza pagamento con nuovi codiceTassonomici {string}")
+    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamentoConNuoviCodiceTassonomici(String codiceTassonomico) {
+        logger.info("Inserimento dei dati della notifica senza pagamento" );
+        //datiNotifica
+        aggiornamentoNumeroProtocollo();
+        informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
+        informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione());
+        informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
+        informazioniPreliminariPASection.insertCodiceTassonometrico(codiceTassonomico);
+        informazioniPreliminariPASection.selectRaccomandataAR();
+    }
 
 
     private void aggiornamentoNumeroProtocollo() {
@@ -395,7 +440,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         logger.info("Aggiornamento del numero protocollo");
 
 //        String nomeFile = "datiNotifica.yaml";
-        String numeroProtocolloKey = "numeroProtocollo";
+        String numeroPotocolloKey = "numeroProtocollo";
 //        String numeroProtocolOld = dataPopulation.readDataPopulation(nomeFile).get(numeroProtocolloKey).toString();
         String numeroProtocolOld = dataPopulationConfig.getDatiNotifica().getNumeroProtocollo();
         String dataProtocolOld = substring(numeroProtocolOld, 10, 18);
@@ -1891,6 +1936,162 @@ public class NotificaMittentePagoPATest  extends BasePage {
         dettaglioNotificaMittenteSection.sceglieEnte(nomeEnte);
     }
 
+
+    @And("Selezionare da impostazione lingua {string}")
+    public void selezionareDaImpostazioneLingua(String lingua) {
+        piattaformaNotifichePage.selezionareDaImpostazioneLingua(lingua);
+
+    }
+
+    private void selezioneLingua(String lingua) {
+        piattaformaNotifichePage.selezioneLingua(lingua);
+    }
+
+    private void selezioneItalianoAltralingua() {
+        piattaformaNotifichePage.selezioneItalianoAltralingua();
+    }
+
+    @And("verifica lingua selezionata {string}")
+    public void verificaLinguaSelezionata(String lingua) {
+        piattaformaNotifichePage.verificaLinguaSelezionata(lingua);
+    }
+
+    @And("selezione impostazione lingua")
+    public void selezioneImpostazioneLingua() {
+        piattaformaNotifichePage.selezioneImpostazioneLingua();
+    }
+
+    @And("Verifica Pop-up {string}")
+    public void verificaPopUp(String verifica) {
+        piattaformaNotifichePage.verificaPopUp(verifica);
+    }
+
+    @And("Verifica Banner {string}")
+    public void verificaBanner(String banner) {
+        piattaformaNotifichePage.verificaBanner(banner);
+    }
+
+    @And("Refresh pagina")
+    public void refreshPagina() {
+        driver.navigate().refresh();
+    }
+
+    @And("verifica campi vuoti")
+    public void verificaCampiVuoti() {
+        piattaformaNotifichePage.verificaCampiVuoti();
+    }
+
+    @And("Verifica footer lingua {string}")
+    public void verificaFooterLingua(String lingua) {
+        piattaformaNotifichePage.verificaFooterLingua(lingua);
+    }
+
+    @And("Verifica click footer privacy o Termini Condizione {string}")
+    public void verificaClickFooterPrivacyOrTerminiCondizione(String privacy) {
+        piattaformaNotifichePage.verificaClickFooterPrivacyOrTerminiCondizione(privacy);
+    }
+
+    @And("Verifica traduzione testo {string}")
+    public void verificaTraduzioneTesto(String testo) {
+        Assertions.assertTrue(isTextPresent(testo), "Il testo '"+testo+"' non è presente!");
+        logger.info("Verifica traduzione testo: "+testo);
+    }
+
+    private boolean isTextPresent(String testo) {
+       return piattaformaNotifichePage.isTextPresent(testo);
+    }
+
+    @And("Torna indietro")
+    public void tornaIndietro() {
+        super.goBack();
+    }
+
+    @And("Cambia lingua footer {string}")
+    public void cambiaLinguaFooter(String lingua) {
+        piattaformaNotifichePage.cambiaLinguaFooter(lingua);
+    }
+
+    @And("Entro dentro la prima notifica")
+    public void entroDentroLaPrimaNotifica() {
+        piattaformaNotifichePage.entroDentroLaPrimaNotifica();
+    }
+
+    @When("Seleziona voce menu laterale {string}")
+    public void selezionaVoceMenuLaterale(String testo) {
+        piattaformaNotifichePage.selezionaVoceMenuLaterale(testo);
+    }
+
+    @When("Click Genera Api Key")
+    public void clickGeneraApiKey() {
+        piattaformaNotifichePage.clickGeneraApiKey();
+    }
+
+    @And("Inserisci nome Api Key")
+    public void inserisciNomeApiKey() {
+        logger.info("Inserisco elemento");
+        webTool.waitTime(2);
+        piattaformaNotifichePage.inserisciNomeApiKey();
+    }
+
+    @And("Torna a Api Key")
+    public void tornaApiKey() {
+        logger.info("Premere il pulsante tornaApiKey");
+        piattaformaNotifichePage.tornaApiKey();
+    }
+
+    @And("Premere tre puntini")
+    public void premereTrePuntini() {
+        logger.info("premereTrePuntini");
+        piattaformaNotifichePage.premereTrePuntini();
+    }
+
+    @And("Seleziona Ruota")
+    public void selezionaRuota() {
+        logger.info("selezionaRuota");
+        piattaformaNotifichePage.selezionaRuota();
+    }
+
+    @And("Click Ruota")
+    public void clickRuota() {
+        logger.info("clickRuota");
+        piattaformaNotifichePage.clickRuota();
+    }
+
+    @And("Seleziona Blocca")
+    public void selezionaBlocca() {
+        logger.info("selezionaBlocca");
+        piattaformaNotifichePage.selezionaBlocca();
+    }
+
+    @And("Click Blocca")
+    public void clickBlocca() {
+        logger.info("clickBlocca");
+        piattaformaNotifichePage.clickBlocca();
+    }
+
+    @And("Seleziona Elimina")
+    public void selezionaElimina() {
+        logger.info("selezionaElimina");
+        piattaformaNotifichePage.selezionaElimina();
+    }
+
+    @And("Click Delete")
+    public void clickDelete() {
+        logger.info("clickDelete");
+        piattaformaNotifichePage.clickDelete();
+    }
+
+    @And("Attendi secondi {string}")
+    public void attendiSecondi(String secondi) {
+        webTool.waitTime(Integer.parseInt(secondi));
+        logger.info("Attesa secondi: "+secondi);
+    }
+
+    @When("Click torna alle deleghe")
+    public void clickTornaAlleDeleghe() {
+        destinatarioPASection.clickTornaAlleDeleghe();
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */
@@ -1952,6 +2153,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
            // destinatarioPASection.inserireStato(dataPopulationConfig.getPersonaFisica().getStato(),recIndex);
         }
     }
+
 
 
 }
