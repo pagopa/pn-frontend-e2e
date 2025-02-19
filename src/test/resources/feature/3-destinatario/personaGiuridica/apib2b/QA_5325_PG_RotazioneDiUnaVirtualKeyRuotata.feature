@@ -2,6 +2,7 @@ Feature: PG - Rotazione di una virtual key per un utente Amministratore Persona 
 
   @TestSuite
   @TA_PG_RotazioneDiUnaVirtualKeyRuotata_QA_5325
+  @integrazioneApi
 
   Scenario:PN-QA-5325  PG - Rotazione di una virtual key per un utente Amministratore Persona Giuridica con già una virtual key ruotata
     Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard

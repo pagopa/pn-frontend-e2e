@@ -2,6 +2,7 @@ Feature: PG -Utente della PG con ruolo di amministratore di gruppo blocca una vi
 
   @TestSuite
   @TA_PG_AmministratoreDiGruppoBloccaVirtualKey_QA_5333
+  @integrazioneApi
 
   Scenario:PN-QA-5333  PG - Utente della PG con ruolo di amministratore di gruppo blocca una virtual key
     Given Login Page persona giuridica viene visualizzata

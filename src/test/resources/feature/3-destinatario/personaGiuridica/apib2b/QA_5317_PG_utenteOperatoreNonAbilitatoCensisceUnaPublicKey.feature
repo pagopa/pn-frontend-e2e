@@ -1,7 +1,7 @@
 Feature: Creazione chiave pubblica
 
   @TA_PG_OperatoreNonAbilitatoCreazioneChiavePubblica_QA_5317
-  @IntegrazioneAPIB2B
+  @integrazioneApi
   @PG
   @TestSuite
 

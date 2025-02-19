@@ -1,7 +1,7 @@
 Feature: Visualizzazione sezione Integrazione API
 
   @TA_PG_VisualizzazioneIntegrazioneAPIPublicKeyCensita_QA_5306
-  @IntegrazioneAPIB2B
+  @integrazioneApi
   @PG
   @TestSuite
 

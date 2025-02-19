@@ -2,6 +2,7 @@ Feature: PG - Eliminazione di una public key bloccata per un utente Amministrato
 
   @TestSuite
   @TA_PG_EliminazionePublicKeyBloccata_QA_5313
+  @integrazioneApi
 
   Scenario:PN-QA-5313  PG - Eliminazione di una public key bloccata per un utente Amministratore Persona Giuridica
     Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard

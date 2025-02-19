@@ -2,6 +2,7 @@ Feature: PG - Rotazione di una public key attiva per un utente Amministratore Pe
 
   @TestSuite
   @TA_PG_RotazionePublicKey_QA_5309
+  @integrazioneApi
 
   Scenario:PN-QA-5309  PG - Rotazione di una public key attiva per un utente Amministratore Persona Giuridica
     Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard

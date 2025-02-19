@@ -2,6 +2,7 @@ Feature: PG - Utente Amministratore Persona Giuridica con virtual key attiva, bl
 
   @TestSuite
   @TA_PG_VirtualKeyAttivaVirtualKeyBloccataNewVirtualKeyRotazioneVirtualKey_QA_5325
+  @integrazioneApi
 
   Scenario:PN-QA-5325  PG - Utente Amministratore Persona Giuridica con virtual key attiva, blocca la virtual key e registra una nuova virtual key che verrà a sua volta ruotata e ne verrà registrata una nuova.
     Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
