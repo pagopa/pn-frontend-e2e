@@ -172,7 +172,6 @@ public class LoginMittentePagoPA extends BasePage {
 
         // Si effettua il login con token exchange
         String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
-        logger.info("*-*-*-* urlLogin: "+urlLogin);
         driver.get(urlLogin);
         logger.info("Login effettuato con successo");
         // Attesa statica di 10 secondi - considerare l'uso di WebDriverWait per migliorare l'efficienza
