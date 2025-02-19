@@ -5,7 +5,7 @@ Feature: Visualizzazione sezione Integrazione API
   @PG
   @TestSuite
 
-  Scenario: QA-5347 [DELEGANTE PG AMMINISTRATORE] - Amministratore PG blocca una chiave pubblica attiva e censisce una chiave pubblica con il valore della chiave bloccata
+  Scenario: QA-5346 [REFERENTE OPERATIVO PG] - Operatore PG può gestire chiavi virtuali (creazione, rotazione, blocco, eliminazione) con public key ruotata e bloccata
     # Reset ambiente di test
     Given Login Page persona giuridica viene visualizzata
     And Login con persona giuridica
