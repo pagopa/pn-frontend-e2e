@@ -138,8 +138,8 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
         Assertions.assertFalse(bottoneRegistraNonPresente, "Il bottone 'Registra' non è disabilitato");
     }
 
-    public void cliccareSuiTrePuntiniConStato(String testo) {
-        logger.info("cliccareSuiTrePuntiniConStato: {}",testo);
+    public void cliccareSuiTrePuntiniPublicKeyConStato(String testo) {
+        logger.info("cliccareSuiTrePuntiniPublicKeyConStato: {}",testo);
         webTool.waitTime(15);
         WebElement menuButton = getWebDriverWait(10).withMessage("Il tasto Tre Puntini NON VISIBILE con stato: "+testo)
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@data-testid='publicKeysTableDesktop']//tr[.//span[contains(text(), '"+testo+"')]]//button[@data-testid='contextMenuButton']")) );

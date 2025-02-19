@@ -102,7 +102,7 @@ public class RegistraChiavePubblicaPGPagoPATest extends BasePage {
 
     @And("Cliccare sui tre puntini con stato {string}")
     public void cliccareSuiTrePuntiniConStato(String testo) {
-        registraChiavePubblicaPGSection.cliccareSuiTrePuntiniConStato(testo);
+        registraChiavePubblicaPGSection.cliccareSuiTrePuntiniPublicKeyConStato(testo);
     }
 
     @And("Verifica stato {string}")
