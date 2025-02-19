@@ -61,6 +61,7 @@ Feature: Visualizzazione sezione Integrazione API
     And Verifica testo nel pop-up "Puoi usarla per autenticarti in piattaforma e integrare SEND"
     And Verifica testo nel pop-up "Ok, ho capito"
     And Nel pop up visualizza cliccare sul tasto chiudi
+    And Verifica stato Chiave Personale "Attiva"
     And Cliccare sui tre puntini Virtual key con stato "Attiva"
     And verifica tre puntini mostra di piu
       | ruota  | Ruota             |
@@ -70,17 +71,22 @@ Feature: Visualizzazione sezione Integrazione API
     And Nella pagina Api Key si visualizza il pop up visualizza Api Key
     And Da Visualizza codice si copia correttamente il campo Chiave Personale cliccando sul bottone di copia
     And Nel pop up visualizza cliccare sul tasto chiudi
+    And Cliccare sui tre puntini Virtual key con stato "Attiva"
+    And verifica tre puntini mostra di piu
+      | ruota  | Ruota             |
+      | blocca | Blocca            |
+      | view   | Visualizza codice |
     And Nella pagina Api Key si clicca sulla voce ruota del menu Api Key
     And Nella pop up cliccare sul tasto conferma
     Then Verifica stato Chiave Personale "Attiva"
     And Verifica stato Chiave Personale "Ruotata"
     And Cliccare sui tre puntini Virtual key con stato "Attiva"
     And verifica tre puntini mostra di piu
-      | ruota  | Ruota             |
       | blocca | Blocca            |
       | view   | Visualizza codice |
     And Nella pagina Api Key si clicca sulla voce blocca del menu Api Key
     And Nella pop up cliccare sul tasto conferma
+    And Verifica stato Chiave Personale "Bloccata"
     And Cliccare sui tre puntini Virtual key con stato "Bloccata"
     And Nella pagina Api Key si clicca sulla voce Elimina del menu Api Key
     And Verifica testo nel pop-up "Elimina chiave"
