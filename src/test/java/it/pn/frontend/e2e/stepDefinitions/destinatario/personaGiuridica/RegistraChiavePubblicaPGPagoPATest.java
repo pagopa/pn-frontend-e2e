@@ -131,4 +131,13 @@ public class RegistraChiavePubblicaPGPagoPATest extends BasePage {
                 "Errore presente lo stato: " + stato + " inerente a una Chiave Personale"
         );
     }
+
+    @Then("Verifica Assenza Tre Puntini con stato {string}")
+    public void verificaAssenzaTrePuntiniConStato(String stato) {
+        logger.info("Verifica Assenza Tre Puntini con stato");
+        Assertions.assertFalse(
+                registraChiavePubblicaPGSection.verificaStatoChiavePersonale(stato),
+                "Errore Presenza Opzione Mostra di piu con stato: " + stato
+        );
+    }
 }
