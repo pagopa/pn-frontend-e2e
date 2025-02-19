@@ -2,6 +2,7 @@ Feature: PG - Utente della PG con ruolo di operatore censisce una virtual key
 
   @TestSuite
   @TA_PG_OperatoreRuotaVirtualKey_QA_5330
+  @integrazioneApi
 
   Scenario:PN-QA-5330  PG - Utente della PG con ruolo di operatore censisce una virtual key
     Given Login Page persona giuridica viene visualizzata

@@ -74,8 +74,7 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
 
     public void waitLoadOttieniParametriSection() {
         try {
-            WebElement titolo = driver.findElement(By.xpath("//p[contains(@data-testid,'title')]"));
-            getWebDriverWait(15).withMessage("il titolo della sezione Ottieni parametri non è visibile").until(ExpectedConditions.visibilityOf(titolo));
+            getWebDriverWait(15).withMessage("il titolo della sezione Ottieni parametri non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(@data-testid,'title')]"))));
             getWebDriverWait(15).withMessage("il bottone Kid della sezione Ottieni parametri non è cliccabile").until(ExpectedConditions.visibilityOf((driver.findElement(By.id("kid")))));
             getWebDriverWait(15).withMessage("il bottone Issuer della sezione Ottieni parametri non è cliccabile").until(ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//input[@aria-invalid='false']")))));
             getWebDriverWait(15).withMessage("il bottone Fine della sezione Ottieni parametri non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.id("step-submit")))));
@@ -141,6 +140,7 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
 
     public void cliccareSuiTrePuntiniConStato(String testo) {
         logger.info("cliccareSuiTrePuntiniConStato: {}",testo);
+        webTool.waitTime(15);
         WebElement menuButton = getWebDriverWait(10).withMessage("Il tasto Tre Puntini NON VISIBILE con stato: "+testo)
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@data-testid='publicKeysTableDesktop']//tr[.//span[contains(text(), '"+testo+"')]]//button[@data-testid='contextMenuButton']")) );
         menuButton.click();
