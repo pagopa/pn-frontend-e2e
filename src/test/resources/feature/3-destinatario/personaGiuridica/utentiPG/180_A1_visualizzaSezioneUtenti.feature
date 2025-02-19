@@ -8,7 +8,7 @@ Feature: La persona giuridica visualizza gli utenti
   @addressBook1
   Scenario: PN-9178 - La persona giuridica visualizza la sezione utenti
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    When Nella Pagina Notifiche persona giuridica si clicca su utenti
+    When Nella Pagina Notifiche persona giuridica si clicca su utenti "Utenti"
     And Nella pagina utenti si effettua la login tramite credenziali
       | user | DanteAlighieri |
       | pwd  | test           |

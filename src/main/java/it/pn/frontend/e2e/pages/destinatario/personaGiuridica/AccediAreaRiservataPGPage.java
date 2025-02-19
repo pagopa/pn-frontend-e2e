@@ -1,6 +1,8 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.model.webViewMultiLanguage.WaitLoadAccediAreaRiservataPgLanguage;
+import it.pn.frontend.e2e.model.webViewMultiLanguage.WaitLoadSelezionaImpresaLanguage;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -47,5 +49,27 @@ public class AccediAreaRiservataPGPage extends BasePage {
     public void clickSpidButton() {
         spidButton = driver.findElement(By.id("spidButton"));
         spidButton.click();
+    }
+
+    public void waitLoadAccediAreaRiservataPGPage(String lingua, WaitLoadAccediAreaRiservataPgLanguage waitLoadAccediAreaRiservataPgLanguage) {
+        String xpath = getwaitLoadAccediAreaRiservataPGPage(lingua, waitLoadAccediAreaRiservataPgLanguage);
+        getWebDriverWait(30).
+                until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(xpath)))).
+                click();
+    }
+
+    private String getwaitLoadAccediAreaRiservataPGPage(String lingua, WaitLoadAccediAreaRiservataPgLanguage waitLoadAccediAreaRiservataPgLanguage) {
+        switch (lingua.toUpperCase()) { // Converte tutto in maiuscolo
+            case "EN":
+                return "//h3[contains(text(),'" + waitLoadAccediAreaRiservataPgLanguage.getWaitLoadAccediAreaRiservataPGPageEn() + "')]";
+            case "FR":
+                return "//h3[contains(text(),'" + waitLoadAccediAreaRiservataPgLanguage.getWaitLoadAccediAreaRiservataPGPageFr() + "')]";
+            case "DE":
+                return"//h3[contains(text(),'" + waitLoadAccediAreaRiservataPgLanguage.getWaitLoadAccediAreaRiservataPGPageDe() + "')]";
+            case "SL":
+                return"//h3[contains(text(),'" + waitLoadAccediAreaRiservataPgLanguage.getWaitLoadAccediAreaRiservataPGPageSl() + "')]";
+            default:
+                return"//h3[contains(text(),'" + waitLoadAccediAreaRiservataPgLanguage.getWaitLoadAccediAreaRiservataPGPageIt() + "')]";
+        }
     }
 }

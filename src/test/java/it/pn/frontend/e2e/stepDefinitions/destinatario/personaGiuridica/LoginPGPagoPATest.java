@@ -12,6 +12,7 @@ import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
+import it.pn.frontend.e2e.config.WebViewMultiLanguageConfig;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.section.CookiesSection;
@@ -19,6 +20,7 @@ import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
 import org.junit.jupiter.api.Assertions;
@@ -70,6 +72,10 @@ public class LoginPGPagoPATest extends BasePage {
 
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
+
+    @Autowired
+    private WebViewMultiLanguageConfig webViewMultiLanguageConfig;
+
     @Autowired
     @Lazy
     private WebDriverManager webDriverManager;
@@ -281,7 +287,11 @@ public class LoginPGPagoPATest extends BasePage {
             }
         }
 
-        accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
+        if (StringUtils.isEmpty(datiPG.get("lingua")) || datiPG.get("lingua").equalsIgnoreCase("IT")) {
+            accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
+        }
+        else accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage(datiPG.get("lingua"),webViewMultiLanguageConfig.getWaitLoadAccediAreaRiservataPgLanguage());
+
         accediAreaRiservataPGPage.clickSpidButton();
 
         scegliSpidPGPage.clickTestButton();
@@ -296,11 +306,19 @@ public class LoginPGPagoPATest extends BasePage {
         autorizzaInvioDatiPGPage.waitLoadAutorizzaInvioDatiPGPage();
         autorizzaInvioDatiPGPage.clickInviaButton();
 
-        selezionaImpresaPage.waitLoadSelezionaImpresaPage();
-        if(selezionaImpresaPage.clickSuImpresa(datiPG.get("ragioneSociale"))){
+        if (StringUtils.isEmpty(datiPG.get("lingua")) || datiPG.get("lingua").equalsIgnoreCase("IT")) {
+            selezionaImpresaPage.waitLoadSelezionaImpresaPage();
+        } else
+            selezionaImpresaPage.waitLoadSelezionaImpresaPage(datiPG.get("lingua"), webViewMultiLanguageConfig.getWaitLoadSelezionaImpresaLanguage());
+
+        if (selezionaImpresaPage.clickSuImpresa(datiPG.get("ragioneSociale"))) {
             logger.info("click su impresa");
         }
-        selezionaImpresaPage.clickAccediButton();
+
+        if (StringUtils.isEmpty(datiPG.get("lingua")) || datiPG.get("lingua").equalsIgnoreCase("IT")) {
+            selezionaImpresaPage.clickAccediButton();
+        } else
+            selezionaImpresaPage.clickAccediButton(datiPG.get("lingua"), webViewMultiLanguageConfig.getButtonLanguage());
     }
 
     @And("Logout da portale persona giuridica")

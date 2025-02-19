@@ -16,7 +16,6 @@ Feature: PG - Verifica portale browser Inglese
 ##  Verificare traduzione della sezione HP notifiche
     When Seleziona voce menu laterale "Notifications"
     And Seleziona voce menu laterale "Company notifications"
-
     And Verifica traduzione testo "Notifications of"
     And Verifica traduzione testo "You can filter them by IUN Code and send date"
     And Entro dentro la prima notifica
@@ -145,4 +144,4 @@ Feature: PG - Verifica portale browser Inglese
     And Verifica traduzione testo "Procurations"
     And Verifica traduzione testo "Coordonnées"
     And Verifica traduzione testo "Utilisateurs"
-    And Refresh pagina
+    Then Refresh pagina
