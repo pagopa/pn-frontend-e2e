@@ -1426,6 +1426,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         String iun = notificationSingleton.getIun(hooksNew.getScenario());
         logger.info("SCENARIO..."+hooksNew.getScenario());
         logger.info("SCENARIO..."+iun);
+        piattaformaNotifichePage.setNotificationSingletonParam(notificationSingleton);
         backgroundTest.setPiattaformaNotifichePage(piattaformaNotifichePage);
         backgroundTest.setHooksNew(hooksNew);
         backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNMittente(iun);

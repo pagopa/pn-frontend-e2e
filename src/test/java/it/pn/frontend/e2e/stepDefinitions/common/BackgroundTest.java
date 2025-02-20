@@ -204,7 +204,6 @@ public class BackgroundTest  extends BasePage {
 
     public void aggiuntaEmailPF() {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLEmailDelPFECliccaSulBottoneAvvisamiViaEmail(nomeFilePersonaFisica);
-        //recapitiPersonaFisicaTest.siVisualizzaCorrettamenteIlPopUpESiCliccaSuConferma();
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaEmailTramiteRequestMethod(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLOTPRicevutoViaEmail();
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiControllaCheLaEmailSiaPresente();
@@ -324,7 +323,6 @@ public class BackgroundTest  extends BasePage {
 
     public void aggiuntaEmailDiCortesia(String email) {
         recapitiTest.siInserisceLEmailDiCortesiaESiCliccaSulBottoneAvvisamiViaEmail(email);
-       // recapitiTest.siVisualizzaIlPopUpDisclaimerSiCliccaLaCheckboxEIlBottoneConferma();
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequestDellEmailEVieneInserito(email);
         recapitiTest.siControllaCheLEmailInseritaSiaPresente();
@@ -415,7 +413,6 @@ public class BackgroundTest  extends BasePage {
     public void siFiltraLaTabellaDelleNotifichePerIUNMittente(String iun) {
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
-        webTool.waitTime(1);
         piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.clickSuNotifica();
     }
