@@ -15,7 +15,7 @@ Feature: invio notifica con sequence
       | nomeCognome      | Gaio Giulio Cesare                 |
       | codiceFiscale    | CSRGGL44L13H501E                   |
       | tipoDestinatario | PF                                 |
-      | indirizzo        | via XXXXXXXX |
+      | indirizzo        | via @FAIL_DECEDUTO_AR |
       | numeroCivico     | 20                                 |
       | comune           | MILANO                             |
       | provincia        | MI                                 |
@@ -23,5 +23,18 @@ Feature: invio notifica con sequence
       | stato            | ITALIA                             |
     Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica mittente
-    And Si attende completamento notifica "Avvenuto accesso"
-    And Aspetta 30 secondi
+    And Si attende completamento notifica "Resa al mittente"
+    And Aspetta 400 secondi
+    And Si controlla lo stato timeline in dettaglio notifica
+      | xpathStato   | //p[contains(text(),"La raccomandata A/R") and contains(text(),"è stata stampata ed imbustata")] |
+      | vediDettagli | true                                                                                             |
+    And Si controlla lo stato timeline in dettaglio notifica
+      | xpathStato   | //p[contains(text(),"C'è un nuovo documento allegato")] |
+      | vediDettagli | false                                                   |
+    And Si controlla lo stato timeline in dettaglio notifica
+      | xpathStato   | //p[contains(text(),"La raccomandata A/R") and contains(text(),"non è stata consegnata perché il destinatario è deceduto")] |
+      | vediDettagli | false                                          |
+    And Si verifica che la ricevuta di postalizzazione sia cliccabile
+      | xpathStato   | //button[contains(text(),"Scansione del plico")] |
+      | vediDettagli | false                                          |
+    And Logout da portale mittente
