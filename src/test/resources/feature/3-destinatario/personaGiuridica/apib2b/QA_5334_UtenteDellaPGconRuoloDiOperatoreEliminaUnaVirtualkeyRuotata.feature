@@ -3,6 +3,7 @@ Feature: PG -Eliminazione di una virtual key ruotata per un utente della PG con 
   @TestSuite
   @TA_PG_OperatoreEliminaVirtualKeyRuotata_QA_5334
   @integrazioneApi
+  @apiB2BBilinguismo
 
   Scenario:PN-QA-5334  PG - Eliminazione di una virtual key ruotata per un utente della PG con ruolo di operatore
     Given Login Page persona giuridica viene visualizzata

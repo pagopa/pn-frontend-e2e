@@ -2,6 +2,7 @@ Feature: Visualizzazione sezione Integrazione API
 
   @TA_PG_VisualizzazioneCopiaCodiciVirtualKeyDaAmministratoreOOperatore_QA_5349
   @integrazioneApi
+  @apiB2BBilinguismo
   @PG
   @TestSuite
 
