@@ -2,9 +2,9 @@ Feature: invio notifica con sequence
 
   @Parallel
   @WorkflowNotificaConSequence
-  @NotificaConSequenceDeceduto890
+  @NotificaConSequenceAnnullamentoDeceduto890
 
-  Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL_DECEDUTO_890] - Il mittente invia una notifica a destinatario con sequence
+  Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL_DECEDUTO_890] - Il mittente invia una notifica a destinatario con sequence e prima di passare allo stato Resa al mittente viene annullata
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
       | modello         | 890                |
@@ -24,6 +24,7 @@ Feature: invio notifica con sequence
     Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Resa al mittente"
+    And Si annulla la notifica
     And Aspetta 400 secondi
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),"La raccomandata 890") and contains(text(),"è stata stampata ed imbustata")] |
