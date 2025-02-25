@@ -3,6 +3,7 @@ Feature: invio notifica con sequence
   @Parallel
   @WorkflowNotificaConSequence
   @NotificaConSequenceDeceduto890
+  @TestSuite
 
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL_DECEDUTO_890] - Il mittente invia una notifica a destinatario con sequence
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
@@ -12,15 +13,19 @@ Feature: invio notifica con sequence
       | oggettoNotifica | Pagamento rata IMU per immobile in via XXXXXXXX |
       | costiNotifica   | false              |
     And Si aggiunge un destinatario alla notifica
-      | nomeCognome      | Giuseppe Maria Garibaldi        |
-      | codiceFiscale    | GRBGPP87L04L741X                |
-      | tipoDestinatario | PF                              |
-      | indirizzo        | via @FAIL_DECEDUTO_890           |
-      | numeroCivico     | 20                              |
-      | comune           | MILANO                          |
-      | provincia        | MI                              |
-      | codicepostale    | 20147                           |
-      | stato            | ITALIA                          |
+      | tipoDestinatario  | PG           |
+      | nomeCognome       | Test SPA |
+      | codiceFiscale     | 00749900049  |
+      | at                | Presso       |
+      | indirizzo         | Via @FAIL_DECEDUTO_890  |
+      | dettagliIndirizzo | Scala b      |
+      | comune            | Milano       |
+      | dettagliComune    | Milano       |
+      | provincia         | MI           |
+      | codicePostale     | 20147        |
+      | stato             | Italia       |
+      | avvisoPagoPa      | 1            |
+      | F24               | 1            |
     Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Resa al mittente"

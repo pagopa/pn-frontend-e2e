@@ -3,6 +3,7 @@ Feature: invio notifica con sequence
   @Parallel
   @WorkflowNotificaConSequence
   @annullamentoNotificaConSequenceDeceduto890
+  @TestSuite
 
   Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL_DECEDUTO_890] - Il mittente invia una notifica a destinatario con sequence e viene annullata dopo essere passata allo stato Resa al mittente
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
@@ -15,7 +16,7 @@ Feature: invio notifica con sequence
       | nomeCognome      | Giuseppe Maria Garibaldi        |
       | codiceFiscale    | GRBGPP87L04L741X                |
       | tipoDestinatario | PF                              |
-      | indirizzo        | via @FAIL_DECEDUTO_890           |
+      | indirizzo        | via @FAIL_DECEDUTO_890          |
       | numeroCivico     | 20                              |
       | comune           | MILANO                          |
       | provincia        | MI                              |
