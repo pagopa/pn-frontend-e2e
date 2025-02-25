@@ -25,10 +25,15 @@ Feature: invio notifica con sequence
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Resa al mittente"
     And Si annulla la notifica
+    And Si verifica che la notifica abbia lo stato "Annullata"
+    And Il bottone annulla notifica non è visualizzabile nella descrizione della notifica
     And Aspetta 400 secondi
     And Si controlla lo stato timeline in dettaglio notifica
+      | xpathStato   | //span[contains(text(),"L'ente ha annullato l'invio della notifica")] |
+      | vediDettagli | true                                                               |
+    And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),"La raccomandata 890") and contains(text(),"è stata stampata ed imbustata")] |
-      | vediDettagli | true                                                                                             |
+      | vediDettagli | false                                                                                             |
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),"C'è un nuovo documento allegato")] |
       | vediDettagli | false                                                   |
@@ -38,4 +43,6 @@ Feature: invio notifica con sequence
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[contains(text(),"Scansione del plico")] |
       | vediDettagli | false                                          |
+    And Si clicca il bottone indietro nella descrizione della notifica
+    And Nella pagina Piattaforma Notifiche la notifica presenta lo stato "Annullata"
     And Logout da portale mittente
