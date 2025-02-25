@@ -2,9 +2,9 @@ Feature: invio notifica con sequence
 
   @Parallel
   @WorkflowNotificaConSequence
-  @NotificaConSequenceAnnullamentoDeceduto890
+  @annullamentoNotificaConSequenceDeceduto890
 
-  Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL_DECEDUTO_890] - Il mittente invia una notifica a destinatario con sequence e prima di passare allo stato Resa al mittente viene annullata
+  Scenario: [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL_DECEDUTO_890] - Il mittente invia una notifica a destinatario con sequence e viene annullata dopo essere passata allo stato Resa al mittente
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
       | modello         | 890                |
