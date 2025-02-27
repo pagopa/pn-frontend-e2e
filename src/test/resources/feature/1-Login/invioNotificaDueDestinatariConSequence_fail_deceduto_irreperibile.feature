@@ -33,7 +33,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | soggettoGiuridico | PG           |
       | ragioneSociale    | Test Spa |
       | codiceFiscale     | 00749900049  |
-      | pec               | prova@pec.it |
       | indirizzo         | Via Roma     |
       | civico            | 20           |
       | localita          | Milano       |
@@ -51,6 +50,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si verifica che la notifica è stata creata correttamente
     And Aspetta 10 secondi
     And Cliccare sulla notifica restituita
+    And Si attende completamento notifica "Invio in corso"
+    And Aspetta 400 secondi
     And Si visualizza correttamente la timeline relativi a tutti i destinatari
       | PF | GRBGPP87L04L741X |
       | PG | 00749900049      |

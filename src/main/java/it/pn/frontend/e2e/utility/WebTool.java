@@ -56,6 +56,7 @@ public class WebTool {
     }
 
     public  String switchToPortal(AppPortal portal) {
+        log.info("Si accede al portale");
         openNewTab();
         switch (portal) {
             case PA -> {
@@ -66,6 +67,7 @@ public class WebTool {
                 piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
             }
             case PF -> {
+                log.info("Switch a portale PF");
                 driver.get(portal.url);
                 headerPFSection = new HeaderPFSection(driver);
                 headerPFSection.waitLoadHeaderDESection();
@@ -93,6 +95,7 @@ public class WebTool {
     }
 
     public  void openNewTab() {
+        log.info("Si apre una nuova scheda");
         ((JavascriptExecutor) driver).executeScript("window.open()");
         String newTab = driver.getWindowHandles().stream().reduce((first, second) -> second).orElse(null);
         driver.switchTo().window(newTab);

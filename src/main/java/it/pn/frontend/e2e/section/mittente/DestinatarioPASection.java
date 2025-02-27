@@ -398,8 +398,11 @@ public class DestinatarioPASection extends BasePage {
         secondCodiceFiscale.sendKeys(destinatario.get("codiceFiscale"));
 //        WebElement addSecondPec = driver.findElement(By.xpath("//*[@data-testid='recipients[1].digitalDomicileCheckbox']"));
 //        addSecondPec.click();
-        WebElement secondPecField = driver.findElement(By.id("recipients[1].digitalDomicile"));
-        secondPecField.sendKeys(destinatario.get("pec"));
+        //Check per casi di test con pec di piattaforma mancante (irreperibile o deceduto)
+        if (destinatario.get("pec") != null) {
+            WebElement secondPecField = driver.findElement(By.id("recipients[1].digitalDomicile"));
+            secondPecField.sendKeys(destinatario.get("pec"));
+        }
 //        WebElement addSecondAddress = driver.findElement(By.xpath("//label[@data-testid='showPhysicalAddress1']"));
 //        addSecondAddress.click();
         WebElement secondAddress = driver.findElement(By.id("recipients[1].address"));
