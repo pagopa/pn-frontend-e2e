@@ -2,11 +2,6 @@ package it.pn.frontend.e2e.utility;
 
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.model.enums.AppPortalUrl;
-import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
-import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
-import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
-import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
-import it.pn.frontend.e2e.section.mittente.HeaderPASection;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
