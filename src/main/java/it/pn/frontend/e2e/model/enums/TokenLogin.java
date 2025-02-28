@@ -23,8 +23,6 @@ public enum TokenLogin {
     private final String devToken;
     private final String testToken;
 
-    @Autowired
-    private WebDriverConfig webDriverConfig;
 
     private TokenLogin(String devToken, String testToken) {
         this.devToken = devToken;
@@ -32,7 +30,10 @@ public enum TokenLogin {
     }
 
     public String getToken() {
-        String env = webDriverConfig.getEnvironment();
-        return env.equalsIgnoreCase("dev") ? devToken : testToken;
+
+        return  testToken;
+    }
+    public String getToken(String environment) {
+        return environment.equalsIgnoreCase("dev") ? devToken : testToken;
     }
 }

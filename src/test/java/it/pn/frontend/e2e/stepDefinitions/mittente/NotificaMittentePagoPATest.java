@@ -13,6 +13,7 @@ import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.enums.AppPortal;
+import it.pn.frontend.e2e.model.enums.AppPortalUrl;
 import it.pn.frontend.e2e.model.recipients.PersoneFisiche;
 import it.pn.frontend.e2e.model.recipients.PersoneGiuridiche;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
@@ -25,6 +26,7 @@ import it.pn.frontend.e2e.section.mittente.*;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
+import it.pn.frontend.e2e.utility.AppPortalUrlFactory;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
@@ -118,7 +120,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @Autowired
     private RestNotification restNotification;
-
+    @Autowired
+    private AppPortalUrlFactory urlFactory;
  
     @PostConstruct
     public void init(){
@@ -1082,7 +1085,12 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void nellaSectionInformazioniPreliminariSiInserisconoIDatiDellaNotifica(Map<String, String> datiNotifica) {
         logger.info("Si inseriscono i dati della notifica nella sezione Informazioni Preliminari");
         String numeroDiProtocollo = WebTool.generatePaProtocolNumber();
-        informazioniPreliminariPASection.insertOggettoNotifica(datiNotifica.get("oggettoNotifica"));
+//        if (datiNotifica.get("oggettoNotifica") == null || datiNotifica.get("oggettoNotifica").isEmpty()) {
+        if (Optional.ofNullable(datiNotifica.get("oggettoNotifica")).orElse("").isEmpty()) {
+            informazioniPreliminariPASection.insertOggettoNotifica(numeroDiProtocollo);
+        } else {
+            informazioniPreliminariPASection.insertOggettoNotifica(datiNotifica.get("oggettoNotifica"));
+        }
         informazioniPreliminariPASection.insertDescrizione(datiNotifica.get("descrizione"));
         informazioniPreliminariPASection.insertNumeroDiProtocollo(numeroDiProtocollo);
         informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
@@ -1293,10 +1301,14 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @Then("In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline {string}")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPFESiVerificaLaTimeline(String messaggio) {
-        webTool.switchToPortal(AppPortal.PF);
+        logger.info("switchToPortal(AppPortal.PF)");
+        webTool.switchToPortalUrl(urlFactory,AppPortalUrl.PF_URL);
+        logger.info("selezionaPrimaNotifica");
         piattaformaNotifichePage.selezionaPrimaNotifica();
         webTool.waitTime(5);
+        logger.info("visualizzaTimeline");
         piattaformaNotifichePage.visualizzaTimeline(messaggio);
+        logger.info("closeTab");
         webTool.closeTab();
     }
 
@@ -1890,6 +1902,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Si sceglie ente figlio {string}")
     public void siSceglieEnteFiglio(String nomeEnte){
         dettaglioNotificaMittenteSection.sceglieEnte(nomeEnte);
+    }
+
+    @Then("Si visualizza testo nella timeline {string}")
+    public void siVisualizzaTestoNellaTimeline(String testo) {
+        piattaformaNotifichePage.visualizzaTimeline(testo);
     }
 
     /**

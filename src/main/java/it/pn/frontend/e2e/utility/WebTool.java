@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.utility;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.enums.AppPortal;
+import it.pn.frontend.e2e.model.enums.AppPortalUrl;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
@@ -87,6 +88,24 @@ public class WebTool {
                 Assertions.fail("Tipologia di portale non specificato o errato!");
             }
         }
+        cookiesSection = new CookiesSection(driver);
+        if (cookiesSection.waitLoadCookiesPage()) {
+            cookiesSection.selezionaAccettaTuttiButton();
+        }
+        return driver.getWindowHandle();
+    }
+
+    public String switchToPortalUrl(AppPortalUrlFactory urlFactory,AppPortalUrl portal) {
+        log.info("Si accede al portale");
+        openNewTab();
+
+        log.info("Switch a portale PF");
+        driver.get(urlFactory.getPortalUrl(portal));
+        headerPFSection = new HeaderPFSection(driver);
+        headerPFSection.waitLoadHeaderDESection();
+        notifichePFPage = new NotifichePFPage(driver);
+        notifichePFPage.waitLoadNotificheDEPage();
+
         cookiesSection = new CookiesSection(driver);
         if (cookiesSection.waitLoadCookiesPage()) {
             cookiesSection.selezionaAccettaTuttiButton();
