@@ -11,6 +11,7 @@ import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.utility.WebTool;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.*;
@@ -650,13 +651,13 @@ public class PiattaformaNotifichePage extends BasePage {
         try {
             //List<WebElement> notificaBy = driver.findElements(By.id("notificationsTable.body.row"));
             attesaCaricamentoPagina();
-            getWebDriverWait(30).withMessage("La tabella delle notifiche non è caricata correttamente").until(visibilityOfAllElements(driver.findElements(By.id("notificationsTable.body.row"))));
+            getWebDriverWait(30).withMessage("La tabella delle notifiche non è caricata correttamente sulla prima notifica").until(visibilityOfAllElements(driver.findElements(By.id("notificationsTable.body.row"))));
 
-            getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("rows-per-page"))));
+            getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile sulla prima notifica").until(elementToBeClickable(driver.findElement(By.id("rows-per-page"))));
             WebElement buttonRighePagine = driver.findElement(By.id("rows-per-page"));
             buttonRighePagine.click();
 
-            getWebDriverWait(3).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("pageSize-50"))));
+            getWebDriverWait(3).withMessage("Il bottone filtra non è cliccabile sulla prima notifica").until(elementToBeClickable(driver.findElement(By.id("pageSize-50"))));
             WebElement pageSize50 = driver.findElement(By.id("pageSize-50"));
             pageSize50.click();
 
@@ -1385,48 +1386,71 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void visualizzaTimelineTuttiDestinatari(Map<String, String> destinatari) {
         logger.info("Si clicca vedi piu dettagli");
-        getWebDriverWait(60).withMessage("Dati destinatari non visualizzati sulla notifica").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"))));
-        List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
-        //Equals() method utilizzato per String. Per confrontare int variabile dobbiamo usare ==
-        String size = Integer.toString(viewMore.size());
-        logger.info("Estratti n. {} destinatari", size);
-        if (size.equals("2")) {
-            viewMore.get(1).click();
-        } else {
-            viewMore.get(0).click();
-        }
-        //PF e PG vengono usati in modo da recuperare i dati test step. destinatari.get("PF") recupera CF da tabella nel file feature
-        getWebDriverWait(10).withMessage("Dati PF non visualizzati sulla notifica").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PF") + ") all')]"))));
-        List<WebElement> destinatarioPF = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PF") + ") all')]"));
-        getWebDriverWait(10).withMessage("Dati PG non visualizzati sulla notifica").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PG") + ") all')]"))));
-        List<WebElement> destinatarioPG = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PG") + ") all')]"));
 
-        if (destinatarioPF.get(0).isDisplayed() && destinatarioPG.get(0).isDisplayed()) {
-            logger.info("Si visualizza  gli eventi relativi a tutti i destinatari");
+        List<WebElement> viewMore = getWebDriverWait(60)
+                .withMessage("Dati destinatari non visualizzati sulla notifica")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//*[@id='more-less-timeline-step']")));
+
+        logger.info("Estratti n. {} destinatari", viewMore.size());
+
+        if (!viewMore.isEmpty()) {
+            viewMore.get(viewMore.size() == 2 ? 1 : 0).click();
         } else {
-            logger.error("Non si visualizza  gli eventi relativi a tutti i destinatari");
-            Assertions.fail("Non si visualizza  gli eventi relativi a tutti i destinatari");
+            Assertions.fail("Nessun elemento trovato per vedi più dettagli");
+        }
+        if (destinatari.containsKey("PF") && destinatari.get("PF") != null) {
+            verificaDestinatario("PF", destinatari.get("PF"), "Dati PF non visualizzati sulla notifica");
+        }
+        if (destinatari.containsKey("PG") && destinatari.get("PG") != null) {
+            verificaDestinatario("PG", destinatari.get("PG"), "Dati PG non visualizzati sulla notifica");
         }
 
         logger.info("Si visualizza correttamente la timeline relativi a tutti i destinatari");
+
+//        getWebDriverWait(60).withMessage("Dati destinatari non visualizzati sulla notifica").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"))));
+//        List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
+//        //Equals() method utilizzato per String. Per confrontare int variabile dobbiamo usare ==
+//        String size = Integer.toString(viewMore.size());
+//        logger.info("Estratti n. {} destinatari", size);
+//        if (size.equals("2")) {
+//            viewMore.get(1).click();
+//        } else {
+//            viewMore.get(0).click();
+//        }
+//        //PF e PG vengono usati in modo da recuperare i dati test step. destinatari.get("PF") recupera CF da tabella nel file feature
+//        getWebDriverWait(10).withMessage("Dati PF non visualizzati sulla notifica").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PF") + ") all')]"))));
+//        List<WebElement> destinatarioPF = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PF") + ") all')]"));
+//        getWebDriverWait(10).withMessage("Dati PG non visualizzati sulla notifica").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PG") + ") all')]"))));
+//        List<WebElement> destinatarioPG = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PG") + ") all')]"));
+//
+//        if (destinatarioPF.get(0).isDisplayed() && destinatarioPG.get(0).isDisplayed()) {
+//            logger.info("Si visualizza  gli eventi relativi a tutti i destinatari");
+//        } else {
+//            logger.error("Non si visualizza  gli eventi relativi a tutti i destinatari");
+//            Assertions.fail("Non si visualizza  gli eventi relativi a tutti i destinatari");
+//        }
+//
+//        logger.info("Si visualizza correttamente la timeline relativi a tutti i destinatari");
     }
 
     public void visualizzaTimeline(String check) {
         webTool.waitTime(10);
-        List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
-        viewMore.get(0).click();
-        String size = Integer.toString(viewMore.size());
-        if (size.equals("2")) {
-            viewMore.get(1).click();
-        }
+        if(StringUtils.isNotEmpty(check)) {
+            List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
+            viewMore.get(0).click();
+            String size = Integer.toString(viewMore.size());
+            if (size.equals("2")) {
+                viewMore.get(1).click();
+            }
 
-        List<WebElement> findKeyWord = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
+            List<WebElement> findKeyWord = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
 
-        if (findKeyWord.get(0).isDisplayed()) {
-            logger.info("Si visualizza la timeline correttamente");
-        } else {
-            logger.error("Non si visualizza  la timeline correttamente");
-            Assertions.fail("Non si visualizza  la timeline correttamente");
+            if (findKeyWord.get(0).isDisplayed()) {
+                logger.info("Si visualizza la timeline correttamente");
+            } else {
+                logger.error("Non si visualizza  la timeline correttamente");
+                Assertions.fail("Non si visualizza  la timeline correttamente");
+            }
         }
     }
 
@@ -1628,4 +1652,18 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         Assertions.assertFalse(isDisplayed, "Il bottone è visualizzabile");
     }
+    private void verificaDestinatario(String tipo, String cf, String messaggioErrore) {
+        List<WebElement> destinatario = getWebDriverWait(10)
+                .withMessage(messaggioErrore)
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//p[contains(text(),'(" + cf + ") all')]")));
+
+        if (!destinatario.isEmpty() && destinatario.get(0).isDisplayed()) {
+            logger.info("Si visualizza correttamente il destinatario {} con CF {}", tipo, cf);
+        } else {
+            logger.error("Non si visualizza il destinatario {} con CF {}", tipo, cf);
+            Assertions.fail("Non si visualizza il destinatario " + tipo + " con CF " + cf);
+        }
+    }
+
+
 }

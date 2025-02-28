@@ -1,35 +1,38 @@
 package it.pn.frontend.e2e.model.enums;
 
-import it.pn.frontend.e2e.utility.TokenService;
-import it.pn.frontend.e2e.utility.TokenServiceProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public enum AppPortalUrl {
 
-    PA_URL("https://selfcare.", "#selfCareToken=", TokenLogin.PA_TOKEN),
-    PF_URL("https://cittadini.", "#token=", TokenLogin.PF_DELEGATE_TOKEN),
-    PG_URL("https://imprese.", "#selfCareToken=", TokenLogin.PG_DELEGATE_TOKEN),
+
+    PA_URL("https://selfcare.", "#selfCareToken=", "pa_token"),
+    PF_URL("https://cittadini.", "#token=", "pf_delegate_token"),
+    PG_URL("https://imprese.", "#selfCareToken=", "pg_delegate_token"),
     HELPDESK("https://helpdesk.");
 
     private final String baseUrl;
     private final String paramToken;
-    private final TokenLogin tokenLogin;
+    private final String tokenKey;
 
-    AppPortalUrl(String baseUrl, String paramToken, TokenLogin tokenLogin) {
+    private static final Logger logger = LoggerFactory.getLogger("AppPortalUrl");
+
+
+    AppPortalUrl(String baseUrl, String paramToken, String tokenKey) {
         this.baseUrl = baseUrl;
         this.paramToken = paramToken;
-        this.tokenLogin = tokenLogin;
+        this.tokenKey = tokenKey;
     }
 
     AppPortalUrl(String baseUrl) {
         this(baseUrl, "", null);
     }
 
-    public String getUrl(String env) {
-        String token = "";
-        if (tokenLogin != null) {
-            TokenService tokenService = TokenServiceProvider.getTokenService();
-            token = tokenService.getToken(tokenLogin);
-        }
+
+    public String getUrl(String env, String token) {
+        logger.info("sono dentro il metodo getUrl");
+        logger.info("Url base: {}",baseUrl + env + ".notifichedigitali.it/" + paramToken + token);
         return baseUrl + env + ".notifichedigitali.it/" + paramToken + token;
     }
+
 }
